@@ -97,7 +97,7 @@ const UserGroupTable: React.FC = () => {
     PipelineType<ProjectPathProps & UserPathProps>
   >()
   const { getString } = useStrings()
-  const { data: userGroupData, refetch } = useMutateAsGet(useGetBatchUserGroupList, {
+  const { data: userGroupData, loading, refetch } = useMutateAsGet(useGetBatchUserGroupList, {
     body: {
       accountIdentifier: accountId,
       orgIdentifier,
@@ -130,18 +130,22 @@ const UserGroupTable: React.FC = () => {
   )
 
   return (
-    <>
+    <div>
       <Text color={Color.BLACK} font={{ size: 'medium', weight: 'semi-bold' }} padding={{ bottom: 'medium' }}>
         {getString('common.userGroups')}
       </Text>
-      {userGroupData?.data?.length ? (
+      {loading ? (
+        <Text color={Color.GREY_600}>{getString('common.loading')}</Text>
+      ) : userGroupData?.data?.length ? (
         <Table<UserGroupDTO> hideHeaders={true} data={userGroupData.data} columns={columns} />
-      ) : null}
+      ) : (
+        <Text color={Color.GREY_600}>{getString('rbac.userGroupPage.noUserGroups')}</Text>
+      )}
       {/* ENABLE WHEN READY */}
       {/* <Layout.Horizontal>
         <Button minimal text={getString('rbac.userDetails.userGroup.addToGroup')} intent="primary" />
       </Layout.Horizontal> */}
-    </>
+    </div>
   )
 }
 
