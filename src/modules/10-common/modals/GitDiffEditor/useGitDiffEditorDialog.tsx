@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router'
 import { omit } from 'lodash-es'
-import { stringify, parse } from 'yaml'
+import { parse } from 'yaml'
 import {
   useModalHook,
   Button,
@@ -20,6 +20,7 @@ import { EntityGitDetails, useGetFileContent } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { sanitize } from '@common/utils/JSONUtils'
 
+import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import css from './useGitDiffEditorDialog.module.scss'
 
 export interface UseGitDiffEditorDialogProps<T> {
@@ -76,7 +77,7 @@ export function useGitDiffEditorDialog<T>(props: UseGitDiffEditorDialogProps<T>)
   React.useEffect(() => {
     try {
       if (data?.data?.content) {
-        setRemoteVersion(stringify(sanitize(parse(data.data.content)), FORMATTING_OPTIONS))
+        setRemoteVersion(yamlStringify(sanitize(parse(data.data.content)), FORMATTING_OPTIONS))
       }
     } catch (e) {
       //ignore error
@@ -162,7 +163,7 @@ export function useGitDiffEditorDialog<T>(props: UseGitDiffEditorDialogProps<T>)
         }
       })
       try {
-        setEntityAsYaml(stringify(sanitize(_entity), FORMATTING_OPTIONS))
+        setEntityAsYaml(yamlStringify(sanitize(_entity), FORMATTING_OPTIONS))
       } catch (e) {
         //ignore error
       }

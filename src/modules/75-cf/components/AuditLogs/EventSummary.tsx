@@ -3,7 +3,6 @@ import { Drawer, IDrawerProps, Classes } from '@blueprintjs/core'
 import { get } from 'lodash-es'
 import cx from 'classnames'
 import { MonacoDiffEditor } from 'react-monaco-editor'
-import { stringify } from 'yaml'
 import { Layout, Container, Text, Color, Button, useToggle, Heading } from '@wings-software/uicore'
 import {
   CF_LOCAL_STORAGE_ENV_KEY,
@@ -20,6 +19,7 @@ import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerS
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { AuditTrail, Feature, useGetOSById } from 'services/cf'
+import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import { translateEvents } from './AuditLogsUtils'
 import css from './EventSummary.module.scss'
 
@@ -92,10 +92,10 @@ export const EventSummary: React.FC<EventSummaryProps> = ({ data, flagData, onCl
     const _after = get(diffData, `data.objectsnapshots[${isNewObject ? 0 : 1}].value`)
 
     if (_before) {
-      setValueBefore(stringify(_before))
+      setValueBefore(yamlStringify(_before))
     }
     if (_after) {
-      setValueAfter(stringify(_after))
+      setValueAfter(yamlStringify(_after))
     }
   }, [diffData, isNewObject])
 

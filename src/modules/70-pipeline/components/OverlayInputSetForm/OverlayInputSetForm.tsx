@@ -4,7 +4,7 @@ import { Classes, Dialog, IDialogProps } from '@blueprintjs/core'
 import * as Yup from 'yup'
 import { Button, Color, Formik, FormikForm, FormInput, Icon, Layout, SelectOption, Text } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
-import { parse, stringify } from 'yaml'
+import { parse } from 'yaml'
 import { FieldArray, FieldArrayRenderProps } from 'formik'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import type { NgPipeline } from 'services/cd-ng'
@@ -43,6 +43,7 @@ import { useQueryParams } from '@common/hooks'
 import VisualYamlToggle from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import { AppStoreContext } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
+import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import type { InputSetDTO } from '../InputSetForm/InputSetForm'
 import css from './OverlayInputSetForm.module.scss'
 
@@ -320,28 +321,34 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
     try {
       /* istanbul ignore else */
       if (isEdit) {
-        response = await updateOverlayInputSet(stringify({ overlayInputSet: clearNullUndefined(inputSetObj) }) as any, {
-          pathParams: { inputSetIdentifier: inputSetObj.identifier || /* istanbul ignore next */ '' },
-          queryParams: {
-            accountIdentifier: accountId,
-            orgIdentifier,
-            pipelineIdentifier,
-            projectIdentifier,
-            ...(gitDetails ? { ...gitDetails, lastObjectId: objectId } : {}),
-            ...(gitDetails && gitDetails.isNewBranch ? { baseBranch: initialGitDetails.branch } : {})
+        response = await updateOverlayInputSet(
+          yamlStringify({ overlayInputSet: clearNullUndefined(inputSetObj) }) as any,
+          {
+            pathParams: { inputSetIdentifier: inputSetObj.identifier || /* istanbul ignore next */ '' },
+            queryParams: {
+              accountIdentifier: accountId,
+              orgIdentifier,
+              pipelineIdentifier,
+              projectIdentifier,
+              ...(gitDetails ? { ...gitDetails, lastObjectId: objectId } : {}),
+              ...(gitDetails && gitDetails.isNewBranch ? { baseBranch: initialGitDetails.branch } : {})
+            }
           }
-        })
+        )
       } else {
-        response = await createOverlayInputSet(stringify({ overlayInputSet: clearNullUndefined(inputSetObj) }) as any, {
-          queryParams: {
-            accountIdentifier: accountId,
-            orgIdentifier,
-            pipelineIdentifier,
-            projectIdentifier,
-            ...(gitDetails ?? {}),
-            ...(gitDetails && gitDetails.isNewBranch ? { baseBranch: initialGitDetails.branch } : {})
+        response = await createOverlayInputSet(
+          yamlStringify({ overlayInputSet: clearNullUndefined(inputSetObj) }) as any,
+          {
+            queryParams: {
+              accountIdentifier: accountId,
+              orgIdentifier,
+              pipelineIdentifier,
+              projectIdentifier,
+              ...(gitDetails ?? {}),
+              ...(gitDetails && gitDetails.isNewBranch ? { baseBranch: initialGitDetails.branch } : {})
+            }
           }
-        })
+        )
       }
       /* istanbul ignore else */
       if (response) {

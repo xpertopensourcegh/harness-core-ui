@@ -18,7 +18,7 @@ import SplitPane from 'react-split-pane'
 import { Popover, PopoverInteractionKind, Position } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import cx from 'classnames'
-import { scalarOptions, stringify, defaultOptions } from 'yaml'
+import { scalarOptions, defaultOptions } from 'yaml'
 import { Tag, Icon, Container } from '@wings-software/uicore'
 import type {
   YamlBuilderProps,
@@ -56,6 +56,7 @@ import {
   MAX_ERR_MSSG_LENGTH
 } from './YAMLBuilderConstants'
 import CopyToClipboard from '../CopyToClipBoard/CopyToClipBoard'
+import { yamlStringify } from '@common/utils/YamlHelperMethods'
 
 // Please do not remove this, read this https://eemeli.org/yaml/#scalar-options
 scalarOptions.str.fold.lineWidth = 100000
@@ -167,7 +168,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
     try {
       const sanitizedJSONObj = jsonObj ? sanitize(jsonObj, yamlSanityConfig) : null
       if (sanitizedJSONObj && Object.keys(sanitizedJSONObj).length > 0) {
-        const yamlEqOfJSON = stringify(sanitizedJSONObj, { version: '1.1' })
+        const yamlEqOfJSON = yamlStringify(sanitizedJSONObj)
         const sanitizedYAML = yamlEqOfJSON.replace(': null\n', ': \n')
         setCurrentYaml(sanitizedYAML)
         yamlRef.current = sanitizedYAML

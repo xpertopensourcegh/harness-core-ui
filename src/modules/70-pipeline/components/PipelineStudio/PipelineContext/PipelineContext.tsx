@@ -1,7 +1,7 @@
 import React from 'react'
 import { openDB, IDBPDatabase, deleteDB } from 'idb'
 import { isEqual, cloneDeep, pick, isNil, isEmpty, omit } from 'lodash-es'
-import { parse, stringify } from 'yaml'
+import { parse } from 'yaml'
 import type { IconName } from '@wings-software/uicore'
 import merge from 'lodash-es/merge'
 import type {
@@ -32,6 +32,7 @@ import { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlTogg
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import {
   PipelineReducerState,
   ActionReturnType,
@@ -100,7 +101,7 @@ export const savePipeline = (
 ): Promise<Failure | undefined> => {
   // we need to do this due to https://github.com/eemeli/yaml/issues/239
   // can remove it once fixed
-  const body = stringify(
+  const body = yamlStringify(
     JSON.parse(
       JSON.stringify({
         pipeline: { ...pipeline, ...pick(params, 'projectIdentifier', 'orgIdentifier') }

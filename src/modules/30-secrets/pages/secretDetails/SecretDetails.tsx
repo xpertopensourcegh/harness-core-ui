@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { parse, stringify } from 'yaml'
+import { parse } from 'yaml'
 import { omit, without } from 'lodash-es'
 import { Layout, Container, Button } from '@wings-software/uicore'
 
@@ -29,6 +29,7 @@ import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import VisualYamlToggle from '@common/components/VisualYamlToggle/VisualYamlToggle'
+import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import ViewSecretDetails from './views/ViewSecretDetails'
 import './SecretDetails.module.scss'
 
@@ -116,7 +117,7 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
   useEffect(() => {
     let snippetStr = ''
     try {
-      snippetStr = snippet?.data ? stringify(snippet.data, { indent: 4 }) : ''
+      snippetStr = snippet?.data ? yamlStringify(snippet.data, { indent: 4 }) : ''
     } catch {
       /**/
     }

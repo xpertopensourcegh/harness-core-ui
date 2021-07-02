@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Container, Button } from '@wings-software/uicore'
-import { parse, stringify } from 'yaml'
+import { parse } from 'yaml'
 import { useHistory, useParams } from 'react-router-dom'
 
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
@@ -20,6 +20,7 @@ import type { UseGetMockData } from '@common/utils/testUtils'
 import { getSnippetTags } from '@common/utils/SnippetUtils'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { yamlStringify } from '@common/utils/YamlHelperMethods'
 
 const CreateSecretFromYamlPage: React.FC<{ mockSchemaData?: UseGetMockData<ResponseJsonNode> }> = props => {
   const { accountId, projectIdentifier, orgIdentifier, module } = useParams<ProjectPathProps & ModulePathParams>()
@@ -88,7 +89,7 @@ const CreateSecretFromYamlPage: React.FC<{ mockSchemaData?: UseGetMockData<Respo
   React.useEffect(() => {
     let snippetStr = ''
     try {
-      snippetStr = snippet?.data ? stringify(snippet.data, { indent: 4 }) : ''
+      snippetStr = snippet?.data ? yamlStringify(snippet.data, { indent: 4 }) : ''
     } catch {
       /**/
     }

@@ -13,7 +13,7 @@ import {
   SelectOption
 } from '@wings-software/uicore'
 
-import { parse, stringify } from 'yaml'
+import { parse } from 'yaml'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { Tooltip, Menu } from '@blueprintjs/core'
@@ -56,6 +56,7 @@ import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox
 import { gcrUrlList } from '@pipeline/components/ArtifactsSelection/ArtifactRepository/ArtifactLastSteps/GCRImagePath/GCRImagePath'
 import type { Scope } from '@common/interfaces/SecretsInterface'
 import { EXPRESSION_STRING } from '@pipeline/utils/constants'
+import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import type { KubernetesServiceInputFormProps, LastQueryData } from '../K8sServiceSpecInterface'
 import { clearRuntimeInputValue, getNonRuntimeFields, getStagePathByIdentifier } from '../K8sServiceSpecHelper'
 import ExperimentalInput from './ExperimentalInput'
@@ -127,7 +128,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
     refetch: refetchDockerBuildData,
     error: dockerError
   } = useMutateAsGet(useGetBuildDetailsForDockerWithYaml, {
-    body: (stringify({ ...yamlData }) as unknown) as void,
+    body: (yamlStringify({ ...yamlData }) as unknown) as void,
     requestOptions: {
       headers: {
         'content-type': 'application/json'
@@ -150,7 +151,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
   const { data: gcrdata, loading: gcrLoading, refetch: refetchGcrBuildData, error: gcrError } = useMutateAsGet(
     useGetBuildDetailsForGcrWithYaml,
     {
-      body: (stringify({ ...yamlData }) as unknown) as void,
+      body: (yamlStringify({ ...yamlData }) as unknown) as void,
       requestOptions: {
         headers: {
           'content-type': 'application/json'
@@ -175,7 +176,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
   const { data: ecrdata, loading: ecrLoading, refetch: refetchEcrBuildData, error: ecrError } = useMutateAsGet(
     useGetBuildDetailsForEcrWithYaml,
     {
-      body: (stringify({ ...yamlData }) as unknown) as void,
+      body: (yamlStringify({ ...yamlData }) as unknown) as void,
       requestOptions: {
         headers: {
           'content-type': 'application/json'

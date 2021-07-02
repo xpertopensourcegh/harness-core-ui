@@ -18,7 +18,7 @@ import {
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useHistory } from 'react-router-dom'
-import { parse, stringify } from 'yaml'
+import { parse } from 'yaml'
 import { pick, merge, isEmpty, isEqual, omit } from 'lodash-es'
 import type { FormikErrors } from 'formik'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
@@ -60,6 +60,7 @@ import VisualYamlToggle, { SelectedView } from '@common/components/VisualYamlTog
 import { clearNullUndefined } from '@pipeline/pages/triggers/utils/TriggersWizardPageUtils'
 import { ErrorsStrip } from '@pipeline/components/ErrorsStrip/ErrorsStrip'
 import { useQueryParams } from '@common/hooks'
+import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import type { InputSetDTO } from '../InputSetForm/InputSetForm'
 import { InputSetSelector, InputSetSelectorProps } from '../InputSetSelector/InputSetSelector'
 import { clearRuntimeInput, validatePipeline, getErrorsList } from '../PipelineStudio/StepUtil'
@@ -140,7 +141,7 @@ const SaveAsInputSet = ({
   ): Promise<UseSaveSuccessResponse> => {
     try {
       const response = await createInputSet(
-        stringify({
+        yamlStringify({
           inputSet: { ...clearNullUndefined(payload || inputSetObj), orgIdentifier, projectIdentifier }
         }) as any,
         {
@@ -589,10 +590,10 @@ function RunPipelineFormBasic({
       try {
         const response = isEmpty(executionId)
           ? await runPipeline(
-              !isEmpty(valuesPipelineRef.current) ? (stringify({ pipeline: valuesPipelineRef.current }) as any) : ''
+              !isEmpty(valuesPipelineRef.current) ? (yamlStringify({ pipeline: valuesPipelineRef.current }) as any) : ''
             )
           : await reRunPipeline(
-              !isEmpty(valuesPipelineRef.current) ? (stringify({ pipeline: valuesPipelineRef.current }) as any) : ''
+              !isEmpty(valuesPipelineRef.current) ? (yamlStringify({ pipeline: valuesPipelineRef.current }) as any) : ''
             )
         const data = response.data
         if (response.status === 'SUCCESS') {
