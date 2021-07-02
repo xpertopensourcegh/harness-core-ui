@@ -78,6 +78,23 @@ export interface StringsMap {
   'common.cluster': string
   'common.comments': string
   'common.confictOccured': string
+  'common.configureOptions.advancedHelp': string
+  'common.configureOptions.configureOptions': string
+  'common.configureOptions.defaultValue': string
+  'common.configureOptions.enterTags': string
+  'common.configureOptions.jexlLabel': string
+  'common.configureOptions.notValidExpression': string
+  'common.configureOptions.regex': string
+  'common.configureOptions.requiredDuringExecution': string
+  'common.configureOptions.returnToBasic': string
+  'common.configureOptions.validation': string
+  'common.configureOptions.validationErrors.defaultAllowedValid': string
+  'common.configureOptions.validationErrors.defaultRegExValid': string
+  'common.configureOptions.validationErrors.jexlExpressionRequired': string
+  'common.configureOptions.validationErrors.minOneAllowedValue': string
+  'common.configureOptions.validationErrors.regExIsRequired': string
+  'common.configureOptions.validationErrors.regExNotValid': string
+  'common.configureOptions.values': string
   'common.confirmText': string
   'common.createPipeline': string
   'common.creating': string
@@ -3574,66 +3591,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   configuration: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'configureOptions.advancedHelp': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'configureOptions.configureOptions': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'configureOptions.defaultValue': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'configureOptions.enterTags': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'configureOptions.jexlLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'configureOptions.notValidExpression': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'configureOptions.regex': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'configureOptions.requiredDuringExecution': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'configureOptions.returnToBasic': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'configureOptions.validation': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'configureOptions.validationErrors.jexlExpressionRequired': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'configureOptions.validationErrors.minOneAllowedValue': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'configureOptions.validationErrors.regExIsRequired': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'configureOptions.validationErrors.regExNotValid': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'configureOptions.values': string
   /**
    * @deprecated migrate this string to module level file
    */

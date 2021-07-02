@@ -47,6 +47,25 @@ logs:
   noLogsText: 'No logs found'
   delegateSelectionLogs: Delegate selection logs
 execute: Execute
+configureOptions:
+  configureOptions: 'configure options'
+  defaultValue: 'Default value'
+  requiredDuringExecution: 'Required during execution'
+  validation: 'Validation'
+  regex: 'Regex'
+  returnToBasic: 'return to basic'
+  jexlLabel: 'Values ({{ $.common.jexlExpression }})'
+  values: 'Values'
+  enterTags: 'Enter values'
+  validationErrors:
+    regExIsRequired: 'Regex value is required'
+    defaultRegExValid: Default value should validate with regex provided
+    defaultAllowedValid: Default value should be from allowed value
+    regExNotValid: 'Regex value is not valid'
+    jexlExpressionRequired: '{{ $.common.jexlExpression }} is required'
+    minOneAllowedValue: 'Minimum one allowed value'
+  notValidExpression: 'Not a valid input Expression'
+  advancedHelp: 'With the advanced option, <br> you can type in JEXL expressions to return a list of values. <br> <a target="_blank">More information</a> <br> E.g. ${env.type} == “prod” ? aws1, aws2 : aws3, aws4'
 namespace: Namespace
 cluster: Cluster
 releaseName: Release name
