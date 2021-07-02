@@ -12,7 +12,6 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 
 import { useQueryParams } from '@common/hooks'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
-import { Connectors } from '@connectors/constants'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 
 import type { TerraformData, TerraformProps } from '../TerraformInterfaces'
@@ -56,11 +55,12 @@ export default function TFRemoteSection<T extends TerraformData = TerraformData>
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
           width={400}
-          type={[Connectors.GIT, Connectors.GITHUB, Connectors.GITLAB, Connectors.BITBUCKET]}
+          type={[remoteVar?.varFile?.spec?.store?.type]}
           name={`${path}.spec.configuration.spec.varFiles[${index}].varFile.spec.store.spec.connectorRef`}
           label={getString('connector')}
           placeholder={getString('select')}
           disabled={readonly}
+          setRefValue
           gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
         />
       )}

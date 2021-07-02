@@ -84,6 +84,7 @@ export default function TfPlanInputStep(props: TerraformPlanProps): React.ReactE
             name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.configuration.secretManagerRef`}
             placeholder={getString('select')}
             disabled={readonly}
+            setRefValue
             gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
           />
         </div>

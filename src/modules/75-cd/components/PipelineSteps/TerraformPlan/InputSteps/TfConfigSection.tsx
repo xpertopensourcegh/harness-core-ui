@@ -55,6 +55,7 @@ export default function ConfigSection(props: TerraformPlanProps): React.ReactEle
             label={getString('connector')}
             placeholder={getString('select')}
             disabled={readonly}
+            setRefValue
             gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
           />
         </div>
