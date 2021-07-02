@@ -777,24 +777,39 @@ export interface StringsMap {
   'connectors.cdng.baseline': string
   'connectors.cdng.baselineDefaultLabel.lastSuccess': string
   'connectors.cdng.continousVerificationStep': string
+  'connectors.cdng.continousVerificationType': string
   'connectors.cdng.createCVJob': string
   'connectors.cdng.defineVerificationJob': string
   'connectors.cdng.deploymentTag': string
   'connectors.cdng.displayName': string
   'connectors.cdng.error': string
+  'connectors.cdng.healthSources.label': string
+  'connectors.cdng.healthSources.noHealthSourcesDefined': string
   'connectors.cdng.jobName': string
   'connectors.cdng.jobTypes.blueGreen': string
   'connectors.cdng.jobTypes.canary': string
   'connectors.cdng.jobTypes.health': string
   'connectors.cdng.jobTypes.test': string
   'connectors.cdng.loadingJobs': string
+  'connectors.cdng.monitoredService.autoCreateMonitoredService': string
+  'connectors.cdng.monitoredService.fetchingMonitoredService': string
+  'connectors.cdng.monitoredService.fetchingMonitoredServiceError': string
+  'connectors.cdng.monitoredService.label': string
   'connectors.cdng.noJobsConfigured': string
+  'connectors.cdng.runTimeMonitoredService.fetchingMonitoredServiceError': string
+  'connectors.cdng.runTimeMonitoredService.noHealthSourcePresent': string
+  'connectors.cdng.runTimeMonitoredService.noMonitoringSercvicePresent': string
+  'connectors.cdng.runTimeMonitoredService.specifyEnv': string
+  'connectors.cdng.runTimeMonitoredService.specifyService': string
   'connectors.cdng.selectTheJobNameFirst': string
   'connectors.cdng.trafficsplit': string
   'connectors.cdng.validations.deploymentTagRequired': string
   'connectors.cdng.validations.durationRequired': string
+  'connectors.cdng.validations.healthSourceRequired': string
   'connectors.cdng.validations.jobNameRequired': string
+  'connectors.cdng.validations.monitoringServiceRequired': string
   'connectors.cdng.validations.sensitivityRequired': string
+  'connectors.cdng.validations.verificationTypeRequired': string
   'connectors.cdng.verificationSensitivityLabel.high': string
   'connectors.cdng.verificationSensitivityLabel.low': string
   'connectors.cdng.verificationSensitivityLabel.medium': string

@@ -48,15 +48,14 @@ export const cvDefaultValues: ContinousVerificationData = {
   identifier: '',
   timeout: '2h',
   spec: {
-    verificationJobRef: '',
+    monitoredServiceRef: '',
     type: '',
+    healthSources: [],
     spec: {
       sensitivity: '',
       duration: '',
       baseline: '',
       trafficsplit: '',
-      serviceRef: '',
-      envRef: '',
       deploymentTag: ''
     }
   },

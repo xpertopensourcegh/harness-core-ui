@@ -15,8 +15,6 @@ export interface spec {
   duration?: SelectOption | string
   trafficsplit?: SelectOption | string
   baseline?: SelectOption | string
-  serviceRef?: string
-  envRef?: string
   deploymentTag?: string
   [x: string]: any
 }
@@ -24,8 +22,11 @@ export interface spec {
 export interface ContinousVerificationData extends StepElementConfig {
   failureStrategies: AllFailureStrategyConfig[]
   spec: {
-    verificationJobRef?: SelectOption | string
+    monitoredServiceRef?: string
     type?: string
+    healthSources?: {
+      identifier: string
+    }[]
     spec?: spec
   }
 }

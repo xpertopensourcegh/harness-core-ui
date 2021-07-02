@@ -55,17 +55,3 @@ export function getFieldDataFromForm(
   }
   return completeFieldData
 }
-
-/**
- * Check is Field has to be disabled
- * @param formField
- * @param selectedJobField
- * @returns boolean
- */
-export function isFieldDisabled(
-  formField: SelectOption | string | undefined,
-  selectedJobField: string | undefined
-): boolean {
-  const isFormNotModified = (formField as SelectOption)?.value?.toString() === selectedJobField
-  return isFormNotModified
-}
