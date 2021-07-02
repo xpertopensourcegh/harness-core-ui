@@ -1891,6 +1891,8 @@ export interface StringsMap {
   'pipeline.uniqueIdentifier': string
   'pipeline.variable.typePlaceholder': string
   'pipeline.variable.variableNamePlaceholder': string
+  'pipeline.verification.analysisTab.logs': string
+  'pipeline.verification.analysisTab.metrics': string
   'pipeline.verification.baselineTest': string
   'pipeline.verification.currentTest': string
   'pipeline.verification.logClustersInViolation': string
@@ -2819,8 +2821,6 @@ export interface StringsMap {
   'cv.admin.verificationJobs.noDataMessage': string
   'cv.allMetrics': string
   'cv.allServices': string
-  'cv.analysisScreens.analysisTab.logs': string
-  'cv.analysisScreens.analysisTab.metrics': string
   'cv.analysisScreens.totalClusters': string
   'cv.anomalous': string
   'cv.anomalousMetrics': string

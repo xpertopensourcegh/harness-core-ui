@@ -618,3 +618,6 @@ verification:
   baselineTest: Baseline test
   metricsInViolation: Metrics in violation
   logClustersInViolation: Log Clusters in violation
+  analysisTab:
+    metrics: 'Metrics'
+    logs: 'Logs'

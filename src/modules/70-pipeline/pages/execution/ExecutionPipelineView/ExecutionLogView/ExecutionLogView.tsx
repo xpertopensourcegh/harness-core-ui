@@ -11,7 +11,7 @@ import { isExecutionNotStarted, isExecutionSkipped } from '@pipeline/utils/statu
 import { LogsContent } from '@pipeline/components/LogsContent/LogsContent'
 
 // import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
-// import { ExecutionVerificationView } from '../../../../components/ExecutionVerification/ExecutionVerificationView'
+// import { ExecutionVerificationView } from '@pipeline/components/ExecutionVerification/ExecutionVerificationView'
 import { StepsTree } from './StepsTree/StepsTree'
 import css from './ExecutionLogView.module.scss'
 
@@ -50,7 +50,11 @@ export default function ExecutionLogView(): React.ReactElement {
     // if (selectedStep?.stepType === StepType.Verify) {
     //   return <ExecutionVerificationView />
     // }
-    return <LogsContent mode="console-view" errorMessage={errorMessage} isWarning={isSkipped} />
+    return (
+      <div className={css.logViewer}>
+        <LogsContent mode="console-view" errorMessage={errorMessage} isWarning={isSkipped} />
+      </div>
+    )
   }
 
   return (
@@ -69,7 +73,7 @@ export default function ExecutionLogView(): React.ReactElement {
           <StepsTree nodes={tree} selectedStepId={selectedStepId} onStepSelect={handleStepSelect} isRoot />
         </div>
       </div>
-      <div className={css.logViewer}>{logViewerView()}</div>
+      {logViewerView()}
     </Container>
   )
 }

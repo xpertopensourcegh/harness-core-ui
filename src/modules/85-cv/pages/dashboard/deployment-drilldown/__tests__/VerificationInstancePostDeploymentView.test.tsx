@@ -253,7 +253,7 @@ describe('VerificationInstancePostDeploymentView', () => {
     )
 
     await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
-    fireEvent.click(getByText('cv.analysisScreens.analysisTab.logs'))
+    fireEvent.click(getByText('pipeline.verification.analysisTab.logs'))
     await waitFor(() => expect(container.querySelector('[class*="frequencyChart"]')).not.toBeNull())
     fireEvent.click(getByText('2'))
     await waitFor(() => expect(refetchMock).toHaveBeenCalledTimes(1))

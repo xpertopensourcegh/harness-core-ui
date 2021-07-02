@@ -322,7 +322,7 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
                   role="tab"
                   tabindex="0"
                 >
-                  cv.analysisScreens.analysisTab.metrics
+                  pipeline.verification.analysisTab.metrics
                 </div>
                 <div
                   aria-controls="bp3-tab-panel_tabs1_LOGS_TAB"
@@ -335,7 +335,7 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
                   role="tab"
                   tabindex="0"
                 >
-                  cv.analysisScreens.analysisTab.logs
+                  pipeline.verification.analysisTab.logs
                 </div>
               </div>
             </div>

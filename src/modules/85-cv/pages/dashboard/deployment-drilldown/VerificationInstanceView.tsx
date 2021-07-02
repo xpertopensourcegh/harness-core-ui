@@ -165,8 +165,8 @@ export default function VerificationInstanceView({
       />
       <Container className={styles.filters}>
         <Tabs id="tabs1" onChange={onTabChange} selectedTabId={selectedTab}>
-          <Tab title={getString('cv.analysisScreens.analysisTab.metrics')} id={TabIdentifier.METRICS_TAB} />
-          <Tab title={getString('cv.analysisScreens.analysisTab.logs')} id={TabIdentifier.LOGS_TAB} />
+          <Tab title={getString('pipeline.verification.analysisTab.metrics')} id={TabIdentifier.METRICS_TAB} />
+          <Tab title={getString('pipeline.verification.analysisTab.logs')} id={TabIdentifier.LOGS_TAB} />
         </Tabs>
       </Container>
       {selectedTab === TabIdentifier.METRICS_TAB && (

@@ -109,9 +109,6 @@ riskCardTooltip:
   header: Performance risk was computed based on metrics from your data providers
   allServicesGreen: all services green
 analysisScreens:
-  analysisTab:
-    metrics: 'Metrics'
-    logs: 'Logs'
   totalClusters: 'TOTAL CLUSTERS:'
 navLinks:
   activities: 'Activities'
