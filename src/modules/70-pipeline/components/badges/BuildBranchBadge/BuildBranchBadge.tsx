@@ -6,18 +6,19 @@ import css from './BuildBranchBadge.module.scss'
 
 export interface BuildBranchBadgeProps {
   branchName?: string
+  isTag?: boolean
   commitId?: string
   className?: string
 }
 
 export const BuildBranchBadge: React.FC<BuildBranchBadgeProps> = props => {
-  const { branchName, commitId, className } = props
+  const { branchName, isTag, commitId, className } = props
 
   return (
     <div className={cx(css.main, className)}>
       {branchName ? (
         <span className={css.greyBox}>
-          <Icon className={css.greyBoxIcon} color={Color.GREY_500} name="git-branch" size={10} />
+          <Icon className={css.greyBoxIcon} color={Color.GREY_500} name={isTag ? 'tag' : 'git-branch'} size={10} />
           <span className={css.branchName}>{branchName}</span>
         </span>
       ) : null}

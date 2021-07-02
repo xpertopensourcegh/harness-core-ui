@@ -10,15 +10,16 @@ import css from './BuildInfo.module.scss'
 
 export interface BuildInfoProps {
   buildData: CIBuildResponseDTO
-  branchName: string
+  branchName?: string
+  tagName?: string
   showCommits: boolean
   toggleCommits: () => void
   className?: string
 }
 
 const BuildInfo: React.FC<BuildInfoProps> = props => {
-  const { buildData, branchName, showCommits, toggleCommits, className } = props
-
+  const { buildData, branchName, tagName, showCommits, toggleCommits, className } = props
+  const branchOrTagName = branchName || tagName
   const { getString } = useStrings()
 
   let sourceInfo
@@ -93,7 +94,7 @@ const BuildInfo: React.FC<BuildInfoProps> = props => {
 
     // NOTE: if no other data is available we are showing only branch name
     default: {
-      sourceInfo = <BuildBranchBadge branchName={branchName} className={css.gitInfo1} />
+      sourceInfo = <BuildBranchBadge branchName={branchOrTagName} isTag={!!tagName} className={css.gitInfo1} />
       break
     }
   }
