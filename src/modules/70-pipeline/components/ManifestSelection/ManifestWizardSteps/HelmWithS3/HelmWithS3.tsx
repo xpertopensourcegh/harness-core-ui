@@ -143,10 +143,14 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
     }
 
     if (formData?.commandFlags.length && formData?.commandFlags[0].commandType) {
-      ;(manifestObj?.manifest?.spec as any).commandFlags = formData?.commandFlags.map((commandFlag: CommandFlags) => ({
-        commandType: (commandFlag.commandType as SelectOption)?.value as string,
-        flag: commandFlag.flag
-      }))
+      ;(manifestObj?.manifest?.spec as any).commandFlags = formData?.commandFlags.map((commandFlag: CommandFlags) =>
+        commandFlag.commandType && commandFlag.flag
+          ? {
+              commandType: (commandFlag.commandType as SelectOption)?.value as string,
+              flag: commandFlag.flag
+            }
+          : {}
+      )
     }
 
     handleSubmit(manifestObj)

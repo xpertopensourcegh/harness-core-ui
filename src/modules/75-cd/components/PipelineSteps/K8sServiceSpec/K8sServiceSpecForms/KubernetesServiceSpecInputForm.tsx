@@ -973,6 +973,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                         isNameOfArrayType
                       />
                     )}
+
                   {getMultiTypeFromValue(paths) === MultiTypeInputType.RUNTIME &&
                     manifestType === ManifestDataType.OpenshiftTemplate && (
                       <FormInput.MultiTextInput
