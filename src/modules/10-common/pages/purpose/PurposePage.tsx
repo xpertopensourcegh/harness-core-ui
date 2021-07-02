@@ -256,8 +256,12 @@ export const PurposePage: React.FC = () => {
   useTelemetry({ pageName: PageNames.Purpose, category: Category.SIGNUP })
 
   return (
-    <Container className={css.purposePageContainer} padding="xxxlarge" flex={{ alignItems: 'start' }} height="100%">
-      <Layout.Vertical padding="xxlarge" spacing="large" width="100%" height="100%">
+    <Container
+      className={css.purposePageContainer}
+      padding={{ left: 'xxxlarge', top: 'xxxlarge' }}
+      flex={{ alignItems: 'start' }}
+    >
+      <Layout.Vertical padding={{ left: 'xxlarge', top: 'xxlarge' }} spacing="large" width="100%">
         <HarnessLogo height={30} style={{ alignSelf: 'start' }} />
         <Heading color={Color.BLACK} font={{ size: 'large', weight: 'bold' }} padding={{ top: 'xxlarge' }}>
           {getString('common.purpose.welcome')}
