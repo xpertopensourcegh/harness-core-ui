@@ -883,13 +883,15 @@ function RunPipelineFormBasic({
                                   currentPipeline &&
                                   template?.data?.inputSetTemplateYaml &&
                                   existingProvide === 'existing' && (
-                                    <InputSetSelector
-                                      pipelineIdentifier={pipelineIdentifier}
-                                      onChange={inputsets => {
-                                        setSelectedInputSets(inputsets)
-                                      }}
-                                      value={selectedInputSets}
-                                    />
+                                    <GitSyncStoreProvider>
+                                      <InputSetSelector
+                                        pipelineIdentifier={pipelineIdentifier}
+                                        onChange={inputsets => {
+                                          setSelectedInputSets(inputsets)
+                                        }}
+                                        value={selectedInputSets}
+                                      />
+                                    </GitSyncStoreProvider>
                                   )}
                               </Layout.Vertical>
                             )}

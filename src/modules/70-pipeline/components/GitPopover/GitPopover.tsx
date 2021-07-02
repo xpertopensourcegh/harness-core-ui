@@ -2,8 +2,10 @@ import React from 'react'
 import { PopoverInteractionKind } from '@blueprintjs/core'
 import { Color, Icon, Layout, Popover, Text } from '@wings-software/uicore'
 import type { MarginProps } from '@wings-software/uicore/dist/styled-props/margin/MarginProps'
+import { getRepoDetailsByIndentifier } from '@common/utils/gitSyncUtils'
 import type { EntityGitDetails } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
+import { GitSyncStoreProvider, useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 
 export interface GitPopoverProps {
   data: EntityGitDetails
@@ -11,9 +13,11 @@ export interface GitPopoverProps {
   iconMargin?: MarginProps
 }
 
-export default function GitPopover(props: GitPopoverProps): React.ReactElement | null {
-  const { getString } = useStrings()
+export function RenderGitPopover(props: GitPopoverProps): React.ReactElement | null {
   const { data, iconSize = 16, iconMargin = {} } = props
+  const { getString } = useStrings()
+  const { gitSyncRepos, loadingRepos } = useGitSyncStore()
+
   if (!data.repoIdentifier) {
     return null
   }
@@ -32,7 +36,7 @@ export default function GitPopover(props: GitPopoverProps): React.ReactElement |
           <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
             <Icon name="repository" size={16} color={Color.GREY_700} />
             <Text font={{ size: 'small' }} color={Color.GREY_800}>
-              {data.repoIdentifier}
+              {(!loadingRepos && getRepoDetailsByIndentifier(data?.repoIdentifier, gitSyncRepos)?.name) || ''}
             </Text>
           </Layout.Horizontal>
         </Layout.Vertical>
@@ -49,5 +53,13 @@ export default function GitPopover(props: GitPopoverProps): React.ReactElement |
         </Layout.Vertical>
       </Layout.Vertical>
     </Popover>
+  )
+}
+
+export default function GitPopover(props: GitPopoverProps): React.ReactElement | null {
+  return (
+    <GitSyncStoreProvider>
+      <RenderGitPopover {...props} />
+    </GitSyncStoreProvider>
   )
 }

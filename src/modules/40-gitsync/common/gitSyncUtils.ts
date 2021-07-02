@@ -88,7 +88,3 @@ export const getExternalUrl = (config: GitSyncConfig, folderPath?: string): stri
       return ''
   }
 }
-
-export const getRepoDetailsByIndentifier = (identifier: string | undefined, repos: GitSyncConfig[]) => {
-  return repos.find((repo: GitSyncConfig) => repo.identifier === identifier)
-}

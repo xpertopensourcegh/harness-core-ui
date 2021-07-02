@@ -37,7 +37,7 @@ import type { IGitContextFormProps } from '@common/components/GitContextForm/Git
 import { validateJSONWithSchema } from '@common/utils/YamlUtils'
 import { PipelineVariablesContextProvider } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
-import { getRepoDetailsByIndentifier } from '@gitsync/common/gitSyncUtils'
+import { getRepoDetailsByIndentifier } from '@common/utils/gitSyncUtils'
 import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
 import CreatePipelines from '../CreateModal/PipelineCreate'
 import { DefaultNewPipelineId, DrawerTypes } from '../PipelineContext/PipelineActions'
