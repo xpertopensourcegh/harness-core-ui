@@ -183,3 +183,5 @@ export const validateReturnUrl = (url: string): boolean => {
   }
   return false
 }
+
+export const returnLaunchUrl = (url: string): string => `${window.location.pathname.replace(/\/ng\//, '/')}${url}`
