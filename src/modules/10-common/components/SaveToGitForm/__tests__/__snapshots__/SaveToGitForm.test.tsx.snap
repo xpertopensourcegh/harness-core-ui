@@ -346,7 +346,7 @@ exports[`Save to git form rendering form to git save form without git credential
                     maxlength="1024"
                     name="commitMsg"
                   >
-                    common.gitSync.updateResource
+                    common.gitSync.createResource
                   </textarea>
                 </div>
               </div>
@@ -873,7 +873,7 @@ exports[`Save to git form rendering form to save resouces 1`] = `
                     maxlength="1024"
                     name="commitMsg"
                   >
-                    common.gitSync.updateResource
+                    common.gitSync.createResource
                   </textarea>
                 </div>
               </div>
@@ -1398,7 +1398,7 @@ exports[`Save to git form rendering form to save resouces 2`] = `
                     maxlength="1024"
                     name="commitMsg"
                   >
-                    common.gitSync.updateResource
+                    common.gitSync.createResource
                   </textarea>
                 </div>
               </div>

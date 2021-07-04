@@ -181,6 +181,7 @@ export interface StringsMap {
   'common.git.validation.targetBranch': string
   'common.gitSync.allRepositories': string
   'common.gitSync.commitDetailsLabel': string
+  'common.gitSync.createResource': string
   'common.gitSync.creatingPR': string
   'common.gitSync.defaultBranches': string
   'common.gitSync.gitRepositoryDetails': string

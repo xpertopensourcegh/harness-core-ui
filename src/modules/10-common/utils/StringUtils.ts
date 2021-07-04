@@ -1,3 +1,6 @@
+import isUndefined from 'lodash/isUndefined'
+import type { GitSyncEntityDTO } from 'services/cd-ng'
+
 export function getIdentifierFromName(str: string): string {
   return str
     .trim()
@@ -55,4 +58,10 @@ export function sanitizeHTML(str: string): string {
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/\u00a0/g, ' ')
+}
+
+export function getEntityNameFromType(entity: GitSyncEntityDTO['entityType']): string {
+  return !isUndefined(entity)
+    ? (entity.endsWith('s') ? entity.substring(0, entity.length - 1) : entity).toLowerCase()
+    : ''
 }

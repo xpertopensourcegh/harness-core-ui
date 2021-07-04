@@ -32,6 +32,7 @@ import {
 import { useStrings } from 'framework/strings'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { getEntityNameFromType } from '@common/utils/StringUtils'
 import paths from '@common/RouteDefinitions'
 import { PageSpinner } from '../Page/PageSpinner'
 import { NameId } from '../NameIdDescriptionTags/NameIdDescriptionTags'
@@ -95,7 +96,11 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
     filePath: resource.gitDetails?.filePath || `${resource.identifier}.yaml`,
     isNewBranch: false,
     branch: resource.gitDetails?.branch || '',
-    commitMsg: getString('common.gitSync.updateResource', { resource: resource.name }),
+    commitMsg: getString(isEditing ? 'common.gitSync.updateResource' : 'common.gitSync.createResource', {
+      name: resource.name,
+      type: getEntityNameFromType(resource.type)
+    }),
+
     createPr: false,
     targetBranch: ''
   }

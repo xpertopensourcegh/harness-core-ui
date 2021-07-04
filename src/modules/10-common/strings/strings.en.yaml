@@ -200,7 +200,8 @@ gitSync:
   repoDetails: Repo Details
   gitRepositoryDetails: Git Repository Details
   selectBranchLabel: Select a Branch
-  updateResource: 'Update {{resource}}'
+  updateResource: 'Update {{type}} {{name}}'
+  createResource: 'Create {{type}} {{name}}'
   sync: Sync
   syncStartSuccess: 'Sync started for branch {{branch}}'
   syncing:

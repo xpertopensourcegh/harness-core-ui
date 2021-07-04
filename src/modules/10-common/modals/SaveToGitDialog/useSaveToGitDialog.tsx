@@ -9,6 +9,7 @@ import SaveToGitForm, {
   SaveToGitFormInterface
 } from '@common/components/SaveToGitForm/SaveToGitForm'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
+import { getEntityNameFromType } from '@common/utils/StringUtils'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { getErrorInfoFromErrorObject } from '@common/utils/errorUtils'
 import { EntityGitDetails, ResponseMessage, useCreatePR } from 'services/cd-ng'
@@ -76,15 +77,15 @@ export function useSaveToGitDialog<T = Record<string, string>>(
   const [error, setError] = useState<Record<string, any>>({})
   const [createUpdateStatus, setCreateUpdateStatus] = useState<StepStatus>()
   const { mutate: createPullRequest, loading: creatingPR } = useCreatePR({})
-  let entity = resource.type || ''
-  entity = (entity.endsWith('s') ? entity.substring(0, entity.length - 1) : entity).toLowerCase()
 
   /* Stages for an entity updated/created and/or saved to git */
   const entityCreateUpdateStage = {
     status: createUpdateStatus,
-    intermediateLabel: isEditMode
-      ? getString('common.updating', { name: resource.name, entity })
-      : getString('common.creating', { name: resource.name, entity }),
+    intermediateLabel: getString(isEditMode ? 'common.updating' : 'common.creating', {
+      name: resource.name,
+      entity: getEntityNameFromType(resource.type)
+    }),
+
     finalLabel: getErrorInfoFromErrorObject(error)
   }
   const fromBranch = prMetaData?.branch || ''
