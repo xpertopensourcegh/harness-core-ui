@@ -26,11 +26,11 @@ export function ContinousVerificationWidget(
   const defaultCVSchema = Yup.object().shape({
     name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
     spec: Yup.object().shape({
-      type: Yup.string().required('connectors.cdng.validations.verificationTypeRequired'),
-      monitoredServiceRef: Yup.string().required('connectors.cdng.validations.monitoringServiceRequired'),
+      type: Yup.string().required(getString('connectors.cdng.validations.verificationTypeRequired')),
+      monitoredServiceRef: Yup.string().required(getString('connectors.cdng.validations.monitoringServiceRequired')),
       healthSources: Yup.string().when(['monitoredServiceRef'], (monitoredServiceRef: string) => {
         if (monitoredServiceRef !== RUNTIME_INPUT_VALUE) {
-          return Yup.array().min(1, 'connectors.cdng.validations.healthSourceRequired')
+          return Yup.array().min(1, getString('connectors.cdng.validations.healthSourceRequired'))
         }
       }),
       spec: Yup.object().shape({

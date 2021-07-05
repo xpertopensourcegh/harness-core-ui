@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react'
 import cx from 'classnames'
-import { FormInput, RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
+import { Container, FormInput, RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { useMemo } from 'react'
 import { isEmpty } from 'lodash-es'
@@ -16,6 +16,7 @@ import { useStrings } from 'framework/strings'
 import Card from '@cv/components/Card/Card'
 import type { MonitoredServiceProps } from './MonitoredService.types'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
+import css from './MonitoredService.module.scss'
 
 export default function MonitoredService({
   formik: { values: formValues, setFieldValue }
@@ -63,7 +64,7 @@ export default function MonitoredService({
   const monitoredServiceData = data?.data
 
   useEffect(() => {
-    if (environmentIdentifier === RUNTIME_INPUT_VALUE && serviceIdentifier === RUNTIME_INPUT_VALUE) {
+    if (environmentIdentifier === RUNTIME_INPUT_VALUE || serviceIdentifier === RUNTIME_INPUT_VALUE) {
       //when serviceIdentifier and environmentIdentifier are runtime
       const newSpecs = { ...formValues.spec, monitoredServiceRef: RUNTIME_INPUT_VALUE }
       setFieldValue('spec', newSpecs)
@@ -104,11 +105,16 @@ export default function MonitoredService({
       <>
         <Card>
           <div className={cx(stepCss.formGroup)}>
-            <FormInput.Text
-              name={'spec.monitoredServiceRef'}
-              label={getString('connectors.cdng.monitoredService.label')}
-              disabled
-            />
+            <Container className={css.monitoredService}>
+              <FormInput.Text
+                name={'spec.monitoredServiceRef'}
+                label={getString('connectors.cdng.monitoredService.label')}
+                disabled
+              />
+              <div className={css.monitoredServiceText}>
+                {getString('connectors.cdng.monitoredService.monitoredServiceText')}
+              </div>
+            </Container>
           </div>
         </Card>
         {formValues?.spec?.monitoredServiceRef !== RUNTIME_INPUT_VALUE ? (

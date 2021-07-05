@@ -38,7 +38,7 @@ export default function RunTimeMonitoredService({
   const monitoredServiceData = data?.data
 
   useEffect(() => {
-    if (monitoredServiceData && !loading && !error && envIdentifier && serviceIdentifier) {
+    if (!loading && !error && envIdentifier && serviceIdentifier) {
       const healthSources =
         monitoredServiceData?.sources?.healthSources?.map(el => {
           return { identifier: (el as HealthSource)?.identifier }
@@ -88,7 +88,7 @@ export default function RunTimeMonitoredService({
         <>{getString('connectors.cdng.runTimeMonitoredService.fetchingMonitoredServiceError')}</>
       </Card>
     )
-  } else if (!isEmpty(monitoringSource.name) && !isEmpty(monitoringSource.sources.healthSources)) {
+  } else if (!isEmpty(monitoringSource?.name) && !isEmpty(monitoringSource?.sources?.healthSources)) {
     return (
       <>
         <Card>
@@ -96,14 +96,14 @@ export default function RunTimeMonitoredService({
             <FormInput.CustomRender
               name={`${prefix}spec.monitoredServiceRef`}
               label={getString('connectors.cdng.monitoredService.label')}
-              render={() => <>{monitoringSource.name}</>}
+              render={() => <>{monitoringSource?.name}</>}
             />
           </div>
         </Card>
         <HealthSources healthSources={monitoredServiceData?.sources?.healthSources} isRunTimeInput={true} />
       </>
     )
-  } else if (isEmpty(monitoringSource.name)) {
+  } else if (isEmpty(monitoringSource?.name)) {
     return (
       <Card>
         <div className={css.error}>
@@ -111,7 +111,7 @@ export default function RunTimeMonitoredService({
         </div>
       </Card>
     )
-  } else if (isEmpty(monitoringSource.sources.healthSources)) {
+  } else if (isEmpty(monitoringSource?.sources?.healthSources)) {
     return (
       <Card>
         <div className={css.error}>{getString('connectors.cdng.runTimeMonitoredService.noHealthSourcePresent')}</div>

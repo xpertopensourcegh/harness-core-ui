@@ -3,8 +3,6 @@ import BaseContinousVerification from './components/BaseContinousVerification/Ba
 import type { ContinousVerificationWidgetSectionsProps } from './types'
 import SelectVerificationType from './components/SelectVerificationType/SelectVerificationType'
 import ConfigureFields from './components/ConfigureFields/ConfigureFields'
-
-import './ContinousVerificationWidgetSections.module.scss'
 import MonitoredService from './components/MonitoredService/MonitoredService'
 
 export function ContinousVerificationWidgetSections({

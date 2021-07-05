@@ -814,6 +814,7 @@ export interface StringsMap {
   'connectors.cdng.monitoredService.fetchingMonitoredService': string
   'connectors.cdng.monitoredService.fetchingMonitoredServiceError': string
   'connectors.cdng.monitoredService.label': string
+  'connectors.cdng.monitoredService.monitoredServiceText': string
   'connectors.cdng.noJobsConfigured': string
   'connectors.cdng.runTimeMonitoredService.fetchingMonitoredServiceError': string
   'connectors.cdng.runTimeMonitoredService.noHealthSourcePresent': string

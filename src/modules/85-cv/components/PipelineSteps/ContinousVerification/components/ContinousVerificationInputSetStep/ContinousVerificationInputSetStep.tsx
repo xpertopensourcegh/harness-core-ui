@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { FormInput, FormikForm, SelectOption } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 
+import { parse } from 'yaml'
+import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { DurationInputFieldForInputSet } from '@common/components/MultiTypeDuration/MultiTypeDuration'
+import type { InputSetPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
+import type { NgPipeline } from 'services/cd-ng'
+import { useGetPipeline } from 'services/pipeline-ng'
 import type { spec } from '../../types'
 import { checkIfRunTimeInput } from '../../utils'
 import type { ContinousVerificationProps } from './types'
@@ -14,18 +19,39 @@ import {
   VerificationSensitivityOptions
 } from '../../constants'
 import RunTimeMonitoredService from './components/RunTimeMonitoredService/RunTimeMonitoredService'
+import { getInfraAndServiceData } from './components/ContinousVerificationInputSetStep.utils'
 
 export function ContinousVerificationInputSetStep(
   props: ContinousVerificationProps & { formik?: any }
 ): React.ReactElement {
   const { template, path, initialValues, readonly, onUpdate, formik } = props
+  const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier } = useParams<
+    PipelineType<InputSetPathProps> & { accountId: string }
+  >()
   const { getString } = useStrings()
+  const [pipeline, setPipeline] = useState<{ pipeline: NgPipeline } | undefined>()
   const prefix = isEmpty(path) ? '' : `${path}.`
   const { sensitivity, duration, baseline, trafficsplit, deploymentTag } = (template?.spec?.spec as spec) || {}
+  const { data: pipelineData, refetch: fetchPipeline } = useGetPipeline({
+    pipelineIdentifier,
+    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier },
+    lazy: true
+  })
 
-  const currentStage = formik?.values?.stages?.find((el: any) => el?.stage?.identifier === formik?.values?.identifier)
-  const serviceIdentifier = currentStage?.stage?.spec?.serviceConfig?.serviceRef
-  const envIdentifier = currentStage?.stage?.spec?.infrastructure?.environmentRef
+  useEffect(() => {
+    fetchPipeline()
+  }, [fetchPipeline])
+
+  useEffect(() => {
+    if (pipelineData?.data?.yamlPipeline) {
+      setPipeline(parse(pipelineData?.data?.yamlPipeline))
+    }
+  }, [pipelineData?.data?.yamlPipeline])
+
+  const { serviceIdentifier, envIdentifier } = useMemo(() => {
+    const { serviceIdentifierData, envIdentifierData } = getInfraAndServiceData(pipeline, formik)
+    return { serviceIdentifier: serviceIdentifierData, envIdentifier: envIdentifierData }
+  }, [pipeline, formik])
 
   return (
     <FormikForm>

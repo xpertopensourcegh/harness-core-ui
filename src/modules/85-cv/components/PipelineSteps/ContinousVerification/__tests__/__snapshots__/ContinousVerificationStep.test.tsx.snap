@@ -594,38 +594,47 @@ exports[`Test ContinousVerificationStep Step should render editView when a new s
           class="formGroup"
         >
           <div
-            class="bp3-form-group bp3-disabled"
+            class="StyledProps--font StyledProps--main monitoredService"
           >
-            <label
-              class="bp3-label"
-              for="spec.monitoredServiceRef"
-            >
-              <span
-                class="Tooltip--acenter"
-                data-tooltip-id="cvData_spec.monitoredServiceRef"
-              >
-                connectors.cdng.monitoredService.label
-              </span>
-               
-              <span
-                class="bp3-text-muted"
-              />
-            </label>
             <div
-              class="bp3-form-content"
+              class="bp3-form-group bp3-disabled"
             >
-              <div
-                class="bp3-input-group bp3-disabled"
+              <label
+                class="bp3-label"
+                for="spec.monitoredServiceRef"
               >
-                <input
-                  autocomplete="off"
-                  class="bp3-input"
-                  disabled=""
-                  name="spec.monitoredServiceRef"
-                  type="text"
-                  value="testtest"
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="cvData_spec.monitoredServiceRef"
+                >
+                  connectors.cdng.monitoredService.label
+                </span>
+                 
+                <span
+                  class="bp3-text-muted"
                 />
+              </label>
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-input-group bp3-disabled"
+                >
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    disabled=""
+                    name="spec.monitoredServiceRef"
+                    type="text"
+                    value="testtest"
+                  />
+                </div>
               </div>
+            </div>
+            <div
+              class="monitoredServiceText"
+            >
+              connectors.cdng.monitoredService.monitoredServiceText
             </div>
           </div>
         </div>
@@ -1046,38 +1055,47 @@ exports[`Test ContinousVerificationStep Step should render editView when current
           class="formGroup"
         >
           <div
-            class="bp3-form-group bp3-disabled"
+            class="StyledProps--font StyledProps--main monitoredService"
           >
-            <label
-              class="bp3-label"
-              for="spec.monitoredServiceRef"
-            >
-              <span
-                class="Tooltip--acenter"
-                data-tooltip-id="cvData_spec.monitoredServiceRef"
-              >
-                connectors.cdng.monitoredService.label
-              </span>
-               
-              <span
-                class="bp3-text-muted"
-              />
-            </label>
             <div
-              class="bp3-form-content"
+              class="bp3-form-group bp3-disabled"
             >
-              <div
-                class="bp3-input-group bp3-disabled"
+              <label
+                class="bp3-label"
+                for="spec.monitoredServiceRef"
               >
-                <input
-                  autocomplete="off"
-                  class="bp3-input"
-                  disabled=""
-                  name="spec.monitoredServiceRef"
-                  type="text"
-                  value="monitored-service"
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="cvData_spec.monitoredServiceRef"
+                >
+                  connectors.cdng.monitoredService.label
+                </span>
+                 
+                <span
+                  class="bp3-text-muted"
                 />
+              </label>
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-input-group bp3-disabled"
+                >
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    disabled=""
+                    name="spec.monitoredServiceRef"
+                    type="text"
+                    value="monitored-service"
+                  />
+                </div>
               </div>
+            </div>
+            <div
+              class="monitoredServiceText"
+            >
+              connectors.cdng.monitoredService.monitoredServiceText
             </div>
           </div>
         </div>
@@ -1888,38 +1906,47 @@ exports[`Test ContinousVerificationStep Step should render editView when current
           class="formGroup"
         >
           <div
-            class="bp3-form-group bp3-disabled"
+            class="StyledProps--font StyledProps--main monitoredService"
           >
-            <label
-              class="bp3-label"
-              for="spec.monitoredServiceRef"
-            >
-              <span
-                class="Tooltip--acenter"
-                data-tooltip-id="cvData_spec.monitoredServiceRef"
-              >
-                connectors.cdng.monitoredService.label
-              </span>
-               
-              <span
-                class="bp3-text-muted"
-              />
-            </label>
             <div
-              class="bp3-form-content"
+              class="bp3-form-group bp3-disabled"
             >
-              <div
-                class="bp3-input-group bp3-disabled"
+              <label
+                class="bp3-label"
+                for="spec.monitoredServiceRef"
               >
-                <input
-                  autocomplete="off"
-                  class="bp3-input"
-                  disabled=""
-                  name="spec.monitoredServiceRef"
-                  type="text"
-                  value="monitored-service"
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="cvData_spec.monitoredServiceRef"
+                >
+                  connectors.cdng.monitoredService.label
+                </span>
+                 
+                <span
+                  class="bp3-text-muted"
                 />
+              </label>
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-input-group bp3-disabled"
+                >
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    disabled=""
+                    name="spec.monitoredServiceRef"
+                    type="text"
+                    value="monitored-service"
+                  />
+                </div>
               </div>
+            </div>
+            <div
+              class="monitoredServiceText"
+            >
+              connectors.cdng.monitoredService.monitoredServiceText
             </div>
           </div>
         </div>

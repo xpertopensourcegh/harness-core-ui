@@ -1,75 +1,17 @@
 import React from 'react'
 import { act, findByText, fireEvent, queryByAttribute, render, waitFor } from '@testing-library/react'
-import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { StepViewType, StepFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { factory, TestStepWidget } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
 import { useGetMonitoredServiceFromServiceAndEnvironment } from 'services/cv'
 import { ContinousVerificationStep } from '../ContinousVerificationStep'
-
-const mockedMonitoredServiceAndHealthSources = {
-  data: {
-    orgIdentifier: 'default',
-    projectIdentifier: 'Harshiltest',
-    identifier: 'testtest',
-    name: 'testtest',
-    type: 'Application',
-    description: null,
-    serviceRef: 'test',
-    environmentRef: 'test',
-    sources: {
-      healthSources: [
-        {
-          name: 'appd-healthsource',
-          identifier: 'appd',
-          type: 'AppDynamics',
-          spec: {
-            connectorRef: 'Testappd',
-            feature: null,
-            appdApplicationName: 'prod',
-            appdTierName: 'cv-nextgen',
-            metricPacks: [{ identifier: 'Errors' }]
-          }
-        }
-      ]
-    }
-  }
-}
-
-const mockedMonitoredService = {
-  data: {
-    orgIdentifier: 'default',
-    projectIdentifier: 'Harshiltest',
-    identifier: 'testtest',
-    name: 'testtest',
-    type: 'Application',
-    description: null,
-    serviceRef: 'test',
-    environmentRef: 'test',
-    sources: {
-      healthSources: []
-    }
-  }
-}
-
-const verifyStepInitialValues = {
-  name: '',
-  type: StepType.Verify,
-  identifier: '',
-  timeout: '2h',
-  spec: {
-    monitoredServiceRef: '',
-    type: '',
-    healthSources: [],
-    spec: {
-      sensitivity: '',
-      duration: '',
-      baseline: '',
-      trafficsplit: '',
-      deploymentTag: ''
-    }
-  }
-}
+import {
+  mockedMonitoredService,
+  mockedMonitoredServiceAndHealthSources,
+  PipelineResponse,
+  verifyStepInitialValues,
+  verifyStepInitialValuesWithRunTimeFields
+} from './ContinousVerificationMocks'
 
 jest.mock('services/cv', () => ({
   useGetMonitoredServiceFromServiceAndEnvironment: jest
@@ -85,6 +27,10 @@ jest.mock('services/cv', () => ({
     resource: [],
     responseMessages: []
   }))
+}))
+
+jest.mock('services/pipeline-ng', () => ({
+  useGetPipeline: jest.fn(() => PipelineResponse)
 }))
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
@@ -131,24 +77,7 @@ describe('Test ContinousVerificationStep Step', () => {
   })
 
   test('should render editView when current step is being edited and runtime inputs are passed', () => {
-    const initialValues = {
-      name: 'CV Step',
-      type: 'ContinousVerification',
-      identifier: 'ContinousVerification',
-      timeout: '2h',
-      spec: {
-        monitoredServiceRef: 'monitored-service',
-        type: 'Rolling',
-        healthSources: [],
-        spec: {
-          sensitivity: RUNTIME_INPUT_VALUE,
-          duration: RUNTIME_INPUT_VALUE,
-          baseline: RUNTIME_INPUT_VALUE,
-          trafficsplit: RUNTIME_INPUT_VALUE,
-          deploymentTag: '1.2'
-        }
-      }
-    }
+    const initialValues = verifyStepInitialValuesWithRunTimeFields
     const { container } = render(
       <TestStepWidget initialValues={initialValues} type={StepType.Verify} stepViewType={StepViewType.Edit} />
     )
@@ -157,24 +86,7 @@ describe('Test ContinousVerificationStep Step', () => {
 
   test('renders inputSetView', () => {
     const onUpdate = jest.fn()
-    const initialValues = {
-      name: 'CV Step',
-      type: 'ContinousVerification',
-      identifier: 'ContinousVerification',
-      timeout: '2h',
-      spec: {
-        monitoredServiceRef: 'monitored-service',
-        type: 'Rolling',
-        healthSources: [],
-        spec: {
-          sensitivity: RUNTIME_INPUT_VALUE,
-          duration: RUNTIME_INPUT_VALUE,
-          baseline: RUNTIME_INPUT_VALUE,
-          trafficsplit: RUNTIME_INPUT_VALUE,
-          deploymentTag: '1.2'
-        }
-      }
-    }
+    const initialValues = verifyStepInitialValuesWithRunTimeFields
     const { container } = render(
       <TestStepWidget
         initialValues={{}}
