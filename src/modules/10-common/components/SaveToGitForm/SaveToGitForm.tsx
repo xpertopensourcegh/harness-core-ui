@@ -353,8 +353,8 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
                       inputGroupProps: { disabled: true }
                     }}
                   />
-                  <Text margin={{ bottom: 'small' }} font={{ size: 'medium' }} color={Color.GREY_400}>
-                    {getString('common.gitSync.harnessFolderLabel').toUpperCase()}
+                  <Text margin={{ bottom: 'small' }} font={{ size: 'medium' }} color={Color.GREY_700}>
+                    {getString('common.gitSync.harnessFolderLabel')}
                   </Text>
                   <Layout.Horizontal spacing="medium" className={css.formRow}>
                     <FormInput.Select
@@ -372,8 +372,8 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
                   </Layout.Horizontal>
 
                   <FormInput.Text name="filePath" label={getString('common.git.filePath')} disabled={isEditing} />
-                  <Text margin={{ bottom: 'small', top: 'large' }} font={{ size: 'medium' }} color={Color.GREY_400}>
-                    {getString('common.gitSync.commitDetailsLabel').toUpperCase()}
+                  <Text margin={{ bottom: 'small', top: 'large' }} font={{ size: 'medium' }} color={Color.GREY_700}>
+                    {getString('common.gitSync.commitDetailsLabel')}
                   </Text>
                   <FormInput.TextArea name="commitMsg" label={getString('common.git.commitMessage')} />
 

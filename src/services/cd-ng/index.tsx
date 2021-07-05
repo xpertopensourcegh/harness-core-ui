@@ -313,6 +313,11 @@ export interface ArtifactConfig {
   [key: string]: any
 }
 
+export interface ArtifactDetails {
+  artifactId?: string
+  tag?: string
+}
+
 export interface ArtifactListConfig {
   metadata?: string
   primary?: PrimaryArtifact
@@ -610,6 +615,11 @@ export type BranchBuildSpec = BuildSpec & {
 export interface Build {
   spec: BuildSpec
   type: 'branch' | 'tag'
+}
+
+export interface BuildIdAndInstanceCount {
+  buildId?: string
+  count?: number
 }
 
 export interface BuildSpec {
@@ -1083,6 +1093,8 @@ export type DeploymentStageConfig = StageInfoConfig & {
 export interface DeploymentStatusInfo {
   endTs?: number
   name?: string
+  pipelineIdentifier?: string
+  planExecutionId?: string
   serviceInfoList?: ServiceDeploymentInfo[]
   startTs?: number
   status?: string
@@ -1248,7 +1260,7 @@ export interface EntityReference {
 
 export type EntityReferredByPipelineSetupUsageDetail = SetupUsageDetail & {
   identifier?: string
-  type?: string
+  referenceType?: string
 }
 
 export interface EntitySetupUsageDTO {
@@ -1257,6 +1269,16 @@ export interface EntitySetupUsageDTO {
   detail?: SetupUsageDetail
   referredByEntity: EntityDetail
   referredEntity?: EntityDetail
+}
+
+export interface EnvBuildIdAndInstanceCountInfo {
+  buildIdAndInstanceCountList?: BuildIdAndInstanceCount[]
+  envId?: string
+  envName?: string
+}
+
+export interface EnvBuildIdAndInstanceCountInfoList {
+  envBuildIdAndInstanceCountInfoList?: EnvBuildIdAndInstanceCountInfo[]
 }
 
 export type EnvFilter = Filter & {
@@ -2186,9 +2208,14 @@ export type GitLabStore = StoreConfig & {
 }
 
 export interface GitPRCreateRequest {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
   sourceBranch: string
   targetBranch: string
   title: string
+  useUserFromToken?: boolean
+  yamlGitConfigRef: string
 }
 
 export type GitSSHAuthenticationDTO = GitAuthenticationDTO & {
@@ -2637,6 +2664,56 @@ export interface InputSetValidator {
   validatorType?: 'ALLOWED_VALUES' | 'REGEX'
 }
 
+export interface InstanceCountDetailsByEnvTypeBase {
+  nonProdInstances?: number
+  prodInstances?: number
+  totalInstances?: number
+}
+
+export interface InstanceDTO {
+  accountIdentifier?: string
+  connectorId?: string
+  createdAt?: number
+  deleted?: boolean
+  deletedAt?: number
+  envId?: string
+  envName?: string
+  envType?: 'PreProduction' | 'Production'
+  infraMappingType?: string
+  infrastructureMappingId?: string
+  instanceInfo?: InstanceInfo
+  instanceKey?: InstanceKey
+  instanceType?:
+    | 'PHYSICAL_HOST_INSTANCE'
+    | 'EC2_CLOUD_INSTANCE'
+    | 'GCP_CLOUD_INSTANCE'
+    | 'ECS_CONTAINER_INSTANCE'
+    | 'KUBERNETES_CONTAINER_INSTANCE'
+    | 'PCF_INSTANCE'
+    | 'AZURE_VMSS_INSTANCE'
+    | 'AZURE_WEB_APP_INSTANCE'
+  lastDeployedAt?: number
+  lastDeployedById?: string
+  lastDeployedByName?: string
+  lastModifiedAt?: number
+  lastPipelineExecutionId?: string
+  lastPipelineExecutionName?: string
+  needRetry?: boolean
+  orgIdentifier?: string
+  primaryArtifact?: ArtifactDetails
+  projectIdentifier?: string
+  serviceId?: string
+  serviceName?: string
+}
+
+export interface InstanceInfo {
+  [key: string]: any
+}
+
+export interface InstanceKey {
+  [key: string]: any
+}
+
 export interface InstanceSelectionBase {
   [key: string]: any
 }
@@ -2644,6 +2721,15 @@ export interface InstanceSelectionBase {
 export interface InstanceSelectionWrapper {
   spec?: InstanceSelectionBase
   type?: 'Count' | 'Percentage'
+}
+
+export interface InstancesByBuildId {
+  buildId?: string
+  instances?: InstanceDTO[]
+}
+
+export interface InstancesByBuildIdList {
+  instancesByBuildIdList?: InstancesByBuildId[]
 }
 
 export interface Invite {
@@ -4042,6 +4128,13 @@ export interface ResponseEcrResponseDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseEnvBuildIdAndInstanceCountInfoList {
+  correlationId?: string
+  data?: EnvBuildIdAndInstanceCountInfoList
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseEnvironmentResponse {
   correlationId?: string
   data?: EnvironmentResponse
@@ -4147,6 +4240,20 @@ export interface ResponseInputSetTemplateResponse {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseInstanceCountDetailsByEnvTypeBase {
+  correlationId?: string
+  data?: InstanceCountDetailsByEnvTypeBase
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseInstancesByBuildIdList {
+  correlationId?: string
+  data?: InstancesByBuildIdList
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseInvite {
   correlationId?: string
   data?: Invite
@@ -4192,6 +4299,13 @@ export interface ResponseListApiKeyDTO {
 export interface ResponseListConnectorResponse {
   correlationId?: string
   data?: ConnectorResponse[]
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseListEnvironmentResponse {
+  correlationId?: string
+  data?: EnvironmentResponse[]
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -4289,6 +4403,13 @@ export interface ResponseListServiceAccountDTO {
 export interface ResponseListServiceDefinitionType {
   correlationId?: string
   data?: 'Kubernetes'[]
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseListServiceResponse {
+  correlationId?: string
+  data?: ServiceResponse[]
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -10865,6 +10986,209 @@ export const getDeploymentsPromise = (
     signal
   )
 
+export interface GetEnvBuildInstanceCountQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  serviceId: string
+}
+
+export type GetEnvBuildInstanceCountProps = Omit<
+  GetProps<ResponseEnvBuildIdAndInstanceCountInfoList, Failure | Error, GetEnvBuildInstanceCountQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get list of unique environment and build ids with instance count
+ */
+export const GetEnvBuildInstanceCount = (props: GetEnvBuildInstanceCountProps) => (
+  <Get<ResponseEnvBuildIdAndInstanceCountInfoList, Failure | Error, GetEnvBuildInstanceCountQueryParams, void>
+    path={`/dashboard/getEnvBuildInstanceCountByService`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetEnvBuildInstanceCountProps = Omit<
+  UseGetProps<ResponseEnvBuildIdAndInstanceCountInfoList, Failure | Error, GetEnvBuildInstanceCountQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get list of unique environment and build ids with instance count
+ */
+export const useGetEnvBuildInstanceCount = (props: UseGetEnvBuildInstanceCountProps) =>
+  useGet<ResponseEnvBuildIdAndInstanceCountInfoList, Failure | Error, GetEnvBuildInstanceCountQueryParams, void>(
+    `/dashboard/getEnvBuildInstanceCountByService`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Get list of unique environment and build ids with instance count
+ */
+export const getEnvBuildInstanceCountPromise = (
+  props: GetUsingFetchProps<
+    ResponseEnvBuildIdAndInstanceCountInfoList,
+    Failure | Error,
+    GetEnvBuildInstanceCountQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseEnvBuildIdAndInstanceCountInfoList, Failure | Error, GetEnvBuildInstanceCountQueryParams, void>(
+    getConfig('ng/api'),
+    `/dashboard/getEnvBuildInstanceCountByService`,
+    props,
+    signal
+  )
+
+export interface GetActiveServiceInstanceCountBreakdownQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  serviceId: string
+}
+
+export type GetActiveServiceInstanceCountBreakdownProps = Omit<
+  GetProps<
+    ResponseInstanceCountDetailsByEnvTypeBase,
+    Failure | Error,
+    GetActiveServiceInstanceCountBreakdownQueryParams,
+    void
+  >,
+  'path'
+>
+
+/**
+ * Get active service instance count breakdown by env type
+ */
+export const GetActiveServiceInstanceCountBreakdown = (props: GetActiveServiceInstanceCountBreakdownProps) => (
+  <Get<
+    ResponseInstanceCountDetailsByEnvTypeBase,
+    Failure | Error,
+    GetActiveServiceInstanceCountBreakdownQueryParams,
+    void
+  >
+    path={`/dashboard/getInstanceCountDetailsByService`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetActiveServiceInstanceCountBreakdownProps = Omit<
+  UseGetProps<
+    ResponseInstanceCountDetailsByEnvTypeBase,
+    Failure | Error,
+    GetActiveServiceInstanceCountBreakdownQueryParams,
+    void
+  >,
+  'path'
+>
+
+/**
+ * Get active service instance count breakdown by env type
+ */
+export const useGetActiveServiceInstanceCountBreakdown = (props: UseGetActiveServiceInstanceCountBreakdownProps) =>
+  useGet<
+    ResponseInstanceCountDetailsByEnvTypeBase,
+    Failure | Error,
+    GetActiveServiceInstanceCountBreakdownQueryParams,
+    void
+  >(`/dashboard/getInstanceCountDetailsByService`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Get active service instance count breakdown by env type
+ */
+export const getActiveServiceInstanceCountBreakdownPromise = (
+  props: GetUsingFetchProps<
+    ResponseInstanceCountDetailsByEnvTypeBase,
+    Failure | Error,
+    GetActiveServiceInstanceCountBreakdownQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    ResponseInstanceCountDetailsByEnvTypeBase,
+    Failure | Error,
+    GetActiveServiceInstanceCountBreakdownQueryParams,
+    void
+  >(getConfig('ng/api'), `/dashboard/getInstanceCountDetailsByService`, props, signal)
+
+export interface GetActiveInstancesByServiceIdEnvIdAndBuildIdsQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  serviceId: string
+  envId: string
+  buildIds: string[]
+}
+
+export type GetActiveInstancesByServiceIdEnvIdAndBuildIdsProps = Omit<
+  GetProps<
+    ResponseInstancesByBuildIdList,
+    Failure | Error,
+    GetActiveInstancesByServiceIdEnvIdAndBuildIdsQueryParams,
+    void
+  >,
+  'path'
+>
+
+/**
+ * Get list of buildId and instances
+ */
+export const GetActiveInstancesByServiceIdEnvIdAndBuildIds = (
+  props: GetActiveInstancesByServiceIdEnvIdAndBuildIdsProps
+) => (
+  <Get<ResponseInstancesByBuildIdList, Failure | Error, GetActiveInstancesByServiceIdEnvIdAndBuildIdsQueryParams, void>
+    path={`/dashboard/getInstancesByServiceEnvAndBuilds`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetActiveInstancesByServiceIdEnvIdAndBuildIdsProps = Omit<
+  UseGetProps<
+    ResponseInstancesByBuildIdList,
+    Failure | Error,
+    GetActiveInstancesByServiceIdEnvIdAndBuildIdsQueryParams,
+    void
+  >,
+  'path'
+>
+
+/**
+ * Get list of buildId and instances
+ */
+export const useGetActiveInstancesByServiceIdEnvIdAndBuildIds = (
+  props: UseGetActiveInstancesByServiceIdEnvIdAndBuildIdsProps
+) =>
+  useGet<
+    ResponseInstancesByBuildIdList,
+    Failure | Error,
+    GetActiveInstancesByServiceIdEnvIdAndBuildIdsQueryParams,
+    void
+  >(`/dashboard/getInstancesByServiceEnvAndBuilds`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Get list of buildId and instances
+ */
+export const getActiveInstancesByServiceIdEnvIdAndBuildIdsPromise = (
+  props: GetUsingFetchProps<
+    ResponseInstancesByBuildIdList,
+    Failure | Error,
+    GetActiveInstancesByServiceIdEnvIdAndBuildIdsQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    ResponseInstancesByBuildIdList,
+    Failure | Error,
+    GetActiveInstancesByServiceIdEnvIdAndBuildIdsQueryParams,
+    void
+  >(getConfig('ng/api'), `/dashboard/getInstancesByServiceEnvAndBuilds`, props, signal)
+
 export interface GetServicesGrowthTrendQueryParams {
   accountIdentifier: string
   orgIdentifier: string
@@ -12379,6 +12703,66 @@ export const updateEnvironmentV2Promise = (
     EnvironmentRequestDTORequestBody,
     void
   >('PUT', getConfig('ng/api'), `/environmentsV2`, props, signal)
+
+export interface GetEnvironmentAccessListQueryParams {
+  page?: number
+  size?: number
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  searchTerm?: string
+  envIdentifiers?: string[]
+  sort?: string[]
+}
+
+export type GetEnvironmentAccessListProps = Omit<
+  GetProps<ResponseListEnvironmentResponse, Failure | Error, GetEnvironmentAccessListQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets environment access list
+ */
+export const GetEnvironmentAccessList = (props: GetEnvironmentAccessListProps) => (
+  <Get<ResponseListEnvironmentResponse, Failure | Error, GetEnvironmentAccessListQueryParams, void>
+    path={`/environmentsV2/list/access`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetEnvironmentAccessListProps = Omit<
+  UseGetProps<ResponseListEnvironmentResponse, Failure | Error, GetEnvironmentAccessListQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets environment access list
+ */
+export const useGetEnvironmentAccessList = (props: UseGetEnvironmentAccessListProps) =>
+  useGet<ResponseListEnvironmentResponse, Failure | Error, GetEnvironmentAccessListQueryParams, void>(
+    `/environmentsV2/list/access`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Gets environment access list
+ */
+export const getEnvironmentAccessListPromise = (
+  props: GetUsingFetchProps<
+    ResponseListEnvironmentResponse,
+    Failure | Error,
+    GetEnvironmentAccessListQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseListEnvironmentResponse, Failure | Error, GetEnvironmentAccessListQueryParams, void>(
+    getConfig('ng/api'),
+    `/environmentsV2/list/access`,
+    props,
+    signal
+  )
 
 export interface UpsertEnvironmentV2QueryParams {
   accountIdentifier?: string
@@ -17086,15 +17470,8 @@ export const createRoleAssignmentsPromise = (
     void
   >('POST', getConfig('ng/api'), `/roleassignments/multi/internal`, props, signal)
 
-export interface CreatePRQueryParams {
-  yamlGitConfigIdentifier: string
-  accountIdentifier?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-}
-
 export type CreatePRProps = Omit<
-  MutateProps<ResponseCreatePRDTO, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>,
+  MutateProps<ResponseCreatePRDTO, Failure | Error, void, GitPRCreateRequest, void>,
   'path' | 'verb'
 >
 
@@ -17102,7 +17479,7 @@ export type CreatePRProps = Omit<
  * creates a pull request
  */
 export const CreatePR = (props: CreatePRProps) => (
-  <Mutate<ResponseCreatePRDTO, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>
+  <Mutate<ResponseCreatePRDTO, Failure | Error, void, GitPRCreateRequest, void>
     verb="POST"
     path={`/scm/createPR`}
     base={getConfig('ng/api')}
@@ -17111,7 +17488,7 @@ export const CreatePR = (props: CreatePRProps) => (
 )
 
 export type UseCreatePRProps = Omit<
-  UseMutateProps<ResponseCreatePRDTO, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>,
+  UseMutateProps<ResponseCreatePRDTO, Failure | Error, void, GitPRCreateRequest, void>,
   'path' | 'verb'
 >
 
@@ -17119,20 +17496,19 @@ export type UseCreatePRProps = Omit<
  * creates a pull request
  */
 export const useCreatePR = (props: UseCreatePRProps) =>
-  useMutate<ResponseCreatePRDTO, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>(
-    'POST',
-    `/scm/createPR`,
-    { base: getConfig('ng/api'), ...props }
-  )
+  useMutate<ResponseCreatePRDTO, Failure | Error, void, GitPRCreateRequest, void>('POST', `/scm/createPR`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
 
 /**
  * creates a pull request
  */
 export const createPRPromise = (
-  props: MutateUsingFetchProps<ResponseCreatePRDTO, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>,
+  props: MutateUsingFetchProps<ResponseCreatePRDTO, Failure | Error, void, GitPRCreateRequest, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponseCreatePRDTO, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>(
+  mutateUsingFetch<ResponseCreatePRDTO, Failure | Error, void, GitPRCreateRequest, void>(
     'POST',
     getConfig('ng/api'),
     `/scm/createPR`,
@@ -18559,6 +18935,61 @@ export const createServicesV2Promise = (
     ServiceRequestDTOArrayRequestBody,
     void
   >('POST', getConfig('ng/api'), `/servicesV2/batch`, props, signal)
+
+export interface GetServiceAccessListQueryParams {
+  page?: number
+  size?: number
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  searchTerm?: string
+  serviceIdentifiers?: string[]
+  sort?: string[]
+}
+
+export type GetServiceAccessListProps = Omit<
+  GetProps<ResponseListServiceResponse, Failure | Error, GetServiceAccessListQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets Service Access list
+ */
+export const GetServiceAccessList = (props: GetServiceAccessListProps) => (
+  <Get<ResponseListServiceResponse, Failure | Error, GetServiceAccessListQueryParams, void>
+    path={`/servicesV2/list/access`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetServiceAccessListProps = Omit<
+  UseGetProps<ResponseListServiceResponse, Failure | Error, GetServiceAccessListQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets Service Access list
+ */
+export const useGetServiceAccessList = (props: UseGetServiceAccessListProps) =>
+  useGet<ResponseListServiceResponse, Failure | Error, GetServiceAccessListQueryParams, void>(
+    `/servicesV2/list/access`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Gets Service Access list
+ */
+export const getServiceAccessListPromise = (
+  props: GetUsingFetchProps<ResponseListServiceResponse, Failure | Error, GetServiceAccessListQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseListServiceResponse, Failure | Error, GetServiceAccessListQueryParams, void>(
+    getConfig('ng/api'),
+    `/servicesV2/list/access`,
+    props,
+    signal
+  )
 
 export interface UpsertServiceV2QueryParams {
   accountIdentifier?: string

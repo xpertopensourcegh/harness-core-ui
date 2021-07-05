@@ -218,21 +218,16 @@ export function useSaveToGitDialog<T = Record<string, string>>(
         if (response.status === 'SUCCESS') {
           if (data?.createPr) {
             try {
-              const _response = await createPullRequest(
-                {
-                  sourceBranch: data?.branch || '',
-                  targetBranch: data?.targetBranch || '',
-                  title: data?.commitMsg || ''
-                },
-                {
-                  queryParams: {
-                    accountIdentifier: accountId,
-                    orgIdentifier,
-                    projectIdentifier,
-                    yamlGitConfigIdentifier: data?.repoIdentifier || ''
-                  }
-                }
-              )
+              const _response = await createPullRequest({
+                accountIdentifier: accountId,
+                orgIdentifier,
+                projectIdentifier,
+                sourceBranch: data?.branch || '',
+                targetBranch: data?.targetBranch || '',
+                title: data?.commitMsg || '',
+                useUserFromToken: true,
+                yamlGitConfigRef: data?.repoIdentifier || ''
+              })
               setPRCreateStatus(_response?.status)
             } catch (e) {
               setPRCreateStatus('ERROR')

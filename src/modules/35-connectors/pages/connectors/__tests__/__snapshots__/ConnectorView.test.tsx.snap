@@ -161,9 +161,9 @@ exports[`Connector Details Page Edit and save connector via YAML for a git-sync 
                 </div>
               </div>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--margin-bottom-small StyledProps--font-size-medium StyledProps--color StyledProps--color-grey400"
+                class="StyledProps--font StyledProps--main StyledProps--margin-bottom-small StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
               >
-                COMMON.GITSYNC.HARNESSFOLDERLABEL
+                common.gitSync.harnessFolderLabel
               </p>
               <div
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main formRow"
@@ -344,9 +344,9 @@ exports[`Connector Details Page Edit and save connector via YAML for a git-sync 
                 </div>
               </div>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--margin-bottom-small StyledProps--margin-top-large StyledProps--font-size-medium StyledProps--color StyledProps--color-grey400"
+                class="StyledProps--font StyledProps--main StyledProps--margin-bottom-small StyledProps--margin-top-large StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
               >
-                COMMON.GITSYNC.COMMITDETAILSLABEL
+                common.gitSync.commitDetailsLabel
               </p>
               <div
                 class="bp3-form-group"
