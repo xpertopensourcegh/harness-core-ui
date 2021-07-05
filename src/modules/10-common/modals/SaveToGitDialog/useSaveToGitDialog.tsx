@@ -13,7 +13,7 @@ import { getEntityNameFromType } from '@common/utils/StringUtils'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { getErrorInfoFromErrorObject } from '@common/utils/errorUtils'
 import { EntityGitDetails, ResponseMessage, useCreatePR } from 'services/cd-ng'
-import { useStrings } from 'framework/strings'
+import { String, useStrings } from 'framework/strings'
 import { ProgressOverlay, StepStatus } from '../ProgressOverlay/ProgressOverlay'
 import { useGitDiffEditorDialog } from '../GitDiffEditor/useGitDiffEditorDialog'
 import css from './useSaveToGitDialog.module.scss'
@@ -81,33 +81,52 @@ export function useSaveToGitDialog<T = Record<string, string>>(
   /* Stages for an entity updated/created and/or saved to git */
   const entityCreateUpdateStage = {
     status: createUpdateStatus,
-    intermediateLabel: getString(isEditMode ? 'common.updating' : 'common.creating', {
-      name: resource.name,
-      entity: getEntityNameFromType(resource.type)
-    }),
-
+    intermediateLabel: (
+      <String
+        stringID={isEditMode ? 'common.updating' : 'common.creating'}
+        vars={{ name: resource.name, entity: getEntityNameFromType(resource.type) }}
+      />
+    ),
     finalLabel: getErrorInfoFromErrorObject(error)
   }
   const fromBranch = prMetaData?.branch || ''
   const toBranch = prMetaData?.targetBranch || ''
   const setupBranchStage = {
     status: createUpdateStatus,
-    intermediateLabel: getString('common.gitSync.settingUpNewBranch', {
-      branch: fromBranch
-    })
+    intermediateLabel: (
+      <String
+        stringID="common.gitSync.settingUpNewBranch"
+        vars={{
+          branch: fromBranch
+        }}
+        useRichText
+      />
+    )
   }
   const pushingChangesToBranch = {
     status: createUpdateStatus,
-    intermediateLabel: getString('common.gitSync.pushingChangestoBranch', {
-      branch: fromBranch
-    })
+    intermediateLabel: (
+      <String
+        stringID="common.gitSync.pushingChangestoBranch"
+        vars={{
+          branch: fromBranch
+        }}
+        useRichText
+      />
+    )
   }
   const createPRStage = {
     status: prCreateStatus,
-    intermediateLabel: getString('common.gitSync.creatingPR', {
-      fromBranch,
-      toBranch
-    }),
+    intermediateLabel: (
+      <String
+        stringID="common.gitSync.creatingPR"
+        vars={{
+          fromBranch,
+          toBranch
+        }}
+        useRichText
+      />
+    ),
     finalLabel: getString('common.gitSync.unableToCreatePR')
   }
 

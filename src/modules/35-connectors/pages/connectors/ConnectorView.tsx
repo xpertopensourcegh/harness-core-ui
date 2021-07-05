@@ -446,7 +446,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
                       }}
                       margin={{ top: 'large' }}
                       title={isValidYAML ? '' : getString('invalidYaml')}
-                      disabled={!hasConnectorChanged}
+                      disabled={!isGitSyncEnabled && !hasConnectorChanged}
                     />
                     <Button text={getString('cancel')} margin={{ top: 'large' }} onClick={resetEditor} />
                   </Layout.Horizontal>
