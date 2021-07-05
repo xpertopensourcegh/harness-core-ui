@@ -125,7 +125,8 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
   const [currentYaml, setCurrentYaml] = useState<string>('')
   const [currentJSON, setCurrentJSON] = useState<object>()
   const [yamlValidationErrors, setYamlValidationErrors] = useState<Map<number, string> | undefined>()
-  const [dynamicWidth, setDynamicWidth] = useState<number>(2 * MIN_SNIPPET_SECTION_WIDTH)
+  const { innerWidth } = window
+  const [dynamicWidth, setDynamicWidth] = useState<number>(innerWidth - 2 * MIN_SNIPPET_SECTION_WIDTH)
 
   const editorRef = useRef<ReactMonacoEditor>(null)
   const yamlRef = useRef<string | undefined>('')
@@ -538,12 +539,12 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
       {showSnippetSection ? (
         <SplitPane
           split="vertical"
-          defaultSize={dynamicWidth}
-          minSize={2 * MIN_SNIPPET_SECTION_WIDTH}
           className={css.splitPanel}
           onChange={handleResize}
           maxSize={-1 * MIN_SNIPPET_SECTION_WIDTH}
           style={{ height: height ?? DEFAULT_EDITOR_HEIGHT }}
+          pane1Style={{ minWidth: MIN_SNIPPET_SECTION_WIDTH, width: dynamicWidth }}
+          pane2Style={{ minWidth: MIN_SNIPPET_SECTION_WIDTH }}
         >
           <div className={css.editor}>
             {renderHeader()}
