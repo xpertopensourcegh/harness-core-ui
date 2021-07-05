@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Container, Button } from '@wings-software/uicore'
+import { Container, Button, Layout } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import { useHistory, useParams } from 'react-router-dom'
 
@@ -14,7 +14,7 @@ import {
   useGetYamlSnippetMetadata,
   useGetYamlSnippet
 } from 'services/cd-ng'
-import { useToaster } from '@common/exports'
+import { useConfirmationDialog, useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import { getSnippetTags } from '@common/utils/SnippetUtils'
@@ -34,7 +34,28 @@ const CreateSecretFromYamlPage: React.FC<{ mockSchemaData?: UseGetMockData<Respo
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier },
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })
+  const redirectToSecretsPage = (): void => {
+    history.push(routes.toSecrets({ accountId, projectIdentifier, orgIdentifier, module }))
+  }
+  const { openDialog: openConfirmationDialog } = useConfirmationDialog({
+    cancelButtonText: getString('cancel'),
+    contentText: getString('continueWithoutSavingText'),
+    titleText: getString('continueWithoutSavingTitle'),
+    confirmButtonText: getString('confirm'),
+    onCloseDialog: isConfirmed => {
+      if (isConfirmed) {
+        redirectToSecretsPage()
+      }
+    }
+  })
 
+  const handleCancel = (): void => {
+    if (yamlHandler?.getLatestYaml()) {
+      openConfirmationDialog()
+    } else {
+      redirectToSecretsPage()
+    }
+  }
   const handleCreate = async (): Promise<void> => {
     const yamlData = yamlHandler?.getLatestYaml()
     let jsonData
@@ -127,12 +148,15 @@ const CreateSecretFromYamlPage: React.FC<{ mockSchemaData?: UseGetMockData<Respo
           snippets={snippetData?.data?.yamlSnippets}
           showSnippetSection={false}
         />
-        <Button
-          text={getString('createSecretYAML.create')}
-          intent="primary"
-          margin={{ top: 'xlarge' }}
-          onClick={handleCreate}
-        />
+        <Layout.Horizontal spacing="large">
+          <Button
+            text={getString('createSecretYAML.create')}
+            intent="primary"
+            margin={{ top: 'xlarge' }}
+            onClick={handleCreate}
+          />
+          <Button text={getString('cancel')} intent="none" margin={{ top: 'xlarge' }} onClick={handleCancel} />
+        </Layout.Horizontal>
       </Container>
     </Container>
   )
