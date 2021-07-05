@@ -29,7 +29,8 @@ import type {
   GitQueryParams,
   ModuleHomeParams,
   InputSetGitQueryParams,
-  ModuleCardPathParams
+  ModuleCardPathParams,
+  ServiceAccountPathProps
 } from '@common/interfaces/RouteInterfaces'
 
 const CV_HOME = `/cv/home`
@@ -213,6 +214,37 @@ const routes = {
   toAccessControl: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
       const path = `access-control`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
+  ),
+  toServiceAccounts: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
+      const path = `access-control/service-accounts`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
+  ),
+  toServiceAccountDetails: withAccountId(
+    ({
+      orgIdentifier,
+      projectIdentifier,
+      serviceAccountIdentifier,
+      module
+    }: Partial<ProjectPathProps & ModulePathParams & ServiceAccountPathProps>) => {
+      const path = `access-control/service-accounts/${serviceAccountIdentifier}`
       return getScopeBasedRoute({
         scope: {
           orgIdentifier,

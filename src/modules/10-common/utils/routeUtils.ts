@@ -22,7 +22,8 @@ import type {
   RolePathProps,
   ResourceGroupPathProps,
   UserGroupPathProps,
-  UserPathProps
+  UserPathProps,
+  ServiceAccountPathProps
 } from '@common/interfaces/RouteInterfaces'
 
 export const accountPathProps: AccountPathProps = {
@@ -80,6 +81,10 @@ export const userGroupPathProps: UserGroupPathProps = {
 
 export const userPathProps: UserPathProps = {
   userIdentifier: ':userIdentifier'
+}
+
+export const serviceAccountProps: ServiceAccountPathProps = {
+  serviceAccountIdentifier: ':serviceAccountIdentifier'
 }
 
 export const resourceGroupPathProps: ResourceGroupPathProps = {

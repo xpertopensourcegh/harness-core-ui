@@ -697,6 +697,8 @@ export interface CcmConnectorFilter {
   azureSubscriptionId?: string
   azureTenantId?: string
   featuresEnabled?: ('BILLING' | 'OPTIMIZATION' | 'VISIBILITY')[]
+  gcpProjectId?: string
+  k8sConnectorRef?: string
 }
 
 export interface CeLicenseInfo {
@@ -2650,9 +2652,9 @@ export interface Invite {
   email: string
   id: string
   inviteType: 'USER_INITIATED_INVITE' | 'ADMIN_INITIATED_INVITE'
-  projectIdentifier?: string
-  orgIdentifier?: string
   name: string
+  orgIdentifier?: string
+  projectIdentifier?: string
   roleBindings: RoleBinding[]
 }
 
@@ -3212,9 +3214,10 @@ export type NumberNGVariable = NGVariable & {
   value: number
 }
 
-export type OAuthSettings = NGAuthSettings & {
+export interface OAuthSettings {
   allowedProviders?: ('AZURE' | 'BITBUCKET' | 'GITHUB' | 'GITLAB' | 'GOOGLE' | 'LINKEDIN')[]
   filter?: string
+  settingsType?: 'USER_PASSWORD' | 'SAML' | 'LDAP' | 'OAUTH'
 }
 
 export interface OAuthSignupDTO {
@@ -5952,7 +5955,7 @@ export interface TerraformVarFileSpec {
 }
 
 export interface TerraformVarFileWrapper {
-  varFile?: TerraformVarFile
+  varFile: TerraformVarFile
 }
 
 export interface Throwable {
@@ -5979,15 +5982,22 @@ export interface TokenAggregateDTO {
 }
 
 export interface TokenDTO {
-  accountIdentifier?: string
-  apiKeyIdentifier?: string
+  accountIdentifier: string
+  apiKeyIdentifier: string
   apiKeyType: 'USER' | 'SERVICE_ACCOUNT'
-  identifier?: string
+  description?: string
+  email?: string
+  encodedPassword?: string
+  identifier: string
   name: string
   orgIdentifier?: string
-  parentIdentifier?: string
+  parentIdentifier: string
   projectIdentifier?: string
   scheduledExpireTime?: number
+  tags?: {
+    [key: string]: string
+  }
+  username?: string
   valid?: boolean
   validFrom?: number
   validTo?: number
@@ -19132,6 +19142,48 @@ export const updateSourceCodeManagersPromise = (
     UpdateSourceCodeManagersPathParams
   >('PUT', getConfig('ng/api'), `/source-code-manager/${identifier}`, props, signal)
 
+export interface GetTokenQueryParams {
+  tokenId?: string
+}
+
+export type GetTokenProps = Omit<GetProps<ResponseTokenDTO, Failure | Error, GetTokenQueryParams, void>, 'path'>
+
+/**
+ * Get token
+ */
+export const GetToken = (props: GetTokenProps) => (
+  <Get<ResponseTokenDTO, Failure | Error, GetTokenQueryParams, void>
+    path={`/token`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetTokenProps = Omit<UseGetProps<ResponseTokenDTO, Failure | Error, GetTokenQueryParams, void>, 'path'>
+
+/**
+ * Get token
+ */
+export const useGetToken = (props: UseGetTokenProps) =>
+  useGet<ResponseTokenDTO, Failure | Error, GetTokenQueryParams, void>(`/token`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Get token
+ */
+export const getTokenPromise = (
+  props: GetUsingFetchProps<ResponseTokenDTO, Failure | Error, GetTokenQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseTokenDTO, Failure | Error, GetTokenQueryParams, void>(
+    getConfig('ng/api'),
+    `/token`,
+    props,
+    signal
+  )
+
 export type CreateTokenProps = Omit<
   MutateProps<ResponseString, Failure | Error, void, TokenDTORequestBody, void>,
   'path' | 'verb'
@@ -19238,6 +19290,12 @@ export const listAggregatedTokensPromise = (
 
 export interface RotateTokenQueryParams {
   rotateTimestamp?: number
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  apiKeyType: 'USER' | 'SERVICE_ACCOUNT'
+  parentIdentifier: string
+  apiKeyIdentifier: string
 }
 
 export interface RotateTokenPathParams {
@@ -19298,13 +19356,25 @@ export const rotateTokenPromise = (
     signal
   )
 
-export type DeleteTokenProps = Omit<MutateProps<ResponseBoolean, Failure | Error, void, string, void>, 'path' | 'verb'>
+export interface DeleteTokenQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  apiKeyType: 'USER' | 'SERVICE_ACCOUNT'
+  parentIdentifier: string
+  apiKeyIdentifier: string
+}
+
+export type DeleteTokenProps = Omit<
+  MutateProps<ResponseBoolean, Failure | Error, DeleteTokenQueryParams, string, void>,
+  'path' | 'verb'
+>
 
 /**
  * Delete token
  */
 export const DeleteToken = (props: DeleteTokenProps) => (
-  <Mutate<ResponseBoolean, Failure | Error, void, string, void>
+  <Mutate<ResponseBoolean, Failure | Error, DeleteTokenQueryParams, string, void>
     verb="DELETE"
     path={`/token`}
     base={getConfig('ng/api')}
@@ -19313,7 +19383,7 @@ export const DeleteToken = (props: DeleteTokenProps) => (
 )
 
 export type UseDeleteTokenProps = Omit<
-  UseMutateProps<ResponseBoolean, Failure | Error, void, string, void>,
+  UseMutateProps<ResponseBoolean, Failure | Error, DeleteTokenQueryParams, string, void>,
   'path' | 'verb'
 >
 
@@ -19321,7 +19391,7 @@ export type UseDeleteTokenProps = Omit<
  * Delete token
  */
 export const useDeleteToken = (props: UseDeleteTokenProps) =>
-  useMutate<ResponseBoolean, Failure | Error, void, string, void>('DELETE', `/token`, {
+  useMutate<ResponseBoolean, Failure | Error, DeleteTokenQueryParams, string, void>('DELETE', `/token`, {
     base: getConfig('ng/api'),
     ...props
   })
@@ -19330,10 +19400,10 @@ export const useDeleteToken = (props: UseDeleteTokenProps) =>
  * Delete token
  */
 export const deleteTokenPromise = (
-  props: MutateUsingFetchProps<ResponseBoolean, Failure | Error, void, string, void>,
+  props: MutateUsingFetchProps<ResponseBoolean, Failure | Error, DeleteTokenQueryParams, string, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponseBoolean, Failure | Error, void, string, void>(
+  mutateUsingFetch<ResponseBoolean, Failure | Error, DeleteTokenQueryParams, string, void>(
     'DELETE',
     getConfig('ng/api'),
     `/token`,

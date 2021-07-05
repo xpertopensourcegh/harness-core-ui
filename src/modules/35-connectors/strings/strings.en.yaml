@@ -49,7 +49,7 @@ loginToMasterAccount: and login to your master account
 roleARN: Create Cross Account Role
 ifReq: if required.
 selectConnector: Select Connector
-apiKey: API Key
+apiKey: '{{$.common.apikey}}'
 title:
   k8sCluster: 'Kubernetes Cluster'
   gcpConnector: 'Google Cloud Provider'

@@ -129,7 +129,8 @@ const RoleDetails: React.FC = () => {
   useDocumentTitle([role?.name || '', getString('roles')])
 
   if (loading) return <PageSpinner />
-  if (error) return <PageError message={error.message} onClick={() => refetch()} />
+  if (error) return <PageError message={(error.data as Error)?.message || error.message} onClick={() => refetch()} />
+
   if (!role) return <></>
   return (
     <>

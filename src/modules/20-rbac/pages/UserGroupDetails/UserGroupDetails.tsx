@@ -54,7 +54,7 @@ const UserGroupDetails: React.FC = () => {
   useDocumentTitle([userGroup?.name || '', getString('common.userGroups')])
 
   if (loading) return <PageSpinner />
-  if (error) return <PageError message={error.message} onClick={() => refetch()} />
+  if (error) return <PageError message={(error.data as Error)?.message || error.message} onClick={() => refetch()} />
   if (!userGroup) return <></>
   return (
     <>

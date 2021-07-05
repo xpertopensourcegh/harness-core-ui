@@ -20,6 +20,8 @@ export interface StringsMap {
   'common.accountSetup': string
   'common.addAccountName': string
   'common.addVariable': string
+  'common.apiKeys': string
+  'common.apikey': string
   'common.approve': string
   'common.artifactTag': string
   'common.banners.email.description': string
@@ -120,6 +122,7 @@ export interface StringsMap {
   'common.errorHandler.issueCouldBe': string
   'common.errorHandler.tryTheseSuggestions': string
   'common.execute': string
+  'common.expiryDate': string
   'common.extendTrial.description': string
   'common.extendTrial.doItLater': string
   'common.extendTrial.expiryDate': string
@@ -217,6 +220,7 @@ export interface StringsMap {
   'common.input': string
   'common.jexlExpression': string
   'common.labelTestConnection': string
+  'common.lastModifiedTime': string
   'common.latest': string
   'common.launchFirstGen': string
   'common.letsGetYouStarted': string
@@ -352,6 +356,7 @@ export interface StringsMap {
   'common.test.connectionSuccessful': string
   'common.test.inProgress': string
   'common.test.retest': string
+  'common.tokens': string
   'common.totalLines': string
   'common.trialInProgress': string
   'common.trialInProgressDescription': string
@@ -426,7 +431,15 @@ export interface StringsMap {
   'rbac.addRole': string
   'rbac.addUser': string
   'rbac.allResources': string
+  'rbac.apiKey.confirmDelete': string
+  'rbac.apiKey.confirmDeleteTitle': string
+  'rbac.apiKey.createLabel': string
+  'rbac.apiKey.editLabel': string
+  'rbac.apiKey.form.createSuccess': string
+  'rbac.apiKey.form.editSuccess': string
+  'rbac.apiKey.successMessage': string
   'rbac.categoryLabels.sharedResources': string
+  'rbac.generateToken': string
   'rbac.in': string
   'rbac.org': string
   'rbac.pendingUsers': string
@@ -445,6 +458,35 @@ export interface StringsMap {
   'rbac.roleAssignment.deleteSuccess': string
   'rbac.roleAssignment.userPlaceHolder': string
   'rbac.roleBinding': string
+  'rbac.serviceAccounts.confirmDelete': string
+  'rbac.serviceAccounts.confirmDeleteTitle': string
+  'rbac.serviceAccounts.email': string
+  'rbac.serviceAccounts.form.createSuccess': string
+  'rbac.serviceAccounts.form.editServiceAccount': string
+  'rbac.serviceAccounts.form.editSuccess': string
+  'rbac.serviceAccounts.form.noDataText': string
+  'rbac.serviceAccounts.label': string
+  'rbac.serviceAccounts.newServiceAccount': string
+  'rbac.serviceAccounts.noDataDescription': string
+  'rbac.serviceAccounts.noServiceAccounts': string
+  'rbac.serviceAccounts.search': string
+  'rbac.serviceAccounts.successMessage': string
+  'rbac.token.confirmDelete': string
+  'rbac.token.confirmDeleteTitle': string
+  'rbac.token.createLabel': string
+  'rbac.token.editLabel': string
+  'rbac.token.forToken': string
+  'rbac.token.form.createSuccess': string
+  'rbac.token.form.editSuccess': string
+  'rbac.token.form.expiry': string
+  'rbac.token.form.expiryDate': string
+  'rbac.token.form.rotateSuccess': string
+  'rbac.token.form.rotateTokenExpiryMessage': string
+  'rbac.token.form.setexpiryTo': string
+  'rbac.token.form.tokenMessage': string
+  'rbac.token.rotateLabel': string
+  'rbac.token.scheduledToExpire': string
+  'rbac.token.successMessage': string
   'rbac.user': string
   'rbac.userDetails.linkToSSOProviderModal.btnDisabledTooltipText': string
   'rbac.userDetails.linkToSSOProviderModal.delinkLabel': string
