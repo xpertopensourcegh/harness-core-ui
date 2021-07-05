@@ -60,28 +60,22 @@ export const CIDashboardPage: React.FC = () => {
 
   return (
     <>
-      <Page.Header
-        title={
-          <Container>
-            <Breadcrumbs
-              links={[
-                {
-                  label: project?.name || '',
-                  url: routes.toProjectOverview({ orgIdentifier, projectIdentifier, accountId, module: 'ci' })
-                },
-                {
-                  label: getString('overview'),
-                  url: ''
-                }
-              ]}
-            />
-            <Text font={{ size: 'medium', weight: 'bold' }} margin={{ top: 'xsmall' }}>
-              {getString('overview')}
-            </Text>
-          </Container>
-        }
-      />
-      <Page.Body loading={loading && loadingRepositories}>
+      <div className={styles.header}>
+        <Breadcrumbs
+          links={[
+            {
+              label: project?.name || '',
+              url: routes.toProjectOverview({ orgIdentifier, projectIdentifier, accountId, module: 'ci' })
+            },
+            {
+              label: getString('overview'),
+              url: ''
+            }
+          ]}
+        />
+        <h2>{getString('overview')}</h2>
+      </div>
+      <Page.Body className={styles.content} loading={loading && loadingRepositories}>
         <Container className={styles.page} padding="large">
           <CIDashboardSummaryCards />
           <Container className={styles.executionsWrapper}>
