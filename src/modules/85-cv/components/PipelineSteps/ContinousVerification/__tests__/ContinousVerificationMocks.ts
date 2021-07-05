@@ -27,45 +27,49 @@ export const PipelineResponse: UseGetReturnData<ResponsePMSPipelineResponseDTO> 
 
 export const mockedMonitoredServiceAndHealthSources = {
   data: {
-    orgIdentifier: 'default',
-    projectIdentifier: 'Harshiltest',
-    identifier: 'testtest',
-    name: 'testtest',
-    type: 'Application',
-    description: null,
-    serviceRef: 'test',
-    environmentRef: 'test',
-    sources: {
-      healthSources: [
-        {
-          name: 'appd-healthsource',
-          identifier: 'appd',
-          type: 'AppDynamics',
-          spec: {
-            connectorRef: 'Testappd',
-            feature: null,
-            appdApplicationName: 'prod',
-            appdTierName: 'cv-nextgen',
-            metricPacks: [{ identifier: 'Errors' }]
+    monitoredService: {
+      orgIdentifier: 'default',
+      projectIdentifier: 'Harshiltest',
+      identifier: 'testtest',
+      name: 'testtest',
+      type: 'Application',
+      description: null,
+      serviceRef: 'test',
+      environmentRef: 'test',
+      sources: {
+        healthSources: [
+          {
+            name: 'appd-healthsource',
+            identifier: 'appd',
+            type: 'AppDynamics',
+            spec: {
+              connectorRef: 'Testappd',
+              feature: null,
+              appdApplicationName: 'prod',
+              appdTierName: 'cv-nextgen',
+              metricPacks: [{ identifier: 'Errors' }]
+            }
           }
-        }
-      ]
+        ]
+      }
     }
   }
 }
 
 export const mockedMonitoredService = {
   data: {
-    orgIdentifier: 'default',
-    projectIdentifier: 'Harshiltest',
-    identifier: 'testtest',
-    name: 'testtest',
-    type: 'Application',
-    description: null,
-    serviceRef: 'test',
-    environmentRef: 'test',
-    sources: {
-      healthSources: []
+    monitoredService: {
+      orgIdentifier: 'default',
+      projectIdentifier: 'Harshiltest',
+      identifier: 'testtest',
+      name: 'testtest',
+      type: 'Application',
+      description: null,
+      serviceRef: 'test',
+      environmentRef: 'test',
+      sources: {
+        healthSources: []
+      }
     }
   }
 }

@@ -129,13 +129,13 @@ describe('Test ContinousVerificationStep Step', () => {
       expect(getByText('connectors.cdng.monitoredService.label')).toBeTruthy()
       const monitoredService = container.querySelector('input[name="spec.monitoredServiceRef"]') as HTMLInputElement
       expect(monitoredService).toBeTruthy()
-      expect(monitoredService.value).toBe(mockedMonitoredServiceAndHealthSources.data.name)
+      expect(monitoredService.value).toBe(mockedMonitoredServiceAndHealthSources.data.monitoredService.name)
     })
 
     // Verify if correct health source is present.
     await waitFor(() => {
       expect(getByText('connectors.cdng.healthSources.label')).toBeTruthy()
-      for (const healthSource of mockedMonitoredServiceAndHealthSources.data.sources.healthSources) {
+      for (const healthSource of mockedMonitoredServiceAndHealthSources.data.monitoredService.sources.healthSources) {
         expect(getByText(healthSource.name)).toBeTruthy()
       }
     })
@@ -190,13 +190,13 @@ describe('Test ContinousVerificationStep Step', () => {
       expect(getByText('connectors.cdng.monitoredService.label')).toBeTruthy()
       const monitoredService = container.querySelector('input[name="spec.monitoredServiceRef"]') as HTMLInputElement
       expect(monitoredService).toBeTruthy()
-      expect(monitoredService.value).toBe(mockedMonitoredServiceAndHealthSources.data.name)
+      expect(monitoredService.value).toBe(mockedMonitoredServiceAndHealthSources.data.monitoredService.name)
     })
 
     // Verify if the correct health sources are present.
     await waitFor(() => {
       expect(getByText('connectors.cdng.healthSources.label')).toBeTruthy()
-      for (const healthSource of mockedMonitoredServiceAndHealthSources.data.sources.healthSources) {
+      for (const healthSource of mockedMonitoredServiceAndHealthSources.data.monitoredService.sources.healthSources) {
         expect(getByText(healthSource.name)).toBeTruthy()
       }
     })
@@ -256,7 +256,7 @@ describe('Test ContinousVerificationStep Step', () => {
       expect(getByText('connectors.cdng.monitoredService.label')).toBeTruthy()
       const monitoredService = container.querySelector('input[name="spec.monitoredServiceRef"]') as HTMLInputElement
       expect(monitoredService).toBeTruthy()
-      expect(monitoredService.value).toBe(mockedMonitoredService.data.name)
+      expect(monitoredService.value).toBe(mockedMonitoredService.data.monitoredService.name)
     })
 
     // Verify if no health sources are present.

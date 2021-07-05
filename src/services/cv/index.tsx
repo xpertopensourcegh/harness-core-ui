@@ -259,7 +259,7 @@ export interface AwsKmsConnectorCredential {
 export type AwsKmsConnectorDTO = ConnectorConfigDTO & {
   credential?: AwsKmsConnectorCredential
   default?: boolean
-  kmsArn?: string
+  kmsArn: string
   region?: string
 }
 
@@ -293,7 +293,7 @@ export type AzureKeyVaultConnectorDTO = ConnectorConfigDTO & {
   azureEnvironmentType?: 'AZURE' | 'AZURE_US_GOVERNMENT'
   clientId: string
   default?: boolean
-  secretKey?: string
+  secretKey: string
   subscription: string
   tenantId: string
   vaultName: string
@@ -1367,7 +1367,7 @@ export interface GcpCredentialSpec {
 }
 
 export type GcpKmsConnectorDTO = ConnectorConfigDTO & {
-  credentials?: string[]
+  credentials: string
   default?: boolean
   keyName?: string
   keyRing?: string
@@ -1974,6 +1974,12 @@ export interface MonitoredServiceListDTO {
   name?: string
   serviceRef?: string
   type?: 'Application'
+}
+
+export interface MonitoredServiceResponse {
+  createdAt?: number
+  lastModifiedAt?: number
+  monitoredService: MonitoredServiceDTO
 }
 
 export interface MonitoringSource {
@@ -2597,9 +2603,9 @@ export interface ResponseMetricPackValidationResponse {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
-export interface ResponseMonitoredServiceDTO {
+export interface ResponseMonitoredServiceResponse {
   correlationId?: string
-  data?: MonitoredServiceDTO
+  data?: MonitoredServiceResponse
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -3051,11 +3057,11 @@ export interface RestResponseMapStringMapStringListTimeSeriesAnomalies {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseMonitoredServiceDTO {
+export interface RestResponseMonitoredServiceResponse {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: MonitoredServiceDTO
+  resource?: MonitoredServiceResponse
   responseMessages?: ResponseMessage[]
 }
 
@@ -6596,7 +6602,7 @@ export interface CreateDefaultMonitoredServiceQueryParams {
 }
 
 export type CreateDefaultMonitoredServiceProps = Omit<
-  MutateProps<RestResponseMonitoredServiceDTO, unknown, CreateDefaultMonitoredServiceQueryParams, void, void>,
+  MutateProps<RestResponseMonitoredServiceResponse, unknown, CreateDefaultMonitoredServiceQueryParams, void, void>,
   'path' | 'verb'
 >
 
@@ -6604,7 +6610,7 @@ export type CreateDefaultMonitoredServiceProps = Omit<
  * created default monitored service
  */
 export const CreateDefaultMonitoredService = (props: CreateDefaultMonitoredServiceProps) => (
-  <Mutate<RestResponseMonitoredServiceDTO, unknown, CreateDefaultMonitoredServiceQueryParams, void, void>
+  <Mutate<RestResponseMonitoredServiceResponse, unknown, CreateDefaultMonitoredServiceQueryParams, void, void>
     verb="POST"
     path={`/monitored-service/create-default`}
     base={getConfig('cv/api')}
@@ -6613,7 +6619,7 @@ export const CreateDefaultMonitoredService = (props: CreateDefaultMonitoredServi
 )
 
 export type UseCreateDefaultMonitoredServiceProps = Omit<
-  UseMutateProps<RestResponseMonitoredServiceDTO, unknown, CreateDefaultMonitoredServiceQueryParams, void, void>,
+  UseMutateProps<RestResponseMonitoredServiceResponse, unknown, CreateDefaultMonitoredServiceQueryParams, void, void>,
   'path' | 'verb'
 >
 
@@ -6621,7 +6627,7 @@ export type UseCreateDefaultMonitoredServiceProps = Omit<
  * created default monitored service
  */
 export const useCreateDefaultMonitoredService = (props: UseCreateDefaultMonitoredServiceProps) =>
-  useMutate<RestResponseMonitoredServiceDTO, unknown, CreateDefaultMonitoredServiceQueryParams, void, void>(
+  useMutate<RestResponseMonitoredServiceResponse, unknown, CreateDefaultMonitoredServiceQueryParams, void, void>(
     'POST',
     `/monitored-service/create-default`,
     { base: getConfig('cv/api'), ...props }
@@ -6632,7 +6638,7 @@ export const useCreateDefaultMonitoredService = (props: UseCreateDefaultMonitore
  */
 export const createDefaultMonitoredServicePromise = (
   props: MutateUsingFetchProps<
-    RestResponseMonitoredServiceDTO,
+    RestResponseMonitoredServiceResponse,
     unknown,
     CreateDefaultMonitoredServiceQueryParams,
     void,
@@ -6640,7 +6646,7 @@ export const createDefaultMonitoredServicePromise = (
   >,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<RestResponseMonitoredServiceDTO, unknown, CreateDefaultMonitoredServiceQueryParams, void, void>(
+  mutateUsingFetch<RestResponseMonitoredServiceResponse, unknown, CreateDefaultMonitoredServiceQueryParams, void, void>(
     'POST',
     getConfig('cv/api'),
     `/monitored-service/create-default`,
@@ -6657,7 +6663,7 @@ export interface GetMonitoredServiceFromServiceAndEnvironmentQueryParams {
 }
 
 export type GetMonitoredServiceFromServiceAndEnvironmentProps = Omit<
-  GetProps<ResponseMonitoredServiceDTO, unknown, GetMonitoredServiceFromServiceAndEnvironmentQueryParams, void>,
+  GetProps<ResponseMonitoredServiceResponse, unknown, GetMonitoredServiceFromServiceAndEnvironmentQueryParams, void>,
   'path'
 >
 
@@ -6667,7 +6673,7 @@ export type GetMonitoredServiceFromServiceAndEnvironmentProps = Omit<
 export const GetMonitoredServiceFromServiceAndEnvironment = (
   props: GetMonitoredServiceFromServiceAndEnvironmentProps
 ) => (
-  <Get<ResponseMonitoredServiceDTO, unknown, GetMonitoredServiceFromServiceAndEnvironmentQueryParams, void>
+  <Get<ResponseMonitoredServiceResponse, unknown, GetMonitoredServiceFromServiceAndEnvironmentQueryParams, void>
     path={`/monitored-service/service-environment`}
     base={getConfig('cv/api')}
     {...props}
@@ -6675,7 +6681,7 @@ export const GetMonitoredServiceFromServiceAndEnvironment = (
 )
 
 export type UseGetMonitoredServiceFromServiceAndEnvironmentProps = Omit<
-  UseGetProps<ResponseMonitoredServiceDTO, unknown, GetMonitoredServiceFromServiceAndEnvironmentQueryParams, void>,
+  UseGetProps<ResponseMonitoredServiceResponse, unknown, GetMonitoredServiceFromServiceAndEnvironmentQueryParams, void>,
   'path'
 >
 
@@ -6685,7 +6691,7 @@ export type UseGetMonitoredServiceFromServiceAndEnvironmentProps = Omit<
 export const useGetMonitoredServiceFromServiceAndEnvironment = (
   props: UseGetMonitoredServiceFromServiceAndEnvironmentProps
 ) =>
-  useGet<ResponseMonitoredServiceDTO, unknown, GetMonitoredServiceFromServiceAndEnvironmentQueryParams, void>(
+  useGet<ResponseMonitoredServiceResponse, unknown, GetMonitoredServiceFromServiceAndEnvironmentQueryParams, void>(
     `/monitored-service/service-environment`,
     { base: getConfig('cv/api'), ...props }
   )
@@ -6695,19 +6701,19 @@ export const useGetMonitoredServiceFromServiceAndEnvironment = (
  */
 export const getMonitoredServiceFromServiceAndEnvironmentPromise = (
   props: GetUsingFetchProps<
-    ResponseMonitoredServiceDTO,
+    ResponseMonitoredServiceResponse,
     unknown,
     GetMonitoredServiceFromServiceAndEnvironmentQueryParams,
     void
   >,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseMonitoredServiceDTO, unknown, GetMonitoredServiceFromServiceAndEnvironmentQueryParams, void>(
-    getConfig('cv/api'),
-    `/monitored-service/service-environment`,
-    props,
-    signal
-  )
+  getUsingFetch<
+    ResponseMonitoredServiceResponse,
+    unknown,
+    GetMonitoredServiceFromServiceAndEnvironmentQueryParams,
+    void
+  >(getConfig('cv/api'), `/monitored-service/service-environment`, props, signal)
 
 export interface GetNewRelicApplicationsQueryParams {
   accountId: string

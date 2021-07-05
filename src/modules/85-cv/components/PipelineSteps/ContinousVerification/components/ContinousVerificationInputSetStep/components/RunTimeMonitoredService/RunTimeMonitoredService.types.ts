@@ -8,6 +8,8 @@ export interface RunTimeMonitoredServiceProps {
   prefix: string
 }
 export interface MonitoringSourceData {
-  name: string
-  sources: Sources
+  monitoredService: {
+    name: string
+    sources: Sources
+  }
 }

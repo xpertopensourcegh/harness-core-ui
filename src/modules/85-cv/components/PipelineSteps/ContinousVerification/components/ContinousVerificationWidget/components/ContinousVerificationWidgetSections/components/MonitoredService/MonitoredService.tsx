@@ -61,7 +61,7 @@ export default function MonitoredService({
       serviceIdentifier
     }
   })
-  const monitoredServiceData = data?.data
+  const monitoredServiceData = data?.data?.monitoredService
 
   useEffect(() => {
     if (environmentIdentifier === RUNTIME_INPUT_VALUE || serviceIdentifier === RUNTIME_INPUT_VALUE) {
@@ -83,7 +83,10 @@ export default function MonitoredService({
 
   const createMonitoredService = useCallback(async () => {
     const createdMonitoredService = await createDefaultMonitoredService()
-    const newSpecs = { ...formValues.spec, monitoredServiceRef: createdMonitoredService?.resource?.name }
+    const newSpecs = {
+      ...formValues.spec,
+      monitoredServiceRef: createdMonitoredService?.resource?.monitoredService?.name
+    }
     setFieldValue('spec', newSpecs)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formValues.spec])
