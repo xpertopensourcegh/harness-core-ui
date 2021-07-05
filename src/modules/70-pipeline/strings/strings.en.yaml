@@ -583,6 +583,10 @@ aboutYourStage:
   stageNamePlaceholder: Enter Stage Name
 infraSpecifications:
   namespacePlaceholder: Enter Namespace
+  serviceAccountName: Service Account Name
+  serviceAccountNamePlaceholder: Enter Service Account Name
+  initTimeout: Init Timeout
+  initTimeoutPlaceholder: Enter Init Timeout
 imagePathLabel: Image Path
 artifactsSelection:
   artifactDetails: Artifact Details

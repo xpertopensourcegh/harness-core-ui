@@ -7,6 +7,8 @@ import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 import { produce } from 'immer'
 import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
+import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
+import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { useStrings } from 'framework/strings'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
@@ -66,6 +68,8 @@ const validationSchema = yup.object().shape({
 interface Values {
   connectorRef?: string
   namespace?: string
+  serviceAccountName?: string
+  initTimeout?: string
   useFromStage?: string
   annotations?: MultiTypeMapUIType
   labels?: MultiTypeMapUIType
@@ -134,6 +138,8 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
         return {
           connectorRef: stage?.stage?.spec?.infrastructure?.spec?.connectorRef,
           namespace: stage?.stage?.spec?.infrastructure?.spec?.namespace,
+          serviceAccountName: stage?.stage?.spec?.infrastructure?.spec?.serviceAccountName,
+          initTimeout: stage?.stage?.spec?.infrastructure?.spec?.initTimeout,
           annotations: getInitialMapValues(stage?.stage?.spec?.infrastructure?.spec?.annotations),
           labels: getInitialMapValues(stage?.stage?.spec?.infrastructure?.spec?.labels)
         }
@@ -141,6 +147,8 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
         return {
           connectorRef: undefined,
           namespace: stage?.stage?.spec?.infrastructure?.spec?.namespace,
+          serviceAccountName: stage?.stage?.spec?.infrastructure?.spec?.serviceAccountName,
+          initTimeout: stage?.stage?.spec?.infrastructure?.spec?.initTimeout,
           annotations: getInitialMapValues(stage?.stage?.spec?.infrastructure?.spec?.annotations),
           labels: getInitialMapValues(stage?.stage?.spec?.infrastructure?.spec?.labels)
         }
@@ -157,6 +165,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
 
   const handleValidate = (values: any): void => {
     if (stage) {
+      const errors: { [key: string]: string } = {}
       const stageData = produce(stage, draft => {
         if (currentMode === Modes.Propagate && values.useFromStage) {
           draft.stage.spec.infrastructure = {
@@ -166,12 +175,19 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
           const filteredLabels = getMapValues(
             Array.isArray(values.labels) ? values.labels.filter((val: any) => testLabelKey(val.key)) : values.labels
           )
+          try {
+            getDurationValidationSchema().validateSync(values.initTimeout)
+          } catch (e) {
+            errors.initTimeout = e.message
+          }
           draft.stage.spec.infrastructure = {
             type: 'KubernetesDirect',
             spec: {
               // Avoid accidental overrides for connectorRef
               connectorRef: values?.connectorRef?.value ?? draft.stage.spec.infrastructure?.spec?.connectorRef,
               namespace: values.namespace,
+              serviceAccountName: values.serviceAccountName,
+              initTimeout: errors.initTimeout ? undefined : values.initTimeout,
               annotations: getMapValues(values.annotations),
               labels: !isEmpty(filteredLabels) ? filteredLabels : undefined
             }
@@ -193,7 +209,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
           acc[`labels[${index}].key`] = curr.key + ' is not allowed.'
         }
         return acc
-      }, {})
+      }, errors)
     }
   }
 
@@ -357,6 +373,34 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                             multiTextInputProps={{ disabled: isReadonly }}
                           />
                         </div>
+                        <FormInput.MultiTextInput
+                          label={getString('pipeline.infraSpecifications.serviceAccountName')}
+                          name="serviceAccountName"
+                          placeholder={getString('pipeline.infraSpecifications.serviceAccountNamePlaceholder')}
+                          style={{
+                            width: 300,
+                            marginTop: 'var(--spacing-small)',
+                            marginBottom: 'var(--spacing-xsmall)'
+                          }}
+                          multiTextInputProps={{ disabled: isReadonly }}
+                        />
+                        <FormMultiTypeDurationField
+                          name="initTimeout"
+                          multiTypeDurationProps={{ expressions }}
+                          label={
+                            <Text flex={{ justifyContent: 'start' }} font="small">
+                              {getString('pipeline.infraSpecifications.initTimeout')}
+                              <Button
+                                icon="question"
+                                minimal
+                                tooltip={getString('pipelineSteps.timeoutInfo')}
+                                iconProps={{ size: 14 }}
+                              />
+                            </Text>
+                          }
+                          disabled={isReadonly}
+                          style={{ width: 300 }}
+                        />
                         <MultiTypeMap
                           style={{ marginTop: 'var(--spacing-medium)' }}
                           appearance="minimal"
@@ -435,6 +479,30 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                         summary={getString('advancedTitle')}
                         details={
                           <Card disabled={isReadonly} className={css.sectionCard}>
+                            <FormInput.MultiTextInput
+                              label={getString('pipeline.infraSpecifications.serviceAccountName')}
+                              name="serviceAccountName"
+                              placeholder={getString('pipeline.infraSpecifications.serviceAccountNamePlaceholder')}
+                              style={{ width: 300 }}
+                              multiTextInputProps={{ disabled: isReadonly }}
+                            />
+                            <FormMultiTypeDurationField
+                              name="initTimeout"
+                              multiTypeDurationProps={{ expressions }}
+                              label={
+                                <Text flex={{ justifyContent: 'start' }} font="small">
+                                  {getString('pipeline.infraSpecifications.initTimeout')}
+                                  <Button
+                                    icon="question"
+                                    minimal
+                                    tooltip={getString('pipelineSteps.timeoutInfo')}
+                                    iconProps={{ size: 14 }}
+                                  />
+                                </Text>
+                              }
+                              disabled={isReadonly}
+                              style={{ width: 300 }}
+                            />
                             <MultiTypeMap
                               style={{ marginTop: 'var(--spacing-medium)' }}
                               appearance={'minimal'}

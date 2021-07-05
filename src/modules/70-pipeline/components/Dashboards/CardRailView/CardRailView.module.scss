@@ -67,3 +67,7 @@
     color: var(--ci-color-blue-500) !important;
   }
 }
+
+.pendingBuildIcon svg * {
+  fill: var(--grey-450);
+}

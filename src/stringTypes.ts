@@ -1593,7 +1593,11 @@ export interface StringsMap {
   'pipeline.gitExperience.selectRepoBranch': string
   'pipeline.gitExperience.skipNow': string
   'pipeline.imagePathLabel': string
+  'pipeline.infraSpecifications.initTimeout': string
+  'pipeline.infraSpecifications.initTimeoutPlaceholder': string
   'pipeline.infraSpecifications.namespacePlaceholder': string
+  'pipeline.infraSpecifications.serviceAccountName': string
+  'pipeline.infraSpecifications.serviceAccountNamePlaceholder': string
   'pipeline.infrastructureKey': string
   'pipeline.inputSets.aboutInputSets': string
   'pipeline.inputSets.applyInputSet': string
