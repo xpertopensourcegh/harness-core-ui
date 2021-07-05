@@ -26,7 +26,7 @@ const ChartLegend: React.FC<ChartLegendProps> = ({ chartRefObj }) => {
     const visibleItems = Object.keys(legendMap).filter(x => legendMap[x]).length
     let updatedLegend: Record<string, boolean> = {}
 
-    if (visibleItems === 12) {
+    if (visibleItems === Object.keys(legendMap).length) {
       // Hide all and show one
       Object.keys(legendMap).forEach(x => {
         updatedLegend[x] = false

@@ -66,3 +66,10 @@ export const getFilters: (viewConditions: QlceViewFilterInput[]) => QlceViewFilt
       }
     }) as QlceViewFilterWrapperInput[]
 }
+
+export const DEFAULT_GROUP_BY = {
+  fieldId: 'clusterName',
+  fieldName: 'Cluster Name',
+  identifier: ViewFieldIdentifier.Cluster,
+  identifierName: ViewFieldIdentifier.Cluster
+}

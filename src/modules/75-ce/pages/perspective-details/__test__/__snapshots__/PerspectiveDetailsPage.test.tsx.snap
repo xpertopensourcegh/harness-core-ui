@@ -234,8 +234,58 @@ exports[`test cases for Perspective details Page should be able to render the de
       class="StyledProps--font StyledProps--main StyledProps--padding-small"
     >
       <div
-        class="StyledProps--font StyledProps--main StyledProps--background-white StyledProps--padding-small"
+        class="StyledProps--font StyledProps--main groupByContainer StyledProps--background-white StyledProps--padding-small"
       >
+        <section
+          class="groupByContainer"
+        >
+          <label
+            class="groupByLabel"
+          >
+             
+            ce.perspectives.createPerspective.preview.groupBy
+          </label>
+          <div
+            class="groupBys"
+          >
+            <span
+              class="bp3-popover-wrapper"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <div
+                  class="groupByItems activeItem"
+                >
+                  Cluster: Cluster Name
+                </div>
+              </span>
+            </span>
+            <div
+              class="groupByItems"
+            >
+              Region
+            </div>
+            <div
+              class="groupByItems"
+            >
+              Product
+            </div>
+            <span
+              class="bp3-popover-wrapper"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <div
+                  class="groupByItems"
+                >
+                  Label
+                </div>
+              </span>
+            </span>
+          </div>
+        </section>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
           style="align-items: center; justify-content: flex-end;"

@@ -45,7 +45,7 @@ export const FetchPerspectiveDetailsSummaryDocument = gql`
     perspectiveTrendStats(
       filters: $filters
       aggregateFunction: [
-        { operationType: SUM, columnName: "cost" }
+        { operationType: SUM, columnName: "billingamount" }
         { operationType: MAX, columnName: "startTime" }
         { operationType: MIN, columnName: "startTime" }
       ]
@@ -80,8 +80,8 @@ export const FetchPerspectiveTimeSeriesDocument = gql`
       groupBy: $groupBy
       limit: $limit
       includeOthers: false
-      aggregateFunction: [{ operationType: SUM, columnName: "cost" }]
-      sortCriteria: [{ sortType: COST, sortOrder: DESCENDING }]
+      aggregateFunction: [{ operationType: SUM, columnName: "billingamount" }]
+      sortCriteria: [{ sortType: CLUSTER_COST, sortOrder: DESCENDING }]
     ) {
       stats {
         values {

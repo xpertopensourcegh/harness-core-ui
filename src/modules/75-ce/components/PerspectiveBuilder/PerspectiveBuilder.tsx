@@ -1,19 +1,13 @@
 import React from 'react'
 import { Formik, FormikForm, Container, Text, FormInput, Layout, FlexExpander, Button } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { QlceViewRuleInput, QlceViewFieldInputInput, ViewFieldIdentifier, ViewChartType } from 'services/ce/services'
+import { QlceViewRuleInput, QlceViewFieldInputInput, ViewChartType } from 'services/ce/services'
 import { useStrings } from 'framework/strings'
+import { DEFAULT_GROUP_BY } from '@ce/utils/perspectiveUtils'
 import PerspectiveFilters from '../PerspectiveFilters'
 import PerspectiveBuilderPreview from '../PerspectiveBuilderPreview/PerspectiveBuilderPreview'
 import ProTipIcon from './images/pro-tip.svg'
 import css from './PerspectiveBuilder.module.scss'
-
-const DEFAULT_GROUP_BY = {
-  fieldId: 'product',
-  fieldName: 'Product',
-  identifier: ViewFieldIdentifier.Common,
-  identifierName: 'Common'
-}
 
 export interface PerspectiveFormValues {
   name: string

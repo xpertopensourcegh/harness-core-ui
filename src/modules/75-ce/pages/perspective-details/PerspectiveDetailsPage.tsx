@@ -4,11 +4,11 @@ import { Button, Heading, Layout, Container, Icon } from '@wings-software/uicore
 import { PageHeader } from '@common/components/Page/PageHeader'
 import {
   useFetchPerspectiveTimeSeriesQuery,
-  ViewFieldIdentifier,
   QlceViewTimeGroupType,
   useFetchPerspectiveDetailsSummaryQuery,
   QlceViewFilterInput,
-  QlceViewFilterOperator
+  QlceViewFilterOperator,
+  QlceViewFieldInputInput
 } from 'services/ce/services'
 import CloudCostInsightChart from '@ce/components/CloudCostInsightChart/CloudCostInsightChart'
 import PerspectiveExplorerGroupBy from '@ce/components/PerspectiveExplorerGroupBy/PerspectiveExplorerGroupBy'
@@ -19,7 +19,8 @@ import {
   getTimeFilters,
   getGroupByFilter,
   getTimeRangeFilter,
-  getFilters
+  getFilters,
+  DEFAULT_GROUP_BY
 } from '@ce/utils/perspectiveUtils'
 import { DATE_RANGE_SHORTCUTS } from '@ce/utils/momentUtils'
 import { CCM_CHART_TYPES } from '@ce/constants'
@@ -64,17 +65,14 @@ const PerspectiveDetailsPage: React.FC = () => {
   const [chartType, setChartType] = useState<CCM_CHART_TYPES>(CCM_CHART_TYPES.COLUMN)
   const [aggregation, setAggregation] = useState<QlceViewTimeGroupType>(QlceViewTimeGroupType.Day)
 
+  const [groupBy, setGroupBy] = useState<QlceViewFieldInputInput>(DEFAULT_GROUP_BY)
+
   const [filters, setFilters] = useState<QlceViewFilterInput[]>([])
 
   const setFilterUsingChartClick: (value: string) => void = value => {
     setFilters([
       {
-        field: {
-          fieldId: 'product',
-          fieldName: 'Product',
-          identifier: ViewFieldIdentifier.Common,
-          identifierName: ViewFieldIdentifier.Common
-        },
+        field: { ...groupBy },
         operator: QlceViewFilterOperator.Equals,
         values: [value]
       }
@@ -94,15 +92,7 @@ const PerspectiveDetailsPage: React.FC = () => {
         ...getFilters(filters)
       ],
       limit: 12,
-      groupBy: [
-        getTimeRangeFilter(aggregation),
-        getGroupByFilter({
-          fieldId: 'product',
-          fieldName: 'Product',
-          identifier: ViewFieldIdentifier.Common,
-          identifierName: ViewFieldIdentifier.Common
-        })
-      ]
+      groupBy: [getTimeRangeFilter(aggregation), getGroupByFilter(groupBy)]
     }
   })
 
@@ -130,26 +120,30 @@ const PerspectiveDetailsPage: React.FC = () => {
       />
       <PerspectiveSummary data={summaryData?.perspectiveTrendStats} fetching={summaryFetching} />
       <Container margin="medium" background="white">
-        {chartFetching ? (
-          <Container className={css.chartLoadingContainer}>
-            <Icon name="spinner" color="blue500" size={30} />
-          </Container>
-        ) : (
-          <Container padding="small">
-            <PerspectiveExplorerGroupBy chartType={chartType} setChartType={setChartType} />
-            {chartData?.perspectiveTimeSeriesStats && (
-              <CloudCostInsightChart
-                chartType={chartType}
-                columnSequence={[]}
-                setFilterUsingChartClick={setFilterUsingChartClick}
-                fetching={chartFetching}
-                data={chartData.perspectiveTimeSeriesStats}
-                aggregation={aggregation}
-                xAxisPointCount={chartData?.perspectiveTimeSeriesStats.stats?.length || DAYS_FOR_TICK_INTERVAL + 1}
-              />
-            )}
-          </Container>
-        )}
+        <Container padding="small">
+          <PerspectiveExplorerGroupBy
+            chartType={chartType}
+            setChartType={setChartType}
+            groupBy={groupBy}
+            setGroupBy={setGroupBy}
+          />
+          {chartFetching ? (
+            <Container className={css.chartLoadingContainer}>
+              <Icon name="spinner" color="blue500" size={30} />
+            </Container>
+          ) : null}
+          {!chartFetching && chartData?.perspectiveTimeSeriesStats && (
+            <CloudCostInsightChart
+              chartType={chartType}
+              columnSequence={[]}
+              setFilterUsingChartClick={setFilterUsingChartClick}
+              fetching={chartFetching}
+              data={chartData.perspectiveTimeSeriesStats}
+              aggregation={aggregation}
+              xAxisPointCount={chartData?.perspectiveTimeSeriesStats.stats?.length || DAYS_FOR_TICK_INTERVAL + 1}
+            />
+          )}
+        </Container>
       </Container>
     </>
   )

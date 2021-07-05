@@ -4,11 +4,16 @@ import { Provider } from 'urql'
 import { fromValue } from 'wonka'
 import type { DocumentNode } from 'graphql'
 import { TestWrapper } from '@common/utils/testUtils'
-import { FetchPerspectiveTimeSeriesDocument, FetchPerspectiveDetailsSummaryDocument } from 'services/ce/services'
+import {
+  FetchPerspectiveTimeSeriesDocument,
+  FetchPerspectiveDetailsSummaryDocument,
+  FetchViewFieldsDocument
+} from 'services/ce/services'
 import PerspectiveDetailsPage from '../PerspectiveDetailsPage'
 
 import ChartResponseData from './ChartDataResponse.json'
 import SummaryResponseData from './SummaryResponse.json'
+import ViewFieldResponseData from './ViewFieldResponse.json'
 
 jest.mock('@ce/components/CEChart/CEChart', () => 'mock')
 
@@ -27,6 +32,9 @@ describe('test cases for Perspective details Page', () => {
         }
         if (query === FetchPerspectiveDetailsSummaryDocument) {
           return fromValue(SummaryResponseData)
+        }
+        if (query === FetchViewFieldsDocument) {
+          return fromValue(ViewFieldResponseData)
         }
       }
     }
