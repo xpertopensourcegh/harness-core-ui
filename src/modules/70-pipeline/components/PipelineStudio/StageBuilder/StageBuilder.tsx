@@ -571,7 +571,6 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
     [Event.MouseEnterNode]: (event: any) => {
       const eventTemp = event as DefaultNodeEvent
       eventTemp.stopPropagation()
-      dynamicPopoverHandler?.hide()
       const current = getStageFromPipeline(eventTemp.entity.getIdentifier())
       if (current.stage?.stage?.when) {
         const { pipelineStatus, condition } = current.stage.stage.when
@@ -591,10 +590,6 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
           { useArrows: true, darkMode: false, fixedPosition: false }
         )
       }
-    },
-    [Event.MouseLeaveNode]: (event: any) => {
-      const eventTemp = event as DefaultNodeEvent
-      eventTemp.stopPropagation()
     }
   }
   const [moveStageDetails, setMoveStageDetails] = React.useState<MoveStageDetailsType>({
