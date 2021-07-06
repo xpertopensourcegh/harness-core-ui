@@ -97,9 +97,9 @@ export const verifyStepInitialValuesWithRunTimeFields = {
   name: 'CV Step',
   type: 'ContinousVerification',
   identifier: 'ContinousVerification',
-  timeout: '2h',
+  timeout: RUNTIME_INPUT_VALUE,
   spec: {
-    monitoredServiceRef: 'monitored-service',
+    monitoredServiceRef: RUNTIME_INPUT_VALUE,
     type: 'Rolling',
     healthSources: [],
     spec: {
@@ -107,7 +107,7 @@ export const verifyStepInitialValuesWithRunTimeFields = {
       duration: RUNTIME_INPUT_VALUE,
       baseline: RUNTIME_INPUT_VALUE,
       trafficsplit: RUNTIME_INPUT_VALUE,
-      deploymentTag: '1.2'
+      deploymentTag: RUNTIME_INPUT_VALUE
     }
   }
 }

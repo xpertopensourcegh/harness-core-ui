@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import { FormInput, FormikForm, SelectOption } from '@wings-software/uicore'
+import { FormInput, FormikForm, SelectOption, Container } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 
 import { parse } from 'yaml'
@@ -20,6 +20,8 @@ import {
 } from '../../constants'
 import RunTimeMonitoredService from './components/RunTimeMonitoredService/RunTimeMonitoredService'
 import { getInfraAndServiceData } from './components/ContinousVerificationInputSetStep.utils'
+
+import css from './ContinousVerificationInputSetStep.module.scss'
 
 export function ContinousVerificationInputSetStep(
   props: ContinousVerificationProps & { formik?: any }
@@ -65,73 +67,87 @@ export function ContinousVerificationInputSetStep(
         />
       )}
 
-      {checkIfRunTimeInput(sensitivity) && (
-        <FormInput.Select
-          label={getString('sensitivity')}
-          name={`${prefix}spec.spec.sensitivity`}
-          items={VerificationSensitivityOptions}
-          onChange={(option: SelectOption) => {
-            const updatedSpecs = { spec: { ...initialValues.spec.spec, sensitivity: option.value.toString() } }
-            onUpdate?.({ ...initialValues, spec: { ...initialValues.spec, ...updatedSpecs } })
-          }}
-          disabled={readonly}
-        />
-      )}
+      <Container className={css.container}>
+        {checkIfRunTimeInput(sensitivity) && (
+          <Container className={css.item}>
+            <FormInput.Select
+              label={getString('sensitivity')}
+              name={`${prefix}spec.spec.sensitivity`}
+              items={VerificationSensitivityOptions}
+              onChange={(option: SelectOption) => {
+                const updatedSpecs = { spec: { ...initialValues.spec.spec, sensitivity: option.value as string } }
+                onUpdate?.({ ...initialValues, spec: { ...initialValues.spec, ...updatedSpecs } })
+              }}
+              disabled={readonly}
+            />
+          </Container>
+        )}
 
-      {checkIfRunTimeInput(duration) && (
-        <FormInput.Select
-          label={getString('duration')}
-          name={`${prefix}spec.spec.duration`}
-          items={durationOptions}
-          onChange={(option: SelectOption) => {
-            const updatedSpecs = { spec: { ...initialValues.spec.spec, duration: option.value.toString() } }
-            onUpdate?.({ ...initialValues, spec: { ...initialValues.spec, ...updatedSpecs } })
-          }}
-          disabled={readonly}
-        />
-      )}
+        {checkIfRunTimeInput(duration) && (
+          <Container className={css.item}>
+            <FormInput.Select
+              label={getString('duration')}
+              name={`${prefix}spec.spec.duration`}
+              items={durationOptions}
+              onChange={(option: SelectOption) => {
+                const updatedSpecs = { spec: { ...initialValues.spec.spec, duration: option.value as string } }
+                onUpdate?.({ ...initialValues, spec: { ...initialValues.spec, ...updatedSpecs } })
+              }}
+              disabled={readonly}
+            />
+          </Container>
+        )}
 
-      {checkIfRunTimeInput(baseline) && (
-        <FormInput.Select
-          label={getString('connectors.cdng.baseline')}
-          name={`${prefix}spec.spec.baseline`}
-          items={baseLineOptions}
-          onChange={(option: SelectOption) => {
-            const updatedSpecs = { spec: { ...initialValues.spec.spec, baseline: option.value.toString() } }
-            onUpdate?.({ ...initialValues, spec: { ...initialValues.spec, ...updatedSpecs } })
-          }}
-          disabled={readonly}
-        />
-      )}
+        {checkIfRunTimeInput(baseline) && (
+          <Container className={css.item}>
+            <FormInput.Select
+              label={getString('connectors.cdng.baseline')}
+              name={`${prefix}spec.spec.baseline`}
+              items={baseLineOptions}
+              onChange={(option: SelectOption) => {
+                const updatedSpecs = { spec: { ...initialValues.spec.spec, baseline: option.value as string } }
+                onUpdate?.({ ...initialValues, spec: { ...initialValues.spec, ...updatedSpecs } })
+              }}
+              disabled={readonly}
+            />
+          </Container>
+        )}
 
-      {checkIfRunTimeInput(trafficsplit) && (
-        <FormInput.Select
-          label={getString('connectors.cdng.trafficsplit')}
-          name={`${prefix}spec.spec.trafficsplit`}
-          items={trafficSplitPercentageOptions}
-          onChange={(option: SelectOption) => {
-            const updatedSpecs = { spec: { ...initialValues.spec.spec, trafficsplit: option.value.toString() } }
-            onUpdate?.({ ...initialValues, spec: { ...initialValues.spec, ...updatedSpecs } })
-          }}
-          disabled={readonly}
-        />
-      )}
+        {checkIfRunTimeInput(trafficsplit) && (
+          <Container className={css.item}>
+            <FormInput.Select
+              label={getString('connectors.cdng.trafficsplit')}
+              name={`${prefix}spec.spec.trafficsplit`}
+              items={trafficSplitPercentageOptions}
+              onChange={(option: SelectOption) => {
+                const updatedSpecs = { spec: { ...initialValues.spec.spec, trafficsplit: option.value as number } }
+                onUpdate?.({ ...initialValues, spec: { ...initialValues.spec, ...updatedSpecs } })
+              }}
+              disabled={readonly}
+            />
+          </Container>
+        )}
 
-      {checkIfRunTimeInput(deploymentTag) && (
-        <FormInput.Text
-          label={getString('connectors.cdng.deploymentTag')}
-          name={`${prefix}spec.spec.deploymentTag`}
-          disabled={readonly}
-        />
-      )}
+        {checkIfRunTimeInput(deploymentTag) && (
+          <Container className={css.item}>
+            <FormInput.Text
+              label={getString('connectors.cdng.deploymentTag')}
+              name={`${prefix}spec.spec.deploymentTag`}
+              disabled={readonly}
+            />
+          </Container>
+        )}
 
-      {checkIfRunTimeInput(template?.timeout) && (
-        <DurationInputFieldForInputSet
-          label={getString('pipelineSteps.timeoutLabel')}
-          name={`${prefix}timeout`}
-          disabled={readonly}
-        />
-      )}
+        {checkIfRunTimeInput(template?.timeout) && (
+          <Container className={css.item}>
+            <DurationInputFieldForInputSet
+              label={getString('pipelineSteps.timeoutLabel')}
+              name={`${prefix}timeout`}
+              disabled={readonly}
+            />
+          </Container>
+        )}
+      </Container>
     </FormikForm>
   )
 }

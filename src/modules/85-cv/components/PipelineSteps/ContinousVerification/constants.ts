@@ -11,9 +11,9 @@ export enum JobTypes {
 }
 
 export enum SensitivityTypes {
-  HIGH = 'High',
-  MEDIUM = 'Medium',
-  LOW = 'Low'
+  HIGH = 'HIGH',
+  MEDIUM = 'MEDIUM',
+  LOW = 'LOW'
 }
 
 export enum IdentifierTypes {

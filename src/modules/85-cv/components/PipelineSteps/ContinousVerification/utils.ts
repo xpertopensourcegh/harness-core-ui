@@ -18,8 +18,8 @@ import {
  * @param field
  * @returns boolean
  */
-export function checkIfRunTimeInput(field: string | SelectOption | undefined): boolean {
-  return getMultiTypeFromValue(field) === MultiTypeInputType.RUNTIME
+export function checkIfRunTimeInput(field: string | SelectOption | number | undefined): boolean {
+  return getMultiTypeFromValue(field as string) === MultiTypeInputType.RUNTIME
 }
 
 /**

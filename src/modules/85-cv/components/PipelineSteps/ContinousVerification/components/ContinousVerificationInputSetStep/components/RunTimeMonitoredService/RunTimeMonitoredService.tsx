@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import cx from 'classnames'
-import { FormInput } from '@wings-software/uicore'
+import { Container, FormInput } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { isEmpty } from 'lodash-es'
 import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
@@ -44,7 +44,7 @@ export default function RunTimeMonitoredService({
         }) || []
 
       const newMonitoredServiceData = {
-        serviceName: monitoredServiceData?.monitoredService?.name,
+        monitoredServiceRef: monitoredServiceData?.monitoredService?.name,
         healthSources: healthSources as { identifier: string }[]
       }
 
@@ -64,16 +64,18 @@ export default function RunTimeMonitoredService({
 
   if (isEmpty(serviceIdentifier) || isEmpty(envIdentifier)) {
     return (
-      <div className={css.emptyFields}>
-        {isEmpty(serviceIdentifier) ? (
-          <div className={css.emptyFieldItem}>
-            {getString('connectors.cdng.runTimeMonitoredService.specifyService')}
-          </div>
-        ) : null}
-        {isEmpty(envIdentifier) ? (
-          <div className={css.emptyFieldItem}>{getString('connectors.cdng.runTimeMonitoredService.specifyEnv')}</div>
-        ) : null}
-      </div>
+      <Card>
+        <div className={css.emptyFields}>
+          {isEmpty(serviceIdentifier) ? (
+            <div className={css.emptyFieldItem}>
+              {getString('connectors.cdng.runTimeMonitoredService.specifyService')}
+            </div>
+          ) : null}
+          {isEmpty(envIdentifier) ? (
+            <div className={css.emptyFieldItem}>{getString('connectors.cdng.runTimeMonitoredService.specifyEnv')}</div>
+          ) : null}
+        </div>
+      </Card>
     )
   } else if (loading) {
     return (
@@ -98,7 +100,9 @@ export default function RunTimeMonitoredService({
             <FormInput.CustomRender
               name={`${prefix}spec.monitoredServiceRef`}
               label={getString('connectors.cdng.monitoredService.label')}
-              render={() => <>{monitoringSource?.monitoredService?.name}</>}
+              render={() => (
+                <Container data-testid="monitored-service">{monitoringSource?.monitoredService?.name}</Container>
+              )}
             />
           </div>
         </Card>

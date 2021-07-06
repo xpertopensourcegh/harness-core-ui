@@ -13,7 +13,7 @@ export interface ContinousVerificationVariableStepProps {
 export interface spec {
   sensitivity?: SelectOption | string
   duration?: SelectOption | string
-  trafficsplit?: SelectOption | string
+  trafficsplit?: SelectOption | string | number
   baseline?: SelectOption | string
   deploymentTag?: string
   [x: string]: any

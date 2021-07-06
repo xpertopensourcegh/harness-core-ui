@@ -15,7 +15,7 @@ import {
 import { useStrings } from 'framework/strings'
 import type { ContinousVerificationData } from '@cv/components/PipelineSteps/ContinousVerification/types'
 import Card from '@cv/components/Card/Card'
-import { defaultDeploymentTag } from './constants'
+import { defaultDeploymentTag, VerificationTypes } from './constants'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export default function ConfigureFields(props: { formik: FormikProps<ContinousVerificationData> }): React.ReactElement {
@@ -28,7 +28,7 @@ export default function ConfigureFields(props: { formik: FormikProps<ContinousVe
 
   const renderConfigOptions = (): JSX.Element => {
     switch (formValues?.spec?.type) {
-      case 'Test':
+      case VerificationTypes.Test:
         return (
           <>
             <div className={cx(stepCss.formGroup)}>
@@ -57,9 +57,9 @@ export default function ConfigureFields(props: { formik: FormikProps<ContinousVe
             </div>
           </>
         )
-      case 'Bluegreen':
-      case 'Canary':
-      case 'Rolling':
+      case VerificationTypes.Bluegreen:
+      case VerificationTypes.Canary:
+      case VerificationTypes.Rolling:
         return (
           <>
             <div className={cx(stepCss.formGroup)}>
@@ -78,7 +78,6 @@ export default function ConfigureFields(props: { formik: FormikProps<ContinousVe
                 formik={formik}
               />
             </div>
-            {/* Traffic Split percentage is an optional field */}
             <div className={cx(stepCss.formGroup)}>
               <TrafficSplit
                 name={`spec.spec.trafficsplit`}
@@ -88,17 +87,6 @@ export default function ConfigureFields(props: { formik: FormikProps<ContinousVe
               />
             </div>
           </>
-        )
-      case 'Health':
-        return (
-          <div className={cx(stepCss.formGroup)}>
-            <Duration
-              name={`spec.spec.duration`}
-              label={getString('duration')}
-              expressions={expressions}
-              formik={formik}
-            />
-          </div>
         )
       default:
         return <></>
