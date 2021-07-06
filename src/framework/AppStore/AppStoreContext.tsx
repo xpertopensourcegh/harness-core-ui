@@ -74,7 +74,8 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
       // don't redirect on local because it goes into infinite loop
       // because there may be no current gen to go to
       if (!__DEV__ && !featureFlagsMap['NEXT_GEN_ENABLED']) {
-        window.location.href = window.location.pathname.replace(/\/ng\//, '/')
+        const baseUrl = window.location.pathname.replace(/\/ng\//, '/')
+        window.location.href = `${baseUrl}#/account/${accountId}/dashboard`
       }
 
       setState(prevState => ({
