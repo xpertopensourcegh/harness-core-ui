@@ -58,9 +58,11 @@ co:
         additionalResourceInfo:
           instance: 'Add an instance to be managed by the AutoStopping Rule. You can choose to add multiple instances to a single Rule.'
           asg: 'Add an ASG to be managed by the AutoStopping Rule. You can choose only one ASG to a single Rule'
+          kubernetes: 'Add a cluster to be managed by the AutoStopping Rule.'
         addResourceCta:
           instance: 'Add an instance'
           asg: 'Add a auto-scaling group'
+          kubernetes: 'Add a cluster'
       step3:
         title: 'Choose to convert the selected instance(s) to spot or remain on-demand. '
         asgTitle: 'Choose the on-demand vs spot ratio for your Auto Scaling group'
@@ -76,6 +78,7 @@ co:
       configDetails: 'Configuration Details'
     setupAccess:
       pageName: 'Setup Access'
+      noSetupRequired: No need to setup access for kubernetes rule. Please move to Review step.
       customDomain:
         helpText: 'Specify the URL used to access the resources(Optional)'
         noHostedZones: 'Custom domain does not match to any of the existing domains'
@@ -366,6 +369,7 @@ recommendation:
     memoryLabel: 'MEMORY'
     memoryLabelRegular: 'Memory'
     memoryUsagePlaceholder: 'Memory usage(GBs)'
+savedYamlSuccess: YAML validated successfully
 perspectives:
   timeRangeConstants:
     last7Days: 'Last 7 Days'

@@ -49,6 +49,16 @@ export enum ASRuleTabs {
   REVIEW = 'review'
 }
 
+export const ConnectorStatus = {
+  SUCCESS: 'SUCCESS',
+  FAILURE: 'FAILURE'
+}
+
+export enum GatewayKindType {
+  INSTANCE = 'instance',
+  KUBERNETES = 'k8s'
+}
+
 export enum CCM_CHART_TYPES {
   COLUMN = 'column',
   AREA = 'area',
