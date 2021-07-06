@@ -833,15 +833,14 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     setHealthCheck(toggleStatus)
   }
 
-  const step4Title = isAwsProvider
-    ? selectedResource === RESOURCES.KUBERNETES
+  const step4Title =
+    selectedResource === RESOURCES.KUBERNETES
       ? `${getString('ce.co.gatewayReview.routing')} and ${getString(
           'ce.co.autoStoppingRule.configuration.step4.advancedConfiguration'
         )}`
       : `${getString('ce.co.gatewayReview.routing')}, ${getString('ce.co.gatewayConfig.healthCheck')} and ${getString(
           'ce.co.autoStoppingRule.configuration.step4.advancedConfiguration'
         )}`
-    : `${getString('ce.co.gatewayReview.routing')} and ${getString('ce.co.gatewayConfig.healthCheck')}`
 
   const getSelectedResourceText = (resource: string) => {
     switch (resource) {
@@ -1494,14 +1493,13 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                         }
                       />
                     )}
-                    {isAwsProvider && (
-                      <Tab
-                        id="advanced"
-                        title="Advanced Configuration"
-                        panel={
-                          <Container style={{ backgroundColor: '#FBFBFB', width: '595px', marginLeft: '175px' }}>
-                            <Layout.Vertical spacing="medium" style={{ padding: '32px' }}>
-                              {/* <Switch
+                    <Tab
+                      id="advanced"
+                      title="Advanced Configuration"
+                      panel={
+                        <Container style={{ backgroundColor: '#FBFBFB', width: '595px', marginLeft: '175px' }}>
+                          <Layout.Vertical spacing="medium" style={{ padding: '32px' }}>
+                            {/* <Switch
                               label={getString('ce.co.gatewayConfig.allowTraffic')}
                               width="50%"
                               className={css.switchFont}
@@ -1523,29 +1521,28 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                                 props.setGatewayDetails(props.gatewayDetails)
                               }}
                             /> */}
-                              {serviceDependencies && serviceDependencies.length ? (
-                                <CORuleDendencySelector
-                                  deps={serviceDependencies}
-                                  setDeps={setServiceDependencies}
-                                  service_id={props.gatewayDetails.id}
-                                  allServices={servicesData?.response as Service[]}
-                                ></CORuleDendencySelector>
-                              ) : null}
-                              <Container>
-                                <Text
-                                  onClick={() => {
-                                    addDependency()
-                                  }}
-                                  style={{ color: 'var(--primary-7)', cursor: 'pointer' }}
-                                >
-                                  {'+ add dependency'}
-                                </Text>
-                              </Container>
-                            </Layout.Vertical>
-                          </Container>
-                        }
-                      />
-                    )}
+                            {serviceDependencies && serviceDependencies.length ? (
+                              <CORuleDendencySelector
+                                deps={serviceDependencies}
+                                setDeps={setServiceDependencies}
+                                service_id={props.gatewayDetails.id}
+                                allServices={servicesData?.response as Service[]}
+                              ></CORuleDendencySelector>
+                            ) : null}
+                            <Container>
+                              <Text
+                                onClick={() => {
+                                  addDependency()
+                                }}
+                                style={{ color: 'var(--primary-7)', cursor: 'pointer' }}
+                              >
+                                {'+ add dependency'}
+                              </Text>
+                            </Container>
+                          </Layout.Vertical>
+                        </Container>
+                      }
+                    />
                   </Tabs>
                 </Container>
               </Container>
