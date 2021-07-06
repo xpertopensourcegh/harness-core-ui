@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, ExpandingSearchInput, Layout } from '@wings-software/uicore'
+import { ExpandingSearchInput, Layout } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { Page } from '@common/exports'
@@ -9,6 +9,9 @@ import { useServiceAccountModal } from '@rbac/modals/ServiceAccountModal/useServ
 import { useRoleAssignmentModal } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
 import { useListAggregatedServiceAccounts } from 'services/cd-ng'
 import ServiceAccountsListView from '@rbac/pages/ServiceAccounts/views/ServiceAccountsListView'
+import RbacButton from '@rbac/components/Button/Button'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
 import css from './ServiceAccounts.module.scss'
 
 const ServiceAccountsPage: React.FC = () => {
@@ -37,11 +40,17 @@ const ServiceAccountsPage: React.FC = () => {
       <Page.Header
         title={
           <Layout.Horizontal padding={{ left: 'large' }} spacing="small">
-            <Button
+            <RbacButton
               text={getString('rbac.serviceAccounts.newServiceAccount')}
               intent="primary"
               icon="plus"
               onClick={() => openServiceAccountModal()}
+              permission={{
+                permission: PermissionIdentifier.EDIT_SERVICEACCOUNT,
+                resource: {
+                  resourceType: ResourceType.SERVICEACCOUNT
+                }
+              }}
             />
           </Layout.Horizontal>
         }
@@ -69,11 +78,17 @@ const ServiceAccountsPage: React.FC = () => {
                 icon: 'nav-project',
                 message: getString('rbac.serviceAccounts.noDataDescription'),
                 button: (
-                  <Button
+                  <RbacButton
                     text={getString('rbac.serviceAccounts.newServiceAccount')}
                     intent="primary"
                     icon="plus"
                     onClick={() => openServiceAccountModal()}
+                    permission={{
+                      permission: PermissionIdentifier.EDIT_SERVICEACCOUNT,
+                      resource: {
+                        resourceType: ResourceType.SERVICEACCOUNT
+                      }
+                    }}
                   />
                 )
               }

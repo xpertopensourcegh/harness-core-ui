@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { Avatar, Button, Color, Layout, Popover, Text } from '@wings-software/uicore'
 import type { CellProps, Column, Renderer } from 'react-table'
-import { Classes, Intent, Menu, MenuItem, Position } from '@blueprintjs/core'
+import { Classes, Intent, Menu, Position } from '@blueprintjs/core'
 import Table from '@common/components/Table/Table'
 import {
   PageServiceAccountAggregateDTO,
@@ -18,6 +18,10 @@ import { TagsPopover, useToaster } from '@common/components'
 import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList'
 import routes from '@common/RouteDefinitions'
 import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import RbacButton from '@rbac/components/Button/Button'
 import css from './ServiceAccountsListView.module.scss'
 
 interface ServiceAccountsListViewProps {
@@ -60,7 +64,7 @@ const RenderColumnRoleAssignments: Renderer<CellProps<ServiceAccountAggregateDTO
   return (
     <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
       <RoleBindingsList data={data.roleAssignmentsMetadataDTO} length={2} />
-      <Button
+      <RbacButton
         text={getString('common.plusNumber', { number: getString('common.role') })}
         minimal
         className={css.roleButton}
@@ -72,6 +76,13 @@ const RenderColumnRoleAssignments: Renderer<CellProps<ServiceAccountAggregateDTO
             data.serviceAccount,
             data.roleAssignmentsMetadataDTO
           )
+        }}
+        permission={{
+          permission: PermissionIdentifier.EDIT_SERVICEACCOUNT,
+          resource: {
+            resourceType: ResourceType.SERVICEACCOUNT,
+            resourceIdentifier: data.serviceAccount.identifier
+          }
         }}
       />
     </Layout.Horizontal>
@@ -164,8 +175,30 @@ const RenderColumnMenu: Renderer<CellProps<ServiceAccountAggregateDTO>> = ({ row
           }}
         />
         <Menu>
-          <MenuItem icon="edit" text={getString('edit')} onClick={handleEdit} />
-          <MenuItem icon="trash" text={getString('delete')} onClick={handleDelete} />
+          <RbacMenuItem
+            icon="edit"
+            text={getString('edit')}
+            onClick={handleEdit}
+            permission={{
+              permission: PermissionIdentifier.EDIT_SERVICEACCOUNT,
+              resource: {
+                resourceType: ResourceType.SERVICEACCOUNT,
+                resourceIdentifier: data.identifier
+              }
+            }}
+          />
+          <RbacMenuItem
+            icon="trash"
+            text={getString('delete')}
+            onClick={handleDelete}
+            permission={{
+              permission: PermissionIdentifier.DELETE_SERVICEACCOUNT,
+              resource: {
+                resourceType: ResourceType.SERVICEACCOUNT,
+                resourceIdentifier: data.identifier
+              }
+            }}
+          />
         </Menu>
       </Popover>
     </Layout.Horizontal>

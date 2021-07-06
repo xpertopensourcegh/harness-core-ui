@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Layout, Color, Avatar, Card, Button } from '@wings-software/uicore'
+import { Text, Layout, Color, Avatar, Card } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import moment from 'moment'
 import { useStrings } from 'framework/strings'
@@ -15,6 +15,9 @@ import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList'
 import { PrincipalType, useRoleAssignmentModal } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
 import ApiKeyList from '@rbac/components/ApiKeyList/ApiKeyList'
+import RbacButton from '@rbac/components/Button/Button'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
 import css from './ServiceAccountDetails.module.scss'
 
 const ServiceAccountDetails: React.FC = () => {
@@ -128,7 +131,7 @@ const ServiceAccountDetails: React.FC = () => {
             <RoleBindingsList data={serviceAccountData.roleAssignmentsMetadataDTO} />
           </Card>
           <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }} padding={{ top: 'medium' }}>
-            <Button
+            <RbacButton
               data-testid={'addRole-ServiceAccount'}
               text={getString('common.plusNumber', { number: getString('common.role') })}
               minimal
@@ -139,6 +142,13 @@ const ServiceAccountDetails: React.FC = () => {
                   serviceAccountData.serviceAccount,
                   serviceAccountData.roleAssignmentsMetadataDTO
                 )
+              }}
+              permission={{
+                permission: PermissionIdentifier.EDIT_SERVICEACCOUNT,
+                resource: {
+                  resourceType: ResourceType.SERVICEACCOUNT,
+                  resourceIdentifier: serviceAccountData.serviceAccount.identifier
+                }
               }}
             />
           </Layout.Horizontal>

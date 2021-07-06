@@ -1,13 +1,17 @@
 import React, { useState } from 'react'
 import { Button, Card, Collapse, Color, Container, Intent, Layout, Popover, Text } from '@wings-software/uicore'
 import ReactTimeago from 'react-timeago'
-import { Classes, Menu, Position, MenuItem } from '@blueprintjs/core'
+import { Classes, Menu, Position } from '@blueprintjs/core'
 import { ApiKeyAggregateDTO, ApiKeyDTO, TokenDTO, useDeleteApiKey } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { TagsPopover, useToaster } from '@common/components'
 import TokenList from '@rbac/components/TokenList/TokenList'
 import { useConfirmationDialog } from '@common/exports'
 import { useApiKeyModal } from '@rbac/modals/ApiKeyModal/useApiKeyModal'
+import RbacButton from '@rbac/components/Button/Button'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
 import css from '../ApiKeyList.module.scss'
 
 interface ApiKeyCardProps {
@@ -113,8 +117,36 @@ const RenderColumnMenu: React.FC<{
           }}
         />
         <Menu>
-          <MenuItem icon="edit" text={getString('edit')} onClick={handleEdit} />
-          <MenuItem icon="trash" text={getString('delete')} onClick={handleDelete} />
+          <RbacMenuItem
+            icon="edit"
+            text={getString('edit')}
+            onClick={handleEdit}
+            permission={{
+              permission: PermissionIdentifier.MANAGE_SERVICEACCOUNT,
+              resource: {
+                resourceType: ResourceType.SERVICEACCOUNT,
+                resourceIdentifier: parentIdentifier
+              },
+              options: {
+                skipCondition: () => apiKeyType === 'USER'
+              }
+            }}
+          />
+          <RbacMenuItem
+            icon="trash"
+            text={getString('delete')}
+            onClick={handleDelete}
+            permission={{
+              permission: PermissionIdentifier.MANAGE_SERVICEACCOUNT,
+              resource: {
+                resourceType: ResourceType.SERVICEACCOUNT,
+                resourceIdentifier: parentIdentifier
+              },
+              options: {
+                skipCondition: () => apiKeyType === 'USER'
+              }
+            }}
+          />
         </Menu>
       </Popover>
     </Layout.Horizontal>
@@ -166,7 +198,7 @@ const ApiKeyCard: React.FC<ApiKeyCardProps> = ({
               onRefetchComplete={onRefetchComplete}
               parentIdentifier={apiKey.parentIdentifier}
             />
-            <Button
+            <RbacButton
               text={getString('plusNumber', { number: getString('token') })}
               minimal
               data-testid={`new_token-${apiKey.identifier}`}
@@ -174,16 +206,36 @@ const ApiKeyCard: React.FC<ApiKeyCardProps> = ({
               intent="primary"
               className={css.noPadding}
               onClick={() => openTokenModal(apiKey.identifier)}
+              permission={{
+                permission: PermissionIdentifier.MANAGE_SERVICEACCOUNT,
+                resource: {
+                  resourceType: ResourceType.SERVICEACCOUNT,
+                  resourceIdentifier: apiKey.parentIdentifier
+                },
+                options: {
+                  skipCondition: () => apiKey.apiKeyType === 'USER'
+                }
+              }}
             />
           </Collapse>
         ) : (
-          <Button
+          <RbacButton
             text={getString('plusNumber', { number: getString('token') })}
             minimal
             intent="primary"
             data-testid={`new_token-${apiKey.identifier}`}
             className={css.noPadding}
             onClick={() => openTokenModal(apiKey.identifier)}
+            permission={{
+              permission: PermissionIdentifier.MANAGE_SERVICEACCOUNT,
+              resource: {
+                resourceType: ResourceType.SERVICEACCOUNT,
+                resourceIdentifier: apiKey.parentIdentifier
+              },
+              options: {
+                skipCondition: () => apiKey.apiKeyType === 'USER'
+              }
+            }}
           />
         )}
       </Container>

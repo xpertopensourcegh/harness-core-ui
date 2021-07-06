@@ -1,7 +1,7 @@
 import React, { useMemo, useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { Color, Intent, Layout, Text, Button, Table } from '@wings-software/uicore'
-import { Classes, Menu, MenuItem, Popover, Position } from '@blueprintjs/core'
+import { Classes, Menu, Popover, Position } from '@blueprintjs/core'
 import type { CellProps, Column, Renderer } from 'react-table'
 import ReactTimeago from 'react-timeago'
 import moment from 'moment'
@@ -11,6 +11,9 @@ import type { ProjectPathProps, ServiceAccountPathProps } from '@common/interfac
 import { PageSpinner, TagsPopover, useToaster } from '@common/components'
 import { useStrings } from 'framework/strings'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
 import css from './TokenList.module.scss'
 
 interface TokenListProps {
@@ -97,6 +100,16 @@ const RenderColumnMenu: Renderer<CellProps<TokenAggregateDTO>> = ({ row, column 
       apiKeyType
     }
   })
+  const permission = {
+    permission: PermissionIdentifier.MANAGE_SERVICEACCOUNT,
+    resource: {
+      resourceType: ResourceType.SERVICEACCOUNT,
+      resourceIdentifier: parentIdentifier
+    },
+    options: {
+      skipCondition: () => apiKeyType === 'USER'
+    }
+  }
 
   const { openDialog: openDeleteDialog } = useConfirmationDialog({
     contentText: getString('rbac.token.confirmDelete', { name: data.name }),
@@ -164,11 +177,16 @@ const RenderColumnMenu: Renderer<CellProps<TokenAggregateDTO>> = ({ row, column 
         <Menu>
           {data.scheduledExpireTime ? null : (
             <div>
-              <MenuItem icon="edit" text={getString('edit')} onClick={handleEdit} />
-              <MenuItem icon="rotate-page" text={getString('rbac.token.rotateLabel')} onClick={handleRotate} />
+              <RbacMenuItem icon="edit" text={getString('edit')} onClick={handleEdit} permission={permission} />
+              <RbacMenuItem
+                icon="rotate-page"
+                text={getString('rbac.token.rotateLabel')}
+                onClick={handleRotate}
+                permission={permission}
+              />
             </div>
           )}
-          <MenuItem icon="trash" text={getString('delete')} onClick={handleDelete} />
+          <RbacMenuItem icon="trash" text={getString('delete')} onClick={handleDelete} permission={permission} />
         </Menu>
       </Popover>
     </Layout.Horizontal>

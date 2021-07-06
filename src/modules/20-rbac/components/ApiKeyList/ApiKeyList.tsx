@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Color, Text, Button, Container } from '@wings-software/uicore'
+import { Color, Text, Container } from '@wings-software/uicore'
 import { TokenDTO, useListAggregatedApiKeys } from 'services/cd-ng'
 import type { ProjectPathProps, ServiceAccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
@@ -9,6 +9,9 @@ import { useTokenModal } from '@rbac/modals/TokenModal/useTokenModal'
 import { PageSpinner } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'
 import ApiKeyCard from '@rbac/components/ApiKeyList/views/ApiKeyCard'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import RbacButton from '@rbac/components/Button/Button'
 
 interface ApiKeyListProps {
   apiKeyType?: TokenDTO['apiKeyType']
@@ -69,11 +72,21 @@ const ApiKeyList: React.FC<ApiKeyListProps> = ({ apiKeyType = 'SERVICE_ACCOUNT',
           />
         ))}
       </Container>
-      <Button
+      <RbacButton
         text={getString('plusNumber', { number: getString('common.apikey') })}
         minimal
         onClick={() => openApiKeyModal()}
         data-testid="createNewApiKey"
+        permission={{
+          permission: PermissionIdentifier.MANAGE_SERVICEACCOUNT,
+          resource: {
+            resourceType: ResourceType.SERVICEACCOUNT,
+            resourceIdentifier: serviceAccountIdentifier
+          },
+          options: {
+            skipCondition: () => apiKeyType === 'USER'
+          }
+        }}
       />
     </Container>
   )
