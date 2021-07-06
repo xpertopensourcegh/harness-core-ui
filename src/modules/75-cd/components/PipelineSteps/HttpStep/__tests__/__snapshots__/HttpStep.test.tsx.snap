@@ -45,7 +45,7 @@ exports[`Http Step edit mode works 1`] = `
             <span
               class="bp3-icon bp3-icon-edit StyledProps--main"
               icon="edit"
-              style="vertical-align: middle;"
+              style="vertical-align: middle; cursor: pointer;"
             >
               <svg
                 data-icon="edit"
@@ -902,7 +902,7 @@ exports[`Http Step renders runtime inputs 1`] = `
             <span
               class="bp3-icon bp3-icon-edit StyledProps--main"
               icon="edit"
-              style="vertical-align: middle;"
+              style="vertical-align: middle; cursor: pointer;"
             >
               <svg
                 data-icon="edit"
@@ -1398,7 +1398,7 @@ exports[`Http Step should render edit view as new step 1`] = `
             <span
               class="bp3-icon bp3-icon-edit StyledProps--main"
               icon="edit"
-              style="vertical-align: middle;"
+              style="vertical-align: middle; cursor: pointer;"
             >
               <svg
                 data-icon="edit"

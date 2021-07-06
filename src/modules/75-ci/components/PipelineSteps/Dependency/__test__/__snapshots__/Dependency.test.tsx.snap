@@ -46,7 +46,7 @@ exports[`Dependency Edit view edit mode fails when cpu present but memory is not
               <span
                 class="bp3-icon bp3-icon-edit StyledProps--main"
                 icon="edit"
-                style="vertical-align: middle;"
+                style="vertical-align: middle; cursor: pointer;"
               >
                 <svg
                   data-icon="edit"
@@ -1933,7 +1933,7 @@ exports[`Dependency Edit view edit mode works 1`] = `
               <span
                 class="bp3-icon bp3-icon-edit StyledProps--main"
                 icon="edit"
-                style="vertical-align: middle;"
+                style="vertical-align: middle; cursor: pointer;"
               >
                 <svg
                   data-icon="edit"
@@ -3820,7 +3820,7 @@ exports[`Dependency Edit view edit mode works when memory present but cpu is not
               <span
                 class="bp3-icon bp3-icon-edit StyledProps--main"
                 icon="edit"
-                style="vertical-align: middle;"
+                style="vertical-align: middle; cursor: pointer;"
               >
                 <svg
                   data-icon="edit"
@@ -5707,7 +5707,7 @@ exports[`Dependency Edit view renders runtime inputs 1`] = `
               <span
                 class="bp3-icon bp3-icon-edit StyledProps--main"
                 icon="edit"
-                style="vertical-align: middle;"
+                style="vertical-align: middle; cursor: pointer;"
               >
                 <svg
                   data-icon="edit"
@@ -6887,7 +6887,7 @@ exports[`Dependency Edit view should render properly 1`] = `
               <span
                 class="bp3-icon bp3-icon-edit StyledProps--main"
                 icon="edit"
-                style="vertical-align: middle;"
+                style="vertical-align: middle; cursor: pointer;"
               >
                 <svg
                   data-icon="edit"

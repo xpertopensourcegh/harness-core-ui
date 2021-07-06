@@ -43,7 +43,7 @@ exports[`Test K8sCanaryDeleteStep should render edit view  1`] = `
             <span
               class="bp3-icon bp3-icon-edit StyledProps--main"
               icon="edit"
-              style="vertical-align: middle;"
+              style="vertical-align: middle; cursor: pointer;"
             >
               <svg
                 data-icon="edit"
@@ -241,7 +241,7 @@ exports[`Test K8sCanaryDeleteStep should render edit view as new step 1`] = `
             <span
               class="bp3-icon bp3-icon-edit StyledProps--main"
               icon="edit"
-              style="vertical-align: middle;"
+              style="vertical-align: middle; cursor: pointer;"
             >
               <svg
                 data-icon="edit"

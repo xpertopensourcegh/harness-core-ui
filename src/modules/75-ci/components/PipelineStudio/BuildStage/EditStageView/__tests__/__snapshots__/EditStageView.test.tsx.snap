@@ -92,7 +92,7 @@ exports[`EditStageView snapshot test should render properly 1`] = `
                 <span
                   class="bp3-icon bp3-icon-edit StyledProps--main"
                   icon="edit"
-                  style="vertical-align: middle;"
+                  style="vertical-align: middle; cursor: pointer;"
                 >
                   <svg
                     data-icon="edit"
@@ -367,7 +367,7 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                 <span
                   class="bp3-icon bp3-icon-edit StyledProps--main"
                   icon="edit"
-                  style="vertical-align: middle;"
+                  style="vertical-align: middle; cursor: pointer;"
                 >
                   <svg
                     data-icon="edit"

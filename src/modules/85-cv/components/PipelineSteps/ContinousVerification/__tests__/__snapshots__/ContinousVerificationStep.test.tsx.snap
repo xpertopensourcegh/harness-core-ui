@@ -383,7 +383,7 @@ exports[`Test ContinousVerificationStep Step should render editView when a new s
               <span
                 class="bp3-icon bp3-icon-edit StyledProps--main"
                 icon="edit"
-                style="vertical-align: middle;"
+                style="vertical-align: middle; cursor: pointer;"
               >
                 <svg
                   data-icon="edit"
@@ -814,7 +814,7 @@ exports[`Test ContinousVerificationStep Step should render editView when current
               <span
                 class="bp3-icon bp3-icon-edit StyledProps--main"
                 icon="edit"
-                style="vertical-align: middle;"
+                style="vertical-align: middle; cursor: pointer;"
               >
                 <svg
                   data-icon="edit"
@@ -1665,7 +1665,7 @@ exports[`Test ContinousVerificationStep Step should render editView when current
               <span
                 class="bp3-icon bp3-icon-edit StyledProps--main"
                 icon="edit"
-                style="vertical-align: middle;"
+                style="vertical-align: middle; cursor: pointer;"
               >
                 <svg
                   data-icon="edit"

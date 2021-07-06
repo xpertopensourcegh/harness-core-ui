@@ -42,7 +42,7 @@ exports[`Test TerraformApply expand backend Spec config 1`] = `
           <span
             class="bp3-icon bp3-icon-edit StyledProps--main"
             icon="edit"
-            style="vertical-align: middle;"
+            style="vertical-align: middle; cursor: pointer;"
           >
             <svg
               data-icon="edit"
@@ -1034,7 +1034,7 @@ exports[`Test TerraformApply rendering more than one varfile 1`] = `
           <span
             class="bp3-icon bp3-icon-edit StyledProps--main"
             icon="edit"
-            style="vertical-align: middle;"
+            style="vertical-align: middle; cursor: pointer;"
           >
             <svg
               data-icon="edit"
@@ -1419,7 +1419,7 @@ exports[`Test TerraformApply rendering more than one varfile 2`] = `
           <span
             class="bp3-icon bp3-icon-edit StyledProps--main"
             icon="edit"
-            style="vertical-align: middle;"
+            style="vertical-align: middle; cursor: pointer;"
           >
             <svg
               data-icon="edit"
@@ -3023,7 +3023,7 @@ exports[`Test TerraformApply should render edit view as edit step - Inheritfromp
           <span
             class="bp3-icon bp3-icon-edit StyledProps--main"
             icon="edit"
-            style="vertical-align: middle;"
+            style="vertical-align: middle; cursor: pointer;"
           >
             <svg
               data-icon="edit"
@@ -3330,7 +3330,7 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
           <span
             class="bp3-icon bp3-icon-edit StyledProps--main"
             icon="edit"
-            style="vertical-align: middle;"
+            style="vertical-align: middle; cursor: pointer;"
           >
             <svg
               data-icon="edit"
@@ -3713,7 +3713,7 @@ exports[`Test TerraformApply should render edit view as new step 1`] = `
           <span
             class="bp3-icon bp3-icon-edit StyledProps--main"
             icon="edit"
-            style="vertical-align: middle;"
+            style="vertical-align: middle; cursor: pointer;"
           >
             <svg
               data-icon="edit"
@@ -4158,7 +4158,7 @@ exports[`Test TerraformApply should submit form for inheritfromplan config 1`] =
           <span
             class="bp3-icon bp3-icon-edit StyledProps--main"
             icon="edit"
-            style="vertical-align: middle;"
+            style="vertical-align: middle; cursor: pointer;"
           >
             <svg
               data-icon="edit"
@@ -4465,7 +4465,7 @@ exports[`Test TerraformApply should submit form for inline config 1`] = `
           <span
             class="bp3-icon bp3-icon-edit StyledProps--main"
             icon="edit"
-            style="vertical-align: middle;"
+            style="vertical-align: middle; cursor: pointer;"
           >
             <svg
               data-icon="edit"

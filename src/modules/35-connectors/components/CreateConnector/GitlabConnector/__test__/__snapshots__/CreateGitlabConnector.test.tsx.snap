@@ -200,7 +200,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one 1`] = `
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main"
                           icon="edit"
-                          style="vertical-align: middle;"
+                          style="vertical-align: middle; cursor: pointer;"
                         >
                           <svg
                             data-icon="edit"

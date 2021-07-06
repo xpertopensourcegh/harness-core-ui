@@ -39,7 +39,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
         <span
           class="bp3-icon bp3-icon-edit StyledProps--main"
           icon="edit"
-          style="vertical-align: middle;"
+          style="vertical-align: middle; cursor: pointer;"
         >
           <svg
             data-icon="edit"
@@ -1477,7 +1477,7 @@ exports[`Test TerraformPlan should render edit view as edit step 1`] = `
         <span
           class="bp3-icon bp3-icon-edit StyledProps--main"
           icon="edit"
-          style="vertical-align: middle;"
+          style="vertical-align: middle; cursor: pointer;"
         >
           <svg
             data-icon="edit"
@@ -1954,7 +1954,7 @@ exports[`Test TerraformPlan should render edit view as new step 1`] = `
         <span
           class="bp3-icon bp3-icon-edit StyledProps--main"
           icon="edit"
-          style="vertical-align: middle;"
+          style="vertical-align: middle; cursor: pointer;"
         >
           <svg
             data-icon="edit"
@@ -2431,7 +2431,7 @@ exports[`Test TerraformPlan should render edit view as new step 2`] = `
         <span
           class="bp3-icon bp3-icon-edit StyledProps--main"
           icon="edit"
-          style="vertical-align: middle;"
+          style="vertical-align: middle; cursor: pointer;"
         >
           <svg
             data-icon="edit"
@@ -2910,7 +2910,7 @@ exports[`Test TerraformPlan should render edit view with command Destroy 1`] = `
         <span
           class="bp3-icon bp3-icon-edit StyledProps--main"
           icon="edit"
-          style="vertical-align: middle;"
+          style="vertical-align: middle; cursor: pointer;"
         >
           <svg
             data-icon="edit"
@@ -3839,7 +3839,7 @@ exports[`Test TerraformPlan should submit form for terraform plan 1`] = `
         <span
           class="bp3-icon bp3-icon-edit StyledProps--main"
           icon="edit"
-          style="vertical-align: middle;"
+          style="vertical-align: middle; cursor: pointer;"
         >
           <svg
             data-icon="edit"

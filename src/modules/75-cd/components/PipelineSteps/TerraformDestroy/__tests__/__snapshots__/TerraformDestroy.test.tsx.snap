@@ -42,7 +42,7 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
           <span
             class="bp3-icon bp3-icon-edit StyledProps--main"
             icon="edit"
-            style="vertical-align: middle;"
+            style="vertical-align: middle; cursor: pointer;"
           >
             <svg
               data-icon="edit"
@@ -1087,7 +1087,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
           <span
             class="bp3-icon bp3-icon-edit StyledProps--main"
             icon="edit"
-            style="vertical-align: middle;"
+            style="vertical-align: middle; cursor: pointer;"
           >
             <svg
               data-icon="edit"
@@ -2132,7 +2132,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
           <span
             class="bp3-icon bp3-icon-edit StyledProps--main"
             icon="edit"
-            style="vertical-align: middle;"
+            style="vertical-align: middle; cursor: pointer;"
           >
             <svg
               data-icon="edit"
@@ -2439,7 +2439,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
           <span
             class="bp3-icon bp3-icon-edit StyledProps--main"
             icon="edit"
-            style="vertical-align: middle;"
+            style="vertical-align: middle; cursor: pointer;"
           >
             <svg
               data-icon="edit"
@@ -2744,7 +2744,7 @@ exports[`Test TerraformDestroy should render edit view as new step 1`] = `
           <span
             class="bp3-icon bp3-icon-edit StyledProps--main"
             icon="edit"
-            style="vertical-align: middle;"
+            style="vertical-align: middle; cursor: pointer;"
           >
             <svg
               data-icon="edit"

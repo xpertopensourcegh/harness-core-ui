@@ -167,7 +167,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Artifacto
                           <span
                             class="bp3-icon bp3-icon-edit StyledProps--main"
                             icon="edit"
-                            style="vertical-align: middle;"
+                            style="vertical-align: middle; cursor: pointer;"
                           >
                             <svg
                               data-icon="edit"
@@ -512,7 +512,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for BITBUCKET
                           <span
                             class="bp3-icon bp3-icon-edit StyledProps--main"
                             icon="edit"
-                            style="vertical-align: middle;"
+                            style="vertical-align: middle; cursor: pointer;"
                           >
                             <svg
                               data-icon="edit"
@@ -846,7 +846,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for DOCKER 1`
                           <span
                             class="bp3-icon bp3-icon-edit StyledProps--main"
                             icon="edit"
-                            style="vertical-align: middle;"
+                            style="vertical-align: middle; cursor: pointer;"
                           >
                             <svg
                               data-icon="edit"
@@ -1233,7 +1233,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for GCP 1`] =
                           <span
                             class="bp3-icon bp3-icon-edit StyledProps--main"
                             icon="edit"
-                            style="vertical-align: middle;"
+                            style="vertical-align: middle; cursor: pointer;"
                           >
                             <svg
                               data-icon="edit"
@@ -1577,7 +1577,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Git 1`] =
                           <span
                             class="bp3-icon bp3-icon-edit StyledProps--main"
                             icon="edit"
-                            style="vertical-align: middle;"
+                            style="vertical-align: middle; cursor: pointer;"
                           >
                             <svg
                               data-icon="edit"
@@ -1920,7 +1920,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Github 1`
                           <span
                             class="bp3-icon bp3-icon-edit StyledProps--main"
                             icon="edit"
-                            style="vertical-align: middle;"
+                            style="vertical-align: middle; cursor: pointer;"
                           >
                             <svg
                               data-icon="edit"
@@ -2288,7 +2288,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Gitlab 1`
                           <span
                             class="bp3-icon bp3-icon-edit StyledProps--main"
                             icon="edit"
-                            style="vertical-align: middle;"
+                            style="vertical-align: middle; cursor: pointer;"
                           >
                             <svg
                               data-icon="edit"
@@ -2633,7 +2633,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Nexus 1`]
                           <span
                             class="bp3-icon bp3-icon-edit StyledProps--main"
                             icon="edit"
-                            style="vertical-align: middle;"
+                            style="vertical-align: middle; cursor: pointer;"
                           >
                             <svg
                               data-icon="edit"
@@ -2948,7 +2948,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for VAULT 1`]
                           <span
                             class="bp3-icon bp3-icon-edit StyledProps--main"
                             icon="edit"
-                            style="vertical-align: middle;"
+                            style="vertical-align: middle; cursor: pointer;"
                           >
                             <svg
                               data-icon="edit"
@@ -3287,7 +3287,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for k8 1`] = 
                           <span
                             class="bp3-icon bp3-icon-edit StyledProps--main"
                             icon="edit"
-                            style="vertical-align: middle;"
+                            style="vertical-align: middle; cursor: pointer;"
                           >
                             <svg
                               data-icon="edit"

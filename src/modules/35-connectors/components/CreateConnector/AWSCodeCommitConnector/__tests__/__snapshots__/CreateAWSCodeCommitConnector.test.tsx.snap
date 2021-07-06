@@ -196,7 +196,7 @@ exports[`CreateAWSCodeCommitConnector matches snapshot and goes through steps co
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main"
                           icon="edit"
-                          style="vertical-align: middle;"
+                          style="vertical-align: middle; cursor: pointer;"
                         >
                           <svg
                             data-icon="edit"

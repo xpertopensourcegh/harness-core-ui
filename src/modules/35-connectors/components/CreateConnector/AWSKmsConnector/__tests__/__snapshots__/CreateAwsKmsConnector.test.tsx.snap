@@ -174,7 +174,7 @@ exports[`Create Secret Manager Wizard should be able to render first and second 
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main"
                           icon="edit"
-                          style="vertical-align: middle;"
+                          style="vertical-align: middle; cursor: pointer;"
                         >
                           <svg
                             data-icon="edit"
@@ -514,7 +514,7 @@ exports[`Create Secret Manager Wizard should be able to render first and second 
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main"
                           icon="edit"
-                          style="vertical-align: middle;"
+                          style="vertical-align: middle; cursor: pointer;"
                         >
                           <svg
                             data-icon="edit"

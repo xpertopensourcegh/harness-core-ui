@@ -45,7 +45,7 @@ exports[`Test K8sDeleteStep should render edit view -with ManifestPaths selected
             <span
               class="bp3-icon bp3-icon-edit StyledProps--main"
               icon="edit"
-              style="vertical-align: middle;"
+              style="vertical-align: middle; cursor: pointer;"
             >
               <svg
                 data-icon="edit"
@@ -288,7 +288,7 @@ exports[`Test K8sDeleteStep should render edit view -with ReleaseName selected 1
             <span
               class="bp3-icon bp3-icon-edit StyledProps--main"
               icon="edit"
-              style="vertical-align: middle;"
+              style="vertical-align: middle; cursor: pointer;"
             >
               <svg
                 data-icon="edit"
@@ -541,7 +541,7 @@ exports[`Test K8sDeleteStep should render edit view -with ResourceName selected 
             <span
               class="bp3-icon bp3-icon-edit StyledProps--main"
               icon="edit"
-              style="vertical-align: middle;"
+              style="vertical-align: middle; cursor: pointer;"
             >
               <svg
                 data-icon="edit"
@@ -782,7 +782,7 @@ exports[`Test K8sDeleteStep should render edit view as new step 1`] = `
             <span
               class="bp3-icon bp3-icon-edit StyledProps--main"
               icon="edit"
-              style="vertical-align: middle;"
+              style="vertical-align: middle; cursor: pointer;"
             >
               <svg
                 data-icon="edit"

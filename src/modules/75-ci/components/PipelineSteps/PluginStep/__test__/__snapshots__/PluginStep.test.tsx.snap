@@ -46,7 +46,7 @@ exports[`Plugin Step Edit View edit mode works 1`] = `
               <span
                 class="bp3-icon bp3-icon-edit StyledProps--main"
                 icon="edit"
-                style="vertical-align: middle;"
+                style="vertical-align: middle; cursor: pointer;"
               >
                 <svg
                   data-icon="edit"
@@ -1322,7 +1322,7 @@ exports[`Plugin Step Edit View renders runtime inputs 1`] = `
               <span
                 class="bp3-icon bp3-icon-edit StyledProps--main"
                 icon="edit"
-                style="vertical-align: middle;"
+                style="vertical-align: middle; cursor: pointer;"
               >
                 <svg
                   data-icon="edit"
@@ -2361,7 +2361,7 @@ exports[`Plugin Step Edit View should render properly 1`] = `
               <span
                 class="bp3-icon bp3-icon-edit StyledProps--main"
                 icon="edit"
-                style="vertical-align: middle;"
+                style="vertical-align: middle; cursor: pointer;"
               >
                 <svg
                   data-icon="edit"

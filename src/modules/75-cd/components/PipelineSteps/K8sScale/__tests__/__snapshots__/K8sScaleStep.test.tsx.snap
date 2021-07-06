@@ -271,7 +271,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
             <span
               class="bp3-icon bp3-icon-edit StyledProps--main"
               icon="edit"
-              style="vertical-align: middle;"
+              style="vertical-align: middle; cursor: pointer;"
             >
               <svg
                 data-icon="edit"
@@ -669,7 +669,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
             <span
               class="bp3-icon bp3-icon-edit StyledProps--main"
               icon="edit"
-              style="vertical-align: middle;"
+              style="vertical-align: middle; cursor: pointer;"
             >
               <svg
                 data-icon="edit"
@@ -1139,7 +1139,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
             <span
               class="bp3-icon bp3-icon-edit StyledProps--main"
               icon="edit"
-              style="vertical-align: middle;"
+              style="vertical-align: middle; cursor: pointer;"
             >
               <svg
                 data-icon="edit"
@@ -1594,7 +1594,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid payload for instan
             <span
               class="bp3-icon bp3-icon-edit StyledProps--main"
               icon="edit"
-              style="vertical-align: middle;"
+              style="vertical-align: middle; cursor: pointer;"
             >
               <svg
                 data-icon="edit"
@@ -1993,7 +1993,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid payload for instan
             <span
               class="bp3-icon bp3-icon-edit StyledProps--main"
               icon="edit"
-              style="vertical-align: middle;"
+              style="vertical-align: middle; cursor: pointer;"
             >
               <svg
                 data-icon="edit"
@@ -2391,7 +2391,7 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
             <span
               class="bp3-icon bp3-icon-edit StyledProps--main"
               icon="edit"
-              style="vertical-align: middle;"
+              style="vertical-align: middle; cursor: pointer;"
             >
               <svg
                 data-icon="edit"

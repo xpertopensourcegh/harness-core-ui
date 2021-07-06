@@ -639,7 +639,7 @@ exports[`Git Sync - repo tab Filling gitSync repo form: gitSync repo form 1`] = 
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main"
                           icon="edit"
-                          style="vertical-align: middle;"
+                          style="vertical-align: middle; cursor: pointer;"
                         >
                           <svg
                             data-icon="edit"
@@ -1354,7 +1354,7 @@ exports[`Git Sync - repo tab Repo type card should be enabled only for Github 1`
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main"
                           icon="edit"
-                          style="vertical-align: middle;"
+                          style="vertical-align: middle; cursor: pointer;"
                         >
                           <svg
                             data-icon="edit"
@@ -1934,7 +1934,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 1`] = `
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main"
                           icon="edit"
-                          style="vertical-align: middle;"
+                          style="vertical-align: middle; cursor: pointer;"
                         >
                           <svg
                             data-icon="edit"
@@ -2514,7 +2514,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 2`] = `
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main"
                           icon="edit"
-                          style="vertical-align: middle;"
+                          style="vertical-align: middle; cursor: pointer;"
                         >
                           <svg
                             data-icon="edit"

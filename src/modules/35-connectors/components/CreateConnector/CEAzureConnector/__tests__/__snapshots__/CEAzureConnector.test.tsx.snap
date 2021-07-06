@@ -2557,7 +2557,7 @@ exports[`Create Azure connector Wizard should render overview step 1`] = `
                           <span
                             class="bp3-icon bp3-icon-edit StyledProps--main"
                             icon="edit"
-                            style="vertical-align: middle;"
+                            style="vertical-align: middle; cursor: pointer;"
                           >
                             <svg
                               data-icon="edit"
@@ -2978,7 +2978,7 @@ exports[`Create Azure connector Wizard should throw an error when connectors alr
                           <span
                             class="bp3-icon bp3-icon-edit StyledProps--main"
                             icon="edit"
-                            style="vertical-align: middle;"
+                            style="vertical-align: middle; cursor: pointer;"
                           >
                             <svg
                               data-icon="edit"

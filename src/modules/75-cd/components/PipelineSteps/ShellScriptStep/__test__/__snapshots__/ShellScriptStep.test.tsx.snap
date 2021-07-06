@@ -468,7 +468,7 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
           <span
             class="bp3-icon bp3-icon-edit StyledProps--main"
             icon="edit"
-            style="vertical-align: middle;"
+            style="vertical-align: middle; cursor: pointer;"
           >
             <svg
               data-icon="edit"
@@ -833,7 +833,7 @@ exports[`Test Shell Script Step should render edit view 1`] = `
           <span
             class="bp3-icon bp3-icon-edit StyledProps--main"
             icon="edit"
-            style="vertical-align: middle;"
+            style="vertical-align: middle; cursor: pointer;"
           >
             <svg
               data-icon="edit"
@@ -1200,7 +1200,7 @@ exports[`Test Shell Script Step should render edit view 2`] = `
           <span
             class="bp3-icon bp3-icon-edit StyledProps--main"
             icon="edit"
-            style="vertical-align: middle;"
+            style="vertical-align: middle; cursor: pointer;"
           >
             <svg
               data-icon="edit"
@@ -1567,7 +1567,7 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
           <span
             class="bp3-icon bp3-icon-edit StyledProps--main"
             icon="edit"
-            style="vertical-align: middle;"
+            style="vertical-align: middle; cursor: pointer;"
           >
             <svg
               data-icon="edit"
@@ -1930,7 +1930,7 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
           <span
             class="bp3-icon bp3-icon-edit StyledProps--main"
             icon="edit"
-            style="vertical-align: middle;"
+            style="vertical-align: middle; cursor: pointer;"
           >
             <svg
               data-icon="edit"
