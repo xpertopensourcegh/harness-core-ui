@@ -2486,7 +2486,6 @@ export interface StringsMap {
   'cf.featureFlags.metrics.evaluationStatistics': string
   'cf.featureFlags.metrics.evaluations': string
   'cf.featureFlags.metrics.flagEvaluations': string
-  'cf.featureFlags.metrics.last7Days': string
   'cf.featureFlags.metrics.noData': string
   'cf.featureFlags.metrics.noMetrics': string
   'cf.featureFlags.metrics.targetServed': string

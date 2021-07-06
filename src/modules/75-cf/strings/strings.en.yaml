@@ -165,7 +165,7 @@ featureFlags:
   flagWillTurnOff: Turn flag off for this environment upon save
   targeting: Targeting
   activity: '{{ $.activity }}'
-  results: Results (Last 7 Days)
+  results: Results
   makeSure: Make sure your code is deployed
   rules:
     editRules: Edit Rules
@@ -210,7 +210,6 @@ featureFlags:
   metrics:
     title: 'Metrics '
     noMetrics: No Evaluations
-    last7Days: For the last 7 days
     evaluations: '{{ count }} evaluations'
     evaluationStatistics: Evaluation Statistics
     flagEvaluations: Flag Evaluations ({{ count }})
