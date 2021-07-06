@@ -700,7 +700,8 @@ const routes = {
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
       `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/`
   ),
-
+  /********************************************************************************************************************/
+  toTemplatesListing: withAccountId(({ orgIdentifier }: OrgPathProps) => `/orgs/${orgIdentifier}/templates`),
   /********************************************************************************************************************/
   toCI: withAccountId(() => `/ci`),
   toCIHome: withAccountId(() => `/ci/home`),

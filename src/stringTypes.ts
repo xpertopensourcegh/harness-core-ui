@@ -352,6 +352,7 @@ export interface StringsMap {
   'common.supportedModals': string
   'common.switchAccount': string
   'common.switchAccountSearch': string
+  'common.templates': string
   'common.test.connectionFailed': string
   'common.test.connectionSuccessful': string
   'common.test.inProgress': string
@@ -1949,6 +1950,12 @@ export interface StringsMap {
   'pipeline.verification.metricsInViolation': string
   'pipeline.verification.testsRan': string
   'pipeline.verificationResult': string
+  'templatesLibrary.addNewTemplate': string
+  'templatesLibrary.copyToNewPipeline': string
+  'templatesLibrary.openEditTemplate': string
+  'templatesLibrary.previewTemplate': string
+  'templatesLibrary.templatesSettings': string
+  'templatesLibrary.useTemplate': string
   'cd.addInline': string
   'cd.addRemote': string
   'cd.addTFVarFileLabel': string
@@ -7287,10 +7294,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   templateLibrary: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  templates: string
   /**
    * @deprecated migrate this string to module level file
    */

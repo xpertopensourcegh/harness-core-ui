@@ -23,6 +23,7 @@ accountName: Account Name
 readOnly: Read Only
 editYaml: Edit Yaml
 provisioner: Provisioner
+templates: Templates
 comments: Comments
 updating: 'Updating {{entity}} {{name}}'
 creating: 'Creating {{entity}} {{name}}'

@@ -108,7 +108,6 @@ executionHeaderText: Execution History
 runPipelineText: Run
 rollbackLabel: Rollback
 addStage: Add Stage
-templates: Templates
 rollbackSteps: Rollback Steps
 noConnectorFound: No Connector Found
 noUserGroupsFound: No User Groups found
@@ -626,7 +625,7 @@ resourcePage:
   connectors: '{{$.connectorsLabel}}'
   secrets: '{{$.common.secrets}}'
   delegates: '{{$.delegate.delegates}}'
-  templates: '{{$.templates}}'
+  templates: '{{$.common.templates}}'
   fileStore: File Store
 stepType: 'Step Type'
 scriptType: 'Script Type'
