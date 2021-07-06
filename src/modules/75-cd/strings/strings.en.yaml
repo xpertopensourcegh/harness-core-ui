@@ -57,3 +57,4 @@ pipelineSteps:
     deploymentTypeRequired: Deployment type selection is required
   infraTab:
     deploymentType: Infrastructure type selection is required
+cdLaunchText: Launch CD First Generation

@@ -1953,6 +1953,7 @@ export interface StringsMap {
   'cd.addTFVarFileLabel': string
   'cd.allowSimultaneousDeployments': string
   'cd.backEndConfig': string
+  'cd.cdLaunchText': string
   'cd.cdTrialHomePage.startTrial.description': string
   'cd.cdTrialHomePage.startTrial.startBtn.description': string
   'cd.chooseProvisionerText': string
