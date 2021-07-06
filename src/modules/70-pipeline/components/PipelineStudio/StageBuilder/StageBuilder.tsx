@@ -16,7 +16,7 @@ import HoverCard from '@pipeline/components/HoverCard/HoverCard'
 import { StepMode as Modes } from '@pipeline/utils/stepUtils'
 import { PipelineOrStageStatus } from '@pipeline/components/PipelineSteps/AdvancedSteps/ConditionalExecutionPanel/ConditionalExecutionPanelUtils'
 import ConditionalExecutionTooltip from '@pipeline/pages/execution/ExecutionPipelineView/ExecutionGraphView/common/components/ConditionalExecutionToolTip/ConditionalExecutionTooltip'
-import { useGlobalEventListener, useUpdateQueryParams } from '@common/hooks'
+import { useGlobalEventListener } from '@common/hooks'
 import {
   CanvasWidget,
   createEngine,
@@ -176,9 +176,12 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
     updatePipelineView,
     renderPipelineStage,
     getStageFromPipeline,
-    setSelectedStageId,
-    setSelectedSectionId
+    setSelection
   } = React.useContext(PipelineContext)
+
+  // NOTE: we are using ref as setSelection is getting cached somewhere
+  const setSelectionRef = React.useRef(setSelection)
+  setSelectionRef.current = setSelection
 
   const { getString } = useStrings()
   const [dynamicPopoverHandler, setDynamicPopoverHandler] = React.useState<
@@ -214,7 +217,6 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
   })
 
   const canvasRef = React.useRef<HTMLDivElement | null>(null)
-  const { updateQueryParams } = useUpdateQueryParams()
   const [stageMap, setStageMap] = React.useState(new Map<string, StageState>())
   const { errorMap } = useValidationErrors()
 
@@ -305,14 +307,7 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
     engine.repaintCanvas()
     updatePipeline({ ...(pipelineTemp || {}), ...pipeline }).then(() => {
       if (openSetupAfterAdd) {
-        /*updatePipelineView({
-          ...pipelineView,
-          isSplitViewOpen: true,
-          splitViewData: {
-            type: SplitViewTypes.StageView
-          }
-        })*/
-        setSelectedStageId(newStage.stage.identifier)
+        setSelectionRef.current({ stageId: newStage.stage.identifier })
         moveStageToFocusDelayed(engine, newStage.stage.identifier, true, false)
       }
     })
@@ -387,13 +382,7 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
 
       /* istanbul ignore else */ if (eventTemp.entity) {
         if (eventTemp.entity.getType() === DiagramType.CreateNew) {
-          /*updatePipelineView({
-            ...pipelineView,
-            isSplitViewOpen: false,
-            splitViewData: {}
-          })*/
-          setSelectedStageId(undefined)
-          setSelectedSectionId(undefined)
+          setSelectionRef.current({ stageId: undefined, sectionId: undefined })
           dynamicPopoverHandler?.show(
             `[data-nodeid="${eventTemp.entity.getID()}"]`,
             {
@@ -416,12 +405,7 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
                 groupStages: parent.parallel,
                 onClickGroupStage: (stageId: string) => {
                   dynamicPopoverHandler?.hide()
-                  /*updatePipelineView({
-                    ...pipelineView,
-                    isSplitViewOpen: true,
-                    splitViewData: { type: SplitViewTypes.StageView }
-                  })*/
-                  setSelectedStageId(stageId)
+                  setSelectionRef.current({ stageId })
                   moveStageToFocusDelayed(engine, stageId, true, false)
                 },
                 stagesMap,
@@ -445,48 +429,21 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
                     stageMap.set(node.stage.identifier, { isConfigured: true, stage: node })
                     dynamicPopoverHandler.hide()
                     resetDiagram(engine)
-                    /*updatePipelineView({
-                      ...pipelineView,
-                      isSplitViewOpen: true,
-                      splitViewData: {
-                        type: SplitViewTypes.StageView
-                      }
-                    })*/
-                    setSelectedStageId(identifier)
+                    setSelectionRef.current({ stageId: identifier })
                   },
                   stagesMap,
                   renderPipelineStage
                 },
                 { useArrows: false, darkMode: false, fixedPosition: false }
               )
-              /*updatePipelineView({
-                ...pipelineView,
-                isSplitViewOpen: false,
-                splitViewData: {}
-              })*/
-              setSelectedStageId(undefined)
-              setSelectedSectionId(undefined)
+              setSelectionRef.current({ stageId: undefined, sectionId: undefined })
             } else {
-              /*updatePipelineView({
-                ...pipelineView,
-                isSplitViewOpen: true,
-                splitViewData: {
-                  type: SplitViewTypes.StageView
-                }
-              })*/
-              setSelectedStageId(data?.stage?.identifier)
+              setSelectionRef.current({ stageId: data?.stage?.identifier })
               moveStageToFocusDelayed(engine, data?.stage?.identifier, true, false)
             }
           } /* istanbul ignore else */ else if (!isSplitViewOpen) {
             if (stageMap.has(data?.stage?.identifier)) {
-              /*updatePipelineView({
-                ...pipelineView,
-                isSplitViewOpen: true,
-                splitViewData: {
-                  type: SplitViewTypes.StageView
-                }
-              })*/
-              setSelectedStageId(data?.stage?.identifier)
+              setSelectionRef.current({ stageId: data?.stage?.identifier })
               moveStageToFocusDelayed(engine, data?.stage?.identifier, true, false)
             } else {
               // TODO: check if this is unused code
@@ -500,14 +457,7 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
                     stageMap.set(node.stage.identifier, { isConfigured: true, stage: node })
                     dynamicPopoverHandler.hide()
                     resetDiagram(engine)
-                    /*updatePipelineView({
-                      ...pipelineView,
-                      isSplitViewOpen: true,
-                      splitViewData: {
-                        type: SplitViewTypes.StageView
-                      }
-                    })*/
-                    setSelectedStageId(identifier)
+                    setSelectionRef.current({ stageId: identifier })
                   },
                   stagesMap,
                   renderPipelineStage
@@ -536,8 +486,7 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
         isSplitViewOpen: false,
         splitViewData: {}
       })
-      setSelectedStageId(undefined)
-      setSelectedSectionId(undefined)
+      setSelectionRef.current({ stageId: undefined, sectionId: undefined })
 
       if (eventTemp.entity) {
         dynamicPopoverHandler?.show(
@@ -830,9 +779,7 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
         }
 
         if (isSplitViewOpen) {
-          updateQueryParams({ stageId: undefined as any, sectionId: undefined as any })
-          //updatePipelineView({ ...pipelineView, isSplitViewOpen: false, splitViewData: {} })
-          // setSelectedStageId(undefined)
+          setSelectionRef.current({ stageId: undefined, sectionId: undefined })
         }
       }}
     >

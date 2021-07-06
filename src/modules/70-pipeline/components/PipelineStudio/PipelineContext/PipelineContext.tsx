@@ -47,7 +47,7 @@ import {
 } from './PipelineActions'
 import type { AbstractStepFactory } from '../../AbstractSteps/AbstractStepFactory'
 import type { PipelineStagesProps } from '../../PipelineStages/PipelineStages'
-import { usePipelineQuestParamState } from '../PipelineQueryParamState/usePipelineQueryParam'
+import { PipelineSelectionState, usePipelineQuestParamState } from '../PipelineQueryParamState/usePipelineQueryParam'
 import {
   getStagePathFromPipeline as _getStagePathFromPipeline,
   getStageFromPipeline as _getStageFromPipeline
@@ -180,9 +180,13 @@ export interface PipelineContextInterface {
   runPipeline: (identifier: string) => void
   pipelineSaved: (pipeline: PipelineInfoConfig) => void
   updateStage: (stage: StageElementConfig) => Promise<void>
+  /** @deprecated use `setSelection` */
   setSelectedStageId: (selectedStageId: string | undefined) => void
+  /** @deprecated use `setSelection` */
   setSelectedStepId: (selectedStepId: string | undefined) => void
+  /** @deprecated use `setSelection` */
   setSelectedSectionId: (selectedSectionId: string | undefined) => void
+  setSelection: (selectionState: PipelineSelectionState) => void
   getStagePathFromPipeline(stageId: string, prefix?: string, pipeline?: PipelineInfoConfig): string
 }
 
@@ -529,6 +533,7 @@ export const PipelineContext = React.createContext<PipelineContextInterface>({
   setSelectedStageId: (_selectedStageId: string | undefined) => undefined,
   setSelectedStepId: (_selectedStepId: string | undefined) => undefined,
   setSelectedSectionId: (_selectedSectionId: string | undefined) => undefined,
+  setSelection: (_selectedState: PipelineSelectionState | undefined) => undefined,
   getStagePathFromPipeline: () => ''
 })
 
@@ -621,12 +626,18 @@ export const PipelineProvider: React.FC<{
 
   // stage/step selection
   const queryParamStateSelection = usePipelineQuestParamState()
+  const setSelection = (selectedState: PipelineSelectionState) => {
+    queryParamStateSelection.setPipelineQuestParamState(selectedState)
+  }
+  /** @deprecated use `setSelection` */
   const setSelectedStageId = (selectedStageId: string | undefined): void => {
     queryParamStateSelection.setPipelineQuestParamState({ stageId: selectedStageId })
   }
+  /** @deprecated use `setSelection` */
   const setSelectedStepId = (selectedStepId: string | undefined): void => {
     queryParamStateSelection.setPipelineQuestParamState({ stepId: selectedStepId })
   }
+  /** @deprecated use `setSelection` */
   const setSelectedSectionId = (selectedSectionId: string | undefined): void => {
     queryParamStateSelection.setPipelineQuestParamState({ sectionId: selectedSectionId })
   }
@@ -753,6 +764,7 @@ export const PipelineProvider: React.FC<{
         setSelectedStageId,
         setSelectedStepId,
         setSelectedSectionId,
+        setSelection,
         getStagePathFromPipeline
       }}
     >

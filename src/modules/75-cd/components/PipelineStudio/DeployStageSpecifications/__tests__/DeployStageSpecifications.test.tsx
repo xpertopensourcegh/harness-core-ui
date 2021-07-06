@@ -66,6 +66,7 @@ const getPipelineContext = (): PipelineContextInterface => ({
   setSelectedStageId: jest.fn(),
   setSelectedSectionId: jest.fn(),
   setSelectedStepId: jest.fn(),
+  setSelection: jest.fn(),
   getStagePathFromPipeline: jest.fn()
 })
 describe('StepWidget tests', () => {

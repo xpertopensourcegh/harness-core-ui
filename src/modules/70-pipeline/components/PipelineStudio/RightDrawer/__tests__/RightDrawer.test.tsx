@@ -4,6 +4,7 @@ import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineCon
 import { TestWrapper } from '@common/utils/testUtils'
 import { RightDrawer } from '../RightDrawer'
 import stateMock from './stateMock'
+import type { PipelineSelectionState } from '../../PipelineQueryParamState/usePipelineQueryParam'
 
 jest.mock('../../StepCommands/StepCommands', () => ({
   StepCommandsWithRef: React.forwardRef((props: any, ref) => {
@@ -101,6 +102,7 @@ describe('Right Drawer tests', () => {
           setSelectedStageId: (_selectedStageId: string | undefined) => undefined,
           setSelectedStepId: (_selectedStepId: string | undefined) => undefined,
           setSelectedSectionId: (_selectedSectionId: string | undefined) => undefined,
+          setSelection: (_selectedState: PipelineSelectionState) => undefined,
           getStagePathFromPipeline: () => ''
         }}
       >
