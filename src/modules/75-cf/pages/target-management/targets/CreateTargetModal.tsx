@@ -126,6 +126,9 @@ const FileUpload: React.FC<{ onChange: (targets: TargetData[]) => void }> = ({ o
           .map(([name, identifier]) => ({ name, identifier } as TargetData))
       })
       .then((targetData: TargetData[]) => {
+        return filterTargets(targetData)
+      })
+      .then((targetData: TargetData[]) => {
         setTagItems(
           targetData.map(
             ({ name, identifier }) => ({ label: identifier, value: name } as { label: string; value: string })
