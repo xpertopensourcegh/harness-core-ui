@@ -3,7 +3,7 @@
 exports[`GitSync Page render GitSync page for new user 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container medium header StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+    class="Layout--horizontal StyledProps--main container medium StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
   >
     <div
       class="Layout--vertical StyledProps--main StyledProps--padding-left-small StyledProps--padding-top-large StyledProps--padding-bottom-large"
@@ -12,7 +12,6 @@ exports[`GitSync Page render GitSync page for new user 1`] = `
         class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-bottom-small"
       >
         <a
-          class="breadCrumb"
           href="/account/dummyAccount/projects/dummyProject/orgs/default/details"
         >
           dummy

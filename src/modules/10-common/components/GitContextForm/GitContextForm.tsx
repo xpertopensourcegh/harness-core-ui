@@ -26,7 +26,7 @@ export interface GitContextProps {
   branch: string
 }
 
-const branchSyncStatus: Record<string, GitBranchDTO['branchSyncStatus']> = {
+export const branchSyncStatus: Record<string, GitBranchDTO['branchSyncStatus']> = {
   SYNCED: 'SYNCED',
   SYNCING: 'SYNCING',
   UNSYNCED: 'UNSYNCED'

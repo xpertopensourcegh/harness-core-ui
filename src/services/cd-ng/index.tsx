@@ -720,6 +720,7 @@ export interface CodeBase {
   build: Build
   connectorRef: string
   depth?: number
+  prCloneStrategy?: 'MergeCommit' | 'SourceBranch'
   repoName?: string
   resources?: ContainerResource
   sslVerify?: boolean
@@ -2276,7 +2277,7 @@ export interface GitSyncEntityDTO {
   folderPath?: string
   gitConnectorId?: string
   repoProviderType?: 'github' | 'gitlab' | 'bitbucket' | 'unknown'
-  repositoryName?: string
+  repoUrl?: string
 }
 
 export interface GitSyncEntityListDTO {
