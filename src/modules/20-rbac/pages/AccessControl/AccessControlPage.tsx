@@ -15,7 +15,7 @@ const AccessControlPage: React.FC = ({ children }) => {
 
   const getServiceAccountEnabled = (): boolean => {
     if (!orgIdentifier && NG_SERVICE_ACCOUNT) return true
-    return true
+    return false
   }
 
   return (

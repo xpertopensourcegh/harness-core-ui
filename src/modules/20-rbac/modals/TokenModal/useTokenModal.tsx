@@ -10,6 +10,8 @@ import css from './useTokenModal.module.scss'
 export interface useTokenModalProps {
   onSuccess: () => void
   onCloseModal?: () => void
+  apiKeyType?: TokenDTO['apiKeyType']
+  parentIdentifier?: string
 }
 
 export interface useTokenModalReturn {
@@ -17,7 +19,7 @@ export interface useTokenModalReturn {
   closeTokenModal: () => void
 }
 
-export const useTokenModal = ({ onSuccess }: useTokenModalProps): useTokenModalReturn => {
+export const useTokenModal = ({ onSuccess, apiKeyType, parentIdentifier }: useTokenModalProps): useTokenModalReturn => {
   const [apiKeyIdentifier, setApiKeyIdentifier] = useState<string>('')
   const [isRotate, setIsRotate] = useState<boolean>()
   const [tokenData, setTokenData] = useState<TokenDTO>()
@@ -36,6 +38,8 @@ export const useTokenModal = ({ onSuccess }: useTokenModalProps): useTokenModalR
             data={tokenData}
             apiKeyIdentifier={apiKeyIdentifier}
             isEdit={!!tokenData}
+            apiKeyType={apiKeyType}
+            parentIdentifier={parentIdentifier}
             onSubmit={onSuccess}
             onClose={hideModal}
           />

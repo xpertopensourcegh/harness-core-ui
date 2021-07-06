@@ -54,8 +54,8 @@ const RotateTokenForm: React.FC<TokenModalData> = props => {
           orgIdentifier,
           projectIdentifier,
           apiKeyIdentifier,
-          parentIdentifier: serviceAccountIdentifier,
-          apiKeyType: 'SERVICE_ACCOUNT',
+          parentIdentifier: tokenData?.parentIdentifier || serviceAccountIdentifier,
+          apiKeyType: tokenData?.apiKeyType || 'SERVICE_ACCOUNT',
           rotateTimestamp: values['expiryDate'] ? Date.parse(values['expiryDate']) : Date.now()
         }
       })
@@ -70,7 +70,7 @@ const RotateTokenForm: React.FC<TokenModalData> = props => {
     }
   }
   return (
-    <Layout.Vertical padding="xxxlarge">
+    <Layout.Vertical padding={{ bottom: 'xxxlarge', right: 'xxxlarge', left: 'xxxlarge' }}>
       <Layout.Vertical spacing="large">
         <Text color={Color.BLACK} font="medium">
           {getString('rbac.token.rotateLabel')}

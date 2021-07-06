@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Color, Layout, Text, Button, Container } from '@wings-software/uicore'
-import { useListAggregatedApiKeys } from 'services/cd-ng'
+import { Color, Text, Button, Container } from '@wings-software/uicore'
+import { TokenDTO, useListAggregatedApiKeys } from 'services/cd-ng'
 import type { ProjectPathProps, ServiceAccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 import { useApiKeyModal } from '@rbac/modals/ApiKeyModal/useApiKeyModal'
@@ -10,7 +10,12 @@ import { PageSpinner } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'
 import ApiKeyCard from '@rbac/components/ApiKeyList/views/ApiKeyCard'
 
-const ApiKeyList: React.FC = () => {
+interface ApiKeyListProps {
+  apiKeyType?: TokenDTO['apiKeyType']
+  parentIdentifier?: string
+}
+
+const ApiKeyList: React.FC<ApiKeyListProps> = ({ apiKeyType = 'SERVICE_ACCOUNT', parentIdentifier }) => {
   const { accountId, projectIdentifier, orgIdentifier, serviceAccountIdentifier } = useParams<
     ProjectPathProps & ServiceAccountPathProps
   >()
@@ -21,13 +26,15 @@ const ApiKeyList: React.FC = () => {
       accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier,
-      apiKeyType: 'SERVICE_ACCOUNT',
-      parentIdentifier: serviceAccountIdentifier
+      apiKeyType,
+      parentIdentifier: parentIdentifier || serviceAccountIdentifier
     }
   })
 
   const { openApiKeyModal } = useApiKeyModal({
-    onSuccess: refetch
+    onSuccess: refetch,
+    parentIdentifier: parentIdentifier || serviceAccountIdentifier,
+    apiKeyType
   })
 
   const onRefetchComplete = (): void => {
@@ -38,22 +45,17 @@ const ApiKeyList: React.FC = () => {
     onSuccess: () => {
       refetch()
       setRefetchTokens(true)
-    }
+    },
+    parentIdentifier: parentIdentifier || serviceAccountIdentifier,
+    apiKeyType
   })
 
   return (
-    <Container>
-      <Layout.Horizontal flex>
-        <Text color={Color.BLACK} font={{ size: 'medium', weight: 'semi-bold' }}>
-          {getString('common.apiKeys')}
-        </Text>
-        <Button
-          text={getString('plusNumber', { number: getString('common.apikey') })}
-          minimal
-          onClick={() => openApiKeyModal()}
-        />
-      </Layout.Horizontal>
-      <Container padding={{ top: 'medium' }}>
+    <Container padding={{ bottom: 'xlarge' }}>
+      <Text color={Color.BLACK} font={{ size: 'medium', weight: 'semi-bold' }}>
+        {apiKeyType === 'SERVICE_ACCOUNT' ? getString('common.apiKeys') : getString('rbac.myApiKeys')}
+      </Text>
+      <Container padding={{ top: 'medium', bottom: 'medium' }}>
         {loading && <PageSpinner />}
         {error && <PageError message={(error.data as Error)?.message || error.message} onClick={() => refetch()} />}
         {data?.data?.content?.map(apiKey => (
@@ -67,6 +69,12 @@ const ApiKeyList: React.FC = () => {
           />
         ))}
       </Container>
+      <Button
+        text={getString('plusNumber', { number: getString('common.apikey') })}
+        minimal
+        onClick={() => openApiKeyModal()}
+        data-testid="createNewApiKey"
+      />
     </Container>
   )
 }

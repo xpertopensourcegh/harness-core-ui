@@ -21,7 +21,7 @@ interface ApiKeyCardProps {
 const RenderColumnDetails = (data: ApiKeyDTO): React.ReactElement => {
   const { getString } = useStrings()
   return (
-    <div>
+    <Layout.Vertical spacing="xsmall">
       <Layout.Horizontal spacing="small">
         <Text color={Color.BLACK} lineClamp={1} className={css.wordBreak}>
           {data.name}
@@ -31,12 +31,15 @@ const RenderColumnDetails = (data: ApiKeyDTO): React.ReactElement => {
       <Text color={Color.GREY_400} lineClamp={1} font={{ size: 'small' }} className={css.wordBreak}>
         {getString('idLabel', { id: data.identifier })}
       </Text>
-    </div>
+    </Layout.Vertical>
   )
 }
 
-const RenderColumnMenu: React.FC<{ data: ApiKeyDTO; reload: () => void }> = ({ data, reload }) => {
-  const { accountIdentifier, orgIdentifier, projectIdentifier, identifier, parentIdentifier } = data
+const RenderColumnMenu: React.FC<{
+  data: ApiKeyDTO
+  reload: () => void
+}> = ({ data, reload }) => {
+  const { accountIdentifier, orgIdentifier, projectIdentifier, identifier, parentIdentifier, apiKeyType } = data
   const [menuOpen, setMenuOpen] = useState(false)
   const { getString } = useStrings()
   const { showSuccess, showError } = useToaster()
@@ -45,7 +48,7 @@ const RenderColumnMenu: React.FC<{ data: ApiKeyDTO; reload: () => void }> = ({ d
       accountIdentifier: accountIdentifier || '',
       orgIdentifier,
       projectIdentifier,
-      apiKeyType: 'SERVICE_ACCOUNT',
+      apiKeyType,
       parentIdentifier: parentIdentifier || ''
     }
   })
@@ -91,7 +94,7 @@ const RenderColumnMenu: React.FC<{ data: ApiKeyDTO; reload: () => void }> = ({ d
   }
 
   return (
-    <Layout.Horizontal flex={{ justifyContent: 'flex-end' }}>
+    <Layout.Horizontal flex={{ justifyContent: 'flex-end', alignItems: 'flex-start' }}>
       <Popover
         isOpen={menuOpen}
         onInteraction={nextOpenState => {
@@ -103,7 +106,7 @@ const RenderColumnMenu: React.FC<{ data: ApiKeyDTO; reload: () => void }> = ({ d
         <Button
           minimal
           icon="Options"
-          data-testid={`menu-${data.identifier}`}
+          data-testid={`apiKey-menu-${data.identifier}`}
           onClick={e => {
             e.stopPropagation()
             setMenuOpen(true)
@@ -148,23 +151,25 @@ const ApiKeyCard: React.FC<ApiKeyCardProps> = ({
             expandedIcon="chevron-up"
             isRemovable={false}
             collapseClassName={css.collapse}
-            // heading={`${getString('common.tokens')} (${tokensCount})`}
             heading={
-              <div>
+              <div data-testid={`tokens-${apiKey.identifier}`}>
                 <Text> {`${getString('common.tokens')} (${tokensCount})`}</Text>
               </div>
             }
           >
             <TokenList
               apiKeyIdentifier={apiKey.identifier}
+              apiKeyType={apiKey.apiKeyType}
               openTokenModal={openTokenModal}
               reloadApiKey={refetchApiKeys}
               refetchTokens={refetchTokens}
               onRefetchComplete={onRefetchComplete}
+              parentIdentifier={apiKey.parentIdentifier}
             />
             <Button
               text={getString('plusNumber', { number: getString('token') })}
               minimal
+              data-testid={`new_token-${apiKey.identifier}`}
               margin={{ top: 'medium' }}
               intent="primary"
               className={css.noPadding}
@@ -176,6 +181,7 @@ const ApiKeyCard: React.FC<ApiKeyCardProps> = ({
             text={getString('plusNumber', { number: getString('token') })}
             minimal
             intent="primary"
+            data-testid={`new_token-${apiKey.identifier}`}
             className={css.noPadding}
             onClick={() => openTokenModal(apiKey.identifier)}
           />

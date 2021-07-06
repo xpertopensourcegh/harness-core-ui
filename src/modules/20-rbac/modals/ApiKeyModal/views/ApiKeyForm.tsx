@@ -13,7 +13,7 @@ import {
 import { Form } from 'formik'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
-import { ApiKeyDTO, useCreateApiKey, useUpdateApiKey } from 'services/cd-ng'
+import { ApiKeyDTO, TokenDTO, useCreateApiKey, useUpdateApiKey } from 'services/cd-ng'
 import type { ProjectPathProps, ServiceAccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { NameIdDescriptionTags } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
@@ -23,10 +23,12 @@ import css from '../useApiKeyModal.module.scss'
 interface ApiKeyModalData {
   data?: ApiKeyDTO
   isEdit?: boolean
+  apiKeyType?: TokenDTO['apiKeyType']
+  parentIdentifier?: string
   onSubmit?: (data: ApiKeyDTO) => void
 }
 
-const ApiKeyForm: React.FC<ApiKeyModalData> = ({ data, isEdit, onSubmit }) => {
+const ApiKeyForm: React.FC<ApiKeyModalData> = ({ data, isEdit, onSubmit, apiKeyType, parentIdentifier }) => {
   const { getString } = useStrings()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
   const { accountId, projectIdentifier, orgIdentifier, serviceAccountIdentifier } = useParams<
@@ -35,7 +37,7 @@ const ApiKeyForm: React.FC<ApiKeyModalData> = ({ data, isEdit, onSubmit }) => {
   const { showSuccess } = useToaster()
   const { mutate: createApiKey, loading: saving } = useCreateApiKey({})
   const { mutate: editApiKey, loading: updating } = useUpdateApiKey({
-    identifier: data?.identifier || ''
+    identifier: data?.identifier || /* istanbul ignore next */ ''
   })
 
   const handleSubmit = async (values: ApiKeyDTO): Promise<void> => {
@@ -73,8 +75,8 @@ const ApiKeyForm: React.FC<ApiKeyModalData> = ({ data, isEdit, onSubmit }) => {
             accountIdentifier: accountId,
             orgIdentifier,
             projectIdentifier,
-            parentIdentifier: serviceAccountIdentifier,
-            apiKeyType: 'SERVICE_ACCOUNT',
+            parentIdentifier: parentIdentifier || serviceAccountIdentifier,
+            apiKeyType: apiKeyType || 'SERVICE_ACCOUNT',
             ...data
           }}
           formName="apiKeyForm"

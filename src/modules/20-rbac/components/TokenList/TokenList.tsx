@@ -19,6 +19,8 @@ interface TokenListProps {
   refetchTokens: boolean
   reloadApiKey: () => void
   onRefetchComplete: () => void
+  apiKeyType: TokenDTO['apiKeyType']
+  parentIdentifier?: string
 }
 
 const RenderColumnDetails: Renderer<CellProps<TokenAggregateDTO>> = ({ row }) => {
@@ -73,7 +75,15 @@ const RenderColumnStatus: Renderer<CellProps<TokenAggregateDTO>> = ({ row }) => 
 
 const RenderColumnMenu: Renderer<CellProps<TokenAggregateDTO>> = ({ row, column }) => {
   const data = row.original.token
-  const { identifier, apiKeyIdentifier, accountIdentifier, orgIdentifier, projectIdentifier, parentIdentifier } = data
+  const {
+    identifier,
+    apiKeyIdentifier,
+    accountIdentifier,
+    orgIdentifier,
+    projectIdentifier,
+    parentIdentifier,
+    apiKeyType
+  } = data
   const [menuOpen, setMenuOpen] = useState(false)
   const { getString } = useStrings()
   const { showSuccess, showError } = useToaster()
@@ -84,7 +94,7 @@ const RenderColumnMenu: Renderer<CellProps<TokenAggregateDTO>> = ({ row, column 
       projectIdentifier,
       parentIdentifier,
       apiKeyIdentifier,
-      apiKeyType: 'SERVICE_ACCOUNT'
+      apiKeyType
     }
   })
 
@@ -170,7 +180,9 @@ const TokenList: React.FC<TokenListProps> = ({
   openTokenModal,
   refetchTokens,
   onRefetchComplete,
-  reloadApiKey
+  reloadApiKey,
+  apiKeyType,
+  parentIdentifier
 }) => {
   const { accountId, projectIdentifier, orgIdentifier, serviceAccountIdentifier } = useParams<
     ProjectPathProps & ServiceAccountPathProps
@@ -181,8 +193,8 @@ const TokenList: React.FC<TokenListProps> = ({
       accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier,
-      apiKeyType: 'SERVICE_ACCOUNT',
-      parentIdentifier: serviceAccountIdentifier,
+      apiKeyType,
+      parentIdentifier: parentIdentifier || serviceAccountIdentifier,
       apiKeyIdentifier
     }
   })

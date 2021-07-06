@@ -138,3 +138,4 @@ account: account
 accountScope: Account scope
 user: User
 generateToken: Generate Token
+myApiKeys: My {{$.common.apiKeys}}

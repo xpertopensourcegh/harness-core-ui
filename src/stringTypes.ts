@@ -441,6 +441,7 @@ export interface StringsMap {
   'rbac.categoryLabels.sharedResources': string
   'rbac.generateToken': string
   'rbac.in': string
+  'rbac.myApiKeys': string
   'rbac.org': string
   'rbac.pendingUsers': string
   'rbac.permissionLabels.access': string

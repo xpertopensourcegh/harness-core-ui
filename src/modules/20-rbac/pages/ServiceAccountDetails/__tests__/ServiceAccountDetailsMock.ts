@@ -1,7 +1,8 @@
 import type {
   ResponseBoolean,
   ResponsePageApiKeyAggregateDTO,
-  ResponsePageServiceAccountAggregateDTO
+  ResponsePageServiceAccountAggregateDTO,
+  ResponsePageTokenAggregateDTO
 } from 'services/cd-ng'
 
 export const serviceAccountsAggregate: ResponsePageServiceAccountAggregateDTO = {
@@ -88,6 +89,58 @@ export const apiKeyListAggregate: ResponsePageApiKeyAggregateDTO = {
   },
   metaData: {},
   correlationId: '97764fd3-e6e8-42de-b425-9652ecb52d74'
+}
+
+export const tokenListAggregate: ResponsePageTokenAggregateDTO = {
+  status: 'SUCCESS',
+  data: {
+    totalPages: 1,
+    totalItems: 2,
+    pageItemCount: 2,
+    pageSize: 50,
+    content: [
+      {
+        token: {
+          identifier: 'vfhbvhfbvhbfhv',
+          name: 'vfhbvhfbvhbfhv',
+          validFrom: 1625558110030,
+          validTo: 1628150110030,
+          valid: true,
+          accountIdentifier: 'kmpySmUISimoRrJL6NL73w',
+          apiKeyIdentifier: 'New_Api_Key',
+          parentIdentifier: 'Test_Service_Account',
+          apiKeyType: 'SERVICE_ACCOUNT',
+          description: '',
+          tags: {}
+        },
+        expiryAt: 1628150110030,
+        createdAt: 1625558110088,
+        lastModifiedAt: 1625558110088
+      },
+      {
+        token: {
+          identifier: 'new_token',
+          name: 'new token',
+          validFrom: 1625557240664,
+          validTo: 1628274600000,
+          valid: true,
+          accountIdentifier: 'kmpySmUISimoRrJL6NL73w',
+          apiKeyIdentifier: 'New_Api_Key',
+          parentIdentifier: 'Test_Service_Account',
+          apiKeyType: 'SERVICE_ACCOUNT',
+          description: '',
+          tags: {}
+        },
+        expiryAt: 1628274600000,
+        createdAt: 1625557240665,
+        lastModifiedAt: 1625557240665
+      }
+    ],
+    pageIndex: 0,
+    empty: false
+  },
+  metaData: undefined,
+  correlationId: ''
 }
 
 export const mockResponse: ResponseBoolean = {

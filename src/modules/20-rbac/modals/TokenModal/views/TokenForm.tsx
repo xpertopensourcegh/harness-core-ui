@@ -30,6 +30,8 @@ interface TokenModalData {
   data?: TokenDTO
   apiKeyIdentifier: string
   isEdit?: boolean
+  apiKeyType?: TokenDTO['apiKeyType']
+  parentIdentifier?: string
   onSubmit?: () => void
   onClose?: () => void
 }
@@ -39,7 +41,7 @@ interface TokenFormData extends TokenDTO {
 }
 
 const TokenForm: React.FC<TokenModalData> = props => {
-  const { data: tokenData, onSubmit, onClose, isEdit, apiKeyIdentifier } = props
+  const { data: tokenData, onSubmit, onClose, isEdit, apiKeyIdentifier, apiKeyType, parentIdentifier } = props
   const { accountId, orgIdentifier, projectIdentifier, serviceAccountIdentifier } = useParams<
     ProjectPathProps & ServiceAccountPathProps
   >()
@@ -94,8 +96,8 @@ const TokenForm: React.FC<TokenModalData> = props => {
             orgIdentifier,
             projectIdentifier,
             apiKeyIdentifier,
-            parentIdentifier: serviceAccountIdentifier,
-            apiKeyType: 'SERVICE_ACCOUNT',
+            parentIdentifier: parentIdentifier || serviceAccountIdentifier,
+            apiKeyType: apiKeyType || 'SERVICE_ACCOUNT',
             expiryDate: tokenData?.validTo ? moment(tokenData.validTo).format('MM/DD/YYYY') : '',
             ...tokenData
           }}
