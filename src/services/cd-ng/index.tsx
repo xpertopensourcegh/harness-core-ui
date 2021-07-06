@@ -21374,6 +21374,7 @@ export interface PostSecretQueryParams {
   accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
+  privateSecret?: boolean
 }
 
 export type PostSecretProps = Omit<
@@ -21447,6 +21448,7 @@ export interface PostSecretFileV2QueryParams {
   accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
+  privateSecret?: boolean
 }
 
 export type PostSecretFileV2Props = Omit<
@@ -21748,6 +21750,7 @@ export interface PostSecretViaYamlQueryParams {
   accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
+  privateSecret?: boolean
 }
 
 export type PostSecretViaYamlProps = Omit<

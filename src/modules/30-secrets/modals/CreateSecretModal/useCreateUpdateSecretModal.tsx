@@ -17,6 +17,7 @@ type SecretType = SecretDTOV2['type']
 export interface UseCreateSecretModalProps {
   onSuccess?: ((data: SecretFormData) => void) | (() => void)
   connectorTypeContext?: ConnectorInfoDTO['type']
+  privateSecret?: boolean
 }
 
 export interface UseCreateSecretModalReturn {
@@ -55,6 +56,7 @@ const useCreateUpdateSecretModal = (props: UseCreateSecretModalProps): UseCreate
           type={type}
           onSuccess={handleSuccess}
           connectorTypeContext={props.connectorTypeContext}
+          privateSecret={props.privateSecret}
         />
         <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideModal} className={css.crossIcon} />
       </Dialog>

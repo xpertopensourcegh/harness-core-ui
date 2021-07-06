@@ -15,6 +15,8 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { useStrings } from 'framework/strings'
+import { getReference } from '@secrets/utils/SSHAuthUtils'
+import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import css from './SecretInput.module.scss'
 
 export interface SecretInputProps {
@@ -29,6 +31,8 @@ export interface SecretInputProps {
    * to be added as a source_category query param to get a filtered list of secrets/connectors from the BE
    */
   connectorTypeContext?: ConnectorInfoDTO['type']
+  allowSelection?: boolean
+  privateSecret?: boolean
 }
 
 interface FormikSecretInput extends SecretInputProps {
@@ -46,7 +50,9 @@ const SecretInput: React.FC<FormikSecretInput> = props => {
     type = 'SecretText',
     secretsListMockData,
     placeholder,
-    connectorTypeContext
+    connectorTypeContext,
+    allowSelection = true,
+    privateSecret
   } = props
   const secretReference = formik.values[name]
 
@@ -67,12 +73,13 @@ const SecretInput: React.FC<FormikSecretInput> = props => {
     onSuccess: formData => {
       const secret: SecretReference = {
         ...pick(formData, 'identifier', 'name', 'orgIdentifier', 'projectIdentifier'),
-        referenceString: secretReference['referenceString']
+        referenceString: getReference(getScopeFromDTO(formData), formData.identifier) as string
       }
       formik.setFieldValue(name, secret)
       onSuccess?.(secret)
     },
-    connectorTypeContext: connectorTypeContext
+    connectorTypeContext: connectorTypeContext,
+    privateSecret: privateSecret
   })
 
   const errorCheck = (): boolean =>
@@ -98,7 +105,11 @@ const SecretInput: React.FC<FormikSecretInput> = props => {
             data-testid={name}
             onClick={e => {
               e.preventDefault()
-              openCreateOrSelectSecretModal()
+              if (allowSelection) {
+                openCreateOrSelectSecretModal()
+              } else {
+                openCreateSecretModal(type)
+              }
             }}
           >
             <Icon size={24} height={12} name={'key-main'} />

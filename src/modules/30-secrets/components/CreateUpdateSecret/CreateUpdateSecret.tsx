@@ -53,12 +53,13 @@ interface CreateUpdateSecretProps {
   onChange?: (data: SecretDTOV2) => void
   onSuccess?: (data: SecretFormData) => void
   connectorTypeContext?: ConnectorInfoDTO['type']
+  privateSecret?: boolean
 }
 
 const LocalFormFieldsSMList = ['Local', 'GcpKms', 'AwsKms']
 const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
   const { getString } = useStrings()
-  const { onSuccess, connectorTypeContext } = props
+  const { onSuccess, connectorTypeContext, privateSecret } = props
   const propsSecret = props.secret
   const { accountId: accountIdentifier, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { showSuccess } = useToaster()
@@ -128,10 +129,10 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
     lazy: true
   })
   const { mutate: createSecretText, loading: loadingCreateText } = usePostSecret({
-    queryParams: { accountIdentifier, orgIdentifier, projectIdentifier }
+    queryParams: { accountIdentifier, orgIdentifier, projectIdentifier, privateSecret }
   })
   const { mutate: createSecretFile, loading: loadingCreateFile } = usePostSecretFileV2({
-    queryParams: { accountIdentifier, orgIdentifier, projectIdentifier }
+    queryParams: { accountIdentifier, orgIdentifier, projectIdentifier, privateSecret }
   })
   const { mutate: updateSecretText, loading: loadingUpdateText } = usePutSecret({
     identifier: secret?.identifier as string,
