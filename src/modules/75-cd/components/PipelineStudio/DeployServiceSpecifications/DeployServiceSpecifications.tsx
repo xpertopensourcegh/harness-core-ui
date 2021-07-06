@@ -25,7 +25,7 @@ import PropagateWidget, {
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { useValidationErrors } from '@pipeline/components/PipelineStudio/PiplineHooks/useValidationErrors'
 import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
-import SelectServiceDeploymentType from '@cd/components/PipelineStudio/DeployServiceSpecifications/SelectServiceDeploymentType'
+import SelectDeploymentType from '@cd/components/PipelineStudio/DeployServiceSpecifications/SelectDeploymentType'
 import css from './DeployServiceSpecifications.module.scss'
 
 export default function DeployServiceSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
@@ -382,7 +382,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
               <div className={css.tabHeading} id="serviceDefinition">
                 {getString('pipelineSteps.deploy.serviceSpecifications.serviceDefinition')}
               </div>
-              <SelectServiceDeploymentType selectedDeploymentType={'kubernetes'} isReadonly={isReadonly} />
+              <SelectDeploymentType selectedDeploymentType={'kubernetes'} isReadonly={isReadonly} />
               <Layout.Horizontal>
                 <StepWidget<K8SDirectServiceStep>
                   factory={factory}

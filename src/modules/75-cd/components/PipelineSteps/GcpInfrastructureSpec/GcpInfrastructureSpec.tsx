@@ -228,6 +228,7 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
                   multiTypeProps={{ expressions }}
                   projectIdentifier={projectIdentifier}
                   orgIdentifier={orgIdentifier}
+                  className={css.connectorRef}
                   width={450}
                   enableConfigureOptions={false}
                   style={{ marginTop: 'var(--spacing-small)', marginBottom: 'var(--spacing-medium)' }}

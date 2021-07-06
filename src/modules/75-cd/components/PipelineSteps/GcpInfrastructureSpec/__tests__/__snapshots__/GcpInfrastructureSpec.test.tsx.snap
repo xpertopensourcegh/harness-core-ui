@@ -398,7 +398,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with empty 
                 </span>
               </div>
               <div
-                class="bp3-form-group"
+                class="bp3-form-group connectorRef"
                 data-id="undefined-0"
                 style="margin-bottom: 0px;"
               >
@@ -841,7 +841,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with runtim
                 </span>
               </div>
               <div
-                class="bp3-form-group"
+                class="bp3-form-group connectorRef"
                 data-id="connectorRef-0"
                 style="margin-bottom: 0px;"
               >
@@ -1296,7 +1296,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with values
                 </span>
               </div>
               <div
-                class="bp3-form-group"
+                class="bp3-form-group connectorRef"
                 data-id="undefined-0"
                 style="margin-bottom: 0px;"
               >

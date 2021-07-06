@@ -21,7 +21,7 @@ interface SelectServiceDeploymentTypeProps {
   isReadonly: boolean
 }
 
-export default function SelectServiceDeploymentType(props: SelectServiceDeploymentTypeProps): JSX.Element {
+export default function SelectDeploymentType(props: SelectServiceDeploymentTypeProps): JSX.Element {
   const { selectedDeploymentType, isReadonly } = props
   const { getString } = useStrings()
   const formikRef = React.useRef<FormikProps<unknown> | null>(null)
@@ -100,7 +100,12 @@ export default function SelectServiceDeploymentType(props: SelectServiceDeployme
               {getString('deploymentTypeText')}
               <HarnessDocTooltip tooltipId="stageOverviewDeploymentType" useStandAlone={true} />
             </div>
-            <ThumbnailSelect name={'deploymentType'} items={supportedDeploymentTypes} isReadonly={isReadonly} />
+            <ThumbnailSelect
+              className={css.thumbnailSelect}
+              name={'deploymentType'}
+              items={supportedDeploymentTypes}
+              isReadonly={isReadonly}
+            />
           </Card>
         )
       }}
