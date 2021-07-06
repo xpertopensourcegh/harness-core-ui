@@ -177,7 +177,7 @@ artifactory:
   artifactoryServerUrl: 'Artifactory Repository URL'
 GCP:
   delegateOutClusterInfo: 'Specify credentials here'
-  delegateInClusterInfo: 'Specify credentials in harness-delegate.yaml files on your Harness Delegates'
+  delegateInClusterInfo: 'Use the credentials of a specific Harness Delegate (IAM role, service account, etc)'
 ECR:
   name: ECR
   fullName: ECR Container Registry
