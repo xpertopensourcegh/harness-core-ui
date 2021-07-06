@@ -93,6 +93,7 @@ export default function TFRemoteSection(
           name={`${path}.spec.configuration.varFiles[${index}].varFile.spec.store.spec.paths`}
           disabled={readonly}
           style={{ marginBottom: 'var(--spacing-small)' }}
+          isNameOfArrayType
         />
       )}
     </>

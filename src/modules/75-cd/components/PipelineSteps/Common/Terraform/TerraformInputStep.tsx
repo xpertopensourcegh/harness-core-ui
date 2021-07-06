@@ -110,6 +110,7 @@ export default function TerraformInputStep<T extends TerraformData = TerraformDa
           disabled={readonly}
           style={{ marginBottom: 'var(--spacing-small)' }}
           expressions={expressions}
+          isNameOfArrayType
         />
       )}
     </FormikForm>

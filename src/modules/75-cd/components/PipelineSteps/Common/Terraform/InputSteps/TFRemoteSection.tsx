@@ -95,6 +95,7 @@ export default function TFRemoteSection<T extends TerraformData = TerraformData>
           name={`${path}.spec.configuration.spec.varFiles[${index}].varFile.spec.store.spec.paths`}
           disabled={readonly}
           style={{ marginBottom: 'var(--spacing-small)' }}
+          isNameOfArrayType
         />
       )}
     </>

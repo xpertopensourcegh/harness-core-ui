@@ -119,6 +119,7 @@ export default function TfPlanInputStep(props: TerraformPlanProps): React.ReactE
             disabled={readonly}
             style={{ marginBottom: 'var(--spacing-small)' }}
             expressions={expressions}
+            isNameOfArrayType
           />
         </div>
       )}
