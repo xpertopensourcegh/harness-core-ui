@@ -196,12 +196,12 @@ const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsS
           }}
           formName="gitDetailsStepForm"
           validationSchema={Yup.object().shape({
-            // url: Yup.string().trim().required(getString('common.validation.urlIsRequired')),
             url: Yup.string().test('isValidUrl', getString('validation.urlIsNotValid'), function (_url) {
               if (!_url) return false
 
               if (this.parent.connectionType === GitConnectionType.SSH) {
-                return _url?.startsWith('git@') ? true : false
+                const trimmedUrl = _url?.trim() || ''
+                return trimmedUrl.startsWith('git@') || trimmedUrl.startsWith('ssh://git@') ? true : false
               }
               try {
                 const url = new URL(_url)
