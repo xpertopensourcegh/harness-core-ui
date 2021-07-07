@@ -354,7 +354,13 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                     : `${path}.serviceConfig.serviceDefinition.spec`
                 }
                 readonly={readonly}
-                customStepProps={{ stageIdentifier }}
+                customStepProps={{
+                  stageIdentifier,
+                  allValues:
+                    isPropagating && deploymentStageInputSet
+                      ? deploymentStage?.serviceConfig?.stageOverrides
+                      : deploymentStage?.serviceConfig.serviceDefinition?.spec
+                }}
                 onUpdate={(data: any) => {
                   /* istanbul ignore next */
                   if (deploymentStageInputSet?.serviceConfig?.serviceDefinition?.spec) {

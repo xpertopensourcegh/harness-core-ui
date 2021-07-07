@@ -20,12 +20,10 @@ import { Tooltip, Menu } from '@blueprintjs/core'
 import memoize from 'lodash-es/memoize'
 import { connect } from 'formik'
 import { cloneDeep } from 'lodash-es'
-import { useGetPipeline } from 'services/pipeline-ng'
 import List from '@common/components/List/List'
 import type { PipelineType, InputSetPathProps, GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import {
-  NgPipeline,
   ConnectorInfoDTO,
   GitConfigDTO,
   useGetBuildDetailsForDockerWithYaml,
@@ -58,7 +56,7 @@ import type { Scope } from '@common/interfaces/SecretsInterface'
 import { EXPRESSION_STRING } from '@pipeline/utils/constants'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import type { KubernetesServiceInputFormProps, LastQueryData } from '../K8sServiceSpecInterface'
-import { clearRuntimeInputValue, getNonRuntimeFields, getStagePathByIdentifier } from '../K8sServiceSpecHelper'
+import { clearRuntimeInputValue, getNonRuntimeFields } from '../K8sServiceSpecHelper'
 import ExperimentalInput from './ExperimentalInput'
 import css from '../K8sServiceSpec.module.scss'
 
@@ -66,6 +64,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
   template,
   path,
   factory,
+  allValues,
   initialValues,
   onUpdate,
   readonly = false,
@@ -79,7 +78,6 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
   >()
   const { repoIdentifier, branch: branchParam } = useQueryParams<GitQueryParams>()
 
-  const [pipeline, setPipeline] = React.useState<{ pipeline: NgPipeline } | undefined>()
   const [tagListMap, setTagListMap] = React.useState<{ [key: string]: Record<string, any>[] | Record<string, any> }>({
     sidecars: [],
     primary: {}
@@ -87,12 +85,8 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
   const [lastQueryData, setLastQueryData] = React.useState<LastQueryData>({})
 
   const { expressions } = useVariablesExpression()
-
-  const stagePath = pipeline ? getStagePathByIdentifier(stageIdentifier, pipeline?.pipeline) : ''
   const isPropagatedStage = path?.includes('serviceConfig.stageOverrides')
-  const artifacts = isPropagatedStage
-    ? get(pipeline, `pipeline.${stagePath}.stage.spec.serviceConfig.stageOverrides.artifacts`, {})
-    : get(pipeline, `pipeline.${stagePath}.stage.spec.serviceConfig.serviceDefinition.spec.artifacts`, {})
+  const artifacts = allValues?.artifacts || {}
 
   const getFqnPath = useCallback((): string => {
     let lastQueryDataPath
@@ -106,11 +100,6 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
     }
     return `pipeline.stages.${stageIdentifier}.spec.serviceConfig.serviceDefinition.spec.artifacts.${lastQueryDataPath}.spec.tag`
   }, [lastQueryData])
-
-  const { data: pipelineResponse } = useGetPipeline({
-    pipelineIdentifier,
-    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
-  })
 
   const yamlData = clearRuntimeInputValue(
     cloneDeep(
@@ -207,16 +196,10 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
       accountId
     }
   })
-  React.useEffect(() => {
-    if (pipelineResponse?.data?.yamlPipeline) {
-      setPipeline(parse(pipelineResponse?.data?.yamlPipeline))
-    }
-  }, [pipelineResponse?.data?.yamlPipeline])
 
   useDeepCompareEffect(() => {
     if (gcrError || dockerError || ecrError) {
-      const stageName = get(pipeline, `pipeline.${stagePath}.stage.name`, '')
-      showError(`Stage ${stageName}: ${getString('errorTag')}`, undefined, 'cd.tag.fetch.error')
+      showError(`Stage ${stageIdentifier}: ${getString('errorTag')}`, undefined, 'cd.tag.fetch.error')
       return
     }
     if (Array.isArray(dockerdata?.data?.buildDetailsList)) {
@@ -390,16 +373,13 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                 {getString('primaryArtifactText')}
                 {!isEmpty(
                   JSON.parse(
-                    getNonRuntimeFields(
-                      get(pipeline, `${path}.artifacts.primary.spec`),
-                      get(template, 'artifacts.primary.spec')
-                    )
+                    getNonRuntimeFields(get(artifacts, `primary.spec`), get(template, 'artifacts.primary.spec'))
                   )
                 ) && (
                   <Tooltip
                     position="top"
                     content={getNonRuntimeFields(
-                      get(pipeline, `${path}.artifacts.primary.spec`),
+                      get(artifacts, `primary.spec`),
                       get(template, 'artifacts.primary.spec')
                     )}
                   >
@@ -429,7 +409,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                     }}
                     onChange={() => resetTags(`${path}.artifacts.primary.spec.tag`)}
                     className={css.connectorMargin}
-                    type={ArtifactToConnectorMap[artifacts?.primary?.type] as ConnectorInfoDTO['type']}
+                    type={ArtifactToConnectorMap[artifacts?.primary?.type || ''] as ConnectorInfoDTO['type']}
                     gitScope={{ repo: repoIdentifier || '', branch: branchParam, getDefaultFromOtherRepo: true }}
                   />
                 )}
@@ -488,7 +468,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                 {getMultiTypeFromValue(template?.artifacts?.primary?.spec?.tag) === MultiTypeInputType.RUNTIME && (
                   <ExperimentalInput
                     formik={formik}
-                    disabled={readonly || isTagSelectionDisabled(artifacts?.primary?.type)}
+                    disabled={readonly || isTagSelectionDisabled(artifacts?.primary?.type || '')}
                     selectItems={
                       dockerLoading || gcrLoading || ecrLoading
                         ? [{ label: 'Loading Tags...', value: 'Loading Tags...' }]
@@ -521,7 +501,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                             ? artifacts?.primary?.spec?.registryHostname
                             : initialValues.artifacts?.primary?.spec?.registryHostname
                         const tagsPath = `primary`
-                        !isTagSelectionDisabled(artifacts?.primary?.type) &&
+                        !isTagSelectionDisabled(artifacts?.primary?.type || '') &&
                           fetchTags({
                             path: tagsPath,
                             imagePath,
@@ -537,7 +517,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                             ? [{ label: 'Loading Tags...', value: 'Loading Tags...' }]
                             : getSelectItems('primary'),
                         usePortal: true,
-                        addClearBtn: !(readonly || isTagSelectionDisabled(artifacts?.primary?.type)),
+                        addClearBtn: !(readonly || isTagSelectionDisabled(artifacts?.primary?.type || '')),
                         noResults: (
                           <Text lineClamp={1}>
                             {get(ecrError || gcrError || dockerError, 'data.message', null) ||
@@ -590,7 +570,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                       {!isEmpty(
                         JSON.parse(
                           getNonRuntimeFields(
-                            get(pipeline, `${path}.artifacts.sidecars[${index}].sidecar.spec`),
+                            get(artifacts, `sidecars[${index}].sidecar.spec`),
                             get(template, 'artifacts.primary.spec')
                           )
                         )
@@ -598,7 +578,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                         <Tooltip
                           position="top"
                           content={getNonRuntimeFields(
-                            get(pipeline, `${path}.artifacts.sidecars[${index}].sidecar.spec`),
+                            get(artifacts, `sidecars[${index}].sidecar.spec`),
                             get(template, `artifacts.sidecars[${index}].sidecar.spec`)
                           )}
                         >
@@ -624,7 +604,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                         onChange={() => resetTags(`${path}.artifacts.sidecars.[${index}].sidecar.spec.tag`)}
                         type={
                           ArtifactToConnectorMap[
-                            artifacts?.sidecars?.[index]?.sidecar?.type
+                            artifacts?.sidecars?.[index]?.sidecar?.type || ''
                           ] as ConnectorInfoDTO['type']
                         }
                         gitScope={{ repo: repoIdentifier || '', branch: branchParam, getDefaultFromOtherRepo: true }}
@@ -687,7 +667,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                         formik={formik}
                         useValue
                         disabled={
-                          readonly || isTagSelectionDisabled(artifacts?.sidecars?.[index]?.sidecar?.type, index)
+                          readonly || isTagSelectionDisabled(artifacts?.sidecars?.[index]?.sidecar?.type || '', index)
                         }
                         selectItems={
                           dockerLoading || gcrLoading || ecrLoading
@@ -729,7 +709,10 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                                 ? artifacts?.sidecars?.[sidecarIndex]?.sidecar?.spec?.registryHostname
                                 : currentSidecarSpec?.registryHostname
                             const tagsPath = `sidecars[${sidecarIndex}]`
-                            !isTagSelectionDisabled(artifacts?.sidecars?.[sidecarIndex]?.sidecar?.type, sidecarIndex) &&
+                            !isTagSelectionDisabled(
+                              artifacts?.sidecars?.[sidecarIndex]?.sidecar?.type || '',
+                              sidecarIndex
+                            ) &&
                               fetchTags({
                                 path: tagsPath,
                                 imagePath: imagePathCurrent,
@@ -1039,7 +1022,6 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
               stepViewType={StepViewType.InputSet}
               onUpdate={({ variables }: CustomVariablesData) => {
                 onUpdate?.({
-                  ...pipeline,
                   variables: variables as any
                 })
               }}
