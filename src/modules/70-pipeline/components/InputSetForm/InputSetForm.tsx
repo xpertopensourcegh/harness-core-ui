@@ -624,7 +624,7 @@ export function InputSetFormWrapper(props: InputSetFormWrapperProps): React.Reac
                   : getString('inputSets.newInputSetLabel')}
               </Text>
               {isGitSyncEnabled && isEdit && (
-                <GitPopover data={inputSet.gitDetails || {}} iconMargin={{ left: 'small', top: 'xsmall' }} />
+                <GitPopover data={inputSet.gitDetails || {}} iconProps={{ margin: { left: 'small', top: 'xsmall' } }} />
               )}
               <div className={css.optionBtns}>
                 <VisualYamlToggle

@@ -795,7 +795,7 @@ function RunPipelineFormBasic({
                     {isGitSyncEnabled && (
                       <GitPopover
                         data={pipelineResponse?.data?.gitDetails ?? {}}
-                        iconMargin={{ left: 'small', top: 'xsmall' }}
+                        iconProps={{ margin: { left: 'small', top: 'xsmall' } }}
                       />
                     )}
                     <div className={css.optionBtns}>

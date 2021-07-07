@@ -178,7 +178,7 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
             <Layout.Horizontal spacing="xsmall">
               <Breadcrumbs links={getBreadCrumbs()} />
               {repoIdentifier && !isPipelineStudioRoute && (
-                <GitPopover data={{ repoIdentifier, branch }} iconMargin={{ left: 'small' }} />
+                <GitPopover data={{ repoIdentifier, branch }} iconProps={{ margin: { left: 'small' } }} />
               )}
             </Layout.Horizontal>
             {isPipelineStudioRoute && (

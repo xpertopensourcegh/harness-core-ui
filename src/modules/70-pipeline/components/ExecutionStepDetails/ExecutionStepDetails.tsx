@@ -12,7 +12,7 @@ import { useUpdateQueryParams } from '@common/hooks'
 import type { ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetExecutionNode } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
-import factory from '@pipeline/factories/ExecutionStepDetailsFactory'
+import factory from '@pipeline/factories/ExecutionFactory'
 import { isCDStage, isCIStage, StageType } from '@pipeline/utils/stageHelpers'
 
 import type { StepType } from '../PipelineSteps/PipelineStepInterface'

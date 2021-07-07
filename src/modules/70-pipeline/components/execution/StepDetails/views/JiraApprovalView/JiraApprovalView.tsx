@@ -8,7 +8,7 @@ import type { ExecutionNode } from 'services/pipeline-ng'
 import { useGetApprovalInstance, ResponseApprovalInstanceResponse } from 'services/pipeline-ng'
 import { isExecutionWaiting } from '@pipeline/utils/statusHelpers'
 import { PageError } from '@common/components/Page/PageError'
-import type { StepDetailProps } from '@pipeline/factories/ExecutionStepDetailsFactory/types'
+import type { StepDetailProps } from '@pipeline/factories/ExecutionFactory/types'
 import { PipelineDetailsTab } from '@pipeline/components/execution/StepDetails/tabs/PipelineDetailsTab/PipelineDetailsTab'
 import { InputOutputTab } from '@pipeline/components/execution/StepDetails/tabs/InputOutputTab/InputOutputTab'
 

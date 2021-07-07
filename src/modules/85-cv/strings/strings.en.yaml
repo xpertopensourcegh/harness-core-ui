@@ -12,8 +12,8 @@ preProductionTests: Pre Production Tests
 postDeployment: Post Deployment
 logCluster: Log Cluster
 logsCluster: Logs Cluster
-showMore: Show More
-showLess: Show Less
+showMore: '{{ $.common.showMore }}'
+showLess: '{{ $.common.showLess }}'
 queries: Queries
 timeline: Timeline
 changeTimeline: Change Timeline

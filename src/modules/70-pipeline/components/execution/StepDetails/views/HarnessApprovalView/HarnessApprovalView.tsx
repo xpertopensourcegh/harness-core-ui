@@ -4,7 +4,7 @@ import { Button, Layout } from '@wings-software/uicore'
 import { get, merge } from 'lodash-es'
 
 import { useStrings } from 'framework/strings'
-import type { StepDetailProps } from '@pipeline/factories/ExecutionStepDetailsFactory/types'
+import type { StepDetailProps } from '@pipeline/factories/ExecutionFactory/types'
 import {
   ResponseApprovalInstanceResponse,
   ResponseHarnessApprovalInstanceAuthorization,

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container, Text } from '@wings-software/uicore'
 import moment from 'moment'
-import type { StepDetailProps } from '@pipeline/factories/ExecutionStepDetailsFactory/types'
+import type { StepDetailProps } from '@pipeline/factories/ExecutionFactory/types'
 import type { ExecutionNode } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
 import { PrimaryAndCanaryNodes } from './components/PrimaryandCanaryNodes/PrimaryAndCanaryNodes'

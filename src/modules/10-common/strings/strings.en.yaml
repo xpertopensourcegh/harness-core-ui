@@ -34,6 +34,8 @@ reject: Reject
 disable: Disable
 remove: Remove
 member: Member
+showMore: Show More
+showLess: Show Less
 PermissibleActions: Permissible Actions
 My: My
 ok: OK
@@ -109,6 +111,7 @@ projectViewer: Project Viewer
 orgViewer: Organization Viewer
 accViewer: Account Viewer
 plusNumber: + {{number}}
+plusNumberNoSpace: '+{{number}}'
 userGroup: User Group
 userGroups: User Groups
 failureRate: Failure Rate

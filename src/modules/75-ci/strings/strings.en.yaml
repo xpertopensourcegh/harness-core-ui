@@ -1,5 +1,7 @@
 continuous: '{{$.common.purpose.ci.continuous}}'
 learnMore: Learn more about Continuous Integration
+prSymbol: '#'
+moreCommitsLabel: 'More commits'
 ciTrialHomePage:
   startTrial:
     description: '{{ $.ci.dashboard.subHeading }}'

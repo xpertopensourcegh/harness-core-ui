@@ -254,6 +254,7 @@ export interface StringsMap {
   'common.pipeline': string
   'common.pipelineDetails': string
   'common.plusNumber': string
+  'common.plusNumberNoSpace': string
   'common.production': string
   'common.projectSetup': string
   'common.projectViewer': string
@@ -326,6 +327,8 @@ export interface StringsMap {
   'common.selectStrategy': string
   'common.selectVersion': string
   'common.setAsDefault': string
+  'common.showLess': string
+  'common.showMore': string
   'common.specify': string
   'common.startTrial': string
   'common.submittingRequest': string
@@ -2734,6 +2737,7 @@ export interface StringsMap {
   'ci.infraLabel': string
   'ci.labels': string
   'ci.learnMore': string
+  'ci.moreCommitsLabel': string
   'ci.newConnectorButton': string
   'ci.newItem': string
   'ci.next': string
@@ -2743,6 +2747,7 @@ export interface StringsMap {
   'ci.pipelineSteps.failIfKeyNotFoundInfo': string
   'ci.pipelineSteps.overrideCacheInfo': string
   'ci.pipelineSteps.pathStyleInfo': string
+  'ci.prSymbol': string
   'ci.previous': string
   'ci.privileged': string
   'ci.privilegedInfo': string
@@ -4417,23 +4422,11 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'execution.latest5Commits': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'execution.latestCommit': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'execution.pipelineIdentifierTextCD': string
   /**
    * @deprecated migrate this string to module level file
    */
   'execution.pipelineIdentifierTextCI': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'execution.prSymbol': string
   /**
    * @deprecated migrate this string to module level file
    */
