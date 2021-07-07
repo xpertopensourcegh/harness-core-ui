@@ -16,6 +16,7 @@ steps:
 folderPath: Folder Path
 filePathPlaceholder: 'Enter path within manifest folder'
 scriptRequired: Script is a required field
+workloadRequired: Workload is a required field
 stepName: Step Name
 serviceCreated: Service created successfully
 serviceUpdated: Service updated successfully

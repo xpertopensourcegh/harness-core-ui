@@ -441,7 +441,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
               class="Tooltip--acenter"
               data-tooltip-id="k8Scale_spec.workload"
             >
-              pipelineSteps.workload (optional)
+              pipelineSteps.workload
             </span>
              
             <span
@@ -869,7 +869,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
               class="Tooltip--acenter"
               data-tooltip-id="k8Scale_spec.workload"
             >
-              pipelineSteps.workload (optional)
+              pipelineSteps.workload
             </span>
              
             <span
@@ -1309,7 +1309,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
               class="Tooltip--acenter"
               data-tooltip-id="k8Scale_spec.workload"
             >
-              pipelineSteps.workload (optional)
+              pipelineSteps.workload
             </span>
              
             <span
@@ -1764,7 +1764,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid payload for instan
               class="Tooltip--acenter"
               data-tooltip-id="k8Scale_spec.workload"
             >
-              pipelineSteps.workload (optional)
+              pipelineSteps.workload
             </span>
              
             <span
@@ -2163,7 +2163,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid payload for instan
               class="Tooltip--acenter"
               data-tooltip-id="k8Scale_spec.workload"
             >
-              pipelineSteps.workload (optional)
+              pipelineSteps.workload
             </span>
              
             <span
@@ -2566,7 +2566,7 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
               class="Tooltip--acenter"
               data-tooltip-id="k8Scale_spec.workload"
             >
-              pipelineSteps.workload (optional)
+              pipelineSteps.workload
             </span>
              
             <span

@@ -82,7 +82,8 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
             getString('validation.timeout10SecMinimum')
           ),
           spec: Yup.object().shape({
-            instanceSelection: getInstanceDropdownSchema({ required: true })
+            instanceSelection: getInstanceDropdownSchema({ required: true }),
+            workload: Yup.string().required(getString('cd.workloadRequired'))
           }),
           identifier: IdentifierSchema()
         })}
@@ -137,7 +138,6 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                   <FormInput.MultiTextInput
                     label={getString('pipelineSteps.workload')}
                     name={'spec.workload'}
-                    isOptional={true}
                     disabled={readonly}
                     multiTextInputProps={{ expressions, disabled: readonly }}
                   />

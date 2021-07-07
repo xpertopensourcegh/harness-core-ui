@@ -2008,6 +2008,7 @@ export interface StringsMap {
   'cd.tfVarStore': string
   'cd.varFile': string
   'cd.varFileDetails': string
+  'cd.workloadRequired': string
   'ce.ceTrialHomePage.startTrial.description': string
   'ce.co.accessPoint.ap': string
   'ce.co.accessPoint.aps': string
