@@ -23,6 +23,7 @@ declare const styles: {
   readonly timers: string
   readonly timerIcon: string
   readonly duration: string
+  readonly timeAgo: string
   readonly ignoreFailedTooltip: string
   readonly ignoreFailedPopover: string
 }

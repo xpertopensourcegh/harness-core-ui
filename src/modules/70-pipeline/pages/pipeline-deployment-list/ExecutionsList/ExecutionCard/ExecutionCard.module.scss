@@ -161,8 +161,14 @@ $actions-translate: 10px;
         color: var(--grey-900);
       }
 
-      & time {
-        color: var(--grey-900);
+      & .timeAgo {
+        flex: 1 1 auto;
+        justify-content: flex-end;
+
+        & time {
+          font-size: var(--font-size-small);
+          color: var(--grey-900);
+        }
       }
     }
   }

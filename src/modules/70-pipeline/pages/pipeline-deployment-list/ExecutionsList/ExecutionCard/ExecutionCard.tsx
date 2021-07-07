@@ -203,6 +203,8 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
               iconProps={{ size: 14, className: css.timerIcon }}
               icon="calendar"
               time={pipelineExecution?.startTs || 0}
+              inline={false}
+              className={css.timeAgo}
             />
           </div>
         </div>

@@ -566,9 +566,9 @@ exports[`<CIPipelineDeploymentList /> tests snapshot test 1`] = `
                 common.durationPrefix
                 21s
               </span>
-              <span
-                class="StyledProps--font StyledProps--main StyledProps--inline"
-                style="display: inline-flex; align-items: center;"
+              <p
+                class="StyledProps--font StyledProps--main timeAgo StyledProps--inline"
+                style="display: flex; align-items: center;"
               >
                 <span
                   class="bp3-icon bp3-icon-calendar StyledProps--main timerIcon StyledProps--padding-right-xsmall"
@@ -590,7 +590,7 @@ exports[`<CIPipelineDeploymentList /> tests snapshot test 1`] = `
                   </svg>
                 </span>
                 dummy date
-              </span>
+              </p>
             </div>
           </div>
         </div>
