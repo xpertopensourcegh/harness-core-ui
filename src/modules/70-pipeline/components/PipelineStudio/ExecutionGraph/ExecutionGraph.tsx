@@ -185,21 +185,6 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
   const updateStageWithNewData = (stateToApply: ExecutionGraphState) => {
     stageCloneRef.current.stage.spec.execution = stateToApply.stepsData
     stageCloneRef.current.stage.spec.serviceDependencies = stateToApply.dependenciesData
-    const stepsEmpty = isEmpty(stateToApply.stepsData.steps)
-    const rollbackStepsEmpty = isEmpty(stateToApply.stepsData.rollbackSteps)
-    if (stepsEmpty) {
-      delete stageCloneRef.current.stage.spec.execution.steps
-    }
-    if (rollbackStepsEmpty) {
-      delete stageCloneRef.current.stage.spec.execution.rollbackSteps
-    }
-    if (stepsEmpty && rollbackStepsEmpty) {
-      delete stageCloneRef.current.stage.spec.execution
-    }
-    if (isEmpty(stateToApply.dependenciesData)) {
-      delete stageCloneRef.current.stage.spec.serviceDependencies
-    }
-
     updateStage(stageCloneRef.current)
   }
 
@@ -561,7 +546,7 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
     stepsData: state.isRollback ? state.stepsData.rollbackSteps || [] : state.stepsData.steps || [],
     stepStates: state.states,
     hasDependencies,
-    servicesData: state.dependenciesData,
+    servicesData: state.dependenciesData || [],
     factory: stepsFactory,
     listeners: {
       nodeListeners,
@@ -602,12 +587,11 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
   }, [originalStage, ref])
 
   useEffect(() => {
-    if (stageCloneRef.current) {
-      const spec = stageCloneRef.current?.stage?.spec
+    if (stageCloneRef.current?.stage?.spec?.execution) {
       setState(prevState => ({
         ...prevState,
-        ...(spec?.execution ? { stepsData: spec.execution } : {}),
-        ...(spec?.serviceDependencies ? { dependenciesData: spec.serviceDependencies } : {})
+        stepsData: stageCloneRef.current.stage.spec.execution,
+        dependenciesData: stageCloneRef.current.stage.spec.serviceDependencies
       }))
     }
   }, [stage, ref])
