@@ -57,17 +57,22 @@ exports[`CD Pipeline Page List render card view 1`] = `
     <div
       class="Layout--horizontal StyledProps--main"
     >
-      <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
-        data-testid="add-pipeline"
-        type="button"
+      <div
+        class="Button--withDocsTooltip"
+        data-tooltip-id="addPipeline"
       >
-        <span
-          class="bp3-button-text"
+        <button
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+          data-testid="add-pipeline"
+          type="button"
         >
-          addPipeline
-        </span>
-      </button>
+          <span
+            class="bp3-button-text"
+          >
+            addPipeline
+          </span>
+        </button>
+      </div>
     </div>
     <div
       class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -1645,17 +1650,22 @@ exports[`CD Pipeline Page List render list view 1`] = `
     <div
       class="Layout--horizontal StyledProps--main"
     >
-      <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
-        data-testid="add-pipeline"
-        type="button"
+      <div
+        class="Button--withDocsTooltip"
+        data-tooltip-id="addPipeline"
       >
-        <span
-          class="bp3-button-text"
+        <button
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+          data-testid="add-pipeline"
+          type="button"
         >
-          addPipeline
-        </span>
-      </button>
+          <span
+            class="bp3-button-text"
+          >
+            addPipeline
+          </span>
+        </button>
+      </div>
     </div>
     <div
       class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
