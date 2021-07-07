@@ -135,7 +135,7 @@ const ProvidePermissions: React.FC<StepProps<StepSecretManagerProps> & ProvidePe
       </div>
       <Text>
         To provide required permissions to your cluster, please download the YAML below and continue to apply it using
-        instrstuctions given in the next step. You can preview the YAML file here.
+        instructions given in the next step. You can preview the YAML file here.
       </Text>
       <div>
         <Text>This YAML file contains:</Text>
@@ -143,7 +143,7 @@ const ProvidePermissions: React.FC<StepProps<StepSecretManagerProps> & ProvidePe
           <li>Creation of a delegate</li>
           <li>Permissions to access the pods and services of the cluster</li>
           <li>Installing components to create Autostopping rules</li>
-          <li>Permissions to start and stop servies as per rules</li>
+          <li>Permissions to start and stop services as per rules</li>
         </ul>
         {!isDownloadComplete && (
           <Button

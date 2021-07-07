@@ -1130,7 +1130,7 @@ type: Opaque
         <p
           class="StyledProps--font StyledProps--main"
         >
-          To provide required permissions to your cluster, please download the YAML below and continue to apply it using instrstuctions given in the next step. You can preview the YAML file here.
+          To provide required permissions to your cluster, please download the YAML below and continue to apply it using instructions given in the next step. You can preview the YAML file here.
         </p>
         <div>
           <p
@@ -1149,7 +1149,7 @@ type: Opaque
               Installing components to create Autostopping rules
             </li>
             <li>
-              Permissions to start and stop servies as per rules
+              Permissions to start and stop services as per rules
             </li>
           </ul>
           <button
@@ -1498,7 +1498,7 @@ type: Opaque
         <p
           class="StyledProps--font StyledProps--main"
         >
-          To provide required permissions to your cluster, please download the YAML below and continue to apply it using instrstuctions given in the next step. You can preview the YAML file here.
+          To provide required permissions to your cluster, please download the YAML below and continue to apply it using instructions given in the next step. You can preview the YAML file here.
         </p>
         <div>
           <p
@@ -1517,7 +1517,7 @@ type: Opaque
               Installing components to create Autostopping rules
             </li>
             <li>
-              Permissions to start and stop servies as per rules
+              Permissions to start and stop services as per rules
             </li>
           </ul>
           <div
