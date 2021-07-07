@@ -10,11 +10,11 @@ import type {
   PipelineType
 } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
-import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { PipelineProvider } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { PipelineStudio } from '@pipeline/components/PipelineStudio/PipelineStudio'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { useQueryParams } from '@common/hooks'
+import { LICENSE_STATE_VALUES, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import { getCFPipelineStages } from '../../components/PipelineStudio/CFPipelineStagesUtils'
 import css from './CFPipelineStudio.module.scss'
 
@@ -23,7 +23,6 @@ const CIPipelineStudio: React.FC = (): JSX.Element => {
     useParams<PipelineType<PipelinePathProps & AccountPathProps>>()
   const { branch, repoIdentifier } = useQueryParams<GitQueryParams>()
   const { getString } = useStrings()
-  const { selectedProject } = useAppStore()
   const history = useHistory()
   const handleRunPipeline = (): void => {
     history.push(
@@ -39,6 +38,10 @@ const CIPipelineStudio: React.FC = (): JSX.Element => {
     )
   }
   const isApprovalStageEnabled = useFeatureFlag('NG_HARNESS_APPROVAL')
+  const isCDEnabled = useFeatureFlag('CDNG_ENABLED')
+  const isCFEnabled = useFeatureFlag('CFNG_ENABLED')
+  const isCIEnabled = useFeatureFlag('CING_ENABLED')
+  const { CI_LICENSE_STATE, FF_LICENSE_STATE } = useLicenseStore()
   return (
     <PipelineProvider
       stagesMap={stagesCollection.getAllStagesAttributes(getString)}
@@ -48,9 +51,9 @@ const CIPipelineStudio: React.FC = (): JSX.Element => {
         getCFPipelineStages(
           args,
           getString,
-          selectedProject?.modules && selectedProject.modules.indexOf?.('CI') > -1,
-          selectedProject?.modules && selectedProject.modules.indexOf?.('CD') > -1,
-          true,
+          CI_LICENSE_STATE === LICENSE_STATE_VALUES.ACTIVE && isCIEnabled,
+          isCDEnabled,
+          FF_LICENSE_STATE === LICENSE_STATE_VALUES.ACTIVE && isCFEnabled,
           isApprovalStageEnabled
         )
       }
