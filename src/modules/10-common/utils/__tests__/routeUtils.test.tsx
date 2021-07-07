@@ -1,4 +1,4 @@
-import { validateReturnUrl, returnLaunchUrl } from '../routeUtils'
+import { validateReturnUrl, returnLaunchUrl, withOrgIdentifier, withProjectIdentifier } from '../routeUtils'
 
 describe('validateReturnUrl', () => {
   test('different hostname url', () => {
@@ -17,5 +17,13 @@ describe('validateReturnUrl', () => {
     const redirectionUrl = '#/account/abc123/dashboard'
     const path = returnLaunchUrl(redirectionUrl)
     expect(path).toEqual(`${window.location.pathname}${redirectionUrl}`)
+  })
+  test('with org identifier', () => {
+    const withOrgURL = withOrgIdentifier(() => '/dummy')
+    expect(withOrgURL({ orgIdentifier: 'orgId' })).toEqual('/orgs/orgId/dummy')
+  })
+  test('with project identifier', () => {
+    const withProjectURL = withProjectIdentifier(() => '/dummy')
+    expect(withProjectURL({ projectIdentifier: 'projectId' })).toEqual('/projects/projectId/dummy')
   })
 })

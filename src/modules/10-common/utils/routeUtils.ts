@@ -152,7 +152,7 @@ export function withProjectIdentifier<T>(fn: (args: T) => string) {
   return (params: T & { projectIdentifier: string }): string => {
     const path = fn(params)
 
-    return `/orgs/${params.projectIdentifier}/${path.replace(/^\//, '')}`
+    return `/projects/${params.projectIdentifier}/${path.replace(/^\//, '')}`
   }
 }
 

@@ -13,11 +13,6 @@ const AccessControlPage: React.FC = ({ children }) => {
   const { getString } = useStrings()
   const { NG_SERVICE_ACCOUNT } = useFeatureFlags()
 
-  const getServiceAccountEnabled = (): boolean => {
-    if (!orgIdentifier && NG_SERVICE_ACCOUNT) return true
-    return false
-  }
-
   return (
     <>
       <Page.Header
@@ -33,14 +28,14 @@ const AccessControlPage: React.FC = ({ children }) => {
                 label: getString('common.userGroups'),
                 to: routes.toUserGroups({ accountId, orgIdentifier, projectIdentifier, module })
               },
-              ...(getServiceAccountEnabled()
+              ...(NG_SERVICE_ACCOUNT
                 ? [
                     {
                       label: getString('rbac.serviceAccounts.label'),
                       to: routes.toServiceAccounts({ accountId, orgIdentifier, projectIdentifier, module })
                     }
                   ]
-                : []),
+                : /* istanbul ignore next */ []),
               {
                 label: getString('resourceGroups'),
                 to: routes.toResourceGroups({ accountId, orgIdentifier, projectIdentifier, module })
