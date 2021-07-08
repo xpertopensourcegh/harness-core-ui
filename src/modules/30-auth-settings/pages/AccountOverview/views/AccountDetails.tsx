@@ -10,6 +10,9 @@ import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useDefaultExperienceModal } from '@common/modals/DefaultVersion/DefaultExperience'
 import { useGetAccountNG } from 'services/cd-ng'
 import type { Experiences } from '@common/constants/Utils'
+import RbacButton from '@rbac/components/Button/Button'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
 import useSwitchAccountModal from '@common/modals/SwitchAccount/useSwitchAccountModal'
 import AccountNameForm from './AccountNameForm'
 import css from '../AccountOverview.module.scss'
@@ -39,7 +42,19 @@ const AccountDetails: React.FC = () => {
   ) : (
     <React.Fragment>
       <Text color={Color.GREY_800}>{truncate(accountData?.name)}</Text>
-      <Button minimal intent="primary" icon="edit" onClick={() => setUpdateAccountName(true)} />
+      <RbacButton
+        minimal
+        intent="primary"
+        icon="edit"
+        text={getString('edit')}
+        onClick={() => setUpdateAccountName(true)}
+        permission={{
+          permission: PermissionIdentifier.EDIT_ACCOUNT,
+          resource: {
+            resourceType: ResourceType.ACCOUNT
+          }
+        }}
+      />
       <Button minimal intent="primary" text={getString('common.switchAccount')} onClick={openSwitchAccountModal} />
     </React.Fragment>
   )
@@ -89,12 +104,18 @@ const AccountDetails: React.FC = () => {
       <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
         <Text className={css.minWidth}>{getString('common.defaultExperience')}</Text>
         <Text color={Color.GREY_800}>{defaultExperienceStr}</Text>
-        <Button
+        <RbacButton
           minimal
           intent="primary"
           padding="none"
           text={getString('change')}
           onClick={() => openDefaultExperienceModal(accountData?.defaultExperience as Experiences)}
+          permission={{
+            permission: PermissionIdentifier.EDIT_ACCOUNT,
+            resource: {
+              resourceType: ResourceType.ACCOUNT
+            }
+          }}
         />
       </Layout.Horizontal>
     </Container>

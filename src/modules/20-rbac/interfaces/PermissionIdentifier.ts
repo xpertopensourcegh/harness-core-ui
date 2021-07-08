@@ -36,6 +36,8 @@ export enum PermissionIdentifier {
   EDIT_SERVICEACCOUNT = 'core_serviceaccount_edit',
   DELETE_SERVICEACCOUNT = 'core_serviceaccount_delete',
   MANAGE_SERVICEACCOUNT = 'core_serviceaccount_manageapikey',
+  EDIT_ACCOUNT = 'core_account_edit',
+  VIEW_ACCOUNT = 'core_account_view',
   VIEW_ROLE = 'core_role_view',
   UPDATE_ROLE = 'core_role_edit',
   DELETE_ROLE = 'core_role_delete',
