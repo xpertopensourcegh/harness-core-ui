@@ -30,6 +30,28 @@ export const GetPipelineResponse: UseGetReturnData<ResponsePMSPipelineResponseDT
     correlationId: '26a25fc1-882a-4499-9059-d1ed08ae12fb'
   }
 }
+export const GetUpdatedPipelineWithVariablesResponse: UseGetReturnData<ResponsePMSPipelineResponseDTO> = {
+  loading: false,
+  refetch: jest.fn(),
+  error: null,
+  data: {
+    status: 'SUCCESS',
+    data: {
+      yamlPipeline:
+        'pipeline:\n    name: mt\n    identifier: mt\n    projectIdentifier: SanityTest_Triggger\n    orgIdentifier: default\n    tags: {}\n    properties:\n        ci:\n            codebase:\n                connectorRef: testcicd\n                build: <+input>\n    stages:\n        - stage:\n              name: adwaitUser\n              identifier: Coverage_Report\n              type: CI\n              spec:\n                  cloneCodebase: true\n                  execution:\n                      steps:\n                          - step:\n                                type: Run\n                                name: Jest\n                                identifier: Jest\n                                spec:\n                                    connectorRef: harnessImage\n                                    image: <+pipeline.variables.ImageName>\n                                    command: <+input>\n                                    envVariables:\n                                        GIT_BOT_TOKEN: <+pipeline.variables.GIT_BOT_TOKEN>\n                                        GIT_EMAIL: bot@harness.io\n                                        GIT_USER: bot-harness\n                                    resources:\n                                        limits:\n                                            memory: 8Gi\n                                            cpu: 2000m\n                                    privileged: false\n                                description: <+input>\n                  serviceDependencies: []\n                  infrastructure:\n                      type: KubernetesDirect\n                      spec:\n                          connectorRef: account.platformK8s\n                          namespace: <+input>\n              when:\n                  pipelineStatus: Success\n    variables:\n        - name: var1\n          type: String\n          value: <+input>\n        - name: var2\n          type: String\n          default: "1"\n          value: <+input>\n        - name: var3withDefault\n          type: String\n          default: val1\n          value: <+input>.allowedValues(val1,val2)\n',
+      version: 3,
+      gitDetails: {
+        objectId: null,
+        branch: null,
+        repoIdentifier: null,
+        rootFolder: null,
+        filePath: null
+      }
+    } as unknown as PMSPipelineResponseDTO,
+    metaData: null as unknown as undefined,
+    correlationId: '26a25fc1-882a-4499-9059-d1ed08ae12fb'
+  }
+}
 
 export const GetTemplateFromPipelineResponse: UseGetReturnData<ResponseInputSetTemplateResponse> = {
   loading: false,
@@ -40,6 +62,22 @@ export const GetTemplateFromPipelineResponse: UseGetReturnData<ResponseInputSetT
     data: {
       inputSetTemplateYaml:
         'pipeline:\n  identifier: "noinputspipeline1"\n  variables:\n  - name: "newVar"\n    type: "String"\n    value: "<+input>"\n'
+    },
+    metaData: null as unknown as undefined,
+    correlationId: '4e057505-dbd4-4de7-9a9d-43a0364e5825'
+  }
+}
+
+// updated with 2 additional pipeline variables and 1 runtime input
+export const GetUpdatedTemplateFromPipelineResponse: UseGetReturnData<ResponseInputSetTemplateResponse> = {
+  loading: false,
+  refetch: jest.fn(),
+  error: null,
+  data: {
+    status: 'SUCCESS',
+    data: {
+      inputSetTemplateYaml:
+        'pipeline:\n  identifier: "mt"\n  properties:\n    ci:\n      codebase:\n        build: "<+input>"\n  stages:\n  - stage:\n      identifier: "Coverage_Report"\n      type: "CI"\n      spec:\n        execution:\n          steps:\n          - step:\n              identifier: "Jest"\n              type: "Run"\n              spec:\n                command: "<+input>"\n              description: "<+input>"\n        infrastructure:\n          type: "KubernetesDirect"\n          spec:\n            namespace: "<+input>"\n  variables:\n  - name: "var1"\n    type: "String"\n    value: "<+input>"\n  - name: "var2"\n    type: "String"\n    value: "<+input>"\n  - name: "var3withDefault"\n    type: "String"\n    value: "<+input>.allowedValues(val1,val2)"\n'
     },
     metaData: null as unknown as undefined,
     correlationId: '4e057505-dbd4-4de7-9a9d-43a0364e5825'

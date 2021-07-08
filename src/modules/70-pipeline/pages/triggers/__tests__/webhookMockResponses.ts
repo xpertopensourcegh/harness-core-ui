@@ -77,6 +77,175 @@ export const GetTriggerRepoOrgConnectorResponse: UseGetReturnData<ResponseNGTrig
   }
 }
 
+export const GetCustomTriggerWithVariablesResponse: UseGetReturnData<ResponseNGTriggerResponse> = {
+  loading: false,
+  refetch: jest.fn(),
+  error: null,
+  data: {
+    status: 'SUCCESS',
+    data: {
+      name: 'customtrigger',
+      identifier: 'customtrigger',
+      description: '',
+      type: 'Webhook',
+      accountIdentifier: 'sjmVqavzTuS1segZNyZqbA',
+      orgIdentifier: 'default',
+      projectIdentifier: 'SanityTest_Triggger',
+      targetIdentifier: 'mt',
+      yaml: 'trigger:\n    name: customtrigger\n    identifier: customtrigger\n    enabled: true\n    description: ""\n    tags: {}\n    orgIdentifier: default\n    projectIdentifier: SanityTest_Triggger\n    pipelineIdentifier: mt\n    source:\n        type: Webhook\n        spec:\n            type: Custom\n            spec:\n                payloadConditions: []\n                headerConditions: []\n    inputYaml: |\n        pipeline:\n            identifier: mt\n            properties:\n                ci:\n                    codebase:\n                        build:\n                            type: branch\n                            spec:\n                                branch: test\n            stages:\n                - stage:\n                      identifier: Coverage_Report\n                      type: CI\n                      spec:\n                          execution:\n                              steps:\n                                  - step:\n                                        identifier: Jest\n                                        type: Run\n                                        spec:\n                                            command: echo \'from trigger\'\n                          infrastructure:\n                              type: KubernetesDirect\n                              spec:\n                                  namespace: default\n            variables:\n                - name: var1\n                  type: String\n                  value: "123"\n',
+      version: 0,
+      enabled: true
+    },
+    metaData: null as unknown as undefined,
+    correlationId: '25df5700-e9a4-49c4-98eb-dea4c371fd6e'
+  }
+}
+
+export const PostCreateVariables = {
+  status: 'SUCCESS',
+  data: {
+    yaml: '---\npipeline:\n  name: "MT4L7YXSQmi_27yLRaP1Zg"\n  identifier: "mt"\n  projectIdentifier: "T7tV_aRXQ8G7lcmg4ynwZg"\n  orgIdentifier: "zAJvJXomQ7abyrOBSX7_JA"\n  tags:\n    __uuid: "RDTCeSkBRFS70pfls1Gj_A"\n  properties:\n    ci:\n      codebase:\n        connectorRef: "n0fTxVj7T9m9FQ7ZSEa2Tw"\n        build: "RRfGYgfiRZWdrRXvEg7a_A"\n        __uuid: "LE0Dx8gNS3maiJCMwg_P8Q"\n      __uuid: "mUQ83nCeTOSt5EM1etKqCw"\n    __uuid: "-vcp3lcTTsuzsPKCXVH3Mw"\n  stages:\n  - stage:\n      name: "Glf_lyHLRn6aDslQB2WsrA"\n      identifier: "Coverage_Report"\n      type: "CI"\n      spec:\n        cloneCodebase: "mq06vZp_SCSMGbbfcBAD6A"\n        execution:\n          steps:\n          - step:\n              type: "Run"\n              name: "-KVpswWuRe2PMpQnwGyung"\n              identifier: "Jest"\n              spec:\n                connectorRef: "QZAoLGy_TOOh7UJOFhE-4g"\n                image: "qoZzgFOXTbuwUZFbcm0pkA"\n                command: "Zof5JF9vS9-N0CFrmGkpzg"\n                envVariables:\n                  GIT_BOT_TOKEN: "U3Si4-_QSrWeB-Fa3afCPg"\n                  GIT_EMAIL: "X_WycWqfQTqBSd40EQaECw"\n                  GIT_USER: "9VCyQxg9SZmYL7W4_4JuXQ"\n                  __uuid: "gVu5R7uAT3iDcsHspc5F0w"\n                resources:\n                  limits:\n                    memory: "d9EQ5v8ETX-6u1TWxBu-pg"\n                    cpu: "c-SlorclR8G0_-1y7S8GtQ"\n                    __uuid: "KhKQ4J5kTZmLPYaefaM0FQ"\n                  __uuid: "r9DI9reARKq2BLzS1ayHrA"\n                privileged: "sDfYi0aARhusAeLTLPN4Pw"\n                __uuid: "hosJltu8QRKK9TaE7s5CTg"\n              description: "pNVt7Hy9QXqTpBNAqL6PKA"\n              __uuid: "3phJ5LzuTJa8NmdMlQy2jw"\n            __uuid: "t1qHDMDTQ9KuxVmg-QG-6Q"\n          __uuid: "B2K-1w3nQEKk1qyMfXPFAQ"\n        serviceDependencies: []\n        infrastructure:\n          type: "KubernetesDirect"\n          spec:\n            connectorRef: "2Cushoe8RxmA5CumLBGacg"\n            namespace: "nvdapXFGTo2NkkSX2VchfQ"\n            __uuid: "DDL8c2uxTN-ONW3bTKKcgQ"\n          __uuid: "59bfR6oWRzWrPT5fO6CgqA"\n        __uuid: "EI4QTXvqSheZmc73-zJYPg"\n      when:\n        pipelineStatus: "hZfX2HHSQIOtdMoHjvPOHg"\n        __uuid: "sgTwcwu9Tou22Fu90S4_SA"\n      __uuid: "6ELzeEQfRS2k711rMWalMg"\n    __uuid: "9VR-VkoMTjamsvZhqLt6KQ"\n  variables:\n  - name: "var1"\n    type: "String"\n    value: "U19nOF-TRVqe67HQPxc9WA"\n    __uuid: "Kje5g4QYRIqypH2dnMccNQ"\n  - name: "var2"\n    type: "String"\n    default: "iUITesnwSUWq7eLuU9fsOw"\n    value: "qnk94b-MQoy15lycY3PbJQ"\n    __uuid: "h7qYvGBXTVmHLRhwktR-6Q"\n  - name: "var3withDefault"\n    type: "String"\n    default: "PvLUfdpBQsWNoc3Piam3cQ"\n    value: "-fPxi3wTTrCL-lx1qQ6FNw"\n    __uuid: "UZERAVq8T56f44SZ-eHDug"\n  __uuid: "j0jogMcYSve5XFqwG_BZrA"\n__uuid: "DBcLLYeNSrmwc3j1sM5kDg"\n' as unknown as any,
+    metadataMap: {
+      j0jogMcYSve5XFqwG_BZrA: {
+        yamlProperties: {
+          fqn: 'pipeline',
+          localName: 'pipeline'
+        },
+        yamlOutputProperties: null
+      },
+      MT4L7YXSQmi_27yLRaP1Zg: {
+        yamlProperties: {
+          fqn: 'pipeline.name',
+          localName: 'pipeline.name'
+        },
+        yamlOutputProperties: null
+      },
+      '-fPxi3wTTrCL-lx1qQ6FNw': {
+        yamlProperties: {
+          fqn: 'pipeline.variables.var3withDefault',
+          localName: 'pipeline.variables.var3withDefault'
+        },
+        yamlOutputProperties: null
+      },
+      'qnk94b-MQoy15lycY3PbJQ': {
+        yamlProperties: {
+          fqn: 'pipeline.variables.var2',
+          localName: 'pipeline.variables.var2'
+        },
+        yamlOutputProperties: null
+      },
+      'U19nOF-TRVqe67HQPxc9WA': {
+        yamlProperties: {
+          fqn: 'pipeline.variables.var1',
+          localName: 'pipeline.variables.var1'
+        },
+        yamlOutputProperties: null
+      },
+      'U3Si4-_QSrWeB-Fa3afCPg': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.Coverage_Report.spec.execution.steps.Jest.spec.envVariables.GIT_BOT_TOKEN',
+          localName: 'execution.steps.Jest.spec.envVariables.GIT_BOT_TOKEN'
+        },
+        yamlOutputProperties: null
+      },
+      X_WycWqfQTqBSd40EQaECw: {
+        yamlProperties: {
+          fqn: 'pipeline.stages.Coverage_Report.spec.execution.steps.Jest.spec.envVariables.GIT_EMAIL',
+          localName: 'execution.steps.Jest.spec.envVariables.GIT_EMAIL'
+        },
+        yamlOutputProperties: null
+      },
+      'd9EQ5v8ETX-6u1TWxBu-pg': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.Coverage_Report.spec.execution.steps.Jest.spec.resources.limits.memory',
+          localName: 'execution.steps.Jest.spec.resources.limits.memory'
+        },
+        yamlOutputProperties: null
+      },
+      '9VCyQxg9SZmYL7W4_4JuXQ': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.Coverage_Report.spec.execution.steps.Jest.spec.envVariables.GIT_USER',
+          localName: 'execution.steps.Jest.spec.envVariables.GIT_USER'
+        },
+        yamlOutputProperties: null
+      },
+      Glf_lyHLRn6aDslQB2WsrA: {
+        yamlProperties: {
+          fqn: 'pipeline.stages.Coverage_Report.name',
+          localName: 'stage.stages.Coverage_Report.name'
+        },
+        yamlOutputProperties: null
+      },
+      '-KVpswWuRe2PMpQnwGyung': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.Coverage_Report.spec.execution.steps.Jest.name',
+          localName: 'execution.steps.Jest.name'
+        },
+        yamlOutputProperties: null
+      },
+      '6ELzeEQfRS2k711rMWalMg': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.Coverage_Report',
+          localName: 'stage'
+        },
+        yamlOutputProperties: null
+      },
+      sDfYi0aARhusAeLTLPN4Pw: {
+        yamlProperties: {
+          fqn: 'pipeline.stages.Coverage_Report.spec.execution.steps.Jest.spec.privileged',
+          localName: 'execution.steps.Jest.spec.privileged'
+        },
+        yamlOutputProperties: null
+      },
+      'QZAoLGy_TOOh7UJOFhE-4g': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.Coverage_Report.spec.execution.steps.Jest.spec.connectorRef',
+          localName: 'execution.steps.Jest.spec.connectorRef'
+        },
+        yamlOutputProperties: null
+      },
+      'c-SlorclR8G0_-1y7S8GtQ': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.Coverage_Report.spec.execution.steps.Jest.spec.resources.limits.cpu',
+          localName: 'execution.steps.Jest.spec.resources.limits.cpu'
+        },
+        yamlOutputProperties: null
+      },
+      qoZzgFOXTbuwUZFbcm0pkA: {
+        yamlProperties: {
+          fqn: 'pipeline.stages.Coverage_Report.spec.execution.steps.Jest.spec.image',
+          localName: 'execution.steps.Jest.spec.image'
+        },
+        yamlOutputProperties: null
+      },
+      '3phJ5LzuTJa8NmdMlQy2jw': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.Coverage_Report.spec.execution.steps.Jest',
+          localName: 'step'
+        },
+        yamlOutputProperties: null
+      },
+      'Zof5JF9vS9-N0CFrmGkpzg': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.Coverage_Report.spec.execution.steps.Jest.spec.command',
+          localName: 'execution.steps.Jest.spec.command'
+        },
+        yamlOutputProperties: null
+      },
+      pNVt7Hy9QXqTpBNAqL6PKA: {
+        yamlProperties: {
+          fqn: 'pipeline.stages.Coverage_Report.spec.execution.steps.Jest.description',
+          localName: 'execution.steps.Jest.description'
+        },
+        yamlOutputProperties: null
+      }
+    },
+    errorResponses: null
+  },
+  metaData: null,
+  correlationId: '744009cf-bf3a-4db4-b2f4-aae207739d76'
+}
+
 // missing sourceRepo
 export const GetTriggerInvalidYamlResponse: UseGetReturnData<ResponseNGTriggerResponse> = {
   loading: false,
