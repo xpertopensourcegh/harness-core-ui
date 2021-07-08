@@ -6593,6 +6593,137 @@ export const saveMetricPacksPromise = (
     signal
   )
 
+export interface ListMonitoredServiceQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+  environmentIdentifier?: string
+  offset: number
+  pageSize: number
+  filter?: string
+}
+
+export type ListMonitoredServiceProps = Omit<
+  GetProps<ResponsePageMonitoredServiceListDTO, unknown, ListMonitoredServiceQueryParams, void>,
+  'path'
+>
+
+/**
+ * list monitored service data
+ */
+export const ListMonitoredService = (props: ListMonitoredServiceProps) => (
+  <Get<ResponsePageMonitoredServiceListDTO, unknown, ListMonitoredServiceQueryParams, void>
+    path={`/monitored-service`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseListMonitoredServiceProps = Omit<
+  UseGetProps<ResponsePageMonitoredServiceListDTO, unknown, ListMonitoredServiceQueryParams, void>,
+  'path'
+>
+
+/**
+ * list monitored service data
+ */
+export const useListMonitoredService = (props: UseListMonitoredServiceProps) =>
+  useGet<ResponsePageMonitoredServiceListDTO, unknown, ListMonitoredServiceQueryParams, void>(`/monitored-service`, {
+    base: getConfig('cv/api'),
+    ...props
+  })
+
+/**
+ * list monitored service data
+ */
+export const listMonitoredServicePromise = (
+  props: GetUsingFetchProps<ResponsePageMonitoredServiceListDTO, unknown, ListMonitoredServiceQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponsePageMonitoredServiceListDTO, unknown, ListMonitoredServiceQueryParams, void>(
+    getConfig('cv/api'),
+    `/monitored-service`,
+    props,
+    signal
+  )
+
+export interface SaveMonitoredServiceQueryParams {
+  accountId: string
+}
+
+export type SaveMonitoredServiceProps = Omit<
+  MutateProps<
+    RestResponseMonitoredServiceResponse,
+    unknown,
+    SaveMonitoredServiceQueryParams,
+    MonitoredServiceDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * saves monitored service data
+ */
+export const SaveMonitoredService = (props: SaveMonitoredServiceProps) => (
+  <Mutate<
+    RestResponseMonitoredServiceResponse,
+    unknown,
+    SaveMonitoredServiceQueryParams,
+    MonitoredServiceDTORequestBody,
+    void
+  >
+    verb="POST"
+    path={`/monitored-service`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseSaveMonitoredServiceProps = Omit<
+  UseMutateProps<
+    RestResponseMonitoredServiceResponse,
+    unknown,
+    SaveMonitoredServiceQueryParams,
+    MonitoredServiceDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * saves monitored service data
+ */
+export const useSaveMonitoredService = (props: UseSaveMonitoredServiceProps) =>
+  useMutate<
+    RestResponseMonitoredServiceResponse,
+    unknown,
+    SaveMonitoredServiceQueryParams,
+    MonitoredServiceDTORequestBody,
+    void
+  >('POST', `/monitored-service`, { base: getConfig('cv/api'), ...props })
+
+/**
+ * saves monitored service data
+ */
+export const saveMonitoredServicePromise = (
+  props: MutateUsingFetchProps<
+    RestResponseMonitoredServiceResponse,
+    unknown,
+    SaveMonitoredServiceQueryParams,
+    MonitoredServiceDTORequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    RestResponseMonitoredServiceResponse,
+    unknown,
+    SaveMonitoredServiceQueryParams,
+    MonitoredServiceDTORequestBody,
+    void
+  >('POST', getConfig('cv/api'), `/monitored-service`, props, signal)
+
 export interface CreateDefaultMonitoredServiceQueryParams {
   accountId: string
   orgIdentifier: string
@@ -6650,6 +6781,56 @@ export const createDefaultMonitoredServicePromise = (
     'POST',
     getConfig('cv/api'),
     `/monitored-service/create-default`,
+    props,
+    signal
+  )
+
+export interface GetMonitoredServiceListEnvironmentsQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type GetMonitoredServiceListEnvironmentsProps = Omit<
+  GetProps<ResponseListString, unknown, GetMonitoredServiceListEnvironmentsQueryParams, void>,
+  'path'
+>
+
+/**
+ * get monitored service list environments data
+ */
+export const GetMonitoredServiceListEnvironments = (props: GetMonitoredServiceListEnvironmentsProps) => (
+  <Get<ResponseListString, unknown, GetMonitoredServiceListEnvironmentsQueryParams, void>
+    path={`/monitored-service/environments`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetMonitoredServiceListEnvironmentsProps = Omit<
+  UseGetProps<ResponseListString, unknown, GetMonitoredServiceListEnvironmentsQueryParams, void>,
+  'path'
+>
+
+/**
+ * get monitored service list environments data
+ */
+export const useGetMonitoredServiceListEnvironments = (props: UseGetMonitoredServiceListEnvironmentsProps) =>
+  useGet<ResponseListString, unknown, GetMonitoredServiceListEnvironmentsQueryParams, void>(
+    `/monitored-service/environments`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * get monitored service list environments data
+ */
+export const getMonitoredServiceListEnvironmentsPromise = (
+  props: GetUsingFetchProps<ResponseListString, unknown, GetMonitoredServiceListEnvironmentsQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseListString, unknown, GetMonitoredServiceListEnvironmentsQueryParams, void>(
+    getConfig('cv/api'),
+    `/monitored-service/environments`,
     props,
     signal
   )
@@ -6714,6 +6895,213 @@ export const getMonitoredServiceFromServiceAndEnvironmentPromise = (
     GetMonitoredServiceFromServiceAndEnvironmentQueryParams,
     void
   >(getConfig('cv/api'), `/monitored-service/service-environment`, props, signal)
+
+export interface DeleteMonitoredServiceQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type DeleteMonitoredServiceProps = Omit<
+  MutateProps<RestResponseBoolean, unknown, DeleteMonitoredServiceQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * delete monitored service data
+ */
+export const DeleteMonitoredService = (props: DeleteMonitoredServiceProps) => (
+  <Mutate<RestResponseBoolean, unknown, DeleteMonitoredServiceQueryParams, string, void>
+    verb="DELETE"
+    path={`/monitored-service`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseDeleteMonitoredServiceProps = Omit<
+  UseMutateProps<RestResponseBoolean, unknown, DeleteMonitoredServiceQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * delete monitored service data
+ */
+export const useDeleteMonitoredService = (props: UseDeleteMonitoredServiceProps) =>
+  useMutate<RestResponseBoolean, unknown, DeleteMonitoredServiceQueryParams, string, void>(
+    'DELETE',
+    `/monitored-service`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * delete monitored service data
+ */
+export const deleteMonitoredServicePromise = (
+  props: MutateUsingFetchProps<RestResponseBoolean, unknown, DeleteMonitoredServiceQueryParams, string, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<RestResponseBoolean, unknown, DeleteMonitoredServiceQueryParams, string, void>(
+    'DELETE',
+    getConfig('cv/api'),
+    `/monitored-service`,
+    props,
+    signal
+  )
+
+export interface GetMonitoredServiceQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export interface GetMonitoredServicePathParams {
+  identifier: string
+}
+
+export type GetMonitoredServiceProps = Omit<
+  GetProps<ResponseMonitoredServiceResponse, unknown, GetMonitoredServiceQueryParams, GetMonitoredServicePathParams>,
+  'path'
+> &
+  GetMonitoredServicePathParams
+
+/**
+ * get monitored service data
+ */
+export const GetMonitoredService = ({ identifier, ...props }: GetMonitoredServiceProps) => (
+  <Get<ResponseMonitoredServiceResponse, unknown, GetMonitoredServiceQueryParams, GetMonitoredServicePathParams>
+    path={`/monitored-service/${identifier}`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetMonitoredServiceProps = Omit<
+  UseGetProps<ResponseMonitoredServiceResponse, unknown, GetMonitoredServiceQueryParams, GetMonitoredServicePathParams>,
+  'path'
+> &
+  GetMonitoredServicePathParams
+
+/**
+ * get monitored service data
+ */
+export const useGetMonitoredService = ({ identifier, ...props }: UseGetMonitoredServiceProps) =>
+  useGet<ResponseMonitoredServiceResponse, unknown, GetMonitoredServiceQueryParams, GetMonitoredServicePathParams>(
+    (paramsInPath: GetMonitoredServicePathParams) => `/monitored-service/${paramsInPath.identifier}`,
+    { base: getConfig('cv/api'), pathParams: { identifier }, ...props }
+  )
+
+/**
+ * get monitored service data
+ */
+export const getMonitoredServicePromise = (
+  {
+    identifier,
+    ...props
+  }: GetUsingFetchProps<
+    ResponseMonitoredServiceResponse,
+    unknown,
+    GetMonitoredServiceQueryParams,
+    GetMonitoredServicePathParams
+  > & { identifier: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    ResponseMonitoredServiceResponse,
+    unknown,
+    GetMonitoredServiceQueryParams,
+    GetMonitoredServicePathParams
+  >(getConfig('cv/api'), `/monitored-service/${identifier}`, props, signal)
+
+export interface UpdateMonitoredServiceQueryParams {
+  accountId: string
+}
+
+export interface UpdateMonitoredServicePathParams {
+  identifier: string
+}
+
+export type UpdateMonitoredServiceProps = Omit<
+  MutateProps<
+    RestResponseMonitoredServiceResponse,
+    unknown,
+    UpdateMonitoredServiceQueryParams,
+    MonitoredServiceDTORequestBody,
+    UpdateMonitoredServicePathParams
+  >,
+  'path' | 'verb'
+> &
+  UpdateMonitoredServicePathParams
+
+/**
+ * updates monitored service data
+ */
+export const UpdateMonitoredService = ({ identifier, ...props }: UpdateMonitoredServiceProps) => (
+  <Mutate<
+    RestResponseMonitoredServiceResponse,
+    unknown,
+    UpdateMonitoredServiceQueryParams,
+    MonitoredServiceDTORequestBody,
+    UpdateMonitoredServicePathParams
+  >
+    verb="PUT"
+    path={`/monitored-service/${identifier}`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseUpdateMonitoredServiceProps = Omit<
+  UseMutateProps<
+    RestResponseMonitoredServiceResponse,
+    unknown,
+    UpdateMonitoredServiceQueryParams,
+    MonitoredServiceDTORequestBody,
+    UpdateMonitoredServicePathParams
+  >,
+  'path' | 'verb'
+> &
+  UpdateMonitoredServicePathParams
+
+/**
+ * updates monitored service data
+ */
+export const useUpdateMonitoredService = ({ identifier, ...props }: UseUpdateMonitoredServiceProps) =>
+  useMutate<
+    RestResponseMonitoredServiceResponse,
+    unknown,
+    UpdateMonitoredServiceQueryParams,
+    MonitoredServiceDTORequestBody,
+    UpdateMonitoredServicePathParams
+  >('PUT', (paramsInPath: UpdateMonitoredServicePathParams) => `/monitored-service/${paramsInPath.identifier}`, {
+    base: getConfig('cv/api'),
+    pathParams: { identifier },
+    ...props
+  })
+
+/**
+ * updates monitored service data
+ */
+export const updateMonitoredServicePromise = (
+  {
+    identifier,
+    ...props
+  }: MutateUsingFetchProps<
+    RestResponseMonitoredServiceResponse,
+    unknown,
+    UpdateMonitoredServiceQueryParams,
+    MonitoredServiceDTORequestBody,
+    UpdateMonitoredServicePathParams
+  > & { identifier: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    RestResponseMonitoredServiceResponse,
+    unknown,
+    UpdateMonitoredServiceQueryParams,
+    MonitoredServiceDTORequestBody,
+    UpdateMonitoredServicePathParams
+  >('PUT', getConfig('cv/api'), `/monitored-service/${identifier}`, props, signal)
 
 export interface GetNewRelicApplicationsQueryParams {
   accountId: string

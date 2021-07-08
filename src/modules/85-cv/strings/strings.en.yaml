@@ -234,6 +234,7 @@ onboarding:
       connectorRef: Connector Selection is required.
       validIdRegex: Identifier can only contain alphanumerics, _ and $.
       product: 'Product selection is required.'
+      source: Source selection is required
 selectCreateService: Select or create a service
 monitoringSources:
   mapMetricsToServices: Map Metric(s) to Harness Services
@@ -521,3 +522,47 @@ cvTrialHomePage:
     description: Take your software build processes to the next level using our Harness Continuous Verification.
     startBtn:
       description: Start 14 day CV Enterprise trial
+monitoredServices:
+  title: Monitored Services
+  filterlabel: 'view :'
+  noData: No Monitored Service
+  serviceAndEnvironment: Service And Environment
+  monitoredServiceDetails: Monitored Service Details
+  monitoredServiceName: Monitored service name
+  newMonitoredServices: New Monitored Service
+  addNewMonitoredServices: Add New Monitored Service
+  editMonitoredServices: Edit Monitored Service
+  deleteMonitoredServiceWarning: Are you sure you want to delete Monitored Service
+  deleteMonitoredService: Delete Monitored Service
+  monitoredServiceCreated: Monitoring Service created
+  monitoredServiceUpdated: Monitoring Service updated
+  serviceCount: Showing {{serviceCount}} Services
+healthSource:
+  nameLabel: Source Name
+  namePlaceholder: Type your health source name
+  featureLabel: Select Feature
+  featurePlaceholder: Select your {{ sourceType }} feature
+  environmentLabel: Create or Select Environment(s)
+  serviceLabel: Create or Select a Service
+  addHealthSource: Add New Health Source
+  editHealthSource: Edit Health Source
+  backtoMonitoredService: Back to Monitoring services
+  connectHealthSource: Connect Health Source
+  selectHealthSource: Select health source
+  defineYourSource: Define Your Sources
+  defineHealthSource: Define Health Source
+  customizeHealthSource: Customize Health Source
+  deleteHealthSourceWarning: Are you sure you want to delete Health Source
+  deleteHealthSource: Delete Health Source
+  seriveEnvironmentNote: Service selected is {{service}} and Environment selected is {{environment}}
+  connectors:
+    createConnector: Add new {{sourceType}} connector
+    AppDynamics:
+      applicationsAndTiers: Applications & Tiers
+      applicationLabel: Find an AppDynamics application
+      applicationPlaceholder: Type an application name
+      trierLabel: Find an AppDynamics tier
+      tierPlaceholder: Type an tier name
+      validation:
+        application: Please select applications
+        tier: Please select tier

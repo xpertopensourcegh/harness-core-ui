@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CustomiseHealthSource should matchsnapshot 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main tabWrapper"
+  >
+    <div
+      class="bp3-tabs Tabs--main Tabs--horizontal"
+    >
+      <div
+        class="bp3-tab-list"
+        role="tablist"
+      >
+        <div
+          class="bp3-tab-indicator-wrapper"
+          style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+        >
+          <div
+            class="bp3-tab-indicator"
+          />
+        </div>
+        <div
+          aria-controls="bp3-tab-panel_setup-sources_0"
+          aria-disabled="false"
+          aria-expanded="true"
+          aria-selected="true"
+          class="bp3-tab"
+          data-tab-id="0"
+          id="bp3-tab-title_setup-sources_0"
+          role="tab"
+          tabindex="0"
+        >
+          Tab1
+        </div>
+      </div>
+      <div
+        aria-hidden="false"
+        aria-labelledby="bp3-tab-title_setup-sources_0"
+        class="bp3-tab-panel"
+        id="bp3-tab-panel_setup-sources_0"
+        role="tabpanel"
+      />
+    </div>
+  </div>
+</div>
+`;

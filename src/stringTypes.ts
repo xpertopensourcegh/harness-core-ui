@@ -2913,6 +2913,31 @@ export interface StringsMap {
   'cv.getRiskAssessment': string
   'cv.harnessEnvironment': string
   'cv.harnessService': string
+  'cv.healthSource.addHealthSource': string
+  'cv.healthSource.backtoMonitoredService': string
+  'cv.healthSource.connectHealthSource': string
+  'cv.healthSource.connectors.AppDynamics.applicationLabel': string
+  'cv.healthSource.connectors.AppDynamics.applicationPlaceholder': string
+  'cv.healthSource.connectors.AppDynamics.applicationsAndTiers': string
+  'cv.healthSource.connectors.AppDynamics.tierPlaceholder': string
+  'cv.healthSource.connectors.AppDynamics.trierLabel': string
+  'cv.healthSource.connectors.AppDynamics.validation.application': string
+  'cv.healthSource.connectors.AppDynamics.validation.tier': string
+  'cv.healthSource.connectors.createConnector': string
+  'cv.healthSource.customizeHealthSource': string
+  'cv.healthSource.defineHealthSource': string
+  'cv.healthSource.defineYourSource': string
+  'cv.healthSource.deleteHealthSource': string
+  'cv.healthSource.deleteHealthSourceWarning': string
+  'cv.healthSource.editHealthSource': string
+  'cv.healthSource.environmentLabel': string
+  'cv.healthSource.featureLabel': string
+  'cv.healthSource.featurePlaceholder': string
+  'cv.healthSource.nameLabel': string
+  'cv.healthSource.namePlaceholder': string
+  'cv.healthSource.selectHealthSource': string
+  'cv.healthSource.seriveEnvironmentNote': string
+  'cv.healthSource.serviceLabel': string
   'cv.hostNamePlaceholder': string
   'cv.initiated': string
   'cv.jobNamePlaceholder': string
@@ -2925,6 +2950,20 @@ export interface StringsMap {
   'cv.methodLabel': string
   'cv.metricVerificationModal.modalTitle': string
   'cv.metricVerificationModal.viewCalls': string
+  'cv.monitoredServices.addNewMonitoredServices': string
+  'cv.monitoredServices.deleteMonitoredService': string
+  'cv.monitoredServices.deleteMonitoredServiceWarning': string
+  'cv.monitoredServices.editMonitoredServices': string
+  'cv.monitoredServices.filterlabel': string
+  'cv.monitoredServices.monitoredServiceCreated': string
+  'cv.monitoredServices.monitoredServiceDetails': string
+  'cv.monitoredServices.monitoredServiceName': string
+  'cv.monitoredServices.monitoredServiceUpdated': string
+  'cv.monitoredServices.newMonitoredServices': string
+  'cv.monitoredServices.noData': string
+  'cv.monitoredServices.serviceAndEnvironment': string
+  'cv.monitoredServices.serviceCount': string
+  'cv.monitoredServices.title': string
   'cv.monitoringSources.addMetric': string
   'cv.monitoringSources.addQuery': string
   'cv.monitoringSources.appD.appDApplications': string
@@ -3136,6 +3175,7 @@ export interface StringsMap {
   'cv.onboarding.selectProductScreen.validationText.identifier': string
   'cv.onboarding.selectProductScreen.validationText.name': string
   'cv.onboarding.selectProductScreen.validationText.product': string
+  'cv.onboarding.selectProductScreen.validationText.source': string
   'cv.onboarding.selectProductScreen.validationText.validIdRegex': string
   'cv.onboarding.verificationJobs.createJob': string
   'cv.onboarding.verificationJobs.createJobQues': string

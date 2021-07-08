@@ -68,6 +68,9 @@ allowpaths:
   - /prometheus/metric-list
   - /prometheus/sample-data
   - /sumologic/endpoints
+  - /monitored-service
+  - /monitored-service/{identifier}
+  - /monitored-service/environments
   - /monitored-service/create-default
   - /monitored-service/service-environment
 operationIdOverrides:

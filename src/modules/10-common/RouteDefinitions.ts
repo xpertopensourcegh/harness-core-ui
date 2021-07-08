@@ -917,6 +917,18 @@ const routes = {
     ({ projectIdentifier, orgIdentifier }: Partial<ProjectPathProps>) =>
       `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/services`
   ),
+  toCVMonitoringServices: withAccountId(
+    ({ projectIdentifier, orgIdentifier }: Partial<ProjectPathProps>) =>
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/monitoringservices`
+  ),
+  toCVAddMonitoringServicesSetup: withAccountId(
+    ({ projectIdentifier, orgIdentifier }: Partial<ProjectPathProps & { identifier: string }>) =>
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/monitoringservices/setup`
+  ),
+  toCVAddMonitoringServicesEdit: withAccountId(
+    ({ projectIdentifier, orgIdentifier, identifier }: Partial<ProjectPathProps & { identifier: string }>) =>
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/monitoringservices/edit/${identifier}`
+  ),
   toCVOnBoardingSetup: withAccountId(
     ({ dataSourceType, projectIdentifier, orgIdentifier }: Partial<ProjectPathProps & CVDataSourceTypePathProps>) =>
       `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/onboarding/${dataSourceType}/setup`
