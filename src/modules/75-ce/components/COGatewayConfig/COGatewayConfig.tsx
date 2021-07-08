@@ -50,6 +50,7 @@ import { TagsPopover } from '@common/components'
 import { DelegateTypes } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { Connectors } from '@connectors/constants'
+import { FeatureFlag } from '@common/featureFlags'
 import { ConnectorInfoDTO, ConnectorResponse, useGetConnectorListV2 } from 'services/cd-ng'
 import CORoutingTable from './CORoutingTable'
 import COHealthCheckTable from './COHealthCheckTable'
@@ -134,7 +135,7 @@ const MODIFIED_TOTAL_STEP_COUNT = 3
 const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
   const { getString } = useStrings()
   const { trackEvent } = useTelemetry()
-  const isKubernetesEnabled = useFeatureFlag('CE_AS_KUBERNETES_ENABLED')
+  const isKubernetesEnabled = useFeatureFlag(FeatureFlag.CE_AS_KUBERNETES_ENABLED)
   const isAwsProvider = Utils.isProviderAws(props.gatewayDetails.provider)
   const isAzureProvider = Utils.isProviderAzure(props.gatewayDetails.provider)
   const [featureFlagsMap] = useState<Record<string, boolean>>({ CE_AS_KUBERNETES_ENABLED: isKubernetesEnabled })

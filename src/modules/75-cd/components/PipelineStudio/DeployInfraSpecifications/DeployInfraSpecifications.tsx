@@ -28,13 +28,14 @@ import SelectDeploymentType from '@cd/components/PipelineStudio/DeployInfraSpeci
 import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { useValidationErrors } from '@pipeline/components/PipelineStudio/PiplineHooks/useValidationErrors'
+import { FeatureFlag } from '@common/featureFlags'
 import css from './DeployInfraSpecifications.module.scss'
 
 // TODO: Add key once we have default value
 const DEFAULT_INFRA_KEY = ''
 
 export default function DeployInfraSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
-  const isProvisionerEnabled = useFeatureFlag('NG_PROVISIONERS')
+  const isProvisionerEnabled = useFeatureFlag(FeatureFlag.NG_PROVISIONERS)
   const [initialInfrastructureDefinitionValues, setInitialInfrastructureDefinitionValues] =
     React.useState<Infrastructure>({})
   const [selectedDeploymentType, setSelectedDeploymentType] = React.useState<string | undefined>()

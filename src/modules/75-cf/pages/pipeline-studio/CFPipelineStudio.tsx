@@ -15,6 +15,7 @@ import { PipelineStudio } from '@pipeline/components/PipelineStudio/PipelineStud
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { useQueryParams } from '@common/hooks'
 import { LICENSE_STATE_VALUES, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
+import { FeatureFlag } from '@common/featureFlags'
 import { getCFPipelineStages } from '../../components/PipelineStudio/CFPipelineStagesUtils'
 import css from './CFPipelineStudio.module.scss'
 
@@ -37,10 +38,10 @@ const CIPipelineStudio: React.FC = (): JSX.Element => {
       })
     )
   }
-  const isApprovalStageEnabled = useFeatureFlag('NG_HARNESS_APPROVAL')
-  const isCDEnabled = useFeatureFlag('CDNG_ENABLED')
-  const isCFEnabled = useFeatureFlag('CFNG_ENABLED')
-  const isCIEnabled = useFeatureFlag('CING_ENABLED')
+  const isApprovalStageEnabled = useFeatureFlag(FeatureFlag.NG_HARNESS_APPROVAL)
+  const isCDEnabled = useFeatureFlag(FeatureFlag.CDNG_ENABLED)
+  const isCFEnabled = useFeatureFlag(FeatureFlag.CFNG_ENABLED)
+  const isCIEnabled = useFeatureFlag(FeatureFlag.CING_ENABLED)
   const { CI_LICENSE_STATE, FF_LICENSE_STATE } = useLicenseStore()
   return (
     <PipelineProvider

@@ -52,6 +52,7 @@ import {
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
 import { StageType } from '@pipeline/utils/stageHelpers'
+import { FeatureFlag } from '@common/featureFlags'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerTypes } from '../PipelineContext/PipelineActions'
 import { RightDrawer } from '../RightDrawer/RightDrawer'
@@ -107,8 +108,8 @@ export const RightBar = (): JSX.Element => {
     updatePipeline,
     updatePipelineView
   } = React.useContext(PipelineContext)
-  const isFlowControlEnabled = useFeatureFlag('NG_BARRIERS')
-  const isGitSyncFeatureFlag = useFeatureFlag('GIT_SYNC_NG')
+  const isFlowControlEnabled = useFeatureFlag(FeatureFlag.NG_BARRIERS)
+  const isGitSyncFeatureFlag = useFeatureFlag(FeatureFlag.GIT_SYNC_NG)
   const { isGitSyncEnabled } = useAppStore()
   const codebase = (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase
   const [codebaseStatus, setCodebaseStatus] = React.useState<CodebaseStatuses>(CodebaseStatuses.ZeroState)

@@ -56,7 +56,7 @@ const PurposeList: React.FC = () => {
     module: 'cd'
   }
   const CVNG_OPTIONS: PurposeType = {
-    enabled: CVNG_ENABLED,
+    enabled: !!CVNG_ENABLED,
     title: getString('common.purpose.cv.verification'),
     icon: 'cv-main',
     description: getString('common.purpose.cv.subtitle'),
@@ -64,7 +64,7 @@ const PurposeList: React.FC = () => {
   }
 
   const CING_OPTIONS: PurposeType = {
-    enabled: CING_ENABLED,
+    enabled: !!CING_ENABLED,
     title: getString('common.purpose.ci.integration'),
     icon: 'ci-main',
     description: getString('common.purpose.ci.subtitle'),
@@ -80,7 +80,7 @@ const PurposeList: React.FC = () => {
   }
 
   const CFNG_OPTIONS: PurposeType = {
-    enabled: CFNG_ENABLED,
+    enabled: !!CFNG_ENABLED,
     title: getString('common.purpose.cf.flags'),
     icon: 'cf-main',
     description: getString('common.purpose.cf.subtitle'),

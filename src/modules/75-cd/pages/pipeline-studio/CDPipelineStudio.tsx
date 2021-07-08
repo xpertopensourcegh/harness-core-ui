@@ -18,6 +18,7 @@ import { getCDTrialDialog, TrialType } from '@cd/modals/CDTrial/useCDTrialModal'
 import type { NgPipeline } from 'services/cd-ng'
 import { useQueryParams } from '@common/hooks'
 import { LICENSE_STATE_VALUES, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
+import { FeatureFlag } from '@common/featureFlags'
 import css from './CDPipelineStudio.module.scss'
 
 const CDPipelineStudio: React.FC = (): JSX.Element => {
@@ -55,10 +56,10 @@ const CDPipelineStudio: React.FC = (): JSX.Element => {
     )
   }
   const { CI_LICENSE_STATE, FF_LICENSE_STATE } = useLicenseStore()
-  const isCFEnabled = useFeatureFlag('CFNG_ENABLED')
-  const isCIEnabled = useFeatureFlag('CING_ENABLED')
+  const isCFEnabled = useFeatureFlag(FeatureFlag.CFNG_ENABLED)
+  const isCIEnabled = useFeatureFlag(FeatureFlag.CING_ENABLED)
   const { getString } = useStrings()
-  const isApprovalStageEnabled = useFeatureFlag('NG_HARNESS_APPROVAL')
+  const isApprovalStageEnabled = useFeatureFlag(FeatureFlag.NG_HARNESS_APPROVAL)
   return (
     <PipelineProvider
       stagesMap={stagesCollection.getAllStagesAttributes(getString)}
