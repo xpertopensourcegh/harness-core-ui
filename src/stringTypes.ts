@@ -1711,6 +1711,7 @@ export interface StringsMap {
   'pipeline.manifestType.kustomizePathRequired': string
   'pipeline.manifestType.manifestDetails': string
   'pipeline.manifestType.manifestIdentifier': string
+  'pipeline.manifestType.manifestPathPlaceholder': string
   'pipeline.manifestType.manifestPlaceholder': string
   'pipeline.manifestType.manifestRepoType': string
   'pipeline.manifestType.manifestSource': string

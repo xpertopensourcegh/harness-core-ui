@@ -414,10 +414,12 @@ export class K8sApplyStep extends PipelineStep<K8sApplyData> {
       ...initialValues,
       spec: {
         ...initialValues.spec,
-        filePaths: (initialValues?.spec?.filePaths || [])?.map((item: string) => ({
-          value: item,
-          id: uuid()
-        }))
+        filePaths: initialValues?.spec?.filePaths?.length
+          ? (initialValues?.spec?.filePaths || [])?.map((item: string) => ({
+              value: item,
+              id: uuid()
+            }))
+          : [{ value: '', id: uuid() }]
       }
     }
   }

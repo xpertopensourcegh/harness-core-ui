@@ -152,6 +152,7 @@ manifestType:
   specifyManifestStore: 'Specify {{ $.manifestsText }} {{$.store}}'
   selectManifestStore: '{{$.select}} {{ $.manifestsText }} {{$.store}}'
   helmSkipResourceVersion: By selecting this option, Harness will no longer version ConfigMaps and Secrets for this Service.
+  manifestPathPlaceholder: Enter File/Folder Path
   pluginPathHelperText: Enter the path to the dedicated directory for the plugin on the Delegate host(s). For example, '$HOME/plugin'. The default directory is named $XDG_CONFIG_HOME/kustomize/plugin and its value is $HOME/.config
   kustomizePathHelperText: Enter the path from the root of the Source Provider repo to the folder containing kustomization.yaml
   helmCommandFlags: By Default, Harness versions ConfigMaps and Secrets that are deployed into the Kubernetes Cluster.
