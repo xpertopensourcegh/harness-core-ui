@@ -1267,6 +1267,7 @@ export interface StringsMap {
   'gitsync.entitiesByRepositories': string
   'gitsync.fetchingBranches': string
   'gitsync.folderDetails': string
+  'gitsync.gitEnabledBlockedTooltip': string
   'gitsync.harnessFolderHeader': string
   'gitsync.harnessFolderText': string
   'gitsync.label': string

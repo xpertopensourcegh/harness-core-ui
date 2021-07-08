@@ -1,6 +1,9 @@
 import type { IconName } from '@wings-software/uicore'
+import { isNumber, pick } from 'lodash-es'
 import { Connectors } from '@connectors/constants'
 import type { GitSyncConfig, ConnectorInfoDTO, GitSyncEntityDTO } from 'services/cd-ng'
+import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { getPipelineListPromise } from 'services/pipeline-ng'
 
 export const getGitConnectorIcon = (type: GitSyncConfig['gitConnectorType']): IconName => {
   switch (type) {
@@ -95,5 +98,32 @@ export const getEntityUrl = (entity: GitSyncEntityDTO): string => {
     return `${repoUrl}/blob/${branch}/${folderPath}${entityGitPath}`
   } else {
     return ''
+  }
+}
+
+/**
+ * This method will be used to decide whether user can enable git experience for any project or not.
+ * Current condition is if any pipeline is created we should not allow enabling gitExperience.
+ * Once complete sync will be implemented, blocking user to enable the gitSync will be not required.
+ */
+export const canEnableGitExperience = async (queryParam: ProjectPathProps & ModulePathParams): Promise<boolean> => {
+  const defaultQueryParamsForPiplines = {
+    ...pick(queryParam, ['projectIdentifier', 'module', 'orgIdentifier']),
+    accountIdentifier: queryParam.accountId,
+    searchTerm: '',
+    page: 0,
+    size: 10
+  }
+  try {
+    const response = await getPipelineListPromise({
+      queryParams: defaultQueryParamsForPiplines,
+      body: { filterType: 'PipelineSetup' }
+    })
+
+    return response?.status === 'SUCCESS' && isNumber(response?.data?.totalElements)
+      ? response?.data?.totalElements === 0
+      : true
+  } catch (error) {
+    return true
   }
 }
