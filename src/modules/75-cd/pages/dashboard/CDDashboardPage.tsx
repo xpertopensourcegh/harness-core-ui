@@ -9,7 +9,7 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import CardRailView from '@pipeline/components/Dashboards/CardRailView/CardRailView'
 import { useGetWorkloads, useGetDeployments } from 'services/cd-ng'
-import { ActiveStatus, FailedStatus } from '@pipeline/components/Dashboards/shared'
+import { ActiveStatus, FailedStatus, useErrorHandler, useRefetchCall } from '@pipeline/components/Dashboards/shared'
 import DeploymentsHealthCards from './DeploymentsHealthCards'
 import DeploymentExecutionsChart from './DeploymentExecutionsChart'
 import WorkloadCard from './DeploymentCards/WorkloadCard'
@@ -27,7 +27,7 @@ export const CDDashboardPage: React.FC = () => {
   const history = useHistory()
   const { getString } = useStrings()
 
-  const { data, loading } = useGetDeployments({
+  const { data, loading, error, refetch } = useGetDeployments({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,
@@ -35,7 +35,11 @@ export const CDDashboardPage: React.FC = () => {
     }
   })
 
-  const { data: workloadsData, loading: loadingWorkloads } = useGetWorkloads({
+  const {
+    data: workloadsData,
+    loading: loadingWorkloads,
+    error: workloadsError
+  } = useGetWorkloads({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,
@@ -43,6 +47,11 @@ export const CDDashboardPage: React.FC = () => {
       ...range
     }
   })
+
+  useErrorHandler(error)
+  useErrorHandler(workloadsError)
+
+  const refetchingDeployments = useRefetchCall(refetch, loading)
 
   return (
     <>
@@ -61,7 +70,7 @@ export const CDDashboardPage: React.FC = () => {
         />
         <h2>{getString('overview')}</h2>
       </div>
-      <Page.Body className={styles.content} loading={loading || loadingWorkloads}>
+      <Page.Body className={styles.content} loading={(loading && !refetchingDeployments) || loadingWorkloads}>
         <Container className={styles.page} padding="large">
           <DeploymentsHealthCards />
           <Container className={styles.executionsWrapper}>
@@ -82,7 +91,7 @@ export const CDDashboardPage: React.FC = () => {
           </CardRailView>
           <CardRailView
             contentType="FAILED_DEPLOYMENT"
-            isLoading={false}
+            isLoading={loading && !refetchingDeployments}
             titleSideContent={false}
             onShowAll={() =>
               history.push(
@@ -103,7 +112,7 @@ export const CDDashboardPage: React.FC = () => {
           </CardRailView>
           <CardRailView
             contentType="ACTIVE_DEPLOYMENT"
-            isLoading={loading}
+            isLoading={loading && !refetchingDeployments}
             titleSideContent={false}
             onShowAll={() =>
               history.push(
