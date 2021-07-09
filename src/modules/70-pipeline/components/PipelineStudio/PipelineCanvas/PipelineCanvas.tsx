@@ -581,7 +581,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   function onCloseRunPipelineModal(): void {
     closeRunPipelineModal()
     setInputSetYaml('')
-    replaceQueryParams({ repoIdentifier: repoIdentifier, branch: branch }, { skipNulls: true })
+    replaceQueryParams({ repoIdentifier: repoIdentifier, branch: branch }, { skipNulls: true }, true)
   }
 
   React.useEffect(() => {
@@ -822,7 +822,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                   tooltip={isUpdated ? 'Please click Save and then run the pipeline.' : ''}
                   onClick={e => {
                     e.stopPropagation()
-                    updateQueryParams({ runPipeline: true }, { skipNulls: true })
+                    updateQueryParams({ runPipeline: true }, { skipNulls: true }, true)
                   }}
                   permission={{
                     resourceScope: {
