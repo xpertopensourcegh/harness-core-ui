@@ -15,6 +15,8 @@ steps:
     stepName: Specify your GCP Connector
 folderPath: Folder Path
 filePathPlaceholder: 'Enter path within manifest folder'
+resourceCannotBeEmpty: 'Resource cannot be empty'
+manifestPathsCannotBeEmpty: 'Manifest Paths cannot be empty'
 scriptRequired: Script is a required field
 workloadRequired: Workload is a required field
 stepName: Step Name

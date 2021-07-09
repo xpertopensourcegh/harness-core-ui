@@ -1990,6 +1990,7 @@ export interface StringsMap {
   'cd.folderPath': string
   'cd.gitFetchTypeRequired': string
   'cd.learnMore': string
+  'cd.manifestPathsCannotBeEmpty': string
   'cd.namespaceValidation': string
   'cd.pathCannotBeEmpty': string
   'cd.pipelineSteps.infraTab.deploymentType': string
@@ -1997,6 +1998,7 @@ export interface StringsMap {
   'cd.pipelineSteps.serviceTab.overrideChanges': string
   'cd.pipelineSteps.serviceTab.propateStage': string
   'cd.releaseNameValidation': string
+  'cd.resourceCannotBeEmpty': string
   'cd.scriptRequired': string
   'cd.secretManagerRequired': string
   'cd.serviceCreated': string

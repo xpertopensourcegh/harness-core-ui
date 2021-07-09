@@ -183,7 +183,32 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
           timeout: getDurationValidationSchema({ minimum: '10s' }).required(
             getString('validation.timeout10SecMinimum')
           ),
-          identifier: IdentifierSchema()
+          identifier: IdentifierSchema(),
+          spec: Yup.object().shape({
+            deleteResources: Yup.object().shape({
+              spec: Yup.object()
+                .when('type', {
+                  is: DeleteSpecConstant.ResourceName,
+                  then: Yup.object().shape({
+                    resourceNames: Yup.array(
+                      Yup.object().shape({
+                        value: Yup.string().required(getString('cd.resourceCannotBeEmpty'))
+                      })
+                    )
+                  })
+                })
+                .when('type', {
+                  is: DeleteSpecConstant.ManifestPath,
+                  then: Yup.object().shape({
+                    manifestPaths: Yup.array(
+                      Yup.object().shape({
+                        value: Yup.string().required(getString('cd.manifestPathsCannotBeEmpty'))
+                      })
+                    )
+                  })
+                })
+            })
+          })
         })}
       >
         {(formikProps: FormikProps<K8sDeleteData>) => {
@@ -527,7 +552,7 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteFormData> {
           }
         }
       }
-    } else {
+    } else if (initialValues.spec?.deleteResources?.type === DeleteSpecConstant.ReleaseName) {
       return {
         ...initialValues,
         spec: {
@@ -536,6 +561,23 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteFormData> {
             spec: {
               deleteNamespace: initialValues.spec?.deleteResources?.spec?.deleteNamespace || false
             }
+          }
+        }
+      }
+    }
+
+    return {
+      ...initialValues,
+      spec: {
+        deleteResources: {
+          type: DeleteSpecConstant.ResourceName,
+          spec: {
+            resourceNames: initialValues.spec?.deleteResources?.spec?.resourceNames?.length
+              ? (initialValues.spec?.deleteResources?.spec?.resourceNames).map((item: any) => ({
+                  value: item,
+                  id: uuid()
+                }))
+              : [{ value: '', id: uuid() }]
           }
         }
       }
