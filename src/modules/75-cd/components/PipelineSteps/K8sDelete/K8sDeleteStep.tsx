@@ -204,6 +204,7 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
                     label={getString('pipelineSteps.deleteResourcesBy')}
                     name="spec.deleteResources.type"
                     items={accessTypeOptions}
+                    disabled={isDisabled}
                     radioGroup={{ inline: true, disabled: isDisabled }}
                     onChange={e => {
                       const currentValue = e.currentTarget?.value
@@ -232,6 +233,7 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
                                   placeholder={getString('pipelineSteps.deleteResourcesPlaceHolder')}
                                   name={`spec.deleteResources.spec.resourceNames[${index}].value`}
                                   style={{ width: '430px' }}
+                                  disabled={isDisabled}
                                   multiTextInputProps={{ expressions, textProps: { disabled: isDisabled } }}
                                 />
                                 {/* istanbul ignore next */}
@@ -274,7 +276,7 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
                       name="spec.deleteResources.spec.deleteNamespace"
                       label={getString('pipelineSteps.deleteNamespace')}
                       style={{ paddingLeft: 'var(--spacing-small)', fontSize: 'var(--font-size-small)' }}
-                      multiTypeTextbox={{ expressions }}
+                      multiTypeTextbox={{ expressions, disabled: isDisabled }}
                       disabled={isDisabled}
                     />
                   </div>
@@ -299,6 +301,7 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
                                   placeholder={getString('pipelineSteps.manifestPathsPlaceHolder')}
                                   name={`spec.deleteResources.spec.manifestPaths[${index}].value`}
                                   style={{ width: '430px' }}
+                                  disabled={isDisabled}
                                   multiTextInputProps={{
                                     expressions,
                                     allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
