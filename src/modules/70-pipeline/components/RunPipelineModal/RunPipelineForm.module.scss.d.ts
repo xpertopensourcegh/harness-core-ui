@@ -10,16 +10,8 @@ declare const styles: {
   readonly radio: string
   readonly divider: string
   readonly footer: string
-  readonly errorsContent: string
-  readonly inputsetGrid: string
-  readonly treeSidebar: string
-  readonly cardCard: string
-  readonly inputSetcard: string
   readonly preFlightCheckModal: string
   readonly runFormExecutionView: string
-  readonly modalCard: string
-  readonly bp3DialogHeader: string
-  readonly modalContent: string
   readonly runModalHeader: string
   readonly runModalSubHeading: string
   readonly runModalHeaderTitle: string
@@ -28,10 +20,7 @@ declare const styles: {
   readonly noPipelineInputSetForm: string
   readonly helpSection: string
   readonly helpIcon: string
-  readonly runModal: string
-  readonly crossIcon: string
   readonly inputSetsUpdatingSpinner: string
-  readonly dialog: string
   readonly valueProviderRadio: string
   readonly selectedValueProvider: string
   readonly actionButtons: string

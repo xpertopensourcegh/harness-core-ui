@@ -14,14 +14,15 @@ export default function CIPipelineDeploymentList(): React.ReactElement {
   const history = useHistory()
   const onRunPipeline = (): void => {
     history.push(
-      routes.toRunPipeline({
+      routes.toPipelineStudio({
         accountId,
         orgIdentifier,
         projectIdentifier,
         pipelineIdentifier,
         module,
         branch,
-        repoIdentifier
+        repoIdentifier,
+        runPipeline: true
       })
     )
   }
