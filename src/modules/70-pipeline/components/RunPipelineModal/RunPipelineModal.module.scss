@@ -53,6 +53,31 @@
   }
 }
 
+.errorsContent {
+  margin-right: var(--spacing-xlarge);
+  :global(.Accordion--chevron) {
+    display: none;
+  }
+}
+
+.inputsetGrid {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  background: var(--grey-50);
+  width: 100%;
+  .treeSidebar {
+    border-right: solid 1px #ccc;
+    background: #fff;
+    overflow: auto;
+  }
+  .Card--card {
+    box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
+  }
+  .inputSetcard {
+    margin: var(--spacing-large);
+  }
+}
+
 .preFlightCheckModal {
   width: 900px;
   padding: var(--spacing-large);
@@ -69,6 +94,22 @@
   [class*='OverlaySpinner--overlaySpinner'] {
     min-height: calc(100% - var(--page-header-height, 64px));
     overflow: hidden;
+  }
+}
+
+.modal-card {
+  max-height: fit-content;
+  min-height: 150px;
+  height: calc(100% - 48px);
+  min-height: 150px;
+
+  &.bp3-dialog-header {
+    color: var(--grey-700);
+  }
+
+  .modal-content {
+    width: 100%;
+    padding: var(--spacing-large);
   }
 }
 
@@ -117,8 +158,27 @@
   padding-right: var(--spacing-3) !important;
 }
 
+.runModal {
+  :global(.bp3-dialog-header) {
+    margin-top: 0 !important;
+    min-height: var(--spacing-8);
+  }
+}
+
+.crossIcon {
+  position: absolute;
+  right: var(--spacing-small);
+  top: 12px;
+}
+
 .inputSetsUpdatingSpinner {
   transform: scale(0.6);
+}
+
+.dialog {
+  position: relative;
+  padding-bottom: 0 !important;
+  background-color: var(--form-bg) !important;
 }
 
 .valueProviderRadio {

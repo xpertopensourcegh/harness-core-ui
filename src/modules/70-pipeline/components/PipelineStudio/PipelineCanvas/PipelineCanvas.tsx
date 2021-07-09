@@ -1,7 +1,7 @@
 import React from 'react'
-import { Classes, Dialog, IDialogProps } from '@blueprintjs/core'
+import { Classes, Dialog } from '@blueprintjs/core'
 import cx from 'classnames'
-import { useModalHook, Text, Icon, Layout, Color, Button, SelectOption } from '@wings-software/uicore'
+import { useModalHook, Text, Icon, Layout, Color, Button } from '@wings-software/uicore'
 import { useHistory, useParams, matchPath } from 'react-router-dom'
 import { parse } from 'yaml'
 import { isEmpty, isEqual, merge, omit } from 'lodash-es'
@@ -19,9 +19,9 @@ import type {
   PathFn,
   PipelineType,
   GitQueryParams,
-  PipelineStudioQueryParams,
-  RunPipelineQueryParams
+  PipelineStudioQueryParams
 } from '@common/interfaces/RouteInterfaces'
+import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'
 import RbacButton from '@rbac/components/Button/Button'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
@@ -38,8 +38,6 @@ import { validateJSONWithSchema } from '@common/utils/YamlUtils'
 import { PipelineVariablesContextProvider } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { getRepoDetailsByIndentifier } from '@common/utils/gitSyncUtils'
-import { RunPipelineForm } from '@pipeline/components/RunPipelineModal/RunPipelineForm'
-import { InputSetSummaryResponse, useGetInputsetYaml } from 'services/pipeline-ng'
 import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
 import CreatePipelines from '../CreateModal/PipelineCreate'
 import { DefaultNewPipelineId, DrawerTypes } from '../PipelineContext/PipelineActions'
@@ -63,24 +61,6 @@ interface PipelineWithGitContextFormProps extends PipelineInfoConfig {
   repo?: string
   branch?: string
 }
-
-interface InputSetValue extends SelectOption {
-  type: InputSetSummaryResponse['inputSetType']
-  gitDetails?: EntityGitDetails
-}
-
-const runModalProps: IDialogProps = {
-  isOpen: true,
-  // usePortal: true,
-  autoFocus: true,
-  canEscapeKeyClose: true,
-  canOutsideClickClose: false,
-  enforceFocus: true,
-  className: css.runPipelineDialog,
-  style: { width: 872, height: 'fit-content', overflow: 'auto' },
-  isCloseButtonShown: false
-}
-
 export interface PipelineCanvasProps {
   toPipelineStudio: PathFn<PipelineType<PipelinePathProps> & PipelineStudioQueryParams>
   toPipelineDetail: PathFn<PipelineType<PipelinePathProps>>
@@ -112,18 +92,8 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     setSelectedStageId,
     setSelectedSectionId
   } = React.useContext(PipelineContext)
-  const {
-    repoIdentifier,
-    branch,
-    runPipeline,
-    executionId,
-    inputSetType,
-    inputSetValue,
-    inputSetLabel,
-    inputSetRepoIdentifier,
-    inputSetBranch
-  } = useQueryParams<GitQueryParams & RunPipelineQueryParams>()
-  const { updateQueryParams, replaceQueryParams } = useUpdateQueryParams<PipelineStudioQueryParams>()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
+  const { updateQueryParams } = useUpdateQueryParams<PipelineStudioQueryParams>()
 
   const {
     pipeline,
@@ -529,104 +499,11 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     return true
   }
 
-  const [inputSetYaml, setInputSetYaml] = React.useState('')
-
-  const { data, refetch, loading } = useGetInputsetYaml({
-    planExecutionId: executionId ?? '',
-    queryParams: {
-      orgIdentifier,
-      projectIdentifier,
-      accountIdentifier: accountId
-    },
-    lazy: true,
-    requestOptions: {
-      headers: {
-        'content-type': 'application/yaml'
-      }
-    }
+  const runPipeline = useRunPipelineModal({
+    pipelineIdentifier: (pipeline?.identifier || '') as string,
+    repoIdentifier,
+    branch
   })
-
-  const getInputSetSelected = (): InputSetValue[] => {
-    if (inputSetType) {
-      const inputSetSelected: InputSetValue[] = [
-        {
-          type: inputSetType as InputSetSummaryResponse['inputSetType'],
-          value: inputSetValue ?? '',
-          label: inputSetLabel ?? '',
-          gitDetails: {
-            repoIdentifier: inputSetRepoIdentifier,
-            branch: inputSetBranch
-          }
-        }
-      ]
-      return inputSetSelected
-    }
-    return []
-  }
-
-  React.useEffect(() => {
-    if (data) {
-      ;(data as unknown as Response).text().then(str => {
-        setInputSetYaml(str)
-      })
-    }
-  }, [data])
-
-  React.useEffect(() => {
-    if (executionId && executionId !== null) {
-      refetch()
-    }
-  }, [executionId])
-
-  function onCloseRunPipelineModal(): void {
-    replaceQueryParams({ repoIdentifier: repoIdentifier, branch: branch }, { skipNulls: true })
-  }
-
-  React.useEffect(() => {
-    if (runPipeline) {
-      openRunPipelineModal()
-    }
-  }, [runPipeline])
-
-  const [openRunPipelineModal, closeRunPipelineModal] = useModalHook(
-    () =>
-      loading ? (
-        <PageSpinner />
-      ) : (
-        <Dialog {...runModalProps}>
-          <Layout.Vertical className={css.modalCard}>
-            <RunPipelineForm
-              pipelineIdentifier={pipelineIdentifier}
-              orgIdentifier={orgIdentifier}
-              projectIdentifier={projectIdentifier}
-              accountId={accountId}
-              module={module}
-              inputSetYAML={inputSetYaml || ''}
-              inputSetSelected={getInputSetSelected()}
-              repoIdentifier={repoIdentifier}
-              branch={branch}
-              inputSetRepoIdentifier={inputSetRepoIdentifier}
-              inputSetBranch={inputSetBranch}
-              onClose={() => {
-                closeRunPipelineModal()
-              }}
-            />
-            <Button
-              aria-label="close modal"
-              minimal
-              icon="cross"
-              iconProps={{ size: 18 }}
-              onClick={() => {
-                closeRunPipelineModal()
-                onCloseRunPipelineModal()
-              }}
-              className={css.crossIcon}
-            />
-          </Layout.Vertical>
-        </Dialog>
-      ),
-    [projectIdentifier, orgIdentifier, accountId]
-  )
 
   const onGitBranchChange = React.useMemo(
     () => (selectedFilter: GitFilterScope) => {
@@ -711,10 +588,16 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
           when={getOtherModal && pipeline.identifier !== ''}
           shouldBlockNavigation={nextLocation => {
             let localUpdated = isUpdated
-            const matchDefault = matchPath(nextLocation.pathname, {
+            let matchDefault = matchPath(nextLocation.pathname, {
               path: toPipelineStudio({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams }),
               exact: true
             })
+            if (!matchDefault) {
+              matchDefault = matchPath(nextLocation.pathname, {
+                path: routes.toRunPipeline({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams }),
+                exact: true
+              })
+            }
 
             // This is special handler when user update yaml and immediately click on run
             if (isYaml && yamlHandler && isYamlEditable && !localUpdated) {
@@ -811,7 +694,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                   tooltip={isUpdated ? 'Please click Save and then run the pipeline.' : ''}
                   onClick={e => {
                     e.stopPropagation()
-                    updateQueryParams({ runPipeline: true }, { skipNulls: true })
+                    runPipeline()
                   }}
                   permission={{
                     resourceScope: {

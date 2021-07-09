@@ -44,15 +44,14 @@ const CDPipelineStudio: React.FC = (): JSX.Element => {
   const getOtherModal = modal === 'trial' ? getTrialPipelineCreateForm : undefined
   const handleRunPipeline = (): void => {
     history.push(
-      routes.toPipelineStudio({
+      routes.toRunPipeline({
         accountId,
         orgIdentifier,
         projectIdentifier,
         pipelineIdentifier,
         module,
         branch,
-        repoIdentifier,
-        runPipeline: true
+        repoIdentifier
       })
     )
   }

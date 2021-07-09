@@ -53,6 +53,7 @@ import TriggersPage from '@pipeline/pages/triggers/TriggersPage'
 import TriggersDetailPage from '@pipeline/pages/triggers/TriggersDetailPage'
 import TriggerDetails from '@pipeline/pages/trigger-details/TriggerDetails'
 import TriggersWizardPage from '@pipeline/pages/triggers/TriggersWizardPage'
+import { RunPipelineModal } from '@pipeline/components/RunPipelineModal/RunPipelineModal'
 import ExecutionLandingPage from '@pipeline/pages/execution/ExecutionLandingPage/ExecutionLandingPage'
 import ExecutionPipelineView from '@pipeline/pages/execution/ExecutionPipelineView/ExecutionPipelineView'
 import ExecutionInputsView from '@pipeline/pages/execution/ExecutionInputsView/ExecutionInputsView'
@@ -419,6 +420,19 @@ export default (
     >
       <RedirectToExecutionPipeline />
     </Route>
+
+    <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
+      sidebarProps={CFSideNavProps}
+      path={routes.toRunPipeline({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
+      exact
+    >
+      <PipelineDetails>
+        <CFPipelineStudio />
+
+        <RunPipelineModal />
+      </PipelineDetails>
+    </RouteWithLayout>
 
     <RouteWithLayout
       licenseRedirectData={licenseRedirectData}

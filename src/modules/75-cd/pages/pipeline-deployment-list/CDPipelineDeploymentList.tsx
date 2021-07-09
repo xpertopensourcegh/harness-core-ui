@@ -18,15 +18,14 @@ export default function CDPipelineDeploymentList(): React.ReactElement {
 
   const onRunPipeline = (): void => {
     history.push(
-      routes.toPipelineStudio({
+      routes.toRunPipeline({
         accountId,
         orgIdentifier,
         projectIdentifier,
         pipelineIdentifier,
         module,
         branch,
-        repoIdentifier,
-        runPipeline: true
+        repoIdentifier
       })
     )
   }

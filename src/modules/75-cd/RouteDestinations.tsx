@@ -63,6 +63,7 @@ import CDPipelineDeploymentList from '@cd/pages/pipeline-deployment-list/CDPipel
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { ModuleName } from 'framework/types/ModuleName'
 import { EnhancedInputSetForm } from '@pipeline/components/InputSetForm/InputSetForm'
+import { RunPipelineModal } from '@pipeline/components/RunPipelineModal/RunPipelineModal'
 import TriggersDetailPage from '@pipeline/pages/triggers/TriggersDetailPage'
 import CreateConnectorFromYamlPage from '@connectors/pages/createConnectorFromYaml/CreateConnectorFromYamlPage'
 import CreateSecretFromYamlPage from '@secrets/pages/createSecretFromYaml/CreateSecretFromYamlPage'
@@ -216,6 +217,17 @@ export default (
       path={routes.toServices({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
     >
       <ServiceDetailPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toRunPipeline({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
+    >
+      <PipelineDetails>
+        <CDPipelineStudio />
+
+        <RunPipelineModal />
+      </PipelineDetails>
     </RouteWithLayout>
     <RouteWithLayout
       sidebarProps={CDSideNavProps}

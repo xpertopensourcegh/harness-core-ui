@@ -47,15 +47,14 @@ export default function RunPipelineListView({ data, refetch, gotoPage }: Pipelin
 
   const routeToPipelinesPage = (pipeline: PipelineDTO): void => {
     history.push(
-      routes.toPipelineStudio({
+      routes.toRunPipeline({
         accountId,
         orgIdentifier,
         projectIdentifier,
         pipelineIdentifier: pipeline.identifier || '',
         module,
         branch: pipeline.gitDetails?.branch,
-        repoIdentifier: pipeline.gitDetails?.repoIdentifier,
-        runPipeline: true
+        repoIdentifier: pipeline.gitDetails?.repoIdentifier
       })
     )
   }

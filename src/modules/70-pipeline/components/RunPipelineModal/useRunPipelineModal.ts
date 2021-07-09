@@ -18,20 +18,19 @@ export const useRunPipelineModal = (runPipelineModaParams: RunPipelineModalParam
   return (): void => {
     if (!inputSetSelected) {
       history.push(
-        routes.toPipelineStudio({
+        routes.toRunPipeline({
           accountId,
           orgIdentifier,
           projectIdentifier,
           pipelineIdentifier,
           module,
           repoIdentifier,
-          branch,
-          runPipeline: true
+          branch
         })
       )
     } else {
       history.push(
-        routes.toPipelineStudio({
+        routes.toRunPipeline({
           accountId,
           orgIdentifier,
           projectIdentifier,
@@ -43,8 +42,7 @@ export const useRunPipelineModal = (runPipelineModaParams: RunPipelineModalParam
           inputSetBranch: inputSetSelected?.[0].gitDetails?.branch,
           inputSetRepoIdentifier: inputSetSelected?.[0].gitDetails?.repoIdentifier,
           repoIdentifier,
-          branch,
-          runPipeline: true
+          branch
         })
       )
     }

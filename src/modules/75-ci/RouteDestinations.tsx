@@ -61,6 +61,7 @@ import ExecutionLandingPage from '@pipeline/pages/execution/ExecutionLandingPage
 import ExecutionPipelineView from '@pipeline/pages/execution/ExecutionPipelineView/ExecutionPipelineView'
 import TriggersWizardPage from '@pipeline/pages/triggers/TriggersWizardPage'
 import TriggersDetailPage from '@pipeline/pages/triggers/TriggersDetailPage'
+import { RunPipelineModal } from '@pipeline/components/RunPipelineModal/RunPipelineModal'
 import CreateSecretFromYamlPage from '@secrets/pages/createSecretFromYaml/CreateSecretFromYamlPage'
 
 import './components/PipelineSteps'
@@ -514,6 +515,18 @@ export default (
     >
       <RedirectToExecutionPipeline />
     </Route>
+    <RouteWithLayout
+      exact
+      licenseRedirectData={licenseRedirectData}
+      sidebarProps={CISideNavProps}
+      path={routes.toRunPipeline({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
+    >
+      <PipelineDetails>
+        <CIPipelineStudio />
+
+        <RunPipelineModal />
+      </PipelineDetails>
+    </RouteWithLayout>
     <RouteWithLayout
       exact
       licenseRedirectData={licenseRedirectData}

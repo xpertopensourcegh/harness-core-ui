@@ -39,14 +39,14 @@ const CIPipelineStudio: React.FC = (): JSX.Element => {
 
   const handleRunPipeline = (): void => {
     history.push(
-      routes.toPipelineStudio({
+      routes.toRunPipeline({
         accountId,
         orgIdentifier,
         projectIdentifier,
         pipelineIdentifier,
         module,
         branch,
-        runPipeline: true
+        repoIdentifier
       })
     )
   }
