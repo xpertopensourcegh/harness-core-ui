@@ -24,6 +24,7 @@ interface ServiceAccountRoleAssignmentData {
   roleBindings?: RoleAssignmentMetadataDTO[]
   serviceAccount: ServiceAccountDTO
   onSubmit?: () => void
+  onSuccess?: () => void
 }
 
 export interface RoleOption extends SelectOption {
@@ -46,7 +47,7 @@ export interface ServiceAccountRoleAssignmentValues extends ServiceAccountDTO {
 }
 
 const ServiceAccountRoleAssignment: React.FC<ServiceAccountRoleAssignmentData> = props => {
-  const { serviceAccount, roleBindings, onSubmit } = props
+  const { serviceAccount, roleBindings, onSubmit, onSuccess } = props
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   const { showSuccess } = useToaster()
@@ -125,6 +126,7 @@ const ServiceAccountRoleAssignment: React.FC<ServiceAccountRoleAssignmentData> =
               <RoleAssignmentForm
                 noRoleAssignmentsText={getString('rbac.serviceAccounts.form.noDataText')}
                 formik={formik}
+                onSuccess={onSuccess}
               />
               <Layout.Horizontal>
                 <Button intent="primary" text={getString('save')} type="submit" disabled={saving} />

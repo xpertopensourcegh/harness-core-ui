@@ -34,13 +34,7 @@ export const useRoleAssignmentModal = ({ onSuccess }: UseRoleAssignmentModalProp
   const [principal, setPrincipal] = useState<PrincipalType>(PrincipalType.USER)
   const [showModal, hideModal] = useModalHook(
     () => (
-      <Dialog
-        isOpen={true}
-        onClose={() => {
-          hideModal()
-        }}
-        className={cx(css.dialog, Classes.DIALOG)}
-      >
+      <Dialog isOpen={true} onClose={hideModal} className={cx(css.dialog, Classes.DIALOG)}>
         {principal === PrincipalType.USER ? (
           <UserRoleAssignment
             roleBindings={roleBindings}
@@ -50,6 +44,7 @@ export const useRoleAssignmentModal = ({ onSuccess }: UseRoleAssignmentModalProp
               onSuccess()
               hideModal()
             }}
+            onSuccess={onSuccess}
           />
         ) : null}
         {principal === PrincipalType.USER_GROUP ? (
@@ -60,6 +55,7 @@ export const useRoleAssignmentModal = ({ onSuccess }: UseRoleAssignmentModalProp
               onSuccess()
               hideModal()
             }}
+            onSuccess={onSuccess}
           />
         ) : null}
 
@@ -71,6 +67,7 @@ export const useRoleAssignmentModal = ({ onSuccess }: UseRoleAssignmentModalProp
               onSuccess()
               hideModal()
             }}
+            onSuccess={onSuccess}
           />
         ) : null}
 
