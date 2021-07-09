@@ -4,6 +4,7 @@ import type { FormikContext } from 'formik'
 import React from 'react'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
+import { Menu } from '@blueprintjs/core'
 import { GitSyncConfig, EntityGitDetails, useGetListOfBranchesWithStatus, GitBranchDTO } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
@@ -181,9 +182,18 @@ const GitContextForm: React.FC<GitContextFormProps<Record<string, any> & GitCont
           items={branchSelectOptions}
           onQueryChange={(query: string) => setSearchTerm(query)}
           disabled={loadingBranchList || isEditing || gitDetails?.getDefaultFromOtherRepo}
-          onChange={selected => {
-            onBranchChange?.({ branch: (selected.value || '') as string })
-            formikProps.setFieldValue('branch', selected.value)
+          itemRenderer={(item: SelectOption): React.ReactElement => {
+            return (
+              <Menu.Item
+                key={item.value as string}
+                active={item.value === formikProps.values?.branch}
+                onClick={() => {
+                  onBranchChange?.({ branch: (item.value || '') as string })
+                  formikProps.setFieldValue('branch', item.value)
+                }}
+                text={item.label}
+              />
+            )
           }}
         />
         {loadingBranchList && <Icon margin={{ top: 'xsmall' }} name="spinner" />}
