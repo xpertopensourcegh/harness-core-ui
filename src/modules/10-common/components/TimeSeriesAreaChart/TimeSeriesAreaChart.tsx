@@ -2,9 +2,9 @@ import React from 'react'
 import { merge } from 'lodash-es'
 
 import HighchartsReact from 'highcharts-react-official'
-import Highcharts, { SeriesAreaOptions } from 'highcharts'
+import Highcharts, { SeriesOptionsType } from 'highcharts'
 
-const getDefaultChartOptions = (seriesData: SeriesAreaOptions['data']) => {
+const getDefaultChartOptions = (seriesData: SeriesOptionsType[]) => {
   return {
     chart: {
       type: 'area',
@@ -48,7 +48,6 @@ const getDefaultChartOptions = (seriesData: SeriesAreaOptions['data']) => {
     },
     plotOptions: {
       area: {
-        stacking: 'normal',
         connectNulls: true,
         fillOpacity: 0.85,
         lineWidth: 1,
@@ -66,7 +65,7 @@ const getDefaultChartOptions = (seriesData: SeriesAreaOptions['data']) => {
 
 export interface TimeSeriesAreaChartProps {
   customChartOptions?: Highcharts.Options
-  seriesData?: SeriesAreaOptions['data']
+  seriesData?: SeriesOptionsType[]
 }
 
 export const TimeSeriesAreaChart: React.FC<TimeSeriesAreaChartProps> = ({

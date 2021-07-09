@@ -278,6 +278,7 @@ exports[`ServicesList render 1`] = `
             >
               <div
                 class="tickerContainer tickerContainerStyles"
+                data-test="ticker"
               >
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold StyledProps--font-size-medium StyledProps--margin-right-xsmall"
@@ -309,6 +310,7 @@ exports[`ServicesList render 1`] = `
                   </div>
                   <div
                     class="tickerValue"
+                    data-test="tickerValue"
                   >
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-green500 StyledProps--font-size-small"
@@ -330,6 +332,7 @@ exports[`ServicesList render 1`] = `
             >
               <div
                 class="tickerContainer tickerContainerStyles"
+                data-test="ticker"
               >
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold StyledProps--font-size-medium StyledProps--margin-right-xsmall"
@@ -361,6 +364,7 @@ exports[`ServicesList render 1`] = `
                   </div>
                   <div
                     class="tickerValue"
+                    data-test="tickerValue"
                   >
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-red500 StyledProps--font-size-small"
@@ -382,6 +386,7 @@ exports[`ServicesList render 1`] = `
             >
               <div
                 class="tickerContainer tickerContainerStyles"
+                data-test="ticker"
               >
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold StyledProps--font-size-medium StyledProps--margin-right-xsmall"
@@ -413,6 +418,7 @@ exports[`ServicesList render 1`] = `
                   </div>
                   <div
                     class="tickerValue"
+                    data-test="tickerValue"
                   >
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-green500 StyledProps--font-size-small"

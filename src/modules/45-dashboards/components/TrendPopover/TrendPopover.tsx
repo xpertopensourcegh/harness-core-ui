@@ -1,5 +1,4 @@
 import React from 'react'
-import { useMemo } from 'react'
 import cx from 'classnames'
 import { Classes, PopoverInteractionKind, Position } from '@blueprintjs/core'
 import { Color, Icon, Layout, Popover, Text } from '@wings-software/uicore'
@@ -16,7 +15,7 @@ export interface TrendPopoverProps {
 const Trend: React.FC<TrendPopoverProps> = props => {
   const { data } = props
   const { getString } = useStrings()
-  const TIME_RANGE_OPTIONS: Record<TIME_RANGE_ENUMS, string> = useMemo(useTimeRangeOptions, [])
+  const TIME_RANGE_OPTIONS: Record<TIME_RANGE_ENUMS, string> = useTimeRangeOptions()
   const title = getString('dashboards.serviceDashboard.servicesInLast', {
     period: TIME_RANGE_OPTIONS[TIME_RANGE_ENUMS.SIX_MONTHS]
   })

@@ -5,12 +5,7 @@ import { Page } from '@common/exports'
 import { DeploymentsTimeRangeContext, useServiceStore, Views } from '@dashboards/components/Services/common'
 import { ServiceInstancesWidget } from '@dashboards/components/Services/ServiceInstancesWidget/ServiceInstancesWidget'
 import { MostActiveServicesWidget } from '@dashboards/components/Services/MostActiveServicesWidget/MostActiveServicesWidget'
-import {
-  ServiceInstancesWidgetMock,
-  MostActiveServicesWidgetMock,
-  DeploymentsWidgetMock,
-  ServiceListMock
-} from '@dashboards/mock'
+import { ServiceInstancesWidgetMock, MostActiveServicesWidgetMock, ServiceListMock } from '@dashboards/mock'
 import { DeploymentsWidget } from '@dashboards/components/Services/DeploymentsWidget/DeploymentsWidget'
 import { ServicesList } from '@dashboards/components/Services/ServicesList/ServicesList'
 import { TIME_RANGE_ENUMS } from '@dashboards/components/TimeRangeSelector/TimeRangeSelector'
@@ -31,7 +26,7 @@ export const ServicesContent: React.FC = () => {
               <Card className={css.card}>
                 <MostActiveServicesWidget {...MostActiveServicesWidgetMock} />
                 <div className={css.separator} />
-                <DeploymentsWidget {...DeploymentsWidgetMock} />
+                <DeploymentsWidget />
               </Card>
             </DeploymentsTimeRangeContext.Provider>
           </Layout.Horizontal>

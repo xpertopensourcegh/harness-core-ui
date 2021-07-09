@@ -26,23 +26,14 @@ export interface MostActiveServicesWidgetProps {
   }) => MostActiveServicesWidgetData[]
 }
 
-export const useDefaultEnvironmentTypes = (): string[] => {
+export const MostActiveServicesWidget: React.FC<MostActiveServicesWidgetProps> = props => {
   const { getString } = useStrings()
-  return [
+  const DEFAULT_ENVIRONMENT_TYPES = [
     getString('all'),
     getString('dashboards.serviceDashboard.prod'),
     getString('dashboards.serviceDashboard.nonProd')
   ]
-}
-
-export const useDefaultTypes = (): string[] => {
-  const { getString } = useStrings()
-  return [getString('deploymentsText'), getString('errors')]
-}
-
-export const MostActiveServicesWidget: React.FC<MostActiveServicesWidgetProps> = props => {
-  const DEFAULT_ENVIRONMENT_TYPES = useMemo(useDefaultEnvironmentTypes, [])
-  const DEFAULT_TYPES = useMemo(useDefaultTypes, [])
+  const DEFAULT_TYPES = [getString('deploymentsText'), getString('errors')]
   const {
     environmentTypes = DEFAULT_ENVIRONMENT_TYPES,
     types = DEFAULT_TYPES,

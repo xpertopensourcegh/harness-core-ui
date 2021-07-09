@@ -34,3 +34,4 @@ serviceDashboard:
   totalServices: 'Total Services: {{total}}'
   lastDeployment: 'last deployment'
   executionId: 'Execution Id: {{id}}'
+  noDeployments: No Deployments in {{timeRange}}

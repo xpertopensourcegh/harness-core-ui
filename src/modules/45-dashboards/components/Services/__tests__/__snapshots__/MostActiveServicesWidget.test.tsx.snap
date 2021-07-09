@@ -330,6 +330,7 @@ exports[`MostActiveServicesWidget render 1`] = `
           >
             <div
               class="tickerContainer"
+              data-test="ticker"
             >
               <div
                 class="ticker tickerCenterAlign"
@@ -356,6 +357,7 @@ exports[`MostActiveServicesWidget render 1`] = `
                 </div>
                 <div
                   class="tickerValue tickerValueStyles tickerValueRed"
+                  data-test="tickerValue"
                 >
                   5%
                 </div>
@@ -367,6 +369,7 @@ exports[`MostActiveServicesWidget render 1`] = `
           >
             <div
               class="tickerContainer"
+              data-test="ticker"
             >
               <div
                 class="ticker tickerCenterAlign"
@@ -393,6 +396,7 @@ exports[`MostActiveServicesWidget render 1`] = `
                 </div>
                 <div
                   class="tickerValue tickerValueStyles tickerValueRed"
+                  data-test="tickerValue"
                 >
                   5%
                 </div>
@@ -404,6 +408,7 @@ exports[`MostActiveServicesWidget render 1`] = `
           >
             <div
               class="tickerContainer"
+              data-test="ticker"
             >
               <div
                 class="ticker tickerCenterAlign"
@@ -430,6 +435,7 @@ exports[`MostActiveServicesWidget render 1`] = `
                 </div>
                 <div
                   class="tickerValue tickerValueStyles tickerValueRed"
+                  data-test="tickerValue"
                 >
                   5%
                 </div>
@@ -441,6 +447,7 @@ exports[`MostActiveServicesWidget render 1`] = `
           >
             <div
               class="tickerContainer"
+              data-test="ticker"
             >
               <div
                 class="ticker tickerCenterAlign"
@@ -467,6 +474,7 @@ exports[`MostActiveServicesWidget render 1`] = `
                 </div>
                 <div
                   class="tickerValue tickerValueStyles tickerValueRed"
+                  data-test="tickerValue"
                 >
                   5%
                 </div>
@@ -478,6 +486,7 @@ exports[`MostActiveServicesWidget render 1`] = `
           >
             <div
               class="tickerContainer"
+              data-test="ticker"
             >
               <div
                 class="ticker tickerCenterAlign"
@@ -504,6 +513,7 @@ exports[`MostActiveServicesWidget render 1`] = `
                 </div>
                 <div
                   class="tickerValue tickerValueStyles tickerValueRed"
+                  data-test="tickerValue"
                 >
                   5%
                 </div>
@@ -515,6 +525,7 @@ exports[`MostActiveServicesWidget render 1`] = `
           >
             <div
               class="tickerContainer"
+              data-test="ticker"
             >
               <div
                 class="ticker tickerCenterAlign"
@@ -541,6 +552,7 @@ exports[`MostActiveServicesWidget render 1`] = `
                 </div>
                 <div
                   class="tickerValue tickerValueStyles tickerValueGreen"
+                  data-test="tickerValue"
                 >
                   5%
                 </div>
@@ -552,6 +564,7 @@ exports[`MostActiveServicesWidget render 1`] = `
           >
             <div
               class="tickerContainer"
+              data-test="ticker"
             >
               <div
                 class="ticker tickerCenterAlign"
@@ -578,6 +591,7 @@ exports[`MostActiveServicesWidget render 1`] = `
                 </div>
                 <div
                   class="tickerValue tickerValueStyles tickerValueRed"
+                  data-test="tickerValue"
                 >
                   5%
                 </div>
@@ -589,6 +603,7 @@ exports[`MostActiveServicesWidget render 1`] = `
           >
             <div
               class="tickerContainer"
+              data-test="ticker"
             >
               <div
                 class="ticker tickerCenterAlign"
@@ -615,6 +630,7 @@ exports[`MostActiveServicesWidget render 1`] = `
                 </div>
                 <div
                   class="tickerValue tickerValueStyles tickerValueGreen"
+                  data-test="tickerValue"
                 >
                   5%
                 </div>
@@ -626,6 +642,7 @@ exports[`MostActiveServicesWidget render 1`] = `
           >
             <div
               class="tickerContainer"
+              data-test="ticker"
             >
               <div
                 class="ticker tickerCenterAlign"
@@ -652,6 +669,7 @@ exports[`MostActiveServicesWidget render 1`] = `
                 </div>
                 <div
                   class="tickerValue tickerValueStyles tickerValueRed"
+                  data-test="tickerValue"
                 >
                   5%
                 </div>
@@ -663,6 +681,7 @@ exports[`MostActiveServicesWidget render 1`] = `
           >
             <div
               class="tickerContainer"
+              data-test="ticker"
             >
               <div
                 class="ticker tickerCenterAlign"
@@ -689,6 +708,7 @@ exports[`MostActiveServicesWidget render 1`] = `
                 </div>
                 <div
                   class="tickerValue tickerValueStyles tickerValueRed"
+                  data-test="tickerValue"
                 >
                   5%
                 </div>

@@ -1306,6 +1306,7 @@ export interface StringsMap {
   'dashboards.serviceDashboard.lastDeployment': string
   'dashboards.serviceDashboard.month': string
   'dashboards.serviceDashboard.months': string
+  'dashboards.serviceDashboard.noDeployments': string
   'dashboards.serviceDashboard.nonProd': string
   'dashboards.serviceDashboard.prod': string
   'dashboards.serviceDashboard.serviceInstances': string

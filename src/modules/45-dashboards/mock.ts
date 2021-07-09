@@ -79,43 +79,21 @@ export const MostActiveServicesWidgetMock: MostActiveServicesWidgetProps = {
   ]
 }
 
-export const DeploymentsWidgetMock = {
-  deployments: {
-    value: '211',
-    change: 5
+export const deploymentsInfo = {
+  status: 'SUCCESS',
+  data: {
+    startTime: 1623149323912,
+    endTime: 1625741323912,
+    totalDeployments: 57,
+    failureRate: 24.2,
+    frequency: 324.2,
+    failureRateChangeRate: 45.7,
+    totalDeploymentsChangeRate: 34.4,
+    frequencyChangeRate: 23.2,
+    serviceDeploymentList: [{ time: 1625443200000, deployments: { total: 0, success: 0, failure: 0 } }]
   },
-  failureRate: {
-    value: '15%',
-    change: 5
-  },
-  frequency: {
-    value: '3',
-    change: 5
-  },
-  data: [
-    {
-      name: 'Failed',
-      data: [30, 10, 20, 10, 20, 30, 20, 15, 16, 28],
-      color: 'var(--red-400)'
-    },
-    {
-      name: 'Successful',
-      data: [20, 30, 60, 70, 20, 10, 60, 85, 58, 72],
-      color: 'var(--primary-4)'
-    }
-  ],
-  dateLabels: [
-    '01/02/2020',
-    '02/02/2020',
-    '01/02/2020',
-    '02/02/2020',
-    '01/02/2020',
-    '02/02/2020',
-    '01/02/2020',
-    '02/02/2020',
-    '01/02/2020',
-    '02/02/2020'
-  ]
+  metaData: null,
+  correlationId: 'deaf3a4d-161b-4d64-a77d-5be92b7cf41b'
 }
 
 export const ServiceListMock: ServicesListProps = {
