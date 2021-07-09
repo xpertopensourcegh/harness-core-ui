@@ -481,7 +481,7 @@ const routes = {
       accountId: _accountId,
       module,
       ...rest
-    }: PipelineType<PipelinePathProps> & PipelineStudioQueryParams) => {
+    }: PipelineType<PipelinePathProps> & PipelineStudioQueryParams & RunPipelineQueryParams) => {
       const queryString = qs.stringify(rest, { skipNulls: true })
       if (queryString.length > 0) {
         return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/pipeline-studio/?${queryString}`
@@ -501,23 +501,6 @@ const routes = {
   toPipelineDetail: withAccountId(
     ({ orgIdentifier, projectIdentifier, pipelineIdentifier, module }: PipelineType<PipelinePathProps>) =>
       `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}`
-  ),
-  toRunPipeline: withAccountId(
-    ({
-      orgIdentifier,
-      projectIdentifier,
-      pipelineIdentifier,
-      accountId: _accountId,
-      module,
-      ...rest
-    }: PipelineType<PipelinePathProps> & RunPipelineQueryParams) => {
-      const queryString = qs.stringify(rest, { skipNulls: true })
-      if (queryString.length > 0) {
-        return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/runpipeline?${queryString}`
-      } else {
-        return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/runpipeline`
-      }
-    }
   ),
   toInputSetList: withAccountId(
     ({

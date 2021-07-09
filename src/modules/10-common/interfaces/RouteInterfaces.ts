@@ -16,11 +16,12 @@ export interface InputSetGitQueryParams extends GitQueryParams {
   inputSetBranch?: EntityGitDetails['branch']
   inputSetRepoIdentifier?: EntityGitDetails['repoIdentifier']
 }
-export interface PipelineStudioQueryParams extends GitQueryParams {
+export interface PipelineStudioQueryParams extends GitQueryParams, RunPipelineQueryParams {
   stageId?: string
   stepId?: string
 }
 export interface RunPipelineQueryParams extends GitQueryParams, InputSetGitQueryParams {
+  runPipeline?: boolean
   executionId?: string
   inputSetType?: string
   inputSetLabel?: string
