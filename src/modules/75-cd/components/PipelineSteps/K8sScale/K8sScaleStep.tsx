@@ -162,6 +162,7 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                     name="timeout"
                     label={getString('pipelineSteps.timeoutLabel')}
                     className={stepCss.duration}
+                    disabled={readonly}
                     multiTypeDurationProps={{ expressions, enableConfigureOptions: false, disabled: readonly }}
                   />
                   {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (

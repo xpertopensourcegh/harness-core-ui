@@ -121,6 +121,7 @@ function K8CanaryDeployWidget(
               <div className={cx(stepCss.formGroup, stepCss.sm)}>
                 <FormMultiTypeDurationField
                   name="timeout"
+                  disabled={readonly}
                   label={getString('pipelineSteps.timeoutLabel')}
                   className={stepCss.duration}
                   multiTypeDurationProps={{ expressions, enableConfigureOptions: false, disabled: readonly }}

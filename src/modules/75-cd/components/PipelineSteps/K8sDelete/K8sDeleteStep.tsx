@@ -337,6 +337,7 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
                   <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
                     <FormMultiTypeDurationField
                       name="timeout"
+                      disabled={isDisabled}
                       label={getString('pipelineSteps.timeoutLabel')}
                       multiTypeDurationProps={{ enableConfigureOptions: false, expressions, disabled: isDisabled }}
                     />

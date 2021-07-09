@@ -91,6 +91,7 @@ function K8sRollingRollbackWidget(
               <div className={cx(stepCss.formGroup, stepCss.sm)}>
                 <FormMultiTypeDurationField
                   name="timeout"
+                  disabled={readonly}
                   label={getString('pipelineSteps.timeoutLabel')}
                   multiTypeDurationProps={{ enableConfigureOptions: false, expressions, disabled: readonly }}
                 />

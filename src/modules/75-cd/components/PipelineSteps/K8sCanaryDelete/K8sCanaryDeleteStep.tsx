@@ -89,6 +89,7 @@ function K8sCanaryDeleteWidget(
                   name="timeout"
                   label={getString('pipelineSteps.timeoutLabel')}
                   className={stepCss.duration}
+                  disabled={readonly}
                   multiTypeDurationProps={{ enableConfigureOptions: false, expressions, disabled: readonly }}
                 />
                 {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (

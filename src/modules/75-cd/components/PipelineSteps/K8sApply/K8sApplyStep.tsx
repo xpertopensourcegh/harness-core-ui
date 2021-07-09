@@ -197,6 +197,7 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
                 <div className={cx(stepCss.formGroup, stepCss.sm)}>
                   <FormMultiTypeDurationField
                     name="timeout"
+                    disabled={isDisabled}
                     label={getString('pipelineSteps.timeoutLabel')}
                     multiTypeDurationProps={{ enableConfigureOptions: false, disabled: isDisabled }}
                   />

@@ -593,7 +593,9 @@ export const PipelineProvider: React.FC<{
   const [isEdit] = usePermission(
     {
       resourceScope: {
-        ...queryParams
+        accountIdentifier: queryParams.accountIdentifier,
+        orgIdentifier: queryParams.orgIdentifier,
+        projectIdentifier: queryParams.projectIdentifier
       },
       resource: {
         resourceType: ResourceType.PIPELINE,
@@ -602,10 +604,12 @@ export const PipelineProvider: React.FC<{
       permissions: [PermissionIdentifier.EDIT_PIPELINE],
       options: {
         skipCache: true,
-        skipCondition: (permissionCheck: PermissionCheck) => permissionCheck.resourceIdentifier !== '-1'
+        skipCondition: (permissionCheck: PermissionCheck) => {
+          return permissionCheck.resourceIdentifier === '-1'
+        }
       }
     },
-    [queryParams, pipelineIdentifier]
+    [queryParams.accountIdentifier, queryParams.orgIdentifier, queryParams.projectIdentifier, pipelineIdentifier]
   )
   const isReadonly = !isEdit
   const deletePipelineCache = _deletePipelineCache.bind(null, queryParams, pipelineIdentifier, state.gitDetails)
