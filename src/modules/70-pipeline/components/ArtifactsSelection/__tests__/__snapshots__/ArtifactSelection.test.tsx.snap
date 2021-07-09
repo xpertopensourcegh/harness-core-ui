@@ -194,7 +194,7 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
             <div>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main"
-                style="--text-line-clamp: 1;"
+                style="--text-line-clamp: 1; width: 340px;"
               >
                 &lt;+input&gt;
               </p>
@@ -361,7 +361,7 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
             >
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main"
-                style="--text-line-clamp: 1; width: 400px;"
+                style="--text-line-clamp: 1; width: 340px;"
               >
                 &lt;+input&gt;
               </p>
@@ -626,7 +626,7 @@ exports[`ArtifactsSelection tests delete artifact list works correctly 1`] = `
             <div>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main"
-                style="--text-line-clamp: 1;"
+                style="--text-line-clamp: 1; width: 340px;"
               />
             </div>
             <div
@@ -887,7 +887,7 @@ exports[`ArtifactsSelection tests edit artifact list works correctly 1`] = `
             <div>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main"
-                style="--text-line-clamp: 1;"
+                style="--text-line-clamp: 1; width: 340px;"
               />
             </div>
             <div
@@ -1148,7 +1148,7 @@ exports[`ArtifactsSelection tests renders Artifact Listview with connectors Data
             <div>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main"
-                style="--text-line-clamp: 1;"
+                style="--text-line-clamp: 1; width: 340px;"
               />
             </div>
           </section>
@@ -1273,7 +1273,7 @@ exports[`ArtifactsSelection tests renders Artifact Listview without crashing 1`]
             <div>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main"
-                style="--text-line-clamp: 1;"
+                style="--text-line-clamp: 1; width: 340px;"
               />
             </div>
           </section>
@@ -1444,7 +1444,7 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
             <div>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main"
-                style="--text-line-clamp: 1;"
+                style="--text-line-clamp: 1; width: 340px;"
               >
                 &lt;+input&gt;
               </p>
