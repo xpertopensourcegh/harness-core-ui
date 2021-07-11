@@ -114,9 +114,14 @@ export default function MonitoredService({
                 label={getString('connectors.cdng.monitoredService.label')}
                 disabled
               />
-              <div className={css.monitoredServiceText}>
-                {getString('connectors.cdng.monitoredService.monitoredServiceText')}
-              </div>
+              {serviceIdentifier !== RUNTIME_INPUT_VALUE && environmentIdentifier !== RUNTIME_INPUT_VALUE ? (
+                <div className={css.monitoredServiceText}>
+                  {`
+                    ${getString('connectors.cdng.monitoredService.monitoredServiceText')}
+                    ${serviceIdentifier} ${getString('and')} ${environmentIdentifier}
+                  `}
+                </div>
+              ) : null}
             </Container>
           </div>
         </Card>

@@ -868,8 +868,8 @@ export interface StringsMap {
   'connectors.cdng.runTimeMonitoredService.fetchingMonitoredServiceError': string
   'connectors.cdng.runTimeMonitoredService.noHealthSourcePresent': string
   'connectors.cdng.runTimeMonitoredService.noMonitoringSercvicePresent': string
-  'connectors.cdng.runTimeMonitoredService.specifyEnv': string
-  'connectors.cdng.runTimeMonitoredService.specifyService': string
+  'connectors.cdng.runTimeMonitoredService.pleaseSpecify': string
+  'connectors.cdng.runTimeMonitoredService.toFetchMonitoredService': string
   'connectors.cdng.selectTheJobNameFirst': string
   'connectors.cdng.trafficsplit': string
   'connectors.cdng.validations.deploymentTagRequired': string

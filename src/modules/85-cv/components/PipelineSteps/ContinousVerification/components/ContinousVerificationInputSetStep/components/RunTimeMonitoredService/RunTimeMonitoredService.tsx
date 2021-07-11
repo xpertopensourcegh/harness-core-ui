@@ -66,14 +66,15 @@ export default function RunTimeMonitoredService({
     return (
       <Card>
         <div className={css.emptyFields}>
-          {isEmpty(serviceIdentifier) ? (
-            <div className={css.emptyFieldItem}>
-              {getString('connectors.cdng.runTimeMonitoredService.specifyService')}
-            </div>
-          ) : null}
-          {isEmpty(envIdentifier) ? (
-            <div className={css.emptyFieldItem}>{getString('connectors.cdng.runTimeMonitoredService.specifyEnv')}</div>
-          ) : null}
+          <div className={css.emptyFieldItem}>
+            {`
+              ${getString('connectors.cdng.runTimeMonitoredService.pleaseSpecify')} 
+              ${isEmpty(serviceIdentifier) ? getString('service') : ''}
+              ${isEmpty(serviceIdentifier) && isEmpty(envIdentifier) ? getString('and') : ''}
+              ${isEmpty(envIdentifier) ? getString('environment') : ''}
+              ${getString('connectors.cdng.runTimeMonitoredService.toFetchMonitoredService')}
+            `}
+          </div>
         </div>
       </Card>
     )
