@@ -28,7 +28,8 @@ import {
   GitConfigDTO,
   useGetBuildDetailsForDockerWithYaml,
   useGetBuildDetailsForGcrWithYaml,
-  useGetBuildDetailsForEcrWithYaml
+  useGetBuildDetailsForEcrWithYaml,
+  useGetGCSBucketList
 } from 'services/cd-ng'
 import type { CustomVariablesData } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
 import { ArtifactToConnectorMap, ENABLED_ARTIFACT_TYPES } from '@pipeline/components/ArtifactsSelection/ArtifactHelper'
@@ -83,6 +84,9 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
     primary: {}
   })
   const [lastQueryData, setLastQueryData] = React.useState<LastQueryData>({})
+  const [gcsBucketQueryData, setGcsBucketQueryData] = React.useState<{ connectorRef: string }>({
+    connectorRef: ''
+  })
 
   const { expressions } = useVariablesExpression()
   const isPropagatedStage = path?.includes('serviceConfig.stageOverrides')
@@ -196,6 +200,26 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
       accountId
     }
   })
+
+  const {
+    data: bucketData,
+    loading,
+    refetch: refetchBuckets
+  } = useGetGCSBucketList({
+    queryParams: {
+      connectorRef: gcsBucketQueryData?.connectorRef,
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier
+    },
+    lazy: true
+  })
+
+  React.useEffect(() => {
+    if (gcsBucketQueryData?.connectorRef) {
+      refetchBuckets()
+    }
+  }, [gcsBucketQueryData])
 
   useDeepCompareEffect(() => {
     if (gcrError || dockerError || ecrError) {
@@ -352,6 +376,11 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
   const regions = (regionData?.resource || []).map((region: any) => ({
     value: region.value,
     label: region.name
+  }))
+
+  const bucketOptions = Object.keys(bucketData || {}).map(item => ({
+    label: item,
+    value: item
   }))
   const resetTags = (tagPath: string): void => {
     const tagValue = get(formik.values, tagPath, '')
@@ -800,6 +829,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
               }: any,
               index: number
             ) => {
+              const filteredManifest = allValues?.manifests?.find(item => item.manifest?.identifier === identifier)
               return (
                 <Layout.Vertical key={identifier} className={cx(css.inputWidth, css.layoutVerticalSpacing)}>
                   <Text className={css.inputheader}>{identifier}</Text>
@@ -816,7 +846,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                           allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
                           expressions
                         }}
-                        width={432}
+                        width={370}
                         accountIdentifier={accountId}
                         projectIdentifier={projectIdentifier}
                         orgIdentifier={orgIdentifier}
@@ -902,19 +932,69 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                     </div>
                   )}
 
-                  {getMultiTypeFromValue(bucketName) === MultiTypeInputType.RUNTIME && (
-                    <div className={css.verticalSpacingInput}>
-                      <FormInput.MultiTextInput
-                        multiTextInputProps={{
-                          expressions,
-                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                        }}
-                        disabled={readonly}
-                        label={getString('pipeline.manifestType.bucketName')}
-                        name={`${path}.manifests[${index}].manifest.spec.store.spec.bucketName`}
-                      />
-                    </div>
-                  )}
+                  {getMultiTypeFromValue(bucketName) === MultiTypeInputType.RUNTIME &&
+                    getMultiTypeFromValue(
+                      initialValues?.manifests?.[index].manifest?.spec?.store?.spec?.connectorRef
+                    ) !== MultiTypeInputType.FIXED && (
+                      <div className={css.verticalSpacingInput}>
+                        <FormInput.MultiTextInput
+                          multiTextInputProps={{
+                            expressions,
+                            allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                          }}
+                          disabled={readonly}
+                          placeholder={getString('pipeline.manifestType.bucketNamePlaceholder')}
+                          label={getString('pipeline.manifestType.bucketName')}
+                          name={`${path}.manifests[${index}].manifest.spec.store.spec.bucketName`}
+                        />
+                      </div>
+                    )}
+
+                  {getMultiTypeFromValue(bucketName) === MultiTypeInputType.RUNTIME &&
+                    getMultiTypeFromValue(
+                      initialValues?.manifests?.[index].manifest?.spec?.store?.spec?.connectorRef
+                    ) === MultiTypeInputType.FIXED && (
+                      <div className={css.verticalSpacingInput}>
+                        <ExperimentalInput
+                          formik={formik}
+                          multiTypeInputProps={{
+                            onFocus: () => {
+                              if (
+                                getMultiTypeFromValue(filteredManifest?.manifest?.spec?.store?.spec?.connectorRef) ===
+                                MultiTypeInputType.FIXED
+                              ) {
+                                setGcsBucketQueryData({
+                                  connectorRef: filteredManifest?.manifest?.spec?.store?.spec?.connectorRef
+                                })
+                              } else {
+                                if (!bucketOptions.length) {
+                                  setGcsBucketQueryData({
+                                    connectorRef:
+                                      initialValues?.manifests?.[index].manifest?.spec?.store?.spec?.connectorRef
+                                  })
+                                }
+                              }
+                            },
+                            selectProps: {
+                              usePortal: true,
+                              addClearBtn: true && !readonly,
+                              items: loading
+                                ? [{ label: 'Loading Buckets...', value: 'Loading Buckets...' }]
+                                : bucketOptions,
+                              allowCreatingNewItems: true
+                            },
+                            expressions,
+                            allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                          }}
+                          useValue
+                          disabled={readonly}
+                          selectItems={bucketOptions}
+                          placeholder={getString('pipeline.manifestType.bucketNamePlaceholder')}
+                          label={getString('pipeline.manifestType.bucketName')}
+                          name={`${path}.manifests[${index}].manifest.spec.store.spec.bucketName`}
+                        />
+                      </div>
+                    )}
                   {getMultiTypeFromValue(folderPath) === MultiTypeInputType.RUNTIME && (
                     <div className={css.verticalSpacingInput}>
                       <FormInput.MultiTextInput
