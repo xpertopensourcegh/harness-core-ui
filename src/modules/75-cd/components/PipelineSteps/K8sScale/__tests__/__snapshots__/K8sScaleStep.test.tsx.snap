@@ -85,7 +85,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 1`] = `
           class="bp3-label"
           for="spec.instanceSelection"
         >
-          pipelineSteps.instanceLabel
+          common.instanceLabel
            
           <span
             class="bp3-text-muted"
@@ -335,7 +335,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
             class="bp3-label"
             for="spec.instanceSelection"
           >
-            pipelineSteps.instanceLabel
+            common.instanceLabel
              
             <span
               class="bp3-text-muted"
@@ -733,7 +733,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
             class="bp3-label"
             for="spec.instanceSelection"
           >
-            pipelineSteps.instanceLabel
+            common.instanceLabel
              
             <span
               class="bp3-text-muted"
@@ -1203,7 +1203,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
             class="bp3-label"
             for="spec.instanceSelection"
           >
-            pipelineSteps.instanceLabel
+            common.instanceLabel
              
             <span
               class="bp3-text-muted"
@@ -1658,7 +1658,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid payload for instan
             class="bp3-label"
             for="spec.instanceSelection"
           >
-            pipelineSteps.instanceLabel
+            common.instanceLabel
              
             <span
               class="bp3-text-muted"
@@ -2057,7 +2057,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid payload for instan
             class="bp3-label"
             for="spec.instanceSelection"
           >
-            pipelineSteps.instanceLabel
+            common.instanceLabel
              
             <span
               class="bp3-text-muted"
@@ -2460,7 +2460,7 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
             class="bp3-label"
             for="spec.instanceSelection"
           >
-            pipelineSteps.instanceLabel
+            common.instanceLabel
              
             <span
               class="bp3-text-muted"

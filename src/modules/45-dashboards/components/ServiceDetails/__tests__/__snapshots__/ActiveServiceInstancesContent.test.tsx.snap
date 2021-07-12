@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ActiveServiceInstancesContent should render ActiveServiceInstancesContent 1`] = `
+<div>
+  <div
+    class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+    data-test="ActiveServiceInstancesEmpty"
+    style="height: 100%;"
+  >
+    <img
+      height="100"
+      src="test-file-stub"
+      style="align-self: center;"
+      width="150"
+    />
+    <p
+      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--margin-top-medium"
+    >
+      dashboards.serviceDashboard.noDeployments
+    </p>
+  </div>
+</div>
+`;

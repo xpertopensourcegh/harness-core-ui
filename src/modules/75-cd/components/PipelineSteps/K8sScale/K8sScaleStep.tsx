@@ -104,7 +104,7 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
                   <FormInstanceDropdown
                     name={'spec.instanceSelection'}
-                    label={getString('pipelineSteps.instanceLabel')}
+                    label={getString('common.instanceLabel')}
                     readonly={readonly}
                     expressions={expressions}
                   />
@@ -240,7 +240,7 @@ const K8ScaleInputStep: React.FC<K8sScaleProps> = ({ template, readonly, path })
         ) === MultiTypeInputType.RUNTIME) && (
         <div className={cx(stepCss.formGroup, stepCss.md)}>
           <FormInstanceDropdown
-            label={getString('pipelineSteps.instanceLabel')}
+            label={getString('common.instanceLabel')}
             name={`${prefix}spec.instanceSelection`}
             expressions={expressions}
             allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}

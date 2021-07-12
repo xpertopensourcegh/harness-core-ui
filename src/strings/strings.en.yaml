@@ -1009,7 +1009,6 @@ pipelineSteps:
     m for minutes
     s for seconds
     ms for milliseconds
-  instanceLabel: 'Instances'
   typeName: 'instanceType'
   awsConnectorLabel: AWS Connector
   awsConnectorInfo: AWS connector to use for saving the cache to S3

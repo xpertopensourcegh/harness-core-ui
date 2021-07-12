@@ -109,7 +109,7 @@ exports[`Test K8sCanaryDeployStep should render edit view 1`] = `
             class="bp3-label"
             for="spec.instanceSelection"
           >
-            pipelineSteps.instanceLabel
+            common.instanceLabel
              
             <span
               class="bp3-text-muted"
@@ -437,7 +437,7 @@ exports[`Test K8sCanaryDeployStep should render edit view as edit step with all 
             class="bp3-label"
             for="spec.instanceSelection"
           >
-            pipelineSteps.instanceLabel
+            common.instanceLabel
              
             <span
               class="bp3-text-muted"
@@ -807,7 +807,7 @@ exports[`Test K8sCanaryDeployStep should render edit view as new step 1`] = `
             class="bp3-label"
             for="spec.instanceSelection"
           >
-            pipelineSteps.instanceLabel
+            common.instanceLabel
              
             <span
               class="bp3-text-muted"
@@ -1097,7 +1097,7 @@ exports[`Test K8sCanaryDeployStep should render input set view 1`] = `
           class="bp3-label"
           for="spec.instanceSelection"
         >
-          pipelineSteps.instanceLabel
+          common.instanceLabel
            
           <span
             class="bp3-text-muted"
@@ -1379,7 +1379,7 @@ exports[`Test K8sCanaryDeployStep should submit with valid payload for instance 
             class="bp3-label"
             for="spec.instanceSelection"
           >
-            pipelineSteps.instanceLabel
+            common.instanceLabel
              
             <span
               class="bp3-text-muted"
@@ -1707,7 +1707,7 @@ exports[`Test K8sCanaryDeployStep should submit with valid paylod for instace ty
             class="bp3-label"
             for="spec.instanceSelection"
           >
-            pipelineSteps.instanceLabel
+            common.instanceLabel
              
             <span
               class="bp3-text-muted"
@@ -2040,7 +2040,7 @@ exports[`Test K8sCanaryDeployStep should throw validation error without instance
             class="bp3-label"
             for="spec.instanceSelection"
           >
-            pipelineSteps.instanceLabel
+            common.instanceLabel
              
             <span
               class="bp3-text-muted"

@@ -93,7 +93,7 @@ function K8CanaryDeployWidget(
               <div className={cx(stepCss.formGroup, stepCss.md)}>
                 <FormInstanceDropdown
                   name={'spec.instanceSelection'}
-                  label={getString('pipelineSteps.instanceLabel')}
+                  label={getString('common.instanceLabel')}
                   readonly={readonly}
                   expressions={expressions}
                 />
@@ -197,7 +197,7 @@ const K8CanaryDeployInputStep: React.FC<K8sCanaryDeployProps> = ({ template, rea
         <div className={cx(stepCss.formGroup, stepCss.md)}>
           <FormInstanceDropdown
             expressions={expressions}
-            label={getString('pipelineSteps.instanceLabel')}
+            label={getString('common.instanceLabel')}
             name={`${prefix}spec.instanceSelection`}
             allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
             disabledType

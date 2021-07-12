@@ -1,0 +1,54 @@
+.activeServiceInstances {
+  width: 540px;
+  min-height: 570px;
+  .activeServiceInstancesHeader {
+    border-bottom: 1px solid var(--grey-200);
+    .instanceCount {
+      font-size: 40px !important;
+    }
+
+    .pieChartLabelContainerStyles {
+      padding-right: var(--spacing-small) !important;
+    }
+
+    .pieChartLabelStyles {
+      font-size: var(--font-size-small) !important;
+    }
+  }
+  .instanceTable {
+    width: 100%;
+    div[role='row'] {
+      box-shadow: none;
+      border: 0px;
+      padding: var(--spacing-tiny);
+      margin: 0px;
+    }
+    .paddedContainer {
+      padding: var(--spacing-small);
+    }
+    .environmentRow {
+      text-align: center;
+      padding: var(--spacing-tiny);
+      border-radius: 4px;
+      background: var(--lime-400);
+    }
+    .seeMore {
+      text-align: center;
+      cursor: pointer;
+    }
+    .instanceCount {
+      padding: var(--spacing-xsmall);
+      border-radius: 4px;
+      text-align: center;
+    }
+    .hexContainer {
+      flex-wrap: wrap;
+      .hex {
+        flex-shrink: 0;
+        cursor: pointer;
+        -webkit-clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
+        clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
+      }
+    }
+  }
+}

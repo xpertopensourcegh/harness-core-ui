@@ -219,6 +219,7 @@ export interface StringsMap {
   'common.home': string
   'common.in': string
   'common.input': string
+  'common.instanceLabel': string
   'common.jexlExpression': string
   'common.labelTestConnection': string
   'common.last7days': string
@@ -1304,6 +1305,7 @@ export interface StringsMap {
   'dashboards.serviceDashboard.3months': string
   'dashboards.serviceDashboard.6months': string
   'dashboards.serviceDashboard.activeServiceInstancesLabel': string
+  'dashboards.serviceDashboard.buildName': string
   'dashboards.serviceDashboard.executionId': string
   'dashboards.serviceDashboard.frequency': string
   'dashboards.serviceDashboard.in': string
@@ -1314,6 +1316,7 @@ export interface StringsMap {
   'dashboards.serviceDashboard.noServices': string
   'dashboards.serviceDashboard.nonProd': string
   'dashboards.serviceDashboard.prod': string
+  'dashboards.serviceDashboard.seeMore': string
   'dashboards.serviceDashboard.serviceInstances': string
   'dashboards.serviceDashboard.servicesInLast': string
   'dashboards.serviceDashboard.totalServices': string
@@ -5924,10 +5927,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'pipelineSteps.hostPlaceholder': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.instanceLabel': string
   /**
    * @deprecated migrate this string to module level file
    */
