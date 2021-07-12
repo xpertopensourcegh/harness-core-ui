@@ -19,3 +19,11 @@
     border-bottom: 1px solid var(--grey-100);
   }
 }
+
+.noData {
+  div {
+    top: 45%;
+    position: relative;
+    height: 150px !important;
+  }
+}

@@ -6,8 +6,9 @@ import {
   SelectOrCreateConnectorFieldNames
 } from '@cv/pages/onboarding/SelectOrCreateConnector/SelectOrCreateConnector'
 import { useStrings } from 'framework/strings'
-import CardWithOuterTitle from '@cv/pages/health-source/common/CardWithOuterTitle'
-import DrawerFooter from '@cv/pages/health-source/common/DrawerFooter'
+import { BGColorWrapper } from '@cv/pages/health-source/common/StyledComponents'
+import CardWithOuterTitle from '@cv/pages/health-source/common/CardWithOuterTitle/CardWithOuterTitle'
+import DrawerFooter from '@cv/pages/health-source/common/DrawerFooter/DrawerFooter'
 import { SetupSourceTabsContext } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import { buildConnectorRef } from '@cv/pages/onboarding/CVOnBoardingUtils'
 import { HEALTHSOURCE_LIST } from './DefineHealthSource.constant'
@@ -20,7 +21,7 @@ function DefineHealthSource(): JSX.Element {
   const { isEdit } = sourceData
 
   return (
-    <>
+    <BGColorWrapper>
       <Formik
         enableReinitialize
         initialValues={sourceData}
@@ -28,12 +29,11 @@ function DefineHealthSource(): JSX.Element {
         validationSchema={validate(isEdit, getString)}
         onSubmit={values => {
           onNext(values, { tabStatus: 'SUCCESS' })
-          sourceData?.setMaxTab(1)
         }}
       >
         {formik => {
           return (
-            <FormikForm>
+            <FormikForm className={css.formFullheight}>
               <CardWithOuterTitle title={getString('cv.healthSource.defineHealthSource')}>
                 <>
                   <Text font={'small'} margin={{ bottom: 'large' }}>
@@ -140,7 +140,7 @@ function DefineHealthSource(): JSX.Element {
           )
         }}
       </Formik>
-    </>
+    </BGColorWrapper>
   )
 }
 

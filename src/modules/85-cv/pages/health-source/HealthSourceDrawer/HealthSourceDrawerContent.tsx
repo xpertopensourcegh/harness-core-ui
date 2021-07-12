@@ -1,7 +1,8 @@
-import React, { Dispatch, SetStateAction, useMemo, useState } from 'react'
+import React, { useMemo } from 'react'
 import { SelectOption, Button } from '@wings-software/uicore'
 import { Drawer, Position } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
+import { Connectors } from '@connectors/constants'
 import type { AppDynamicsHealthSourceSpec, HealthSource, MonitoredServiceResponse } from 'services/cv'
 import { SetupSourceTabs } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import DefineHealthSource from './component/defineHealthSource/DefineHealthSource'
@@ -25,7 +26,6 @@ export interface HealthSourceDrawerInterface {
   serviceRef: SelectOption | undefined
   environmentRef: SelectOption | undefined
   monitoringSourcRef: { monitoredServiceIdentifier: string; monitoredServiceName: string }
-  setModalOpen: Dispatch<SetStateAction<boolean>>
   onSuccess: (data: MonitoredServiceResponse) => void
   modalOpen: boolean
   createHeader: () => JSX.Element
@@ -37,7 +37,6 @@ function HealthSourceDrawerContent({
   serviceRef,
   environmentRef,
   monitoringSourcRef,
-  setModalOpen,
   onSuccess,
   modalOpen,
   createHeader,
@@ -47,31 +46,26 @@ function HealthSourceDrawerContent({
   tableData
 }: HealthSourceDrawerInterface): JSX.Element {
   const { getString } = useStrings()
-  const [maxTab, setMaxTab] = useState(0)
 
   const sourceData = useMemo(
-    () =>
-      createHealthSourceDrawerFormData(
-        rowData,
-        isEdit,
-        onSuccess,
-        setModalOpen,
-        monitoringSourcRef,
-        serviceRef,
-        environmentRef,
-        tableData,
-        setMaxTab
-      ),
+    () => createHealthSourceDrawerFormData(rowData, isEdit, monitoringSourcRef, serviceRef, environmentRef, tableData),
     [rowData, tableData, monitoringSourcRef, serviceRef, environmentRef]
   )
+
+  const determineMaxTabBySourceType = (): number => {
+    switch (rowData?.type) {
+      case Connectors.APP_DYNAMICS:
+        return isEdit ? 1 : 0
+      default:
+        return 0
+    }
+  }
 
   return (
     <>
       <Drawer
         onClose={() => {
           onClose(null)
-          setModalOpen(false)
-          setMaxTab(0)
         }}
         usePortal={true}
         autoFocus={true}
@@ -89,14 +83,14 @@ function HealthSourceDrawerContent({
       >
         <SetupSourceTabs
           data={sourceData}
-          determineMaxTab={() => maxTab}
+          determineMaxTab={determineMaxTabBySourceType}
           tabTitles={[
             getString('cv.healthSource.defineHealthSource'),
             getString('cv.healthSource.customizeHealthSource')
           ]}
         >
           <DefineHealthSource />
-          <CustomiseHealthSource />
+          <CustomiseHealthSource onSuccess={onSuccess} />
         </SetupSourceTabs>
       </Drawer>
       {modalOpen && (
@@ -107,8 +101,6 @@ function HealthSourceDrawerContent({
           withoutBoxShadow
           onClick={() => {
             onClose(null)
-            setModalOpen(false)
-            setMaxTab(0)
           }}
         />
       )}

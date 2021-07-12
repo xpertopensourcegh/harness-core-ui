@@ -1,14 +1,24 @@
 import React, { useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
-import { MonitoredServiceDTO, useSaveMonitoredService, useUpdateMonitoredService } from 'services/cv'
+import {
+  MonitoredServiceDTO,
+  MonitoredServiceResponse,
+  useSaveMonitoredService,
+  useUpdateMonitoredService
+} from 'services/cv'
 import { useToaster } from '@common/components/Toaster/useToaster'
+import { BGColorWrapper } from '@cv/pages/health-source/common/StyledComponents'
 import { SetupSourceTabsContext } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { LoadSourceByType, createHealthsourceList } from './CustomiseHealthSource.utils'
 import type { updatedHealthSource } from '../../HealthSourceDrawerContent'
 
-export default function CustomiseHealthSource(): JSX.Element {
+export default function CustomiseHealthSource({
+  onSuccess
+}: {
+  onSuccess: (data: MonitoredServiceResponse) => void
+}): JSX.Element {
   const params = useParams<ProjectPathProps & { identifier: string }>()
   const { getString } = useStrings()
   const { showError, showSuccess } = useToaster()
@@ -40,8 +50,7 @@ export default function CustomiseHealthSource(): JSX.Element {
       const postdatavalue = params?.identifier
         ? await updateMonitoredService(payload)
         : await saveMonitoredService(payload)
-      formdata?.setModalOpen(false)
-      formdata?.onSuccess(postdatavalue?.resource)
+      postdatavalue?.resource && onSuccess(postdatavalue?.resource)
       showSuccess(
         params?.identifier
           ? getString('cv.monitoredServices.monitoredServiceUpdated')
@@ -52,5 +61,9 @@ export default function CustomiseHealthSource(): JSX.Element {
     }
   }
 
-  return <LoadSourceByType type={sourceData?.sourceType} data={sourceData} onSubmit={submitData} />
+  return (
+    <BGColorWrapper>
+      <LoadSourceByType type={sourceData?.sourceType} data={sourceData} onSubmit={submitData} />
+    </BGColorWrapper>
+  )
 }

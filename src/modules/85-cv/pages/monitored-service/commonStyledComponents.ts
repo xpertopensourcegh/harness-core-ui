@@ -1,5 +1,4 @@
 import styled from '@emotion/styled'
-import { Layout } from '@wings-software/uicore'
 
 const MonitoringServicesHeader = styled.div`
   display: flex;
@@ -21,10 +20,4 @@ const MonitoringServicesHeader = styled.div`
 `
 MonitoringServicesHeader.displayName = 'MonitoringServicesHeader'
 
-const HorizontalLayout = styled(Layout.Horizontal)`
-  display: flex;
-  justify-content: space-between;
-  ${(props: any) => `align-items: ${props?.alignItem}`};
-`
-
-export { HorizontalLayout, MonitoringServicesHeader }
+export { MonitoringServicesHeader }

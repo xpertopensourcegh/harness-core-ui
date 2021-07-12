@@ -1,10 +1,10 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import routes from '@common/RouteDefinitions'
-import * as cvServices from 'services/cv'
 import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
 import { SetupSourceTabs } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
+import { Connectors } from '@connectors/constants'
 import CustomiseHealthSource from '../CustomiseHealthSource'
 
 const testWrapperProps: TestWrapperProps = {
@@ -24,26 +24,37 @@ jest.mock('@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs', (
   get SetupSourceTabsContext() {
     return React.createContext({
       tabsInfo: [],
-      sourceData: { productName: 'apm' },
+      sourceData: { sourceType: Connectors.APP_DYNAMICS },
       onNext: onNextMock,
       onPrevious: onPrevious
     })
   }
 }))
-describe('CustomiseHealthSource', () => {
-  beforeAll(() => {
-    jest.spyOn(cvServices, 'useSaveMonitoredService').mockImplementation(() => ({} as any))
-    jest.spyOn(cvServices, 'useUpdateMonitoredService').mockImplementation(() => ({} as any))
-  })
 
-  test('should matchsnapshot', () => {
-    const { container } = render(
+jest.mock('services/cv', () => ({
+  useSaveMonitoredService: () =>
+    jest.fn().mockImplementation(() => ({ loading: false, error: null, data: {}, refetch: jest.fn() })),
+  useUpdateMonitoredService: () =>
+    jest.fn().mockImplementation(() => ({ loading: false, error: null, data: {}, refetch: jest.fn() })),
+  useGetMetricPacks: () =>
+    jest.fn().mockImplementation(() => ({ loading: false, error: null, data: {}, refetch: jest.fn() })),
+  useGetAppDynamicsApplications: () =>
+    jest.fn().mockImplementation(() => ({ loading: false, error: null, data: {}, refetch: jest.fn() })),
+  useGetAppDynamicsTiers: () =>
+    jest.fn().mockImplementation(() => ({ loading: false, error: null, data: {}, refetch: jest.fn() }))
+}))
+describe('CustomiseHealthSource', () => {
+  test('Validate AppDynamics loads', () => {
+    const { container, getByText } = render(
       <TestWrapper {...testWrapperProps}>
         <SetupSourceTabs data={{}} tabTitles={['Tab1']} determineMaxTab={() => 1}>
-          <CustomiseHealthSource />
+          <CustomiseHealthSource onSuccess={jest.fn()} />
         </SetupSourceTabs>
       </TestWrapper>
     )
+    // Appdynamcis loads
+    expect(getByText('metricPacks')).toBeVisible()
+    expect(getByText('cv.healthSource.connectors.AppDynamics.applicationsAndTiers')).toBeVisible()
     expect(container).toMatchSnapshot()
   })
 })

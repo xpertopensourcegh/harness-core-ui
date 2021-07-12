@@ -2963,6 +2963,7 @@ export interface StringsMap {
   'cv.healthSource.featurePlaceholder': string
   'cv.healthSource.nameLabel': string
   'cv.healthSource.namePlaceholder': string
+  'cv.healthSource.noData': string
   'cv.healthSource.selectHealthSource': string
   'cv.healthSource.seriveEnvironmentNote': string
   'cv.healthSource.serviceLabel': string
@@ -2991,6 +2992,10 @@ export interface StringsMap {
   'cv.monitoredServices.noData': string
   'cv.monitoredServices.serviceAndEnvironment': string
   'cv.monitoredServices.serviceCount': string
+  'cv.monitoredServices.table.healthMonitoring': string
+  'cv.monitoredServices.table.lastestHealthTrend': string
+  'cv.monitoredServices.table.serviceHealthScore': string
+  'cv.monitoredServices.table.serviceName': string
   'cv.monitoredServices.title': string
   'cv.monitoringSources.addMetric': string
   'cv.monitoringSources.addQuery': string

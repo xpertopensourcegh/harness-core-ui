@@ -537,10 +537,16 @@ monitoredServices:
   monitoredServiceCreated: Monitoring Service created
   monitoredServiceUpdated: Monitoring Service updated
   serviceCount: Showing {{serviceCount}} Services
+  table:
+    serviceName: Service Name
+    lastestHealthTrend: Last 24HR Health Trends
+    serviceHealthScore: service HealthScore
+    healthMonitoring: Health Monitoring
 healthSource:
-  nameLabel: Source Name
+  nameLabel: Health Source Name
   namePlaceholder: Type your health source name
   featureLabel: Select Feature
+  noData: No Health Sources Present
   featurePlaceholder: Select your {{ sourceType }} feature
   environmentLabel: Create or Select Environment(s)
   serviceLabel: Create or Select a Service

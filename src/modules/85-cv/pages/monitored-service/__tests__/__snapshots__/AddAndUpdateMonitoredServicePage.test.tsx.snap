@@ -3,377 +3,287 @@
 exports[`Unit tests for createting monitored source Health source tabel and environment services compoenet renders 1`] = `
 <div>
   <div
-    class="css-lv9wot"
-    height="80px"
+    class="css-hwoeic"
   >
     <div
-      alignitem="flex-end"
-      class="Layout--horizontal StyledProps--main css-6fqrth"
+      class="css-lv9wot"
+      height="80px"
     >
-      <div>
-        <div
-          class="breadcrumbs"
-        >
-          <div>
-            <a
-              class="breadcrumb"
-              href="/account/1234_accountId/cv/orgs/1234_org/projects/1234_project/dashboard"
-            />
-            <span
-              class="bp3-icon StyledProps--main separator"
-              data-icon="main-chevron-right"
-            >
-              <svg
-                height="11"
-                viewBox="0 0 8 14"
-                width="11"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
-                  fill="#4d5969"
-                />
-              </svg>
-            </span>
-          </div>
-          <div>
-            <a
-              class="breadcrumb"
-              href="/account/1234_accountId/cv/orgs/1234_org/projects/1234_project/monitoringservices"
-            >
-              cv.monitoredServices.title
-            </a>
-            <span
-              class="bp3-icon StyledProps--main separator"
-              data-icon="main-chevron-right"
-            >
-              <svg
-                height="11"
-                viewBox="0 0 8 14"
-                width="11"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
-                  fill="#4d5969"
-                />
-              </svg>
-            </span>
-          </div>
-          <div>
-            <span
-              class="lastBreadcrumb"
-            />
-          </div>
-        </div>
-        <p>
-          cv.monitoredServices.addNewMonitoredServices
-        </p>
-      </div>
-    </div>
-  </div>
-  <div
-    class="OverlaySpinner--overlaySpinner"
-  >
-    <div
-      class="Layout--vertical StyledProps--main StyledProps--margin-xxlarge"
-    >
-      <p
-        class="StyledProps--font StyledProps--main header"
-      >
-        cv.monitoredServices.monitoredServiceDetails
-      </p>
       <div
-        class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
+        alignitem="flex-end"
+        class="Layout--horizontal StyledProps--main css-6fqrth"
       >
-        <div
-          class="StyledProps--font StyledProps--main"
-          style="width: 400px;"
-        >
+        <div>
           <div
-            class="InputWithIdentifier--txtNameContainer TextInput--main"
+            class="breadcrumbs"
           >
-            <div
-              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
-            >
-              <p
-                class="StyledProps--font StyledProps--main"
-              >
-                ID
-                :
-              </p>
+            <div>
+              <a
+                class="breadcrumb"
+                href="/account/1234_accountId/cv/orgs/1234_org/projects/1234_project/dashboard"
+              />
               <span
-                class="bp3-popover-wrapper"
-              >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <div
-                    class="bp3-editable-text bp3-editable-text-placeholder InputWithIdentifier--idValue"
-                    tabindex="0"
-                  >
-                    <span
-                      class="bp3-editable-text-content"
-                      style="height: 1px; line-height: 1px; min-width: 0;"
-                    />
-                  </div>
-                </span>
-              </span>
-              <span
-                class="bp3-icon bp3-icon-edit StyledProps--main"
-                icon="edit"
-                style="vertical-align: middle; cursor: pointer;"
+                class="bp3-icon StyledProps--main separator"
+                data-icon="main-chevron-right"
               >
                 <svg
-                  data-icon="edit"
-                  height="12"
-                  viewBox="0 0 16 16"
-                  width="12"
+                  height="11"
+                  viewBox="0 0 8 14"
+                  width="11"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  <desc>
-                    edit
-                  </desc>
                   <path
-                    d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                    fill-rule="evenodd"
+                    d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
+                    fill="#4d5969"
                   />
                 </svg>
               </span>
             </div>
-            <div
-              class="bp3-form-group"
-            >
-              <label
-                class="bp3-label"
-                for="monitoredServiceName"
+            <div>
+              <a
+                class="breadcrumb"
+                href="/account/1234_accountId/cv/orgs/1234_org/projects/1234_project/monitoringservices"
               >
-                cv.monitoredServices.monitoredServiceName
-                 
-                <span
-                  class="bp3-text-muted"
-                />
-              </label>
-              <div
-                class="bp3-form-content"
+                cv.monitoredServices.title
+              </a>
+              <span
+                class="bp3-icon StyledProps--main separator"
+                data-icon="main-chevron-right"
               >
-                <div
-                  class="bp3-input-group"
+                <svg
+                  height="11"
+                  viewBox="0 0 8 14"
+                  width="11"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  <input
-                    autocomplete="off"
-                    class="bp3-input"
-                    name="monitoredServiceName"
-                    type="text"
-                    value=""
+                  <path
+                    d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
+                    fill="#4d5969"
                   />
+                </svg>
+              </span>
+            </div>
+            <div>
+              <span
+                class="lastBreadcrumb"
+              />
+            </div>
+          </div>
+          <p>
+            cv.monitoredServices.addNewMonitoredServices
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      class="OverlaySpinner--overlaySpinner"
+    >
+      <div
+        class="Layout--vertical StyledProps--main StyledProps--margin-xxlarge"
+      >
+        <p
+          class="StyledProps--font StyledProps--main header StyledProps--color StyledProps--color-black"
+        >
+          cv.monitoredServices.monitoredServiceDetails
+        </p>
+        <div
+          class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
+        >
+          <div
+            class="StyledProps--font StyledProps--main"
+            style="width: 400px;"
+          >
+            <div
+              class="InputWithIdentifier--txtNameContainer TextInput--main"
+            >
+              <div
+                class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main"
+                >
+                  ID
+                  :
+                </p>
+                <span
+                  class="bp3-popover-wrapper"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="bp3-editable-text bp3-editable-text-placeholder InputWithIdentifier--idValue"
+                      tabindex="0"
+                    >
+                      <span
+                        class="bp3-editable-text-content"
+                        style="height: 1px; line-height: 1px; min-width: 0;"
+                      />
+                    </div>
+                  </span>
+                </span>
+                <span
+                  class="bp3-icon bp3-icon-edit StyledProps--main"
+                  icon="edit"
+                  style="vertical-align: middle; cursor: pointer;"
+                >
+                  <svg
+                    data-icon="edit"
+                    height="12"
+                    viewBox="0 0 16 16"
+                    width="12"
+                  >
+                    <desc>
+                      edit
+                    </desc>
+                    <path
+                      d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </div>
+              <div
+                class="bp3-form-group"
+              >
+                <label
+                  class="bp3-label"
+                  for="monitoredServiceName"
+                >
+                  cv.monitoredServices.monitoredServiceName
+                   
+                  <span
+                    class="bp3-text-muted"
+                  />
+                </label>
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="bp3-input-group"
+                  >
+                    <input
+                      autocomplete="off"
+                      class="bp3-input"
+                      name="monitoredServiceName"
+                      type="text"
+                      value=""
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div
-      class="Layout--vertical StyledProps--main StyledProps--margin-xxlarge"
-    >
-      <p
-        class="StyledProps--font StyledProps--main header"
-      >
-        cv.monitoredServices.serviceAndEnvironment
-      </p>
       <div
-        class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
+        class="Layout--vertical StyledProps--main StyledProps--margin-xxlarge"
       >
+        <p
+          class="StyledProps--font StyledProps--main header StyledProps--color StyledProps--color-black"
+        >
+          cv.monitoredServices.serviceAndEnvironment
+        </p>
         <div
-          class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
+          class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
         >
           <div
-            class="bp3-form-group"
+            class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
           >
             <div
-              class="bp3-form-content"
+              class="bp3-form-group"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--margin-bottom-small"
-              >
-                cv.healthSource.serviceLabel
-              </p>
               <div
-                class="StyledProps--font StyledProps--main serviceThing"
-              />
+                class="bp3-form-content"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--margin-bottom-small"
+                >
+                  cv.healthSource.serviceLabel
+                </p>
+                <div
+                  class="StyledProps--font StyledProps--main serviceThing"
+                />
+              </div>
             </div>
-          </div>
-          <div
-            class="bp3-form-group"
-          >
             <div
-              class="bp3-form-content"
+              class="bp3-form-group"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--margin-bottom-small"
-              >
-                cv.healthSource.environmentLabel
-              </p>
               <div
-                class="StyledProps--font StyledProps--main environment"
-              />
+                class="bp3-form-content"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--margin-bottom-small"
+                >
+                  cv.healthSource.environmentLabel
+                </p>
+                <div
+                  class="StyledProps--font StyledProps--main environment"
+                />
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div
-      class="Layout--vertical StyledProps--main StyledProps--margin-xxlarge"
-    >
-      <p
-        class="StyledProps--font StyledProps--main header"
-      >
-        cv.healthSource.defineYourSource
-      </p>
       <div
-        class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
+        class="Layout--vertical StyledProps--main StyledProps--margin-xxlarge"
       >
+        <p
+          class="StyledProps--font StyledProps--main header StyledProps--color StyledProps--color-black"
+        >
+          cv.healthSource.defineYourSource
+        </p>
         <div
-          class="table tableWrapper"
+          class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
         >
           <div
-            class="header"
-            role="row"
+            class="StyledProps--font StyledProps--main noData"
           >
             <div
-              class="cell"
-              colspan="1"
-              role="columnheader"
-              style="width: 15%;"
-              title="Toggle SortBy"
+              class="StyledProps--font StyledProps--main noDataCard StyledProps--flex StyledProps--flex-align-center-center"
             >
-              Name
-              <span
-                class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
-                icon="double-caret-vertical"
+              <div
+                class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+                style="align-items: center; margin-top: -48px; width: 470px;"
               >
-                <svg
-                  data-icon="double-caret-vertical"
-                  height="15"
-                  viewBox="0 0 16 16"
-                  width="15"
+                <span
+                  class="bp3-icon bp3-icon-join-table StyledProps--main StyledProps--color StyledProps--color-grey400"
+                  icon="join-table"
                 >
-                  <desc>
-                    double-caret-vertical
-                  </desc>
-                  <path
-                    d="M5 7h6a1.003 1.003 0 00.71-1.71l-3-3C8.53 2.11 8.28 2 8 2s-.53.11-.71.29l-3 3A1.003 1.003 0 005 7zm6 2H5a1.003 1.003 0 00-.71 1.71l3 3c.18.18.43.29.71.29s.53-.11.71-.29l3-3A1.003 1.003 0 0011 9z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </div>
-            <div
-              class="cell"
-              colspan="1"
-              role="columnheader"
-              style="width: 15%;"
-            >
-              Type
-            </div>
-            <div
-              class="cell"
-              colspan="1"
-              role="columnheader"
-              style="width: 15%;"
-              title="Toggle SortBy"
-            >
-              Source
-              <span
-                class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
-                icon="double-caret-vertical"
-              >
-                <svg
-                  data-icon="double-caret-vertical"
-                  height="15"
-                  viewBox="0 0 16 16"
-                  width="15"
+                  <svg
+                    data-icon="join-table"
+                    height="48"
+                    viewBox="0 0 20 20"
+                    width="48"
+                  >
+                    <desc>
+                      join-table
+                    </desc>
+                    <path
+                      d="M19 6h-4V2c0-.55-.45-1-1-1H1c-.55 0-1 .45-1 1v11c0 .55.45 1 1 1h4v4c0 .55.45 1 1 1h13c.55 0 1-.45 1-1V7c0-.55-.45-1-1-1zM6 12H2V9h4v3zm0-4H2V5h4v3zm7 9H7v-3h6v3zm0-4H7V9h6v4zm0-5H7V5h6v3zm5 9h-4v-3h4v3zm0-4h-4v-3h4v3z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+                <h2
+                  class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-align-center StyledProps--color StyledProps--color-grey500"
+                  level="2"
                 >
-                  <desc>
-                    double-caret-vertical
-                  </desc>
-                  <path
-                    d="M5 7h6a1.003 1.003 0 00.71-1.71l-3-3C8.53 2.11 8.28 2 8 2s-.53.11-.71.29l-3 3A1.003 1.003 0 005 7zm6 2H5a1.003 1.003 0 00-.71 1.71l3 3c.18.18.43.29.71.29s.53-.11.71-.29l3-3A1.003 1.003 0 0011 9z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </div>
-            <div
-              class="cell"
-              colspan="1"
-              role="columnheader"
-              style="width: 20%;"
-              title="Toggle SortBy"
-            >
-              Environment Mapping
-              <span
-                class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
-                icon="double-caret-vertical"
-              >
-                <svg
-                  data-icon="double-caret-vertical"
-                  height="15"
-                  viewBox="0 0 16 16"
-                  width="15"
-                >
-                  <desc>
-                    double-caret-vertical
-                  </desc>
-                  <path
-                    d="M5 7h6a1.003 1.003 0 00.71-1.71l-3-3C8.53 2.11 8.28 2 8 2s-.53.11-.71.29l-3 3A1.003 1.003 0 005 7zm6 2H5a1.003 1.003 0 00-.71 1.71l3 3c.18.18.43.29.71.29s.53-.11.71-.29l3-3A1.003 1.003 0 0011 9z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </div>
-            <div
-              class="cell"
-              colspan="1"
-              role="columnheader"
-              style="width: 35%;"
-              title="Toggle SortBy"
-            >
-              Service Mapping
-              <span
-                class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
-                icon="double-caret-vertical"
-              >
-                <svg
-                  data-icon="double-caret-vertical"
-                  height="15"
-                  viewBox="0 0 16 16"
-                  width="15"
-                >
-                  <desc>
-                    double-caret-vertical
-                  </desc>
-                  <path
-                    d="M5 7h6a1.003 1.003 0 00.71-1.71l-3-3C8.53 2.11 8.28 2 8 2s-.53.11-.71.29l-3 3A1.003 1.003 0 005 7zm6 2H5a1.003 1.003 0 00-.71 1.71l3 3c.18.18.43.29.71.29s.53-.11.71-.29l3-3A1.003 1.003 0 0011 9z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
+                  cv.healthSource.noData
+                </h2>
+              </div>
             </div>
           </div>
           <div
-            class="body"
-          />
-        </div>
-        <div
-          class="drawerlink"
-        >
-          <a
-            href="/account/1234_accountId/cv/orgs/1234_org/projects/1234_project/monitoringservices/setup"
+            class="drawerlink"
           >
-            + 
-            cv.healthSource.addHealthSource
-          </a>
+            <a
+              href="/account/1234_accountId/cv/orgs/1234_org/projects/1234_project/monitoringservices/setup"
+            >
+              + 
+              cv.healthSource.addHealthSource
+            </a>
+          </div>
         </div>
       </div>
     </div>

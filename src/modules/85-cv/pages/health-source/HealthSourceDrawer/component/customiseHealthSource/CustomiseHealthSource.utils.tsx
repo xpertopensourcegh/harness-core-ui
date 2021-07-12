@@ -1,5 +1,6 @@
 import React from 'react'
-import AppDMonitringSource from '@cv/pages/health-source/connectors/AppDMonitringSource'
+import AppDMonitoredSource from '@cv/pages/health-source/connectors/AppDynamics/AppDMonitoredSource'
+import { Connectors } from '@connectors/constants'
 import type { updatedHealthSource } from '../../HealthSourceDrawerContent'
 
 export const LoadSourceByType = ({
@@ -12,8 +13,8 @@ export const LoadSourceByType = ({
   onSubmit: (formdata: any, healthSourceList: updatedHealthSource) => Promise<void>
 }): JSX.Element => {
   switch (type) {
-    case 'AppDynamics':
-      return <AppDMonitringSource data={data} onSubmit={onSubmit} />
+    case Connectors.APP_DYNAMICS:
+      return <AppDMonitoredSource data={data} onSubmit={onSubmit} />
     default:
       return <></>
       break

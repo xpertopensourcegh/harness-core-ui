@@ -22,11 +22,6 @@
   align-items: center;
 }
 
-.connectorLabel {
-  margin-bottom: var(--spacing-xsmall) !important;
-  font-size: small !important;
-}
-
 .connectorField {
   button[data-testid='cr-field-connectorRef'] {
     width: 400px !important;
@@ -34,4 +29,17 @@
   input {
     width: 400px !important;
   }
+}
+
+.container {
+  overflow-y: scroll;
+  height: 125vh;
+  background: var(--form-bg);
+}
+
+.formFullheight {
+  height: calc(100vh - 120px);
+  min-height: calc(100% - 120px);
+  position: relative;
+  overflow-y: scroll;
 }

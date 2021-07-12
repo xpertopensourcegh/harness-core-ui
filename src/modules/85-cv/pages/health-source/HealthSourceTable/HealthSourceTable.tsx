@@ -3,6 +3,7 @@ import { Link, useParams, useHistory } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
 import { Color, Container, Text, SelectOption } from '@wings-software/uicore'
 import { useToaster } from '@common/exports'
+import { NoDataCard } from '@common/components/Page/NoDataCard'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { MonitoredServiceDTO, MonitoredServiceResponse, useUpdateMonitoredService } from 'services/cv'
 import { useStrings } from 'framework/strings'
@@ -103,6 +104,16 @@ export default function HealthSourceTable({
     }
   }
 
+  const onSuccessHealthSourceTableWrapper = (data: MonitoredServiceResponse) => {
+    setModalOpen(false)
+    onSuccess(data)
+  }
+
+  const onCloseHealthSourceTableWrapper = () => {
+    setModalOpen(false)
+    setrowData(null)
+  }
+
   const renderEditDelete: Renderer<CellProps<updatedHealthSource>> = ({ row }): JSX.Element => {
     const rowdata = row.original
     return (
@@ -126,44 +137,51 @@ export default function HealthSourceTable({
 
   return (
     <>
-      <Table
-        className={css.tableWrapper}
-        sortable={true}
-        onRowClick={data => {
-          const rowFilteredData =
-            tableData?.find((healthSource: updatedHealthSource) => healthSource.identifier === data.identifier) || null
-          setrowData(rowFilteredData)
-          setModalOpen(true)
-        }}
-        columns={[
-          {
-            Header: 'Name',
-            accessor: 'name',
-            width: '15%'
-          },
-          {
-            Header: 'Type',
-            width: '15%'
-          },
-          {
-            Header: 'Source',
-            accessor: 'type',
-            width: '15%'
-          },
-          {
-            Header: 'Environment Mapping',
-            accessor: 'environment',
-            width: '20%'
-          },
-          {
-            Header: 'Service Mapping',
-            accessor: 'service',
-            Cell: renderEditDelete,
-            width: '35%'
-          }
-        ]}
-        data={tableData}
-      />
+      {tableData.length ? (
+        <Table
+          className={css.tableWrapper}
+          sortable={true}
+          onRowClick={data => {
+            const rowFilteredData =
+              tableData?.find((healthSource: updatedHealthSource) => healthSource.identifier === data.identifier) ||
+              null
+            setrowData(rowFilteredData)
+            setModalOpen(true)
+          }}
+          columns={[
+            {
+              Header: 'Name',
+              accessor: 'name',
+              width: '15%'
+            },
+            {
+              Header: 'Type',
+              width: '15%'
+            },
+            {
+              Header: 'Source',
+              accessor: 'type',
+              width: '15%'
+            },
+            {
+              Header: 'Environment Mapping',
+              accessor: 'environment',
+              width: '20%'
+            },
+            {
+              Header: 'Service Mapping',
+              accessor: 'service',
+              Cell: renderEditDelete,
+              width: '35%'
+            }
+          ]}
+          data={tableData}
+        />
+      ) : (
+        <Container className={css.noData}>
+          <NoDataCard icon={'join-table'} message={getString('cv.healthSource.noData')} />
+        </Container>
+      )}
       <div className={css.drawerlink}>
         <Link to={'#'} onClick={() => setModalOpen(true)}>
           + {getString('cv.healthSource.addHealthSource')}
@@ -171,11 +189,10 @@ export default function HealthSourceTable({
       </div>
       <HealthSourceDrawerContent
         isEdit={!!isEdit && !!rowData}
-        onClose={setrowData}
+        onClose={onCloseHealthSourceTableWrapper}
         createHeader={createHeader}
         modalOpen={modalOpen}
-        setModalOpen={setModalOpen}
-        onSuccess={onSuccess}
+        onSuccess={onSuccessHealthSourceTableWrapper}
         rowData={rowData}
         tableData={tableData}
         monitoringSourcRef={monitoringSourcRef}

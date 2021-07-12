@@ -12,6 +12,7 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
+import { BGColorWrapper, HorizontalLayout } from '@cv/pages/health-source/common/StyledComponents'
 import {
   useListMonitoredService,
   useDeleteMonitoredService,
@@ -19,7 +20,7 @@ import {
   MonitoredServiceListDTO
 } from 'services/cv'
 import ContextMenuActions from '@cv/components/ContextMenuActions/ContextMenuActions'
-import { MonitoringServicesHeader, HorizontalLayout } from '../commonStyledComponents'
+import { MonitoringServicesHeader } from './commonStyledComponents'
 import { getFilterAndEnvironmentValue } from './CVMonitoringServicesPage.util'
 
 const ServiceCount = styled(Text)`
@@ -133,7 +134,7 @@ function CVMonitoringServicesPage(): JSX.Element {
   }
 
   return (
-    <>
+    <BGColorWrapper>
       <MonitoringServicesHeader height={'80px'}>
         <HorizontalLayout alignItem={'flex-end'}>
           <div>
@@ -224,11 +225,19 @@ function CVMonitoringServicesPage(): JSX.Element {
               )
             }}
             columns={[
-              { Header: 'Service Name', width: '20%', Cell: RenderServiceName },
-              { Header: 'Last 24HR Health Trends', width: '30%' },
-              { Header: 'service HealthScore', width: '10%' },
-              { Header: 'Tag', width: '20%' },
-              { Header: 'Health Monitoring', width: '20%', Cell: RenderEditDelete }
+              {
+                Header: getString('cv.monitoredServices.table.serviceName'),
+                width: '20%',
+                Cell: RenderServiceName
+              },
+              { Header: getString('cv.monitoredServices.table.lastestHealthTrend'), width: '30%' },
+              { Header: getString('cv.monitoredServices.table.serviceHealthScore'), width: '10%' },
+              { Header: getString('tagLabel'), width: '20%' },
+              {
+                Header: getString('cv.monitoredServices.table.healthMonitoring'),
+                width: '20%',
+                Cell: RenderEditDelete
+              }
             ]}
             data={content}
             pagination={{
@@ -243,7 +252,7 @@ function CVMonitoringServicesPage(): JSX.Element {
           <NoDataCard icon={'join-table'} message={getString('cv.monitoredServices.noData')} />
         )}
       </PageBody>
-    </>
+    </BGColorWrapper>
   )
 }
 

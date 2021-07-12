@@ -5,8 +5,9 @@ import { useStrings } from 'framework/strings'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { BGColorWrapper, HorizontalLayout } from '@cv/pages/health-source/common/StyledComponents'
 import AddAndUpdateMonitoredService from './component/AddAndUpdateMonitoredService'
-import { MonitoringServicesHeader, HorizontalLayout } from '../commonStyledComponents'
+import { MonitoringServicesHeader } from './commonStyledComponents'
 
 function AddAndUpdateMonitoredServicePage(): JSX.Element {
   const { getString } = useStrings()
@@ -15,7 +16,7 @@ function AddAndUpdateMonitoredServicePage(): JSX.Element {
   const params = useParams<ProjectPathProps & { identifier: string }>()
   const isEdit = !!params.identifier
   return (
-    <>
+    <BGColorWrapper>
       <MonitoringServicesHeader height={'80px'}>
         <HorizontalLayout alignItem={'flex-end'}>
           <div>
@@ -52,7 +53,7 @@ function AddAndUpdateMonitoredServicePage(): JSX.Element {
         </HorizontalLayout>
       </MonitoringServicesHeader>
       <AddAndUpdateMonitoredService />
-    </>
+    </BGColorWrapper>
   )
 }
 

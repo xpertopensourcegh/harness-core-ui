@@ -14,7 +14,7 @@ import {
 } from '@cv/components/HarnessServiceAndEnvironment/HarnessServiceAndEnvironment'
 import { MonitoredServiceResponse, useGetMonitoredService } from 'services/cv'
 import HealthSourceTable from '@cv/pages/health-source/HealthSourceTable'
-import CardWithOuterTitle from '@cv/pages/health-source/common/CardWithOuterTitle'
+import CardWithOuterTitle from '@cv/pages/health-source/common/CardWithOuterTitle/CardWithOuterTitle'
 import type { updatedHealthSource } from '@cv/pages/health-source/HealthSourceDrawer/HealthSourceDrawerContent'
 import css from './AddAndUpdateMonitoredService.module.scss'
 

@@ -55,42 +55,6 @@ jest.mock('@cv/components/HarnessServiceAndEnvironment/HarnessServiceAndEnvironm
   }
 }))
 
-jest.mock('@cv/components/HarnessServiceAndEnvironment/HarnessServiceAndEnvironment', () => ({
-  useGetHarnessServices: () => ({
-    serviceOptions: [
-      { label: 'service1', value: 'service1' },
-      { label: 'AppDService101', value: 'AppDService101' }
-    ]
-  }),
-  HarnessService: function Mock1(props: any) {
-    return (
-      <Container
-        className="serviceThing"
-        onClick={() => {
-          props.onSelect({ label: 'service1', value: 'service1' })
-        }}
-      >
-        {props.item ? JSON.stringify(props.item) : null}
-      </Container>
-    )
-  },
-  HarnessEnvironment: function Mock2(props: any) {
-    return (
-      <Container className="environment" onClick={() => props.onSelect({ label: 'env1', value: 'env1' })}>
-        {props.item ? JSON.stringify(props.item) : null}
-      </Container>
-    )
-  },
-  useGetHarnessEnvironments: () => {
-    return {
-      environmentOptions: [
-        { label: 'env1', value: 'env1' },
-        { label: 'AppDTestEnv1', value: 'AppDTestEnv1' }
-      ]
-    }
-  }
-}))
-
 describe('Unit tests for createting monitored source', () => {
   beforeAll(() => {
     jest.spyOn(cvServices, 'useGetMonitoredService').mockImplementation(

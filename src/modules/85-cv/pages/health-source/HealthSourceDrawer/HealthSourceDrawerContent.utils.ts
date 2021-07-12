@@ -1,7 +1,5 @@
-import type { Dispatch, SetStateAction } from 'react'
 import type { SelectOption } from '@wings-software/uicore'
 import { Connectors } from '@connectors/constants'
-import type { MonitoredServiceResponse } from 'services/cv'
 import type { updatedHealthSource } from './HealthSourceDrawerContent'
 
 const getValueBySourceType = (type: string, rowData: updatedHealthSource) => {
@@ -29,8 +27,6 @@ interface SourceDataInterface {
   modalOpen?: boolean
   createHeader?: () => JSX.Element
   onClose?: (val: any) => void
-  onSuccess: (data: MonitoredServiceResponse) => void
-  setModalOpen: Dispatch<SetStateAction<boolean>>
   serviceName: string
   serviceIdentifier: string
   environmentIdentifier: string
@@ -42,25 +38,18 @@ interface SourceDataInterface {
   monitoringSourceName: string
   monitoredServiceIdentifier: string
   healthSourceList?: Array<updatedHealthSource>
-  setMaxTab?: Dispatch<SetStateAction<number>>
 }
 
 export const createHealthSourceDrawerFormData = (
   rowData: updatedHealthSource | null,
   isEdit: boolean,
-  onSuccess: (data: MonitoredServiceResponse) => void,
-  setModalOpen: Dispatch<SetStateAction<boolean>>,
   monitoringSourcRef: { monitoredServiceIdentifier: string; monitoredServiceName: string },
   serviceRef: SelectOption | undefined,
   environmentRef: SelectOption | undefined,
-  tableData: Array<updatedHealthSource>,
-  setMaxTab?: Dispatch<SetStateAction<number>>
+  tableData: Array<updatedHealthSource>
 ): SourceDataInterface => {
   let sourceData: SourceDataInterface = {
     isEdit,
-    onSuccess,
-    setModalOpen,
-    setMaxTab,
     healthSourceList: tableData,
     environmentName: environmentRef?.label as string,
     environmentIdentifier: environmentRef?.value as string,
