@@ -76,7 +76,8 @@ function StageForm({
                 stepViewType={StepViewType.InputSet}
                 customStepProps={{
                   template: { variables: template?.stage?.variables as AllNGVariables[] },
-                  path
+                  path,
+                  allValues: { variables: (allValues?.stage?.variables || []) as AllNGVariables[] }
                 }}
               />
             </div>
@@ -121,7 +122,8 @@ export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props =
               stepViewType={StepViewType.InputSet}
               customStepProps={{
                 template: { variables: (template?.variables || []) as AllNGVariables[] },
-                path
+                path,
+                allValues: { variables: (originalPipeline?.variables || []) as AllNGVariables[] }
               }}
             />
           </>

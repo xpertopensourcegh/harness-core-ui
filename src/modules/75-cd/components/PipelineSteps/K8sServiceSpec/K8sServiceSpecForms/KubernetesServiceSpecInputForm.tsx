@@ -1030,7 +1030,8 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
               }}
               customStepProps={{
                 template: { variables: (template?.variables || []) as AllNGVariables[] },
-                path
+                path,
+                allValues: { variables: (allValues?.variables || []) as AllNGVariables[] }
               }}
               readonly={readonly}
             />
