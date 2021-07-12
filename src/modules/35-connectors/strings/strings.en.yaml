@@ -451,7 +451,7 @@ ceAzure:
     subscriptionId: Storage Account Subscription ID
     containerName: Storage Container
     directoryName: Storage Directory
-    reportName: Report Name
+    reportName: '{{ $.common.reportName }}'
     extension:
       createBillingExportGuide: How to Create a Billing Export?
       step0: After logging into Azure billing export

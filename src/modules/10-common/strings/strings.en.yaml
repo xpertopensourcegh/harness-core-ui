@@ -441,3 +441,5 @@ extendTrial:
     suggestion: 'What would be helpful for you to have a seamless {{moduleDescription}} experience?'
   doItLater: I’ll do it later
 cgLaunchText: Launch First Generation
+reportName: Report Name
+frequency: 'Frequency'

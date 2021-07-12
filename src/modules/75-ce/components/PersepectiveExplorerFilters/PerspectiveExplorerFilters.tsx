@@ -1,9 +1,11 @@
 import React from 'react'
-import { Container, Layout, Text, Button } from '@wings-software/uicore'
+import { Container, Text, Button, Icon } from '@wings-software/uicore'
 import { Menu, MenuItem, Popover, Position } from '@blueprintjs/core'
-import { QlceViewTimeGroupType } from 'services/ce/services'
+import { QlceViewTimeGroupType, QlceViewFilterInput } from 'services/ce/services'
 import PerspectiveTimeRangePicker from '@ce/components/PerspectiveTimeRangePicker/PerspectiveTimeRangePicker'
 import { useStrings, UseStringsReturn } from 'framework/strings'
+import ExplorerFilters from './ExplorerFilters'
+import css from './PerspectiveExplorerFilters.module.scss'
 
 const getAggregationText: (getString: UseStringsReturn['getString']) => Record<string, string> = getString => {
   return {
@@ -17,7 +19,7 @@ interface TimeGranularityDropDownProps {
   setAggregation: React.Dispatch<React.SetStateAction<QlceViewTimeGroupType>>
 }
 
-const TimeGranularityDropDown: React.FC<TimeGranularityDropDownProps> = ({ aggregation, setAggregation }) => {
+export const TimeGranularityDropDown: React.FC<TimeGranularityDropDownProps> = ({ aggregation, setAggregation }) => {
   const { getString } = useStrings()
   const aggregationTextMap = getAggregationText(getString)
   return (
@@ -32,12 +34,16 @@ const TimeGranularityDropDown: React.FC<TimeGranularityDropDownProps> = ({ aggre
       content={
         <Menu>
           <MenuItem
+            active={aggregation === QlceViewTimeGroupType.Day}
+            className={css.aggregationMenuItems}
             onClick={() => {
               setAggregation(QlceViewTimeGroupType.Day)
             }}
             text={aggregationTextMap[QlceViewTimeGroupType.Day]}
           />
           <MenuItem
+            active={aggregation === QlceViewTimeGroupType.Month}
+            className={css.aggregationMenuItems}
             onClick={() => {
               setAggregation(QlceViewTimeGroupType.Month)
             }}
@@ -49,6 +55,7 @@ const TimeGranularityDropDown: React.FC<TimeGranularityDropDownProps> = ({ aggre
       <Button
         intent="primary"
         minimal
+        className={css.timeGranularityButton}
         text={aggregationTextMap[aggregation]}
         iconProps={{
           size: 16
@@ -68,26 +75,26 @@ interface PersepectiveExplorerFiltersProps {
       from: number
     }>
   >
+  setFilters: React.Dispatch<React.SetStateAction<QlceViewFilterInput[]>>
+  filters: QlceViewFilterInput[]
 }
 
 const PersepectiveExplorerFilters: React.FC<PersepectiveExplorerFiltersProps> = ({
   aggregation,
   setAggregation,
-  setTimeRange
+  setTimeRange,
+  setFilters,
+  filters
 }) => {
   return (
     <Container background="white" padding="small">
-      <Layout.Horizontal
-        spacing="small"
-        style={{
-          justifyContent: 'flex-end',
-          alignItems: 'center'
-        }}
-      >
+      <Container className={css.mainContainer}>
+        <Icon name="ng-filter" size={20} />
+        <ExplorerFilters filters={filters} setFilters={setFilters} />
         <PerspectiveTimeRangePicker setTimeRange={setTimeRange} />
         <Text color="primary7">|</Text>
         <TimeGranularityDropDown aggregation={aggregation} setAggregation={setAggregation} />
-      </Layout.Horizontal>
+      </Container>
     </Container>
   )
 }

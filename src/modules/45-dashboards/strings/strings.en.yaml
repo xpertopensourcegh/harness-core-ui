@@ -30,7 +30,7 @@ serviceDashboard:
   nonProd: 'Non Prod'
   prod: 'Prod'
   in: 'in {{timeRange}}'
-  frequency: 'Frequency'
+  frequency: '{{$.common.frequency}}'
   totalServices: 'Total Services: {{total}}'
   lastDeployment: 'last deployment'
   executionId: 'Execution Id: {{id}}'

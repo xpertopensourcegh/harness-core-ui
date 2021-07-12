@@ -9,11 +9,20 @@ import {
   FetchPerspectiveDetailsSummaryDocument,
   FetchViewFieldsDocument
 } from 'services/ce/services'
+// import { useGetPerspective } from 'services/ce'
 import PerspectiveDetailsPage from '../PerspectiveDetailsPage'
 
 import ChartResponseData from './ChartDataResponse.json'
 import SummaryResponseData from './SummaryResponse.json'
 import ViewFieldResponseData from './ViewFieldResponse.json'
+import PerspectiveResponseData from './PerspectiveData.json'
+
+jest.mock('services/ce', () => ({
+  ...(jest.requireActual('services/ce') as any),
+  useGetPerspective: jest.fn().mockImplementation(() => {
+    return { data: PerspectiveResponseData, refetch: jest.fn(), error: null, loading: false }
+  })
+}))
 
 jest.mock('@ce/components/CEChart/CEChart', () => 'mock')
 
@@ -36,6 +45,7 @@ describe('test cases for Perspective details Page', () => {
         if (query === FetchViewFieldsDocument) {
           return fromValue(ViewFieldResponseData)
         }
+        return fromValue({})
       }
     }
 

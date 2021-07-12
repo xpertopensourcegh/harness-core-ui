@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useParams } from 'react-router-dom'
 import { Icon, Color, Container } from '@wings-software/uicore'
 import {
@@ -21,7 +21,7 @@ export interface PillData {
     identifier: string
     identifierName: string
   }
-  operator: QlceViewFilterOperator
+  viewOperator: QlceViewFilterOperator
   values: Array<string>
 }
 
@@ -49,25 +49,23 @@ const PerspectiveBuilderFilter: React.FC<FilterPillProps> = ({
   pillData,
   id
 }) => {
-  const [provider, setProvider] = useState<ProviderType | null>()
-  const [service, setService] = useState<ProviderType | null>()
-  const [operator, setOperator] = useState<QlceViewFilterOperator>(QlceViewFilterOperator.In)
-  const [selectedVal, setSelectedVal] = useState<string[]>([])
+  const provider: ProviderType = {
+    id: pillData.viewField.identifier,
+    name: pillData.viewField.identifierName
+  }
 
-  useEffect(() => {
-    const { fieldName, identifierName, identifier, fieldId } = pillData.viewField
-    setProvider({ id: identifier, name: identifierName })
-    setService({ id: fieldId, name: fieldName })
-    setSelectedVal(pillData.values)
-    setOperator(pillData.operator)
-  }, [pillData])
+  const service: ProviderType = {
+    id: pillData.viewField.fieldId,
+    name: pillData.viewField.fieldName
+  }
+
+  const operator: QlceViewFilterOperator = pillData.viewOperator
+  const selectedVal: string[] = pillData.values
 
   const setProviderAndIdentifier: (providerData: ProviderType, serviceData: ProviderType) => void = (
     providerData,
     serviceData
   ) => {
-    setProvider(providerData)
-    setService(serviceData)
     const changedData = {
       ...pillData,
       viewField: {
@@ -81,16 +79,18 @@ const PerspectiveBuilderFilter: React.FC<FilterPillProps> = ({
   }
 
   const onOperatorChange: (op: QlceViewFilterOperator) => void = op => {
-    setOperator(op)
     const changedData = {
       ...pillData,
-      operator: op
+      viewOperator: op
     }
-    onChange(id, changedData)
+    if (op === QlceViewFilterOperator.Null || op === QlceViewFilterOperator.NotNull) {
+      onChange(id, { ...changedData, values: [''] })
+    } else {
+      onChange(id, changedData)
+    }
   }
 
   const onValueChange: (val: string[]) => void = val => {
-    setSelectedVal(val)
     const changedData = {
       ...pillData,
       values: val
@@ -112,7 +112,7 @@ const PerspectiveBuilderFilter: React.FC<FilterPillProps> = ({
               identifier: provider?.id,
               identifierName: provider?.name
             },
-            operator: operator,
+            operator: QlceViewFilterOperator.In,
             values: ['']
           }
         } as QlceViewFilterWrapperInput
@@ -128,10 +128,8 @@ const PerspectiveBuilderFilter: React.FC<FilterPillProps> = ({
   return (
     <Container className={css.mainContainer}>
       <OperandSelector
-        setProvider={setProvider}
         provider={provider}
         service={service}
-        setService={setService}
         fieldValuesList={fieldValuesList}
         setProviderAndIdentifier={setProviderAndIdentifier}
       />

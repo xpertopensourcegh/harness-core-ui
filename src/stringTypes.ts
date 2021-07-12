@@ -137,6 +137,7 @@ export interface StringsMap {
   'common.filters.clearFilters': string
   'common.filters.noMatchingFilterData': string
   'common.filters.saveNewFilter': string
+  'common.frequency': string
   'common.git.APIAccessDescriptipn': string
   'common.git.APIAuthentication': string
   'common.git.addUserCredentialLabel': string
@@ -313,6 +314,7 @@ export interface StringsMap {
   'common.repo_provider.customLabel': string
   'common.repo_provider.githubLabel': string
   'common.repo_provider.gitlabLabel': string
+  'common.reportName': string
   'common.resolveConflict': string
   'common.role': string
   'common.saveAndClose': string
@@ -2229,8 +2231,16 @@ export interface StringsMap {
   'ce.continuous': string
   'ce.dashboardPage.description': string
   'ce.dashboardPage.welcome': string
+  'ce.gridColumnSelector': string
   'ce.homepage.slogan': string
   'ce.learnMore': string
+  'ce.perspectives.budgets.actualCost': string
+  'ce.perspectives.budgets.alerts': string
+  'ce.perspectives.budgets.amount': string
+  'ce.perspectives.budgets.createNew': string
+  'ce.perspectives.budgets.desc': string
+  'ce.perspectives.budgets.lastMonthCost': string
+  'ce.perspectives.budgets.title': string
   'ce.perspectives.createPerspective.createCustomField': string
   'ce.perspectives.createPerspective.filters.addRuleText': string
   'ce.perspectives.createPerspective.filters.operator': string
@@ -2256,6 +2266,14 @@ export interface StringsMap {
   'ce.perspectives.createPerspective.title': string
   'ce.perspectives.createPerspective.validationErrors.nameError': string
   'ce.perspectives.createPerspective.validationErrors.ruleError': string
+  'ce.perspectives.reports.createNew': string
+  'ce.perspectives.reports.desc': string
+  'ce.perspectives.reports.frequency': string
+  'ce.perspectives.reports.msg': string
+  'ce.perspectives.reports.recipients': string
+  'ce.perspectives.reports.reportName': string
+  'ce.perspectives.reports.title': string
+  'ce.perspectives.save': string
   'ce.perspectives.timeAggregation.daily': string
   'ce.perspectives.timeAggregation.monthly': string
   'ce.perspectives.timeRange.calendarMonths': string

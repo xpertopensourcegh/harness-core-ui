@@ -18,8 +18,8 @@ import { useToaster } from '@common/components'
 import { downloadYamlAsFile } from '@common/utils/downloadYamlUtils'
 import { Connectors } from '@connectors/constants'
 import { useStrings } from 'framework/strings'
-import { useDownloadYaml } from 'services/ce'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
+import { useGetCostOptimisationYamlTemplate } from 'services/ce'
 import css from './CEK8sConnector.module.scss'
 
 interface ProvidePermissionsProps {
@@ -76,7 +76,7 @@ const ProvidePermissions: React.FC<StepProps<StepSecretManagerProps> & ProvidePe
   const { mutate: updateConnector } = useUpdateConnector({
     queryParams: { accountIdentifier: accountId }
   })
-  const { mutate: downloadYaml } = useDownloadYaml({
+  const { mutate: downloadYaml } = useGetCostOptimisationYamlTemplate({
     queryParams: { accountId, connectorIdentifier: props.prevStepData?.identifier as string }
   })
 

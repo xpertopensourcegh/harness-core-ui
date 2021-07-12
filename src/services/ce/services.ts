@@ -6,6 +6,45 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: 
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> }
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
+export const FetchAllPerspectivesDocument = gql`
+  query FetchAllPerspectives {
+    perspectives {
+      sampleViews {
+        id
+        name
+        chartType
+        createdAt
+        viewState
+        lastUpdatedAt
+      }
+      customerViews {
+        id
+        name
+        chartType
+        totalCost
+        viewType
+        viewState
+        createdAt
+        lastUpdatedAt
+        timeRange
+        reportScheduledConfigured
+        dataSources
+        groupBy {
+          fieldId
+          fieldName
+          identifier
+          identifierName
+        }
+      }
+    }
+  }
+`
+
+export function useFetchAllPerspectivesQuery(
+  options: Omit<Urql.UseQueryArgs<FetchAllPerspectivesQueryVariables>, 'query'> = {}
+) {
+  return Urql.useQuery<FetchAllPerspectivesQuery>({ query: FetchAllPerspectivesDocument, ...options })
+}
 export const RecommendationsDocument = gql`
   query Recommendations($filters: K8sRecommendationFilterDTOInput) {
     recommendationStatsV2(filter: $filters) {
@@ -40,12 +79,91 @@ export function useFetchPerspectiveFiltersValueQuery(
 ) {
   return Urql.useQuery<FetchPerspectiveFiltersValueQuery>({ query: FetchPerspectiveFiltersValueDocument, ...options })
 }
+export const FetchperspectiveGridDocument = gql`
+  query FetchperspectiveGrid(
+    $filters: [QLCEViewFilterWrapperInput]
+    $groupBy: [QLCEViewGroupByInput]
+    $limit: Int
+    $offset: Int
+    $aggregateFunction: [QLCEViewAggregationInput]
+    $isClusterOnly: Boolean!
+  ) {
+    perspectiveGrid(
+      aggregateFunction: $aggregateFunction
+      filters: $filters
+      groupBy: $groupBy
+      limit: $limit
+      offset: $offset
+      sortCriteria: [{ sortType: COST, sortOrder: DESCENDING }]
+    ) {
+      data {
+        name
+        id
+        cost
+        costTrend
+        clusterPerspective @include(if: $isClusterOnly)
+        clusterData @include(if: $isClusterOnly) {
+          appId
+          appName
+          avgCpuUtilization
+          avgMemoryUtilization
+          cloudProvider
+          cloudProviderId
+          cloudServiceName
+          clusterId
+          clusterName
+          clusterType
+          costTrend
+          cpuBillingAmount
+          cpuIdleCost
+          cpuUnallocatedCost
+          efficiencyScore
+          efficiencyScoreTrendPercentage
+          envId
+          envName
+          environment
+          id
+          idleCost
+          launchType
+          maxCpuUtilization
+          maxMemoryUtilization
+          memoryBillingAmount
+          memoryIdleCost
+          memoryUnallocatedCost
+          name
+          namespace
+          networkCost
+          prevBillingAmount
+          region
+          serviceId
+          serviceName
+          storageActualIdleCost
+          storageRequest
+          storageUnallocatedCost
+          storageUtilizationValue
+          totalCost
+          trendType
+          type
+          unallocatedCost
+          workloadName
+          workloadType
+        }
+      }
+    }
+  }
+`
+
+export function useFetchperspectiveGridQuery(
+  options: Omit<Urql.UseQueryArgs<FetchperspectiveGridQueryVariables>, 'query'> = {}
+) {
+  return Urql.useQuery<FetchperspectiveGridQuery>({ query: FetchperspectiveGridDocument, ...options })
+}
 export const FetchPerspectiveDetailsSummaryDocument = gql`
   query FetchPerspectiveDetailsSummary($filters: [QLCEViewFilterWrapperInput]) {
     perspectiveTrendStats(
       filters: $filters
       aggregateFunction: [
-        { operationType: SUM, columnName: "billingamount" }
+        { operationType: SUM, columnName: "cost" }
         { operationType: MAX, columnName: "startTime" }
         { operationType: MIN, columnName: "startTime" }
       ]
@@ -80,8 +198,8 @@ export const FetchPerspectiveTimeSeriesDocument = gql`
       groupBy: $groupBy
       limit: $limit
       includeOthers: false
-      aggregateFunction: [{ operationType: SUM, columnName: "billingamount" }]
-      sortCriteria: [{ sortType: CLUSTER_COST, sortOrder: DESCENDING }]
+      aggregateFunction: [{ operationType: SUM, columnName: "cost" }]
+      sortCriteria: [{ sortType: COST, sortOrder: DESCENDING }]
     ) {
       stats {
         values {
@@ -190,6 +308,53 @@ export const FetchViewFieldsDocument = gql`
 export function useFetchViewFieldsQuery(options: Omit<Urql.UseQueryArgs<FetchViewFieldsQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<FetchViewFieldsQuery>({ query: FetchViewFieldsDocument, ...options })
 }
+export type FetchAllPerspectivesQueryVariables = Exact<{ [key: string]: never }>
+
+export type FetchAllPerspectivesQuery = {
+  __typename?: 'Query'
+  perspectives: Maybe<{
+    __typename?: 'PerspectiveData'
+    sampleViews: Maybe<
+      Array<
+        Maybe<{
+          __typename?: 'QLCEView'
+          id: Maybe<string>
+          name: Maybe<string>
+          chartType: Maybe<ViewChartType>
+          createdAt: Maybe<any>
+          viewState: Maybe<ViewState>
+          lastUpdatedAt: Maybe<any>
+        }>
+      >
+    >
+    customerViews: Maybe<
+      Array<
+        Maybe<{
+          __typename?: 'QLCEView'
+          id: Maybe<string>
+          name: Maybe<string>
+          chartType: Maybe<ViewChartType>
+          totalCost: number
+          viewType: Maybe<ViewType>
+          viewState: Maybe<ViewState>
+          createdAt: Maybe<any>
+          lastUpdatedAt: Maybe<any>
+          timeRange: Maybe<ViewTimeRangeType>
+          reportScheduledConfigured: boolean
+          dataSources: Maybe<Array<Maybe<ViewFieldIdentifier>>>
+          groupBy: Maybe<{
+            __typename?: 'QLCEViewField'
+            fieldId: string
+            fieldName: string
+            identifier: Maybe<ViewFieldIdentifier>
+            identifierName: Maybe<string>
+          }>
+        }>
+      >
+    >
+  }>
+}
+
 export type RecommendationsQueryVariables = Exact<{
   filters: Maybe<K8sRecommendationFilterDtoInput>
 }>
@@ -227,6 +392,81 @@ export type FetchPerspectiveFiltersValueQueryVariables = Exact<{
 export type FetchPerspectiveFiltersValueQuery = {
   __typename?: 'Query'
   perspectiveFilters: Maybe<{ __typename?: 'PerspectiveFilterData'; values: Maybe<Array<Maybe<string>>> }>
+}
+
+export type FetchperspectiveGridQueryVariables = Exact<{
+  filters: Maybe<Array<Maybe<QlceViewFilterWrapperInput>> | Maybe<QlceViewFilterWrapperInput>>
+  groupBy: Maybe<Array<Maybe<QlceViewGroupByInput>> | Maybe<QlceViewGroupByInput>>
+  limit: Maybe<Scalars['Int']>
+  offset: Maybe<Scalars['Int']>
+  aggregateFunction: Maybe<Array<Maybe<QlceViewAggregationInput>> | Maybe<QlceViewAggregationInput>>
+  isClusterOnly: Scalars['Boolean']
+}>
+
+export type FetchperspectiveGridQuery = {
+  __typename?: 'Query'
+  perspectiveGrid: Maybe<{
+    __typename?: 'PerspectiveEntityStatsData'
+    data: Maybe<
+      Array<
+        Maybe<{
+          __typename?: 'QLCEViewEntityStatsDataPoint'
+          name: Maybe<string>
+          id: Maybe<string>
+          cost: Maybe<any>
+          costTrend: Maybe<any>
+          clusterPerspective: Maybe<boolean>
+          clusterData?: Maybe<{
+            __typename?: 'ClusterData'
+            appId: Maybe<string>
+            appName: Maybe<string>
+            avgCpuUtilization: Maybe<number>
+            avgMemoryUtilization: Maybe<number>
+            cloudProvider: Maybe<string>
+            cloudProviderId: Maybe<string>
+            cloudServiceName: Maybe<string>
+            clusterId: Maybe<string>
+            clusterName: Maybe<string>
+            clusterType: Maybe<string>
+            costTrend: Maybe<number>
+            cpuBillingAmount: Maybe<number>
+            cpuIdleCost: Maybe<number>
+            cpuUnallocatedCost: Maybe<number>
+            efficiencyScore: number
+            efficiencyScoreTrendPercentage: number
+            envId: Maybe<string>
+            envName: Maybe<string>
+            environment: Maybe<string>
+            id: Maybe<string>
+            idleCost: Maybe<number>
+            launchType: Maybe<string>
+            maxCpuUtilization: Maybe<number>
+            maxMemoryUtilization: Maybe<number>
+            memoryBillingAmount: Maybe<number>
+            memoryIdleCost: Maybe<number>
+            memoryUnallocatedCost: Maybe<number>
+            name: Maybe<string>
+            namespace: Maybe<string>
+            networkCost: Maybe<number>
+            prevBillingAmount: Maybe<number>
+            region: Maybe<string>
+            serviceId: Maybe<string>
+            serviceName: Maybe<string>
+            storageActualIdleCost: Maybe<number>
+            storageRequest: Maybe<number>
+            storageUnallocatedCost: Maybe<number>
+            storageUtilizationValue: Maybe<number>
+            totalCost: Maybe<number>
+            trendType: Maybe<string>
+            type: Maybe<string>
+            unallocatedCost: Maybe<number>
+            workloadName: Maybe<string>
+            workloadType: Maybe<string>
+          }>
+        }>
+      >
+    >
+  }>
 }
 
 export type FetchPerspectiveDetailsSummaryQueryVariables = Exact<{

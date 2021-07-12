@@ -1,3 +1,4 @@
+gridColumnSelector: 'Columns'
 continuous: '{{$.common.purpose.ce.continuous}}'
 homepage:
   slogan: 'Take your Cloud Cost management to the next level using our Harness Continuous Efficiency.'
@@ -371,6 +372,7 @@ recommendation:
     memoryUsagePlaceholder: 'Memory usage(GBs)'
 savedYamlSuccess: YAML validated successfully
 perspectives:
+  save: Save Perspective
   timeRangeConstants:
     last7Days: 'Last 7 Days'
     thisMonth: 'This Month'
@@ -422,3 +424,19 @@ perspectives:
       notIn: 'NOT IN'
       opNull: 'NULL'
       opNotNull: 'NOT NULL'
+  reports:
+    title: Report Schedules
+    desc: Reports can send a cost report to specified users at the specified frequency.
+    msg: You have not created any yet.
+    createNew: '+ create new Report schedule'
+    reportName: '{{ $.common.reportName }}'
+    frequency: '{{ $.common.frequency }}'
+    recipients: Reciepients
+  budgets:
+    title: Budget
+    desc: Budget can help you recieve alerts when the spend exceeds or is about to exceed a specified threshold so that it can be prevented.
+    createNew: + create new Budget
+    amount: Budgeted amount
+    alerts: Alert at
+    actualCost: Cost till date
+    lastMonthCost: Last month's spend
