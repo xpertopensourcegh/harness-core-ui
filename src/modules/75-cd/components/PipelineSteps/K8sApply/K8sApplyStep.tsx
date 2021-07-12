@@ -172,7 +172,7 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
 
                               <Button
                                 minimal
-                                icon="minus"
+                                icon="main-trash"
                                 onClick={() => arrayHelpers.remove(index)}
                                 disabled={isDisabled}
                               />

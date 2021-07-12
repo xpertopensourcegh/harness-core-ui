@@ -385,7 +385,7 @@ export default function OverrideSets({
                                   </Layout.Horizontal>
                                   <Button
                                     minimal
-                                    icon="minus"
+                                    icon="main-trash"
                                     id="removeOverrideSet"
                                     onClick={() => arrayHelpers.remove(index)}
                                   />

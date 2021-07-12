@@ -644,7 +644,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
                                       </Layout.Horizontal>
                                       <Button
                                         minimal
-                                        icon="delete"
+                                        icon="main-trash"
                                         onClick={() => arrayHelpers.remove(index)}
                                         disabled={isReadOnly}
                                       />

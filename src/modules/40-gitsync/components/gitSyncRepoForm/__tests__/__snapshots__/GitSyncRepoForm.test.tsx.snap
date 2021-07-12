@@ -927,7 +927,7 @@ exports[`Git Sync - repo tab Filling gitSync repo form: gitSync repo form 1`] = 
                     class="Layout--horizontal StyledProps--main"
                   >
                     <div
-                      class="bp3-form-group bp3-intent-danger"
+                      class="bp3-form-group"
                       data-id="branch-4"
                     >
                       <label
@@ -955,7 +955,7 @@ exports[`Git Sync - repo tab Filling gitSync repo form: gitSync repo form 1`] = 
                             class="bp3-popover-target"
                           >
                             <div
-                              class="bp3-input-group bp3-intent-danger"
+                              class="bp3-input-group"
                             >
                               <input
                                 autocomplete="off"
@@ -1025,11 +1025,6 @@ exports[`Git Sync - repo tab Filling gitSync repo form: gitSync repo form 1`] = 
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <div
-                          class="bp3-form-helper-text"
-                        >
-                          validation.branchName
                         </div>
                       </div>
                     </div>

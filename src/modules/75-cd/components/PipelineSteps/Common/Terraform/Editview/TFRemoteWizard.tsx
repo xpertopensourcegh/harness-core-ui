@@ -319,7 +319,7 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
                                     />
                                     <Button
                                       minimal
-                                      icon="trash"
+                                      icon="main-trash"
                                       data-testid={`remove-header-${index}`}
                                       onClick={() => arrayHelpers.remove(index)}
                                     />

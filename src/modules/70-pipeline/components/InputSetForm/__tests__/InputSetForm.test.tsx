@@ -159,7 +159,7 @@ describe('Render Forms - Snapshot Testing', () => {
     fireEvent.click(addNew)
     fireEvent.click(addNew)
     // Remove the last
-    const remove = container?.querySelectorAll('[icon="delete"]')[1]
+    const remove = container?.querySelectorAll('[data-icon="main-trash"]')[1]
     fireEvent.click(remove!)
     expect(container).toMatchSnapshot()
   })

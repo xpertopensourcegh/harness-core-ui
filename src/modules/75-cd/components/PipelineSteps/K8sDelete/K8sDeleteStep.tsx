@@ -265,7 +265,7 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
                                 {formikProps.values?.spec?.deleteResources?.spec?.resourceNames && (
                                   <Button
                                     minimal
-                                    icon="minus"
+                                    icon="main-trash"
                                     onClick={() => {
                                       /* istanbul ignore next */
                                       arrayHelpers.remove(index)
@@ -338,7 +338,7 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
                                 {formikProps.values?.spec?.deleteResources?.spec?.manifestPaths && (
                                   <Button
                                     minimal
-                                    icon="minus"
+                                    icon="main-trash"
                                     onClick={() => arrayHelpers.remove(index)}
                                     disabled={isDisabled}
                                   />

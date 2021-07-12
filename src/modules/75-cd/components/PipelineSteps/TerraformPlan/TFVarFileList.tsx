@@ -55,7 +55,12 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                   <Layout.Horizontal className={css.tfContainer}>
                     {varFile?.varFile?.type === TerraformStoreTypes.Remote && remoteRender(varFile)}
                     {varFile?.varFile?.type === TerraformStoreTypes.Inline && inlineRender(varFile)}
-                    <Button minimal icon="trash" data-testid={`remove-tfvar-file-${i}`} onClick={() => remove(i)} />
+                    <Button
+                      minimal
+                      icon="main-trash"
+                      data-testid={`remove-tfvar-file-${i}`}
+                      onClick={() => remove(i)}
+                    />
                   </Layout.Horizontal>
                 </div>
               )

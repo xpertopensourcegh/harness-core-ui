@@ -685,7 +685,7 @@ exports[`Create CE K8s Connector Wizard Step one and step two 1`] = `
                     </div>
                   </div>
                   <div
-                    class="bp3-form-group bp3-intent-danger selectConnector"
+                    class="bp3-form-group selectConnector"
                     data-id="referenceConnector-1"
                   >
                     <label
@@ -713,7 +713,7 @@ exports[`Create CE K8s Connector Wizard Step one and step two 1`] = `
                           class="bp3-popover-target"
                         >
                           <div
-                            class="bp3-input-group bp3-intent-danger"
+                            class="bp3-input-group"
                           >
                             <input
                               autocomplete="off"
@@ -778,11 +778,6 @@ exports[`Create CE K8s Connector Wizard Step one and step two 1`] = `
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div
-                        class="bp3-form-helper-text"
-                      >
-                        Select a connector
                       </div>
                     </div>
                   </div>

@@ -530,7 +530,7 @@ const FormContent = ({
                             />
                             <Button
                               minimal
-                              icon="trash"
+                              icon="main-trash"
                               disabled={isApprovalStepFieldDisabled(readonly)}
                               data-testid={`remove-fieldList-${i}`}
                               onClick={() => remove(i)}

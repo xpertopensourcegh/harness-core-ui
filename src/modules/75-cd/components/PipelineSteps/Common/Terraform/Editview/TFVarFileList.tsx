@@ -201,7 +201,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                         {varFile?.varFile?.type === TerraformStoreTypes.Inline && inlineRender(varFile, i)}
                         <Button
                           minimal
-                          icon="trash"
+                          icon="main-trash"
                           data-testid={`remove-tfvar-file-${i}`}
                           onClick={() => arrayHelpers.remove(i)}
                         />

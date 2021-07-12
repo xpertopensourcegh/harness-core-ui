@@ -190,7 +190,7 @@ export function CustomVariablesEditableStage(props: CustomVariableEditableProps)
                                   minimal
                                 />
                                 <Button
-                                  icon="trash"
+                                  icon="main-trash"
                                   disabled={readonly}
                                   data-testid={`delete-variable-${index}`}
                                   tooltip={<String className={css.tooltip} stringID="common.removeThisVariable" />}

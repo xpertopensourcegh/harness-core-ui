@@ -190,7 +190,12 @@ const ProvideFieldList = (props: JiraDynamicFieldsSelectorContentInterface) => {
                             expressions
                           }}
                         />
-                        <Button minimal icon="trash" data-testid={`remove-fieldList-${i}`} onClick={() => remove(i)} />
+                        <Button
+                          minimal
+                          icon="main-trash"
+                          data-testid={`remove-fieldList-${i}`}
+                          onClick={() => remove(i)}
+                        />
                       </div>
                     ))}
                     <Button

@@ -154,7 +154,7 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({
                         {index !== 0 && (
                           <Button
                             minimal
-                            icon="trash"
+                            icon="main-trash"
                             className={cx({
                               [helmcss.delBtn]: index === 0
                             })}

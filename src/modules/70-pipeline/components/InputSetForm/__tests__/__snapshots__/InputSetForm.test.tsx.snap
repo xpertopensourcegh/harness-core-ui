@@ -1371,21 +1371,18 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
                         type="button"
                       >
                         <span
-                          class="bp3-icon bp3-icon-delete StyledProps--main"
-                          icon="delete"
+                          class="bp3-icon StyledProps--main"
+                          data-icon="main-trash"
                         >
                           <svg
-                            data-icon="delete"
                             height="16"
-                            viewBox="0 0 16 16"
+                            viewBox="0 0 11 14"
                             width="16"
+                            xmlns="http://www.w3.org/2000/svg"
                           >
-                            <desc>
-                              delete
-                            </desc>
                             <path
-                              d="M11.99 4.99a1.003 1.003 0 00-1.71-.71l-2.29 2.3L5.7 4.29a.965.965 0 00-.71-.3 1.003 1.003 0 00-.71 1.71l2.29 2.29-2.29 2.29A1.003 1.003 0 005.7 11.7l2.29-2.29 2.29 2.29a1.003 1.003 0 001.42-1.42L9.41 7.99 11.7 5.7c.18-.18.29-.43.29-.71zm-4-5c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.68 6-6 6z"
-                              fill-rule="evenodd"
+                              d="M10.3.7H6.9c0-.4-.3-.7-.7-.7H4.8c-.4 0-.7.3-.7.7H.7C.3.7 0 1 0 1.4v.7h11v-.7c0-.4-.3-.7-.7-.7zm.4 2.1H.3c-.1 0-.3.2-.3.4s.2.3.3.3h.3v9.8c.1.4.4.7.8.7h8.2c.4 0 .7-.3.7-.7V3.5h.3c.2 0 .3-.2.3-.3.1-.2-.1-.4-.2-.4zm-7.3 8.4c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.8 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.7 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7z"
+                              fill="#4d5969"
                             />
                           </svg>
                         </span>
@@ -1485,21 +1482,18 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
                         type="button"
                       >
                         <span
-                          class="bp3-icon bp3-icon-delete StyledProps--main"
-                          icon="delete"
+                          class="bp3-icon StyledProps--main"
+                          data-icon="main-trash"
                         >
                           <svg
-                            data-icon="delete"
                             height="16"
-                            viewBox="0 0 16 16"
+                            viewBox="0 0 11 14"
                             width="16"
+                            xmlns="http://www.w3.org/2000/svg"
                           >
-                            <desc>
-                              delete
-                            </desc>
                             <path
-                              d="M11.99 4.99a1.003 1.003 0 00-1.71-.71l-2.29 2.3L5.7 4.29a.965.965 0 00-.71-.3 1.003 1.003 0 00-.71 1.71l2.29 2.29-2.29 2.29A1.003 1.003 0 005.7 11.7l2.29-2.29 2.29 2.29a1.003 1.003 0 001.42-1.42L9.41 7.99 11.7 5.7c.18-.18.29-.43.29-.71zm-4-5c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.68 6-6 6z"
-                              fill-rule="evenodd"
+                              d="M10.3.7H6.9c0-.4-.3-.7-.7-.7H4.8c-.4 0-.7.3-.7.7H.7C.3.7 0 1 0 1.4v.7h11v-.7c0-.4-.3-.7-.7-.7zm.4 2.1H.3c-.1 0-.3.2-.3.4s.2.3.3.3h.3v9.8c.1.4.4.7.8.7h8.2c.4 0 .7-.3.7-.7V3.5h.3c.2 0 .3-.2.3-.3.1-.2-.1-.4-.2-.4zm-7.3 8.4c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.8 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.7 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7z"
+                              fill="#4d5969"
                             />
                           </svg>
                         </span>
@@ -2609,21 +2603,18 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
                         type="button"
                       >
                         <span
-                          class="bp3-icon bp3-icon-delete StyledProps--main"
-                          icon="delete"
+                          class="bp3-icon StyledProps--main"
+                          data-icon="main-trash"
                         >
                           <svg
-                            data-icon="delete"
                             height="16"
-                            viewBox="0 0 16 16"
+                            viewBox="0 0 11 14"
                             width="16"
+                            xmlns="http://www.w3.org/2000/svg"
                           >
-                            <desc>
-                              delete
-                            </desc>
                             <path
-                              d="M11.99 4.99a1.003 1.003 0 00-1.71-.71l-2.29 2.3L5.7 4.29a.965.965 0 00-.71-.3 1.003 1.003 0 00-.71 1.71l2.29 2.29-2.29 2.29A1.003 1.003 0 005.7 11.7l2.29-2.29 2.29 2.29a1.003 1.003 0 001.42-1.42L9.41 7.99 11.7 5.7c.18-.18.29-.43.29-.71zm-4-5c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.68 6-6 6z"
-                              fill-rule="evenodd"
+                              d="M10.3.7H6.9c0-.4-.3-.7-.7-.7H4.8c-.4 0-.7.3-.7.7H.7C.3.7 0 1 0 1.4v.7h11v-.7c0-.4-.3-.7-.7-.7zm.4 2.1H.3c-.1 0-.3.2-.3.4s.2.3.3.3h.3v9.8c.1.4.4.7.8.7h8.2c.4 0 .7-.3.7-.7V3.5h.3c.2 0 .3-.2.3-.3.1-.2-.1-.4-.2-.4zm-7.3 8.4c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.8 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.7 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7z"
+                              fill="#4d5969"
                             />
                           </svg>
                         </span>
@@ -2722,21 +2713,18 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
                         type="button"
                       >
                         <span
-                          class="bp3-icon bp3-icon-delete StyledProps--main"
-                          icon="delete"
+                          class="bp3-icon StyledProps--main"
+                          data-icon="main-trash"
                         >
                           <svg
-                            data-icon="delete"
                             height="16"
-                            viewBox="0 0 16 16"
+                            viewBox="0 0 11 14"
                             width="16"
+                            xmlns="http://www.w3.org/2000/svg"
                           >
-                            <desc>
-                              delete
-                            </desc>
                             <path
-                              d="M11.99 4.99a1.003 1.003 0 00-1.71-.71l-2.29 2.3L5.7 4.29a.965.965 0 00-.71-.3 1.003 1.003 0 00-.71 1.71l2.29 2.29-2.29 2.29A1.003 1.003 0 005.7 11.7l2.29-2.29 2.29 2.29a1.003 1.003 0 001.42-1.42L9.41 7.99 11.7 5.7c.18-.18.29-.43.29-.71zm-4-5c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.68 6-6 6z"
-                              fill-rule="evenodd"
+                              d="M10.3.7H6.9c0-.4-.3-.7-.7-.7H4.8c-.4 0-.7.3-.7.7H.7C.3.7 0 1 0 1.4v.7h11v-.7c0-.4-.3-.7-.7-.7zm.4 2.1H.3c-.1 0-.3.2-.3.4s.2.3.3.3h.3v9.8c.1.4.4.7.8.7h8.2c.4 0 .7-.3.7-.7V3.5h.3c.2 0 .3-.2.3-.3.1-.2-.1-.4-.2-.4zm-7.3 8.4c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.8 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.7 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7z"
+                              fill="#4d5969"
                             />
                           </svg>
                         </span>

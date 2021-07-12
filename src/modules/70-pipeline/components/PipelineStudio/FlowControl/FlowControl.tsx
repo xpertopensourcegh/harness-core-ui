@@ -262,7 +262,7 @@ const BarrierList: React.FC<BarrierListProps> = ({
                             }
                           >
                             <Icon
-                              name="bin-main"
+                              name="main-trash"
                               size={20}
                               className={cx(css.deleteIcon, {
                                 [css.disabledIcon]: loadingSetupInfo || barrier.stages?.length

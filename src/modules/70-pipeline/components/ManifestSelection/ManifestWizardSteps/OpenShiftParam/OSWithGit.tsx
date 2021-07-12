@@ -385,7 +385,7 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
                                 />
                               </Layout.Horizontal>
                               {formik.values?.paths?.length > 1 && (
-                                <Button minimal icon="minus" onClick={() => arrayHelpers.remove(index)} />
+                                <Button minimal icon="main-trash" onClick={() => arrayHelpers.remove(index)} />
                               )}
                             </Layout.Horizontal>
                           )
