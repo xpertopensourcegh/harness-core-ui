@@ -274,7 +274,7 @@ exports[`Create Secret Manager Wizard should be able to render first step form 1
                         >
                           <span
                             class="Tooltip--acenter"
-                            data-tooltip-id="connectorDetailsStepForm_name"
+                            data-tooltip-id="connectorDetailsStepFormAzureKeyVault_name"
                           >
                             name
                           </span>
@@ -1875,7 +1875,7 @@ exports[`Create Secret Manager Wizard should render form in edit 1`] = `
                         >
                           <span
                             class="Tooltip--acenter"
-                            data-tooltip-id="connectorDetailsStepForm_name"
+                            data-tooltip-id="connectorDetailsStepFormAzureKeyVault_name"
                           >
                             name
                           </span>
@@ -2264,7 +2264,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                         >
                           <span
                             class="Tooltip--acenter"
-                            data-tooltip-id="connectorDetailsStepForm_name"
+                            data-tooltip-id="connectorDetailsStepFormAzureKeyVault_name"
                           >
                             name
                           </span>
@@ -2658,7 +2658,7 @@ exports[`Create Secret Manager Wizard should render form in edit 3`] = `
                         >
                           <span
                             class="Tooltip--acenter"
-                            data-tooltip-id="connectorDetailsStepForm_name"
+                            data-tooltip-id="connectorDetailsStepFormAzureKeyVault_name"
                           >
                             name
                           </span>

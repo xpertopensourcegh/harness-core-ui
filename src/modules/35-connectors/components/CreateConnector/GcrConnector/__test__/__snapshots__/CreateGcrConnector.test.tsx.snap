@@ -249,7 +249,7 @@ exports[`Create GCP connector Wizard Should render form 1`] = `
                         >
                           <span
                             class="Tooltip--acenter"
-                            data-tooltip-id="connectorDetailsStepForm_name"
+                            data-tooltip-id="connectorDetailsStepFormGcr_name"
                           >
                             name
                           </span>
@@ -964,7 +964,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                         >
                           <span
                             class="Tooltip--acenter"
-                            data-tooltip-id="connectorDetailsStepForm_name"
+                            data-tooltip-id="connectorDetailsStepFormGcr_name"
                           >
                             name
                           </span>

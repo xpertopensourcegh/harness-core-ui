@@ -133,6 +133,7 @@ const FormContent = ({
         className={css.addFieldsModal}
         isOpen
         onClose={hideDynamicFieldsModal}
+        enforceFocus={false}
         title={getString('pipeline.jiraCreateStep.addFields')}
       >
         <JiraDynamicFieldsSelector

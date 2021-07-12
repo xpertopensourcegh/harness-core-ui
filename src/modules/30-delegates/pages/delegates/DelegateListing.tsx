@@ -504,6 +504,7 @@ export const DelegateListing: React.FC = () => {
     <Container>
       <Dialog
         isOpen={troubleshoterOpen}
+        enforceFocus={false}
         style={{ width: '680px', height: '100%' }}
         onClose={() => setOpenTroubleshoter(false)}
       >

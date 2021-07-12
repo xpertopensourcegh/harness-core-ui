@@ -37,6 +37,7 @@ const useCreateUpdateSecretModal = (props: UseCreateSecretModalProps): UseCreate
     () => (
       <Dialog
         isOpen={true}
+        enforceFocus={false}
         onClose={() => {
           hideModal()
         }}

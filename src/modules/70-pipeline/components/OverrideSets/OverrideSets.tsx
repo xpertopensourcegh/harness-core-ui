@@ -126,7 +126,7 @@ export default function OverrideSets({
     canEscapeKeyClose: true,
     title: getString('pipeline.overrideSets.createOverrideSet'),
     canOutsideClickClose: true,
-    enforceFocus: true,
+    enforceFocus: false,
     onClose: () => {
       setOverrideName(initialName)
       setModalState(false)

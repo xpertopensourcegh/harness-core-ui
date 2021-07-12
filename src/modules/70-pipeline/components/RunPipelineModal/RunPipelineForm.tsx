@@ -555,7 +555,12 @@ function RunPipelineFormBasic({
 
   const [showPreflightCheckModal, hidePreflightCheckModal] = useModalHook(() => {
     return (
-      <Dialog className={cx(css.preFlightCheckModal, Classes.DIALOG)} isOpen onClose={hidePreflightCheckModal}>
+      <Dialog
+        className={cx(css.preFlightCheckModal, Classes.DIALOG)}
+        enforceFocus={false}
+        isOpen
+        onClose={hidePreflightCheckModal}
+      >
         <PreFlightCheckModal
           pipeline={valuesPipelineRef.current}
           module={module}

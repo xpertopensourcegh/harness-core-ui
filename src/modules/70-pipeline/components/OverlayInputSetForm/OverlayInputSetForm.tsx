@@ -93,7 +93,7 @@ const dialogProps: Omit<IDialogProps, 'isOpen'> = {
   autoFocus: true,
   canEscapeKeyClose: true,
   canOutsideClickClose: true,
-  enforceFocus: true,
+  enforceFocus: false,
   style: { minWidth: 700, minHeight: 600 }
 }
 

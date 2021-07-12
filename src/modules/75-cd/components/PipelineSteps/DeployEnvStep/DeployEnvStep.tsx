@@ -282,6 +282,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
     () => (
       <Dialog
         isOpen={true}
+        enforceFocus={false}
         canEscapeKeyClose
         canOutsideClickClose
         onClose={onClose}
@@ -513,6 +514,7 @@ const DeployEnvironmentInputStep: React.FC<DeployEnvironmentProps & { formik?: a
     () => (
       <Dialog
         isOpen={true}
+        enforceFocus={false}
         canEscapeKeyClose
         canOutsideClickClose
         onClose={onClose}

@@ -205,7 +205,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                         >
                           <span
                             class="Tooltip--acenter"
-                            data-tooltip-id="connectorDetailsStepForm_name"
+                            data-tooltip-id="connectorDetailsStepFormBitbucket_name"
                           >
                             name
                           </span>

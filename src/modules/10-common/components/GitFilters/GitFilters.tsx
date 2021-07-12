@@ -171,6 +171,7 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
     () => (
       <Dialog
         isOpen={!!unSyncedSelectedBranch?.value}
+        enforceFocus={false}
         onClose={() => {
           hideModal()
           setUnSyncedSelectedBranch(null)

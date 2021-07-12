@@ -75,7 +75,7 @@ const runModalProps: IDialogProps = {
   autoFocus: true,
   canEscapeKeyClose: true,
   canOutsideClickClose: false,
-  enforceFocus: true,
+  enforceFocus: false,
   className: css.runPipelineDialog,
   style: { width: 872, height: 'fit-content', overflow: 'auto' },
   isCloseButtonShown: false
@@ -401,6 +401,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
             width: isGitSyncEnabled ? '614px' : '385px',
             background: 'var(--form-bg)'
           }}
+          enforceFocus={false}
           isOpen={true}
           className={'padded-dialog'}
           onClose={onCloseCreate}

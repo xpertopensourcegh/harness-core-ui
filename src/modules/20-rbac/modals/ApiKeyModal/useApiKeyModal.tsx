@@ -26,7 +26,13 @@ export const useApiKeyModal = ({
   const [ApiKeyData, setApiKeyData] = useState<ApiKeyDTO>()
   const [showModal, hideModal] = useModalHook(
     () => (
-      <Dialog isOpen={true} onClose={hideModal} title="" className={cx(css.dialog, Classes.DIALOG)}>
+      <Dialog
+        isOpen={true}
+        enforceFocus={false}
+        onClose={hideModal}
+        title=""
+        className={cx(css.dialog, Classes.DIALOG)}
+      >
         <ApiKeyForm
           data={ApiKeyData}
           isEdit={!!ApiKeyData}

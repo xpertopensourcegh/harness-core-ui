@@ -98,7 +98,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
     autoFocus: true,
     canEscapeKeyClose: true,
     canOutsideClickClose: true,
-    enforceFocus: true,
+    enforceFocus: false,
     style: { width: 1175, minHeight: 640, borderLeft: 0, paddingBottom: 0, position: 'relative', overflow: 'hidden' }
   }
 

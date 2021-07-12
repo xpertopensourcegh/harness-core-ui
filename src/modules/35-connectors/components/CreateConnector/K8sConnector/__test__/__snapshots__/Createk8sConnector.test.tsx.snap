@@ -201,7 +201,7 @@ exports[`Create k8 connector Wizard should form for authtype username 1`] = `
                         >
                           <span
                             class="Tooltip--acenter"
-                            data-tooltip-id="connectorDetailsStepForm_name"
+                            data-tooltip-id="connectorDetailsStepFormK8sCluster_name"
                           >
                             name
                           </span>
@@ -2346,7 +2346,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 1`] =
                         >
                           <span
                             class="Tooltip--acenter"
-                            data-tooltip-id="connectorDetailsStepForm_name"
+                            data-tooltip-id="connectorDetailsStepFormK8sCluster_name"
                           >
                             name
                           </span>

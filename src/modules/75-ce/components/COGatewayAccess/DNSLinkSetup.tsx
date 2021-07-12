@@ -44,6 +44,7 @@ import css from './COGatewayAccess.module.scss'
 
 const modalPropsLight: IDialogProps = {
   isOpen: true,
+  enforceFocus: false,
   style: {
     width: 860,
     padding: 40,

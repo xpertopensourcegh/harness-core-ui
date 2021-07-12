@@ -57,6 +57,7 @@ export function useSaveToGitDialog<T = Record<string, string>>(
   const { getString } = useStrings()
   const [modalProps, setModalProps] = useState<IDialogProps>({
     isOpen: true,
+    enforceFocus: false,
     style: {
       width: 720,
       minHeight: 540,
@@ -156,6 +157,7 @@ export function useSaveToGitDialog<T = Record<string, string>>(
           paddingBottom: 0,
           maxHeight: 500
         }}
+        enforceFocus={false}
       >
         <ProgressOverlay
           preFirstStage={prMetaData?.isNewBranch ? setupBranchStage : undefined}
@@ -178,6 +180,7 @@ export function useSaveToGitDialog<T = Record<string, string>>(
     return (
       <Dialog
         isOpen={true}
+        enforceFocus={false}
         className={Classes.DIALOG}
         style={{
           minWidth: 600,

@@ -194,7 +194,7 @@ exports[`Create Helm Connector  Wizard Should render form 1`] = `
                         >
                           <span
                             class="Tooltip--acenter"
-                            data-tooltip-id="connectorDetailsStepForm_name"
+                            data-tooltip-id="connectorDetailsStepFormHttpHelmRepo_name"
                           >
                             name
                           </span>
@@ -970,7 +970,7 @@ exports[`Create Helm Connector  Wizard Should render form for editing provider t
                         >
                           <span
                             class="Tooltip--acenter"
-                            data-tooltip-id="connectorDetailsStepForm_name"
+                            data-tooltip-id="connectorDetailsStepFormHttpHelmRepo_name"
                           >
                             name
                           </span>

@@ -21,7 +21,13 @@ export const useServiceAccountModal = ({ onSuccess }: useServiceAccountModalProp
   const [serviceAccountData, setServiceAccountData] = useState<ServiceAccountDTO>()
   const [showModal, hideModal] = useModalHook(
     () => (
-      <Dialog isOpen={true} onClose={hideModal} className={cx(css.dialog, Classes.DIALOG)} title="">
+      <Dialog
+        isOpen={true}
+        enforceFocus={false}
+        onClose={hideModal}
+        className={cx(css.dialog, Classes.DIALOG)}
+        title=""
+      >
         <ServiceAccountForm
           data={serviceAccountData}
           isEdit={!!serviceAccountData}

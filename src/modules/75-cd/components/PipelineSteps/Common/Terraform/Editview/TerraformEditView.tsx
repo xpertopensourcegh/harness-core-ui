@@ -333,6 +333,7 @@ export default function TerraformEditView(
                   {showModal && (
                     <Dialog
                       onClose={() => setShowModal(false)}
+                      enforceFocus={false}
                       className={cx(Classes.DIALOG, 'padded-dialog')}
                       {...modalProps}
                       title={getString('pipelineSteps.configFiles')}

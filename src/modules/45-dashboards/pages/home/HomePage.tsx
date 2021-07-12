@@ -186,6 +186,7 @@ const HomePage: React.FC = () => {
     () => (
       <Dialog
         isOpen={true}
+        enforceFocus={false}
         onClose={() => {
           setView(Views.CREATE)
           hideModal()

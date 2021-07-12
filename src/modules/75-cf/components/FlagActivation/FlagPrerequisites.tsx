@@ -188,7 +188,7 @@ export const FlagPrerequisites: React.FC<FlagPrerequisitesProps> = props => {
     }
 
     return (
-      <Dialog title={title} onClose={hideModalPrerequisites} isOpen={true}>
+      <Dialog enforceFocus={false} title={title} onClose={hideModalPrerequisites} isOpen={true}>
         <Layout.Vertical padding={{ left: 'large', right: 'medium' }}>
           <Text margin={{ top: 'medium', bottom: 'xlarge' }}>
             {getString('cf.addPrerequisites.addPrerequisitesDesc')}

@@ -126,7 +126,7 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
           onSubmit={formData => {
             handleSubmit(formData)
           }}
-          formName="connectorDetailsStepForm"
+          formName={`connectorDetailsStepForm${props.type}`}
           validationSchema={Yup.object().shape({
             name: NameSchema(),
             identifier: IdentifierSchema()

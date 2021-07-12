@@ -699,7 +699,7 @@ const ServingCardRow: React.FC<ServingCardRowProps> = ({
     }
 
     return (
-      <Dialog isOpen onClose={handleClose} title={`Serve ${variation} to the following`}>
+      <Dialog enforceFocus={false} isOpen onClose={handleClose} title={`Serve ${variation} to the following`}>
         <Layout.Vertical spacing="medium" padding={{ left: 'large', right: 'medium' }}>
           {loading ? (
             <Spinner size={24} />

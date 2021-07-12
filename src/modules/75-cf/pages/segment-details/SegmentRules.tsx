@@ -231,7 +231,7 @@ const RulesTab: React.FC<RulesTabProps> = ({
     }
 
     return (
-      <Dialog isOpen onClose={hideIncluded} title={`Serve variation to the following`}>
+      <Dialog enforceFocus={false} isOpen onClose={hideIncluded} title={`Serve variation to the following`}>
         <Layout.Vertical spacing="medium" padding={{ left: 'large', right: 'medium' }}>
           {loadingTargets ? (
             <Spinner size={24} />
@@ -277,7 +277,7 @@ const RulesTab: React.FC<RulesTabProps> = ({
     }
 
     return (
-      <Dialog isOpen onClose={hideExcluded} title={`Serve variation to the following`}>
+      <Dialog enforceFocus={false} isOpen onClose={hideExcluded} title={`Serve variation to the following`}>
         <Layout.Vertical spacing="medium" padding={{ left: 'large', right: 'medium' }}>
           {loadingTargets ? (
             <Spinner size={24} />

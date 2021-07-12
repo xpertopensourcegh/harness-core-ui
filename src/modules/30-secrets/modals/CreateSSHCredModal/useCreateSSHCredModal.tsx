@@ -40,6 +40,7 @@ const useCreateSSHCredModal = (props: UseCreateSSHCredModalProps): UseCreateSSHC
     () => (
       <Dialog
         className={css.dialog}
+        enforceFocus={false}
         isOpen={true}
         onClose={() => {
           setView(Views.CREATE)

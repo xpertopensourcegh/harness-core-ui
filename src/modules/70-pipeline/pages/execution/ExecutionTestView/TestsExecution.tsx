@@ -45,6 +45,7 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId,
   const [showModal, hideModal] = useModalHook(() => (
     <Dialog
       className={css.callgraphDialog}
+      enforceFocus={false}
       title={getString('pipeline.testsReports.callgraphTitle')}
       isCloseButtonShown
       isOpen

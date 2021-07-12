@@ -25,7 +25,13 @@ export const useTokenModal = ({ onSuccess, apiKeyType, parentIdentifier }: useTo
   const [tokenData, setTokenData] = useState<TokenDTO>()
   const [showModal, hideModal] = useModalHook(
     () => (
-      <Dialog isOpen={true} onClose={hideModal} className={cx(css.dialog, Classes.DIALOG)} title="">
+      <Dialog
+        isOpen={true}
+        enforceFocus={false}
+        onClose={hideModal}
+        className={cx(css.dialog, Classes.DIALOG)}
+        title=""
+      >
         {isRotate ? (
           <RotateTokenForm
             data={tokenData}

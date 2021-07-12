@@ -119,7 +119,7 @@ const ManifestListView = ({
     autoFocus: true,
     canEscapeKeyClose: false,
     canOutsideClickClose: false,
-    enforceFocus: true,
+    enforceFocus: false,
     style: { width: 1175, minHeight: 640, borderLeft: 0, paddingBottom: 0, position: 'relative', overflow: 'hidden' }
   }
 

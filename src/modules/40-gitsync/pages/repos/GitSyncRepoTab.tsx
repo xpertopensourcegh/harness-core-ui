@@ -241,6 +241,7 @@ const GitSyncRepoTab: React.FC = () => {
       return (
         <Dialog
           isOpen={true}
+          enforceFocus={false}
           onClose={() => {
             hideModal()
             setRepoState(RepoState.VIEW)

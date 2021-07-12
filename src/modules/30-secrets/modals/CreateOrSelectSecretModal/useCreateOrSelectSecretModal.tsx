@@ -28,6 +28,7 @@ const useCreateOrSelectSecretModal = (
     () => (
       <Dialog
         isOpen={true}
+        enforceFocus={false}
         onClose={() => {
           hideModal()
         }}

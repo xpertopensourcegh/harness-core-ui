@@ -34,7 +34,7 @@ export const useRoleAssignmentModal = ({ onSuccess }: UseRoleAssignmentModalProp
   const [principal, setPrincipal] = useState<PrincipalType>(PrincipalType.USER)
   const [showModal, hideModal] = useModalHook(
     () => (
-      <Dialog isOpen={true} onClose={hideModal} className={cx(css.dialog, Classes.DIALOG)}>
+      <Dialog isOpen={true} onClose={hideModal} enforceFocus={false} className={cx(css.dialog, Classes.DIALOG)}>
         {principal === PrincipalType.USER ? (
           <UserRoleAssignment
             roleBindings={roleBindings}

@@ -365,7 +365,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
     return errors
   }
   const [openModalTestFlag, hideModalTestFlag] = useModalHook(() => (
-    <Dialog onClose={hideModalTestFlag} isOpen={true} className={css.testFlagDialog}>
+    <Dialog enforceFocus={false} onClose={hideModalTestFlag} isOpen={true} className={css.testFlagDialog}>
       <Container className={css.testFlagDialogContainer}>
         <FlagElemTest name="" fromWizard={false} />
         <Button

@@ -48,6 +48,7 @@ export function useGitDiffEditorDialog<T>(props: UseGitDiffEditorDialogProps<T>)
   const [remoteVersion, setRemoteVersion] = useState<string>('')
   const defaultModalProps: IDialogProps = {
     isOpen: true,
+    enforceFocus: false,
     style: {
       minWidth: 500,
       minHeight: 170,
@@ -92,8 +93,9 @@ export function useGitDiffEditorDialog<T>(props: UseGitDiffEditorDialogProps<T>)
   React.useEffect(() => {
     if (showGitDiff) {
       const { isOpen, style } = defaultModalProps
-      const expandedModalProps = {
+      const expandedModalProps: IDialogProps = {
         isOpen,
+        enforceFocus: false,
         style: Object.assign(omit(style, 'minHeight'), { width: 'calc(100vw - 100px)', height: 'calc(100vh - 100px)' })
       }
       setModalProps(expandedModalProps)

@@ -421,6 +421,7 @@ export const RightBar = (): JSX.Element => {
       {isCodebaseDialogOpen && (
         <Dialog
           isOpen={true}
+          enforceFocus={false}
           title={
             // TODO: Move to strings
             codebaseStatus === CodebaseStatuses.NotConfigured ? 'Configure Codebase' : 'Edit Codebase Configuration'

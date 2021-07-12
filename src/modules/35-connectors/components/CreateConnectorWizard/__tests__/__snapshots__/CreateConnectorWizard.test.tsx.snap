@@ -195,7 +195,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Artifacto
                           >
                             <span
                               class="Tooltip--acenter"
-                              data-tooltip-id="connectorDetailsStepForm_name"
+                              data-tooltip-id="connectorDetailsStepFormArtifactory_name"
                             >
                               name
                             </span>
@@ -540,7 +540,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for BITBUCKET
                           >
                             <span
                               class="Tooltip--acenter"
-                              data-tooltip-id="connectorDetailsStepForm_name"
+                              data-tooltip-id="connectorDetailsStepFormBitbucket_name"
                             >
                               name
                             </span>
@@ -874,7 +874,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for DOCKER 1`
                           >
                             <span
                               class="Tooltip--acenter"
-                              data-tooltip-id="connectorDetailsStepForm_name"
+                              data-tooltip-id="connectorDetailsStepFormDockerRegistry_name"
                             >
                               name
                             </span>
@@ -1261,7 +1261,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for GCP 1`] =
                           >
                             <span
                               class="Tooltip--acenter"
-                              data-tooltip-id="connectorDetailsStepForm_name"
+                              data-tooltip-id="connectorDetailsStepFormGcp_name"
                             >
                               name
                             </span>
@@ -1605,7 +1605,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Git 1`] =
                           >
                             <span
                               class="Tooltip--acenter"
-                              data-tooltip-id="connectorDetailsStepForm_name"
+                              data-tooltip-id="connectorDetailsStepFormGit_name"
                             >
                               name
                             </span>
@@ -1948,7 +1948,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Github 1`
                           >
                             <span
                               class="Tooltip--acenter"
-                              data-tooltip-id="connectorDetailsStepForm_name"
+                              data-tooltip-id="connectorDetailsStepFormGithub_name"
                             >
                               name
                             </span>
@@ -2316,7 +2316,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Gitlab 1`
                           >
                             <span
                               class="Tooltip--acenter"
-                              data-tooltip-id="connectorDetailsStepForm_name"
+                              data-tooltip-id="connectorDetailsStepFormGitlab_name"
                             >
                               name
                             </span>
@@ -2661,7 +2661,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Nexus 1`]
                           >
                             <span
                               class="Tooltip--acenter"
-                              data-tooltip-id="connectorDetailsStepForm_name"
+                              data-tooltip-id="connectorDetailsStepFormNexus_name"
                             >
                               name
                             </span>
@@ -2976,7 +2976,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for VAULT 1`]
                           >
                             <span
                               class="Tooltip--acenter"
-                              data-tooltip-id="connectorDetailsStepForm_name"
+                              data-tooltip-id="connectorDetailsStepFormVault_name"
                             >
                               name
                             </span>
@@ -3315,7 +3315,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for k8 1`] = 
                           >
                             <span
                               class="Tooltip--acenter"
-                              data-tooltip-id="connectorDetailsStepForm_name"
+                              data-tooltip-id="connectorDetailsStepFormK8sCluster_name"
                             >
                               name
                             </span>

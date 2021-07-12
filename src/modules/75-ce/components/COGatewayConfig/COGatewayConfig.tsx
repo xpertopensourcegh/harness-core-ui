@@ -117,6 +117,7 @@ const managedResources = [
 
 const modalProps: IDialogProps = {
   isOpen: true,
+  enforceFocus: false,
   style: {
     width: 1000,
     minHeight: 350,

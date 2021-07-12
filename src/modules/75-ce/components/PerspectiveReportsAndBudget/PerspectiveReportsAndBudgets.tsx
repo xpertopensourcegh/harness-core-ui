@@ -359,7 +359,7 @@ const useCreateReportModal = () => {
     autoFocus: true,
     canEscapeKeyClose: true,
     canOutsideClickClose: true,
-    enforceFocus: true,
+    enforceFocus: false,
     className: Classes.DIALOG,
     style: { width: 450, height: 650 }
   }

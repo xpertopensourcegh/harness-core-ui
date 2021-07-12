@@ -243,6 +243,7 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
     () => (
       <Dialog
         isOpen={true}
+        enforceFocus={false}
         canEscapeKeyClose
         canOutsideClickClose
         onClose={onClose}
@@ -499,6 +500,7 @@ const DeployServiceInputStep: React.FC<DeployServiceProps & { formik?: any }> = 
     () => (
       <Dialog
         isOpen={true}
+        enforceFocus={false}
         canEscapeKeyClose
         canOutsideClickClose
         onClose={onClose}

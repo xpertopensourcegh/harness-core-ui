@@ -87,7 +87,7 @@ exports[`Connector details step Test for  create  connector step one required fe
                     >
                       <span
                         class="Tooltip--acenter"
-                        data-tooltip-id="connectorDetailsStepForm_name"
+                        data-tooltip-id="connectorDetailsStepFormK8sCluster_name"
                       >
                         name
                       </span>
@@ -315,7 +315,7 @@ exports[`Connector details step Test for going to next step 1`] = `
                     >
                       <span
                         class="Tooltip--acenter"
-                        data-tooltip-id="connectorDetailsStepForm_name"
+                        data-tooltip-id="connectorDetailsStepFormK8sCluster_name"
                       >
                         name
                       </span>

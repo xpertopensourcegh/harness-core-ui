@@ -224,7 +224,7 @@ exports[`CreateAWSCodeCommitConnector matches snapshot and goes through steps co
                         >
                           <span
                             class="Tooltip--acenter"
-                            data-tooltip-id="connectorDetailsStepForm_name"
+                            data-tooltip-id="connectorDetailsStepFormCodecommit_name"
                           >
                             name
                           </span>

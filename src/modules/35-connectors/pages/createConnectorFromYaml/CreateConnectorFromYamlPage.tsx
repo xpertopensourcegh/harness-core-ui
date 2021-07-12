@@ -137,6 +137,7 @@ const CreateConnectorFromYamlPage: React.FC = () => {
       <Dialog
         style={{ width: 600, paddingBottom: 0, background: 'var(--form-bg)' }}
         isOpen={true}
+        enforceFocus={false}
         className={Classes.DIALOG}
       >
         <Container className={css.container}>

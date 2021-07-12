@@ -124,6 +124,7 @@ export const SelectSegmentsModalButton: React.FC<SelectSegmentsModalButtonProps>
     return (
       <Dialog
         isOpen
+        enforceFocus={false}
         onClose={hideModal}
         title={
           <Text

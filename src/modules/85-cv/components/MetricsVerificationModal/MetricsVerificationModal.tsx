@@ -46,7 +46,7 @@ const modalPropsLight: IDialogProps = {
   autoFocus: true,
   canEscapeKeyClose: true,
   canOutsideClickClose: true,
-  enforceFocus: true,
+  enforceFocus: false,
   className: Classes.DIALOG,
   style: { width: 900, height: 570 }
 }

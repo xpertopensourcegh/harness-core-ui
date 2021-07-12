@@ -202,7 +202,7 @@ exports[`Create Secret Manager Wizard should be able to render first and second 
                         >
                           <span
                             class="Tooltip--acenter"
-                            data-tooltip-id="connectorDetailsStepForm_name"
+                            data-tooltip-id="connectorDetailsStepFormAwsKms_name"
                           >
                             name
                           </span>
@@ -542,7 +542,7 @@ exports[`Create Secret Manager Wizard should be able to render first and second 
                         >
                           <span
                             class="Tooltip--acenter"
-                            data-tooltip-id="connectorDetailsStepForm_name"
+                            data-tooltip-id="connectorDetailsStepFormAwsKms_name"
                           >
                             name
                           </span>

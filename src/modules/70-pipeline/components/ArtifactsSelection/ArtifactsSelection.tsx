@@ -208,7 +208,7 @@ export default function ArtifactsSelection({
     autoFocus: true,
     canEscapeKeyClose: false,
     canOutsideClickClose: false,
-    enforceFocus: true,
+    enforceFocus: false,
     title: '',
     style: { width: 1050, height: 580, borderLeft: 'none', paddingBottom: 0, position: 'relative' }
   }

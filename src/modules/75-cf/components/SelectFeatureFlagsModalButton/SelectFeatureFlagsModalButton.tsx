@@ -133,6 +133,7 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
     return (
       <Dialog
         isOpen
+        enforceFocus={false}
         onClose={hideModal}
         title={
           <Text

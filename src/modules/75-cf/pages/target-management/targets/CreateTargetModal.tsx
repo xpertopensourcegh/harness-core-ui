@@ -262,7 +262,13 @@ const CreateTargetModal: React.FC<CreateTargetModalProps> = ({ loading, onSubmit
 
   const [openModal, hideModal] = useModalHook(() => {
     return (
-      <Dialog isOpen onClose={hideModal} title={getString('cf.targets.addTargetsLabel')} className={css.modal}>
+      <Dialog
+        isOpen
+        enforceFocus={false}
+        onClose={hideModal}
+        title={getString('cf.targets.addTargetsLabel')}
+        className={css.modal}
+      >
         <Layout.Vertical padding="medium" height={450}>
           <Container style={{ flexGrow: 1, overflow: 'auto' }} padding={{ top: 'small' }}>
             <RadioGroup name="modalVariant" selectedValue={isList ? LIST : UPLOAD} onChange={handleChange}>
