@@ -1,7 +1,7 @@
 import type { ConnectorInfoDTO, ResponseListSourceCodeManagerDTO, ResponseGitBranchListDTO } from 'services/cd-ng'
 
 export const defaultProps = {
-  name: 'Setup Delegates',
+  name: 'Set Up Delegates',
   isEditMode: true,
   connectorInfo: undefined
 }
