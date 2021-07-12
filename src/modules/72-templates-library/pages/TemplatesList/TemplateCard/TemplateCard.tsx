@@ -6,6 +6,7 @@ import { UserLabel } from '@common/components'
 import type { TemplatesSummaryResponse } from '@templates-library/temporary-mock/model'
 import { getIconsForTemplate, templateColorStyleMap } from '@templates-library/pages/TemplatesList/TemplatesListUtils'
 import { TemplateCardContextMenu } from './TemplateCardContextMenu/TemplateCardContextMenu'
+import { TemplateColor } from './TemplateColor/TemplateColor'
 
 import css from './TemplateCard.module.scss'
 
@@ -26,6 +27,8 @@ export const TemplateCard: React.FC<TemplateCardProps> = (props): JSX.Element =>
   // >()
   //  const history = useHistory()
   //const { getString } = useStrings()
+
+  const style = templateColorStyleMap[template.templateType]
 
   return (
     <Card className={css.templateCard} interactive onClick={() => onSelect(template.identifier!)}>
@@ -83,10 +86,12 @@ export const TemplateCard: React.FC<TemplateCardProps> = (props): JSX.Element =>
 
       <div className={css.sectionMargin}>
         <Container flex={{ justifyContent: 'center' }} padding={{ top: 'large' }}>
-          <div className={css.templateType} style={templateColorStyleMap[template.templateType]}>
-            {template?.templateType?.toUpperCase()}
-          </div>
-          <div></div>
+          <TemplateColor
+            fill={style.fill as string}
+            stroke={style.stroke as string}
+            textColor={style.color as string}
+            title={template?.templateType?.toUpperCase()}
+          />
         </Container>
       </div>
     </Card>
