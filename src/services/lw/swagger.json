@@ -2245,7 +2245,8 @@
         "metadata": {
           "type": "object",
           "$ref": "#/definitions/ServiceMetadata"
-        }
+        },
+        "status": { "type": "string" }
       }
     },
     "ServiceMetadata": {
@@ -2977,6 +2978,26 @@
         },
         "app_gateway_id": {
           "type": "string"
+        },
+        "subnet_name": { "type": "string" },
+        "fe_ip_name": { "type": "string" },
+        "certificate": {
+          "type": "object",
+          "$ref": "#/definitions/CertificateData"
+        }
+      }
+    },
+    "CertificateData": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
         }
       }
     },
@@ -3014,7 +3035,8 @@
           "type": "string"
         },
         "status": {
-          "type": "string"
+          "type": "string",
+          "enum": ["created", "submitted", "errored"]
         },
         "metadata": {
           "type": "object",

@@ -16,7 +16,7 @@ import {
   Icon
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { debounce as _debounce, isEmpty as _isEmpty } from 'lodash-es'
+import { debounce as _debounce, isEmpty as _isEmpty, values as _values } from 'lodash-es'
 import { Dialog, IDialogProps, Radio } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import {
@@ -33,6 +33,7 @@ import {
 import { useStrings } from 'framework/strings'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { useGatewayContext } from '@ce/context/GatewayContext'
+import { useToaster } from '@common/exports'
 import CreateAccessPointWizard from './CreateAccessPointWizard'
 import type { ConnectionMetadata, CustomDomainDetails, GatewayDetails } from '../COCreateGateway/models'
 import { cleanupForHostName } from '../COGatewayList/Utils'
@@ -63,6 +64,7 @@ interface DNSLinkSetupProps {
 const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
   const { getString } = useStrings()
   const { trackEvent } = useTelemetry()
+  const { showError } = useToaster()
   const isAwsProvider = Utils.isProviderAws(props.gatewayDetails.provider)
   const isAzureProvider = Utils.isProviderAzure(props.gatewayDetails.provider)
   const { isEditFlow } = useGatewayContext()
@@ -133,6 +135,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
 
   // const [accessPointsList, setAccessPointsList] = useState<SelectOption[]>([])
   const [apCoreList, setApCoreList] = useState<SelectOption[]>([])
+  const [apCoreResponseList, setApCoreResponseList] = useState<AccessPointCore[]>([])
   const [hostedZonesList, setHostedZonesList] = useState<SelectOption[]>([])
   const [dnsProvider, setDNSProvider] = useState<string>(
     customDomainProviderDetails?.route53?.hosted_zone_id ? 'route53' : 'others'
@@ -164,7 +167,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
   const {
     data: accessPoints,
     loading: accessPointsLoading,
-    refetch
+    refetch: refetchAccessPoints
   } = useListAccessPoints({
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
@@ -211,11 +214,25 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
   }, [accessPoints?.response])
 
   useEffect(() => {
-    if (apCoresResponse?.response?.length == 0) {
+    const submittedAccessPoints = accessPoints?.response?.filter(_item => _item.status === 'submitted')
+    if (apCoresResponse?.response?.length == 0 && _isEmpty(submittedAccessPoints)) {
       return
     }
+
+    const apCoresResponseMap: Record<string, AccessPointCore> = {}
+    apCoresResponse?.response?.forEach(_item => {
+      apCoresResponseMap[_item.details?.name as string] = _item
+    })
+
+    submittedAccessPoints?.forEach(_item => {
+      apCoresResponseMap[_item.name as string] = getDummySupportedResourceFromAG(_item)
+    })
+    setApCoreResponseList(_values(apCoresResponseMap))
+  }, [apCoresResponse?.response, accessPoints?.response])
+
+  useEffect(() => {
     const loaded: SelectOption[] =
-      apCoresResponse?.response?.map(_ap => {
+      apCoreResponseList?.map(_ap => {
         return {
           label: _ap.details?.name as string,
           value: isAwsProvider
@@ -226,10 +243,12 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
         }
       }) || []
     setApCoreList(loaded)
-  }, [apCoresResponse?.response])
+  }, [apCoreResponseList])
 
   useEffect(() => {
-    const resourceId = isAwsProvider ? accessPoint?.metadata?.albArn : accessPoint?.metadata?.app_gateway_id
+    const resourceId = isAwsProvider
+      ? accessPoint?.metadata?.albArn
+      : accessPoint?.metadata?.app_gateway_id || accessPoint?.id // handled case for "submitted" state access points
     const selectedResource = resourceId && apCoreList.find(_item => _item.value === resourceId)
     if (selectedResource) {
       setSelectedApCore(selectedResource)
@@ -261,11 +280,33 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
         accessPoint={initialAccessPointDetails}
         closeModal={hideModal}
         setAccessPoint={setAccessPoint}
-        refreshAccessPoints={refetch}
+        refreshAccessPoints={refetchAccessPoints}
         isRuleCreationMode={true}
       />
     </Dialog>
   ))
+
+  const clearAPData = () => {
+    setSelectedApCore({ label: '', value: '' })
+    updateLoadBalancerDetails()
+    setSelectedLoadBalancer(undefined)
+  }
+
+  const getDummySupportedResourceFromAG = (ag: AccessPoint): AccessPointCore => {
+    return {
+      type: 'app_gateway',
+      details: {
+        fe_ip_id: ag.metadata?.fe_ip_id,
+        id: ag.id,
+        name: ag.name,
+        region: ag.region,
+        resource_group: ag.metadata?.resource_group,
+        size: ag.metadata?.size,
+        subnet_id: ag.metadata?.subnet_id,
+        vpc: ag.vpc
+      }
+    }
+  }
 
   const [openLoadBalancerModal, hideLoadBalancerModal] = useModalHook(() => {
     return (
@@ -280,9 +321,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
             cloudAccountId={props.gatewayDetails.cloudAccount.id}
             onClose={_clearStatus => {
               if (_clearStatus && !isCreateMode) {
-                setSelectedApCore({ label: '', value: '' })
-                updateLoadBalancerDetails('', '')
-                setSelectedLoadBalancer(undefined)
+                clearAPData()
               }
               if (isCreateMode) setIsCreateMode(false)
               hideLoadBalancerModal()
@@ -303,16 +342,15 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
             onSave={savedLb => {
               setAccessPoint(savedLb)
               if (isCreateMode) {
+                refetchAccessPoints()
                 setIsCreateMode(false)
-                apCoresRefetch()
+                // apCoresRefetch()
               }
             }}
             createMode={isCreateMode}
             onClose={_clearStatus => {
               if (_clearStatus && !isCreateMode) {
-                setSelectedApCore({ label: '', value: '' })
-                updateLoadBalancerDetails('', '')
-                setSelectedLoadBalancer(undefined)
+                clearAPData()
               }
               if (isCreateMode) setIsCreateMode(false)
               hideLoadBalancerModal()
@@ -336,8 +374,11 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
 
   useEffect(() => {
     if (!accessPoint || !accessPoint.id) return
-    const updatedGatewayDetails = { ...props.gatewayDetails }
-    updatedGatewayDetails.accessPointID = accessPoint.id
+    const updatedGatewayDetails = {
+      ...props.gatewayDetails,
+      accessPointID: accessPoint.id,
+      accessPointData: accessPoint
+    }
     props.setGatewayDetails(updatedGatewayDetails)
     setGeneratedHostName(generateHostName(accessPoint.host_name as string))
   }, [accessPoint])
@@ -361,7 +402,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
   }
 
   const createAzureAppGatewayFromLoadBalancer = (): AccessPoint => {
-    const details = selectedLoadBalancer?.details as AzureAccessPointCore
+    const details = isCreateMode ? {} : (selectedLoadBalancer?.details as AzureAccessPointCore)
     return {
       cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
       account_id: accountId, // eslint-disable-line
@@ -381,10 +422,13 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     }
   }
 
-  const updateLoadBalancerDetails = (accessPointId: string, hostname: string) => {
-    const updatedGatewayDetails = { ...props.gatewayDetails }
-    updatedGatewayDetails.accessPointID = accessPointId
-    updatedGatewayDetails.hostName = generateHostName(hostname)
+  const updateLoadBalancerDetails = (_accessPointDetails?: AccessPoint) => {
+    const updatedGatewayDetails = {
+      ...props.gatewayDetails,
+      accessPointID: _accessPointDetails?.id || '',
+      accessPointData: _accessPointDetails,
+      hostName: generateHostName(_accessPointDetails?.host_name || '')
+    }
     props.setGatewayDetails(updatedGatewayDetails)
     setGeneratedHostName(updatedGatewayDetails.hostName || getString('ce.co.dnsSetup.autoURL'))
   }
@@ -407,7 +451,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
       isValid = Boolean(
         lb &&
           accessPoints?.response
-            ?.map(_ap => _ap.metadata?.app_gateway_id)
+            ?.map(_ap => (_ap.status === 'submitted' ? _ap.id : _ap.metadata?.app_gateway_id))
             .filter(_i => _i)
             .includes((lb.details as AzureAccessPointCore).id)
       )
@@ -420,7 +464,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
 
   const handleLoadBalancerSelection = (item: SelectOption) => {
     setSelectedApCore(item)
-    const matchedLb = apCoresResponse?.response?.find(_lb =>
+    const matchedLb = apCoreResponseList?.find(_lb =>
       isAwsProvider
         ? item.value === (_lb.details as ALBAccessPointCore)?.albARN
         : item.value === (_lb.details as AzureAccessPointCore)?.id
@@ -430,13 +474,21 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
       let linkedAccessPoint = accessPoints?.response?.find(_ap =>
         isAwsProvider
           ? _ap.metadata?.albArn === (matchedLb?.details as ALBAccessPointCore)?.albARN
-          : _ap.metadata?.app_gateway_id === (matchedLb?.details as AzureAccessPointCore)?.id
+          : (_ap.metadata?.app_gateway_id || _ap.id) === (matchedLb?.details as AzureAccessPointCore)?.id
       )
       if (!linkedAccessPoint) {
         linkedAccessPoint = accessPoint
       }
-      updateLoadBalancerDetails(linkedAccessPoint?.id as string, linkedAccessPoint?.host_name as string)
+
+      // Use only those Access Points which are not in errored state.
+      if (linkedAccessPoint?.status === 'errored') {
+        showError('Access point in error state can not be selected')
+        clearAPData()
+      } else {
+        updateLoadBalancerDetails(linkedAccessPoint)
+      }
     } else {
+      isCreateMode && setIsCreateMode(false)
       openLoadBalancerModal()
     }
   }

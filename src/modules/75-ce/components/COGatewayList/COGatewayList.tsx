@@ -104,45 +104,15 @@ function TimeCell(tableProps: CellProps<Service>): JSX.Element {
   )
 }
 function NameCell(tableProps: CellProps<Service>): JSX.Element {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams<{
-    accountId: string
-    orgIdentifier: string
-    projectIdentifier: string
-  }>()
-  const { data } = useGetServiceDiagnostics({
-    org_id: orgIdentifier, // eslint-disable-line
-    account_id: accountId, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
-    service_id: tableProps.row.original.id as number, // eslint-disable-line
-    queryParams: {
-      accountIdentifier: accountId
-    }
-  })
-  const diagnosticsErrors = (data?.response || [])
-    .filter(item => !item.success)
-    .map(item => ({ action: item.name, error: item.message }))
-  const hasError: boolean = !_isEmpty(tableProps.row.original.metadata?.service_errors) || !_isEmpty(diagnosticsErrors)
-  const combinedErrors: ServiceError[] = (tableProps.row.original.metadata?.service_errors || []).concat(
-    diagnosticsErrors
-  )
   return (
-    <>
-      <Text
-        lineClamp={3}
-        color={Color.BLACK}
-        style={{ fontWeight: 600, color: tableProps.row.original.disabled ? textColor.disable : 'inherit' }}
-      >
-        {/* <Icon name={tableProps.row.original.provider.icon as IconName}></Icon> */}
-        {tableProps.value}
-      </Text>
-      {hasError && (
-        <TextWithToolTip
-          status={textWithToolTipStatus.ERROR}
-          messageText={combinedErrors[0].action}
-          errors={combinedErrors}
-        />
-      )}
-    </>
+    <Text
+      lineClamp={3}
+      color={Color.BLACK}
+      style={{ fontWeight: 600, color: tableProps.row.original.disabled ? textColor.disable : 'inherit' }}
+    >
+      {/* <Icon name={tableProps.row.original.provider.icon as IconName}></Icon> */}
+      {tableProps.value}
+    </Text>
   )
 }
 
@@ -319,9 +289,11 @@ const COGatewayList: React.FC = () => {
     }
 
     const hasCustomDomains = (tableProps.row.original.custom_domains?.length as number) > 0
+    const isSubmittedRule = tableProps.row.original.status === 'submitted'
 
     const handleDomainClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
       e.stopPropagation()
+      if (isSubmittedRule) return
       const link = hasCustomDomains ? tableProps.row.original.custom_domains?.[0] : tableProps.row.original.host_name
       window.open(`http://${link}`, '_blank')
     }
@@ -385,7 +357,8 @@ const COGatewayList: React.FC = () => {
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
                 color: tableProps.row.original.disabled ? textColor.disable : '#0278D5',
-                textDecoration: 'underline'
+                textDecoration: 'underline',
+                cursor: isSubmittedRule ? 'not-allowed' : 'inherit'
               }}
               onClick={handleDomainClick}
             >
@@ -454,15 +427,17 @@ const COGatewayList: React.FC = () => {
             ) : (
               <Menu.Item icon="disable" text="Disable" onClick={handleToggleRuleClick} />
             )}
-            <Menu.Item
-              icon="edit"
-              text="Edit"
-              onClick={() => handleServiceEdit(row.original)}
-              // onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-              //   e.stopPropagation()
-              //   alert('you are editing')
-              // }}
-            />
+            {row.original.status !== 'submitted' && (
+              <Menu.Item
+                icon="edit"
+                text="Edit"
+                onClick={() => handleServiceEdit(row.original)}
+                // onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+                //   e.stopPropagation()
+                //   alert('you are editing')
+                // }}
+              />
+            )}
             <Menu.Item icon="trash" text="Delete" onClick={handleDeleteRuleClick} />
           </Menu>
         </Popover>
@@ -510,6 +485,33 @@ const COGatewayList: React.FC = () => {
         gatewayIdentifier: _service.id?.toString() as string
       })
     )
+
+  const StatusCell = ({ row }: CellProps<Service>) => {
+    const { data } = useGetServiceDiagnostics({
+      org_id: orgIdentifier, // eslint-disable-line
+      account_id: accountId, // eslint-disable-line
+      project_id: projectIdentifier, // eslint-disable-line
+      service_id: row.original.id as number, // eslint-disable-line
+      queryParams: {
+        accountIdentifier: accountId
+      }
+    })
+    const diagnosticsErrors = (data?.response || [])
+      .filter(item => !item.success)
+      .map(item => ({ action: item.name, error: item.message }))
+    const hasError: boolean = !_isEmpty(row.original.metadata?.service_errors) || !_isEmpty(diagnosticsErrors)
+    const combinedErrors: ServiceError[] = (row.original.metadata?.service_errors || []).concat(diagnosticsErrors)
+    return (
+      <TextWithToolTip
+        messageText={row.original.status}
+        errors={hasError ? combinedErrors : []}
+        status={
+          row.original.status === 'errored' || hasError ? textWithToolTipStatus.ERROR : textWithToolTipStatus.SUCCESS
+        }
+        indicatorColor={row.original.status === 'submitted' ? Color.YELLOW_500 : undefined}
+      />
+    )
+  }
 
   return (
     <Container background={Color.WHITE} height="100vh">
@@ -672,7 +674,7 @@ const COGatewayList: React.FC = () => {
                         },
                         {
                           Header: 'Resources Managed By The Rule'.toUpperCase(),
-                          width: '32%',
+                          width: '22%',
                           Cell: ResourcesCell
                         },
                         {
@@ -685,6 +687,11 @@ const COGatewayList: React.FC = () => {
                           Header: 'Last Activity'.toUpperCase(),
                           width: '10%',
                           Cell: ActivityCell
+                        },
+                        {
+                          Header: 'STATUS',
+                          width: '10%',
+                          Cell: StatusCell
                         },
                         {
                           Header: '',
