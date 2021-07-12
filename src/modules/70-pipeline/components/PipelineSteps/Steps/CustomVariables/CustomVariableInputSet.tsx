@@ -109,6 +109,7 @@ function CustomVariableInputSetBasic(props: CustomVariableInputSetProps): React.
                   expressions={expressions}
                   allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
                   name={`${basePath}variables[${index}].value`}
+                  disabled={inputSetData?.readonly}
                   label=""
                 />
               ) : (
