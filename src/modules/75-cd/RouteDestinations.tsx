@@ -20,7 +20,8 @@ import {
   delegateConfigProps,
   userPathProps,
   userGroupPathProps,
-  serviceAccountProps
+  serviceAccountProps,
+  servicePathProps
 } from '@common/utils/routeUtils'
 import type {
   PipelinePathProps,
@@ -67,6 +68,7 @@ import TriggersDetailPage from '@pipeline/pages/triggers/TriggersDetailPage'
 import CreateConnectorFromYamlPage from '@connectors/pages/createConnectorFromYaml/CreateConnectorFromYamlPage'
 import CreateSecretFromYamlPage from '@secrets/pages/createSecretFromYaml/CreateSecretFromYamlPage'
 import ServiceDetailPage from '@dashboards/pages/ServiceDetailPage/ServiceDetailPage'
+import ServiceDetails from '@dashboards/components/ServiceDetails/ServiceDetails'
 
 import './components/PipelineSteps'
 import './components/PipelineStudio/DeployStage'
@@ -216,6 +218,18 @@ export default (
       path={routes.toServices({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
     >
       <ServiceDetailPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toServiceDetails({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...pipelineModuleParams,
+        ...servicePathProps
+      })}
+    >
+      <ServiceDetails />
     </RouteWithLayout>
     <RouteWithLayout
       sidebarProps={CDSideNavProps}

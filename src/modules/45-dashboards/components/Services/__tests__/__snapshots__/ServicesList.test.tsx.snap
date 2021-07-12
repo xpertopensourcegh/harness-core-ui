@@ -205,7 +205,7 @@ exports[`ServicesList render 1`] = `
         class="body"
       >
         <div
-          class="row card"
+          class="row card clickable"
           role="row"
         >
           <div

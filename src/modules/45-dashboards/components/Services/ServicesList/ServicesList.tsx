@@ -1,6 +1,9 @@
-import React, { useMemo } from 'react'
+import React, { useCallback, useMemo } from 'react'
+import { useHistory, useParams } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
 import { Color, Layout, Text } from '@wings-software/uicore'
+import routes from '@common/RouteDefinitions'
+import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { DashboardList } from '@dashboards/components/DashboardList/DashboardList'
 import type { DashboardListProps } from '@dashboards/components/DashboardList/DashboardList'
 import type { ChangeValue } from '@dashboards/components/Services/DeploymentsWidget/DeploymentsWidget'
@@ -177,6 +180,9 @@ const RenderLastDeployment: Renderer<CellProps<ServiceListItem>> = ({ row }) => 
 export const ServicesList: React.FC<ServicesListProps> = props => {
   const { total, data, totalItems, totalPages } = props
   const { getString } = useStrings()
+  const { accountId, orgIdentifier, projectIdentifier, module } = useParams<ProjectPathProps & ModulePathParams>()
+  const history = useHistory()
+
   const ServiceListHeaderCustomPrimary = useMemo(
     () => () =>
       (
@@ -237,12 +243,22 @@ export const ServicesList: React.FC<ServicesListProps> = props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [data]
   )
+
+  const goToServiceDetails = useCallback(
+    ({ id: serviceId }: ServiceListItem): void => {
+      history.push(routes.toServiceDetails({ accountId, orgIdentifier, projectIdentifier, serviceId, module }))
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [accountId, orgIdentifier, projectIdentifier, module]
+  )
+
   const dashboardListProps: DashboardListProps<ServiceListItem> = {
     columns,
     data,
     totalItems,
     totalPages,
-    HeaderCustomPrimary: ServiceListHeaderCustomPrimary
+    HeaderCustomPrimary: ServiceListHeaderCustomPrimary,
+    onRowClick: goToServiceDetails
   }
   return <DashboardList<ServiceListItem> {...dashboardListProps} />
 }

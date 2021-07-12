@@ -30,7 +30,8 @@ import type {
   ModuleHomeParams,
   InputSetGitQueryParams,
   ModuleCardPathParams,
-  ServiceAccountPathProps
+  ServiceAccountPathProps,
+  ServicePathProps
 } from '@common/interfaces/RouteInterfaces'
 
 const CV_HOME = `/cv/home`
@@ -497,6 +498,10 @@ const routes = {
   toServices: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
       `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/services`
+  ),
+  toServiceDetails: withAccountId(
+    ({ orgIdentifier, projectIdentifier, serviceId, module }: PipelineType<ProjectPathProps & ServicePathProps>) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/services/${serviceId}`
   ),
   toPipelineDetail: withAccountId(
     ({ orgIdentifier, projectIdentifier, pipelineIdentifier, module }: PipelineType<PipelinePathProps>) =>

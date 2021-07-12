@@ -23,7 +23,8 @@ import type {
   ResourceGroupPathProps,
   UserGroupPathProps,
   UserPathProps,
-  ServiceAccountPathProps
+  ServiceAccountPathProps,
+  ServicePathProps
 } from '@common/interfaces/RouteInterfaces'
 
 export const accountPathProps: AccountPathProps = {
@@ -130,6 +131,10 @@ export const segmentPathProps: SegmentPathProps = {
 
 export const targetPathProps: TargetPathProps = {
   targetIdentifier: ':targetIdentifier'
+}
+
+export const servicePathProps: ServicePathProps = {
+  serviceId: ':serviceId'
 }
 
 export function withAccountId<T>(fn: (args: T) => string) {

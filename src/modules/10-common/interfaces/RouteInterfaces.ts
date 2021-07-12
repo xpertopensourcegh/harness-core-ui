@@ -97,6 +97,10 @@ export interface CVDataSourceTypePathProps {
   dataSourceType: string
 }
 
+export interface ServicePathProps {
+  serviceId: string
+}
+
 export type Module =
   | 'ci'
   | 'cd'
