@@ -65,7 +65,7 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
                 </div>
                 <div>
                   <Text width={340} lineClamp={1} style={{ color: Color.GREY_500 }}>
-                    {primaryArtifact?.spec?.imagePath}
+                    <span className={css.noWrap}>{primaryArtifact?.spec?.imagePath}</span>
                   </Text>
                 </div>
                 {overrideSetIdentifier?.length === 0 && !isReadonly && (
@@ -125,7 +125,7 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
                     </div>
                     <div className={css.locationField}>
                       <Text width={340} lineClamp={1} style={{ color: Color.GREY_500 }}>
-                        {sidecar?.spec?.imagePath}
+                        <span className={css.noWrap}>{sidecar?.spec?.imagePath}</span>
                       </Text>
                     </div>
                     {overrideSetIdentifier?.length === 0 && !isReadonly && (
