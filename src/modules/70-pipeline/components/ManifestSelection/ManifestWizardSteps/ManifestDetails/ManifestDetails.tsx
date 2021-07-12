@@ -121,7 +121,10 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
 
   const getRepoName = (): string => {
     let repoName = ''
-    if (getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.RUNTIME) {
+    if (
+      getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.RUNTIME ||
+      getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.EXPRESSION
+    ) {
       repoName = prevStepData?.connectorRef
     } else if (prevStepData?.connectorRef) {
       const connectorScope = getScopeFromValue(initialValues?.spec?.store?.spec?.connectorRef)
@@ -243,7 +246,10 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
             return Yup.string().required(getString('pipeline.manifestType.pathRequired'))
           }),
           repoName: Yup.string().test('repoName', getString('common.validation.repositoryName'), value => {
-            if (connectionType === GitRepoName.Repo) {
+            if (
+              connectionType === GitRepoName.Repo ||
+              getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.EXPRESSION
+            ) {
               return true
             }
             return !isEmpty(value) && value?.length > 0
@@ -254,7 +260,8 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
             ...prevStepData,
             ...formData,
             connectorRef: prevStepData?.connectorRef
-              ? getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.RUNTIME
+              ? getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.RUNTIME ||
+                getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.EXPRESSION
                 ? prevStepData?.connectorRef
                 : prevStepData?.connectorRef?.value
               : prevStepData?.identifier
