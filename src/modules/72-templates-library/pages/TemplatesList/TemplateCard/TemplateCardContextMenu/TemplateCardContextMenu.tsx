@@ -37,7 +37,7 @@ export const TemplateCardContextMenu: React.FC<ContextMenuProps> = ({ template: 
         }}
       />
       <Menu.Item
-        text={getString('templatesLibrary.templatesSettings')}
+        text={getString('templatesLibrary.templateSettings')}
         onClick={(e: React.MouseEvent) => {
           e.stopPropagation()
         }}

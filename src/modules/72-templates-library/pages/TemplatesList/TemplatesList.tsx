@@ -8,6 +8,7 @@ import { TemplatesListHeader } from '@templates-library/pages/TemplatesList/Tepl
 import { TemplatesGridView } from '@templates-library/pages/TemplatesList/TemplatesGridView/TemplatesGridView'
 import templatesMock from '@templates-library/temporary-mock/templates-list.json'
 import { Sort, SortFields } from '@templates-library/pages/TemplatesList/TemplatesListUtils'
+import { TemplateDetails } from '@templates-library/components/TemplateDetails/TemplateDetails'
 
 import css from './TemplatesList.module.scss'
 
@@ -47,6 +48,8 @@ export default function TemplatesList(): React.ReactElement {
 
   // Set Default to LastUpdated
   const [selectedSort, setSelectedSort] = React.useState<SelectOption>(sortOptions[1])
+
+  const [selectedTemplate, setSelectedTemplate] = React.useState<string | undefined>(undefined)
   return (
     <>
       <div className={css.pageheader}>
@@ -103,10 +106,15 @@ export default function TemplatesList(): React.ReactElement {
           <div className={css.noTemplatesSection}>No entry found</div>
         ) : (
           <React.Fragment>
-            <TemplatesGridView gotoPage={/* istanbul ignore next */ pageNumber => setPage(pageNumber)} data={data} />
+            <TemplatesGridView
+              gotoPage={/* istanbul ignore next */ pageNumber => setPage(pageNumber)}
+              data={data}
+              onSelect={setSelectedTemplate}
+            />
           </React.Fragment>
         )}
       </Page.Body>
+      <TemplateDetails templateIdentifier={selectedTemplate} onClose={() => setSelectedTemplate(undefined)} />
     </>
   )
 }

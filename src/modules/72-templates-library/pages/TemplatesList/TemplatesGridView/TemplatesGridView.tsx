@@ -7,9 +7,12 @@ import css from './TemplatesGridView.module.scss'
 interface TemplateGridViewProps {
   data?: TemplatesPageSummaryResponse | null
   gotoPage: (pageNumber: number) => void
+  onSelect: (templateIdentifier: string) => void
 }
 
-export const TemplatesGridView: React.FC<TemplateGridViewProps> = ({ data, gotoPage }): JSX.Element => {
+export const TemplatesGridView: React.FC<TemplateGridViewProps> = (props): JSX.Element => {
+  const { data, gotoPage, onSelect } = props
+
   return (
     <>
       <Container className={css.gridLayout}>
@@ -17,7 +20,7 @@ export const TemplatesGridView: React.FC<TemplateGridViewProps> = ({ data, gotoP
           center
           gutter={25}
           items={data?.content || []}
-          renderItem={(item: TemplatesSummaryResponse) => <TemplateCard template={item} />}
+          renderItem={(item: TemplatesSummaryResponse) => <TemplateCard template={item} onSelect={onSelect} />}
           keyOf={(item: TemplatesSummaryResponse) => item.identifier}
         />
       </Container>

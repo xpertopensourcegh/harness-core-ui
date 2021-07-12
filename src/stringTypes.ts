@@ -1966,8 +1966,11 @@ export interface StringsMap {
   'templatesLibrary.copyToNewPipeline': string
   'templatesLibrary.openEditTemplate': string
   'templatesLibrary.previewTemplate': string
-  'templatesLibrary.templatesSettings': string
+  'templatesLibrary.referencedBy': string
+  'templatesLibrary.templateInputs': string
+  'templatesLibrary.templateSettings': string
   'templatesLibrary.useTemplate': string
+  'templatesLibrary.versionLog': string
   'cd.addInline': string
   'cd.addRemote': string
   'cd.addTFVarFileLabel': string

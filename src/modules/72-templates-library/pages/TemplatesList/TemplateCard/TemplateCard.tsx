@@ -11,9 +11,12 @@ import css from './TemplateCard.module.scss'
 
 export interface TemplateCardProps {
   template: TemplatesSummaryResponse
+  onSelect: (templateIdentifier: string) => void
 }
 
-export const TemplateCard: React.FC<TemplateCardProps> = ({ template }): JSX.Element => {
+export const TemplateCard: React.FC<TemplateCardProps> = (props): JSX.Element => {
+  const { template, onSelect } = props
+
   // const { module, accountId, projectIdentifier, orgIdentifier, } = useParams<
   //   PipelineType<{
   //     orgIdentifier: string
@@ -25,7 +28,7 @@ export const TemplateCard: React.FC<TemplateCardProps> = ({ template }): JSX.Ele
   //const { getString } = useStrings()
 
   return (
-    <Card className={css.templateCard} interactive /* onClick={() => goToPipelineStudio(template)}*/>
+    <Card className={css.templateCard} interactive onClick={() => onSelect(template.identifier!)}>
       <div className={cx(css.sectionMargin, css.sectionBorder)}>
         <Container padding={{ bottom: 'medium' }} className={css.templateHeader}>
           <span>
