@@ -1775,6 +1775,7 @@ export interface StringsMap {
   'pipeline.stepConfigHasChanges': string
   'pipeline.stepDetails': string
   'pipeline.stepLabel': string
+  'pipeline.tagDependencyRequired': string
   'pipeline.targets.title': string
   'pipeline.testsReports.callgraphTitle': string
   'pipeline.testsReports.calls': string

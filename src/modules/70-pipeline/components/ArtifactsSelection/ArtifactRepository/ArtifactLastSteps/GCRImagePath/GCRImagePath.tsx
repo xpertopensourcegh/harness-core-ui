@@ -24,6 +24,7 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 import type { GitQueryParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
 import { EXPRESSION_STRING } from '@pipeline/utils/constants'
+import { getHelpeTextForTags } from '@pipeline/utils/stageHelpers'
 import { ImagePathProps, ImagePathTypes, TagTypes } from '../../../ArtifactInterface'
 import { ArtifactIdentifierValidation, tagOptions } from '../../../ArtifactHelper'
 import css from '../../GCRArtifact.module.scss'
@@ -122,6 +123,8 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
     if (
       lastQueryData.registryHostname.length &&
       lastQueryData.imagePath.length &&
+      getConnectorIdValue().length &&
+      getMultiTypeFromValue(getConnectorIdValue()) === MultiTypeInputType.FIXED &&
       getMultiTypeFromValue(lastQueryData.registryHostname) === MultiTypeInputType.FIXED &&
       getMultiTypeFromValue(lastQueryData.imagePath) === MultiTypeInputType.FIXED
     ) {
@@ -162,15 +165,18 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
     }
   }
   const fetchTags = (imagePath = '', registryHostname = ''): void => {
-    if (
+    if (canFetchTags(imagePath, registryHostname)) {
+      setLastQueryData({ imagePath, registryHostname })
+    }
+  }
+
+  const canFetchTags = (imagePath: string, registryHostname: string): boolean =>
+    !!(
       imagePath.length &&
       getMultiTypeFromValue(imagePath) === MultiTypeInputType.FIXED &&
       registryHostname.length &&
       (lastQueryData.imagePath !== imagePath || lastQueryData.registryHostname !== registryHostname)
-    ) {
-      setLastQueryData({ imagePath, registryHostname })
-    }
-  }
+    )
 
   const getConnectorIdValue = (): string => {
     if (getMultiTypeFromValue(prevStepData?.connectorId) !== MultiTypeInputType.FIXED) {
@@ -257,7 +263,10 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
                   selectItems={gcrUrlList}
                   useValue
                   multiTypeInputProps={{
-                    onChange: () => resetTag(formik),
+                    onChange: () => {
+                      tagList.length && setTagList([])
+                      resetTag(formik)
+                    },
                     expressions,
                     selectProps: {
                       allowCreatingNewItems: true,
@@ -290,7 +299,10 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
                   name="imagePath"
                   placeholder={getString('pipeline.artifactsSelection.existingDocker.imageNamePlaceholder')}
                   multiTextInputProps={{ expressions }}
-                  onChange={() => resetTag(formik)}
+                  onChange={() => {
+                    tagList.length && setTagList([])
+                    resetTag(formik)
+                  }}
                 />
                 {getMultiTypeFromValue(formik.values.imagePath) === MultiTypeInputType.RUNTIME && (
                   <div className={css.configureOptions}>
@@ -323,6 +335,17 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
                   <FormInput.MultiTypeInput
                     selectItems={tags}
                     disabled={!formik.values?.imagePath?.length}
+                    helperText={
+                      getMultiTypeFromValue(formik.values?.tag) === MultiTypeInputType.FIXED &&
+                      getHelpeTextForTags(
+                        {
+                          imagePath: formik.values?.imagePath,
+                          registryHostname: formik.values?.registryHostname || '',
+                          connectorRef: getConnectorIdValue()
+                        },
+                        getString
+                      )
+                    }
                     multiTypeInputProps={{
                       expressions,
                       selectProps: {

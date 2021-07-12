@@ -1,6 +1,8 @@
 import { isEmpty } from 'lodash-es'
+import { getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import type { InputSetDTO } from '@pipeline/components/InputSetForm/InputSetForm'
 import type { GraphLayoutNode, PipelineExecutionSummary } from 'services/pipeline-ng'
+import type { StringKeys } from 'framework/strings'
 
 export enum StageType {
   DEPLOY = 'Deployment',
@@ -36,4 +38,38 @@ export function hasCDStage(pipelineExecution?: PipelineExecutionSummary): boolea
 
 export function hasCIStage(pipelineExecution?: PipelineExecutionSummary): boolean {
   return pipelineExecution?.modules?.includes('ci') || !isEmpty(pipelineExecution?.moduleInfo?.ci)
+}
+
+export const getHelpeTextForTags = (
+  fields: {
+    imagePath: string
+    region?: string
+    connectorRef: string
+    registryHostname?: string
+  },
+
+  getString: (key: StringKeys) => string
+): string => {
+  const { connectorRef, region, imagePath, registryHostname } = fields
+  const invalidFields = []
+  if (!connectorRef || getMultiTypeFromValue(connectorRef) === MultiTypeInputType.RUNTIME) {
+    invalidFields.push(getString('connector'))
+  }
+  if (region !== undefined && (!region || getMultiTypeFromValue(region) === MultiTypeInputType.RUNTIME)) {
+    invalidFields.push(getString('regionLabel'))
+  }
+  if (
+    registryHostname !== undefined &&
+    (!registryHostname || getMultiTypeFromValue(registryHostname) === MultiTypeInputType.RUNTIME)
+  ) {
+    invalidFields.push(getString('connectors.GCR.registryHostname'))
+  }
+  if (!imagePath || getMultiTypeFromValue(imagePath) === MultiTypeInputType.RUNTIME) {
+    invalidFields.push(getString('pipeline.imagePathLabel'))
+  }
+
+  const helpText = `${invalidFields.length > 1 ? invalidFields.join(', ') : invalidFields[0]} ${
+    invalidFields.length > 1 ? ' are ' : ' is '
+  } ${getString('pipeline.tagDependencyRequired')}`
+  return invalidFields.length > 0 ? helpText : ''
 }
