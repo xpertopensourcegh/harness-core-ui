@@ -283,6 +283,7 @@ const K8sApplyInputStep: React.FC<K8sApplyProps> = ({ inputSetData, readonly }) 
               expressions,
               disabled: readonly
             }}
+            className={stepCss.checkbox}
             label={getString('pipelineSteps.timeoutLabel')}
             name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}timeout`}
             disabled={readonly}
@@ -291,7 +292,7 @@ const K8sApplyInputStep: React.FC<K8sApplyProps> = ({ inputSetData, readonly }) 
       )}
 
       {getMultiTypeFromValue(inputSetData?.template?.spec?.skipDryRun) === MultiTypeInputType.RUNTIME && (
-        <div className={cx(stepCss.formGroup, stepCss.sm)}>
+        <div className={cx(stepCss.formGroup, stepCss.md)}>
           <FormMultiTypeCheckboxField
             multiTypeTextbox={{
               expressions,
