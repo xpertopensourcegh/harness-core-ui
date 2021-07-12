@@ -221,6 +221,7 @@ export interface StringsMap {
   'common.input': string
   'common.jexlExpression': string
   'common.labelTestConnection': string
+  'common.last7days': string
   'common.lastModifiedTime': string
   'common.latest': string
   'common.launchFirstGen': string
@@ -1300,21 +1301,23 @@ export interface StringsMap {
   'dashboards.createModal.submitFail': string
   'dashboards.createModal.view': string
   'dashboards.homePage.title': string
+  'dashboards.serviceDashboard.3months': string
+  'dashboards.serviceDashboard.6months': string
   'dashboards.serviceDashboard.activeServiceInstancesLabel': string
-  'dashboards.serviceDashboard.day': string
   'dashboards.serviceDashboard.executionId': string
   'dashboards.serviceDashboard.frequency': string
   'dashboards.serviceDashboard.in': string
   'dashboards.serviceDashboard.lastDeployment': string
   'dashboards.serviceDashboard.month': string
-  'dashboards.serviceDashboard.months': string
+  'dashboards.serviceDashboard.mostActiveServices': string
   'dashboards.serviceDashboard.noDeployments': string
+  'dashboards.serviceDashboard.noServices': string
   'dashboards.serviceDashboard.nonProd': string
   'dashboards.serviceDashboard.prod': string
   'dashboards.serviceDashboard.serviceInstances': string
   'dashboards.serviceDashboard.servicesInLast': string
   'dashboards.serviceDashboard.totalServices': string
-  'dashboards.serviceDashboard.week': string
+  'dashboards.serviceDashboard.year': string
   'dashboards.sideNav.byHarness': string
   'dashboards.sideNav.custom': string
   'dashboards.sideNav.noDashboard': string
@@ -2386,7 +2389,6 @@ export interface StringsMap {
   'cf.auditLogs.events.updateVariation': string
   'cf.auditLogs.flagCreated': string
   'cf.auditLogs.flagUpdated': string
-  'cf.auditLogs.last7days': string
   'cf.auditLogs.moduleFF': string
   'cf.auditLogs.searchPlaceholder': string
   'cf.auditLogs.segmentCreated': string

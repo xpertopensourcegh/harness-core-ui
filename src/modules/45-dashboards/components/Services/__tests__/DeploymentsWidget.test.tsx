@@ -119,6 +119,6 @@ describe('DeploymentsWidget', () => {
     )
 
     expect(refetch).toBeCalledTimes(0)
-    // Todo - Jasmeet - update this test when date picker component is integrated in deploment widget
+    // Todo - Jasmeet - update this test when date picker component is integrated in deployment widget
   })
 })

@@ -1,6 +1,4 @@
-import { Color } from '@wings-software/uicore'
 import type { ServiceInstanceWidgetProps } from './components/Services/ServiceInstancesWidget/ServiceInstancesWidget'
-import type { MostActiveServicesWidgetProps } from './components/Services/MostActiveServicesWidget/MostActiveServicesWidget'
 import { DeploymentStatus } from './components/Services/ServicesList/ServicesList'
 import type { ServicesListProps } from './components/Services/ServicesList/ServicesList'
 
@@ -13,70 +11,29 @@ export const ServiceInstancesWidgetMock: ServiceInstanceWidgetProps = {
   prodCount: 20
 }
 
-export const MostActiveServicesWidgetMock: MostActiveServicesWidgetProps = {
-  title: 'Most active services',
-  data: [
-    {
-      label: 'Login',
-      value: 23,
-      color: Color.RED_800,
-      change: 5
-    },
-    {
-      label: 'Backend',
-      value: 20,
-      color: Color.RED_700,
-      change: 5
-    },
-    {
-      label: 'Portal',
-      value: 16,
-      color: Color.RED_500,
-      change: 5
-    },
-    {
-      label: 'Test',
-      value: 12,
-      color: Color.ORANGE_900,
-      change: 5
-    },
-    {
-      label: 'Others',
-      value: 8,
-      color: Color.ORANGE_400,
-      change: 5
-    },
-    {
-      label: 'Login',
-      value: 5,
-      color: Color.ORANGE_400,
-      change: -5
-    },
-    {
-      label: 'Backend',
-      value: 4,
-      color: Color.ORANGE_400,
-      change: 5
-    },
-    {
-      label: 'Portal',
-      value: 3,
-      color: Color.ORANGE_400,
-      change: -5
-    },
-    {
-      label: 'Test',
-      value: 2,
-      color: Color.ORANGE_400,
-      change: 5
-    },
-    {
-      label: 'Others',
-      value: 1,
-      color: Color.ORANGE_400,
-      change: 5
-    }
-  ]
+export const mostActiveServiceInfo = {
+  data: {
+    workloadDeploymentInfoList: [
+      {
+        serviceName: 'Service1',
+        serviceId: 'Service1Id',
+        totalDeployments: 100,
+        totalSuccess: 37,
+        totalFailure: 63,
+        rateSuccess: 45.4,
+        failureRateChangeRate: 600.2
+      },
+      {
+        serviceName: 'Service2',
+        serviceId: 'Service2Id',
+        totalDeployments: 200,
+        totalSuccess: 137,
+        totalFailure: 163,
+        rateSuccess: 435.4,
+        failureRateChangeRate: 620.2
+      }
+    ]
+  }
 }
 
 export const deploymentsInfo = {

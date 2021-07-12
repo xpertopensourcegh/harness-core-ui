@@ -14,5 +14,6 @@ declare const styles: {
   readonly weightedStackContainer: string
   readonly progressBar: string
   readonly label: string
+  readonly mostActiveServicesWidgetEmpty: string
 }
 export default styles

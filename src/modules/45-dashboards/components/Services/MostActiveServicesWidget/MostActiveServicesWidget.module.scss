@@ -56,4 +56,9 @@
       font-size: var(--font-size-xsmall) !important;
     }
   }
+
+  .mostActiveServicesWidgetEmpty {
+    flex-grow: 1;
+    text-align: center;
+  }
 }

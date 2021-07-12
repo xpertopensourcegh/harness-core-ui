@@ -26,7 +26,7 @@ exports[`DeploymentsWidget should render DeploymentsWidget 1`] = `
               <span
                 class="bp3-button-text"
               >
-                dashboards.serviceDashboard.months
+                dashboards.serviceDashboard.6months
               </span>
               <span
                 class="bp3-icon bp3-icon-caret-down StyledProps--main"

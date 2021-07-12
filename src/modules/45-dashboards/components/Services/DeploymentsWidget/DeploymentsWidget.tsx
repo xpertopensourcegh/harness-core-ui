@@ -6,10 +6,7 @@ import { useStrings } from 'framework/strings'
 import { Ticker, TickerVerticalAlignment } from '@common/components/Ticker/Ticker'
 import {
   getBucketSizeForTimeRange,
-  getMillisecondsEquivalentForTimeRange,
-  TimeRangeSelector,
-  TIME_RANGE_ENUMS,
-  useTimeRangeOptions
+  TimeRangeSelector
 } from '@dashboards/components/TimeRangeSelector/TimeRangeSelector'
 import { PageSpinner, TimeSeriesAreaChart } from '@common/components'
 import type { TimeSeriesAreaChartProps } from '@common/components/TimeSeriesAreaChart/TimeSeriesAreaChart'
@@ -52,18 +49,16 @@ export const DeploymentsWidget: React.FC<DeploymentWidgetProps> = props => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { serviceIdentifier } = props
   const { timeRange, setTimeRange } = useContext(DeploymentsTimeRangeContext)
-  const TIME_RANGE_OPTIONS: Record<TIME_RANGE_ENUMS, string> = useTimeRangeOptions()
 
   const queryParams: GetServiceDeploymentsInfoQueryParams = useMemo(() => {
-    const now = Date.now()
     return {
       accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier,
       serviceIdentifier,
-      startTime: now - getMillisecondsEquivalentForTimeRange(timeRange),
-      endTime: now,
-      bucketSizeInDays: getBucketSizeForTimeRange(timeRange)
+      startTime: timeRange?.range[0]?.getTime() || 0,
+      endTime: timeRange?.range[1]?.getTime() || 0,
+      bucketSizeInDays: getBucketSizeForTimeRange(timeRange?.range)
     }
   }, [accountId, orgIdentifier, projectIdentifier, serviceIdentifier, timeRange])
 
@@ -133,7 +128,7 @@ export const DeploymentsWidget: React.FC<DeploymentWidgetProps> = props => {
       <Card className={css.card}>
         <Layout.Vertical height={'100%'}>
           <Container className={css.timeRange}>
-            <TimeRangeSelector mode={timeRange} setMode={setTimeRange} />
+            <TimeRangeSelector timeRange={timeRange?.range} setTimeRange={setTimeRange} />
           </Container>
           {children}
         </Layout.Vertical>
@@ -167,7 +162,7 @@ export const DeploymentsWidget: React.FC<DeploymentWidgetProps> = props => {
           <img width="150" height="100" src={DeploymentsEmptyState} style={{ alignSelf: 'center' }} />
           <Text color={Color.GREY_400} margin={{ top: 'medium' }}>
             {getString('dashboards.serviceDashboard.noDeployments', {
-              timeRange: TIME_RANGE_OPTIONS[timeRange].toLowerCase()
+              timeRange: timeRange?.label
             })}
           </Text>
         </Layout.Vertical>
@@ -179,7 +174,7 @@ export const DeploymentsWidget: React.FC<DeploymentWidgetProps> = props => {
   const { deployments, failureRate, frequency, data, dateLabels } = parseData(serviceDeploymentsInfo.data)
 
   const customChartOptions: Highcharts.Options = {
-    chart: { height: 175, spacing: [25, 0, 25, 0] },
+    chart: { height: 170, spacing: [25, 0, 25, 0] },
     legend: { padding: 0 },
     xAxis: {
       allowDecimals: false,
@@ -232,7 +227,7 @@ export const DeploymentsWidget: React.FC<DeploymentWidgetProps> = props => {
                 </Text>
                 <Text font={{ size: 'xsmall', weight: 'semi-bold' }} color={Color.GREY_400}>
                   {getString('dashboards.serviceDashboard.in', {
-                    timeRange: TIME_RANGE_OPTIONS[timeRange].toLowerCase()
+                    timeRange: timeRange?.label
                   })}
                 </Text>
               </Layout.Vertical>

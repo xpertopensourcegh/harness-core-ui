@@ -22,10 +22,10 @@ createModal:
 serviceDashboard:
   activeServiceInstancesLabel: 'Active Service Instances'
   servicesInLast: 'Services added in {{period}}'
-  day: 'Last 1 day'
-  week: 'Last 1 week'
-  month: 'Last 1 month'
-  months: 'Last 6 months'
+  month: 'Last 30 days'
+  3months: 'Last 3 months'
+  6months: 'Last 6 months'
+  year: 'Last 1 year'
   serviceInstances: 'Service Instances'
   nonProd: 'Non Prod'
   prod: 'Prod'
@@ -35,3 +35,5 @@ serviceDashboard:
   lastDeployment: 'last deployment'
   executionId: 'Execution Id: {{id}}'
   noDeployments: No Deployments in {{timeRange}}
+  noServices: No Services in {{timeRange}} for given criteria
+  mostActiveServices: Most active services

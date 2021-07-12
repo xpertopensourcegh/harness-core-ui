@@ -319,7 +319,6 @@ environments:
 auditLogs:
   title: Audit Logs
   summaryHeading: 'Module: Feature Flags • Project: {{project}} • Environment: {{environment}}'
-  last7days: Last 7 days
   searchPlaceholder: Search Activity
   viewEventSummary: View Event Summary
   timePST: 'TIME (PST)'

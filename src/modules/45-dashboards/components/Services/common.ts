@@ -1,7 +1,7 @@
 import { createContext, Dispatch, SetStateAction, useContext } from 'react'
 import { noop } from 'lodash-es'
+import type { DateRange } from '@blueprintjs/datetime'
 import type { Module } from '@common/interfaces/RouteInterfaces'
-import { TIME_RANGE_ENUMS } from '@dashboards/components/TimeRangeSelector/TimeRangeSelector'
 
 export enum Views {
   LIST,
@@ -28,10 +28,10 @@ export const ServiceStoreContext = createContext({
 export const useServiceStore = (): ServiceStore => useContext(ServiceStoreContext)
 
 export const DeploymentsTimeRangeContext = createContext<{
-  timeRange: TIME_RANGE_ENUMS
-  setTimeRange: (timeRange: TIME_RANGE_ENUMS) => void
+  timeRange: { range: DateRange; label: string } | null
+  setTimeRange: (timeRange: { range: DateRange; label: string }) => void
 }>({
-  timeRange: TIME_RANGE_ENUMS.SIX_MONTHS,
+  timeRange: null,
   setTimeRange: noop
 })
 
