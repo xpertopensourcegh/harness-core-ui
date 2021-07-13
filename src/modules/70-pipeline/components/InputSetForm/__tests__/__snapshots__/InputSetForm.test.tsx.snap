@@ -568,7 +568,9 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                   <div
                                     class="formGroup md"
                                   >
-                                    <div>
+                                    <div
+                                      class="connectorLabel"
+                                    >
                                       <div
                                         class="StyledProps--font StyledProps--main"
                                         style="margin-bottom: 5px;"
@@ -1927,7 +1929,9 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                   <div
                                     class="formGroup md"
                                   >
-                                    <div>
+                                    <div
+                                      class="connectorLabel"
+                                    >
                                       <div
                                         class="StyledProps--font StyledProps--main"
                                         style="margin-bottom: 5px;"

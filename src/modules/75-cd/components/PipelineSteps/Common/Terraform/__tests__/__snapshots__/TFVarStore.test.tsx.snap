@@ -456,6 +456,7 @@ exports[`Terraform Var Store tests on edit mode for tf var store  1`] = `
           class="formContainerStepOne"
         >
           <div
+            class="connectorLabel"
             style="margin-bottom: 10px;"
           >
             <div
@@ -832,6 +833,7 @@ exports[`Terraform Var Store tests select one of the types 1`] = `
           class="formContainerStepOne"
         >
           <div
+            class="connectorLabel"
             style="margin-bottom: 10px;"
           >
             <div

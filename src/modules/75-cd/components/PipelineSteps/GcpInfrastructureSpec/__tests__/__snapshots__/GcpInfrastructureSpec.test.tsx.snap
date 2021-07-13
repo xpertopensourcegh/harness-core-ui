@@ -11,7 +11,9 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view for inputse
       <div
         class="formGroup md"
       >
-        <div>
+        <div
+          class="connectorLabel"
+        >
           <div
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
@@ -385,7 +387,9 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with empty 
           <div
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main formRow"
           >
-            <div>
+            <div
+              class="connectorLabel"
+            >
               <div
                 class="StyledProps--font StyledProps--main"
                 style="margin-bottom: 5px;"
@@ -828,7 +832,9 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with runtim
           <div
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main formRow"
           >
-            <div>
+            <div
+              class="connectorLabel"
+            >
               <div
                 class="StyledProps--font StyledProps--main"
                 style="margin-bottom: 5px;"
@@ -1283,7 +1289,9 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with values
           <div
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main formRow"
           >
-            <div>
+            <div
+              class="connectorLabel"
+            >
               <div
                 class="StyledProps--font StyledProps--main"
                 style="margin-bottom: 5px;"

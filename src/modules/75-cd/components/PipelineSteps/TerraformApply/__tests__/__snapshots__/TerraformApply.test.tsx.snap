@@ -2527,6 +2527,7 @@ exports[`Test TerraformApply should be able to edit inline config 1`] = `
       >
         <form>
           <div
+            class="connectorLabel"
             style="margin-bottom: 10px;"
           >
             <div

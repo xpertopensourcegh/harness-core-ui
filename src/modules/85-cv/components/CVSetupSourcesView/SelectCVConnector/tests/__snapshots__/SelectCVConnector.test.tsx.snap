@@ -47,7 +47,9 @@ exports[`Unit tests for SelectCVConnector Ensure that component renders with pas
         <div
           class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
         >
-          <div>
+          <div
+            class="connectorLabel"
+          >
             <div
               class="StyledProps--font StyledProps--main"
               style="margin-bottom: 5px;"

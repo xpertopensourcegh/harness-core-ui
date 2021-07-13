@@ -1,4 +1,5 @@
 import React from 'react'
+import cx from 'classnames'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { Text, TextInput, Card, Button, Intent, FormInput, MultiTypeInputType } from '@wings-software/uicore'
 import { get, isEmpty } from 'lodash-es'
@@ -129,7 +130,7 @@ export const List = (props: ListProps): React.ReactElement => {
 
   return (
     <div style={style}>
-      <div className={labelClassName}>{label}</div>
+      <div className={cx(css.label, labelClassName)}>{label}</div>
       <Card style={{ width: '100%' }}>
         {value.map(({ id, value: valueValue }, index: number) => {
           const valueError = get(error, `[${index}].value`)

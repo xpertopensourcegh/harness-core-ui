@@ -274,7 +274,9 @@ exports[`BuildInfraSpecifications snapshot test can add new label 1`] = `
               <div
                 class="bp3-card bp3-elevation-0 Card--card sectionCard"
               >
-                <div>
+                <div
+                  class="connectorLabel"
+                >
                   <div
                     class="StyledProps--font StyledProps--main"
                     style="margin-bottom: 5px;"
@@ -1205,7 +1207,9 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
               <div
                 class="bp3-card bp3-elevation-0 Card--card sectionCard"
               >
-                <div>
+                <div
+                  class="connectorLabel"
+                >
                   <div
                     class="StyledProps--font StyledProps--main"
                     style="margin-bottom: 5px;"

@@ -37,30 +37,32 @@ export default function TFRemoteSection(
 
   return (
     <>
-      <Container flex width={120}>
+      <Container flex width={120} padding={{ bottom: 'small' }}>
         <Text font={{ weight: 'bold' }}>{getString('cd.varFile')}:</Text>
         {remoteVar.varFile?.identifier}
       </Container>
 
       {getMultiTypeFromValue(remoteVar.varFile?.spec?.store?.spec?.connectorRef) === MultiTypeInputType.RUNTIME && (
-        <FormMultiTypeConnectorField
-          accountIdentifier={accountId}
-          selected={get(
-            initialValues,
-            `${path}.spec.configuration.varFiles[${index}].varFile.spec.store.spec.connectorRef`,
-            ''
-          )}
-          projectIdentifier={projectIdentifier}
-          orgIdentifier={orgIdentifier}
-          width={400}
-          type={[remoteVar?.varFile?.spec?.store?.type]}
-          name={`${path}.spec.configuration.varFiles[${index}].varFile.spec.store.spec.connectorRef`}
-          label={getString('connector')}
-          placeholder={getString('select')}
-          disabled={readonly}
-          setRefValue
-          gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
-        />
+        <div className={cx(stepCss.formGroup, stepCss.md)}>
+          <FormMultiTypeConnectorField
+            accountIdentifier={accountId}
+            selected={get(
+              initialValues,
+              `${path}.spec.configuration.varFiles[${index}].varFile.spec.store.spec.connectorRef`,
+              ''
+            )}
+            projectIdentifier={projectIdentifier}
+            orgIdentifier={orgIdentifier}
+            width={445}
+            type={[remoteVar?.varFile?.spec?.store?.type]}
+            name={`${path}.spec.configuration.varFiles[${index}].varFile.spec.store.spec.connectorRef`}
+            label={getString('connector')}
+            placeholder={getString('select')}
+            disabled={readonly}
+            setRefValue
+            gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
+          />
+        </div>
       )}
 
       {getMultiTypeFromValue(remoteVar.varFile?.spec?.store?.spec?.branch) === MultiTypeInputType.RUNTIME && (
@@ -88,13 +90,15 @@ export default function TFRemoteSection(
         </div>
       )}
       {getMultiTypeFromValue(remoteVar.varFile?.spec?.store?.spec?.paths) === MultiTypeInputType.RUNTIME && (
-        <List
-          label={getString('filePaths')}
-          name={`${path}.spec.configuration.varFiles[${index}].varFile.spec.store.spec.paths`}
-          disabled={readonly}
-          style={{ marginBottom: 'var(--spacing-small)' }}
-          isNameOfArrayType
-        />
+        <div className={cx(stepCss.formGroup, stepCss.md)}>
+          <List
+            label={getString('filePaths')}
+            name={`${path}.spec.configuration.varFiles[${index}].varFile.spec.store.spec.paths`}
+            disabled={readonly}
+            style={{ marginBottom: 'var(--spacing-small)' }}
+            isNameOfArrayType
+          />
+        </div>
       )}
     </>
   )

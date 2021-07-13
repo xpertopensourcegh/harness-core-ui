@@ -823,7 +823,9 @@ exports[`Jira Approval tests Edit stage - readonly: edit stage view readonly 1`]
     <div
       class="formGroup lg"
     >
-      <div>
+      <div
+        class="connectorLabel"
+      >
         <div
           class="StyledProps--font StyledProps--main"
           style="margin-bottom: 5px;"

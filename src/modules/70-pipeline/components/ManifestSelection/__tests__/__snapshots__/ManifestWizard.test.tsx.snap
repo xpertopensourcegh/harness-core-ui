@@ -945,7 +945,9 @@ exports[`ManifestSelection tests new connector view works correctly 1`] = `
               <div
                 class="connectorContainer"
               >
-                <div>
+                <div
+                  class="connectorLabel"
+                >
                   <div
                     class="StyledProps--font StyledProps--main"
                     style="margin-bottom: 5px;"

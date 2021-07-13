@@ -60,12 +60,11 @@ export default function TerraformInputStep<T extends TerraformData = TerraformDa
           />
         </div>
       )}
-      {inputSetData?.template?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef && (
-        <Label style={{ color: Color.GREY_900 }}>{getString('cd.configurationFile')}</Label>
-      )}
       <ConfigInputs {...props} />
       {inputSetData?.template?.spec?.configuration?.spec?.varFiles?.length && (
-        <Label style={{ color: Color.GREY_900 }}>{getString('cd.terraformVarFiles')}</Label>
+        <Label style={{ color: Color.GREY_900, paddingBottom: 'var(--spacing-medium)' }}>
+          {getString('cd.terraformVarFiles')}
+        </Label>
       )}
       {inputSetData?.template?.spec?.configuration?.spec?.varFiles?.map((varFile: any, index) => {
         if (varFile?.varFile?.type === TerraformStoreTypes.Inline) {

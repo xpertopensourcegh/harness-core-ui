@@ -358,7 +358,9 @@ exports[`AppDMonitoringSOurce render initial state 1`] = `
                     <div
                       class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
                     >
-                      <div>
+                      <div
+                        class="connectorLabel"
+                      >
                         <div
                           class="StyledProps--font StyledProps--main"
                           style="margin-bottom: 5px;"

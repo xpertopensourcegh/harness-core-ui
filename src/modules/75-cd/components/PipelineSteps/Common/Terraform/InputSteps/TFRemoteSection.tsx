@@ -39,7 +39,9 @@ export default function TFRemoteSection<T extends TerraformData = TerraformData>
   return (
     <>
       <Container flex width={120}>
-        <Text font={{ weight: 'bold' }}>{getString('cd.varFile')}:</Text>
+        <Text font={{ weight: 'bold' }} padding={{ bottom: 'small' }}>
+          {getString('cd.varFile')}:
+        </Text>
         {remoteVar?.varFile?.identifier}
       </Container>
 

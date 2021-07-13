@@ -274,6 +274,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
     class="formGroup md"
   >
     <div
+      class="connectorLabel"
       style="margin-bottom: 10px;"
     >
       <div
@@ -1706,6 +1707,7 @@ exports[`Test TerraformPlan should render edit view as edit step 1`] = `
     class="formGroup md"
   >
     <div
+      class="connectorLabel"
       style="margin-bottom: 10px;"
     >
       <div
@@ -2183,6 +2185,7 @@ exports[`Test TerraformPlan should render edit view as new step 1`] = `
     class="formGroup md"
   >
     <div
+      class="connectorLabel"
       style="margin-bottom: 10px;"
     >
       <div
@@ -2660,6 +2663,7 @@ exports[`Test TerraformPlan should render edit view as new step 2`] = `
     class="formGroup md"
   >
     <div
+      class="connectorLabel"
       style="margin-bottom: 10px;"
     >
       <div
@@ -3139,6 +3143,7 @@ exports[`Test TerraformPlan should render edit view with command Destroy 1`] = `
     class="formGroup md"
   >
     <div
+      class="connectorLabel"
       style="margin-bottom: 10px;"
     >
       <div
@@ -3503,7 +3508,9 @@ exports[`Test TerraformPlan should render input set view 1`] = `
         <div
           class="formGroup md"
         >
-          <div>
+          <div
+            class="connectorLabel"
+          >
             <div
               class="StyledProps--font StyledProps--main"
               style="margin-bottom: 5px;"
@@ -4068,6 +4075,7 @@ exports[`Test TerraformPlan should submit form for terraform plan 1`] = `
     class="formGroup md"
   >
     <div
+      class="connectorLabel"
       style="margin-bottom: 10px;"
     >
       <div

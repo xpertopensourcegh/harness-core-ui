@@ -167,6 +167,7 @@ exports[`Plugin Step Edit View edit mode works 1`] = `
             </div>
           </div>
           <div
+            class="connectorLabel"
             style="margin-bottom: 0px;"
           >
             <div
@@ -1478,6 +1479,7 @@ exports[`Plugin Step Edit View renders runtime inputs 1`] = `
             </div>
           </div>
           <div
+            class="connectorLabel"
             style="margin-bottom: 0px;"
           >
             <div
@@ -2480,6 +2482,7 @@ exports[`Plugin Step Edit View should render properly 1`] = `
             </div>
           </div>
           <div
+            class="connectorLabel"
             style="margin-bottom: 0px;"
           >
             <div
@@ -3468,7 +3471,9 @@ exports[`Plugin Step InputSet View should render all fields 1`] = `
             </div>
           </div>
         </div>
-        <div>
+        <div
+          class="connectorLabel"
+        >
           <div
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"

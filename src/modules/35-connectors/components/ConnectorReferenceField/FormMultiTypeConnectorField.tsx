@@ -38,6 +38,7 @@ import {
   getSelectedRenderer,
   InlineSelectionInterface
 } from './ConnectorReferenceField'
+import css from './ConnectorReferenceField.module.scss'
 
 export interface MultiTypeConnectorFieldConfigureOptionsProps
   extends Omit<ConfigureOptionsProps, 'value' | 'type' | 'variableName'> {
@@ -317,7 +318,7 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
   )
 
   return (
-    <div style={style}>
+    <div style={style} className={css.connectorLabel}>
       <Container style={{ marginBottom: 5 }}>
         <HarnessDocTooltip tooltipId={props.tooltipProps?.dataTooltipId} labelText={label} />
       </Container>
