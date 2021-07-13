@@ -689,5 +689,5 @@ export const getGridColumnsByGroupBy = (groupBy: QlceViewFieldInputInput): Colum
     return LABELS_COLS
   }
 
-  return GroupByMapping[fieldName] || CLUSTER_COLS
+  return GroupByMapping[fieldName] || PERSPECTIVE_PREVIEW_COLS
 }

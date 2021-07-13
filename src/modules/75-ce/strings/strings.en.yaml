@@ -379,6 +379,7 @@ perspectives:
     invalidEmails: Invalid email address(es)
     emailRequired: Please provide at least 1 recipient's email address
     reportNameRequired: '{{ $.common.reportNameRequired }}'
+  searchPerspectives: Search perspectives
   timeRangeConstants:
     last7Days: 'Last 7 Days'
     thisMonth: 'This Month'
