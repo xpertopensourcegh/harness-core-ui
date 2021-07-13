@@ -1,23 +1,24 @@
-import React, { useMemo } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { SelectOption, Button } from '@wings-software/uicore'
 import { Drawer, Intent, Position } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
-import { Connectors } from '@connectors/constants'
 import { useConfirmationDialog } from '@common/exports'
 import type { AppDynamicsHealthSourceSpec, HealthSource, MonitoredServiceResponse } from 'services/cv'
 import { SetupSourceTabs } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import DefineHealthSource from './component/defineHealthSource/DefineHealthSource'
 import CustomiseHealthSource from './component/customiseHealthSource/CustomiseHealthSource'
 import { createHealthSourceDrawerFormData } from './HealthSourceDrawerContent.utils'
+import type { GCOLogsHealthSourceSpec } from '../connectors/GCOLogsMonitoringSource/components/MapQueriesToHarnessService/types'
+import type { HealthSourceTypes } from '../types'
 import css from './HealthSourceDrawerContent.module.scss'
 
 export interface updatedHealthSource extends HealthSource {
   identifier: string
   name: string
-  spec: AppDynamicsHealthSourceSpec
-  type?: 'AppDynamics'
-  service: string
-  environment: string
+  spec: AppDynamicsHealthSourceSpec | GCOLogsHealthSourceSpec
+  type?: 'AppDynamics' | HealthSourceTypes.StackdriverLog
+  service?: string
+  environment?: string
   serviceRef?: string
   environmentRef?: string
 }
@@ -53,6 +54,10 @@ function HealthSourceDrawerContent({
     [rowData, tableData, monitoringSourcRef, serviceRef, environmentRef]
   )
 
+  const determineMaxTabBySourceType = useCallback(() => {
+    return isEdit ? 1 : 0
+  }, [isEdit])
+
   const { openDialog: showWarning } = useConfirmationDialog({
     intent: Intent.WARNING,
     contentText: getString('common.unsavedChanges'),
@@ -61,15 +66,6 @@ function HealthSourceDrawerContent({
     confirmButtonText: getString('confirm'),
     onCloseDialog: (isConfirmed: boolean) => isConfirmed && onClose(null)
   })
-
-  const determineMaxTabBySourceType = (): number => {
-    switch (rowData?.type) {
-      case Connectors.APP_DYNAMICS:
-        return isEdit ? 1 : 0
-      default:
-        return 0
-    }
-  }
 
   return (
     <>

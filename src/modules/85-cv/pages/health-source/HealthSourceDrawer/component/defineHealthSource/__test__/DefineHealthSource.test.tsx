@@ -67,7 +67,6 @@ describe('DefineHealthSource', () => {
       // check error texts
       await waitFor(() => expect(getByText('cv.onboarding.selectProductScreen.validationText.source')).not.toBeNull())
       await waitFor(() => expect(getByText('cv.onboarding.selectProductScreen.validationText.name')).not.toBeNull())
-      await waitFor(() => expect(getByText('cv.onboarding.selectProductScreen.validationText.product')).not.toBeNull())
       await waitFor(() =>
         expect(getByText('cv.onboarding.selectProductScreen.validationText.connectorRef')).not.toBeNull()
       )

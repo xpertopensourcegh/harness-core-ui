@@ -1,5 +1,6 @@
 import type { SelectOption } from '@wings-software/uicore'
 import { Connectors } from '@connectors/constants'
+import type { AppDynamicsHealthSourceSpec } from 'services/cv'
 import type { updatedHealthSource } from './HealthSourceDrawerContent'
 
 const getValueBySourceType = (type: string, rowData: updatedHealthSource) => {
@@ -13,10 +14,10 @@ const getValueBySourceType = (type: string, rowData: updatedHealthSource) => {
 
 export const getAppDFields = (rowData: updatedHealthSource) => {
   return {
-    product: rowData?.spec?.feature,
-    appdApplicationName: rowData?.spec?.appdApplicationName,
-    appdTierName: rowData?.spec?.appdTierName,
-    metricPacks: rowData?.spec?.metricPacks
+    product: (rowData?.spec as AppDynamicsHealthSourceSpec)?.feature,
+    appdApplicationName: (rowData?.spec as AppDynamicsHealthSourceSpec)?.appdApplicationName,
+    appdTierName: (rowData?.spec as AppDynamicsHealthSourceSpec).appdTierName,
+    metricPacks: (rowData?.spec as AppDynamicsHealthSourceSpec).metricPacks
   }
 }
 

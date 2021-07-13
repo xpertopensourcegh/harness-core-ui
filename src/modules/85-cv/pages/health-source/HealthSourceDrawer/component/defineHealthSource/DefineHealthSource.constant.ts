@@ -9,5 +9,9 @@ export const HEALTHSOURCE_LIST = [
   {
     name: 'Splunk',
     icon: 'service-splunk'
+  },
+  {
+    name: Connectors.GCP,
+    icon: getConnectorIconByType(Connectors.GCP)
   }
 ]

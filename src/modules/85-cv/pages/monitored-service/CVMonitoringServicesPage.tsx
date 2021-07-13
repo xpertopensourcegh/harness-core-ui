@@ -17,7 +17,7 @@ import {
   useListMonitoredService,
   useDeleteMonitoredService,
   useGetMonitoredServiceListEnvironments,
-  MonitoredServiceListDTO
+  MonitoredServiceListItemDTO
 } from 'services/cv'
 import ContextMenuActions from '@cv/components/ContextMenuActions/ContextMenuActions'
 import { MonitoringServicesHeader } from './commonStyledComponents'
@@ -98,7 +98,7 @@ function CVMonitoringServicesPage(): JSX.Element {
     }
   }
   const { content = [], pageSize = 0, pageIndex = 0, totalPages = 0, totalItems = 0 } = data?.data ?? ({} as any)
-  const RenderEditDelete: Renderer<CellProps<MonitoredServiceListDTO>> = ({ row }) => {
+  const RenderEditDelete: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ row }) => {
     const rowdata = row.original
     return (
       <ContextMenuActions
@@ -119,7 +119,7 @@ function CVMonitoringServicesPage(): JSX.Element {
     )
   }
 
-  const RenderServiceName: Renderer<CellProps<MonitoredServiceListDTO>> = ({ row }) => {
+  const RenderServiceName: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ row }) => {
     const rowData = row.original
     return (
       <Layout.Vertical>

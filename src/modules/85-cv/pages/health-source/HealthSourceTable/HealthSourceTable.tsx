@@ -4,13 +4,13 @@ import type { CellProps, Renderer } from 'react-table'
 import { Color, Container, Text, SelectOption } from '@wings-software/uicore'
 import { useToaster } from '@common/exports'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
-import { getConnectorIconByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { MonitoredServiceDTO, MonitoredServiceResponse, useUpdateMonitoredService } from 'services/cv'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import { Table } from '@common/components'
 import ContextMenuActions from '@cv/components/ContextMenuActions/ContextMenuActions'
+import { getIconBySourceType } from '@cv/pages/admin/setup/SetupUtils'
 import HealthSourceDrawerContent, { updatedHealthSource } from '../HealthSourceDrawer/HealthSourceDrawerContent'
 import css from './HealthSourceTable.module.scss'
 
@@ -117,7 +117,7 @@ export default function HealthSourceTable({
 
   const renderTypeWithIcon: Renderer<CellProps<updatedHealthSource>> = ({ row }): JSX.Element => {
     const rowdata = row?.original
-    return <Text icon={getConnectorIconByType(rowdata?.type || '')}>{rowdata?.type}</Text>
+    return <Text icon={getIconBySourceType(rowdata?.type as string)}>{rowdata?.type}</Text>
   }
 
   const renderEditDelete: Renderer<CellProps<updatedHealthSource>> = ({ row }): JSX.Element => {

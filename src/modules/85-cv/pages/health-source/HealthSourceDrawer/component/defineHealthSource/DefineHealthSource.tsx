@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useCallback, useContext, useMemo } from 'react'
 import { Container, Card, Formik, FormikForm, FormInput, Text, IconName, Layout, Icon } from '@wings-software/uicore'
 import cx from 'classnames'
 import {
@@ -12,7 +12,7 @@ import DrawerFooter from '@cv/pages/health-source/common/DrawerFooter/DrawerFoot
 import { SetupSourceTabsContext } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import { buildConnectorRef } from '@cv/pages/onboarding/CVOnBoardingUtils'
 import { HEALTHSOURCE_LIST } from './DefineHealthSource.constant'
-import { validate, getFeatureOption } from './DefineHealthSource.utils'
+import { validate, getFeatureOption, getInitialValues } from './DefineHealthSource.utils'
 import css from './DefineHealthSource.module.scss'
 
 function DefineHealthSource(): JSX.Element {
@@ -20,11 +20,26 @@ function DefineHealthSource(): JSX.Element {
   const { onNext, sourceData } = useContext(SetupSourceTabsContext)
   const { isEdit } = sourceData
 
+  const initialValues = useMemo(() => {
+    return getInitialValues(sourceData)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sourceData?.healthSourceidentifier])
+
+  const isCardSelected = useCallback((name, formik) => {
+    if (formik?.values?.product?.value) {
+      const features = getFeatureOption(name, getString)
+      return features.some(el => el?.value === formik.values.product.value)
+    } else {
+      return name == formik?.values?.sourceType
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <BGColorWrapper>
       <Formik
         enableReinitialize
-        initialValues={sourceData}
+        initialValues={initialValues}
         formName={'defineHealthsource'}
         validationSchema={validate(isEdit, getString)}
         onSubmit={values => {
@@ -53,11 +68,12 @@ function DefineHealthSource(): JSX.Element {
                               <Card
                                 disabled={false}
                                 interactive={true}
-                                selected={name === formik?.values?.sourceType}
-                                cornerSelected={name === formik?.values?.sourceType}
+                                selected={isCardSelected(name, formik)}
+                                cornerSelected={isCardSelected(name, formik)}
                                 className={css.squareCard}
                                 onClick={() => {
                                   formik.setFieldValue('sourceType', name)
+                                  formik.setFieldValue('product', '')
                                 }}
                               >
                                 <Icon name={icon as IconName} size={26} height={26} />
@@ -129,8 +145,10 @@ function DefineHealthSource(): JSX.Element {
                       placeholder={getString('cv.healthSource.featurePlaceholder', {
                         sourceType: formik?.values?.sourceType
                       })}
+                      value={formik?.values?.product}
                       name="product"
                       disabled={isEdit}
+                      onChange={product => formik.setFieldValue('product', product)}
                     />
                   </Container>
                 </>

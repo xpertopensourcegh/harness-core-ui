@@ -67,11 +67,37 @@ describe('DefineHealthSource', () => {
     await waitFor(() =>
       expect(onNextMock).toHaveBeenCalledWith(
         expect.objectContaining({
-          sourceType: 'AppDynamics',
+          appdApplicationName: 'Harness-CI-Manager',
+          appdTierName: 'manager',
           connectorRef: 'AppD_Connector_102',
+          environmentIdentifier: 'AppDTestEnv',
+          environmentName: 'AppDTestEnv',
+          healthSourceList: [
+            {
+              environment: 'AppDTestEnv',
+              identifier: 'Test_AppD_101',
+              name: 'Test  AppD  101',
+              service: 'AppDService',
+              spec: {
+                appdApplicationName: 'Harness-CI-Manager',
+                appdTierName: 'manager',
+                connectorRef: 'AppD_Connector_102',
+                feature: 'Application Monitoring',
+                metricPacks: [{ identifier: 'Errors' }]
+              },
+              type: 'AppDynamics'
+            }
+          ],
           healthSourceName: 'Test  AppD  101',
           healthSourceidentifier: 'Test_AppD_101',
-          product: 'Application Monitoring'
+          isEdit: true,
+          metricPacks: [{ identifier: 'Errors' }],
+          monitoredServiceIdentifier: 'Test_Monitored_service',
+          monitoringSourceName: 'Test Monitored service ',
+          product: { label: 'Application Monitoring', value: 'Application Monitoring' },
+          serviceIdentifier: 'AppDService',
+          serviceName: 'AppDService',
+          sourceType: 'AppDynamics'
         }),
         { tabStatus: 'SUCCESS' }
       )

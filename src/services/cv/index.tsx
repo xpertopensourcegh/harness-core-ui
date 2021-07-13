@@ -259,6 +259,7 @@ export interface AwsKmsConnectorCredential {
 export type AwsKmsConnectorDTO = ConnectorConfigDTO & {
   credential?: AwsKmsConnectorCredential
   default?: boolean
+  delegateSelectors?: string[]
   kmsArn: string
   region?: string
 }
@@ -293,6 +294,7 @@ export type AzureKeyVaultConnectorDTO = ConnectorConfigDTO & {
   azureEnvironmentType?: 'AZURE' | 'AZURE_US_GOVERNMENT'
   clientId: string
   default?: boolean
+  delegateSelectors?: string[]
   secretKey: string
   subscription: string
   tenantId: string
@@ -396,8 +398,8 @@ export interface CVConfig {
   createNextTaskIteration?: number
   createdAt?: number
   dataCollectionTaskIteration?: number
+  enabled?: boolean
   envIdentifier: string
-  firstTaskQueued?: boolean
   firstTimeDataCollectionTimeRange?: TimeRange
   identifier: string
   lastUpdatedAt?: number
@@ -459,7 +461,8 @@ export interface ClusterSummary {
   clusterType?: 'KNOWN_EVENT' | 'UNKNOWN_EVENT' | 'UNEXPECTED_FREQUENCY'
   count?: number
   label?: number
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: number
+  riskLevel?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
   score?: number
   testFrequencyData?: number[]
 }
@@ -675,11 +678,13 @@ export interface DeploymentVerificationJobInstanceSummary {
   durationMs?: number
   environmentName?: string
   jobName?: string
+  logsAnalysisSummary?: LogsAnalysisSummary
   progressPercentage?: number
   remainingTimeMs?: number
   risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
   startTime?: number
   status?: 'IGNORED' | 'NOT_STARTED' | 'VERIFICATION_PASSED' | 'VERIFICATION_FAILED' | 'ERROR' | 'IN_PROGRESS'
+  timeSeriesAnalysisSummary?: TimeSeriesAnalysisSummary
   verificationJobInstanceId?: string
 }
 
@@ -1001,6 +1006,8 @@ export interface Error {
     | 'UNEXPECTED_SNIPPET_EXCEPTION'
     | 'UNEXPECTED_SCHEMA_EXCEPTION'
     | 'CONNECTOR_VALIDATION_EXCEPTION'
+    | 'TIMESCALE_NOT_AVAILABLE'
+    | 'MIGRATION_EXCEPTION'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -1293,6 +1300,8 @@ export interface Failure {
     | 'UNEXPECTED_SNIPPET_EXCEPTION'
     | 'UNEXPECTED_SCHEMA_EXCEPTION'
     | 'CONNECTOR_VALIDATION_EXCEPTION'
+    | 'TIMESCALE_NOT_AVAILABLE'
+    | 'MIGRATION_EXCEPTION'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -1369,6 +1378,7 @@ export interface GcpCredentialSpec {
 export type GcpKmsConnectorDTO = ConnectorConfigDTO & {
   credentials: string
   default?: boolean
+  delegateSelectors?: string[]
   keyName?: string
   keyRing?: string
   projectId?: string
@@ -1525,11 +1535,19 @@ export type GitlabUsernameToken = GitlabHttpCredentialsSpecDTO & {
   usernameRef?: string
 }
 
+export interface HealthMonitoringFlagResponse {
+  accountId?: string
+  healthMonitoringEnabled?: boolean
+  identifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
 export interface HealthSource {
   identifier: string
   name: string
   spec: HealthSourceSpec
-  type?: 'AppDynamics'
+  type?: 'AppDynamics' | 'NewRelic' | 'StackdriverLog'
 }
 
 export interface HealthSourceSpec {
@@ -1549,6 +1567,10 @@ export interface Histogram {
   intervalMs?: number
   query?: string
   splunkQuery?: string
+}
+
+export interface HistoricalTrend {
+  healthScores?: number[]
 }
 
 export interface HostData {
@@ -1873,6 +1895,11 @@ export interface LogSampleRequestDTO {
   query?: string
 }
 
+export interface LogsAnalysisSummary {
+  anomalousClusterCount?: number
+  totalClusterCount?: number
+}
+
 export interface MetricData {
   risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
   timestamp?: number
@@ -1968,8 +1995,11 @@ export interface MonitoredServiceDTO {
   type: 'Application'
 }
 
-export interface MonitoredServiceListDTO {
+export interface MonitoredServiceListItemDTO {
+  currentHealthScore?: number
   environmentRef?: string
+  healthMonitoringEnabled?: boolean
+  historicalTrend?: HistoricalTrend
   identifier?: string
   name?: string
   serviceRef?: string
@@ -2004,6 +2034,14 @@ export type NewRelicConnectorDTO = ConnectorConfigDTO & {
   delegateSelectors?: string[]
   newRelicAccountId: string
   url: string
+}
+
+export type NewRelicHealthSourceSpec = HealthSourceSpec & {
+  applicationId: string
+  applicationName: string
+  connectorRef: string
+  feature: string
+  metricPacks: MetricPackDTO[]
 }
 
 export interface NexusAuthCredentials {
@@ -2134,8 +2172,8 @@ export interface PageLogAnalysisClusterDTO {
   totalPages?: number
 }
 
-export interface PageMonitoredServiceListDTO {
-  content?: MonitoredServiceListDTO[]
+export interface PageMonitoredServiceListItemDTO {
+  content?: MonitoredServiceListItemDTO[]
   empty?: boolean
   pageIndex?: number
   pageItemCount?: number
@@ -2222,6 +2260,13 @@ export interface PrometheusSampleData {
   metricDetails?: {
     [key: string]: string
   }
+}
+
+export interface QueryDTO {
+  messageIdentifier: string
+  name: string
+  query: string
+  serviceInstanceIdentifier: string
 }
 
 export interface Response {
@@ -2549,6 +2594,8 @@ export interface ResponseMessage {
     | 'UNEXPECTED_SNIPPET_EXCEPTION'
     | 'UNEXPECTED_SCHEMA_EXCEPTION'
     | 'CONNECTOR_VALIDATION_EXCEPTION'
+    | 'TIMESCALE_NOT_AVAILABLE'
+    | 'MIGRATION_EXCEPTION'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -2645,9 +2692,9 @@ export interface ResponsePageCVNGLogDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
-export interface ResponsePageMonitoredServiceListDTO {
+export interface ResponsePageMonitoredServiceListItemDTO {
   correlationId?: string
-  data?: PageMonitoredServiceListDTO
+  data?: PageMonitoredServiceListItemDTO
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -2824,6 +2871,14 @@ export interface RestResponseDeploymentLogAnalysisDTO {
     [key: string]: { [key: string]: any }
   }
   resource?: DeploymentLogAnalysisDTO
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseHealthMonitoringFlagResponse {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: HealthMonitoringFlagResponse
   responseMessages?: ResponseMessage[]
 }
 
@@ -3187,7 +3242,8 @@ export interface RestResponseVoid {
 
 export interface ResultSummary {
   controlClusterSummaries?: ControlClusterSummary[]
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: number
+  riskLevel?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
   score?: number
   testClusterSummaries?: ClusterSummary[]
 }
@@ -3310,6 +3366,12 @@ export interface StackdriverDashboardDetail {
   widgetName?: string
 }
 
+export type StackdriverLogHealthSourceSpec = HealthSourceSpec & {
+  connectorRef: string
+  feature: string
+  queries: QueryDTO[]
+}
+
 export type SumoLogicConnectorDTO = ConnectorConfigDTO & {
   accessIdRef: string
   accessKeyRef: string
@@ -3333,6 +3395,11 @@ export interface Throwable {
 export interface TimeRange {
   endTime?: number
   startTime?: number
+}
+
+export interface TimeSeriesAnalysisSummary {
+  numAnomMetrics?: number
+  totalNumMetrics?: number
 }
 
 export interface TimeSeriesAnomalies {
@@ -3506,6 +3573,7 @@ export type VaultConnectorDTO = ConnectorConfigDTO & {
   authToken?: string
   basePath?: string
   default?: boolean
+  delegateSelectors?: string[]
   readOnly?: boolean
   renewalIntervalMinutes?: number
   secretEngineManuallyConfigured?: boolean
@@ -5264,6 +5332,7 @@ export interface GetDeploymentTimeSeriesQueryParams {
   accountId?: string
   anomalousMetricsOnly?: boolean
   hostName?: string
+  filter?: string
   pageNumber?: number
 }
 
@@ -6604,7 +6673,7 @@ export interface ListMonitoredServiceQueryParams {
 }
 
 export type ListMonitoredServiceProps = Omit<
-  GetProps<ResponsePageMonitoredServiceListDTO, unknown, ListMonitoredServiceQueryParams, void>,
+  GetProps<ResponsePageMonitoredServiceListItemDTO, unknown, ListMonitoredServiceQueryParams, void>,
   'path'
 >
 
@@ -6612,7 +6681,7 @@ export type ListMonitoredServiceProps = Omit<
  * list monitored service data
  */
 export const ListMonitoredService = (props: ListMonitoredServiceProps) => (
-  <Get<ResponsePageMonitoredServiceListDTO, unknown, ListMonitoredServiceQueryParams, void>
+  <Get<ResponsePageMonitoredServiceListItemDTO, unknown, ListMonitoredServiceQueryParams, void>
     path={`/monitored-service`}
     base={getConfig('cv/api')}
     {...props}
@@ -6620,7 +6689,7 @@ export const ListMonitoredService = (props: ListMonitoredServiceProps) => (
 )
 
 export type UseListMonitoredServiceProps = Omit<
-  UseGetProps<ResponsePageMonitoredServiceListDTO, unknown, ListMonitoredServiceQueryParams, void>,
+  UseGetProps<ResponsePageMonitoredServiceListItemDTO, unknown, ListMonitoredServiceQueryParams, void>,
   'path'
 >
 
@@ -6628,19 +6697,19 @@ export type UseListMonitoredServiceProps = Omit<
  * list monitored service data
  */
 export const useListMonitoredService = (props: UseListMonitoredServiceProps) =>
-  useGet<ResponsePageMonitoredServiceListDTO, unknown, ListMonitoredServiceQueryParams, void>(`/monitored-service`, {
-    base: getConfig('cv/api'),
-    ...props
-  })
+  useGet<ResponsePageMonitoredServiceListItemDTO, unknown, ListMonitoredServiceQueryParams, void>(
+    `/monitored-service`,
+    { base: getConfig('cv/api'), ...props }
+  )
 
 /**
  * list monitored service data
  */
 export const listMonitoredServicePromise = (
-  props: GetUsingFetchProps<ResponsePageMonitoredServiceListDTO, unknown, ListMonitoredServiceQueryParams, void>,
+  props: GetUsingFetchProps<ResponsePageMonitoredServiceListItemDTO, unknown, ListMonitoredServiceQueryParams, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponsePageMonitoredServiceListDTO, unknown, ListMonitoredServiceQueryParams, void>(
+  getUsingFetch<ResponsePageMonitoredServiceListItemDTO, unknown, ListMonitoredServiceQueryParams, void>(
     getConfig('cv/api'),
     `/monitored-service`,
     props,

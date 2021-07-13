@@ -4,10 +4,6 @@ import { useParams } from 'react-router-dom'
 import { useGetStackdriverLogSampleData } from 'services/cv'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import {
-  useGetHarnessServices,
-  useGetHarnessEnvironments
-} from '@cv/components/HarnessServiceAndEnvironment/HarnessServiceAndEnvironment'
 import { MapGCPLogsToServiceFieldNames } from '@cv/pages/monitoring-source/google-cloud-operations/MapQueriesToHarnessService/constants'
 import { QueryViewer } from '@cv/components/QueryViewer/QueryViewer'
 import Card from '@cv/components/Card/Card'
@@ -19,12 +15,8 @@ export default function MapQueriesToHarnessServiceLayout(props: MapQueriesToHarn
   const { formikProps, connectorIdentifier, onChange } = props
   const [records, setRecords] = useState<Record<string, any>[]>([])
   const [isQueryExecuted, setIsQueryExecuted] = useState(false)
-
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
-
-  const { serviceOptions, setServiceOptions } = useGetHarnessServices()
-  const { environmentOptions, setEnvironmentOptions } = useGetHarnessEnvironments()
   const values = formikProps?.values
 
   const query = useMemo(() => (values?.query?.length ? values.query : ''), [values])
@@ -39,7 +31,6 @@ export default function MapQueriesToHarnessServiceLayout(props: MapQueriesToHarn
     }),
     [accountId, projectIdentifier, orgIdentifier, connectorIdentifier]
   )
-
   const {
     mutate: queryStackdriver,
     loading,
@@ -49,10 +40,7 @@ export default function MapQueriesToHarnessServiceLayout(props: MapQueriesToHarn
   })
 
   const fetchStackDriverRecords = useCallback(async () => {
-    const recordsData = await queryStackdriver(
-      { query },
-      { queryParams: { ...queryParams, tracingId: Utils.randomId() } }
-    )
+    const recordsData = await queryStackdriver({ query }, { queryParams: { ...queryParams } })
     setRecords(recordsData?.data as Record<string, any>[])
     setIsQueryExecuted(true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -77,12 +65,6 @@ export default function MapQueriesToHarnessServiceLayout(props: MapQueriesToHarn
                 sampleRecord={sampleRecord}
                 isQueryExecuted={isQueryExecuted}
                 onChange={onChange}
-                serviceValue={formikProps.values?.serviceIdentifier}
-                environmentValue={formikProps.values?.envIdentifier}
-                serviceOptions={serviceOptions}
-                setServiceOptions={setServiceOptions}
-                environmentOptions={environmentOptions}
-                setEnvironmentOptions={setEnvironmentOptions}
                 loading={loading}
               />
             }
