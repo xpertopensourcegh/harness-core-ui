@@ -85,7 +85,7 @@ exports[`Test terraform input set should render edit view as new step 1`] = `
               </div>
             </div>
             <div
-              class="formGroup md"
+              class="formGroup sm"
             >
               <div
                 class="bp3-form-group"

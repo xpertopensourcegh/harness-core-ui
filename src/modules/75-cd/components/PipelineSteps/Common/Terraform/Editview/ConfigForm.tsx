@@ -105,7 +105,6 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                   accountIdentifier={accountId}
                   projectIdentifier={projectIdentifier}
                   orgIdentifier={orgIdentifier}
-                  style={{ marginBottom: 10 }}
                   multiTypeProps={{ expressions }}
                 />
 

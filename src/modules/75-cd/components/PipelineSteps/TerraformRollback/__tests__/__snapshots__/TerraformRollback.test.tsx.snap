@@ -6,65 +6,73 @@ exports[`Test TerraformRollback should render edit view 1`] = `
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="bp3-form-group"
+      class="formGroup md"
     >
-      <label
-        class="bp3-label"
-        for="timeout"
-      >
-        pipelineSteps.timeoutLabel
-         
-        <span
-          class="bp3-text-muted"
-        />
-      </label>
       <div
-        class="bp3-form-content"
+        class="bp3-form-group"
       >
-        <div
-          class="bp3-input-group bp3-fill"
+        <label
+          class="bp3-label"
+          for="timeout"
         >
-          <input
-            class="bp3-input"
-            name="timeout"
-            placeholder="Enter w/d/h/m/s/ms"
-            type="text"
-            value="<+input>"
+          pipelineSteps.timeoutLabel
+           
+          <span
+            class="bp3-text-muted"
           />
+        </label>
+        <div
+          class="bp3-form-content"
+        >
+          <div
+            class="bp3-input-group bp3-fill"
+          >
+            <input
+              class="bp3-input"
+              name="timeout"
+              placeholder="Enter w/d/h/m/s/ms"
+              type="text"
+              value="<+input>"
+            />
+          </div>
         </div>
       </div>
     </div>
     <div
-      class="bp3-form-group"
+      class="formGroup md"
     >
-      <label
-        class="bp3-label"
-        for="spec.provisionerIdentifier"
-      >
-        <span
-          class="Tooltip--acenter"
-          data-tooltip-id="stepTestUtilForm_spec.provisionerIdentifier"
-        >
-          pipelineSteps.provisionerIdentifier
-        </span>
-         
-        <span
-          class="bp3-text-muted"
-        />
-      </label>
       <div
-        class="bp3-form-content"
+        class="bp3-form-group"
       >
-        <div
-          class="bp3-input-group"
+        <label
+          class="bp3-label"
+          for="spec.provisionerIdentifier"
         >
-          <input
-            autocomplete="off"
-            class="bp3-input"
-            name="spec.provisionerIdentifier"
-            type="text"
-            value="<+input>"
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="stepTestUtilForm_spec.provisionerIdentifier"
+          >
+            pipelineSteps.provisionerIdentifier
+          </span>
+           
+          <span
+            class="bp3-text-muted"
           />
+        </label>
+        <div
+          class="bp3-form-content"
+        >
+          <div
+            class="bp3-input-group"
+          >
+            <input
+              autocomplete="off"
+              class="bp3-input"
+              name="spec.provisionerIdentifier"
+              type="text"
+              value="<+input>"
+            />
+          </div>
         </div>
       </div>
     </div>

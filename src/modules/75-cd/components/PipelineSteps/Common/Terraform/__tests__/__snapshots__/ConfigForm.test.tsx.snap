@@ -14,7 +14,6 @@ exports[`TF Config Form tests edit view loads correctly 1`] = `
         <form>
           <div
             class="connectorLabel"
-            style="margin-bottom: 10px;"
           >
             <div
               class="StyledProps--font StyledProps--main"
@@ -446,7 +445,6 @@ exports[`TF Config Form tests initial render 1`] = `
         <form>
           <div
             class="connectorLabel"
-            style="margin-bottom: 10px;"
           >
             <div
               class="StyledProps--font StyledProps--main"

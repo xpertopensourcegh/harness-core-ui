@@ -56,7 +56,7 @@ export default function TFRemoteSection<T extends TerraformData = TerraformData>
           multiTypeProps={{ allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED], expressions }}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
-          width={400}
+          width={445}
           type={[remoteVar?.varFile?.spec?.store?.type]}
           name={`${path}.spec.configuration.spec.varFiles[${index}].varFile.spec.store.spec.connectorRef`}
           label={getString('connector')}
@@ -92,13 +92,15 @@ export default function TFRemoteSection<T extends TerraformData = TerraformData>
         </div>
       )}
       {getMultiTypeFromValue(remoteVar?.varFile?.spec?.store?.spec?.paths) === MultiTypeInputType.RUNTIME && (
-        <List
-          label={getString('filePaths')}
-          name={`${path}.spec.configuration.spec.varFiles[${index}].varFile.spec.store.spec.paths`}
-          disabled={readonly}
-          style={{ marginBottom: 'var(--spacing-small)' }}
-          isNameOfArrayType
-        />
+        <div className={cx(stepCss.formGroup, stepCss.md)}>
+          <List
+            label={getString('filePaths')}
+            name={`${path}.spec.configuration.spec.varFiles[${index}].varFile.spec.store.spec.paths`}
+            disabled={readonly}
+            style={{ marginBottom: 'var(--spacing-small)' }}
+            isNameOfArrayType
+          />
+        </div>
       )}
     </>
   )

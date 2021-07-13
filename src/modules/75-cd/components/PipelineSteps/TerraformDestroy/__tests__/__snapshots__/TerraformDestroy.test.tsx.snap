@@ -3084,7 +3084,7 @@ exports[`Test TerraformDestroy should render inputSet View 1`] = `
           </div>
         </div>
         <div
-          class="formGroup md"
+          class="formGroup sm"
         >
           <div
             class="bp3-form-group"
