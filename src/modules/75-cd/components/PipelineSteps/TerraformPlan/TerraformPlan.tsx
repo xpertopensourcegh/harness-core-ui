@@ -188,18 +188,9 @@ function TerraformPlanWidget(
 
               <div className={cx(stepCss.formGroup, stepCss.md)}>
                 <FormMultiTypeConnectorField
-                  label={
-                    <Text style={{ display: 'flex', alignItems: 'center', color: 'rgb(11, 11, 13)' }}>
-                      {getString('connectors.title.secretManager')}
-                      <Button
-                        icon="question"
-                        minimal
-                        tooltip={getString('connectors.title.secretManager')}
-                        iconProps={{ size: 14 }}
-                      />
-                    </Text>
-                  }
+                  label={getString('connectors.title.secretManager')}
                   category={'SECRET_MANAGER'}
+                  setRefValue
                   width={280}
                   name="spec.configuration.secretManagerRef"
                   placeholder={getString('select')}
