@@ -12,6 +12,7 @@ import {
   verifyStepInitialValues,
   verifyStepInitialValuesWithRunTimeFields
 } from './ContinousVerificationMocks'
+import { getSpecYamlData } from '../utils'
 
 jest.mock('services/cv', () => ({
   useGetMonitoredServiceFromServiceAndEnvironment: jest
@@ -49,6 +50,33 @@ describe('Test ContinousVerificationStep Step', () => {
       <TestStepWidget initialValues={{}} type={StepType.Verify} stepViewType={StepViewType.Edit} />
     )
     expect(container).toMatchSnapshot()
+  })
+
+  test('Verify if generating yaml spec works correctly', () => {
+    const specInfo = {
+      sensitivity: {
+        label: 'High',
+        value: 'HIGH'
+      },
+      duration: {
+        label: '30 min',
+        value: '30m'
+      },
+      baseline: {
+        label: 'Last Successful job run',
+        value: 'LAST'
+      },
+      deploymentTag: '<+serviceConfig.artifacts.primary.tag>',
+      trafficsplit: ''
+    }
+    const type = 'LoadTest'
+    const recievedYamlSpec = getSpecYamlData(specInfo, type)
+    expect(recievedYamlSpec).toEqual({
+      sensitivity: 'HIGH',
+      duration: '30m',
+      baseline: 'LAST',
+      deploymentTag: '<+serviceConfig.artifacts.primary.tag>'
+    })
   })
 
   test('should render editView when current step is being edited', () => {

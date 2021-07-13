@@ -28,7 +28,7 @@ export default function ConfigureFields(props: { formik: FormikProps<ContinousVe
 
   const renderConfigOptions = (): JSX.Element => {
     switch (formValues?.spec?.type) {
-      case VerificationTypes.Test:
+      case VerificationTypes.LoadTest:
         return (
           <>
             <div className={cx(stepCss.formGroup)}>

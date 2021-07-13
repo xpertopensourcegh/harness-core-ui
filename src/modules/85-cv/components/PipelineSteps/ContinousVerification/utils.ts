@@ -90,7 +90,7 @@ export function getSpecYamlData(specInfo?: spec, type?: string): spec {
   let validspec = omitBy(specInfo, v => isUndefined(v) || isNull(v) || v === '')
 
   switch (type) {
-    case 'Test':
+    case 'LoadTest':
       validspec = omit(validspec, ['trafficsplit'])
       break
     case 'Bluegreen':
