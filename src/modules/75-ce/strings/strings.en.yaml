@@ -375,6 +375,10 @@ savedYamlSuccess: YAML validated successfully
 uploadCertiHeader: Upload a new certificate for the Application Load Balancer
 perspectives:
   save: Save Perspective
+  validations:
+    invalidEmails: Invalid email address(es)
+    emailRequired: Please provide at least 1 recipient's email address
+    reportNameRequired: '{{ $.common.reportNameRequired }}'
   timeRangeConstants:
     last7Days: 'Last 7 Days'
     thisMonth: 'This Month'
@@ -434,6 +438,9 @@ perspectives:
     reportName: '{{ $.common.reportName }}'
     frequency: '{{ $.common.frequency }}'
     recipients: Reciepients
+    cronLabel: Add a report schedule
+    emailPlaceholder: Please provide a comma separated list of recipients' email addresses
+    recipientLabel: Send report to
   budgets:
     title: Budget
     desc: Budget can help you recieve alerts when the spend exceeds or is about to exceed a specified threshold so that it can be prevented.

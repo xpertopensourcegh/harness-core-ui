@@ -43,7 +43,7 @@ encryptedAPIKeyLabel: Encrypted API Key
 encryptedAPIKeyValidation: Encrypted API Key is required.
 tenantId: Tenant ID
 tenantIdRequired: Tenant ID is required
-reportNameRequired: Report name is required
+reportNameRequired: '{{ $.common.reportNameRequired }}'
 connectorAlreadyExist: Connector already exists for the cloud account
 loginToMasterAccount: and login to your master account
 roleARN: Create Cross Account Role

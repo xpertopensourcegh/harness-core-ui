@@ -1,20 +1,8 @@
 import React, { useState, useMemo, ReactNode } from 'react'
 import cronstrue from 'cronstrue'
-import { Dialog, IDialogProps } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
 import type { Column, CellProps, Renderer } from 'react-table'
-import {
-  Container,
-  Text,
-  Layout,
-  useModalHook,
-  Button,
-  Icon,
-  FlexExpander,
-  Formik,
-  FormInput,
-  FormikForm
-} from '@wings-software/uicore'
+import { Button, Container, Text, Layout, Icon, FlexExpander } from '@wings-software/uicore'
 import { Popover, Position, Classes, PopoverInteractionKind } from '@blueprintjs/core'
 import { DEFAULT_GROUP_BY } from '@ce/utils/perspectiveUtils'
 import routes from '@common/RouteDefinitions'
@@ -25,6 +13,7 @@ import { useStrings } from 'framework/strings'
 import Table from './Table'
 import PerspectiveBuilderPreview from '../PerspectiveBuilderPreview/PerspectiveBuilderPreview'
 import { getBudgetsResponse } from './Mock'
+import useCreateReportModal from './PerspectiveCreateReport'
 import css from './PerspectiveReportsAndBudgets.module.scss'
 
 interface ListProps {
@@ -37,14 +26,14 @@ interface ListProps {
   onButtonClick: () => void
 }
 
-interface ReportTableParams {
+export interface Report {
   uuid?: string
   name?: string
   userCron?: string
   recipients?: string[]
 }
 
-interface BudgetTableParams {
+interface Budget {
   budgetAmount?: number
   alertThresholds?: { percentage?: number }[]
   actualCost?: number
@@ -116,43 +105,28 @@ const ReportsAndBudgets: React.FC<ReportsAndBudgetsProps> = ({ values, onPrevBut
   )
 }
 
+const useFetchReports = () => {
+  const { accountId, perspectiveId } = useParams<{ accountId: string; perspectiveId: string }>()
+  const { data, loading, refetch } = useGetReportSetting({ accountId, queryParams: { perspectiveId } })
+  return { reports: data?.resource || [], loading, refetch }
+}
+
 const ScheduledReports: React.FC = () => {
   const { getString } = useStrings()
-  const [openModal] = useCreateReportModal()
-  const { accountId, perspectiveId } = useParams<{ accountId: string; perspectiveId: string }>()
-  const { data, loading } = useGetReportSetting({ accountId, queryParams: { perspectiveId } })
-  // const { mutate: createReport } = useCreateReportSetting({ accountId })
+  const { reports, loading, refetch } = useFetchReports()
+  const { openModal, hideModal } = useCreateReportModal({
+    onSuccess: () => {
+      hideModal()
+      refetch()
+    }
+  })
+
   // const { mutate: deleteReport } = useDeleteReportSetting({ pathParams: { accountId } }) // find out how to pass selected uuid
-
-  const handleCreateNewReport = (): void => {
-    openModal()
-    // const sampleCron = ['30 * * * * *', '0 13 * * 1 *', '*/5 * * * * *', '0 */2 * * * *']
-    // const rand = ~~(Math.random() * 4)
-
-    // try {
-    //   const response = await createReport({
-    //     viewsId: [perspectiveId],
-    //     name: `Bdj ${rand}`,
-    //     userCron: sampleCron[rand],
-    //     description: 'Hello, I am description',
-    //     recipients: ['akash.bhardwaj@harness.io', 'yo@lo.com', 'no@email.com']
-    //   })
-
-    //   // console.log('response of create report: ', response)
-    // } catch (e) {
-    //   // console.log('error in creating report::::: ', e)
-    // }
-  }
-
-  const handleEdit = (): void => {
-    return // fix this when api is integrated.
-  }
-
   const handleDelete = (): void => {
     return // fix this when api is integrated
   }
 
-  const columns: Column<ReportTableParams>[] = useMemo(
+  const columns: Column<Report>[] = useMemo(
     () => [
       {
         Header: getString('ce.perspectives.reports.reportName'),
@@ -170,13 +144,17 @@ const ScheduledReports: React.FC = () => {
       },
       {
         id: 'edit-delete-action-column',
-        Cell: () => <RenderEditDeleteActions onClickEdit={() => handleEdit()} onClickDelete={() => handleDelete()} />
+        Cell: ({ row }: CellProps<Report>) => (
+          <RenderEditDeleteActions
+            onClickEdit={() => openModal({ isEdit: true, selectedReport: row.original })}
+            onClickDelete={() => handleDelete()}
+          />
+        )
       }
     ],
     []
   )
 
-  const reports = data?.resource || []
   return (
     <List
       title={getString('ce.perspectives.reports.title')}
@@ -184,10 +162,10 @@ const ScheduledReports: React.FC = () => {
         !reports.length ? getString('ce.perspectives.reports.msg') : ''
       }`}
       buttonText={getString('ce.perspectives.reports.createNew')}
-      onButtonClick={() => handleCreateNewReport()}
+      onButtonClick={() => openModal()}
       hasData={!!reports.length}
       loading={loading}
-      grid={<Table<ReportTableParams> data={reports} columns={columns} />}
+      grid={<Table<Report> data={reports} columns={columns} />}
     />
   )
 }
@@ -195,7 +173,7 @@ const ScheduledReports: React.FC = () => {
 const Budgets = (): JSX.Element => {
   const { getString } = useStrings()
   const response = getBudgetsResponse()
-  const columns: Column<BudgetTableParams>[] = useMemo(
+  const columns: Column<Budget>[] = useMemo(
     () => [
       {
         Header: getString('ce.perspectives.budgets.amount'),
@@ -216,7 +194,7 @@ const Budgets = (): JSX.Element => {
       },
       {
         id: 'edit-delete-action-column',
-        Cell: ({ row }: CellProps<BudgetTableParams>) => (
+        Cell: ({ row }: CellProps<Budget>) => (
           <RenderEditDeleteActions onClickEdit={() => row.original} onClickDelete={() => row.original} />
         )
       }
@@ -233,7 +211,7 @@ const Budgets = (): JSX.Element => {
       onButtonClick={() => 'TEST'}
       hasData={!!budgets.length}
       loading={false}
-      grid={<Table<BudgetTableParams> columns={columns} data={budgets} />}
+      grid={<Table<Budget> columns={columns} data={budgets} />}
     />
   )
 }
@@ -280,12 +258,12 @@ const List = (props: ListProps): JSX.Element => {
   )
 }
 
-const RenderReportFrequency: Renderer<CellProps<ReportTableParams>> = ({ row }) => {
+const RenderReportFrequency: Renderer<CellProps<Report>> = ({ row }) => {
   const cron = row.original.userCron || ''
   return <span>{cronstrue.toString(cron)}</span>
 }
 
-const RenderReportRecipients: Renderer<CellProps<ReportTableParams>> = ({ row }) => {
+const RenderReportRecipients: Renderer<CellProps<Report>> = ({ row }) => {
   const recipients = [...(row.original.recipients || [])]
   const email = recipients.shift()
   const remainingEmailsCount = recipients.length ? `(+${recipients.length})` : ''
@@ -335,107 +313,10 @@ const RenderEditDeleteActions = (props: TableActionsProps): JSX.Element => {
   )
 }
 
-const RenderAlertThresholds: Renderer<CellProps<BudgetTableParams>> = ({ row }) => {
+const RenderAlertThresholds: Renderer<CellProps<Budget>> = ({ row }) => {
   const alerts = row.original.alertThresholds || []
   const percentages = alerts.map(a => a.percentage)
   return <span>{percentages.join(', ')}</span>
-}
-
-interface ReportDetailsForm {
-  name: string
-  viewsId: string[]
-  recipients: string[]
-  description: string
-  frequency: string
-  day: number
-  time: number
-}
-
-const useCreateReportModal = () => {
-  const { perspectiveId } = useParams<{ perspectiveId: string; accountId: string }>()
-  const modalPropsLight: IDialogProps = {
-    isOpen: true,
-    usePortal: true,
-    autoFocus: true,
-    canEscapeKeyClose: true,
-    canOutsideClickClose: true,
-    enforceFocus: false,
-    className: Classes.DIALOG,
-    style: { width: 450, height: 650 }
-  }
-  const handleSubmit = (): void => {
-    return
-  }
-
-  const [openModal, hideModal] = useModalHook(() => (
-    <Dialog onClose={hideModal} {...modalPropsLight}>
-      <Container padding="xlarge">
-        <Layout.Vertical spacing="xlarge">
-          <Container padding="small">
-            <Formik<ReportDetailsForm>
-              onSubmit={_ => {
-                handleSubmit()
-              }}
-              formName="createReportScheduleForm"
-              initialValues={{
-                viewsId: [perspectiveId],
-                name: '',
-                recipients: ['a'],
-                description: '',
-                frequency: 'weekly',
-                day: 2,
-                time: 9
-              }}
-            >
-              {() => {
-                return (
-                  <FormikForm>
-                    <Container style={{ minHeight: 560 }}>
-                      <FormInput.Text name={'name'} label={'Name'} />
-                      <FormInput.Select
-                        items={[
-                          { label: 'Weekly', value: 'weekly' },
-                          { label: 'Monthly', value: 'monthly' }
-                        ]}
-                        name={'frequency'}
-                        label={'Add a report schedule'} // This is WIP. Will move to strings when complete.
-                      />
-                      <FormInput.Select
-                        items={[
-                          { label: 'Sunday', value: 0 },
-                          { label: 'Monday', value: 1 },
-                          { label: 'Tuesday', value: 2 },
-                          { label: 'Wednesday', value: 3 },
-                          { label: 'Thursday', value: 4 },
-                          { label: 'Friday', value: 5 },
-                          { label: 'Saturday', value: 6 }
-                        ]}
-                        name={'day'}
-                      />
-                      <FormInput.Select
-                        items={[
-                          { label: '9am', value: 9 },
-                          { label: '1pm', value: 13 }
-                        ]}
-                        name={'time'}
-                      />
-                    </Container>
-                    <Layout.Horizontal>
-                      <Button type="submit" intent="primary" rightIcon="chevron-right" disabled={false}>
-                        Save
-                      </Button>
-                    </Layout.Horizontal>
-                  </FormikForm>
-                )
-              }}
-            </Formik>
-          </Container>
-        </Layout.Vertical>
-      </Container>
-    </Dialog>
-  ))
-
-  return [openModal, hideModal]
 }
 
 export default ReportsAndBudgets

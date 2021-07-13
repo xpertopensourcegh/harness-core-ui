@@ -24,6 +24,7 @@ export interface StringsMap {
   'common.apikey': string
   'common.approve': string
   'common.artifactTag': string
+  'common.at': string
   'common.banners.email.description': string
   'common.banners.email.resend': string
   'common.banners.email.success': string
@@ -244,6 +245,7 @@ export interface StringsMap {
   'common.noRefData': string
   'common.note': string
   'common.ok': string
+  'common.on': string
   'common.optionalConfig': string
   'common.optionalLabel': string
   'common.options': string
@@ -317,6 +319,7 @@ export interface StringsMap {
   'common.repo_provider.githubLabel': string
   'common.repo_provider.gitlabLabel': string
   'common.reportName': string
+  'common.reportNameRequired': string
   'common.resolveConflict': string
   'common.role': string
   'common.saveAndClose': string
@@ -2278,9 +2281,12 @@ export interface StringsMap {
   'ce.perspectives.createPerspective.validationErrors.nameError': string
   'ce.perspectives.createPerspective.validationErrors.ruleError': string
   'ce.perspectives.reports.createNew': string
+  'ce.perspectives.reports.cronLabel': string
   'ce.perspectives.reports.desc': string
+  'ce.perspectives.reports.emailPlaceholder': string
   'ce.perspectives.reports.frequency': string
   'ce.perspectives.reports.msg': string
+  'ce.perspectives.reports.recipientLabel': string
   'ce.perspectives.reports.recipients': string
   'ce.perspectives.reports.reportName': string
   'ce.perspectives.reports.title': string
@@ -2302,6 +2308,9 @@ export interface StringsMap {
   'ce.perspectives.timeRangeConstants.thisMonth': string
   'ce.perspectives.timeRangeConstants.thisQuarter': string
   'ce.perspectives.timeRangeConstants.thisYear': string
+  'ce.perspectives.validations.emailRequired': string
+  'ce.perspectives.validations.invalidEmails': string
+  'ce.perspectives.validations.reportNameRequired': string
   'ce.recommendation.detailsPage.costOptimized': string
   'ce.recommendation.detailsPage.costOptimizedCaps': string
   'ce.recommendation.detailsPage.costOptimizedDetails': string
