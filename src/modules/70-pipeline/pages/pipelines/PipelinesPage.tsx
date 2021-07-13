@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import {
-  Button,
   Color,
   ExpandingSearchInput,
   HarnessDocTooltip,
@@ -10,7 +9,9 @@ import {
   Select,
   SelectOption,
   Text,
-  useModalHook
+  useModalHook,
+  GridListToggle,
+  Views
 } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'
@@ -66,11 +67,6 @@ import PipelineFilterForm from '../pipeline-deployment-list/PipelineFilterForm/P
 import pipelineIllustration from './images/pipelines-illustration.svg'
 
 import css from './PipelinesPage.module.scss'
-
-export enum Views {
-  LIST,
-  GRID
-}
 
 export enum Sort {
   DESC = 'DESC',
@@ -580,24 +576,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
                 />
               </Layout.Horizontal>
             </>
-            <Layout.Horizontal flex>
-              <Button
-                minimal
-                icon="grid-view"
-                intent={view === Views.GRID ? 'primary' : 'none'}
-                onClick={() => {
-                  setView(Views.GRID)
-                }}
-              />
-              <Button
-                minimal
-                icon="list"
-                intent={view === Views.LIST ? 'primary' : 'none'}
-                onClick={() => {
-                  setView(Views.LIST)
-                }}
-              />
-            </Layout.Horizontal>
+            <GridListToggle initialSelectedView={Views.GRID} onViewToggle={setView} />
           </Layout.Horizontal>
         </Layout.Horizontal>
       )}

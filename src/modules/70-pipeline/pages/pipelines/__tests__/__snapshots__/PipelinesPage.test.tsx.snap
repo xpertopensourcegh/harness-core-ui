@@ -206,6 +206,8 @@ exports[`CD Pipeline Page List render card view 1`] = `
       >
         <button
           class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+          data-testid="grid-view"
+          data-tooltip-id="grid-view"
           type="button"
         >
           <span
@@ -229,7 +231,9 @@ exports[`CD Pipeline Page List render card view 1`] = `
           </span>
         </button>
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main GridListToggle--listUnselected Button--with-current-color Button--iconOnly Button--without-shadow"
+          data-testid="list-view"
+          data-tooltip-id="list-view"
           type="button"
         >
           <span
@@ -1798,7 +1802,9 @@ exports[`CD Pipeline Page List render list view 1`] = `
         class="Layout--horizontal StyledProps--main StyledProps--flex"
       >
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main GridListToggle--gridUnselected Button--with-current-color Button--iconOnly Button--without-shadow"
+          data-testid="grid-view"
+          data-tooltip-id="grid-view"
           type="button"
         >
           <span
@@ -1823,6 +1829,8 @@ exports[`CD Pipeline Page List render list view 1`] = `
         </button>
         <button
           class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+          data-testid="list-view"
+          data-tooltip-id="list-view"
           type="button"
         >
           <span
