@@ -171,7 +171,7 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
         projectIdentifier,
         yamlGitConfigIdentifier: resource.gitDetails?.repoIdentifier || '',
         page: 0,
-        size: 20,
+        size: 10,
         searchTerm: query
       }
     })
@@ -251,7 +251,7 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
           disabled={disableBranchSelection || disableCreatePR}
           data-id="create-pr-branch-select"
           onQueryChange={(query: string) => debounceFetchBranches(query)}
-          usePortal={true}
+          selectProps={{ usePortal: true, popoverClassName: css.gitBranchSelectorPopover }}
           className={css.branchSelector}
         />
       </Layout.Horizontal>
