@@ -517,21 +517,28 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
       if (isK8sSelected) {
         const yamlRuleName = yamlData?.metadata?.name
         const updatedName = yamlRuleName && Utils.getHyphenSpacedString(_nameString)
-        if (updatedName && yamlRuleName !== _nameString) {
-          setYamlData(oldYaml => ({
-            ...oldYaml,
+        if (updatedName && yamlRuleName !== updatedName) {
+          const updatedYaml = {
+            ...yamlData,
             metadata: {
-              ...oldYaml.metadata,
+              ...yamlData.metadata,
               name: updatedName,
               annotations: {
-                ...oldYaml.metadata.annotations,
+                ...yamlData.metadata.annotations,
                 'nginx.ingress.kubernetes.io/configuration-snippet': `more_set_input_headers "AutoStoppingRule: ${orgIdentifier}-${projectIdentifier}-${updatedName}";`
               }
             }
-          }))
+          }
+          setYamlData(updatedYaml)
+          const updatedGatewayDetails: GatewayDetails = {
+            ...props.gatewayDetails,
+            name: _nameString,
+            routing: { ...props.gatewayDetails.routing, k8s: { RuleJson: JSON.stringify(updatedYaml) } }
+          }
+          props.setGatewayDetails(updatedGatewayDetails)
         }
       }
-    }, 300),
+    }, 500),
     [isK8sSelected, yamlData]
   )
 
