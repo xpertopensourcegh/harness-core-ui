@@ -1363,6 +1363,7 @@ export interface StringsMap {
   'projectsOrgs.noCollaborators': string
   'projectsOrgs.noDataMessage': string
   'projectsOrgs.noModules': string
+  'projectsOrgs.noOrganizations': string
   'projectsOrgs.noProjectRole': string
   'projectsOrgs.notAvailableForBeta': string
   'projectsOrgs.orgCreateSuccess': string
