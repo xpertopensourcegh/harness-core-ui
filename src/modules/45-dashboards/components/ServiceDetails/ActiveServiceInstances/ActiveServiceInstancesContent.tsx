@@ -247,7 +247,7 @@ export const ActiveServiceInstancesContent: React.FC = () => {
           <img width="150" height="100" src={DeploymentsEmptyState} style={{ alignSelf: 'center' }} />
           <Text color={Color.GREY_400} margin={{ top: 'medium' }}>
             {getString('dashboards.serviceDashboard.noDeployments', {
-              timeRange: 'last 30 days' // Todo - Jasmeet - move to strings after deployment PR is merged
+              timeRange: getString('dashboards.serviceDashboard.month')
             })}
           </Text>
         </Layout.Vertical>

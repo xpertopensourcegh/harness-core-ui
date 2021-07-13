@@ -1,17 +1,14 @@
 import React from 'react'
 import { Layout } from '@wings-software/uicore'
-import { Page } from '@common/exports'
 import { ServiceDetailsHeader } from '@dashboards/components/ServiceDetails/ServiceDetailsHeader/ServiceDetailsHeader'
-import { ActiveServiceInstances } from '@dashboards/components/ServiceDetails/ActiveServiceInstances/ActiveServiceInstances'
+import { ServiceDetailsContent } from '@dashboards/components/ServiceDetails/ServiceDetailsContent/ServiceDetailsContent'
 
 const ServiceDetails: React.FC = () => {
   return (
-    <Page.Body>
-      <Layout.Vertical>
-        <ServiceDetailsHeader />
-        <ActiveServiceInstances />
-      </Layout.Vertical>
-    </Page.Body>
+    <Layout.Vertical>
+      <ServiceDetailsHeader />
+      <ServiceDetailsContent />
+    </Layout.Vertical>
   )
 }
 

@@ -7,7 +7,7 @@ exports[`ServiceInstancesWidget render 1`] = `
   >
     <div
       class="Layout--vertical StyledProps--main"
-      style="width: 218px;"
+      style="width: 248px;"
     >
       <div
         class="Layout--horizontal StyledProps--main topSection"
@@ -61,7 +61,7 @@ exports[`ServiceInstancesWidget render 1`] = `
             dashboards.serviceDashboard.serviceInstances
           </p>
           <div
-            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-distribution-space-between"
           >
             <p
               class="StyledProps--font StyledProps--main text StyledProps--color StyledProps--color-black StyledProps--font-weight-bold"
@@ -80,7 +80,7 @@ exports[`ServiceInstancesWidget render 1`] = `
           </div>
         </div>
         <div
-          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between StyledProps--margin-right-xlarge"
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between"
         >
           <div
             class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center"

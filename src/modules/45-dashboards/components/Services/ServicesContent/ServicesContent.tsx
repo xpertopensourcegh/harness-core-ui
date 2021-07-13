@@ -23,7 +23,7 @@ export const ServicesContent: React.FC = () => {
   return (
     <Page.Body>
       <Layout.Vertical
-        margin={{ left: 'xxxlarge', right: 'xxxlarge', top: view === Views.INSIGHT ? 'large' : 0, bottom: 'large' }}
+        margin={{ left: 'xlarge', right: 'xlarge', top: view === Views.INSIGHT ? 'large' : 0, bottom: 'large' }}
       >
         {view === Views.INSIGHT && (
           <Layout.Horizontal margin={{ bottom: 'large' }}>

@@ -85,3 +85,16 @@ export const ServiceListMock: ServicesListProps = {
     }
   })
 }
+
+export const envBuildInstanceCount = {
+  status: 'SUCCESS',
+  data: {
+    envBuildIdAndInstanceCountInfoList: [
+      {
+        envId: 'env1',
+        envName: 'envName',
+        buildIdAndInstanceCountList: [{ buildId: 'build1', count: 1 }]
+      }
+    ]
+  }
+}

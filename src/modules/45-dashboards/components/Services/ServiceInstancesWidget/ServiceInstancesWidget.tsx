@@ -38,7 +38,7 @@ export const ServiceInstancesWidget: React.FC<ServiceInstanceWidgetProps> = prop
   )
   return (
     <Card className={css.card}>
-      <Layout.Vertical width={218}>
+      <Layout.Vertical width={248}>
         <Layout.Horizontal className={css.topSection}>
           <Layout.Vertical width={'100%'}>
             <Text font={{ weight: 'bold' }} color={Color.GREY_600}>
@@ -64,7 +64,7 @@ export const ServiceInstancesWidget: React.FC<ServiceInstanceWidgetProps> = prop
             <Text font={{ weight: 'bold' }} color={Color.GREY_600} margin={{ bottom: 'xsmall' }}>
               {getString('dashboards.serviceDashboard.serviceInstances')}
             </Text>
-            <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+            <Layout.Horizontal flex={{ alignItems: 'center', distribution: 'space-between' }}>
               <Text color={Color.BLACK} font={{ weight: 'bold' }} className={css.text}>
                 {numberFormatter(serviceInstancesCount)}
               </Text>
@@ -73,7 +73,7 @@ export const ServiceInstancesWidget: React.FC<ServiceInstanceWidgetProps> = prop
               </Container>
             </Layout.Horizontal>
           </Layout.Vertical>
-          <Layout.Horizontal flex={{ distribution: 'space-between' }} margin={{ right: 'xlarge' }}>
+          <Layout.Horizontal flex={{ distribution: 'space-between' }}>
             {pieChartData.map(pieChartDataItem => {
               return (
                 <Layout.Horizontal key={pieChartDataItem.label} flex={{ alignItems: 'center' }}>
