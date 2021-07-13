@@ -63,7 +63,7 @@ const checkDuplicateStep = (
 export const RightDrawer: React.FC = (): JSX.Element => {
   const {
     state: {
-      pipelineView: { drawerData, isDrawerOpened },
+      pipelineView: { drawerData, isDrawerOpened, isSplitViewOpen },
       pipelineView,
       selectionState: { selectedStageId, selectedStepId }
     },
@@ -143,7 +143,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
   }
 
   React.useEffect(() => {
-    if (selectedStepId && selectedStage && !pipelineView.isDrawerOpened) {
+    if (selectedStepId && selectedStage && !pipelineView.isDrawerOpened && isSplitViewOpen) {
       let step: ExecutionWrapper | undefined
       let drawerType = DrawerTypes.StepConfig
       // 1. search for step in execution
@@ -187,7 +187,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         })
       }
     }
-  }, [selectedStepId, selectedStage])
+  }, [selectedStepId, selectedStage, isSplitViewOpen])
 
   const updateStepWithinStage = (
     execution: ExecutionElementConfig,
