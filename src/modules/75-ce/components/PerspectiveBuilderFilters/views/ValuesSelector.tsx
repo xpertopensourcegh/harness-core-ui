@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import cx from 'classnames'
+import { Virtuoso } from 'react-virtuoso'
 import { Container, TextInput, Icon, Checkbox, Layout, Text } from '@wings-software/uicore'
 import { Popover, PopoverInteractionKind, Position } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
@@ -41,26 +42,35 @@ const ValuesSelector: React.FC<ValuesSelectorProps> = ({
     setSelectedValues(newSelectedVals)
   }, [selectedVal])
 
-  const getValuesToShow: () => (JSX.Element | null)[] = () => {
-    return valueList
-      .filter(val => val && val.includes(searchText))
-      .map(value => {
-        return value ? (
-          <Checkbox
-            onClick={() => {
-              setSelectedValues(prevVal => ({
-                ...prevVal,
-                [value]: !prevVal[value]
-              }))
-            }}
-            checked={selectedValues[value]}
-            className={css.checkbox}
-            key={value}
-            value={value}
-            label={value}
-          />
-        ) : null
-      })
+  const renderValues = () => {
+    const filteredValues = valueList.filter(val => val && val.includes(searchText))
+    return (
+      <Container>
+        <Virtuoso
+          style={{ height: 350, paddingLeft: 10 }}
+          data={filteredValues}
+          overscan={{ main: 20, reverse: 20 }}
+          itemContent={(_, value) => {
+            if (!value) return null
+            return (
+              <Checkbox
+                onClick={() => {
+                  setSelectedValues(prevVal => ({
+                    ...prevVal,
+                    [value]: !prevVal[value]
+                  }))
+                }}
+                checked={selectedValues[value]}
+                className={css.checkbox}
+                key={value}
+                value={value}
+                label={value}
+              />
+            )
+          }}
+        />
+      </Container>
+    )
   }
 
   return (
@@ -92,7 +102,7 @@ const ValuesSelector: React.FC<ValuesSelectorProps> = ({
                 }}
                 placeholder={getString('ce.perspectives.createPerspective.filters.searchText')}
               />
-              {getValuesToShow()}
+              {renderValues()}
             </>
           )}
         </Container>
