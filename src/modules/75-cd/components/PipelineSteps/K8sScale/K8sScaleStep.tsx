@@ -245,7 +245,7 @@ const K8ScaleInputStep: React.FC<K8sScaleProps> = ({ template, readonly, path })
             expressions={expressions}
             allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
             disabledType
-            disabled={readonly}
+            readonly={readonly}
           />
         </div>
       )}

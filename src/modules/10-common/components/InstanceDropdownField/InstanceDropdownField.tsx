@@ -195,7 +195,7 @@ export const InstanceDropdownField: React.FC<InstanceDropdownFieldProps> = ({
   )
 }
 
-export interface FormInstanceDropdownFieldProps extends Omit<InstanceDropdownFieldProps, 'value'> {
+export interface FormInstanceDropdownFieldProps extends Omit<InstanceDropdownFieldProps, 'value' | 'disabled'> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   formik?: any
   readonly?: boolean
@@ -208,7 +208,6 @@ const FormInstanceDropdownField: React.FC<FormInstanceDropdownFieldProps> = (pro
   const {
     intent = hasError ? Intent.DANGER : Intent.NONE,
     helperText = hasError ? get(formik?.errors, `${name}.type`) : null,
-    disabled,
     ...rest
   } = restProps
 

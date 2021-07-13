@@ -201,7 +201,7 @@ const K8CanaryDeployInputStep: React.FC<K8sCanaryDeployProps> = ({ template, rea
             name={`${prefix}spec.instanceSelection`}
             allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
             disabledType
-            disabled={readonly}
+            readonly={readonly}
           />
         </div>
       )}
