@@ -11,10 +11,10 @@ const MonitoringServicesHeader = styled.div`
 
   p {
     font-weight: 600;
-    font-size: 24px; 
+    font-size: 24px;
     line-height: 32px;
     margin-top: 3px;
-    color: var(--grey-800)
+    color: var(--black) !important;
     text-transform: capitalize;
   }
 `

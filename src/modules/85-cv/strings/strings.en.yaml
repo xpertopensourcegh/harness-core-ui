@@ -524,7 +524,7 @@ cvTrialHomePage:
       description: Start 14 day CV Enterprise trial
 monitoredServices:
   title: Monitored Services
-  filterlabel: 'view :'
+  filterlabel: 'Environment:'
   noData: No Monitored Service
   serviceAndEnvironment: Service And Environment
   monitoredServiceDetails: Monitored Service Details
@@ -561,6 +561,9 @@ healthSource:
   deleteHealthSourceWarning: Are you sure you want to delete Health Source
   deleteHealthSource: Delete Health Source
   seriveEnvironmentNote: Service selected is {{service}} and Environment selected is {{environment}}
+  table:
+    serviceMapping: Service Mapping
+    environmentMapping: Environment Mapping
   connectors:
     createConnector: Add new {{sourceType}} connector
     AppDynamics:
@@ -569,6 +572,7 @@ healthSource:
       applicationPlaceholder: Type an application name
       trierLabel: Find an AppDynamics tier
       tierPlaceholder: Type an tier name
+      metricPackLabel: Select Metric Packs to be monitored
       validation:
         application: Please select applications
         tier: Please select tier

@@ -36,7 +36,7 @@ function DefineHealthSource(): JSX.Element {
             <FormikForm className={css.formFullheight}>
               <CardWithOuterTitle title={getString('cv.healthSource.defineHealthSource')}>
                 <>
-                  <Text font={'small'} margin={{ bottom: 'large' }}>
+                  <Text color={'black'} font={'small'} margin={{ bottom: 'large' }}>
                     {getString('cv.healthSource.selectHealthSource')}
                   </Text>
                   <FormInput.CustomRender
@@ -77,7 +77,7 @@ function DefineHealthSource(): JSX.Element {
                       )
                     }}
                   />
-                  <Container margin={{ bottom: 'large' }} width={'400px'}>
+                  <Container margin={{ bottom: 'large' }} width={'400px'} color={'black'}>
                     <FormInput.InputWithIdentifier
                       isIdentifierEditable={!isEdit}
                       inputName="healthSourceName"
@@ -88,7 +88,7 @@ function DefineHealthSource(): JSX.Element {
                       idName="healthSourceidentifier"
                     />
                   </Container>
-                  <Text font={'small'}>
+                  <Text font={'small'} color={'black'}>
                     {getString('cv.healthSource.seriveEnvironmentNote', {
                       service: formik?.values?.serviceName,
                       environment: formik?.values?.environmentName
@@ -99,7 +99,7 @@ function DefineHealthSource(): JSX.Element {
               <CardWithOuterTitle title={getString('cv.healthSource.connectHealthSource')}>
                 <>
                   <Container margin={{ bottom: 'large' }} width={'400px'}>
-                    <Text font={'small'} margin={{ bottom: 'small' }}>
+                    <Text color={'black'} font={'small'} margin={{ bottom: 'small' }}>
                       {getString('connectors.selectConnector')}
                     </Text>
                     <div className={css.connectorField}>
@@ -121,7 +121,7 @@ function DefineHealthSource(): JSX.Element {
                     </div>
                   </Container>
                   <Container margin={{ bottom: 'large' }} width={'400px'}>
-                    <Text font={'small'} margin={{ bottom: 'small' }}>
+                    <Text color={'black'} font={'small'} margin={{ bottom: 'small' }}>
                       {getString('cv.healthSource.featureLabel')}
                     </Text>
                     <FormInput.Select

@@ -1,8 +1,9 @@
 import React, { useMemo } from 'react'
 import { SelectOption, Button } from '@wings-software/uicore'
-import { Drawer, Position } from '@blueprintjs/core'
+import { Drawer, Intent, Position } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import { Connectors } from '@connectors/constants'
+import { useConfirmationDialog } from '@common/exports'
 import type { AppDynamicsHealthSourceSpec, HealthSource, MonitoredServiceResponse } from 'services/cv'
 import { SetupSourceTabs } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import DefineHealthSource from './component/defineHealthSource/DefineHealthSource'
@@ -52,6 +53,15 @@ function HealthSourceDrawerContent({
     [rowData, tableData, monitoringSourcRef, serviceRef, environmentRef]
   )
 
+  const { openDialog: showWarning } = useConfirmationDialog({
+    intent: Intent.WARNING,
+    contentText: getString('common.unsavedChanges'),
+    titleText: getString('common.confirmText'),
+    cancelButtonText: getString('cancel'),
+    confirmButtonText: getString('confirm'),
+    onCloseDialog: (isConfirmed: boolean) => isConfirmed && onClose(null)
+  })
+
   const determineMaxTabBySourceType = (): number => {
     switch (rowData?.type) {
       case Connectors.APP_DYNAMICS:
@@ -64,9 +74,7 @@ function HealthSourceDrawerContent({
   return (
     <>
       <Drawer
-        onClose={() => {
-          onClose(null)
-        }}
+        onClose={showWarning}
         usePortal={true}
         autoFocus={true}
         canEscapeKeyClose={true}

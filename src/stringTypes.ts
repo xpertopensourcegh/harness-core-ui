@@ -2963,6 +2963,7 @@ export interface StringsMap {
   'cv.healthSource.connectors.AppDynamics.applicationLabel': string
   'cv.healthSource.connectors.AppDynamics.applicationPlaceholder': string
   'cv.healthSource.connectors.AppDynamics.applicationsAndTiers': string
+  'cv.healthSource.connectors.AppDynamics.metricPackLabel': string
   'cv.healthSource.connectors.AppDynamics.tierPlaceholder': string
   'cv.healthSource.connectors.AppDynamics.trierLabel': string
   'cv.healthSource.connectors.AppDynamics.validation.application': string
@@ -2983,6 +2984,8 @@ export interface StringsMap {
   'cv.healthSource.selectHealthSource': string
   'cv.healthSource.seriveEnvironmentNote': string
   'cv.healthSource.serviceLabel': string
+  'cv.healthSource.table.environmentMapping': string
+  'cv.healthSource.table.serviceMapping': string
   'cv.hostNamePlaceholder': string
   'cv.initiated': string
   'cv.jobNamePlaceholder': string

@@ -1,8 +1,7 @@
 import React from 'react'
-import { Button, Text, Layout, Color } from '@wings-software/uicore'
+import { Button, Text, Layout, Color, IconName } from '@wings-software/uicore'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import type { UseStringsReturn } from 'framework/strings'
-
 import {
   AppdynamicsValidationResponse,
   getAppDynamicsMetricDataPromise,
@@ -11,6 +10,7 @@ import {
   MetricPackDTOArrayRequestBody
 } from 'services/cv'
 import type { updatedHealthSource } from '../../HealthSourceDrawer/HealthSourceDrawerContent'
+import css from './AppDMonitoredSource.module.scss'
 
 export enum ValidationStatus {
   IN_PROGRESS = 'in-progress',
@@ -45,6 +45,26 @@ const createAppDPayload = (formData: any): updatedHealthSource => {
   }
 
   return healthSourcesPayload
+}
+
+export const InputIcon = ({ icon, onClick }: { icon: IconName; onClick?: () => void }): React.ReactElement => (
+  <Button
+    minimal
+    icon={icon}
+    iconProps={{ size: 15 }}
+    onClick={onClick}
+    margin={{ right: 'xsmall' }}
+    className={css.iconButton}
+  />
+)
+
+export const getInputGroupProps = (onClick: () => void) => {
+  return {
+    inputGroup: {
+      leftElement: <InputIcon icon={'search'} />,
+      rightElement: <InputIcon icon={'cross'} onClick={onClick} />
+    }
+  }
 }
 
 export const getOptions = (loading: boolean, data: any, getString: UseStringsReturn['getString']) => {

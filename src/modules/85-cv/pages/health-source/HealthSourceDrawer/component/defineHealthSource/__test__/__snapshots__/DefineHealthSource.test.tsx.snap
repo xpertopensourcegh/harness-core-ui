@@ -63,7 +63,7 @@ exports[`DefineHealthSource should have proper validation 1`] = `
                     class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
                   >
                     <p
-                      class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--margin-bottom-large"
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-small StyledProps--margin-bottom-large"
                     >
                       cv.healthSource.selectHealthSource
                     </p>
@@ -175,7 +175,7 @@ exports[`DefineHealthSource should have proper validation 1`] = `
                       </div>
                     </div>
                     <div
-                      class="StyledProps--font StyledProps--main StyledProps--margin-bottom-large"
+                      class="StyledProps--font StyledProps--main StyledProps--margin-bottom-large StyledProps--color StyledProps--color-black"
                       style="width: 400px;"
                     >
                       <div
@@ -272,7 +272,7 @@ exports[`DefineHealthSource should have proper validation 1`] = `
                       </div>
                     </div>
                     <p
-                      class="StyledProps--font StyledProps--main StyledProps--font-small"
+                      class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-black"
                     >
                       cv.healthSource.seriveEnvironmentNote
                     </p>
@@ -294,7 +294,7 @@ exports[`DefineHealthSource should have proper validation 1`] = `
                       style="width: 400px;"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--margin-bottom-small"
+                        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-small StyledProps--margin-bottom-small"
                       >
                         connectors.selectConnector
                       </p>
@@ -338,7 +338,7 @@ exports[`DefineHealthSource should have proper validation 1`] = `
                       style="width: 400px;"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--margin-bottom-small"
+                        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-small StyledProps--margin-bottom-small"
                       >
                         cv.healthSource.featureLabel
                       </p>

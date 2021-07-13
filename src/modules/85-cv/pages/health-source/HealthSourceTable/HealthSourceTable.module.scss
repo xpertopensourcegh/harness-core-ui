@@ -27,3 +27,10 @@
     height: 150px !important;
   }
 }
+
+.tableTitle {
+  font-size: var(--font-medium) !important;
+  color: var(--black) !important;
+  margin: var(--spacing-small) !important;
+  font-weight: bold !important;
+}

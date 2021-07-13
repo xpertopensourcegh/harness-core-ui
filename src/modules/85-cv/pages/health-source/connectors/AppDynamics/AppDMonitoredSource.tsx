@@ -1,7 +1,17 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
-import { Container, Formik, FormikForm, FormInput, Layout, SelectOption, Utils } from '@wings-software/uicore'
+import {
+  Color,
+  Text,
+  Container,
+  Formik,
+  FormikForm,
+  FormInput,
+  Layout,
+  SelectOption,
+  Utils
+} from '@wings-software/uicore'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import {
   useGetAppDynamicsApplications,
@@ -25,7 +35,8 @@ import {
   getOptions,
   validateTier,
   renderValidationStatus,
-  getAppDMetric
+  getAppDMetric,
+  getInputGroupProps
 } from './AppDMonitoredSource.utils'
 import { HealthSoureSupportedConnectorTypes } from '../connectors.util'
 import css from './AppDMonitoredSource.module.scss'
@@ -38,7 +49,7 @@ export default function AppDMonitoredSource({
   onSubmit: (formdata: any, healthSourcePayload: any) => void
 }): JSX.Element {
   const { getString } = useStrings()
-  const { showError } = useToaster()
+  const { showError, clear } = useToaster()
   const { onPrevious } = useContext(SetupSourceTabsContext)
 
   const [validationResultData, setValidationResultData] = useState<AppdynamicsValidationResponse[]>()
@@ -130,6 +141,7 @@ export default function AppDMonitoredSource({
   }
 
   if (applicationError || tierError) {
+    clear()
     tierError && showError(tierError?.message)
     applicationError && showError(applicationError?.message)
   }
@@ -182,8 +194,9 @@ export default function AppDMonitoredSource({
           <FormikForm className={css.formFullheight}>
             <CardWithOuterTitle title={getString('cv.healthSource.connectors.AppDynamics.applicationsAndTiers')}>
               <Layout.Horizontal spacing={'large'} className={css.horizontalCenterAlign}>
-                <Container width={'400px'}>
+                <Container margin={{ bottom: 'small' }} width={'300px'} color={Color.BLACK}>
                   <FormInput.Select
+                    className={css.applicationDropdown}
                     onChange={item => {
                       refetchTier({
                         queryParams: {
@@ -199,9 +212,13 @@ export default function AppDMonitoredSource({
                       formik.setFieldValue('appdApplication', item.label)
                       setAppDValidation({ status: '', result: [] })
                     }}
-                    value={applicationOptions.find(
-                      (item: SelectOption) => item.label === formik?.values?.appdApplication
-                    )}
+                    value={
+                      !formik?.values?.appdApplication
+                        ? { label: '', value: '' }
+                        : applicationOptions.find(
+                            (item: SelectOption) => item.label === formik?.values?.appdApplication
+                          )
+                    }
                     name={'appdApplication'}
                     placeholder={
                       applicationLoading
@@ -210,11 +227,13 @@ export default function AppDMonitoredSource({
                     }
                     items={applicationOptions}
                     label={getString('cv.healthSource.connectors.AppDynamics.applicationLabel')}
+                    {...getInputGroupProps(() => formik.setFieldValue('appdApplication', ''))}
                   />
                 </Container>
                 {!!formik.values.appdApplication && (
-                  <Container width={'400px'}>
+                  <Container margin={{ bottom: 'small' }} width={'300px'} color={Color.BLACK}>
                     <FormInput.Select
+                      className={css.tierDropdown}
                       name={'appDTier'}
                       placeholder={
                         tierLoading
@@ -222,8 +241,8 @@ export default function AppDMonitoredSource({
                           : getString('cv.healthSource.connectors.AppDynamics.tierPlaceholder')
                       }
                       value={
-                        tierLoading
-                          ? null
+                        tierLoading || !formik?.values?.appDTier
+                          ? { label: '', value: '' }
                           : tierOptions.find((item: SelectOption) => item.label === formik?.values?.appDTier)
                       }
                       onChange={async item => {
@@ -232,55 +251,65 @@ export default function AppDMonitoredSource({
                       }}
                       items={tierOptions}
                       label={getString('cv.healthSource.connectors.AppDynamics.trierLabel')}
+                      {...getInputGroupProps(() => formik.setFieldValue('appDTier', ''))}
                     />
                   </Container>
                 )}
-                <Container width={'400px'}>
-                  {renderValidationStatus(
-                    appDValidation.status,
-                    getString,
-                    appDValidation.result,
-                    setValidationResultData,
-                    () =>
-                      onValidate(formik?.values?.appdApplication, formik?.values?.appDTier, formik?.values?.metricAppD)
-                  )}
+                <Container width={'300px'} color={Color.BLACK}>
+                  {formik?.values?.appDTier &&
+                    formik?.values?.appdApplication &&
+                    renderValidationStatus(
+                      appDValidation.status,
+                      getString,
+                      appDValidation.result,
+                      setValidationResultData,
+                      () =>
+                        onValidate(
+                          formik?.values?.appdApplication,
+                          formik?.values?.appDTier,
+                          formik?.values?.metricAppD
+                        )
+                    )}
                 </Container>
               </Layout.Horizontal>
             </CardWithOuterTitle>
             <CardWithOuterTitle title={getString('metricPacks')}>
-              <Layout.Horizontal spacing={'large'} className={css.horizontalCenterAlign}>
-                <Container className={css.metricPack}>
-                  {metricPacks?.resource?.map(mp => (
-                    <FormInput.CheckBox
-                      name={`metricAppD.${mp.identifier}`}
-                      key={mp.identifier}
-                      label={mp.identifier || ''}
-                      onChange={async val => {
-                        const metricData = {
-                          ...formik?.values?.metricAppD,
-                          [mp.identifier as string]: val.currentTarget.checked
-                        }
-                        await onValidate(
-                          formik?.values?.appdApplication,
-                          formik?.values?.appDTier as string,
-                          metricData
-                        )
-                      }}
+              <Layout.Vertical>
+                <Text color={Color.BLACK}>{getString('cv.healthSource.connectors.AppDynamics.metricPackLabel')}</Text>
+                <Layout.Horizontal spacing={'large'} className={css.horizontalCenterAlign}>
+                  <Container className={css.metricPack}>
+                    {metricPacks?.resource?.map(mp => (
+                      <FormInput.CheckBox
+                        name={`metricAppD.${mp.identifier}`}
+                        key={mp.identifier}
+                        label={mp.identifier || ''}
+                        onChange={async val => {
+                          const metricData = {
+                            ...formik?.values?.metricAppD,
+                            [mp.identifier as string]: val.currentTarget.checked
+                          }
+                          await onValidate(
+                            formik?.values?.appdApplication,
+                            formik?.values?.appDTier as string,
+                            metricData
+                          )
+                        }}
+                      />
+                    ))}
+                  </Container>
+                  {metricPackError && (
+                    <PageError message={getErrorMessage(metricPackError)} onClick={() => refetchMetricPacks()} />
+                  )}
+                  {validationResultData && (
+                    <MetricsVerificationModal
+                      verificationData={validationResultData}
+                      guid={guidMap.get(formik?.values?.appdTierName)}
+                      onHide={setValidationResultData as () => void}
+                      verificationType={Connectors.APP_DYNAMICS}
                     />
-                  ))}
-                </Container>
-                {metricPackError?.data && (
-                  <PageError message={getErrorMessage(metricPackError)} onClick={() => refetchMetricPacks()} />
-                )}
-                {validationResultData && (
-                  <MetricsVerificationModal
-                    verificationData={validationResultData}
-                    guid={guidMap.get(formik?.values?.appdTierName)}
-                    onHide={setValidationResultData as () => void}
-                    verificationType={Connectors.APP_DYNAMICS}
-                  />
-                )}
-              </Layout.Horizontal>
+                  )}
+                </Layout.Horizontal>
+              </Layout.Vertical>
             </CardWithOuterTitle>
             <DrawerFooter isSubmit onPrevious={() => onPrevious(formik.values)} onNext={formik.submitForm} />
           </FormikForm>

@@ -15,3 +15,14 @@
   position: relative;
   overflow-y: scroll;
 }
+
+.applicationDropdown,
+.tierDropdown {
+  span.bp3-input-left-container {
+    margin-top: var(--spacing-none) !important;
+  }
+}
+
+.iconButton {
+  color: var(--blue-600) !important;
+}

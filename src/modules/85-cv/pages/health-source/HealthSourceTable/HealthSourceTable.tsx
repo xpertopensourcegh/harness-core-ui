@@ -4,6 +4,7 @@ import type { CellProps, Renderer } from 'react-table'
 import { Color, Container, Text, SelectOption } from '@wings-software/uicore'
 import { useToaster } from '@common/exports'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
+import { getConnectorIconByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { MonitoredServiceDTO, MonitoredServiceResponse, useUpdateMonitoredService } from 'services/cv'
 import { useStrings } from 'framework/strings'
@@ -114,8 +115,13 @@ export default function HealthSourceTable({
     setrowData(null)
   }
 
+  const renderTypeWithIcon: Renderer<CellProps<updatedHealthSource>> = ({ row }): JSX.Element => {
+    const rowdata = row?.original
+    return <Text icon={getConnectorIconByType(rowdata?.type || '')}>{rowdata?.type}</Text>
+  }
+
   const renderEditDelete: Renderer<CellProps<updatedHealthSource>> = ({ row }): JSX.Element => {
-    const rowdata = row.original
+    const rowdata = row?.original
     return (
       <Container flex>
         <Text>{rowdata?.service}</Text>
@@ -137,6 +143,7 @@ export default function HealthSourceTable({
 
   return (
     <>
+      <Text className={css.tableTitle}>{getString('connectors.cdng.healthSources.label')}</Text>
       {tableData.length ? (
         <Table
           className={css.tableWrapper}
@@ -150,26 +157,27 @@ export default function HealthSourceTable({
           }}
           columns={[
             {
-              Header: 'Name',
+              Header: getString('name'),
               accessor: 'name',
               width: '15%'
             },
             {
-              Header: 'Type',
+              Header: getString('typeLabel'),
               width: '15%'
             },
             {
-              Header: 'Source',
+              Header: getString('source'),
               accessor: 'type',
-              width: '15%'
+              width: '15%',
+              Cell: renderTypeWithIcon
             },
             {
-              Header: 'Environment Mapping',
+              Header: getString('cv.healthSource.table.environmentMapping'),
               accessor: 'environment',
               width: '20%'
             },
             {
-              Header: 'Service Mapping',
+              Header: getString('cv.healthSource.table.serviceMapping'),
               accessor: 'service',
               Cell: renderEditDelete,
               width: '35%'

@@ -102,7 +102,7 @@ export default function AddAndUpdateMonitoredService(): JSX.Element {
     return (
       <>
         <CardWithOuterTitle title={getString('cv.monitoredServices.monitoredServiceDetails')}>
-          <Container width={'400px'}>
+          <Container width={'400px'} color={'black'}>
             <FormInput.InputWithIdentifier
               isIdentifierEditable={!isEdit}
               inputName="monitoredServiceName"
@@ -126,7 +126,9 @@ export default function AddAndUpdateMonitoredService(): JSX.Element {
               render={() => {
                 return (
                   <>
-                    <Text margin={{ bottom: 'small' }}>{getString('cv.healthSource.serviceLabel')}</Text>
+                    <Text color={'black'} margin={{ bottom: 'small' }}>
+                      {getString('cv.healthSource.serviceLabel')}
+                    </Text>
                     <HarnessService
                       className={cx(css.dropdown, isEdit && css.disabled)}
                       item={formik?.values?.serviceRef}
@@ -152,7 +154,9 @@ export default function AddAndUpdateMonitoredService(): JSX.Element {
               render={() => {
                 return (
                   <>
-                    <Text margin={{ bottom: 'small' }}>{getString('cv.healthSource.environmentLabel')}</Text>
+                    <Text color={'black'} margin={{ bottom: 'small' }}>
+                      {getString('cv.healthSource.environmentLabel')}
+                    </Text>
                     <HarnessEnvironment
                       className={cx(css.dropdown, isEdit && css.disabled)}
                       item={formik?.values?.environmentRef}

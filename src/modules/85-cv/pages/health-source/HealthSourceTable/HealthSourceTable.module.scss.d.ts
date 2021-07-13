@@ -6,5 +6,6 @@ declare const styles: {
   readonly drawerlink: string
   readonly tableWrapper: string
   readonly noData: string
+  readonly tableTitle: string
 }
 export default styles

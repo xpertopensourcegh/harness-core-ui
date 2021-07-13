@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Layout, Color, Text, Button, ExpandingSearchInput, SelectOption, Select } from '@wings-software/uicore'
+import { Layout, Color, Text, Button, SelectOption, Select } from '@wings-software/uicore'
 import type { CellProps, Renderer } from 'react-table'
 import { useParams, useHistory } from 'react-router-dom'
 import styled from '@emotion/styled'
@@ -53,7 +53,7 @@ function CVMonitoringServicesPage(): JSX.Element {
   const params = useParams<ProjectPathProps>()
   const [page, setPage] = useState(0)
   const [environment, setEnvironment] = useState<SelectOption>()
-  const [searchTerm, setSearchTerm] = useState('')
+  // const [searchTerm, setSearchTerm] = useState('') // TODO: Need clarificaition from product
   const { data: serviceList, loading: loadingServices } = useGetMonitoredServiceListEnvironments({
     queryParams: {
       accountId: params.accountId,
@@ -69,7 +69,7 @@ function CVMonitoringServicesPage(): JSX.Element {
       orgIdentifier: params.orgIdentifier,
       projectIdentifier: params.projectIdentifier,
       accountId: params.accountId,
-      ...getFilterAndEnvironmentValue(environment?.value as string, searchTerm)
+      ...getFilterAndEnvironmentValue(environment?.value as string, '')
     },
     debounce: 400
   })
@@ -182,6 +182,9 @@ function CVMonitoringServicesPage(): JSX.Element {
             <Select
               name={''}
               value={environment}
+              inputProps={{
+                leftIcon: 'search'
+              }}
               defaultSelectedItem={{ label: getString('all'), value: getString('all') }}
               items={
                 loadingServices
@@ -195,13 +198,15 @@ function CVMonitoringServicesPage(): JSX.Element {
               }
               onChange={item => setEnvironment(item)}
             />
-            <ExpandingSearchInput
+            {/* 
+            TODO: Need clarificaition from product
+            <ExpandingSearchInput  
               placeholder={getString('search')}
               throttle={200}
               onChange={(query: string) => {
                 setSearchTerm(query)
               }}
-            />
+            /> */}
           </HorizontalLayout>
         </HorizontalLayout>
       </MonitoringServicesHeader>

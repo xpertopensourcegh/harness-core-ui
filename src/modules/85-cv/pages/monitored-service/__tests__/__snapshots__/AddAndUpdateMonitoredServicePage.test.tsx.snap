@@ -6,7 +6,7 @@ exports[`Unit tests for createting monitored source Health source tabel and envi
     class="css-hwoeic"
   >
     <div
-      class="css-lv9wot"
+      class="css-1nmyia8"
       height="80px"
     >
       <div
@@ -90,7 +90,7 @@ exports[`Unit tests for createting monitored source Health source tabel and envi
           class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
         >
           <div
-            class="StyledProps--font StyledProps--main"
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
             style="width: 400px;"
           >
             <div
@@ -197,7 +197,7 @@ exports[`Unit tests for createting monitored source Health source tabel and envi
                 class="bp3-form-content"
               >
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--margin-bottom-small"
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--margin-bottom-small"
                 >
                   cv.healthSource.serviceLabel
                 </p>
@@ -213,7 +213,7 @@ exports[`Unit tests for createting monitored source Health source tabel and envi
                 class="bp3-form-content"
               >
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--margin-bottom-small"
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--margin-bottom-small"
                 >
                   cv.healthSource.environmentLabel
                 </p>
@@ -236,6 +236,11 @@ exports[`Unit tests for createting monitored source Health source tabel and envi
         <div
           class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
         >
+          <p
+            class="StyledProps--font StyledProps--main tableTitle"
+          >
+            connectors.cdng.healthSources.label
+          </p>
           <div
             class="StyledProps--font StyledProps--main noData"
           >

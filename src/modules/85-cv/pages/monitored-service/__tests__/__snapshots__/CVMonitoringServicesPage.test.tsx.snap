@@ -6,7 +6,7 @@ exports[`Monitored Service list Service listing component renders 1`] = `
     class="css-hwoeic"
   >
     <div
-      class="css-lv9wot"
+      class="css-1nmyia8"
       height="80px"
     >
       <div
@@ -52,7 +52,7 @@ exports[`Monitored Service list Service listing component renders 1`] = `
       </div>
     </div>
     <div
-      class="css-9r5k5y"
+      class="css-tvlsc3"
     >
       <div
         class="Layout--horizontal StyledProps--main css-1nbi0sg"
@@ -104,6 +104,25 @@ exports[`Monitored Service list Service listing component renders 1`] = `
               <div
                 class="bp3-input-group"
               >
+                <span
+                  class="bp3-icon bp3-icon-search"
+                  icon="search"
+                >
+                  <svg
+                    data-icon="search"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      search
+                    </desc>
+                    <path
+                      d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
                 <input
                   autocomplete="off"
                   class="bp3-input"
@@ -138,38 +157,6 @@ exports[`Monitored Service list Service listing component renders 1`] = `
                 </span>
               </div>
             </div>
-          </div>
-          <div
-            class="bp3-input-group ui-search-box ExpandingSearchInput--main  "
-            data-name=""
-          >
-            <span
-              class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon "
-              icon="search"
-            >
-              <svg
-                data-icon="search"
-                height="14"
-                viewBox="0 0 16 16"
-                width="14"
-              >
-                <desc>
-                  search
-                </desc>
-                <path
-                  d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-            <input
-              class="bp3-input "
-              dir="auto"
-              placeholder="search"
-              style="padding-right: 0px;"
-              type="search"
-              value=""
-            />
           </div>
         </div>
       </div>
