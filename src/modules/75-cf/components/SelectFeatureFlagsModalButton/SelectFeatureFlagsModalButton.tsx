@@ -144,6 +144,7 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
               lineHeight: '20px',
               padding: 'var(--spacing-large) 0 0 var(--spacing-small)'
             }}
+            data-tooltip-id="ff_segmentAddToFlagModal_heading"
           >
             {modalTitle}
           </Text>

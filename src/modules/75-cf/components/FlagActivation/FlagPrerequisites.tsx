@@ -291,6 +291,7 @@ export const FlagPrerequisites: React.FC<FlagPrerequisitesProps> = props => {
         lineHeight: '20px',
         paddingLeft: 'var(--spacing-small)'
       }}
+      data-tooltip-id="ff_ffPrerequisites_heading"
     >
       {getString('cf.shared.prerequisites')}
       <span style={{ fontSize: '12px', fontWeight: 400, display: 'inline-block', marginLeft: 'var(--spacing-xsmall)' }}>

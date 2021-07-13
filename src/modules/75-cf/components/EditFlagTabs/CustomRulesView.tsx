@@ -945,7 +945,9 @@ const CustomRulesView: React.FC<CustomRulesViewProps> = ({
 
   return (
     <>
-      <Text className={cx(css.ruleTitle, css.custom)}>{getString('cf.featureFlags.rules.customRules')}</Text>
+      <Text className={cx(css.ruleTitle, css.custom)} data-tooltip-id="ff_ffCustomRules_heading">
+        {getString('cf.featureFlags.rules.customRules')}
+      </Text>
       <Layout.Vertical>
         {servings.length > 0 && (
           <Layout.Horizontal spacing="small">

@@ -561,7 +561,9 @@ const FeatureFlagsPage: React.FC = () => {
   const title = getString('featureFlagsText')
   const header = (
     <Layout.Horizontal flex={{ align: 'center-center' }} style={{ flexGrow: 1 }} padding={{ right: 'xlarge' }}>
-      <ListingPageTitle style={{ borderBottom: 'none' }}>{title}</ListingPageTitle>
+      <ListingPageTitle style={{ borderBottom: 'none' }} data-tooltip-id="ff_ffListing_heading">
+        {title}
+      </ListingPageTitle>
       <FlexExpander />
       {!!environments?.length && <CFEnvironmentSelect component={<EnvironmentSelect />} />}
     </Layout.Horizontal>

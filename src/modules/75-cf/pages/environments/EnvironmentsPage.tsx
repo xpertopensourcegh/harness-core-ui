@@ -12,7 +12,7 @@ import { CF_DEFAULT_PAGE_SIZE } from '@cf/utils/CFUtils'
 import { EnvironmentType } from '@common/constants/EnvironmentType'
 import { useConfirmAction } from '@common/hooks/useConfirmAction'
 import { useEnvStrings } from '@cf/hooks/environment'
-import { ListingPageTemplate } from '@cf/components/ListingPageTemplate/ListingPageTemplate'
+import { ListingPageTemplate, ListingPageTitle } from '@cf/components/ListingPageTemplate/ListingPageTemplate'
 import EnvironmentDialog from '@cf/components/CreateEnvironmentDialog/EnvironmentDialog'
 import routes from '@common/RouteDefinitions'
 import { NoEnvironment } from '@cf/components/NoEnvironment/NoEnvironment'
@@ -232,7 +232,12 @@ const EnvironmentsPage: React.FC = () => {
   return (
     <ListingPageTemplate
       pageTitle={title}
-      header={title}
+      header={
+        <ListingPageTitle style={{ borderBottom: 'none' }} data-tooltip-id="ff_env_heading">
+          {title}
+        </ListingPageTitle>
+      }
+      headerStyle={{ display: 'flex' }}
       toolbar={
         hasEnvs && (
           <Layout.Horizontal>
