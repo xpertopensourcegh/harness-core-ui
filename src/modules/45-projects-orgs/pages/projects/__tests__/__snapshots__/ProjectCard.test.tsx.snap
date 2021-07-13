@@ -613,11 +613,11 @@ exports[`Project Card Functionality Test Click on CE 1`] = `
 exports[`Project Card test Preview is ok 1`] = `
 <div>
   <div
-    class="bp3-card bp3-elevation-0 Card--card projectCard"
+    class="bp3-card bp3-elevation-0 Card--card projectCard previewProjectCard"
     data-testid="project-card-dummy_nametestOrg"
   >
     <div
-      class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"
+      class="StyledProps--font StyledProps--main projectInfo previewProjectInfo StyledProps--padding-xlarge"
     >
       <div
         class="StyledProps--font StyledProps--main"

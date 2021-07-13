@@ -43,7 +43,7 @@ exports[`Entity Usage render for connector data with gitSync 1`] = `
           <input
             class="bp3-input "
             dir="auto"
-            placeholder="projectSelector.placeholder"
+            placeholder="Search"
             style="padding-right: 0px;"
             type="search"
             value=""
@@ -332,7 +332,7 @@ exports[`Entity Usage render for data 1`] = `
           <input
             class="bp3-input "
             dir="auto"
-            placeholder="projectSelector.placeholder"
+            placeholder="Search"
             style="padding-right: 0px;"
             type="search"
             value=""
@@ -473,7 +473,7 @@ exports[`Entity Usage render for no data 1`] = `
           <input
             class="bp3-input "
             dir="auto"
-            placeholder="projectSelector.placeholder"
+            placeholder="Search"
             style="padding-right: 0px;"
             type="search"
             value=""

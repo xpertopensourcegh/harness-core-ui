@@ -339,11 +339,11 @@ exports[`About Project test create project  1`] = `
             style="width: 50%;"
           >
             <div
-              class="bp3-card bp3-elevation-0 Card--card projectCard"
+              class="bp3-card bp3-elevation-0 Card--card projectCard previewProjectCard"
               data-testid="project-card-"
             >
               <div
-                class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"
+                class="StyledProps--font StyledProps--main projectInfo previewProjectInfo StyledProps--padding-xlarge"
               >
                 <div
                   class="StyledProps--font StyledProps--main"
@@ -995,11 +995,11 @@ exports[`About Project test create project  2`] = `
             style="width: 50%;"
           >
             <div
-              class="bp3-card bp3-elevation-0 Card--card projectCard"
+              class="bp3-card bp3-elevation-0 Card--card projectCard previewProjectCard"
               data-testid="project-card-dummy_name"
             >
               <div
-                class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"
+                class="StyledProps--font StyledProps--main projectInfo previewProjectInfo StyledProps--padding-xlarge"
               >
                 <div
                   class="StyledProps--font StyledProps--main"
