@@ -114,7 +114,9 @@ exports[`UserDetails Test render data 1`] = `
       class="Layout--vertical StyledProps--main StyledProps--padding-large"
       style="width: 100%;"
     >
-      <div>
+      <div
+        class="StyledProps--font StyledProps--main StyledProps--margin-bottom-medium"
+      >
         <p
           class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--padding-bottom-medium"
         >
