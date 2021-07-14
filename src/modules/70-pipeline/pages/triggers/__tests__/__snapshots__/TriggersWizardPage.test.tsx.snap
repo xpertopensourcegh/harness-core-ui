@@ -325,7 +325,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                                           class="bp3-input"
                                           name="pipeline.variables[0].value"
                                           type="text"
-                                          value=""
+                                          value="123"
                                         />
                                       </div>
                                       <span

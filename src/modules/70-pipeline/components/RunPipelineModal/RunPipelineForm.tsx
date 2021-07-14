@@ -485,7 +485,7 @@ function RunPipelineFormBasic({
               const inputSetPortion = parse(data.data.pipelineYaml) as {
                 pipeline: NgPipeline
               }
-              const toBeUpdated = mergeTemplateWithInputSetData(parsedTemplate, inputSetPortion, pipeline)
+              const toBeUpdated = mergeTemplateWithInputSetData(parsedTemplate, inputSetPortion)
               setCurrentPipeline(toBeUpdated)
             }
           } catch (e) {
@@ -511,7 +511,7 @@ function RunPipelineFormBasic({
               const inputSetPortion = pick(parse(data.data.inputSetYaml)?.inputSet, 'pipeline') as {
                 pipeline: NgPipeline
               }
-              const toBeUpdated = mergeTemplateWithInputSetData(parsedTemplate, inputSetPortion, pipeline)
+              const toBeUpdated = mergeTemplateWithInputSetData(parsedTemplate, inputSetPortion)
               setCurrentPipeline(toBeUpdated)
             }
           }

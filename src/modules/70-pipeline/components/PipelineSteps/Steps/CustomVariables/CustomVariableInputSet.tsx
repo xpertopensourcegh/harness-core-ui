@@ -56,7 +56,7 @@ function CustomVariableInputSetBasic(props: CustomVariableInputSetProps): React.
       (isUndefined(executionIdentifier) && isUndefined(executionId) && isUndefined(triggerIdentifier)) ||
       triggerIdentifier === 'new'
     ) {
-      const VariablesFromFormik = get(formik?.values, 'variables', [])
+      const VariablesFromFormik = get(formik?.values, `${basePath}variables`, [])
       const updatedVariables =
         template?.variables?.map((templateVariable: AllNGVariables, index: number) => {
           const pipelineVariable = allValues?.variables?.find(
