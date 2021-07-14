@@ -6280,6 +6280,7 @@ export interface UserInfo {
   defaultAccountId?: string
   email?: string
   emailVerified?: boolean
+  locked?: boolean
   name?: string
   token?: string
   twoFactorAuthenticationEnabled?: boolean
@@ -6301,6 +6302,7 @@ export interface UserLockoutPolicy {
 
 export interface UserMetadataDTO {
   email: string
+  locked?: boolean
   name?: string
   uuid: string
 }
@@ -21263,6 +21265,70 @@ export const getTwoFactorAuthSettingsPromise = (
   getUsingFetch<ResponseTwoFactorAuthSettingsInfo, Failure | Error, void, GetTwoFactorAuthSettingsPathParams>(
     getConfig('ng/api'),
     `/user/two-factor-auth/${authMechanism}`,
+    props,
+    signal
+  )
+
+export interface UnlockUserQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export interface UnlockUserPathParams {
+  userId: string
+}
+
+export type UnlockUserProps = Omit<
+  MutateProps<ResponseUserInfo, Failure | Error, UnlockUserQueryParams, void, UnlockUserPathParams>,
+  'path' | 'verb'
+> &
+  UnlockUserPathParams
+
+/**
+ * unlock user
+ */
+export const UnlockUser = ({ userId, ...props }: UnlockUserProps) => (
+  <Mutate<ResponseUserInfo, Failure | Error, UnlockUserQueryParams, void, UnlockUserPathParams>
+    verb="PUT"
+    path={`/user/unlock-user/${userId}`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseUnlockUserProps = Omit<
+  UseMutateProps<ResponseUserInfo, Failure | Error, UnlockUserQueryParams, void, UnlockUserPathParams>,
+  'path' | 'verb'
+> &
+  UnlockUserPathParams
+
+/**
+ * unlock user
+ */
+export const useUnlockUser = ({ userId, ...props }: UseUnlockUserProps) =>
+  useMutate<ResponseUserInfo, Failure | Error, UnlockUserQueryParams, void, UnlockUserPathParams>(
+    'PUT',
+    (paramsInPath: UnlockUserPathParams) => `/user/unlock-user/${paramsInPath.userId}`,
+    { base: getConfig('ng/api'), pathParams: { userId }, ...props }
+  )
+
+/**
+ * unlock user
+ */
+export const unlockUserPromise = (
+  {
+    userId,
+    ...props
+  }: MutateUsingFetchProps<ResponseUserInfo, Failure | Error, UnlockUserQueryParams, void, UnlockUserPathParams> & {
+    userId: string
+  },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseUserInfo, Failure | Error, UnlockUserQueryParams, void, UnlockUserPathParams>(
+    'PUT',
+    getConfig('ng/api'),
+    `/user/unlock-user/${userId}`,
     props,
     signal
   )

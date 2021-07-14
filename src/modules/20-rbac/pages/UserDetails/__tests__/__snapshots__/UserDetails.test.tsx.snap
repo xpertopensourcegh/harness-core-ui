@@ -92,11 +92,15 @@ exports[`UserDetails Test render data 1`] = `
         <div
           class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-left-medium"
         >
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-medium"
+          <div
+            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline"
           >
-            dummy
-          </p>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-medium"
+            >
+              dummy
+            </p>
+          </div>
           <p
             class="StyledProps--font StyledProps--main"
           >

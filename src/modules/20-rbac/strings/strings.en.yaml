@@ -111,6 +111,10 @@ usersPage:
   deleteSuccessMessage: User '{{name}}' deleted successfully
   noDataDescription: There are no users in this scope. Click on the button below to start adding them.
   noUsersFound: No Users found
+  unlockTitle: Unlock user
+  unlockConfirmation: Are you sure you want to unlock the user '{{name}}?'
+  unlockSuccessMessage: User '{{name}}' unlocked successfully
+  lockedOutLabel: (Locked out)
 userDetails:
   noMembersMessage: There are no members added to this User Group
   userGroup:

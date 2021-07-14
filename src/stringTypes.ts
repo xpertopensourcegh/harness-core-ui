@@ -547,6 +547,7 @@ export interface StringsMap {
   'rbac.usersPage.forUser': string
   'rbac.usersPage.invitationError': string
   'rbac.usersPage.invitationSuccess': string
+  'rbac.usersPage.lockedOutLabel': string
   'rbac.usersPage.noDataDescription': string
   'rbac.usersPage.noDataText': string
   'rbac.usersPage.noUsersFound': string
@@ -558,6 +559,9 @@ export interface StringsMap {
   'rbac.usersPage.search': string
   'rbac.usersPage.selectResourceGroup': string
   'rbac.usersPage.selectRole': string
+  'rbac.usersPage.unlockConfirmation': string
+  'rbac.usersPage.unlockSuccessMessage': string
+  'rbac.usersPage.unlockTitle': string
   'rbac.usersPage.userAlreadyAdded': string
   'rbac.usersPage.userAlreadyInvited': string
   'rbac.usersPage.validation.resourceGroup': string
