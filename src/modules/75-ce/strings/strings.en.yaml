@@ -88,6 +88,7 @@ co:
       selectAppGateway: 'Select Application Gateway'
       selectLbHelpText: 'The rule requires a Load balancer to direct traffic/shut down appropriate instances. Multiple instances and rules can use a single Load balancer. It identifies instances based on hostnames and directs the HTTP traffic appropriately.'
       chooseLbText: '- Choose from existing Load balancers -'
+      erroredAccessPointSelectionText: 'Access point in error state can not be selected'
       helpText:
         dns:
           info: 'Select DNS Link if the instances managed by this AutoStopping Rule are currently accessed by a URL.'

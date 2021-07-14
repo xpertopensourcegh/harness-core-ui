@@ -61,8 +61,8 @@ const CertificateUpload: React.FC<CertificateUploadProps> = props => {
       >
         {({ isValid, submitForm }) => (
           <FormikForm className={css.uploadForm}>
-            <FormInput.Text name={'name'} label={'Name'} />
-            <FormInput.Text name={'password'} label={'Password'} />
+            <FormInput.Text name={'name'} label={getString('name')} />
+            <FormInput.Text name={'password'} label={getString('password')} />
             <Button text={'Done'} intent={'primary'} disabled={!isValid || !fileContent} onClick={submitForm} />
           </FormikForm>
         )}

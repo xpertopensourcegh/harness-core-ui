@@ -482,7 +482,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
 
       // Use only those Access Points which are not in errored state.
       if (linkedAccessPoint?.status === 'errored') {
-        showError('Access point in error state can not be selected')
+        showError(getString('ce.co.autoStoppingRule.setupAccess.erroredAccessPointSelectionText'))
         clearAPData()
       } else {
         updateLoadBalancerDetails(linkedAccessPoint)

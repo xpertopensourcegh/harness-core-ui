@@ -48,7 +48,7 @@ exports[`Certificate Upload Screen render upload component along with other fiel
                 class="Tooltip--acenter"
                 data-tooltip-id="azureCertificateUpload_name"
               >
-                Name
+                name
               </span>
                
               <span
@@ -83,7 +83,7 @@ exports[`Certificate Upload Screen render upload component along with other fiel
                 class="Tooltip--acenter"
                 data-tooltip-id="azureCertificateUpload_password"
               >
-                Password
+                password
               </span>
                
               <span

@@ -2138,6 +2138,7 @@ export interface StringsMap {
   'ce.co.autoStoppingRule.setupAccess.chooseLbText': string
   'ce.co.autoStoppingRule.setupAccess.customDomain.helpText': string
   'ce.co.autoStoppingRule.setupAccess.customDomain.noHostedZones': string
+  'ce.co.autoStoppingRule.setupAccess.erroredAccessPointSelectionText': string
   'ce.co.autoStoppingRule.setupAccess.helpText.bgTasks.info': string
   'ce.co.autoStoppingRule.setupAccess.helpText.dns.info': string
   'ce.co.autoStoppingRule.setupAccess.helpText.dns.setup.mapToDNS.description': string
