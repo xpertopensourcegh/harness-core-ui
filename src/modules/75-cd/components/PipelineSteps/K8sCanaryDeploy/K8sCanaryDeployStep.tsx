@@ -73,7 +73,7 @@ function K8CanaryDeployWidget(
             getString('validation.timeout10SecMinimum')
           ),
           spec: Yup.object().shape({
-            instanceSelection: getInstanceDropdownSchema({ required: true })
+            instanceSelection: getInstanceDropdownSchema({ required: true }, getString)
           }),
           identifier: IdentifierSchema()
         })}
@@ -316,10 +316,14 @@ export class K8sCanaryDeployStep extends PipelineStep<K8sCanaryDeployData> {
       getMultiTypeFromValue(template?.spec?.instanceSelection?.spec?.percentage) === MultiTypeInputType.RUNTIME
     ) {
       const instanceSelection = Yup.object().shape({
-        instanceSelection: getInstanceDropdownSchema({
-          required: true,
-          requiredErrorMessage: getString?.('fieldRequired', { field: 'Instance' })
-        })
+        instanceSelection: getInstanceDropdownSchema(
+          {
+            required: true,
+            requiredErrorMessage: getString?.('fieldRequired', { field: 'Instance' })
+          },
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          getString!
+        )
       })
 
       try {

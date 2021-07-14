@@ -14,7 +14,7 @@ import {
 import { connect } from 'formik'
 import { get, isNil } from 'lodash-es'
 import * as Yup from 'yup'
-import { useStrings } from 'framework/strings'
+import { useStrings, UseStringsReturn } from 'framework/strings'
 import { errorCheck } from '@common/utils/formikHelpers'
 // import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
@@ -39,7 +39,10 @@ export interface GetDurationValidationSchemaProps {
   maximumErrorMessage?: string
 }
 
-export function getInstanceDropdownSchema(props: GetDurationValidationSchemaProps = {}): Yup.ObjectSchema {
+export function getInstanceDropdownSchema(
+  props: GetDurationValidationSchemaProps = {},
+  getString: UseStringsReturn['getString']
+): Yup.ObjectSchema {
   const { maximum } = props
 
   if (maximum && typeof maximum !== 'number') {
@@ -64,30 +67,30 @@ export function getInstanceDropdownSchema(props: GetDurationValidationSchemaProp
           }
           if (required && isNil(value)) {
             return this.createError({
-              message: requiredErrorMessage || `Instance is an required field`
+              message: requiredErrorMessage || getString('common.instanceValidation.required')
             })
-          } else if (value < 1) {
+          } else if (value < 0) {
             return this.createError({
-              message: minimumErrorMessage || `Instances must be greater than or equal to 1`
+              message: minimumErrorMessage || getString('common.instanceValidation.minimumCountInstance')
             })
           } else if (maximum && value > maximum) {
             return this.createError({
-              message: maximumErrorMessage || `Instances must be less than or equal to "${maximum}"`
+              message: maximumErrorMessage || getString('common.instanceValidation.maximumCountInstance', { maximum })
             })
           }
         } else if (type === InstanceTypes.Percentage) {
           const value = this.parent?.spec?.percentage
           if (required && isNil(value)) {
             return this.createError({
-              message: requiredErrorMessage || `Instance is a required field`
+              message: requiredErrorMessage || getString('common.instanceValidation.required')
             })
           } else if (value < 1) {
             return this.createError({
-              message: minimumErrorMessage || `Percentage must be greater than or equal to 1`
+              message: minimumErrorMessage || getString('common.instanceValidation.minimumCountPercentage')
             })
           } else if (value > 100) {
             return this.createError({
-              message: maximumErrorMessage || `Percentage must be less than or equal to 100`
+              message: maximumErrorMessage || getString('common.instanceValidation.maximumCountPercentage')
             })
           }
         }

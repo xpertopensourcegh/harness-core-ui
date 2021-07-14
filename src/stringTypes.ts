@@ -221,6 +221,11 @@ export interface StringsMap {
   'common.in': string
   'common.input': string
   'common.instanceLabel': string
+  'common.instanceValidation.maximumCountInstance': string
+  'common.instanceValidation.maximumCountPercentage': string
+  'common.instanceValidation.minimumCountInstance': string
+  'common.instanceValidation.minimumCountPercentage': string
+  'common.instanceValidation.required': string
   'common.jexlExpression': string
   'common.labelTestConnection': string
   'common.last7days': string

@@ -40,6 +40,12 @@ PermissibleActions: Permissible Actions
 My: My
 ok: OK
 ID: ID
+instanceValidation:
+  required: Instance is an required field
+  minimumCountInstance: Instances must be greater than or equal to 0
+  maximumCountInstance: Instances must be less than or equal to {{ maximum }}
+  minimumCountPercentage: Percentage must be greater than or equal to 1
+  maximumCountPercentage: Percentage must be less than or equal to 100
 selectStrategy: Select a Strategy
 performAction: Perform Action
 jexlExpression: JEXL Expression

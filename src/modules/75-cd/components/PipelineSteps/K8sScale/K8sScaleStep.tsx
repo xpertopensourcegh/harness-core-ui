@@ -82,7 +82,7 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
             getString('validation.timeout10SecMinimum')
           ),
           spec: Yup.object().shape({
-            instanceSelection: getInstanceDropdownSchema({ required: true }),
+            instanceSelection: getInstanceDropdownSchema({ required: true }, getString),
             workload: Yup.string().required(getString('cd.workloadRequired'))
           }),
           identifier: IdentifierSchema()
@@ -370,10 +370,14 @@ export class K8sScaleStep extends PipelineStep<K8sScaleData> {
       ) === MultiTypeInputType.RUNTIME
     ) {
       const instanceSelection = Yup.object().shape({
-        instanceSelection: getInstanceDropdownSchema({
-          required: isRequired,
-          requiredErrorMessage: getString?.('fieldRequired', { field: 'Instance' })
-        })
+        instanceSelection: getInstanceDropdownSchema(
+          {
+            required: isRequired,
+            requiredErrorMessage: getString?.('fieldRequired', { field: 'Instance' })
+          },
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          getString!
+        )
       })
 
       try {
