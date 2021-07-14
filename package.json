@@ -59,7 +59,8 @@
     "strings:check": "node scripts/strings/yamlStringsCheck.mjs",
     "strings:genTypes": "node scripts/strings/generateTypesCli.mjs",
     "strings:loaders": "node scripts/strings/generateStrings.mjs",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "fmt": "prettier --write \"./src/**/*.{ts,tsx,css}\""
   },
   "dependencies": {
     "@blueprintjs/core": "3.26.1",
@@ -78,7 +79,7 @@
     "@wings-software/monaco-yaml": "2.4.36",
     "@wings-software/ng-tooltip": "~1.30.8",
     "@wings-software/telemetry": "^1.0.36",
-    "@wings-software/uicore": "0.1.291",
+    "@wings-software/uicore": "0.1.293",
     "anser": "^2.0.1",
     "ansi-to-react": "^6.0.7",
     "classnames": "^2.2.6",
