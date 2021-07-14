@@ -1,7 +1,6 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly main: string
-  readonly nodeHealth: string
+  readonly verificationStatusCard: string
 }
 export default styles

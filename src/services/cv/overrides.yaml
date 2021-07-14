@@ -36,6 +36,8 @@ allowpaths:
   - /activity/recent-activity-verifications
   - /activity/{activityId}/activity-risks
   - /activity/{activityId}/deployment-activity-summary
+  - /activity/{activityId}/deployment-timeseries-data
+  - /activity/{activityId}/datasource-types
   - /activity/list
   - /setup/status
   - /kubernetes/namespaces

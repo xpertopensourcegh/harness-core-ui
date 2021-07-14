@@ -1970,11 +1970,19 @@ export interface StringsMap {
   'pipeline.variable.variableNamePlaceholder': string
   'pipeline.verification.analysisTab.logs': string
   'pipeline.verification.analysisTab.metrics': string
+  'pipeline.verification.anomalousLogClusters': string
+  'pipeline.verification.anomalousMetrics': string
   'pipeline.verification.baselineTest': string
   'pipeline.verification.currentTest': string
+  'pipeline.verification.healthSourcePlaceholder': string
   'pipeline.verification.logClustersInViolation': string
+  'pipeline.verification.metricViewPlaceholder': string
   'pipeline.verification.metricsInViolation': string
+  'pipeline.verification.noMetrics': string
+  'pipeline.verification.refreshViewForNewData': string
   'pipeline.verification.testsRan': string
+  'pipeline.verification.toGetLatest': string
+  'pipeline.verification.waitForAnalysis': string
   'pipeline.verificationResult': string
   'templatesLibrary.addNewTemplate': string
   'templatesLibrary.copyToNewPipeline': string

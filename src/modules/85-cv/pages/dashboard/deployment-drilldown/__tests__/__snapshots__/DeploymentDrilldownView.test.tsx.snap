@@ -299,29 +299,42 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
             class="StyledProps--font StyledProps--main main"
           >
             <div
-              class="StyledProps--font StyledProps--main bp3-progress-bar progressBar bp3-intent-success"
+              class="StyledProps--font StyledProps--main durationAndStatus"
+            >
+              <div
+                class="StyledProps--font StyledProps--main"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall StyledProps--margin-bottom-xsmall"
+                  data-name="pipeline.startedOn"
+                >
+                  pipeline.startedOn
+                  : 
+                  Nov 9, 2020 8:54 PM
+                </p>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+                  data-name="duration"
+                >
+                  duration
+                   
+                  a minute
+                </p>
+              </div>
+              <div
+                class="StyledProps--font StyledProps--main verificationStatusCard StyledProps--color StyledProps--color-green700 StyledProps--background-green350"
+              >
+                passed
+              </div>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main bp3-progress-bar progressBar bp3-intent-success progressBar"
             >
               <div
                 class="StyledProps--font StyledProps--main bp3-progress-meter"
                 style="width: 43%;"
               />
             </div>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall StyledProps--margin-bottom-xsmall"
-              data-name="pipeline.startedOn"
-            >
-              pipeline.startedOn
-              : 
-              Nov 9, 2020 8:54 PM
-            </p>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--font-size-small"
-              data-name="duration"
-            >
-              duration
-              : 
-              a minute
-            </p>
           </div>
           <div
             class="StyledProps--font StyledProps--main filters"

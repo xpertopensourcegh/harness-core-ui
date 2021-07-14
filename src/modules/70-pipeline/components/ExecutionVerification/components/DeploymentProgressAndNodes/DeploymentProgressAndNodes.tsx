@@ -1,25 +1,24 @@
-import React, { useMemo, useState } from 'react'
-import { Container, Text } from '@wings-software/uicore'
+import React, { useMemo } from 'react'
+import { Color, Container, Text } from '@wings-software/uicore'
 import moment from 'moment'
 import cx from 'classnames'
 import type { DeploymentVerificationJobInstanceSummary } from 'services/cv'
 import { useStrings } from 'framework/strings'
 import TestsSummaryView from './components/TestSummaryView/TestsSummaryView'
 import CVProgressBar from './components/CVProgressBar/CVProgressBar'
-import BlueGreenVerificationChart, {
-  NodeData
-} from './components/BlueGreenVerificationChart/BlueGreenVerificationChart'
+import { PrimaryAndCanaryNodes } from '../ExecutionVerificationSummary/components/PrimaryandCanaryNodes/PrimaryAndCanaryNodes'
+import VerificationStatusCard from './components/VerificationStatusCard/VerificationStatusCard'
+import type { DeploymentNodeAnalysisResult } from './components/DeploymentNodes/DeploymentNodes.constants'
 import css from './DeploymentProgressAndNodes.module.scss'
 
 export interface DeploymentProgressAndNodesProps {
   deploymentSummary?: DeploymentVerificationJobInstanceSummary
-  onSelectNode?: (node: NodeData) => void
+  onSelectNode?: (node?: DeploymentNodeAnalysisResult) => void
   className?: string
 }
 
 export function DeploymentProgressAndNodes(props: DeploymentProgressAndNodesProps): JSX.Element {
   const { deploymentSummary, onSelectNode, className } = props
-  const [selectedNode, setSelectedNode] = useState<NodeData | undefined>()
   const { getString } = useStrings()
   const deploymentNodesData = useMemo(() => {
     if (deploymentSummary?.additionalInfo?.type === 'CANARY') {
@@ -53,34 +52,57 @@ export function DeploymentProgressAndNodes(props: DeploymentProgressAndNodesProp
     }
   }, [deploymentSummary])
 
+  const renderContent = () => {
+    if (deploymentSummary?.progressPercentage === 0) {
+      return (
+        <Text color={Color.BLACK} font={{ weight: 'bold', size: 'medium' }}>
+          {getString('pipeline.verification.waitForAnalysis')}
+        </Text>
+      )
+    }
+
+    if (deploymentNodesData) {
+      return (
+        <PrimaryAndCanaryNodes
+          primaryNodes={deploymentNodesData.before || []}
+          canaryNodes={deploymentNodesData.after || []}
+          primaryNodeLabel={deploymentNodesData.labelBefore}
+          canaryNodeLabel={deploymentNodesData.labelAfter}
+          onSelectNode={onSelectNode}
+        />
+      )
+    }
+
+    if (baselineSummaryData) {
+      return <TestsSummaryView {...baselineSummaryData} />
+    }
+  }
+
   return (
     <Container className={cx(css.main, className)}>
-      <CVProgressBar value={deploymentSummary?.progressPercentage ?? 0} status={deploymentSummary?.status} />
       {deploymentSummary && (
-        <>
-          <Text
-            font={{ size: 'small' }}
-            data-name={getString('pipeline.startedOn')}
-            margin={{ top: 'xsmall', bottom: 'xsmall' }}
-          >
-            {getString('pipeline.startedOn')}: {moment(deploymentSummary.startTime).format('MMM D, YYYY h:mm A')}
-          </Text>
-          <Text font={{ size: 'small' }} data-name={getString('duration')}>
-            {getString('duration')}: {moment.duration(deploymentSummary.durationMs, 'ms').humanize()}
-          </Text>
-        </>
+        <Container className={css.durationAndStatus}>
+          <Container>
+            <Text
+              font={{ size: 'small' }}
+              data-name={getString('pipeline.startedOn')}
+              margin={{ top: 'xsmall', bottom: 'xsmall' }}
+            >
+              {getString('pipeline.startedOn')}: {moment(deploymentSummary.startTime).format('MMM D, YYYY h:mm A')}
+            </Text>
+            <Text font={{ size: 'small' }} data-name={getString('duration')}>
+              {getString('duration')} {moment.duration(deploymentSummary.durationMs, 'ms').humanize()}
+            </Text>
+          </Container>
+          <VerificationStatusCard status={deploymentSummary.status || 'ERROR'} />
+        </Container>
       )}
-      {deploymentNodesData && (
-        <BlueGreenVerificationChart
-          {...deploymentNodesData}
-          selectedNode={selectedNode}
-          onSelectNode={(node: NodeData) => {
-            setSelectedNode(node)
-            onSelectNode?.(node)
-          }}
-        />
-      )}
-      {baselineSummaryData && <TestsSummaryView {...baselineSummaryData} />}
+      <CVProgressBar
+        value={deploymentSummary?.progressPercentage ?? 0}
+        status={deploymentSummary?.status}
+        className={css.progressBar}
+      />
+      {renderContent()}
     </Container>
   )
 }

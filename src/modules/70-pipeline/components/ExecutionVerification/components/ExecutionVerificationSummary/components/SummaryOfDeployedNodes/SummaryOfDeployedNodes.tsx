@@ -23,7 +23,7 @@ function SummaryText(props: SummaryTextProps): JSX.Element {
   return (
     <Container className={css.summaryContent}>
       <Container className={css.violations}>
-        <Text intent="danger" font={{ size: 'large', weight: 'bold' }}>
+        <Text intent={numerator === 0 ? 'none' : 'danger'} font={{ size: 'large', weight: 'bold' }}>
           {numerator}
         </Text>
         <Text color={Color.BLACK} className={css.outOf}>
@@ -41,7 +41,7 @@ export function SummaryOfDeployedNodes(props: SummaryOfDeployedNodesProps): JSX.
   const { getString } = useStrings()
   return (
     <Container className={css.main}>
-      <Text font={{ size: 'medium' }}>{getString('summary').toLocaleUpperCase()}</Text>
+      <Text>{getString('summary').toLocaleUpperCase()}</Text>
       <hr />
       <Container className={css.summaryContainer}>
         <SummaryText

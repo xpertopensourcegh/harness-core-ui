@@ -12,7 +12,7 @@ import { useToaster } from '@common/exports'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 import { DeploymentProgressAndNodes } from '@pipeline/components/ExecutionVerification/components/DeploymentProgressAndNodes/DeploymentProgressAndNodes'
-import type { NodeData } from '@pipeline/components/ExecutionVerification/components/DeploymentProgressAndNodes/components/BlueGreenVerificationChart/BlueGreenVerificationChart'
+import type { DeploymentNodeAnalysisResult } from '@pipeline/components/ExecutionVerification/components/DeploymentProgressAndNodes/components/DeploymentNodes/DeploymentNodes.constants'
 import DeploymentMetricsTab from './DeploymentMetricsTab'
 import DeploymentLogsTab from './DeploymentLogsTab'
 import styles from './DeploymentDrilldownView.module.scss'
@@ -38,7 +38,7 @@ export default function VerificationInstanceView({
   onAnomalousMetricsOnly
 }: VerificationInstanceViewProps): React.ReactElement {
   const prevProps = useRef<any>({})
-  const [selectedNode, setSelectedNode] = useState<NodeData | undefined>()
+  const [selectedNode, setSelectedNode] = useState<DeploymentNodeAnalysisResult | undefined>()
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
   const { showError } = useToaster()
@@ -152,7 +152,7 @@ export default function VerificationInstanceView({
     <Container>
       <DeploymentProgressAndNodes
         deploymentSummary={verificationInstance}
-        onSelectNode={(node: NodeData) => {
+        onSelectNode={(node?: DeploymentNodeAnalysisResult) => {
           setSelectedNode(node)
           fetchTimeseries({
             queryParams: {

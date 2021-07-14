@@ -624,6 +624,14 @@ verification:
   baselineTest: Baseline test
   metricsInViolation: Metrics in violation
   logClustersInViolation: Log Clusters in violation
+  metricViewPlaceholder: Filter for a metric or transaction
+  anomalousMetrics: Anomalous Metrics
+  anomalousLogClusters: Anomalous Log Clusters
+  healthSourcePlaceholder: Filter by Health Source
+  refreshViewForNewData: Latest incoming data available.
+  toGetLatest: to get latest
+  noMetrics: No Metrics or Transactions
+  waitForAnalysis: Please wait a few moments for analysis to begin...
   analysisTab:
     metrics: 'Metrics'
     logs: 'Logs'

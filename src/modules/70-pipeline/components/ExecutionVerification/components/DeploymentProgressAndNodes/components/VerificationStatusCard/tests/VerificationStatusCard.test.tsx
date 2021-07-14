@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import VerificationStatusCard from '../VerificationStatusCard'
+import VerificationStatusCard from '@pipeline/components/ExecutionVerification/components/DeploymentProgressAndNodes/components/VerificationStatusCard/VerificationStatusCard'
 
 describe('VerificationStatusCard', () => {
   test('matches snapshot when status = IN_PROGRESS', () => {

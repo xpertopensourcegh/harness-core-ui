@@ -6,7 +6,7 @@ exports[`Unit tests for SummaryOfDeployedNodes Ensure content is rendered correc
     class="StyledProps--font StyledProps--main main"
   >
     <p
-      class="StyledProps--font StyledProps--main StyledProps--font-size-medium"
+      class="StyledProps--font StyledProps--main"
     >
       SUMMARY
     </p>

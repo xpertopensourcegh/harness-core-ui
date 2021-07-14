@@ -330,7 +330,7 @@ describe('Unit tests for EventDetailsForChange', () => {
 
     await waitFor(() => expect(document.body.querySelector('[class*="main"]')).not.toBeNull())
     expect(getByText(document.body, 'Production')).not.toBeNull()
-    expect(getByText(document.body, 'passed')).not.toBeNull()
+    expect(document.body.querySelector('[class*="verificationStatusCard"]')?.innerHTML).toEqual('passed')
 
     const deploymentCard = document.body.querySelector('[class*="deploymentContent"]')
     if (!deploymentCard) {

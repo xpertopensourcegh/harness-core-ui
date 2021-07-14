@@ -26,20 +26,18 @@ describe('Unit tests for PrimaryAndCanaryNodes', () => {
     const { container, getByText } = render(
       <TestWrapper>
         <PrimaryAndCanaryNodes
-          primaryNodeProps={{
-            totalNodes: 15,
-            nodeHealth: [{ health: 'LOW', nodeName: 'someName', anomalousLogClusters: 2, anomalousMetrics: 3 }]
-          }}
-          canaryNodeProps={{
-            totalNodes: 10,
-            nodeHealth: [{ health: 'MEDIUM', nodeName: 'anotherName', anomalousLogClusters: 7, anomalousMetrics: 3 }]
-          }}
+          primaryNodes={[{ risk: 'LOW', hostName: 'someName', anomalousLogClustersCount: 2, anomalousMetricsCount: 3 }]}
+          primaryNodeLabel="before"
+          canaryNodeLabel="after"
+          canaryNodes={[
+            { risk: 'MEDIUM', hostName: 'anotherName', anomalousLogClustersCount: 7, anomalousMetricsCount: 3 }
+          ]}
         />
       </TestWrapper>
     )
 
-    await waitFor(() => expect(getByText('primary'.toLocaleUpperCase())).not.toBeNull())
-    await waitFor(() => expect(getByText('canary'.toLocaleUpperCase())).not.toBeNull())
-    await waitFor(() => expect(container.querySelectorAll('[class*="nodeHealth"]').length).toBe(2))
+    await waitFor(() => expect(getByText('BEFORE')).not.toBeNull())
+    await waitFor(() => expect(getByText('AFTER')).not.toBeNull())
+    await waitFor(() => expect(container.querySelectorAll('[class~="nodeHealth"]').length).toBe(2))
   })
 })

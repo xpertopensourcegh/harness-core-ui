@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, waitFor } from '@testing-library/react'
+import { fireEvent, render, waitFor } from '@testing-library/react'
 import { Classes } from '@blueprintjs/core'
 import type { DeploymentVerificationJobInstanceSummary } from 'services/cv'
 import { TestWrapper } from '@common/utils/testUtils'
@@ -41,6 +41,8 @@ const CanaryDeploymentMockData: DeploymentProgressAndNodesProps = {
           anomalousLogClustersCount: 0
         }
       ],
+      canaryInstancesLabel: 'canary',
+      primaryInstancesLabel: 'primary',
       primary: [
         {
           hostName: 'manager-b6b7c4d9b-s228g',
@@ -129,6 +131,24 @@ const CanaryDeploymentMockData: DeploymentProgressAndNodesProps = {
 }
 
 describe('Deployment progress and nodes unit tests', () => {
+  beforeEach(() => {
+    Element.prototype.getBoundingClientRect = jest.fn(() => {
+      return {
+        width: 500,
+        height: 1000,
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0
+      } as any
+    })
+  })
+  afterEach(() => {
+    jest.clearAllMocks()
+  })
+  afterAll(() => {
+    jest.resetAllMocks()
+  })
   test('Ensure baseline info is rendered with green bar', async () => {
     const { container, getByText } = render(
       <TestWrapper>
@@ -146,14 +166,43 @@ describe('Deployment progress and nodes unit tests', () => {
         <DeploymentProgressAndNodes {...CanaryDeploymentMockData} />
       </TestWrapper>
     )
-    await waitFor(() => getByText('canary'))
+    await waitFor(() => expect(getByText('CANARY')).not.toBeNull())
+    expect(getByText('PRIMARY')).not.toBeNull()
     expect(container.querySelector('[class*="bp3-intent-danger"]'))
     expect(container.querySelector(`.${Classes.PROGRESS_METER}`)?.getAttribute('style')).toEqual('width: 58%;')
 
-    const deploymentNodes = container.querySelectorAll('[class*="boxWrap"]')
-    expect(deploymentNodes.length).toBe(3)
-    expect(deploymentNodes[0].querySelector('.box')?.children.length).toBe(12)
-    expect(deploymentNodes[0].querySelector('.box')?.querySelectorAll('.highRiskColor').length).toBe(4)
-    expect(deploymentNodes[0].querySelector('.box')?.querySelectorAll('.noAnalysisColor').length).toBe(6)
+    const deploymentNodes = container.querySelectorAll('[class~="hexagon"]')
+    expect(deploymentNodes.length).toBe(14)
+  })
+
+  test('Ensure node selection works', async () => {
+    const onSelectMock = jest.fn()
+    const { container, getByText } = render(
+      <TestWrapper>
+        <DeploymentProgressAndNodes {...CanaryDeploymentMockData} onSelectNode={onSelectMock} />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(getByText('CANARY')).not.toBeNull())
+    fireEvent.click(container.querySelector('[data-name="popoverContainer"]')!)
+    await waitFor(() =>
+      expect(onSelectMock).toHaveBeenLastCalledWith({
+        anomalousLogClustersCount: 0,
+        anomalousMetricsCount: 0,
+        hostName: 'manager-b6b7c4d9b-s228g',
+        risk: 'NO_DATA'
+      })
+    )
+    expect(container.querySelector('[class*="hexagonContainer"][class*="selected"]')).not.toBeNull()
+
+    // when on select callback is not passed make sure hexagon is not selected
+    const { container: container2 } = render(
+      <TestWrapper>
+        <DeploymentProgressAndNodes {...CanaryDeploymentMockData} />
+      </TestWrapper>
+    )
+
+    fireEvent.click(container2.querySelector('[data-name="popoverContainer"]')!)
+    expect(container2.querySelector('[class*="hexagonContainer"][class*="selected"]')).toBeNull()
   })
 })

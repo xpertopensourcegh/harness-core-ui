@@ -1,6 +1,8 @@
 import React from 'react'
-import { render, waitFor } from '@testing-library/react'
+import { fireEvent, render, waitFor } from '@testing-library/react'
+import { TestWrapper } from '@common/utils/testUtils'
 import { DeploymentNodes } from '../DeploymentNodes'
+import type { DeploymentNodeAnalysisResult } from '../DeploymentNodes.constants'
 
 describe('Unit tests for Deployment Nodes', () => {
   beforeEach(() => {
@@ -22,13 +24,30 @@ describe('Unit tests for Deployment Nodes', () => {
     jest.resetAllMocks()
   })
   test('Ensure nodes are rendered based on input', async () => {
-    const healthNodes = [
-      { health: 'LOW', nodeName: 'smeName', anomalousMetrics: 2, anomalousLogClusters: 4 },
-      { health: 'HIGH', nodeName: 'smeName', anomalousMetrics: 5, anomalousLogClusters: 6 },
-      { health: 'MEDIUM', nodeName: 'smeName', anomalousMetrics: 2, anomalousLogClusters: 7 },
-      { health: '', nodeName: 'smeName', anomalousMetrics: 1, anomalousLogClusters: 9 }
+    const healthNodes: DeploymentNodeAnalysisResult[] = [
+      { risk: 'LOW', hostName: 'node1', anomalousMetricsCount: 2, anomalousLogClustersCount: 4 },
+      { risk: 'HIGH', hostName: 'node5', anomalousMetricsCount: 5, anomalousLogClustersCount: 6 },
+      { risk: 'MEDIUM', hostName: 'node16', anomalousMetricsCount: 2, anomalousLogClustersCount: 7 },
+      { risk: 'NO_ANALYSIS', hostName: 'node23', anomalousMetricsCount: 1, anomalousLogClustersCount: 9 },
+      { risk: 'NO_DATA', hostName: 'node23', anomalousMetricsCount: 1, anomalousLogClustersCount: 9 },
+      { hostName: 'node23', anomalousMetricsCount: 1, anomalousLogClustersCount: 9 } as DeploymentNodeAnalysisResult
     ]
-    const { container } = render(<DeploymentNodes totalNodes={15} nodeHealth={healthNodes} />)
-    await waitFor(() => expect(container.querySelectorAll('[class*="nodeHealth"]').length).toBe(healthNodes.length))
+    const { container, getByText } = render(
+      <TestWrapper>
+        <DeploymentNodes nodes={healthNodes} />
+      </TestWrapper>
+    )
+    await waitFor(() => expect(container.querySelectorAll('[class~="nodeHealth"]').length).toBe(healthNodes.length))
+    expect(container.querySelectorAll('[class*="hexagon"]').length).toBe(12)
+    expect(container.querySelectorAll('[data-node-health-color="var(--green-500)"]').length).toBe(1)
+    expect(container.querySelectorAll('[data-node-health-color="var(--red-500)"]').length).toBe(1)
+    expect(container.querySelectorAll('[data-node-health-color="var(--grey-300)"]').length).toBe(2)
+    expect(container.querySelectorAll('[data-node-health-color="var(--yellow-500)"]').length).toBe(1)
+
+    // make sure popover has right contents
+    fireEvent.mouseOver(container.querySelector('[data-name="popoverContainer"]')!)
+    await waitFor(() => expect(document.body.querySelector('[class*="nodeHealthPopoverContent"]')).not.toBeNull())
+    getByText('2 pipeline.verification.metricsInViolation')
+    expect(document.body.querySelector('[class*="nodeHealthPopoverContent"] [class*="nodeHealth"]')).not.toBeNull()
   })
 })

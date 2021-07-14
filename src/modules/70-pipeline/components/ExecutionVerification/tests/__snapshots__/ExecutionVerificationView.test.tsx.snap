@@ -6,17 +6,8 @@ exports[`Unit tests for ExecutionVerificationView unit tests Ensure tabs are ren
     class="StyledProps--font StyledProps--main main"
   >
     <div
-      class="StyledProps--font StyledProps--main main"
-    >
-      <div
-        class="StyledProps--font StyledProps--main bp3-progress-bar progressBar"
-      >
-        <div
-          class="StyledProps--font StyledProps--main bp3-progress-meter"
-          style="width: 0%;"
-        />
-      </div>
-    </div>
+      class="summary"
+    />
     <div
       class="bp3-tabs Tabs--main Tabs--horizontal"
     >
@@ -67,7 +58,7 @@ exports[`Unit tests for ExecutionVerificationView unit tests Ensure tabs are ren
         role="tabpanel"
       >
         <div
-          class="StyledProps--font StyledProps--main main"
+          class="deploymentMetrics"
         />
       </div>
     </div>

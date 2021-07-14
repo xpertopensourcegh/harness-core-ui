@@ -9,9 +9,8 @@ import { StageSelection, StageSelectOption } from '@pipeline/components/StageSel
 import type { ExecutionPageQueryParams } from '@pipeline/utils/types'
 import { isExecutionNotStarted, isExecutionSkipped } from '@pipeline/utils/statusHelpers'
 import { LogsContent } from '@pipeline/components/LogsContent/LogsContent'
-
-// import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
-// import { ExecutionVerificationView } from '@pipeline/components/ExecutionVerification/ExecutionVerificationView'
+import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import { ExecutionVerificationView } from '@pipeline/components/ExecutionVerification/ExecutionVerificationView'
 import { StepsTree } from './StepsTree/StepsTree'
 import css from './ExecutionLogView.module.scss'
 
@@ -47,9 +46,9 @@ export default function ExecutionLogView(): React.ReactElement {
   }
 
   function logViewerView() {
-    // if (selectedStep?.stepType === StepType.Verify) {
-    //   return <ExecutionVerificationView />
-    // }
+    if (selectedStep?.stepType === StepType.Verify) {
+      return <ExecutionVerificationView step={selectedStep} />
+    }
     return (
       <div className={css.logViewer}>
         <LogsContent mode="console-view" errorMessage={errorMessage} isWarning={isSkipped} />

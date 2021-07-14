@@ -4411,6 +4411,68 @@ export const getActivityVerificationResultPromise = (
     GetActivityVerificationResultPathParams
   >(getConfig('cv/api'), `/activity/${activityId}/activity-risks`, props, signal)
 
+export interface GetDatasourceTypesQueryParams {
+  accountId: string
+}
+
+export interface GetDatasourceTypesPathParams {
+  activityId: string
+}
+
+export type GetDatasourceTypesProps = Omit<
+  GetProps<RestResponseSetDatasourceTypeDTO, unknown, GetDatasourceTypesQueryParams, GetDatasourceTypesPathParams>,
+  'path'
+> &
+  GetDatasourceTypesPathParams
+
+/**
+ * get datasource types for an activity
+ */
+export const GetDatasourceTypes = ({ activityId, ...props }: GetDatasourceTypesProps) => (
+  <Get<RestResponseSetDatasourceTypeDTO, unknown, GetDatasourceTypesQueryParams, GetDatasourceTypesPathParams>
+    path={`/activity/${activityId}/datasource-types`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetDatasourceTypesProps = Omit<
+  UseGetProps<RestResponseSetDatasourceTypeDTO, unknown, GetDatasourceTypesQueryParams, GetDatasourceTypesPathParams>,
+  'path'
+> &
+  GetDatasourceTypesPathParams
+
+/**
+ * get datasource types for an activity
+ */
+export const useGetDatasourceTypes = ({ activityId, ...props }: UseGetDatasourceTypesProps) =>
+  useGet<RestResponseSetDatasourceTypeDTO, unknown, GetDatasourceTypesQueryParams, GetDatasourceTypesPathParams>(
+    (paramsInPath: GetDatasourceTypesPathParams) => `/activity/${paramsInPath.activityId}/datasource-types`,
+    { base: getConfig('cv/api'), pathParams: { activityId }, ...props }
+  )
+
+/**
+ * get datasource types for an activity
+ */
+export const getDatasourceTypesPromise = (
+  {
+    activityId,
+    ...props
+  }: GetUsingFetchProps<
+    RestResponseSetDatasourceTypeDTO,
+    unknown,
+    GetDatasourceTypesQueryParams,
+    GetDatasourceTypesPathParams
+  > & { activityId: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseSetDatasourceTypeDTO, unknown, GetDatasourceTypesQueryParams, GetDatasourceTypesPathParams>(
+    getConfig('cv/api'),
+    `/activity/${activityId}/datasource-types`,
+    props,
+    signal
+  )
+
 export interface GetDeploymentActivitySummaryQueryParams {
   accountId: string
 }
@@ -4493,6 +4555,93 @@ export const getDeploymentActivitySummaryPromise = (
     GetDeploymentActivitySummaryQueryParams,
     GetDeploymentActivitySummaryPathParams
   >(getConfig('cv/api'), `/activity/${activityId}/deployment-activity-summary`, props, signal)
+
+export interface GetDeploymentMetricsQueryParams {
+  accountId: string
+  anomalousMetricsOnly?: boolean
+  hostName?: string
+  filter?: string
+  pageNumber?: number
+  pageSize?: number
+}
+
+export interface GetDeploymentMetricsPathParams {
+  activityId: string
+}
+
+export type GetDeploymentMetricsProps = Omit<
+  GetProps<
+    RestResponseTransactionMetricInfoSummaryPageDTO,
+    unknown,
+    GetDeploymentMetricsQueryParams,
+    GetDeploymentMetricsPathParams
+  >,
+  'path'
+> &
+  GetDeploymentMetricsPathParams
+
+/**
+ * get metrics for given activity
+ */
+export const GetDeploymentMetrics = ({ activityId, ...props }: GetDeploymentMetricsProps) => (
+  <Get<
+    RestResponseTransactionMetricInfoSummaryPageDTO,
+    unknown,
+    GetDeploymentMetricsQueryParams,
+    GetDeploymentMetricsPathParams
+  >
+    path={`/activity/${activityId}/deployment-timeseries-data`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetDeploymentMetricsProps = Omit<
+  UseGetProps<
+    RestResponseTransactionMetricInfoSummaryPageDTO,
+    unknown,
+    GetDeploymentMetricsQueryParams,
+    GetDeploymentMetricsPathParams
+  >,
+  'path'
+> &
+  GetDeploymentMetricsPathParams
+
+/**
+ * get metrics for given activity
+ */
+export const useGetDeploymentMetrics = ({ activityId, ...props }: UseGetDeploymentMetricsProps) =>
+  useGet<
+    RestResponseTransactionMetricInfoSummaryPageDTO,
+    unknown,
+    GetDeploymentMetricsQueryParams,
+    GetDeploymentMetricsPathParams
+  >(
+    (paramsInPath: GetDeploymentMetricsPathParams) => `/activity/${paramsInPath.activityId}/deployment-timeseries-data`,
+    { base: getConfig('cv/api'), pathParams: { activityId }, ...props }
+  )
+
+/**
+ * get metrics for given activity
+ */
+export const getDeploymentMetricsPromise = (
+  {
+    activityId,
+    ...props
+  }: GetUsingFetchProps<
+    RestResponseTransactionMetricInfoSummaryPageDTO,
+    unknown,
+    GetDeploymentMetricsQueryParams,
+    GetDeploymentMetricsPathParams
+  > & { activityId: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    RestResponseTransactionMetricInfoSummaryPageDTO,
+    unknown,
+    GetDeploymentMetricsQueryParams,
+    GetDeploymentMetricsPathParams
+  >(getConfig('cv/api'), `/activity/${activityId}/deployment-timeseries-data`, props, signal)
 
 export interface GetAlertRuleQueryParams {
   accountId: string

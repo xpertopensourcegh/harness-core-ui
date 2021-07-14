@@ -16,7 +16,7 @@ import {
 } from 'services/cv'
 import { useStrings } from 'framework/strings'
 import type { UseStringsReturn } from 'framework/strings'
-import VerificationStatusCard from '@cv/pages/dashboard/deployment-drilldown/VerificationStatusCard'
+import VerificationStatusCard from '@pipeline/components/ExecutionVerification/components/DeploymentProgressAndNodes/components/VerificationStatusCard/VerificationStatusCard'
 import { DeploymentProgressAndNodes } from '@pipeline/components/ExecutionVerification/components/DeploymentProgressAndNodes/DeploymentProgressAndNodes'
 import { VerificationActivityRiskCardWithApi } from '../VerificationActivityRiskCard/VerificationActivityRiskCard'
 import type { EventData } from '../ActivitiesTimelineView/ActivitiesTimelineView'

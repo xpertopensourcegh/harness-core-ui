@@ -14,9 +14,9 @@ import ServiceResourceModal from '@pipeline/components/RbacResourceModals/Servic
 import EnvironmentResourceModal from '@pipeline/components/RbacResourceModals/EnvironmentResourceModal/EnvironmentResourceModal'
 import { HarnessApprovalView } from '@pipeline/components/execution/StepDetails/views/HarnessApprovalView/HarnessApprovalView'
 import { JiraApprovalView } from '@pipeline/components/execution/StepDetails/views/JiraApprovalView/JiraApprovalView'
-// import { VerifyExecution } from '@cv/components/PipelineSteps/VerifyExecution/VerifyExecution'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import PipelineResourceRenderer from './components/RbacResourceModals/PipelineResourceRenderer/PipelineResourceRenderer'
+import { ExecutionVerificationSummary } from './components/ExecutionVerification/components/ExecutionVerificationSummary/ExecutionVerificationSummary'
 
 /**
  * Register RBAC resources
@@ -73,6 +73,6 @@ ExecFactory.registerStepDetails(StepType.JiraApproval, {
   component: JiraApprovalView
 })
 
-// ESDFactory.registerStepDetails(StepType.Verify, {
-//   component: VerifyExecution
-// })
+ExecFactory.registerStepDetails(StepType.Verify, {
+  component: ExecutionVerificationSummary
+})
