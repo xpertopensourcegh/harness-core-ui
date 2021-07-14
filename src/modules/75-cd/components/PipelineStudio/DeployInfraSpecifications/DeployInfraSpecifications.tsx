@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import YAML from 'yaml'
-import { Layout, Card, Text, Accordion, Color } from '@wings-software/uicore'
+import { Layout, Card, Text, Accordion, Color, Container } from '@wings-software/uicore'
 import { get, isEmpty, isNil, omit, debounce, set } from 'lodash-es'
 import cx from 'classnames'
 import produce from 'immer'
@@ -368,30 +368,36 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
           }}
         />
         {!!selectedDeploymentType && isProvisionerEnabled ? (
-          <Accordion className={css.sectionCard} activeId="dynamicProvisioning">
+          <Accordion className={css.tabHeading} activeId="dynamicProvisioning">
             <Accordion.Panel
               id="dynamicProvisioning"
               addDomId={true}
               summary={'Dynamic provisioning'}
               details={
-                <StepWidget<InfraProvisioningData>
-                  factory={factory}
-                  readonly={isReadonly}
-                  key={stage?.stage?.identifier}
-                  initialValues={getProvisionerData(stage || {})}
-                  type={StepType.InfraProvisioning}
-                  stepViewType={StepViewType.Edit}
-                  onUpdate={(value: InfraProvisioningData) => {
-                    if (stage) {
-                      const stageData = produce(stage, draft => {
-                        set(draft, 'stage.spec.infrastructure.infrastructureDefinition.provisioner', value.provisioner)
-                        cleanUpEmptyProvisioner(draft)
-                      })
-                      debounceUpdateStage(stageData.stage)
-                    }
-                    setProvisionerEnabled(value.provisionerEnabled)
-                  }}
-                />
+                <Container padding="medium" style={{ backgroundColor: 'var(--white)' }} className={css.sectionCard}>
+                  <StepWidget<InfraProvisioningData>
+                    factory={factory}
+                    readonly={isReadonly}
+                    key={stage?.stage?.identifier}
+                    initialValues={getProvisionerData(stage || {})}
+                    type={StepType.InfraProvisioning}
+                    stepViewType={StepViewType.Edit}
+                    onUpdate={(value: InfraProvisioningData) => {
+                      if (stage) {
+                        const stageData = produce(stage, draft => {
+                          set(
+                            draft,
+                            'stage.spec.infrastructure.infrastructureDefinition.provisioner',
+                            value.provisioner
+                          )
+                          cleanUpEmptyProvisioner(draft)
+                        })
+                        debounceUpdateStage(stageData.stage)
+                      }
+                      setProvisionerEnabled(value.provisionerEnabled)
+                    }}
+                  />
+                </Container>
               }
             />
           </Accordion>
