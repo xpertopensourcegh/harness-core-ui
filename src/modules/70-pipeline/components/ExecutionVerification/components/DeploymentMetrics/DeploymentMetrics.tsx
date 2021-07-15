@@ -136,6 +136,7 @@ export function DeploymentMetrics(props: DeploymentMetricsProps): JSX.Element {
 
   useEffect(() => {
     setQueryParams(oldParams => ({ ...oldParams, hostName: selectedNode?.hostName }))
+    setUpdateViewInfo(oldState => ({ ...oldState, shouldUpdateView: true, showSpinner: true }))
   }, [selectedNode])
 
   useEffect(() => {
@@ -153,16 +154,20 @@ export function DeploymentMetrics(props: DeploymentMetricsProps): JSX.Element {
       return
     }
 
+    const updatedProps = transformMetricData(data)
     if (shouldUpdateView) {
-      const updatedProps = transformMetricData(data)
-      setUpdateViewInfo(oldState => ({
-        hasNewData: Boolean(updatedProps.length) && !isEqual(oldState.currentViewData, updatedProps),
+      setUpdateViewInfo({
+        hasNewData: false,
         shouldUpdateView: false,
         currentViewData: updatedProps,
         showSpinner: false
-      }))
+      })
     } else {
-      setUpdateViewInfo(prevState => ({ ...prevState, hasNewData: true, showSpinner: false }))
+      setUpdateViewInfo(prevState => ({
+        ...prevState,
+        hasNewData: !isEqual(prevState?.currentViewData, updatedProps),
+        showSpinner: false
+      }))
     }
   }, [data])
 

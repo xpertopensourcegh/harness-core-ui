@@ -29,13 +29,7 @@ export function PrimaryAndCanaryNodes(props: PrimaryAndCanaryNodesProps): JSX.El
     <Container className={css.main}>
       <Container className={css.primaryNodes}>
         <Text>{primaryNodeLabel?.toLocaleUpperCase()}</Text>
-        <DeploymentNodes
-          nodes={primaryNodes}
-          selectedNode={selectedNode}
-          onClick={node => {
-            onSelectCallback?.(isEqual(node, selectedNode) ? undefined : node)
-          }}
-        />
+        <DeploymentNodes nodes={primaryNodes} selectedNode={selectedNode} />
       </Container>
       <Container className={css.canaryNodes}>
         <Text>{canaryNodeLabel?.toLocaleUpperCase()}</Text>

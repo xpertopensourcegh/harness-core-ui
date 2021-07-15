@@ -84,12 +84,28 @@ describe('Unit tests for VerifyExection', () => {
     } as UseGetReturn<any, any, any, any>)
     const { container, getByText } = render(
       <TestWrapper>
-        <ExecutionVerificationSummary step={{}} />
+        <ExecutionVerificationSummary step={{ progressData: { activityId: 'asadasd_' as any } }} />
       </TestWrapper>
     )
 
     await waitFor(() => expect(getByText('mockError')).not.toBeNull())
     fireEvent.click(container.querySelector('button')!)
     await waitFor(() => expect(refetchFn).toHaveBeenCalledTimes(1))
+  })
+
+  test('Ensure that when activity id is not there empty statee is rendered', async () => {
+    const refetchFn = jest.fn()
+    jest.spyOn(cvService, 'useGetDeploymentActivitySummary').mockReturnValue({
+      error: { data: { message: 'mockError' } },
+      refetch: refetchFn as unknown
+    } as UseGetReturn<any, any, any, any>)
+    const { container } = render(
+      <TestWrapper>
+        <ExecutionVerificationSummary step={{}} />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(container.querySelector('button')).toBeNull())
+    expect(container.querySelector('[data-icon="error"]')).toBeNull()
   })
 })

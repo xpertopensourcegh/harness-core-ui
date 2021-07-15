@@ -23,6 +23,10 @@
         clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
       }
 
+      .selected {
+        background-color: var(--primary-6) !important;
+      }
+
       .nodeHealth {
         position: relative;
         bottom: 15px;
@@ -31,10 +35,6 @@
         cursor: pointer;
       }
     }
-  }
-
-  .selected {
-    background-color: var(--primary-6) !important;
   }
 }
 

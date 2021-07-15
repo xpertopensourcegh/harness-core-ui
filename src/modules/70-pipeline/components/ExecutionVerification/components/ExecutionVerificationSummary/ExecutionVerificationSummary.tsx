@@ -26,9 +26,10 @@ export function ExecutionVerificationSummary(props: VerifyExecutionProps): JSX.E
   const { accountId } = useParams<ProjectPathProps>()
   const [pollingIntervalId, setPollingIntervalId] = useState(-1)
   const [showSpinner, setShowSpinner] = useState(true)
+  const activityId = step?.progressData?.activityId ? (step.progressData.activityId as unknown as string) : ''
   const { data, loading, error, refetch } = useGetDeploymentActivitySummary({
     queryParams: { accountId },
-    activityId: step?.progressData?.activityId ? (step.progressData.activityId as unknown as string) : ''
+    activityId
   })
   const { deploymentVerificationJobInstanceSummary = {} } = data?.resource || {}
 
@@ -64,7 +65,7 @@ export function ExecutionVerificationSummary(props: VerifyExecutionProps): JSX.E
     )
   }
 
-  if (error) {
+  if (error && activityId) {
     return (
       <Container className={cx(css.main, className)}>
         <PageError message={getErrorMessage(error)} onClick={() => refetch()} />

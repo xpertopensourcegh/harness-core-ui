@@ -43,18 +43,31 @@ export function transformControlAndTestDataToHighChartsSeries(
   const highchartsOptions: Highcharts.SeriesLineOptions[][] = []
 
   for (let index = 0; index < controlData.length; index++) {
+    const testDataLineColor = riskValueToLineColor(testData[index].risk)
     highchartsOptions.push([
       {
         type: 'line',
         data: controlData[index] || [],
         color: 'var(--grey-200)',
-        name: testData[index].name
+        name: testData[index].name,
+        marker: {
+          enabled: controlData[index]?.length === 1,
+          lineWidth: 1,
+          fillColor: 'var(--white)',
+          lineColor: 'var(--grey-200)'
+        }
       },
       {
         type: 'line',
         data: testData[index].points || [],
-        color: riskValueToLineColor(testData[index].risk),
-        name: testData[index].name
+        color: testDataLineColor,
+        name: testData[index].name,
+        marker: {
+          enabled: testData[index]?.points?.length === 1,
+          lineWidth: 1,
+          fillColor: 'var(--white)',
+          lineColor: testDataLineColor
+        }
       }
     ])
   }

@@ -184,16 +184,16 @@ describe('Deployment progress and nodes unit tests', () => {
     )
 
     await waitFor(() => expect(getByText('CANARY')).not.toBeNull())
-    fireEvent.click(container.querySelector('[data-name="popoverContainer"]')!)
+    fireEvent.click(container.querySelector('[class*="canaryNodes"] [data-name="popoverContainer"]')!)
     await waitFor(() =>
       expect(onSelectMock).toHaveBeenLastCalledWith({
         anomalousLogClustersCount: 0,
         anomalousMetricsCount: 0,
-        hostName: 'manager-b6b7c4d9b-s228g',
-        risk: 'NO_DATA'
+        hostName: 'harness-test-appd-deployment-68977b7dbf-shkq6',
+        risk: 'LOW'
       })
     )
-    expect(container.querySelector('[class*="hexagonContainer"][class*="selected"]')).not.toBeNull()
+    expect(container.querySelector('[class*="hexagonContainer"] [class*="selected"]')).not.toBeNull()
 
     // when on select callback is not passed make sure hexagon is not selected
     const { container: container2 } = render(
@@ -203,6 +203,6 @@ describe('Deployment progress and nodes unit tests', () => {
     )
 
     fireEvent.click(container2.querySelector('[data-name="popoverContainer"]')!)
-    expect(container2.querySelector('[class*="hexagonContainer"][class*="selected"]')).toBeNull()
+    await waitFor(() => expect(container2.querySelector('[class*="hexagonContainer"][class*="selected"]')).toBeNull())
   })
 })

@@ -94,7 +94,7 @@ export function DeploymentProgressAndNodes(props: DeploymentProgressAndNodesProp
               {getString('duration')} {moment.duration(deploymentSummary.durationMs, 'ms').humanize()}
             </Text>
           </Container>
-          <VerificationStatusCard status={deploymentSummary.status || 'ERROR'} />
+          <VerificationStatusCard status={deploymentSummary.status} />
         </Container>
       )}
       <CVProgressBar

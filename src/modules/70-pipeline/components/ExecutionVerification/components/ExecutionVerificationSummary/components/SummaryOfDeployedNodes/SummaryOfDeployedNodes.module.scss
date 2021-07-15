@@ -16,6 +16,14 @@
           margin: 0 var(--spacing-small) !important;
         }
       }
+
+      .titleText {
+        margin-bottom: var(--spacing-xsmall) !important;
+      }
+
+      .viewDetails {
+        cursor: pointer;
+      }
     }
   }
 }

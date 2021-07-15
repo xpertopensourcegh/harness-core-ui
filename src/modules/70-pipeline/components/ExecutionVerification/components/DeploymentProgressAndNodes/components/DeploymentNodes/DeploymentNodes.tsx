@@ -70,7 +70,7 @@ export function DeploymentNodes(props: DeploymentNodesProps): JSX.Element {
         return (
           <Container
             key={index}
-            className={cx(css.hexagonContainer, isEqual(selectedNode, nodes?.[index]) ? css.selected : undefined)}
+            className={css.hexagonContainer}
             onClick={() => {
               onClick?.(nodes?.[index])
             }}
@@ -88,7 +88,7 @@ export function DeploymentNodes(props: DeploymentNodesProps): JSX.Element {
             >
               <div data-name="popoverContainer">
                 <Container
-                  className={css.hexagon}
+                  className={cx(css.hexagon, isEqual(selectedNode, nodes?.[index]) ? css.selected : undefined)}
                   style={{
                     height: HEXAGON_SIZE,
                     width: HEXAGON_SIZE

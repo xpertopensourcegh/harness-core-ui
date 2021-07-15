@@ -5,8 +5,8 @@ declare const styles: {
   readonly hexagonContainer: string
   readonly nodeHealthPopover: string
   readonly hexagon: string
-  readonly nodeHealth: string
   readonly selected: string
+  readonly nodeHealth: string
   readonly nodeHealthPopoverContent: string
 }
 export default styles

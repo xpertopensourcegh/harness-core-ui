@@ -6,5 +6,7 @@ declare const styles: {
   readonly summaryContent: string
   readonly violations: string
   readonly outOf: string
+  readonly titleText: string
+  readonly viewDetails: string
 }
 export default styles

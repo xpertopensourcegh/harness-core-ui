@@ -1,6 +1,8 @@
 import React from 'react'
 import { Color, Container, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
+import { useUpdateQueryParams } from '@common/hooks'
+import type { ExecutionQueryParams } from '@pipeline/utils/executionUtils'
 import css from './SummaryOfDeployedNodes.module.scss'
 
 interface SummaryOfDeployedNodesProps {
@@ -20,6 +22,7 @@ interface SummaryTextProps {
 function SummaryText(props: SummaryTextProps): JSX.Element {
   const { numerator, denominator, titleText } = props
   const { getString } = useStrings()
+  const { updateQueryParams } = useUpdateQueryParams<ExecutionQueryParams>()
   return (
     <Container className={css.summaryContent}>
       <Container className={css.violations}>
@@ -31,7 +34,17 @@ function SummaryText(props: SummaryTextProps): JSX.Element {
         </Text>
         <Text font={{ size: 'large', weight: 'bold' }}>{denominator}</Text>
       </Container>
-      <Text color={Color.BLACK}>{titleText}</Text>
+      <Text color={Color.BLACK} className={css.titleText}>
+        {titleText}
+      </Text>
+      <Text
+        intent="primary"
+        onClick={() => updateQueryParams({ view: 'log' })}
+        rightIcon="arrow-right"
+        className={css.viewDetails}
+      >
+        {getString('viewDetails')}
+      </Text>
     </Container>
   )
 }

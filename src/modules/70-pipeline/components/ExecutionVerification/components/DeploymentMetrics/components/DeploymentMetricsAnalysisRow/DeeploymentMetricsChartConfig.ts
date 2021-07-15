@@ -46,11 +46,6 @@ export function chartsConfig(series: Highcharts.SeriesLineOptions[], width: numb
         stickyTracking: false,
         lineWidth: 1,
         turboThreshold: 50000
-      },
-      line: {
-        marker: {
-          enabled: false
-        }
       }
     },
     tooltip: {
