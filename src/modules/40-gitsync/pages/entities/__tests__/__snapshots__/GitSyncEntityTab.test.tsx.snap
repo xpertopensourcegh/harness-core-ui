@@ -790,7 +790,7 @@ exports[`Git Sync - entity tab rendering summary view of a gitSyncRepo  2`] = `
               role="row"
             >
               <div
-                class="cell"
+                class="cell sortable"
                 colspan="1"
                 role="columnheader"
                 style="width: 25%;"
@@ -818,7 +818,7 @@ exports[`Git Sync - entity tab rendering summary view of a gitSyncRepo  2`] = `
                 </span>
               </div>
               <div
-                class="cell"
+                class="cell sortable"
                 colspan="1"
                 role="columnheader"
                 style="width: 25%;"
@@ -846,7 +846,7 @@ exports[`Git Sync - entity tab rendering summary view of a gitSyncRepo  2`] = `
                 </span>
               </div>
               <div
-                class="cell"
+                class="cell sortable"
                 colspan="1"
                 role="columnheader"
                 style="width: 50%;"

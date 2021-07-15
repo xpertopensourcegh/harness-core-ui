@@ -178,7 +178,7 @@ exports[`Monitored Service list Service listing component renders 1`] = `
           role="row"
         >
           <div
-            class="cell"
+            class="cell sortable"
             colspan="1"
             role="columnheader"
             style="width: 20%;"
@@ -186,7 +186,7 @@ exports[`Monitored Service list Service listing component renders 1`] = `
             cv.monitoredServices.table.serviceName
           </div>
           <div
-            class="cell"
+            class="cell sortable"
             colspan="1"
             role="columnheader"
             style="width: 30%;"
@@ -194,7 +194,7 @@ exports[`Monitored Service list Service listing component renders 1`] = `
             cv.monitoredServices.table.lastestHealthTrend
           </div>
           <div
-            class="cell"
+            class="cell sortable"
             colspan="1"
             role="columnheader"
             style="width: 10%;"
@@ -202,7 +202,7 @@ exports[`Monitored Service list Service listing component renders 1`] = `
             cv.monitoredServices.table.serviceHealthScore
           </div>
           <div
-            class="cell"
+            class="cell sortable"
             colspan="1"
             role="columnheader"
             style="width: 20%;"
@@ -210,7 +210,7 @@ exports[`Monitored Service list Service listing component renders 1`] = `
             tagLabel
           </div>
           <div
-            class="cell"
+            class="cell sortable"
             colspan="1"
             role="columnheader"
             style="width: 20%;"

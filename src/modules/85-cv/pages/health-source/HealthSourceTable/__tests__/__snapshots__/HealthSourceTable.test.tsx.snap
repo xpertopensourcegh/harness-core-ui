@@ -15,7 +15,7 @@ exports[`HealthSource table check delete and edit row 1`] = `
       role="row"
     >
       <div
-        class="cell"
+        class="cell sortable"
         colspan="1"
         role="columnheader"
         style="width: 15%;"
@@ -43,7 +43,7 @@ exports[`HealthSource table check delete and edit row 1`] = `
         </span>
       </div>
       <div
-        class="cell"
+        class="cell sortable"
         colspan="1"
         role="columnheader"
         style="width: 15%;"
@@ -51,7 +51,7 @@ exports[`HealthSource table check delete and edit row 1`] = `
         typeLabel
       </div>
       <div
-        class="cell"
+        class="cell sortable"
         colspan="1"
         role="columnheader"
         style="width: 15%;"
@@ -79,7 +79,7 @@ exports[`HealthSource table check delete and edit row 1`] = `
         </span>
       </div>
       <div
-        class="cell"
+        class="cell sortable"
         colspan="1"
         role="columnheader"
         style="width: 20%;"
@@ -107,7 +107,7 @@ exports[`HealthSource table check delete and edit row 1`] = `
         </span>
       </div>
       <div
-        class="cell"
+        class="cell sortable"
         colspan="1"
         role="columnheader"
         style="width: 35%;"

@@ -13,7 +13,7 @@ exports[`Git Sync - EntitiesPreview render Git Sync EntitiesPreview wrapper 1`] 
         role="row"
       >
         <div
-          class="cell"
+          class="cell sortable"
           colspan="1"
           role="columnheader"
           style="width: 25%;"
@@ -41,7 +41,7 @@ exports[`Git Sync - EntitiesPreview render Git Sync EntitiesPreview wrapper 1`] 
           </span>
         </div>
         <div
-          class="cell"
+          class="cell sortable"
           colspan="1"
           role="columnheader"
           style="width: 25%;"
@@ -69,7 +69,7 @@ exports[`Git Sync - EntitiesPreview render Git Sync EntitiesPreview wrapper 1`] 
           </span>
         </div>
         <div
-          class="cell"
+          class="cell sortable"
           colspan="1"
           role="columnheader"
           style="width: 50%;"
