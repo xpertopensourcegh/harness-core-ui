@@ -1671,7 +1671,43 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                         <div
                           class="Accordion--details"
                           data-testid="Stage.stage_1.Infrastructure-details"
-                        />
+                        >
+                          <div
+                            class="Accordion--panel panel"
+                            data-open="true"
+                            data-testid="Stage.stage_1.Provisioner-panel"
+                            id="Stage.stage_1.Provisioner-panel"
+                          >
+                            <div
+                              class="Accordion--summary"
+                              data-testid="Stage.stage_1.Provisioner-summary"
+                            >
+                              <div
+                                class="Accordion--chevron"
+                              />
+                              <div
+                                class="Accordion--label"
+                              >
+                                common.provisioner
+                              </div>
+                            </div>
+                            <div
+                              class="bp3-collapse Accordion--collapse"
+                              style="height: 0px;"
+                            >
+                              <div
+                                aria-hidden="false"
+                                class="bp3-collapse-body"
+                                style="transform: translateY(0);"
+                              >
+                                <div
+                                  class="Accordion--details"
+                                  data-testid="Stage.stage_1.Provisioner-details"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -2513,7 +2549,43 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                         <div
                           class="Accordion--details"
                           data-testid="Stage.stage_2.Infrastructure-details"
-                        />
+                        >
+                          <div
+                            class="Accordion--panel panel"
+                            data-open="true"
+                            data-testid="Stage.stage_2.Provisioner-panel"
+                            id="Stage.stage_2.Provisioner-panel"
+                          >
+                            <div
+                              class="Accordion--summary"
+                              data-testid="Stage.stage_2.Provisioner-summary"
+                            >
+                              <div
+                                class="Accordion--chevron"
+                              />
+                              <div
+                                class="Accordion--label"
+                              >
+                                common.provisioner
+                              </div>
+                            </div>
+                            <div
+                              class="bp3-collapse Accordion--collapse"
+                              style="height: 0px;"
+                            >
+                              <div
+                                aria-hidden="false"
+                                class="bp3-collapse-body"
+                                style="transform: translateY(0);"
+                              >
+                                <div
+                                  class="Accordion--details"
+                                  data-testid="Stage.stage_2.Provisioner-details"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -2942,7 +3014,43 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                         <div
                           class="Accordion--details"
                           data-testid="Stage.parallel_stage_.Infrastructure-details"
-                        />
+                        >
+                          <div
+                            class="Accordion--panel panel"
+                            data-open="true"
+                            data-testid="Stage.parallel_stage_.Provisioner-panel"
+                            id="Stage.parallel_stage_.Provisioner-panel"
+                          >
+                            <div
+                              class="Accordion--summary"
+                              data-testid="Stage.parallel_stage_.Provisioner-summary"
+                            >
+                              <div
+                                class="Accordion--chevron"
+                              />
+                              <div
+                                class="Accordion--label"
+                              >
+                                common.provisioner
+                              </div>
+                            </div>
+                            <div
+                              class="bp3-collapse Accordion--collapse"
+                              style="height: 0px;"
+                            >
+                              <div
+                                aria-hidden="false"
+                                class="bp3-collapse-body"
+                                style="transform: translateY(0);"
+                              >
+                                <div
+                                  class="Accordion--details"
+                                  data-testid="Stage.parallel_stage_.Provisioner-details"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -3371,7 +3479,43 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                         <div
                           class="Accordion--details"
                           data-testid="Stage.parallel_stage_2.Infrastructure-details"
-                        />
+                        >
+                          <div
+                            class="Accordion--panel panel"
+                            data-open="true"
+                            data-testid="Stage.parallel_stage_2.Provisioner-panel"
+                            id="Stage.parallel_stage_2.Provisioner-panel"
+                          >
+                            <div
+                              class="Accordion--summary"
+                              data-testid="Stage.parallel_stage_2.Provisioner-summary"
+                            >
+                              <div
+                                class="Accordion--chevron"
+                              />
+                              <div
+                                class="Accordion--label"
+                              >
+                                common.provisioner
+                              </div>
+                            </div>
+                            <div
+                              class="bp3-collapse Accordion--collapse"
+                              style="height: 0px;"
+                            >
+                              <div
+                                aria-hidden="false"
+                                class="bp3-collapse-body"
+                                style="transform: translateY(0);"
+                              >
+                                <div
+                                  class="Accordion--details"
+                                  data-testid="Stage.parallel_stage_2.Provisioner-details"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>

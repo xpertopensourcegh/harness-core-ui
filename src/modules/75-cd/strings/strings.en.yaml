@@ -1,6 +1,7 @@
 allowSimultaneousDeployments: Allow simultaneous deployments on the same infrastructure
 continuous: '{{$.common.purpose.cd.continuous}}'
 learnMore: Learn more about Continuous Delivery
+dynamicProvisioning: Dynamic provisioning
 dashboard:
   subHeading: Let Harness take your software release process to the next level with Continuous Delivery
   createProject: '{{$.projectsOrgs.createProject}}'

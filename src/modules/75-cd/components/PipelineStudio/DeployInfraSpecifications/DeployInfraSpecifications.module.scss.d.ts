@@ -15,12 +15,13 @@ declare const styles: {
   readonly serviceCards: string
   readonly bp3Card: string
   readonly disabled: string
+  readonly deployProvisioning: string
+  readonly tabHeading: string
+  readonly sectionCard: string
   readonly createStageGrid: string
   readonly editStageGrid: string
   readonly contentSection: string
-  readonly tabHeading: string
   readonly tabSubHeading: string
-  readonly sectionCard: string
   readonly shadow: string
   readonly notwide: string
   readonly error: string

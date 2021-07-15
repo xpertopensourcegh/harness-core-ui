@@ -87,6 +87,22 @@
   }
 }
 
+.deployProvisioning {
+  > div {
+    padding: 0 !important;
+    margin-bottom: var(--spacing-xlarge);
+  }
+  :global(.bp3-collapse-body > div) {
+    padding-bottom: 0;
+  }
+  .tabHeading {
+    margin-bottom: 0;
+    margin-left: var(--spacing-small);
+  }
+  .section-card {
+    margin-bottom: 0 !important;
+  }
+}
 .create-stage-grid {
   display: grid;
   grid-template-columns: 1fr;

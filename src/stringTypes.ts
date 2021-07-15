@@ -2015,6 +2015,7 @@ export interface StringsMap {
   'cd.dashboard.createProject': string
   'cd.dashboard.orSelectExisting': string
   'cd.dashboard.subHeading': string
+  'cd.dynamicProvisioning': string
   'cd.environmentCreated': string
   'cd.environmentUpdated': string
   'cd.filePathPlaceholder': string

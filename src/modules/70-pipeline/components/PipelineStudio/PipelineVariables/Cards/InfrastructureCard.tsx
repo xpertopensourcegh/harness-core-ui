@@ -3,13 +3,11 @@ import { NestedAccordionPanel } from '@wings-software/uicore'
 
 import type { PipelineInfrastructure, Infrastructure, ExecutionElementConfig } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
-import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import type { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
-import { FeatureFlag } from '@common/featureFlags'
 
 import { ExecutionCardPanel } from './ExecutionCard'
 import type { PipelineVariablesData } from '../types'
@@ -38,7 +36,6 @@ export function InfrastructureCard(props: InfrastructureCardProps): React.ReactE
   } = props
   const { stepsFactory } = usePipelineContext()
   const { getString } = useStrings()
-  const isProvisionerEnabled = useFeatureFlag(FeatureFlag.NG_PROVISIONERS)
 
   return (
     <React.Fragment>
@@ -61,9 +58,7 @@ export function InfrastructureCard(props: InfrastructureCardProps): React.ReactE
           variablesData: infrastructure
         }}
       />
-      {isProvisionerEnabled &&
-      infrastructure.infrastructureDefinition &&
-      originalInfrastructure.infrastructureDefinition ? (
+      {infrastructure.infrastructureDefinition && originalInfrastructure.infrastructureDefinition ? (
         <ExecutionCardPanel
           id={`Stage.${stageIdentifier}.Provisioner`}
           title={getString('common.provisioner')}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import YAML from 'yaml'
-import { Layout, Card, Text, Accordion, Color, Container } from '@wings-software/uicore'
+import { Layout, Card, Text, Accordion, Color } from '@wings-software/uicore'
 import { get, isEmpty, isNil, omit, debounce, set } from 'lodash-es'
 import cx from 'classnames'
 import produce from 'immer'
@@ -19,7 +19,6 @@ import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { InfraProvisioningData } from '@cd/components/PipelineSteps/InfraProvisioning/InfraProvisioning'
 import type { GcpInfrastructureSpec } from '@cd/components/PipelineSteps/GcpInfrastructureSpec/GcpInfrastructureSpec'
-import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { String, useStrings } from 'framework/strings'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
@@ -28,12 +27,10 @@ import SelectDeploymentType from '@cd/components/PipelineStudio/DeployInfraSpeci
 import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { useValidationErrors } from '@pipeline/components/PipelineStudio/PiplineHooks/useValidationErrors'
-import { FeatureFlag } from '@common/featureFlags'
 import css from './DeployInfraSpecifications.module.scss'
 
 const DEFAULT_RELEASE_NAME = 'release-<+INFRA_KEY>'
 export default function DeployInfraSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
-  const isProvisionerEnabled = useFeatureFlag(FeatureFlag.NG_PROVISIONERS)
   const [initialInfrastructureDefinitionValues, setInitialInfrastructureDefinitionValues] =
     React.useState<Infrastructure>({})
   const [selectedDeploymentType, setSelectedDeploymentType] = React.useState<string | undefined>()
@@ -358,14 +355,14 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
             resetInfrastructureDefinition(deploymentType)
           }}
         />
-        {!!selectedDeploymentType && isProvisionerEnabled ? (
-          <Accordion className={css.tabHeading} activeId="dynamicProvisioning">
+        {selectedDeploymentType ? (
+          <Accordion className={css.deployProvisioning} activeId="dynamicProvisioning">
             <Accordion.Panel
               id="dynamicProvisioning"
               addDomId={true}
-              summary={'Dynamic provisioning'}
+              summary={<div className={css.tabHeading}>{getString('cd.dynamicProvisioning')}</div>}
               details={
-                <Container padding="medium" style={{ backgroundColor: 'var(--white)' }} className={css.sectionCard}>
+                <Card className={cx(css.sectionCard, css.shadow)}>
                   <StepWidget<InfraProvisioningData>
                     factory={factory}
                     readonly={isReadonly}
@@ -388,7 +385,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
                       setProvisionerEnabled(value.provisionerEnabled)
                     }}
                   />
-                </Container>
+                </Card>
               }
             />
           </Accordion>
