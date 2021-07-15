@@ -1,7 +1,7 @@
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { Icon, Text, Layout, Container, Card, FlexExpander, CardBody } from '@wings-software/uicore'
-import { Menu } from '@blueprintjs/core'
+import { Menu, Classes } from '@blueprintjs/core'
 import routes from '@common/RouteDefinitions'
 import { QlceView, ViewTimeRangeType, ViewType, ViewState } from 'services/ce/services'
 import { SOURCE_ICON_MAPPING } from '@ce/utils/perspectiveUtils'
@@ -12,11 +12,15 @@ import css from './PerspectiveGridView.module.scss'
 interface PerspectiveListViewProps {
   pespectiveData: QlceView[]
   navigateToPerspectiveDetailsPage: (perspectiveId: string, viewState?: ViewState) => void
+  deletePerpsective: (perspectiveId: string) => void
+  clonePerspective: (values: QlceView | Record<string, string>, isClone: boolean) => void
 }
 
 const PerspectiveListView: React.FC<PerspectiveListViewProps> = ({
   pespectiveData,
-  navigateToPerspectiveDetailsPage
+  navigateToPerspectiveDetailsPage,
+  deletePerpsective,
+  clonePerspective
 }) => {
   const history = useHistory()
   const { accountId } = useParams<{
@@ -42,9 +46,16 @@ const PerspectiveListView: React.FC<PerspectiveListViewProps> = ({
   return (
     <Container className={css.mainGridContainer}>
       {pespectiveData.map(data => {
-        const editClick: (e: any) => void = e => {
-          e.stopPropagation()
+        const editClick: () => void = () => {
           data?.id && onEditClick(data.id)
+        }
+
+        const onDeleteClick: () => void = () => {
+          data.id && deletePerpsective(data.id)
+        }
+
+        const onCloneClick: () => void = () => {
+          clonePerspective(data, true)
         }
 
         return data ? (
@@ -58,11 +69,15 @@ const PerspectiveListView: React.FC<PerspectiveListViewProps> = ({
           >
             <CardBody.Menu
               menuContent={
-                <Container>
+                <Container
+                  onClick={e => {
+                    e.stopPropagation()
+                  }}
+                >
                   <Menu>
                     <Menu.Item onClick={editClick} icon="edit" text="Edit" />
-                    <Menu.Item icon="duplicate" text="Clone" />
-                    <Menu.Item icon="trash" text="Delete" />
+                    <Menu.Item onClick={onCloneClick} icon="duplicate" text="Clone" />
+                    <Menu.Item className={Classes.POPOVER_DISMISS} onClick={onDeleteClick} icon="trash" text="Delete" />
                   </Menu>
                 </Container>
               }

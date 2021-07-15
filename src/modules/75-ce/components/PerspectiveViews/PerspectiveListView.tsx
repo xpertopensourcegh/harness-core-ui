@@ -3,7 +3,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import moment from 'moment'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Icon, Text, Layout, Button, Popover, Container } from '@wings-software/uicore'
-import { Classes, Menu, Position } from '@blueprintjs/core'
+import { Menu, Position } from '@blueprintjs/core'
 import Table from '@common/components/Table/Table'
 import routes from '@common/RouteDefinitions'
 import { QlceView, ViewTimeRangeType, ViewState } from 'services/ce/services'
@@ -14,11 +14,15 @@ import { useStrings } from 'framework/strings'
 interface PerspectiveListViewProps {
   pespectiveData: QlceView[]
   navigateToPerspectiveDetailsPage: (perspectiveId: string, viewState: ViewState) => void
+  deletePerpsective: (perspectiveId: string) => void
+  clonePerspective: (values: QlceView | Record<string, string>, isClone: boolean) => void
 }
 
 const PerspectiveListView: React.FC<PerspectiveListViewProps> = ({
   pespectiveData,
-  navigateToPerspectiveDetailsPage
+  navigateToPerspectiveDetailsPage,
+  deletePerpsective,
+  clonePerspective
 }) => {
   const history = useHistory()
   const { accountId } = useParams<{
@@ -87,38 +91,43 @@ const PerspectiveListView: React.FC<PerspectiveListViewProps> = ({
   const RenderColumnMenu: Renderer<CellProps<QlceView>> = ({ row }) => {
     const [menuOpen, setMenuOpen] = useState(false)
 
-    const editClick: (e: any) => void = e => {
-      e.stopPropagation()
+    const editClick: () => void = () => {
       row.original.id && onEditClick(row.original.id)
     }
 
-    const onActionButtonsClick: (e: React.MouseEvent<Element, MouseEvent>) => void = e => {
-      e.stopPropagation()
+    const onDeleteClick: () => void = () => {
+      row.original.id && deletePerpsective(row.original.id)
+    }
+
+    const onCloneClick: () => void = () => {
+      clonePerspective(row.original, true)
     }
 
     return (
-      <Layout.Horizontal>
+      <Layout.Horizontal
+        onClick={e => {
+          e.stopPropagation()
+        }}
+      >
         <Popover
           isOpen={menuOpen}
           onInteraction={nextOpenState => {
             setMenuOpen(nextOpenState)
           }}
-          className={Classes.DARK}
           position={Position.BOTTOM_RIGHT}
         >
           <Button
             minimal
             icon="Options"
-            onClick={e => {
-              e.stopPropagation()
+            onClick={() => {
               setMenuOpen(true)
             }}
           />
           <Container>
             <Menu>
               <Menu.Item onClick={editClick} icon="edit" text="Edit" />
-              <Menu.Item onClick={onActionButtonsClick} icon="duplicate" text="Clone" />
-              <Menu.Item onClick={onActionButtonsClick} icon="trash" text="Delete" />
+              <Menu.Item onClick={onCloneClick} icon="duplicate" text="Clone" />
+              <Menu.Item onClick={onDeleteClick} icon="trash" text="Delete" />
             </Menu>
           </Container>
         </Popover>

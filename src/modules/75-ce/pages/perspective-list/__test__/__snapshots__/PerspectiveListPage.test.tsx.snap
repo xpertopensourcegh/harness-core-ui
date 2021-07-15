@@ -364,7 +364,7 @@ exports[`test cases for Perspective details Page should be able to render and sw
                 class="Layout--horizontal StyledProps--main"
               >
                 <span
-                  class="bp3-popover-wrapper bp3-dark"
+                  class="bp3-popover-wrapper"
                 >
                   <span
                     class="bp3-popover-target"
@@ -461,7 +461,7 @@ exports[`test cases for Perspective details Page should be able to render and sw
                 class="Layout--horizontal StyledProps--main"
               >
                 <span
-                  class="bp3-popover-wrapper bp3-dark"
+                  class="bp3-popover-wrapper"
                 >
                   <span
                     class="bp3-popover-target"
@@ -610,7 +610,7 @@ exports[`test cases for Perspective details Page should be able to render and sw
                 class="Layout--horizontal StyledProps--main"
               >
                 <span
-                  class="bp3-popover-wrapper bp3-dark"
+                  class="bp3-popover-wrapper"
                 >
                   <span
                     class="bp3-popover-target"
@@ -707,7 +707,7 @@ exports[`test cases for Perspective details Page should be able to render and sw
                 class="Layout--horizontal StyledProps--main"
               >
                 <span
-                  class="bp3-popover-wrapper bp3-dark"
+                  class="bp3-popover-wrapper"
                 >
                   <span
                     class="bp3-popover-target"

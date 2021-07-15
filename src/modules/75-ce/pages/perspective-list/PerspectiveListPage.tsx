@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { Layout, Button, Container, ExpandingSearchInput, FlexExpander } from '@wings-software/uicore'
+import { pick } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import { Page } from '@common/components/Page/Page'
 import { useToaster } from '@common/components'
-import { useCreatePerspective, CEView } from 'services/ce'
+import { useCreatePerspective, useDeletePerspective, CEView } from 'services/ce'
 import { QlceView, useFetchAllPerspectivesQuery, ViewState } from 'services/ce/services'
 import { generateId, CREATE_CALL_OBJECT } from '@ce/utils/perspectiveUtils'
 import PerspectiveListView from '@ce/components/PerspectiveViews/PerspectiveListView'
@@ -18,70 +19,78 @@ enum Views {
 }
 
 const PerspectiveListPage: React.FC = () => {
-  const [result] = useFetchAllPerspectivesQuery()
   const history = useHistory()
   const { accountId } = useParams<{
     accountId: string
   }>()
-  const { data, fetching } = result
   const [searchParam, setSearchParam] = useState<string>('')
   const { getString } = useStrings()
   const { showError } = useToaster()
   const [view, setView] = useState(Views.GRID)
 
-  const { mutate: createView } = useCreatePerspective({
+  const [result, executeQuery] = useFetchAllPerspectivesQuery()
+  const { data, fetching } = result
+
+  const { mutate: createView, loading: createViewLoading } = useCreatePerspective({
     queryParams: {
       accountId: accountId
     }
   })
 
-  const createNewPerspective: (values: Record<string, string>) => void = async (values = {}) => {
+  const { mutate: deleteView } = useDeletePerspective({
+    queryParams: {
+      accountId: accountId
+    }
+  })
+
+  const createNewPerspective: (values: QlceView | Record<string, string>, isClone: boolean) => void = async (
+    values = {},
+    isClone
+  ) => {
+    const valuesToBeSent = pick(values, ['name', 'viewTimeRange', 'viewVisualization'])
     let formData: Record<string, any> = {
-      ...values,
+      ...valuesToBeSent,
       viewVersion: 'v1'
     }
 
-    formData['name'] = `Perspective-${generateId(6).toUpperCase()}`
+    formData['name'] = isClone ? `${formData['name']}-clone` : `Perspective-${generateId(6).toUpperCase()}`
     formData = { ...CREATE_CALL_OBJECT, ...formData }
 
-    const { resource } = await createView(formData as CEView)
+    try {
+      const response = await createView(formData as CEView)
+      const { resource } = response
 
-    const uuid = resource?.uuid
+      const uuid = resource?.uuid
 
-    // Need to handle error states - Cloning as well
-
-    if (uuid) {
-      history.push(
-        routes.toCECreatePerspective({
-          accountId: accountId,
-          perspectiveId: uuid
-        })
-      )
-    } else {
-      showError("Can't create perspective")
+      if (uuid) {
+        history.push(
+          routes.toCECreatePerspective({
+            accountId: accountId,
+            perspectiveId: uuid
+          })
+        )
+      }
+    } catch (e) {
+      const errMessage = e.data.message
+      showError(errMessage)
     }
+  }
 
-    // if (error) {
-    //   if (toBeCloned) {
-    //     toBeCloned = null
-    //     setError && setError(error)
-    //   } else {
-    //     toaster.show({ message: error, timeout: 3000, intent: 'danger' })
-    //   }
-    // } else if (createViews) {
-    //   if (toBeCloned) {
-    //     props?.hide()
-    //     toBeCloned = null
-    //   }
-    //   if (createViews?.uuid) {
-    //     props.router.push(
-    //       props.path.toCreateCloudViews({
-    //         accountId: props.urlParams.accountId,
-    //         viewId: createViews?.uuid
-    //       })
-    //     )
-    //   }
-    // }
+  const deletePerpsective: (perspectiveId: string) => void = async perspectiveId => {
+    try {
+      await deleteView(void 0, {
+        queryParams: {
+          perspectiveId: perspectiveId,
+          accountId: accountId
+        }
+      })
+      executeQuery({
+        requestPolicy: 'cache-and-network'
+      })
+    } catch (e) {
+      const errMessage = e.data.message
+      showError(errMessage)
+    }
   }
 
   const navigateToPerspectiveDetailsPage: (perspectiveId: string, viewState?: ViewState) => void = (
@@ -125,8 +134,8 @@ const PerspectiveListPage: React.FC = () => {
           intent="primary"
           text="New Perspective"
           icon="plus"
-          onClick={() => {
-            createNewPerspective({})
+          onClick={async () => {
+            await createNewPerspective({}, false)
           }}
         />
         <FlexExpander />
@@ -158,18 +167,22 @@ const PerspectiveListPage: React.FC = () => {
         </Layout.Horizontal>
       </Layout.Horizontal>
       <Page.Body>
-        {fetching && <Page.Spinner />}
+        {(fetching || createViewLoading) && <Page.Spinner />}
         <Container padding="xxxlarge">
           {pespectiveList ? (
             view === Views.GRID ? (
               <PerspectiveGridView
                 pespectiveData={filteredPerspectiveData}
                 navigateToPerspectiveDetailsPage={navigateToPerspectiveDetailsPage}
+                deletePerpsective={deletePerpsective}
+                clonePerspective={createNewPerspective}
               />
             ) : (
               <PerspectiveListView
                 pespectiveData={filteredPerspectiveData}
                 navigateToPerspectiveDetailsPage={navigateToPerspectiveDetailsPage}
+                deletePerpsective={deletePerpsective}
+                clonePerspective={createNewPerspective}
               />
             )
           ) : null}
