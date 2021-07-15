@@ -9,14 +9,12 @@ import {
   MultiTypeInputType,
   Color,
   StepProps,
-  Accordion,
-  Icon
+  Accordion
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { Form } from 'formik'
 import * as Yup from 'yup'
 import { get, isEmpty, set } from 'lodash-es'
-import { Tooltip } from '@blueprintjs/core'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
 import { useStrings } from 'framework/strings'
@@ -307,6 +305,9 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                     label={getString('pipeline.manifestType.kustomizeFolderPath')}
                     placeholder={getString('pipeline.manifestType.pathPlaceholder')}
                     name="folderPath"
+                    tooltipProps={{
+                      dataTooltipId: 'kustomizePathHelperText'
+                    }}
                     multiTextInputProps={{ expressions }}
                   />
                   {getMultiTypeFromValue(formik.values?.folderPath) === MultiTypeInputType.RUNTIME && (
@@ -322,17 +323,6 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                       isReadonly={isReadonly}
                     />
                   )}
-                  <Tooltip
-                    position="top"
-                    content={
-                      <div className={helmcss.tooltipContent}>
-                        {getString('pipeline.manifestType.kustomizePathHelperText')}{' '}
-                      </div>
-                    }
-                    className={helmcss.tooltip}
-                  >
-                    <Icon name="info-sign" color={Color.PRIMARY_4} size={16} />
-                  </Tooltip>
                 </div>
 
                 <div
@@ -345,6 +335,9 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                     label={getString('pluginPath')}
                     placeholder={getString('pipeline.manifestType.pathPlaceholder')}
                     name="pluginPath"
+                    tooltipProps={{
+                      dataTooltipId: 'pluginPathHelperText'
+                    }}
                     multiTextInputProps={{ expressions }}
                   />
                   {getMultiTypeFromValue(formik.values?.pluginPath) === MultiTypeInputType.RUNTIME && (
@@ -360,17 +353,6 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                       isReadonly={isReadonly}
                     />
                   )}
-                  <Tooltip
-                    position="top"
-                    content={
-                      <div className={helmcss.tooltipContent}>
-                        {getString('pipeline.manifestType.pluginPathHelperText')}{' '}
-                      </div>
-                    }
-                    className={helmcss.tooltip}
-                  >
-                    <Icon name="info-sign" color={Color.PRIMARY_4} size={16} />
-                  </Tooltip>
                 </div>
               </Layout.Horizontal>
               <Accordion
@@ -392,6 +374,9 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                         name="skipResourceVersioning"
                         label={getString('skipResourceVersion')}
                         multiTypeTextbox={{ expressions }}
+                        tooltipProps={{
+                          dataTooltipId: 'helmSkipResourceVersion'
+                        }}
                         className={cx(helmcss.checkbox, helmcss.halfWidth)}
                       />
                       {getMultiTypeFromValue(formik.values?.skipResourceVersioning) === MultiTypeInputType.RUNTIME && (
@@ -408,17 +393,6 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                           isReadonly={isReadonly}
                         />
                       )}
-                      <Tooltip
-                        position="bottom"
-                        content={
-                          <div className={helmcss.tooltipContent}>
-                            {getString('pipeline.manifestType.helmSkipResourceVersion')}{' '}
-                          </div>
-                        }
-                        className={helmcss.skipversionTooltip}
-                      >
-                        <Icon name="info-sign" color={Color.PRIMARY_4} size={16} />
-                      </Tooltip>
                     </Layout.Horizontal>
                   }
                 />

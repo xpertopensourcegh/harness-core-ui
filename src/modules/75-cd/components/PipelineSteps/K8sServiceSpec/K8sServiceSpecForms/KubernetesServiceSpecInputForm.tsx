@@ -846,6 +846,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                   spec: {
                     skipResourceVersioning = '',
                     chartName = '',
+                    pluginPath = '',
                     chartVersion = '',
                     store: {
                       spec: {
@@ -1083,8 +1084,26 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                           allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                         }}
                         disabled={readonly}
-                        label={getString('chartPath')}
+                        label={
+                          manifestType === ManifestDataType.Kustomize
+                            ? getString('pipeline.manifestType.kustomizeFolderPath')
+                            : getString('chartPath')
+                        }
                         name={`${path}.manifests[${index}].manifest.spec.store.spec.folderPath`}
+                      />
+                    </div>
+                  )}
+
+                  {getMultiTypeFromValue(pluginPath) === MultiTypeInputType.RUNTIME && (
+                    <div className={css.verticalSpacingInput}>
+                      <FormInput.MultiTextInput
+                        multiTextInputProps={{
+                          expressions,
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                        }}
+                        disabled={readonly}
+                        label={getString('pluginPath')}
+                        name={`${path}.manifests[${index}].manifest.spec.pluginPath`}
                       />
                     </div>
                   )}

@@ -139,10 +139,7 @@ describe('helm with S3 tests', () => {
                 bucketName: '',
                 connectorRef: '',
                 folderPath: 'testFolder',
-                region: {
-                  label: '',
-                  value: ''
-                }
+                region: ''
               },
               type: undefined
             },
