@@ -104,8 +104,8 @@ export interface HelmWithGcsDataType {
 }
 export interface HelmWithS3DataType extends HelmWithHTTPDataType {
   folderPath: string
-  region: any
-  bucketName: string
+  region: SelectOption | string
+  bucketName: SelectOption | string
 }
 
 export interface OpenShiftTemplateGITDataType {

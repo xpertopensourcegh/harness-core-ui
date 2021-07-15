@@ -29,7 +29,8 @@ import {
   useGetBuildDetailsForDockerWithYaml,
   useGetBuildDetailsForGcrWithYaml,
   useGetBuildDetailsForEcrWithYaml,
-  useGetGCSBucketList
+  useGetGCSBucketList,
+  useGetBucketListForS3
 } from 'services/cd-ng'
 import type { CustomVariablesData } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
 import { ArtifactToConnectorMap, ENABLED_ARTIFACT_TYPES } from '@pipeline/components/ArtifactsSelection/ArtifactHelper'
@@ -46,6 +47,7 @@ import type { ManifestStores } from '@pipeline/components/ManifestSelection/Mani
 import {
   GitRepoName,
   ManifestDataType,
+  ManifestStoreMap,
   ManifestToConnectorMap
 } from '@pipeline/components/ManifestSelection/Manifesthelper'
 import type { AllNGVariables } from '@pipeline/utils/types'
@@ -86,6 +88,10 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
   const [lastQueryData, setLastQueryData] = React.useState<LastQueryData>({})
   const [gcsBucketQueryData, setGcsBucketQueryData] = React.useState<{ connectorRef: string }>({
     connectorRef: ''
+  })
+  const [s3BucketData, setS3BucketQueryData] = React.useState<{ connectorRef: string; region: string }>({
+    connectorRef: '',
+    region: ''
   })
 
   const { expressions } = useVariablesExpression()
@@ -200,6 +206,34 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
       accountId
     }
   })
+
+  /* s3 bucket related code */
+  const {
+    data: s3BucketList,
+    loading: s3bucketdataLoading,
+    refetch: refetchS3Buckets
+  } = useGetBucketListForS3({
+    queryParams: {
+      connectorRef: s3BucketData?.connectorRef,
+      region: s3BucketData?.region,
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier
+    },
+    lazy: true
+  })
+
+  React.useEffect(() => {
+    if (s3BucketData?.connectorRef) {
+      refetchS3Buckets()
+    }
+  }, [s3BucketData])
+
+  const s3BucketOptions = Object.keys(s3BucketList || {}).map(item => ({
+    label: item,
+    value: item
+  }))
+  /* s3 bucket related code */
 
   const {
     data: bucketData,
@@ -935,68 +969,112 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                   )}
 
                   {getMultiTypeFromValue(bucketName) === MultiTypeInputType.RUNTIME &&
-                    getMultiTypeFromValue(
-                      initialValues?.manifests?.[index].manifest?.spec?.store?.spec?.connectorRef
-                    ) !== MultiTypeInputType.FIXED && (
-                      <div className={css.verticalSpacingInput}>
-                        <FormInput.MultiTextInput
-                          multiTextInputProps={{
-                            expressions,
-                            allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                          }}
-                          disabled={readonly}
-                          placeholder={getString('pipeline.manifestType.bucketNamePlaceholder')}
-                          label={getString('pipeline.manifestType.bucketName')}
-                          name={`${path}.manifests[${index}].manifest.spec.store.spec.bucketName`}
-                        />
-                      </div>
-                    )}
-
-                  {getMultiTypeFromValue(bucketName) === MultiTypeInputType.RUNTIME &&
-                    getMultiTypeFromValue(
-                      initialValues?.manifests?.[index].manifest?.spec?.store?.spec?.connectorRef
-                    ) === MultiTypeInputType.FIXED && (
-                      <div className={css.verticalSpacingInput}>
-                        <ExperimentalInput
-                          formik={formik}
-                          multiTypeInputProps={{
-                            onFocus: () => {
-                              if (
-                                getMultiTypeFromValue(filteredManifest?.manifest?.spec?.store?.spec?.connectorRef) ===
-                                MultiTypeInputType.FIXED
-                              ) {
-                                setGcsBucketQueryData({
-                                  connectorRef: filteredManifest?.manifest?.spec?.store?.spec?.connectorRef
-                                })
-                              } else {
-                                if (!bucketOptions.length) {
+                    (type === ManifestStoreMap.Gcs ? (
+                      getMultiTypeFromValue(
+                        initialValues?.manifests?.[index].manifest?.spec?.store?.spec?.connectorRef
+                      ) === MultiTypeInputType.FIXED ? (
+                        <div className={css.verticalSpacingInput}>
+                          <ExperimentalInput
+                            formik={formik}
+                            multiTypeInputProps={{
+                              onFocus: () => {
+                                if (
+                                  getMultiTypeFromValue(filteredManifest?.manifest?.spec?.store?.spec?.connectorRef) ===
+                                  MultiTypeInputType.FIXED
+                                ) {
                                   setGcsBucketQueryData({
-                                    connectorRef:
-                                      initialValues?.manifests?.[index].manifest?.spec?.store?.spec?.connectorRef
+                                    connectorRef: filteredManifest?.manifest?.spec?.store?.spec?.connectorRef
                                   })
+                                } else {
+                                  if (!bucketOptions.length) {
+                                    setGcsBucketQueryData({
+                                      connectorRef:
+                                        initialValues?.manifests?.[index].manifest?.spec?.store?.spec?.connectorRef
+                                    })
+                                  }
                                 }
-                              }
-                            },
-                            selectProps: {
-                              usePortal: true,
-                              addClearBtn: true && !readonly,
-                              items: loading
-                                ? [{ label: 'Loading Buckets...', value: 'Loading Buckets...' }]
-                                : bucketOptions,
-                              allowCreatingNewItems: true
-                            },
-                            expressions,
-                            allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                          }}
-                          useValue
-                          disabled={readonly}
-                          selectItems={bucketOptions}
-                          placeholder={getString('pipeline.manifestType.bucketNamePlaceholder')}
-                          label={getString('pipeline.manifestType.bucketName')}
-                          name={`${path}.manifests[${index}].manifest.spec.store.spec.bucketName`}
-                        />
-                      </div>
-                    )}
+                              },
+                              selectProps: {
+                                usePortal: true,
+                                addClearBtn: true && !readonly,
+                                items: loading
+                                  ? [{ label: 'Loading Buckets...', value: 'Loading Buckets...' }]
+                                  : bucketOptions,
+                                allowCreatingNewItems: true
+                              },
+                              expressions,
+                              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                            }}
+                            useValue
+                            disabled={readonly}
+                            selectItems={bucketOptions}
+                            placeholder={getString('pipeline.manifestType.bucketNamePlaceholder')}
+                            label={getString('pipeline.manifestType.bucketName')}
+                            name={`${path}.manifests[${index}].manifest.spec.store.spec.bucketName`}
+                          />
+                        </div>
+                      ) : (
+                        <div className={css.verticalSpacingInput}>
+                          <FormInput.MultiTextInput
+                            multiTextInputProps={{
+                              expressions,
+                              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                            }}
+                            disabled={readonly}
+                            placeholder={getString('pipeline.manifestType.bucketNamePlaceholder')}
+                            label={getString('pipeline.manifestType.bucketName')}
+                            name={`${path}.manifests[${index}].manifest.spec.store.spec.bucketName`}
+                          />
+                        </div>
+                      )
+                    ) : type === ManifestStoreMap.S3 ? (
+                      getMultiTypeFromValue(connectorRef) === MultiTypeInputType.FIXED &&
+                      getMultiTypeFromValue(region) !== MultiTypeInputType.FIXED ? (
+                        <div className={css.verticalSpacingInput}>
+                          <ExperimentalInput
+                            formik={formik}
+                            multiTypeInputProps={{
+                              onFocus: () => {
+                                setS3BucketQueryData({
+                                  connectorRef: filteredManifest?.manifest?.spec?.store?.spec?.connectorRef,
+                                  region: initialValues?.manifests?.[index].manifest?.spec?.store?.spec?.region
+                                })
+                              },
+                              selectProps: {
+                                usePortal: true,
+                                addClearBtn: true && !readonly,
+                                items: s3bucketdataLoading
+                                  ? [{ label: 'Loading Buckets...', value: 'Loading Buckets...' }]
+                                  : s3BucketOptions,
+
+                                allowCreatingNewItems: true
+                              },
+                              expressions,
+                              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                            }}
+                            useValue
+                            disabled={readonly}
+                            selectItems={s3BucketOptions}
+                            placeholder={getString('pipeline.manifestType.bucketNamePlaceholder')}
+                            label={getString('pipeline.manifestType.bucketName')}
+                            name={`${path}.manifests[${index}].manifest.spec.store.spec.bucketName`}
+                          />
+                        </div>
+                      ) : (
+                        <div className={css.verticalSpacingInput}>
+                          <FormInput.MultiTextInput
+                            multiTextInputProps={{
+                              expressions,
+                              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                            }}
+                            disabled={readonly}
+                            label={getString('pipeline.manifestType.bucketName')}
+                            name={`${path}.manifests[${index}].manifest.spec.store.spec.bucketName`}
+                          />
+                        </div>
+                      )
+                    ) : null)}
+
                   {getMultiTypeFromValue(folderPath) === MultiTypeInputType.RUNTIME && (
                     <div className={css.verticalSpacingInput}>
                       <FormInput.MultiTextInput
