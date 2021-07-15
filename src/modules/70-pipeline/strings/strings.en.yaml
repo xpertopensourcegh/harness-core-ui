@@ -7,7 +7,6 @@ serviceDependenciesText: Service Dependencies
 stepLabel: '{{name}} (ID: {{identifier}})'
 enableVerificationOptions: Enable verification options
 closeStepConfig: Step Config
-infrastructureKey: 'Infrastructure Key'
 stepConfigHasChanges: Form has some unsaved changed, Do you want to apply the changes?
 clickHere: Click here
 stepDetails: Step details

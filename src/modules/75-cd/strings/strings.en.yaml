@@ -10,7 +10,6 @@ steps:
     clusterDetails: Cluster Details
     selectOrEnterClusterPlaceholder: Select or add cluster
     releaseNamePlaceholder: Enter Release Name
-    infrastructureKeyPlaceholder: Enter Infrastructure Key
   kubernetesGcpStep:
     stepName: Specify your GCP Connector
 folderPath: Folder Path

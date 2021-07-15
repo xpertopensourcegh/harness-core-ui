@@ -10,7 +10,8 @@ import {
   getMultiTypeFromValue,
   MultiTypeInputType,
   Icon,
-  SelectOption
+  SelectOption,
+  Accordion
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import * as Yup from 'yup'
@@ -346,33 +347,42 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
                   />
                 )}
               </Layout.Horizontal>
-              <Layout.Horizontal className={css.formRow} spacing="medium">
-                <FormInput.MultiTextInput
-                  name="releaseName"
-                  tooltipProps={{
-                    dataTooltipId: 'gcpInfraReleasename'
-                  }}
-                  className={css.inputWidth}
-                  label={getString('common.releaseName')}
-                  placeholder={getString('cd.steps.common.releaseNamePlaceholder')}
-                  multiTextInputProps={{ expressions, textProps: { disabled: readonly } }}
-                  disabled={readonly}
+              <Accordion activeId={!isEmpty(formik.errors.releaseName) ? 'advanced' : ''}>
+                <Accordion.Panel
+                  id="advanced"
+                  addDomId={true}
+                  summary={getString('common.advanced')}
+                  details={
+                    <Layout.Horizontal className={css.formRow} spacing="medium">
+                      <FormInput.MultiTextInput
+                        name="releaseName"
+                        tooltipProps={{
+                          dataTooltipId: 'gcpInfraReleasename'
+                        }}
+                        className={css.inputWidth}
+                        label={getString('common.releaseName')}
+                        placeholder={getString('cd.steps.common.releaseNamePlaceholder')}
+                        multiTextInputProps={{ expressions, textProps: { disabled: readonly } }}
+                        disabled={readonly}
+                      />
+                      {getMultiTypeFromValue(formik.values.releaseName) === MultiTypeInputType.RUNTIME && !readonly && (
+                        <ConfigureOptions
+                          value={formik.values.releaseName as string}
+                          type="String"
+                          variableName="releaseName"
+                          showRequiredField={false}
+                          showDefaultField={false}
+                          showAdvanced={true}
+                          onChange={value => {
+                            formik.setFieldValue('releaseName', value)
+                          }}
+                          isReadonly={readonly}
+                        />
+                      )}
+                    </Layout.Horizontal>
+                  }
                 />
-                {getMultiTypeFromValue(formik.values.releaseName) === MultiTypeInputType.RUNTIME && !readonly && (
-                  <ConfigureOptions
-                    value={formik.values.releaseName as string}
-                    type="String"
-                    variableName="releaseName"
-                    showRequiredField={false}
-                    showDefaultField={false}
-                    showAdvanced={true}
-                    onChange={value => {
-                      formik.setFieldValue('releaseName', value)
-                    }}
-                    isReadonly={readonly}
-                  />
-                )}
-              </Layout.Horizontal>
+              </Accordion>
               <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
                 <FormInput.CheckBox
                   className={css.simultaneousDeployment}

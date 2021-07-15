@@ -31,9 +31,7 @@ import { useValidationErrors } from '@pipeline/components/PipelineStudio/Pipline
 import { FeatureFlag } from '@common/featureFlags'
 import css from './DeployInfraSpecifications.module.scss'
 
-// TODO: Add key once we have default value
-const DEFAULT_INFRA_KEY = ''
-
+const DEFAULT_RELEASE_NAME = 'release-<+INFRA_KEY>'
 export default function DeployInfraSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
   const isProvisionerEnabled = useFeatureFlag(FeatureFlag.NG_PROVISIONERS)
   const [initialInfrastructureDefinitionValues, setInitialInfrastructureDefinitionValues] =
@@ -96,8 +94,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
     spec['infrastructure'] = {
       environmentRef: '',
       infrastructureDefinition: {},
-      allowSimultaneousDeployments: false,
-      infrastructureKey: DEFAULT_INFRA_KEY
+      allowSimultaneousDeployments: false
     }
   }
 
@@ -118,10 +115,9 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
         infrastructure.infrastructureDefinition = {
           ...infrastructure.infrastructureDefinition,
           type,
-          spec: omit(extendedSpec, 'allowSimultaneousDeployments', 'infrastructureKey')
+          spec: omit(extendedSpec, 'allowSimultaneousDeployments')
         }
         infrastructure.allowSimultaneousDeployments = extendedSpec.allowSimultaneousDeployments ?? false
-        infrastructure.infrastructureKey = extendedSpec.infrastructureKey ?? DEFAULT_INFRA_KEY
       })
       debounceUpdateStage(stageData?.stage)
     }
@@ -225,24 +221,22 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
     const infrastructure = get(stageData, 'stage.spec.infrastructure.infrastructureDefinition', null)
     const type = infrastructure?.type || deploymentType
     const allowSimultaneousDeployments = get(stageData, 'stage.spec.infrastructure.allowSimultaneousDeployments', false)
-    const infrastructureKey = get(stageData, 'stage.spec.infrastructure.infrastructureKey', DEFAULT_INFRA_KEY)
     switch (type) {
       case 'KubernetesDirect': {
         const connectorRef = infrastructure?.spec?.connectorRef
         const namespace = infrastructure?.spec?.namespace
-        const releaseName = infrastructure?.spec?.releaseName
+        const releaseName = infrastructure?.spec?.releaseName ?? DEFAULT_RELEASE_NAME
         return {
           connectorRef,
           namespace,
           releaseName,
-          allowSimultaneousDeployments,
-          infrastructureKey
+          allowSimultaneousDeployments
         }
       }
       case 'KubernetesGcp': {
         const connectorRef = infrastructure?.spec?.connectorRef
         const namespace = infrastructure?.spec?.namespace
-        const releaseName = infrastructure?.spec?.releaseName
+        const releaseName = infrastructure?.spec?.releaseName ?? DEFAULT_RELEASE_NAME
         const cluster = infrastructure?.spec?.cluster
 
         return {
@@ -250,8 +244,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
           namespace,
           releaseName,
           cluster,
-          allowSimultaneousDeployments,
-          infrastructureKey
+          allowSimultaneousDeployments
         }
       }
       default: {
@@ -277,8 +270,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
                   connectorRef: value.connectorRef,
                   namespace: value.namespace,
                   releaseName: value.releaseName,
-                  allowSimultaneousDeployments: value.allowSimultaneousDeployments,
-                  infrastructureKey: value.infrastructureKey
+                  allowSimultaneousDeployments: value.allowSimultaneousDeployments
                 },
                 'KubernetesDirect'
               )
@@ -302,8 +294,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
                   cluster: value.cluster,
                   namespace: value.namespace,
                   releaseName: value.releaseName,
-                  allowSimultaneousDeployments: value.allowSimultaneousDeployments,
-                  infrastructureKey: value.infrastructureKey
+                  allowSimultaneousDeployments: value.allowSimultaneousDeployments
                 },
                 'KubernetesGcp'
               )

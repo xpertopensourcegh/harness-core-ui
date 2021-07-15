@@ -311,7 +311,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
           <div
             class="Accordion--label"
           >
-            Advanced
+            common.advanced
           </div>
         </div>
         <div

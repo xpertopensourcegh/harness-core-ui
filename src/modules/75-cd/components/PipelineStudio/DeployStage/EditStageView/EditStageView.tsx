@@ -235,7 +235,7 @@ export const EditStageView: React.FC<EditStageView> = ({
             <Accordion.Panel
               id="advanced"
               addDomId={true}
-              summary={'Advanced'}
+              summary={getString('common.advanced')}
               details={
                 <Card className={cx(css.sectionCard, css.shadow)} id="variables">
                   <div className={cx(css.tabSubHeading, 'ng-tooltip-native')} data-tooltip-id="overviewStageVariables">

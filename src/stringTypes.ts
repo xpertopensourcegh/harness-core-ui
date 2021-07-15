@@ -20,6 +20,7 @@ export interface StringsMap {
   'common.accountSetup': string
   'common.addAccountName': string
   'common.addVariable': string
+  'common.advanced': string
   'common.apiKeys': string
   'common.apikey': string
   'common.approve': string
@@ -1627,7 +1628,6 @@ export interface StringsMap {
   'pipeline.infraSpecifications.namespacePlaceholder': string
   'pipeline.infraSpecifications.serviceAccountName': string
   'pipeline.infraSpecifications.serviceAccountNamePlaceholder': string
-  'pipeline.infrastructureKey': string
   'pipeline.inputSets.aboutInputSets': string
   'pipeline.inputSets.applyInputSet': string
   'pipeline.inputSets.applyInputSets': string
@@ -2039,7 +2039,6 @@ export interface StringsMap {
   'cd.specifyTfVarStore': string
   'cd.stepName': string
   'cd.steps.common.clusterDetails': string
-  'cd.steps.common.infrastructureKeyPlaceholder': string
   'cd.steps.common.releaseNamePlaceholder': string
   'cd.steps.common.selectOrEnterClusterPlaceholder': string
   'cd.steps.kubernetesGcpStep.stepName': string

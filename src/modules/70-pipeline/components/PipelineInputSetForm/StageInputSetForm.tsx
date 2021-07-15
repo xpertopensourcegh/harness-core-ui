@@ -1,14 +1,5 @@
 import React from 'react'
-import {
-  Label,
-  FormInput,
-  getMultiTypeFromValue,
-  MultiTypeInputType,
-  Icon,
-  Layout,
-  Text,
-  Button
-} from '@wings-software/uicore'
+import { Label, FormInput, MultiTypeInputType, Icon, Layout, Text, Button } from '@wings-software/uicore'
 import { connect } from 'formik'
 import { get, set, isEmpty, pickBy, identity } from 'lodash-es'
 import cx from 'classnames'
@@ -470,19 +461,6 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                   }
                 }}
                 stepViewType={StepViewType.InputSet}
-              />
-            )}
-            {getMultiTypeFromValue(deploymentStageTemplate?.infrastructure?.infrastructureKey) ===
-              MultiTypeInputType.RUNTIME && (
-              /* istanbul ignore next */ <FormInput.MultiTextInput
-                multiTextInputProps={{
-                  allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
-                  expressions
-                }}
-                name={`${path}.infrastructure.infrastructureKey`}
-                label={getString('pipeline.infrastructureKey')}
-                disabled={readonly}
-                className={cx(css.inputWidth, css.noMarginLeft)}
               />
             )}
           </div>
