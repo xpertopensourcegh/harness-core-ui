@@ -1,7 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
-import { Text, TextInput, Card, Button, Intent, FormInput, MultiTypeInputType } from '@wings-software/uicore'
+import { Text, TextInput, Card, Button, Intent, MultiTypeInputType, MultiTextInput } from '@wings-software/uicore'
 import { get, isEmpty } from 'lodash-es'
 import { connect, FormikContext } from 'formik'
 import { useStrings } from 'framework/strings'
@@ -82,23 +82,37 @@ export const List = (props: ListProps): React.ReactElement => {
     setValue(currentValue => currentValue.filter(item => item.id !== id))
   }
 
-  const changeValue: (id: string, newValue: string) => void = (id, newValue) => {
-    formik?.setFieldTouched(name, true)
-    setValue(currentValue =>
-      currentValue.map(item => {
-        if (item.id === id) {
-          return {
-            id,
-            value: newValue
+  const changeValue: (id: string, newValue: string) => void = React.useCallback(
+    (id, newValue) => {
+      formik?.setFieldTouched(name, true)
+      setValue(currentValue => {
+        const updatedValue = currentValue.map(item => {
+          if (item.id === id) {
+            return {
+              id,
+              value: newValue
+            }
           }
+          return item
+        })
+        let valueInCorrectFormat: ListType = []
+        if (Array.isArray(updatedValue)) {
+          valueInCorrectFormat = updatedValue.filter(item => !!item.value).map(item => item.value)
         }
-        return item
+
+        if (isEmpty(valueInCorrectFormat)) {
+          formik?.setFieldValue(name, undefined)
+        } else {
+          formik?.setFieldValue(name, valueInCorrectFormat)
+        }
+        return updatedValue
       })
-    )
-  }
+    },
+    [formik, name]
+  )
+  const initialValue = get(formik?.values, name, '') as ListType
 
   React.useEffect(() => {
-    const initialValue = get(formik?.values, name, '') as ListType
     const valueWithoutEmptyItems = value.filter(item => !!item.value)
     if (isEmpty(valueWithoutEmptyItems) && initialValue) {
       const initialValueInCorrectFormat = (Array.isArray(initialValue) ? initialValue : []).map(item => ({
@@ -113,20 +127,7 @@ export const List = (props: ListProps): React.ReactElement => {
 
       setValue(initialValueInCorrectFormat)
     }
-  }, [formik?.values, name, value])
-
-  React.useEffect(() => {
-    let valueInCorrectFormat: ListType = []
-    if (Array.isArray(value)) {
-      valueInCorrectFormat = value.filter(item => !!item.value).map(item => item.value)
-    }
-
-    if (isEmpty(valueInCorrectFormat)) {
-      formik?.setFieldValue(name, undefined)
-    } else {
-      formik?.setFieldValue(name, valueInCorrectFormat)
-    }
-  }, [name, value, formik?.setFieldValue])
+  }, [initialValue, name])
 
   return (
     <div style={style}>
@@ -149,13 +150,15 @@ export const List = (props: ListProps): React.ReactElement => {
                   />
                 )}
                 {expressions && (
-                  <FormInput.MultiTextInput
-                    label={''}
+                  <MultiTextInput
+                    textProps={{ name: isNameOfArrayType ? `${name}[${index}]` : `${name}-${index}` }}
                     placeholder={placeholder}
                     name={isNameOfArrayType ? `${name}[${index}]` : `${name}-${index}`}
-                    multiTextInputProps={{
-                      expressions,
-                      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                    expressions={expressions}
+                    allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
+                    value={valueValue}
+                    onChange={val => {
+                      changeValue(id, (val as string)?.trim())
                     }}
                   />
                 )}
