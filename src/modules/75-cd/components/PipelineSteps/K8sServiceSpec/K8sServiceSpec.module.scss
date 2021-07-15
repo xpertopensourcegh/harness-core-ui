@@ -143,6 +143,10 @@
   padding-bottom: var(--spacing-medium) !important;
 }
 
+.artifactInfoTooltip {
+  margin-left: var(--spacing-small);
+}
+
 .manifestVariablesTable {
   & + & {
     margin-top: var(--spacing-large);

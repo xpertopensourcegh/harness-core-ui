@@ -407,6 +407,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                 ) && (
                   <Tooltip
                     position="top"
+                    className={css.artifactInfoTooltip}
                     content={getNonRuntimeFields(
                       get(artifacts, `primary.spec`),
                       get(template, 'artifacts.primary.spec')
@@ -606,6 +607,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                       ) && (
                         <Tooltip
                           position="top"
+                          className={css.artifactInfoTooltip}
                           content={getNonRuntimeFields(
                             get(artifacts, `sidecars[${index}].sidecar.spec`),
                             get(template, `artifacts.sidecars[${index}].sidecar.spec`)
