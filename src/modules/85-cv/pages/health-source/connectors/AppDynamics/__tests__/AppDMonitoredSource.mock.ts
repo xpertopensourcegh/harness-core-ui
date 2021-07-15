@@ -8,8 +8,8 @@ export const SourceData = {
       spec: {
         connectorRef: 'AppD_Connector_102',
         feature: 'Application Monitoring',
-        appdApplicationName: 'Harness-Dev',
-        appdTierName: 'manager',
+        applicationName: 'Harness-Dev',
+        tierName: 'manager',
         metricPacks: [{ identifier: 'Errors' }, { identifier: 'Performance' }]
       },
       service: 'TestDemo',
@@ -22,8 +22,8 @@ export const SourceData = {
       spec: {
         connectorRef: 'AppD_Connector',
         feature: 'Application Monitoring',
-        appdApplicationName: 'Harness-Dev',
-        appdTierName: 'manager',
+        applicationName: 'Harness-Dev',
+        tierName: 'manager',
         metricPacks: [{ identifier: 'Performance' }]
       },
       service: 'TestDemo',
@@ -36,12 +36,12 @@ export const SourceData = {
   serviceIdentifier: 'TestDemo',
   monitoringSourceName: 'AppD Test',
   monitoredServiceIdentifier: 'AppD_Test',
-  product: 'Application Monitoring',
-  appdApplicationName: 'Harness-Dev',
-  appdTierName: 'manager',
+  product: { label: 'Application Monitoring', value: 'Application Monitoring' },
+  applicationName: 'Harness-Dev',
+  tierName: 'manager',
   metricPacks: [{ identifier: 'Errors' }, { identifier: 'Performance' }],
   healthSourceName: 'AppD 101',
-  healthSourceidentifier: 'AppD_101',
+  healthSourceIdentifier: 'AppD_101',
   sourceType: 'AppDynamics',
   connectorRef: {
     label: 'AppD Connector 102',

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button, Text, Layout, Color, IconName } from '@wings-software/uicore'
+import isEmpty from 'lodash-es/isEmpty'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import type { UseStringsReturn } from 'framework/strings'
 import {
@@ -9,38 +10,29 @@ import {
   MetricPackDTO,
   MetricPackDTOArrayRequestBody
 } from 'services/cv'
-import type { updatedHealthSource } from '../../HealthSourceDrawer/HealthSourceDrawerContent'
+import { ValidationStatus } from './AppDMonitoredSource.constant'
+import type { UpdatedHealthSource } from '../../HealthSourceDrawer/HealthSourceDrawerContent.types'
 import css from './AppDMonitoredSource.module.scss'
 
-export enum ValidationStatus {
-  IN_PROGRESS = 'in-progress',
-  NO_DATA = 'no-data',
-  SUCCESS = 'success',
-  ERROR = 'error'
-}
-
-const createAppDPayload = (formData: any): updatedHealthSource => {
+const createAppDPayload = (formData: any): UpdatedHealthSource => {
   const healthSourcesPayload = {
     name: formData.healthSourceName as string,
-    environment: formData.environmentIdentifier as string,
-    service: formData.serviceIdentifier as string,
-    identifier: formData.healthSourceidentifier as string,
+    identifier: formData.healthSourceIdentifier as string,
     type: 'AppDynamics' as any,
     spec: {
       connectorRef: (formData?.connectorRef?.connector?.identifier as string) || (formData.connectorRef as string),
-      feature: formData.product as string,
-      appdApplicationName: formData.appdApplication as string,
-      appdTierName: formData.appDTier as string,
+      feature: formData.product?.value as string,
+      applicationName: formData.appdApplication as string,
+      tierName: formData.appDTier as string,
       metricPacks: Object.entries(formData.metricAppD)
         .map(item => {
-          // item [key , value] = ['Error', true]
           return item[1]
             ? {
-                identifier: item[0] // 'Error': true
+                identifier: item[0]
               }
             : {}
         })
-        .filter(item => !!item)
+        .filter(item => !isEmpty(item))
     }
   }
 

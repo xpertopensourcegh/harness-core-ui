@@ -152,11 +152,10 @@ export type AppDynamicsConnectorDTO = ConnectorConfigDTO & {
 }
 
 export type AppDynamicsHealthSourceSpec = HealthSourceSpec & {
-  appdApplicationName: string
-  appdTierName: string
-  connectorRef: string
+  applicationName: string
   feature: string
   metricPacks: MetricPackDTO[]
+  tierName: string
 }
 
 export interface AppDynamicsTier {
@@ -1992,6 +1991,9 @@ export interface MonitoredServiceDTO {
   projectIdentifier: string
   serviceRef: string
   sources?: Sources
+  tags: {
+    [key: string]: string
+  }
   type: 'Application'
 }
 
@@ -2039,7 +2041,6 @@ export type NewRelicConnectorDTO = ConnectorConfigDTO & {
 export type NewRelicHealthSourceSpec = HealthSourceSpec & {
   applicationId: string
   applicationName: string
-  connectorRef: string
   feature: string
   metricPacks: MetricPackDTO[]
 }
@@ -2253,6 +2254,32 @@ export interface PartialSchemaDTO {
 export type PrometheusConnectorDTO = ConnectorConfigDTO & {
   delegateSelectors?: string[]
   url: string
+}
+
+export interface PrometheusFilter {
+  labelName?: string
+  labelValue?: string
+  queryFilterString?: string
+}
+
+export type PrometheusHealthSourceSpec = HealthSourceSpec & {
+  metricDefinitions?: PrometheusMetricDefinition[]
+}
+
+export interface PrometheusMetricDefinition {
+  additionalFilters?: PrometheusFilter[]
+  aggregation?: string
+  envFilter?: PrometheusFilter[]
+  envIdentifier?: string
+  groupName?: string
+  isManualQuery?: boolean
+  metricName?: string
+  prometheusMetric?: string
+  query?: string
+  riskProfile?: RiskProfile
+  serviceFilter?: PrometheusFilter[]
+  serviceIdentifier?: string
+  serviceInstanceFieldName?: string
 }
 
 export interface PrometheusSampleData {
@@ -3252,6 +3279,12 @@ export interface RiskNotify {
   threshold?: number
 }
 
+export interface RiskProfile {
+  category?: 'PERFORMANCE' | 'ERRORS' | 'INFRASTRUCTURE'
+  metricType?: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX' | 'OTHER'
+  thresholdTypes?: ('ACT_WHEN_LOWER' | 'ACT_WHEN_HIGHER')[]
+}
+
 export interface RiskSummaryPopoverDTO {
   category?: 'PERFORMANCE' | 'ERRORS' | 'INFRASTRUCTURE'
   envSummaries?: EnvSummary[]
@@ -3367,7 +3400,6 @@ export interface StackdriverDashboardDetail {
 }
 
 export type StackdriverLogHealthSourceSpec = HealthSourceSpec & {
-  connectorRef: string
   feature: string
   queries: QueryDTO[]
 }

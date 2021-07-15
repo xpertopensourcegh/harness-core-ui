@@ -5,7 +5,7 @@ import GCOLogsMonitoringSource from '@cv/pages/health-source/connectors/GCOLogsM
 import AppDMonitoredSource from '@cv/pages/health-source/connectors/AppDynamics/AppDMonitoredSource'
 import { Connectors } from '@connectors/constants'
 import { HealthSourceTypes } from '@cv/pages/health-source/types'
-import type { updatedHealthSource } from '../../HealthSourceDrawerContent'
+import type { UpdatedHealthSource } from '../../HealthSourceDrawerContent.types'
 
 export const LoadSourceByType = ({
   type,
@@ -14,7 +14,7 @@ export const LoadSourceByType = ({
 }: {
   type: string
   data: any
-  onSubmit: (formdata: any, healthSourceList: updatedHealthSource) => Promise<void>
+  onSubmit: (formdata: any, healthSourceList: UpdatedHealthSource) => Promise<void>
 }): JSX.Element => {
   switch (type) {
     case 'AppDynamics':
@@ -32,13 +32,15 @@ export const LoadSourceByType = ({
   }
 }
 
-export const createHealthsourceList = (formData: any, healthSourcesPayload: updatedHealthSource): any => {
+export const createHealthsourceList = (formData: any, healthSourcesPayload: UpdatedHealthSource): any => {
   const healthSources = formData?.healthSourceList
   let updatedHealthSources = []
   if (
     healthSources &&
     !isEmpty(healthSources) &&
-    healthSources.some((el: any) => el?.identifier === healthSourcesPayload?.identifier)
+    healthSources.some(
+      (el: any) => el?.identifier === healthSourcesPayload?.identifier && el?.type === healthSourcesPayload?.type
+    )
   ) {
     updatedHealthSources = healthSources?.map((el: any) =>
       el?.identifier === healthSourcesPayload?.identifier ? healthSourcesPayload : el

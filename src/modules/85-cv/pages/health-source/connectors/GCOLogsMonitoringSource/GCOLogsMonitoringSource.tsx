@@ -3,14 +3,14 @@ import { useParams } from 'react-router-dom'
 import { omit } from 'lodash-es'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { SetupSourceTabsContext } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
-import type { updatedHealthSource } from '../../HealthSourceDrawer/HealthSourceDrawerContent'
+import type { UpdatedHealthSource } from '../../HealthSourceDrawer/HealthSourceDrawerContent.types'
 import { MapQueriesToHarnessService } from './components/MapQueriesToHarnessService/MapQueriesToHarnessService'
 import { buildGCOMonitoringSourceInfo, GCOMonitoringSourceInfo } from './GoogleCloudOperationsMonitoringSourceUtils'
 import { createGCOLogsHealthSourcePayload } from './GCOLogsMonitoringSource.utils'
 
 interface GCOLogsMonitoringSourceProps {
   data: any
-  onSubmit: (formdata: GCOMonitoringSourceInfo, updatedHealthSource: updatedHealthSource) => Promise<void>
+  onSubmit: (formdata: GCOMonitoringSourceInfo, UpdatedHealthSource: UpdatedHealthSource) => Promise<void>
 }
 
 export default function GCOLogsMonitoringSource(props: GCOLogsMonitoringSourceProps): JSX.Element {

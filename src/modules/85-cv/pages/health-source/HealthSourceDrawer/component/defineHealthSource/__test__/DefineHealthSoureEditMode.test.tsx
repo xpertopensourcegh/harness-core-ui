@@ -89,7 +89,7 @@ describe('DefineHealthSource', () => {
             }
           ],
           healthSourceName: 'Test  AppD  101',
-          healthSourceidentifier: 'Test_AppD_101',
+          healthSourceIdentifier: 'Test_AppD_101',
           isEdit: true,
           metricPacks: [{ identifier: 'Errors' }],
           monitoredServiceIdentifier: 'Test_Monitored_service',

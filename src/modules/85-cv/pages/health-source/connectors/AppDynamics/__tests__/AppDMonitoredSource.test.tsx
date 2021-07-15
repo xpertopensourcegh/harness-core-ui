@@ -67,8 +67,8 @@ describe('Unit tests for createAppd monitoring source', () => {
         expect.objectContaining({
           appDTier: 'manager',
           appdApplication: 'Harness-Dev',
-          appdApplicationName: 'Harness-Dev',
-          appdTierName: 'manager',
+          applicationName: 'Harness-Dev',
+          tierName: 'manager',
           metricAppD: {
             Errors: true,
             Performance: true
@@ -83,13 +83,11 @@ describe('Unit tests for createAppd monitoring source', () => {
       expect(submitData).toHaveBeenCalledWith(
         expect.anything(),
         expect.objectContaining({
-          environment: 'TestDemo101',
           identifier: 'AppD_101',
           name: 'AppD 101',
-          service: 'TestDemo',
           spec: {
-            appdApplicationName: 'Harness-Dev',
-            appdTierName: 'manager',
+            applicationName: 'Harness-Dev',
+            tierName: 'manager',
             connectorRef: 'AppD_Connector_102',
             feature: 'Application Monitoring',
             metricPacks: [{ identifier: 'Errors' }, { identifier: 'Performance' }]

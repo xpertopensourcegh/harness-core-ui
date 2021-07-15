@@ -3,8 +3,8 @@
   :global {
     .bp3-tab-list {
       margin: 0 auto !important;
-      width: 275px;
-      border-bottom: none;
+      width: 600px;
+      border-bottom: none !important;
       [data-tab-id='tabId1'] {
         margin-left: var(--spacing-large);
       }

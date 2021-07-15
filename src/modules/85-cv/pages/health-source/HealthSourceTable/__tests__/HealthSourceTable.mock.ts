@@ -6,8 +6,8 @@ export const HealthSourceList = [
     spec: {
       connectorRef: 'AppD_Connector',
       feature: 'Application Monitoring',
-      appdApplicationName: 'Harness-Dev',
-      appdTierName: 'manager',
+      applicationName: 'Harness-Dev',
+      tierName: 'manager',
       metricPacks: [{ identifier: 'Performance' }]
     },
     service: 'TestDemo',
@@ -20,8 +20,8 @@ export const HealthSourceList = [
     spec: {
       connectorRef: 'AppD_Connector_102',
       feature: 'Application Monitoring',
-      appdApplicationName: 'Harness-Dev',
-      appdTierName: 'manager',
+      applicationName: 'Harness-Dev',
+      tierName: 'manager',
       metricPacks: [{ identifier: 'Errors' }, { identifier: 'Performance' }]
     },
     service: 'TestDemo',

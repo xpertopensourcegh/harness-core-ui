@@ -7,5 +7,6 @@ declare const styles: {
   readonly tableWrapper: string
   readonly noData: string
   readonly tableTitle: string
+  readonly disabled: string
 }
 export default styles

@@ -23,7 +23,7 @@ function DefineHealthSource(): JSX.Element {
   const initialValues = useMemo(() => {
     return getInitialValues(sourceData)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sourceData?.healthSourceidentifier])
+  }, [sourceData?.healthSourceIdentifier])
 
   const isCardSelected = useCallback((name, formik) => {
     if (formik?.values?.product?.value) {
@@ -101,7 +101,7 @@ function DefineHealthSource(): JSX.Element {
                       inputGroupProps={{
                         placeholder: getString('cv.healthSource.namePlaceholder')
                       }}
-                      idName="healthSourceidentifier"
+                      idName="healthSourceIdentifier"
                     />
                   </Container>
                   <Text font={'small'} color={'black'}>

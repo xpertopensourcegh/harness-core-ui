@@ -27,7 +27,7 @@ export const SourceDataMock = {
   appdTierName: 'manager',
   metricPacks: [{ identifier: 'Errors' }],
   healthSourceName: 'Test  AppD  101',
-  healthSourceidentifier: 'Test_AppD_101',
+  healthSourceIdentifier: 'Test_AppD_101',
   sourceType: 'AppDynamics',
   connectorRef: 'AppD_Connector_102'
 }

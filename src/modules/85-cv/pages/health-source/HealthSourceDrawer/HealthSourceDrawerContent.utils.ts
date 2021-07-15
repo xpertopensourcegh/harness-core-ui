@@ -1,9 +1,9 @@
 import type { SelectOption } from '@wings-software/uicore'
 import { Connectors } from '@connectors/constants'
 import type { AppDynamicsHealthSourceSpec } from 'services/cv'
-import type { updatedHealthSource } from './HealthSourceDrawerContent'
+import type { RowData, SourceDataInterface } from './HealthSourceDrawerContent.types'
 
-const getValueBySourceType = (type: string, rowData: updatedHealthSource) => {
+const getValueBySourceType = (type: string, rowData: RowData) => {
   switch (type) {
     case Connectors.APP_DYNAMICS:
       return getAppDFields(rowData)
@@ -12,42 +12,22 @@ const getValueBySourceType = (type: string, rowData: updatedHealthSource) => {
   }
 }
 
-export const getAppDFields = (rowData: updatedHealthSource) => {
+export const getAppDFields = (rowData: RowData) => {
   return {
     product: (rowData?.spec as AppDynamicsHealthSourceSpec)?.feature,
-    appdApplicationName: (rowData?.spec as AppDynamicsHealthSourceSpec)?.appdApplicationName,
-    appdTierName: (rowData?.spec as AppDynamicsHealthSourceSpec).appdTierName,
-    metricPacks: (rowData?.spec as AppDynamicsHealthSourceSpec).metricPacks
+    applicationName: (rowData?.spec as AppDynamicsHealthSourceSpec)?.applicationName,
+    tierName: (rowData?.spec as AppDynamicsHealthSourceSpec)?.tierName,
+    metricPacks: (rowData?.spec as AppDynamicsHealthSourceSpec)?.metricPacks
   }
 }
 
-interface SourceDataInterface {
-  isEdit: boolean
-  rowData?: updatedHealthSource | null
-  tableData?: Array<updatedHealthSource>
-  modalOpen?: boolean
-  createHeader?: () => JSX.Element
-  onClose?: (val: any) => void
-  serviceName: string
-  serviceIdentifier: string
-  environmentIdentifier: string
-  environmentName: string
-  sourceType?: string
-  connectorRef?: string
-  healthSourceName?: string
-  healthSourceidentifier?: string
-  monitoringSourceName: string
-  monitoredServiceIdentifier: string
-  healthSourceList?: Array<updatedHealthSource>
-}
-
 export const createHealthSourceDrawerFormData = (
-  rowData: updatedHealthSource | null,
   isEdit: boolean,
   monitoringSourcRef: { monitoredServiceIdentifier: string; monitoredServiceName: string },
   serviceRef: SelectOption | undefined,
   environmentRef: SelectOption | undefined,
-  tableData: Array<updatedHealthSource>
+  tableData: Array<RowData>,
+  rowData?: RowData | null
 ): SourceDataInterface => {
   let sourceData: SourceDataInterface = {
     isEdit,
@@ -67,7 +47,7 @@ export const createHealthSourceDrawerFormData = (
       ...sourceData,
       ...sourceTypeValue,
       healthSourceName: rowData?.name,
-      healthSourceidentifier: rowData?.identifier,
+      healthSourceIdentifier: rowData?.identifier,
       sourceType: rowData?.type,
       connectorRef: rowData?.spec?.connectorRef
     }

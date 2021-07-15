@@ -50,7 +50,7 @@ export const getFeatureOption = (type: string, getString: UseStringsReturn['getS
 
 export const getInitialValues = (sourceData: any): any => {
   const currentHealthSource = sourceData?.healthSourceList?.find(
-    (el: any) => el?.identifier === sourceData?.healthSourceidentifier
+    (el: any) => el?.identifier === sourceData?.healthSourceIdentifier
   )
   const selectedFeature = currentHealthSource?.spec?.feature
   const initialValues = { ...sourceData, product: { label: selectedFeature, value: selectedFeature } }

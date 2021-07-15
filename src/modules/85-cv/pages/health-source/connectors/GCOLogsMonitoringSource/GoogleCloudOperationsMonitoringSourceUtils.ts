@@ -25,7 +25,7 @@ export function buildGCOMonitoringSourceInfo(
   return {
     ...params,
     name: data?.healthSourceName,
-    identifier: data?.healthSourceidentifier,
+    identifier: data?.healthSourceIdentifier,
     connectorRef: data?.connectorRef,
     isEdit: data?.isEdit,
     product: data?.product,
@@ -35,7 +35,7 @@ export function buildGCOMonitoringSourceInfo(
 }
 
 const getMappedServicesAndEnvs = (data: any): Map<string, MapGCOLogsQueryToService> => {
-  const currentHealthSource = data?.healthSourceList?.find((el: any) => el?.identifier === data?.healthSourceidentifier)
+  const currentHealthSource = data?.healthSourceList?.find((el: any) => el?.identifier === data?.healthSourceIdentifier)
   const mappedQueries = currentHealthSource?.spec?.queries
   if (currentHealthSource && !isEmpty(mappedQueries)) {
     const mappedServicesAndEnvs = new Map<string, MapGCOLogsQueryToService>()

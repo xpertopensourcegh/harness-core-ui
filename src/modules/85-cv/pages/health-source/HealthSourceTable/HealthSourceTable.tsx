@@ -1,4 +1,5 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useMemo, useCallback } from 'react'
+import cx from 'classnames'
 import { Link, useParams, useHistory } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
 import { Color, Container, Text, SelectOption } from '@wings-software/uicore'
@@ -11,11 +12,12 @@ import routes from '@common/RouteDefinitions'
 import { Table } from '@common/components'
 import ContextMenuActions from '@cv/components/ContextMenuActions/ContextMenuActions'
 import { getIconBySourceType } from '@cv/pages/admin/setup/SetupUtils'
-import HealthSourceDrawerContent, { updatedHealthSource } from '../HealthSourceDrawer/HealthSourceDrawerContent'
+import HealthSourceDrawerContent from '../HealthSourceDrawer/HealthSourceDrawerContent'
+import type { RowData } from '../HealthSourceDrawer/HealthSourceDrawerContent.types'
 import css from './HealthSourceTable.module.scss'
 
 interface HealthSourceTableInterface {
-  value: Array<updatedHealthSource>
+  value: Array<RowData>
   breadCrumbRoute?: {
     routeTitle: string
     redirect: () => void
@@ -44,7 +46,7 @@ export default function HealthSourceTable({
   const params = useParams<ProjectPathProps & { identifier: string }>()
   const { getString } = useStrings()
   const { routeTitle, redirect } = breadCrumbRoute || {}
-  const [rowData, setrowData] = useState<updatedHealthSource | null>(null)
+  const [rowData, setrowData] = useState<RowData | null>(null)
 
   const { mutate: updateMonitoredService } = useUpdateMonitoredService({
     identifier: params.identifier,
@@ -83,7 +85,7 @@ export default function HealthSourceTable({
     )
   }, [rowData, isEdit])
 
-  const deleteHealthSource = async (selectedRow: updatedHealthSource) => {
+  const deleteHealthSource = async (selectedRow: RowData) => {
     try {
       const payload: MonitoredServiceDTO = {
         orgIdentifier: params.orgIdentifier,
@@ -94,6 +96,7 @@ export default function HealthSourceTable({
         name: monitoringSourcRef?.monitoredServiceName,
         description: 'monitoredService',
         type: 'Application',
+        tags: {},
         sources: {
           healthSources: tableData?.filter(healthSource => healthSource.identifier !== selectedRow.identifier)
         }
@@ -115,12 +118,12 @@ export default function HealthSourceTable({
     setrowData(null)
   }
 
-  const renderTypeWithIcon: Renderer<CellProps<updatedHealthSource>> = ({ row }): JSX.Element => {
+  const renderTypeWithIcon: Renderer<CellProps<RowData>> = ({ row }): JSX.Element => {
     const rowdata = row?.original
     return <Text icon={getIconBySourceType(rowdata?.type as string)}>{rowdata?.type}</Text>
   }
 
-  const renderEditDelete: Renderer<CellProps<updatedHealthSource>> = ({ row }): JSX.Element => {
+  const renderEditDelete: Renderer<CellProps<RowData>> = ({ row }): JSX.Element => {
     const rowdata = row?.original
     return (
       <Container flex>
@@ -131,15 +134,18 @@ export default function HealthSourceTable({
           onDelete={async () => deleteHealthSource(rowdata)}
           onEdit={() => {
             const rowFilteredData =
-              tableData?.find((healthSource: updatedHealthSource) => healthSource.identifier === rowdata.identifier) ||
-              null
-            setrowData(rowFilteredData)
+              tableData?.find((healthSource: RowData) => healthSource.identifier === rowdata.identifier) || null
+            rowFilteredData && setrowData(rowFilteredData)
             setModalOpen(true)
           }}
         />
       </Container>
     )
   }
+
+  const disableAddNewHealthSource = useMemo(() => {
+    return !monitoringSourcRef?.monitoredServiceName || !serviceRef?.value || !environmentRef?.value
+  }, [monitoringSourcRef, serviceRef, serviceRef])
 
   return (
     <>
@@ -150,9 +156,8 @@ export default function HealthSourceTable({
           sortable={true}
           onRowClick={data => {
             const rowFilteredData =
-              tableData?.find((healthSource: updatedHealthSource) => healthSource.identifier === data.identifier) ||
-              null
-            setrowData(rowFilteredData)
+              tableData?.find((healthSource: RowData) => healthSource.identifier === data.identifier) || null
+            rowFilteredData && setrowData(rowFilteredData)
             setModalOpen(true)
           }}
           columns={[
@@ -190,7 +195,7 @@ export default function HealthSourceTable({
           <NoDataCard icon={'join-table'} message={getString('cv.healthSource.noData')} />
         </Container>
       )}
-      <div className={css.drawerlink}>
+      <div className={cx(css.drawerlink, disableAddNewHealthSource && css.disabled)}>
         <Link to={'#'} onClick={() => setModalOpen(true)}>
           + {getString('cv.healthSource.addHealthSource')}
         </Link>

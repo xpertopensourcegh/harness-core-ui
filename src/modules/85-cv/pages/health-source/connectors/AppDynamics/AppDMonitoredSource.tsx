@@ -30,7 +30,6 @@ import DrawerFooter from '@cv/pages/health-source/common/DrawerFooter/DrawerFoot
 import MetricsVerificationModal from '@cv/components/MetricsVerificationModal/MetricsVerificationModal'
 import { SetupSourceTabsContext } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import {
-  ValidationStatus,
   createAppDPayload,
   getOptions,
   validateTier,
@@ -38,6 +37,7 @@ import {
   getAppDMetric,
   getInputGroupProps
 } from './AppDMonitoredSource.utils'
+import { ValidationStatus } from './AppDMonitoredSource.constant'
 import { HealthSoureSupportedConnectorTypes } from '../connectors.util'
 import css from './AppDMonitoredSource.module.scss'
 
@@ -101,10 +101,10 @@ export default function AppDMonitoredSource({
   })
 
   useEffect(() => {
-    if (data?.appdApplicationName) {
+    if (data?.applicationName) {
       refetchTier({
         queryParams: {
-          appName: data?.appdApplicationName,
+          appName: data?.applicationName,
           accountId,
           connectorIdentifier,
           orgIdentifier,
@@ -115,7 +115,7 @@ export default function AppDMonitoredSource({
         }
       })
     }
-  }, [data?.appdApplicationName])
+  }, [data?.applicationName])
 
   const onValidate = async (appName: string, tierName: string, metricObject: { [key: string]: any }): Promise<void> => {
     setAppDValidation({ status: ValidationStatus.IN_PROGRESS, result: [] })
@@ -162,14 +162,14 @@ export default function AppDMonitoredSource({
 
   const initPayload = {
     ...data,
-    appdApplication: data?.appdApplicationName || '',
-    appDTier: data?.appdTierName || '',
+    appdApplication: data?.applicationName || '',
+    appDTier: data?.tierName || '',
     metricAppD
   }
 
   useEffect(() => {
     if (data.isEdit && appDValidation.status !== ValidationStatus.IN_PROGRESS) {
-      onValidate(data?.appdApplicationName, data?.appdTierName, metricAppD)
+      onValidate(data?.applicationName, data?.tierName, metricAppD)
     }
   }, [tierLoading, data.isEdit])
 
@@ -303,7 +303,7 @@ export default function AppDMonitoredSource({
                   {validationResultData && (
                     <MetricsVerificationModal
                       verificationData={validationResultData}
-                      guid={guidMap.get(formik?.values?.appdTierName)}
+                      guid={guidMap.get(formik?.values?.appDTier)}
                       onHide={setValidationResultData as () => void}
                       verificationType={Connectors.APP_DYNAMICS}
                     />

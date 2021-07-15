@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import cx from 'classnames'
 import { Container, Text, Layout, Formik, FormInput, SelectOption } from '@wings-software/uicore'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import type { FormikProps } from 'formik'
+import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
 import { PageSpinner } from '@common/components'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -15,11 +16,12 @@ import {
 import { MonitoredServiceResponse, useGetMonitoredService } from 'services/cv'
 import HealthSourceTable from '@cv/pages/health-source/HealthSourceTable'
 import CardWithOuterTitle from '@cv/pages/health-source/common/CardWithOuterTitle/CardWithOuterTitle'
-import type { updatedHealthSource } from '@cv/pages/health-source/HealthSourceDrawer/HealthSourceDrawerContent'
+import type { UpdatedHealthSource } from '@cv/pages/health-source/HealthSourceDrawer/HealthSourceDrawerContent.types'
 import css from './AddAndUpdateMonitoredService.module.scss'
 
 export default function AddAndUpdateMonitoredService(): JSX.Element {
   const { getString } = useStrings()
+  const history = useHistory()
   const params = useParams<ProjectPathProps & { identifier: string }>()
   const isEdit = !!params?.identifier
   const { serviceOptions, setServiceOptions } = useGetHarnessServices()
@@ -40,7 +42,7 @@ export default function AddAndUpdateMonitoredService(): JSX.Element {
       accountId: params.accountId
     }
   })
-  const [healthTableData, setHealthTableData] = useState<Array<updatedHealthSource>>([])
+  const [healthTableData, setHealthTableData] = useState<Array<UpdatedHealthSource>>([])
   const [initValue, setInitValue] = useState<{
     serviceRef?: SelectOption
     environmentRef?: SelectOption
@@ -68,7 +70,7 @@ export default function AddAndUpdateMonitoredService(): JSX.Element {
       }
       setInitValue(formikValues)
 
-      const healthData: Array<updatedHealthSource> = sources?.healthSources
+      const healthData: Array<UpdatedHealthSource> = sources?.healthSources
         ? sources?.healthSources.map((healthSource: any) => {
             return {
               ...healthSource,
@@ -91,7 +93,15 @@ export default function AddAndUpdateMonitoredService(): JSX.Element {
   }, [dataMonitoredServiceById, serviceOptions, environmentOptions])
 
   const onSuccess = (data: MonitoredServiceResponse) => {
-    setInitialState(data)
+    isEdit
+      ? setInitialState(data)
+      : history.push(
+          routes.toCVMonitoringServices({
+            orgIdentifier: params.orgIdentifier,
+            projectIdentifier: params.projectIdentifier,
+            accountId: params.accountId
+          })
+        )
   }
 
   const onDelete = (payload: MonitoredServiceResponse) => {

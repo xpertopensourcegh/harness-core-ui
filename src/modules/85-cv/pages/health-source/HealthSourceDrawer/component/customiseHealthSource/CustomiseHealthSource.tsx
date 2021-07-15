@@ -1,4 +1,5 @@
-import React, { useContext } from 'react'
+import React, { useContext, useMemo } from 'react'
+import { omit } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import {
@@ -12,7 +13,8 @@ import { BGColorWrapper } from '@cv/pages/health-source/common/StyledComponents'
 import { SetupSourceTabsContext } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { LoadSourceByType, createHealthsourceList } from './CustomiseHealthSource.utils'
-import type { updatedHealthSource } from '../../HealthSourceDrawerContent'
+import type { UpdatedHealthSource } from '../../HealthSourceDrawerContent.types'
+import { omitServiceEnvironmentKeys } from './CustomiseHealthSource.constant'
 
 export default function CustomiseHealthSource({
   onSuccess
@@ -31,18 +33,19 @@ export default function CustomiseHealthSource({
     queryParams: { accountId: params.accountId }
   })
 
-  const submitData = async (formdata: any, healthSourcePayload: updatedHealthSource): Promise<void> => {
+  const submitData = async (formdata: any, healthSourcePayload: UpdatedHealthSource): Promise<void> => {
     const healthSourceList = createHealthsourceList(formdata, healthSourcePayload)
     try {
       const payload: MonitoredServiceDTO = {
         orgIdentifier: params.orgIdentifier,
         projectIdentifier: params.projectIdentifier,
-        environmentRef: formdata.environmentIdentifier,
+        environmentRef: sourceData.environmentIdentifier,
         identifier: formdata?.monitoredServiceIdentifier,
         name: formdata?.monitoringSourceName,
         description: '',
         type: 'Application',
-        serviceRef: formdata.serviceIdentifier,
+        tags: {},
+        serviceRef: sourceData.serviceIdentifier,
         sources: {
           healthSources: healthSourceList
         }
@@ -57,13 +60,16 @@ export default function CustomiseHealthSource({
           : getString('cv.monitoredServices.monitoredServiceCreated')
       )
     } catch (error) {
-      showError(error.message)
+      showError(error?.data?.message)
     }
   }
 
+  // Removing Service and Environment keys
+  const filteredSourceData = useMemo(() => omit(sourceData, omitServiceEnvironmentKeys), [])
+
   return (
     <BGColorWrapper>
-      <LoadSourceByType type={sourceData?.sourceType} data={sourceData} onSubmit={submitData} />
+      <LoadSourceByType type={sourceData?.sourceType} data={filteredSourceData} onSubmit={submitData} />
     </BGColorWrapper>
   )
 }

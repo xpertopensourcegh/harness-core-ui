@@ -1,39 +1,14 @@
 import React, { useCallback, useMemo } from 'react'
-import { SelectOption, Button } from '@wings-software/uicore'
+import { Button } from '@wings-software/uicore'
 import { Drawer, Intent, Position } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import { useConfirmationDialog } from '@common/exports'
-import type { AppDynamicsHealthSourceSpec, HealthSource, MonitoredServiceResponse } from 'services/cv'
 import { SetupSourceTabs } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import DefineHealthSource from './component/defineHealthSource/DefineHealthSource'
 import CustomiseHealthSource from './component/customiseHealthSource/CustomiseHealthSource'
 import { createHealthSourceDrawerFormData } from './HealthSourceDrawerContent.utils'
-import type { GCOLogsHealthSourceSpec } from '../connectors/GCOLogsMonitoringSource/components/MapQueriesToHarnessService/types'
-import type { HealthSourceTypes } from '../types'
+import type { HealthSourceDrawerInterface } from './HealthSourceDrawerContent.types'
 import css from './HealthSourceDrawerContent.module.scss'
-
-export interface updatedHealthSource extends HealthSource {
-  identifier: string
-  name: string
-  spec: AppDynamicsHealthSourceSpec | GCOLogsHealthSourceSpec
-  type?: 'AppDynamics' | HealthSourceTypes.StackdriverLog
-  service?: string
-  environment?: string
-  serviceRef?: string
-  environmentRef?: string
-}
-export interface HealthSourceDrawerInterface {
-  rowData: updatedHealthSource | null
-  tableData: Array<updatedHealthSource>
-  serviceRef: SelectOption | undefined
-  environmentRef: SelectOption | undefined
-  monitoringSourcRef: { monitoredServiceIdentifier: string; monitoredServiceName: string }
-  onSuccess: (data: MonitoredServiceResponse) => void
-  modalOpen: boolean
-  createHeader: () => JSX.Element
-  onClose: (val: any) => void
-  isEdit: boolean
-}
 
 function HealthSourceDrawerContent({
   serviceRef,
@@ -50,7 +25,7 @@ function HealthSourceDrawerContent({
   const { getString } = useStrings()
 
   const sourceData = useMemo(
-    () => createHealthSourceDrawerFormData(rowData, isEdit, monitoringSourcRef, serviceRef, environmentRef, tableData),
+    () => createHealthSourceDrawerFormData(isEdit, monitoringSourcRef, serviceRef, environmentRef, tableData, rowData),
     [rowData, tableData, monitoringSourcRef, serviceRef, environmentRef]
   )
 
