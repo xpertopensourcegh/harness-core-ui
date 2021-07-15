@@ -64,7 +64,12 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ onSelect, modu
           text={
             <Layout.Vertical spacing="xsmall">
               <Text font={{ size: 'small' }}>{getString('projectLabel')}</Text>
-              <Text lineClamp={1} color={selectedProject ? Color.WHITE : Color.GREY_400} font={{ size: 'normal' }}>
+              <Text
+                lineClamp={1}
+                color={selectedProject ? Color.WHITE : Color.GREY_400}
+                font={{ size: 'normal' }}
+                width={115}
+              >
                 {selectedProject ? selectedProject.name : getString('selectProject')}
               </Text>
             </Layout.Vertical>
