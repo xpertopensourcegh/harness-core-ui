@@ -22,6 +22,7 @@ import {
 import ContextMenuActions from '@cv/components/ContextMenuActions/ContextMenuActions'
 import { MonitoringServicesHeader } from './commonStyledComponents'
 import { getFilterAndEnvironmentValue } from './CVMonitoringServicesPage.util'
+import ToggleMonitoring from './component/toggleMonitoring/ToggleMonitoring'
 
 const ServiceCount = styled(Text)`
   padding-bottom: var(--spacing-xxlarge) !important;
@@ -101,21 +102,24 @@ function CVMonitoringServicesPage(): JSX.Element {
   const RenderEditDelete: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ row }) => {
     const rowdata = row.original
     return (
-      <ContextMenuActions
-        titleText={getString('cv.monitoredServices.deleteMonitoredService')}
-        contentText={getString('cv.monitoredServices.deleteMonitoredServiceWarning') + `: ${rowdata.identifier}`}
-        onDelete={async () => await onDelete(rowdata.identifier)}
-        onEdit={() => {
-          history.push(
-            routes.toCVAddMonitoringServicesEdit({
-              accountId: params.accountId,
-              projectIdentifier: params.projectIdentifier,
-              orgIdentifier: params.orgIdentifier,
-              identifier: rowdata.identifier
-            })
-          )
-        }}
-      />
+      <Layout.Horizontal flex={{ justifyContent: 'space-between' }}>
+        <ToggleMonitoring identifier={rowdata?.identifier as string} enable={!!rowdata?.healthMonitoringEnabled} />
+        <ContextMenuActions
+          titleText={getString('cv.monitoredServices.deleteMonitoredService')}
+          contentText={getString('cv.monitoredServices.deleteMonitoredServiceWarning') + `: ${rowdata.identifier}`}
+          onDelete={async () => await onDelete(rowdata.identifier)}
+          onEdit={() => {
+            history.push(
+              routes.toCVAddMonitoringServicesEdit({
+                accountId: params.accountId,
+                projectIdentifier: params.projectIdentifier,
+                orgIdentifier: params.orgIdentifier,
+                identifier: rowdata.identifier
+              })
+            )
+          }}
+        />
+      </Layout.Horizontal>
     )
   }
 

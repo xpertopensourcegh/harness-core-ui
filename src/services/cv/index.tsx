@@ -7321,6 +7321,100 @@ export const updateMonitoredServicePromise = (
     UpdateMonitoredServicePathParams
   >('PUT', getConfig('cv/api'), `/monitored-service/${identifier}`, props, signal)
 
+export interface SetHealthMonitoringFlagQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+  enable: boolean
+}
+
+export interface SetHealthMonitoringFlagPathParams {
+  identifier: string
+}
+
+export type SetHealthMonitoringFlagProps = Omit<
+  MutateProps<
+    RestResponseHealthMonitoringFlagResponse,
+    unknown,
+    SetHealthMonitoringFlagQueryParams,
+    void,
+    SetHealthMonitoringFlagPathParams
+  >,
+  'path' | 'verb'
+> &
+  SetHealthMonitoringFlagPathParams
+
+/**
+ * updates monitored service data
+ */
+export const SetHealthMonitoringFlag = ({ identifier, ...props }: SetHealthMonitoringFlagProps) => (
+  <Mutate<
+    RestResponseHealthMonitoringFlagResponse,
+    unknown,
+    SetHealthMonitoringFlagQueryParams,
+    void,
+    SetHealthMonitoringFlagPathParams
+  >
+    verb="PUT"
+    path={`/monitored-service/${identifier}/health-monitoring-flag`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseSetHealthMonitoringFlagProps = Omit<
+  UseMutateProps<
+    RestResponseHealthMonitoringFlagResponse,
+    unknown,
+    SetHealthMonitoringFlagQueryParams,
+    void,
+    SetHealthMonitoringFlagPathParams
+  >,
+  'path' | 'verb'
+> &
+  SetHealthMonitoringFlagPathParams
+
+/**
+ * updates monitored service data
+ */
+export const useSetHealthMonitoringFlag = ({ identifier, ...props }: UseSetHealthMonitoringFlagProps) =>
+  useMutate<
+    RestResponseHealthMonitoringFlagResponse,
+    unknown,
+    SetHealthMonitoringFlagQueryParams,
+    void,
+    SetHealthMonitoringFlagPathParams
+  >(
+    'PUT',
+    (paramsInPath: SetHealthMonitoringFlagPathParams) =>
+      `/monitored-service/${paramsInPath.identifier}/health-monitoring-flag`,
+    { base: getConfig('cv/api'), pathParams: { identifier }, ...props }
+  )
+
+/**
+ * updates monitored service data
+ */
+export const setHealthMonitoringFlagPromise = (
+  {
+    identifier,
+    ...props
+  }: MutateUsingFetchProps<
+    RestResponseHealthMonitoringFlagResponse,
+    unknown,
+    SetHealthMonitoringFlagQueryParams,
+    void,
+    SetHealthMonitoringFlagPathParams
+  > & { identifier: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    RestResponseHealthMonitoringFlagResponse,
+    unknown,
+    SetHealthMonitoringFlagQueryParams,
+    void,
+    SetHealthMonitoringFlagPathParams
+  >('PUT', getConfig('cv/api'), `/monitored-service/${identifier}/health-monitoring-flag`, props, signal)
+
 export interface GetNewRelicApplicationsQueryParams {
   accountId: string
   connectorIdentifier: string

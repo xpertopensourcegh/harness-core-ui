@@ -272,11 +272,35 @@ exports[`Monitored Service list Service listing component renders 1`] = `
               style="width: 20%;"
             >
               <div
-                class="context-menu-mock-edit"
-              />
-              <div
-                class="context-menu-mock-delete"
-              />
+                class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
+              >
+                <div
+                  class="StyledProps--font StyledProps--main StyledProps--flex"
+                  style="width: 120px;"
+                >
+                  <label
+                    class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
+                  >
+                    <input
+                      type="checkbox"
+                    />
+                    <span
+                      class="bp3-control-indicator"
+                    />
+                  </label>
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    common.disable
+                  </p>
+                </div>
+                <div
+                  class="context-menu-mock-edit"
+                />
+                <div
+                  class="context-menu-mock-delete"
+                />
+              </div>
             </div>
           </div>
           <div
@@ -330,11 +354,35 @@ exports[`Monitored Service list Service listing component renders 1`] = `
               style="width: 20%;"
             >
               <div
-                class="context-menu-mock-edit"
-              />
-              <div
-                class="context-menu-mock-delete"
-              />
+                class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
+              >
+                <div
+                  class="StyledProps--font StyledProps--main StyledProps--flex"
+                  style="width: 120px;"
+                >
+                  <label
+                    class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
+                  >
+                    <input
+                      type="checkbox"
+                    />
+                    <span
+                      class="bp3-control-indicator"
+                    />
+                  </label>
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    common.disable
+                  </p>
+                </div>
+                <div
+                  class="context-menu-mock-edit"
+                />
+                <div
+                  class="context-menu-mock-delete"
+                />
+              </div>
             </div>
           </div>
           <div
@@ -388,11 +436,35 @@ exports[`Monitored Service list Service listing component renders 1`] = `
               style="width: 20%;"
             >
               <div
-                class="context-menu-mock-edit"
-              />
-              <div
-                class="context-menu-mock-delete"
-              />
+                class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
+              >
+                <div
+                  class="StyledProps--font StyledProps--main StyledProps--flex"
+                  style="width: 120px;"
+                >
+                  <label
+                    class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
+                  >
+                    <input
+                      type="checkbox"
+                    />
+                    <span
+                      class="bp3-control-indicator"
+                    />
+                  </label>
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    common.disable
+                  </p>
+                </div>
+                <div
+                  class="context-menu-mock-edit"
+                />
+                <div
+                  class="context-menu-mock-delete"
+                />
+              </div>
             </div>
           </div>
         </div>

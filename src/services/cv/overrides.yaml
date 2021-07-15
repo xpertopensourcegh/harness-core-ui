@@ -75,6 +75,7 @@ allowpaths:
   - /monitored-service/environments
   - /monitored-service/create-default
   - /monitored-service/service-environment
+  - /monitored-service/{identifier}/health-monitoring-flag
 operationIdOverrides:
   /appdynamics/applications.get: getAppDynamicsApplications
   /appdynamics/metric-data.post: getAppDynamicsMetricData
