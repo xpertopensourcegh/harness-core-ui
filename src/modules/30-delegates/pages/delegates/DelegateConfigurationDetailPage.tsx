@@ -15,7 +15,7 @@ import type {
   ModulePathParams,
   AccountPathProps
 } from '@common/interfaces/RouteInterfaces'
-import { useUpdateDelegateProfileNg, useGetDelegateProfileNg, DelegateProfileDetailsNg } from 'services/cd-ng'
+import { useUpdateDelegateConfigNgV2, useGetDelegateConfigNgV2, DelegateProfileDetailsNg } from 'services/cd-ng'
 import type { ScopingRuleDetails } from 'services/portal'
 import { PageError } from '@common/components/Page/PageError'
 import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
@@ -33,12 +33,13 @@ import css from './DelegateConfigurationDetailPage.module.scss'
 export default function DelegateProfileDetails(): JSX.Element {
   const { getString } = useStrings()
   const [scopingRules, setScopingRules] = useState([] as ScopingRuleDetails[])
-  const { delegateConfigId, accountId, orgIdentifier, projectIdentifier, module } = useParams<
+  const { delegateConfigIdentifier, accountId, orgIdentifier, projectIdentifier, module } = useParams<
     Partial<ProjectPathProps & ModulePathParams> & AccountPathProps & DelegateConfigProps
   >()
-  const { data, loading, refetch, error } = useGetDelegateProfileNg({
-    delegateProfileId: delegateConfigId,
-    queryParams: { accountId, orgId: orgIdentifier, projectId: projectIdentifier }
+  const { data, loading, refetch, error } = useGetDelegateConfigNgV2({
+    accountId,
+    delegateConfigIdentifier,
+    queryParams: { orgId: orgIdentifier, projectId: projectIdentifier }
   })
 
   const { showError, showSuccess } = useToaster()
@@ -73,9 +74,10 @@ export default function DelegateProfileDetails(): JSX.Element {
   const [showSpinner, setShowSpinner] = useState(false)
   const [formData, setFormData] = useState<DelegateProfileDetailsNg>({} as DelegateProfileDetailsNg)
 
-  const { mutate: updateConfiguration } = useUpdateDelegateProfileNg({
-    queryParams: { accountId, orgId: orgIdentifier, projectId: projectIdentifier },
-    delegateProfileId: delegateConfigId
+  const { mutate: updateConfiguration } = useUpdateDelegateConfigNgV2({
+    accountId,
+    delegateConfigIdentifier,
+    queryParams: { orgId: orgIdentifier, projectId: projectIdentifier }
   })
 
   const onEdit = async (profileData: DelegateProfileDetailsNg) => {
@@ -180,7 +182,7 @@ export default function DelegateProfileDetails(): JSX.Element {
     permission: PermissionIdentifier.UPDATE_DELEGATE_CONFIGURATION,
     resource: {
       resourceType: ResourceType.DELEGATECONFIGURATION,
-      resourceIdentifier: delegateConfigId
+      resourceIdentifier: delegateConfigIdentifier
     }
   }
 

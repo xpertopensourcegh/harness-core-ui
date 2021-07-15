@@ -97,7 +97,7 @@ export const delegatePathProps: DelegatePathProps = {
 }
 
 export const delegateConfigProps: DelegateConfigProps = {
-  delegateConfigId: ':delegateConfigId'
+  delegateConfigIdentifier: ':delegateConfigIdentifier'
 }
 
 export const modulePathProps: ModulePathParams = {

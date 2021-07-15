@@ -4,6 +4,7 @@ export default {
   resource: {
     response: [
       {
+        identifier: 'ident_1',
         accountId: 'TEST_ACCOUNTID',
         uuid: 'profile1',
         name: 'Primary',
@@ -25,6 +26,7 @@ export default {
         scopingRules: []
       },
       {
+        identifier: 'ident_2',
         accountId: 'TEST_ACCOUNTID',
         uuid: 'profile2',
         name: 'profile 2',

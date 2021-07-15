@@ -180,10 +180,10 @@ const routes = {
     ({
       orgIdentifier,
       projectIdentifier,
-      delegateConfigId,
+      delegateConfigIdentifier,
       module
     }: Partial<ProjectPathProps & ModulePathParams & DelegateConfigProps>) => {
-      const path = `delegateconfigs/${delegateConfigId}`
+      const path = `delegateconfigs/${delegateConfigIdentifier}`
       return getScopeBasedRoute({
         scope: {
           orgIdentifier,
@@ -198,10 +198,10 @@ const routes = {
     ({
       orgIdentifier,
       projectIdentifier,
-      delegateConfigId,
+      delegateConfigIdentifier,
       module
     }: Partial<ProjectPathProps & ModulePathParams & DelegateConfigProps>) => {
-      const path = `delegateconfigs/${delegateConfigId}/edit`
+      const path = `delegateconfigs/${delegateConfigIdentifier}/edit`
       return getScopeBasedRoute({
         scope: {
           orgIdentifier,

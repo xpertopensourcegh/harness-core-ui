@@ -43,11 +43,7 @@ const DelegateConfigOverviewStep: React.FC<DelegateConfigOverviewStepProps> = ({
               <Heading level={2} color={Color.GREY_800} margin={{ bottom: 'xxlarge' }}>
                 {getString('delegates.newDelegateConfigWizard.overviewTitle')}
               </Heading>
-              <NameIdDescriptionTags
-                className={css.configWizardNameComponent}
-                formikProps={formikProps}
-                identifierProps={{ isIdentifierEditable: false }}
-              />
+              <NameIdDescriptionTags className={css.configWizardNameComponent} formikProps={formikProps} />
             </Container>
             <Layout.Horizontal spacing="xsmall">
               <Button type="submit" intent="primary" text={getString('saveAndContinue')} />

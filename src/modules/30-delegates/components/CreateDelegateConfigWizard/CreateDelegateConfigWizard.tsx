@@ -4,8 +4,8 @@ import { StepWizard } from '@wings-software/uicore'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import type { tagsType } from '@common/utils/types'
-import type { DelegateProfileDetailsNg, UseAddDelegateProfileNgProps } from 'services/cd-ng'
-import { useAddDelegateProfileNg } from 'services/cd-ng'
+import type { DelegateProfileDetailsNg, UseAddDelegateProfileNgV2Props } from 'services/cd-ng'
+import { useAddDelegateProfileNgV2 } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import DelegateConfigOverviewStep from './steps/DelegateConfigOverviewStep'
 import DelegateConfigScriptStep from './steps/DelegateConfigScriptStep'
@@ -28,11 +28,9 @@ interface CreateDelegateConfigWizardProps {
 
 export const CreateDelegateConfigWizard: React.FC<CreateDelegateConfigWizardProps> = ({ onClose, onSuccess }) => {
   const { accountId } = useParams<AccountPathProps>()
-  const { mutate: addDelegateProfile } = useAddDelegateProfileNg({
-    queryParams: {
-      accountId
-    }
-  } as UseAddDelegateProfileNgProps)
+  const { mutate: addDelegateProfile } = useAddDelegateProfileNgV2({
+    accountId
+  } as UseAddDelegateProfileNgV2Props)
   const { showSuccess, showError } = useToaster()
 
   const onFinish = async (delegateProfileData: DelegateProfileDetailsNg): Promise<void> => {

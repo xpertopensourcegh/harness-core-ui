@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react'
+import ReactTimeago from 'react-timeago'
 import { get, set } from 'lodash-es'
 import { useParams, useHistory } from 'react-router-dom'
-import moment from 'moment'
 import type { CellProps, Renderer, Column } from 'react-table'
 import {
   Button,
@@ -407,8 +407,12 @@ export const DelegateListing: React.FC = () => {
       },
       {
         Header: getString('delegate.LastHeartBeat').toUpperCase(),
-        accessor: (row: DelegateGroupDetails) =>
-          row.lastHeartBeat ? moment(row.lastHeartBeat).fromNow() : getString('na'),
+        accessor: (row: DelegateGroupDetails) => {
+          if (row.lastHeartBeat) {
+            return <ReactTimeago date={row.lastHeartBeat} live />
+          }
+          return getString('na')
+        },
         id: 'lastHeartBeat',
         width: DELEGATE_INSIGHTS_ENABLED ? 'calc(15% - 10px)' : 'calc(20% - 10px)'
       },

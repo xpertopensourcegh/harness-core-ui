@@ -15,7 +15,7 @@ import type {
   AccountPathProps
 } from '@common/interfaces/RouteInterfaces'
 import type { ScopingRuleDetails } from 'services/portal'
-import { useListDelegateProfilesNg, useDeleteDelegateProfileNg } from 'services/cd-ng'
+import { useListDelegateConfigsNgV2, useDeleteDelegateConfigNgV2 } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { PageError } from '@common/components/Page/PageError'
@@ -44,6 +44,7 @@ const fullSizeContentStyle: React.CSSProperties = {
 
 interface DelegateProfileDetails {
   uuid?: string
+  identifier?: string
   accountId?: string
   name?: string
   description?: string
@@ -61,8 +62,9 @@ export default function DelegateConfigurations(): JSX.Element {
   const { accountId, orgIdentifier, projectIdentifier, module } = useParams<
     Partial<DelegateConfigProps & ProjectPathProps & ModulePathParams> & AccountPathProps
   >()
-  const { data, loading, error, refetch } = useListDelegateProfilesNg({
-    queryParams: { accountId, orgId: orgIdentifier, projectId: projectIdentifier }
+  const { data, loading, error, refetch } = useListDelegateConfigsNgV2({
+    accountId,
+    queryParams: { orgId: orgIdentifier, projectId: projectIdentifier }
   })
   const { showSuccess, showError } = useToaster()
   const profiles: Array<DelegateProfileDetails> = formatProfileList(data)
@@ -71,8 +73,9 @@ export default function DelegateConfigurations(): JSX.Element {
       refetch()
     }
   })
-  const { mutate: deleteDelegateProfile } = useDeleteDelegateProfileNg({
-    queryParams: { accountId: accountId, orgId: orgIdentifier, projectId: projectIdentifier }
+  const { mutate: deleteDelegateProfile } = useDeleteDelegateConfigNgV2({
+    accountId,
+    queryParams: { orgId: orgIdentifier, projectId: projectIdentifier }
   })
 
   const DelegateConfigItem = ({ profile }: { profile: DelegateProfileDetails }) => {
@@ -82,9 +85,9 @@ export default function DelegateConfigurations(): JSX.Element {
       confirmButtonText: getString('delete'),
       cancelButtonText: getString('cancel'),
       onCloseDialog: async (isConfirmed: boolean) => {
-        if (isConfirmed && profile && profile.uuid) {
+        if (isConfirmed && profile?.identifier) {
           try {
-            const deleted = await deleteDelegateProfile(profile?.uuid)
+            const deleted = await deleteDelegateProfile(profile?.identifier)
 
             if (deleted) {
               showSuccess(
@@ -105,7 +108,7 @@ export default function DelegateConfigurations(): JSX.Element {
       history.push(
         routes.toEditDelegateConfigsDetails({
           accountId,
-          delegateConfigId: profile.uuid as string,
+          delegateConfigIdentifier: profile.identifier as string,
           orgIdentifier,
           projectIdentifier,
           module
@@ -117,7 +120,7 @@ export default function DelegateConfigurations(): JSX.Element {
       history.push(
         routes.toDelegateConfigsDetails({
           accountId,
-          delegateConfigId: profile.uuid as string,
+          delegateConfigIdentifier: profile.identifier as string,
           orgIdentifier,
           projectIdentifier,
           module

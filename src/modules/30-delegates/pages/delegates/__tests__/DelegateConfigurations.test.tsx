@@ -6,15 +6,15 @@ import ProfileMock from './ProfilesMock'
 
 const mockGetCallFunction = jest.fn()
 jest.mock('services/cd-ng', () => ({
-  useListDelegateProfilesNg: jest.fn().mockImplementation(args => {
+  useListDelegateConfigsNgV2: jest.fn().mockImplementation(args => {
     mockGetCallFunction(args)
     return { data: ProfileMock, refetch: jest.fn(), error: null, loading: false }
   }),
-  useDeleteDelegateProfileNg: jest.fn().mockImplementation(args => {
+  useDeleteDelegateConfigNgV2: jest.fn().mockImplementation(args => {
     mockGetCallFunction(args)
     return { data: {}, refetch: jest.fn(), error: null, loading: false }
   }),
-  useAddDelegateProfileNg: jest.fn().mockImplementation(() => ({
+  useAddDelegateProfileNgV2: jest.fn().mockImplementation(() => ({
     mutate: jest.fn()
   }))
 }))

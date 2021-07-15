@@ -28,6 +28,7 @@ const DelegateConfigScopeStep: React.FC<DelegateConfigScopeStepProps> = ({ onFin
 
   const createDelegateProfile = () => {
     const delegateProfileData = {
+      identifier: prevStepData?.identifier,
       name: prevStepData?.name,
       description: prevStepData?.description,
       selectors: Object.keys(prevStepData?.tags || {}),

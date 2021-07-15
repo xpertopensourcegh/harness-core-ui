@@ -75,7 +75,7 @@ export interface DelegatePathProps {
 }
 
 export interface DelegateConfigProps {
-  delegateConfigId: string
+  delegateConfigIdentifier: string
 }
 
 export interface FeatureFlagPathProps {
