@@ -35,6 +35,8 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 
+import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
+import List from '@common/components/List/List'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './K8sDelete.module.scss'
 
@@ -51,9 +53,9 @@ interface K8sDeleteFormSpec {
   skipDryRun?: boolean
 }
 interface K8sDeleteSpec {
-  resourceNames?: K8sDeleteConfigHeader[]
+  resourceNames?: K8sDeleteConfigHeader[] | string
   deleteNamespace?: boolean
-  manifestPaths?: K8sDeleteConfigHeader[]
+  manifestPaths?: K8sDeleteConfigHeader[] | string
   skipDryRun?: boolean
 }
 
@@ -190,20 +192,28 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
                 .when('type', {
                   is: DeleteSpecConstant.ResourceName,
                   then: Yup.object().shape({
-                    resourceNames: Yup.array(
-                      Yup.object().shape({
-                        value: Yup.string().required(getString('cd.resourceCannotBeEmpty'))
-                      })
+                    resourceNames: Yup.lazy(value =>
+                      getMultiTypeFromValue(value as boolean) === MultiTypeInputType.FIXED
+                        ? Yup.array(
+                            Yup.object().shape({
+                              value: Yup.string().required(getString('cd.resourceCannotBeEmpty'))
+                            })
+                          ).required(getString('cd.resourceCannotBeEmpty'))
+                        : Yup.string()
                     )
                   })
                 })
                 .when('type', {
                   is: DeleteSpecConstant.ManifestPath,
                   then: Yup.object().shape({
-                    manifestPaths: Yup.array(
-                      Yup.object().shape({
-                        value: Yup.string().required(getString('cd.manifestPathsCannotBeEmpty'))
-                      })
+                    manifestPaths: Yup.lazy(value =>
+                      getMultiTypeFromValue(value as boolean) === MultiTypeInputType.FIXED
+                        ? Yup.array(
+                            Yup.object().shape({
+                              value: Yup.string().required(getString('cd.manifestPathsCannotBeEmpty'))
+                            })
+                          ).required(getString('cd.manifestPathsCannotBeEmpty'))
+                        : Yup.string()
                     )
                   })
                 })
@@ -242,12 +252,19 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
 
                 {values?.spec?.deleteResources?.type === getString('pipelineSteps.resourceNameValue') && (
                   <div className={stepCss.formGroup}>
-                    <FieldArray
-                      name="spec.deleteResources.spec.resourceNames"
-                      render={arrayHelpers => (
-                        <Layout.Vertical>
-                          {formikProps.values?.spec?.deleteResources?.spec?.resourceNames?.map(
-                            (_path: K8sDeleteConfigHeader, index: number) => (
+                    <MultiTypeFieldSelector
+                      defaultValueToReset={[{ value: '', id: uuid() }]}
+                      name={'spec.deleteResources.spec.resourceNames'}
+                      label={getString('pipelineSteps.resourceNameLabel')}
+                    >
+                      <FieldArray
+                        name="spec.deleteResources.spec.resourceNames"
+                        render={arrayHelpers => (
+                          <Layout.Vertical>
+                            {(
+                              (formikProps.values?.spec?.deleteResources?.spec?.resourceNames ||
+                                []) as K8sDeleteConfigHeader[]
+                            )?.map((_path: K8sDeleteConfigHeader, index: number) => (
                               <Layout.Horizontal
                                 key={_path.id}
                                 flex={{ distribution: 'space-between' }}
@@ -259,7 +276,11 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
                                   name={`spec.deleteResources.spec.resourceNames[${index}].value`}
                                   style={{ width: '430px' }}
                                   disabled={isDisabled}
-                                  multiTextInputProps={{ expressions, textProps: { disabled: isDisabled } }}
+                                  multiTextInputProps={{
+                                    expressions,
+                                    textProps: { disabled: isDisabled },
+                                    allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                                  }}
                                 />
                                 {/* istanbul ignore next */}
                                 {formikProps.values?.spec?.deleteResources?.spec?.resourceNames && (
@@ -274,24 +295,24 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
                                   />
                                 )}
                               </Layout.Horizontal>
-                            )
-                          )}
-                          <span>
-                            <Button
-                              minimal
-                              text={getString('plusAdd')}
-                              intent="primary"
-                              className={css.addBtn}
-                              onClick={() => {
-                                /* istanbul ignore next */
-                                arrayHelpers.push({ value: '', id: uuid() })
-                              }}
-                              disabled={isDisabled}
-                            />
-                          </span>
-                        </Layout.Vertical>
-                      )}
-                    />
+                            ))}
+                            <span>
+                              <Button
+                                minimal
+                                text={getString('plusAdd')}
+                                intent="primary"
+                                className={css.addBtn}
+                                onClick={() => {
+                                  /* istanbul ignore next */
+                                  arrayHelpers.push({ value: '', id: uuid() })
+                                }}
+                                disabled={isDisabled}
+                              />
+                            </span>
+                          </Layout.Vertical>
+                        )}
+                      />
+                    </MultiTypeFieldSelector>
                   </div>
                 )}
 
@@ -309,13 +330,20 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
 
                 {values?.spec?.deleteResources?.type === getString('pipelineSteps.manifestPathValue') && (
                   <div className={stepCss.formGroup}>
-                    <FieldArray
-                      name="spec.deleteResources.spec.manifestPaths"
-                      render={arrayHelpers => (
-                        <Layout.Vertical>
-                          {/* istanbul ignore next */}
-                          {(formikProps.values?.spec?.deleteResources?.spec?.manifestPaths || [])?.map(
-                            (_path: K8sDeleteConfigHeader, index: number) => (
+                    <MultiTypeFieldSelector
+                      defaultValueToReset={[{ value: '', id: uuid() }]}
+                      name={'spec.deleteResources.spec.manifestPaths'}
+                      label={getString('pipelineSteps.manifestPathLabel')}
+                    >
+                      <FieldArray
+                        name="spec.deleteResources.spec.manifestPaths"
+                        render={arrayHelpers => (
+                          <Layout.Vertical>
+                            {/* istanbul ignore next */}
+                            {(
+                              (formikProps.values?.spec?.deleteResources?.spec?.manifestPaths ||
+                                []) as K8sDeleteConfigHeader[]
+                            )?.map((_path: K8sDeleteConfigHeader, index: number) => (
                               <Layout.Horizontal
                                 key={_path.id}
                                 flex={{ distribution: 'space-between' }}
@@ -344,21 +372,21 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
                                   />
                                 )}
                               </Layout.Horizontal>
-                            )
-                          )}
-                          <span>
-                            <Button
-                              minimal
-                              text={getString('addFileText')}
-                              className={css.addBtn}
-                              intent="primary"
-                              disabled={isDisabled}
-                              onClick={() => arrayHelpers.push({ value: '', id: uuid() })}
-                            />
-                          </span>
-                        </Layout.Vertical>
-                      )}
-                    />
+                            ))}
+                            <span>
+                              <Button
+                                minimal
+                                text={getString('addFileText')}
+                                className={css.addBtn}
+                                intent="primary"
+                                disabled={isDisabled}
+                                onClick={() => arrayHelpers.push({ value: '', id: uuid() })}
+                              />
+                            </span>
+                          </Layout.Vertical>
+                        )}
+                      />
+                    </MultiTypeFieldSelector>
                   </div>
                 )}
                 <div className={cx(stepCss.formGroup, stepCss.sm)}>
@@ -431,6 +459,36 @@ const K8sDeleteInputStep: React.FC<K8sDeleteProps> = ({ inputSetData, readonly }
             label={getString('pipelineSteps.timeoutLabel')}
             name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}timeout`}
             disabled={readonly}
+          />
+        </div>
+      )}
+      {getMultiTypeFromValue(inputSetData?.template?.spec?.deleteResources?.spec?.manifestPaths as string) ===
+        MultiTypeInputType.RUNTIME && (
+        <div className={cx(stepCss.formGroup, stepCss.md)}>
+          <List
+            label={getString('filePaths')}
+            name={`${
+              isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`
+            }spec.deleteResources.spec.manifestPaths`}
+            disabled={readonly}
+            expressions={expressions}
+            style={{ marginBottom: 'var(--spacing-small)' }}
+            isNameOfArrayType
+          />
+        </div>
+      )}
+      {getMultiTypeFromValue(inputSetData?.template?.spec?.deleteResources?.spec?.resourceNames as string) ===
+        MultiTypeInputType.RUNTIME && (
+        <div className={cx(stepCss.formGroup, stepCss.md)}>
+          <List
+            label={getString('filePaths')}
+            name={`${
+              isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`
+            }spec.deleteResources.spec.resourceNames`}
+            disabled={readonly}
+            expressions={expressions}
+            style={{ marginBottom: 'var(--spacing-small)' }}
+            isNameOfArrayType
           />
         </div>
       )}
@@ -518,6 +576,62 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteFormData> {
         }
       }
     }
+    if (
+      getMultiTypeFromValue(template?.spec?.deleteResources?.spec?.manifestPaths as unknown as string) ===
+      MultiTypeInputType.RUNTIME
+    ) {
+      const manifestPathsSchema = Yup.object().shape({
+        spec: Yup.object().shape({
+          deleteResources: Yup.object().shape({
+            spec: Yup.object().shape({
+              manifestPaths: Yup.array(
+                Yup.string().trim().required(getString?.('cd.manifestPathsCannotBeEmpty'))
+              ).required(getString?.('cd.manifestPathsCannotBeEmpty'))
+            })
+          })
+        })
+      })
+      try {
+        manifestPathsSchema.validateSync(data)
+      } catch (e) {
+        /* istanbul ignore else */
+        if (e instanceof Yup.ValidationError) {
+          const err = yupToFormErrors(e)
+
+          Object.assign(errors, err)
+        }
+      }
+    }
+    if (
+      getMultiTypeFromValue(template?.spec?.deleteResources?.spec?.resourceNames as unknown as string) ===
+      MultiTypeInputType.RUNTIME
+    ) {
+      const resourceNamesSchema = Yup.object().shape({
+        spec: Yup.object().shape({
+          deleteResources: Yup.object().shape({
+            spec: Yup.object().shape({
+              resourceNames: Yup.array(Yup.string().trim().required(getString?.('cd.resourceCannotBeEmpty'))).required(
+                getString?.('cd.resourceCannotBeEmpty')
+              )
+            })
+          })
+        })
+      })
+      try {
+        resourceNamesSchema.validateSync(data)
+      } catch (e) {
+        /* istanbul ignore else */
+        if (e instanceof Yup.ValidationError) {
+          const err = yupToFormErrors(e)
+
+          Object.assign(errors, err)
+        }
+      }
+    }
+    /* istanbul ignore else */
+    if (isEmpty(errors.spec)) {
+      delete errors.spec
+    }
     return errors
   }
   //TODO : to remove any
@@ -529,10 +643,16 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteFormData> {
           deleteResources: {
             type: DeleteSpecConstant.ResourceName,
             spec: {
-              resourceNames: (initialValues.spec?.deleteResources?.spec?.resourceNames || []).map((item: any) => ({
-                value: item,
-                id: uuid()
-              }))
+              resourceNames:
+                getMultiTypeFromValue(initialValues.spec?.deleteResources?.spec?.resourceNames) ===
+                MultiTypeInputType.RUNTIME
+                  ? initialValues.spec?.deleteResources?.spec?.resourceNames
+                  : initialValues.spec?.deleteResources?.spec?.resourceNames?.length
+                  ? (initialValues.spec?.deleteResources?.spec?.resourceNames || []).map((item: any) => ({
+                      value: item,
+                      id: uuid()
+                    }))
+                  : [{ value: '', id: uuid() }]
             }
           }
         }
@@ -544,10 +664,16 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteFormData> {
           deleteResources: {
             type: DeleteSpecConstant.ManifestPath,
             spec: {
-              manifestPaths: (initialValues.spec?.deleteResources?.spec?.manifestPaths || []).map((item: any) => ({
-                value: item,
-                id: uuid()
-              }))
+              manifestPaths:
+                getMultiTypeFromValue(initialValues.spec?.deleteResources?.spec?.manifestPaths) ===
+                MultiTypeInputType.RUNTIME
+                  ? initialValues.spec?.deleteResources?.spec?.manifestPaths
+                  : initialValues.spec?.deleteResources?.spec?.manifestPaths?.length
+                  ? (initialValues.spec?.deleteResources?.spec?.manifestPaths || []).map((item: any) => ({
+                      value: item,
+                      id: uuid()
+                    }))
+                  : [{ value: '', id: uuid() }]
             }
           }
         }
@@ -572,12 +698,16 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteFormData> {
         deleteResources: {
           type: DeleteSpecConstant.ResourceName,
           spec: {
-            resourceNames: initialValues.spec?.deleteResources?.spec?.resourceNames?.length
-              ? (initialValues.spec?.deleteResources?.spec?.resourceNames).map((item: any) => ({
-                  value: item,
-                  id: uuid()
-                }))
-              : [{ value: '', id: uuid() }]
+            resourceNames:
+              getMultiTypeFromValue(initialValues.spec?.deleteResources?.spec?.resourceNames) ===
+              MultiTypeInputType.RUNTIME
+                ? initialValues.spec?.deleteResources?.spec?.resourceNames
+                : initialValues.spec?.deleteResources?.spec?.resourceNames?.length
+                ? (initialValues.spec?.deleteResources?.spec?.resourceNames).map((item: any) => ({
+                    value: item,
+                    id: uuid()
+                  }))
+                : [{ value: '', id: uuid() }]
           }
         }
       }
@@ -596,7 +726,10 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteFormData> {
           deleteResources: {
             type: DeleteSpecConstant.ResourceName,
             spec: {
-              resourceNames: (data.spec?.deleteResources?.spec?.resourceNames || []).map((item: any) => item.value)
+              resourceNames:
+                getMultiTypeFromValue(data.spec?.deleteResources?.spec?.resourceNames) === MultiTypeInputType.RUNTIME
+                  ? data.spec?.deleteResources?.spec?.resourceNames
+                  : (data.spec?.deleteResources?.spec?.resourceNames || []).map((item: any) => item.value)
             }
           }
         }
@@ -611,7 +744,10 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteFormData> {
           deleteResources: {
             type: DeleteSpecConstant.ManifestPath,
             spec: {
-              manifestPaths: (data.spec?.deleteResources?.spec?.manifestPaths || []).map((item: any) => item.value)
+              manifestPaths:
+                getMultiTypeFromValue(data.spec?.deleteResources?.spec?.manifestPaths) === MultiTypeInputType.RUNTIME
+                  ? data.spec?.deleteResources?.spec?.manifestPaths
+                  : (data.spec?.deleteResources?.spec?.manifestPaths || []).map((item: any) => item.value)
             }
           }
         }
