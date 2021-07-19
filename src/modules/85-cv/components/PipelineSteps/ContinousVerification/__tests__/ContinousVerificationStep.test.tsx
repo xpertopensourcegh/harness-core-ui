@@ -174,7 +174,7 @@ describe('Test ContinousVerificationStep Step', () => {
     const verificationTypeDropdown = container.querySelector('input[name="spec.type"]') as HTMLInputElement
     const selectCaret = container
       .querySelector(`[name="spec.type"] + [class*="bp3-input-action"]`)
-      ?.querySelector('[data-icon="caret-down"]')
+      ?.querySelector('[data-icon="chevron-down"]')
     await waitFor(() => {
       fireEvent.click(selectCaret!)
     })
@@ -235,7 +235,7 @@ describe('Test ContinousVerificationStep Step', () => {
     const verificationTypeDropdown = container.querySelector('input[name="spec.type"]') as HTMLInputElement
     const selectCaret = container
       .querySelector(`[name="spec.type"] + [class*="bp3-input-action"]`)
-      ?.querySelector('[data-icon="caret-down"]')
+      ?.querySelector('[data-icon="chevron-down"]')
     await waitFor(() => {
       fireEvent.click(selectCaret!)
     })
@@ -299,7 +299,7 @@ describe('Test ContinousVerificationStep Step', () => {
     const verificationTypeDropdown = container.querySelector('input[name="spec.type"]') as HTMLInputElement
     const selectCaret = container
       .querySelector(`[name="spec.type"] + [class*="bp3-input-action"]`)
-      ?.querySelector('[data-icon="caret-down"]')
+      ?.querySelector('[data-icon="chevron-down"]')
     await waitFor(() => {
       fireEvent.click(selectCaret!)
     })

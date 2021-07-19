@@ -66,7 +66,7 @@ describe('Create CE K8s Connector Wizard', () => {
     const connectorDropdown = container.querySelector('input[name="referenceConnector"]') as HTMLInputElement
     const selectCaret = container
       .querySelector(`[name="referenceConnector"] + [class*="bp3-input-action"]`)
-      ?.querySelector('[data-icon="caret-down"]')
+      ?.querySelector('[data-icon="chevron-down"]')
     expect(selectCaret).toBeTruthy()
     if (selectCaret) {
       await waitFor(() => {

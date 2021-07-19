@@ -6,7 +6,8 @@ import {
   MultiTypeInputType,
   DataTooltipInterface,
   HarnessDocTooltip,
-  Container
+  Container,
+  FormError
 } from '@wings-software/uicore'
 import { connect, FormikContext } from 'formik'
 import { FormGroup, Intent } from '@blueprintjs/core'
@@ -85,7 +86,7 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
   const hasError = errorCheck(name, formik)
   const {
     intent = hasError ? Intent.DANGER : Intent.NONE,
-    helperText = hasError ? get(formik?.errors, name) : null,
+    helperText = hasError ? <FormError errorMessage={get(formik?.errors, name)} /> : null,
     disabled,
     ...rest
   } = restProps

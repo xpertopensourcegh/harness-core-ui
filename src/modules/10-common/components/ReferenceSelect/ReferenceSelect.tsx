@@ -68,7 +68,8 @@ export function ReferenceSelect<T extends MinimalObject>(props: ReferenceSelectP
         className={css.container}
         style={{ width }}
         withoutCurrentColor={true}
-        rightIcon="caret-down"
+        rightIcon="chevron-down"
+        iconProps={{ size: 14 }}
         disabled={disabled}
         onClick={e => {
           if (disabled) {

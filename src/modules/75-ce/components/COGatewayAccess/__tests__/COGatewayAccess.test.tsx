@@ -184,7 +184,7 @@ describe('Testing COGatewayAccess', () => {
     const osDropdown = container.querySelector('input[name="sshOs"]') as HTMLInputElement
     const osCaret = container
       .querySelector(`input[name="sshOs"] + [class*="bp3-input-action"]`)
-      ?.querySelector('[data-icon="caret-down"]')
+      ?.querySelector('[data-icon="chevron-down"]')
     await waitFor(() => {
       fireEvent.click(osCaret!)
     })

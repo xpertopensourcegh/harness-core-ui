@@ -187,7 +187,7 @@ describe('Unit tests for MapWorkloadsToServices', () => {
     expect(container.querySelector('input[value="service_1"]')).not.toBeNull()
     expect(container.querySelector('input[value="env_1"]')).not.toBeNull()
 
-    const serviceDropDown = container.querySelector('[data-icon="caret-down"]')
+    const serviceDropDown = container.querySelector('[data-icon="chevron-down"]')
     if (!serviceDropDown) {
       throw new Error('service was not found.')
     }
@@ -274,7 +274,7 @@ describe('Unit tests for MapWorkloadsToServices', () => {
 
     // click on drop down caret to bring up enu of drop down options
     await waitFor(() => expect(container.querySelector('[class*="workloadTable"]')).not.toBeNull())
-    const envDropdown = container.querySelectorAll('.bp3-input-action [data-icon="caret-down"]')
+    const envDropdown = container.querySelectorAll('.bp3-input-action [data-icon="chevron-down"]')
     if (!envDropdown[1]) {
       throw new Error('env was not found.')
     }
@@ -314,7 +314,7 @@ describe('Unit tests for MapWorkloadsToServices', () => {
     await waitFor(() => expect(container.querySelector('input[value="solo-dolo-5"]')).not.toBeNull())
 
     // ensure created option is in all dropdowns for env for each table row
-    fireEvent.click(container.querySelectorAll('.bp3-input-action [data-icon="caret-down"]')[3])
+    fireEvent.click(container.querySelectorAll('.bp3-input-action [data-icon="chevron-down"]')[3])
     await waitFor(() => expect(document.body.querySelector(`[class*="bp3-menu"]`)).not.toBeNull())
 
     const menu2 = document.body.querySelector(`[class*="bp3-menu"]`)

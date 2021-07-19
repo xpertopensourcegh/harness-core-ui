@@ -108,7 +108,7 @@ describe('UserGroupDetails Test', () => {
     await act(async () => {
       fireEvent.click(linkSSOButton)
       const modal = findDialogContainer()!
-      const ssoProvider = queryByAttribute('data-icon', modal, 'caret-down')!
+      const ssoProvider = queryByAttribute('data-icon', modal, 'chevron-down')!
       fireEvent.click(ssoProvider)
       await waitFor(() => {
         fireEvent.click(getByText(modal, 'mock_SSO_Provider'))

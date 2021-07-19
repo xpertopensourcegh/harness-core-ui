@@ -168,7 +168,7 @@ describe('SelectEnvironment', () => {
     expect(secondButton[1].getAttribute('class')).toContain('primary')
 
     // click on environment option and submit
-    const selectCaret = container.querySelector(`[class*="bp3-input-action"] [data-icon="caret-down"]`)
+    const selectCaret = container.querySelector(`[class*="bp3-input-action"] [data-icon="chevron-down"]`)
     if (!selectCaret) {
       throw Error('Drop down was not rendered.')
     }

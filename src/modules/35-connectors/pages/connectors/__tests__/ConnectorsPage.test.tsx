@@ -107,7 +107,7 @@ describe('Connectors Page Test', () => {
       </TestWrapper>
     )
     await act(async () => {
-      const filterSelector = container.querySelector('.bp3-input-action [data-icon="caret-down"]')
+      const filterSelector = container.querySelector('.bp3-input-action [data-icon="chevron-down"]')
       fireEvent.click(filterSelector!)
       await waitFor(() => queryByAttribute('class', document.body, 'bp3-popover-content'))
       const menuItems = document.querySelectorAll('[class*="menuItem"]')

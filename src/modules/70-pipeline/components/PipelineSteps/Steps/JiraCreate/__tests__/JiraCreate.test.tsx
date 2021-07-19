@@ -186,7 +186,7 @@ describe('Jira Create tests', () => {
 
     await waitFor(() => expect(queryByText('pipeline.jiraCreateStep.selectFieldListHelp')).toBeTruthy())
     const dialogContainer = document.body.querySelector('.bp3-portal')
-    const icon = dialogContainer?.querySelectorAll('[icon="caret-down"]')
+    const icon = dialogContainer?.querySelectorAll('[icon="chevron-down"]')
 
     // Project dropdown
     fireEvent.click(icon![0])

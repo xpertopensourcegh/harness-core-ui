@@ -290,7 +290,7 @@ describe('Use DNS for Setup', () => {
     // selecting resource
     const accessPointCaret = container
       .querySelector(`input[name="accessPoint"] + [class*="bp3-input-action"]`)
-      ?.querySelector('[data-icon="caret-down"]')
+      ?.querySelector('[data-icon="chevron-down"]')
     await waitFor(() => {
       fireEvent.click(accessPointCaret!)
     })
@@ -329,7 +329,7 @@ describe('Use DNS for Setup', () => {
     expect(route53Account).toBeDefined()
     const route53Caret = container
       .querySelector(`input[name="route53Account"] + [class*="bp3-input-action"]`)
-      ?.querySelector('[data-icon="caret-down"]')
+      ?.querySelector('[data-icon="chevron-down"]')
     await waitFor(() => {
       fireEvent.click(route53Caret!)
     })
@@ -415,7 +415,7 @@ describe('Azure DNS setup', () => {
     // selecting resource
     const accessPointCaret = container
       .querySelector(`input[name="accessPoint"] + [class*="bp3-input-action"]`)
-      ?.querySelector('[data-icon="caret-down"]')
+      ?.querySelector('[data-icon="chevron-down"]')
     await waitFor(() => {
       fireEvent.click(accessPointCaret!)
     })

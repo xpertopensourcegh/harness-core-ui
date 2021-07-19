@@ -456,7 +456,7 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
     fireEvent.change(metricTagsInput, { target: { value: 'metricTag' } })
     await waitFor(() => expect(container.querySelector('input[value="metricTag"]')).not.toBeNull())
 
-    const dropdownsCarets = container.querySelectorAll('[data-icon="caret-down"]')
+    const dropdownsCarets = container.querySelectorAll('[data-icon="chevron-down"]')
     expect(dropdownsCarets.length).toBe(2)
 
     // service

@@ -25,13 +25,13 @@ describe('Unit tests for PrometheusGroupName', () => {
     )
 
     await waitFor(() => expect(() => getByText('groupName')))
-    const caret = container.querySelector('[data-icon="caret-down"]')
-    if (!caret) {
+    const icon = container.querySelector('[data-icon="chevron-down"]')
+    if (!icon) {
       throw Error('Input was not rendered.')
     }
 
     // click on new option
-    fireEvent.click(caret)
+    fireEvent.click(icon)
     await waitFor(() => expect(getByText('cv.addNew')).not.toBeNull())
     fireEvent.click(getByText('cv.addNew'))
 
