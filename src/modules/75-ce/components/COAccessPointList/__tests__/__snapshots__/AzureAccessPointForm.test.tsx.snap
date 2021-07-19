@@ -566,6 +566,78 @@ exports[`Azure Access Point Form form in edit mode 1`] = `
             </div>
           </div>
           <div
+            class="formFieldRow"
+          >
+            <div
+              class="bp3-form-group"
+              data-id="func_region-7"
+            >
+              <label
+                class="bp3-label"
+                for="func_region"
+              >
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="azureAccessPt_func_region"
+                >
+                  Azure Function Region*
+                </span>
+                 
+                <span
+                  class="bp3-text-muted"
+                />
+              </label>
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-popover-wrapper Select--main bp3-fill"
+                >
+                  <div
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="bp3-input-group"
+                    >
+                      <input
+                        autocomplete="off"
+                        class="bp3-input"
+                        name="func_region"
+                        placeholder="Select region"
+                        style="padding-right: 0px;"
+                        type="text"
+                        value=""
+                      />
+                      <span
+                        class="bp3-input-action"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                          icon="caret-down"
+                        >
+                          <svg
+                            data-icon="caret-down"
+                            height="14"
+                            viewBox="0 0 16 16"
+                            width="14"
+                          >
+                            <desc>
+                              caret-down
+                            </desc>
+                            <path
+                              d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
             class="Layout--horizontal StyledProps--main"
             style="margin-top: 100px;"
           >
@@ -1166,6 +1238,78 @@ exports[`Azure Access Point Form render and fill azure ap form 1`] = `
                         class="bp3-input"
                         name="sku"
                         placeholder="Select SKU"
+                        style="padding-right: 0px;"
+                        type="text"
+                        value=""
+                      />
+                      <span
+                        class="bp3-input-action"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                          icon="caret-down"
+                        >
+                          <svg
+                            data-icon="caret-down"
+                            height="14"
+                            viewBox="0 0 16 16"
+                            width="14"
+                          >
+                            <desc>
+                              caret-down
+                            </desc>
+                            <path
+                              d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="formFieldRow"
+          >
+            <div
+              class="bp3-form-group"
+              data-id="func_region-6"
+            >
+              <label
+                class="bp3-label"
+                for="func_region"
+              >
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="azureAccessPt_func_region"
+                >
+                  Azure Function Region*
+                </span>
+                 
+                <span
+                  class="bp3-text-muted"
+                />
+              </label>
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-popover-wrapper Select--main bp3-fill"
+                >
+                  <div
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="bp3-input-group"
+                    >
+                      <input
+                        autocomplete="off"
+                        class="bp3-input"
+                        name="func_region"
+                        placeholder="Select region"
                         style="padding-right: 0px;"
                         type="text"
                         value=""

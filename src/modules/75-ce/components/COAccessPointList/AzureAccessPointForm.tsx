@@ -42,6 +42,7 @@ export interface AzureApFormVal {
   newCertificate?: CertificateData
   fe_ip_name?: string
   subnet_name?: string
+  func_region: string
 }
 
 interface AzureAccessPointFormProps {
@@ -60,6 +61,8 @@ const SKUItems: SelectOption[] = [
   { label: 'SKU 1, Large', value: 'sku1_large' },
   { label: 'SKU2', value: 'sku2' }
 ]
+
+const DEFAULT_FUNC_REGION = 'westus2'
 
 const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
   const { cloudAccountId, lbCreationInProgress, loadBalancer, isCreateMode } = props
@@ -396,7 +399,8 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
           sku: loadBalancer.metadata?.size || '',
           subnet: newSubnet ? (newSubnet.value as string) : loadBalancer.metadata?.subnet_id || '',
           virtualNetwork: loadBalancer.vpc || '',
-          certificate: loadBalancer.metadata?.certificate_id || ''
+          certificate: loadBalancer.metadata?.certificate_id || '',
+          func_region: loadBalancer.metadata?.func_region || DEFAULT_FUNC_REGION
         }}
         formName="azureAccessPt"
         onSubmit={handleSubmit}
@@ -406,7 +410,8 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
           resourceGroup: Yup.string().required(),
           sku: Yup.string().required(),
           subnet: Yup.string().required(),
-          virtualNetwork: Yup.string().required()
+          virtualNetwork: Yup.string().required(),
+          func_region: Yup.string().required()
         })}
       >
         {({ submitForm, isValid, values }) => (
@@ -531,6 +536,18 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
                 name="sku"
                 items={SKUItems}
                 disabled={!isCreateMode}
+              />
+            </div>
+            <div className={css.formFieldRow}>
+              <FormInput.Select
+                label={'Azure Function Region*'}
+                placeholder={'Select region'}
+                name="func_region"
+                items={regionsOptions}
+                // onChange={regionItem => {
+                //   setSelectedRegion(regionItem)
+                // }}
+                disabled={!_isEmpty(values.func_region) ? false : regionsLoading}
               />
             </div>
             <Layout.Horizontal style={{ marginTop: 100 }}>

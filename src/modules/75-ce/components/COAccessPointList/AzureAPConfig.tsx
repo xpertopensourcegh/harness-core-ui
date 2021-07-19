@@ -132,7 +132,8 @@ const AzureAPConfig: React.FC<AzureAPConfigProps> = props => {
         subnet_id: val.subnet,
         ...(val.newCertificate ? { certificate: val.newCertificate } : { certificate_id: val.certificate }),
         subnet_name: val.subnet_name,
-        fe_ip_name: val.fe_ip_name
+        fe_ip_name: val.fe_ip_name,
+        func_region: val.func_region
       }
     })
   }
@@ -153,7 +154,8 @@ const AzureAPConfig: React.FC<AzureAPConfigProps> = props => {
         subnet_id: values.subnet,
         ...(values.newCertificate ? { certificate: values.newCertificate } : { certificate_id: values.certificate }),
         subnet_name: values.subnet_name,
-        fe_ip_name: values.fe_ip_name
+        fe_ip_name: values.fe_ip_name,
+        func_region: values.func_region
       }
     }))
     moveBackward()

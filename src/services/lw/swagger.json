@@ -2984,6 +2984,9 @@
         "certificate": {
           "type": "object",
           "$ref": "#/definitions/CertificateData"
+        },
+        "func_region": {
+          "type": "string"
         }
       }
     },

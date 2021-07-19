@@ -81,6 +81,7 @@ export interface AccessPointMeta {
   error?: string
   fe_ip_id?: string
   fe_ip_name?: string
+  func_region?: string
   resource_group?: string
   security_groups?: string[]
   size?: string
