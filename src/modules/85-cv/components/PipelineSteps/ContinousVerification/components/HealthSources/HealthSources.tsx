@@ -12,7 +12,7 @@ import css from './HealthSources.module.scss'
 
 export default function HealthSources(props: HealthSourcesProps): React.ReactElement {
   const { getString } = useStrings()
-  const { healthSources, isRunTimeInput } = props
+  const { healthSources, isRunTimeInput, addHealthSource, editHealthSource } = props
 
   const TypeTableCell = (tableProps: CellProps<HealthSource>): JSX.Element => {
     const type = tableProps?.row?.values?.type
@@ -69,10 +69,9 @@ export default function HealthSources(props: HealthSourcesProps): React.ReactEle
         <>{tableProps.value}</>
         <Icon
           name="edit"
-          size={18}
+          size={14}
           onClick={() => {
-            //TODO will be implemented when common Health source component is ready
-            //console.log(tableProps.row)}
+            editHealthSource(tableProps?.row?.original)
           }}
           className={css.link}
         />
@@ -85,7 +84,7 @@ export default function HealthSources(props: HealthSourcesProps): React.ReactEle
       <>
         <div className={css.header}>
           <p>{getString('connectors.cdng.healthSources.label')}</p>
-          {!isRunTimeInput ? <a>{getString('plusAdd')}</a> : null}
+          {!isRunTimeInput ? <a onClick={addHealthSource}>{getString('plusAdd')}</a> : null}
         </div>
         {isEmpty(healthSources) ? (
           <>

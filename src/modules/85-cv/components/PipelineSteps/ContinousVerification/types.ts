@@ -23,6 +23,7 @@ export interface ContinousVerificationData extends StepElementConfig {
   failureStrategies: AllFailureStrategyConfig[]
   spec: {
     monitoredServiceRef?: string
+    monitoredServiceName?: string
     type?: string
     healthSources?: {
       identifier: string

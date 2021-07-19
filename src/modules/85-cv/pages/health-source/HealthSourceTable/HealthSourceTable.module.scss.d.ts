@@ -8,5 +8,6 @@ declare const styles: {
   readonly noData: string
   readonly tableTitle: string
   readonly disabled: string
+  readonly breadCrumbLink: string
 }
 export default styles

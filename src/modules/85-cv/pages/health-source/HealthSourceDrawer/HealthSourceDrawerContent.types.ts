@@ -44,4 +44,5 @@ export interface HealthSourceDrawerInterface {
   createHeader: () => JSX.Element
   onClose: (val: any) => void
   isEdit: boolean
+  shouldRenderAtVerifyStep?: boolean
 }

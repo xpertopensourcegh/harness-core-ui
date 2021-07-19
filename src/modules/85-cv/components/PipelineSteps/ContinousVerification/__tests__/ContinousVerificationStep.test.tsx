@@ -27,7 +27,9 @@ jest.mock('services/cv', () => ({
     metaData: {},
     resource: [],
     responseMessages: []
-  }))
+  })),
+  useUpdateMonitoredService: () =>
+    jest.fn().mockImplementation(() => ({ loading: false, error: null, data: {}, refetch: jest.fn() }))
 }))
 
 jest.mock('services/pipeline-ng', () => ({

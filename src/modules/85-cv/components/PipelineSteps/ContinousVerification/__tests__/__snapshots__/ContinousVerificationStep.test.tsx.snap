@@ -865,9 +865,9 @@ exports[`Test ContinousVerificationStep Step should render editView when a new s
                   >
                     <svg
                       data-icon="edit"
-                      height="18"
+                      height="14"
                       viewBox="0 0 16 16"
-                      width="18"
+                      width="14"
                     >
                       <desc>
                         edit
@@ -1329,9 +1329,9 @@ exports[`Test ContinousVerificationStep Step should render editView when current
                   >
                     <svg
                       data-icon="edit"
-                      height="18"
+                      height="14"
                       viewBox="0 0 16 16"
-                      width="18"
+                      width="14"
                     >
                       <desc>
                         edit

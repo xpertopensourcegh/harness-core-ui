@@ -275,12 +275,14 @@ cdng:
     fetchingMonitoredServiceError: Failed to fetch monitored service . Please try again by reopening the Verify Step
     autoCreateMonitoredService: Click to autocreate a monitored service
     monitoredServiceText: A monitored service for the
+    backToVerifyStep: Back to Verify Step
   runTimeMonitoredService:
     pleaseSpecify: Please specify
     toFetchMonitoredService: to fetch the monitored service.
     fetchingMonitoredServiceError: Failed to fetch monitored service . Please try again by re-running the Pipeline
     noMonitoringSercvicePresent: No Monitored Service is present for selected service and environment. Verify step will be skipped.
     noHealthSourcePresent: No Health source is present . Verify step will be skipped.
+    backToRunPipeline: Back to Run Pipeline
   healthSources:
     label: Health Sources
     noHealthSourcesDefined: No health sources have been defined. To complete the verification, you would need at least one healthsource added.

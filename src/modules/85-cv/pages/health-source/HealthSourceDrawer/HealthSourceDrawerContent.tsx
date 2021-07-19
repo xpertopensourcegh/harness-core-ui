@@ -20,13 +20,14 @@ function HealthSourceDrawerContent({
   onClose,
   isEdit,
   rowData,
-  tableData
+  tableData,
+  shouldRenderAtVerifyStep
 }: HealthSourceDrawerInterface): JSX.Element {
   const { getString } = useStrings()
 
   const sourceData = useMemo(
     () => createHealthSourceDrawerFormData(isEdit, monitoringSourcRef, serviceRef, environmentRef, tableData, rowData),
-    [rowData, tableData, monitoringSourcRef, serviceRef, environmentRef]
+    [rowData, tableData, monitoringSourcRef, serviceRef, environmentRef, isEdit]
   )
 
   const determineMaxTabBySourceType = useCallback(() => {
@@ -69,7 +70,7 @@ function HealthSourceDrawerContent({
           ]}
         >
           <DefineHealthSource />
-          <CustomiseHealthSource onSuccess={onSuccess} />
+          <CustomiseHealthSource onSuccess={onSuccess} shouldRenderAtVerifyStep={shouldRenderAtVerifyStep} />
         </SetupSourceTabs>
       </Drawer>
       {modalOpen && (

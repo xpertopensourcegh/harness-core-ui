@@ -1,20 +1,21 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import cx from 'classnames'
 import { Container, FormInput, RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { useMemo } from 'react'
-import { isEmpty } from 'lodash-es'
 import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import {
-  HealthSource,
+  MonitoredServiceResponse,
   useCreateDefaultMonitoredService,
   useGetMonitoredServiceFromServiceAndEnvironment
 } from 'services/cv'
-import HealthSources from '@cv/components/PipelineSteps/ContinousVerification/components/HealthSources/HealthSources'
 import { useStrings } from 'framework/strings'
 import Card from '@cv/components/Card/Card'
+import HealthSourceTable from '@cv/pages/health-source/HealthSourceTable/HealthSourceTable'
+import type { RowData } from '@cv/pages/health-source/HealthSourceDrawer/HealthSourceDrawerContent.types'
 import type { MonitoredServiceProps } from './MonitoredService.types'
+import { getNewSpecs } from './MonitoredService.utils'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './MonitoredService.module.scss'
 
@@ -22,6 +23,11 @@ export default function MonitoredService({
   formik: { values: formValues, setFieldValue }
 }: MonitoredServiceProps): JSX.Element {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps & AccountPathProps>()
+  const [monitoredService, setMonitoredService] = useState({
+    monitoredServiceIdentifier: '',
+    monitoredServiceName: ''
+  })
+  const [healthSourcesList, setHealthSourcesList] = useState<RowData[]>([])
   const { getString } = useStrings()
   const {
     state: {
@@ -70,13 +76,13 @@ export default function MonitoredService({
       setFieldValue('spec', newSpecs)
     } else if (monitoredServiceData && !loading && !error) {
       //when monitoredServiceData is derived from service and env.
-      const healthSources = !isEmpty(monitoredServiceData?.sources?.healthSources)
-        ? monitoredServiceData?.sources?.healthSources?.map(el => {
-            return { identifier: (el as HealthSource)?.identifier }
-          })
-        : []
-      const newSpecs = { ...formValues.spec, monitoredServiceRef: monitoredServiceData?.name, healthSources }
+      const newSpecs = getNewSpecs(monitoredServiceData, formValues)
       setFieldValue('spec', newSpecs)
+      setHealthSourcesList(monitoredServiceData?.sources?.healthSources as RowData[])
+      setMonitoredService({
+        monitoredServiceIdentifier: monitoredServiceData?.identifier,
+        monitoredServiceName: monitoredServiceData?.name
+      })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [monitoredServiceData, error, loading, environmentIdentifier, serviceIdentifier])
@@ -85,11 +91,27 @@ export default function MonitoredService({
     const createdMonitoredService = await createDefaultMonitoredService()
     const newSpecs = {
       ...formValues.spec,
-      monitoredServiceRef: createdMonitoredService?.resource?.monitoredService?.name
+      monitoredServiceRef: createdMonitoredService?.resource?.monitoredService?.identifier
     }
     setFieldValue('spec', newSpecs)
+
+    setMonitoredService({
+      monitoredServiceIdentifier: createdMonitoredService?.resource?.monitoredService?.identifier as string,
+      monitoredServiceName: createdMonitoredService?.resource?.monitoredService?.name as string
+    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formValues.spec])
+
+  const onSuccess = useCallback(
+    (updatedMonitoredService: MonitoredServiceResponse) => {
+      const { sources } = updatedMonitoredService?.monitoredService || { sources: { healthSources: [] } }
+      const newSpecs = getNewSpecs(updatedMonitoredService?.monitoredService, formValues)
+      setFieldValue('spec', newSpecs)
+      setHealthSourcesList(sources?.healthSources as RowData[])
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [formValues.spec, monitoredServiceData?.identifier]
+  )
 
   if (loading) {
     return (
@@ -126,7 +148,16 @@ export default function MonitoredService({
           </div>
         </Card>
         {formValues?.spec?.monitoredServiceRef !== RUNTIME_INPUT_VALUE ? (
-          <HealthSources healthSources={monitoredServiceData?.sources?.healthSources} />
+          <HealthSourceTable
+            isEdit={true}
+            shouldRenderAtVerifyStep={true}
+            value={healthSourcesList}
+            onSuccess={onSuccess}
+            serviceRef={{ label: serviceIdentifier, value: serviceIdentifier }}
+            environmentRef={{ label: environmentIdentifier, value: environmentIdentifier }}
+            monitoringSourcRef={monitoredService}
+            breadCrumbRoute={{ routeTitle: getString('connectors.cdng.monitoredService.backToVerifyStep') }}
+          />
         ) : null}
       </>
     )

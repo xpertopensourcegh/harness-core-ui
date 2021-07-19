@@ -560,6 +560,7 @@ healthSource:
   customizeHealthSource: Customize Health Source
   deleteHealthSourceWarning: Are you sure you want to delete Health Source
   deleteHealthSource: Delete Health Source
+  noDataPresentHealthSource: No data is present for the selected Health Source
   seriveEnvironmentNote: Service selected is {{service}} and Environment selected is {{environment}}
   table:
     serviceMapping: Service Mapping

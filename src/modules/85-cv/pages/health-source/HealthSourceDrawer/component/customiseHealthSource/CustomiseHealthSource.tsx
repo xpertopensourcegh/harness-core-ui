@@ -17,9 +17,11 @@ import type { UpdatedHealthSource } from '../../HealthSourceDrawerContent.types'
 import { omitServiceEnvironmentKeys } from './CustomiseHealthSource.constant'
 
 export default function CustomiseHealthSource({
-  onSuccess
+  onSuccess,
+  shouldRenderAtVerifyStep
 }: {
   onSuccess: (data: MonitoredServiceResponse) => void
+  shouldRenderAtVerifyStep?: boolean
 }): JSX.Element {
   const params = useParams<ProjectPathProps & { identifier: string }>()
   const { getString } = useStrings()
@@ -32,6 +34,14 @@ export default function CustomiseHealthSource({
     identifier: sourceData?.monitoredServiceIdentifier,
     queryParams: { accountId: params.accountId }
   })
+
+  // Removing Service and Environment keys
+  const filteredSourceData = useMemo(() => omit(sourceData, omitServiceEnvironmentKeys), [sourceData])
+
+  const isEdit = useMemo(
+    () => params?.identifier || shouldRenderAtVerifyStep,
+    [params?.identifier, shouldRenderAtVerifyStep]
+  )
 
   const submitData = async (formdata: any, healthSourcePayload: UpdatedHealthSource): Promise<void> => {
     const healthSourceList = createHealthsourceList(formdata, healthSourcePayload)
@@ -50,12 +60,12 @@ export default function CustomiseHealthSource({
           healthSources: healthSourceList
         }
       }
-      const postdatavalue = params?.identifier
-        ? await updateMonitoredService(payload)
-        : await saveMonitoredService(payload)
+      // From verify step it will be always update call since monitored service will already be created.
+      // This flow will be triggered only when user is adding health source to existing monitored service
+      const postdatavalue = isEdit ? await updateMonitoredService(payload) : await saveMonitoredService(payload)
       postdatavalue?.resource && onSuccess(postdatavalue?.resource)
       showSuccess(
-        params?.identifier
+        isEdit
           ? getString('cv.monitoredServices.monitoredServiceUpdated')
           : getString('cv.monitoredServices.monitoredServiceCreated')
       )
@@ -63,9 +73,6 @@ export default function CustomiseHealthSource({
       showError(error?.data?.message)
     }
   }
-
-  // Removing Service and Environment keys
-  const filteredSourceData = useMemo(() => omit(sourceData, omitServiceEnvironmentKeys), [])
 
   return (
     <BGColorWrapper>

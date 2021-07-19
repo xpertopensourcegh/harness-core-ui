@@ -877,11 +877,13 @@ export interface StringsMap {
   'connectors.cdng.jobTypes.test': string
   'connectors.cdng.loadingJobs': string
   'connectors.cdng.monitoredService.autoCreateMonitoredService': string
+  'connectors.cdng.monitoredService.backToVerifyStep': string
   'connectors.cdng.monitoredService.fetchingMonitoredService': string
   'connectors.cdng.monitoredService.fetchingMonitoredServiceError': string
   'connectors.cdng.monitoredService.label': string
   'connectors.cdng.monitoredService.monitoredServiceText': string
   'connectors.cdng.noJobsConfigured': string
+  'connectors.cdng.runTimeMonitoredService.backToRunPipeline': string
   'connectors.cdng.runTimeMonitoredService.fetchingMonitoredServiceError': string
   'connectors.cdng.runTimeMonitoredService.noHealthSourcePresent': string
   'connectors.cdng.runTimeMonitoredService.noMonitoringSercvicePresent': string
@@ -3002,6 +3004,7 @@ export interface StringsMap {
   'cv.healthSource.nameLabel': string
   'cv.healthSource.namePlaceholder': string
   'cv.healthSource.noData': string
+  'cv.healthSource.noDataPresentHealthSource': string
   'cv.healthSource.selectHealthSource': string
   'cv.healthSource.seriveEnvironmentNote': string
   'cv.healthSource.serviceLabel': string

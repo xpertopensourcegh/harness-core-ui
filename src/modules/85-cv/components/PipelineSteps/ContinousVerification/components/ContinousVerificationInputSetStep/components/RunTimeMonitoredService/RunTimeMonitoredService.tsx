@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import cx from 'classnames'
 import { Container, FormInput } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { isEmpty } from 'lodash-es'
 import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
-import { HealthSource, useGetMonitoredServiceFromServiceAndEnvironment } from 'services/cv'
+import { HealthSource, MonitoredServiceResponse, useGetMonitoredServiceFromServiceAndEnvironment } from 'services/cv'
 import { useStrings } from 'framework/strings'
 import Card from '@cv/components/Card/Card'
+import HealthSourceTable from '@cv/pages/health-source/HealthSourceTable'
 import type { MonitoringSourceData, RunTimeMonitoredServiceProps } from './RunTimeMonitoredService.types'
-import HealthSources from '../../../HealthSources/HealthSources'
+import { updateMonitoredServiceData } from './RunTimeMonitoredService.utils'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './RunTimeMonitoredService.module.scss'
 
@@ -22,7 +23,7 @@ export default function RunTimeMonitoredService({
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps & AccountPathProps>()
   const { getString } = useStrings()
   const [monitoringSource, setMonitoringSourceData] = useState<MonitoringSourceData>({
-    monitoredService: { name: '', sources: { healthSources: [] } }
+    monitoredService: { name: '', identifier: '', sources: { healthSources: [] } }
   })
 
   const { data, loading, error } = useGetMonitoredServiceFromServiceAndEnvironment({
@@ -38,29 +39,20 @@ export default function RunTimeMonitoredService({
 
   useEffect(() => {
     if (!loading && !error && envIdentifier && serviceIdentifier) {
-      const healthSources =
-        monitoredServiceData?.monitoredService?.sources?.healthSources?.map(el => {
-          return { identifier: (el as HealthSource)?.identifier }
-        }) || []
-
-      const newMonitoredServiceData = {
-        monitoredServiceRef: monitoredServiceData?.monitoredService?.name,
-        healthSources: healthSources as { identifier: string }[]
-      }
-
-      onUpdate?.({
-        ...initialValues,
-        spec: {
-          ...initialValues?.spec,
-          ...newMonitoredServiceData,
-          spec: { ...initialValues.spec.spec }
-        }
-      })
-
+      updateMonitoredServiceData(initialValues, onUpdate, monitoredServiceData)
       setMonitoringSourceData(monitoredServiceData as MonitoringSourceData)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [monitoredServiceData, error, loading, envIdentifier, serviceIdentifier])
+
+  const onSuccess = useCallback(
+    (updatedMonitoredService: MonitoredServiceResponse) => {
+      updateMonitoredServiceData(initialValues, onUpdate, monitoredServiceData)
+      setMonitoringSourceData(updatedMonitoredService as MonitoringSourceData)
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [initialValues, monitoredServiceData]
+  )
 
   if (isEmpty(serviceIdentifier) || isEmpty(envIdentifier)) {
     return (
@@ -107,8 +99,18 @@ export default function RunTimeMonitoredService({
             />
           </div>
         </Card>
-        <HealthSources
-          healthSources={monitoredServiceData?.monitoredService?.sources?.healthSources}
+        <HealthSourceTable
+          isEdit={true}
+          shouldRenderAtVerifyStep={true}
+          value={monitoredServiceData?.monitoredService?.sources?.healthSources as HealthSource[]}
+          onSuccess={onSuccess}
+          serviceRef={{ label: serviceIdentifier, value: serviceIdentifier }}
+          environmentRef={{ label: envIdentifier, value: envIdentifier }}
+          monitoringSourcRef={{
+            monitoredServiceIdentifier: monitoringSource?.monitoredService?.identifier,
+            monitoredServiceName: monitoringSource?.monitoredService?.name
+          }}
+          breadCrumbRoute={{ routeTitle: getString('connectors.cdng.runTimeMonitoredService.backToRunPipeline') }}
           isRunTimeInput={true}
         />
       </>

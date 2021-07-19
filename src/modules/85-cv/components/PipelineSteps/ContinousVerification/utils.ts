@@ -88,7 +88,6 @@ export function validateTimeout(
  */
 export function getSpecYamlData(specInfo?: spec, type?: string): spec {
   let validspec = omitBy(specInfo, v => isUndefined(v) || isNull(v) || v === '')
-
   switch (type) {
     case 'LoadTest':
       validspec = omit(validspec, ['trafficsplit'])

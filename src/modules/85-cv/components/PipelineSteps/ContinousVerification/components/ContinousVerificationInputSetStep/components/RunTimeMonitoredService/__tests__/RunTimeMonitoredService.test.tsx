@@ -7,7 +7,9 @@ import { initialValues, mockedMonitoredServiceAndHealthSources, pathParams } fro
 jest.mock('services/cv', () => ({
   useGetMonitoredServiceFromServiceAndEnvironment: jest
     .fn()
-    .mockImplementation(() => ({ loading: false, data: mockedMonitoredServiceAndHealthSources, error: false }))
+    .mockImplementation(() => ({ loading: false, data: mockedMonitoredServiceAndHealthSources, error: false })),
+  useUpdateMonitoredService: () =>
+    jest.fn().mockImplementation(() => ({ loading: false, error: null, data: {}, refetch: jest.fn() }))
 }))
 
 describe('Test RunTimeMonitoredService component', () => {
