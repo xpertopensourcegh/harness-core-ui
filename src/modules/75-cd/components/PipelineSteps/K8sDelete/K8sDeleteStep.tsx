@@ -580,17 +580,29 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteFormData> {
       getMultiTypeFromValue(template?.spec?.deleteResources?.spec?.manifestPaths as unknown as string) ===
       MultiTypeInputType.RUNTIME
     ) {
-      const manifestPathsSchema = Yup.object().shape({
+      let manifestPathsSchema = Yup.object().shape({
         spec: Yup.object().shape({
           deleteResources: Yup.object().shape({
             spec: Yup.object().shape({
-              manifestPaths: Yup.array(
-                Yup.string().trim().required(getString?.('cd.manifestPathsCannotBeEmpty'))
-              ).required(getString?.('cd.manifestPathsCannotBeEmpty'))
+              manifestPaths: Yup.array(Yup.string().trim()).ensure().nullable()
             })
           })
         })
       })
+      if (isRequired) {
+        manifestPathsSchema = Yup.object().shape({
+          spec: Yup.object().shape({
+            deleteResources: Yup.object().shape({
+              spec: Yup.object().shape({
+                manifestPaths: Yup.array(Yup.string().trim().required(getString?.('cd.manifestPathsCannotBeEmpty')))
+                  .required(getString?.('cd.manifestPathsCannotBeEmpty'))
+                  .min(1, getString?.('cd.manifestPathsCannotBeEmpty'))
+                  .ensure()
+              })
+            })
+          })
+        })
+      }
       try {
         manifestPathsSchema.validateSync(data)
       } catch (e) {
@@ -606,17 +618,29 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteFormData> {
       getMultiTypeFromValue(template?.spec?.deleteResources?.spec?.resourceNames as unknown as string) ===
       MultiTypeInputType.RUNTIME
     ) {
-      const resourceNamesSchema = Yup.object().shape({
+      let resourceNamesSchema = Yup.object().shape({
         spec: Yup.object().shape({
           deleteResources: Yup.object().shape({
             spec: Yup.object().shape({
-              resourceNames: Yup.array(Yup.string().trim().required(getString?.('cd.resourceCannotBeEmpty'))).required(
-                getString?.('cd.resourceCannotBeEmpty')
-              )
+              resourceNames: Yup.array(Yup.string().trim()).ensure().nullable()
             })
           })
         })
       })
+      if (isRequired) {
+        resourceNamesSchema = Yup.object().shape({
+          spec: Yup.object().shape({
+            deleteResources: Yup.object().shape({
+              spec: Yup.object().shape({
+                resourceNames: Yup.array(Yup.string().trim().required(getString?.('cd.resourceCannotBeEmpty')))
+                  .required(getString?.('cd.resourceCannotBeEmpty'))
+                  .min(1, getString?.('cd.resourceCannotBeEmpty'))
+                  .ensure()
+              })
+            })
+          })
+        })
+      }
       try {
         resourceNamesSchema.validateSync(data)
       } catch (e) {

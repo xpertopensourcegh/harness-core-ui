@@ -428,13 +428,21 @@ export class K8sApplyStep extends PipelineStep<K8sApplyData> {
       }
     }
     if (getMultiTypeFromValue(template?.spec?.filePaths) === MultiTypeInputType.RUNTIME) {
-      const filePathSchema = Yup.object().shape({
+      let filePathSchema = Yup.object().shape({
         spec: Yup.object().shape({
-          filePaths: Yup.array(Yup.string().trim().required(getString?.('cd.pathCannotBeEmpty'))).required(
-            getString?.('cd.filePathRequired')
-          )
+          filePaths: Yup.array(Yup.string().trim()).ensure().nullable()
         })
       })
+      if (isRequired) {
+        filePathSchema = Yup.object().shape({
+          spec: Yup.object().shape({
+            filePaths: Yup.array(Yup.string().trim().required(getString?.('cd.pathCannotBeEmpty')))
+              .required(getString?.('cd.filePathRequired'))
+              .min(1, getString?.('cd.filePathRequired'))
+              .ensure()
+          })
+        })
+      }
       try {
         filePathSchema.validateSync(data)
       } catch (e) {
