@@ -9,7 +9,7 @@ echo --- End
 
 if [ "${PURPOSE}" = "ui" ]
 then
-    FIELD_ID="customfield_10645"
+    FIELD_ID="customfield_10787"
 elif [ "${PURPOSE}" = "ui-on-prem" ]
 then
     FIELD_ID="customfield_10647"
