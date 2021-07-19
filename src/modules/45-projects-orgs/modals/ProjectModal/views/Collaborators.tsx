@@ -41,7 +41,6 @@ import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { InviteType } from '@rbac/modals/RoleAssignmentModal/views/RoleAssignmentForm'
 import { useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
-import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { UserItemRenderer } from '@rbac/utils/utils'
 import { handleInvitationResponse } from '@rbac/utils/utils'
 import InviteListRenderer from './InviteListRenderer'
@@ -65,7 +64,6 @@ const CustomSelect = Select.ofType<SelectOption>()
 
 const Collaborators: React.FC<CollaboratorModalData> = props => {
   const { projectIdentifier, orgIdentifier, showManage = true } = props
-  const { NG_RBAC_ENABLED } = useFeatureFlags()
   const { accountId } = useParams<AccountPathProps>()
   const { getString } = useStrings()
   const { showSuccess, showError } = useToaster()
@@ -326,7 +324,7 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
               ) : null}
             </Container>
 
-            {showManage && NG_RBAC_ENABLED ? (
+            {showManage ? (
               <Layout.Horizontal>
                 <Button
                   minimal

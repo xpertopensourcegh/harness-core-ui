@@ -13,7 +13,7 @@ const AccountSetupMenu: React.FC = () => {
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
   const { currentUserInfo } = useAppStore()
-  const { NG_RBAC_ENABLED, NG_SHOW_DELEGATE } = useFeatureFlags()
+  const { NG_SHOW_DELEGATE } = useFeatureFlags()
   const { accounts } = currentUserInfo
 
   const createdFromNG = accounts?.find(account => account.uuid === accountId)?.createdFromNG
@@ -28,9 +28,7 @@ const AccountSetupMenu: React.FC = () => {
         {NG_SHOW_DELEGATE ? (
           <SidebarLink label={getString('delegate.delegates')} to={routes.toDelegates({ accountId })} />
         ) : null}
-        {NG_RBAC_ENABLED ? (
-          <SidebarLink to={routes.toAccessControl({ accountId })} label={getString('accessControl')} />
-        ) : null}
+        <SidebarLink to={routes.toAccessControl({ accountId })} label={getString('accessControl')} />
         {createdFromNG && (
           <SidebarLink
             exact

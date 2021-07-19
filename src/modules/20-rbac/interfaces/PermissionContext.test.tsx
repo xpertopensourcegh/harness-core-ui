@@ -1,4 +1,4 @@
-import { getStringKeyFromObjectValues, keysToCompare } from './PermissionsContext'
+import { getStringKeyFromObjectValues, keysToCompare } from 'framework/rbac/PermissionsContext'
 
 describe('PermissionContext', () => {
   test('getStringKeyFromObjectValues', () => {

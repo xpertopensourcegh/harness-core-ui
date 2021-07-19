@@ -18,7 +18,6 @@ import RouteDestinations from 'modules/RouteDestinations'
 import RouteDestinationsWithoutAuth from 'modules/RouteDestinationsWithoutAuth'
 import AppErrorBoundary from 'framework/utils/AppErrorBoundary/AppErrorBoundary'
 import { StringsContextProvider } from 'framework/strings/StringsContextProvider'
-import { PermissionsProvider } from '@rbac/interfaces/PermissionsContext'
 import { getLoginPageURL } from 'framework/utils/SessionUtils'
 import { NGTooltipEditorPortal } from 'framework/tooltip/TooltipEditor'
 import AppStorage from 'framework/utils/AppStorage'
@@ -28,6 +27,7 @@ import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import './App.scss'
 import routes from '@common/RouteDefinitions'
 import { returnUrlParams } from '@common/utils/routeUtils'
+import { PermissionsProvider } from 'framework/rbac/PermissionsContext'
 
 FocusStyleManager.onlyShowFocusOnTabs()
 

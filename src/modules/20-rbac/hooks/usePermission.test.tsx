@@ -1,9 +1,9 @@
 import React from 'react'
 import { renderHook } from '@testing-library/react-hooks'
+import { PermissionsProvider } from 'framework/rbac/PermissionsContext'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { PermissionCheck } from 'services/rbac'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
-import { PermissionsProvider } from '@rbac/interfaces/PermissionsContext'
 import { TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import { getDTOFromRequest, usePermission } from './usePermission'
@@ -95,42 +95,9 @@ describe('usePermission', () => {
     getPermissions.mockClear()
   })
 
-  test('when RBAC is disabled', async () => {
-    const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (
-      <TestWrapper
-        path={routes.toProjects({ accountId: 'dummy' })}
-        pathParams={{ accountId: 'dummy' }}
-        defaultAppStoreValues={{ featureFlags: { NG_RBAC_ENABLED: false } }}
-      >
-        <PermissionsProvider debounceWait={0}>{children}</PermissionsProvider>
-      </TestWrapper>
-    )
-    const { result } = renderHook(
-      () =>
-        usePermission({
-          resourceScope: { accountIdentifier: 'dummy' },
-          resource: {
-            resourceType: ResourceType.PROJECT
-          },
-          permissions: [PermissionIdentifier.CREATE_PROJECT]
-        }),
-      { wrapper }
-    )
-
-    jest.runAllTimers()
-
-    // should return true without making API call
-    expect(getPermissions).not.toHaveBeenCalled()
-    expect(result.current[0]).toBe(true)
-  })
-
   test('when skipCondition is true', async () => {
     const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (
-      <TestWrapper
-        path={routes.toProjects({ accountId: 'dummy' })}
-        pathParams={{ accountId: 'dummy' }}
-        defaultAppStoreValues={{ featureFlags: { NG_RBAC_ENABLED: true } }}
-      >
+      <TestWrapper path={routes.toProjects({ accountId: 'dummy' })} pathParams={{ accountId: 'dummy' }}>
         <PermissionsProvider debounceWait={0}>{children}</PermissionsProvider>
       </TestWrapper>
     )
@@ -158,11 +125,7 @@ describe('usePermission', () => {
 
   test('basic function', async () => {
     const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (
-      <TestWrapper
-        path={routes.toProjects({ accountId: ':accountId' })}
-        pathParams={{ accountId: 'dummy' }}
-        defaultAppStoreValues={{ featureFlags: { NG_RBAC_ENABLED: true } }}
-      >
+      <TestWrapper path={routes.toProjects({ accountId: ':accountId' })} pathParams={{ accountId: 'dummy' }}>
         <PermissionsProvider debounceWait={0}>{children}</PermissionsProvider>
       </TestWrapper>
     )
@@ -223,7 +186,6 @@ describe('usePermission', () => {
           projectIdentifier: ':projectIdentifier'
         })}
         pathParams={{ accountId: 'account', orgIdentifier: 'org', projectIdentifier: 'project' }}
-        defaultAppStoreValues={{ featureFlags: { NG_RBAC_ENABLED: true } }}
       >
         <PermissionsProvider debounceWait={0}>{children}</PermissionsProvider>
       </TestWrapper>
@@ -275,11 +237,7 @@ describe('usePermission', () => {
     })
 
     const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (
-      <TestWrapper
-        path={routes.toProjects({ accountId: 'dummy' })}
-        pathParams={{ accountId: 'dummy' }}
-        defaultAppStoreValues={{ featureFlags: { NG_RBAC_ENABLED: true } }}
-      >
+      <TestWrapper path={routes.toProjects({ accountId: 'dummy' })} pathParams={{ accountId: 'dummy' }}>
         <PermissionsProvider debounceWait={0}>{children}</PermissionsProvider>
       </TestWrapper>
     )

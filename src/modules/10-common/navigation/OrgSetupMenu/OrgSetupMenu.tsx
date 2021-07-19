@@ -11,16 +11,14 @@ import NavExpandable from '../NavExpandable/NavExpandable'
 const OrgSetupMenu: React.FC = () => {
   const { getString } = useStrings()
   const params = useParams<OrgPathProps>()
-  const { NG_RBAC_ENABLED, NG_SHOW_DELEGATE } = useFeatureFlags()
+  const { NG_SHOW_DELEGATE } = useFeatureFlags()
 
   return (
     <NavExpandable title={getString('common.orgSetup')} route={routes.toSetup(params)}>
       <Layout.Vertical spacing="small">
         <SidebarLink label={getString('connectorsLabel')} to={routes.toConnectors(params)} />
         <SidebarLink label={getString('common.secrets')} to={routes.toSecrets(params)} />
-        {NG_RBAC_ENABLED ? (
-          <SidebarLink to={routes.toAccessControl(params)} label={getString('accessControl')} />
-        ) : null}
+        <SidebarLink to={routes.toAccessControl(params)} label={getString('accessControl')} />
         {NG_SHOW_DELEGATE ? (
           <SidebarLink label={getString('delegate.delegates')} to={routes.toDelegates(params)} />
         ) : null}

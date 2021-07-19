@@ -2,10 +2,9 @@ import { identity, pick, pickBy } from 'lodash-es'
 
 import { useParams } from 'react-router'
 import { useDeepCompareEffect } from '@common/hooks'
-import { usePermissionsContext, PermissionRequestOptions } from '@rbac/interfaces/PermissionsContext'
+import { usePermissionsContext, PermissionRequestOptions } from 'framework/rbac/PermissionsContext'
 import type { PermissionCheck, ResourceScope } from 'services/rbac'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import type { ResourceType } from '@rbac/interfaces/ResourceType'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
@@ -38,15 +37,27 @@ export function getDTOFromRequest(permissionRequest: PermissionRequest, defaultS
 }
 
 export function usePermission(permissionsRequest: PermissionsRequest, deps: Array<any> = []): Array<boolean> {
-  const { NG_RBAC_ENABLED } = useFeatureFlags()
   const { requestPermission, checkPermission, cancelRequest } = usePermissionsContext()
   const { accountId: accountIdentifier, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const defaultScope = { accountIdentifier, orgIdentifier, projectIdentifier }
   const { options } = permissionsRequest
 
   useDeepCompareEffect(() => {
-    if (NG_RBAC_ENABLED) {
-      // generate PermissionRequest for every action user requested
+    // generate PermissionRequest for every action user requested
+    permissionsRequest.permissions.forEach(permission => {
+      const permissionCheckDto = getDTOFromRequest(
+        {
+          permission,
+          ...pick(permissionsRequest, ['resourceScope', 'resource'])
+        } as PermissionRequest,
+        defaultScope
+      )
+      // register request in the context
+      requestPermission(permissionCheckDto, options)
+    })
+
+    return () => {
+      // cancel above request when this hook instance is unmounting
       permissionsRequest.permissions.forEach(permission => {
         const permissionCheckDto = getDTOFromRequest(
           {
@@ -55,28 +66,11 @@ export function usePermission(permissionsRequest: PermissionsRequest, deps: Arra
           } as PermissionRequest,
           defaultScope
         )
-        // register request in the context
-        requestPermission(permissionCheckDto, options)
+        cancelRequest(permissionCheckDto)
       })
     }
-
-    return () => {
-      if (NG_RBAC_ENABLED) {
-        // cancel above request when this hook instance is unmounting
-        permissionsRequest.permissions.forEach(permission => {
-          const permissionCheckDto = getDTOFromRequest(
-            {
-              permission,
-              ...pick(permissionsRequest, ['resourceScope', 'resource'])
-            } as PermissionRequest,
-            defaultScope
-          )
-          cancelRequest(permissionCheckDto)
-        })
-      }
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [NG_RBAC_ENABLED, options, ...deps])
+  }, [options, ...deps])
 
   // hook should return boolean for every action requested, in same order
   return permissionsRequest.permissions.map(permission => {
@@ -87,6 +81,6 @@ export function usePermission(permissionsRequest: PermissionsRequest, deps: Arra
       } as PermissionRequest,
       defaultScope
     )
-    return NG_RBAC_ENABLED ? checkPermission(permissionCheckDto) : true
+    return checkPermission(permissionCheckDto)
   })
 }

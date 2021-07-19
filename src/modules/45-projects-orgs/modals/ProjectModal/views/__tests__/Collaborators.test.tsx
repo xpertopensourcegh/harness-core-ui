@@ -25,10 +25,6 @@ const response = {
   correlationId: ''
 }
 
-jest.mock('@common/hooks/useFeatureFlag', () => ({
-  useFeatureFlags: () => ({ NG_RBAC_ENABLED: true })
-}))
-
 jest.mock('services/cd-ng', () => ({
   useGetCurrentGenUsers: jest
     .fn()

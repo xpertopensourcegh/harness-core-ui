@@ -3,10 +3,6 @@ import { fireEvent, render, RenderResult, waitFor } from '@testing-library/react
 import { TestWrapper } from '@common/utils/testUtils'
 import AccountSetupMenu from '../AccountSetupMenu'
 
-const featureFlags = {
-  NG_RBAC_ENABLED: true
-}
-
 const currentUser = {
   accounts: [
     {
@@ -25,7 +21,7 @@ describe('Account Setup Menu', () => {
       <TestWrapper
         path="/account/:accountId"
         pathParams={{ accountId: '123' }}
-        defaultAppStoreValues={{ featureFlags, currentUserInfo: currentUser }}
+        defaultAppStoreValues={{ currentUserInfo: currentUser }}
       >
         <AccountSetupMenu />
       </TestWrapper>

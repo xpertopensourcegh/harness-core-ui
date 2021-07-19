@@ -19,6 +19,7 @@ import type { Project } from 'services/cd-ng'
 import { StringsContext } from 'framework/strings'
 
 import './testUtils.scss'
+import { PermissionsContext } from 'framework/rbac/PermissionsContext'
 
 export type UseGetMockData<TData, TError = undefined, TQueryParams = undefined, TPathParams = undefined> = Required<
   UseGetProps<TData, TError, TQueryParams, TPathParams>
@@ -126,22 +127,31 @@ export const TestWrapper: React.FC<TestWrapperProps> = props => {
             ...defaultLicenseStoreValues
           }}
         >
-          <Router history={history}>
-            <ModalProvider>
-              <RestfulProvider base="/">
-                <BrowserView enable={props.enableBrowserView}>
-                  <Switch>
-                    <Route exact path={path}>
-                      {props.children}
-                    </Route>
-                    <Route>
-                      <CurrentLocation />
-                    </Route>
-                  </Switch>
-                </BrowserView>
-              </RestfulProvider>
-            </ModalProvider>
-          </Router>
+          <PermissionsContext.Provider
+            value={{
+              permissions: new Map<string, boolean>(),
+              requestPermission: () => void 0,
+              checkPermission: () => true,
+              cancelRequest: () => void 0
+            }}
+          >
+            <Router history={history}>
+              <ModalProvider>
+                <RestfulProvider base="/">
+                  <BrowserView enable={props.enableBrowserView}>
+                    <Switch>
+                      <Route exact path={path}>
+                        {props.children}
+                      </Route>
+                      <Route>
+                        <CurrentLocation />
+                      </Route>
+                    </Switch>
+                  </BrowserView>
+                </RestfulProvider>
+              </ModalProvider>
+            </Router>
+          </PermissionsContext.Provider>
         </LicenseStoreContext.Provider>
       </AppStoreContext.Provider>
     </StringsContext.Provider>
