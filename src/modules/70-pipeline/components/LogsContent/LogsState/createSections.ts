@@ -129,7 +129,7 @@ export function createSections(state: State, action: Action<ActionType.CreateSec
     unitToOpen = logKeys[0]
   }
 
-  if (unitToOpen) {
+  if (unitToOpen && !dataMap[unitToOpen].manuallyToggled) {
     // if we are opening a section the set it to loading
     if (dataMap[unitToOpen].status !== 'QUEUED' && !dataMap[unitToOpen].data.length) {
       set(dataMap[unitToOpen], 'status', 'LOADING')
