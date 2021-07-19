@@ -20591,7 +20591,9 @@ export const getUsersInUserGroupPromise = (
   >('POST', getConfig('ng/api'), `/user-groups/${identifier}/users`, props, signal)
 
 export interface LinkToSamlGroupQueryParams {
-  accountId?: string
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
 }
 
 export interface LinkToSamlGroupPathParams {
@@ -20684,8 +20686,10 @@ export const linkToSamlGroupPromise = (
   >('PUT', getConfig('ng/api'), `/user-groups/${userGroupId}/link/saml/${samlId}`, props, signal)
 
 export interface UnlinkSsoGroupQueryParams {
-  accountId?: string
   retainMembers?: boolean
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
 }
 
 export interface UnlinkSsoGroupPathParams {

@@ -46,7 +46,7 @@ const getSelectPlaceholder = (
 
 const LinkToSSOProviderForm: React.FC<LinkToSSOProviderModalData> = props => {
   const { onSubmit, userGroupData } = props
-  const { accountId } = useParams<ProjectPathProps>()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   const { showSuccess } = useToaster()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
@@ -70,7 +70,9 @@ const LinkToSSOProviderForm: React.FC<LinkToSSOProviderModalData> = props => {
     userGroupId: userGroupData.identifier,
     samlId: selectedSso?.value as string,
     queryParams: {
-      accountId
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier
     }
   })
 

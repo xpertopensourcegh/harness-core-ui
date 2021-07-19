@@ -30,7 +30,7 @@ export interface UnlinkSSOProviderFormData {
 
 const UnlinkSSOProviderForm: React.FC<UnlinkSSOProviderModalData> = props => {
   const { onSubmit, userGroupData } = props
-  const { accountId } = useParams<ProjectPathProps>()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   const { showSuccess } = useToaster()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
@@ -39,7 +39,9 @@ const UnlinkSSOProviderForm: React.FC<UnlinkSSOProviderModalData> = props => {
   const { mutate: unlinkSsoGroup, loading } = useUnlinkSsoGroup({
     userGroupId: userGroupData.identifier,
     queryParams: {
-      accountId,
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
       retainMembers: retainMembers
     }
   })
