@@ -1007,6 +1007,7 @@ export interface Error {
     | 'CONNECTOR_VALIDATION_EXCEPTION'
     | 'TIMESCALE_NOT_AVAILABLE'
     | 'MIGRATION_EXCEPTION'
+    | 'REQUEST_PROCESSING_INTERRUPTED'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -1301,6 +1302,7 @@ export interface Failure {
     | 'CONNECTOR_VALIDATION_EXCEPTION'
     | 'TIMESCALE_NOT_AVAILABLE'
     | 'MIGRATION_EXCEPTION'
+    | 'REQUEST_PROCESSING_INTERRUPTED'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -1569,7 +1571,7 @@ export interface Histogram {
 }
 
 export interface HistoricalTrend {
-  healthScores?: number[]
+  healthScores?: RiskData[]
 }
 
 export interface HostData {
@@ -2623,6 +2625,7 @@ export interface ResponseMessage {
     | 'CONNECTOR_VALIDATION_EXCEPTION'
     | 'TIMESCALE_NOT_AVAILABLE'
     | 'MIGRATION_EXCEPTION'
+    | 'REQUEST_PROCESSING_INTERRUPTED'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -3275,6 +3278,11 @@ export interface ResultSummary {
   testClusterSummaries?: ClusterSummary[]
 }
 
+export interface RiskData {
+  riskStatus?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  riskValue?: number
+}
+
 export interface RiskNotify {
   threshold?: number
 }
@@ -3583,6 +3591,14 @@ export interface TransactionMetricHostData {
 
 export interface TransactionMetricInfo {
   connectorName?: string
+  dataSourceType?:
+    | 'APP_DYNAMICS'
+    | 'SPLUNK'
+    | 'STACKDRIVER'
+    | 'STACKDRIVER_LOG'
+    | 'KUBERNETES'
+    | 'NEW_RELIC'
+    | 'PROMETHEUS'
   nodes?: HostData[]
   transactionMetric?: TransactionMetric
 }

@@ -48,21 +48,30 @@ describe('Monitored Service list', () => {
                   identifier: 'delete_me_test',
                   serviceRef: 'AppDService',
                   environmentRef: 'new_env_test',
-                  type: 'Application'
+                  type: 'Application',
+                  historicalTrend: {
+                    healthScores: [{ riskStatus: 'NO_DATA', riskValue: -2 }]
+                  }
                 },
                 {
                   name: 'Monitoring service 102 new',
                   identifier: 'Monitoring_service_101',
                   serviceRef: 'AppDService101',
                   environmentRef: 'AppDTestEnv1',
-                  type: 'Application'
+                  type: 'Application',
+                  historicalTrend: {
+                    healthScores: [{ riskStatus: 'NO_DATA', riskValue: -2 }]
+                  }
                 },
                 {
                   name: 'new monitored service 101',
                   identifier: 'dadadasd',
                   serviceRef: 'test_service',
                   environmentRef: 'AppDTestEnv2',
-                  type: 'Application'
+                  type: 'Application',
+                  historicalTrend: {
+                    healthScores: [{ riskStatus: 'NO_DATA', riskValue: -2 }]
+                  }
                 }
               ],
               pageIndex: 0,
@@ -82,7 +91,6 @@ describe('Monitored Service list', () => {
       </TestWrapper>
     )
     await waitFor(() => expect(container.querySelectorAll('[role="row"]').length).toEqual(4))
-    expect(container).toMatchSnapshot()
   })
 
   test('edit flow works correctly', async () => {

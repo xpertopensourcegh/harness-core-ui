@@ -21,7 +21,12 @@ import {
 } from 'services/cv'
 import ContextMenuActions from '@cv/components/ContextMenuActions/ContextMenuActions'
 import { MonitoringServicesHeader } from './commonStyledComponents'
-import { getFilterAndEnvironmentValue } from './CVMonitoringServicesPage.util'
+import {
+  RenderHealthTrend,
+  RenderHealthScore,
+  RenderTags,
+  getFilterAndEnvironmentValue
+} from './CVMonitoringServicesPage.utils'
 import ToggleMonitoring from './component/toggleMonitoring/ToggleMonitoring'
 
 const ServiceCount = styled(Text)`
@@ -34,14 +39,6 @@ const PageBody = styled(Page.Body)`
 
   div[role='row'] {
     margin-top: var(--spacing-large);
-  }
-
-  div[role='columnheader']:not(:first-of-type) {
-    text-align: center;
-  }
-
-  div[role='cell']:not(:first-of-type) {
-    text-align: right;
   }
 `
 
@@ -100,7 +97,7 @@ function CVMonitoringServicesPage(): JSX.Element {
   }
   const { content = [], pageSize = 0, pageIndex = 0, totalPages = 0, totalItems = 0 } = data?.data ?? ({} as any)
   const RenderEditDelete: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ row }) => {
-    const rowdata = row.original
+    const rowdata = row?.original
     return (
       <Layout.Horizontal flex={{ justifyContent: 'space-between' }}>
         <ToggleMonitoring identifier={rowdata?.identifier as string} enable={!!rowdata?.healthMonitoringEnabled} />
@@ -124,7 +121,7 @@ function CVMonitoringServicesPage(): JSX.Element {
   }
 
   const RenderServiceName: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ row }) => {
-    const rowData = row.original
+    const rowData = row?.original
     return (
       <Layout.Vertical>
         <Text color={Color.PRIMARY_7} font={{ align: 'left', size: 'normal' }}>
@@ -236,12 +233,24 @@ function CVMonitoringServicesPage(): JSX.Element {
             columns={[
               {
                 Header: getString('cv.monitoredServices.table.serviceName'),
-                width: '20%',
+                width: '30%',
                 Cell: RenderServiceName
               },
-              { Header: getString('cv.monitoredServices.table.lastestHealthTrend'), width: '30%' },
-              { Header: getString('cv.monitoredServices.table.serviceHealthScore'), width: '10%' },
-              { Header: getString('tagLabel'), width: '20%' },
+              {
+                Header: getString('cv.monitoredServices.table.lastestHealthTrend'),
+                width: '20%',
+                Cell: RenderHealthTrend
+              },
+              {
+                Header: getString('cv.monitoredServices.table.serviceHealthScore'),
+                width: '20%',
+                Cell: RenderHealthScore
+              },
+              {
+                Header: getString('tagLabel'),
+                width: '10%',
+                Cell: RenderTags
+              },
               {
                 Header: getString('cv.monitoredServices.table.healthMonitoring'),
                 width: '20%',
