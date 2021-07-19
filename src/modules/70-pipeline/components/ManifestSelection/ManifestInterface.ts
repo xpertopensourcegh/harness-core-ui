@@ -45,7 +45,7 @@ export interface ManifestListViewProps {
 export interface ManifestStepInitData {
   connectorRef: string | undefined | ConnectorSelectedValue
   store: ConnectorInfoDTO['type'] | string
-  selectedManifest: ManifestTypes
+  selectedManifest: ManifestTypes | null
 }
 export interface ManifestDetailDataType {
   identifier: string
@@ -63,7 +63,7 @@ export interface ManifestLastStepProps {
   stepName: string
   initialValues: ManifestConfig
   handleSubmit: (data: ManifestConfigWrapper) => void
-  selectedManifest: ManifestTypes
+  selectedManifest: ManifestTypes | null
   manifestIdsList: Array<string>
   isReadonly?: boolean
 }

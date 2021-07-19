@@ -39,7 +39,7 @@ export enum TagTypes {
   Regex = 'regex'
 }
 export interface InitialArtifactDataType {
-  submittedArtifact?: ArtifactType
+  submittedArtifact?: ArtifactType | null
   connectorId: string | undefined | ConnectorSelectedValue
 }
 export interface ImagePathTypes {

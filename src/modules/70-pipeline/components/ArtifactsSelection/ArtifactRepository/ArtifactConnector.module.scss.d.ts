@@ -23,5 +23,6 @@ declare const styles: {
   readonly squareCardContainer: string
   readonly artifactIcon: string
   readonly tagInputButton: string
+  readonly thumbnailSelect: string
 }
 export default styles

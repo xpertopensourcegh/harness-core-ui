@@ -1451,6 +1451,7 @@ export interface StringsMap {
   'pipeline.approvalStep.validation.minimumCountRequired': string
   'pipeline.approvalStep.validation.userGroups': string
   'pipeline.artifactsSelection.artifactDetails': string
+  'pipeline.artifactsSelection.artifactTyperequired': string
   'pipeline.artifactsSelection.existingDocker.enterTagRegex': string
   'pipeline.artifactsSelection.existingDocker.imageNamePlaceholder': string
   'pipeline.artifactsSelection.existingDocker.sidecarId': string
@@ -1736,6 +1737,7 @@ export interface StringsMap {
   'pipeline.manifestType.manifestPlaceholder': string
   'pipeline.manifestType.manifestRepoType': string
   'pipeline.manifestType.manifestSource': string
+  'pipeline.manifestType.manifestTyperequired': string
   'pipeline.manifestType.osTemplatePath': string
   'pipeline.manifestType.osTemplatePathPlaceHolder': string
   'pipeline.manifestType.osTemplatePathRequired': string

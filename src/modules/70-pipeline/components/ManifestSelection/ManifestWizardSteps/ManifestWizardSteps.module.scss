@@ -15,6 +15,7 @@
   position: relative;
   div[class*='OverlaySpinner'] {
     height: 100%;
+    margin-top: 0 !important;
   }
   :global(.bp3-collapse-body > div) {
     background-color: var(--white) !important;
@@ -190,4 +191,8 @@
 .folderRunTimeInput {
   display: flex;
   width: 700px;
+}
+
+.thumbnailSelect {
+  cursor: pointer;
 }

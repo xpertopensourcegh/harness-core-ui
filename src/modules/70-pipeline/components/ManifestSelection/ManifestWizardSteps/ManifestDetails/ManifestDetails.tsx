@@ -44,7 +44,7 @@ interface ManifestDetailsPropType {
   stepName: string
   expressions: string[]
   initialValues: ManifestConfig
-  selectedManifest: ManifestTypes
+  selectedManifest: ManifestTypes | null
   handleSubmit: (data: ManifestConfigWrapper) => void
   manifestIdsList: Array<string>
   isReadonly?: boolean
@@ -179,7 +179,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
     const manifestObj: ManifestConfigWrapper = {
       manifest: {
         identifier: formData.identifier,
-        type: selectedManifest,
+        type: selectedManifest as ManifestTypes,
         spec: {
           store: {
             type: formData?.store,

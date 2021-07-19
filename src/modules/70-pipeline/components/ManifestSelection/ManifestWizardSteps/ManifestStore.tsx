@@ -1,6 +1,5 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
-import cx from 'classnames'
 import {
   Layout,
   Button,
@@ -8,11 +7,11 @@ import {
   Formik,
   Color,
   StepProps,
-  Card,
-  Icon,
   Heading,
   getMultiTypeFromValue,
-  MultiTypeInputType
+  MultiTypeInputType,
+  ThumbnailSelect,
+  IconName
 } from '@wings-software/uicore'
 import { Form } from 'formik'
 import * as Yup from 'yup'
@@ -78,17 +77,12 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
     nextStep?.({ ...formData, store: selectedManifest })
   }
   const handleOptionSelection = (selected: ManifestStores): void => {
-    if (selected === selectedManifest) {
-      setSelectedManifest('')
-      handleStoreChange('' as ManifestStores)
-    } else {
-      setSelectedManifest(selected)
-      handleStoreChange(selected)
-    }
+    setSelectedManifest(selected)
+    handleStoreChange(selected)
   }
 
   const getInitialValues = useCallback((): ManifestStepInitData => {
-    const initValues = { ...initialValues }
+    const initValues = { ...initialValues, manifestStore: selectedManifest }
 
     if (prevStepData?.connectorRef) {
       initValues.connectorRef = prevStepData?.connectorRef
@@ -99,40 +93,23 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
     }
     return initValues
   }, [selectedManifest])
+
+  const supportedManifestStores = useMemo(
+    () =>
+      manifestStoreTypes.map(store => ({
+        label: getString(ManifestStoreTitle[store]),
+        icon: ManifestIconByType[store] as IconName,
+        value: store
+      })),
+    [manifestStoreTypes]
+  )
+
   return (
     <Layout.Vertical spacing="xxlarge" padding="small" className={css.manifestStore}>
       <Heading level={2} style={{ color: Color.GREY_800, fontSize: 24 }} margin={{ bottom: 'large' }}>
         {stepName}
       </Heading>
 
-      <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-        {manifestStoreTypes.map(store => (
-          <div key={store} className={css.squareCardContainer}>
-            <Card
-              disabled={selectedManifest !== '' && selectedManifest !== store}
-              interactive={true}
-              selected={store === selectedManifest}
-              cornerSelected={store === selectedManifest}
-              className={cx({ [css.disabled]: selectedManifest !== '' && selectedManifest !== store }, css.squareCard)}
-              onClick={() => {
-                if (selectedManifest === '' || selectedManifest === store) {
-                  handleOptionSelection(store)
-                }
-              }}
-            >
-              <Icon name={ManifestIconByType[store]} size={26} />
-            </Card>
-            <Text
-              className={css.sqaureCardTitle}
-              style={{
-                color: selectedManifest !== '' && selectedManifest !== store ? 'var(--grey-350)' : 'var(--grey-900)'
-              }}
-            >
-              {getString(ManifestStoreTitle[store])}
-            </Text>
-          </div>
-        ))}
-      </Layout.Horizontal>
       <Formik
         initialValues={getInitialValues()}
         formName="manifestStore"
@@ -152,12 +129,21 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
       >
         {formik => (
           <Form>
+            <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}>
+              <ThumbnailSelect
+                className={css.thumbnailSelect}
+                name={'manifestStore'}
+                items={supportedManifestStores}
+                isReadonly={isReadonly}
+                onChange={handleOptionSelection}
+              />
+            </Layout.Horizontal>
+
             <div className={css.formContainerStepOne}>
               {selectedManifest !== '' ? (
                 <div className={css.connectorContainer}>
                   <FormMultiTypeConnectorField
                     name="connectorRef"
-                    disabled={selectedManifest === ''}
                     label={
                       <Text style={{ marginBottom: '5px' }}>
                         {`${getString(ManifestToConnectorLabelMap[selectedManifest as ManifestStores])} ${getString(

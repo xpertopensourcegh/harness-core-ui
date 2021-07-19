@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Artifact ConnectorRefSteps tests last step data without initial values 1`] = `
+exports[`Artifact WizardStep tests last step data without initial values 1`] = `
 <div>
   <div
     class="StepWizard--main existingDocker StepWizard--navBar"
@@ -101,299 +101,169 @@ exports[`Artifact ConnectorRefSteps tests last step data without initial values 
           first step
         </h2>
         <div
-          class="headerContainer"
+          class="OverlaySpinner--overlaySpinner"
         >
-          <div
-            class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
-          >
+          <form>
             <div
-              class="squareCardContainer"
+              class="headerContainer"
             >
               <div
-                class="bp3-card bp3-elevation-0 Card--card artifactIcon Card--selected"
+                class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
               >
-                <span
-                  class="bp3-icon StyledProps--main"
-                  data-icon="service-dockerhub"
-                  style="height: 26px;"
+                <div
+                  class="bp3-form-group thumbnailSelect"
                 >
-                  <svg
-                    height="26"
-                    viewBox="0 0 14 10"
-                    width="26"
-                    xmlns="http://www.w3.org/2000/svg"
+                  <div
+                    class="bp3-form-content"
                   >
-                    <path
-                      d="M5.8 3.3h1.3v1.3H5.8zM7.2 3.3h1.3v1.3H7.2zM4.3 3.3h1.3v1.3H4.3zM2.9 3.3h1.3v1.3H2.9zM1.4 3.3h1.3v1.3H1.4zM5.8 1.9h1.3v1.3H5.8zM5.8.4h1.3v1.3H5.8zM4.3 1.9h1.3v1.3H4.3zM2.9 1.9h1.3v1.3H2.9z"
-                    />
-                    <path
-                      d="M.8 7.7c-.1-.2-.2-.3-.3-.4l-.1-.2c0-.1-.1-.2-.1-.4v-.2C.1 6.1 0 5.7 0 5.2v-.4h9.5c.7 0 1.4-.2 1.7-.5-.2-.2-.4-.6-.4-1 0-.5.1-1 .3-1.3l.1-.1.1.1c.3.2.9.8.9 1.6.3-.1.5-.1.8-.1.4 0 .7.1.9.2h.1v.1c-.3.6-1 .9-1.8.9h-.3c-1.2 3-3.7 4.6-7.3 4.6-.6 0-1.2-.1-1.8-.3-.7-.2-1.3-.6-1.8-1.1zm4.4 1.4c-.9-.4-1.3-.9-1.6-1.5-.4.1-.7.1-1.2.2H1.2C2 8.6 3 9.1 4.8 9.1zm-1-2.4c-.2 0-.3.2-.3.3 0 .2.2.3.3.3.2 0 .3-.2.3-.3s-.1-.3-.3-.3z"
-                    />
-                    <path
-                      d="M4.2 6.8s.1 0 0 0c.1 0 .1.1 0 0 .1.2.1.2.2.2 0 0 .1 0 .1-.1V7c0 .1-.1.3-.3.3S4 7.2 4 7c0-.1.1-.2.2-.2"
-                    />
-                  </svg>
-                </span>
-              </div>
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100"
-                style="font-size: 12px; text-align: center;"
-              >
-                dockerRegistry
-              </p>
-            </div>
-            <div
-              class="squareCardContainer"
-            >
-              <div
-                class="bp3-card bp3-elevation-0 Card--card artifactIcon"
-              >
-                <span
-                  class="bp3-icon StyledProps--main"
-                  data-icon="service-gcp"
-                  style="height: 26px;"
-                >
-                  <svg
-                    height="26"
-                    viewBox="0 0 14 12"
-                    width="26"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <mask
-                      height="8.5"
-                      id="service-gcp_svg__a"
-                      maskUnits="userSpaceOnUse"
-                      width="9.1"
-                      x="0"
-                      y="0"
+                    <div
+                      class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
                     >
-                      <path
-                        d="M0 0h9.1v8.5H0z"
-                        fill="#fff"
-                      />
-                    </mask>
-                    <path
-                      d="M4.5 11L2 6.5 4.5 2h5L12 6.5 9.5 11z"
-                      fill="#cac9c2"
-                    />
-                    <path
-                      d="M7 7.8C5.9 7.8 5.1 7 5.1 6S5.9 4.1 7 4.1c1 0 1.9.9 1.9 1.9S8 7.8 7 7.8"
-                      fill="#fff"
-                    />
-                    <path
-                      d="M10.8.5c-.1-.3-.5-.5-.8-.5H4c-.3 0-.7.2-.9.5L1.4 3.4c0 .2 0 .4.1.5l1.2 2 2.1-3.6h6.8c.2 0 .3.1.5.2z"
-                      fill="#5072aa"
-                    />
-                    <path
-                      d="M1.4 3.3v.1c0 .2 0 .4.1.5l1.2 2 .6-1.1z"
-                      fill="#4d6796"
-                    />
-                    <path
-                      d="M4.1 1.5c-.2 0-.4-.2-.4-.4s.2-.4.4-.4.4.2.4.4c0 .3-.2.4-.4.4M10.2 1.2c0 .2-.2.3-.3.3s-.4-.1-.4-.3.2-.3.3-.3.4.1.4.3"
-                      fill="#fff"
-                    />
-                    <path
-                      d="M13.9 5.5l-1.8-3c-.2-.1-.3-.2-.5-.2H9.1L11.2 6l-3.3 5.7-.3.3H10c.3 0 .7-.2.8-.5l3-5c.2-.3.2-.7.1-1"
-                      fill="#cc4232"
-                    />
-                    <path
-                      d="M12.2 2.7l-.1-.1c-.2-.1-.3-.2-.5-.2H9.1l.6 1.1z"
-                      fill="#b23f33"
-                    />
-                    <path
-                      d="M9.8 11.1c-.2 0-.4-.2-.4-.4s.2-.4.4-.4.4.2.4.4-.2.4-.4.4M12.7 6.3c-.2 0-.4-.2-.4-.4s.2-.4.4-.4.4.2.4.4c0 .3-.2.4-.4.4"
-                      fill="#fff"
-                    />
-                    <path
-                      d="M4.9 6.1L1.5.5C1.4.4 1.4.2 1.4 0L.1 2.1c-.1.3-.1.7 0 .9l3 5c.2.3.6.5.9.5h3.6c.1-.1.3-.2.3-.3l1.2-2.1z"
-                      fill="#ecb02a"
-                      mask="url(#service-gcp_svg__a)"
-                      transform="translate(0 3.421)"
-                    />
-                    <path
-                      d="M7.4 11.9h.2c.1-.1.3-.2.3-.3l1.2-2.1H7.8z"
-                      fill="#c79732"
-                    />
-                    <g
-                      fill="#fff"
-                    >
-                      <path
-                        d="M4.1 11.1c-.2 0-.4-.2-.4-.4s.2-.4.4-.4.4.2.4.4-.2.4-.4.4M1.2 6.3C1 6.3.9 6.2.9 6s.2-.4.4-.4.4.2.4.4c-.1.2-.3.3-.5.3"
-                      />
-                    </g>
-                  </svg>
-                </span>
-              </div>
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100"
-                style="font-size: 12px; text-align: center;"
-              >
-                connectors.GCR.name
-              </p>
-            </div>
-            <div
-              class="squareCardContainer"
-            >
-              <div
-                class="bp3-card bp3-elevation-0 Card--card artifactIcon"
-              >
-                <span
-                  class="bp3-icon StyledProps--main"
-                  data-icon="ecr-step"
-                  style="height: 26px;"
-                >
-                  <svg
-                    fill="#fff"
-                    fill-rule="evenodd"
-                    height="26"
-                    stroke="#000"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    viewBox="0 0 85 85"
-                    width="26"
-                    xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                  >
-                    <style>
-                      .ecr-step_svg__B{stroke:none}.ecr-step_svg__C{fill:#f58536}
-                    </style>
-                    <use
-                      x="2.5"
-                      xlink:href="#ecr-step_svg__A"
-                      y="2.5"
-                    />
-                    <symbol
-                      id="ecr-step_svg__A"
-                      overflow="visible"
-                    >
-                      <g
-                        class="ecr-step_svg__B"
-                        fill="#9d5025"
+                      <label
+                        class="Thumbnail--squareCardContainer"
                       >
-                        <path
-                          d="M0 41.579C0 20.293 17.84 3.157 40 3.157s40 17.136 40 38.422S62.16 80 40 80 0 62.864 0 41.579z"
+                        <div
+                          class="bp3-card bp3-elevation-0 Card--card Thumbnail--squareCard Card--selected"
+                        >
+                          <span
+                            class="Card--corner"
+                          >
+                            <span
+                              class="Card--badge"
+                            />
+                            <span
+                              class="bp3-icon bp3-icon-tick StyledProps--main StyledProps--color StyledProps--color-white"
+                              icon="tick"
+                            >
+                              <svg
+                                data-icon="tick"
+                                height="9"
+                                viewBox="0 0 16 16"
+                                width="9"
+                              >
+                                <desc>
+                                  tick
+                                </desc>
+                                <path
+                                  d="M14 3c-.28 0-.53.11-.71.29L6 10.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l8-8A1.003 1.003 0 0014 3z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                          <span
+                            class="bp3-icon StyledProps--main"
+                            data-icon="service-dockerhub"
+                          >
+                            <svg
+                              height="26"
+                              viewBox="0 0 14 10"
+                              width="26"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M5.8 3.3h1.3v1.3H5.8zM7.2 3.3h1.3v1.3H7.2zM4.3 3.3h1.3v1.3H4.3zM2.9 3.3h1.3v1.3H2.9zM1.4 3.3h1.3v1.3H1.4zM5.8 1.9h1.3v1.3H5.8zM5.8.4h1.3v1.3H5.8zM4.3 1.9h1.3v1.3H4.3zM2.9 1.9h1.3v1.3H2.9z"
+                              />
+                              <path
+                                d="M.8 7.7c-.1-.2-.2-.3-.3-.4l-.1-.2c0-.1-.1-.2-.1-.4v-.2C.1 6.1 0 5.7 0 5.2v-.4h9.5c.7 0 1.4-.2 1.7-.5-.2-.2-.4-.6-.4-1 0-.5.1-1 .3-1.3l.1-.1.1.1c.3.2.9.8.9 1.6.3-.1.5-.1.8-.1.4 0 .7.1.9.2h.1v.1c-.3.6-1 .9-1.8.9h-.3c-1.2 3-3.7 4.6-7.3 4.6-.6 0-1.2-.1-1.8-.3-.7-.2-1.3-.6-1.8-1.1zm4.4 1.4c-.9-.4-1.3-.9-1.6-1.5-.4.1-.7.1-1.2.2H1.2C2 8.6 3 9.1 4.8 9.1zm-1-2.4c-.2 0-.3.2-.3.3 0 .2.2.3.3.3.2 0 .3-.2.3-.3s-.1-.3-.3-.3z"
+                              />
+                              <path
+                                d="M4.2 6.8s.1 0 0 0c.1 0 .1.1 0 0 .1.2.1.2.2.2 0 0 .1 0 .1-.1V7c0 .1-.1.3-.3.3S4 7.2 4 7c0-.1.1-.2.2-.2"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey600"
+                          style="text-align: center;"
+                        >
+                          dockerRegistry
+                        </p>
+                        <input
+                          checked=""
+                          name="artifactType"
+                          type="checkbox"
+                          value="DockerRegistry"
                         />
-                        <path
-                          d="M0 38.422h80v3.157H0z"
-                        />
-                      </g>
-                      <path
-                        class="ecr-step_svg__B ecr-step_svg__C"
-                        d="M0 38.422C0 17.136 17.84 0 40 0s40 17.136 40 38.422-17.84 38.422-40 38.422S0 59.707 0 38.422z"
-                      />
-                      <path
-                        class="ecr-step_svg__B"
-                        d="M42.589 34.255h-5.166L34.65 11.364h10.713l-2.774 22.891z"
-                      />
-                      <path
-                        class="ecr-step_svg__B"
-                        d="M63.135 51.111l2.064-1.641-7.48-10.732-16.379-5.492L40 41.932l14.762 1.326 8.373 7.853zm-46.27 0l-2.051-1.641 7.466-10.732 16.379-5.492L40 41.932l-14.762 1.326-8.373 7.853zm15.708-39.747c0-3.952 3.312-7.134 7.427-7.134s7.427 3.182 7.427 7.134-3.312 7.134-7.427 7.134-7.427-3.182-7.427-7.134z"
-                      />
-                      <path
-                        class="ecr-step_svg__B ecr-step_svg__C"
-                        d="M40 19.129c-4.465 0-8.084-3.477-8.084-7.765S35.535 3.599 40 3.599s8.084 3.476 8.084 7.765c-.007 4.286-3.622 7.758-8.084 7.765zm0-14.268c3.739 0 6.77 2.911 6.77 6.503s-3.031 6.502-6.77 6.502-6.77-2.911-6.77-6.502S36.261 4.862 40 4.862h0zm-2.432 6.503c0-1.294 1.085-2.336 2.432-2.336s2.432 1.042 2.432 2.336S41.347 13.7 40 13.7s-2.432-1.042-2.432-2.336z"
-                      />
-                      <path
-                        class="ecr-step_svg__B"
-                        d="M34.65 37.5c0-2.847 2.386-5.139 5.35-5.139s5.35 2.292 5.35 5.139-2.386 5.139-5.35 5.139-5.35-2.292-5.35-5.139z"
-                      />
-                      <path
-                        class="ecr-step_svg__B ecr-step_svg__C"
-                        d="M40 43.27c-3.312-.007-5.994-2.588-5.994-5.77s2.682-5.763 5.994-5.77 6.006 2.563 6.02 5.745c.004 1.536-.629 3.01-1.759 4.097S41.599 43.27 40 43.27zm0-10.29c2.592-.007 4.699 2.005 4.706 4.495s-2.088 4.513-4.679 4.52-4.699-2.005-4.706-4.495 2.088-4.513 4.679-4.52zm-1.643 4.52c0-.874.733-1.578 1.643-1.578s1.643.704 1.643 1.578-.733 1.578-1.643 1.578-1.643-.704-1.643-1.578z"
-                      />
-                      <path
-                        class="ecr-step_svg__B"
-                        d="M22.741 49.344H57.26v18.321H22.741z"
-                      />
-                      <g
-                        fill="#fbbf93"
+                      </label>
+                      <button
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main ThumbnailSelect--changeButton StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                        data-testid="thumbnail-select-change"
+                        type="button"
                       >
-                        <use
-                          class="ecr-step_svg__B"
-                          xlink:href="#ecr-step_svg__C"
-                        />
-                        <use
-                          class="ecr-step_svg__B"
-                          x="4.732"
-                          xlink:href="#ecr-step_svg__C"
-                        />
-                        <use
-                          class="ecr-step_svg__B"
-                          x="9.477"
-                          xlink:href="#ecr-step_svg__C"
-                        />
-                        <use
-                          class="ecr-step_svg__B"
-                          x="14.21"
-                          xlink:href="#ecr-step_svg__C"
-                        />
-                        <use
-                          class="ecr-step_svg__B"
-                          x="18.942"
-                          xlink:href="#ecr-step_svg__C"
-                        />
-                        <use
-                          class="ecr-step_svg__B"
-                          x="23.687"
-                          xlink:href="#ecr-step_svg__C"
-                        />
-                        <use
-                          class="ecr-step_svg__B"
-                          x="28.419"
-                          xlink:href="#ecr-step_svg__C"
-                        />
-                      </g>
-                    </symbol>
-                    <defs>
-                      <path
-                        d="M24.476 50.821h2.629v15.366h-2.629z"
-                        id="ecr-step_svg__C"
-                      />
-                    </defs>
+                        <span
+                          class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey450"
+                          data-icon="Edit"
+                        >
+                          <svg
+                            height="10"
+                            viewBox="0 0 12 12"
+                            width="10"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <g
+                              fill="none"
+                              fill-rule="evenodd"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <path
+                                d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                                stroke="#555770"
+                              />
+                              <path
+                                d="M6.583 5.146l2.063-2.063"
+                                opacity="0.3"
+                                stroke="#606170"
+                              />
+                            </g>
+                          </svg>
+                        </span>
+                        <span
+                          class="bp3-button-text"
+                        >
+                          Change
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main"
+            >
+              <button
+                class="bp3-button Button--button StyledProps--font StyledProps--main saveBtn StyledProps--intent-primary Button--with-current-color"
+                type="submit"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  continue
+                </span>
+                <span
+                  class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                  icon="chevron-right"
+                >
+                  <svg
+                    data-icon="chevron-right"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      chevron-right
+                    </desc>
+                    <path
+                      d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                      fill-rule="evenodd"
+                    />
                   </svg>
                 </span>
-              </div>
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100"
-                style="font-size: 12px; text-align: center;"
-              >
-                connectors.ECR.name
-              </p>
+              </button>
             </div>
-          </div>
-        </div>
-        <div
-          class="Layout--horizontal StyledProps--main"
-        >
-          <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main saveBtn StyledProps--intent-primary Button--with-current-color"
-            type="submit"
-          >
-            <span
-              class="bp3-button-text"
-            >
-              continue
-            </span>
-            <span
-              class="bp3-icon bp3-icon-chevron-right StyledProps--main"
-              icon="chevron-right"
-            >
-              <svg
-                data-icon="chevron-right"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-              >
-                <desc>
-                  chevron-right
-                </desc>
-                <path
-                  d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
+          </form>
         </div>
       </div>
     </div>
@@ -401,7 +271,7 @@ exports[`Artifact ConnectorRefSteps tests last step data without initial values 
 </div>
 `;
 
-exports[`Artifact ConnectorRefSteps tests new connector view works correctly 1`] = `
+exports[`Artifact WizardStep tests new connector view works correctly 1`] = `
 <div>
   <div
     class="StepWizard--main existingDocker StepWizard--navBar"
@@ -708,7 +578,7 @@ exports[`Artifact ConnectorRefSteps tests new connector view works correctly 1`]
 </div>
 `;
 
-exports[`Artifact ConnectorRefSteps tests renders correctly with connector Data 1`] = `
+exports[`Artifact WizardStep tests renders correctly with connector Data 1`] = `
 <div>
   <div
     class="StepWizard--main existingDocker StepWizard--navBar"
@@ -794,44 +664,102 @@ exports[`Artifact ConnectorRefSteps tests renders correctly with connector Data 
           first step
         </h2>
         <div
-          class="headerContainer"
+          class="OverlaySpinner--overlaySpinner"
         >
-          <div
-            class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
-          />
-        </div>
-        <div
-          class="Layout--horizontal StyledProps--main"
-        >
-          <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main saveBtn StyledProps--intent-primary Button--with-current-color"
-            type="submit"
-          >
-            <span
-              class="bp3-button-text"
+          <form>
+            <div
+              class="headerContainer"
             >
-              continue
-            </span>
-            <span
-              class="bp3-icon bp3-icon-chevron-right StyledProps--main"
-              icon="chevron-right"
-            >
-              <svg
-                data-icon="chevron-right"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
+              <div
+                class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
               >
-                <desc>
-                  chevron-right
-                </desc>
-                <path
-                  d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
+                <div
+                  class="bp3-form-group thumbnailSelect"
+                >
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <div
+                      class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+                    >
+                      <button
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main ThumbnailSelect--changeButton StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                        data-testid="thumbnail-select-change"
+                        type="button"
+                      >
+                        <span
+                          class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey450"
+                          data-icon="Edit"
+                        >
+                          <svg
+                            height="10"
+                            viewBox="0 0 12 12"
+                            width="10"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <g
+                              fill="none"
+                              fill-rule="evenodd"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <path
+                                d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                                stroke="#555770"
+                              />
+                              <path
+                                d="M6.583 5.146l2.063-2.063"
+                                opacity="0.3"
+                                stroke="#606170"
+                              />
+                            </g>
+                          </svg>
+                        </span>
+                        <span
+                          class="bp3-button-text"
+                        >
+                          Change
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main"
+            >
+              <button
+                class="bp3-button Button--button StyledProps--font StyledProps--main saveBtn StyledProps--intent-primary Button--with-current-color"
+                type="submit"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  continue
+                </span>
+                <span
+                  class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                  icon="chevron-right"
+                >
+                  <svg
+                    data-icon="chevron-right"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      chevron-right
+                    </desc>
+                    <path
+                      d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
@@ -839,7 +767,7 @@ exports[`Artifact ConnectorRefSteps tests renders correctly with connector Data 
 </div>
 `;
 
-exports[`Artifact ConnectorRefSteps tests renders correctly with differnet artifact types 1`] = `
+exports[`Artifact WizardStep tests renders correctly with differnet artifact types 1`] = `
 <div>
   <div
     class="StepWizard--main existingDocker StepWizard--navBar"
@@ -925,299 +853,222 @@ exports[`Artifact ConnectorRefSteps tests renders correctly with differnet artif
           first step
         </h2>
         <div
-          class="headerContainer"
+          class="OverlaySpinner--overlaySpinner"
         >
-          <div
-            class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
-          >
+          <form>
             <div
-              class="squareCardContainer"
+              class="headerContainer"
             >
               <div
-                class="bp3-card bp3-elevation-0 Card--card artifactIcon"
+                class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
               >
-                <span
-                  class="bp3-icon StyledProps--main"
-                  data-icon="service-dockerhub"
-                  style="height: 26px;"
+                <div
+                  class="bp3-form-group thumbnailSelect"
                 >
-                  <svg
-                    height="26"
-                    viewBox="0 0 14 10"
-                    width="26"
-                    xmlns="http://www.w3.org/2000/svg"
+                  <div
+                    class="bp3-form-content"
                   >
-                    <path
-                      d="M5.8 3.3h1.3v1.3H5.8zM7.2 3.3h1.3v1.3H7.2zM4.3 3.3h1.3v1.3H4.3zM2.9 3.3h1.3v1.3H2.9zM1.4 3.3h1.3v1.3H1.4zM5.8 1.9h1.3v1.3H5.8zM5.8.4h1.3v1.3H5.8zM4.3 1.9h1.3v1.3H4.3zM2.9 1.9h1.3v1.3H2.9z"
-                    />
-                    <path
-                      d="M.8 7.7c-.1-.2-.2-.3-.3-.4l-.1-.2c0-.1-.1-.2-.1-.4v-.2C.1 6.1 0 5.7 0 5.2v-.4h9.5c.7 0 1.4-.2 1.7-.5-.2-.2-.4-.6-.4-1 0-.5.1-1 .3-1.3l.1-.1.1.1c.3.2.9.8.9 1.6.3-.1.5-.1.8-.1.4 0 .7.1.9.2h.1v.1c-.3.6-1 .9-1.8.9h-.3c-1.2 3-3.7 4.6-7.3 4.6-.6 0-1.2-.1-1.8-.3-.7-.2-1.3-.6-1.8-1.1zm4.4 1.4c-.9-.4-1.3-.9-1.6-1.5-.4.1-.7.1-1.2.2H1.2C2 8.6 3 9.1 4.8 9.1zm-1-2.4c-.2 0-.3.2-.3.3 0 .2.2.3.3.3.2 0 .3-.2.3-.3s-.1-.3-.3-.3z"
-                    />
-                    <path
-                      d="M4.2 6.8s.1 0 0 0c.1 0 .1.1 0 0 .1.2.1.2.2.2 0 0 .1 0 .1-.1V7c0 .1-.1.3-.3.3S4 7.2 4 7c0-.1.1-.2.2-.2"
-                    />
-                  </svg>
-                </span>
-              </div>
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100"
-                style="font-size: 12px; text-align: center;"
-              >
-                dockerRegistry
-              </p>
-            </div>
-            <div
-              class="squareCardContainer"
-            >
-              <div
-                class="bp3-card bp3-elevation-0 Card--card artifactIcon Card--selected"
-              >
-                <span
-                  class="bp3-icon StyledProps--main"
-                  data-icon="service-gcp"
-                  style="height: 26px;"
-                >
-                  <svg
-                    height="26"
-                    viewBox="0 0 14 12"
-                    width="26"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <mask
-                      height="8.5"
-                      id="service-gcp_svg__a"
-                      maskUnits="userSpaceOnUse"
-                      width="9.1"
-                      x="0"
-                      y="0"
+                    <div
+                      class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
                     >
-                      <path
-                        d="M0 0h9.1v8.5H0z"
-                        fill="#fff"
-                      />
-                    </mask>
-                    <path
-                      d="M4.5 11L2 6.5 4.5 2h5L12 6.5 9.5 11z"
-                      fill="#cac9c2"
-                    />
-                    <path
-                      d="M7 7.8C5.9 7.8 5.1 7 5.1 6S5.9 4.1 7 4.1c1 0 1.9.9 1.9 1.9S8 7.8 7 7.8"
-                      fill="#fff"
-                    />
-                    <path
-                      d="M10.8.5c-.1-.3-.5-.5-.8-.5H4c-.3 0-.7.2-.9.5L1.4 3.4c0 .2 0 .4.1.5l1.2 2 2.1-3.6h6.8c.2 0 .3.1.5.2z"
-                      fill="#5072aa"
-                    />
-                    <path
-                      d="M1.4 3.3v.1c0 .2 0 .4.1.5l1.2 2 .6-1.1z"
-                      fill="#4d6796"
-                    />
-                    <path
-                      d="M4.1 1.5c-.2 0-.4-.2-.4-.4s.2-.4.4-.4.4.2.4.4c0 .3-.2.4-.4.4M10.2 1.2c0 .2-.2.3-.3.3s-.4-.1-.4-.3.2-.3.3-.3.4.1.4.3"
-                      fill="#fff"
-                    />
-                    <path
-                      d="M13.9 5.5l-1.8-3c-.2-.1-.3-.2-.5-.2H9.1L11.2 6l-3.3 5.7-.3.3H10c.3 0 .7-.2.8-.5l3-5c.2-.3.2-.7.1-1"
-                      fill="#cc4232"
-                    />
-                    <path
-                      d="M12.2 2.7l-.1-.1c-.2-.1-.3-.2-.5-.2H9.1l.6 1.1z"
-                      fill="#b23f33"
-                    />
-                    <path
-                      d="M9.8 11.1c-.2 0-.4-.2-.4-.4s.2-.4.4-.4.4.2.4.4-.2.4-.4.4M12.7 6.3c-.2 0-.4-.2-.4-.4s.2-.4.4-.4.4.2.4.4c0 .3-.2.4-.4.4"
-                      fill="#fff"
-                    />
-                    <path
-                      d="M4.9 6.1L1.5.5C1.4.4 1.4.2 1.4 0L.1 2.1c-.1.3-.1.7 0 .9l3 5c.2.3.6.5.9.5h3.6c.1-.1.3-.2.3-.3l1.2-2.1z"
-                      fill="#ecb02a"
-                      mask="url(#service-gcp_svg__a)"
-                      transform="translate(0 3.421)"
-                    />
-                    <path
-                      d="M7.4 11.9h.2c.1-.1.3-.2.3-.3l1.2-2.1H7.8z"
-                      fill="#c79732"
-                    />
-                    <g
-                      fill="#fff"
-                    >
-                      <path
-                        d="M4.1 11.1c-.2 0-.4-.2-.4-.4s.2-.4.4-.4.4.2.4.4-.2.4-.4.4M1.2 6.3C1 6.3.9 6.2.9 6s.2-.4.4-.4.4.2.4.4c-.1.2-.3.3-.5.3"
-                      />
-                    </g>
-                  </svg>
-                </span>
-              </div>
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100"
-                style="font-size: 12px; text-align: center;"
-              >
-                connectors.GCR.name
-              </p>
-            </div>
-            <div
-              class="squareCardContainer"
-            >
-              <div
-                class="bp3-card bp3-elevation-0 Card--card artifactIcon"
-              >
-                <span
-                  class="bp3-icon StyledProps--main"
-                  data-icon="ecr-step"
-                  style="height: 26px;"
-                >
-                  <svg
-                    fill="#fff"
-                    fill-rule="evenodd"
-                    height="26"
-                    stroke="#000"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    viewBox="0 0 85 85"
-                    width="26"
-                    xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                  >
-                    <style>
-                      .ecr-step_svg__B{stroke:none}.ecr-step_svg__C{fill:#f58536}
-                    </style>
-                    <use
-                      x="2.5"
-                      xlink:href="#ecr-step_svg__A"
-                      y="2.5"
-                    />
-                    <symbol
-                      id="ecr-step_svg__A"
-                      overflow="visible"
-                    >
-                      <g
-                        class="ecr-step_svg__B"
-                        fill="#9d5025"
+                      <label
+                        class="Thumbnail--squareCardContainer"
                       >
-                        <path
-                          d="M0 41.579C0 20.293 17.84 3.157 40 3.157s40 17.136 40 38.422S62.16 80 40 80 0 62.864 0 41.579z"
+                        <div
+                          class="bp3-card bp3-elevation-0 Card--card Thumbnail--squareCard Card--selected"
+                        >
+                          <span
+                            class="Card--corner"
+                          >
+                            <span
+                              class="Card--badge"
+                            />
+                            <span
+                              class="bp3-icon bp3-icon-tick StyledProps--main StyledProps--color StyledProps--color-white"
+                              icon="tick"
+                            >
+                              <svg
+                                data-icon="tick"
+                                height="9"
+                                viewBox="0 0 16 16"
+                                width="9"
+                              >
+                                <desc>
+                                  tick
+                                </desc>
+                                <path
+                                  d="M14 3c-.28 0-.53.11-.71.29L6 10.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l8-8A1.003 1.003 0 0014 3z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                          <span
+                            class="bp3-icon StyledProps--main"
+                            data-icon="service-gcp"
+                          >
+                            <svg
+                              height="26"
+                              viewBox="0 0 14 12"
+                              width="26"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <mask
+                                height="8.5"
+                                id="service-gcp_svg__a"
+                                maskUnits="userSpaceOnUse"
+                                width="9.1"
+                                x="0"
+                                y="0"
+                              >
+                                <path
+                                  d="M0 0h9.1v8.5H0z"
+                                  fill="#fff"
+                                />
+                              </mask>
+                              <path
+                                d="M4.5 11L2 6.5 4.5 2h5L12 6.5 9.5 11z"
+                                fill="#cac9c2"
+                              />
+                              <path
+                                d="M7 7.8C5.9 7.8 5.1 7 5.1 6S5.9 4.1 7 4.1c1 0 1.9.9 1.9 1.9S8 7.8 7 7.8"
+                                fill="#fff"
+                              />
+                              <path
+                                d="M10.8.5c-.1-.3-.5-.5-.8-.5H4c-.3 0-.7.2-.9.5L1.4 3.4c0 .2 0 .4.1.5l1.2 2 2.1-3.6h6.8c.2 0 .3.1.5.2z"
+                                fill="#5072aa"
+                              />
+                              <path
+                                d="M1.4 3.3v.1c0 .2 0 .4.1.5l1.2 2 .6-1.1z"
+                                fill="#4d6796"
+                              />
+                              <path
+                                d="M4.1 1.5c-.2 0-.4-.2-.4-.4s.2-.4.4-.4.4.2.4.4c0 .3-.2.4-.4.4M10.2 1.2c0 .2-.2.3-.3.3s-.4-.1-.4-.3.2-.3.3-.3.4.1.4.3"
+                                fill="#fff"
+                              />
+                              <path
+                                d="M13.9 5.5l-1.8-3c-.2-.1-.3-.2-.5-.2H9.1L11.2 6l-3.3 5.7-.3.3H10c.3 0 .7-.2.8-.5l3-5c.2-.3.2-.7.1-1"
+                                fill="#cc4232"
+                              />
+                              <path
+                                d="M12.2 2.7l-.1-.1c-.2-.1-.3-.2-.5-.2H9.1l.6 1.1z"
+                                fill="#b23f33"
+                              />
+                              <path
+                                d="M9.8 11.1c-.2 0-.4-.2-.4-.4s.2-.4.4-.4.4.2.4.4-.2.4-.4.4M12.7 6.3c-.2 0-.4-.2-.4-.4s.2-.4.4-.4.4.2.4.4c0 .3-.2.4-.4.4"
+                                fill="#fff"
+                              />
+                              <path
+                                d="M4.9 6.1L1.5.5C1.4.4 1.4.2 1.4 0L.1 2.1c-.1.3-.1.7 0 .9l3 5c.2.3.6.5.9.5h3.6c.1-.1.3-.2.3-.3l1.2-2.1z"
+                                fill="#ecb02a"
+                                mask="url(#service-gcp_svg__a)"
+                                transform="translate(0 3.421)"
+                              />
+                              <path
+                                d="M7.4 11.9h.2c.1-.1.3-.2.3-.3l1.2-2.1H7.8z"
+                                fill="#c79732"
+                              />
+                              <g
+                                fill="#fff"
+                              >
+                                <path
+                                  d="M4.1 11.1c-.2 0-.4-.2-.4-.4s.2-.4.4-.4.4.2.4.4-.2.4-.4.4M1.2 6.3C1 6.3.9 6.2.9 6s.2-.4.4-.4.4.2.4.4c-.1.2-.3.3-.5.3"
+                                />
+                              </g>
+                            </svg>
+                          </span>
+                        </div>
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey600"
+                          style="text-align: center;"
+                        >
+                          connectors.GCR.name
+                        </p>
+                        <input
+                          checked=""
+                          name="artifactType"
+                          type="checkbox"
+                          value="Gcr"
                         />
-                        <path
-                          d="M0 38.422h80v3.157H0z"
-                        />
-                      </g>
-                      <path
-                        class="ecr-step_svg__B ecr-step_svg__C"
-                        d="M0 38.422C0 17.136 17.84 0 40 0s40 17.136 40 38.422-17.84 38.422-40 38.422S0 59.707 0 38.422z"
-                      />
-                      <path
-                        class="ecr-step_svg__B"
-                        d="M42.589 34.255h-5.166L34.65 11.364h10.713l-2.774 22.891z"
-                      />
-                      <path
-                        class="ecr-step_svg__B"
-                        d="M63.135 51.111l2.064-1.641-7.48-10.732-16.379-5.492L40 41.932l14.762 1.326 8.373 7.853zm-46.27 0l-2.051-1.641 7.466-10.732 16.379-5.492L40 41.932l-14.762 1.326-8.373 7.853zm15.708-39.747c0-3.952 3.312-7.134 7.427-7.134s7.427 3.182 7.427 7.134-3.312 7.134-7.427 7.134-7.427-3.182-7.427-7.134z"
-                      />
-                      <path
-                        class="ecr-step_svg__B ecr-step_svg__C"
-                        d="M40 19.129c-4.465 0-8.084-3.477-8.084-7.765S35.535 3.599 40 3.599s8.084 3.476 8.084 7.765c-.007 4.286-3.622 7.758-8.084 7.765zm0-14.268c3.739 0 6.77 2.911 6.77 6.503s-3.031 6.502-6.77 6.502-6.77-2.911-6.77-6.502S36.261 4.862 40 4.862h0zm-2.432 6.503c0-1.294 1.085-2.336 2.432-2.336s2.432 1.042 2.432 2.336S41.347 13.7 40 13.7s-2.432-1.042-2.432-2.336z"
-                      />
-                      <path
-                        class="ecr-step_svg__B"
-                        d="M34.65 37.5c0-2.847 2.386-5.139 5.35-5.139s5.35 2.292 5.35 5.139-2.386 5.139-5.35 5.139-5.35-2.292-5.35-5.139z"
-                      />
-                      <path
-                        class="ecr-step_svg__B ecr-step_svg__C"
-                        d="M40 43.27c-3.312-.007-5.994-2.588-5.994-5.77s2.682-5.763 5.994-5.77 6.006 2.563 6.02 5.745c.004 1.536-.629 3.01-1.759 4.097S41.599 43.27 40 43.27zm0-10.29c2.592-.007 4.699 2.005 4.706 4.495s-2.088 4.513-4.679 4.52-4.699-2.005-4.706-4.495 2.088-4.513 4.679-4.52zm-1.643 4.52c0-.874.733-1.578 1.643-1.578s1.643.704 1.643 1.578-.733 1.578-1.643 1.578-1.643-.704-1.643-1.578z"
-                      />
-                      <path
-                        class="ecr-step_svg__B"
-                        d="M22.741 49.344H57.26v18.321H22.741z"
-                      />
-                      <g
-                        fill="#fbbf93"
+                      </label>
+                      <button
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main ThumbnailSelect--changeButton StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                        data-testid="thumbnail-select-change"
+                        type="button"
                       >
-                        <use
-                          class="ecr-step_svg__B"
-                          xlink:href="#ecr-step_svg__C"
-                        />
-                        <use
-                          class="ecr-step_svg__B"
-                          x="4.732"
-                          xlink:href="#ecr-step_svg__C"
-                        />
-                        <use
-                          class="ecr-step_svg__B"
-                          x="9.477"
-                          xlink:href="#ecr-step_svg__C"
-                        />
-                        <use
-                          class="ecr-step_svg__B"
-                          x="14.21"
-                          xlink:href="#ecr-step_svg__C"
-                        />
-                        <use
-                          class="ecr-step_svg__B"
-                          x="18.942"
-                          xlink:href="#ecr-step_svg__C"
-                        />
-                        <use
-                          class="ecr-step_svg__B"
-                          x="23.687"
-                          xlink:href="#ecr-step_svg__C"
-                        />
-                        <use
-                          class="ecr-step_svg__B"
-                          x="28.419"
-                          xlink:href="#ecr-step_svg__C"
-                        />
-                      </g>
-                    </symbol>
-                    <defs>
-                      <path
-                        d="M24.476 50.821h2.629v15.366h-2.629z"
-                        id="ecr-step_svg__C"
-                      />
-                    </defs>
+                        <span
+                          class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey450"
+                          data-icon="Edit"
+                        >
+                          <svg
+                            height="10"
+                            viewBox="0 0 12 12"
+                            width="10"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <g
+                              fill="none"
+                              fill-rule="evenodd"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <path
+                                d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                                stroke="#555770"
+                              />
+                              <path
+                                d="M6.583 5.146l2.063-2.063"
+                                opacity="0.3"
+                                stroke="#606170"
+                              />
+                            </g>
+                          </svg>
+                        </span>
+                        <span
+                          class="bp3-button-text"
+                        >
+                          Change
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main"
+            >
+              <button
+                class="bp3-button Button--button StyledProps--font StyledProps--main saveBtn StyledProps--intent-primary Button--with-current-color"
+                type="submit"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  continue
+                </span>
+                <span
+                  class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                  icon="chevron-right"
+                >
+                  <svg
+                    data-icon="chevron-right"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      chevron-right
+                    </desc>
+                    <path
+                      d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                      fill-rule="evenodd"
+                    />
                   </svg>
                 </span>
-              </div>
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100"
-                style="font-size: 12px; text-align: center;"
-              >
-                connectors.ECR.name
-              </p>
+              </button>
             </div>
-          </div>
-        </div>
-        <div
-          class="Layout--horizontal StyledProps--main"
-        >
-          <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main saveBtn StyledProps--intent-primary Button--with-current-color"
-            type="submit"
-          >
-            <span
-              class="bp3-button-text"
-            >
-              continue
-            </span>
-            <span
-              class="bp3-icon bp3-icon-chevron-right StyledProps--main"
-              icon="chevron-right"
-            >
-              <svg
-                data-icon="chevron-right"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-              >
-                <desc>
-                  chevron-right
-                </desc>
-                <path
-                  d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
+          </form>
         </div>
       </div>
     </div>
@@ -1225,7 +1076,7 @@ exports[`Artifact ConnectorRefSteps tests renders correctly with differnet artif
 </div>
 `;
 
-exports[`Artifact ConnectorRefSteps tests renders without crashing 1`] = `
+exports[`Artifact WizardStep tests renders without crashing 1`] = `
 <div>
   <div
     class="StepWizard--main existingDocker StepWizard--navBar"
@@ -1311,44 +1162,102 @@ exports[`Artifact ConnectorRefSteps tests renders without crashing 1`] = `
           first step
         </h2>
         <div
-          class="headerContainer"
+          class="OverlaySpinner--overlaySpinner"
         >
-          <div
-            class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
-          />
-        </div>
-        <div
-          class="Layout--horizontal StyledProps--main"
-        >
-          <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main saveBtn StyledProps--intent-primary Button--with-current-color"
-            type="submit"
-          >
-            <span
-              class="bp3-button-text"
+          <form>
+            <div
+              class="headerContainer"
             >
-              continue
-            </span>
-            <span
-              class="bp3-icon bp3-icon-chevron-right StyledProps--main"
-              icon="chevron-right"
-            >
-              <svg
-                data-icon="chevron-right"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
+              <div
+                class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
               >
-                <desc>
-                  chevron-right
-                </desc>
-                <path
-                  d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
+                <div
+                  class="bp3-form-group thumbnailSelect"
+                >
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <div
+                      class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+                    >
+                      <button
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main ThumbnailSelect--changeButton StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                        data-testid="thumbnail-select-change"
+                        type="button"
+                      >
+                        <span
+                          class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey450"
+                          data-icon="Edit"
+                        >
+                          <svg
+                            height="10"
+                            viewBox="0 0 12 12"
+                            width="10"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <g
+                              fill="none"
+                              fill-rule="evenodd"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <path
+                                d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                                stroke="#555770"
+                              />
+                              <path
+                                d="M6.583 5.146l2.063-2.063"
+                                opacity="0.3"
+                                stroke="#606170"
+                              />
+                            </g>
+                          </svg>
+                        </span>
+                        <span
+                          class="bp3-button-text"
+                        >
+                          Change
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main"
+            >
+              <button
+                class="bp3-button Button--button StyledProps--font StyledProps--main saveBtn StyledProps--intent-primary Button--with-current-color"
+                type="submit"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  continue
+                </span>
+                <span
+                  class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                  icon="chevron-right"
+                >
+                  <svg
+                    data-icon="chevron-right"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      chevron-right
+                    </desc>
+                    <path
+                      d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>

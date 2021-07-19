@@ -1,20 +1,20 @@
 import React from 'react'
 import { StepWizard, StepProps, Icon } from '@wings-software/uicore'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
-import { String, useStrings } from 'framework/strings'
+import { String, StringKeys, useStrings } from 'framework/strings'
 import type { ConnectorConfigDTO } from 'services/cd-ng'
 import { ArtifactoryRepoType } from '../ArtifactRepository/ArtifactoryRepoType'
 import { ArtifactConnector } from '../ArtifactRepository/ArtifactConnector'
 import type { InitialArtifactDataType, ConnectorRefLabelType, ArtifactType } from '../ArtifactInterface'
 import { ArtifactTitleIdByType } from '../ArtifactHelper'
-import css from './ConnectorRefSteps.module.scss'
+import css from './ArtifactWizard.module.scss'
 
 interface StepChangeData<SharedObject> {
   prevStep?: number
   nextStep?: number
   prevStepData: SharedObject
 }
-interface ConnectorRefStepsProps {
+interface ArtifactWizardProps {
   handleViewChange: (isConnectorView: boolean) => void
   artifactInitialValue: InitialArtifactDataType
   types: Array<ArtifactType>
@@ -22,14 +22,14 @@ interface ConnectorRefStepsProps {
   newConnectorSteps?: any
   expressions: string[]
   labels: ConnectorRefLabelType
-  selectedArtifact: ArtifactType
-  changeArtifactType: (data: ArtifactType) => void
+  selectedArtifact: ArtifactType | null
+  changeArtifactType: (data: ArtifactType | null) => void
   newConnectorView: boolean
-  iconsProps: IconProps
+  iconsProps: IconProps | undefined
   isReadonly: boolean
 }
 
-const ConnectorRefSteps: React.FC<ConnectorRefStepsProps> = ({
+const ArtifactWizard: React.FC<ArtifactWizardProps> = ({
   types,
   labels,
   expressions,
@@ -51,14 +51,20 @@ const ConnectorRefSteps: React.FC<ConnectorRefStepsProps> = ({
     }
   }
 
-  const renderSubtitle = (): JSX.Element => {
-    const stringId = ArtifactTitleIdByType[selectedArtifact]
-    return (
-      <div className={css.subtitle} style={{ display: 'flex' }}>
-        <Icon size={26} {...iconsProps} />
-        <String style={{ alignSelf: 'center', marginLeft: 'var(--spacing-small)' }} stringID={stringId} />
-      </div>
-    )
+  const renderSubtitle = (): JSX.Element | undefined => {
+    const stringId = selectedArtifact && ArtifactTitleIdByType[selectedArtifact]
+    if (selectedArtifact) {
+      return (
+        <div className={css.subtitle} style={{ display: 'flex' }}>
+          <Icon size={26} {...(iconsProps as IconProps)} />
+          <String
+            style={{ alignSelf: 'center', marginLeft: 'var(--spacing-small)' }}
+            stringID={stringId as StringKeys}
+          />
+        </div>
+      )
+    }
+    return undefined
   }
   return (
     <StepWizard className={css.existingDocker} subtitle={renderSubtitle()} onStepChange={onStepChange}>
@@ -87,4 +93,4 @@ const ConnectorRefSteps: React.FC<ConnectorRefStepsProps> = ({
   )
 }
 
-export default ConnectorRefSteps
+export default ArtifactWizard

@@ -107,7 +107,7 @@ const ManifestListView = ({
   listOfManifests,
   isReadonly
 }: ManifestListViewProps): JSX.Element => {
-  const [selectedManifest, setSelectedManifest] = useState(allowedManifestTypes[0])
+  const [selectedManifest, setSelectedManifest] = useState<ManifestTypes | null>(null)
   const [connectorView, setConnectorView] = useState(false)
   const [manifestStore, setManifestStore] = useState('')
   const [isEditMode, setIsEditMode] = useState(false)
@@ -216,10 +216,11 @@ const ManifestListView = ({
     }
     hideConnectorModal()
     setConnectorView(false)
+    setSelectedManifest(null)
     refetchConnectors()
   }
 
-  const changeManifestType = (selected: ManifestTypes): void => {
+  const changeManifestType = (selected: ManifestTypes | null): void => {
     setSelectedManifest(selected)
   }
   const handleConnectorViewChange = (isConnectorView: boolean): void => {
@@ -247,15 +248,15 @@ const ManifestListView = ({
   const getLabels = (): ConnectorRefLabelType => {
     return {
       firstStepName: getString('pipeline.manifestType.specifyManifestRepoType'),
-      secondStepName: `${getString('common.specify')} ${getString(manifestTypeLabels[selectedManifest])} ${getString(
-        'store'
-      )}`
+      secondStepName: `${getString('common.specify')} ${
+        selectedManifest && getString(manifestTypeLabels[selectedManifest])
+      } ${getString('store')}`
     }
   }
 
   const getIconProps = (): IconProps => {
     const iconProps: IconProps = {
-      name: manifestTypeIcons[selectedManifest]
+      name: manifestTypeIcons[selectedManifest as ManifestTypes]
     }
 
     if (selectedManifest === ManifestDataType.HelmChart) {
@@ -323,7 +324,7 @@ const ManifestListView = ({
         manifestDetailStep = <OpenShiftParamWithGit {...lastStepProps()} />
         break
 
-      case [ManifestDataType.K8sManifest, ManifestDataType.Values].includes(selectedManifest) &&
+      case [ManifestDataType.K8sManifest, ManifestDataType.Values].includes(selectedManifest as ManifestTypes) &&
         [ManifestStoreMap.Git, ManifestStoreMap.Github, ManifestStoreMap.GitLab, ManifestStoreMap.Bitbucket].includes(
           manifestStore as ManifestStores
         ):
@@ -554,6 +555,7 @@ const ManifestListView = ({
       hideConnectorModal()
       setManifestStore('')
       setIsEditMode(false)
+      setSelectedManifest(null)
     }
     const storeTypes =
       selectedManifest === ManifestDataType.HelmChart

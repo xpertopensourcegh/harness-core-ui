@@ -139,6 +139,7 @@ jiraUpdateStep:
   validations:
     status: Status is required with transition.
 manifestType:
+  manifestTyperequired: Manifest Type is required
   gitConnectorLabel: 'Git'
   bitBucketLabel: 'Bitbucket'
   httpHelmRepoConnectorLabel: 'HTTP Helm'
@@ -591,6 +592,7 @@ infraSpecifications:
 imagePathLabel: Image Path
 artifactsSelection:
   artifactDetails: Artifact Details
+  artifactTyperequired: Artifact Type is required
   existingDocker:
     sidecarId: Sidecar Identifier
     sidecarIdPlaceholder: Enter Artifact Identifier

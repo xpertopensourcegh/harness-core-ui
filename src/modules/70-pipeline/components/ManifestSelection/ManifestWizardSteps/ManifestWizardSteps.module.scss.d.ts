@@ -38,5 +38,6 @@ declare const styles: {
   readonly tooltipCls: string
   readonly helmToolTip: string
   readonly folderRunTimeInput: string
+  readonly thumbnailSelect: string
 }
 export default styles

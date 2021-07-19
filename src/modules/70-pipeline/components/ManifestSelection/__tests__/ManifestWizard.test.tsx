@@ -78,7 +78,7 @@ describe('ManifestSelection tests', () => {
           handleConnectorViewChange={jest.fn()}
           handleStoreChange={jest.fn()}
           initialValues={initialValues as ManifestStepInitData}
-          types={['K8sManifest', 'Values', 'HelmChart']}
+          types={['K8sManifest', 'HelmChart']}
           expressions={[]}
           isReadonly={false}
           manifestStoreTypes={['Git', 'Github', 'GitLab', 'Bitbucket']}
@@ -109,7 +109,7 @@ describe('ManifestSelection tests', () => {
           handleConnectorViewChange={jest.fn()}
           handleStoreChange={jest.fn()}
           initialValues={initialValues as ManifestStepInitData}
-          types={['K8sManifest', 'Values', 'HelmChart']}
+          types={['K8sManifest', 'HelmChart']}
           expressions={[]}
           isReadonly={false}
           manifestStoreTypes={['Git', 'Github', 'GitLab', 'Bitbucket']}
@@ -128,6 +128,10 @@ describe('ManifestSelection tests', () => {
     expect(manifestLabel).toBeDefined()
     const K8smanifestType = await findAllByText(container, 'pipeline.manifestTypeLabels.K8sManifest')
     expect(K8smanifestType).toBeDefined()
+
+    const changeText = await findByText(container, 'Change')
+    fireEvent.click(changeText)
+
     const HelmmanifestType = await findByText(container, 'pipeline.manifestTypeLabels.HelmChartLabel')
     expect(HelmmanifestType).toBeDefined()
     fireEvent.click(HelmmanifestType)
@@ -139,9 +143,12 @@ describe('ManifestSelection tests', () => {
     const manifeststoreLabel = await findByText(container, 'Specify Manifest Store')
     expect(manifeststoreLabel).toBeDefined()
 
-    const gitConnector = await findByText(container, 'pipeline.manifestType.manifestSource')
+    const manifestSourceLabel = await findByText(container, 'pipeline.manifestType.manifestSource')
+    expect(manifestSourceLabel).toBeDefined()
+
+    const gitConnector = await findByText(container, 'pipeline.manifestType.gitConnectorLabel')
     expect(gitConnector).toBeDefined()
-    const gitconnectorCard = container.getElementsByClassName('squareCard')[0]
+    const gitconnectorCard = container.getElementsByClassName('Thumbnail--squareCardContainer')[0]
     fireEvent.click(gitconnectorCard)
 
     const newConnectorLabel = await findByText(container, 'newLabel pipeline.manifestType.gitConnectorLabel connector')
@@ -152,8 +159,6 @@ describe('ManifestSelection tests', () => {
     const nextStepButton = await findByText(container, 'continue')
     expect(nextStepButton).toBeDefined()
     fireEvent.click(nextStepButton)
-    // const createConnectorLabel = await findByText(container, 'Create New Connector')
-    // expect(createConnectorLabel).toBeDefined()
 
     expect(container).toMatchSnapshot()
   })
@@ -178,7 +183,7 @@ describe('ManifestSelection tests', () => {
           handleConnectorViewChange={jest.fn()}
           handleStoreChange={jest.fn()}
           initialValues={initialValues as ManifestStepInitData}
-          types={['K8sManifest', 'Values', 'HelmChart']}
+          types={['K8sManifest', 'HelmChart']}
           expressions={[]}
           isReadonly={false}
           manifestStoreTypes={['Git', 'Github', 'GitLab', 'Bitbucket']}
@@ -234,7 +239,7 @@ describe('ManifestSelection tests', () => {
           handleConnectorViewChange={jest.fn()}
           handleStoreChange={jest.fn()}
           initialValues={initialValues as ManifestStepInitData}
-          types={['K8sManifest', 'Values', 'HelmChart']}
+          types={['K8sManifest', 'HelmChart']}
           expressions={[]}
           isReadonly={false}
           manifestStoreTypes={['Git', 'Github', 'GitLab', 'Bitbucket']}

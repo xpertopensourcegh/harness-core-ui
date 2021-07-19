@@ -24,12 +24,12 @@ interface ManifestWizardStepsProps {
   types: Array<ManifestTypes>
   manifestStoreTypes: Array<ManifestStores>
   labels: ConnectorRefLabelType
-  selectedManifest: ManifestTypes
+  selectedManifest: ManifestTypes | null
   newConnectorView: boolean
   expressions: string[]
   newConnectorSteps?: any
   lastSteps?: Array<React.ReactElement<StepProps<ConnectorConfigDTO>>> | null
-  changeManifestType: (data: ManifestTypes) => void
+  changeManifestType: (data: ManifestTypes | null) => void
   iconsProps: IconProps
   isReadonly: boolean
 }
@@ -59,15 +59,18 @@ export const ManifestWizard: React.FC<ManifestWizardStepsProps> = ({
   }
 
   const renderSubtitle = (): JSX.Element => {
-    const stringId = getString(manifestTypeLabels[selectedManifest])
-    return (
-      <div className={css.subtitle} style={{ display: 'flex' }}>
-        <Icon {...iconsProps} size={26} />
-        <Text style={{ alignSelf: 'center', marginLeft: 'var(--spacing-small)' }} color={Color.WHITE}>
-          {stringId}
-        </Text>
-      </div>
-    )
+    const stringId = selectedManifest && getString(manifestTypeLabels[selectedManifest])
+    if (selectedManifest) {
+      return (
+        <div className={css.subtitle} style={{ display: 'flex' }}>
+          <Icon {...iconsProps} size={26} />
+          <Text style={{ alignSelf: 'center', marginLeft: 'var(--spacing-small)' }} color={Color.WHITE}>
+            {stringId}
+          </Text>
+        </div>
+      )
+    }
+    return <></>
   }
 
   return (

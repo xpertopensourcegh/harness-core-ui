@@ -32,7 +32,7 @@ interface ArtifactConnectorProps {
   stepName: string
   isReadonly: boolean
   initialValues: InitialArtifactDataType
-  selectedArtifact: ArtifactType
+  selectedArtifact: ArtifactType | null
 }
 
 export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & ArtifactConnectorProps> = props => {
@@ -52,8 +52,8 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const { getString } = useStrings()
 
-  const connectorType = ArtifactToConnectorMap[selectedArtifact]
-  const selectedConnectorLabel = ArtifactConnectorLabelMap[selectedArtifact]
+  const connectorType = ArtifactToConnectorMap[selectedArtifact as ArtifactType]
+  const selectedConnectorLabel = ArtifactConnectorLabelMap[selectedArtifact as ArtifactType]
 
   const newConnectorLabel = `${getString('newLabel')} ${selectedConnectorLabel} ${getString('connector')}`
 

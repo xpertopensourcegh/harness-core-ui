@@ -1,7 +1,7 @@
 import React from 'react'
-import { fireEvent, render } from '@testing-library/react'
+import { findAllByText, findByText, fireEvent, render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import ConnectorRefSteps from '../ConnectorRefSteps/ConnectorRefSteps'
+import ArtifactWizard from '../ArtifactWizard/ArtifactWizard'
 import type { InitialArtifactDataType, TagTypes } from '../ArtifactInterface'
 import { ImagePath } from '../ArtifactRepository/ArtifactLastSteps/ImagePath/ImagePath'
 import connectorsData from './connectors_mock.json'
@@ -17,11 +17,11 @@ jest.mock('services/cd-ng', () => ({
   }
 }))
 
-describe('Artifact ConnectorRefSteps tests', () => {
+describe('Artifact WizardStep tests', () => {
   test(`renders without crashing`, () => {
     const { container } = render(
       <TestWrapper>
-        <ConnectorRefSteps
+        <ArtifactWizard
           handleViewChange={jest.fn()}
           artifactInitialValue={{} as InitialArtifactDataType}
           types={[]}
@@ -47,7 +47,7 @@ describe('Artifact ConnectorRefSteps tests', () => {
     }
     const { container } = render(
       <TestWrapper>
-        <ConnectorRefSteps
+        <ArtifactWizard
           handleViewChange={jest.fn()}
           artifactInitialValue={initialValues as InitialArtifactDataType}
           types={[]}
@@ -73,7 +73,7 @@ describe('Artifact ConnectorRefSteps tests', () => {
     }
     const { container } = render(
       <TestWrapper>
-        <ConnectorRefSteps
+        <ArtifactWizard
           handleViewChange={jest.fn()}
           artifactInitialValue={initialValues as InitialArtifactDataType}
           types={['DockerRegistry', 'Gcr', 'Ecr']}
@@ -97,9 +97,9 @@ describe('Artifact ConnectorRefSteps tests', () => {
     const initialValues = {
       connectorId: 'connectorId'
     }
-    const { container, findByText, findAllByText } = render(
+    const { container } = render(
       <TestWrapper>
-        <ConnectorRefSteps
+        <ArtifactWizard
           handleViewChange={jest.fn()}
           artifactInitialValue={initialValues as InitialArtifactDataType}
           types={['DockerRegistry', 'Gcr', 'Ecr']}
@@ -116,26 +116,29 @@ describe('Artifact ConnectorRefSteps tests', () => {
         />
       </TestWrapper>
     )
-    const artifactLabel = await findByText('connectors.artifactRepository')
+    const artifactLabel = await findByText(container, 'connectors.artifactRepository')
     expect(artifactLabel).toBeDefined()
-    const DockerArtifactType = await findAllByText('dockerRegistry')
+    const DockerArtifactType = await findAllByText(container, 'dockerRegistry')
     expect(DockerArtifactType).toBeDefined()
 
-    const GCRArtifactType = await findByText('connectors.GCR.name')
+    const changeText = await findByText(container, 'Change')
+    fireEvent.click(changeText)
+
+    const GCRArtifactType = await findByText(container, 'connectors.GCR.name')
     expect(GCRArtifactType).toBeDefined()
     fireEvent.click(GCRArtifactType)
 
-    const continueButton = await findByText('continue')
+    const continueButton = await findByText(container, 'continue')
     expect(continueButton).toBeDefined()
     fireEvent.click(continueButton)
 
-    const artifactRepoLabel = await findByText('Docker Registry connector')
+    const artifactRepoLabel = await findByText(container, 'Docker Registry connector')
     expect(artifactRepoLabel).toBeDefined()
-    const newConnectorLabel = await findByText('newLabel Docker Registry connector')
+    const newConnectorLabel = await findByText(container, 'newLabel Docker Registry connector')
     expect(newConnectorLabel).toBeDefined()
 
     fireEvent.click(newConnectorLabel)
-    const nextStepButton = await findByText('continue')
+    const nextStepButton = await findByText(container, 'continue')
     expect(nextStepButton).toBeDefined()
     fireEvent.click(nextStepButton)
 
@@ -163,7 +166,7 @@ describe('Artifact ConnectorRefSteps tests', () => {
 
     const { container } = render(
       <TestWrapper>
-        <ConnectorRefSteps
+        <ArtifactWizard
           handleViewChange={jest.fn()}
           artifactInitialValue={initialValues as InitialArtifactDataType}
           types={['DockerRegistry', 'Gcr', 'Ecr']}

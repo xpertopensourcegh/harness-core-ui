@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { Color, useModalHook, StepWizard, StepProps } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
@@ -33,7 +33,7 @@ import { useQueryParams } from '@common/hooks'
 import type { Scope } from '@common/interfaces/SecretsInterface'
 import { getStageIndexFromPipeline, getFlattenedStages } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 
-import ConnectorRefSteps from './ConnectorRefSteps/ConnectorRefSteps'
+import ArtifactWizard from './ArtifactWizard/ArtifactWizard'
 import { ImagePath } from './ArtifactRepository/ArtifactLastSteps/ImagePath/ImagePath'
 import { ECRArtifact } from './ArtifactRepository/ArtifactLastSteps/ECRArtifact/ECRArtifact'
 import { GCRImagePath } from './ArtifactRepository/ArtifactLastSteps/GCRImagePath/GCRImagePath'
@@ -77,12 +77,12 @@ export default function ArtifactsSelection({
     isReadonly
   } = useContext(PipelineContext)
 
-  const [isEditMode, setIsEditMode] = React.useState(false)
-  const [selectedArtifact, setSelectedArtifact] = React.useState(ENABLED_ARTIFACT_TYPES.DockerRegistry)
-  const [connectorView, setConnectorView] = React.useState(false)
-  const [context, setModalContext] = React.useState(ModalViewFor.PRIMARY)
-  const [sidecarIndex, setEditIndex] = React.useState(0)
-  const [fetchedConnectorResponse, setFetchedConnectorResponse] = React.useState<PageConnectorResponse | undefined>()
+  const [isEditMode, setIsEditMode] = useState(false)
+  const [selectedArtifact, setSelectedArtifact] = useState<ArtifactType | null>(null)
+  const [connectorView, setConnectorView] = useState(false)
+  const [context, setModalContext] = useState(ModalViewFor.PRIMARY)
+  const [sidecarIndex, setEditIndex] = useState(0)
+  const [fetchedConnectorResponse, setFetchedConnectorResponse] = useState<PageConnectorResponse | undefined>()
 
   const { getString } = useStrings()
 
@@ -270,7 +270,7 @@ export default function ArtifactsSelection({
 
   const addArtifact = (artifactObj: any): void => {
     artifactObj = {
-      type: ENABLED_ARTIFACT_TYPES[selectedArtifact],
+      type: ENABLED_ARTIFACT_TYPES[selectedArtifact as ArtifactType],
       ...artifactObj
     }
 
@@ -327,6 +327,7 @@ export default function ArtifactsSelection({
 
     updatePipeline(pipeline)
     hideConnectorModal()
+    setSelectedArtifact(null)
     refetchConnectorList()
   }
 
@@ -373,7 +374,7 @@ export default function ArtifactsSelection({
   const editArtifact = (viewType: number, type: ArtifactType, index?: number): void => {
     setModalContext(viewType)
     setConnectorView(false)
-    setSelectedArtifact(type)
+    setSelectedArtifact(type as ArtifactType)
 
     if (viewType === ModalViewFor.SIDECAR && index !== undefined) {
       setEditIndex(index)
@@ -397,7 +398,7 @@ export default function ArtifactsSelection({
       delete artifacts.primary
     }
     primaryArtifact.spec = {}
-    setSelectedArtifact(ENABLED_ARTIFACT_TYPES.DockerRegistry)
+    setSelectedArtifact(null)
     updatePipeline(pipeline)
   }
 
@@ -406,14 +407,16 @@ export default function ArtifactsSelection({
     updatePipeline(pipeline)
   }
 
-  const getIconProps = (): IconProps => {
-    const iconProps: IconProps = {
-      name: ArtifactIconByType[selectedArtifact]
+  const getIconProps = (): IconProps | undefined => {
+    if (selectedArtifact) {
+      const iconProps: IconProps = {
+        name: ArtifactIconByType[selectedArtifact]
+      }
+      if (selectedArtifact === ENABLED_ARTIFACT_TYPES.DockerRegistry) {
+        iconProps.color = Color.WHITE
+      }
+      return iconProps
     }
-    if (selectedArtifact === ENABLED_ARTIFACT_TYPES.DockerRegistry) {
-      iconProps.color = Color.WHITE
-    }
-    return iconProps
   }
 
   const artifactLastStepProps = (): ImagePathProps => {
@@ -436,7 +439,9 @@ export default function ArtifactsSelection({
   const getLabels = (): ConnectorRefLabelType => {
     return {
       firstStepName: getString('connectors.specifyArtifactRepoType'),
-      secondStepName: `${getString(ArtifactTitleIdByType[selectedArtifact])} ${getString('repository')}`
+      secondStepName: `${selectedArtifact && getString(ArtifactTitleIdByType[selectedArtifact])} ${getString(
+        'repository'
+      )}`
     }
   }
 
@@ -516,7 +521,7 @@ export default function ArtifactsSelection({
         return (
           <StepWizard title={getString('connectors.createNewConnector')}>
             <ConnectorDetailsStep
-              type={ArtifactToConnectorMap[selectedArtifact]}
+              type={ArtifactToConnectorMap[selectedArtifact as ArtifactType]}
               name={getString('overview')}
               isEditMode={isEditMode}
               gitDetails={{ repoIdentifier, branch, getDefaultFromOtherRepo: true }}
@@ -542,7 +547,7 @@ export default function ArtifactsSelection({
               connectorInfo={undefined}
               isStep={true}
               isLastStep={false}
-              type={ArtifactToConnectorMap[selectedArtifact]}
+              type={ArtifactToConnectorMap[selectedArtifact as ArtifactType]}
             />
           </StepWizard>
         )
@@ -567,7 +572,7 @@ export default function ArtifactsSelection({
     return arr
   }
 
-  const changeArtifactType = useCallback((selected: ArtifactType): void => {
+  const changeArtifactType = useCallback((selected: ArtifactType | null): void => {
     setSelectedArtifact(selected)
   }, [])
 
@@ -580,7 +585,7 @@ export default function ArtifactsSelection({
   const renderExistingArtifact = (): JSX.Element => {
     return (
       <div>
-        <ConnectorRefSteps
+        <ArtifactWizard
           artifactInitialValue={getArtifactInitialValues()}
           iconsProps={getIconProps()}
           types={allowedArtifactTypes}
@@ -605,6 +610,7 @@ export default function ArtifactsSelection({
           hideConnectorModal()
           setConnectorView(false)
           setIsEditMode(false)
+          setSelectedArtifact(null)
         }}
         {...DIALOG_PROPS}
         className={cx(css.modal, Classes.DIALOG)}
