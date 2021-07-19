@@ -60,7 +60,6 @@ const CDPipelineStudio: React.FC = (): JSX.Element => {
   const isCFEnabled = useFeatureFlag(FeatureFlag.CFNG_ENABLED)
   const isCIEnabled = useFeatureFlag(FeatureFlag.CING_ENABLED)
   const { getString } = useStrings()
-  const isApprovalStageEnabled = useFeatureFlag(FeatureFlag.NG_HARNESS_APPROVAL)
   return (
     <PipelineProvider
       stagesMap={stagesCollection.getAllStagesAttributes(getString)}
@@ -73,7 +72,7 @@ const CDPipelineStudio: React.FC = (): JSX.Element => {
           CI_LICENSE_STATE === LICENSE_STATE_VALUES.ACTIVE && isCIEnabled,
           true,
           FF_LICENSE_STATE === LICENSE_STATE_VALUES.ACTIVE && isCFEnabled,
-          isApprovalStageEnabled
+          true
         )
       }
       stepsFactory={factory}

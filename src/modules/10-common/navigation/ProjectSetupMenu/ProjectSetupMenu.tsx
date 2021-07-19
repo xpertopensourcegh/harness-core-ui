@@ -15,10 +15,10 @@ interface ProjectSetupMenuProps {
 const ProjectSetupMenu: React.FC<ProjectSetupMenuProps> = ({ module }) => {
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<PipelineType<ProjectPathProps>>()
-  const { GIT_SYNC_NG, NG_SHOW_DELEGATE } = useFeatureFlags()
+  const { NG_SHOW_DELEGATE } = useFeatureFlags()
   const params = { accountId, orgIdentifier, projectIdentifier, module }
   const getGitSyncEnabled = (): boolean => {
-    if ((module === 'ci' || module === 'cd' || !module) && GIT_SYNC_NG) return true
+    if (module === 'ci' || module === 'cd' || !module) return true
     return false
   }
   return (

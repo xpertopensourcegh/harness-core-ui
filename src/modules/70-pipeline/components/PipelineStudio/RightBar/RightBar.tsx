@@ -41,7 +41,6 @@ import {
   getScopeFromDTO,
   getScopeFromValue
 } from '@common/components/EntityReference/EntityReference'
-import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { Scope } from '@common/interfaces/SecretsInterface'
@@ -52,7 +51,6 @@ import {
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
 import { StageType } from '@pipeline/utils/stageHelpers'
-import { FeatureFlag } from '@common/featureFlags'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerTypes } from '../PipelineContext/PipelineActions'
 import { RightDrawer } from '../RightDrawer/RightDrawer'
@@ -108,8 +106,6 @@ export const RightBar = (): JSX.Element => {
     updatePipeline,
     updatePipelineView
   } = React.useContext(PipelineContext)
-  const isFlowControlEnabled = useFeatureFlag(FeatureFlag.NG_BARRIERS)
-  const isGitSyncFeatureFlag = useFeatureFlag(FeatureFlag.GIT_SYNC_NG)
   const { isGitSyncEnabled } = useAppStore()
   const codebase = (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase
   const [codebaseStatus, setCodebaseStatus] = React.useState<CodebaseStatuses>(CodebaseStatuses.ZeroState)
@@ -311,7 +307,7 @@ export const RightBar = (): JSX.Element => {
 
   return (
     <div className={css.rightBar}>
-      {!isGitSyncEnabled && isGitSyncFeatureFlag && (
+      {!isGitSyncEnabled && (
         <Popover
           position={Position.LEFT}
           onOpening={() => setIsGitExpOpen(true)}
@@ -379,26 +375,25 @@ export const RightBar = (): JSX.Element => {
         text={getString('notifications.notificationRules')}
         withoutCurrentColor={true}
       />
-      {isFlowControlEnabled && (
-        <Button
-          className={cx(css.iconButton, css.flowControlIcon, {
-            [css.selected]: type === DrawerTypes.FlowControl
-          })}
-          onClick={() => {
-            updatePipelineView({
-              ...pipelineView,
-              isDrawerOpened: true,
-              drawerData: { type: DrawerTypes.FlowControl },
-              isSplitViewOpen: false,
-              splitViewData: {}
-            })
-          }}
-          font={{ weight: 'semi-bold', size: 'xsmall' }}
-          icon="settings"
-          iconProps={{ size: 20 }}
-          text={getString('pipeline.barriers.flowControl')}
-        />
-      )}
+
+      <Button
+        className={cx(css.iconButton, css.flowControlIcon, {
+          [css.selected]: type === DrawerTypes.FlowControl
+        })}
+        onClick={() => {
+          updatePipelineView({
+            ...pipelineView,
+            isDrawerOpened: true,
+            drawerData: { type: DrawerTypes.FlowControl },
+            isSplitViewOpen: false,
+            splitViewData: {}
+          })
+        }}
+        font={{ weight: 'semi-bold', size: 'xsmall' }}
+        icon="settings"
+        iconProps={{ size: 20 }}
+        text={getString('pipeline.barriers.flowControl')}
+      />
 
       <Button
         className={cx(css.iconButton, css.variablesIcon, { [css.selected]: type === DrawerTypes.PipelineVariables })}

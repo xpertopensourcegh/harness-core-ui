@@ -332,7 +332,6 @@ describe('DelegateSelectorStep', () => {
     jest.spyOn(featureFlags, 'useFeatureFlags').mockImplementation(() => ({
       CDNG_ENABLED: true,
       NG_SHOW_DELEGATE: true,
-      GIT_SYNC_NG: true,
       NG_CG_TASK_ASSIGNMENT_ISOLATION: true
     }))
     const { container } = render(

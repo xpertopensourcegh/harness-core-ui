@@ -89,7 +89,7 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
 
   // update gitSyncEnabled when selectedProject changes
   useEffect(() => {
-    if (projectIdentifier && state.featureFlags[FeatureFlag.GIT_SYNC_NG]) {
+    if (projectIdentifier) {
       isGitSyncEnabledPromise({
         queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
       }).then(status => {
@@ -105,7 +105,7 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
       }))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.selectedProject, state.featureFlags[FeatureFlag.GIT_SYNC_NG], projectIdentifier, orgIdentifier])
+  }, [state.selectedProject, projectIdentifier, orgIdentifier])
 
   // set selectedProject when projectDetails are fetched
   useEffect(() => {

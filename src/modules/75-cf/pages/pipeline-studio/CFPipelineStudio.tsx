@@ -39,7 +39,6 @@ const CIPipelineStudio: React.FC = (): JSX.Element => {
       })
     )
   }
-  const isApprovalStageEnabled = useFeatureFlag(FeatureFlag.NG_HARNESS_APPROVAL)
   const isCDEnabled = useFeatureFlag(FeatureFlag.CDNG_ENABLED)
   const isCFEnabled = useFeatureFlag(FeatureFlag.CFNG_ENABLED)
   const isCIEnabled = useFeatureFlag(FeatureFlag.CING_ENABLED)
@@ -56,7 +55,7 @@ const CIPipelineStudio: React.FC = (): JSX.Element => {
           CI_LICENSE_STATE === LICENSE_STATE_VALUES.ACTIVE && isCIEnabled,
           isCDEnabled,
           FF_LICENSE_STATE === LICENSE_STATE_VALUES.ACTIVE && isCFEnabled,
-          isApprovalStageEnabled
+          true
         )
       }
       stepsFactory={factory}
