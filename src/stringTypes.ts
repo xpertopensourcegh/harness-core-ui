@@ -137,6 +137,7 @@ export interface StringsMap {
   'common.extendTrial.heading': string
   'common.failureRate': string
   'common.filters.clearFilters': string
+  'common.filters.noFilterSaved': string
   'common.filters.noMatchingFilterData': string
   'common.filters.saveNewFilter': string
   'common.frequency': string
@@ -1759,6 +1760,8 @@ export interface StringsMap {
   'pipeline.manifestTypeLabels.ValuesYaml': string
   'pipeline.moveStage.description': string
   'pipeline.moveStage.title': string
+  'pipeline.myBuildsText': string
+  'pipeline.myDeploymentsText': string
   'pipeline.namespaceTooltip': string
   'pipeline.noBuildsText': string
   'pipeline.noDeploymentText': string

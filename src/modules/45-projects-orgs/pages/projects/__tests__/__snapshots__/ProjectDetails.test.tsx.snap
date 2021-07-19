@@ -3,134 +3,138 @@
 exports[`Project Details render with modules and edit menu 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container xlarge header StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+    class="Layout--horizontal StyledProps--main container xlarge header StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
     <div
-      class="Layout--vertical Layout--layout-spacing-small StyledProps--main title StyledProps--padding-medium"
+      class="Layout--vertical StyledProps--main"
     >
       <div
-        class="breadcrumbs"
-      >
-        <div>
-          <a
-            class="breadcrumb"
-            href="/account/testAcc/home/projects"
-          >
-            projectsText
-          </a>
-          <span
-            class="bp3-icon StyledProps--main separator"
-            data-icon="main-chevron-right"
-          >
-            <svg
-              height="11"
-              viewBox="0 0 8 14"
-              width="11"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
-                fill="#4d5969"
-              />
-            </svg>
-          </span>
-        </div>
-        <div>
-          <span
-            class="lastBreadcrumb"
-          >
-            dummy name
-          </span>
-        </div>
-      </div>
-      <p
-        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
-        style="--text-line-clamp: 1;"
-      >
-        dummy name
-      </p>
-      <p
-        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small"
-        style="--text-line-clamp: 2;"
-      >
-        
-      </p>
-      <div
-        class="Layout--horizontal StyledProps--main StyledProps--padding-top-small"
+        class="Layout--vertical Layout--layout-spacing-small StyledProps--main title StyledProps--padding-medium"
       >
         <div
-          class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+          class="breadcrumbs"
         >
-          <span
-            class="Tag--main"
+          <div>
+            <a
+              class="breadcrumb"
+              href="/account/testAcc/home/projects"
+            >
+              projectsText
+            </a>
+            <span
+              class="bp3-icon StyledProps--main separator"
+              data-icon="main-chevron-right"
+            >
+              <svg
+                height="11"
+                viewBox="0 0 8 14"
+                width="11"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
+                  fill="#4d5969"
+                />
+              </svg>
+            </span>
+          </div>
+          <div>
+            <span
+              class="lastBreadcrumb"
+            >
+              dummy name
+            </span>
+          </div>
+        </div>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
+          style="--text-line-clamp: 1;"
+        >
+          dummy name
+        </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small"
+          style="--text-line-clamp: 2;"
+        >
+          
+        </p>
+        <div
+          class="Layout--horizontal StyledProps--main StyledProps--padding-top-small"
+        >
+          <div
+            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
           >
             <span
-              class="bp3-tag"
-              style="max-width: 80px;"
+              class="Tag--main"
             >
               <span
-                class="bp3-text-overflow-ellipsis bp3-fill"
+                class="bp3-tag"
+                style="max-width: 80px;"
               >
-                tag1
+                <span
+                  class="bp3-text-overflow-ellipsis bp3-fill"
+                >
+                  tag1
+                </span>
               </span>
             </span>
-          </span>
-          <span
-            class="Tag--main"
-          >
             <span
-              class="bp3-tag"
-              style="max-width: 80px;"
+              class="Tag--main"
             >
               <span
-                class="bp3-text-overflow-ellipsis bp3-fill"
+                class="bp3-tag"
+                style="max-width: 80px;"
               >
-                tag2:tag3
+                <span
+                  class="bp3-text-overflow-ellipsis bp3-fill"
+                >
+                  tag2:tag3
+                </span>
               </span>
             </span>
-          </span>
-          <span
-            class="Tag--main"
-          >
             <span
-              class="bp3-tag"
-              style="max-width: 80px;"
+              class="Tag--main"
             >
               <span
-                class="bp3-text-overflow-ellipsis bp3-fill"
+                class="bp3-tag"
+                style="max-width: 80px;"
               >
-                tag4:tag3
+                <span
+                  class="bp3-text-overflow-ellipsis bp3-fill"
+                >
+                  tag4:tag3
+                </span>
               </span>
             </span>
-          </span>
-          <span
-            class="Tag--main"
-          >
             <span
-              class="bp3-tag"
-              style="max-width: 80px;"
+              class="Tag--main"
             >
               <span
-                class="bp3-text-overflow-ellipsis bp3-fill"
+                class="bp3-tag"
+                style="max-width: 80px;"
               >
-                tag5:tag3
+                <span
+                  class="bp3-text-overflow-ellipsis bp3-fill"
+                >
+                  tag5:tag3
+                </span>
               </span>
             </span>
-          </span>
-          <span
-            class="Tag--main"
-          >
             <span
-              class="bp3-tag"
-              style="max-width: 80px;"
+              class="Tag--main"
             >
               <span
-                class="bp3-text-overflow-ellipsis bp3-fill"
+                class="bp3-tag"
+                style="max-width: 80px;"
               >
-                tag6:tag3
+                <span
+                  class="bp3-text-overflow-ellipsis bp3-fill"
+                >
+                  tag6:tag3
+                </span>
               </span>
             </span>
-          </span>
+          </div>
         </div>
       </div>
     </div>
@@ -1551,64 +1555,68 @@ exports[`Project Details render with modules and edit menu 1`] = `
 exports[`Project Details render with no modules and invite collaborators 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container xlarge header StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+    class="Layout--horizontal StyledProps--main container xlarge header StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
     <div
-      class="Layout--vertical Layout--layout-spacing-small StyledProps--main title StyledProps--padding-medium"
+      class="Layout--vertical StyledProps--main"
     >
       <div
-        class="breadcrumbs"
-      >
-        <div>
-          <a
-            class="breadcrumb"
-            href="/account/testAcc/home/projects"
-          >
-            projectsText
-          </a>
-          <span
-            class="bp3-icon StyledProps--main separator"
-            data-icon="main-chevron-right"
-          >
-            <svg
-              height="11"
-              viewBox="0 0 8 14"
-              width="11"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
-                fill="#4d5969"
-              />
-            </svg>
-          </span>
-        </div>
-        <div>
-          <span
-            class="lastBreadcrumb"
-          >
-            dummy name
-          </span>
-        </div>
-      </div>
-      <p
-        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
-        style="--text-line-clamp: 1;"
-      >
-        dummy name
-      </p>
-      <p
-        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small"
-        style="--text-line-clamp: 2;"
-      >
-        
-      </p>
-      <div
-        class="Layout--horizontal StyledProps--main StyledProps--padding-top-small"
+        class="Layout--vertical Layout--layout-spacing-small StyledProps--main title StyledProps--padding-medium"
       >
         <div
-          class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
-        />
+          class="breadcrumbs"
+        >
+          <div>
+            <a
+              class="breadcrumb"
+              href="/account/testAcc/home/projects"
+            >
+              projectsText
+            </a>
+            <span
+              class="bp3-icon StyledProps--main separator"
+              data-icon="main-chevron-right"
+            >
+              <svg
+                height="11"
+                viewBox="0 0 8 14"
+                width="11"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
+                  fill="#4d5969"
+                />
+              </svg>
+            </span>
+          </div>
+          <div>
+            <span
+              class="lastBreadcrumb"
+            >
+              dummy name
+            </span>
+          </div>
+        </div>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
+          style="--text-line-clamp: 1;"
+        >
+          dummy name
+        </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small"
+          style="--text-line-clamp: 2;"
+        >
+          
+        </p>
+        <div
+          class="Layout--horizontal StyledProps--main StyledProps--padding-top-small"
+        >
+          <div
+            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+          />
+        </div>
       </div>
     </div>
     <div

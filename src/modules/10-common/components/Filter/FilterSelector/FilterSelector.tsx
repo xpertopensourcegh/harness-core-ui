@@ -57,7 +57,7 @@ export default function FilterSelector<T extends FilterInterface>(props: FilterS
         addClearBtn={true}
         value={{ label: appliedFilter?.name || '', value: appliedFilter?.identifier || '' }}
         inputProps={{
-          placeholder: getString('filters.selectFilter')
+          placeholder: filters?.length ? getString('filters.selectFilter') : getString('common.filters.noFilterSaved')
         }}
         noResults={<MenuItem disabled={true} text={getString('filters.noFilterFound')} />}
       />

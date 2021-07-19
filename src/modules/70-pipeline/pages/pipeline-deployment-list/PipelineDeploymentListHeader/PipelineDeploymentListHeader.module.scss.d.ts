@@ -5,8 +5,7 @@ declare const styles: {
   readonly runText: string
   readonly lhs: string
   readonly rhs: string
-  readonly filterGroup: string
-  readonly label: string
+  readonly myDeploymentsCheckbox: string
   readonly btnGroup: string
 }
 export default styles

@@ -1,13 +1,14 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { Button, ButtonGroup } from '@wings-software/uicore'
+import { Checkbox, Color } from '@wings-software/uicore'
 
-import { String } from 'framework/strings'
+import { String, useStrings } from 'framework/strings'
 import type { PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 
 import StatusSelect from '@pipeline/components/StatusSelect/StatusSelect'
 import PipelineSelect from '@pipeline/components/PipelineSelect/PipelineSelect'
 import { useUpdateQueryParams } from '@common/hooks'
+import { Page } from '@common/exports'
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
 import type { GetListOfExecutionsQueryParams } from 'services/pipeline-ng'
 import RbacButton from '@rbac/components/Button/Button'
@@ -34,14 +35,14 @@ export function PipelineDeploymentListHeader(props: PipelineDeploymentListHeader
   const { module, pipelineIdentifier } = useParams<Partial<PipelineType<PipelinePathProps>>>()
   const { queryParams } = useFiltersContext()
   const { updateQueryParams } = useUpdateQueryParams<Partial<GetListOfExecutionsQueryParams>>()
+  const { getString } = useStrings()
 
-  function handleMyDeployments(): void {
-    updateQueryParams({ myDeployments: true })
-  }
-
-  function handleAllDeployments(): void {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    updateQueryParams({ myDeployments: [] as any }) // removes the param
+  function handleMyDeployments(isChecked: boolean): void {
+    if (isChecked) {
+      updateQueryParams({ myDeployments: true })
+    } else {
+      updateQueryParams({ myDeployments: [] as any }) // removes the param
+    }
   }
 
   function handleStatusChange(status?: QuickStatusParam | null): void {
@@ -64,7 +65,7 @@ export function PipelineDeploymentListHeader(props: PipelineDeploymentListHeader
   }
 
   return (
-    <div className={css.main}>
+    <Page.SubHeader className={css.main}>
       <div className={css.lhs}>
         <RbacButton
           icon="run-pipeline"
@@ -83,44 +84,25 @@ export function PipelineDeploymentListHeader(props: PipelineDeploymentListHeader
         >
           <String className={css.runText} stringID="runPipelineText" />
         </RbacButton>
-        <div className={css.filterGroup}>
-          <String className={css.label} stringID={module === 'ci' ? 'buildsText' : 'deploymentsText'} />
-          <ButtonGroup className={css.btnGroup}>
-            <Button
-              intent={!queryParams.myDeployments ? 'primary' : 'none'}
-              onClick={handleAllDeployments}
-              withoutBoxShadow
-            >
-              <String stringID="all" />
-            </Button>
-            <Button
-              intent={queryParams.myDeployments ? 'primary' : 'none'}
-              onClick={handleMyDeployments}
-              withoutBoxShadow
-            >
-              <String stringID="common.My" />
-            </Button>
-          </ButtonGroup>
-        </div>
-        <>
-          <div className={css.filterGroup}>
-            <String className={css.label} stringID="status" />
-            <StatusSelect value={queryParams.status as ExecutionStatus} onSelect={handleStatusChange} />
-          </div>
-          {pipelineIdentifier ? null : (
-            <div className={css.filterGroup}>
-              <String className={css.label} stringID="pipelines" />
-              <PipelineSelect
-                selectedPipeline={queryParams.pipelineIdentifier}
-                onPipelineSelect={handlePipelineChange}
-              />
-            </div>
-          )}
-        </>
+        <Checkbox
+          label={getString(module === 'ci' ? 'pipeline.myBuildsText' : 'pipeline.myDeploymentsText')}
+          background={Color.PRIMARY_BG}
+          color={Color.GREY_800}
+          padding={{ top: 'small', bottom: 'small', left: 'xxlarge', right: 'medium' }}
+          checked={queryParams.myDeployments}
+          onChange={e => handleMyDeployments(e.currentTarget.checked)}
+          border={{ color: Color.GREY_200, width: 1, style: 'solid' }}
+          height={'32px'}
+          className={css.myDeploymentsCheckbox}
+        />
+        <StatusSelect value={queryParams.status as ExecutionStatus} onSelect={handleStatusChange} />
+        {pipelineIdentifier ? null : (
+          <PipelineSelect selectedPipeline={queryParams.pipelineIdentifier} onPipelineSelect={handlePipelineChange} />
+        )}
       </div>
       <div className={css.rhs}>
         <ExecutionFilters />
       </div>
-    </div>
+    </Page.SubHeader>
   )
 }

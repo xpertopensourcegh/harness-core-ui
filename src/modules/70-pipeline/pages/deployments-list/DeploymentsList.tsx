@@ -11,6 +11,7 @@ import PipelineDeploymentList from '@pipeline/pages/pipeline-deployment-list/Pip
 import routes from '@common/RouteDefinitions'
 import PipelineModalListView from '@pipeline/components/PipelineModalListView/PipelineModalListView'
 import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { Page } from '@common/exports'
 import css from './DeploymentsList.module.scss'
 
 export default function DeploymentsList(): React.ReactElement {
@@ -38,24 +39,28 @@ export default function DeploymentsList(): React.ReactElement {
   const textIdentifier = module === 'ci' ? 'buildsText' : 'deploymentsText'
   return (
     <div className={css.main}>
-      <div className={css.header}>
-        <Breadcrumbs
-          links={[
-            {
-              label: project?.name || '',
-              url: routes.toProjectOverview({ orgIdentifier, projectIdentifier, accountId, module })
-            },
-            {
-              label: getString(module === 'ci' ? 'buildsText' : 'deploymentsText'),
-              url: ''
-            }
-          ]}
-        />
-        <div className="ng-tooltip-native">
-          <h2 data-tooltip-id={textIdentifier}>{getString(textIdentifier)}</h2>
-          <HarnessDocTooltip tooltipId={textIdentifier} useStandAlone={true} />
-        </div>
-      </div>
+      <Page.Header
+        title={
+          <div className="ng-tooltip-native">
+            <h2 data-tooltip-id={textIdentifier}>{getString(textIdentifier)}</h2>
+            <HarnessDocTooltip tooltipId={textIdentifier} useStandAlone={true} />
+          </div>
+        }
+        breadcrumbs={
+          <Breadcrumbs
+            links={[
+              {
+                label: project?.name || '',
+                url: routes.toProjectOverview({ orgIdentifier, projectIdentifier, accountId, module })
+              },
+              {
+                label: getString(module === 'ci' ? 'buildsText' : 'deploymentsText'),
+                url: ''
+              }
+            ]}
+          />
+        }
+      ></Page.Header>
       <div className={css.content}>
         <PipelineDeploymentList onRunPipeline={openModal} />
       </div>

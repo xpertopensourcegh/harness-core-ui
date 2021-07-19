@@ -3,14 +3,18 @@
 exports[`Entity Usage render for connector data with gitSync 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container standard secondHeader StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+    class="Layout--horizontal StyledProps--main container standard secondHeader StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
-    <h2
-      class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
-      level="2"
+    <div
+      class="Layout--vertical StyledProps--main"
     >
-      common.references
-    </h2>
+      <h2
+        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+        level="2"
+      >
+        common.references
+      </h2>
+    </div>
     <div
       class="StyledProps--font StyledProps--main"
     >
@@ -292,14 +296,18 @@ exports[`Entity Usage render for connector data with gitSync 1`] = `
 exports[`Entity Usage render for data 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container standard secondHeader StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+    class="Layout--horizontal StyledProps--main container standard secondHeader StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
-    <h2
-      class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
-      level="2"
+    <div
+      class="Layout--vertical StyledProps--main"
     >
-      common.references
-    </h2>
+      <h2
+        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+        level="2"
+      >
+        common.references
+      </h2>
+    </div>
     <div
       class="StyledProps--font StyledProps--main"
     >
@@ -433,14 +441,18 @@ exports[`Entity Usage render for data 1`] = `
 exports[`Entity Usage render for no data 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container standard secondHeader StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+    class="Layout--horizontal StyledProps--main container standard secondHeader StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
-    <h2
-      class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
-      level="2"
+    <div
+      class="Layout--vertical StyledProps--main"
     >
-      common.references
-    </h2>
+      <h2
+        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+        level="2"
+      >
+        common.references
+      </h2>
+    </div>
     <div
       class="StyledProps--font StyledProps--main"
     >

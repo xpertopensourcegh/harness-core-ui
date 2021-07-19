@@ -101,14 +101,18 @@ exports[`Subscriptions Page it renders a page error when the license call fails 
 exports[`Subscriptions Page it renders an expired banner when the trial is expired 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
-    <h2
-      class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
-      level="2"
+    <div
+      class="Layout--vertical StyledProps--main"
     >
-      common.subscriptions.title
-    </h2>
+      <h2
+        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+        level="2"
+      >
+        common.subscriptions.title
+      </h2>
+    </div>
   </div>
   <div
     class="Layout--vertical StyledProps--main StyledProps--padding-xxxlarge"
@@ -576,14 +580,18 @@ exports[`Subscriptions Page it renders an expired banner when the trial is expir
 exports[`Subscriptions Page it renders the correct card in the subscriptions page 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
-    <h2
-      class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
-      level="2"
+    <div
+      class="Layout--vertical StyledProps--main"
     >
-      common.subscriptions.title
-    </h2>
+      <h2
+        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+        level="2"
+      >
+        common.subscriptions.title
+      </h2>
+    </div>
   </div>
   <div
     class="Layout--vertical StyledProps--main StyledProps--padding-xxxlarge"
@@ -1051,14 +1059,18 @@ exports[`Subscriptions Page it renders the correct card in the subscriptions pag
 exports[`Subscriptions Page it renders the subscriptions page 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
-    <h2
-      class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
-      level="2"
+    <div
+      class="Layout--vertical StyledProps--main"
     >
-      common.subscriptions.title
-    </h2>
+      <h2
+        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+        level="2"
+      >
+        common.subscriptions.title
+      </h2>
+    </div>
   </div>
   <div
     class="Layout--vertical StyledProps--main StyledProps--padding-xxxlarge"
@@ -1526,14 +1538,18 @@ exports[`Subscriptions Page it renders the subscriptions page 1`] = `
 exports[`Subscriptions Page it renders trial not started information 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
-    <h2
-      class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
-      level="2"
+    <div
+      class="Layout--vertical StyledProps--main"
     >
-      common.subscriptions.title
-    </h2>
+      <h2
+        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+        level="2"
+      >
+        common.subscriptions.title
+      </h2>
+    </div>
   </div>
   <div
     class="Layout--vertical StyledProps--main StyledProps--padding-xxxlarge"
@@ -1959,14 +1975,18 @@ exports[`Subscriptions Page it routes to the module trial home page when the tri
 exports[`Subscriptions Page it should update the license store 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
-    <h2
-      class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
-      level="2"
+    <div
+      class="Layout--vertical StyledProps--main"
     >
-      common.subscriptions.title
-    </h2>
+      <h2
+        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+        level="2"
+      >
+        common.subscriptions.title
+      </h2>
+    </div>
   </div>
   <div
     class="Layout--vertical StyledProps--main StyledProps--padding-xxxlarge"
@@ -2434,14 +2454,18 @@ exports[`Subscriptions Page it should update the license store 1`] = `
 exports[`Subscriptions Page it shows the header and a loading spinner while the account call is loading 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
-    <h2
-      class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
-      level="2"
+    <div
+      class="Layout--vertical StyledProps--main"
     >
-      common.subscriptions.title
-    </h2>
+      <h2
+        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+        level="2"
+      >
+        common.subscriptions.title
+      </h2>
+    </div>
   </div>
   <div
     class="Layout--vertical StyledProps--main StyledProps--padding-xxxlarge"
@@ -2854,14 +2878,18 @@ exports[`Subscriptions Page it shows the header and a loading spinner while the 
 exports[`Subscriptions Page it shows the header and a loading spinner while the license call is loading 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
-    <h2
-      class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
-      level="2"
+    <div
+      class="Layout--vertical StyledProps--main"
     >
-      common.subscriptions.title
-    </h2>
+      <h2
+        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+        level="2"
+      >
+        common.subscriptions.title
+      </h2>
+    </div>
   </div>
   <div
     class="Layout--vertical StyledProps--main StyledProps--padding-xxxlarge"

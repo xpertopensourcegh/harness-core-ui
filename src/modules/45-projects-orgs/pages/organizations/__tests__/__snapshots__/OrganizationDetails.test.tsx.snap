@@ -3,69 +3,73 @@
 exports[`Organization Details Render 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container xlarge header StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+    class="Layout--horizontal StyledProps--main container xlarge header StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
     <div
-      class="Layout--vertical Layout--layout-spacing-small StyledProps--main title StyledProps--padding-medium"
+      class="Layout--vertical StyledProps--main"
     >
       <div
-        class="Layout--horizontal StyledProps--main"
-      >
-        <a
-          href="/account/testAcc/home/setup/organizations"
-        >
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-blue600"
-          >
-            projectsOrgs.manage
-          </p>
-        </a>
-      </div>
-      <p
-        class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
-      >
-        Org Name
-      </p>
-      <p
-        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small"
-        style="--text-line-clamp: 2;"
-      >
-        Description
-      </p>
-      <div
-        class="Layout--horizontal StyledProps--main StyledProps--padding-top-small"
+        class="Layout--vertical Layout--layout-spacing-small StyledProps--main title StyledProps--padding-medium"
       >
         <div
-          class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+          class="Layout--horizontal StyledProps--main"
         >
-          <span
-            class="Tag--main"
+          <a
+            href="/account/testAcc/home/setup/organizations"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-blue600"
+            >
+              projectsOrgs.manage
+            </p>
+          </a>
+        </div>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
+        >
+          Org Name
+        </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small"
+          style="--text-line-clamp: 2;"
+        >
+          Description
+        </p>
+        <div
+          class="Layout--horizontal StyledProps--main StyledProps--padding-top-small"
+        >
+          <div
+            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
           >
             <span
-              class="bp3-tag"
-              style="max-width: 120px;"
+              class="Tag--main"
             >
               <span
-                class="bp3-text-overflow-ellipsis bp3-fill"
+                class="bp3-tag"
+                style="max-width: 120px;"
               >
-                tag1
+                <span
+                  class="bp3-text-overflow-ellipsis bp3-fill"
+                >
+                  tag1
+                </span>
               </span>
             </span>
-          </span>
-          <span
-            class="Tag--main"
-          >
             <span
-              class="bp3-tag"
-              style="max-width: 120px;"
+              class="Tag--main"
             >
               <span
-                class="bp3-text-overflow-ellipsis bp3-fill"
+                class="bp3-tag"
+                style="max-width: 120px;"
               >
-                tag2:tag3
+                <span
+                  class="bp3-text-overflow-ellipsis bp3-fill"
+                >
+                  tag2:tag3
+                </span>
               </span>
             </span>
-          </span>
+          </div>
         </div>
       </div>
     </div>

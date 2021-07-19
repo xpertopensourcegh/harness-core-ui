@@ -393,6 +393,7 @@ filters:
   saveNewFilter: Save New Filter
   noMatchingFilterData: No Results found matching the Filter criteria
   clearFilters: Clear Filters
+  noFilterSaved: No Filter Saved
 in: in
 on: on
 at: at

@@ -2,12 +2,6 @@
   position: sticky;
   top: 0;
   z-index: 3;
-  padding: var(--spacing-large) var(--spacing-large);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: var(--white);
-  border-bottom: 1px solid var(--grey-200);
 
   .runText {
     margin-left: var(--spacing-small);
@@ -24,15 +18,10 @@
     align-items: center;
   }
 
-  .filterGroup {
-    position: relative;
-
-    .label {
-      position: absolute;
-      bottom: calc(100% + 2px);
-      left: 0;
-      font-size: var(--font-size-xsmall);
-      color: var(--grey-500);
+  .myDeploymentsCheckbox {
+    font-size: var(--font-size-small) !important;
+    span {
+      --box-border: var(--primary-7) !important;
     }
   }
 

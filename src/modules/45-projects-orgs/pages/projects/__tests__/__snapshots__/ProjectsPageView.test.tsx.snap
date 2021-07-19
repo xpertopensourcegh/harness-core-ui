@@ -7,12 +7,16 @@ exports[`Project Page List Create Project and Close 1`] = `
     style="height: inherit;"
   >
     <div
-      class="Layout--horizontal StyledProps--main container standard page notSend StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+      class="Layout--horizontal StyledProps--main container standard page notSend StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
     >
-      <h2
-        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
-        level="2"
-      />
+      <div
+        class="Layout--vertical StyledProps--main"
+      >
+        <h2
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+          level="2"
+        />
+      </div>
       <div
         class="Layout--horizontal Layout--layout-spacing-xxxlarge StyledProps--main"
       >
@@ -63,14 +67,18 @@ exports[`Project Page List Create Project and Close 1`] = `
       </div>
     </div>
     <div
-      class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+      class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
     >
-      <h2
-        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
-        level="2"
+      <div
+        class="Layout--vertical StyledProps--main"
       >
-        projectsText
-      </h2>
+        <h2
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+          level="2"
+        >
+          projectsText
+        </h2>
+      </div>
     </div>
     <div
       class="Layout--horizontal Layout--layout-spacing-large StyledProps--main header"
@@ -2864,12 +2872,16 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
     style="height: inherit;"
   >
     <div
-      class="Layout--horizontal StyledProps--main container standard page notSend StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+      class="Layout--horizontal StyledProps--main container standard page notSend StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
     >
-      <h2
-        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
-        level="2"
-      />
+      <div
+        class="Layout--vertical StyledProps--main"
+      >
+        <h2
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+          level="2"
+        />
+      </div>
       <div
         class="Layout--horizontal Layout--layout-spacing-xxxlarge StyledProps--main"
       >
@@ -2920,14 +2932,18 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
       </div>
     </div>
     <div
-      class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+      class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
     >
-      <h2
-        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
-        level="2"
+      <div
+        class="Layout--vertical StyledProps--main"
       >
-        projectsText
-      </h2>
+        <h2
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+          level="2"
+        >
+          projectsText
+        </h2>
+      </div>
     </div>
     <div
       class="Layout--horizontal Layout--layout-spacing-large StyledProps--main header"
@@ -5721,12 +5737,16 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
     style="height: inherit;"
   >
     <div
-      class="Layout--horizontal StyledProps--main container standard page notSend StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+      class="Layout--horizontal StyledProps--main container standard page notSend StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
     >
-      <h2
-        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
-        level="2"
-      />
+      <div
+        class="Layout--vertical StyledProps--main"
+      >
+        <h2
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+          level="2"
+        />
+      </div>
       <div
         class="Layout--horizontal Layout--layout-spacing-xxxlarge StyledProps--main"
       >
@@ -5777,14 +5797,18 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
       </div>
     </div>
     <div
-      class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+      class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
     >
-      <h2
-        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
-        level="2"
+      <div
+        class="Layout--vertical StyledProps--main"
       >
-        projectsText
-      </h2>
+        <h2
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+          level="2"
+        >
+          projectsText
+        </h2>
+      </div>
     </div>
     <div
       class="Layout--horizontal Layout--layout-spacing-large StyledProps--main header"
@@ -8578,12 +8602,16 @@ exports[`Project Page List Whole Modal Test 1`] = `
     style="height: inherit;"
   >
     <div
-      class="Layout--horizontal StyledProps--main container standard page notSend StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+      class="Layout--horizontal StyledProps--main container standard page notSend StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
     >
-      <h2
-        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
-        level="2"
-      />
+      <div
+        class="Layout--vertical StyledProps--main"
+      >
+        <h2
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+          level="2"
+        />
+      </div>
       <div
         class="Layout--horizontal Layout--layout-spacing-xxxlarge StyledProps--main"
       >
@@ -8634,14 +8662,18 @@ exports[`Project Page List Whole Modal Test 1`] = `
       </div>
     </div>
     <div
-      class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+      class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
     >
-      <h2
-        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
-        level="2"
+      <div
+        class="Layout--vertical StyledProps--main"
       >
-        projectsText
-      </h2>
+        <h2
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+          level="2"
+        >
+          projectsText
+        </h2>
+      </div>
     </div>
     <div
       class="Layout--horizontal Layout--layout-spacing-large StyledProps--main header"

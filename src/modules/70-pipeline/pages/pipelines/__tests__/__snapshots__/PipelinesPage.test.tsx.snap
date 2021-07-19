@@ -3,56 +3,64 @@
 exports[`CD Pipeline Page List render card view 1`] = `
 <div>
   <div
-    class="pageheader"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
     <div
-      class="breadcrumbs"
+      class="Layout--vertical StyledProps--main"
     >
-      <div>
-        <a
-          class="breadcrumb"
-          href="/account/testAcc/cd/orgs/testOrg/projects/test/dashboard"
-        >
-          test
-        </a>
-        <span
-          class="bp3-icon StyledProps--main separator"
-          data-icon="main-chevron-right"
-        >
-          <svg
-            height="11"
-            viewBox="0 0 8 14"
-            width="11"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
-              fill="#4d5969"
-            />
-          </svg>
-        </span>
-      </div>
-      <div>
-        <span
-          class="lastBreadcrumb"
-        >
-          pipelines
-        </span>
-      </div>
-    </div>
-    <div
-      class="ng-tooltip-native"
-    >
-      <h2
-        data-tooltip-id="pipelinesPageHeading"
+      <div
+        class="breadcrumbsDiv"
       >
-         
-        pipelines
-      </h2>
+        <div
+          class="breadcrumbs"
+        >
+          <div>
+            <a
+              class="breadcrumb"
+              href="/account/testAcc/cd/orgs/testOrg/projects/test/dashboard"
+            >
+              test
+            </a>
+            <span
+              class="bp3-icon StyledProps--main separator"
+              data-icon="main-chevron-right"
+            >
+              <svg
+                height="11"
+                viewBox="0 0 8 14"
+                width="11"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
+                  fill="#4d5969"
+                />
+              </svg>
+            </span>
+          </div>
+          <div>
+            <span
+              class="lastBreadcrumb"
+            >
+              pipelines
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="ng-tooltip-native"
+      >
+        <h2
+          data-tooltip-id="pipelinesPageHeading"
+        >
+           
+          pipelines
+        </h2>
+      </div>
     </div>
   </div>
   <div
-    class="Layout--horizontal StyledProps--main header StyledProps--flex StyledProps--flex-distribution-space-between"
+    class="Layout--horizontal StyledProps--main container StyledProps--flex"
   >
     <div
       class="Layout--horizontal StyledProps--main"
@@ -129,7 +137,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
               <input
                 autocomplete="off"
                 class="bp3-input"
-                placeholder="filters.selectFilter"
+                placeholder="common.filters.noFilterSaved"
                 style="padding-right: 0px;"
                 type="text"
                 value=""
@@ -1600,56 +1608,64 @@ exports[`CD Pipeline Page List render card view 1`] = `
 exports[`CD Pipeline Page List render list view 1`] = `
 <div>
   <div
-    class="pageheader"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
     <div
-      class="breadcrumbs"
+      class="Layout--vertical StyledProps--main"
     >
-      <div>
-        <a
-          class="breadcrumb"
-          href="/account/testAcc/cd/orgs/testOrg/projects/test/dashboard"
-        >
-          test
-        </a>
-        <span
-          class="bp3-icon StyledProps--main separator"
-          data-icon="main-chevron-right"
-        >
-          <svg
-            height="11"
-            viewBox="0 0 8 14"
-            width="11"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
-              fill="#4d5969"
-            />
-          </svg>
-        </span>
-      </div>
-      <div>
-        <span
-          class="lastBreadcrumb"
-        >
-          pipelines
-        </span>
-      </div>
-    </div>
-    <div
-      class="ng-tooltip-native"
-    >
-      <h2
-        data-tooltip-id="pipelinesPageHeading"
+      <div
+        class="breadcrumbsDiv"
       >
-         
-        pipelines
-      </h2>
+        <div
+          class="breadcrumbs"
+        >
+          <div>
+            <a
+              class="breadcrumb"
+              href="/account/testAcc/cd/orgs/testOrg/projects/test/dashboard"
+            >
+              test
+            </a>
+            <span
+              class="bp3-icon StyledProps--main separator"
+              data-icon="main-chevron-right"
+            >
+              <svg
+                height="11"
+                viewBox="0 0 8 14"
+                width="11"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
+                  fill="#4d5969"
+                />
+              </svg>
+            </span>
+          </div>
+          <div>
+            <span
+              class="lastBreadcrumb"
+            >
+              pipelines
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="ng-tooltip-native"
+      >
+        <h2
+          data-tooltip-id="pipelinesPageHeading"
+        >
+           
+          pipelines
+        </h2>
+      </div>
     </div>
   </div>
   <div
-    class="Layout--horizontal StyledProps--main header StyledProps--flex StyledProps--flex-distribution-space-between"
+    class="Layout--horizontal StyledProps--main container StyledProps--flex"
   >
     <div
       class="Layout--horizontal StyledProps--main"
@@ -1726,7 +1742,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
               <input
                 autocomplete="off"
                 class="bp3-input"
-                placeholder="filters.selectFilter"
+                placeholder="common.filters.noFilterSaved"
                 style="padding-right: 0px;"
                 type="text"
                 value=""

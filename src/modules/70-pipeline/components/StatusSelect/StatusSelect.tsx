@@ -88,7 +88,7 @@ export default function StatusSelect(props: StatusSelectProps): React.ReactEleme
       popoverProps={{ minimal: true, wrapperTagName: 'div', targetTagName: 'div' }}
     >
       <Button className={css.main} rightIcon="chevron-down" data-testid="status-select">
-        {props.value ? props.value : <String stringID="all" />}
+        {props.value ? props.value : <String stringID="status" />}
       </Button>
     </Select>
   )

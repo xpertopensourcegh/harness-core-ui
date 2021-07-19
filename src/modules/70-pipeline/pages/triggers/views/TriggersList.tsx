@@ -124,28 +124,25 @@ export default function TriggersList(props: TriggersListPropsInterface & GitQuer
 
   return (
     <>
-      <Page.Header
-        title={
-          <Button
-            disabled={!isEditable}
-            text={getString('pipeline.triggers.newTrigger')}
-            intent="primary"
-            onClick={openDrawer}
-          ></Button>
-        }
-        toolbar={
-          <TextInput
-            leftIcon="search"
-            placeholder={getString('search')}
-            data-name="search"
-            className={css.search}
-            value={searchParam}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setSearchParam(e.target.value.trim())
-            }}
-          />
-        }
-      />
+      <Page.SubHeader>
+        <Button
+          disabled={!isEditable}
+          text={getString('pipeline.triggers.newTrigger')}
+          intent="primary"
+          onClick={openDrawer}
+        ></Button>
+        <TextInput
+          leftIcon="search"
+          placeholder={getString('search')}
+          data-name="search"
+          className={css.search}
+          value={searchParam}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setSearchParam(e.target.value.trim())
+          }}
+        />
+      </Page.SubHeader>
+
       <Page.Body
         loading={loading}
         error={error?.message}

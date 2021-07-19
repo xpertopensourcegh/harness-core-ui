@@ -3,92 +3,96 @@
 exports[`UserGroupDetails Test render data 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container xlarge header StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+    class="Layout--horizontal StyledProps--main container xlarge header StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
     <div
       class="Layout--vertical StyledProps--main"
     >
       <div
-        class="breadcrumbs"
-      >
-        <div>
-          <a
-            class="breadcrumb"
-            href="/account/testAcc/home/setup/access-control"
-          >
-            accessControl
-          </a>
-          <span
-            class="bp3-icon StyledProps--main separator"
-            data-icon="main-chevron-right"
-          >
-            <svg
-              height="11"
-              viewBox="0 0 8 14"
-              width="11"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
-                fill="#4d5969"
-              />
-            </svg>
-          </span>
-        </div>
-        <div>
-          <a
-            class="breadcrumb"
-            href="/account/testAcc/home/setup/access-control/user-groups"
-          >
-            common.userGroups
-          </a>
-          <span
-            class="bp3-icon StyledProps--main separator"
-            data-icon="main-chevron-right"
-          >
-            <svg
-              height="11"
-              viewBox="0 0 8 14"
-              width="11"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
-                fill="#4d5969"
-              />
-            </svg>
-          </span>
-        </div>
-        <div>
-          <span
-            class="lastBreadcrumb"
-          >
-            New RG
-          </span>
-        </div>
-      </div>
-      <div
-        class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+        class="Layout--vertical StyledProps--main"
       >
         <div
-          class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-left-medium"
+          class="breadcrumbs"
         >
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-medium"
-          >
-            New RG
-          </p>
-          <p
-            class="StyledProps--font StyledProps--main"
-          >
-            
-          </p>
+          <div>
+            <a
+              class="breadcrumb"
+              href="/account/testAcc/home/setup/access-control"
+            >
+              accessControl
+            </a>
+            <span
+              class="bp3-icon StyledProps--main separator"
+              data-icon="main-chevron-right"
+            >
+              <svg
+                height="11"
+                viewBox="0 0 8 14"
+                width="11"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
+                  fill="#4d5969"
+                />
+              </svg>
+            </span>
+          </div>
+          <div>
+            <a
+              class="breadcrumb"
+              href="/account/testAcc/home/setup/access-control/user-groups"
+            >
+              common.userGroups
+            </a>
+            <span
+              class="bp3-icon StyledProps--main separator"
+              data-icon="main-chevron-right"
+            >
+              <svg
+                height="11"
+                viewBox="0 0 8 14"
+                width="11"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
+                  fill="#4d5969"
+                />
+              </svg>
+            </span>
+          </div>
+          <div>
+            <span
+              class="lastBreadcrumb"
+            >
+              New RG
+            </span>
+          </div>
+        </div>
+        <div
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+        >
           <div
-            class="Layout--horizontal StyledProps--main StyledProps--padding-top-small"
+            class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-left-medium"
           >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-medium"
+            >
+              New RG
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              
+            </p>
             <div
-              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
-            />
+              class="Layout--horizontal StyledProps--main StyledProps--padding-top-small"
+            >
+              <div
+                class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+              />
+            </div>
           </div>
         </div>
       </div>

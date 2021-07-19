@@ -3,9 +3,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--white) !important;
+  background-color: var(--primary-1) !important;
+  color: var(--grey-800) !important;
+  font-size: var(--font-size-small) !important;
 
   & :global(.bp3-icon) {
-    color: var(--primary-7);
+    color: var(--grey-500);
   }
 }

@@ -591,52 +591,52 @@ export function InputSetFormWrapper(props: InputSetFormWrapperProps): React.Reac
     <React.Fragment>
       <PageHeader
         title={
-          <Layout.Vertical spacing="xsmall">
-            <Breadcrumbs
-              links={[
-                {
-                  url: routes.toCDProjectOverview({ orgIdentifier, projectIdentifier, accountId, module }),
-                  label: project?.name as string
-                },
-                {
-                  url: routes.toPipelines({ orgIdentifier, projectIdentifier, accountId, module }),
-                  label: getString('pipelines')
-                },
-                {
-                  url: routes.toInputSetList({
-                    orgIdentifier,
-                    projectIdentifier,
-                    accountId,
-                    pipelineIdentifier,
-                    module,
-                    branch: pipeline?.data?.gitDetails?.branch,
-                    repoIdentifier: pipeline?.data?.gitDetails?.repoIdentifier
-                  }),
-                  label: parse(pipeline?.data?.yamlPipeline || '')?.pipeline.name || ''
-                },
-                { url: '#', label: isEdit ? inputSet.name : getString('inputSets.newInputSetLabel') }
-              ]}
-            />
-            <Layout.Horizontal>
-              <Text font="medium">
-                {isEdit
-                  ? getString('inputSets.editTitle', { name: inputSet.name })
-                  : getString('inputSets.newInputSetLabel')}
-              </Text>
-              {isGitSyncEnabled && isEdit && (
-                <GitPopover data={inputSet.gitDetails || {}} iconProps={{ margin: { left: 'small', top: 'xsmall' } }} />
-              )}
-              <div className={css.optionBtns}>
-                <VisualYamlToggle
-                  initialSelectedView={selectedView}
-                  beforeOnChange={(nextMode, callback) => {
-                    handleModeSwitch(nextMode)
-                    callback(nextMode)
-                  }}
-                ></VisualYamlToggle>
-              </div>
-            </Layout.Horizontal>
-          </Layout.Vertical>
+          <Layout.Horizontal>
+            <Text font="medium">
+              {isEdit
+                ? getString('inputSets.editTitle', { name: inputSet.name })
+                : getString('inputSets.newInputSetLabel')}
+            </Text>
+            {isGitSyncEnabled && isEdit && (
+              <GitPopover data={inputSet.gitDetails || {}} iconProps={{ margin: { left: 'small', top: 'xsmall' } }} />
+            )}
+            <div className={css.optionBtns}>
+              <VisualYamlToggle
+                initialSelectedView={selectedView}
+                beforeOnChange={(nextMode, callback) => {
+                  handleModeSwitch(nextMode)
+                  callback(nextMode)
+                }}
+              ></VisualYamlToggle>
+            </div>
+          </Layout.Horizontal>
+        }
+        breadcrumbs={
+          <Breadcrumbs
+            links={[
+              {
+                url: routes.toCDProjectOverview({ orgIdentifier, projectIdentifier, accountId, module }),
+                label: project?.name as string
+              },
+              {
+                url: routes.toPipelines({ orgIdentifier, projectIdentifier, accountId, module }),
+                label: getString('pipelines')
+              },
+              {
+                url: routes.toInputSetList({
+                  orgIdentifier,
+                  projectIdentifier,
+                  accountId,
+                  pipelineIdentifier,
+                  module,
+                  branch: pipeline?.data?.gitDetails?.branch,
+                  repoIdentifier: pipeline?.data?.gitDetails?.repoIdentifier
+                }),
+                label: parse(pipeline?.data?.yamlPipeline || '')?.pipeline.name || ''
+              },
+              { url: '#', label: isEdit ? inputSet.name : getString('inputSets.newInputSetLabel') }
+            ]}
+          />
         }
       />
 

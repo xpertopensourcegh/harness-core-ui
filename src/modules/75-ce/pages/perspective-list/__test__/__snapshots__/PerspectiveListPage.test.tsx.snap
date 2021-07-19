@@ -3,14 +3,18 @@
 exports[`test cases for Perspective details Page should be able to render and switch to list view 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
-    <h2
-      class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
-      level="2"
+    <div
+      class="Layout--vertical StyledProps--main"
     >
-      Perspectives
-    </h2>
+      <h2
+        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+        level="2"
+      >
+        Perspectives
+      </h2>
+    </div>
   </div>
   <div
     class="Layout--horizontal Layout--layout-spacing-large StyledProps--main header"
@@ -751,14 +755,18 @@ exports[`test cases for Perspective details Page should be able to render and sw
 exports[`test cases for Perspective details Page should be able to render the details page 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
-    <h2
-      class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
-      level="2"
+    <div
+      class="Layout--vertical StyledProps--main"
     >
-      Perspectives
-    </h2>
+      <h2
+        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+        level="2"
+      >
+        Perspectives
+      </h2>
+    </div>
   </div>
   <div
     class="Layout--horizontal Layout--layout-spacing-large StyledProps--main header"

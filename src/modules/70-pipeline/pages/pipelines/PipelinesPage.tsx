@@ -503,28 +503,32 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
 
   return (
     <>
-      <div className={css.pageheader}>
-        <Breadcrumbs
-          links={[
-            {
-              url: routes.toProjectOverview({
-                orgIdentifier,
-                projectIdentifier,
-                accountId,
-                module
-              }),
-              label: project?.name as string
-            },
-            { url: '#', label: getString('pipelines') }
-          ]}
-        />
-        <div className="ng-tooltip-native">
-          <h2 data-tooltip-id="pipelinesPageHeading"> {getString('pipelines')}</h2>
-          <HarnessDocTooltip tooltipId="pipelinesPageHeading" useStandAlone={true} />
-        </div>
-      </div>
+      <Page.Header
+        title={
+          <div className="ng-tooltip-native">
+            <h2 data-tooltip-id="pipelinesPageHeading"> {getString('pipelines')}</h2>
+            <HarnessDocTooltip tooltipId="pipelinesPageHeading" useStandAlone={true} />
+          </div>
+        }
+        breadcrumbs={
+          <Breadcrumbs
+            links={[
+              {
+                url: routes.toProjectOverview({
+                  orgIdentifier,
+                  projectIdentifier,
+                  accountId,
+                  module
+                }),
+                label: project?.name as string
+              },
+              { url: '#', label: getString('pipelines') }
+            ]}
+          />
+        }
+      ></Page.Header>
       {(!!pipelineList?.content?.length || appliedFilter || isGitSyncEnabled || searchParam) && (
-        <Layout.Horizontal className={css.header} flex={{ distribution: 'space-between' }}>
+        <Page.SubHeader>
           <Layout.Horizontal>
             <RbacButton
               intent="primary"
@@ -578,7 +582,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
             </>
             <GridListToggle initialSelectedView={Views.GRID} onViewToggle={setView} />
           </Layout.Horizontal>
-        </Layout.Horizontal>
+        </Page.SubHeader>
       )}
       <Page.Body
         className={css.pageBody}

@@ -119,18 +119,12 @@ $header-height: 80px;
   margin-right: var(--spacing-small);
 }
 
-.header {
-  background: var(--white) !important;
-  padding: var(--spacing-large) var(--spacing-large) !important;
-  border-bottom: 1px solid var(--grey-300);
-  height: 64px;
-}
-
 .expandSearch {
   width: 200px;
   height: 35px;
   display: flex;
   justify-content: flex-end;
+  margin-right: var(--spacing-3);
   :global {
     input[type='search'] {
       border: 0;

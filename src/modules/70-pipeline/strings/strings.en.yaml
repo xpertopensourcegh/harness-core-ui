@@ -637,3 +637,5 @@ verification:
     metrics: 'Metrics'
     logs: 'Logs'
 tagDependencyRequired: required to fetch the tags
+myDeploymentsText: My Deployments
+myBuildsText: My Builds
