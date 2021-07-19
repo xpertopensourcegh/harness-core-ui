@@ -19,7 +19,7 @@ import type { Project } from 'services/cd-ng'
 import { StringsContext } from 'framework/strings'
 
 import './testUtils.scss'
-import { PermissionsContext } from 'framework/rbac/PermissionsContext'
+import { PermissionsContext, PermissionsContextProps } from 'framework/rbac/PermissionsContext'
 
 export type UseGetMockData<TData, TError = undefined, TQueryParams = undefined, TPathParams = undefined> = Required<
   UseGetProps<TData, TError, TQueryParams, TPathParams>
@@ -44,6 +44,7 @@ export interface TestWrapperProps {
   queryParams?: Record<string, unknown>
   defaultAppStoreValues?: Partial<AppStoreContextProps>
   defaultLicenseStoreValues?: Partial<LicenseStoreContextProps>
+  defaultPermissionValues?: Partial<PermissionsContextProps>
   projects?: Project[]
   enableBrowserView?: boolean
 }
@@ -94,7 +95,14 @@ export function BrowserView(props: BrowserViewProps): React.ReactElement {
 
 export const TestWrapper: React.FC<TestWrapperProps> = props => {
   enableMapSet()
-  const { path = '/', pathParams = {}, defaultAppStoreValues, queryParams = {}, defaultLicenseStoreValues } = props
+  const {
+    path = '/',
+    pathParams = {},
+    defaultAppStoreValues,
+    queryParams = {},
+    defaultLicenseStoreValues,
+    defaultPermissionValues
+  } = props
 
   const search = qs.stringify(queryParams, { addQueryPrefix: true })
   const routePath = compile(path)(pathParams) + search
@@ -132,7 +140,8 @@ export const TestWrapper: React.FC<TestWrapperProps> = props => {
               permissions: new Map<string, boolean>(),
               requestPermission: () => void 0,
               checkPermission: () => true,
-              cancelRequest: () => void 0
+              cancelRequest: () => void 0,
+              ...defaultPermissionValues
             }}
           >
             <Router history={history}>
