@@ -436,18 +436,6 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                       )}
                     />
                   </MultiTypeFieldSelector>
-                  {getMultiTypeFromValue(formik.values.paths) === MultiTypeInputType.RUNTIME && (
-                    <ConfigureOptions
-                      value={formik.values.paths}
-                      type={getString('list')}
-                      variableName={'paths'}
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={val => formik?.setFieldValue('paths', val)}
-                      isReadonly={isReadonly}
-                    />
-                  )}
                 </div>
                 {!!(selectedManifest === ManifestDataType.K8sManifest) && (
                   <Accordion
