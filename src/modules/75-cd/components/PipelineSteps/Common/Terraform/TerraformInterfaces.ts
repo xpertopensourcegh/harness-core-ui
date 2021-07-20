@@ -317,10 +317,7 @@ export const onSubmitTerraformData = (values: any): TFFormData => {
           spec: {
             ...values.spec?.configuration?.spec?.configFiles?.store?.spec,
             connectorRef: values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
-              ? getMultiTypeFromValue(values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef) ===
-                  MultiTypeInputType.RUNTIME || !connectorValue?.value
-                ? values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
-                : connectorValue?.value
+              ? values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
               : ''
           }
         }
@@ -421,10 +418,7 @@ export const onSubmitTFPlanData = (values: any): TFPlanFormData => {
         spec: {
           ...values.spec?.configuration?.configFiles?.store?.spec,
           connectorRef: values?.spec?.configuration?.configFiles?.store?.spec?.connectorRef
-            ? getMultiTypeFromValue(values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef) ===
-                MultiTypeInputType.RUNTIME || !connectorValue?.value
-              ? values?.spec?.configuration?.configFiles?.store?.spec?.connectorRef
-              : connectorValue?.value
+            ? values?.spec?.configuration?.configFiles?.store?.spec?.connectorRef
             : ''
         }
       }

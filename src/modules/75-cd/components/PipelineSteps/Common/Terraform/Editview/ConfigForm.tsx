@@ -87,6 +87,7 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
             <Layout.Vertical>
               <Form>
                 <FormMultiTypeConnectorField
+                  setRefValue
                   label={
                     <Text style={{ display: 'flex', alignItems: 'center' }}>
                       {getString('connectors.title.gitConnector')}
