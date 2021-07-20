@@ -161,13 +161,12 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
       } else {
         values.bucketName = specValues?.bucketName
       }
-
       return values
     }
     return {
       identifier: '',
       bucketName: '',
-      region: { label: '', value: '' },
+      region: '',
       folderPath: '',
       helmVersion: 'V2',
       chartName: '',
@@ -231,6 +230,8 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
           folderPath: Yup.string().trim().required(getString('pipeline.manifestType.chartPathRequired')),
           chartName: Yup.string().trim().required(getString('pipeline.manifestType.http.chartNameRequired')),
           helmVersion: Yup.string().trim().required(getString('pipeline.manifestType.helmVersionRequired')),
+          region: Yup.string().trim().required(getString('pipeline.artifactsSelection.validation.region')),
+          bucketName: Yup.string().trim().required(getString('pipeline.manifestType.bucketNameRequired')),
           commandFlags: Yup.array().of(
             Yup.object().shape({
               flag: Yup.string().when('commandType', {
@@ -286,7 +287,6 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
                         }
                       }
                     }}
-                    isOptional={true}
                     label={getString('regionLabel')}
                   />
 
@@ -348,7 +348,6 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
                       label={getString('pipeline.manifestType.bucketName')}
                       placeholder={getString('pipeline.manifestType.bucketNamePlaceholder')}
                       name="bucketName"
-                      isOptional={true}
                       multiTypeInputProps={{
                         expressions,
                         selectProps: {
@@ -362,7 +361,9 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
                           allowCreatingNewItems: true
                         },
                         onFocus: () => {
-                          fetchBucket((formik.values?.region as any).value ?? formik.values?.region)
+                          if (!bucketData?.data && (formik.values?.region || (formik.values?.region as any).value)) {
+                            fetchBucket((formik.values?.region as any).value ?? formik.values?.region)
+                          }
                         }
                       }}
                     />
