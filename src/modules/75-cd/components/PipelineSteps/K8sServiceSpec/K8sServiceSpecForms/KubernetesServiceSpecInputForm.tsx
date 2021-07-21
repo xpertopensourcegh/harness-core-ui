@@ -914,7 +914,6 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                           allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                         }}
                         label={getString('pipelineSteps.build.create.repositoryNameLabel')}
-                        className={css.inputWidth}
                         name={`${path}.manifests[${index}].manifest.spec.store.spec.repoName`}
                       />
                     </div>
