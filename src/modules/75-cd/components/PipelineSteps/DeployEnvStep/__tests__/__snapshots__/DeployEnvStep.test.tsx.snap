@@ -75,7 +75,7 @@ exports[`Test DeployEnvironment Step should render edit Environment view (enviro
                       class="bp3-editable-text-content"
                       style="height: 1px; line-height: 1px; min-width: 0;"
                     >
-                      pass_env
+                      New_Project
                     </span>
                   </div>
                 </span>
@@ -110,7 +110,7 @@ exports[`Test DeployEnvironment Step should render edit Environment view (enviro
                     class="bp3-input"
                     name="name"
                     type="text"
-                    value="Pass Env"
+                    value="New Project"
                   />
                 </div>
               </div>

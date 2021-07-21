@@ -255,6 +255,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
     isEnvironment: false,
     data: { name: '', identifier: '' }
   })
+
   const [showModal, hideModal] = useModalHook(
     () => (
       <Dialog
@@ -300,13 +301,24 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
           })
         })
       }
-      const identifier = initialValues.environment?.identifier
-      const isExist = envList.filter(env => env.value === identifier).length > 0
-      if (initialValues.environment && identifier && !isExist) {
-        const value = { label: initialValues.environment.name || '', value: initialValues.environment.identifier || '' }
-        envList.push(value)
+      if (initialValues.environmentRef) {
+        setEnvironments(envList)
+        const doesExist = envList.filter(env => env.value === initialValues.environmentRef).length > 0
+        if (!doesExist) {
+          formikRef.current?.setFieldValue('environmentRef', '')
+        }
+      } else {
+        const identifier = initialValues.environment?.identifier
+        const isExist = envList.filter(env => env.value === identifier).length > 0
+        if (initialValues.environment && identifier && !isExist) {
+          const value = {
+            label: initialValues.environment.name || '',
+            value: initialValues.environment.identifier || ''
+          }
+          envList.push(value)
+        }
+        setEnvironments(envList)
       }
-      setEnvironments(envList)
     }
   }, [
     loading,

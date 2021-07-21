@@ -17,7 +17,24 @@ jest.mock('services/cd-ng', () => ({
   useCreateEnvironmentV2: jest.fn().mockImplementation(() => ({
     cancel: jest.fn(),
     loading: false,
-    mutate: jest.fn().mockImplementation(() => {
+    mutate: jest.fn().mockImplementation(obj => {
+      environments.data.content.push({
+        environment: {
+          accountId: 'AQ8xhfNCRtGIUjq5bSM8Fg',
+          orgIdentifier: 'default',
+          projectIdentifier: 'asdasd',
+          identifier: obj.identifier,
+          name: obj.name,
+          description: null,
+          color: '#0063F7',
+          type: obj.type,
+          deleted: false,
+          tags: {},
+          version: 1
+        },
+        createdAt: null,
+        lastModifiedAt: null
+      })
       return {
         status: 'SUCCESS'
       }
@@ -62,7 +79,7 @@ describe('Test DeployEnvironment Step', () => {
     const { container, getByLabelText } = render(
       <DeployEnvironment
         type={StepType.DeployEnvironment}
-        initialValues={{ environmentRef: 'selected_env' }}
+        initialValues={{ environmentRef: 'New_Project' }}
         stepViewType={StepViewType.Edit}
       />
     )
@@ -76,12 +93,13 @@ describe('Test DeployEnvironment Step', () => {
         value: 'New Environment'
       }
     ])
+    fireEvent.click(getByText(dialog!, 'Change'))
     fireEvent.click(getByLabelText('nonProduction'))
     await act(async () => {
       fireEvent.click(getByText(dialog!, 'save'))
     })
     expect(container.querySelector('pre')?.innerHTML).toMatchInlineSnapshot(`
-      "environmentRef: selected_env
+      "environmentRef: New_Project
       "
     `)
   })
@@ -91,8 +109,8 @@ describe('Test DeployEnvironment Step', () => {
         type={StepType.DeployEnvironment}
         initialValues={{
           environment: {
-            identifier: 'pass_env',
-            name: 'Pass Env',
+            identifier: 'New_Project',
+            name: 'New Project',
             description: 'test',
             type: 'PreProduction',
             tags: {
@@ -121,7 +139,7 @@ describe('Test DeployEnvironment Step', () => {
       fireEvent.click(getByText(dialog!, 'save'))
     })
     expect(container.querySelector('pre')?.innerHTML).toMatchInlineSnapshot(`
-      "environmentRef: pass_env
+      "environmentRef: New_Project
       "
     `)
   })
@@ -130,7 +148,7 @@ describe('Test DeployEnvironment Step', () => {
     const { container } = render(
       <DeployEnvironment
         type={StepType.DeployEnvironment}
-        initialValues={{ environmentRef: 'selected_env' }}
+        initialValues={{ environmentRef: 'New_Project' }}
         stepViewType={StepViewType.Edit}
       />
     )

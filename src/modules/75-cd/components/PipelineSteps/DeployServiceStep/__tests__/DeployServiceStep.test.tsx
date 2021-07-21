@@ -15,7 +15,22 @@ jest.mock('services/cd-ng', () => ({
   useCreateServicesV2: jest.fn().mockImplementation(() => ({
     cancel: jest.fn(),
     loading: false,
-    mutate: jest.fn().mockImplementation(() => {
+    mutate: jest.fn().mockImplementation(obj => {
+      services.data.content.push({
+        service: {
+          accountId: 'AQ8xhfNCRtGIUjq5bSM8Fg',
+          identifier: obj[0].identifier,
+          orgIdentifier: 'default',
+          projectIdentifier: 'asdsaff',
+          name: obj[0].name,
+          description: null,
+          deleted: false,
+          tags: {},
+          version: 9
+        },
+        createdAt: null,
+        lastModifiedAt: null
+      })
       return {
         status: 'SUCCESS'
       }
@@ -59,7 +74,7 @@ describe('Test DeployService Step', () => {
     const { container } = render(
       <DeployService
         type={StepType.DeployService}
-        initialValues={{ serviceRef: 'selected_service' }}
+        initialValues={{ serviceRef: 'New_Service' }}
         stepViewType={StepViewType.Edit}
       />
     )
@@ -77,7 +92,7 @@ describe('Test DeployService Step', () => {
       fireEvent.click(getByText(dialog!, 'save'))
     })
     expect(container.querySelector('pre')?.innerHTML).toMatchInlineSnapshot(`
-      "serviceRef: selected_service
+      "serviceRef: New_Service
       "
     `)
   })
@@ -87,8 +102,8 @@ describe('Test DeployService Step', () => {
         type={StepType.DeployService}
         initialValues={{
           service: {
-            identifier: 'pass_service',
-            name: 'Pass Service',
+            identifier: 'New_Service',
+            name: 'New Service',
             description: 'test',
             tags: {
               tag1: '',
@@ -114,7 +129,7 @@ describe('Test DeployService Step', () => {
       fireEvent.click(getByText(dialog!, 'save'))
     })
     expect(container.querySelector('pre')?.innerHTML).toMatchInlineSnapshot(`
-      "serviceRef: pass_service
+      "serviceRef: New_Service
       "
     `)
   })
@@ -125,8 +140,8 @@ describe('Test DeployService Step', () => {
         type={StepType.DeployService}
         initialValues={{
           service: {
-            identifier: 'pass_service',
-            name: 'Pass Service',
+            identifier: 'New_Service',
+            name: 'New Service',
             description: 'test',
             tags: {
               tag1: '',
@@ -156,7 +171,7 @@ describe('Test DeployService Step', () => {
     })
 
     expect(container.querySelector('pre')?.innerHTML).toMatchInlineSnapshot(`
-      "serviceRef: pass_service
+      "serviceRef: New_Service
       "
     `)
   })

@@ -274,16 +274,6 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
   }, [hideModal])
 
   React.useEffect(() => {
-    const identifier = initialValues.service?.identifier
-    const isExist = services.filter(service => service.value === identifier).length > 0
-    if (initialValues.service && identifier && !isExist) {
-      const value = { label: initialValues.service.name || '', value: initialValues.service.identifier || '' }
-      services.push(value)
-      setService([...services])
-    }
-  }, [initialValues.service, initialValues.service?.identifier, services])
-
-  React.useEffect(() => {
     if (!loading) {
       const serviceList: SelectOption[] = []
       if (serviceResponse?.data?.content?.length) {
@@ -294,15 +284,29 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
           })
         })
       }
-      const identifier = initialValues.service?.identifier
-      const isExist = serviceList.filter(service => service.value === identifier).length > 0
-      if (initialValues.service && identifier && !isExist) {
-        const value = { label: initialValues.service.name || '', value: initialValues.service.identifier || '' }
-        serviceList.push(value)
+      if (initialValues.serviceRef) {
+        setService(serviceList)
+        const doesExist = serviceList.filter(service => service.value === initialValues.serviceRef).length > 0
+        if (!doesExist) {
+          formikRef.current?.setFieldValue('serviceRef', '')
+        }
+      } else {
+        const identifier = initialValues.service?.identifier
+        const isExist = serviceList.filter(service => service.value === identifier).length > 0
+        if (initialValues.service && identifier && !isExist) {
+          const value = { label: initialValues.service.name || '', value: initialValues.service.identifier || '' }
+          serviceList.push(value)
+        }
+        setService(serviceList)
       }
-      setService(serviceList)
     }
-  }, [loading, initialValues.service, serviceResponse, serviceResponse?.data?.content?.length])
+  }, [
+    loading,
+    serviceResponse,
+    serviceResponse?.data?.content?.length,
+    initialValues.service,
+    initialValues.serviceRef
+  ])
 
   if (error?.message) {
     showError(error.message, undefined, 'cd.svc.list.error')
