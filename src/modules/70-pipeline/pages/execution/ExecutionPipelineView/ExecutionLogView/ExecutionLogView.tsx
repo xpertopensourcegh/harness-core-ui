@@ -1,6 +1,7 @@
 import React from 'react'
 import { Container } from '@wings-software/uicore'
-import { get } from 'lodash-es'
+import { useParams } from 'react-router-dom'
+import { defaultTo, get, has } from 'lodash-es'
 
 import { useUpdateQueryParams } from '@common/hooks'
 import { processExecutionData } from '@pipeline/utils/executionUtils'
@@ -11,13 +12,57 @@ import { isExecutionNotStarted, isExecutionSkipped } from '@pipeline/utils/statu
 import { LogsContent } from '@pipeline/components/LogsContent/LogsContent'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { ExecutionVerificationView } from '@pipeline/components/ExecutionVerification/ExecutionVerificationView'
+import { ExecutionNode, useGetExecutionNode } from 'services/pipeline-ng'
+import type { ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
 import { StepsTree } from './StepsTree/StepsTree'
 import css from './ExecutionLogView.module.scss'
 
+export interface LogViewerViewProps {
+  selectedStep?: ExecutionNode
+  errorMessage?: string
+  isSkipped?: boolean
+  loading?: boolean
+}
+
+function LogViewerView(props: LogViewerViewProps): React.ReactElement {
+  const { selectedStep, errorMessage, isSkipped } = props
+
+  if (selectedStep?.stepType === StepType.Verify) {
+    return <ExecutionVerificationView step={selectedStep} />
+  }
+  return (
+    <div className={css.logViewer}>
+      <LogsContent mode="console-view" errorMessage={errorMessage} isWarning={isSkipped} />
+    </div>
+  )
+}
+
 export default function ExecutionLogView(): React.ReactElement {
-  const { pipelineStagesMap, allNodeMap, pipelineExecutionDetail, selectedStageId, selectedStepId } =
-    useExecutionContext()
+  const {
+    pipelineStagesMap,
+    allNodeMap,
+    pipelineExecutionDetail,
+    selectedStageId,
+    selectedStepId,
+    queryParams,
+    addNewNodeToMap
+  } = useExecutionContext()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ExecutionPathProps>()
   const { updateQueryParams } = useUpdateQueryParams<ExecutionPageQueryParams>()
+  const { data: executionNode, loading } = useGetExecutionNode({
+    queryParams: {
+      accountIdentifier: accountId,
+      projectIdentifier,
+      orgIdentifier,
+      nodeExecutionId: defaultTo(queryParams.retryStep, '')
+    },
+    /**
+     * Do not fetch data:
+     * 1. No retry step
+     * 2. Already have data for it
+     */
+    lazy: !queryParams.retryStep || has(allNodeMap, queryParams.retryStep)
+  })
 
   const tree = React.useMemo(
     () => processExecutionData(pipelineExecutionDetail?.executionGraph),
@@ -25,10 +70,10 @@ export default function ExecutionLogView(): React.ReactElement {
   )
   const selectOptions: StageSelectOption[] = React.useMemo(() => {
     return [...pipelineStagesMap.entries()].map(([identifier, stage]) => ({
-      label: stage.nodeIdentifier || '',
+      label: defaultTo(stage.nodeIdentifier, ''),
       value: identifier,
       node: stage,
-      type: stage.nodeType || ''
+      type: defaultTo(stage.nodeType, '')
     }))
   }, [pipelineStagesMap])
 
@@ -41,20 +86,17 @@ export default function ExecutionLogView(): React.ReactElement {
     updateQueryParams({ stage: item.value as string })
   }
 
-  function handleStepSelect(stepId: string): void {
-    updateQueryParams({ step: stepId, stage: selectedStageId })
+  function handleStepSelect(stepId: string, retryStep?: string): void {
+    updateQueryParams({ step: stepId, stage: selectedStageId, retryStep })
   }
 
-  function logViewerView() {
-    if (selectedStep?.stepType === StepType.Verify) {
-      return <ExecutionVerificationView step={selectedStep} />
+  React.useEffect(() => {
+    if (executionNode?.data) {
+      Object.assign(executionNode.data, { __isInterruptNode: true })
+      addNewNodeToMap(defaultTo(executionNode.data.uuid, ''), executionNode.data)
     }
-    return (
-      <div className={css.logViewer}>
-        <LogsContent mode="console-view" errorMessage={errorMessage} isWarning={isSkipped} />
-      </div>
-    )
-  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [executionNode?.data])
 
   return (
     <Container className={css.logsContainer}>
@@ -69,10 +111,17 @@ export default function ExecutionLogView(): React.ReactElement {
           popoverProps={{ popoverClassName: css.stageSelectionMenu }}
         />
         <div className={css.stageTree}>
-          <StepsTree nodes={tree} selectedStepId={selectedStepId} onStepSelect={handleStepSelect} isRoot />
+          <StepsTree
+            nodes={tree}
+            selectedStepId={selectedStepId}
+            onStepSelect={handleStepSelect}
+            retryStep={queryParams.retryStep}
+            allNodeMap={allNodeMap}
+            isRoot
+          />
         </div>
       </div>
-      {logViewerView()}
+      <LogViewerView selectedStep={selectedStep} errorMessage={errorMessage} isSkipped={isSkipped} loading={loading} />
     </Container>
   )
 }

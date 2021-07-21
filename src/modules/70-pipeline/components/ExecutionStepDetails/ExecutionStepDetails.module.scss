@@ -43,10 +43,50 @@
     color: var(--grey-400);
   }
 
-  .more {
-    & svg[data-icon='more'] {
-      transform: rotate(90deg);
-      transform-origin: 50% 50%;
+  .retry {
+    background-color: var(--grey-100) !important;
+    height: 24px !important;
+    min-height: auto;
+    border-radius: 4px !important;
+    padding: 0 var(--spacing-3) !important;
+    border: 1px solid var(--grey-200) !important;
+
+    .retryStatusIcon:first-child {
+      margin-right: var(--spacing-3);
     }
+
+    &[data-status='success'] {
+      .retryStatusIcon:first-child {
+        color: var(--green-500) !important;
+      }
+    }
+
+    &[data-status='running'] {
+      .retryStatusIcon:first-child {
+        color: var(--primary-7) !important;
+      }
+    }
+
+    &[data-status='failed'] {
+      background-color: var(--red-100) !important;
+
+      .retryStatusIcon:first-child {
+        color: var(--red-500) !important;
+      }
+    }
+
+    :global(.bp3-button-text) {
+      white-space: nowrap;
+    }
+  }
+}
+
+.retryMenu {
+  box-shadow: var(--elevation-3);
+
+  :global(.bp3-menu) {
+    padding: var(--spacing-3) 0;
+    border-radius: 4px;
+    min-width: 115px;
   }
 }
