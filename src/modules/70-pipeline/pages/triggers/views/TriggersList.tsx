@@ -13,12 +13,19 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { TriggersListSection, GoToEditWizardInterface } from './TriggersListSection'
 import { TriggerTypes } from '../utils/TriggersWizardPageUtils'
-import { getCategoryItems, ItemInterface, TriggerDataInterface } from '../utils/TriggersListUtils'
+import {
+  ArtifactSourceProviders,
+  getCategoryItems,
+  ItemInterface,
+  TriggerDataInterface
+} from '../utils/TriggersListUtils'
 import css from './TriggersList.module.scss'
 
 interface TriggersListPropsInterface {
   onNewTriggerClick: (val: TriggerDataInterface) => void
 }
+// This is temporary feature flag for NewArtifact Trigger
+const NG_NEWARTIFACT_TRIGGER = (false && window.location.href.includes('localhost')) || false
 export default function TriggersList(props: TriggersListPropsInterface & GitQueryParams): JSX.Element {
   const { onNewTriggerClick, repoIdentifier, branch } = props
 
@@ -112,9 +119,29 @@ export default function TriggersList(props: TriggersListPropsInterface & GitQuer
       }
     }
 
+    const categoryItems = getCategoryItems(getString)
+    if (NG_NEWARTIFACT_TRIGGER) {
+      categoryItems.categories.push({
+        categoryLabel: getString('pipeline.triggers.onNewArtifactTitle'),
+        categoryValue: 'NewArtifact',
+        items: [
+          {
+            itemLabel: getString('pipeline.triggers.newArtifactLabel'),
+            value: ArtifactSourceProviders.NewArtifact.value,
+            iconName: ArtifactSourceProviders.NewArtifact.iconName
+          },
+          {
+            itemLabel: getString('pipeline.triggers.newManifestLabel'),
+            value: ArtifactSourceProviders.NewManifest.value,
+            iconName: ArtifactSourceProviders.NewManifest.iconName
+          }
+        ]
+      })
+    }
+
     return (
       <AddDrawer
-        addDrawerMap={getCategoryItems(getString)}
+        addDrawerMap={categoryItems}
         onSelect={onSelect}
         onClose={hideDrawer}
         drawerContext={DrawerContext.STUDIO}

@@ -63,6 +63,8 @@ import {
   SchedulePanel,
   TriggerOverviewPanel
 } from './views'
+import ArtifactConditionsPanel from './views/ArtifactConditionsPanel'
+
 import {
   clearNullUndefined,
   ConnectorRefInterface,
@@ -1065,6 +1067,41 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     )
   }
 
+  const renderArtifactWizard = (): JSX.Element | undefined => {
+    const isEdit = !!onEditInitialValues?.identifier
+    if (!wizardMap) return undefined
+    return (
+      <Wizard
+        key={wizardKey} // re-renders with yaml to visual initialValues
+        formikInitialProps={{
+          initialValues,
+          onSubmit: (val: FlatValidWebhookFormikValuesInterface) => handleWebhookSubmit(val),
+          validationSchema: getValidationSchema(
+            TriggerTypes.NEW_ARTIFACT as unknown as NGTriggerSourceV2['type'],
+            getString
+          ),
+          enableReinitialize: true
+        }}
+        className={css.tabs}
+        wizardMap={wizardMap}
+        tabWidth="218px"
+        onHide={returnToTriggersPage}
+        // defaultTabId="Schedule"
+        submitLabel={
+          isEdit ? getString('pipeline.triggers.updateTrigger') : getString('pipeline.triggers.createTrigger')
+        }
+        disableSubmit={loadingGetTrigger || createTriggerLoading || updateTriggerLoading || isTriggerRbacDisabled}
+        isEdit={isEdit}
+        errorToasterMessage={errorToasterMessage}
+        leftNav={titleWithSwitch}
+      >
+        <WebhookTriggerConfigPanel />
+        <ArtifactConditionsPanel />
+        <WebhookPipelineInputPanel />
+      </Wizard>
+    )
+  }
+
   const renderScheduleWizard = (): JSX.Element | undefined => {
     const isEdit = !!onEditInitialValues?.identifier
     if (!wizardMap) return undefined
@@ -1135,6 +1172,11 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           !getTriggerErrorMessage &&
           initialValues.triggerType === TriggerTypes.SCHEDULE &&
           renderScheduleWizard()}
+
+        {!loadingGetTrigger &&
+          !getTriggerErrorMessage &&
+          initialValues.triggerType === TriggerTypes.NEW_ARTIFACT &&
+          renderArtifactWizard()}
       </Page.Body>
     </>
   )

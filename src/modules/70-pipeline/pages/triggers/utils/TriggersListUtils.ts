@@ -13,6 +13,11 @@ export const GitSourceProviders: Record<string, { value: string; iconName: IconN
   CUSTOM: { value: 'Custom', iconName: 'build' }
 }
 
+export const ArtifactSourceProviders: Record<string, { value: string; iconName: IconName }> = {
+  NewArtifact: { value: 'NewArtifact', iconName: 'newArtifact' },
+  NewManifest: { value: 'NewManifest', iconName: 'newArtifact' }
+}
+
 const TriggerTypeIcons = {
   SCHEDULE: 'trigger-schedule'
 }
@@ -40,23 +45,8 @@ const triggerDrawerMap = (getString: (key: StringKeys) => string): AddDrawerMapI
   drawerSubLabel: getString('pipeline.triggers.triggersSubLabel'),
   showAllLabel: getString('pipeline.triggers.showAllTriggers'),
   searchPlaceholder: getString('pipeline.triggers.searchPlaceholder'),
+
   categories: [
-    // {
-    //   categoryLabel: getString('pipeline.triggers.onNewArtifactTitle'),
-    //   categoryValue: 'OnArtifact',
-    //   items: [
-    //     {
-    //       itemLabel: getString('pipeline.triggers.newArtifactLabel'),
-    //       value: 'NewArtifact',
-    //       iconName: 'trigger-artifact' as IconName
-    //     },
-    //     {
-    //       itemLabel: getString('pipeline.triggers.newManifestLabel'),
-    //       value: 'NewManifest',
-    //       iconName: 'trigger-artifact' as IconName
-    //     }
-    //   ]
-    // },
     {
       categoryLabel: getString('pipeline.triggers.scheduledLabel'),
       categoryValue: 'Scheduled',

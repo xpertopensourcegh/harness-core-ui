@@ -266,6 +266,18 @@ const checkValidPayloadConditions = (formikValues: FlatValidWebhookFormikValuesI
   }
   return true
 }
+
+const checkValidPayloadConditionsForNewArtifact = (formikValues: FlatValidWebhookFormikValuesInterface): boolean => {
+  const headerConditions = formikValues['headerConditions']
+  if (
+    headerConditions?.length &&
+    headerConditions.some((headerCondition: AddConditionInterface) => isRowUnfilled(headerCondition))
+  ) {
+    return false
+  }
+  return true
+}
+
 const checkValidOverview = (formikValues: FlatValidScheduleFormikValuesInterface): boolean =>
   isIdentifierIllegal(formikValues?.identifier) ? false : true
 
@@ -311,6 +323,25 @@ const getPanels = ({
         tabTitle: getString('pipeline.triggers.schedulePanel.title'),
         checkValidPanel: checkValidCronExpression,
         requiredFields: ['expression']
+      },
+      {
+        id: 'Pipeline Input',
+        tabTitle: getString('pipeline.triggers.pipelineInputLabel')
+        // require all fields for input set and have preflight check handled on backend
+      }
+    ]
+  } else if (triggerType === TriggerTypes.NEW_ARTIFACT) {
+    return [
+      {
+        id: 'Trigger Overview',
+        tabTitle: getString('pipeline.triggers.triggerOverviewPanel.title'),
+        checkValidPanel: checkValidOverview,
+        requiredFields: ['name', 'identifier'] // conditional required validations checkValidTriggerConfiguration
+      },
+      {
+        id: 'Conditions',
+        tabTitle: getString('conditions'),
+        checkValidPanel: checkValidPayloadConditionsForNewArtifact
       },
       {
         id: 'Pipeline Input',
@@ -482,6 +513,27 @@ export const getValidationSchema = (
           return true
         }
       ),
+      headerConditions: array().test(
+        getString('pipeline.triggers.validation.headerConditions'),
+        getString('pipeline.triggers.validation.headerConditions'),
+        function (headerConditions = []) {
+          if (headerConditions.some((headerCondition: AddConditionInterface) => isRowUnfilled(headerCondition))) {
+            return false
+          }
+          return true
+        }
+      )
+    })
+  } else if (triggerType === TriggerTypes.NEW_ARTIFACT) {
+    return object().shape({
+      name: string().trim().required(getString('pipeline.triggers.validation.triggerName')),
+      identifier: string().when('name', {
+        is: val => val?.length,
+        then: string()
+          .required(getString('validation.identifierRequired'))
+          .matches(regexIdentifier, getString('validation.validIdRegex'))
+          .notOneOf(illegalIdentifiers)
+      }),
       headerConditions: array().test(
         getString('pipeline.triggers.validation.headerConditions'),
         getString('pipeline.triggers.validation.headerConditions'),
