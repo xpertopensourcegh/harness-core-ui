@@ -4,7 +4,6 @@ import { isEmpty } from 'lodash-es'
 
 import routes from '@common/RouteDefinitions'
 import { Duration } from '@common/components/Duration/Duration'
-import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
 import ExecutionActions from '@pipeline/components/ExecutionActions/ExecutionActions'
 import { formatDatetoLocale } from '@common/utils/dateUtils'
@@ -17,9 +16,9 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
-import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { TagsPopover } from '@common/components'
 
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import css from './ExecutionHeader.module.scss'
 
 export function ExecutionHeader(): React.ReactElement {
@@ -27,7 +26,6 @@ export function ExecutionHeader(): React.ReactElement {
     useParams<PipelineType<ExecutionPathProps>>()
   const { refetch, pipelineExecutionDetail } = useExecutionContext()
   const { getString } = useStrings()
-  const { selectedProject: project } = useAppStore()
   const { pipelineExecutionSummary = {} } = pipelineExecutionDetail || {}
 
   const [canEdit, canExecute] = usePermission(
@@ -49,12 +47,8 @@ export function ExecutionHeader(): React.ReactElement {
   return (
     <header className={css.header}>
       <div className={css.headerTopRow}>
-        <Breadcrumbs
+        <NGBreadcrumbs
           links={[
-            {
-              url: routes.toCDProjectOverview({ orgIdentifier, projectIdentifier, accountId, module }),
-              label: project?.name as string
-            },
             {
               url: routes.toPipelines({ orgIdentifier, projectIdentifier, accountId, module }),
               label: getString('pipelines')
@@ -70,8 +64,7 @@ export function ExecutionHeader(): React.ReactElement {
                 repoIdentifier: pipelineExecutionSummary?.gitDetails?.repoIdentifier
               }),
               label: pipelineExecutionSummary.name || getString('common.pipeline')
-            },
-            { url: '#', label: getString('executionText') }
+            }
           ]}
         />
         <div className={css.actionsBar}>

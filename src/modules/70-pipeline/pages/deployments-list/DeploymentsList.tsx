@@ -4,23 +4,18 @@ import { HarnessDocTooltip, useModalHook } from '@wings-software/uicore'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
 
 import { useStrings } from 'framework/strings'
-import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
-import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import PipelineDeploymentList from '@pipeline/pages/pipeline-deployment-list/PipelineDeploymentList'
 
-import routes from '@common/RouteDefinitions'
 import PipelineModalListView from '@pipeline/components/PipelineModalListView/PipelineModalListView'
 import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { Page } from '@common/exports'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import css from './DeploymentsList.module.scss'
 
 export default function DeploymentsList(): React.ReactElement {
   const { projectIdentifier, orgIdentifier, accountId, module } = useParams<PipelineType<ProjectPathProps>>()
   const { getString } = useStrings()
-
-  const { selectedProject } = useAppStore()
-  const project = selectedProject
 
   const runPipelineDialogProps: IDialogProps = {
     isOpen: true,
@@ -47,20 +42,7 @@ export default function DeploymentsList(): React.ReactElement {
             <HarnessDocTooltip tooltipId={textIdentifier} useStandAlone={true} />
           </div>
         }
-        breadcrumbs={
-          <Breadcrumbs
-            links={[
-              {
-                label: project?.name || '',
-                url: routes.toProjectOverview({ orgIdentifier, projectIdentifier, accountId, module })
-              },
-              {
-                label: getString(module === 'ci' ? 'buildsText' : 'deploymentsText'),
-                url: ''
-              }
-            ]}
-          />
-        }
+        breadcrumbs={<NGBreadcrumbs links={[]} />}
       ></Page.Header>
       <div className={css.content}>
         <GitSyncStoreProvider>

@@ -1,12 +1,11 @@
 import React from 'react'
 import { isEmpty } from 'lodash-es'
-import { Layout, TabNavigation, Text } from '@wings-software/uicore'
+import { Color, Heading, Layout, TabNavigation, Text } from '@wings-software/uicore'
 import { useHistory, useParams, useRouteMatch } from 'react-router-dom'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
-import { useGlobalEventListener, useQueryParams } from '@common/hooks'
+import { useQueryParams } from '@common/hooks'
 import { useGetPipelineSummary } from 'services/pipeline-ng'
-import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
@@ -16,15 +15,9 @@ import { DefaultNewPipelineId } from '@pipeline/components/PipelineStudio/Pipeli
 import GitPopover from '@pipeline/components/GitPopover/GitPopover'
 import { String } from 'framework/strings'
 import GenericErrorHandler from '@common/pages/GenericErrorHandler/GenericErrorHandler'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import noPipelineFoundImage from './images/no-pipeline-found.svg'
 import css from './PipelineDetails.module.scss'
-
-// add custom event to the global scope
-declare global {
-  interface WindowEventMap {
-    RENAME_PIPELINE: CustomEvent<string>
-  }
-}
 
 const NoPipelineFound: React.FC = () => {
   const { getString } = useStrings()
@@ -92,7 +85,6 @@ const NoPipelineFound: React.FC = () => {
 }
 
 export default function PipelineDetails({ children }: React.PropsWithChildren<unknown>): React.ReactElement {
-  const { selectedProject } = useAppStore()
   const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module } =
     useParams<PipelineType<PipelinePathProps>>()
   const { isGitSyncEnabled } = useAppStore()
@@ -112,8 +104,11 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
     },
     lazy: true
   })
-
   const [pipelineName, setPipelineName] = React.useState('')
+
+  React.useEffect(() => {
+    setPipelineName(pipeline?.data?.name || '')
+  }, [pipeline?.data?.name])
 
   React.useEffect(() => {
     if (pipelineIdentifier !== DefaultNewPipelineId) {
@@ -121,35 +116,16 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pipelineIdentifier])
-  const project = selectedProject
   const { getString } = useStrings()
   const getBreadCrumbs = React.useCallback(
     () => [
       {
-        url: routes.toCDProjectOverview({ orgIdentifier, projectIdentifier, accountId, module }),
-        label: project?.name as string
-      },
-      {
         url: routes.toPipelines({ orgIdentifier, projectIdentifier, accountId, module }),
         label: getString('pipelineBreadcrumb')
-      },
-      {
-        url: '#',
-        label: pipelineIdentifier !== DefaultNewPipelineId ? pipelineName || '' : getString('pipelineStudio')
       }
     ],
-    [accountId, getString, module, orgIdentifier, pipelineName, pipelineIdentifier, project?.name, projectIdentifier]
+    [accountId, getString, module, orgIdentifier, projectIdentifier]
   )
-
-  React.useEffect(() => {
-    setPipelineName(pipeline?.data?.name || '')
-  }, [pipeline?.data?.name])
-
-  useGlobalEventListener('RENAME_PIPELINE', event => {
-    if (event.detail) {
-      setPipelineName(event.detail)
-    }
-  })
 
   const { isExact: isPipelineStudioRoute } = useRouteMatch(
     routes.toPipelineStudio({
@@ -176,17 +152,24 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
       <GitSyncStoreProvider>
         <Page.Header
           title={
-            <>
-              <Layout.Horizontal spacing="xsmall">
-                <Breadcrumbs links={getBreadCrumbs()} />
-                {repoIdentifier && !isPipelineStudioRoute && (
-                  <GitPopover data={{ repoIdentifier, branch }} iconProps={{ margin: { left: 'small' } }} />
-                )}
+            <Layout.Vertical>
+              <Layout.Horizontal>
+                <NGBreadcrumbs links={getBreadCrumbs()} />
               </Layout.Horizontal>
               {isPipelineStudioRoute && (
                 <String tagName="div" className={css.pipelineStudioTitle} stringID="pipelineStudio" />
               )}
-            </>
+              {!isPipelineStudioRoute && (
+                <Layout.Horizontal spacing="xsmall" flex={{ justifyContent: 'center' }}>
+                  <Heading level={2} color={Color.GREY_800} font={{ weight: 'bold' }}>
+                    {pipelineName}
+                  </Heading>
+                  {repoIdentifier && (
+                    <GitPopover data={{ repoIdentifier, branch }} iconProps={{ margin: { left: 'small' } }} />
+                  )}
+                </Layout.Horizontal>
+              )}
+            </Layout.Vertical>
           }
           toolbar={
             <TabNavigation

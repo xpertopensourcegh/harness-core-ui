@@ -122,7 +122,7 @@ const RedirectToCDProject = (): React.ReactElement => {
   if (selectedProject?.modules?.includes(ModuleName.CD)) {
     return (
       <Redirect
-        to={routes.toCDProjectOverview({
+        to={routes.toProjectOverview({
           accountId,
           orgIdentifier: selectedProject.orgIdentifier || '',
           projectIdentifier: selectedProject.identifier,
@@ -192,7 +192,7 @@ export default (
 
     <RouteWithLayout
       sidebarProps={CDSideNavProps}
-      path={routes.toCDProjectOverview({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
+      path={routes.toProjectOverview({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
       exact
     >
       <CDDashboardPageOrRedirect />

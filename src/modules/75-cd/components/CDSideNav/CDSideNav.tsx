@@ -123,7 +123,7 @@ export default function CDSideNav(): React.ReactElement {
             )
           } else {
             history.push(
-              routes.toCDProjectOverview({
+              routes.toProjectOverview({
                 projectIdentifier: data.identifier,
                 orgIdentifier: data.orgIdentifier || /* istanbul ignore next */ '',
                 accountId,
@@ -135,7 +135,7 @@ export default function CDSideNav(): React.ReactElement {
       />
       {projectIdentifier && orgIdentifier ? (
         <React.Fragment>
-          {CD_OVERVIEW_PAGE && <SidebarLink label="Overview" to={routes.toCDProjectOverview({ ...params, module })} />}
+          {CD_OVERVIEW_PAGE && <SidebarLink label="Overview" to={routes.toProjectOverview({ ...params, module })} />}
           <SidebarLink label="Deployments" to={routes.toDeployments({ ...params, module })} />
           <SidebarLink label="Pipelines" to={routes.toPipelines({ ...params, module })} />
           {SERVICE_DASHBOARD_NG ? <SidebarLink label="Services" to={routes.toServices({ ...params, module })} /> : null}

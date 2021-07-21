@@ -4,12 +4,12 @@ import { useHistory, useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import { Page } from '@common/exports'
 import { useStrings } from 'framework/strings'
-import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import CardRailView from '@pipeline/components/Dashboards/CardRailView/CardRailView'
 import { useGetWorkloads, useGetDeployments } from 'services/cd-ng'
 import { ActiveStatus, FailedStatus, useErrorHandler, useRefetchCall } from '@pipeline/components/Dashboards/shared'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
+import { PageHeader } from '@common/components/Page/PageHeader'
 import DeploymentsHealthCards from './DeploymentsHealthCards'
 import DeploymentExecutionsChart from './DeploymentExecutionsChart'
 import WorkloadCard from './DeploymentCards/WorkloadCard'
@@ -19,7 +19,6 @@ import styles from './CDDashboardPage.module.scss'
 
 export const CDDashboardPage: React.FC = () => {
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
-  const { selectedProject: project } = useAppStore()
   const [range] = useState({
     startTime: Date.now() - 30 * 24 * 60 * 60000,
     endTime: Date.now()
@@ -55,21 +54,7 @@ export const CDDashboardPage: React.FC = () => {
 
   return (
     <>
-      <div className={styles.header}>
-        <Breadcrumbs
-          links={[
-            {
-              label: project?.name || '',
-              url: routes.toProjectOverview({ orgIdentifier, projectIdentifier, accountId, module: 'cd' })
-            },
-            {
-              label: getString('overview'),
-              url: ''
-            }
-          ]}
-        />
-        <h2>{getString('overview')}</h2>
-      </div>
+      <PageHeader title={getString('overview')} breadcrumbs={<NGBreadcrumbs links={[]} />} />
       <Page.Body className={styles.content} loading={(loading && !refetchingDeployments) || loadingWorkloads}>
         <Container className={styles.page} padding="large">
           <DeploymentsHealthCards />

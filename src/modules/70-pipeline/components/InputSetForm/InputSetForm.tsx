@@ -1,7 +1,16 @@
 import React from 'react'
 import * as Yup from 'yup'
 import { cloneDeep, isEmpty, isNull, isUndefined, omit, omitBy } from 'lodash-es'
-import { Button, Container, Formik, FormikForm, Layout, Text, NestedAccordionProvider } from '@wings-software/uicore'
+import {
+  Button,
+  Container,
+  Formik,
+  FormikForm,
+  Layout,
+  NestedAccordionProvider,
+  Heading,
+  Color
+} from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import { parse } from 'yaml'
 import type { FormikErrors } from 'formik'
@@ -24,12 +33,11 @@ import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interf
 import type { InputSetGitQueryParams, InputSetPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import { PageBody } from '@common/components/Page/PageBody'
-import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { NameIdDescriptionTags } from '@common/components'
 import routes from '@common/RouteDefinitions'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { useStrings } from 'framework/strings'
-import { AppStoreContext, useAppStore } from 'framework/AppStore/AppStoreContext'
+import { AppStoreContext } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
@@ -42,6 +50,7 @@ import VisualYamlToggle from '@common/components/VisualYamlToggle/VisualYamlTogg
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { changeEmptyValuesToRunTimeInput } from '@pipeline/utils/stageHelpers'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { PipelineInputSetForm } from '../PipelineInputSetForm/PipelineInputSetForm'
 import { clearRuntimeInput, validatePipeline } from '../PipelineStudio/StepUtil'
 import { factory } from '../PipelineSteps/Steps/__tests__/StepTestUtil'
@@ -594,7 +603,6 @@ export function InputSetFormWrapper(props: InputSetFormWrapperProps): React.Reac
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier, module } = useParams<
     PipelineType<InputSetPathProps> & { accountId: string }
   >()
-  const { selectedProject: project } = useAppStore()
   const { getString } = useStrings()
 
   return (
@@ -603,11 +611,11 @@ export function InputSetFormWrapper(props: InputSetFormWrapperProps): React.Reac
         <PageHeader
           title={
             <Layout.Horizontal>
-              <Text font="medium">
+              <Heading level={2} color={Color.GREY_800} font={{ weight: 'bold' }}>
                 {isEdit
                   ? getString('inputSets.editTitle', { name: inputSet.name })
                   : getString('inputSets.newInputSetLabel')}
-              </Text>
+              </Heading>
               {isGitSyncEnabled && isEdit && (
                 <GitPopover data={inputSet.gitDetails || {}} iconProps={{ margin: { left: 'small', top: 'xsmall' } }} />
               )}
@@ -623,12 +631,8 @@ export function InputSetFormWrapper(props: InputSetFormWrapperProps): React.Reac
             </Layout.Horizontal>
           }
           breadcrumbs={
-            <Breadcrumbs
+            <NGBreadcrumbs
               links={[
-                {
-                  url: routes.toCDProjectOverview({ orgIdentifier, projectIdentifier, accountId, module }),
-                  label: project?.name as string
-                },
                 {
                   url: routes.toPipelines({ orgIdentifier, projectIdentifier, accountId, module }),
                   label: getString('pipelines')
@@ -644,8 +648,7 @@ export function InputSetFormWrapper(props: InputSetFormWrapperProps): React.Reac
                     repoIdentifier: pipeline?.data?.gitDetails?.repoIdentifier
                   }),
                   label: parse(pipeline?.data?.yamlPipeline || '')?.pipeline.name || ''
-                },
-                { url: '#', label: isEdit ? inputSet.name : getString('inputSets.newInputSetLabel') }
+                }
               ]}
             />
           }

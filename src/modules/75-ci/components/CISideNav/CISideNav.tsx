@@ -134,10 +134,11 @@ export default function CISideNav(): React.ReactElement {
               })
             } else {
               history.push(
-                routes.toCIProjectOverview({
+                routes.toProjectOverview({
                   projectIdentifier: data.identifier,
                   orgIdentifier: data.orgIdentifier || '',
-                  accountId
+                  accountId,
+                  module
                 })
               )
             }
@@ -146,7 +147,7 @@ export default function CISideNav(): React.ReactElement {
       />
       {projectIdentifier && orgIdentifier ? (
         <React.Fragment>
-          {CI_OVERVIEW_PAGE && <SidebarLink label="Overview" to={routes.toCIProjectOverview(params)} />}
+          {CI_OVERVIEW_PAGE && <SidebarLink label="Overview" to={routes.toProjectOverview({ ...params, module })} />}
           <SidebarLink label="Builds" to={routes.toDeployments({ ...params, module })} />
           <SidebarLink label="Pipelines" to={routes.toPipelines({ ...params, module })} />
 

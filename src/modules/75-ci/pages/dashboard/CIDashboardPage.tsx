@@ -3,8 +3,6 @@ import { Container, Text } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
-import { useAppStore } from 'framework/AppStore/AppStoreContext'
-import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetBuilds, useGetRepositoryBuild } from 'services/ci'
 import { useStrings } from 'framework/strings'
@@ -16,14 +14,14 @@ import BuildExecutionsChart from '@pipeline/components/Dashboards/BuildExecution
 import RepositoryCard from '@pipeline/components/Dashboards/BuildCards/RepositoryCard'
 import RangeSelector from '@pipeline/components/Dashboards/RangeSelector'
 import { ActiveStatus, FailedStatus, useErrorHandler, useRefetchCall } from '@pipeline/components/Dashboards/shared'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
+import { PageHeader } from '@common/components/Page/PageHeader'
 import styles from './CIDashboardPage.module.scss'
 
 export const CIDashboardPage: React.FC = () => {
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
   const history = useHistory()
-  const { selectedProject } = useAppStore()
   const { getString } = useStrings()
-  const project = selectedProject
   const [repositoriesRange, setRepositoriesRange] = useState([Date.now() - 30 * 24 * 60 * 60000, Date.now()])
 
   const { data, loading, error, refetch } = useGetBuilds({
@@ -57,21 +55,7 @@ export const CIDashboardPage: React.FC = () => {
 
   return (
     <>
-      <div className={styles.header}>
-        <Breadcrumbs
-          links={[
-            {
-              label: project?.name || '',
-              url: routes.toProjectOverview({ orgIdentifier, projectIdentifier, accountId, module: 'ci' })
-            },
-            {
-              label: getString('overview'),
-              url: ''
-            }
-          ]}
-        />
-        <h2>{getString('overview')}</h2>
-      </div>
+      <PageHeader title={getString('overview')} breadcrumbs={<NGBreadcrumbs links={[]} />} />
       <Page.Body
         className={styles.content}
         loading={loading && !refetchingBuilds && loadingRepositories && !refetchingRepos}

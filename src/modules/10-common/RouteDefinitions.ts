@@ -462,17 +462,13 @@ const routes = {
     ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
       `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}`
   ),
-  toCDProjectOverview: withAccountId(
+  toProjectOverview: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
       `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard`
   ),
   toDeployments: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
       `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/deployments`
-  ),
-  toProjectOverview: withAccountId(
-    ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
-      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard`
   ),
   toPipelineStudio: withAccountId(
     ({
@@ -696,10 +692,6 @@ const routes = {
   toCIProject: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
       `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}`
-  ),
-  toCIProjectOverview: withAccountId(
-    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard`
   ),
   toCIPipelineDeploymentList: withAccountId(
     ({ projectIdentifier, orgIdentifier, pipelineIdentifier }: PipelinePathProps) =>

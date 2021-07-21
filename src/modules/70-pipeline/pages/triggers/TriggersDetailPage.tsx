@@ -184,7 +184,7 @@ export default function TriggersDetailPage(): JSX.Element {
         background={Color.PRIMARY_1}
       >
         <Layout.Vertical spacing="medium">
-          <TriggerBreadcrumbs triggerResponse={triggerResponse} pipelineResponse={pipeline} />
+          <TriggerBreadcrumbs pipelineResponse={pipeline} />
           <div>
             <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
               <Icon

@@ -34,7 +34,6 @@ import {
 } from 'services/pipeline-ng'
 import { useGetServiceListForProject, useGetEnvironmentListForProject } from 'services/cd-ng'
 import type { UseGetMockData } from '@common/utils/testUtils'
-import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { String, useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
@@ -61,6 +60,7 @@ import { shouldShowError } from '@common/utils/errorUtils'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { PipelineGridView } from './views/PipelineGridView'
 import { PipelineListView } from './views/PipelineListView'
 import PipelineFilterForm from '../pipeline-deployment-list/PipelineFilterForm/PipelineFilterForm'
@@ -511,7 +511,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
           </div>
         }
         breadcrumbs={
-          <Breadcrumbs
+          <NGBreadcrumbs
             links={[
               {
                 url: routes.toProjectOverview({

@@ -114,8 +114,9 @@ const RedirectToCIProject = (): React.ReactElement => {
   if (selectedProject?.modules?.includes(ModuleName.CI)) {
     return (
       <Redirect
-        to={routes.toCIProjectOverview({
+        to={routes.toProjectOverview({
           accountId,
+          module: 'ci',
           orgIdentifier: selectedProject.orgIdentifier || '',
           projectIdentifier: selectedProject.identifier
         })}
@@ -237,7 +238,7 @@ export default (
     <RouteWithLayout
       licenseRedirectData={licenseRedirectData}
       sidebarProps={CISideNavProps}
-      path={routes.toCIProjectOverview({ ...accountPathProps, ...projectPathProps })}
+      path={routes.toProjectOverview({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
       exact
     >
       <CIDashboardPageOrRedirect />
