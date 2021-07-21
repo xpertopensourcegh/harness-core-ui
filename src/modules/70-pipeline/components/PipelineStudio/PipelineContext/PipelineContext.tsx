@@ -498,6 +498,10 @@ const _deletePipelineCache = async (
       gitDetails.branch || ''
     )
     await IdbPipeline.delete(IdbPipelineStoreName, id)
+  }
+
+  // due to async operation, IdbPipeline may be undefined
+  if (IdbPipeline) {
     const defaultId = getId(
       queryParams.accountIdentifier,
       queryParams.orgIdentifier || '',

@@ -82,6 +82,7 @@ const formatData = (data: K8sApplyFormData): K8sApplyData => {
   return {
     ...data,
     spec: {
+      ...data?.spec,
       skipDryRun: data?.spec?.skipDryRun,
       skipSteadyStateCheck: data?.spec?.skipSteadyStateCheck,
       filePaths:
@@ -107,6 +108,7 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
           const formData = {
             ...values,
             spec: {
+              ...values.spec,
               skipDryRun: values?.spec?.skipDryRun || false,
               skipSteadyStateCheck: values?.spec?.skipSteadyStateCheck || false,
               filePaths: values?.spec?.filePaths
@@ -483,6 +485,7 @@ export class K8sApplyStep extends PipelineStep<K8sApplyData> {
     return {
       ...data,
       spec: {
+        ...data.spec,
         skipDryRun: data?.spec?.skipDryRun,
         skipSteadyStateCheck: data?.spec?.skipSteadyStateCheck,
         filePaths:
