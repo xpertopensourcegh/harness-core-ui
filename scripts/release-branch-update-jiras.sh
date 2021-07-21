@@ -1,6 +1,6 @@
 # ------ from Commit List => extract JIRA Tickets
 # [(CCM|CD|CE|DOC|ER|HAR|LE|PL|SEC|SWAT|UI|DX)-[0-9]+]
-VERSION=$(cat package.json | grep version | cut -d: -f2 | cut -d\" -f2 | cut -d. -f1,2).x
+VERSION=$(cat package.json | grep version | cut -d: -f2 | cut -d\" -f2)
 echo $VERSION
 KEYS=`git log --pretty=oneline --abbrev-commit | awk "1;/Branching to release\//{exit}" | grep -o -iE '(CCM|CE|CD|CDC|CDP|CE|CI|CV|DOC|ER|HAR|LE|PL|SEC|SWAT|UI|DX|DEL|CDNG)-[0-9]+' | sort | uniq`
 echo --- List of JIRA ---
@@ -23,7 +23,7 @@ do
     echo Updating JIRA: $KEY
     curl \
        -X PUT \
-       --data "{ \"fields\" : { \"${FIELD_ID}\" : \"${VERSION}00\" }}" \
+       --data "{ \"fields\" : { \"${FIELD_ID}\" : \"${VERSION}\" }}" \
        -H "Content-Type: application/json" \
        https://harness.atlassian.net/rest/api/2/issue/${KEY} \
        --user $JIRA_USERNAME:$JIRA_PASSWORD
