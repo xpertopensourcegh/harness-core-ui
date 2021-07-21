@@ -137,7 +137,7 @@ exports[`Create LinkToSSOProviderModal should render the form with ssoLinked fal
                               autocomplete="off"
                               class="bp3-input"
                               name="sso"
-                              placeholder="noData"
+                              placeholder="- noData -"
                               style="padding-right: 0px;"
                               type="text"
                               value=""

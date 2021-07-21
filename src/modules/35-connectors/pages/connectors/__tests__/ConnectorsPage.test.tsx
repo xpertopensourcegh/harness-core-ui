@@ -182,8 +182,9 @@ describe('Connectors Page Test', () => {
     )
     const query = 'abcd'
     const searchContainer = container.querySelector('[data-name="connectorSeachContainer"]')
-    const searchIcon = searchContainer?.querySelector('span[icon="search"]')
+    const searchIcon = searchContainer?.querySelector('span[data-icon="thinner-search"]')
     const searchInput = searchContainer?.querySelector('input[placeholder="search"]') as HTMLInputElement
+
     expect(searchIcon).toBeTruthy()
     expect(searchInput).toBeTruthy()
     expect(searchInput?.value).toBe('')

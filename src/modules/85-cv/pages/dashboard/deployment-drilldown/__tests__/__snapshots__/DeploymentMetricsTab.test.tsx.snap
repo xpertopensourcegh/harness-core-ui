@@ -31,7 +31,7 @@ exports[`DeploymentMetricsTab Matches snapshot and calculates data correctly 1`]
                 <input
                   autocomplete="off"
                   class="bp3-input"
-                  placeholder="Search..."
+                  placeholder="- Select -"
                   style="padding-right: 0px;"
                   type="text"
                   value="cv.allMetrics"

@@ -63,7 +63,7 @@ exports[`CIDashboardPage snapshot test should render properly 1`] = `
             pipeline.dashboards.buildHealth
           </p>
           <div
-            class="bp3-popover-wrapper rangeSelector Select--main bp3-fill"
+            class="bp3-popover-wrapper rangeSelector SelectV2--main bp3-fill"
           >
             <div
               class="bp3-popover-target"
@@ -271,7 +271,7 @@ exports[`CIDashboardPage snapshot test should render properly 1`] = `
               </div>
             </p>
             <div
-              class="bp3-popover-wrapper rangeSelector Select--main bp3-fill"
+              class="bp3-popover-wrapper rangeSelector SelectV2--main bp3-fill"
             >
               <div
                 class="bp3-popover-target"
@@ -330,7 +330,7 @@ exports[`CIDashboardPage snapshot test should render properly 1`] = `
             repositories
           </p>
           <div
-            class="bp3-popover-wrapper rangeSelector Select--main bp3-fill"
+            class="bp3-popover-wrapper rangeSelector SelectV2--main bp3-fill"
           >
             <div
               class="bp3-popover-target"

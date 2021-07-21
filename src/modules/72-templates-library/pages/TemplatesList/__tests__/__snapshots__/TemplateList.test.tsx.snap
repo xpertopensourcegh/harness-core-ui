@@ -98,7 +98,7 @@ exports[`<TemplatesList /> tests snapshot test 1`] = `
               <input
                 autocomplete="off"
                 class="bp3-input"
-                placeholder="Search..."
+                placeholder="- Select -"
                 style="padding-right: 0px;"
                 type="text"
                 value="lastUpdatedSort"

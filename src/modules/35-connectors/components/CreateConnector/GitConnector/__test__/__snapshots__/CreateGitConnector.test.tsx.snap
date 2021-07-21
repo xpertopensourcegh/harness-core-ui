@@ -1778,7 +1778,7 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
                                     autocomplete="off"
                                     class="bp3-input"
                                     name="usernamefieldType"
-                                    placeholder="Search..."
+                                    placeholder="- Select -"
                                     style="padding-right: 0px;"
                                     type="text"
                                     value="plaintext"

@@ -63,7 +63,7 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
             Deployments Health
           </p>
           <div
-            class="bp3-popover-wrapper rangeSelector Select--main bp3-fill"
+            class="bp3-popover-wrapper rangeSelector SelectV2--main bp3-fill"
           >
             <div
               class="bp3-popover-target"
@@ -266,7 +266,7 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
               </div>
             </p>
             <div
-              class="bp3-popover-wrapper rangeSelector Select--main bp3-fill"
+              class="bp3-popover-wrapper rangeSelector SelectV2--main bp3-fill"
             >
               <div
                 class="bp3-popover-target"

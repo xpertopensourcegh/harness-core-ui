@@ -30,7 +30,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
               <input
                 autocomplete="off"
                 class="bp3-input"
-                placeholder="Search..."
+                placeholder="- Select -"
                 style="padding-right: 0px;"
                 type="text"
                 value="Step: 0 (Stage: 0)"
@@ -34368,7 +34368,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                     <input
                       autocomplete="off"
                       class="bp3-input"
-                      placeholder="Search..."
+                      placeholder="- Select -"
                       style="padding-right: 0px;"
                       type="text"
                       value="common.failureRate"
@@ -36559,7 +36559,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       </span>
                     </button>
                     <div
-                      class="bp3-popover-wrapper Select--main bp3-fill"
+                      class="bp3-popover-wrapper SelectV2--main bp3-fill"
                     >
                       <div
                         class="bp3-popover-target"
@@ -38376,7 +38376,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                 </span>
               </button>
               <div
-                class="bp3-popover-wrapper Select--main bp3-fill"
+                class="bp3-popover-wrapper SelectV2--main bp3-fill"
               >
                 <div
                   class="bp3-popover-target"
@@ -38471,7 +38471,7 @@ exports[`BuildTests snapshot test should render TI UI 1`] = `
               <input
                 autocomplete="off"
                 class="bp3-input"
-                placeholder="Search..."
+                placeholder="- Select -"
                 style="padding-right: 0px;"
                 type="text"
                 value="Step: 0 (Stage: 0)"
@@ -38777,7 +38777,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
               <input
                 autocomplete="off"
                 class="bp3-input"
-                placeholder="Search..."
+                placeholder="- Select -"
                 style="padding-right: 0px;"
                 type="text"
                 value="Step: 0 (Stage: 0)"
@@ -73197,7 +73197,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                     <input
                       autocomplete="off"
                       class="bp3-input"
-                      placeholder="Search..."
+                      placeholder="- Select -"
                       style="padding-right: 0px;"
                       type="text"
                       value="common.failureRate"
@@ -75388,7 +75388,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       </span>
                     </button>
                     <div
-                      class="bp3-popover-wrapper Select--main bp3-fill"
+                      class="bp3-popover-wrapper SelectV2--main bp3-fill"
                     >
                       <div
                         class="bp3-popover-target"
@@ -77205,7 +77205,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                 </span>
               </button>
               <div
-                class="bp3-popover-wrapper Select--main bp3-fill"
+                class="bp3-popover-wrapper SelectV2--main bp3-fill"
               >
                 <div
                   class="bp3-popover-target"

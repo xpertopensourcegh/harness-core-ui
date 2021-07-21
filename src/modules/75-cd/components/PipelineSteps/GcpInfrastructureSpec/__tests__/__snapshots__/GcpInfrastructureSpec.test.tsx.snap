@@ -1376,7 +1376,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with values
                           class="bp3-input-action"
                         >
                           <span
-                            class="bp3-icon StyledProps--main StyledProps--padding-top-small StyledProps--padding-left-xsmall StyledProps--padding-right-xsmall StyledProps--padding-bottom-small"
+                            class="bp3-icon StyledProps--main StyledProps--padding-top-small StyledProps--padding-right-xsmall StyledProps--padding-bottom-small"
                             data-icon="main-delete"
                           >
                             <svg
@@ -1392,7 +1392,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with values
                             </svg>
                           </span>
                           <span
-                            class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-top-small StyledProps--padding-right-xsmall StyledProps--padding-bottom-small"
+                            class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
                             icon="chevron-down"
                           >
                             <svg
