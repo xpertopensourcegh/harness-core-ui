@@ -226,10 +226,19 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
   })
 
   const inputSet = React.useMemo(() => {
-    if (inputSetResponse?.data && mergeTemplate) {
+    if (inputSetResponse?.data) {
       const inputSetObj = inputSetResponse?.data
-      const inputYamlObj =
-        parse(mergeTemplate || /* istanbul ignore next */ '')?.pipeline || /* istanbul ignore next */ {}
+
+      const parsedInputSetObj = parse(inputSetObj?.inputSetYaml || '')
+      /*
+        Context of the below if block
+        We need to populate existing values of input set in the form.
+        The values are to be filled come from 'merge' API i.e. mergeTemplate object
+        But if the merge API fails (due to invalid input set or any other reason) - we populate the value from the input set response recevied (parsedInputSetObj).
+      */
+      const parsedPipelineWithValues = mergeTemplate
+        ? parse(mergeTemplate || /* istanbul ignore next */ '')?.pipeline || /* istanbul ignore next */ {}
+        : parsedInputSetObj?.inputSet?.pipeline
 
       return {
         name: inputSetObj.name,
@@ -238,7 +247,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
         description: inputSetObj?.description,
         orgIdentifier,
         projectIdentifier,
-        pipeline: clearRuntimeInput(inputYamlObj),
+        pipeline: clearRuntimeInput(parsedPipelineWithValues),
         gitDetails: inputSetObj.gitDetails ?? {}
       }
     }
@@ -260,6 +269,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
           setMergeTemplate(response.data?.pipelineYaml)
         })
         .catch(e => {
+          setMergeTemplate(undefined)
           showError(e?.data?.message || e?.message, undefined, 'pipeline.get.template')
         })
     } else {

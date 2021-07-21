@@ -305,7 +305,9 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
           <div>
             <span
               class="lastBreadcrumb"
-            />
+            >
+              asd
+            </span>
           </div>
         </div>
       </div>
@@ -390,12 +392,14 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                               class="bp3-popover-target"
                             >
                               <div
-                                class="bp3-editable-text bp3-disabled bp3-editable-text-placeholder InputWithIdentifier--idValue"
+                                class="bp3-editable-text bp3-disabled InputWithIdentifier--idValue"
                               >
                                 <span
                                   class="bp3-editable-text-content"
                                   style="height: 1px; line-height: 1px; min-width: 0;"
-                                />
+                                >
+                                  asd
+                                </span>
                               </div>
                             </span>
                           </span>
@@ -430,7 +434,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                 class="bp3-input"
                                 name="name"
                                 type="text"
-                                value=""
+                                value="asd"
                               />
                             </div>
                           </div>
@@ -438,34 +442,32 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                       </div>
                       <div
                         class="StyledProps--font StyledProps--main"
+                        style="margin-bottom: 0px;"
                       >
                         <label
                           class="Label--main"
                           style="font-size: 13px; font-weight: normal;"
                         >
                           optionalField
-                          <span
-                            class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
-                            data-name="edit"
-                            data-testid="description-edit"
-                            icon="edit"
-                          >
-                            <svg
-                              data-icon="edit"
-                              height="12"
-                              viewBox="0 0 16 16"
-                              width="12"
-                            >
-                              <desc>
-                                edit
-                              </desc>
-                              <path
-                                d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
-                          </span>
                         </label>
+                        <div
+                          class="bp3-form-group"
+                          data-id="description-1"
+                        >
+                          <div
+                            class="bp3-form-content"
+                          >
+                            <textarea
+                              autocomplete="off"
+                              class="bp3-input bp3-fill"
+                              maxlength="1024"
+                              name="description"
+                              placeholder="common.descriptionPlaceholder"
+                            >
+                              asd
+                            </textarea>
+                          </div>
+                        </div>
                       </div>
                       <div
                         class="StyledProps--font StyledProps--main"
@@ -595,7 +597,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                       >
                                         <div
                                           class="bp3-form-group connectorMargin"
-                                          data-id="undefined-1"
+                                          data-id="undefined-2"
                                           style="margin-bottom: 0px;"
                                         >
                                           <div
@@ -614,11 +616,61 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                                 <span
                                                   class="bp3-button-text"
                                                 >
-                                                  <span
-                                                    class="placeholder"
+                                                  <div
+                                                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main selectWrapper StyledProps--flex StyledProps--flex-distribution-space-between"
                                                   >
-                                                    connectors.selectConnector
-                                                  </span>
+                                                    <span
+                                                      class="bp3-popover-wrapper"
+                                                    >
+                                                      <span
+                                                        class="bp3-popover-target"
+                                                      >
+                                                        <p
+                                                          class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
+                                                          tabindex="0"
+                                                        >
+                                                          tesa1
+                                                        </p>
+                                                      </span>
+                                                    </span>
+                                                    <div
+                                                      class="rightStatus"
+                                                    >
+                                                      <span
+                                                        class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
+                                                        data-testid="crf-status"
+                                                        icon="full-circle"
+                                                      >
+                                                        <svg
+                                                          data-icon="full-circle"
+                                                          height="6"
+                                                          viewBox="0 0 16 16"
+                                                          width="6"
+                                                        >
+                                                          <desc>
+                                                            full-circle
+                                                          </desc>
+                                                          <path
+                                                            d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                                                            fill-rule="evenodd"
+                                                          />
+                                                        </svg>
+                                                      </span>
+                                                      <span
+                                                        class="Tag--main"
+                                                      >
+                                                        <span
+                                                          class="bp3-tag bp3-minimal tag"
+                                                        >
+                                                          <span
+                                                            class="bp3-text-overflow-ellipsis bp3-fill"
+                                                          >
+                                                            org
+                                                          </span>
+                                                        </span>
+                                                      </span>
+                                                    </div>
+                                                  </div>
                                                 </span>
                                                 <span
                                                   class="bp3-icon bp3-icon-chevron-down StyledProps--main"
@@ -679,7 +731,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                   >
                                     <div
                                       class="bp3-form-group"
-                                      data-id="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace-2"
+                                      data-id="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace-3"
                                     >
                                       <label
                                         class="bp3-label"
@@ -711,7 +763,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                               name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace"
                                               placeholder="pipeline.infraSpecifications.namespacePlaceholder"
                                               type="text"
-                                              value=""
+                                              value="asd"
                                             />
                                           </div>
                                           <span
@@ -751,7 +803,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                   >
                                     <div
                                       class="bp3-form-group"
-                                      data-id="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName-3"
+                                      data-id="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName-4"
                                     >
                                       <label
                                         class="bp3-label"
@@ -783,7 +835,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                               name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName"
                                               placeholder="cd.steps.common.releaseNamePlaceholder"
                                               type="text"
-                                              value=""
+                                              value="asd"
                                             />
                                           </div>
                                           <span
@@ -1734,13 +1786,15 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                               class="bp3-popover-target"
                             >
                               <div
-                                class="bp3-editable-text bp3-editable-text-placeholder InputWithIdentifier--idValue"
+                                class="bp3-editable-text InputWithIdentifier--idValue"
                                 tabindex="0"
                               >
                                 <span
                                   class="bp3-editable-text-content"
                                   style="height: 1px; line-height: 1px; min-width: 0;"
-                                />
+                                >
+                                  asd
+                                </span>
                               </div>
                             </span>
                           </span>
@@ -1795,7 +1849,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                 class="bp3-input"
                                 name="name"
                                 type="text"
-                                value=""
+                                value="asd"
                               />
                             </div>
                           </div>
@@ -1803,34 +1857,32 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                       </div>
                       <div
                         class="StyledProps--font StyledProps--main"
+                        style="margin-bottom: 0px;"
                       >
                         <label
                           class="Label--main"
                           style="font-size: 13px; font-weight: normal;"
                         >
                           optionalField
-                          <span
-                            class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
-                            data-name="edit"
-                            data-testid="description-edit"
-                            icon="edit"
-                          >
-                            <svg
-                              data-icon="edit"
-                              height="12"
-                              viewBox="0 0 16 16"
-                              width="12"
-                            >
-                              <desc>
-                                edit
-                              </desc>
-                              <path
-                                d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
-                          </span>
                         </label>
+                        <div
+                          class="bp3-form-group"
+                          data-id="description-1"
+                        >
+                          <div
+                            class="bp3-form-content"
+                          >
+                            <textarea
+                              autocomplete="off"
+                              class="bp3-input bp3-fill"
+                              maxlength="1024"
+                              name="description"
+                              placeholder="common.descriptionPlaceholder"
+                            >
+                              asd
+                            </textarea>
+                          </div>
+                        </div>
                       </div>
                       <div
                         class="StyledProps--font StyledProps--main"
@@ -1960,7 +2012,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                       >
                                         <div
                                           class="bp3-form-group connectorMargin"
-                                          data-id="undefined-1"
+                                          data-id="undefined-2"
                                           style="margin-bottom: 0px;"
                                         >
                                           <div
@@ -1979,11 +2031,61 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                                 <span
                                                   class="bp3-button-text"
                                                 >
-                                                  <span
-                                                    class="placeholder"
+                                                  <div
+                                                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main selectWrapper StyledProps--flex StyledProps--flex-distribution-space-between"
                                                   >
-                                                    connectors.selectConnector
-                                                  </span>
+                                                    <span
+                                                      class="bp3-popover-wrapper"
+                                                    >
+                                                      <span
+                                                        class="bp3-popover-target"
+                                                      >
+                                                        <p
+                                                          class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
+                                                          tabindex="0"
+                                                        >
+                                                          tesa1
+                                                        </p>
+                                                      </span>
+                                                    </span>
+                                                    <div
+                                                      class="rightStatus"
+                                                    >
+                                                      <span
+                                                        class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
+                                                        data-testid="crf-status"
+                                                        icon="full-circle"
+                                                      >
+                                                        <svg
+                                                          data-icon="full-circle"
+                                                          height="6"
+                                                          viewBox="0 0 16 16"
+                                                          width="6"
+                                                        >
+                                                          <desc>
+                                                            full-circle
+                                                          </desc>
+                                                          <path
+                                                            d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                                                            fill-rule="evenodd"
+                                                          />
+                                                        </svg>
+                                                      </span>
+                                                      <span
+                                                        class="Tag--main"
+                                                      >
+                                                        <span
+                                                          class="bp3-tag bp3-minimal tag"
+                                                        >
+                                                          <span
+                                                            class="bp3-text-overflow-ellipsis bp3-fill"
+                                                          >
+                                                            org
+                                                          </span>
+                                                        </span>
+                                                      </span>
+                                                    </div>
+                                                  </div>
                                                 </span>
                                                 <span
                                                   class="bp3-icon bp3-icon-chevron-down StyledProps--main"
@@ -2044,7 +2146,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                   >
                                     <div
                                       class="bp3-form-group"
-                                      data-id="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace-2"
+                                      data-id="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace-3"
                                     >
                                       <label
                                         class="bp3-label"
@@ -2076,7 +2178,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                               name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace"
                                               placeholder="pipeline.infraSpecifications.namespacePlaceholder"
                                               type="text"
-                                              value=""
+                                              value="asd"
                                             />
                                           </div>
                                           <span
@@ -2116,7 +2218,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                   >
                                     <div
                                       class="bp3-form-group"
-                                      data-id="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName-3"
+                                      data-id="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName-4"
                                     >
                                       <label
                                         class="bp3-label"
@@ -2148,7 +2250,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                               name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName"
                                               placeholder="cd.steps.common.releaseNamePlaceholder"
                                               type="text"
-                                              value=""
+                                              value="asd"
                                             />
                                           </div>
                                           <span
