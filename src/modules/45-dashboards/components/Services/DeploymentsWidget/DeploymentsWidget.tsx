@@ -106,14 +106,12 @@ export const DeploymentsWidget: React.FC<DeploymentWidgetProps> = props => {
           {
             name: getString('success'),
             data: success,
-            color: '#3dc7f6',
-            type: 'area'
+            color: '#3dc7f6'
           },
           {
             name: getString('failed'),
             data: failed,
-            color: '#ee5f54',
-            type: 'area'
+            color: '#ee5f54'
           }
         ],
         dateLabels
