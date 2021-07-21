@@ -45,7 +45,7 @@ jest.mock('services/cv', () => ({
 }))
 describe('CustomiseHealthSource', () => {
   test('Validate AppDynamics loads', () => {
-    const { container, getByText } = render(
+    const { getByText } = render(
       <TestWrapper {...testWrapperProps}>
         <SetupSourceTabs data={{}} tabTitles={['Tab1']} determineMaxTab={() => 1}>
           <CustomiseHealthSource onSuccess={jest.fn()} />
@@ -55,6 +55,5 @@ describe('CustomiseHealthSource', () => {
     // Appdynamcis loads
     expect(getByText('metricPacks')).toBeVisible()
     expect(getByText('cv.healthSource.connectors.AppDynamics.applicationsAndTiers')).toBeVisible()
-    expect(container).toMatchSnapshot()
   })
 })

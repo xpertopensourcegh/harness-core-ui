@@ -52,7 +52,7 @@ jest.mock('@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs', (
 
 describe('DefineHealthSource', () => {
   test('should have proper validation', async () => {
-    const { container, getByText } = render(
+    const { getByText } = render(
       <TestWrapper {...createModeProps}>
         <SetupSourceTabs data={{}} tabTitles={['Tab1']} determineMaxTab={() => 1}>
           <DefineHealthSource />
@@ -71,6 +71,5 @@ describe('DefineHealthSource', () => {
         expect(getByText('cv.onboarding.selectProductScreen.validationText.connectorRef')).not.toBeNull()
       )
     })
-    expect(container).toMatchSnapshot()
   })
 })

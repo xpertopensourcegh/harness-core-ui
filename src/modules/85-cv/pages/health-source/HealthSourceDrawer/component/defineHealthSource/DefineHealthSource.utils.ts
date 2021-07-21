@@ -4,6 +4,8 @@ import { Connectors } from '@connectors/constants'
 import { SelectOrCreateConnectorFieldNames } from '@cv/pages/onboarding/SelectOrCreateConnector/SelectOrCreateConnector'
 import { GCOProduct } from '@cv/pages/monitoring-source/google-cloud-operations/GoogleCloudOperationsMonitoringSourceUtils'
 import { HealthSourceTypes } from '@cv/pages/health-source/types'
+import type { SelectOption } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
+import { PrometheusProductNames } from '@cv/pages/health-source/connectors/PrometheusHealthSource/PrometheusHealthSource.constants'
 
 export const validate = (isEdit: boolean, getString: UseStringsReturn['getString']) => {
   return Yup.object().shape({
@@ -16,7 +18,7 @@ export const validate = (isEdit: boolean, getString: UseStringsReturn['getString
   })
 }
 
-export const getFeatureOption = (type: string, getString: UseStringsReturn['getString']) => {
+export const getFeatureOption = (type: string, getString: UseStringsReturn['getString']): SelectOption[] => {
   switch (type) {
     case Connectors.APP_DYNAMICS:
       return [
@@ -41,6 +43,13 @@ export const getFeatureOption = (type: string, getString: UseStringsReturn['getS
         {
           value: GCOProduct.CLOUD_LOGS,
           label: getString('cv.monitoringSources.gco.product.logs')
+        }
+      ]
+    case Connectors.PROMETHEUS:
+      return [
+        {
+          label: PrometheusProductNames.APM,
+          value: getString('connectors.prometheusLabel')
         }
       ]
     default:

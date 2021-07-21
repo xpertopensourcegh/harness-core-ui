@@ -13,5 +13,9 @@ export const HEALTHSOURCE_LIST = [
   {
     name: Connectors.GCP,
     icon: getConnectorIconByType(Connectors.GCP)
+  },
+  {
+    name: Connectors.PROMETHEUS,
+    icon: getConnectorIconByType(Connectors.PROMETHEUS)
   }
 ]

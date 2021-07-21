@@ -3,6 +3,7 @@ import { isEmpty } from 'lodash-es'
 import { GCOProduct } from '@cv/pages/monitoring-source/google-cloud-operations/GoogleCloudOperationsMonitoringSourceUtils'
 import GCOLogsMonitoringSource from '@cv/pages/health-source/connectors/GCOLogsMonitoringSource/GCOLogsMonitoringSource'
 import AppDMonitoredSource from '@cv/pages/health-source/connectors/AppDynamics/AppDMonitoredSource'
+import { PrometheusHealthSource } from '@cv/pages/health-source/connectors/PrometheusHealthSource/PrometheusHealthSource'
 import { Connectors } from '@connectors/constants'
 import { HealthSourceTypes } from '@cv/pages/health-source/types'
 import type { UpdatedHealthSource } from '../../HealthSourceDrawerContent.types'
@@ -17,7 +18,7 @@ export const LoadSourceByType = ({
   onSubmit: (formdata: any, healthSourceList: UpdatedHealthSource) => Promise<void>
 }): JSX.Element => {
   switch (type) {
-    case 'AppDynamics':
+    case HealthSourceTypes.AppDynamics:
       return <AppDMonitoredSource data={data} onSubmit={onSubmit} />
     case Connectors.GCP:
       if (data?.product?.value === GCOProduct.CLOUD_LOGS) {
@@ -27,6 +28,8 @@ export const LoadSourceByType = ({
       }
     case HealthSourceTypes.StackdriverLog:
       return <GCOLogsMonitoringSource data={data} onSubmit={onSubmit} />
+    case HealthSourceTypes.Prometheus:
+      return <PrometheusHealthSource data={data} onSubmit={onSubmit} />
     default:
       return <></>
   }

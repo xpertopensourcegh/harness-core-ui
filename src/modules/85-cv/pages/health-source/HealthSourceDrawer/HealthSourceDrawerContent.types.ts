@@ -1,9 +1,14 @@
 import type { SelectOption } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
-import type { AppDynamicsHealthSourceSpec, HealthSource, MonitoredServiceResponse } from 'services/cv'
+import type {
+  AppDynamicsHealthSourceSpec,
+  HealthSource,
+  MonitoredServiceResponse,
+  PrometheusHealthSourceSpec
+} from 'services/cv'
 import type { GCOLogsHealthSourceSpec } from '../connectors/GCOLogsMonitoringSource/components/MapQueriesToHarnessService/types'
 
 export interface UpdatedHealthSource extends Omit<HealthSource, 'spec'> {
-  spec: AppDynamicsHealthSourceSpec | GCOLogsHealthSourceSpec
+  spec: AppDynamicsHealthSourceSpec | GCOLogsHealthSourceSpec | PrometheusHealthSourceSpec
 }
 
 export interface RowData extends HealthSource {

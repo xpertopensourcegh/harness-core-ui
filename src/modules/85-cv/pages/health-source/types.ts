@@ -1,5 +1,6 @@
 export enum HealthSourceTypes {
   AppDynamics = 'AppDynamics',
   NewRelic = 'NewRelic',
-  StackdriverLog = 'StackdriverLog'
+  StackdriverLog = 'StackdriverLog',
+  Prometheus = 'Prometheus'
 }
