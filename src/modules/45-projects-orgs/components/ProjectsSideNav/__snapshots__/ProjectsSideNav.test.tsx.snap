@@ -26,8 +26,8 @@ exports[`Projects Side Nav render 1`] = `
               projectLabel
             </p>
             <p
-              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-normal"
-              style="--text-line-clamp: 1; width: 115px;"
+              class="StyledProps--font Text--lineclamp StyledProps--main projectName StyledProps--color StyledProps--color-grey400 StyledProps--font-size-normal"
+              style="--text-line-clamp: 1;"
             >
               selectProject
             </p>

@@ -4,6 +4,7 @@ declare const styles: {
   readonly projectSelector: string
   readonly button: string
   readonly projectButton: string
+  readonly projectName: string
   readonly selectButton: string
   readonly projectSelect: string
   readonly pickProjectHelp: string

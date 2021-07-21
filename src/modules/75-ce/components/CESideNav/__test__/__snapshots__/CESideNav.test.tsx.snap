@@ -26,8 +26,8 @@ exports[`side nav tests side nav renders without error when no project is select
               projectLabel
             </p>
             <p
-              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-normal"
-              style="--text-line-clamp: 1; width: 115px;"
+              class="StyledProps--font Text--lineclamp StyledProps--main projectName StyledProps--color StyledProps--color-grey400 StyledProps--font-size-normal"
+              style="--text-line-clamp: 1;"
             >
               selectProject
             </p>
@@ -114,8 +114,8 @@ exports[`side nav tests side nav renders without error when on Access Point tab 
               projectLabel
             </p>
             <p
-              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-normal"
-              style="--text-line-clamp: 1; width: 115px;"
+              class="StyledProps--font Text--lineclamp StyledProps--main projectName StyledProps--color StyledProps--color-grey400 StyledProps--font-size-normal"
+              style="--text-line-clamp: 1;"
             >
               selectProject
             </p>
@@ -223,8 +223,8 @@ exports[`side nav tests side nav renders without error when on AutoStopping Rule
               projectLabel
             </p>
             <p
-              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-normal"
-              style="--text-line-clamp: 1; width: 115px;"
+              class="StyledProps--font Text--lineclamp StyledProps--main projectName StyledProps--color StyledProps--color-grey400 StyledProps--font-size-normal"
+              style="--text-line-clamp: 1;"
             >
               selectProject
             </p>

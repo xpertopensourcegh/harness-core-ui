@@ -17,6 +17,10 @@
     padding: var(--spacing-large) !important;
   }
 
+  .projectName {
+    word-break: break-all;
+  }
+
   .selectButton {
     width: 100%;
   }

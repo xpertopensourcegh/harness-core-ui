@@ -37,7 +37,7 @@ const RenderColumnSecret: Renderer<CellProps<SecretResponseWrapper>> = ({ row })
       {data.type === 'SSHKey' ? <Icon name="secret-ssh" size={28} margin={{ top: 'xsmall', right: 'small' }} /> : null}
       <Layout.Vertical>
         <Layout.Horizontal spacing="small" width={230}>
-          <Text color={Color.BLACK} lineClamp={1}>
+          <Text color={Color.BLACK} lineClamp={1} className={css.secretName}>
             {data.name}
           </Text>
           {data.tags && Object.keys(data.tags).length ? <TagsPopover tags={data.tags} /> : null}
