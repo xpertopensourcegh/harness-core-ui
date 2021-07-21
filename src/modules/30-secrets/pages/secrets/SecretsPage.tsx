@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
-import { Layout, Popover, Icon, TextInput, Container } from '@wings-software/uicore'
+import { Layout, Popover, Icon, Container, ExpandingSearchInput } from '@wings-software/uicore'
 import { Menu, PopoverInteractionKind, Position } from '@blueprintjs/core'
 import { useListSecretsV2, ResponsePageSecretResponseWrapper, Error } from 'services/cd-ng'
 import routes from '@common/RouteDefinitions'
@@ -126,14 +126,12 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ module, mock }) => {
           />
         </Layout.Horizontal>
         <Layout.Horizontal spacing="small">
-          <TextInput
-            leftIcon="search"
-            placeholder="Search"
-            value={searchTerm}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setSearchTerm(e.target.value.trim())
+          <ExpandingSearchInput
+            onChange={text => {
+              setSearchTerm(text.trim())
               setPage(0)
             }}
+            width={350}
           />
         </Layout.Horizontal>
       </Layout.Horizontal>

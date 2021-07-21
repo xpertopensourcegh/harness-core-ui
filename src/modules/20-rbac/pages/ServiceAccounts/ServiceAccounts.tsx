@@ -62,6 +62,7 @@ const ServiceAccountsPage: React.FC = () => {
                 setsearchTerm(text.trim())
               }}
               className={css.search}
+              width={350}
             />
           </Layout.Horizontal>
         }

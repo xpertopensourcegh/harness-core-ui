@@ -7,7 +7,6 @@ declare const styles: {
   readonly orgSelect: string
   readonly header: string
   readonly headerLayout: string
-  readonly search: string
   readonly customselect: string
   readonly noBanner: string
   readonly hasBanner: string

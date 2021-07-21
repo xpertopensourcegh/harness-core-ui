@@ -32,12 +32,6 @@
     align-items: center;
     justify-content: flex-end;
   }
-
-  .search {
-    & > input:focus {
-      width: 300px !important;
-    }
-  }
 }
 
 .customselect {

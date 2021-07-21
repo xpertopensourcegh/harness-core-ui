@@ -60,6 +60,7 @@ const UserGroupsPage: React.FC = () => {
               onChange={text => {
                 setsearchTerm(text.trim())
               }}
+              width={350}
             />
           </Layout.Horizontal>
         }

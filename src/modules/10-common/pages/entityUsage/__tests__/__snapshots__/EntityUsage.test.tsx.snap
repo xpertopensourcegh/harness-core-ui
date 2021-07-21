@@ -24,6 +24,7 @@ exports[`Entity Usage render for connector data with gitSync 1`] = `
         <div
           class="bp3-input-group ui-search-box ExpandingSearchInput--main search "
           data-name=""
+          style="max-width: 350px;"
         >
           <span
             class="bp3-icon StyledProps--main ExpandingSearchInput--icon "
@@ -317,6 +318,7 @@ exports[`Entity Usage render for data 1`] = `
         <div
           class="bp3-input-group ui-search-box ExpandingSearchInput--main search "
           data-name=""
+          style="max-width: 350px;"
         >
           <span
             class="bp3-icon StyledProps--main ExpandingSearchInput--icon "
@@ -462,6 +464,7 @@ exports[`Entity Usage render for no data 1`] = `
         <div
           class="bp3-input-group ui-search-box ExpandingSearchInput--main search "
           data-name=""
+          style="max-width: 350px;"
         >
           <span
             class="bp3-icon StyledProps--main ExpandingSearchInput--icon "

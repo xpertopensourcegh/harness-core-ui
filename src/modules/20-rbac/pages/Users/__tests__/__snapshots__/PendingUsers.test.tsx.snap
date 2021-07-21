@@ -10,6 +10,7 @@ exports[`UsersPage Test Switch to Pending Users 1`] = `
     >
       <div
         class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-left-large"
+        style="width: 350px;"
       >
         <button
           class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
@@ -69,10 +70,12 @@ exports[`UsersPage Test Switch to Pending Users 1`] = `
     </div>
     <div
       class="Layout--horizontal StyledProps--main toolbar StyledProps--margin-right-small"
+      style="width: 350px;"
     >
       <div
         class="bp3-input-group ui-search-box ExpandingSearchInput--main  "
         data-name=""
+        style="max-width: 350px;"
       >
         <span
           class="bp3-icon StyledProps--main ExpandingSearchInput--icon "

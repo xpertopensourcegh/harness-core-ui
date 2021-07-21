@@ -88,6 +88,7 @@ const Roles: React.FC = () => {
               onChange={text => {
                 setSearchTerm(text.trim())
               }}
+              width={350}
             />
           </Layout.Horizontal>
         }

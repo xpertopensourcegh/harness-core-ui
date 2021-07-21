@@ -85,6 +85,7 @@ const ResourceGroups: React.FC = () => {
               onChange={e => {
                 setSearchTerm(e.trim())
               }}
+              width={350}
             />
           </Layout.Horizontal>
         }

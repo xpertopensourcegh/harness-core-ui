@@ -182,7 +182,7 @@ const ProjectsListPage: React.FC = () => {
           onChange={text => {
             setSearchParam(text.trim())
           }}
-          className={css.search}
+          width={350}
         />
         <GridListToggle initialSelectedView={Views.GRID} onViewToggle={setView} />
       </Layout.Horizontal>

@@ -53,17 +53,14 @@ const OrganizationsPage: React.FC = () => {
       <Page.Header
         title={<Layout.Horizontal padding="small">{newOrgButton()}</Layout.Horizontal>}
         toolbar={
-          <Layout.Horizontal padding={{ right: 'large' }}>
-            <Layout.Horizontal flex>
-              <ExpandingSearchInput
-                placeholder={getString('projectsOrgs.searchPlaceHolder')}
-                onChange={text => {
-                  setSearchParam(text.trim())
-                }}
-                className={css.search}
-              />
-            </Layout.Horizontal>
-          </Layout.Horizontal>
+          <ExpandingSearchInput
+            placeholder={getString('projectsOrgs.searchPlaceHolder')}
+            onChange={text => {
+              setSearchParam(text.trim())
+            }}
+            className={css.search}
+            width={350}
+          />
         }
       />
       <Page.Body
