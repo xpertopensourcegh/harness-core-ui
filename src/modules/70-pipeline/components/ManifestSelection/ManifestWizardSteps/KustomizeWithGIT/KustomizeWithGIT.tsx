@@ -176,7 +176,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
             initialValues?.identifier,
             getString('pipeline.uniqueIdentifier')
           ),
-          folderPath: Yup.string().trim().required(getString('pipeline.manifestType.kustomizePathRequired')),
+          folderPath: Yup.string().trim().required(getString('pipeline.manifestType.kustomizeFolderPathRequired')),
           branch: Yup.string().when('gitFetchType', {
             is: 'Branch',
             then: Yup.string().trim().required(getString('validation.branchName'))
@@ -296,14 +296,14 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
 
               <Layout.Horizontal flex spacing="huge" margin={{ bottom: 'small' }}>
                 <div
-                  className={cx(helmcss.folderPath, {
+                  className={cx(helmcss.halfWidth, {
                     [helmcss.runtimeInput]:
                       getMultiTypeFromValue(formik.values?.folderPath) === MultiTypeInputType.RUNTIME
                   })}
                 >
                   <FormInput.MultiTextInput
                     label={getString('pipeline.manifestType.kustomizeFolderPath')}
-                    placeholder={getString('pipeline.manifestType.pathPlaceholder')}
+                    placeholder={getString('pipeline.manifestType.kustomizeFolderPathPlaceholder')}
                     name="folderPath"
                     tooltipProps={{
                       dataTooltipId: 'kustomizePathHelperText'
@@ -326,18 +326,19 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                 </div>
 
                 <div
-                  className={cx(helmcss.folderPath, {
+                  className={cx(helmcss.halfWidth, {
                     [helmcss.runtimeInput]:
                       getMultiTypeFromValue(formik.values?.pluginPath) === MultiTypeInputType.RUNTIME
                   })}
                 >
                   <FormInput.MultiTextInput
                     label={getString('pluginPath')}
-                    placeholder={getString('pipeline.manifestType.pathPlaceholder')}
+                    placeholder={getString('pipeline.manifestType.kustomizePluginPathPlaceholder')}
                     name="pluginPath"
                     tooltipProps={{
                       dataTooltipId: 'pluginPathHelperText'
                     }}
+                    isOptional={true}
                     multiTextInputProps={{ expressions }}
                   />
                   {getMultiTypeFromValue(formik.values?.pluginPath) === MultiTypeInputType.RUNTIME && (

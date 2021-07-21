@@ -164,6 +164,7 @@ manifestType:
   folderPathRequired: Folder Path is required
   chartPathRequired: Chart Path is required
   kustomizePathRequired: Kustomize Path is required
+  kustomizeFolderPathRequired: Kustomize Folder Path is required
   pathRequired: File Path is required
   bucketNameRequired: Bucket Name is required
   path: '{{$.common.path}}'
@@ -179,6 +180,8 @@ manifestType:
   commitPlaceholder: Enter Commit Id
   filePathPlaceholder: Enter File or Folder Path
   kustomizeFolderPath: Kustomize Folder Path
+  kustomizeFolderPathPlaceholder: Enter Kustomize Folder Path
+  kustomizePluginPathPlaceholder: Enter Kustomize Plugin Path
   repoNamePlaceholder: Enter Repository Name
   http:
     chartName: 'Chart Name'

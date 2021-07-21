@@ -202,7 +202,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests expand advanced secti
             class="Layout--horizontal Layout--layout-spacing-huge StyledProps--main StyledProps--flex StyledProps--margin-bottom-small"
           >
             <div
-              class="folderPath"
+              class="halfWidth"
             >
               <div
                 class="bp3-form-group"
@@ -235,7 +235,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests expand advanced secti
                         autocomplete="off"
                         class="bp3-input"
                         name="folderPath"
-                        placeholder="pipeline.manifestType.pathPlaceholder"
+                        placeholder="pipeline.manifestType.kustomizeFolderPathPlaceholder"
                         type="text"
                         value=""
                       />
@@ -273,7 +273,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests expand advanced secti
               </div>
             </div>
             <div
-              class="folderPath"
+              class="halfWidth"
             >
               <div
                 class="bp3-form-group"
@@ -286,7 +286,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests expand advanced secti
                     class="Tooltip--acenter"
                     data-tooltip-id="pluginPathHelperText"
                   >
-                    pluginPath
+                    pluginPath (optional)
                   </span>
                    
                   <span
@@ -306,7 +306,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests expand advanced secti
                         autocomplete="off"
                         class="bp3-input"
                         name="pluginPath"
-                        placeholder="pipeline.manifestType.pathPlaceholder"
+                        placeholder="pipeline.manifestType.kustomizePluginPathPlaceholder"
                         type="text"
                         value=""
                       />
@@ -711,7 +711,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
             class="Layout--horizontal Layout--layout-spacing-huge StyledProps--main StyledProps--flex StyledProps--margin-bottom-small"
           >
             <div
-              class="folderPath"
+              class="halfWidth"
             >
               <div
                 class="bp3-form-group"
@@ -744,7 +744,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
                         autocomplete="off"
                         class="bp3-input"
                         name="folderPath"
-                        placeholder="pipeline.manifestType.pathPlaceholder"
+                        placeholder="pipeline.manifestType.kustomizeFolderPathPlaceholder"
                         type="text"
                         value=""
                       />
@@ -782,7 +782,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
               </div>
             </div>
             <div
-              class="folderPath"
+              class="halfWidth"
             >
               <div
                 class="bp3-form-group"
@@ -795,7 +795,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
                     class="Tooltip--acenter"
                     data-tooltip-id="pluginPathHelperText"
                   >
-                    pluginPath
+                    pluginPath (optional)
                   </span>
                    
                   <span
@@ -815,7 +815,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
                         autocomplete="off"
                         class="bp3-input"
                         name="pluginPath"
-                        placeholder="pipeline.manifestType.pathPlaceholder"
+                        placeholder="pipeline.manifestType.kustomizePluginPathPlaceholder"
                         type="text"
                         value=""
                       />
@@ -1157,7 +1157,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
             class="Layout--horizontal Layout--layout-spacing-huge StyledProps--main StyledProps--flex StyledProps--margin-bottom-small"
           >
             <div
-              class="folderPath"
+              class="halfWidth"
             >
               <div
                 class="bp3-form-group"
@@ -1190,7 +1190,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
                         autocomplete="off"
                         class="bp3-input"
                         name="folderPath"
-                        placeholder="pipeline.manifestType.pathPlaceholder"
+                        placeholder="pipeline.manifestType.kustomizeFolderPathPlaceholder"
                         type="text"
                         value=""
                       />
@@ -1228,7 +1228,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
               </div>
             </div>
             <div
-              class="folderPath"
+              class="halfWidth"
             >
               <div
                 class="bp3-form-group"
@@ -1241,7 +1241,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
                     class="Tooltip--acenter"
                     data-tooltip-id="pluginPathHelperText"
                   >
-                    pluginPath
+                    pluginPath (optional)
                   </span>
                    
                   <span
@@ -1261,7 +1261,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
                         autocomplete="off"
                         class="bp3-input"
                         name="pluginPath"
-                        placeholder="pipeline.manifestType.pathPlaceholder"
+                        placeholder="pipeline.manifestType.kustomizePluginPathPlaceholder"
                         type="text"
                         value=""
                       />
@@ -1603,7 +1603,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
             class="Layout--horizontal Layout--layout-spacing-huge StyledProps--main StyledProps--flex StyledProps--margin-bottom-small"
           >
             <div
-              class="folderPath"
+              class="halfWidth"
             >
               <div
                 class="bp3-form-group"
@@ -1636,7 +1636,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
                         autocomplete="off"
                         class="bp3-input"
                         name="folderPath"
-                        placeholder="pipeline.manifestType.pathPlaceholder"
+                        placeholder="pipeline.manifestType.kustomizeFolderPathPlaceholder"
                         type="text"
                         value=""
                       />
@@ -1674,7 +1674,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
               </div>
             </div>
             <div
-              class="folderPath"
+              class="halfWidth"
             >
               <div
                 class="bp3-form-group"
@@ -1687,7 +1687,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
                     class="Tooltip--acenter"
                     data-tooltip-id="pluginPathHelperText"
                   >
-                    pluginPath
+                    pluginPath (optional)
                   </span>
                    
                   <span
@@ -1707,7 +1707,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
                         autocomplete="off"
                         class="bp3-input"
                         name="pluginPath"
-                        placeholder="pipeline.manifestType.pathPlaceholder"
+                        placeholder="pipeline.manifestType.kustomizePluginPathPlaceholder"
                         type="text"
                         value=""
                       />

@@ -249,7 +249,7 @@ manifestsText: Manifest
 variablesText: Variables
 fileFolderPathText: File/Folder Path
 chartPath: Chart Path
-pluginPath: Kustomize plugin path
+pluginPath: Kustomize Plugin Path
 addFileText: + Add File
 lastExecutionTs: 'Last Run'
 lastRunAtDate: '{{$.lastExecutionTs}}: '

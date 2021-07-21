@@ -1732,8 +1732,11 @@ export interface StringsMap {
   'pipeline.manifestType.http.chartVersionRequired': string
   'pipeline.manifestType.httpHelmRepoConnectorLabel': string
   'pipeline.manifestType.kustomizeFolderPath': string
+  'pipeline.manifestType.kustomizeFolderPathPlaceholder': string
+  'pipeline.manifestType.kustomizeFolderPathRequired': string
   'pipeline.manifestType.kustomizePathHelperText': string
   'pipeline.manifestType.kustomizePathRequired': string
+  'pipeline.manifestType.kustomizePluginPathPlaceholder': string
   'pipeline.manifestType.manifestDetails': string
   'pipeline.manifestType.manifestIdentifier': string
   'pipeline.manifestType.manifestPathPlaceholder': string
