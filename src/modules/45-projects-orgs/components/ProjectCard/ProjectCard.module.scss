@@ -6,6 +6,7 @@
   &:hover {
     cursor: pointer;
     border-color: var(--primary-7) !important;
+    background: var(--grey-100) !important;
   }
 
   .colorBar {
@@ -22,8 +23,11 @@
 }
 
 .previewProjectCard {
-  border: none !important;
-  cursor: default;
+  &:hover {
+    border-color: transparent !important;
+    cursor: default;
+    background: white !important;
+  }
 }
 
 .started {
@@ -43,18 +47,6 @@
 
 .projectInfo {
   overflow-wrap: anywhere;
-  &:hover {
-    cursor: pointer;
-    border-radius: inherit;
-    background: var(--grey-100) !important;
-  }
-}
-
-.previewProjectInfo {
-  &:hover {
-    cursor: default;
-    background: white !important;
-  }
 }
 
 .projectAvatarGroup {

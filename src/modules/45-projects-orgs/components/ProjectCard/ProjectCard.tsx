@@ -4,17 +4,10 @@ import { Card, Text, Layout, CardBody, Container, Color } from '@wings-software/
 import { Classes } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
-import { ModuleName } from 'framework/types/ModuleName'
-import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import type { Project, ProjectAggregateDTO } from 'services/cd-ng'
 import DefaultRenderer from '@projects-orgs/components/ModuleRenderer/DefaultRenderer'
-import CVRenderer from '@projects-orgs/components/ModuleRenderer/cv/CVRenderer'
-import CIRenderer from '@projects-orgs/components/ModuleRenderer/ci/CIRenderer'
-import CDRenderer from '@projects-orgs/components/ModuleRenderer/cd/CDRenderer'
 import ContextMenu from '@projects-orgs/components/Menu/ContextMenu'
 import routes from '@common/RouteDefinitions'
-import CERenderer from '@projects-orgs/components/ModuleRenderer/ce/CERenderer'
-import CFRenderer from '@projects-orgs/components/ModuleRenderer/cf/CFRenderer'
 import useDeleteProjectDialog from '@projects-orgs/pages/projects/DeleteProject'
 import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
@@ -43,7 +36,6 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
     harnessManagedOrg
   } = projectAggregateDTO
   const data = projectResponse.project || null
-  const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED } = useFeatureFlags()
   const { accountId } = useParams<AccountPathProps>()
   const { getString } = useStrings()
   const history = useHistory()
@@ -67,7 +59,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
       className={cx(css.projectCard, { [css.previewProjectCard]: isPreview }, props.className)}
       data-testid={`project-card-${data.identifier + data.orgIdentifier}`}
     >
-      <Container padding="xlarge" className={cx(css.projectInfo, { [css.previewProjectInfo]: isPreview })}>
+      <Container padding="xlarge" className={css.projectInfo}>
         {!isPreview ? (
           <CardBody.Menu
             menuContent={
@@ -182,12 +174,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
           </Layout.Horizontal>
         </Container>
       </Container>
-      {!data.modules?.length ? <DefaultRenderer /> : null}
-      {CDNG_ENABLED && data.modules?.includes(ModuleName.CD) ? <CDRenderer data={data} isPreview={isPreview} /> : null}
-      {CVNG_ENABLED && data.modules?.includes(ModuleName.CV) ? <CVRenderer data={data} isPreview={isPreview} /> : null}
-      {CING_ENABLED && data.modules?.includes(ModuleName.CI) ? <CIRenderer data={data} isPreview={isPreview} /> : null}
-      {CFNG_ENABLED && data.modules?.includes(ModuleName.CF) ? <CFRenderer data={data} isPreview={isPreview} /> : null}
-      {CENG_ENABLED && data.modules?.includes(ModuleName.CE) ? <CERenderer data={data} isPreview={isPreview} /> : null}
+      <DefaultRenderer />
     </Card>
   )
 }
