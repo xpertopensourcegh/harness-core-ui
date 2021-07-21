@@ -2,7 +2,7 @@ import React, { useEffect, useMemo } from 'react'
 import { Layout, Text } from '@wings-software/uicore'
 
 import { useParams } from 'react-router-dom'
-import { get, set } from 'lodash-es'
+import { get } from 'lodash-es'
 import { useGetConnectorListV2, PageConnectorResponse } from 'services/cd-ng'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 
@@ -54,15 +54,6 @@ export default function ManifestSelection({
   const { mutate: fetchConnectors } = useGetConnectorListV2({
     queryParams: defaultQueryParams
   })
-
-  useEffect(() => {
-    if (!get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets')) {
-      set(stage as any, 'stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets', [])
-    }
-    if (!get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests')) {
-      set(stage as any, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests', [])
-    }
-  }, [])
 
   const listOfManifests = useMemo(() => {
     if (overrideSetIdentifier?.length) {

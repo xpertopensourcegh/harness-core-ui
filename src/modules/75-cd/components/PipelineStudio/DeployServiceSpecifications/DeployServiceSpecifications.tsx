@@ -144,15 +144,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
           serviceDefinition: {
             type: 'Kubernetes',
             spec: {
-              artifacts: {
-                // primary: null,
-                sidecars: []
-              },
-              manifests: [],
-              // variables: [],
-              artifactOverrideSets: [],
-              manifestOverrideSets: []
-              // variableOverrideSets: []
+              variables: []
             }
           }
         }

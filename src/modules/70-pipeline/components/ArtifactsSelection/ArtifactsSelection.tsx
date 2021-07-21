@@ -190,11 +190,7 @@ export default function ArtifactsSelection({
     if (isForPredefinedSets || isPropagating) {
       return get(stage, 'stage.spec.serviceConfig.stageOverrides.artifacts.sidecars', [])
     }
-    if (!get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.sidecars', null)) {
-      set(stage as any, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.sidecars', [])
-    } else return get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.sidecars', [])
-
-    return []
+    return get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.sidecars', [])
   }, [stage])
 
   const artifacts = getArtifactsPath()
