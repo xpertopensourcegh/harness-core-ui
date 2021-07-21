@@ -902,6 +902,22 @@ export interface StringsMap {
   'connectors.cdng.verificationSensitivityLabel.high': string
   'connectors.cdng.verificationSensitivityLabel.low': string
   'connectors.cdng.verificationSensitivityLabel.medium': string
+  'connectors.ceAws.crossAccountRoleExtention.heading': string
+  'connectors.ceAws.crossAccountRoleExtention.step1.p1': string
+  'connectors.ceAws.crossAccountRoleExtention.step1.p2': string
+  'connectors.ceAws.crossAccountRoleExtention.step1.p3': string
+  'connectors.ceAws.crossAccountRoleExtention.step2.heading': string
+  'connectors.ceAws.crossAccountRoleExtention.step2.subStep1': string
+  'connectors.ceAws.crossAccountRoleExtention.step2.subStep2.p1': string
+  'connectors.ceAws.crossAccountRoleExtention.step2.subStep2.p2': string
+  'connectors.ceAws.crossAccountRoleExtention.step3.p1': string
+  'connectors.ceAws.crossAccountRoleExtention.step3.p2': string
+  'connectors.ceAws.crossAccountRoleExtention.step3.p3': string
+  'connectors.ceAws.crossAccountRoleExtention.step3.p4': string
+  'connectors.ceAws.crossAccountRoleExtention.step4': string
+  'connectors.ceAws.crossAccountRoleExtention.step5': string
+  'connectors.ceAws.crossAccountRoleExtention.subHeading': string
+  'connectors.ceAws.crossAccountRoleStep1.choosePermissions': string
   'connectors.ceAws.crossAccountRoleStep1.cost': string
   'connectors.ceAws.crossAccountRoleStep1.description': string
   'connectors.ceAws.crossAccountRoleStep1.heading': string
@@ -910,9 +926,12 @@ export interface StringsMap {
   'connectors.ceAws.crossAccountRoleStep1.subHeading': string
   'connectors.ceAws.crossAccountRoleStep1.visibility': string
   'connectors.ceAws.crossAccountRoleStep1.visibilityDes': string
+  'connectors.ceAws.crossAccountRoleStep2.createRole': string
   'connectors.ceAws.crossAccountRoleStep2.dontHaveAccess': string
   'connectors.ceAws.crossAccountRoleStep2.extId': string
+  'connectors.ceAws.crossAccountRoleStep2.followInstructions': string
   'connectors.ceAws.crossAccountRoleStep2.heading': string
+  'connectors.ceAws.crossAccountRoleStep2.launchTemplate': string
   'connectors.ceAws.crossAccountRoleStep2.roleArn': string
   'connectors.ceAws.crossAccountRoleStep2.subHeading': string
   'connectors.ceAws.crossAccountRoleStep2.validation.roleArnPattern': string
@@ -929,6 +948,35 @@ export interface StringsMap {
   'connectors.ceAws.cur.validation.reportRequired': string
   'connectors.ceAws.curExising.accountID': string
   'connectors.ceAws.curExising.subHeading': string
+  'connectors.ceAws.curExtention.heading': string
+  'connectors.ceAws.curExtention.moreHelp.heading': string
+  'connectors.ceAws.curExtention.moreHelp.step1': string
+  'connectors.ceAws.curExtention.moreHelp.step2': string
+  'connectors.ceAws.curExtention.moreHelp.step3': string
+  'connectors.ceAws.curExtention.moreHelp.step4': string
+  'connectors.ceAws.curExtention.stepA.heading': string
+  'connectors.ceAws.curExtention.stepA.step1.p1': string
+  'connectors.ceAws.curExtention.stepA.step1.p2': string
+  'connectors.ceAws.curExtention.stepA.step2': string
+  'connectors.ceAws.curExtention.stepA.step3': string
+  'connectors.ceAws.curExtention.stepB.heading': string
+  'connectors.ceAws.curExtention.stepB.step1.p1': string
+  'connectors.ceAws.curExtention.stepB.step1.p2': string
+  'connectors.ceAws.curExtention.stepB.step2': string
+  'connectors.ceAws.curExtention.stepB.step3.p1': string
+  'connectors.ceAws.curExtention.stepB.step4': string
+  'connectors.ceAws.curExtention.stepB.step5.heading': string
+  'connectors.ceAws.curExtention.stepB.step5.subStep1.p1': string
+  'connectors.ceAws.curExtention.stepB.step5.subStep1.p2': string
+  'connectors.ceAws.curExtention.stepB.step5.subStep2.p1': string
+  'connectors.ceAws.curExtention.stepB.step5.subStep2.p2': string
+  'connectors.ceAws.curExtention.stepB.step5.subStep3': string
+  'connectors.ceAws.curExtention.stepB.step5.subStep4.p1': string
+  'connectors.ceAws.curExtention.stepB.step5.subStep4.p2': string
+  'connectors.ceAws.curExtention.stepB.step6.p1': string
+  'connectors.ceAws.curExtention.stepB.step6.p2': string
+  'connectors.ceAws.curExtention.stepB.step7': string
+  'connectors.ceAws.curExtention.subtext': string
   'connectors.ceAws.overview.alreadyExist': string
   'connectors.ceAws.overview.alreadyExistInfo': string
   'connectors.ceAws.overview.awsAccountId': string
@@ -1021,8 +1069,45 @@ export interface StringsMap {
   'connectors.ceAzure.validation.storageAccountName': string
   'connectors.ceAzure.validation.subscriptionId': string
   'connectors.ceAzure.validation.tenantId': string
+  'connectors.ceGcp.billingExport.datasetIdLabel': string
+  'connectors.ceGcp.billingExport.description': string
+  'connectors.ceGcp.billingExport.followInstruction': string
+  'connectors.ceGcp.billingExport.heading': string
+  'connectors.ceGcp.billingExport.launchTemplate': string
+  'connectors.ceGcp.billingExtention.heading': string
+  'connectors.ceGcp.billingExtention.link1': string
+  'connectors.ceGcp.billingExtention.link2': string
+  'connectors.ceGcp.billingExtention.otherLinks': string
+  'connectors.ceGcp.billingExtention.prerequisite': string
+  'connectors.ceGcp.billingExtention.readMore': string
+  'connectors.ceGcp.billingExtention.step1': string
+  'connectors.ceGcp.billingExtention.step2': string
+  'connectors.ceGcp.billingExtention.step3.p1': string
+  'connectors.ceGcp.billingExtention.step3.p2': string
+  'connectors.ceGcp.billingExtention.step3.p3': string
+  'connectors.ceGcp.billingExtention.step4': string
+  'connectors.ceGcp.billingExtention.step5': string
+  'connectors.ceGcp.billingExtention.step6': string
+  'connectors.ceGcp.billingExtention.step7': string
+  'connectors.ceGcp.grantPermission.bigQueryButtonText': string
+  'connectors.ceGcp.grantPermission.heading': string
+  'connectors.ceGcp.grantPermission.step1': string
+  'connectors.ceGcp.grantPermission.step2': string
+  'connectors.ceGcp.grantPermission.step3': string
+  'connectors.ceGcp.grantPermission.step4': string
+  'connectors.ceGcp.grantPermission.step5': string
+  'connectors.ceGcp.grantPermission.step6': string
+  'connectors.ceGcp.grantPermission.step7': string
+  'connectors.ceGcp.overview.heading': string
+  'connectors.ceGcp.overview.projectIdLabel': string
+  'connectors.ceGcp.testConnection.error': string
+  'connectors.ceGcp.testConnection.heading': string
+  'connectors.ceGcp.testConnection.step1': string
+  'connectors.ceGcp.testConnection.step2': string
+  'connectors.ceGcp.testConnection.step3': string
   'connectors.ceK8.infoText': string
   'connectors.ceK8.selectConnectorLabel': string
+  'connectors.click': string
   'connectors.confirmDelete': string
   'connectors.confirmDeleteTitle': string
   'connectors.connectAndSave': string
@@ -1147,6 +1232,7 @@ export interface StringsMap {
   'connectors.secretManagerDetails': string
   'connectors.selectConnector': string
   'connectors.selectConnectorLabel': string
+  'connectors.showInstructions': string
   'connectors.specifyArtifactRepo': string
   'connectors.specifyArtifactRepoType': string
   'connectors.splunk.connectorDetailsHeader': string
@@ -1209,6 +1295,7 @@ export interface StringsMap {
   'connectors.title.awsKms': string
   'connectors.title.azureKeyVault': string
   'connectors.title.bitbucketConnector': string
+  'connectors.title.ceAws': string
   'connectors.title.ceAzureConnector': string
   'connectors.title.datadog': string
   'connectors.title.delegateSelection': string

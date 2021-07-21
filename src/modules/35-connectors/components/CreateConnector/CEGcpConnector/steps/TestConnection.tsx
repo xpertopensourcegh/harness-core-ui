@@ -13,7 +13,7 @@ import {
 import { useStrings } from 'framework/strings'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
 import { useGetTestConnectionResult } from 'services/cd-ng'
-import css from '../CreateCeAwsConnector.module.scss'
+import css from '../CreateCeGcpConnector.module.scss'
 
 enum Status {
   PROCESS = 'PROCESS',
@@ -38,9 +38,9 @@ const TestConnection: React.FC<TestConnectionProps> = props => {
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
 
   const steps: string[] = [
-    getString('connectors.ceAws.testConnection.step1'),
-    getString('connectors.ceAws.testConnection.step2'),
-    getString('connectors.ceAws.testConnection.step3')
+    getString('connectors.ceGcp.testConnection.step1'),
+    getString('connectors.ceGcp.testConnection.step2'),
+    getString('connectors.ceGcp.testConnection.step3')
   ]
 
   const { mutate: testConnection } = useGetTestConnectionResult({
@@ -64,7 +64,7 @@ const TestConnection: React.FC<TestConnectionProps> = props => {
         setCurrentStatus(Status.DONE)
         setCurrentStep(3)
       } else {
-        throw new Error('connectors.ceAws.testConnection.error')
+        throw new Error('Could not verify connectivity')
       }
     } catch (e) {
       modalErrorHandler?.showDanger(e.data?.message)
@@ -80,13 +80,13 @@ const TestConnection: React.FC<TestConnectionProps> = props => {
     <Layout.Vertical className={css.stepContainer}>
       <ModalErrorHandler bind={setModalErrorHandler} />
       <Heading level={2} className={css.header}>
-        {getString('connectors.ceAws.testConnection.heading')}
+        {getString('connectors.ceGcp.testConnection.heading')}
       </Heading>
       <StepsProgress steps={steps} intent={currentIntent} current={currentStep} currentStatus={currentStatus} />
       <Button
         type="submit"
         intent="primary"
-        text={'Finish'}
+        text={getString('close')}
         rightIcon="chevron-right"
         className={css.submitBtn}
         onClick={() => {

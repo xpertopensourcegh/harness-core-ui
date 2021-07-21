@@ -5,7 +5,7 @@ import { act } from 'react-dom/test-utils'
 
 import { TestWrapper } from '@common/utils/testUtils'
 import { clickSubmit, fillAtForm, InputTypes } from '@common/utils/JestFormHelper'
-import CreateCeAwsConnector from '../CreateCeAwsConnector'
+import CreateCeGcpConnector from '../CreateCeGcpConnector'
 
 const commonProps = {
   accountId: 'dummy',
@@ -54,29 +54,16 @@ jest.mock('services/cd-ng', () => ({
   }))
 }))
 
-jest.mock('services/ce', () => ({
-  useAwsaccountconnectiondetail: jest.fn().mockImplementation(() => ({
-    status: 'SUCCESS',
-    data: {
-      status: 'SUCCESS',
-      data: {
-        externalId: 'harness:108817434118:kmpySmUISimoRrJL6NL73w',
-        stackLaunchTemplateLink: 'https://mock.com'
-      }
-    },
-    loading: false
-  }))
-}))
-
 describe('Create Secret Manager Wizard', () => {
   test('should render form', async () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateCeAwsConnector {...commonProps} isEditMode={false} connectorInfo={undefined} />
+        <CreateCeGcpConnector {...commonProps} isEditMode={false} connectorInfo={undefined} />
       </TestWrapper>
     )
 
     //Overview Step
+    expect(getAllByText(container, 'connectors.ceGcp.overview.projectIdLabel')[0]).toBeDefined()
     expect(container).toMatchSnapshot()
 
     fillAtForm([
@@ -89,7 +76,7 @@ describe('Create Secret Manager Wizard', () => {
       {
         container,
         type: InputTypes.TEXTFIELD,
-        fieldId: 'awsAccountId',
+        fieldId: 'projectId',
         value: '12345'
       }
     ])
@@ -98,11 +85,11 @@ describe('Create Secret Manager Wizard', () => {
       clickSubmit(container)
     })
 
-    //Cost and Usage Step
-    expect(getAllByText(container, 'connectors.ceAws.cur.heading')[0]).toBeDefined()
+    //Billing Export Page
+    expect(getAllByText(container, 'connectors.ceGcp.billingExport.description')[0]).toBeDefined()
 
     //Check if the extention opens
-    expect(getAllByText(container, 'connectors.ceAws.curExtention.heading')[0]).toBeDefined()
+    expect(getAllByText(container, 'connectors.ceGcp.billingExtention.heading')[0]).toBeDefined()
 
     expect(container).toMatchSnapshot()
 
@@ -110,14 +97,8 @@ describe('Create Secret Manager Wizard', () => {
       {
         container,
         type: InputTypes.TEXTFIELD,
-        fieldId: 'reportName',
-        value: 'rname'
-      },
-      {
-        container,
-        type: InputTypes.TEXTFIELD,
-        fieldId: 's3BucketName',
-        value: 'bname'
+        fieldId: 'datasetId',
+        value: 'randomdatasetId'
       }
     ])
 
@@ -125,36 +106,16 @@ describe('Create Secret Manager Wizard', () => {
       clickSubmit(container)
     })
 
-    //Cross Account Role Step 1
-    expect(getAllByText(container, 'connectors.ceAws.crossAccountRoleStep1.heading')[0]).toBeDefined()
+    //Grant Permission Step
+    expect(getAllByText(container, 'connectors.ceGcp.grantPermission.step1')[0]).toBeDefined()
     expect(container).toMatchSnapshot()
 
     await act(async () => {
       clickSubmit(container)
     })
 
-    //Cross Account Role Step 2
-    expect(getAllByText(container, 'connectors.ceAws.crossAccountRoleStep2.heading')[0]).toBeDefined()
-
-    //Check if the extention opens
-    expect(getAllByText(container, 'connectors.ceAws.crossAccountRoleExtention.heading')[0]).toBeDefined()
-
-    expect(container).toMatchSnapshot()
-
-    fillAtForm([
-      {
-        container,
-        type: InputTypes.TEXTFIELD,
-        fieldId: 'crossAccountRoleArn',
-        value: 'arn:aws:iam::12345:role/HarnessCERole'
-      }
-    ])
-
-    await act(async () => {
-      clickSubmit(container)
-    })
-
-    expect(getAllByText(container, 'connectors.ceAws.testConnection.heading')[0]).toBeDefined()
+    //Test Connection Step
+    expect(getAllByText(container, 'connectors.ceGcp.testConnection.heading')[1]).toBeDefined()
     expect(container).toMatchSnapshot()
   })
 })

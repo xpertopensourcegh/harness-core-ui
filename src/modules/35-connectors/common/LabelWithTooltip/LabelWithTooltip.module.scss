@@ -11,6 +11,10 @@
   }
 }
 
+:global(.bp3-popover-wrapper) {
+  margin-top: 0 !important;
+}
+
 .dataFields {
   width: 500px;
   margin-bottom: var(--spacing-large) !important;

@@ -1,12 +1,9 @@
 import React, { createContext, ReactElement, useState } from 'react'
 import { Icon } from '@wings-software/uicore'
-import CostUsageReportExtention from './steps/CostUsageReportExtenstion'
-import CrossAccountRoleExtension from './steps/CrossAccountRoleExtension'
 import css from './DialogExtension.module.scss'
 
-export type ExtentionWindow = 'CrossAccountEx' | 'CostUsageEx'
 interface ChildrenProps {
-  triggerExtension: (exWindow: ExtentionWindow) => void
+  triggerExtension: (extentionComponent: ReactElement | React.FC) => void
   closeExtension: () => void
 }
 
@@ -20,24 +17,10 @@ export const DialogExtensionContext = createContext<ChildrenProps>({
   closeExtension: () => undefined
 })
 
-interface SelectExtentionProps {
-  exWindow: ExtentionWindow
-}
-
-const SelectExtention: React.FC<SelectExtentionProps> = props => {
-  const { exWindow } = props
-  switch (exWindow) {
-    case 'CrossAccountEx':
-      return <CrossAccountRoleExtension />
-    case 'CostUsageEx':
-      return <CostUsageReportExtention />
-  }
-}
-
 const DialogExtension: React.FC<ExtensionProps> = props => {
   const [showExtension, setShowExtension] = useState<boolean>(false)
-  const [exWindow, setExWindow] = useState<ExtentionWindow>('CostUsageEx')
-  const triggerExtension = (data: ExtentionWindow) => {
+  const [exWindow, setExWindow] = useState<ReactElement | React.FC>()
+  const triggerExtension = (data: ReactElement | React.FC) => {
     setExWindow(data)
     setShowExtension(true)
   }
@@ -51,9 +34,7 @@ const DialogExtension: React.FC<ExtensionProps> = props => {
       </div>
       {showExtension && (
         <div className={css.extension}>
-          <div>
-            <SelectExtention exWindow={exWindow} />
-          </div>
+          <div>{exWindow}</div>
           <Icon name={'chevron-left'} size={24} onClick={() => setShowExtension(false)} className={css.closeBtn} />
         </div>
       )}
