@@ -28,6 +28,7 @@ export interface JFrogArtifactoryStepSpec {
   // TODO: Right now we do not support Image Pull Policy but will do in the future
   // pull?: MultiTypePullOption
   resources?: Resources
+  runAsUser?: string
 }
 
 export interface JFrogArtifactoryStepData {
@@ -44,6 +45,7 @@ export interface JFrogArtifactoryStepSpecUI
   connectorRef: MultiTypeConnectorRef
   // TODO: Right now we do not support Image Pull Policy but will do in the future
   // pull?: MultiTypeSelectOption
+  runAsUser?: string
   limitMemory?: string
   limitCPU?: string
 }

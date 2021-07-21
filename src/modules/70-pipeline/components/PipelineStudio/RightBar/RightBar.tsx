@@ -24,6 +24,7 @@ import flatten from 'lodash-es/flatten'
 import produce from 'immer'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import type { MultiTypeSelectOption } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
 import {
   ConnectorInfoDTO,
   getConnectorPromise,
@@ -36,6 +37,7 @@ import {
   ConnectorReferenceField,
   ConnectorReferenceFieldProps
 } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
+import { MultiTypeSelectField } from '@common/components/MultiTypeSelect/MultiTypeSelect'
 import {
   getIdentifierFromValue,
   getScopeFromDTO,
@@ -62,6 +64,7 @@ interface CodebaseValues {
   repoName?: string
   depth?: string
   sslVerify?: number
+  prCloneStrategy?: MultiTypeSelectOption
   memoryLimit?: any
   cpuLimit?: any
 }
@@ -73,6 +76,11 @@ enum CodebaseStatuses {
   Invalid = 'invalid',
   Validating = 'validating'
 }
+
+export const prCloneStrategyOptions = [
+  { label: 'Merge Commit', value: 'MergeCommit' },
+  { label: 'Source Branch', value: 'SourceBranch' }
+]
 
 const sslVerifyOptions = [
   {
@@ -127,6 +135,10 @@ export const RightBar = (): JSX.Element => {
     depth: codebase?.depth !== undefined ? String(codebase.depth) : undefined,
     sslVerify: codebase?.sslVerify !== undefined ? Number(codebase.sslVerify) : undefined,
     memoryLimit: codebase?.resources?.limits?.memory,
+    prCloneStrategy:
+      getMultiTypeFromValue(codebase?.prCloneStrategy) === MultiTypeInputType.FIXED
+        ? prCloneStrategyOptions.find(option => option.value === codebase?.prCloneStrategy)
+        : codebase?.prCloneStrategy,
     cpuLimit: codebase?.resources?.limits?.cpu
   }
 
@@ -487,6 +499,14 @@ export const RightBar = (): JSX.Element => {
                   set(draft, 'properties.ci.codebase.sslVerify', sslVerifyVal)
                 }
 
+                if (get(draft, 'properties.ci.codebase.prCloneStrategy') !== values.prCloneStrategy) {
+                  set(
+                    draft,
+                    'properties.ci.codebase.prCloneStrategy',
+                    typeof values.prCloneStrategy === 'string' ? values.prCloneStrategy : values.prCloneStrategy?.value
+                  )
+                }
+
                 if (get(draft, 'properties.ci.codebase.resources.limits.memory') !== values.memoryLimit) {
                   set(draft, 'properties.ci.codebase.resources.limits.memory', values.memoryLimit)
                 }
@@ -605,6 +625,24 @@ export const RightBar = (): JSX.Element => {
                                 iconProps={{ size: 14 }}
                               />
                             </Text>
+                            <MultiTypeSelectField
+                              name="prCloneStrategy"
+                              label={
+                                <Text margin={{ bottom: 'xsmall' }}>
+                                  {getString('pipeline.ciCodebase.prCloneStrategy')}
+                                </Text>
+                              }
+                              multiTypeInputProps={{
+                                selectItems: prCloneStrategyOptions,
+                                placeholder: 'Select',
+                                multiTypeInputProps: {
+                                  selectProps: { addClearBtn: true, items: prCloneStrategyOptions },
+                                  allowableTypes: [MultiTypeInputType.FIXED]
+                                }
+                              }}
+                              configureOptionsProps={{ variableName: 'prCloneStrategy' }}
+                              style={{ marginBottom: 'var(--spacing-medium)' }}
+                            />
                             <Layout.Horizontal spacing="small">
                               <FormInput.Text
                                 name="memoryLimit"

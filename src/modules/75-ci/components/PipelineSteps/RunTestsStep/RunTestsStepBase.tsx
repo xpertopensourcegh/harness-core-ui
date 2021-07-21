@@ -27,7 +27,9 @@ import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorRef
 import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea/MultiTypeTextArea'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 
-import StepCommonFields /*,{ /*usePullOptions }*/ from '@pipeline/components/StepCommonFields/StepCommonFields'
+import StepCommonFields, {
+  GetImagePullPolicyOptions /*,{ /*usePullOptions }*/
+} from '@pipeline/components/StepCommonFields/StepCommonFields'
 import { validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import {
   getInitialValuesInCorrectFormat,
@@ -81,7 +83,7 @@ export const RunTestsStepBase = (
       initialValues={getInitialValuesInCorrectFormat<RunTestsStepData, RunTestsStepDataUI>(
         initialValues,
         transformValuesFieldsConfig,
-        { buildToolOptions, languageOptions }
+        { buildToolOptions, languageOptions, imagePullPolicyOptions: GetImagePullPolicyOptions() }
       )}
       formName="ciRunTests"
       validate={valuesToValidate => {
@@ -387,7 +389,7 @@ export const RunTestsStepBase = (
                 multiTextInputProps={{ expressions }}
                 disabled={readonly}
               />
-              <StepCommonFields disabled={readonly} />
+              <StepCommonFields enableFields={['spec.imagePullPolicy']} disabled={readonly} />
             </div>
           </FormikForm>
         )

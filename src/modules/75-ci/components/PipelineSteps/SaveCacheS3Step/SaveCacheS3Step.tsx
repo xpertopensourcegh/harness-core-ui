@@ -31,6 +31,7 @@ export interface SaveCacheS3StepSpec {
   override?: boolean
   pathStyle?: boolean
   resources?: Resources
+  runAsUser?: string
 }
 
 export interface SaveCacheS3StepData {
@@ -46,6 +47,7 @@ export interface SaveCacheS3StepSpecUI
   connectorRef: MultiTypeConnectorRef
   sourcePaths: MultiTypeListUIType
   archiveFormat?: MultiTypeSelectOption
+  runAsUser?: string
   limitMemory?: string
   limitCPU?: string
 }

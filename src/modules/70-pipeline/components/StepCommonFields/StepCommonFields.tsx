@@ -1,12 +1,12 @@
 import React from 'react'
-import { Text, Button } from '@wings-software/uicore'
+import { Text, Button, SelectOption, MultiTypeInputType } from '@wings-software/uicore'
 import cx from 'classnames'
 import { connect } from 'formik'
 import { useStrings } from 'framework/strings'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
+import { MultiTypeSelectField } from '@common/components/MultiTypeSelect/MultiTypeSelect'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import { useVariablesExpression } from '../PipelineStudio/PiplineHooks/useVariablesExpression'
-// import { MultiTypeSelectField } from '@common/components/MultiTypeSelect/MultiTypeSelect'
 import type { PullOption } from '../PipelineSteps/Steps/StepsTypes'
 import css from '../PipelineSteps/Steps/Steps.module.scss'
 
@@ -21,31 +21,80 @@ export const usePullOptions: () => PullOptions = () => {
   ]
 }
 
+export const GetShellOptions: () => SelectOption[] = () => {
+  const { getString } = useStrings()
+  return [
+    { label: getString('common.bash'), value: 'Bash' },
+    { label: getString('common.shell'), value: 'Sh' }
+  ]
+}
+export const GetImagePullPolicyOptions: () => SelectOption[] = () => {
+  const { getString } = useStrings()
+  return [
+    { label: getString('pipelineSteps.pullAlwaysLabel'), value: 'Always' },
+    { label: getString('pipeline.stepCommonFields.ifNotPresent'), value: 'IfNotPresent' },
+    { label: getString('pipelineSteps.pullNeverLabel'), value: 'Never' }
+  ]
+}
+
 interface StepCommonFieldsProps {
   withoutTimeout?: boolean
   disabled?: boolean
+  enableFields?: string[]
 }
 
-const StepCommonFields = ({ withoutTimeout, disabled }: StepCommonFieldsProps): JSX.Element => {
-  // TODO: Right now we do not support Image Pull Policy but will do in the future
+const StepCommonFields = ({ withoutTimeout, disabled, enableFields = [] }: StepCommonFieldsProps): JSX.Element => {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
-  // const pullOptions = usePullOptions()
   return (
     <>
-      {/* TODO: Right now we do not support Image Pull Policy but will do in the future */}
-      {/* <MultiTypeSelectField
-        name="spec.pull"
-        label={
-          <Text margin={{ top: 'small' }}>
-            {getString('pipelineSteps.pullLabel')}
-            <Button icon="question" minimal tooltip={getString('pipelineSteps.pullInfo')} iconProps={{ size: 14 }} />
-          </Text>
-        }
-        multiTypeInputProps={{
-          selectItems: pullOptions
+      {enableFields.includes('spec.imagePullPolicy') && (
+        <MultiTypeSelectField
+          name="spec.imagePullPolicy"
+          label={<Text margin={{ bottom: 'xsmall' }}>{getString('pipelineSteps.pullLabel')}</Text>}
+          multiTypeInputProps={{
+            selectItems: GetImagePullPolicyOptions(),
+            placeholder: getString('select'),
+            multiTypeInputProps: {
+              expressions,
+              selectProps: { addClearBtn: true, items: GetImagePullPolicyOptions() },
+              allowableTypes: [MultiTypeInputType.FIXED]
+            },
+            disabled
+          }}
+          disabled={disabled}
+          configureOptionsProps={{ variableName: 'spec.imagePullPolicy' }}
+          style={{ margin: 'var(--spacing-medium) 0' }}
+        />
+      )}
+      {enableFields.includes('spec.shell') && (
+        <MultiTypeSelectField
+          name="spec.shell"
+          label={<Text margin={{ bottom: 'xsmall' }}>{getString('common.shell')}</Text>}
+          multiTypeInputProps={{
+            selectItems: GetImagePullPolicyOptions(),
+            placeholder: getString('select'),
+            multiTypeInputProps: {
+              expressions,
+              selectProps: { addClearBtn: true, items: GetShellOptions() },
+              allowableTypes: [MultiTypeInputType.FIXED]
+            },
+            disabled
+          }}
+          disabled={disabled}
+          configureOptionsProps={{ variableName: 'spec.shell' }}
+        />
+      )}
+      <MultiTypeTextField
+        label={<Text margin={{ bottom: 'xsmall' }}>{getString('pipeline.stepCommonFields.runAsUser')}</Text>}
+        name="spec.runAsUser"
+        style={{ marginTop: 'var(--spacing-medium)' }}
+        multiTextInputProps={{
+          multiTextInputProps: { expressions },
+          disabled,
+          placeholder: '1000'
         }}
-      /> */}
+      />
       <Text margin={{ top: 'small' }}>
         {getString('pipelineSteps.setContainerResources')}
         <Button

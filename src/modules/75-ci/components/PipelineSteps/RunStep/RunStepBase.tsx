@@ -25,7 +25,10 @@ import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox
 import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 
-import StepCommonFields /*,{ /*usePullOptions }*/ from '@pipeline/components/StepCommonFields/StepCommonFields'
+import StepCommonFields, {
+  GetImagePullPolicyOptions,
+  GetShellOptions
+} from '@pipeline/components/StepCommonFields/StepCommonFields'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import {
   getInitialValuesInCorrectFormat,
@@ -60,19 +63,12 @@ export const RunStepBase = (
 
   const { stage: currentStage } = getStageFromPipeline(selectedStageId || '')
 
-  // TODO: Right now we do not support Image Pull Policy but will do in the future
-  // const pullOptions = usePullOptions()
-
-  // TODO: Right now we do not support Image Pull Policy but will do in the future
-  // const values = getInitialValuesInCorrectFormat<RunStepData, RunStepDataUI>(initialValues, transformValuesFieldsConfig, {
-  //   pullOptions
-  // })
-
   return (
     <Formik
       initialValues={getInitialValuesInCorrectFormat<RunStepData, RunStepDataUI>(
         initialValues,
-        transformValuesFieldsConfig
+        transformValuesFieldsConfig,
+        { imagePullPolicyOptions: GetImagePullPolicyOptions(), shellOptions: GetShellOptions() }
       )}
       formName="ciRunStep"
       validate={valuesToValidate => {
@@ -275,7 +271,7 @@ export const RunStepBase = (
                 }}
                 disabled={readonly}
               />
-              <StepCommonFields disabled={readonly} />
+              <StepCommonFields enableFields={['spec.imagePullPolicy', 'spec.shell']} disabled={readonly} />
             </div>
           </FormikForm>
         )

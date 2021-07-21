@@ -28,6 +28,7 @@ export interface SaveCacheGCSStepSpec {
   archiveFormat?: MultiTypeArchiveFormatOption
   override?: boolean
   resources?: Resources
+  runAsUser?: string
 }
 
 export interface SaveCacheGCSStepData {
@@ -43,6 +44,7 @@ export interface SaveCacheGCSStepSpecUI
   connectorRef: MultiTypeConnectorRef
   sourcePaths: MultiTypeListUIType
   archiveFormat?: MultiTypeSelectOption
+  runAsUser?: string
   limitMemory?: string
   limitCPU?: string
 }

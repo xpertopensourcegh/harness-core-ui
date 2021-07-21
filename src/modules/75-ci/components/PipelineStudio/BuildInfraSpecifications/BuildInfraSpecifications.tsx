@@ -2,14 +2,14 @@ import React, { useMemo } from 'react'
 import * as yup from 'yup'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { Layout, Formik, FormikForm, FormInput, Text, Card, Accordion, Button } from '@wings-software/uicore'
-import { isEmpty } from 'lodash-es'
+import { isEmpty, isUndefined } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 import { produce } from 'immer'
 import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
-import { useStrings } from 'framework/strings'
+import { useStrings, UseStringsReturn } from 'framework/strings'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
@@ -60,15 +60,31 @@ const testLabelKey = (value: string): boolean => {
   )
 }
 
-const validationSchema = yup.object().shape({
-  connectorRef: yup.mixed().required(),
-  namespace: yup.string().trim().required()
-})
+const getValidationSchema = (getString?: UseStringsReturn['getString']): yup.Schema<unknown> =>
+  yup.object().shape({
+    connectorRef: yup.mixed().required(),
+    namespace: yup.string().trim().required(),
+    runAsUser: yup.string().test(
+      'Must be a number and allows runtimeinput or expression',
+      getString?.('pipeline.stepCommonFields.validation.mustBeANumber', {
+        label: getString?.('pipeline.stepCommonFields.runAsUser')
+      }) || '',
+      function (runAsUser) {
+        if (isUndefined(runAsUser) || !runAsUser) {
+          return true
+        } else if (runAsUser.startsWith('<+')) {
+          return true
+        }
+        return !isNaN(runAsUser)
+      }
+    )
+  })
 
 interface Values {
   connectorRef?: string
   namespace?: string
   serviceAccountName?: string
+  runAsUser?: string
   initTimeout?: string
   useFromStage?: string
   annotations?: MultiTypeMapUIType
@@ -139,6 +155,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
           connectorRef: stage?.stage?.spec?.infrastructure?.spec?.connectorRef,
           namespace: stage?.stage?.spec?.infrastructure?.spec?.namespace,
           serviceAccountName: stage?.stage?.spec?.infrastructure?.spec?.serviceAccountName,
+          runAsUser: stage?.stage?.spec?.infrastructure?.spec?.runAsUser,
           initTimeout: stage?.stage?.spec?.infrastructure?.spec?.initTimeout,
           annotations: getInitialMapValues(stage?.stage?.spec?.infrastructure?.spec?.annotations),
           labels: getInitialMapValues(stage?.stage?.spec?.infrastructure?.spec?.labels)
@@ -148,6 +165,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
           connectorRef: undefined,
           namespace: stage?.stage?.spec?.infrastructure?.spec?.namespace,
           serviceAccountName: stage?.stage?.spec?.infrastructure?.spec?.serviceAccountName,
+          runAsUser: stage?.stage?.spec?.infrastructure?.spec?.runAsUser,
           initTimeout: stage?.stage?.spec?.infrastructure?.spec?.initTimeout,
           annotations: getInitialMapValues(stage?.stage?.spec?.infrastructure?.spec?.annotations),
           labels: getInitialMapValues(stage?.stage?.spec?.infrastructure?.spec?.labels)
@@ -187,6 +205,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
               connectorRef: values?.connectorRef?.value ?? draft.stage.spec.infrastructure?.spec?.connectorRef,
               namespace: values.namespace,
               serviceAccountName: values.serviceAccountName,
+              runAsUser: values.runAsUser,
               initTimeout: errors.initTimeout ? undefined : values.initTimeout,
               annotations: getMapValues(values.annotations),
               labels: !isEmpty(filteredLabels) ? filteredLabels : undefined
@@ -218,7 +237,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
       <div className={css.contentSection} ref={scrollRef}>
         <Formik
           initialValues={getInitialValues}
-          validationSchema={validationSchema}
+          validationSchema={getValidationSchema(getString)}
           validate={handleValidate}
           formName="ciBuildInfra"
           onSubmit={values => logger.info(JSON.stringify(values))}
@@ -384,6 +403,20 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                           }}
                           multiTextInputProps={{ disabled: isReadonly }}
                         />
+                        <MultiTypeTextField
+                          label={
+                            <Text margin={{ bottom: 'xsmall' }}>
+                              {getString('pipeline.stepCommonFields.runAsUser')}
+                            </Text>
+                          }
+                          name="runAsUser"
+                          style={{ width: 300, marginBottom: 'var(--spacing-xsmall)' }}
+                          multiTextInputProps={{
+                            multiTextInputProps: { expressions },
+                            disabled: isReadonly,
+                            placeholder: '1000'
+                          }}
+                        />
                         <FormMultiTypeDurationField
                           name="initTimeout"
                           multiTypeDurationProps={{ expressions }}
@@ -479,18 +512,39 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                         summary={getString('advancedTitle')}
                         details={
                           <Card disabled={isReadonly} className={css.sectionCard}>
-                            <FormInput.MultiTextInput
-                              label={getString('pipeline.infraSpecifications.serviceAccountName')}
+                            <MultiTypeTextField
+                              label={
+                                <Text margin={{ bottom: 'xsmall' }}>
+                                  {getString('pipeline.infraSpecifications.serviceAccountName')}
+                                </Text>
+                              }
                               name="serviceAccountName"
-                              placeholder={getString('pipeline.infraSpecifications.serviceAccountNamePlaceholder')}
-                              style={{ width: 300 }}
-                              multiTextInputProps={{ disabled: isReadonly }}
+                              style={{ width: 300, marginBottom: 'var(--spacing-small)' }}
+                              multiTextInputProps={{
+                                multiTextInputProps: { expressions },
+                                disabled: isReadonly,
+                                placeholder: getString('pipeline.infraSpecifications.namespacePlaceholder')
+                              }}
+                            />
+                            <MultiTypeTextField
+                              label={
+                                <Text margin={{ bottom: 'xsmall' }}>
+                                  {getString('pipeline.stepCommonFields.runAsUser')}
+                                </Text>
+                              }
+                              name="runAsUser"
+                              style={{ width: 300, marginBottom: 'var(--spacing-xsmall)' }}
+                              multiTextInputProps={{
+                                multiTextInputProps: { expressions },
+                                disabled: isReadonly,
+                                placeholder: '1000'
+                              }}
                             />
                             <FormMultiTypeDurationField
                               name="initTimeout"
                               multiTypeDurationProps={{ expressions }}
                               label={
-                                <Text flex={{ justifyContent: 'start' }} font="small">
+                                <Text flex={{ justifyContent: 'start' }}>
                                   {getString('pipeline.infraSpecifications.initTimeout')}
                                   <Button
                                     icon="question"

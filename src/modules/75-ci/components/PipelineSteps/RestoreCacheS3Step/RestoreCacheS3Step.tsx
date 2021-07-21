@@ -36,6 +36,7 @@ export interface RestoreCacheS3StepSpec {
   pathStyle?: boolean
   failIfKeyNotFound?: boolean
   resources?: Resources
+  runAsUser?: string
 }
 
 export interface RestoreCacheS3StepData {

@@ -10,6 +10,7 @@ import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { validateInputSet } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import { getFormValuesInCorrectFormat } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
 import type {
+  MultiTypeSelectOption,
   MultiTypeMapType,
   MultiTypeMapUIType,
   MultiTypeListType,
@@ -46,8 +47,9 @@ export interface RunStepSpec {
   }
   envVariables?: MultiTypeMapType
   outputVariables?: MultiTypeListType
-  // TODO: Right now we do not support Image Pull Policy but will do in the future
-  // pull?: MultiTypePullOption
+  imagePullPolicy?: MultiTypeSelectOption
+  shell?: MultiTypeSelectOption
+  runAsUser?: string
   resources?: Resources
 }
 
@@ -61,13 +63,13 @@ export interface RunStepData {
 }
 
 export interface RunStepSpecUI
-  extends Omit<RunStepSpec, 'connectorRef' | 'reports' | 'envVariables' | 'outputVariables' | 'pull' | 'resources'> {
+  extends Omit<RunStepSpec, 'connectorRef' | 'reports' | 'envVariables' | 'outputVariables' | 'resources'> {
   connectorRef: MultiTypeConnectorRef
   reportPaths?: MultiTypeListUIType
   envVariables?: MultiTypeMapUIType
   outputVariables?: MultiTypeListUIType
-  // TODO: Right now we do not support Image Pull Policy but will do in the future
-  // pull?: MultiTypeSelectOption
+  imagePullPolicy?: MultiTypeSelectOption
+  shell?: MultiTypeSelectOption
   limitMemory?: string
   limitCPU?: string
 }

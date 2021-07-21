@@ -33,6 +33,7 @@ export interface RestoreCacheGCSStepSpec {
   archiveFormat?: MultiTypeArchiveFormatOption
   failIfKeyNotFound?: boolean
   resources?: Resources
+  runAsUser?: string
 }
 
 export interface RestoreCacheGCSStepData {
@@ -47,6 +48,7 @@ export interface RestoreCacheGCSStepSpecUI
   extends Omit<RestoreCacheGCSStepSpec, 'connectorRef' | 'archiveFormat' | 'resources'> {
   connectorRef: MultiTypeConnectorRef
   archiveFormat?: MultiTypeSelectOption
+  runAsUser?: string
   limitMemory?: string
   limitCPU?: string
 }

@@ -639,6 +639,13 @@ verification:
   analysisTab:
     metrics: 'Metrics'
     logs: 'Logs'
+stepCommonFields:
+  runAsUser: Run as User
+  ifNotPresent: 'If Not Present'
+  validation:
+    mustBeANumber: '{{label}} must be a number'
+ciCodebase:
+  prCloneStrategy: Pull Request Clone Strategy
 tagDependencyRequired: required to fetch the tags
 myDeploymentsText: My Deployments
 myBuildsText: My Builds

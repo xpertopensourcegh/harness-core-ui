@@ -8,6 +8,7 @@ import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { validateInputSet } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import { getFormValuesInCorrectFormat } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
 import type {
+  MultiTypeSelectOption,
   MultiTypeMapType,
   MultiTypeMapUIType,
   MultiTypeConnectorRef,
@@ -23,8 +24,8 @@ export interface PluginStepSpec {
   image: string
   privileged: boolean
   settings?: MultiTypeMapType
-  // TODO: Right now we do not support Image Pull Policy but will do in the future
-  // pull?: MultiTypePullOption
+  imagePullPolicy?: MultiTypeSelectOption
+  runAsUser?: string
   resources?: Resources
 }
 
@@ -42,6 +43,7 @@ export interface PluginStepSpecUI extends Omit<PluginStepSpec, 'connectorRef' | 
   settings?: MultiTypeMapUIType
   // TODO: Right now we do not support Image Pull Policy but will do in the future
   // pull?: MultiTypeSelectOption
+  runAsUser?: string
   limitMemory?: string
   limitCPU?: string
 }

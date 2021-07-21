@@ -20,7 +20,7 @@ import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
-import StepCommonFields /*,{ /*usePullOptions }*/ from '@pipeline/components/StepCommonFields/StepCommonFields'
+import StepCommonFields, { GetImagePullPolicyOptions } from '@pipeline/components/StepCommonFields/StepCommonFields'
 import {
   getInitialValuesInCorrectFormat,
   getFormValuesInCorrectFormat
@@ -55,19 +55,12 @@ export const DependencyBase = (
 
   const { stage: currentStage } = getStageFromPipeline(selectedStageId || '')
 
-  // TODO: Right now we do not support Image Pull Policy but will do in the future
-  // const pullOptions = usePullOptions()
-
-  // TODO: Right now we do not support Image Pull Policy but will do in the future
-  // const values = getInitialValuesInCorrectFormat<DependencyData, DependencyDataUI>(initialValues, transformValuesFieldsConfig, {
-  //   pullOptions
-  // })
-
   return (
     <Formik<DependencyDataUI>
       initialValues={getInitialValuesInCorrectFormat<DependencyData, DependencyDataUI>(
         initialValues,
-        transformValuesFieldsConfig
+        transformValuesFieldsConfig,
+        { imagePullPolicyOptions: GetImagePullPolicyOptions() }
       )}
       formName="dependencyBase"
       validate={valuesToValidate => {
@@ -222,7 +215,7 @@ export const DependencyBase = (
                 }}
                 disabled={readonly}
               />
-              <StepCommonFields withoutTimeout disabled={readonly} />
+              <StepCommonFields enableFields={['spec.imagePullPolicy']} withoutTimeout disabled={readonly} />
             </div>
           </FormikForm>
         )

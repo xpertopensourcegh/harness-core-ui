@@ -42,6 +42,7 @@ export interface DockerHubStepSpec {
   // TODO: Right now we do not support Image Pull Policy but will do in the future
   // pull?: MultiTypePullOption
   resources?: Resources
+  runAsUser?: string
 }
 
 export interface DockerHubStepData {
@@ -60,6 +61,7 @@ export interface DockerHubStepSpecUI
   buildArgs?: MultiTypeMapUIType
   // TODO: Right now we do not support Image Pull Policy but will do in the future
   // pull?: MultiTypeSelectOption
+  runAsUser?: string
   limitMemory?: string
   limitCPU?: string
 }

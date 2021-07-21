@@ -50,6 +50,8 @@ instanceValidation:
 selectStrategy: Select a Strategy
 performAction: Perform Action
 jexlExpression: JEXL Expression
+bash: Bash
+shell: Shell
 input: Input
 refresh: Refresh
 loading: Loading, please wait...

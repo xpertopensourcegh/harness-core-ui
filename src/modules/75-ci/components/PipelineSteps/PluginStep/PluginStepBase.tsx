@@ -19,7 +19,7 @@ import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea
 import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox/MultiTypeCheckbox'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
-import StepCommonFields /*,{ /*usePullOptions }*/ from '@pipeline/components/StepCommonFields/StepCommonFields'
+import StepCommonFields, { GetImagePullPolicyOptions } from '@pipeline/components/StepCommonFields/StepCommonFields'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import {
   getInitialValuesInCorrectFormat,
@@ -54,19 +54,12 @@ export const PluginStepBase = (
 
   const { stage: currentStage } = getStageFromPipeline(selectedStageId || '')
 
-  // TODO: Right now we do not support Image Pull Policy but will do in the future
-  // const pullOptions = usePullOptions()
-
-  // TODO: Right now we do not support Image Pull Policy but will do in the future
-  // const values = getInitialValuesInCorrectFormat<PluginStepData, PluginStepDataUI>(initialValues, transformValuesFieldsConfig, {
-  //   pullOptions
-  // })
-
   return (
     <Formik
       initialValues={getInitialValuesInCorrectFormat<PluginStepData, PluginStepDataUI>(
         initialValues,
-        transformValuesFieldsConfig
+        transformValuesFieldsConfig,
+        { imagePullPolicyOptions: GetImagePullPolicyOptions() }
       )}
       formName="pluginStep"
       validate={valuesToValidate => {
@@ -180,7 +173,7 @@ export const PluginStepBase = (
                 style={{ marginBottom: 'var(--spacing-small)' }}
                 disabled={readonly}
               />
-              <StepCommonFields disabled={readonly} />
+              <StepCommonFields enableFields={['spec.imagePullPolicy']} disabled={readonly} />
             </div>
           </FormikForm>
         )

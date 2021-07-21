@@ -41,8 +41,8 @@ export interface RunTestsStepSpec {
   }
   envVariables?: MultiTypeMapType
   outputVariables?: MultiTypeListType
-  // TODO: Right now we do not support Image Pull Policy but will do in the future
-  // pull?: MultiTypePullOption
+  imagePullPolicy?: MultiTypeSelectOption
+  runAsUser?: string
   resources?: Resources
 }
 
@@ -66,8 +66,9 @@ export interface RunTestsStepSpecUI
   reportPaths?: MultiTypeListUIType
   envVariables?: MultiTypeMapUIType
   outputVariables?: MultiTypeListUIType
-  // TODO: Right now we do not support Image Pull Policy but will do in the future
-  // pull?: MultiTypeSelectOption
+  imagePullPolicy?: MultiTypeSelectOption
+  shell?: MultiTypeSelectOption
+  runAsUser?: string
   limitMemory?: string
   limitCPU?: string
 }

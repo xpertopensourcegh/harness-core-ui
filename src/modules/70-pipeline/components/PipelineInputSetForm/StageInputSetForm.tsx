@@ -16,6 +16,7 @@ import type {
   StageOverridesConfig
 } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
+import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import MultiTypeListInputSet from '@common/components/MultiTypeListInputSet/MultiTypeListInputSet'
 import factory from '../PipelineSteps/PipelineStepFactory'
 import { StepType } from '../PipelineSteps/PipelineStepInterface'
@@ -405,6 +406,21 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                   allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
                 }}
                 disabled={readonly}
+              />
+            )}
+            {(deploymentStageTemplate.infrastructure as any).spec?.runAsUser && (
+              <MultiTypeTextField
+                label={<Text margin={{ bottom: 'xsmall' }}>{getString('pipeline.stepCommonFields.runAsUser')}</Text>}
+                name={`${isEmpty(path) ? '' : `${path}.`}infrastructure.spec.runAsUser`}
+                style={{ marginBottom: 'var(--spacing-xsmall)' }}
+                multiTextInputProps={{
+                  multiTextInputProps: {
+                    expressions,
+                    allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+                  },
+                  disabled: readonly,
+                  placeholder: '1000'
+                }}
               />
             )}
             {(deploymentStageTemplate.infrastructure as any).spec?.initTimeout && (

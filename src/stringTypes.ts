@@ -66,6 +66,7 @@ export interface StringsMap {
   'common.banners.trial.feedbackSuccess': string
   'common.banners.trial.provideFeedback': string
   'common.banners.trial.success': string
+  'common.bash': string
   'common.blank': string
   'common.capsAll': string
   'common.ce.cost': string
@@ -341,6 +342,7 @@ export interface StringsMap {
   'common.selectStrategy': string
   'common.selectVersion': string
   'common.setAsDefault': string
+  'common.shell': string
   'common.showLess': string
   'common.showMore': string
   'common.specify': string
@@ -1560,6 +1562,7 @@ export interface StringsMap {
   'pipeline.barriers.tooltips.barrierWaiting': string
   'pipeline.barriers.tooltips.timeout': string
   'pipeline.barriers.validation.barrierNamerequired': string
+  'pipeline.ciCodebase.prCloneStrategy': string
   'pipeline.clickHere': string
   'pipeline.closeStepConfig': string
   'pipeline.collapseIsDisabledWhileStageIsRunning': string
@@ -1887,6 +1890,9 @@ export interface StringsMap {
   'pipeline.sslVerify': string
   'pipeline.startTime': string
   'pipeline.startedOn': string
+  'pipeline.stepCommonFields.ifNotPresent': string
+  'pipeline.stepCommonFields.runAsUser': string
+  'pipeline.stepCommonFields.validation.mustBeANumber': string
   'pipeline.stepConfigHasChanges': string
   'pipeline.stepDetails': string
   'pipeline.stepLabel': string

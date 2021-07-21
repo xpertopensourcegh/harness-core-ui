@@ -23,6 +23,7 @@ export interface S3StepSpec {
   // TODO: Right now we do not support Image Pull Policy but will do in the future
   // pull?: MultiTypePullOption
   resources?: Resources
+  runAsUser?: string
 }
 
 export interface S3StepData {
@@ -37,6 +38,7 @@ export interface S3StepSpecUI extends Omit<S3StepSpec, 'connectorRef' | 'pull' |
   connectorRef: MultiTypeConnectorRef
   // TODO: Right now we do not support Image Pull Policy but will do in the future
   // pull?: MultiTypeSelectOption
+  runAsUser?: string
   limitMemory?: string
   limitCPU?: string
 }
