@@ -9,14 +9,14 @@ import {
   MultiTypeInputType,
   SelectOption,
   useModalHook,
-  Text,
-  CardSelect,
-  Container
+  Container,
+  ThumbnailSelect,
+  Label
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { get, isEmpty, noop, omit } from 'lodash-es'
 import { useParams } from 'react-router-dom'
-import { Dialog, FormGroup, Intent } from '@blueprintjs/core'
+import { Dialog } from '@blueprintjs/core'
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import { connect, FormikErrors, FormikProps } from 'formik'
@@ -38,7 +38,6 @@ import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useToaster } from '@common/exports'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 
-import { errorCheck } from '@common/utils/formikHelpers'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 
@@ -127,13 +126,13 @@ export const NewEditEnvironmentModal: React.FC<NewEditEnvironmentModalProps> = (
   React.useEffect(() => {
     inputRef.current?.focus()
   }, [])
-  const typeList: { text: string; value: EnvironmentResponseDTO['type'] }[] = [
+  const typeList: { label: string; value: string }[] = [
     {
-      text: getString('production'),
+      label: getString('production'),
       value: 'Production'
     },
     {
-      text: getString('nonProduction'),
+      label: getString('nonProduction'),
       value: 'PreProduction'
     }
   ]
@@ -176,32 +175,10 @@ export const NewEditEnvironmentModal: React.FC<NewEditEnvironmentModalProps> = (
                 isIdentifierEditable: !isEdit
               }}
             />
-            <FormGroup
-              style={{ marginBottom: 'var(--spacing-medium)' }}
-              helperText={errorCheck('type', formikProps) ? get(formikProps?.errors, 'type') : null}
-              intent={errorCheck('type', formikProps) ? Intent.DANGER : Intent.NONE}
-              label={getString('envType')}
-              labelFor="type"
-            >
-              <CardSelect
-                cornerSelected={true}
-                data={typeList}
-                className={css.grid}
-                onChange={item => {
-                  formikProps.setFieldValue('type', item.value)
-                }}
-                renderItem={(item, _) => (
-                  <Layout.Vertical spacing="large" flex={{ align: 'center-center' }}>
-                    <Text font={{ align: 'center' }} style={{ fontSize: 12 }}>
-                      {item.text}
-                    </Text>
-                  </Layout.Vertical>
-                )}
-                selected={typeList[typeList.findIndex(card => card.value == formikProps.values.type)]}
-              >
-                {}
-              </CardSelect>
-            </FormGroup>
+            <Layout.Vertical spacing={'small'} style={{ marginBottom: 'var(--spacing-medium)' }}>
+              <Label style={{ fontSize: 13, fontWeight: 'normal' }}>{getString('envType')}</Label>
+              <ThumbnailSelect className={css.thumbnailSelect} name={'type'} items={typeList} />
+            </Layout.Vertical>
             <Container padding={{ top: 'xlarge' }}>
               <Button
                 data-id="environment-save"

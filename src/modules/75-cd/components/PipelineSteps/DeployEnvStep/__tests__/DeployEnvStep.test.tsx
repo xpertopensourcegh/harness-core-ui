@@ -35,7 +35,7 @@ jest.mock('services/cd-ng', () => ({
 }))
 describe('Test DeployEnvironment Step', () => {
   test('should render environment view and save', async () => {
-    const { container } = render(
+    const { container, getByLabelText } = render(
       <DeployEnvironment type={StepType.DeployEnvironment} initialValues={{}} stepViewType={StepViewType.Edit} />
     )
     fireEvent.click(getByText(container, 'pipelineSteps.environmentTab.newEnvironment'))
@@ -49,7 +49,7 @@ describe('Test DeployEnvironment Step', () => {
         value: 'New Project'
       }
     ])
-    fireEvent.click(getByText(dialog!, 'production'))
+    fireEvent.click(getByLabelText('production'))
     await act(async () => {
       fireEvent.click(getByText(dialog!, 'save'))
     })
@@ -59,7 +59,7 @@ describe('Test DeployEnvironment Step', () => {
     `)
   })
   test('should render edit Environment view (environment ref), then update and then save', async () => {
-    const { container } = render(
+    const { container, getByLabelText } = render(
       <DeployEnvironment
         type={StepType.DeployEnvironment}
         initialValues={{ environmentRef: 'selected_env' }}
@@ -76,7 +76,7 @@ describe('Test DeployEnvironment Step', () => {
         value: 'New Environment'
       }
     ])
-    fireEvent.click(getByText(dialog!, 'nonProduction'))
+    fireEvent.click(getByLabelText('nonProduction'))
     await act(async () => {
       fireEvent.click(getByText(dialog!, 'save'))
     })
@@ -86,7 +86,7 @@ describe('Test DeployEnvironment Step', () => {
     `)
   })
   test('should render edit Environment view (environment), then update and then save', async () => {
-    const { container } = render(
+    const { container, getByLabelText } = render(
       <DeployEnvironment
         type={StepType.DeployEnvironment}
         initialValues={{
@@ -107,7 +107,8 @@ describe('Test DeployEnvironment Step', () => {
     fireEvent.click(getByText(container, 'editEnvironment'))
     const dialog = findDialogContainer()
     expect(dialog).toMatchSnapshot()
-    fireEvent.click(getByText(dialog!, 'production'))
+    fireEvent.click(getByText(dialog!, 'Change'))
+    fireEvent.click(getByLabelText('production'))
     fillAtForm([
       {
         container: dialog!,

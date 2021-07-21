@@ -174,8 +174,7 @@ exports[`Artifact WizardStep tests last step data without initial values 1`] = `
                           </span>
                         </div>
                         <p
-                          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey600"
-                          style="text-align: center;"
+                          class="StyledProps--font StyledProps--main Thumbnail--label Thumbnail--selected StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500 StyledProps--margin-top-small"
                         >
                           dockerRegistry
                         </p>
@@ -979,8 +978,7 @@ exports[`Artifact WizardStep tests renders correctly with differnet artifact typ
                           </span>
                         </div>
                         <p
-                          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey600"
-                          style="text-align: center;"
+                          class="StyledProps--font StyledProps--main Thumbnail--label Thumbnail--selected StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500 StyledProps--margin-top-small"
                         >
                           connectors.GCR.name
                         </p>

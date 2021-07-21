@@ -241,8 +241,7 @@ exports[`Failure Strategy: Retry strategy works with simple fallback 1`] = `
                 </span>
               </div>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey600"
-                style="text-align: center;"
+                class="StyledProps--font StyledProps--main Thumbnail--label Thumbnail--selected StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500 StyledProps--margin-top-small"
               >
                 pipeline.failureStrategies.strategiesLabel.Retry
               </p>
@@ -571,8 +570,7 @@ exports[`Failure Strategy: Retry strategy works with simple fallback 1`] = `
                       </span>
                     </div>
                     <p
-                      class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey600"
-                      style="text-align: center;"
+                      class="StyledProps--font StyledProps--main Thumbnail--label Thumbnail--selected StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500 StyledProps--margin-top-small"
                     >
                       pipeline.failureStrategies.strategiesLabel.Abort
                     </p>
