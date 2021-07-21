@@ -137,7 +137,6 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
     }>
   >()
 
-  const project = selectedProject
   const isCDEnabled = (selectedProject?.modules && selectedProject.modules?.indexOf('CD') > -1) || false
   const isCIEnabled = (selectedProject?.modules && selectedProject.modules?.indexOf('CI') > -1) || false
   const isCIModule = module === 'ci'
@@ -510,22 +509,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
             <HarnessDocTooltip tooltipId="pipelinesPageHeading" useStandAlone={true} />
           </div>
         }
-        breadcrumbs={
-          <NGBreadcrumbs
-            links={[
-              {
-                url: routes.toProjectOverview({
-                  orgIdentifier,
-                  projectIdentifier,
-                  accountId,
-                  module
-                }),
-                label: project?.name as string
-              },
-              { url: '#', label: getString('pipelines') }
-            ]}
-          />
-        }
+        breadcrumbs={<NGBreadcrumbs links={[]} />}
       ></Page.Header>
       {(!!pipelineList?.content?.length || appliedFilter || isGitSyncEnabled || searchParam) && (
         <Page.SubHeader>

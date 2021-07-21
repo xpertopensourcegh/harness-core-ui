@@ -454,6 +454,13 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     blockNavigation
   ])
 
+  React.useEffect(() => {
+    if (pipeline?.name) {
+      window.dispatchEvent(new CustomEvent('RENAME_PIPELINE', { detail: pipeline?.name }))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pipeline?.name])
+
   const onCloseCreate = React.useCallback(() => {
     if (pipelineIdentifier === DefaultNewPipelineId || getOtherModal) {
       if (getOtherModal) {

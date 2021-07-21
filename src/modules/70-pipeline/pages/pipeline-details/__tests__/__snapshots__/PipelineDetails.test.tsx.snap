@@ -117,7 +117,7 @@ exports[`Pipeline Details tests render snapshot view 1`] = `
           </div>
         </div>
         <div
-          class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-center"
+          class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-left StyledProps--flex-alignItems-center"
         >
           <h2
             class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
