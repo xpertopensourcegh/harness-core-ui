@@ -1,7 +1,7 @@
 import { Layout, Select, Text, Container, SelectOption } from '@wings-software/uicore'
 import React, { useState, useEffect, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
-import { get, uniqWith, isEqual, isNull } from 'lodash-es'
+import { get, uniqWith, isEqual } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import { PageError } from '@common/components/Page/PageError'
 import {
@@ -59,9 +59,6 @@ const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverview
     queryParams: { accountId }
   })
 
-  // Added to determine whether the data was fetched once or not WHILE BUILD IN PROGRESS
-  const [isInfoDataFetchedOnce, setIsInfoDataFetchedOnce] = useState(false)
-
   const [selectItems, setSelectItems] = useState<SelectOption[]>([])
   const [selectValue, setSelectValue] = useState<SelectOption>()
 
@@ -98,8 +95,7 @@ const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverview
       headers: {
         'X-Harness-Token': serviceToken || ''
       }
-    },
-    debounce: 500
+    }
   })
 
   const {
@@ -114,34 +110,15 @@ const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverview
       headers: {
         'X-Harness-Token': serviceToken || ''
       }
-    },
-    debounce: 500
+    }
   })
 
   useEffect(() => {
-    if (status && isExecutionComplete(status) && serviceToken && !stageId && !stepId) {
-      if (!reportInfoData && !reportInfoError && !reportInfoLoading) {
-        fetchReportInfo()
-      }
-
-      if (!testInfoData && !testInfoError && !testInfoLoading) {
-        fetchTestInfo()
-      }
+    if (isExecutionComplete(status) && serviceToken) {
+      fetchReportInfo()
+      fetchTestInfo()
     }
-  }, [
-    stageId,
-    stepId,
-    status,
-    serviceToken,
-    reportInfoData,
-    reportInfoError,
-    reportInfoLoading,
-    testInfoData,
-    testInfoError,
-    testInfoLoading,
-    fetchReportInfo,
-    fetchTestInfo
-  ])
+  }, [status, serviceToken])
 
   useEffect(() => {
     if (reportInfoData && testInfoData) {
@@ -189,7 +166,6 @@ const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverview
         'X-Harness-Token': serviceToken || ''
       }
     },
-    debounce: 500,
     mock: reportSummaryMock
       ? {
           data: reportSummaryMock
@@ -210,7 +186,6 @@ const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverview
         'X-Harness-Token': serviceToken || ''
       }
     },
-    debounce: 500,
     mock: testOverviewMock
       ? {
           data: testOverviewMock
@@ -233,61 +208,11 @@ const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverview
       : UI.ZeroState
 
   useEffect(() => {
-    if (status && isExecutionComplete(status) && serviceToken && stageId && stepId) {
-      if (!reportSummaryData && !reportSummaryError && !reportSummaryLoading) {
-        fetchReportSummary()
-      }
-
-      if (!testOverviewData && !testOverviewError && !testOverviewLoading) {
-        fetchTestOverview()
-      }
-    }
-  }, [
-    stageId,
-    stepId,
-    status,
-    serviceToken,
-    reportSummaryData,
-    reportSummaryError,
-    reportSummaryLoading,
-    testOverviewData,
-    testOverviewError,
-    testOverviewLoading,
-    fetchReportSummary,
-    fetchTestOverview
-  ])
-
-  useEffect(() => {
-    if (status && !isExecutionComplete(status) && serviceToken && stageId && stepId) {
+    if (isExecutionComplete(status) && stageId && stepId) {
       fetchReportSummary()
       fetchTestOverview()
     }
-  }, [stageId, stepId, status, serviceToken, fetchReportSummary, fetchTestOverview])
-
-  useEffect(() => {
-    if (
-      infoQueryParams.pipelineId &&
-      infoQueryParams.buildId &&
-      status &&
-      !isExecutionComplete(status) &&
-      !isInfoDataFetchedOnce &&
-      serviceToken
-    ) {
-      fetchReportInfo()
-      fetchTestInfo()
-      setIsInfoDataFetchedOnce(true)
-    }
-  }, [
-    infoQueryParams.pipelineId,
-    infoQueryParams.buildId,
-    status,
-    isInfoDataFetchedOnce,
-    fetchReportInfo,
-    fetchTestInfo,
-    fetchReportSummary,
-    fetchTestOverview,
-    serviceToken
-  ])
+  }, [stageId, stepId, status])
 
   const testsCountDiff = useMemo(() => {
     const newTests = testOverviewData?.selected_tests?.new_tests
@@ -326,32 +251,8 @@ const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverview
     )
   }
 
-  if (isExecutionComplete(status)) {
-    if (
-      isNull(serviceToken) ||
-      serviceTokenLoading ||
-      (isNull(testOverviewData) && isNull(reportSummaryData)) ||
-      testOverviewLoading ||
-      reportSummaryLoading ||
-      (isNull(testInfoData) && isNull(reportInfoData)) ||
-      reportInfoLoading ||
-      testInfoLoading
-    ) {
-      return <PageSpinner />
-    }
-  } else {
-    if (
-      isNull(serviceToken) ||
-      serviceTokenLoading ||
-      (isNull(testOverviewData) && testOverviewLoading) ||
-      (isNull(testOverviewData) && reportSummaryLoading) ||
-      isNull(reportInfoData) ||
-      reportInfoLoading ||
-      isNull(testInfoData) ||
-      testInfoLoading
-    ) {
-      return <PageSpinner />
-    }
+  if (serviceTokenLoading || reportInfoLoading || testInfoLoading || testOverviewLoading || reportSummaryLoading) {
+    return <PageSpinner />
   }
 
   const header = (
