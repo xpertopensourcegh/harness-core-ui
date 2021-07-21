@@ -798,10 +798,12 @@ function RunPipelineFormBasic({
                       {getString('runPipeline')}
                     </Heading>
                     {isGitSyncEnabled && (
-                      <GitPopover
-                        data={pipelineResponse?.data?.gitDetails ?? {}}
-                        iconProps={{ margin: { left: 'small', top: 'xsmall' } }}
-                      />
+                      <GitSyncStoreProvider>
+                        <GitPopover
+                          data={pipelineResponse?.data?.gitDetails ?? {}}
+                          iconProps={{ margin: { left: 'small', top: 'xsmall' } }}
+                        />
+                      </GitSyncStoreProvider>
                     )}
                     <div className={css.optionBtns}>
                       <VisualYamlToggle

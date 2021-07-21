@@ -11,6 +11,7 @@ import { formatDatetoLocale } from '@common/utils/dateUtils'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import GitPopover from '@pipeline/components/GitPopover/GitPopover'
 import { String, useStrings } from 'framework/strings'
+import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
@@ -125,10 +126,12 @@ export function ExecutionHeader(): React.ReactElement {
           />
         ) : null}
         {pipelineExecutionSummary.gitDetails?.objectId ? (
-          <GitPopover
-            data={pipelineExecutionSummary.gitDetails}
-            popoverProps={{ targetTagName: 'div', wrapperTagName: 'div', className: css.git }}
-          />
+          <GitSyncStoreProvider>
+            <GitPopover
+              data={pipelineExecutionSummary.gitDetails}
+              popoverProps={{ targetTagName: 'div', wrapperTagName: 'div', className: css.git }}
+            />
+          </GitSyncStoreProvider>
         ) : null}
         {pipelineExecutionSummary.status ? (
           <ExecutionStatusLabel

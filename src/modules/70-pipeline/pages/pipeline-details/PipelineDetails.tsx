@@ -10,6 +10,7 @@ import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import type { GitQueryParams, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { DefaultNewPipelineId } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import GitPopover from '@pipeline/components/GitPopover/GitPopover'
@@ -172,79 +173,81 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
 
   return (
     <>
-      <Page.Header
-        title={
-          <>
-            <Layout.Horizontal spacing="xsmall">
-              <Breadcrumbs links={getBreadCrumbs()} />
-              {repoIdentifier && !isPipelineStudioRoute && (
-                <GitPopover data={{ repoIdentifier, branch }} iconProps={{ margin: { left: 'small' } }} />
+      <GitSyncStoreProvider>
+        <Page.Header
+          title={
+            <>
+              <Layout.Horizontal spacing="xsmall">
+                <Breadcrumbs links={getBreadCrumbs()} />
+                {repoIdentifier && !isPipelineStudioRoute && (
+                  <GitPopover data={{ repoIdentifier, branch }} iconProps={{ margin: { left: 'small' } }} />
+                )}
+              </Layout.Horizontal>
+              {isPipelineStudioRoute && (
+                <String tagName="div" className={css.pipelineStudioTitle} stringID="pipelineStudio" />
               )}
-            </Layout.Horizontal>
-            {isPipelineStudioRoute && (
-              <String tagName="div" className={css.pipelineStudioTitle} stringID="pipelineStudio" />
-            )}
-          </>
-        }
-        toolbar={
-          <TabNavigation
-            size={'small'}
-            links={[
-              {
-                label: getString('pipelineStudio'),
-                to: routes.toPipelineStudio({
-                  orgIdentifier,
-                  projectIdentifier,
-                  pipelineIdentifier,
-                  accountId,
-                  module,
-                  repoIdentifier,
-                  branch
-                })
-              },
-              {
-                label: getString('inputSetsText'),
-                to: routes.toInputSetList({
-                  orgIdentifier,
-                  projectIdentifier,
-                  pipelineIdentifier,
-                  accountId,
-                  module,
-                  repoIdentifier,
-                  branch
-                }),
-                disabled: pipelineIdentifier === DefaultNewPipelineId
-              },
-              {
-                label: getString('pipeline.triggers.triggersLabel'),
-                to: routes.toTriggersPage({
-                  orgIdentifier,
-                  projectIdentifier,
-                  pipelineIdentifier,
-                  accountId,
-                  module,
-                  repoIdentifier,
-                  branch
-                }),
-                disabled: pipelineIdentifier === DefaultNewPipelineId
-              },
-              {
-                label: getString('executionHeaderText'),
-                to: routes.toPipelineDeploymentList({
-                  orgIdentifier,
-                  projectIdentifier,
-                  pipelineIdentifier,
-                  accountId,
-                  module,
-                  repoIdentifier,
-                  branch
-                }),
-                disabled: pipelineIdentifier === DefaultNewPipelineId
-              }
-            ]}
-          />
-        }
-      />
+            </>
+          }
+          toolbar={
+            <TabNavigation
+              size={'small'}
+              links={[
+                {
+                  label: getString('pipelineStudio'),
+                  to: routes.toPipelineStudio({
+                    orgIdentifier,
+                    projectIdentifier,
+                    pipelineIdentifier,
+                    accountId,
+                    module,
+                    repoIdentifier,
+                    branch
+                  })
+                },
+                {
+                  label: getString('inputSetsText'),
+                  to: routes.toInputSetList({
+                    orgIdentifier,
+                    projectIdentifier,
+                    pipelineIdentifier,
+                    accountId,
+                    module,
+                    repoIdentifier,
+                    branch
+                  }),
+                  disabled: pipelineIdentifier === DefaultNewPipelineId
+                },
+                {
+                  label: getString('pipeline.triggers.triggersLabel'),
+                  to: routes.toTriggersPage({
+                    orgIdentifier,
+                    projectIdentifier,
+                    pipelineIdentifier,
+                    accountId,
+                    module,
+                    repoIdentifier,
+                    branch
+                  }),
+                  disabled: pipelineIdentifier === DefaultNewPipelineId
+                },
+                {
+                  label: getString('executionHeaderText'),
+                  to: routes.toPipelineDeploymentList({
+                    orgIdentifier,
+                    projectIdentifier,
+                    pipelineIdentifier,
+                    accountId,
+                    module,
+                    repoIdentifier,
+                    branch
+                  }),
+                  disabled: pipelineIdentifier === DefaultNewPipelineId
+                }
+              ]}
+            />
+          }
+        />
+      </GitSyncStoreProvider>
       <Page.Body>{children}</Page.Body>
     </>
   )

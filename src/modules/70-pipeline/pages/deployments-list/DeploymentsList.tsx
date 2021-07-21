@@ -5,6 +5,7 @@ import { Dialog, IDialogProps } from '@blueprintjs/core'
 
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import PipelineDeploymentList from '@pipeline/pages/pipeline-deployment-list/PipelineDeploymentList'
 
@@ -62,7 +63,9 @@ export default function DeploymentsList(): React.ReactElement {
         }
       ></Page.Header>
       <div className={css.content}>
-        <PipelineDeploymentList onRunPipeline={openModal} />
+        <GitSyncStoreProvider>
+          <PipelineDeploymentList onRunPipeline={openModal} />
+        </GitSyncStoreProvider>
       </div>
     </div>
   )
