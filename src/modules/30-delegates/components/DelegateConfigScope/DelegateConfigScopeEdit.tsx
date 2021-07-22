@@ -10,7 +10,7 @@ import { EnvironmentType } from '@delegates/constants'
 
 import css from './DelegateConfigScope.module.scss'
 
-const DelegateConfigScope = ({
+const DelegateConfigScopeEdit = ({
   onChange,
   scopingRules = [],
   isPreviewOnly
@@ -24,14 +24,18 @@ const DelegateConfigScope = ({
 
   const scopingMap: any = {}
   scopingRules.forEach((rule: ScopingRuleDetails) => {
-    scopingMap[rule.environmentTypeId || ''] = rule.environmentIds || []
+    scopingMap[rule.environmentTypeId || ''] =
+      rule?.environmentIds?.map(envId => ({
+        label: envId,
+        value: envId
+      })) || []
   })
 
   const initialProdChecked = !!scopingMap[EnvironmentType.PROD] || !scopingMap[EnvironmentType.NON_PROD]
   const initialNonprodChecked = !!scopingMap[EnvironmentType.NON_PROD] || !scopingMap[EnvironmentType.PROD]
 
-  const initialProdSelected = scopingMap[EnvironmentType.PROD]?.environmentIds || []
-  const initialNonprodSelected = scopingMap[EnvironmentType.NON_PROD]?.environmentIds || []
+  const initialProdSelected = scopingMap[EnvironmentType.PROD] || []
+  const initialNonprodSelected = scopingMap[EnvironmentType.NON_PROD] || []
 
   const [nonprodChecked, setNonprodCheck] = useState(initialNonprodChecked)
   const [nonprodSelected, setNonprodSelected] = useState(initialNonprodSelected as MultiSelectOption[])
@@ -137,43 +141,6 @@ const DelegateConfigScope = ({
     ? getString('delegates.newDelegateConfigWizard.matchAllEnvs')
     : getString('delegates.newDelegateConfigWizard.specEnvNotPossible')
 
-  const getPreviewItems = () => {
-    return (
-      <>
-        <Layout.Horizontal className={css.envContainer} padding={{ left: 'xxlarge', top: 'large', bottom: 'xxlarge' }}>
-          <Checkbox
-            label={getString('delegates.newDelegateConfigWizard.nonprodEnv')}
-            className={css.envCheckbox}
-            checked={initialNonprodChecked}
-            disabled={true}
-          />
-          <MultiSelect
-            disabled={true}
-            items={envNonprodOptions}
-            value={initialNonprodSelected}
-            placeholder={envPlaceholder}
-            allowCreatingNewItems={false}
-          />
-        </Layout.Horizontal>
-        <Layout.Horizontal className={css.envContainer} padding={{ left: 'xxlarge', top: 'large', bottom: 'xxlarge' }}>
-          <Checkbox
-            label={getString('delegates.newDelegateConfigWizard.prodEnv')}
-            className={css.envCheckbox}
-            checked={initialProdChecked}
-            disabled={true}
-          />
-          <MultiSelect
-            disabled={true}
-            allowCreatingNewItems={false}
-            items={envProdOptions}
-            value={initialProdSelected}
-            placeholder={envPlaceholder}
-          />
-        </Layout.Horizontal>
-      </>
-    )
-  }
-
   return (
     <Container style={{ height: '100%' }}>
       <Heading level={2} color={Color.GREY_800} margin={{ bottom: 'large' }}>
@@ -182,54 +149,43 @@ const DelegateConfigScope = ({
       <Heading level={3} color={Color.GREY_600} margin={{ bottom: 'xxlarge' }}>
         {getString('delegates.newDelegateConfigWizard.scopeSubtitle')}
       </Heading>
-
-      {isPreviewOnly ? (
-        getPreviewItems()
-      ) : (
-        <>
-          <Layout.Horizontal
-            className={css.envContainer}
-            padding={{ left: 'xxlarge', top: 'large', bottom: 'xxlarge' }}
-          >
-            <Checkbox
-              label={getString('delegates.newDelegateConfigWizard.nonprodEnv')}
-              onChange={onNonprodCheckChange}
-              className={css.envCheckbox}
-              checked={nonprodChecked}
-              disabled={isPreviewOnly}
-            />
-            <MultiSelect
-              disabled={isPreviewOnly || !projectIdentifier || !nonprodChecked}
-              allowCreatingNewItems={false}
-              items={envNonprodOptions}
-              onChange={onNonprodSelectionChange}
-              value={nonprodSelected}
-              placeholder={envPlaceholder}
-            />
-          </Layout.Horizontal>
-          <Layout.Horizontal
-            className={css.envContainer}
-            padding={{ left: 'xxlarge', top: 'large', bottom: 'xxlarge' }}
-          >
-            <Checkbox
-              label={getString('delegates.newDelegateConfigWizard.prodEnv')}
-              onChange={onProdCheckChange}
-              className={css.envCheckbox}
-              checked={prodChecked}
-              disabled={isPreviewOnly}
-            />
-            <MultiSelect
-              disabled={isPreviewOnly || !projectIdentifier || !prodChecked}
-              allowCreatingNewItems={false}
-              items={envProdOptions}
-              onChange={onProdSelectionChange}
-              value={prodSelected}
-              placeholder={envPlaceholder}
-            />
-          </Layout.Horizontal>
-        </>
-      )}
+      <>
+        <Layout.Horizontal className={css.envContainer} padding={{ left: 'xxlarge', top: 'large', bottom: 'xxlarge' }}>
+          <Checkbox
+            label={getString('delegates.newDelegateConfigWizard.nonprodEnv')}
+            onChange={onNonprodCheckChange}
+            className={css.envCheckbox}
+            checked={nonprodChecked}
+            disabled={isPreviewOnly}
+          />
+          <MultiSelect
+            disabled={isPreviewOnly || !projectIdentifier || !nonprodChecked}
+            allowCreatingNewItems={false}
+            items={envNonprodOptions}
+            onChange={onNonprodSelectionChange}
+            value={nonprodSelected}
+            placeholder={envPlaceholder}
+          />
+        </Layout.Horizontal>
+        <Layout.Horizontal className={css.envContainer} padding={{ left: 'xxlarge', top: 'large', bottom: 'xxlarge' }}>
+          <Checkbox
+            label={getString('delegates.newDelegateConfigWizard.prodEnv')}
+            onChange={onProdCheckChange}
+            className={css.envCheckbox}
+            checked={prodChecked}
+            disabled={isPreviewOnly}
+          />
+          <MultiSelect
+            disabled={isPreviewOnly || !projectIdentifier || !prodChecked}
+            allowCreatingNewItems={false}
+            items={envProdOptions}
+            onChange={onProdSelectionChange}
+            value={prodSelected}
+            placeholder={envPlaceholder}
+          />
+        </Layout.Horizontal>
+      </>
     </Container>
   )
 }
-export default DelegateConfigScope
+export default DelegateConfigScopeEdit

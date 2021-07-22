@@ -22,7 +22,8 @@ import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
 import { fullSizeContentStyle } from '@delegates/constants'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { useToaster } from '@common/exports'
-import DelegateConfigScope from '@delegates/components/DelegateConfigScope'
+import DelegateConfigScopeEdit from '@delegates/components/DelegateConfigScope/DelegateConfigScopeEdit'
+import DelegateConfigScopePreview from '@delegates/components/DelegateConfigScope/DelegateConfigScopePreview'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
@@ -294,12 +295,14 @@ export default function DelegateProfileDetails(): JSX.Element {
                   <Text style={{ fontSize: '14px', color: '#22272D', lineHeight: '24px', fontWeight: 500 }}>
                     {getString('delegate.ScopeDescription')}
                   </Text>
-                  {profile && (
-                    <DelegateConfigScope
+                  {profile && editMode ? (
+                    <DelegateConfigScopeEdit
                       onChange={onScopeChange}
-                      scopingRules={profile?.scopingRules || []}
+                      scopingRules={scopingRules}
                       isPreviewOnly={!editMode}
                     />
+                  ) : (
+                    <DelegateConfigScopePreview scopingRules={scopingRules} />
                   )}
                 </SectionContainer>
               </Layout.Vertical>

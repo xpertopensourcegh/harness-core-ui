@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Create Common Problems Tab render data 1`] = `
+exports[`Render del config scope Edit render data 1`] = `
 <div>
   <div
     class="StyledProps--font StyledProps--main"
@@ -48,10 +48,19 @@ exports[`Create Common Problems Tab render data 1`] = `
               <div
                 class="bp3-tag-input-values"
               >
+                <span
+                  class="bp3-tag MultiSelect--tag"
+                  data-tag-index="0"
+                >
+                  <span
+                    class="bp3-text-overflow-ellipsis bp3-fill"
+                  >
+                    Env2
+                  </span>
+                </span>
                 <input
                   class="bp3-input-ghost bp3-multi-select-tag-input-input"
                   disabled=""
-                  placeholder="delegates.newDelegateConfigWizard.specEnvNotPossible"
                   value=""
                 />
               </div>
@@ -90,10 +99,19 @@ exports[`Create Common Problems Tab render data 1`] = `
               <div
                 class="bp3-tag-input-values"
               >
+                <span
+                  class="bp3-tag MultiSelect--tag"
+                  data-tag-index="0"
+                >
+                  <span
+                    class="bp3-text-overflow-ellipsis bp3-fill"
+                  >
+                    Env1
+                  </span>
+                </span>
                 <input
                   class="bp3-input-ghost bp3-multi-select-tag-input-input"
                   disabled=""
-                  placeholder="delegates.newDelegateConfigWizard.specEnvNotPossible"
                   value=""
                 />
               </div>
