@@ -3984,10 +3984,10 @@
   resolved "https://npm.pkg.github.com/download/@wings-software/telemetry/1.0.36/5f59a357aff1dceaa0f724acb8620985f6b3334233231838eea82ea25b3de4ce#cac20fc86f51e0bf91688d35664ad1a3cf84c124"
   integrity "sha1-ysIPyG9R4L+RaI01ZkrRo8+EwSQ= sha512-PrWLYNubOjFDlMO2DJlH1PljfeVgJ6zih6gHOmp2B/2+fdUhjOABSnEKduNSZwrTGqCFmHKmqF1gZ1ksQMEJLA=="
 
-"@wings-software/uicore@0.1.315":
-  version "0.1.315"
-  resolved "https://npm.pkg.github.com/download/@wings-software/uicore/0.1.315/a022ad6c31ce3374b5856b2a415af0e4538894087c809efcf4334414be4139e4#c21125111dafb89d18484a2f56ba2ad99e8ab427"
-  integrity sha512-BA2RGRUHAJk5RVeH55r0RrBbsyNgRivTkv03V2rOaR1SoEMtGXkqGNLZVRfB8C7+pSRl0QMfucihdEsvm5MA8w==
+"@wings-software/uicore@0.1.316":
+  version "0.1.316"
+  resolved "https://npm.pkg.github.com/download/@wings-software/uicore/0.1.316/dcbd4522fdcc1ae63240c1d686529636774a761c37052bd23310b0b0674c49d8#5f14fbc7e3ad21ee6d5d397ccd798af8e5e2d600"
+  integrity sha512-GN7yEXzgsvNUVxMKhAFziuEDZsjLs00FGfQ8FfAnhtQtI+fvVHzUB1mz4fWPLl0UOEkXTS5m0Es2KZc00O2yjg==
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
@@ -5939,11 +5939,6 @@ constants-browserify@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/constants-browserify/-/constants-browserify-1.0.0.tgz#c20b96d8c617748aaf1c16021760cd27fcb8cb75"
   integrity sha1-wguW2MYXdIqvHBYCF2DNJ/y4y3U=
-
-constate@^1.3.2:
-  version "1.3.2"
-  resolved "https://registry.yarnpkg.com/constate/-/constate-1.3.2.tgz#fa5f0fc292207f1ec21b46a5eb81f59c8b0a8b84"
-  integrity "sha1-+l8PwpIgfx7CG0al64H1nIsKi4Q= sha512-aaILV4vXwGTUZaQZHS5F1xBV8wRCR0Ow1505fdkS5/BPg6hbQrhNqdHL4wgxWgaDeEj43mu/Fb+LhqOKTMcrgQ=="
 
 content-disposition@0.5.3:
   version "0.5.3"
