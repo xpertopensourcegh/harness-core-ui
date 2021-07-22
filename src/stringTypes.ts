@@ -1800,6 +1800,8 @@ export interface StringsMap {
   'pipeline.manifestType.bucketName': string
   'pipeline.manifestType.bucketNamePlaceholder': string
   'pipeline.manifestType.bucketNameRequired': string
+  'pipeline.manifestType.bucketPlaceHolder': string
+  'pipeline.manifestType.chartPathPlaceholder': string
   'pipeline.manifestType.chartPathRequired': string
   'pipeline.manifestType.commandFlagRequired': string
   'pipeline.manifestType.commitId': string
@@ -1856,6 +1858,7 @@ export interface StringsMap {
   'pipeline.myBuildsText': string
   'pipeline.myDeploymentsText': string
   'pipeline.namespaceTooltip': string
+  'pipeline.noBuckets': string
   'pipeline.noBuildsText': string
   'pipeline.noDeploymentText': string
   'pipeline.noPipelineText': string

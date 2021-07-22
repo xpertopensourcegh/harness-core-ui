@@ -346,14 +346,14 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
                     <FormInput.MultiTypeInput
                       selectItems={buckets}
                       label={getString('pipeline.manifestType.bucketName')}
-                      placeholder={getString('pipeline.manifestType.bucketNamePlaceholder')}
+                      placeholder={getString('pipeline.manifestType.bucketPlaceHolder')}
                       name="bucketName"
                       multiTypeInputProps={{
                         expressions,
                         selectProps: {
                           noResults: (
                             <Text lineClamp={1}>
-                              {get(error, 'data.message', null) || getString('pipelineSteps.deploy.errors.notags')}
+                              {get(error, 'data.message', null) || getString('pipeline.noBuckets')}
                             </Text>
                           ),
                           itemRenderer: itemRenderer,
@@ -393,7 +393,7 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
                 >
                   <FormInput.MultiTextInput
                     label={getString('chartPath')}
-                    placeholder={getString('pipeline.manifestType.pathPlaceholder')}
+                    placeholder={getString('pipeline.manifestType.chartPathPlaceholder')}
                     name="folderPath"
                     multiTextInputProps={{ expressions }}
                   />
