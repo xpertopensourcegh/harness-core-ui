@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Text, Icon, Color, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
+import { Layout, Text, Icon, Color, getMultiTypeFromValue, MultiTypeInputType, Button } from '@wings-software/uicore'
 import cx from 'classnames'
 import { String, useStrings } from 'framework/strings'
 import { getConnectorNameFromValue, getStatus } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
@@ -74,12 +74,12 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
                     flex={{ justifyContent: 'flex-end', alignItems: 'center' }}
                     className={css.actionGrid}
                   >
-                    <Icon
-                      name="Edit"
-                      size={16}
+                    <Button
+                      icon="edit"
+                      minimal
                       onClick={() => editArtifact(ModalViewFor.PRIMARY, primaryArtifact.type)}
                     />
-                    <Icon name="bin-main" size={25} onClick={removePrimary} />
+                    <Button minimal icon="main-trash" onClick={removePrimary} />
                   </Layout.Horizontal>
                 )}
               </section>
@@ -131,14 +131,14 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
                     {overrideSetIdentifier?.length === 0 && !isReadonly && (
                       <span>
                         <Layout.Horizontal spacing="medium" className={css.actionGrid}>
-                          <Icon
-                            name="Edit"
-                            size={16}
+                          <Button
+                            icon="edit"
+                            minimal
                             onClick={() => {
                               editArtifact(ModalViewFor.SIDECAR, sidecar?.type as ArtifactType, index)
                             }}
                           />
-                          <Icon name="bin-main" size={25} onClick={() => removeSidecar(index)} />
+                          <Button icon="main-trash" minimal onClick={() => removeSidecar(index)} />
                         </Layout.Horizontal>
                       </span>
                     )}

@@ -660,9 +660,8 @@ const ManifestListView = ({
                   {!overrideSetIdentifier?.length && !isReadonly && (
                     <span className={css.lastColumn}>
                       <Layout.Horizontal spacing="medium" className={css.actionGrid}>
-                        <Icon
-                          name="Edit"
-                          size={16}
+                        <Button
+                          icon="edit"
                           onClick={() =>
                             editManifest(
                               manifest?.type as ManifestTypes,
@@ -670,9 +669,10 @@ const ManifestListView = ({
                               index
                             )
                           }
+                          minimal
                         />
 
-                        <Icon name="bin-main" size={25} onClick={() => removeManifestConfig(index)} />
+                        <Button icon="main-trash" onClick={() => removeManifestConfig(index)} minimal />
                       </Layout.Horizontal>
                     </span>
                   )}

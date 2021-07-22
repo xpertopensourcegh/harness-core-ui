@@ -175,7 +175,7 @@ describe('ManifestSelection tests', () => {
       </TestWrapper>
     )
 
-    const deleteManifestBtn = container.querySelector('[data-icon="bin-main"]') as Element
+    const deleteManifestBtn = container.querySelector('[data-icon="main-trash"]') as Element
     expect(deleteManifestBtn).toBeDefined()
     fireEvent.click(deleteManifestBtn)
 
@@ -223,7 +223,7 @@ describe('ManifestSelection tests', () => {
       </TestWrapper>
     )
 
-    const editManifestBtn = container.querySelectorAll('[data-icon="Edit"]')[0]
+    const editManifestBtn = container.querySelectorAll('[data-icon="edit"]')[0]
     expect(editManifestBtn).toBeDefined()
     fireEvent.click(editManifestBtn)
     const portal = document.getElementsByClassName('bp3-dialog')[0]
