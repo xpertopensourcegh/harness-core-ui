@@ -196,7 +196,7 @@ exports[`test cases for Perspective Create Budgets should be able to open create
                                       autocomplete="off"
                                       class="bp3-input"
                                       name="alertThresholds.0.basedOn"
-                                      placeholder="Search..."
+                                      placeholder="- Select -"
                                       style="padding-right: 0px;"
                                       type="text"
                                       value="ce.perspectives.budgets.configureAlerts.actual"
