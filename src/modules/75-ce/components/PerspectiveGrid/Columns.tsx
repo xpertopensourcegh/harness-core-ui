@@ -98,6 +98,8 @@ export type Column = {
   accessor: string
   className?: string
   width?: number
+  // tells if we can hide this column from the table. For example— costTrend, name, totalCost are not hideable.
+  hideable?: boolean
   sticky?: 'left' | 'right'
   Cell?: (props: CellProps<GridData>) => ReactNode
 }
@@ -108,6 +110,7 @@ const COLUMNS: Record<string, Column> = {
     accessor: 'name',
     className: 'name',
     width: 250,
+    hideable: false,
     sticky: 'left',
     Cell: RenderNameCell
   },
@@ -127,21 +130,22 @@ const COLUMNS: Record<string, Column> = {
     Header: 'Total cost',
     accessor: 'totalCost',
     width: 200,
+    hideable: false,
     Cell: RenderCostCell
-    // className: TOTAL_COST_CLASSNAME
   },
   COST: {
     Header: 'Total cost',
     accessor: 'cost',
     width: 200,
+    hideable: false,
     sticky: 'left',
     Cell: RenderCostCell
-    // className: TOTAL_COST_CLASSNAME
   },
   COST_TREND: {
     Header: 'Cost trend',
     accessor: 'costTrend',
     width: 200,
+    hideable: false,
     className: 'cost-trend cost-column',
     Cell: RenderPercentageCell
   },
@@ -641,24 +645,27 @@ export const ECS_TASK_ID_COLS = [
 export const LABELS_COLS = [COLUMNS.NAME, COLUMNS.COST, COLUMNS.COST_TREND, COLUMNS.IDLE_COST]
 
 // TODO: remove after demo
-export const PERSPECTIVE_PREVIEW_COLS = [
+export const DEFAULT_COLS: Column[] = [
   {
     Header: 'Name',
     accessor: 'name',
     className: 'name',
     width: 250,
+    hideable: false,
     Cell: RenderNameCell
   },
   {
     Header: 'Total cost',
     accessor: 'cost',
     width: 200,
+    hideable: false,
     Cell: RenderCostCell
   },
   {
     Header: 'Cost trend',
     accessor: 'costTrend',
     width: 200,
+    hideable: false,
     className: 'cost-trend cost-column',
     Cell: RenderPercentageCell
   }
@@ -689,5 +696,5 @@ export const getGridColumnsByGroupBy = (groupBy: QlceViewFieldInputInput): Colum
     return LABELS_COLS
   }
 
-  return GroupByMapping[fieldName] || PERSPECTIVE_PREVIEW_COLS
+  return GroupByMapping[fieldName] || DEFAULT_COLS
 }

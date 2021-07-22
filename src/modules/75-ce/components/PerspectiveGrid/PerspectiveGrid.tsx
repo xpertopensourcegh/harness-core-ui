@@ -4,12 +4,12 @@ import type { Column } from 'react-table'
 import { isEqual } from 'lodash-es'
 import type { QlceViewFieldInputInput, QlceViewEntityStatsDataPoint, Maybe } from 'services/ce/services'
 import ColumnSelector from './ColumnSelector'
-import { addLegendColorToRow, GridData, getGridColumnsByGroupBy, PERSPECTIVE_PREVIEW_COLS } from './Columns'
+import { addLegendColorToRow, GridData, getGridColumnsByGroupBy, DEFAULT_COLS } from './Columns'
 import Grid from './Grid'
 import './test.scss' // will find a alternative
 import css from './PerspectiveGrid.module.scss'
 
-interface PerspectiveGridProps {
+export interface PerspectiveGridProps {
   columnSequence?: string[]
   setColumnSequence?: (cols: string[]) => void
   groupBy: QlceViewFieldInputInput
@@ -76,11 +76,7 @@ const PerspectiveGrid: React.FC<PerspectiveGridProps> = props => {
       )}
       <Grid<GridData>
         data={gridData}
-        columns={
-          props.tempGridColumns
-            ? (PERSPECTIVE_PREVIEW_COLS as Column<GridData>[])
-            : (selectedColumns as Column<GridData>[])
-        }
+        columns={props.tempGridColumns ? (DEFAULT_COLS as Column<GridData>[]) : (selectedColumns as Column<GridData>[])}
         showPagination={props.showPagination}
       />
     </Container>
