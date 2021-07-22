@@ -239,6 +239,7 @@ export interface StringsMap {
   'common.link': string
   'common.loading': string
   'common.local': string
+  'common.location': string
   'common.logs.delegateSelectionLogs': string
   'common.logs.noLogsText': string
   'common.manage': string
@@ -1959,6 +1960,16 @@ export interface StringsMap {
   'pipeline.triggers.activityActivation': string
   'pipeline.triggers.activityDays': string
   'pipeline.triggers.addNewTrigger': string
+  'pipeline.triggers.artifactTriggerConfigPanel.artifact': string
+  'pipeline.triggers.artifactTriggerConfigPanel.artifactRepository': string
+  'pipeline.triggers.artifactTriggerConfigPanel.buildTag': string
+  'pipeline.triggers.artifactTriggerConfigPanel.configureInput': string
+  'pipeline.triggers.artifactTriggerConfigPanel.configureInputs': string
+  'pipeline.triggers.artifactTriggerConfigPanel.listenOnNewArtifact': string
+  'pipeline.triggers.artifactTriggerConfigPanel.noSelectableArtifactsFound': string
+  'pipeline.triggers.artifactTriggerConfigPanel.parameterized': string
+  'pipeline.triggers.artifactTriggerConfigPanel.plusSelectArtifact': string
+  'pipeline.triggers.artifactTriggerConfigPanel.selectAnArtifact': string
   'pipeline.triggers.cannotParseInputValues': string
   'pipeline.triggers.cannotParseTriggersData': string
   'pipeline.triggers.conditionsPanel.attribute': string

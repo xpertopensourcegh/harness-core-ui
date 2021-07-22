@@ -57,6 +57,7 @@ import {
   CUSTOM
 } from './utils/TriggersWizardPageUtils'
 import {
+  ArtifactTriggerConfigPanel,
   WebhookTriggerConfigPanel,
   WebhookConditionsPanel,
   WebhookPipelineInputPanel,
@@ -1095,7 +1096,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         errorToasterMessage={errorToasterMessage}
         leftNav={titleWithSwitch}
       >
-        <WebhookTriggerConfigPanel />
+        <ArtifactTriggerConfigPanel />
         <ArtifactConditionsPanel />
         <WebhookPipelineInputPanel />
       </Wizard>

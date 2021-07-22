@@ -307,6 +307,7 @@ savedSuccessfully: Saved Successfully
 submittingRequest: Submitting request and pushing changes to Git
 submittingRequestToGitViaDelegate: Submitting request and pushing changes to Git from Delegate
 local: Local
+location: Location
 subscriptions:
   title: Subscriptions
   tabs:

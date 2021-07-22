@@ -487,6 +487,17 @@ triggers:
     SUN: 'SUN'
     expressionBreakdown: 'Expression Breakdown'
     cronExpression: 'Cron Expression'
+  artifactTriggerConfigPanel:
+    artifact: 'Artifact'
+    artifactRepository: 'Artifact Repository'
+    buildTag: 'Build/Tag'
+    configureInput: 'Configure Input'
+    listenOnNewArtifact: 'Listen on New Artifact'
+    plusSelectArtifact: '+ Select Artifact'
+    selectAnArtifact: 'Select an Artifact Reference'
+    noSelectableArtifactsFound: 'No selectable artifacts found. Please add an artifact in the pipeline.'
+    configureInputs: Configure inputs
+    parameterized: Parameterized
 dashboards:
   failedBuilds: Failed Builds
   activeBuilds: Active Builds
