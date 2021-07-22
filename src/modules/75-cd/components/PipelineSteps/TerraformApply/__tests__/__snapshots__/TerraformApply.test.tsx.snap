@@ -2586,7 +2586,7 @@ exports[`Test TerraformApply should be able to edit inline config 1`] = `
                     <button
                       class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                       data-testid="cr-field-spec.configuration.spec.configFiles.store.spec.connectorRef"
-                      style="width: 232px;"
+                      style="width: 260px;"
                       type="button"
                     >
                       <span

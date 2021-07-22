@@ -406,7 +406,7 @@ exports[`Artifact WizardStep tests new connector view works correctly 1`] = `
                         <button
                           class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                           data-testid="cr-field-connectorId"
-                          style="width: 382px;"
+                          style="width: 410px;"
                           type="button"
                         >
                           <span

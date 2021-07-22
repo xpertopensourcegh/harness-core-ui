@@ -39,7 +39,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view for inputse
                 <button
                   class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                   data-testid="cr-field-.connectorRef"
-                  style="width: 372px;"
+                  style="width: 400px;"
                   type="button"
                 >
                   <span
@@ -416,7 +416,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with empty 
                     <button
                       class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                       data-testid="cr-field-connectorRef"
-                      style="width: 422px;"
+                      style="width: 450px;"
                       type="button"
                     >
                       <span
@@ -1211,7 +1211,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with values
                     <button
                       class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                       data-testid="cr-field-connectorRef"
-                      style="width: 422px;"
+                      style="width: 450px;"
                       type="button"
                     >
                       <span

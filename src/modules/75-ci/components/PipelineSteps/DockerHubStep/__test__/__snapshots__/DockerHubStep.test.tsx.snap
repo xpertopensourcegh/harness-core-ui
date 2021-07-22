@@ -162,7 +162,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                     <button
                       class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                       data-testid="cr-field-spec.connectorRef"
-                      style="width: 532px;"
+                      style="width: 560px;"
                       type="button"
                     >
                       <span
@@ -4410,7 +4410,7 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
                     <button
                       class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                       data-testid="cr-field-spec.connectorRef"
-                      style="width: 532px;"
+                      style="width: 560px;"
                       type="button"
                     >
                       <span
@@ -6213,7 +6213,7 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
                   <button
                     class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                     data-testid="cr-field-spec.connectorRef"
-                    style="width: 532px;"
+                    style="width: 560px;"
                     type="button"
                   >
                     <span

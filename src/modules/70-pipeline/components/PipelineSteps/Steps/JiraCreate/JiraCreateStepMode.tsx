@@ -13,7 +13,8 @@ import {
   Text,
   MultiTypeInputType,
   Button,
-  getMultiTypeFromValue
+  getMultiTypeFromValue,
+  FormikForm
 } from '@wings-software/uicore'
 import { setFormikRef, StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { String, useStrings } from 'framework/strings'
@@ -641,19 +642,21 @@ function JiraCreateStepMode(props: JiraCreateStepModeProps, formikRef: StepFormi
       {(formik: FormikProps<JiraCreateData>) => {
         setFormikRef(formikRef, formik)
         return (
-          <FormContent
-            formik={formik}
-            refetchProjects={refetchProjects}
-            refetchProjectMetadata={refetchProjectMetadata}
-            fetchingProjects={fetchingProjects}
-            fetchingProjectMetadata={fetchingProjectMetadata}
-            projectMetaResponse={projectMetaResponse}
-            projectsResponse={projectsResponse}
-            projectsFetchError={projectsFetchError}
-            projectMetadataFetchError={projectMetadataFetchError}
-            isNewStep={isNewStep}
-            readonly={readonly}
-          />
+          <FormikForm>
+            <FormContent
+              formik={formik}
+              refetchProjects={refetchProjects}
+              refetchProjectMetadata={refetchProjectMetadata}
+              fetchingProjects={fetchingProjects}
+              fetchingProjectMetadata={fetchingProjectMetadata}
+              projectMetaResponse={projectMetaResponse}
+              projectsResponse={projectsResponse}
+              projectsFetchError={projectsFetchError}
+              projectMetadataFetchError={projectMetadataFetchError}
+              isNewStep={isNewStep}
+              readonly={readonly}
+            />
+          </FormikForm>
         )
       }}
     </Formik>

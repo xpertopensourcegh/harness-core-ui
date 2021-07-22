@@ -518,7 +518,7 @@ exports[`Terraform Var Store tests on edit mode for tf var store  1`] = `
                     <button
                       class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                       data-testid="cr-field-varFile.spec.store.spec.connectorRef"
-                      style="width: 372px;"
+                      style="width: 400px;"
                       type="button"
                     >
                       <span
@@ -895,7 +895,7 @@ exports[`Terraform Var Store tests select one of the types 1`] = `
                     <button
                       class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                       data-testid="cr-field-varFile.spec.store.spec.connectorRef"
-                      style="width: 372px;"
+                      style="width: 400px;"
                       type="button"
                     >
                       <span

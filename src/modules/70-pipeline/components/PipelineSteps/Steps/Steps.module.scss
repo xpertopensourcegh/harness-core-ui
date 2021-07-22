@@ -33,7 +33,7 @@
   width: 100%;
 
   &.sm {
-    width: 35%;
+    width: 45%;
   }
 
   &.md {
@@ -61,6 +61,10 @@
     .InputWithIdentifier--txtNameContainer {
       // Overwriting the 12px margin added by nameid field
       margin-bottom: 0;
+    }
+
+    #configureOptions {
+      margin-bottom: var(--spacing-3);
     }
   }
 }

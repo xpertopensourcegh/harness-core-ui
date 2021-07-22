@@ -15,7 +15,8 @@ import {
   Layout,
   Avatar,
   Text,
-  getMultiTypeFromValue
+  getMultiTypeFromValue,
+  FormikForm
 } from '@wings-software/uicore'
 import { setFormikRef, StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { String, useStrings } from 'framework/strings'
@@ -370,14 +371,16 @@ function HarnessApprovalStepMode(
         */
         setFormikRef(formikRef, formik)
         return (
-          <FormContent
-            formik={formik}
-            userGroupsResponse={userGroupsResponse}
-            fetchingUserGroups={fetchingUserGroups}
-            userGroupsFetchError={userGroupsFetchError}
-            isNewStep={isNewStep}
-            readonly={readonly}
-          />
+          <FormikForm>
+            <FormContent
+              formik={formik}
+              userGroupsResponse={userGroupsResponse}
+              fetchingUserGroups={fetchingUserGroups}
+              userGroupsFetchError={userGroupsFetchError}
+              isNewStep={isNewStep}
+              readonly={readonly}
+            />
+          </FormikForm>
         )
       }}
     </Formik>

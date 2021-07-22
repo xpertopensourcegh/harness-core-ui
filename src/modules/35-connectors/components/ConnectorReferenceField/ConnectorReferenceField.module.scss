@@ -80,6 +80,8 @@
 
 .right-status {
   display: flex;
+  right: 60px;
+  position: absolute;
 }
 .label {
   max-width: 100%;
@@ -91,7 +93,7 @@
   width: 100%;
   :global {
     .bp3-popover-wrapper {
-      max-width: calc(100% - 90px);
+      max-width: calc(100% - 140px);
       align-items: center;
       display: flex;
     }

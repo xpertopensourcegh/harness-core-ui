@@ -73,7 +73,7 @@ exports[`TF Config Form tests edit view loads correctly -with commitId 1`] = `
                     <button
                       class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                       data-testid="cr-field-spec.configuration.configFiles.store.spec.connectorRef"
-                      style="width: 232px;"
+                      style="width: 260px;"
                       type="button"
                     >
                       <span
@@ -505,7 +505,7 @@ exports[`TF Config Form tests edit view loads correctly 1`] = `
                     <button
                       class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                       data-testid="cr-field-spec.configuration.configFiles.store.spec.connectorRef"
-                      style="width: 232px;"
+                      style="width: 260px;"
                       type="button"
                     >
                       <span
@@ -937,7 +937,7 @@ exports[`TF Config Form tests initial render 1`] = `
                     <button
                       class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                       data-testid="cr-field-spec.configuration.configFiles.store.spec.connectorRef"
-                      style="width: 232px;"
+                      style="width: 260px;"
                       type="button"
                     >
                       <span

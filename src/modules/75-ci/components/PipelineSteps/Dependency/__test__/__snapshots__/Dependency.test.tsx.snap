@@ -228,7 +228,7 @@ exports[`Dependency Edit view edit mode fails when cpu present but memory is not
                     <button
                       class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                       data-testid="cr-field-spec.connectorRef"
-                      style="width: 532px;"
+                      style="width: 560px;"
                       type="button"
                     >
                       <span
@@ -2280,7 +2280,7 @@ exports[`Dependency Edit view edit mode works 1`] = `
                     <button
                       class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                       data-testid="cr-field-spec.connectorRef"
-                      style="width: 532px;"
+                      style="width: 560px;"
                       type="button"
                     >
                       <span
@@ -4332,7 +4332,7 @@ exports[`Dependency Edit view edit mode works when memory present but cpu is not
                     <button
                       class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                       data-testid="cr-field-spec.connectorRef"
-                      style="width: 532px;"
+                      style="width: 560px;"
                       type="button"
                     >
                       <span
@@ -7727,7 +7727,7 @@ exports[`Dependency Edit view should render properly 1`] = `
                     <button
                       class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                       data-testid="cr-field-spec.connectorRef"
-                      style="width: 532px;"
+                      style="width: 560px;"
                       type="button"
                     >
                       <span
@@ -9167,7 +9167,7 @@ exports[`Dependency InputSet View should render all fields 1`] = `
                   <button
                     class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                     data-testid="cr-field-spec.connectorRef"
-                    style="width: 532px;"
+                    style="width: 560px;"
                     type="button"
                   >
                     <span

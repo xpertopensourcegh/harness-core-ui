@@ -70,7 +70,7 @@ exports[`Unit tests for SelectCVConnector Ensure that component renders with pas
                   <button
                     class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                     data-testid="cr-field-connectorRef"
-                    style="width: 272px;"
+                    style="width: 300px;"
                     type="button"
                   >
                     <span

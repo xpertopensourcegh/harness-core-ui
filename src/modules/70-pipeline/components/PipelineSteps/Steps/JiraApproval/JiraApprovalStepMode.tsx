@@ -3,7 +3,14 @@ import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
-import { Formik, Accordion, FormInput, MultiTypeInputType, getMultiTypeFromValue } from '@wings-software/uicore'
+import {
+  Formik,
+  Accordion,
+  FormInput,
+  MultiTypeInputType,
+  getMultiTypeFromValue,
+  FormikForm
+} from '@wings-software/uicore'
 import { setFormikRef, StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/strings'
 import {
@@ -441,19 +448,21 @@ function JiraApprovalStepMode(props: JiraApprovalStepModeProps, formikRef: StepF
       {(formik: FormikProps<JiraApprovalData>) => {
         setFormikRef(formikRef, formik)
         return (
-          <FormContent
-            formik={formik}
-            refetchProjects={refetchProjects}
-            refetchProjectMetadata={refetchProjectMetadata}
-            fetchingProjects={fetchingProjects}
-            fetchingProjectMetadata={fetchingProjectMetadata}
-            projectMetaResponse={projectMetaResponse}
-            projectsResponse={projectsResponse}
-            projectsFetchError={projectsFetchError}
-            projectMetadataFetchError={projectMetadataFetchError}
-            readonly={readonly}
-            isNewStep={isNewStep}
-          />
+          <FormikForm>
+            <FormContent
+              formik={formik}
+              refetchProjects={refetchProjects}
+              refetchProjectMetadata={refetchProjectMetadata}
+              fetchingProjects={fetchingProjects}
+              fetchingProjectMetadata={fetchingProjectMetadata}
+              projectMetaResponse={projectMetaResponse}
+              projectsResponse={projectsResponse}
+              projectsFetchError={projectsFetchError}
+              projectMetadataFetchError={projectMetadataFetchError}
+              readonly={readonly}
+              isNewStep={isNewStep}
+            />
+          </FormikForm>
         )
       }}
     </Formik>
