@@ -14,7 +14,8 @@ import {
   QlceViewFieldInputInput,
   useFetchperspectiveGridQuery,
   ViewChartType,
-  ViewTimeRangeType
+  ViewTimeRangeType,
+  ViewType
 } from 'services/ce/services'
 import { PageBody } from '@common/components/Page/PageBody'
 import { PageSpinner } from '@common/components'
@@ -42,9 +43,11 @@ interface PerspectiveParams {
   perspectiveName: string
 }
 
-const PerspectiveHeader: React.FC<{ title: string }> = ({ title }) => {
+const PerspectiveHeader: React.FC<{ title: string; viewType: string }> = ({ title, viewType }) => {
   const { perspectiveId, accountId } = useParams<{ perspectiveId: string; accountId: string }>()
   const history = useHistory()
+
+  const isDefaultPerspective = viewType === ViewType.Default
 
   const goToEditPerspective: () => void = () => {
     history.push(
@@ -58,11 +61,11 @@ const PerspectiveHeader: React.FC<{ title: string }> = ({ title }) => {
   return (
     <Layout.Horizontal
       spacing="medium"
-      width="100%"
       style={{
         alignItems: 'center'
       }}
       flex={true}
+      className={css.perspectiveHeader}
     >
       <Container
         style={{
@@ -86,7 +89,7 @@ const PerspectiveHeader: React.FC<{ title: string }> = ({ title }) => {
         </Heading>
       </Container>
 
-      <Button text="Edit" icon="edit" intent="primary" onClick={goToEditPerspective} />
+      <Button disabled={isDefaultPerspective} text="Edit" icon="edit" intent="primary" onClick={goToEditPerspective} />
       <Button text="Share" />
     </Layout.Horizontal>
   )
@@ -202,7 +205,14 @@ const PerspectiveDetailsPage: React.FC = () => {
 
   return (
     <>
-      <PageHeader title={<PerspectiveHeader title={perspectiveData?.name || perspectiveId} />} />
+      <PageHeader
+        title={
+          <PerspectiveHeader
+            title={perspectiveData?.name || perspectiveId}
+            viewType={perspectiveData?.viewType || ViewType.Default}
+          />
+        }
+      />
       <PageBody>
         {loading && <PageSpinner />}
         <PersepectiveExplorerFilters
@@ -212,7 +222,7 @@ const PerspectiveDetailsPage: React.FC = () => {
           aggregation={aggregation}
           setTimeRange={setTimeRange}
         />
-        <PerspectiveSummary data={summaryData?.perspectiveTrendStats} fetching={summaryFetching} />
+        <PerspectiveSummary data={summaryData?.perspectiveTrendStats as any} fetching={summaryFetching} />
         <Container margin="xlarge" background="white" className={css.chartGridContainer}>
           <Container padding="small">
             <PerspectiveExplorerGroupBy
@@ -233,7 +243,7 @@ const PerspectiveDetailsPage: React.FC = () => {
                 columnSequence={columnSequence}
                 setFilterUsingChartClick={setFilterUsingChartClick}
                 fetching={chartFetching}
-                data={chartData.perspectiveTimeSeriesStats}
+                data={chartData.perspectiveTimeSeriesStats as any}
                 aggregation={aggregation}
                 xAxisPointCount={chartData?.perspectiveTimeSeriesStats.stats?.length || DAYS_FOR_TICK_INTERVAL + 1}
               />

@@ -3,5 +3,6 @@
 declare const styles: {
   readonly chartGridContainer: string
   readonly chartLoadingContainer: string
+  readonly perspectiveHeader: string
 }
 export default styles

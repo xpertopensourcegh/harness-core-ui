@@ -728,6 +728,7 @@ export type ClusterData = {
   clusterName: Maybe<Scalars['String']>
   clusterType: Maybe<Scalars['String']>
   costTrend: Maybe<Scalars['Float']>
+  cpuActualIdleCost: Maybe<Scalars['Float']>
   cpuBillingAmount: Maybe<Scalars['Float']>
   cpuIdleCost: Maybe<Scalars['Float']>
   cpuUnallocatedCost: Maybe<Scalars['Float']>
@@ -738,9 +739,13 @@ export type ClusterData = {
   environment: Maybe<Scalars['String']>
   id: Maybe<Scalars['String']>
   idleCost: Maybe<Scalars['Float']>
+  instanceId: Maybe<Scalars['String']>
+  instanceName: Maybe<Scalars['String']>
+  instanceType: Maybe<Scalars['String']>
   launchType: Maybe<Scalars['String']>
   maxCpuUtilization: Maybe<Scalars['Float']>
   maxMemoryUtilization: Maybe<Scalars['Float']>
+  memoryActualIdleCost: Maybe<Scalars['Float']>
   memoryBillingAmount: Maybe<Scalars['Float']>
   memoryIdleCost: Maybe<Scalars['Float']>
   memoryUnallocatedCost: Maybe<Scalars['Float']>
@@ -756,12 +761,29 @@ export type ClusterData = {
   storageRequest: Maybe<Scalars['Float']>
   storageUnallocatedCost: Maybe<Scalars['Float']>
   storageUtilizationValue: Maybe<Scalars['Float']>
+  systemCost: Maybe<Scalars['Float']>
+  taskId: Maybe<Scalars['String']>
   totalCost: Maybe<Scalars['Float']>
   trendType: Maybe<Scalars['String']>
   type: Maybe<Scalars['String']>
   unallocatedCost: Maybe<Scalars['Float']>
   workloadName: Maybe<Scalars['String']>
   workloadType: Maybe<Scalars['String']>
+}
+
+export type ClusterRecommendationAccuracy = {
+  __typename?: 'ClusterRecommendationAccuracy'
+  cpu: Maybe<Scalars['Float']>
+  masterPrice: Maybe<Scalars['Float']>
+  memory: Maybe<Scalars['Float']>
+  nodes: Maybe<Scalars['Long']>
+  regularNodes: Maybe<Scalars['Long']>
+  regularPrice: Maybe<Scalars['Float']>
+  spotNodes: Maybe<Scalars['Long']>
+  spotPrice: Maybe<Scalars['Float']>
+  totalPrice: Maybe<Scalars['Float']>
+  workerPrice: Maybe<Scalars['Float']>
+  zone: Maybe<Scalars['String']>
 }
 
 export type ContainerHistogramDto = {
@@ -796,6 +818,13 @@ export type DataPoint = {
   value: Scalars['BigDecimal']
 }
 
+export type EfficiencyScoreStats = {
+  __typename?: 'EfficiencyScoreStats'
+  statsLabel: Maybe<Scalars['String']>
+  statsTrend: Maybe<Scalars['BigDecimal']>
+  statsValue: Maybe<Scalars['String']>
+}
+
 export type FilterStatsDto = {
   __typename?: 'FilterStatsDTO'
   key: Maybe<Scalars['String']>
@@ -821,15 +850,69 @@ export type InstanceDataDemo = {
   region: Maybe<Scalars['String']>
 }
 
+export type InstanceDetails = {
+  __typename?: 'InstanceDetails'
+  cloudProviderInstanceId: Maybe<Scalars['String']>
+  clusterId: Maybe<Scalars['String']>
+  clusterName: Maybe<Scalars['String']>
+  cpuAllocatable: Scalars['Float']
+  cpuBillingAmount: Scalars['Float']
+  cpuIdleCost: Scalars['Float']
+  cpuRequested: Scalars['Float']
+  cpuUnallocatedCost: Scalars['Float']
+  cpuUnitPrice: Scalars['Float']
+  createTime: Scalars['Long']
+  deleteTime: Scalars['Long']
+  id: Maybe<Scalars['String']>
+  idleCost: Scalars['Float']
+  instanceCategory: Maybe<Scalars['String']>
+  machineType: Maybe<Scalars['String']>
+  memoryAllocatable: Scalars['Float']
+  memoryBillingAmount: Scalars['Float']
+  memoryIdleCost: Scalars['Float']
+  memoryRequested: Scalars['Float']
+  memoryUnallocatedCost: Scalars['Float']
+  memoryUnitPrice: Scalars['Float']
+  name: Maybe<Scalars['String']>
+  namespace: Maybe<Scalars['String']>
+  networkCost: Scalars['Float']
+  node: Maybe<Scalars['String']>
+  nodeId: Maybe<Scalars['String']>
+  nodePoolName: Maybe<Scalars['String']>
+  podCapacity: Maybe<Scalars['String']>
+  qosClass: Maybe<Scalars['String']>
+  storageActualIdleCost: Scalars['Float']
+  storageCost: Scalars['Float']
+  storageRequest: Scalars['Float']
+  storageUnallocatedCost: Scalars['Float']
+  storageUtilizationValue: Scalars['Float']
+  systemCost: Scalars['Float']
+  totalCost: Scalars['Float']
+  unallocatedCost: Scalars['Float']
+  workload: Maybe<Scalars['String']>
+}
+
+export type NodePool = {
+  __typename?: 'NodePool'
+  role: Maybe<Scalars['String']>
+  sumNodes: Maybe<Scalars['Long']>
+  vm: Maybe<VirtualMachine>
+  vmClass: Maybe<Scalars['String']>
+}
+
+export type NodePoolId = {
+  __typename?: 'NodePoolId'
+  clusterid: Scalars['String']
+  nodepoolname: Scalars['String']
+}
+
 export type NodeRecommendationDto = {
   __typename?: 'NodeRecommendationDTO'
-  currentCloudProvider: Maybe<Scalars['String']>
-  currentService: Maybe<Scalars['String']>
+  current: Maybe<RecommendationResponse>
   id: Maybe<Scalars['String']>
-  maxCpu: Maybe<Scalars['Int']>
-  maxMemory: Maybe<Scalars['Int']>
-  sumCpu: Maybe<Scalars['Int']>
-  sumMemory: Maybe<Scalars['Int']>
+  nodePoolId: Maybe<NodePoolId>
+  recommended: Maybe<RecommendationResponse>
+  resourceRequirement: Maybe<RecommendClusterRequest>
 }
 
 export type PerspectiveData = {
@@ -861,12 +944,19 @@ export type PerspectiveOverviewStatsData = {
 
 export type PerspectiveTimeSeriesData = {
   __typename?: 'PerspectiveTimeSeriesData'
+  cpuLimit: Maybe<Array<Maybe<TimeSeriesDataPoints>>>
+  cpuRequest: Maybe<Array<Maybe<TimeSeriesDataPoints>>>
+  cpuUtilValues: Maybe<Array<Maybe<TimeSeriesDataPoints>>>
+  memoryLimit: Maybe<Array<Maybe<TimeSeriesDataPoints>>>
+  memoryRequest: Maybe<Array<Maybe<TimeSeriesDataPoints>>>
+  memoryUtilValues: Maybe<Array<Maybe<TimeSeriesDataPoints>>>
   stats: Maybe<Array<Maybe<TimeSeriesDataPoints>>>
 }
 
 export type PerspectiveTrendStats = {
   __typename?: 'PerspectiveTrendStats'
   cost: Maybe<StatsInfo>
+  efficiencyScoreStats: Maybe<EfficiencyScoreStats>
 }
 
 export type QlceView = {
@@ -893,7 +983,9 @@ export type QlceViewEntityStatsDataPoint = {
   cost: Maybe<Scalars['BigDecimal']>
   costTrend: Maybe<Scalars['BigDecimal']>
   id: Maybe<Scalars['String']>
+  instanceDetails: Maybe<InstanceDetails>
   name: Maybe<Scalars['String']>
+  storageDetails: Maybe<StorageDetails>
 }
 
 export type QlceViewField = {
@@ -917,10 +1009,13 @@ export type Query = {
   billingData: Maybe<Array<Maybe<BillingData>>>
   billingdata: Maybe<Array<Maybe<BillingDataDemo>>>
   instancedata: Maybe<InstanceDataDemo>
+  nodeRecommendationRequest: Maybe<RecommendClusterRequest>
   /** Fields for perspective explorer */
   perspectiveFields: Maybe<PerspectiveFieldsData>
   /** Filter values for perspective */
   perspectiveFilters: Maybe<PerspectiveFilterData>
+  /** Forecast cost for perspective */
+  perspectiveForecastCost: Maybe<PerspectiveTrendStats>
   /** Table for perspective */
   perspectiveGrid: Maybe<PerspectiveEntityStatsData>
   /** Overview stats for perspective */
@@ -965,6 +1060,13 @@ export type QueryInstancedataArgs = {
 }
 
 /** Query root */
+export type QueryNodeRecommendationRequestArgs = {
+  endTime: Maybe<Scalars['OffsetDateTime']>
+  nodePoolId: NodePoolIdInput
+  startTime: Maybe<Scalars['OffsetDateTime']>
+}
+
+/** Query root */
 export type QueryPerspectiveFieldsArgs = {
   filters: Maybe<Array<Maybe<QlceViewFilterWrapperInput>>>
 }
@@ -977,6 +1079,12 @@ export type QueryPerspectiveFiltersArgs = {
   limit: Maybe<Scalars['Int']>
   offset: Maybe<Scalars['Int']>
   sortCriteria: Maybe<Array<Maybe<QlceViewSortCriteriaInput>>>
+}
+
+/** Query root */
+export type QueryPerspectiveForecastCostArgs = {
+  aggregateFunction: Maybe<Array<Maybe<QlceViewAggregationInput>>>
+  filters: Maybe<Array<Maybe<QlceViewFilterWrapperInput>>>
 }
 
 /** Query root */
@@ -1065,6 +1173,24 @@ export type QueryRecommendationsV2Args = {
   filter?: Maybe<K8sRecommendationFilterDtoInput>
 }
 
+export type RecommendClusterRequest = {
+  __typename?: 'RecommendClusterRequest'
+  allowBurst: Maybe<Scalars['Boolean']>
+  allowOlderGen: Maybe<Scalars['Boolean']>
+  category: Maybe<Array<Maybe<Scalars['String']>>>
+  excludes: Maybe<Array<Maybe<Scalars['String']>>>
+  includes: Maybe<Array<Maybe<Scalars['String']>>>
+  maxNodes: Maybe<Scalars['Long']>
+  minNodes: Maybe<Scalars['Long']>
+  networkPerf: Maybe<Array<Maybe<Scalars['String']>>>
+  onDemandPct: Maybe<Scalars['Long']>
+  sameSize: Maybe<Scalars['Boolean']>
+  sumCpu: Maybe<Scalars['Float']>
+  sumGpu: Maybe<Scalars['Long']>
+  sumMem: Maybe<Scalars['Float']>
+  zone: Maybe<Scalars['String']>
+}
+
 export type RecommendationItemDto = {
   __typename?: 'RecommendationItemDTO'
   clusterName: Maybe<Scalars['String']>
@@ -1086,6 +1212,17 @@ export type RecommendationOverviewStats = {
   __typename?: 'RecommendationOverviewStats'
   totalMonthlyCost: Scalars['Float']
   totalMonthlySaving: Scalars['Float']
+}
+
+export type RecommendationResponse = {
+  __typename?: 'RecommendationResponse'
+  accuracy: Maybe<ClusterRecommendationAccuracy>
+  instanceCategory: Maybe<InstanceCategory>
+  nodePools: Maybe<Array<Maybe<NodePool>>>
+  provider: Maybe<Scalars['String']>
+  region: Maybe<Scalars['String']>
+  service: Maybe<Scalars['String']>
+  zone: Maybe<Scalars['String']>
 }
 
 export type RecommendationsDto = {
@@ -1120,10 +1257,51 @@ export type StatsInfo = {
   value: Scalars['BigDecimal']
 }
 
+export type StorageDetails = {
+  __typename?: 'StorageDetails'
+  capacity: Scalars['Float']
+  claimName: Maybe<Scalars['String']>
+  claimNamespace: Maybe<Scalars['String']>
+  cloudProvider: Maybe<Scalars['String']>
+  clusterId: Maybe<Scalars['String']>
+  clusterName: Maybe<Scalars['String']>
+  createTime: Scalars['Long']
+  deleteTime: Scalars['Long']
+  id: Maybe<Scalars['String']>
+  instanceId: Maybe<Scalars['String']>
+  instanceName: Maybe<Scalars['String']>
+  region: Maybe<Scalars['String']>
+  storageActualIdleCost: Scalars['Float']
+  storageClass: Maybe<Scalars['String']>
+  storageCost: Scalars['Float']
+  storageRequest: Scalars['Float']
+  storageUnallocatedCost: Scalars['Float']
+  storageUtilizationValue: Scalars['Float']
+  volumeType: Maybe<Scalars['String']>
+}
+
 export type TimeSeriesDataPoints = {
   __typename?: 'TimeSeriesDataPoints'
   time: Scalars['Long']
   values: Array<Maybe<DataPoint>>
+}
+
+export type VirtualMachine = {
+  __typename?: 'VirtualMachine'
+  allocatableCpusPerVm: Maybe<Scalars['Float']>
+  allocatableMemPerVm: Maybe<Scalars['Float']>
+  avgPrice: Maybe<Scalars['Float']>
+  burst: Maybe<Scalars['Boolean']>
+  category: Maybe<Scalars['String']>
+  cpusPerVm: Maybe<Scalars['Float']>
+  currentGen: Maybe<Scalars['Boolean']>
+  gpusPerVm: Maybe<Scalars['Float']>
+  memPerVm: Maybe<Scalars['Float']>
+  networkPerf: Maybe<Scalars['String']>
+  networkPerfCategory: Maybe<Scalars['String']>
+  onDemandPrice: Maybe<Scalars['Float']>
+  type: Maybe<Scalars['String']>
+  zones: Maybe<Array<Maybe<Scalars['String']>>>
 }
 
 export type WorkloadRecommendationDto = {
@@ -1156,6 +1334,12 @@ export enum FilterOperator {
   NotNull = 'NOT_NULL',
   TimeAfter = 'TIME_AFTER',
   TimeBefore = 'TIME_BEFORE'
+}
+
+export enum InstanceCategory {
+  OnDemand = 'ON_DEMAND',
+  Reserved = 'RESERVED',
+  Spot = 'SPOT'
 }
 
 export enum QlceSortOrder {
@@ -1237,6 +1421,7 @@ export enum ViewTimeRangeType {
 
 export enum ViewType {
   Customer = 'CUSTOMER',
+  Default = 'DEFAULT',
   DefaultAzure = 'DEFAULT_AZURE',
   Sample = 'SAMPLE'
 }
@@ -1273,6 +1458,11 @@ export type K8sRecommendationFilterDtoInput = {
   namespaces: Maybe<Array<Maybe<Scalars['String']>>>
   offset: Maybe<Scalars['Long']>
   resourceTypes: Maybe<Array<Maybe<ResourceType>>>
+}
+
+export type NodePoolIdInput = {
+  clusterid: Scalars['String']
+  nodepoolname: Scalars['String']
 }
 
 export type QlceViewAggregationInput = {

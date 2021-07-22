@@ -268,7 +268,7 @@ const PerspectiveBuilderPreview: React.FC<PerspectiveBuilderPreviewProps> = ({
               }}
               fetching={fetching}
               showLegends={false}
-              data={chartData.perspectiveTimeSeriesStats}
+              data={chartData.perspectiveTimeSeriesStats as any}
               aggregation={
                 (formValues.viewVisualization?.granularity as QlceViewTimeGroupType) || QlceViewTimeGroupType.Day
               }

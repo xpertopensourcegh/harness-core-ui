@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Text, Button, Icon } from '@wings-software/uicore'
+import { Container, Text, Button, Icon, FlexExpander } from '@wings-software/uicore'
 import { Menu, MenuItem, Popover, Position } from '@blueprintjs/core'
 import { QlceViewTimeGroupType, QlceViewFilterInput } from 'services/ce/services'
 import PerspectiveTimeRangePicker from '@ce/components/PerspectiveTimeRangePicker/PerspectiveTimeRangePicker'
@@ -91,6 +91,7 @@ const PersepectiveExplorerFilters: React.FC<PersepectiveExplorerFiltersProps> = 
       <Container className={css.mainContainer}>
         <Icon name="ng-filter" size={20} />
         <ExplorerFilters filters={filters} setFilters={setFilters} />
+        <FlexExpander />
         <PerspectiveTimeRangePicker setTimeRange={setTimeRange} />
         <Text color="primary7">|</Text>
         <TimeGranularityDropDown aggregation={aggregation} setAggregation={setAggregation} />

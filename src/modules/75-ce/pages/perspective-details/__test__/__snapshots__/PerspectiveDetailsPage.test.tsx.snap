@@ -9,8 +9,8 @@ exports[`test cases for Perspective details Page should be able to render the de
       class="Layout--vertical StyledProps--main"
     >
       <div
-        class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex"
-        style="align-items: center; width: 100%;"
+        class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main perspectiveHeader StyledProps--flex"
+        style="align-items: center;"
       >
         <div
           class="StyledProps--font StyledProps--main"
@@ -154,6 +154,9 @@ exports[`test cases for Perspective details Page should be able to render the de
             </button>
           </section>
         </div>
+        <span
+          style="flex-grow: 1;"
+        />
         <span
           class="bp3-popover-wrapper"
         >

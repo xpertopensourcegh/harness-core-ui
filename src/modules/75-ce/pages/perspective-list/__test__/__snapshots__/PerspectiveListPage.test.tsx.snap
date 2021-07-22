@@ -239,11 +239,15 @@ exports[`test cases for Perspective details Page should be able to render and sw
               role="cell"
               style="width: 30%;"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+              <div
+                class="StyledProps--font StyledProps--main nameContainer"
               >
-                name4
-              </p>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+                >
+                  name4
+                </p>
+              </div>
             </div>
             <div
               class="cell"
@@ -411,11 +415,15 @@ exports[`test cases for Perspective details Page should be able to render and sw
               role="cell"
               style="width: 30%;"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+              <div
+                class="StyledProps--font StyledProps--main nameContainer"
               >
-                name3
-              </p>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+                >
+                  name3
+                </p>
+              </div>
             </div>
             <div
               class="cell"
@@ -508,11 +516,15 @@ exports[`test cases for Perspective details Page should be able to render and sw
               role="cell"
               style="width: 30%;"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+              <div
+                class="StyledProps--font StyledProps--main nameContainer"
               >
-                name2
-              </p>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+                >
+                  name2
+                </p>
+              </div>
             </div>
             <div
               class="cell"
@@ -657,11 +669,15 @@ exports[`test cases for Perspective details Page should be able to render and sw
               role="cell"
               style="width: 30%;"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+              <div
+                class="StyledProps--font StyledProps--main nameContainer"
               >
-                name1
-              </p>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+                >
+                  name1
+                </p>
+              </div>
             </div>
             <div
               class="cell"
