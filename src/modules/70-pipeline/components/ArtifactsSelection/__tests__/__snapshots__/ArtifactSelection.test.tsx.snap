@@ -204,7 +204,7 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
               </p>
             </div>
             <div
-              class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main actionGrid StyledProps--flex StyledProps--flex-justifyContent-flex-end StyledProps--flex-alignItems-center"
+              class="Layout--horizontal StyledProps--main"
             >
               <button
                 class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
@@ -370,7 +370,7 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
             </div>
             <span>
               <div
-                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main actionGrid"
+                class="Layout--horizontal StyledProps--main"
               >
                 <button
                   class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
@@ -602,7 +602,7 @@ exports[`ArtifactsSelection tests delete artifact list works correctly 1`] = `
               </p>
             </div>
             <div
-              class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main actionGrid StyledProps--flex StyledProps--flex-justifyContent-flex-end StyledProps--flex-alignItems-center"
+              class="Layout--horizontal StyledProps--main"
             >
               <button
                 class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
@@ -861,7 +861,7 @@ exports[`ArtifactsSelection tests edit artifact list works correctly 1`] = `
               </p>
             </div>
             <div
-              class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main actionGrid StyledProps--flex StyledProps--flex-justifyContent-flex-end StyledProps--flex-alignItems-center"
+              class="Layout--horizontal StyledProps--main"
             >
               <button
                 class="bp3-button bp3-disabled bp3-loading bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
@@ -1383,7 +1383,7 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
               </p>
             </div>
             <div
-              class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main actionGrid StyledProps--flex StyledProps--flex-justifyContent-flex-end StyledProps--flex-alignItems-center"
+              class="Layout--horizontal StyledProps--main"
             >
               <button
                 class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"

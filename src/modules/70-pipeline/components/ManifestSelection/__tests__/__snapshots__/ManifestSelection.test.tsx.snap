@@ -122,18 +122,12 @@ exports[`ManifestSelection tests delete manifest list works correctly 1`] = `
               class="StyledProps--font Text--lineclamp StyledProps--main"
               style="--text-line-clamp: 1; width: 200px;"
             >
-              <span
-                class="noWrap"
-              >
-                path
-              </span>
+              path
             </p>
           </span>
-          <span
-            class="lastColumn"
-          >
+          <span>
             <div
-              class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main actionGrid"
+              class="Layout--horizontal StyledProps--main"
             >
               <button
                 class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
@@ -408,18 +402,12 @@ exports[`ManifestSelection tests edit manifest list works correctly 1`] = `
               class="StyledProps--font Text--lineclamp StyledProps--main"
               style="--text-line-clamp: 1; width: 200px;"
             >
-              <span
-                class="noWrap"
-              >
-                test
-              </span>
+              test
             </p>
           </span>
-          <span
-            class="lastColumn"
-          >
+          <span>
             <div
-              class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main actionGrid"
+              class="Layout--horizontal StyledProps--main"
             >
               <button
                 class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"

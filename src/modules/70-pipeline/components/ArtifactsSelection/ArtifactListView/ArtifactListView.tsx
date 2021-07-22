@@ -69,11 +69,7 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
                   </Text>
                 </div>
                 {overrideSetIdentifier?.length === 0 && !isReadonly && (
-                  <Layout.Horizontal
-                    spacing="medium"
-                    flex={{ justifyContent: 'flex-end', alignItems: 'center' }}
-                    className={css.actionGrid}
-                  >
+                  <Layout.Horizontal>
                     <Button
                       icon="edit"
                       minimal
@@ -130,7 +126,7 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
                     </div>
                     {overrideSetIdentifier?.length === 0 && !isReadonly && (
                       <span>
-                        <Layout.Horizontal spacing="medium" className={css.actionGrid}>
+                        <Layout.Horizontal>
                           <Button
                             icon="edit"
                             minimal

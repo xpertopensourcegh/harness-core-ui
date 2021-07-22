@@ -633,34 +633,32 @@ const ManifestListView = ({
 
                   {!!manifest?.spec?.store.spec.paths?.length && (
                     <span>
-                      <Text width={200} lineClamp={1} style={{ color: Color.GREY_500 }}>
-                        <span className={css.noWrap}>
-                          {typeof manifest?.spec?.store.spec.paths === 'string'
-                            ? manifest?.spec?.store.spec.paths
-                            : manifest?.spec?.store.spec.paths.join(', ')}
-                        </span>
+                      <Text lineClamp={1} width={200}>
+                        {typeof manifest?.spec?.store.spec.paths === 'string'
+                          ? manifest?.spec?.store.spec.paths
+                          : manifest?.spec?.store.spec.paths.join(', ')}
                       </Text>
                     </span>
                   )}
                   {!!manifest?.spec?.store.spec.folderPath && (
                     <span>
-                      <Text width={200} lineClamp={1} style={{ color: Color.GREY_500 }}>
-                        <span className={css.noWrap}>{manifest.spec.store?.spec?.folderPath}</span>
+                      <Text lineClamp={1} width={200}>
+                        {manifest.spec.store?.spec?.folderPath}
                       </Text>
                     </span>
                   )}
 
                   {!!(manifest?.spec?.chartName && !manifest?.spec?.store.spec.folderPath) && (
                     <span>
-                      <Text width={220} lineClamp={1} style={{ color: Color.GREY_500 }}>
+                      <Text lineClamp={1} width={200}>
                         {manifest.spec.chartName}
                       </Text>
                     </span>
                   )}
 
                   {!overrideSetIdentifier?.length && !isReadonly && (
-                    <span className={css.lastColumn}>
-                      <Layout.Horizontal spacing="medium" className={css.actionGrid}>
+                    <span>
+                      <Layout.Horizontal>
                         <Button
                           icon="edit"
                           onClick={() =>
