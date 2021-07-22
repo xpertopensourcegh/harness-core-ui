@@ -162,10 +162,10 @@ const routes = {
     ({
       orgIdentifier,
       projectIdentifier,
-      delegateId,
+      delegateIdentifier,
       module
     }: Partial<ProjectPathProps & ModulePathParams & DelegatePathProps>) => {
-      const path = `delegates/${delegateId}`
+      const path = `delegates/${delegateIdentifier}`
       return getScopeBasedRoute({
         scope: {
           orgIdentifier,

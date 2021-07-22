@@ -685,6 +685,7 @@ export interface StringsMap {
   'delegates.delSetup': string
   'delegates.delegateDeleted': string
   'delegates.delegateForceDeleted': string
+  'delegates.delegateIdentifier': string
   'delegates.delegateInstances': string
   'delegates.delegateNameRegexIssue': string
   'delegates.delegateNamespaceRequired': string
