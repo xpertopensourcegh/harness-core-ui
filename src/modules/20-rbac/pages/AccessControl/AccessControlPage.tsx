@@ -1,7 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { TabNavigation } from '@wings-software/uicore'
-
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { Page } from '@common/exports'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
@@ -14,6 +14,7 @@ const AccessControlPage: React.FC = ({ children }) => {
   return (
     <>
       <Page.Header
+        breadcrumbs={<NGBreadcrumbs />}
         title={getString('accessControl')}
         toolbar={
           <TabNavigation

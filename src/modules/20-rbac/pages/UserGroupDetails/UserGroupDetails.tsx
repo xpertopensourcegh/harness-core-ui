@@ -8,7 +8,7 @@ import { useGetUserGroupAggregate, UserGroupAggregateDTO } from 'services/cd-ng'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
-import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { PageSpinner } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'
 import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList'
@@ -61,35 +61,31 @@ const UserGroupDetails: React.FC = () => {
       <Page.Header
         size="xlarge"
         className={css.header}
+        breadcrumbs={
+          <NGBreadcrumbs
+            links={[
+              {
+                url: routes.toAccessControl({ accountId, orgIdentifier, projectIdentifier, module }),
+                label: getString('accessControl')
+              },
+              {
+                url: routes.toUserGroups({ accountId, orgIdentifier, projectIdentifier, module }),
+                label: getString('common.userGroups')
+              }
+            ]}
+          />
+        }
         title={
-          <Layout.Vertical>
-            <Breadcrumbs
-              links={[
-                {
-                  url: routes.toAccessControl({ accountId, orgIdentifier, projectIdentifier, module }),
-                  label: getString('accessControl')
-                },
-                {
-                  url: routes.toUserGroups({ accountId, orgIdentifier, projectIdentifier, module }),
-                  label: getString('common.userGroups')
-                },
-                {
-                  url: '#',
-                  label: userGroup.name
-                }
-              ]}
-            />
-            <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }} spacing="medium">
-              <Layout.Vertical padding={{ left: 'medium' }} spacing="xsmall">
-                <Text color={Color.BLACK} font="medium">
-                  {userGroup.name}
-                </Text>
-                <Text>{userGroup.description}</Text>
-                <Layout.Horizontal padding={{ top: 'small' }}>
-                  <TagsRenderer tags={userGroup.tags || /* istanbul ignore next */ {}} length={6} />
-                </Layout.Horizontal>
-              </Layout.Vertical>
-            </Layout.Horizontal>
+          <Layout.Vertical spacing="xsmall">
+            <Text color={Color.BLACK} font="medium">
+              {userGroup.name}
+            </Text>
+            {userGroup.description && <Text>{userGroup.description}</Text>}
+            {userGroup.tags && (
+              <Layout.Horizontal padding={{ top: 'small' }}>
+                <TagsRenderer tags={userGroup.tags || /* istanbul ignore next */ {}} length={6} />
+              </Layout.Horizontal>
+            )}
           </Layout.Vertical>
         }
         toolbar={

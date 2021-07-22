@@ -10,7 +10,7 @@ import { ModuleName } from 'framework/types/ModuleName'
 import paths from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
 
-export const NGBreadcrumbs: React.FC<BreadcrumbsProps> = ({ links = [], className = '' }) => {
+export const NGBreadcrumbs: React.FC<Partial<BreadcrumbsProps>> = ({ links = [], className = '' }) => {
   const { getString } = useStrings()
   const params = useParams<ProjectPathProps & SecretsPathProps & ModulePathParams>()
   const { module, projectIdentifier } = params

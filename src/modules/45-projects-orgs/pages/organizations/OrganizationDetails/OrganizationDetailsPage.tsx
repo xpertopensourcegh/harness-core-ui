@@ -13,6 +13,7 @@ import type { OrgPathProps } from '@common/interfaces/RouteInterfaces'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacAvatarGroup from '@rbac/components/RbacAvatarGroup/RbacAvatarGroup'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import css from './OrganizationDetailsPage.module.scss'
 
 const OrganizationDetailsPage: React.FC = () => {
@@ -48,24 +49,31 @@ const OrganizationDetailsPage: React.FC = () => {
     <>
       <Page.Header
         size="xlarge"
+        breadcrumbs={
+          <NGBreadcrumbs
+            links={[
+              {
+                url: routes.toOrganizations({ accountId }),
+                label: getString('orgsText')
+              }
+            ]}
+          />
+        }
         title={
-          <Layout.Vertical spacing="small" padding="medium" className={css.title}>
-            <Layout.Horizontal>
-              <Link to={routes.toOrganizations({ accountId })}>
-                <Text font="small" color={Color.BLUE_600}>
-                  {getString('projectsOrgs.manage')}
-                </Text>
-              </Link>
-            </Layout.Horizontal>
+          <Layout.Vertical spacing="small" className={css.title}>
             <Text font={{ size: 'medium', weight: 'bold' }} color={Color.BLACK}>
               {organization.name}
             </Text>
-            <Text font="small" lineClamp={2}>
-              {organization.description}
-            </Text>
-            <Layout.Horizontal padding={{ top: 'small' }}>
-              <TagsRenderer tags={organization.tags || {}} length={6} />
-            </Layout.Horizontal>
+            {organization.description && (
+              <Text font="small" lineClamp={2}>
+                {organization.description}
+              </Text>
+            )}
+            {organization.tags && (
+              <Layout.Horizontal padding={{ top: 'small' }}>
+                <TagsRenderer tags={organization.tags || {}} length={6} />
+              </Layout.Horizontal>
+            )}
           </Layout.Vertical>
         }
         content={

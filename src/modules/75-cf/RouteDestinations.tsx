@@ -524,7 +524,7 @@ export default (
       path={routes.toSecrets({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
       exact
     >
-      <SecretsPage module="cf" />
+      <SecretsPage />
     </RouteWithLayout>
 
     <RouteWithLayout

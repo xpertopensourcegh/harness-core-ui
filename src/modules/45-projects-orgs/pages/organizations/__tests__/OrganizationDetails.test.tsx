@@ -62,7 +62,7 @@ describe('Organization Details', () => {
     ).toBeTruthy()
   })
   test('Manage Organizations', async () => {
-    const back = getByText('projectsOrgs.manage')
+    const back = getByText('orgsText')
     fireEvent.click(back)
     await waitFor(() => getByTestId('location'))
     expect(getByTestId('location').innerHTML.endsWith(routes.toOrganizations({ accountId: 'testAcc' }))).toBeTruthy()

@@ -327,7 +327,7 @@ export default (
       sidebarProps={CISideNavProps}
       path={routes.toSecrets({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
     >
-      <SecretsPage module="ci" />
+      <SecretsPage />
     </RouteWithLayout>
     <RouteWithLayout
       exact

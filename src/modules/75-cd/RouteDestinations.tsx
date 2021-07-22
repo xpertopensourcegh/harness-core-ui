@@ -280,7 +280,7 @@ export default (
       sidebarProps={CDSideNavProps}
       path={routes.toSecrets({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
     >
-      <SecretsPage module="cd" />
+      <SecretsPage />
     </RouteWithLayout>
     <RouteWithLayout
       exact

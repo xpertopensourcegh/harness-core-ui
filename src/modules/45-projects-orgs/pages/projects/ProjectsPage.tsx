@@ -28,6 +28,7 @@ import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import type { AccountPathProps, OrgPathProps } from '@common/interfaces/RouteInterfaces'
 import { EmailVerificationBanner } from '@common/components/Banners/EmailVerificationBanner'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import ProjectsListView from './views/ProjectListView/ProjectListView'
 import ProjectsGridView from './views/ProjectGridView/ProjectGridView'
 import css from './ProjectsPage.module.scss'
@@ -140,7 +141,7 @@ const ProjectsListPage: React.FC = () => {
   return (
     <Container className={css.projectsPage} height="inherit">
       <EmailVerificationBanner />
-      <Page.Header title={getString('projectsText')} />
+      <Page.Header breadcrumbs={<NGBreadcrumbs />} title={getString('projectsText')} />
       <Layout.Horizontal spacing="large" className={css.header}>
         <Button intent="primary" text={getString('projectLabel')} icon="plus" onClick={() => openProjectModal()} />
         <CustomSelect
