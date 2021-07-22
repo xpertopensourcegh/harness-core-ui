@@ -104,11 +104,11 @@ export default function RunTimeMonitoredService({
           shouldRenderAtVerifyStep={true}
           value={monitoringSource?.monitoredService?.sources?.healthSources as HealthSource[]}
           onSuccess={onSuccess}
-          serviceRef={{ label: serviceIdentifier, value: serviceIdentifier }}
-          environmentRef={{ label: envIdentifier, value: envIdentifier }}
-          monitoringSourcRef={{
-            monitoredServiceIdentifier: monitoringSource?.monitoredService?.identifier,
-            monitoredServiceName: monitoringSource?.monitoredService?.name
+          serviceRef={serviceIdentifier}
+          environmentRef={envIdentifier}
+          monitoredServiceRef={{
+            identifier: monitoringSource?.monitoredService?.identifier,
+            name: monitoringSource?.monitoredService?.name
           }}
           breadCrumbRoute={{ routeTitle: getString('connectors.cdng.runTimeMonitoredService.backToRunPipeline') }}
           isRunTimeInput={true}

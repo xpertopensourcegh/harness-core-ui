@@ -119,6 +119,7 @@ export function ConnectorSelection(props: ConnectorSelectionProps): JSX.Element 
           name={`${SelectOrCreateConnectorFieldNames.CONNECTOR_REF}.label`}
           label=""
           disabled
+          placeholder={getString('connectors.selectConnector')}
           className={css.disabledConnector}
         />
       )

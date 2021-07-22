@@ -22,5 +22,13 @@ export const HistoricalTrendChartOption = {
   tooltip: {
     enabled: false
   },
-  chart: { backgroundColor: '', width: 125, height: 52 }
+  chart: { width: 125, height: 52 },
+  plotOptions: {
+    series: {
+      marker: {
+        enabled: false
+      },
+      enableMouseTracking: false
+    }
+  }
 }

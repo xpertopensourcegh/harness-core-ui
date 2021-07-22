@@ -31,7 +31,7 @@ export default function CustomiseHealthSource({
     queryParams: { accountId: params.accountId }
   })
   const { mutate: updateMonitoredService } = useUpdateMonitoredService({
-    identifier: sourceData?.monitoredServiceIdentifier,
+    identifier: sourceData?.monitoredServiceRef?.identifier,
     queryParams: { accountId: params.accountId }
   })
 
@@ -45,17 +45,18 @@ export default function CustomiseHealthSource({
 
   const submitData = async (formdata: any, healthSourcePayload: UpdatedHealthSource): Promise<void> => {
     const healthSourceList = createHealthsourceList(formdata, healthSourcePayload)
+    const { identifier, name, description, tags } = formdata?.monitoredServiceRef
     try {
       const payload: MonitoredServiceDTO = {
         orgIdentifier: params.orgIdentifier,
         projectIdentifier: params.projectIdentifier,
-        environmentRef: sourceData.environmentIdentifier,
-        identifier: formdata?.monitoredServiceIdentifier,
-        name: formdata?.monitoringSourceName,
-        description: '',
+        serviceRef: sourceData.serviceRef,
+        environmentRef: sourceData.environmentRef,
+        identifier,
+        name,
+        description,
+        tags,
         type: 'Application',
-        tags: {},
-        serviceRef: sourceData.serviceIdentifier,
         sources: {
           healthSources: healthSourceList
         }

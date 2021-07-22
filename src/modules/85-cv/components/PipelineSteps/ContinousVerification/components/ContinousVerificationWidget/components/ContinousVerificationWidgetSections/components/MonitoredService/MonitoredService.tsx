@@ -24,8 +24,8 @@ export default function MonitoredService({
 }: MonitoredServiceProps): JSX.Element {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps & AccountPathProps>()
   const [monitoredService, setMonitoredService] = useState({
-    monitoredServiceIdentifier: '',
-    monitoredServiceName: ''
+    identifier: '',
+    name: ''
   })
   const [healthSourcesList, setHealthSourcesList] = useState<RowData[]>([])
   const { getString } = useStrings()
@@ -80,8 +80,8 @@ export default function MonitoredService({
       setFieldValue('spec', newSpecs)
       setHealthSourcesList(monitoredServiceData?.sources?.healthSources as RowData[])
       setMonitoredService({
-        monitoredServiceIdentifier: monitoredServiceData?.identifier as string,
-        monitoredServiceName: monitoredServiceData?.name as string
+        identifier: monitoredServiceData?.identifier as string,
+        name: monitoredServiceData?.name as string
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -96,8 +96,8 @@ export default function MonitoredService({
     setFieldValue('spec', newSpecs)
 
     setMonitoredService({
-      monitoredServiceIdentifier: createdMonitoredService?.resource?.monitoredService?.identifier as string,
-      monitoredServiceName: createdMonitoredService?.resource?.monitoredService?.name as string
+      identifier: createdMonitoredService?.resource?.monitoredService?.identifier as string,
+      name: createdMonitoredService?.resource?.monitoredService?.name as string
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formValues.spec])
@@ -153,9 +153,9 @@ export default function MonitoredService({
             shouldRenderAtVerifyStep={true}
             value={healthSourcesList}
             onSuccess={onSuccess}
-            serviceRef={{ label: serviceIdentifier, value: serviceIdentifier }}
-            environmentRef={{ label: environmentIdentifier, value: environmentIdentifier }}
-            monitoringSourcRef={monitoredService}
+            serviceRef={serviceIdentifier}
+            environmentRef={environmentIdentifier}
+            monitoredServiceRef={monitoredService}
             breadCrumbRoute={{ routeTitle: getString('connectors.cdng.monitoredService.backToVerifyStep') }}
           />
         ) : null}

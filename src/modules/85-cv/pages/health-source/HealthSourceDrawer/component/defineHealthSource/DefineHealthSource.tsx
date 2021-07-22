@@ -1,5 +1,16 @@
 import React, { useCallback, useContext, useMemo } from 'react'
-import { Container, Card, Formik, FormikForm, FormInput, Text, IconName, Layout, Icon } from '@wings-software/uicore'
+import {
+  Color,
+  Container,
+  Card,
+  Formik,
+  FormikForm,
+  FormInput,
+  Text,
+  IconName,
+  Layout,
+  Icon
+} from '@wings-software/uicore'
 import cx from 'classnames'
 import {
   ConnectorSelection,
@@ -51,7 +62,7 @@ function DefineHealthSource(): JSX.Element {
             <FormikForm className={css.formFullheight}>
               <CardWithOuterTitle title={getString('cv.healthSource.defineHealthSource')}>
                 <>
-                  <Text color={'black'} font={'small'} margin={{ bottom: 'large' }}>
+                  <Text color={Color.BLACK} font={'small'} margin={{ bottom: 'large' }}>
                     {getString('cv.healthSource.selectHealthSource')}
                   </Text>
                   <FormInput.CustomRender
@@ -93,7 +104,7 @@ function DefineHealthSource(): JSX.Element {
                       )
                     }}
                   />
-                  <Container margin={{ bottom: 'large' }} width={'400px'} color={'black'}>
+                  <Container margin={{ bottom: 'large' }} width={'400px'} color={Color.BLACK}>
                     <FormInput.InputWithIdentifier
                       isIdentifierEditable={!isEdit}
                       inputName="healthSourceName"
@@ -104,10 +115,10 @@ function DefineHealthSource(): JSX.Element {
                       idName="healthSourceIdentifier"
                     />
                   </Container>
-                  <Text font={'small'} color={'black'}>
+                  <Text font={'small'} color={Color.BLACK}>
                     {getString('cv.healthSource.seriveEnvironmentNote', {
-                      service: formik?.values?.serviceName,
-                      environment: formik?.values?.environmentName
+                      service: formik?.values?.serviceRef,
+                      environment: formik?.values?.environmentRef
                     })}
                   </Text>
                 </>
@@ -115,14 +126,16 @@ function DefineHealthSource(): JSX.Element {
               <CardWithOuterTitle title={getString('cv.healthSource.connectHealthSource')}>
                 <>
                   <Container margin={{ bottom: 'large' }} width={'400px'}>
-                    <Text color={'black'} font={'small'} margin={{ bottom: 'small' }}>
+                    <Text color={Color.BLACK} font={'small'} margin={{ bottom: 'small' }}>
                       {getString('connectors.selectConnector')}
                     </Text>
                     <div className={css.connectorField}>
                       <ConnectorSelection
                         width={400}
                         connectorType={formik?.values?.sourceType}
-                        disableConnector={!!formik?.values?.connectorRef?.value && isEdit}
+                        disableConnector={
+                          isEdit ? !!formik?.values?.connectorRef?.value && isEdit : !formik?.values?.sourceType
+                        }
                         createConnectorText={getString('cv.healthSource.connectors.createConnector', {
                           sourceType: formik?.values?.sourceType
                         })}
@@ -137,7 +150,7 @@ function DefineHealthSource(): JSX.Element {
                     </div>
                   </Container>
                   <Container margin={{ bottom: 'large' }} width={'400px'}>
-                    <Text color={'black'} font={'small'} margin={{ bottom: 'small' }}>
+                    <Text color={Color.BLACK} font={'small'} margin={{ bottom: 'small' }}>
                       {getString('cv.healthSource.featureLabel')}
                     </Text>
                     <FormInput.Select

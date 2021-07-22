@@ -1,5 +1,5 @@
-import type { SelectOption } from '@wings-software/uicore'
 import { Connectors } from '@connectors/constants'
+import type { MonitoredServiceRef } from '@cv/pages/monitored-service/component/MonitoredService.types'
 import type { AppDynamicsHealthSourceSpec } from 'services/cv'
 import type { RowData, SourceDataInterface } from './HealthSourceDrawerContent.types'
 
@@ -21,23 +21,27 @@ export const getAppDFields = (rowData: RowData) => {
   }
 }
 
-export const createHealthSourceDrawerFormData = (
-  isEdit: boolean,
-  monitoringSourcRef: { monitoredServiceIdentifier: string; monitoredServiceName: string },
-  serviceRef: SelectOption | undefined,
-  environmentRef: SelectOption | undefined,
-  tableData: Array<RowData>,
+export const createHealthSourceDrawerFormData = ({
+  isEdit,
+  monitoredServiceRef,
+  serviceRef,
+  environmentRef,
+  tableData,
+  rowData
+}: {
+  isEdit: boolean
+  monitoredServiceRef: MonitoredServiceRef
+  serviceRef: string
+  environmentRef: string
+  tableData: Array<RowData>
   rowData?: RowData | null
-): SourceDataInterface => {
+}): SourceDataInterface => {
   let sourceData: SourceDataInterface = {
     isEdit,
     healthSourceList: tableData,
-    environmentName: environmentRef?.label as string,
-    environmentIdentifier: environmentRef?.value as string,
-    serviceName: serviceRef?.label as string,
-    serviceIdentifier: serviceRef?.value as string,
-    monitoringSourceName: monitoringSourcRef?.monitoredServiceName,
-    monitoredServiceIdentifier: monitoringSourcRef?.monitoredServiceIdentifier
+    serviceRef,
+    environmentRef,
+    monitoredServiceRef
   }
 
   if (isEdit) {

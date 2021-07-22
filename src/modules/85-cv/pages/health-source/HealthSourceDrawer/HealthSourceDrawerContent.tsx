@@ -13,7 +13,7 @@ import css from './HealthSourceDrawerContent.module.scss'
 function HealthSourceDrawerContent({
   serviceRef,
   environmentRef,
-  monitoringSourcRef,
+  monitoredServiceRef,
   onSuccess,
   modalOpen,
   createHeader,
@@ -26,8 +26,9 @@ function HealthSourceDrawerContent({
   const { getString } = useStrings()
 
   const sourceData = useMemo(
-    () => createHealthSourceDrawerFormData(isEdit, monitoringSourcRef, serviceRef, environmentRef, tableData, rowData),
-    [rowData, tableData, monitoringSourcRef, serviceRef, environmentRef, isEdit]
+    () =>
+      createHealthSourceDrawerFormData({ isEdit, monitoredServiceRef, serviceRef, environmentRef, tableData, rowData }),
+    [rowData, tableData, monitoredServiceRef, serviceRef, environmentRef, isEdit]
   )
 
   const determineMaxTabBySourceType = useCallback(() => {

@@ -62,6 +62,9 @@ export const getInitialValues = (sourceData: any): any => {
     (el: any) => el?.identifier === sourceData?.healthSourceIdentifier
   )
   const selectedFeature = currentHealthSource?.spec?.feature
-  const initialValues = { ...sourceData, product: { label: selectedFeature, value: selectedFeature } }
+  const initialValues = {
+    ...sourceData,
+    product: selectedFeature ? { label: selectedFeature, value: selectedFeature } : { ...sourceData?.product }
+  }
   return initialValues
 }

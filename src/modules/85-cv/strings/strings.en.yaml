@@ -537,10 +537,14 @@ monitoredServices:
   monitoredServiceCreated: Monitoring Service created
   monitoredServiceUpdated: Monitoring Service updated
   serviceCount: Showing {{serviceCount}} Services
+  riskLabel:
+    lowRisk: Low risk
+    mediumRisk: Medium risk
+    highRisk: High risk
   table:
     serviceName: Service Name
-    lastestHealthTrend: Last 24HR Health Trends
-    serviceHealthScore: service HealthScore
+    lastestHealthTrend: Last 24 HR Health Trends
+    serviceHealthScore: service Health Score
     healthMonitoring: Health Monitoring
 healthSource:
   nameLabel: Health Source Name
@@ -563,6 +567,9 @@ healthSource:
   noDataPresentHealthSource: No data is present for the selected Health Source
   seriveEnvironmentNote: Service selected is {{service}} and Environment selected is {{environment}}
   table:
+    type:
+      metrics: 'metrics'
+      logs: 'logs'
     serviceMapping: Service Mapping
     environmentMapping: Environment Mapping
   connectors:

@@ -2,7 +2,7 @@ import React, { useState, useMemo, useCallback } from 'react'
 import cx from 'classnames'
 import { Link, useParams, useHistory } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
-import { Color, Container, Text } from '@wings-software/uicore'
+import { Color, Container, Layout, Text } from '@wings-software/uicore'
 import { useToaster } from '@common/exports'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -16,13 +16,14 @@ import HealthSources from '@cv/components/PipelineSteps/ContinousVerification/co
 import HealthSourceDrawerContent from '../HealthSourceDrawer/HealthSourceDrawerContent'
 import type { RowData } from '../HealthSourceDrawer/HealthSourceDrawerContent.types'
 import type { HealthSourceTableInterface } from './HealthSourceTable.types'
+import { getTypeByFeature } from './HealthSourceTable.utils'
 import css from './HealthSourceTable.module.scss'
 
 export default function HealthSourceTable({
   breadCrumbRoute,
   serviceRef,
   environmentRef,
-  monitoringSourcRef,
+  monitoredServiceRef,
   value: tableData,
   onSuccess,
   onDelete,
@@ -84,13 +85,13 @@ export default function HealthSourceTable({
         const payload: MonitoredServiceDTO = {
           orgIdentifier: params.orgIdentifier,
           projectIdentifier: params.projectIdentifier,
-          serviceRef: selectedRow.service as string,
-          environmentRef: selectedRow.environment as string,
-          identifier: monitoringSourcRef?.monitoredServiceIdentifier,
-          name: monitoringSourcRef?.monitoredServiceName,
-          description: 'monitoredService',
-          type: 'Application',
+          serviceRef,
+          environmentRef,
+          identifier: monitoredServiceRef?.identifier,
+          name: monitoredServiceRef?.name,
+          description: monitoredServiceRef?.description,
           tags: {},
+          type: 'Application',
           sources: {
             healthSources: tableData?.filter(healthSource => healthSource.identifier !== selectedRow.identifier)
           }
@@ -115,14 +116,9 @@ export default function HealthSourceTable({
 
   const renderTypeWithIcon: Renderer<CellProps<RowData>> = ({ row }): JSX.Element => {
     const rowdata = row?.original
-    return <Text icon={getIconBySourceType(rowdata?.type as string)}>{rowdata?.type}</Text>
-  }
-
-  const renderEditDelete: Renderer<CellProps<RowData>> = ({ row }): JSX.Element => {
-    const rowdata = row?.original
     return (
-      <Container flex>
-        <Text>{rowdata?.service}</Text>
+      <Layout.Horizontal flex={{ justifyContent: 'space-between' }}>
+        <Text icon={getIconBySourceType(rowdata?.type as string)}>{rowdata?.type}</Text>
         <ContextMenuActions
           titleText={getString('cv.healthSource.deleteHealthSource')}
           contentText={getString('cv.healthSource.deleteHealthSourceWarning') + `: ${rowdata.identifier}`}
@@ -133,8 +129,13 @@ export default function HealthSourceTable({
             editRow(rowFilteredData)
           }}
         />
-      </Container>
+      </Layout.Horizontal>
     )
+  }
+
+  const renderTypeByFeature: Renderer<CellProps<RowData>> = ({ row }): JSX.Element => {
+    const rowdata = row?.original
+    return <Text>{getTypeByFeature(rowdata?.type as string, getString)}</Text>
   }
 
   const editRow = useCallback(rowToEdit => {
@@ -148,9 +149,8 @@ export default function HealthSourceTable({
   }, [])
 
   const disableAddNewHealthSource = useMemo(() => {
-    return !monitoringSourcRef?.monitoredServiceName || !serviceRef?.value || !environmentRef?.value
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [monitoringSourcRef, serviceRef, serviceRef])
+    return !monitoredServiceRef?.name || !serviceRef || !environmentRef
+  }, [monitoredServiceRef, serviceRef, environmentRef])
 
   return (
     <>
@@ -180,28 +180,18 @@ export default function HealthSourceTable({
                 {
                   Header: getString('name'),
                   accessor: 'name',
-                  width: '15%'
+                  width: '30%'
                 },
                 {
                   Header: getString('typeLabel'),
-                  width: '15%'
+                  width: '30%',
+                  Cell: renderTypeByFeature
                 },
                 {
                   Header: getString('source'),
                   accessor: 'type',
-                  width: '15%',
+                  width: '40%',
                   Cell: renderTypeWithIcon
-                },
-                {
-                  Header: getString('cv.healthSource.table.environmentMapping'),
-                  accessor: 'environment',
-                  width: '20%'
-                },
-                {
-                  Header: getString('cv.healthSource.table.serviceMapping'),
-                  accessor: 'service',
-                  Cell: renderEditDelete,
-                  width: '35%'
                 }
               ]}
               data={tableData}
@@ -226,9 +216,9 @@ export default function HealthSourceTable({
         onSuccess={onSuccessHealthSourceTableWrapper}
         rowData={rowData}
         tableData={tableData}
-        monitoringSourcRef={monitoringSourcRef}
         serviceRef={serviceRef}
         environmentRef={environmentRef}
+        monitoredServiceRef={monitoredServiceRef}
         shouldRenderAtVerifyStep={shouldRenderAtVerifyStep}
       />
     </>

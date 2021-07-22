@@ -1,6 +1,6 @@
 import type { RiskData } from 'services/cv'
-import { HistoricalTrendChartOption } from '../CVMonitoringServicesPage.constants'
-import { createTrendDataWithZone, getHistoricalTrendChartOption } from '../CVMonitoringServicesPage.utils'
+import { HistoricalTrendChartOption } from '../CVMonitoredServiceListingPage.constants'
+import { createTrendDataWithZone, getHistoricalTrendChartOption } from '../CVMonitoredServiceListingPage.utils'
 
 const trendChartMockData: RiskData[] = [
   { riskValue: 2, riskStatus: 'LOW' },
@@ -24,7 +24,7 @@ describe('Test util functions', () => {
       },
       {
         color: 'var(--red-500)',
-        value: 16
+        value: undefined
       }
     ])
 

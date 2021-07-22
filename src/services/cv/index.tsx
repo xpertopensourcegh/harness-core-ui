@@ -152,10 +152,10 @@ export type AppDynamicsConnectorDTO = ConnectorConfigDTO & {
 }
 
 export type AppDynamicsHealthSourceSpec = HealthSourceSpec & {
-  applicationName: string
+  applicationName?: string
   feature: string
   metricPacks: MetricPackDTO[]
-  tierName: string
+  tierName?: string
 }
 
 export interface AppDynamicsTier {
@@ -1545,8 +1545,8 @@ export interface HealthMonitoringFlagResponse {
 }
 
 export interface HealthSource {
-  identifier: string
-  name: string
+  identifier?: string
+  name?: string
   spec: HealthSourceSpec
   type?: 'AppDynamics' | 'NewRelic' | 'StackdriverLog'
 }
@@ -2000,7 +2000,7 @@ export interface MonitoredServiceDTO {
 }
 
 export interface MonitoredServiceListItemDTO {
-  currentHealthScore?: number
+  currentHealthScore?: RiskData
   environmentRef?: string
   healthMonitoringEnabled?: boolean
   historicalTrend?: HistoricalTrend
@@ -2041,8 +2041,8 @@ export type NewRelicConnectorDTO = ConnectorConfigDTO & {
 }
 
 export type NewRelicHealthSourceSpec = HealthSourceSpec & {
-  applicationId: string
-  applicationName: string
+  applicationId?: string
+  applicationName?: string
   feature: string
   metricPacks: MetricPackDTO[]
 }
@@ -2261,7 +2261,6 @@ export type PrometheusConnectorDTO = ConnectorConfigDTO & {
 export interface PrometheusFilter {
   labelName?: string
   labelValue?: string
-  queryFilterString?: string
 }
 
 export type PrometheusHealthSourceSpec = HealthSourceSpec & {

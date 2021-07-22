@@ -1,11 +1,11 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import { Container } from '@wings-software/uicore'
+import { Container, Button } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import * as cvServices from 'services/cv'
-import AddAndUpdateMonitoredServicePage from '../AddAndUpdateMonitoredServicePage'
+import MonitoredServicePage from '../MonitoredServicePage'
 
 const testWrapperProps: TestWrapperProps = {
   path: routes.toCVAddMonitoringServicesSetup({ ...accountPathProps, ...projectPathProps }),
@@ -23,25 +23,23 @@ jest.mock('@cv/components/HarnessServiceAndEnvironment/HarnessServiceAndEnvironm
       { label: 'AppDService101', value: 'AppDService101' }
     ]
   }),
-  HarnessService: function Mock1(props: any) {
+  HarnessServiceAsFormField: function MockComponent(props: any) {
     return (
-      <Container
-        className="serviceThing"
-        onClick={() => {
-          props.onSelect({ label: 'AppDService101', value: 'AppDService101' })
-        }}
-      >
-        {props.item ? JSON.stringify(props.item) : null}
+      <Container>
+        <Button
+          className="addService"
+          onClick={() => props.serviceProps.onNewCreated({ name: 'newService', identifier: 'newService' })}
+        />
       </Container>
     )
   },
-  HarnessEnvironment: function Mock2(props: any) {
+  HarnessEnvironmentAsFormField: function MockComponent(props: any) {
     return (
-      <Container
-        className="environment"
-        onClick={() => props.onSelect({ label: 'AppDTestEnv1', value: 'AppDTestEnv1' })}
-      >
-        {props.item ? JSON.stringify(props.item) : null}
+      <Container>
+        <Button
+          className="addEnv"
+          onClick={() => props.environmentProps.onNewCreated({ name: 'newEnv', identifier: 'newEnv' })}
+        />
       </Container>
     )
   },
@@ -119,7 +117,7 @@ describe('Unit tests for createting monitored source', () => {
   test('Health source tabel and environment services compoenet renders', async () => {
     const { container, getByText } = render(
       <TestWrapper {...testWrapperProps}>
-        <AddAndUpdateMonitoredServicePage />
+        <MonitoredServicePage />
       </TestWrapper>
     )
     expect(getByText('cv.monitoredServices.title')).toBeDefined()

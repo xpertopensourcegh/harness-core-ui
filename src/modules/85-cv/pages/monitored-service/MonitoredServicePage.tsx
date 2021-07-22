@@ -6,10 +6,10 @@ import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { BGColorWrapper, HorizontalLayout } from '@cv/pages/health-source/common/StyledComponents'
-import AddAndUpdateMonitoredService from './component/AddAndUpdateMonitoredService'
-import { MonitoringServicesHeader } from './commonStyledComponents'
+import MonitoredService from './component/MonitoredService'
+import { MonitoringServicesHeader } from './monitoredService.styled'
 
-function AddAndUpdateMonitoredServicePage(): JSX.Element {
+function MonitoredServicePage(): JSX.Element {
   const { getString } = useStrings()
   const { selectedProject } = useAppStore()
   const project = selectedProject
@@ -52,9 +52,9 @@ function AddAndUpdateMonitoredServicePage(): JSX.Element {
           </div>
         </HorizontalLayout>
       </MonitoringServicesHeader>
-      <AddAndUpdateMonitoredService />
+      <MonitoredService />
     </BGColorWrapper>
   )
 }
 
-export default AddAndUpdateMonitoredServicePage
+export default MonitoredServicePage

@@ -20,13 +20,13 @@ import {
   MonitoredServiceListItemDTO
 } from 'services/cv'
 import ContextMenuActions from '@cv/components/ContextMenuActions/ContextMenuActions'
-import { MonitoringServicesHeader } from './commonStyledComponents'
+import { MonitoringServicesHeader } from './monitoredService.styled'
 import {
   RenderHealthTrend,
   RenderHealthScore,
   RenderTags,
   getFilterAndEnvironmentValue
-} from './CVMonitoringServicesPage.utils'
+} from './CVMonitoredServiceListingPage.utils'
 import ToggleMonitoring from './component/toggleMonitoring/ToggleMonitoring'
 
 const ServiceCount = styled(Text)`
@@ -39,10 +39,13 @@ const PageBody = styled(Page.Body)`
 
   div[role='row'] {
     margin-top: var(--spacing-large);
+    div[role='cell']:not(:first-of-type) {
+      padding-left: var(--spacing-large);
+    }
   }
 `
 
-function CVMonitoringServicesPage(): JSX.Element {
+function CVMonitoredServiceListingPage(): JSX.Element {
   const { getString } = useStrings()
   const history = useHistory()
   const { selectedProject } = useAppStore()
@@ -274,4 +277,4 @@ function CVMonitoringServicesPage(): JSX.Element {
   )
 }
 
-export default CVMonitoringServicesPage
+export default CVMonitoredServiceListingPage

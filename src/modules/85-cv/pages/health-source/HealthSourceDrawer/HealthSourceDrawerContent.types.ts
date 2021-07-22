@@ -1,7 +1,7 @@
-import type { SelectOption } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
+import type { MonitoredServiceRef } from '@cv/pages/monitored-service/component/MonitoredService.types'
 import type {
-  AppDynamicsHealthSourceSpec,
   HealthSource,
+  AppDynamicsHealthSourceSpec,
   MonitoredServiceResponse,
   PrometheusHealthSourceSpec
 } from 'services/cv'
@@ -12,20 +12,15 @@ export interface UpdatedHealthSource extends Omit<HealthSource, 'spec'> {
 }
 
 export interface RowData extends HealthSource {
-  service?: string
-  environment?: string
   serviceRef?: string
   environmentRef?: string
 }
 
 export interface SourceDataInterface {
   isEdit: boolean
-  serviceName: string
-  serviceIdentifier: string
-  environmentIdentifier: string
-  environmentName: string
-  monitoringSourceName: string
-  monitoredServiceIdentifier: string
+  serviceRef: string
+  environmentRef: string
+  monitoredServiceRef: MonitoredServiceRef
   rowData?: RowData | null
   tableData?: Array<RowData>
   modalOpen?: boolean
@@ -41,9 +36,9 @@ export interface SourceDataInterface {
 export interface HealthSourceDrawerInterface {
   rowData?: RowData | null
   tableData: Array<RowData>
-  serviceRef: SelectOption | undefined
-  environmentRef: SelectOption | undefined
-  monitoringSourcRef: { monitoredServiceIdentifier: string; monitoredServiceName: string }
+  serviceRef: string
+  environmentRef: string
+  monitoredServiceRef: MonitoredServiceRef
   onSuccess: (data: MonitoredServiceResponse) => void
   modalOpen: boolean
   createHeader: () => JSX.Element

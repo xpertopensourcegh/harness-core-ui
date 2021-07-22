@@ -4,7 +4,7 @@ import routes from '@common/RouteDefinitions'
 import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import * as cvServices from 'services/cv'
-import CVMonitoringServicesPage from '../CVMonitoringServicesPage'
+import CVMonitoredServiceListingPage from '../CVMonitoredServiceListingPage'
 
 const testWrapperProps: TestWrapperProps = {
   path: routes.toCVMonitoringServices({ ...accountPathProps, ...projectPathProps }),
@@ -51,7 +51,8 @@ describe('Monitored Service list', () => {
                   type: 'Application',
                   historicalTrend: {
                     healthScores: [{ riskStatus: 'NO_DATA', riskValue: -2 }]
-                  }
+                  },
+                  currentHealthScore: { riskValue: 10, riskStatus: 'LOW' }
                 },
                 {
                   name: 'Monitoring service 102 new',
@@ -61,7 +62,8 @@ describe('Monitored Service list', () => {
                   type: 'Application',
                   historicalTrend: {
                     healthScores: [{ riskStatus: 'NO_DATA', riskValue: -2 }]
-                  }
+                  },
+                  currentHealthScore: { riskValue: 50, riskStatus: 'MEDIUM' }
                 },
                 {
                   name: 'new monitored service 101',
@@ -71,7 +73,8 @@ describe('Monitored Service list', () => {
                   type: 'Application',
                   historicalTrend: {
                     healthScores: [{ riskStatus: 'NO_DATA', riskValue: -2 }]
-                  }
+                  },
+                  currentHealthScore: { riskValue: 90, riskStatus: 'HIGH' }
                 }
               ],
               pageIndex: 0,
@@ -87,7 +90,7 @@ describe('Monitored Service list', () => {
   test('Service listing component renders', async () => {
     const { container } = render(
       <TestWrapper {...testWrapperProps}>
-        <CVMonitoringServicesPage />
+        <CVMonitoredServiceListingPage />
       </TestWrapper>
     )
     await waitFor(() => expect(container.querySelectorAll('[role="row"]').length).toEqual(4))
@@ -96,7 +99,7 @@ describe('Monitored Service list', () => {
   test('edit flow works correctly', async () => {
     const { container, findByTestId } = render(
       <TestWrapper {...testWrapperProps}>
-        <CVMonitoringServicesPage />
+        <CVMonitoredServiceListingPage />
       </TestWrapper>
     )
     fireEvent.click(container.querySelector('.context-menu-mock-edit')!)
@@ -108,5 +111,17 @@ describe('Monitored Service list', () => {
         /account/1234_accountId/cv/orgs/1234_org/projects/1234_project/monitoringservices/edit/delete_me_test
       </div>
     `)
+  })
+
+  // TestCase for Checking Title + Chart + HealthScore + Tags render
+  test('Test HealSourceCard values', async () => {
+    const { findByText } = render(
+      <TestWrapper {...testWrapperProps}>
+        <CVMonitoredServiceListingPage />
+      </TestWrapper>
+    )
+    await waitFor(() => expect(findByText('cv.monitoredServices.riskLabel.highRisk')).toBeDefined())
+    await waitFor(() => expect(findByText('cv.monitoredServices.riskLabel.mediumRisk')).toBeDefined())
+    await waitFor(() => expect(findByText('cv.monitoredServices.riskLabel.lowRisk')).toBeDefined())
   })
 })

@@ -18,9 +18,9 @@ const editModeProps: TestWrapperProps = {
 
 const healthSourceTableProps = {
   value: HealthSourceList,
-  monitoringSourcRef: { monitoredServiceIdentifier: 'ms 101', monitoredServiceName: 'ms_101' },
-  serviceRef: { label: 'service1', value: 'service1' },
-  environmentRef: { label: 'environment1', value: 'environment1' },
+  monitoredServiceRef: { identifier: 'ms 101', name: 'ms_101' },
+  serviceRef: 'service1',
+  environmentRef: 'environment1',
   isEdit: false,
   type: 'AppDynamics',
   onSuccess: jest.fn(),
@@ -59,7 +59,7 @@ describe('HealthSource table', () => {
           onDelete={healthSourceTableProps.onDelete}
           serviceRef={healthSourceTableProps.serviceRef}
           environmentRef={healthSourceTableProps.environmentRef}
-          monitoringSourcRef={healthSourceTableProps.monitoringSourcRef}
+          monitoredServiceRef={healthSourceTableProps.monitoredServiceRef}
         />
       </TestWrapper>
     )

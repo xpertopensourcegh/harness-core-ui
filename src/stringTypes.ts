@@ -3111,6 +3111,8 @@ export interface StringsMap {
   'cv.healthSource.serviceLabel': string
   'cv.healthSource.table.environmentMapping': string
   'cv.healthSource.table.serviceMapping': string
+  'cv.healthSource.table.type.logs': string
+  'cv.healthSource.table.type.metrics': string
   'cv.hostNamePlaceholder': string
   'cv.initiated': string
   'cv.jobNamePlaceholder': string
@@ -3134,6 +3136,9 @@ export interface StringsMap {
   'cv.monitoredServices.monitoredServiceUpdated': string
   'cv.monitoredServices.newMonitoredServices': string
   'cv.monitoredServices.noData': string
+  'cv.monitoredServices.riskLabel.highRisk': string
+  'cv.monitoredServices.riskLabel.lowRisk': string
+  'cv.monitoredServices.riskLabel.mediumRisk': string
   'cv.monitoredServices.serviceAndEnvironment': string
   'cv.monitoredServices.serviceCount': string
   'cv.monitoredServices.table.healthMonitoring': string

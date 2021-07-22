@@ -28,8 +28,8 @@ import CVDashboardPage from '@cv/pages/dashboard/CVDashboardPage'
 import DeploymentDrilldownView from '@cv/pages/dashboard/deployment-drilldown/DeploymentDrilldownView'
 import ActivityChangesDrilldownView from '@cv/pages/dashboard/activity-changes-drilldown/ActivityChangesDrilldownView'
 import CVServicesPage from '@cv/pages/services/CVServicesPage'
-import CVMonitoringServicesPage from '@cv/pages/monitored-service/CVMonitoringServicesPage'
-import AddAndUpdateMonitoredServicePage from '@cv/pages/monitored-service/AddAndUpdateMonitoredServicePage'
+import CVMonitoredServiceListingPage from '@cv/pages/monitored-service/CVMonitoredServiceListingPage'
+import MonitoredServicePage from '@cv/pages/monitored-service/MonitoredServicePage'
 import ActivitySourceSetup from '@cv/pages/onboarding/activity-source-setup/ActivitySourceSetup'
 import ActivityDashBoardPage from '@cv/pages/activities/dashboard/ActivityDashBoardPage'
 import CVSetupPage from '@cv/pages/admin/setup/CVSetupPage'
@@ -167,7 +167,7 @@ export default (
       sidebarProps={CVSideNavProps}
       path={routes.toCVMonitoringServices({ ...accountPathProps, ...projectPathProps })}
     >
-      <CVMonitoringServicesPage />
+      <CVMonitoredServiceListingPage />
     </RouteWithLayout>
     <RouteWithLayout
       exact
@@ -177,7 +177,7 @@ export default (
         routes.toCVAddMonitoringServicesEdit({ ...accountPathProps, ...projectPathProps, identifier: ':identifier' })
       ]}
     >
-      <AddAndUpdateMonitoredServicePage />
+      <MonitoredServicePage />
     </RouteWithLayout>
     <RouteWithLayout
       exact
