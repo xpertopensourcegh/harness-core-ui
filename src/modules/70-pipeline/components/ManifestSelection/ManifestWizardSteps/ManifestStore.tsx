@@ -7,7 +7,6 @@ import {
   Formik,
   Color,
   StepProps,
-  Heading,
   getMultiTypeFromValue,
   MultiTypeInputType,
   ThumbnailSelect,
@@ -106,9 +105,9 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
 
   return (
     <Layout.Vertical spacing="xxlarge" padding="small" className={css.manifestStore}>
-      <Heading level={2} style={{ color: Color.GREY_800, fontSize: 24 }} margin={{ bottom: 'large' }}>
+      <Text font="large" color={Color.GREY_1000} margin={{ bottom: 'medium' }}>
         {stepName}
-      </Heading>
+      </Text>
 
       <Formik
         initialValues={getInitialValues()}
@@ -143,6 +142,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
               {selectedManifest !== '' ? (
                 <div className={css.connectorContainer}>
                   <FormMultiTypeConnectorField
+                    key={selectedManifest}
                     name="connectorRef"
                     label={
                       <Text style={{ marginBottom: '5px' }}>

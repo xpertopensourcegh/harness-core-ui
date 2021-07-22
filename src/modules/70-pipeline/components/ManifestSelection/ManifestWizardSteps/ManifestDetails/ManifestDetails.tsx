@@ -214,8 +214,8 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
   }
 
   return (
-    <Layout.Vertical spacing="xxlarge" padding="small" className={css.manifestStore}>
-      <Text font="large" color={Color.GREY_800}>
+    <Layout.Vertical spacing="xxlarge" padding="small" className={css.manifestDetailsWrapper}>
+      <Text font="large" color={Color.GREY_1000}>
         {stepName}
       </Text>
       <Formik

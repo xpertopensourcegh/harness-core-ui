@@ -79,13 +79,11 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
       <div
         class="StyledProps--font StyledProps--main optionsViewContainer"
       >
-        <h2
-          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--margin-bottom-large"
-          level="2"
-          style="color: black; font-size: 24px;"
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-large StyledProps--color StyledProps--color-grey1000 StyledProps--margin-bottom-medium"
         >
           first step
-        </h2>
+        </p>
         <div
           class="OverlaySpinner--overlaySpinner"
         >
@@ -284,13 +282,11 @@ exports[`ManifestSelection tests last step data with proper initial values 1`] =
       <div
         class="StyledProps--font StyledProps--main optionsViewContainer"
       >
-        <h2
-          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--margin-bottom-large"
-          level="2"
-          style="color: black; font-size: 24px;"
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-large StyledProps--color StyledProps--color-grey1000 StyledProps--margin-bottom-medium"
         >
           Specify Manifest Type
-        </h2>
+        </p>
         <div
           class="OverlaySpinner--overlaySpinner"
         >
@@ -553,13 +549,11 @@ exports[`ManifestSelection tests last step data without initial values 1`] = `
       <div
         class="StyledProps--font StyledProps--main optionsViewContainer"
       >
-        <h2
-          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--margin-bottom-large"
-          level="2"
-          style="color: black; font-size: 24px;"
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-large StyledProps--color StyledProps--color-grey1000 StyledProps--margin-bottom-medium"
         >
           Specify Manifest Type
-        </h2>
+        </p>
         <div
           class="OverlaySpinner--overlaySpinner"
         >
@@ -825,13 +819,11 @@ exports[`ManifestSelection tests new connector view works correctly 1`] = `
       <div
         class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main manifestStore StyledProps--padding-small"
       >
-        <h2
-          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--margin-bottom-large"
-          level="2"
-          style="font-size: 24px;"
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-large StyledProps--color StyledProps--color-grey1000 StyledProps--margin-bottom-medium"
         >
           Specify Manifest Store
-        </h2>
+        </p>
         <div
           class="OverlaySpinner--overlaySpinner"
         >
@@ -1229,13 +1221,11 @@ exports[`ManifestSelection tests renders correctly with differnet manifest types
       <div
         class="StyledProps--font StyledProps--main optionsViewContainer"
       >
-        <h2
-          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--margin-bottom-large"
-          level="2"
-          style="color: black; font-size: 24px;"
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-large StyledProps--color StyledProps--color-grey1000 StyledProps--margin-bottom-medium"
         >
           first step
-        </h2>
+        </p>
         <div
           class="OverlaySpinner--overlaySpinner"
         >
@@ -1483,13 +1473,11 @@ exports[`ManifestSelection tests renders without crashing 1`] = `
       <div
         class="StyledProps--font StyledProps--main optionsViewContainer"
       >
-        <h2
-          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--margin-bottom-large"
-          level="2"
-          style="color: black; font-size: 24px;"
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-large StyledProps--color StyledProps--color-grey1000 StyledProps--margin-bottom-medium"
         >
           first step
-        </h2>
+        </p>
         <div
           class="OverlaySpinner--overlaySpinner"
         >

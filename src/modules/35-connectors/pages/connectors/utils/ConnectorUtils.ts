@@ -1307,8 +1307,6 @@ export const getReferredEntityLabelByType = (type: string) => {
 export function GetTestConnectionValidationTextByType(type: ConnectorConfigDTO['type']) {
   const { getString } = useStrings()
   switch (type) {
-    case Connectors.KUBERNETES_CLUSTER:
-      return getString('connectors.testConnectionStep.validationText.k8s')
     case Connectors.DOCKER:
       return getString('connectors.testConnectionStep.validationText.docker')
     case Connectors.AWS:

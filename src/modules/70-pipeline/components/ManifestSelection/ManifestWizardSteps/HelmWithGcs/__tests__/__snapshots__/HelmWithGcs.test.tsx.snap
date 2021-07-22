@@ -611,7 +611,7 @@ exports[`helm with http tests expand advanced section 1`] = `
                               class="Layout--vertical StyledProps--main"
                             >
                               <div
-                                class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main StyledProps--flex StyledProps--margin-top-small"
+                                class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main StyledProps--margin-top-small"
                               >
                                 <div
                                   class="halfWidth"
@@ -721,7 +721,7 @@ exports[`helm with http tests expand advanced section 1`] = `
                                   class="halfWidth"
                                 >
                                   <div
-                                    class="Layout--horizontal StyledProps--main"
+                                    class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-flex-start"
                                   >
                                     <div
                                       class="bp3-form-group"

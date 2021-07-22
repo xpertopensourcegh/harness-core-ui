@@ -217,6 +217,7 @@ const ManifestListView = ({
     hideConnectorModal()
     setConnectorView(false)
     setSelectedManifest(null)
+    setManifestStore('')
     refetchConnectors()
   }
 
