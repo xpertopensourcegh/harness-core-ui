@@ -2371,13 +2371,30 @@ export interface StringsMap {
   'ce.gridColumnSelector': string
   'ce.homepage.slogan': string
   'ce.learnMore': string
-  'ce.perspectives.budgets.actualCost': string
-  'ce.perspectives.budgets.alerts': string
-  'ce.perspectives.budgets.amount': string
+  'ce.perspectives.budgets.actualSpend': string
+  'ce.perspectives.budgets.configureAlerts.actual': string
+  'ce.perspectives.budgets.configureAlerts.basedOn': string
+  'ce.perspectives.budgets.configureAlerts.budgetAmount': string
+  'ce.perspectives.budgets.configureAlerts.createAlert': string
+  'ce.perspectives.budgets.configureAlerts.emailPlaceholder': string
+  'ce.perspectives.budgets.configureAlerts.exceeds': string
+  'ce.perspectives.budgets.configureAlerts.forecasted': string
+  'ce.perspectives.budgets.configureAlerts.percent': string
+  'ce.perspectives.budgets.configureAlerts.subTitle': string
+  'ce.perspectives.budgets.configureAlerts.title': string
   'ce.perspectives.budgets.createNew': string
   'ce.perspectives.budgets.desc': string
-  'ce.perspectives.budgets.lastMonthCost': string
+  'ce.perspectives.budgets.forecastedCost': string
+  'ce.perspectives.budgets.sendAlerts': string
+  'ce.perspectives.budgets.setBudgetAmount.budgetType': string
+  'ce.perspectives.budgets.setBudgetAmount.lastMonthCost': string
+  'ce.perspectives.budgets.setBudgetAmount.lastMonthSpend': string
+  'ce.perspectives.budgets.setBudgetAmount.projectedCost': string
+  'ce.perspectives.budgets.setBudgetAmount.specifiedAmount': string
+  'ce.perspectives.budgets.setBudgetAmount.specifyAmount': string
+  'ce.perspectives.budgets.setBudgetAmount.title': string
   'ce.perspectives.budgets.title': string
+  'ce.perspectives.budgets.wizardTitle': string
   'ce.perspectives.createPerspective.createCustomField': string
   'ce.perspectives.createPerspective.filters.addRuleText': string
   'ce.perspectives.createPerspective.filters.operator': string

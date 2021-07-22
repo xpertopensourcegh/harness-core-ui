@@ -44,6 +44,7 @@ const CreatePerspectivePage: React.FC = () => {
 
   const { perspectiveId } = useParams<{
     perspectiveId: string
+    accountId: string
   }>()
 
   const {
@@ -53,7 +54,7 @@ const CreatePerspectivePage: React.FC = () => {
   } = useGetPerspective({
     queryParams: {
       perspectiveId: perspectiveId
-    }
+    } // TODO: accountIdentifier: accountId
   })
 
   const perspectiveData = perspectiveRes?.resource

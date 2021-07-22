@@ -41,6 +41,7 @@ import css from './PerspectiveDetailsPage.module.scss'
 interface PerspectiveParams {
   perspectiveId: string
   perspectiveName: string
+  accountId: string
 }
 
 const PerspectiveHeader: React.FC<{ title: string; viewType: string }> = ({ title, viewType }) => {
@@ -96,11 +97,12 @@ const PerspectiveHeader: React.FC<{ title: string; viewType: string }> = ({ titl
 }
 
 const PerspectiveDetailsPage: React.FC = () => {
-  const { perspectiveId } = useParams<PerspectiveParams>()
+  const { perspectiveId } = useParams<PerspectiveParams>() // TODO: accountId
 
   const { data: perspectiveRes, loading } = useGetPerspective({
     queryParams: {
       perspectiveId: perspectiveId
+      // TODO: accountIdentifier: accountId
     }
   })
 

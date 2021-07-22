@@ -34,8 +34,8 @@ const useCreateReportModal = ({ onSuccess, onError }: CreateReportModalProps) =>
   const [isEditMode, setIsEditMode] = useState(false)
   const [report, setReport] = useState<Report>()
   const { perspectiveId, accountId } = useParams<{ perspectiveId: string; accountId: string }>()
-  const { mutate: createReport } = useCreateReportSetting({ accountId })
-  const { mutate: updateReport } = useUpdateReportSetting({ accountId })
+  const { mutate: createReport } = useCreateReportSetting({ accountId }) // TODO: queryParams: { accountIdentifier: accountId }
+  const { mutate: updateReport } = useUpdateReportSetting({ accountId }) // TODO: queryParams: { accountIdentifier: accountId }
   const modalPropsLight: IDialogProps = {
     isOpen: true,
     usePortal: true,
@@ -150,11 +150,8 @@ const useCreateReportModal = ({ onSuccess, onError }: CreateReportModalProps) =>
     hideModal,
     openModal: (args?: OpenModalArgs) => {
       const { isEdit, selectedReport } = args || {}
-      if (typeof isEdit !== 'undefined') {
-        setIsEditMode(isEdit)
-        setReport(selectedReport)
-      }
-
+      setIsEditMode(!!isEdit)
+      setReport(selectedReport)
       openModal()
     }
   }

@@ -7,13 +7,21 @@ import { Popover, Position, Classes, PopoverInteractionKind } from '@blueprintjs
 import { DEFAULT_GROUP_BY } from '@ce/utils/perspectiveUtils'
 import routes from '@common/RouteDefinitions'
 import { QlceViewFieldInputInput, ViewChartType } from 'services/ce/services'
-import { CEView, useGetReportSetting } from 'services/ce'
+import {
+  CEView,
+  useGetReportSetting,
+  useListBudgetsForPerspective,
+  AlertThreshold,
+  useDeleteBudget,
+  useDeleteReportSetting
+} from 'services/ce'
 import { useStrings } from 'framework/strings'
+import formatCost from '@ce/utils/formatCost'
 
 import Table from './Table'
 import PerspectiveBuilderPreview from '../PerspectiveBuilderPreview/PerspectiveBuilderPreview'
-import { getBudgetsResponse } from './Mock'
 import useCreateReportModal from './PerspectiveCreateReport'
+import useBudgetModal from './PerspectiveCreateBudget'
 import css from './PerspectiveReportsAndBudgets.module.scss'
 
 interface ListProps {
@@ -23,6 +31,8 @@ interface ListProps {
   buttonText: string
   hasData: boolean
   loading: boolean
+  meta?: ReactNode
+  showCreateButton?: boolean
   onButtonClick: () => void
 }
 
@@ -33,13 +43,6 @@ export interface Report {
   recipients?: string[]
 }
 
-interface Budget {
-  budgetAmount?: number
-  alertThresholds?: { percentage?: number }[]
-  actualCost?: number
-  lastMonthCost?: number
-}
-
 interface TableActionsProps {
   onClickEdit: () => void
   onClickDelete: () => void
@@ -48,6 +51,11 @@ interface TableActionsProps {
 interface ReportsAndBudgetsProps {
   values?: CEView
   onPrevButtonClick: () => void
+}
+
+interface UrlParams {
+  perspectiveId: string
+  accountId: string
 }
 
 const ReportsAndBudgets: React.FC<ReportsAndBudgetsProps> = ({ values, onPrevButtonClick }) => {
@@ -61,7 +69,7 @@ const ReportsAndBudgets: React.FC<ReportsAndBudgetsProps> = ({ values, onPrevBut
 
   const history = useHistory()
   const { getString } = useStrings()
-  const { perspectiveId, accountId } = useParams<{ perspectiveId: string; accountId: string }>()
+  const { perspectiveId, accountId } = useParams<UrlParams>()
 
   const savePerspective = (): void => {
     history.push(
@@ -79,7 +87,12 @@ const ReportsAndBudgets: React.FC<ReportsAndBudgetsProps> = ({ values, onPrevBut
         <Layout.Vertical
           spacing="xxlarge"
           height="100%"
-          padding={{ left: 'large', right: 'xxlarge', bottom: 'xxlarge', top: 'xxlarge' }}
+          padding={{
+            left: 'large',
+            right: 'xxlarge',
+            bottom: 'xxlarge',
+            top: 'xxlarge'
+          }}
         >
           <ScheduledReports />
           <Budgets />
@@ -105,15 +118,19 @@ const ReportsAndBudgets: React.FC<ReportsAndBudgetsProps> = ({ values, onPrevBut
   )
 }
 
-const useFetchReports = () => {
-  const { accountId, perspectiveId } = useParams<{ accountId: string; perspectiveId: string }>()
-  const { data, loading, refetch } = useGetReportSetting({ accountId, queryParams: { perspectiveId } })
+const useFetchReports = (accountId: string, perspectiveId: string) => {
+  const { data, loading, refetch } = useGetReportSetting({
+    accountId,
+    queryParams: { perspectiveId } // TODO: accountIdentifier: accountId
+  })
   return { reports: data?.resource || [], loading, refetch }
 }
 
 const ScheduledReports: React.FC = () => {
   const { getString } = useStrings()
-  const { reports, loading, refetch } = useFetchReports()
+  const { accountId, perspectiveId } = useParams<UrlParams>()
+  const { reports, loading, refetch } = useFetchReports(accountId, perspectiveId)
+  const { mutate: deleteReport } = useDeleteReportSetting({})
   const { openModal, hideModal } = useCreateReportModal({
     onSuccess: () => {
       hideModal()
@@ -121,9 +138,13 @@ const ScheduledReports: React.FC = () => {
     }
   })
 
-  // const { mutate: deleteReport } = useDeleteReportSetting({ pathParams: { accountId } }) // find out how to pass selected uuid
-  const handleDelete = (): void => {
-    return // fix this when api is integrated
+  const handleDelete = async (report: Report) => {
+    try {
+      const deleted = await deleteReport(accountId, { queryParams: { reportId: report?.uuid } })
+      if (deleted) refetch()
+    } catch (e) {
+      // TODO: Error handling
+    }
   }
 
   const columns: Column<Report>[] = useMemo(
@@ -140,14 +161,17 @@ const ScheduledReports: React.FC = () => {
       {
         Header: getString('ce.perspectives.reports.recipients'),
         accessor: 'recipients',
-        Cell: RenderReportRecipients
+        Cell: ({ row }: CellProps<Report>) => {
+          const recipients = [...(row.original.recipients || [])]
+          return <RenderEmailAddresses emailAddresses={recipients} />
+        }
       },
       {
         id: 'edit-delete-action-column',
         Cell: ({ row }: CellProps<Report>) => (
           <RenderEditDeleteActions
             onClickEdit={() => openModal({ isEdit: true, selectedReport: row.original })}
-            onClickDelete={() => handleDelete()}
+            onClickDelete={() => handleDelete(row.original)}
           />
         )
       }
@@ -166,58 +190,120 @@ const ScheduledReports: React.FC = () => {
       hasData={!!reports.length}
       loading={loading}
       grid={<Table<Report> data={reports} columns={columns} />}
+      showCreateButton
     />
   )
 }
 
+const useFetchBudget = (accountId: string, perspectiveId: string) => {
+  const { data, loading, refetch } = useListBudgetsForPerspective({
+    queryParams: { accountId: accountId, perspectiveId: perspectiveId } // TODO: accountIdentifier: accountId
+  })
+  return { budgets: data?.resource || [], loading, refetch }
+}
+
 const Budgets = (): JSX.Element => {
   const { getString } = useStrings()
-  const response = getBudgetsResponse()
-  const columns: Column<Budget>[] = useMemo(
+  const { accountId, perspectiveId } = useParams<UrlParams>()
+  const { mutate: deleteBudget } = useDeleteBudget({ queryParams: { accountId } })
+  const { budgets, loading, refetch } = useFetchBudget(accountId, perspectiveId)
+  const { openModal } = useBudgetModal({ onSuccess: () => refetch() })
+
+  const budget = budgets[0] || {}
+  const { budgetAmount, alertThresholds = [] } = budget
+
+  const handleDeleteBudget = async () => {
+    try {
+      const deleted = await (budget?.uuid && deleteBudget(budget.uuid))
+      if (deleted) refetch()
+    } catch (e) {
+      // TODO: Error handling
+    }
+  }
+
+  const columns: Column<AlertThreshold>[] = useMemo(
     () => [
       {
-        Header: getString('ce.perspectives.budgets.amount'),
-        accessor: 'budgetAmount'
+        Header: getString('ce.perspectives.budgets.configureAlerts.basedOn'),
+        accessor: 'basedOn',
+        Cell: RenderBasedOn
       },
       {
-        Header: getString('ce.perspectives.budgets.alerts'),
-        accessor: 'alertThresholds',
+        Header: getString('ce.perspectives.budgets.configureAlerts.percent'),
+        accessor: 'percentage',
         Cell: RenderAlertThresholds
       },
       {
-        Header: getString('ce.perspectives.budgets.actualCost'),
-        accessor: 'actualCost'
-      },
-      {
-        Header: getString('ce.perspectives.budgets.lastMonthCost'),
-        accessor: 'lastMonthCost'
-      },
-      {
-        id: 'edit-delete-action-column',
-        Cell: ({ row }: CellProps<Budget>) => (
-          <RenderEditDeleteActions onClickEdit={() => row.original} onClickDelete={() => row.original} />
-        )
+        Header: getString('ce.perspectives.reports.recipientLabel'),
+        accessor: 'emailAddresses',
+        Cell: ({ row }: CellProps<AlertThreshold>) => {
+          const emailAddresses = [...(row.original.emailAddresses || [])]
+          return <RenderEmailAddresses emailAddresses={emailAddresses} />
+        }
       }
     ],
     []
   )
 
-  const budgets = response?.resource || []
+  const renderMeta = () => {
+    return (
+      <Container>
+        <Text inline color="grey800" margin={{ right: 'small' }}>
+          {getString('ce.perspectives.budgets.configureAlerts.budgetAmount')}
+        </Text>
+        <Text inline color="grey800" font={{ weight: 'bold', size: 'normal' }}>
+          {formatCost(+(budgetAmount || 0))}
+        </Text>
+      </Container>
+    )
+  }
+
+  const renderGrid = () => {
+    return (
+      <Container>
+        <Layout.Horizontal
+          margin={{ top: 'large', bottom: 'medium' }}
+          spacing="small"
+          style={{
+            justifyContent: 'space-between',
+            alignItems: 'center'
+          }}
+        >
+          <Text font="small" color="grey800">
+            {getString('ce.perspectives.budgets.sendAlerts')}
+          </Text>
+          <Container margin={{ right: 'large' }}>
+            <RenderEditDeleteActions
+              onClickEdit={() => openModal({ isEdit: true, selectedBudget: budget })}
+              onClickDelete={handleDeleteBudget}
+            />
+          </Container>
+        </Layout.Horizontal>
+        <Table<AlertThreshold> columns={columns} data={alertThresholds} />
+      </Container>
+    )
+  }
+
   return (
     <List
       title={getString('ce.perspectives.budgets.title')}
       subTitle={getString('ce.perspectives.budgets.desc')}
       buttonText={getString('ce.perspectives.budgets.createNew')}
-      onButtonClick={() => 'TEST'}
-      hasData={!!budgets.length}
-      loading={false}
-      grid={<Table<Budget> columns={columns} data={budgets} />}
+      onButtonClick={() => openModal()}
+      hasData={!!alertThresholds.length}
+      loading={loading}
+      // Show create budget button only when there's no exisiting budget.
+      // A user can create only 1 budget at a time. To create a new, they
+      // have to delete the existing one, or just edit it.
+      showCreateButton={!alertThresholds.length}
+      meta={renderMeta()}
+      grid={renderGrid()}
     />
   )
 }
 
 const List = (props: ListProps): JSX.Element => {
-  const { title, subTitle, grid, buttonText, hasData, onButtonClick, loading } = props
+  const { title, subTitle, grid, buttonText, hasData, onButtonClick, loading, meta, showCreateButton } = props
 
   const renderLoader = (): JSX.Element => {
     return (
@@ -227,33 +313,42 @@ const List = (props: ListProps): JSX.Element => {
     )
   }
 
+  const renderCreateNewButton = () => {
+    return (
+      <Layout.Horizontal
+        spacing="small"
+        style={{
+          justifyContent: hasData ? 'flex-end' : 'center',
+          alignItems: 'center'
+        }}
+      >
+        <Button
+          type="submit"
+          withoutBoxShadow={true}
+          className={css.createBtn}
+          text={buttonText}
+          onClick={onButtonClick}
+        />
+      </Layout.Horizontal>
+    )
+  }
+
   return (
     <Container>
       <Text color="grey800" style={{ fontSize: 16 }}>
         {title}
       </Text>
-      <Text padding={{ top: 'large', bottom: 'large' }} color="grey800" font={'small'}>
+      <Text padding={{ top: 'large', bottom: 'large' }} color="grey800" font="small">
         {subTitle}
       </Text>
       {loading && renderLoader()}
-      {!loading && hasData && grid}
-      {!loading && (
-        <Layout.Horizontal
-          spacing="small"
-          style={{
-            justifyContent: hasData ? 'flex-end' : 'center',
-            alignItems: 'center'
-          }}
-        >
-          <Button
-            type="submit"
-            withoutBoxShadow={true}
-            className={css.createBtn}
-            text={buttonText}
-            onClick={onButtonClick}
-          />
-        </Layout.Horizontal>
+      {!loading && hasData && (
+        <>
+          {meta}
+          {grid}
+        </>
       )}
+      {!loading && showCreateButton && renderCreateNewButton()}
     </Container>
   )
 }
@@ -263,17 +358,30 @@ const RenderReportFrequency: Renderer<CellProps<Report>> = ({ row }) => {
   return <span>{cronstrue.toString(cron)}</span>
 }
 
-const RenderReportRecipients: Renderer<CellProps<Report>> = ({ row }) => {
-  const recipients = [...(row.original.recipients || [])]
-  const email = recipients.shift()
-  const remainingEmailsCount = recipients.length ? `(+${recipients.length})` : ''
+const RenderBasedOn: Renderer<CellProps<AlertThreshold>> = ({ row }) => {
+  const { getString } = useStrings()
+  const basedOn = row.original.basedOn!
+  const map: Record<string, string> = useMemo(
+    () => ({
+      ACTUAL_COST: getString('ce.perspectives.budgets.actualSpend'),
+      FORECASTED_COST: getString('ce.perspectives.budgets.forecastedCost')
+    }),
+    []
+  )
+
+  return <span>{map[basedOn]}</span>
+}
+
+const RenderEmailAddresses = ({ emailAddresses = [] }: { emailAddresses: string[] }) => {
+  const email = emailAddresses.shift()
+  const remainingEmailsCount = emailAddresses.length ? `(+${emailAddresses.length})` : ''
 
   return (
     <Layout.Horizontal spacing="xsmall">
       <Text color="grey700" font="small">
         {email}
       </Text>
-      {recipients.length ? (
+      {emailAddresses.length ? (
         <Popover
           popoverClassName={Classes.DARK}
           position={Position.BOTTOM}
@@ -281,7 +389,7 @@ const RenderReportRecipients: Renderer<CellProps<Report>> = ({ row }) => {
           content={
             <div className={css.popoverContent}>
               <ul>
-                {recipients.map((em, idx) => (
+                {emailAddresses.map((em, idx) => (
                   <li key={idx}>{em}</li>
                 ))}
               </ul>
@@ -313,10 +421,9 @@ const RenderEditDeleteActions = (props: TableActionsProps): JSX.Element => {
   )
 }
 
-const RenderAlertThresholds: Renderer<CellProps<Budget>> = ({ row }) => {
-  const alerts = row.original.alertThresholds || []
-  const percentages = alerts.map(a => a.percentage)
-  return <span>{percentages.join(', ')}</span>
+const RenderAlertThresholds: Renderer<CellProps<AlertThreshold>> = ({ row }) => {
+  const percentage = row.original.percentage
+  return <span>{percentage}%</span>
 }
 
 export default ReportsAndBudgets

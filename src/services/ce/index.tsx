@@ -5,11 +5,50 @@ import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, Use
 
 import { getConfig } from '../config'
 export const SPEC_VERSION = '1.0'
+export interface AlertThreshold {
+  alertsSent?: number
+  basedOn?: 'ACTUAL_COST' | 'FORECASTED_COST'
+  crossedAt?: number
+  emailAddresses?: string[]
+  percentage?: number
+  slackWebhooks?: string[]
+  userGroupIds?: string[]
+}
+
+export type ApplicationBudgetScope = BudgetScope & {
+  applicationIds?: string[]
+  environmentType?: 'PROD' | 'NON_PROD' | 'ALL'
+}
+
 export interface AwsAccountConnectionDetail {
   cloudFormationTemplateLink?: string
   externalId?: string
   harnessAccountId?: string
   stackLaunchTemplateLink?: string
+}
+
+export interface Budget {
+  accountId?: string
+  actualCost?: number
+  alertThresholds?: AlertThreshold[]
+  budgetAmount?: number
+  createdAt?: number
+  emailAddresses?: string[]
+  forecastCost?: number
+  lastMonthCost?: number
+  lastUpdatedAt?: number
+  name?: string
+  notifyOnSlack?: boolean
+  scope?: BudgetScope
+  type?: 'SPECIFIED_AMOUNT' | 'PREVIOUS_MONTH_SPEND'
+  userGroupIds?: string[]
+  uuid?: string
+}
+
+export interface BudgetScope {
+  budgetScopeType?: string
+  entityIds?: string[]
+  entityNames?: string[]
 }
 
 export interface CEReportSchedule {
@@ -46,6 +85,10 @@ export interface CEView {
   viewVisualization?: ViewVisualization
 }
 
+export type ClusterBudgetScope = BudgetScope & {
+  clusterIds?: string[]
+}
+
 export interface EmbeddedUser {
   email?: string
   name?: string
@@ -65,6 +108,11 @@ export interface K8sClusterSetupRequest {
   featuresEnabled?: ('BILLING' | 'OPTIMIZATION' | 'VISIBILITY')[]
   orgIdentifier?: string
   projectIdentifier?: string
+}
+
+export type PerspectiveBudgetScope = BudgetScope & {
+  viewId?: string
+  viewName?: string
 }
 
 export interface QueryStat {
@@ -350,6 +398,8 @@ export interface ResponseMessage {
     | 'UNEXPECTED_SNIPPET_EXCEPTION'
     | 'UNEXPECTED_SCHEMA_EXCEPTION'
     | 'CONNECTOR_VALIDATION_EXCEPTION'
+    | 'TIMESCALE_NOT_AVAILABLE'
+    | 'MIGRATION_EXCEPTION'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -412,11 +462,27 @@ export interface RestResponse {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseBudget {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Budget
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponseCEView {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
   resource?: CEView
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListBudget {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Budget[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -507,11 +573,273 @@ export interface ViewVisualization {
   groupBy?: ViewField
 }
 
+export type BudgetRequestBody = Budget
+
 export type CEReportScheduleRequestBody = CEReportSchedule
 
 export type CEViewRequestBody = CEView
 
 export type ViewCustomFieldRequestBody = ViewCustomField
+
+export interface ListBudgetsForAccountQueryParams {
+  accountId?: string
+}
+
+export type ListBudgetsForAccountProps = Omit<
+  GetProps<RestResponseListBudget, unknown, ListBudgetsForAccountQueryParams, void>,
+  'path'
+>
+
+/**
+ * List budgets for account
+ */
+export const ListBudgetsForAccount = (props: ListBudgetsForAccountProps) => (
+  <Get<RestResponseListBudget, unknown, ListBudgetsForAccountQueryParams, void>
+    path={`/budgets`}
+    base={getConfig('ccm/api')}
+    {...props}
+  />
+)
+
+export type UseListBudgetsForAccountProps = Omit<
+  UseGetProps<RestResponseListBudget, unknown, ListBudgetsForAccountQueryParams, void>,
+  'path'
+>
+
+/**
+ * List budgets for account
+ */
+export const useListBudgetsForAccount = (props: UseListBudgetsForAccountProps) =>
+  useGet<RestResponseListBudget, unknown, ListBudgetsForAccountQueryParams, void>(`/budgets`, {
+    base: getConfig('ccm/api'),
+    ...props
+  })
+
+export interface CreateBudgetQueryParams {
+  accountId?: string
+}
+
+export type CreateBudgetProps = Omit<
+  MutateProps<RestResponseString, unknown, CreateBudgetQueryParams, BudgetRequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create budget
+ */
+export const CreateBudget = (props: CreateBudgetProps) => (
+  <Mutate<RestResponseString, unknown, CreateBudgetQueryParams, BudgetRequestBody, void>
+    verb="POST"
+    path={`/budgets`}
+    base={getConfig('ccm/api')}
+    {...props}
+  />
+)
+
+export type UseCreateBudgetProps = Omit<
+  UseMutateProps<RestResponseString, unknown, CreateBudgetQueryParams, BudgetRequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create budget
+ */
+export const useCreateBudget = (props: UseCreateBudgetProps) =>
+  useMutate<RestResponseString, unknown, CreateBudgetQueryParams, BudgetRequestBody, void>('POST', `/budgets`, {
+    base: getConfig('ccm/api'),
+    ...props
+  })
+
+export interface ListBudgetsForPerspectiveQueryParams {
+  accountId?: string
+  perspectiveId?: string
+}
+
+export type ListBudgetsForPerspectiveProps = Omit<
+  GetProps<RestResponseListBudget, unknown, ListBudgetsForPerspectiveQueryParams, void>,
+  'path'
+>
+
+/**
+ * List budgets for perspective
+ */
+export const ListBudgetsForPerspective = (props: ListBudgetsForPerspectiveProps) => (
+  <Get<RestResponseListBudget, unknown, ListBudgetsForPerspectiveQueryParams, void>
+    path={`/budgets/perspectiveBudgets`}
+    base={getConfig('ccm/api')}
+    {...props}
+  />
+)
+
+export type UseListBudgetsForPerspectiveProps = Omit<
+  UseGetProps<RestResponseListBudget, unknown, ListBudgetsForPerspectiveQueryParams, void>,
+  'path'
+>
+
+/**
+ * List budgets for perspective
+ */
+export const useListBudgetsForPerspective = (props: UseListBudgetsForPerspectiveProps) =>
+  useGet<RestResponseListBudget, unknown, ListBudgetsForPerspectiveQueryParams, void>(`/budgets/perspectiveBudgets`, {
+    base: getConfig('ccm/api'),
+    ...props
+  })
+
+export interface DeleteBudgetQueryParams {
+  accountId?: string
+}
+
+export type DeleteBudgetProps = Omit<
+  MutateProps<RestResponseString, unknown, DeleteBudgetQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Delete budget
+ */
+export const DeleteBudget = (props: DeleteBudgetProps) => (
+  <Mutate<RestResponseString, unknown, DeleteBudgetQueryParams, string, void>
+    verb="DELETE"
+    path={`/budgets`}
+    base={getConfig('ccm/api')}
+    {...props}
+  />
+)
+
+export type UseDeleteBudgetProps = Omit<
+  UseMutateProps<RestResponseString, unknown, DeleteBudgetQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Delete budget
+ */
+export const useDeleteBudget = (props: UseDeleteBudgetProps) =>
+  useMutate<RestResponseString, unknown, DeleteBudgetQueryParams, string, void>('DELETE', `/budgets`, {
+    base: getConfig('ccm/api'),
+    ...props
+  })
+
+export interface GetBudgetQueryParams {
+  accountId?: string
+}
+
+export interface GetBudgetPathParams {
+  id: string
+}
+
+export type GetBudgetProps = Omit<
+  GetProps<RestResponseBudget, unknown, GetBudgetQueryParams, GetBudgetPathParams>,
+  'path'
+> &
+  GetBudgetPathParams
+
+/**
+ * Get budget
+ */
+export const GetBudget = ({ id, ...props }: GetBudgetProps) => (
+  <Get<RestResponseBudget, unknown, GetBudgetQueryParams, GetBudgetPathParams>
+    path={`/budgets/${id}`}
+    base={getConfig('ccm/api')}
+    {...props}
+  />
+)
+
+export type UseGetBudgetProps = Omit<
+  UseGetProps<RestResponseBudget, unknown, GetBudgetQueryParams, GetBudgetPathParams>,
+  'path'
+> &
+  GetBudgetPathParams
+
+/**
+ * Get budget
+ */
+export const useGetBudget = ({ id, ...props }: UseGetBudgetProps) =>
+  useGet<RestResponseBudget, unknown, GetBudgetQueryParams, GetBudgetPathParams>(
+    (paramsInPath: GetBudgetPathParams) => `/budgets/${paramsInPath.id}`,
+    { base: getConfig('ccm/api'), pathParams: { id }, ...props }
+  )
+
+export interface CloneBudgetQueryParams {
+  accountId?: string
+  cloneName?: string
+}
+
+export interface CloneBudgetPathParams {
+  id: string
+}
+
+export type CloneBudgetProps = Omit<
+  MutateProps<RestResponseString, unknown, CloneBudgetQueryParams, void, CloneBudgetPathParams>,
+  'path' | 'verb'
+> &
+  CloneBudgetPathParams
+
+/**
+ * Clone budget
+ */
+export const CloneBudget = ({ id, ...props }: CloneBudgetProps) => (
+  <Mutate<RestResponseString, unknown, CloneBudgetQueryParams, void, CloneBudgetPathParams>
+    verb="POST"
+    path={`/budgets/${id}`}
+    base={getConfig('ccm/api')}
+    {...props}
+  />
+)
+
+export type UseCloneBudgetProps = Omit<
+  UseMutateProps<RestResponseString, unknown, CloneBudgetQueryParams, void, CloneBudgetPathParams>,
+  'path' | 'verb'
+> &
+  CloneBudgetPathParams
+
+/**
+ * Clone budget
+ */
+export const useCloneBudget = ({ id, ...props }: UseCloneBudgetProps) =>
+  useMutate<RestResponseString, unknown, CloneBudgetQueryParams, void, CloneBudgetPathParams>(
+    'POST',
+    (paramsInPath: CloneBudgetPathParams) => `/budgets/${paramsInPath.id}`,
+    { base: getConfig('ccm/api'), pathParams: { id }, ...props }
+  )
+
+export interface UpdateBudgetPathParams {
+  id: string
+}
+
+export type UpdateBudgetProps = Omit<
+  MutateProps<RestResponseString, unknown, void, BudgetRequestBody, UpdateBudgetPathParams>,
+  'path' | 'verb'
+> &
+  UpdateBudgetPathParams
+
+/**
+ * Update budget
+ */
+export const UpdateBudget = ({ id, ...props }: UpdateBudgetProps) => (
+  <Mutate<RestResponseString, unknown, void, BudgetRequestBody, UpdateBudgetPathParams>
+    verb="PUT"
+    path={`/budgets/${id}`}
+    base={getConfig('ccm/api')}
+    {...props}
+  />
+)
+
+export type UseUpdateBudgetProps = Omit<
+  UseMutateProps<RestResponseString, unknown, void, BudgetRequestBody, UpdateBudgetPathParams>,
+  'path' | 'verb'
+> &
+  UpdateBudgetPathParams
+
+/**
+ * Update budget
+ */
+export const useUpdateBudget = ({ id, ...props }: UseUpdateBudgetProps) =>
+  useMutate<RestResponseString, unknown, void, BudgetRequestBody, UpdateBudgetPathParams>(
+    'PUT',
+    (paramsInPath: UpdateBudgetPathParams) => `/budgets/${paramsInPath.id}`,
+    { base: getConfig('ccm/api'), pathParams: { id }, ...props }
+  )
 
 export interface AwsaccountconnectiondetailQueryParams {
   accountIdentifier?: string
@@ -811,7 +1139,7 @@ export interface DeleteCustomFieldQueryParams {
 }
 
 export type DeleteCustomFieldProps = Omit<
-  MutateProps<void, void, DeleteCustomFieldQueryParams, CEViewRequestBody, void>,
+  MutateProps<RestResponseString, unknown, DeleteCustomFieldQueryParams, CEViewRequestBody, void>,
   'path' | 'verb'
 >
 
@@ -819,7 +1147,7 @@ export type DeleteCustomFieldProps = Omit<
  * Delete customField
  */
 export const DeleteCustomField = (props: DeleteCustomFieldProps) => (
-  <Mutate<void, void, DeleteCustomFieldQueryParams, CEViewRequestBody, void>
+  <Mutate<RestResponseString, unknown, DeleteCustomFieldQueryParams, CEViewRequestBody, void>
     verb="DELETE"
     path={`/perspective-custom-field`}
     base={getConfig('ccm/api')}
@@ -828,7 +1156,7 @@ export const DeleteCustomField = (props: DeleteCustomFieldProps) => (
 )
 
 export type UseDeleteCustomFieldProps = Omit<
-  UseMutateProps<void, void, DeleteCustomFieldQueryParams, CEViewRequestBody, void>,
+  UseMutateProps<RestResponseString, unknown, DeleteCustomFieldQueryParams, CEViewRequestBody, void>,
   'path' | 'verb'
 >
 
@@ -836,10 +1164,11 @@ export type UseDeleteCustomFieldProps = Omit<
  * Delete customField
  */
 export const useDeleteCustomField = (props: UseDeleteCustomFieldProps) =>
-  useMutate<void, void, DeleteCustomFieldQueryParams, CEViewRequestBody, void>('DELETE', `/perspective-custom-field`, {
-    base: getConfig('ccm/api'),
-    ...props
-  })
+  useMutate<RestResponseString, unknown, DeleteCustomFieldQueryParams, CEViewRequestBody, void>(
+    'DELETE',
+    `/perspective-custom-field`,
+    { base: getConfig('ccm/api'), ...props }
+  )
 
 export interface GetCustomFieldQueryParams {
   accountId?: string
@@ -953,7 +1282,7 @@ export interface ValidateCustomFieldQueryParams {
 }
 
 export type ValidateCustomFieldProps = Omit<
-  MutateProps<void, void, ValidateCustomFieldQueryParams, ViewCustomFieldRequestBody, void>,
+  MutateProps<RestResponseString, unknown, ValidateCustomFieldQueryParams, ViewCustomFieldRequestBody, void>,
   'path' | 'verb'
 >
 
@@ -961,7 +1290,7 @@ export type ValidateCustomFieldProps = Omit<
  * Validate customField
  */
 export const ValidateCustomField = (props: ValidateCustomFieldProps) => (
-  <Mutate<void, void, ValidateCustomFieldQueryParams, ViewCustomFieldRequestBody, void>
+  <Mutate<RestResponseString, unknown, ValidateCustomFieldQueryParams, ViewCustomFieldRequestBody, void>
     verb="POST"
     path={`/perspective-custom-field/validate`}
     base={getConfig('ccm/api')}
@@ -970,7 +1299,7 @@ export const ValidateCustomField = (props: ValidateCustomFieldProps) => (
 )
 
 export type UseValidateCustomFieldProps = Omit<
-  UseMutateProps<void, void, ValidateCustomFieldQueryParams, ViewCustomFieldRequestBody, void>,
+  UseMutateProps<RestResponseString, unknown, ValidateCustomFieldQueryParams, ViewCustomFieldRequestBody, void>,
   'path' | 'verb'
 >
 
@@ -978,7 +1307,7 @@ export type UseValidateCustomFieldProps = Omit<
  * Validate customField
  */
 export const useValidateCustomField = (props: UseValidateCustomFieldProps) =>
-  useMutate<void, void, ValidateCustomFieldQueryParams, ViewCustomFieldRequestBody, void>(
+  useMutate<RestResponseString, unknown, ValidateCustomFieldQueryParams, ViewCustomFieldRequestBody, void>(
     'POST',
     `/perspective-custom-field/validate`,
     { base: getConfig('ccm/api'), ...props }

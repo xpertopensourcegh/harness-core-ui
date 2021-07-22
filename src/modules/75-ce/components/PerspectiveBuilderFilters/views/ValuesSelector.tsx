@@ -34,7 +34,7 @@ const ValuesSelector: React.FC<ValuesSelectorProps> = ({
 
   useEffect(() => {
     const newSelectedVals: Record<string, boolean> = {}
-    selectedVal.forEach(val => {
+    selectedVal?.forEach(val => {
       if (val) {
         newSelectedVals[val] = true
       }
@@ -112,16 +112,16 @@ const ValuesSelector: React.FC<ValuesSelectorProps> = ({
         className={cx(
           css.operandSelectorContainer,
           { [css.disabledSelect]: isDisabled },
-          { [css.reducedPadding]: selectedVal.length }
+          { [css.reducedPadding]: selectedVal?.length }
         )}
       >
-        {selectedVal.length ? (
+        {selectedVal?.length ? (
           <Layout.Horizontal spacing="xsmall">
             <Text className={css.selectedValues} width={90} lineClamp={1}>
               {selectedVal[0]}
             </Text>
             {selectedVal.length > 1 ? (
-              <Text className={css.selectedValues} lineClamp={1}>{`+${selectedVal.length - 1}`}</Text>
+              <Text className={css.selectedValues} lineClamp={1}>{`+${selectedVal?.length - 1}`}</Text>
             ) : null}
           </Layout.Horizontal>
         ) : (
