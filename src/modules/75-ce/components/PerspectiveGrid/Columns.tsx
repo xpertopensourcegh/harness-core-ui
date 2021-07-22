@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react'
 import type { CellProps } from 'react-table'
+import { Color, IconName, Text } from '@wings-software/uicore'
 import formatCost from '@ce/utils/formatCost'
 import {
   QlceViewFieldInputInput,
@@ -93,6 +94,23 @@ export const RenderCostCell = (props: CellProps<GridData>): JSX.Element => <span
 
 export const RenderPercentageCell = (props: CellProps<GridData>): JSX.Element => <span>{props.value}%</span>
 
+const RenderCostTrendCell = (props: CellProps<GridData>): JSX.Element => {
+  const v = +props.value
+  let icon: Record<string, string | undefined> = { name: undefined, color: undefined } // when v = 0
+
+  if (v < 0) {
+    icon = { name: 'arrow-down', color: Color.GREEN_500 }
+  } else if (v > 0) {
+    icon = { name: 'arrow-up', color: Color.RED_500 }
+  }
+
+  return (
+    <Text font="small" color="grey700" inline icon={icon.name as IconName} iconProps={{ size: 12, color: icon.color }}>
+      {`${Math.abs(v)}%`}
+    </Text>
+  )
+}
+
 export type Column = {
   Header: string
   accessor: string
@@ -147,7 +165,7 @@ const COLUMNS: Record<string, Column> = {
     width: 200,
     hideable: false,
     className: 'cost-trend cost-column',
-    Cell: RenderPercentageCell
+    Cell: RenderCostTrendCell
   },
   UNALLOCATED_COST: {
     Header: 'Unallocated',
@@ -667,19 +685,19 @@ export const DEFAULT_COLS: Column[] = [
     width: 200,
     hideable: false,
     className: 'cost-trend cost-column',
-    Cell: RenderPercentageCell
+    Cell: RenderCostTrendCell
   }
 ]
 
 export const GroupByMapping: Record<string, Column[]> = {
-  'Cluster Name': CLUSTER_COLS,
   Namespace: NAMESPACE_COLS,
-  'Namespace Id': NAMESPACE_ID_COLS,
   Workload: WORKLOAD_COLS,
-  'Workload Id': WORKLOAD_ID_COLS,
   Application: APPLICATION_COLS,
   Service: SERVICE_COLS,
   Environment: ENVIRONMENT_COLS,
+  'Cluster Name': CLUSTER_COLS,
+  'Namespace Id': NAMESPACE_ID_COLS,
+  'Workload Id': WORKLOAD_ID_COLS,
   'Cloud Provider': CLOUD_PROVIDER_COLS,
   'ECS Service': ECS_SERVICE_COLS,
   'ECS Service Id': ECS_SERVICE_ID_COLS,

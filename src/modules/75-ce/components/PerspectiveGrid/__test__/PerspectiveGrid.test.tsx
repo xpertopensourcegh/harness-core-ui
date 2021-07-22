@@ -19,6 +19,7 @@ describe('test cases for Perspective Grid', () => {
     )
 
     expect(getByText('ce.gridColumnSelector')).toBeDefined()
+    expect(container.querySelector('[class*="bp3-icon-arrow-down"]')).not.toBeNull()
     expect(container).toMatchSnapshot()
   })
 })

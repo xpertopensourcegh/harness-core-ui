@@ -40,10 +40,12 @@ const PerspectiveGrid: React.FC<PerspectiveGridProps> = props => {
     return []
   }, [response, fetching])
 
-  const newColumnSequence = gridData.slice(0, 12).map(row => row['id'])
-  if (!isEqual(columnSequence, newColumnSequence) && setColumnSequence) {
-    setColumnSequence(newColumnSequence as string[])
-  }
+  useEffect(() => {
+    const newColumnSequence = gridData.slice(0, 12).map(row => row['id'])
+    if (!isEqual(columnSequence, newColumnSequence) && setColumnSequence) {
+      setColumnSequence(newColumnSequence as string[])
+    }
+  }, [gridData])
 
   useEffect(() => {
     setSelectedColumns(getGridColumnsByGroupBy(groupBy))
