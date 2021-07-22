@@ -224,12 +224,12 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                 <Text className={css.subTitle}>{getString('stepPalette.subTitle')}</Text>
               </Layout.Vertical>
 
-              <div className={css.expandSearch}>
-                <ExpandingSearchInput
-                  throttle={200}
-                  onChange={(text: string) => filterSteps(text, FilterContext.SEARCH)}
-                />
-              </div>
+              <ExpandingSearchInput
+                flip
+                width={200}
+                throttle={200}
+                onChange={(text: string) => filterSteps(text, FilterContext.SEARCH)}
+              />
             </Layout.Horizontal>
 
             <Message stepsDataLoading={stepsDataLoading} />

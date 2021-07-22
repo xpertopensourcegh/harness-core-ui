@@ -544,15 +544,15 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
           </Layout.Horizontal>
           <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
             <>
-              <div className={css.expandSearch}>
-                <ExpandingSearchInput
-                  placeholder={getString('search')}
-                  throttle={200}
-                  onChange={(text: string) => {
-                    setSearchParam(text)
-                  }}
-                />
-              </div>
+              <ExpandingSearchInput
+                flip
+                width={200}
+                placeholder={getString('search')}
+                onChange={(text: string) => {
+                  setSearchParam(text)
+                }}
+                className={css.expandSearch}
+              />
               <Layout.Horizontal padding={{ left: 'small', right: 'small' }}>
                 <FilterSelector<FilterDTO>
                   appliedFilter={appliedFilter}

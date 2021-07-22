@@ -68,10 +68,6 @@
 
 .search {
   margin-right: var(--spacing-small) !important;
-  height: var(--spacing-xxlarge) !important;
-  & > input:focus {
-    width: 250px !important;
-  }
 }
 
 .successIcon {

@@ -681,14 +681,18 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
           </Layout.Horizontal>
 
           <Layout.Horizontal margin={{ left: 'small' }}>
-            <Container className={css.expandSearch} margin={{ right: 'small' }} data-name="connectorSeachContainer">
+            <Container data-name="connectorSeachContainer">
               <ExpandingSearchInput
+                flip
+                width={200}
                 placeholder={getString('search')}
+                data-name="connectorSeachContainer"
                 throttle={200}
                 onChange={(query: string) => {
                   debouncedConnectorSearch(encodeURIComponent(query))
                   setSearchTerm(query)
                 }}
+                className={css.expandSearch}
               />
             </Container>
             <FilterSelector<FilterDTO>

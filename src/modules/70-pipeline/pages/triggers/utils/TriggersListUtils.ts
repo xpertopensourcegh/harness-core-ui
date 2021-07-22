@@ -14,8 +14,8 @@ export const GitSourceProviders: Record<string, { value: string; iconName: IconN
 }
 
 export const ArtifactSourceProviders: Record<string, { value: string; iconName: IconName }> = {
-  NewArtifact: { value: 'NewArtifact', iconName: 'newArtifact' },
-  NewManifest: { value: 'NewManifest', iconName: 'newArtifact' }
+  NewArtifact: { value: 'NewArtifact', iconName: 'new-artifact' },
+  NewManifest: { value: 'NewManifest', iconName: 'new-artifact' }
 }
 
 const TriggerTypeIcons = {

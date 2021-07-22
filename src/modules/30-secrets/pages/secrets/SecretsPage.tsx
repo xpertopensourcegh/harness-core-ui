@@ -124,15 +124,14 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ mock }) => {
             }}
           />
         </Layout.Horizontal>
-        <Layout.Horizontal spacing="small">
-          <ExpandingSearchInput
-            onChange={text => {
-              setSearchTerm(text.trim())
-              setPage(0)
-            }}
-            width={350}
-          />
-        </Layout.Horizontal>
+        <ExpandingSearchInput
+          flip
+          onChange={text => {
+            setSearchTerm(text.trim())
+            setPage(0)
+          }}
+          width={350}
+        />
       </Layout.Horizontal>
       <Page.Body>
         {loading ? (

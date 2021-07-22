@@ -527,6 +527,8 @@ export const DelegateListing: React.FC = () => {
         <FlexExpander />
         <Layout.Horizontal spacing="xsmall">
           <ExpandingSearchInput
+            flip
+            width={250}
             placeholder={getString('delegates.searchDelegateName')}
             throttle={200}
             onChange={text => {

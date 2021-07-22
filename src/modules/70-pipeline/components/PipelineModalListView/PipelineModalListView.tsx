@@ -105,15 +105,14 @@ export default function PipelineModalListView({ onClose, mockData }: PipelineMod
         }
       />
       <Page.Body className={css.main} loading={loading}>
-        <div className={css.searchContainer}>
-          <ExpandingSearchInput
-            placeholder={getString('search')}
-            throttle={200}
-            defaultValue={searchParam}
-            className={css.search}
-            onChange={handleSearch}
-          />
-        </div>
+        <ExpandingSearchInput
+          width={250}
+          placeholder={getString('search')}
+          throttle={200}
+          defaultValue={searchParam}
+          className={css.searchContainer}
+          onChange={handleSearch}
+        />
 
         {!data?.content?.length ? (
           <Text className={css.noResultSection} font={{ size: 'medium' }}>

@@ -98,7 +98,7 @@ exports[`Instance Selector Modal search and select instances successfully 1`] = 
             class="bp3-input  ExpandingSearchInput--filter"
             dir="auto"
             placeholder="Search"
-            style="padding-right: 0px;"
+            style="padding-right: 36px;"
             type="search"
             value="instance"
           />

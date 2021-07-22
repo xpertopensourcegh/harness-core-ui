@@ -120,16 +120,7 @@ $header-height: 80px;
 }
 
 .expandSearch {
-  width: 200px;
-  height: 35px;
-  display: flex;
-  justify-content: flex-end;
-  margin-right: var(--spacing-3);
-  :global {
-    input[type='search'] {
-      border: 0;
-    }
-  }
+  margin-right: var(--spacing-small);
 }
 
 .activityChart {
