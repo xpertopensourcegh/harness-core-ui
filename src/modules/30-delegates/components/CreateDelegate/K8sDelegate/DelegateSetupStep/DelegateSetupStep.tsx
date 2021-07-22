@@ -233,8 +233,8 @@ const DelegateSetup: React.FC<StepProps<StepK8Data> & DelegateSetupStepProps> = 
             return (
               <FormikForm>
                 <Container className={css.delegateForm}>
-                  <Layout.Horizontal style={{ height: '500px' }}>
-                    <Layout.Vertical style={{ width: '50%' }}>
+                  <Layout.Horizontal className={css.baseContainer}>
+                    <Layout.Vertical className={css.leftPanel}>
                       <div className={css.formGroup}>
                         <AddDescription
                           formComponent={<FormInput.Text name="name" label={getString('delegate.delegateName')} />}

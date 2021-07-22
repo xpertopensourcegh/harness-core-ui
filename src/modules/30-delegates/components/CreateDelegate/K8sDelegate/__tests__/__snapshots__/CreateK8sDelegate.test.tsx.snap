@@ -99,12 +99,10 @@ exports[`Create K8s Delegate render data 1`] = `
                   class="StyledProps--font StyledProps--main delegateForm"
                 >
                   <div
-                    class="Layout--horizontal StyledProps--main"
-                    style="height: 500px;"
+                    class="Layout--horizontal StyledProps--main baseContainer"
                   >
                     <div
-                      class="Layout--vertical StyledProps--main"
-                      style="width: 50%;"
+                      class="Layout--vertical StyledProps--main leftPanel"
                     >
                       <div
                         class="formGroup"
