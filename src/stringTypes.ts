@@ -2429,6 +2429,7 @@ export interface StringsMap {
   'ce.perspectives.reports.recipientLabel': string
   'ce.perspectives.reports.recipients': string
   'ce.perspectives.reports.reportName': string
+  'ce.perspectives.reports.searchTimezonePlaceholder': string
   'ce.perspectives.reports.title': string
   'ce.perspectives.save': string
   'ce.perspectives.searchPerspectives': string

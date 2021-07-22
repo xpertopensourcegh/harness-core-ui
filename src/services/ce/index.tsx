@@ -63,6 +63,7 @@ export interface CEReportSchedule {
   nextExecution?: string
   recipients?: string[]
   userCron?: string
+  userCronTimeZone?: string
   uuid?: string
   viewsId: string[]
 }

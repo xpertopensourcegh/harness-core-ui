@@ -9,6 +9,7 @@ import routes from '@common/RouteDefinitions'
 import { QlceViewFieldInputInput, ViewChartType } from 'services/ce/services'
 import {
   CEView,
+  CEReportSchedule,
   useGetReportSetting,
   useListBudgetsForPerspective,
   AlertThreshold,
@@ -34,13 +35,6 @@ interface ListProps {
   meta?: ReactNode
   showCreateButton?: boolean
   onButtonClick: () => void
-}
-
-export interface Report {
-  uuid?: string
-  name?: string
-  userCron?: string
-  recipients?: string[]
 }
 
 interface TableActionsProps {
@@ -138,7 +132,7 @@ const ScheduledReports: React.FC = () => {
     }
   })
 
-  const handleDelete = async (report: Report) => {
+  const handleDelete = async (report: CEReportSchedule) => {
     try {
       const deleted = await deleteReport(accountId, { queryParams: { reportId: report?.uuid } })
       if (deleted) refetch()
@@ -147,7 +141,7 @@ const ScheduledReports: React.FC = () => {
     }
   }
 
-  const columns: Column<Report>[] = useMemo(
+  const columns: Column<CEReportSchedule>[] = useMemo(
     () => [
       {
         Header: getString('ce.perspectives.reports.reportName'),
@@ -161,14 +155,14 @@ const ScheduledReports: React.FC = () => {
       {
         Header: getString('ce.perspectives.reports.recipients'),
         accessor: 'recipients',
-        Cell: ({ row }: CellProps<Report>) => {
+        Cell: ({ row }: CellProps<CEReportSchedule>) => {
           const recipients = [...(row.original.recipients || [])]
           return <RenderEmailAddresses emailAddresses={recipients} />
         }
       },
       {
         id: 'edit-delete-action-column',
-        Cell: ({ row }: CellProps<Report>) => (
+        Cell: ({ row }: CellProps<CEReportSchedule>) => (
           <RenderEditDeleteActions
             onClickEdit={() => openModal({ isEdit: true, selectedReport: row.original })}
             onClickDelete={() => handleDelete(row.original)}
@@ -189,7 +183,7 @@ const ScheduledReports: React.FC = () => {
       onButtonClick={() => openModal()}
       hasData={!!reports.length}
       loading={loading}
-      grid={<Table<Report> data={reports} columns={columns} />}
+      grid={<Table<CEReportSchedule> data={reports} columns={columns} />}
       showCreateButton
     />
   )
@@ -353,7 +347,7 @@ const List = (props: ListProps): JSX.Element => {
   )
 }
 
-const RenderReportFrequency: Renderer<CellProps<Report>> = ({ row }) => {
+const RenderReportFrequency: Renderer<CellProps<CEReportSchedule>> = ({ row }) => {
   const cron = row.original.userCron || ''
   return <span>{cronstrue.toString(cron)}</span>
 }

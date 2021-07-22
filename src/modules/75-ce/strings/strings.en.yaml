@@ -443,6 +443,7 @@ perspectives:
     cronLabel: Add a report schedule
     emailPlaceholder: Please provide a comma separated list of recipients' email addresses
     recipientLabel: Send report to
+    searchTimezonePlaceholder: Search Timezone
   budgets:
     title: Budget
     desc: Budget can help you recieve alerts when the spend exceeds or is about to exceed a specified threshold so that it can be prevented.

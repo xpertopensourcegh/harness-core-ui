@@ -8,6 +8,7 @@ import PerspectiveScheduledReportsResponse from './PerspectiveScheduledReportsRe
 import PerspectiveBudgetsResponse from './PerspectiveBudgetsResponse.json'
 import PerspectiveResponse from './PerspectiveResponse.json'
 import useBudgetModal from '../PerspectiveCreateBudget'
+import useCreateReportModal from '../PerspectiveCreateReport'
 
 jest.mock('services/ce', () => ({
   useGetReportSetting: jest.fn().mockImplementation(() => {
@@ -92,6 +93,40 @@ describe('test cases for Perspective Reports and Budget page', () => {
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
+  })
+})
+
+const CreateReportWrapper = () => {
+  const { openModal } = useCreateReportModal({ onSuccess: jest.fn() })
+  return (
+    <Container>
+      <button onClick={() => openModal()} className="openModal" />
+    </Container>
+  )
+}
+
+describe('test cases for Perspective Create Report', () => {
+  test('should be able to open create report modal', async () => {
+    const { container, getByText } = render(
+      <TestWrapper pathParams={params}>
+        <CreateReportWrapper />
+      </TestWrapper>
+    )
+
+    const openButton = container.querySelector('.openModal')
+    expect(openButton).toBeDefined()
+
+    fireEvent.click(openButton!)
+
+    const modal = findDialogContainer()
+    expect(modal).toBeDefined()
+
+    await waitFor(() => {
+      expect(getByText('ce.perspectives.reports.cronLabel')).toBeDefined()
+      expect(getByText('ce.perspectives.reports.recipientLabel')).toBeDefined()
+    })
+
+    expect(modal).toMatchSnapshot()
   })
 })
 
