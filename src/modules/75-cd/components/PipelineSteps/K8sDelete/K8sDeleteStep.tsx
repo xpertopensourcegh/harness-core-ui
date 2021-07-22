@@ -664,6 +664,7 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteFormData> {
       return {
         ...initialValues,
         spec: {
+          ...initialValues.spec,
           deleteResources: {
             type: DeleteSpecConstant.ResourceName,
             spec: {
@@ -685,6 +686,7 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteFormData> {
       return {
         ...initialValues,
         spec: {
+          ...initialValues.spec,
           deleteResources: {
             type: DeleteSpecConstant.ManifestPath,
             spec: {
@@ -706,6 +708,7 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteFormData> {
       return {
         ...initialValues,
         spec: {
+          ...initialValues.spec,
           deleteResources: {
             type: DeleteSpecConstant.ReleaseName,
             spec: {
@@ -719,6 +722,7 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteFormData> {
     return {
       ...initialValues,
       spec: {
+        ...initialValues.spec,
         deleteResources: {
           type: DeleteSpecConstant.ResourceName,
           spec: {
@@ -747,6 +751,7 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteFormData> {
       return {
         ...data,
         spec: {
+          ...data.spec,
           deleteResources: {
             type: DeleteSpecConstant.ResourceName,
             spec: {
@@ -765,6 +770,7 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteFormData> {
       return {
         ...data,
         spec: {
+          ...data.spec,
           deleteResources: {
             type: DeleteSpecConstant.ManifestPath,
             spec: {
@@ -784,6 +790,7 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteFormData> {
     return {
       ...data,
       spec: {
+        ...data.spec,
         deleteResources: {
           type: DeleteSpecConstant.ReleaseName,
           spec: {
