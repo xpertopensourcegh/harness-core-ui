@@ -40,11 +40,13 @@ export function MapQueriesToHarnessService(props: MapQueriesToHarnessServiceProp
 
   return (
     <Formik<MapGCOLogsQueryToService | undefined>
-      onSubmit={updatedSource => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      onSubmit={async updatedSource => {
         if (updatedSource) {
           mappedMetrics.set(selectedMetric, updatedSource)
         }
-        onSubmit({ ...sourceData, mappedServicesAndEnvs: new Map(mappedMetrics) })
+        await onSubmit({ ...sourceData, mappedServicesAndEnvs: new Map(mappedMetrics) })
       }}
       formName="mapGCOLogs"
       initialValues={mappedMetrics.get(selectedMetric || '')}

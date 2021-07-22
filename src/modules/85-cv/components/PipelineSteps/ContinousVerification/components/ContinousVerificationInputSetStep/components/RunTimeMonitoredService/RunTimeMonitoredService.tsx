@@ -102,7 +102,7 @@ export default function RunTimeMonitoredService({
         <HealthSourceTable
           isEdit={true}
           shouldRenderAtVerifyStep={true}
-          value={monitoredServiceData?.monitoredService?.sources?.healthSources as HealthSource[]}
+          value={monitoringSource?.monitoredService?.sources?.healthSources as HealthSource[]}
           onSuccess={onSuccess}
           serviceRef={{ label: serviceIdentifier, value: serviceIdentifier }}
           environmentRef={{ label: envIdentifier, value: envIdentifier }}

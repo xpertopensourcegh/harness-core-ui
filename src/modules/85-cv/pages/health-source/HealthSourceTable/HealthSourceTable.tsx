@@ -139,7 +139,7 @@ export default function HealthSourceTable({
 
   const editRow = useCallback(rowToEdit => {
     if (rowToEdit) {
-      rowToEdit && setrowData(rowToEdit)
+      setrowData(rowToEdit)
       setModalOpen(true)
     } else {
       showError(getString('cv.healthSource.noDataPresentHealthSource'))
@@ -158,7 +158,10 @@ export default function HealthSourceTable({
         <HealthSources
           healthSources={tableData}
           editHealthSource={editRow}
-          addHealthSource={() => setModalOpen(true)}
+          addHealthSource={() => {
+            setModalOpen(true)
+            setrowData(null)
+          }}
           isRunTimeInput={isRunTimeInput}
         />
       ) : (

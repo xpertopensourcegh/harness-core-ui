@@ -48,8 +48,10 @@ export const createHealthsourceList = (formData: any, healthSourcesPayload: Upda
     updatedHealthSources = healthSources?.map((el: any) =>
       el?.identifier === healthSourcesPayload?.identifier ? healthSourcesPayload : el
     )
-  } else {
+  } else if (healthSources && !isEmpty(healthSources)) {
     updatedHealthSources = [...healthSources, healthSourcesPayload]
+  } else {
+    updatedHealthSources = [healthSourcesPayload]
   }
   return updatedHealthSources
 }

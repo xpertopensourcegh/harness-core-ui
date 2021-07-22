@@ -74,14 +74,14 @@ export default function MonitoredService({
       //when serviceIdentifier and environmentIdentifier are runtime
       const newSpecs = { ...formValues.spec, monitoredServiceRef: RUNTIME_INPUT_VALUE }
       setFieldValue('spec', newSpecs)
-    } else if (monitoredServiceData && !loading && !error) {
+    } else if (!loading && !error) {
       //when monitoredServiceData is derived from service and env.
       const newSpecs = getNewSpecs(monitoredServiceData, formValues)
       setFieldValue('spec', newSpecs)
       setHealthSourcesList(monitoredServiceData?.sources?.healthSources as RowData[])
       setMonitoredService({
-        monitoredServiceIdentifier: monitoredServiceData?.identifier,
-        monitoredServiceName: monitoredServiceData?.name
+        monitoredServiceIdentifier: monitoredServiceData?.identifier as string,
+        monitoredServiceName: monitoredServiceData?.name as string
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
