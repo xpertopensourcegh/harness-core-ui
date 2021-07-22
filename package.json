@@ -69,7 +69,7 @@
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
     "@popperjs/core": "^2.4.2",
-    "@projectstorm/react-diagrams-core": "^6.2.0",
+    "@projectstorm/react-diagrams-core": "^6.6.0",
     "@testing-library/jest-dom": "^5.12.0",
     "@types/qs": "^6.9.4",
     "@types/react-monaco-editor": "^0.16.0",
@@ -133,6 +133,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.13.15",
+    "@emotion/react": "^11.4.0",
     "@graphql-codegen/cli": "^1.21.2",
     "@graphql-codegen/typescript": "^1.21.1",
     "@graphql-codegen/typescript-operations": "^1.17.15",
