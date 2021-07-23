@@ -26,6 +26,7 @@ export interface PipelineInputSetFormProps {
   template: PipelineInfoConfig
   path?: string
   readonly?: boolean
+  maybeContainerClass?: string
 }
 
 const stageTypeToIconMap: Record<string, IconName> = {
@@ -98,7 +99,7 @@ function StageForm({
 }
 
 export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props => {
-  const { originalPipeline, template, path = '', readonly } = props
+  const { originalPipeline, template, path = '', readonly, maybeContainerClass = '' } = props
   const { getString } = useStrings()
 
   const isCloneCodebaseEnabledAtLeastAtOneStage = originalPipeline?.stages?.some(stage =>
@@ -107,7 +108,7 @@ export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props =
 
   return (
     <PipelineVariablesContextProvider pipeline={originalPipeline}>
-      <Layout.Vertical spacing="medium" padding="xlarge" className={css.container}>
+      <Layout.Vertical spacing="medium" className={cx(css.container, maybeContainerClass)}>
         {(template as any)?.variables?.length > 0 && (
           <>
             <div className={css.subheading}>{getString('customVariables.pipelineVariablesTitle')}</div>

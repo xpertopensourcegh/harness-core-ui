@@ -1990,7 +1990,7 @@ exports[`Connectors Page Test Render and check filter panel: New Filter 1`] = `
                                     autocomplete="off"
                                     class="bp3-input-ghost bp3-multi-select-tag-input-input"
                                     name="types"
-                                    placeholder="Search..."
+                                    placeholder="- Select -"
                                     value=""
                                   />
                                 </div>
@@ -2069,7 +2069,7 @@ exports[`Connectors Page Test Render and check filter panel: New Filter 1`] = `
                                     autocomplete="off"
                                     class="bp3-input-ghost bp3-multi-select-tag-input-input"
                                     name="connectivityStatuses"
-                                    placeholder="Search..."
+                                    placeholder="- Select -"
                                     value=""
                                   />
                                 </div>
@@ -2529,7 +2529,7 @@ exports[`Connectors Page Test Render and check filter panel: New Filter 2`] = `
                                     autocomplete="off"
                                     class="bp3-input-ghost bp3-multi-select-tag-input-input"
                                     name="types"
-                                    placeholder="Search..."
+                                    placeholder="- Select -"
                                     value=""
                                   />
                                 </div>
@@ -2608,7 +2608,7 @@ exports[`Connectors Page Test Render and check filter panel: New Filter 2`] = `
                                     autocomplete="off"
                                     class="bp3-input-ghost bp3-multi-select-tag-input-input"
                                     name="connectivityStatuses"
-                                    placeholder="Search..."
+                                    placeholder="- Select -"
                                     value=""
                                   />
                                 </div>

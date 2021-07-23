@@ -727,12 +727,16 @@ function RunPipelineFormBasic({
     }
     if (currentPipeline?.pipeline && pipeline && template?.data?.inputSetTemplateYaml) {
       return (
-        <PipelineInputSetForm
-          originalPipeline={{ ...pipeline }}
-          template={parse(template.data.inputSetTemplateYaml).pipeline}
-          readonly={executionView}
-          path=""
-        />
+        <>
+          {existingProvide === 'existing' ? <div className={css.divider} /> : null}
+          <PipelineInputSetForm
+            originalPipeline={{ ...pipeline }}
+            template={parse(template.data.inputSetTemplateYaml).pipeline}
+            readonly={executionView}
+            path=""
+            maybeContainerClass={existingProvide === 'provide' ? css.inputSetFormRunPipeline : ''}
+          />
+        </>
       )
     }
   }
@@ -945,8 +949,8 @@ function RunPipelineFormBasic({
                 <Layout.Horizontal padding={{ left: 'xlarge', right: 'xlarge', top: 'medium', bottom: 'medium' }}>
                   <Checkbox
                     label={getString('pre-flight-check.skipCheckBtn')}
-                    background={skipPreFlightCheck ? Color.PRIMARY_2 : Color.GREY_100}
-                    color={skipPreFlightCheck ? Color.PRIMARY_7 : Color.BLACK}
+                    background={Color.GREY_100}
+                    color={skipPreFlightCheck ? Color.PRIMARY_8 : Color.BLACK}
                     className={css.footerCheckbox}
                     padding={{ top: 'small', bottom: 'small', left: 'xxlarge', right: 'medium' }}
                     checked={skipPreFlightCheck}

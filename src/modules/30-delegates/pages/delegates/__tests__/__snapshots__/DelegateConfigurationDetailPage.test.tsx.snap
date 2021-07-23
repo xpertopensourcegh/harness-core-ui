@@ -247,7 +247,7 @@ exports[`Delegates Profile Detail Render and click Edit 1`] = `
                           <input
                             class="bp3-input-ghost bp3-multi-select-tag-input-input"
                             disabled=""
-                            placeholder="delegates.newDelegateConfigWizard.specEnvNotPossible"
+                            placeholder="- delegates.newDelegateConfigWizard.specEnvNotPossible -"
                             value=""
                           />
                         </div>
@@ -289,7 +289,7 @@ exports[`Delegates Profile Detail Render and click Edit 1`] = `
                           <input
                             class="bp3-input-ghost bp3-multi-select-tag-input-input"
                             disabled=""
-                            placeholder="delegates.newDelegateConfigWizard.specEnvNotPossible"
+                            placeholder="- delegates.newDelegateConfigWizard.specEnvNotPossible -"
                             value=""
                           />
                         </div>
@@ -523,7 +523,7 @@ exports[`Delegates Profile Detail initial render 1`] = `
                           <input
                             class="bp3-input-ghost bp3-multi-select-tag-input-input"
                             disabled=""
-                            placeholder="delegates.newDelegateConfigWizard.specEnvNotPossible"
+                            placeholder="- delegates.newDelegateConfigWizard.specEnvNotPossible -"
                             value=""
                           />
                         </div>
@@ -566,7 +566,7 @@ exports[`Delegates Profile Detail initial render 1`] = `
                           <input
                             class="bp3-input-ghost bp3-multi-select-tag-input-input"
                             disabled=""
-                            placeholder="delegates.newDelegateConfigWizard.specEnvNotPossible"
+                            placeholder="- delegates.newDelegateConfigWizard.specEnvNotPossible -"
                             value=""
                           />
                         </div>
