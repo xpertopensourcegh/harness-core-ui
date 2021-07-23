@@ -144,9 +144,7 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
       projectIdentifier,
       pipelineIdentifier,
       accountId,
-      module,
-      repoIdentifier,
-      branch
+      module
     })
   ) || { isExact: false }
 
