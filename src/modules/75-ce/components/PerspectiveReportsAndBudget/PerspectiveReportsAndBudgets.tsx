@@ -201,7 +201,12 @@ const Budgets = (): JSX.Element => {
   const { accountId, perspectiveId } = useParams<UrlParams>()
   const { mutate: deleteBudget } = useDeleteBudget({ queryParams: { accountIdentifier: accountId } })
   const { budgets, loading, refetch } = useFetchBudget(accountId, perspectiveId)
-  const { openModal } = useBudgetModal({ onSuccess: () => refetch() })
+  const { openModal, hideModal } = useBudgetModal({
+    onSuccess: () => {
+      hideModal()
+      refetch()
+    }
+  })
 
   const budget = budgets[0] || {}
   const { budgetAmount, alertThresholds = [] } = budget
