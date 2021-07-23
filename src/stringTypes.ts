@@ -1041,7 +1041,6 @@ export interface StringsMap {
   'connectors.ceAzure.chooseRequirements.heading': string
   'connectors.ceAzure.chooseRequirements.optimizationCardDesc': string
   'connectors.ceAzure.chooseRequirements.subHeading': string
-  'connectors.ceAzure.chooseRequirements.subText': string
   'connectors.ceAzure.chooseRequirements.visibilityCardDesc': string
   'connectors.ceAzure.existingExports.createNewExportBtn': string
   'connectors.ceAzure.existingExports.instruction': string
