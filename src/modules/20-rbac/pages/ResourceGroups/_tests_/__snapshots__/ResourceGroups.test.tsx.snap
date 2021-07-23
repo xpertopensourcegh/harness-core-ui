@@ -38,7 +38,7 @@ exports[`Resource Groups Page render data 1`] = `
           <span
             class="bp3-button-text"
           >
-            resourceGroup.newResourceGroup
+            rbac.resourceGroup.newResourceGroup
           </span>
         </button>
       </div>
@@ -98,7 +98,7 @@ exports[`Resource Groups Page render data 1`] = `
           role="columnheader"
           style="width: 32%;"
         >
-          resourceGroup.resourceGroupColumn
+          rbac.resourceGroup.resourceGroupColumn
         </div>
         <div
           class="cell"
@@ -106,7 +106,7 @@ exports[`Resource Groups Page render data 1`] = `
           role="columnheader"
           style="width: 32%;"
         >
-          resourceGroup.summary
+          rbac.resourceGroup.summary
         </div>
         <div
           class="cell"
@@ -876,7 +876,7 @@ exports[`Resource Groups Page render data 1`] = `
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
               style="--text-line-clamp: 1;"
             >
-              resourceGroup.builtInResourceGroup
+              rbac.resourceGroup.builtInResourceGroup
             </p>
           </div>
           <div

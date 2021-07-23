@@ -441,12 +441,12 @@ exports[`Resource Groups Page render data 1`] = `
                   <span
                     class="bp3-control-indicator"
                   />
-                  resourceGroup.all
+                  rbac.resourceGroup.all
                 </label>
                 <p
                   class="StyledProps--font StyledProps--main limitAccessCell StyledProps--color StyledProps--color-grey400"
                 >
-                  resourceGroup.limitAccess
+                  rbac.resourceGroup.limitAccess
                 </p>
                 <button
                   class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addResourceBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow"
@@ -455,7 +455,7 @@ exports[`Resource Groups Page render data 1`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    resourceGroup.add
+                    rbac.resourceGroup.add
                   </span>
                 </button>
               </div>

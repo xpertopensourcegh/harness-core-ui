@@ -59,7 +59,7 @@ const ResourceGroups: React.FC = () => {
         title={
           <Layout.Horizontal padding={{ left: 'large' }}>
             <RbacButton
-              text={getString('resourceGroup.newResourceGroup')}
+              text={getString('rbac.resourceGroup.newResourceGroup')}
               intent="primary"
               icon="plus"
               onClick={() => openResourceGroupModal()}

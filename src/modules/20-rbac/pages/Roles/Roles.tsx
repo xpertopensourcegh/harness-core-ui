@@ -102,7 +102,7 @@ const Roles: React.FC = () => {
             ? {
                 when: () => !data?.data?.content?.length,
                 icon: 'nav-project',
-                message: getString('roleDetails.noDataText'),
+                message: getString('rbac.roleDetails.noDataText'),
                 button: newRoleButton()
               }
             : {

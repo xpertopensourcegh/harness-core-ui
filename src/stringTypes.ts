@@ -450,6 +450,7 @@ export interface StringsMap {
   'rbac.accountScope': string
   'rbac.accountSettings.label': string
   'rbac.activeUsers': string
+  'rbac.addResourceModal.selectedText': string
   'rbac.addRole': string
   'rbac.addUser': string
   'rbac.allResources': string
@@ -476,11 +477,38 @@ export interface StringsMap {
   'rbac.permissionLabels.pipelineExecution': string
   'rbac.permissionLabels.view': string
   'rbac.project': string
+  'rbac.resourceGroup.add': string
+  'rbac.resourceGroup.all': string
+  'rbac.resourceGroup.builtInResourceGroup': string
+  'rbac.resourceGroup.color': string
+  'rbac.resourceGroup.confirmDelete': string
+  'rbac.resourceGroup.confirmDeleteTitle': string
+  'rbac.resourceGroup.createSuccess': string
+  'rbac.resourceGroup.deletedMessage': string
+  'rbac.resourceGroup.dragAndDropData': string
+  'rbac.resourceGroup.limitAccess': string
+  'rbac.resourceGroup.newResourceGroup': string
+  'rbac.resourceGroup.noResourceGroup': string
+  'rbac.resourceGroup.noResourceGroupFound': string
+  'rbac.resourceGroup.noResourceGroupTypes': string
+  'rbac.resourceGroup.resourceGroupColumn': string
+  'rbac.resourceGroup.selectResourceGroup': string
+  'rbac.resourceGroup.summary': string
+  'rbac.resourceGroup.updateResourceGroupDialogTitle': string
+  'rbac.resourceGroup.updateSuccess': string
   'rbac.roleAssignment.assignmentValidation': string
   'rbac.roleAssignment.deleteFailure': string
   'rbac.roleAssignment.deleteSuccess': string
   'rbac.roleAssignment.userPlaceHolder': string
   'rbac.roleBinding': string
+  'rbac.roleCard.confirmDelete': string
+  'rbac.roleCard.confirmDeleteTitle': string
+  'rbac.roleCard.successMessage': string
+  'rbac.roleDetails.noDataText': string
+  'rbac.roleDetails.permissionUpdatedSuccess': string
+  'rbac.roleDetails.updateRolePermissions': string
+  'rbac.roleForm.createSuccess': string
+  'rbac.roleForm.updateSuccess': string
   'rbac.serviceAccounts.confirmDelete': string
   'rbac.serviceAccounts.confirmDeleteTitle': string
   'rbac.serviceAccounts.email': string
@@ -3600,10 +3628,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   addRepository: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'addResourceModal.selectedText': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -6763,82 +6787,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'resourceGroup.add': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'resourceGroup.all': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'resourceGroup.builtInResourceGroup': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'resourceGroup.color': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'resourceGroup.confirmDelete': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'resourceGroup.confirmDeleteTitle': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'resourceGroup.createSuccess': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'resourceGroup.deletedMessage': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'resourceGroup.dragAndDropData': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'resourceGroup.limitAccess': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'resourceGroup.newResourceGroup': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'resourceGroup.noResourceGroup': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'resourceGroup.noResourceGroupFound': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'resourceGroup.noResourceGroupTypes': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'resourceGroup.resourceGroupColumn': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'resourceGroup.selectResourceGroup': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'resourceGroup.summary': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'resourceGroup.updateResourceGroupDialogTitle': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'resourceGroup.updateSuccess': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   resourceGroups: string
   /**
    * @deprecated migrate this string to module level file
@@ -6888,38 +6836,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   risk: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'roleCard.confirmDelete': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'roleCard.confirmDeleteTitle': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'roleCard.successMessage': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'roleDetails.noDataText': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'roleDetails.permissionUpdatedSuccess': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'roleDetails.updateRolePermissions': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'roleForm.createSuccess': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'roleForm.updateSuccess': string
   /**
    * @deprecated migrate this string to module level file
    */
