@@ -43,7 +43,6 @@ import { InputSetSummaryResponse, useGetInputsetYaml } from 'services/pipeline-n
 import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
 import CreatePipelines from '../CreateModal/PipelineCreate'
 import { DefaultNewPipelineId, DrawerTypes } from '../PipelineContext/PipelineActions'
-import { RightBar } from '../RightBar/RightBar'
 import PipelineYamlView from '../PipelineYamlView/PipelineYamlView'
 import StageBuilder from '../StageBuilder/StageBuilder'
 import { usePipelineSchema } from '../PipelineSchema/PipelineSchemaContext'
@@ -844,7 +843,6 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
           </div>
         </div>
         {isYaml ? <PipelineYamlView /> : <StageBuilder />}
-        <RightBar />
       </div>
     </PipelineVariablesContextProvider>
   )

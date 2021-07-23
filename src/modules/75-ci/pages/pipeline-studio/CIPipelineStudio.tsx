@@ -20,6 +20,7 @@ import type { NgPipeline } from 'services/cd-ng'
 import { useQueryParams } from '@common/hooks'
 import { LICENSE_STATE_VALUES, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import { FeatureFlag } from '@common/featureFlags'
+import { RightBar } from '@pipeline/components/PipelineStudio/RightBar/RightBar'
 import css from './CIPipelineStudio.module.scss'
 
 const CIPipelineStudio: React.FC = (): JSX.Element => {
@@ -80,6 +81,7 @@ const CIPipelineStudio: React.FC = (): JSX.Element => {
         routePipelineList={routes.toPipelines}
         getOtherModal={getOtherModal}
       />
+      <RightBar />
     </PipelineProvider>
   )
 }
