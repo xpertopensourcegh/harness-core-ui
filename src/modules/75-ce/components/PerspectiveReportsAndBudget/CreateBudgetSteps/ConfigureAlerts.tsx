@@ -52,7 +52,7 @@ const ConfigureAlerts: React.FC<StepProps<Budget> & Props> = props => {
 
   const { mutate: updateBudget } = useUpdateBudget({ id: budget?.uuid || '' })
   const { mutate: createBudget } = useCreateBudget({
-    queryParams: { accountId: accountId } // TODO: accountIdentifier: accountId
+    queryParams: { accountIdentifier: accountId }
   })
 
   const getInitialValues = () => {

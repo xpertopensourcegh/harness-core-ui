@@ -49,8 +49,7 @@ const PerspectiveBuilder: React.FC<{ perspectiveData?: CEView; onNext: () => voi
 
   const { mutate: createView, loading } = useUpdatePerspective({
     queryParams: {
-      accountId: accountId
-      // TODO: accountIdentifier: accountId
+      accountIdentifier: accountId
     }
   })
 

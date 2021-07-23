@@ -33,13 +33,13 @@ const PerspectiveListPage: React.FC = () => {
 
   const { mutate: createView, loading: createViewLoading } = useCreatePerspective({
     queryParams: {
-      accountId: accountId
+      accountIdentifier: accountId
     }
   })
 
   const { mutate: deleteView } = useDeletePerspective({
     queryParams: {
-      accountId: accountId
+      accountIdentifier: accountId
     }
   })
 
@@ -81,7 +81,7 @@ const PerspectiveListPage: React.FC = () => {
       await deleteView(void 0, {
         queryParams: {
           perspectiveId: perspectiveId,
-          accountId: accountId
+          accountIdentifier: accountId
         }
       })
       executeQuery({
