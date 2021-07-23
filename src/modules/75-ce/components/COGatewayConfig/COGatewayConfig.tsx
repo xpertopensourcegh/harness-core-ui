@@ -1470,6 +1470,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                                   projectId: projectIdentifier
                                 })
                               }
+                              fileName={gatewayName && `${gatewayName.split(' ').join('-')}-autostopping.yaml`}
                               handleSave={handleYamlSave}
                             />
                           )}
