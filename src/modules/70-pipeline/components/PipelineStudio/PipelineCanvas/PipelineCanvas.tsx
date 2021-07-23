@@ -5,7 +5,7 @@ import { useModalHook, Text, Icon, Layout, Color, Button, SelectOption } from '@
 import { useHistory, useParams, matchPath } from 'react-router-dom'
 import { parse } from 'yaml'
 import { isEmpty, isEqual, merge, omit } from 'lodash-es'
-import type { NgPipeline, PipelineInfoConfig } from 'services/cd-ng'
+import type { PipelineInfoConfig } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { AppStoreContext } from 'framework/AppStore/AppStoreContext'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
@@ -49,13 +49,13 @@ import { usePipelineSchema } from '../PipelineSchema/PipelineSchemaContext'
 import css from './PipelineCanvas.module.scss'
 
 interface OtherModalProps {
-  onSubmit?: (values: NgPipeline) => void
-  initialValues?: NgPipeline
+  onSubmit?: (values: PipelineInfoConfig) => void
+  initialValues?: PipelineInfoConfig
   onClose?: () => void
 }
 
 interface SavePipelineObj {
-  pipeline: PipelineInfoConfig | NgPipeline
+  pipeline: PipelineInfoConfig | PipelineInfoConfig
 }
 
 interface PipelineWithGitContextFormProps extends PipelineInfoConfig {
@@ -86,7 +86,7 @@ export interface PipelineCanvasProps {
   toPipelineList: PathFn<PipelineType<ProjectPathProps>>
   toPipelineProject: PathFn<PipelineType<ProjectPathProps>>
   getOtherModal?: (
-    onSubmit: (values: NgPipeline, gitDetails?: EntityGitDetails) => void,
+    onSubmit: (values: PipelineInfoConfig, gitDetails?: EntityGitDetails) => void,
     onClose: () => void
   ) => React.ReactElement<OtherModalProps>
 }
@@ -243,7 +243,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   }
 
   const saveAndPublishPipeline = async (
-    latestPipeline: NgPipeline,
+    latestPipeline: PipelineInfoConfig,
     updatedGitDetails?: SaveToGitFormInterface,
     lastObject?: { lastObjectId?: string }
   ): Promise<UseSaveSuccessResponse> => {
@@ -299,7 +299,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
 
     if (isYaml && yamlHandler) {
       try {
-        latestPipeline = payload?.pipeline || (parse(yamlHandler.getLatestYaml()).pipeline as NgPipeline)
+        latestPipeline = payload?.pipeline || (parse(yamlHandler.getLatestYaml()).pipeline as PipelineInfoConfig)
       } /* istanbul ignore next */ catch (err) {
         showError(err.message || err, undefined, 'pipeline.save.gitinfo.error')
       }
@@ -335,7 +335,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
         return
       }
       try {
-        latestPipeline = parse(yamlHandler.getLatestYaml()).pipeline as NgPipeline
+        latestPipeline = parse(yamlHandler.getLatestYaml()).pipeline as PipelineInfoConfig
       } /* istanbul ignore next */ catch (err) {
         showError(err.message || err, undefined, 'pipeline.save.pipeline.error')
       }
@@ -484,7 +484,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   ])
 
   const onSubmit = React.useCallback(
-    (data: NgPipeline, updatedGitDetails?: EntityGitDetails) => {
+    (data: PipelineInfoConfig, updatedGitDetails?: EntityGitDetails) => {
       pipeline.name = data.name
       pipeline.description = data.description
       pipeline.identifier = data.identifier

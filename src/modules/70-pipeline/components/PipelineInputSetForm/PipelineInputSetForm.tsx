@@ -2,7 +2,7 @@ import React from 'react'
 import { Layout, getMultiTypeFromValue, MultiTypeInputType, Text, Icon, Color, IconName } from '@wings-software/uicore'
 import { isEmpty, get } from 'lodash-es'
 import cx from 'classnames'
-import type { DeploymentStageConfig, NgPipeline, PipelineInfoConfig, StageElementWrapperConfig } from 'services/cd-ng'
+import type { DeploymentStageConfig, PipelineInfoConfig, StageElementWrapperConfigConfig } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import type { AllNGVariables } from '@pipeline/utils/types'
 
@@ -22,7 +22,7 @@ import { PipelineVariablesContextProvider } from '../PipelineVariablesContext/Pi
 import css from './PipelineInputSetForm.module.scss'
 
 export interface PipelineInputSetFormProps {
-  originalPipeline: NgPipeline
+  originalPipeline: PipelineInfoConfig
   template: PipelineInfoConfig
   path?: string
   readonly?: boolean
@@ -43,8 +43,8 @@ function StageForm({
   template,
   readonly
 }: {
-  allValues?: StageElementWrapperConfig
-  template?: StageElementWrapperConfig
+  allValues?: StageElementWrapperConfigConfig
+  template?: StageElementWrapperConfigConfig
   path: string
   readonly?: boolean
 }): JSX.Element {
@@ -153,7 +153,7 @@ export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props =
                 </Layout.Vertical>
               )
             } else if (stageObj.parallel) {
-              return (stageObj.parallel as unknown as StageElementWrapperConfig[]).map((stageP, indexp) => {
+              return stageObj.parallel.map((stageP, indexp) => {
                 const allValues = getStageFromPipeline(stageP?.stage?.identifier || '', originalPipeline)
                 return (
                   <Layout.Vertical key={`${stageObj?.stage?.identifier}-${stageP.stage?.identifier}-${indexp}`}>

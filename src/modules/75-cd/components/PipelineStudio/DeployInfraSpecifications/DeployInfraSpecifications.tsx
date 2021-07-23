@@ -6,14 +6,12 @@ import cx from 'classnames'
 import produce from 'immer'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import {
-  ExecutionWrapper,
   getProvisionerExecutionStrategyYamlPromise,
   Infrastructure,
   K8SDirectInfrastructure,
   K8sGcpInfrastructure,
   PipelineInfrastructure,
-  StageElementConfig,
-  StageElementWrapper
+  StageElementConfig
 } from 'services/cd-ng'
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
@@ -27,6 +25,7 @@ import SelectDeploymentType from '@cd/components/PipelineStudio/DeployInfraSpeci
 import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { useValidationErrors } from '@pipeline/components/PipelineStudio/PiplineHooks/useValidationErrors'
+import type { DeploymentStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
 import css from './DeployInfraSpecifications.module.scss'
 
 const DEFAULT_RELEASE_NAME = 'release-<+INFRA_KEY>'
@@ -55,12 +54,13 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
     updateStage
   } = React.useContext(PipelineContext)
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounceUpdateStage = React.useCallback(
-    debounce((stage: StageElementConfig) => updateStage(stage), 100),
+    debounce((stage?: StageElementConfig) => (stage ? updateStage(stage) : Promise.resolve()), 100),
     [updateStage]
   )
 
-  const { stage } = getStageFromPipeline(selectedStageId || '')
+  const { stage } = getStageFromPipeline<DeploymentStageElementConfig>(selectedStageId || '')
 
   const stageRef = React.useRef(stage)
   stageRef.current = stage
@@ -136,21 +136,28 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
         const provisionerSnippet = YAML.parse(res?.data || '')
         if (stage && isProvisionerEmpty(stage) && provisionerSnippet) {
           const stageData = produce(stage, draft => {
-            draft.stage.spec.infrastructure.infrastructureDefinition.provisioner = provisionerSnippet.provisioner
+            set(draft, 'stage.spec.infrastructure.infrastructureDefinition.provisioner', provisionerSnippet.provisioner)
           })
-          updateStage(stageData.stage).then(() => {
-            setProvisionerSnippetLoading(false)
-          })
+
+          if (stageData.stage) {
+            updateStage(stageData.stage).then(() => {
+              setProvisionerSnippetLoading(false)
+            })
+          }
         }
       })
     }
   }, [provisionerEnabled])
 
-  const cleanUpEmptyProvisioner = (stageData: StageElementWrapper | undefined): boolean => {
+  const cleanUpEmptyProvisioner = (
+    stageData: StageElementWrapper<DeploymentStageElementConfig> | undefined
+  ): boolean => {
     const provisioner = stageData?.stage?.spec?.infrastructure?.infrastructureDefinition?.provisioner
     let isChanged = false
 
     if (!isNil(provisioner?.steps) && provisioner?.steps.length === 0) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       delete provisioner.steps
       isChanged = true
     }
@@ -180,13 +187,13 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
         isChanged = cleanUpEmptyProvisioner(draft)
       })
 
-      if (isChanged) {
+      if (stageData?.stage && isChanged) {
         updateStage(stageData?.stage)
       }
     }
   }, [])
 
-  const getProvisionerData = (stageData: ExecutionWrapper): InfraProvisioningData => {
+  const getProvisionerData = (stageData: StageElementWrapper): InfraProvisioningData => {
     let provisioner = get(stageData, 'stage.spec.infrastructure.infrastructureDefinition.provisioner')
     let originalProvisioner: InfraProvisioningData['originalProvisioner'] = undefined
     if (selectedStageId) {
@@ -256,7 +263,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
         return (
           <StepWidget<K8SDirectInfrastructure>
             factory={factory}
-            key={stage?.stage.identifier}
+            key={stage?.stage?.identifier}
             readonly={isReadonly}
             initialValues={initialInfrastructureDefinitionValues as K8SDirectInfrastructure}
             type={StepType.KubernetesDirect}
@@ -279,7 +286,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
         return (
           <StepWidget<GcpInfrastructureSpec>
             factory={factory}
-            key={stage?.stage.identifier}
+            key={stage?.stage?.identifier}
             readonly={isReadonly}
             initialValues={initialInfrastructureDefinitionValues as GcpInfrastructureSpec}
             type={StepType.KubernetesGcp}

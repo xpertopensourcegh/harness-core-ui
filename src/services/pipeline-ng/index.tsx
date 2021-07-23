@@ -809,6 +809,9 @@ export interface Error {
     | 'UNEXPECTED_SNIPPET_EXCEPTION'
     | 'UNEXPECTED_SCHEMA_EXCEPTION'
     | 'CONNECTOR_VALIDATION_EXCEPTION'
+    | 'TIMESCALE_NOT_AVAILABLE'
+    | 'MIGRATION_EXCEPTION'
+    | 'REQUEST_PROCESSING_INTERRUPTED'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -1358,6 +1361,9 @@ export interface Failure {
     | 'UNEXPECTED_SNIPPET_EXCEPTION'
     | 'UNEXPECTED_SCHEMA_EXCEPTION'
     | 'CONNECTOR_VALIDATION_EXCEPTION'
+    | 'TIMESCALE_NOT_AVAILABLE'
+    | 'MIGRATION_EXCEPTION'
+    | 'REQUEST_PROCESSING_INTERRUPTED'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -1745,6 +1751,7 @@ export interface InputSetResponse {
   identifier?: string
   inputSetErrorWrapper?: InputSetErrorWrapper
   inputSetYaml?: string
+  invalid?: boolean
   name?: string
   orgIdentifier?: string
   pipelineIdentifier?: string
@@ -2195,6 +2202,7 @@ export interface OverlayInputSetResponse {
   gitDetails?: EntityGitDetails
   identifier?: string
   inputSetReferences?: string[]
+  invalid?: boolean
   invalidInputSetReferences?: {
     [key: string]: string
   }
@@ -2738,7 +2746,7 @@ export interface PreFlightResolution {
 
 export interface Principal {
   identifier: string
-  type: 'USER' | 'SYSTEM' | 'API_KEY'
+  type: 'USER' | 'SYSTEM' | 'API_KEY' | 'SERVICE_ACCOUNT'
 }
 
 export interface RerunInfo {
@@ -3286,6 +3294,9 @@ export interface ResponseMessage {
     | 'UNEXPECTED_SNIPPET_EXCEPTION'
     | 'UNEXPECTED_SCHEMA_EXCEPTION'
     | 'CONNECTOR_VALIDATION_EXCEPTION'
+    | 'TIMESCALE_NOT_AVAILABLE'
+    | 'MIGRATION_EXCEPTION'
+    | 'REQUEST_PROCESSING_INTERRUPTED'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'

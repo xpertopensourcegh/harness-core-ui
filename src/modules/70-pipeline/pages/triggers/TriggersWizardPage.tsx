@@ -11,7 +11,7 @@ import { PageError } from '@common/components/Page/PageError'
 import { connectorUrlType } from '@connectors/constants'
 import routes from '@common/RouteDefinitions'
 import {
-  NgPipeline,
+  PipelineInfoConfig,
   useGetConnector,
   GetConnectorQueryParams,
   getConnectorListV2Promise,
@@ -186,7 +186,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
 
   const [enabledStatus, setEnabledStatus] = useState<boolean>(true)
   const [getTriggerErrorMessage, setGetTriggerErrorMessage] = useState<string>('')
-  const [currentPipeline, setCurrentPipeline] = useState<{ pipeline?: NgPipeline } | undefined>(undefined)
+  const [currentPipeline, setCurrentPipeline] = useState<{ pipeline?: PipelineInfoConfig } | undefined>(undefined)
   const [wizardKey, setWizardKey] = useState<number>(0)
   const [mergedPipelineKey, setMergedPipelineKey] = useState<number>(0)
 
@@ -194,8 +194,8 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     | FlatOnEditValuesInterface
     | {
         triggerType: NGTriggerSourceV2['type']
-        pipeline?: NgPipeline | Record<string, never>
-        originalPipeline?: NgPipeline
+        pipeline?: PipelineInfoConfig | Record<string, never>
+        originalPipeline?: PipelineInfoConfig
         identifier?: string
         connectorRef?: { identifier?: string; scope?: string }
       }
@@ -216,13 +216,13 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         onEditInitialValues.pipeline || {}
       )
       const newPipeline = clearRuntimeInput(newOnEditPipeline)
-      setOnEditInitialValues({ ...onEditInitialValues, pipeline: newPipeline as unknown as NgPipeline })
+      setOnEditInitialValues({ ...onEditInitialValues, pipeline: newPipeline as unknown as PipelineInfoConfig })
       setCurrentPipeline({ pipeline: newPipeline }) // will reset initialValues
       setMergedPipelineKey(1)
     } else if (template?.data?.inputSetTemplateYaml) {
       setCurrentPipeline(
         merge(clearRuntimeInput(parse(template?.data?.inputSetTemplateYaml || '')), currentPipeline || {}) as {
-          pipeline: NgPipeline
+          pipeline: PipelineInfoConfig
         }
       )
     }
@@ -239,7 +239,9 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
   })
 
-  const originalPipeline: NgPipeline | undefined = parse((pipelineResponse?.data?.yamlPipeline as any) || '')?.pipeline
+  const originalPipeline: PipelineInfoConfig | undefined = parse(
+    (pipelineResponse?.data?.yamlPipeline as any) || ''
+  )?.pipeline
 
   useEffect(() => {
     if (triggerResponse?.data?.yaml && triggerResponse.data.type === TriggerTypes.WEBHOOK) {

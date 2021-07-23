@@ -470,7 +470,7 @@ export class TerraformPlan extends PipelineStep<TFPlanFormData> {
         configuration: {
           ...data.spec?.configuration,
           secretManagerRef: data.spec?.configuration?.secretManagerRef || '',
-          configFiles: data.spec?.configuration?.configFiles || {},
+          configFiles: data.spec?.configuration?.configFiles || ({} as any),
           command: data.spec?.configuration?.command || 'Apply',
           targets: !isTargetRunTime
             ? Array.isArray(data.spec?.configuration?.targets)

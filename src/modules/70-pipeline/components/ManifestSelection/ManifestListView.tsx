@@ -132,11 +132,11 @@ const ManifestListView = ({
     listOfManifests.splice(index, 1)
 
     if (stage) {
-      updateStage(
-        produce(stage, draft => {
-          set(draft, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests', listOfManifests)
-        }).stage as StageElementConfig
-      )
+      const newStage = produce(stage, draft => {
+        set(draft, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests', listOfManifests)
+      }).stage
+
+      if (newStage) updateStage(newStage)
     }
   }
 
