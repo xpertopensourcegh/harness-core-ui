@@ -595,8 +595,8 @@ inputSets:
   aboutInputSets: Harness Input Sets are collections of variables/values that can be provided to one or more Pipelines before execution.
 provisionerSteps: Provisioner Steps
 addStage:
-  title: Select a Stage
-  description: In a pipeline, a stage involves a series of tasks or tests that must be satisfied in order to proceed to the next stage.
+  title: Select stage type
+  description: Hover over stage type for more info.
 aboutYourStage:
   stageNamePlaceholder: Enter Stage Name
 infraSpecifications:
