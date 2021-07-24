@@ -49,14 +49,6 @@ export interface ActivitySourceDTO {
   uuid?: string
 }
 
-export interface ActivityStatusDTO {
-  activityId?: string
-  durationMs?: number
-  progressPercentage?: number
-  remainingTimeMs?: number
-  status?: 'IGNORED' | 'NOT_STARTED' | 'VERIFICATION_PASSED' | 'VERIFICATION_FAILED' | 'ERROR' | 'IN_PROGRESS'
-}
-
 export interface ActivityVerificationResultDTO {
   activityId?: string
   activityName?: string
@@ -363,12 +355,6 @@ export type BitbucketUsernameTokenApiAccess = BitbucketApiAccessSpecDTO & {
   tokenRef: string
   username?: string
   usernameRef?: string
-}
-
-export interface CD10RegisterActivityDTO {
-  activityId?: string
-  envIdentifier?: string
-  serviceIdentifier?: string
 }
 
 export type CEAwsConnector = ConnectorConfigDTO & {
@@ -1548,7 +1534,7 @@ export interface HealthSource {
   identifier?: string
   name?: string
   spec: HealthSourceSpec
-  type?: 'AppDynamics' | 'NewRelic' | 'StackdriverLog'
+  type?: 'AppDynamics' | 'NewRelic' | 'StackdriverLog' | 'Stackdriver' | 'Prometheus' | 'Splunk'
 }
 
 export interface HealthSourceSpec {
@@ -2001,12 +1987,17 @@ export interface MonitoredServiceDTO {
 
 export interface MonitoredServiceListItemDTO {
   currentHealthScore?: RiskData
+  environmentName?: string
   environmentRef?: string
   healthMonitoringEnabled?: boolean
   historicalTrend?: HistoricalTrend
   identifier?: string
   name?: string
+  serviceName?: string
   serviceRef?: string
+  tags?: {
+    [key: string]: string
+  }
   type?: 'Application'
 }
 
@@ -2291,7 +2282,6 @@ export interface PrometheusSampleData {
 }
 
 export interface QueryDTO {
-  messageIdentifier: string
   name: string
   query: string
   serviceInstanceIdentifier: string
@@ -2799,14 +2789,6 @@ export interface RestResponse {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseActivityStatusDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ActivityStatusDTO
-  responseMessages?: ResponseMessage[]
-}
-
 export interface RestResponseActivityVerificationResultDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -2828,14 +2810,6 @@ export interface RestResponseBoolean {
     [key: string]: { [key: string]: any }
   }
   resource?: boolean
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseCD10RegisterActivityDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: CD10RegisterActivityDTO
   responseMessages?: ResponseMessage[]
 }
 
@@ -3365,6 +3339,11 @@ export type SplunkConnectorDTO = ConnectorConfigDTO & {
   passwordRef: string
   splunkUrl: string
   username?: string
+}
+
+export type SplunkHealthSourceSpec = HealthSourceSpec & {
+  feature: string
+  queries: QueryDTO[]
 }
 
 export interface SplunkSampleResponse {
