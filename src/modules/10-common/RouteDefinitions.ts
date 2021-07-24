@@ -1050,6 +1050,14 @@ const routes = {
   ),
   toCEPerspectives: withAccountId(() => `/ce/perspectives`),
   toCEBudgets: withAccountId(() => '/ce/budgets'),
+  toWorkloadDetails: withAccountId(
+    ({
+      clusterName,
+      namespace,
+      workloadName
+    }: AccountPathProps & { clusterName: string; namespace: string; workloadName: string }) =>
+      `/ce/cluster/${clusterName}/namespace/${namespace}/workload/${workloadName}/details`
+  ),
   /********************************************************************************************************************/
   toCustomDasboard: withAccountId(() => '/home/dashboards'),
   toViewCustomDashboard: withAccountId(({ viewId }: { viewId: string }) => `/home/dashboards/view/${viewId}`)

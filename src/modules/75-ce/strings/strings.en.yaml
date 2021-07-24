@@ -375,6 +375,18 @@ recommendation:
 savedYamlSuccess: YAML validated successfully
 uploadCertiHeader: Upload a new certificate for the Application Load Balancer
 perspectives:
+  workloadDetails:
+    aggregation:
+      text: 'Aggregation:'
+      timeWeighted: 'Time-weighted'
+      absolute: 'Absolute'
+    workloadDetailsText: 'WORKLOAD DETAILS'
+    costDetailsText: 'COST DETAILS'
+    fieldNames:
+      workload: '{{ $.pipelineSteps.workload }}'
+      namespace: '{{ $.common.namespace }}'
+      workloadType: Workload Type
+      clusterName: '{{ $.common.cluster }}'
   save: Save Perspective
   validations:
     invalidEmails: Invalid email address(es)

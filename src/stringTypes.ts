@@ -2492,6 +2492,15 @@ export interface StringsMap {
   'ce.perspectives.validations.emailRequired': string
   'ce.perspectives.validations.invalidEmails': string
   'ce.perspectives.validations.reportNameRequired': string
+  'ce.perspectives.workloadDetails.aggregation.absolute': string
+  'ce.perspectives.workloadDetails.aggregation.text': string
+  'ce.perspectives.workloadDetails.aggregation.timeWeighted': string
+  'ce.perspectives.workloadDetails.costDetailsText': string
+  'ce.perspectives.workloadDetails.fieldNames.clusterName': string
+  'ce.perspectives.workloadDetails.fieldNames.namespace': string
+  'ce.perspectives.workloadDetails.fieldNames.workload': string
+  'ce.perspectives.workloadDetails.fieldNames.workloadType': string
+  'ce.perspectives.workloadDetails.workloadDetailsText': string
   'ce.recommendation.detailsPage.costOptimized': string
   'ce.recommendation.detailsPage.costOptimizedCaps': string
   'ce.recommendation.detailsPage.costOptimizedDetails': string
