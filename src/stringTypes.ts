@@ -2124,6 +2124,19 @@ export interface StringsMap {
   'pipeline.verification.currentTest': string
   'pipeline.verification.healthSourcePlaceholder': string
   'pipeline.verification.logClustersInViolation': string
+  'pipeline.verification.logs.actions': string
+  'pipeline.verification.logs.clusterType': string
+  'pipeline.verification.logs.copyURL': string
+  'pipeline.verification.logs.logCluster': string
+  'pipeline.verification.logs.messageCount': string
+  'pipeline.verification.logs.messageFrequency': string
+  'pipeline.verification.logs.noAnalysis': string
+  'pipeline.verification.logs.risk': string
+  'pipeline.verification.logs.sampleEvent': string
+  'pipeline.verification.logs.sampleMessage': string
+  'pipeline.verification.logs.share': string
+  'pipeline.verification.logs.trend': string
+  'pipeline.verification.logs.urlCopied': string
   'pipeline.verification.metricViewPlaceholder': string
   'pipeline.verification.metricsInViolation': string
   'pipeline.verification.noMetrics': string

@@ -652,6 +652,20 @@ verification:
   analysisTab:
     metrics: 'Metrics'
     logs: 'Logs'
+  logs:
+    logCluster: Log cluster
+    noAnalysis: No analysis
+    clusterType: CLUSTER TYPE
+    sampleMessage: MESSAGE
+    messageFrequency: MESSAGE FREQUENCY
+    messageCount: COUNT
+    actions: ACTIONS
+    risk: RISK
+    copyURL: Copy url
+    urlCopied: URL copied
+    share: share
+    sampleEvent: Sample event
+    trend: trend
 stepCommonFields:
   runAsUser: Run as User
   ifNotPresent: 'If Not Present'
