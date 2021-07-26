@@ -356,7 +356,7 @@ function ExecutionGraphRef<T extends StageElementConfig>(
           isHoverView: true,
           data: node
         },
-        { useArrows: true, darkMode: false, fixedPosition: false }
+        { useArrows: true, darkMode: false, fixedPosition: false, placement: 'top' }
       )
     }
   }
@@ -739,7 +739,6 @@ function ExecutionGraphRef<T extends StageElementConfig>(
           darkMode={true}
           render={renderPopover}
           bind={setDynamicPopoverHandler}
-          placement={'right'}
         />
       </div>
     </div>

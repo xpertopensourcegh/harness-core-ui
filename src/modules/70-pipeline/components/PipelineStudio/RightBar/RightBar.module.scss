@@ -42,6 +42,7 @@
 
     &.enableGitExpIcon {
       --right-bar-icon: var(--red-500);
+      width: 64px;
 
       span {
         line-height: 12px !important;

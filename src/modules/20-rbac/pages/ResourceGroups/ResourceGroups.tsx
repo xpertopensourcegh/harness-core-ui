@@ -81,6 +81,7 @@ const ResourceGroups: React.FC = () => {
         toolbar={
           <Layout.Horizontal margin={{ right: 'small' }} height="xxxlarge">
             <ExpandingSearchInput
+              flip
               placeholder={getString('rbac.usersPage.search')}
               onChange={e => {
                 setSearchTerm(e.trim())

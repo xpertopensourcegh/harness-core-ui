@@ -114,12 +114,12 @@ exports[`Org Page List Create New Org 1`] = `
       </div>
     </div>
     <div
-      class="bp3-input-group ui-search-box ExpandingSearchInput--main search "
+      class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip"
       data-name=""
       style="max-width: 350px;"
     >
       <span
-        class="bp3-icon StyledProps--main ExpandingSearchInput--icon "
+        class="bp3-icon StyledProps--main ExpandingSearchInput--icon ExpandingSearchInput--flipicon"
         data-icon="thinner-search"
       >
         <svg
