@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import YAML from 'yaml'
-import { Layout, Card, Text, Accordion, Color } from '@wings-software/uicore'
+import { Layout, Card, Accordion } from '@wings-software/uicore'
 import { get, isEmpty, isNil, omit, debounce, set } from 'lodash-es'
 import cx from 'classnames'
 import produce from 'immer'
@@ -398,14 +398,16 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
           </Accordion>
         ) : null}
 
-        {selectedDeploymentType ? (
-          <Card className={cx(css.sectionCard, css.shadow)} id="clusterDetails">
-            <Text style={{ fontWeight: 600, fontSize: 16 }} color={Color.GREY_700} margin={{ bottom: 'medium' }}>
-              {getString('cd.steps.common.clusterDetails')}
-            </Text>
-            {getClusterConfigurationStep(selectedDeploymentType)}
-          </Card>
-        ) : null}
+        {selectedDeploymentType && (
+          <>
+            <div className={css.tabHeading} id="clusterDetails">
+              <String stringID="cd.steps.common.clusterDetails" />
+            </div>
+            <Card className={cx(css.sectionCard, css.shadow)}>
+              {getClusterConfigurationStep(selectedDeploymentType)}
+            </Card>
+          </>
+        )}
 
         <div className={css.navigationButtons}>{props.children}</div>
       </div>
