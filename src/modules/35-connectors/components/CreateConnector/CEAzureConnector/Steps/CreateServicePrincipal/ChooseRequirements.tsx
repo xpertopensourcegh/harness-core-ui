@@ -133,12 +133,7 @@ const ChooseRequirements: React.FC<StepProps<CEAzureDTO>> = props => {
               />
               <Layout.Horizontal spacing="medium" className={css.continueAndPreviousBtns}>
                 <Button text={getString('previous')} icon="chevron-left" onClick={() => previousStep?.(prevStepData)} />
-                <Button
-                  type="submit"
-                  intent="primary"
-                  rightIcon="chevron-right"
-                  disabled={selectedCards.length === 0 && !includesBilling}
-                >
+                <Button type="submit" intent="primary" rightIcon="chevron-right" disabled={false}>
                   {getString('continue')}
                 </Button>
               </Layout.Horizontal>

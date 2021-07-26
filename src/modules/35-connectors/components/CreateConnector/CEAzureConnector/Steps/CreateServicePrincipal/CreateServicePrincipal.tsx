@@ -94,7 +94,7 @@ const CreateServicePrincipal: React.FC<StepProps<CEAzureDTO>> = (props): JSX.Ele
   // az role assignment create --assignee <id_of_the_service_principal_from_api> --role 'Storage Blob Data Reader' --scope $SCOPE
   //
   // # 3. Role assignment for enabling CCM Optimisation
-  // az role assignment create --assignee-object-id <id_of_the_service_principal_from_api> --role 'Contributor' --scope /subscriptions/<subscription id from screen 1>
+  // az role assignment create --assignee <id_of_the_service_principal_from_api> --role 'Contributor' --scope /subscriptions/<subscription id from screen 1>
 
   // If only BILLING is selected, we need to show 1 and 2.
   if (ENABLED.BILLING || ENABLED.VISIBILITY) {
@@ -117,7 +117,7 @@ const CreateServicePrincipal: React.FC<StepProps<CEAzureDTO>> = (props): JSX.Ele
     commands.push(
       <Commands
         comment={'# Role assignment for enabling CCM Optimisation'}
-        command={`az role assignment create --assignee-object-id ${appId} --role 'Contributor' --scope /subscriptions/${subscriptionId}`}
+        command={`az role assignment create --assignee ${appId} --role 'Contributor' --scope /subscriptions/${subscriptionId}`}
       />
     )
   }
@@ -130,7 +130,7 @@ const CreateServicePrincipal: React.FC<StepProps<CEAzureDTO>> = (props): JSX.Ele
       <Commands
         key={'opt'}
         comment={'# Role assignment for enabling CCM Optimisation'}
-        command={`az role assignment create --assignee-object-id ${appId} --role 'Contributor' --scope /subscriptions/${subscriptionId}`}
+        command={`az role assignment create --assignee ${appId} --role 'Contributor' --scope /subscriptions/${subscriptionId}`}
       />
     ]
   }

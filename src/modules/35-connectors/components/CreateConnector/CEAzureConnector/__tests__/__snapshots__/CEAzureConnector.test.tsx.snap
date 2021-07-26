@@ -1930,7 +1930,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
                   class="StyledProps--font StyledProps--main command"
                 >
                   <pre>
-                    az role assignment create --assignee-object-id  --role 'Contributor' --scope /subscriptions/20d6a917-99fa-4b1b-9b2e-a3d624e9dcf0
+                    az role assignment create --assignee  --role 'Contributor' --scope /subscriptions/20d6a917-99fa-4b1b-9b2e-a3d624e9dcf0
                   </pre>
                   <span
                     class="bp3-popover-wrapper"
