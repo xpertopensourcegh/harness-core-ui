@@ -1,6 +1,7 @@
 import React from 'react'
 import { PipelineStage } from '@pipeline/components/PipelineStages/PipelineStage'
 import type { BuildStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
+import { DeployStageErrorProvider } from '@pipeline/context/StageErrorContext'
 import { EditStageView } from './EditStageView/EditStageView'
 import BuildStageSetupShell from '../BuildStageSetupShell/BuildStageSetupShell'
 
@@ -15,6 +16,10 @@ export class BuildStage extends PipelineStage<BuildStageProps> {
     if (minimal) {
       return <EditStageView {...stageProps} />
     }
-    return <BuildStageSetupShell />
+    return (
+      <DeployStageErrorProvider>
+        <BuildStageSetupShell />
+      </DeployStageErrorProvider>
+    )
   }
 }

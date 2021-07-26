@@ -18,11 +18,13 @@ import {
 } from '@pipeline/components/PipelineStudio/ExecutionGraph/ExecutionGraphUtil'
 import { StepType as StepsStepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { AdvancedPanels } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
+import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import type { K8sDirectInfraYaml, UseFromStageInfraYaml } from 'services/ci'
 import BuildInfraSpecifications from '../BuildInfraSpecifications/BuildInfraSpecifications'
 import BuildStageSpecifications from '../BuildStageSpecifications/BuildStageSpecifications'
 import BuildAdvancedSpecifications from '../BuildAdvancedSpecifications/BuildAdvancedSpecifications'
+import { BuildTabs } from '../CIPipelineStagesUtils'
 import css from './BuildStageSetupShell.module.scss'
 
 export const MapStepTypeToIcon: { [key: string]: HarnessIconName } = {
@@ -42,8 +44,7 @@ interface StagesFilledStateFlags {
 export default function BuildStageSetupShell(): JSX.Element {
   const { getString } = useStrings()
 
-  const stageNames: string[] = [getString('overview'), getString('ci.infraLabel'), getString('ci.executionLabel')]
-  const [selectedTabId, setSelectedTabId] = React.useState<string>(getString('overview'))
+  const [selectedTabId, setSelectedTabId] = React.useState<BuildTabs>(BuildTabs.OVERVIEW)
   const [filledUpStages, setFilledUpStages] = React.useState<StagesFilledStateFlags>({
     specifications: false,
     infra: false,
@@ -72,7 +73,7 @@ export default function BuildStageSetupShell(): JSX.Element {
 
   React.useEffect(() => {
     if (selectedStepId) {
-      setSelectedTabId(getString('ci.executionLabel'))
+      setSelectedTabId(BuildTabs.EXECUTION)
     }
   }, [selectedStepId])
 
@@ -108,13 +109,14 @@ export default function BuildStageSetupShell(): JSX.Element {
         setStageData(stage[key as 'stage'])
       }
     }
-    if (stageNames.indexOf(selectedStageId) !== -1) {
-      setSelectedTabId(selectedStageId)
-    }
-  }, [selectedStageId, pipeline, isSplitViewOpen, stageNames])
+  }, [selectedStageId, pipeline, isSplitViewOpen])
 
-  const handleTabChange = (data: string) => {
-    setSelectedTabId(data)
+  const { checkErrorsForTab } = React.useContext(StageErrorContext)
+
+  const handleTabChange = (data: BuildTabs) => {
+    checkErrorsForTab(selectedTabId).then(_ => {
+      setSelectedTabId(data)
+    })
   }
 
   React.useEffect(() => {
@@ -148,18 +150,18 @@ export default function BuildStageSetupShell(): JSX.Element {
       <Button
         text={getString('ci.previous')}
         icon="chevron-left"
-        disabled={selectedTabId === getString('overview')}
+        disabled={selectedTabId === BuildTabs.OVERVIEW}
         onClick={() =>
-          setSelectedTabId(
-            selectedTabId === getString('ci.advancedLabel')
-              ? getString('ci.executionLabel')
-              : selectedTabId === getString('ci.executionLabel')
-              ? getString('ci.infraLabel')
-              : getString('overview')
+          handleTabChange(
+            selectedTabId === BuildTabs.ADVANCED
+              ? BuildTabs.EXECUTION
+              : selectedTabId === BuildTabs.EXECUTION
+              ? BuildTabs.INFRASTRUCTURE
+              : BuildTabs.OVERVIEW
           )
         }
       />
-      {selectedTabId === getString('ci.advancedLabel') ? (
+      {selectedTabId === BuildTabs.ADVANCED ? (
         <Button
           text="Done"
           intent="primary"
@@ -169,16 +171,14 @@ export default function BuildStageSetupShell(): JSX.Element {
         />
       ) : (
         <Button
-          text={selectedTabId === getString('ci.executionLabel') ? getString('ci.save') : getString('ci.next')}
+          text={selectedTabId === BuildTabs.EXECUTION ? getString('ci.save') : getString('ci.next')}
           intent="primary"
           rightIcon="chevron-right"
           onClick={() => {
-            if (selectedTabId === getString('ci.executionLabel')) {
+            if (selectedTabId === BuildTabs.EXECUTION) {
               updatePipelineView({ ...pipelineView, isSplitViewOpen: false, splitViewData: {} })
             } else {
-              setSelectedTabId(
-                selectedTabId === getString('overview') ? getString('ci.infraLabel') : getString('ci.executionLabel')
-              )
+              handleTabChange(selectedTabId === BuildTabs.OVERVIEW ? BuildTabs.INFRASTRUCTURE : BuildTabs.EXECUTION)
             }
           }}
         />
@@ -190,7 +190,7 @@ export default function BuildStageSetupShell(): JSX.Element {
     <section className={css.setupShell} ref={layoutRef} key={selectedStageId}>
       <Tabs id="stageSetupShell" onChange={handleTabChange} selectedTabId={selectedTabId}>
         <Tab
-          id={getString('overview')}
+          id={BuildTabs.OVERVIEW}
           panel={<BuildStageSpecifications>{navBtns}</BuildStageSpecifications>}
           title={
             <span className={css.tab}>
@@ -209,7 +209,7 @@ export default function BuildStageSetupShell(): JSX.Element {
           style={{ alignSelf: 'center' }}
         />
         <Tab
-          id={getString('ci.infraLabel')}
+          id={BuildTabs.INFRASTRUCTURE}
           title={
             <span className={css.tab}>
               <Icon
@@ -232,7 +232,7 @@ export default function BuildStageSetupShell(): JSX.Element {
           style={{ alignSelf: 'center' }}
         />
         <Tab
-          id={getString('ci.executionLabel')}
+          id={BuildTabs.EXECUTION}
           title={
             <span className={css.tab}>
               <Icon
@@ -352,7 +352,7 @@ export default function BuildStageSetupShell(): JSX.Element {
           style={{ alignSelf: 'center' }}
         />
         <Tab
-          id={getString('ci.advancedLabel')}
+          id={BuildTabs.ADVANCED}
           title={
             <span className={css.tab}>
               <Icon name="advanced" height={20} size={20} />

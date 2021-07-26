@@ -15,6 +15,7 @@ jest.mock('lodash-es', () => ({
   }),
   noop: jest.fn()
 }))
+jest.mock('@pipeline/components/ErrorsStrip/ErrorsStripBinded', () => () => <></>)
 
 describe('BuildStageSpecifications tests', () => {
   const pipelineContextMockValue = getDummyPipelineContextValue()

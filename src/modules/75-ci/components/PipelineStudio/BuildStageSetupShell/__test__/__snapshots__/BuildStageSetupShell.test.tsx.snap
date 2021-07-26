@@ -21,14 +21,14 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
           />
         </div>
         <div
-          aria-controls="bp3-tab-panel_stageSetupShell_overview"
+          aria-controls="bp3-tab-panel_stageSetupShell_OVERVIEW"
           aria-disabled="false"
           aria-expanded="true"
           aria-selected="true"
           class="bp3-tab"
-          data-tab-id="overview"
+          data-tab-id="OVERVIEW"
           data-testid="overview"
-          id="bp3-tab-title_stageSetupShell_overview"
+          id="bp3-tab-title_stageSetupShell_OVERVIEW"
           role="tab"
           tabindex="0"
         >
@@ -97,14 +97,14 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
           </svg>
         </span>
         <div
-          aria-controls="bp3-tab-panel_stageSetupShell_ci.infraLabel"
+          aria-controls="bp3-tab-panel_stageSetupShell_INFRASTRUCTURE"
           aria-disabled="false"
           aria-expanded="false"
           aria-selected="false"
           class="bp3-tab"
-          data-tab-id="ci.infraLabel"
+          data-tab-id="INFRASTRUCTURE"
           data-testid="ci.infraLabel"
-          id="bp3-tab-title_stageSetupShell_ci.infraLabel"
+          id="bp3-tab-title_stageSetupShell_INFRASTRUCTURE"
           role="tab"
           tabindex="0"
         >
@@ -154,14 +154,14 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
           </svg>
         </span>
         <div
-          aria-controls="bp3-tab-panel_stageSetupShell_ci.executionLabel"
+          aria-controls="bp3-tab-panel_stageSetupShell_EXECUTION"
           aria-disabled="false"
           aria-expanded="false"
           aria-selected="false"
           class="bp3-tab"
-          data-tab-id="ci.executionLabel"
+          data-tab-id="EXECUTION"
           data-testid="ci.executionLabel"
-          id="bp3-tab-title_stageSetupShell_ci.executionLabel"
+          id="bp3-tab-title_stageSetupShell_EXECUTION"
           role="tab"
           tabindex="0"
         >
@@ -211,14 +211,14 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
           </svg>
         </span>
         <div
-          aria-controls="bp3-tab-panel_stageSetupShell_ci.advancedLabel"
+          aria-controls="bp3-tab-panel_stageSetupShell_ADVANCED"
           aria-disabled="false"
           aria-expanded="false"
           aria-selected="false"
           class="bp3-tab"
-          data-tab-id="ci.advancedLabel"
+          data-tab-id="ADVANCED"
           data-testid="ci.advancedLabel"
-          id="bp3-tab-title_stageSetupShell_ci.advancedLabel"
+          id="bp3-tab-title_stageSetupShell_ADVANCED"
           role="tab"
           tabindex="0"
         >
@@ -251,9 +251,9 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
       </div>
       <div
         aria-hidden="false"
-        aria-labelledby="bp3-tab-title_stageSetupShell_overview"
+        aria-labelledby="bp3-tab-title_stageSetupShell_OVERVIEW"
         class="bp3-tab-panel"
-        id="bp3-tab-panel_stageSetupShell_overview"
+        id="bp3-tab-panel_stageSetupShell_OVERVIEW"
         role="tabpanel"
       >
         <div
@@ -575,17 +575,13 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                             Stage Variables
                           </div>
                           <div
-                            class="Layout--horizontal StyledProps--main"
+                            class="stageSection"
                           >
                             <div
-                              class="stageSection"
+                              class="stageDetails"
                             >
-                              <div
-                                class="stageDetails"
-                              >
-                                <div>
-                                  {"a":"a","variables":[],"canAddVariable":true}
-                                </div>
+                              <div>
+                                {"a":"a","variables":[],"canAddVariable":true}
                               </div>
                             </div>
                           </div>

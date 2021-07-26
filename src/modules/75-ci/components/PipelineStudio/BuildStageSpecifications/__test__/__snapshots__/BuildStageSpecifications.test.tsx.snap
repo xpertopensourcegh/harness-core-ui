@@ -328,17 +328,13 @@ exports[`BuildStageSpecifications tests clicking on description shows correspond
                       Stage Variables
                     </div>
                     <div
-                      class="Layout--horizontal StyledProps--main"
+                      class="stageSection"
                     >
                       <div
-                        class="stageSection"
+                        class="stageDetails"
                       >
-                        <div
-                          class="stageDetails"
-                        >
-                          <div>
-                            {"a":"a","variables":[],"canAddVariable":true}
-                          </div>
+                        <div>
+                          {"a":"a","variables":[],"canAddVariable":true}
                         </div>
                       </div>
                     </div>
@@ -678,17 +674,13 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                       Stage Variables
                     </div>
                     <div
-                      class="Layout--horizontal StyledProps--main"
+                      class="stageSection"
                     >
                       <div
-                        class="stageSection"
+                        class="stageDetails"
                       >
-                        <div
-                          class="stageDetails"
-                        >
-                          <div>
-                            {"a":"a","variables":[],"canAddVariable":true}
-                          </div>
+                        <div>
+                          {"a":"a","variables":[],"canAddVariable":true}
                         </div>
                       </div>
                     </div>
