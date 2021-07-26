@@ -128,7 +128,7 @@ function TerraformPlanWidget(
         return (
           <>
             <>
-              <div className={cx(stepCss.formGroup, stepCss.md)}>
+              <div className={cx(stepCss.formGroup, stepCss.lg)}>
                 <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
               </div>
 
@@ -154,6 +154,8 @@ function TerraformPlanWidget(
                   />
                 )}
               </div>
+
+              <div className={stepCss.noLookDivider} />
 
               <div className={cx(stepCss.formGroup, stepCss.md)}>
                 <FormInput.RadioGroup
