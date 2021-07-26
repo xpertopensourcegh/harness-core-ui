@@ -63,13 +63,16 @@ export const AddStageView: React.FC<AddStageViewProps> = ({ callback, isParallel
           onClick={() => window.dispatchEvent(new CustomEvent('CLOSE_CREATE_STAGE_POPOVER'))}
         />
         <Layout.Vertical margin={{ top: 'xxlarge', bottom: 'xxlarge', right: 'medium', left: 'medium' }}>
-          <Layout.Horizontal margin={{ bottom: 'xxlarge', top: 'large' }} flex={{ justifyContent: 'center' }}>
-            <Icon name="add-stage" size={74} />
+          <Layout.Horizontal margin={{ bottom: 'medium', top: 'large' }} flex={{ justifyContent: 'center' }}>
+            {selectedType?.title ? (
+              <div className={css.hoverTitle}> {selectedType?.title}</div>
+            ) : (
+              <Icon name="add-stage" size={74} />
+            )}
           </Layout.Horizontal>
           <div className={css.stageDescription}>
             {selectedType?.description || getString('pipeline.addStage.description')}
           </div>
-          {/* <div className={css.stageTitle}>{selectedType?.title || getString('pipeline.addStage.title')}</div> */}
         </Layout.Vertical>
       </div>
     </div>

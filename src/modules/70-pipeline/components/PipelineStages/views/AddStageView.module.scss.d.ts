@@ -9,6 +9,7 @@ declare const styles: {
   readonly cardTitle: string
   readonly selected: string
   readonly stageTitle: string
+  readonly hoverTitle: string
   readonly stageDescription: string
   readonly closeIcon: string
 }
