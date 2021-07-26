@@ -822,6 +822,14 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         originalPipeline,
         ...getDefaultExpressionBreakdownValues(scheduleTabsId.MINUTES)
       }
+    } else if (triggerType === TriggerTypes.NEW_ARTIFACT) {
+      return {
+        triggerType: triggerTypeOnNew,
+        identifier: '',
+        tags: {},
+        pipeline: currentPipeline?.pipeline,
+        originalPipeline
+      }
     }
     return {}
   }
