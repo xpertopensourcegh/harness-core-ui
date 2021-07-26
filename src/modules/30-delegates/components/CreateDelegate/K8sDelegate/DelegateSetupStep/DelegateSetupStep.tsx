@@ -141,7 +141,9 @@ const DelegateSetup: React.FC<StepProps<StepK8Data> & DelegateSetupStepProps> = 
 
   const [formData, setInitValues] = React.useState<DelegateSetupDetails>(initialValues)
 
-  const [selectedPermission, setSelectedPermission] = React.useState<k8sPermissionType>(k8sPermissionType.CLUSTER_ADMIN)
+  const [selectedPermission, setSelectedPermission] = React.useState<k8sPermissionType>(
+    k8sPermissionType[initialValues?.k8sConfigDetails?.k8sPermissionType || k8sPermissionType.CLUSTER_ADMIN]
+  )
   const onSubmit = async (values: DelegateSetupDetails) => {
     const createParams = values
     if (projectIdentifier) {
