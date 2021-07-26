@@ -179,6 +179,7 @@ const WorkloadDetailsPage: () => JSX.Element = () => {
           </Container>
           <Container>
             <PerspectiveGrid
+              isClusterOnly={true}
               gridData={gridData?.perspectiveGrid?.data as any}
               gridFetching={gridFetching}
               columnSequence={[]}

@@ -1033,20 +1033,16 @@ const routes = {
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
       `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/autostopping-rules`
   ),
-  toCERecommendations: withAccountId(
-    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/recommendations`
-  ),
+  toCERecommendations: withAccountId(() => `/ce/recommendations`),
   toCERecommendationDetails: withAccountId(
-    ({ orgIdentifier, projectIdentifier, recommendation }: ProjectPathProps & { recommendation: string }) =>
-      `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/recommendations/${recommendation}/details`
+    ({ recommendation }: { recommendation: string }) => `/ce/recommendations/${recommendation}/details`
   ),
   toPerspectiveDetails: withAccountId(
     ({ perspectiveId, perspectiveName }: AccountPathProps & { perspectiveId: string; perspectiveName: string }) =>
-      `/ce/perspective/${perspectiveId}/name/${perspectiveName}`
+      `/ce/perspectives/${perspectiveId}/name/${perspectiveName}`
   ),
   toCECreatePerspective: withAccountId(
-    ({ perspectiveId }: AccountPathProps & { perspectiveId: string }) => `/ce/perspective/${perspectiveId}/create`
+    ({ perspectiveId }: AccountPathProps & { perspectiveId: string }) => `/ce/perspectives/${perspectiveId}/create`
   ),
   toCEPerspectives: withAccountId(() => `/ce/perspectives`),
   toCEBudgets: withAccountId(() => '/ce/budgets'),

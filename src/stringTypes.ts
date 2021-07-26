@@ -2485,6 +2485,7 @@ export interface StringsMap {
   'ce.perspectives.reports.title': string
   'ce.perspectives.save': string
   'ce.perspectives.searchPerspectives': string
+  'ce.perspectives.sideNavText': string
   'ce.perspectives.timeAggregation.daily': string
   'ce.perspectives.timeAggregation.monthly': string
   'ce.perspectives.timeRange.calendarMonths': string

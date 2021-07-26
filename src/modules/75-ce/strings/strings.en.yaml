@@ -375,6 +375,7 @@ recommendation:
 savedYamlSuccess: YAML validated successfully
 uploadCertiHeader: Upload a new certificate for the Application Load Balancer
 perspectives:
+  sideNavText: 'Perspectives'
   workloadDetails:
     aggregation:
       text: 'Aggregation:'

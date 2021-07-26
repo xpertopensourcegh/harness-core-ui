@@ -724,8 +724,12 @@ export const GroupByMapping: Record<string, Column[]> = {
   Pod: PODS_COLUMNS
 }
 
-export const getGridColumnsByGroupBy = (groupBy: QlceViewFieldInputInput): Column[] => {
+export const getGridColumnsByGroupBy = (groupBy: QlceViewFieldInputInput, isClusterOnly: boolean): Column[] => {
   const { fieldName, identifier } = groupBy
+
+  if (!isClusterOnly) {
+    return DEFAULT_COLS
+  }
 
   if (identifier === 'LABEL') {
     return LABELS_COLS
