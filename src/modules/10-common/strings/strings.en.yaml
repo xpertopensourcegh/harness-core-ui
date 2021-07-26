@@ -394,6 +394,7 @@ artifactTag: tag
 clientId: Client ID
 filters:
   saveNewFilter: Save New Filter
+  unsavedFilter: Unsaved Filter
   noMatchingFilterData: No Results found matching the Filter criteria
   clearFilters: Clear Filters
   noFilterSaved: No Filter Saved

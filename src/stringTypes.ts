@@ -141,6 +141,7 @@ export interface StringsMap {
   'common.filters.noFilterSaved': string
   'common.filters.noMatchingFilterData': string
   'common.filters.saveNewFilter': string
+  'common.filters.unsavedFilter': string
   'common.frequency': string
   'common.git.APIAccessDescriptipn': string
   'common.git.APIAuthentication': string
