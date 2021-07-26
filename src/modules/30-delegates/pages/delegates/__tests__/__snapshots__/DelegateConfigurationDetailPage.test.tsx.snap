@@ -130,6 +130,16 @@ exports[`Delegates Profile Detail Render and click Edit 1`] = `
                 class="StyledProps--font StyledProps--main"
                 style="font-size: 12px; line-height: 16px; letter-spacing: 0.2px;"
               >
+                delegates.delegateIdentifier
+              </p>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main entry"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="font-size: 12px; line-height: 16px; letter-spacing: 0.2px;"
+              >
                 description
               </p>
               <div
@@ -438,6 +448,16 @@ exports[`Delegates Profile Detail initial render 1`] = `
                 style="font-size: 14px; line-height: 24px; color: rgb(34, 39, 45); letter-spacing: -0.01px;"
               >
                 Primary
+              </p>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main entry"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="font-size: 12px; line-height: 16px; letter-spacing: 0.2px;"
+              >
+                delegates.delegateIdentifier
               </p>
             </div>
             <div
