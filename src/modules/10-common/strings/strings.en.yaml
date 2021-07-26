@@ -308,6 +308,9 @@ submittingRequest: Submitting request and pushing changes to Git
 submittingRequestToGitViaDelegate: Submitting request and pushing changes to Git from Delegate
 local: Local
 location: Location
+subscribed: Subscribed
+overSubscribed: Oversubscribed
+totalHarnessUser: Total Harness users
 subscriptions:
   title: Subscriptions
   tabs:
@@ -331,6 +334,19 @@ subscriptions:
   enterpriseTrial: Enterprise (14 day trial)
   enterprisePaid: Enterprise
   noActiveSubscription: No Active Subscription
+  usage:
+    header: Activity & Usage
+    last60days: Last 60 days
+    services: Active Services
+    srvcInst: Active Service Instances
+    cdUsers: Active CD Users
+    ciUsers: Active CI Users
+    ffUsers: Feature Flags Users
+    monthlyUsers: Monthly Active Users
+    developers: Active Developers
+    cloudSpend: Active Cloud Spend
+    ccmUsers: Active CCM Users
+current: Current
 banners:
   email:
     description: Please check your email and follow the link to verify your email. Didn’t receive it?

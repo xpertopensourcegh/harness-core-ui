@@ -11,5 +11,6 @@ declare const styles: {
   readonly expiryCountdown: string
   readonly expired: string
   readonly bannerIcon: string
+  readonly outterCard: string
 }
 export default styles

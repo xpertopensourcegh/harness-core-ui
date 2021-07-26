@@ -103,6 +103,7 @@ export interface StringsMap {
   'common.confirmText': string
   'common.createPipeline': string
   'common.creating': string
+  'common.current': string
   'common.dashboards': string
   'common.datePickerShortcuts.Last2Days': string
   'common.datePickerShortcuts.Last2Months': string
@@ -262,6 +263,7 @@ export interface StringsMap {
   'common.orgSetup': string
   'common.orgViewer': string
   'common.other': string
+  'common.overSubscribed': string
   'common.paste': string
   'common.path': string
   'common.pendingInvitation': string
@@ -351,6 +353,7 @@ export interface StringsMap {
   'common.startTrial': string
   'common.submittingRequest': string
   'common.submittingRequestToGitViaDelegate': string
+  'common.subscribed': string
   'common.subscriptions.banner.enterprise': string
   'common.subscriptions.ci.developers': string
   'common.subscriptions.enterprisePaid': string
@@ -368,6 +371,17 @@ export interface StringsMap {
   'common.subscriptions.tabs.overview': string
   'common.subscriptions.tabs.plans': string
   'common.subscriptions.title': string
+  'common.subscriptions.usage.ccmUsers': string
+  'common.subscriptions.usage.cdUsers': string
+  'common.subscriptions.usage.ciUsers': string
+  'common.subscriptions.usage.cloudSpend': string
+  'common.subscriptions.usage.developers': string
+  'common.subscriptions.usage.ffUsers': string
+  'common.subscriptions.usage.header': string
+  'common.subscriptions.usage.last60days': string
+  'common.subscriptions.usage.monthlyUsers': string
+  'common.subscriptions.usage.services': string
+  'common.subscriptions.usage.srvcInst': string
   'common.successfullCreate': string
   'common.successfullUpdate': string
   'common.supportedModals': string
@@ -379,6 +393,7 @@ export interface StringsMap {
   'common.test.inProgress': string
   'common.test.retest': string
   'common.tokens': string
+  'common.totalHarnessUser': string
   'common.totalLines': string
   'common.trialInProgress': string
   'common.trialInProgressDescription': string

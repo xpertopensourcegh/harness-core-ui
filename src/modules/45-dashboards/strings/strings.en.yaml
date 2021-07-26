@@ -20,7 +20,7 @@ createModal:
   # submit: 'Submit'
   submitFail: 'Dashboard creation failed, Please try again.'
 serviceDashboard:
-  activeServiceInstancesLabel: 'Active Service Instances'
+  activeServiceInstancesLabel: '{{$.common.subscriptions.usage.srvcInst}}'
   servicesInLast: 'Services added in {{period}}'
   month: 'Last 30 days'
   3months: 'Last 3 months'

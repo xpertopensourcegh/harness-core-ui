@@ -479,10 +479,10 @@ exports[`Subscriptions Page it renders an expired banner when the trial is expir
       </button>
     </div>
     <div
-      class="Layout--vertical StyledProps--main"
+      class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
     >
       <div
-        class="bp3-card bp3-elevation-0 Card--card"
+        class="bp3-card bp3-elevation-0 Card--card outterCard"
       >
         <div
           class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline StyledProps--flex-justifyContent-space-between"
@@ -958,10 +958,10 @@ exports[`Subscriptions Page it renders the correct card in the subscriptions pag
       </button>
     </div>
     <div
-      class="Layout--vertical StyledProps--main"
+      class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
     >
       <div
-        class="bp3-card bp3-elevation-0 Card--card"
+        class="bp3-card bp3-elevation-0 Card--card outterCard"
       >
         <div
           class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline StyledProps--flex-justifyContent-space-between"
@@ -1437,10 +1437,10 @@ exports[`Subscriptions Page it renders the subscriptions page 1`] = `
       </button>
     </div>
     <div
-      class="Layout--vertical StyledProps--main"
+      class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
     >
       <div
-        class="bp3-card bp3-elevation-0 Card--card"
+        class="bp3-card bp3-elevation-0 Card--card outterCard"
       >
         <div
           class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline StyledProps--flex-justifyContent-space-between"
@@ -1887,10 +1887,10 @@ exports[`Subscriptions Page it renders trial not started information 1`] = `
       </button>
     </div>
     <div
-      class="Layout--vertical StyledProps--main"
+      class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
     >
       <div
-        class="bp3-card bp3-elevation-0 Card--card"
+        class="bp3-card bp3-elevation-0 Card--card outterCard"
       >
         <div
           class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline StyledProps--flex-justifyContent-space-between"
@@ -2353,10 +2353,10 @@ exports[`Subscriptions Page it should update the license store 1`] = `
       </button>
     </div>
     <div
-      class="Layout--vertical StyledProps--main"
+      class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
     >
       <div
-        class="bp3-card bp3-elevation-0 Card--card"
+        class="bp3-card bp3-elevation-0 Card--card outterCard"
       >
         <div
           class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline StyledProps--flex-justifyContent-space-between"

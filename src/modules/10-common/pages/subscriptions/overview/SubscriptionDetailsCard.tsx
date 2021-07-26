@@ -22,6 +22,7 @@ import {
 import { Editions, ModuleLicenseType } from '@common/constants/SubscriptionTypes'
 import type { TrialInformation } from '../SubscriptionsPage'
 import css from './SubscriptionDetailsCard.module.scss'
+import pageCss from '../SubscriptionsPage.module.scss'
 
 interface SubscriptionDetailsCardProps {
   accountName?: string
@@ -274,7 +275,7 @@ const SubscriptionDetailsCard: React.FC<SubscriptionDetailsCardProps> = props =>
   )
 
   return (
-    <Card>
+    <Card className={pageCss.outterCard}>
       <Layout.Vertical spacing="xxlarge" flex={{ alignItems: 'baseline', justifyContent: 'space-between' }}>
         <Heading color={Color.BLACK} font={{ size: 'medium' }}>
           {getString('common.subscriptions.overview.details')}

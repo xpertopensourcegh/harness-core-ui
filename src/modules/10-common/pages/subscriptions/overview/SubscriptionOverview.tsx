@@ -21,7 +21,7 @@ const SubscriptionOverview: React.FC<SubscriptionOverviewProps> = props => {
   // Although this component currently contains 'almost' nothing
   // it will be useful to leave this here for other components in the future
   return (
-    <Layout.Vertical>
+    <Layout.Vertical spacing="large">
       <SubscriptionDetailsCard
         accountName={accountName}
         module={module}
@@ -29,6 +29,8 @@ const SubscriptionOverview: React.FC<SubscriptionOverviewProps> = props => {
         trialInformation={trialInformation}
         refetchGetLicense={refetchGetLicense}
       />
+      {/* TO-DO: uncomment this when integrate with subscription data api */}
+      {/* {licenseData && <SubscriptionUsageCard module={module} />} */}
     </Layout.Vertical>
   )
 }
