@@ -133,6 +133,11 @@ const CONFIG_STEP_IDS = ['configStep1', 'configStep2', 'configStep3', 'configSte
 const DEFAULT_TOTAL_STEP_COUNT = 4
 const MODIFIED_TOTAL_STEP_COUNT = 3
 
+const IDLE_TIME_CONSTRAINTS = {
+  MIN: 5,
+  MAX: 480
+}
+
 const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
   const { getString } = useStrings()
   const { trackEvent } = useTelemetry()
@@ -612,7 +617,8 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
       (selectedInstances.length > 0 || !_isEmpty(selectedAsg) || !_isEmpty(selectedConnector)) &&
       (selectedResource !== RESOURCES.KUBERNETES ? routingRecords.length > 0 : true) &&
       gatewayName != '' &&
-      idleTime >= 5 &&
+      idleTime >= IDLE_TIME_CONSTRAINTS.MIN &&
+      idleTime <= IDLE_TIME_CONSTRAINTS.MAX &&
       (selectedResource === RESOURCES.INSTANCES ? fullfilment != '' : true) &&
       (!_isEmpty(serviceDependencies)
         ? serviceDependencies.every(_dep => !isNaN(_dep.dep_id) && !isNaN(_dep.delay_secs))
@@ -1107,7 +1113,11 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                       isK8sSelected ? /[a-z0-9]([-a-z0-9]*[a-z0-9])?/ : /.*/,
                       'Name should not contain special characters'
                     ),
-                  idleTime: Yup.number().typeError('Idle time must be a number').required('Idle Time is required field')
+                  idleTime: Yup.number()
+                    .min(IDLE_TIME_CONSTRAINTS.MIN)
+                    .max(IDLE_TIME_CONSTRAINTS.MAX)
+                    .typeError('Idle time must be a number')
+                    .required('Idle Time is required field')
                 })}
               ></Formik>
               {/* </Layout.Vertical> */}
