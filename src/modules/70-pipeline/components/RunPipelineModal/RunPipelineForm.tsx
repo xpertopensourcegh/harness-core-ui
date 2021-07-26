@@ -80,6 +80,7 @@ export interface RunPipelineFormProps extends PipelineType<PipelinePathProps & G
   onClose?: () => void
   executionView?: boolean
   mockData?: ResponseJsonNode
+  executionInputSetTemplateYaml?: string
 }
 
 const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
@@ -316,7 +317,8 @@ function RunPipelineFormBasic({
   module,
   executionView,
   branch,
-  repoIdentifier
+  repoIdentifier,
+  executionInputSetTemplateYaml = ''
 }: RunPipelineFormProps & InputSetGitQueryParams): React.ReactElement {
   const [skipPreFlightCheck, setSkipPreFlightCheck] = React.useState<boolean>(false)
   const [selectedView, setSelectedView] = React.useState<SelectedView>(SelectedView.VISUAL)
@@ -716,6 +718,14 @@ function RunPipelineFormBasic({
     return <PageSpinner />
   }
 
+  const checkIfRuntimeInputsNotPresent = (): string | undefined => {
+    if (executionView && !executionInputSetTemplateYaml) {
+      return getString('pipeline.inputSets.noRuntimeInputsWhileExecution')
+    } else if (!executionView && pipeline && currentPipeline && !template?.data?.inputSetTemplateYaml) {
+      return getString('runPipelineForm.noRuntimeInput')
+    }
+  }
+
   const renderPipelineInputSetForm = () => {
     if (loadingUpdate) {
       return (
@@ -726,12 +736,13 @@ function RunPipelineFormBasic({
       )
     }
     if (currentPipeline?.pipeline && pipeline && template?.data?.inputSetTemplateYaml) {
+      const templateSource = executionView ? executionInputSetTemplateYaml : template?.data?.inputSetTemplateYaml
       return (
         <>
           {existingProvide === 'existing' ? <div className={css.divider} /> : null}
           <PipelineInputSetForm
             originalPipeline={{ ...pipeline }}
-            template={parse(template.data.inputSetTemplateYaml).pipeline}
+            template={parse(templateSource)?.pipeline}
             readonly={executionView}
             path=""
             maybeContainerClass={existingProvide === 'provide' ? css.inputSetFormRunPipeline : ''}
@@ -788,6 +799,7 @@ function RunPipelineFormBasic({
         }}
       >
         {({ submitForm, values }) => {
+          const noRuntimeInputs = checkIfRuntimeInputsNotPresent()
           return (
             <Layout.Vertical>
               {executionView ? null : (
@@ -826,7 +838,104 @@ function RunPipelineFormBasic({
               {selectedView === SelectedView.VISUAL ? (
                 <div className={executionView ? css.runModalFormContentExecutionView : css.runModalFormContent}>
                   <FormikForm>
-                    {pipeline && currentPipeline && template?.data?.inputSetTemplateYaml ? (
+                    {noRuntimeInputs ? (
+                      <Layout.Horizontal padding="medium" margin="medium">
+                        <Text>{noRuntimeInputs}</Text>
+                      </Layout.Horizontal>
+                    ) : (
+                      <>
+                        {inputSets && inputSets.length > 0 && (
+                          <>
+                            {!executionView && (
+                              <Layout.Vertical
+                                className={css.pipelineHeader}
+                                padding={{ top: 'xlarge', left: 'xlarge', right: 'xlarge' }}
+                              >
+                                <div>
+                                  <Layout.Horizontal className={css.runModalSubHeading} id="use-input-set">
+                                    <RadioGroup
+                                      name="existingProvideRadio"
+                                      label={getString(
+                                        'pipeline.triggers.pipelineInputPanel.selectedExisitingOrProvide'
+                                      )}
+                                      inline
+                                      selectedValue={existingProvide}
+                                      onChange={ev => {
+                                        setExistingProvide((ev.target as HTMLInputElement).value)
+                                      }}
+                                    >
+                                      <Radio
+                                        label={getString('pipeline.triggers.pipelineInputPanel.provide')}
+                                        value="provide"
+                                        className={cx(
+                                          css.valueProviderRadio,
+                                          existingProvide === 'provide' ? css.selectedValueProvider : ''
+                                        )}
+                                      />
+                                      <Radio
+                                        label={getString('pipeline.triggers.pipelineInputPanel.existing')}
+                                        value="existing"
+                                        className={cx(
+                                          css.valueProviderRadio,
+                                          existingProvide === 'existing' ? css.selectedValueProvider : ''
+                                        )}
+                                      />
+                                    </RadioGroup>
+                                    <span className={css.helpSection}>
+                                      <Icon name="question" className={css.helpIcon} />
+                                      <Text
+                                        tooltipProps={{
+                                          position: PopoverPosition.BOTTOM
+                                        }}
+                                        tooltip={
+                                          <Text padding="medium" width={400}>
+                                            {getString('pipeline.inputSets.aboutInputSets')}
+                                            <a
+                                              href="https://ngdocs.harness.io/article/3fqwa8et3d-input-sets"
+                                              target="_blank"
+                                              rel="noopener noreferrer"
+                                            >
+                                              {getString('learnMore')}
+                                            </a>
+                                          </Text>
+                                        }
+                                      >
+                                        {getString('pipeline.triggers.pipelineInputPanel.whatAreInputsets')}
+                                      </Text>
+                                    </span>
+                                  </Layout.Horizontal>
+                                </div>
+                                {!executionView &&
+                                  pipeline &&
+                                  currentPipeline &&
+                                  template?.data?.inputSetTemplateYaml &&
+                                  existingProvide === 'existing' && (
+                                    <GitSyncStoreProvider>
+                                      <InputSetSelector
+                                        pipelineIdentifier={pipelineIdentifier}
+                                        onChange={inputsets => {
+                                          setSelectedInputSets(inputsets)
+                                        }}
+                                        value={selectedInputSets}
+                                      />
+                                    </GitSyncStoreProvider>
+                                  )}
+                              </Layout.Vertical>
+                            )}
+                          </>
+                        )}
+                        {existingProvide === 'provide' ||
+                        (selectedInputSets && selectedInputSets?.length > 0) ||
+                        executionView
+                          ? renderPipelineInputSetForm()
+                          : null}
+                        {existingProvide === 'existing' && selectedInputSets && selectedInputSets?.length > 0 && (
+                          <div className={css.noPipelineInputSetForm} />
+                        )}
+                      </>
+                    )}
+
+                    {/* {pipeline && currentPipeline && template?.data?.inputSetTemplateYaml ? (
                       <>
                         {inputSets && inputSets.length > 0 && (
                           <>
@@ -920,12 +1029,12 @@ function RunPipelineFormBasic({
                     ) : (
                       <Layout.Horizontal padding="medium" margin="medium">
                         <Text>
-                          {executionView
+                          {executionView && !executionInputSetTemplateYaml
                             ? getString('pipeline.inputSets.noRuntimeInputsWhileExecution')
                             : getString('runPipelineForm.noRuntimeInput')}
                         </Text>
                       </Layout.Horizontal>
-                    )}
+                    )} */}
                   </FormikForm>
                 </div>
               ) : (
