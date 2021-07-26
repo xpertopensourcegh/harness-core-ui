@@ -11,6 +11,7 @@ import {
   QlceViewFilterWrapperInput
 } from 'services/ce/services'
 import { getTimeFilters, getViewFilterForId } from '@ce/utils/perspectiveUtils'
+import { getGMTStartDateTime, getGMTEndDateTime } from '@ce/utils/momentUtils'
 import type { ProviderType } from '../FilterPill'
 import css from './views.module.scss'
 
@@ -129,8 +130,8 @@ interface ValueSelectorProps {
   isLabelOrTag: boolean
   setService: React.Dispatch<React.SetStateAction<ProviderType | null>>
   timeRange: {
-    to: number
-    from: number
+    to: string
+    from: string
   }
 }
 
@@ -163,7 +164,7 @@ const ValueSelector: React.FC<ValueSelectorProps> = ({
     variables: {
       filters: [
         getViewFilterForId(perspectiveId),
-        ...getTimeFilters(timeRange.from, timeRange.to),
+        ...getTimeFilters(getGMTStartDateTime(timeRange.from), getGMTEndDateTime(timeRange.to)),
         {
           idFilter: {
             field: {

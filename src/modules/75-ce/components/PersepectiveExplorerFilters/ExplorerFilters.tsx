@@ -10,8 +10,8 @@ interface ExplorerFiltersProps {
   setFilters: React.Dispatch<React.SetStateAction<QlceViewFilterInput[]>>
   filters: QlceViewFilterInput[]
   timeRange: {
-    to: number
-    from: number
+    to: string
+    from: string
   }
 }
 

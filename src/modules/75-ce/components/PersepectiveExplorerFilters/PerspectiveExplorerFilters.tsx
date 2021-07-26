@@ -74,13 +74,13 @@ interface PersepectiveExplorerFiltersProps {
   setAggregation: React.Dispatch<React.SetStateAction<QlceViewTimeGroupType>>
   setTimeRange: React.Dispatch<
     React.SetStateAction<{
-      to: number
-      from: number
+      to: string
+      from: string
     }>
   >
   timeRange: {
-    to: number
-    from: number
+    to: string
+    from: string
   }
   setFilters: React.Dispatch<React.SetStateAction<QlceViewFilterInput[]>>
   filters: QlceViewFilterInput[]
@@ -100,7 +100,7 @@ const PersepectiveExplorerFilters: React.FC<PersepectiveExplorerFiltersProps> = 
         <Icon name="ng-filter" size={20} />
         <ExplorerFilters timeRange={timeRange} filters={filters} setFilters={setFilters} />
         <FlexExpander />
-        <PerspectiveTimeRangePicker setTimeRange={setTimeRange} />
+        <PerspectiveTimeRangePicker timeRange={timeRange} setTimeRange={setTimeRange} />
         <Text color="primary7">|</Text>
         <TimeGranularityDropDown aggregation={aggregation} setAggregation={setAggregation} />
       </Container>

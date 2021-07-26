@@ -19,7 +19,12 @@ import CloudCostInsightChart from '@ce/components/CloudCostInsightChart/CloudCos
 import { CCM_CHART_TYPES } from '@ce/constants'
 import PerspectiveTimeRangePicker from '@ce/components/PerspectiveTimeRangePicker/PerspectiveTimeRangePicker'
 import { DAYS_FOR_TICK_INTERVAL } from '@ce/components/CloudCostInsightChart/Chart'
-import { DATE_RANGE_SHORTCUTS } from '@ce/utils/momentUtils'
+import {
+  CE_DATE_FORMAT_INTERNAL,
+  DATE_RANGE_SHORTCUTS,
+  getGMTEndDateTime,
+  getGMTStartDateTime
+} from '@ce/utils/momentUtils'
 import { CCM_PAGE_TYPE } from '@ce/types'
 import PerspectiveGrid from '@ce/components/PerspectiveGrid/PerspectiveGrid'
 import { Page } from '@common/exports'
@@ -41,15 +46,15 @@ const WorkloadDetailsPage: () => JSX.Element = () => {
 
   const [aggregation, setAggregation] = useState<QlceViewTimeGroupType>(QlceViewTimeGroupType.Day)
 
-  const [timeRange, setTimeRange] = useState<{ to: number; from: number }>({
-    to: DATE_RANGE_SHORTCUTS.LAST_7_DAYS[1].valueOf(),
-    from: DATE_RANGE_SHORTCUTS.LAST_7_DAYS[0].valueOf()
+  const [timeRange, setTimeRange] = useState<{ to: string; from: string }>({
+    to: DATE_RANGE_SHORTCUTS.LAST_7_DAYS[1].format(CE_DATE_FORMAT_INTERNAL),
+    from: DATE_RANGE_SHORTCUTS.LAST_7_DAYS[0].format(CE_DATE_FORMAT_INTERNAL)
   })
 
   const filters = [
     // This is WIP, will add actual view Id here from params
     getViewFilterForId('PDbLMdk5TESMijmyi-f_TQ'),
-    ...getTimeFilters(timeRange.from, timeRange.to),
+    ...getTimeFilters(getGMTStartDateTime(timeRange.from), getGMTEndDateTime(timeRange.to)),
     {
       idFilter: {
         values: [clusterName],
@@ -121,7 +126,7 @@ const WorkloadDetailsPage: () => JSX.Element = () => {
       <Page.Body>
         <Container flex background="white" padding="small">
           <FlexExpander />
-          <PerspectiveTimeRangePicker setTimeRange={setTimeRange} />
+          <PerspectiveTimeRangePicker timeRange={timeRange} setTimeRange={setTimeRange} />
           <Text color="primary7">|</Text>
           <TimeGranularityDropDown aggregation={aggregation} setAggregation={setAggregation} />
         </Container>

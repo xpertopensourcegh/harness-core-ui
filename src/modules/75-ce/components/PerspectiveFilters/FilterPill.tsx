@@ -65,8 +65,8 @@ interface FilterPillProps {
   pillData: QlceViewFilterInput
   fieldValuesList: Maybe<QlceViewFieldIdentifierData>[]
   timeRange: {
-    to: number
-    from: number
+    to: string
+    from: string
   }
 }
 

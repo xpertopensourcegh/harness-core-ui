@@ -11,10 +11,15 @@ export const GET_DATE_RANGE = {
     todayInUTC().subtract(1, 'days').format()
   ]
 }
-
 export const CE_DATE_FORMAT_INTERNAL = 'YYYY-MM-DD'
+export const CE_DATE_FORMAT_INTERNAL_MOMENT = `${CE_DATE_FORMAT_INTERNAL}THH:mm:ssZ`
 
-export const DATE_RANGE_SHORTCUTS = {
+export const getGMTStartDateTime = (str: string) => moment(`${str}T00:00:00Z`, CE_DATE_FORMAT_INTERNAL_MOMENT).valueOf()
+export const getGMTEndDateTime = (str: string) => moment(`${str}T23:59:59Z`, CE_DATE_FORMAT_INTERNAL_MOMENT).valueOf()
+export const getStartDateTime = (str: string) => moment(`${str}T00:00:00`).valueOf()
+export const getEndDateTime = (str: string) => moment(`${str}T23:59:59`).valueOf()
+
+export const DATE_RANGE_SHORTCUTS: Record<string, moment.Moment[]> = {
   LAST_7_DAYS: [todayInUTC().subtract(6, 'days').startOf('day'), yesterdayInUTC().endOf('day')],
   LAST_30_DAYS: [todayInUTC().subtract(30, 'days').startOf('day'), todayInUTC().endOf('day')],
   CURRENT_MONTH: [todayInUTC().startOf('month').startOf('day'), todayInUTC().endOf('day')],
@@ -41,18 +46,18 @@ export const DATE_RANGE_SHORTCUTS = {
 }
 
 export enum DATE_RANGE_SHORTCUTS_NAME {
-  'LAST_7_DAYS',
-  'LAST_30_DAYS',
-  'CURRENT_MONTH',
-  'THIS_YEAR',
-  'LAST_MONTH',
-  'LAST_YEAR',
-  'LAST_3_MONTHS',
-  'LAST_6_MONTHS',
-  'LAST_12_MONTHS',
-  'THIS_QUARTER',
-  'LAST_QUARTER',
-  'CUSTOM'
+  'LAST_7_DAYS' = 'LAST_7_DAYS',
+  'LAST_30_DAYS' = 'LAST_30_DAYS',
+  'CURRENT_MONTH' = 'CURRENT_MONTH',
+  'THIS_YEAR' = 'THIS_YEAR',
+  'LAST_MONTH' = 'LAST_MONTH',
+  'LAST_YEAR' = 'LAST_YEAR',
+  'LAST_3_MONTHS' = 'LAST_3_MONTHS',
+  'LAST_6_MONTHS' = 'LAST_6_MONTHS',
+  'LAST_12_MONTHS' = 'LAST_12_MONTHS',
+  'THIS_QUARTER' = 'THIS_QUARTER',
+  'LAST_QUARTER' = 'LAST_QUARTER',
+  'CUSTOM' = 'CUSTOM'
 }
 
 export const ALL_TIME_ZONES = [

@@ -33,7 +33,12 @@ import {
   DEFAULT_GROUP_BY
 } from '@ce/utils/perspectiveUtils'
 import { AGGREGATE_FUNCTION } from '@ce/components/PerspectiveGrid/Columns'
-import { DATE_RANGE_SHORTCUTS } from '@ce/utils/momentUtils'
+import {
+  DATE_RANGE_SHORTCUTS,
+  getGMTStartDateTime,
+  getGMTEndDateTime,
+  CE_DATE_FORMAT_INTERNAL
+} from '@ce/utils/momentUtils'
 import { CCM_CHART_TYPES } from '@ce/constants'
 import { DAYS_FOR_TICK_INTERVAL } from '@ce/components/CloudCostInsightChart/Chart'
 import css from './PerspectiveDetailsPage.module.scss'
@@ -102,7 +107,6 @@ const PerspectiveDetailsPage: React.FC = () => {
   const { data: perspectiveRes, loading } = useGetPerspective({
     queryParams: {
       perspectiveId: perspectiveId
-      // TODO: accountIdentifier: accountId
     }
   })
 
@@ -118,9 +122,9 @@ const PerspectiveDetailsPage: React.FC = () => {
   const [groupBy, setGroupBy] = useState<QlceViewFieldInputInput>(DEFAULT_GROUP_BY)
   const [filters, setFilters] = useState<QlceViewFilterInput[]>([])
   const [columnSequence, setColumnSequence] = useState<string[]>([])
-  const [timeRange, setTimeRange] = useState<{ to: number; from: number }>({
-    to: DATE_RANGE_SHORTCUTS.LAST_7_DAYS[1].valueOf(),
-    from: DATE_RANGE_SHORTCUTS.LAST_7_DAYS[0].valueOf()
+  const [timeRange, setTimeRange] = useState<{ to: string; from: string }>({
+    to: DATE_RANGE_SHORTCUTS.LAST_7_DAYS[1].format(CE_DATE_FORMAT_INTERNAL),
+    from: DATE_RANGE_SHORTCUTS.LAST_7_DAYS[0].format(CE_DATE_FORMAT_INTERNAL)
   })
 
   const timeRangeMapper: Record<string, moment.Moment[]> = {
@@ -147,8 +151,8 @@ const PerspectiveDetailsPage: React.FC = () => {
         DATE_RANGE_SHORTCUTS.LAST_7_DAYS
 
       setTimeRange({
-        to: dateRange[1].valueOf(),
-        from: dateRange[0].valueOf()
+        to: dateRange[1].format(CE_DATE_FORMAT_INTERNAL),
+        from: dateRange[0].format(CE_DATE_FORMAT_INTERNAL)
       })
     }
   }, [perspectiveData])
@@ -168,7 +172,7 @@ const PerspectiveDetailsPage: React.FC = () => {
     variables: {
       filters: [
         getViewFilterForId(perspectiveId),
-        ...getTimeFilters(timeRange.from, timeRange.to),
+        ...getTimeFilters(getGMTStartDateTime(timeRange.from), getGMTEndDateTime(timeRange.to)),
         ...getFilters(filters)
       ],
       limit: 12,
@@ -180,7 +184,7 @@ const PerspectiveDetailsPage: React.FC = () => {
     variables: {
       filters: [
         getViewFilterForId(perspectiveId),
-        ...getTimeFilters(timeRange.from, timeRange.to),
+        ...getTimeFilters(getGMTStartDateTime(timeRange.from), getGMTEndDateTime(timeRange.to)),
         ...getFilters(filters)
       ]
     }
@@ -191,7 +195,7 @@ const PerspectiveDetailsPage: React.FC = () => {
       aggregateFunction: isClusterOnly ? AGGREGATE_FUNCTION.CLUSTER : AGGREGATE_FUNCTION.DEFAULT,
       filters: [
         getViewFilterForId(perspectiveId),
-        ...getTimeFilters(timeRange.from, timeRange.to),
+        ...getTimeFilters(getGMTStartDateTime(timeRange.from), getGMTEndDateTime(timeRange.to)),
         ...getFilters(filters)
       ],
       isClusterOnly: isClusterOnly,
