@@ -777,7 +777,7 @@ delegate:
   stepOneWizard: 'Create Delegate'
   reviewScript:
     configProxySettings: 'Configure Proxy Settings'
-    descriptionProxySettings: 'If the connection to Harness will happen through a proxy, configure the proxy settings PROXY_HOST, PROXY_USER and PROXY_PASSWORD in launch-harness-delegate.sh '
+    descriptionProxySettings: 'If the connection to Harness will happen through a proxy, configure the proxy settings PROXY_HOST, PROXY_USER and PROXY_PASSWORD in harness-delegate.yaml '
   successVerification:
     applyYAMLTitle: ' Apply YAML and verify connection'
     description1: 'Copy the downloaded YAML to a machine where you have kubectl installed and have access to your Kubernetes cluster.'
