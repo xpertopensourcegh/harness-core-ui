@@ -2288,7 +2288,6 @@ export interface StringsMap {
   'ce.co.autoStoppingRule.helpText.step2.description.resourceList.vms': string
   'ce.co.autoStoppingRule.helpText.step2.title': string
   'ce.co.autoStoppingRule.helpText.step3.description.additionalInfo': string
-  'ce.co.autoStoppingRule.helpText.step3.description.heading': string
   'ce.co.autoStoppingRule.helpText.step3.description.info': string
   'ce.co.autoStoppingRule.helpText.step3.title': string
   'ce.co.autoStoppingRule.providerSelector.description': string
@@ -2345,14 +2344,17 @@ export interface StringsMap {
   'ce.co.gatewayConfig.addInstanceLabel': string
   'ce.co.gatewayConfig.addPortLabel': string
   'ce.co.gatewayConfig.addSchedule': string
+  'ce.co.gatewayConfig.advancedConfigDescription': string
   'ce.co.gatewayConfig.allowTraffic': string
   'ce.co.gatewayConfig.configHeading': string
   'ce.co.gatewayConfig.customDomain': string
   'ce.co.gatewayConfig.customDomainHelp': string
   'ce.co.gatewayConfig.disable': string
   'ce.co.gatewayConfig.healthCheck': string
+  'ce.co.gatewayConfig.healthCheckDescription': string
   'ce.co.gatewayConfig.info': string
   'ce.co.gatewayConfig.name': string
+  'ce.co.gatewayConfig.routingDescription': string
   'ce.co.gatewayConfig.scheduleDescription': string
   'ce.co.gatewayConfig.usePrivateIP': string
   'ce.co.gatewayReview.configurationDetails': string

@@ -59,7 +59,7 @@ export default function CESideNav(): React.ReactElement {
             to={routes.toCECORules({ accountId, projectIdentifier, orgIdentifier })}
           />
           <SidebarLink
-            label={getString('ce.co.accessPoint.loadbalancer')}
+            label={getString('ce.co.accessPoint.loadbalancers')}
             to={routes.toCECOAccessPoints({ accountId, projectIdentifier, orgIdentifier })}
           />
         </React.Fragment>

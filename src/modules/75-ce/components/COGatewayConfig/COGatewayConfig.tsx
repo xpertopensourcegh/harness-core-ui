@@ -105,12 +105,13 @@ enum RESOURCES {
 }
 
 const managedResources = [
-  { label: 'Instances', value: RESOURCES.INSTANCES, providers: ['aws', 'azure'] },
+  { label: 'EC2 VM(s)', value: RESOURCES.INSTANCES, providers: ['aws'] },
+  { label: 'VM(s)', value: RESOURCES.INSTANCES, providers: ['azure'] },
   { label: 'Auto scaling groups', value: RESOURCES.ASG, providers: ['aws'] },
   {
     label: 'Kubernetes Cluster',
     value: RESOURCES.KUBERNETES,
-    providers: ['aws', 'azure'],
+    providers: ['aws'],
     ffDependencies: ['CE_AS_KUBERNETES_ENABLED']
   }
 ]
@@ -1445,6 +1446,9 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                       title="Routing"
                       panel={
                         <Container style={{ backgroundColor: '#FBFBFB' }}>
+                          <Text className={css.titleHelpTextDescription}>
+                            {getString('ce.co.gatewayConfig.routingDescription')}
+                          </Text>
                           {!isK8sSelected && (
                             <Layout.Vertical spacing="large">
                               {!selectedAsg && loading ? (
@@ -1493,6 +1497,9 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                         title="Health check"
                         panel={
                           <Container style={{ backgroundColor: '#FBFBFB', maxWidth: '523px', marginLeft: '210px' }}>
+                            <Text className={css.titleHelpTextDescription}>
+                              {getString('ce.co.gatewayConfig.healthCheckDescription')}
+                            </Text>
                             <Layout.Vertical spacing="large" padding="large">
                               <Switch
                                 label={getString('ce.co.gatewayConfig.healthCheck')}
@@ -1518,6 +1525,9 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                       title="Advanced Configuration"
                       panel={
                         <Container style={{ backgroundColor: '#FBFBFB', width: '595px', marginLeft: '175px' }}>
+                          <Text className={css.titleHelpTextDescription}>
+                            {getString('ce.co.gatewayConfig.advancedConfigDescription')}
+                          </Text>
                           <Layout.Vertical spacing="medium" style={{ padding: '32px' }}>
                             {/* <Switch
                               label={getString('ce.co.gatewayConfig.allowTraffic')}
