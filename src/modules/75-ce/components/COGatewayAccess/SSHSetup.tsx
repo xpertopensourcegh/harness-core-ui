@@ -59,7 +59,17 @@ const SSHSetup: React.FC = () => {
 
   return (
     <Layout.Vertical spacing="medium" padding="medium" className={css.sshSetupContainer}>
-      <Text className={css.text}>{getString('ce.co.sshSetup')}</Text>
+      <Text className={css.text}>
+        {getString('ce.co.sshSetup')}
+        <span>
+          <a
+            href=" https://ngdocs.harness.io/article/7025n9ml7z-create-autostopping-rules-aws#setup_access_using_ssh_rdp"
+            target="_blank"
+          >
+            Read More
+          </a>
+        </span>
+      </Text>
       <Layout.Horizontal className={css.infoSection}>
         <div className={css.selectContainer}>
           <Select items={dropdownOptions} onChange={handleOsSelectChange} value={assetLink} name={'sshOs'} />
