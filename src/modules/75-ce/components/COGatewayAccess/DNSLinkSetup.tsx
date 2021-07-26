@@ -386,6 +386,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
   const createApDetailsFromLoadBalancer = (currLoadBalancer: AccessPointCore): AccessPoint => {
     return {
       ...initialAccessPointDetails,
+      name: currLoadBalancer.details?.name,
       ...((currLoadBalancer.details as ALBAccessPointCore)?.vpc && {
         vpc: (currLoadBalancer.details as ALBAccessPointCore).vpc
       }),
