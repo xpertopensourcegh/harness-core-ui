@@ -3175,6 +3175,7 @@ export interface StringsMap {
   'cv.healthSource.connectors.AppDynamics.trierLabel': string
   'cv.healthSource.connectors.AppDynamics.validation.application': string
   'cv.healthSource.connectors.AppDynamics.validation.tier': string
+  'cv.healthSource.connectors.NewRelic.applicationLabel': string
   'cv.healthSource.connectors.createConnector': string
   'cv.healthSource.customizeHealthSource': string
   'cv.healthSource.defineHealthSource': string
