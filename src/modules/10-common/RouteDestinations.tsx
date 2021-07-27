@@ -9,7 +9,7 @@ import GovernancePage from '@common/pages/governance/GovernancePage'
 import type { SidebarContext } from './navigation/SidebarProvider'
 import type { AccountPathProps } from './interfaces/RouteInterfaces'
 import GenericErrorPage from './pages/GenericError/GenericErrorPage'
-import { PurposePage } from './pages/purpose/PurposePage'
+import WelcomePage from './pages/welcome/WelcomePage'
 import HomeSideNav from './components/HomeSideNav/HomeSideNav'
 import SubscriptionsPage from './pages/subscriptions/SubscriptionsPage'
 import AccountSideNav from './components/AccountSideNav/AccountSideNav'
@@ -60,7 +60,7 @@ export default (
       <GenericErrorPage />
     </Route>
     <Route path={routes.toPurpose({ ...accountPathProps })} exact>
-      <PurposePage />
+      <WelcomePage />
     </Route>
   </>
 )

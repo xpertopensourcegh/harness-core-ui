@@ -100,7 +100,7 @@ describe('ModuleInfoCards Test', () => {
         module: 'cd' as Module,
         setSelectedInfoCard: jest.fn(),
         selectedInfoCard: {
-          icon: 'cd-main' as IconName,
+          icon: 'cd-solid' as IconName,
           title: 'common.purpose.cd.newGen.title',
           description: 'common.purpose.cd.newGen.description'
         }

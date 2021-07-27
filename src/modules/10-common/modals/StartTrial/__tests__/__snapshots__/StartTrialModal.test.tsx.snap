@@ -70,7 +70,7 @@ exports[`open and close Start Trial Modal Rendering should open and close the st
       class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
     >
       <div
-        class="bp3-card bp3-elevation-0 Card--card card infoCard selected"
+        class="bp3-card bp3-elevation-0 Card--card card infoCard Card--selected"
       >
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-bottom-large"
@@ -129,7 +129,7 @@ exports[`open and close Start Trial Modal Rendering should open and close the st
           </div>
         </div>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
+          class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small StyledProps--color StyledProps--color-black"
         >
           common.purpose.ce.visibilityCard.description
         </p>
@@ -181,7 +181,7 @@ exports[`open and close Start Trial Modal Rendering should open and close the st
           </div>
         </div>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
+          class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small StyledProps--color StyledProps--color-black"
         >
           common.purpose.ce.optimizationCard.description
         </p>

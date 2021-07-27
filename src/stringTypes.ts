@@ -306,6 +306,7 @@ export interface StringsMap {
   'common.purpose.cf.features': string
   'common.purpose.cf.flags': string
   'common.purpose.cf.subtitle': string
+  'common.purpose.changeSelection': string
   'common.purpose.ci.continuous': string
   'common.purpose.ci.description': string
   'common.purpose.ci.integration': string

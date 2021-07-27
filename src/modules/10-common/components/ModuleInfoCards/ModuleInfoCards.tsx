@@ -16,6 +16,8 @@ interface ModuleInfoCardsProps {
   selectedInfoCard: ModuleInfoCard | undefined
   setSelectedInfoCard: (moduleInfoCard: ModuleInfoCard) => void
   style?: React.CSSProperties
+  className?: string
+  fontColor?: string
 }
 type FooterProps = {
   title: string
@@ -103,7 +105,7 @@ export const getInfoCardsProps = (accountId: string): InfoCards => {
         }
       },
       {
-        icon: 'cd-main',
+        icon: 'cd-solid',
         iconClassName: css.cdMain,
         title: 'common.purpose.cd.newGen.title',
         description: 'common.purpose.cd.newGen.description',
@@ -147,12 +149,14 @@ export const getInfoCardsProps = (accountId: string): InfoCards => {
   }
 }
 
-const Footer = ({ footer }: { footer: FooterProps }): React.ReactElement => {
+const Footer = ({ footer, fontColor }: { footer: FooterProps; fontColor: string }): React.ReactElement => {
   const { getString } = useStrings()
   const { title, icons } = footer
   return (
     <Layout.Vertical padding={{ top: 'large' }}>
-      <Text className={css.footerTitle}>{getString(title as keyof StringsMap)}</Text>
+      <Text className={css.footerTitle} color={fontColor}>
+        {getString(title as keyof StringsMap)}
+      </Text>
       <Layout.Horizontal spacing="small">
         {icons.map(icon =>
           icon.enabled ? (
@@ -181,6 +185,8 @@ const ModuleInfoCards: React.FC<ModuleInfoCardsProps> = props => {
     accountId: string
   }>()
 
+  const fontColor = props.fontColor ? props.fontColor : Color.BLACK
+
   const getModuleInfoCards = (infoCard: ModuleInfoCard, infoCardStyle: string): React.ReactElement => {
     const cardKey = getCardKey({ key1: infoCard.title, key2: infoCard.subtitle })
 
@@ -190,25 +196,21 @@ const ModuleInfoCards: React.FC<ModuleInfoCardsProps> = props => {
       }
     }
 
+    const selected = getCardKey({ key1: selectedInfoCard?.title, key2: selectedInfoCard?.subtitle }) === cardKey
+
     return (
       <Card
         key={cardKey}
         disabled={infoCard.disabled}
-        className={cx(
-          css.card,
-          css.infoCard,
-          getCardKey({ key1: selectedInfoCard?.title, key2: selectedInfoCard?.subtitle }) === cardKey
-            ? css.selected
-            : '',
-          infoCardStyle
-        )}
+        selected={selected}
+        className={cx(css.card, css.infoCard, infoCardStyle, props.className)}
         onClick={handleCardClick}
       >
         <Layout.Horizontal spacing="small" padding={{ bottom: 'large' }}>
           <Icon className={infoCard.iconClassName} name={infoCard.icon} size={40} />
           <div>
             <Layout.Horizontal spacing="small">
-              <Text font="xsmall" color={Color.BLACK} className={css.title}>
+              <Text font="xsmall" color={fontColor} className={css.title}>
                 {getString(infoCard.title as keyof StringsMap)}
               </Text>
               {infoCard.isNew && (
@@ -227,16 +229,16 @@ const ModuleInfoCards: React.FC<ModuleInfoCardsProps> = props => {
               )}
             </Layout.Horizontal>
             {infoCard.subtitle && (
-              <Text font={{ size: 'medium' }} color={Color.BLACK}>
+              <Text font={{ size: 'medium' }} color={fontColor}>
                 {getString(infoCard.subtitle as keyof StringsMap)}
               </Text>
             )}
           </div>
         </Layout.Horizontal>
-        <Text font="small" padding={{ bottom: 'small' }}>
+        <Text font="small" padding={{ bottom: 'small' }} color={fontColor}>
           {getString(infoCard.description as keyof StringsMap)}
         </Text>
-        {infoCard.footer && <Footer footer={infoCard.footer} />}
+        {infoCard.footer && <Footer footer={infoCard.footer} fontColor={fontColor} />}
       </Card>
     )
   }
@@ -253,7 +255,7 @@ const ModuleInfoCards: React.FC<ModuleInfoCardsProps> = props => {
 
   return (
     <>
-      <Heading color={Color.BLACK} font={{ size: 'medium', weight: 'bold' }} padding={{ top: 'xlarge' }}>
+      <Heading color={fontColor} font={{ size: 'medium', weight: 'bold' }} padding={{ top: 'xlarge' }}>
         {getString('common.purpose.howToProceed')}
       </Heading>
       <Layout.Horizontal spacing="small" style={{ ...style }}>

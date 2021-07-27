@@ -134,13 +134,14 @@ launchFirstGen: 'Launch {{module}} First Generation'
 startTrial: 'Start 14 day {{module}} Enterprise trial'
 new: new
 purpose:
-  welcome: 'Welcome, let’s get you started!'
+  welcome: 'Hello there, welcome to Harness'
   howToProceed: 'How would you like to proceed?'
   continuous: CONTINUOUS
   moduleSuccess: Module Added Successfully
   startATrial: Start A Trial
   setup: 15 min setup
-  selectAModule: Select a module
+  selectAModule: Select a module below to get started
+  changeSelection: Change Selection
   cd:
     delivery: Delivery
     subtitle: Deploy your services with blazingly fast pipelines.
@@ -160,7 +161,7 @@ purpose:
     verification: Verification
     subtitle: Deploy in peace - verify activities that take place in your system. Identify risk early.
     description: CV description placeholder
-    continuous: Continuous Verification
+    continuous: '{{ $.common.changeIntelligence }}'
 
   ci:
     integration: Integration
@@ -179,7 +180,7 @@ purpose:
     management: Management
     efficiency: Efficiency
     subtitle: Spot and quickly debug inefficiencies and optimize them to reduce costs.
-    continuous: Continuous Efficiency
+    continuous: Cloud Cost Management
     descriptionOnly: 'Gain Cloud cost visibilty and optimize costs across projects, environments, clusters, deployments, etc'
     description: 'Gain Cloud cost visibilty and optimize costs across projects, environments, clusters, deployments, etc
       <br><br>You can access this module via your free trial. Benefits include: Your software delivery pipeline can now include build stages, Test intelligence - faster and more reliable build processes'
@@ -189,7 +190,7 @@ purpose:
     flags: Flags
     subtitle: Decouple feature releases from deployments and roll out features safely and quickly.
     description: '{{$.common.purpose.cf.subtitle}}'
-    continuous: Feature Flags
+    continuous: Feature Flag Management
 trialInProgress: Trial in progress
 trialInProgressDescription: A Project contains your pipelines, resources, and team members. Get started by creating your first Project.
 letsGetYouStarted: Let’s get you started

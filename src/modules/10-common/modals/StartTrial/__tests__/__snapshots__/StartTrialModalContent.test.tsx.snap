@@ -68,7 +68,7 @@ exports[`StartTrialModalContent Rendering test that adding a source query param 
       class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
     >
       <div
-        class="bp3-card bp3-elevation-0 Card--card card infoCard selected"
+        class="bp3-card bp3-elevation-0 Card--card card infoCard Card--selected"
       >
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-bottom-large"
@@ -127,7 +127,7 @@ exports[`StartTrialModalContent Rendering test that adding a source query param 
           </div>
         </div>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
+          class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small StyledProps--color StyledProps--color-black"
         >
           common.purpose.ce.visibilityCard.description
         </p>
@@ -179,7 +179,7 @@ exports[`StartTrialModalContent Rendering test that adding a source query param 
           </div>
         </div>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
+          class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small StyledProps--color StyledProps--color-black"
         >
           common.purpose.ce.optimizationCard.description
         </p>
@@ -309,7 +309,7 @@ exports[`StartTrialModalContent Rendering test that the warning container render
       class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
     >
       <div
-        class="bp3-card bp3-elevation-0 Card--card card infoCard selected"
+        class="bp3-card bp3-elevation-0 Card--card card infoCard Card--selected"
       >
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-bottom-large"
@@ -368,7 +368,7 @@ exports[`StartTrialModalContent Rendering test that the warning container render
           </div>
         </div>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
+          class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small StyledProps--color StyledProps--color-black"
         >
           common.purpose.ce.visibilityCard.description
         </p>
@@ -420,7 +420,7 @@ exports[`StartTrialModalContent Rendering test that the warning container render
           </div>
         </div>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
+          class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small StyledProps--color StyledProps--color-black"
         >
           common.purpose.ce.optimizationCard.description
         </p>
@@ -550,7 +550,7 @@ exports[`StartTrialModalContent Rendering that the content renders 1`] = `
       class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
     >
       <div
-        class="bp3-card bp3-elevation-0 Card--card card infoCard selected"
+        class="bp3-card bp3-elevation-0 Card--card card infoCard Card--selected"
       >
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-bottom-large"
@@ -609,7 +609,7 @@ exports[`StartTrialModalContent Rendering that the content renders 1`] = `
           </div>
         </div>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
+          class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small StyledProps--color StyledProps--color-black"
         >
           common.purpose.ce.visibilityCard.description
         </p>
@@ -661,7 +661,7 @@ exports[`StartTrialModalContent Rendering that the content renders 1`] = `
           </div>
         </div>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
+          class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small StyledProps--color StyledProps--color-black"
         >
           common.purpose.ce.optimizationCard.description
         </p>
