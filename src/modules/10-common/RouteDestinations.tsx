@@ -12,6 +12,8 @@ import GenericErrorPage from './pages/GenericError/GenericErrorPage'
 import { PurposePage } from './pages/purpose/PurposePage'
 import HomeSideNav from './components/HomeSideNav/HomeSideNav'
 import SubscriptionsPage from './pages/subscriptions/SubscriptionsPage'
+import AccountSideNav from './components/AccountSideNav/AccountSideNav'
+import AccountResources from './pages/AccountResources/AccountResources'
 
 const RedirectToHome = (): React.ReactElement => {
   const { accountId } = useParams<AccountPathProps>()
@@ -24,6 +26,12 @@ export const HomeSideNavProps: SidebarContext = {
   title: 'Home'
 }
 
+export const AccountSideNavProps: SidebarContext = {
+  navComponent: AccountSideNav,
+  icon: 'nav-settings',
+  title: 'Account Settings'
+}
+
 const justAccountPath = withAccountId(() => '/')
 
 export default (
@@ -31,8 +39,12 @@ export default (
     <Route exact path={[justAccountPath({ ...accountPathProps }), routes.toHome({ ...accountPathProps })]}>
       <RedirectToHome />
     </Route>
+
+    <RouteWithLayout sidebarProps={AccountSideNavProps} path={routes.toAccountResources({ ...accountPathProps })} exact>
+      <AccountResources />
+    </RouteWithLayout>
     <RouteWithLayout
-      sidebarProps={HomeSideNavProps}
+      sidebarProps={AccountSideNavProps}
       path={[
         routes.toGovernance({ ...accountPathProps }),
         routes.toGovernance({ ...accountPathProps, ...orgPathProps })
@@ -41,7 +53,7 @@ export default (
     >
       <GovernancePage />
     </RouteWithLayout>
-    <RouteWithLayout sidebarProps={HomeSideNavProps} path={routes.toSubscriptions({ ...accountPathProps })} exact>
+    <RouteWithLayout sidebarProps={AccountSideNavProps} path={routes.toSubscriptions({ ...accountPathProps })} exact>
       <SubscriptionsPage />
     </RouteWithLayout>
     <Route path={routes.toGenericError({ ...accountPathProps })}>

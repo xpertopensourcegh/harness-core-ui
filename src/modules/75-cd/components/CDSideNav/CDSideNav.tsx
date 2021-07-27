@@ -4,7 +4,7 @@ import { Layout } from '@wings-software/uicore'
 import { compile } from 'path-to-regexp'
 
 import routes from '@common/RouteDefinitions'
-import { ProjectSelector } from '@common/navigation/ProjectSelector/ProjectSelector'
+import { ProjectSelector } from '@projects-orgs/components/ProjectSelector/ProjectSelector'
 import type {
   ConnectorPathProps,
   PipelinePathProps,

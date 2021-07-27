@@ -40,9 +40,6 @@ serviceAccounts:
   confirmDelete: Are you sure you want to delete the Service Account '{{name}}'
   confirmDeleteTitle: Delete Service Account
   successMessage: Service Account '{{name}}' deleted successfully
-accountSettings:
-  label: Account Settings
-
 permissionLabels:
   createEdit: Create / Edit
   create: '{{ $.create }}'

@@ -6,13 +6,14 @@ import { ProjectSelector } from '../ProjectSelector'
 import projects from './projects.json'
 
 jest.mock('services/cd-ng', () => ({
-  useGetProjectList: jest.fn().mockImplementation(() => {
-    return { data: { data: { content: projects } }, refetch: jest.fn(), error: null }
-  })
+  useGetProjectAggregateDTOList: jest.fn().mockImplementation(() => {
+    return { data: projects, refetch: jest.fn(), error: null }
+  }),
+  useDeleteProject: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
 }))
 
 describe('ProjectSelector', () => {
-  test('render with projects', () => {
+  test('render with projects', async () => {
     const handleSelect = jest.fn()
 
     const { container, getByText, getByTestId } = render(
@@ -23,17 +24,17 @@ describe('ProjectSelector', () => {
 
     expect(container).toMatchSnapshot()
 
-    act(() => {
+    await act(async () => {
       fireEvent.click(getByTestId('project-select-dropdown'))
     })
 
     expect(container).toMatchSnapshot()
 
     act(() => {
-      fireEvent.click(getByText('fdfder32432'))
+      fireEvent.click(getByText('Online Banking'))
     })
 
-    expect(getByText('fdfder32432')).toBeDefined()
+    expect(getByText('Online Banking')).toBeDefined()
     expect(handleSelect).toHaveBeenCalled()
   })
 })

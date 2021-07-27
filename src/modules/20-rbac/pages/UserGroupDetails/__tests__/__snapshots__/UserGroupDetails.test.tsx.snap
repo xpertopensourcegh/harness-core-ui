@@ -19,7 +19,7 @@ exports[`UserGroupDetails Test render data 1`] = `
           >
             <a
               class="Breadcrumbs--breadcrumb"
-              href="/account/testAcc/home"
+              href="/account/testAcc/settings"
             >
               <span
                 class="bp3-icon bp3-icon-cog StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-primary7"
@@ -43,7 +43,7 @@ exports[`UserGroupDetails Test render data 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--intent-primary"
               >
-                account
+                common.accountSettings
               </p>
             </a>
             <span
@@ -68,7 +68,7 @@ exports[`UserGroupDetails Test render data 1`] = `
           >
             <a
               class="Breadcrumbs--breadcrumb"
-              href="/account/testAcc/home/setup/access-control"
+              href="/account/testAcc/settings/access-control"
             >
               <p
                 class="StyledProps--font StyledProps--main StyledProps--intent-primary"
@@ -98,7 +98,7 @@ exports[`UserGroupDetails Test render data 1`] = `
           >
             <a
               class="Breadcrumbs--breadcrumb"
-              href="/account/testAcc/home/setup/access-control/user-groups"
+              href="/account/testAcc/settings/access-control/user-groups"
             >
               <p
                 class="StyledProps--font StyledProps--main StyledProps--intent-primary"
@@ -460,14 +460,14 @@ exports[`UserGroupDetails Test render data 1`] = `
             >
               <a
                 class="link"
-                href="/account/testAcc/home/setup/access-control/roles/_account_viewer"
+                href="/account/testAcc/settings/access-control/roles/_account_viewer"
               >
                 Account Viewer
               </a>
                - 
               <a
                 class="link"
-                href="/account/testAcc/home/setup/access-control/resource-groups/_all_resources"
+                href="/account/testAcc/settings/access-control/resource-groups/_all_resources"
               >
                 All Resources
               </a>

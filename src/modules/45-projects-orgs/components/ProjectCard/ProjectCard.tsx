@@ -19,6 +19,8 @@ import css from './ProjectCard.module.scss'
 export interface ProjectCardProps {
   data: ProjectAggregateDTO
   isPreview?: boolean
+  minimal?: boolean
+  onClick?: () => void
   className?: string
   reloadProjects?: () => Promise<void>
   editProject?: (project: Project) => void
@@ -26,7 +28,15 @@ export interface ProjectCardProps {
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = props => {
-  const { data: projectAggregateDTO, isPreview, reloadProjects, editProject, handleInviteCollaborators } = props
+  const {
+    data: projectAggregateDTO,
+    isPreview,
+    reloadProjects,
+    editProject,
+    handleInviteCollaborators,
+    minimal,
+    onClick
+  } = props
   const [menuOpen, setMenuOpen] = useState(false)
   const {
     projectResponse,
@@ -38,6 +48,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
   const data = projectResponse.project || null
   const { accountId } = useParams<AccountPathProps>()
   const { getString } = useStrings()
+  const allowInteraction = !isPreview && !minimal
   const history = useHistory()
   const invitePermission = {
     resourceScope: {
@@ -58,9 +69,10 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
     <Card
       className={cx(css.projectCard, { [css.previewProjectCard]: isPreview }, props.className)}
       data-testid={`project-card-${data.identifier + data.orgIdentifier}`}
+      onClick={onClick}
     >
       <Container padding="xlarge" className={css.projectInfo}>
-        {!isPreview ? (
+        {allowInteraction ? (
           <CardBody.Menu
             menuContent={
               <ContextMenu
@@ -83,7 +95,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
         ) : null}
         <Container
           onClick={() => {
-            !isPreview &&
+            allowInteraction &&
               history.push({
                 pathname: routes.toProjectDetails({
                   projectIdentifier: data.identifier,
@@ -145,7 +157,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
                 permission={{
                   ...invitePermission,
                   options: {
-                    skipCondition: _permissionRequest => (isPreview ? true : false)
+                    skipCondition: () => !allowInteraction
                   }
                 }}
               />
@@ -166,7 +178,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
                 permission={{
                   ...invitePermission,
                   options: {
-                    skipCondition: _permissionRequest => (isPreview ? true : false)
+                    skipCondition: () => !allowInteraction
                   }
                 }}
               />

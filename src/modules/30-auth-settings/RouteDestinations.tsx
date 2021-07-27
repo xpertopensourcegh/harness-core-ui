@@ -12,11 +12,11 @@ import RbacFactory from '@rbac/factories/RbacFactory'
 import { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { String } from 'framework/strings'
-import { HomeSideNavProps } from '@common/RouteDestinations'
+import { AccountSideNavProps } from '@common/RouteDestinations'
 
 RbacFactory.registerResourceTypeHandler(ResourceType.ACCOUNT, {
   icon: 'nav-settings',
-  label: 'rbac.accountSettings.label',
+  label: 'common.accountSettings',
   category: ResourceCategory.ADMINSTRATIVE_FUNCTIONS,
   permissionLabels: {
     [PermissionIdentifier.VIEW_ACCOUNT]: <String stringID="rbac.permissionLabels.view" />,
@@ -40,19 +40,31 @@ const RedirectToConfiguration = (): React.ReactElement => {
   return <Redirect to={routes.toAccountConfiguration(params)} />
 }
 
+const RedirectToOverview = (): React.ReactElement => {
+  const params = useParams<AccountPathProps>()
+  return <Redirect to={routes.toAccountSettingsOverview(params)} />
+}
+
 export default (
   <>
-    <Route sidebarProps={HomeSideNavProps} path={routes.toAuthenticationSettings({ ...accountPathProps })} exact>
+    <RouteWithLayout sidebarProps={AccountSideNavProps} path={routes.toAccountSettings({ ...accountPathProps })} exact>
+      <RedirectToOverview />
+    </RouteWithLayout>
+    <Route sidebarProps={AccountSideNavProps} path={routes.toAuthenticationSettings({ ...accountPathProps })} exact>
       <RedirectToConfiguration />
     </Route>
     <RouteWithLayout
-      sidebarProps={HomeSideNavProps}
+      sidebarProps={AccountSideNavProps}
       path={routes.toAccountConfiguration({ ...accountPathProps })}
       exact
     >
       <Configuration />
     </RouteWithLayout>
-    <RouteWithLayout sidebarProps={HomeSideNavProps} path={routes.toSetup({ ...accountPathProps })} exact>
+    <RouteWithLayout
+      sidebarProps={AccountSideNavProps}
+      path={routes.toAccountSettingsOverview({ ...accountPathProps })}
+      exact
+    >
       <AccountOverview />
     </RouteWithLayout>
   </>

@@ -784,14 +784,14 @@ exports[`UsersPage Test render data 1`] = `
                 >
                   <a
                     class="link"
-                    href="/account/testAcc/home/setup/access-control/roles/_account_admin"
+                    href="/account/testAcc/settings/access-control/roles/_account_admin"
                   >
                     Account Admin
                   </a>
                    - 
                   <a
                     class="link"
-                    href="/account/testAcc/home/setup/access-control/resource-groups/_all_resources"
+                    href="/account/testAcc/settings/access-control/resource-groups/_all_resources"
                   >
                     All Resources
                   </a>
@@ -805,14 +805,14 @@ exports[`UsersPage Test render data 1`] = `
                 >
                   <a
                     class="link"
-                    href="/account/testAcc/home/setup/access-control/roles/_account_viewer"
+                    href="/account/testAcc/settings/access-control/roles/_account_viewer"
                   >
                     Account Viewer
                   </a>
                    - 
                   <a
                     class="link"
-                    href="/account/testAcc/home/setup/access-control/resource-groups/_all_resources"
+                    href="/account/testAcc/settings/access-control/resource-groups/_all_resources"
                   >
                     All Resources
                   </a>
@@ -956,14 +956,14 @@ exports[`UsersPage Test render data 1`] = `
                 >
                   <a
                     class="link"
-                    href="/account/testAcc/home/setup/access-control/roles/_account_admin"
+                    href="/account/testAcc/settings/access-control/roles/_account_admin"
                   >
                     Account Admin
                   </a>
                    - 
                   <a
                     class="link"
-                    href="/account/testAcc/home/setup/access-control/resource-groups/_all_resources"
+                    href="/account/testAcc/settings/access-control/resource-groups/_all_resources"
                   >
                     All Resources
                   </a>
@@ -977,14 +977,14 @@ exports[`UsersPage Test render data 1`] = `
                 >
                   <a
                     class="link"
-                    href="/account/testAcc/home/setup/access-control/roles/_account_viewer"
+                    href="/account/testAcc/settings/access-control/roles/_account_viewer"
                   >
                     Account Viewer
                   </a>
                    - 
                   <a
                     class="link"
-                    href="/account/testAcc/home/setup/access-control/resource-groups/_all_resources"
+                    href="/account/testAcc/settings/access-control/resource-groups/_all_resources"
                   >
                     All Resources
                   </a>

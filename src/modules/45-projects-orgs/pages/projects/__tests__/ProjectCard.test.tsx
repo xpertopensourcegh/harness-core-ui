@@ -4,13 +4,15 @@ import { TestWrapper } from '@common/utils/testUtils'
 import ProjectCard from '@projects-orgs/components/ProjectCard/ProjectCard'
 import type { ProjectAggregateDTO } from 'services/cd-ng'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
+import { accountPathProps } from '@common/utils/routeUtils'
+import routes from '@common/RouteDefinitions'
 import { responseProjectAggregateDTO, responseProjectAggregateDTOWithNoModules } from './ProjectPageMock'
 
 describe('Project Card test', () => {
   test('initializes ok ', async () => {
     const { container } = render(
       <TestWrapper
-        path="/account/:accountId/projects"
+        path={routes.toProjects({ ...accountPathProps })}
         pathParams={{ accountId: 'testAcc' }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
@@ -22,7 +24,7 @@ describe('Project Card test', () => {
     test('Preview is ok', async () => {
       const { container } = render(
         <TestWrapper
-          path="/account/:accountId"
+          path={routes.toProjects({ ...accountPathProps })}
           pathParams={{ accountId: 'testAcc' }}
           defaultAppStoreValues={defaultAppStoreValues}
         >

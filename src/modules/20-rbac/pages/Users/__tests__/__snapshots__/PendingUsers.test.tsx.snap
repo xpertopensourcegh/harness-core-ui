@@ -217,14 +217,14 @@ exports[`UsersPage Test Switch to Pending Users 1`] = `
                 >
                   <a
                     class="link"
-                    href="/account/testAcc/home/setup/access-control/roles/_account_viewer"
+                    href="/account/testAcc/settings/access-control/roles/_account_viewer"
                   >
                     Account Viewer
                   </a>
                    - 
                   <a
                     class="link"
-                    href="/account/testAcc/home/setup/access-control/resource-groups/New_123"
+                    href="/account/testAcc/settings/access-control/resource-groups/New_123"
                   >
                     New 123
                   </a>
@@ -361,14 +361,14 @@ exports[`UsersPage Test Switch to Pending Users 1`] = `
                 >
                   <a
                     class="link"
-                    href="/account/testAcc/home/setup/access-control/roles/New_Role"
+                    href="/account/testAcc/settings/access-control/roles/New_Role"
                   >
                     New Role
                   </a>
                    - 
                   <a
                     class="link"
-                    href="/account/testAcc/home/setup/access-control/resource-groups/New_123"
+                    href="/account/testAcc/settings/access-control/resource-groups/New_123"
                   >
                     New 123
                   </a>

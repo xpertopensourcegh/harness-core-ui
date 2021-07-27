@@ -19,7 +19,7 @@ exports[`CIDashboardPage snapshot test should render properly 1`] = `
           >
             <a
               class="Breadcrumbs--breadcrumb"
-              href="/account/undefined/home"
+              href="/account/undefined/settings"
             >
               <span
                 class="bp3-icon bp3-icon-cog StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-primary7"
@@ -43,7 +43,7 @@ exports[`CIDashboardPage snapshot test should render properly 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--intent-primary"
               >
-                account
+                common.accountSettings
               </p>
             </a>
             <span

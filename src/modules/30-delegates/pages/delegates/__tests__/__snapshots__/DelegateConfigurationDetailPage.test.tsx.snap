@@ -13,7 +13,7 @@ exports[`Delegates Profile Detail Render and click Edit 1`] = `
         class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
       >
         <a
-          href="/account/dummy/home/setup/delegates"
+          href="/account/dummy/settings/resources/delegates"
           style="color: rgb(0, 146, 228); font-size: 12px;"
         >
           delegate.delegates
@@ -22,7 +22,7 @@ exports[`Delegates Profile Detail Render and click Edit 1`] = `
           /
         </span>
         <a
-          href="/account/dummy/home/setup/delegates?tab=configurations"
+          href="/account/dummy/settings/resources/delegates?tab=configurations"
           style="color: rgb(0, 146, 228); font-size: 12px;"
         >
           delegate.delegatesConfigurations
@@ -347,7 +347,7 @@ exports[`Delegates Profile Detail initial render 1`] = `
         class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
       >
         <a
-          href="/account/dummy/home/setup/delegates"
+          href="/account/dummy/settings/resources/delegates"
           style="color: rgb(0, 146, 228); font-size: 12px;"
         >
           delegate.delegates
@@ -356,7 +356,7 @@ exports[`Delegates Profile Detail initial render 1`] = `
           /
         </span>
         <a
-          href="/account/dummy/home/setup/delegates?tab=configurations"
+          href="/account/dummy/settings/resources/delegates?tab=configurations"
           style="color: rgb(0, 146, 228); font-size: 12px;"
         >
           delegate.delegatesConfigurations

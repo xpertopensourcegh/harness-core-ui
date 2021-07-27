@@ -10,7 +10,6 @@ import { NavigationCheck } from './NavigationCheck/NavigationCheck'
 import { NameIdDescriptionTags } from './NameIdDescriptionTags/NameIdDescriptionTags'
 import { PageSpinner } from './Page/PageSpinner'
 import { Page } from './Page/Page'
-import { ProjectSelector } from '../navigation/ProjectSelector/ProjectSelector'
 import { ReferenceSelect } from './ReferenceSelect/ReferenceSelect'
 import SnippetSection from './SnippetSection/SnippetSection'
 import Table from './Table/Table'
@@ -42,7 +41,6 @@ export {
   NavigationCheck,
   Page,
   PageSpinner,
-  ProjectSelector,
   ReferenceSelect,
   SnippetSection,
   Table,

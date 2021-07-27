@@ -5,7 +5,7 @@ import { compile } from 'path-to-regexp'
 
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import routes from '@common/RouteDefinitions'
-import { ProjectSelector } from '@common/navigation/ProjectSelector/ProjectSelector'
+import { ProjectSelector } from '@projects-orgs/components/ProjectSelector/ProjectSelector'
 import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import { SidebarLink } from '@common/navigation/SideNav/SideNav'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'

@@ -19,7 +19,7 @@ exports[`Resource Groups Page render data 1`] = `
           >
             <a
               class="Breadcrumbs--breadcrumb"
-              href="/account/dummy/home"
+              href="/account/dummy/settings"
             >
               <span
                 class="bp3-icon bp3-icon-cog StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-primary7"
@@ -43,7 +43,7 @@ exports[`Resource Groups Page render data 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--intent-primary"
               >
-                account
+                common.accountSettings
               </p>
             </a>
             <span
@@ -68,7 +68,7 @@ exports[`Resource Groups Page render data 1`] = `
           >
             <a
               class="Breadcrumbs--breadcrumb"
-              href="/account/dummy/home/setup/access-control"
+              href="/account/dummy/settings/access-control"
             >
               <p
                 class="StyledProps--font StyledProps--main StyledProps--intent-primary"
@@ -98,7 +98,7 @@ exports[`Resource Groups Page render data 1`] = `
           >
             <a
               class="Breadcrumbs--breadcrumb"
-              href="/account/dummy/home/setup/access-control/resource-groups"
+              href="/account/dummy/settings/access-control/resource-groups"
             >
               <p
                 class="StyledProps--font StyledProps--main StyledProps--intent-primary"

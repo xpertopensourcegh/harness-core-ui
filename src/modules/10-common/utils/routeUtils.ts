@@ -173,9 +173,9 @@ export const getScopeBasedRoute = ({
   } else if (orgIdentifier && projectIdentifier) {
     return `/home/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/${path}`
   } else if (orgIdentifier) {
-    return `/home/organizations/${orgIdentifier}/setup/${path}`
+    return `/settings/organizations/${orgIdentifier}/setup/${path}`
   }
-  return `/home/setup/${path}`
+  return `/settings/${path}`
 }
 export const returnUrlParams = (url: string): string => `?returnUrl=${url}`
 export const validateReturnUrl = (url: string): boolean => {

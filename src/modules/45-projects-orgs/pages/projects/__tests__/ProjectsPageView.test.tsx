@@ -13,6 +13,7 @@ import { act } from 'react-dom/test-utils'
 import { findDialogContainer, findPopoverContainer, TestWrapper } from '@common/utils/testUtils'
 import { orgMockData } from '@projects-orgs/pages/organizations/__tests__/OrganizationsMockData'
 import routes from '@common/RouteDefinitions'
+import { accountPathProps } from '@common/utils/routeUtils'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import ProjectsListPage from '../ProjectsPage'
 import {
@@ -99,7 +100,7 @@ describe('Project Page List', () => {
   beforeEach(async () => {
     const renderObj = render(
       <TestWrapper
-        path="/account/:accountId/projects"
+        path={routes.toProjects({ ...accountPathProps })}
         pathParams={{ accountId: 'testAcc' }}
         defaultAppStoreValues={defaultAppStoreValues}
       >

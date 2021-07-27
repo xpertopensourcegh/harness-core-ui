@@ -13,6 +13,7 @@ import {
 import { findDialogContainer, findPopoverContainer, TestWrapper } from '@common/utils/testUtils'
 import { clickSubmit, fillAtForm, InputTypes } from '@common/utils/JestFormHelper'
 import routes from '@common/RouteDefinitions'
+import { accountPathProps } from '@common/utils/routeUtils'
 import Roles from '../Roles'
 import { createRoleMockData, rolesMockList } from './RolesMock'
 
@@ -40,7 +41,7 @@ describe('Role Details Page', () => {
 
   beforeEach(async () => {
     const renderObj = render(
-      <TestWrapper path="/account/:accountId/admin/access-control/roles" pathParams={{ accountId: 'testAcc' }}>
+      <TestWrapper path={routes.toRoles({ ...accountPathProps })} pathParams={{ accountId: 'testAcc' }}>
         <Roles />
       </TestWrapper>
     )

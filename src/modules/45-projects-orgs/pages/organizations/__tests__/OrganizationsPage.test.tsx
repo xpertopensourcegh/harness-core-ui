@@ -14,6 +14,8 @@ import { act } from 'react-dom/test-utils'
 import { findDialogContainer, findPopoverContainer, TestWrapper } from '@common/utils/testUtils'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import { clickBack, clickSubmit, InputTypes, setFieldValue } from '@common/utils/JestFormHelper'
+import { accountPathProps } from '@common/utils/routeUtils'
+import routes from '@common/RouteDefinitions'
 import {
   orgMockData,
   getOrgMockData,
@@ -75,7 +77,7 @@ describe('Org Page List', () => {
   beforeEach(async () => {
     const renderObj = render(
       <TestWrapper
-        path="/account/:accountId/admin/organizations"
+        path={routes.toOrganizations({ ...accountPathProps })}
         pathParams={{ accountId: 'testAcc' }}
         defaultAppStoreValues={defaultAppStoreValues}
       >

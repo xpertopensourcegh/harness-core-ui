@@ -19,7 +19,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
           >
             <a
               class="Breadcrumbs--breadcrumb"
-              href="/account/dummy/home"
+              href="/account/dummy/settings"
             >
               <span
                 class="bp3-icon bp3-icon-cog StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-primary7"
@@ -43,7 +43,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--intent-primary"
               >
-                account
+                common.accountSettings
               </p>
             </a>
             <span
@@ -68,7 +68,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
           >
             <a
               class="Breadcrumbs--breadcrumb"
-              href="/account/dummy/home/setup/access-control"
+              href="/account/dummy/settings/access-control"
             >
               <p
                 class="StyledProps--font StyledProps--main StyledProps--intent-primary"
@@ -98,7 +98,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
           >
             <a
               class="Breadcrumbs--breadcrumb"
-              href="/account/dummy/home/setup/access-control/roles"
+              href="/account/dummy/settings/access-control/roles"
             >
               <p
                 class="StyledProps--font StyledProps--main StyledProps--intent-primary"
@@ -508,7 +508,7 @@ exports[`Role Details Page render data 1`] = `
           >
             <a
               class="Breadcrumbs--breadcrumb"
-              href="/account/dummy/home"
+              href="/account/dummy/settings"
             >
               <span
                 class="bp3-icon bp3-icon-cog StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-primary7"
@@ -532,7 +532,7 @@ exports[`Role Details Page render data 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--intent-primary"
               >
-                account
+                common.accountSettings
               </p>
             </a>
             <span
@@ -557,7 +557,7 @@ exports[`Role Details Page render data 1`] = `
           >
             <a
               class="Breadcrumbs--breadcrumb"
-              href="/account/dummy/home/setup/access-control"
+              href="/account/dummy/settings/access-control"
             >
               <p
                 class="StyledProps--font StyledProps--main StyledProps--intent-primary"
@@ -587,7 +587,7 @@ exports[`Role Details Page render data 1`] = `
           >
             <a
               class="Breadcrumbs--breadcrumb"
-              href="/account/dummy/home/setup/access-control/roles"
+              href="/account/dummy/settings/access-control/roles"
             >
               <p
                 class="StyledProps--font StyledProps--main StyledProps--intent-primary"

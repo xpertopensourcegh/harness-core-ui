@@ -17,7 +17,7 @@ exports[`SubscribedModules should render link to subscriptions page only when no
         class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
       >
         <a
-          href="/account/undefined/home/setup/subscriptions"
+          href="/account/undefined/settings/subscriptions"
         >
           common.account.visitSubscriptions.link
         </a>
@@ -131,7 +131,7 @@ exports[`SubscribedModules should render modules when api call returns modules 1
           >
             <a
               class="manageBtn"
-              href="/account/undefined/home/setup/subscriptions?moduleCard=CI"
+              href="/account/undefined/settings/subscriptions?moduleCard=CI"
             >
               common.manage
             </a>

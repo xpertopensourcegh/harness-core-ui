@@ -1,0 +1,81 @@
+.projectButton {
+  border-right: 1px solid rgba(204, 204, 204, 0.3) !important;
+  justify-content: start !important;
+  padding: var(--spacing-large) !important;
+}
+
+.projectSelector {
+  border: 0.5px solid var(--grey-500);
+  border-radius: 2px;
+  height: 24px;
+}
+
+.projectText {
+  word-break: break-all;
+  font-size: 13px;
+}
+
+.pickProjectHelp {
+  padding: var(--spacing-xxxlarge) var(--spacing-xlarge);
+  background-position: 140px 0;
+  background-size: 30px;
+  background-repeat: no-repeat;
+  color: var(--grey-450);
+  line-height: 20px;
+}
+
+.dividerColorMargin {
+  background: var(--grey-500);
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.addMargin {
+  margin-left: 5px !important;
+  margin-right: 5px !important;
+}
+
+.addPadding {
+  padding-left: 12px !important;
+  padding-right: 12px !important;
+}
+
+.removeMarginPadding {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.projectContainer {
+  column-count: 2;
+  column-gap: 0em;
+  padding: var(--spacing-large) var(--spacing-none);
+  box-sizing: content-box;
+}
+
+.projectContainerWrapper {
+  height: calc(100vh - 150px);
+  justify-content: space-between;
+  overflow: scroll;
+}
+
+.projectCard {
+  margin-bottom: 2em;
+}
+
+.selectContainer {
+  height: 100vh;
+  background: #f3f8fb !important;
+}
+
+.popover {
+  transform: translate3d(21px, -5px, 0px) !important;
+}
+
+.selectButton {
+  border-radius: inherit;
+  height: 24px;
+  min-height: unset;
+  padding: var(--spacing-none) !important;
+}

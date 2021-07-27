@@ -17,7 +17,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
           <div>
             <a
               class="breadcrumb"
-              href="/account/dummy/home/setup/connectors"
+              href="/account/dummy/settings/resources/connectors"
             >
               resources
             </a>
@@ -472,7 +472,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
           <div>
             <a
               class="breadcrumb"
-              href="/account/dummy/home/organizations/dummyOrg/details"
+              href="/account/dummy/settings/organizations/dummyOrg/details"
             />
             <span
               class="bp3-icon StyledProps--main separator"
@@ -494,7 +494,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
           <div>
             <a
               class="breadcrumb"
-              href="/account/dummy/home/organizations/dummyOrg/setup/connectors"
+              href="/account/dummy/settings/organizations/dummyOrg/setup/resources/connectors"
             >
               resources
             </a>

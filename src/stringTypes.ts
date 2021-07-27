@@ -17,6 +17,10 @@ export interface StringsMap {
   'common.accountId': string
   'common.accountName': string
   'common.accountOverview': string
+  'common.accountResources': string
+  'common.accountResourcesPage.line1': string
+  'common.accountResourcesPage.line2': string
+  'common.accountSettings': string
   'common.accountSetup': string
   'common.addAccountName': string
   'common.addVariable': string
@@ -77,6 +81,7 @@ export interface StringsMap {
   'common.cgLaunchText': string
   'common.changeDefaultAccountMessage': string
   'common.changeDefaultAccountTitle': string
+  'common.changeIntelligence': string
   'common.changesUnsaved': string
   'common.clearSelection': string
   'common.clientId': string
@@ -248,6 +253,7 @@ export interface StringsMap {
   'common.member': string
   'common.moreRefineSearch': string
   'common.move': string
+  'common.myProfile': string
   'common.namePlaceholder': string
   'common.namespace': string
   'common.new': string
@@ -464,7 +470,6 @@ export interface StringsMap {
   'notifications.validationWebhook': string
   'rbac.account': string
   'rbac.accountScope': string
-  'rbac.accountSettings.label': string
   'rbac.activeUsers': string
   'rbac.addResourceModal.selectedText': string
   'rbac.addRole': string
@@ -1482,6 +1487,7 @@ export interface StringsMap {
   'projectsOrgs.confirmDelete': string
   'projectsOrgs.confirmDeleteTitle': string
   'projectsOrgs.createANewProject': string
+  'projectsOrgs.createAProject': string
   'projectsOrgs.createOrSelectAProject': string
   'projectsOrgs.createOrgLoader': string
   'projectsOrgs.createProject': string
@@ -1511,10 +1517,14 @@ export interface StringsMap {
   'projectsOrgs.noOrganizations': string
   'projectsOrgs.noProjectRole': string
   'projectsOrgs.notAvailableForBeta': string
+  'projectsOrgs.orgAccessControl': string
   'projectsOrgs.orgCreateSuccess': string
   'projectsOrgs.orgDeletedMessage': string
   'projectsOrgs.orgEditSuccess': string
   'projectsOrgs.orgName': string
+  'projectsOrgs.orgResources.description1': string
+  'projectsOrgs.orgResources.description2': string
+  'projectsOrgs.orgResources.label': string
   'projectsOrgs.pendingInvitation': string
   'projectsOrgs.pendingUsers': string
   'projectsOrgs.placeholder': string
@@ -1523,6 +1533,7 @@ export interface StringsMap {
   'projectsOrgs.projectEdit': string
   'projectsOrgs.projectEditSuccess': string
   'projectsOrgs.projectInviteSuccess': string
+  'projectsOrgs.projectsInOrg': string
   'projectsOrgs.purposeList.cd': string
   'projectsOrgs.purposeList.ce': string
   'projectsOrgs.purposeList.cf': string
@@ -1552,10 +1563,12 @@ export interface StringsMap {
   'projectsOrgs.saveAndClose': string
   'projectsOrgs.search': string
   'projectsOrgs.searchPlaceHolder': string
+  'projectsOrgs.searchProjectPlaceHolder': string
   'projectsOrgs.selectAnExistingProject': string
   'projectsOrgs.tabOrgs': string
   'projectsOrgs.urlMessageOrg': string
   'projectsOrgs.urlMessageProject': string
+  'projectsOrgs.viewAllProjects': string
   'projectsOrgs.viewProjects': string
   'projectsOrgs.welcome': string
   'projectsOrgs.welcomeSecondLine': string
