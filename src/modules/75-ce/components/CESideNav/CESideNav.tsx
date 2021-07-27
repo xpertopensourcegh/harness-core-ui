@@ -52,8 +52,13 @@ export default function CESideNav(): React.ReactElement {
           }
         }}
       />
-      {projectIdentifier && orgIdentifier ? (
+      {
         <React.Fragment>
+          <SidebarLink label={getString('overview')} to={routes.toCEOverview({ accountId })} />
+          <SidebarLink
+            label={getString('ce.sideNav.perspective')}
+            to={routes.toCEPerspectiveDashboard({ accountId, projectIdentifier, orgIdentifier })}
+          />
           <SidebarLink
             label={getString('ce.co.breadCrumb.rules')}
             to={routes.toCECORules({ accountId, projectIdentifier, orgIdentifier })}
@@ -63,7 +68,7 @@ export default function CESideNav(): React.ReactElement {
             to={routes.toCECOAccessPoints({ accountId, projectIdentifier, orgIdentifier })}
           />
         </React.Fragment>
-      ) : null}
+      }
       {localStorage.CE_DEV ? (
         <>
           <SidebarLink

@@ -2234,6 +2234,7 @@ export interface StringsMap {
   'cd.varFile': string
   'cd.varFileDetails': string
   'cd.workloadRequired': string
+  'ce.ccm': string
   'ce.ceTrialHomePage.startTrial.description': string
   'ce.co.accessPoint.ap': string
   'ce.co.accessPoint.aps': string
@@ -2472,12 +2473,16 @@ export interface StringsMap {
   'ce.overview.workload': string
   'ce.perspectives.budgets.actualSpend': string
   'ce.perspectives.budgets.configureAlerts.actual': string
+  'ce.perspectives.budgets.configureAlerts.actualCost': string
+  'ce.perspectives.budgets.configureAlerts.alerts': string
+  'ce.perspectives.budgets.configureAlerts.amount': string
   'ce.perspectives.budgets.configureAlerts.basedOn': string
   'ce.perspectives.budgets.configureAlerts.budgetAmount': string
   'ce.perspectives.budgets.configureAlerts.createAlert': string
   'ce.perspectives.budgets.configureAlerts.emailPlaceholder': string
   'ce.perspectives.budgets.configureAlerts.exceeds': string
   'ce.perspectives.budgets.configureAlerts.forecasted': string
+  'ce.perspectives.budgets.configureAlerts.lastMonthCost': string
   'ce.perspectives.budgets.configureAlerts.percent': string
   'ce.perspectives.budgets.configureAlerts.subTitle': string
   'ce.perspectives.budgets.configureAlerts.title': string
@@ -2612,6 +2617,8 @@ export interface StringsMap {
   'ce.recommendation.recommendationChart.noOfSamples': string
   'ce.recommendation.sideNavText': string
   'ce.savedYamlSuccess': string
+  'ce.sideNav.perspective': string
+  'ce.trialCta': string
   'ce.uploadCertiHeader': string
   'cf.addPrerequisites.addPrerequisitesDesc': string
   'cf.addPrerequisites.addPrerequisitesHeading': string
