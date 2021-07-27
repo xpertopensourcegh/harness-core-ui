@@ -1,8 +1,6 @@
 .main {
   background: var(--white);
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  min-height: var(--execution-children-height, 100vh);
   border-top: 1px solid var(--primary-3);
 
   & > :global(.bp3-spinner) {
@@ -31,6 +29,7 @@
   [data-state='floating'] & {
     width: 520px;
     height: 630px;
+    min-height: auto;
     box-shadow: 0 2px 8px var(--grey-400);
     border-radius: 8px;
     border-top-color: transparent;

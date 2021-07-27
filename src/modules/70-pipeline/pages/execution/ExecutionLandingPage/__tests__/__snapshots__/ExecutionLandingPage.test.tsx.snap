@@ -404,6 +404,7 @@ exports[`<ExecutionLandingPage /> tests loading state - snapshot test 1`] = `
       </div>
       <div
         class="childContainer"
+        data-view="graph"
         id="pipeline-execution-container"
       >
         <div

@@ -197,7 +197,13 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
   }
 
   //setup the diagram engine
-  const engine = React.useMemo(() => Diagram.createEngine({}), [])
+  const engine = React.useMemo(
+    () =>
+      Diagram.createEngine({
+        registerDefaultZoomCanvasAction: false
+      }),
+    []
+  )
 
   //setup the diagram model
   const model = React.useMemo(() => new ExecutionStageDiagramModel(), [])

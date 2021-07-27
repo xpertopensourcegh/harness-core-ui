@@ -99,6 +99,8 @@
   }
 
   &[data-mode='step-details'] {
+    height: var(--execution-children-height);
+
     .search {
       transform: scale(0.8);
       transform-origin: right center;

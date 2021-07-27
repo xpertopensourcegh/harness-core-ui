@@ -22,8 +22,16 @@
   .childContainer {
     position: relative;
     flex: 1 0 auto;
-    display: flex;
-    flex-direction: column;
-    height: calc(100vh - #{$header-height + $tabs-height});
+    --execution-sicky-top: 20px;
+    --execution-children-height: calc(100vh - #{$header-height + $tabs-height} - var(--execution-sicky-top));
+    height: calc(var(--execution-children-height) + var(--execution-sicky-top));
+
+    &[data-view='graph'] {
+      overflow: auto;
+    }
+
+    &[data-view='log'] {
+      overflow: hidden;
+    }
   }
 }

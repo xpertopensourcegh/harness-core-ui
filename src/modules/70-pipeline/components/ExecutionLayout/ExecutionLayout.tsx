@@ -104,9 +104,10 @@ function ExecutionLayout(props: React.PropsWithChildren<ExecutionLayoutProps>): 
           minSize={MIN_PANEL_SIZE}
           size={primaryPaneSize}
           onChange={handleStageResize}
+          style={{ height: 'min-content', overflow: 'unset' }}
         >
           <Pane className={css.pane11}>{child1}</Pane>
-          <Pane className={css.pane12}>
+          <Pane style={{ height: 'min-content' }} className={css.pane12}>
             {isStepDetailsVisible &&
             (layoutState === ExecutionLayoutState.BOTTOM || layoutState === ExecutionLayoutState.RIGHT) ? (
               <SplitPane
@@ -114,6 +115,8 @@ function ExecutionLayout(props: React.PropsWithChildren<ExecutionLayoutProps>): 
                 {...splitPaneProps[layoutState]}
                 size={tertiaryPaneSize}
                 onChange={setStepSplitPaneSizeDebounce}
+                pane1Style={{ height: 'min-content', position: 'sticky', top: 'var(--execution-sicky-top)' }}
+                style={{ height: 'min-content', overflow: 'unset' }}
               >
                 <Pane className={css.pane21}>{child2}</Pane>
                 <Pane className={css.pane22}>{child3}</Pane>

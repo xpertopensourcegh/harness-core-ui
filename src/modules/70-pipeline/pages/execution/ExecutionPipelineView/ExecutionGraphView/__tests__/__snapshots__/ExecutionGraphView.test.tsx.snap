@@ -8,7 +8,7 @@ exports[`<ExecutionGraphView /> tests renders execution graphs with CD data 1`] 
   >
     <div
       class="SplitPane splitPane1 horizontal "
-      style="display: flex; flex: 1; height: 100%; position: absolute; outline: none; overflow: hidden; user-select: text; bottom: 0px; flex-direction: column; min-height: 100%; top: 0px; width: 100%;"
+      style="display: flex; flex: 1; position: absolute; outline: none; overflow: unset; user-select: text; bottom: 0px; flex-direction: column; min-height: 100%; top: 0px; width: 100%;"
     >
       <div
         class="Pane horizontal Pane1  "
@@ -125,7 +125,7 @@ exports[`<ExecutionGraphView /> tests renders execution graphs with CI data 1`] 
   >
     <div
       class="SplitPane splitPane1 horizontal "
-      style="display: flex; flex: 1; height: 100%; position: absolute; outline: none; overflow: hidden; user-select: text; bottom: 0px; flex-direction: column; min-height: 100%; top: 0px; width: 100%;"
+      style="display: flex; flex: 1; position: absolute; outline: none; overflow: unset; user-select: text; bottom: 0px; flex-direction: column; min-height: 100%; top: 0px; width: 100%;"
     >
       <div
         class="Pane horizontal Pane1  "
@@ -234,7 +234,7 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
   >
     <div
       class="SplitPane splitPane1 horizontal "
-      style="display: flex; flex: 1; height: 100%; position: absolute; outline: none; overflow: hidden; user-select: text; bottom: 0px; flex-direction: column; min-height: 100%; top: 0px; width: 100%;"
+      style="display: flex; flex: 1; position: absolute; outline: none; overflow: unset; user-select: text; bottom: 0px; flex-direction: column; min-height: 100%; top: 0px; width: 100%;"
     >
       <div
         class="Pane horizontal Pane1  "
@@ -296,11 +296,11 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
         >
           <div
             class="SplitPane splitPane2 vertical "
-            style="display: flex; flex: 1; height: 100%; position: absolute; outline: none; overflow: hidden; user-select: text; flex-direction: row; left: 0px; right: 0px;"
+            style="display: flex; flex: 1; position: absolute; outline: none; overflow: unset; user-select: text; flex-direction: row; left: 0px; right: 0px;"
           >
             <div
               class="Pane vertical Pane1  "
-              style="flex: 1; position: relative; outline: none;"
+              style="flex: 1; position: sticky; outline: none;"
             >
               <div
                 class="Pane  pane21"

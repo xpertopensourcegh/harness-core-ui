@@ -32,10 +32,6 @@
   .splitPane1 {
     & > :global(.Pane.Pane1) {
       margin-bottom: calc(-1 * var(--spacing-small));
-
-      .pane11 {
-        border-bottom: 4px solid var(--primary-3);
-      }
     }
   }
 
