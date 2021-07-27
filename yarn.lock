@@ -3977,10 +3977,10 @@
   resolved "https://npm.pkg.github.com/download/@wings-software/telemetry/1.0.36/5f59a357aff1dceaa0f724acb8620985f6b3334233231838eea82ea25b3de4ce#cac20fc86f51e0bf91688d35664ad1a3cf84c124"
   integrity "sha1-ysIPyG9R4L+RaI01ZkrRo8+EwSQ= sha512-PrWLYNubOjFDlMO2DJlH1PljfeVgJ6zih6gHOmp2B/2+fdUhjOABSnEKduNSZwrTGqCFmHKmqF1gZ1ksQMEJLA=="
 
-"@wings-software/uicore@0.1.326":
-  version "0.1.326"
-  resolved "https://npm.pkg.github.com/download/@wings-software/uicore/0.1.326/ba62c936bf254a2b49e123d7bbd5445ac57aff2caaa6645b0d666c73279672dc#d3169b941accc7446910e490936a4b676ed03772"
-  integrity sha512-bg5RWdPKtxXSN/UYjkbC+1DK6N5zOtyjJWIgucw8CfnNHBC0+pol49crtiQtS9/7N4YrY2rayOaWBMr0VKr6ow==
+"@wings-software/uicore@0.1.328":
+  version "0.1.328"
+  resolved "https://npm.pkg.github.com/download/@wings-software/uicore/0.1.328/aaf6aee87e010e458247bd139fbe8439fa5196ef9db11c475239683ed420cf33#41a925e8077bc2237ab847a1642319a0878a2dc6"
+  integrity sha512-3LNeb14CAFF2x4yHGWuWSi/8mDI495iDAS24QK06F4Trr7/45kMwYVI69O6n70pG4I+4Bc8RFsR7BN4u8xcsTw==
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
