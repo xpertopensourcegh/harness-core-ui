@@ -33,7 +33,7 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
   const virtuosoRef = React.useRef<null | GroupedVirtuosoHandle | VirtuosoHandle>(null)
 
   React.useEffect(() => {
-    const currentStepId = mode !== 'console-view' && queryParams.retryStep ? queryParams.retryStep : selectedStepId
+    const currentStepId = queryParams.retryStep ? queryParams.retryStep : selectedStepId
     const selectedStep = allNodeMap[currentStepId]
 
     actions.createSections({
