@@ -30,6 +30,7 @@ import PerspectiveDetailsPage from './pages/perspective-details/PerspectiveDetai
 import CreatePerspectivePage from './pages/perspective-builder/CreatePerspectivePage'
 import PerspectiveListPage from './pages/perspective-list/PerspectiveListPage'
 import WorkloadDetailsPage from './pages/workload-details/WorkloadDetailsPage'
+import OverviewPage from './pages/overview/OverviewPage'
 
 const RedirectToCEHome = (): React.ReactElement => {
   const params = useParams<AccountPathProps>()
@@ -228,6 +229,9 @@ const CERoutes: React.FC = () => {
           exact
         >
           <WorkloadDetailsPage />
+        </RouteWithLayout>
+        <RouteWithLayout sidebarProps={CESideNavProps} path={routes.toCEOverview({ ...accountPathProps })} exact>
+          <OverviewPage />
         </RouteWithLayout>
         <Route path="*">
           <NotFoundPage />

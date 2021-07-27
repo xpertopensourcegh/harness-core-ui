@@ -66,6 +66,58 @@ export const RecommendationsDocument = gql`
 export function useRecommendationsQuery(options: Omit<Urql.UseQueryArgs<RecommendationsQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<RecommendationsQuery>({ query: RecommendationsDocument, ...options })
 }
+export const FetchCcmMetaDataDocument = gql`
+  query FetchCcmMetaData {
+    ccmMetaData {
+      k8sClusterConnectorPresent
+      cloudDataPresent
+      awsConnectorsPresent
+      gcpConnectorsPresent
+      azureConnectorsPresent
+      applicationDataPresent
+      inventoryDataPresent
+      clusterDataPresent
+      isSampleClusterPresent
+      defaultAzurePerspectiveId
+      defaultAwsPerspectiveId
+      defaultGcpPerspectiveId
+      defaultClusterPerspectiveId
+    }
+  }
+`
+
+export function useFetchCcmMetaDataQuery(
+  options: Omit<Urql.UseQueryArgs<FetchCcmMetaDataQueryVariables>, 'query'> = {}
+) {
+  return Urql.useQuery<FetchCcmMetaDataQuery>({ query: FetchCcmMetaDataDocument, ...options })
+}
+export const FetchOverviewTimeSeriesDocument = gql`
+  query FetchOverviewTimeSeries(
+    $filters: [QLCEViewFilterWrapperInput]
+    $aggregateFunction: [QLCEViewAggregationInput]
+    $groupBy: [QLCEViewGroupByInput]
+  ) {
+    overviewTimeSeriesStats(aggregateFunction: $aggregateFunction, filters: $filters, groupBy: $groupBy) {
+      data: stats {
+        values {
+          key {
+            id
+            name
+            type
+          }
+          value
+        }
+        time
+      }
+    }
+  }
+`
+
+export function useFetchOverviewTimeSeriesQuery(
+  options: Omit<Urql.UseQueryArgs<FetchOverviewTimeSeriesQueryVariables>, 'query'> = {}
+) {
+  return Urql.useQuery<FetchOverviewTimeSeriesQuery>({ query: FetchOverviewTimeSeriesDocument, ...options })
+}
 export const FetchPerspectiveFiltersValueDocument = gql`
   query FetchPerspectiveFiltersValue($filters: [QLCEViewFilterWrapperInput], $offset: Int, $limit: Int) {
     perspectiveFilters(filters: $filters, offset: $offset, limit: $limit) {
@@ -78,6 +130,27 @@ export function useFetchPerspectiveFiltersValueQuery(
   options: Omit<Urql.UseQueryArgs<FetchPerspectiveFiltersValueQueryVariables>, 'query'> = {}
 ) {
   return Urql.useQuery<FetchPerspectiveFiltersValueQuery>({ query: FetchPerspectiveFiltersValueDocument, ...options })
+}
+export const FetchPerspectiveForecastCostDocument = gql`
+  query FetchPerspectiveForecastCost(
+    $aggregateFunction: [QLCEViewAggregationInput]
+    $filters: [QLCEViewFilterWrapperInput]
+  ) {
+    perspectiveForecastCost(aggregateFunction: $aggregateFunction, filters: $filters) {
+      cost {
+        statsLabel
+        statsTrend
+        statsValue
+        statsDescription
+      }
+    }
+  }
+`
+
+export function useFetchPerspectiveForecastCostQuery(
+  options: Omit<Urql.UseQueryArgs<FetchPerspectiveForecastCostQueryVariables>, 'query'> = {}
+) {
+  return Urql.useQuery<FetchPerspectiveForecastCostQuery>({ query: FetchPerspectiveForecastCostDocument, ...options })
 }
 export const FetchperspectiveGridDocument = gql`
   query FetchperspectiveGrid(
@@ -159,21 +232,38 @@ export function useFetchperspectiveGridQuery(
   return Urql.useQuery<FetchperspectiveGridQuery>({ query: FetchperspectiveGridDocument, ...options })
 }
 export const FetchPerspectiveDetailsSummaryDocument = gql`
-  query FetchPerspectiveDetailsSummary($filters: [QLCEViewFilterWrapperInput]) {
-    perspectiveTrendStats(
-      filters: $filters
-      aggregateFunction: [
-        { operationType: SUM, columnName: "cost" }
-        { operationType: MAX, columnName: "startTime" }
-        { operationType: MIN, columnName: "startTime" }
-      ]
-    ) {
+  query FetchPerspectiveDetailsSummary(
+    $filters: [QLCEViewFilterWrapperInput]
+    $aggregateFunction: [QLCEViewAggregationInput]
+    $isClusterQuery: Boolean
+  ) {
+    perspectiveTrendStats(filters: $filters, aggregateFunction: $aggregateFunction, isClusterQuery: $isClusterQuery) {
       cost {
         statsDescription
         statsLabel
         statsTrend
         statsValue
         value
+      }
+      idleCost {
+        statsLabel
+        statsValue
+        value
+      }
+      unallocatedCost {
+        statsLabel
+        statsValue
+        value
+      }
+      utilizedCost {
+        statsLabel
+        statsValue
+        value
+      }
+      efficiencyScoreStats {
+        statsLabel
+        statsTrend
+        statsValue
       }
     }
   }
@@ -611,6 +701,56 @@ export type RecommendationsQuery = {
   }>
 }
 
+export type FetchCcmMetaDataQueryVariables = Exact<{ [key: string]: never }>
+
+export type FetchCcmMetaDataQuery = {
+  __typename?: 'Query'
+  ccmMetaData: Maybe<{
+    __typename?: 'CCMMetaData'
+    k8sClusterConnectorPresent: boolean
+    cloudDataPresent: boolean
+    awsConnectorsPresent: boolean
+    gcpConnectorsPresent: boolean
+    azureConnectorsPresent: boolean
+    applicationDataPresent: boolean
+    inventoryDataPresent: boolean
+    clusterDataPresent: boolean
+    isSampleClusterPresent: boolean
+    defaultAzurePerspectiveId: Maybe<string>
+    defaultAwsPerspectiveId: Maybe<string>
+    defaultGcpPerspectiveId: Maybe<string>
+    defaultClusterPerspectiveId: Maybe<string>
+  }>
+}
+
+export type FetchOverviewTimeSeriesQueryVariables = Exact<{
+  filters: Maybe<Array<Maybe<QlceViewFilterWrapperInput>> | Maybe<QlceViewFilterWrapperInput>>
+  aggregateFunction: Maybe<Array<Maybe<QlceViewAggregationInput>> | Maybe<QlceViewAggregationInput>>
+  groupBy: Maybe<Array<Maybe<QlceViewGroupByInput>> | Maybe<QlceViewGroupByInput>>
+}>
+
+export type FetchOverviewTimeSeriesQuery = {
+  __typename?: 'Query'
+  overviewTimeSeriesStats: Maybe<{
+    __typename?: 'PerspectiveTimeSeriesData'
+    data: Maybe<
+      Array<
+        Maybe<{
+          __typename?: 'TimeSeriesDataPoints'
+          time: any
+          values: Array<
+            Maybe<{
+              __typename?: 'DataPoint'
+              value: any
+              key: { __typename?: 'Reference'; id: string; name: string; type: string }
+            }>
+          >
+        }>
+      >
+    >
+  }>
+}
+
 export type FetchPerspectiveFiltersValueQueryVariables = Exact<{
   filters: Maybe<Array<Maybe<QlceViewFilterWrapperInput>> | Maybe<QlceViewFilterWrapperInput>>
   offset: Maybe<Scalars['Int']>
@@ -620,6 +760,25 @@ export type FetchPerspectiveFiltersValueQueryVariables = Exact<{
 export type FetchPerspectiveFiltersValueQuery = {
   __typename?: 'Query'
   perspectiveFilters: Maybe<{ __typename?: 'PerspectiveFilterData'; values: Maybe<Array<Maybe<string>>> }>
+}
+
+export type FetchPerspectiveForecastCostQueryVariables = Exact<{
+  aggregateFunction: Maybe<Array<Maybe<QlceViewAggregationInput>> | Maybe<QlceViewAggregationInput>>
+  filters: Maybe<Array<Maybe<QlceViewFilterWrapperInput>> | Maybe<QlceViewFilterWrapperInput>>
+}>
+
+export type FetchPerspectiveForecastCostQuery = {
+  __typename?: 'Query'
+  perspectiveForecastCost: Maybe<{
+    __typename?: 'PerspectiveTrendStats'
+    cost: Maybe<{
+      __typename?: 'StatsInfo'
+      statsLabel: string
+      statsTrend: Maybe<any>
+      statsValue: string
+      statsDescription: string
+    }>
+  }>
 }
 
 export type FetchperspectiveGridQueryVariables = Exact<{
@@ -699,6 +858,8 @@ export type FetchperspectiveGridQuery = {
 
 export type FetchPerspectiveDetailsSummaryQueryVariables = Exact<{
   filters: Maybe<Array<Maybe<QlceViewFilterWrapperInput>> | Maybe<QlceViewFilterWrapperInput>>
+  aggregateFunction: Maybe<Array<Maybe<QlceViewAggregationInput>> | Maybe<QlceViewAggregationInput>>
+  isClusterQuery: Maybe<Scalars['Boolean']>
 }>
 
 export type FetchPerspectiveDetailsSummaryQuery = {
@@ -712,6 +873,15 @@ export type FetchPerspectiveDetailsSummaryQuery = {
       statsTrend: Maybe<any>
       statsValue: string
       value: Maybe<any>
+    }>
+    idleCost: Maybe<{ __typename?: 'StatsInfo'; statsLabel: string; statsValue: string; value: Maybe<any> }>
+    unallocatedCost: Maybe<{ __typename?: 'StatsInfo'; statsLabel: string; statsValue: string; value: Maybe<any> }>
+    utilizedCost: Maybe<{ __typename?: 'StatsInfo'; statsLabel: string; statsValue: string; value: Maybe<any> }>
+    efficiencyScoreStats: Maybe<{
+      __typename?: 'EfficiencyScoreStats'
+      statsLabel: Maybe<string>
+      statsTrend: Maybe<any>
+      statsValue: Maybe<string>
     }>
   }>
 }

@@ -481,3 +481,22 @@ perspectives:
       percent: % of Budget
       createAlert: '+ add new alert'
       emailPlaceholder: Enter emails
+overview:
+  title: '{{ $.overview }}'
+  seeAll: See all
+  addClusterDesc: No clusters have been added yet. You can get deep cost visibility, Root cost analysis and actionable
+    recommendations to save costs by adding clusters. Add not to get started!
+  addClusterBtn: '+ Add a cluster'
+  totalCost: Total Cost
+  workload: Workload Resizing
+  savings: savings per month
+  cardtitles:
+    multipleCloud: Cost by cloud providers
+    azure: Top Azure services
+    aws: Top AWS accounts
+    gcp: Top GCP projects
+    clusterBreakdown: Cluster costs breakdown
+    costByProviders: Cost by providers
+    efficiencyScore: Cost Efficiency score
+    topClusters: Top spending clusters
+    topRecommendation: Top 20 Recommendations

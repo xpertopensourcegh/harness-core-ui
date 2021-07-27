@@ -195,7 +195,7 @@ exports[`test cases for Perspective Grid should be able to render Perspective Gr
                   >
                     <span
                       class="legendColor"
-                      style="background: rgb(11, 200, 214);"
+                      style="background: rgb(138, 119, 222);"
                     />
                   </span>
                   <span
@@ -276,7 +276,7 @@ exports[`test cases for Perspective Grid should be able to render Perspective Gr
                   >
                     <span
                       class="legendColor"
-                      style="background: rgb(127, 184, 0);"
+                      style="background: rgb(255, 71, 159);"
                     />
                   </span>
                   <span
@@ -337,7 +337,7 @@ exports[`test cases for Perspective Grid should be able to render Perspective Gr
                   >
                     <span
                       class="legendColor"
-                      style="background: rgb(138, 119, 222);"
+                      style="background: rgb(255, 188, 8);"
                     />
                   </span>
                   <span
@@ -418,7 +418,7 @@ exports[`test cases for Perspective Grid should be able to render Perspective Gr
                   >
                     <span
                       class="legendColor"
-                      style="background: rgb(255, 71, 159);"
+                      style="background: rgb(11, 200, 214);"
                     />
                   </span>
                   <span
@@ -479,7 +479,7 @@ exports[`test cases for Perspective Grid should be able to render Perspective Gr
                   >
                     <span
                       class="legendColor"
-                      style="background: rgb(54, 208, 104);"
+                      style="background: rgb(242, 92, 97);"
                     />
                   </span>
                   <span
@@ -540,7 +540,7 @@ exports[`test cases for Perspective Grid should be able to render Perspective Gr
                   >
                     <span
                       class="legendColor"
-                      style="background: rgb(255, 188, 8);"
+                      style="background: rgb(127, 184, 0);"
                     />
                   </span>
                   <span

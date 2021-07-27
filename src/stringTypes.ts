@@ -2441,6 +2441,22 @@ export interface StringsMap {
   'ce.gridColumnSelector': string
   'ce.homepage.slogan': string
   'ce.learnMore': string
+  'ce.overview.addClusterBtn': string
+  'ce.overview.addClusterDesc': string
+  'ce.overview.cardtitles.aws': string
+  'ce.overview.cardtitles.azure': string
+  'ce.overview.cardtitles.clusterBreakdown': string
+  'ce.overview.cardtitles.costByProviders': string
+  'ce.overview.cardtitles.efficiencyScore': string
+  'ce.overview.cardtitles.gcp': string
+  'ce.overview.cardtitles.multipleCloud': string
+  'ce.overview.cardtitles.topClusters': string
+  'ce.overview.cardtitles.topRecommendation': string
+  'ce.overview.savings': string
+  'ce.overview.seeAll': string
+  'ce.overview.title': string
+  'ce.overview.totalCost': string
+  'ce.overview.workload': string
   'ce.perspectives.budgets.actualSpend': string
   'ce.perspectives.budgets.configureAlerts.actual': string
   'ce.perspectives.budgets.configureAlerts.basedOn': string

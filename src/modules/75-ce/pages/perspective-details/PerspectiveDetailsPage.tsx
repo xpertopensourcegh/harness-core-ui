@@ -15,7 +15,8 @@ import {
   useFetchperspectiveGridQuery,
   ViewChartType,
   ViewTimeRangeType,
-  ViewType
+  ViewType,
+  QlceViewAggregateOperation
 } from 'services/ce/services'
 import { useStrings } from 'framework/strings'
 import { PageBody } from '@common/components/Page/PageBody'
@@ -186,6 +187,12 @@ const PerspectiveDetailsPage: React.FC = () => {
 
   const [summaryResult] = useFetchPerspectiveDetailsSummaryQuery({
     variables: {
+      isClusterQuery: false, // TODO: confirm with Jenil and Shubhanshu
+      aggregateFunction: [
+        { operationType: QlceViewAggregateOperation.Sum, columnName: 'cost' },
+        { operationType: QlceViewAggregateOperation.Max, columnName: 'startTime' },
+        { operationType: QlceViewAggregateOperation.Min, columnName: 'startTime' }
+      ],
       filters: [
         getViewFilterForId(perspectiveId),
         ...getTimeFilters(getGMTStartDateTime(timeRange.from), getGMTEndDateTime(timeRange.to)),
