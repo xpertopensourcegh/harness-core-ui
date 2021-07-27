@@ -17,6 +17,7 @@ import {
   ViewTimeRangeType,
   ViewType
 } from 'services/ce/services'
+import { useStrings } from 'framework/strings'
 import { PageBody } from '@common/components/Page/PageBody'
 import { PageSpinner } from '@common/components'
 import PerspectiveGrid from '@ce/components/PerspectiveGrid/PerspectiveGrid'
@@ -53,6 +54,8 @@ const PerspectiveHeader: React.FC<{ title: string; viewType: string }> = ({ titl
   const { perspectiveId, accountId } = useParams<{ perspectiveId: string; accountId: string }>()
   const history = useHistory()
 
+  const { getString } = useStrings()
+
   const isDefaultPerspective = viewType === ViewType.Default
 
   const goToEditPerspective: () => void = () => {
@@ -82,7 +85,7 @@ const PerspectiveHeader: React.FC<{ title: string; viewType: string }> = ({ titl
           links={[
             {
               url: routes.toCEPerspectives({ accountId }),
-              label: 'Perspectives'
+              label: getString('ce.perspectives.sideNavText')
             },
             {
               label: '',
@@ -102,7 +105,8 @@ const PerspectiveHeader: React.FC<{ title: string; viewType: string }> = ({ titl
 }
 
 const PerspectiveDetailsPage: React.FC = () => {
-  const { perspectiveId } = useParams<PerspectiveParams>() // TODO: accountId
+  const history = useHistory()
+  const { perspectiveId, accountId } = useParams<PerspectiveParams>() // TODO: accountId
 
   const { data: perspectiveRes, loading } = useGetPerspective({
     queryParams: {
@@ -209,6 +213,19 @@ const PerspectiveDetailsPage: React.FC = () => {
   const { data: gridData, fetching: gridFetching } = gridResults
   const { data: summaryData, fetching: summaryFetching } = summaryResult
 
+  const goToWorkloadDetails = (clusterName: string, namespace: string, workloadName: string) => {
+    history.push(
+      routes.toCEPerspectiveWorkloadDetails({
+        accountId,
+        perspectiveId,
+        perspectiveName: perspectiveData?.name || perspectiveId,
+        clusterName,
+        namespace,
+        workloadName
+      })
+    )
+  }
+
   return (
     <>
       <PageHeader
@@ -261,6 +278,7 @@ const PerspectiveDetailsPage: React.FC = () => {
             ) : null}
           </Container>
           <PerspectiveGrid
+            goToWorkloadDetails={goToWorkloadDetails}
             isClusterOnly={isClusterOnly}
             gridData={gridData?.perspectiveGrid?.data as any}
             gridFetching={gridFetching}

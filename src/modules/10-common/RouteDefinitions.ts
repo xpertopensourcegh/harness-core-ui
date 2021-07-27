@@ -1037,6 +1037,20 @@ const routes = {
   toCERecommendationDetails: withAccountId(
     ({ recommendation }: { recommendation: string }) => `/ce/recommendations/${recommendation}/details`
   ),
+  toCERecommendationWorkloadDetails: withAccountId(
+    ({
+      recommendation,
+      clusterName,
+      namespace,
+      workloadName
+    }: {
+      recommendation: string
+      workloadName: string
+      clusterName: string
+      namespace: string
+    }) =>
+      `/ce/recommendations/${recommendation}/cluster/${clusterName}/namespace/${namespace}/workload/${workloadName}/details`
+  ),
   toPerspectiveDetails: withAccountId(
     ({ perspectiveId, perspectiveName }: AccountPathProps & { perspectiveId: string; perspectiveName: string }) =>
       `/ce/perspectives/${perspectiveId}/name/${perspectiveName}`
@@ -1046,13 +1060,21 @@ const routes = {
   ),
   toCEPerspectives: withAccountId(() => `/ce/perspectives`),
   toCEBudgets: withAccountId(() => '/ce/budgets'),
-  toWorkloadDetails: withAccountId(
+  toCEPerspectiveWorkloadDetails: withAccountId(
     ({
+      perspectiveId,
+      perspectiveName,
       clusterName,
       namespace,
       workloadName
-    }: AccountPathProps & { clusterName: string; namespace: string; workloadName: string }) =>
-      `/ce/cluster/${clusterName}/namespace/${namespace}/workload/${workloadName}/details`
+    }: AccountPathProps & {
+      perspectiveId: string
+      perspectiveName: string
+      clusterName: string
+      namespace: string
+      workloadName: string
+    }) =>
+      `/ce/perspectives/${perspectiveId}/name/${perspectiveName}/cluster/${clusterName}/namespace/${namespace}/workload/${workloadName}/details`
   ),
   /********************************************************************************************************************/
   toCustomDasboard: withAccountId(() => '/home/dashboards'),

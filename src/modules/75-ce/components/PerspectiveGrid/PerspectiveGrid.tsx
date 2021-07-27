@@ -1,6 +1,6 @@
 import React, { useMemo, useEffect, useState } from 'react'
 import { Text, Container, Icon } from '@wings-software/uicore'
-import type { Column } from 'react-table'
+import type { Column, Row } from 'react-table'
 import { isEqual } from 'lodash-es'
 import type { QlceViewFieldInputInput, QlceViewEntityStatsDataPoint, Maybe } from 'services/ce/services'
 import ColumnSelector from './ColumnSelector'
@@ -19,6 +19,7 @@ export interface PerspectiveGridProps {
   gridData: Maybe<Maybe<QlceViewEntityStatsDataPoint>[]> | undefined
   gridFetching: boolean
   isClusterOnly?: boolean
+  goToWorkloadDetails?: (clusterName: string, namespace: string, workloadName: string) => void
 }
 
 const PerspectiveGrid: React.FC<PerspectiveGridProps> = props => {
@@ -29,7 +30,8 @@ const PerspectiveGrid: React.FC<PerspectiveGridProps> = props => {
     showColumnSelector,
     gridData: response,
     gridFetching: fetching,
-    isClusterOnly = false
+    isClusterOnly = false,
+    goToWorkloadDetails
   } = props
 
   const gridColumns = getGridColumnsByGroupBy(groupBy, isClusterOnly)
@@ -69,6 +71,18 @@ const PerspectiveGrid: React.FC<PerspectiveGridProps> = props => {
     )
   }
 
+  const onRowClick = (row: Row<GridData>) => {
+    const { fieldName } = groupBy
+    if (fieldName === 'Workload Id' && isClusterOnly) {
+      const { clusterName, namespace, workloadName } = row.original
+      goToWorkloadDetails &&
+        clusterName &&
+        namespace &&
+        workloadName &&
+        goToWorkloadDetails(clusterName, namespace, workloadName)
+    }
+  }
+
   return (
     <Container background="white">
       {showColumnSelector && (
@@ -80,6 +94,7 @@ const PerspectiveGrid: React.FC<PerspectiveGridProps> = props => {
       )}
       <Grid<GridData>
         data={gridData}
+        onRowClick={onRowClick}
         columns={props.tempGridColumns ? (DEFAULT_COLS as Column<GridData>[]) : (selectedColumns as Column<GridData>[])}
         showPagination={props.showPagination}
       />

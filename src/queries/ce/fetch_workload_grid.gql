@@ -1,6 +1,7 @@
-query FetchWorkloadGrid($filters: [QLCEViewFilterWrapperInput]) {
+query FetchWorkloadGrid($filters: [QLCEViewFilterWrapperInput], $isClusterQuery: Boolean) {
   perspectiveGrid(
     filters: $filters
+    isClusterQuery: $isClusterQuery
     aggregateFunction: [
       { operationType: SUM, columnName: "networkcost" }
       { operationType: SUM, columnName: "storageActualIdleCost" }

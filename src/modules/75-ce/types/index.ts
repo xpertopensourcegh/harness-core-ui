@@ -49,5 +49,5 @@ export enum TimeRangeType {
 }
 
 export enum CCM_PAGE_TYPE {
-  WORKLOAD = 'WORKLOAD'
+  Workload = 'WORKLOAD'
 }

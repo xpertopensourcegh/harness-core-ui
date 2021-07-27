@@ -204,8 +204,23 @@ const CERoutes: React.FC = () => {
         </RouteWithLayout>
         <RouteWithLayout
           sidebarProps={CESideNavProps}
-          path={routes.toWorkloadDetails({
+          path={routes.toCEPerspectiveWorkloadDetails({
             ...accountPathProps,
+            perspectiveId: ':perspectiveId',
+            perspectiveName: ':perspectiveName',
+            clusterName: ':clusterName',
+            namespace: ':namespace',
+            workloadName: ':workloadName'
+          })}
+          exact
+        >
+          <WorkloadDetailsPage />
+        </RouteWithLayout>
+        <RouteWithLayout
+          sidebarProps={CESideNavProps}
+          path={routes.toCERecommendationWorkloadDetails({
+            ...accountPathProps,
+            recommendation: ':recommendation',
             clusterName: ':clusterName',
             namespace: ':namespace',
             workloadName: ':workloadName'

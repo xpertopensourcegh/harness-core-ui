@@ -309,9 +309,10 @@ export function useFetchViewFieldsQuery(options: Omit<Urql.UseQueryArgs<FetchVie
   return Urql.useQuery<FetchViewFieldsQuery>({ query: FetchViewFieldsDocument, ...options })
 }
 export const FetchWorkloadGridDocument = gql`
-  query FetchWorkloadGrid($filters: [QLCEViewFilterWrapperInput]) {
+  query FetchWorkloadGrid($filters: [QLCEViewFilterWrapperInput], $isClusterQuery: Boolean) {
     perspectiveGrid(
       filters: $filters
+      isClusterQuery: $isClusterQuery
       aggregateFunction: [
         { operationType: SUM, columnName: "networkcost" }
         { operationType: SUM, columnName: "storageActualIdleCost" }
@@ -391,9 +392,10 @@ export function useFetchWorkloadGridQuery(
   return Urql.useQuery<FetchWorkloadGridQuery>({ query: FetchWorkloadGridDocument, ...options })
 }
 export const FetchWorkloadSummaryDocument = gql`
-  query FetchWorkloadSummary($filters: [QLCEViewFilterWrapperInput]) {
+  query FetchWorkloadSummary($filters: [QLCEViewFilterWrapperInput], $isClusterQuery: Boolean) {
     perspectiveTrendStats(
       filters: $filters
+      isClusterQuery: $isClusterQuery
       aggregateFunction: [
         { operationType: SUM, columnName: "billingamount" }
         { operationType: SUM, columnName: "actualidlecost" }
@@ -450,9 +452,11 @@ export const FetchWorkloadTimeSeriesDocument = gql`
   query FetchWorkloadTimeSeries(
     $filters: [QLCEViewFilterWrapperInput]
     $aggregateFunction: [QLCEViewAggregationInput]
+    $isClusterQuery: Boolean
   ) {
     perspectiveTimeSeriesStats(
       filters: $filters
+      isClusterQuery: $isClusterQuery
       aggregateFunction: $aggregateFunction
       groupBy: [
         { entityGroupBy: { fieldId: "workloadName", fieldName: "Workload", identifier: CLUSTER } }
@@ -838,6 +842,7 @@ export type FetchViewFieldsQuery = {
 
 export type FetchWorkloadGridQueryVariables = Exact<{
   filters: Maybe<Array<Maybe<QlceViewFilterWrapperInput>> | Maybe<QlceViewFilterWrapperInput>>
+  isClusterQuery: Maybe<Scalars['Boolean']>
 }>
 
 export type FetchWorkloadGridQuery = {
@@ -901,6 +906,7 @@ export type FetchWorkloadGridQuery = {
 
 export type FetchWorkloadSummaryQueryVariables = Exact<{
   filters: Maybe<Array<Maybe<QlceViewFilterWrapperInput>> | Maybe<QlceViewFilterWrapperInput>>
+  isClusterQuery: Maybe<Scalars['Boolean']>
 }>
 
 export type FetchWorkloadSummaryQuery = {
@@ -951,6 +957,7 @@ export type FetchWorkloadSummaryQuery = {
 export type FetchWorkloadTimeSeriesQueryVariables = Exact<{
   filters: Maybe<Array<Maybe<QlceViewFilterWrapperInput>> | Maybe<QlceViewFilterWrapperInput>>
   aggregateFunction: Maybe<Array<Maybe<QlceViewAggregationInput>> | Maybe<QlceViewAggregationInput>>
+  isClusterQuery: Maybe<Scalars['Boolean']>
 }>
 
 export type FetchWorkloadTimeSeriesQuery = {
@@ -1127,6 +1134,23 @@ export type BillingDataDemo = {
   instanceid: Maybe<Scalars['String']>
   instancename: Maybe<Scalars['String']>
   starttime: Maybe<Scalars['Long']>
+}
+
+export type CcmMetaData = {
+  __typename?: 'CCMMetaData'
+  applicationDataPresent: Scalars['Boolean']
+  awsConnectorsPresent: Scalars['Boolean']
+  azureConnectorsPresent: Scalars['Boolean']
+  cloudDataPresent: Scalars['Boolean']
+  clusterDataPresent: Scalars['Boolean']
+  defaultAwsPerspectiveId: Maybe<Scalars['String']>
+  defaultAzurePerspectiveId: Maybe<Scalars['String']>
+  defaultClusterPerspectiveId: Maybe<Scalars['String']>
+  defaultGcpPerspectiveId: Maybe<Scalars['String']>
+  gcpConnectorsPresent: Scalars['Boolean']
+  inventoryDataPresent: Scalars['Boolean']
+  isSampleClusterPresent: Scalars['Boolean']
+  k8sClusterConnectorPresent: Scalars['Boolean']
 }
 
 export type ClusterData = {
@@ -1426,6 +1450,8 @@ export type Query = {
   __typename?: 'Query'
   billingData: Maybe<Array<Maybe<BillingData>>>
   billingdata: Maybe<Array<Maybe<BillingDataDemo>>>
+  /** Fetch CCM MetaData for account */
+  ccmMetaData: Maybe<CcmMetaData>
   instancedata: Maybe<InstanceDataDemo>
   nodeRecommendationRequest: Maybe<RecommendClusterRequest>
   /** Table for perspective */
@@ -1503,6 +1529,7 @@ export type QueryPerspectiveFiltersArgs = {
   aggregateFunction: Maybe<Array<Maybe<QlceViewAggregationInput>>>
   filters: Maybe<Array<Maybe<QlceViewFilterWrapperInput>>>
   groupBy: Maybe<Array<Maybe<QlceViewGroupByInput>>>
+  isClusterQuery: Maybe<Scalars['Boolean']>
   limit: Maybe<Scalars['Int']>
   offset: Maybe<Scalars['Int']>
   sortCriteria: Maybe<Array<Maybe<QlceViewSortCriteriaInput>>>
@@ -1512,6 +1539,7 @@ export type QueryPerspectiveFiltersArgs = {
 export type QueryPerspectiveForecastCostArgs = {
   aggregateFunction: Maybe<Array<Maybe<QlceViewAggregationInput>>>
   filters: Maybe<Array<Maybe<QlceViewFilterWrapperInput>>>
+  isClusterQuery: Maybe<Scalars['Boolean']>
 }
 
 /** Query root */
@@ -1519,6 +1547,7 @@ export type QueryPerspectiveGridArgs = {
   aggregateFunction: Maybe<Array<Maybe<QlceViewAggregationInput>>>
   filters: Maybe<Array<Maybe<QlceViewFilterWrapperInput>>>
   groupBy: Maybe<Array<Maybe<QlceViewGroupByInput>>>
+  isClusterQuery: Maybe<Scalars['Boolean']>
   limit: Maybe<Scalars['Int']>
   offset: Maybe<Scalars['Int']>
   sortCriteria: Maybe<Array<Maybe<QlceViewSortCriteriaInput>>>
@@ -1530,6 +1559,7 @@ export type QueryPerspectiveTimeSeriesStatsArgs = {
   filters: Maybe<Array<Maybe<QlceViewFilterWrapperInput>>>
   groupBy: Maybe<Array<Maybe<QlceViewGroupByInput>>>
   includeOthers: Scalars['Boolean']
+  isClusterQuery: Maybe<Scalars['Boolean']>
   limit: Maybe<Scalars['Int']>
   offset: Maybe<Scalars['Int']>
   sortCriteria: Maybe<Array<Maybe<QlceViewSortCriteriaInput>>>
@@ -1539,6 +1569,7 @@ export type QueryPerspectiveTimeSeriesStatsArgs = {
 export type QueryPerspectiveTrendStatsArgs = {
   aggregateFunction: Maybe<Array<Maybe<QlceViewAggregationInput>>>
   filters: Maybe<Array<Maybe<QlceViewFilterWrapperInput>>>
+  isClusterQuery: Maybe<Scalars['Boolean']>
 }
 
 /** Query root */
@@ -1624,6 +1655,7 @@ export type RecommendationItemDto = {
   id: Scalars['String']
   monthlyCost: Maybe<Scalars['Float']>
   monthlySaving: Maybe<Scalars['Float']>
+  namespace: Maybe<Scalars['String']>
   /** recommendation details/drillDown */
   recommendationDetails: Maybe<RecommendationDetails>
   resourceName: Maybe<Scalars['String']>
@@ -1637,6 +1669,8 @@ export type RecommendationItemDtoRecommendationDetailsArgs = {
 
 export type RecommendationOverviewStats = {
   __typename?: 'RecommendationOverviewStats'
+  /** generic count query RecommendationOverviewStats context */
+  count: Scalars['Int']
   totalMonthlyCost: Scalars['Float']
   totalMonthlySaving: Scalars['Float']
 }
@@ -1654,6 +1688,8 @@ export type RecommendationResponse = {
 
 export type RecommendationsDto = {
   __typename?: 'RecommendationsDTO'
+  /** generic count query RecommendationsDTO context */
+  count: Scalars['Int']
   items: Maybe<Array<Maybe<RecommendationItemDto>>>
   limit: Scalars['Long']
   offset: Scalars['Long']

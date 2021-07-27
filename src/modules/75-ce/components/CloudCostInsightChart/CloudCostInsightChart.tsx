@@ -41,7 +41,7 @@ function getChartList({
   if (!data) {
     return []
   }
-  if (pageType === CCM_PAGE_TYPE.WORKLOAD) {
+  if (pageType === CCM_PAGE_TYPE.Workload) {
     const cpuChart: any[] = []
     const memoryChart: any[] = []
 
@@ -111,7 +111,7 @@ const CloudCostInsightChart = forwardRef((props: CloudCostInsightChartProps, ref
     )
   }
 
-  if (pageType === CCM_PAGE_TYPE.WORKLOAD) {
+  if (pageType === CCM_PAGE_TYPE.Workload) {
     return (
       <Container className={css.chartMainContainer}>
         <WorkloadDetailsChart

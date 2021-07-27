@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { Container, Text, FlexExpander, Layout } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { noop } from 'lodash-es'
@@ -14,6 +14,8 @@ import {
   ClusterData
 } from 'services/ce/services'
 import { useStrings } from 'framework/strings'
+import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import routes from '@common/RouteDefinitions'
 import { getViewFilterForId, getTimeFilters, GROUP_BY_POD } from '@ce/utils/perspectiveUtils'
 import CloudCostInsightChart from '@ce/components/CloudCostInsightChart/CloudCostInsightChart'
 import { CCM_CHART_TYPES } from '@ce/constants'
@@ -34,11 +36,16 @@ import { Aggregation, AggregationFunctionMapping } from './constants'
 import css from './WorkloadDetailsPage.module.scss'
 
 const WorkloadDetailsPage: () => JSX.Element = () => {
-  const { clusterName, namespace, workloadName } = useParams<{
-    clusterName: string
-    namespace: string
-    workloadName: string
-  }>()
+  const { clusterName, namespace, workloadName, perspectiveId, perspectiveName, recommendation, accountId } =
+    useParams<{
+      clusterName: string
+      namespace: string
+      workloadName: string
+      perspectiveId: string
+      perspectiveName: string
+      recommendation: string
+      accountId: string
+    }>()
 
   const { getString } = useStrings()
 
@@ -51,63 +58,72 @@ const WorkloadDetailsPage: () => JSX.Element = () => {
     from: DATE_RANGE_SHORTCUTS.LAST_7_DAYS[0].format(CE_DATE_FORMAT_INTERNAL)
   })
 
-  const filters = [
-    // This is WIP, will add actual view Id here from params
-    getViewFilterForId('PDbLMdk5TESMijmyi-f_TQ'),
-    ...getTimeFilters(getGMTStartDateTime(timeRange.from), getGMTEndDateTime(timeRange.to)),
-    {
-      idFilter: {
-        values: [clusterName],
-        operator: QlceViewFilterOperator.In,
-        field: {
-          fieldId: 'clusterName',
-          fieldName: 'Cluster Name',
-          identifierName: ViewFieldIdentifier.Cluster,
-          identifier: ViewFieldIdentifier.Cluster
+  const filters = useMemo(() => {
+    const commonFilters = [
+      ...getTimeFilters(getGMTStartDateTime(timeRange.from), getGMTEndDateTime(timeRange.to)),
+      {
+        idFilter: {
+          values: [clusterName],
+          operator: QlceViewFilterOperator.In,
+          field: {
+            fieldId: 'clusterName',
+            fieldName: 'Cluster Name',
+            identifierName: ViewFieldIdentifier.Cluster,
+            identifier: ViewFieldIdentifier.Cluster
+          }
+        }
+      },
+      {
+        idFilter: {
+          values: [namespace],
+          operator: QlceViewFilterOperator.In,
+          field: {
+            fieldId: 'namespace',
+            fieldName: 'Namespace',
+            identifierName: ViewFieldIdentifier.Cluster,
+            identifier: ViewFieldIdentifier.Cluster
+          }
+        }
+      },
+      {
+        idFilter: {
+          values: [workloadName],
+          operator: QlceViewFilterOperator.In,
+          field: {
+            fieldId: 'workloadName',
+            fieldName: 'Workload Name',
+            identifierName: ViewFieldIdentifier.Cluster,
+            identifier: ViewFieldIdentifier.Cluster
+          }
         }
       }
-    },
-    {
-      idFilter: {
-        values: [namespace],
-        operator: QlceViewFilterOperator.In,
-        field: {
-          fieldId: 'namespace',
-          fieldName: 'Namespace',
-          identifierName: ViewFieldIdentifier.Cluster,
-          identifier: ViewFieldIdentifier.Cluster
-        }
-      }
-    },
-    {
-      idFilter: {
-        values: [workloadName],
-        operator: QlceViewFilterOperator.In,
-        field: {
-          fieldId: 'workloadName',
-          fieldName: 'Workload Name',
-          identifierName: ViewFieldIdentifier.Cluster,
-          identifier: ViewFieldIdentifier.Cluster
-        }
-      }
+    ] as QlceViewFilterWrapperInput[]
+    if (perspectiveId) {
+      return [getViewFilterForId(perspectiveId), ...commonFilters]
     }
-  ] as QlceViewFilterWrapperInput[]
+    return commonFilters
+  }, [timeRange.to, timeRange.from, perspectiveId, workloadName, clusterName, namespace])
+
+  const isClusterQuery = !perspectiveId
 
   const [gridResult] = useFetchWorkloadGridQuery({
     variables: {
-      filters: filters
+      filters: filters,
+      isClusterQuery
     }
   })
 
   const [chartResult] = useFetchWorkloadTimeSeriesQuery({
     variables: {
       filters: filters,
+      isClusterQuery,
       aggregateFunction: AggregationFunctionMapping[chartDataAggregation]
     }
   })
 
   const [summaryResult] = useFetchWorkloadSummaryQuery({
     variables: {
+      isClusterQuery,
       filters: filters
     }
   })
@@ -122,7 +138,44 @@ const WorkloadDetailsPage: () => JSX.Element = () => {
 
   return (
     <>
-      <Page.Header title={workloadName} />
+      <Page.Header
+        title={workloadName}
+        breadcrumbs={
+          <Breadcrumbs
+            links={
+              recommendation
+                ? [
+                    {
+                      url: routes.toCERecommendations({ accountId }),
+                      label: getString('ce.recommendation.sideNavText')
+                    },
+                    {
+                      url: routes.toCERecommendationDetails({ accountId, recommendation }),
+                      label: workloadName
+                    },
+                    {
+                      label: '',
+                      url: '#'
+                    }
+                  ]
+                : [
+                    {
+                      url: routes.toCEPerspectives({ accountId }),
+                      label: getString('ce.perspectives.sideNavText')
+                    },
+                    {
+                      url: routes.toPerspectiveDetails({ accountId, perspectiveId, perspectiveName }),
+                      label: perspectiveName
+                    },
+                    {
+                      label: '',
+                      url: '#'
+                    }
+                  ]
+            }
+          />
+        }
+      />
       <Page.Body>
         <Container flex background="white" padding="small">
           <FlexExpander />
@@ -132,7 +185,7 @@ const WorkloadDetailsPage: () => JSX.Element = () => {
         </Container>
         <Container padding="large">
           <WorkloadSummary
-            pageType={CCM_PAGE_TYPE.WORKLOAD}
+            pageType={CCM_PAGE_TYPE.Workload}
             summaryData={summaryData?.perspectiveTrendStats as any}
             fetching={summaryFetching}
             infoData={infoData}
@@ -173,7 +226,7 @@ const WorkloadDetailsPage: () => JSX.Element = () => {
             </Container>
             <CloudCostInsightChart
               showLegends={false}
-              pageType={CCM_PAGE_TYPE.WORKLOAD}
+              pageType={CCM_PAGE_TYPE.Workload}
               chartType={CCM_CHART_TYPES.LINE}
               columnSequence={[]}
               fetching={chartFetching}

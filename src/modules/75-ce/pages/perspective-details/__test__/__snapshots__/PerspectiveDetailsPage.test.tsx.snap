@@ -24,7 +24,7 @@ exports[`test cases for Perspective details Page should be able to render the de
                 class="breadcrumb"
                 href="/account/undefined/ce/perspectives"
               >
-                Perspectives
+                ce.perspectives.sideNavText
               </a>
               <span
                 class="bp3-icon StyledProps--main separator"

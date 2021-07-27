@@ -1,6 +1,7 @@
-query FetchWorkloadSummary($filters: [QLCEViewFilterWrapperInput]) {
+query FetchWorkloadSummary($filters: [QLCEViewFilterWrapperInput], $isClusterQuery: Boolean) {
   perspectiveTrendStats(
     filters: $filters
+    isClusterQuery: $isClusterQuery
     aggregateFunction: [
       { operationType: SUM, columnName: "billingamount" }
       { operationType: SUM, columnName: "actualidlecost" }

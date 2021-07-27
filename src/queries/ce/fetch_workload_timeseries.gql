@@ -1,6 +1,11 @@
-query FetchWorkloadTimeSeries($filters: [QLCEViewFilterWrapperInput], $aggregateFunction: [QLCEViewAggregationInput]) {
+query FetchWorkloadTimeSeries(
+  $filters: [QLCEViewFilterWrapperInput]
+  $aggregateFunction: [QLCEViewAggregationInput]
+  $isClusterQuery: Boolean
+) {
   perspectiveTimeSeriesStats(
     filters: $filters
+    isClusterQuery: $isClusterQuery
     aggregateFunction: $aggregateFunction
     groupBy: [
       { entityGroupBy: { fieldId: "workloadName", fieldName: "Workload", identifier: CLUSTER } }

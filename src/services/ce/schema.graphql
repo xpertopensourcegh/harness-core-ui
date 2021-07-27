@@ -89,6 +89,22 @@ type BillingDataDemo {
   starttime: Long
 }
 
+type CCMMetaData {
+  applicationDataPresent: Boolean!
+  awsConnectorsPresent: Boolean!
+  azureConnectorsPresent: Boolean!
+  cloudDataPresent: Boolean!
+  clusterDataPresent: Boolean!
+  defaultAwsPerspectiveId: String
+  defaultAzurePerspectiveId: String
+  defaultClusterPerspectiveId: String
+  defaultGcpPerspectiveId: String
+  gcpConnectorsPresent: Boolean!
+  inventoryDataPresent: Boolean!
+  isSampleClusterPresent: Boolean!
+  k8sClusterConnectorPresent: Boolean!
+}
+
 type ClusterData {
   appId: String
   appName: String
@@ -360,6 +376,8 @@ type QLCEViewFieldIdentifierData {
 type Query {
   billingData(request: GridRequestInput): [BillingData]
   billingdata(clusterid: String, endTime: OffsetTime, startTime: OffsetTime): [BillingDataDemo]
+  "Fetch CCM MetaData for account"
+  ccmMetaData: CCMMetaData
   instancedata(instanceid: String!): InstanceDataDemo
   nodeRecommendationRequest(
     "defaults to Now()"
@@ -381,6 +399,7 @@ type Query {
     aggregateFunction: [QLCEViewAggregationInput]
     filters: [QLCEViewFilterWrapperInput]
     groupBy: [QLCEViewGroupByInput]
+    isClusterQuery: Boolean
     limit: Int
     offset: Int
     sortCriteria: [QLCEViewSortCriteriaInput]
@@ -389,12 +408,14 @@ type Query {
   perspectiveForecastCost(
     aggregateFunction: [QLCEViewAggregationInput]
     filters: [QLCEViewFilterWrapperInput]
+    isClusterQuery: Boolean
   ): PerspectiveTrendStats
   "Table for perspective"
   perspectiveGrid(
     aggregateFunction: [QLCEViewAggregationInput]
     filters: [QLCEViewFilterWrapperInput]
     groupBy: [QLCEViewGroupByInput]
+    isClusterQuery: Boolean
     limit: Int
     offset: Int
     sortCriteria: [QLCEViewSortCriteriaInput]
@@ -407,6 +428,7 @@ type Query {
     filters: [QLCEViewFilterWrapperInput]
     groupBy: [QLCEViewGroupByInput]
     includeOthers: Boolean!
+    isClusterQuery: Boolean
     limit: Int
     offset: Int
     sortCriteria: [QLCEViewSortCriteriaInput]
@@ -415,6 +437,7 @@ type Query {
   perspectiveTrendStats(
     aggregateFunction: [QLCEViewAggregationInput]
     filters: [QLCEViewFilterWrapperInput]
+    isClusterQuery: Boolean
   ): PerspectiveTrendStats
   "Fetch perspectives for account"
   perspectives: PerspectiveData
@@ -489,6 +512,7 @@ type RecommendationItemDTO {
   id: String!
   monthlyCost: Float
   monthlySaving: Float
+  namespace: String
   "recommendation details/drillDown"
   recommendationDetails(
     "defaults to Now()"
@@ -501,6 +525,8 @@ type RecommendationItemDTO {
 }
 
 type RecommendationOverviewStats {
+  "generic count query RecommendationOverviewStats context"
+  count: Int!
   totalMonthlyCost: Float!
   totalMonthlySaving: Float!
 }
@@ -516,6 +542,8 @@ type RecommendationResponse {
 }
 
 type RecommendationsDTO {
+  "generic count query RecommendationsDTO context"
+  count: Int!
   items: [RecommendationItemDTO]
   limit: Long!
   offset: Long!
