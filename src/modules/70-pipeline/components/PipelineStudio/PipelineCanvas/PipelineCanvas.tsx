@@ -44,6 +44,7 @@ import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContex
 import CreatePipelines from '../CreateModal/PipelineCreate'
 import { DefaultNewPipelineId, DrawerTypes } from '../PipelineContext/PipelineActions'
 import PipelineYamlView from '../PipelineYamlView/PipelineYamlView'
+import { RightBar } from '../RightBar/RightBar'
 import StageBuilder from '../StageBuilder/StageBuilder'
 import { usePipelineSchema } from '../PipelineSchema/PipelineSchemaContext'
 import css from './PipelineCanvas.module.scss'
@@ -844,6 +845,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
         </div>
         {isYaml ? <PipelineYamlView /> : <StageBuilder />}
       </div>
+      <RightBar />
     </PipelineVariablesContextProvider>
   )
 }
