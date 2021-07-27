@@ -323,7 +323,7 @@ subscriptions:
     expiry: Trial Expiry Date
     subscribe: Subscribe
   featureFlags:
-    users: '{{ users }} Feature Flag users'
+    users: '{{ users }} Feature Flag developers'
     mau: '{{ maus }} Monthly Active users'
   ci:
     developers: '{{ developers }} Developers'
@@ -341,7 +341,7 @@ subscriptions:
     srvcInst: Active Service Instances
     cdUsers: Active CD Users
     ciUsers: Active CI Users
-    ffUsers: Feature Flags Users
+    ffUsers: Feature Flags Developers
     monthlyUsers: Monthly Active Users
     developers: Active Developers
     cloudSpend: Active Cloud Spend
