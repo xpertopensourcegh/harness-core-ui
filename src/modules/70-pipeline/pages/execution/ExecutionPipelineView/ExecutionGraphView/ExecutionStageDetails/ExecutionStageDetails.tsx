@@ -189,6 +189,9 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
             startX: 50,
             startY: 150
           }}
+          graphConfiguration={{
+            NODE_HAS_BORDER: false
+          }}
           showStageSelection={true}
           selectedStage={{
             label: stage?.nodeIdentifier || /* istanbul ignore next */ '',

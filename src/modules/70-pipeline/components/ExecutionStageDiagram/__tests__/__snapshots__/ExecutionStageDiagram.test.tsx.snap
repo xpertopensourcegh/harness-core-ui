@@ -27,16 +27,16 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
 			);"
       >
         <div
-          style="left: 1190px; cursor: pointer; top: 8px; pointer-events: none; position: absolute; height: 160px;"
+          style="left: 840px; cursor: pointer; top: 8px; pointer-events: none; position: absolute; height: 160px;"
         >
           <div
             class="groupLayer"
-            style="width: 480px; height: 160px;"
+            style="width: 296px; height: 160px;"
           />
         </div>
         <div
           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main header"
-          style="top: 13px; left: 1200px; width: 460px; align-items: center;"
+          style="top: 13px; left: 850px; width: 276px; align-items: center;"
         >
           <button
             class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--iconOnly Button--without-shadow"
@@ -73,7 +73,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
         <div
           class="node css-nlpftr"
           data-nodeid="Step-Group-Start"
-          style="top: 50px; left: 1190px;"
+          style="top: 50px; left: 840px;"
         >
           <div
             class="emptyNode"
@@ -161,7 +161,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
         <div
           class="node css-nlpftr"
           data-nodeid="Step-Group-End"
-          style="top: 50px; left: 1670px;"
+          style="top: 50px; left: 1136px;"
         >
           <div
             class="emptyNode"
@@ -337,7 +337,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
         <div
           class="node css-nlpftr"
           data-nodeid="$node$-$node$parallel1-Start"
-          style="top: 50px; left: 350px;"
+          style="top: 50px; left: 264px;"
         >
           <div
             class="emptyNode"
@@ -425,7 +425,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
         <div
           class="node css-nlpftr"
           data-nodeid="$node$parallel1$node$-End"
-          style="top: 50px; left: 630px;"
+          style="top: 50px; left: 448px;"
         >
           <div
             class="emptyNode"
@@ -513,7 +513,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
         <div
           class="node css-nlpftr"
           data-nodeid="stop-node"
-          style="top: 50px; left: 2030px;"
+          style="top: 50px; left: 1368px;"
         >
           <div
             class="defaultNode"
@@ -599,16 +599,16 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
 			);"
       >
         <div
-          style="left: 910px; cursor: pointer; top: -34px; pointer-events: none; position: absolute; height: 216px;"
+          style="left: 656px; cursor: pointer; top: -34px; pointer-events: none; position: absolute; height: 216px;"
         >
           <div
             class="groupLayer"
-            style="width: 1040px; height: 216px;"
+            style="width: 664px; height: 216px;"
           />
         </div>
         <div
           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main header"
-          style="top: -29px; left: 920px; width: 1020px; align-items: center;"
+          style="top: -29px; left: 666px; width: 644px; align-items: center;"
         >
           <button
             class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--iconOnly Button--without-shadow"
@@ -645,7 +645,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
         <div
           class="node css-nlpftr"
           data-nodeid="Service-Start"
-          style="top: 50px; left: 910px;"
+          style="top: 50px; left: 656px;"
         >
           <div
             class="emptyNode"
@@ -733,7 +733,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
         <div
           class="node css-nlpftr"
           data-nodeid="Service-End"
-          style="top: 50px; left: 1950px;"
+          style="top: 50px; left: 1320px;"
         >
           <div
             class="emptyNode"

@@ -21,7 +21,12 @@ import type {
   ExecutionPipelineItem,
   StageOptions
 } from './ExecutionPipelineModel'
-import { ExecutionStageDiagramModel, GridStyleInterface, NodeStyleInterface } from './ExecutionStageDiagramModel'
+import {
+  ExecutionStageDiagramConfiguration,
+  ExecutionStageDiagramModel,
+  GridStyleInterface,
+  NodeStyleInterface
+} from './ExecutionStageDiagramModel'
 import ExecutionActions from '../ExecutionActions/ExecutionActions'
 import {
   focusRunningNode,
@@ -91,6 +96,7 @@ export interface ExecutionStageDiagramProps<T> {
   nodeStyle?: NodeStyleInterface
   /** grid style */
   gridStyle: GridStyleInterface
+  graphConfiguration?: Partial<ExecutionStageDiagramConfiguration>
   loading?: boolean
   showStartEndNode?: boolean // Default: true
   showEndNode?: boolean // Default: true
@@ -119,6 +125,7 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
     className,
     selectedIdentifier,
     nodeStyle = { width: 50, height: 50 },
+    graphConfiguration = {},
     gridStyle,
     diagramContainerHeight,
     showStartEndNode = true,
@@ -208,6 +215,7 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
   //setup the diagram model
   const model = React.useMemo(() => new ExecutionStageDiagramModel(), [])
   model.setDefaultNodeStyle(nodeStyle)
+  model.setGraphConfiguration(graphConfiguration)
   model.setGridStyle(gridStyle)
 
   // Graph position and zoom set (set values from context)

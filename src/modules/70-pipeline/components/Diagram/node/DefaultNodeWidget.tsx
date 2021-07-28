@@ -1,6 +1,6 @@
 import React from 'react'
 import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
-import { Icon, Text, Button } from '@wings-software/uicore'
+import { Icon, Text, Button, Color } from '@wings-software/uicore'
 import cx from 'classnames'
 import { Position } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
@@ -117,9 +117,13 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
     }
   }, [options.selected])
 
+  // NOTE: adjust x position node in order to get node box cornet at x zero position
+  const marginAdjustment = -(128 - (options?.width || 64)) / 2
+
   return (
     <div
       className={css.defaultNode}
+      style={{ marginLeft: `${marginAdjustment}px` }}
       ref={nodeRef}
       onClick={e => {
         if (!options.disableClick) {
@@ -266,8 +270,9 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
       </div>
       <Text
         font={{ size: 'normal', align: 'center' }}
+        color={options.selected ? Color.GREY_900 : Color.GREY_600}
         style={{ cursor: 'pointer', lineHeight: '1.6', overflowWrap: 'break-word' }}
-        padding="xsmall"
+        padding={'small'}
         width={125}
         lineClamp={2}
         tooltipProps={{ position: Position.RIGHT, portalClassName: css.hoverName }}
@@ -287,10 +292,10 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
             width: options.width,
             height: options.height,
             display: showAdd ? 'flex' : 'none',
-            marginLeft: (126 - (options.width || 64)) / 2
+            marginLeft: (128 - (options.width || 64)) / 2
           }}
         >
-          <Icon name="plus" style={{ color: 'var(--diagram-add-node-color)' }} />
+          <Icon name="plus" size={22} color={'var(--diagram-add-node-color)'} />
         </div>
       )}
     </div>

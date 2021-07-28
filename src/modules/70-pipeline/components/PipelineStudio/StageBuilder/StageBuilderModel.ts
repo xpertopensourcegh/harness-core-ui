@@ -28,6 +28,16 @@ export interface AddUpdateGraphProps {
   errorMap: Map<string, string[]>
 }
 
+export interface StageBuilderConfiguration {
+  FIRST_AND_LAST_SEGMENT_LENGTH: number
+  SPACE_BETWEEN_ELEMENTS: number
+  LINE_SEGMENT_LENGTH: number
+  PARALLEL_LINES_WIDTH: number
+  NODE_WIDTH: number
+  GROUP_NODE_WIDTH: number
+  START_AND_END_NODE_WIDTH: number
+}
+
 export interface RenderGraphNodeProps {
   node: StageElementWrapper
   startX: number
@@ -38,20 +48,33 @@ export interface RenderGraphNodeProps {
   splitPaneSize?: number
   prevNodes?: DefaultNodeModel[]
   allowAdd?: boolean
-  isParallelNodes?: boolean
+  isFirstNode?: boolean
+  isParallelNode?: boolean
   parentPath: string
   errorMap: Map<string, string[]>
 }
 
 export class StageBuilderModel extends DiagramModel {
+  protected diagConfig: StageBuilderConfiguration
+
   constructor() {
     super({
       gridSize: 100,
       startX: 50,
       startY: 60,
-      gapX: 200,
+      /*gapX: 200, deprecated */
       gapY: 100
     })
+
+    this.diagConfig = {
+      FIRST_AND_LAST_SEGMENT_LENGTH: 56,
+      SPACE_BETWEEN_ELEMENTS: 80,
+      LINE_SEGMENT_LENGTH: 30,
+      PARALLEL_LINES_WIDTH: 60, // NOTE: LINE_SEGMENT_LENGTH * 2
+      NODE_WIDTH: 90,
+      GROUP_NODE_WIDTH: 90 + 12,
+      START_AND_END_NODE_WIDTH: 30
+    }
   }
 
   renderGraphNodes(props: RenderGraphNodeProps): { startX: number; startY: number; prevNodes?: DefaultNodeModel[] } {
@@ -63,15 +86,29 @@ export class StageBuilderModel extends DiagramModel {
       selectedStageId,
       splitPaneSize,
       allowAdd,
-      isParallelNodes = false,
+      isFirstNode = false,
+      isParallelNode = false,
       parentPath,
       errorMap
     } = props
+    const {
+      FIRST_AND_LAST_SEGMENT_LENGTH,
+      SPACE_BETWEEN_ELEMENTS,
+      PARALLEL_LINES_WIDTH,
+      NODE_WIDTH,
+      GROUP_NODE_WIDTH
+    } = this.diagConfig
     let { startX, prevNodes } = props
     if (node && node.stage) {
       const type = stagesMap[node.stage.type]
       const hasErrors = errorMap && [...errorMap.keys()].some(key => parentPath && key.startsWith(parentPath))
-      startX += this.gapX
+
+      startX += isFirstNode
+        ? FIRST_AND_LAST_SEGMENT_LENGTH
+        : isParallelNode
+        ? PARALLEL_LINES_WIDTH
+        : SPACE_BETWEEN_ELEMENTS
+
       const isSelected = selectedStageId === node.stage.identifier
       const nodeRender = type?.isApproval
         ? new DiamondNodeModel({
@@ -100,14 +137,14 @@ export class StageBuilderModel extends DiagramModel {
             customNodeStyle: getCommonStyles(isSelected),
             name: node.stage.name,
             isInComplete: node.stage.name === EmptyStageName || hasErrors,
-            width: 114,
+            width: 90,
             draggable: !isReadonly,
             canDelete: !(selectedStageId === node.stage.identifier || isReadonly),
             conditionalExecutionEnabled: node.stage.when
               ? node.stage.when?.pipelineStatus !== 'Success' || !!node.stage.when?.condition?.trim()
               : false,
             allowAdd: allowAdd === true && !isReadonly,
-            height: 50,
+            height: 40,
             iconStyle: { color: isSelected ? 'var(--white)' : type?.iconColor },
             icon: type?.icon,
             ...(node.stage.when && {})
@@ -117,9 +154,10 @@ export class StageBuilderModel extends DiagramModel {
       nodeRender.setPosition(startX, startY)
       /* istanbul ignore else */ if (!isEmpty(prevNodes) && prevNodes) {
         prevNodes.forEach((prevNode: DefaultNodeModel) => {
-          this.connectedParentToNode(nodeRender, prevNode, !isParallelNodes && !isReadonly)
+          this.connectedParentToNode(nodeRender, prevNode, !isParallelNode && !isReadonly)
         })
       }
+      startX += NODE_WIDTH
       return { startX, startY, prevNodes: [nodeRender] }
     } /* istanbul ignore else */ else if (node?.parallel && prevNodes) {
       /* istanbul ignore else */ if (node.parallel.length > 1) {
@@ -146,23 +184,25 @@ export class StageBuilderModel extends DiagramModel {
               parallelStageNames.length > 2
                 ? `${parallelStageNames[0]}, ${parallelStageNames[1]}, +${parallelStageNames.length - 2}`
                 : parallelStageNames.join(', '),
-            width: 114,
+            width: GROUP_NODE_WIDTH,
             allowAdd: true,
             height: 50,
             icons
           })
-          startX += this.gapX
+          startX += isFirstNode ? FIRST_AND_LAST_SEGMENT_LENGTH : SPACE_BETWEEN_ELEMENTS
           this.addNode(groupedNode)
           groupedNode.setPosition(startX, startY)
           if (!isEmpty(prevNodes) && prevNodes) {
             prevNodes.forEach((prevNode: DefaultNodeModel) => {
-              this.connectedParentToNode(groupedNode, prevNode, !isParallelNodes)
+              this.connectedParentToNode(groupedNode, prevNode, !isParallelNode)
             })
           }
+          startX += GROUP_NODE_WIDTH
           prevNodes = [groupedNode]
         } else {
           let newX = startX
           let newY = startY
+
           /* istanbul ignore else */ if (!isEmpty(prevNodes)) {
             const emptyNodeStart = new EmptyNodeModel({
               identifier: `${EmptyNodeSeparator}-${EmptyNodeSeparator}${node.parallel[0].stage?.identifier}${EmptyNodeSeparator}`,
@@ -170,13 +210,12 @@ export class StageBuilderModel extends DiagramModel {
               hideOutPort: true
             })
             this.addNode(emptyNodeStart)
-            newX += this.gapX
+            newX += isFirstNode ? FIRST_AND_LAST_SEGMENT_LENGTH : SPACE_BETWEEN_ELEMENTS
             emptyNodeStart.setPosition(newX, newY)
             prevNodes.forEach((prevNode: DefaultNodeModel) => {
               this.connectedParentToNode(emptyNodeStart, prevNode, true)
             })
             prevNodes = [emptyNodeStart]
-            newX = newX - this.gapX / 2 - 20
           }
           const prevNodesAr: DefaultNodeModel[] = []
           node.parallel.forEach((nodeP: StageElementWrapper, index: number) => {
@@ -191,7 +230,7 @@ export class StageBuilderModel extends DiagramModel {
               splitPaneSize,
               prevNodes,
               allowAdd: isLastNode,
-              isParallelNodes: true,
+              isParallelNode: true,
               parentPath: `${parentPath}.parallel.${index}`,
               errorMap
             })
@@ -208,13 +247,12 @@ export class StageBuilderModel extends DiagramModel {
               hideInPort: true
             })
             this.addNode(emptyNodeEnd)
-            startX += this.gapX
+            startX += PARALLEL_LINES_WIDTH
             emptyNodeEnd.setPosition(startX, startY)
             prevNodesAr.forEach((prevNode: DefaultNodeModel) => {
               this.connectedParentToNode(emptyNodeEnd, prevNode, false)
             })
             prevNodes = [emptyNodeEnd]
-            startX = startX - this.gapX / 2 - 20
           }
         }
       } else {
@@ -228,7 +266,7 @@ export class StageBuilderModel extends DiagramModel {
           splitPaneSize,
           prevNodes,
           allowAdd: true,
-          isParallelNodes: false,
+          isParallelNode: false,
           parentPath: `${parentPath}.0`,
           errorMap
         })
@@ -250,6 +288,8 @@ export class StageBuilderModel extends DiagramModel {
       parentPath = '',
       errorMap
     } = props
+    const { START_AND_END_NODE_WIDTH, FIRST_AND_LAST_SEGMENT_LENGTH, SPACE_BETWEEN_ELEMENTS, NODE_WIDTH } =
+      this.diagConfig
     let { startX, startY } = this
     this.clearAllNodesAndLinks() // TODO: Improve this
 
@@ -260,6 +300,7 @@ export class StageBuilderModel extends DiagramModel {
     const startNode = new NodeStartModel({ id: 'start-new' })
     startNode.setPosition(startX, startY)
     this.addNode(startNode)
+    startX += START_AND_END_NODE_WIDTH
 
     // Stop Node
     const stopNode = new NodeStartModel({ id: 'stop', icon: 'stop', isStart: false })
@@ -267,13 +308,11 @@ export class StageBuilderModel extends DiagramModel {
     // Create Node
     const createNode = new CreateNewModel({
       id: 'create-node',
-      width: 114,
-      height: 50,
+      width: 90,
+      height: 40,
       name: getString('addStage'),
       customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' }
     })
-
-    startX -= this.gapX / 2
 
     let prevNodes: DefaultNodeModel[] = [startNode]
     data?.stages?.forEach((node: StageElementWrapper, index: number) => {
@@ -288,7 +327,8 @@ export class StageBuilderModel extends DiagramModel {
         prevNodes,
         allowAdd: true,
         parentPath: `${parentPath}.${index}`,
-        errorMap
+        errorMap,
+        isFirstNode: index === 0
       })
       startX = resp.startX
       startY = resp.startY
@@ -296,15 +336,19 @@ export class StageBuilderModel extends DiagramModel {
         prevNodes = resp.prevNodes
       }
     })
+
     if (isReadonly) {
-      stopNode.setPosition(startX + this.gapX, startY)
+      startX += FIRST_AND_LAST_SEGMENT_LENGTH
+      stopNode.setPosition(startX, startY)
       prevNodes.forEach((prevNode: DefaultNodeModel) => {
         this.connectedParentToNode(stopNode, prevNode, false)
       })
       this.addNode(stopNode)
     } else {
-      createNode.setPosition(startX + this.gapX, startY)
-      stopNode.setPosition(startX + 2 * this.gapX, startY)
+      startX += isEmpty(data?.stages) ? FIRST_AND_LAST_SEGMENT_LENGTH : SPACE_BETWEEN_ELEMENTS
+      createNode.setPosition(startX, startY)
+      startX += NODE_WIDTH + FIRST_AND_LAST_SEGMENT_LENGTH
+      stopNode.setPosition(startX, startY)
       prevNodes.forEach((prevNode: DefaultNodeModel) => {
         this.connectedParentToNode(createNode, prevNode, false)
       })
@@ -312,6 +356,7 @@ export class StageBuilderModel extends DiagramModel {
       this.addNode(stopNode)
       this.addNode(createNode)
     }
+
     const nodes = this.getActiveNodeLayer().getNodes()
     for (const key in nodes) {
       const node = nodes[key]

@@ -2,6 +2,8 @@
   border-radius: 8px;
   display: inline-block;
   border: 1px dashed var(--diagram-link);
+  background: rgba(244, 251, 255, 0.25);
+
   &::before {
     content: ' ';
     width: 100%;

@@ -194,8 +194,12 @@ export default function ExecutionGraph(props: ExecutionGraphProps): React.ReactE
             diagramContainerHeight={primaryPaneSize}
             data={data}
             nodeStyle={{
-              width: 114,
-              height: 50
+              width: 90,
+              height: 40
+            }}
+            graphConfiguration={{
+              NODE_WIDTH: 90,
+              ALLOW_PORT_HIDE: false
             }}
             gridStyle={{
               startX: 50,

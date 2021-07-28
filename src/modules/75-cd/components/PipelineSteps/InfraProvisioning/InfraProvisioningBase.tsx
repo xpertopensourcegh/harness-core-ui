@@ -103,7 +103,7 @@ export const InfraProvisioningBase = (
                   {(_props: any) => {
                     return (
                       <ExecutionGraph
-                        gridStyle={{ startX: -150, startY: 80 }}
+                        gridStyle={{ startX: 50, startY: 80 }}
                         rollBackPropsStyle={{ top: '10px' }}
                         rollBackBannerStyle={{ top: '10px', backgroundColor: 'rgba(0,0,0,0)' }}
                         canvasButtonsLayout={'horizontal'}
