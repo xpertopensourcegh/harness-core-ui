@@ -2589,6 +2589,7 @@ export interface StringsMap {
   'ce.recommendation.detailsPage.resourceChanges': string
   'ce.recommendation.detailsPage.timeChangeText': string
   'ce.recommendation.detailsPage.totalCost': string
+  'ce.recommendation.detailsPage.viewMoreDetailsText': string
   'ce.recommendation.listPage.filterHereText': string
   'ce.recommendation.listPage.filters.clusterName': string
   'ce.recommendation.listPage.filters.enterCost': string

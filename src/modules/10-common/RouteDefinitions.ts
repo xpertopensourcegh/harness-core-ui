@@ -1022,21 +1022,24 @@ const routes = {
   toCECORules: withAccountId(() => `/ce/autostopping-rules`),
   toCERecommendations: withAccountId(() => `/ce/recommendations`),
   toCERecommendationDetails: withAccountId(
-    ({ recommendation }: { recommendation: string }) => `/ce/recommendations/${recommendation}/details`
+    ({ recommendation, recommendationName }: { recommendation: string; recommendationName: string }) =>
+      `/ce/recommendations/${recommendation}/name/${recommendationName}/details`
   ),
   toCERecommendationWorkloadDetails: withAccountId(
     ({
       recommendation,
       clusterName,
       namespace,
-      workloadName
+      workloadName,
+      recommendationName
     }: {
       recommendation: string
       workloadName: string
       clusterName: string
       namespace: string
+      recommendationName: string
     }) =>
-      `/ce/recommendations/${recommendation}/cluster/${clusterName}/namespace/${namespace}/workload/${workloadName}/details`
+      `/ce/recommendations/${recommendation}/name/${recommendationName}/cluster/${clusterName}/namespace/${namespace}/workload/${workloadName}/details`
   ),
   toPerspectiveDetails: withAccountId(
     ({ perspectiveId, perspectiveName }: AccountPathProps & { perspectiveId: string; perspectiveName: string }) =>

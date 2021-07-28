@@ -341,6 +341,7 @@ recommendation:
     recommendationDetails:
       resize: 'resize CPU and memory'
   detailsPage:
+    viewMoreDetailsText: 'View more details'
     histogramTextDetails1: 'A histogram is a bar graph-like representation of data that buckets a range of outcomes into columns along the x-axis.'
     histogramTextDetails2: 'The y-axis represents the number count or percentage of occurrences in the data for each column and can be used to visualize data distributions.'
     histogramText: 'HISTOGRAM'

@@ -69,13 +69,11 @@ export function useFetchAllPerspectivesQuery(
   return Urql.useQuery<FetchAllPerspectivesQuery>({ query: FetchAllPerspectivesDocument, ...options })
 }
 export const RecommendationsDocument = gql`
-  query Recommendations($filters: K8sRecommendationFilterDTOInput) {
-    recommendationStatsV2(filter: $filters) {
-      totalMonthlyCost
-      totalMonthlySaving
-    }
-    recommendationsV2(filter: $filters) {
+  query Recommendations($filter: K8sRecommendationFilterDTOInput) {
+    recommendationsV2(filter: $filter) {
       items {
+        clusterName
+        namespace
         id
         resourceType
         resourceName
@@ -88,6 +86,21 @@ export const RecommendationsDocument = gql`
 
 export function useRecommendationsQuery(options: Omit<Urql.UseQueryArgs<RecommendationsQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<RecommendationsQuery>({ query: RecommendationsDocument, ...options })
+}
+export const RecommendationsSummaryDocument = gql`
+  query RecommendationsSummary($filter: K8sRecommendationFilterDTOInput) {
+    recommendationStatsV2(filter: $filter) {
+      totalMonthlyCost
+      totalMonthlySaving
+      count
+    }
+  }
+`
+
+export function useRecommendationsSummaryQuery(
+  options: Omit<Urql.UseQueryArgs<RecommendationsSummaryQueryVariables>, 'query'> = {}
+) {
+  return Urql.useQuery<RecommendationsSummaryQuery>({ query: RecommendationsSummaryDocument, ...options })
 }
 export const FetchCcmMetaDataDocument = gql`
   query FetchCcmMetaData {
@@ -339,6 +352,14 @@ export const FetchRecommendationDocument = gql`
     recommendationStats(id: $id) {
       totalMonthlyCost
       totalMonthlySaving
+    }
+    recommendationsV2(filter: { ids: [$id], offset: 0, limit: 10 }) {
+      items {
+        clusterName
+        namespace
+        id
+        resourceName
+      }
     }
     recommendationDetails(id: $id, resourceType: WORKLOAD, startTime: $startTime, endTime: $endTime) {
       ... on WorkloadRecommendationDTO {
@@ -719,22 +740,19 @@ export type FetchAllPerspectivesQuery = {
 }
 
 export type RecommendationsQueryVariables = Exact<{
-  filters: Maybe<K8sRecommendationFilterDtoInput>
+  filter: Maybe<K8sRecommendationFilterDtoInput>
 }>
 
 export type RecommendationsQuery = {
   __typename?: 'Query'
-  recommendationStatsV2: Maybe<{
-    __typename?: 'RecommendationOverviewStats'
-    totalMonthlyCost: number
-    totalMonthlySaving: number
-  }>
   recommendationsV2: Maybe<{
     __typename?: 'RecommendationsDTO'
     items: Maybe<
       Array<
         Maybe<{
           __typename?: 'RecommendationItemDTO'
+          clusterName: Maybe<string>
+          namespace: Maybe<string>
           id: string
           resourceType: ResourceType
           resourceName: Maybe<string>
@@ -743,6 +761,20 @@ export type RecommendationsQuery = {
         }>
       >
     >
+  }>
+}
+
+export type RecommendationsSummaryQueryVariables = Exact<{
+  filter: Maybe<K8sRecommendationFilterDtoInput>
+}>
+
+export type RecommendationsSummaryQuery = {
+  __typename?: 'Query'
+  recommendationStatsV2: Maybe<{
+    __typename?: 'RecommendationOverviewStats'
+    totalMonthlyCost: number
+    totalMonthlySaving: number
+    count: number
   }>
 }
 
@@ -971,6 +1003,20 @@ export type FetchRecommendationQuery = {
     __typename?: 'RecommendationOverviewStats'
     totalMonthlyCost: number
     totalMonthlySaving: number
+  }>
+  recommendationsV2: Maybe<{
+    __typename?: 'RecommendationsDTO'
+    items: Maybe<
+      Array<
+        Maybe<{
+          __typename?: 'RecommendationItemDTO'
+          clusterName: Maybe<string>
+          namespace: Maybe<string>
+          id: string
+          resourceName: Maybe<string>
+        }>
+      >
+    >
   }>
   recommendationDetails: Maybe<
     | { __typename?: 'NodeRecommendationDTO' }

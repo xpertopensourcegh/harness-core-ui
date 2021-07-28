@@ -58,7 +58,7 @@ const CESideNavProps: SidebarContext = {
 
 const CERoutes: React.FC = () => {
   const token = SessionToken.getToken()
-  const accountId = SessionToken.accountId()
+  const { accountId } = useParams<AccountPathProps>()
 
   const getRequestOptions = React.useCallback((): Partial<RequestInit> => {
     const headers: RequestInit['headers'] = {}
@@ -83,7 +83,7 @@ const CERoutes: React.FC = () => {
       exchanges: [dedupExchange, requestPolicyExchange({}), cacheExchange, fetchExchange],
       requestPolicy: 'cache-first'
     })
-  }, [token])
+  }, [token, accountId])
 
   return (
     <Provider value={urqlClient()}>
@@ -179,6 +179,7 @@ const CERoutes: React.FC = () => {
           path={routes.toCERecommendationDetails({
             ...accountPathProps,
             ...projectPathProps,
+            recommendationName: ':recommendationName',
             recommendation: ':recommendation'
           })}
           exact
@@ -235,6 +236,7 @@ const CERoutes: React.FC = () => {
           path={routes.toCERecommendationWorkloadDetails({
             ...accountPathProps,
             recommendation: ':recommendation',
+            recommendationName: ':recommendationName',
             clusterName: ':clusterName',
             namespace: ':namespace',
             workloadName: ':workloadName'

@@ -119,10 +119,12 @@ const PerspectiveListPage: React.FC = () => {
 
   useMemo(() => {
     pespectiveList.sort((a, b) => {
-      if (a?.viewType === ViewType.Default && b?.viewType === ViewType.Customer) {
+      const isElementADefault = a?.viewType === ViewType.Default
+      const isElementBDefault = b?.viewType === ViewType.Default
+      if (isElementADefault && !isElementBDefault) {
         return -1
       }
-      if (a?.viewType === ViewType.Customer && b?.viewType === ViewType.Default) {
+      if (!isElementADefault && isElementBDefault) {
         return 1
       }
       return 0
