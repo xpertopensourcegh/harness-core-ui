@@ -32,12 +32,22 @@ exports[`side nav tests side nav renders without error when no project is select
     </a>
     <a
       class="link"
-      href="/account/accountId/ce/perspective"
+      href="/account/accountId/ce/perspectives"
     >
       <p
         class="StyledProps--font StyledProps--main text"
       >
-        ce.sideNav.perspective
+        ce.perspectives.sideNavText
+      </p>
+    </a>
+    <a
+      class="link"
+      href="/account/accountId/ce/recommendations"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        ce.recommendation.sideNavText
       </p>
     </a>
     <a
@@ -102,12 +112,22 @@ exports[`side nav tests side nav renders without error when on Access Point tab 
     </a>
     <a
       class="link"
-      href="/account/accountId/ce/perspective"
+      href="/account/accountId/ce/perspectives"
     >
       <p
         class="StyledProps--font StyledProps--main text"
       >
-        ce.sideNav.perspective
+        ce.perspectives.sideNavText
+      </p>
+    </a>
+    <a
+      class="link"
+      href="/account/accountId/ce/recommendations"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        ce.recommendation.sideNavText
       </p>
     </a>
     <a
@@ -172,12 +192,22 @@ exports[`side nav tests side nav renders without error when on AutoStopping Rule
     </a>
     <a
       class="link"
-      href="/account/accountId/ce/perspective"
+      href="/account/accountId/ce/perspectives"
     >
       <p
         class="StyledProps--font StyledProps--main text"
       >
-        ce.sideNav.perspective
+        ce.perspectives.sideNavText
+      </p>
+    </a>
+    <a
+      class="link"
+      href="/account/accountId/ce/recommendations"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        ce.recommendation.sideNavText
       </p>
     </a>
     <a

@@ -35,9 +35,10 @@ export default function CESideNav(): React.ReactElement {
       {
         <React.Fragment>
           <SidebarLink label={getString('overview')} to={routes.toCEOverview({ accountId })} />
+          <SidebarLink label={getString('ce.perspectives.sideNavText')} to={routes.toCEPerspectives({ accountId })} />
           <SidebarLink
-            label={getString('ce.sideNav.perspective')}
-            to={routes.toCEPerspectiveDashboard({ accountId })}
+            label={getString('ce.recommendation.sideNavText')}
+            to={routes.toCERecommendations({ accountId })}
           />
           <SidebarLink label={getString('ce.co.breadCrumb.rules')} to={routes.toCECORules({ accountId })} />
           <SidebarLink
@@ -46,15 +47,6 @@ export default function CESideNav(): React.ReactElement {
           />
         </React.Fragment>
       }
-      {localStorage.CE_DEV ? (
-        <>
-          <SidebarLink
-            label={getString('ce.recommendation.sideNavText')}
-            to={routes.toCERecommendations({ accountId })}
-          />
-          <SidebarLink label={getString('ce.perspectives.sideNavText')} to={routes.toCEPerspectives({ accountId })} />
-        </>
-      ) : null}
       <LaunchButton
         launchButtonText={getString('common.ce.visibilityLaunchButton')}
         redirectUrl={returnLaunchUrl(`#/account/${accountId}/continuous-efficiency/overview`)}

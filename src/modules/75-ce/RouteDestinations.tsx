@@ -31,7 +31,6 @@ import CreatePerspectivePage from './pages/perspective-builder/CreatePerspective
 import PerspectiveListPage from './pages/perspective-list/PerspectiveListPage'
 import WorkloadDetailsPage from './pages/workload-details/WorkloadDetailsPage'
 import OverviewPage from './pages/overview/OverviewPage'
-import PerspectiveDashboard from './pages/perspective/PerspectiveDashboard'
 
 const RedirectToCEHome = (): React.ReactElement => {
   const params = useParams<AccountPathProps>()
@@ -51,8 +50,8 @@ const RedirectToCEProject = (): React.ReactElement => {
 
 const CESideNavProps: SidebarContext = {
   navComponent: CESideNav,
-  subtitle: 'CONTINUOUS',
-  title: 'Efficiency',
+  subtitle: 'CLOUD COST',
+  title: 'Management',
   icon: 'ce-main'
 }
 
@@ -109,12 +108,6 @@ const CERoutes: React.FC = () => {
           path={routes.toCEOverview({ ...accountPathProps, ...projectPathProps })}
         >
           <OverviewPage />
-        </RouteWithLayout>
-        <RouteWithLayout
-          sidebarProps={CESideNavProps}
-          path={routes.toCEPerspectiveDashboard({ ...accountPathProps, ...projectPathProps })}
-        >
-          <PerspectiveDashboard />
         </RouteWithLayout>
         <RouteWithLayout
           sidebarProps={CESideNavProps}
