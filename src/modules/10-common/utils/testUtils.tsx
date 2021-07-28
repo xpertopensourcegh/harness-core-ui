@@ -25,6 +25,11 @@ export type UseGetMockData<TData, TError = undefined, TQueryParams = undefined, 
   UseGetProps<TData, TError, TQueryParams, TPathParams>
 >['mock']
 
+export interface UseGetMockDataWithMutateAndRefetch<T> extends UseGetMockData<T> {
+  mutate: () => Record<string, unknown>
+  refetch: () => Record<string, unknown>
+}
+
 export interface UseMutateMockData<TData, TRequestBody = unknown> {
   loading?: boolean
   mutate?: (data?: TRequestBody) => Promise<TData>
