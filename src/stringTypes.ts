@@ -73,6 +73,7 @@ export interface StringsMap {
   'common.bash': string
   'common.blank': string
   'common.capsAll': string
+  'common.ce.autostopping': string
   'common.ce.cost': string
   'common.ce.optimization': string
   'common.ce.visibility': string
@@ -1159,6 +1160,15 @@ export interface StringsMap {
   'connectors.ceGcp.testConnection.step3': string
   'connectors.ceK8.infoText': string
   'connectors.ceK8.selectConnectorLabel': string
+  'connectors.ceK8S.chooseRequirements.description': string
+  'connectors.ceK8S.chooseRequirements.heading': string
+  'connectors.ceK8S.chooseRequirements.optimization.description': string
+  'connectors.ceK8S.chooseRequirements.optimization.heading': string
+  'connectors.ceK8S.chooseRequirements.optimization.subheading': string
+  'connectors.ceK8S.chooseRequirements.subheading': string
+  'connectors.ceK8S.chooseRequirements.visibility.description': string
+  'connectors.ceK8S.chooseRequirements.visibility.heading': string
+  'connectors.ceK8S.chooseRequirements.visibility.subheading': string
   'connectors.click': string
   'connectors.confirmDelete': string
   'connectors.confirmDeleteTitle': string
@@ -2382,6 +2392,7 @@ export interface StringsMap {
   'ce.co.gatewayConfig.healthCheck': string
   'ce.co.gatewayConfig.healthCheckDescription': string
   'ce.co.gatewayConfig.info': string
+  'ce.co.gatewayConfig.k8sroutingDescription': string
   'ce.co.gatewayConfig.name': string
   'ce.co.gatewayConfig.routingDescription': string
   'ce.co.gatewayConfig.scheduleDescription': string

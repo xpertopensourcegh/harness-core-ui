@@ -1439,45 +1439,55 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                       title="Routing"
                       panel={
                         <Container style={{ backgroundColor: '#FBFBFB' }}>
-                          <Text className={css.titleHelpTextDescription}>
-                            {getString('ce.co.gatewayConfig.routingDescription')}
-                          </Text>
                           {!isK8sSelected && (
-                            <Layout.Vertical spacing="large">
-                              {!selectedAsg && loading ? (
-                                <Icon
-                                  name="spinner"
-                                  size={24}
-                                  color="blue500"
-                                  style={{ alignSelf: 'center', marginTop: '10px' }}
-                                />
-                              ) : (
-                                <CORoutingTable routingRecords={routingRecords} setRoutingRecords={setRoutingRecords} />
-                              )}
-                              <Container className={css.rowItem}>
-                                <Text
-                                  onClick={() => {
-                                    addPort()
-                                  }}
-                                >
-                                  {getString('ce.co.gatewayConfig.addPortLabel')}
-                                </Text>
-                              </Container>
-                            </Layout.Vertical>
+                            <>
+                              <Text className={css.titleHelpTextDescription}>
+                                {getString('ce.co.gatewayConfig.routingDescription')}
+                              </Text>
+                              <Layout.Vertical spacing="large">
+                                {!selectedAsg && loading ? (
+                                  <Icon
+                                    name="spinner"
+                                    size={24}
+                                    color="blue500"
+                                    style={{ alignSelf: 'center', marginTop: '10px' }}
+                                  />
+                                ) : (
+                                  <CORoutingTable
+                                    routingRecords={routingRecords}
+                                    setRoutingRecords={setRoutingRecords}
+                                  />
+                                )}
+                                <Container className={css.rowItem}>
+                                  <Text
+                                    onClick={() => {
+                                      addPort()
+                                    }}
+                                  >
+                                    {getString('ce.co.gatewayConfig.addPortLabel')}
+                                  </Text>
+                                </Container>
+                              </Layout.Vertical>
+                            </>
                           )}
                           {isK8sSelected && (
-                            <KubernetesRuleYamlEditor
-                              existingData={
-                                yamlData ||
-                                getK8sIngressTemplate({
-                                  name: props.gatewayDetails.name,
-                                  idleTime: props.gatewayDetails.idleTimeMins,
-                                  cloudConnectorId: props.gatewayDetails.cloudAccount.id
-                                })
-                              }
-                              fileName={gatewayName && `${gatewayName.split(' ').join('-')}-autostopping.yaml`}
-                              handleSave={handleYamlSave}
-                            />
+                            <>
+                              <Text className={css.titleHelpTextDescription}>
+                                {getString('ce.co.gatewayConfig.k8sroutingDescription')}
+                              </Text>
+                              <KubernetesRuleYamlEditor
+                                existingData={
+                                  yamlData ||
+                                  getK8sIngressTemplate({
+                                    name: props.gatewayDetails.name,
+                                    idleTime: props.gatewayDetails.idleTimeMins,
+                                    cloudConnectorId: props.gatewayDetails.cloudAccount.id
+                                  })
+                                }
+                                fileName={gatewayName && `${gatewayName.split(' ').join('-')}-autostopping.yaml`}
+                                handleSave={handleYamlSave}
+                              />
+                            </>
                           )}
                         </Container>
                       }
