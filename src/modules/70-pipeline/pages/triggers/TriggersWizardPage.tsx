@@ -198,6 +198,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         originalPipeline?: PipelineInfoConfig
         identifier?: string
         connectorRef?: { identifier?: string; scope?: string }
+        inputSetTemplateYaml?: string
       }
   >({ triggerType: triggerTypeOnNew })
 
@@ -857,10 +858,15 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           setOnEditInitialValues({
             ...onEditInitialValues,
             originalPipeline: newOriginalPipeline,
-            pipeline: newPipeline
+            pipeline: newPipeline,
+            inputSetTemplateYaml: template?.data?.inputSetTemplateYaml
           })
         } else {
-          setInitialValues({ ...initialValues, originalPipeline: newOriginalPipeline })
+          setInitialValues({
+            ...initialValues,
+            originalPipeline: newOriginalPipeline,
+            inputSetTemplateYaml: template?.data?.inputSetTemplateYaml
+          })
         }
       } catch (e) {
         // set error

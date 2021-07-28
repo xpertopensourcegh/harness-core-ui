@@ -5,6 +5,7 @@ import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useStrings } from 'framework/strings'
 import { SelectArtifactModal } from './modals'
 import ArtifactTableInfo from './subviews/ArtifactTableInfo'
+import { parseArtifactsManifests, getArtifactTableDataFromData } from '../utils/TriggersWizardPageUtils'
 import css from './ArtifactTriggerConfigPanel.module.scss'
 
 export interface ArtifactTriggerConfigPanelPropsInterface {
@@ -12,56 +13,26 @@ export interface ArtifactTriggerConfigPanelPropsInterface {
   isEdit?: boolean
 }
 
-const data = [
-  {
-    artifactId: 'artifactId1',
-    name: 'artifact1',
-    stage: 'Dev',
-    service: 'Service A',
-    artifactRepository: 'connector name',
-    location: './location',
-    buildTag: 'build/Tag'
-  },
-  {
-    artifactId: 'artifactId2',
-    name: 'artifactId2',
-    stage: 'QA',
-    service: 'Service A',
-    artifactRepository: 'connector name',
-    location: './location',
-    buildTag: 'build/Tag'
-  },
-  {
-    artifactId: 'artifactId3',
-    name: 'artifactId3',
-    stage: 'Staging',
-    service: 'Service A',
-    artifactRepository: 'connector name',
-    location: './location',
-    buildTag: 'build/Tag'
-  },
-  {
-    artifactId: 'artifactId4',
-    name: 'artifactId4',
-    stage: 'Prod',
-    service: 'Service A',
-    artifactRepository: 'connector name',
-    location: './location',
-    buildTag: 'build/Tag'
-  }
-]
-
 const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterface> = ({
   formikProps,
   isEdit = false
 }) => {
-  const { artifact } = formikProps.values
+  const { artifactType, artifactRef, manifestType, stageId, inputSetTemplateYaml } = formikProps.values
   const [modalOpen, setModalOpen] = useState<boolean>(false)
   const { getString } = useStrings()
+  const isManifest = !!manifestType
+  // appliedArtifact is saved on the trigger or in formikValues vs. selectedArtifact is in the modal
+  const { appliedArtifact, data } = parseArtifactsManifests({
+    inputSetTemplateYaml,
+    manifestType,
+    stageId,
+    artifactType,
+    artifactRef,
+    isManifest
+  })
+  const artifactTableData = getArtifactTableDataFromData({ data, isManifest })
   const loading = false
-  const selectedArtifact = data?.find(d => d.artifactId === artifact)
   const allowSelectArtifact = data?.length
-
   return (
     <Layout.Vertical className={css.artifactTriggerConfigContainer} padding="xxlarge">
       {loading && (
@@ -84,9 +55,14 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
           {getString('pipeline.triggers.artifactTriggerConfigPanel.listenOnNewArtifact')}
         </Heading>
         <section style={{ marginTop: 'var(--spacing-small)' }}>
-          {selectedArtifact ? (
+          {appliedArtifact ? (
             <Container style={{ display: 'inline-block', width: '100%' }}>
-              <ArtifactTableInfo formikProps={formikProps} readonly={true} data={[selectedArtifact]} />
+              <ArtifactTableInfo
+                formikProps={formikProps}
+                readonly={true}
+                appliedArtifact={appliedArtifact}
+                isManifest={isManifest}
+              />
               <Button
                 style={{ display: 'inline-block', color: '' }}
                 minimal
@@ -99,13 +75,23 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
             </Container>
           ) : (
             <>
-              <Label style={{ fontSize: 13, fontWeight: 'normal', marginBottom: 'var(--spacing-small)' }}>
+              <Label
+                style={{
+                  fontSize: 13,
+                  color: 'var(--form-label)',
+                  fontWeight: 'normal',
+                  marginBottom: 'var(--spacing-small)'
+                }}
+              >
                 {getString('pipeline.triggers.artifactTriggerConfigPanel.artifact')}
               </Label>
               <Text
                 data-name="plusAdd"
-                intent={allowSelectArtifact ? 'primary' : 'none'}
-                style={{ cursor: allowSelectArtifact ? 'pointer' : 'not-allowed', width: '130px' }}
+                style={{
+                  cursor: allowSelectArtifact ? 'pointer' : 'not-allowed',
+                  color: allowSelectArtifact ? 'var(--primary-7)' : 'var(--form-label)',
+                  width: '130px'
+                }}
                 onClick={() => {
                   if (allowSelectArtifact) {
                     setModalOpen(true)
@@ -114,15 +100,18 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
               >
                 {getString('pipeline.triggers.artifactTriggerConfigPanel.plusSelectArtifact')}
               </Text>
-              <SelectArtifactModal
-                isModalOpen={modalOpen}
-                formikProps={formikProps}
-                data={data}
-                closeModal={() => setModalOpen(false)}
-              />
+              {allowSelectArtifact && (
+                <SelectArtifactModal
+                  isModalOpen={modalOpen}
+                  formikProps={formikProps}
+                  artifactTableData={artifactTableData}
+                  closeModal={() => setModalOpen(false)}
+                  isManifest={isManifest}
+                />
+              )}
             </>
           )}
-          {!allowSelectArtifact && (
+          {inputSetTemplateYaml && !appliedArtifact && !allowSelectArtifact && (
             <Text margin="small" intent="warning">
               {getString('pipeline.triggers.artifactTriggerConfigPanel.noSelectableArtifactsFound')}
             </Text>

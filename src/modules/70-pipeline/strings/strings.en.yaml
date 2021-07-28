@@ -495,10 +495,12 @@ triggers:
     listenOnNewArtifact: 'Listen on New Artifact'
     plusSelectArtifact: '+ Select Artifact'
     selectAnArtifact: 'Select an Artifact Reference'
+    configureArtifactRuntimeInputs: 'Configure Artifact Runtime Inputs'
     noSelectableArtifactsFound: 'No selectable artifacts found. Please add an artifact in the pipeline.'
     noArtifacts: No artifacts for selected stage.
     configureInputs: Configure inputs
     parameterized: Parameterized
+    hasRuntimeInputs: 'Has Runtime Inputs'
 dashboards:
   failedBuilds: Failed Builds
   activeBuilds: Active Builds

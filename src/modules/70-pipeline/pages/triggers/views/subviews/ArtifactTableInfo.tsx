@@ -1,40 +1,40 @@
-import React, { useEffect, Dispatch, SetStateAction } from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import type { FormikProps } from 'formik'
 import { Button, Color, Layout, Text } from '@wings-software/uicore'
 import { RadioGroup, Radio } from '@blueprintjs/core'
 import { useStrings, UseStringsReturn } from 'framework/strings'
 import Table from '@common/components/Table/Table'
+import type { artifactTableItem } from '../../utils/TriggersWizardPageUtils'
 import css from './ArtifactTableInfo.module.scss'
 
 interface ArtifactTableInfoInterface {
-  data: any
-  selectedArtifact?: string
+  artifactTableData?: any
+  selectedArtifact?: any
+  selectedArtifactLabel?: string
+  artifactType?: string
+  selectedStage?: string
+  isManifest: boolean
+  setSelectedStage?: Dispatch<SetStateAction<any>>
   setSelectedArtifact?: Dispatch<SetStateAction<any>>
+  setSelectedArtifactLabel?: Dispatch<SetStateAction<any>>
   formikProps: any
+  appliedArtifact?: any
   readonly?: boolean
 }
 
 interface RenderColumnSelectColumn {
-  selectedArtifact: string
+  selectedArtifactLabel?: string
 }
 export interface FormValues {
   artifact?: string
 }
+
+export interface RenderColumnRow {
+  original: artifactTableItem
+}
 interface RenderColumnLocationColumn {
   formikProps: FormikProps<FormValues>
   getString: UseStringsReturn['getString']
-}
-
-interface RenderColumnRow {
-  original: {
-    artifactId: string
-    name: string
-    stage: string
-    service: string
-    artifactRepository: string
-    location: string
-    buildTag: string
-  }
 }
 
 const RenderColumnSelect = ({ row, column }: { row: RenderColumnRow; column: RenderColumnSelectColumn }) => {
@@ -43,12 +43,12 @@ const RenderColumnSelect = ({ row, column }: { row: RenderColumnRow; column: Ren
     <>
       <Layout.Horizontal spacing="small" style={{ justifyContent: 'center' }}>
         <RadioGroup
-          selectedValue={column?.selectedArtifact}
+          selectedValue={column?.selectedArtifactLabel}
           label=""
-          name="artifact"
+          name="artifactLabel"
           onChange={e => e.preventDefault()}
         >
-          <Radio value={data.artifactId} />
+          <Radio value={data.artifactLabel} />
         </RadioGroup>
       </Layout.Horizontal>
     </>
@@ -75,13 +75,11 @@ const RenderColumnSelect = ({ row, column }: { row: RenderColumnRow; column: Ren
 //   )
 // }
 
-const RenderColumnArtifact = ({ row }: { row: RenderColumnRow }) => {
+const RenderColumnArtifactLabel = ({ row }: { row: RenderColumnRow }) => {
   const data = row.original
   return (
     <Layout.Horizontal>
-      <Text color={Color.BLACK}>
-        {data.stage}: {data.name} ({data.service})
-      </Text>
+      <Text color={Color.BLACK}>{data.artifactLabel}</Text>
     </Layout.Horizontal>
   )
 }
@@ -124,26 +122,52 @@ const RenderColumnBuildTag = ({ row }: { row: RenderColumnRow }) => {
   )
 }
 
+const RenderColumnVersion = ({ row }: { row: RenderColumnRow }) => {
+  const data = row.original
+  return (
+    <Layout.Horizontal spacing="small">
+      <Text color={Color.BLACK}>{data.version}</Text>
+    </Layout.Horizontal>
+  )
+}
+
+const RenderColumnHasRuntimeInputs = ({ row }: { row: RenderColumnRow }) => {
+  const data = row.original
+  return (
+    <Layout.Horizontal spacing="small">
+      <Text color={Color.BLACK}>{data.hasRuntimeInputs ? 'Yes' : 'No'}</Text>
+    </Layout.Horizontal>
+  )
+}
+
 const ArtifactTableInfo = (props: ArtifactTableInfoInterface): JSX.Element => {
-  const { readonly, selectedArtifact, setSelectedArtifact, formikProps, data } = props
+  const {
+    readonly,
+    appliedArtifact,
+    setSelectedArtifact,
+    selectedArtifactLabel,
+    setSelectedArtifactLabel,
+    setSelectedStage,
+    formikProps,
+    isManifest,
+    artifactTableData
+  } = props
+
   const { getString } = useStrings()
-
-  useEffect(() => {
-    formikProps.validateForm()
-  }, [])
-
+  const newData = appliedArtifact || artifactTableData
   const columns: any = React.useMemo(
     () => [
       {
-        Header: getString('pipeline.triggers.artifactTriggerConfigPanel.artifact').toUpperCase(),
-        accessor: 'artifactId',
-        width: '35%',
-        Cell: RenderColumnArtifact,
+        Header: getString?.('pipeline.triggers.artifactTriggerConfigPanel.artifact').toUpperCase(),
+        accessor: 'artifactLabel',
+        width: '25%',
+        Cell: RenderColumnArtifactLabel,
         className: 'className',
-        class: 'class'
+        class: 'class',
+        disableSortBy: !!appliedArtifact
       },
       {
-        Header: getString('pipeline.triggers.artifactTriggerConfigPanel.artifactRepository').toUpperCase(),
+        Header: getString?.('pipeline.triggers.artifactTriggerConfigPanel.artifactRepository').toUpperCase(),
         accessor: 'activity',
         width: '25%',
         Cell: RenderColumnArtifactRepository,
@@ -151,36 +175,61 @@ const ArtifactTableInfo = (props: ArtifactTableInfoInterface): JSX.Element => {
         getString
       },
       {
-        Header: getString('common.location').toUpperCase(),
+        Header: getString?.('common.location').toUpperCase(),
         accessor: 'lastExecutionTime',
         width: '20%',
         Cell: RenderColumnLocation,
         disableSortBy: true,
         formikProps,
         getString
-      },
-      {
-        Header: getString('pipeline.triggers.artifactTriggerConfigPanel.buildTag').toUpperCase(),
-        accessor: 'webhook',
-        width: '10%',
-        Cell: RenderColumnBuildTag,
-        disableSortBy: true
       }
     ],
-    [getString]
+    [appliedArtifact, formikProps, getString]
   )
+
+  if (!newData) {
+    return <></>
+  }
 
   if (!readonly) {
     columns.unshift({
-      Header: getString('select').toUpperCase(),
+      Header: '',
       accessor: 'select',
       width: '7%',
       disableSortBy: true,
-      selectedArtifact,
+      selectedArtifactLabel,
       formikProps,
       Cell: RenderColumnSelect
     })
   }
+
+  // Insert Location when available
+  if (isManifest) {
+    columns.push({
+      Header: getString?.('version').toUpperCase(),
+      accessor: 'version',
+      width: '10%',
+      Cell: RenderColumnVersion,
+      disableSortBy: true
+    })
+  } else {
+    columns.push({
+      Header: getString?.('pipeline.triggers.artifactTriggerConfigPanel.buildTag').toUpperCase(),
+      accessor: 'buildTag',
+      width: '10%',
+      Cell: RenderColumnBuildTag,
+      disableSortBy: true
+    })
+  }
+
+  columns.push({
+    Header: getString?.('pipeline.triggers.artifactTriggerConfigPanel.hasRuntimeInputs').toUpperCase(),
+    accessor: 'hasRuntimeInputs',
+    width: '10%',
+    Cell: RenderColumnHasRuntimeInputs,
+    disableSortBy: true
+  })
+
   //   Edit will be with Location column
   //    else {
   //     columns.push({
@@ -193,12 +242,17 @@ const ArtifactTableInfo = (props: ArtifactTableInfoInterface): JSX.Element => {
   //       Cell: RenderColumnEdit
   //     })
   //   }
+
   return (
     <Table
       className={`${css.table} ${readonly && css.readonly}`}
       columns={columns}
-      data={data || /* istanbul ignore next */ []}
-      onRowClick={item => setSelectedArtifact?.(item?.artifactId)}
+      data={Array.isArray(newData) ? newData : [newData]}
+      onRowClick={item => {
+        setSelectedArtifact?.(item?.artifactId)
+        setSelectedStage?.(item?.stageId)
+        setSelectedArtifactLabel?.(item?.artifactLabel)
+      }}
     />
   )
 }

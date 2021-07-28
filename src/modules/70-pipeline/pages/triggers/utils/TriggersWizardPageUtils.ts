@@ -1,5 +1,6 @@
 import { isNull, isUndefined, omitBy } from 'lodash-es'
 import { string, array, object, ObjectSchema } from 'yup'
+import { parse } from 'yaml'
 import type { SelectOption } from '@wings-software/uicore'
 import type { PipelineInfoConfig, ConnectorInfoDTO, ConnectorResponse } from 'services/cd-ng'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
@@ -33,6 +34,7 @@ export interface FlatInitialValuesInterface {
   }
   pipeline?: string | PipelineInfoConfig
   originalPipeline?: PipelineInfoConfig
+  inputSetTemplateYaml?: string
   name?: string
   // WEBHOOK-SPECIFIC
   sourceRepo?: string
@@ -52,6 +54,7 @@ export interface FlatOnEditValuesInterface {
   pipeline: PipelineInfoConfig
   triggerType: NGTriggerSourceV2['type']
   originalPipeline?: PipelineInfoConfig
+  inputSetTemplateYaml?: string
   // WEBHOOK-SPECIFIC
   sourceRepo?: GetActionsListQueryParams['sourceRepo']
   connectorRef?: ConnectorRefInterface
@@ -78,6 +81,7 @@ export interface FlatOnEditValuesInterface {
   selectedScheduleTab?: string
   minutes?: string
   expression?: string
+  // ARTIFACT/MANIFEST-SPECIFIC
 }
 
 export interface FlatValidWebhookFormikValuesInterface {
@@ -676,3 +680,117 @@ export const mockOperators = [
 
 export const inNotInArr = ['In', 'NotIn']
 export const inNotInPlaceholder = 'value1, regex1'
+
+interface data {
+  artifactId: string
+  name: string
+  stage: string
+  service: string
+  artifactRepository: string
+  location: string
+  buildTag: string
+}
+export const parseArtifactsManifests = ({
+  inputSetTemplateYaml,
+  manifestType,
+  artifactType,
+  artifactRef,
+  stageId,
+  isManifest
+}: {
+  inputSetTemplateYaml?: string
+  artifactRef?: string
+  stageId?: string
+  isManifest: boolean
+  artifactType?: string
+  manifestType?: string
+}): { appliedArtifact?: any; data?: data[] } => {
+  if (inputSetTemplateYaml) {
+    const pipelineObject = parse(inputSetTemplateYaml) as {
+      pipeline: PipelineInfoConfig | any
+    }
+    if (artifactRef && isManifest) {
+      // returns single manifest
+      let appliedArtifact
+      pipelineObject.pipeline.stages.some((stageObj: any) => {
+        if (stageObj?.stage?.identifier === stageId) {
+          const appliedArtifactObj = stageObj.stage.spec?.serviceConfig?.serviceDefinition?.spec?.manifests?.find(
+            (manifestObj: any) => manifestObj?.manifest?.identifier === artifactRef
+          )
+          if (appliedArtifactObj) {
+            appliedArtifact = appliedArtifactObj.manifest
+            return true
+          }
+        }
+      })
+      return { appliedArtifact }
+    } else if (isManifest) {
+      // returns list of manifests
+      const stagesManifests = pipelineObject.pipeline.stages.map((stageObj: any) => {
+        const filteredManifests = stageObj?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests?.filter(
+          (manifestObj: any) => manifestObj?.manifest?.type === manifestType
+        )
+        if (filteredManifests?.length) {
+          const filteredStageObj = { ...stageObj }
+          filteredStageObj.stage.spec.serviceConfig.serviceDefinition.spec.manifests = filteredManifests
+          return filteredStageObj
+        }
+      })
+      return { data: stagesManifests?.filter((stage: Record<string, unknown>) => !isUndefined(stage)) }
+    } else if (artifactType) {
+      // todo
+      return {}
+    }
+  }
+  return {}
+}
+const isRuntimeInput = (str: any): boolean => typeof str === 'string' && str?.includes('<+input>')
+const getRuntimeInputLabel = (str: any): string => (isRuntimeInput(str) ? 'runtime input' : str)
+
+export interface artifactTableItem {
+  artifactId: string
+  artifactLabel: string
+  stageId: string
+  artifactRepository: string
+  version?: string // for manifest
+  buildTag?: string // for artifact
+  hasRuntimeInputs: boolean
+}
+
+// data is already filtered w/ correct manifest
+export const getArtifactTableDataFromData = ({
+  data,
+  isManifest
+}: {
+  data?: any
+  isManifest: boolean
+}): artifactTableItem[] | undefined => {
+  if (!data) {
+    return undefined
+  }
+  const artifactTableData: artifactTableItem[] = []
+  if (isManifest) {
+    data.forEach((stageObject: any) => {
+      const stageId = stageObject?.stage?.identifier
+      const { manifests = [] } = stageObject?.stage?.spec?.serviceConfig?.serviceDefinition?.spec || {}
+      manifests.forEach((manifestObj: any) => {
+        const { identifier: artifactId } = manifestObj?.manifest || {}
+        const manifestSpecObjectValues = Object.values(manifestObj?.manifest?.spec || {})
+        const storeSpecObjectValues = Object.values(manifestObj?.manifest?.spec?.store?.spec || {})
+        const hasRuntimeInputs =
+          manifestSpecObjectValues.some(val => isRuntimeInput(val)) ||
+          storeSpecObjectValues.some(val => isRuntimeInput(val))
+
+        artifactTableData.push({
+          artifactLabel: `${stageId}: ${artifactId}`, // required for sorting
+          artifactId,
+          stageId,
+          artifactRepository: getRuntimeInputLabel(manifestObj?.manifest?.spec?.store?.spec?.connectorRef),
+          version: getRuntimeInputLabel(manifestObj?.manifest?.spec?.chartVersion),
+          hasRuntimeInputs
+        })
+      })
+    })
+  }
+  return artifactTableData
+}
