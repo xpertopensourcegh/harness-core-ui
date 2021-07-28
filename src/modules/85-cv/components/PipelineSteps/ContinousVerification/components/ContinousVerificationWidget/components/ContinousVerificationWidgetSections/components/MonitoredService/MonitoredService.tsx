@@ -16,7 +16,8 @@ import HealthSourceTable from '@cv/pages/health-source/HealthSourceTable/HealthS
 import type { RowData } from '@cv/pages/health-source/HealthSourceDrawer/HealthSourceDrawerContent.types'
 import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import type { MonitoredServiceProps } from './MonitoredService.types'
-import { getNewSpecs } from './MonitoredService.utils'
+import { getNewSpecs, isAnExpression } from './MonitoredService.utils'
+import { MONITORED_SERVICE_EXPRESSION } from './MonitoredService.constants'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './MonitoredService.module.scss'
 
@@ -74,8 +75,12 @@ export default function MonitoredService({
 
   useEffect(() => {
     if (environmentIdentifier === RUNTIME_INPUT_VALUE || serviceIdentifier === RUNTIME_INPUT_VALUE) {
-      //when serviceIdentifier and environmentIdentifier are runtime
+      //when serviceIdentifier or environmentIdentifier are runtime
       const newSpecs = { ...formValues.spec, monitoredServiceRef: RUNTIME_INPUT_VALUE }
+      setFieldValue('spec', newSpecs)
+    } else if (isAnExpression(environmentIdentifier) || isAnExpression(serviceIdentifier)) {
+      //when serviceIdentifier or environmentIdentifier is an expression
+      const newSpecs = { ...formValues.spec, monitoredServiceRef: MONITORED_SERVICE_EXPRESSION }
       setFieldValue('spec', newSpecs)
     } else if (!loading && !error) {
       //when monitoredServiceData is derived from service and env.

@@ -1,3 +1,4 @@
+import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import type { ContinousVerificationData, spec } from '@cv/components/PipelineSteps/ContinousVerification/types'
 import type { HealthSource, MonitoredServiceDTO } from 'services/cv'
 
@@ -11,4 +12,8 @@ export const getNewSpecs = (
     }) || []
 
   return { ...formValues.spec, monitoredServiceRef: monitoredServiceData?.identifier, healthSources }
+}
+
+export const isAnExpression = (value: string): boolean => {
+  return value.startsWith('<+') && value !== RUNTIME_INPUT_VALUE
 }
