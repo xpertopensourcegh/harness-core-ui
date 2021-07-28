@@ -96,7 +96,7 @@ exports[`CEHomePage snapshot test should move to trial in progress page when que
         <h1
           class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black100"
         >
-          ce.ccm
+          common.purpose.ce.continuous
         </h1>
         <p
           class="StyledProps--font StyledProps--main subTitle StyledProps--color"
@@ -151,7 +151,7 @@ exports[`CEHomePage snapshot test should open the ce trial modal when there is a
         <h1
           class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black100"
         >
-          ce.ccm
+          common.purpose.ce.continuous
         </h1>
         <p
           class="StyledProps--font StyledProps--main subTitle StyledProps--color"
@@ -206,7 +206,7 @@ exports[`CEHomePage snapshot test should render HomePageTemplate when return suc
         <h1
           class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black100"
         >
-          ce.ccm
+          common.purpose.ce.continuous
         </h1>
         <p
           class="StyledProps--font StyledProps--main subTitle StyledProps--color"
@@ -261,7 +261,7 @@ exports[`CEHomePage snapshot test shouldn't show the trial home pagers if the us
         <h1
           class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black100"
         >
-          ce.ccm
+          common.purpose.ce.continuous
         </h1>
         <p
           class="StyledProps--font StyledProps--main subTitle StyledProps--color"

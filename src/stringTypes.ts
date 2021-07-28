@@ -2235,7 +2235,6 @@ export interface StringsMap {
   'cd.varFile': string
   'cd.varFileDetails': string
   'cd.workloadRequired': string
-  'ce.ccm': string
   'ce.ceTrialHomePage.startTrial.description': string
   'ce.co.accessPoint.ap': string
   'ce.co.accessPoint.aps': string
@@ -3229,6 +3228,7 @@ export interface StringsMap {
   'cv.healthSource.connectors.AppDynamics.validation.tier': string
   'cv.healthSource.connectors.NewRelic.applicationLabel': string
   'cv.healthSource.connectors.createConnector': string
+  'cv.healthSource.connectors.gco.selectDashboardTab': string
   'cv.healthSource.customizeHealthSource': string
   'cv.healthSource.defineHealthSource': string
   'cv.healthSource.defineYourSource': string
@@ -3363,7 +3363,6 @@ export interface StringsMap {
   'cv.monitoringSources.gco.selectDashboardsPage.dashboardColumnName': string
   'cv.monitoringSources.gco.selectDashboardsPage.noDataText': string
   'cv.monitoringSources.gco.selectProduct': string
-  'cv.monitoringSources.gco.tabName.selectDashboards': string
   'cv.monitoringSources.gcoLogs.addQueryTooltip': string
   'cv.monitoringSources.gcoLogs.customizeQuery': string
   'cv.monitoringSources.gcoLogs.fetchRecords': string

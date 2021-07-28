@@ -2,9 +2,9 @@ import type { MultiSelectOption } from '@wings-software/uicore'
 import type Highcharts from 'highcharts'
 import { isNumber } from 'lodash-es'
 import type { PrometheusSampleData } from 'services/cv'
-import { formatJSON } from '@cv/pages/monitoring-source/google-cloud-operations/GoogleCloudOperationsMonitoringSourceUtils'
-import { chartsConfig } from '@cv/pages/monitoring-source/google-cloud-operations/MapGCOMetricsToServices/GCOWidgetChartConfig'
+import { chartsConfig } from '@cv/pages/health-source/connectors/GCOMetricsHealthSource/GCOWidgetChartConfig'
 import type { MapPrometheusQueryToService } from '../../PrometheusHealthSource.constants'
+import { formatJSON } from '../../../GCOMetricsHealthSource/GCOMetricsHealthSource.utils'
 
 type PrometheusHighchartsOptionAndRecords = {
   options: Highcharts.Options

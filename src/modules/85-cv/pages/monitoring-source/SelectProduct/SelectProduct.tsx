@@ -15,7 +15,7 @@ import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
 import { buildConnectorRef } from '@cv/pages/onboarding/CVOnBoardingUtils'
 import SyncStepDataValues from '@cv/utils/SyncStepDataValues'
 import type { UseStringsReturn } from 'framework/strings'
-import { GCOProduct } from '../google-cloud-operations/GoogleCloudOperationsMonitoringSourceUtils'
+import { GCOProduct } from '@cv/pages/health-source/connectors/GCOLogsMonitoringSource/GoogleCloudOperationsMonitoringSourceUtils'
 import css from './SelectProduct.module.scss'
 
 interface SelectProductFieldProps {

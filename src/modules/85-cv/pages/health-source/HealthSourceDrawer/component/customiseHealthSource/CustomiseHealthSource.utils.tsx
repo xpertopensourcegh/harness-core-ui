@@ -1,11 +1,12 @@
 import React from 'react'
 import { isEmpty } from 'lodash-es'
-import { GCOProduct } from '@cv/pages/monitoring-source/google-cloud-operations/GoogleCloudOperationsMonitoringSourceUtils'
 import GCOLogsMonitoringSource from '@cv/pages/health-source/connectors/GCOLogsMonitoringSource/GCOLogsMonitoringSource'
 import AppDMonitoredSource from '@cv/pages/health-source/connectors/AppDynamics/AppDMonitoredSource'
 import { PrometheusHealthSource } from '@cv/pages/health-source/connectors/PrometheusHealthSource/PrometheusHealthSource'
 import NewrelicMonitoredSourceContainer from '@cv/pages/health-source/connectors/NewRelic/NewRelicHealthSourceContainer'
 import { Connectors } from '@connectors/constants'
+import { GCOMetricsHealthSource } from '@cv/pages/health-source/connectors/GCOMetricsHealthSource/GCOMetricsHealthSource'
+import { GCOProduct } from '@cv/pages/health-source/connectors/GCOMetricsHealthSource/GCOMetricsHealthSource.utils'
 import { HealthSourceTypes } from '@cv/pages/health-source/types'
 import type { UpdatedHealthSource } from '../../HealthSourceDrawerContent.types'
 
@@ -25,10 +26,12 @@ export const LoadSourceByType = ({
       if (data?.product?.value === GCOProduct.CLOUD_LOGS) {
         return <GCOLogsMonitoringSource data={data} onSubmit={onSubmit} />
       } else {
-        return <></>
+        return <GCOMetricsHealthSource data={data} onSubmit={onSubmit} />
       }
     case HealthSourceTypes.StackdriverLog:
       return <GCOLogsMonitoringSource data={data} onSubmit={onSubmit} />
+    case HealthSourceTypes.StackdriverMetrics:
+      return <GCOMetricsHealthSource data={data} onSubmit={onSubmit} />
     case HealthSourceTypes.Prometheus:
       return <PrometheusHealthSource data={data} onSubmit={onSubmit} />
     case Connectors.NEW_RELIC:

@@ -184,6 +184,10 @@ export function useSetupSourceTabsHook<T>(data: T, tabsInformation: TabInfo[]): 
     clearStroreList: [CVObjectStoreNames.ONBOARDING_SOURCES]
   })
 
+  useEffect(() => {
+    setTabsState(currentTabsState => ({ ...currentTabsState, tabsInfo: tabsInformation }))
+  }, [tabsInfo])
+
   async function onSwitchTab<U>(updatedData: U, newTabIndex: number, updatedTabInfo?: TabInfo): Promise<void> {
     if (!dbInstance) return
 
@@ -282,10 +286,8 @@ export function SetupSourceTabsProvider<T>(props: SetupSourceTabsProviderProps<T
 
 export function SetupSourceTabs<T>(props: SetupSourceTabsProps<T>): JSX.Element {
   const { data, tabTitles, children, determineMaxTab } = props
-  const { sourceData, activeTabIndex, onSwitchTab, onNext, onPrevious } = useSetupSourceTabsHook(
-    data,
-    initializeTabsInfo(tabTitles)
-  )
+  const tabInfo = useMemo(() => initializeTabsInfo(tabTitles), [tabTitles])
+  const { sourceData, activeTabIndex, onSwitchTab, onNext, onPrevious } = useSetupSourceTabsHook(data, tabInfo)
   const maxEnabledTab = determineMaxTab(sourceData)
   const updatedChildren = useMemo(() => (Array.isArray(children) ? children : [children]), [children])
   return (

@@ -1830,58 +1830,6 @@
         }
       }
     },
-    "/log-cluster/test-data": {
-      "get": {
-        "tags": ["log-cluster"],
-        "summary": "get test log data for a clustering",
-        "description": "",
-        "operationId": "getTestLogDataForClustering",
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "verificationTaskId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "clusterLevel",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": ["L1", "L2"]
-          },
-          {
-            "name": "startTime",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "endTime",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "host",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/RestResponseListLogClusterDTO"
-            }
-          }
-        }
-      }
-    },
     "/log-cluster/l1-test-verification-test-data": {
       "get": {
         "tags": ["log-cluster"],
@@ -2621,6 +2569,62 @@
             "description": "successful operation",
             "schema": {
               "$ref": "#/definitions/RestResponseListString"
+            }
+          }
+        }
+      }
+    },
+    "/cv-config/datasource-types": {
+      "get": {
+        "tags": ["cv-config"],
+        "summary": "gets a list of datasource types for this filter",
+        "description": "",
+        "operationId": "getDataSourcetypes",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "orgIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "environmentIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "serviceIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "monitoringCategory",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": ["PERFORMANCE", "ERRORS", "INFRASTRUCTURE"]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponseSetDatasourceTypeDTO"
             }
           }
         }
@@ -11333,10 +11337,7 @@
     "JsonNode": {
       "type": "object",
       "properties": {
-        "array": {
-          "type": "boolean"
-        },
-        "null": {
+        "object": {
           "type": "boolean"
         },
         "object": {
@@ -11395,6 +11396,12 @@
           "type": "boolean"
         },
         "binary": {
+          "type": "boolean"
+        },
+        "array": {
+          "type": "boolean"
+        },
+        "null": {
           "type": "boolean"
         }
       }
@@ -12015,6 +12022,29 @@
         }
       }
     },
+    "RestResponseListMetricPackDTO": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MetricPackDTO"
+          }
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
     "MetricDefinition": {
       "type": "object",
       "required": ["type"],
@@ -12144,29 +12174,6 @@
         },
         "criteria": {
           "$ref": "#/definitions/TimeSeriesThresholdCriteria"
-        }
-      }
-    },
-    "RestResponseListMetricPackDTO": {
-      "type": "object",
-      "properties": {
-        "metaData": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "object"
-          }
-        },
-        "resource": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/MetricPackDTO"
-          }
-        },
-        "responseMessages": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ResponseMessage"
-          }
         }
       }
     },
@@ -12530,6 +12537,24 @@
               "type": "array",
               "items": {
                 "$ref": "#/definitions/QueryDTO"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "StackdriverMetricHealthSourceSpec": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/HealthSourceSpec"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "metricDefinitions": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/StackdriverDefinition"
               }
             }
           }

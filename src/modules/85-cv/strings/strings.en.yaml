@@ -350,8 +350,6 @@ monitoringSources:
     reviewPage:
       mappedMetrics: '{{metricCount}} metric(s) mapped to {{serviceCount}} service(s)'
       gcoMetrics: Google Cloud Operation metrics
-    tabName:
-      selectDashboards: 'Select Dashboards'
   newRelic:
     mapNewRelicAppsToServicesAndEnvs: Map New Relic Applications to Harness Environments and Services
     mappingServiceAndEnvSubheading: Select Harness Environments and Services to map to New Relic Applications
@@ -586,3 +584,5 @@ healthSource:
       validation:
         application: Please select applications
         tier: Please select tier
+    gco:
+      selectDashboardTab: 'Select Dashboards'

@@ -3385,9 +3385,23 @@ export interface StackdriverDashboardDetail {
   widgetName?: string
 }
 
+export interface StackdriverDefinition {
+  dashboardName?: string
+  dashboardPath?: string
+  isManualQuery?: boolean
+  jsonMetricDefinition?: { [key: string]: any }
+  metricName?: string
+  metricTags?: string[]
+  riskProfile?: RiskProfile
+}
+
 export type StackdriverLogHealthSourceSpec = HealthSourceSpec & {
   feature: string
   queries: QueryDTO[]
+}
+
+export type StackdriverMetricHealthSourceSpec = HealthSourceSpec & {
+  metricDefinitions?: StackdriverDefinition[]
 }
 
 export type SumoLogicConnectorDTO = ConnectorConfigDTO & {

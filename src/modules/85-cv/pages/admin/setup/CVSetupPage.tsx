@@ -64,27 +64,6 @@ const MonitoringSources = [
     label: 'AppDynamics',
     routeName: MonitoringSourceSetupRoutePaths.APP_DYNAMICS,
     routeUrl: routes.toCVAdminSetupMonitoringSource
-  },
-  {
-    type: 'GoogleCloudOperations',
-    icon: 'service-stackdriver',
-    label: 'Google Cloud Operations',
-    routeName: MonitoringSourceSetupRoutePaths.GOOGLE_CLOUD_OPERATIONS,
-    routeUrl: routes.toCVAdminSetupMonitoringSource
-  },
-  {
-    type: 'NewRelic',
-    icon: 'service-newrelic',
-    label: 'New Relic',
-    routeName: MonitoringSourceSetupRoutePaths.NEW_RELIC,
-    routeUrl: routes.toCVAdminSetupMonitoringSource
-  },
-  {
-    type: 'Prometheus',
-    icon: 'service-prometheus',
-    label: 'Prometheus',
-    routeName: MonitoringSourceSetupRoutePaths.PROMETHEUS,
-    routeUrl: routes.toCVAdminSetupMonitoringSource
   }
 ]
 interface CVSetupPageProps {

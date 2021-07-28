@@ -4,12 +4,18 @@ import type {
   AppDynamicsHealthSourceSpec,
   MonitoredServiceResponse,
   PrometheusHealthSourceSpec,
-  NewRelicHealthSourceSpec
+  NewRelicHealthSourceSpec,
+  StackdriverMetricHealthSourceSpec
 } from 'services/cv'
 import type { GCOLogsHealthSourceSpec } from '../connectors/GCOLogsMonitoringSource/components/MapQueriesToHarnessService/types'
 
 export interface UpdatedHealthSource extends Omit<HealthSource, 'spec'> {
-  spec: AppDynamicsHealthSourceSpec | GCOLogsHealthSourceSpec | PrometheusHealthSourceSpec | NewRelicHealthSourceSpec
+  spec:
+    | AppDynamicsHealthSourceSpec
+    | GCOLogsHealthSourceSpec
+    | PrometheusHealthSourceSpec
+    | NewRelicHealthSourceSpec
+    | StackdriverMetricHealthSourceSpec
 }
 
 export interface RowData extends HealthSource {

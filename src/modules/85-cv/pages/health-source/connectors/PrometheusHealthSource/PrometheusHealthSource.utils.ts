@@ -2,7 +2,12 @@ import type { SelectOption } from '@wings-software/uicore'
 import { isNumber } from 'lodash-es'
 import type { FormikProps } from 'formik'
 import type { MultiSelectOption } from '@wings-software/uicore'
-import type { MetricDefinition, TimeSeriesMetricDefinition } from 'services/cv'
+import type {
+  MetricDefinition,
+  PrometheusFilter,
+  PrometheusHealthSourceSpec,
+  TimeSeriesMetricDefinition
+} from 'services/cv'
 import type { UseStringsReturn } from 'framework/strings'
 import {
   CreatedMetricsWithSelectedIndex,
@@ -10,7 +15,6 @@ import {
   SelectedAndMappedMetrics,
   PrometheusSetupSource,
   RiskProfileCatgory,
-  PrometheusFilter,
   MapPrometheusQueryToService,
   PrometheusProductNames
 } from './PrometheusHealthSource.constants'
@@ -183,7 +187,7 @@ export function transformLabelToPrometheusFilter(options?: MultiSelectOption[]):
   return filters
 }
 
-function generateMultiSelectOptionListFromPrometheusFilter(filters: PrometheusFilter[]): MultiSelectOption[] {
+function generateMultiSelectOptionListFromPrometheusFilter(filters?: PrometheusFilter[]): MultiSelectOption[] {
   if (!filters?.length) {
     return []
   }
@@ -225,22 +229,22 @@ export function transformPrometheusHealthSourceToSetupSource(sourceData: any): P
     connectorRef: sourceData.connectorRef
   }
 
-  for (const metricDefinition of (healthSource?.spec as any)?.metricDefinitions || []) {
+  for (const metricDefinition of (healthSource?.spec as PrometheusHealthSourceSpec)?.metricDefinitions || []) {
     if (metricDefinition?.metricName) {
       setupSource.mappedServicesAndEnvs.set(metricDefinition.metricName, {
         metricName: metricDefinition.metricName,
         prometheusMetric: metricDefinition.prometheusMetric,
-        query: metricDefinition.query,
-        isManualQuery: metricDefinition.isManualQuery,
+        query: metricDefinition.query || '',
+        isManualQuery: metricDefinition.isManualQuery || false,
         serviceFilter: generateMultiSelectOptionListFromPrometheusFilter(metricDefinition.serviceFilter),
         envFilter: generateMultiSelectOptionListFromPrometheusFilter(metricDefinition.envFilter),
-        additionalFilter: generateMultiSelectOptionListFromPrometheusFilter(metricDefinition.additionalFilters || []),
+        additionalFilter: generateMultiSelectOptionListFromPrometheusFilter(metricDefinition.additionalFilters),
         aggregator: metricDefinition.aggregation,
         riskCategory: `${metricDefinition.riskProfile?.category}/${metricDefinition.riskProfile?.metricType}`,
         serviceInstance: metricDefinition.serviceInstanceFieldName,
         lowerBaselineDeviation: metricDefinition.riskProfile?.thresholdTypes?.includes('ACT_WHEN_LOWER') || false,
         higherBaselineDeviation: metricDefinition.riskProfile?.thresholdTypes?.includes('ACT_WHEN_HIGHER') || false,
-        groupName: { label: metricDefinition.groupName, value: metricDefinition.groupName }
+        groupName: { label: metricDefinition.groupName || '', value: metricDefinition.groupName || '' }
       })
     }
   }

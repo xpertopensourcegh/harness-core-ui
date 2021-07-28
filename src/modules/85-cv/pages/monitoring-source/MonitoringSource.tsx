@@ -10,7 +10,6 @@ import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { useStrings } from 'framework/strings'
 import AppDMonitoringSource from './app-dynamics/AppDMonitoringSource'
 import { NewRelicMonitoringSource } from './new-relic/NewRelicMonitoringSource'
-import { GoogleCloudOperationsMonitoringSource } from './google-cloud-operations/GoogleCloudOperationsMonitoringSource'
 import { OnBoardingPageHeader } from '../onboarding/OnBoardingPageHeader/OnBoardingPageHeader'
 import css from './MonitoringSource.module.scss'
 
@@ -18,8 +17,6 @@ const getContentByType = (type: string, dsConfig?: DSConfig | null): JSX.Element
   switch (type) {
     case MonitoringSourceSetupRoutePaths.APP_DYNAMICS:
       return <AppDMonitoringSource dsConfig={dsConfig} />
-    case MonitoringSourceSetupRoutePaths.GOOGLE_CLOUD_OPERATIONS:
-      return <GoogleCloudOperationsMonitoringSource dsConfig={dsConfig} />
     case MonitoringSourceSetupRoutePaths.NEW_RELIC:
       return <NewRelicMonitoringSource dsConfig={dsConfig} />
     default:

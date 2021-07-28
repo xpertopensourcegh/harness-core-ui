@@ -26,7 +26,12 @@ import { HEALTHSOURCE_LIST } from './DefineHealthSource.constant'
 import { validate, getFeatureOption, getInitialValues } from './DefineHealthSource.utils'
 import css from './DefineHealthSource.module.scss'
 
-function DefineHealthSource(): JSX.Element {
+interface DefineHealthSourceProps {
+  onSubmit?: (values: any) => void
+}
+
+function DefineHealthSource(props: DefineHealthSourceProps): JSX.Element {
+  const { onSubmit } = props
   const { getString } = useStrings()
   const { onNext, sourceData } = useContext(SetupSourceTabsContext)
   const { isEdit } = sourceData
@@ -54,6 +59,7 @@ function DefineHealthSource(): JSX.Element {
         formName={'defineHealthsource'}
         validationSchema={validate(isEdit, getString)}
         onSubmit={values => {
+          onSubmit?.(values)
           onNext(values, { tabStatus: 'SUCCESS' })
         }}
       >

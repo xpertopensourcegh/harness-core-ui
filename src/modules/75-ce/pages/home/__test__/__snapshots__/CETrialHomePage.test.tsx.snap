@@ -16,7 +16,7 @@ exports[`CETrialHomePage snapshot test it should render properly 1`] = `
         <h1
           class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black100"
         >
-          ce.ccm
+          common.purpose.ce.continuous
         </h1>
         <p
           class="StyledProps--font StyledProps--main subTitle StyledProps--color"
