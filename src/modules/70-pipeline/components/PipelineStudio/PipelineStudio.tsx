@@ -47,6 +47,9 @@ export class PipelineStudio extends React.Component<PipelineStudioProps, Pipelin
 
   componentDidCatch(error: Error): boolean {
     this.setState({ error })
+    if (window?.bugsnagClient?.notify) {
+      window?.bugsnagClient?.notify(error)
+    }
     return false
   }
 
