@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Unit tests for createAppd monitoring source Component renders in edit mode 1`] = `
+exports[`Unit tests for NewRelic health source Test NewRelic healthSource container loads 1`] = `
 <div>
   <div
     class="StyledProps--font StyledProps--main tabWrapper"
@@ -68,17 +68,17 @@ exports[`Unit tests for createAppd monitoring source Component renders in edit m
                     >
                       <div
                         class="bp3-form-group applicationDropdown"
-                        data-id="appdApplication-0"
+                        data-id="newRelicApplication-0"
                       >
                         <label
                           class="bp3-label"
-                          for="appdApplication"
+                          for="newRelicApplication"
                         >
                           <span
                             class="Tooltip--acenter"
-                            data-tooltip-id="appDHealthSourceform_appdApplication"
+                            data-tooltip-id="newRelicHealthSourceform_newRelicApplication"
                           >
-                            cv.healthSource.connectors.AppDynamics.applicationLabel
+                            cv.healthSource.connectors.NewRelic.applicationLabel
                           </span>
                            
                           <span
@@ -128,117 +128,11 @@ exports[`Unit tests for createAppd monitoring source Component renders in edit m
                                 <input
                                   autocomplete="off"
                                   class="bp3-input"
-                                  name="appdApplication"
+                                  name="newRelicApplication"
                                   placeholder="- cv.healthSource.connectors.AppDynamics.applicationPlaceholder -"
                                   style="padding-left: 0px; padding-right: 0px;"
                                   type="text"
-                                  value="Harness-Dev"
-                                />
-                                <span
-                                  class="bp3-input-action"
-                                >
-                                  <button
-                                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main iconButton StyledProps--margin-right-xsmall Button--with-current-color Button--iconOnly Button--without-shadow"
-                                    type="button"
-                                  >
-                                    <span
-                                      class="bp3-icon bp3-icon-cross StyledProps--main"
-                                      icon="cross"
-                                    >
-                                      <svg
-                                        data-icon="cross"
-                                        height="15"
-                                        viewBox="0 0 16 16"
-                                        width="15"
-                                      >
-                                        <desc>
-                                          cross
-                                        </desc>
-                                        <path
-                                          d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
-                                          fill-rule="evenodd"
-                                        />
-                                      </svg>
-                                    </span>
-                                  </button>
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="StyledProps--font StyledProps--main StyledProps--margin-bottom-small StyledProps--color StyledProps--color-black"
-                      style="width: 300px;"
-                    >
-                      <div
-                        class="bp3-form-group tierDropdown"
-                        data-id="appDTier-1"
-                      >
-                        <label
-                          class="bp3-label"
-                          for="appDTier"
-                        >
-                          <span
-                            class="Tooltip--acenter"
-                            data-tooltip-id="appDHealthSourceform_appDTier"
-                          >
-                            cv.healthSource.connectors.AppDynamics.trierLabel
-                          </span>
-                           
-                          <span
-                            class="bp3-text-muted"
-                          />
-                        </label>
-                        <div
-                          class="bp3-form-content"
-                        >
-                          <div
-                            class="bp3-popover-wrapper Select--main bp3-fill"
-                          >
-                            <div
-                              class="bp3-popover-target"
-                            >
-                              <div
-                                class="bp3-input-group"
-                              >
-                                <span
-                                  class="bp3-input-left-container"
-                                >
-                                  <button
-                                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main iconButton StyledProps--margin-right-xsmall Button--with-current-color Button--iconOnly Button--without-shadow"
-                                    type="button"
-                                  >
-                                    <span
-                                      class="bp3-icon bp3-icon-search StyledProps--main"
-                                      icon="search"
-                                    >
-                                      <svg
-                                        data-icon="search"
-                                        height="15"
-                                        viewBox="0 0 16 16"
-                                        width="15"
-                                      >
-                                        <desc>
-                                          search
-                                        </desc>
-                                        <path
-                                          d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
-                                          fill-rule="evenodd"
-                                        />
-                                      </svg>
-                                    </span>
-                                  </button>
-                                </span>
-                                <input
-                                  autocomplete="off"
-                                  class="bp3-input"
-                                  name="appDTier"
-                                  placeholder="- cv.healthSource.connectors.AppDynamics.tierPlaceholder -"
-                                  style="padding-left: 0px; padding-right: 0px;"
-                                  type="text"
-                                  value="manager"
+                                  value="My Application"
                                 />
                                 <span
                                   class="bp3-input-action"
@@ -277,33 +171,7 @@ exports[`Unit tests for createAppd monitoring source Component renders in edit m
                     <div
                       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
                       style="width: 300px;"
-                    >
-                      <p
-                        class="StyledProps--font StyledProps--main"
-                        style="display: flex; align-items: center; cursor: pointer;"
-                      >
-                        <span
-                          class="bp3-icon bp3-icon-issue StyledProps--main StyledProps--padding-right-xsmall"
-                          icon="issue"
-                        >
-                          <svg
-                            data-icon="issue"
-                            height="16"
-                            viewBox="0 0 16 16"
-                            width="16"
-                          >
-                            <desc>
-                              issue
-                            </desc>
-                            <path
-                              d="M8 16A8 8 0 118 0a8 8 0 010 16zm0-2A6 6 0 108 2a6 6 0 000 12zm1-2H7v-2h2v2zm0-3H7V4h2v5z"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                        cv.monitoringSources.appD.noData
-                      </p>
-                    </div>
+                    />
                   </div>
                 </div>
               </div>
@@ -331,7 +199,7 @@ exports[`Unit tests for createAppd monitoring source Component renders in edit m
                     >
                       <div
                         class="bp3-form-group"
-                        data-id="metricData.Errors-2"
+                        data-id="metricData.Performance-1"
                       >
                         <div
                           class="bp3-form-content"
@@ -341,33 +209,7 @@ exports[`Unit tests for createAppd monitoring source Component renders in edit m
                           >
                             <div
                               class="bp3-form-group"
-                              data-id="metricData.Errors-3"
-                            >
-                              <div
-                                class="bp3-form-content"
-                              >
-                                <label
-                                  class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--inline"
-                                >
-                                  <input
-                                    name="metricData.Errors"
-                                    type="checkbox"
-                                  />
-                                  <span
-                                    class="bp3-control-indicator"
-                                  />
-                                  <span
-                                    class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
-                                    data-tooltip-id="appDHealthSourceform_metricData.Errors"
-                                  >
-                                    Errors
-                                  </span>
-                                </label>
-                              </div>
-                            </div>
-                            <div
-                              class="bp3-form-group"
-                              data-id="metricData.Performance-4"
+                              data-id="metricData.Performance-2"
                             >
                               <div
                                 class="bp3-form-content"
@@ -384,7 +226,7 @@ exports[`Unit tests for createAppd monitoring source Component renders in edit m
                                   />
                                   <span
                                     class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
-                                    data-tooltip-id="appDHealthSourceform_metricData.Performance"
+                                    data-tooltip-id="newRelicHealthSourceform_metricData.Performance"
                                   >
                                     Performance
                                   </span>

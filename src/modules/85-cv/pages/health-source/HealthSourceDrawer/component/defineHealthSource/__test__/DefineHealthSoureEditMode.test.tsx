@@ -41,6 +41,15 @@ jest.mock('@cv/pages/onboarding/SelectOrCreateConnector/SelectOrCreateConnector'
   }
 }))
 
+jest.mock('services/cd-ng', () => ({
+  useGetConnector: jest.fn().mockImplementation(() => ({ data: {}, refetch: jest.fn() })),
+  getConnectorListPromise: jest.fn().mockImplementation(() => Promise.resolve({})),
+  getListOfBranchesByConnectorPromise: jest
+    .fn()
+    .mockResolvedValue({ data: ['master', 'devBranch'], status: 'SUCCESS' }),
+  useGetTestGitRepoConnectionResult: jest.fn().mockImplementation(() => ({ mutate: jest.fn }))
+}))
+
 jest.mock('@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs', () => ({
   ...(jest.requireActual('@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs') as any),
   get SetupSourceTabsContext() {

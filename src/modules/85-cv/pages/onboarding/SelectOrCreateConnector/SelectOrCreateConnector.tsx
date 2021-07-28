@@ -139,7 +139,6 @@ export function ConnectorSelection(props: ConnectorSelectionProps): JSX.Element 
           type={connectorType}
           className={css.connectorReference}
           enableConfigureOptions={false}
-          onSuccess={onSuccess}
         />
         {!isNewConnectorLabelVisible && (
           <Link

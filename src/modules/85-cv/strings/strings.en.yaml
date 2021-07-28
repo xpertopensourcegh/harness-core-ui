@@ -571,7 +571,7 @@ healthSource:
     serviceMapping: Service Mapping
     environmentMapping: Environment Mapping
   connectors:
-    createConnector: Add new {{sourceType}} connector
+    selectConnector: Select {{sourceType}} connector
     NewRelic:
       applicationLabel: Find an NewRelic application
     AppDynamics:

@@ -106,13 +106,6 @@ export const getOptions = (
       }) || []
 }
 
-export const getMetricData = (isEdit: boolean, editPayload: MetricPackDTO[], createPayload: MetricPackDTO[]) => {
-  const metricData: { [key: string]: boolean } = {}
-  const mertricList: MetricPackDTO[] = isEdit ? editPayload : createPayload
-  mertricList?.forEach((i: MetricPackDTO) => (metricData[i.identifier as string] = true))
-  return metricData
-}
-
 export const createMetricDataFormik = (metricPacks: MetricPackDTO[]): { [key: string]: boolean } => {
   const metricData: { [key: string]: boolean } = {}
   metricPacks.forEach((i: MetricPackDTO) => (metricData[i.identifier as string] = true))

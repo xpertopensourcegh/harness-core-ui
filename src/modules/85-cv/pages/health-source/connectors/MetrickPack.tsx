@@ -47,26 +47,35 @@ export default function MetricPack({
   }, [metricPacks])
 
   return (
-    <>
-      <Container className={css.metricPack}>
-        {metricPacks?.resource?.map(mp => {
-          return (
-            <FormInput.CheckBox
-              name={`metricData.${mp.identifier}`}
-              key={mp.identifier}
-              label={mp.identifier || ''}
-              onChange={async val => {
-                const metricValue: { [key: string]: boolean } = {
-                  ...formik.values.metricData,
-                  [mp.identifier as string]: val.currentTarget.checked
-                }
-                onChange(metricValue)
-              }}
-            />
-          )
-        })}
-      </Container>
-      {metricPackError && <PageError message={getErrorMessage(metricPackError)} onClick={() => refetchMetricPacks()} />}
-    </>
+    <FormInput.CustomRender
+      name={'metricData'}
+      render={() => {
+        return (
+          <>
+            <Container className={css.metricPack}>
+              {metricPacks?.resource?.map((metricPack: MetricPackDTO) => {
+                return (
+                  <FormInput.CheckBox
+                    name={`metricData.${metricPack.identifier}`}
+                    key={metricPack.identifier}
+                    label={metricPack.identifier || ''}
+                    onChange={async val => {
+                      const metricValue: { [key: string]: boolean } = {
+                        ...formik.values.metricData,
+                        [metricPack.identifier as string]: val.currentTarget.checked
+                      }
+                      onChange(metricValue)
+                    }}
+                  />
+                )
+              })}
+            </Container>
+            {metricPackError && (
+              <PageError message={getErrorMessage(metricPackError)} onClick={() => refetchMetricPacks()} />
+            )}
+          </>
+        )
+      }}
+    />
   )
 }

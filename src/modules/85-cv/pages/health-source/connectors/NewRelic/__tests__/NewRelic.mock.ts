@@ -200,3 +200,132 @@ export const expectedNewRelicData = {
   },
   type: 'NewRelic'
 }
+
+export const validationData = {
+  status: 'SUCCESS',
+  data: [
+    {
+      metricPackName: 'Performance',
+      overallStatus: 'NO_DATA',
+      values: [
+        {
+          metricName: 'Calls per Minute',
+          apiResponseStatus: 'NO_DATA',
+          value: 0.0,
+          errorMessage: null
+        },
+        {
+          metricName: 'Stall Count',
+          apiResponseStatus: 'NO_DATA',
+          value: 0.0,
+          errorMessage: null
+        },
+        {
+          metricName: 'Errors per Minute',
+          apiResponseStatus: 'NO_DATA',
+          value: 0.0,
+          errorMessage: null
+        },
+        {
+          metricName: 'Average Response Time (ms)',
+          apiResponseStatus: 'NO_DATA',
+          value: 0.0,
+          errorMessage: null
+        }
+      ]
+    },
+    {
+      metricPackName: 'Errors',
+      overallStatus: 'NO_DATA',
+      values: [
+        {
+          metricName: 'Number of Errors',
+          apiResponseStatus: 'NO_DATA',
+          value: 0.0,
+          errorMessage: null
+        }
+      ]
+    }
+  ],
+  metaData: null,
+  correlationId: '4dff5c5b-fa2e-44bc-8eca-2e06485d1cab'
+}
+
+export const onPreviousPayload = {
+  connectorRef: {
+    connector: {
+      description: null,
+      identifier: 'newrelic',
+      name: 'newrelic',
+      orgIdentifier: 'default',
+      projectIdentifier: 'Demo',
+      spec: {
+        apiKeyRef: 'newrelic_secret',
+        delegateSelectors: [],
+        newRelicAccountId: '1805869',
+        url: 'https://insights-api.newrelic.com/'
+      },
+      tags: {},
+      type: 'NewRelic'
+    },
+    label: 'newrelic',
+    live: true,
+    scope: 'project',
+    value: 'newrelic'
+  },
+  environmentRef: 'AppDTestEnv',
+  healthSourceIdentifier: 'New_relic_101',
+  healthSourceList: [
+    {
+      identifier: 'New_relic_101',
+      name: 'New relic 103',
+      spec: {
+        applicationId: '107019083',
+        applicationName: 'My Application',
+        connectorRef: 'newrelic',
+        feature: 'apm',
+        metricPacks: [{ identifier: 'Performance' }]
+      },
+      type: 'NewRelic'
+    }
+  ],
+  healthSourceName: 'heath source name',
+  isEdit: true,
+  monitoredServiceRef: {
+    description: 'monitoredService',
+    identifier: 'Test_Monitored_service',
+    name: 'Test Monitored service ',
+    tags: { tag: '', tag1: '', tag2: '' }
+  },
+  product: { label: 'apm', value: 'apm' },
+  serviceRef: 'AppDService',
+  sourceType: 'NewRelic'
+}
+
+export const onSubmitPayload = {
+  identifier: 'New_relic_101',
+  name: 'heath source name',
+  spec: {
+    applicationId: '107019083',
+    applicationName: 'My Application',
+    connectorRef: 'newrelic',
+    feature: 'apm',
+    metricPacks: [{ identifier: 'Performance' }]
+  },
+  type: 'NewRelic'
+}
+
+export const validationMissingApplication = {
+  metricData: { Performance: true },
+  newRelicApplication: { label: undefined, value: undefined }
+}
+
+export const validationMissingMetricData = {
+  metricData: {},
+  newRelicApplication: { label: 'manager', value: 'manager' }
+}
+
+export const validationValidPayload = {
+  metricData: { Performance: true },
+  newRelicApplication: { label: 'manager', value: 'manager' }
+}

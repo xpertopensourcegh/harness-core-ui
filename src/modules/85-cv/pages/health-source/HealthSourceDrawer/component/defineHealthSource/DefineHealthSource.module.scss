@@ -23,6 +23,16 @@
 }
 
 .connectorField {
+  span[icon='chevron-down'] {
+    position: relative;
+    right: calc(-1 * var(--spacing-small));
+  }
+
+  div[class^='ConnectorReferenceField-module_right-status'] {
+    position: relative;
+    right: calc(-1 * var(--spacing-small));
+  }
+
   button[data-testid='cr-field-connectorRef'] {
     width: 400px !important;
   }

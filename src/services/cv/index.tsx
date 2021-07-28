@@ -722,6 +722,12 @@ export interface EnvToServicesDTO {
   services?: ServiceResponseDTO[]
 }
 
+export interface EnvironmentResponse {
+  createdAt?: number
+  environment?: EnvironmentResponseDTO
+  lastModifiedAt?: number
+}
+
 export interface EnvironmentResponseDTO {
   accountId?: string
   color?: string
@@ -2315,6 +2321,13 @@ export interface ResponseKubernetesActivityDetailsDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseListEnvironmentResponse {
+  correlationId?: string
+  data?: EnvironmentResponse[]
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseListLinkedHashMap {
   correlationId?: string
   data?: {
@@ -3393,6 +3406,7 @@ export interface StackdriverDefinition {
   metricName?: string
   metricTags?: string[]
   riskProfile?: RiskProfile
+  serviceInstanceField?: string
 }
 
 export type StackdriverLogHealthSourceSpec = HealthSourceSpec & {
@@ -7224,7 +7238,7 @@ export interface GetMonitoredServiceListEnvironmentsQueryParams {
 }
 
 export type GetMonitoredServiceListEnvironmentsProps = Omit<
-  GetProps<ResponseListString, unknown, GetMonitoredServiceListEnvironmentsQueryParams, void>,
+  GetProps<ResponseListEnvironmentResponse, unknown, GetMonitoredServiceListEnvironmentsQueryParams, void>,
   'path'
 >
 
@@ -7232,7 +7246,7 @@ export type GetMonitoredServiceListEnvironmentsProps = Omit<
  * get monitored service list environments data
  */
 export const GetMonitoredServiceListEnvironments = (props: GetMonitoredServiceListEnvironmentsProps) => (
-  <Get<ResponseListString, unknown, GetMonitoredServiceListEnvironmentsQueryParams, void>
+  <Get<ResponseListEnvironmentResponse, unknown, GetMonitoredServiceListEnvironmentsQueryParams, void>
     path={`/monitored-service/environments`}
     base={getConfig('cv/api')}
     {...props}
@@ -7240,7 +7254,7 @@ export const GetMonitoredServiceListEnvironments = (props: GetMonitoredServiceLi
 )
 
 export type UseGetMonitoredServiceListEnvironmentsProps = Omit<
-  UseGetProps<ResponseListString, unknown, GetMonitoredServiceListEnvironmentsQueryParams, void>,
+  UseGetProps<ResponseListEnvironmentResponse, unknown, GetMonitoredServiceListEnvironmentsQueryParams, void>,
   'path'
 >
 
@@ -7248,7 +7262,7 @@ export type UseGetMonitoredServiceListEnvironmentsProps = Omit<
  * get monitored service list environments data
  */
 export const useGetMonitoredServiceListEnvironments = (props: UseGetMonitoredServiceListEnvironmentsProps) =>
-  useGet<ResponseListString, unknown, GetMonitoredServiceListEnvironmentsQueryParams, void>(
+  useGet<ResponseListEnvironmentResponse, unknown, GetMonitoredServiceListEnvironmentsQueryParams, void>(
     `/monitored-service/environments`,
     { base: getConfig('cv/api'), ...props }
   )
@@ -7257,10 +7271,15 @@ export const useGetMonitoredServiceListEnvironments = (props: UseGetMonitoredSer
  * get monitored service list environments data
  */
 export const getMonitoredServiceListEnvironmentsPromise = (
-  props: GetUsingFetchProps<ResponseListString, unknown, GetMonitoredServiceListEnvironmentsQueryParams, void>,
+  props: GetUsingFetchProps<
+    ResponseListEnvironmentResponse,
+    unknown,
+    GetMonitoredServiceListEnvironmentsQueryParams,
+    void
+  >,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseListString, unknown, GetMonitoredServiceListEnvironmentsQueryParams, void>(
+  getUsingFetch<ResponseListEnvironmentResponse, unknown, GetMonitoredServiceListEnvironmentsQueryParams, void>(
     getConfig('cv/api'),
     `/monitored-service/environments`,
     props,

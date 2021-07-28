@@ -1,7 +1,7 @@
 import React from 'react'
 import { isEmpty } from 'lodash-es'
 import GCOLogsMonitoringSource from '@cv/pages/health-source/connectors/GCOLogsMonitoringSource/GCOLogsMonitoringSource'
-import AppDMonitoredSource from '@cv/pages/health-source/connectors/AppDynamics/AppDMonitoredSource'
+import AppDHealthSourceContainer from '@cv/pages/health-source/connectors/AppDynamics/AppDHealthSourceContainer'
 import { PrometheusHealthSource } from '@cv/pages/health-source/connectors/PrometheusHealthSource/PrometheusHealthSource'
 import NewrelicMonitoredSourceContainer from '@cv/pages/health-source/connectors/NewRelic/NewRelicHealthSourceContainer'
 import { Connectors } from '@connectors/constants'
@@ -21,7 +21,7 @@ export const LoadSourceByType = ({
 }): JSX.Element => {
   switch (type) {
     case HealthSourceTypes.AppDynamics:
-      return <AppDMonitoredSource data={data} onSubmit={onSubmit} />
+      return <AppDHealthSourceContainer data={data} onSubmit={onSubmit} />
     case Connectors.GCP:
       if (data?.product?.value === GCOProduct.CLOUD_LOGS) {
         return <GCOLogsMonitoringSource data={data} onSubmit={onSubmit} />

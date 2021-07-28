@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 import {
@@ -15,43 +15,42 @@ import {
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import {
   useGetAppDynamicsApplications,
-  useGetMetricPacks,
   useGetAppDynamicsTiers,
   MetricPackDTO,
   AppdynamicsValidationResponse
 } from 'services/cv'
 import { Connectors } from '@connectors/constants'
-import { PageError } from '@common/components/Page/PageError'
 import { useToaster } from '@common/components/Toaster/useToaster'
-import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { useStrings } from 'framework/strings'
 import CardWithOuterTitle from '@cv/pages/health-source/common/CardWithOuterTitle/CardWithOuterTitle'
 import DrawerFooter from '@cv/pages/health-source/common/DrawerFooter/DrawerFooter'
 import MetricsVerificationModal from '@cv/components/MetricsVerificationModal/MetricsVerificationModal'
-import { SetupSourceTabsContext } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import {
   getOptions,
-  createPayloadByConnectorType,
   getInputGroupProps,
   renderValidationStatus,
-  getMetricData,
-  validateMetrics
+  validateMetrics,
+  createMetricDataFormik
 } from '../MonitoredServiceConnector.utils'
+
+import MetricPack from '../MetrickPack'
 import { ValidationStatus } from '../MonitoredServiceConnector.constants'
 import { HealthSoureSupportedConnectorTypes } from '../MonitoredServiceConnector.constants'
-import css from './AppDMonitoredSource.module.scss'
+import css from './AppDHealthSource.module.scss'
 
 export default function AppDMonitoredSource({
   data,
-  onSubmit
+  onSubmit,
+  onPrevious
 }: {
   data: any
-  onSubmit: (formdata: any, healthSourcePayload: any) => void
+  onSubmit: (healthSourcePayload: any) => void
+  onPrevious: () => void
 }): JSX.Element {
   const { getString } = useStrings()
   const { showError, clear } = useToaster()
-  const { onPrevious } = useContext(SetupSourceTabsContext)
 
+  const [selectedMetricPacks, setSelectedMetricPacks] = useState<MetricPackDTO[]>([])
   const [validationResultData, setValidationResultData] = useState<AppdynamicsValidationResponse[]>()
   const [appDValidation, setAppDValidation] = useState<{
     status: string
@@ -63,18 +62,7 @@ export default function AppDMonitoredSource({
   const [guidMap, setGuidMap] = useState(new Map())
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const connectorIdentifier = data?.connectorRef?.connector?.identifier || data?.connectorRef
-  const {
-    data: metricPacks,
-    refetch: refetchMetricPacks,
-    error: metricPackError
-  } = useGetMetricPacks({
-    queryParams: {
-      accountId,
-      orgIdentifier,
-      projectIdentifier,
-      dataSourceType: HealthSoureSupportedConnectorTypes.APP_DYNAMICS
-    }
-  })
+
   const {
     data: applicationsData,
     loading: applicationLoading,
@@ -119,7 +107,7 @@ export default function AppDMonitoredSource({
 
   const onValidate = async (appName: string, tierName: string, metricObject: { [key: string]: any }): Promise<void> => {
     setAppDValidation({ status: ValidationStatus.IN_PROGRESS, result: [] })
-    const filteredMetricPack = metricPacks?.resource?.filter(item => metricObject[item.identifier as string])
+    const filteredMetricPack = selectedMetricPacks.filter(item => metricObject[item.identifier as string])
     const guid = Utils.randomId()
     setGuidMap(oldMap => {
       oldMap.set(tierName, guid)
@@ -158,35 +146,38 @@ export default function AppDMonitoredSource({
         HealthSoureSupportedConnectorTypes.APP_DYNAMICS,
         getString
       ),
-    [applicationsData?.data?.content]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [applicationLoading]
   )
 
   const tierOptions: SelectOption[] = useMemo(
     () => getOptions(tierLoading, tierData?.data?.content, HealthSoureSupportedConnectorTypes.APP_DYNAMICS, getString),
-    [tierData?.data?.content]
-  )
-  const metricData: { [key: string]: any } = useMemo(
-    () => getMetricData(data?.isEdit, data?.metricPacks, metricPacks?.resource as MetricPackDTO[]),
-    [data?.metricPacks, metricPacks?.resource]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [tierLoading]
   )
 
   const initPayload = {
     ...data,
     appdApplication: data?.applicationName || '',
-    appDTier: data?.tierName || '',
-    metricData
+    appDTier: data?.tierName || ''
   }
 
   useEffect(() => {
-    if (data.isEdit && appDValidation.status !== ValidationStatus.IN_PROGRESS) {
-      onValidate(data?.applicationName, data?.tierName, metricData)
+    if (data.isEdit && selectedMetricPacks.length && appDValidation.status !== ValidationStatus.IN_PROGRESS) {
+      onValidate(data?.applicationName, data?.tierName, createMetricDataFormik(data?.metricPacks))
     }
-  }, [tierLoading, data.isEdit])
+  }, [selectedMetricPacks, tierLoading, data.isEdit])
 
   return (
     <Formik
       enableReinitialize
       formName={'appDHealthSourceform'}
+      validate={values => {
+        const metricValueList = Object.values(values?.metricData).filter(val => val)
+        if (!metricValueList.length) {
+          return { metricData: getString('cv.monitoringSources.appD.validations.selectMetricPack') }
+        }
+      }}
       validationSchema={Yup.object().shape({
         appDTier: Yup.string().required(getString('cv.healthSource.connectors.AppDynamics.validation.tier')),
         appdApplication: Yup.string().required(
@@ -195,8 +186,7 @@ export default function AppDMonitoredSource({
       })}
       initialValues={initPayload}
       onSubmit={async values => {
-        const appDPayload = createPayloadByConnectorType(values, HealthSoureSupportedConnectorTypes.APP_DYNAMICS) // createAppDPayload(values)
-        await onSubmit(values, appDPayload)
+        await onSubmit(values)
       }}
     >
       {formik => {
@@ -287,29 +277,15 @@ export default function AppDMonitoredSource({
               <Layout.Vertical>
                 <Text color={Color.BLACK}>{getString('cv.healthSource.connectors.AppDynamics.metricPackLabel')}</Text>
                 <Layout.Horizontal spacing={'large'} className={css.horizontalCenterAlign}>
-                  <Container className={css.metricPack}>
-                    {metricPacks?.resource?.map(mp => (
-                      <FormInput.CheckBox
-                        name={`metricData.${mp.identifier}`}
-                        key={mp.identifier}
-                        label={mp.identifier || ''}
-                        onChange={async val => {
-                          const metricValue = {
-                            ...formik?.values?.metricData,
-                            [mp.identifier as string]: val.currentTarget.checked
-                          }
-                          await onValidate(
-                            formik?.values?.appdApplication,
-                            formik?.values?.appDTier as string,
-                            metricValue
-                          )
-                        }}
-                      />
-                    ))}
-                  </Container>
-                  {metricPackError && (
-                    <PageError message={getErrorMessage(metricPackError)} onClick={() => refetchMetricPacks()} />
-                  )}
+                  <MetricPack
+                    formik={formik}
+                    setSelectedMetricPacks={setSelectedMetricPacks}
+                    connector={HealthSoureSupportedConnectorTypes.APP_DYNAMICS}
+                    value={formik.values.metricPacks}
+                    onChange={async metricValue => {
+                      await onValidate(formik?.values?.appdApplication, formik?.values?.appDTier, metricValue)
+                    }}
+                  />
                   {validationResultData && (
                     <MetricsVerificationModal
                       verificationData={validationResultData}
@@ -321,7 +297,7 @@ export default function AppDMonitoredSource({
                 </Layout.Horizontal>
               </Layout.Vertical>
             </CardWithOuterTitle>
-            <DrawerFooter isSubmit onPrevious={() => onPrevious(formik.values)} onNext={formik.submitForm} />
+            <DrawerFooter isSubmit onPrevious={onPrevious} onNext={formik.submitForm} />
           </FormikForm>
         )
       }}

@@ -11,17 +11,16 @@ import {
   Layout,
   Icon
 } from '@wings-software/uicore'
+import { useParams } from 'react-router'
 import cx from 'classnames'
-import {
-  ConnectorSelection,
-  SelectOrCreateConnectorFieldNames
-} from '@cv/pages/onboarding/SelectOrCreateConnector/SelectOrCreateConnector'
+import { SelectOrCreateConnectorFieldNames } from '@cv/pages/onboarding/SelectOrCreateConnector/SelectOrCreateConnector'
+import { FormConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/FormConnectorReferenceField'
 import { useStrings } from 'framework/strings'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { BGColorWrapper } from '@cv/pages/health-source/common/StyledComponents'
 import CardWithOuterTitle from '@cv/pages/health-source/common/CardWithOuterTitle/CardWithOuterTitle'
 import DrawerFooter from '@cv/pages/health-source/common/DrawerFooter/DrawerFooter'
 import { SetupSourceTabsContext } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
-import { buildConnectorRef } from '@cv/pages/onboarding/CVOnBoardingUtils'
 import { HEALTHSOURCE_LIST } from './DefineHealthSource.constant'
 import { validate, getFeatureOption, getInitialValues } from './DefineHealthSource.utils'
 import css from './DefineHealthSource.module.scss'
@@ -34,6 +33,9 @@ function DefineHealthSource(props: DefineHealthSourceProps): JSX.Element {
   const { onSubmit } = props
   const { getString } = useStrings()
   const { onNext, sourceData } = useContext(SetupSourceTabsContext)
+
+  const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps & { identifier: string }>()
+
   const { isEdit } = sourceData
 
   const initialValues = useMemo(() => {
@@ -57,7 +59,7 @@ function DefineHealthSource(props: DefineHealthSourceProps): JSX.Element {
         enableReinitialize
         initialValues={initialValues}
         formName={'defineHealthsource'}
-        validationSchema={validate(isEdit, getString)}
+        validationSchema={validate(getString)}
         onSubmit={values => {
           onSubmit?.(values)
           onNext(values, { tabStatus: 'SUCCESS' })
@@ -91,6 +93,7 @@ function DefineHealthSource(props: DefineHealthSourceProps): JSX.Element {
                                 onClick={() => {
                                   formik.setFieldValue('sourceType', name)
                                   formik.setFieldValue('product', '')
+                                  formik.setFieldValue(SelectOrCreateConnectorFieldNames.CONNECTOR_REF, null)
                                 }}
                               >
                                 <Icon name={icon as IconName} size={26} height={26} />
@@ -132,26 +135,24 @@ function DefineHealthSource(props: DefineHealthSourceProps): JSX.Element {
               <CardWithOuterTitle title={getString('cv.healthSource.connectHealthSource')}>
                 <>
                   <Container margin={{ bottom: 'large' }} width={'400px'}>
-                    <Text color={Color.BLACK} font={'small'} margin={{ bottom: 'small' }}>
-                      {getString('connectors.selectConnector')}
-                    </Text>
                     <div className={css.connectorField}>
-                      <ConnectorSelection
+                      <FormConnectorReferenceField
                         width={400}
-                        connectorType={formik?.values?.sourceType}
-                        disableConnector={
-                          isEdit ? !!formik?.values?.connectorRef?.value && isEdit : !formik?.values?.sourceType
-                        }
-                        createConnectorText={getString('cv.healthSource.connectors.createConnector', {
+                        formik={formik}
+                        type={formik?.values?.sourceType}
+                        name={SelectOrCreateConnectorFieldNames.CONNECTOR_REF}
+                        accountIdentifier={accountId}
+                        projectIdentifier={projectIdentifier}
+                        orgIdentifier={orgIdentifier}
+                        placeholder={getString('cv.healthSource.connectors.selectConnector', {
                           sourceType: formik?.values?.sourceType
                         })}
-                        onSuccess={connectorInfo => {
-                          formik.setFieldValue(
-                            SelectOrCreateConnectorFieldNames.CONNECTOR_REF,
-                            buildConnectorRef(connectorInfo)?.value
-                          )
-                        }}
-                        isNewConnectorLabelVisible
+                        disabled={isEdit ? !!formik?.values?.connectorRef && isEdit : !formik?.values?.sourceType}
+                        label={
+                          <Text color={Color.BLACK} font={'small'} margin={{ bottom: 'small' }}>
+                            {getString('connectors.selectConnector')}
+                          </Text>
+                        }
                       />
                     </div>
                   </Container>

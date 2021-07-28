@@ -1,11 +1,16 @@
 import React from 'react'
 import { isNumber } from 'lodash-es'
 import Highcharts, { PointOptionsObject } from 'highcharts'
-import { Text, Layout } from '@wings-software/uicore'
+import { Text, Layout, SelectOption } from '@wings-software/uicore'
 import HighchartsReact from 'highcharts-react-official'
 import type { Renderer, CellProps } from 'react-table'
 import { useStrings, UseStringsReturn } from 'framework/strings'
-import type { MonitoredServiceListItemDTO, RiskData } from 'services/cv'
+import type {
+  EnvironmentResponse,
+  MonitoredServiceListItemDTO,
+  ResponseListEnvironmentResponse,
+  RiskData
+} from 'services/cv'
 import { getRiskColorValue } from '@common/components/HeatMap/ColorUtils'
 import type { FilterEnvInterface } from './CVMonitoredServiceListingPage.types'
 import { HistoricalTrendChartOption } from './CVMonitoredServiceListingPage.constants'
@@ -114,4 +119,20 @@ export const RenderTags: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ r
       ))}
     </Layout.Horizontal>
   )
+}
+
+export const getEnvironmentOptions = (
+  environmentList: ResponseListEnvironmentResponse,
+  allValue: string
+): SelectOption[] => {
+  const allOption: SelectOption = { label: allValue, value: allValue }
+  const environmentSelectOption: SelectOption[] =
+    environmentList?.data?.map((environmentData: EnvironmentResponse) => {
+      const { name = '', identifier = '' } = environmentData?.environment || {}
+      return {
+        label: name,
+        value: identifier
+      }
+    }) || []
+  return [allOption, ...environmentSelectOption]
 }

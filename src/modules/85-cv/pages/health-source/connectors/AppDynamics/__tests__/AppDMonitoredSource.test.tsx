@@ -6,8 +6,16 @@ import { SetupSourceTabs } from '@cv/components/CVSetupSourcesView/SetupSourceTa
 import routes from '@common/RouteDefinitions'
 import * as cvServices from 'services/cv'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
-import AppDMonitoredSource from '../AppDMonitoredSource'
-import { SourceData, AppTier, ApplicationName, MetricPack, ValidationData } from './AppDMonitoredSource.mock'
+import AppDHealthSourceContainer from '../AppDHealthSourceContainer'
+import {
+  sourceData,
+  appTier,
+  applicationName,
+  metricPack,
+  validationData,
+  onSubmitPayload,
+  onPreviousPayload
+} from './AppDMonitoredSource.mock'
 
 const createModeProps: TestWrapperProps = {
   path: routes.toCVAddMonitoringServicesSetup({ ...accountPathProps, ...projectPathProps }),
@@ -39,16 +47,16 @@ describe('Unit tests for createAppd monitoring source', () => {
   beforeAll(() => {
     jest
       .spyOn(cvServices, 'useGetAppDynamicsTiers')
-      .mockImplementation(() => ({ loading: false, error: null, data: AppTier, refetch: refetchMock } as any))
+      .mockImplementation(() => ({ loading: false, error: null, data: appTier, refetch: refetchMock } as any))
     jest
       .spyOn(cvServices, 'useGetAppDynamicsApplications')
-      .mockImplementation(() => ({ loading: false, error: null, data: ApplicationName, refetch: refetchMock } as any))
+      .mockImplementation(() => ({ loading: false, error: null, data: applicationName, refetch: refetchMock } as any))
     jest
       .spyOn(cvServices, 'useGetMetricPacks')
-      .mockImplementation(() => ({ loading: false, error: null, data: MetricPack, refetch: refetchMock } as any))
+      .mockImplementation(() => ({ loading: false, error: null, data: metricPack, refetch: refetchMock } as any))
     jest
       .spyOn(cvServices, 'getAppDynamicsMetricDataPromise')
-      .mockImplementation(() => ({ error: null, data: ValidationData.data } as any))
+      .mockImplementation(() => ({ error: null, data: validationData.data } as any))
   })
 
   test('Component renders in edit mode', async () => {
@@ -56,132 +64,17 @@ describe('Unit tests for createAppd monitoring source', () => {
     const { container, getByText } = render(
       <TestWrapper {...createModeProps}>
         <SetupSourceTabs data={{}} tabTitles={['Tab1']} determineMaxTab={() => 1}>
-          <AppDMonitoredSource data={SourceData} onSubmit={submitData} />
+          <AppDHealthSourceContainer data={sourceData} onSubmit={submitData} />
         </SetupSourceTabs>
       </TestWrapper>
     )
     await waitFor(() => expect(getByText('submit')).not.toBeNull())
     fireEvent.click(getByText('previous'))
-    await waitFor(() =>
-      expect(onPrevious).toHaveBeenCalledWith(
-        expect.objectContaining({
-          appDTier: 'manager',
-          appdApplication: 'Harness-Dev',
-          applicationName: 'Harness-Dev',
-          connectorRef: {
-            connector: {
-              description: '',
-              identifier: 'AppD_Connector_102',
-              name: 'AppD Connector 102',
-              orgIdentifier: 'default',
-              projectIdentifier: 'Demo',
-              spec: {
-                accountname: 'harness-test',
-                authType: 'UsernamePassword',
-                clientId: null,
-                clientSecretRef: null,
-                controllerUrl: 'https://harness-test.saas.appdynamics.com/controller/',
-                delegateSelectors: [],
-                passwordRef: 'AppDSecret',
-                username: 'raghu@harness.io'
-              },
-              tags: {},
-              type: 'AppDynamics'
-            },
-            label: 'AppD Connector 102',
-            live: true,
-            scope: 'project',
-            value: 'AppD_Connector_102'
-          },
-          environmentIdentifier: 'TestDemo101',
-          environmentName: 'TestDemo101',
-          healthSourceIdentifier: 'AppD_101',
-          healthSourceList: [
-            {
-              environment: 'TestDemo101',
-              identifier: 'AppD_101',
-              name: 'AppD 101',
-              service: 'TestDemo',
-              spec: {
-                applicationName: 'Harness-Dev',
-                connectorRef: 'AppD_Connector_102',
-                feature: 'Application Monitoring',
-                metricPacks: [
-                  {
-                    identifier: 'Errors'
-                  },
-                  {
-                    identifier: 'Performance'
-                  }
-                ],
-                tierName: 'manager'
-              },
-              type: 'AppDynamics'
-            },
-            {
-              environment: 'TestDemo101',
-              identifier: 'dasdsadasd',
-              name: 'dasdsadasd',
-              service: 'TestDemo',
-              spec: {
-                applicationName: 'Harness-Dev',
-                connectorRef: 'AppD_Connector',
-                feature: 'Application Monitoring',
-                metricPacks: [
-                  {
-                    identifier: 'Performance'
-                  }
-                ],
-                tierName: 'manager'
-              },
-              type: 'AppDynamics'
-            }
-          ],
-          healthSourceName: 'AppD 101',
-          isEdit: true,
-          metricData: {
-            Errors: true,
-            Performance: true
-          },
-          metricPacks: [
-            {
-              identifier: 'Errors'
-            },
-            {
-              identifier: 'Performance'
-            }
-          ],
-          monitoredServiceIdentifier: 'AppD_Test',
-          monitoringSourceName: 'AppD Test',
-          product: {
-            label: 'Application Monitoring',
-            value: 'Application Monitoring'
-          },
-          serviceIdentifier: 'TestDemo',
-          serviceName: 'TestDemo',
-          sourceType: 'AppDynamics',
-          tierName: 'manager'
-        })
-      )
-    )
+    await waitFor(() => expect(onPrevious).toHaveBeenCalledWith(expect.objectContaining(onPreviousPayload)))
 
     fireEvent.click(getByText('submit'))
     await waitFor(() =>
-      expect(submitData).toHaveBeenCalledWith(
-        expect.anything(),
-        expect.objectContaining({
-          identifier: 'AppD_101',
-          name: 'AppD 101',
-          spec: {
-            applicationName: 'Harness-Dev',
-            tierName: 'manager',
-            connectorRef: 'AppD_Connector_102',
-            feature: 'Application Monitoring',
-            metricPacks: [{ identifier: 'Errors' }, { identifier: 'Performance' }]
-          },
-          type: 'AppDynamics'
-        })
-      )
+      expect(submitData).toHaveBeenCalledWith(expect.anything(), expect.objectContaining(onSubmitPayload))
     )
 
     expect(container).toMatchSnapshot()

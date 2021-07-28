@@ -4,7 +4,7 @@ import routes from '@common/RouteDefinitions'
 import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
 import { SetupSourceTabs } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
-import { Connectors } from '@connectors/constants'
+import { sourceData } from './CustomiseHealthSource.mock'
 import CustomiseHealthSource from '../CustomiseHealthSource'
 
 const testWrapperProps: TestWrapperProps = {
@@ -24,7 +24,7 @@ jest.mock('@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs', (
   get SetupSourceTabsContext() {
     return React.createContext({
       tabsInfo: [],
-      sourceData: { sourceType: Connectors.APP_DYNAMICS },
+      sourceData,
       onNext: onNextMock,
       onPrevious: onPrevious
     })

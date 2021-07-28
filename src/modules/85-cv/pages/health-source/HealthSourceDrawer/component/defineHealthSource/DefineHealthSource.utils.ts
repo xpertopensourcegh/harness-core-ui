@@ -8,14 +8,14 @@ import { GCOProduct } from '@cv/pages/health-source/connectors/GCOLogsMonitoring
 import { PrometheusProductNames } from '@cv/pages/health-source/connectors/PrometheusHealthSource/PrometheusHealthSource.constants'
 import { NewRelicProductNames } from './DefineHealthSource.constant'
 
-export const validate = (isEdit: boolean, getString: UseStringsReturn['getString']) => {
+export const validate = (getString: UseStringsReturn['getString']) => {
   return Yup.object().shape({
     sourceType: Yup.string().trim().required(getString('cv.onboarding.selectProductScreen.validationText.source')),
     healthSourceName: Yup.string().trim().required(getString('cv.onboarding.selectProductScreen.validationText.name')),
     product: Yup.string().trim().required(getString('cv.onboarding.selectProductScreen.validationText.product')),
-    [SelectOrCreateConnectorFieldNames.CONNECTOR_REF]: isEdit
-      ? Yup.string().trim().required(getString('cv.onboarding.selectProductScreen.validationText.connectorRef'))
-      : Yup.object().required(getString('cv.onboarding.selectProductScreen.validationText.connectorRef'))
+    [SelectOrCreateConnectorFieldNames.CONNECTOR_REF]: Yup.string()
+      .nullable()
+      .required(getString('cv.onboarding.selectProductScreen.validationText.connectorRef'))
   })
 }
 

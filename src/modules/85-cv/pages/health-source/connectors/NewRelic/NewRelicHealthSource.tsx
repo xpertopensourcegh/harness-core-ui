@@ -32,6 +32,7 @@ import {
 import MetricPack from '../MetrickPack'
 import { ValidationStatus } from '../MonitoredServiceConnector.constants'
 import { HealthSoureSupportedConnectorTypes } from '../MonitoredServiceConnector.constants'
+import { validateNewRelic } from './NewRelicHealthSource.utils'
 import css from './NewrelicMonitoredSource.module.scss'
 
 const guid = Utils.randomId()
@@ -137,6 +138,7 @@ export default function NewRelicHealthSource({
     <Formik
       enableReinitialize
       formName={'newRelicHealthSourceform'}
+      validate={values => validateNewRelic(values, getString)}
       validationSchema={Yup.object().shape({
         newRelicApplication: Yup.string().required(
           getString('cv.healthSource.connectors.AppDynamics.validation.application')

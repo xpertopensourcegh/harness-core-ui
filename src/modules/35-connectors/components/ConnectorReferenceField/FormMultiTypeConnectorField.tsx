@@ -55,7 +55,6 @@ export interface MultiTypeConnectorFieldProps extends Omit<ConnectorReferenceFie
   setRefValue?: boolean
   style?: React.CSSProperties
   tooltipProps?: DataTooltipInterface
-  onSuccess?: (data: ConnectorConfigDTO) => void
 }
 export interface ConnectorReferenceDTO extends ConnectorInfoDTO {
   status: ConnectorResponse['status']
@@ -82,7 +81,6 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
     style,
     gitScope,
     multiTypeProps = {},
-    onSuccess,
     ...restProps
   } = props
   const hasError = errorCheck(name, formik)
@@ -202,25 +200,7 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
   }
 
   const { openConnectorModal } = useCreateConnectorModal({
-    onSuccess: props.onSuccess
-      ? (data?: ConnectorConfigDTO) => {
-          if (data) {
-            const scope = getScopeFromDTO<ConnectorConfigDTO>(data.connector)
-            const val = {
-              label: data.connector.name,
-              value:
-                scope === Scope.ORG || scope === Scope.ACCOUNT
-                  ? `${scope}.${data.connector.identifier}`
-                  : data.connector.identifier,
-              scope,
-              connector: data.connector,
-              live: data?.status?.status === 'SUCCESS'
-            }
-            setSelectedValue(val)
-            props?.onSuccess?.(data)
-          }
-        }
-      : onConnectorCreateSuccess,
+    onSuccess: onConnectorCreateSuccess,
     onClose: () => {
       setInlineSelection({
         selected: inlineSelection.selected,

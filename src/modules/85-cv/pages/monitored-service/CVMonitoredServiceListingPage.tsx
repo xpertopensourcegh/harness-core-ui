@@ -25,7 +25,8 @@ import {
   RenderHealthTrend,
   RenderHealthScore,
   RenderTags,
-  getFilterAndEnvironmentValue
+  getFilterAndEnvironmentValue,
+  getEnvironmentOptions
 } from './CVMonitoredServiceListingPage.utils'
 import ToggleMonitoring from './component/toggleMonitoring/ToggleMonitoring'
 
@@ -48,7 +49,7 @@ function CVMonitoredServiceListingPage(): JSX.Element {
   const [page, setPage] = useState(0)
   const [environment, setEnvironment] = useState<SelectOption>()
   // const [searchTerm, setSearchTerm] = useState('') // TODO: Need clarificaition from product
-  const { data: serviceList, loading: loadingServices } = useGetMonitoredServiceListEnvironments({
+  const { data: environmentDataList, loading: loadingServices } = useGetMonitoredServiceListEnvironments({
     queryParams: {
       accountId: params.accountId,
       projectIdentifier: params.projectIdentifier,
@@ -77,12 +78,14 @@ function CVMonitoredServiceListingPage(): JSX.Element {
 
   const onDelete = async (identifier?: string): Promise<void> => {
     try {
-      identifier && (await deleteMonitoredService(identifier))
+      if (identifier) {
+        const delPromise = deleteMonitoredService(identifier)
+        const refetchPromise = refetch()
+        await Promise.all([delPromise, refetchPromise])
+      }
       const { pageItemCount, pageIndex } = data?.data ?? {}
       if (pageIndex! > 0 && pageItemCount === 1) {
         setPage(page - 1)
-      } else {
-        refetch()
       }
     } catch (e) {
       if (e?.data) {
@@ -186,12 +189,9 @@ function CVMonitoredServiceListingPage(): JSX.Element {
               items={
                 loadingServices
                   ? [{ label: getString('loading'), value: 'loading' }]
-                  : [getString('all'), ...(serviceList?.data || [])].map(item => {
-                      return {
-                        label: item,
-                        value: item
-                      }
-                    })
+                  : environmentDataList
+                  ? getEnvironmentOptions(environmentDataList, getString('all'))
+                  : []
               }
               onChange={item => setEnvironment(item)}
             />

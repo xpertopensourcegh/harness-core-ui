@@ -1,26 +1,6 @@
-import { Connectors } from '@connectors/constants'
 import type { MonitoredServiceRef } from '@cv/pages/monitored-service/component/MonitoredService.types'
-import type { AppDynamicsHealthSourceSpec } from 'services/cv'
 import { GCOProduct } from '../connectors/GCOMetricsHealthSource/GCOMetricsHealthSource.utils'
 import type { RowData, SourceDataInterface, UpdatedHealthSource } from './HealthSourceDrawerContent.types'
-
-const getValueBySourceType = (type: string, rowData: RowData) => {
-  switch (type) {
-    case Connectors.APP_DYNAMICS:
-      return getAppDFields(rowData)
-    default:
-      break
-  }
-}
-
-export const getAppDFields = (rowData: RowData) => {
-  return {
-    product: (rowData?.spec as AppDynamicsHealthSourceSpec)?.feature,
-    applicationName: (rowData?.spec as AppDynamicsHealthSourceSpec)?.applicationName,
-    tierName: (rowData?.spec as AppDynamicsHealthSourceSpec)?.tierName,
-    metricPacks: (rowData?.spec as AppDynamicsHealthSourceSpec)?.metricPacks
-  }
-}
 
 export function addProductFieldToStackdriverMetrics(healthSources?: UpdatedHealthSource[]): void {
   for (const healthSource of healthSources || []) {
@@ -62,10 +42,8 @@ export const createHealthSourceDrawerFormData = ({
   if (isEdit) {
     if (!rowData) return sourceData
     addProductFieldToStackdriverMetrics(sourceData.healthSourceList)
-    const sourceTypeValue = getValueBySourceType(rowData?.type || '', rowData)
     sourceData = {
       ...sourceData,
-      ...sourceTypeValue,
       healthSourceName: rowData?.name,
       healthSourceIdentifier: rowData?.identifier,
       sourceType: rowData?.type,
