@@ -848,7 +848,6 @@ export interface StringsMap {
   'secrets.sshAuthFormFields.optionKeypath': string
   'secrets.sshAuthFormFields.optionPassword': string
   'secrets.stepTitleVerify': string
-  'secrets.testconnection': string
   'secrets.titleCreate': string
   'secrets.titleSelect': string
   'secrets.typeSSH': string

@@ -83,6 +83,7 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ mock }) => {
               onClick={() => {
                 setOpenPopOver(true)
               }}
+              withoutBoxShadow
             />
             {openPopOver && (
               <Menu large>
@@ -122,6 +123,7 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ mock }) => {
                 projectIdentifier
               }
             }}
+            withoutBoxShadow
           />
         </Layout.Horizontal>
         <ExpandingSearchInput
@@ -133,7 +135,7 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ mock }) => {
           width={350}
         />
       </Layout.Horizontal>
-      <Page.Body>
+      <Page.Body className={css.body}>
         {loading ? (
           <div style={{ position: 'relative', height: 'calc(100vh - 128px)' }}>
             <PageSpinner />
