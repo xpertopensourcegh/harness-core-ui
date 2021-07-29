@@ -2197,6 +2197,7 @@ export interface StringsMap {
   'templatesLibrary.openEditTemplate': string
   'templatesLibrary.previewTemplate': string
   'templatesLibrary.referencedBy': string
+  'templatesLibrary.selectTemplateToPreview': string
   'templatesLibrary.templateInputs': string
   'templatesLibrary.templateSettings': string
   'templatesLibrary.useTemplate': string
