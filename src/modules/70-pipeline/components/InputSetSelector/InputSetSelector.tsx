@@ -25,7 +25,7 @@ import { useStrings } from 'framework/strings'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import css from './InputSetSelector.module.scss'
 
-interface InputSetValue extends SelectOption {
+export interface InputSetValue extends SelectOption {
   type: InputSetSummaryResponse['inputSetType']
   gitDetails?: EntityGitDetails
 }
