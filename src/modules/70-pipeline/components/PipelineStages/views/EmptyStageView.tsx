@@ -9,7 +9,7 @@ const EmptyStageView = (): React.ReactElement => {
   const { getString } = useStrings()
 
   return (
-    <div style={{ margin: 'auto' }}>
+    <div className={css.emptyStageView}>
       <Icon
         name="main-close"
         size={12}

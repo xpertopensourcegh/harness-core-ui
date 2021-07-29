@@ -6,6 +6,7 @@ declare const styles: {
   readonly createNewCards: string
   readonly stageTypeSection: string
   readonly hoverStageSection: string
+  readonly emptyStageView: string
   readonly cardNew: string
   readonly cardTitle: string
   readonly selected: string
