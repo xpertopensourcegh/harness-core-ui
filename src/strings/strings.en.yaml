@@ -810,7 +810,6 @@ delegate:
   delegateConfiguration: 'Delegate Configuration'
   CONFIGURATION_NAME: 'Delegate Configuration Name'
   Scope: 'Scope'
-  ScopeDescription: 'Limit the delegate to perform tasks related to the following environments'
   Init_Script: 'Initialization Script'
   instancesCount: '({{count}} of {{total}} instances)'
   deleteDelegate: 'Delete Delegate'

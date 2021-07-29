@@ -4236,10 +4236,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'delegate.ScopeDescription': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'delegate.cardData.amazonECS.icon': string
   /**
    * @deprecated migrate this string to module level file
