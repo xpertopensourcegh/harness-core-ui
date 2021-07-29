@@ -3259,8 +3259,6 @@ export interface StringsMap {
   'cv.healthSource.serviceLabel': string
   'cv.healthSource.table.environmentMapping': string
   'cv.healthSource.table.serviceMapping': string
-  'cv.healthSource.table.type.logs': string
-  'cv.healthSource.table.type.metrics': string
   'cv.hostNamePlaceholder': string
   'cv.initiated': string
   'cv.jobNamePlaceholder': string
