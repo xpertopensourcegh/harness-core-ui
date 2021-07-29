@@ -11,7 +11,7 @@ newDelegateConfigWizard:
 delegateInstances: ' ({{current}} of {{total}} instances)'
 downloadYAMLFile: 'Download YAML file'
 replicaText: 'Replicas='
-totalMemUnit: 'GB'
+totalMemUnit: ' GB'
 searchDelegateName: 'Search Delegate by Name'
 delegatePermissions:
   title: 'Delegate Permissions'
