@@ -224,7 +224,7 @@ export const FetchperspectiveGridDocument = gql`
           clusterType
           costTrend
           cpuBillingAmount
-          cpuIdleCost
+          cpuActualIdleCost
           cpuUnallocatedCost
           efficiencyScore
           efficiencyScoreTrendPercentage
@@ -237,7 +237,7 @@ export const FetchperspectiveGridDocument = gql`
           maxCpuUtilization
           maxMemoryUtilization
           memoryBillingAmount
-          memoryIdleCost
+          memoryActualIdleCost
           memoryUnallocatedCost
           name
           namespace
@@ -246,6 +246,7 @@ export const FetchperspectiveGridDocument = gql`
           region
           serviceId
           serviceName
+          storageCost
           storageActualIdleCost
           storageRequest
           storageUnallocatedCost
@@ -256,6 +257,53 @@ export const FetchperspectiveGridDocument = gql`
           unallocatedCost
           workloadName
           workloadType
+        }
+        instanceDetails @include(if: $isClusterOnly) {
+          name
+          id
+          nodeId
+          clusterName
+          clusterId
+          nodePoolName
+          cloudProviderInstanceId
+          podCapacity
+          totalCost
+          idleCost
+          systemCost
+          unallocatedCost
+          cpuAllocatable
+          memoryAllocatable
+          instanceCategory
+          machineType
+          createTime
+          deleteTime
+          memoryBillingAmount
+          cpuBillingAmount
+          memoryUnallocatedCost
+          cpuUnallocatedCost
+          memoryIdleCost
+          cpuIdleCost
+        }
+        storageDetails @include(if: $isClusterOnly) {
+          id
+          instanceId
+          instanceName
+          claimName
+          claimNamespace
+          clusterName
+          clusterId
+          storageClass
+          volumeType
+          cloudProvider
+          region
+          storageCost
+          storageActualIdleCost
+          storageUnallocatedCost
+          capacity
+          storageRequest
+          storageUtilizationValue
+          createTime
+          deleteTime
         }
       }
     }
@@ -894,7 +942,7 @@ export type FetchperspectiveGridQuery = {
             clusterType: Maybe<string>
             costTrend: Maybe<number>
             cpuBillingAmount: Maybe<number>
-            cpuIdleCost: Maybe<number>
+            cpuActualIdleCost: Maybe<number>
             cpuUnallocatedCost: Maybe<number>
             efficiencyScore: number
             efficiencyScoreTrendPercentage: number
@@ -907,7 +955,7 @@ export type FetchperspectiveGridQuery = {
             maxCpuUtilization: Maybe<number>
             maxMemoryUtilization: Maybe<number>
             memoryBillingAmount: Maybe<number>
-            memoryIdleCost: Maybe<number>
+            memoryActualIdleCost: Maybe<number>
             memoryUnallocatedCost: Maybe<number>
             name: Maybe<string>
             namespace: Maybe<string>
@@ -916,6 +964,7 @@ export type FetchperspectiveGridQuery = {
             region: Maybe<string>
             serviceId: Maybe<string>
             serviceName: Maybe<string>
+            storageCost: Maybe<number>
             storageActualIdleCost: Maybe<number>
             storageRequest: Maybe<number>
             storageUnallocatedCost: Maybe<number>
@@ -926,6 +975,55 @@ export type FetchperspectiveGridQuery = {
             unallocatedCost: Maybe<number>
             workloadName: Maybe<string>
             workloadType: Maybe<string>
+          }>
+          instanceDetails?: Maybe<{
+            __typename?: 'InstanceDetails'
+            name: Maybe<string>
+            id: Maybe<string>
+            nodeId: Maybe<string>
+            clusterName: Maybe<string>
+            clusterId: Maybe<string>
+            nodePoolName: Maybe<string>
+            cloudProviderInstanceId: Maybe<string>
+            podCapacity: Maybe<string>
+            totalCost: number
+            idleCost: number
+            systemCost: number
+            unallocatedCost: number
+            cpuAllocatable: number
+            memoryAllocatable: number
+            instanceCategory: Maybe<string>
+            machineType: Maybe<string>
+            createTime: any
+            deleteTime: any
+            memoryBillingAmount: number
+            cpuBillingAmount: number
+            memoryUnallocatedCost: number
+            cpuUnallocatedCost: number
+            memoryIdleCost: number
+            cpuIdleCost: number
+          }>
+          storageDetails?: Maybe<{
+            __typename?: 'StorageDetails'
+            id: Maybe<string>
+            instanceId: Maybe<string>
+            instanceName: Maybe<string>
+            claimName: Maybe<string>
+            claimNamespace: Maybe<string>
+            clusterName: Maybe<string>
+            clusterId: Maybe<string>
+            storageClass: Maybe<string>
+            volumeType: Maybe<string>
+            cloudProvider: Maybe<string>
+            region: Maybe<string>
+            storageCost: number
+            storageActualIdleCost: number
+            storageUnallocatedCost: number
+            capacity: number
+            storageRequest: number
+            storageUtilizationValue: number
+            createTime: any
+            deleteTime: any
           }>
         }>
       >

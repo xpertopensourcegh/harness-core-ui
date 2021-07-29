@@ -77,7 +77,7 @@ const OverviewPage = () => {
   const { data: forecastedCostData, fetching: forecastedCostFetching } = forecastedCostResult
   const forecastedCost = (forecastedCostData?.perspectiveForecastCost?.cost || {}) as StatsInfo
 
-  const [ccmMetaResult] = useFetchCcmMetaDataQuery()
+  const [ccmMetaResult, refetchCCMMetaData] = useFetchCcmMetaDataQuery()
   const { data: ccmData, fetching: fetchingCCMMetaData } = ccmMetaResult
   const {
     cloudDataPresent,
@@ -148,7 +148,13 @@ const OverviewPage = () => {
               {/* <div>PUT AUTOSTOPPING COMPONENT HERE</div> */}
             </div>
           </div>
-          <OverviewAddCluster />
+          {!clusterDataPresent && (
+            <OverviewAddCluster
+              onAddClusterSuccess={() => {
+                refetchCCMMetaData({ requestPolicy: 'network-only' })
+              }}
+            />
+          )}
         </Container>
       </Page.Body>
     </Container>
