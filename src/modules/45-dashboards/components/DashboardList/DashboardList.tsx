@@ -21,15 +21,16 @@ const HeaderFilterComponent: React.FC<Record<string, any>> = () => {
   const { getString } = useStrings()
   return (
     <Layout.Horizontal margin={{ left: 'small' }}>
-      <div className={css.expandSearch}>
-        <ExpandingSearchInput
-          placeholder={getString('search')}
-          throttle={200}
-          onChange={() => {
-            /* handle input change logic */
-          }}
-        />
-      </div>
+      <ExpandingSearchInput
+        flip
+        width={200}
+        placeholder={getString('search')}
+        throttle={200}
+        className={css.expandSearch}
+        onChange={() => {
+          /* handle input change logic */
+        }}
+      />
       <FilterSelector<any>
         onFilterBtnClick={noop}
         onFilterSelect={noop}

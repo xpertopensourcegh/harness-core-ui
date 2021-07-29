@@ -195,7 +195,7 @@ describe('Test Pipeline Deployment list', () => {
 
     await waitFor(() => queryByAttribute('class', document.body, 'bp3-popover-content'))
     const option1 = await findByTextGlobal(document.body, 'pipeline.executionFilters.labels.Failed', {
-      selector: '.bp3-fill > span'
+      selector: '[class*="menuItem"]'
     })
 
     fireEvent.click(option1)
@@ -230,10 +230,7 @@ describe('Test Pipeline Deployment list', () => {
       }
     })
 
-    fireEvent.click(select)
-
-    await waitFor(() => queryByAttribute('class', document.body, 'bp3-popover-content'))
-    const option2 = await findByTextGlobal(document.body, 'Clear Selection', { selector: '.bp3-fill' })
+    const option2 = select.getElementsByTagName('button')[0]
 
     fireEvent.click(option2)
 
@@ -280,7 +277,7 @@ describe('Test Pipeline Deployment list', () => {
 
     await waitFor(() => queryByAttribute('class', document.body, 'bp3-popover-content'))
 
-    const option1 = await findByTextGlobal(document.body, 'pipeline1', { selector: '.bp3-fill' })
+    const option1 = await findByTextGlobal(document.body, 'pipeline1', { selector: '[class*="menuItem"]' })
 
     fireEvent.click(option1)
 
@@ -314,10 +311,7 @@ describe('Test Pipeline Deployment list', () => {
       }
     })
 
-    fireEvent.click(select)
-
-    await waitFor(() => queryByAttribute('class', document.body, 'bp3-popover-content'))
-    const option2 = await findByTextGlobal(document.body, 'Clear Selection', { selector: '.bp3-fill' })
+    const option2 = select.getElementsByTagName('button')[0]
 
     fireEvent.click(option2)
 

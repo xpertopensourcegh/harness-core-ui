@@ -2,11 +2,12 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { Checkbox, Color } from '@wings-software/uicore'
 
+import cx from 'classnames'
 import { String, useStrings } from 'framework/strings'
 import type { PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 
 import StatusSelect from '@pipeline/components/StatusSelect/StatusSelect'
-import PipelineSelect from '@pipeline/components/PipelineSelect/PipelineSelect'
+import NewPipelineSelect from '@pipeline/components/NewPipelineSelect/NewPipelineSelect'
 import { useUpdateQueryParams } from '@common/hooks'
 import { Page } from '@common/exports'
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
@@ -68,7 +69,7 @@ export function PipelineDeploymentListHeader(props: PipelineDeploymentListHeader
     <Page.SubHeader className={css.main}>
       <div className={css.lhs}>
         <RbacButton
-          icon="run-pipeline"
+          className={css.runButton}
           intent="primary"
           onClick={props.onRunPipeline}
           permission={{
@@ -82,22 +83,22 @@ export function PipelineDeploymentListHeader(props: PipelineDeploymentListHeader
             }
           }}
         >
-          <String className={css.runText} stringID="runPipelineText" />
+          <String stringID="runPipelineText" />
         </RbacButton>
         <Checkbox
-          label={getString(module === 'ci' ? 'pipeline.myBuildsText' : 'pipeline.myDeploymentsText')}
-          background={Color.PRIMARY_BG}
+          font={{ size: 'small', weight: 'semi-bold' }}
           color={Color.GREY_800}
-          padding={{ top: 'small', bottom: 'small', left: 'xxlarge', right: 'medium' }}
+          label={getString(module === 'ci' ? 'pipeline.myBuildsText' : 'pipeline.myDeploymentsText')}
           checked={queryParams.myDeployments}
           onChange={e => handleMyDeployments(e.currentTarget.checked)}
-          border={{ color: Color.GREY_200, width: 1, style: 'solid' }}
-          height={'32px'}
-          className={css.myDeploymentsCheckbox}
+          className={cx(css.myDeploymentsCheckbox, { [css.selected]: queryParams.myDeployments })}
         />
         <StatusSelect value={queryParams.status as ExecutionStatus} onSelect={handleStatusChange} />
         {pipelineIdentifier ? null : (
-          <PipelineSelect selectedPipeline={queryParams.pipelineIdentifier} onPipelineSelect={handlePipelineChange} />
+          <NewPipelineSelect
+            selectedPipeline={queryParams.pipelineIdentifier}
+            onPipelineSelect={handlePipelineChange}
+          />
         )}
       </div>
       <div className={css.rhs}>
