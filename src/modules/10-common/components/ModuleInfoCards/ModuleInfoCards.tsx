@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import type { StringsMap } from 'stringTypes'
-
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import css from './ModuleInfoCards.module.scss'
 interface InfoCards {
   [key: string]: Array<ModuleInfoCard>
@@ -43,7 +43,11 @@ const INFO_CARD_STYLES: { [key: string]: string } = {
   cd: css.cd
 }
 
-export const getInfoCardsProps = (accountId: string): InfoCards => {
+export const getInfoCardsProps = (
+  accountId: string,
+  GTM_CCM_ENABLED?: boolean,
+  GTM_CD_ENABLED?: boolean
+): InfoCards => {
   return {
     ce: [
       {
@@ -60,7 +64,7 @@ export const getInfoCardsProps = (accountId: string): InfoCards => {
         subtitle: 'common.ce.optimization',
         description: 'common.purpose.ce.optimizationCard.description',
         isNgRoute: true,
-        disabled: true
+        disabled: !GTM_CCM_ENABLED
       }
     ],
     cd: [
@@ -110,7 +114,7 @@ export const getInfoCardsProps = (accountId: string): InfoCards => {
         title: 'common.purpose.cd.newGen.title',
         description: 'common.purpose.cd.newGen.description',
         isNgRoute: true,
-        disabled: true,
+        disabled: !GTM_CD_ENABLED,
         footer: {
           title: 'common.purpose.cd.supportedStack',
           icons: [
@@ -180,6 +184,7 @@ const getCardKey = ({ key1, key2 }: { key1?: string; key2?: string }): string =>
 const ModuleInfoCards: React.FC<ModuleInfoCardsProps> = props => {
   const { module, selectedInfoCard, setSelectedInfoCard, style } = props
   const { getString } = useStrings()
+  const { GTM_CCM_ENABLED, GTM_CD_ENABLED } = useFeatureFlags()
 
   const { accountId } = useParams<{
     accountId: string
@@ -243,7 +248,7 @@ const ModuleInfoCards: React.FC<ModuleInfoCardsProps> = props => {
     )
   }
 
-  const infoCardProps = getInfoCardsProps(accountId)[module]
+  const infoCardProps = getInfoCardsProps(accountId, GTM_CCM_ENABLED, GTM_CD_ENABLED)[module]
 
   const infoCardStyle = INFO_CARD_STYLES[module]
 

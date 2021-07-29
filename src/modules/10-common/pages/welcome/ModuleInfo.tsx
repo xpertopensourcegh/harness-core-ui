@@ -9,6 +9,7 @@ import { Experiences } from '@common/constants/Utils'
 import type { StringsMap } from 'stringTypes'
 import { useUpdateAccountDefaultExperienceNG } from 'services/cd-ng'
 import { Category, PurposeActions } from '@common/constants/TrackingConstants'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import ModuleCard from './ModuleCard'
 import ModuleInfoCards, { ModuleInfoCard, getInfoCardsProps } from '../../components/ModuleInfoCards/ModuleInfoCards'
 import css from './WelcomePage.module.scss'
@@ -34,6 +35,7 @@ const ModuleInfo: React.FC<ModuleInfoProps> = ({ setStep, moduleProps }) => {
   const [selectedInfoCard, setSelectedInfoCard] = useState<ModuleInfoCard>()
   const { getString } = useStrings()
   const { trackEvent } = useTelemetry()
+  const { GTM_CCM_ENABLED, GTM_CD_ENABLED } = useFeatureFlags()
 
   const { accountId } = useParams<{
     accountId: string
@@ -133,13 +135,13 @@ const ModuleInfo: React.FC<ModuleInfoProps> = ({ setStep, moduleProps }) => {
   }
 
   useEffect(() => {
-    const infoCardProps = getInfoCardsProps(accountId)[moduleProps.module]
+    const infoCardProps = getInfoCardsProps(accountId, GTM_CCM_ENABLED, GTM_CD_ENABLED)[moduleProps.module]
 
     // Automatically select the first info card if none are selected
     if (!selectedInfoCard && infoCardProps) {
       setSelectedInfoCard(infoCardProps[0])
     }
-  }, [moduleProps, selectedInfoCard, accountId])
+  }, [moduleProps, selectedInfoCard, accountId, GTM_CCM_ENABLED, GTM_CD_ENABLED])
 
   return (
     <Layout.Horizontal className={css.moduleInfo}>
