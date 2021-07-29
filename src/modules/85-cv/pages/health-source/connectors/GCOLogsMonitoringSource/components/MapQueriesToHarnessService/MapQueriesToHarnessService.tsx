@@ -35,7 +35,7 @@ export function MapQueriesToHarnessService(props: MapQueriesToHarnessServiceProp
     selectedMetricIndex: Array.from(mappedMetrics.keys()).findIndex(metric => metric === selectedMetric)
   })
 
-  const connectorIdentifier = sourceData?.connectorRef?.value
+  const connectorIdentifier = sourceData?.connectorRef
   const [rerenderKey, setRerenderKey] = useState('')
 
   return (
