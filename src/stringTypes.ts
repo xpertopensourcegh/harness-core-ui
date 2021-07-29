@@ -735,7 +735,6 @@ export interface StringsMap {
   'authSettings.yourAccountWillBeLockedOut': string
   'delegates.delSetup': string
   'delegates.delegateDeleted': string
-  'delegates.delegateForceDeleted': string
   'delegates.delegateIdentifier': string
   'delegates.delegateInstances': string
   'delegates.delegateNameRegexIssue': string
@@ -783,7 +782,6 @@ export interface StringsMap {
   'delegates.delegatePermissions.title': string
   'delegates.delegateSizeUpTo': string
   'delegates.downloadYAMLFile': string
-  'delegates.forceDelete': string
   'delegates.harnessDocs': string
   'delegates.lastUpdated': string
   'delegates.newDelegateConfigWizard.matchAllEnvs': string
@@ -797,7 +795,6 @@ export interface StringsMap {
   'delegates.newDelegateConfigWizard.successMessage': string
   'delegates.openTroubleshooter': string
   'delegates.permissionRequired': string
-  'delegates.questionDeleteDelegate': string
   'delegates.questionForceDeleteDelegate': string
   'delegates.replicaText': string
   'delegates.reviewYAML': string
