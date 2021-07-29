@@ -1,4 +1,3 @@
-import type { Scope } from '@common/interfaces/SecretsInterface'
 import type { SelectOption } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
 import type { StackdriverDashboardDTO } from 'services/cv'
 import type { UpdatedHealthSource } from '../../HealthSourceDrawer/HealthSourceDrawerContent.types'
@@ -25,11 +24,7 @@ export interface GCOMetricSetupSource {
   healthSourceIdentifier: string
   healthSourceName: string
   product: SelectOption
-  connectorRef?: {
-    label: string
-    scope: Scope
-    value: string
-  }
+  connectorRef?: string
 }
 
 export interface GCOMetricsHealthSourceProps {

@@ -54,7 +54,7 @@ export function PrometheusHealthSource(props: PrometheusHealthSourceProps): JSX.
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps & { identifier: string }>()
   const { onPrevious } = useContext(SetupSourceTabsContext)
   const { getString } = useStrings()
-  const connectorIdentifier = sourceData?.connectorRef?.value || ''
+  const connectorIdentifier = sourceData?.connectorRef || ''
   const [labelNameTracingId, metricNameTracingId] = useMemo(() => [Utils.randomId(), Utils.randomId()], [])
   const metricPackResponse = useGetMetricPacks({
     queryParams: { projectIdentifier, orgIdentifier, accountId, dataSourceType: 'PROMETHEUS' }

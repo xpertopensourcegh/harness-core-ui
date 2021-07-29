@@ -99,7 +99,7 @@ export function transformGCOMetricSetupSourceToGCOHealthSource(setupSource: GCOM
     identifier: setupSource.healthSourceIdentifier,
     name: setupSource.healthSourceName,
     spec: {
-      connectorRef: setupSource.connectorRef?.value,
+      connectorRef: setupSource.connectorRef,
       feature: GCOProduct.CLOUD_METRICS,
       metricDefinitions: []
     }

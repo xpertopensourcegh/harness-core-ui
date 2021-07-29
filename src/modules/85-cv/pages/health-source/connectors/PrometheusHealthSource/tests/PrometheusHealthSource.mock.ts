@@ -40,21 +40,6 @@ export const MockManualQueryData = {
   healthSourceName: 'prometheus',
   healthSourceIdentifier: 'prometheus',
   sourceType: 'Prometheus',
-  connectorRef: {
-    label: 'prometheusConnector',
-    value: 'prometheusConnector',
-    scope: 'project',
-    live: true,
-    connector: {
-      name: 'prometheusConnector',
-      identifier: 'prometheusConnector',
-      description: null,
-      orgIdentifier: 'the_monopoly',
-      projectIdentifier: 'conglomerate',
-      tags: {},
-      type: 'Prometheus',
-      spec: { url: 'http://35.226.185.156:8080/', delegateSelectors: [] }
-    }
-  },
+  connectorRef: 'prometheusConnector',
   product: {}
 }

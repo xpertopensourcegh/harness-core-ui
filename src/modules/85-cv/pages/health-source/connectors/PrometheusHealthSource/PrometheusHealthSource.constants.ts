@@ -1,5 +1,4 @@
 import type { SelectOption, MultiSelectOption } from '@wings-software/uicore'
-import type { Scope } from '@common/interfaces/SecretsInterface'
 
 export const PrometheusMonitoringSourceFieldNames = {
   METRIC_NAME: 'metricName',
@@ -24,11 +23,7 @@ export interface PrometheusSetupSource {
   healthSourceIdentifier: string
   healthSourceName: string
   product: SelectOption
-  connectorRef?: {
-    label: string
-    scope: Scope
-    value: string
-  }
+  connectorRef?: string
 }
 
 export type MapPrometheusQueryToService = {

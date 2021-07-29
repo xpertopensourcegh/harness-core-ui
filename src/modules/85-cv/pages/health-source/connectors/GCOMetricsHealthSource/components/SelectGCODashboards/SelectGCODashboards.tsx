@@ -76,13 +76,13 @@ export function SelectGCODashboards(): JSX.Element {
       accountId,
       projectIdentifier,
       orgIdentifier,
-      connectorIdentifier: (propsData?.connectorRef?.value as string) || '',
+      connectorIdentifier: (propsData?.connectorRef as string) || '',
       pageSize: TOTAL_ITEMS_PER_PAGE,
       offset: pageOffset,
       tracingId: Utils.randomId(),
       filter: filteredDashboard
     }),
-    [filteredDashboard, propsData?.connectorRef?.value, pageOffset, accountId, projectIdentifier, orgIdentifier]
+    [filteredDashboard, propsData?.connectorRef, pageOffset, accountId, projectIdentifier, orgIdentifier]
   )
   const {
     data,

@@ -185,9 +185,9 @@ export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.
       projectIdentifier,
       accountId,
       tracingId: Utils.randomId(),
-      connectorIdentifier: data.connectorRef?.value as string
+      connectorIdentifier: data.connectorRef as string
     }),
-    [data?.connectorRef?.value, projectIdentifier, orgIdentifier, accountId]
+    [data?.connectorRef, projectIdentifier, orgIdentifier, accountId]
   )
   const { mutate, cancel } = useGetStackdriverSampleData({
     queryParams
@@ -404,7 +404,7 @@ export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.
             }
             leftPanelContent={
               <GCODashboardWidgetMetricNav
-                connectorIdentifier={data.connectorRef?.value as string}
+                connectorIdentifier={data.connectorRef as string}
                 manuallyInputQueries={getManuallyCreatedQueries(updatedData)}
                 gcoDashboards={data.selectedDashboards}
                 showSpinnerOnLoad={!selectedMetric}

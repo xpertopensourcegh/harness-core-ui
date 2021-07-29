@@ -258,7 +258,7 @@ export function transformPrometheusSetupSourceToHealthSource(setupSource: Promet
     identifier: setupSource.healthSourceIdentifier,
     name: setupSource.healthSourceName,
     spec: {
-      connectorRef: setupSource.connectorRef?.value,
+      connectorRef: setupSource?.connectorRef,
       feature: PrometheusProductNames.APM,
       metricDefinitions: []
     }
