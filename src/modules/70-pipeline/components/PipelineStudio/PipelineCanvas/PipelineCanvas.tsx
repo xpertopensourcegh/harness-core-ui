@@ -671,9 +671,13 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
           <Layout.Horizontal spacing="small" className={css.repoDetails}>
             <Icon name="repository" margin={{ left: 'medium' }}></Icon>
             {pipelineIdentifier === DefaultNewPipelineId && !loadingRepos ? (
-              <Text>{getRepoDetailsByIndentifier(gitDetails?.repoIdentifier, gitSyncRepos)?.name || ''}</Text>
+              <Text className={css.repoName} lineClamp={1}>
+                {getRepoDetailsByIndentifier(gitDetails?.repoIdentifier, gitSyncRepos)?.name || ''}
+              </Text>
             ) : (
-              <Text lineClamp={1} width="200px">{`${gitDetails?.rootFolder || ''}${gitDetails?.filePath || ''}`}</Text>
+              <Text className={css.folderName} lineClamp={1}>{`${gitDetails?.rootFolder || ''}${
+                gitDetails?.filePath || ''
+              }`}</Text>
             )}
           </Layout.Horizontal>
 
@@ -681,7 +685,9 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
             {pipelineIdentifier === DefaultNewPipelineId || isReadonly ? (
               <>
                 <Icon name="git-new-branch" margin={{ left: 'medium' }}></Icon>
-                <Text>{gitDetails?.branch}</Text>
+                <Text className={css.branchName} lineClamp={1}>
+                  {gitDetails?.branch}
+                </Text>
               </>
             ) : (
               <GitFilters
@@ -766,7 +772,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
             <div className={css.pipelineNameContainer}>
               <div>
                 <Icon className={css.pipelineIcon} padding={{ right: 'small' }} name="pipeline" size={32} />
-                <Text className={css.pipelineName} max-width="100%" lineClamp={1}>
+                <Text className={css.pipelineName} lineClamp={1}>
                   {pipeline?.name}
                 </Text>
                 {!isEmpty(pipeline?.tags) && pipeline.tags && <TagsPopover tags={pipeline.tags} />}
@@ -784,15 +790,15 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
 
               {isGitSyncEnabled && <RenderGitDetails />}
             </div>
-
-            <VisualYamlToggle
-              initialSelectedView={isYaml ? SelectedView.YAML : SelectedView.VISUAL}
-              beforeOnChange={(nextMode, callback) => {
-                const shoudSwitchcMode = handleViewChange(nextMode)
-                shoudSwitchcMode && callback(nextMode)
-              }}
-            />
           </div>
+          <VisualYamlToggle
+            className={css.visualYamlToggle}
+            initialSelectedView={isYaml ? SelectedView.YAML : SelectedView.VISUAL}
+            beforeOnChange={(nextMode, callback) => {
+              const shoudSwitchcMode = handleViewChange(nextMode)
+              shoudSwitchcMode && callback(nextMode)
+            }}
+          />
           <div>
             <div className={css.savePublishContainer}>
               {isReadonly && (

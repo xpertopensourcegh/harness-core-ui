@@ -24,7 +24,6 @@
 }
 
 .breadcrumbsMenu {
-  width: 55%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -72,33 +71,14 @@
       border-color: transparent transparent #fff transparent;
     }
   }
-
-  .optionBtns {
-    display: inline-block;
-    font-size: var(--font-size-xsmall);
-    line-height: 14px;
-    width: 136px;
-
-    .item {
-      display: inline-block;
-      padding: 4px 8px;
-      border-radius: 10px;
-      margin: 2px;
-      cursor: pointer;
-      border: solid 1px var(--primary-9);
-      color: var(--primary-9);
-      background: #fff;
-      width: 55px;
-    }
-
-    .selected {
-      font-weight: bold;
-      background-color: var(--primary-9);
-      color: var(--white);
-      cursor: default;
-    }
-  }
 }
+
+.visualYamlToggle {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+}
+
 .savePublishContainer {
   text-align: right;
   padding: 8px 0px;
@@ -122,29 +102,30 @@
   }
 
   .saveButton {
-    width: 73px !important;
+    width: 70px !important;
     height: 24px !important;
     border-radius: 4px;
     font-size: 13px !important;
   }
 
   .tagRender {
-    color: var(--orange-700);
+    color: var(--orange-600);
     margin-right: var(--spacing-xlarge);
     font-size: var(--font-size-small);
+    line-height: 15px;
     &::before {
       content: '';
       width: 10px;
       height: 10px;
       border-radius: 100%;
-      background: var(--orange-700);
+      background: var(--orange-600);
       display: inline-block;
       margin: 0 4px;
     }
   }
 
   .runPipelineBtn {
-    width: 66px !important;
+    width: 64px !important;
     height: 24px !important;
     border-radius: 4px;
     font-size: 13px !important;
@@ -153,7 +134,7 @@
     margin-left: var(--spacing-3) !important;
   }
   .discardBtn {
-    width: 84px !important;
+    width: 78px !important;
     height: 24px !important;
     border-radius: 4px;
     font-size: 13px !important;
@@ -173,9 +154,14 @@
   }
   .pipelineName {
     display: inline-flex;
-    font-size: var(--font-size-medium) !important;
-    color: var(--grey-900) !important;
+    font-size: 20px !important;
+    font-weight: 600 !important;
+    color: var(--grey-700) !important;
     margin-right: var(--spacing-small) !important;
+    line-height: 28px !important;
+    overflow: hidden;
+    min-width: 100px;
+    max-width: 125px;
   }
   .pipelineIcon {
     vertical-align: middle;
@@ -187,11 +173,26 @@
     align-items: center;
     .repoDetails {
       color: var(--grey-900) !important;
+      .repoName {
+        min-width: 100px;
+        max-width: 125px;
+        overflow: hidden;
+      }
+      .folderName {
+        min-width: 150px;
+        max-width: 200px;
+        overflow: hidden;
+      }
     }
     .branchDetails {
       color: var(--grey-900) !important;
+      .branchName {
+        max-width: 175px;
+        min-width: 150px;
+        overflow: hidden;
+      }
       .branchSelector {
-        width: 150px;
+        width: 125px;
         input {
           border: none;
           color: var(--grey-900);

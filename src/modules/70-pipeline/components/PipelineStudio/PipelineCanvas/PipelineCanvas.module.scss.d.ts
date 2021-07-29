@@ -8,9 +8,7 @@ declare const styles: {
   readonly pipelineStudioTitleContainer: string
   readonly pipelineStudioTitle: string
   readonly rectangle: string
-  readonly optionBtns: string
-  readonly item: string
-  readonly selected: string
+  readonly visualYamlToggle: string
   readonly savePublishContainer: string
   readonly readonlyAccessTag: string
   readonly readonlyAccessText: string
@@ -23,7 +21,10 @@ declare const styles: {
   readonly pipelineIcon: string
   readonly gitDetails: string
   readonly repoDetails: string
+  readonly repoName: string
+  readonly folderName: string
   readonly branchDetails: string
+  readonly branchName: string
   readonly branchSelector: string
   readonly runPipelineDialog: string
   readonly modalCard: string
