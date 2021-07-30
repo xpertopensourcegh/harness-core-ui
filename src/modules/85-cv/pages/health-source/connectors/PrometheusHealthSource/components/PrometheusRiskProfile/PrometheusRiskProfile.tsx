@@ -4,6 +4,7 @@ import { Container, FormInput, SelectOption, Text } from '@wings-software/uicore
 import { useToaster } from '@common/exports'
 import { useStrings } from 'framework/strings'
 import type { useGetMetricPacks, useGetLabelNames } from 'services/cv'
+import { ServiceInstanceLabel } from '@cv/pages/health-source/common/ServiceInstanceLabel/ServiceInstanceLabel'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { getRiskCategoryOptions } from '../../../GCOMetricsHealthSource/GCOMetricsHealthSource.utils'
 import { PrometheusMonitoringSourceFieldNames } from '../../PrometheusHealthSource.constants'
@@ -73,9 +74,8 @@ export function PrometheusRiskProfile(props: PrometheusRiskProfileProps): JSX.El
         />
       </Container>
       <FormInput.Select
-        isOptional
         name={PrometheusMonitoringSourceFieldNames.SERVICE_INSTANCE}
-        label={getString('cv.monitoringSources.serviceInstanceIdentifier')}
+        label={<ServiceInstanceLabel />}
         items={transformedLabelNames}
       />
     </Container>

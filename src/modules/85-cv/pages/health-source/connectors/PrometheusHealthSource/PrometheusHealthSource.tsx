@@ -112,7 +112,7 @@ export function PrometheusHealthSource(props: PrometheusHealthSourceProps): JSX.
               <MultiItemsSideNav
                 defaultMetricName={getString('cv.monitoringSources.prometheus.prometheusMetric')}
                 tooptipMessage={getString('cv.monitoringSources.gcoLogs.addQueryTooltip')}
-                addFieldLabel={getString('cv.monitoringSources.addQuery')}
+                addFieldLabel={getString('cv.monitoringSources.addMetric')}
                 createdMetrics={createdMetrics}
                 defaultSelectedMetric={selectedMetric}
                 renamedMetric={formikProps.values?.metricName}

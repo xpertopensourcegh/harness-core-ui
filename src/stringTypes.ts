@@ -3458,6 +3458,7 @@ export interface StringsMap {
   'cv.monitoringSources.oneMetricMappingValidation': string
   'cv.monitoringSources.oneMetricMappingValidationSubtext': string
   'cv.monitoringSources.oneMetricPackValidation': string
+  'cv.monitoringSources.optionalServiceInstanceLabel': string
   'cv.monitoringSources.prometheus.addMetricTooltip': string
   'cv.monitoringSources.prometheus.additionalFilter': string
   'cv.monitoringSources.prometheus.aggregator': string

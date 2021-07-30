@@ -3,5 +3,6 @@ export enum HealthSourceTypes {
   NewRelic = 'NewRelic',
   StackdriverLog = 'StackdriverLog',
   Prometheus = 'Prometheus',
-  StackdriverMetrics = 'Stackdriver'
+  StackdriverMetrics = 'Stackdriver',
+  GoogleCloudOperations = 'Google Cloud Operations'
 }

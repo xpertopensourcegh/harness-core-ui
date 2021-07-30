@@ -260,6 +260,7 @@ monitoringSources:
   serviceValidation: Service is required.
   buildYourQuery: Build your Query
   serviceInstanceIdentifier: Service Instance Identifier
+  optionalServiceInstanceLabel: (only needed for CV)
   addMetric: Add Metric
   addQuery: Add Query
   totalMappedQueries: '{{total}} {{query}} mapped'

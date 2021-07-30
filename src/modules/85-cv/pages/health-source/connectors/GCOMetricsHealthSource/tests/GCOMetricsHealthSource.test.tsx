@@ -344,7 +344,7 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
     )
     expect(getByText(MockSelectedMetricInfo.widgetName)).not.toBeNull()
 
-    fireEvent.click(getByText('next'))
+    fireEvent.click(getByText('submit'))
     expect(onSubmitMock).not.toHaveBeenCalled()
   })
 

@@ -1,5 +1,6 @@
 import { Connectors } from '@connectors/constants'
 import { getConnectorIconByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
+import { HealthSourceTypes } from '@cv/pages/health-source/types'
 
 export const HEALTHSOURCE_LIST = [
   {
@@ -7,8 +8,8 @@ export const HEALTHSOURCE_LIST = [
     icon: getConnectorIconByType(Connectors.APP_DYNAMICS)
   },
   {
-    name: Connectors.GCP,
-    icon: getConnectorIconByType(Connectors.GCP)
+    name: HealthSourceTypes.GoogleCloudOperations,
+    icon: 'service-stackdriver'
   },
   {
     name: Connectors.PROMETHEUS,

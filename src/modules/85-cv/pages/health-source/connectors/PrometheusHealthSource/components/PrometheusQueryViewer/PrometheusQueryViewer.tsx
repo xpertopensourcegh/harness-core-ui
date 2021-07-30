@@ -60,12 +60,12 @@ export function ChartAndRecords(props: ChartAndRecordsProps): JSX.Element {
     return (
       <>
         <Container className={css.chart}>
-          <HighchartsReact highcharts={Highcharts} options={highchartsOptions} />
+          {query?.length ? <HighchartsReact highcharts={Highcharts} options={highchartsOptions} /> : null}
         </Container>
         <Records
           fetchRecords={fetchData}
           loading={loading}
-          data={records}
+          data={!query?.length ? null : records}
           error={error}
           query={query}
           isQueryExecuted={isQueryExecuted}
@@ -148,7 +148,7 @@ export function PrometheusQueryViewer(props: PrometheusQueryViewerProps): JSX.El
         loading={loading}
         textAreaName={PrometheusMonitoringSourceFieldNames.QUERY}
         onClickExpand={setIsDrawerOpen}
-        onEditQuery={openDialog}
+        onEditQuery={!isManualQuery ? openDialog : undefined}
         isDialogOpen={isDrawerOpen}
         textAreaProps={{ readOnly: !isManualQuery }}
       />

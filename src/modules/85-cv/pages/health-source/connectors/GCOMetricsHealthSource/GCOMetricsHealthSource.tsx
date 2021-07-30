@@ -365,6 +365,7 @@ export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.
                 <FormInput.Text name={OVERALL} className={css.hiddenField} />
                 <DrawerFooter
                   onPrevious={onPrevious}
+                  isSubmit
                   onNext={async () => {
                     formikProps.setTouched({
                       ...formikProps.touched,
