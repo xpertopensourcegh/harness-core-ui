@@ -60,7 +60,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     [updateStage]
   )
 
-  const { stage = {} } = getStageFromPipeline<DeploymentStageElementConfig>(selectedStageId || '')
+  const { stage } = getStageFromPipeline<DeploymentStageElementConfig>(selectedStageId || '')
   const { index: stageIndex } = getStageIndexFromPipeline(pipeline, selectedStageId || '')
   const { stages } = getFlattenedStages(pipeline)
   const [parentStage, setParentStage] = React.useState<{
@@ -138,45 +138,49 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
 
   const setDefaultServiceSchema = (): Promise<void> => {
     const stageData = produce(stage, draft => {
-      set(draft, 'stage.spec', {
-        ...stage.stage?.spec,
-        serviceConfig: {
-          serviceRef: '',
-          serviceDefinition: {
-            type: 'Kubernetes',
-            spec: {
-              variables: []
+      if (draft) {
+        set(draft, 'stage.spec', {
+          ...stage?.stage?.spec,
+          serviceConfig: {
+            serviceRef: '',
+            serviceDefinition: {
+              type: 'Kubernetes',
+              spec: {
+                variables: []
+              }
             }
           }
-        }
-      })
+        })
+      }
     })
 
-    return debounceUpdateStage(stageData.stage)
+    return debounceUpdateStage(stageData?.stage)
   }
 
   const setStageOverrideSchema = (): Promise<void> => {
     const stageData = produce(stage, draft => {
-      set(draft, 'stage.spec', {
-        ...stage.stage?.spec,
-        serviceConfig: {
-          ...stage?.stage?.spec?.serviceConfig,
-          stageOverrides: {
-            artifacts: {
-              // primary: null,
-              sidecars: []
-            },
-            manifests: [],
-            variables: []
+      if (draft) {
+        set(draft, 'stage.spec', {
+          ...stage?.stage?.spec,
+          serviceConfig: {
+            ...stage?.stage?.spec?.serviceConfig,
+            stageOverrides: {
+              artifacts: {
+                // primary: null,
+                sidecars: []
+              },
+              manifests: [],
+              variables: []
+            }
           }
-        }
-      })
-      if (draft.stage?.spec?.serviceConfig.serviceDefinition) {
+        })
+      }
+      if (draft?.stage?.spec?.serviceConfig.serviceDefinition) {
         delete draft.stage.spec.serviceConfig.serviceDefinition
       }
     })
 
-    return debounceUpdateStage(stageData.stage)
+    return debounceUpdateStage(stageData?.stage)
   }
 
   const handleChange = (event: React.FormEvent<HTMLInputElement>): void => {
@@ -194,22 +198,27 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
         }
       })
 
-      debounceUpdateStage(stageData.stage)
+      debounceUpdateStage(stageData?.stage)
     }
   }
   React.useEffect(() => {
     const stageData = produce(stage, draft => {
       if (
+        draft &&
         !draft?.stage?.spec?.serviceConfig?.serviceDefinition?.type &&
         !draft?.stage?.spec?.serviceConfig?.useFromStage
       ) {
         set(draft, 'stage.spec.serviceConfig.serviceDefinition.type', 'Kubernetes')
       }
-      if (!draft?.stage?.spec?.serviceConfig?.serviceDefinition && !stage?.stage?.spec?.serviceConfig?.useFromStage) {
+      if (
+        draft &&
+        !draft?.stage?.spec?.serviceConfig?.serviceDefinition &&
+        !stage?.stage?.spec?.serviceConfig?.useFromStage
+      ) {
         set(draft, 'stage.spec.serviceConfig.serviceDefinition', {})
       }
     })
-    debounceUpdateStage(stageData.stage)
+    debounceUpdateStage(stageData?.stage)
     let hasStageOfSameType = false
     const currentStageType = stage?.stage?.type
 
@@ -258,7 +267,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
             })
             setConfigVisibility(false)
           }
-          debounceUpdateStage(stage.stage)
+          debounceUpdateStage(stage?.stage)
         }
       }
       if (stageOverrides) {
@@ -287,7 +296,9 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   React.useEffect(() => {
     if (selectedPropagatedState && selectedPropagatedState.value) {
       const stageData = produce(stage, draft => {
-        set(draft, 'stage.spec.serviceConfig.useFromStage', { stage: selectedPropagatedState.value })
+        if (draft) {
+          set(draft, 'stage.spec.serviceConfig.useFromStage', { stage: selectedPropagatedState.value })
+        }
         if (draft?.stage?.spec?.serviceConfig?.serviceDefinition) {
           delete draft.stage.spec.serviceConfig.serviceDefinition
         }
@@ -295,7 +306,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
           delete draft.stage.spec.serviceConfig.serviceRef
         }
       })
-      debounceUpdateStage(stageData.stage)
+      debounceUpdateStage(stageData?.stage)
     }
   }, [selectedPropagatedState])
 
@@ -321,7 +332,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
           delete serviceObj.service
         }
       })
-      debounceUpdateStage(stageData.stage)
+      debounceUpdateStage(stageData?.stage)
     },
     [debounceUpdateStage, stage, stage?.stage?.spec?.serviceConfig?.serviceDefinition]
   )

@@ -9,7 +9,7 @@ import {
   DeploymentStageConfig,
   GetExecutionStrategyYamlQueryParams,
   StageElementConfig,
-  StageElementWrapperConfigConfig,
+  StageElementWrapperConfig,
   useGetExecutionStrategyList,
   useGetExecutionStrategyYaml
 } from 'services/cd-ng'
@@ -23,7 +23,7 @@ import Default from './images/BlankCanvas.png'
 import css from './ExecutionStrategy.module.scss'
 
 export interface ExecutionStrategyProps {
-  selectedStage: StageElementWrapperConfigConfig
+  selectedStage: StageElementWrapperConfig
 }
 
 const iconMap: { [key: string]: IconName } = {

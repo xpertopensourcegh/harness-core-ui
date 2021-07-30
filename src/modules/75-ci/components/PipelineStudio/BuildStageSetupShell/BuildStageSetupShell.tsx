@@ -135,7 +135,7 @@ export default function BuildStageSetupShell(): JSX.Element {
   const executionHasWarning = !filledUpStages.execution
 
   // NOTE: set empty arrays, required by ExecutionGraph
-  const selectedStageClone = cloneDeep(selectedStage || {})
+  const selectedStageClone = cloneDeep(selectedStage)
   if (selectedStageClone) {
     if (!selectedStageClone.stage?.spec?.serviceDependencies) {
       set(selectedStageClone, 'stage.spec.serviceDependencies', [])
@@ -244,102 +244,104 @@ export default function BuildStageSetupShell(): JSX.Element {
             </span>
           }
           panel={
-            <ExecutionGraph
-              allowAddGroup={false}
-              hasRollback={false}
-              isReadonly={isReadonly}
-              hasDependencies={true}
-              stepsFactory={stepsFactory}
-              stage={selectedStageClone}
-              originalStage={originalStage}
-              ref={executionRef}
-              updateStage={newStageData => {
-                const newData = produce(newStageData, draft => {
-                  // cleanup rollbackSteps (note: rollbackSteps does not exist on CI stage at all)
-                  if (draft?.stage?.spec?.execution?.rollbackSteps) {
-                    delete draft.stage.spec.execution.rollbackSteps
-                  }
-                  // delete serviceDependencies if its empty array (as serviceDependencies is optional)
-                  if (draft?.stage?.spec?.serviceDependencies && isEmpty(draft?.stage?.spec?.serviceDependencies)) {
-                    delete draft.stage.spec.serviceDependencies
-                  }
-                })
+            selectedStageClone ? (
+              <ExecutionGraph
+                allowAddGroup={false}
+                hasRollback={false}
+                isReadonly={isReadonly}
+                hasDependencies={true}
+                stepsFactory={stepsFactory}
+                stage={selectedStageClone}
+                originalStage={originalStage}
+                ref={executionRef}
+                updateStage={newStageData => {
+                  const newData = produce(newStageData, draft => {
+                    // cleanup rollbackSteps (note: rollbackSteps does not exist on CI stage at all)
+                    if (draft?.stage?.spec?.execution?.rollbackSteps) {
+                      delete draft.stage.spec.execution.rollbackSteps
+                    }
+                    // delete serviceDependencies if its empty array (as serviceDependencies is optional)
+                    if (draft?.stage?.spec?.serviceDependencies && isEmpty(draft?.stage?.spec?.serviceDependencies)) {
+                      delete draft.stage.spec.serviceDependencies
+                    }
+                  })
 
-                if (newData.stage) {
-                  updateStage(newData.stage)
-                }
-              }}
-              // Check and update the correct stage path here
-              pathToStage={`${stagePath}.stage.spec.execution`}
-              onAddStep={(event: ExecutionGraphAddStepEvent) => {
-                if (event.parentIdentifier === STATIC_SERVICE_GROUP_NAME) {
+                  if (newData.stage) {
+                    updateStage(newData.stage)
+                  }
+                }}
+                // Check and update the correct stage path here
+                pathToStage={`${stagePath}.stage.spec.execution`}
+                onAddStep={(event: ExecutionGraphAddStepEvent) => {
+                  if (event.parentIdentifier === STATIC_SERVICE_GROUP_NAME) {
+                    updatePipelineView({
+                      ...pipelineView,
+                      isDrawerOpened: true,
+                      drawerData: {
+                        type: DrawerTypes.ConfigureService,
+                        data: {
+                          stepConfig: {
+                            node: {
+                              type: StepsStepType.Dependency,
+                              name: '',
+                              identifier: generateRandomString(StepsStepType.Dependency)
+                            },
+                            stepsMap: event.stepsMap,
+                            onUpdate: executionRef.current?.stepGroupUpdated,
+                            addOrEdit: 'add',
+                            isStepGroup: false,
+                            hiddenAdvancedPanels: [AdvancedPanels.PreRequisites, AdvancedPanels.DelegateSelectors]
+                          }
+                        }
+                      }
+                    })
+                  } else {
+                    updatePipelineView({
+                      ...pipelineView,
+                      isDrawerOpened: true,
+                      drawerData: {
+                        type: DrawerTypes.AddStep,
+                        data: {
+                          paletteData: {
+                            entity: event.entity,
+                            stepsMap: event.stepsMap,
+                            onUpdate: executionRef.current?.stepGroupUpdated,
+                            // isAddStepOverride: true,
+                            isRollback: event.isRollback,
+                            isParallelNodeClicked: event.isParallel,
+                            hiddenAdvancedPanels: [AdvancedPanels.PreRequisites, AdvancedPanels.DelegateSelectors]
+                          }
+                        }
+                      }
+                    })
+                  }
+                }}
+                onEditStep={(event: ExecutionGraphEditStepEvent) => {
                   updatePipelineView({
                     ...pipelineView,
                     isDrawerOpened: true,
                     drawerData: {
-                      type: DrawerTypes.ConfigureService,
+                      type: event.stepType === StepType.STEP ? DrawerTypes.StepConfig : DrawerTypes.ConfigureService,
                       data: {
                         stepConfig: {
-                          node: {
-                            type: StepsStepType.Dependency,
-                            name: '',
-                            identifier: generateRandomString(StepsStepType.Dependency)
-                          },
+                          node: event.node as any,
                           stepsMap: event.stepsMap,
                           onUpdate: executionRef.current?.stepGroupUpdated,
-                          addOrEdit: 'add',
-                          isStepGroup: false,
+                          isStepGroup: event.isStepGroup,
+                          isUnderStepGroup: event.isUnderStepGroup,
+                          addOrEdit: event.addOrEdit,
                           hiddenAdvancedPanels: [AdvancedPanels.PreRequisites, AdvancedPanels.DelegateSelectors]
                         }
                       }
                     }
                   })
-                } else {
-                  updatePipelineView({
-                    ...pipelineView,
-                    isDrawerOpened: true,
-                    drawerData: {
-                      type: DrawerTypes.AddStep,
-                      data: {
-                        paletteData: {
-                          entity: event.entity,
-                          stepsMap: event.stepsMap,
-                          onUpdate: executionRef.current?.stepGroupUpdated,
-                          // isAddStepOverride: true,
-                          isRollback: event.isRollback,
-                          isParallelNodeClicked: event.isParallel,
-                          hiddenAdvancedPanels: [AdvancedPanels.PreRequisites, AdvancedPanels.DelegateSelectors]
-                        }
-                      }
-                    }
-                  })
-                }
-              }}
-              onEditStep={(event: ExecutionGraphEditStepEvent) => {
-                updatePipelineView({
-                  ...pipelineView,
-                  isDrawerOpened: true,
-                  drawerData: {
-                    type: event.stepType === StepType.STEP ? DrawerTypes.StepConfig : DrawerTypes.ConfigureService,
-                    data: {
-                      stepConfig: {
-                        node: event.node as any,
-                        stepsMap: event.stepsMap,
-                        onUpdate: executionRef.current?.stepGroupUpdated,
-                        isStepGroup: event.isStepGroup,
-                        isUnderStepGroup: event.isUnderStepGroup,
-                        addOrEdit: event.addOrEdit,
-                        hiddenAdvancedPanels: [AdvancedPanels.PreRequisites, AdvancedPanels.DelegateSelectors]
-                      }
-                    }
-                  }
-                })
-              }}
-              onSelectStep={(stepId: string) => {
-                setSelectedStepId(stepId)
-              }}
-              selectedStepId={selectedStepId}
-            />
+                }}
+                onSelectStep={(stepId: string) => {
+                  setSelectedStepId(stepId)
+                }}
+                selectedStepId={selectedStepId}
+              />
+            ) : undefined
           }
           data-testid={getString('ci.executionLabel')}
         />

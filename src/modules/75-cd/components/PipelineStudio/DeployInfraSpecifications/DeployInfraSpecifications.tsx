@@ -179,7 +179,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
   }
 
   useEffect(() => {
-    setProvisionerEnabled(!isProvisionerEmpty(stage || {}))
+    setProvisionerEnabled(!isProvisionerEmpty(stage || ({} as StageElementWrapper)))
 
     return () => {
       let isChanged
@@ -374,7 +374,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
                     factory={factory}
                     readonly={isReadonly}
                     key={stage?.stage?.identifier}
-                    initialValues={getProvisionerData(stage || {})}
+                    initialValues={getProvisionerData(stage || ({} as StageElementWrapper))}
                     type={StepType.InfraProvisioning}
                     stepViewType={StepViewType.Edit}
                     onUpdate={(value: InfraProvisioningData) => {

@@ -1,9 +1,9 @@
 import type {
   StageElementConfig,
   ApprovalStageConfig,
-  StageElementWrapperConfigConfig,
   DeploymentStageConfig,
-  FeatureFlagStageConfig
+  FeatureFlagStageConfig,
+  StageElementWrapperConfig
 } from 'services/cd-ng'
 import type { IntegrationStageConfig, K8sDirectInfraYaml, UseFromStageInfraYaml } from 'services/ci'
 
@@ -36,10 +36,10 @@ export interface BuildStageElementConfig extends StageElementConfig {
 
 export interface PipelineStageWrapper<T extends StageElementConfig = StageElementConfig> {
   stage?: StageElementWrapper<T>
-  parent?: StageElementWrapperConfigConfig
+  parent?: StageElementWrapperConfig
 }
 
 export interface StageElementWrapper<T extends StageElementConfig = StageElementConfig>
-  extends StageElementWrapperConfigConfig {
+  extends StageElementWrapperConfig {
   stage?: T
 }

@@ -12,7 +12,7 @@ import type {
   PipelineInfoConfig,
   DeploymentStageConfig,
   Infrastructure,
-  StageElementWrapperConfigConfig
+  StageElementWrapperConfig
 } from 'services/cd-ng'
 
 import type { UseStringsReturn } from 'framework/strings'
@@ -51,9 +51,9 @@ export function getStepFromStage(stepId: string, steps?: ExecutionWrapperConfig[
 export function getStageFromPipeline(
   stageId: string,
   pipeline?: PipelineInfoConfig
-): StageElementWrapperConfigConfig | undefined {
+): StageElementWrapperConfig | undefined {
   if (pipeline?.stages) {
-    let responseStage: StageElementWrapperConfigConfig | undefined = undefined
+    let responseStage: StageElementWrapperConfig | undefined = undefined
     pipeline.stages.forEach(item => {
       if (item.stage && item.stage.identifier === stageId) {
         responseStage = item

@@ -90,7 +90,7 @@ export const OverrideSetsInputSelector: React.FC<InputSetSelectorProps> = ({
     if (useFromStage) setUseFromStage(useFromStage)
   }, [(currentStage?.stage?.spec?.serviceConfig?.stageOverrides as any)?.useFromStage])
 
-  const { stage: useFromStageObj = {} } = getStageFromPipeline<DeploymentStageElementConfig>(useFromStageId || '')
+  const { stage: useFromStageObj } = getStageFromPipeline<DeploymentStageElementConfig>(useFromStageId || '')
 
   React.useEffect(() => {
     const spec = useFromStageObj?.stage?.spec?.serviceConfig?.serviceDefinition?.spec
@@ -122,7 +122,7 @@ export const OverrideSetsInputSelector: React.FC<InputSetSelectorProps> = ({
       }
       setInputSets(_overrideSets)
     }
-  }, [useFromStageObj.stage?.spec?.serviceConfig?.serviceDefinition?.spec, context])
+  }, [useFromStageObj?.stage?.spec?.serviceConfig?.serviceDefinition?.spec, context])
 
   React.useEffect(() => {
     if (isArray(value)) {

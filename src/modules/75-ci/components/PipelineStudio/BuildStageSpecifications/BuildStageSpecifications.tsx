@@ -53,7 +53,7 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
 
   const scrollRef = React.useRef<HTMLDivElement | null>(null)
 
-  const { stage = {} } = getStageFromPipeline<BuildStageElementConfig>(selectedStageId || '')
+  const { stage } = getStageFromPipeline<BuildStageElementConfig>(selectedStageId || '')
 
   const getInitialValues = (): {
     identifier: string

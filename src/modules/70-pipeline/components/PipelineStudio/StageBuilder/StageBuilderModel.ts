@@ -1,8 +1,7 @@
 import type { IconName } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
-import type { PipelineInfoConfig } from 'services/cd-ng'
+import type { PipelineInfoConfig, StageElementWrapperConfig } from 'services/cd-ng'
 import type { UseStringsReturn } from 'framework/strings'
-import type { StageElementWrapper } from '@pipeline/utils/pipelineTypes'
 import { EmptyStageName } from '../PipelineConstants'
 import type { StagesMap } from '../PipelineContext/PipelineContext'
 import { getCommonStyles, EmptyNodeSeparator, Listeners } from './StageBuilderUtil'
@@ -39,7 +38,7 @@ export interface StageBuilderConfiguration {
 }
 
 export interface RenderGraphNodeProps {
-  node: StageElementWrapper
+  node: StageElementWrapperConfig
   startX: number
   startY: number
   stagesMap: StagesMap
@@ -165,7 +164,7 @@ export class StageBuilderModel extends DiagramModel {
           const parallelStageNames: Array<string> = []
           let isSelected = false
           const icons: Array<IconName> = []
-          node.parallel.forEach((nodeP: StageElementWrapper) => {
+          node.parallel.forEach(nodeP => {
             const type = stagesMap[nodeP.stage?.type || '']
             if (nodeP.stage?.identifier === selectedStageId) {
               parallelStageNames.unshift(nodeP.stage.name)
@@ -218,7 +217,7 @@ export class StageBuilderModel extends DiagramModel {
             prevNodes = [emptyNodeStart]
           }
           const prevNodesAr: DefaultNodeModel[] = []
-          node.parallel.forEach((nodeP: StageElementWrapper, index: number) => {
+          node.parallel.forEach((nodeP, index: number) => {
             const isLastNode = node.parallel?.length === index + 1
             const resp = this.renderGraphNodes({
               node: nodeP,
@@ -315,7 +314,7 @@ export class StageBuilderModel extends DiagramModel {
     })
 
     let prevNodes: DefaultNodeModel[] = [startNode]
-    data?.stages?.forEach((node: StageElementWrapper, index: number) => {
+    data?.stages?.forEach((node, index: number) => {
       const resp = this.renderGraphNodes({
         node,
         startX,

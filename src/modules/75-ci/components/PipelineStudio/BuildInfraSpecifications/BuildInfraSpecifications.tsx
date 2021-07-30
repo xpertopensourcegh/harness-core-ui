@@ -133,7 +133,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
     getStageFromPipeline
   } = React.useContext(PipelineContext)
 
-  const { stage = {} } = getStageFromPipeline<BuildStageElementConfig>(selectedStageId || '')
+  const { stage } = getStageFromPipeline<BuildStageElementConfig>(selectedStageId || '')
 
   const [currentMode, setCurrentMode] = React.useState(() =>
     (stage?.stage?.spec?.infrastructure as UseFromStageInfraYaml)?.useFromStage
@@ -143,7 +143,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
 
   const { index: stageIndex } = getStageIndexFromPipeline(pipeline, selectedStageId || '')
   const { stages } = getFlattenedStages(pipeline)
-  const { stage: propagatedStage = {} } = getStageFromPipeline<BuildStageElementConfig>(
+  const { stage: propagatedStage } = getStageFromPipeline<BuildStageElementConfig>(
     (stage?.stage?.spec?.infrastructure as UseFromStageInfraYaml)?.useFromStage || ''
   )
 
@@ -397,19 +397,21 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
 
                             if (currentMode === Modes.Propagate) {
                               const newStageData = produce(stage, draft => {
-                                set(draft, 'stage.spec.infrastructure', {
-                                  type: 'KubernetesDirect',
-                                  spec: {
-                                    connectorRef: '',
-                                    namespace: '',
-                                    annotations: {},
-                                    labels: {}
-                                  }
-                                })
+                                if (draft) {
+                                  set(draft, 'stage.spec.infrastructure', {
+                                    type: 'KubernetesDirect',
+                                    spec: {
+                                      connectorRef: '',
+                                      namespace: '',
+                                      annotations: {},
+                                      labels: {}
+                                    }
+                                  })
+                                }
                               })
                               setFieldValue('useFromStage', undefined)
 
-                              if (newStageData.stage) {
+                              if (newStageData?.stage) {
                                 updateStage(newStageData.stage)
                               }
                             }

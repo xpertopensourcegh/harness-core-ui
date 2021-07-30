@@ -4,7 +4,7 @@ import { Formik, FormikProps } from 'formik'
 import * as Yup from 'yup'
 import { debounce } from 'lodash-es'
 
-import type { StageElementWrapperConfigConfig } from 'services/cd-ng'
+import type { StageElementWrapperConfig } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import FailureStrategyPanel, {
   AllFailureStrategyConfig
@@ -18,7 +18,7 @@ import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import type { StepCommandsRef } from '../StepCommands/StepCommands'
 
 export interface FailureStrategyProps {
-  selectedStage?: StageElementWrapperConfigConfig
+  selectedStage?: StageElementWrapperConfig
   isReadonly: boolean
   onUpdate(data: { failureStrategies: AllFailureStrategyConfig[] }): void
   tabName?: string

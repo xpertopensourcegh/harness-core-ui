@@ -19,7 +19,7 @@ export const ActiveServiceInstancesHeader: React.FC = () => {
     accountIdentifier: accountId,
     orgIdentifier,
     projectIdentifier,
-    serviceId
+    serviceId: [serviceId]
   }
   const { data, error } = useGetActiveServiceInstanceCountBreakdown({ queryParams })
 
@@ -27,7 +27,11 @@ export const ActiveServiceInstancesHeader: React.FC = () => {
     return <></>
   }
 
-  const { nonProdInstances = 0, prodInstances = 0, totalInstances = 0 } = data?.data || {}
+  const {
+    nonProdInstances = 0,
+    prodInstances = 0,
+    totalInstances = 0
+  } = data?.data?.instanceCountDetailsByEnvTypeBaseMap?.[serviceId] || {}
 
   const pieChartProps: PieChartProps = {
     items: [

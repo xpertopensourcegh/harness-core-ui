@@ -6,7 +6,7 @@ import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-d
 import SplitPane from 'react-split-pane'
 import { DynamicPopover, DynamicPopoverHandlerBinding } from '@common/components/DynamicPopover/DynamicPopover'
 import { useToaster } from '@common/components/Toaster/useToaster'
-import type { PipelineInfoConfig, StageElementConfig, StageElementWrapperConfigConfig } from 'services/cd-ng'
+import type { PipelineInfoConfig, StageElementConfig, StageElementWrapperConfig } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { useConfirmationDialog } from '@common/exports'
 import { CanvasButtons } from '@pipeline/components/CanvasButtons/CanvasButtons'
@@ -29,7 +29,6 @@ import {
   Event
 } from '../../Diagram'
 import { StageBuilderModel } from './StageBuilderModel'
-import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { EmptyStageName, MinimumSplitPaneSize, DefaultSplitPaneSize, MaximumSplitPaneSize } from '../PipelineConstants'
 import {
   getNewStageFromType,
@@ -48,6 +47,7 @@ import {
 import { useStageBuilderCanvasState } from './useStageBuilderCanvasState'
 import { StageList } from './views/StageList'
 import { SplitViewTypes } from '../PipelineContext/PipelineActions'
+import { PipelineContext } from '../PipelineContext/PipelineContext'
 import css from './StageBuilder.module.scss'
 
 export type StageStateMap = Map<string, StageState>
@@ -117,7 +117,7 @@ export const renderPopover = ({
       stageType: data.stage?.type,
       stageProps: {
         data: stageData,
-        onSubmit: (values: StageElementWrapperConfigConfig, identifier: string) => {
+        onSubmit: (values: StageElementWrapperConfig, identifier: string) => {
           data.stage = {
             ...(values.stage as StageElementConfig)
           }
@@ -270,9 +270,10 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
       }
     } else if (isParallel && event?.entity && event.entity instanceof DefaultNodeModel) {
       const { stage, parent } = getStageFromPipeline(event.entity.getIdentifier())
+      const parentTemp = parent as StageElementWrapperConfig
       if (stage) {
-        if (parent && parent.parallel && parent.parallel.length > 0) {
-          parent.parallel.push(newStage)
+        if (parentTemp && parentTemp.parallel && parentTemp.parallel.length > 0) {
+          parentTemp.parallel.push(newStage)
         } else {
           const index = pipeline.stages.indexOf(stage)
           if (index > -1) {
@@ -396,7 +397,7 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
             { useArrows: true, darkMode: false, fixedPosition: false }
           )
         } else if (eventTemp.entity.getType() === DiagramType.GroupNode && selectedStageId) {
-          const parent = getStageFromPipeline(eventTemp.entity.getIdentifier()).parent
+          const parent = getStageFromPipeline(eventTemp.entity.getIdentifier()).parent as StageElementWrapperConfig
           /* istanbul ignore else */ if (parent?.parallel) {
             dynamicPopoverHandler?.show(
               `[data-nodeid="${eventTemp.entity.getID()}"]`,
@@ -599,7 +600,7 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
     ...DEFAULT_MOVE_STAGE_DETAILS
   })
 
-  const resetPipelineStages = (stages: StageElementWrapperConfigConfig[]): void => {
+  const resetPipelineStages = (stages: StageElementWrapperConfig[]): void => {
     updatePipeline({
       ...pipeline,
       stages

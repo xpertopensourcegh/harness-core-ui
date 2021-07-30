@@ -4,7 +4,7 @@ import { isEqual, cloneDeep, pick, isNil, isEmpty, omit } from 'lodash-es'
 import { parse } from 'yaml'
 import type { IconName } from '@wings-software/uicore'
 import merge from 'lodash-es/merge'
-import type { PipelineInfoConfig, StageElementConfig, StageElementWrapperConfigConfig } from 'services/cd-ng'
+import type { PipelineInfoConfig, StageElementConfig, StageElementWrapperConfig } from 'services/cd-ng'
 import type { PermissionCheck } from 'services/rbac'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
@@ -173,7 +173,7 @@ export interface PipelineContextInterface {
   deletePipelineCache: () => Promise<void>
   getStageFromPipeline<T extends StageElementConfig = StageElementConfig>(
     stageId: string,
-    pipeline?: PipelineInfoConfig
+    pipeline?: PipelineInfoConfig | StageElementWrapperConfig
   ): PipelineStageWrapper<T>
   runPipeline: (identifier: string) => void
   pipelineSaved: (pipeline: PipelineInfoConfig) => void
@@ -692,7 +692,7 @@ export const PipelineProvider: React.FC<{
 
   const updateStage = React.useCallback(
     async (newStage: StageElementConfig) => {
-      function _updateStages(stages: StageElementWrapperConfigConfig[]): StageElementWrapperConfigConfig[] {
+      function _updateStages(stages: StageElementWrapperConfig[]): StageElementWrapperConfig[] {
         return stages.map(node => {
           if (node.stage?.identifier === newStage.identifier) {
             return { stage: newStage }

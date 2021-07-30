@@ -989,6 +989,11 @@ export interface ExecutionNode {
     | 'APPROVAL_WAITING'
     | 'APPROVAL_REJECTED'
     | 'WAITING'
+  stepDetails?: {
+    [key: string]: {
+      [key: string]: { [key: string]: any }
+    }
+  }
   stepParameters?: {
     [key: string]: { [key: string]: any }
   }
@@ -2073,6 +2078,7 @@ export interface NGTriggerDetailsResponse {
   identifier?: string
   lastTriggerExecutionDetails?: LastTriggerExecutionDetails
   name?: string
+  registrationStatus?: 'SUCCESS' | 'FAILED' | 'ERROR' | 'TIMEOUT' | 'UNAVAILABLE'
   tags?: {
     [key: string]: string
   }
@@ -2512,6 +2518,7 @@ export interface PipelineEvent {
     | 'PipelineStart'
     | 'PipelineSuccess'
     | 'PipelineFailed'
+    | 'PipelineEnd'
     | 'PipelinePaused'
     | 'StageSuccess'
     | 'StageFailed'

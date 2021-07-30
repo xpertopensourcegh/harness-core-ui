@@ -1,7 +1,6 @@
 import { defaultTo } from 'lodash-es'
 import type { MultiSelectOption, SelectOption } from '@wings-software/uicore'
-import type { StageElementWrapper } from '@pipeline/utils/pipelineTypes'
-import type { PipelineInfoConfig } from 'services/cd-ng'
+import type { PipelineInfoConfig, StageElementWrapperConfig } from 'services/cd-ng'
 import { EmptyStageName } from '../PipelineConstants'
 
 export interface StageSelectOption extends SelectOption {
@@ -25,14 +24,14 @@ export function getSelectStageOptionsFromPipeline(pipeline: PipelineInfoConfig):
   }))
 }
 
-export function getStagesFromPipeline(pipeline: PipelineInfoConfig): StageElementWrapper[] {
-  const stages: StageElementWrapper[] = []
+export function getStagesFromPipeline(pipeline: PipelineInfoConfig): StageElementWrapperConfig[] {
+  const stages: StageElementWrapperConfig[] = []
   if (pipeline.stages) {
-    pipeline.stages.forEach((node: StageElementWrapper) => {
+    pipeline.stages.forEach((node: StageElementWrapperConfig) => {
       if (node.stage && node.stage.name !== EmptyStageName) {
         stages.push(node)
       } else if (node.parallel) {
-        node.parallel.forEach((parallelNode: StageElementWrapper) => {
+        node.parallel.forEach((parallelNode: StageElementWrapperConfig) => {
           if (parallelNode.stage && parallelNode.stage.name !== EmptyStageName) {
             stages.push(parallelNode)
           }

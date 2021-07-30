@@ -2,7 +2,7 @@ import React from 'react'
 import { Layout, getMultiTypeFromValue, MultiTypeInputType, Text, Icon, Color, IconName } from '@wings-software/uicore'
 import { isEmpty, get } from 'lodash-es'
 import cx from 'classnames'
-import type { DeploymentStageConfig, PipelineInfoConfig, StageElementWrapperConfigConfig } from 'services/cd-ng'
+import type { DeploymentStageConfig, PipelineInfoConfig, StageElementWrapperConfig } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import type { AllNGVariables } from '@pipeline/utils/types'
 
@@ -43,8 +43,8 @@ function StageForm({
   template,
   readonly
 }: {
-  allValues?: StageElementWrapperConfigConfig
-  template?: StageElementWrapperConfigConfig
+  allValues?: StageElementWrapperConfig
+  template?: StageElementWrapperConfig
   path: string
   readonly?: boolean
 }): JSX.Element {
