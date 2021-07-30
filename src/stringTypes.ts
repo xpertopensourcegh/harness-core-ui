@@ -1452,6 +1452,11 @@ export interface StringsMap {
   'gitsync.selectHarnessFolder': string
   'gitsync.successfullCreate': string
   'gitsync.successfullySavedConnectivityMode': string
+  'dashboards.createFolder.folderDescriptionPlaceholder': string
+  'dashboards.createFolder.folderNameValidation': string
+  'dashboards.createFolder.folderPlaceholder': string
+  'dashboards.createFolder.folderSubmitFail': string
+  'dashboards.createFolder.stepOne': string
   'dashboards.createModal.dataSource': string
   'dashboards.createModal.descriptionPlaceholder': string
   'dashboards.createModal.fav': string
@@ -1462,7 +1467,24 @@ export interface StringsMap {
   'dashboards.createModal.stepOne': string
   'dashboards.createModal.submitFail': string
   'dashboards.createModal.view': string
-  'dashboards.homePage.title': string
+  'dashboards.deleteFolder.confirmDeleteText': string
+  'dashboards.deleteFolder.confirmDeleteTitle': string
+  'dashboards.deleteFolder.success': string
+  'dashboards.getStarted.subTextVideo1': string
+  'dashboards.getStarted.subTextVideo2': string
+  'dashboards.getStarted.subTextVideo3': string
+  'dashboards.getStarted.title': string
+  'dashboards.getStarted.video1Title': string
+  'dashboards.getStarted.video2Title': string
+  'dashboards.getStarted.video3Title': string
+  'dashboards.homePage.folders': string
+  'dashboards.homePage.noDashboardsAvailable': string
+  'dashboards.homePage.noFolderAvailable': string
+  'dashboards.homePage.noTags': string
+  'dashboards.homePage.searchPlaceholder': string
+  'dashboards.modules.harness': string
+  'dashboards.resourceModal.folderDetail': string
+  'dashboards.resourceModal.folders': string
   'dashboards.serviceDashboard.3months': string
   'dashboards.serviceDashboard.6months': string
   'dashboards.serviceDashboard.activeServiceInstancesLabel': string
