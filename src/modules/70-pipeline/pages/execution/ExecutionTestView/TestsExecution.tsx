@@ -232,7 +232,7 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId,
               <Layout.Vertical spacing="small" margin={{ top: 'medium' }}>
                 {executionSummary?.content?.map((summary, index) => (
                   <TestsExecutionItem
-                    key={summary.name}
+                    key={summary.name! + showFailedTestsOnly}
                     buildIdentifier={String(
                       context?.pipelineExecutionDetail?.pipelineExecutionSummary?.runSequence || ''
                     )}

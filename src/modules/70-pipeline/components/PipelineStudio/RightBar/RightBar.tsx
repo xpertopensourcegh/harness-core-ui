@@ -455,10 +455,11 @@ export const RightBar = (): JSX.Element => {
               if (getMultiTypeFromValue(values.depth) === MultiTypeInputType.FIXED) {
                 try {
                   Yup.number()
+                    .notRequired()
                     .integer(getString('pipeline.onlyPositiveInteger'))
                     .positive(getString('pipeline.onlyPositiveInteger'))
                     .typeError(getString('pipeline.onlyPositiveInteger'))
-                    .validateSync(values.depth)
+                    .validateSync(values.depth === '' ? undefined : values.depth)
                 } catch (error) {
                   set(errors, 'depth', error.message)
                 }
