@@ -72,4 +72,8 @@ delegateNotInstalled:
       description2: 'If the Delegate didn’t reach a healthy state'
       checkEndPoint: 'Check the Health Check Endpoint in the Delegate. Search YAML for healthCheckEndpoint'
     troubleshooting: 'Troubleshooting'
+reviewScript:
+  docLinkBefore: 'Please refer to '
+  docLink: 'documentation'
+  docLinkAfter: ' page.'
 delegateIdentifier: 'Delegate Identifier'

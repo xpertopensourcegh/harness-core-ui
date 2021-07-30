@@ -809,6 +809,9 @@ export interface StringsMap {
   'delegates.permissionRequired': string
   'delegates.questionForceDeleteDelegate': string
   'delegates.replicaText': string
+  'delegates.reviewScript.docLink': string
+  'delegates.reviewScript.docLinkAfter': string
+  'delegates.reviewScript.docLinkBefore': string
   'delegates.reviewYAML': string
   'delegates.searchDelegateName': string
   'delegates.totalMemUnit': string
