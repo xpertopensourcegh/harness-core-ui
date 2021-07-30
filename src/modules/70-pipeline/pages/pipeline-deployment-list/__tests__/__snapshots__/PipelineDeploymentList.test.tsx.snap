@@ -36,7 +36,7 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
           pipeline.myDeploymentsText
         </label>
         <div
-          class="bp3-popover-wrapper DropDown--main bp3-fill"
+          class="bp3-popover-wrapper DropDown--main "
         >
           <div
             class="bp3-popover-target"
@@ -88,7 +88,7 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
         class="rhs"
       >
         <div
-          class="bp3-popover-wrapper DropDown--main bp3-fill"
+          class="bp3-popover-wrapper DropDown--main DropDown--disabled"
         >
           <div
             class="bp3-popover-target"
@@ -97,7 +97,7 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
               class=""
             >
               <div
-                class="Layout--horizontal StyledProps--main DropDown--dropdownButton DropDown--disabled StyledProps--flex"
+                class="Layout--horizontal StyledProps--main DropDown--dropdownButton StyledProps--flex"
                 data-testid="filter-select"
                 style="min-width: 220px;"
               >

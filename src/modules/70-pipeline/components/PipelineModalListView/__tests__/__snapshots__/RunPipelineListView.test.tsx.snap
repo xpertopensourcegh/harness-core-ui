@@ -53,7 +53,7 @@ exports[`PipelineModal List View render list view 1`] = `
     data-name="page-body"
   >
     <div
-      class="bp3-input-group ui-search-box ExpandingSearchInput--main searchContainer "
+      class="bp3-input-group ui-search-box ExpandingSearchInput--main searchContainer  "
       data-name=""
       style="max-width: 250px;"
     >
