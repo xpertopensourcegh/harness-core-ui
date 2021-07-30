@@ -84,6 +84,7 @@ export interface StringsMap {
   'common.changeDefaultAccountTitle': string
   'common.changeIntelligence': string
   'common.changesUnsaved': string
+  'common.channel': string
   'common.clearSelection': string
   'common.clientId': string
   'common.cluster': string
@@ -262,6 +263,7 @@ export interface StringsMap {
   'common.newVersion': string
   'common.noRefData': string
   'common.note': string
+  'common.notificationPreferences': string
   'common.ok': string
   'common.on': string
   'common.optionalConfig': string
@@ -271,6 +273,7 @@ export interface StringsMap {
   'common.orgViewer': string
   'common.other': string
   'common.overSubscribed': string
+  'common.pagerDuty': string
   'common.paste': string
   'common.path': string
   'common.pendingInvitation': string
@@ -349,6 +352,7 @@ export interface StringsMap {
   'common.secrets': string
   'common.seeDetails': string
   'common.seeWhatChanged': string
+  'common.selectAChannel': string
   'common.selectBranch': string
   'common.selectDefaultExperience': string
   'common.selectStrategy': string
@@ -357,6 +361,7 @@ export interface StringsMap {
   'common.shell': string
   'common.showLess': string
   'common.showMore': string
+  'common.slack': string
   'common.specify': string
   'common.startTrial': string
   'common.submittingRequest': string
@@ -431,8 +436,10 @@ export interface StringsMap {
   'common.validation.variableAlreadyExists': string
   'common.validation.yamlFilePath': string
   'common.valuePlaceholder': string
+  'common.webhookURL': string
   'common.welcome': string
   'notifications.buttonSend': string
+  'notifications.emailOrAlias': string
   'notifications.emailRecipients': string
   'notifications.emailTestSuccess': string
   'notifications.helpPagerDuty': string
@@ -441,12 +448,16 @@ export interface StringsMap {
   'notifications.infoSlack': string
   'notifications.labelBody': string
   'notifications.labelEmailUserGroups': string
+  'notifications.labelMS': string
+  'notifications.labelMSTeam': string
   'notifications.labelPDKey': string
   'notifications.labelPDUserGroups': string
+  'notifications.labelPagerDuty': string
   'notifications.labelSlackUserGroups': string
   'notifications.labelSubject': string
   'notifications.labelTo': string
   'notifications.labelWebhookUrl': string
+  'notifications.msTestSuccess': string
   'notifications.name': string
   'notifications.nameOftheRule': string
   'notifications.notificationMethod': string
@@ -561,6 +572,7 @@ export interface StringsMap {
   'rbac.token.rotateLabel': string
   'rbac.token.scheduledToExpire': string
   'rbac.token.successMessage': string
+  'rbac.updateNotificationSuccess': string
   'rbac.user': string
   'rbac.userDetails.linkToSSOProviderModal.btnDisabledTooltipText': string
   'rbac.userDetails.linkToSSOProviderModal.delinkLabel': string
