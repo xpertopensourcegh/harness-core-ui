@@ -2,7 +2,12 @@ import React, { useState } from 'react'
 import { Layout, Text, Button } from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
+import { TriggerFormType } from '@pipeline/factories/ArtifactTriggerInputFactory/types'
+import TriggerFactory from '@pipeline/factories/ArtifactTriggerInputFactory'
+
 import ArtifactTableInfo from '../subviews/ArtifactTableInfo'
+import { filterManifest, getPathString, getTemplateObject } from '../../utils/TriggersWizardPageUtils'
+
 import css from './SelectArtifactModal.module.scss'
 
 interface SelectArtifactModalPropsInterface {
@@ -11,6 +16,7 @@ interface SelectArtifactModalPropsInterface {
   artifactTableData: any
   formikProps: any
   closeModal: () => void
+  runtimeData: any
 }
 
 enum ModalState {
@@ -23,7 +29,8 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
   formikProps,
   closeModal,
   isManifest,
-  artifactTableData
+  artifactTableData,
+  runtimeData
 }) => {
   const [selectedArtifactLabel, setSelectedArtifactLabel] = useState(undefined) // artifactLabel is unique
   const [selectedStage, setSelectedStage] = useState(undefined)
@@ -34,8 +41,15 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
   const closeAndReset = () => {
     closeModal()
     setSelectedArtifact(undefined)
+    setSelectedArtifactLabel(undefined)
+    setSelectedStage(undefined)
   }
 
+  const formDetails = TriggerFactory.getTriggerFormDetails(TriggerFormType.Manifest)
+  const ManifestFormDetails = formDetails.component
+
+  const filteredManifest = filterManifest(runtimeData, selectedStage, selectedArtifact)
+  const templateObject = getTemplateObject(filteredManifest, [])
   return (
     <Dialog
       className={`${css.selectArtifactModal} padded-dialog`}
@@ -66,6 +80,7 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
               text={getString('select')}
               intent="primary"
               disabled={!selectedArtifact}
+              data-name="selectBtn"
               onClick={() => {
                 setModalState(ModalState.RUNTIME_INPUT)
               }}
@@ -77,6 +92,15 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
         </>
       ) : (
         <>
+          <ManifestFormDetails
+            template={templateObject}
+            path={getPathString(runtimeData, selectedStage)}
+            allValues={templateObject}
+            initialValues={runtimeData}
+            readonly={false}
+            stageIdentifier={artifactTableData?.stageId}
+            formik={formikProps}
+          />
           <Layout.Horizontal spacing="medium" className={css.footer}>
             <Button
               text={getString('back')}
@@ -87,11 +111,11 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
               }}
             />
             <Button
-              text={getString('select')}
+              text={getString('filters.apply')}
               intent="primary"
               onClick={() => {
                 formikProps.setValues({ ...formikProps.values, artifact: selectedArtifact })
-                closeModal()
+                closeAndReset()
               }}
             />
             <Text className={css.cancel} onClick={closeAndReset}>
