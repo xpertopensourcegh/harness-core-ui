@@ -22,6 +22,10 @@
     }
   }
 
+  .expandSearch {
+    margin-right: var(--spacing-medium);
+  }
+
   .myDeploymentsCheckbox {
     &:global(.bp3-checkbox) {
       display: flex;
