@@ -2482,6 +2482,11 @@ export interface StringsMap {
   'ce.overview.cardtitles.multipleCloud': string
   'ce.overview.cardtitles.topClusters': string
   'ce.overview.cardtitles.topRecommendation': string
+  'ce.overview.noData.autoStopping': string
+  'ce.overview.noData.connector': string
+  'ce.overview.noData.explore': string
+  'ce.overview.noData.info': string
+  'ce.overview.noData.ngDocs': string
   'ce.overview.savings': string
   'ce.overview.seeAll': string
   'ce.overview.title': string
