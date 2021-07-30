@@ -12,7 +12,6 @@ import type { PagerDutyNotificationConfiguration } from '@notifications/interfac
 import { TestStatus } from '@notifications/interfaces/Notifications'
 import { NotificationType } from '@notifications/interfaces/Notifications'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
-
 import css from '../../ConfigureNotificationsModal.module.scss'
 
 interface ConfigurePagerDutyNotificationsProps {

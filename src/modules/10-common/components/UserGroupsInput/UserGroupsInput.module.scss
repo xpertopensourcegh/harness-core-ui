@@ -1,0 +1,13 @@
+.userGroupInputContainer {
+  background-color: var(--white) !important;
+  min-height: 37px !important;
+}
+
+.pointer {
+  cursor: pointer;
+}
+.selectBtn {
+  &:hover {
+    text-decoration: underline !important;
+  }
+}

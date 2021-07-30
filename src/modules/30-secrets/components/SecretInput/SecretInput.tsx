@@ -15,7 +15,7 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { useStrings } from 'framework/strings'
-import { getReference } from '@secrets/utils/SSHAuthUtils'
+import { getReference } from '@common/utils/utils'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import css from './SecretInput.module.scss'
 

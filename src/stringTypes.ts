@@ -356,6 +356,7 @@ export interface StringsMap {
   'common.selectBranch': string
   'common.selectDefaultExperience': string
   'common.selectStrategy': string
+  'common.selectUserGroups': string
   'common.selectVersion': string
   'common.setAsDefault': string
   'common.shell': string
@@ -408,6 +409,7 @@ export interface StringsMap {
   'common.tokens': string
   'common.totalHarnessUser': string
   'common.totalLines': string
+  'common.totalSelected': string
   'common.trialInProgress': string
   'common.trialInProgressDescription': string
   'common.unsavedChanges': string
@@ -732,7 +734,6 @@ export interface StringsMap {
   'authSettings.samlTestFailed': string
   'authSettings.samlTestSuccessful': string
   'authSettings.selectSAMLProvider': string
-  'authSettings.selectUserGroup': string
   'authSettings.sureToDisableTwoFAEnforcement': string
   'authSettings.testingSSO': string
   'authSettings.testingSSODescription': string

@@ -478,6 +478,8 @@ frequency: 'Frequency'
 last7days: Last 7 days
 instanceLabel: Instances
 reportNameRequired: Report name is required
+selectUserGroups: Select User Group(s)
+totalSelected: 'Total Selected'
 accountSettings: Account Settings
 myProfile: My Profile
 accountResources: Account Resources
