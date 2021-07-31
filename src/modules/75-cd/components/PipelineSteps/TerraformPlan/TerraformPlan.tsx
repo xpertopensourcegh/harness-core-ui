@@ -9,6 +9,7 @@ import {
   Button,
   Icon,
   Layout,
+  Formik,
   Label,
   Color
 } from '@wings-software/uicore'
@@ -20,7 +21,7 @@ import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 
 import { cloneDeep, isEmpty, set } from 'lodash-es'
-import { yupToFormErrors, FormikErrors, FormikProps, Formik } from 'formik'
+import { yupToFormErrors, FormikErrors, FormikProps } from 'formik'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { PipelineStep, StepProps } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
@@ -100,6 +101,9 @@ function TerraformPlanWidget(
     style: { width: 1000 }
   }
 
+  const query = useQueryParams()
+  const sectionId = (query as any).sectionId || ''
+
   const [showModal, setShowModal] = React.useState(false)
   return (
     <Formik<TFPlanFormData>
@@ -121,6 +125,7 @@ function TerraformPlanWidget(
           })
         })
       })}
+      formName={`terraformPlanEditView-tfPlan-${sectionId}`}
     >
       {(formik: FormikProps<TFPlanFormData>) => {
         const { values, setFieldValue } = formik

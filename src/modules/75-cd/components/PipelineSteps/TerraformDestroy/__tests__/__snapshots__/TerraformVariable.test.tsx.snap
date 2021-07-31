@@ -69,7 +69,7 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
           >
             <span
               class="Tooltip--acenter"
-              data-tooltip-id="terraformEdit_name"
+              data-tooltip-id="terraformEdit-TerraformDestroy-_name"
             >
               name
             </span>
@@ -177,7 +177,7 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="terraformEdit_spec.configuration.type"
+            data-tooltip-id="terraformEdit-TerraformDestroy-_spec.configuration.type"
           >
             pipelineSteps.configurationType
           </span>
@@ -248,7 +248,7 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="terraformEdit_spec.provisionerIdentifier"
+            data-tooltip-id="terraformEdit-TerraformDestroy-_spec.provisionerIdentifier"
           >
             pipelineSteps.provisionerIdentifier
           </span>
@@ -397,7 +397,7 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
                     >
                       <span
                         class="Tooltip--acenter"
-                        data-tooltip-id="terraformEdit_spec.configuration.spec.workspace"
+                        data-tooltip-id="terraformEdit-TerraformDestroy-_spec.configuration.spec.workspace"
                       >
                         pipelineSteps.workspace (optional)
                       </span>

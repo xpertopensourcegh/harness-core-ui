@@ -69,7 +69,7 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
           >
             <span
               class="Tooltip--acenter"
-              data-tooltip-id="terraformEdit_name"
+              data-tooltip-id="terraformEdit-TerraformDestroy-_name"
             >
               name
             </span>
@@ -177,7 +177,7 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="terraformEdit_spec.configuration.type"
+            data-tooltip-id="terraformEdit-TerraformDestroy-_spec.configuration.type"
           >
             pipelineSteps.configurationType
           </span>
@@ -248,7 +248,7 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="terraformEdit_spec.provisionerIdentifier"
+            data-tooltip-id="terraformEdit-TerraformDestroy-_spec.provisionerIdentifier"
           >
             pipelineSteps.provisionerIdentifier
           </span>
@@ -397,7 +397,7 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
                     >
                       <span
                         class="Tooltip--acenter"
-                        data-tooltip-id="terraformEdit_spec.configuration.spec.workspace"
+                        data-tooltip-id="terraformEdit-TerraformDestroy-_spec.configuration.spec.workspace"
                       >
                         pipelineSteps.workspace (optional)
                       </span>
@@ -1114,7 +1114,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
           >
             <span
               class="Tooltip--acenter"
-              data-tooltip-id="terraformEdit_name"
+              data-tooltip-id="terraformEdit-TerraformDestroy-_name"
             >
               name
             </span>
@@ -1222,7 +1222,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="terraformEdit_spec.configuration.type"
+            data-tooltip-id="terraformEdit-TerraformDestroy-_spec.configuration.type"
           >
             pipelineSteps.configurationType
           </span>
@@ -1293,7 +1293,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="terraformEdit_spec.provisionerIdentifier"
+            data-tooltip-id="terraformEdit-TerraformDestroy-_spec.provisionerIdentifier"
           >
             pipelineSteps.provisionerIdentifier
           </span>
@@ -1442,7 +1442,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
                     >
                       <span
                         class="Tooltip--acenter"
-                        data-tooltip-id="terraformEdit_spec.configuration.spec.workspace"
+                        data-tooltip-id="terraformEdit-TerraformDestroy-_spec.configuration.spec.workspace"
                       >
                         pipelineSteps.workspace (optional)
                       </span>
@@ -2159,7 +2159,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
           >
             <span
               class="Tooltip--acenter"
-              data-tooltip-id="terraformEdit_name"
+              data-tooltip-id="terraformEdit-TerraformDestroy-_name"
             >
               name
             </span>
@@ -2267,7 +2267,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="terraformEdit_spec.configuration.type"
+            data-tooltip-id="terraformEdit-TerraformDestroy-_spec.configuration.type"
           >
             pipelineSteps.configurationType
           </span>
@@ -2338,7 +2338,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="terraformEdit_spec.provisionerIdentifier"
+            data-tooltip-id="terraformEdit-TerraformDestroy-_spec.provisionerIdentifier"
           >
             pipelineSteps.provisionerIdentifier
           </span>
@@ -2469,7 +2469,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
           >
             <span
               class="Tooltip--acenter"
-              data-tooltip-id="terraformEdit_name"
+              data-tooltip-id="terraformEdit-TerraformDestroy-_name"
             >
               name
             </span>
@@ -2577,7 +2577,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="terraformEdit_spec.configuration.type"
+            data-tooltip-id="terraformEdit-TerraformDestroy-_spec.configuration.type"
           >
             pipelineSteps.configurationType
           </span>
@@ -2648,7 +2648,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="terraformEdit_spec.provisionerIdentifier"
+            data-tooltip-id="terraformEdit-TerraformDestroy-_spec.provisionerIdentifier"
           >
             pipelineSteps.provisionerIdentifier
           </span>
@@ -2777,7 +2777,7 @@ exports[`Test TerraformDestroy should render edit view as new step 1`] = `
           >
             <span
               class="Tooltip--acenter"
-              data-tooltip-id="terraformEdit_name"
+              data-tooltip-id="terraformEdit-TerraformDestroy-_name"
             >
               name
             </span>
@@ -2885,7 +2885,7 @@ exports[`Test TerraformDestroy should render edit view as new step 1`] = `
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="terraformEdit_spec.configuration.type"
+            data-tooltip-id="terraformEdit-TerraformDestroy-_spec.configuration.type"
           >
             pipelineSteps.configurationType
           </span>
@@ -2956,7 +2956,7 @@ exports[`Test TerraformDestroy should render edit view as new step 1`] = `
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="terraformEdit_spec.provisionerIdentifier"
+            data-tooltip-id="terraformEdit-TerraformDestroy-_spec.provisionerIdentifier"
           >
             pipelineSteps.provisionerIdentifier
           </span>
