@@ -628,4 +628,31 @@ describe('Unit tests for Deployment metrics', () => {
     jest.runTimersToTime(20000)
     await waitFor(() => expect(refetchFn).toHaveBeenCalledTimes(1))
   })
+
+  test('Ensure that when there is no activityId ui displays in empty state', async () => {
+    jest.spyOn(cvService, 'useGetDataSourcetypes').mockReturnValue({
+      data: DataSourceTypesResponse,
+      refetch: jest.fn() as unknown
+    } as UseGetReturn<any, any, any, any>)
+
+    const refetchFn = jest.fn()
+    const clonedNode = cloneDeep(MockExecutionNode)
+    clonedNode.status = 'Running'
+    delete clonedNode.progressData?.activityId
+
+    jest.spyOn(cvService, 'useGetDeploymentMetrics').mockReturnValue({
+      data: ApiResponse,
+      refetch: refetchFn as unknown
+    } as UseGetReturn<any, any, any, any>)
+
+    const { container } = render(
+      <TestWrapper>
+        <DeploymentMetrics step={clonedNode} />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
+    expect(container.querySelector('[class*="noActivityId"]')).not.toBeNull()
+    expect(refetchFn).not.toHaveBeenCalled()
+  })
 })

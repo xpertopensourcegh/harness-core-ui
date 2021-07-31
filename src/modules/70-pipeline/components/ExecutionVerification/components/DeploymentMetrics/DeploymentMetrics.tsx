@@ -140,6 +140,13 @@ export function DeploymentMetrics(props: DeploymentMetricsProps): JSX.Element {
   }, [selectedNode])
 
   useEffect(() => {
+    if (!activityId) {
+      setPollingIntervalId(currIntervalId => {
+        clearInterval(currIntervalId)
+        return -1
+      })
+      return
+    }
     setPollingIntervalId(-1)
     setUpdateViewInfo({ currentViewData: [], hasNewData: false, shouldUpdateView: true, showSpinner: true })
     setQueryParams(oldParams => ({
@@ -147,7 +154,7 @@ export function DeploymentMetrics(props: DeploymentMetricsProps): JSX.Element {
       hostName: undefined,
       pageNumber: 0
     }))
-  }, [step?.progressData?.activityId])
+  }, [activityId])
 
   useEffect(() => {
     if (error || loading) {
@@ -211,6 +218,16 @@ export function DeploymentMetrics(props: DeploymentMetricsProps): JSX.Element {
           )
         })}
       </>
+    )
+  }
+
+  if (!activityId) {
+    return (
+      <Container className={css.main}>
+        <Container className={css.noActivityId}>
+          <NoDataCard onClick={() => refetch()} message={getString('pipeline.verification.noMetrics')} icon="chart" />
+        </Container>
+      </Container>
     )
   }
 
