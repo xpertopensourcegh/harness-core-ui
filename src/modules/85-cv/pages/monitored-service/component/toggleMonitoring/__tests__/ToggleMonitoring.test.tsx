@@ -26,11 +26,12 @@ jest.mock('services/cv', () => ({
 describe('ToggleMonitoring', () => {
   test('Validate toggle is working', async () => {
     const mutate = jest.fn()
+    const refetch = jest.fn()
     ;(useSetHealthMonitoringFlag as jest.Mock).mockImplementation(() => ({ mutate }))
 
     const { container, getByRole } = render(
       <TestWrapper {...testWrapperProps}>
-        <ToggleMonitoring identifier={'Test_Monitored_service'} enable={false} />
+        <ToggleMonitoring refetch={refetch} identifier={'Test_Monitored_service'} enable={false} />
       </TestWrapper>
     )
 

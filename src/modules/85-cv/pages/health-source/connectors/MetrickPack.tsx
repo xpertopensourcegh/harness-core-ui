@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import type { FormikContext } from 'formik'
 import { useParams } from 'react-router-dom'
 import { isEmpty } from 'lodash-es'
-import { Container, FormInput } from '@wings-software/uicore'
+import { Container, FormInput, Icon } from '@wings-software/uicore'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { PageError } from '@common/components/Page/PageError'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
@@ -26,7 +26,8 @@ export default function MetricPack({
   const {
     data: metricPacks,
     refetch: refetchMetricPacks,
-    error: metricPackError
+    error: metricPackError,
+    loading
   } = useGetMetricPacks({
     queryParams: {
       accountId,
@@ -50,7 +51,9 @@ export default function MetricPack({
     <FormInput.CustomRender
       name={'metricData'}
       render={() => {
-        return (
+        return loading ? (
+          <Icon name="steps-spinner" />
+        ) : (
           <>
             <Container className={css.metricPack}>
               {metricPacks?.resource?.map((metricPack: MetricPackDTO) => {

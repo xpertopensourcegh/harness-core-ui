@@ -3265,6 +3265,7 @@ export interface ResultSummary {
 }
 
 export interface RiskData {
+  healthScore?: number
   riskStatus?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
   riskValue?: number
 }

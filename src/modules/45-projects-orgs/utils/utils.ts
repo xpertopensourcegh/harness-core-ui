@@ -6,7 +6,7 @@ export const getModulePurpose = (module: ModuleName): string => {
     case ModuleName.CD:
       return 'Delivery'
     case ModuleName.CV:
-      return 'Verification'
+      return 'Intelligence'
     case ModuleName.CI:
       return 'Integration'
     case ModuleName.CE:

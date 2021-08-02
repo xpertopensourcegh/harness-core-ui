@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { render, fireEvent, waitFor } from '@testing-library/react'
 import { Container, Button } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
@@ -63,7 +63,7 @@ describe('Unit tests for createting monitored source', () => {
         } as any)
     )
   })
-  test('Health source tabel and environment services compoenet renders', async () => {
+  test('Health source tabel and environment services component renders', async () => {
     const { container, getByText } = render(
       <TestWrapper {...testWrapperProps}>
         <MonitoredService />
@@ -77,6 +77,28 @@ describe('Unit tests for createting monitored source', () => {
     expect(getByText('cv.healthSource.defineYourSource')).toBeDefined()
 
     expect(container).toMatchSnapshot()
+  })
+
+  test('Verify validaiton works on clicking Add new health source', async () => {
+    const { container, getByText } = render(
+      <TestWrapper {...testWrapperProps}>
+        <MonitoredService />
+      </TestWrapper>
+    )
+    // click on add new button
+    const addNewButton = getByText('+ cv.healthSource.addHealthSource')
+    fireEvent.click(addNewButton)
+    await waitFor(() => expect(getByText('cv.monitoredServices.nameValidation')).not.toBeNull())
+
+    await setFieldValue({
+      container,
+      type: InputTypes.TEXTFIELD,
+      fieldId: 'name',
+      value: 'Updated Monitored service'
+    })
+
+    // value updated
+    expect(getByText('Updated_Monitored_service')).toBeDefined()
   })
 
   test('Health source table and environment services compoenet renders', async () => {

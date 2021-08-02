@@ -30,12 +30,12 @@
 
 .connectorField {
   span[icon='chevron-down'] {
-    position: relative;
+    position: relative !important;
     right: calc(-1 * var(--spacing-small));
   }
 
-  div[class^='ConnectorReferenceField-module_right-status'] {
-    position: relative;
+  button[data-testid='cr-field-connectorRef'] div {
+    position: relative !important;
     right: calc(-1 * var(--spacing-small));
   }
 

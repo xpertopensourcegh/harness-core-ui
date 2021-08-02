@@ -329,7 +329,7 @@ exports[`Unit tests for createting monitored source Health source tabel and envi
             </div>
           </div>
           <div
-            class="drawerlink disabled"
+            class="drawerlink"
           >
             <a
               href="/account/1234_accountId/cv/orgs/1234_org/projects/1234_project/monitoringservices/setup"

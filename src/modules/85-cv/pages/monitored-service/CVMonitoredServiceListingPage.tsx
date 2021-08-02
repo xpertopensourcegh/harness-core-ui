@@ -99,7 +99,11 @@ function CVMonitoredServiceListingPage(): JSX.Element {
     const rowdata = row?.original
     return (
       <Layout.Horizontal flex={{ justifyContent: 'space-around' }}>
-        <ToggleMonitoring identifier={rowdata?.identifier as string} enable={!!rowdata?.healthMonitoringEnabled} />
+        <ToggleMonitoring
+          refetch={refetch}
+          identifier={rowdata?.identifier as string}
+          enable={!!rowdata?.healthMonitoringEnabled}
+        />
         <ContextMenuActions
           titleText={getString('cv.monitoredServices.deleteMonitoredService')}
           contentText={getString('cv.monitoredServices.deleteMonitoredServiceWarning') + `: ${rowdata.identifier}`}

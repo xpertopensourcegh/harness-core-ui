@@ -26,6 +26,7 @@ purposeList:
   moduleSuccess: '{{$.common.purpose.moduleSuccess}}'
   name: 'Which Harness modules would you like to enable for this project?'
   continuous: '{{$.common.purpose.continuous}}'
+  change: '{{$.common.purpose.change}}'
   time: '{{$.common.purpose.setup}}'
   selectAModule: '{{$.common.purpose.selectAModule}}'
 

@@ -72,16 +72,9 @@ const ModuleListCard: React.FC<ModuleListCardProps> = ({ module, projectIdentifi
           <Layout.Vertical spacing="medium">
             <Button
               minimal
-              text={getString('moduleRenderer.setupChanges')}
-              onClick={() => {
-                history.push(routes.toCVAdminSetup({ accountId, orgIdentifier, projectIdentifier }))
-              }}
-            />
-            <Button
-              minimal
               text={getString('moduleRenderer.monitoringSources')}
               onClick={() => {
-                history.push(`${routes.toCVAdminSetup({ accountId, orgIdentifier, projectIdentifier })}?step=2`)
+                history.push(`${routes.toCVMonitoringServices({ accountId, orgIdentifier, projectIdentifier })}`)
               }}
             />
           </Layout.Vertical>
@@ -159,7 +152,7 @@ const ModuleListCard: React.FC<ModuleListCardProps> = ({ module, projectIdentifi
               <Icon name={getModuleIcon(module)} size={70}></Icon>
               <div>
                 <Layout.Vertical padding={{ bottom: 'medium' }}>
-                  <Text font={{ size: 'small' }}>{getString('projectsOrgs.purposeList.continuous')}</Text>
+                  <Text font={{ size: 'small' }}>{getString('projectsOrgs.purposeList.change')}</Text>
                   <Text font={{ size: 'medium' }} color={Color.BLACK}>
                     {getModulePurpose(module)}
                   </Text>

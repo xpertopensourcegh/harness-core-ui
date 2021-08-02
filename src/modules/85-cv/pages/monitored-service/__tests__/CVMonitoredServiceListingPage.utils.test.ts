@@ -3,10 +3,10 @@ import { HistoricalTrendChartOption } from '../CVMonitoredServiceListingPage.con
 import { createTrendDataWithZone, getHistoricalTrendChartOption } from '../CVMonitoredServiceListingPage.utils'
 
 const trendChartMockData: RiskData[] = [
-  { riskValue: 2, riskStatus: 'LOW' },
-  { riskValue: 4, riskStatus: 'LOW' },
-  { riskValue: 8, riskStatus: 'MEDIUM' },
-  { riskValue: 16, riskStatus: 'HIGH' }
+  { healthScore: 2, riskStatus: 'LOW' },
+  { healthScore: 4, riskStatus: 'LOW' },
+  { healthScore: 8, riskStatus: 'MEDIUM' },
+  { healthScore: 16, riskStatus: 'HIGH' }
 ]
 describe('Test util functions', () => {
   test('validare createTrendDataWithZone', () => {

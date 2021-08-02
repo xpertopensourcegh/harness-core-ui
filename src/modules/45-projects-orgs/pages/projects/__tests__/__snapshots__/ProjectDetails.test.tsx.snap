@@ -489,7 +489,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                         <p
                           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
                         >
-                          projectsOrgs.purposeList.continuous
+                          projectsOrgs.purposeList.change
                         </p>
                         <p
                           class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
@@ -618,12 +618,12 @@ exports[`Project Details render with modules and edit menu 1`] = `
                         <p
                           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
                         >
-                          projectsOrgs.purposeList.continuous
+                          projectsOrgs.purposeList.change
                         </p>
                         <p
                           class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
                         >
-                          Verification
+                          Intelligence
                         </p>
                       </div>
                       <div
@@ -664,16 +664,6 @@ exports[`Project Details render with modules and edit menu 1`] = `
                   <div
                     class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
                   >
-                    <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-button-text"
-                      >
-                        moduleRenderer.setupChanges
-                      </span>
-                    </button>
                     <button
                       class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
                       type="button"
@@ -745,7 +735,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                         <p
                           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
                         >
-                          projectsOrgs.purposeList.continuous
+                          projectsOrgs.purposeList.change
                         </p>
                         <p
                           class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
@@ -874,7 +864,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                         <p
                           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
                         >
-                          projectsOrgs.purposeList.continuous
+                          projectsOrgs.purposeList.change
                         </p>
                         <p
                           class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
@@ -1019,7 +1009,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                         <p
                           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
                         >
-                          projectsOrgs.purposeList.continuous
+                          projectsOrgs.purposeList.change
                         </p>
                         <p
                           class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
@@ -1630,7 +1620,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-xxlarge StyledProps--color StyledProps--color-black"
                   >
-                    Verification
+                    Intelligence
                   </p>
                 </div>
               </div>

@@ -1,15 +1,23 @@
-import React, { useState, useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Switch, Icon, Container } from '@wings-software/uicore'
+import { Switch, Container } from '@wings-software/uicore'
 import { useToaster } from '@common/exports'
 import { RestResponseHealthMonitoringFlagResponse, useSetHealthMonitoringFlag } from 'services/cv'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
-export default function ToggleMonitoring({ identifier, enable }: { identifier: string; enable: boolean }): JSX.Element {
+export default function ToggleMonitoring({
+  identifier,
+  enable,
+  refetch
+}: {
+  identifier: string
+  enable: boolean
+  refetch: () => void
+}): JSX.Element {
   const params = useParams<ProjectPathProps>()
   const { showError, clear } = useToaster()
   const [isEnabled, setIsEnabled] = useState(enable)
-  const { mutate: toggleMonitoringService, loading } = useSetHealthMonitoringFlag({
+  const { mutate: toggleMonitoringService } = useSetHealthMonitoringFlag({
     identifier
   })
 
@@ -25,6 +33,7 @@ export default function ToggleMonitoring({ identifier, enable }: { identifier: s
         }
       })
       setIsEnabled(!!output.resource?.healthMonitoringEnabled)
+      await refetch()
     } catch (err) {
       clear()
       showError(err?.data?.message)
@@ -33,13 +42,9 @@ export default function ToggleMonitoring({ identifier, enable }: { identifier: s
 
   return (
     <>
-      {loading ? (
-        <Icon name="steps-spinner" />
-      ) : (
-        <Container onClick={e => e.stopPropagation()}>
-          <Switch checked={isEnabled} onChange={onToggleMonitoringSource} />
-        </Container>
-      )}
+      <Container onClick={e => e.stopPropagation()}>
+        <Switch checked={isEnabled} onChange={onToggleMonitoringSource} />
+      </Container>
     </>
   )
 }

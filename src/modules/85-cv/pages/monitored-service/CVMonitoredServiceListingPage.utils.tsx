@@ -1,5 +1,5 @@
 import React from 'react'
-import { isNumber } from 'lodash-es'
+import { isNull, isNumber } from 'lodash-es'
 import Highcharts, { PointOptionsObject } from 'highcharts'
 import { Text, Layout, SelectOption } from '@wings-software/uicore'
 import HighchartsReact from 'highcharts-react-official'
@@ -33,10 +33,14 @@ export const createTrendDataWithZone = (trendData: RiskData[]): Highcharts.Serie
   const zones: Highcharts.SeriesZonesOptionsObject[] = [{ value: undefined, color: currentRiskColor }]
 
   trendData.forEach((dataPoint, index) => {
-    const { riskValue, riskStatus } = dataPoint || {}
+    const { riskStatus } = dataPoint || {}
+    let { healthScore } = dataPoint || {}
+    if (isNull(healthScore)) {
+      healthScore = -2
+    }
     const riskColor = getRiskColorValue(riskStatus)
-    highchartsLineData.push({ x: index, y: riskValue })
-    if (isNumber(riskValue) && riskStatus) {
+    highchartsLineData.push({ x: index, y: healthScore })
+    if (isNumber(healthScore) && riskStatus) {
       if (riskColor !== currentRiskColor) {
         zones[zones.length - 1].value = index
         zones.push({ value: undefined, color: riskColor })
@@ -81,7 +85,6 @@ export const getLabelMapping = (value: string, getString: UseStringsReturn['getS
 
 export const RenderHealthTrend: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ row }) => {
   const rowdata = row?.original
-  if (!rowdata?.healthMonitoringEnabled) return <></>
   if (rowdata?.historicalTrend?.healthScores) {
     const chartOptions = getHistoricalTrendChartOption(rowdata?.historicalTrend?.healthScores)
     return <HighchartsReact highcharts={Highcharts} options={chartOptions} />
@@ -93,12 +96,12 @@ export const RenderHealthScore: Renderer<CellProps<MonitoredServiceListItemDTO>>
   const rowdata = row?.original
   const { getString } = useStrings()
   if (!rowdata?.healthMonitoringEnabled) return <></>
-  const { riskStatus, riskValue = -2 } = rowdata?.currentHealthScore || {}
+  const { riskStatus, healthScore = -2 } = rowdata?.currentHealthScore || {}
   const color = getRiskColorValue(riskStatus)
   return (
     <Layout.Horizontal className={css.healthScoreCardContainer}>
       <div className={css.healthScoreCard} style={{ background: color }}>
-        {riskValue > -1 ? riskValue : ''}
+        {healthScore > -1 ? healthScore : ''}
       </div>
       <Text>{riskStatus && getLabelMapping(riskStatus, getString)}</Text>
     </Layout.Horizontal>
@@ -107,7 +110,6 @@ export const RenderHealthScore: Renderer<CellProps<MonitoredServiceListItemDTO>>
 
 export const RenderTags: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ row }) => {
   const rowdata = row?.original
-  if (!rowdata?.healthMonitoringEnabled) return <></>
   const tagskeys = rowdata?.tags ? Object.keys(rowdata?.tags) : []
   return (
     <Layout.Horizontal className={css.tagsText}>

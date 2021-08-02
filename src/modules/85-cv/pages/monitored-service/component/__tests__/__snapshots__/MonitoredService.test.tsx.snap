@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Unit tests for createting monitored source Health source tabel and environment services compoenet renders 1`] = `
+exports[`Unit tests for createting monitored source Health source tabel and environment services component renders 1`] = `
 <div>
   <div>
     <div
@@ -256,7 +256,7 @@ exports[`Unit tests for createting monitored source Health source tabel and envi
           </div>
         </div>
         <div
-          class="drawerlink disabled"
+          class="drawerlink"
         >
           <a
             href="/account/1234_accountId/cv/orgs/1234_org/projects/1234_project/monitoringservices/setup"
@@ -529,7 +529,7 @@ exports[`Unit tests for createting monitored source Health source table and envi
           </div>
         </div>
         <div
-          class="drawerlink disabled"
+          class="drawerlink"
         >
           <a
             href="/account/1234_accountId/cv/orgs/1234_org/projects/1234_project/monitoringservices/setup"

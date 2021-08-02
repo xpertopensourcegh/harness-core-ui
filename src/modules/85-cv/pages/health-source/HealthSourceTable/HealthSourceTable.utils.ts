@@ -6,6 +6,7 @@ export const getTypeByFeature = (feature: string, getString: UseStringsReturn['g
   switch (feature) {
     case Connectors.APP_DYNAMICS:
     case Connectors.GCP:
+    case Connectors.NEW_RELIC:
     case Connectors.PROMETHEUS:
     case HealthSourceTypes.StackdriverMetrics:
       return getString('pipeline.verification.analysisTab.metrics')

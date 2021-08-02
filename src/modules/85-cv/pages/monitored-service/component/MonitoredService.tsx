@@ -1,4 +1,5 @@
-import React, { useEffect, useMemo, useCallback } from 'react'
+import React, { useEffect, useState, useMemo, useCallback } from 'react'
+import * as Yup from 'yup'
 import { Formik, FormikContext } from 'formik'
 import { useHistory, useParams } from 'react-router-dom'
 import { PageSpinner } from '@common/components'
@@ -16,6 +17,7 @@ import { getInitFormData } from './MonitoredService.utils'
 function MonitoredService(): JSX.Element {
   const { getString } = useStrings()
   const history = useHistory()
+  const [validMonitoredSource, setValidMonitoredSource] = useState(false)
   const params = useParams<ProjectPathProps & { identifier: string }>()
   const isEdit = !!params?.identifier
   const {
@@ -69,7 +71,16 @@ function MonitoredService(): JSX.Element {
   )
 
   return (
-    <Formik<MonitoredServiceForm> initialValues={initValue} onSubmit={() => undefined} enableReinitialize>
+    <Formik<MonitoredServiceForm>
+      initialValues={initValue}
+      onSubmit={() => setValidMonitoredSource(true)}
+      validationSchema={Yup.object().shape({
+        name: Yup.string().required(getString('cv.monitoredServices.nameValidation')),
+        serviceRef: Yup.string().required(getString('cv.monitoredServices.serviceValidation')),
+        environmentRef: Yup.string().required(getString('cv.monitoredServices.environmentValidation'))
+      })}
+      enableReinitialize
+    >
       {formik => {
         const { name, identifier, description, tags, serviceRef, environmentRef } = formik?.values
         return (
@@ -91,6 +102,9 @@ function MonitoredService(): JSX.Element {
                   description,
                   tags
                 }}
+                validMonitoredSource={validMonitoredSource}
+                onCloseDrawer={setValidMonitoredSource}
+                validateMonitoredSource={formik.submitForm}
               />
             </CardWithOuterTitle>
           </div>

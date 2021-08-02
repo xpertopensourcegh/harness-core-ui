@@ -310,6 +310,7 @@ export interface StringsMap {
   'common.purpose.cf.features': string
   'common.purpose.cf.flags': string
   'common.purpose.cf.subtitle': string
+  'common.purpose.change': string
   'common.purpose.changeSelection': string
   'common.purpose.ci.continuous': string
   'common.purpose.ci.description': string
@@ -1582,6 +1583,7 @@ export interface StringsMap {
   'projectsOrgs.purposeList.cd': string
   'projectsOrgs.purposeList.ce': string
   'projectsOrgs.purposeList.cf': string
+  'projectsOrgs.purposeList.change': string
   'projectsOrgs.purposeList.ci': string
   'projectsOrgs.purposeList.continuous': string
   'projectsOrgs.purposeList.cv': string
@@ -3319,11 +3321,13 @@ export interface StringsMap {
   'cv.monitoredServices.deleteMonitoredService': string
   'cv.monitoredServices.deleteMonitoredServiceWarning': string
   'cv.monitoredServices.editMonitoredServices': string
+  'cv.monitoredServices.environmentValidation': string
   'cv.monitoredServices.filterlabel': string
   'cv.monitoredServices.monitoredServiceCreated': string
   'cv.monitoredServices.monitoredServiceDetails': string
   'cv.monitoredServices.monitoredServiceName': string
   'cv.monitoredServices.monitoredServiceUpdated': string
+  'cv.monitoredServices.nameValidation': string
   'cv.monitoredServices.newMonitoredServices': string
   'cv.monitoredServices.noData': string
   'cv.monitoredServices.riskLabel.highRisk': string
@@ -3331,6 +3335,7 @@ export interface StringsMap {
   'cv.monitoredServices.riskLabel.mediumRisk': string
   'cv.monitoredServices.serviceAndEnvironment': string
   'cv.monitoredServices.serviceCount': string
+  'cv.monitoredServices.serviceValidation': string
   'cv.monitoredServices.table.healthMonitoring': string
   'cv.monitoredServices.table.lastestHealthTrend': string
   'cv.monitoredServices.table.serviceHealthScore': string

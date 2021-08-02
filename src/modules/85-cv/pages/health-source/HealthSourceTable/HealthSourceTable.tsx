@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import cx from 'classnames'
 import { Link, useParams, useHistory } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
@@ -29,7 +29,10 @@ export default function HealthSourceTable({
   onDelete,
   isEdit,
   shouldRenderAtVerifyStep,
-  isRunTimeInput
+  isRunTimeInput,
+  onCloseDrawer,
+  validMonitoredSource,
+  validateMonitoredSource
 }: HealthSourceTableInterface): JSX.Element {
   const [modalOpen, setModalOpen] = useState(false)
   const history = useHistory()
@@ -38,6 +41,10 @@ export default function HealthSourceTable({
   const { getString } = useStrings()
   const { routeTitle } = breadCrumbRoute || {}
   const [rowData, setrowData] = useState<RowData | null>(null)
+
+  useEffect(() => {
+    setModalOpen(!!validMonitoredSource)
+  }, [validMonitoredSource])
 
   const { mutate: updateMonitoredService } = useUpdateMonitoredService({
     identifier: params.identifier,
@@ -112,6 +119,7 @@ export default function HealthSourceTable({
   const onCloseHealthSourceTableWrapper = (): void => {
     setModalOpen(false)
     setrowData(null)
+    onCloseDrawer?.(false)
   }
 
   const renderTypeWithIcon: Renderer<CellProps<RowData>> = ({ row }): JSX.Element => {
@@ -147,10 +155,6 @@ export default function HealthSourceTable({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  const disableAddNewHealthSource = useMemo(() => {
-    return !monitoredServiceRef?.name || !serviceRef || !environmentRef
-  }, [monitoredServiceRef, serviceRef, environmentRef])
 
   return (
     <>
@@ -201,8 +205,8 @@ export default function HealthSourceTable({
               <NoDataCard icon={'join-table'} message={getString('cv.healthSource.noData')} />
             </Container>
           )}
-          <div className={cx(css.drawerlink, disableAddNewHealthSource && css.disabled)}>
-            <Link to={'#'} onClick={() => setModalOpen(true)}>
+          <div className={cx(css.drawerlink)}>
+            <Link to={'#'} onClick={validateMonitoredSource}>
               + {getString('cv.healthSource.addHealthSource')}
             </Link>
           </div>

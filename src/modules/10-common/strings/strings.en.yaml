@@ -138,6 +138,7 @@ purpose:
   welcome: 'Hello there, welcome to Harness'
   howToProceed: 'How would you like to proceed?'
   continuous: CONTINUOUS
+  change: CHANGE
   moduleSuccess: Module Added Successfully
   startATrial: Start A Trial
   setup: 15 min setup
