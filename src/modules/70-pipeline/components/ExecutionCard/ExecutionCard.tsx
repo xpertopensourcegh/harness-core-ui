@@ -60,12 +60,14 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
   const disabled = isExecutionNotStarted(pipelineExecution.status)
 
   function handleClick(): void {
-    if (!disabled) {
+    const { pipelineIdentifier, planExecutionId } = pipelineExecution
+
+    if (!disabled && pipelineIdentifier && planExecutionId) {
       history.push(
         routes.toExecutionPipelineView({
           orgIdentifier,
-          pipelineIdentifier: pipelineExecution?.pipelineIdentifier || '',
-          executionIdentifier: pipelineExecution?.planExecutionId || '',
+          pipelineIdentifier,
+          executionIdentifier: planExecutionId,
           projectIdentifier,
           accountId,
           module
@@ -82,13 +84,15 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
             <div className={css.info}>
               <div className={css.nameGroup}>
                 <div className={css.pipelineName}>{pipelineExecution?.name}</div>
-                <String
-                  className={css.executionId}
-                  stringID={
-                    module === 'cd' ? 'execution.pipelineIdentifierTextCD' : 'execution.pipelineIdentifierTextCI'
-                  }
-                  vars={pipelineExecution}
-                />
+                {variant === CardVariant.Default ? (
+                  <String
+                    className={css.executionId}
+                    stringID={
+                      module === 'cd' ? 'execution.pipelineIdentifierTextCD' : 'execution.pipelineIdentifierTextCI'
+                    }
+                    vars={pipelineExecution}
+                  />
+                ) : null}
               </div>
               {!isEmpty(pipelineExecution?.tags) ? (
                 <TagsPopover

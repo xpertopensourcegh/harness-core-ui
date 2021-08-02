@@ -22,6 +22,8 @@ export function CDExecutionCardSummary(props: ExecutionCardInfoProps): React.Rea
 
     stagesMap.forEach(stage => {
       const serviceInfo = (stage.moduleInfo?.cd as CDStageModuleInfo)?.serviceInfo
+
+      // istanbul ignore else
       if (serviceInfo?.identifier) {
         map.set(serviceInfo.identifier, serviceInfo)
       }
@@ -32,7 +34,8 @@ export function CDExecutionCardSummary(props: ExecutionCardInfoProps): React.Rea
   const hasMoreItems = serviceIdentifiers.length > SERVICES_LIMIT
   const items = showMore && hasMoreItems ? serviceIdentifiers : serviceIdentifiers?.slice(0, SERVICES_LIMIT)
 
-  function toggleSection(): void {
+  function toggleSection(e: React.SyntheticEvent): void {
+    e.stopPropagation()
     setShowMore(status => !status)
   }
 
@@ -41,7 +44,7 @@ export function CDExecutionCardSummary(props: ExecutionCardInfoProps): React.Rea
   }
 
   return (
-    <div className={css.cardSummary} onClick={killEvent}>
+    <div className={css.cardSummary}>
       <String
         tagName="div"
         className={css.heading}
@@ -66,7 +69,9 @@ export function CDExecutionCardSummary(props: ExecutionCardInfoProps): React.Rea
                   position={Position.BOTTOM_RIGHT}
                   className={css.serviceWrapper}
                 >
-                  <div className={css.serviceName}>{service.displayName}</div>
+                  <div className={css.serviceName} onClick={killEvent}>
+                    {service.displayName}
+                  </div>
                   <ServicePopoverCard service={service} />
                 </Popover>
               )
