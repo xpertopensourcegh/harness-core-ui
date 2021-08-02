@@ -363,6 +363,10 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
     return () => unSubscribeForm({ tab: DeployTabs.INFRASTRUCTURE, form: formikRef })
   }, [])
 
+  const environmentRef = initialValues?.environment?.identifier || initialValues?.environmentRef
+
+  const [type, setType] = React.useState<MultiTypeInputType>(getMultiTypeFromValue(environmentRef))
+
   return (
     <>
       <Formik<DeployEnvData>
@@ -377,7 +381,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
         }}
         initialValues={{
           ...initialValues,
-          ...{ environmentRef: initialValues?.environment?.identifier || initialValues?.environmentRef }
+          ...{ environmentRef }
         }}
         validationSchema={Yup.object().shape({
           environmentRef: Yup.string().trim().required(getString('pipelineSteps.environmentTab.environmentIsRequired'))
@@ -397,6 +401,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
                 useValue
                 placeholder={getString('pipelineSteps.environmentTab.selectEnvironment')}
                 multiTypeInputProps={{
+                  onTypeChange: setType,
                   width: 300,
                   onChange: val => {
                     if (
@@ -415,7 +420,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
                 }}
                 selectItems={environments}
               />
-              {getMultiTypeFromValue(values?.environmentRef) === MultiTypeInputType.FIXED && (
+              {type === MultiTypeInputType.FIXED && (
                 <Button
                   minimal
                   intent="primary"

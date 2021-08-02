@@ -342,6 +342,10 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const serviceRef = initialValues?.service?.identifier || initialValues?.serviceRef
+
+  const [type, setType] = React.useState<MultiTypeInputType>(getMultiTypeFromValue(serviceRef))
+
   return (
     <>
       <Formik<DeployServiceData>
@@ -356,9 +360,7 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
         }}
         initialValues={{
           ...initialValues,
-          ...{
-            serviceRef: initialValues.service?.identifier || initialValues.serviceRef
-          }
+          ...{ serviceRef }
         }}
         validationSchema={Yup.object().shape({
           serviceRef: Yup.string().trim().required(getString('pipelineSteps.serviceTab.serviceIsRequired'))
@@ -378,6 +380,7 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
                 disabled={readonly}
                 placeholder={getString('pipelineSteps.serviceTab.selectService')}
                 multiTypeInputProps={{
+                  onTypeChange: setType,
                   width: 300,
                   expressions,
                   onChange: val => {
@@ -393,7 +396,7 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
                 }}
                 selectItems={services}
               />
-              {getMultiTypeFromValue(values?.serviceRef) === MultiTypeInputType.FIXED ? (
+              {type === MultiTypeInputType.FIXED ? (
                 <Button
                   minimal
                   intent="primary"
