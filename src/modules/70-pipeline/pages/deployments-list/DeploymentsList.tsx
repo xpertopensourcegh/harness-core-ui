@@ -4,7 +4,6 @@ import { HarnessDocTooltip, useModalHook } from '@wings-software/uicore'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
 
 import { useStrings } from 'framework/strings'
-import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import PipelineDeploymentList from '@pipeline/pages/pipeline-deployment-list/PipelineDeploymentList'
 
 import PipelineModalListView from '@pipeline/components/PipelineModalListView/PipelineModalListView'
@@ -45,9 +44,7 @@ export default function DeploymentsList(): React.ReactElement {
         breadcrumbs={<NGBreadcrumbs links={[]} />}
       ></Page.Header>
       <div className={css.content}>
-        <GitSyncStoreProvider>
-          <PipelineDeploymentList onRunPipeline={openModal} />
-        </GitSyncStoreProvider>
+        <PipelineDeploymentList onRunPipeline={openModal} />
       </div>
     </div>
   )
