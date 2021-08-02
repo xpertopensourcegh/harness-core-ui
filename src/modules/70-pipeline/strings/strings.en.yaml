@@ -686,3 +686,4 @@ tagDependencyRequired: required to fetch the tags
 myDeploymentsText: My Deployments
 myBuildsText: My Builds
 noBuckets: No buckets found with given region
+gitRepos: Git Repos

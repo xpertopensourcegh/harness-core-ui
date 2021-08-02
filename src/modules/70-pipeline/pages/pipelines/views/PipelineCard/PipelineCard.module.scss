@@ -1,0 +1,44 @@
+.pipelineCard {
+  &:global(.bp3-card) {
+    width: 250px;
+    padding: 0;
+  }
+  .label {
+    flex-shrink: 0;
+  }
+  :global {
+    .bp3-popover-wrapper {
+      display: inline-flex;
+    }
+  }
+  .sparkChart {
+    min-width: 8px !important;
+  }
+  .menu {
+    position: absolute;
+    top: 26px;
+    right: 20px;
+  }
+  .tagsPopover {
+    p {
+      color: var(--grey-600);
+    }
+  }
+  .carBtns {
+    background-color: var(--white) !important;
+    box-shadow: none !important;
+    padding: 0px 12px !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    height: 24px !important;
+    min-height: 24px;
+  }
+  .runBtn {
+    border: 1px solid var(--green-600) !important;
+    color: var(--green-600) !important;
+  }
+  .viewExecutionsBtn {
+    border: 1px solid var(--primary-7) !important;
+    flex-shrink: 0;
+  }
+}
