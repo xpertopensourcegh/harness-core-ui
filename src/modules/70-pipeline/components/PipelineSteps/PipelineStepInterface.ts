@@ -45,5 +45,6 @@ export enum StepType {
   InfraProvisioning = 'InfraProvisioning',
   KubernetesGcp = 'KubernetesGcp',
   ResourceConstraint = 'ResourceConstraint',
+  FlagConfiguration = 'FlagConfiguration',
   TemplateStep = 'TemplateStep'
 }

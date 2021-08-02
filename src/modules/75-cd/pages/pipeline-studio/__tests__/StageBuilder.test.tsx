@@ -28,7 +28,7 @@ import '@cd/components/PipelineStudio/DeployStage'
 // eslint-disable-next-line no-restricted-imports
 import '@ci/components/PipelineStudio/BuildStage'
 // eslint-disable-next-line no-restricted-imports
-import '@cf/components/PipelineStudio/FeatureFlagStage'
+import '@cf/pages/pipeline-studio/views/FeatureFlagStage'
 // eslint-disable-next-line no-restricted-imports
 import '@cd/components/PipelineSteps'
 // eslint-disable-next-line no-restricted-imports

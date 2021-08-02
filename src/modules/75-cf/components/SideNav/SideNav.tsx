@@ -1,5 +1,5 @@
 import React from 'react'
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams, useHistory, matchPath, useLocation } from 'react-router-dom'
 import { Layout } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import { ProjectSelector } from '@projects-orgs/components/ProjectSelector/ProjectSelector'
@@ -12,6 +12,7 @@ import { useQueryParams } from '@common/hooks'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import NavExpandable from '@common/navigation/NavExpandable/NavExpandable'
 import css from './SideNav.module.scss'
+import navCSS from '@common/navigation/SideNav/SideNav.module.scss'
 
 export default function CFSideNav(): React.ReactElement {
   const { getString } = useStrings()
@@ -20,6 +21,13 @@ export default function CFSideNav(): React.ReactElement {
   const history = useHistory()
   const { updateAppStore } = useAppStore()
   const { withActiveEnvironment } = useActiveEnvironment()
+  const location = useLocation()
+  const isDev = localStorage.ENABLED_FF_EXPERIMENTS
+  const toDeployments = routes.toDeployments({ ...params, module: 'cf' })
+  const toPipelines = routes.toPipelines({ ...params, module: 'cf' })
+  const isCFPipelines = !!(
+    matchPath(location.pathname, { path: toDeployments }) || matchPath(location.pathname, { path: toPipelines })
+  )
   const { trial } = useQueryParams<{ trial?: boolean }>()
 
   return (
@@ -60,6 +68,13 @@ export default function CFSideNav(): React.ReactElement {
             to={withActiveEnvironment(routes.toCFTargetManagement(params))}
           />
           <SidebarLink label={getString('environments')} to={withActiveEnvironment(routes.toCFEnvironments(params))} />
+          {isDev && (
+            <SidebarLink
+              label={getString('pipelines')}
+              to={withActiveEnvironment(toDeployments)}
+              className={isCFPipelines ? navCSS.selected : undefined}
+            />
+          )}
           <SidebarLink
             className={css.onboarding}
             label={getString('cf.shared.getStarted')}

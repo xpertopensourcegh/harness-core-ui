@@ -1,7 +1,7 @@
 .setupShell {
   position: relative;
   height: 100%;
-  background: var(--white);
+  background: #fafbfd;
   overflow: auto;
   & > :global(.bp3-tabs > .bp3-tab-list) {
     position: sticky;
@@ -73,6 +73,7 @@
   .footer {
     display: block !important;
     width: 100% !important;
-    background-color: var(--white) !important;
+    position: fixed;
+    bottom: 20px;
   }
 }

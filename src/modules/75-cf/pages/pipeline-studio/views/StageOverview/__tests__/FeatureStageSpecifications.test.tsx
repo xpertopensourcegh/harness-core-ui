@@ -9,7 +9,7 @@ import {
 import { DrawerTypes, TemplateDrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import { factory } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
 import { CustomVariables } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariables'
-import FeatureStageSpecifications from '../FeatureStageSpecifications'
+import StageOverview from '../StageOverview'
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
@@ -70,7 +70,7 @@ describe('StepWidget tests', () => {
     const { container } = render(
       <TestWrapper>
         <PipelineContext.Provider value={getPipelineContext()}>
-          <FeatureStageSpecifications />
+          <StageOverview />
         </PipelineContext.Provider>
       </TestWrapper>
     )

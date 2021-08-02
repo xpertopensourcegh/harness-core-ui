@@ -2960,9 +2960,43 @@ export interface StringsMap {
   'cf.onboarding.tryTarget': string
   'cf.onboarding.upAndRunning': string
   'cf.onboarding.waitForConnect': string
-  'cf.pipeline.default': string
-  'cf.pipeline.stages.execution.title': string
-  'cf.pipeline.stages.setup.title': string
+  'cf.pipeline.advanced.title': string
+  'cf.pipeline.flagConfiguration.addConditionalRules': string
+  'cf.pipeline.flagConfiguration.addEditMapping': string
+  'cf.pipeline.flagConfiguration.addNewMapping': string
+  'cf.pipeline.flagConfiguration.addOrEdit': string
+  'cf.pipeline.flagConfiguration.addVariationMappingTitle': string
+  'cf.pipeline.flagConfiguration.allRuntimeInput': string
+  'cf.pipeline.flagConfiguration.conditionRuntime': string
+  'cf.pipeline.flagConfiguration.conditionalRules': string
+  'cf.pipeline.flagConfiguration.configureMore': string
+  'cf.pipeline.flagConfiguration.editVariationMappingTitle': string
+  'cf.pipeline.flagConfiguration.environmentRequired': string
+  'cf.pipeline.flagConfiguration.fixedInput': string
+  'cf.pipeline.flagConfiguration.flagRequired': string
+  'cf.pipeline.flagConfiguration.flagState': string
+  'cf.pipeline.flagConfiguration.flagSwitch': string
+  'cf.pipeline.flagConfiguration.flagSwitchRuntime': string
+  'cf.pipeline.flagConfiguration.remove': string
+  'cf.pipeline.flagConfiguration.removeMapping': string
+  'cf.pipeline.flagConfiguration.runtimeInput': string
+  'cf.pipeline.flagConfiguration.selectEnvironment': string
+  'cf.pipeline.flagConfiguration.selectFlag': string
+  'cf.pipeline.flagConfiguration.serve': string
+  'cf.pipeline.flagConfiguration.serveMapping': string
+  'cf.pipeline.flagConfiguration.stepName': string
+  'cf.pipeline.flagConfiguration.switchTo': string
+  'cf.pipeline.flagConfiguration.toGroups': string
+  'cf.pipeline.flagConfiguration.variationMappingRuntime': string
+  'cf.pipeline.flagConfiguration.viewDetail': string
+  'cf.pipeline.flagConfiguration.whatToConfigure': string
+  'cf.pipeline.listing': string
+  'cf.pipeline.rollloutStrategy.title': string
+  'cf.pipeline.variationMapping.placeholder': string
+  'cf.pipeline.variationMapping.selectVariation': string
+  'cf.pipeline.variationMapping.targetTargetGroup': string
+  'cf.pipeline.variationMapping.targetTargetGroupRequired': string
+  'cf.pipeline.variationMapping.variationRequired': string
   'cf.rbac.category': string
   'cf.rbac.featureflag.delete': string
   'cf.rbac.featureflag.edit': string
@@ -3004,6 +3038,8 @@ export interface StringsMap {
   'cf.shared.getStarted': string
   'cf.shared.individual': string
   'cf.shared.lastEvaluated': string
+  'cf.shared.off': string
+  'cf.shared.on': string
   'cf.shared.pleaseSelectVariation': string
   'cf.shared.prerequisites': string
   'cf.shared.quickGuide': string

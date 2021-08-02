@@ -1,8 +1,6 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly container: string
-  readonly link: string
-  readonly active: string
+  readonly borderedContainer: string
 }
 export default styles
