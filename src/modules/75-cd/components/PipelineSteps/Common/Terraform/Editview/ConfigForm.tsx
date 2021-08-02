@@ -82,12 +82,10 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
         {(formik: FormikProps<ConfigFileData>) => {
           const connectorValue = formik.values.spec?.configuration?.spec?.configFiles?.store?.spec
             ?.connectorRef as Connector
-
           return (
             <Layout.Vertical>
               <Form>
                 <FormMultiTypeConnectorField
-                  setRefValue
                   label={
                     <Text style={{ display: 'flex', alignItems: 'center' }}>
                       {getString('connectors.title.gitConnector')}

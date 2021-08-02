@@ -63,6 +63,7 @@ export interface RemoteVar {
       store?: {
         spec?: {
           gitFetchType?: string
+          repoName?: string
           branch?: string
           commitId?: string
           connectorRef?: {
@@ -130,6 +131,7 @@ export interface VarFileArray {
     store?: {
       spec?: {
         gitFetchType?: string
+        repoName?: string
         branch?: string
         commitId?: string
         connectorRef?: {
@@ -240,6 +242,7 @@ export interface TfVar {
     value: string
   }
   gitFetchType?: string
+  repoName?: string
   branch?: string
   commitId?: string
   paths?: string[]
@@ -317,7 +320,10 @@ export const onSubmitTerraformData = (values: any): TFFormData => {
           spec: {
             ...values.spec?.configuration?.spec?.configFiles?.store?.spec,
             connectorRef: values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
-              ? values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
+              ? getMultiTypeFromValue(values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef) ===
+                  MultiTypeInputType.RUNTIME || !connectorValue?.value
+                ? values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
+                : connectorValue?.value
               : ''
           }
         }
@@ -418,7 +424,10 @@ export const onSubmitTFPlanData = (values: any): TFPlanFormData => {
         spec: {
           ...values.spec?.configuration?.configFiles?.store?.spec,
           connectorRef: values?.spec?.configuration?.configFiles?.store?.spec?.connectorRef
-            ? values?.spec?.configuration?.configFiles?.store?.spec?.connectorRef
+            ? getMultiTypeFromValue(values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef) ===
+                MultiTypeInputType.RUNTIME || !connectorValue?.value
+              ? values?.spec?.configuration?.configFiles?.store?.spec?.connectorRef
+              : connectorValue?.value
             : ''
         }
       }

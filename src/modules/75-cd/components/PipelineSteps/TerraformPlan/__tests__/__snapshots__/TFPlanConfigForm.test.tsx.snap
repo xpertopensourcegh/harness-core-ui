@@ -943,11 +943,61 @@ exports[`TF Config Form tests initial render 1`] = `
                       <span
                         class="bp3-button-text"
                       >
-                        <span
-                          class="placeholder"
+                        <div
+                          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main selectWrapper StyledProps--flex StyledProps--flex-distribution-space-between"
                         >
-                          select
-                        </span>
+                          <span
+                            class="bp3-popover-wrapper"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <p
+                                class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
+                                tabindex="0"
+                              >
+                                Git5
+                              </p>
+                            </span>
+                          </span>
+                          <div
+                            class="rightStatus"
+                          >
+                            <span
+                              class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
+                              data-testid="crf-status"
+                              icon="full-circle"
+                            >
+                              <svg
+                                data-icon="full-circle"
+                                height="6"
+                                viewBox="0 0 16 16"
+                                width="6"
+                              >
+                                <desc>
+                                  full-circle
+                                </desc>
+                                <path
+                                  d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                            <span
+                              class="Tag--main"
+                            >
+                              <span
+                                class="bp3-tag bp3-minimal tag"
+                              >
+                                <span
+                                  class="bp3-text-overflow-ellipsis bp3-fill"
+                                >
+                                  project
+                                </span>
+                              </span>
+                            </span>
+                          </div>
+                        </div>
                       </span>
                       <span
                         class="bp3-icon bp3-icon-chevron-down StyledProps--main"
@@ -1148,9 +1198,7 @@ exports[`TF Config Form tests initial render 1`] = `
             class="StyledProps--font StyledProps--main StyledProps--padding-top-xlarge"
           >
             <button
-              class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
-              disabled=""
-              tabindex="-1"
+              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
               type="submit"
             >
               <span
