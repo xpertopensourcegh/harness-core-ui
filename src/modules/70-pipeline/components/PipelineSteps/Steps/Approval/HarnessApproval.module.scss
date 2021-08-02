@@ -13,14 +13,6 @@
   }
 }
 
-.multiSelect {
-  :global {
-    .bp3-multi-select {
-      height: fit-content !important;
-    }
-  }
-}
-
 .approvalMessage {
   :global {
     textarea {
@@ -74,21 +66,4 @@
 
 .deploymentViewMedium {
   width: 50% !important;
-}
-
-.ugLabel {
-  margin-bottom: 8px;
-}
-
-.multiSelectDeploymentMode {
-  margin-top: var(--spacing-xsmall);
-  :global {
-    .bp3-input {
-      border: 1px solid var(--grey-300) !important;
-    }
-  }
-}
-
-.deploymentModeUgSelectWrapper {
-  margin: var(--spacing-medium) 0;
 }

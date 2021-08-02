@@ -1,6 +1,10 @@
 .userGroupInputContainer {
   background-color: var(--white) !important;
-  min-height: 37px !important;
+}
+
+.layoutHeight {
+  height: 22px;
+  line-height: 13px;
 }
 
 .pointer {
@@ -9,5 +13,15 @@
 .selectBtn {
   &:hover {
     text-decoration: underline !important;
+  }
+}
+
+.multiTypeSupport {
+  position: relative;
+  :global {
+    .bp3-form-group {
+      width: 100%;
+      margin-bottom: 0;
+    }
   }
 }

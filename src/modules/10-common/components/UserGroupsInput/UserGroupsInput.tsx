@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import cx from 'classnames'
 import { connect, FormikContext } from 'formik'
-import { Layout, Container, Text, Color, Icon } from '@wings-software/uicore'
+import {
+  Layout,
+  Container,
+  Text,
+  Color,
+  Icon,
+  FormError,
+  DataTooltipInterface,
+  HarnessDocTooltip
+} from '@wings-software/uicore'
 
 import { get } from 'lodash-es'
 import { FormGroup, Intent } from '@blueprintjs/core'
@@ -26,14 +35,18 @@ interface MappedUserGroupData {
   userGroupsCount: number
 }
 
-interface FormikUserGroupsInput extends UserGroupsInputProps {
+export interface FormikUserGroupsInput extends UserGroupsInputProps {
   formik: FormikContext<any>
+  tooltipProps?: DataTooltipInterface
+  disabled?: boolean
+  formGroupClass?: string
 }
 
 const UserGroupsInput: React.FC<FormikUserGroupsInput> = props => {
   const { getString } = useStrings()
-  const { formik, label, name, onSuccess, placeholder } = props
-  const userGroupsReference: string[] = formik.values[name]
+  const { formik, label, name, onSuccess, placeholder, tooltipProps, disabled, formGroupClass = '' } = props
+  const userGroupsReference: string[] = get(formik?.values, name)
+
   const { openSelectUserGroupsModal } = useSelectUserGroupsModal({
     onSuccess: data => {
       const scopeObjToStringArry = data.map((el: ScopeAndIdentifier) => getReference(el.scope, el.identifier) || '')
@@ -87,16 +100,31 @@ const UserGroupsInput: React.FC<FormikUserGroupsInput> = props => {
     formik.setFieldValue(name, [])
     setMappedUserGroups([])
   }
+
   return (
     <FormGroup
-      helperText={errorCheck(name, formik) ? get(formik?.errors, name) : null}
+      helperText={errorCheck(name, formik) ? <FormError errorMessage={get(formik?.errors, name)} /> : null}
       intent={errorCheck(name, formik) ? Intent.DANGER : Intent.NONE}
+      className={formGroupClass}
     >
       <Layout.Vertical>
-        {label ? <label className={'bp3-label'}>{label}</label> : null}
-        <Container border padding="xsmall" className={cx('bp3-input', css.userGroupInputContainer)}>
+        {label ? (
+          <label data-tooltip-id={tooltipProps?.dataTooltipId} className="bp3-label">
+            {label}
+            <HarnessDocTooltip tooltipId={tooltipProps?.dataTooltipId} useStandAlone={true} />
+          </label>
+        ) : null}
+        <Container
+          border
+          padding="xsmall"
+          className={cx('bp3-input', disabled ? 'bp3-disabled' : '', css.userGroupInputContainer)}
+        >
           {mappedUserGroups?.length ? (
-            <Layout.Horizontal spacing="xsmall" flex={{ alignItems: 'center', justifyContent: 'space-between' }}>
+            <Layout.Horizontal
+              spacing="xsmall"
+              flex={{ alignItems: 'center', justifyContent: 'space-between' }}
+              className={css.layoutHeight}
+            >
               <Layout.Horizontal
                 width={'95%'}
                 spacing="xsmall"
