@@ -131,7 +131,7 @@ export function ContinousVerificationInputSetStep(
         {checkIfRunTimeInput(deploymentTag) && (
           <Container className={css.item}>
             <FormInput.Text
-              label={getString('connectors.cdng.deploymentTag')}
+              label={getString('connectors.cdng.artifactTag')}
               name={`${prefix}spec.spec.deploymentTag`}
               disabled={readonly}
             />

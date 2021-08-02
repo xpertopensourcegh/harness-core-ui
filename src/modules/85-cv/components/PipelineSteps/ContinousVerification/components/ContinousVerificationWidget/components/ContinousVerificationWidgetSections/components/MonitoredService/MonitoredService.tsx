@@ -58,9 +58,10 @@ export default function MonitoredService({
     [accountId, projectIdentifier, orgIdentifier, environmentIdentifier, serviceIdentifier]
   )
 
-  const { mutate: createDefaultMonitoredService } = useCreateDefaultMonitoredService({
-    queryParams: createServiceQueryParams
-  })
+  const { mutate: createDefaultMonitoredService, loading: createMonitoredServiceLoading } =
+    useCreateDefaultMonitoredService({
+      queryParams: createServiceQueryParams
+    })
 
   const { data, loading, error } = useGetMonitoredServiceFromServiceAndEnvironment({
     queryParams: {
@@ -127,6 +128,12 @@ export default function MonitoredService({
         <>{getString('connectors.cdng.monitoredService.fetchingMonitoredService')}</>
       </Card>
     )
+  } else if (createMonitoredServiceLoading) {
+    return (
+      <Card>
+        <>{getString('connectors.cdng.monitoredService.creatingMonitoredService')}</>
+      </Card>
+    )
   } else if (error) {
     return (
       <Card>
@@ -148,7 +155,7 @@ export default function MonitoredService({
                 <div className={css.monitoredServiceText}>
                   {`
                     ${getString('connectors.cdng.monitoredService.monitoredServiceText')}
-                    ${serviceIdentifier} ${getString('and')} ${environmentIdentifier}
+                    ${serviceIdentifier} ${getString('and').toLocaleLowerCase()} ${environmentIdentifier}
                   `}
                 </div>
               ) : null}

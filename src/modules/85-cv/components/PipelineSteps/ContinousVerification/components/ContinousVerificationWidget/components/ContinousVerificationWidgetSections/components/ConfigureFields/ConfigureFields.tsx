@@ -111,7 +111,7 @@ export default function ConfigureFields(props: { formik: FormikProps<ContinousVe
         {renderConfigOptions()}
         <div className={cx(stepCss.formGroup)}>
           <FormInput.MultiTextInput
-            label={getString('connectors.cdng.deploymentTag')}
+            label={getString('connectors.cdng.artifactTag')}
             name="spec.spec.deploymentTag"
             multiTextInputProps={{ expressions }}
           />

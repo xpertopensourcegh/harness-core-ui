@@ -261,7 +261,7 @@ sumologic:
 cdng:
   jobName: Job Name
   continousVerificationType: Continous Verification Type
-  deploymentTag: Deployment Tag
+  artifactTag: Artifact Tag
   defineVerificationJob: Define Verification Job
   baseline: Baseline
   trafficsplit: Traffic Split (OPTIONAL)
@@ -275,6 +275,7 @@ cdng:
   monitoredService:
     label: Monitored Service
     fetchingMonitoredService: Fetching Monitored service ...
+    creatingMonitoredService: Creating Monitored service ...
     fetchingMonitoredServiceError: Failed to fetch monitored service . Please try again by reopening the Verify Step
     autoCreateMonitoredService: Click to autocreate a monitored service
     monitoredServiceText: A monitored service for the

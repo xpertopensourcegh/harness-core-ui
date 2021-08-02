@@ -374,7 +374,7 @@ exports[`Test ContinousVerificationStep Step renders inputSetView 1`] = `
                   class="Tooltip--acenter"
                   data-tooltip-id="stepTestUtilForm_spec.spec.deploymentTag"
                 >
-                  connectors.cdng.deploymentTag
+                  connectors.cdng.artifactTag
                 </span>
                  
                 <span
@@ -1681,7 +1681,7 @@ exports[`Test ContinousVerificationStep Step should render editView when current
                 class="Tooltip--acenter"
                 data-tooltip-id="cvData_spec.spec.deploymentTag"
               >
-                connectors.cdng.deploymentTag
+                connectors.cdng.artifactTag
               </span>
                
               <span
@@ -2359,7 +2359,7 @@ exports[`Test ContinousVerificationStep Step should render editView when current
                 class="Tooltip--acenter"
                 data-tooltip-id="cvData_spec.spec.deploymentTag"
               >
-                connectors.cdng.deploymentTag
+                connectors.cdng.artifactTag
               </span>
                
               <span

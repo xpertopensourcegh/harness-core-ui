@@ -928,13 +928,13 @@ export interface StringsMap {
   'connectors.azureKeyVault.validation.subscription': string
   'connectors.azureKeyVault.validation.tenantId': string
   'connectors.azureKeyVault.validation.vaultName': string
+  'connectors.cdng.artifactTag': string
   'connectors.cdng.baseline': string
   'connectors.cdng.baselineDefaultLabel.lastSuccess': string
   'connectors.cdng.continousVerificationStep': string
   'connectors.cdng.continousVerificationType': string
   'connectors.cdng.createCVJob': string
   'connectors.cdng.defineVerificationJob': string
-  'connectors.cdng.deploymentTag': string
   'connectors.cdng.displayName': string
   'connectors.cdng.error': string
   'connectors.cdng.healthSources.label': string
@@ -947,6 +947,7 @@ export interface StringsMap {
   'connectors.cdng.loadingJobs': string
   'connectors.cdng.monitoredService.autoCreateMonitoredService': string
   'connectors.cdng.monitoredService.backToVerifyStep': string
+  'connectors.cdng.monitoredService.creatingMonitoredService': string
   'connectors.cdng.monitoredService.fetchingMonitoredService': string
   'connectors.cdng.monitoredService.fetchingMonitoredServiceError': string
   'connectors.cdng.monitoredService.label': string
