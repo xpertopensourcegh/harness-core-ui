@@ -46,7 +46,7 @@ exports[`HealthSource table check delete and edit row 1`] = `
         class="cell sortable"
         colspan="1"
         role="columnheader"
-        style="width: 30%;"
+        style="width: 35%;"
       >
         typeLabel
       </div>
@@ -54,7 +54,7 @@ exports[`HealthSource table check delete and edit row 1`] = `
         class="cell sortable"
         colspan="1"
         role="columnheader"
-        style="width: 40%;"
+        style="width: 35%;"
         title="Toggle SortBy"
       >
         source
@@ -96,7 +96,7 @@ exports[`HealthSource table check delete and edit row 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 30%;"
+          style="width: 35%;"
         >
           <p
             class="StyledProps--font StyledProps--main"
@@ -107,13 +107,13 @@ exports[`HealthSource table check delete and edit row 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 40%;"
+          style="width: 35%;"
         >
           <div
             class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
           >
             <span
-              class="bp3-icon StyledProps--main"
+              class="bp3-icon StyledProps--main sourceTypeIcon"
               data-icon="service-appdynamics"
             >
               <svg
@@ -156,7 +156,7 @@ exports[`HealthSource table check delete and edit row 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 30%;"
+          style="width: 35%;"
         >
           <p
             class="StyledProps--font StyledProps--main"
@@ -167,13 +167,13 @@ exports[`HealthSource table check delete and edit row 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 40%;"
+          style="width: 35%;"
         >
           <div
             class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
           >
             <span
-              class="bp3-icon StyledProps--main"
+              class="bp3-icon StyledProps--main sourceTypeIcon"
               data-icon="service-appdynamics"
             >
               <svg

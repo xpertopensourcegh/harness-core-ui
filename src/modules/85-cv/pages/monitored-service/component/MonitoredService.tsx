@@ -20,11 +20,7 @@ function MonitoredService(): JSX.Element {
   const [validMonitoredSource, setValidMonitoredSource] = useState(false)
   const params = useParams<ProjectPathProps & { identifier: string }>()
   const isEdit = !!params?.identifier
-  const {
-    data: dataMonitoredServiceById,
-    refetch,
-    loading: loadingMonitoredServiceById
-  } = useGetMonitoredService({
+  const { data: dataMonitoredServiceById, refetch } = useGetMonitoredService({
     lazy: true,
     identifier: params?.identifier,
     pathParams: {
@@ -85,28 +81,33 @@ function MonitoredService(): JSX.Element {
         const { name, identifier, description, tags, serviceRef, environmentRef } = formik?.values
         return (
           <div>
-            {loadingMonitoredServiceById && <PageSpinner />}
-            <MonitoredServiceDetails formik={formik} />
-            <ServiceEnvironment formik={formik} />
-            <CardWithOuterTitle title={getString('cv.healthSource.defineYourSource')}>
-              <HealthSourceTable
-                isEdit={isEdit}
-                value={formik.values.sources?.healthSources || []}
-                onSuccess={data => onSuccess(data, formik)}
-                onDelete={data => onDelete(data, formik)}
-                serviceRef={serviceRef}
-                environmentRef={environmentRef}
-                monitoredServiceRef={{
-                  name,
-                  identifier,
-                  description,
-                  tags
-                }}
-                validMonitoredSource={validMonitoredSource}
-                onCloseDrawer={setValidMonitoredSource}
-                validateMonitoredSource={formik.submitForm}
-              />
-            </CardWithOuterTitle>
+            {isEdit && !(serviceRef && environmentRef) ? (
+              <PageSpinner />
+            ) : (
+              <>
+                <MonitoredServiceDetails formik={formik} />
+                <ServiceEnvironment formik={formik} />
+                <CardWithOuterTitle title={getString('cv.healthSource.defineYourSource')}>
+                  <HealthSourceTable
+                    isEdit={isEdit}
+                    value={formik.values.sources?.healthSources || []}
+                    onSuccess={data => onSuccess(data, formik)}
+                    onDelete={data => onDelete(data, formik)}
+                    serviceRef={serviceRef}
+                    environmentRef={environmentRef}
+                    monitoredServiceRef={{
+                      name,
+                      identifier,
+                      description,
+                      tags
+                    }}
+                    validMonitoredSource={validMonitoredSource}
+                    onCloseDrawer={setValidMonitoredSource}
+                    validateMonitoredSource={formik.submitForm}
+                  />
+                </CardWithOuterTitle>
+              </>
+            )}
           </div>
         )
       }}

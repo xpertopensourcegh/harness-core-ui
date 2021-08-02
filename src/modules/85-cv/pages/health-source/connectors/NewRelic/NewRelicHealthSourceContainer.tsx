@@ -16,9 +16,9 @@ export default function NewrelicMonitoredSourceContainer(props: NewRelicHealthSo
   const { onPrevious } = useContext(SetupSourceTabsContext)
 
   const handleSubmit = useCallback(
-    (value: UpdatedHealthSource) => {
+    async (value: UpdatedHealthSource) => {
       const newRelicPayload = createPayloadByConnectorType(value, HealthSoureSupportedConnectorTypes.NEW_RELIC)
-      newRelicPayload && onSubmit(sourceData, newRelicPayload)
+      newRelicPayload && (await onSubmit(sourceData, newRelicPayload))
     },
     [sourceData]
   )

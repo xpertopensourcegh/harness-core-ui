@@ -16,9 +16,9 @@ export default function AppDHealthSourceContainer(props: AppDynamicsHealthSource
   const { onPrevious } = useContext(SetupSourceTabsContext)
 
   const handleSubmit = useCallback(
-    (value: UpdatedHealthSource) => {
+    async (value: UpdatedHealthSource) => {
       const appDynamicsPayload = createPayloadByConnectorType(value, HealthSoureSupportedConnectorTypes.APP_DYNAMICS)
-      appDynamicsPayload && onSubmit(sourceData, appDynamicsPayload)
+      appDynamicsPayload && (await onSubmit(sourceData, appDynamicsPayload))
     },
     [sourceData]
   )

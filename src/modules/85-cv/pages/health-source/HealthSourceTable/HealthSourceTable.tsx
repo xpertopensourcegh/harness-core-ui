@@ -46,7 +46,7 @@ export default function HealthSourceTable({
     setModalOpen(!!validMonitoredSource)
   }, [validMonitoredSource])
 
-  const { mutate: updateMonitoredService } = useUpdateMonitoredService({
+  const { mutate: updateMonitoredService, loading: monitoredServiceLoading } = useUpdateMonitoredService({
     identifier: params.identifier,
     queryParams: { accountId: params.accountId }
   })
@@ -126,11 +126,11 @@ export default function HealthSourceTable({
     const rowdata = row?.original
     return (
       <Layout.Horizontal flex={{ justifyContent: 'space-between' }}>
-        <Icon name={getIconBySourceType(rowdata?.type as string)} size={22} />
+        <Icon className={css.sourceTypeIcon} name={getIconBySourceType(rowdata?.type as string)} size={22} />
         <ContextMenuActions
           titleText={getString('cv.healthSource.deleteHealthSource')}
           contentText={getString('cv.healthSource.deleteHealthSourceWarning') + `: ${rowdata.identifier}`}
-          onDelete={async () => deleteHealthSource(rowdata)}
+          onDelete={async () => await deleteHealthSource(rowdata)}
           onEdit={() => {
             const rowFilteredData =
               tableData?.find((healthSource: RowData) => healthSource.identifier === rowdata.identifier) || null
@@ -155,6 +155,10 @@ export default function HealthSourceTable({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  if (monitoredServiceLoading) {
+    return <Icon className={css.tableLoader} name="steps-spinner" size={32} color={Color.GREY_600} />
+  }
 
   return (
     <>
@@ -188,13 +192,13 @@ export default function HealthSourceTable({
                 },
                 {
                   Header: getString('typeLabel'),
-                  width: '30%',
+                  width: '35%',
                   Cell: renderTypeByFeature
                 },
                 {
                   Header: getString('source'),
                   accessor: 'type',
-                  width: '40%',
+                  width: '35%',
                   Cell: renderTypeWithIcon
                 }
               ]}
