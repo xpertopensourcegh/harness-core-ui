@@ -24,7 +24,7 @@ import { PageSpinner } from '@common/components'
 import OverviewAddCluster from '@ce/components/OverviewPage/OverviewAddCluster'
 import { Utils } from '@ce/common/Utils'
 import { useCreateConnectorMinimal } from '@ce/components/CreateConnector/CreateConnector'
-import useNoDataModal from '@ce/components/OverviewPage/OverviewNoData'
+import NoData from '@ce/components/OverviewPage/OverviewNoData'
 import bgImage from './images/CD/overviewBg.png'
 import css from './Overview.module.scss'
 
@@ -33,40 +33,31 @@ export interface TimeRange {
   from: string
 }
 
-const NoClusterOverviewPage = () => {
+const NoDataOverviewPage = ({ showConnectorModal }: { showConnectorModal?: boolean }) => {
+  // Only one will be shown at a time.
+  // If the props says showConnectorModal = true,
+  // the NoDataOverlay will not be shown
+  const [showNoDataOverlay, setShowNoDataOverlay] = useState(!showConnectorModal)
   const { openModal, closeModal } = useCreateConnectorMinimal({
+    portalClassName: css.excludeSideNavOverlay,
     onSuccess: () => {
       closeModal()
     }
   })
-  useEffect(() => {
-    openModal()
-  }, [])
-  return (
-    <div style={{ backgroundImage: `url(${bgImage})`, backgroundSize: 'cover', height: '100%', width: '100%' }}></div>
-  )
-}
-
-const NoDataOverviewPage = () => {
-  const { openModal: openConnectorModal, closeModal: closeConnectorModal } = useCreateConnectorMinimal({
-    onSuccess: () => {
-      closeConnectorModal()
-    }
-  })
-
-  const { openModal, hideModal } = useNoDataModal({
-    onConnectorCreateClick: () => {
-      hideModal()
-      openConnectorModal()
-    }
-  })
 
   useEffect(() => {
-    openModal()
+    showConnectorModal && openModal()
   }, [])
 
+  const handleClick = () => {
+    setShowNoDataOverlay(false)
+    openModal()
+  }
+
   return (
-    <div style={{ backgroundImage: `url(${bgImage})`, backgroundSize: 'cover', height: '100%', width: '100%' }}></div>
+    <div style={{ backgroundImage: `url(${bgImage})`, backgroundSize: 'cover', height: '100%', width: '100%' }}>
+      {showNoDataOverlay && <NoData onConnectorCreateClick={handleClick} />}
+    </div>
   )
 }
 
@@ -117,10 +108,10 @@ const OverviewPage = () => {
   }
 
   if (ccmData && !Utils.accountHasConnectors(ccmData.ccmMetaData as CcmMetaData)) {
-    return <NoClusterOverviewPage />
+    return <NoDataOverviewPage showConnectorModal />
   }
 
-  if (!cloudDataPresent && !clusterDataPresent) {
+  if (ccmData && !cloudDataPresent && !clusterDataPresent) {
     return <NoDataOverviewPage />
   }
 

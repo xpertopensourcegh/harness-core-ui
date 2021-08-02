@@ -39,6 +39,7 @@ interface CloudProviderListProps {
 }
 
 interface UseCreateConnectorProps {
+  portalClassName?: string
   onSuccess?: () => void
 }
 
@@ -85,9 +86,10 @@ const CloudProviderList: React.FC<CloudProviderListProps> = ({ onChange, selecte
 }
 
 export const useCreateConnectorMinimal = (props: UseCreateConnectorProps) => {
+  const { portalClassName, onSuccess } = props
   const { openConnectorModal } = useCreateConnectorModal({
     onSuccess: () => {
-      props?.onSuccess?.()
+      onSuccess?.()
     }
   })
 
@@ -117,7 +119,12 @@ export const useCreateConnectorMinimal = (props: UseCreateConnectorProps) => {
 
   const [showModal, hideModal] = useModalHook(() => {
     return (
-      <Dialog isOpen={true} style={{ width: 450, padding: 40 }} enforceFocus={false}>
+      <Dialog
+        isOpen={true}
+        style={{ width: 450, padding: 40 }}
+        enforceFocus={false}
+        {...(portalClassName && { portalClassName, usePortal: true })}
+      >
         <Text color={Color.GREY_700} font={{ weight: 'bold', size: 'normal' }} style={{ marginBottom: 10 }}>
           You have not added any connectors yet.
         </Text>

@@ -685,3 +685,101 @@ exports[`test cases for Perspective details Page should be able to render the de
   </div>
 </div>
 `;
+
+exports[`test cases for Perspective details Page should render NoData page when cluster and cloud data are not present 1`] = `
+<div>
+  <div
+    style="background-image: url(test-file-stub); background-size: cover; height: 100%; width: 100%;"
+  >
+    <div
+      class="nodata"
+    >
+      <div
+        class="noDataContent"
+      >
+        <div
+          class="Layout--vertical Layout--layout-spacing-xxxlarge StyledProps--main"
+        >
+          <div
+            class="StyledProps--font StyledProps--main"
+          >
+            <div
+              class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
+              style="align-items: center;"
+            >
+              <img
+                height="150"
+                src="test-file-stub"
+              />
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-normal"
+                style="line-height: 25px;"
+              >
+                ce.overview.noData.info
+              </p>
+            </div>
+          </div>
+          <div
+            class="StyledProps--font StyledProps--main"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+            >
+              ce.overview.noData.explore
+            </p>
+            <div
+              class="Layout--horizontal StyledProps--main"
+              style="justify-content: space-evenly; margin-top: 25px;"
+            >
+              <div
+                class="Layout--vertical StyledProps--main"
+              >
+                <img
+                  height="75"
+                  src="test-file-stub"
+                />
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--padding-medium StyledProps--color StyledProps--color-primary7"
+                  style="cursor: pointer;"
+                >
+                  ce.overview.noData.autoStopping
+                </p>
+              </div>
+              <div
+                class="Layout--vertical StyledProps--main"
+              >
+                <img
+                  height="75"
+                  src="test-file-stub"
+                />
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--padding-medium StyledProps--color StyledProps--color-primary7"
+                  style="cursor: pointer;"
+                >
+                  ce.overview.noData.connector
+                </p>
+              </div>
+              <div
+                class="Layout--vertical StyledProps--main"
+              >
+                <img
+                  height="75"
+                  src="test-file-stub"
+                />
+                <a
+                  class="ngDocs"
+                  href="http://ngdocs.harness.io/"
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  ce.overview.noData.ngDocs
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

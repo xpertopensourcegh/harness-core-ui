@@ -27,7 +27,8 @@ declare const styles: {
   readonly addCluster: string
   readonly addClusterBtn: string
   readonly cardLoader: string
-  readonly noDataCtn: string
+  readonly nodata: string
+  readonly noDataContent: string
   readonly ngDocs: string
 }
 export default styles

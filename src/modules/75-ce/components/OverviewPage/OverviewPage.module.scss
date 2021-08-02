@@ -186,17 +186,30 @@
   box-shadow: unset;
 }
 
-.noDataCtn {
-  width: 900px;
-  padding: 50px 75px;
+.nodata {
+  height: 100%;
+  width: 100%;
+  background: rgba(16, 22, 26, 0.7);
 
-  a.ngDocs {
-    cursor: 'pointer';
-    padding: 15px;
-    color: var(--primary-7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    &:hover {
-      text-decoration: none;
+  .noDataContent {
+    width: 900px;
+    padding: 50px 75px;
+    background: var(--grey-0);
+    box-shadow: 0px 2px 8px rgba(40, 41, 61, 0.04), 0px 16px 24px rgba(96, 97, 112, 0.16);
+    border-radius: 8px;
+
+    a.ngDocs {
+      cursor: 'pointer';
+      padding: 15px;
+      color: var(--primary-7);
+
+      &:hover {
+        text-decoration: none;
+      }
     }
   }
 }

@@ -18,6 +18,7 @@ import OverviewPage from '../OverviewPage'
 import SummaryResponse from './SummaryResponse.json'
 import ForecastResponse from './ForecastResponse.json'
 import CCMMetaDataResponse from './CCMMetaDataResponse.json'
+import NoCCMMetaDataResponse from './NoCCMMetaDataResponse.json'
 import CloudCostResponse from './CloudCostResponse.json'
 import OverviewTimeSeriesResponse from './OverviewTimeSeriesResponse.json'
 
@@ -66,6 +67,34 @@ describe('test cases for Perspective details Page', () => {
         </Provider>
       </TestWrapper>
     )
+    expect(container).toMatchSnapshot()
+  })
+
+  test('should render NoData page when cluster and cloud data are not present', async () => {
+    const responseState = {
+      executeQuery: ({ query }: { query: DocumentNode }) => {
+        if (query === FetchCcmMetaDataDocument) {
+          return fromValue(NoCCMMetaDataResponse)
+        }
+        if (query === FetchPerspectiveDetailsSummaryDocument) {
+          return fromValue(SummaryResponse)
+        }
+        if (query === FetchPerspectiveForecastCostDocument) {
+          return fromValue(ForecastResponse)
+        }
+        return fromValue({})
+      }
+    }
+
+    const { container, getByText } = render(
+      <TestWrapper pathParams={params}>
+        <Provider value={responseState as any}>
+          <OverviewPage />
+        </Provider>
+      </TestWrapper>
+    )
+
+    expect(getByText('ce.overview.noData.info')).toBeDefined()
     expect(container).toMatchSnapshot()
   })
 })

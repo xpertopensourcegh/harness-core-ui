@@ -6,5 +6,6 @@ declare const styles: {
   readonly summary: string
   readonly columnTwo: string
   readonly noColor: string
+  readonly excludeSideNavOverlay: string
 }
 export default styles
