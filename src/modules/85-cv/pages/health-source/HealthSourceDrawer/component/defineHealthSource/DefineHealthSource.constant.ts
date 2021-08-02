@@ -4,7 +4,7 @@ import { HealthSourceTypes } from '@cv/pages/health-source/types'
 
 export const HEALTHSOURCE_LIST = [
   {
-    name: Connectors.APP_DYNAMICS,
+    name: HealthSourceTypes.AppDynamics,
     icon: getConnectorIconByType(Connectors.APP_DYNAMICS)
   },
   {
@@ -12,11 +12,11 @@ export const HEALTHSOURCE_LIST = [
     icon: 'service-stackdriver'
   },
   {
-    name: Connectors.PROMETHEUS,
+    name: HealthSourceTypes.Prometheus,
     icon: getConnectorIconByType(Connectors.PROMETHEUS)
   },
   {
-    name: Connectors.NEW_RELIC,
+    name: HealthSourceTypes.NewRelic,
     icon: getConnectorIconByType(Connectors.NEW_RELIC)
   }
 ]

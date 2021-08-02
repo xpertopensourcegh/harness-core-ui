@@ -415,7 +415,7 @@ monitoringSources:
     gcoLogsQuery: GCO Logs Query
     addQueryTooltip: Fill all required fields before adding a new query
     serviceInstance: Identify Service Instance
-    messageIdentifier: Identifty Message
+    messageIdentifier: Identify Message
     selectRecords: After fetching records click on the plus icon ...
     validation:
       queryNameUnique: Query name must be unique.
