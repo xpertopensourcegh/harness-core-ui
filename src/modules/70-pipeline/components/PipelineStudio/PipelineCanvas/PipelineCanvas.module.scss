@@ -157,11 +157,16 @@
     font-size: 20px !important;
     font-weight: 600 !important;
     color: var(--grey-700) !important;
-    margin-right: var(--spacing-small) !important;
     line-height: 28px !important;
     overflow: hidden;
     min-width: 100px;
     max-width: 125px;
+  }
+  .pipelineEditBtn {
+    min-width: 24px !important;
+    width: 24px !important;
+    box-shadow: none !important;
+    padding: 0 !important;
   }
   .pipelineIcon {
     vertical-align: middle;

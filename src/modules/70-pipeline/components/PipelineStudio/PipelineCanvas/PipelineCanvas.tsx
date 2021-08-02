@@ -778,6 +778,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                 {!isEmpty(pipeline?.tags) && pipeline.tags && <TagsPopover tags={pipeline.tags} />}
                 {isYaml || isReadonly ? null : (
                   <Button
+                    className={css.pipelineEditBtn}
                     minimal
                     icon="Edit"
                     withoutBoxShadow
