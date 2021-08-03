@@ -312,8 +312,7 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
                   <div
                     className={cx(helmcss.halfWidth, {
                       [helmcss.runtimeInput]:
-                        getMultiTypeFromValue(formik.values?.region) !== MultiTypeInputType.RUNTIME ||
-                        getMultiTypeFromValue(prevStepData?.connectorRef) !== MultiTypeInputType.FIXED
+                        getMultiTypeFromValue(formik.values?.bucketName) === MultiTypeInputType.RUNTIME
                     })}
                   >
                     <FormInput.MultiTextInput
@@ -452,6 +451,7 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
                     multiTextInputProps={{ expressions }}
                     label={getString('pipeline.manifestType.http.chartVersion')}
                     placeholder={getString('pipeline.manifestType.http.chartVersionPlaceHolder')}
+                    isOptional
                   />
                   {getMultiTypeFromValue(formik.values?.chartVersion) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions

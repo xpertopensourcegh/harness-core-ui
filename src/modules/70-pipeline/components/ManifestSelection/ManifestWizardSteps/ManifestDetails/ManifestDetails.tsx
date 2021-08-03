@@ -409,7 +409,11 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                                 <Text width={12}>{`${index + 1}.`}</Text>
                                 <FormInput.MultiTextInput
                                   label={''}
-                                  placeholder={getString('pipeline.manifestType.manifestPathPlaceholder')}
+                                  placeholder={
+                                    selectedManifest === ManifestDataType.K8sManifest
+                                      ? getString('pipeline.manifestType.manifestPathPlaceholder')
+                                      : getString('pipeline.manifestType.pathPlaceholder')
+                                  }
                                   name={`paths[${index}].path`}
                                   style={{ width: 275 }}
                                   multiTextInputProps={{

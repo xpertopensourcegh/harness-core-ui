@@ -170,7 +170,7 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                     <ConfigureOptions
                       value={values.spec.workload as string}
                       type="String"
-                      variableName={getString('pipelineSteps.workload')}
+                      variableName={getString('pipelineSteps.workload').toLowerCase()}
                       showRequiredField={false}
                       showDefaultField={false}
                       showAdvanced={true}
