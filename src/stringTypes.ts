@@ -1993,6 +1993,7 @@ export interface StringsMap {
   'pipeline.resourceConstraints.title': string
   'pipeline.resourceConstraints.yourPipeline': string
   'pipeline.runAPipeline': string
+  'pipeline.runModalNoPipelineText': string
   'pipeline.savingInProgress': string
   'pipeline.scriptInputVariables': string
   'pipeline.scriptOutputVariables': string
