@@ -83,7 +83,7 @@ describe('Role Details Page', () => {
     test('Edit Role', async () => {
       const menu = container
         .querySelector(`[data-testid="role-card-${rolesMockList.data?.content?.[0].role.identifier}"]`)
-        ?.querySelector("[data-icon='Options']")
+        ?.querySelector("[data-icon='more']")
       fireEvent.click(menu!)
       const popover = findPopoverContainer()
       const edit = await findAllByText(popover as HTMLElement, 'edit')
@@ -99,7 +99,7 @@ describe('Role Details Page', () => {
       deleteRole.mockReset()
       const menu = container
         .querySelector(`[data-testid="role-card-${rolesMockList.data?.content?.[0].role.identifier}"]`)
-        ?.querySelector("[data-icon='Options']")
+        ?.querySelector("[data-icon='more']")
       fireEvent.click(menu!)
       const popover = findPopoverContainer()
       const deleteMenu = getByText(popover as HTMLElement, 'delete')
