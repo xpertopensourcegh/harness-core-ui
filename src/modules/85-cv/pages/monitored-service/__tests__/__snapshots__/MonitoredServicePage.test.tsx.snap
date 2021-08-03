@@ -301,7 +301,7 @@ exports[`Unit tests for createting monitored source Health source tabel and envi
                 style="align-items: center; margin-top: -48px; width: 470px;"
               >
                 <span
-                  class="bp3-icon bp3-icon-join-table StyledProps--main StyledProps--color StyledProps--color-grey400"
+                  class="bp3-icon bp3-icon-join-table StyledProps--main StyledProps--color StyledProps--color-grey600"
                   icon="join-table"
                 >
                   <svg
@@ -319,12 +319,14 @@ exports[`Unit tests for createting monitored source Health source tabel and envi
                     />
                   </svg>
                 </span>
-                <h2
-                  class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-align-center StyledProps--color StyledProps--color-grey500"
-                  level="2"
+                <p
+                  class="StyledProps--font StyledProps--main message StyledProps--font-align-center StyledProps--color StyledProps--color-grey600"
                 >
                   cv.healthSource.noData
-                </h2>
+                </p>
+                <div
+                  class="buttonContainer"
+                />
               </div>
             </div>
           </div>

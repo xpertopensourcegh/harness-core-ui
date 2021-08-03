@@ -1,4 +1,5 @@
 createProject: Create Project
+youHaveNoProjects: You have no projects
 noCollaborators: No Collaborators
 moduleSuccess: '{{$.common.purpose.moduleSuccess}}'
 placeholder: '23'

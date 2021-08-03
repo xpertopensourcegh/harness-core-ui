@@ -8,6 +8,7 @@ declare const styles: {
   readonly header: string
   readonly expandSearch: string
   readonly headerLayout: string
+  readonly imageClassName: string
   readonly customselect: string
   readonly noBanner: string
   readonly hasBanner: string

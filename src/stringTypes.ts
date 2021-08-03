@@ -1620,6 +1620,7 @@ export interface StringsMap {
   'projectsOrgs.viewProjects': string
   'projectsOrgs.welcome': string
   'projectsOrgs.welcomeSecondLine': string
+  'projectsOrgs.youHaveNoProjects': string
   'pipeline.aboutYourStage.stageNamePlaceholder': string
   'pipeline.addStage.description': string
   'pipeline.addStage.title': string
@@ -3796,10 +3797,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   addPipeline: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  addProject: string
   /**
    * @deprecated migrate this string to module level file
    */

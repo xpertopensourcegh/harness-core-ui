@@ -578,9 +578,8 @@ navigationCheckTitle: 'Close without saving?'
 continueWithoutSavingTitle: Continue without saving?
 continueWithoutSavingText: 'You have unsaved changes. Are you sure you want to continue without saving?'
 inputSetsText: 'Input Sets'
-projectDescription: 'A Harness project allows you to logically group pipelines, corresponding environments and services.'
-addProject: '+ Add Project'
-noProjects: 'No Projects Found'
+projectDescription: A Harness project allows you to logically group your pipelines, environments, and more according to your business objectives.
+noProjects: No projects found
 noRoles: No Roles Found
 string: 'String'
 number: 'Number'

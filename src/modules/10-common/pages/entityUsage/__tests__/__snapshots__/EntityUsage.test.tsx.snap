@@ -509,7 +509,7 @@ exports[`Entity Usage render for no data 1`] = `
         style="align-items: center; margin-top: -48px; width: 470px;"
       >
         <span
-          class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
+          class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey600"
           data-icon="nav-project"
         >
           <svg
@@ -524,12 +524,14 @@ exports[`Entity Usage render for no data 1`] = `
             />
           </svg>
         </span>
-        <h2
-          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-align-center StyledProps--color StyledProps--color-grey500"
-          level="2"
+        <p
+          class="StyledProps--font StyledProps--main message StyledProps--font-align-center StyledProps--color StyledProps--color-grey600"
         >
           common.noRefData
-        </h2>
+        </p>
+        <div
+          class="buttonContainer"
+        />
       </div>
     </div>
   </div>
