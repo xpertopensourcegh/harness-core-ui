@@ -2087,8 +2087,9 @@ export interface StringsMap {
   'pipeline.triggers.artifactTriggerConfigPanel.listenOnNewArtifact': string
   'pipeline.triggers.artifactTriggerConfigPanel.noArtifacts': string
   'pipeline.triggers.artifactTriggerConfigPanel.noSelectableArtifactsFound': string
-  'pipeline.triggers.artifactTriggerConfigPanel.parameterized': string
-  'pipeline.triggers.artifactTriggerConfigPanel.plusSelectArtifact': string
+  'pipeline.triggers.artifactTriggerConfigPanel.plusSelect': string
+  'pipeline.triggers.artifactTriggerConfigPanel.runtimeInput': string
+  'pipeline.triggers.artifactTriggerConfigPanel.selectAManifest': string
   'pipeline.triggers.artifactTriggerConfigPanel.selectAnArtifact': string
   'pipeline.triggers.cannotParseInputValues': string
   'pipeline.triggers.cannotParseTriggersData': string
@@ -2123,6 +2124,8 @@ export interface StringsMap {
   'pipeline.triggers.newTrigger': string
   'pipeline.triggers.noTriggersFound': string
   'pipeline.triggers.onNewArtifactTitle': string
+  'pipeline.triggers.onNewArtifactTitleWhole': string
+  'pipeline.triggers.onNewManifestTitleWhole': string
   'pipeline.triggers.onNewScheduleTitle': string
   'pipeline.triggers.onNewWebhookTitle': string
   'pipeline.triggers.onScheduleLabel': string
