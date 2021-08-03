@@ -239,7 +239,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
               <FormInput.Text
                 name="identifier"
                 label={getString('pipeline.manifestType.manifestIdentifier')}
-                placeholder={getString('pipeline.manifestType.manifestPlaceholder')}
+                placeholder={getString('pipeline.manifestType.chartPathPlaceholder')}
                 className={helmcss.halfWidth}
               />
 
@@ -329,7 +329,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
                 >
                   <FormInput.MultiTextInput
                     label={getString('chartPath')}
-                    placeholder={getString('pipeline.manifestType.pathPlaceholder')}
+                    placeholder={getString('pipeline.manifestType.chartPathPlaceholder')}
                     name="folderPath"
                     multiTextInputProps={{ expressions }}
                   />

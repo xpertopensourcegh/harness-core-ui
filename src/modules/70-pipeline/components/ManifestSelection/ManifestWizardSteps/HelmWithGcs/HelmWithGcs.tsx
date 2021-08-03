@@ -287,7 +287,7 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
                   <FormInput.MultiTextInput
                     label={getString('pipeline.manifestType.path')}
                     multiTextInputProps={{ expressions }}
-                    placeholder={getString('pipeline.manifestType.pathPlaceholder')}
+                    placeholder={getString('pipeline.manifestType.chartPathPlaceholder')}
                     name="folderPath"
                     isOptional={true}
                   />

@@ -200,7 +200,7 @@ exports[`helm with http tests expand advanced section 1`] = `
                         autocomplete="off"
                         class="bp3-input"
                         name="folderPath"
-                        placeholder="pipeline.manifestType.pathPlaceholder"
+                        placeholder="pipeline.manifestType.chartPathPlaceholder"
                         type="text"
                         value=""
                       />
@@ -1083,7 +1083,7 @@ exports[`helm with http tests renders correctly in edit case 1`] = `
                         autocomplete="off"
                         class="bp3-input"
                         name="folderPath"
-                        placeholder="pipeline.manifestType.pathPlaceholder"
+                        placeholder="pipeline.manifestType.chartPathPlaceholder"
                         type="text"
                         value=""
                       />
@@ -1640,7 +1640,7 @@ exports[`helm with http tests renders while adding step first time 1`] = `
                         autocomplete="off"
                         class="bp3-input"
                         name="folderPath"
-                        placeholder="pipeline.manifestType.pathPlaceholder"
+                        placeholder="pipeline.manifestType.chartPathPlaceholder"
                         type="text"
                         value=""
                       />
@@ -2197,7 +2197,7 @@ exports[`helm with http tests renders without crashing 1`] = `
                         autocomplete="off"
                         class="bp3-input"
                         name="folderPath"
-                        placeholder="pipeline.manifestType.pathPlaceholder"
+                        placeholder="pipeline.manifestType.chartPathPlaceholder"
                         type="text"
                         value=""
                       />
@@ -2754,7 +2754,7 @@ exports[`helm with http tests submits with the right payload 1`] = `
                         autocomplete="off"
                         class="bp3-input"
                         name="folderPath"
-                        placeholder="pipeline.manifestType.pathPlaceholder"
+                        placeholder="pipeline.manifestType.chartPathPlaceholder"
                         type="text"
                         value="test-folder "
                       />
