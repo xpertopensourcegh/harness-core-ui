@@ -410,6 +410,11 @@ export interface AuthenticationSettingsResponse {
   whitelistedDomains?: string[]
 }
 
+export interface AuthorInfo {
+  name?: string
+  url?: string
+}
+
 export interface AwsCodeCommitAuthenticationDTO {
   spec: AwsCodeCommitCredentialsDTO
   type: 'HTTPS'
@@ -1009,10 +1014,10 @@ export interface CrossAccountAccess {
   externalId?: string
 }
 
-export interface DashboardDeploymentActiveFailedRunningInfo {
-  active?: DeploymentStatusInfo[]
-  failure?: DeploymentStatusInfo[]
-  pending?: DeploymentStatusInfo[]
+export interface DashboardExecutionStatusInfo {
+  active?: ExecutionStatusInfo[]
+  failure?: ExecutionStatusInfo[]
+  pending?: ExecutionStatusInfo[]
 }
 
 export interface DashboardWorkloadDeployment {
@@ -1098,16 +1103,6 @@ export type DeploymentStageConfig = StageInfoConfig & {
   execution: ExecutionElementConfig
   infrastructure: PipelineInfrastructure
   serviceConfig: ServiceConfig
-}
-
-export interface DeploymentStatusInfo {
-  endTs?: number
-  name?: string
-  pipelineIdentifier?: string
-  planExecutionId?: string
-  serviceInfoList?: ServiceDeploymentInfo[]
-  startTs?: number
-  status?: string
 }
 
 export interface DockerAuthCredentialsDTO {
@@ -1666,6 +1661,19 @@ export interface ExecutionElementConfig {
   steps: ExecutionWrapperConfig[]
 }
 
+export interface ExecutionStatusInfo {
+  author?: AuthorInfo
+  endTs?: number
+  gitInfo?: GitInfo
+  pipelineIdentifier?: string
+  pipelineName?: string
+  planExecutionId?: string
+  serviceInfoList?: ServiceDeploymentInfo[]
+  startTs?: number
+  status?: string
+  triggerType?: string
+}
+
 export interface ExecutionTarget {
   connectorRef?: string
   host?: string
@@ -2206,6 +2214,15 @@ export type GitHTTPAuthenticationDTO = GitAuthenticationDTO & {
   passwordRef: string
   username?: string
   usernameRef?: string
+}
+
+export interface GitInfo {
+  commit?: string
+  commitID?: string
+  eventType?: string
+  repoName?: string
+  sourceBranch?: string
+  targetBranch?: string
 }
 
 export type GitLabStore = StoreConfig & {
@@ -3977,9 +3994,9 @@ export interface ResponseCreatePRDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
-export interface ResponseDashboardDeploymentActiveFailedRunningInfo {
+export interface ResponseDashboardExecutionStatusInfo {
   correlationId?: string
-  data?: DashboardDeploymentActiveFailedRunningInfo
+  data?: DashboardExecutionStatusInfo
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -10914,7 +10931,7 @@ export interface GetDeploymentsQueryParams {
 }
 
 export type GetDeploymentsProps = Omit<
-  GetProps<ResponseDashboardDeploymentActiveFailedRunningInfo, Failure | Error, GetDeploymentsQueryParams, void>,
+  GetProps<ResponseDashboardExecutionStatusInfo, Failure | Error, GetDeploymentsQueryParams, void>,
   'path'
 >
 
@@ -10922,7 +10939,7 @@ export type GetDeploymentsProps = Omit<
  * Get deployments
  */
 export const GetDeployments = (props: GetDeploymentsProps) => (
-  <Get<ResponseDashboardDeploymentActiveFailedRunningInfo, Failure | Error, GetDeploymentsQueryParams, void>
+  <Get<ResponseDashboardExecutionStatusInfo, Failure | Error, GetDeploymentsQueryParams, void>
     path={`/dashboard/getDeployments`}
     base={getConfig('ng/api')}
     {...props}
@@ -10930,7 +10947,7 @@ export const GetDeployments = (props: GetDeploymentsProps) => (
 )
 
 export type UseGetDeploymentsProps = Omit<
-  UseGetProps<ResponseDashboardDeploymentActiveFailedRunningInfo, Failure | Error, GetDeploymentsQueryParams, void>,
+  UseGetProps<ResponseDashboardExecutionStatusInfo, Failure | Error, GetDeploymentsQueryParams, void>,
   'path'
 >
 
@@ -10938,7 +10955,7 @@ export type UseGetDeploymentsProps = Omit<
  * Get deployments
  */
 export const useGetDeployments = (props: UseGetDeploymentsProps) =>
-  useGet<ResponseDashboardDeploymentActiveFailedRunningInfo, Failure | Error, GetDeploymentsQueryParams, void>(
+  useGet<ResponseDashboardExecutionStatusInfo, Failure | Error, GetDeploymentsQueryParams, void>(
     `/dashboard/getDeployments`,
     { base: getConfig('ng/api'), ...props }
   )
@@ -10947,15 +10964,10 @@ export const useGetDeployments = (props: UseGetDeploymentsProps) =>
  * Get deployments
  */
 export const getDeploymentsPromise = (
-  props: GetUsingFetchProps<
-    ResponseDashboardDeploymentActiveFailedRunningInfo,
-    Failure | Error,
-    GetDeploymentsQueryParams,
-    void
-  >,
+  props: GetUsingFetchProps<ResponseDashboardExecutionStatusInfo, Failure | Error, GetDeploymentsQueryParams, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseDashboardDeploymentActiveFailedRunningInfo, Failure | Error, GetDeploymentsQueryParams, void>(
+  getUsingFetch<ResponseDashboardExecutionStatusInfo, Failure | Error, GetDeploymentsQueryParams, void>(
     getConfig('ng/api'),
     `/dashboard/getDeployments`,
     props,
