@@ -1968,6 +1968,7 @@ export interface StringsMap {
   'pipeline.myBuildsText': string
   'pipeline.myDeploymentsText': string
   'pipeline.namespaceTooltip': string
+  'pipeline.neverRan': string
   'pipeline.noBuckets': string
   'pipeline.noBuildsText': string
   'pipeline.noDeploymentText': string

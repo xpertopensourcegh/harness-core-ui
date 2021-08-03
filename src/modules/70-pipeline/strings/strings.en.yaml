@@ -26,6 +26,7 @@ runAPipeline: Run a Pipeline
 regionPlaceholder: Select Region
 repositoryUrlPlaceholder: Enter Repository URL
 lastSevenDays: In Last 7 days
+neverRan: This pipeline never ran
 startedOn: Started On
 outOf: Out Of
 approvalStage:

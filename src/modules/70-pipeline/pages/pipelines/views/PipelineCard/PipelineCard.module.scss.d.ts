@@ -7,7 +7,7 @@ declare const styles: {
   readonly infoContainer: string
   readonly tagsPopover: string
   readonly deploymentsCount: string
-  readonly carBtns: string
+  readonly cardBtns: string
   readonly runBtn: string
   readonly viewExecutionsBtn: string
 }

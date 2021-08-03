@@ -320,7 +320,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
           border={{ bottom: true }}
           padding={{ top: 'medium', bottom: 'medium' }}
         >
-          {(module === 'ci' || pipeline.filters?.ci?.repoNames?.length) && (
+          {(module === 'ci' || !!pipeline.filters?.ci?.repoNames?.length) && (
             <Layout.Horizontal flex={{ justifyContent: 'flex-start' }} spacing={'small'}>
               <Text font="small" width={LEFT_COLUMN_WIDTH} color={Color.GREY_700}>
                 {getString('pipeline.buildRepo')}
@@ -336,7 +336,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
               )}
             </Layout.Horizontal>
           )}
-          {(module === 'cd' || pipeline.filters?.cd?.serviceNames?.length) && (
+          {(module === 'cd' || !!pipeline.filters?.cd?.serviceNames?.length) && (
             <Layout.Horizontal flex={{ justifyContent: 'flex-start' }} spacing={'small'}>
               <Text font="small" width={LEFT_COLUMN_WIDTH} color={Color.GREY_700}>
                 {getString('services')}
@@ -474,14 +474,14 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
           >
             {!pipeline.executionSummaryInfo?.lastExecutionTs && (
               <Text font={{ size: 'xsmall', weight: 'semi-bold' }} color={Color.GREY_400}>
-                This pipeline never ran.
+                {getString('pipeline.neverRan')}
               </Text>
             )}
             <RbacButton
               data-testid="card-run-pipeline"
               icon="command-start"
               iconProps={{ size: 9 }}
-              className={cx(css.carBtns, css.runBtn)}
+              className={cx(css.cardBtns, css.runBtn)}
               text={getString('runPipelineText')}
               permission={{
                 resource: {
@@ -497,7 +497,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
             />
             {pipeline.executionSummaryInfo?.lastExecutionTs && (
               <Button
-                className={cx(css.carBtns, css.viewExecutionsBtn)}
+                className={cx(css.cardBtns, css.viewExecutionsBtn)}
                 text={getString('viewExecutions')}
                 onClick={(e: React.MouseEvent) => {
                   e.stopPropagation()
