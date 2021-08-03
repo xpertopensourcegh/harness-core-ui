@@ -2217,6 +2217,8 @@ export interface StringsMap {
   'pipeline.verification.logs.actions': string
   'pipeline.verification.logs.clusterType': string
   'pipeline.verification.logs.copyURL': string
+  'pipeline.verification.logs.filterByClusterType': string
+  'pipeline.verification.logs.knownEvent': string
   'pipeline.verification.logs.logCluster': string
   'pipeline.verification.logs.messageCount': string
   'pipeline.verification.logs.messageFrequency': string
@@ -2226,6 +2228,8 @@ export interface StringsMap {
   'pipeline.verification.logs.sampleMessage': string
   'pipeline.verification.logs.share': string
   'pipeline.verification.logs.trend': string
+  'pipeline.verification.logs.unexpectedFrequency': string
+  'pipeline.verification.logs.unknownEvent': string
   'pipeline.verification.logs.urlCopied': string
   'pipeline.verification.metricViewPlaceholder': string
   'pipeline.verification.metricsInViolation': string

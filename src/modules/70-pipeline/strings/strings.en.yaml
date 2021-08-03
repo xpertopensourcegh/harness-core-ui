@@ -664,6 +664,10 @@ verification:
     logs: 'Logs'
   logs:
     logCluster: Log cluster
+    filterByClusterType: Filter by cluster type
+    knownEvent: Known Event
+    unknownEvent: Unknown Event
+    unexpectedFrequency: Unexpected Frequency
     noAnalysis: No analysis
     clusterType: CLUSTER TYPE
     sampleMessage: MESSAGE
