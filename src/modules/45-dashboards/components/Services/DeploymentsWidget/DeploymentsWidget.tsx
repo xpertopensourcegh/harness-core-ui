@@ -1,5 +1,6 @@
 import React, { useCallback, useContext, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
+import moment from 'moment'
 import type { SeriesAreaOptions } from 'highcharts'
 import { Card, Color, Container, Layout, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
@@ -47,6 +48,7 @@ const TickerValue: React.FC<{ value: number; color: Color }> = props => (
 export const DeploymentsWidget: React.FC<DeploymentWidgetProps> = props => {
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
+
   const { serviceIdentifier } = props
   const { timeRange, setTimeRange } = useContext(DeploymentsTimeRangeContext)
 
@@ -57,7 +59,7 @@ export const DeploymentsWidget: React.FC<DeploymentWidgetProps> = props => {
       projectIdentifier,
       serviceIdentifier,
       startTime: timeRange?.range[0]?.getTime() || 0,
-      endTime: timeRange?.range[1]?.getTime() || 0,
+      endTime: timeRange?.range[1] ? moment(timeRange.range[1]).add(1, 'days').toDate().getTime() : 0,
       bucketSizeInDays: getBucketSizeForTimeRange(timeRange?.range)
     }
   }, [accountId, orgIdentifier, projectIdentifier, serviceIdentifier, timeRange])
@@ -187,8 +189,8 @@ export const DeploymentsWidget: React.FC<DeploymentWidgetProps> = props => {
     },
     yAxis: {
       max: Math.max(
-        ...(serviceDeploymentsInfo?.data?.serviceDeploymentList || []).map(deployment =>
-          Math.max(deployment.deployments?.failure || 0, deployment.deployments?.success || 0)
+        ...(serviceDeploymentsInfo?.data?.serviceDeploymentList || []).map(
+          deployment => (deployment.deployments?.failure || 0) + (deployment.deployments?.success || 0)
         )
       )
     },

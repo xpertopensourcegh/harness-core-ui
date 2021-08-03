@@ -1,8 +1,10 @@
 import React from 'react'
 import { render } from '@testing-library/react'
+import { noop } from 'lodash-es'
 import { TestWrapper } from '@common/utils/testUtils'
 import { ServicesList } from '@dashboards/components/Services/ServicesList/ServicesList'
-import { ServiceListMock } from '@dashboards/mock'
+import { serviceDetails } from '@dashboards/mock'
+import type { ServiceDetailsDTO } from 'services/cd-ng'
 
 jest.mock('highcharts-react-official', () => () => <></>)
 
@@ -13,7 +15,12 @@ describe('ServicesList', () => {
         path="account/:accountId/cd/orgs/:orgIdentifier/projects/:projectIdentifier/services"
         pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy' }}
       >
-        <ServicesList {...{ ...ServiceListMock, data: [ServiceListMock.data[0]] }} />
+        <ServicesList
+          loading={false}
+          error={false}
+          data={serviceDetails.data.serviceDeploymentDetailsList as unknown as ServiceDetailsDTO[]}
+          refetch={noop}
+        />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()

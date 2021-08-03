@@ -56,6 +56,7 @@ serviceDashboard:
   mostActiveServices: Most active services
   seeMore: '+ {{count}} more'
   buildName: 'Build Name'
+  noServiceDetails: No services matching the criteria
 resourceModal:
   folders: 'Folder Name'
   folderDetail: 'Folder Dashboards'

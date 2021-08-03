@@ -3,7 +3,7 @@
 exports[`ServicesList render 1`] = `
 <div>
   <div
-    class="Layout--vertical StyledProps--main"
+    class="Layout--vertical StyledProps--main container"
   >
     <div
       class="Layout--horizontal StyledProps--main listHeader StyledProps--flex StyledProps--flex-distribution-space-between StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
@@ -221,7 +221,7 @@ exports[`ServicesList render 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey700 StyledProps--margin-bottom-xsmall"
               >
-                My Login Service
+                asdfasdf
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey500"
@@ -234,19 +234,23 @@ exports[`ServicesList render 1`] = `
             class="cell"
             role="cell"
             style="width: 10%;"
-          />
+          >
+            <div
+              class="Layout--horizontal StyledProps--main"
+            />
+          </div>
           <div
             class="cell"
             role="cell"
             style="width: 15%;"
           >
             <div
-              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-justifyContent-flex-start"
             >
               <p
                 class="StyledProps--font StyledProps--main tickerContainer StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold StyledProps--font-size-medium StyledProps--margin-right-xsmall StyledProps--padding-left-medium StyledProps--padding-top-medium StyledProps--padding-right-medium StyledProps--padding-bottom-medium"
               >
-                13
+                0
               </p>
               <div
                 class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
@@ -259,12 +263,12 @@ exports[`ServicesList render 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main pieChartLabelStyles StyledProps--font-size-xsmall StyledProps--color StyledProps--color-grey500"
                   >
-                    dashboards.serviceDashboard.nonProd (1)
+                    dashboards.serviceDashboard.nonProd (0)
                   </p>
                   <p
                     class="StyledProps--font StyledProps--main pieChartLabelStyles StyledProps--font-size-xsmall StyledProps--color StyledProps--color-grey500"
                   >
-                    dashboards.serviceDashboard.prod (12)
+                    dashboards.serviceDashboard.prod (0)
                   </p>
                 </div>
               </div>
@@ -285,7 +289,7 @@ exports[`ServicesList render 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold StyledProps--font-size-medium StyledProps--margin-right-xsmall"
                 >
-                  13
+                  0
                 </p>
                 <div
                   class="ticker"
@@ -317,7 +321,7 @@ exports[`ServicesList render 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-green500 StyledProps--font-size-small"
                     >
-                      5%
+                      0%
                     </p>
                   </div>
                 </div>
@@ -339,7 +343,7 @@ exports[`ServicesList render 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold StyledProps--font-size-medium StyledProps--margin-right-xsmall"
                 >
-                  20%
+                  0
                 </p>
                 <div
                   class="ticker"
@@ -371,7 +375,7 @@ exports[`ServicesList render 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-red500 StyledProps--font-size-small"
                     >
-                      5%
+                      0%
                     </p>
                   </div>
                 </div>
@@ -393,7 +397,7 @@ exports[`ServicesList render 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold StyledProps--font-size-medium StyledProps--margin-right-xsmall"
                 >
-                  23
+                  0
                 </p>
                 <div
                   class="ticker"
@@ -425,7 +429,7 @@ exports[`ServicesList render 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-green500 StyledProps--font-size-small"
                     >
-                      5%
+                      0%
                     </p>
                   </div>
                 </div>
@@ -436,40 +440,7 @@ exports[`ServicesList render 1`] = `
             class="cell"
             role="cell"
             style="width: 30%;"
-          >
-            <div
-              class="Layout--horizontal StyledProps--main lastDeployments"
-            >
-              <div
-                class="Layout--vertical StyledProps--main StyledProps--margin-right-large"
-              >
-                <div
-                  class="Layout--horizontal StyledProps--main StyledProps--margin-bottom-xsmall StyledProps--flex StyledProps--flex-align-center-center"
-                >
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey700 StyledProps--margin-right-xsmall"
-                  >
-                    My Pipeline X
-                  </p>
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey500"
-                  >
-                    (dashboards.serviceDashboard.executionId)
-                  </p>
-                </div>
-                <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey500"
-                >
-                  1619120733360
-                </p>
-              </div>
-              <p
-                class="StyledProps--font StyledProps--main statusText StyledProps--background-green300 StyledProps--color StyledProps--color-green600 StyledProps--font-weight-semi-bold StyledProps--font-size-xsmall"
-              >
-                SUCCESS
-              </p>
-            </div>
-          </div>
+          />
         </div>
       </div>
       <div
@@ -480,11 +451,11 @@ exports[`ServicesList render 1`] = `
         >
           Showing 
           <strong>
-            10
+            1
           </strong>
            of 
           <strong>
-            10
+            1
           </strong>
         </span>
       </div>

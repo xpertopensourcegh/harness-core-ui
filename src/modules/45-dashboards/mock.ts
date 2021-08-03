@@ -1,6 +1,4 @@
 import type { ServiceInstanceWidgetProps } from './components/Services/ServiceInstancesWidget/ServiceInstancesWidget'
-import { DeploymentStatus } from './components/Services/ServicesList/ServicesList'
-import type { ServicesListProps } from './components/Services/ServicesList/ServicesList'
 
 export const ServiceInstancesWidgetMock: ServiceInstanceWidgetProps = {
   serviceCount: 57,
@@ -53,39 +51,6 @@ export const deploymentsInfo = {
   correlationId: 'deaf3a4d-161b-4d64-a77d-5be92b7cf41b'
 }
 
-export const ServiceListMock: ServicesListProps = {
-  total: 54,
-  totalItems: 10,
-  totalPages: 1,
-  data: Array(10).fill({
-    name: 'My Login Service',
-    id: 'Service 001',
-    serviceInstances: {
-      count: 13,
-      prodCount: 12,
-      nonProdCount: 1
-    },
-    deployments: {
-      value: '13',
-      change: 5
-    },
-    failureRate: {
-      value: '20%',
-      change: 5
-    },
-    frequency: {
-      value: '23',
-      change: 5
-    },
-    lastDeployment: {
-      name: 'My Pipeline X',
-      id: 'Pipeline X 1899',
-      timestamp: '1619120733360',
-      status: DeploymentStatus.SUCCESS
-    }
-  })
-}
-
 export const envBuildInstanceCount = {
   status: 'SUCCESS',
   data: {
@@ -94,6 +59,29 @@ export const envBuildInstanceCount = {
         envId: 'env1',
         envName: 'envName',
         buildIdAndInstanceCountList: [{ buildId: 'build1', count: 1 }]
+      }
+    ]
+  }
+}
+
+export const serviceDetails = {
+  status: 'SUCCESS',
+  data: {
+    serviceDeploymentDetailsList: [
+      {
+        serviceName: 'asdfasdf',
+        serviceIdentifier: 'asdfasdf',
+        deploymentTypeList: null,
+        totalDeployments: 0,
+        totalDeploymentChangeRate: 0.0,
+        successRate: 0.0,
+        successRateChangeRate: 0.0,
+        failureRate: 0.0,
+        failureRateChangeRate: 0.0,
+        frequency: 0.0,
+        frequencyChangeRate: 0.0,
+        instanceCountDetails: null,
+        lastPipelineExecuted: null
       }
     ]
   }

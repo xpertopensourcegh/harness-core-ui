@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
+import ReactTimeago from 'react-timeago'
 import { Color, Layout, Text } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -12,16 +13,19 @@ import type { TableProps } from '@common/components/Table/Table'
 import { Ticker } from '@common/components/Ticker/Ticker'
 import { PieChart, PieChartProps } from '@dashboards/components/PieChart/PieChart'
 import { numberFormatter } from '@dashboards/components/Services/common'
+import type { ServiceDetailsDTO } from 'services/cd-ng'
+import { DeploymentTypeIcons } from '@dashboards/components/DeploymentTypeIcons/DeploymentTypeIcons'
 import css from '@dashboards/components/Services/ServicesList/ServiceList.module.scss'
 
 export enum DeploymentStatus {
-  SUCCESS = 'DeploymentStatusSuccess',
-  FAILURE = 'DeploymentStatusFailure'
+  SUCCESS = 'success',
+  FAILED = 'failed'
 }
 
 export interface ServiceListItem {
   name: string
   id: string
+  deploymentTypeList: string[]
   serviceInstances: {
     count: number
     prodCount: number
@@ -33,16 +37,47 @@ export interface ServiceListItem {
   lastDeployment: {
     name: string
     id: string
-    timestamp: string
-    status: DeploymentStatus
+    timestamp: number
+    status: string
   }
 }
 
 export interface ServicesListProps {
-  total: number
-  totalItems: number
-  totalPages: number
-  data: ServiceListItem[]
+  loading: boolean
+  error: boolean
+  data: ServiceDetailsDTO[]
+  refetch: () => void
+}
+
+const transformServiceDetailsData = (data: ServiceDetailsDTO[]): ServiceListItem[] => {
+  return data.map(item => ({
+    name: item.serviceName || '',
+    id: item.serviceIdentifier || '',
+    deploymentTypeList: item.deploymentTypeList || [],
+    serviceInstances: {
+      count: item.instanceCountDetails?.totalInstances || 0,
+      prodCount: item.instanceCountDetails?.prodInstances || 0,
+      nonProdCount: item.instanceCountDetails?.nonProdInstances || 0
+    },
+    deployments: {
+      value: numberFormatter(item.totalDeployments),
+      change: item.totalDeploymentChangeRate || 0
+    },
+    failureRate: {
+      value: numberFormatter(item.failureRate),
+      change: item.failureRateChangeRate || 0
+    },
+    frequency: {
+      value: numberFormatter(item.frequency),
+      change: item.frequencyChangeRate || 0
+    },
+    lastDeployment: {
+      name: item.lastPipelineExecuted?.name || '',
+      id: item.lastPipelineExecuted?.identifier || '',
+      timestamp: item.lastPipelineExecuted?.lastExecutedAt || 0,
+      status: item.lastPipelineExecuted?.status || ''
+    }
+  }))
 }
 
 const RenderServiceName: Renderer<CellProps<ServiceListItem>> = ({ row }) => {
@@ -61,8 +96,9 @@ const RenderServiceName: Renderer<CellProps<ServiceListItem>> = ({ row }) => {
   )
 }
 
-const RenderType: Renderer<CellProps<ServiceListItem>> = () => {
-  return <></>
+const RenderType: Renderer<CellProps<ServiceListItem>> = ({ row }) => {
+  const { deploymentTypeList } = row.original
+  return <DeploymentTypeIcons deploymentTypes={deploymentTypeList} />
 }
 
 const TickerCard: React.FC<{ item: ChangeValue & { name: string } }> = props => {
@@ -125,7 +161,7 @@ const RenderServiceInstances: Renderer<CellProps<ServiceListItem>> = ({ row }) =
     }
   }
   return (
-    <Layout.Horizontal flex={{ align: 'center-center' }}>
+    <Layout.Horizontal flex={{ align: 'center-center', justifyContent: 'flex-start' }}>
       <Text
         color={Color.BLACK}
         font={{ weight: 'semi-bold', size: 'medium' }}
@@ -145,10 +181,15 @@ const RenderLastDeployment: Renderer<CellProps<ServiceListItem>> = ({ row }) => 
     lastDeployment: { id, name, timestamp, status }
   } = row.original
   const { getString } = useStrings()
+  if (!id) {
+    return <></>
+  }
   const [statusBackgroundColor, statusTextColor, statusText] =
-    status === DeploymentStatus.SUCCESS
+    status.toLocaleLowerCase() === DeploymentStatus.SUCCESS
       ? [Color.GREEN_300, Color.GREEN_600, getString('success')]
-      : [Color.RED_300, Color.RED_600, getString('failed')]
+      : status.toLocaleLowerCase() === DeploymentStatus.FAILED
+      ? [Color.RED_300, Color.RED_600, getString('failed')]
+      : [Color.YELLOW_300, Color.YELLOW_600, status]
   return (
     <Layout.Horizontal className={css.lastDeployments}>
       <Layout.Vertical margin={{ right: 'large' }}>
@@ -161,9 +202,18 @@ const RenderLastDeployment: Renderer<CellProps<ServiceListItem>> = ({ row }) => 
             { id }
           )})`}</Text>
         </Layout.Horizontal>
-        <Text font={{ size: 'small' }} color={Color.GREY_500}>
-          {timestamp}
-        </Text>
+        {timestamp ? (
+          <ReactTimeago
+            date={timestamp}
+            component={val => (
+              <Text font={{ size: 'small' }} color={Color.GREY_500}>
+                {val.children}
+              </Text>
+            )}
+          />
+        ) : (
+          <></>
+        )}
       </Layout.Vertical>
       <Text
         background={statusBackgroundColor}
@@ -178,20 +228,23 @@ const RenderLastDeployment: Renderer<CellProps<ServiceListItem>> = ({ row }) => 
 }
 
 export const ServicesList: React.FC<ServicesListProps> = props => {
-  const { total, data, totalItems, totalPages } = props
+  const { loading, data, error, refetch } = props
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier, module } = useParams<ProjectPathProps & ModulePathParams>()
+
   const history = useHistory()
 
   const ServiceListHeaderCustomPrimary = useMemo(
-    () => () =>
+    () => (headerProps: { total?: number }) =>
       (
         <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.GREY_700}>
-          {getString('dashboards.serviceDashboard.totalServices', { total })}
+          {getString('dashboards.serviceDashboard.totalServices', {
+            total: headerProps.total || 0
+          })}
         </Text>
       ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [total]
+    [data]
   )
   const columns: TableProps<ServiceListItem>['columns'] = useMemo(
     () => {
@@ -241,7 +294,7 @@ export const ServicesList: React.FC<ServicesListProps> = props => {
       ]
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [data]
+    []
   )
 
   const goToServiceDetails = useCallback(
@@ -254,9 +307,10 @@ export const ServicesList: React.FC<ServicesListProps> = props => {
 
   const dashboardListProps: DashboardListProps<ServiceListItem> = {
     columns,
-    data,
-    totalItems,
-    totalPages,
+    loading,
+    error,
+    data: transformServiceDetailsData(data),
+    refetch,
     HeaderCustomPrimary: ServiceListHeaderCustomPrimary,
     onRowClick: goToServiceDetails
   }

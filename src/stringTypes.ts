@@ -1514,6 +1514,7 @@ export interface StringsMap {
   'dashboards.serviceDashboard.month': string
   'dashboards.serviceDashboard.mostActiveServices': string
   'dashboards.serviceDashboard.noDeployments': string
+  'dashboards.serviceDashboard.noServiceDetails': string
   'dashboards.serviceDashboard.noServices': string
   'dashboards.serviceDashboard.nonProd': string
   'dashboards.serviceDashboard.prod': string
