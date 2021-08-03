@@ -424,6 +424,7 @@ export interface StringsMap {
   'common.validation.fileIsRequired': string
   'common.validation.formatMustBeAlphanumeric': string
   'common.validation.groupAttributeIsRequired': string
+  'common.validation.harnessFolderNamePatternIsNotValid': string
   'common.validation.identifierIsRequired': string
   'common.validation.keyIsRequired': string
   'common.validation.nameIsRequired': string

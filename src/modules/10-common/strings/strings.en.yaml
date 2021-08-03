@@ -93,6 +93,7 @@ datePickerShortcuts:
   Last2Months: Last 2 Months
 validation:
   namePatternIsNotValid: 'Name can only contain alphanumerics, _ and -'
+  harnessFolderNamePatternIsNotValid: 'Harness Folder name can only contain alphanumerics, underscore, hyphen or a whitespace'
   nameIsRequired: Name is required
   valueIsRequired: Value is required
   typeIsRequired: Type is required
