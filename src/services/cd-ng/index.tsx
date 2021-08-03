@@ -41,6 +41,7 @@ export interface Account {
   licenseInfo?: LicenseInfo
   localEncryptionEnabled?: boolean
   migratedToClusterUrl?: string
+  nextGenEnabled?: boolean
   oauthEnabled?: boolean
   povAccount?: boolean
   serviceAccountConfig?: ServiceAccountConfig
@@ -60,6 +61,7 @@ export interface AccountDTO {
   defaultExperience?: 'NG' | 'CG'
   identifier?: string
   name?: string
+  nextGenEnabled?: boolean
   serviceAccountConfig?: ServiceAccountConfig
 }
 
@@ -691,11 +693,11 @@ export type CEKubernetesClusterConfig = ConnectorConfigDTO & {
   featuresEnabled?: ('BILLING' | 'OPTIMIZATION' | 'VISIBILITY')[]
 }
 
-export type CELicenseSummaryDTO = LicensesWithSummaryDTO & {
-  totalSpendLimit?: number
-}
+export type CELicenseSummaryDTO = LicensesWithSummaryDTO & {}
 
 export type CEModuleLicenseDTO = ModuleLicenseDTO & {
+  dataRetentionInDays?: number
+  numberOfCluster?: number
   spendLimit?: number
 }
 
@@ -1288,11 +1290,6 @@ export interface EnvBuildIdAndInstanceCountInfoList {
 
 export type EnvFilter = Filter & {
   filterTypes?: string[]
-}
-
-export interface EnvIdCountPair {
-  count?: number
-  envId?: string
 }
 
 export interface Environment {
@@ -2038,6 +2035,7 @@ export interface GatewayAccountRequestDTO {
   accountName?: string
   companyName?: string
   createdFromNG?: boolean
+  nextGenEnabled?: boolean
   uuid?: string
 }
 
@@ -4261,8 +4259,6 @@ export interface ResponseListInviteOperationResponse {
     | 'USER_ALREADY_ADDED'
     | 'USER_ALREADY_INVITED'
     | 'FAIL'
-    | 'INVITE_EXPIRED'
-    | 'INVITE_INVALID'
   )[]
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
@@ -5005,13 +5001,6 @@ export interface ResponseStepCategory {
 export interface ResponseString {
   correlationId?: string
   data?: string
-  metaData?: { [key: string]: any }
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-}
-
-export interface ResponseTimeValuePairListDTOEnvIdCountPair {
-  correlationId?: string
-  data?: TimeValuePairListDTOEnvIdCountPair
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -5953,11 +5942,6 @@ export interface TimeValuePair {
   value?: { [key: string]: any }
 }
 
-export interface TimeValuePairEnvIdCountPair {
-  timestamp?: number
-  value?: EnvIdCountPair
-}
-
 export interface TimeValuePairInteger {
   timestamp?: number
   value?: number
@@ -5965,10 +5949,6 @@ export interface TimeValuePairInteger {
 
 export interface TimeValuePairListDTO {
   timeValuePairList?: TimeValuePairObject[]
-}
-
-export interface TimeValuePairListDTOEnvIdCountPair {
-  timeValuePairList?: TimeValuePairEnvIdCountPair[]
 }
 
 export interface TimeValuePairListDTOInteger {
@@ -11102,64 +11082,6 @@ export const getActiveServiceInstanceCountBreakdownPromise = (
     GetActiveServiceInstanceCountBreakdownQueryParams,
     void
   >(getConfig('ng/api'), `/dashboard/getInstanceCountDetailsByService`, props, signal)
-
-export interface GetInstanceCountHistoryQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
-  serviceId: string
-  startTime: number
-  endTime: number
-}
-
-export type GetInstanceCountHistoryProps = Omit<
-  GetProps<ResponseTimeValuePairListDTOEnvIdCountPair, Failure | Error, GetInstanceCountHistoryQueryParams, void>,
-  'path'
->
-
-/**
- * Get instance count history
- */
-export const GetInstanceCountHistory = (props: GetInstanceCountHistoryProps) => (
-  <Get<ResponseTimeValuePairListDTOEnvIdCountPair, Failure | Error, GetInstanceCountHistoryQueryParams, void>
-    path={`/dashboard/getInstanceCountHistory`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetInstanceCountHistoryProps = Omit<
-  UseGetProps<ResponseTimeValuePairListDTOEnvIdCountPair, Failure | Error, GetInstanceCountHistoryQueryParams, void>,
-  'path'
->
-
-/**
- * Get instance count history
- */
-export const useGetInstanceCountHistory = (props: UseGetInstanceCountHistoryProps) =>
-  useGet<ResponseTimeValuePairListDTOEnvIdCountPair, Failure | Error, GetInstanceCountHistoryQueryParams, void>(
-    `/dashboard/getInstanceCountHistory`,
-    { base: getConfig('ng/api'), ...props }
-  )
-
-/**
- * Get instance count history
- */
-export const getInstanceCountHistoryPromise = (
-  props: GetUsingFetchProps<
-    ResponseTimeValuePairListDTOEnvIdCountPair,
-    Failure | Error,
-    GetInstanceCountHistoryQueryParams,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseTimeValuePairListDTOEnvIdCountPair, Failure | Error, GetInstanceCountHistoryQueryParams, void>(
-    getConfig('ng/api'),
-    `/dashboard/getInstanceCountHistory`,
-    props,
-    signal
-  )
 
 export interface GetInstanceGrowthTrendQueryParams {
   accountIdentifier: string
