@@ -1,8 +1,18 @@
 import React from 'react'
-import { Label, FormInput, MultiTypeInputType, Icon, Layout, Text, Button } from '@wings-software/uicore'
+import {
+  Label,
+  FormInput,
+  MultiTypeInputType,
+  Icon,
+  Layout,
+  Text,
+  Button,
+  getMultiTypeFromValue
+} from '@wings-software/uicore'
 import { connect } from 'formik'
 import { get, set, isEmpty, pickBy, identity } from 'lodash-es'
 import cx from 'classnames'
+import { useParams } from 'react-router-dom'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import type {
   DeploymentStageConfig,
@@ -17,6 +27,8 @@ import type {
 import { useStrings } from 'framework/strings'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import MultiTypeListInputSet from '@common/components/MultiTypeListInputSet/MultiTypeListInputSet'
+import MultiTypeDelegateSelector from '@common/components/MultiTypeDelegateSelector/MultiTypeDelegateSelector'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import factory from '../PipelineSteps/PipelineStepFactory'
 import { StepType } from '../PipelineSteps/PipelineStepInterface'
 
@@ -25,6 +37,7 @@ import { getStepFromStage } from '../PipelineStudio/StepUtil'
 import { StepWidget } from '../AbstractSteps/StepWidget'
 import { StepViewType } from '../AbstractSteps/Step'
 import { useVariablesExpression } from '../PipelineStudio/PiplineHooks/useVariablesExpression'
+import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './PipelineInputSetForm.module.scss'
 
 function ServiceDependencyForm({
@@ -85,6 +98,8 @@ function StepForm({
   path: string
 }): JSX.Element {
   const { getString } = useStrings()
+  const { projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+  const { expressions } = useVariablesExpression()
   return (
     <Layout.Vertical spacing="medium" padding={{ top: 'medium' }}>
       <Label>
@@ -107,6 +122,18 @@ function StepForm({
           onUpdate={onUpdate}
           stepViewType={StepViewType.InputSet}
         />
+        {getMultiTypeFromValue(template?.step?.spec?.delegateSelectors) === MultiTypeInputType.RUNTIME && (
+          <div className={cx(stepCss.formGroup, stepCss.sm)}>
+            <MultiTypeDelegateSelector
+              expressions={expressions}
+              inputProps={{ projectIdentifier, orgIdentifier }}
+              allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
+              label={getString('delegate.DelegateSelector')}
+              name={`${path}.spec.delegateSelectors`}
+              disabled={readonly}
+            />
+          </div>
+        )}
       </div>
     </Layout.Vertical>
   )
