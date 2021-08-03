@@ -180,7 +180,6 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
         conditionalExecutionEnabled: getConditionalExecutionFlag(stage.when!),
         disableClick: stage.disableClick
       }
-
       if (!nodeRender) {
         nodeRender =
           type === ExecutionPipelineNodeType.ICON
@@ -430,7 +429,6 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
             : isParallelNode
             ? PARALLEL_LINES_WIDTH
             : SPACE_BETWEEN_ELEMENTS
-
           stepGroupLayer.startNode.setPosition(startX, startY)
           prevNodes.forEach((prevNode: Diagram.DefaultNodeModel) => {
             this.connectedParentToNode(
