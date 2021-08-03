@@ -5,7 +5,7 @@ import { Popover } from '@blueprintjs/core'
 import { defaultTo, get, isEmpty } from 'lodash-es'
 
 import type { PipelineExecutionSummary } from 'services/pipeline-ng'
-import { UserLabel, Duration, TimeAgo } from '@common/exports'
+import { UserLabel, Duration, TimeAgoPopover } from '@common/exports'
 import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
 import ExecutionActions from '@pipeline/components/ExecutionActions/ExecutionActions'
 import { String } from 'framework/strings'
@@ -212,7 +212,7 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
               durationText={variant === CardVariant.Default ? undefined : ' '}
               endTime={pipelineExecution?.endTs}
             />
-            <TimeAgo
+            <TimeAgoPopover
               iconProps={{ size: 14, className: css.timerIcon }}
               icon="calendar"
               time={defaultTo(pipelineExecution?.startTs, 0)}

@@ -688,3 +688,4 @@ myDeploymentsText: My Deployments
 myBuildsText: My Builds
 noBuckets: No buckets found with given region
 gitRepos: Git Repos
+buildRepo: Build Repo

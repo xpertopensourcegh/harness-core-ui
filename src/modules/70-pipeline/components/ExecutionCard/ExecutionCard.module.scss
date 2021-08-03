@@ -6,7 +6,6 @@ $actions-translate: 10px;
   width: 100%;
   padding: 0 !important;
   box-shadow: var(--card-shadow);
-  border-radius: var(--spacing-3) !important;
   border: none !important;
   overflow: hidden;
 
@@ -171,6 +170,10 @@ $actions-translate: 10px;
           color: var(--grey-900);
           white-space: nowrap;
         }
+      }
+
+      :global(.bp3-popover-wrapper) {
+        display: inline-flex;
       }
     }
   }
