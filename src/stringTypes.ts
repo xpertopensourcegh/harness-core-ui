@@ -1505,34 +1505,6 @@ export interface StringsMap {
   'dashboards.modules.harness': string
   'dashboards.resourceModal.folderDetail': string
   'dashboards.resourceModal.folders': string
-  'dashboards.serviceDashboard.3months': string
-  'dashboards.serviceDashboard.6monthTrend': string
-  'dashboards.serviceDashboard.6months': string
-  'dashboards.serviceDashboard.activeServiceInstancesLabel': string
-  'dashboards.serviceDashboard.artifact': string
-  'dashboards.serviceDashboard.buildName': string
-  'dashboards.serviceDashboard.deployedAt': string
-  'dashboards.serviceDashboard.deployedBy': string
-  'dashboards.serviceDashboard.executionId': string
-  'dashboards.serviceDashboard.frequency': string
-  'dashboards.serviceDashboard.in': string
-  'dashboards.serviceDashboard.instanceCountHistory': string
-  'dashboards.serviceDashboard.instanceDetails': string
-  'dashboards.serviceDashboard.lastDeployment': string
-  'dashboards.serviceDashboard.month': string
-  'dashboards.serviceDashboard.mostActiveServices': string
-  'dashboards.serviceDashboard.noDeployments': string
-  'dashboards.serviceDashboard.noServiceDetails': string
-  'dashboards.serviceDashboard.noServiceInstances': string
-  'dashboards.serviceDashboard.noServices': string
-  'dashboards.serviceDashboard.nonProd': string
-  'dashboards.serviceDashboard.pod': string
-  'dashboards.serviceDashboard.prod': string
-  'dashboards.serviceDashboard.seeMore': string
-  'dashboards.serviceDashboard.serviceInstances': string
-  'dashboards.serviceDashboard.servicesInLast': string
-  'dashboards.serviceDashboard.totalServices': string
-  'dashboards.serviceDashboard.year': string
   'dashboards.sideNav.byHarness': string
   'dashboards.sideNav.custom': string
   'dashboards.sideNav.noDashboard': string
@@ -2301,6 +2273,34 @@ export interface StringsMap {
   'cd.scriptRequired': string
   'cd.secretManagerRequired': string
   'cd.serviceCreated': string
+  'cd.serviceDashboard.3months': string
+  'cd.serviceDashboard.6monthTrend': string
+  'cd.serviceDashboard.6months': string
+  'cd.serviceDashboard.activeServiceInstancesLabel': string
+  'cd.serviceDashboard.artifact': string
+  'cd.serviceDashboard.buildName': string
+  'cd.serviceDashboard.deployedAt': string
+  'cd.serviceDashboard.deployedBy': string
+  'cd.serviceDashboard.executionId': string
+  'cd.serviceDashboard.frequency': string
+  'cd.serviceDashboard.in': string
+  'cd.serviceDashboard.instanceCountHistory': string
+  'cd.serviceDashboard.instanceDetails': string
+  'cd.serviceDashboard.lastDeployment': string
+  'cd.serviceDashboard.month': string
+  'cd.serviceDashboard.mostActiveServices': string
+  'cd.serviceDashboard.noDeployments': string
+  'cd.serviceDashboard.noServiceDetails': string
+  'cd.serviceDashboard.noServiceInstances': string
+  'cd.serviceDashboard.noServices': string
+  'cd.serviceDashboard.nonProd': string
+  'cd.serviceDashboard.pod': string
+  'cd.serviceDashboard.prod': string
+  'cd.serviceDashboard.seeMore': string
+  'cd.serviceDashboard.serviceInstances': string
+  'cd.serviceDashboard.servicesInLast': string
+  'cd.serviceDashboard.totalServices': string
+  'cd.serviceDashboard.year': string
   'cd.serviceUpdated': string
   'cd.setUpProvisionerBtnText': string
   'cd.specifyTfVarStore': string
