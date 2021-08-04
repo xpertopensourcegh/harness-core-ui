@@ -6,7 +6,8 @@ import {
   Button,
   getMultiTypeFromValue,
   MultiTypeInputType,
-  FormikForm
+  FormikForm,
+  Accordion
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'
@@ -93,232 +94,238 @@ export const ECRStepBase = (
 
         return (
           <FormikForm>
-            <div className={css.fieldsSection}>
-              <FormInput.InputWithIdentifier
-                inputName="name"
-                idName="identifier"
-                isIdentifierEditable={isNewStep}
-                inputLabel={getString('pipelineSteps.stepNameLabel')}
-                inputGroupProps={{ disabled: readonly }}
-              />
-              <FormMultiTypeConnectorField
-                label={
+            <FormInput.InputWithIdentifier
+              inputName="name"
+              idName="identifier"
+              isIdentifierEditable={isNewStep}
+              inputLabel={getString('pipelineSteps.stepNameLabel')}
+              inputGroupProps={{ disabled: readonly }}
+            />
+            <FormMultiTypeConnectorField
+              label={
+                <Text style={{ display: 'flex', alignItems: 'center' }}>
+                  {getString('pipelineSteps.awsConnectorLabel')}
+                  <Button
+                    icon="question"
+                    minimal
+                    tooltip={getString('pipelineSteps.ecrConnectorInfo')}
+                    iconProps={{ size: 14 }}
+                  />
+                </Text>
+              }
+              type={'Aws'}
+              width={getMultiTypeFromValue(formik.values.spec.connectorRef) === MultiTypeInputType.RUNTIME ? 515 : 560}
+              name="spec.connectorRef"
+              placeholder={getString('select')}
+              accountIdentifier={accountId}
+              projectIdentifier={projectIdentifier}
+              orgIdentifier={orgIdentifier}
+              multiTypeProps={{ expressions, disabled: readonly }}
+              gitScope={gitScope}
+              style={{ marginBottom: 0 }}
+            />
+            <MultiTypeTextField
+              name="spec.region"
+              label={
+                <Text margin={{ top: 'small' }}>
+                  {getString('regionLabel')}
+                  <Button
+                    icon="question"
+                    minimal
+                    tooltip={getString('pipelineSteps.regionInfo')}
+                    iconProps={{ size: 14 }}
+                  />
+                </Text>
+              }
+              multiTextInputProps={{
+                placeholder: getString('pipelineSteps.regionPlaceholder'),
+                multiTextInputProps: { expressions },
+                disabled: readonly
+              }}
+            />
+            <MultiTypeTextField
+              name="spec.account"
+              label={
+                <Text margin={{ top: 'small' }}>
+                  {getString('common.accountId')}
+                  <Button
+                    icon="question"
+                    minimal
+                    tooltip={getString('pipelineSteps.accountInfo')}
+                    iconProps={{ size: 14 }}
+                  />
+                </Text>
+              }
+              multiTextInputProps={{
+                multiTextInputProps: { expressions },
+                disabled: readonly
+              }}
+            />
+            <MultiTypeTextField
+              name="spec.imageName"
+              label={
+                <Text margin={{ top: 'small' }}>
+                  {getString('imageNameLabel')}
+                  <Button icon="question" minimal tooltip={getString('imageNameInfo')} iconProps={{ size: 14 }} />
+                </Text>
+              }
+              multiTextInputProps={{
+                multiTextInputProps: { expressions },
+                disabled: readonly
+              }}
+            />
+            <MultiTypeList
+              name="spec.tags"
+              multiTextInputProps={{ expressions }}
+              multiTypeFieldSelectorProps={{
+                label: (
                   <Text style={{ display: 'flex', alignItems: 'center' }}>
-                    {getString('pipelineSteps.awsConnectorLabel')}
-                    <Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipelineSteps.ecrConnectorInfo')}
-                      iconProps={{ size: 14 }}
+                    {getString('tagsLabel')}
+                    <Button icon="question" minimal tooltip={getString('tagsInfo')} iconProps={{ size: 14 }} />
+                  </Text>
+                )
+              }}
+              style={{ marginTop: 'var(--spacing-xsmall)' }}
+              disabled={readonly}
+            />
+            <Accordion className={css.accordion}>
+              <Accordion.Panel
+                id="optional-config"
+                summary={getString('common.optionalConfig')}
+                details={
+                  <>
+                    <FormMultiTypeCheckboxField
+                      name="spec.optimize"
+                      className={css.checkboxField}
+                      label={getString('ci.optimize')}
+                      multiTypeTextbox={{
+                        children: (
+                          <Button
+                            icon="question"
+                            minimal
+                            tooltip={getString('ci.optimizeInfo')}
+                            iconProps={{ size: 14 }}
+                          />
+                        ),
+                        expressions
+                      }}
+                      disabled={readonly}
                     />
-                  </Text>
-                }
-                type={'Aws'}
-                width={
-                  getMultiTypeFromValue(formik.values.spec.connectorRef) === MultiTypeInputType.RUNTIME ? 515 : 560
-                }
-                name="spec.connectorRef"
-                placeholder={getString('select')}
-                accountIdentifier={accountId}
-                projectIdentifier={projectIdentifier}
-                orgIdentifier={orgIdentifier}
-                multiTypeProps={{ expressions, disabled: readonly }}
-                gitScope={gitScope}
-                style={{ marginBottom: 0 }}
-              />
-              <MultiTypeTextField
-                name="spec.region"
-                label={
-                  <Text margin={{ top: 'small' }}>
-                    {getString('regionLabel')}
-                    <Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipelineSteps.regionInfo')}
-                      iconProps={{ size: 14 }}
+                    <MultiTypeTextField
+                      name="spec.dockerfile"
+                      label={
+                        <Text margin={{ top: 'small' }}>
+                          {getString('pipelineSteps.dockerfileLabel')}
+                          <Button
+                            icon="question"
+                            minimal
+                            tooltip={getString('pipelineSteps.dockerfileInfo')}
+                            iconProps={{ size: 14 }}
+                          />
+                        </Text>
+                      }
+                      multiTextInputProps={{
+                        multiTextInputProps: { expressions },
+                        disabled: readonly
+                      }}
                     />
-                  </Text>
-                }
-                multiTextInputProps={{
-                  placeholder: getString('pipelineSteps.regionPlaceholder'),
-                  multiTextInputProps: { expressions },
-                  disabled: readonly
-                }}
-              />
-              <MultiTypeTextField
-                name="spec.account"
-                label={
-                  <Text margin={{ top: 'small' }}>
-                    {getString('common.accountId')}
-                    <Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipelineSteps.accountInfo')}
-                      iconProps={{ size: 14 }}
+                    <MultiTypeTextField
+                      name="spec.context"
+                      label={
+                        <Text margin={{ top: 'small' }}>
+                          {getString('pipelineSteps.contextLabel')}
+                          <Button
+                            icon="question"
+                            minimal
+                            tooltip={getString('pipelineSteps.contextInfo')}
+                            iconProps={{ size: 14 }}
+                          />
+                        </Text>
+                      }
+                      multiTextInputProps={{
+                        multiTextInputProps: { expressions },
+                        disabled: readonly
+                      }}
                     />
-                  </Text>
-                }
-                multiTextInputProps={{
-                  multiTextInputProps: { expressions },
-                  disabled: readonly
-                }}
-              />
-              <MultiTypeTextField
-                name="spec.imageName"
-                label={
-                  <Text margin={{ top: 'small' }}>
-                    {getString('imageNameLabel')}
-                    <Button icon="question" minimal tooltip={getString('imageNameInfo')} iconProps={{ size: 14 }} />
-                  </Text>
-                }
-                multiTextInputProps={{
-                  multiTextInputProps: { expressions },
-                  disabled: readonly
-                }}
-              />
-              <MultiTypeList
-                name="spec.tags"
-                multiTextInputProps={{ expressions }}
-                multiTypeFieldSelectorProps={{
-                  label: (
-                    <Text style={{ display: 'flex', alignItems: 'center' }}>
-                      {getString('tagsLabel')}
-                      <Button icon="question" minimal tooltip={getString('tagsInfo')} iconProps={{ size: 14 }} />
-                    </Text>
-                  )
-                }}
-                style={{ marginTop: 'var(--spacing-xsmall)' }}
-                disabled={readonly}
-              />
-            </div>
-            <div className={css.fieldsSection}>
-              <Text className={css.optionalConfiguration} font={{ weight: 'semi-bold' }} margin={{ bottom: 'small' }}>
-                {getString('pipelineSteps.optionalConfiguration')}
-              </Text>
-              <FormMultiTypeCheckboxField
-                name="spec.optimize"
-                className={css.checkboxField}
-                label={getString('ci.optimize')}
-                multiTypeTextbox={{
-                  children: (
-                    <Button icon="question" minimal tooltip={getString('ci.optimizeInfo')} iconProps={{ size: 14 }} />
-                  ),
-                  expressions
-                }}
-                disabled={readonly}
-              />
-              <MultiTypeTextField
-                name="spec.dockerfile"
-                label={
-                  <Text margin={{ top: 'small' }}>
-                    {getString('pipelineSteps.dockerfileLabel')}
-                    <Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipelineSteps.dockerfileInfo')}
-                      iconProps={{ size: 14 }}
+                    <MultiTypeMap
+                      name="spec.labels"
+                      valueMultiTextInputProps={{ expressions }}
+                      multiTypeFieldSelectorProps={{
+                        label: (
+                          <Text style={{ display: 'flex', alignItems: 'center' }}>
+                            {getString('pipelineSteps.labelsLabel')}
+                            <Button
+                              icon="question"
+                              minimal
+                              tooltip={getString('pipelineSteps.labelsInfo')}
+                              iconProps={{ size: 14 }}
+                            />
+                          </Text>
+                        )
+                      }}
+                      style={{ marginTop: 'var(--spacing-xsmall)', marginBottom: 'var(--spacing-small)' }}
+                      disabled={readonly}
                     />
-                  </Text>
-                }
-                multiTextInputProps={{
-                  multiTextInputProps: { expressions },
-                  disabled: readonly
-                }}
-              />
-              <MultiTypeTextField
-                name="spec.context"
-                label={
-                  <Text margin={{ top: 'small' }}>
-                    {getString('pipelineSteps.contextLabel')}
-                    <Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipelineSteps.contextInfo')}
-                      iconProps={{ size: 14 }}
+                    <MultiTypeMap
+                      name="spec.buildArgs"
+                      valueMultiTextInputProps={{ expressions }}
+                      multiTypeFieldSelectorProps={{
+                        label: (
+                          <Text style={{ display: 'flex', alignItems: 'center' }}>
+                            {getString('pipelineSteps.buildArgsLabel')}
+                            <Button
+                              icon="question"
+                              minimal
+                              tooltip={getString('pipelineSteps.buildArgsInfo')}
+                              iconProps={{ size: 14 }}
+                            />
+                          </Text>
+                        )
+                      }}
+                      disabled={readonly}
                     />
-                  </Text>
-                }
-                multiTextInputProps={{
-                  multiTextInputProps: { expressions },
-                  disabled: readonly
-                }}
-              />
-              <MultiTypeMap
-                name="spec.labels"
-                valueMultiTextInputProps={{ expressions }}
-                multiTypeFieldSelectorProps={{
-                  label: (
-                    <Text style={{ display: 'flex', alignItems: 'center' }}>
-                      {getString('pipelineSteps.labelsLabel')}
-                      <Button
-                        icon="question"
-                        minimal
-                        tooltip={getString('pipelineSteps.labelsInfo')}
-                        iconProps={{ size: 14 }}
-                      />
-                    </Text>
-                  )
-                }}
-                style={{ marginTop: 'var(--spacing-xsmall)', marginBottom: 'var(--spacing-small)' }}
-                disabled={readonly}
-              />
-              <MultiTypeMap
-                name="spec.buildArgs"
-                valueMultiTextInputProps={{ expressions }}
-                multiTypeFieldSelectorProps={{
-                  label: (
-                    <Text style={{ display: 'flex', alignItems: 'center' }}>
-                      {getString('pipelineSteps.buildArgsLabel')}
-                      <Button
-                        icon="question"
-                        minimal
-                        tooltip={getString('pipelineSteps.buildArgsInfo')}
-                        iconProps={{ size: 14 }}
-                      />
-                    </Text>
-                  )
-                }}
-                disabled={readonly}
-              />
-              <MultiTypeTextField
-                name="spec.target"
-                label={
-                  <Text margin={{ top: 'small' }}>
-                    {getString('pipelineSteps.targetLabel')}
-                    <Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipelineSteps.targetInfo')}
-                      iconProps={{ size: 14 }}
+                    <MultiTypeTextField
+                      name="spec.target"
+                      label={
+                        <Text margin={{ top: 'small' }}>
+                          {getString('pipelineSteps.targetLabel')}
+                          <Button
+                            icon="question"
+                            minimal
+                            tooltip={getString('pipelineSteps.targetInfo')}
+                            iconProps={{ size: 14 }}
+                          />
+                        </Text>
+                      }
+                      multiTextInputProps={{
+                        multiTextInputProps: { expressions },
+                        disabled: readonly
+                      }}
                     />
-                  </Text>
-                }
-                multiTextInputProps={{
-                  multiTextInputProps: { expressions },
-                  disabled: readonly
-                }}
-              />
-              <MultiTypeTextField
-                name="spec.remoteCacheImage"
-                label={
-                  <Text margin={{ top: 'small' }}>
-                    {getString('ci.remoteCacheImage.label')}
-                    <Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('ci.remoteCacheImage.ecrInfo')}
-                      iconProps={{ size: 14 }}
+                    <MultiTypeTextField
+                      name="spec.remoteCacheImage"
+                      label={
+                        <Text margin={{ top: 'small' }}>
+                          {getString('ci.remoteCacheImage.label')}
+                          <Button
+                            icon="question"
+                            minimal
+                            tooltip={getString('ci.remoteCacheImage.ecrInfo')}
+                            iconProps={{ size: 14 }}
+                          />
+                        </Text>
+                      }
+                      multiTextInputProps={{
+                        multiTextInputProps: { expressions },
+                        disabled: readonly,
+                        placeholder: getString('ci.remoteCacheImage.placeholder')
+                      }}
                     />
-                  </Text>
+                    <StepCommonFields disabled={readonly} />
+                  </>
                 }
-                multiTextInputProps={{
-                  multiTextInputProps: { expressions },
-                  disabled: readonly,
-                  placeholder: getString('ci.remoteCacheImage.placeholder')
-                }}
               />
-              <StepCommonFields disabled={readonly} />
-            </div>
+            </Accordion>
           </FormikForm>
         )
       }}

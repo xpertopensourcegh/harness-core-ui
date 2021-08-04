@@ -6,7 +6,8 @@ import {
   Button,
   getMultiTypeFromValue,
   MultiTypeInputType,
-  FormikForm
+  FormikForm,
+  Accordion
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'
@@ -94,118 +95,124 @@ export const RestoreCacheGCSStepBase = (
 
         return (
           <FormikForm>
-            <div className={css.fieldsSection}>
-              <FormInput.InputWithIdentifier
-                inputName="name"
-                idName="identifier"
-                isIdentifierEditable={isNewStep}
-                inputLabel={getString('pipelineSteps.stepNameLabel')}
-                inputGroupProps={{ disabled: readonly }}
-              />
-              <FormMultiTypeConnectorField
-                label={
-                  <Text style={{ display: 'flex', alignItems: 'center' }}>
-                    {getString('pipelineSteps.gcpConnectorLabel')}
-                    <Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipelineSteps.restoreCacheGcpConnectorInfo')}
-                      iconProps={{ size: 14 }}
+            <FormInput.InputWithIdentifier
+              inputName="name"
+              idName="identifier"
+              isIdentifierEditable={isNewStep}
+              inputLabel={getString('pipelineSteps.stepNameLabel')}
+              inputGroupProps={{ disabled: readonly }}
+            />
+            <FormMultiTypeConnectorField
+              label={
+                <Text style={{ display: 'flex', alignItems: 'center' }}>
+                  {getString('pipelineSteps.gcpConnectorLabel')}
+                  <Button
+                    icon="question"
+                    minimal
+                    tooltip={getString('pipelineSteps.restoreCacheGcpConnectorInfo')}
+                    iconProps={{ size: 14 }}
+                  />
+                </Text>
+              }
+              type={'Gcp'}
+              width={getMultiTypeFromValue(formik.values.spec.connectorRef) === MultiTypeInputType.RUNTIME ? 515 : 560}
+              name="spec.connectorRef"
+              placeholder={getString('select')}
+              accountIdentifier={accountId}
+              projectIdentifier={projectIdentifier}
+              orgIdentifier={orgIdentifier}
+              multiTypeProps={{ expressions, disabled: readonly }}
+              gitScope={gitScope}
+              style={{ marginBottom: 'var(--spacing-small)' }}
+            />
+            <MultiTypeTextField
+              name="spec.bucket"
+              label={
+                <Text>
+                  {getString('pipelineSteps.bucketLabel')}
+                  <Button
+                    icon="question"
+                    minimal
+                    tooltip={getString('pipelineSteps.GCSBucketInfo')}
+                    iconProps={{ size: 14 }}
+                  />
+                </Text>
+              }
+              multiTextInputProps={{
+                multiTextInputProps: { expressions },
+                disabled: readonly
+              }}
+              style={{ marginBottom: 'var(--spacing-small)' }}
+            />
+            <MultiTypeTextField
+              name="spec.key"
+              label={
+                <Text>
+                  {getString('keyLabel')}
+                  <Button
+                    icon="question"
+                    minimal
+                    tooltip={getString('pipelineSteps.restoreCacheKeyInfo')}
+                    iconProps={{ size: 14 }}
+                  />
+                </Text>
+              }
+              multiTextInputProps={{
+                multiTextInputProps: { expressions },
+                disabled: readonly
+              }}
+            />
+            <Accordion className={css.accordion}>
+              <Accordion.Panel
+                id="optional-config"
+                summary={getString('common.optionalConfig')}
+                details={
+                  <>
+                    <MultiTypeSelectField
+                      name="spec.archiveFormat"
+                      label={
+                        <Text margin={{ top: 'small' }}>
+                          {getString('archiveFormat')}
+                          <Button
+                            icon="question"
+                            minimal
+                            tooltip={getString('archiveFormatInfo')}
+                            iconProps={{ size: 14 }}
+                          />
+                        </Text>
+                      }
+                      multiTypeInputProps={{
+                        selectItems: archiveFormatOptions,
+                        multiTypeInputProps: { expressions },
+                        disabled: readonly
+                      }}
+                      style={{ marginBottom: 'var(--spacing-medium)' }}
+                      disabled={readonly}
                     />
-                  </Text>
-                }
-                type={'Gcp'}
-                width={
-                  getMultiTypeFromValue(formik.values.spec.connectorRef) === MultiTypeInputType.RUNTIME ? 515 : 560
-                }
-                name="spec.connectorRef"
-                placeholder={getString('select')}
-                accountIdentifier={accountId}
-                projectIdentifier={projectIdentifier}
-                orgIdentifier={orgIdentifier}
-                multiTypeProps={{ expressions, disabled: readonly }}
-                gitScope={gitScope}
-                style={{ marginBottom: 'var(--spacing-small)' }}
-              />
-              <MultiTypeTextField
-                name="spec.bucket"
-                label={
-                  <Text>
-                    {getString('pipelineSteps.bucketLabel')}
-                    <Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipelineSteps.GCSBucketInfo')}
-                      iconProps={{ size: 14 }}
+                    <FormMultiTypeCheckboxField
+                      name="spec.failIfKeyNotFound"
+                      label={getString('failIfKeyNotFound')}
+                      className={css.checkboxField}
+                      multiTypeTextbox={{
+                        children: (
+                          <Button
+                            icon="question"
+                            minimal
+                            tooltip={getString('ci.pipelineSteps.failIfKeyNotFoundInfo')}
+                            iconProps={{ size: 14 }}
+                          />
+                        ),
+                        expressions,
+                        disabled: readonly
+                      }}
+                      style={{ marginBottom: 'var(--spacing-small)' }}
+                      disabled={readonly}
                     />
-                  </Text>
+                    <StepCommonFields disabled={readonly} />
+                  </>
                 }
-                multiTextInputProps={{
-                  multiTextInputProps: { expressions },
-                  disabled: readonly
-                }}
-                style={{ marginBottom: 'var(--spacing-small)' }}
               />
-              <MultiTypeTextField
-                name="spec.key"
-                label={
-                  <Text>
-                    {getString('keyLabel')}
-                    <Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipelineSteps.restoreCacheKeyInfo')}
-                      iconProps={{ size: 14 }}
-                    />
-                  </Text>
-                }
-                multiTextInputProps={{
-                  multiTextInputProps: { expressions },
-                  disabled: readonly
-                }}
-              />
-            </div>
-            <div className={css.fieldsSection}>
-              <Text className={css.optionalConfiguration} font={{ weight: 'semi-bold' }} margin={{ bottom: 'small' }}>
-                {getString('pipelineSteps.optionalConfiguration')}
-              </Text>
-              <MultiTypeSelectField
-                name="spec.archiveFormat"
-                label={
-                  <Text margin={{ top: 'small' }}>
-                    {getString('archiveFormat')}
-                    <Button icon="question" minimal tooltip={getString('archiveFormatInfo')} iconProps={{ size: 14 }} />
-                  </Text>
-                }
-                multiTypeInputProps={{
-                  selectItems: archiveFormatOptions,
-                  multiTypeInputProps: { expressions },
-                  disabled: readonly
-                }}
-                style={{ marginBottom: 'var(--spacing-medium)' }}
-                disabled={readonly}
-              />
-              <FormMultiTypeCheckboxField
-                name="spec.failIfKeyNotFound"
-                label={getString('failIfKeyNotFound')}
-                className={css.checkboxField}
-                multiTypeTextbox={{
-                  children: (
-                    <Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('ci.pipelineSteps.failIfKeyNotFoundInfo')}
-                      iconProps={{ size: 14 }}
-                    />
-                  ),
-                  expressions,
-                  disabled: readonly
-                }}
-                style={{ marginBottom: 'var(--spacing-small)' }}
-                disabled={readonly}
-              />
-              <StepCommonFields disabled={readonly} />
-            </div>
+            </Accordion>
           </FormikForm>
         )
       }}

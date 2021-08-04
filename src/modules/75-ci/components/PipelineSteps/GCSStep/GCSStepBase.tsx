@@ -6,7 +6,8 @@ import {
   Button,
   getMultiTypeFromValue,
   MultiTypeInputType,
-  FormikForm
+  FormikForm,
+  Accordion
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'
@@ -90,103 +91,104 @@ export const GCSStepBase = (
 
         return (
           <FormikForm>
-            <div className={css.fieldsSection}>
-              <FormInput.InputWithIdentifier
-                inputName="name"
-                idName="identifier"
-                isIdentifierEditable={isNewStep}
-                inputLabel={getString('pipelineSteps.stepNameLabel')}
-                inputGroupProps={{ disabled: readonly }}
-              />
-              <FormMultiTypeConnectorField
-                label={
-                  <Text style={{ display: 'flex', alignItems: 'center' }}>
-                    {getString('pipelineSteps.gcpConnectorLabel')}
-                    <Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipelineSteps.gcsConnectorInfo')}
-                      iconProps={{ size: 14 }}
+            <FormInput.InputWithIdentifier
+              inputName="name"
+              idName="identifier"
+              isIdentifierEditable={isNewStep}
+              inputLabel={getString('pipelineSteps.stepNameLabel')}
+              inputGroupProps={{ disabled: readonly }}
+            />
+            <FormMultiTypeConnectorField
+              label={
+                <Text style={{ display: 'flex', alignItems: 'center' }}>
+                  {getString('pipelineSteps.gcpConnectorLabel')}
+                  <Button
+                    icon="question"
+                    minimal
+                    tooltip={getString('pipelineSteps.gcsConnectorInfo')}
+                    iconProps={{ size: 14 }}
+                  />
+                </Text>
+              }
+              type={'Gcp'}
+              width={getMultiTypeFromValue(formik.values.spec.connectorRef) === MultiTypeInputType.RUNTIME ? 515 : 560}
+              name="spec.connectorRef"
+              placeholder={getString('select')}
+              accountIdentifier={accountId}
+              projectIdentifier={projectIdentifier}
+              orgIdentifier={orgIdentifier}
+              multiTypeProps={{ expressions, disabled: readonly }}
+              gitScope={gitScope}
+              style={{ marginBottom: 'var(--spacing-small)' }}
+            />
+            <MultiTypeTextField
+              name="spec.bucket"
+              label={
+                <Text style={{ display: 'flex', alignItems: 'center' }}>
+                  {getString('pipelineSteps.bucketLabel')}
+                  <Button
+                    icon="question"
+                    minimal
+                    tooltip={getString('pipelineSteps.GCSBucketInfo')}
+                    iconProps={{ size: 14 }}
+                  />
+                </Text>
+              }
+              multiTextInputProps={{
+                multiTextInputProps: { expressions },
+                disabled: readonly
+              }}
+              style={{ marginBottom: 'var(--spacing-small)' }}
+            />
+            <MultiTypeTextField
+              name="spec.sourcePath"
+              label={
+                <Text>
+                  {getString('pipelineSteps.sourcePathLabel')}
+                  <Button
+                    icon="question"
+                    minimal
+                    tooltip={getString('pipelineSteps.sourcePathInfo')}
+                    iconProps={{ size: 14 }}
+                  />
+                </Text>
+              }
+              multiTextInputProps={{
+                multiTextInputProps: { expressions },
+                disabled: readonly
+              }}
+            />
+            <Accordion className={css.accordion}>
+              <Accordion.Panel
+                id="optional-config"
+                summary={getString('common.optionalConfig')}
+                details={
+                  <>
+                    <MultiTypeTextField
+                      name="spec.target"
+                      label={
+                        <Text>
+                          {getString('pipelineSteps.targetLabel')}
+                          <Button
+                            icon="question"
+                            minimal
+                            tooltip={getString('pipelineSteps.artifactsTargetInfo')}
+                            iconProps={{ size: 14 }}
+                          />
+                        </Text>
+                      }
+                      multiTextInputProps={{
+                        placeholder: getString('pipelineSteps.artifactsTargetPlaceholder'),
+                        multiTextInputProps: { expressions },
+                        disabled: readonly
+                      }}
+                      style={{ marginBottom: 'var(--spacing-small)' }}
                     />
-                  </Text>
+                    <StepCommonFields disabled={readonly} />
+                  </>
                 }
-                type={'Gcp'}
-                width={
-                  getMultiTypeFromValue(formik.values.spec.connectorRef) === MultiTypeInputType.RUNTIME ? 515 : 560
-                }
-                name="spec.connectorRef"
-                placeholder={getString('select')}
-                accountIdentifier={accountId}
-                projectIdentifier={projectIdentifier}
-                orgIdentifier={orgIdentifier}
-                multiTypeProps={{ expressions, disabled: readonly }}
-                gitScope={gitScope}
-                style={{ marginBottom: 'var(--spacing-small)' }}
               />
-              <MultiTypeTextField
-                name="spec.bucket"
-                label={
-                  <Text style={{ display: 'flex', alignItems: 'center' }}>
-                    {getString('pipelineSteps.bucketLabel')}
-                    <Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipelineSteps.GCSBucketInfo')}
-                      iconProps={{ size: 14 }}
-                    />
-                  </Text>
-                }
-                multiTextInputProps={{
-                  multiTextInputProps: { expressions },
-                  disabled: readonly
-                }}
-                style={{ marginBottom: 'var(--spacing-small)' }}
-              />
-              <MultiTypeTextField
-                name="spec.sourcePath"
-                label={
-                  <Text>
-                    {getString('pipelineSteps.sourcePathLabel')}
-                    <Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipelineSteps.sourcePathInfo')}
-                      iconProps={{ size: 14 }}
-                    />
-                  </Text>
-                }
-                multiTextInputProps={{
-                  multiTextInputProps: { expressions },
-                  disabled: readonly
-                }}
-              />
-            </div>
-            <div className={css.fieldsSection}>
-              <Text className={css.optionalConfiguration} font={{ weight: 'semi-bold' }} margin={{ bottom: 'small' }}>
-                {getString('pipelineSteps.optionalConfiguration')}
-              </Text>
-              <MultiTypeTextField
-                name="spec.target"
-                label={
-                  <Text>
-                    {getString('pipelineSteps.targetLabel')}
-                    <Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipelineSteps.artifactsTargetInfo')}
-                      iconProps={{ size: 14 }}
-                    />
-                  </Text>
-                }
-                multiTextInputProps={{
-                  placeholder: getString('pipelineSteps.artifactsTargetPlaceholder'),
-                  multiTextInputProps: { expressions },
-                  disabled: readonly
-                }}
-                style={{ marginBottom: 'var(--spacing-small)' }}
-              />
-              <StepCommonFields disabled={readonly} />
-            </div>
+            </Accordion>
           </FormikForm>
         )
       }}
