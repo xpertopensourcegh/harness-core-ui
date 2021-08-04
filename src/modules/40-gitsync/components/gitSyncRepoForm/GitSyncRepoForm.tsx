@@ -239,7 +239,7 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                 gitConnectorRef: (formData.gitConnector as ConnectorSelectedValue)?.value,
                 gitSyncFolderConfigDTOs: [
                   {
-                    rootFolder: getHarnessFolderPathWithSuffix(formData.rootfolder, HARNESS_FOLDER_SUFFIX),
+                    rootFolder: getHarnessFolderPathWithSuffix(formData.rootfolder.trim(), HARNESS_FOLDER_SUFFIX),
                     isDefault: true
                   }
                 ],

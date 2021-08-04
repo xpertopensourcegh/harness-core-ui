@@ -288,7 +288,7 @@ const GitSyncRepoTab: React.FC = () => {
                     : repoData?.gitSyncFolderConfigDTOs?.slice()
 
                   folders?.push({
-                    rootFolder: getHarnessFolderPathWithSuffix(formData.rootFolder, HARNESS_FOLDER_SUFFIX),
+                    rootFolder: getHarnessFolderPathWithSuffix(formData.rootFolder.trim(), HARNESS_FOLDER_SUFFIX),
                     isDefault: formData.isDefault
                   })
                   handleRepoUpdate(folders, true)
@@ -358,9 +358,9 @@ const GitSyncRepoTab: React.FC = () => {
                           textOverflow: 'ellipsis',
                           whiteSpace: 'nowrap'
                         }}
-                        title={getCompleteGitPath(formValues.repo, formValues.rootFolder, HARNESS_FOLDER_SUFFIX)}
+                        title={getCompleteGitPath(formValues.repo, formValues.rootFolder.trim(), HARNESS_FOLDER_SUFFIX)}
                       >
-                        {getCompleteGitPath(formValues.repo, formValues.rootFolder, HARNESS_FOLDER_SUFFIX)}
+                        {getCompleteGitPath(formValues.repo, formValues.rootFolder.trim(), HARNESS_FOLDER_SUFFIX)}
                       </Text>
                       <Container
                         padding={{
@@ -411,9 +411,9 @@ const GitSyncRepoTab: React.FC = () => {
         <Layout.Vertical spacing="xsmall">
           {repoData?.gitSyncFolderConfigDTOs?.length
             ? repoData.gitSyncFolderConfigDTOs.map((rootFolderData: GitSyncFolderConfigDTO, index: number) => {
-                const folderPath = rootFolderData.rootFolder?.split('/.harness')[0] || ''
+                const folderPath = rootFolderData.rootFolder?.trim()?.split('/.harness')[0] || ''
                 const folderWithPrefix = folderPath.startsWith('/') ? folderPath : '/'.concat(folderPath)
-                const linkToProvider = getExternalUrl(repoData, rootFolderData.rootFolder)
+                const linkToProvider = getExternalUrl(repoData, rootFolderData.rootFolder?.trim())
                 return (
                   <Layout.Horizontal
                     key={index}
