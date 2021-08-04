@@ -1,5 +1,6 @@
 import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
+import { cloneDeep } from 'lodash-es'
 import { Classes } from '@blueprintjs/core'
 import type { DeploymentVerificationJobInstanceSummary } from 'services/cv'
 import { TestWrapper } from '@common/utils/testUtils'
@@ -204,5 +205,20 @@ describe('Deployment progress and nodes unit tests', () => {
 
     fireEvent.click(container2.querySelector('[data-name="popoverContainer"]')!)
     await waitFor(() => expect(container2.querySelector('[class*="hexagonContainer"][class*="selected"]')).toBeNull())
+  })
+
+  test('Ensure that correct messaging is displayed when progress is 0', async () => {
+    const onSelectMock = jest.fn()
+    const clonedMock = cloneDeep(CanaryDeploymentMockData)
+    clonedMock.deploymentSummary!.progressPercentage = 0
+    clonedMock.deploymentSummary!.status = 'IN_PROGRESS'
+
+    const { getByText } = render(
+      <TestWrapper>
+        <DeploymentProgressAndNodes {...clonedMock} onSelectNode={onSelectMock} />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(getByText('pipeline.verification.waitForAnalysis')).not.toBeNull())
   })
 })
