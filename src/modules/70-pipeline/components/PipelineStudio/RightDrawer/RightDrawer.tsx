@@ -117,7 +117,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
     : null
   const formikRef = React.useRef<StepFormikRef | null>(null)
   const { getString } = useStrings()
-  const showCloseButton = FullscreenDrawers.includes(type)
+  const isFullScreenDrawer = FullscreenDrawers.includes(type)
   let title: React.ReactNode | null = null
   if (data?.stepConfig?.isStepGroup) {
     stepData = stepsFactory.getStepData(StepType.StepGroup)
@@ -401,27 +401,26 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       position={Position.RIGHT}
       title={title}
       data-type={type}
-      className={cx(css.main, css.almostFullScreen, css.fullScreen)}
+      className={cx(css.main, css.almostFullScreen, css.fullScreen, { [css.showRighDrawer]: isFullScreenDrawer })}
       {...restDrawerProps}
       // {...(type === DrawerTypes.FlowControl ? { style: { right: 60, top: 64 }, hasBackdrop: false } : {})}
-      isCloseButtonShown={showCloseButton}
+      isCloseButtonShown={true}
       // BUG: https://github.com/palantir/blueprint/issues/4519
       // you must pass only a single classname, not even an empty string, hence passing a dummy class
       // "classnames" package cannot be used here because it returns an empty string when no classes are applied
-      portalClassName={showCloseButton ? css.almostFullScreenPortal : 'pipeline-studio-right-drawer'}
+      portalClassName={isFullScreenDrawer ? css.almostFullScreenPortal : 'pipeline-studio-right-drawer'}
     >
-      {showCloseButton ? (
-        <Button
-          minimal
-          className={css.almostFullScreenCloseBtn}
-          icon="cross"
-          withoutBoxShadow
-          onClick={() => {
-            updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
-            setSelectedStepId(undefined)
-          }}
-        />
-      ) : null}
+      <Button
+        minimal
+        className={css.almostFullScreenCloseBtn}
+        icon="cross"
+        withoutBoxShadow
+        onClick={() => {
+          updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
+          setSelectedStepId(undefined)
+        }}
+      />
+
       {type === DrawerTypes.StepConfig && data?.stepConfig?.node && (
         <StepCommands
           step={data.stepConfig.node as StepElementConfig | StepGroupElementConfig}

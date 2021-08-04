@@ -45,7 +45,9 @@ $top-offset: 110px;
   &.almostFullScreen {
     top: $top-offset;
     right: $right-bar-width;
-    transform: translateX(-60px);
+    &.showRighDrawer {
+      transform: translateX(-60px);
+    }
     &.fullScreen {
       top: 0;
       right: 0;
