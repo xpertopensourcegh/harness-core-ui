@@ -241,7 +241,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
               <FormInput.Text
                 name="identifier"
                 label={getString('pipeline.manifestType.manifestIdentifier')}
-                placeholder={getString('pipeline.manifestType.chartPathPlaceholder')}
+                placeholder={getString('pipeline.manifestType.manifestPlaceholder')}
                 className={helmcss.halfWidth}
               />
 
