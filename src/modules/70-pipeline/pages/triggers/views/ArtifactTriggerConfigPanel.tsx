@@ -22,7 +22,7 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
   formikProps,
   isEdit = false
 }) => {
-  const { artifactType, artifactRef, manifestType, stageId, inputSetTemplateYamlObj, originalPipeline } =
+  const { artifactType, manifestType, stageId, inputSetTemplateYamlObj, originalPipeline, selectedManifest } =
     formikProps.values
   const [modalOpen, setModalOpen] = useState<boolean>(false)
   const [editModalOpen, setEditModalOpen] = useState<boolean>(false)
@@ -39,18 +39,18 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
   const isManifest = !!manifestType
 
   useEffect(() => {
-    if (inputSetTemplateYamlObj) {
+    if (inputSetTemplateYamlObj || selectedManifest) {
       const res = parseArtifactsManifests({
         inputSetTemplateYamlObj,
         manifestType,
         stageId,
         artifactType,
-        artifactRef,
+        artifactRef: selectedManifest?.manifest?.identifier,
         isManifest
       })
       setParsedArtifactsManifests(res)
     }
-  }, [inputSetTemplateYamlObj])
+  }, [inputSetTemplateYamlObj, selectedManifest])
 
   useEffect(() => {
     if ((appliedArtifact || data) && originalPipeline) {

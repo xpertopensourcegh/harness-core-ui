@@ -133,6 +133,18 @@ export interface FlatValidScheduleFormikValuesInterface {
   expression: string
 }
 
+export interface FlatValidManifestFormikValuesInterface {
+  name: string
+  identifier: string
+  description?: string
+  tags?: {
+    [key: string]: string
+  }
+  triggerType: NGTriggerSourceV2['type']
+  selectedManifest: ManifestConfigWrapper
+  stageId: string
+}
+
 export const TriggerTypes = {
   WEBHOOK: 'Webhook',
   NEW_ARTIFACT: 'NewArtifact',
@@ -793,6 +805,10 @@ export const filterManifest = (pipelineObject: any, stageId: any, manifestIdenti
   return filteredManifest
 }
 
+export const getStageIdx = (pipelineObject: any, stageId: any) => {
+  return pipelineObject.findIndex((item: any) => item.stage.identifier === stageId)
+}
+
 export const getTemplateObject = (manifest: any, artifacts: any) => {
   return {
     artifacts: artifacts,
@@ -801,7 +817,7 @@ export const getTemplateObject = (manifest: any, artifacts: any) => {
 }
 
 export const getPathString = (pipelineObject: any, stageId: any) => {
-  const filteredStageIdx = pipelineObject.findIndex((item: any) => item.stage.identifier === stageId)
+  const filteredStageIdx = getStageIdx(pipelineObject, stageId)
   return `stages[${filteredStageIdx}].stage.spec.serviceConfig.serviceDefinition.spec`
 }
 

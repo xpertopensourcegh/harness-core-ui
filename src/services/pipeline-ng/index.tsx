@@ -79,6 +79,17 @@ export interface ApproversDTO {
   userGroups?: string[]
 }
 
+export type ArtifactTriggerConfig = NGTriggerSpecV2 & {
+  artifactRef?: string
+  spec?: ArtifactTypeSpec
+  stageIdentifier?: string
+  type?: 'GCR'
+}
+
+export interface ArtifactTypeSpec {
+  [key: string]: any
+}
+
 export interface AsyncExecutableResponse {
   allFields?: {
     [key: string]: { [key: string]: any }
@@ -202,6 +213,10 @@ export type BitbucketPushSpec = BitbucketEventSpec & {
 export type BitbucketSpec = WebhookTriggerSpecV2 & {
   spec?: BitbucketEventSpec
   type?: 'PullRequest' | 'Push'
+}
+
+export interface BuildStoreTypeSpec {
+  [key: string]: any
 }
 
 export interface ByteString {
@@ -640,6 +655,7 @@ export interface Error {
     | 'RESUME_ALL_ALREADY'
     | 'ROLLBACK_ALREADY'
     | 'ABORT_ALL_ALREADY'
+    | 'EXPIRE_ALL_ALREADY'
     | 'RETRY_FAILED'
     | 'UNKNOWN_ARTIFACT_TYPE'
     | 'UNKNOWN_STAGE_ELEMENT_WRAPPER_TYPE'
@@ -1197,6 +1213,7 @@ export interface Failure {
     | 'RESUME_ALL_ALREADY'
     | 'ROLLBACK_ALREADY'
     | 'ABORT_ALL_ALREADY'
+    | 'EXPIRE_ALL_ALREADY'
     | 'RETRY_FAILED'
     | 'UNKNOWN_ARTIFACT_TYPE'
     | 'UNKNOWN_STAGE_ELEMENT_WRAPPER_TYPE'
@@ -1590,6 +1607,13 @@ export interface FilterProperties {
   }
 }
 
+export type GcrArtifactSpec = ArtifactTypeSpec & {
+  connectorRef?: string
+  eventConditions?: TriggerEventDataCondition[]
+  registryHostname?: string
+  tag?: string
+}
+
 export interface GithubEventSpec {
   [key: string]: any
 }
@@ -1731,6 +1755,16 @@ export type HarnessApprovalInstanceDetails = ApprovalInstanceDetailsDTO & {
   includePipelineExecutionHistory?: boolean
 }
 
+export type HelmManifestSpec = ManifestTypeSpec & {
+  chartName?: string
+  chartVersion?: string
+  eventDataConditions?: TriggerEventDataCondition[]
+  spec?: BuildStoreTypeSpec
+  type?: 'HTTP_HELM'
+}
+
+export type HttpBuildStoreTypeSpec = BuildStoreTypeSpec & { [key: string]: any }
+
 export interface InputSetError {
   fieldName?: string
   identifierOfErrorSource?: string
@@ -1823,6 +1857,7 @@ export interface InterruptEffect {
     | 'END_EXECUTION'
     | 'MARK_EXPIRED'
     | 'CUSTOM_FAILURE'
+    | 'EXPIRE_ALL'
     | 'UNRECOGNIZED'
   tookEffectAt: number
 }
@@ -1921,6 +1956,17 @@ export interface LastTriggerExecutionDetails {
   planExecutionId?: string
 }
 
+export type ManifestTriggerConfig = NGTriggerSpecV2 & {
+  manifestRef?: string
+  spec?: ManifestTypeSpec
+  stageIdentifier?: string
+  type?: 'HelmChart'
+}
+
+export interface ManifestTypeSpec {
+  [key: string]: any
+}
+
 export interface ManualIssuer {
   allFields?: {
     [key: string]: { [key: string]: any }
@@ -1929,10 +1975,14 @@ export interface ManualIssuer {
   descriptorForType?: Descriptor
   emailId?: string
   emailIdBytes?: ByteString
+  identifier?: string
+  identifierBytes?: ByteString
   initializationErrorString?: string
   initialized?: boolean
   parserForType?: ParserManualIssuer
   serializedSize?: number
+  type?: string
+  typeBytes?: ByteString
   unknownFields?: UnknownFieldSet
   userId?: string
   userIdBytes?: ByteString
@@ -1946,8 +1996,12 @@ export interface ManualIssuerOrBuilder {
   descriptorForType?: Descriptor
   emailId?: string
   emailIdBytes?: ByteString
+  identifier?: string
+  identifierBytes?: ByteString
   initializationErrorString?: string
   initialized?: boolean
+  type?: string
+  typeBytes?: ByteString
   unknownFields?: UnknownFieldSet
   userId?: string
   userIdBytes?: ByteString
@@ -2082,7 +2136,7 @@ export interface NGTriggerDetailsResponse {
   tags?: {
     [key: string]: string
   }
-  type?: 'Webhook' | 'Scheduled'
+  type?: 'Webhook' | 'Artifact' | 'Manifest' | 'Scheduled'
   webhookDetails?: WebhookDetails
   webhookUrl?: string
   yaml?: string
@@ -2097,14 +2151,14 @@ export interface NGTriggerResponse {
   orgIdentifier?: string
   projectIdentifier?: string
   targetIdentifier?: string
-  type?: 'Webhook' | 'Scheduled'
+  type?: 'Webhook' | 'Artifact' | 'Manifest' | 'Scheduled'
   version?: number
   yaml?: string
 }
 
 export interface NGTriggerSourceV2 {
   spec?: NGTriggerSpecV2
-  type?: 'Webhook' | 'Scheduled'
+  type?: 'Webhook' | 'Artifact' | 'Manifest' | 'Scheduled'
 }
 
 export interface NGTriggerSpecV2 {
@@ -3133,6 +3187,7 @@ export interface ResponseMessage {
     | 'RESUME_ALL_ALREADY'
     | 'ROLLBACK_ALREADY'
     | 'ABORT_ALL_ALREADY'
+    | 'EXPIRE_ALL_ALREADY'
     | 'RETRY_FAILED'
     | 'UNKNOWN_ARTIFACT_TYPE'
     | 'UNKNOWN_STAGE_ELEMENT_WRAPPER_TYPE'
@@ -4127,6 +4182,7 @@ export interface PipelineExecutionInterrupt {
     | 'StageRollback'
     | 'StepGroupRollback'
     | 'MarkAsSuccess'
+    | 'ExpireAll'
     | 'Retry'
 }
 
@@ -5849,6 +5905,7 @@ export interface HandleInterruptQueryParams {
     | 'StageRollback'
     | 'StepGroupRollback'
     | 'MarkAsSuccess'
+    | 'ExpireAll'
     | 'Retry'
 }
 
@@ -5933,6 +5990,7 @@ export interface HandleStageInterruptQueryParams {
     | 'StageRollback'
     | 'StepGroupRollback'
     | 'MarkAsSuccess'
+    | 'ExpireAll'
     | 'Retry'
 }
 
@@ -6044,6 +6102,7 @@ export interface HandleManualInterventionInterruptQueryParams {
     | 'StageRollback'
     | 'StepGroupRollback'
     | 'MarkAsSuccess'
+    | 'ExpireAll'
     | 'Retry'
 }
 

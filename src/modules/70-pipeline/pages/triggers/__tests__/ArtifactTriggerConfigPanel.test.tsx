@@ -511,6 +511,18 @@ describe('Artifact Trigger Config Panel  tests', () => {
       const initialValueObj = {
         ...iValues,
         artifactRef: 's3manifestid',
+        selectedManifest: {
+          manifest: {
+            identifier: 's3manifestid',
+            spec: {
+              chartPath: 'test',
+              connectorRef: '<+input>',
+              store: {
+                region: 'regionA'
+              }
+            }
+          }
+        },
         stageId: 'stage'
       }
       const { container } = render(<WrapperComponent initialValues={initialValueObj} isEdit={true} />)

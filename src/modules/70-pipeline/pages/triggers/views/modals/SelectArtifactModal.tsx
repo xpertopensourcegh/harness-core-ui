@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { Layout, Text, Button } from '@wings-software/uicore'
+import { merge } from 'lodash-es'
+
 import { Dialog } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import { TriggerFormType } from '@pipeline/factories/ArtifactTriggerInputFactory/types'
@@ -9,6 +11,7 @@ import ArtifactTableInfo from '../subviews/ArtifactTableInfo'
 import { filterManifest, getPathString, getTemplateObject } from '../../utils/TriggersWizardPageUtils'
 
 import css from './SelectArtifactModal.module.scss'
+// import { filter } from 'lodash-es'
 
 interface SelectArtifactModalPropsInterface {
   isModalOpen: boolean
@@ -46,7 +49,7 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
     setSelectedArtifact(undefined)
     setSelectedArtifactLabel(undefined)
     setSelectedStage(undefined)
-    formikProps.setValues({ ...formikProps.values, stageId: undefined, artifactRef: undefined })
+    // formikProps.setValues({ ...formikProps.values, stageId: undefined, artifactRef: undefined })
   }
 
   const formDetails = TriggerFactory.getTriggerFormDetails(TriggerFormType.Manifest)
@@ -54,6 +57,7 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
 
   const filteredManifest = filterManifest(runtimeData, selectedStage, selectedArtifact)
   const templateObject = getTemplateObject(filteredManifest, [])
+  // const pathId = getPathString(runtimeData, selectedStage)
   return (
     <Dialog
       className={`${css.selectArtifactModal} padded-dialog`}
@@ -120,7 +124,20 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
               text={getString('filters.apply')}
               intent="primary"
               onClick={() => {
-                formikProps.setValues({ ...formikProps.values, artifact: selectedArtifact })
+                const orgManifest = filterManifest(
+                  formikProps.values.originalPipeline?.stages,
+                  selectedStage,
+                  selectedArtifact
+                )
+                const formFilteredManifest =
+                  formikProps.values.stages[0]?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests[0]
+                const finalManifest = merge({}, orgManifest, formFilteredManifest)
+                formikProps.setValues({
+                  ...formikProps.values,
+                  selectedManifest: finalManifest,
+                  stageId: selectedStage
+                })
+
                 closeAndReset()
               }}
             />

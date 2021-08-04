@@ -55,7 +55,8 @@ import {
   getConnectorValue,
   isRowFilled,
   CUSTOM,
-  isArtifactOrManifestTrigger
+  isArtifactOrManifestTrigger,
+  FlatValidManifestFormikValuesInterface
 } from './utils/TriggersWizardPageUtils'
 import {
   ArtifactTriggerConfigPanel,
@@ -708,6 +709,43 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     }
   }
 
+  const getArtifactTriggerYaml = ({ values: val }: { values: any }): TriggerConfigDTO => {
+    const {
+      name,
+      identifier,
+      description,
+      tags,
+      pipeline: pipelineRuntimeInput,
+      triggerType: formikValueTriggerType = 'Manifest',
+      selectedManifest
+    } = val
+
+    // actions will be required thru validation
+    const stringifyPipelineRuntimeInput = yamlStringify({ pipeline: clearNullUndefined(pipelineRuntimeInput) })
+    return clearNullUndefined({
+      name,
+      identifier,
+      enabled: enabledStatus,
+      description,
+      tags,
+      orgIdentifier,
+      projectIdentifier,
+      pipelineIdentifier,
+      source: {
+        type: formikValueTriggerType as unknown as NGTriggerSourceV2['type'],
+        spec: {
+          stageIdentifier: pipelineRuntimeInput?.pipelineIdentifier,
+          manifestRef: name,
+          type: manifestType,
+          spec: {
+            ...selectedManifest?.manifest?.spec
+          }
+        }
+      },
+      inputYaml: stringifyPipelineRuntimeInput
+    })
+  }
+
   const getScheduleTriggerYaml = ({
     values: val
   }: {
@@ -800,6 +838,11 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     submitTrigger(triggerYaml)
   }
 
+  const handleArtifactSubmit = async (val: FlatValidManifestFormikValuesInterface): Promise<void> => {
+    const triggerYaml = getArtifactTriggerYaml({ values: val })
+    submitTrigger(triggerYaml)
+  }
+
   const getInitialValues = (triggerType: NGTriggerSourceV2['type']): FlatInitialValuesInterface | any => {
     if (triggerType === TriggerTypes.WEBHOOK) {
       const newPipeline: any = { ...(currentPipeline?.pipeline || {}) }
@@ -842,7 +885,8 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         manifestType,
         pipeline: currentPipeline?.pipeline,
         originalPipeline,
-        inputSetTemplateYamlObj
+        inputSetTemplateYamlObj,
+        selectedManifest: {}
       }
     }
     return {}
@@ -883,13 +927,13 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
             ...onEditInitialValues,
             originalPipeline: newOriginalPipeline,
             pipeline: newPipeline,
-            ...additionalValues
+            ...{ additionalValues }
           })
         } else {
           setInitialValues({
             ...initialValues,
             originalPipeline: newOriginalPipeline,
-            ...additionalValues
+            ...{ additionalValues }
           })
         }
       } catch (e) {
@@ -1116,7 +1160,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         key={wizardKey} // re-renders with yaml to visual initialValues
         formikInitialProps={{
           initialValues,
-          onSubmit: (val: FlatValidWebhookFormikValuesInterface) => handleWebhookSubmit(val),
+          onSubmit: (val: FlatValidManifestFormikValuesInterface) => handleArtifactSubmit(val),
           validationSchema: getValidationSchema(
             initialValues.triggerType as unknown as NGTriggerSourceV2['type'],
             getString
