@@ -2,9 +2,10 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
 import cx from 'classnames'
-import { Color, Container, Layout, Text } from '@wings-software/uicore'
-import { PageSpinner, Table } from '@common/components'
+import { Color, Container, Layout, Popover, Text } from '@wings-software/uicore'
+import { PopoverInteractionKind } from '@blueprintjs/core'
 import { PageError } from '@common/components/Page/PageError'
+import { PageSpinner, Table } from '@common/components'
 import type { ProjectPathProps, ServicePathProps } from '@common/interfaces/RouteInterfaces'
 import {
   EnvBuildIdAndInstanceCountInfo,
@@ -12,7 +13,8 @@ import {
   useGetEnvBuildInstanceCount
 } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
-import DeploymentsEmptyState from '@dashboards/icons/DeploymentsEmptyState.svg'
+import { ActiveServiceInstancePopover } from '@dashboards/components/ServiceDetails/ActiveServiceInstances/ActiveServiceInstancePopover'
+import MostActiveServicesEmptyState from '@dashboards/icons/MostActiveServicesEmptyState.svg'
 import css from '@dashboards/components/ServiceDetails/ActiveServiceInstances/ActiveServiceInstances.module.scss'
 
 const TOTAL_VISIBLE_BUILDS = 5
@@ -26,6 +28,7 @@ interface TableRowData {
   buildId?: string
   instanceCount?: number
   remainingCount?: number
+  showEnvName: boolean
 }
 
 // returns a map of env id and total builds count
@@ -59,13 +62,15 @@ const getTableData = (
       const totalAvailableBuildsForEnv = item.buildIdAndInstanceCountList?.length || 0
       item.buildIdAndInstanceCountList?.slice(0, visibleRowsForEnv).forEach((row, index) => {
         tableData.push({
-          ...(!index ? { envId, envName: item.envName } : {}),
+          showEnvName: !index,
+          envId,
+          envName: item.envName,
           buildId: row.buildId,
           instanceCount: row.count
         })
       })
       if (visibleRowsForEnv < totalAvailableBuildsForEnv) {
-        tableData.push({ envId, remainingCount: totalAvailableBuildsForEnv - visibleRowsForEnv })
+        tableData.push({ envId, remainingCount: totalAvailableBuildsForEnv - visibleRowsForEnv, showEnvName: false })
       }
     }
   })
@@ -74,13 +79,13 @@ const getTableData = (
 
 const RenderEnvironment: Renderer<CellProps<TableRowData>> = ({
   row: {
-    original: { envId, remainingCount }
+    original: { envName, showEnvName }
   }
 }) => {
-  return envId && !remainingCount ? (
+  return showEnvName ? (
     <Container className={css.paddedContainer}>
       <Text className={css.environmentRow} font={{ size: 'small', weight: 'bold' }} color={Color.WHITE}>
-        {envId}
+        {envName}
       </Text>
     </Container>
   ) : (
@@ -131,22 +136,24 @@ const RenderInstanceCount: Renderer<CellProps<TableRowData>> = ({
 
 const RenderInstances: Renderer<CellProps<TableRowData>> = ({
   row: {
-    original: { instanceCount }
+    original: { envId, buildId, instanceCount }
   }
 }) => {
   return instanceCount ? (
     <Container className={cx(css.paddedContainer, css.hexContainer)} flex={{ justifyContent: 'flex-start' }}>
       {Array(Math.min(instanceCount, TOTAL_VISIBLE_INSTANCES))
         .fill(null)
-        .map(index => (
-          <Container
-            className={css.hex}
-            width={18}
-            height={18}
-            background={Color.PRIMARY_3}
-            key={index}
-            margin={{ left: 'xsmall', right: 'xsmall', top: 'xsmall', bottom: 'xsmall' }}
-          ></Container>
+        .map((_, index) => (
+          <Popover interactionKind={PopoverInteractionKind.CLICK} key={index}>
+            <Container
+              className={css.hex}
+              width={18}
+              height={18}
+              background={Color.PRIMARY_3}
+              margin={{ left: 'xsmall', right: 'xsmall', top: 'xsmall', bottom: 'xsmall' }}
+            ></Container>
+            <ActiveServiceInstancePopover buildId={buildId} envId={envId} instanceNum={index} />
+          </Popover>
         ))}
       {instanceCount > TOTAL_VISIBLE_INSTANCES ? (
         <Text font={{ size: 'small', weight: 'semi-bold' }} color={Color.GREY_600} margin={{ left: 'xsmall' }}>{`+${
@@ -243,9 +250,16 @@ export const ActiveServiceInstancesContent: React.FC = () => {
         )
       }
       return (
-        <Layout.Vertical height="100%" flex={{ align: 'center-center' }} data-test="ActiveServiceInstancesEmpty">
-          <img width="150" height="100" src={DeploymentsEmptyState} style={{ alignSelf: 'center' }} />
-          <Text color={Color.GREY_400} margin={{ top: 'medium' }}>
+        <Layout.Vertical
+          height="100%"
+          flex={{ align: 'center-center' }}
+          data-test="ActiveServiceInstancesEmpty"
+          className={css.activeServiceInstancesEmpty}
+        >
+          <Container margin={{ bottom: 'medium' }}>
+            <img width="50" height="50" src={MostActiveServicesEmptyState} style={{ alignSelf: 'center' }} />
+          </Container>
+          <Text color={Color.GREY_400}>
             {getString('dashboards.serviceDashboard.noDeployments', {
               timeRange: getString('dashboards.serviceDashboard.month')
             })}

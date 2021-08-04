@@ -9,6 +9,7 @@ import { useStrings } from 'framework/strings'
 import { DeploymentsTimeRangeContext } from '@dashboards/components/Services/common'
 import { DeploymentsWidget } from '@dashboards/components/Services/DeploymentsWidget/DeploymentsWidget'
 import type { ServicePathProps } from '@common/interfaces/RouteInterfaces'
+import { InstanceCountHistory } from '@dashboards/components/ServiceDetails/InstanceCountHistory/InstanceCountHistory'
 import css from '@dashboards/components/ServiceDetails/ServiceDetailsContent/ServicesDetailsContent.module.scss'
 
 export const ServiceDetailsContent: React.FC = () => {
@@ -21,16 +22,19 @@ export const ServiceDetailsContent: React.FC = () => {
   return (
     <Page.Body>
       <Layout.Horizontal margin={{ left: 'xlarge', right: 'xlarge', top: 'large', bottom: 'large' }}>
-        <Layout.Vertical margin={{ right: 'xlarge' }}>
-          <ActiveServiceInstances />
-        </Layout.Vertical>
-        <Layout.Vertical className={css.fullWidth}>
-          <DeploymentsTimeRangeContext.Provider value={{ timeRange, setTimeRange }}>
+        <DeploymentsTimeRangeContext.Provider value={{ timeRange, setTimeRange }}>
+          <Layout.Vertical margin={{ right: 'xlarge' }}>
+            <Layout.Horizontal margin={{ bottom: 'medium' }}>
+              <ActiveServiceInstances />
+            </Layout.Horizontal>
+            <InstanceCountHistory />
+          </Layout.Vertical>
+          <Layout.Vertical className={css.fullWidth}>
             <Card className={css.card}>
               <DeploymentsWidget serviceIdentifier={serviceId} />
             </Card>
-          </DeploymentsTimeRangeContext.Provider>
-        </Layout.Vertical>
+          </Layout.Vertical>
+        </DeploymentsTimeRangeContext.Provider>
       </Layout.Horizontal>
     </Page.Body>
   )

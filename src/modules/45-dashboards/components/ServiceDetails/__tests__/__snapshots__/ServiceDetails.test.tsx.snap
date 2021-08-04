@@ -83,63 +83,156 @@ exports[`ServiceDetails should render ServiceDetails 1`] = `
           class="Layout--vertical StyledProps--main StyledProps--margin-right-xlarge"
         >
           <div
-            class="bp3-card bp3-elevation-0 Card--card activeServiceInstances"
+            class="Layout--horizontal StyledProps--main StyledProps--margin-bottom-medium"
           >
             <div
-              class="Layout--vertical StyledProps--main"
-              style="height: 100%;"
+              class="bp3-card bp3-elevation-0 Card--card activeServiceInstances"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey600 StyledProps--margin-bottom-medium"
-              >
-                dashboards.serviceDashboard.activeServiceInstancesLabel
-              </p>
               <div
-                class="Layout--horizontal StyledProps--main activeServiceInstancesHeader StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--padding-bottom-small"
+                class="Layout--vertical StyledProps--main"
+                style="height: 100%;"
               >
                 <p
-                  class="StyledProps--font StyledProps--main instanceCount StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey800 StyledProps--margin-right-large"
+                  class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey600 StyledProps--margin-bottom-medium"
                 >
-                  0
+                  dashboards.serviceDashboard.activeServiceInstancesLabel
                 </p>
                 <div
-                  class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+                  class="Layout--horizontal StyledProps--main activeServiceInstancesHeader StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between StyledProps--padding-bottom-small"
+                >
+                  <div
+                    class="Layout--horizontal StyledProps--main"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main instanceCount StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey800 StyledProps--margin-right-large"
+                    >
+                      0
+                    </p>
+                    <div
+                      class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-alignItems-flex-start StyledProps--flex-justifyContent-flex-start"
+                    >
+                      <div
+                        class="tickerContainer"
+                        data-test="ticker"
+                      >
+                        <div
+                          class="ticker"
+                        >
+                          <div
+                            class="iconContainer"
+                          >
+                            <span
+                              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-red500"
+                              data-icon="main-caret-up"
+                            >
+                              <svg
+                                height="6"
+                                viewBox="0 0 14 9"
+                                width="6"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M13.7 7.2L7.9.4C7.7.2 7.4 0 7 0s-.7.2-.9.4L.3 7.2c-.2.2-.3.4-.3.7C0 8.5.5 9 1.2 9h11.7c.6 0 1.1-.5 1.1-1.1 0-.3-.1-.5-.3-.7z"
+                                  fill="#4d5969"
+                                />
+                              </svg>
+                            </span>
+                          </div>
+                          <div
+                            class="tickerValue"
+                            data-test="tickerValue"
+                          >
+                            <p
+                              class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-red500"
+                            >
+                              0%
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
+                      >
+                        dashboards.serviceDashboard.in
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    class="Layout--horizontal StyledProps--main"
+                  >
+                    <div
+                      class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+                      style="height: 100%;"
+                    >
+                      <div
+                        class="Layout--vertical StyledProps--main pieChartLabelContainerStyles StyledProps--flex StyledProps--flex-alignItems-flex-end StyledProps--padding-top-xsmall StyledProps--padding-bottom-xsmall StyledProps--padding-right-large"
+                        style="height: 100%;"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main pieChartLabelStyles StyledProps--font-size-xsmall StyledProps--color StyledProps--color-grey500"
+                        >
+                          dashboards.serviceDashboard.nonProd (0)
+                        </p>
+                        <p
+                          class="StyledProps--font StyledProps--main pieChartLabelStyles StyledProps--font-size-xsmall StyledProps--color StyledProps--color-grey500"
+                        >
+                          dashboards.serviceDashboard.prod (0)
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="Layout--vertical StyledProps--main activeServiceInstancesEmpty StyledProps--flex StyledProps--flex-align-center-center"
+                  data-test="ActiveServiceInstancesEmpty"
                   style="height: 100%;"
                 >
                   <div
-                    class="Layout--vertical StyledProps--main pieChartLabelContainerStyles StyledProps--flex StyledProps--flex-alignItems-flex-end StyledProps--padding-top-xsmall StyledProps--padding-bottom-xsmall StyledProps--padding-right-large"
-                    style="height: 100%;"
+                    class="StyledProps--font StyledProps--main StyledProps--margin-bottom-medium"
                   >
-                    <p
-                      class="StyledProps--font StyledProps--main pieChartLabelStyles StyledProps--font-size-xsmall StyledProps--color StyledProps--color-grey500"
-                    >
-                      dashboards.serviceDashboard.nonProd (0)
-                    </p>
-                    <p
-                      class="StyledProps--font StyledProps--main pieChartLabelStyles StyledProps--font-size-xsmall StyledProps--color StyledProps--color-grey500"
-                    >
-                      dashboards.serviceDashboard.prod (0)
-                    </p>
+                    <img
+                      height="50"
+                      src="test-file-stub"
+                      style="align-self: center;"
+                      width="50"
+                    />
                   </div>
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+                  >
+                    dashboards.serviceDashboard.noDeployments
+                  </p>
                 </div>
               </div>
+            </div>
+          </div>
+          <div
+            class="bp3-card bp3-elevation-0 Card--card instanceCountHistory"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600 StyledProps--margin-bottom-small"
+            >
+              dashboards.serviceDashboard.instanceCountHistory
+            </p>
+            <div
+              class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+              style="height: 100%;"
+            >
               <div
-                class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
-                data-test="ActiveServiceInstancesEmpty"
-                style="height: 100%;"
+                class="StyledProps--font StyledProps--main StyledProps--margin-bottom-medium"
               >
                 <img
-                  height="100"
+                  height="50"
                   src="test-file-stub"
                   style="align-self: center;"
-                  width="150"
+                  width="50"
                 />
-                <p
-                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--margin-top-medium"
-                >
-                  dashboards.serviceDashboard.noDeployments
-                </p>
               </div>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+              >
+                dashboards.serviceDashboard.noServiceInstances
+              </p>
             </div>
           </div>
         </div>

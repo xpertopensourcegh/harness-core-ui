@@ -1509,17 +1509,24 @@ export interface StringsMap {
   'dashboards.serviceDashboard.6monthTrend': string
   'dashboards.serviceDashboard.6months': string
   'dashboards.serviceDashboard.activeServiceInstancesLabel': string
+  'dashboards.serviceDashboard.artifact': string
   'dashboards.serviceDashboard.buildName': string
+  'dashboards.serviceDashboard.deployedAt': string
+  'dashboards.serviceDashboard.deployedBy': string
   'dashboards.serviceDashboard.executionId': string
   'dashboards.serviceDashboard.frequency': string
   'dashboards.serviceDashboard.in': string
+  'dashboards.serviceDashboard.instanceCountHistory': string
+  'dashboards.serviceDashboard.instanceDetails': string
   'dashboards.serviceDashboard.lastDeployment': string
   'dashboards.serviceDashboard.month': string
   'dashboards.serviceDashboard.mostActiveServices': string
   'dashboards.serviceDashboard.noDeployments': string
   'dashboards.serviceDashboard.noServiceDetails': string
+  'dashboards.serviceDashboard.noServiceInstances': string
   'dashboards.serviceDashboard.noServices': string
   'dashboards.serviceDashboard.nonProd': string
+  'dashboards.serviceDashboard.pod': string
   'dashboards.serviceDashboard.prod': string
   'dashboards.serviceDashboard.seeMore': string
   'dashboards.serviceDashboard.serviceInstances': string

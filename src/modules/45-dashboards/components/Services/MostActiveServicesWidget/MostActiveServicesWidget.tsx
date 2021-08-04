@@ -253,7 +253,7 @@ export const MostActiveServicesWidget: React.FC<MostActiveServicesWidget> = prop
             <img width="50" height="50" src={MostActiveServicesEmptyState} style={{ alignSelf: 'center' }} />
           </Container>
           <Text color={Color.GREY_400}>
-            {getString('dashboards.serviceDashboard.noServices', {
+            {getString('dashboards.serviceDashboard.noServiceInstances', {
               timeRange: timeRange?.label
             })}
           </Text>

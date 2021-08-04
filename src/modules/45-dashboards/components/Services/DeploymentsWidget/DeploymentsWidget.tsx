@@ -197,6 +197,7 @@ export const DeploymentsWidget: React.FC<DeploymentWidgetProps> = props => {
     plotOptions: {
       area: {
         pointStart: 0,
+        stacking: 'normal',
         animation: false
       }
     }

@@ -54,4 +54,28 @@
       }
     }
   }
+  .hover {
+    cursor: pointer;
+  }
+  .activeServiceInstancesEmpty {
+    flex-shrink: 1 !important;
+  }
+}
+
+.activeServiceInstancePopover {
+  width: 350px;
+}
+
+.activeServiceInstancePopoverSection {
+  &:not(:first-child) {
+    padding-top: var(--spacing-medium) !important;
+  }
+  &:not(:last-child) {
+    padding-bottom: var(--spacing-medium) !important;
+    border-bottom: 1px solid var(--grey-100);
+  }
+}
+
+.sectionValue {
+  word-break: break-all;
 }

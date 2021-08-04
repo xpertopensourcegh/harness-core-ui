@@ -53,11 +53,18 @@ serviceDashboard:
   executionId: 'Execution Id: {{id}}'
   noDeployments: No Deployments in {{timeRange}}
   noServices: No Services in {{timeRange}} for given criteria
+  noServiceInstances: No Service Instances in {{timeRange}}
   mostActiveServices: Most active services
   seeMore: '+ {{count}} more'
   buildName: 'Build Name'
   noServiceDetails: No services matching the criteria
   6monthTrend: 6 month trend
+  instanceCountHistory: Instance Count History
+  instanceDetails: Instance Details
+  pod: pod
+  deployedAt: Deployed At
+  deployedBy: Deployed By
+  artifact: artifact
 resourceModal:
   folders: 'Folder Name'
   folderDetail: 'Folder Dashboards'

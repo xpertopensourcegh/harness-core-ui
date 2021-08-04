@@ -63,7 +63,7 @@ exports[`ActiveServiceInstancesContent should render ActiveServiceInstancesConte
               <p
                 class="StyledProps--font StyledProps--main environmentRow StyledProps--font-size-small StyledProps--font-weight-bold StyledProps--color StyledProps--color-white"
               >
-                env1
+                envName
               </p>
             </div>
           </div>
@@ -105,10 +105,18 @@ exports[`ActiveServiceInstancesContent should render ActiveServiceInstancesConte
             <div
               class="StyledProps--font StyledProps--main paddedContainer hexContainer StyledProps--flex StyledProps--flex-justifyContent-flex-start"
             >
-              <div
-                class="StyledProps--font StyledProps--main hex StyledProps--background-primary3 StyledProps--margin-left-xsmall StyledProps--margin-right-xsmall StyledProps--margin-top-xsmall StyledProps--margin-bottom-xsmall"
-                style="width: 18px; height: 18px;"
-              />
+              <span
+                class="bp3-popover-wrapper"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class="StyledProps--font StyledProps--main hex StyledProps--background-primary3 StyledProps--margin-left-xsmall StyledProps--margin-right-xsmall StyledProps--margin-top-xsmall StyledProps--margin-bottom-xsmall"
+                    style="width: 18px; height: 18px;"
+                  />
+                </span>
+              </span>
             </div>
           </div>
         </div>

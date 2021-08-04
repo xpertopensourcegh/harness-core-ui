@@ -330,11 +330,6 @@ export interface ArtifactConfig {
   [key: string]: any
 }
 
-export interface ArtifactDetails {
-  artifactId?: string
-  tag?: string
-}
-
 export interface ArtifactListConfig {
   metadata?: string
   primary?: PrimaryArtifact
@@ -693,11 +688,11 @@ export type CEKubernetesClusterConfig = ConnectorConfigDTO & {
   featuresEnabled?: ('BILLING' | 'OPTIMIZATION' | 'VISIBILITY')[]
 }
 
-export type CELicenseSummaryDTO = LicensesWithSummaryDTO & {}
+export type CELicenseSummaryDTO = LicensesWithSummaryDTO & {
+  totalSpendLimit?: number
+}
 
 export type CEModuleLicenseDTO = ModuleLicenseDTO & {
-  dataRetentionInDays?: number
-  numberOfCluster?: number
   spendLimit?: number
 }
 
@@ -1038,6 +1033,11 @@ export interface DelegateConfiguration {
   delegateVersions?: string[]
 }
 
+export interface DelegateMetaInfo {
+  hostName?: string
+  id?: string
+}
+
 export interface DelegateProfileDetailsNg {
   accountId?: string
   approvalRequired?: boolean
@@ -1292,6 +1292,11 @@ export type EnvFilter = Filter & {
   filterTypes?: string[]
 }
 
+export interface EnvIdCountPair {
+  count?: number
+  envId?: string
+}
+
 export interface Environment {
   identifier: string
   type: 'PreProduction' | 'Production'
@@ -1427,6 +1432,7 @@ export interface Error {
     | 'RESUME_ALL_ALREADY'
     | 'ROLLBACK_ALREADY'
     | 'ABORT_ALL_ALREADY'
+    | 'EXPIRE_ALL_ALREADY'
     | 'RETRY_FAILED'
     | 'UNKNOWN_ARTIFACT_TYPE'
     | 'UNKNOWN_STAGE_ELEMENT_WRAPPER_TYPE'
@@ -1767,6 +1773,7 @@ export interface Failure {
     | 'RESUME_ALL_ALREADY'
     | 'ROLLBACK_ALREADY'
     | 'ABORT_ALL_ALREADY'
+    | 'EXPIRE_ALL_ALREADY'
     | 'RETRY_FAILED'
     | 'UNKNOWN_ARTIFACT_TYPE'
     | 'UNKNOWN_STAGE_ELEMENT_WRAPPER_TYPE'
@@ -2613,6 +2620,10 @@ export interface InfrastructureDef {
   type: 'KubernetesDirect' | 'KubernetesGcp'
 }
 
+export interface InfrastructureDetails {
+  [key: string]: any
+}
+
 export type InlineTerraformBackendConfigSpec = TerraformBackendConfigSpec & {
   content?: string
 }
@@ -2643,43 +2654,21 @@ export interface InstanceCountDetailsByEnvTypeBase {
   totalInstances?: number
 }
 
-export interface InstanceDTO {
-  accountIdentifier?: string
-  connectorRef?: string
-  createdAt?: number
-  deleted?: boolean
-  deletedAt?: number
-  envId?: string
-  envName?: string
-  envType?: 'PreProduction' | 'Production'
-  infraMappingType?: string
-  infrastructureMappingId?: string
-  instanceInfoDTO?: InstanceInfoDTO
-  instanceKey?: string
-  instanceType?:
-    | 'PHYSICAL_HOST_INSTANCE'
-    | 'EC2_CLOUD_INSTANCE'
-    | 'GCP_CLOUD_INSTANCE'
-    | 'ECS_CONTAINER_INSTANCE'
-    | 'K8S_INSTANCE'
-    | 'PCF_INSTANCE'
-    | 'AZURE_VMSS_INSTANCE'
-    | 'AZURE_WEB_APP_INSTANCE'
-  lastDeployedAt?: number
-  lastDeployedById?: string
-  lastDeployedByName?: string
-  lastModifiedAt?: number
-  lastPipelineExecutionId?: string
-  lastPipelineExecutionName?: string
-  orgIdentifier?: string
-  primaryArtifact?: ArtifactDetails
-  projectIdentifier?: string
-  serviceId?: string
-  serviceName?: string
+export interface InstanceDetailsByBuildId {
+  buildId?: string
+  instances?: InstanceDetailsDTO[]
 }
 
-export interface InstanceInfoDTO {
-  [key: string]: any
+export interface InstanceDetailsDTO {
+  artifactName?: string
+  connectorRef?: string
+  deployedAt?: number
+  deployedById?: string
+  deployedByName?: string
+  infrastructureDetails?: InfrastructureDetails
+  pipelineExecutionName?: string
+  podName?: string
+  terraformInstance?: string
 }
 
 export interface InstanceSelectionBase {
@@ -2691,13 +2680,13 @@ export interface InstanceSelectionWrapper {
   type?: 'Count' | 'Percentage'
 }
 
-export interface InstancesByBuildId {
-  buildId?: string
-  instances?: InstanceDTO[]
+export interface InstanceSyncPerpetualTaskResponse {
+  delegateMetaInfo?: DelegateMetaInfo
+  serverInstanceDetails?: ServerInstanceInfo[]
 }
 
 export interface InstancesByBuildIdList {
-  instancesByBuildIdList?: InstancesByBuildId[]
+  instancesByBuildIdList?: InstanceDetailsByBuildId[]
 }
 
 export interface Invite {
@@ -2892,6 +2881,11 @@ export type K8sGcpInfrastructure = Infrastructure & {
   metadata?: string
   namespace: string
   releaseName: string
+}
+
+export type K8sInfrastructureDetails = InfrastructureDetails & {
+  namespace?: string
+  releaseName?: string
 }
 
 export type K8sManifest = ManifestAttributes & {
@@ -3245,9 +3239,10 @@ export type NumberNGVariable = NGVariable & {
   value: number
 }
 
-export type OAuthSettings = NGAuthSettings & {
+export interface OAuthSettings {
   allowedProviders?: ('AZURE' | 'BITBUCKET' | 'GITHUB' | 'GITLAB' | 'GOOGLE' | 'LINKEDIN')[]
   filter?: string
+  settingsType?: 'USER_PASSWORD' | 'SAML' | 'LDAP' | 'OAUTH'
 }
 
 export interface OAuthSignupDTO {
@@ -3741,6 +3736,7 @@ export interface PipelineInfoConfig {
   tags?: {
     [key: string]: string
   }
+  timeout?: string
   variables?: NGVariable[]
 }
 
@@ -4259,6 +4255,8 @@ export interface ResponseListInviteOperationResponse {
     | 'USER_ALREADY_ADDED'
     | 'USER_ALREADY_INVITED'
     | 'FAIL'
+    | 'INVITE_EXPIRED'
+    | 'INVITE_INVALID'
   )[]
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
@@ -4443,6 +4441,7 @@ export interface ResponseMessage {
     | 'RESUME_ALL_ALREADY'
     | 'ROLLBACK_ALREADY'
     | 'ABORT_ALL_ALREADY'
+    | 'EXPIRE_ALL_ALREADY'
     | 'RETRY_FAILED'
     | 'UNKNOWN_ARTIFACT_TYPE'
     | 'UNKNOWN_STAGE_ELEMENT_WRAPPER_TYPE'
@@ -5005,6 +5004,13 @@ export interface ResponseString {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseTimeValuePairListDTOEnvIdCountPair {
+  correlationId?: string
+  data?: TimeValuePairListDTOEnvIdCountPair
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseTimeValuePairListDTOInteger {
   correlationId?: string
   data?: TimeValuePairListDTOInteger
@@ -5428,6 +5434,10 @@ export interface SecretValidationMetaData {
 export interface SecretValidationResultDTO {
   message?: string
   success?: boolean
+}
+
+export interface ServerInstanceInfo {
+  [key: string]: any
 }
 
 export interface ServiceAccountAggregateDTO {
@@ -5942,6 +5952,11 @@ export interface TimeValuePair {
   value?: { [key: string]: any }
 }
 
+export interface TimeValuePairEnvIdCountPair {
+  timestamp?: number
+  value?: EnvIdCountPair
+}
+
 export interface TimeValuePairInteger {
   timestamp?: number
   value?: number
@@ -5949,6 +5964,10 @@ export interface TimeValuePairInteger {
 
 export interface TimeValuePairListDTO {
   timeValuePairList?: TimeValuePairObject[]
+}
+
+export interface TimeValuePairListDTOEnvIdCountPair {
+  timeValuePairList?: TimeValuePairEnvIdCountPair[]
 }
 
 export interface TimeValuePairListDTOInteger {
@@ -11082,6 +11101,64 @@ export const getActiveServiceInstanceCountBreakdownPromise = (
     GetActiveServiceInstanceCountBreakdownQueryParams,
     void
   >(getConfig('ng/api'), `/dashboard/getInstanceCountDetailsByService`, props, signal)
+
+export interface GetInstanceCountHistoryQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  serviceId: string
+  startTime: number
+  endTime: number
+}
+
+export type GetInstanceCountHistoryProps = Omit<
+  GetProps<ResponseTimeValuePairListDTOEnvIdCountPair, Failure | Error, GetInstanceCountHistoryQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get instance count history
+ */
+export const GetInstanceCountHistory = (props: GetInstanceCountHistoryProps) => (
+  <Get<ResponseTimeValuePairListDTOEnvIdCountPair, Failure | Error, GetInstanceCountHistoryQueryParams, void>
+    path={`/dashboard/getInstanceCountHistory`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetInstanceCountHistoryProps = Omit<
+  UseGetProps<ResponseTimeValuePairListDTOEnvIdCountPair, Failure | Error, GetInstanceCountHistoryQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get instance count history
+ */
+export const useGetInstanceCountHistory = (props: UseGetInstanceCountHistoryProps) =>
+  useGet<ResponseTimeValuePairListDTOEnvIdCountPair, Failure | Error, GetInstanceCountHistoryQueryParams, void>(
+    `/dashboard/getInstanceCountHistory`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Get instance count history
+ */
+export const getInstanceCountHistoryPromise = (
+  props: GetUsingFetchProps<
+    ResponseTimeValuePairListDTOEnvIdCountPair,
+    Failure | Error,
+    GetInstanceCountHistoryQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseTimeValuePairListDTOEnvIdCountPair, Failure | Error, GetInstanceCountHistoryQueryParams, void>(
+    getConfig('ng/api'),
+    `/dashboard/getInstanceCountHistory`,
+    props,
+    signal
+  )
 
 export interface GetInstanceGrowthTrendQueryParams {
   accountIdentifier: string

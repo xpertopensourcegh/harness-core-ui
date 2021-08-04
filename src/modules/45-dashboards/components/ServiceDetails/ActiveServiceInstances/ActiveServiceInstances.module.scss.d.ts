@@ -12,5 +12,10 @@ declare const styles: {
   readonly seeMore: string
   readonly hexContainer: string
   readonly hex: string
+  readonly hover: string
+  readonly activeServiceInstancesEmpty: string
+  readonly activeServiceInstancePopover: string
+  readonly activeServiceInstancePopoverSection: string
+  readonly sectionValue: string
 }
 export default styles

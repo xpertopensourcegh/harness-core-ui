@@ -6,7 +6,7 @@ import * as cdngServices from 'services/cd-ng'
 
 jest.mock('highcharts-react-official', () => () => <></>)
 
-jest.spyOn(cdngServices, 'useGetActiveServiceInstanceCountBreakdown').mockImplementation(() => {
+jest.spyOn(cdngServices, 'useGetActiveServiceInstanceSummary').mockImplementation(() => {
   return { loading: false, error: false, data: [], refetch: jest.fn() } as any
 })
 
@@ -17,6 +17,14 @@ jest.spyOn(cdngServices, 'useGetEnvBuildInstanceCount').mockImplementation(() =>
 })
 
 jest.spyOn(cdngServices, 'useGetServiceDeploymentsInfo').mockImplementation(() => {
+  return { loading: false, error: false, data: [], refetch: jest.fn() } as any
+})
+
+jest.spyOn(cdngServices, 'useGetInstanceGrowthTrend').mockImplementation(() => {
+  return { loading: false, error: false, data: [], refetch: jest.fn() } as any
+})
+
+jest.spyOn(cdngServices, 'useGetInstanceCountHistory').mockImplementation(() => {
   return { loading: false, error: false, data: [], refetch: jest.fn() } as any
 })
 
