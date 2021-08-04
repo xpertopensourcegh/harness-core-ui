@@ -363,6 +363,7 @@ export interface StringsMap {
   'common.shell': string
   'common.showLess': string
   'common.showMore': string
+  'common.sidecarArtifactsText': string
   'common.slack': string
   'common.specify': string
   'common.startTrial': string

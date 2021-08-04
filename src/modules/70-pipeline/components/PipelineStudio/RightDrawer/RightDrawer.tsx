@@ -27,18 +27,12 @@ import { FlowControl } from '../FlowControl/FlowControl'
 
 import css from './RightDrawer.module.scss'
 
-export const AlmostFullScreenDrawers: DrawerTypes[] = [
+export const FullscreenDrawers: DrawerTypes[] = [
   DrawerTypes.PipelineVariables,
   DrawerTypes.PipelineNotifications,
   DrawerTypes.FlowControl
 ]
 
-export const ConfigureStepScreenDrawers: DrawerTypes[] = [
-  DrawerTypes.StepConfig,
-  DrawerTypes.ConfigureService,
-  DrawerTypes.ProvisionerStepConfig,
-  DrawerTypes.AddStep
-]
 const checkDuplicateStep = (
   formikRef: React.MutableRefObject<StepFormikRef<unknown> | null>,
   data: DrawerData['data'],
@@ -123,7 +117,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
     : null
   const formikRef = React.useRef<StepFormikRef | null>(null)
   const { getString } = useStrings()
-  const isAlmostFullscreen = AlmostFullScreenDrawers.includes(type) || ConfigureStepScreenDrawers.includes(type)
+  const showCloseButton = FullscreenDrawers.includes(type)
   let title: React.ReactNode | null = null
   if (data?.stepConfig?.isStepGroup) {
     stepData = stepsFactory.getStepData(StepType.StepGroup)
@@ -407,22 +401,16 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       position={Position.RIGHT}
       title={title}
       data-type={type}
-      className={cx(
-        css.main,
-        { [css.almostFullScreen]: isAlmostFullscreen },
-        { [css.fullScreen]: ConfigureStepScreenDrawers.includes(type) }
-      )}
+      className={cx(css.main, css.almostFullScreen, css.fullScreen)}
       {...restDrawerProps}
       // {...(type === DrawerTypes.FlowControl ? { style: { right: 60, top: 64 }, hasBackdrop: false } : {})}
-      isCloseButtonShown={title ? !isAlmostFullscreen : undefined}
+      isCloseButtonShown={showCloseButton}
       // BUG: https://github.com/palantir/blueprint/issues/4519
       // you must pass only a single classname, not even an empty string, hence passing a dummy class
       // "classnames" package cannot be used here because it returns an empty string when no classes are applied
-      portalClassName={
-        isAlmostFullscreen && type !== DrawerTypes.AddStep ? css.almostFullScreenPortal : 'pipeline-studio-right-drawer'
-      }
+      portalClassName={showCloseButton ? css.almostFullScreenPortal : 'pipeline-studio-right-drawer'}
     >
-      {isAlmostFullscreen ? (
+      {showCloseButton ? (
         <Button
           minimal
           className={css.almostFullScreenCloseBtn}

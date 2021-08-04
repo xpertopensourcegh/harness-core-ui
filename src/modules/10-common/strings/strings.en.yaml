@@ -495,3 +495,4 @@ selectAChannel: Select a Channel
 slack: Slack
 pagerDuty: PagerDuty
 notificationPreferences: Notification Preferences
+sidecarArtifactsText: '{{$.sidecarArtifactText}}s'

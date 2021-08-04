@@ -351,7 +351,7 @@ const K8sApplyInputStep: React.FC<K8sApplyProps> = ({ inputSetData, readonly }) 
 const K8sApplyVariableStep: React.FC<K8sApplyVariableStepProps> = ({ variablesData, metadataMap, initialValues }) => {
   return (
     <VariablesListTable
-      className={stepCss.topSpacingLarge}
+      // className={stepCss.topSpacingLarge}
       data={variablesData.spec}
       originalData={initialValues.spec}
       metadataMap={metadataMap}

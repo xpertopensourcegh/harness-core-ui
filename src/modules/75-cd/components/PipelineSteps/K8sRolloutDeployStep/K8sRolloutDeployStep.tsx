@@ -24,6 +24,7 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 
+import pipelineVariableCss from '@pipeline/components/PipelineStudio/PipelineVariables/PipelineVariables.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export interface K8RolloutDeployData extends StepElementConfig {
@@ -171,7 +172,7 @@ const K8RolloutDeployVariableStep: React.FC<K8RolloutDeployVariableStepProps> = 
 }) => {
   return (
     <VariablesListTable
-      className={stepCss.topSpacingLarge}
+      className={pipelineVariableCss.variablePaddingL2}
       data={variablesData.spec}
       originalData={initialValues.spec}
       metadataMap={metadataMap}
