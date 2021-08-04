@@ -1,23 +1,50 @@
 import React, { useMemo } from 'react'
+import { useParams } from 'react-router-dom'
+import moment from 'moment'
 import { Card, Color, Container, Layout, Text } from '@wings-software/uicore'
+import { GetServicesGrowthTrendQueryParams, useGetServicesGrowthTrend } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
-import { SparklineChart, SparklineChartProps } from '@common/components/SparklineChart/SparklineChart'
+import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { SparklineChart } from '@common/components/SparklineChart/SparklineChart'
 import { TrendPopover } from '@dashboards/components/TrendPopover/TrendPopover'
 import { PieChart } from '@dashboards/components/PieChart/PieChart'
 import { numberFormatter } from '@dashboards/components/Services/common'
 import css from '@dashboards/components/Services/ServiceInstancesWidget/ServiceInstancesWidget.module.scss'
+
 export interface ServiceInstanceWidgetProps {
   serviceCount: number
   serviceInstancesCount: number
-  trendTitle: string
-  trendData: SparklineChartProps['data']
   prodCount: number
   nonProdCount: number
 }
 
 export const ServiceInstancesWidget: React.FC<ServiceInstanceWidgetProps> = props => {
-  const { serviceCount, serviceInstancesCount, trendTitle, trendData, prodCount, nonProdCount } = props
+  const { serviceCount, serviceInstancesCount, prodCount, nonProdCount } = props
   const { getString } = useStrings()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps & ModulePathParams>()
+
+  const queryParams: GetServicesGrowthTrendQueryParams = useMemo(
+    () => ({
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      startTime: moment().subtract(6, 'months').toDate().getTime(),
+      endTime: moment().toDate().getTime(),
+      timeGroupByType: 'DAY'
+    }),
+    [accountId, orgIdentifier, projectIdentifier]
+  )
+  const { data } = useGetServicesGrowthTrend({ queryParams })
+
+  const trendData: number[] = useMemo(() => {
+    const timeValuePairList = data?.data?.timeValuePairList || []
+    if (!timeValuePairList.length) {
+      return []
+    }
+    timeValuePairList.sort((prev, curr) => (prev.timestamp || 0) - (curr.timestamp || 0))
+    return timeValuePairList.map(timeValuePair => timeValuePair.value || 0)
+  }, [data])
+
   const pieChartData = useMemo(
     () => [
       {
@@ -48,14 +75,18 @@ export const ServiceInstancesWidget: React.FC<ServiceInstanceWidgetProps> = prop
               <Text color={Color.BLACK} font={{ weight: 'bold' }} className={css.text}>
                 {numberFormatter(serviceCount)}
               </Text>
-              <TrendPopover data={trendData}>
-                <SparklineChart
-                  title={trendTitle}
-                  data={trendData}
-                  options={{ chart: { width: 80, height: 50 } }}
-                  sparklineChartContainerStyles={css.hover}
-                />
-              </TrendPopover>
+              {trendData.length ? (
+                <TrendPopover data={trendData}>
+                  <SparklineChart
+                    title={getString('dashboards.serviceDashboard.6monthTrend')}
+                    data={trendData}
+                    options={{ chart: { width: 80, height: 50 } }}
+                    sparklineChartContainerStyles={css.hover}
+                  />
+                </TrendPopover>
+              ) : (
+                <></>
+              )}
             </Layout.Horizontal>
           </Layout.Vertical>
         </Layout.Horizontal>
@@ -68,23 +99,31 @@ export const ServiceInstancesWidget: React.FC<ServiceInstanceWidgetProps> = prop
               <Text color={Color.BLACK} font={{ weight: 'bold' }} className={css.text}>
                 {numberFormatter(serviceInstancesCount)}
               </Text>
-              <Container height={65}>
-                <PieChart size={65} items={pieChartData} showLabels={false}></PieChart>
-              </Container>
+              {serviceInstancesCount ? (
+                <Container height={65}>
+                  <PieChart size={65} items={pieChartData} showLabels={false}></PieChart>
+                </Container>
+              ) : (
+                <></>
+              )}
             </Layout.Horizontal>
           </Layout.Vertical>
-          <Layout.Horizontal flex={{ distribution: 'space-between' }}>
-            {pieChartData.map(pieChartDataItem => {
-              return (
-                <Layout.Horizontal key={pieChartDataItem.label} flex={{ alignItems: 'center' }}>
-                  <div className={css.circle} style={{ background: pieChartDataItem.color }}></div>
-                  <Text font={{ size: 'small', weight: 'semi-bold' }} color={Color.GREY_500}>{`${
-                    pieChartDataItem.label
-                  } (${pieChartDataItem.formattedValue ?? pieChartDataItem.value})`}</Text>
-                </Layout.Horizontal>
-              )
-            })}
-          </Layout.Horizontal>
+          {serviceInstancesCount ? (
+            <Layout.Horizontal flex={{ distribution: 'space-between' }}>
+              {pieChartData.map(pieChartDataItem => {
+                return (
+                  <Layout.Horizontal key={pieChartDataItem.label} flex={{ alignItems: 'center' }}>
+                    <div className={css.circle} style={{ background: pieChartDataItem.color }}></div>
+                    <Text font={{ size: 'small', weight: 'semi-bold' }} color={Color.GREY_500}>{`${
+                      pieChartDataItem.label
+                    } (${pieChartDataItem.formattedValue ?? pieChartDataItem.value})`}</Text>
+                  </Layout.Horizontal>
+                )
+              })}
+            </Layout.Horizontal>
+          ) : (
+            <></>
+          )}
         </Layout.Vertical>
       </Layout.Vertical>
     </Card>

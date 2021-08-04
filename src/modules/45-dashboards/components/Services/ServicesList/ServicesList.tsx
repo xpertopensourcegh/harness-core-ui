@@ -171,7 +171,7 @@ const RenderServiceInstances: Renderer<CellProps<ServiceListItem>> = ({ row }) =
       >
         {serviceInstances.count}
       </Text>
-      <PieChart {...pieChartProps} />
+      {serviceInstances.count ? <PieChart {...pieChartProps} /> : <></>}
     </Layout.Horizontal>
   )
 }

@@ -57,6 +57,7 @@ serviceDashboard:
   seeMore: '+ {{count}} more'
   buildName: 'Build Name'
   noServiceDetails: No services matching the criteria
+  6monthTrend: 6 month trend
 resourceModal:
   folders: 'Folder Name'
   folderDetail: 'Folder Dashboards'

@@ -1505,6 +1505,7 @@ export interface StringsMap {
   'dashboards.resourceModal.folderDetail': string
   'dashboards.resourceModal.folders': string
   'dashboards.serviceDashboard.3months': string
+  'dashboards.serviceDashboard.6monthTrend': string
   'dashboards.serviceDashboard.6months': string
   'dashboards.serviceDashboard.activeServiceInstancesLabel': string
   'dashboards.serviceDashboard.buildName': string

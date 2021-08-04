@@ -1,14 +1,3 @@
-import type { ServiceInstanceWidgetProps } from './components/Services/ServiceInstancesWidget/ServiceInstancesWidget'
-
-export const ServiceInstancesWidgetMock: ServiceInstanceWidgetProps = {
-  serviceCount: 57,
-  serviceInstancesCount: 130,
-  trendTitle: '6 month trend',
-  trendData: [38, 10, 70, 63, 61, 107, 40, 61, 82, 22, 100, 63, 94, 16, 73, 59, 31, 90, 87, 102, 45, 39, 10, 64, 76],
-  nonProdCount: 120,
-  prodCount: 20
-}
-
 export const mostActiveServiceInfo = {
   data: {
     workloadDeploymentInfoList: [
@@ -85,4 +74,11 @@ export const serviceDetails = {
       }
     ]
   }
+}
+
+export const serviceInstances = {
+  serviceCount: 10,
+  serviceInstancesCount: 20,
+  prodCount: 10,
+  nonProdCount: 10
 }

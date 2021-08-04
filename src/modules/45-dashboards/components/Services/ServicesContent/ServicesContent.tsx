@@ -5,10 +5,12 @@ import { Card, Layout } from '@wings-software/uicore'
 import { Page } from '@common/exports'
 import { GetServiceDetailsQueryParams, useGetServiceDetails } from 'services/cd-ng'
 import { DeploymentsTimeRangeContext, useServiceStore, Views } from '@dashboards/components/Services/common'
-import { ServiceInstancesWidget } from '@dashboards/components/Services/ServiceInstancesWidget/ServiceInstancesWidget'
+import {
+  ServiceInstancesWidget,
+  ServiceInstanceWidgetProps
+} from '@dashboards/components/Services/ServiceInstancesWidget/ServiceInstancesWidget'
 import { MostActiveServicesWidget } from '@dashboards/components/Services/MostActiveServicesWidget/MostActiveServicesWidget'
 import { startOfDay, TimeRangeSelectorProps } from '@dashboards/components/TimeRangeSelector/TimeRangeSelector'
-import { ServiceInstancesWidgetMock } from '@dashboards/mock'
 import { DeploymentsWidget } from '@dashboards/components/Services/DeploymentsWidget/DeploymentsWidget'
 import { ServicesList, ServicesListProps } from '@dashboards/components/Services/ServicesList/ServicesList'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -42,11 +44,26 @@ export const ServicesContent: React.FC = () => {
     queryParams
   })
 
+  const serviceDeploymentDetailsList = serviceDetails?.data?.serviceDeploymentDetailsList || []
+
   const serviceDetailsProps: ServicesListProps = {
     loading,
     error: !!error,
-    data: serviceDetails?.data?.serviceDeploymentDetailsList || [],
+    data: serviceDeploymentDetailsList,
     refetch
+  }
+
+  const serviceInstanceProps: ServiceInstanceWidgetProps = {
+    serviceCount: serviceDeploymentDetailsList.length,
+    ...serviceDeploymentDetailsList.reduce(
+      (count, item) => {
+        count['serviceInstancesCount'] += item.instanceCountDetails?.totalInstances || 0
+        count['prodCount'] += item.instanceCountDetails?.prodInstances || 0
+        count['nonProdCount'] += item.instanceCountDetails?.nonProdInstances || 0
+        return count
+      },
+      { serviceInstancesCount: 0, prodCount: 0, nonProdCount: 0 }
+    )
   }
 
   return (
@@ -57,7 +74,7 @@ export const ServicesContent: React.FC = () => {
       >
         {view === Views.INSIGHT && (
           <Layout.Horizontal margin={{ bottom: 'large' }}>
-            <ServiceInstancesWidget {...ServiceInstancesWidgetMock} />
+            <ServiceInstancesWidget {...serviceInstanceProps} />
             <DeploymentsTimeRangeContext.Provider value={{ timeRange, setTimeRange }}>
               <Card className={css.card}>
                 <MostActiveServicesWidget title={getString('dashboards.serviceDashboard.mostActiveServices')} />
