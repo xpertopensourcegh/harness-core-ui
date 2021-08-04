@@ -22,7 +22,7 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
   formikProps,
   isEdit = false
 }) => {
-  const { artifactType, manifestType, stageId, inputSetTemplateYamlObj, originalPipeline, selectedManifest } =
+  const { artifactType, manifestType, stageId, inputSetTemplateYamlObj, originalPipeline, selectedArtifact } =
     formikProps.values
   const [modalOpen, setModalOpen] = useState<boolean>(false)
   const [editModalOpen, setEditModalOpen] = useState<boolean>(false)
@@ -34,25 +34,27 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
   const [appliedTableArtifact, setAppliedTableArtifact] = useState<artifactTableItem[] | undefined>(undefined)
   const [artifactTableData, setArtifactTableData] = useState<artifactTableItem[] | undefined>(undefined)
   const { appliedArtifact, data } = parsedArtifactsManifests
-
   const { getString } = useStrings()
   const isManifest = !!manifestType
 
   useEffect(() => {
-    if (inputSetTemplateYamlObj || selectedManifest) {
+    if (inputSetTemplateYamlObj || selectedArtifact) {
       const res = parseArtifactsManifests({
         inputSetTemplateYamlObj,
         manifestType,
         stageId,
         artifactType,
-        artifactRef: selectedManifest?.manifest?.identifier,
+        artifactRef: selectedArtifact?.identifier, // artifactRef will represent artifact or manifest
         isManifest
       })
       setParsedArtifactsManifests(res)
     }
-  }, [inputSetTemplateYamlObj, selectedManifest])
+  }, [inputSetTemplateYamlObj, selectedArtifact])
 
   useEffect(() => {
+    if (!selectedArtifact) {
+      setAppliedTableArtifact(undefined)
+    }
     if ((appliedArtifact || data) && originalPipeline) {
       const { appliedTableArtifact: newAppliedTableArtifact, artifactTableData: newArtifactTableData } =
         getArtifactTableDataFromData({
@@ -69,10 +71,10 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
         setArtifactTableData(newArtifactTableData)
       }
     }
-  }, [appliedArtifact, data, originalPipeline])
+  }, [appliedArtifact, data, originalPipeline, selectedArtifact])
 
   const loading = false
-  const allowSelectArtifact = data?.length
+  const allowSelectArtifact = !!data?.length
   const artifactOrManifestText = isManifest
     ? getString('manifestsText')
     : getString('pipeline.triggers.artifactTriggerConfigPanel.artifact')
@@ -128,7 +130,12 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
                 data-name="main-delete"
                 icon="main-trash"
                 onClick={_ => {
-                  formikProps.setValues({ ...formikProps.values, artifactRef: undefined, stageId: undefined }) // need to clear all artifact runtime inputs
+                  formikProps.setValues({
+                    ...formikProps.values,
+                    selectedArtifact: undefined,
+                    stageId: undefined,
+                    stages: undefined // clears all artifact runtime inputs
+                  })
                 }}
               />
             </Container>
@@ -177,7 +184,9 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
           )}
           {inputSetTemplateYamlObj && !appliedArtifact && !allowSelectArtifact && (
             <Text margin="small" intent="warning">
-              {getString('pipeline.triggers.artifactTriggerConfigPanel.noSelectableArtifactsFound')}
+              {getString('pipeline.triggers.artifactTriggerConfigPanel.noSelectableArtifactsFound', {
+                artifact: artifactOrManifestText
+              })}
             </Text>
           )}
         </section>

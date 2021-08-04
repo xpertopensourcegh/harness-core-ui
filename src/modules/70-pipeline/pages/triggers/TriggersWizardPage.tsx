@@ -56,7 +56,7 @@ import {
   isRowFilled,
   CUSTOM,
   isArtifactOrManifestTrigger,
-  FlatValidManifestFormikValuesInterface
+  FlatValidArtifactFormikValuesInterface
 } from './utils/TriggersWizardPageUtils'
 import {
   ArtifactTriggerConfigPanel,
@@ -838,7 +838,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     submitTrigger(triggerYaml)
   }
 
-  const handleArtifactSubmit = async (val: FlatValidManifestFormikValuesInterface): Promise<void> => {
+  const handleArtifactSubmit = async (val: FlatValidArtifactFormikValuesInterface): Promise<void> => {
     const triggerYaml = getArtifactTriggerYaml({ values: val })
     submitTrigger(triggerYaml)
   }
@@ -1160,7 +1160,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         key={wizardKey} // re-renders with yaml to visual initialValues
         formikInitialProps={{
           initialValues,
-          onSubmit: (val: FlatValidManifestFormikValuesInterface) => handleArtifactSubmit(val),
+          onSubmit: (val: FlatValidArtifactFormikValuesInterface) => handleArtifactSubmit(val),
           validationSchema: getValidationSchema(
             initialValues.triggerType as unknown as NGTriggerSourceV2['type'],
             getString

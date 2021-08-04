@@ -133,7 +133,7 @@ export interface FlatValidScheduleFormikValuesInterface {
   expression: string
 }
 
-export interface FlatValidManifestFormikValuesInterface {
+export interface FlatValidArtifactFormikValuesInterface {
   name: string
   identifier: string
   description?: string
@@ -141,7 +141,7 @@ export interface FlatValidManifestFormikValuesInterface {
     [key: string]: string
   }
   triggerType: NGTriggerSourceV2['type']
-  selectedManifest: ManifestConfigWrapper
+  selectedArtifact: any
   stageId: string
 }
 
@@ -759,54 +759,61 @@ export const parseArtifactsManifests = ({
   artifactType?: string
   manifestType?: string
 }): { appliedArtifact?: artifactManifestData; data?: artifactManifestData[] } => {
-  if (inputSetTemplateYamlObj?.pipeline) {
-    if (stageId && artifactRef && isManifest) {
-      // returns single manifest
-      let appliedArtifact
-      inputSetTemplateYamlObj.pipeline.stages?.some((stageObj: any) => {
-        if (stageObj?.stage?.identifier === stageId) {
-          const appliedArtifactObj = stageObj.stage.spec?.serviceConfig?.serviceDefinition?.spec?.manifests?.find(
-            (manifestObj: any) => manifestObj?.manifest?.identifier === artifactRef
-          )
-          if (appliedArtifactObj) {
-            appliedArtifact = appliedArtifactObj.manifest
-            return true
-          }
+  if (inputSetTemplateYamlObj?.pipeline && isManifest) {
+    let appliedArtifact
+    const stagesManifests = inputSetTemplateYamlObj.pipeline.stages?.map((stageObj: any) => {
+      const filteredManifests = stageObj?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests?.filter(
+        (manifestObj: any) => manifestObj?.manifest?.type === manifestType
+      )
+      if (stageId && artifactRef) {
+        const newAppliedArtifact = filteredManifests?.find(
+          (manifestObj: any) => manifestObj?.manifest?.identifier === artifactRef
+        )?.manifest
+        if (newAppliedArtifact) {
+          appliedArtifact = newAppliedArtifact
         }
-      })
-      return { appliedArtifact }
-    } else if (isManifest) {
-      // returns list of manifests
-      const stagesManifests = inputSetTemplateYamlObj.pipeline.stages?.map((stageObj: any) => {
-        const filteredManifests = stageObj?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests?.filter(
-          (manifestObj: any) => manifestObj?.manifest?.type === manifestType
-        )
-        if (filteredManifests?.length) {
-          const filteredStageObj = { ...stageObj }
-          filteredStageObj.stage.spec.serviceConfig.serviceDefinition.spec.manifests = filteredManifests
-          return filteredStageObj
-        }
-      })
-      return { data: stagesManifests?.filter((stage: Record<string, unknown>) => !isUndefined(stage)) }
-    } else if (artifactType) {
-      // todo
-      return {}
-    }
+      }
+
+      if (filteredManifests?.length) {
+        const filteredStageObj = { ...stageObj }
+        filteredStageObj.stage.spec.serviceConfig.serviceDefinition.spec.manifests = filteredManifests
+        return filteredStageObj
+      }
+    })
+
+    return { appliedArtifact, data: stagesManifests?.filter((stage: Record<string, unknown>) => !isUndefined(stage)) }
+  } else if (inputSetTemplateYamlObj?.pipeline && artifactType) {
+    // todo
+    return {}
   }
   return {}
 }
 
-export const filterManifest = (pipelineObject: any, stageId: any, manifestIdentifier: any) => {
-  const filteredStage = (pipelineObject || []).find((item: any) => item?.stage?.identifier === stageId)
-  const filteredManifest = filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests.find(
-    (maniItem: any) => maniItem?.manifest?.identifier === manifestIdentifier
-  )
-
-  return filteredManifest
+export const filterArtifact = ({
+  runtimeData,
+  stageId,
+  artifactId,
+  isManifest
+}: {
+  runtimeData: any
+  stageId: any
+  artifactId: any
+  isManifest: boolean
+}): any => {
+  const filteredStage = (runtimeData || []).find((item: any) => item?.stage?.identifier === stageId)
+  if (isManifest) {
+    return filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests.find(
+      (manifestObj: any) => manifestObj?.manifest?.identifier === artifactId
+    )
+  } else {
+    return filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts.find(
+      (artifactObj: any) => artifactObj?.artifact?.identifier === artifactId
+    )
+  }
 }
 
-export const getStageIdx = (pipelineObject: any, stageId: any) => {
-  return pipelineObject.findIndex((item: any) => item.stage.identifier === stageId)
+export const getStageIdx = (runtimeData: any, stageId: any) => {
+  return runtimeData.findIndex((item: any) => item.stage.identifier === stageId)
 }
 
 export const getTemplateObject = (manifest: any, artifacts: any) => {
@@ -816,8 +823,8 @@ export const getTemplateObject = (manifest: any, artifacts: any) => {
   }
 }
 
-export const getPathString = (pipelineObject: any, stageId: any) => {
-  const filteredStageIdx = getStageIdx(pipelineObject, stageId)
+export const getPathString = (runtimeData: any, stageId: any) => {
+  const filteredStageIdx = getStageIdx(runtimeData, stageId)
   return `stages[${filteredStageIdx}].stage.spec.serviceConfig.serviceDefinition.spec`
 }
 
@@ -869,6 +876,7 @@ export interface artifactTableItem {
   location: string
   version?: string // for manifest
   buildTag?: string // for artifact
+  disabled: boolean
   hasRuntimeInputs: boolean
 }
 
@@ -901,6 +909,10 @@ const getManifestTableItem = ({
       getString
     }),
     version: getRuntimeInputLabel({ str: manifest?.spec?.chartVersion, getString }),
+    disabled:
+      !manifest?.spec?.chartVersion ||
+      getRuntimeInputLabel({ str: manifest?.spec?.chartVersion, getString }) !==
+        getString?.('pipeline.triggers.artifactTriggerConfigPanel.runtimeInput'),
     hasRuntimeInputs
   }
 }

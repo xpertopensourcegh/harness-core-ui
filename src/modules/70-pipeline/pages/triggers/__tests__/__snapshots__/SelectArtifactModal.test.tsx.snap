@@ -167,6 +167,7 @@ exports[`Select Artifact Modal tests inital Render 1`] = `
           >
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+              style="min-height: 18px;"
             />
           </div>
         </div>
@@ -180,6 +181,7 @@ exports[`Select Artifact Modal tests inital Render 1`] = `
           >
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+              style="min-height: 18px;"
             />
           </div>
         </div>
@@ -393,6 +395,7 @@ exports[`Select Artifact Modal tests on click of select button 1`] = `
           >
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+              style="min-height: 18px;"
             />
           </div>
         </div>
@@ -406,6 +409,7 @@ exports[`Select Artifact Modal tests on click of select button 1`] = `
           >
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+              style="min-height: 18px;"
             />
           </div>
         </div>

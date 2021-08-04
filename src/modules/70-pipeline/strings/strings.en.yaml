@@ -501,11 +501,12 @@ triggers:
     selectAnArtifact: 'Select an Artifact Reference'
     selectAManifest: 'Select a Manifest Reference'
     configureArtifactRuntimeInputs: 'Configure Artifact Runtime Inputs'
-    noSelectableArtifactsFound: 'No selectable artifacts found. Please add an artifact in the pipeline.'
+    noSelectableArtifactsFound: 'No selectable {{artifact}}s found. Please add in the pipeline.'
     noArtifacts: No artifacts for selected stage.
     configureInputs: Configure inputs
     hasRuntimeInputs: 'Has Runtime Inputs'
     runtimeInput: 'Runtime Input'
+    chartVersionRuntimeInput: To select a manifest, Chart Version must be a runtime input.
 dashboards:
   failedBuilds: Failed Builds
   activeBuilds: Active Builds

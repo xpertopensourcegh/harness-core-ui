@@ -248,6 +248,7 @@ exports[`Artifact Trigger Config Panel  tests Renders/snapshots edit render 1`] 
                         >
                           <p
                             class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                            style="min-height: 18px;"
                           >
                             chartPath
                           </p>

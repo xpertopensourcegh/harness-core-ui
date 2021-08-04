@@ -39,12 +39,17 @@ const RenderColumnSelect = ({ row, column }: { row: RenderColumnRow; column: Ren
   const data = row.original
   return (
     <>
-      <Layout.Horizontal spacing="small" style={{ justifyContent: 'center' }}>
+      <Layout.Horizontal
+        className={data.disabled ? css.disabledRow : ''}
+        spacing="small"
+        style={{ justifyContent: 'center' }}
+      >
         <RadioGroup
           selectedValue={column?.selectedArtifactLabel}
           label=""
           name="artifactLabel"
           onChange={e => e.preventDefault()}
+          disabled={data.disabled}
         >
           <Radio value={data.artifactLabel} />
         </RadioGroup>
@@ -76,7 +81,7 @@ const RenderColumnSelect = ({ row, column }: { row: RenderColumnRow; column: Ren
 const RenderColumnArtifactLabel = ({ row }: { row: RenderColumnRow }) => {
   const data = row.original
   return (
-    <Layout.Horizontal>
+    <Layout.Horizontal className={data.disabled ? css.disabledRow : ''}>
       <Text color={Color.BLACK}>{data.artifactLabel}</Text>
     </Layout.Horizontal>
   )
@@ -84,7 +89,7 @@ const RenderColumnArtifactLabel = ({ row }: { row: RenderColumnRow }) => {
 const RenderColumnArtifactRepository = ({ row }: { row: RenderColumnRow }) => {
   const data = row.original
   return (
-    <Layout.Horizontal>
+    <Layout.Horizontal className={data.disabled ? css.disabledRow : ''}>
       <Text color={Color.BLACK}>{data.artifactRepository}</Text>
     </Layout.Horizontal>
   )
@@ -93,8 +98,10 @@ const RenderColumnArtifactRepository = ({ row }: { row: RenderColumnRow }) => {
 const RenderColumnLocation = ({ row }: { row: RenderColumnRow }) => {
   const data = row.original
   return (
-    <Layout.Horizontal>
-      <Text color={Color.BLACK}>{data.location}</Text>
+    <Layout.Horizontal className={data.disabled ? css.disabledRow : ''}>
+      <Text style={{ minHeight: '18px' }} color={Color.BLACK}>
+        {data.location}
+      </Text>
     </Layout.Horizontal>
   )
 }
@@ -102,8 +109,10 @@ const RenderColumnLocation = ({ row }: { row: RenderColumnRow }) => {
 const RenderColumnBuildTag = ({ row }: { row: RenderColumnRow }) => {
   const data = row.original
   return (
-    <Layout.Horizontal spacing="small">
-      <Text color={Color.BLACK}>{data.buildTag}</Text>
+    <Layout.Horizontal spacing="small" className={data.disabled ? css.disabledRow : ''}>
+      <Text style={{ minHeight: '18px' }} color={Color.BLACK}>
+        {data.buildTag}
+      </Text>
     </Layout.Horizontal>
   )
 }
@@ -111,8 +120,10 @@ const RenderColumnBuildTag = ({ row }: { row: RenderColumnRow }) => {
 const RenderColumnVersion = ({ row }: { row: RenderColumnRow }) => {
   const data = row.original
   return (
-    <Layout.Horizontal spacing="small">
-      <Text color={Color.BLACK}>{data.version}</Text>
+    <Layout.Horizontal spacing="small" className={data.disabled ? css.disabledRow : ''}>
+      <Text style={{ minHeight: '18px' }} color={Color.BLACK}>
+        {data.version}
+      </Text>
     </Layout.Horizontal>
   )
 }
@@ -120,7 +131,7 @@ const RenderColumnVersion = ({ row }: { row: RenderColumnRow }) => {
 const RenderColumnHasRuntimeInputs = ({ row }: { row: RenderColumnRow }) => {
   const data = row.original
   return (
-    <Layout.Horizontal spacing="small">
+    <Layout.Horizontal spacing="small" className={data.disabled ? css.disabledRow : ''}>
       <Text color={Color.BLACK}>{data.hasRuntimeInputs ? 'Yes' : 'No'}</Text>
     </Layout.Horizontal>
   )
@@ -161,6 +172,8 @@ const ArtifactTableInfo = (props: ArtifactTableInfoInterface): JSX.Element => {
     : getString('pipeline.triggers.artifactTriggerConfigPanel.artifact')
 
   const newData = appliedArtifact || artifactTableData
+
+  const showWarning = artifactTableData?.some((data: any) => data.disabled)
   // should render differently for applied or data table
   // remove has runtime input and version when appliedTable
   const columns: any = React.useMemo(
@@ -250,16 +263,25 @@ const ArtifactTableInfo = (props: ArtifactTableInfoInterface): JSX.Element => {
   }
 
   return (
-    <Table
-      className={`${css.table} ${appliedArtifact && css.appliedArtifact}`}
-      columns={columns}
-      data={Array.isArray(newData) ? newData : [newData]}
-      onRowClick={item => {
-        setSelectedArtifact?.(item?.artifactId)
-        setSelectedStage?.(item?.stageId)
-        setSelectedArtifactLabel?.(item?.artifactLabel)
-      }}
-    />
+    <>
+      <Table
+        className={`${css.table} ${appliedArtifact && css.appliedArtifact}`}
+        columns={columns}
+        data={Array.isArray(newData) ? newData : [newData]}
+        onRowClick={item => {
+          if (!item?.disabled) {
+            setSelectedArtifact?.(item?.artifactId)
+            setSelectedStage?.(item?.stageId)
+            setSelectedArtifactLabel?.(item?.artifactLabel)
+          }
+        }}
+      />
+      {showWarning && (
+        <Text style={{ color: '#FF7B26' }}>
+          {getString?.('pipeline.triggers.artifactTriggerConfigPanel.chartVersionRuntimeInput')}
+        </Text>
+      )}
+    </>
   )
 }
 export default ArtifactTableInfo

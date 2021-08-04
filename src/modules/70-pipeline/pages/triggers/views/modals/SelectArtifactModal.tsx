@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Layout, Text, Button } from '@wings-software/uicore'
-import { merge } from 'lodash-es'
+import { merge, isEmpty } from 'lodash-es'
 
 import { Dialog } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
@@ -8,10 +8,9 @@ import { TriggerFormType } from '@pipeline/factories/ArtifactTriggerInputFactory
 import TriggerFactory from '@pipeline/factories/ArtifactTriggerInputFactory'
 
 import ArtifactTableInfo from '../subviews/ArtifactTableInfo'
-import { filterManifest, getPathString, getTemplateObject } from '../../utils/TriggersWizardPageUtils'
+import { filterArtifact, getPathString, getTemplateObject } from '../../utils/TriggersWizardPageUtils'
 
 import css from './SelectArtifactModal.module.scss'
-// import { filter } from 'lodash-es'
 
 interface SelectArtifactModalPropsInterface {
   isModalOpen: boolean
@@ -37,26 +36,32 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
 }) => {
   const { values } = formikProps
   const [selectedArtifactLabel, setSelectedArtifactLabel] = useState(undefined) // artifactLabel is unique
-  const [selectedStage, setSelectedStage] = useState(undefined)
-  const [selectedArtifact, setSelectedArtifact] = useState(undefined)
+  const [selectedStageId, setSelectedStageId] = useState(values?.stageId)
+  const [selectedArtifactId, setSelectedArtifactId] = useState(values?.selectedArtifact?.identifier)
   const [modalState, setModalState] = useState<ModalState>(
-    values?.artifactRef ? ModalState.RUNTIME_INPUT : ModalState.SELECT
+    !isEmpty(values?.selectedArtifact) ? ModalState.RUNTIME_INPUT : ModalState.SELECT
   )
   const { getString } = useStrings()
 
   const closeAndReset = () => {
     closeModal()
-    setSelectedArtifact(undefined)
+    setSelectedArtifactId(undefined)
     setSelectedArtifactLabel(undefined)
-    setSelectedStage(undefined)
+    setSelectedStageId(undefined)
+    setModalState(!isEmpty(values?.selectedArtifact) ? ModalState.RUNTIME_INPUT : ModalState.SELECT)
     // formikProps.setValues({ ...formikProps.values, stageId: undefined, artifactRef: undefined })
   }
 
   const formDetails = TriggerFactory.getTriggerFormDetails(TriggerFormType.Manifest)
   const ManifestFormDetails = formDetails.component
 
-  const filteredManifest = filterManifest(runtimeData, selectedStage, selectedArtifact)
-  const templateObject = getTemplateObject(filteredManifest, [])
+  const filteredArtifact = filterArtifact({
+    runtimeData,
+    stageId: selectedStageId,
+    artifactId: selectedArtifactId,
+    isManifest
+  })
+  const templateObject = getTemplateObject(filteredArtifact, [])
   // const pathId = getPathString(runtimeData, selectedStage)
   return (
     <Dialog
@@ -75,10 +80,10 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
       {modalState === ModalState.SELECT ? (
         <>
           <ArtifactTableInfo
-            setSelectedArtifact={setSelectedArtifact}
-            selectedArtifact={selectedArtifact}
-            setSelectedStage={setSelectedStage}
-            selectedStage={selectedStage}
+            setSelectedArtifact={setSelectedArtifactId}
+            selectedArtifact={selectedArtifactId}
+            setSelectedStage={setSelectedStageId}
+            selectedStage={selectedStageId}
             setSelectedArtifactLabel={setSelectedArtifactLabel}
             selectedArtifactLabel={selectedArtifactLabel}
             isManifest={isManifest}
@@ -89,7 +94,7 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
             <Button
               text={getString('select')}
               intent="primary"
-              disabled={!selectedArtifact}
+              disabled={!selectedArtifactId}
               data-name="selectBtn"
               onClick={() => {
                 setModalState(ModalState.RUNTIME_INPUT)
@@ -104,7 +109,7 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
         <>
           <ManifestFormDetails
             template={templateObject}
-            path={getPathString(runtimeData, selectedStage)}
+            path={getPathString(runtimeData, selectedStageId)}
             allValues={templateObject}
             initialValues={runtimeData}
             readonly={false}
@@ -112,30 +117,38 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
             formik={formikProps}
           />
           <Layout.Horizontal spacing="medium" className={css.footer}>
-            <Button
-              text={getString('back')}
-              icon="chevron-left"
-              minimal
-              onClick={() => {
-                setModalState(ModalState.SELECT)
-              }}
-            />
+            {!values?.selectedArtifact?.identifier && (
+              <Button
+                text={getString('back')}
+                icon="chevron-left"
+                minimal
+                onClick={() => {
+                  setModalState(ModalState.SELECT)
+                }}
+              />
+            )}
             <Button
               text={getString('filters.apply')}
               intent="primary"
               onClick={() => {
-                const orgManifest = filterManifest(
-                  formikProps.values.originalPipeline?.stages,
-                  selectedStage,
-                  selectedArtifact
-                )
-                const formFilteredManifest =
-                  formikProps.values.stages[0]?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests[0]
-                const finalManifest = merge({}, orgManifest, formFilteredManifest)
+                // comment here for what is orgArtifact
+                const orginalArtifact = filterArtifact({
+                  runtimeData: formikProps.values.originalPipeline?.stages,
+                  stageId: selectedStageId,
+                  artifactId: selectedArtifactId,
+                  isManifest
+                })
+                // will it alays be stage index 0 and manifest index 0?
+
+                const formFilteredArtifact =
+                  formikProps.values.stages?.[0]?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests[0]
+                const finalArtifact = merge({}, orginalArtifact, formFilteredArtifact)?.[
+                  isManifest ? 'manifest' : 'artifact'
+                ]
                 formikProps.setValues({
                   ...formikProps.values,
-                  selectedManifest: finalManifest,
-                  stageId: selectedStage
+                  selectedArtifact: finalArtifact,
+                  stageId: selectedStageId
                 })
 
                 closeAndReset()

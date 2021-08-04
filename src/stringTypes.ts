@@ -2061,6 +2061,7 @@ export interface StringsMap {
   'pipeline.triggers.artifactTriggerConfigPanel.artifact': string
   'pipeline.triggers.artifactTriggerConfigPanel.artifactRepository': string
   'pipeline.triggers.artifactTriggerConfigPanel.buildTag': string
+  'pipeline.triggers.artifactTriggerConfigPanel.chartVersionRuntimeInput': string
   'pipeline.triggers.artifactTriggerConfigPanel.configureArtifactRuntimeInputs': string
   'pipeline.triggers.artifactTriggerConfigPanel.configureInput': string
   'pipeline.triggers.artifactTriggerConfigPanel.configureInputs': string

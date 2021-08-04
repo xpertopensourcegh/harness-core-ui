@@ -511,15 +511,13 @@ describe('Artifact Trigger Config Panel  tests', () => {
       const initialValueObj = {
         ...iValues,
         artifactRef: 's3manifestid',
-        selectedManifest: {
-          manifest: {
-            identifier: 's3manifestid',
-            spec: {
-              chartPath: 'test',
-              connectorRef: '<+input>',
-              store: {
-                region: 'regionA'
-              }
+        selectedArtifact: {
+          identifier: 's3manifestid',
+          spec: {
+            chartPath: 'test',
+            connectorRef: '<+input>',
+            store: {
+              region: 'regionA'
             }
           }
         },
