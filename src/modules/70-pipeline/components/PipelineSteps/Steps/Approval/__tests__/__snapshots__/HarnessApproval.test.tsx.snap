@@ -1001,7 +1001,7 @@ exports[`Harness Approval tests Edit stage - readonly: edit stage readonly 1`] =
           </div>
         </div>
         <div
-          class="noLookDivider"
+          class="divider"
         />
         <div
           class="formGroup"
@@ -1464,7 +1464,7 @@ exports[`Harness Approval tests On submit call: values populating on edit 1`] = 
           </div>
         </div>
         <div
-          class="noLookDivider"
+          class="divider"
         />
         <div
           class="formGroup"

@@ -1519,7 +1519,7 @@ exports[`Jira Create tests Edit Stage - readonly view: edit-stage-readonly 1`] =
           </div>
         </div>
         <div
-          class="noLookDivider"
+          class="divider"
         />
         <div
           class="formGroup lg"

@@ -163,7 +163,7 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
       </div>
     </div>
     <div
-      class="noLookDivider"
+      class="divider"
     />
     <div
       class="formGroup md"
@@ -1208,7 +1208,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
       </div>
     </div>
     <div
-      class="noLookDivider"
+      class="divider"
     />
     <div
       class="formGroup md"
@@ -2253,7 +2253,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
       </div>
     </div>
     <div
-      class="noLookDivider"
+      class="divider"
     />
     <div
       class="formGroup md"
@@ -2563,7 +2563,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
       </div>
     </div>
     <div
-      class="noLookDivider"
+      class="divider"
     />
     <div
       class="formGroup md"
@@ -2871,7 +2871,7 @@ exports[`Test TerraformDestroy should render edit view as new step 1`] = `
       </div>
     </div>
     <div
-      class="noLookDivider"
+      class="divider"
     />
     <div
       class="formGroup md"

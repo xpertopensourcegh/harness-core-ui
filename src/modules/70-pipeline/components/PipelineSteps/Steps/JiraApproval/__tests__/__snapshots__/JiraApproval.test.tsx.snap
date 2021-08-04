@@ -849,7 +849,7 @@ exports[`Jira Approval tests Edit stage - readonly: edit stage view readonly 1`]
           </div>
         </div>
         <div
-          class="noLookDivider"
+          class="divider"
         />
         <div
           class="formGroup lg"

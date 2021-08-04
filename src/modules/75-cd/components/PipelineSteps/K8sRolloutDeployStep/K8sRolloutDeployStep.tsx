@@ -1,5 +1,5 @@
 import React from 'react'
-import { IconName, Formik, FormInput, getMultiTypeFromValue, MultiTypeInputType, Layout } from '@wings-software/uicore'
+import { IconName, Formik, FormInput, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import cx from 'classnames'
 import * as Yup from 'yup'
 
@@ -72,7 +72,7 @@ function K8RolloutDeployWidget(
           setFormikRef(formikRef, formik)
           const { values, setFieldValue } = formik
           return (
-            <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
+            <>
               <div className={cx(stepCss.formGroup, stepCss.lg)}>
                 <FormInput.InputWithIdentifier
                   inputLabel={getString('name')}
@@ -102,7 +102,7 @@ function K8RolloutDeployWidget(
                   />
                 )}
               </div>
-              <div className={stepCss.noLookDivider} />
+              <div className={stepCss.divider} />
               <div className={cx(stepCss.formGroup, stepCss.sm)}>
                 <FormMultiTypeCheckboxField
                   multiTypeTextbox={{ expressions }}
@@ -111,7 +111,7 @@ function K8RolloutDeployWidget(
                   disabled={readonly}
                 />
               </div>
-            </Layout.Vertical>
+            </>
           )
         }}
       </Formik>
