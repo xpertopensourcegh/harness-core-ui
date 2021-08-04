@@ -193,7 +193,7 @@ purpose:
     flags: Flags
     subtitle: Decouple feature releases from deployments and roll out features safely and quickly.
     description: '{{$.common.purpose.cf.subtitle}}'
-    continuous: Feature Flag Management
+    continuous: Feature Flags
 trialInProgress: Trial in progress
 trialInProgressDescription: A Project contains your pipelines, resources, and team members. Get started by creating your first Project.
 letsGetYouStarted: Let’s get you started
