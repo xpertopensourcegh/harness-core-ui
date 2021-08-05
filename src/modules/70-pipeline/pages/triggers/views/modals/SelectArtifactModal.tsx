@@ -9,7 +9,6 @@ import TriggerFactory from '@pipeline/factories/ArtifactTriggerInputFactory'
 
 import ArtifactTableInfo from '../subviews/ArtifactTableInfo'
 import { filterArtifact, getPathString, getTemplateObject } from '../../utils/TriggersWizardPageUtils'
-
 import css from './SelectArtifactModal.module.scss'
 
 interface SelectArtifactModalPropsInterface {
@@ -62,6 +61,7 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
     isManifest
   })
   const templateObject = getTemplateObject(filteredArtifact, [])
+
   // const pathId = getPathString(runtimeData, selectedStage)
   return (
     <Dialog
@@ -113,8 +113,9 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
             allValues={templateObject}
             initialValues={runtimeData}
             readonly={false}
-            stageIdentifier={artifactTableData?.stageId}
+            stageIdentifier={selectedStageId}
             formik={formikProps}
+            fromTrigger={true}
           />
           <Layout.Horizontal spacing="medium" className={css.footer}>
             {!values?.selectedArtifact?.identifier && (

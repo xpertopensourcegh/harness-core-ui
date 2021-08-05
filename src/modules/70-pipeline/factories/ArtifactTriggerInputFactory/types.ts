@@ -20,6 +20,7 @@ export interface KubernetesServiceInputFormProps {
   path?: string
   stageIdentifier: string
   formik?: any
+  fromTrigger?: boolean
 }
 
 export enum TriggerType {

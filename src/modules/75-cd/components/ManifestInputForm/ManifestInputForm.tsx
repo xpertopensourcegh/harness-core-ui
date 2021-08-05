@@ -18,12 +18,10 @@ import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorRef
 import List from '@common/components/List/List'
 import type { Scope } from '@common/interfaces/SecretsInterface'
 
-import { GitConfigDTO, ServiceSpec, useGetBucketListForS3, useGetGCSBucketList } from 'services/cd-ng'
-import type { StepViewType } from '@pipeline/components/AbstractSteps/Step'
-
-import type { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
+import { GitConfigDTO, useGetBucketListForS3, useGetGCSBucketList } from 'services/cd-ng'
 
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import type { KubernetesServiceInputFormProps } from '@pipeline/factories/ArtifactTriggerInputFactory/types'
 
 import {
   ManifestToConnectorMap,
@@ -36,24 +34,8 @@ import ExperimentalInput from '../PipelineSteps/K8sServiceSpec/K8sServiceSpecFor
 
 import css from './ManifestInputForm.module.scss'
 
-interface K8SDirectServiceStep extends ServiceSpec {
-  stageIndex?: number
-  setupModeType?: string
-  handleTabChange?: (tab: string) => void
-  customStepProps?: Record<string, any>
-}
-
-interface KubernetesServiceInputFormProps {
-  initialValues: K8SDirectServiceStep
-  onUpdate?: ((data: ServiceSpec) => void) | undefined
-  stepViewType?: StepViewType
-  template?: ServiceSpec
-  allValues?: ServiceSpec
-  readonly?: boolean
-  factory?: AbstractStepFactory
-  path?: string
-  stageIdentifier: string
-  formik?: any
+const TriggerDefaultFieldList = {
+  chartVersion: '<+trigger.manifest.version>'
 }
 
 const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
@@ -63,10 +45,12 @@ const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
   initialValues,
   readonly = false,
   stageIdentifier,
-  formik
+  formik,
+  fromTrigger
 }) => {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
+
   const { projectIdentifier, orgIdentifier, accountId } = useParams<
     PipelineType<InputSetPathProps> & { accountId: string }
   >()
@@ -179,6 +163,7 @@ const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
             index: number
           ) => {
             const filteredManifest = allValues?.manifests?.find(item => item.manifest?.identifier === identifier)
+
             return (
               <Layout.Vertical key={identifier} className={cx(css.inputWidth, css.layoutVerticalSpacing)}>
                 <Text className={css.inputheader}>{identifier}</Text>
@@ -437,9 +422,10 @@ const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                     <FormInput.MultiTextInput
                       multiTextInputProps={{
                         expressions,
+                        ...(fromTrigger && { value: TriggerDefaultFieldList.chartVersion }),
                         allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                       }}
-                      disabled={readonly}
+                      disabled={fromTrigger ? (TriggerDefaultFieldList['chartVersion'] ? true : false) : readonly}
                       label={getString('pipeline.manifestType.http.chartVersion')}
                       name={`${path}.manifests[${index}].manifest.spec.chartVersion`}
                     />
