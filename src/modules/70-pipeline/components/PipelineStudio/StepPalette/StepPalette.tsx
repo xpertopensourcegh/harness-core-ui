@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { ExpandingSearchInput, Card, Text, Icon, Layout, Color, Container, Heading } from '@wings-software/uicore'
+import { ExpandingSearchInput, Text, Icon, Layout, Color, Container, Heading } from '@wings-software/uicore'
 import { useGet } from 'restful-react'
 import { get, cloneDeep, uniqBy, isEmpty } from 'lodash-es'
 import cx from 'classnames'
@@ -16,9 +16,10 @@ import {
 } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
 import { StageType } from '@pipeline/utils/stageHelpers'
+import { StepPopover } from '@pipeline/components/PipelineStudio/StepPalette/StepPopover/StepPopover'
 import type { AbstractStepFactory, StepData as FactoryStepData } from '../../AbstractSteps/AbstractStepFactory'
 
-import { iconMap, iconMapByName } from './iconMap'
+import { iconMapByName } from './iconMap'
 // TODO: Mock API
 import featureStageSteps from './mock/featureStageSteps.json'
 import buildStageStepsWithRunTestsStep from './mock/buildStageStepsWithRunTestsStep.json'
@@ -150,10 +151,6 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
     }
   }, [stepsData?.data?.stepCategories])
 
-  const renderIcon = () => {
-    return <Icon size={12} name="harness-logo-white-bg-blue" className={css.stepHarnessLogo} />
-  }
-
   const filterSteps = (stepName: string, context = FilterContext.NAV): void => {
     const filteredData: StepCategory[] = []
     const name = stepName.toLowerCase()
@@ -253,32 +250,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                         }
                       }}
                     >
-                      {stepsFactory.getStep(stepData.type || /* istanbul ignore next */ '') ? (
-                        <Card interactive={true} elevation={0} selected={false} className={css.paletteCard}>
-                          {stepsFactory.getStepIsHarnessSpecific(stepData.type || '') && renderIcon()}
-                          <Icon
-                            name={stepsFactory.getStepIcon(stepData.type || /* istanbul ignore next */ '')}
-                            className={css.paletteIcon}
-                            size={25}
-                          />
-                        </Card>
-                      ) : (
-                        <Card
-                          interactive={false}
-                          elevation={0}
-                          selected={false}
-                          disabled
-                          className={css.paletteCard}
-                          onClick={e => e.stopPropagation()}
-                        >
-                          {stepsFactory.getStepIsHarnessSpecific(stepData.type || '') && renderIcon()}
-                          <Icon
-                            name={iconMap[stepData.name || /* istanbul ignore next */ '']}
-                            className={css.paletteIcon}
-                            size={25}
-                          />
-                        </Card>
-                      )}
+                      <StepPopover stepData={stepData} stepsFactory={stepsFactory} />
                       <section className={css.stepName}>{stepData.name}</section>
                     </section>
                   )
@@ -287,48 +259,23 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
 
               if (stepCategory?.stepCategories && stepCategory.stepCategories.length > 0) {
                 stepCategory.stepCategories.forEach((subStepData: StepCategory, j) => {
-                  subStepData?.stepsData?.map((step: StepData) => {
+                  subStepData?.stepsData?.map((stepData: StepData) => {
                     categorySteps.push(
                       <section
                         className={css.step}
-                        key={`${step.name}-${j}`}
+                        key={`${stepData.name}-${j}`}
                         onClick={() => {
-                          /* istanbul ignore else */ if (step.type !== 'Placeholder') {
+                          /* istanbul ignore else */ if (stepData.type !== 'Placeholder') {
                             onSelect({
-                              name: step.name || /* istanbul ignore next */ '',
-                              type: step.type || /* istanbul ignore next */ '',
-                              icon: stepsFactory.getStepIcon(step.type || /* istanbul ignore next */ '')
+                              name: stepData.name || /* istanbul ignore next */ '',
+                              type: stepData.type || /* istanbul ignore next */ '',
+                              icon: stepsFactory.getStepIcon(stepData.type || '')
                             })
                           }
                         }}
                       >
-                        {stepsFactory.getStep(step.type || /* istanbul ignore next */ '') ? (
-                          <Card interactive={true} elevation={0} selected={false} className={css.paletteCard}>
-                            {stepsFactory.getStepIsHarnessSpecific(step.type || '') && renderIcon()}
-                            <Icon
-                              name={stepsFactory.getStepIcon(step.type || /* istanbul ignore next */ '')}
-                              className={css.paletteIcon}
-                              size={25}
-                            />
-                          </Card>
-                        ) : (
-                          <Card
-                            interactive={false}
-                            elevation={0}
-                            selected={false}
-                            disabled
-                            onClick={e => e.stopPropagation()}
-                            className={css.paletteCard}
-                          >
-                            {stepsFactory.getStepIsHarnessSpecific(step.type || '') && renderIcon()}
-                            <Icon
-                              name={iconMap[step.name || /* istanbul ignore next */ '']}
-                              className={css.paletteIcon}
-                              size={25}
-                            />
-                          </Card>
-                        )}
-                        <section className={css.stepName}>{step.name}</section>
+                        <StepPopover stepData={stepData} stepsFactory={stepsFactory} />
+                        <section className={css.stepName}>{stepData.name}</section>
                       </section>
                     )
                   })

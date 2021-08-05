@@ -8,6 +8,7 @@ import { StepViewType, StepProps, ValidateInputSetProps } from '@pipeline/compon
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import type { StepElementConfig } from 'services/cd-ng'
+import type { StringsMap } from 'stringTypes'
 import FlagConfigurationInputSetStep from './FlagConfigurationInputSetStep'
 import { FlagConfigurationStepWidgetWithRef } from './FlagConfigurationStepWidget'
 import {
@@ -64,6 +65,7 @@ export class FlagConfigurationStep extends PipelineStep<FlagConfigurationStepDat
   protected type = StepType.FlagConfiguration
   protected stepName = 'Flag Configuration'
   protected stepIcon: IconName = 'flag' // TODO: Use better icon
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.FlagConfiguration'
   protected isHarnessSpecific = true
 
   validateInputSet({

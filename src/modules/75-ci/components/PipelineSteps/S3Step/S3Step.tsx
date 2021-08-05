@@ -8,6 +8,7 @@ import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { validateInputSet } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import { getFormValuesInCorrectFormat } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
 import type { MultiTypeConnectorRef, Resources } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
+import type { StringsMap } from 'stringTypes'
 import { S3StepBaseWithRef } from './S3StepBase'
 import { S3StepInputSet } from './S3StepInputSet'
 import { S3StepVariables, S3StepVariablesProps } from './S3StepVariables'
@@ -67,6 +68,7 @@ export class S3Step extends PipelineStep<S3StepData> {
   protected type = StepType.S3
   protected stepName = 'Upload Artifacts to S3'
   protected stepIcon: IconName = 'service-service-s3'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.S3'
   protected stepPaletteVisible = false
 
   protected defaultValues: S3StepData = {

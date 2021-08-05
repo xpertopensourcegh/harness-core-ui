@@ -21,6 +21,7 @@ import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
+import type { StringsMap } from 'stringTypes'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export interface K8sBGDeployData extends StepElementConfig {
@@ -245,6 +246,7 @@ export class K8sBlueGreenDeployStep extends PipelineStep<K8sBGDeployData> {
   protected type = StepType.K8sBlueGreenDeploy
   protected stepName = 'K8s Blue Green Deploy'
   protected stepIcon: IconName = 'bluegreen'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.K8sBlueGreenDeploy'
   protected isHarnessSpecific = true
 
   protected defaultValues: K8sBGDeployData = {

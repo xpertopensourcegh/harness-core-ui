@@ -20,6 +20,7 @@ import type {
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
+import type { StringsMap } from 'stringTypes'
 import { DockerHubStepBaseWithRef } from './DockerHubStepBase'
 import { DockerHubStepInputSet } from './DockerHubStepInputSet'
 import { DockerHubStepVariables, DockerHubStepVariablesProps } from './DockerHubStepVariables'
@@ -92,6 +93,7 @@ export class DockerHubStep extends PipelineStep<DockerHubStepData> {
   protected type = StepType.DockerHub
   protected stepName = 'Build and Push an image to Docker Registry'
   protected stepIcon: IconName = 'docker-hub-step'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.DockerHub'
   protected stepPaletteVisible = false
 
   protected defaultValues: DockerHubStepData = {

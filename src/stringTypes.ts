@@ -1968,6 +1968,7 @@ export interface StringsMap {
   'pipeline.pipelineSteps.customStage': string
   'pipeline.pipelineSteps.deployStageDescription': string
   'pipeline.pipelineSteps.featureStageDescription': string
+  'pipeline.poweredByHarness': string
   'pipeline.progressPercentage': string
   'pipeline.provisionerSteps': string
   'pipeline.regionPlaceholder': string
@@ -1995,6 +1996,42 @@ export interface StringsMap {
   'pipeline.stepCommonFields.runAsUser': string
   'pipeline.stepCommonFields.validation.mustBeANumber': string
   'pipeline.stepConfigHasChanges': string
+  'pipeline.stepDescription.Barrier': string
+  'pipeline.stepDescription.DockerHub': string
+  'pipeline.stepDescription.ECR': string
+  'pipeline.stepDescription.FlagConfiguration': string
+  'pipeline.stepDescription.GCR': string
+  'pipeline.stepDescription.GCS': string
+  'pipeline.stepDescription.HTTP': string
+  'pipeline.stepDescription.HarnessApproval': string
+  'pipeline.stepDescription.JFrogArtifactory': string
+  'pipeline.stepDescription.JiraApproval': string
+  'pipeline.stepDescription.JiraCreate': string
+  'pipeline.stepDescription.JiraUpdate': string
+  'pipeline.stepDescription.K8sApply': string
+  'pipeline.stepDescription.K8sBGSwapServices': string
+  'pipeline.stepDescription.K8sBlueGreenDeploy': string
+  'pipeline.stepDescription.K8sCanaryDelete': string
+  'pipeline.stepDescription.K8sCanaryDeploy': string
+  'pipeline.stepDescription.K8sDelete': string
+  'pipeline.stepDescription.K8sRollingDeploy': string
+  'pipeline.stepDescription.K8sRollingRollback': string
+  'pipeline.stepDescription.K8sScale': string
+  'pipeline.stepDescription.Plugin': string
+  'pipeline.stepDescription.ResourceConstraint': string
+  'pipeline.stepDescription.RestoreCacheGCS': string
+  'pipeline.stepDescription.RestoreCacheS3': string
+  'pipeline.stepDescription.Run': string
+  'pipeline.stepDescription.RunTests': string
+  'pipeline.stepDescription.S3': string
+  'pipeline.stepDescription.SHELLSCRIPT': string
+  'pipeline.stepDescription.SaveCacheGCS': string
+  'pipeline.stepDescription.SaveCacheS3': string
+  'pipeline.stepDescription.TerraformApply': string
+  'pipeline.stepDescription.TerraformDestroy': string
+  'pipeline.stepDescription.TerraformPlan': string
+  'pipeline.stepDescription.TerraformRollback': string
+  'pipeline.stepDescription.Verify': string
   'pipeline.stepDetails': string
   'pipeline.stepLabel': string
   'pipeline.tagDependencyRequired': string

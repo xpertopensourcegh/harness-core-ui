@@ -3,13 +3,11 @@
 declare const styles: {
   readonly expandedInput: string
   readonly stepInside: string
-  readonly stepHarnessLogo: string
   readonly paletteCardHeader: string
   readonly title: string
   readonly subTitle: string
   readonly paletteIcon: string
   readonly library: string
-  readonly paletteCard: string
   readonly stepPalette: string
   readonly stepsRenderer: string
   readonly categorySteps: string

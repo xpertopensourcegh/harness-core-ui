@@ -35,6 +35,7 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import type { StringsMap } from 'stringTypes'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export interface K8sScaleData extends StepElementConfig {
@@ -313,6 +314,7 @@ export class K8sScaleStep extends PipelineStep<K8sScaleData> {
   protected stepName = 'K8s Scale'
 
   protected stepIcon: IconName = 'swap-vertical'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.K8sScale'
   protected isHarnessSpecific = true
 
   processFormData(values: K8sScaleData): K8sScaleData {

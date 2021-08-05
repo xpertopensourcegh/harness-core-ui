@@ -24,6 +24,7 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 
+import type { StringsMap } from 'stringTypes'
 import pipelineVariableCss from '@pipeline/components/PipelineStudio/PipelineVariables/PipelineVariables.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
@@ -261,6 +262,7 @@ export class K8RolloutDeployStep extends PipelineStep<K8RolloutDeployData> {
   protected type = StepType.K8sRollingDeploy
   protected stepName = 'K8s Rollout Deploy'
   protected stepIcon: IconName = 'rolling'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.K8sRollingDeploy'
   protected isHarnessSpecific = true
 
   protected defaultValues: K8RolloutDeployData = {

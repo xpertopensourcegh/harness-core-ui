@@ -14,6 +14,7 @@ import type {
   MultiTypeConnectorRef,
   Resources
 } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
+import type { StringsMap } from 'stringTypes'
 import { PluginStepBaseWithRef } from './PluginStepBase'
 import { PluginStepInputSet } from './PluginStepInputSet'
 import { PluginStepVariables, PluginStepVariablesProps } from './PluginStepVariables'
@@ -72,6 +73,8 @@ export class PluginStep extends PipelineStep<PluginStepData> {
   protected type = StepType.Plugin
   protected stepName = 'Configure Plugin Step'
   protected stepIcon: IconName = 'plugin-step'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.Plugin'
+
   protected stepPaletteVisible = false
 
   protected defaultValues: PluginStepData = {

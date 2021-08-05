@@ -28,6 +28,7 @@ repositoryUrlPlaceholder: Enter Repository URL
 lastSevenDays: In Last 7 days
 neverRan: This pipeline never ran
 startedOn: Started On
+poweredByHarness: powered by Harness
 outOf: Out Of
 approvalStage:
   settingUpStage: Getting stage data
@@ -698,3 +699,40 @@ myBuildsText: My Builds
 noBuckets: No buckets found with given region
 gitRepos: Git Repos
 buildRepo: Build Repo
+stepDescription:
+  HTTP: Run HTTP requests containing URLs, methods, headers, assertions, and variables.
+  SHELLSCRIPT: Execute scripts in the shell session. The scripts can be executed on the pod/instance running a Harness Delegate or on a remote host in the infrastructure.
+  Barrier: Synchronize multiple Pipelines to coordinate deployments systematically.
+  K8sRollingRollback: Roll back the workloads deployed by the stage.
+  K8sBlueGreenDeploy: Deploy your new app version to the stage environment.
+  K8sCanaryDeploy: Define how many pods are deployed for a Canary test of your new service version.
+  K8sBGSwapServices: Swap services to route production traffic to the new version of the application and stage traffic to the old version.
+  K8sScale: Update the number of pods running for a workload by count or percentage.
+  K8sApply: Deploy individual Kubernetes workloads from your stage's Service.
+  K8sCanaryDelete: Clean up the workload deployed by the Canary Deployment step.
+  K8sDelete: Delete Kubernetes resources by name, manifest path, and release name.
+  K8sRollingDeploy: Use a rolling update to schedule new pods on nodes with available resources. This step uses the number of replicas you specified in the Deployment manifest.
+  Plugin: Use Docker containers to perform predefined tasks like deploy code, publish artifacts, send notifications, and more.
+  Run: Execute one or more commands on a container image in a CI stage.
+  GCR: Build an image and push it to Google Container Registry (GCR).
+  ECR: Build an image and push it to AWS Elastic Container Registry (ECR).
+  SaveCacheGCS: Preserve files and directories between builds using Google Cloud Storage (GCS).
+  RestoreCacheGCS: Restore saved files and directories between builds using Google Cloud Storage (GCS).
+  SaveCacheS3: Preserve files and directories between builds using AWS S3.
+  RestoreCacheS3: Restore saved files and directories between builds using AWS S3.
+  DockerHub: Build a Docker image from a Dockerfile and push it to a Docker registry.
+  GCS: Upload artifacts to Google Cloud Storage (GCS).
+  S3: Upload artifacts to AWS S3.
+  JFrogArtifactory: Upload artifacts to JFrog Artifactory.
+  RunTests: Execute unit, integration, and other tests on a CI container image.
+  HarnessApproval: Add manual approvals as steps and stages.
+  JiraApproval: Use Jira issues to approve steps and stages.
+  Verify: Verify a deployment using your monitoring tools.
+  JiraCreate: Create a Jira issue as a step in the execution of a Pipeline.
+  JiraUpdate: Update a Jira issue as a step in the execution of a Pipeline.
+  TerraformRollback: Roll back your provisioned infrastructure and resources and return your environment to its pre-deployment state.
+  TerraformDestroy: Remove any infrastructure you've provisioned using Harness.
+  TerraformPlan: Run a Terraform script as a Terraform plan.
+  TerraformApply: Apply a Terraform plan or script.
+  ResourceConstraint: Queue the number of resources Harness requests during a deployment by placing capacity limits on the requests.
+  FlagConfiguration: Create a Boolean or Multivariate Feature Flag.

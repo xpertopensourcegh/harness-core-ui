@@ -35,6 +35,7 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 
 import type { GitQueryParams, InputSetPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
+import type { StringsMap } from 'stringTypes'
 import css from './Barrier.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
@@ -334,6 +335,7 @@ export class BarrierStep extends PipelineStep<BarrierData> {
   protected type = StepType.Barrier
   protected stepName = 'Synchronization Barrier'
   protected stepIcon: IconName = 'barrier-open'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.Barrier'
 
   protected defaultValues: BarrierData = {
     identifier: '',

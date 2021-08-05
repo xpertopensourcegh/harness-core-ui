@@ -25,6 +25,7 @@ import { getInstanceDropdownSchema } from '@common/components/InstanceDropdownFi
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import type { StringsMap } from 'stringTypes'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export interface K8sCanaryDeployData extends StepElementConfig {
@@ -264,6 +265,7 @@ export class K8sCanaryDeployStep extends PipelineStep<K8sCanaryDeployData> {
   protected stepName = 'K8s Canary Deploy'
 
   protected stepIcon: IconName = 'canary'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.K8sCanaryDeploy'
   protected isHarnessSpecific = true
 
   processFormData(values: K8sCanaryDeployData): K8sCanaryDeployData {

@@ -8,6 +8,7 @@ import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { validateInputSet } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import { getFormValuesInCorrectFormat } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
 import type { MultiTypeConnectorRef, Resources } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
+import type { StringsMap } from 'stringTypes'
 import { GCSStepBaseWithRef } from './GCSStepBase'
 import { GCSStepInputSet } from './GCSStepInputSet'
 import { GCSStepVariables, GCSStepVariablesProps } from './GCSStepVariables'
@@ -65,6 +66,7 @@ export class GCSStep extends PipelineStep<GCSStepData> {
   protected type = StepType.GCS
   protected stepName = 'Upload Artifacts to GCS'
   protected stepIcon: IconName = 'gcs-step'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.GCS'
   protected stepPaletteVisible = false
 
   protected defaultValues: GCSStepData = {

@@ -21,6 +21,7 @@ import type {
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
+import type { StringsMap } from 'stringTypes'
 import { RunStepBaseWithRef } from './RunStepBase'
 import { RunStepInputSet } from './RunStepInputSet'
 import { RunStepVariables, RunStepVariablesProps } from './RunStepVariables'
@@ -106,6 +107,7 @@ export class RunStep extends PipelineStep<RunStepData> {
   protected type = StepType.Run
   protected stepName = 'Configure Run Step'
   protected stepIcon: IconName = 'run-step'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.Run'
   protected stepPaletteVisible = false
 
   protected defaultValues: RunStepData = {

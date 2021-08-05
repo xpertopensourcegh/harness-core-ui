@@ -21,6 +21,7 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
+import type { StringsMap } from 'stringTypes'
 import type { TFRollbackData } from '../Common/Terraform/TerraformInterfaces'
 
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
@@ -200,6 +201,7 @@ export class TerraformRollback extends PipelineStep<TFRollbackData> {
   }
   protected stepIcon: IconName = 'terraform-apply-new'
   protected stepName = 'Terraform Rollback'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.TerraformRollback'
 
   validateInputSet({
     data,

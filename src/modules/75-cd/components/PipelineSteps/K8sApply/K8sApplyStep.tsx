@@ -36,6 +36,7 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import List from '@common/components/List/List'
+import type { StringsMap } from 'stringTypes'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export interface K8sApplyData extends StepElementConfig {
@@ -499,6 +500,7 @@ export class K8sApplyStep extends PipelineStep<K8sApplyData> {
   protected type = StepType.K8sApply
   protected stepName = 'K8s Apply'
   protected stepIcon: IconName = 'code'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.K8sApply'
 
   protected defaultValues: K8sApplyData = {
     identifier: '',

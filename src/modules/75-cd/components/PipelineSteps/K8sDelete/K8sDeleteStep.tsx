@@ -37,6 +37,7 @@ import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
 import List from '@common/components/List/List'
+import type { StringsMap } from 'stringTypes'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './K8sDelete.module.scss'
 
@@ -803,6 +804,7 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteFormData> {
   protected type = StepType.K8sDelete
   protected stepName = 'K8s Delete'
   protected stepIcon: IconName = 'delete'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.K8sDelete'
   protected isHarnessSpecific = true
 
   protected defaultValues: K8sDeleteFormData = {

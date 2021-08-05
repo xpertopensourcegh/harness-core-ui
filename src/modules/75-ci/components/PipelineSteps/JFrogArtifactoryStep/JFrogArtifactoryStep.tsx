@@ -13,6 +13,7 @@ import type { MultiTypeConnectorRef, Resources } from '@pipeline/components/Pipe
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
+import type { StringsMap } from 'stringTypes'
 import { JFrogArtifactoryStepBaseWithRef } from './JFrogArtifactoryStepBase'
 import { JFrogArtifactoryStepInputSet } from './JFrogArtifactoryStepInputSet'
 import { JFrogArtifactoryStepVariables, JFrogArtifactoryStepVariablesProps } from './JFrogArtifactoryStepVariables'
@@ -76,6 +77,7 @@ export class JFrogArtifactoryStep extends PipelineStep<JFrogArtifactoryStepData>
   protected type = StepType.JFrogArtifactory
   protected stepName = 'Upload Artifacts to JFrog Artifactory'
   protected stepIcon: IconName = 'service-artifactory'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.JFrogArtifactory'
   protected stepPaletteVisible = false
 
   protected defaultValues: JFrogArtifactoryStepData = {

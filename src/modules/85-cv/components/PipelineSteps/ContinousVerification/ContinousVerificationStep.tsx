@@ -7,6 +7,7 @@ import { StepViewType, StepProps, ValidateInputSetProps } from '@pipeline/compon
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 
+import type { StringsMap } from 'stringTypes'
 import type { ContinousVerificationData, ContinousVerificationVariableStepProps, spec } from './types'
 import { ContinousVerificationWidgetWithRef } from './components/ContinousVerificationWidget/ContinousVerificationWidget'
 import { ContinousVerificationInputSetStep } from './components/ContinousVerificationInputSetStep/ContinousVerificationInputSetStep'
@@ -24,6 +25,7 @@ export class ContinousVerificationStep extends PipelineStep<ContinousVerificatio
   protected type = StepType.Verify
   protected stepName = 'Verify'
   protected stepIcon: IconName = 'cv-main'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.Verify'
   protected isHarnessSpecific = true
   protected defaultValues: ContinousVerificationData = cvDefaultValues
 

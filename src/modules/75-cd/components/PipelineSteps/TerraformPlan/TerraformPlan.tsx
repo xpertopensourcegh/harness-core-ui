@@ -54,6 +54,7 @@ import { useQueryParams } from '@common/hooks'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import type { StringNGVariable } from 'services/cd-ng'
 
+import type { StringsMap } from 'stringTypes'
 import {
   CommandTypes,
   onSubmitTFPlanData,
@@ -424,6 +425,7 @@ export class TerraformPlan extends PipelineStep<TFPlanFormData> {
   }
   protected stepIcon: IconName = 'terraform-apply-new'
   protected stepName = 'Terraform Plan'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.TerraformPlan'
   /* istanbul ignore next */
   validateInputSet({
     data,

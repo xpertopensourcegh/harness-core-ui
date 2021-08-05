@@ -17,6 +17,7 @@ import type {
   MultiTypeMapUIType,
   Resources
 } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
+import type { StringsMap } from 'stringTypes'
 import { RunTestsStepBaseWithRef } from './RunTestsStepBase'
 import { RunTestsStepInputSet } from './RunTestsStepInputSet'
 import { RunTestsStepVariables, RunTestsStepVariablesProps } from './RunTestsStepVariables'
@@ -97,6 +98,7 @@ export class RunTestsStep extends PipelineStep<RunTestsStepData> {
   protected type = StepType.RunTests
   protected stepName = 'Configure Run Tests Step'
   protected stepIcon: IconName = 'run-tests-step'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.RunTests'
   protected stepPaletteVisible = false
 
   protected defaultValues: RunTestsStepData = {

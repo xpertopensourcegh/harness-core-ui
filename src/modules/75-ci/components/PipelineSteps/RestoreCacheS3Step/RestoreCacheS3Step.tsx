@@ -18,6 +18,7 @@ import type {
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
+import type { StringsMap } from 'stringTypes'
 import { RestoreCacheS3StepBaseWithRef } from './RestoreCacheS3StepBase'
 import { RestoreCacheS3StepInputSet } from './RestoreCacheS3StepInputSet'
 import { RestoreCacheS3StepVariables, RestoreCacheS3StepVariablesProps } from './RestoreCacheS3StepVariables'
@@ -81,6 +82,7 @@ export class RestoreCacheS3Step extends PipelineStep<RestoreCacheS3StepData> {
   protected type = StepType.RestoreCacheS3
   protected stepName = 'Restore Cache from S3'
   protected stepIcon: IconName = 'restore-cache-s3'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.RestoreCacheS3'
   protected stepPaletteVisible = false
 
   protected defaultValues: RestoreCacheS3StepData = {

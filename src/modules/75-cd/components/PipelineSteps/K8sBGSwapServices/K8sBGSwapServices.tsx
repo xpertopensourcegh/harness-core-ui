@@ -27,6 +27,7 @@ import {
 
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
+import type { StringsMap } from 'stringTypes'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 interface K8sBGSwapServicesData extends StepElementConfig {
@@ -203,6 +204,7 @@ export class K8sBGSwapServices extends PipelineStep<K8sBGSwapServicesData> {
   protected stepName = 'K8s Blue Green Swap Services'
 
   protected stepIcon: IconName = 'command-swap'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.K8sBGSwapServices'
 
   validateInputSet({
     data,

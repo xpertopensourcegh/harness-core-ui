@@ -15,6 +15,7 @@ import type {
   MultiTypeSelectOption,
   Resources
 } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
+import type { StringsMap } from 'stringTypes'
 import { SaveCacheS3StepBaseWithRef } from './SaveCacheS3StepBase'
 import { SaveCacheS3StepInputSet } from './SaveCacheS3StepInputSet'
 import { SaveCacheS3StepVariables, SaveCacheS3StepVariablesProps } from './SaveCacheS3StepVariables'
@@ -75,6 +76,7 @@ export class SaveCacheS3Step extends PipelineStep<SaveCacheS3StepData> {
   protected type = StepType.SaveCacheS3
   protected stepName = 'Save Cache to S3'
   protected stepIcon: IconName = 'save-cache-s3'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.SaveCacheS3'
   protected stepPaletteVisible = false
 
   protected defaultValues: SaveCacheS3StepData = {
