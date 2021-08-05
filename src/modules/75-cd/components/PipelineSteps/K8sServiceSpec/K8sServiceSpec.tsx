@@ -442,7 +442,6 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
         )
       }
     })
-
     return errors
   }
 

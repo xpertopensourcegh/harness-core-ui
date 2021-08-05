@@ -2607,6 +2607,105 @@ exports[`GCR renders the tag component if other values are fixed: fetch tags gcr
 </div>
 `;
 
+exports[`INPUT VARIABLE VIEW renders the input variable view: input variabe mode 1`] = `
+<div>
+  <div
+    class="Accordion--panel"
+    data-open="false"
+    data-testid="Stage.undefined.Service.Variables-panel"
+    id="Stage.undefined.Service.Variables-panel"
+  >
+    <div
+      class="Accordion--summary variableBorderBottom accordianSummaryL2"
+      data-testid="Stage.undefined.Service.Variables-summary"
+    >
+      <div
+        class="Accordion--chevron"
+      />
+      <div
+        class=""
+      >
+        <div
+          class="accordionSummary"
+        >
+          <div>
+            <span
+              class="bp3-icon StyledProps--main iconCollapsed"
+              data-icon="accordion-collapsed"
+            >
+              <svg
+                fill="none"
+                height="16"
+                viewBox="0 0 12 12"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  fill="#F3F3FA"
+                  height="11.5"
+                  rx="0.75"
+                  stroke="#9293AB"
+                  stroke-width="0.5"
+                  width="11.5"
+                  x="0.25"
+                  y="0.25"
+                />
+                <path
+                  d="M10 6.571H6.571V10H5.43V6.571H2V5.43h3.429V2H6.57v3.429H10V6.57z"
+                  fill="#0A3364"
+                  opacity="0.7"
+                />
+              </svg>
+            </span>
+            <span
+              class="bp3-icon StyledProps--main iconExpanded"
+              data-icon="accordion-expanded"
+            >
+              <svg
+                fill="none"
+                height="16"
+                viewBox="0 0 12 11"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  fill="#F3F3FA"
+                  height="10.5"
+                  rx="0.75"
+                  stroke="#9293AB"
+                  stroke-width="0.5"
+                  width="11.5"
+                  x="0.25"
+                  y="0.25"
+                />
+                <path
+                  d="M10 6.143H2V5h8v1.143z"
+                  fill="#0A3364"
+                  opacity="0.7"
+                />
+              </svg>
+            </span>
+          </div>
+          <div>
+             
+            variablesText
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="bp3-collapse Accordion--collapse"
+    >
+      <div
+        aria-hidden="false"
+        class="bp3-collapse-body"
+        style="transform: translateY(-undefinedpx);"
+      />
+    </div>
+  </div>
+</div>
+`;
+
 exports[`MANIFEST renders the K8 manifest: manifest form skeleton 1`] = `
 <div>
   <div

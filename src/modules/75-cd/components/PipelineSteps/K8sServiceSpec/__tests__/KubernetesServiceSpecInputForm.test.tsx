@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, act, waitFor } from '@testing-library/react'
+import { render, act, waitFor, fireEvent } from '@testing-library/react'
 import { Formik, RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
@@ -7,7 +7,11 @@ import type { AllNGVariables } from '@pipeline/utils/types'
 import { CustomVariables } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariables'
 import { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
-import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { StepFormikRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import {
+  TestStepWidget,
+  factory as testStepFactory
+} from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
 import type { K8SDirectServiceStep } from '../K8sServiceSpecInterface'
 import { KubernetesServiceSpec } from '../K8sServiceSpec'
 import {
@@ -538,5 +542,511 @@ describe('MANIFEST', () => {
     )
 
     expect(container).toMatchSnapshot('manifest form skeleton')
+  })
+})
+
+describe('VALIDATIONS', () => {
+  beforeEach(() => {
+    testStepFactory.registerStep(new KubernetesServiceSpec())
+  })
+  test('ARTIFACTS', async () => {
+    const ref = React.createRef<StepFormikRef<unknown>>()
+    const { container, getByText } = render(
+      <TestStepWidget
+        type={StepType.K8sServiceSpec}
+        stepViewType={StepViewType.DeploymentForm}
+        ref={ref}
+        template={{
+          artifacts: {
+            metadata: 'artifactmetadata',
+            primary: {
+              type: 'DockerRegistry',
+              spec: {
+                connectorRef: RUNTIME_INPUT_VALUE,
+                tag: RUNTIME_INPUT_VALUE,
+                imagePath: RUNTIME_INPUT_VALUE,
+                registryHostname: RUNTIME_INPUT_VALUE,
+                region: RUNTIME_INPUT_VALUE,
+                tagRegex: RUNTIME_INPUT_VALUE
+              }
+            }
+          }
+        }}
+        initialValues={{
+          artifacts: {
+            metadata: 'artifactmetadata',
+            primary: {
+              type: 'DockerRegistry',
+              spec: {
+                connectorRef: '',
+                tag: '',
+                imagePath: '',
+                registryHostname: '',
+                region: '',
+                tagRegex: ''
+              }
+            }
+          }
+        }}
+      />
+    )
+
+    await act(() => {
+      fireEvent.click(getByText('Submit'))
+    })
+    const errorDiv = container.querySelector('pre')
+    await waitFor(() => expect(errorDiv?.innerHTML).not.toBe('{}'))
+  })
+
+  test('ARTIFACTS - with values present', async () => {
+    const ref = React.createRef<StepFormikRef<unknown>>()
+    const { container, getByText } = render(
+      <TestStepWidget
+        type={StepType.K8sServiceSpec}
+        stepViewType={StepViewType.DeploymentForm}
+        ref={ref}
+        template={{
+          artifacts: {
+            metadata: 'artifactmetadata',
+            primary: {
+              type: 'DockerRegistry',
+              spec: {
+                connectorRef: RUNTIME_INPUT_VALUE,
+                tag: RUNTIME_INPUT_VALUE,
+                imagePath: RUNTIME_INPUT_VALUE,
+                registryHostname: RUNTIME_INPUT_VALUE,
+                region: RUNTIME_INPUT_VALUE,
+                tagRegex: RUNTIME_INPUT_VALUE
+              }
+            }
+          }
+        }}
+        initialValues={{
+          artifacts: {
+            metadata: 'artifactmetadata',
+            primary: {
+              type: 'DockerRegistry',
+              spec: {
+                connectorRef: 'A',
+                tag: 'A',
+                imagePath: 'A',
+                registryHostname: 'A',
+                region: 'A',
+                tagRegex: 'A'
+              }
+            }
+          }
+        }}
+      />
+    )
+
+    await act(() => {
+      fireEvent.click(getByText('Submit'))
+    })
+    const errorDiv = container.querySelector('pre')
+    await waitFor(() => expect(errorDiv?.innerHTML).toBe('{}'))
+  })
+
+  test('ARTIFACTS: Input Set mode - do not validate', async () => {
+    const ref = React.createRef<StepFormikRef<unknown>>()
+    const { container, getByText } = render(
+      <TestStepWidget
+        type={StepType.K8sServiceSpec}
+        stepViewType={StepViewType.InputSet}
+        ref={ref}
+        template={{
+          artifacts: {
+            metadata: 'artifactmetadata',
+            primary: {
+              type: 'DockerRegistry',
+              spec: {
+                connectorRef: RUNTIME_INPUT_VALUE,
+                tag: RUNTIME_INPUT_VALUE,
+                imagePath: RUNTIME_INPUT_VALUE,
+                registryHostname: RUNTIME_INPUT_VALUE,
+                region: RUNTIME_INPUT_VALUE,
+                tagRegex: RUNTIME_INPUT_VALUE
+              }
+            }
+          }
+        }}
+        initialValues={{
+          artifacts: {
+            metadata: 'artifactmetadata',
+            primary: {
+              type: 'DockerRegistry',
+              spec: {
+                connectorRef: '',
+                tag: '',
+                imagePath: '',
+                registryHostname: '',
+                region: '',
+                tagRegex: ''
+              }
+            }
+          }
+        }}
+      />
+    )
+
+    await act(() => {
+      fireEvent.click(getByText('Submit'))
+    })
+    const errorDiv = container.querySelector('pre')
+    await waitFor(() => expect(errorDiv?.innerHTML).toBe('{}'))
+  })
+
+  test('SIDECARS', async () => {
+    const ref = React.createRef<StepFormikRef<unknown>>()
+    const { container, getByText } = render(
+      <TestStepWidget
+        type={StepType.K8sServiceSpec}
+        stepViewType={StepViewType.DeploymentForm}
+        ref={ref}
+        template={{
+          artifacts: {
+            sidecars: [
+              {
+                sidecar: {
+                  spec: {
+                    connectorRef: RUNTIME_INPUT_VALUE,
+                    imagePath: RUNTIME_INPUT_VALUE,
+                    tag: RUNTIME_INPUT_VALUE,
+                    tagRegex: RUNTIME_INPUT_VALUE,
+                    registryHostname: RUNTIME_INPUT_VALUE
+                  }
+                }
+              }
+            ]
+          }
+        }}
+        initialValues={{
+          artifacts: {
+            sidecars: [
+              {
+                sidecar: {
+                  spec: {
+                    connectorRef: '',
+                    imagePath: '',
+                    tag: '',
+                    tagRegex: '',
+                    registryHostname: ''
+                  }
+                }
+              }
+            ]
+          }
+        }}
+      />
+    )
+
+    await act(() => {
+      fireEvent.click(getByText('Submit'))
+    })
+    const errorDiv = container.querySelector('pre')
+    await waitFor(() => expect(errorDiv?.innerHTML).not.toBe('{}'))
+  })
+
+  test('SIDECARS - with values present', async () => {
+    const ref = React.createRef<StepFormikRef<unknown>>()
+    const { container, getByText } = render(
+      <TestStepWidget
+        type={StepType.K8sServiceSpec}
+        stepViewType={StepViewType.DeploymentForm}
+        ref={ref}
+        template={{
+          artifacts: {
+            sidecars: [
+              {
+                sidecar: {
+                  spec: {
+                    connectorRef: RUNTIME_INPUT_VALUE,
+                    imagePath: RUNTIME_INPUT_VALUE,
+                    tag: RUNTIME_INPUT_VALUE,
+                    tagRegex: RUNTIME_INPUT_VALUE,
+                    registryHostname: RUNTIME_INPUT_VALUE
+                  }
+                }
+              }
+            ]
+          }
+        }}
+        initialValues={{
+          artifacts: {
+            sidecars: [
+              {
+                sidecar: {
+                  spec: {
+                    connectorRef: 'A',
+                    imagePath: 'A',
+                    tag: 'A',
+                    tagRegex: 'A',
+                    registryHostname: 'A'
+                  }
+                }
+              }
+            ]
+          }
+        }}
+      />
+    )
+
+    await act(() => {
+      fireEvent.click(getByText('Submit'))
+    })
+    const errorDiv = container.querySelector('pre')
+    await waitFor(() => expect(errorDiv?.innerHTML).toBe('{}'))
+  })
+
+  test('SIDECARS: Input Set mode do not validate', async () => {
+    const ref = React.createRef<StepFormikRef<unknown>>()
+    const { container, getByText } = render(
+      <TestStepWidget
+        type={StepType.K8sServiceSpec}
+        stepViewType={StepViewType.InputSet}
+        ref={ref}
+        template={{
+          artifacts: {
+            sidecars: [
+              {
+                sidecar: {
+                  spec: {
+                    connectorRef: RUNTIME_INPUT_VALUE,
+                    imagePath: RUNTIME_INPUT_VALUE,
+                    tag: RUNTIME_INPUT_VALUE,
+                    tagRegex: RUNTIME_INPUT_VALUE,
+                    registryHostname: RUNTIME_INPUT_VALUE
+                  }
+                }
+              }
+            ]
+          }
+        }}
+        initialValues={{
+          artifacts: {
+            sidecars: [
+              {
+                sidecar: {
+                  spec: {
+                    connectorRef: '',
+                    imagePath: '',
+                    tag: '',
+                    tagRegex: '',
+                    registryHostname: ''
+                  }
+                }
+              }
+            ]
+          }
+        }}
+      />
+    )
+
+    await act(() => {
+      fireEvent.click(getByText('Submit'))
+    })
+    const errorDiv = container.querySelector('pre')
+    await waitFor(() => expect(errorDiv?.innerHTML).toBe('{}'))
+  })
+
+  test('MANIFESTS', async () => {
+    const ref = React.createRef<StepFormikRef<unknown>>()
+    const { container, getByText } = render(
+      <TestStepWidget
+        type={StepType.K8sServiceSpec}
+        stepViewType={StepViewType.DeploymentForm}
+        ref={ref}
+        template={{
+          manifests: [
+            {
+              manifest: {
+                spec: {
+                  store: {
+                    spec: {
+                      connectorRef: RUNTIME_INPUT_VALUE,
+                      folderPath: RUNTIME_INPUT_VALUE,
+                      branch: RUNTIME_INPUT_VALUE,
+                      paths: RUNTIME_INPUT_VALUE,
+                      bucketName: RUNTIME_INPUT_VALUE
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }}
+        initialValues={{
+          manifests: [
+            {
+              manifest: {
+                spec: {
+                  store: {
+                    spec: {
+                      connectorRef: '',
+                      folderPath: '',
+                      branch: '',
+                      paths: '',
+                      bucketName: ''
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }}
+      />
+    )
+
+    await act(() => {
+      fireEvent.click(getByText('Submit'))
+    })
+    const errorDiv = container.querySelector('pre')
+    await waitFor(() => expect(errorDiv?.innerHTML).not.toBe('{}'))
+  })
+
+  test('MANIFESTS - with values present', async () => {
+    const ref = React.createRef<StepFormikRef<unknown>>()
+    const { container, getByText } = render(
+      <TestStepWidget
+        type={StepType.K8sServiceSpec}
+        stepViewType={StepViewType.DeploymentForm}
+        ref={ref}
+        template={{
+          manifests: [
+            {
+              manifest: {
+                spec: {
+                  store: {
+                    spec: {
+                      connectorRef: RUNTIME_INPUT_VALUE,
+                      folderPath: RUNTIME_INPUT_VALUE,
+                      branch: RUNTIME_INPUT_VALUE,
+                      paths: RUNTIME_INPUT_VALUE,
+                      bucketName: RUNTIME_INPUT_VALUE
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }}
+        initialValues={{
+          manifests: [
+            {
+              manifest: {
+                spec: {
+                  store: {
+                    spec: {
+                      connectorRef: 'A',
+                      folderPath: 'A',
+                      branch: 'A',
+                      paths: 'A',
+                      bucketName: 'A'
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }}
+      />
+    )
+
+    await act(() => {
+      fireEvent.click(getByText('Submit'))
+    })
+    const errorDiv = container.querySelector('pre')
+    await waitFor(() => expect(errorDiv?.innerHTML).toBe('{}'))
+  })
+
+  test('MANIFESTS: Input set mode do not validate', async () => {
+    const ref = React.createRef<StepFormikRef<unknown>>()
+    const { container, getByText } = render(
+      <TestStepWidget
+        type={StepType.K8sServiceSpec}
+        stepViewType={StepViewType.InputSet}
+        ref={ref}
+        template={{
+          manifests: [
+            {
+              manifest: {
+                spec: {
+                  store: {
+                    spec: {
+                      connectorRef: RUNTIME_INPUT_VALUE,
+                      folderPath: RUNTIME_INPUT_VALUE,
+                      branch: RUNTIME_INPUT_VALUE,
+                      paths: RUNTIME_INPUT_VALUE,
+                      bucketName: RUNTIME_INPUT_VALUE
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }}
+        initialValues={{
+          manifests: [
+            {
+              manifest: {
+                spec: {
+                  store: {
+                    spec: {
+                      connectorRef: '',
+                      folderPath: '',
+                      branch: '',
+                      paths: '',
+                      bucketName: ''
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }}
+      />
+    )
+
+    await act(() => {
+      fireEvent.click(getByText('Submit'))
+    })
+    const errorDiv = container.querySelector('pre')
+    await waitFor(() => expect(errorDiv?.innerHTML).toBe('{}'))
+  })
+})
+
+describe('INPUT VARIABLE VIEW', () => {
+  test(`renders the input variable view`, () => {
+    const { container } = render(
+      <TestWrapper>
+        <StepWidget<K8SDirectServiceStep>
+          factory={factory}
+          customStepProps={{
+            variablesData: {
+              artifacts: {
+                metadata: 'artifactmetadata',
+                primary: {
+                  type: 'Gcr',
+                  spec: {
+                    connectorRef: 'A',
+                    tag: 'B',
+                    imagePath: 'C',
+                    registryHostname: 'D',
+                    region: 'E',
+                    tagRegex: 'F'
+                  }
+                },
+                sidecars: []
+              }
+            }
+          }}
+          initialValues={{}}
+          type={StepType.K8sServiceSpec}
+          stepViewType={StepViewType.InputVariable}
+        />
+      </TestWrapper>
+    )
+
+    expect(container).toMatchSnapshot('input variabe mode')
   })
 })
