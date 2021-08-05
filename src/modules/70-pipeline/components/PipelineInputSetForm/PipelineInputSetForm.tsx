@@ -6,6 +6,7 @@ import type { DeploymentStageConfig, PipelineInfoConfig, StageElementWrapperConf
 import { useStrings } from 'framework/strings'
 import type { AllNGVariables } from '@pipeline/utils/types'
 
+import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { StageInputSetForm } from './StageInputSetForm'
 import { CICodebaseInputSetForm } from './CICodebaseInputSetForm'
 import { StepWidget } from '../AbstractSteps/StepWidget'
@@ -19,7 +20,9 @@ import { StepType } from '../PipelineSteps/PipelineStepInterface'
 import { StepViewType } from '../AbstractSteps/Step'
 import { getStageFromPipeline } from '../PipelineStudio/StepUtil'
 import { PipelineVariablesContextProvider } from '../PipelineVariablesContext/PipelineVariablesContext'
+import { useVariablesExpression } from '../PipelineStudio/PiplineHooks/useVariablesExpression'
 import css from './PipelineInputSetForm.module.scss'
+import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export interface PipelineInputSetFormProps {
   originalPipeline: PipelineInfoConfig
@@ -98,18 +101,35 @@ function StageForm({
   )
 }
 
-export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props => {
+const PipelineInputSetFormInternal: React.FC<PipelineInputSetFormProps> = props => {
   const { originalPipeline, template, path = '', readonly, maybeContainerClass = '' } = props
   const { getString } = useStrings()
 
   const isCloneCodebaseEnabledAtLeastAtOneStage = originalPipeline?.stages?.some(stage =>
     get(stage, 'stage.spec.cloneCodebase')
   )
+  const { expressions } = useVariablesExpression()
 
   return (
     <PipelineVariablesContextProvider pipeline={originalPipeline}>
       <Layout.Vertical spacing="medium" className={cx(css.container, maybeContainerClass)}>
-        {(template as any)?.variables?.length > 0 && (
+        {getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME ? (
+          <div className={cx(stepCss.formGroup, stepCss.sm)}>
+            <FormMultiTypeDurationField
+              multiTypeDurationProps={{
+                enableConfigureOptions: false,
+                allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                expressions,
+                disabled: readonly
+              }}
+              className={stepCss.checkbox}
+              label={getString('pipelineSteps.timeoutLabel')}
+              name="timeout"
+              disabled={readonly}
+            />
+          </div>
+        ) : null}
+        {template?.variables && template?.variables?.length > 0 && (
           <>
             <div className={css.subheading}>{getString('customVariables.pipelineVariablesTitle')}</div>
             <StepWidget<CustomVariablesData, CustomVariableInputSetExtraProps>
@@ -170,6 +190,13 @@ export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props =
           })}
         </>
       </Layout.Vertical>
+    </PipelineVariablesContextProvider>
+  )
+}
+export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props => {
+  return (
+    <PipelineVariablesContextProvider pipeline={props.originalPipeline}>
+      <PipelineInputSetFormInternal {...props} />
     </PipelineVariablesContextProvider>
   )
 }

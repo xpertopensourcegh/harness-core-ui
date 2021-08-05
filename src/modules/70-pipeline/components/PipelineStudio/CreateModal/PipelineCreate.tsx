@@ -15,6 +15,10 @@ import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext
 import GitContextForm, { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
 import type { EntityGitDetails } from 'services/pipeline-ng'
 
+import {
+  FormMultiTypeDurationField,
+  getDurationValidationSchema
+} from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { DefaultNewPipelineId } from '../PipelineContext/PipelineActions'
 
 const logger = loggerFor(ModuleName.CD)
@@ -46,12 +50,13 @@ export default function CreatePipelines({
   }
   const isEdit = (initialValues?.identifier?.length || '') > 0
   return (
-    <Formik
+    <Formik<PipelineInfoConfigWithGitDetails>
       initialValues={initialValues}
       formName="pipelineCreate"
       validationSchema={Yup.object().shape({
         name: NameSchema({ requiredErrorMsg: getString('createPipeline.pipelineNameRequired') }),
         identifier: IdentifierSchema(),
+        timeout: getDurationValidationSchema({ minimum: '10s' }),
         ...(isGitSyncEnabled
           ? {
               repo: Yup.string().trim().required(getString('common.git.validation.repoRequired')),
@@ -75,6 +80,11 @@ export default function CreatePipelines({
             identifierProps={{
               isIdentifierEditable: pipelineIdentifier === DefaultNewPipelineId
             }}
+          />
+          <FormMultiTypeDurationField
+            name="timeout"
+            label={getString('pipelineSteps.timeoutLabel')}
+            multiTypeDurationProps={{ enableConfigureOptions: true }}
           />
           {isGitSyncEnabled && (
             <GitSyncStoreProvider>

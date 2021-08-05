@@ -302,7 +302,7 @@ exports[`<StepCommonFields /> tests Should render properly with no data 1`] = `
             class="bp3-form-content"
           >
             <div
-              style="display: flex; align-items: center;"
+              class="container"
             >
               <div
                 class="Layout--horizontal StyledProps--main MultiTypeInput--main"
@@ -659,7 +659,7 @@ exports[`<StepCommonFields /> tests Should render properly with passed initial v
             class="bp3-form-content"
           >
             <div
-              style="display: flex; align-items: center;"
+              class="container"
             >
               <div
                 class="Layout--horizontal StyledProps--main MultiTypeInput--main"

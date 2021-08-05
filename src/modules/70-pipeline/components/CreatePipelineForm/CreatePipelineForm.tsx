@@ -11,6 +11,10 @@ import type { EntityGitDetails } from 'services/pipeline-ng'
 import GitContextForm from '@common/components/GitContextForm/GitContextForm'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
+import {
+  FormMultiTypeDurationField,
+  getDurationValidationSchema
+} from '@common/components/MultiTypeDuration/MultiTypeDuration'
 
 interface CreatePipelineFormProps {
   handleSubmit: (value: PipelineInfoConfig, gitDetail: EntityGitDetails) => void
@@ -37,6 +41,7 @@ export const CreatePipelineForm: React.FC<CreatePipelineFormProps> = props => {
       validationSchema={Yup.object().shape({
         name: NameSchema({ requiredErrorMsg: getString('createPipeline.pipelineNameRequired') }),
         identifier: IdentifierSchema(),
+        timeout: getDurationValidationSchema({ minimum: '10s' }),
         ...(isGitSyncEnabled
           ? {
               repo: Yup.string().trim().required(getString('common.git.validation.repoRequired')),
@@ -62,6 +67,11 @@ export const CreatePipelineForm: React.FC<CreatePipelineFormProps> = props => {
               {getString('pipeline.createPipeline.setupSubtitle')}
             </Text>
             <NameIdDescriptionTags formikProps={formikProps} />
+            <FormMultiTypeDurationField
+              name="timeout"
+              label={getString('pipelineSteps.timeoutLabel')}
+              multiTypeDurationProps={{ enableConfigureOptions: true }}
+            />
             {isGitSyncEnabled && (
               <GitSyncStoreProvider>
                 <GitContextForm

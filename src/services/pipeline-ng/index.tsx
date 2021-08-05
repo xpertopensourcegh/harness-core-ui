@@ -1760,7 +1760,7 @@ export type HelmManifestSpec = ManifestTypeSpec & {
   chartVersion?: string
   eventDataConditions?: TriggerEventDataCondition[]
   spec?: BuildStoreTypeSpec
-  type?: 'HTTP_HELM'
+  type?: 'HTTP'
 }
 
 export type HttpBuildStoreTypeSpec = BuildStoreTypeSpec & { [key: string]: any }

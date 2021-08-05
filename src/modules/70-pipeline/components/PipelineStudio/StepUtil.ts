@@ -1,6 +1,7 @@
-import type { FormikErrors } from 'formik'
+import { FormikErrors, yupToFormErrors } from 'formik'
 import { getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import isEmpty from 'lodash-es/isEmpty'
+import * as Yup from 'yup'
 import set from 'lodash-es/set'
 import reduce from 'lodash-es/reduce'
 import isObject from 'lodash-es/isObject'
@@ -16,13 +17,14 @@ import type {
 } from 'services/cd-ng'
 
 import type { UseStringsReturn } from 'framework/strings'
+import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import factory from '../PipelineSteps/PipelineStepFactory'
 import { StepType } from '../PipelineSteps/PipelineStepInterface'
 // eslint-disable-next-line no-restricted-imports
 import '@cd/components/PipelineSteps'
 // eslint-disable-next-line no-restricted-imports
 import '@ci/components/PipelineSteps'
-import type { StepViewType } from '../AbstractSteps/Step'
+import { StepViewType } from '../AbstractSteps/Step'
 
 export const clearRuntimeInput = (template: PipelineInfoConfig): PipelineInfoConfig => {
   return JSON.parse(
@@ -343,6 +345,27 @@ export const validatePipeline = ({
         'properties.ci.codebase.build.spec.tag',
         getString?.('fieldRequired', { field: getString?.('gitTag') })
       )
+    }
+  }
+
+  if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
+    let timeoutSchema = getDurationValidationSchema({ minimum: '10s' })
+    if (viewType === StepViewType.DeploymentForm) {
+      timeoutSchema = timeoutSchema.required(getString?.('validation.timeout10SecMinimum'))
+    }
+    const timeout = Yup.object().shape({
+      timeout: timeoutSchema
+    })
+
+    try {
+      timeout.validateSync(pipeline)
+    } catch (e) {
+      /* istanbul ignore else */
+      if (e instanceof Yup.ValidationError) {
+        const err = yupToFormErrors(e)
+
+        Object.assign(errors, err)
+      }
     }
   }
 

@@ -225,7 +225,7 @@ exports[`<StepCommonFieldsInputSet /> tests Readonly mode works 1`] = `
             class="bp3-form-content"
           >
             <div
-              style="display: flex; align-items: center;"
+              class="container"
             >
               <div
                 class="Layout--horizontal StyledProps--main MultiTypeInput--main MultiTypeInput--disabled"
@@ -511,7 +511,7 @@ exports[`<StepCommonFieldsInputSet /> tests Should render properly 1`] = `
             class="bp3-form-content"
           >
             <div
-              style="display: flex; align-items: center;"
+              class="container"
             >
               <div
                 class="Layout--horizontal StyledProps--main MultiTypeInput--main"

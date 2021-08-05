@@ -3190,7 +3190,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
             class="bp3-form-content"
           >
             <div
-              style="display: flex; align-items: center;"
+              class="container"
             >
               <div
                 class="Layout--horizontal StyledProps--main MultiTypeInput--main"

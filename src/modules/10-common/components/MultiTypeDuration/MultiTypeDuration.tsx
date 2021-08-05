@@ -20,6 +20,7 @@ import * as Yup from 'yup'
 import { useStrings } from 'framework/strings'
 import { ConfigureOptions, ConfigureOptionsProps } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { errorCheck } from '@common/utils/formikHelpers'
+import css from './MultiTypeDuration.module.scss'
 
 export function isValidTimeString(value: string): boolean {
   return !DurationInputHelpers.UNIT_LESS_REGEX.test(value) && DurationInputHelpers.VALID_SYNTAX_REGEX.test(value)
@@ -83,7 +84,7 @@ export function MultiTypeDuration(props: MultiTypeDurationProps): React.ReactEle
   return (
     <>
       {enableConfigureOptions ? (
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div className={css.container}>
           {expressionAndRuntimeTypeComponent}
           {getMultiTypeFromValue(value) === MultiTypeInputType.RUNTIME && (
             <ConfigureOptions

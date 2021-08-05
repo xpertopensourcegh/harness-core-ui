@@ -232,7 +232,7 @@ exports[`stageinputset tests initial render 1`] = `
           class="bp3-form-content"
         >
           <div
-            style="display: flex; align-items: center;"
+            class="container"
           >
             <div
               class="Layout--horizontal StyledProps--main MultiTypeInput--main"
@@ -611,7 +611,7 @@ exports[`stageinputset tests initial render2 1`] = `
           class="bp3-form-content"
         >
           <div
-            style="display: flex; align-items: center;"
+            class="container"
           >
             <div
               class="Layout--horizontal StyledProps--main MultiTypeInput--main"

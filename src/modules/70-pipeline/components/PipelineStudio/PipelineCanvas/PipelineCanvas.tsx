@@ -488,6 +488,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     (data: PipelineInfoConfig, updatedGitDetails?: EntityGitDetails) => {
       pipeline.name = data.name
       pipeline.description = data.description
+      pipeline.timeout = data.timeout
       pipeline.identifier = data.identifier
       pipeline.tags = data.tags ?? {}
       delete (pipeline as PipelineWithGitContextFormProps).repo

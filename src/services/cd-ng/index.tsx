@@ -634,7 +634,7 @@ export type BranchBuildSpec = BuildSpec & {
 
 export interface Build {
   spec: BuildSpec
-  type: 'branch' | 'tag'
+  type: 'branch' | 'tag' | 'PR' | 'CommitSha'
 }
 
 export interface BuildIdAndInstanceCount {
@@ -744,6 +744,11 @@ export interface CodeBase {
   repoName?: string
   resources?: ContainerResource
   sslVerify?: boolean
+}
+
+export type CommitShaBuildSpec = BuildSpec & {
+  branchName?: string
+  commitSha: string
 }
 
 export interface Condition {
@@ -1105,6 +1110,10 @@ export type DeploymentStageConfig = StageInfoConfig & {
   execution: ExecutionElementConfig
   infrastructure: PipelineInfrastructure
   serviceConfig: ServiceConfig
+}
+
+export interface DeploymentsInfo {
+  deployments?: ExecutionStatusInfo[]
 }
 
 export interface DockerAuthCredentialsDTO {
@@ -3320,6 +3329,10 @@ export interface OrganizationResponse {
   organization: Organization
 }
 
+export type PRBuildSpec = BuildSpec & {
+  number: string
+}
+
 export interface Page {
   content?: { [key: string]: any }[]
   empty?: boolean
@@ -3998,6 +4011,13 @@ export interface ResponseDashboardExecutionStatusInfo {
 export interface ResponseDashboardWorkloadDeployment {
   correlationId?: string
   data?: DashboardWorkloadDeployment
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseDeploymentsInfo {
+  correlationId?: string
+  data?: DeploymentsInfo
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -10969,6 +10989,57 @@ export const getDeploymentsPromise = (
   getUsingFetch<ResponseDashboardExecutionStatusInfo, Failure | Error, GetDeploymentsQueryParams, void>(
     getConfig('ng/api'),
     `/dashboard/getDeployments`,
+    props,
+    signal
+  )
+
+export interface GetDeploymentsByServiceIdQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  serviceId: string
+}
+
+export type GetDeploymentsByServiceIdProps = Omit<
+  GetProps<ResponseDeploymentsInfo, Failure | Error, GetDeploymentsByServiceIdQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get deployments by serviceId
+ */
+export const GetDeploymentsByServiceId = (props: GetDeploymentsByServiceIdProps) => (
+  <Get<ResponseDeploymentsInfo, Failure | Error, GetDeploymentsByServiceIdQueryParams, void>
+    path={`/dashboard/getDeploymentsByServiceId`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetDeploymentsByServiceIdProps = Omit<
+  UseGetProps<ResponseDeploymentsInfo, Failure | Error, GetDeploymentsByServiceIdQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get deployments by serviceId
+ */
+export const useGetDeploymentsByServiceId = (props: UseGetDeploymentsByServiceIdProps) =>
+  useGet<ResponseDeploymentsInfo, Failure | Error, GetDeploymentsByServiceIdQueryParams, void>(
+    `/dashboard/getDeploymentsByServiceId`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Get deployments by serviceId
+ */
+export const getDeploymentsByServiceIdPromise = (
+  props: GetUsingFetchProps<ResponseDeploymentsInfo, Failure | Error, GetDeploymentsByServiceIdQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseDeploymentsInfo, Failure | Error, GetDeploymentsByServiceIdQueryParams, void>(
+    getConfig('ng/api'),
+    `/dashboard/getDeploymentsByServiceId`,
     props,
     signal
   )
