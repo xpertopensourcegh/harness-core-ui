@@ -7,6 +7,14 @@ echo --- List of JIRA ---
 echo $KEYS
 echo --- End
 
+# status id 151 is for Dev complete
+STATUS_ID=151
+
+if [ ! -z "$STATUS_ID_TO_MOVE" ]
+then
+      STATUS_ID=$STATUS_ID_TO_MOVE
+fi
+
 if [ "${PURPOSE}" = "ui" ]
 then
     FIELD_ID="customfield_10787"
@@ -27,4 +35,18 @@ do
        -H "Content-Type: application/json" \
        https://harness.atlassian.net/rest/api/2/issue/${KEY} \
        --user $JIRA_USERNAME:$JIRA_PASSWORD
+
+    status=`curl -X GET -H "Content-Type: application/json" https://harness.atlassian.net/rest/api/2/issue/${KEY}?fields=status --user $JIRA_USERNAME:$JIRA_PASSWORD | jq ".fields.status.name" | tr -d '"'`
+    if [[ "${status}" = "QA Test" || "${status}" = "Done" || "${status}" = "Under investigation" ]]
+            then
+               echo " ${KEY}  is in Done or QA-Test status, Hence no update"
+            else
+               echo " ${KEY}  is in  ${status} , Hence moving to QA-Test status"
+               curl \
+                 -X POST \
+                --data "{\"transition\":{\"id\":\"${STATUS_ID}\"}}" \
+                -H "Content-Type: application/json" \
+                https://harness.atlassian.net/rest/api/2/issue/${KEY}/transitions \
+                --user $JIRA_USERNAME:$JIRA_PASSWORD
+    fi   
 done
