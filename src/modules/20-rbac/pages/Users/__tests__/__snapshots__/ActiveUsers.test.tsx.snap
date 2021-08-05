@@ -213,12 +213,11 @@ exports[`UsersPage Test Add Roles 1`] = `
                               class="bp3-popover-target"
                             >
                               <div
-                                class="bp3-input-group bp3-disabled"
+                                class="bp3-input-group"
                               >
                                 <input
                                   autocomplete="off"
                                   class="bp3-input"
-                                  disabled=""
                                   placeholder="rbac.usersPage.selectResourceGroup"
                                   style="padding-right: 0px;"
                                   type="text"
@@ -341,12 +340,11 @@ exports[`UsersPage Test Add Roles 1`] = `
                               class="bp3-popover-target"
                             >
                               <div
-                                class="bp3-input-group bp3-disabled"
+                                class="bp3-input-group"
                               >
                                 <input
                                   autocomplete="off"
                                   class="bp3-input"
-                                  disabled=""
                                   placeholder="rbac.usersPage.selectResourceGroup"
                                   style="padding-right: 0px;"
                                   type="text"
