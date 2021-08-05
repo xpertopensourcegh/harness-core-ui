@@ -6,6 +6,7 @@ import * as Yup from 'yup'
 import cx from 'classnames'
 
 import { useToaster } from '@common/components'
+import UserGroupsInput from '@common/components/UserGroupsInput/UserGroupsInput'
 import { useTestNotificationSetting, SlackSettingDTO } from 'services/notifications'
 import { SlackNotificationConfiguration, TestStatus } from '@notifications/interfaces/Notifications'
 import { NotificationType } from '@notifications/interfaces/Notifications'
@@ -131,11 +132,7 @@ const ConfigureSlackNotifications: React.FC<ConfigureSlackNotificationsProps> = 
                 <Layout.Horizontal margin={{ bottom: 'xxlarge' }} style={{ alignItems: 'center' }}>
                   <TestSlackNotifications data={formik.values} />
                 </Layout.Horizontal>
-                <FormInput.MultiInput
-                  name={'userGroups'}
-                  label={getString('notifications.labelSlackUserGroups')}
-                  tagsProps={{ placeholder: getString('notifications.userGroupsPlaceholder') }}
-                />
+                <UserGroupsInput name="userGroups" label={getString('notifications.labelSlackUserGroups')} />
                 {props.isStep ? (
                   <Layout.Horizontal spacing="medium" margin={{ top: 'xlarge' }}>
                     <Button

@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 import { EmailSchema } from '@common/utils/Validation'
 import { useToaster } from '@common/components'
+import UserGroupsInput from '@common/components/UserGroupsInput/UserGroupsInput'
 import type { EmailNotificationConfiguration } from '@notifications/interfaces/Notifications'
 import { TestStatus } from '@notifications/interfaces/Notifications'
 import { NotificationType } from '@notifications/interfaces/Notifications'
@@ -175,11 +176,7 @@ const ConfigureEmailNotifications: React.FC<ConfigureEmailNotificationsProps> = 
             return (
               <FormikForm>
                 <FormInput.TextArea name={'emailIds'} label={getString('notifications.emailRecipients')} />
-                <FormInput.MultiInput
-                  name={'userGroups'}
-                  label={getString('notifications.labelEmailUserGroups')}
-                  tagsProps={{ placeholder: getString('notifications.userGroupsPlaceholder') }}
-                />
+                <UserGroupsInput name="userGroups" label={getString('notifications.labelSlackUserGroups')} />
                 <Layout.Horizontal style={{ alignItems: 'center' }}>
                   <TestEmailNotifications />
                 </Layout.Horizontal>

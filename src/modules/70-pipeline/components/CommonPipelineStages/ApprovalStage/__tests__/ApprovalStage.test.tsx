@@ -83,8 +83,6 @@ describe('Approval Stage minimal view', () => {
       fireEvent.click(getByText('Harness Approval'))
     })
 
-    expect(queryByText('pipeline.approvalStep.ensureUserGroups')).toBeTruthy()
-
     act(() => {
       fireEvent.click(getByText('pipelineSteps.build.create.setupStage'))
     })

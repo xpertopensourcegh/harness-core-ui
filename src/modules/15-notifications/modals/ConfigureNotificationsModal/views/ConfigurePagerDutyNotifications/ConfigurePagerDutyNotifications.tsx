@@ -4,8 +4,8 @@ import * as Yup from 'yup'
 import { FormikForm, FormInput, Button, Layout, Icon, Text, Heading, ButtonProps } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
-
 import { useToaster } from '@common/components'
+import UserGroupsInput from '@common/components/UserGroupsInput/UserGroupsInput'
 import { useStrings } from 'framework/strings'
 import { useTestNotificationSetting, PagerDutySettingDTO } from 'services/notifications'
 import type { PagerDutyNotificationConfiguration } from '@notifications/interfaces/Notifications'
@@ -116,11 +116,7 @@ const ConfigurePagerDutyNotifications: React.FC<ConfigurePagerDutyNotificationsP
                 <Layout.Horizontal margin={{ bottom: 'xxlarge' }} style={{ alignItems: 'center' }}>
                   <TestPagerDutyNotifications data={formik.values} />
                 </Layout.Horizontal>
-                <FormInput.MultiInput
-                  name={'userGroups'}
-                  label={getString('notifications.labelPDUserGroups')}
-                  tagsProps={{ placeholder: getString('notifications.userGroupsPlaceholder') }}
-                />
+                <UserGroupsInput name="userGroups" label={getString('notifications.labelSlackUserGroups')} />
                 {props.isStep ? (
                   <Layout.Horizontal spacing="medium" margin={{ top: 'xlarge' }}>
                     <Button text={getString('back')} onClick={props.onBack} />
