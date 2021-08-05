@@ -99,8 +99,8 @@ const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
     refetch: refetchS3Buckets
   } = useGetBucketListForS3({
     queryParams: {
-      connectorRef: s3BucketData?.connectorRef,
-      region: s3BucketData?.region,
+      connectorRef: s3BucketData.connectorRef,
+      region: s3BucketData.region,
       accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier
@@ -109,7 +109,7 @@ const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
   })
 
   React.useEffect(() => {
-    if (s3BucketData?.connectorRef) {
+    if (s3BucketData.connectorRef && s3BucketData.region) {
       refetchS3Buckets()
     }
   }, [s3BucketData])
@@ -325,8 +325,11 @@ const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                       </div>
                     )
                   ) : type === ManifestStoreMap.S3 ? (
-                    getMultiTypeFromValue(connectorRef) === MultiTypeInputType.FIXED &&
-                    getMultiTypeFromValue(region) !== MultiTypeInputType.FIXED ? (
+                    getMultiTypeFromValue(
+                      initialValues?.manifests?.[index].manifest?.spec?.store?.spec?.connectorRef
+                    ) === MultiTypeInputType.FIXED &&
+                    getMultiTypeFromValue(initialValues?.manifests?.[index].manifest?.spec?.store?.spec?.region) ===
+                      MultiTypeInputType.FIXED ? (
                       <div className={css.verticalSpacingInput}>
                         <ExperimentalInput
                           formik={formik}
@@ -366,6 +369,7 @@ const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                           }}
                           disabled={readonly}
                           label={getString('pipeline.manifestType.bucketName')}
+                          placeholder={getString('pipeline.manifestType.bucketNamePlaceholder')}
                           name={`${path}.manifests[${index}].manifest.spec.store.spec.bucketName`}
                         />
                       </div>
