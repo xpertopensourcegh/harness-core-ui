@@ -56,6 +56,22 @@ describe('Select Artifact Modal tests', () => {
     expect(dialog).toMatchSnapshot()
   })
 
+  test('on click of cancel button', async () => {
+    render(
+      <TestWrapper>
+        <SelectArtifactModal {...defaultProps} />
+      </TestWrapper>
+    )
+    await act(async () => {
+      const dialog = findDialogContainer() as HTMLElement
+      const cancelBtn = getByText(dialog, 'cancel')
+
+      fireEvent.click(cancelBtn!)
+
+      expect(defaultProps.closeModal).toBeCalled()
+    })
+  })
+
   test('on click of select button', async () => {
     render(
       <TestWrapper>
@@ -73,10 +89,7 @@ describe('Select Artifact Modal tests', () => {
       const selectBtn = getByText(dialog, 'select')
 
       expect(selectBtn).not.toBeDisabled()
-    })
 
-    await act(async () => {
-      const selectBtn = getByText(dialog, 'select')
       fireEvent.click(selectBtn!)
     })
     await waitFor(() =>

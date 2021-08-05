@@ -6,6 +6,7 @@ import { Dialog } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import { TriggerFormType } from '@pipeline/factories/ArtifactTriggerInputFactory/types'
 import TriggerFactory from '@pipeline/factories/ArtifactTriggerInputFactory'
+import { PipelineVariablesContextProvider } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
 
 import ArtifactTableInfo from '../subviews/ArtifactTableInfo'
 import { filterArtifact, getPathString, getTemplateObject } from '../../utils/TriggersWizardPageUtils'
@@ -107,16 +108,18 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
         </>
       ) : (
         <>
-          <ManifestFormDetails
-            template={templateObject}
-            path={getPathString(runtimeData, selectedStageId)}
-            allValues={templateObject}
-            initialValues={runtimeData}
-            readonly={false}
-            stageIdentifier={selectedStageId}
-            formik={formikProps}
-            fromTrigger={true}
-          />
+          <PipelineVariablesContextProvider pipeline={formikProps.values.originalPipeline}>
+            <ManifestFormDetails
+              template={templateObject}
+              path={getPathString(runtimeData, selectedStageId)}
+              allValues={templateObject}
+              initialValues={runtimeData}
+              readonly={false}
+              stageIdentifier={selectedStageId}
+              formik={formikProps}
+              fromTrigger={true}
+            />
+          </PipelineVariablesContextProvider>
           <Layout.Horizontal spacing="medium" className={css.footer}>
             {!values?.selectedArtifact?.identifier && (
               <Button

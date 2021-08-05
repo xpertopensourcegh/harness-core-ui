@@ -85,17 +85,32 @@ exports[`Git filter test for repo and branch selecion Test for changing repo and
                   <li
                     class="Select--menuItem Select--active"
                   >
-                    common.gitSync.allRepositories
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main Select--menuItemLabel"
+                      style="--text-line-clamp: 1;"
+                    >
+                      common.gitSync.allRepositories
+                    </p>
                   </li>
                   <li
                     class="Select--menuItem"
                   >
-                    gitSyncRepoTest
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main Select--menuItemLabel"
+                      style="--text-line-clamp: 1;"
+                    >
+                      gitSyncRepoTest
+                    </p>
                   </li>
                   <li
                     class="Select--menuItem"
                   >
-                    gitSyncRepo
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main Select--menuItemLabel"
+                      style="--text-line-clamp: 1;"
+                    >
+                      gitSyncRepo
+                    </p>
                   </li>
                 </ul>
               </div>
