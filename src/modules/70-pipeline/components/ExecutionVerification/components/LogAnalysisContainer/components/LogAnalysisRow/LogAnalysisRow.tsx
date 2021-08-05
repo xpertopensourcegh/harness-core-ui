@@ -40,7 +40,7 @@ function ColumnHeaderRow(): JSX.Element {
 }
 
 function DataRow(props: LogAnalysisDataRowProps): JSX.Element {
-  const { onSelect, rowData, index, isSelected } = props
+  const { rowData } = props
   const chartOptions = useMemo(
     () => getLogAnalysisLineChartOptions(rowData?.messageFrequency || []),
     [rowData?.messageFrequency]
@@ -57,13 +57,13 @@ function DataRow(props: LogAnalysisDataRowProps): JSX.Element {
   return (
     <Container className={cx(css.mainRow, css.dataRow, css.highlightRow)} data-testid={'logs-data-row'}>
       <Container className={cx(css.dataColumn, css.openModalColumn, css.compareDataColumn, css.clusterType)}>
-        <input
+        {/* <input
           type="checkbox"
           checked={isSelected}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             onSelect?.(e.currentTarget.checked, rowData, index, chartOptions)
           }}
-        />
+        /> */}
         {rowData.clusterType && (
           <Text onClick={onShowRiskEditModalCallback}>{getEventTypeFromClusterType(rowData.clusterType)}</Text>
         )}

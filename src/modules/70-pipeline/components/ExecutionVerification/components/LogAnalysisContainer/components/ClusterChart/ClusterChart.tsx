@@ -19,7 +19,8 @@ export default function ClusterChart({ data }: ClusterChartProps): JSX.Element {
             {},
             {
               x: val.x,
-              y: val.y
+              y: val.y,
+              message: val.text
             },
             mapRisk(val.risk)
           )

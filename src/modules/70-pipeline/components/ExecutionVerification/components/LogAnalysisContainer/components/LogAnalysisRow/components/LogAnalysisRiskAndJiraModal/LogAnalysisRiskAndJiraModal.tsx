@@ -1,29 +1,16 @@
-import React, { useState, useCallback, useEffect } from 'react'
-import {
-  Container,
-  Heading,
-  Button,
-  Text,
-  Color,
-  Icon,
-  FormikForm,
-  FormInput,
-  Link,
-  Utils
-} from '@wings-software/uicore'
-import { Drawer, Popover } from '@blueprintjs/core'
+import React, { useState, useCallback } from 'react'
+import { Container, Heading, Button, Text, Color } from '@wings-software/uicore'
+import { Drawer } from '@blueprintjs/core'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
-import { Formik } from 'formik'
 import { useStrings } from 'framework/strings'
 import type {
   DataNameAndDataProps,
   ActivityHeadingContentProps,
-  RiskAndMessageFormProps,
   SampleDataProps,
   LogAnalysisRiskAndJiraModalProps
 } from './LogAnalysisRiskAndJiraModal.types'
-import { DrawerProps, RiskOptions, ShareContentPopoverProps } from './LogAnalysisRiskAndJiraModal.constants'
+import { DrawerProps } from './LogAnalysisRiskAndJiraModal.constants'
 import css from './LogAnalysisRiskAndJiraModal.module.scss'
 
 export function DataNameAndData(props: DataNameAndDataProps): JSX.Element {
@@ -54,63 +41,65 @@ export function ActivityHeadingContent(props: ActivityHeadingContentProps): JSX.
   )
 }
 
-function RiskAndMessageForm(props: RiskAndMessageFormProps): JSX.Element {
-  const { hasSubmitted, handleSubmit } = props
-  useEffect(() => {
-    if (hasSubmitted) {
-      handleSubmit()
-    }
-  }, [hasSubmitted, handleSubmit])
-  return (
-    <FormikForm className={css.formContainer}>
-      <FormInput.Select name="risk" items={RiskOptions} label="Risk" />
-      <FormInput.TextArea name="message" label="Message" className={css.message} />
-    </FormikForm>
-  )
-}
+// Note - This code will be uncommented once the backend support is available.
 
-function ShareLinkPopoverContent(): JSX.Element {
-  const [copiedToClipboard, setCopied] = useState(false)
-  const onCopyURLCallback = useCallback(() => {
-    Utils.copy(window.location.href)
-    setCopied(true)
-  }, [])
-  const { getString } = useStrings()
-  return (
-    <Container className={css.sharePopoverContent}>
-      <Container className={css.urlContent}>
-        <Text>{window.location.href}</Text>
-      </Container>
-      {!copiedToClipboard ? (
-        <Link withoutHref className={css.copyButton} onClick={onCopyURLCallback}>
-          {getString('pipeline.verification.logs.copyURL')}
-        </Link>
-      ) : (
-        <Container className={css.copySuccess}>
-          <Icon name="deployment-success-new" size={11} />
-          <Text>{getString('pipeline.verification.logs.urlCopied')}</Text>
-        </Container>
-      )}
-    </Container>
-  )
-}
+// function RiskAndMessageForm(props: RiskAndMessageFormProps): JSX.Element {
+//   const { hasSubmitted, handleSubmit } = props
+//   useEffect(() => {
+//     if (hasSubmitted) {
+//       handleSubmit()
+//     }
+//   }, [hasSubmitted, handleSubmit])
+//   return (
+//     <FormikForm className={css.formContainer}>
+//       <FormInput.Select name="risk" items={RiskOptions} label="Risk" />
+//       <FormInput.TextArea name="message" label="Message" className={css.message} />
+//     </FormikForm>
+//   )
+// }
 
-function IconHeading(): JSX.Element {
-  const popoverContent = <ShareLinkPopoverContent />
-  const { getString } = useStrings()
-  return (
-    <Container flex>
-      <Container className={css.iconContainer}>
-        <Popover {...ShareContentPopoverProps} content={popoverContent}>
-          <Container flex>
-            <Icon name="main-share" className={css.logo} />
-            <Text>{getString('pipeline.verification.logs.share')}</Text>
-          </Container>
-        </Popover>
-      </Container>
-    </Container>
-  )
-}
+// function ShareLinkPopoverContent(): JSX.Element {
+//   const [copiedToClipboard, setCopied] = useState(false)
+//   const onCopyURLCallback = useCallback(() => {
+//     Utils.copy(window.location.href)
+//     setCopied(true)
+//   }, [])
+//   const { getString } = useStrings()
+//   return (
+//     <Container className={css.sharePopoverContent}>
+//       <Container className={css.urlContent}>
+//         <Text>{window.location.href}</Text>
+//       </Container>
+//       {!copiedToClipboard ? (
+//         <Link withoutHref className={css.copyButton} onClick={onCopyURLCallback}>
+//           {getString('pipeline.verification.logs.copyURL')}
+//         </Link>
+//       ) : (
+//         <Container className={css.copySuccess}>
+//           <Icon name="deployment-success-new" size={11} />
+//           <Text>{getString('pipeline.verification.logs.urlCopied')}</Text>
+//         </Container>
+//       )}
+//     </Container>
+//   )
+// }
+
+// function IconHeading(): JSX.Element {
+//   const popoverContent = <ShareLinkPopoverContent />
+//   const { getString } = useStrings()
+//   return (
+//     <Container flex>
+//       <Container className={css.iconContainer}>
+//         <Popover {...ShareContentPopoverProps} content={popoverContent}>
+//           <Container flex>
+//             <Icon name="main-share" className={css.logo} />
+//             <Text>{getString('pipeline.verification.logs.share')}</Text>
+//           </Container>
+//         </Popover>
+//       </Container>
+//     </Container>
+//   )
+// }
 
 export function SampleData(props: SampleDataProps): JSX.Element {
   const { logMessage } = props
@@ -128,22 +117,29 @@ export function SampleData(props: SampleDataProps): JSX.Element {
 }
 
 export function LogAnalysisRiskAndJiraModal(props: LogAnalysisRiskAndJiraModalProps): JSX.Element {
-  const { onHide, activityType, count, trendData, logMessage, feedback } = props
+  const {
+    onHide,
+    activityType,
+    count,
+    trendData,
+    logMessage
+    // feedback
+  } = props
   const [isOpen, setOpen] = useState(true)
-  const [hasSubmitted, setSubmit] = useState(false)
+  // const [hasSubmitted, setSubmit] = useState(false)
   const { getString } = useStrings()
   const onHideCallback = useCallback(() => {
     setOpen(false)
     onHide()
   }, [onHide])
-  const onSubmitCallback = useCallback(
-    data => {
-      setSubmit(false)
-      setOpen(false)
-      onHide(data)
-    },
-    [onHide]
-  )
+  // const onSubmitCallback = useCallback(
+  //   data => {
+  //     setSubmit(false)
+  //     setOpen(false)
+  //     onHide(data)
+  //   },
+  //   [onHide]
+  // )
 
   return (
     <Drawer {...DrawerProps} isOpen={isOpen} onClose={onHideCallback} className={css.main}>
@@ -151,21 +147,21 @@ export function LogAnalysisRiskAndJiraModal(props: LogAnalysisRiskAndJiraModalPr
         <Heading level={2} color={Color.BLACK}>
           {activityType}
         </Heading>
-        <IconHeading />
+        {/* <IconHeading /> */}
       </Container>
       <Container className={css.formAndMessageContainer}>
-        <Formik initialValues={feedback ?? {}} onSubmit={onSubmitCallback}>
+        {/* <Formik initialValues={feedback ?? {}} onSubmit={onSubmitCallback}>
           {formikProps => <RiskAndMessageForm handleSubmit={formikProps.handleSubmit} hasSubmitted={hasSubmitted} />}
-        </Formik>
+        </Formik> */}
         <Container>
           <ActivityHeadingContent trendData={trendData} count={count} />
           <SampleData logMessage={logMessage} />
         </Container>
         <Container className={css.buttonContainer}>
           <Button onClick={() => onHide()}>{getString('back')}</Button>
-          <Button type="submit" intent="primary" onClick={() => setSubmit(true)}>
+          {/* <Button type="submit" intent="primary" onClick={() => setSubmit(true)}>
             {getString('save')}
-          </Button>
+          </Button> */}
         </Container>
       </Container>
     </Drawer>

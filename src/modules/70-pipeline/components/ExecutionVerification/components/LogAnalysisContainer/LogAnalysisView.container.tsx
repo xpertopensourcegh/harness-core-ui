@@ -30,7 +30,8 @@ export default function LogAnalysisContainer({ step, hostName }: LogAnalysisCont
   const {
     data: clusterChartData,
     loading: clusterChartLoading,
-    error: clusterChartError
+    error: clusterChartError,
+    refetch: fetchClusterAnalysis
   } = useGetDeploymentLogAnalysisClusters({
     activityId: step?.progressData?.activityId as unknown as string,
     queryParams: {
@@ -62,16 +63,20 @@ export default function LogAnalysisContainer({ step, hostName }: LogAnalysisCont
   }, [logsError, clusterChartError])
 
   useEffect(() => {
-    if (hostName) {
-      fetchLogAnalyses({
-        queryParams: {
-          accountId,
-          pageNumber: initialPageNumber,
-          pageSize,
-          hostName
-        }
-      })
-    }
+    fetchLogAnalyses({
+      queryParams: {
+        accountId,
+        pageNumber: initialPageNumber,
+        pageSize,
+        ...(hostName && { hostName })
+      }
+    })
+    fetchClusterAnalysis({
+      queryParams: {
+        accountId,
+        ...(hostName && { hostName })
+      }
+    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accountId, hostName])
 

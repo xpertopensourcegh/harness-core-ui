@@ -9,10 +9,12 @@ import type { LogAnalysisContainerProps } from '../LogAnalysis.types'
 const WrapperComponent = (props: LogAnalysisContainerProps): JSX.Element => {
   return (
     <TestWrapper
+      path="account/:accountId/cd/orgs/:orgIdentifier/projects/:projectIdentifier/pipeline/executions/:executionId/pipeline"
       pathParams={{
         accountId: '1234_accountId',
         projectIdentifier: '1234_project',
-        orgIdentifier: '1234_ORG'
+        orgIdentifier: '1234_ORG',
+        executionId: 'Test_execution'
       }}
     >
       <LogAnalysisContainer {...props} />
@@ -20,16 +22,23 @@ const WrapperComponent = (props: LogAnalysisContainerProps): JSX.Element => {
   )
 }
 
+const fetchLogsAnalysisData = jest.fn()
+const fetchChartsAnalysisData = jest.fn()
+
 jest.mock('services/cv', () => ({
   useGetDeploymentLogAnalysisResult: jest.fn().mockImplementation(() => {
-    return { data: mockedLogAnalysisData, refetch: jest.fn(), error: null, loading: false }
+    return { data: mockedLogAnalysisData, refetch: fetchLogsAnalysisData, error: null, loading: false }
   }),
   useGetDeploymentLogAnalysisClusters: jest.fn().mockImplementation(() => {
-    return { data: mockedLogChartsData, refetch: jest.fn(), error: null, loading: false }
+    return { data: mockedLogChartsData, refetch: fetchChartsAnalysisData, error: null, loading: false }
   })
 }))
 
 describe('Unit tests for LogAnalysisContainer', () => {
+  afterEach(() => {
+    jest.clearAllMocks()
+  })
+
   const initialProps = {
     step: {
       progressData: {
@@ -49,5 +58,40 @@ describe('Unit tests for LogAnalysisContainer', () => {
     await waitFor(() =>
       expect(screen.getAllByTestId('logs-data-row')).toHaveLength(mockedLogAnalysisData.resource.content.length)
     )
+  })
+
+  test('Verify if apis for fetching logs data and cluster data is called with correct query params when hostname is not present', async () => {
+    const newProps = { ...initialProps, hostName: '' }
+    render(<WrapperComponent {...newProps} />)
+
+    await waitFor(() => {
+      expect(fetchLogsAnalysisData).toHaveBeenCalledWith({
+        queryParams: { accountId: '1234_accountId', pageNumber: 0, pageSize: 10 }
+      })
+      expect(fetchChartsAnalysisData).toHaveBeenCalledWith({
+        queryParams: { accountId: '1234_accountId' }
+      })
+    })
+  })
+
+  test('Verify if apis for fetching logs data and cluster data are called with correct query params when hostname is present', async () => {
+    render(<WrapperComponent {...initialProps} />)
+    await waitFor(() => {
+      expect(fetchLogsAnalysisData).toHaveBeenCalledWith({
+        queryParams: {
+          accountId: '1234_accountId',
+          pageNumber: 0,
+          pageSize: 10,
+          hostName: initialProps.hostName
+        }
+      })
+
+      expect(fetchChartsAnalysisData).toHaveBeenCalledWith({
+        queryParams: {
+          accountId: '1234_accountId',
+          hostName: initialProps.hostName
+        }
+      })
+    })
   })
 })

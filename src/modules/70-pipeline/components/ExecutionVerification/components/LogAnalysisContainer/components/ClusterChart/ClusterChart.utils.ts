@@ -89,7 +89,7 @@ export const chartOptions = (series: Highcharts.SeriesScatterOptions[]) => {
     series,
     tooltip: {
       formatter: function (this: any): any {
-        return `<div><p>x: ${this.x && this.x.toFixed(5)}</p><br /><p>y: ${this.y && this.y.toFixed(5)}</p></div>`
+        return `<p>${this?.point?.message}</p>`
       }
     }
   }

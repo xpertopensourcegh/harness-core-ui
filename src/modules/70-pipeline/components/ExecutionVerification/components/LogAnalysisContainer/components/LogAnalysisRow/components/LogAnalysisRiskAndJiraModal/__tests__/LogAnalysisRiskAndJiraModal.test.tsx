@@ -34,9 +34,7 @@ describe('Unit tests for LogAnalysisRiskAndJiraModal', () => {
       expect(getByText('pipeline.verification.logs.sampleEvent')).not.toBeNull()
       expect(getByText(initialProps.activityType)).not.toBeNull()
 
-      expect(getByText('pipeline.verification.logs.share')).not.toBeNull()
       expect(getByText('back')).not.toBeNull()
-      expect(getByText('save')).not.toBeNull()
     })
   })
 })
