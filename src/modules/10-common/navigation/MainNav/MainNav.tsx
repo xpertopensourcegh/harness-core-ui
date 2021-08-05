@@ -156,7 +156,7 @@ export default function L1Nav(): React.ReactElement {
             to={paths.toUser(params)}
           >
             <Layout.Vertical flex spacing="small">
-              <Avatar name={user.name || user.email} email={user.email} size="small" hoverCard={false} />
+              <Avatar name={user.name || user.email} email={user.email} size="xsmall" hoverCard={false} />
               <Text font={{ size: 'xsmall', align: 'center' }} color={Color.WHITE} className={css.hiddenText}>
                 <String stringID="common.myProfile" />
               </Text>

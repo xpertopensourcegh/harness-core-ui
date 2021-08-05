@@ -20,6 +20,7 @@ export interface ProjectCardProps {
   data: ProjectAggregateDTO
   isPreview?: boolean
   minimal?: boolean
+  selected?: boolean
   onClick?: () => void
   className?: string
   reloadProjects?: () => Promise<void>
@@ -35,6 +36,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
     editProject,
     handleInviteCollaborators,
     minimal,
+    selected,
     onClick
   } = props
   const [menuOpen, setMenuOpen] = useState(false)
@@ -70,6 +72,8 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
       className={cx(css.projectCard, { [css.previewProjectCard]: isPreview }, props.className)}
       data-testid={`project-card-${data.identifier + data.orgIdentifier}`}
       onClick={onClick}
+      selected={selected}
+      interactive={!isPreview}
     >
       <Container padding="xlarge" className={css.projectInfo}>
         {allowInteraction ? (

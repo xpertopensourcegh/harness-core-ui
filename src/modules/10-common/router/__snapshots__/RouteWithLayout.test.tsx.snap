@@ -423,7 +423,7 @@ exports[`RouteWithLayout basic 1`] = `
                   >
                     <div
                       class="Avatar--AvatarInner"
-                      style="border-radius: 100%; line-height: 18px; width: 24px; height: 24px; font-size: 10px;"
+                      style="border-radius: 100%; line-height: 12px; width: 16px; height: 16px; font-size: 7px;"
                       tabindex="0"
                     >
                       D
@@ -461,7 +461,7 @@ exports[`RouteWithLayout basic 1`] = `
             class="Layout--vertical StyledProps--main"
           >
             <p
-              class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey400"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
             >
               SUBTITLE
             </p>
@@ -921,7 +921,7 @@ exports[`RouteWithLayout minimal 1`] = `
                   >
                     <div
                       class="Avatar--AvatarInner"
-                      style="border-radius: 100%; line-height: 18px; width: 24px; height: 24px; font-size: 10px;"
+                      style="border-radius: 100%; line-height: 12px; width: 16px; height: 16px; font-size: 7px;"
                       tabindex="0"
                     >
                       D
@@ -1375,7 +1375,7 @@ exports[`RouteWithLayout that the license store will render the child if the lic
                   >
                     <div
                       class="Avatar--AvatarInner"
-                      style="border-radius: 100%; line-height: 18px; width: 24px; height: 24px; font-size: 10px;"
+                      style="border-radius: 100%; line-height: 12px; width: 16px; height: 16px; font-size: 7px;"
                       tabindex="0"
                     >
                       D
@@ -1413,7 +1413,7 @@ exports[`RouteWithLayout that the license store will render the child if the lic
             class="Layout--vertical StyledProps--main"
           >
             <p
-              class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey400"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
             >
               SUBTITLE
             </p>
@@ -1890,7 +1890,7 @@ exports[`RouteWithLayout that the license store will route to the subscriptions 
                   >
                     <div
                       class="Avatar--AvatarInner"
-                      style="border-radius: 100%; line-height: 18px; width: 24px; height: 24px; font-size: 10px;"
+                      style="border-radius: 100%; line-height: 12px; width: 16px; height: 16px; font-size: 7px;"
                       tabindex="0"
                     >
                       D

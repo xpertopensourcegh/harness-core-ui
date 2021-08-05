@@ -329,8 +329,9 @@ exports[`Project Page List Create Project and Close 1`] = `
             style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
           >
             <div
-              class="bp3-card bp3-elevation-0 Card--card projectCard"
+              class="bp3-card bp3-interactive bp3-elevation-0 Card--card projectCard Card--interactive"
               data-testid="project-card-testtestOrg"
+              tabindex="0"
             >
               <div
                 class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"
@@ -762,8 +763,9 @@ exports[`Project Page List Create Project and Close 1`] = `
             style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
           >
             <div
-              class="bp3-card bp3-elevation-0 Card--card projectCard"
+              class="bp3-card bp3-interactive bp3-elevation-0 Card--card projectCard Card--interactive"
               data-testid="project-card-Online_BankingCisco_Meraki"
+              tabindex="0"
             >
               <div
                 class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"
@@ -1195,8 +1197,9 @@ exports[`Project Page List Create Project and Close 1`] = `
             style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
           >
             <div
-              class="bp3-card bp3-elevation-0 Card--card projectCard"
+              class="bp3-card bp3-interactive bp3-elevation-0 Card--card projectCard Card--interactive"
               data-testid="project-card-PortalCisco_Meraki"
+              tabindex="0"
             >
               <div
                 class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"
@@ -1628,8 +1631,9 @@ exports[`Project Page List Create Project and Close 1`] = `
             style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
           >
             <div
-              class="bp3-card bp3-elevation-0 Card--card projectCard"
+              class="bp3-card bp3-interactive bp3-elevation-0 Card--card projectCard Card--interactive"
               data-testid="project-card-Project_1Cisco_Prime"
+              tabindex="0"
             >
               <div
                 class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"
@@ -2026,8 +2030,9 @@ exports[`Project Page List Create Project and Close 1`] = `
             style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
           >
             <div
-              class="bp3-card bp3-elevation-0 Card--card projectCard"
+              class="bp3-card bp3-interactive bp3-elevation-0 Card--card projectCard Card--interactive"
               data-testid="project-card-Project_DemoCisco_Prime"
+              tabindex="0"
             >
               <div
                 class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"
@@ -2459,8 +2464,9 @@ exports[`Project Page List Create Project and Close 1`] = `
             style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
           >
             <div
-              class="bp3-card bp3-elevation-0 Card--card projectCard"
+              class="bp3-card bp3-interactive bp3-elevation-0 Card--card projectCard Card--interactive"
               data-testid="project-card-Drone_Data_SupplierHarness"
+              tabindex="0"
             >
               <div
                 class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"
@@ -2892,8 +2898,9 @@ exports[`Project Page List Create Project and Close 1`] = `
             style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
           >
             <div
-              class="bp3-card bp3-elevation-0 Card--card projectCard"
+              class="bp3-card bp3-interactive bp3-elevation-0 Card--card projectCard Card--interactive"
               data-testid="project-card-SwaggerHarness"
+              tabindex="0"
             >
               <div
                 class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"
@@ -3659,8 +3666,9 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
             style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
           >
             <div
-              class="bp3-card bp3-elevation-0 Card--card projectCard"
+              class="bp3-card bp3-interactive bp3-elevation-0 Card--card projectCard Card--interactive"
               data-testid="project-card-testtestOrg"
+              tabindex="0"
             >
               <div
                 class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"
@@ -4092,8 +4100,9 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
             style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
           >
             <div
-              class="bp3-card bp3-elevation-0 Card--card projectCard"
+              class="bp3-card bp3-interactive bp3-elevation-0 Card--card projectCard Card--interactive"
               data-testid="project-card-Online_BankingCisco_Meraki"
+              tabindex="0"
             >
               <div
                 class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"
@@ -4525,8 +4534,9 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
             style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
           >
             <div
-              class="bp3-card bp3-elevation-0 Card--card projectCard"
+              class="bp3-card bp3-interactive bp3-elevation-0 Card--card projectCard Card--interactive"
               data-testid="project-card-PortalCisco_Meraki"
+              tabindex="0"
             >
               <div
                 class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"
@@ -4958,8 +4968,9 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
             style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
           >
             <div
-              class="bp3-card bp3-elevation-0 Card--card projectCard"
+              class="bp3-card bp3-interactive bp3-elevation-0 Card--card projectCard Card--interactive"
               data-testid="project-card-Project_1Cisco_Prime"
+              tabindex="0"
             >
               <div
                 class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"
@@ -5356,8 +5367,9 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
             style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
           >
             <div
-              class="bp3-card bp3-elevation-0 Card--card projectCard"
+              class="bp3-card bp3-interactive bp3-elevation-0 Card--card projectCard Card--interactive"
               data-testid="project-card-Project_DemoCisco_Prime"
+              tabindex="0"
             >
               <div
                 class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"
@@ -5789,8 +5801,9 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
             style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
           >
             <div
-              class="bp3-card bp3-elevation-0 Card--card projectCard"
+              class="bp3-card bp3-interactive bp3-elevation-0 Card--card projectCard Card--interactive"
               data-testid="project-card-Drone_Data_SupplierHarness"
+              tabindex="0"
             >
               <div
                 class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"
@@ -6222,8 +6235,9 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
             style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
           >
             <div
-              class="bp3-card bp3-elevation-0 Card--card projectCard"
+              class="bp3-card bp3-interactive bp3-elevation-0 Card--card projectCard Card--interactive"
               data-testid="project-card-SwaggerHarness"
+              tabindex="0"
             >
               <div
                 class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"
@@ -6989,8 +7003,9 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
             style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
           >
             <div
-              class="bp3-card bp3-elevation-0 Card--card projectCard"
+              class="bp3-card bp3-interactive bp3-elevation-0 Card--card projectCard Card--interactive"
               data-testid="project-card-testtestOrg"
+              tabindex="0"
             >
               <div
                 class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"
@@ -7422,8 +7437,9 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
             style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
           >
             <div
-              class="bp3-card bp3-elevation-0 Card--card projectCard"
+              class="bp3-card bp3-interactive bp3-elevation-0 Card--card projectCard Card--interactive"
               data-testid="project-card-Online_BankingCisco_Meraki"
+              tabindex="0"
             >
               <div
                 class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"
@@ -7855,8 +7871,9 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
             style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
           >
             <div
-              class="bp3-card bp3-elevation-0 Card--card projectCard"
+              class="bp3-card bp3-interactive bp3-elevation-0 Card--card projectCard Card--interactive"
               data-testid="project-card-PortalCisco_Meraki"
+              tabindex="0"
             >
               <div
                 class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"
@@ -8288,8 +8305,9 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
             style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
           >
             <div
-              class="bp3-card bp3-elevation-0 Card--card projectCard"
+              class="bp3-card bp3-interactive bp3-elevation-0 Card--card projectCard Card--interactive"
               data-testid="project-card-Project_1Cisco_Prime"
+              tabindex="0"
             >
               <div
                 class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"
@@ -8686,8 +8704,9 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
             style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
           >
             <div
-              class="bp3-card bp3-elevation-0 Card--card projectCard"
+              class="bp3-card bp3-interactive bp3-elevation-0 Card--card projectCard Card--interactive"
               data-testid="project-card-Project_DemoCisco_Prime"
+              tabindex="0"
             >
               <div
                 class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"
@@ -9119,8 +9138,9 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
             style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
           >
             <div
-              class="bp3-card bp3-elevation-0 Card--card projectCard"
+              class="bp3-card bp3-interactive bp3-elevation-0 Card--card projectCard Card--interactive"
               data-testid="project-card-Drone_Data_SupplierHarness"
+              tabindex="0"
             >
               <div
                 class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"
@@ -9552,8 +9572,9 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
             style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
           >
             <div
-              class="bp3-card bp3-elevation-0 Card--card projectCard"
+              class="bp3-card bp3-interactive bp3-elevation-0 Card--card projectCard Card--interactive"
               data-testid="project-card-SwaggerHarness"
+              tabindex="0"
             >
               <div
                 class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"
@@ -10319,8 +10340,9 @@ exports[`Project Page List Whole Modal Test 1`] = `
             style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
           >
             <div
-              class="bp3-card bp3-elevation-0 Card--card projectCard"
+              class="bp3-card bp3-interactive bp3-elevation-0 Card--card projectCard Card--interactive"
               data-testid="project-card-testtestOrg"
+              tabindex="0"
             >
               <div
                 class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"
@@ -10752,8 +10774,9 @@ exports[`Project Page List Whole Modal Test 1`] = `
             style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
           >
             <div
-              class="bp3-card bp3-elevation-0 Card--card projectCard"
+              class="bp3-card bp3-interactive bp3-elevation-0 Card--card projectCard Card--interactive"
               data-testid="project-card-Online_BankingCisco_Meraki"
+              tabindex="0"
             >
               <div
                 class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"
@@ -11185,8 +11208,9 @@ exports[`Project Page List Whole Modal Test 1`] = `
             style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
           >
             <div
-              class="bp3-card bp3-elevation-0 Card--card projectCard"
+              class="bp3-card bp3-interactive bp3-elevation-0 Card--card projectCard Card--interactive"
               data-testid="project-card-PortalCisco_Meraki"
+              tabindex="0"
             >
               <div
                 class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"
@@ -11618,8 +11642,9 @@ exports[`Project Page List Whole Modal Test 1`] = `
             style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
           >
             <div
-              class="bp3-card bp3-elevation-0 Card--card projectCard"
+              class="bp3-card bp3-interactive bp3-elevation-0 Card--card projectCard Card--interactive"
               data-testid="project-card-Project_1Cisco_Prime"
+              tabindex="0"
             >
               <div
                 class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"
@@ -12016,8 +12041,9 @@ exports[`Project Page List Whole Modal Test 1`] = `
             style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
           >
             <div
-              class="bp3-card bp3-elevation-0 Card--card projectCard"
+              class="bp3-card bp3-interactive bp3-elevation-0 Card--card projectCard Card--interactive"
               data-testid="project-card-Project_DemoCisco_Prime"
+              tabindex="0"
             >
               <div
                 class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"
@@ -12449,8 +12475,9 @@ exports[`Project Page List Whole Modal Test 1`] = `
             style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
           >
             <div
-              class="bp3-card bp3-elevation-0 Card--card projectCard"
+              class="bp3-card bp3-interactive bp3-elevation-0 Card--card projectCard Card--interactive"
               data-testid="project-card-Drone_Data_SupplierHarness"
+              tabindex="0"
             >
               <div
                 class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"
@@ -12882,8 +12909,9 @@ exports[`Project Page List Whole Modal Test 1`] = `
             style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
           >
             <div
-              class="bp3-card bp3-elevation-0 Card--card projectCard"
+              class="bp3-card bp3-interactive bp3-elevation-0 Card--card projectCard Card--interactive"
               data-testid="project-card-SwaggerHarness"
+              tabindex="0"
             >
               <div
                 class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"

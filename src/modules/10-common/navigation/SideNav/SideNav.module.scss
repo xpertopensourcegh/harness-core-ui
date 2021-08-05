@@ -12,10 +12,13 @@
     .titleContainer {
       margin-left: var(--spacing-medium);
       margin-bottom: var(--spacing-medium);
+      margin-right: var(--spacing-large);
 
       .title {
-        font-size: 18px !important;
+        font-size: 16px !important;
         letter-spacing: 1px;
+        font-weight: 600;
+        opacity: 0.9;
       }
     }
 

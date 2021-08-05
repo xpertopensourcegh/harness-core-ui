@@ -11,7 +11,6 @@ import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useQueryParams } from '@common/hooks'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import NavExpandable from '@common/navigation/NavExpandable/NavExpandable'
-import css from './SideNav.module.scss'
 import navCSS from '@common/navigation/SideNav/SideNav.module.scss'
 
 export default function CFSideNav(): React.ReactElement {
@@ -80,11 +79,7 @@ export default function CFSideNav(): React.ReactElement {
             to={withActiveEnvironment(routes.toCFOnboarding(params))}
           />
 
-          <NavExpandable
-            title={getString('common.projectSetup')}
-            route={routes.toSetup(params)}
-            className={css.projectSetup}
-          >
+          <NavExpandable title={getString('common.projectSetup')} route={routes.toSetup(params)}>
             <Layout.Vertical spacing="small">
               <SidebarLink
                 to={routes.toAccessControl({ ...params, module: 'cf' })}

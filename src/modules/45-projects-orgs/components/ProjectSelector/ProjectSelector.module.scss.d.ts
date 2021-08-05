@@ -5,10 +5,6 @@ declare const styles: {
   readonly selectProjectDisplay: string
   readonly projectText: string
   readonly pickProjectHelp: string
-  readonly dividerColorMargin: string
-  readonly addMargin: string
-  readonly addPadding: string
-  readonly removeMarginPadding: string
   readonly projectContainer: string
   readonly projectContainerWrapper: string
   readonly projectCard: string

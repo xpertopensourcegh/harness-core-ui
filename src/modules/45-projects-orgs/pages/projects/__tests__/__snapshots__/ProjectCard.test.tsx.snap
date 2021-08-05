@@ -378,8 +378,9 @@ exports[`Project Card test Preview is ok 1`] = `
 exports[`Project Card test initializes ok  1`] = `
 <div>
   <div
-    class="bp3-card bp3-elevation-0 Card--card projectCard"
+    class="bp3-card bp3-interactive bp3-elevation-0 Card--card projectCard Card--interactive"
     data-testid="project-card-dummy_nametestOrg"
+    tabindex="0"
   >
     <div
       class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"

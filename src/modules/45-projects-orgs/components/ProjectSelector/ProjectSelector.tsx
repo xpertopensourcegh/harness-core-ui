@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Position, PopoverInteractionKind, Classes } from '@blueprintjs/core'
+import { Position, PopoverInteractionKind, Classes } from '@blueprintjs/core'
 import { useParams, useHistory } from 'react-router-dom'
 import cx from 'classnames'
-import { Text, Layout, Color, Container, Popover, TextInput, Pagination } from '@wings-software/uicore'
+import { Text, Layout, Color, Container, Popover, Pagination, Button } from '@wings-software/uicore'
+import { ExpandingSearchInput } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import { Project, useGetProjectAggregateDTOList } from 'services/cd-ng'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
@@ -32,7 +33,7 @@ const ProjectSelect: React.FC<ProjectSelectorProps> = ({ onSelect }) => {
       accountIdentifier: accountId,
       searchTerm,
       pageIndex: page,
-      pageSize: 10
+      pageSize: 50
     },
     debounce: 300
   })
@@ -49,7 +50,18 @@ const ProjectSelect: React.FC<ProjectSelectorProps> = ({ onSelect }) => {
       {selectedProject ? (
         <Button
           minimal
+          withoutBoxShadow={true}
           icon="double-chevron-right"
+          tooltipProps={{
+            isDark: true,
+            usePortal: true,
+            fill: true
+          }}
+          tooltip={
+            <Text padding="small" color={Color.WHITE}>
+              {getString('selectProject')}
+            </Text>
+          }
           data-testid="project-select-dropdown"
           className={css.popoverTarget}
         />
@@ -79,16 +91,16 @@ const ProjectSelect: React.FC<ProjectSelectorProps> = ({ onSelect }) => {
             onClick={() => history.push(routes.toProjects({ accountId }))}
           />
         </Layout.Horizontal>
-
-        <TextInput
-          leftIcon="search"
-          placeholder={getString('projectsOrgs.searchProjectPlaceHolder')}
-          value={searchTerm}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setSearchTerm(e.target.value.trim())
-            setPage(0)
-          }}
-        />
+        <Layout.Vertical>
+          <ExpandingSearchInput
+            placeholder={getString('projectsOrgs.searchProjectPlaceHolder')}
+            alwaysExpanded
+            onChange={text => {
+              setSearchTerm(text.trim())
+              setPage(0)
+            }}
+          />
+        </Layout.Vertical>
         {loading && <PageSpinner />}
         {data?.data?.content?.length ? (
           <Layout.Vertical className={css.projectContainerWrapper}>
@@ -98,6 +110,7 @@ const ProjectSelect: React.FC<ProjectSelectorProps> = ({ onSelect }) => {
                   key={projectAggregate.projectResponse.project.identifier}
                   data={projectAggregate}
                   minimal={true}
+                  selected={projectAggregate.projectResponse.project.identifier === selectedProject?.identifier}
                   className={cx(css.projectCard, Classes.POPOVER_DISMISS)}
                   onClick={() => {
                     onSelect(projectAggregate.projectResponse.project)
@@ -136,7 +149,7 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ onSelect, modu
 
   return (
     <>
-      <Layout.Vertical padding="large">
+      <Layout.Vertical padding={{ left: 'large', right: 'large', top: 'large', bottom: 'small' }}>
         <Text margin={{ bottom: 'xsmall' }} font={{ size: 'small' }} color={Color.GREY_500}>
           {getString('projectLabel')}
         </Text>
@@ -144,24 +157,25 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ onSelect, modu
           {selectedProject && (
             <Button
               minimal
+              tooltipProps={{
+                isDark: true,
+                fill: true
+              }}
+              tooltip={
+                <Layout.Vertical padding="medium" spacing="small">
+                  <Text color={Color.GREY_300}>{getString('projectsOrgs.manageAProject')}</Text>
+                  <Text color={Color.WHITE}>{selectedProject.name}</Text>
+                </Layout.Vertical>
+              }
               onClick={() => {
                 history.push(routes.toProjectDetails({ accountId, orgIdentifier, projectIdentifier }))
               }}
               className={cx(css.popoverTarget, css.selectedProject)}
-              text={
-                <Layout.Horizontal>
-                  <Text
-                    lineClamp={1}
-                    color={Color.WHITE}
-                    font={{ size: 'normal' }}
-                    padding="xsmall"
-                    className={css.projectText}
-                  >
-                    {selectedProject.name}
-                  </Text>
-                </Layout.Horizontal>
-              }
-            />
+            >
+              <Text color={Color.WHITE} padding="xsmall" className={css.projectText}>
+                {selectedProject.name}
+              </Text>
+            </Button>
           )}
           <ProjectSelect onSelect={onSelect} />
         </div>
@@ -169,7 +183,9 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ onSelect, modu
 
       {selectedProject ? null : (
         <div style={{ backgroundImage: `url(${pointerImage})` }} className={css.pickProjectHelp}>
-          {getString('pickProject')}
+          <Text color={Color.GREY_200} padding="small">
+            {getString('pickProject')}
+          </Text>
         </div>
       )}
     </>

@@ -1537,6 +1537,7 @@ export interface StringsMap {
   'projectsOrgs.gotoFeatureFlags': string
   'projectsOrgs.invite': string
   'projectsOrgs.inviteCollab': string
+  'projectsOrgs.manageAProject': string
   'projectsOrgs.manageOrg': string
   'projectsOrgs.manageProject': string
   'projectsOrgs.moduleSuccess': string

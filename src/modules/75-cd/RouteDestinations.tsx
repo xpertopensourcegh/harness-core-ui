@@ -169,7 +169,7 @@ const RedirectToExecutionPipeline = (): React.ReactElement => {
 
 const CDSideNavProps: SidebarContext = {
   navComponent: CDSideNav,
-  subtitle: 'CONTINUOUS',
+  subtitle: 'Continuous',
   title: 'Delivery',
   icon: 'cd-main'
 }

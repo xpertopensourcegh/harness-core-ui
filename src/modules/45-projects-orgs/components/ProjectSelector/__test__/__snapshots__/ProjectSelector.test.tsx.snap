@@ -3,7 +3,7 @@
 exports[`ProjectSelector render with projects 1`] = `
 <div>
   <div
-    class="Layout--vertical StyledProps--main StyledProps--padding-large"
+    class="Layout--vertical StyledProps--main StyledProps--padding-left-large StyledProps--padding-right-large StyledProps--padding-top-large StyledProps--padding-bottom-small"
   >
     <p
       class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall StyledProps--font-size-small StyledProps--color StyledProps--color-grey500"
@@ -20,7 +20,7 @@ exports[`ProjectSelector render with projects 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal popoverTarget selectButton"
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main popoverTarget selectButton Button--with-current-color Button--without-shadow"
             data-testid="project-select-button"
             type="button"
           >
@@ -34,7 +34,7 @@ exports[`ProjectSelector render with projects 1`] = `
               </p>
             </span>
             <span
-              class="bp3-icon bp3-icon-chevron-right"
+              class="bp3-icon bp3-icon-chevron-right StyledProps--main"
               icon="chevron-right"
             >
               <svg
@@ -61,7 +61,11 @@ exports[`ProjectSelector render with projects 1`] = `
     class="pickProjectHelp"
     style="background-image: url(test-file-stub);"
   >
-    pickProject
+    <p
+      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey200 StyledProps--padding-small"
+    >
+      pickProject
+    </p>
   </div>
 </div>
 `;
@@ -69,7 +73,7 @@ exports[`ProjectSelector render with projects 1`] = `
 exports[`ProjectSelector render with projects 2`] = `
 <div>
   <div
-    class="Layout--vertical StyledProps--main StyledProps--padding-large"
+    class="Layout--vertical StyledProps--main StyledProps--padding-left-large StyledProps--padding-right-large StyledProps--padding-top-large StyledProps--padding-bottom-small"
   >
     <p
       class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall StyledProps--font-size-small StyledProps--color StyledProps--color-grey500"
@@ -86,7 +90,7 @@ exports[`ProjectSelector render with projects 2`] = `
           class="bp3-popover-target bp3-popover-open"
         >
           <button
-            class="bp3-button bp3-minimal popoverTarget selectButton bp3-active"
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main popoverTarget selectButton bp3-active Button--with-current-color Button--without-shadow"
             data-testid="project-select-button"
             type="button"
           >
@@ -100,7 +104,7 @@ exports[`ProjectSelector render with projects 2`] = `
               </p>
             </span>
             <span
-              class="bp3-icon bp3-icon-chevron-right"
+              class="bp3-icon bp3-icon-chevron-right StyledProps--main"
               icon="chevron-right"
             >
               <svg
@@ -127,7 +131,11 @@ exports[`ProjectSelector render with projects 2`] = `
     class="pickProjectHelp"
     style="background-image: url(test-file-stub);"
   >
-    pickProject
+    <p
+      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey200 StyledProps--padding-small"
+    >
+      pickProject
+    </p>
   </div>
 </div>
 `;

@@ -64,7 +64,7 @@ import ServiceAccountsPage from '@rbac/pages/ServiceAccounts/ServiceAccounts'
 const ProjectDetailsSideNavProps: SidebarContext = {
   navComponent: ProjectDetailsSideNav,
   icon: 'harness',
-  title: 'Project Management'
+  title: 'Project Details'
 }
 
 RbacFactory.registerResourceTypeHandler(ResourceType.PROJECT, {
