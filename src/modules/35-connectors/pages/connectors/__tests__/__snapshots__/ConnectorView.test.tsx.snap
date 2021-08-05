@@ -725,12 +725,17 @@ exports[`Connector Details Page Rendering connector details with DockerRegistry:
         >
           <div
             class="item selected"
+            data-name="visual-btn"
+            role="button"
+            tabindex="0"
           >
             visual
           </div>
           <div
             class="item"
-            data-test="connectorViewYaml"
+            data-name="yaml-btn"
+            role="button"
+            tabindex="0"
           >
             yaml
           </div>
@@ -896,12 +901,17 @@ exports[`Connector Details Page Rendering connector details with K8sCluster: K8s
         >
           <div
             class="item selected"
+            data-name="visual-btn"
+            role="button"
+            tabindex="0"
           >
             visual
           </div>
           <div
             class="item"
-            data-test="connectorViewYaml"
+            data-name="yaml-btn"
+            role="button"
+            tabindex="0"
           >
             yaml
           </div>
@@ -1067,12 +1077,17 @@ exports[`Connector Details Page Rendering connector details: view text 1`] = `
         >
           <div
             class="item selected"
+            data-name="visual-btn"
+            role="button"
+            tabindex="0"
           >
             visual
           </div>
           <div
             class="item"
-            data-test="connectorViewYaml"
+            data-name="yaml-btn"
+            role="button"
+            tabindex="0"
           >
             yaml
           </div>

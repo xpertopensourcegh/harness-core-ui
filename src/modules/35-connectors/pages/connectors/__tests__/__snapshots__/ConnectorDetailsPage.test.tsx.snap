@@ -147,12 +147,17 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
           >
             <div
               class="item selected"
+              data-name="visual-btn"
+              role="button"
+              tabindex="0"
             >
               visual
             </div>
             <div
               class="item"
-              data-test="connectorViewYaml"
+              data-name="yaml-btn"
+              role="button"
+              tabindex="0"
             >
               yaml
             </div>
@@ -624,12 +629,17 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
           >
             <div
               class="item selected"
+              data-name="visual-btn"
+              role="button"
+              tabindex="0"
             >
               visual
             </div>
             <div
               class="item"
-              data-test="connectorViewYaml"
+              data-name="yaml-btn"
+              role="button"
+              tabindex="0"
             >
               yaml
             </div>
