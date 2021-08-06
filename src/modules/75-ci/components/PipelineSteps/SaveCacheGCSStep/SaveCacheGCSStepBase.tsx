@@ -210,7 +210,6 @@ export const SaveCacheGCSStepBase = (
                     <FormMultiTypeCheckboxField
                       name="spec.override"
                       label={getString('override')}
-                      className={css.checkboxField}
                       multiTypeTextbox={{
                         children: (
                           <Button

@@ -192,7 +192,6 @@ export const RestoreCacheGCSStepBase = (
                     <FormMultiTypeCheckboxField
                       name="spec.failIfKeyNotFound"
                       label={getString('failIfKeyNotFound')}
-                      className={css.checkboxField}
                       multiTypeTextbox={{
                         children: (
                           <Button

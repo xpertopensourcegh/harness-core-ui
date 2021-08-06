@@ -248,7 +248,6 @@ export const SaveCacheS3StepBase = (
                     <FormMultiTypeCheckboxField
                       name="spec.override"
                       label={getString('override')}
-                      className={css.checkboxField}
                       multiTypeTextbox={{
                         children: (
                           <Button
@@ -267,7 +266,6 @@ export const SaveCacheS3StepBase = (
                     <FormMultiTypeCheckboxField
                       name="spec.pathStyle"
                       label={getString('pathStyle')}
-                      className={css.checkboxField}
                       multiTypeTextbox={{
                         children: (
                           <Button

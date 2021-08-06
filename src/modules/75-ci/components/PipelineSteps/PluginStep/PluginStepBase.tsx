@@ -144,7 +144,6 @@ export const PluginStepBase = (
                   <>
                     <FormMultiTypeCheckboxField
                       name="spec.privileged"
-                      className={css.checkboxField}
                       label={getString('ci.privileged')}
                       multiTypeTextbox={{
                         children: (

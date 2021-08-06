@@ -196,7 +196,6 @@ export const GCRStepBase = (
                   <>
                     <FormMultiTypeCheckboxField
                       name="spec.optimize"
-                      className={css.checkboxField}
                       label={getString('ci.optimize')}
                       multiTypeTextbox={{
                         children: (

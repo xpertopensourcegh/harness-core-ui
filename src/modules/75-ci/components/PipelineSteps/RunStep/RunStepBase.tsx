@@ -204,7 +204,6 @@ export const RunStepBase = (
                   <>
                     <FormMultiTypeCheckboxField
                       name="spec.privileged"
-                      className={css.checkboxField}
                       label={getString('ci.privileged')}
                       multiTypeTextbox={{
                         children: (

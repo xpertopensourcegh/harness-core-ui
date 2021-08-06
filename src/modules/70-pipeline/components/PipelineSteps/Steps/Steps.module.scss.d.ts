@@ -24,6 +24,5 @@ declare const styles: {
   readonly removeBpPopoverWrapperTopMargin: string
   readonly bottomSpacing: string
   readonly topSpacingLarge: string
-  readonly checkboxField: string
 }
 export default styles
