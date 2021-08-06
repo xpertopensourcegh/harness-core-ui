@@ -557,9 +557,11 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
                   <div
                     class="bp3-form-content"
                   >
-                    <div>
+                    <div
+                      class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                    >
                       <label
-                        class="bp3-control bp3-radio bp3-inline Radio--radio"
+                        class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                       >
                         <input
                           checked=""
@@ -573,7 +575,7 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
                         connectors.docker.dockerHub
                       </label>
                       <label
-                        class="bp3-control bp3-radio bp3-inline Radio--radio"
+                        class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                       >
                         <input
                           name="dockerProviderType"
@@ -586,7 +588,7 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
                         connectors.docker.harbour
                       </label>
                       <label
-                        class="bp3-control bp3-radio bp3-inline Radio--radio"
+                        class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                       >
                         <input
                           name="dockerProviderType"
@@ -599,7 +601,7 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
                         connectors.docker.quay
                       </label>
                       <label
-                        class="bp3-control bp3-radio bp3-inline Radio--radio"
+                        class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                       >
                         <input
                           name="dockerProviderType"
@@ -1414,9 +1416,11 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                   <div
                     class="bp3-form-content"
                   >
-                    <div>
+                    <div
+                      class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                    >
                       <label
-                        class="bp3-control bp3-radio bp3-inline Radio--radio"
+                        class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                       >
                         <input
                           checked=""
@@ -1430,7 +1434,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                         connectors.docker.dockerHub
                       </label>
                       <label
-                        class="bp3-control bp3-radio bp3-inline Radio--radio"
+                        class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                       >
                         <input
                           name="dockerProviderType"
@@ -1443,7 +1447,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                         connectors.docker.harbour
                       </label>
                       <label
-                        class="bp3-control bp3-radio bp3-inline Radio--radio"
+                        class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                       >
                         <input
                           name="dockerProviderType"
@@ -1456,7 +1460,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                         connectors.docker.quay
                       </label>
                       <label
-                        class="bp3-control bp3-radio bp3-inline Radio--radio"
+                        class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                       >
                         <input
                           name="dockerProviderType"

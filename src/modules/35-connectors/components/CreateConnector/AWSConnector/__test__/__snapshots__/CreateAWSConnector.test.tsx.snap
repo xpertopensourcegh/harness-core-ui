@@ -811,9 +811,11 @@ exports[`Create AWS connector Wizard Should render form 2`] = `
                   <div
                     class="bp3-form-content"
                   >
-                    <div>
+                    <div
+                      class="StyledProps--font RadioButton--radioGroup StyledProps--main"
+                    >
                       <label
-                        class="bp3-control bp3-radio Radio--radio"
+                        class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                       >
                         <input
                           checked=""
@@ -827,7 +829,7 @@ exports[`Create AWS connector Wizard Should render form 2`] = `
                         connectors.aws.awsAccessKey
                       </label>
                       <label
-                        class="bp3-control bp3-radio Radio--radio"
+                        class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                       >
                         <input
                           name="delegateType"
@@ -1014,7 +1016,7 @@ exports[`Create AWS connector Wizard Should render form 2`] = `
                       class="bp3-form-content"
                     >
                       <label
-                        class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox stl StyledProps--main StyledProps--inline"
+                        class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox stl StyledProps--main StyledProps--inline"
                       >
                         <input
                           name="crossAccountAccess"
@@ -1578,9 +1580,11 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
                   <div
                     class="bp3-form-content"
                   >
-                    <div>
+                    <div
+                      class="StyledProps--font RadioButton--radioGroup StyledProps--main"
+                    >
                       <label
-                        class="bp3-control bp3-radio Radio--radio"
+                        class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                       >
                         <input
                           checked=""
@@ -1594,7 +1598,7 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
                         connectors.aws.awsAccessKey
                       </label>
                       <label
-                        class="bp3-control bp3-radio Radio--radio"
+                        class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                       >
                         <input
                           name="delegateType"
@@ -1813,7 +1817,7 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
                       class="bp3-form-content"
                     >
                       <label
-                        class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox stl StyledProps--main StyledProps--inline"
+                        class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox stl StyledProps--main StyledProps--inline"
                       >
                         <input
                           checked=""

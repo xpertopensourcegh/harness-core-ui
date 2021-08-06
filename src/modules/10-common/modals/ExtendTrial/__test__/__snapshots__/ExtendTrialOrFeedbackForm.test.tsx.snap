@@ -71,9 +71,11 @@ exports[`ExtendTrialOrFeedbackForm Validation experience is required for ExtendT
             <div
               class="bp3-form-content"
             >
-              <div>
+              <div
+                class="StyledProps--font RadioButton--radioGroup StyledProps--main"
+              >
                 <label
-                  class="bp3-control bp3-radio Radio--radio"
+                  class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                 >
                   <input
                     name="experience"
@@ -86,7 +88,7 @@ exports[`ExtendTrialOrFeedbackForm Validation experience is required for ExtendT
                   common.extendTrial.feedback.answers.useful
                 </label>
                 <label
-                  class="bp3-control bp3-radio Radio--radio"
+                  class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                 >
                   <input
                     name="experience"
@@ -99,7 +101,7 @@ exports[`ExtendTrialOrFeedbackForm Validation experience is required for ExtendT
                   common.extendTrial.feedback.answers.needMore
                 </label>
                 <label
-                  class="bp3-control bp3-radio Radio--radio"
+                  class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                 >
                   <input
                     name="experience"
@@ -246,9 +248,11 @@ exports[`ExtendTrialOrFeedbackForm Validation experience is required for FeedBac
             <div
               class="bp3-form-content"
             >
-              <div>
+              <div
+                class="StyledProps--font RadioButton--radioGroup StyledProps--main"
+              >
                 <label
-                  class="bp3-control bp3-radio Radio--radio"
+                  class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                 >
                   <input
                     name="experience"
@@ -261,7 +265,7 @@ exports[`ExtendTrialOrFeedbackForm Validation experience is required for FeedBac
                   common.extendTrial.feedback.answers.useful
                 </label>
                 <label
-                  class="bp3-control bp3-radio Radio--radio"
+                  class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                 >
                   <input
                     name="experience"
@@ -274,7 +278,7 @@ exports[`ExtendTrialOrFeedbackForm Validation experience is required for FeedBac
                   common.extendTrial.feedback.answers.needMore
                 </label>
                 <label
-                  class="bp3-control bp3-radio Radio--radio"
+                  class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                 >
                   <input
                     name="experience"

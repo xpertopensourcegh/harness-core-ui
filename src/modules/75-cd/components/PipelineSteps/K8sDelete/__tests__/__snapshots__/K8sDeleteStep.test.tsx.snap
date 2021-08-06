@@ -194,9 +194,11 @@ exports[`Test K8sDeleteStep should render edit view -with ManifestPaths selected
         <div
           class="bp3-form-content"
         >
-          <div>
+          <div
+            class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+          >
             <label
-              class="bp3-control bp3-radio bp3-inline Radio--radio"
+              class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
             >
               <input
                 name="spec.deleteResources.type"
@@ -209,7 +211,7 @@ exports[`Test K8sDeleteStep should render edit view -with ManifestPaths selected
               pipelineSteps.resourceNameLabel
             </label>
             <label
-              class="bp3-control bp3-radio bp3-inline Radio--radio"
+              class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
             >
               <input
                 name="spec.deleteResources.type"
@@ -222,7 +224,7 @@ exports[`Test K8sDeleteStep should render edit view -with ManifestPaths selected
               pipelineSteps.manifestPathLabel
             </label>
             <label
-              class="bp3-control bp3-radio bp3-inline Radio--radio"
+              class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
             >
               <input
                 name="spec.deleteResources.type"
@@ -436,9 +438,11 @@ exports[`Test K8sDeleteStep should render edit view -with ReleaseName selected 1
         <div
           class="bp3-form-content"
         >
-          <div>
+          <div
+            class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+          >
             <label
-              class="bp3-control bp3-radio bp3-inline Radio--radio"
+              class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
             >
               <input
                 name="spec.deleteResources.type"
@@ -451,7 +455,7 @@ exports[`Test K8sDeleteStep should render edit view -with ReleaseName selected 1
               pipelineSteps.resourceNameLabel
             </label>
             <label
-              class="bp3-control bp3-radio bp3-inline Radio--radio"
+              class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
             >
               <input
                 name="spec.deleteResources.type"
@@ -464,7 +468,7 @@ exports[`Test K8sDeleteStep should render edit view -with ReleaseName selected 1
               pipelineSteps.manifestPathLabel
             </label>
             <label
-              class="bp3-control bp3-radio bp3-inline Radio--radio"
+              class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
             >
               <input
                 name="spec.deleteResources.type"
@@ -688,9 +692,11 @@ exports[`Test K8sDeleteStep should render edit view -with ResourceName selected 
         <div
           class="bp3-form-content"
         >
-          <div>
+          <div
+            class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+          >
             <label
-              class="bp3-control bp3-radio bp3-inline Radio--radio"
+              class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
             >
               <input
                 name="spec.deleteResources.type"
@@ -703,7 +709,7 @@ exports[`Test K8sDeleteStep should render edit view -with ResourceName selected 
               pipelineSteps.resourceNameLabel
             </label>
             <label
-              class="bp3-control bp3-radio bp3-inline Radio--radio"
+              class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
             >
               <input
                 name="spec.deleteResources.type"
@@ -716,7 +722,7 @@ exports[`Test K8sDeleteStep should render edit view -with ResourceName selected 
               pipelineSteps.manifestPathLabel
             </label>
             <label
-              class="bp3-control bp3-radio bp3-inline Radio--radio"
+              class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
             >
               <input
                 name="spec.deleteResources.type"
@@ -928,9 +934,11 @@ exports[`Test K8sDeleteStep should render edit view as new step 1`] = `
         <div
           class="bp3-form-content"
         >
-          <div>
+          <div
+            class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+          >
             <label
-              class="bp3-control bp3-radio bp3-inline Radio--radio"
+              class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
             >
               <input
                 name="spec.deleteResources.type"
@@ -943,7 +951,7 @@ exports[`Test K8sDeleteStep should render edit view as new step 1`] = `
               pipelineSteps.resourceNameLabel
             </label>
             <label
-              class="bp3-control bp3-radio bp3-inline Radio--radio"
+              class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
             >
               <input
                 name="spec.deleteResources.type"
@@ -956,7 +964,7 @@ exports[`Test K8sDeleteStep should render edit view as new step 1`] = `
               pipelineSteps.manifestPathLabel
             </label>
             <label
-              class="bp3-control bp3-radio bp3-inline Radio--radio"
+              class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
             >
               <input
                 name="spec.deleteResources.type"

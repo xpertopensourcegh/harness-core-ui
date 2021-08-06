@@ -589,9 +589,11 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                     <div
                       class="bp3-form-content"
                     >
-                      <div>
+                      <div
+                        class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                      >
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             checked=""
@@ -605,7 +607,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                           account
                         </label>
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             name="urlType"
@@ -632,9 +634,11 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                     <div
                       class="bp3-form-content"
                     >
-                      <div>
+                      <div
+                        class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                      >
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             checked=""
@@ -648,7 +652,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                           HTTP
                         </label>
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             name="connectionType"
@@ -1036,9 +1040,11 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                     <div
                       class="bp3-form-content"
                     >
-                      <div>
+                      <div
+                        class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                      >
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             checked=""
@@ -1052,7 +1058,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                           account
                         </label>
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             name="urlType"
@@ -1079,9 +1085,11 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                     <div
                       class="bp3-form-content"
                     >
-                      <div>
+                      <div
+                        class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                      >
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             checked=""
@@ -1095,7 +1103,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                           HTTP
                         </label>
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             name="connectionType"
@@ -1513,9 +1521,11 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
                     <div
                       class="bp3-form-content"
                     >
-                      <div>
+                      <div
+                        class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                      >
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             checked=""
@@ -1529,7 +1539,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
                           account
                         </label>
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             name="urlType"
@@ -1556,9 +1566,11 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
                     <div
                       class="bp3-form-content"
                     >
-                      <div>
+                      <div
+                        class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                      >
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             checked=""
@@ -1572,7 +1584,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
                           HTTP
                         </label>
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             name="connectionType"
@@ -1960,9 +1972,11 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
                     <div
                       class="bp3-form-content"
                     >
-                      <div>
+                      <div
+                        class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                      >
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             checked=""
@@ -1976,7 +1990,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
                           account
                         </label>
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             name="urlType"
@@ -2003,9 +2017,11 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
                     <div
                       class="bp3-form-content"
                     >
-                      <div>
+                      <div
+                        class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                      >
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             checked=""
@@ -2019,7 +2035,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
                           HTTP
                         </label>
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             name="connectionType"

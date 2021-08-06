@@ -752,7 +752,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with empty 
                 class="bp3-form-content"
               >
                 <label
-                  class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox simultaneousDeployment StyledProps--main StyledProps--inline"
+                  class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox simultaneousDeployment StyledProps--main StyledProps--inline"
                 >
                   <input
                     name="allowSimultaneousDeployments"
@@ -1141,7 +1141,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with runtim
                 class="bp3-form-content"
               >
                 <label
-                  class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox simultaneousDeployment StyledProps--main StyledProps--inline"
+                  class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox simultaneousDeployment StyledProps--main StyledProps--inline"
                 >
                   <input
                     name="allowSimultaneousDeployments"
@@ -1563,7 +1563,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with values
                 class="bp3-form-content"
               >
                 <label
-                  class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox simultaneousDeployment StyledProps--main StyledProps--inline"
+                  class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox simultaneousDeployment StyledProps--main StyledProps--inline"
                 >
                   <input
                     name="allowSimultaneousDeployments"

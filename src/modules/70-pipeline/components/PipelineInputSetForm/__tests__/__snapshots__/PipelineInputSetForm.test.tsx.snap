@@ -99,9 +99,11 @@ exports[`CI enabled CI READONLY mode: CI stage readonly mode 1`] = `
           <div
             class="bp3-form-content"
           >
-            <div>
+            <div
+              class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+            >
               <label
-                class="bp3-control bp3-radio bp3-disabled bp3-inline Radio--radio"
+                class="bp3-control bp3-radio bp3-disabled RadioButton--radio StyledProps--main"
               >
                 <input
                   disabled=""
@@ -115,7 +117,7 @@ exports[`CI enabled CI READONLY mode: CI stage readonly mode 1`] = `
                 gitBranch
               </label>
               <label
-                class="bp3-control bp3-radio bp3-disabled bp3-inline Radio--radio"
+                class="bp3-control bp3-radio bp3-disabled RadioButton--radio StyledProps--main"
               >
                 <input
                   disabled=""
@@ -161,9 +163,11 @@ exports[`CI enabled CI present in one of the stages: CI codebase input set form 
           <div
             class="bp3-form-content"
           >
-            <div>
+            <div
+              class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+            >
               <label
-                class="bp3-control bp3-radio bp3-inline Radio--radio"
+                class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
               >
                 <input
                   name="/dummypath.properties.ci.codebase.build.type"
@@ -176,7 +180,7 @@ exports[`CI enabled CI present in one of the stages: CI codebase input set form 
                 gitBranch
               </label>
               <label
-                class="bp3-control bp3-radio bp3-inline Radio--radio"
+                class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
               >
                 <input
                   name="/dummypath.properties.ci.codebase.build.type"

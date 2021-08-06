@@ -550,9 +550,11 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                               <div
                                 class="bp3-form-content"
                               >
-                                <div>
+                                <div
+                                  class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                                >
                                   <label
-                                    class="bp3-control bp3-radio bp3-inline Radio--radio"
+                                    class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                                   >
                                     <input
                                       checked=""
@@ -566,7 +568,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                                     gitBranch
                                   </label>
                                   <label
-                                    class="bp3-control bp3-radio bp3-inline Radio--radio"
+                                    class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                                   >
                                     <input
                                       name="pipeline.properties.ci.codebase.build.type"
@@ -1957,7 +1959,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                               class="bp3-form-content"
                             >
                               <label
-                                class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox checkboxAlignment StyledProps--main StyledProps--inline"
+                                class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox checkboxAlignment StyledProps--main StyledProps--inline"
                               >
                                 <input
                                   name="anyAction"
@@ -1985,7 +1987,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             class="bp3-form-content"
                           >
                             <label
-                              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox checkboxAlignment StyledProps--main StyledProps--inline"
+                              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox checkboxAlignment StyledProps--main StyledProps--inline"
                               style="position: relative; left: 0px;"
                             >
                               <input
@@ -2863,7 +2865,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                               class="bp3-form-content"
                             >
                               <label
-                                class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox checkboxAlignment StyledProps--main StyledProps--inline"
+                                class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox checkboxAlignment StyledProps--main StyledProps--inline"
                               >
                                 <input
                                   name="anyAction"
@@ -2891,7 +2893,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             class="bp3-form-content"
                           >
                             <label
-                              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox checkboxAlignment StyledProps--main StyledProps--inline"
+                              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox checkboxAlignment StyledProps--main StyledProps--inline"
                               style="position: relative; left: 0px;"
                             >
                               <input
