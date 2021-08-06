@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { Layout, SelectOption, Heading, Text, Switch } from '@wings-software/uicore'
 import { parse } from 'yaml'
-import { isEmpty, isUndefined, merge } from 'lodash-es'
+import { isEmpty, isUndefined, merge, cloneDeep } from 'lodash-es'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import { Page, useToaster } from '@common/exports'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
@@ -56,7 +56,8 @@ import {
   isRowFilled,
   CUSTOM,
   isArtifactOrManifestTrigger,
-  FlatValidArtifactFormikValuesInterface
+  FlatValidArtifactFormikValuesInterface,
+  clearRuntimeInputValue
 } from './utils/TriggersWizardPageUtils'
 import {
   ArtifactTriggerConfigPanel,
@@ -173,6 +174,10 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       return { trigger: res }
     } else if (values.triggerType === TriggerTypes.SCHEDULE) {
       const res = getScheduleTriggerYaml({ values })
+
+      return { trigger: res }
+    } else if (values.triggerType === TriggerTypes.MANIFEST) {
+      const res = getArtifactTriggerYaml({ values })
 
       return { trigger: res }
     }
@@ -709,43 +714,57 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     }
   }
 
-  const getArtifactTriggerYaml = ({ values: val }: { values: any }): TriggerConfigDTO => {
-    const {
-      name,
-      identifier,
-      description,
-      tags,
-      pipeline: pipelineRuntimeInput,
-      triggerType: formikValueTriggerType = 'Manifest',
-      selectedManifest
-    } = val
-
-    // actions will be required thru validation
-    const stringifyPipelineRuntimeInput = yamlStringify({ pipeline: clearNullUndefined(pipelineRuntimeInput) })
-    return clearNullUndefined({
-      name,
-      identifier,
-      enabled: enabledStatus,
-      description,
-      tags,
-      orgIdentifier,
-      projectIdentifier,
-      pipelineIdentifier,
-      source: {
-        type: formikValueTriggerType as unknown as NGTriggerSourceV2['type'],
-        spec: {
-          stageIdentifier: pipelineRuntimeInput?.pipelineIdentifier,
-          manifestRef: name,
-          type: manifestType,
-          spec: {
-            ...selectedManifest?.manifest?.spec
-          }
+  const getArtifactTriggerValues = ({
+    triggerResponseYaml,
+    triggerYaml
+  }: {
+    triggerResponseYaml?: string
+    triggerYaml?: { trigger: NGTriggerConfigV2 }
+  }): FlatOnEditValuesInterface | undefined => {
+    let newOnEditInitialValues: FlatOnEditValuesInterface | undefined
+    try {
+      const triggerResponseJson = triggerYaml ? triggerYaml : triggerResponseYaml ? parse(triggerResponseYaml) : {}
+      const {
+        trigger: {
+          name,
+          identifier,
+          description,
+          tags,
+          inputYaml,
+          source: { type },
+          source
         }
-      },
-      inputYaml: stringifyPipelineRuntimeInput
-    })
-  }
+      } = triggerResponseJson
+      let selectedArtifact
 
+      if (type === TriggerTypes.MANIFEST) {
+        const { manifestRef, type: _manifestType, spec } = source?.spec || {}
+        selectedArtifact = { identifier: manifestRef, type: _manifestType, spec: spec?.spec }
+      }
+      let pipelineJson = undefined
+      try {
+        pipelineJson = parse(inputYaml)?.pipeline
+      } catch (e) {
+        // set error
+        setGetTriggerErrorMessage(getString('pipeline.triggers.cannotParseInputValues'))
+      }
+
+      newOnEditInitialValues = {
+        name,
+        identifier,
+        description,
+        tags,
+        pipeline: pipelineJson,
+        triggerType: TriggerTypes.MANIFEST as unknown as NGTriggerSourceV2['type'],
+        stageId: source?.spec?.stageIdentifier,
+        selectedArtifact
+      }
+      return newOnEditInitialValues
+    } catch (e) {
+      // set error
+      setGetTriggerErrorMessage(getString('pipeline.triggers.cannotParseTriggersData'))
+    }
+  }
   const getScheduleTriggerYaml = ({
     values: val
   }: {
@@ -779,6 +798,52 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           spec: {
             expression
           }
+        }
+      },
+      inputYaml: stringifyPipelineRuntimeInput
+    })
+  }
+
+  const getArtifactTriggerYaml = ({ values: val }: { values: any }): TriggerConfigDTO => {
+    const {
+      name,
+      identifier,
+      description,
+      tags,
+      pipeline: pipelineRuntimeInput,
+      triggerType: formikValueTriggerType,
+      selectedArtifact,
+      stageId
+    } = val
+
+    // actions will be required thru validation
+    const stringifyPipelineRuntimeInput = yamlStringify({ pipeline: clearNullUndefined(pipelineRuntimeInput) })
+    // clears any runtime inputs
+    const artifactSourceSpec = clearRuntimeInputValue(
+      cloneDeep(
+        parse(
+          JSON.stringify({
+            spec: selectedArtifact?.spec
+          }) || ''
+        )
+      )
+    )
+    return clearNullUndefined({
+      name,
+      identifier,
+      enabled: enabledStatus,
+      description,
+      tags,
+      orgIdentifier,
+      projectIdentifier,
+      pipelineIdentifier,
+      source: {
+        type: formikValueTriggerType as unknown as NGTriggerSourceV2['type'],
+        spec: {
+          stageIdentifier: stageId,
+          manifestRef: selectedArtifact?.identifier,
+          type: manifestType,
+          spec: artifactSourceSpec
         }
       },
       inputYaml: stringifyPipelineRuntimeInput
@@ -886,7 +951,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         pipeline: currentPipeline?.pipeline,
         originalPipeline,
         inputSetTemplateYamlObj,
-        selectedManifest: {}
+        selectedArtifact: {}
       }
     }
     return {}
@@ -1018,6 +1083,20 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       try {
         const triggerYaml = parse(yaml)
         setInitialValues({ ...initialValues, ...getScheduleTriggerValues({ triggerYaml }) })
+        setWizardKey(wizardKey + 1)
+      } catch (e) {
+        setGetTriggerErrorMessage(getString('pipeline.triggers.cannotParseInputValues'))
+      }
+    }
+  }
+
+  const handleArtifactModeSwitch = (view: SelectedView, yamlHandler?: YamlBuilderHandlerBinding): void => {
+    if (view === SelectedView.VISUAL) {
+      const yaml = yamlHandler?.getLatestYaml() || /* istanbul ignore next */ ''
+      setErrorToasterMessage('')
+      try {
+        const triggerYaml = parse(yaml)
+        setInitialValues({ ...initialValues, ...getArtifactTriggerValues({ triggerYaml }) })
         setWizardKey(wizardKey + 1)
       } catch (e) {
         setGetTriggerErrorMessage(getString('pipeline.triggers.cannotParseInputValues'))
@@ -1180,6 +1259,17 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         disableSubmit={loadingGetTrigger || createTriggerLoading || updateTriggerLoading || isTriggerRbacDisabled}
         isEdit={isEdit}
         errorToasterMessage={errorToasterMessage}
+        visualYamlProps={{
+          handleModeSwitch: handleArtifactModeSwitch,
+          yamlBuilderReadOnlyModeProps,
+          yamlObjectKey: 'trigger',
+          showVisualYaml: true,
+          convertFormikValuesToYaml,
+          schema: triggerSchema?.data,
+          onYamlSubmit: submitTrigger,
+          loading: loadingYamlSchema,
+          invocationMap: invocationMapWebhook
+        }}
         leftNav={titleWithSwitch}
       >
         <ArtifactTriggerConfigPanel />

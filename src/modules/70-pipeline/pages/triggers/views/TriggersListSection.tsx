@@ -518,7 +518,7 @@ export const TriggersListSection: React.FC<TriggersListSectionProps> = ({
         isTriggerRbacDisabled
       },
       {
-        Header: RenderCenteredColumnHeader(getString('pipeline.triggers.enableLabel')),
+        Header: RenderCenteredColumnHeader(getString('enabledLabel').toUpperCase()),
         accessor: 'enable',
         width: '10%',
         Cell: RenderColumnEnable,

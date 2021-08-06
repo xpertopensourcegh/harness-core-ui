@@ -49,7 +49,10 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
     setSelectedArtifactLabel(undefined)
     setSelectedStageId(undefined)
     setModalState(!isEmpty(values?.selectedArtifact) ? ModalState.RUNTIME_INPUT : ModalState.SELECT)
-    // formikProps.setValues({ ...formikProps.values, stageId: undefined, artifactRef: undefined })
+    if (isEmpty(values?.selectedArtifact || {}) && values?.stages) {
+      // cancelling without applying should clear
+      formikProps.setFieldValue('stages', undefined)
+    }
   }
 
   const formDetails = TriggerFactory.getTriggerFormDetails(TriggerFormType.Manifest)
@@ -135,7 +138,6 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
               text={getString('filters.apply')}
               intent="primary"
               onClick={() => {
-                // comment here for what is orgArtifact
                 const orginalArtifact = filterArtifact({
                   runtimeData: formikProps.values.originalPipeline?.stages,
                   stageId: selectedStageId,
@@ -155,7 +157,7 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
                   stageId: selectedStageId
                 })
 
-                closeAndReset()
+                closeModal()
               }}
             />
             <Text className={css.cancel} onClick={closeAndReset}>

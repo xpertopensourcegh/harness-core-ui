@@ -2135,7 +2135,6 @@ export interface StringsMap {
   'pipeline.triggers.createTrigger': string
   'pipeline.triggers.cronLabel': string
   'pipeline.triggers.deleteTrigger': string
-  'pipeline.triggers.enableLabel': string
   'pipeline.triggers.lastActivationAt': string
   'pipeline.triggers.lastActivationDetails': string
   'pipeline.triggers.lastActivationLabel': string

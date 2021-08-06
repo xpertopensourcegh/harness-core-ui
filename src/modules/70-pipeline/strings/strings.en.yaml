@@ -394,7 +394,6 @@ triggers:
   pageNotFound: 'Page not found'
   triggerLabel: 'Trigger'
   lastActivationLabel: 'LAST ACTIVATION'
-  enableLabel: 'ENABLE'
   activityActivation: '{{numActivations}} Activations in'
   activityDays: 'Last {{numDays}} days'
   copyAsUrl: 'Copy as Webhook URL'
@@ -507,7 +506,7 @@ triggers:
     configureInputs: Configure inputs
     hasRuntimeInputs: 'Has Runtime Inputs'
     runtimeInput: 'Runtime Input'
-    chartVersionRuntimeInput: To select a manifest, Chart Version must be a runtime input.
+    chartVersionRuntimeInput: Some {{artifact}} references may be unselectable because Chart Version must be a runtime input.
 dashboards:
   failedBuilds: Failed Builds
   activeBuilds: Active Builds

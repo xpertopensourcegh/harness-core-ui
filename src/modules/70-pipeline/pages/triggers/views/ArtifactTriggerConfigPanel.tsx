@@ -9,7 +9,9 @@ import {
   parseArtifactsManifests,
   getArtifactTableDataFromData,
   artifactManifestData,
-  artifactTableItem
+  artifactTableItem,
+  getPathString,
+  getArtifactSpecObj
 } from '../utils/TriggersWizardPageUtils'
 import css from './ArtifactTriggerConfigPanel.module.scss'
 
@@ -36,6 +38,19 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
   const { appliedArtifact, data } = parsedArtifactsManifests
   const { getString } = useStrings()
   const isManifest = !!manifestType
+  const initialPath = data && stageId && getPathString(data, stageId)
+  useEffect(() => {
+    if (!formikProps.values?.stages && initialPath && appliedArtifact && selectedArtifact) {
+      // sets stages which is required to edit runtime input of selected artifact
+      // when onEdit or from yaml switch
+      const newAppliedArtifactSpecObj = getArtifactSpecObj({
+        appliedArtifact,
+        selectedArtifact,
+        path: ''
+      })
+      formikProps.setFieldValue(`${initialPath}.manifests[0].manifest.spec`, newAppliedArtifactSpecObj)
+    }
+  }, [initialPath])
 
   useEffect(() => {
     if (inputSetTemplateYamlObj || selectedArtifact) {

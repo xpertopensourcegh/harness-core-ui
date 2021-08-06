@@ -124,7 +124,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             <div
               class="textCentered"
             >
-              pipeline.triggers.enableLabel
+              ENABLEDLABEL
             </div>
           </div>
           <div

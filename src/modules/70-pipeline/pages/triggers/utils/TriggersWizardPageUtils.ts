@@ -1,4 +1,4 @@
-import { isNull, isUndefined, omitBy } from 'lodash-es'
+import { isNull, isUndefined, omitBy, isEmpty, get, set } from 'lodash-es'
 import { string, array, object, ObjectSchema } from 'yup'
 import type { SelectOption } from '@wings-software/uicore'
 import type { PipelineInfoConfig, ConnectorInfoDTO, ConnectorResponse, ManifestConfigWrapper } from 'services/cd-ng'
@@ -82,6 +82,8 @@ export interface FlatOnEditValuesInterface {
   minutes?: string
   expression?: string
   // ARTIFACT/MANIFEST-SPECIFIC
+  selectedArtifact?: any
+  stageId?: string
   inputSetTemplateYamlObj?: {
     pipeline: PipelineInfoConfig | Record<string, never>
   }
@@ -209,6 +211,12 @@ export interface TriggerConfigDTO extends Omit<NGTriggerConfigV2, 'identifier'> 
 // todo: revisit to see how to require identifier w/o type issue
 export const clearNullUndefined = /* istanbul ignore next */ (data: TriggerConfigDTO): TriggerConfigDTO =>
   omitBy(omitBy(data, isUndefined), isNull)
+
+export const clearRuntimeInputValue = (template: PipelineInfoConfig): PipelineInfoConfig => {
+  return JSON.parse(
+    JSON.stringify(template || {}).replace(/"<\+input>.?(?:allowedValues\((.*?)\)|regex\((.*?)\))?"/g, '""')
+  )
+}
 
 export const getQueryParamsOnNew = (searchStr: string): TriggerTypeSourceInterface => {
   const triggerTypeParam = 'triggerType='
@@ -741,6 +749,8 @@ export interface artifactManifestData {
   location: string
   buildTag?: string
   version?: string
+  spec?: any
+  [key: string]: any
 }
 export const parseArtifactsManifests = ({
   inputSetTemplateYamlObj,
@@ -991,4 +1001,47 @@ export const getArtifactTableDataFromData = ({
     return { artifactTableData }
   }
   return {}
+}
+
+// purpose of the function is to get applied artifact
+// and replace <+input> with values from selectedArtifact
+export function getArtifactSpecObj({
+  appliedArtifact,
+  selectedArtifact,
+  path = ''
+}: {
+  appliedArtifact: artifactManifestData
+  selectedArtifact: artifactManifestData
+  path: string
+}): any {
+  let newAppliedArtifactSpecObj: any = {}
+  const appliedArtifactSpecEntries = path
+    ? Object.entries({ ...appliedArtifact })
+    : Object.entries({ ...appliedArtifact?.spec })
+  appliedArtifactSpecEntries.forEach((entry: [key: string, val: any]) => {
+    const [key, val] = entry
+    const pathArr = `.spec${path}`.split('.').filter(p => !!p)
+    const pathResult = get(selectedArtifact, pathArr)
+
+    if (val === '<+input>' && key && pathResult?.[key]) {
+      newAppliedArtifactSpecObj[key] = pathResult[key]
+    } else if (val === '<+input>' && key && selectedArtifact?.spec?.[key]) {
+      newAppliedArtifactSpecObj[key] = selectedArtifact.spec[key]
+    } else if (typeof val === 'object') {
+      const obj = getArtifactSpecObj({
+        appliedArtifact: path ? appliedArtifact[key] : appliedArtifact.spec[key],
+        selectedArtifact,
+        path: `${path}.${key}`
+      })
+
+      if (!isEmpty(obj)) {
+        if (!path) {
+          newAppliedArtifactSpecObj = { ...newAppliedArtifactSpecObj, ...obj }
+        } else {
+          set(newAppliedArtifactSpecObj, `${path.substring(1)}.${key}`, obj)
+        }
+      }
+    }
+  })
+  return newAppliedArtifactSpecObj
 }
