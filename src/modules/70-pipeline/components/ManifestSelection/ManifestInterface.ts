@@ -1,7 +1,6 @@
 import type { SelectOption } from '@wings-software/uicore'
 import type { ConnectorSelectedValue } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import type {
-  ConnectorInfoDTO,
   ManifestConfig,
   ManifestConfigWrapper,
   PageConnectorResponse,
@@ -45,7 +44,7 @@ export interface ManifestListViewProps {
 
 export interface ManifestStepInitData {
   connectorRef: string | undefined | ConnectorSelectedValue
-  store: ConnectorInfoDTO['type'] | string
+  store: ManifestStores | string
   selectedManifest: ManifestTypes | null
 }
 export interface ManifestDetailDataType {

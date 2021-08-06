@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import {
   Layout,
@@ -60,7 +60,9 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const { getString } = useStrings()
 
-  const [selectedStore, setSelectedStore] = React.useState(prevStepData?.store ?? initialValues.store)
+  const [selectedStore, setSelectedStore] = useState(prevStepData?.store ?? initialValues.store)
+  const [multitypeInputValue, setMultiTypeValue] = useState<MultiTypeInputType | undefined>(undefined)
+
   const newConnectorLabel = `${getString('newLabel')} ${
     !!selectedStore && getString(ManifestToConnectorLabelMap[selectedStore as ManifestStores])
   } ${getString('connector')}`
@@ -75,9 +77,17 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
   const submitFirstStep = async (formData: ManifestStepInitData): Promise<void> => {
     nextStep?.({ ...formData })
   }
-  const handleOptionSelection = (selected: ManifestStores): void => {
-    setSelectedStore(selected)
-    handleStoreChange(selected)
+  const handleOptionSelection = (formikData: any, storeSelected: ManifestStores): void => {
+    if (
+      getMultiTypeFromValue(formikData.connectorRef) !== MultiTypeInputType.FIXED &&
+      formikData.store !== storeSelected
+    ) {
+      setMultiTypeValue(MultiTypeInputType.FIXED)
+    } else if (multitypeInputValue !== undefined) {
+      setMultiTypeValue(undefined)
+    }
+    handleStoreChange(storeSelected)
+    setSelectedStore(storeSelected)
   }
 
   const getInitialValues = useCallback((): ManifestStepInitData => {
@@ -134,7 +144,9 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                 name={'store'}
                 items={supportedManifestStores}
                 isReadonly={isReadonly}
-                onChange={handleOptionSelection}
+                onChange={storeSelected => {
+                  handleOptionSelection(formik?.values, storeSelected as ManifestStores)
+                }}
               />
             </Layout.Horizontal>
 
@@ -162,6 +174,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                     isNewConnectorLabelVisible={false}
                     type={ManifestToConnectorMap[formik.values.store]}
                     enableConfigureOptions={false}
+                    multitypeInputValue={multitypeInputValue}
                     gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
                   />
                   {getMultiTypeFromValue(formik.values.connectorRef) === MultiTypeInputType.RUNTIME ? (
