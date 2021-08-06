@@ -5,6 +5,7 @@ import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import { HealthSourceList } from './HealthSourceTable.mock'
 import HealthSourceTable from '../HealthSourceTable'
+import { getIconBySourceType } from '../HealthSourceTable.utils'
 
 const editModeProps: TestWrapperProps = {
   path: routes.toCVAddMonitoringServicesEdit({ ...accountPathProps, ...projectPathProps }),
@@ -74,5 +75,17 @@ describe('HealthSource table', () => {
     await waitFor(() => expect(container.querySelector('.health-source-right-drawer')).toBeDefined())
 
     expect(container).toMatchSnapshot()
+  })
+
+  test('Ensure getIconBySourceType returns correct value', async () => {
+    expect(getIconBySourceType('KUBERNETES')).toEqual('service-kubernetes')
+    expect(getIconBySourceType('APP_DYNAMICS')).toEqual('service-appdynamics')
+    expect(getIconBySourceType('STACKDRIVER')).toEqual('service-stackdriver')
+    expect(getIconBySourceType('NEW_RELIC')).toEqual('service-newrelic')
+    expect(getIconBySourceType('HEALTH')).toEqual('health')
+    expect(getIconBySourceType('CANARY')).toEqual('canary-outline')
+    expect(getIconBySourceType('BLUE_GREEN')).toEqual('bluegreen')
+    expect(getIconBySourceType('TEST')).toEqual('lab-test')
+    expect(getIconBySourceType('PROMETHEUS')).toEqual('service-prometheus')
   })
 })

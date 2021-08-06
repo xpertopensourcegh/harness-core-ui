@@ -1,19 +1,18 @@
 import * as Yup from 'yup'
 import type { UseStringsReturn } from 'framework/strings'
 import { Connectors } from '@connectors/constants'
-import { SelectOrCreateConnectorFieldNames } from '@cv/pages/onboarding/SelectOrCreateConnector/SelectOrCreateConnector'
 import { HealthSourceTypes } from '@cv/pages/health-source/types'
 import type { SelectOption } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
 import { GCOProduct } from '@cv/pages/health-source/connectors/GCOLogsMonitoringSource/GoogleCloudOperationsMonitoringSourceUtils'
 import { PrometheusProductNames } from '@cv/pages/health-source/connectors/PrometheusHealthSource/PrometheusHealthSource.constants'
-import { NewRelicProductNames } from './DefineHealthSource.constant'
+import { NewRelicProductNames, ConnectorRefFieldName } from './DefineHealthSource.constant'
 
 export const validate = (getString: UseStringsReturn['getString']) => {
   return Yup.object().shape({
     sourceType: Yup.string().trim().required(getString('cv.onboarding.selectProductScreen.validationText.source')),
     healthSourceName: Yup.string().trim().required(getString('cv.onboarding.selectProductScreen.validationText.name')),
     product: Yup.string().trim().required(getString('cv.onboarding.selectProductScreen.validationText.product')),
-    [SelectOrCreateConnectorFieldNames.CONNECTOR_REF]: Yup.string()
+    [ConnectorRefFieldName]: Yup.string()
       .nullable()
       .required(getString('cv.onboarding.selectProductScreen.validationText.connectorRef'))
   })

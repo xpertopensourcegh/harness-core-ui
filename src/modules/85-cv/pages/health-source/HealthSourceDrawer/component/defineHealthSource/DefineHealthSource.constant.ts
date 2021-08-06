@@ -24,3 +24,5 @@ export const HEALTHSOURCE_LIST = [
 export const NewRelicProductNames = {
   APM: 'apm'
 }
+
+export const ConnectorRefFieldName = 'connectorRef'

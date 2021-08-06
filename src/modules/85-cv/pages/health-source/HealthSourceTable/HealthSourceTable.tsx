@@ -11,12 +11,11 @@ import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import { Table } from '@common/components'
 import ContextMenuActions from '@cv/components/ContextMenuActions/ContextMenuActions'
-import { getIconBySourceType } from '@cv/pages/admin/setup/SetupUtils'
 import HealthSources from '@cv/components/PipelineSteps/ContinousVerification/components/HealthSources/HealthSources'
 import HealthSourceDrawerContent from '../HealthSourceDrawer/HealthSourceDrawerContent'
 import type { RowData } from '../HealthSourceDrawer/HealthSourceDrawerContent.types'
 import type { HealthSourceTableInterface } from './HealthSourceTable.types'
-import { getTypeByFeature } from './HealthSourceTable.utils'
+import { getIconBySourceType, getTypeByFeature } from './HealthSourceTable.utils'
 import css from './HealthSourceTable.module.scss'
 
 export default function HealthSourceTable({

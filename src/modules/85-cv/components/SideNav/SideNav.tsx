@@ -61,34 +61,6 @@ export default function CVSideNav(): React.ReactElement {
             label={getString('cv.monitoredServices.title')}
             to={routes.toCVMonitoringServices({ accountId, projectIdentifier, orgIdentifier })}
           />
-          <SidebarLink
-            label={getString('cv.navLinks.adminSideNavLinks.setup')}
-            to={routes.toCVAdminSetup({
-              projectIdentifier,
-              orgIdentifier,
-              accountId
-            })}
-          />
-          <SidebarLink
-            label="Notifications"
-            to={routes.toCVAdminNotifications({
-              projectIdentifier,
-              orgIdentifier,
-              accountId
-            })}
-          />
-          <SidebarLink
-            label={getString('cv.navLinks.adminSideNavLinks.activitySources')}
-            to={routes.toCVAdminActivitySources({ projectIdentifier, orgIdentifier, accountId })}
-          />
-          <SidebarLink
-            label={getString('cv.navLinks.adminSideNavLinks.monitoringSources')}
-            to={routes.toCVAdminMonitoringSources({ projectIdentifier, orgIdentifier, accountId })}
-          />
-          <SidebarLink
-            label={getString('verificationJobs')}
-            to={routes.toCVAdminVerificationJobs({ projectIdentifier, orgIdentifier, accountId })}
-          />
           <ProjectSetupMenu module="cv" />
         </React.Fragment>
       ) : null}

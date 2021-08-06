@@ -42,56 +42,6 @@ exports[`Sidenav render 1`] = `
         cv.monitoredServices.title
       </p>
     </a>
-    <a
-      class="link"
-      href="/account/dummy/cv/orgs/dummy/projects/dummy/admin/setup"
-    >
-      <p
-        class="StyledProps--font StyledProps--main text"
-      >
-        cv.navLinks.adminSideNavLinks.setup
-      </p>
-    </a>
-    <a
-      class="link"
-      href="/account/dummy/cv/orgs/dummy/projects/dummy/admin/notifications"
-    >
-      <p
-        class="StyledProps--font StyledProps--main text"
-      >
-        Notifications
-      </p>
-    </a>
-    <a
-      class="link"
-      href="/account/dummy/cv/orgs/dummy/projects/dummy/admin/activity-sources"
-    >
-      <p
-        class="StyledProps--font StyledProps--main text"
-      >
-        cv.navLinks.adminSideNavLinks.activitySources
-      </p>
-    </a>
-    <a
-      class="link"
-      href="/account/dummy/cv/orgs/dummy/projects/dummy/admin/monitoring-sources"
-    >
-      <p
-        class="StyledProps--font StyledProps--main text"
-      >
-        cv.navLinks.adminSideNavLinks.monitoringSources
-      </p>
-    </a>
-    <a
-      class="link"
-      href="/account/dummy/cv/orgs/dummy/projects/dummy/admin/verification-jobs"
-    >
-      <p
-        class="StyledProps--font StyledProps--main text"
-      >
-        verificationJobs
-      </p>
-    </a>
     <div>
       <div
         class="border"

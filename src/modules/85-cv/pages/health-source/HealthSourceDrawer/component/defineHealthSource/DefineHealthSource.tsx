@@ -13,7 +13,6 @@ import {
 } from '@wings-software/uicore'
 import { useParams } from 'react-router'
 import cx from 'classnames'
-import { SelectOrCreateConnectorFieldNames } from '@cv/pages/onboarding/SelectOrCreateConnector/SelectOrCreateConnector'
 import { FormConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/FormConnectorReferenceField'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -23,7 +22,7 @@ import DrawerFooter from '@cv/pages/health-source/common/DrawerFooter/DrawerFoot
 import { SetupSourceTabsContext } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import { Connectors } from '@connectors/constants'
 import { HealthSourceTypes } from '@cv/pages/health-source/types'
-import { HEALTHSOURCE_LIST } from './DefineHealthSource.constant'
+import { ConnectorRefFieldName, HEALTHSOURCE_LIST } from './DefineHealthSource.constant'
 import { validate, getFeatureOption, getInitialValues } from './DefineHealthSource.utils'
 import css from './DefineHealthSource.module.scss'
 
@@ -98,7 +97,7 @@ function DefineHealthSource(props: DefineHealthSourceProps): JSX.Element {
                                   onClick={() => {
                                     formik.setFieldValue('sourceType', connectorTypeName)
                                     formik.setFieldValue('product', '')
-                                    formik.setFieldValue(SelectOrCreateConnectorFieldNames.CONNECTOR_REF, null)
+                                    formik.setFieldValue(ConnectorRefFieldName, null)
                                   }}
                                 >
                                   <Icon name={icon as IconName} size={26} height={26} />
@@ -145,7 +144,7 @@ function DefineHealthSource(props: DefineHealthSourceProps): JSX.Element {
                         width={400}
                         formik={formik}
                         type={formik?.values?.sourceType}
-                        name={SelectOrCreateConnectorFieldNames.CONNECTOR_REF}
+                        name={ConnectorRefFieldName}
                         accountIdentifier={accountId}
                         projectIdentifier={projectIdentifier}
                         orgIdentifier={orgIdentifier}
