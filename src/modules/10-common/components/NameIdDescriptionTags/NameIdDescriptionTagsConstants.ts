@@ -21,6 +21,7 @@ export interface DescriptionComponentProps {
   descriptionProps?: DescriptionProps
   hasValue?: boolean
   disabled?: boolean
+  dataTooltipId?: string
 }
 
 export interface TagsProps {
@@ -31,6 +32,7 @@ export interface TagsComponentProps {
   tagsProps?: Partial<ITagInputProps>
   hasValue?: boolean
   isOptional?: boolean
+  dataTooltipId?: string
 }
 
 export interface TagsDeprecatedComponentProps {

@@ -1125,6 +1125,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         wizardMap={wizardMap}
         tabWidth="218px"
         onHide={returnToTriggersPage}
+        wizardType="webhook"
         // defaultTabId="Schedule"
         submitLabel={
           isEdit ? getString('pipeline.triggers.updateTrigger') : getString('pipeline.triggers.createTrigger')
@@ -1175,6 +1176,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         submitLabel={
           isEdit ? getString('pipeline.triggers.updateTrigger') : getString('pipeline.triggers.createTrigger')
         }
+        wizardType="artifacts"
         disableSubmit={loadingGetTrigger || createTriggerLoading || updateTriggerLoading || isTriggerRbacDisabled}
         isEdit={isEdit}
         errorToasterMessage={errorToasterMessage}
@@ -1211,6 +1213,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         }
         disableSubmit={loadingGetTrigger || createTriggerLoading || updateTriggerLoading}
         isEdit={isEdit}
+        wizardType="scheduled"
         errorToasterMessage={errorToasterMessage}
         leftNav={titleWithSwitch}
         visualYamlProps={{

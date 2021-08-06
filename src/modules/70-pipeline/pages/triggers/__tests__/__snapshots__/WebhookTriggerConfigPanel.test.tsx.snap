@@ -113,6 +113,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
               >
                 <label
                   class="Label--main"
+                  data-tooltip-id="webhookTrigger_description"
                   style="font-size: 13px; font-weight: normal;"
                 >
                   optionalField
@@ -144,6 +145,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
               >
                 <label
                   class="Label--main"
+                  data-tooltip-id="webhookTrigger_tags"
                   style="font-size: 13px; font-weight: normal;"
                 >
                   optionalField
@@ -370,6 +372,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
               >
                 <label
                   class="Label--main"
+                  data-tooltip-id="webhookTrigger_description"
                   style="font-size: 13px; font-weight: normal;"
                 >
                   optionalField
@@ -401,6 +404,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
               >
                 <label
                   class="Label--main"
+                  data-tooltip-id="webhookTrigger_tags"
                   style="font-size: 13px; font-weight: normal;"
                 >
                   optionalField

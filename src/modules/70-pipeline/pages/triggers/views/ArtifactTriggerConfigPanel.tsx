@@ -100,6 +100,9 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
           identifierProps={{
             isIdentifierEditable: !isEdit
           }}
+          tooltipProps={{
+            dataTooltipId: 'artifactTrigger'
+          }}
         />
         <Heading className={css.listenOnNewWebhook} style={{ marginTop: '0!important' }} level={2}>
           {getString('pipeline.triggers.artifactTriggerConfigPanel.listenOnNewArtifact', {

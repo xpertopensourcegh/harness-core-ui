@@ -1,5 +1,13 @@
 import React, { useState } from 'react'
-import { Container, FormInput, Icon, Label, Color } from '@wings-software/uicore'
+import {
+  Container,
+  FormInput,
+  Icon,
+  Label,
+  Color,
+  DataTooltipInterface,
+  HarnessDocTooltip
+} from '@wings-software/uicore'
 import type { InputWithIdentifierProps } from '@wings-software/uicore/dist/components/InputWithIdentifier/InputWithIdentifier'
 import { isEmpty } from 'lodash-es'
 import type { IInputGroupProps, ITagInputProps } from '@blueprintjs/core'
@@ -26,6 +34,7 @@ export interface NameIdDescriptionTagsProps {
   }
   formikProps: FormikProps<FormikForNameIdDescriptionTags>
   className?: string
+  tooltipProps?: DataTooltipInterface
 }
 
 interface NameIdProps {
@@ -33,6 +42,7 @@ interface NameIdProps {
   namePlaceholder?: string
   identifierProps?: Omit<InputWithIdentifierProps, 'formik'>
   inputGroupProps?: IInputGroupProps
+  dataTooltipId?: string
 }
 
 export const NameId = (props: NameIdProps): JSX.Element => {
@@ -53,8 +63,12 @@ export const Description = (props: DescriptionComponentProps): JSX.Element => {
 
   return (
     <Container style={{ marginBottom: isDescriptionOpen ? '0' : 'var(--spacing-medium)' }}>
-      <Label style={{ fontSize: 13, fontWeight: 'normal', marginBottom: 'var(--spacing-xsmall)' }}>
+      <Label
+        style={{ fontSize: 13, fontWeight: 'normal', marginBottom: 'var(--spacing-xsmall)' }}
+        data-tooltip-id={props.dataTooltipId}
+      >
         {isOptional ? getString('optionalField', { name: getString('description') }) : getString('description')}
+        {props.dataTooltipId ? <HarnessDocTooltip useStandAlone={true} tooltipId={props.dataTooltipId} /> : null}
         {!isDescriptionOpen && (
           <Icon
             className={css.editOpen}
@@ -91,8 +105,12 @@ export const Tags = (props: TagsComponentProps): JSX.Element => {
 
   return (
     <Container>
-      <Label style={{ fontSize: 13, fontWeight: 'normal', marginBottom: 'var(--spacing-xsmall)' }}>
+      <Label
+        style={{ fontSize: 13, fontWeight: 'normal', marginBottom: 'var(--spacing-xsmall)' }}
+        data-tooltip-id={props.dataTooltipId}
+      >
         {isOptional ? getString('optionalField', { name: getString('tagsLabel') }) : getString('tagsLabel')}
+        {props.dataTooltipId ? <HarnessDocTooltip useStandAlone={true} tooltipId={props.dataTooltipId} /> : null}
         {!isTagsOpen && (
           <Icon
             className={css.editOpen}
@@ -155,13 +173,30 @@ function TagsDeprecated(props: TagsDeprecatedComponentProps): JSX.Element {
 
 export function NameIdDescriptionTags(props: NameIdDescriptionTagsProps): JSX.Element {
   const { getString } = useStrings()
-  const { className, identifierProps, descriptionProps, tagsProps, formikProps, inputGroupProps = {} } = props
+  const {
+    className,
+    identifierProps,
+    descriptionProps,
+    tagsProps,
+    formikProps,
+    inputGroupProps = {},
+    tooltipProps
+  } = props
   const newInputGroupProps = { placeholder: getString('common.namePlaceholder'), ...inputGroupProps }
   return (
     <Container className={cx(css.main, className)}>
       <NameId identifierProps={identifierProps} inputGroupProps={newInputGroupProps} />
-      <Description descriptionProps={descriptionProps} hasValue={!!formikProps?.values.description} />
-      <Tags tagsProps={tagsProps} isOptional={tagsProps?.isOption} hasValue={!isEmpty(formikProps?.values.tags)} />
+      <Description
+        descriptionProps={descriptionProps}
+        hasValue={!!formikProps?.values.description}
+        dataTooltipId={tooltipProps?.dataTooltipId ? `${tooltipProps.dataTooltipId}_description` : undefined}
+      />
+      <Tags
+        tagsProps={tagsProps}
+        isOptional={tagsProps?.isOption}
+        hasValue={!isEmpty(formikProps?.values.tags)}
+        dataTooltipId={tooltipProps?.dataTooltipId ? `${tooltipProps.dataTooltipId}_tags` : undefined}
+      />
     </Container>
   )
 }

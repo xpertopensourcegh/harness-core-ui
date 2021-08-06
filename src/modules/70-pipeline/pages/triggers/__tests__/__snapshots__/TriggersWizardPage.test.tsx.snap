@@ -591,7 +591,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                               >
                                 <span
                                   class="Tooltip--acenter"
-                                  data-tooltip-id="wizardForm_pipeline.properties.ci.codebase.build.spec.branch"
+                                  data-tooltip-id="wizardForm_webhook_pipeline.properties.ci.codebase.build.spec.branch"
                                 >
                                   gitBranch
                                 </span>
@@ -689,7 +689,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                                       >
                                         <span
                                           class="Tooltip--acenter"
-                                          data-tooltip-id="wizardForm_pipeline.stages[0].stage.spec.infrastructure.spec.namespace"
+                                          data-tooltip-id="wizardForm_webhook_pipeline.stages[0].stage.spec.infrastructure.spec.namespace"
                                         >
                                           <p
                                             class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--font-small StyledProps--margin-bottom-xsmall"
@@ -1379,7 +1379,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             >
                               <span
                                 class="Tooltip--acenter"
-                                data-tooltip-id="wizardForm_name"
+                                data-tooltip-id="wizardForm_webhook_name"
                               >
                                 name
                               </span>
@@ -1412,6 +1412,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                         >
                           <label
                             class="Label--main"
+                            data-tooltip-id="webhookTrigger_description"
                             style="font-size: 13px; font-weight: normal;"
                           >
                             optionalField
@@ -1440,6 +1441,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                         >
                           <label
                             class="Label--main"
+                            data-tooltip-id="webhookTrigger_tags"
                             style="font-size: 13px; font-weight: normal;"
                           >
                             optionalField
@@ -1521,7 +1523,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                           >
                             <span
                               class="Tooltip--acenter"
-                              data-tooltip-id="wizardForm_sourceRepo"
+                              data-tooltip-id="wizardForm_webhook_sourceRepo"
                             >
                               pipeline.triggers.triggerConfigurationPanel.payloadType
                             </span>
@@ -1700,7 +1702,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             >
                               <span
                                 class="Tooltip--acenter"
-                                data-tooltip-id="wizardForm_repoName"
+                                data-tooltip-id="wizardForm_webhook_repoName"
                               >
                                 pipelineSteps.build.create.repositoryNameLabel
                               </span>
@@ -1743,7 +1745,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                           >
                             <span
                               class="Tooltip--acenter"
-                              data-tooltip-id="wizardForm_event"
+                              data-tooltip-id="wizardForm_webhook_event"
                             >
                               pipeline.triggers.triggerConfigurationPanel.event
                             </span>
@@ -1966,7 +1968,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                 />
                                 <span
                                   class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
-                                  data-tooltip-id="wizardForm_anyAction"
+                                  data-tooltip-id="wizardForm_webhook_anyAction"
                                 >
                                   pipeline.triggers.triggerConfigurationPanel.anyActions
                                 </span>
@@ -1996,7 +1998,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                               />
                               <span
                                 class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
-                                data-tooltip-id="wizardForm_autoAbortPreviousExecutions"
+                                data-tooltip-id="wizardForm_webhook_autoAbortPreviousExecutions"
                               >
                                 Auto-abort Previous Execution
                               </span>
@@ -2337,7 +2339,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             >
                               <span
                                 class="Tooltip--acenter"
-                                data-tooltip-id="wizardForm_name"
+                                data-tooltip-id="wizardForm_webhook_name"
                               >
                                 name
                               </span>
@@ -2369,6 +2371,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                         >
                           <label
                             class="Label--main"
+                            data-tooltip-id="webhookTrigger_description"
                             style="font-size: 13px; font-weight: normal;"
                           >
                             optionalField
@@ -2400,6 +2403,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                         >
                           <label
                             class="Label--main"
+                            data-tooltip-id="webhookTrigger_tags"
                             style="font-size: 13px; font-weight: normal;"
                           >
                             optionalField
@@ -2446,7 +2450,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                           >
                             <span
                               class="Tooltip--acenter"
-                              data-tooltip-id="wizardForm_sourceRepo"
+                              data-tooltip-id="wizardForm_webhook_sourceRepo"
                             >
                               pipeline.triggers.triggerConfigurationPanel.payloadType
                             </span>
@@ -2647,7 +2651,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                           >
                             <span
                               class="Tooltip--acenter"
-                              data-tooltip-id="wizardForm_event"
+                              data-tooltip-id="wizardForm_webhook_event"
                             >
                               pipeline.triggers.triggerConfigurationPanel.event
                             </span>
@@ -2870,7 +2874,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                 />
                                 <span
                                   class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
-                                  data-tooltip-id="wizardForm_anyAction"
+                                  data-tooltip-id="wizardForm_webhook_anyAction"
                                 >
                                   pipeline.triggers.triggerConfigurationPanel.anyActions
                                 </span>
@@ -2900,7 +2904,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                               />
                               <span
                                 class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
-                                data-tooltip-id="wizardForm_autoAbortPreviousExecutions"
+                                data-tooltip-id="wizardForm_webhook_autoAbortPreviousExecutions"
                               >
                                 Auto-abort Previous Execution
                               </span>
@@ -3238,7 +3242,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                           >
                             <span
                               class="Tooltip--acenter"
-                              data-tooltip-id="wizardForm_name"
+                              data-tooltip-id="wizardForm_scheduled_name"
                             >
                               name
                             </span>
@@ -3271,6 +3275,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                       >
                         <label
                           class="Label--main"
+                          data-tooltip-id="triggerOverview_description"
                           style="font-size: 13px; font-weight: normal;"
                         >
                           optionalField
@@ -3299,6 +3304,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                       >
                         <label
                           class="Label--main"
+                          data-tooltip-id="triggerOverview_tags"
                           style="font-size: 13px; font-weight: normal;"
                         >
                           optionalField
@@ -3688,7 +3694,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                           >
                             <span
                               class="Tooltip--acenter"
-                              data-tooltip-id="wizardForm_expression"
+                              data-tooltip-id="wizardForm_scheduled_expression"
                             >
                               pipeline.triggers.schedulePanel.enterCustomCron
                             </span>
