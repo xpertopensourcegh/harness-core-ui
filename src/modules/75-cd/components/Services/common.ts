@@ -1,4 +1,4 @@
-import { createContext, Dispatch, SetStateAction, useContext } from 'react'
+import { createContext, createRef, Dispatch, MutableRefObject, SetStateAction, useContext } from 'react'
 import { noop } from 'lodash-es'
 import type { DateRange } from '@blueprintjs/datetime'
 import type { Module } from '@common/interfaces/RouteInterfaces'
@@ -18,11 +18,13 @@ export type ParamsType = {
 export interface ServiceStore {
   view: Views
   setView: Dispatch<SetStateAction<Views>>
+  fetchDeploymentList: MutableRefObject<(() => void) | unknown>
 }
 
 export const ServiceStoreContext = createContext({
   view: Views.INSIGHT,
-  setView: noop
+  setView: noop,
+  fetchDeploymentList: createRef()
 })
 
 export const useServiceStore = (): ServiceStore => useContext(ServiceStoreContext)

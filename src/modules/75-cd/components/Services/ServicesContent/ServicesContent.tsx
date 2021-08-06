@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import moment from 'moment'
 import { Card, Layout } from '@wings-software/uicore'
@@ -18,8 +18,9 @@ import { useStrings } from 'framework/strings'
 import css from '@cd/components/Services/ServicesContent/ServicesContent.module.scss'
 
 export const ServicesContent: React.FC = () => {
-  const { view } = useServiceStore()
+  const { view, fetchDeploymentList } = useServiceStore()
   const { getString } = useStrings()
+
   const [timeRange, setTimeRange] = useState<TimeRangeSelectorProps>({
     range: [startOfDay(moment().subtract(30, 'days')), startOfDay(moment())],
     label: getString('cd.serviceDashboard.month')
@@ -43,6 +44,10 @@ export const ServicesContent: React.FC = () => {
   } = useGetServiceDetails({
     queryParams
   })
+
+  useEffect(() => {
+    fetchDeploymentList.current = refetch
+  }, [fetchDeploymentList, refetch])
 
   const serviceDeploymentDetailsList = serviceDetails?.data?.serviceDeploymentDetailsList || []
 
