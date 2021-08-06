@@ -1,5 +1,5 @@
 .github/ @wings-software/ui-platform
-.eslintrc @wings-software/ui-platform
+.eslintrc.yml @wings-software/ui-platform
 .prettierignore @wings-software/ui-platform
 .prettierrc.yml @wings-software/ui-platform
 package.json @wings-software/ui-platform
@@ -10,6 +10,16 @@ webpack.devServerProxy.config.js @wings-software/ui-platform
 jest.config.js @wings-software/ui-platform
 coverage-groups.json @wings-software/ui-platform
 dockerfile @wings-software/ui-platform
+src/framework/ @wings-software/ui-platform
 src/modules/10-common/navigation/ @wings-software/ui-platform
 src/modules/10-common/RouteDefinitions.ts @wings-software/ui-platform
 src/services/ @wings-software/ui-platform
+harnessci.Dockerfile @wings-software/ui-platform
+restful-react.config.js @wings-software/ui-platform
+sonar-project.properties @wings-software/ui-platform
+yarn.lock @wings-software/ui-platform
+.dockerignore @wings-software/ui-platform
+.storybook/ @wings-software/ui-platform
+scripts/ @wings-software/ui-platform
+certificates/ @wings-software/ui-platform
+src/modules/70-pipeline @wings-software/ui-pipeline
