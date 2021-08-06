@@ -247,7 +247,7 @@ export default function AppDMonitoredSource({
                       }
                       onChange={async item => {
                         formik.setFieldValue('appDTier', item.label)
-                        await onValidate(formik.values.appdApplication, item.value as string, formik.values.metricData)
+                        await onValidate(formik.values.appdApplication, item.label as string, formik.values.metricData)
                       }}
                       items={tierOptions}
                       label={getString('cv.healthSource.connectors.AppDynamics.trierLabel')}
