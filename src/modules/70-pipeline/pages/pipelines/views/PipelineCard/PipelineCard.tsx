@@ -256,9 +256,11 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
     branch: pipeline?.gitDetails?.branch
   })
 
+  const pipelineIcons = getIconsForPipeline(pipeline)
+
   return (
     <Card className={css.pipelineCard} interactive onClick={() => goToPipelineStudio(pipeline)}>
-      <Container padding={'xlarge'} border={{ bottom: true }}>
+      <Container padding={'xlarge'} border={{ bottom: true }} className={css.pipelineInfo}>
         <CardBody.Menu
           menuContent={
             <ContextMenu
@@ -277,19 +279,20 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
           }}
         />
         <Container>
-          <Layout.Horizontal spacing={'small'} margin={{ bottom: 'small' }}>
-            {getIconsForPipeline(pipeline).map(iconObj => (
-              <Icon key={iconObj.icon} name={iconObj.icon} size={14} />
-            ))}
-          </Layout.Horizontal>
+          {!isEmpty(pipelineIcons) && (
+            <Layout.Horizontal spacing={'small'} margin={{ bottom: 'small' }}>
+              {pipelineIcons.map(iconObj => (
+                <Icon key={iconObj.icon} name={iconObj.icon} size={14} />
+              ))}
+            </Layout.Horizontal>
+          )}
           <Layout.Horizontal spacing={'medium'} flex={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}>
             <Container>
-              <Text lineClamp={2} font={{ weight: 'bold' }} color={Color.GREY_800} data-testid={pipeline.identifier}>
+              <Text lineClamp={1} font={{ weight: 'bold' }} color={Color.GREY_800} data-testid={pipeline.identifier}>
                 {pipeline.name}
               </Text>
-              <Text font="small" color={Color.GREY_600} margin={{ top: 'xsmall' }}>
-                {getString('idLabel')}
-                {pipeline.identifier}
+              <Text font="small" lineClamp={1} color={Color.GREY_600} margin={{ top: 'xsmall' }}>
+                {getString('idLabel', { id: pipeline.identifier })}
               </Text>
             </Container>
             {!isEmpty(pipeline.tags) && pipeline.tags && (

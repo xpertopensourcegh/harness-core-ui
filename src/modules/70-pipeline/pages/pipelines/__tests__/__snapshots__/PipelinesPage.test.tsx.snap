@@ -379,7 +379,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
             tabindex="0"
           >
             <div
-              class="StyledProps--font StyledProps--main StyledProps--padding-xlarge StyledProps--border StyledProps--border-bottom"
+              class="StyledProps--font StyledProps--main pipelineInfo StyledProps--padding-xlarge StyledProps--border StyledProps--border-bottom"
             >
               <div
                 class="Card--cardMenu"
@@ -511,15 +511,15 @@ exports[`CD Pipeline Page List render card view 1`] = `
                     <p
                       class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey800"
                       data-testid="pipeline1"
-                      style="--text-line-clamp: 2;"
+                      style="--text-line-clamp: 1;"
                     >
                       pipeline1
                     </p>
                     <p
-                      class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey600 StyledProps--margin-top-xsmall"
+                      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey600 StyledProps--margin-top-xsmall"
+                      style="--text-line-clamp: 1;"
                     >
                       idLabel
-                      pipeline1
                     </p>
                   </div>
                 </div>
@@ -811,7 +811,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
             tabindex="0"
           >
             <div
-              class="StyledProps--font StyledProps--main StyledProps--padding-xlarge StyledProps--border StyledProps--border-bottom"
+              class="StyledProps--font StyledProps--main pipelineInfo StyledProps--padding-xlarge StyledProps--border StyledProps--border-bottom"
             >
               <div
                 class="Card--cardMenu"
@@ -906,15 +906,15 @@ exports[`CD Pipeline Page List render card view 1`] = `
                     <p
                       class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey800"
                       data-testid="First_pipeline"
-                      style="--text-line-clamp: 2;"
+                      style="--text-line-clamp: 1;"
                     >
                       First pipeline
                     </p>
                     <p
-                      class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey600 StyledProps--margin-top-xsmall"
+                      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey600 StyledProps--margin-top-xsmall"
+                      style="--text-line-clamp: 1;"
                     >
                       idLabel
-                      First_pipeline
                     </p>
                   </div>
                 </div>
@@ -1215,7 +1215,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
             tabindex="0"
           >
             <div
-              class="StyledProps--font StyledProps--main StyledProps--padding-xlarge StyledProps--border StyledProps--border-bottom"
+              class="StyledProps--font StyledProps--main pipelineInfo StyledProps--padding-xlarge StyledProps--border StyledProps--border-bottom"
             >
               <div
                 class="Card--cardMenu"
@@ -1310,15 +1310,15 @@ exports[`CD Pipeline Page List render card view 1`] = `
                     <p
                       class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey800"
                       data-testid="Second_Pipeline"
-                      style="--text-line-clamp: 2;"
+                      style="--text-line-clamp: 1;"
                     >
                       Second Pipeline
                     </p>
                     <p
-                      class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey600 StyledProps--margin-top-xsmall"
+                      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey600 StyledProps--margin-top-xsmall"
+                      style="--text-line-clamp: 1;"
                     >
                       idLabel
-                      Second_Pipeline
                     </p>
                   </div>
                 </div>
