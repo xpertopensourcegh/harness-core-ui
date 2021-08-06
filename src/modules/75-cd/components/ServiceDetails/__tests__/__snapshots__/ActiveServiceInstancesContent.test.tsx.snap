@@ -3,7 +3,7 @@
 exports[`ActiveServiceInstancesContent should render ActiveServiceInstancesContent 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main StyledProps--padding-top-small"
+    class="Layout--horizontal StyledProps--main StyledProps--padding-top-medium"
   >
     <div
       class="table instanceTable"

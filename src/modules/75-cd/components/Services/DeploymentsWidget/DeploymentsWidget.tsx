@@ -1,11 +1,10 @@
 import React, { useCallback, useContext, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
-import moment from 'moment'
 import type { SeriesAreaOptions } from 'highcharts'
 import { Card, Color, Container, Layout, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { Ticker, TickerVerticalAlignment } from '@common/components/Ticker/Ticker'
-import { getBucketSizeForTimeRange, TimeRangeSelector } from '@cd/components/TimeRangeSelector/TimeRangeSelector'
+import { getBucketSizeForTimeRange } from '@cd/components/TimeRangeSelector/TimeRangeSelector'
 import { PageSpinner, TimeSeriesAreaChart } from '@common/components'
 import type { TimeSeriesAreaChartProps } from '@common/components/TimeSeriesAreaChart/TimeSeriesAreaChart'
 import { PageError } from '@common/components/Page/PageError'
@@ -47,7 +46,7 @@ export const DeploymentsWidget: React.FC<DeploymentWidgetProps> = props => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
 
   const { serviceIdentifier } = props
-  const { timeRange, setTimeRange } = useContext(DeploymentsTimeRangeContext)
+  const { timeRange } = useContext(DeploymentsTimeRangeContext)
 
   const queryParams: GetServiceDeploymentsInfoQueryParams = useMemo(() => {
     return {
@@ -56,7 +55,7 @@ export const DeploymentsWidget: React.FC<DeploymentWidgetProps> = props => {
       projectIdentifier,
       serviceIdentifier,
       startTime: timeRange?.range[0]?.getTime() || 0,
-      endTime: timeRange?.range[1] ? moment(timeRange.range[1]).add(1, 'days').toDate().getTime() : 0,
+      endTime: timeRange?.range[1]?.getTime() || 0,
       bucketSizeInDays: getBucketSizeForTimeRange(timeRange?.range)
     }
   }, [accountId, orgIdentifier, projectIdentifier, serviceIdentifier, timeRange])
@@ -123,12 +122,7 @@ export const DeploymentsWidget: React.FC<DeploymentWidgetProps> = props => {
   const DeploymentWidgetContainer: React.FC = ({ children }) => {
     return (
       <Card className={css.card}>
-        <Layout.Vertical height={'100%'}>
-          <Container className={css.timeRange}>
-            <TimeRangeSelector timeRange={timeRange?.range} setTimeRange={setTimeRange} />
-          </Container>
-          {children}
-        </Layout.Vertical>
+        <Layout.Vertical height={'100%'}>{children}</Layout.Vertical>
       </Card>
     )
   }

@@ -21,8 +21,8 @@ export const ServicesContent: React.FC = () => {
   const { view } = useServiceStore()
   const { getString } = useStrings()
   const [timeRange, setTimeRange] = useState<TimeRangeSelectorProps>({
-    range: [startOfDay(moment().subtract(6, 'month')), startOfDay(moment())],
-    label: getString('cd.serviceDashboard.6months')
+    range: [startOfDay(moment().subtract(30, 'days')), startOfDay(moment())],
+    label: getString('cd.serviceDashboard.month')
   })
 
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps & ModulePathParams>()
@@ -32,7 +32,7 @@ export const ServicesContent: React.FC = () => {
     orgIdentifier,
     projectIdentifier,
     startTime: timeRange?.range[0]?.getTime() || 0,
-    endTime: timeRange?.range[1] ? moment(timeRange.range[1]).add(1, 'days').toDate().getTime() : 0
+    endTime: timeRange?.range[1]?.getTime() || 0
   }
 
   const {

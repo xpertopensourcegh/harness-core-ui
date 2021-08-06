@@ -28,6 +28,10 @@ jest.spyOn(cdngServices, 'useGetInstanceCountHistory').mockImplementation(() => 
   return { loading: false, error: false, data: [], refetch: jest.fn() } as any
 })
 
+jest.spyOn(cdngServices, 'useGetDeploymentsByServiceId').mockImplementation(() => {
+  return { loading: false, error: false, data: [], refetch: jest.fn() } as any
+})
+
 describe('ServiceDetails', () => {
   test('should render ServiceDetails', () => {
     const { container } = render(

@@ -64,28 +64,7 @@ exports[`ActiveServiceInstancesHeader should render ActiveServiceInstancesHeader
     </div>
     <div
       class="Layout--horizontal StyledProps--main"
-    >
-      <div
-        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
-        style="height: 100%;"
-      >
-        <div
-          class="Layout--vertical StyledProps--main pieChartLabelContainerStyles StyledProps--flex StyledProps--flex-alignItems-flex-end StyledProps--padding-top-xsmall StyledProps--padding-bottom-xsmall StyledProps--padding-right-large"
-          style="height: 100%;"
-        >
-          <p
-            class="StyledProps--font StyledProps--main pieChartLabelStyles StyledProps--font-size-xsmall StyledProps--color StyledProps--color-grey500"
-          >
-            cd.serviceDashboard.nonProd (0)
-          </p>
-          <p
-            class="StyledProps--font StyledProps--main pieChartLabelStyles StyledProps--font-size-xsmall StyledProps--color StyledProps--color-grey500"
-          >
-            cd.serviceDashboard.prod (0)
-          </p>
-        </div>
-      </div>
-    </div>
+    />
   </div>
 </div>
 `;

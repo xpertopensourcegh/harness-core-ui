@@ -39,8 +39,8 @@ export const ActiveServiceInstancesHeader: React.FC = () => {
       orgIdentifier,
       projectIdentifier,
       serviceId,
-      startTime: moment().subtract(6, 'months').toDate().getTime(),
-      endTime: moment().toDate().getTime()
+      startTime: moment().utc().startOf('day').subtract(6, 'months').toDate().getTime(),
+      endTime: moment().utc().startOf('day').toDate().getTime()
     }),
     [accountId, orgIdentifier, projectIdentifier, serviceId]
   )
@@ -137,7 +137,7 @@ export const ActiveServiceInstancesHeader: React.FC = () => {
         ) : (
           <></>
         )}
-        <PieChart {...pieChartProps} />
+        {totalInstances ? <PieChart {...pieChartProps} /> : <></>}
       </Layout.Horizontal>
     </Layout.Horizontal>
   )

@@ -1,6 +1,5 @@
 import React, { useContext, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
-import moment from 'moment'
 import { Card, Color, Container, Layout, Text } from '@wings-software/uicore'
 import type { ProjectPathProps, ServicePathProps } from '@common/interfaces/RouteInterfaces'
 import { GetInstanceCountHistoryQueryParams, useGetInstanceCountHistory } from 'services/cd-ng'
@@ -25,7 +24,7 @@ export const InstanceCountHistory: React.FC = () => {
     projectIdentifier,
     serviceId,
     startTime: timeRange?.range[0]?.getTime() || 0,
-    endTime: timeRange?.range[1] ? moment(timeRange.range[1]).add(1, 'days').toDate().getTime() : 0
+    endTime: timeRange?.range[1]?.getTime() || 0
   }
   const { loading, data, error, refetch } = useGetInstanceCountHistory({ queryParams })
 
@@ -44,10 +43,12 @@ export const InstanceCountHistory: React.FC = () => {
         y: timeValuePair.value?.count || 0
       })
     })
-    return Object.values(envMap).map((envSeries, index) => ({
-      data: envSeries,
-      color: instanceCountHistoryChartColors[index % instanceCountHistoryChartColors.length]
-    }))
+    return Object.values(envMap)
+      .slice(0, 49) // Todo - Jasmeet - Handle UX for more than 50 series
+      .map((envSeries, index) => ({
+        data: envSeries.sort((valA, valB) => valA.x - valB.x),
+        color: instanceCountHistoryChartColors[index % instanceCountHistoryChartColors.length]
+      }))
   }, [data])
 
   const customChartOptions: Highcharts.Options = useMemo(

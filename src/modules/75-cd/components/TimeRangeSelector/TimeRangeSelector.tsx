@@ -14,7 +14,7 @@ export const getBucketSizeForTimeRange = (timeRange?: DateRange): number => {
   return 1
 }
 
-export const startOfDay = (time: moment.Moment): Date => time.startOf('day').toDate()
+export const startOfDay = (time: moment.Moment): Date => time.utc().startOf('day').toDate()
 
 export interface TimeRangeSelectorProps {
   range: DateRange

@@ -89,11 +89,11 @@ export const ActiveServiceInstancePopover: React.FC<ActiveServiceInstancePopover
     }
   })
 
-  if (loading || error || !data?.data?.instancesByBuildIdList?.[0].instances?.length) {
+  if (loading || error || !data?.data?.instancesByBuildIdList?.[0]?.instances?.length) {
     return <></>
   }
 
-  const instanceData = data?.data?.instancesByBuildIdList?.[0].instances[instanceNum]
+  const instanceData = data?.data?.instancesByBuildIdList?.[0]?.instances[instanceNum] || {}
 
   const sectionData: SectionProps[] = [
     {

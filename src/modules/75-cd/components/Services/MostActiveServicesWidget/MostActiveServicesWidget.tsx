@@ -1,6 +1,5 @@
 import React, { useCallback, useContext, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import moment from 'moment'
 import cx from 'classnames'
 import { Card, Color, Container, LabelPosition, Layout, Text, WeightedStack } from '@wings-software/uicore'
 import { useStrings, UseStringsReturn } from 'framework/strings'
@@ -126,7 +125,7 @@ export const MostActiveServicesWidget: React.FC<MostActiveServicesWidget> = prop
       orgIdentifier,
       projectIdentifier,
       startTime: timeRange?.range[0]?.getTime() || 0,
-      endTime: timeRange?.range[1] ? moment(timeRange.range[1]).add(1, 'days').toDate().getTime() : 0,
+      endTime: timeRange?.range[1]?.getTime() || 0,
       environmentType: environmentTypes[selectedEnvironmentType]
     }
   }, [accountId, orgIdentifier, projectIdentifier, timeRange, environmentTypes, selectedEnvironmentType])

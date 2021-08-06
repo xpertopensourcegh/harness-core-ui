@@ -237,21 +237,21 @@ export const ActiveServiceInstancesContent: React.FC = () => {
     const component = (() => {
       if (loading) {
         return (
-          <Container data-test="ActiveServiceInstancesLoader">
+          <Container data-test="ActiveServiceInstancesLoader" height="360px">
             <PageSpinner />
           </Container>
         )
       }
       if (error) {
         return (
-          <Container data-test="ActiveServiceInstancesError" height={'100%'}>
+          <Container data-test="ActiveServiceInstancesError" height="360px">
             <PageError onClick={() => refetch()} />
           </Container>
         )
       }
       return (
         <Layout.Vertical
-          height="100%"
+          height="360px"
           flex={{ align: 'center-center' }}
           data-test="ActiveServiceInstancesEmpty"
           className={css.activeServiceInstancesEmpty}
@@ -271,7 +271,7 @@ export const ActiveServiceInstancesContent: React.FC = () => {
   }
 
   return (
-    <Layout.Horizontal padding={{ top: 'small' }}>
+    <Layout.Horizontal padding={{ top: 'medium' }}>
       <Table<TableRowData> columns={columns} data={tableData} className={css.instanceTable} />
     </Layout.Horizontal>
   )

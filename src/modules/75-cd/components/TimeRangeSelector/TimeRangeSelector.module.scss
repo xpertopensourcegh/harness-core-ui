@@ -1,12 +1,13 @@
 .timeRangeSelector {
   display: flex;
   justify-content: center;
-  background: var(--grey-100);
-  border-radius: 25px;
-  height: 20px;
+  background: var(--white);
+  border-radius: 4px;
+  height: 30px;
   padding: 0 var(--spacing-small);
+  border: 1px solid var(--grey-200);
   .timeRangeButton {
-    min-height: 20px !important;
+    height: 100%;
     padding: 0 !important;
     white-space: nowrap !important;
     color: var(--gray-500) !important;

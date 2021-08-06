@@ -77,7 +77,7 @@ serviceDashboard:
   lastDeployment: 'last deployment'
   executionId: 'Execution Id: {{id}}'
   noDeployments: No Deployments in {{timeRange}}
-  noServices: No Services in {{timeRange}} for given criteria
+  noServices: No services in {{timeRange}} for given criteria
   noServiceInstances: No Service Instances in {{timeRange}}
   mostActiveServices: Most active services
   seeMore: '+ {{count}} more'
@@ -90,3 +90,5 @@ serviceDashboard:
   deployedAt: Deployed At
   deployedBy: Deployed By
   artifact: artifact
+  totalPipelines: Total Pipelines
+  noPipelines: No pipeline execution in {{timeRange}} matches the given criteria

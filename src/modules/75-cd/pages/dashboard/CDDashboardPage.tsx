@@ -21,7 +21,7 @@ import WorkloadCard from './DeploymentCards/WorkloadCard'
 import styles from './CDDashboardPage.module.scss'
 
 /** TODO: fix types after BE merge */
-function executionStatusInfoToExecutionSummary(info: ExecutionStatusInfo): PipelineExecutionSummary {
+export function executionStatusInfoToExecutionSummary(info: ExecutionStatusInfo): PipelineExecutionSummary {
   const cd: CDPipelineModuleInfo = {
     serviceIdentifiers: info.serviceInfoList?.map(({ serviceName }) => defaultTo(serviceName, '')).filter(svc => !!svc)
   }
