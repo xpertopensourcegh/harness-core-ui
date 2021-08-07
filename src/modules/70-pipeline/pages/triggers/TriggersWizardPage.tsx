@@ -843,7 +843,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           stageIdentifier: stageId,
           manifestRef: selectedArtifact?.identifier,
           type: manifestType,
-          spec: artifactSourceSpec
+          ...artifactSourceSpec
         }
       },
       inputYaml: stringifyPipelineRuntimeInput
