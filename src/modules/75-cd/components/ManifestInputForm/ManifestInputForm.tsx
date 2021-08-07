@@ -22,6 +22,7 @@ import { GitConfigDTO, useGetBucketListForS3, useGetGCSBucketList } from 'servic
 
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import type { KubernetesServiceInputFormProps } from '@pipeline/factories/ArtifactTriggerInputFactory/types'
+import { TriggerTypes } from '@pipeline/pages/triggers/utils/TriggersWizardPageUtils'
 
 import {
   ManifestToConnectorMap,
@@ -125,6 +126,12 @@ const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
     value: item
   }))
 
+  const fromPipelineInputTriggerTab = () => {
+    return (
+      formik?.values?.triggerType === TriggerTypes.MANIFEST && formik?.values?.selectedArtifact !== null && !fromTrigger
+    )
+  }
+
   return (
     <>
       <div className={cx(css.nopadLeft, css.accordionSummary)} id={`Stage.${stageIdentifier}.Service.Manifests`}>
@@ -162,15 +169,28 @@ const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
             }: any,
             index: number
           ) => {
+            const isPipelineIpTab = fromPipelineInputTriggerTab()
             const filteredManifest = allValues?.manifests?.find(item => item.manifest?.identifier === identifier)
+            const isSelectedManifest: boolean =
+              isPipelineIpTab &&
+              formik?.values?.selectedArtifact &&
+              identifier === formik?.values?.selectedArtifact?.identifier
 
+            const disableField = (fieldName: string) => {
+              if (fromTrigger) {
+                return get(TriggerDefaultFieldList, fieldName) ? true : false
+              } else if (isPipelineIpTab && isSelectedManifest) {
+                return get(formik?.values?.selectedArtifact, fieldName) ? true : false
+              }
+              return readonly
+            }
             return (
               <Layout.Vertical key={identifier} className={cx(css.inputWidth, css.layoutVerticalSpacing)}>
                 <Text className={css.inputheader}>{identifier}</Text>
                 {getMultiTypeFromValue(connectorRef) === MultiTypeInputType.RUNTIME && (
                   <div className={css.verticalSpacingInput}>
                     <FormMultiTypeConnectorField
-                      disabled={readonly}
+                      disabled={disableField('spec.store.spec.connectorRef')}
                       name={`${path}.manifests[${index}].manifest.spec.store.spec.connectorRef`}
                       selected={get(initialValues, `manifests[${index}].manifest.spec.store.spec.connectorRef`)}
                       label={getString('connector')}
@@ -205,7 +225,7 @@ const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                 {getMultiTypeFromValue(repoName) === MultiTypeInputType.RUNTIME && showRepoName && (
                   <div className={css.verticalSpacingInput}>
                     <FormInput.MultiTextInput
-                      disabled={readonly}
+                      disabled={disableField('spec.store.spec.repoName')}
                       multiTextInputProps={{
                         expressions,
                         allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
@@ -218,12 +238,12 @@ const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                 {getMultiTypeFromValue(branch) === MultiTypeInputType.RUNTIME && (
                   <div className={css.verticalSpacingInput}>
                     <FormInput.MultiTextInput
+                      disabled={disableField('spec.store.spec.branch')}
                       multiTextInputProps={{
                         expressions,
                         allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                       }}
                       label={getString('pipelineSteps.deploy.inputSet.branch')}
-                      disabled={readonly}
                       name={`${path}.manifests[${index}].manifest.spec.store.spec.branch`}
                     />
                   </div>
@@ -232,7 +252,7 @@ const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                 {getMultiTypeFromValue(commitId) === MultiTypeInputType.RUNTIME && (
                   <div className={css.verticalSpacingInput}>
                     <FormInput.MultiTextInput
-                      disabled={readonly}
+                      disabled={disableField('spec.store.spec.commitId')}
                       multiTextInputProps={{
                         expressions,
                         allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
@@ -257,7 +277,7 @@ const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                         allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                       }}
                       useValue
-                      disabled={readonly}
+                      disabled={disableField('spec.store.spec.region')}
                       selectItems={regions}
                       label={getString('regionLabel')}
                       name={`${path}.manifests[${index}].manifest.spec.store.spec.region`}
@@ -303,7 +323,7 @@ const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                             allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                           }}
                           useValue
-                          disabled={readonly}
+                          disabled={disableField('spec.store.spec.bucketName')}
                           selectItems={bucketOptions}
                           placeholder={getString('pipeline.manifestType.bucketNamePlaceholder')}
                           label={getString('pipeline.manifestType.bucketName')}
@@ -317,7 +337,7 @@ const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                             expressions,
                             allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                           }}
-                          disabled={readonly}
+                          disabled={disableField('spec.store.spec.bucketName')}
                           placeholder={getString('pipeline.manifestType.bucketNamePlaceholder')}
                           label={getString('pipeline.manifestType.bucketName')}
                           name={`${path}.manifests[${index}].manifest.spec.store.spec.bucketName`}
@@ -353,7 +373,7 @@ const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                             allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                           }}
                           useValue
-                          disabled={readonly}
+                          disabled={disableField('spec.store.spec.bucketName')}
                           selectItems={s3BucketOptions}
                           placeholder={getString('pipeline.manifestType.bucketNamePlaceholder')}
                           label={getString('pipeline.manifestType.bucketName')}
@@ -367,7 +387,7 @@ const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                             expressions,
                             allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                           }}
-                          disabled={readonly}
+                          disabled={disableField('spec.store.spec.bucketName')}
                           label={getString('pipeline.manifestType.bucketName')}
                           placeholder={getString('pipeline.manifestType.bucketNamePlaceholder')}
                           name={`${path}.manifests[${index}].manifest.spec.store.spec.bucketName`}
@@ -383,7 +403,7 @@ const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                         expressions,
                         allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                       }}
-                      disabled={readonly}
+                      disabled={disableField('spec.store.spec.folderPath')}
                       label={
                         manifestType === ManifestDataType.Kustomize
                           ? getString('pipeline.manifestType.kustomizeFolderPath')
@@ -401,7 +421,7 @@ const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                         expressions,
                         allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                       }}
-                      disabled={readonly}
+                      disabled={disableField('spec.store.spec.pluginPath')}
                       label={getString('pluginPath')}
                       name={`${path}.manifests[${index}].manifest.spec.pluginPath`}
                     />
@@ -415,7 +435,7 @@ const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                         expressions,
                         allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                       }}
-                      disabled={readonly}
+                      disabled={disableField('spec.chartName')}
                       label={getString('pipeline.manifestType.http.chartName')}
                       name={`${path}.manifests[${index}].manifest.spec.chartName`}
                     />
@@ -429,7 +449,7 @@ const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                         ...(fromTrigger && { value: TriggerDefaultFieldList.chartVersion }),
                         allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                       }}
-                      disabled={fromTrigger ? (TriggerDefaultFieldList['chartVersion'] ? true : false) : readonly}
+                      disabled={disableField(fromTrigger ? 'chartVersion' : 'spec.chartVersion')}
                       label={getString('pipeline.manifestType.http.chartVersion')}
                       name={`${path}.manifests[${index}].manifest.spec.chartVersion`}
                     />
@@ -448,7 +468,7 @@ const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                         }
                         name={`${path}.manifests[${index}].manifest.spec.store.spec.paths`}
                         placeholder={getString('pipeline.manifestType.pathPlaceholder')}
-                        disabled={readonly}
+                        disabled={disableField('spec.store.spec.paths')}
                         style={{ marginBottom: 'var(--spacing-small)' }}
                         expressions={expressions}
                         isNameOfArrayType
@@ -466,7 +486,7 @@ const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                         }}
                         label={getString('pipeline.manifestType.osTemplatePath')}
                         placeholder={getString('pipeline.manifestType.osTemplatePathPlaceHolder')}
-                        disabled={readonly}
+                        disabled={disableField('spec.store.spec.path')}
                         name={`${path}.manifests[${index}].manifest.spec.store.spec.path`}
                       />
                     </div>
