@@ -158,7 +158,7 @@ const ExecutionStrategyRef = (
         }).stage as StageElementConfig
       )
     }
-  }, [yamlSnippet?.data, selectedStrategy, selectedStage, updateStage])
+  }, [yamlSnippet?.data, selectedStrategy])
 
   const updatePipelineViewState = (): void => {
     updatePipelineView({
