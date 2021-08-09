@@ -1039,7 +1039,6 @@ pipelineSteps:
       repositoryUrlWrongUrlError: 'Please enter valid URL'
       repositoryUrlRequiredError: 'Repository URL is required'
       setupStage: 'Set Up Stage'
-      buildStageName: Build / Test
 
     stageSpecifications:
       variableNamePlaceholder: 'Enter Variable name'

@@ -18,7 +18,7 @@ const StageHoverView = ({ selectedStageType }: StageHoverViewProps): React.React
       />
       <Layout.Vertical flex={{ justifyContent: 'space-between' }} height={'100%'}>
         <Layout.Vertical>
-          <Layout.Horizontal margin={{ bottom: 'medium' }} flex={{ justifyContent: 'center' }}>
+          <Layout.Horizontal margin={{ bottom: 'medium' }} flex={{ justifyContent: 'flex-start' }}>
             <div className={css.hoverTitle}> {selectedStageType?.title}</div>
           </Layout.Horizontal>
           <div className={css.stageDescription}>{selectedStageType?.description}</div>

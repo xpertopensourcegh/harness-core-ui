@@ -20,7 +20,7 @@ const getStageEditorImplementation = (
   _getString: UseStringsReturn['getString']
 ): React.ReactElement<PipelineStageProps> => (
   <ApprovalStage
-    icon={'pipeline-approval'}
+    icon={'approval-stage-icon'}
     name={'Approval'}
     hoverIcon={'approval-stage'}
     title={_getString('approvalStage.title')}

@@ -6001,10 +6001,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'pipelineSteps.build.create.buildStageName': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'pipelineSteps.build.create.cloneCodebaseHelperText': string
   /**
    * @deprecated migrate this string to module level file
