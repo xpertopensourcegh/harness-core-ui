@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import moment from 'moment'
+import cx from 'classnames'
 import { Position } from '@blueprintjs/core'
 import { DateRange, DateRangePicker, IDateRangeShortcut } from '@blueprintjs/datetime'
 import { Button, Popover } from '@wings-software/uicore'
@@ -26,8 +27,9 @@ const dateFormat = 'DD MMMM YYYY'
 export const TimeRangeSelector: React.FC<{
   timeRange?: DateRange
   setTimeRange: (data: TimeRangeSelectorProps) => void
+  minimal?: boolean
 }> = props => {
-  const { timeRange, setTimeRange } = props
+  const { timeRange, setTimeRange, minimal = false } = props
   const { getString } = useStrings()
   const dateRangeShortcuts = [
     {
@@ -79,7 +81,7 @@ export const TimeRangeSelector: React.FC<{
     <Popover
       minimal
       captureDismiss
-      className={css.timeRangeSelector}
+      className={cx(css.timeRangeSelector, { [css.nonMinimalStyles]: !minimal })}
       position={Position.BOTTOM_RIGHT}
       isOpen={isDateRangePickerOpen}
     >

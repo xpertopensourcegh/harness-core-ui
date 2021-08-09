@@ -178,45 +178,69 @@ const RenderServiceInstances: Renderer<CellProps<ServiceListItem>> = ({ row }) =
 
 const RenderLastDeployment: Renderer<CellProps<ServiceListItem>> = ({ row }) => {
   const {
-    lastDeployment: { id, name, timestamp, status }
+    lastDeployment: { id, name, timestamp }
   } = row.original
   const { getString } = useStrings()
   if (!id) {
     return <></>
   }
-  const [statusBackgroundColor, statusTextColor, statusText] =
-    status.toLocaleLowerCase() === DeploymentStatus.SUCCESS
-      ? [Color.GREEN_300, Color.GREEN_600, getString('success')]
-      : status.toLocaleLowerCase() === DeploymentStatus.FAILED
-      ? [Color.RED_300, Color.RED_600, getString('failed')]
-      : [Color.YELLOW_300, Color.YELLOW_600, status]
   return (
-    <Layout.Horizontal className={css.lastDeployments}>
-      <Layout.Vertical margin={{ right: 'large' }}>
-        <Layout.Horizontal margin={{ bottom: 'xsmall' }} flex={{ align: 'center-center' }}>
-          <Text font={{ weight: 'semi-bold' }} color={Color.GREY_700} margin={{ right: 'xsmall' }}>
-            {name}
-          </Text>
-          <Text font={{ size: 'small' }} color={Color.GREY_500}>{`(${getString('cd.serviceDashboard.executionId', {
+    <Layout.Vertical margin={{ right: 'large' }} flex={{ alignItems: 'flex-start' }}>
+      <Layout.Horizontal
+        margin={{ bottom: 'xsmall' }}
+        flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
+        width="100%"
+      >
+        <Text
+          font={{ weight: 'semi-bold' }}
+          color={Color.GREY_700}
+          margin={{ right: 'xsmall' }}
+          className={css.lastDeploymentText}
+        >
+          {name}
+        </Text>
+        <Text font={{ size: 'small' }} color={Color.GREY_500} className={css.lastDeploymentText}>{`(${getString(
+          'cd.serviceDashboard.executionId',
+          {
             id
-          })})`}</Text>
-        </Layout.Horizontal>
-        {timestamp ? (
-          <ReactTimeago
-            date={timestamp}
-            component={val => (
-              <Text font={{ size: 'small' }} color={Color.GREY_500}>
-                {val.children}
-              </Text>
-            )}
-          />
-        ) : (
-          <></>
-        )}
-      </Layout.Vertical>
+          }
+        )})`}</Text>
+      </Layout.Horizontal>
+      {timestamp ? (
+        <ReactTimeago
+          date={timestamp}
+          component={val => (
+            <Text font={{ size: 'small' }} color={Color.GREY_500}>
+              {val.children}
+            </Text>
+          )}
+        />
+      ) : (
+        <></>
+      )}
+    </Layout.Vertical>
+  )
+}
+
+const RenderLastDeploymentStatus: Renderer<CellProps<ServiceListItem>> = ({ row }) => {
+  const {
+    lastDeployment: { id, status }
+  } = row.original
+  const { getString } = useStrings()
+  if (!id) {
+    return <></>
+  }
+  const [statusBackgroundColor, statusText] =
+    status.toLocaleLowerCase() === DeploymentStatus.SUCCESS
+      ? [Color.GREEN_600, getString('success')]
+      : status.toLocaleLowerCase() === DeploymentStatus.FAILED
+      ? [Color.RED_600, getString('failed')]
+      : [Color.YELLOW_600, status]
+  return (
+    <Layout.Horizontal flex={{ justifyContent: 'flex-end' }}>
       <Text
         background={statusBackgroundColor}
-        color={statusTextColor}
+        color={Color.WHITE}
         font={{ weight: 'semi-bold', size: 'xsmall' }}
         className={css.statusText}
       >
@@ -287,8 +311,14 @@ export const ServicesList: React.FC<ServicesListProps> = props => {
         {
           Header: getString('cd.serviceDashboard.lastDeployment').toLocaleUpperCase(),
           id: 'lastDeployment',
-          width: '30%',
+          width: '25%',
           Cell: RenderLastDeployment
+        },
+        {
+          Header: '',
+          id: 'status',
+          width: '5%',
+          Cell: RenderLastDeploymentStatus
         }
       ]
     },

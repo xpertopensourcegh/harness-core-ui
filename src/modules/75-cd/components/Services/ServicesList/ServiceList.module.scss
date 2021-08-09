@@ -5,12 +5,16 @@
   }
 }
 
-.lastDeployments {
-  align-items: flex-start;
-  .statusText {
-    padding: 2px 4px !important;
-    border-radius: 6px;
-  }
+.lastDeploymentText {
+  white-space: nowrap !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.statusText {
+  width: fit-content !important;
+  padding: 2px 6px !important;
+  border-radius: 4px;
 }
 
 .pieChartLabelContainerStyles {

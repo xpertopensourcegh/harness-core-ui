@@ -107,7 +107,7 @@ exports[`ServiceDetails should render ServiceDetails 1`] = `
             class="StyledProps--font StyledProps--main timeRangeContainer StyledProps--flex StyledProps--margin-right-medium"
           >
             <span
-              class="bp3-popover-wrapper timeRangeSelector"
+              class="bp3-popover-wrapper timeRangeSelector nonMinimalStyles"
             >
               <span
                 class="bp3-popover-target"

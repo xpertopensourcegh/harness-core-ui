@@ -1,11 +1,8 @@
 .timeRangeSelector {
   display: flex;
   justify-content: center;
-  background: var(--white);
   border-radius: 4px;
   height: 30px;
-  padding: 0 var(--spacing-small);
-  border: 1px solid var(--grey-200);
   .timeRangeButton {
     height: 100%;
     padding: 0 !important;
@@ -20,4 +17,10 @@
   .dateRangePicker {
     padding: var(--spacing-large);
   }
+}
+
+.nonMinimalStyles {
+  background: var(--white);
+  padding: 0 var(--spacing-small);
+  border: 1px solid var(--grey-200);
 }

@@ -5,5 +5,7 @@ declare const styles: {
   readonly listHeader: string
   readonly expandSearch: string
   readonly loader: string
+  readonly timeRangeSelector: string
+  readonly separator: string
 }
 export default styles

@@ -77,19 +77,19 @@ export const ServicesContent: React.FC = () => {
         margin={{ left: 'xlarge', right: 'xlarge', top: view === Views.INSIGHT ? 'large' : 0, bottom: 'large' }}
         className={css.container}
       >
-        {view === Views.INSIGHT && (
-          <Layout.Horizontal margin={{ bottom: 'large' }}>
-            <ServiceInstancesWidget {...serviceInstanceProps} />
-            <DeploymentsTimeRangeContext.Provider value={{ timeRange, setTimeRange }}>
+        <DeploymentsTimeRangeContext.Provider value={{ timeRange, setTimeRange }}>
+          {view === Views.INSIGHT && (
+            <Layout.Horizontal margin={{ bottom: 'large' }}>
+              <ServiceInstancesWidget {...serviceInstanceProps} />
               <Card className={css.card}>
                 <MostActiveServicesWidget title={getString('cd.serviceDashboard.mostActiveServices')} />
                 <div className={css.separator} />
                 <DeploymentsWidget />
               </Card>
-            </DeploymentsTimeRangeContext.Provider>
-          </Layout.Horizontal>
-        )}
-        <ServicesList {...serviceDetailsProps} />
+            </Layout.Horizontal>
+          )}
+          <ServicesList {...serviceDetailsProps} />
+        </DeploymentsTimeRangeContext.Provider>
       </Layout.Vertical>
     </Page.Body>
   )

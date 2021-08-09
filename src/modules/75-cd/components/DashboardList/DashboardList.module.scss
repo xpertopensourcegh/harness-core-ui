@@ -14,3 +14,14 @@
   position: relative;
   height: 80%;
 }
+
+.timeRangeSelector {
+  position: absolute;
+  left: 40%;
+  justify-content: center;
+}
+
+.separator {
+  width: 100%;
+  border-bottom: 1px solid var(--grey-200);
+}

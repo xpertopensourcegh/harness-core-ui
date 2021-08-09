@@ -3,7 +3,7 @@
 declare const styles: {
   readonly tickerContainer: string
   readonly tickerContainerStyles: string
-  readonly lastDeployments: string
+  readonly lastDeploymentText: string
   readonly statusText: string
   readonly pieChartLabelContainerStyles: string
   readonly pieChartLabelStyles: string

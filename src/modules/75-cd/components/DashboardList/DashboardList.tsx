@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { Color, ExpandingSearchInput, Layout, Text } from '@wings-software/uicore'
 import { noop } from 'lodash-es'
 import { useStrings } from 'framework/strings'
@@ -8,6 +8,8 @@ import FilterSelector from '@common/components/Filter/FilterSelector/FilterSelec
 import { PageSpinner } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'
 import ServiceDetailsEmptyState from '@cd/icons/ServiceDetailsEmptyState.svg'
+import { DeploymentsTimeRangeContext } from '../Services/common'
+import { TimeRangeSelector } from '../TimeRangeSelector/TimeRangeSelector'
 import css from '@cd/components/DashboardList/DashboardList.module.scss'
 
 const PAGE_SIZE = 10
@@ -57,6 +59,19 @@ const applySearch = (items: any[], searchTerm: string): any[] => {
       (item?.name || '').toLocaleLowerCase().indexOf(term) !== -1
     )
   })
+}
+
+const DeploymentTimeRangeSelector: React.FC = () => {
+  const { timeRange, setTimeRange } = useContext(DeploymentsTimeRangeContext)
+  return (
+    <Layout.Horizontal className={css.timeRangeSelector} width="25%" flex={{ alignItems: 'center' }}>
+      <div className={css.separator} />
+      <Layout.Horizontal padding={{ left: 'small', right: 'small' }}>
+        <TimeRangeSelector timeRange={timeRange?.range} setTimeRange={setTimeRange} minimal />
+      </Layout.Horizontal>
+      <div className={css.separator} />
+    </Layout.Horizontal>
+  )
 }
 
 export const DashboardList = <T extends Record<string, any>>(props: DashboardListProps<T>): React.ReactElement => {
@@ -134,6 +149,7 @@ export const DashboardList = <T extends Record<string, any>>(props: DashboardLis
       >
         <HeaderCustomPrimary total={filteredData.length} />
         <HeaderCustomSecondary onChange={onSearchChange} />
+        <DeploymentTimeRangeSelector />
       </Layout.Horizontal>
       {getComponent()}
     </Layout.Vertical>
