@@ -402,6 +402,7 @@ export interface StringsMap {
   'common.successfullUpdate': string
   'common.supportedModals': string
   'common.switchAccount': string
+  'common.switchAccountError': string
   'common.switchAccountSearch': string
   'common.templates': string
   'common.test.connectionFailed': string

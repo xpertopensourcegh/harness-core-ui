@@ -54,6 +54,7 @@ shell: Shell
 input: Input
 refresh: Refresh
 loading: Loading, please wait...
+switchAccountError: Unable to switch accounts. Please try again.
 logs:
   noLogsText: 'No logs found'
   delegateSelectionLogs: Delegate selection logs

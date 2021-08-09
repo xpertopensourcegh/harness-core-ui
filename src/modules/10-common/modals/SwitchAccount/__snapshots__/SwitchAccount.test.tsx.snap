@@ -136,11 +136,16 @@ exports[`Switch Account render 1`] = `
             role="cell"
             style="width: 30%;"
           >
-            <a
-              href="/account/zEaak-FLS425IEO7OLzMUg/home"
+            <button
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+              type="button"
             >
-              Harness.io
-            </a>
+              <span
+                class="bp3-button-text"
+              >
+                Harness.io
+              </span>
+            </button>
           </div>
           <div
             class="cell"
@@ -186,11 +191,16 @@ exports[`Switch Account render 1`] = `
             role="cell"
             style="width: 30%;"
           >
-            <a
-              href="/account/XICOBc_qRa2PJmVaWOx-cQ/home"
+            <button
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+              type="button"
             >
-              AutomationOne
-            </a>
+              <span
+                class="bp3-button-text"
+              >
+                AutomationOne
+              </span>
+            </button>
           </div>
           <div
             class="cell"
@@ -242,11 +252,16 @@ exports[`Switch Account render 1`] = `
             role="cell"
             style="width: 30%;"
           >
-            <a
-              href="/account/px7xd_BFRCi-pfWPYXVjvw/home"
+            <button
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+              type="button"
             >
-              harness-dev
-            </a>
+              <span
+                class="bp3-button-text"
+              >
+                harness-dev
+              </span>
+            </button>
           </div>
           <div
             class="cell"
@@ -298,11 +313,16 @@ exports[`Switch Account render 1`] = `
             role="cell"
             style="width: 30%;"
           >
-            <a
-              href="/account/nqqlJ_62S0q7wFnYSmwNpQ/home"
+            <button
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+              type="button"
             >
-              abc1
-            </a>
+              <span
+                class="bp3-button-text"
+              >
+                abc1
+              </span>
+            </button>
           </div>
           <div
             class="cell"
@@ -354,11 +374,16 @@ exports[`Switch Account render 1`] = `
             role="cell"
             style="width: 30%;"
           >
-            <a
-              href="/account/3P9jX4EfQ3moXBbQfORaLw/home"
+            <button
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+              type="button"
             >
-              raj-ng-defaul-experience-1
-            </a>
+              <span
+                class="bp3-button-text"
+              >
+                raj-ng-defaul-experience-1
+              </span>
+            </button>
           </div>
           <div
             class="cell"

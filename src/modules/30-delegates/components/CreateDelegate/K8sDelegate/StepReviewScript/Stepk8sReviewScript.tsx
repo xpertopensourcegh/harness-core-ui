@@ -2,7 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { Button, Layout, StepProps, Heading, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import type { DelegateSetupDetails } from 'services/portal'
+import type { DelegateSetupDetails, GenerateKubernetesYamlQueryParams } from 'services/portal'
 import { useToaster } from '@common/exports'
 import YamlBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import { useGenerateKubernetesYaml } from 'services/portal'
@@ -15,7 +15,12 @@ const Stepk8ReviewScript: React.FC<StepProps<StepK8Data>> = props => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { showError } = useToaster()
   const { mutate: downloadYaml } = useGenerateKubernetesYaml({
-    queryParams: { accountId, orgId: orgIdentifier, projectId: projectIdentifier, fileFormat: 'text/plain' }
+    queryParams: {
+      accountId,
+      orgId: orgIdentifier,
+      projectId: projectIdentifier,
+      fileFormat: 'text/plain'
+    } as GenerateKubernetesYamlQueryParams
   })
   const linkRef = React.useRef<HTMLAnchorElement>(null)
   const [generatedYaml, setGeneratedYaml] = React.useState({})
@@ -23,7 +28,7 @@ const Stepk8ReviewScript: React.FC<StepProps<StepK8Data>> = props => {
   const onGenYaml = async (): Promise<void> => {
     const data = props?.prevStepData?.delegateYaml
     const response = await downloadYaml(data as DelegateSetupDetails)
-    setGeneratedYaml(response)
+    setGeneratedYaml(response as any)
   }
 
   React.useEffect(() => {

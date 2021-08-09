@@ -113,7 +113,7 @@ const RenderColumnMenu = ({ delegate, setOpenTroubleshoter }: delTroubleshoterPr
   const { accountId, orgIdentifier, projectIdentifier } = useParams<Record<string, string>>()
 
   const { mutate: forceDeleteDelegate } = useDeleteDelegateGroupByIdentifier({
-    queryParams: { accountId: accountId, forceDelete: true }
+    queryParams: { accountId: accountId }
   })
 
   const forceDeleteDialog = useConfirmationDialog({
