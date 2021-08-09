@@ -173,7 +173,7 @@ hashiCorpVault:
   renewal: 'Renewal Interval (minutes)'
   readOnly: '{{$.common.readOnly}}'
   readOnlyVault: 'Read-only Vault'
-  default: 'Default'
+  default: '{{$.common.default}}'
   defaultVault: 'Use as Default Secrets Manager'
 nexus:
   nexusServerUrl: 'Nexus Repository URL'

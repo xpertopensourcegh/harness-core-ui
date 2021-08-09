@@ -413,11 +413,6 @@ createPipeline:
   pipelineNameRequired: Pipeline Name is a required field
 helmVersion: Helm Version
 executionStrategy:
-  strategies:
-    blueGreen: With Blue Green strategy, two identical environments run simultaneously with different app versions. When a new version is verified in the stage environment, traffic is flipped from the prod environment to the stage environment. The new version now receives the prod traffic.
-    rolling: In a Rolling strategy, the deployed artifact will be spun up incrementally until the desired count is met. As new ones spin up, the older version gets terminated.
-    canary: In a Canary strategy, the new artifact is deployed in the target environment and is incrementally updated based on the testing and verification in each phase.
-    default: With a blank canvas, you get to orchestrate your deployment with any combination of steps from the palette. It allows maximum flexibility - only recommended for advanced users.
   preview: 'Preview'
   strategyType: 'Common'
 selectProduct: 'Select Product'

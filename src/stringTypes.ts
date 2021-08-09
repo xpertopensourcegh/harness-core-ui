@@ -119,6 +119,7 @@ export interface StringsMap {
   'common.datePickerShortcuts.LastWeek': string
   'common.datePickerShortcuts.Today': string
   'common.datePickerShortcuts.Yesterday': string
+  'common.default': string
   'common.defaultExperience': string
   'common.delegateForTask': string
   'common.descriptionPlaceholder': string
@@ -356,7 +357,6 @@ export interface StringsMap {
   'common.selectAChannel': string
   'common.selectBranch': string
   'common.selectDefaultExperience': string
-  'common.selectStrategy': string
   'common.selectUserGroups': string
   'common.selectVersion': string
   'common.setAsDefault': string
@@ -441,6 +441,7 @@ export interface StringsMap {
   'common.validation.variableAlreadyExists': string
   'common.validation.yamlFilePath': string
   'common.valuePlaceholder': string
+  'common.videoNotSupportedError': string
   'common.webhookURL': string
   'common.welcome': string
   'notifications.buttonSend': string
@@ -1757,6 +1758,33 @@ export interface StringsMap {
   'pipeline.executionStatus.Suspended': string
   'pipeline.executionStatus.Unknown': string
   'pipeline.executionStatus.Waiting': string
+  'pipeline.executionStrategy.executionStrategies': string
+  'pipeline.executionStrategy.strategies.blueGreen.description': string
+  'pipeline.executionStrategy.strategies.blueGreen.learnMoreLink': string
+  'pipeline.executionStrategy.strategies.blueGreen.steps.step1.description': string
+  'pipeline.executionStrategy.strategies.blueGreen.steps.step2.description': string
+  'pipeline.executionStrategy.strategies.blueGreen.steps.step3.description': string
+  'pipeline.executionStrategy.strategies.canary.description': string
+  'pipeline.executionStrategy.strategies.canary.learnMoreLink': string
+  'pipeline.executionStrategy.strategies.canary.steps.step1.description': string
+  'pipeline.executionStrategy.strategies.canary.steps.step1.title': string
+  'pipeline.executionStrategy.strategies.canary.steps.step2.description': string
+  'pipeline.executionStrategy.strategies.canary.steps.step2.title': string
+  'pipeline.executionStrategy.strategies.canary.steps.step3.description': string
+  'pipeline.executionStrategy.strategies.canary.steps.step3.title': string
+  'pipeline.executionStrategy.strategies.common.steps.step1.title': string
+  'pipeline.executionStrategy.strategies.common.steps.step2.title': string
+  'pipeline.executionStrategy.strategies.common.steps.step3.title': string
+  'pipeline.executionStrategy.strategies.default.actualName': string
+  'pipeline.executionStrategy.strategies.default.description': string
+  'pipeline.executionStrategy.strategies.default.displayName': string
+  'pipeline.executionStrategy.strategies.default.learnMoreLink': string
+  'pipeline.executionStrategy.strategies.rolling.description': string
+  'pipeline.executionStrategy.strategies.rolling.learnMoreLink': string
+  'pipeline.executionStrategy.strategies.rolling.steps.step1.description': string
+  'pipeline.executionStrategy.strategies.rolling.steps.step2.description': string
+  'pipeline.executionStrategy.strategies.rolling.steps.step3.description': string
+  'pipeline.executionStrategy.useStrategy': string
   'pipeline.executionTarget': string
   'pipeline.failureStrategies.addedAllStrategies': string
   'pipeline.failureStrategies.errorTypeLabels.AllErrors': string
@@ -1774,7 +1802,6 @@ export interface StringsMap {
   'pipeline.failureStrategies.helpText': string
   'pipeline.failureStrategies.onFailureOfType': string
   'pipeline.failureStrategies.performAction': string
-  'pipeline.failureStrategies.selectStrategy': string
   'pipeline.failureStrategies.strategiesLabel.Abort': string
   'pipeline.failureStrategies.strategiesLabel.Ignore': string
   'pipeline.failureStrategies.strategiesLabel.ManualIntervention': string
@@ -4954,22 +4981,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'executionStrategy.preview': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'executionStrategy.strategies.blueGreen': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'executionStrategy.strategies.canary': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'executionStrategy.strategies.default': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'executionStrategy.strategies.rolling': string
   /**
    * @deprecated migrate this string to module level file
    */

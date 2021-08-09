@@ -53,16 +53,6 @@ const defaultDrawerValues = {
   }
 }
 
-export const DrawerSizes: { [key: string]: number } = {
-  StepConfig: 740,
-  AddCommand: 700,
-  PipelineVariables: 450,
-  Templates: 450,
-  ExecutionStrategy: 1000,
-  AddService: 485,
-  ConfigureService: 740
-}
-
 const primaryTypes = {
   SHOW_ALL: 'show_all',
   RECENTLY_USED: 'recently_used'

@@ -20,7 +20,7 @@ import { addService, addStepOrGroup, generateRandomString, getStepFromId } from 
 import PipelineVariables from '../PipelineVariables/PipelineVariables'
 import { PipelineNotifications } from '../PipelineNotifications/PipelineNotifications'
 import { PipelineTemplates } from '../PipelineTemplates/PipelineTemplates'
-import { ExecutionStrategy } from '../ExecutionStrategy/ExecutionStategy'
+import { ExecutionStrategy, ExecutionStrategyRef } from '../ExecutionStrategy/ExecutionStrategy'
 import type { StepData } from '../../AbstractSteps/AbstractStepFactory'
 import { StepType } from '../../PipelineSteps/PipelineStepInterface'
 import { FlowControl } from '../FlowControl/FlowControl'
@@ -116,6 +116,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
     ? stepsFactory.getStepData((data?.stepConfig?.node as StepElementConfig)?.type)
     : null
   const formikRef = React.useRef<StepFormikRef | null>(null)
+  const executionStrategyRef = React.useRef<ExecutionStrategyRef | null>(null)
   const { getString } = useStrings()
   const isFullScreenDrawer = FullscreenDrawers.includes(type)
   let title: React.ReactNode | null = null
@@ -416,8 +417,12 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         icon="cross"
         withoutBoxShadow
         onClick={() => {
-          updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
-          setSelectedStepId(undefined)
+          if (type === DrawerTypes.ExecutionStrategy) {
+            executionStrategyRef.current?.cancelExecutionStrategySelection()
+          } else {
+            updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
+            setSelectedStepId(undefined)
+          }
         }}
       />
 
@@ -515,7 +520,9 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       {/* TODO */}
       {type === DrawerTypes.PipelineVariables && <PipelineVariables />}
       {type === DrawerTypes.Templates && <PipelineTemplates />}
-      {type === DrawerTypes.ExecutionStrategy && <ExecutionStrategy selectedStage={selectedStage || {}} />}
+      {type === DrawerTypes.ExecutionStrategy && (
+        <ExecutionStrategy selectedStage={selectedStage || {}} ref={executionStrategyRef} />
+      )}
       {type === DrawerTypes.PipelineNotifications && <PipelineNotifications />}
       {type === DrawerTypes.FlowControl && <FlowControl />}
       {type === DrawerTypes.ConfigureService && selectedStageId && data?.stepConfig && data?.stepConfig.node && (
