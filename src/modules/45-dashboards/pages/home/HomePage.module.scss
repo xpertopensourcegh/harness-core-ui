@@ -211,8 +211,8 @@ div[class*='Pagination--container'] {
   align-items: center;
   margin-left: var(--spacing-4);
   section {
-    margin-top: 0;
-    margin-right: var(--spacing-9);
+    margin-top: var(--spacing-2) !important;
+    margin-right: var(--spacing-5);
   }
 }
 .filteredTags {
