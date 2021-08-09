@@ -17,8 +17,8 @@ export const getEventTypeFromClusterType = (tag: LogData['tag']): string => {
 
 export const getClusterTypes = (getString: UseStringsReturn['getString']): SelectOption[] => {
   return [
-    { label: getString('pipeline.verification.logs.knownEvent'), value: 'KNOWN' },
-    { label: getString('pipeline.verification.logs.unknownEvent'), value: 'UNKNOWN' },
-    { label: getString('pipeline.verification.logs.unexpectedFrequency'), value: 'UNEXPECTED_FREQUENY' }
+    { label: getString('pipeline.verification.logs.knownEvent'), value: 'KNOWN_EVENT' },
+    { label: getString('pipeline.verification.logs.unknownEvent'), value: 'UNKNOWN_EVENT' },
+    { label: getString('pipeline.verification.logs.unexpectedFrequency'), value: 'UNEXPECTED_FREQUENY_EVENT' }
   ]
 }

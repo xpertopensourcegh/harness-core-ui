@@ -15,7 +15,8 @@ const WrapperComponent = (props: LogAnalysisRowProps): JSX.Element => {
 
 describe('Unit tests for LogAnalysisRow', () => {
   const initialProps = {
-    data: mockedLogAnalysisData.resource.content as LogAnalysisRowData[]
+    data: mockedLogAnalysisData.resource.content as LogAnalysisRowData[],
+    fetchLogsDataForCluster: jest.fn()
   }
   test('Verify if Logs Record Table is rendered correctly', async () => {
     render(<WrapperComponent {...initialProps} />)

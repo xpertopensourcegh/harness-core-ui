@@ -13,6 +13,7 @@ export type LogAnalysisRowData = {
 export interface LogAnalysisRowProps {
   data: LogAnalysisRowData[]
   className?: string
+  fetchLogsDataForCluster: (clusterType: string) => void
 }
 
 export interface LogAnalysisDataRowProps {

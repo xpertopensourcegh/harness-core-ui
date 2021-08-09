@@ -9,7 +9,8 @@ import { LogAnalysisRow } from './components/LogAnalysisRow/LogAnalysisRow'
 import { mapClusterType } from './LogAnalysis.utils'
 import styles from './LogAnalysis.module.scss'
 
-export default function LogAnalysis({ data, clusterChartData, goToPage, isLoading }: LogAnalysisProps): JSX.Element {
+export default function LogAnalysis(props: LogAnalysisProps): JSX.Element {
+  const { fetchLogsDataForCluster, data, clusterChartData, goToPage, isLoading } = props
   const { getString } = useStrings()
   const logAnalysisData = useMemo((): LogAnalysisRowData[] => {
     return (
@@ -46,7 +47,13 @@ export default function LogAnalysis({ data, clusterChartData, goToPage, isLoadin
         {!logAnalysisData.length && !isLoading && (
           <NoDataCard message={getString('pipeline.verification.logs.noAnalysis')} icon="warning-sign" />
         )}
-        {!!logAnalysisData.length && <LogAnalysisRow className={styles.logAnalysisRow} data={logAnalysisData} />}
+        {!!logAnalysisData.length && (
+          <LogAnalysisRow
+            className={styles.logAnalysisRow}
+            data={logAnalysisData}
+            fetchLogsDataForCluster={fetchLogsDataForCluster}
+          />
+        )}
       </Container>
       {!!data?.resource?.totalPages && (
         <Pagination

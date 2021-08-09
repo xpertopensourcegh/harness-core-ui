@@ -80,6 +80,22 @@ export default function LogAnalysisContainer({ step, hostName }: LogAnalysisCont
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accountId, hostName])
 
+  const fetchLogsDataForCluster = useCallback(
+    clusterType => {
+      fetchLogAnalyses({
+        queryParams: {
+          accountId,
+          pageNumber: initialPageNumber,
+          pageSize,
+          ...(hostName && { hostName }),
+          ...(clusterType && { clusterType })
+        }
+      })
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [accountId, hostName]
+  )
+
   const isLoading = useMemo(() => logsLoading || clusterChartLoading, [logsLoading, clusterChartLoading])
 
   if (isLoading) {
@@ -88,7 +104,13 @@ export default function LogAnalysisContainer({ step, hostName }: LogAnalysisCont
 
   return (
     <Container padding="large">
-      <LogAnalysis data={logsData} clusterChartData={clusterChartData} isLoading={isLoading} goToPage={goToLogsPage} />
+      <LogAnalysis
+        data={logsData}
+        clusterChartData={clusterChartData}
+        isLoading={isLoading}
+        goToPage={goToLogsPage}
+        fetchLogsDataForCluster={fetchLogsDataForCluster}
+      />
     </Container>
   )
 }

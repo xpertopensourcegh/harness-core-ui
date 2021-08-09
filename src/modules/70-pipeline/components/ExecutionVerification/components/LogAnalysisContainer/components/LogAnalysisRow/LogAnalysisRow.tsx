@@ -107,21 +107,14 @@ function DataRow(props: LogAnalysisDataRowProps): JSX.Element {
 }
 
 export function LogAnalysisRow(props: LogAnalysisRowProps): JSX.Element {
-  const { data = [] } = props
+  const { data = [], fetchLogsDataForCluster } = props
   const [dataToCompare, setDataToCompare] = useState<CompareLogEventsInfo[]>([])
   const [selectedClusterType, setSelectedClusterType] = useState<string>('')
-  const [logsData, setLogsData] = useState<LogAnalysisRowData[]>([])
   const { getString } = useStrings()
 
   useEffect(() => {
-    setLogsData(data)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  useEffect(() => {
     if (selectedClusterType) {
-      const filteredLogsData = data.filter(log => log?.clusterType === selectedClusterType)
-      setLogsData(filteredLogsData)
+      fetchLogsDataForCluster(selectedClusterType)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedClusterType])
@@ -151,20 +144,19 @@ export function LogAnalysisRow(props: LogAnalysisRowProps): JSX.Element {
       />
       <ColumnHeaderRow />
       <Container className={css.dataContainer}>
-        {logsData &&
-          logsData.map((row, index) => {
-            if (!row) return null
-            const { clusterType, count, message } = row
-            return (
-              <DataRow
-                key={`${clusterType}-${count}-${message}`}
-                rowData={row}
-                index={index}
-                onSelect={onCompareSelectCallback}
-                isSelected={selectedIndices.has(index)}
-              />
-            )
-          })}
+        {data.map((row, index) => {
+          if (!row) return null
+          const { clusterType, count, message } = row
+          return (
+            <DataRow
+              key={`${clusterType}-${count}-${message}`}
+              rowData={row}
+              index={index}
+              onSelect={onCompareSelectCallback}
+              isSelected={selectedIndices.has(index)}
+            />
+          )
+        })}
       </Container>
     </Container>
   )
