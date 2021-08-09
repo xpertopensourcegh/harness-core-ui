@@ -951,6 +951,7 @@ export interface StringsMap {
   'connectors.cdng.monitoredService.autoCreateMonitoredService': string
   'connectors.cdng.monitoredService.backToVerifyStep': string
   'connectors.cdng.monitoredService.creatingMonitoredService': string
+  'connectors.cdng.monitoredService.creatingMonitoredServiceError': string
   'connectors.cdng.monitoredService.fetchingMonitoredService': string
   'connectors.cdng.monitoredService.fetchingMonitoredServiceError': string
   'connectors.cdng.monitoredService.label': string

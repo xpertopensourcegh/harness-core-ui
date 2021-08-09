@@ -58,10 +58,13 @@ export default function MonitoredService({
     [accountId, projectIdentifier, orgIdentifier, environmentIdentifier, serviceIdentifier]
   )
 
-  const { mutate: createDefaultMonitoredService, loading: createMonitoredServiceLoading } =
-    useCreateDefaultMonitoredService({
-      queryParams: createServiceQueryParams
-    })
+  const {
+    mutate: createDefaultMonitoredService,
+    loading: createMonitoredServiceLoading,
+    error: errorCreatingMonitoredService
+  } = useCreateDefaultMonitoredService({
+    queryParams: createServiceQueryParams
+  })
 
   const { data, loading, error } = useGetMonitoredServiceFromServiceAndEnvironment({
     queryParams: {
@@ -138,6 +141,12 @@ export default function MonitoredService({
     return (
       <Card>
         <>{getString('connectors.cdng.monitoredService.fetchingMonitoredServiceError')}</>
+      </Card>
+    )
+  } else if (errorCreatingMonitoredService) {
+    return (
+      <Card>
+        <>{getString('connectors.cdng.monitoredService.creatingMonitoredServiceError')}</>
       </Card>
     )
   } else if (formValues.spec.monitoredServiceRef) {

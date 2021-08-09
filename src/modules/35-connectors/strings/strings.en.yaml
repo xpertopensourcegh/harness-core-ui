@@ -278,6 +278,7 @@ cdng:
     creatingMonitoredService: Creating Monitored service ...
     fetchingMonitoredServiceError: Failed to fetch monitored service . Please try again by reopening the Verify Step
     autoCreateMonitoredService: Click to autocreate a monitored service
+    creatingMonitoredServiceError: Failed to create monitored service . Please try again by reopening the Verify step and selecting service, environment.
     monitoredServiceText: A monitored service for the
     backToVerifyStep: Back to Verify Step
   runTimeMonitoredService:
