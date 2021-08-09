@@ -19,6 +19,7 @@ export class JiraApproval extends PipelineStep<JiraApprovalData> {
   constructor() {
     super()
     this._hasStepVariables = true
+    this._hasDelegateSelectionVisible = true
   }
 
   protected isHarnessSpecific = true

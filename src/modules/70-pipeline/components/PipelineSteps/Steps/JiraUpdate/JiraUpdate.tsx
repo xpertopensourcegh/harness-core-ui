@@ -19,6 +19,7 @@ export class JiraUpdate extends PipelineStep<JiraUpdateData> {
   constructor() {
     super()
     this._hasStepVariables = true
+    this._hasDelegateSelectionVisible = true
   }
 
   protected isHarnessSpecific = true

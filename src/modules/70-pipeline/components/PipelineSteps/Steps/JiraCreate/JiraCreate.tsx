@@ -19,6 +19,7 @@ export class JiraCreate extends PipelineStep<JiraCreateData> {
   constructor() {
     super()
     this._hasStepVariables = true
+    this._hasDelegateSelectionVisible = true
   }
 
   protected isHarnessSpecific = true

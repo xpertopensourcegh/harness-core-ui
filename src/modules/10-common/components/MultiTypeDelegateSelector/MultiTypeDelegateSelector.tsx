@@ -56,6 +56,7 @@ export function MultiTypeDelegateSelector(props: ConnectedMultiTypeDelegateSelec
         }}
         fixedTypeComponent={DelegateSelectors as any}
         defaultValueToReset={[]}
+        allowableTypes={props.allowableTypes}
       />
     </FormGroup>
   )
