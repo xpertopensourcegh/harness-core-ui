@@ -54,6 +54,7 @@ export interface FlatOnEditValuesInterface {
   }
   pipeline: PipelineInfoConfig
   triggerType: NGTriggerSourceV2['type']
+  manifestType?: string
   originalPipeline?: PipelineInfoConfig
   // WEBHOOK-SPECIFIC
   sourceRepo?: GetActionsListQueryParams['sourceRepo']

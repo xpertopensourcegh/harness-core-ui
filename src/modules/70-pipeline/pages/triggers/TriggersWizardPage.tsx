@@ -269,8 +269,13 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         triggerResponseYaml: triggerResponse.data.yaml
       })
       setOnEditInitialValues({ ...onEditInitialValues, ...newOnEditInitialValues })
+    } else if (triggerResponse?.data?.yaml && triggerResponse.data.type === TriggerTypes.MANIFEST) {
+      const newOnEditInitialValues = getArtifactTriggerValues({
+        triggerResponseYaml: triggerResponse?.data?.yaml
+      })
+      setOnEditInitialValues({ ...onEditInitialValues, ...newOnEditInitialValues })
     }
-  }, [triggerIdentifier, triggerResponse])
+  }, [triggerIdentifier, triggerResponse, template])
 
   const returnToTriggersPage = (): void => {
     history.push(
@@ -756,7 +761,9 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         tags,
         pipeline: pipelineJson,
         triggerType: TriggerTypes.MANIFEST as unknown as NGTriggerSourceV2['type'],
+        manifestType: selectedArtifact?.type,
         stageId: source?.spec?.stageIdentifier,
+        inputSetTemplateYamlObj: parse(template?.data?.inputSetTemplateYaml || ''),
         selectedArtifact
       }
       return newOnEditInitialValues
