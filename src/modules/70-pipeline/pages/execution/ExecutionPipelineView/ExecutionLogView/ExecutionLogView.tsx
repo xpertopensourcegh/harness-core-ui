@@ -8,34 +8,14 @@ import { processExecutionData } from '@pipeline/utils/executionUtils'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import { StageSelection, StageSelectOption } from '@pipeline/components/StageSelection/StageSelection'
 import type { ExecutionPageQueryParams } from '@pipeline/utils/types'
+import factory from '@pipeline/factories/ExecutionFactory'
 import { isExecutionNotStarted, isExecutionSkipped } from '@pipeline/utils/statusHelpers'
-import { LogsContent } from '@pipeline/components/LogsContent/LogsContent'
-import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
-import { ExecutionVerificationView } from '@pipeline/components/ExecutionVerification/ExecutionVerificationView'
-import { ExecutionNode, useGetExecutionNode } from 'services/pipeline-ng'
+import type { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import { useGetExecutionNode } from 'services/pipeline-ng'
 import type { ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
+import type { ConsoleViewStepDetailProps } from '@pipeline/factories/ExecutionFactory/types'
 import { StepsTree } from './StepsTree/StepsTree'
 import css from './ExecutionLogView.module.scss'
-
-export interface LogViewerViewProps {
-  selectedStep?: ExecutionNode
-  errorMessage?: string
-  isSkipped?: boolean
-  loading?: boolean
-}
-
-function LogViewerView(props: LogViewerViewProps): React.ReactElement {
-  const { selectedStep, errorMessage, isSkipped } = props
-
-  if (selectedStep?.stepType === StepType.Verify) {
-    return <ExecutionVerificationView step={selectedStep} />
-  }
-  return (
-    <div className={css.logViewer}>
-      <LogsContent mode="console-view" errorMessage={errorMessage} isWarning={isSkipped} />
-    </div>
-  )
-}
 
 export default function ExecutionLogView(): React.ReactElement {
   const {
@@ -90,6 +70,8 @@ export default function ExecutionLogView(): React.ReactElement {
     updateQueryParams({ step: stepId, stage: selectedStageId, retryStep })
   }
 
+  const stepDetails = factory.getConsoleViewStepDetails(selectedStep?.stepType as StepType)
+
   React.useEffect(() => {
     if (executionNode?.data) {
       Object.assign(executionNode.data, { __isInterruptNode: true })
@@ -121,7 +103,12 @@ export default function ExecutionLogView(): React.ReactElement {
           />
         </div>
       </div>
-      <LogViewerView selectedStep={selectedStep} errorMessage={errorMessage} isSkipped={isSkipped} loading={loading} />
+      {React.createElement<ConsoleViewStepDetailProps>(stepDetails.component, {
+        step: selectedStep,
+        errorMessage,
+        isSkipped,
+        loading
+      })}
     </Container>
   )
 }

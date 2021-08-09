@@ -35,3 +35,14 @@ export interface ExecutionSummaryProps<T = any> {
 export interface ExecutionSummaryRegister {
   component: React.ComponentType<ExecutionSummaryProps>
 }
+
+export interface ConsoleViewStepDetailProps {
+  step: ExecutionNode
+  errorMessage?: string
+  isSkipped?: boolean
+  loading?: boolean
+}
+
+export interface ConsoleViewStepDetailsRegister {
+  component: React.ComponentType<ConsoleViewStepDetailProps>
+}

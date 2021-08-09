@@ -115,3 +115,11 @@
     color: var(--white);
   }
 }
+
+.logViewer {
+  border: 1px solid var(--black-color-3);
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  background-color: #09090b;
+}
