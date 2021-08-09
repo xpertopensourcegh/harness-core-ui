@@ -85,16 +85,6 @@ const CFHomePage: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [trial])
 
-  if (selectedProject) {
-    history.replace(
-      routes.toCFFeatureFlags({
-        projectIdentifier: selectedProject.identifier,
-        orgIdentifier: selectedProject.orgIdentifier || '',
-        accountId
-      })
-    )
-  }
-
   if (loading) {
     return <PageSpinner />
   }
@@ -120,6 +110,16 @@ const CFHomePage: React.FC = () => {
         trialInProgressProps={trialInProgressProps}
         trialBannerProps={trialBannerProps}
       />
+    )
+  }
+
+  if (selectedProject) {
+    history.replace(
+      routes.toCFFeatureFlags({
+        projectIdentifier: selectedProject.identifier,
+        orgIdentifier: selectedProject.orgIdentifier || '',
+        accountId
+      })
     )
   }
 
