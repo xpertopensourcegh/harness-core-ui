@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Card, Color, Container, Icon, Layout, SparkChart, Text } from '@wings-software/uicore'
 import { useHistory } from 'react-router-dom'
 import { getModuleIcon } from '@common/utils/utils'
-import { getModulePurpose } from '@projects-orgs/utils/utils'
+import { getModulePurpose, getModuleTitle } from '@projects-orgs/utils/utils'
 import { String, useStrings } from 'framework/strings'
 import type { StringKeys } from 'framework/strings'
 import { ModuleName } from 'framework/types/ModuleName'
@@ -152,7 +152,7 @@ const ModuleListCard: React.FC<ModuleListCardProps> = ({ module, projectIdentifi
               <Icon name={getModuleIcon(module)} size={70}></Icon>
               <div>
                 <Layout.Vertical padding={{ bottom: 'medium' }}>
-                  <Text font={{ size: 'small' }}>{getString('projectsOrgs.purposeList.change')}</Text>
+                  <Text font={{ size: 'small' }}>{getString(getModuleTitle(module))}</Text>
                   <Text font={{ size: 'medium' }} color={Color.BLACK}>
                     {getModulePurpose(module)}
                   </Text>

@@ -59,7 +59,7 @@ exports[`Project Details render 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small"
               >
-                projectsOrgs.purposeList.change
+                projectsOrgs.purposeList.continuous
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
@@ -313,7 +313,7 @@ exports[`Project Details render 3`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small"
               >
-                projectsOrgs.purposeList.change
+                projectsOrgs.purposeList.continuous
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
@@ -463,7 +463,7 @@ exports[`Project Details render 4`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small"
               >
-                projectsOrgs.purposeList.change
+                projectsOrgs.purposeList.continuous
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
@@ -595,7 +595,7 @@ exports[`Project Details render 5`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small"
               >
-                projectsOrgs.purposeList.change
+                projectsOrgs.purposeList.continuous
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"

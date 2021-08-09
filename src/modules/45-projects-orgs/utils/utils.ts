@@ -1,5 +1,14 @@
-import type { StringKeys } from 'framework/strings/StringsContext'
+import type { StringKeys, StringsMap } from 'framework/strings/StringsContext'
 import { ModuleName } from 'framework/types/ModuleName'
+
+export const getModuleTitle = (module: ModuleName): keyof StringsMap => {
+  switch (module) {
+    case ModuleName.CV:
+      return 'projectsOrgs.purposeList.change'
+    default:
+      return 'projectsOrgs.purposeList.continuous'
+  }
+}
 
 export const getModulePurpose = (module: ModuleName): string => {
   switch (module) {
