@@ -2,7 +2,14 @@ import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { fromPairs } from 'lodash-es'
-import { Project, useGetProject, useGetCurrentUserInfo, UserInfo, isGitSyncEnabledPromise } from 'services/cd-ng'
+import {
+  Project,
+  useGetProject,
+  useGetCurrentUserInfo,
+  UserInfo,
+  isGitSyncEnabledPromise,
+  GitEnabledDTO
+} from 'services/cd-ng'
 import { useGetFeatureFlags } from 'services/portal'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -18,12 +25,15 @@ export type FeatureFlagMap = Partial<Record<FeatureFlag, boolean>>
 export interface AppStoreContextProps {
   readonly selectedProject?: Project
   readonly isGitSyncEnabled?: boolean
+  readonly connectivityMode?: GitEnabledDTO['connectivityMode'] //'MANAGER' | 'DELEGATE'
   readonly currentUserInfo: UserInfo
   /** feature flags */
   readonly featureFlags: FeatureFlagMap
 
   updateAppStore(
-    data: Partial<Pick<AppStoreContextProps, 'selectedProject' | 'isGitSyncEnabled' | 'currentUserInfo'>>
+    data: Partial<
+      Pick<AppStoreContextProps, 'selectedProject' | 'isGitSyncEnabled' | 'connectivityMode' | 'currentUserInfo'>
+    >
   ): void
 }
 
@@ -31,6 +41,7 @@ export const AppStoreContext = React.createContext<AppStoreContextProps>({
   featureFlags: {},
   currentUserInfo: {},
   isGitSyncEnabled: false,
+  connectivityMode: undefined,
   updateAppStore: () => void 0
 })
 
@@ -43,7 +54,8 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
   const [state, setState] = React.useState<Omit<AppStoreContextProps, 'updateAppStore' | 'strings'>>({
     featureFlags: {},
     currentUserInfo: {},
-    isGitSyncEnabled: false
+    isGitSyncEnabled: false,
+    connectivityMode: undefined
   })
 
   const { data: featureFlags, loading: featureFlagsLoading } = useGetFeatureFlags({
@@ -96,16 +108,18 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
     if (projectIdentifier) {
       isGitSyncEnabledPromise({
         queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
-      }).then(status => {
+      }).then((response: GitEnabledDTO) => {
         setState(prevState => ({
           ...prevState,
-          isGitSyncEnabled: !!status
+          isGitSyncEnabled: !!response?.gitSyncEnabled,
+          connectivityMode: response?.connectivityMode
         }))
       })
     } else {
       setState(prevState => ({
         ...prevState,
-        isGitSyncEnabled: false
+        isGitSyncEnabled: false,
+        connectivityMode: undefined
       }))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -147,12 +161,15 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
   }, [userInfo?.data])
 
   function updateAppStore(
-    data: Partial<Pick<AppStoreContextProps, 'selectedProject' | 'isGitSyncEnabled' | 'currentUserInfo'>>
+    data: Partial<
+      Pick<AppStoreContextProps, 'selectedProject' | 'isGitSyncEnabled' | 'connectivityMode' | 'currentUserInfo'>
+    >
   ): void {
     setState(prevState => ({
       ...prevState,
       selectedProject: data.selectedProject,
       isGitSyncEnabled: data.isGitSyncEnabled || prevState?.isGitSyncEnabled,
+      connectivityMode: data.connectivityMode || prevState?.connectivityMode,
       currentUserInfo: data.currentUserInfo || prevState?.currentUserInfo
     }))
   }

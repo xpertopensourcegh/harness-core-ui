@@ -19,7 +19,7 @@ import cx from 'classnames'
 import type { CellProps, Renderer, Column } from 'react-table'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
-import { pick } from 'lodash-es'
+import { pick, capitalize } from 'lodash-es'
 import { Menu, Classes, Position, Dialog } from '@blueprintjs/core'
 import Table from '@common/components/Table/Table'
 import {
@@ -46,6 +46,7 @@ import { getIdentifierFromValue } from '@common/components/EntityReference/Entit
 import CopyToClipboard from '@common/components/CopyToClipBoard/CopyToClipBoard'
 import { StringUtils } from '@common/exports'
 import { getExternalUrl } from '@gitsync/common/gitSyncUtils'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import css from './GitSyncRepoTab.module.scss'
 
 enum RepoState {
@@ -112,6 +113,7 @@ const RightMenu: React.FC<RightMenuProps> = props => {
 
 const GitSyncRepoTab: React.FC = () => {
   const { gitSyncRepos, refreshStore } = useGitSyncStore()
+  const { connectivityMode } = useAppStore()
 
   const { openGitSyncModal } = useCreateGitSyncModal({
     onSuccess: async () => {
@@ -528,14 +530,24 @@ const GitSyncRepoTab: React.FC = () => {
   )
   return (
     <Container>
-      <Button
-        intent="primary"
-        text={getString('addRepository')}
-        icon="plus"
-        onClick={() => openGitSyncModal(false, false, undefined)}
-        id="newRepoBtn"
-        margin={{ left: 'xlarge', bottom: 'small', top: 'large' }}
-      />
+      <Layout.Horizontal margin={{ right: 'xlarge' }} flex={{ distribution: 'space-between' }}>
+        <Button
+          intent="primary"
+          text={getString('addRepository')}
+          icon="plus"
+          onClick={() => openGitSyncModal(false, false, undefined)}
+          id="newRepoBtn"
+          margin={{ left: 'xlarge', bottom: 'small', top: 'large' }}
+        />
+
+        <Container background={Color.GREY_100} padding="small" flex>
+          <Icon name="connectivity-mode" size={18} margin={{ right: 'small' }}></Icon>
+          <Text color={Color.GREY_800}>
+            {getString('gitsync.connectivityModeLabel', { connectivityMode: capitalize(connectivityMode) })}
+          </Text>
+        </Container>
+      </Layout.Horizontal>
+
       <Table<GitSyncConfig> className={css.table} columns={columns} data={gitSyncRepos || []} />
     </Container>
   )

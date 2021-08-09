@@ -2164,6 +2164,11 @@ export type GitConfigDTO = ConnectorConfigDTO & {
   validationRepo?: string
 }
 
+export interface GitEnabledDTO {
+  connectivityMode?: 'MANAGER' | 'DELEGATE'
+  gitSyncEnabled?: boolean
+}
+
 export interface GitEntityBranchFilterSummaryProperties {
   entityTypes?: (
     | 'Projects'
@@ -6368,6 +6373,8 @@ export type TokenDTORequestBody = TokenDTO
 export type UserFilterRequestBody = UserFilter
 
 export type UserGroupDTORequestBody = UserGroupDTO
+
+export type SubscribeBodyRequestBody = string[]
 
 export type UpdateWhitelistedDomainsBodyRequestBody = string[]
 
@@ -14462,26 +14469,29 @@ export interface IsGitSyncEnabledQueryParams {
   orgIdentifier?: string
 }
 
-export type IsGitSyncEnabledProps = Omit<GetProps<boolean, unknown, IsGitSyncEnabledQueryParams, void>, 'path'>
+export type IsGitSyncEnabledProps = Omit<GetProps<GitEnabledDTO, unknown, IsGitSyncEnabledQueryParams, void>, 'path'>
 
 /**
  * Is Git Sync EnabledForProject
  */
 export const IsGitSyncEnabled = (props: IsGitSyncEnabledProps) => (
-  <Get<boolean, unknown, IsGitSyncEnabledQueryParams, void>
+  <Get<GitEnabledDTO, unknown, IsGitSyncEnabledQueryParams, void>
     path={`/git-sync/git-sync-enabled`}
     base={getConfig('ng/api')}
     {...props}
   />
 )
 
-export type UseIsGitSyncEnabledProps = Omit<UseGetProps<boolean, unknown, IsGitSyncEnabledQueryParams, void>, 'path'>
+export type UseIsGitSyncEnabledProps = Omit<
+  UseGetProps<GitEnabledDTO, unknown, IsGitSyncEnabledQueryParams, void>,
+  'path'
+>
 
 /**
  * Is Git Sync EnabledForProject
  */
 export const useIsGitSyncEnabled = (props: UseIsGitSyncEnabledProps) =>
-  useGet<boolean, unknown, IsGitSyncEnabledQueryParams, void>(`/git-sync/git-sync-enabled`, {
+  useGet<GitEnabledDTO, unknown, IsGitSyncEnabledQueryParams, void>(`/git-sync/git-sync-enabled`, {
     base: getConfig('ng/api'),
     ...props
   })
@@ -14490,10 +14500,10 @@ export const useIsGitSyncEnabled = (props: UseIsGitSyncEnabledProps) =>
  * Is Git Sync EnabledForProject
  */
 export const isGitSyncEnabledPromise = (
-  props: GetUsingFetchProps<boolean, unknown, IsGitSyncEnabledQueryParams, void>,
+  props: GetUsingFetchProps<GitEnabledDTO, unknown, IsGitSyncEnabledQueryParams, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<boolean, unknown, IsGitSyncEnabledQueryParams, void>(
+  getUsingFetch<GitEnabledDTO, unknown, IsGitSyncEnabledQueryParams, void>(
     getConfig('ng/api'),
     `/git-sync/git-sync-enabled`,
     props,
@@ -16322,6 +16332,209 @@ export const getExecutionStrategyYamlPromise = (
   getUsingFetch<ResponseString, Failure | Error, GetExecutionStrategyYamlQueryParams, void>(
     getConfig('ng/api'),
     `/pipelines/configuration/strategies/yaml-snippets`,
+    props,
+    signal
+  )
+
+export interface ProcessPollingResultNgQueryParams {
+  accountId?: string
+}
+
+export interface ProcessPollingResultNgPathParams {
+  perpetualTaskId: string
+}
+
+export type ProcessPollingResultNgProps = Omit<
+  MutateProps<void, void, ProcessPollingResultNgQueryParams, string[], ProcessPollingResultNgPathParams>,
+  'path' | 'verb'
+> &
+  ProcessPollingResultNgPathParams
+
+export const ProcessPollingResultNg = ({ perpetualTaskId, ...props }: ProcessPollingResultNgProps) => (
+  <Mutate<void, void, ProcessPollingResultNgQueryParams, string[], ProcessPollingResultNgPathParams>
+    verb="POST"
+    path={`/poll/delegate-response/${perpetualTaskId}`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseProcessPollingResultNgProps = Omit<
+  UseMutateProps<void, void, ProcessPollingResultNgQueryParams, string[], ProcessPollingResultNgPathParams>,
+  'path' | 'verb'
+> &
+  ProcessPollingResultNgPathParams
+
+export const useProcessPollingResultNg = ({ perpetualTaskId, ...props }: UseProcessPollingResultNgProps) =>
+  useMutate<void, void, ProcessPollingResultNgQueryParams, string[], ProcessPollingResultNgPathParams>(
+    'POST',
+    (paramsInPath: ProcessPollingResultNgPathParams) => `/poll/delegate-response/${paramsInPath.perpetualTaskId}`,
+    { base: getConfig('ng/api'), pathParams: { perpetualTaskId }, ...props }
+  )
+
+export const processPollingResultNgPromise = (
+  {
+    perpetualTaskId,
+    ...props
+  }: MutateUsingFetchProps<
+    void,
+    void,
+    ProcessPollingResultNgQueryParams,
+    string[],
+    ProcessPollingResultNgPathParams
+  > & { perpetualTaskId: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<void, void, ProcessPollingResultNgQueryParams, string[], ProcessPollingResultNgPathParams>(
+    'POST',
+    getConfig('ng/api'),
+    `/poll/delegate-response/${perpetualTaskId}`,
+    props,
+    signal
+  )
+
+export interface ProcessPollingResultNg1QueryParams {
+  accountId?: string
+}
+
+export interface ProcessPollingResultNg1PathParams {
+  perpetualTaskId: string
+}
+
+export type ProcessPollingResultNg1Props = Omit<
+  MutateProps<
+    void,
+    void,
+    ProcessPollingResultNg1QueryParams,
+    SubscribeBodyRequestBody,
+    ProcessPollingResultNg1PathParams
+  >,
+  'path' | 'verb'
+> &
+  ProcessPollingResultNg1PathParams
+
+export const ProcessPollingResultNg1 = ({ perpetualTaskId, ...props }: ProcessPollingResultNg1Props) => (
+  <Mutate<void, void, ProcessPollingResultNg1QueryParams, SubscribeBodyRequestBody, ProcessPollingResultNg1PathParams>
+    verb="POST"
+    path={`/polling/delegate-response/${perpetualTaskId}`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseProcessPollingResultNg1Props = Omit<
+  UseMutateProps<
+    void,
+    void,
+    ProcessPollingResultNg1QueryParams,
+    SubscribeBodyRequestBody,
+    ProcessPollingResultNg1PathParams
+  >,
+  'path' | 'verb'
+> &
+  ProcessPollingResultNg1PathParams
+
+export const useProcessPollingResultNg1 = ({ perpetualTaskId, ...props }: UseProcessPollingResultNg1Props) =>
+  useMutate<
+    void,
+    void,
+    ProcessPollingResultNg1QueryParams,
+    SubscribeBodyRequestBody,
+    ProcessPollingResultNg1PathParams
+  >(
+    'POST',
+    (paramsInPath: ProcessPollingResultNg1PathParams) => `/polling/delegate-response/${paramsInPath.perpetualTaskId}`,
+    { base: getConfig('ng/api'), pathParams: { perpetualTaskId }, ...props }
+  )
+
+export const processPollingResultNg1Promise = (
+  {
+    perpetualTaskId,
+    ...props
+  }: MutateUsingFetchProps<
+    void,
+    void,
+    ProcessPollingResultNg1QueryParams,
+    SubscribeBodyRequestBody,
+    ProcessPollingResultNg1PathParams
+  > & { perpetualTaskId: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    void,
+    void,
+    ProcessPollingResultNg1QueryParams,
+    SubscribeBodyRequestBody,
+    ProcessPollingResultNg1PathParams
+  >('POST', getConfig('ng/api'), `/polling/delegate-response/${perpetualTaskId}`, props, signal)
+
+export type SubscribeProps = Omit<MutateProps<string[], unknown, void, SubscribeBodyRequestBody, void>, 'path' | 'verb'>
+
+export const Subscribe = (props: SubscribeProps) => (
+  <Mutate<string[], unknown, void, SubscribeBodyRequestBody, void>
+    verb="POST"
+    path={`/polling/subscribe`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseSubscribeProps = Omit<
+  UseMutateProps<string[], unknown, void, SubscribeBodyRequestBody, void>,
+  'path' | 'verb'
+>
+
+export const useSubscribe = (props: UseSubscribeProps) =>
+  useMutate<string[], unknown, void, SubscribeBodyRequestBody, void>('POST', `/polling/subscribe`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+export const subscribePromise = (
+  props: MutateUsingFetchProps<string[], unknown, void, SubscribeBodyRequestBody, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<string[], unknown, void, SubscribeBodyRequestBody, void>(
+    'POST',
+    getConfig('ng/api'),
+    `/polling/subscribe`,
+    props,
+    signal
+  )
+
+export type UnsubscribeProps = Omit<
+  MutateProps<boolean, unknown, void, SubscribeBodyRequestBody, void>,
+  'path' | 'verb'
+>
+
+export const Unsubscribe = (props: UnsubscribeProps) => (
+  <Mutate<boolean, unknown, void, SubscribeBodyRequestBody, void>
+    verb="POST"
+    path={`/polling/unsubscribe`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseUnsubscribeProps = Omit<
+  UseMutateProps<boolean, unknown, void, SubscribeBodyRequestBody, void>,
+  'path' | 'verb'
+>
+
+export const useUnsubscribe = (props: UseUnsubscribeProps) =>
+  useMutate<boolean, unknown, void, SubscribeBodyRequestBody, void>('POST', `/polling/unsubscribe`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+export const unsubscribePromise = (
+  props: MutateUsingFetchProps<boolean, unknown, void, SubscribeBodyRequestBody, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<boolean, unknown, void, SubscribeBodyRequestBody, void>(
+    'POST',
+    getConfig('ng/api'),
+    `/polling/unsubscribe`,
     props,
     signal
   )

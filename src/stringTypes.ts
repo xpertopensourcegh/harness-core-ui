@@ -1450,6 +1450,7 @@ export interface StringsMap {
   'gitsync.connectThroughManager': string
   'gitsync.connectThroughManagerLabel': string
   'gitsync.connectToGitProvider': string
+  'gitsync.connectivityModeLabel': string
   'gitsync.defaultBranch': string
   'gitsync.defaultFolder': string
   'gitsync.entitiesByRepositories': string
