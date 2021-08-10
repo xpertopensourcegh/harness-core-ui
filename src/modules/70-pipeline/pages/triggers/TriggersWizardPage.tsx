@@ -744,7 +744,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
 
       if (type === TriggerTypes.MANIFEST) {
         const { manifestRef, type: _manifestType, spec } = source?.spec || {}
-        selectedArtifact = { identifier: manifestRef, type: _manifestType, spec: spec?.spec }
+        selectedArtifact = { identifier: manifestRef, type: _manifestType, spec: spec?.store?.spec }
       }
       let pipelineJson = undefined
       try {
