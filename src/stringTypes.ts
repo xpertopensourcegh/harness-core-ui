@@ -3456,6 +3456,7 @@ export interface StringsMap {
   'cv.monitoredServices.monitoredServiceCreated': string
   'cv.monitoredServices.monitoredServiceDetails': string
   'cv.monitoredServices.monitoredServiceName': string
+  'cv.monitoredServices.monitoredServiceToggle': string
   'cv.monitoredServices.monitoredServiceUpdated': string
   'cv.monitoredServices.nameValidation': string
   'cv.monitoredServices.newMonitoredServices': string
@@ -3737,6 +3738,7 @@ export interface StringsMap {
   'cv.timeline': string
   'cv.trafficSplit': string
   'cv.trend': string
+  'cv.turnService': string
   'cv.unexpected': string
   'cv.unknown': string
   'cv.urlCopied': string
