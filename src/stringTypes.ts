@@ -124,6 +124,7 @@ export interface StringsMap {
   'common.delegateForTask': string
   'common.descriptionPlaceholder': string
   'common.disable': string
+  'common.discard': string
   'common.duplicateId': string
   'common.durationPrefix': string
   'common.editVariable': string

@@ -1,7 +1,7 @@
 verificationResult: 'Verification result:'
 estimatedTimeRemaining: 'Estimated time remaining:'
 progressPercentage: 'Progress percentage:'
-discard: Discard
+discard: '{{ $.common.discard }}'
 serviceDependencyText: Service Dependency
 serviceDependenciesText: Service Dependencies
 stepLabel: '{{name}} (ID: {{identifier}})'
