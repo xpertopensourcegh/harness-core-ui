@@ -617,9 +617,10 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                     >
                                       <div
                                         class="Layout--horizontal StyledProps--main MultiTypeInput--mini"
+                                        style="width: 264px;"
                                       >
                                         <div
-                                          class="bp3-input-group bp3-small MultiTypeInput--input"
+                                          class="bp3-input-group MultiTypeInput--input"
                                         >
                                           <input
                                             autocomplete="off"
@@ -661,9 +662,11 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                     </div>
                                   </div>
                                 </div>
-                                <div>
+                                <div
+                                  class="actionButtons"
+                                >
                                   <section
-                                    class="actionButtons"
+                                    class="actionButtons alignIcons"
                                   >
                                     <span
                                       class="bp3-popover-wrapper"
@@ -731,6 +734,9 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                       </span>
                                     </span>
                                   </section>
+                                  <div
+                                    class="alignIcons"
+                                  />
                                 </div>
                               </div>
                             </div>
@@ -792,9 +798,10 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                     >
                                       <div
                                         class="Layout--horizontal StyledProps--main MultiTypeInput--mini"
+                                        style="width: 264px;"
                                       >
                                         <div
-                                          class="bp3-input-group bp3-small MultiTypeInput--input"
+                                          class="bp3-input-group MultiTypeInput--input"
                                         >
                                           <input
                                             autocomplete="off"
@@ -836,9 +843,11 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                     </div>
                                   </div>
                                 </div>
-                                <div>
+                                <div
+                                  class="actionButtons"
+                                >
                                   <section
-                                    class="actionButtons"
+                                    class="actionButtons alignIcons"
                                   >
                                     <span
                                       class="bp3-popover-wrapper"
@@ -906,6 +915,9 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                       </span>
                                     </span>
                                   </section>
+                                  <div
+                                    class="alignIcons"
+                                  />
                                 </div>
                               </div>
                             </div>
@@ -1324,9 +1336,10 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                             >
                                               <div
                                                 class="Layout--horizontal StyledProps--main MultiTypeInput--mini"
+                                                style="width: 264px;"
                                               >
                                                 <div
-                                                  class="bp3-input-group bp3-small MultiTypeInput--input"
+                                                  class="bp3-input-group MultiTypeInput--input"
                                                 >
                                                   <input
                                                     autocomplete="off"
@@ -1368,9 +1381,11 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                             </div>
                                           </div>
                                         </div>
-                                        <div>
+                                        <div
+                                          class="actionButtons"
+                                        >
                                           <section
-                                            class="actionButtons"
+                                            class="actionButtons alignIcons"
                                           >
                                             <span
                                               class="bp3-popover-wrapper"
@@ -1438,6 +1453,9 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                               </span>
                                             </span>
                                           </section>
+                                          <div
+                                            class="alignIcons"
+                                          />
                                         </div>
                                       </div>
                                     </div>
@@ -1499,9 +1517,10 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                             >
                                               <div
                                                 class="Layout--horizontal StyledProps--main MultiTypeInput--mini"
+                                                style="width: 264px;"
                                               >
                                                 <div
-                                                  class="bp3-input-group bp3-small MultiTypeInput--input"
+                                                  class="bp3-input-group MultiTypeInput--input"
                                                 >
                                                   <input
                                                     autocomplete="off"
@@ -1543,9 +1562,11 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                             </div>
                                           </div>
                                         </div>
-                                        <div>
+                                        <div
+                                          class="actionButtons"
+                                        >
                                           <section
-                                            class="actionButtons"
+                                            class="actionButtons alignIcons"
                                           >
                                             <span
                                               class="bp3-popover-wrapper"
@@ -1613,6 +1634,9 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                               </span>
                                             </span>
                                           </section>
+                                          <div
+                                            class="alignIcons"
+                                          />
                                         </div>
                                       </div>
                                     </div>

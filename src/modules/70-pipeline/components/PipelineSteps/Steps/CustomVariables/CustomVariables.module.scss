@@ -22,7 +22,7 @@
 
   .value-row {
     display: grid;
-    grid-template-columns: repeat(2, minmax(10px, 1fr));
+    grid-template-columns: 264px 1fr;
     column-gap: var(--spacing-xsmall);
 
     & :global(.bp3-form-group) {
@@ -32,10 +32,6 @@
 
     & :global(.MultiTypeInput--btn) {
       width: 28px !important;
-    }
-
-    & > div {
-      display: flex;
     }
 
     input[type='number']::-webkit-inner-spin-button,
@@ -57,6 +53,7 @@
     margin-top: var(--spacing-small);
     border-bottom: solid 1px var(--grey-200);
     position: relative;
+
     &:before {
       position: absolute;
       width: 100%;
@@ -75,9 +72,21 @@
       height: 1px;
       right: 100%;
     }
+    :global(.TextInput--main) {
+      margin-bottom: 0;
+    }
   }
-
+  .alignIcons {
+    margin-top: -5px;
+  }
   .actionButtons {
+    display: grid;
+    grid-template-columns: 1fr 30px;
+
+    section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
     button {
       margin-left: var(--spacing-small);
       border-radius: var(--spacing-xxlarge) !important;

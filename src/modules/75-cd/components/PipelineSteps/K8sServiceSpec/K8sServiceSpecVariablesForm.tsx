@@ -44,7 +44,6 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
   const primaryArtifactVariables = variablesData?.artifacts?.primary?.spec
   const sidecarArtifactVariables = variablesData?.artifacts?.sidecars
   const manifestsVariables = variablesData.manifests
-
   return (
     <React.Fragment>
       {artifacts && !isEmpty(omit(variablesData?.artifacts, 'uuid')) ? (
@@ -60,11 +59,11 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
                 <NestedAccordionPanel
                   isDefaultOpen
                   addDomId
+                  collapseProps={{ keepChildrenMounted: true }}
                   id={`Stage.${stageIdentifier}.Service.Artifacts.Primary`}
                   summary={<VariableAccordionSummary> {getString('primaryArtifactText')}</VariableAccordionSummary>}
                   summaryClassName={cx(css.variableBorderBottom, pipelineVariableCss.accordianSummaryL3)}
                   details={
-                    // <div className={css.artifactHeader}>{getString('primaryArtifactText')}</div>
                     <VariablesListTable
                       className={pipelineVariableCss.variablePaddingL3}
                       data={primaryArtifactVariables}
@@ -74,7 +73,7 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
                   }
                 />
 
-                {sidecarArtifactVariables?.length && (
+                {!!sidecarArtifactVariables?.length && (
                   <>
                     <NestedAccordionPanel
                       isDefaultOpen
@@ -85,16 +84,18 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
                       }
                       summaryClassName={cx(css.variableBorderBottom, pipelineVariableCss.accordianSummaryL3)}
                       details={
-                        // <div className={cx(css.artifactHeader, css.mtop)}>{getString('sidecarArtifactsText')}</div>
                         Array.isArray(sidecarArtifactVariables) &&
-                        sidecarArtifactVariables.map(({ sidecar }, index) => (
-                          <VariablesListTable
-                            key={index}
-                            data={sidecar}
-                            originalData={initialValues?.artifacts?.sidecars?.[index] || ({} as any)}
-                            metadataMap={metadataMap}
-                          />
-                        ))
+                        sidecarArtifactVariables.map(({ sidecar }, index) => {
+                          return (
+                            <VariablesListTable
+                              className={pipelineVariableCss.variablePaddingL3}
+                              key={index}
+                              data={sidecar?.spec}
+                              originalData={initialValues?.artifacts?.sidecars?.[index]?.sidecar?.spec}
+                              metadataMap={metadataMap}
+                            />
+                          )
+                        })
                       }
                     />
                   </>
@@ -112,7 +113,7 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
           summary={<VariableAccordionSummary> {getString('manifests')}</VariableAccordionSummary>}
           summaryClassName={cx(css.variableBorderBottom, pipelineVariableCss.accordianSummaryL2)}
           details={
-            manifestsVariables && (
+            !!manifestsVariables?.length && (
               <>
                 {manifestsVariables?.map(({ manifest }, index) => (
                   <VariablesListTable
