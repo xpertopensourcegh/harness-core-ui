@@ -83,6 +83,7 @@ export default function CreatePipelines({
           />
           <FormMultiTypeDurationField
             name="timeout"
+            isOptional
             label={getString('pipelineSteps.timeoutLabel')}
             multiTypeDurationProps={{ enableConfigureOptions: true }}
           />

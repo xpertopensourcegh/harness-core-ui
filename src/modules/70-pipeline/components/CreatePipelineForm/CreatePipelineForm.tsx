@@ -69,6 +69,7 @@ export const CreatePipelineForm: React.FC<CreatePipelineFormProps> = props => {
             <NameIdDescriptionTags formikProps={formikProps} />
             <FormMultiTypeDurationField
               name="timeout"
+              isOptional
               label={getString('pipelineSteps.timeoutLabel')}
               multiTypeDurationProps={{ enableConfigureOptions: true }}
             />
