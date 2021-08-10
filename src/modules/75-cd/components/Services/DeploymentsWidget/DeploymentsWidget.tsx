@@ -1,4 +1,5 @@
 import React, { useCallback, useContext, useMemo } from 'react'
+import ReactDOM from 'react-dom'
 import { useParams } from 'react-router-dom'
 import type { SeriesAreaOptions } from 'highcharts'
 import { Card, Color, Container, Layout, Text } from '@wings-software/uicore'
@@ -28,7 +29,6 @@ interface DeploymentWidgetData {
   failureRate: ChangeValue
   frequency: ChangeValue
   data: TimeSeriesAreaChartProps['seriesData']
-  dateLabels: string[]
 }
 
 export interface DeploymentWidgetProps {
@@ -40,6 +40,72 @@ const TickerValue: React.FC<{ value: number; color: Color }> = props => (
     truncate: false
   })}%`}</Text>
 )
+
+const DeploymentsTooltip: React.FC<any> = props => {
+  const {
+    x: timestamp,
+    failureRate,
+    failureRateLabel,
+    failureRateChangeRate,
+    frequency,
+    frequencyChangeRate,
+    frequencyLabel
+  } = props.options || {}
+  const currentDate = timestamp
+    ? new Date(timestamp).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })
+    : ''
+  return (
+    <Card className={css.tooltipCard}>
+      <Layout.Vertical>
+        <Text
+          font={{ size: 'small' }}
+          width="100%"
+          className={css.tooltipTimestamp}
+          margin={{ bottom: 'medium' }}
+          padding={{ bottom: 'small' }}
+        >
+          {currentDate}
+        </Text>
+        <Layout.Horizontal flex={{ justifyContent: 'space-between' }}>
+          <Text font={{ size: 'small', weight: 'semi-bold' }}>{failureRateLabel}</Text>
+          <Ticker
+            value={
+              <TickerValue
+                value={failureRateChangeRate}
+                color={failureRateChangeRate < 0 ? Color.GREEN_600 : Color.RED_500}
+              />
+            }
+            decreaseMode={failureRateChangeRate < 0}
+            color={failureRateChangeRate < 0 ? Color.GREEN_600 : Color.RED_500}
+            verticalAlign={TickerVerticalAlignment.TOP}
+          >
+            <Text color={Color.BLACK} font={{ weight: 'bold' }} margin={{ right: 'medium' }}>
+              {failureRate}
+            </Text>
+          </Ticker>
+        </Layout.Horizontal>
+        <Layout.Horizontal flex={{ justifyContent: 'space-between' }}>
+          <Text font={{ size: 'small', weight: 'semi-bold' }}>{frequencyLabel}</Text>
+          <Ticker
+            value={
+              <TickerValue
+                value={frequencyChangeRate}
+                color={frequencyChangeRate > 0 ? Color.GREEN_600 : Color.RED_500}
+              />
+            }
+            decreaseMode={frequencyChangeRate < 0}
+            color={frequencyChangeRate > 0 ? Color.GREEN_600 : Color.RED_500}
+            verticalAlign={TickerVerticalAlignment.TOP}
+          >
+            <Text color={Color.BLACK} font={{ weight: 'bold' }} margin={{ right: 'medium' }}>
+              {frequency}
+            </Text>
+          </Ticker>
+        </Layout.Horizontal>
+      </Layout.Vertical>
+    </Card>
+  )
+}
 
 export const DeploymentsWidget: React.FC<DeploymentWidgetProps> = props => {
   const { getString } = useStrings()
@@ -53,7 +119,7 @@ export const DeploymentsWidget: React.FC<DeploymentWidgetProps> = props => {
       accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier,
-      serviceIdentifier,
+      serviceId: serviceIdentifier,
       startTime: timeRange?.range[0]?.getTime() || 0,
       endTime: timeRange?.range[1]?.getTime() || 0,
       bucketSizeInDays: getBucketSizeForTimeRange(timeRange?.range)
@@ -76,15 +142,21 @@ export const DeploymentsWidget: React.FC<DeploymentWidgetProps> = props => {
       )
       deployments.sort((deploymentA, deploymentB) => ((deploymentA.time || 0) < (deploymentB.time || 0) ? -1 : 1))
 
-      const dateLabels: string[] = []
       const success: SeriesAreaOptions['data'] = []
       const failed: SeriesAreaOptions['data'] = []
 
       deployments.forEach(deployment => {
-        const currentDate = new Date(deployment.time || 0)
-        success.push({ x: deployment.time || 0, y: deployment.deployments?.success || 0 })
-        failed.push({ x: deployment.time || 0, y: deployment.deployments?.failure || 0 })
-        dateLabels.push(currentDate?.toLocaleDateString('en-US', { day: 'numeric', month: 'numeric' }) || '')
+        const { failureRate, failureRateChangeRate, frequency, frequencyChangeRate } = deployment.rate || {}
+        const rates = {
+          failureRate: `${numberFormatter(failureRate, { truncate: true })}%`,
+          failureRateChangeRate: numberFormatter(failureRateChangeRate, { truncate: true }),
+          frequency: numberFormatter(frequency, { truncate: true }),
+          frequencyChangeRate: numberFormatter(frequencyChangeRate, { truncate: true }),
+          frequencyLabel: getString('common.frequency'),
+          failureRateLabel: getString('common.failureRate')
+        }
+        success.push({ x: deployment.time || 0, y: deployment.deployments?.success || 0, ...rates })
+        failed.push({ x: deployment.time || 0, y: deployment.deployments?.failure || 0, ...rates })
       })
 
       return {
@@ -111,8 +183,7 @@ export const DeploymentsWidget: React.FC<DeploymentWidgetProps> = props => {
             data: failed,
             color: '#ee5f54'
           }
-        ],
-        dateLabels
+        ]
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -162,7 +233,7 @@ export const DeploymentsWidget: React.FC<DeploymentWidgetProps> = props => {
     return <DeploymentWidgetContainer>{component}</DeploymentWidgetContainer>
   }
 
-  const { deployments, failureRate, frequency, data, dateLabels } = parseData(serviceDeploymentsInfo.data)
+  const { deployments, failureRate, frequency, data } = parseData(serviceDeploymentsInfo.data)
 
   const customChartOptions: Highcharts.Options = {
     chart: { height: 170, spacing: [25, 0, 25, 0] },
@@ -170,13 +241,8 @@ export const DeploymentsWidget: React.FC<DeploymentWidgetProps> = props => {
     xAxis: {
       allowDecimals: false,
       labels: {
-        enabled: false, // remove this if data labels are required
-        formatter: function () {
-          const index = Number(this.value)
-          return index < dateLabels.length ? dateLabels[index] : ''
-        }
+        enabled: false
       }
-      // tickInterval: 1
     },
     yAxis: {
       max: Math.max(
@@ -185,11 +251,29 @@ export const DeploymentsWidget: React.FC<DeploymentWidgetProps> = props => {
         )
       )
     },
+    tooltip: {
+      useHTML: true,
+      borderWidth: 0,
+      padding: 0,
+      formatter: function () {
+        return '<div id="deployments-widget-tooltip" style="width: 300px"></div>'
+      }
+    },
     plotOptions: {
       area: {
         pointStart: 0,
         stacking: 'normal',
-        animation: false
+        animation: false,
+        point: {
+          events: {
+            mouseOver: function () {
+              const el = document.getElementById('deployments-widget-tooltip')
+              if (el) {
+                ReactDOM.render(<DeploymentsTooltip {...this} />, el)
+              }
+            }
+          }
+        }
       }
     }
   }
