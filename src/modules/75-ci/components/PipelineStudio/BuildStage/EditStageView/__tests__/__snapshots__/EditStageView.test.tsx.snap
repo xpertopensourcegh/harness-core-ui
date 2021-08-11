@@ -211,42 +211,20 @@ exports[`EditStageView snapshot test should render properly 1`] = `
                 </label>
               </div>
             </div>
-            <label
-              class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main StyledProps--margin-bottom-small"
-            >
-              <input
-                type="checkbox"
-              />
-              <span
-                class="bp3-control-indicator"
-              />
-              cloneCodebaseLabel
-            </label>
             <div
-              class="cloneCodebaseInfo"
+              style="display: flex; align-items: center;"
             >
-              <span
-                class="bp3-icon StyledProps--main StyledProps--margin-right-small"
-                data-icon="info"
+              <label
+                class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
               >
-                <svg
-                  height="10"
-                  viewBox="0 0 12 12"
-                  width="10"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--font-xsmall"
-              >
-                pipelineSteps.build.create.cloneCodebaseHelperText
-              </p>
+                <input
+                  type="checkbox"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                cloneCodebaseLabel
+              </label>
             </div>
             <button
               class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-top-small Button--with-current-color"
@@ -477,43 +455,21 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                 </label>
               </div>
             </div>
-            <label
-              class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main StyledProps--margin-bottom-small"
-            >
-              <input
-                checked=""
-                type="checkbox"
-              />
-              <span
-                class="bp3-control-indicator"
-              />
-              cloneCodebaseLabel
-            </label>
             <div
-              class="cloneCodebaseInfo"
+              style="display: flex; align-items: center;"
             >
-              <span
-                class="bp3-icon StyledProps--main StyledProps--margin-right-small"
-                data-icon="info"
+              <label
+                class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
               >
-                <svg
-                  height="10"
-                  viewBox="0 0 12 12"
-                  width="10"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--font-xsmall"
-              >
-                pipelineSteps.build.create.cloneCodebaseHelperText
-              </p>
+                <input
+                  checked=""
+                  type="checkbox"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                cloneCodebaseLabel
+              </label>
             </div>
             <div
               class="configureCodebase"

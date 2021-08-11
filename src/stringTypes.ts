@@ -1225,7 +1225,6 @@ export interface StringsMap {
   'connectors.docker.dockerProvideType': string
   'connectors.docker.dockerRegistryURL': string
   'connectors.docker.dockerRepository': string
-  'connectors.docker.dockerRepositoryInfo': string
   'connectors.docker.harbour': string
   'connectors.docker.other': string
   'connectors.docker.quay': string
@@ -1980,7 +1979,6 @@ export interface StringsMap {
   'pipeline.moveStage.title': string
   'pipeline.myBuildsText': string
   'pipeline.myDeploymentsText': string
-  'pipeline.namespaceTooltip': string
   'pipeline.neverRan': string
   'pipeline.noBuckets': string
   'pipeline.noBuildsText': string
@@ -3236,17 +3234,10 @@ export interface StringsMap {
   'ci.next': string
   'ci.noData': string
   'ci.optimize': string
-  'ci.optimizeInfo': string
-  'ci.pipelineSteps.failIfKeyNotFoundInfo': string
-  'ci.pipelineSteps.overrideCacheInfo': string
-  'ci.pipelineSteps.pathStyleInfo': string
   'ci.prSymbol': string
   'ci.previous': string
   'ci.privileged': string
-  'ci.privilegedInfo': string
   'ci.remoteCacheImage.dockerInfo': string
-  'ci.remoteCacheImage.ecrInfo': string
-  'ci.remoteCacheImage.gcrInfo': string
   'ci.remoteCacheImage.label': string
   'ci.remoteCacheImage.placeholder': string
   'ci.remoteCacheRepository.label': string
@@ -3986,14 +3977,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  archiveFormatInfo: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  argsInfo: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   argsLabel: string
   /**
    * @deprecated migrate this string to module level file
@@ -4043,10 +4026,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   buildText: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  buildToolInfo: string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -4171,10 +4150,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   color: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  commandInfo: string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -4746,10 +4721,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  dependencyEnvironmentVariablesInfo: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   dependencyImagePlaceholder: string
   /**
    * @deprecated migrate this string to module level file
@@ -4882,10 +4853,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  entryPointInfo: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   entryPointLabel: string
   /**
    * @deprecated migrate this string to module level file
@@ -4903,10 +4870,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   environmentVariables: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  environmentVariablesInfo: string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -5230,15 +5193,7 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  imageInfo: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   imageLabel: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  imageNameInfo: string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -5467,10 +5422,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   kubernetesText: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  languageInfo: string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -5862,10 +5813,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  packagesInfo: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   packagesLabel: string
   /**
    * @deprecated migrate this string to module level file
@@ -5934,10 +5881,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'pipelineSteps.GCSBucketInfo': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'pipelineSteps.InheritFromApply': string
   /**
    * @deprecated migrate this string to module level file
@@ -5950,19 +5893,7 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'pipelineSteps.S3BucketInfo': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.accountInfo': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'pipelineSteps.addTerraformVarFile': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.artifactsTargetInfo': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -5978,10 +5909,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'pipelineSteps.awsConnectorInfo': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'pipelineSteps.awsConnectorLabel': string
   /**
    * @deprecated migrate this string to module level file
@@ -5994,19 +5921,11 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'pipelineSteps.bucketInfo': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'pipelineSteps.bucketLabel': string
   /**
    * @deprecated migrate this string to module level file
    */
   'pipelineSteps.build.create.aboutYourStage': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.build.create.cloneCodebaseHelperText': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -6094,10 +6013,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'pipelineSteps.build.stageSpecifications.sharedPathsInfo': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'pipelineSteps.build.stageSpecifications.valueCell': string
   /**
    * @deprecated migrate this string to module level file
@@ -6110,19 +6025,11 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'pipelineSteps.buildArgsInfo': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'pipelineSteps.buildArgsLabel': string
   /**
    * @deprecated migrate this string to module level file
    */
   'pipelineSteps.cacheFromLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.cacheSourcePathsInfo': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -6154,19 +6061,11 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'pipelineSteps.connectorInfo': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'pipelineSteps.connectorLabel': string
   /**
    * @deprecated migrate this string to module level file
    */
   'pipelineSteps.content': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.contextInfo': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -6187,10 +6086,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'pipelineSteps.deleteResourcesPlaceHolder': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.dependencyConnectorInfo': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -6262,19 +6157,7 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'pipelineSteps.dockerHubConnectorInfo': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'pipelineSteps.dockerHubConnectorLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.dockerRegistryInfo': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.dockerfileInfo': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -6283,14 +6166,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'pipelineSteps.duplicateStep': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.ecrConnectorInfo': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.endpointInfo': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -6330,23 +6205,7 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'pipelineSteps.gcpConnectorInfo': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'pipelineSteps.gcpConnectorLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.gcrConnectorInfo': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.gcsConnectorInfo': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.hostInfo': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -6359,10 +6218,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'pipelineSteps.instancesRequired': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.jFrogArtifactoryTargetInfo': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -6398,19 +6253,11 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'pipelineSteps.keyInfo': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'pipelineSteps.kubernetesInfraStep.kubernetesConnector': string
   /**
    * @deprecated migrate this string to module level file
    */
   'pipelineSteps.kubernetesInfraStep.stepName': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.labelsInfo': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -6478,10 +6325,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'pipelineSteps.outputVariablesInfo': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'pipelineSteps.outputVariablesLabel': string
   /**
    * @deprecated migrate this string to module level file
@@ -6495,10 +6338,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'pipelineSteps.pomFileLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.projectIDInfo': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -6534,10 +6373,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'pipelineSteps.regionInfo': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'pipelineSteps.regionPlaceholder': string
   /**
    * @deprecated migrate this string to module level file
@@ -6558,10 +6393,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'pipelineSteps.reportPathsInfo': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'pipelineSteps.reportPathsLabel': string
   /**
    * @deprecated migrate this string to module level file
@@ -6575,22 +6406,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'pipelineSteps.resourceNameValue': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.restoreCacheAwsConnectorInfo': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.restoreCacheGcpConnectorInfo': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.restoreCacheKeyInfo': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.s3ConnectorInfo': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -6642,23 +6457,11 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'pipelineSteps.setContainerResourcesTooltip': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.settingsInfo': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'pipelineSteps.skipDryRun': string
   /**
    * @deprecated migrate this string to module level file
    */
   'pipelineSteps.skipSteadyStateCheck': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.sourcePathInfo': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -6690,15 +6493,7 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'pipelineSteps.targetInfo': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'pipelineSteps.targetLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.timeoutInfo': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -6766,10 +6561,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  pluginImageInfo: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   pluginImagePlaceholder: string
   /**
    * @deprecated migrate this string to module level file
@@ -6787,10 +6578,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   plusNumber: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  postCommandInfo: string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -6859,10 +6646,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'pre-flight-check.verifyingPipelineInputs': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  preCommandInfo: string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -7107,10 +6890,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   runPipelineText: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  runTestsArgsInfo: string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -7662,10 +7441,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  tagsInfo: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   tagsLabel: string
   /**
    * @deprecated migrate this string to module level file
@@ -7687,10 +7462,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   test: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  testAnnotationsInfo: string
   /**
    * @deprecated migrate this string to module level file
    */

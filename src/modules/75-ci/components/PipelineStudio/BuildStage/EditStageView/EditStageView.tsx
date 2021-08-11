@@ -7,7 +7,7 @@ import {
   FormInput,
   Button,
   Switch,
-  Icon,
+  HarnessDocTooltip,
   TextInput,
   RUNTIME_INPUT_VALUE
 } from '@wings-software/uicore'
@@ -220,16 +220,14 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
                 descriptionProps={{ disabled: isReadonly }}
                 tagsProps={{ disabled: isReadonly }}
               />
-              <Switch
-                label={getString('cloneCodebaseLabel')}
-                onChange={e => formikProps.setFieldValue('cloneCodebase', e.currentTarget.checked)}
-                defaultChecked={formikProps.values.cloneCodebase}
-                margin={{ bottom: 'small' }}
-                disabled={isReadonly}
-              />
-              <div className={css.cloneCodebaseInfo}>
-                <Icon name="info" size={10} margin={{ right: 'small' }} />
-                <Text font="xsmall">{getString('pipelineSteps.build.create.cloneCodebaseHelperText')}</Text>
+              <div style={{ display: 'flex', alignItems: 'center', marginBottom: 'var(--spacing-small)' }}>
+                <Switch
+                  label={getString('cloneCodebaseLabel')}
+                  onChange={e => formikProps.setFieldValue('cloneCodebase', e.currentTarget.checked)}
+                  defaultChecked={formikProps.values.cloneCodebase}
+                  disabled={isReadonly}
+                />
+                <HarnessDocTooltip tooltipId="cloneCodebase" useStandAlone={true} />
               </div>
               {/* We don't need to configure CI Codebase if it is already configured or we are skipping Clone Codebase step */}
               {!codebase && formikProps.values.cloneCodebase && (

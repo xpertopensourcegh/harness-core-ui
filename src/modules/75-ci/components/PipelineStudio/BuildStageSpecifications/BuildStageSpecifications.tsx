@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import * as yup from 'yup'
-import { Button, Formik, FormikForm, Switch, Text, Card, Accordion } from '@wings-software/uicore'
+import { Formik, FormikForm, Switch, Text, Card, Accordion, HarnessDocTooltip } from '@wings-software/uicore'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { isEqual, debounce, cloneDeep, defaultTo } from 'lodash-es'
 import cx from 'classnames'
@@ -211,12 +211,15 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
                       tagsProps={{ disabled: isReadonly }}
                     />
 
-                    <Switch
-                      checked={formValues.cloneCodebase}
-                      label={getString('cloneCodebaseLabel')}
-                      onChange={e => setFieldValue('cloneCodebase', e.currentTarget.checked)}
-                      disabled={isReadonly}
-                    />
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <Switch
+                        checked={formValues.cloneCodebase}
+                        label={getString('cloneCodebaseLabel')}
+                        onChange={e => setFieldValue('cloneCodebase', e.currentTarget.checked)}
+                        disabled={isReadonly}
+                      />
+                      <HarnessDocTooltip tooltipId="cloneCodebase" useStandAlone={true} />
+                    </div>
                   </FormikForm>
                 </Card>
 
@@ -230,14 +233,8 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
                       multiTextInputProps={{ expressions }}
                       multiTypeFieldSelectorProps={{
                         label: (
-                          <Text style={{ display: 'flex', alignItems: 'center', minWidth: '171px' }}>
+                          <Text tooltipProps={{ dataTooltipId: 'stageSpecificationsSharedPaths' }}>
                             {getString('pipelineSteps.build.stageSpecifications.sharedPaths')}
-                            <Button
-                              icon="question"
-                              minimal
-                              tooltip={getString('pipelineSteps.build.stageSpecifications.sharedPathsInfo')}
-                              iconProps={{ size: 14 }}
-                            />
                           </Text>
                         )
                       }}

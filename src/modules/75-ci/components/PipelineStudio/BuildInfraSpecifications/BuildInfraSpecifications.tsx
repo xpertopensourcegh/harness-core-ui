@@ -9,7 +9,6 @@ import {
   Text,
   Card,
   Accordion,
-  Button,
   getMultiTypeFromValue,
   MultiTypeInputType
 } from '@wings-software/uicore'
@@ -453,14 +452,12 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                             orgIdentifier={orgIdentifier}
                             gitScope={gitScope}
                           />
-                          <Text font="small" margin={{ bottom: 'xsmall' }}>
+                          <Text
+                            font="small"
+                            margin={{ bottom: 'xsmall' }}
+                            tooltipProps={{ dataTooltipId: 'namespace' }}
+                          >
                             {getString('pipelineSteps.build.infraSpecifications.namespace')}
-                            <Button
-                              icon="question"
-                              minimal
-                              tooltip={getString('pipeline.namespaceTooltip')}
-                              iconProps={{ size: 14 }}
-                            />
                           </Text>
                           <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                             <FormInput.MultiTextInput
@@ -500,14 +497,12 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                             name="initTimeout"
                             multiTypeDurationProps={{ expressions }}
                             label={
-                              <Text flex={{ justifyContent: 'start' }} font="small">
+                              <Text
+                                flex={{ justifyContent: 'start' }}
+                                font="small"
+                                tooltipProps={{ dataTooltipId: 'timeout' }}
+                              >
                                 {getString('pipeline.infraSpecifications.initTimeout')}
-                                <Button
-                                  icon="question"
-                                  minimal
-                                  tooltip={getString('pipelineSteps.timeoutInfo')}
-                                  iconProps={{ size: 14 }}
-                                />
                               </Text>
                             }
                             disabled={isReadonly}
@@ -564,14 +559,8 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                           orgIdentifier={orgIdentifier}
                           gitScope={gitScope}
                         />
-                        <Text margin={{ bottom: 'xsmall' }}>
+                        <Text margin={{ bottom: 'xsmall' }} tooltipProps={{ dataTooltipId: 'namespace' }}>
                           {getString('pipelineSteps.build.infraSpecifications.namespace')}
-                          <Button
-                            icon="question"
-                            minimal
-                            tooltip={getString('pipeline.namespaceTooltip')}
-                            iconProps={{ size: 14 }}
-                          />
                         </Text>
                         <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                           <MultiTypeTextField
@@ -625,14 +614,8 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                                 name="initTimeout"
                                 multiTypeDurationProps={{ expressions }}
                                 label={
-                                  <Text flex={{ justifyContent: 'start' }}>
+                                  <Text flex={{ justifyContent: 'start' }} tooltipProps={{ dataTooltipId: 'timeout' }}>
                                     {getString('pipeline.infraSpecifications.initTimeout')}
-                                    <Button
-                                      icon="question"
-                                      minimal
-                                      tooltip={getString('pipelineSteps.timeoutInfo')}
-                                      iconProps={{ size: 14 }}
-                                    />
                                   </Text>
                                 }
                                 disabled={isReadonly}
