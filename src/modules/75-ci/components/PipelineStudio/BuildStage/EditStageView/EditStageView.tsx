@@ -5,7 +5,6 @@ import {
   Formik,
   FormikForm,
   FormInput,
-  Collapse,
   Button,
   Switch,
   Icon,
@@ -13,7 +12,6 @@ import {
   RUNTIME_INPUT_VALUE
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import type { IconName } from '@blueprintjs/core'
 import { isEmpty, set } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import type { FormikErrors } from 'formik'
@@ -26,6 +24,7 @@ import {
   ConnectorReferenceField,
   ConnectorReferenceFieldProps
 } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
+import { NameIdDescriptionTags } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import {
   getIdentifierFromValue,
   getScopeFromDTO,
@@ -54,6 +53,7 @@ interface Values {
   identifier: string
   name: string
   description?: string
+  tags?: { [key: string]: string }
   cloneCodebase?: boolean
   connectorRef?: ConnectorReferenceFieldProps['selected']
   repoName?: string
@@ -81,6 +81,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
     identifier: data?.stage?.identifier || '',
     name: data?.stage?.name || '',
     description: data?.stage?.description,
+    tags: data?.stage?.tags,
     cloneCodebase: data?.stage?.spec?.cloneCodebase ?? true
   }
 
@@ -176,6 +177,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
       data.stage.name = values.name
 
       if (values.description) data.stage.description = values.description
+      if (values.tags) data.stage.tags = values.tags
       if (!data.stage.spec) data.stage.spec = {} as any
       set(data, 'stage.spec.cloneCodebase', values.cloneCodebase)
       if (pipelineData) {
@@ -184,15 +186,6 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
         onSubmit?.(data, values.identifier)
       }
     }
-  }
-
-  const collapseProps = {
-    collapsedIcon: 'small-plus' as IconName,
-    expandedIcon: 'small-minus' as IconName,
-    isOpen: false,
-    isRemovable: false,
-    className: 'collapse',
-    heading: getString('description')
   }
 
   return (
@@ -216,21 +209,17 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
               >
                 {getString('pipelineSteps.build.create.aboutYourStage')}
               </Text>
-              <FormInput.InputWithIdentifier
-                inputLabel={getString('stageNameLabel')}
-                inputGroupProps={{
-                  disabled: isReadonly,
-                  placeholder: getString('pipeline.aboutYourStage.stageNamePlaceholder')
+              <NameIdDescriptionTags
+                formikProps={formikProps}
+                identifierProps={{
+                  inputGroupProps: {
+                    disabled: isReadonly,
+                    placeholder: getString('pipeline.aboutYourStage.stageNamePlaceholder')
+                  }
                 }}
+                descriptionProps={{ disabled: isReadonly }}
+                tagsProps={{ disabled: isReadonly }}
               />
-              <div className={css.collapseDiv}>
-                <Collapse
-                  {...collapseProps}
-                  isOpen={(formikProps.values.description && formikProps.values.description?.length > 0) || false}
-                >
-                  <FormInput.TextArea name="description" disabled={isReadonly} />
-                </Collapse>
-              </div>
               <Switch
                 label={getString('cloneCodebaseLabel')}
                 onChange={e => formikProps.setFieldValue('cloneCodebase', e.currentTarget.checked)}
@@ -257,6 +246,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
                     {getString('pipelineSteps.build.create.configureCodebaseHelperText')}
                   </Text>
                   <ConnectorReferenceField
+                    className={css.connector}
                     error={
                       formikProps.submitCount && formikProps.errors.connectorRef
                         ? formikProps.errors.connectorRef
@@ -266,6 +256,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
                     type={['Git', 'Github', 'Gitlab', 'Bitbucket', 'Codecommit']}
                     selected={formikProps.values.connectorRef}
                     label={getString('connector')}
+                    width={382}
                     placeholder={loading ? getString('loading') : getString('connectors.selectConnector')}
                     disabled={loading || isReadonly}
                     accountIdentifier={accountId}
