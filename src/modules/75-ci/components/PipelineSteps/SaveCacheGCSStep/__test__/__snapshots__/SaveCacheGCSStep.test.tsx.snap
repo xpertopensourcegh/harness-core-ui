@@ -3120,7 +3120,11 @@ exports[`Save Cache GCS Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          name
+          <span
+            class=""
+          >
+            name
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3160,7 +3164,11 @@ exports[`Save Cache GCS Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        Test A
+        <span
+          class=""
+        >
+          Test A
+        </span>
       </p>
     </div>
     <div
@@ -3172,7 +3180,11 @@ exports[`Save Cache GCS Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          timeout
+          <span
+            class=""
+          >
+            timeout
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3212,7 +3224,11 @@ exports[`Save Cache GCS Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        10s
+        <span
+          class=""
+        >
+          10s
+        </span>
       </p>
     </div>
     <div
@@ -3224,7 +3240,11 @@ exports[`Save Cache GCS Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          connectorRef
+          <span
+            class=""
+          >
+            connectorRef
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3264,7 +3284,11 @@ exports[`Save Cache GCS Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        account.connectorRef
+        <span
+          class=""
+        >
+          account.connectorRef
+        </span>
       </p>
     </div>
     <div
@@ -3276,7 +3300,11 @@ exports[`Save Cache GCS Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          bucket
+          <span
+            class=""
+          >
+            bucket
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3316,7 +3344,11 @@ exports[`Save Cache GCS Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        Bucket
+        <span
+          class=""
+        >
+          Bucket
+        </span>
       </p>
     </div>
     <div
@@ -3328,7 +3360,11 @@ exports[`Save Cache GCS Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          key
+          <span
+            class=""
+          >
+            key
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3368,7 +3404,11 @@ exports[`Save Cache GCS Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        Key
+        <span
+          class=""
+        >
+          Key
+        </span>
       </p>
     </div>
     <div
@@ -3380,7 +3420,11 @@ exports[`Save Cache GCS Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          sourcePaths
+          <span
+            class=""
+          >
+            sourcePaths
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3420,7 +3464,11 @@ exports[`Save Cache GCS Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        some/path
+        <span
+          class=""
+        >
+          some/path
+        </span>
       </p>
     </div>
     <div
@@ -3432,7 +3480,11 @@ exports[`Save Cache GCS Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          archiveFormat
+          <span
+            class=""
+          >
+            archiveFormat
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3472,7 +3524,11 @@ exports[`Save Cache GCS Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        Tar
+        <span
+          class=""
+        >
+          Tar
+        </span>
       </p>
     </div>
     <div
@@ -3484,7 +3540,11 @@ exports[`Save Cache GCS Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          override
+          <span
+            class=""
+          >
+            override
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3524,7 +3584,11 @@ exports[`Save Cache GCS Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        true
+        <span
+          class=""
+        >
+          true
+        </span>
       </p>
     </div>
     <div
@@ -3536,7 +3600,11 @@ exports[`Save Cache GCS Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          memory
+          <span
+            class=""
+          >
+            memory
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3576,7 +3644,11 @@ exports[`Save Cache GCS Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        128Mi
+        <span
+          class=""
+        >
+          128Mi
+        </span>
       </p>
     </div>
     <div
@@ -3588,7 +3660,11 @@ exports[`Save Cache GCS Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          cpu
+          <span
+            class=""
+          >
+            cpu
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3628,7 +3704,11 @@ exports[`Save Cache GCS Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        0.2
+        <span
+          class=""
+        >
+          0.2
+        </span>
       </p>
     </div>
   </div>

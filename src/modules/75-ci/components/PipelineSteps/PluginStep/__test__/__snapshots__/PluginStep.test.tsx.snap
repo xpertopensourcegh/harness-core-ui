@@ -2417,7 +2417,11 @@ exports[`Plugin Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          name
+          <span
+            class=""
+          >
+            name
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -2457,7 +2461,11 @@ exports[`Plugin Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        Test A
+        <span
+          class=""
+        >
+          Test A
+        </span>
       </p>
     </div>
     <div
@@ -2469,7 +2477,11 @@ exports[`Plugin Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          description
+          <span
+            class=""
+          >
+            description
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -2509,7 +2521,11 @@ exports[`Plugin Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        Description
+        <span
+          class=""
+        >
+          Description
+        </span>
       </p>
     </div>
     <div
@@ -2521,7 +2537,11 @@ exports[`Plugin Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          timeout
+          <span
+            class=""
+          >
+            timeout
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -2561,7 +2581,11 @@ exports[`Plugin Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        10s
+        <span
+          class=""
+        >
+          10s
+        </span>
       </p>
     </div>
     <div
@@ -2573,7 +2597,11 @@ exports[`Plugin Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          connectorRef
+          <span
+            class=""
+          >
+            connectorRef
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -2613,7 +2641,11 @@ exports[`Plugin Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        account.connectorRef
+        <span
+          class=""
+        >
+          account.connectorRef
+        </span>
       </p>
     </div>
     <div
@@ -2624,48 +2656,56 @@ exports[`Plugin Step InputVariable View should render properly 1`] = `
       >
         <div
           class="text variable-name-cell"
+        >
+          <span
+            class=""
+          >
+            image
+          </span>
+        </div>
+        <div
+          class="bp3-popover-wrapper btnWrapper"
+        >
+          <span
+            class="bp3-popover-target"
+          >
+            <button
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              tabindex="0"
+              type="button"
+            >
+              <span
+                class="bp3-icon StyledProps--main"
+                data-icon="copy-alt"
+              >
+                <svg
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 8 9"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </span>
+        </div>
+      </div>
+      <p
+        class="StyledProps--font Text--lineclamp StyledProps--main"
+        style="--text-line-clamp: 1;"
+      >
+        <span
+          class=""
         >
           image
-        </div>
-        <div
-          class="bp3-popover-wrapper btnWrapper"
-        >
-          <span
-            class="bp3-popover-target"
-          >
-            <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
-              tabindex="0"
-              type="button"
-            >
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="copy-alt"
-              >
-                <svg
-                  fill="none"
-                  height="16"
-                  viewBox="0 0 8 9"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                    fill="currentColor"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </button>
-          </span>
-        </div>
-      </div>
-      <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
-        style="--text-line-clamp: 1;"
-      >
-        image
+        </span>
       </p>
     </div>
     <div
@@ -2677,7 +2717,11 @@ exports[`Plugin Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          settings
+          <span
+            class=""
+          >
+            settings
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -2717,11 +2761,15 @@ exports[`Plugin Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        {
+        <span
+          class=""
+        >
+          {
   "key1": "value1",
   "key2": "value2",
   "key3": "value3"
 }
+        </span>
       </p>
     </div>
     <div
@@ -2733,7 +2781,11 @@ exports[`Plugin Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          memory
+          <span
+            class=""
+          >
+            memory
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -2773,7 +2825,11 @@ exports[`Plugin Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        128Mi
+        <span
+          class=""
+        >
+          128Mi
+        </span>
       </p>
     </div>
     <div
@@ -2785,7 +2841,11 @@ exports[`Plugin Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          cpu
+          <span
+            class=""
+          >
+            cpu
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -2825,7 +2885,11 @@ exports[`Plugin Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        0.2
+        <span
+          class=""
+        >
+          0.2
+        </span>
       </p>
     </div>
   </div>

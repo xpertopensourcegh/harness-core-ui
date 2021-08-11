@@ -1,12 +1,17 @@
 .custom-variables {
   position: relative;
-
+  &:nth-child(1) {
+    margin-top: -15px !important;
+  }
   .header-row {
     display: inline-flex;
     transform: translateY(-48px);
     margin-left: 85%;
     width: 200px;
     height: 0;
+    :global(.bp3-button) {
+      margin-top: var(--spacing-medium);
+    }
   }
 
   .subHeader {
@@ -53,7 +58,6 @@
     margin-top: var(--spacing-small);
     border-bottom: solid 1px var(--grey-200);
     position: relative;
-
     &:before {
       position: absolute;
       width: 100%;

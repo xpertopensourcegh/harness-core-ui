@@ -2963,7 +2963,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          name
+          <span
+            class=""
+          >
+            name
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3003,7 +3007,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        Test A
+        <span
+          class=""
+        >
+          Test A
+        </span>
       </p>
     </div>
     <div
@@ -3015,7 +3023,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          timeout
+          <span
+            class=""
+          >
+            timeout
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3055,7 +3067,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        10s
+        <span
+          class=""
+        >
+          10s
+        </span>
       </p>
     </div>
     <div
@@ -3067,7 +3083,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          connectorRef
+          <span
+            class=""
+          >
+            connectorRef
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3107,7 +3127,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        account.connectorRef
+        <span
+          class=""
+        >
+          account.connectorRef
+        </span>
       </p>
     </div>
     <div
@@ -3119,7 +3143,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          bucket
+          <span
+            class=""
+          >
+            bucket
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3159,7 +3187,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        Bucket
+        <span
+          class=""
+        >
+          Bucket
+        </span>
       </p>
     </div>
     <div
@@ -3171,7 +3203,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          region
+          <span
+            class=""
+          >
+            region
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3211,7 +3247,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        us-east-1
+        <span
+          class=""
+        >
+          us-east-1
+        </span>
       </p>
     </div>
     <div
@@ -3223,7 +3263,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          key
+          <span
+            class=""
+          >
+            key
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3263,7 +3307,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        Key
+        <span
+          class=""
+        >
+          Key
+        </span>
       </p>
     </div>
     <div
@@ -3275,7 +3323,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          endpoint
+          <span
+            class=""
+          >
+            endpoint
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3315,7 +3367,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        Endpoint
+        <span
+          class=""
+        >
+          Endpoint
+        </span>
       </p>
     </div>
     <div
@@ -3327,7 +3383,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          archiveFormat
+          <span
+            class=""
+          >
+            archiveFormat
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3367,7 +3427,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        Tar
+        <span
+          class=""
+        >
+          Tar
+        </span>
       </p>
     </div>
     <div
@@ -3379,7 +3443,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          pathStyle
+          <span
+            class=""
+          >
+            pathStyle
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3419,7 +3487,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        true
+        <span
+          class=""
+        >
+          true
+        </span>
       </p>
     </div>
     <div
@@ -3431,7 +3503,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          failIfKeyNotFound
+          <span
+            class=""
+          >
+            failIfKeyNotFound
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3471,7 +3547,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        true
+        <span
+          class=""
+        >
+          true
+        </span>
       </p>
     </div>
     <div
@@ -3483,7 +3563,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          memory
+          <span
+            class=""
+          >
+            memory
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3523,7 +3607,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        128Mi
+        <span
+          class=""
+        >
+          128Mi
+        </span>
       </p>
     </div>
     <div
@@ -3535,7 +3623,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          cpu
+          <span
+            class=""
+          >
+            cpu
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3575,7 +3667,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        0.2
+        <span
+          class=""
+        >
+          0.2
+        </span>
       </p>
     </div>
   </div>

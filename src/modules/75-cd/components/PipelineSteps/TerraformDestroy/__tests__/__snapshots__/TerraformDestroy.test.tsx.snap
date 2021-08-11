@@ -3192,10 +3192,10 @@ exports[`Test TerraformDestroy should render inputSet View 1`] = `
 exports[`Test TerraformDestroy should render variable view 1`] = `
 <div>
   <div
-    class="variablesListTable"
+    class="variablesListTable variablePaddingL2"
   />
   <div
-    class="variablesListTable"
+    class="variablesListTable variablePaddingL2"
   >
     <div
       class="variableListRow"
@@ -3206,7 +3206,11 @@ exports[`Test TerraformDestroy should render variable view 1`] = `
         <div
           class="text variable-name-cell"
         >
-          workspace
+          <span
+            class=""
+          >
+            workspace
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3246,12 +3250,16 @@ exports[`Test TerraformDestroy should render variable view 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        testworkspace
+        <span
+          class=""
+        >
+          testworkspace
+        </span>
       </p>
     </div>
   </div>
   <div
-    class="variablesListTable"
+    class="variablesListTable variablePaddingL2"
   >
     <div
       class="variableListRow"
@@ -3262,7 +3270,11 @@ exports[`Test TerraformDestroy should render variable view 1`] = `
         <div
           class="text variable-name-cell"
         >
-          branch
+          <span
+            class=""
+          >
+            branch
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3302,7 +3314,11 @@ exports[`Test TerraformDestroy should render variable view 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        main
+        <span
+          class=""
+        >
+          main
+        </span>
       </p>
     </div>
   </div>
