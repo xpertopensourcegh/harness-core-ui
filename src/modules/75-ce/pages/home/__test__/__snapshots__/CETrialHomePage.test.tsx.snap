@@ -3,52 +3,45 @@
 exports[`CETrialHomePage snapshot test it should render properly 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main pageBody body hasNoBanner"
-    data-name="page-body"
+    class="StyledProps--font StyledProps--main body"
+    style="background: transparent url(test-file-stub) no-repeat;"
   >
     <div
-      class="StyledProps--font StyledProps--main container"
-      style="background: transparent url(test-file-stub) no-repeat;"
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
     >
-      <div
-        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+      <h1
+        class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black100"
       >
-        <h1
-          class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black100"
-        >
-          common.purpose.ce.continuous
-        </h1>
+        common.purpose.ce.continuous
+      </h1>
+      <div
+        class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+      >
         <p
-          class="StyledProps--font StyledProps--main subTitle StyledProps--color"
+          class="StyledProps--font StyledProps--main StyledProps--padding-bottom-xxlarge"
+          style="width: 500px;"
         >
           ce.homepage.slogan
         </p>
         <a
-          class="bp3-button Button--button StyledProps--font StyledProps--main link StyledProps--color StyledProps--font StyledProps--font-size-normal Button--with-current-color Button--link"
-          href="https://ngdocs.harness.io/"
-          rel="noreferrer noopener"
-          role="button"
-          tabindex="0"
+          class="learnMore"
+          href="https://ngdocs.harness.io/category/c9j6jejsws-cd-quickstarts"
+          rel="noreferrer"
           target="_blank"
+        >
+          ce.learnMore
+        </a>
+        <button
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+          style="width: 300px; height: 45px;"
+          type="button"
         >
           <span
             class="bp3-button-text"
           >
-            ce.learnMore
+            common.startTrial
           </span>
-        </a>
-        <div
-          class="Layout--horizontal Layout--layout-spacing-large StyledProps--main StyledProps--flex"
-        >
-          <div
-            class="createBtn linkCursor"
-          >
-            ce.trialCta
-          </div>
-          <span
-            style="flex-grow: 1;"
-          />
-        </div>
+        </button>
       </div>
     </div>
   </div>

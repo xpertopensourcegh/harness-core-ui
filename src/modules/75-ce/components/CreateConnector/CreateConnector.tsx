@@ -41,6 +41,7 @@ interface CloudProviderListProps {
 interface UseCreateConnectorProps {
   portalClassName?: string
   onSuccess?: () => void
+  onClose?: () => void
 }
 
 const CloudProviderList: React.FC<CloudProviderListProps> = ({ onChange, selected }) => {
@@ -204,6 +205,9 @@ const useCreateConnector = (props: UseCreateConnectorProps) => {
   const { openConnectorModal } = useCreateConnectorModal({
     onSuccess: () => {
       props?.onSuccess?.()
+    },
+    onClose: () => {
+      props?.onClose?.()
     }
   })
 
@@ -262,6 +266,7 @@ const useCreateConnector = (props: UseCreateConnectorProps) => {
           icon="cross"
           iconProps={{ size: 18 }}
           onClick={() => {
+            props?.onClose?.()
             hideModal()
           }}
           style={{ position: 'absolute', right: 'var(--spacing-large)', top: 'var(--spacing-large)' }}

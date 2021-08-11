@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import cx from 'classnames'
 import { Container } from '@wings-software/uicore'
+import { useParams } from 'react-router-dom'
+import { pick } from 'lodash-es'
 import { Page } from '@common/components/Page/Page'
 import {
   CcmMetaData,
@@ -25,6 +27,12 @@ import OverviewAddCluster from '@ce/components/OverviewPage/OverviewAddCluster'
 import { Utils } from '@ce/common/Utils'
 import { useCreateConnectorMinimal } from '@ce/components/CreateConnector/CreateConnector'
 import NoData from '@ce/components/OverviewPage/OverviewNoData'
+import type { TrialBannerProps } from '@common/components/HomePageTemplate/HomePageTemplate'
+import { TrialLicenseBanner } from '@common/components/Banners/TrialLicenseBanner'
+import { ModuleName } from 'framework/types/ModuleName'
+import { useGetLicensesAndSummary } from 'services/cd-ng'
+import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
+import { handleUpdateLicenseStore, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import bgImage from './images/CD/overviewBg.png'
 import css from './Overview.module.scss'
 
@@ -33,7 +41,18 @@ export interface TimeRange {
   from: string
 }
 
-const NoDataOverviewPage = ({ showConnectorModal }: { showConnectorModal?: boolean }) => {
+interface NoDataOverviewPageProps {
+  showConnectorModal?: boolean
+  trialBannerProps: TrialBannerProps
+}
+
+const NoDataOverviewPage: React.FC<NoDataOverviewPageProps> = (props: NoDataOverviewPageProps) => {
+  const { showConnectorModal, trialBannerProps } = props
+
+  const [showBanner, setShowBanner] = useState(true)
+
+  const bannerClassName = showBanner ? css.hasBanner : css.hasNoBanner
+
   // Only one will be shown at a time.
   // If the props says showConnectorModal = true,
   // the NoDataOverlay will not be shown
@@ -47,25 +66,39 @@ const NoDataOverviewPage = ({ showConnectorModal }: { showConnectorModal?: boole
 
   useEffect(() => {
     showConnectorModal && openModal()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const handleClick = () => {
+  const handleClick = (): void => {
     setShowNoDataOverlay(false)
     openModal()
   }
 
   return (
-    <div style={{ backgroundImage: `url(${bgImage})`, backgroundSize: 'cover', height: '100%', width: '100%' }}>
-      {showNoDataOverlay && <NoData onConnectorCreateClick={handleClick} />}
-    </div>
+    <>
+      <TrialLicenseBanner {...trialBannerProps} setHasBanner={setShowBanner} />
+      <div
+        className={cx(css.body, bannerClassName)}
+        style={{ backgroundImage: `url(${bgImage})`, backgroundSize: 'cover', height: '100%', width: '100%' }}
+      >
+        {showNoDataOverlay && <NoData onConnectorCreateClick={handleClick} />}
+      </div>
+    </>
   )
 }
 
-const OverviewPage = () => {
+const OverviewPage: React.FC = () => {
+  const { accountId } = useParams<AccountPathProps>()
+
   const [timeRange, setTimeRange] = useState<TimeRange>({
     to: DATE_RANGE_SHORTCUTS.LAST_30_DAYS[1].format(CE_DATE_FORMAT_INTERNAL),
     from: DATE_RANGE_SHORTCUTS.LAST_30_DAYS[0].format(CE_DATE_FORMAT_INTERNAL)
   })
+
+  const { licenseInformation, updateLicenseStore } = useLicenseStore()
+  const [showBanner, setShowBanner] = useState(true)
+
+  const bannerClassName = showBanner ? css.hasBanner : css.hasNoBanner
 
   const [summaryResult] = useFetchPerspectiveDetailsSummaryQuery({
     variables: {
@@ -92,6 +125,28 @@ const OverviewPage = () => {
   const { data: forecastedCostData, fetching: forecastedCostFetching } = forecastedCostResult
   const forecastedCost = (forecastedCostData?.perspectiveForecastCost?.cost || {}) as StatsInfo
 
+  const { data, refetch, loading } = useGetLicensesAndSummary({
+    queryParams: { moduleType: ModuleName.CE as any },
+    accountIdentifier: accountId
+  })
+
+  const expiryTime = data?.data?.maxExpiryTime
+  const updatedLicenseInfo = data?.data && {
+    ...licenseInformation?.['CF'],
+    ...pick(data?.data, ['licenseType', 'edition']),
+    expiryTime
+  }
+
+  useEffect(() => {
+    handleUpdateLicenseStore(
+      { ...licenseInformation },
+      updateLicenseStore,
+      ModuleName.CF.toString() as Module,
+      updatedLicenseInfo
+    )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data])
+
   const [ccmMetaResult, refetchCCMMetaData] = useFetchCcmMetaDataQuery()
   const { data: ccmData, fetching: fetchingCCMMetaData } = ccmMetaResult
   const {
@@ -103,78 +158,88 @@ const OverviewPage = () => {
     defaultGcpPerspectiveId
   } = (ccmData?.ccmMetaData || {}) as CcmMetaData
 
-  if (fetchingCCMMetaData) {
+  if (fetchingCCMMetaData || loading) {
     return <PageSpinner />
   }
 
+  const trialBannerProps = {
+    expiryTime: data?.data?.maxExpiryTime,
+    licenseType: data?.data?.licenseType,
+    module: ModuleName.CE,
+    refetch
+  }
+
   if (ccmData && !Utils.accountHasConnectors(ccmData.ccmMetaData as CcmMetaData)) {
-    return <NoDataOverviewPage showConnectorModal />
+    return <NoDataOverviewPage trialBannerProps={trialBannerProps} showConnectorModal />
   }
 
   if (ccmData && !cloudDataPresent && !clusterDataPresent) {
-    return <NoDataOverviewPage />
+    return <NoDataOverviewPage trialBannerProps={trialBannerProps} />
   }
 
   return (
-    <Container>
-      <Page.Header
-        title="Overview"
-        content={<PerspectiveTimeRangePicker timeRange={timeRange} setTimeRange={setTimeRange} />}
-      />
-      <Page.Body>
-        <Container padding={{ top: 'medium', right: 'xlarge', bottom: 'medium', left: 'xlarge' }}>
-          <div className={css.mainContainer}>
-            <div className={css.columnOne}>
-              <div className={cx(css.summary, css.noColor)}>
-                <OverviewSummary cost={cloudCost} fetching={summaryFetching} />
-                <OverviewSummary cost={forecastedCost} fetching={forecastedCostFetching} />
+    <>
+      <TrialLicenseBanner {...trialBannerProps} setHasBanner={setShowBanner} />
+      <Container className={cx(css.body, bannerClassName)}>
+        <Page.Header
+          title="Overview"
+          content={<PerspectiveTimeRangePicker timeRange={timeRange} setTimeRange={setTimeRange} />}
+        />
+        <Page.Body>
+          <Container padding={{ top: 'medium', right: 'xlarge', bottom: 'medium', left: 'xlarge' }}>
+            <div className={css.mainContainer}>
+              <div className={css.columnOne}>
+                <div className={cx(css.summary, css.noColor)}>
+                  <OverviewSummary cost={cloudCost} fetching={summaryFetching} />
+                  <OverviewSummary cost={forecastedCost} fetching={forecastedCostFetching} />
+                </div>
+                {clusterDataPresent && (
+                  <OverviewClusterCostBreakdown
+                    timeRange={timeRange}
+                    defaultClusterPerspectiveId={defaultClusterPerspectiveId}
+                  />
+                )}
+                {!clusterDataPresent && cloudDataPresent && (
+                  <OverviewCloudCost
+                    layout={OverviewLayout.VERTICAL}
+                    timeRange={timeRange}
+                    providers={{
+                      defaultAwsPerspectiveId,
+                      defaultAzurePerspectiveId,
+                      defaultGcpPerspectiveId
+                    }}
+                  />
+                )}
+                {clusterDataPresent && cloudDataPresent && (
+                  <OverviewCloudCost
+                    layout={OverviewLayout.HORIZONTAL}
+                    timeRange={timeRange}
+                    providers={{
+                      defaultAwsPerspectiveId,
+                      defaultAzurePerspectiveId,
+                      defaultGcpPerspectiveId
+                    }}
+                  />
+                )}
+                {!cloudDataPresent && clusterDataPresent && <OverviewTopCluster timeRange={timeRange} />}
               </div>
-              {clusterDataPresent && (
-                <OverviewClusterCostBreakdown
-                  timeRange={timeRange}
-                  defaultClusterPerspectiveId={defaultClusterPerspectiveId}
-                />
-              )}
-              {!clusterDataPresent && cloudDataPresent && (
-                <OverviewCloudCost
-                  layout={OverviewLayout.VERTICAL}
-                  timeRange={timeRange}
-                  providers={{
-                    defaultAwsPerspectiveId,
-                    defaultAzurePerspectiveId,
-                    defaultGcpPerspectiveId
-                  }}
-                />
-              )}
-              {clusterDataPresent && cloudDataPresent && (
-                <OverviewCloudCost
-                  layout={OverviewLayout.HORIZONTAL}
-                  timeRange={timeRange}
-                  providers={{
-                    defaultAwsPerspectiveId,
-                    defaultAzurePerspectiveId,
-                    defaultGcpPerspectiveId
-                  }}
-                />
-              )}
-              {!cloudDataPresent && clusterDataPresent && <OverviewTopCluster timeRange={timeRange} />}
+              <div className={css.columnTwo}>
+                <OverviewCostByProviders timeRange={timeRange} clusterDataPresent={clusterDataPresent} />
+                {clusterDataPresent && <OverviewTopRecommendations />}
+                {/* <div>PUT AUTOSTOPPING COMPONENT HERE</div> */}
+              </div>
             </div>
-            <div className={css.columnTwo}>
-              <OverviewCostByProviders timeRange={timeRange} clusterDataPresent={clusterDataPresent} />
-              {clusterDataPresent && <OverviewTopRecommendations />}
-              {/* <div>PUT AUTOSTOPPING COMPONENT HERE</div> */}
-            </div>
-          </div>
-          {!clusterDataPresent && (
-            <OverviewAddCluster
-              onAddClusterSuccess={() => {
-                refetchCCMMetaData({ requestPolicy: 'network-only' })
-              }}
-            />
-          )}
-        </Container>
-      </Page.Body>
-    </Container>
+            {!clusterDataPresent && (
+              <OverviewAddCluster
+                onAddClusterSuccess={() => {
+                  refetchCCMMetaData({ requestPolicy: 'network-only' })
+                }}
+              />
+            )}
+          </Container>
+        </Page.Body>
+      </Container>
+    </>
   )
 }
 

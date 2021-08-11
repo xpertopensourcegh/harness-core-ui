@@ -248,6 +248,10 @@ learnMore: Learn more about Cloud Cost Management
 ceTrialHomePage:
   startTrial:
     description: Take your software build processes to the next level using our Harness Continuous Efficiency.
+  modal:
+    title: You're ready to go...
+    welcome: Your trial of Harness Cloud Cost Management has started.
+    description: You are one step away from gaining granular cost visibility and powerful cost optimisation through intelligent automation for AWS, Azure, GCP and Kubernetes.
 dashboardPage:
   welcome: Welcome to Continuous Efficiency
   description: placeholder for description

@@ -41,3 +41,13 @@
     }
   }
 }
+
+.body {
+  &.hasBanner {
+    --page-header-height: 50px !important;
+  }
+
+  &.hasNoBanner {
+    --page-header-height: 0px !important;
+  }
+}

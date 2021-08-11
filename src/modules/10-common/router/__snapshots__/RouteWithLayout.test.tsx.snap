@@ -246,7 +246,7 @@ exports[`RouteWithLayout basic 1`] = `
         >
           <a
             class="navLink"
-            href="/account/dummy/ce"
+            href="/account/dummy/ce/overview"
           >
             <div
               class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
@@ -744,7 +744,7 @@ exports[`RouteWithLayout minimal 1`] = `
         >
           <a
             class="navLink"
-            href="/account/dummy/ce"
+            href="/account/dummy/ce/overview"
           >
             <div
               class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
@@ -1198,7 +1198,7 @@ exports[`RouteWithLayout that the license store will render the child if the lic
         >
           <a
             class="navLink"
-            href="/account/dummy/ce"
+            href="/account/dummy/ce/overview"
           >
             <div
               class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
@@ -1713,7 +1713,7 @@ exports[`RouteWithLayout that the license store will route to the subscriptions 
         >
           <a
             class="navLink"
-            href="/account/dummy/ce"
+            href="/account/dummy/ce/overview"
           >
             <div
               class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"

@@ -1,95 +1,86 @@
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-// import { useStartTrialLicense } from 'services/cd-ng'
-// import { useQueryParams } from '@common/hooks'
+import { pick } from 'lodash-es'
 import { useStrings } from 'framework/strings'
-// import { PageSpinner } from '@common/components/Page/PageSpinner'
-// import useStartTrialModal from '@common/modals/StartTrial/StartTrialModal'
 import routes from '@common/RouteDefinitions'
-// import { useToaster } from '@common/components'
-import { HomePageTemplate } from '@common/components/HomePageTemplate/HomePageTemplate'
-import type { ModuleName } from 'framework/types/ModuleName'
+import { StartTrialTemplate } from '@common/components/TrialHomePageTemplate/StartTrialTemplate'
+import { useStartTrialLicense } from 'services/cd-ng'
 import useCreateConnector from '@ce/components/CreateConnector/CreateConnector'
+import useCETrialModal from '@ce/modals/CETrialModal/useCETrialModal'
+import { handleUpdateLicenseStore, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
+import type { Module } from '@common/interfaces/RouteInterfaces'
+import { ModuleName } from 'framework/types/ModuleName'
 import bgImage from './images/cehomebg.svg'
 
-interface TrialBannerProps {
-  expiryTime?: number
-  licenseType?: string
-  module: ModuleName
-  refetch?: () => void
-}
-
-interface CETrialHomePagePropa {
-  trialBannerProps: TrialBannerProps
-}
-
-const CETrialHomePage: React.FC<CETrialHomePagePropa> = props => {
+const CETrialHomePage: React.FC = () => {
   const { getString } = useStrings()
 
   const { accountId } = useParams<{
     accountId: string
   }>()
   const history = useHistory()
-  // const { source } = useQueryParams<{ source?: string }>()
-  // const { showError } = useToaster()
+  const { licenseInformation, updateLicenseStore } = useLicenseStore()
 
   const { openModal } = useCreateConnector({
     onSuccess: () => {
       history.push(routes.toCEOverview({ accountId }))
+    },
+    onClose: () => {
+      history.push(routes.toCEOverview({ accountId }))
     }
   })
 
-  // const {
-  //   error,
-  //   mutate: startTrial,
-  //   loading
-  // } = useStartTrialLicense({
-  //   queryParams: {
-  //     accountIdentifier: accountId
-  //   }
-  // })
+  const { mutate: startTrial } = useStartTrialLicense({
+    queryParams: {
+      accountIdentifier: accountId
+    }
+  })
 
-  // async function startTrialAndRouteToModuleHome(): Promise<void> {
-  //   await startTrial({ moduleType: 'CE' })
-  //   history.push({
-  //     pathname: routes.toModuleHome({ accountId, module: 'ce' }),
-  //     search: '?trial=true'
-  //   })
-  // }
+  const { showModal, hideModal } = useCETrialModal({
+    onContinue: () => {
+      hideModal()
+      openModal()
+    }
+  })
 
-  // const { showModal: openStartTrialModal } = useStartTrialModal({
-  //   module: 'ce',
-  //   handleStartTrial: source === 'signup' ? undefined : startTrialAndRouteToModuleHome
-  // })
+  const handleStartTrial = async (): Promise<void> => {
+    const data = await startTrial({ moduleType: 'CE' })
 
-  // useEffect(() => {
-  //   if (source === 'signup') {
-  //     openStartTrialModal()
-  //   }
-  // }, [openStartTrialModal, source])
+    const expiryTime = data?.data?.expiryTime
 
-  // if (loading) {
-  //   return <PageSpinner />
-  // }
+    const updatedLicenseInfo = data?.data && {
+      ...licenseInformation?.['CI'],
+      ...pick(data?.data, ['licenseType', 'edition']),
+      expiryTime
+    }
 
-  // if (error) {
-  //   showError((error.data as Error)?.message || error.message, undefined, 'ce.start.trial.error')
-  // }
+    handleUpdateLicenseStore(
+      { ...licenseInformation },
+      updateLicenseStore,
+      ModuleName.CE.toString() as Module,
+      updatedLicenseInfo
+    )
+    showModal()
+  }
+
+  const startTrialProps = {
+    description: getString('ce.homepage.slogan'),
+    learnMore: {
+      description: getString('ce.learnMore'),
+      url: 'https://ngdocs.harness.io/category/c9j6jejsws-cd-quickstarts'
+    },
+    startBtn: {
+      description: getString('common.startTrial'),
+      onClick: handleStartTrial
+    }
+  }
 
   return (
-    <HomePageTemplate
+    <StartTrialTemplate
       title={getString('common.purpose.ce.continuous')}
       bgImageUrl={bgImage}
-      subTitle={getString('ce.homepage.slogan')}
-      documentText={getString('ce.learnMore')}
-      trialBannerProps={props?.trialBannerProps as TrialBannerProps}
-      ctaProps={{
-        text: getString('ce.trialCta'),
-        onClick: () => {
-          openModal()
-        }
-      }}
-      disableAdditionalCta={true}
+      startTrialProps={startTrialProps}
+      module="cd"
     />
   )
 }

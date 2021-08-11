@@ -7,5 +7,8 @@ declare const styles: {
   readonly columnTwo: string
   readonly noColor: string
   readonly excludeSideNavOverlay: string
+  readonly body: string
+  readonly hasBanner: string
+  readonly hasNoBanner: string
 }
 export default styles

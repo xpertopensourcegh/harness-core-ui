@@ -11,7 +11,7 @@ import { TrialLicenseBanner } from '@common/components/Banners/TrialLicenseBanne
 import { Page } from '../Page/Page'
 import css from './HomePageTemplate.module.scss'
 
-interface TrialBannerProps {
+export interface TrialBannerProps {
   expiryTime?: number
   licenseType?: string
   module: ModuleName
@@ -40,9 +40,7 @@ export const HomePageTemplate: React.FC<HomePageTemplate> = ({
   subTitle,
   documentText,
   documentURL = 'https://ngdocs.harness.io/',
-  trialBannerProps,
-  disableAdditionalCta,
-  ctaProps
+  trialBannerProps
 }) => {
   const { accountId } = useParams<{
     accountId: string
@@ -86,21 +84,12 @@ export const HomePageTemplate: React.FC<HomePageTemplate> = ({
               {documentText}
             </ExternalLink>
             <Layout.Horizontal spacing="large" flex>
-              {ctaProps?.onClick && ctaProps.text && (
-                <div className={cx(css.createBtn, css.linkCursor)} onClick={ctaProps.onClick}>
-                  {ctaProps.text}
-                </div>
-              )}
-              {!ctaProps?.onClick && (
-                <Link to={routes.toProjects({ accountId })} className={css.createBtn}>
-                  {ctaProps?.text || getString('createProject')}
-                </Link>
-              )}
-              {!disableAdditionalCta && (
-                <Text font={{ size: 'medium' }} color={Color.BLACK}>
-                  {getString('orSelectExisting')}
-                </Text>
-              )}
+              <Link to={routes.toProjects({ accountId })} className={css.createBtn}>
+                {getString('createProject')}
+              </Link>
+              <Text font={{ size: 'medium' }} color={Color.BLACK}>
+                {getString('orSelectExisting')}
+              </Text>
               <FlexExpander />
             </Layout.Horizontal>
           </Layout.Vertical>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, waitFor } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import { useGetLicensesAndSummary, useStartTrialLicense, useExtendTrialLicense } from 'services/cd-ng'
 import { useGetProjectList, useSaveFeedback } from 'services/cd-ng'
@@ -36,7 +36,7 @@ const currentUser = {
 }
 
 describe('CEHomePage snapshot test', () => {
-  test('should render HomePageTemplate when return success with data', () => {
+  test('should go to the overview page when return success with data', () => {
     useCETrialModalMock.mockImplementation(() => ({ showModal: jest.fn(), hideModal: jest.fn() }))
 
     useGetProjectListMock.mockImplementation(() => {
@@ -64,7 +64,7 @@ describe('CEHomePage snapshot test', () => {
         <CEHomePage />
       </TestWrapper>
     )
-    expect(getByText('ce.homepage.slogan')).toBeDefined()
+    expect(getByText('/account/123/ce/overview')).toBeDefined()
     expect(container).toMatchSnapshot()
   })
 
@@ -99,7 +99,7 @@ describe('CEHomePage snapshot test', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('should move to trial in progress page when query param trial is true', async () => {
+  test('should move to the trial page when query param trial is true', async () => {
     useCETrialModalMock.mockImplementation(() => ({ showModal: jest.fn(), hideModal: jest.fn() }))
     useStartTrialMock.mockImplementation(() => {
       return {
@@ -145,69 +145,11 @@ describe('CEHomePage snapshot test', () => {
       </TestWrapper>
     )
 
-    // await waitFor(() => expect(getByText('common.trialInProgress')).toBeDefined())
-
     expect(container).toMatchSnapshot()
   })
 
-  test('should open the ce trial modal when there is a trial and projects exist', async () => {
-    const showModalMock = jest.fn()
-
-    useCETrialModalMock.mockImplementation(() => ({ showModal: showModalMock, hideModal: jest.fn() }))
-
-    useGetProjectListMock.mockImplementation(() => {
-      return {
-        data: {
-          content: ['1']
-        }
-      }
-    })
-
-    useGetModuleLicenseInfoMock.mockImplementation(() => {
-      return {
-        data: {
-          status: 'SUCCESS'
-        },
-        error: null,
-        refetch: jest.fn()
-      }
-    })
-
-    const { container, getByText } = render(
-      <TestWrapper
-        path="/account/:accountId"
-        pathParams={{ accountId: '123' }}
-        defaultAppStoreValues={{ currentUserInfo: currentUser }}
-        queryParams={{ trial: true }}
-      >
-        <CEHomePage />
-      </TestWrapper>
-    )
-
-    const cta = getByText('ce.trialCta')
-    await waitFor(() => {
-      cta.click()
-    })
-    expect(container).toMatchSnapshot()
-  })
-
-  test("shouldn't show the trial home pagers if the user is not created from NG", async () => {
+  test('should display an error if the get licenses call fails', () => {
     useCETrialModalMock.mockImplementation(() => ({ showModal: jest.fn(), hideModal: jest.fn() }))
-    useStartTrialMock.mockImplementation(() => {
-      return {
-        cancel: jest.fn(),
-        loading: false,
-        mutate: jest.fn().mockImplementationOnce(() => {
-          return {
-            status: 'SUCCESS',
-            data: {
-              licenseType: 'TRIAL'
-            }
-          }
-        })
-      }
-    })
-
     useGetProjectListMock.mockImplementation(() => {
       return {
         data: {
@@ -215,39 +157,24 @@ describe('CEHomePage snapshot test', () => {
         }
       }
     })
-
     useGetModuleLicenseInfoMock.mockImplementation(() => {
       return {
         data: {
-          data: {},
-          status: 'SUCCESS'
+          data: {}
         },
-        error: null,
+        loading: true,
         refetch: jest.fn()
       }
     })
-
-    const userCreatedFromCG = {
-      accounts: [
-        {
-          uuid: '123',
-          createdFromNG: false
-        }
-      ]
-    }
-
-    const { container, getByText } = render(
+    const { container } = render(
       <TestWrapper
         path="/account/:accountId"
         pathParams={{ accountId: '123' }}
-        defaultAppStoreValues={{ currentUserInfo: userCreatedFromCG }}
-        queryParams={{ trial: true }}
+        defaultAppStoreValues={{ currentUserInfo: currentUser }}
       >
         <CEHomePage />
       </TestWrapper>
     )
-
-    expect(getByText('ce.homepage.slogan')).toBeDefined()
 
     expect(container).toMatchSnapshot()
   })

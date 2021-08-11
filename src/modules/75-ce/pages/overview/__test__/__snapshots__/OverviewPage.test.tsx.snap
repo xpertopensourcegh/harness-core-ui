@@ -3,7 +3,7 @@
 exports[`test cases for Perspective details Page should be able to render the details page 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main"
+    class="StyledProps--font StyledProps--main body hasNoBanner"
   >
     <div
       class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
@@ -689,6 +689,7 @@ exports[`test cases for Perspective details Page should be able to render the de
 exports[`test cases for Perspective details Page should render NoData page when cluster and cloud data are not present 1`] = `
 <div>
   <div
+    class="body hasNoBanner"
     style="background-image: url(test-file-stub); background-size: cover; height: 100%; width: 100%;"
   >
     <div

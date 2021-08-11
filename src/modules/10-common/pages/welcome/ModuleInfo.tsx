@@ -35,7 +35,7 @@ const ModuleInfo: React.FC<ModuleInfoProps> = ({ setStep, moduleProps }) => {
   const [selectedInfoCard, setSelectedInfoCard] = useState<ModuleInfoCard>()
   const { getString } = useStrings()
   const { trackEvent } = useTelemetry()
-  const { GTM_CCM_ENABLED, GTM_CD_ENABLED } = useFeatureFlags()
+  const { GTM_CD_ENABLED } = useFeatureFlags()
 
   const { accountId } = useParams<{
     accountId: string
@@ -135,13 +135,13 @@ const ModuleInfo: React.FC<ModuleInfoProps> = ({ setStep, moduleProps }) => {
   }
 
   useEffect(() => {
-    const infoCardProps = getInfoCardsProps(accountId, GTM_CCM_ENABLED, GTM_CD_ENABLED)[moduleProps.module]
+    const infoCardProps = getInfoCardsProps(accountId, GTM_CD_ENABLED)[moduleProps.module]
 
     // Automatically select the first info card if none are selected
     if (!selectedInfoCard && infoCardProps) {
       setSelectedInfoCard(infoCardProps[0])
     }
-  }, [moduleProps, selectedInfoCard, accountId, GTM_CCM_ENABLED, GTM_CD_ENABLED])
+  }, [moduleProps, selectedInfoCard, accountId, GTM_CD_ENABLED])
 
   return (
     <Layout.Horizontal className={css.moduleInfo}>

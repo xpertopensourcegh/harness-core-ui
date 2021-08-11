@@ -2384,6 +2384,9 @@ export interface StringsMap {
   'cd.varFile': string
   'cd.varFileDetails': string
   'cd.workloadRequired': string
+  'ce.ceTrialHomePage.modal.description': string
+  'ce.ceTrialHomePage.modal.title': string
+  'ce.ceTrialHomePage.modal.welcome': string
   'ce.ceTrialHomePage.startTrial.description': string
   'ce.co.accessPoint.ap': string
   'ce.co.accessPoint.aps': string

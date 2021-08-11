@@ -43,30 +43,8 @@ const INFO_CARD_STYLES: { [key: string]: string } = {
   cd: css.cd
 }
 
-export const getInfoCardsProps = (
-  accountId: string,
-  GTM_CCM_ENABLED?: boolean,
-  GTM_CD_ENABLED?: boolean
-): InfoCards => {
+export const getInfoCardsProps = (accountId: string, GTM_CD_ENABLED?: boolean): InfoCards => {
   return {
-    ce: [
-      {
-        icon: 'ce-visibility',
-        title: 'common.ce.cost',
-        subtitle: 'common.ce.visibility',
-        description: 'common.purpose.ce.visibilityCard.description',
-        route: () =>
-          `${window.location.href.split('/ng/')[0]}/#/account/${accountId}/continuous-efficiency/settings?source=signup`
-      },
-      {
-        icon: 'ce-optimization' as IconName,
-        title: 'common.ce.cost',
-        subtitle: 'common.ce.optimization',
-        description: 'common.purpose.ce.optimizationCard.description',
-        isNgRoute: true,
-        disabled: !GTM_CCM_ENABLED
-      }
-    ],
     cd: [
       {
         icon: 'command-approval',
@@ -184,7 +162,7 @@ const getCardKey = ({ key1, key2 }: { key1?: string; key2?: string }): string =>
 const ModuleInfoCards: React.FC<ModuleInfoCardsProps> = props => {
   const { module, selectedInfoCard, setSelectedInfoCard, style } = props
   const { getString } = useStrings()
-  const { GTM_CCM_ENABLED, GTM_CD_ENABLED } = useFeatureFlags()
+  const { GTM_CD_ENABLED } = useFeatureFlags()
 
   const { accountId } = useParams<{
     accountId: string
@@ -248,7 +226,7 @@ const ModuleInfoCards: React.FC<ModuleInfoCardsProps> = props => {
     )
   }
 
-  const infoCardProps = getInfoCardsProps(accountId, GTM_CCM_ENABLED, GTM_CD_ENABLED)[module]
+  const infoCardProps = getInfoCardsProps(accountId, GTM_CD_ENABLED)[module]
 
   const infoCardStyle = INFO_CARD_STYLES[module]
 
