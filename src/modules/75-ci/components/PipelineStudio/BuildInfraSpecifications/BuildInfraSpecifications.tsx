@@ -1,7 +1,18 @@
 import React, { useMemo } from 'react'
 import * as yup from 'yup'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
-import { Layout, Formik, FormikForm, FormInput, Text, Card, Accordion, Button } from '@wings-software/uicore'
+import {
+  Layout,
+  Formik,
+  FormikForm,
+  FormInput,
+  Text,
+  Card,
+  Accordion,
+  Button,
+  getMultiTypeFromValue,
+  MultiTypeInputType
+} from '@wings-software/uicore'
 import { isEmpty, isUndefined, set } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
@@ -70,12 +81,17 @@ const getValidationSchema = (getString?: UseStringsReturn['getString']): yup.Sch
   yup.object().shape({
     connectorRef: yup.mixed().when(['useFromStage'], {
       is: isEmpty,
-      then: yup.mixed().required(),
+      then: yup.mixed().required(getString?.('fieldRequired', { field: getString?.('connectors.title.k8sCluster') })),
       otherwise: yup.mixed()
     }),
     namespace: yup.string().when(['useFromStage'], {
       is: isEmpty,
-      then: yup.string().trim().required(),
+      then: yup
+        .string()
+        .trim()
+        .required(
+          getString?.('fieldRequired', { field: getString?.('pipelineSteps.build.infraSpecifications.namespace') })
+        ),
       otherwise: yup.string().nullable()
     }),
     runAsUser: yup.string().test(
@@ -238,7 +254,10 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
             spec: {
               // Avoid accidental overrides for connectorRef
               connectorRef:
-                values?.connectorRef?.value ??
+                (values?.connectorRef?.value ||
+                  (getMultiTypeFromValue(values?.connectorRef as string) === MultiTypeInputType.RUNTIME
+                    ? values?.connectorRef
+                    : undefined)) ??
                 (draft.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.connectorRef,
               namespace: values.namespace,
               serviceAccountName: values.serviceAccountName,
