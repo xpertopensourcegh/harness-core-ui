@@ -22,7 +22,7 @@ import { GitConfigDTO, ManifestConfigWrapper, useGetBucketListForS3, useGetGCSBu
 
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import type { KubernetesServiceInputFormProps } from '@pipeline/factories/ArtifactTriggerInputFactory/types'
-import { TriggerTypes } from '@pipeline/pages/triggers/utils/TriggersWizardPageUtils'
+import { TriggerTypes, TriggerDefaultFieldList } from '@pipeline/pages/triggers/utils/TriggersWizardPageUtils'
 
 import {
   ManifestToConnectorMap,
@@ -34,10 +34,6 @@ import type { ManifestStores } from '@pipeline/components/ManifestSelection/Mani
 import ExperimentalInput from '../PipelineSteps/K8sServiceSpec/K8sServiceSpecForms/ExperimentalInput'
 
 import css from './ManifestInputForm.module.scss'
-
-const TriggerDefaultFieldList = {
-  chartVersion: '<+trigger.manifest.version>'
-}
 
 const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
   template,
@@ -134,11 +130,11 @@ const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
   return (
     <>
       <div className={cx(css.nopadLeft, css.accordionSummary)} id={`Stage.${stageIdentifier}.Service.Manifests`}>
-        {
+        {!fromTrigger && (
           <div className={css.subheading}>
             {getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
           </div>
-        }
+        )}
         {template?.manifests?.map?.(
           (
             {
@@ -187,25 +183,31 @@ const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                   }
                 }
               }
-              const selectedIndex = initialValues?.manifests?.findIndex(
-                (item: ManifestConfigWrapper) =>
-                  item?.manifest?.identifier === formik?.values?.selectedArtifact?.identifier
-              )
-              if (selectedManifest && initialValues && initialValues.manifests && selectedIndex) {
+              const selectedIndex =
+                initialValues?.manifests?.findIndex(
+                  (item: ManifestConfigWrapper) =>
+                    item?.manifest?.identifier === formik?.values?.selectedArtifact?.identifier
+                ) || 0
+              if (selectedManifest && initialValues && initialValues.manifests && selectedIndex >= 0) {
+                const artifactSpec = formik?.values?.selectedArtifact?.spec || {}
+                /*
+                 backend requires eventConditions inside selectedArtifact but should not be added to inputYaml
+                */
+                if (artifactSpec.eventConditions) {
+                  delete artifactSpec.eventConditions
+                }
+
                 selectedManifest = {
                   manifest: {
                     identifier: formik?.values?.selectedArtifact?.identifier,
                     type: formik?.values?.selectedArtifact?.type,
                     spec: {
-                      ...formik?.values?.selectedArtifact.spec,
-                      store: {
-                        spec: formik?.values?.selectedArtifact.spec
-                      }
+                      ...artifactSpec
                     }
                   }
                 }
               }
-              if (initialValues.manifests && selectedIndex && initialValues.manifests[selectedIndex]) {
+              if (initialValues.manifests && selectedIndex >= 0 && initialValues.manifests[selectedIndex]) {
                 initialValues.manifests[selectedIndex] = selectedManifest
               }
             }
@@ -226,7 +228,7 @@ const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
 
             return (
               <Layout.Vertical key={identifier} className={cx(css.inputWidth, css.layoutVerticalSpacing)}>
-                <Text className={css.inputheader}>{identifier}</Text>
+                {!fromTrigger && <Text className={css.inputheader}>{identifier}</Text>}
                 {getMultiTypeFromValue(connectorRef) === MultiTypeInputType.RUNTIME && (
                   <div className={css.verticalSpacingInput}>
                     <FormMultiTypeConnectorField
