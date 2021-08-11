@@ -49,12 +49,18 @@
     box-shadow: var(--card-shadow);
     left: 0px;
     bottom: 99px;
-    width: 300px;
+    min-width: 150px;
+    max-width: 300px;
     display: flex;
     padding: var(--spacing-medium) !important;
     align-items: baseline;
     > div:first-child {
       margin-right: var(--spacing-small) !important;
     }
+  }
+
+  .popoverNodeHealth {
+    min-width: 10px;
+    max-width: 10px;
   }
 }

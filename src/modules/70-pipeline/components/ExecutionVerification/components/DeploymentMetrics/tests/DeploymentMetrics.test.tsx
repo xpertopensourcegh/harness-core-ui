@@ -324,7 +324,10 @@ describe('Unit tests for Deployment metrics', () => {
 
     const { container, getByText } = render(
       <TestWrapper>
-        <DeploymentMetrics step={MockExecutionNode} />
+        <DeploymentMetrics
+          step={MockExecutionNode}
+          activityId={MockExecutionNode!.progressData!.activityId as unknown as string}
+        />
       </TestWrapper>
     )
 
@@ -394,7 +397,10 @@ describe('Unit tests for Deployment metrics', () => {
 
     const { container } = render(
       <TestWrapper>
-        <DeploymentMetrics step={MockExecutionNode} />
+        <DeploymentMetrics
+          step={MockExecutionNode}
+          activityId={MockExecutionNode!.progressData!.activityId as unknown as string}
+        />
       </TestWrapper>
     )
 
@@ -451,7 +457,10 @@ describe('Unit tests for Deployment metrics', () => {
 
     const { container } = render(
       <TestWrapper>
-        <DeploymentMetrics step={MockExecutionNode} />
+        <DeploymentMetrics
+          step={MockExecutionNode}
+          activityId={MockExecutionNode!.progressData!.activityId as unknown as string}
+        />
       </TestWrapper>
     )
 
@@ -472,7 +481,10 @@ describe('Unit tests for Deployment metrics', () => {
 
     const { container, getByText } = render(
       <TestWrapper>
-        <DeploymentMetrics step={MockExecutionNode} />
+        <DeploymentMetrics
+          step={MockExecutionNode}
+          activityId={MockExecutionNode!.progressData!.activityId as unknown as string}
+        />
       </TestWrapper>
     )
 
@@ -497,7 +509,10 @@ describe('Unit tests for Deployment metrics', () => {
 
     const { container, getByText } = render(
       <TestWrapper>
-        <DeploymentMetrics step={MockExecutionNode} />
+        <DeploymentMetrics
+          step={MockExecutionNode}
+          activityId={MockExecutionNode!.progressData!.activityId as unknown as string}
+        />
       </TestWrapper>
     )
 
@@ -519,7 +534,10 @@ describe('Unit tests for Deployment metrics', () => {
 
     const { container, rerender } = render(
       <TestWrapper>
-        <DeploymentMetrics step={MockExecutionNode} />
+        <DeploymentMetrics
+          step={MockExecutionNode}
+          activityId={MockExecutionNode!.progressData!.activityId as unknown as string}
+        />
       </TestWrapper>
     )
 
@@ -556,7 +574,7 @@ describe('Unit tests for Deployment metrics', () => {
     clonedStep.progressData!.activityId = '12312_activityId' as any
     rerender(
       <TestWrapper>
-        <DeploymentMetrics step={clonedStep} />
+        <DeploymentMetrics step={clonedStep} activityId={clonedStep!.progressData!.activityId as unknown as string} />
       </TestWrapper>
     )
 
@@ -590,7 +608,7 @@ describe('Unit tests for Deployment metrics', () => {
 
     const { container } = render(
       <TestWrapper>
-        <DeploymentMetrics step={clonedNode} />
+        <DeploymentMetrics step={clonedNode} activityId={clonedNode!.progressData!.activityId as unknown as string} />
       </TestWrapper>
     )
 
@@ -627,32 +645,5 @@ describe('Unit tests for Deployment metrics', () => {
 
     jest.runTimersToTime(20000)
     await waitFor(() => expect(refetchFn).toHaveBeenCalledTimes(1))
-  })
-
-  test('Ensure that when there is no activityId ui displays in empty state', async () => {
-    jest.spyOn(cvService, 'useGetDataSourcetypes').mockReturnValue({
-      data: DataSourceTypesResponse,
-      refetch: jest.fn() as unknown
-    } as UseGetReturn<any, any, any, any>)
-
-    const refetchFn = jest.fn()
-    const clonedNode = cloneDeep(MockExecutionNode)
-    clonedNode.status = 'Running'
-    delete clonedNode.progressData?.activityId
-
-    jest.spyOn(cvService, 'useGetDeploymentMetrics').mockReturnValue({
-      data: ApiResponse,
-      refetch: refetchFn as unknown
-    } as UseGetReturn<any, any, any, any>)
-
-    const { container } = render(
-      <TestWrapper>
-        <DeploymentMetrics step={clonedNode} />
-      </TestWrapper>
-    )
-
-    await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
-    expect(container.querySelector('[class*="noActivityId"]')).not.toBeNull()
-    expect(refetchFn).not.toHaveBeenCalled()
   })
 })

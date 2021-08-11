@@ -33,9 +33,8 @@ function NodeHealthPopover(props: NodeHealthPopoverProps): JSX.Element {
   return (
     <Container className={css.nodeHealthPopoverContent}>
       <Container
-        className={css.nodeHealth}
+        className={cx(css.nodeHealth, css.popoverNodeHealth)}
         height={10}
-        width={15}
         style={{ backgroundColor: mapNodeHealthStatusToColor(analysisResult?.risk) }}
       />
       <Container>
