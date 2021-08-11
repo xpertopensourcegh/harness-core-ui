@@ -9,6 +9,7 @@ import type { Module } from '@common/interfaces/RouteInterfaces'
 
 import { AccountLicenseDTO, ModuleLicenseDTO, useGetAccountLicenses } from 'services/cd-ng'
 import { ModuleName } from 'framework/types/ModuleName'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 
 export enum LICENSE_STATE_VALUES {
   ACTIVE = 'ACTIVE',
@@ -58,6 +59,7 @@ const POLL_INTERVAL = 1000 * 60 * 60 * 2
 
 export function LicenseStoreProvider(props: React.PropsWithChildren<unknown>): React.ReactElement {
   const { currentUserInfo } = useAppStore()
+  const { NG_LICENSES_ENABLED } = useFeatureFlags()
   const { accountId } = useParams<{
     accountId: string
   }>()
@@ -66,10 +68,9 @@ export function LicenseStoreProvider(props: React.PropsWithChildren<unknown>): R
 
   const createdFromNG = accounts?.find(account => account.uuid === accountId)?.createdFromNG
 
-  // Automatically set the license state to active for users that have not been created via NG
-  // This will prevent existing users from experiencing issues accessing the product
-  // When license information is migrated we can remove this 'createdFromNG' check
-  const shouldLicensesBeDisabled = __DEV__ || !createdFromNG
+  // If the user has been created from NG signup we will always enforce licensing
+  // If the user is a CG user we will look at the NG_LICENSES_ENABLED feature flag to determine whether or not we should enforce licensing
+  const shouldLicensesBeDisabled = __DEV__ || (!createdFromNG && !NG_LICENSES_ENABLED)
 
   const [state, setState] = useState<Omit<LicenseStoreContextProps, 'updateLicenseStore' | 'strings'>>({
     licenseInformation: {},

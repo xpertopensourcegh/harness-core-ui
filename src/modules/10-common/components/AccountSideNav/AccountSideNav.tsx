@@ -8,12 +8,14 @@ import { SidebarLink } from '@common/navigation/SideNav/SideNav'
 import { useStrings } from 'framework/strings'
 import { returnLaunchUrl } from '@common/utils/routeUtils'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { LaunchButton } from '../LaunchButton/LaunchButton'
 
 export default function AccountSideNav(): React.ReactElement {
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
   const { currentUserInfo } = useAppStore()
+  const { NG_LICENSES_ENABLED } = useFeatureFlags()
   const { accounts } = currentUserInfo
   const createdFromNG = accounts?.find(account => account.uuid === accountId)?.createdFromNG
 
@@ -23,7 +25,7 @@ export default function AccountSideNav(): React.ReactElement {
       <SidebarLink label={getString('authentication')} to={routes.toAuthenticationSettings({ accountId })} />
       <SidebarLink label={getString('common.accountResources')} to={routes.toAccountResources({ accountId })} />
       <SidebarLink to={routes.toAccessControl({ accountId })} label={getString('accessControl')} />
-      {createdFromNG && (
+      {(createdFromNG || NG_LICENSES_ENABLED) && (
         <SidebarLink exact label={getString('common.subscriptions.title')} to={routes.toSubscriptions({ accountId })} />
       )}
       <SidebarLink label={getString('orgsText')} to={routes.toOrganizations({ accountId })} />

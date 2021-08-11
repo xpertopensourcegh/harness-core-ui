@@ -15,12 +15,14 @@ import routes from '@common/RouteDefinitions'
 import type { Module, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
 import { useGetLicensesAndSummary } from 'services/cd-ng'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import bgImageURL from './ff.svg'
 
 const CFHomePage: React.FC = () => {
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
   const { currentUserInfo, selectedProject } = useAppStore()
+  const { NG_LICENSES_ENABLED } = useFeatureFlags()
   const { licenseInformation, updateLicenseStore } = useLicenseStore()
 
   const { accounts } = currentUserInfo
@@ -93,7 +95,9 @@ const CFHomePage: React.FC = () => {
     return <PageError message={(error.data as Error)?.message || error.message} onClick={() => refetch()} />
   }
 
-  if (createdFromNG && data?.status === 'SUCCESS' && !data.data) {
+  const showTrialPages = createdFromNG || NG_LICENSES_ENABLED
+
+  if (showTrialPages && data?.status === 'SUCCESS' && !data.data) {
     history.push(
       routes.toModuleTrialHome({
         accountId,
@@ -102,7 +106,7 @@ const CFHomePage: React.FC = () => {
     )
   }
 
-  if (createdFromNG && data && data.data && trial) {
+  if (showTrialPages && data && data.data && trial) {
     return (
       <TrialInProgressTemplate
         title={getString('cf.continuous')}

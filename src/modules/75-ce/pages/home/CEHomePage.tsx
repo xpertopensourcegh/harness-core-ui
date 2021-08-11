@@ -10,9 +10,11 @@ import { PageError } from '@common/components/Page/PageError'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import routes from '@common/RouteDefinitions'
 import { handleUpdateLicenseStore, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 
 const CEHomePage: React.FC = () => {
   const { currentUserInfo } = useAppStore()
+  const { NG_LICENSES_ENABLED } = useFeatureFlags()
   const { licenseInformation, updateLicenseStore } = useLicenseStore()
 
   const { accountId } = useParams<AccountPathProps>()
@@ -60,14 +62,16 @@ const CEHomePage: React.FC = () => {
     return <PageError message={message} onClick={() => refetch()} />
   }
 
-  if (createdFromNG && data?.status === 'SUCCESS' && !data.data) {
+  const showTrialPages = createdFromNG || NG_LICENSES_ENABLED
+
+  if (showTrialPages && data?.status === 'SUCCESS' && !data.data) {
     history.push(
       routes.toModuleTrialHome({
         accountId,
         module: 'ce'
       })
     )
-  } else if (createdFromNG && data && data.data && trial) {
+  } else if (showTrialPages && data && data.data && trial) {
     history.push(
       routes.toModuleTrialHome({
         accountId,
