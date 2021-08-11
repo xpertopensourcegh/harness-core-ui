@@ -346,7 +346,6 @@ const FormContent = ({
         )}
       </div>
 
-      <div className={stepCss.divider} />
       <ApprovalRejectionCriteria
         statusList={statusList}
         fieldList={fieldList}

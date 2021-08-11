@@ -1275,16 +1275,13 @@ exports[`Jira Approval tests Edit stage - readonly: edit stage view readonly 1`]
           </div>
         </div>
         <div
-          class="divider"
-        />
-        <div
           class="box"
         >
           <div
             class="ng-tooltip-native"
           >
             <div
-              class="title"
+              class="stepSubSectionHeading"
               data-tooltip-id="jiraApprovalapprovalCriteria"
             >
               pipeline.jiraApprovalStep.approvalCriteria
@@ -1293,16 +1290,31 @@ exports[`Jira Approval tests Edit stage - readonly: edit stage view readonly 1`]
           <div
             class="tabs"
           >
-            <div
-              class="tab selectedTab"
+            <label
+              class="bp3-control bp3-radio bp3-disabled StyledProps--font Radio--radio tab StyledProps--main"
             >
+              <input
+                checked=""
+                disabled=""
+                type="radio"
+              />
+              <span
+                class="bp3-control-indicator"
+              />
               conditions
-            </div>
-            <div
-              class="tab"
+            </label>
+            <label
+              class="bp3-control bp3-radio bp3-disabled StyledProps--font Radio--radio tab StyledProps--main"
             >
+              <input
+                disabled=""
+                type="radio"
+              />
+              <span
+                class="bp3-control-indicator"
+              />
               common.jexlExpression
-            </div>
+            </label>
           </div>
           <div
             class="conditionalContent"

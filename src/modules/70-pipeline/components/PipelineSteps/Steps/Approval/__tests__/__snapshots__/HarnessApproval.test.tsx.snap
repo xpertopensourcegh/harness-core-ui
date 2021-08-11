@@ -1029,8 +1029,10 @@ exports[`Harness Approval tests Edit stage - readonly: edit stage readonly 1`] =
           </div>
         </div>
         <div
-          class="divider"
-        />
+          class="stepSubSectionHeading"
+        >
+          Approval Message
+        </div>
         <div
           class="formGroup"
         >
@@ -1094,7 +1096,7 @@ exports[`Harness Approval tests Edit stage - readonly: edit stage readonly 1`] =
             class="bp3-form-content"
           >
             <label
-              class="bp3-control bp3-checkbox bp3-disabled StyledProps--font Checkbox--checkbox execHistoryCheckbox StyledProps--main StyledProps--inline"
+              class="bp3-control bp3-checkbox bp3-disabled StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--inline"
             >
               <input
                 disabled=""
@@ -1112,6 +1114,11 @@ exports[`Harness Approval tests Edit stage - readonly: edit stage readonly 1`] =
               </span>
             </label>
           </div>
+        </div>
+        <div
+          class="stepSubSectionHeading"
+        >
+          Approvers
         </div>
         <div
           class="formGroup lg"
@@ -1263,7 +1270,7 @@ exports[`Harness Approval tests Edit stage - readonly: edit stage readonly 1`] =
             class="bp3-form-content"
           >
             <label
-              class="bp3-control bp3-checkbox bp3-disabled StyledProps--font Checkbox--checkbox execHistoryCheckbox StyledProps--main StyledProps--inline"
+              class="bp3-control bp3-checkbox bp3-disabled StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--inline"
             >
               <input
                 disabled=""
@@ -1492,8 +1499,10 @@ exports[`Harness Approval tests On submit call: values populating on edit 1`] = 
           </div>
         </div>
         <div
-          class="divider"
-        />
+          class="stepSubSectionHeading"
+        >
+          Approval Message
+        </div>
         <div
           class="formGroup"
         >
@@ -1578,7 +1587,7 @@ exports[`Harness Approval tests On submit call: values populating on edit 1`] = 
             class="bp3-form-content"
           >
             <label
-              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox execHistoryCheckbox StyledProps--main StyledProps--inline"
+              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--inline"
             >
               <input
                 checked=""
@@ -1596,6 +1605,11 @@ exports[`Harness Approval tests On submit call: values populating on edit 1`] = 
               </span>
             </label>
           </div>
+        </div>
+        <div
+          class="stepSubSectionHeading"
+        >
+          Approvers
         </div>
         <div
           class="formGroup lg"
@@ -1836,7 +1850,7 @@ exports[`Harness Approval tests On submit call: values populating on edit 1`] = 
             class="bp3-form-content"
           >
             <label
-              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox execHistoryCheckbox StyledProps--main StyledProps--inline"
+              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--inline"
             >
               <input
                 checked=""
