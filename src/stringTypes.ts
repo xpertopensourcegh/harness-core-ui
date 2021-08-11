@@ -350,6 +350,7 @@ export interface StringsMap {
   'common.role': string
   'common.saveAndClose': string
   'common.savedSuccessfully': string
+  'common.searchPlaceholder': string
   'common.seconds': string
   'common.secretKey': string
   'common.secrets': string
@@ -562,7 +563,6 @@ export interface StringsMap {
   'rbac.serviceAccounts.newServiceAccount': string
   'rbac.serviceAccounts.noDataDescription': string
   'rbac.serviceAccounts.noServiceAccounts': string
-  'rbac.serviceAccounts.search': string
   'rbac.serviceAccounts.successMessage': string
   'rbac.token.confirmDelete': string
   'rbac.token.confirmDeleteTitle': string
