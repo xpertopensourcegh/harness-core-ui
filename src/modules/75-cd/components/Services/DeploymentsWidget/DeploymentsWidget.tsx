@@ -9,7 +9,12 @@ import { getBucketSizeForTimeRange } from '@cd/components/TimeRangeSelector/Time
 import { PageSpinner, TimeSeriesAreaChart } from '@common/components'
 import type { TimeSeriesAreaChartProps } from '@common/components/TimeSeriesAreaChart/TimeSeriesAreaChart'
 import { PageError } from '@common/components/Page/PageError'
-import { DeploymentsTimeRangeContext, numberFormatter } from '@cd/components/Services/common'
+import {
+  DeploymentsTimeRangeContext,
+  getFixed,
+  INVALID_CHANGE_RATE,
+  numberFormatter
+} from '@cd/components/Services/common'
 import DeploymentsEmptyState from '@cd/icons/DeploymentsEmptyState.svg'
 import {
   GetServiceDeploymentsInfoQueryParams,
@@ -54,8 +59,8 @@ const DeploymentsTooltip: React.FC<any> = props => {
   const currentDate = timestamp
     ? new Date(timestamp).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })
     : ''
-  const isFailureBoost = failureRateChangeRate === '0' && failureRate !== '0'
-  const isFrequencyBoost = frequencyChangeRate === '0' && frequency !== '0'
+  const isFailureBoost = failureRateChangeRate === INVALID_CHANGE_RATE
+  const isFrequencyBoost = frequencyChangeRate === INVALID_CHANGE_RATE
   return (
     <Card className={css.tooltipCard}>
       <Layout.Vertical>
@@ -76,19 +81,19 @@ const DeploymentsTooltip: React.FC<any> = props => {
                 <></>
               ) : (
                 <TickerValue
-                  value={failureRateChangeRate}
-                  color={failureRateChangeRate < 0 ? Color.GREEN_600 : Color.RED_500}
+                  value={getFixed(failureRateChangeRate || 0)}
+                  color={!isFailureBoost || failureRateChangeRate < 0 ? Color.GREEN_600 : Color.RED_500}
                 />
               )
             }
-            decreaseMode={failureRateChangeRate < 0}
+            decreaseMode={!isFailureBoost && failureRateChangeRate < 0}
             boost={isFailureBoost}
-            color={failureRateChangeRate < 0 ? Color.GREEN_600 : Color.RED_500}
+            color={!isFailureBoost || failureRateChangeRate < 0 ? Color.GREEN_600 : Color.RED_500}
             verticalAlign={TickerVerticalAlignment.TOP}
             size={isFailureBoost ? 10 : 6}
           >
             <Text color={Color.BLACK} font={{ weight: 'bold' }} margin={{ right: 'medium' }}>
-              {failureRate}%
+              {numberFormatter(failureRate, { truncate: false })}%
             </Text>
           </Ticker>
         </Layout.Horizontal>
@@ -100,19 +105,19 @@ const DeploymentsTooltip: React.FC<any> = props => {
                 <></>
               ) : (
                 <TickerValue
-                  value={frequencyChangeRate}
-                  color={frequencyChangeRate > 0 ? Color.GREEN_600 : Color.RED_500}
+                  value={getFixed(frequencyChangeRate || 0)}
+                  color={isFrequencyBoost || frequencyChangeRate > 0 ? Color.GREEN_600 : Color.RED_500}
                 />
               )
             }
-            decreaseMode={frequencyChangeRate < 0}
+            decreaseMode={!isFrequencyBoost && frequencyChangeRate < 0}
             boost={isFrequencyBoost}
-            color={frequencyChangeRate > 0 ? Color.GREEN_600 : Color.RED_500}
+            color={isFrequencyBoost || frequencyChangeRate > 0 ? Color.GREEN_600 : Color.RED_500}
             verticalAlign={TickerVerticalAlignment.TOP}
             size={isFrequencyBoost ? 10 : 6}
           >
             <Text color={Color.BLACK} font={{ weight: 'bold' }} margin={{ right: 'medium' }}>
-              {frequency}
+              {numberFormatter(frequency)}
             </Text>
           </Ticker>
         </Layout.Horizontal>
@@ -131,8 +136,8 @@ export const DeploymentsWidget: React.FC<DeploymentWidgetProps> = props => {
   const queryParams: GetServiceDeploymentsInfoQueryParams = useMemo(() => {
     return {
       accountIdentifier: accountId,
-      orgIdentifier,
       projectIdentifier,
+      orgIdentifier,
       serviceId: serviceIdentifier,
       startTime: timeRange?.range[0]?.getTime() || 0,
       endTime: timeRange?.range[1]?.getTime() || 0,
@@ -162,10 +167,10 @@ export const DeploymentsWidget: React.FC<DeploymentWidgetProps> = props => {
       deployments.forEach(deployment => {
         const { failureRate, failureRateChangeRate, frequency, frequencyChangeRate } = deployment.rate || {}
         const rates = {
-          failureRate: numberFormatter(failureRate, { truncate: false }),
-          failureRateChangeRate: numberFormatter(failureRateChangeRate, { truncate: false }),
-          frequency: numberFormatter(frequency),
-          frequencyChangeRate: numberFormatter(frequencyChangeRate, { truncate: false }),
+          failureRate,
+          failureRateChangeRate,
+          frequency,
+          frequencyChangeRate,
           frequencyLabel: getString('common.frequency'),
           failureRateLabel: getString('common.failureRate')
         }
@@ -292,7 +297,7 @@ export const DeploymentsWidget: React.FC<DeploymentWidgetProps> = props => {
     }
   }
 
-  const isDeploymentBoost = deployments.change === 0 && deployments.value != '0'
+  const isDeploymentBoost = deployments.change === INVALID_CHANGE_RATE
   return (
     <DeploymentWidgetContainer>
       <Container data-test="deploymentsWidgetContent">
@@ -308,13 +313,13 @@ export const DeploymentsWidget: React.FC<DeploymentWidgetProps> = props => {
                 ) : (
                   <TickerValue
                     value={deployments.change}
-                    color={deployments.change > 0 ? Color.GREEN_600 : Color.RED_500}
+                    color={isDeploymentBoost || deployments.change > 0 ? Color.GREEN_600 : Color.RED_500}
                   />
                 )
               }
-              decreaseMode={deployments.change < 0}
+              decreaseMode={!isDeploymentBoost && deployments.change < 0}
               boost={isDeploymentBoost}
-              color={deployments.change > 0 ? Color.GREEN_600 : Color.RED_500}
+              color={isDeploymentBoost || deployments.change > 0 ? Color.GREEN_600 : Color.RED_500}
               verticalAlign={TickerVerticalAlignment.CENTER}
               size={isDeploymentBoost ? 10 : 6}
             >
@@ -335,7 +340,7 @@ export const DeploymentsWidget: React.FC<DeploymentWidgetProps> = props => {
             { ...frequency, name: getString('cd.serviceDashboard.frequency') }
           ].map((item, index) => {
             const colors = index ? [Color.GREEN_600, Color.RED_500] : [Color.RED_500, Color.GREEN_600]
-            const isBoost = item.change === 0 && item.value !== '0'
+            const isBoost = item.change === INVALID_CHANGE_RATE
             return (
               <Layout.Vertical
                 padding={'small'}
@@ -355,13 +360,13 @@ export const DeploymentsWidget: React.FC<DeploymentWidgetProps> = props => {
                     isBoost ? (
                       <></>
                     ) : (
-                      <TickerValue value={item.change} color={item.change > 0 ? colors[0] : colors[1]} />
+                      <TickerValue value={item.change} color={isBoost || item.change > 0 ? colors[0] : colors[1]} />
                     )
                   }
-                  decreaseMode={item.change < 0}
+                  decreaseMode={!isBoost && item.change < 0}
                   boost={isBoost}
                   size={isBoost ? 10 : 6}
-                  color={item.change > 0 ? colors[0] : colors[1]}
+                  color={isBoost || item.change > 0 ? colors[0] : colors[1]}
                   tickerContainerStyles={css.tickerContainerStyles}
                   verticalAlign={TickerVerticalAlignment.CENTER}
                 >

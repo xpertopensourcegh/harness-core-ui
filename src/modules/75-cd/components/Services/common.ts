@@ -72,3 +72,5 @@ export const getFixed = (value: number, places = 1): number => {
   }
   return parseFloat(value.toFixed(places))
 }
+
+export const INVALID_CHANGE_RATE = -10000

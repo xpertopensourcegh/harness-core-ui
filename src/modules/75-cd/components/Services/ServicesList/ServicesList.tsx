@@ -12,7 +12,7 @@ import { useStrings } from 'framework/strings'
 import type { TableProps } from '@common/components/Table/Table'
 import { Ticker } from '@common/components/Ticker/Ticker'
 import { PieChart, PieChartProps } from '@cd/components/PieChart/PieChart'
-import { numberFormatter } from '@cd/components/Services/common'
+import { INVALID_CHANGE_RATE, numberFormatter } from '@cd/components/Services/common'
 import type { ServiceDetailsDTO } from 'services/cd-ng'
 import { DeploymentTypeIcons } from '@cd/components/DeploymentTypeIcons/DeploymentTypeIcons'
 import css from '@cd/components/Services/ServicesList/ServiceList.module.scss'
@@ -103,19 +103,19 @@ const RenderType: Renderer<CellProps<ServiceListItem>> = ({ row }) => {
 
 const TickerCard: React.FC<{ item: ChangeValue & { name: string } }> = props => {
   const { item } = props
+  const isBoostMode = item.change === INVALID_CHANGE_RATE
   const color = (() => {
     if (item.name !== 'failureRate') {
-      return item.change < 0 ? Color.RED_500 : Color.GREEN_500
+      return !isBoostMode && item.change < 0 ? Color.RED_500 : Color.GREEN_500
     } else {
-      return item.change < 0 ? Color.GREEN_500 : Color.RED_500
+      return isBoostMode || item.change < 0 ? Color.GREEN_500 : Color.RED_500
     }
   })()
-  const isBoostMode = item.change === 0 && item.value !== '0'
   return (
     <Layout.Vertical padding={'small'} key={item.name} width={'fit-content'} className={css.tickerContainer}>
       <Ticker
         value={isBoostMode ? <></> : <Text color={color} font={{ size: 'small' }}>{`${Math.abs(item.change)}%`}</Text>}
-        decreaseMode={item.change < 0}
+        decreaseMode={!isBoostMode && item.change < 0}
         boost={isBoostMode}
         color={color}
         tickerContainerStyles={css.tickerContainerStyles}
