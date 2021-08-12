@@ -1,7 +1,10 @@
 import React from 'react'
+import moment from 'moment'
 import { render, fireEvent } from '@testing-library/react'
 import { TestWrapper, findDialogContainer } from '@common/utils/testUtils'
 import useCETrialModal from '../useCETrialModal'
+
+moment.now = jest.fn(() => 1482363367071)
 
 const TestComponent = (): React.ReactElement => {
   const { showModal, hideModal } = useCETrialModal({ onContinue: () => void 0 })
