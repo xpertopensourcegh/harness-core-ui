@@ -174,7 +174,7 @@ exports[`Artifact Trigger Config Panel  tests Renders/snapshots edit render 1`] 
                       class="cell"
                       colspan="1"
                       role="columnheader"
-                      style="width: 25%;"
+                      style="width: 45%;"
                     >
                       MANIFESTSTEXT
                     </div>
@@ -213,13 +213,14 @@ exports[`Artifact Trigger Config Panel  tests Renders/snapshots edit render 1`] 
                       <div
                         class="cell"
                         role="cell"
-                        style="width: 25%;"
+                        style="width: 45%;"
                       >
                         <div
                           class="Layout--horizontal StyledProps--main"
                         >
                           <p
-                            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                            style="--text-line-clamp: 1; width: 296px;"
                           >
                             stage: s3manifestid
                           </p>
@@ -234,7 +235,8 @@ exports[`Artifact Trigger Config Panel  tests Renders/snapshots edit render 1`] 
                           class="Layout--horizontal StyledProps--main"
                         >
                           <p
-                            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                            style="--text-line-clamp: 1; width: 159px;"
                           >
                             pipeline.triggers.artifactTriggerConfigPanel.runtimeInput
                           </p>
@@ -249,8 +251,8 @@ exports[`Artifact Trigger Config Panel  tests Renders/snapshots edit render 1`] 
                           class="Layout--horizontal StyledProps--main"
                         >
                           <p
-                            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
-                            style="min-height: 18px;"
+                            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                            style="min-height: 18px; --text-line-clamp: 1; width: 110px;"
                           >
                             chartPath
                           </p>

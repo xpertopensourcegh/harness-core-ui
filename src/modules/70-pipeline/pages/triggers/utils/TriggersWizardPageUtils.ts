@@ -8,6 +8,7 @@ import type { GetActionsListQueryParams, NGTriggerConfigV2, NGTriggerSourceV2 } 
 import { connectorUrlType } from '@connectors/constants'
 import type { PanelInterface } from '@common/components/Wizard/Wizard'
 import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
+import { ManifestStoreMap } from '@pipeline/components/ManifestSelection/Manifesthelper'
 import type { StringKeys, UseStringsReturn } from 'framework/strings'
 import { isCronValid } from '../views/subviews/ScheduleUtils'
 import type { AddConditionInterface } from '../views/AddConditionsSection'
@@ -843,13 +844,29 @@ export const getPathString = (runtimeData: any, stageId: any) => {
 const isRuntimeInput = (str: any): boolean => typeof str === 'string' && str?.includes('<+input>')
 const getRuntimeInputLabel = ({ str, getString }: { str: any; getString?: (key: StringKeys) => string }): string =>
   isRuntimeInput(str) ? getString?.('pipeline.triggers.artifactTriggerConfigPanel.runtimeInput') : str
-const getLocationAttribute = (type: string): string | undefined => {
-  if (type === 'HelmChart') {
-    return 'folderPath'
+
+const getLocationAttribute = ({
+  artifact,
+  type
+}: {
+  artifact: ManifestConfigWrapper
+  type: string
+}): string | undefined => {
+  if (type === ManifestStoreMap.S3 || type === ManifestStoreMap.Gcs) {
+    return get(artifact, 'manifest.spec.store.spec.folderPath')
+  } else if (type === ManifestStoreMap.Http) {
+    return get(artifact, 'manifest.spec.chartName')
   }
 }
 
-export const getLocationFromPipeline = ({
+const getChartVersionAttribute = ({ artifact }: { artifact: ManifestConfigWrapper }): string | undefined =>
+  get(artifact, 'manifest.spec.chartVersion')
+
+interface artifactTableDetails {
+  location?: string
+  chartVersion?: string
+}
+export const getDetailsFromPipeline = ({
   manifests,
   manifestIdentifier,
   manifestType
@@ -857,12 +874,23 @@ export const getLocationFromPipeline = ({
   manifests: ManifestConfigWrapper[]
   manifestIdentifier: string
   manifestType: string
-}): string | undefined => {
-  if (manifestType) {
-    const locationAttribute = getLocationAttribute(manifestType)
-    return manifests?.find((manifestObj: any) => manifestObj?.manifest.identifier === manifestIdentifier)?.manifest
-      ?.spec?.store?.spec?.[`${locationAttribute}`]
+}): artifactTableDetails => {
+  const details: artifactTableDetails = {}
+  if (manifestType === 'HelmChart') {
+    const matchedManifest = manifests?.find(
+      (manifestObj: any) => manifestObj?.manifest.identifier === manifestIdentifier
+    )
+    if (matchedManifest) {
+      details.location = getLocationAttribute({
+        artifact: matchedManifest,
+        type: matchedManifest?.manifest?.spec?.store?.type
+      })
+      details.chartVersion = getChartVersionAttribute({
+        artifact: matchedManifest
+      })
+    }
   }
+  return details
 }
 
 export const getConnectorNameFromPipeline = ({
@@ -915,6 +943,7 @@ const getManifestTableItem = ({
   stageId,
   manifest,
   artifactRepository,
+  chartVersion,
   location,
   getString
 }: {
@@ -922,6 +951,7 @@ const getManifestTableItem = ({
   manifest: any
   artifactRepository?: string
   location?: string
+  chartVersion?: string // chartVersion will always be fixed concrete value if exists
   getString?: (key: StringKeys) => string
 }): artifactTableItem => {
   const { identifier: artifactId } = manifest
@@ -939,7 +969,7 @@ const getManifestTableItem = ({
       str: artifactRepository || manifest?.spec?.store?.spec?.connectorRef,
       getString
     }),
-    version: getRuntimeInputLabel({ str: manifest?.spec?.chartVersion, getString }),
+    version: getRuntimeInputLabel({ str: manifest?.spec?.chartVersion, getString }) || chartVersion,
     disabled:
       !manifest?.spec?.chartVersion ||
       getRuntimeInputLabel({ str: manifest?.spec?.chartVersion, getString }) !==
@@ -969,7 +999,7 @@ export const getArtifactTableDataFromData = ({
     const pipelineManifests = pipeline?.stages?.find((stageObj: any) => stageObj?.stage?.identifier === stageId)?.stage
       ?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests
 
-    const location = getLocationFromPipeline({
+    const { location } = getDetailsFromPipeline({
       manifests: pipelineManifests,
       manifestIdentifier: appliedArtifact.identifier,
       manifestType: appliedArtifact.type
@@ -982,7 +1012,13 @@ export const getArtifactTableDataFromData = ({
     })
 
     artifactTableData.push(
-      getManifestTableItem({ stageId, manifest: appliedArtifact, artifactRepository, location, getString })
+      getManifestTableItem({
+        stageId,
+        manifest: appliedArtifact,
+        artifactRepository,
+        location,
+        getString
+      })
     )
     return { appliedTableArtifact: artifactTableData }
   } else if (isManifest) {
@@ -994,7 +1030,7 @@ export const getArtifactTableDataFromData = ({
 
       const { manifests = [] } = stageObject?.stage?.spec?.serviceConfig?.serviceDefinition?.spec || {}
       manifests.forEach((manifestObj: any) => {
-        const location = getLocationFromPipeline({
+        const { location, chartVersion } = getDetailsFromPipeline({
           manifests: pipelineManifests,
           manifestIdentifier: manifestObj.manifest.identifier,
           manifestType: manifestObj.manifest.type
@@ -1013,6 +1049,7 @@ export const getArtifactTableDataFromData = ({
               manifest: manifestObj.manifest,
               artifactRepository,
               location,
+              chartVersion,
               getString
             })
           )

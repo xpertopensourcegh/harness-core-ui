@@ -24,6 +24,10 @@ interface ArtifactTableInfoInterface {
 interface RenderColumnSelectColumn {
   selectedArtifactLabel?: string
 }
+
+interface RenderColumnArtifactLabelColumn {
+  appliedArtifact?: any
+}
 export interface FormValues {
   artifact?: string
 }
@@ -78,11 +82,20 @@ const RenderColumnSelect = ({ row, column }: { row: RenderColumnRow; column: Ren
 //   )
 // }
 
-const RenderColumnArtifactLabel = ({ row }: { row: RenderColumnRow }) => {
+const RenderColumnArtifactLabel = ({
+  row,
+  column
+}: {
+  row: RenderColumnRow
+  column: RenderColumnArtifactLabelColumn
+}) => {
+  const { appliedArtifact } = column
   const data = row.original
   return (
     <Layout.Horizontal className={data.disabled ? css.disabledRow : ''}>
-      <Text color={Color.BLACK}>{data.artifactLabel}</Text>
+      <Text width={appliedArtifact ? '296px' : '176px'} color={Color.BLACK} lineClamp={1}>
+        {data.artifactLabel}
+      </Text>
     </Layout.Horizontal>
   )
 }
@@ -90,7 +103,9 @@ const RenderColumnArtifactRepository = ({ row }: { row: RenderColumnRow }) => {
   const data = row.original
   return (
     <Layout.Horizontal className={data.disabled ? css.disabledRow : ''}>
-      <Text color={Color.BLACK}>{data.artifactRepository}</Text>
+      <Text color={Color.BLACK} width="159px" lineClamp={1}>
+        {data.artifactRepository}
+      </Text>
     </Layout.Horizontal>
   )
 }
@@ -99,7 +114,7 @@ const RenderColumnLocation = ({ row }: { row: RenderColumnRow }) => {
   const data = row.original
   return (
     <Layout.Horizontal className={data.disabled ? css.disabledRow : ''}>
-      <Text style={{ minHeight: '18px' }} color={Color.BLACK}>
+      <Text style={{ minHeight: '18px' }} width="110px" color={Color.BLACK} lineClamp={1}>
         {data.location}
       </Text>
     </Layout.Horizontal>
@@ -110,7 +125,7 @@ const RenderColumnBuildTag = ({ row }: { row: RenderColumnRow }) => {
   const data = row.original
   return (
     <Layout.Horizontal spacing="small" className={data.disabled ? css.disabledRow : ''}>
-      <Text style={{ minHeight: '18px' }} color={Color.BLACK}>
+      <Text style={{ minHeight: '18px' }} width="100px" color={Color.BLACK} lineClamp={1}>
         {data.buildTag}
       </Text>
     </Layout.Horizontal>
@@ -121,7 +136,7 @@ const RenderColumnVersion = ({ row }: { row: RenderColumnRow }) => {
   const data = row.original
   return (
     <Layout.Horizontal spacing="small" className={data.disabled ? css.disabledRow : ''}>
-      <Text style={{ minHeight: '18px' }} color={Color.BLACK}>
+      <Text style={{ minHeight: '18px' }} color={Color.BLACK} lineClamp={1}>
         {data.version}
       </Text>
     </Layout.Horizontal>
@@ -181,11 +196,12 @@ const ArtifactTableInfo = (props: ArtifactTableInfoInterface): JSX.Element => {
       {
         Header: artifactOrManifestText?.toUpperCase(),
         accessor: 'artifactLabel',
-        width: '25%',
+        width: appliedArtifact ? '45%' : '27%',
         Cell: RenderColumnArtifactLabel,
         className: 'className',
         class: 'class',
-        disableSortBy: !!appliedArtifact
+        disableSortBy: !!appliedArtifact,
+        appliedArtifact
       },
       {
         Header: getString?.('pipeline.triggers.artifactTriggerConfigPanel.artifactRepository', {
@@ -245,7 +261,7 @@ const ArtifactTableInfo = (props: ArtifactTableInfoInterface): JSX.Element => {
     columns.push({
       Header: getString?.('pipeline.triggers.artifactTriggerConfigPanel.hasRuntimeInputs').toUpperCase(),
       accessor: 'hasRuntimeInputs',
-      width: '11%',
+      width: '9%',
       Cell: RenderColumnHasRuntimeInputs,
       disableSortBy: true
     })

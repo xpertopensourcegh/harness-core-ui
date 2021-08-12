@@ -57,7 +57,7 @@ exports[`Select Artifact Modal tests inital Render 1`] = `
         class="cell"
         colspan="1"
         role="columnheader"
-        style="width: 25%;"
+        style="width: 27%;"
       >
         MANIFESTSTEXT
       </div>
@@ -89,7 +89,7 @@ exports[`Select Artifact Modal tests inital Render 1`] = `
         class="cell"
         colspan="1"
         role="columnheader"
-        style="width: 11%;"
+        style="width: 9%;"
       >
         PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.HASRUNTIMEINPUTS
       </div>
@@ -132,13 +132,14 @@ exports[`Select Artifact Modal tests inital Render 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 25%;"
+          style="width: 27%;"
         >
           <div
             class="Layout--horizontal StyledProps--main"
           >
             <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+              style="--text-line-clamp: 1; width: 176px;"
             >
               stagea: dsfds
             </p>
@@ -153,7 +154,8 @@ exports[`Select Artifact Modal tests inital Render 1`] = `
             class="Layout--horizontal StyledProps--main"
           >
             <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+              style="--text-line-clamp: 1; width: 159px;"
             />
           </div>
         </div>
@@ -166,8 +168,8 @@ exports[`Select Artifact Modal tests inital Render 1`] = `
             class="Layout--horizontal StyledProps--main"
           >
             <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
-              style="min-height: 18px;"
+              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+              style="min-height: 18px; --text-line-clamp: 1; width: 110px;"
             />
           </div>
         </div>
@@ -180,15 +182,15 @@ exports[`Select Artifact Modal tests inital Render 1`] = `
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
           >
             <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
-              style="min-height: 18px;"
+              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+              style="min-height: 18px; --text-line-clamp: 1;"
             />
           </div>
         </div>
         <div
           class="cell"
           role="cell"
-          style="width: 11%;"
+          style="width: 9%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -285,7 +287,7 @@ exports[`Select Artifact Modal tests on click of select button 1`] = `
         class="cell"
         colspan="1"
         role="columnheader"
-        style="width: 25%;"
+        style="width: 27%;"
       >
         MANIFESTSTEXT
       </div>
@@ -317,7 +319,7 @@ exports[`Select Artifact Modal tests on click of select button 1`] = `
         class="cell"
         colspan="1"
         role="columnheader"
-        style="width: 11%;"
+        style="width: 9%;"
       >
         PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.HASRUNTIMEINPUTS
       </div>
@@ -360,13 +362,14 @@ exports[`Select Artifact Modal tests on click of select button 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 25%;"
+          style="width: 27%;"
         >
           <div
             class="Layout--horizontal StyledProps--main"
           >
             <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+              style="--text-line-clamp: 1; width: 176px;"
             >
               stagea: dsfds
             </p>
@@ -381,7 +384,8 @@ exports[`Select Artifact Modal tests on click of select button 1`] = `
             class="Layout--horizontal StyledProps--main"
           >
             <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+              style="--text-line-clamp: 1; width: 159px;"
             />
           </div>
         </div>
@@ -394,8 +398,8 @@ exports[`Select Artifact Modal tests on click of select button 1`] = `
             class="Layout--horizontal StyledProps--main"
           >
             <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
-              style="min-height: 18px;"
+              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+              style="min-height: 18px; --text-line-clamp: 1; width: 110px;"
             />
           </div>
         </div>
@@ -408,15 +412,15 @@ exports[`Select Artifact Modal tests on click of select button 1`] = `
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
           >
             <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
-              style="min-height: 18px;"
+              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+              style="min-height: 18px; --text-line-clamp: 1;"
             />
           </div>
         </div>
         <div
           class="cell"
           role="cell"
-          style="width: 11%;"
+          style="width: 9%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
