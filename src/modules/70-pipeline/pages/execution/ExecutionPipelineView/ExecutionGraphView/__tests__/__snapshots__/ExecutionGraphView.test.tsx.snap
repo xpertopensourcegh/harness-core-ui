@@ -73,37 +73,18 @@ exports[`<ExecutionGraphView /> tests renders execution graphs with CD data 1`] 
                 data-has-sibling="false"
               >
                 <div
-                  class="stageName"
-                />
-                <div
-                  class="times"
+                  class="stageTop"
                 >
                   <div
-                    class="timeDisplay"
-                  >
-                    <span
-                      class="timeLabel"
-                    >
-                      startedAt
-                    </span>
-                    <span>
-                      : 
-                    </span>
-                    <time>
-                      -
-                    </time>
-                  </div>
-                  <span
-                    class="StyledProps--font StyledProps--main timeDisplay StyledProps--inline"
-                  >
-                    <span
-                      class="timeLabel"
-                    >
-                      common.durationPrefix
-                    </span>
-                    
-                  </span>
+                    class="stageName"
+                  />
+                  <div
+                    class="main"
+                  />
                 </div>
+                <div
+                  class="times"
+                />
               </div>
               <div />
             </div>
@@ -208,37 +189,18 @@ exports[`<ExecutionGraphView /> tests renders execution graphs with CI data 1`] 
                 data-has-sibling="false"
               >
                 <div
-                  class="stageName"
-                />
-                <div
-                  class="times"
+                  class="stageTop"
                 >
                   <div
-                    class="timeDisplay"
-                  >
-                    <span
-                      class="timeLabel"
-                    >
-                      startedAt
-                    </span>
-                    <span>
-                      : 
-                    </span>
-                    <time>
-                      -
-                    </time>
-                  </div>
-                  <span
-                    class="StyledProps--font StyledProps--main timeDisplay StyledProps--inline"
-                  >
-                    <span
-                      class="timeLabel"
-                    >
-                      common.durationPrefix
-                    </span>
-                    
-                  </span>
+                    class="stageName"
+                  />
+                  <div
+                    class="main"
+                  />
                 </div>
+                <div
+                  class="times"
+                />
               </div>
               <div />
             </div>
@@ -271,21 +233,16 @@ exports[`<ExecutionGraphView /> tests renders execution graphs with CI data 1`] 
                 </div>
               </div>
               <div
-                data-group="Execution"
-                data-stage="group"
+                data-item="_QbGiCUGT4mzbzX0ovfzCw"
+                data-status="Success"
               >
-                <div
-                  data-item="_QbGiCUGT4mzbzX0ovfzCw"
-                  data-status="Success"
-                >
-                  Git clone
-                </div>
-                <div
-                  data-item="EODeJuxnSdOmACdIovay_w"
-                  data-status="Success"
-                >
-                  runtest
-                </div>
+                Git clone
+              </div>
+              <div
+                data-item="EODeJuxnSdOmACdIovay_w"
+                data-status="Success"
+              >
+                runtest
               </div>
             </div>
           </div>
@@ -379,37 +336,18 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
                 data-has-sibling="false"
               >
                 <div
-                  class="stageName"
-                />
-                <div
-                  class="times"
+                  class="stageTop"
                 >
                   <div
-                    class="timeDisplay"
-                  >
-                    <span
-                      class="timeLabel"
-                    >
-                      startedAt
-                    </span>
-                    <span>
-                      : 
-                    </span>
-                    <time>
-                      -
-                    </time>
-                  </div>
-                  <span
-                    class="StyledProps--font StyledProps--main timeDisplay StyledProps--inline"
-                  >
-                    <span
-                      class="timeLabel"
-                    >
-                      common.durationPrefix
-                    </span>
-                    
-                  </span>
+                    class="stageName"
+                  />
+                  <div
+                    class="main"
+                  />
                 </div>
+                <div
+                  class="times"
+                />
               </div>
               <div />
             </div>

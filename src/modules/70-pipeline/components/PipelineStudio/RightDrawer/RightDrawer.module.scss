@@ -1,4 +1,4 @@
-$right-bar-width: 60px;
+$right-bar-width: 65px;
 $top-offset: 110px;
 
 .main {
@@ -46,7 +46,7 @@ $top-offset: 110px;
     top: $top-offset;
     right: $right-bar-width;
     &.showRighDrawer {
-      transform: translateX(-60px);
+      transform: translateX(-65px);
     }
     &.fullScreen {
       top: 0;

@@ -399,7 +399,6 @@ export interface GroupState<T> {
   group?: ExecutionPipelineGroupInfo<T>
   collapsed: boolean
   name: string
-  showInLabel: boolean
   status: ExecutionStatus
   identifier: string
 }
@@ -416,7 +415,6 @@ export const getGroupsFromData = <T>(items: Array<ExecutionPipelineNode<T>>): Ma
         name: node.group.name,
         status: node.group.status,
         identifier: node.group.identifier,
-        showInLabel: node.group.showInLabel ?? true,
         data: node.group.data,
         group: node.group
       })
@@ -429,7 +427,6 @@ export const getGroupsFromData = <T>(items: Array<ExecutionPipelineNode<T>>): Ma
         collapsed: false,
         name: node.item.name,
         status: node.item.status,
-        showInLabel: node.item.showInLabel,
         identifier: node.item.identifier,
         data: node.item.data
       })

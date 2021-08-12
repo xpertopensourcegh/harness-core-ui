@@ -4,6 +4,7 @@ declare const styles: {
   readonly main: string
   readonly stageDetails: string
   readonly lhs: string
+  readonly stageTop: string
   readonly stageName: string
   readonly times: string
   readonly timeLabel: string

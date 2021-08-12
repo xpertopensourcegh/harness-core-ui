@@ -4,6 +4,7 @@
   position: sticky;
   top: 0;
   border-bottom: 1px solid var(--grey-200);
+  border-top: 1px solid var(--grey-200);
   z-index: 1;
   display: grid;
   grid-template-columns: minmax(300px, 3fr) minmax(100px, 2fr);
@@ -32,11 +33,18 @@
     }
   }
 
-  .stageName {
-    font-size: var(--font-size-normal);
-    font-weight: 600;
-    line-height: 1.25;
-    margin-bottom: var(--spacing-3);
+  .stageTop {
+    display: flex;
+    column-gap: var(--spacing-3);
+    align-items: center;
+    justify-content: space-between;
+
+    .stageName {
+      font-size: var(--font-size-normal);
+      font-weight: 600;
+      line-height: 1.25;
+      margin-bottom: var(--spacing-3);
+    }
   }
 
   .times {
