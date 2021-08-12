@@ -409,6 +409,7 @@ triggers:
     matchesValue: 'Matches Value is required with Operator.'
     payloadConditions: 'Each payload condition requires values for Attribute, Operator, and Matches Value.'
     headerConditions: 'Each header condition requires values for Attribute, Operator, and Matches Value.'
+    selectedArtifact: '{{artifact}} is required.'
     cronExpression: 'Valid cron expression is required.'
   toast:
     successfulCreate: 'Successfully created {{name}}.'

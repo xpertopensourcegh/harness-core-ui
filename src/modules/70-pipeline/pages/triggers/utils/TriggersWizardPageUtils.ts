@@ -348,6 +348,14 @@ const checkValidPayloadConditionsForNewArtifact = (formikValues: FlatValidWebhoo
 const checkValidOverview = (formikValues: FlatValidScheduleFormikValuesInterface): boolean =>
   isIdentifierIllegal(formikValues?.identifier) ? false : true
 
+const checkValidSelectedArtifact = (formikValues: FlatValidArtifactFormikValuesInterface): boolean => {
+  return !isEmpty(formikValues?.selectedArtifact)
+}
+
+const checkValidArtifactTrigger = (formikValues: FlatValidArtifactFormikValuesInterface): boolean => {
+  return isIdentifierIllegal(formikValues?.identifier) ? false : true && checkValidSelectedArtifact(formikValues)
+}
+
 const checkValidCronExpression = (formikValues: FlatValidScheduleFormikValuesInterface): boolean =>
   isCronValid(formikValues?.expression || '')
 
@@ -402,7 +410,7 @@ const getPanels = ({
       {
         id: 'Trigger Overview',
         tabTitle: getString('pipeline.triggers.triggerConfigurationLabel'),
-        checkValidPanel: checkValidOverview,
+        checkValidPanel: checkValidArtifactTrigger,
         requiredFields: ['name', 'identifier'] // conditional required validations checkValidTriggerConfiguration
       },
       {
@@ -439,7 +447,7 @@ export const getWizardMap = ({
 // requiredFields and checkValidPanel in getPanels() above to render warning icons related to this schema
 export const getValidationSchema = (
   triggerType: NGTriggerSourceV2['type'],
-  getString: (key: StringKeys) => string
+  getString: (key: StringKeys, params?: any) => string
 ): ObjectSchema<Record<string, any> | undefined> => {
   if (triggerType === TriggerTypes.WEBHOOK) {
     return object().shape({
@@ -592,6 +600,10 @@ export const getValidationSchema = (
       )
     })
   } else if (isArtifactOrManifestTrigger(triggerType)) {
+    const artifactOrManifestText =
+      triggerType === TriggerTypes.MANIFEST
+        ? getString('manifestsText')
+        : getString('pipeline.triggers.artifactTriggerConfigPanel.artifact')
     return object().shape({
       name: string().trim().required(getString('pipeline.triggers.validation.triggerName')),
       identifier: string().when('name', {
@@ -601,6 +613,20 @@ export const getValidationSchema = (
           .matches(regexIdentifier, getString('validation.validIdRegex'))
           .notOneOf(illegalIdentifiers)
       }),
+      selectedArtifact: object().test(
+        getString('pipeline.triggers.validation.selectedArtifact', {
+          artifact: artifactOrManifestText
+        }),
+        getString('pipeline.triggers.validation.selectedArtifact', {
+          artifact: artifactOrManifestText
+        }),
+        function (selectedArtifact = {}) {
+          if (isEmpty(selectedArtifact)) {
+            return false
+          }
+          return true
+        }
+      ),
       headerConditions: array().test(
         getString('pipeline.triggers.validation.headerConditions'),
         getString('pipeline.triggers.validation.headerConditions'),

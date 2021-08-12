@@ -2266,6 +2266,7 @@ export interface StringsMap {
   'pipeline.triggers.validation.operator': string
   'pipeline.triggers.validation.payloadConditions': string
   'pipeline.triggers.validation.repoName': string
+  'pipeline.triggers.validation.selectedArtifact': string
   'pipeline.triggers.validation.triggerName': string
   'pipeline.uniqueIdentifier': string
   'pipeline.variable.typePlaceholder': string

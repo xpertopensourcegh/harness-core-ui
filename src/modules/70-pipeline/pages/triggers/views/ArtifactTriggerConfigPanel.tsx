@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Layout, Heading, Text, Label, Button, Container } from '@wings-software/uicore'
+import { Layout, Heading, Text, Label, Button, Container, Color } from '@wings-software/uicore'
 import { NameIdDescriptionTags } from '@common/components'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useStrings } from 'framework/strings'
@@ -93,7 +93,7 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
   const artifactOrManifestText = isManifest
     ? getString('manifestsText')
     : getString('pipeline.triggers.artifactTriggerConfigPanel.artifact')
-
+  const { errors } = formikProps
   return (
     <Layout.Vertical className={css.artifactTriggerConfigContainer} padding="xxlarge">
       {loading && (
@@ -142,6 +142,7 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
                   runtimeData={data}
                 />
               )}
+
               <Button
                 style={{ display: 'inline-block', color: '' }}
                 minimal
@@ -197,6 +198,11 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
                   isManifest={isManifest}
                   runtimeData={data}
                 />
+              )}
+              {errors['selectedArtifact'] && (
+                <Text color={Color.RED_500} style={{ marginBottom: 'var(--spacing-medium)' }}>
+                  {errors['selectedArtifact']}
+                </Text>
               )}
             </>
           )}
