@@ -9,9 +9,10 @@ import type {
   ErrorDetail,
   Connector,
   AppDynamicsConnectorDTO,
-  AwsKmsConnectorDTO
+  AwsKmsConnectorDTO,
+  ConnectorRequestBody
 } from 'services/cd-ng'
-import type { FormData } from '@connectors/interfaces/ConnectorInterface'
+import { CredTypeValues, FormData } from '@connectors/interfaces/ConnectorInterface'
 import type { SecretReferenceInterface } from '@secrets/utils/SecretField'
 import { ValueType } from '@secrets/components/TextReference/TextReference'
 import { useStrings } from 'framework/strings'
@@ -648,6 +649,54 @@ export const buildAWSPayload = (formData: FormData) => {
             }
           : null
       }
+    }
+  }
+  return { connector: savedData }
+}
+
+export const buildAWSKmsSMPayload = (formData: FormData): ConnectorRequestBody => {
+  let specData = {}
+
+  switch (formData?.credType) {
+    case CredTypeValues.ManualConfig:
+      specData = {
+        accessKey: formData?.accessKey?.referenceString,
+        secretKey: formData?.secretKey?.referenceString
+      }
+      break
+    case CredTypeValues.AssumeIAMRole:
+      specData = { delegateSelectors: formData.delegateSelectors }
+      break
+    case CredTypeValues.AssumeRoleSTS:
+      specData = {
+        delegateSelectors: formData.delegateSelectors,
+        roleArn: formData.roleArn?.trim(),
+        externalName: formData.externalName?.trim() || undefined,
+        assumeStsRoleDuration: formData.assumeStsRoleDuration
+          ? typeof formData.assumeStsRoleDuration === 'string'
+            ? parseInt(formData.assumeStsRoleDuration.trim())
+            : formData.assumeStsRoleDuration
+          : undefined
+      }
+  }
+
+  const savedData = {
+    name: formData.name,
+    description: formData.description,
+    projectIdentifier: formData.projectIdentifier,
+    identifier: formData.identifier,
+    orgIdentifier: formData.orgIdentifier,
+    tags: formData.tags,
+    type: Connectors.AWS_KMS,
+    spec: {
+      ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
+      credential: {
+        type: formData?.credType,
+        spec: specData
+      },
+      kmsArn: formData?.awsArn?.referenceString,
+      region: formData?.region,
+      default: formData.default
     }
   }
   return { connector: savedData }

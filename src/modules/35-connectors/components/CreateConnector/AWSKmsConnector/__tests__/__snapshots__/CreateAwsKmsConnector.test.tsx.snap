@@ -109,6 +109,21 @@ exports[`Create Secret Manager Wizard should be able to render first and second 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
+          delegate.DelegateselectionLabel
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
           connectors.stepThreeName
         </p>
       </div>
@@ -442,6 +457,21 @@ exports[`Create Secret Manager Wizard should be able to render first and second 
           class="StepWizard--number"
         >
           3
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          delegate.DelegateselectionLabel
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -800,6 +830,21 @@ exports[`Create Secret Manager Wizard should be able to render first and second 
           class="StepWizard--number"
         >
           3
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          delegate.DelegateselectionLabel
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -1198,7 +1243,7 @@ exports[`Create Secret Manager Wizard should be able to render first and second 
                   <span
                     class="bp3-button-text"
                   >
-                    saveAndContinue
+                    continue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
