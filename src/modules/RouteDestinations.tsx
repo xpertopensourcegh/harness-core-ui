@@ -38,15 +38,15 @@ export default function RouteDestinations(): React.ReactElement {
       {...rbacRoutes.props.children}
       {...delegatesRoutes.props.children}
       {...projectsOrgsRoutes.props.children}
-      <Route path="/account/:accountId/settings">
-        <AuthSettingsRoutes />
-      </Route>
       {...DASHBOARDRoutes.props.children}
       {...connectorRoutes.props.children}
       {...userProfileRoutes.props.children}
       {...CING_ENABLED ? CIRoutes.props.children : []}
       {...CDNG_ENABLED ? CDRoutes.props.children : []}
       {...CVNG_ENABLED ? CVRoutes.props.children : []}
+      <Route path="/account/:accountId/settings">
+        <AuthSettingsRoutes />
+      </Route>
       {CENG_ENABLED ? (
         <Route path="/account/:accountId/:module(ce)">
           <CERoutes />
