@@ -4,8 +4,9 @@ import { useParams } from 'react-router-dom'
 import { Card, Color, Container, Layout, Text } from '@wings-software/uicore'
 import type { ProjectPathProps, ServicePathProps } from '@common/interfaces/RouteInterfaces'
 import { GetInstanceCountHistoryQueryParams, useGetInstanceCountHistory } from 'services/cd-ng'
-import { DeploymentsTimeRangeContext, getFormattedDate, numberFormatter } from '@cd/components/Services/common'
+import { DeploymentsTimeRangeContext, numberFormatter } from '@cd/components/Services/common'
 import { useStrings } from 'framework/strings'
+import { getReadableDateTime } from '@common/utils/dateUtils'
 import { PageSpinner, TimeSeriesAreaChart } from '@common/components'
 import type { TimeSeriesAreaChartProps } from '@common/components/TimeSeriesAreaChart/TimeSeriesAreaChart'
 import { PageError } from '@common/components/Page/PageError'
@@ -16,7 +17,7 @@ const instanceCountHistoryChartColors = ['#9CCC65', '#47D5DF', '#AE82FC', '#FFA8
 
 const InstanceCountHistoryTooltip: React.FC<any> = props => {
   const { timestamp, labels, envData } = props
-  const currentDate = getFormattedDate(timestamp)
+  const currentDate = getReadableDateTime(timestamp, 'MMM DD, YYYY hh:mm a')
   return (
     <Card className={css.tooltipCard}>
       <Layout.Vertical>

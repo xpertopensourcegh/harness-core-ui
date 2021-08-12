@@ -12,10 +12,10 @@ import { PageError } from '@common/components/Page/PageError'
 import {
   DeploymentsTimeRangeContext,
   getFixed,
-  getFormattedDate,
   INVALID_CHANGE_RATE,
   numberFormatter
 } from '@cd/components/Services/common'
+import { getReadableDateTime } from '@common/utils/dateUtils'
 import DeploymentsEmptyState from '@cd/icons/DeploymentsEmptyState.svg'
 import {
   GetServiceDeploymentsInfoQueryParams,
@@ -57,7 +57,7 @@ const DeploymentsTooltip: React.FC<any> = props => {
     frequencyChangeRate,
     frequencyLabel
   } = props.options || {}
-  const currentDate = getFormattedDate(timestamp)
+  const currentDate = getReadableDateTime(timestamp)
   const isFailureBoost = failureRateChangeRate === INVALID_CHANGE_RATE
   const isFrequencyBoost = frequencyChangeRate === INVALID_CHANGE_RATE
   return (

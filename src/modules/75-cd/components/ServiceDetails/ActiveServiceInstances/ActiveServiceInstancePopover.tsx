@@ -7,7 +7,7 @@ import {
   useGetActiveInstancesByServiceIdEnvIdAndBuildIds
 } from 'services/cd-ng'
 import type { ProjectPathProps, ServicePathProps } from '@common/interfaces/RouteInterfaces'
-import { getFormattedDate } from '@cd/components/Services/common'
+import { getReadableDateTime } from '@common/utils/dateUtils'
 import { useStrings } from 'framework/strings'
 import css from '@cd/components/ServiceDetails/ActiveServiceInstances/ActiveServiceInstances.module.scss'
 
@@ -122,7 +122,7 @@ export const ActiveServiceInstancePopover: React.FC<ActiveServiceInstancePopover
       values: [
         {
           label: getString('cd.serviceDashboard.deployedAt'),
-          value: getFormattedDate(instanceData.deployedAt)
+          value: getReadableDateTime(instanceData.deployedAt)
         },
         {
           label: getString('cd.serviceDashboard.deployedBy'),

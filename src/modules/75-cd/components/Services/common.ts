@@ -74,6 +74,3 @@ export const getFixed = (value: number, places = 1): number => {
 }
 
 export const INVALID_CHANGE_RATE = -10000
-
-export const getFormattedDate = (timestamp?: number): string =>
-  timestamp ? new Date(timestamp).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' }) : ''
