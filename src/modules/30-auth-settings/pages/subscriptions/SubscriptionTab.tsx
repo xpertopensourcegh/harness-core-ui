@@ -14,11 +14,11 @@ export const SUBSCRIPTION_TABS: SubscriptionTab[] = [
   {
     name: SUBSCRIPTION_TAB_NAMES.OVERVIEW,
     label: 'common.subscriptions.tabs.overview'
+  },
+  {
+    name: SUBSCRIPTION_TAB_NAMES.PLANS,
+    label: 'common.subscriptions.tabs.plans'
   }
-  // {
-  //   name: SUBSCRIPTION_TAB_NAMES.PLANS,
-  //   label: 'common.subscriptions.tabs.plans'
-  // },
   // {
   //   name: SUBSCRIPTION_TAB_NAMES.BILLING,
   //   label: 'common.subscriptions.tabs.billing'

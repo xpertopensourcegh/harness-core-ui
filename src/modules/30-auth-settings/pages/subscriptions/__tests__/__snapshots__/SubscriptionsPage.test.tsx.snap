@@ -115,13 +115,18 @@ exports[`Subscriptions Page it renders an expired banner when the trial is expir
     </div>
   </div>
   <div
-    class="Layout--vertical StyledProps--main StyledProps--padding-xxxlarge"
+    class="Layout--vertical StyledProps--main StyledProps--padding-left-xxxlarge StyledProps--padding-right-xxxlarge StyledProps--padding-top-xlarge StyledProps--padding-bottom-xlarge StyledProps--flex StyledProps--flex-align-center-center"
   >
+    <h1
+      class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-bottom-large"
+    >
+      common.plans.title
+    </h1>
     <div
       class="Layout--horizontal StyledProps--main moduleSelectCards StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
     >
       <div
-        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard Card--selected"
+        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard cd Card--selected"
       >
         <div
           class="Layout--horizontal StyledProps--main"
@@ -480,6 +485,7 @@ exports[`Subscriptions Page it renders an expired banner when the trial is expir
     </div>
     <div
       class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+      style="width: 90%;"
     >
       <div
         class="bp3-card bp3-elevation-0 Card--card outterCard"
@@ -594,13 +600,18 @@ exports[`Subscriptions Page it renders the correct card in the subscriptions pag
     </div>
   </div>
   <div
-    class="Layout--vertical StyledProps--main StyledProps--padding-xxxlarge"
+    class="Layout--vertical StyledProps--main StyledProps--padding-left-xxxlarge StyledProps--padding-right-xxxlarge StyledProps--padding-top-xlarge StyledProps--padding-bottom-xlarge StyledProps--flex StyledProps--flex-align-center-center"
   >
+    <h1
+      class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-bottom-large"
+    >
+      common.plans.title
+    </h1>
     <div
       class="Layout--horizontal StyledProps--main moduleSelectCards StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
     >
       <div
-        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard Card--selected"
+        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard cd Card--selected"
       >
         <div
           class="Layout--horizontal StyledProps--main"
@@ -959,6 +970,7 @@ exports[`Subscriptions Page it renders the correct card in the subscriptions pag
     </div>
     <div
       class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+      style="width: 90%;"
     >
       <div
         class="bp3-card bp3-elevation-0 Card--card outterCard"
@@ -1073,13 +1085,18 @@ exports[`Subscriptions Page it renders the subscriptions page 1`] = `
     </div>
   </div>
   <div
-    class="Layout--vertical StyledProps--main StyledProps--padding-xxxlarge"
+    class="Layout--vertical StyledProps--main StyledProps--padding-left-xxxlarge StyledProps--padding-right-xxxlarge StyledProps--padding-top-xlarge StyledProps--padding-bottom-xlarge StyledProps--flex StyledProps--flex-align-center-center"
   >
+    <h1
+      class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-bottom-large"
+    >
+      common.plans.title
+    </h1>
     <div
       class="Layout--horizontal StyledProps--main moduleSelectCards StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
     >
       <div
-        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard Card--selected"
+        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard cd Card--selected"
       >
         <div
           class="Layout--horizontal StyledProps--main"
@@ -1438,6 +1455,7 @@ exports[`Subscriptions Page it renders the subscriptions page 1`] = `
     </div>
     <div
       class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+      style="width: 90%;"
     >
       <div
         class="bp3-card bp3-elevation-0 Card--card outterCard"
@@ -1552,13 +1570,18 @@ exports[`Subscriptions Page it renders trial not started information 1`] = `
     </div>
   </div>
   <div
-    class="Layout--vertical StyledProps--main StyledProps--padding-xxxlarge"
+    class="Layout--vertical StyledProps--main StyledProps--padding-left-xxxlarge StyledProps--padding-right-xxxlarge StyledProps--padding-top-xlarge StyledProps--padding-bottom-xlarge StyledProps--flex StyledProps--flex-align-center-center"
   >
+    <h1
+      class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-bottom-large"
+    >
+      common.plans.title
+    </h1>
     <div
       class="Layout--horizontal StyledProps--main moduleSelectCards StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
     >
       <div
-        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard Card--selected"
+        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard cd Card--selected"
       >
         <div
           class="Layout--horizontal StyledProps--main"
@@ -1888,6 +1911,7 @@ exports[`Subscriptions Page it renders trial not started information 1`] = `
     </div>
     <div
       class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+      style="width: 90%;"
     >
       <div
         class="bp3-card bp3-elevation-0 Card--card outterCard"
@@ -1989,13 +2013,18 @@ exports[`Subscriptions Page it should update the license store 1`] = `
     </div>
   </div>
   <div
-    class="Layout--vertical StyledProps--main StyledProps--padding-xxxlarge"
+    class="Layout--vertical StyledProps--main StyledProps--padding-left-xxxlarge StyledProps--padding-right-xxxlarge StyledProps--padding-top-xlarge StyledProps--padding-bottom-xlarge StyledProps--flex StyledProps--flex-align-center-center"
   >
+    <h1
+      class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-bottom-large"
+    >
+      common.plans.title
+    </h1>
     <div
       class="Layout--horizontal StyledProps--main moduleSelectCards StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
     >
       <div
-        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard Card--selected"
+        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard cd Card--selected"
       >
         <div
           class="Layout--horizontal StyledProps--main"
@@ -2354,6 +2383,7 @@ exports[`Subscriptions Page it should update the license store 1`] = `
     </div>
     <div
       class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+      style="width: 90%;"
     >
       <div
         class="bp3-card bp3-elevation-0 Card--card outterCard"
@@ -2468,13 +2498,18 @@ exports[`Subscriptions Page it shows the header and a loading spinner while the 
     </div>
   </div>
   <div
-    class="Layout--vertical StyledProps--main StyledProps--padding-xxxlarge"
+    class="Layout--vertical StyledProps--main StyledProps--padding-left-xxxlarge StyledProps--padding-right-xxxlarge StyledProps--padding-top-xlarge StyledProps--padding-bottom-xlarge StyledProps--flex StyledProps--flex-align-center-center"
   >
+    <h1
+      class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-bottom-large"
+    >
+      common.plans.title
+    </h1>
     <div
       class="Layout--horizontal StyledProps--main moduleSelectCards StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
     >
       <div
-        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard Card--selected"
+        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard cd Card--selected"
       >
         <div
           class="Layout--horizontal StyledProps--main"
@@ -2892,13 +2927,18 @@ exports[`Subscriptions Page it shows the header and a loading spinner while the 
     </div>
   </div>
   <div
-    class="Layout--vertical StyledProps--main StyledProps--padding-xxxlarge"
+    class="Layout--vertical StyledProps--main StyledProps--padding-left-xxxlarge StyledProps--padding-right-xxxlarge StyledProps--padding-top-xlarge StyledProps--padding-bottom-xlarge StyledProps--flex StyledProps--flex-align-center-center"
   >
+    <h1
+      class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-bottom-large"
+    >
+      common.plans.title
+    </h1>
     <div
       class="Layout--horizontal StyledProps--main moduleSelectCards StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
     >
       <div
-        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard Card--selected"
+        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard cd Card--selected"
       >
         <div
           class="Layout--horizontal StyledProps--main"

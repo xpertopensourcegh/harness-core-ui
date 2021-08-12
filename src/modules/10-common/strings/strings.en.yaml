@@ -500,3 +500,10 @@ sidecarArtifactsText: '{{$.sidecarArtifactText}}s'
 discard: Discard
 default: Default
 searchPlaceholder: Search by name or ID
+monthly: Monthly
+yearly: Yearly
+billed: Billed
+plans:
+  title: Upgrade to get the most out of Harness
+  featureComparison: Show All Feature Comparison
+  faq: View Pricing FAQs

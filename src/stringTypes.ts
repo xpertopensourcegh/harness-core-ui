@@ -71,6 +71,7 @@ export interface StringsMap {
   'common.banners.trial.provideFeedback': string
   'common.banners.trial.success': string
   'common.bash': string
+  'common.billed': string
   'common.blank': string
   'common.capsAll': string
   'common.ce.autostopping': string
@@ -255,6 +256,7 @@ export interface StringsMap {
   'common.logs.noLogsText': string
   'common.manage': string
   'common.member': string
+  'common.monthly': string
   'common.moreRefineSearch': string
   'common.move': string
   'common.myProfile': string
@@ -282,6 +284,9 @@ export interface StringsMap {
   'common.performAction': string
   'common.pipeline': string
   'common.pipelineDetails': string
+  'common.plans.faq': string
+  'common.plans.featureComparison': string
+  'common.plans.title': string
   'common.plusNumber': string
   'common.plusNumberNoSpace': string
   'common.production': string
@@ -447,6 +452,7 @@ export interface StringsMap {
   'common.videoNotSupportedError': string
   'common.webhookURL': string
   'common.welcome': string
+  'common.yearly': string
   'notifications.buttonSend': string
   'notifications.emailOrAlias': string
   'notifications.emailRecipients': string

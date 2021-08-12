@@ -11,7 +11,6 @@ import type { AccountPathProps } from './interfaces/RouteInterfaces'
 import GenericErrorPage from './pages/GenericError/GenericErrorPage'
 import WelcomePage from './pages/welcome/WelcomePage'
 import HomeSideNav from './components/HomeSideNav/HomeSideNav'
-import SubscriptionsPage from './pages/subscriptions/SubscriptionsPage'
 import AccountSideNav from './components/AccountSideNav/AccountSideNav'
 import AccountResources from './pages/AccountResources/AccountResources'
 
@@ -52,9 +51,6 @@ export default (
       exact
     >
       <GovernancePage />
-    </RouteWithLayout>
-    <RouteWithLayout sidebarProps={AccountSideNavProps} path={routes.toSubscriptions({ ...accountPathProps })} exact>
-      <SubscriptionsPage />
     </RouteWithLayout>
     <Route path={routes.toGenericError({ ...accountPathProps })}>
       <GenericErrorPage />

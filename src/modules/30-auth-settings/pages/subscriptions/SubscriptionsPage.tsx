@@ -3,7 +3,7 @@ import cx from 'classnames'
 
 import moment from 'moment'
 import { useParams } from 'react-router-dom'
-import { Button, Card, Color, Container, Icon, IconName, Layout, Text } from '@wings-software/uicore'
+import { Button, Card, Color, Container, Icon, IconName, Layout, Text, Heading } from '@wings-software/uicore'
 import { useQueryParams } from '@common/hooks'
 import { Page } from '@common/exports'
 import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
@@ -25,6 +25,7 @@ import type { SubscriptionTab } from './SubscriptionTab'
 import { SUBSCRIPTION_TABS, SUBSCRIPTION_TAB_NAMES } from './SubscriptionTab'
 
 import SubscriptionOverview from './overview/SubscriptionOverview'
+import SubscriptionPlans from './plans/SubscriptionPlans'
 import css from './SubscriptionsPage.module.scss'
 
 export interface TrialInformation {
@@ -78,7 +79,7 @@ const SubscriptionsPage: React.FC = () => {
   const { showSuccess } = useToaster()
   const { accountId } = useParams<AccountPathProps>()
   const { moduleCard } = useQueryParams<{ moduleCard?: ModuleName }>()
-  const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED } = useFeatureFlags()
+  const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED, PLANS_ENABLED } = useFeatureFlags()
   const { licenseInformation, updateLicenseStore } = useLicenseStore()
 
   const ACTIVE_MODULE_SELECT_CARDS = MODULE_SELECT_CARDS.reduce(
@@ -186,12 +187,19 @@ const SubscriptionsPage: React.FC = () => {
     const cards = ACTIVE_MODULE_SELECT_CARDS.map(cardData => {
       function handleCardClick(): void {
         setSelectedModuleCard(cardData)
+        setSelectedSubscriptionTab(SUBSCRIPTION_TABS[0])
       }
 
       const isSelected = cardData === selectedModuleCard
+      const moduleClassName = isSelected && css[cardData.module.toLowerCase() as keyof typeof css]
 
       return (
-        <Card className={css.moduleSelectCard} key={cardData.icon} selected={isSelected} onClick={handleCardClick}>
+        <Card
+          className={cx(css.moduleSelectCard, moduleClassName)}
+          key={cardData.icon}
+          selected={isSelected}
+          onClick={handleCardClick}
+        >
           <Layout.Horizontal width={150}>
             <Icon className={css.moduleIcons} name={cardData.icon} size={28} />
             <Layout.Vertical>
@@ -279,11 +287,18 @@ const SubscriptionsPage: React.FC = () => {
       )
     })
 
+    // show Plans tab only when feature flag is on
+    if (!PLANS_ENABLED) {
+      tabs.splice(1, 1)
+    }
+
     return tabs
   }
 
   function getTabComponent(): React.ReactElement | null {
     switch (selectedSubscriptionTab.name) {
+      case SUBSCRIPTION_TAB_NAMES.PLANS:
+        return <SubscriptionPlans module={selectedModuleCard.module} />
       case SUBSCRIPTION_TAB_NAMES.OVERVIEW:
       default:
         return (
@@ -316,7 +331,13 @@ const SubscriptionsPage: React.FC = () => {
   return (
     <>
       <Page.Header title={getString('common.subscriptions.title')} />
-      <Layout.Vertical padding="xxxlarge">
+      <Layout.Vertical
+        padding={{ left: 'xxxlarge', right: 'xxxlarge', top: 'xlarge', bottom: 'xlarge' }}
+        flex={{ align: 'center-center' }}
+      >
+        <Heading color={Color.BLACK} padding={{ bottom: 'large' }}>
+          {getString('common.plans.title')}
+        </Heading>
         <Layout.Horizontal
           className={css.moduleSelectCards}
           flex={{ alignItems: 'center', justifyContent: 'flex-start' }}

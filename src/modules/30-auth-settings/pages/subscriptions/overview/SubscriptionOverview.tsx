@@ -21,7 +21,7 @@ const SubscriptionOverview: React.FC<SubscriptionOverviewProps> = props => {
   // Although this component currently contains 'almost' nothing
   // it will be useful to leave this here for other components in the future
   return (
-    <Layout.Vertical spacing="large">
+    <Layout.Vertical spacing="large" width={'90%'}>
       <SubscriptionDetailsCard
         accountName={accountName}
         module={module}

@@ -3,6 +3,11 @@
 declare const styles: {
   readonly moduleSelectCards: string
   readonly moduleSelectCard: string
+  readonly cd: string
+  readonly ci: string
+  readonly cv: string
+  readonly cf: string
+  readonly ce: string
   readonly subscriptionTabButtons: string
   readonly subscriptionTabButton: string
   readonly selected: string

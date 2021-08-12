@@ -4,6 +4,32 @@
   .moduleSelectCard {
     cursor: pointer;
     margin: 0 31px;
+
+    &.cd {
+      box-shadow: unset !important;
+      background-color: var(--green-50) !important;
+      border-color: var(--green-500) !important;
+    }
+    &.ci {
+      box-shadow: unset !important;
+      background-color: var(--primary-1) !important;
+      border-color: var(--primary-5) !important;
+    }
+    &.cv {
+      box-shadow: unset !important;
+      background-color: var(--purple-50) !important;
+      border-color: var(--purple-500) !important;
+    }
+    &.cf {
+      box-shadow: unset !important;
+      background-color: var(--orange-50) !important;
+      border-color: var(--orange-500) !important;
+    }
+    &.ce {
+      box-shadow: unset !important;
+      background-color: var(--teal-50) !important;
+      border-color: var(--teal-500) !important;
+    }
   }
 
   :first-child {
@@ -11,7 +37,7 @@
   }
 
   :last-child {
-    margin-left: 0;
+    margin-right: 0;
   }
 }
 
