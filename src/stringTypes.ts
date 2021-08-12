@@ -132,6 +132,8 @@ export interface StringsMap {
   'common.editVariableType': string
   'common.editYaml': string
   'common.enableGitSyncPipeline': string
+  'common.environmentCreated': string
+  'common.environmentUpdated': string
   'common.errorCount': string
   'common.errorHandler.issueCouldBe': string
   'common.errorHandler.tryTheseSuggestions': string
@@ -367,6 +369,8 @@ export interface StringsMap {
   'common.selectDefaultExperience': string
   'common.selectUserGroups': string
   'common.selectVersion': string
+  'common.serviceCreated': string
+  'common.serviceUpdated': string
   'common.setAsDefault': string
   'common.shell': string
   'common.showLess': string
