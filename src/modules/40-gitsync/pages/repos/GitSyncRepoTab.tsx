@@ -541,7 +541,7 @@ const GitSyncRepoTab: React.FC = () => {
         />
 
         <Container background={Color.GREY_100} padding="small" flex>
-          <Icon name="connectivity-mode" size={18} margin={{ right: 'small' }}></Icon>
+          <Icon name="connectivity-mode" size={24} margin={{ right: 'small' }}></Icon>
           <Text color={Color.GREY_800}>
             {getString('gitsync.connectivityModeLabel', { connectivityMode: capitalize(connectivityMode) })}
           </Text>

@@ -646,7 +646,6 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
               onClick={openDrawer}
               id="newConnectorBtn"
               data-test="newConnectorButton"
-              withoutBoxShadow
             />
             <RbacButton
               margin={{ left: 'small' }}
@@ -665,7 +664,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
               onClick={rerouteBasedOnContext}
               id="newYamlConnectorBtn"
               data-test="createViaYamlButton"
-              withoutBoxShadow
+              minimal
             />
             {isGitSyncEnabled && (
               <GitSyncStoreProvider>

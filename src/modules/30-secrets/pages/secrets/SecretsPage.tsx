@@ -83,7 +83,6 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ mock }) => {
               onClick={() => {
                 setOpenPopOver(true)
               }}
-              withoutBoxShadow
             />
             {openPopOver && (
               <Menu large>
@@ -107,6 +106,7 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ mock }) => {
           </Popover>
           <RbacButton
             text={getString('createViaYaml')}
+            minimal
             onClick={
               /* istanbul ignore next */ () => {
                 history.push(routes.toCreateSecretFromYaml({ accountId, orgIdentifier, projectIdentifier, module }))

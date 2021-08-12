@@ -47,9 +47,9 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
         >
           <svg
             fill="none"
-            height="18"
+            height="24"
             viewBox="0 0 24 24"
-            width="18"
+            width="24"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
@@ -869,9 +869,9 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
         >
           <svg
             fill="none"
-            height="18"
+            height="24"
             viewBox="0 0 24 24"
-            width="18"
+            width="24"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
@@ -1668,9 +1668,9 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
         >
           <svg
             fill="none"
-            height="18"
+            height="24"
             viewBox="0 0 24 24"
-            width="18"
+            width="24"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
@@ -2499,9 +2499,9 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
         >
           <svg
             fill="none"
-            height="18"
+            height="24"
             viewBox="0 0 24 24"
-            width="18"
+            width="24"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
