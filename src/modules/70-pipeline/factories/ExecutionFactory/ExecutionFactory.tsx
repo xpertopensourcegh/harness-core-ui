@@ -5,7 +5,8 @@ import type {
   StepDetailsRegister,
   ExecutionCardInfoRegister,
   ExecutionSummaryRegister,
-  ConsoleViewStepDetailsRegister
+  ConsoleViewStepDetailsRegister,
+  StageDetailsRegister
 } from './types'
 
 export interface ExecutionFactoryConstruct {
@@ -25,6 +26,8 @@ export class ExecutionFactory {
   private consoleViewStepDetailsMap = new Map<StepType, ConsoleViewStepDetailsRegister>()
 
   private defaultConsoleViewStepDetails: ConsoleViewStepDetailsRegister
+
+  private stageDetailsMap = new Map<StageType, StageDetailsRegister>()
 
   constructor(opt: ExecutionFactoryConstruct) {
     this.defaultStepDetails = opt.defaultStepDetails
@@ -66,5 +69,13 @@ export class ExecutionFactory {
 
   getConsoleViewStepDetails(type: StepType): ConsoleViewStepDetailsRegister {
     return this.consoleViewStepDetailsMap.get(type) || this.defaultConsoleViewStepDetails
+  }
+
+  registerStageDetails(type: StageType, data: StageDetailsRegister): void {
+    this.stageDetailsMap.set(type, data)
+  }
+
+  getStageDetails(type: StageType): StageDetailsRegister | null {
+    return this.stageDetailsMap.get(type) || null
   }
 }

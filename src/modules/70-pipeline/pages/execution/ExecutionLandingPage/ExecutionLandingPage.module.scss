@@ -1,6 +1,8 @@
-@import '../ExecutionVars';
-
 .main {
+  --execution-header-height: 117px;
+  --execution-tabs-height: 50px;
+  --execution-stage-details-height: 84px;
+  --execution-children-height: calc(100vh - var(--execution-header-height) - var(--execution-tabs-height));
   height: 100vh;
   display: grid;
   grid-template-columns: 1fr 60px;
@@ -16,15 +18,14 @@
   .header {
     padding: var(--spacing-5) var(--spacing-7);
     border-bottom: 1px solid var(--grey-200);
-    height: $header-height;
+    height: var(--execution-header-height);
   }
 
   .childContainer {
     position: relative;
     flex: 1 0 auto;
-    --execution-sicky-top: 20px;
-    --execution-children-height: calc(100vh - #{$header-height + $tabs-height} - var(--execution-sicky-top));
-    height: calc(var(--execution-children-height) + var(--execution-sicky-top));
+
+    height: calc(var(--execution-children-height));
 
     &[data-view='graph'] {
       overflow: auto;

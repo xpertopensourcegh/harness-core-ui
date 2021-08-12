@@ -5,7 +5,7 @@ import { has, defaultTo } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
-import ExecutionLayout from '@pipeline/components/ExecutionLayout/ExecutionLayout'
+import ExecutionLayoutToggle from '@pipeline/components/ExecutionLayout/ExecutionLayoutToggle'
 import type { ExecutionPageQueryParams } from '@pipeline/utils/types'
 import { useUpdateQueryParams } from '@common/hooks'
 import type { ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
@@ -140,7 +140,7 @@ export default function ExecutionStepDetails(): React.ReactElement {
               </Menu>
             </Popover>
           ) : null}
-          <ExecutionLayout.Toggle />
+          <ExecutionLayoutToggle />
         </div>
       </div>
       {loading ? <Spinner /> : <StepDetails step={selectedStep} stageType={stageType} />}

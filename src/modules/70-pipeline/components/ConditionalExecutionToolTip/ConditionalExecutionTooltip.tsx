@@ -8,7 +8,7 @@ import {
   WhenConditionStatus
 } from '@pipeline/components/PipelineSteps/AdvancedSteps/ConditionalExecutionPanel/ConditionalExecutionPanelUtils'
 import { StepMode as Modes } from '@pipeline/utils/stepUtils'
-import type { ResolvedVariableInterface } from '@pipeline/pages/execution/ExecutionPipelineView/ExecutionGraphView/common/components/ConditionalExecutionToolTip/ConditionalExecutionTooltipWrapper'
+import type { ResolvedVariableInterface } from './ConditionalExecutionTooltipWrapper'
 
 export interface ConditionalExecutionTooltipProps {
   mode: Modes

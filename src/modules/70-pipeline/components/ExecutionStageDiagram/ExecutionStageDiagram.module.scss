@@ -9,9 +9,7 @@
   $dot-size: 1px;
   $dot-space: 10px;
 
-  background: linear-gradient(90deg, $bg-color ($dot-space - $dot-size), transparent 1%) center,
-    linear-gradient($bg-color ($dot-space - $dot-size), transparent 1%) center, $dot-color;
-  background-size: $dot-space $dot-space;
+  background: var(--primary-1);
 
   &.white-background {
     background: linear-gradient(90deg, var(--white) ($dot-space - $dot-size), transparent 1%) center,

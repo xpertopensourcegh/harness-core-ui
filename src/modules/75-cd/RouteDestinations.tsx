@@ -98,6 +98,7 @@ import CDTrialHomePage from './pages/home/CDTrialHomePage'
 
 import { CDExecutionCardSummary } from './components/CDExecutionCardSummary/CDExecutionCardSummary'
 import { CDExecutionSummary } from './components/CDExecutionSummary/CDExecutionSummary'
+import { CDStageDetails } from './components/CDStageDetails/CDStageDetails'
 import { ManifestInputForm } from './components/ManifestInputForm/ManifestInputForm'
 
 executionFactory.registerCardInfo(StageType.DEPLOY, {
@@ -107,6 +108,10 @@ executionFactory.registerCardInfo(StageType.DEPLOY, {
 
 executionFactory.registerSummary(StageType.DEPLOY, {
   component: CDExecutionSummary
+})
+
+executionFactory.registerStageDetails(StageType.DEPLOY, {
+  component: CDStageDetails
 })
 
 const RedirectToAccessControlHome = (): React.ReactElement => {

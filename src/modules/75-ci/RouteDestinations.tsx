@@ -91,6 +91,7 @@ import BuildCommits from './pages/build/sections/commits/BuildCommits'
 import CITrialHomePage from './pages/home/CITrialHomePage'
 import { CIExecutionCardSummary } from './components/CIExecutionCardSummary/CIExecutionCardSummary'
 import { CIExecutionSummary } from './components/CIExecutionSummary/CIExecutionSummary'
+import { CIStageDetails } from './components/CIStageDetails/CIStageDetails'
 
 executionFactory.registerCardInfo(StageType.BUILD, {
   icon: 'ci-main',
@@ -99,6 +100,10 @@ executionFactory.registerCardInfo(StageType.BUILD, {
 
 executionFactory.registerSummary(StageType.BUILD, {
   component: CIExecutionSummary
+})
+
+executionFactory.registerStageDetails(StageType.BUILD, {
+  component: CIStageDetails
 })
 
 const RedirectToAccessControlHome = (): React.ReactElement => {

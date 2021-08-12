@@ -1,7 +1,6 @@
 .main {
   background: var(--white);
-  min-height: var(--execution-children-height, 100vh);
-  border-top: 1px solid var(--primary-3);
+  min-height: calc(var(--execution-children-height) - var(--execution-stage-details-height));
 
   & > :global(.bp3-spinner) {
     flex: 1;

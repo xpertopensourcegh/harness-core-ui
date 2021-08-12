@@ -101,7 +101,7 @@
   }
 
   &[data-mode='step-details'] {
-    height: var(--execution-children-height);
+    height: calc(var(--execution-children-height) - var(--execution-stage-details-height));
 
     .search {
       transform: scale(0.8);

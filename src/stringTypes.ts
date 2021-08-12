@@ -257,6 +257,7 @@ export interface StringsMap {
   'common.manage': string
   'common.member': string
   'common.monthly': string
+  'common.moreInfo': string
   'common.moreRefineSearch': string
   'common.move': string
   'common.myProfile': string

@@ -20,9 +20,9 @@ import { DynamicPopover } from '@common/exports'
 import HoverCard from '@pipeline/components/HoverCard/HoverCard'
 import type { ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
 import { StepMode as Modes } from '@pipeline/utils/stepUtils'
+import ConditionalExecutionTooltipWrapper from '@pipeline/components/ConditionalExecutionToolTip/ConditionalExecutionTooltipWrapper'
 import BarrierStepTooltip from './components/BarrierStepTooltip'
 import ResourceConstraintTooltip from './components/ResourceConstraints/ResourceConstraints'
-import ConditionalExecutionTooltipWrapper from '../common/components/ConditionalExecutionToolTip/ConditionalExecutionTooltipWrapper'
 import css from './ExecutionStageDetails.module.scss'
 
 export interface ExecutionStageDetailsProps {

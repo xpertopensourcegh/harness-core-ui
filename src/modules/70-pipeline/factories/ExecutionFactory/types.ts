@@ -13,6 +13,15 @@ export interface StepDetailsRegister {
   component: React.ComponentType<StepDetailProps>
 }
 
+export interface StageDetailProps {
+  stage: GraphLayoutNode
+  stageType?: StageType
+}
+
+export interface StageDetailsRegister {
+  component: React.ComponentType<StageDetailProps>
+}
+
 export interface ExecutionCardInfoProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: Record<string, any>

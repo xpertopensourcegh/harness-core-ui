@@ -61,6 +61,46 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
           </label>
           <label
             class="label"
+            title="pipeline.execution.layouts.bottom"
+          >
+            <input
+              name="layout"
+              type="radio"
+              value="BOTTOM"
+            />
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="layout-bottom"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 4.233 4.233"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g
+                  fill="none"
+                  transform="matrix(.21166 0 0 .21166 0 .423)"
+                >
+                  <rect
+                    fill="#f2f2f2"
+                    height="15"
+                    rx="0.5"
+                    stroke="#9ea9b4"
+                    width="19"
+                    x="0.5"
+                    y="0.5"
+                  />
+                  <path
+                    d="M1 10h18v5H1z"
+                    fill="#9ea9b4"
+                  />
+                </g>
+              </svg>
+            </span>
+          </label>
+          <label
+            class="label"
             title="pipeline.execution.layouts.float"
           >
             <input
@@ -400,6 +440,46 @@ exports[`<ExecutionStepDetails /> tests retried steps does not fetches data for 
                   />
                   <path
                     d="M12 1h7v14h-7z"
+                    fill="#9ea9b4"
+                  />
+                </g>
+              </svg>
+            </span>
+          </label>
+          <label
+            class="label"
+            title="pipeline.execution.layouts.bottom"
+          >
+            <input
+              name="layout"
+              type="radio"
+              value="BOTTOM"
+            />
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="layout-bottom"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 4.233 4.233"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g
+                  fill="none"
+                  transform="matrix(.21166 0 0 .21166 0 .423)"
+                >
+                  <rect
+                    fill="#f2f2f2"
+                    height="15"
+                    rx="0.5"
+                    stroke="#9ea9b4"
+                    width="19"
+                    x="0.5"
+                    y="0.5"
+                  />
+                  <path
+                    d="M1 10h18v5H1z"
                     fill="#9ea9b4"
                   />
                 </g>
@@ -755,6 +835,46 @@ exports[`<ExecutionStepDetails /> tests retried steps fetches data for retry ste
           </label>
           <label
             class="label"
+            title="pipeline.execution.layouts.bottom"
+          >
+            <input
+              name="layout"
+              type="radio"
+              value="BOTTOM"
+            />
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="layout-bottom"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 4.233 4.233"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g
+                  fill="none"
+                  transform="matrix(.21166 0 0 .21166 0 .423)"
+                >
+                  <rect
+                    fill="#f2f2f2"
+                    height="15"
+                    rx="0.5"
+                    stroke="#9ea9b4"
+                    width="19"
+                    x="0.5"
+                    y="0.5"
+                  />
+                  <path
+                    d="M1 10h18v5H1z"
+                    fill="#9ea9b4"
+                  />
+                </g>
+              </svg>
+            </span>
+          </label>
+          <label
+            class="label"
             title="pipeline.execution.layouts.float"
           >
             <input
@@ -1101,6 +1221,46 @@ exports[`<ExecutionStepDetails /> tests retried steps shows loader while loading
           </label>
           <label
             class="label"
+            title="pipeline.execution.layouts.bottom"
+          >
+            <input
+              name="layout"
+              type="radio"
+              value="BOTTOM"
+            />
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="layout-bottom"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 4.233 4.233"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g
+                  fill="none"
+                  transform="matrix(.21166 0 0 .21166 0 .423)"
+                >
+                  <rect
+                    fill="#f2f2f2"
+                    height="15"
+                    rx="0.5"
+                    stroke="#9ea9b4"
+                    width="19"
+                    x="0.5"
+                    y="0.5"
+                  />
+                  <path
+                    d="M1 10h18v5H1z"
+                    fill="#9ea9b4"
+                  />
+                </g>
+              </svg>
+            </span>
+          </label>
+          <label
+            class="label"
             title="pipeline.execution.layouts.float"
           >
             <input
@@ -1300,6 +1460,46 @@ exports[`<ExecutionStepDetails /> tests retried steps shows step selection 1`] =
                   />
                   <path
                     d="M12 1h7v14h-7z"
+                    fill="#9ea9b4"
+                  />
+                </g>
+              </svg>
+            </span>
+          </label>
+          <label
+            class="label"
+            title="pipeline.execution.layouts.bottom"
+          >
+            <input
+              name="layout"
+              type="radio"
+              value="BOTTOM"
+            />
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="layout-bottom"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 4.233 4.233"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g
+                  fill="none"
+                  transform="matrix(.21166 0 0 .21166 0 .423)"
+                >
+                  <rect
+                    fill="#f2f2f2"
+                    height="15"
+                    rx="0.5"
+                    stroke="#9ea9b4"
+                    width="19"
+                    x="0.5"
+                    y="0.5"
+                  />
+                  <path
+                    d="M1 10h18v5H1z"
                     fill="#9ea9b4"
                   />
                 </g>
