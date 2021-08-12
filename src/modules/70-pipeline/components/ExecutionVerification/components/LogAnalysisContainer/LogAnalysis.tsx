@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react'
-import { Container, Pagination, Select, Text } from '@wings-software/uicore'
+import React, { useCallback, useMemo } from 'react'
+import { Color, Container, Icon, Pagination, Select, Text } from '@wings-software/uicore'
 import { getRiskColorValue } from '@common/components/HeatMap/ColorUtils'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { useStrings } from 'framework/strings'
@@ -10,7 +10,15 @@ import { getClusterTypes, mapClusterType } from './LogAnalysis.utils'
 import styles from './LogAnalysis.module.scss'
 
 export default function LogAnalysis(props: LogAnalysisProps): JSX.Element {
-  const { data, clusterChartData, goToPage, isLoading, selectedClusterType, setSelectedClusterType } = props
+  const {
+    data,
+    clusterChartData,
+    goToPage,
+    logsLoading,
+    clusterChartLoading,
+    selectedClusterType,
+    setSelectedClusterType
+  } = props
   const { getString } = useStrings()
 
   const logAnalysisData = useMemo((): LogAnalysisRowData[] => {
@@ -39,11 +47,49 @@ export default function LogAnalysis(props: LogAnalysisProps): JSX.Element {
     )
   }, [data])
 
+  const renderLogsData = useCallback(() => {
+    if (logsLoading) {
+      return (
+        <Container className={styles.loading}>
+          <Icon name="steps-spinner" color={Color.GREY_400} size={30} />
+        </Container>
+      )
+    } else if (!logAnalysisData.length) {
+      return (
+        <Container className={styles.noData}>
+          <NoDataCard message={getString('pipeline.verification.logs.noAnalysis')} icon="warning-sign" />
+        </Container>
+      )
+    } else {
+      return <LogAnalysisRow className={styles.logAnalysisRow} data={logAnalysisData} />
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [logsLoading, logAnalysisData.length])
+
+  const renderChartCluster = useCallback(() => {
+    if (clusterChartLoading) {
+      return (
+        <Container className={styles.loading}>
+          <Icon name="steps-spinner" color={Color.GREY_400} size={30} />
+        </Container>
+      )
+    } else if (!clusterChartData?.resource?.length) {
+      return (
+        <Container className={styles.noData}>
+          <NoDataCard message={getString('pipeline.verification.logs.noAnalysis')} icon="warning-sign" />
+        </Container>
+      )
+    } else {
+      return <ClusterChart data={clusterChartData?.resource || []} />
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clusterChartData?.resource?.length, clusterChartLoading])
+
   return (
     <Container className={styles.logsTab}>
       <Container className={styles.panel}>
         <Text font={{ weight: 'bold' }}>{getString('pipeline.verification.logs.logCluster')}</Text>
-        <ClusterChart data={clusterChartData?.resource || []} />
+        {renderChartCluster()}
       </Container>
       <Select
         value={selectedClusterType}
@@ -52,12 +98,7 @@ export default function LogAnalysis(props: LogAnalysisProps): JSX.Element {
         inputProps={{ placeholder: getString('pipeline.verification.logs.filterByClusterType') }}
         onChange={setSelectedClusterType}
       />
-      <Container className={styles.tableContent}>
-        {!logAnalysisData.length && !isLoading && (
-          <NoDataCard message={getString('pipeline.verification.logs.noAnalysis')} icon="warning-sign" />
-        )}
-        {!!logAnalysisData.length && <LogAnalysisRow className={styles.logAnalysisRow} data={logAnalysisData} />}
-      </Container>
+      <Container className={styles.tableContent}>{renderLogsData()}</Container>
       {!!data?.resource?.totalPages && (
         <Pagination
           pageSize={data.resource.pageSize as number}

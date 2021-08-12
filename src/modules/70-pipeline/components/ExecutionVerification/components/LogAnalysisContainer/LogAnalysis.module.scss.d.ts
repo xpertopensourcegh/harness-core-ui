@@ -6,5 +6,8 @@ declare const styles: {
   readonly logAnalysisRow: string
   readonly panel: string
   readonly clusterTypeFilter: string
+  readonly loading: string
+  readonly noData: string
+  readonly refreshButton: string
 }
 export default styles

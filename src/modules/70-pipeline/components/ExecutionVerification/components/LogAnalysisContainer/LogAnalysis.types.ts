@@ -25,7 +25,8 @@ export interface LogAnalysisProps {
   data: RestResponsePageLogAnalysisClusterDTO | null
   clusterChartData: RestResponseListLogAnalysisClusterChartDTO | null
   goToPage(val: number): void
-  isLoading: boolean
+  logsLoading: boolean
+  clusterChartLoading: boolean
   selectedClusterType: SelectOption
   setSelectedClusterType: (clusterType: SelectOption) => void
 }
