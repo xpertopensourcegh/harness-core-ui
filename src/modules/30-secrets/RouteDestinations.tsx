@@ -19,7 +19,7 @@ import SecretResourceRenderer from '@secrets/components/SecretResourceRenderer/S
 import { AccountSideNavProps } from '@common/RouteDestinations'
 
 RbacFactory.registerResourceTypeHandler(ResourceType.SECRET, {
-  icon: 'lock',
+  icon: 'res-secrets',
   label: 'common.secrets',
   category: ResourceCategory.SHARED_RESOURCES,
   permissionLabels: {

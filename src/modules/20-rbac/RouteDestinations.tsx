@@ -41,7 +41,7 @@ RbacFactory.registerResourceCategory(ResourceCategory.ADMINSTRATIVE_FUNCTIONS, {
 })
 
 RbacFactory.registerResourceTypeHandler(ResourceType.USER, {
-  icon: 'nav-project',
+  icon: 'res-users',
   label: 'users',
   category: ResourceCategory.ADMINSTRATIVE_FUNCTIONS,
   permissionLabels: {
@@ -52,7 +52,7 @@ RbacFactory.registerResourceTypeHandler(ResourceType.USER, {
 })
 
 RbacFactory.registerResourceTypeHandler(ResourceType.USERGROUP, {
-  icon: 'nav-project',
+  icon: 'res-userGroups',
   label: 'common.userGroups',
   category: ResourceCategory.ADMINSTRATIVE_FUNCTIONS,
   permissionLabels: {
@@ -62,7 +62,7 @@ RbacFactory.registerResourceTypeHandler(ResourceType.USERGROUP, {
 })
 
 RbacFactory.registerResourceTypeHandler(ResourceType.RESOURCEGROUP, {
-  icon: 'nav-project',
+  icon: 'res-resourceGroups',
   label: 'resourceGroups',
   category: ResourceCategory.ADMINSTRATIVE_FUNCTIONS,
   permissionLabels: {
@@ -73,7 +73,7 @@ RbacFactory.registerResourceTypeHandler(ResourceType.RESOURCEGROUP, {
 })
 
 RbacFactory.registerResourceTypeHandler(ResourceType.ROLE, {
-  icon: 'nav-project',
+  icon: 'res-roles',
   label: 'roles',
   category: ResourceCategory.ADMINSTRATIVE_FUNCTIONS,
   permissionLabels: {

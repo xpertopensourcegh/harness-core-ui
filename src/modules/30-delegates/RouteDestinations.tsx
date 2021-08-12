@@ -21,7 +21,7 @@ import DelegateResourceRenderer from '@delegates/components/DelegateResourceRend
 import { AccountSideNavProps } from '@common/RouteDestinations'
 
 RbacFactory.registerResourceTypeHandler(ResourceType.DELEGATE, {
-  icon: 'main-delegates',
+  icon: 'res-delegates',
   label: 'delegate.delegates',
   category: ResourceCategory.SHARED_RESOURCES,
   permissionLabels: {
@@ -36,7 +36,7 @@ RbacFactory.registerResourceTypeHandler(ResourceType.DELEGATE, {
 })
 
 RbacFactory.registerResourceTypeHandler(ResourceType.DELEGATECONFIGURATION, {
-  icon: 'main-delegates',
+  icon: 'res-delegates',
   label: 'delegate.delegateConfigurations',
   category: ResourceCategory.SHARED_RESOURCES,
   permissionLabels: {

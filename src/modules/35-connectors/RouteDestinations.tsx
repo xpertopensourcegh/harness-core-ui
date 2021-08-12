@@ -14,7 +14,7 @@ import { AccountSideNavProps } from '@common/RouteDestinations'
 import ConnectorResourceModalBody from './components/ConnectorResourceModalBody/ConnectorResourceModalBody'
 
 RbacFactory.registerResourceTypeHandler(ResourceType.CONNECTOR, {
-  icon: 'lock',
+  icon: 'res-connectors',
   label: 'connectorsLabel',
   category: ResourceCategory.SHARED_RESOURCES,
   permissionLabels: {

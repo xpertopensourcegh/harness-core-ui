@@ -41,7 +41,7 @@ const ResourcesCard: React.FC<ResourcesCardProps> = ({
             color={Color.BLACK}
             font={{ weight: 'semi-bold' }}
             icon={icon}
-            iconProps={{ size: 20, padding: { right: 'medium' } }}
+            iconProps={{ size: 30, padding: { right: 'medium' } }}
           >
             {getString(label)}
           </Text>
@@ -59,6 +59,7 @@ const ResourcesCard: React.FC<ResourcesCardProps> = ({
               <Button
                 intent="primary"
                 minimal
+                data-testid={`addResources-${resourceType}`}
                 disabled={disableAddingResources}
                 className={css.addResourceBtn}
                 onClick={() => {
