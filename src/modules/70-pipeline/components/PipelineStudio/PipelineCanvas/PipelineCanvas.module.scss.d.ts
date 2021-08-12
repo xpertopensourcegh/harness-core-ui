@@ -16,16 +16,15 @@ declare const styles: {
   readonly tagRender: string
   readonly runPipelineBtn: string
   readonly discardBtn: string
+  readonly pipelineMetadataContainer: string
   readonly pipelineNameContainer: string
   readonly pipelineName: string
+  readonly tagsContainer: string
   readonly pipelineEditBtn: string
   readonly pipelineIcon: string
   readonly gitDetails: string
   readonly repoDetails: string
-  readonly repoName: string
-  readonly folderName: string
   readonly branchDetails: string
-  readonly branchName: string
   readonly branchSelector: string
   readonly runPipelineDialog: string
   readonly modalCard: string
