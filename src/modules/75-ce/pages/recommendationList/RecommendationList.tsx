@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Card, Text, Layout, Container, Color } from '@wings-software/uicore'
+import { Card, Text, Layout, Container, Color, Icon } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
 
@@ -16,8 +16,11 @@ import routes from '@common/RouteDefinitions'
 import { Page } from '@common/exports'
 import Table from '@common/components/Table/Table'
 import formatCost from '@ce/utils/formatCost'
+import EmptyView from '@ce/images/empty-state.svg'
+// import OverviewAddCluster from '@ce/components/OverviewPage/OverviewAddCluster'
 import RecommendationSavingsCard from '../../components/RecommendationSavingsCard/RecommendationSavingsCard'
 import RecommendationFilters from '../../components/RecommendationFilters'
+import css from './RecommendationList.module.scss'
 
 interface RecommendationListProps {
   data: Array<RecommendationItemDto>
@@ -25,6 +28,7 @@ interface RecommendationListProps {
   filters: Record<string, string[]>
   setCostFilters: React.Dispatch<React.SetStateAction<Record<string, number>>>
   costFilters: Record<string, number>
+  fetching: boolean
   pagination: {
     itemCount: number
     pageSize: number
@@ -40,11 +44,38 @@ const RecommendationsList: React.FC<RecommendationListProps> = ({
   setFilters,
   setCostFilters,
   costFilters,
-  pagination
+  pagination,
+  fetching
 }) => {
   const history = useHistory()
   const { accountId } = useParams<{ accountId: string }>()
   const { getString } = useStrings()
+
+  if (fetching) {
+    return (
+      <Card elevation={1} className={css.errorContainer}>
+        <Icon color="blue500" name="spinner" size={30} />
+      </Card>
+    )
+  }
+
+  // Enable it once clusterData being passed as context
+  // if (!clusterData) {
+  //   return (
+  //     <Card elevation={1} className={css.errorContainer}>
+  //       <OverviewAddCluster />
+  //     </Card>
+  //   )
+  // }
+
+  if (!data.length) {
+    return (
+      <Card elevation={1} className={css.errorContainer}>
+        <img src={EmptyView} />
+        <Text className={css.errorText}>{getString('ce.pageErrorMsg.recommendationNoData')}</Text>
+      </Card>
+    )
+  }
 
   const NameCell: Renderer<CellProps<RecommendationItemDto>> = cell => {
     const originalRowData = cell.row.original
@@ -218,36 +249,36 @@ const RecommendationList: React.FC = () => {
     gotoPage: gotoPage
   }
 
+  const isEmptyView = !fetching && !recommendationItems?.length
+
   return (
     <>
       <Page.Header title="Recommendations"></Page.Header>
       <Page.Body loading={fetching}>
         <Container padding="xlarge" height="100%">
-          {recommendationItems.length ? (
-            <Layout.Vertical spacing="large">
-              <Layout.Horizontal spacing="medium">
-                <RecommendationSavingsCard
-                  title={getString('ce.recommendation.listPage.monthlySavingsText')}
-                  amount={formatCost(totalSavings)}
-                  iconName="money-icon"
-                />
-                <RecommendationSavingsCard
-                  title={getString('ce.recommendation.listPage.monthlyForcastedCostText')}
-                  amount={formatCost(totalMonthlyCost)}
-                  subTitle={getString('ce.recommendation.listPage.forecatedCostSubText')}
-                />
-              </Layout.Horizontal>
-
-              <RecommendationsList
-                pagination={pagination}
-                setFilters={setFilters}
-                filters={filters}
-                setCostFilters={setCostFilters}
-                costFilters={costFilters}
-                data={recommendationItems as Array<RecommendationItemDto>}
+          <Layout.Vertical spacing="large">
+            <Layout.Horizontal spacing="medium">
+              <RecommendationSavingsCard
+                title={getString('ce.recommendation.listPage.monthlySavingsText')}
+                amount={isEmptyView ? '$-' : formatCost(totalMonthlyCost)}
+                iconName="money-icon"
               />
-            </Layout.Vertical>
-          ) : null}
+              <RecommendationSavingsCard
+                title={getString('ce.recommendation.listPage.monthlyForcastedCostText')}
+                amount={isEmptyView ? '$-' : formatCost(totalSavings)}
+                subTitle={getString('ce.recommendation.listPage.forecatedCostSubText')}
+              />
+            </Layout.Horizontal>
+            <RecommendationsList
+              pagination={pagination}
+              setFilters={setFilters}
+              filters={filters}
+              setCostFilters={setCostFilters}
+              costFilters={costFilters}
+              fetching={fetching}
+              data={recommendationItems as Array<RecommendationItemDto>}
+            />
+          </Layout.Vertical>
         </Container>
       </Page.Body>
     </>

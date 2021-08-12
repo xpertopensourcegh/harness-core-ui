@@ -2640,6 +2640,9 @@ export interface StringsMap {
   'ce.overview.title': string
   'ce.overview.totalCost': string
   'ce.overview.workload': string
+  'ce.pageErrorMsg.noDataMsg': string
+  'ce.pageErrorMsg.perspectiveNoData': string
+  'ce.pageErrorMsg.recommendationNoData': string
   'ce.perspectives.budgets.actualSpend': string
   'ce.perspectives.budgets.configureAlerts.actual': string
   'ce.perspectives.budgets.configureAlerts.basedOn': string

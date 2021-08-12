@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
-import { Button, Heading, Layout, Container, Icon } from '@wings-software/uicore'
+import cx from 'classnames'
+import { Button, Heading, Layout, Container, Text, Color } from '@wings-software/uicore'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import routes from '@common/RouteDefinitions'
@@ -41,6 +42,7 @@ import {
   getGMTEndDateTime,
   CE_DATE_FORMAT_INTERNAL
 } from '@ce/utils/momentUtils'
+import EmptyView from '@ce/images/empty-state.svg'
 import { CCM_CHART_TYPES } from '@ce/constants'
 import { DAYS_FOR_TICK_INTERVAL } from '@ce/components/CloudCostInsightChart/Chart'
 import css from './PerspectiveDetailsPage.module.scss'
@@ -112,7 +114,8 @@ const PerspectiveHeader: React.FC<{ title: string; viewType: string }> = ({ titl
 
 const PerspectiveDetailsPage: React.FC = () => {
   const history = useHistory()
-  const { perspectiveId, accountId } = useParams<PerspectiveParams>() // TODO: accountId
+  const { perspectiveId, accountId } = useParams<PerspectiveParams>()
+  const { getString } = useStrings()
 
   const { data: perspectiveRes, loading } = useGetPerspective({
     queryParams: {
@@ -241,6 +244,12 @@ const PerspectiveDetailsPage: React.FC = () => {
     )
   }
 
+  const isChartGridEmpty =
+    chartData?.perspectiveTimeSeriesStats?.stats?.length === 0 &&
+    gridData?.perspectiveGrid?.data?.length === 0 &&
+    !chartFetching &&
+    !gridFetching
+
   return (
     <>
       <PageHeader
@@ -263,44 +272,56 @@ const PerspectiveDetailsPage: React.FC = () => {
         />
         <PerspectiveSummary data={summaryData?.perspectiveTrendStats as any} fetching={summaryFetching} />
         <Container margin="xlarge" background="white" className={css.chartGridContainer}>
-          <Container padding="small">
-            <PerspectiveExplorerGroupBy
-              chartType={chartType}
-              setChartType={setChartType}
-              groupBy={groupBy}
-              setGroupBy={setGroupBy}
-            />
-            {chartFetching ? (
-              <Container className={css.chartLoadingContainer}>
-                <Icon name="spinner" color="blue500" size={30} />
-              </Container>
-            ) : null}
-            {!chartFetching && chartData?.perspectiveTimeSeriesStats ? (
+          {!isChartGridEmpty && (
+            <Container padding="small">
+              <PerspectiveExplorerGroupBy
+                chartType={chartType}
+                setChartType={setChartType}
+                groupBy={groupBy}
+                setGroupBy={setGroupBy}
+              />
               <CloudCostInsightChart
                 showLegends={true}
                 chartType={chartType}
                 columnSequence={columnSequence}
                 setFilterUsingChartClick={setFilterUsingChartClick}
                 fetching={chartFetching}
-                data={chartData.perspectiveTimeSeriesStats as any}
+                data={chartData?.perspectiveTimeSeriesStats as any}
                 aggregation={aggregation}
-                xAxisPointCount={chartData?.perspectiveTimeSeriesStats.stats?.length || DAYS_FOR_TICK_INTERVAL + 1}
+                xAxisPointCount={chartData?.perspectiveTimeSeriesStats?.stats?.length || DAYS_FOR_TICK_INTERVAL + 1}
               />
-            ) : !chartFetching ? (
-              <Container className={css.chartLoadingContainer}>
-                <Icon name="deployment-failed-legacy" size={30} />
-              </Container>
-            ) : null}
-          </Container>
-          <PerspectiveGrid
-            goToWorkloadDetails={goToWorkloadDetails}
-            isClusterOnly={isClusterOnly}
-            gridData={gridData?.perspectiveGrid?.data as any}
-            gridFetching={gridFetching}
-            columnSequence={columnSequence}
-            setColumnSequence={colSeq => setColumnSequence(colSeq)}
-            groupBy={groupBy}
-          />
+            </Container>
+          )}
+          {!isChartGridEmpty && (
+            <PerspectiveGrid
+              goToWorkloadDetails={goToWorkloadDetails}
+              isClusterOnly={isClusterOnly}
+              gridData={gridData?.perspectiveGrid?.data as any}
+              gridFetching={gridFetching}
+              columnSequence={columnSequence}
+              setColumnSequence={colSeq => setColumnSequence(colSeq)}
+              groupBy={groupBy}
+            />
+          )}
+          {isChartGridEmpty && (
+            <Container className={cx(css.chartGridContainer, css.empty)}>
+              <img src={EmptyView} />
+              <Text
+                margin={{
+                  top: 'large',
+                  bottom: 'xsmall'
+                }}
+                font="small"
+                style={{
+                  fontWeight: 600
+                }}
+                color={Color.GREY_500}
+              >
+                {getString('ce.pageErrorMsg.noDataMsg')}
+              </Text>
+              <Text font="small">{getString('ce.pageErrorMsg.perspectiveNoData')}</Text>
+            </Container>
+          )}
         </Container>
       </PageBody>
     </>

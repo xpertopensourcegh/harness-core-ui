@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react'
-import { Container, Text, FlexExpander, Layout } from '@wings-software/uicore'
+import { Container, Text, FlexExpander, Layout, Color } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { noop } from 'lodash-es'
 import cx from 'classnames'
@@ -32,6 +32,7 @@ import PerspectiveGrid from '@ce/components/PerspectiveGrid/PerspectiveGrid'
 import { Page } from '@common/exports'
 import { TimeGranularityDropDown } from '@ce/components/PersepectiveExplorerFilters/PerspectiveExplorerFilters'
 import WorkloadSummary from '@ce/components/WorkloadSummary/WorkloadSummary'
+import EmptyView from '@ce/images/empty-state.svg'
 import { Aggregation, AggregationFunctionMapping } from './constants'
 import css from './WorkloadDetailsPage.module.scss'
 
@@ -141,6 +142,12 @@ const WorkloadDetailsPage: () => JSX.Element = () => {
   const { data: chartData, fetching: chartFetching } = chartResult
   const { data: summaryData, fetching: summaryFetching } = summaryResult
 
+  const isChartGridEmpty =
+    chartData?.perspectiveTimeSeriesStats?.cpuLimit?.length === 0 &&
+    gridData?.perspectiveGrid?.data?.length === 0 &&
+    !chartFetching &&
+    !gridFetching
+
   const infoData = summaryData?.perspectiveGrid?.data?.length
     ? (summaryData.perspectiveGrid.data[0]?.clusterData as ClusterData)
     : ({} as ClusterData)
@@ -200,61 +207,82 @@ const WorkloadDetailsPage: () => JSX.Element = () => {
             infoData={infoData}
           />
         </Container>
-        <Container background="white">
-          <Container padding="large">
-            <Container
-              margin={{
-                bottom: 'medium'
-              }}
-            >
-              <Layout.Horizontal spacing="small">
-                <Text className={css.aggregationText} padding="xsmall" font="small">
-                  {getString('ce.perspectives.workloadDetails.aggregation.text')}
-                </Text>
-                <div
-                  className={cx(css.aggregationTags, {
-                    [css.active]: chartDataAggregation === Aggregation.TimeWeighted
-                  })}
-                  onClick={() => {
-                    setChartDataAggregation(Aggregation.TimeWeighted)
-                  }}
-                >
-                  {getString('ce.perspectives.workloadDetails.aggregation.timeWeighted')}
-                </div>
-                <div
-                  className={cx(css.aggregationTags, {
-                    [css.active]: chartDataAggregation === Aggregation.Absolute
-                  })}
-                  onClick={() => {
-                    setChartDataAggregation(Aggregation.Absolute)
-                  }}
-                >
-                  {getString('ce.perspectives.workloadDetails.aggregation.absolute')}
-                </div>
-              </Layout.Horizontal>
+        {!isChartGridEmpty && (
+          <Container background="white">
+            <Container padding="large">
+              <Container
+                margin={{
+                  bottom: 'medium'
+                }}
+              >
+                <Layout.Horizontal spacing="small">
+                  <Text className={css.aggregationText} padding="xsmall" font="small">
+                    {getString('ce.perspectives.workloadDetails.aggregation.text')}
+                  </Text>
+                  <div
+                    className={cx(css.aggregationTags, {
+                      [css.active]: chartDataAggregation === Aggregation.TimeWeighted
+                    })}
+                    onClick={() => {
+                      setChartDataAggregation(Aggregation.TimeWeighted)
+                    }}
+                  >
+                    {getString('ce.perspectives.workloadDetails.aggregation.timeWeighted')}
+                  </div>
+                  <div
+                    className={cx(css.aggregationTags, {
+                      [css.active]: chartDataAggregation === Aggregation.Absolute
+                    })}
+                    onClick={() => {
+                      setChartDataAggregation(Aggregation.Absolute)
+                    }}
+                  >
+                    {getString('ce.perspectives.workloadDetails.aggregation.absolute')}
+                  </div>
+                </Layout.Horizontal>
+              </Container>
+              <CloudCostInsightChart
+                showLegends={false}
+                pageType={CCM_PAGE_TYPE.Workload}
+                chartType={CCM_CHART_TYPES.LINE}
+                columnSequence={[]}
+                fetching={chartFetching}
+                data={chartData?.perspectiveTimeSeriesStats as any}
+                aggregation={aggregation}
+                xAxisPointCount={DAYS_FOR_TICK_INTERVAL + 1}
+              />
             </Container>
-            <CloudCostInsightChart
-              showLegends={false}
-              pageType={CCM_PAGE_TYPE.Workload}
-              chartType={CCM_CHART_TYPES.LINE}
-              columnSequence={[]}
-              fetching={chartFetching}
-              data={chartData?.perspectiveTimeSeriesStats as any}
-              aggregation={aggregation}
-              xAxisPointCount={DAYS_FOR_TICK_INTERVAL + 1}
-            />
+            <Container>
+              <PerspectiveGrid
+                isClusterOnly={true}
+                gridData={gridData?.perspectiveGrid?.data as any}
+                gridFetching={gridFetching}
+                columnSequence={[]}
+                setColumnSequence={noop}
+                groupBy={GROUP_BY_POD}
+              />
+            </Container>
           </Container>
-          <Container>
-            <PerspectiveGrid
-              isClusterOnly={true}
-              gridData={gridData?.perspectiveGrid?.data as any}
-              gridFetching={gridFetching}
-              columnSequence={[]}
-              setColumnSequence={noop}
-              groupBy={GROUP_BY_POD}
-            />
+        )}
+        {isChartGridEmpty && (
+          <Container className={css.emptyContainer} background="white">
+            <img src={EmptyView} />
+            <Text
+              margin={{
+                top: 'large',
+                bottom: 'xsmall'
+              }}
+              font="small"
+              style={{
+                fontWeight: 600
+              }}
+              color={Color.GREY_500}
+            >
+              {getString('ce.pageErrorMsg.noDataMsg')}
+            </Text>
+            <Text font="small">{getString('ce.pageErrorMsg.perspectiveNoData')}</Text>
           </Container>
-        </Container>
+        )}
       </Page.Body>
     </>
   )

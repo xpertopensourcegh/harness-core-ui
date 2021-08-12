@@ -2,6 +2,7 @@
   max-height: 420px;
   width: 320px;
   padding: var(--spacing-medium) !important;
+  padding-left: var(--spacing-large) !important;
   overflow: scroll;
 
   .searchBoxContainer {
@@ -10,7 +11,6 @@
     align-items: center;
 
     .searchCheckBox {
-      padding-left: 11px;
       margin-bottom: var(--spacing-4);
     }
   }
@@ -22,8 +22,6 @@
   }
 
   .checkbox {
-    margin-left: var(--spacing-large) !important;
-
     &.labelItem {
       padding: var(--spacing-xsmall) 0px;
     }

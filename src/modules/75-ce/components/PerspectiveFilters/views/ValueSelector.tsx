@@ -47,11 +47,18 @@ const OperatorSelector: React.FC<OperatorSelectorProps> = ({ setOperator, operat
   ]
 
   return (
-    <Container padding="medium">
+    <Container
+      padding={{
+        top: 'xlarge',
+        bottom: 'medium',
+        left: 'medium',
+        right: 'medium'
+      }}
+    >
       <Text>{getString('ce.perspectives.createPerspective.filters.selectOperator')}</Text>
       <Container
         margin={{
-          top: 'small'
+          top: 'xlarge'
         }}
       >
         <RadioGroup

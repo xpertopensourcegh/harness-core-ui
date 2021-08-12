@@ -39,7 +39,7 @@ const MultiValueSelectorComponent: (props: MultiValueSelectorComponentProps) => 
     return (
       <Container>
         <Virtuoso
-          style={{ height: 344, paddingLeft: 10 }}
+          style={{ height: 344 }}
           data={filteredValues}
           overscan={{ main: 20, reverse: 20 }}
           endReached={e => {
