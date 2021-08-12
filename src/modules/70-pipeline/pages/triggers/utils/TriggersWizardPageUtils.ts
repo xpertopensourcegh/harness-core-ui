@@ -824,6 +824,30 @@ export const filterArtifact = ({
     )
   }
 }
+// This is to filter the manifestIndex
+// with the selectedArtifact's index
+export const filterArtifactIndex = ({
+  runtimeData,
+  stageId,
+  artifactId,
+  isManifest
+}: {
+  runtimeData: any
+  stageId: any
+  artifactId: any
+  isManifest: boolean
+}): number => {
+  const filteredStage = (runtimeData || []).find((item: any) => item?.stage?.identifier === stageId)
+  if (isManifest) {
+    return filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests.findIndex(
+      (manifestObj: any) => manifestObj?.manifest?.identifier === artifactId
+    )
+  } else {
+    return filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts.findIndex(
+      (artifactObj: any) => artifactObj?.artifact?.identifier === artifactId
+    )
+  }
+}
 
 export const getStageIdx = (runtimeData: any, stageId: any) => {
   return runtimeData.findIndex((item: any) => item.stage.identifier === stageId)

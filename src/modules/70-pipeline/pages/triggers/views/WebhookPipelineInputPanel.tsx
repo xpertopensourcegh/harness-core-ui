@@ -15,7 +15,7 @@ import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useStrings } from 'framework/strings'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { clearRuntimeInput } from '@pipeline/components/PipelineStudio/StepUtil'
-import { isPipelineWithCiCodebase, ciCodebaseBuild } from '../utils/TriggersWizardPageUtils'
+import { isPipelineWithCiCodebase, ciCodebaseBuild, filterArtifactIndex } from '../utils/TriggersWizardPageUtils'
 import css from './WebhookPipelineInputPanel.module.scss'
 
 interface WebhookPipelineInputPanelPropsInterface {
@@ -59,6 +59,44 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
       pipelineIdentifier
     }
   })
+  // This is to apply the selected artifact values
+  // to the applied input sets pipeline stage values
+  const applySelectedArtifactToPipelineObject = (pipelineObj: any) => {
+    // Cloning or making into a new object
+    // so the original pipeline is not effected
+    const newPipelineObject = { ...pipelineObj }
+    if (!newPipelineObject) {
+      return {}
+    }
+
+    const artifactIndex = filterArtifactIndex({
+      runtimeData: newPipelineObject?.stages,
+      stageId: formikProps?.values?.stageId,
+      artifactId: formikProps?.values?.selectedArtifact?.identifier,
+      isManifest: true
+    })
+    if (artifactIndex >= 0) {
+      const filteredStage =
+        (newPipelineObject?.stages || []).find(
+          (stage: any) => stage.stage.identifier === formikProps?.values?.stageId
+        ) || {}
+
+      const selectedArtifact = {
+        manifest: {
+          identifier: formikProps?.values?.selectedArtifact?.identifier,
+          type: formikProps?.values?.selectedArtifact?.type,
+          spec: {
+            ...formikProps?.values?.selectedArtifact?.spec
+          }
+        }
+      }
+
+      const filteredStageManifests = filteredStage.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests
+      filteredStageManifests[artifactIndex] = selectedArtifact
+      return newPipelineObject
+    }
+    return newPipelineObject
+  }
 
   useEffect(() => {
     if (template?.data?.inputSetTemplateYaml) {
@@ -74,10 +112,11 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
             if (isPipelineWithCiCodebase(pipelineObject?.pipeline)) {
               pipelineObject.pipeline.properties.ci.codebase.build = ciCodebaseBuild
             }
+            const newPipelineObject = applySelectedArtifactToPipelineObject(pipelineObject.pipeline)
             formikProps.setValues({
               ...values,
               inputSetSelected: selectedInputSets,
-              pipeline: clearRuntimeInput(merge(pipeline, pipelineObject.pipeline))
+              pipeline: clearRuntimeInput(merge(pipeline, newPipelineObject))
             })
           }
         }
@@ -103,10 +142,12 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
                 pipelineObject.pipeline.properties.ci.codebase.build = ciCodebaseBuild
               }
 
+              const newPipelineObject = applySelectedArtifactToPipelineObject(pipelineObject.pipeline)
+
               formikProps.setValues({
                 ...values,
                 inputSetSelected: selectedInputSets,
-                pipeline: clearRuntimeInput(merge(pipeline, pipelineObject.pipeline))
+                pipeline: clearRuntimeInput(merge(pipeline, newPipelineObject))
               })
             }
           }
