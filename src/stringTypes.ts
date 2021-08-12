@@ -2775,6 +2775,7 @@ export interface StringsMap {
   'ce.recommendation.listPage.recommendationDetails.resize': string
   'ce.recommendation.listPage.recommendationTypes.resizing': string
   'ce.recommendation.listPage.recommnedationBreakdown': string
+  'ce.recommendation.listPage.uptoText': string
   'ce.recommendation.recommendationChart.cpuPlaceholder': string
   'ce.recommendation.recommendationChart.memoryLabel': string
   'ce.recommendation.recommendationChart.memoryLabelRegular': string

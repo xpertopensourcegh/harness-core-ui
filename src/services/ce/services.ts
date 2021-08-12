@@ -397,7 +397,7 @@ export function useFetchPerspectiveTimeSeriesQuery(
 }
 export const FetchRecommendationDocument = gql`
   query FetchRecommendation($id: String!, $startTime: OffsetDateTime!, $endTime: OffsetDateTime!) {
-    recommendationStats(id: $id) {
+    recommendationStatsV2(filter: { ids: [$id] }) {
       totalMonthlyCost
       totalMonthlySaving
     }
@@ -1097,7 +1097,7 @@ export type FetchRecommendationQueryVariables = Exact<{
 
 export type FetchRecommendationQuery = {
   __typename?: 'Query'
-  recommendationStats: Maybe<{
+  recommendationStatsV2: Maybe<{
     __typename?: 'RecommendationOverviewStats'
     totalMonthlyCost: number
     totalMonthlySaving: number

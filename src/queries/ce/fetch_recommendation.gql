@@ -1,5 +1,5 @@
 query FetchRecommendation($id: String!, $startTime: OffsetDateTime!, $endTime: OffsetDateTime!) {
-  recommendationStats(id: $id) {
+  recommendationStatsV2(filter: { ids: [$id] }) {
     totalMonthlyCost
     totalMonthlySaving
   }

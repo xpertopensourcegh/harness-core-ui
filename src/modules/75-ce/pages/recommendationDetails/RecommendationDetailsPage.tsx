@@ -72,7 +72,7 @@ const RecommendationHelperText: React.FC = () => {
   )
 }
 
-const CostDetails: React.FC<{ costName: string; totalCost: string; isSavingsCost?: boolean }> = ({
+const CostDetails: React.FC<{ costName: string; totalCost: React.ReactNode; isSavingsCost?: boolean }> = ({
   costName,
   totalCost,
   isSavingsCost
@@ -125,15 +125,44 @@ const RecommendationSavingsComponent: React.FC<RecommendationSavingsComponentPro
         {totalMonthlyCost ? (
           <CostDetails
             costName={getString('ce.recommendation.listPage.monthlySavingsText')}
-            totalCost={formatCost(totalMonthlyCost)}
+            totalCost={
+              <Layout.Horizontal
+                spacing="xsmall"
+                style={{
+                  alignItems: 'flex-end'
+                }}
+                className={css.costContainer}
+              >
+                <Text color="green600" className={css.subText}>
+                  {getString('ce.recommendation.listPage.uptoText')}
+                </Text>
+                <Text font="medium" color="green600">
+                  {formatCost(totalMonthlySaving)}
+                </Text>
+              </Layout.Horizontal>
+            }
             isSavingsCost={true}
           />
         ) : null}
         {totalMonthlySaving ? (
           <Container padding={{ top: 'xlarge' }}>
             <CostDetails
+              totalCost={
+                <Layout.Horizontal
+                  spacing="xsmall"
+                  style={{
+                    alignItems: 'flex-end'
+                  }}
+                >
+                  <Text font="medium" color="grey800">
+                    {formatCost(totalMonthlyCost)}
+                  </Text>
+                  <Text className={css.subText} color="grey300">
+                    {getString('ce.recommendation.listPage.forecatedCostSubText')}
+                  </Text>
+                </Layout.Horizontal>
+              }
               costName={getString('ce.recommendation.listPage.monthlyForcastedCostText')}
-              totalCost={formatCost(totalMonthlySaving)}
             />
           </Container>
         ) : null}
@@ -215,7 +244,7 @@ const RecommendationDetailsPage: React.FC = () => {
   const { data, fetching } = result
 
   const recommendationDetails = (data?.recommendationDetails as RecommendationDetails) || []
-  const recommendationStats = data?.recommendationStats as RecommendationOverviewStats
+  const recommendationStats = data?.recommendationStatsV2 as RecommendationOverviewStats
   const recommendationItems = recommendationDetails?.items || []
   const workloadData = data?.recommendationsV2?.items?.length && data?.recommendationsV2?.items[0]
 

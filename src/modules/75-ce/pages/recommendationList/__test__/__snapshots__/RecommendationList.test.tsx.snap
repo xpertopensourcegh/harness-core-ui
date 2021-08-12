@@ -636,11 +636,25 @@ exports[`test cases for Recommendation List Page should be able to render the li
                     role="cell"
                     style="width: 20%;"
                   >
-                    <p
-                      class="StyledProps--font StyledProps--main"
+                    <div
+                      class="Layout--vertical StyledProps--main StyledProps--margin-right-medium"
                     >
-                      resource-1
-                    </p>
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        clusterName
+                      </p>
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        / namespace
+                      </p>
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        / resource-1
+                      </p>
+                    </div>
                   </div>
                   <div
                     class="cell"
@@ -917,11 +931,25 @@ exports[`test cases for Recommendation List Page should be able to render the li
                     role="cell"
                     style="width: 20%;"
                   >
-                    <p
-                      class="StyledProps--font StyledProps--main"
+                    <div
+                      class="Layout--vertical StyledProps--main StyledProps--margin-right-medium"
                     >
-                      resource-2
-                    </p>
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        clusterName1
+                      </p>
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        / namespace1
+                      </p>
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        / resource-2
+                      </p>
+                    </div>
                   </div>
                   <div
                     class="cell"
@@ -1198,11 +1226,25 @@ exports[`test cases for Recommendation List Page should be able to render the li
                     role="cell"
                     style="width: 20%;"
                   >
-                    <p
-                      class="StyledProps--font StyledProps--main"
+                    <div
+                      class="Layout--vertical StyledProps--main StyledProps--margin-right-medium"
                     >
-                      resource-3
-                    </p>
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        clusterName2
+                      </p>
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        / namespace2
+                      </p>
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        / resource-3
+                      </p>
+                    </div>
                   </div>
                   <div
                     class="cell"
@@ -1479,11 +1521,25 @@ exports[`test cases for Recommendation List Page should be able to render the li
                     role="cell"
                     style="width: 20%;"
                   >
-                    <p
-                      class="StyledProps--font StyledProps--main"
+                    <div
+                      class="Layout--vertical StyledProps--main StyledProps--margin-right-medium"
                     >
-                      resource-4
-                    </p>
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        clusterName3
+                      </p>
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        / namespace3
+                      </p>
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        / resource-4
+                      </p>
+                    </div>
                   </div>
                   <div
                     class="cell"
@@ -1760,11 +1816,25 @@ exports[`test cases for Recommendation List Page should be able to render the li
                     role="cell"
                     style="width: 20%;"
                   >
-                    <p
-                      class="StyledProps--font StyledProps--main"
+                    <div
+                      class="Layout--vertical StyledProps--main StyledProps--margin-right-medium"
                     >
-                      resource-5
-                    </p>
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        clusterName4
+                      </p>
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        / namespace4
+                      </p>
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        / resource-5
+                      </p>
+                    </div>
                   </div>
                   <div
                     class="cell"

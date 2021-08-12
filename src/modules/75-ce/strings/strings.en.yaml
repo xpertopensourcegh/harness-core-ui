@@ -324,6 +324,7 @@ recommendation:
     monthlySavingsText: POTENTIAL MONTHLY SAVINGS
     monthlyForcastedCostText: FORECASTED MONTHLY SPEND
     forecatedCostSubText: without applying recommendations
+    uptoText: upto
     recommnedationBreakdown: 'Recommendations Breakdown'
     filterHereText: 'Filter here'
     filters:

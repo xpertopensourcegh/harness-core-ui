@@ -8,7 +8,8 @@ import {
   RecommendationItemDto,
   useRecommendationsQuery,
   useRecommendationsSummaryQuery,
-  K8sRecommendationFilterDtoInput
+  K8sRecommendationFilterDtoInput,
+  ResourceType
 } from 'services/ce/services'
 
 import routes from '@common/RouteDefinitions'
@@ -46,7 +47,19 @@ const RecommendationsList: React.FC<RecommendationListProps> = ({
   const { getString } = useStrings()
 
   const NameCell: Renderer<CellProps<RecommendationItemDto>> = cell => {
-    return <Text>{cell.value}</Text>
+    const originalRowData = cell.row.original
+    const { resourceType, clusterName, namespace } = originalRowData
+    return resourceType === ResourceType.Workload ? (
+      <Layout.Vertical
+        margin={{
+          right: 'medium'
+        }}
+      >
+        <Text>{clusterName}</Text>
+        <Text>{`/ ${namespace}`}</Text>
+        <Text>{`/ ${cell.value}`}</Text>
+      </Layout.Vertical>
+    ) : null
   }
 
   const RecommendationTypeCell: Renderer<CellProps<RecommendationItemDto>> = ({ row }) => {
@@ -215,12 +228,12 @@ const RecommendationList: React.FC = () => {
               <Layout.Horizontal spacing="medium">
                 <RecommendationSavingsCard
                   title={getString('ce.recommendation.listPage.monthlySavingsText')}
-                  amount={formatCost(totalMonthlyCost)}
+                  amount={formatCost(totalSavings)}
                   iconName="money-icon"
                 />
                 <RecommendationSavingsCard
                   title={getString('ce.recommendation.listPage.monthlyForcastedCostText')}
-                  amount={formatCost(totalSavings)}
+                  amount={formatCost(totalMonthlyCost)}
                   subTitle={getString('ce.recommendation.listPage.forecatedCostSubText')}
                 />
               </Layout.Horizontal>
