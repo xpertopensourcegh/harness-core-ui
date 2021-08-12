@@ -282,7 +282,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     if (routingRecords.length) {
       return
     }
-    fetchInstanceSecurityGroups()
+    !_isEmpty(props.gatewayDetails.selectedInstances) && fetchInstanceSecurityGroups()
   }, [])
 
   useEffect(() => {
@@ -340,18 +340,15 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
 
   const fetchInstanceSecurityGroups = async (): Promise<void> => {
     const emptyRecords: PortConfig[] = []
+    const hasInstances = !_isEmpty(props.gatewayDetails.selectedInstances)
     try {
-      let text = `id = ['${
-        props.gatewayDetails.selectedInstances ? props.gatewayDetails.selectedInstances[0].id : ''
-      }']\nregions = ['${
-        props.gatewayDetails.selectedInstances ? props.gatewayDetails.selectedInstances[0].region : ''
+      let text = `id = ['${hasInstances ? props.gatewayDetails.selectedInstances[0].id : ''}']\nregions = ['${
+        hasInstances ? props.gatewayDetails.selectedInstances[0].region : ''
       }']`
 
       if (isAzureProvider) {
         text += `\nresource_groups=['${
-          props.gatewayDetails.selectedInstances
-            ? props.gatewayDetails.selectedInstances[0].metadata?.resourceGroup
-            : ''
+          hasInstances ? props.gatewayDetails.selectedInstances[0].metadata?.resourceGroup : ''
         }']`
       }
 
@@ -854,7 +851,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                       Map your Custom domain to the hostname
                     </Heading>
                     <Text font={{ weight: 'light' }} color="Color.GREY_500" className={css.mapDomainHelperText}>
-                      Since you have opted to access instances using a Custom domain, you need to map if to the
+                      Since you have opted to access instances using a Custom domain, you need to map it to the
                       hostname. Select your preferred DNS provider
                     </Text>
                     <Layout.Vertical>

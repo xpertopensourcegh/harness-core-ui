@@ -157,7 +157,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
       ? RESOURCES.INSTANCES
       : !_isEmpty(props.gatewayDetails.routing?.instance?.scale_group)
       ? RESOURCES.ASG
-      : !_isEmpty(props.gatewayDetails.routing?.k8s?.RuleJson)
+      : Utils.isK8sRule(props.gatewayDetails)
       ? RESOURCES.KUBERNETES
       : null
   )
@@ -283,7 +283,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
         />
       </Dialog>
     )
-  }, [filteredInstances, selectedInstances, loadingInstances])
+  }, [filteredInstances, selectedInstances, loadingInstances, props.gatewayDetails])
 
   const handleAsgSearch = (text: string) => {
     if (!text) {
@@ -345,7 +345,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
         />
       </Dialog>
     )
-  }, [allAsg, asgToShow, selectedAsg, loadingFetchASGs])
+  }, [allAsg, asgToShow, selectedAsg, loadingFetchASGs, props.gatewayDetails])
 
   const [openClusterModal, closeClusterModal] = useModalHook(() => {
     return (
