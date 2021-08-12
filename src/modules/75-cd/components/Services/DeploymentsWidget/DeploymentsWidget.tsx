@@ -12,6 +12,7 @@ import { PageError } from '@common/components/Page/PageError'
 import {
   DeploymentsTimeRangeContext,
   getFixed,
+  getFormattedDate,
   INVALID_CHANGE_RATE,
   numberFormatter
 } from '@cd/components/Services/common'
@@ -56,9 +57,7 @@ const DeploymentsTooltip: React.FC<any> = props => {
     frequencyChangeRate,
     frequencyLabel
   } = props.options || {}
-  const currentDate = timestamp
-    ? new Date(timestamp).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })
-    : ''
+  const currentDate = getFormattedDate(timestamp)
   const isFailureBoost = failureRateChangeRate === INVALID_CHANGE_RATE
   const isFrequencyBoost = frequencyChangeRate === INVALID_CHANGE_RATE
   return (
