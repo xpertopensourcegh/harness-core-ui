@@ -461,7 +461,7 @@ exports[`RouteWithLayout basic 1`] = `
             class="Layout--vertical StyledProps--main"
           >
             <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
+              class="StyledProps--font StyledProps--main subTitle"
             >
               SUBTITLE
             </p>
@@ -1413,7 +1413,7 @@ exports[`RouteWithLayout that the license store will render the child if the lic
             class="Layout--vertical StyledProps--main"
           >
             <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
+              class="StyledProps--font StyledProps--main subTitle"
             >
               SUBTITLE
             </p>
