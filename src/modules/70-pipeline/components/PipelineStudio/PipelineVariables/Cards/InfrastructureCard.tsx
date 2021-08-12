@@ -89,6 +89,9 @@ export function InfrastructureCardPanel(props: InfrastructureCardProps): React.R
       panelClassName={css.panel}
       summaryClassName={css.accordianSummaryL1}
       details={<InfrastructureCard {...props} />}
+      collapseProps={{
+        keepChildrenMounted: true
+      }}
     />
   )
 }

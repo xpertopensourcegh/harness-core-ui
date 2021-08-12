@@ -44,6 +44,9 @@ export default function PipelineCard(props: PipelineCardProps): React.ReactEleme
         key={`pipeline.variables`}
         id={`pipeline.variables`}
         addDomId
+        collapseProps={{
+          keepChildrenMounted: true
+        }}
         summary={<VariableAccordionSummary>{getString('customVariables.title')}</VariableAccordionSummary>}
         summaryClassName={css.variableBorderBottom}
         details={

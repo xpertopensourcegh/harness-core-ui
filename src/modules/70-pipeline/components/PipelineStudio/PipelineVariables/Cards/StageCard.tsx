@@ -68,8 +68,8 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
             <React.Fragment>
               <NestedAccordionPanel
                 isDefaultOpen
-                key={`${path}.variables`}
-                id={`${path}.variables`}
+                key={`${path}.${originalStage.identifier}.variables`}
+                id={`${path}.${originalStage.identifier}.variables`}
                 addDomId
                 summary={
                   <VariableAccordionSummary>
@@ -78,6 +78,9 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
                     </Text>
                   </VariableAccordionSummary>
                 }
+                collapseProps={{
+                  keepChildrenMounted: true
+                }}
                 summaryClassName={css.variableBorderBottom}
                 details={
                   <StepWidget<CustomVariablesData, CustomVariableEditableExtraProps>

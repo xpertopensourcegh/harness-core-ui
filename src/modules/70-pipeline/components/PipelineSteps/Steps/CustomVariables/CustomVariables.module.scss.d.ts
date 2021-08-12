@@ -7,6 +7,7 @@ declare const styles: {
   readonly valueRow: string
   readonly variableListTable: string
   readonly alignIcons: string
+  readonly configureButton: string
   readonly actionButtons: string
   readonly secretContainer: string
   readonly fixed: string
@@ -17,5 +18,8 @@ declare const styles: {
   readonly valueColumn: string
   readonly tooltip: string
   readonly customVariablesInputSets: string
+  readonly selectedSearchText: string
+  readonly selectedSearchTextValueRow: string
+  readonly currentSelection: string
 }
 export default styles

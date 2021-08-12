@@ -58,32 +58,42 @@ export function VariablesListTable<T>(props: VariableListTableProps<T>): React.R
 
         if (isNil(metadata) || isNil(formattedValue)) return null
         const variableNameParts = metadata.yamlProperties?.localName?.split('.') || []
-        const vairableName = variableNameParts[variableNameParts?.length - 1]
+        const variableName = variableNameParts[variableNameParts?.length - 1]
         const searchedEntityType = searchedEntity.type || null
         formattedValue = formattedValue.toString()
         const hasSameMetaKeyId = searchedEntity.metaKeyId === value
-
+        const isValidValueMatch = `${formattedValue}`?.toLowerCase()?.includes(searchText?.toLowerCase() || '')
         return (
           <div key={key} className={css.variableListRow}>
             <CopyText className="variable-name-cell" textToCopy={toVariableStr(metadata.yamlProperties?.fqn || '')}>
               <span
                 className={cx({
-                  [css.selectedSearchText]: searchedEntityType === 'key' && hasSameMetaKeyId,
                   'selected-search-text': searchedEntityType === 'key' && hasSameMetaKeyId
                 })}
                 dangerouslySetInnerHTML={{
-                  __html: getTextWithSearchMarkers({ searchText, txt: vairableName })
+                  __html: getTextWithSearchMarkers({
+                    searchText,
+                    txt: variableName,
+                    className: cx(css.selectedSearchText, {
+                      [css.currentSelection]: searchedEntityType === 'key' && hasSameMetaKeyId
+                    })
+                  })
                 }}
               />
             </CopyText>
             <Text lineClamp={1}>
               <span
                 className={cx({
-                  [css.selectedSearchText]: searchedEntityType === 'value' && hasSameMetaKeyId,
                   'selected-search-text': searchedEntityType === 'value' && hasSameMetaKeyId
                 })}
                 dangerouslySetInnerHTML={{
-                  __html: getTextWithSearchMarkers({ searchText, txt: formattedValue })
+                  __html: getTextWithSearchMarkers({
+                    searchText,
+                    txt: formattedValue,
+                    className: cx(css.selectedSearchText, {
+                      [css.currentSelection]: searchedEntityType === 'value' && hasSameMetaKeyId && isValidValueMatch
+                    })
+                  })
                 }}
               />
             </Text>

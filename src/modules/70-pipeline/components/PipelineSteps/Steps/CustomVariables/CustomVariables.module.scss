@@ -1,7 +1,7 @@
 .custom-variables {
   position: relative;
   &:nth-child(1) {
-    margin-top: -15px !important;
+    margin-top: -18px !important;
   }
   .header-row {
     display: inline-flex;
@@ -55,7 +55,8 @@
     grid-auto-flow: column;
     grid-template-columns: repeat(2, minmax(10px, 1fr));
     align-items: baseline;
-    margin-top: var(--spacing-small);
+    padding-top: 3px;
+    // margin-top: var(--spacing-small);
     border-bottom: solid 1px var(--grey-200);
     position: relative;
     &:before {
@@ -82,6 +83,19 @@
   }
   .alignIcons {
     margin-top: -5px;
+  }
+  .configureButton {
+    margin-top: 0 !important;
+    width: 30px;
+    height: 27px;
+
+    padding-right: 4px;
+    display: grid;
+    justify-content: center;
+    :global(.bp3-button) {
+      margin-top: -5px;
+      color: var(--grey-450) !important;
+    }
   }
   .actionButtons {
     display: grid;
@@ -194,4 +208,24 @@
       text-overflow: ellipsis;
     }
   }
+}
+.selectedSearchText {
+  background-color: var(--yellow-300);
+}
+.selectedSearchTextValueRow {
+  background-color: var(--yellow-300);
+  .configureButton {
+    background-color: var(--yellow-300);
+  }
+  &:global(.selected-search-text) {
+    background-color: var(--orange-400);
+    :local(.configureButton) {
+      background-color: var(--orange-400) !important;
+    }
+  }
+}
+
+.currentSelection {
+  background-color: var(--orange-400);
+  padding: 0px 2px;
 }

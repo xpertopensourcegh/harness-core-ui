@@ -237,28 +237,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
         </div>
         <div
           class="searchActions"
-        >
-          <button
-            class="bp3-button bp3-minimal bp3-intent-primary applyChanges"
-            type="button"
-          >
-            <span
-              class="bp3-button-text"
-            >
-              applyChanges
-            </span>
-          </button>
-          <button
-            class="bp3-button bp3-minimal bp3-intent-primary discard"
-            type="button"
-          >
-            <span
-              class="bp3-button-text"
-            >
-              pipeline.discard
-            </span>
-          </button>
-        </div>
+        />
       </div>
       <div
         class="variableList"
@@ -640,7 +619,11 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                 <div
                                   class="text variable-name-cell"
                                 >
-                                  pvar
+                                  <span
+                                    class=""
+                                  >
+                                    pvar
+                                  </span>
                                 </div>
                                 <div
                                   class="bp3-popover-wrapper btnWrapper"
@@ -807,7 +790,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                     </span>
                                   </section>
                                   <div
-                                    class="alignIcons"
+                                    class="alignIcons configureButton"
                                   />
                                 </div>
                               </div>
@@ -821,7 +804,11 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                 <div
                                   class="text variable-name-cell"
                                 >
-                                  pvar2
+                                  <span
+                                    class=""
+                                  >
+                                    pvar2
+                                  </span>
                                 </div>
                                 <div
                                   class="bp3-popover-wrapper btnWrapper"
@@ -988,7 +975,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                     </span>
                                   </section>
                                   <div
-                                    class="alignIcons"
+                                    class="alignIcons configureButton"
                                   />
                                 </div>
                               </div>
@@ -1227,12 +1214,12 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                           <div
                             class="Accordion--panel"
                             data-open="true"
-                            data-testid="pipeline.variables-panel"
-                            id="pipeline.variables-panel"
+                            data-testid="pipeline.stage_1.variables-panel"
+                            id="pipeline.stage_1.variables-panel"
                           >
                             <div
                               class="Accordion--summary variableBorderBottom"
-                              data-testid="pipeline.variables-summary"
+                              data-testid="pipeline.stage_1.variables-summary"
                             >
                               <div
                                 class="Accordion--chevron"
@@ -1322,7 +1309,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                               >
                                 <div
                                   class="Accordion--details"
-                                  data-testid="pipeline.variables-details"
+                                  data-testid="pipeline.stage_1.variables-details"
                                 >
                                   <div
                                     class="customVariables customVariables customVarPadL1"
@@ -1373,7 +1360,11 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                         <div
                                           class="text variable-name-cell"
                                         >
-                                          stage_var1
+                                          <span
+                                            class=""
+                                          >
+                                            stage_var1
+                                          </span>
                                         </div>
                                         <div
                                           class="bp3-popover-wrapper btnWrapper"
@@ -1540,7 +1531,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                             </span>
                                           </section>
                                           <div
-                                            class="alignIcons"
+                                            class="alignIcons configureButton"
                                           />
                                         </div>
                                       </div>
@@ -1554,7 +1545,11 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                         <div
                                           class="text variable-name-cell"
                                         >
-                                          stage_var2
+                                          <span
+                                            class=""
+                                          >
+                                            stage_var2
+                                          </span>
                                         </div>
                                         <div
                                           class="bp3-popover-wrapper btnWrapper"
@@ -1721,7 +1716,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                             </span>
                                           </section>
                                           <div
-                                            class="alignIcons"
+                                            class="alignIcons configureButton"
                                           />
                                         </div>
                                       </div>
@@ -3265,12 +3260,12 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                           <div
                             class="Accordion--panel"
                             data-open="true"
-                            data-testid="pipeline.variables-panel"
-                            id="pipeline.variables-panel"
+                            data-testid="pipeline.stage_2.variables-panel"
+                            id="pipeline.stage_2.variables-panel"
                           >
                             <div
                               class="Accordion--summary variableBorderBottom"
-                              data-testid="pipeline.variables-summary"
+                              data-testid="pipeline.stage_2.variables-summary"
                             >
                               <div
                                 class="Accordion--chevron"
@@ -3360,7 +3355,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                               >
                                 <div
                                   class="Accordion--details"
-                                  data-testid="pipeline.variables-details"
+                                  data-testid="pipeline.stage_2.variables-details"
                                 >
                                   <div
                                     class="customVariables customVariables customVarPadL1"
@@ -4329,12 +4324,12 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                           <div
                             class="Accordion--panel"
                             data-open="true"
-                            data-testid="pipeline.variables-panel"
-                            id="pipeline.variables-panel"
+                            data-testid="pipeline.parallel_stage_.variables-panel"
+                            id="pipeline.parallel_stage_.variables-panel"
                           >
                             <div
                               class="Accordion--summary variableBorderBottom"
-                              data-testid="pipeline.variables-summary"
+                              data-testid="pipeline.parallel_stage_.variables-summary"
                             >
                               <div
                                 class="Accordion--chevron"
@@ -4424,7 +4419,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                               >
                                 <div
                                   class="Accordion--details"
-                                  data-testid="pipeline.variables-details"
+                                  data-testid="pipeline.parallel_stage_.variables-details"
                                 >
                                   <div
                                     class="customVariables customVariables customVarPadL1"
@@ -5328,12 +5323,12 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                           <div
                             class="Accordion--panel"
                             data-open="true"
-                            data-testid="pipeline.variables-panel"
-                            id="pipeline.variables-panel"
+                            data-testid="pipeline.parallel_stage_2.variables-panel"
+                            id="pipeline.parallel_stage_2.variables-panel"
                           >
                             <div
                               class="Accordion--summary variableBorderBottom"
-                              data-testid="pipeline.variables-summary"
+                              data-testid="pipeline.parallel_stage_2.variables-summary"
                             >
                               <div
                                 class="Accordion--chevron"
@@ -5423,7 +5418,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                               >
                                 <div
                                   class="Accordion--details"
-                                  data-testid="pipeline.variables-details"
+                                  data-testid="pipeline.parallel_stage_2.variables-details"
                                 >
                                   <div
                                     class="customVariables customVariables customVarPadL1"

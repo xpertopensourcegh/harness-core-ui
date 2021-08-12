@@ -67,6 +67,9 @@ export function ServiceCardPanel(props: ServiceCardProps): React.ReactElement {
       panelClassName={css.panel}
       summaryClassName={css.accordianSummaryL1}
       details={<ServiceCard {...props} path={`${props.path}.Service`} />}
+      collapseProps={{
+        keepChildrenMounted: true
+      }}
     />
   )
 }

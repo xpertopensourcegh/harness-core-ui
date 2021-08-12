@@ -390,6 +390,9 @@ export const RightDrawer: React.FC = (): JSX.Element => {
   return (
     <Drawer
       onClose={async e => {
+        if (type === DrawerTypes.PipelineVariables) {
+          onSearchInputChange?.('')
+        }
         closeDrawer(e)
       }}
       usePortal={true}

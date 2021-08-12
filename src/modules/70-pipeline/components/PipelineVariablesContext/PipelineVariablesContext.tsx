@@ -11,7 +11,6 @@ import { useCreateVariables } from 'services/pipeline-ng'
 import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import { getRegexForSearch } from '../LogsContent/LogsState/utils'
-import type { GetTextWithSearchMarkersProps } from '../LogsContent/components/MultiLogLine/MultiLogLine'
 export interface KVPair {
   [key: string]: string
 }
@@ -19,6 +18,7 @@ export interface SearchResult {
   value: string
   type: 'key' | 'value'
   metaKeyId: string
+  path?: string
 }
 export interface PipelineVariablesData {
   variablesPipeline: PipelineInfoConfig
@@ -80,7 +80,7 @@ export function PipelineVariablesContextProvider(
     metadataMap: {}
   })
   const { accountId, orgIdentifier, projectIdentifier } = useParams<PipelinePathProps>()
-  const [{ searchText, searchResults, searchIndex, pipelineValues, pipelineFqns }, setSearchMeta] =
+  const [{ searchText, searchResults, searchIndex, pipelineValues, pipelineFqns, pipelineMetaKeys }, setSearchMeta] =
     React.useState<SearchMeta>({
       searchText: '',
       pipelineMetaKeys: [],
@@ -90,7 +90,7 @@ export function PipelineVariablesContextProvider(
       searchIndex: 0
     })
 
-  const updateSearchMeta = (newState: SearchMeta) => {
+  const updateSearchMeta = (newState: SearchMeta): void => {
     setSearchMeta(oldState => ({
       ...oldState,
       ...newState
@@ -134,7 +134,7 @@ export function PipelineVariablesContextProvider(
 
   const onSearchInputChange = debounce((searchKey: string) => {
     if (searchKey !== searchText) {
-      const finalFound = findMatchedResultsInPipeline(pipelineFqns, pipelineValues, searchKey)
+      const finalFound = findMatchedResultsInPipeline(pipelineFqns, pipelineValues, pipelineMetaKeys, searchKey)
       updateSearchMeta({
         searchText: searchKey,
         searchResults: finalFound,
@@ -143,10 +143,10 @@ export function PipelineVariablesContextProvider(
     }
   }, 300)
 
-  const goToPrevSearchResult = () =>
+  const goToPrevSearchResult = (): false | void =>
     (searchIndex as number) > 0 && updateSearchMeta({ searchIndex: (searchIndex as number) - 1 })
 
-  const goToNextSearchResult = () =>
+  const goToNextSearchResult = (): false | void =>
     (searchIndex as number) < (searchResults as [])?.length - 1 &&
     updateSearchMeta({ searchIndex: (searchIndex as number) + 1 })
 
@@ -174,21 +174,26 @@ export function PipelineVariablesContextProvider(
 export const findMatchedResultsInPipeline = (
   pipelineFqns: PipelineMeta[] = [],
   pipelineValues: PipelineMeta[] = [],
+  pipelineMetaKeys: PipelineMeta[] = [],
   needle: string
 ): SearchResult[] => {
   const finalFound: SearchResult[] = []
   pipelineFqns.forEach(({ value: fqn, metaKeyId }, index) => {
     const fqnParts = fqn.split('.') || ''
-    if (fqnParts.length && fqnParts[fqnParts.length - 1]?.toLowerCase()?.includes(needle)) {
-      finalFound.push({ value: fqnParts[fqnParts.length - 1], type: 'key', metaKeyId })
+    const path = pipelineMetaKeys?.[index]?.value || ''
+    if (fqnParts.length && fqnParts[fqnParts.length - 1]?.toLowerCase()?.includes(needle.toLocaleLowerCase())) {
+      finalFound.push({ value: fqnParts[fqnParts.length - 1], type: 'key', metaKeyId, path })
     }
     let valueString = pipelineValues?.[index]?.value || ''
+
     if (Array.isArray(valueString)) {
       valueString = valueString.map(item => (isPlainObject(item) ? JSON.stringify(item, null, 2) : item)).join(', ')
     }
-
-    if (valueString.length && valueString?.toLowerCase()?.includes(needle)) {
-      finalFound.push({ value: valueString, type: 'value', metaKeyId })
+    if (typeof valueString !== 'string') {
+      valueString = `${valueString}`
+    }
+    if (valueString.length && valueString?.toLowerCase()?.includes(needle.toLocaleLowerCase())) {
+      finalFound.push({ value: valueString, type: 'value', metaKeyId, path })
     }
   })
   return finalFound
@@ -226,9 +231,12 @@ export function getPathToMetaKeyMap({
       if (typeof value === 'string' && metaDataMap[value]) {
         const metaKeyId = value
         const { yamlProperties } = metaDataMap[value]
-
-        pipelineFqns.push({ value: yamlProperties?.fqn, metaKeyId })
         const updatedPath = `${path.trim().length === 0 ? '' : `${path}.`}${key}`
+
+        if (updatedPath.includes('__uuid')) {
+          return
+        }
+        pipelineFqns.push({ value: yamlProperties?.fqn, metaKeyId })
         pipelineMetaKeys.push({ metaKeyId, value: updatedPath })
         const valueAtPath = get(pipeline, updatedPath)
 
@@ -254,9 +262,15 @@ export function getPathToMetaKeyMap({
     pipelineValues
   }
 }
+export interface GetTextWithSearchMarkersProps {
+  txt?: string
+  searchText?: string
+  searchIndices?: number[]
+  className?: string
+}
 
-export function getTextWithSearchMarkers(props: Omit<GetTextWithSearchMarkersProps, 'currentSearchIndex'>): string {
-  const { searchText, txt } = props
+export function getTextWithSearchMarkers(props: GetTextWithSearchMarkersProps): string {
+  const { searchText, txt, className } = props
   if (!searchText) {
     return txt || ''
   }
@@ -290,7 +304,9 @@ export function getTextWithSearchMarkers(props: Omit<GetTextWithSearchMarkersPro
     const openMarkTags = `${highlightedString.slice(
       0,
       chunk.start + startShift
-    )}<mark   ${'data-current-search-result="true"'}>${highlightedString.slice(chunk.start + startShift)}`
+    )}<mark  class="${className}"  ${'data-current-search-result="true"'}>${highlightedString.slice(
+      chunk.start + startShift
+    )}`
 
     const endShift = openMarkTags.length - txt.length
     const closeMarkTags = `${openMarkTags.slice(0, chunk.end + endShift)}</mark>${openMarkTags.slice(

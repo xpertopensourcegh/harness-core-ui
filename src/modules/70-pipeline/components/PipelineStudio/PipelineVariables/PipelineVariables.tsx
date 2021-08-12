@@ -3,7 +3,7 @@ import { Icon, NestedAccordionPanel, NestedAccordionProvider, ExpandingSearchInp
 import { get } from 'lodash-es'
 
 import type {} from 'services/cd-ng'
-import { Button, Tooltip } from '@blueprintjs/core'
+import { Tooltip } from '@blueprintjs/core'
 import { PageSpinner } from '@common/components'
 import { String, useStrings } from 'framework/strings'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
@@ -13,18 +13,21 @@ import { usePipelineContext } from '../PipelineContext/PipelineContext'
 import PipelineCard from './Cards/PipelineCard'
 import StageCard from './Cards/StageCard'
 import VariableAccordionSummary from './VariableAccordionSummary'
-import { DrawerTypes } from '../PipelineContext/PipelineActions'
+// import { DrawerTypes } from '../PipelineContext/PipelineActions'
 import css from './PipelineVariables.module.scss'
 
 export const PipelineVariables: React.FC = (): JSX.Element => {
   const {
     updatePipeline,
     stepsFactory,
-    state: { pipeline: originalPipeline, pipelineView },
-    isReadonly,
+    state: {
+      pipeline: originalPipeline
+      // pipelineView
+    },
+    isReadonly
 
-    updatePipelineView,
-    fetchPipeline
+    // updatePipelineView,
+    // fetchPipeline
   } = usePipelineContext()
   const {
     variablesPipeline,
@@ -38,7 +41,16 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
     goToPrevSearchResult
   } = usePipelineVariables()
   const { getString } = useStrings()
-
+  React.useEffect(() => {
+    setTimeout(
+      () =>
+        (pipelineVariablesRef.current as any)?.scrollTo({
+          top: 0,
+          left: 0
+        }),
+      500
+    )
+  }, [])
   const pipelineVariablesRef = React.useRef()
   React.useLayoutEffect(() => {
     if (searchIndex === null && pipelineVariablesRef.current) {
@@ -117,31 +129,7 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
               />
             </div>
 
-            <div className={css.searchActions}>
-              <Button
-                intent="primary"
-                minimal
-                className={css.applyChanges}
-                text={getString('applyChanges')}
-                onClick={() => {
-                  updatePipelineView({
-                    ...pipelineView,
-                    isDrawerOpened: false,
-                    drawerData: { type: DrawerTypes.PipelineVariables }
-                  })
-                  onSearchInputChange?.('')
-                }}
-              />
-              <Button
-                intent="primary"
-                minimal
-                className={css.discard}
-                text={getString('pipeline.discard')}
-                onClick={() => {
-                  fetchPipeline({ forceFetch: true, forceUpdate: true })
-                }}
-              />
-            </div>
+            <div className={css.searchActions}></div>
           </div>
           <div className={css.variableList} ref={pipelineVariablesRef as any}>
             <GitSyncStoreProvider>

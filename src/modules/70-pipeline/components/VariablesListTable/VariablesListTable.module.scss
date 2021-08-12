@@ -31,10 +31,14 @@
       right: 100%;
     }
   }
-  .selectedSearchText {
-    mark {
-      background: orange;
-      padding: 0px 2px;
-    }
-  }
+}
+
+.selectedSearchText {
+  background-color: var(--yellow-300);
+  padding: 0px 2px;
+}
+
+.currentSelection {
+  background-color: var(--orange-400);
+  padding: 0px 2px;
 }

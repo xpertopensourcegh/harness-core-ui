@@ -48,7 +48,11 @@ exports[`Custom Variables can add a string variable 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main variable-name-cell"
         style="--text-line-clamp: 1;"
       >
-        myVar
+        <span
+          class=""
+        >
+          myVar
+        </span>
       </p>
       <div
         class="valueRow variable-value-cell"
@@ -181,7 +185,7 @@ exports[`Custom Variables can add a string variable 1`] = `
             </span>
           </section>
           <div
-            class="alignIcons"
+            class="alignIcons configureButton"
           />
         </div>
       </div>
