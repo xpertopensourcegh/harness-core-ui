@@ -9,12 +9,14 @@ import { useQueryParams } from '@common/hooks'
 import { useStartTrialLicense } from 'services/cd-ng'
 import { useToaster } from '@common/components'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
+import { handleUpdateLicenseStore, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import bgImageURL from './images/cd.svg'
 
 const CDTrialHomePage: React.FC = () => {
   const { getString } = useStrings()
   const history = useHistory()
   const { source } = useQueryParams<{ source?: string }>()
+  const { licenseInformation, updateLicenseStore } = useLicenseStore()
   const { accountId } = useParams<ProjectPathProps>()
 
   const {
@@ -28,7 +30,10 @@ const CDTrialHomePage: React.FC = () => {
   })
 
   const startTrialnOpenCDTrialModal = async (): Promise<void> => {
-    await startTrial({ moduleType: 'CD' })
+    const data = await startTrial({ moduleType: 'CD' })
+
+    handleUpdateLicenseStore({ ...licenseInformation }, updateLicenseStore, 'cd', data?.data)
+
     history.push({
       pathname: routes.toModuleHome({ accountId, module: 'cd' }),
       search: '?trial=true&&modal=true'

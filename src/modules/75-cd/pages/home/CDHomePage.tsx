@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
+import { pick } from 'lodash-es'
 import { ModuleName } from 'framework/types/ModuleName'
 import { HomePageTemplate } from '@common/components/HomePageTemplate/HomePageTemplate'
 import { useStrings } from 'framework/strings'
 import { useGetLicensesAndSummary, useGetProjectList } from 'services/cd-ng'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
-import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
 import { TrialInProgressTemplate } from '@common/components/TrialHomePageTemplate/TrialInProgressTemplate'
 import { useQueryParams } from '@common/hooks'
 import { PageError } from '@common/components/Page/PageError'
@@ -16,12 +17,14 @@ import { useGetPipelineList, PagePMSPipelineSummaryResponse } from 'services/pip
 import { TrialType, useCDTrialModal, UseCDTrialModalProps } from '@cd/modals/CDTrial/useCDTrialModal'
 import routes from '@common/RouteDefinitions'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import { handleUpdateLicenseStore, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import CDTrialHomePage from './CDTrialHomePage'
 import bgImageURL from './images/cd.svg'
 
 export const CDHomePage: React.FC = () => {
   const { getString } = useStrings()
   const { NG_LICENSES_ENABLED } = useFeatureFlags()
+  const { licenseInformation, updateLicenseStore } = useLicenseStore()
 
   const { accountId } = useParams<AccountPathProps>()
 
@@ -29,6 +32,23 @@ export const CDHomePage: React.FC = () => {
     queryParams: { moduleType: ModuleName.CD as any },
     accountIdentifier: accountId
   })
+
+  const expiryTime = data?.data?.maxExpiryTime
+  const updatedLicenseInfo = data?.data && {
+    ...licenseInformation?.['CD'],
+    ...pick(data?.data, ['licenseType', 'edition']),
+    expiryTime
+  }
+
+  useEffect(() => {
+    handleUpdateLicenseStore(
+      { ...licenseInformation },
+      updateLicenseStore,
+      ModuleName.CD.toString() as Module,
+      updatedLicenseInfo
+    )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data])
 
   const trialBannerProps = {
     expiryTime: data?.data?.maxExpiryTime,

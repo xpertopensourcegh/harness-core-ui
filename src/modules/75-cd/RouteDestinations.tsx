@@ -28,7 +28,8 @@ import type {
   ExecutionPathProps,
   ProjectPathProps,
   PipelineType,
-  ModulePathParams
+  ModulePathParams,
+  Module
 } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
 
@@ -94,6 +95,7 @@ import TemplatesList from '@templates-library/pages/TemplatesList/TemplatesList'
 import { TriggerFormType } from '@pipeline/factories/ArtifactTriggerInputFactory/types'
 import TriggerFactory from '@pipeline/factories/ArtifactTriggerInputFactory/index'
 
+import { LicenseRedirectProps, LICENSE_STATE_NAMES } from 'framework/LicenseStore/LicenseStoreContext'
 import CDTrialHomePage from './pages/home/CDTrialHomePage'
 
 import { CDExecutionCardSummary } from './components/CDExecutionCardSummary/CDExecutionCardSummary'
@@ -172,6 +174,42 @@ const RedirectToExecutionPipeline = (): React.ReactElement => {
   return <Redirect to={routes.toExecutionPipelineView(params)} />
 }
 
+const RedirectToModuleTrialHome = (): React.ReactElement => {
+  const { accountId } = useParams<{
+    accountId: string
+  }>()
+
+  return (
+    <Redirect
+      to={routes.toModuleTrialHome({
+        accountId,
+        module: 'cd'
+      })}
+    />
+  )
+}
+
+const RedirectToSubscriptions = (): React.ReactElement => {
+  const { accountId } = useParams<{
+    accountId: string
+  }>()
+
+  return (
+    <Redirect
+      to={routes.toSubscriptions({
+        accountId,
+        moduleCard: ModuleName.CD.toLowerCase() as Module
+      })}
+    />
+  )
+}
+
+const licenseRedirectData: LicenseRedirectProps = {
+  licenseStateName: LICENSE_STATE_NAMES.CD_LICENSE_STATE,
+  startTrialRedirect: RedirectToModuleTrialHome,
+  expiredTrialRedirect: RedirectToSubscriptions
+}
+
 const CDSideNavProps: SidebarContext = {
   navComponent: CDSideNav,
   subtitle: 'Continuous',
@@ -188,20 +226,26 @@ TriggerFactory.registerTriggerForm(TriggerFormType.Manifest, {
 
 export default (
   <>
-    <Route path={routes.toCD({ ...accountPathProps })} exact>
+    <Route licenseRedirectData={licenseRedirectData} path={routes.toCD({ ...accountPathProps })} exact>
       <RedirectToCDProject />
     </Route>
-    <RouteWithLayout sidebarProps={CDSideNavProps} path={routes.toCDHome({ ...accountPathProps })} exact>
+    <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
+      sidebarProps={CDSideNavProps}
+      path={routes.toCDHome({ ...accountPathProps })}
+      exact
+    >
       <CDHomePage />
     </RouteWithLayout>
     <RouteWithLayout
-      sidebarProps={CDSideNavProps}
+      layout={MinimalLayout}
       path={routes.toModuleTrialHome({ ...accountPathProps, module: 'cd' })}
       exact
     >
       <CDTrialHomePage />
     </RouteWithLayout>
     <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={routes.toProjectOverview({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
       exact
@@ -209,6 +253,7 @@ export default (
       <CDDashboardPageOrRedirect />
     </RouteWithLayout>
     <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={routes.toDeployments({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
       exact
@@ -217,6 +262,7 @@ export default (
     </RouteWithLayout>
     <RouteWithLayout
       exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={routes.toPipelines({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
     >
@@ -224,6 +270,7 @@ export default (
     </RouteWithLayout>
     <RouteWithLayout
       exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={routes.toServices({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
     >
@@ -231,6 +278,7 @@ export default (
     </RouteWithLayout>
     <RouteWithLayout
       exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={routes.toServiceDetails({
         ...accountPathProps,
@@ -242,6 +290,7 @@ export default (
       <ServiceDetails />
     </RouteWithLayout>
     <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       exact
       path={routes.toPipelineStudio({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
@@ -252,6 +301,7 @@ export default (
     </RouteWithLayout>
     <RouteWithLayout
       exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={routes.toPipelineDeploymentList({
         ...accountPathProps,
@@ -265,6 +315,7 @@ export default (
     </RouteWithLayout>
     <RouteWithLayout
       exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={routes.toConnectors({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
     >
@@ -272,6 +323,7 @@ export default (
     </RouteWithLayout>
     <RouteWithLayout
       exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={routes.toCreateConnectorFromYaml({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
     >
@@ -279,6 +331,7 @@ export default (
     </RouteWithLayout>
     <RouteWithLayout
       exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={routes.toCreateConnectorFromYaml({ ...accountPathProps, ...orgPathProps })}
     >
@@ -286,6 +339,7 @@ export default (
     </RouteWithLayout>
     <RouteWithLayout
       exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={routes.toSecrets({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
     >
@@ -293,6 +347,7 @@ export default (
     </RouteWithLayout>
     <RouteWithLayout
       exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={routes.toConnectorDetails({
         ...accountPathProps,
@@ -305,6 +360,7 @@ export default (
     </RouteWithLayout>
     <RouteWithLayout
       exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={routes.toSecretDetails({
         ...accountPathProps,
@@ -317,6 +373,7 @@ export default (
     </RouteWithLayout>
     <RouteWithLayout
       exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={routes.toSecretDetailsOverview({
         ...accountPathProps,
@@ -331,6 +388,7 @@ export default (
     </RouteWithLayout>
     <RouteWithLayout
       exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={routes.toSecretDetailsReferences({
         ...accountPathProps,
@@ -345,6 +403,7 @@ export default (
     </RouteWithLayout>
     <RouteWithLayout
       exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={routes.toDelegates({
         ...accountPathProps,
@@ -356,6 +415,7 @@ export default (
     </RouteWithLayout>
     <RouteWithLayout
       exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={routes.toDelegatesDetails({
         ...accountPathProps,
@@ -368,6 +428,7 @@ export default (
     </RouteWithLayout>
     <RouteWithLayout
       exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={routes.toDelegateConfigsDetails({
         ...accountPathProps,
@@ -379,6 +440,7 @@ export default (
       <DelegateProfileDetails />
     </RouteWithLayout>
     <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={routes.toCreateSecretFromYaml({
         ...accountPathProps,
@@ -392,6 +454,7 @@ export default (
     </RouteWithLayout>
     <RouteWithLayout
       exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={routes.toInputSetList({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
     >
@@ -401,6 +464,7 @@ export default (
     </RouteWithLayout>
     <RouteWithLayout
       exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={routes.toInputSetForm({ ...accountPathProps, ...inputSetFormPathProps, ...pipelineModuleParams })}
     >
@@ -408,6 +472,7 @@ export default (
     </RouteWithLayout>
     <RouteWithLayout
       exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={routes.toTriggersPage({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
     >
@@ -417,6 +482,7 @@ export default (
     </RouteWithLayout>
     <RouteWithLayout
       exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={routes.toTriggersWizardPage({ ...accountPathProps, ...triggerPathProps, ...pipelineModuleParams })}
     >
@@ -426,6 +492,7 @@ export default (
     </RouteWithLayout>
     <RouteWithLayout
       exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={routes.toTriggersDetailPage({ ...accountPathProps, ...triggerPathProps, ...pipelineModuleParams })}
     >
@@ -433,6 +500,7 @@ export default (
     </RouteWithLayout>
     <Route
       exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={routes.toExecution({ ...accountPathProps, ...executionPathProps, ...pipelineModuleParams })}
     >
@@ -440,6 +508,7 @@ export default (
     </Route>
     <RouteWithLayout
       exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       layout={MinimalLayout}
       path={routes.toExecutionPipelineView({ ...accountPathProps, ...executionPathProps, ...pipelineModuleParams })}
@@ -450,6 +519,7 @@ export default (
     </RouteWithLayout>
     <RouteWithLayout
       exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       layout={MinimalLayout}
       path={routes.toExecutionInputsView({ ...accountPathProps, ...executionPathProps, ...pipelineModuleParams })}
@@ -460,6 +530,7 @@ export default (
     </RouteWithLayout>
     <RouteWithLayout
       exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       layout={MinimalLayout}
       path={routes.toExecutionTestsView({ ...accountPathProps, ...executionPathProps, ...pipelineModuleParams })}
@@ -470,6 +541,7 @@ export default (
     </RouteWithLayout>
     <RouteWithLayout
       exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       layout={MinimalLayout}
       path={routes.toExecutionArtifactsView({
@@ -484,6 +556,7 @@ export default (
     </RouteWithLayout>
     <RouteWithLayout
       exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={routes.toPipelineDetail({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
     >
@@ -491,12 +564,14 @@ export default (
     </RouteWithLayout>
     <RouteWithLayout
       exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={routes.toCDTemplateLibrary({ ...accountPathProps, ...projectPathProps })}
     >
       <CDTemplateLibraryPage />
     </RouteWithLayout>
     <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
       exact
       sidebarProps={CDSideNavProps}
       path={routes.toGovernance({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
@@ -505,12 +580,14 @@ export default (
     </RouteWithLayout>
     <RouteWithLayout
       exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={routes.toCDGeneralSettings({ ...accountPathProps, ...projectPathProps })}
     >
       <CDGeneralSettingsPage />
     </RouteWithLayout>
     <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={[routes.toAccessControl({ ...projectPathProps, ...pipelineModuleParams })]}
       exact
@@ -518,6 +595,7 @@ export default (
       <RedirectToAccessControlHome />
     </RouteWithLayout>
     <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={[routes.toUsers({ ...projectPathProps, ...pipelineModuleParams })]}
       exact
@@ -527,6 +605,7 @@ export default (
       </AccessControlPage>
     </RouteWithLayout>
     <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={routes.toUserDetails({ ...projectPathProps, ...pipelineModuleParams, ...userPathProps })}
       exact
@@ -534,6 +613,7 @@ export default (
       <UserDetails />
     </RouteWithLayout>
     <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={[routes.toUserGroups({ ...projectPathProps, ...pipelineModuleParams })]}
       exact
@@ -543,6 +623,7 @@ export default (
       </AccessControlPage>
     </RouteWithLayout>
     <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={routes.toUserGroupDetails({ ...projectPathProps, ...pipelineModuleParams, ...userGroupPathProps })}
       exact
@@ -559,6 +640,7 @@ export default (
       </AccessControlPage>
     </RouteWithLayout>
     <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={routes.toServiceAccountDetails({ ...projectPathProps, ...pipelineModuleParams, ...serviceAccountProps })}
       exact
@@ -566,6 +648,7 @@ export default (
       <ServiceAccountDetails />
     </RouteWithLayout>
     <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={[routes.toResourceGroups({ ...projectPathProps, ...pipelineModuleParams })]}
       exact
@@ -575,6 +658,7 @@ export default (
       </AccessControlPage>
     </RouteWithLayout>
     <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={[routes.toRoles({ ...projectPathProps, ...pipelineModuleParams })]}
       exact
@@ -584,6 +668,7 @@ export default (
       </AccessControlPage>
     </RouteWithLayout>
     <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={[routes.toRoleDetails({ ...projectPathProps, ...pipelineModuleParams, ...rolePathProps })]}
       exact
@@ -591,6 +676,7 @@ export default (
       <RoleDetails />
     </RouteWithLayout>
     <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={[
         routes.toResourceGroupDetails({ ...projectPathProps, ...pipelineModuleParams, ...resourceGroupPathProps })
@@ -600,6 +686,7 @@ export default (
       <ResourceGroupDetails />
     </RouteWithLayout>
     <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       exact
       path={[routes.toGitSyncAdmin({ ...accountPathProps, ...pipelineModuleParams, ...projectPathProps })]}
@@ -608,6 +695,7 @@ export default (
     </RouteWithLayout>
     <RouteWithLayout
       exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={routes.toGitSyncReposAdmin({ ...accountPathProps, ...pipelineModuleParams, ...projectPathProps })}
     >
@@ -616,6 +704,7 @@ export default (
       </GitSyncPage>
     </RouteWithLayout>
     <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={routes.toGitSyncEntitiesAdmin({ ...accountPathProps, ...pipelineModuleParams, ...projectPathProps })}
       exact
@@ -626,6 +715,7 @@ export default (
     </RouteWithLayout>
     <RouteWithLayout
       exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={routes.toTemplatesListing({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
     >
