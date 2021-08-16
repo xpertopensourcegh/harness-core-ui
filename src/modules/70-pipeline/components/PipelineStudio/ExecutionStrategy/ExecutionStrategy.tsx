@@ -267,7 +267,7 @@ const ExecutionStrategyRef = (
                       onClick={toggleVideo}
                       withoutBoxShadow={true}
                       data-testid="playButton"
-                      icon="play"
+                      icon="play-circle"
                       iconProps={{ size: 42 }}
                       withoutCurrentColor={true}
                     />
