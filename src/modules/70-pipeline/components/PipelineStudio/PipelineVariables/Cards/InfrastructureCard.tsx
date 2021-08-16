@@ -42,7 +42,7 @@ export function InfrastructureCard(props: InfrastructureCardProps): React.ReactE
   return (
     <React.Fragment>
       <VariablesListTable
-        className={cx(css.variablesTable, css.variablePaddingL2)}
+        className={cx(css.variablePaddingL2)}
         data={infrastructure.environment}
         originalData={originalInfrastructure.environment}
         metadataMap={metadataMap}
@@ -82,6 +82,7 @@ export function InfrastructureCardPanel(props: InfrastructureCardProps): React.R
   const { getString } = useStrings()
   return (
     <NestedAccordionPanel
+      noAutoScroll
       isDefaultOpen
       addDomId
       id={`${props.path}`}

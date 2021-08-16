@@ -40,6 +40,7 @@ export default function PipelineCard(props: PipelineCardProps): React.ReactEleme
       />
 
       <NestedAccordionPanel
+        noAutoScroll
         isDefaultOpen
         key={`pipeline.variables`}
         id={`pipeline.variables`}

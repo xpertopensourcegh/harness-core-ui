@@ -51,6 +51,7 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
         <NestedAccordionPanel
           isDefaultOpen
           addDomId
+          noAutoScroll
           id={`${path}.Artifacts`}
           summary={<VariableAccordionSummary> {getString('artifacts')}</VariableAccordionSummary>}
           summaryClassName={cx(css.variableBorderBottom, pipelineVariableCss.accordianSummaryL2)}
@@ -59,6 +60,7 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
               <>
                 <NestedAccordionPanel
                   isDefaultOpen
+                  noAutoScroll
                   addDomId
                   collapseProps={{ keepChildrenMounted: true }}
                   id={`${path}.Artifacts.Primary`}
@@ -79,6 +81,7 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
                     <NestedAccordionPanel
                       isDefaultOpen
                       addDomId
+                      noAutoScroll
                       id={`${path}..Artifacts.Sidecars`}
                       summary={
                         <VariableAccordionSummary> {getString('common.sidecarArtifactsText')}</VariableAccordionSummary>
@@ -109,6 +112,7 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
       {manifests && typeof manifestsVariables !== 'string' && !isEmpty(omit(manifestsVariables, 'uuid')) ? (
         <NestedAccordionPanel
           isDefaultOpen
+          noAutoScroll
           addDomId
           id={`${path}.Manifests`}
           summary={<VariableAccordionSummary> {getString('manifests')}</VariableAccordionSummary>}
@@ -132,6 +136,7 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
       ) : null}
       <NestedAccordionPanel
         isDefaultOpen
+        noAutoScroll
         addDomId
         id={`${path}.Variables`}
         summary={<VariableAccordionSummary> {getString('variablesText')}</VariableAccordionSummary>}

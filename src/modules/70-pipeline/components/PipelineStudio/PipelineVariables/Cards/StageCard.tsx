@@ -40,6 +40,7 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
 
   return (
     <NestedAccordionPanel
+      noAutoScroll
       isDefaultOpen
       collapseProps={{
         keepChildrenMounted: true
@@ -67,6 +68,7 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
           {originalSpec && (
             <React.Fragment>
               <NestedAccordionPanel
+                noAutoScroll
                 isDefaultOpen
                 key={`${path}.${originalStage.identifier}.variables`}
                 id={`${path}.${originalStage.identifier}.variables`}

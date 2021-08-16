@@ -41,16 +41,7 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
     goToPrevSearchResult
   } = usePipelineVariables()
   const { getString } = useStrings()
-  React.useEffect(() => {
-    setTimeout(
-      () =>
-        (pipelineVariablesRef.current as any)?.scrollTo({
-          top: 0,
-          left: 0
-        }),
-      500
-    )
-  }, [])
+
   const pipelineVariablesRef = React.useRef()
   React.useLayoutEffect(() => {
     if (searchIndex === null && pipelineVariablesRef.current) {
@@ -134,6 +125,7 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
           <div className={css.variableList} ref={pipelineVariablesRef as any}>
             <GitSyncStoreProvider>
               <NestedAccordionPanel
+                noAutoScroll
                 isDefaultOpen
                 key="pipeline"
                 id="pipeline"

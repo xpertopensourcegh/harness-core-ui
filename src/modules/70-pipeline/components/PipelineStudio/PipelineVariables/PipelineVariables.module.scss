@@ -14,7 +14,8 @@
   .header {
     padding: var(--spacing-xlarge) var(--spacing-large);
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.13);
-    border-bottom: 1px solid var(--grey-200);
+    border-bottom: 1px solid;
+    border-color: #d9dae599;
     display: flex;
     justify-content: space-between;
   }
@@ -34,7 +35,8 @@
       padding: var(--spacing-xxlarge) var(--spacing-xlarge);
       font-size: var(--font-size-medium);
       font-weight: 600;
-      border-bottom: solid 1px var(--grey-200);
+      border-bottom: solid 1px;
+      border-color: #d9dae599;
       :global {
         [data-icon='pipeline-variables'] {
           font-size: var(--font-size-medium);
@@ -117,7 +119,8 @@
       }
       :global(.Accordion--summary) {
         padding: var(--spacing-small) 0;
-        border-bottom: 1px solid var(--grey-200);
+        border-bottom: 1px solid;
+        border-color: #d9dae599;
       }
     }
   }
@@ -138,12 +141,13 @@
   .variable-list-header {
     display: grid;
     grid-template-columns: repeat(2, minmax(10px, 1fr));
-    padding: 0 calc(2 * var(--spacing-large));
+    padding: var(--spacing-small) 0;
     font-size: var(--font-size-small);
-    margin: var(--spacing-small) 0;
     text-transform: uppercase;
+    border-bottom: solid 1px;
+    border-color: #d9dae599;
     span:first-child {
-      padding-left: var(--spacing-small);
+      padding-left: var(--spacing-huge);
       & + span {
         padding-left: var(--spacing-xxlarge);
       }
@@ -151,7 +155,7 @@
   }
 
   .custom-variables {
-    padding: 0 var(--spacing-large) 0 var(--spacing-large);
+    padding-left: var(--spacing-large);
   }
 
   .panel {
@@ -203,7 +207,7 @@
     }
     :local(.stageSummary) {
       &.Accordion--summary {
-        border-bottom: none;
+        border-bottom: none !important;
         background: var(--primary-2);
         padding-left: 0 !important;
       }
@@ -218,10 +222,6 @@
 .nopadleft {
   padding-left: 0;
 }
-.variablesTable {
-  margin-bottom: var(--spacing-large);
-}
-
 .variable-border-bottom {
   position: relative;
   &:before {
@@ -229,7 +229,8 @@
     width: 100%;
     bottom: -1px;
     content: '';
-    border-bottom: solid 1px var(--grey-200);
+    border-bottom: solid 1px;
+    border-color: #d9dae599;
     height: 1px;
     left: 100%;
   }
@@ -238,7 +239,8 @@
     width: 100%;
     bottom: -1px;
     content: '';
-    border-bottom: solid 1px var(--grey-200);
+    border-bottom: solid 1px;
+    border-color: #d9dae599;
     height: 1px;
     right: 100%;
   }

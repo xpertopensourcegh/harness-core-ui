@@ -720,9 +720,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                 <div
                                   class="actionButtons"
                                 >
-                                  <section
-                                    class="actionButtons alignIcons"
-                                  >
+                                  <div>
                                     <span
                                       class="bp3-popover-wrapper"
                                     >
@@ -757,6 +755,8 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                         </button>
                                       </span>
                                     </span>
+                                  </div>
+                                  <div>
                                     <span
                                       class="bp3-popover-wrapper"
                                     >
@@ -788,10 +788,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                         </button>
                                       </span>
                                     </span>
-                                  </section>
-                                  <div
-                                    class="alignIcons configureButton"
-                                  />
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -905,9 +902,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                 <div
                                   class="actionButtons"
                                 >
-                                  <section
-                                    class="actionButtons alignIcons"
-                                  >
+                                  <div>
                                     <span
                                       class="bp3-popover-wrapper"
                                     >
@@ -942,6 +937,8 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                         </button>
                                       </span>
                                     </span>
+                                  </div>
+                                  <div>
                                     <span
                                       class="bp3-popover-wrapper"
                                     >
@@ -973,10 +970,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                         </button>
                                       </span>
                                     </span>
-                                  </section>
-                                  <div
-                                    class="alignIcons configureButton"
-                                  />
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -1461,9 +1455,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                         <div
                                           class="actionButtons"
                                         >
-                                          <section
-                                            class="actionButtons alignIcons"
-                                          >
+                                          <div>
                                             <span
                                               class="bp3-popover-wrapper"
                                             >
@@ -1498,6 +1490,8 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                 </button>
                                               </span>
                                             </span>
+                                          </div>
+                                          <div>
                                             <span
                                               class="bp3-popover-wrapper"
                                             >
@@ -1529,10 +1523,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                 </button>
                                               </span>
                                             </span>
-                                          </section>
-                                          <div
-                                            class="alignIcons configureButton"
-                                          />
+                                          </div>
                                         </div>
                                       </div>
                                     </div>
@@ -1646,9 +1637,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                         <div
                                           class="actionButtons"
                                         >
-                                          <section
-                                            class="actionButtons alignIcons"
-                                          >
+                                          <div>
                                             <span
                                               class="bp3-popover-wrapper"
                                             >
@@ -1683,6 +1672,8 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                 </button>
                                               </span>
                                             </span>
+                                          </div>
+                                          <div>
                                             <span
                                               class="bp3-popover-wrapper"
                                             >
@@ -1714,10 +1705,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                 </button>
                                               </span>
                                             </span>
-                                          </section>
-                                          <div
-                                            class="alignIcons configureButton"
-                                          />
+                                          </div>
                                         </div>
                                       </div>
                                     </div>

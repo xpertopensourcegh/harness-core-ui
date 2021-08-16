@@ -55,6 +55,7 @@ export function StepCard(props: StepCardProps): React.ReactElement {
 export function StepCardPanel(props: StepCardProps): React.ReactElement {
   return (
     <NestedAccordionPanel
+      noAutoScroll
       collapseProps={{
         keepChildrenMounted: true
       }}
@@ -113,6 +114,7 @@ export function StepGroupCard(props: StepGroupCardProps): React.ReactElement {
 export function StepGroupCardPanel(props: StepGroupCardProps): React.ReactElement {
   return (
     <NestedAccordionPanel
+      noAutoScroll
       isDefaultOpen
       addDomId
       collapseProps={{

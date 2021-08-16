@@ -216,6 +216,10 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                                 defaultValueToReset: '',
                                 expressions,
                                 width: 264,
+                                btnClassName:
+                                  getMultiTypeFromValue(variable.value as string) === MultiTypeInputType.RUNTIME
+                                    ? css.runtimeInputButton
+                                    : '',
                                 textProps: {
                                   disabled: !initialValues.canAddVariable || readonly,
                                   type: variable.type === VariableType.Number ? 'number' : 'text'
@@ -226,32 +230,9 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                           )}
                         </div>
                         <div className={css.actionButtons}>
-                          <section className={cx(css.actionButtons, css.alignIcons)}>
-                            {initialValues.canAddVariable ? (
-                              <>
-                                <Button
-                                  icon="edit"
-                                  tooltip={<String className={css.tooltip} stringID="common.editVariable" />}
-                                  data-testid={`edit-variable-${index}`}
-                                  disabled={readonly}
-                                  onClick={() => {
-                                    setSelectedVariable({ variable, index })
-                                  }}
-                                  minimal
-                                />
-                                <Button
-                                  icon="main-trash"
-                                  data-testid={`delete-variable-${index}`}
-                                  tooltip={<String className={css.tooltip} stringID="common.removeThisVariable" />}
-                                  disabled={readonly}
-                                  onClick={() => handleRemove(index)}
-                                  minimal
-                                />
-                              </>
-                            ) : /* istanbul ignore next */ null}
-                          </section>
-                          <div className={cx(css.alignIcons, css.configureButton)}>
-                            {getMultiTypeFromValue(variable.value as string) === MultiTypeInputType.RUNTIME ? (
+                          {getMultiTypeFromValue(variable.value as string) === MultiTypeInputType.RUNTIME && (
+                            <div className={cx(css.configureButton)}>
+                              {' '}
                               <ConfigureOptions
                                 value={variable.value as string}
                                 defaultValue={variable.default}
@@ -263,7 +244,34 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                                 }}
                                 isReadonly={readonly}
                               />
-                            ) : null}
+                            </div>
+                          )}
+
+                          <div>
+                            {initialValues.canAddVariable && (
+                              <Button
+                                icon="edit"
+                                tooltip={<String className={css.tooltip} stringID="common.editVariable" />}
+                                data-testid={`edit-variable-${index}`}
+                                disabled={readonly}
+                                onClick={() => {
+                                  setSelectedVariable({ variable, index })
+                                }}
+                                minimal
+                              />
+                            )}
+                          </div>
+                          <div>
+                            {initialValues.canAddVariable && (
+                              <Button
+                                icon="main-trash"
+                                data-testid={`delete-variable-${index}`}
+                                tooltip={<String className={css.tooltip} stringID="common.removeThisVariable" />}
+                                disabled={readonly}
+                                onClick={() => handleRemove(index)}
+                                minimal
+                              />
+                            )}
                           </div>
                         </div>
                       </div>

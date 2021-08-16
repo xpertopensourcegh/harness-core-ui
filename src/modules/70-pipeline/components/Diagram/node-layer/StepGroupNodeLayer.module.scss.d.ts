@@ -5,6 +5,9 @@ declare const styles: {
   readonly header: string
   readonly addNode: string
   readonly labelTooltip: string
+  readonly stepGroup: string
+  readonly stepGroupHover: string
   readonly conditional: string
+  readonly collapseIcon: string
 }
 export default styles

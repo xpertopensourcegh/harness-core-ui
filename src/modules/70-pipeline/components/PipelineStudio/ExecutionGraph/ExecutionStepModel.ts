@@ -528,14 +528,15 @@ export class ExecutionStepModel extends DiagramModel {
             : SPACE_BETWEEN_ELEMENTS
 
           stepGroupLayer.startNode.setPosition(startX, startY)
+
           prevNodes.forEach((prevNode: DefaultNodeModel) => {
             this.connectedParentToNode(
               stepGroupLayer.startNode,
               prevNode,
               !isParallelNode && !isReadonly,
               isStepGroupNode ? 4 : 0,
-              isStepGroupNode ? 'var(--pipeline-grey-border)' : 'var(--diagram-link)',
-              { type: 'in', size: LINE_SEGMENT_LENGTH }
+              isStepGroupNode ? 'var(--pipeline-grey-border)' : 'var(--diagram-link)'
+              // { type: 'in', size: LINE_SEGMENT_LENGTH }
             )
           })
           prevNodes = [stepGroupLayer.startNode]

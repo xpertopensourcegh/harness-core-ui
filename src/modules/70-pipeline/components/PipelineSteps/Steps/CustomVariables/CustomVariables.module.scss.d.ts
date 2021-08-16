@@ -5,8 +5,8 @@ declare const styles: {
   readonly headerRow: string
   readonly subHeader: string
   readonly valueRow: string
+  readonly runtimeInputButton: string
   readonly variableListTable: string
-  readonly alignIcons: string
   readonly configureButton: string
   readonly actionButtons: string
   readonly secretContainer: string

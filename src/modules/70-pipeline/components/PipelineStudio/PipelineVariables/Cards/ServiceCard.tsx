@@ -60,6 +60,7 @@ export function ServiceCardPanel(props: ServiceCardProps): React.ReactElement {
 
   return (
     <NestedAccordionPanel
+      noAutoScroll
       isDefaultOpen
       addDomId
       id={`${props.path}.Service`}

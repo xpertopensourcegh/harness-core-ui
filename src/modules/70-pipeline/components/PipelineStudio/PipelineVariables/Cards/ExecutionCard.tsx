@@ -169,6 +169,7 @@ export function ExecutionCard(props: ExecutionCardProps): React.ReactElement {
 export function ExecutionCardPanel(props: ExecutionCardProps): React.ReactElement {
   return (
     <NestedAccordionPanel
+      noAutoScroll
       isDefaultOpen
       addDomId
       id={props.id}

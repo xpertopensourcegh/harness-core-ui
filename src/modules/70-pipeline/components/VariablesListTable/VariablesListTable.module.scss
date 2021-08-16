@@ -1,22 +1,23 @@
 .variables-list-table {
   display: grid;
   align-items: baseline;
-  // padding: 0 var(--spacing-large) 0 var(--spacing-large);
-  // row-gap: var(--spacing-large);
 
   .variable-list-row {
     display: grid;
     grid-template-columns: repeat(2, minmax(10px, 1fr));
     padding: var(--spacing-small);
     text-indent: var(--spacing-xxlarge);
-    border-bottom: solid 1px var(--grey-200);
+    border-bottom: solid 1px;
+    border-color: #d9dae599;
     position: relative;
+    height: 32px;
     &:before {
       position: absolute;
       width: 100%;
       bottom: -1px;
       content: '';
-      border-bottom: solid 1px var(--grey-200);
+      border-bottom: solid 1px;
+      border-color: #d9dae599;
       height: 1px;
       left: 100%;
     }
@@ -26,7 +27,8 @@
       width: 100%;
       bottom: -1px;
       content: '';
-      border-bottom: solid 1px var(--grey-200);
+      border-bottom: solid 1px;
+      border-color: #d9dae599;
       height: 1px;
       right: 100%;
     }

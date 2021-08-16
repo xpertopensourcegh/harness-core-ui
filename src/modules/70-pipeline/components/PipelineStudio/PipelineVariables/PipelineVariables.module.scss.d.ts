@@ -30,7 +30,6 @@ declare const styles: {
   readonly iconCollapsed: string
   readonly accordionSummary: string
   readonly nopadleft: string
-  readonly variablesTable: string
   readonly variableBorderBottom: string
   readonly marginIndentXlarge: string
   readonly marginIndentL1: string

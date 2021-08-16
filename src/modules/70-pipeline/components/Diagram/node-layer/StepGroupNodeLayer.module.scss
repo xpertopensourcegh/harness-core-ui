@@ -57,6 +57,16 @@
     padding: var(--spacing-small);
   }
 }
+.step-group {
+  &:hover {
+    background: var(--primary-1) !important;
+    border-color: var(--primary-7) !important;
+  }
+}
+.step-group-hover {
+  background: var(--primary-1) !important;
+  border-color: var(--primary-7) !important;
+}
 .conditional {
   position: absolute;
   top: -18px;
@@ -73,5 +83,12 @@
       // TODO: Replace color once it is available in UIKit
       stroke: #f79400 !important;
     }
+  }
+}
+
+.collapseIcon {
+  &:global(.bp3-icon) {
+    color: var(--primary-7) !important;
+    cursor: pointer;
   }
 }

@@ -123,7 +123,7 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
 
   return (
     <div
-      className={css.defaultNode}
+      className={cx(css.defaultNode, 'default-node')}
       style={{ marginLeft: `${marginAdjustment}px` }}
       ref={nodeRef}
       onClick={e => {

@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { map } from 'lodash-es'
+import classnames from 'classnames'
 import { DiagramEngine, NodeWidget, NodeModel } from '@projectstorm/react-diagrams-core'
-import { Text, Button, Icon, Color, Layout, Link } from '@wings-software/uicore'
+import { Text, Icon, Color, Layout, Link } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import type { StepGroupNodeLayerModel } from './StepGroupNodeLayerModel'
 import { Event, StepsType, DiagramDrag } from '../Constants'
@@ -61,7 +62,7 @@ export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): 
   const layerRef = React.useRef<HTMLDivElement>(null)
   const [showAdd, setVisibilityOfAdd] = React.useState(false)
   const [addClicked, setAddClicked] = React.useState(false)
-
+  const [hover, setHover] = React.useState(false)
   React.useEffect(() => {
     const nodeLayer = layerRef.current
 
@@ -127,15 +128,17 @@ export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): 
   const width = config.maxX - config.minX
 
   const height = childrenDistance * depth + 20
+
   return (
     <>
       <div
+        className={classnames(css.stepGroup, 'ok1', { [css.stepGroupHover]: hover })}
         ref={layerRef}
         style={{
           left: config.minX,
           cursor: 'pointer',
           top: config.minY - childrenDistance * headerDepth,
-          pointerEvents: allowAdd ? 'all' : 'none',
+          pointerEvents: allowAdd ? 'all' : 'auto',
           position: 'absolute',
           height: height
         }}
@@ -208,18 +211,18 @@ export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): 
           width: width - 20 - (options.showRollback ? 50 : 0),
           alignItems: 'center'
         }}
+        onMouseOver={e => {
+          e.stopPropagation()
+          setHover(true)
+        }}
+        onMouseOut={e => {
+          e.stopPropagation()
+          setHover(false)
+        }}
       >
-        <Button
-          minimal
-          icon="minus"
-          disabled={options.disableCollapseButton}
-          withoutCurrentColor
-          tooltip={
-            options.disableCollapseButton ? getString('pipeline.collapseIsDisabledWhileStageIsRunning') : undefined
-          }
-          iconProps={{
-            size: 8
-          }}
+        <Icon
+          className={css.collapseIcon}
+          name="minus"
           onClick={e => {
             e.stopPropagation()
             props.layer.fireEvent({}, Event.StepGroupCollapsed)

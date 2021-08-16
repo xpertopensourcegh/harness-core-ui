@@ -6,7 +6,7 @@
   .header-row {
     display: inline-flex;
     transform: translateY(-48px);
-    margin-left: 85%;
+    margin-left: 84%;
     width: 200px;
     height: 0;
     :global(.bp3-button) {
@@ -27,6 +27,8 @@
 
   .value-row {
     display: grid;
+    align-items: center;
+    height: 32px;
     grid-template-columns: 264px 1fr;
     column-gap: var(--spacing-xsmall);
 
@@ -37,6 +39,11 @@
 
     & :global(.MultiTypeInput--btn) {
       width: 28px !important;
+    }
+    .runtimeInputButton {
+      top: 0px !important;
+      height: 22px !important;
+      border: solid 1px var(--grey-200) !important;
     }
 
     input[type='number']::-webkit-inner-spin-button,
@@ -55,8 +62,6 @@
     grid-auto-flow: column;
     grid-template-columns: repeat(2, minmax(10px, 1fr));
     align-items: baseline;
-    padding-top: 3px;
-    // margin-top: var(--spacing-small);
     border-bottom: solid 1px var(--grey-200);
     position: relative;
     &:before {
@@ -81,14 +86,10 @@
       margin-bottom: 0;
     }
   }
-  .alignIcons {
-    margin-top: -5px;
-  }
-  .configureButton {
-    margin-top: 0 !important;
-    width: 30px;
-    height: 27px;
 
+  .configureButton {
+    width: 38px;
+    align-items: end;
     padding-right: 4px;
     display: grid;
     justify-content: center;
@@ -99,7 +100,7 @@
   }
   .actionButtons {
     display: grid;
-    grid-template-columns: 1fr 30px;
+    grid-template-columns: repeat(3, 30px);
 
     section {
       display: grid;
