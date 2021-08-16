@@ -211,6 +211,13 @@ export function getPathToMetaKeyMap({
   pipelineFqns: PipelineMeta[]
   pipelineValues: PipelineMeta[]
 } {
+  if (!data) {
+    return {
+      pipelineMetaKeys,
+      pipelineFqns,
+      pipelineValues
+    }
+  }
   if (Array.isArray(data)) {
     if (path.includes('variables')) {
       for (let index = data.length - 1; index >= 0; index--) {
@@ -227,7 +234,7 @@ export function getPathToMetaKeyMap({
         }
       }
     } else {
-      data.forEach((item, index) => {
+      data?.forEach((item, index) => {
         if (Array.isArray(item) || typeof item === 'object') {
           getPathToMetaKeyMap({
             path: `${path}[${index}]`,
