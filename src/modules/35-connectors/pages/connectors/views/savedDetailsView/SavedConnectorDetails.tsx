@@ -228,6 +228,10 @@ const getGithubSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowI
     {
       label: 'common.git.applicationId',
       value: connector?.spec?.apiAccess?.spec?.applicationId
+    },
+    {
+      label: 'common.git.privateKey',
+      value: connector?.spec?.apiAccess?.spec?.privateKeyRef
     }
   ]
 }
