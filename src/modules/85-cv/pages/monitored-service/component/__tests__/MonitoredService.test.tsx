@@ -95,7 +95,7 @@ describe('Unit tests for createting monitored source', () => {
       } as any,
       isInitializingDB: false
     })
-    const { container, getByText, getAllByText } = render(
+    const { container, getByText, queryByText } = render(
       <TestWrapper {...testWrapperProps}>
         <MonitoredService />
       </TestWrapper>
@@ -115,8 +115,7 @@ describe('Unit tests for createting monitored source', () => {
       value: 'Updated Monitored service'
     })
 
-    // value updated
-    expect(getAllByText('Updated_Monitored_service')).toBeDefined()
+    await waitFor(() => expect(queryByText('cv.monitoredServices.nameValidation')).toBeNull())
   })
 
   test('Health source table and environment services component renders', async () => {
