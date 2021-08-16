@@ -1,0 +1,17 @@
+.main {
+  .timelineChartContainer {
+    display: flex;
+    align-items: center;
+
+    .timelineLabel {
+      color: var(--grey-300) !important;
+      font-size: var(--font-size-small) !important;
+      position: relative;
+      bottom: 6px;
+    }
+
+    > div {
+      flex: 1;
+    }
+  }
+}

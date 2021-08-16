@@ -1,0 +1,18 @@
+.main {
+  width: 100% !important;
+
+  .timelineRow {
+    margin-bottom: var(--spacing-small) !important;
+    display: flex;
+    align-items: center;
+
+    .rowLabel {
+      color: var(--grey-300) !important;
+      font-size: var(--font-size-small) !important;
+    }
+
+    > div {
+      flex: 1;
+    }
+  }
+}
