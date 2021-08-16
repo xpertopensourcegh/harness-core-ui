@@ -1,37 +1,18 @@
 .stageSelectionGrid {
-  background: var(--white);
-  border: 1px solid var(--grey-100);
-  box-shadow: 0px 0px 1px rgb(40 41 61 / 8%), 0px 0.5px 2px rgb(96 97 112 / 16%);
-  border-radius: 8px;
-  padding: var(--spacing-large) var(--spacing-xlarge);
-  min-height: 150px;
-  width: 450px;
   cursor: pointer;
   position: relative;
-  &.selected {
-    background: var(--primary-1);
-    border: 1px solid var(--primary-6);
-    box-shadow: none;
-    .checkedSectionIcon,
-    .selectStateForm {
-      display: block;
+  .stageSelectDropDown {
+    width: 350px;
+    margin-bottom: 0px;
+    font-size: 13px;
+    :global {
+      .bp3-form-helper-text {
+        position: absolute;
+        bottom: -26px;
+      }
+      .bp3-input {
+        font-size: 13px;
+      }
     }
-    .cardTitle {
-      font-weight: 500 !important;
-    }
-  }
-  &.error {
-    border-color: var(--grey-100);
-    box-shadow: 0 0 0 0 rgb(219 55 55 / 0%), 0 0 0 0 rgb(219 55 55 / 0%), inset 0 0 0 1px #db3737,
-      inset 0 0 0 1px rgb(16 22 26 / 15%), inset 0 1px 1px rgb(16 22 26 / 20%);
-  }
-  .checkedSectionIcon {
-    position: absolute;
-    right: 14px;
-    top: 14px;
-    display: none;
-  }
-  .selectStateForm {
-    display: none;
   }
 }

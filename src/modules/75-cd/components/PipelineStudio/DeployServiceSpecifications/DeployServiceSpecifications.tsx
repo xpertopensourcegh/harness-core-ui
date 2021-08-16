@@ -1,8 +1,6 @@
 import React from 'react'
-import { Layout, Card, SelectOption, Checkbox, FormikForm } from '@wings-software/uicore'
+import { Layout, Card, SelectOption, Checkbox, FormikForm, Container, Color, Text } from '@wings-software/uicore'
 
-import isEmpty from 'lodash-es/isEmpty'
-import cx from 'classnames'
 import produce from 'immer'
 import { get, set, debounce } from 'lodash-es'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
@@ -27,7 +25,8 @@ import { useValidationErrors } from '@pipeline/components/PipelineStudio/Pipline
 import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
 import SelectDeploymentType from '@cd/components/PipelineStudio/DeployServiceSpecifications/SelectDeploymentType'
 import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
-import css from './DeployServiceSpecifications.module.scss'
+import { useDeepCompareEffect } from '@common/hooks'
+import stageCss from '../DeployStageSetupShell/DeployStage.module.scss'
 
 export default function DeployServiceSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
   const { getString } = useStrings()
@@ -35,15 +34,9 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   const [checkedItems, setCheckedItems] = React.useState({
     overrideSetCheckbox: false
   })
-  const [isConfigVisible, setConfigVisibility] = React.useState(false)
   const [selectedPropagatedState, setSelectedPropagatedState] = React.useState<SelectOption>()
-  const [canPropagate, setCanPropagate] = React.useState(false)
   const scrollRef = React.useRef<HTMLDivElement | null>(null)
 
-  const previousStageList: {
-    label: string
-    value: string
-  }[] = []
   const {
     state: {
       pipeline,
@@ -63,11 +56,18 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   const { stage } = getStageFromPipeline<DeploymentStageElementConfig>(selectedStageId || '')
   const { index: stageIndex } = getStageIndexFromPipeline(pipeline, selectedStageId || '')
   const { stages } = getFlattenedStages(pipeline)
-  const [parentStage, setParentStage] = React.useState<{
-    [key: string]: any
-  }>({})
+  const [previousStageList, setPreviousStageList] = React.useState<SelectOption[]>([])
   const { submitFormsForTab } = React.useContext(StageErrorContext)
   const { errorMap } = useValidationErrors()
+
+  React.useEffect(() => {
+    if (
+      !stage?.stage?.spec?.serviceConfig?.serviceDefinition &&
+      !stage?.stage?.spec?.serviceConfig?.useFromStage?.stage
+    ) {
+      setDefaultServiceSchema()
+    }
+  }, [])
 
   React.useEffect(() => {
     if (errorMap.size > 0) {
@@ -75,8 +75,9 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     }
   }, [errorMap])
 
-  React.useEffect(() => {
+  useDeepCompareEffect(() => {
     if (stages && stages.length > 0) {
+      const newPreviousStageList: SelectOption[] = []
       const currentStageType = stage?.stage?.type
       stages.forEach((item, index) => {
         if (
@@ -84,57 +85,69 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
           currentStageType === item?.stage?.type &&
           !get(item.stage, `spec.serviceConfig.useFromStage.stage`)
         ) {
-          previousStageList.push({
-            label: `Previous Stage ${item.stage?.name} [${item.stage?.identifier}]`,
+          const serviceName =
+            (item.stage as DeploymentStageElementConfig)?.spec?.serviceConfig.service?.name ||
+            (item.stage as DeploymentStageElementConfig)?.spec?.serviceConfig.serviceRef
+          newPreviousStageList.push({
+            label: `Stage [${item.stage?.name}] - Service [${serviceName}]`,
             value: item.stage?.identifier || ''
           })
         }
       })
-    }
-    if (isEmpty(parentStage) && stage?.stage?.spec?.serviceConfig?.useFromStage?.stage) {
-      const parentStageName = stage?.stage?.spec?.serviceConfig?.useFromStage?.stage
-      const { index } = getStageIndexFromPipeline(pipeline, parentStageName)
-      setParentStage(stages[index])
+      setPreviousStageList(newPreviousStageList)
     }
   }, [stages])
 
   React.useEffect(() => {
-    if (stage?.stage) {
-      if (!stage.stage.spec) {
-        stage.stage.spec = {} as any
-      }
-      if (
-        !stage.stage.spec?.serviceConfig?.serviceDefinition &&
-        setupModeType === setupMode.DIFFERENT &&
-        !stage.stage.spec?.serviceConfig?.useFromStage?.stage
-      ) {
-        setDefaultServiceSchema()
-        setSelectedPropagatedState({
-          label: '',
-          value: ''
-        })
-        setSetupMode(setupMode.DIFFERENT)
-      } else if (
-        setupModeType === setupMode.PROPAGATE &&
-        stageIndex > 0 &&
-        !stage.stage.spec?.serviceConfig?.serviceDefinition &&
-        !stage.stage.spec?.serviceConfig?.useFromStage?.stage
-      ) {
-        const stageData = produce(stage, draft => {
-          set(draft, 'stage.spec', {
-            serviceConfig: {
-              useFromStage: {
-                stage: null
-              },
-              stageOverrides: {}
-            }
-          })
-        })
-        debounceUpdateStage(stageData.stage)
-        setSetupMode(setupMode.PROPAGATE)
-      }
+    if (stageIndex === 0) {
+      setSetupMode(setupMode.DIFFERENT)
     }
-  }, [setupModeType, stageIndex, stage?.stage])
+  }, [stageIndex])
+
+  React.useEffect(() => {
+    const useFromStage = stage?.stage?.spec?.serviceConfig?.useFromStage
+    const stageOverrides = stage?.stage?.spec?.serviceConfig?.stageOverrides
+
+    if (useFromStage) {
+      setSetupMode(setupMode.PROPAGATE)
+      if (previousStageList && previousStageList.length > 0) {
+        const selectedIdentifier = useFromStage?.stage
+        const selectedOption = previousStageList.find(v => v.value === selectedIdentifier)
+        setSelectedPropagatedState(selectedOption)
+        setCheckedItems({
+          ...checkedItems,
+          overrideSetCheckbox: !!stageOverrides
+        })
+      }
+    } else {
+      setSetupMode(setupMode.DIFFERENT)
+      setSelectedPropagatedState({
+        label: '',
+        value: ''
+      })
+      setCheckedItems({
+        ...checkedItems,
+        overrideSetCheckbox: !!stageOverrides
+      })
+    }
+  }, [stage?.stage?.spec, previousStageList])
+
+  React.useEffect(() => {
+    if (selectedPropagatedState && selectedPropagatedState.value) {
+      const stageData = produce(stage, draft => {
+        if (draft) {
+          set(draft, 'stage.spec.serviceConfig.useFromStage', { stage: selectedPropagatedState.value })
+        }
+        if (draft?.stage?.spec?.serviceConfig?.serviceDefinition) {
+          delete draft.stage.spec.serviceConfig.serviceDefinition
+        }
+        if (draft?.stage?.spec?.serviceConfig?.serviceRef !== undefined) {
+          delete draft.stage.spec.serviceConfig.serviceRef
+        }
+      })
+      debounceUpdateStage(stageData?.stage)
+    }
+  }, [selectedPropagatedState])
 
   const setDefaultServiceSchema = (): Promise<void> => {
     const stageData = produce(stage, draft => {
@@ -201,124 +214,6 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       debounceUpdateStage(stageData?.stage)
     }
   }
-  React.useEffect(() => {
-    const stageData = produce(stage, draft => {
-      if (
-        draft &&
-        !draft?.stage?.spec?.serviceConfig?.serviceDefinition?.type &&
-        !draft?.stage?.spec?.serviceConfig?.useFromStage
-      ) {
-        set(draft, 'stage.spec.serviceConfig.serviceDefinition.type', 'Kubernetes')
-      }
-      if (
-        draft &&
-        !draft?.stage?.spec?.serviceConfig?.serviceDefinition &&
-        !stage?.stage?.spec?.serviceConfig?.useFromStage
-      ) {
-        set(draft, 'stage.spec.serviceConfig.serviceDefinition', {})
-      }
-    })
-    debounceUpdateStage(stageData?.stage)
-    let hasStageOfSameType = false
-    const currentStageType = stage?.stage?.type
-
-    for (let index = 0; index < stageIndex; index++) {
-      if (stages[index]?.stage?.type === currentStageType) {
-        hasStageOfSameType = true
-      }
-    }
-
-    setCanPropagate(hasStageOfSameType)
-  }, [])
-
-  React.useEffect(() => {
-    if (stageIndex === 0) {
-      setSetupMode(setupMode.DIFFERENT)
-    }
-  }, [stageIndex])
-
-  React.useEffect(() => {
-    const useFromStage = stage?.stage?.spec?.serviceConfig?.useFromStage
-    const stageOverrides = stage?.stage?.spec?.serviceConfig?.stageOverrides
-    const serviceDefinition = stage?.stage?.spec?.serviceConfig?.serviceDefinition
-
-    if (useFromStage) {
-      setSetupMode(setupMode.PROPAGATE)
-      if (previousStageList && previousStageList.length > 0) {
-        const selectedIdentifier = useFromStage?.stage
-        const selectedOption = previousStageList.find(v => v.value === selectedIdentifier)
-
-        if (selectedOption?.value !== selectedPropagatedState?.value) {
-          setSelectedPropagatedState(selectedOption)
-          if (stageOverrides) {
-            if (!checkedItems.overrideSetCheckbox) {
-              setCheckedItems({
-                ...checkedItems,
-                overrideSetCheckbox: true
-              })
-              if (!isConfigVisible) {
-                setConfigVisibility(true)
-              }
-            }
-          } else {
-            setCheckedItems({
-              ...checkedItems,
-              overrideSetCheckbox: false
-            })
-            setConfigVisibility(false)
-          }
-          debounceUpdateStage(stage?.stage)
-        }
-      }
-      if (stageOverrides) {
-        if (!checkedItems.overrideSetCheckbox) {
-          setCheckedItems({
-            ...checkedItems,
-            overrideSetCheckbox: true
-          })
-          if (!isConfigVisible) {
-            setConfigVisibility(true)
-          }
-        }
-        if (!setupModeType) {
-          setSetupMode(setupMode.PROPAGATE)
-        }
-      }
-    } else if (serviceDefinition) {
-      setSelectedPropagatedState({
-        label: '',
-        value: ''
-      })
-      setSetupMode(setupMode.DIFFERENT)
-    }
-  }, [stage?.stage?.spec])
-
-  React.useEffect(() => {
-    if (selectedPropagatedState && selectedPropagatedState.value) {
-      const stageData = produce(stage, draft => {
-        if (draft) {
-          set(draft, 'stage.spec.serviceConfig.useFromStage', { stage: selectedPropagatedState.value })
-        }
-        if (draft?.stage?.spec?.serviceConfig?.serviceDefinition) {
-          delete draft.stage.spec.serviceConfig.serviceDefinition
-        }
-        if (draft?.stage?.spec?.serviceConfig?.serviceRef !== undefined) {
-          delete draft.stage.spec.serviceConfig.serviceRef
-        }
-      })
-      debounceUpdateStage(stageData?.stage)
-    }
-  }, [selectedPropagatedState])
-
-  const initWithServiceDefinition = (): void => {
-    setDefaultServiceSchema().then(() => {
-      setSelectedPropagatedState({
-        label: '',
-        value: ''
-      })
-      setSetupMode(setupMode.DIFFERENT)
-    })
-  }
 
   const updateService = React.useCallback(
     (value: ServiceConfig) => {
@@ -339,38 +234,43 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
 
   return (
     <FormikForm>
-      <DeployServiceErrors />
-      {stageIndex > 0 && canPropagate && (
-        <PropagateWidget
-          setupModeType={setupModeType}
-          selectedPropagatedState={selectedPropagatedState}
-          previousStageList={previousStageList}
-          isReadonly={isReadonly}
-          setSetupMode={setSetupMode}
-          setSelectedPropagatedState={setSelectedPropagatedState}
-          initWithServiceDefinition={initWithServiceDefinition}
-        />
-      )}
-      {setupModeType === setupMode.PROPAGATE && selectedPropagatedState?.value && (
-        <div className={css.useoverrideCheckbox}>
-          <Checkbox
-            label={getString('cd.pipelineSteps.serviceTab.overrideChanges')}
-            checked={checkedItems.overrideSetCheckbox}
-            onChange={handleChange}
-          />
-          {!checkedItems.overrideSetCheckbox && <div className={cx(css.navigationButtons)}>{props.children}</div>}
-        </div>
-      )}
-      {setupModeType === setupMode.DIFFERENT ? (
-        <div
-          className={cx(css.serviceOverrides, {
-            [css.heightStageOverrides2]: stageIndex > 0
-          })}
-        >
-          <div className={css.overFlowScroll} ref={scrollRef}>
-            <div className={css.contentSection}>
-              <div className={css.tabHeading}>{getString('pipelineSteps.serviceTab.aboutYourService')}</div>
-              <Card className={cx(css.sectionCard, css.shadow)} id="aboutService">
+      <div className={stageCss.serviceOverrides} ref={scrollRef}>
+        <DeployServiceErrors />
+        <div className={stageCss.contentSection}>
+          {previousStageList.length > 0 && (
+            <Container margin={{ bottom: 'xlarge' }}>
+              <PropagateWidget
+                setupModeType={setupModeType}
+                selectedPropagatedState={selectedPropagatedState}
+                previousStageList={previousStageList}
+                isReadonly={isReadonly}
+                setSetupMode={setSetupMode}
+                setSelectedPropagatedState={setSelectedPropagatedState}
+                initWithServiceDefinition={setDefaultServiceSchema}
+              />
+              {setupModeType === setupMode.PROPAGATE && selectedPropagatedState?.value && (
+                <Container margin={{ top: 'large' }}>
+                  <Container padding={{ bottom: 'small' }} border={{ bottom: true }}>
+                    <Text color={Color.GREY_800} font={{ weight: 'bold' }}>
+                      {getString('cd.pipelineSteps.serviceTab.stageOverrides')}
+                    </Text>
+                  </Container>
+                  <Checkbox
+                    color={Color.GREY_500}
+                    font={{ weight: 'semi-bold' }}
+                    margin={{ top: 'medium' }}
+                    label={getString('cd.pipelineSteps.serviceTab.overrideChanges')}
+                    checked={checkedItems.overrideSetCheckbox}
+                    onChange={handleChange}
+                  />
+                </Container>
+              )}
+            </Container>
+          )}
+          {setupModeType === setupMode.DIFFERENT ? (
+            <>
+              <div className={stageCss.tabHeading}>{getString('pipelineSteps.serviceTab.aboutYourService')}</div>
+              <Card className={stageCss.sectionCard} id="aboutService">
                 <StepWidget
                   type={StepType.DeployService}
                   readonly={isReadonly}
@@ -383,7 +283,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                   stepViewType={StepViewType.Edit}
                 />
               </Card>
-              <div className={css.tabHeading} id="serviceDefinition">
+              <div className={stageCss.tabHeading} id="serviceDefinition">
                 {getString('pipelineSteps.deploy.serviceSpecifications.serviceDefinition')}
               </div>
               <SelectDeploymentType selectedDeploymentType={'kubernetes'} isReadonly={isReadonly} />
@@ -399,34 +299,28 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                   stepViewType={StepViewType.Edit}
                 />
               </Layout.Horizontal>
-            </div>
-            <div className={css.navigationButtons}>{props.children}</div>
-          </div>
+            </>
+          ) : (
+            checkedItems.overrideSetCheckbox &&
+            selectedPropagatedState?.value && (
+              <StepWidget<K8SDirectServiceStep>
+                factory={factory}
+                readonly={isReadonly}
+                initialValues={{
+                  stageIndex,
+                  setupModeType
+                }}
+                type={StepType.K8sServiceSpec}
+                stepViewType={StepViewType.Edit}
+              />
+            )
+          )}
+          {((setupModeType === setupMode.PROPAGATE && selectedPropagatedState?.value) ||
+            setupModeType === setupMode.DIFFERENT) && (
+            <Container margin={{ top: 'xxlarge' }}>{props.children}</Container>
+          )}
         </div>
-      ) : (
-        checkedItems.overrideSetCheckbox &&
-        selectedPropagatedState?.value && (
-          <>
-            <div className={cx(css.serviceOverrides, css.heightStageOverrides)}>
-              <div className={cx(css.overFlowScroll, css.alignCenter)} ref={scrollRef}>
-                <Layout.Horizontal>
-                  <StepWidget<K8SDirectServiceStep>
-                    factory={factory}
-                    readonly={isReadonly}
-                    initialValues={{
-                      stageIndex,
-                      setupModeType
-                    }}
-                    type={StepType.K8sServiceSpec}
-                    stepViewType={StepViewType.Edit}
-                  />
-                </Layout.Horizontal>
-                <div className={cx(css.navigationButtons, css.overrides)}>{props.children}</div>
-              </div>
-            </div>
-          </>
-        )
-      )}
+      </div>
     </FormikForm>
   )
 }

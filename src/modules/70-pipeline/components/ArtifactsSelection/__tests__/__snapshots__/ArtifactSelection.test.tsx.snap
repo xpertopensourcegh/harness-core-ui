@@ -428,7 +428,7 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
         class="addArtifact"
       >
         <p
-          class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--intent-primary"
         >
           <span>
             pipelineSteps.serviceTab.artifactList.addSidecar
@@ -687,7 +687,7 @@ exports[`ArtifactsSelection tests delete artifact list works correctly 1`] = `
         class="addArtifact"
       >
         <p
-          class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--intent-primary"
         >
           <span>
             pipelineSteps.serviceTab.artifactList.addSidecar
@@ -946,7 +946,7 @@ exports[`ArtifactsSelection tests edit artifact list works correctly 1`] = `
         class="addArtifact"
       >
         <p
-          class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--intent-primary"
         >
           <span>
             pipelineSteps.serviceTab.artifactList.addSidecar
@@ -1128,7 +1128,7 @@ exports[`ArtifactsSelection tests renders Artifact Listview with connectors Data
         class="addArtifact"
       >
         <p
-          class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--intent-primary"
         >
           <span>
             pipelineSteps.serviceTab.artifactList.addSidecar
@@ -1257,7 +1257,7 @@ exports[`ArtifactsSelection tests renders Artifact Listview without crashing 1`]
         class="addArtifact"
       >
         <p
-          class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--intent-primary"
         >
           <span>
             pipelineSteps.serviceTab.artifactList.addSidecar
@@ -1289,7 +1289,7 @@ exports[`ArtifactsSelection tests renders add Artifact option without crashing 1
         class="addArtifact"
       >
         <p
-          class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--intent-primary"
         >
           <span>
             pipelineSteps.serviceTab.artifactList.addPrimary
@@ -1300,7 +1300,7 @@ exports[`ArtifactsSelection tests renders add Artifact option without crashing 1
         class="addArtifact"
       >
         <p
-          class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--intent-primary"
         >
           <span>
             pipelineSteps.serviceTab.artifactList.addSidecar
@@ -1789,7 +1789,7 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
         class="addArtifact"
       >
         <p
-          class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--intent-primary"
         >
           <span>
             pipelineSteps.serviceTab.artifactList.addSidecar

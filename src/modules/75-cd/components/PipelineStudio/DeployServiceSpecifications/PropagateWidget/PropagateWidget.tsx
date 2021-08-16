@@ -1,9 +1,9 @@
 import React from 'react'
-import cx from 'classnames'
-import { Color, Icon, Select, SelectOption, Text, Layout } from '@wings-software/uicore'
-import { FormGroup, Intent } from '@blueprintjs/core'
-import { isEmpty, noop } from 'lodash-es'
+import { FormInput, SelectOption, Layout, RadioButton, Container, Color } from '@wings-software/uicore'
+import { noop } from 'lodash-es'
 import { Formik, FormikProps } from 'formik'
+import * as Yup from 'yup'
+import isEmpty from 'lodash/isEmpty'
 import { useStrings } from 'framework/strings'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
@@ -17,10 +17,7 @@ export const setupMode = {
 export interface PropagateWidgetProps {
   setupModeType: string
   isReadonly: boolean
-  previousStageList: {
-    label: string
-    value: string
-  }[]
+  previousStageList: SelectOption[]
   selectedPropagatedState: SelectOption | undefined
   initWithServiceDefinition: () => void
   setSetupMode: (setupModeType: string) => void
@@ -49,13 +46,16 @@ export default function PropagateWidget(props: PropagateWidgetProps): JSX.Elemen
   return (
     <Formik<{ setupModeType: string; selectedPropagatedState: SelectOption | undefined }>
       onSubmit={noop}
-      validate={values => {
-        const errors: { [key: string]: string } = {}
-        if (values.setupModeType === setupMode.PROPAGATE && isEmpty(values.selectedPropagatedState?.value)) {
-          errors.selectedPropagatedState = getString('cd.pipelineSteps.serviceTab.propateStage')
-        }
-        return errors
-      }}
+      validationSchema={Yup.object().shape({
+        selectedPropagatedState: Yup.object().when('setupModeType', {
+          is: setupMode.PROPAGATE,
+          then: Yup.object().test(
+            'selectedPropagatedState',
+            getString('cd.pipelineSteps.serviceTab.propagateStage'),
+            propagatedState => !isEmpty(propagatedState.value)
+          )
+        })
+      })}
       initialValues={{
         setupModeType: setupModeType,
         selectedPropagatedState: selectedPropagatedState
@@ -65,50 +65,47 @@ export default function PropagateWidget(props: PropagateWidgetProps): JSX.Elemen
       {formik => {
         window.dispatchEvent(new CustomEvent('UPDATE_ERRORS_STRIP', { detail: DeployTabs.SERVICE }))
         formikRef.current = formik
-        const { values, errors } = formik
+        const { values } = formik
         return (
-          <Layout.Horizontal
-            padding={{ top: 'xlarge', right: 'xxlarge', bottom: 'xlarge', left: 'xxlarge' }}
-            spacing={'xxlarge'}
-          >
-            <section
-              onClick={() => !isReadonly && setSetupMode(setupMode.PROPAGATE)}
-              className={cx(
-                css.stageSelectionGrid,
-                { [css.selected]: values.setupModeType === setupMode.PROPAGATE },
-                { [css.error]: errors.selectedPropagatedState }
-              )}
-            >
-              <Icon className={css.checkedSectionIcon} color={Color.PRIMARY_7} name="tick-circle" />
-              <Layout.Vertical spacing={'medium'}>
-                <Text className={css.cardTitle} color={Color.BLACK}>
-                  {getString('pipelineSteps.build.infraSpecifications.propagate')}
-                </Text>
-                <FormGroup
-                  className={css.selectStateForm}
-                  intent={isEmpty(errors.selectedPropagatedState) ? Intent.NONE : Intent.DANGER}
-                  helperText={errors.selectedPropagatedState ?? ''}
-                >
-                  <Select
-                    inputProps={{ placeholder: getString('pipeline.selectStagePlaceholder') }}
-                    disabled={values.setupModeType === setupMode.DIFFERENT || isReadonly}
-                    items={previousStageList}
-                    value={values.selectedPropagatedState}
-                    onChange={setSelectedPropagatedState}
+          <Container>
+            <Layout.Horizontal flex={{ justifyContent: 'flex-start' }} spacing={'xxxlarge'}>
+              <section
+                onClick={() => !isReadonly && setSetupMode(setupMode.PROPAGATE)}
+                className={css.stageSelectionGrid}
+              >
+                <Layout.Horizontal flex spacing={'medium'}>
+                  <RadioButton
+                    color={Color.GREY_500}
+                    font={{ weight: 'semi-bold' }}
+                    label={'Propagate from:'}
+                    checked={values.setupModeType === setupMode.PROPAGATE}
+                    style={{ flexShrink: 0 }}
                   />
-                </FormGroup>
-              </Layout.Vertical>
-            </section>
-            <section
-              onClick={() => !isReadonly && initWithServiceDefinition()}
-              className={cx(css.stageSelectionGrid, { [css.selected]: values.setupModeType === setupMode.DIFFERENT })}
-            >
-              <Icon className={css.checkedSectionIcon} color={Color.PRIMARY_7} name="tick-circle" />
-              <Text className={css.cardTitle} color={Color.BLACK}>
-                {getString('pipelineSteps.build.infraSpecifications.newConfiguration')}
-              </Text>
-            </section>
-          </Layout.Horizontal>
+                  <FormInput.Select
+                    className={css.stageSelectDropDown}
+                    name={'selectedPropagatedState'}
+                    placeholder={getString('pipeline.selectStagePlaceholder')}
+                    disabled={values.setupModeType === setupMode.DIFFERENT || isReadonly}
+                    onChange={value => {
+                      formik.setFieldValue('selectedPropagatedState', value)
+                      setSelectedPropagatedState(value)
+                    }}
+                    value={values.selectedPropagatedState}
+                    items={previousStageList}
+                  />
+                </Layout.Horizontal>
+              </section>
+
+              <section onClick={() => !isReadonly && initWithServiceDefinition()} className={css.stageSelectionGrid}>
+                <RadioButton
+                  color={Color.GREY_500}
+                  font={{ weight: 'semi-bold' }}
+                  label={getString('cd.pipelineSteps.serviceTab.differentService')}
+                  checked={values.setupModeType === setupMode.DIFFERENT}
+                />
+              </section>
+            </Layout.Horizontal>
+          </Container>
         )
       }}
     </Formik>

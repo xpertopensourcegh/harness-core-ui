@@ -588,111 +588,111 @@ const ManifestListView = ({
   }, [selectedManifest, connectorView, manifestIndex, manifestStore, expressions.length, expressions, isEditMode])
 
   return (
-    <Layout.Vertical spacing="small">
-      {!!listOfManifests?.length && (
-        <div className={cx(css.manifestList, css.listHeader)}>
-          <span className={css.tableHeader}>{getString('common.ID')}</span>
-          <span className={css.tableHeader}>{getString('pipelineSteps.serviceTab.manifestList.manifestType')}</span>
-          <span className={css.tableHeader}>{getString('pipelineSteps.serviceTab.manifestList.manifestStore')}</span>
-          <span className={css.tableHeader}>{getString('location')}</span>
+    <Layout.Vertical style={{ width: '100%' }}>
+      <Layout.Vertical spacing="small" style={{ flexShrink: 'initial' }}>
+        {!!listOfManifests?.length && (
+          <div className={cx(css.manifestList, css.listHeader)}>
+            <span className={css.tableHeader}>{getString('common.ID')}</span>
+            <span className={css.tableHeader}>{getString('pipelineSteps.serviceTab.manifestList.manifestType')}</span>
+            <span className={css.tableHeader}>{getString('pipelineSteps.serviceTab.manifestList.manifestStore')}</span>
+            <span className={css.tableHeader}>{getString('location')}</span>
 
-          <span></span>
-        </div>
-      )}
-      <Layout.Vertical spacing="medium">
-        <section>
-          {listOfManifests &&
-            listOfManifests.map((data: ManifestConfigWrapper, index: number) => {
-              const manifest = data['manifest']
-
-              const { color } = getStatus(manifest?.spec?.store?.spec?.connectorRef, connectors, accountId)
-              const connectorName = getConnectorNameFromValue(manifest?.spec?.store?.spec?.connectorRef, connectors)
-
-              return (
-                <section className={cx(css.manifestList, css.rowItem)} key={`${manifest?.identifier}-${index}`}>
-                  <div className={css.columnId}>
-                    <Icon inline name={manifestTypeIcons[manifest?.type as ManifestTypes]} size={20} />
-                    <Text inline width={150} className={css.type} color={Color.BLACK} lineClamp={1}>
-                      {manifest?.identifier}
-                    </Text>
-                  </div>
-                  <div>{getString(manifestTypeLabels[manifest?.type as ManifestTypes])}</div>
-                  <div className={css.connectorNameField}>
-                    <Icon
-                      padding={{ right: 'small' }}
-                      name={ManifestIconByType[manifest?.spec?.store.type as ManifestStores]}
-                      size={18}
-                    />
-                    <Text className={css.connectorName} lineClamp={1}>
-                      {connectorName ?? manifest?.spec?.store.spec.connectorRef}
-                    </Text>
-                    {getMultiTypeFromValue(manifest?.spec?.store.spec.connectorRef) === MultiTypeInputType.FIXED && (
-                      <Icon name="full-circle" size={12} color={color} />
-                    )}
-                  </div>
-
-                  {!!manifest?.spec?.store.spec.paths?.length && (
-                    <span>
-                      <Text lineClamp={1} width={200}>
-                        <span className={css.noWrap}>
-                          {typeof manifest?.spec?.store.spec.paths === 'string'
-                            ? manifest?.spec?.store.spec.paths
-                            : manifest?.spec?.store.spec.paths.join(', ')}
-                        </span>
-                      </Text>
-                    </span>
-                  )}
-                  {!!manifest?.spec?.store.spec.folderPath && (
-                    <span>
-                      <Text lineClamp={1} width={200}>
-                        <span className={css.noWrap}>{manifest.spec.store?.spec?.folderPath}</span>
-                      </Text>
-                    </span>
-                  )}
-
-                  {!!(manifest?.spec?.chartName && !manifest?.spec?.store.spec.folderPath) && (
-                    <span>
-                      <Text lineClamp={1} width={200}>
-                        <span className={css.noWrap}>{manifest.spec.chartName}</span>
-                      </Text>
-                    </span>
-                  )}
-
-                  {!overrideSetIdentifier?.length && !isReadonly && (
-                    <span>
-                      <Layout.Horizontal>
-                        <Button
-                          icon="edit"
-                          onClick={() =>
-                            editManifest(
-                              manifest?.type as ManifestTypes,
-                              manifest?.spec?.store.type as ManifestStores,
-                              index
-                            )
-                          }
-                          minimal
-                        />
-
-                        <Button icon="main-trash" onClick={() => removeManifestConfig(index)} minimal />
-                      </Layout.Horizontal>
-                    </span>
-                  )}
-                </section>
-              )
-            })}
-        </section>
-
-        {!overrideSetIdentifier?.length && !isReadonly && (
-          <Text
-            intent="primary"
-            style={{ cursor: 'pointer', marginBottom: 'var(--spacing-medium)' }}
-            onClick={() => addNewManifest()}
-            data-test-id="addManifest"
-          >
-            <String stringID="pipelineSteps.serviceTab.manifestList.addManifest" />
-          </Text>
+            <span></span>
+          </div>
         )}
+        <Layout.Vertical style={{ flexShrink: 'initial' }}>
+          <section>
+            {listOfManifests &&
+              listOfManifests.map((data: ManifestConfigWrapper, index: number) => {
+                const manifest = data['manifest']
+
+                const { color } = getStatus(manifest?.spec?.store?.spec?.connectorRef, connectors, accountId)
+                const connectorName = getConnectorNameFromValue(manifest?.spec?.store?.spec?.connectorRef, connectors)
+
+                return (
+                  <section className={cx(css.manifestList, css.rowItem)} key={`${manifest?.identifier}-${index}`}>
+                    <div className={css.columnId}>
+                      <Icon inline name={manifestTypeIcons[manifest?.type as ManifestTypes]} size={20} />
+                      <Text inline width={150} className={css.type} color={Color.BLACK} lineClamp={1}>
+                        {manifest?.identifier}
+                      </Text>
+                    </div>
+                    <div>{getString(manifestTypeLabels[manifest?.type as ManifestTypes])}</div>
+                    <div className={css.connectorNameField}>
+                      <Icon
+                        padding={{ right: 'small' }}
+                        name={ManifestIconByType[manifest?.spec?.store.type as ManifestStores]}
+                        size={18}
+                      />
+                      <Text className={css.connectorName} lineClamp={1}>
+                        {connectorName ?? manifest?.spec?.store.spec.connectorRef}
+                      </Text>
+                      {getMultiTypeFromValue(manifest?.spec?.store.spec.connectorRef) === MultiTypeInputType.FIXED && (
+                        <Icon name="full-circle" size={12} color={color} />
+                      )}
+                    </div>
+
+                    {!!manifest?.spec?.store.spec.paths?.length && (
+                      <span>
+                        <Text lineClamp={1} width={200}>
+                          <span className={css.noWrap}>
+                            {typeof manifest?.spec?.store.spec.paths === 'string'
+                              ? manifest?.spec?.store.spec.paths
+                              : manifest?.spec?.store.spec.paths.join(', ')}
+                          </span>
+                        </Text>
+                      </span>
+                    )}
+                    {!!manifest?.spec?.store.spec.folderPath && (
+                      <span>
+                        <Text lineClamp={1} width={200}>
+                          <span className={css.noWrap}>{manifest.spec.store?.spec?.folderPath}</span>
+                        </Text>
+                      </span>
+                    )}
+
+                    {!!(manifest?.spec?.chartName && !manifest?.spec?.store.spec.folderPath) && (
+                      <span>
+                        <Text lineClamp={1} width={200}>
+                          <span className={css.noWrap}>{manifest.spec.chartName}</span>
+                        </Text>
+                      </span>
+                    )}
+
+                    {!overrideSetIdentifier?.length && !isReadonly && (
+                      <span>
+                        <Layout.Horizontal>
+                          <Button
+                            icon="edit"
+                            onClick={() =>
+                              editManifest(
+                                manifest?.type as ManifestTypes,
+                                manifest?.spec?.store.type as ManifestStores,
+                                index
+                              )
+                            }
+                            minimal
+                          />
+
+                          <Button icon="main-trash" onClick={() => removeManifestConfig(index)} minimal />
+                        </Layout.Horizontal>
+                      </span>
+                    )}
+                  </section>
+                )
+              })}
+          </section>
+        </Layout.Vertical>
       </Layout.Vertical>
+      <div>
+        {!overrideSetIdentifier?.length && !isReadonly && (
+          <div className={css.addManifest}>
+            <Text font={{ size: 'small' }} intent="primary" onClick={() => addNewManifest()} data-test-id="addManifest">
+              <String stringID="pipelineSteps.serviceTab.manifestList.addManifest" />
+            </Text>
+          </div>
+        )}
+      </div>
     </Layout.Vertical>
   )
 }

@@ -8,7 +8,7 @@
 
 .rowItem {
   padding: var(--spacing-medium) 0;
-  border-bottom: solid 1px #d9dae5;
+  border-bottom: solid 1px var(--grey-100);
   span.type {
     color: var(--grey-900) !important;
     font-weight: 900;
@@ -42,6 +42,12 @@
   }
 }
 
+.addManifest {
+  cursor: pointer;
+  margin-top: var(--spacing-medium);
+  margin-bottom: var(--spacing-medium);
+}
+
 .modal {
   [class*='bp3-dialog-header'] button {
     z-index: 2;
@@ -53,7 +59,7 @@
   grid-template-columns: 200px 200px 300px minmax(10px, 1fr) 80px;
   align-items: center;
   &.list-header {
-    border-bottom: solid 1px #d9dae5;
+    border-bottom: solid 1px var(--grey-100);
     padding-bottom: var(--spacing-medium);
   }
   .manifestLocation {

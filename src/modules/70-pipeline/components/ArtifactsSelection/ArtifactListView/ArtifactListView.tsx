@@ -149,14 +149,14 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
       <div>
         {!primaryArtifact && overrideSetIdentifier?.length === 0 && !isReadonly && (
           <div className={css.addArtifact}>
-            <Text intent="primary" onClick={() => addNewArtifact(ModalViewFor.PRIMARY)}>
+            <Text font={{ size: 'small' }} intent="primary" onClick={() => addNewArtifact(ModalViewFor.PRIMARY)}>
               <String stringID="pipelineSteps.serviceTab.artifactList.addPrimary" />
             </Text>
           </div>
         )}
         {!overrideSetIdentifier?.length && !isReadonly && (
           <div className={css.addArtifact}>
-            <Text intent="primary" onClick={() => addNewArtifact(ModalViewFor.SIDECAR)}>
+            <Text font={{ size: 'small' }} intent="primary" onClick={() => addNewArtifact(ModalViewFor.SIDECAR)}>
               <String stringID="pipelineSteps.serviceTab.artifactList.addSidecar" />
             </Text>
           </div>

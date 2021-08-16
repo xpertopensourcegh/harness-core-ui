@@ -86,23 +86,20 @@
   }
 }
 .tabHeading {
-  font-size: var(--font-size-medium);
-  color: var(--grey-700);
-  margin-bottom: 14px;
+  font-size: 16px;
+  color: var(--black);
+  margin-top: var(--spacing-7);
   font-weight: 600;
 }
 .tabSubHeading {
   font-size: var(--font-size-normal);
-  color: var(--grey-700);
-  margin-bottom: 14px;
+  color: var(--grey-800);
+  margin-bottom: var(--spacing-5);
   font-weight: 600;
 }
 .section-card {
   width: 1024px;
-  margin-bottom: 20px;
-  &.shadow {
-    box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
-  }
+  margin-top: var(--spacing-3);
   &.notwide {
     width: auto;
   }

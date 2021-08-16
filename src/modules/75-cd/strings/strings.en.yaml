@@ -55,9 +55,12 @@ terraformVarFiles: 'Terraform Var Files'
 secretManagerRequired: 'Secret Manager is required.'
 pipelineSteps:
   serviceTab:
-    propateStage: Stage is required
+    stageOverrides: Stage Overrides
+    propagateStage: Stage is required
     overrideChanges: Override artifacts, manifests, service variables for this stage
     deploymentTypeRequired: Deployment type selection is required
+    propagateFrom: Propagate from
+    differentService: Deploy different Service
   infraTab:
     deploymentType: Infrastructure type selection is required
 cdLaunchText: Launch CD First Generation

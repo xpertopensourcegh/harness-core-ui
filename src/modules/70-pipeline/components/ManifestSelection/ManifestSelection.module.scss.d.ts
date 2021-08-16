@@ -7,6 +7,7 @@ declare const styles: {
   readonly columnId: string
   readonly connectorNameField: string
   readonly connectorName: string
+  readonly addManifest: string
   readonly modal: string
   readonly manifestList: string
   readonly listHeader: string

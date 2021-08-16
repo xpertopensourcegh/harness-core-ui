@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import YAML from 'yaml'
-import { Layout, Card, Accordion } from '@wings-software/uicore'
+import { Card, Accordion, Container, Text } from '@wings-software/uicore'
 import { get, isEmpty, isNil, omit, debounce, set } from 'lodash-es'
-import cx from 'classnames'
 import produce from 'immer'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import {
@@ -21,12 +20,12 @@ import { String, useStrings } from 'framework/strings'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import DeployServiceErrors from '@cd/components/PipelineStudio/DeployServiceSpecifications/DeployServiceErrors'
-import SelectDeploymentType from '@cd/components/PipelineStudio/DeployInfraSpecifications/SelectInfrastructureType'
 import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { useValidationErrors } from '@pipeline/components/PipelineStudio/PiplineHooks/useValidationErrors'
 import type { DeploymentStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
-import css from './DeployInfraSpecifications.module.scss'
+import SelectDeploymentType from '@cd/components/PipelineStudio/DeployInfraSpecifications/SelectInfrastructureType/SelectInfrastructureType'
+import stageCss from '../DeployStageSetupShell/DeployStage.module.scss'
 
 const DEFAULT_RELEASE_NAME = 'release-<+INFRA_KEY>'
 export default function DeployInfraSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
@@ -330,46 +329,47 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
   )
 
   return (
-    <div className={css.serviceOverrides} key="1">
+    <div className={stageCss.serviceOverrides} key="1">
       <DeployServiceErrors />
-      <div className={css.contentSection} ref={scrollRef}>
-        <Layout.Vertical>
-          <div className={css.tabHeading} id="environment">
-            <String stringID="environment" />
-          </div>
-          <Card className={cx(css.sectionCard, css.shadow)}>
-            <StepWidget
-              type={StepType.DeployEnvironment}
-              readonly={isReadonly}
-              initialValues={{
-                environment: get(stage, 'stage.spec.infrastructure.environment', {}),
-                environmentRef: get(stage, 'stage.spec.infrastructure.environmentRef', '')
-              }}
-              onUpdate={val => updateEnvStep(val)}
-              factory={factory}
-              stepViewType={StepViewType.Edit}
-            />
-          </Card>
-        </Layout.Vertical>
-        <div className={css.tabHeading} id="infrastructureDefinition">
+      <div className={stageCss.contentSection} ref={scrollRef}>
+        <div className={stageCss.tabHeading} id="environment">
+          {getString('environment')}
+        </div>
+        <Card className={stageCss.sectionCard}>
+          <StepWidget
+            type={StepType.DeployEnvironment}
+            readonly={isReadonly}
+            initialValues={{
+              environment: get(stage, 'stage.spec.infrastructure.environment', {}),
+              environmentRef: get(stage, 'stage.spec.infrastructure.environmentRef', '')
+            }}
+            onUpdate={val => updateEnvStep(val)}
+            factory={factory}
+            stepViewType={StepViewType.Edit}
+          />
+        </Card>
+        <div className={stageCss.tabHeading} id="infrastructureDefinition">
           <String stringID="pipelineSteps.deploy.infrastructure.infraDefinition" />
         </div>
-        <SelectDeploymentType
-          isReadonly={isReadonly}
-          selectedInfrastructureType={selectedDeploymentType}
-          onChange={deploymentType => {
-            setSelectedDeploymentType(deploymentType)
-            resetInfrastructureDefinition(deploymentType)
-          }}
-        />
+        <Card className={stageCss.sectionCard}>
+          <Text margin={{ bottom: 'medium' }}>{getString('pipelineSteps.deploy.infrastructure.selectMethod')}</Text>
+          <SelectDeploymentType
+            isReadonly={isReadonly}
+            selectedInfrastructureType={selectedDeploymentType}
+            onChange={deploymentType => {
+              setSelectedDeploymentType(deploymentType)
+              resetInfrastructureDefinition(deploymentType)
+            }}
+          />
+        </Card>
         {selectedDeploymentType ? (
-          <Accordion className={css.deployProvisioning} activeId="dynamicProvisioning">
+          <Accordion className={stageCss.accordion} activeId="dynamicProvisioning">
             <Accordion.Panel
               id="dynamicProvisioning"
               addDomId={true}
-              summary={<div className={css.tabHeading}>{getString('cd.dynamicProvisioning')}</div>}
+              summary={<div className={stageCss.tabHeading}>{getString('cd.dynamicProvisioning')}</div>}
               details={
-                <Card className={cx(css.sectionCard, css.shadow)}>
+                <Card className={stageCss.sectionCard}>
                   <StepWidget<InfraProvisioningData>
                     factory={factory}
                     readonly={isReadonly}
@@ -400,16 +400,14 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
 
         {selectedDeploymentType && (
           <>
-            <div className={css.tabHeading} id="clusterDetails">
-              <String stringID="cd.steps.common.clusterDetails" />
+            <div className={stageCss.tabHeading} id="clusterDetails">
+              {getString('cd.steps.common.clusterDetails')}
             </div>
-            <Card className={cx(css.sectionCard, css.shadow)}>
-              {getClusterConfigurationStep(selectedDeploymentType)}
-            </Card>
+            <Card className={stageCss.sectionCard}>{getClusterConfigurationStep(selectedDeploymentType)}</Card>
           </>
         )}
 
-        <div className={css.navigationButtons}>{props.children}</div>
+        <Container margin={{ top: 'xxlarge' }}>{props.children}</Container>
       </div>
     </div>
   )

@@ -7,7 +7,7 @@ import cx from 'classnames'
 import { useStrings } from 'framework/strings'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
-import css from '@cd/components/PipelineStudio/DeployServiceSpecifications/DeployServiceSpecifications.module.scss'
+import stageCss from '../DeployStageSetupShell/DeployStage.module.scss'
 
 interface DeploymentTypeItem {
   label: string
@@ -95,13 +95,16 @@ export default function SelectDeploymentType(props: SelectServiceDeploymentTypeP
         window.dispatchEvent(new CustomEvent('UPDATE_ERRORS_STRIP', { detail: DeployTabs.SERVICE }))
         formikRef.current = formik
         return (
-          <Card className={cx(css.sectionCard, css.shadow)}>
-            <div className={cx(css.tabSubHeading, 'ng-tooltip-native')} data-tooltip-id="stageOverviewDeploymentType">
+          <Card className={stageCss.sectionCard}>
+            <div
+              className={cx(stageCss.tabSubHeading, 'ng-tooltip-native')}
+              data-tooltip-id="stageOverviewDeploymentType"
+            >
               {getString('deploymentTypeText')}
               <HarnessDocTooltip tooltipId="stageOverviewDeploymentType" useStandAlone={true} />
             </div>
             <ThumbnailSelect
-              className={css.thumbnailSelect}
+              className={stageCss.thumbnailSelect}
               name={'deploymentType'}
               items={supportedDeploymentTypes}
               isReadonly={isReadonly}

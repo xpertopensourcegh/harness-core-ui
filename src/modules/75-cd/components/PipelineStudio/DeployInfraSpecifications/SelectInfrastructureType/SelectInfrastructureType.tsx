@@ -2,12 +2,11 @@ import React from 'react'
 import { Formik, FormikProps } from 'formik'
 import { noop } from 'lodash-es'
 import * as Yup from 'yup'
-import { Card, IconName, Text, GroupedThumbnailSelect } from '@wings-software/uicore'
-import cx from 'classnames'
+import { IconName, GroupedThumbnailSelect } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
-import css from '@cd/components/PipelineStudio/DeployInfraSpecifications/DeployInfraSpecifications.module.scss'
+import css from './SelectInfrastructureType.module.scss'
 
 interface InfrastructureItem {
   label: string
@@ -75,16 +74,13 @@ export default function SelectDeploymentType(props: SelectDeploymentTypeProps): 
         window.dispatchEvent(new CustomEvent('UPDATE_ERRORS_STRIP', { detail: DeployTabs.INFRASTRUCTURE }))
         formikRef.current = formik
         return (
-          <Card className={cx(css.sectionCard, css.shadow)}>
-            <Text margin={{ bottom: 'medium' }}>{getString('pipelineSteps.deploy.infrastructure.selectMethod')}</Text>
-            <GroupedThumbnailSelect
-              className={css.thumbnailSelect}
-              name={'deploymentType'}
-              onChange={onChange}
-              groups={infraGroups}
-              isReadonly={isReadonly}
-            />
-          </Card>
+          <GroupedThumbnailSelect
+            className={css.thumbnailSelect}
+            name={'deploymentType'}
+            onChange={onChange}
+            groups={infraGroups}
+            isReadonly={isReadonly}
+          />
         )
       }}
     </Formik>

@@ -8,23 +8,6 @@
     height: 100%;
   }
 
-  &.tab-execution {
-    :global(.bp3-tab-panel) {
-      $bg-color: #f6fcff;
-      $dot-color: #bbc1c4;
-
-      $dot-size: 1px;
-      $dot-space: 10px;
-
-      background: linear-gradient(90deg, var(--white) ($dot-space - $dot-size), transparent 1%) center,
-        linear-gradient($bg-color ($dot-space - $dot-size), transparent 1%) center, $dot-color;
-      background-size: $dot-space $dot-space;
-      height: 100%;
-      margin: 0;
-      overflow: hidden;
-    }
-  }
-
   :global {
     .bp3-tabs {
       height: 100%;
@@ -88,44 +71,6 @@
           fill: var(--orange-500);
         }
       }
-    }
-  }
-
-  .spacer {
-    flex: 1 1 auto;
-  }
-
-  .footer {
-    display: block !important;
-    width: 100% !important;
-  }
-
-  .whenCondition {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    padding-top: 52px !important;
-  }
-}
-.stageDropDownTab {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  padding-left: var(--spacing-medium);
-
-  .stageDropDown {
-    text-align: left;
-    display: block !important;
-    width: 100%;
-    padding: var(--spacing-xsmall) 0 0 var(--spacing-small);
-
-    button.bp3-button {
-      border: none !important;
-    }
-
-    span:first-child {
-      margin-right: var(--spacing-small);
     }
   }
 }

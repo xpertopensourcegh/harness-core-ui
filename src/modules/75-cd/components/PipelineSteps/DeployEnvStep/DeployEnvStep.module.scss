@@ -17,11 +17,6 @@
   &:global(.bp3-form-group) {
     margin-bottom: 0px;
   }
-  :global {
-    .bp3-form-helper-text {
-      margin-top: var(--spacing-medium);
-    }
-  }
   button {
     margin-top: var(--spacing-xlarge) !important;
   }

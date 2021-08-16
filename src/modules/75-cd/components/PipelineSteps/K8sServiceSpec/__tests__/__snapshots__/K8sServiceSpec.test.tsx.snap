@@ -120,7 +120,7 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
     class="serviceDefinition"
   >
     <div
-      class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
+      class="bp3-card bp3-elevation-0 Card--card sectionCard"
       id="pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests"
     >
       <div
@@ -133,27 +133,37 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
         class="Layout--vertical StyledProps--main"
       >
         <div
-          class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+          class="Layout--vertical StyledProps--main"
+          style="width: 100%;"
         >
           <div
-            class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+            class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
           >
-            <section />
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--intent-primary"
-              data-test-id="addManifest"
-              style="cursor: pointer;"
+            <div
+              class="Layout--vertical StyledProps--main"
             >
-              <span>
-                pipelineSteps.serviceTab.manifestList.addManifest
-              </span>
-            </p>
+              <section />
+            </div>
+          </div>
+          <div>
+            <div
+              class="addManifest"
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--intent-primary"
+                data-test-id="addManifest"
+              >
+                <span>
+                  pipelineSteps.serviceTab.manifestList.addManifest
+                </span>
+              </p>
+            </div>
           </div>
         </div>
       </div>
     </div>
     <div
-      class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
+      class="bp3-card bp3-elevation-0 Card--card sectionCard"
       id="pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts"
     >
       <div
@@ -180,7 +190,7 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
             class="addArtifact"
           >
             <p
-              class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+              class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--intent-primary"
             >
               <span>
                 pipelineSteps.serviceTab.artifactList.addPrimary
@@ -191,7 +201,7 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
             class="addArtifact"
           >
             <p
-              class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+              class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--intent-primary"
             >
               <span>
                 pipelineSteps.serviceTab.artifactList.addSidecar
@@ -211,7 +221,7 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
         advancedTitle
       </div>
       <div
-        class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
+        class="bp3-card bp3-elevation-0 Card--card sectionCard"
         id="variablesText"
       >
         <div
@@ -223,9 +233,7 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
           class="Layout--vertical StyledProps--main"
           style="border-radius: 5px;"
         >
-          <section
-            class="variablesList"
-          >
+          <section>
             <p
               class="StyledProps--font StyledProps--main"
               style="line-height: 24px;"

@@ -170,7 +170,7 @@
     &:last-of-type,
     &.header-row {
       padding-bottom: var(--spacing-medium);
-      border-bottom: 1px solid var(--grey-300);
+      border-bottom: 1px solid var(--grey-100);
     }
 
     &.header-row {
@@ -182,6 +182,10 @@
       text-transform: uppercase;
     }
   }
+}
+
+.addVariable {
+  cursor: pointer;
 }
 
 .tooltip {

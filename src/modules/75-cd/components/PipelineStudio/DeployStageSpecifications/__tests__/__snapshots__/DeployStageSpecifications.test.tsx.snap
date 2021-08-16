@@ -3,10 +3,10 @@
 exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`] = `
 <div>
   <div
-    class="contentSection"
+    class="serviceOverrides"
   >
     <div
-      class="stageCreate stageDetails"
+      class="contentSection"
     >
       <div
         class="tabHeading"
@@ -25,7 +25,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
           >
             <div>
               <div
-                class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
+                class="bp3-card bp3-elevation-0 Card--card sectionCard"
               >
                 <div
                   class="StyledProps--font StyledProps--main main"
@@ -160,20 +160,15 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                 </div>
               </div>
               <div
-                class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
+                class="bp3-card bp3-elevation-0 Card--card sectionCard"
               >
                 <div
-                  class="Text--withDocsTooltip"
-                  data-tooltip-id="whatToDeploy"
+                  class="tabSubHeading"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100 StyledProps--font-size-normal"
-                  >
-                    whatToDeploy
-                  </p>
+                  whatToDeploy
                 </div>
                 <div
-                  class="bp3-form-group ThumbnailSelect--mainContainer stageTypeThumbnail"
+                  class="bp3-form-group ThumbnailSelect--mainContainer thumbnailSelect"
                   data-id="serviceType-1"
                 >
                   <div
@@ -287,43 +282,47 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
           </form>
         </div>
       </div>
-    </div>
-    <div
-      class="Accordion--accordion accordionTitle"
-    >
       <div
-        class="Accordion--panel"
-        data-open="false"
-        data-testid="advanced-panel"
-        id="advanced-panel"
+        class="Accordion--accordion accordion"
       >
         <div
-          class="Accordion--summary"
-          data-testid="advanced-summary"
+          class="Accordion--panel"
+          data-open="false"
+          data-testid="advanced-panel"
+          id="advanced-panel"
         >
           <div
-            class="Accordion--chevron"
-          />
-          <div
-            class="Accordion--label"
+            class="Accordion--summary"
+            data-testid="advanced-summary"
           >
-            common.advanced
+            <div
+              class="Accordion--chevron"
+            />
+            <div
+              class=""
+            >
+              <div
+                class="tabHeading"
+              >
+                common.advanced
+              </div>
+            </div>
+          </div>
+          <div
+            class="bp3-collapse Accordion--collapse"
+          >
+            <div
+              aria-hidden="false"
+              class="bp3-collapse-body"
+              style="transform: translateY(-undefinedpx);"
+            />
           </div>
         </div>
-        <div
-          class="bp3-collapse Accordion--collapse"
-        >
-          <div
-            aria-hidden="false"
-            class="bp3-collapse-body"
-            style="transform: translateY(-undefinedpx);"
-          />
-        </div>
       </div>
+      <div
+        class="StyledProps--font StyledProps--main StyledProps--margin-top-xxlarge"
+      />
     </div>
-    <div
-      class="navigationButtons"
-    />
   </div>
 </div>
 `;

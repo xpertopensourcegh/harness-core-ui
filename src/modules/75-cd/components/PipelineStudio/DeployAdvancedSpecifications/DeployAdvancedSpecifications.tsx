@@ -1,6 +1,5 @@
 import React from 'react'
-import { Card, Layout } from '@wings-software/uicore'
-import cx from 'classnames'
+import { Card, Container, Layout } from '@wings-software/uicore'
 import { produce } from 'immer'
 import { set } from 'lodash-es'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
@@ -12,7 +11,7 @@ import DeployServiceErrors from '@cd/components/PipelineStudio/DeployServiceSpec
 import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { useValidationErrors } from '@pipeline/components/PipelineStudio/PiplineHooks/useValidationErrors'
-import css from './DeployAdvancedSpecifications.module.scss'
+import stageCss from '../DeployStageSetupShell/DeployStage.module.scss'
 
 export interface AdvancedSpecifications {
   context?: string
@@ -42,62 +41,54 @@ const DeployAdvancedSpecifications: React.FC<AdvancedSpecifications> = ({ childr
   }, [errorMap])
 
   return (
-    <>
+    <div className={stageCss.serviceOverrides}>
       <DeployServiceErrors />
-      <div className={cx(css.stageSection, css.editStageGrid)}>
-        <div className={css.contentSection} ref={scrollRef}>
-          <div className={css.tabHeading}>{getString('pipeline.conditionalExecution.title')}</div>
-          {!!stage && (
-            <Card className={cx(css.sectionCard, css.shadow)} id="conditionalExecution">
-              <Layout.Horizontal>
-                <div className={css.stageSection}>
-                  <div className={cx(css.stageCreate, css.stageDetails)}>
-                    <ConditionalExecution
-                      isReadonly={isReadonly}
-                      selectedStage={stage}
-                      onUpdate={when => {
-                        const { stage: pipelineStage } = getStageFromPipeline(selectedStageId || '')
-                        if (pipelineStage && pipelineStage.stage) {
-                          const stageData = produce(pipelineStage, draft => {
-                            set(draft, 'stage.when', when)
-                          })
-                          if (stageData.stage) updateStage(stageData.stage)
-                        }
-                      }}
-                    />
-                  </div>
-                </div>
-              </Layout.Horizontal>
-            </Card>
-          )}
-          <div className={css.tabHeading}>Failure Strategy</div>
-          <Card className={cx(css.sectionCard, css.shadow)} id="failureStrategy">
+      <div className={stageCss.contentSection} ref={scrollRef}>
+        <div className={stageCss.tabHeading}>{getString('pipeline.conditionalExecution.title')}</div>
+        {!!stage && (
+          <Card className={stageCss.sectionCard} id="conditionalExecution">
             <Layout.Horizontal>
-              <div className={css.stageSection}>
-                <div className={cx(css.stageCreate, css.stageDetails)}>
-                  <FailureStrategyWithRef
-                    selectedStage={stage}
-                    isReadonly={isReadonly}
-                    ref={formikRef}
-                    onUpdate={({ failureStrategies }) => {
-                      const { stage: pipelineStage } = getStageFromPipeline(selectedStageId || '')
-                      if (pipelineStage && pipelineStage.stage) {
-                        const stageData = produce(pipelineStage, draft => {
-                          set(draft, 'stage.failureStrategies', failureStrategies)
-                        })
-                        if (stageData.stage) updateStage(stageData.stage)
-                      }
-                    }}
-                    tabName={DeployTabs.ADVANCED}
-                  />
-                </div>
-              </div>
+              <ConditionalExecution
+                isReadonly={isReadonly}
+                selectedStage={stage}
+                onUpdate={when => {
+                  const { stage: pipelineStage } = getStageFromPipeline(selectedStageId || '')
+                  if (pipelineStage && pipelineStage.stage) {
+                    const stageData = produce(pipelineStage, draft => {
+                      set(draft, 'stage.when', when)
+                    })
+                    if (stageData.stage) updateStage(stageData.stage)
+                  }
+                }}
+              />
             </Layout.Horizontal>
           </Card>
-          <div className={cx(css.navigationButtons)}>{children}</div>
-        </div>
+        )}
+        <div className={stageCss.tabHeading}>Failure Strategy</div>
+        <Card className={stageCss.sectionCard} id="failureStrategy">
+          <Layout.Horizontal>
+            <div>
+              <FailureStrategyWithRef
+                selectedStage={stage}
+                isReadonly={isReadonly}
+                ref={formikRef}
+                onUpdate={({ failureStrategies }) => {
+                  const { stage: pipelineStage } = getStageFromPipeline(selectedStageId || '')
+                  if (pipelineStage && pipelineStage.stage) {
+                    const stageData = produce(pipelineStage, draft => {
+                      set(draft, 'stage.failureStrategies', failureStrategies)
+                    })
+                    if (stageData.stage) updateStage(stageData.stage)
+                  }
+                }}
+                tabName={DeployTabs.ADVANCED}
+              />
+            </div>
+          </Layout.Horizontal>
+        </Card>
+        <Container margin={{ top: 'xxlarge' }}>{children}</Container>
       </div>
-    </>
+    </div>
   )
 }
 

@@ -2358,8 +2358,11 @@ export interface StringsMap {
   'cd.pathCannotBeEmpty': string
   'cd.pipelineSteps.infraTab.deploymentType': string
   'cd.pipelineSteps.serviceTab.deploymentTypeRequired': string
+  'cd.pipelineSteps.serviceTab.differentService': string
   'cd.pipelineSteps.serviceTab.overrideChanges': string
-  'cd.pipelineSteps.serviceTab.propateStage': string
+  'cd.pipelineSteps.serviceTab.propagateFrom': string
+  'cd.pipelineSteps.serviceTab.propagateStage': string
+  'cd.pipelineSteps.serviceTab.stageOverrides': string
   'cd.releaseNameValidation': string
   'cd.resourceCannotBeEmpty': string
   'cd.scriptRequired': string

@@ -18,7 +18,6 @@ import type { AbstractStepFactory } from '../AbstractSteps/AbstractStepFactory'
 import { getFlattenedStages, getStageIndexFromPipeline } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 import { StepViewType } from '../AbstractSteps/Step'
 import { StepWidget } from '../AbstractSteps/StepWidget'
-import css from './WorkflowVariables.module.scss'
 
 export interface WorkflowVariablesProps {
   isForOverrideSets?: boolean
@@ -152,7 +151,7 @@ export default function WorkflowVariables({
     <Layout.Vertical style={{ borderRadius: '5px' }}>
       {isForPredefinedSets && <PredefinedOverrideSets context="VARIABLES" currentStage={stage} />}
 
-      <section className={css.variablesList}>
+      <section>
         {overrideSetIdentifier?.length === 0 && !isForOverrideSets && (
           <Text style={{ color: 'var(--grey-500)', lineHeight: '24px' }}>{getString('workflowVariableInfo')}</Text>
         )}

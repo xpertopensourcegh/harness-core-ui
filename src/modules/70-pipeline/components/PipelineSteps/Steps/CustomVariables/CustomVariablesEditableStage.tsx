@@ -2,7 +2,7 @@ import React from 'react'
 import { debounce } from 'lodash-es'
 import { Formik, FieldArray, FormikProps } from 'formik'
 import { v4 as uuid } from 'uuid'
-import { Button, FormInput, MultiTypeInputType, getMultiTypeFromValue } from '@wings-software/uicore'
+import { Button, FormInput, MultiTypeInputType, getMultiTypeFromValue, Text } from '@wings-software/uicore'
 import cx from 'classnames'
 import * as Yup from 'yup'
 
@@ -204,19 +204,11 @@ export function CustomVariablesEditableStage(props: CustomVariableEditableProps)
                       </div>
                     )
                   })}
-                  {values.canAddVariable ? (
-                    <Button
-                      test-id={'add-variable'}
-                      minimal
-                      intent="primary"
-                      icon="plus"
-                      onClick={addNew}
-                      disabled={readonly}
-                      data-testid={'add-variable'}
-                    >
-                      <String stringID="common.addVariable" />
-                    </Button>
-                  ) : /* istanbul ignore next */ null}
+                  {values.canAddVariable && (
+                    <Text className={css.addVariable} font={{ size: 'small' }} intent="primary" onClick={addNew}>
+                      {'+ ' + getString('common.addVariable')}
+                    </Text>
+                  )}
                 </div>
               )
             }}

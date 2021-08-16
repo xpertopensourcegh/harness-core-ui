@@ -1,0 +1,46 @@
+.serviceOverrides {
+  .content-section {
+    background-color: var(--form-bg);
+    padding: var(--spacing-xxlarge) var(--spacing-huge) var(--spacing-13) var(--spacing-huge);
+    height: 100%;
+    > .tabHeading {
+      font-size: 16px;
+      color: var(--black);
+      margin-top: var(--spacing-7);
+      font-weight: 600;
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+    .tabSubHeading {
+      font-size: var(--font-size-normal);
+      color: var(--grey-700);
+      margin-bottom: var(--spacing-5);
+      font-weight: 600;
+    }
+    .section-card {
+      width: 1024px;
+      margin-top: var(--spacing-3);
+      .thumbnailSelect {
+        &:global(.bp3-form-group) {
+          margin-bottom: 0px;
+        }
+      }
+    }
+  }
+  .accordion {
+    margin-top: var(--spacing-7);
+    > div {
+      padding: 0 !important;
+    }
+    :global(.bp3-collapse-body > div) {
+      padding: 0;
+    }
+    .tabHeading {
+      font-size: 16px;
+      color: var(--black);
+      font-weight: 600;
+      margin-left: var(--spacing-small);
+    }
+  }
+}
