@@ -79557,7 +79557,7 @@ exports[`BuildTests snapshot test should render ZeroState UI 1`] = `
       </p>
       <a
         class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--link"
-        href="https://docs.harness.io"
+        href="https://ngdocs.harness.io/category/zkhvfo7uc6-ci-how-tos"
         rel="noreferrer noopener"
         role="button"
         tabindex="0"

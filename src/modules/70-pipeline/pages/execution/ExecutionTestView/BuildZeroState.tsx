@@ -14,7 +14,7 @@ export const BuildZeroState: React.FC = () => {
         {getString('pipeline.testsReports.nothing')}
       </Text>
       <Text padding={{ top: 'xsmall', bottom: 'large' }}>{getString('pipeline.testsReports.notfound')}</Text>
-      <Link target="_blank" href="https://docs.harness.io">
+      <Link target="_blank" href="https://ngdocs.harness.io/category/zkhvfo7uc6-ci-how-tos">
         {getString('pipeline.testsReports.learnMore')}
       </Link>
     </Layout.Vertical>
