@@ -101,10 +101,13 @@
             font-size: 12px;
             line-height: 15px;
             /* identical to box height */
-
             text-align: center;
-
-            color: #555770;
+          }
+        }
+        .step:hover {
+          .stepName,
+          .stepName:hover {
+            color: var(--grey-900);
           }
         }
       }
@@ -119,14 +122,19 @@
     display: flex;
     align-items: center;
 
-    color: #ffffff !important;
+    color: var(--grey-0) !important;
 
     mix-blend-mode: normal;
-    opacity: 0.8 !important;
+    opacity: 0.9 !important;
     font-weight: normal !important;
     // To join left borders between each sub categories of current category
     margin-bottom: 0 !important;
     padding-bottom: var(--spacing-5) !important;
+  }
+
+  .subCategory:hover {
+    color: var(--grey-0) !important;
+    opacity: 1 !important;
   }
 
   .lastSubCategory {
@@ -224,14 +232,14 @@
       .offset {
         padding-left: var(--spacing-large);
         border-left: 0.25px solid rgb(255, 255, 255, 0.44);
-        margin-left: 10px;
+        margin-left: 13px;
       }
     }
     .active {
-      background: var(--blue-300);
-      color: var(--primary-7) !important;
+      background: var(--primary-9);
+      color: var(--grey-0) !important;
       font-weight: 700;
-      border-radius: 5px;
+      opacity: 0.8 !important;
       :global {
         // path {
         //   fill: var(--blue-600) !important;

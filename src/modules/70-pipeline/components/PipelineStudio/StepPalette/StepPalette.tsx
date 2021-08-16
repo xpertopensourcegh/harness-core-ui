@@ -117,6 +117,8 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
   const [stepCategories, setStepsCategories] = useState<StepCategory[]>([])
   const [originalData, setOriginalCategories] = useState<StepCategory[]>([])
   const [selectedCategory, setSelectedCategory] = useState(primaryTypes.SHOW_ALL)
+  // Need this when we have same names for category and sub category
+  const [selectedLevel, setSelectedLevel] = useState<string | null>(null)
   const { module, accountId } = useParams<{ module: string; accountId: string }>()
   let categoryForStepPalette
   if ((selectedStage as any).stage?.type === StageType.APPROVAL) {
@@ -323,8 +325,12 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                 if (category?.stepCategories && category.stepCategories.length === 0) {
                   stepRenderer.push(
                     <section
-                      className={cx(css.category, selectedCategory === category.name && css.active)}
+                      className={cx(
+                        css.category,
+                        selectedCategory === category.name && selectedLevel === 'category' && css.active
+                      )}
                       onClick={() => {
+                        setSelectedLevel('category')
                         filterSteps(category.name || /* istanbul ignore next */ '')
                       }}
                       key={category.name}
@@ -344,10 +350,11 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                     <section
                       className={cx(
                         css.category,
-                        selectedCategory === category.name && css.active,
+                        selectedCategory === category.name && selectedLevel === 'category' && css.active,
                         subCategory.length && css.hasSubCategories
                       )}
                       onClick={() => {
+                        setSelectedLevel('category')
                         filterSteps(category.name || '')
                       }}
                       key={category.name}
@@ -367,10 +374,11 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                           css.category,
                           css.subCategory,
                           css.offset,
-                          selectedCategory === subCat.name && css.active,
+                          selectedCategory === subCat.name && selectedLevel === 'subCategory' && css.active,
                           k === subCategory.length - 1 && css.lastSubCategory
                         )}
                         onClick={() => {
+                          setSelectedLevel('subCategory')
                           filterSteps(subCat.name || /* istanbul ignore next */ '')
                         }}
                         key={`${subCat.name}-${k}`}
