@@ -90,25 +90,20 @@ const RenderAPIAccessFormWrapper: React.FC<FormikProps<BitbucketFormInterface>> 
   ]
 
   return (
-    <>
-      <Text font="small" margin={{ bottom: 'small' }}>
-        {getString('common.git.APIAccessDescriptipn')}
-      </Text>
-      <Container width={'52%'}>
-        <Container className={css.authHeaderRow}>
-          <Text className={css.authTitle} inline>
-            {getString('common.git.APIAuthentication')}
-          </Text>
-          <FormInput.Select name="apiAuthType" items={apiAuthOptions} className={commonStyles.authTypeSelect} />
-        </Container>
-        <TextReference
-          name="apiAccessUsername"
-          label={getString('username')}
-          type={props.values.apiAccessUsername ? props.values.apiAccessUsername?.type : ValueType.TEXT}
-        />
-        <SecretInput name="accessToken" label={getString('personalAccessToken')} />
+    <Container width={'52%'}>
+      <Container className={css.authHeaderRow}>
+        <Text className={css.authTitle} inline>
+          {getString('common.git.APIAuthentication')}
+        </Text>
+        <FormInput.Select name="apiAuthType" items={apiAuthOptions} className={commonStyles.authTypeSelect} />
       </Container>
-    </>
+      <TextReference
+        name="apiAccessUsername"
+        label={getString('username')}
+        type={props.values.apiAccessUsername ? props.values.apiAccessUsername?.type : ValueType.TEXT}
+      />
+      <SecretInput name="accessToken" label={getString('personalAccessToken')} />
+    </Container>
   )
 }
 
@@ -232,6 +227,9 @@ const StepBitbucketAuthentication: React.FC<
                 label={getString('common.git.enableAPIAccess')}
                 padding={{ left: 'xxlarge' }}
               />
+              <Text font="small" margin={{ bottom: 'small' }}>
+                {getString('common.git.APIAccessDescription')}
+              </Text>
               {formikProps.values.enableAPIAccess ? <RenderAPIAccessFormWrapper {...formikProps} /> : null}
             </Container>
 

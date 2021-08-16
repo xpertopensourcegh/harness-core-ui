@@ -2900,6 +2900,11 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
                     </label>
                   </div>
                 </div>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--margin-bottom-small"
+                >
+                  common.git.APIAccessDescription
+                </p>
               </div>
               <div
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
@@ -3426,7 +3431,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--margin-bottom-small"
                 >
-                  common.git.APIAccessDescriptipn
+                  common.git.APIAccessDescription
                 </p>
                 <div
                   class="StyledProps--font StyledProps--main authHeaderRow"
@@ -4114,7 +4119,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--margin-bottom-small"
                 >
-                  common.git.APIAccessDescriptipn
+                  common.git.APIAccessDescription
                 </p>
                 <div
                   class="StyledProps--font StyledProps--main authHeaderRow"
@@ -4802,7 +4807,7 @@ exports[`Create Github connector Wizard should render form for edit http and aut
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--margin-bottom-small"
                 >
-                  common.git.APIAccessDescriptipn
+                  common.git.APIAccessDescription
                 </p>
                 <div
                   class="StyledProps--font StyledProps--main authHeaderRow"

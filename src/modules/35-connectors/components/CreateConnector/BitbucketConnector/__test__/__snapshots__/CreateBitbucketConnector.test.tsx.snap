@@ -2594,6 +2594,11 @@ exports[`Create Bitbucketconnector Wizard should be able to edit  usernamePasswo
                     </label>
                   </div>
                 </div>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--margin-bottom-small"
+                >
+                  common.git.APIAccessDescription
+                </p>
               </div>
               <div
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
@@ -3122,7 +3127,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--margin-bottom-small"
                 >
-                  common.git.APIAccessDescriptipn
+                  common.git.APIAccessDescription
                 </p>
                 <div
                   class="StyledProps--font StyledProps--main"

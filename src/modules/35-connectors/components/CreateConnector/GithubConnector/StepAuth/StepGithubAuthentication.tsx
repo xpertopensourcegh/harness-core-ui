@@ -147,9 +147,6 @@ const RenderAPIAccessFormWrapper: React.FC<FormikProps<GithubFormInterface>> = f
 
   return (
     <>
-      <Text font="small" margin={{ bottom: 'small' }}>
-        {getString('common.git.APIAccessDescriptipn')}
-      </Text>
       <Container className={css.authHeaderRow} width={'52%'}>
         <Text className={css.authTitle} inline>
           {getString('common.git.APIAuthentication')}
@@ -304,6 +301,9 @@ const StepGithubAuthentication: React.FC<StepProps<StepGithubAuthenticationProps
                     label={getString('common.git.enableAPIAccess')}
                     padding={{ left: 'xxlarge' }}
                   />
+                  <Text font="small" margin={{ bottom: 'small' }}>
+                    {getString('common.git.APIAccessDescription')}
+                  </Text>
                   {formikProps.values.enableAPIAccess ? <RenderAPIAccessFormWrapper {...formikProps} /> : null}
                 </Container>
 

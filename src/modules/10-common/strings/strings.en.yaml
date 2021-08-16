@@ -253,8 +253,8 @@ git:
   gitLabUrlPlaceholderSSH: 'git@gitlab.com:account/'
   bitbucketUrlPlaceholder: 'https://www.bitbucket.com/account/'
   bitbucketPlaceholderSSH: 'git@bitbucket.com:account/'
-  enableAPIAccess: 'Enable API access'
-  APIAccessDescriptipn: 'API Access is required for using “Git Experience”, for creation of Git based triggers, Webhooks management and updating Git statuses'
+  enableAPIAccess: 'Enable API access (recommended)'
+  APIAccessDescription: 'API Access is required for using “Git Experience”, for creation of Git based triggers, Webhooks management and updating Git statuses'
   testRepositoryDescription: Please provide a Repository name to test the credentials. The Connector will still be created at the Account level.
   APIAuthentication: 'API Authentication'
   gitHubApp: 'GitHub App'

@@ -2732,6 +2732,11 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
                     </label>
                   </div>
                 </div>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--margin-bottom-small"
+                >
+                  common.git.APIAccessDescription
+                </p>
               </div>
               <div
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
@@ -3134,7 +3139,12 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--margin-bottom-small"
                 >
-                  common.git.APIAccessDescriptipn
+                  common.git.APIAccessDescription
+                </p>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--margin-bottom-small"
+                >
+                  common.git.APIAccessDescription
                 </p>
                 <div
                   class="StyledProps--font StyledProps--main authHeaderRow"
