@@ -1,5 +1,6 @@
 import React from 'react'
 import {
+  Text,
   Container,
   Formik,
   FormikForm,
@@ -7,7 +8,8 @@ import {
   Card,
   Accordion,
   HarnessDocTooltip,
-  ThumbnailSelect
+  ThumbnailSelect,
+  Color
 } from '@wings-software/uicore'
 import type { Item } from '@wings-software/uicore/dist/components/ThumbnailSelect/ThumbnailSelect'
 import cx from 'classnames'
@@ -38,7 +40,7 @@ import DeployServiceErrors from '@cd/components/PipelineStudio/DeployServiceSpec
 import { useValidationErrors } from '@pipeline/components/PipelineStudio/PiplineHooks/useValidationErrors'
 import type { DeploymentStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
 import type { StringNGVariable } from 'services/cd-ng'
-import stageCss from '../../DeployStageSetupShell/DeployStage.module.scss'
+import css from './EditStageView.module.scss'
 
 export interface EditStageViewProps {
   data?: StageElementWrapper<DeploymentStageElementConfig>
@@ -110,163 +112,175 @@ export const EditStageView: React.FC<EditStageViewProps> = ({
 
   const whatToDeploy = (
     <>
-      <div className={stageCss.tabSubHeading}>{getString('whatToDeploy')}</div>
+      <Text color={Color.BLACK_100} font={{ size: 'normal' }} tooltipProps={{ dataTooltipId: 'whatToDeploy' }}>
+        {getString('whatToDeploy')}
+      </Text>
       <ThumbnailSelect
         name="serviceType"
         items={newStageData}
-        className={stageCss.thumbnailSelect}
+        className={css.stageTypeThumbnail}
         isReadonly={isReadonly}
       />
     </>
   )
 
   return (
-    <div className={stageCss.serviceOverrides} ref={scrollRef}>
+    <>
       <DeployServiceErrors />
-      <div className={stageCss.contentSection}>
-        <div className={stageCss.tabHeading} id="stageOverview">
-          {context ? getString('stageOverview') : getString('pipelineSteps.build.create.aboutYourStage')}
-        </div>
-        <Container>
-          <Formik
-            initialValues={{
-              identifier: data?.stage?.identifier,
-              name: data?.stage?.name,
-              description: data?.stage?.description,
-              tags: data?.stage?.tags || {},
-              serviceType: newStageData[0].value
-            }}
-            formName="cdEditStage"
-            onSubmit={values => {
-              if (data) {
-                const newData = produce(data, draft => {
-                  if (draft.stage) {
-                    set(draft, 'stage.identifier', values.identifier)
-                    set(draft, 'stage.name', values.name)
-                    set(draft, 'stage.description', values.description)
-                    set(draft, 'stage.tags', values.tags || {})
+      <div className={cx({ [css.contentSection]: context })} ref={scrollRef}>
+        <div className={cx({ [css.stageCreate]: true, [css.stageDetails]: !!context, [css.padding]: !context })}>
+          {context ? (
+            <div className={css.tabHeading} id="stageOverview">
+              {getString('stageOverview')}
+            </div>
+          ) : (
+            <Text icon="cd-main" iconProps={{ size: 16 }} style={{ paddingBottom: 'var(--spacing-medium)' }}>
+              {getString('pipelineSteps.build.create.aboutYourStage')}
+            </Text>
+          )}
+          <Container>
+            <Formik
+              initialValues={{
+                identifier: data?.stage?.identifier,
+                name: data?.stage?.name,
+                description: data?.stage?.description,
+                tags: data?.stage?.tags || {},
+                serviceType: newStageData[0].value
+              }}
+              formName="cdEditStage"
+              onSubmit={values => {
+                if (data) {
+                  const newData = produce(data, draft => {
+                    if (draft.stage) {
+                      set(draft, 'stage.identifier', values.identifier)
+                      set(draft, 'stage.name', values.name)
+                      set(draft, 'stage.description', values.description)
+                      set(draft, 'stage.tags', values.tags || {})
 
-                    if (!draft.stage.spec?.serviceConfig) {
-                      set(draft, 'stage.spec.serviceConfig', {})
+                      if (!draft.stage.spec?.serviceConfig) {
+                        set(draft, 'stage.spec.serviceConfig', {})
+                      }
+
+                      if (!draft.stage.spec?.infrastructure) {
+                        set(draft, 'stage.spec.infrastructure', {})
+                      }
                     }
+                  })
 
-                    if (!draft.stage.spec?.infrastructure) {
-                      set(draft, 'stage.spec.infrastructure', {})
-                    }
-                  }
-                })
-
-                onSubmit?.(newData, values.identifier)
-              }
-            }}
-            validate={values => {
-              const errors: { name?: string } = {}
-              if (isDuplicateStageId(values.identifier || '', stages, !!context)) {
-                errors.name = getString('validation.identifierDuplicate')
-              }
-              if (context && data) {
-                onChange?.(omit(values as unknown as DeploymentStageElementConfig, 'serviceType'))
-              }
-              return errors
-            }}
-            validationSchema={Yup.object().shape({
-              name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.build.create.stageNameRequiredError') }),
-              identifier: IdentifierSchema()
-            })}
-          >
-            {formikProps => {
-              window.dispatchEvent(new CustomEvent('UPDATE_ERRORS_STRIP', { detail: DeployTabs.OVERVIEW }))
-              formikRef.current = formikProps
-              return (
-                <FormikForm>
-                  {context ? (
-                    <Card className={stageCss.sectionCard}>
+                  onSubmit?.(newData, values.identifier)
+                }
+              }}
+              validate={values => {
+                const errors: { name?: string } = {}
+                if (isDuplicateStageId(values.identifier || '', stages, !!context)) {
+                  errors.name = getString('validation.identifierDuplicate')
+                }
+                if (context && data) {
+                  onChange?.(omit(values as unknown as DeploymentStageElementConfig, 'serviceType'))
+                }
+                return errors
+              }}
+              validationSchema={Yup.object().shape({
+                name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.build.create.stageNameRequiredError') }),
+                identifier: IdentifierSchema()
+              })}
+            >
+              {formikProps => {
+                window.dispatchEvent(new CustomEvent('UPDATE_ERRORS_STRIP', { detail: DeployTabs.OVERVIEW }))
+                formikRef.current = formikProps
+                return (
+                  <FormikForm>
+                    {context ? (
+                      <Card className={cx(css.sectionCard, css.shadow)}>
+                        <NameIdDescriptionTags
+                          formikProps={formikProps}
+                          identifierProps={{
+                            isIdentifierEditable: !context,
+                            inputGroupProps: { disabled: isReadonly }
+                          }}
+                          descriptionProps={{ disabled: isReadonly }}
+                          tagsProps={{ disabled: isReadonly }}
+                        />
+                      </Card>
+                    ) : (
                       <NameIdDescriptionTags
                         formikProps={formikProps}
                         identifierProps={{
-                          isIdentifierEditable: !context,
+                          isIdentifierEditable: !context && !isReadonly,
                           inputGroupProps: { disabled: isReadonly }
                         }}
                         descriptionProps={{ disabled: isReadonly }}
                         tagsProps={{ disabled: isReadonly }}
                       />
-                    </Card>
-                  ) : (
-                    <NameIdDescriptionTags
-                      formikProps={formikProps}
-                      identifierProps={{
-                        isIdentifierEditable: !context && !isReadonly,
-                        inputGroupProps: { disabled: isReadonly }
-                      }}
-                      descriptionProps={{ disabled: isReadonly }}
-                      tagsProps={{ disabled: isReadonly }}
-                    />
-                  )}
+                    )}
 
-                  {!context ? whatToDeploy : <Card className={stageCss.sectionCard}>{whatToDeploy}</Card>}
+                    {!context ? whatToDeploy : <Card className={cx(css.sectionCard, css.shadow)}>{whatToDeploy}</Card>}
 
-                  {!context && (
-                    <Container padding={{ top: 'medium' }}>
-                      <Button
-                        type="submit"
-                        intent="primary"
-                        text={getString('pipelineSteps.build.create.setupStage')}
-                      />
-                    </Container>
-                  )}
-                </FormikForm>
-              )
-            }}
-          </Formik>
-        </Container>
+                    {!context && (
+                      <div className={css.btnSetup}>
+                        <Button
+                          type="submit"
+                          intent="primary"
+                          text={getString('pipelineSteps.build.create.setupStage')}
+                        />
+                      </div>
+                    )}
+                  </FormikForm>
+                )
+              }}
+            </Formik>
+          </Container>
+        </div>
         {context && (
-          <Accordion activeId={allNGVariables.length > 0 ? 'advanced' : ''} className={stageCss.accordion}>
+          <Accordion activeId={allNGVariables.length > 0 ? 'advanced' : ''} className={css.accordionTitle}>
             <Accordion.Panel
               id="advanced"
               addDomId={true}
-              summary={<div className={stageCss.tabHeading}>{getString('common.advanced')}</div>}
+              summary={getString('common.advanced')}
               details={
-                <Card className={stageCss.sectionCard} id="variables">
-                  <div
-                    className={cx(stageCss.tabSubHeading, 'ng-tooltip-native')}
-                    data-tooltip-id="overviewStageVariables"
-                  >
+                <Card className={cx(css.sectionCard, css.shadow)} id="variables">
+                  <div className={cx(css.tabSubHeading, 'ng-tooltip-native')} data-tooltip-id="overviewStageVariables">
                     Stage Variables
                     <HarnessDocTooltip tooltipId="overviewStageVariables" useStandAlone={true} />
                   </div>
-                  {context ? (
-                    <StepWidget<CustomVariablesData, CustomVariableEditableExtraProps>
-                      factory={stepsFactory}
-                      initialValues={{
-                        variables: allNGVariables,
-                        canAddVariable: true
-                      }}
-                      readonly={isReadonly}
-                      type={StepType.CustomVariable}
-                      stepViewType={StepViewType.StageVariable}
-                      onUpdate={({ variables }: CustomVariablesData) => {
-                        onChange?.({ ...(data?.stage as DeploymentStageElementConfig), variables })
-                      }}
-                      customStepProps={{
-                        tabName: DeployTabs.OVERVIEW,
-                        yamlProperties:
-                          getStageFromPipeline(
-                            data?.stage?.identifier || '',
-                            variablesPipeline
-                          )?.stage?.stage?.variables?.map?.(
-                            variable => metadataMap[(variable as StringNGVariable).value || '']?.yamlProperties || {}
-                          ) || [],
-                        enableValidation: true
-                      }}
-                    />
-                  ) : null}
+                  <div className={css.stageSection}>
+                    <div className={cx(css.stageDetails)}>
+                      {context ? (
+                        <StepWidget<CustomVariablesData, CustomVariableEditableExtraProps>
+                          factory={stepsFactory}
+                          initialValues={{
+                            variables: allNGVariables,
+                            canAddVariable: true
+                          }}
+                          readonly={isReadonly}
+                          type={StepType.CustomVariable}
+                          stepViewType={StepViewType.StageVariable}
+                          onUpdate={({ variables }: CustomVariablesData) => {
+                            onChange?.({ ...(data?.stage as DeploymentStageElementConfig), variables })
+                          }}
+                          customStepProps={{
+                            tabName: DeployTabs.OVERVIEW,
+                            yamlProperties:
+                              getStageFromPipeline(
+                                data?.stage?.identifier || '',
+                                variablesPipeline
+                              )?.stage?.stage?.variables?.map?.(
+                                variable =>
+                                  metadataMap[(variable as StringNGVariable).value || '']?.yamlProperties || {}
+                              ) || [],
+                            enableValidation: true
+                          }}
+                        />
+                      ) : null}
+                    </div>
+                  </div>
                 </Card>
               }
             />
           </Accordion>
         )}
-        <Container margin={{ top: 'xxlarge' }}>{children}</Container>
+        <div className={cx(css.navigationButtons, { [css.createModal]: !context })}>{children}</div>
       </div>
-    </div>
+    </>
   )
 }
