@@ -46,7 +46,7 @@ export class CustomVariables extends Step<CustomVariablesData> {
   ): JSX.Element {
     const { initialValues, onUpdate, stepViewType, customStepProps, inputSetData, readonly } = props
 
-    if (stepViewType === StepViewType.InputSet) {
+    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <CustomVariableInputSet
           initialValues={initialValues}

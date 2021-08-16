@@ -15,6 +15,7 @@ import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useStrings } from 'framework/strings'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { clearRuntimeInput } from '@pipeline/components/PipelineStudio/StepUtil'
+import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { isPipelineWithCiCodebase, ciCodebaseBuild, filterArtifactIndex } from '../utils/TriggersWizardPageUtils'
 import css from './WebhookPipelineInputPanel.module.scss'
 
@@ -194,6 +195,7 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
                 (template?.data?.inputSetTemplateYaml && parse(template.data.inputSetTemplateYaml).pipeline) || {}
               }
               path="pipeline"
+              viewType={StepViewType.InputSet}
             />
           </div>
         </div>

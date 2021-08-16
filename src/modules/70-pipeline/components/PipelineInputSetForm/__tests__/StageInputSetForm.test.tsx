@@ -2,6 +2,7 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import { merge } from 'lodash-es'
 import { TestWrapper } from '@common/utils/testUtils'
+import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StageInputSetForm } from '../StageInputSetForm'
 
 jest.mock('@common/utils/YamlUtils', () => ({}))
@@ -84,23 +85,46 @@ const props = {
 } as any
 
 describe('stageinputset tests', () => {
-  test('initial render', () => {
-    const { container } = render(
-      <TestWrapper>
-        <StageInputSetForm {...props} />
-      </TestWrapper>
-    )
-    expect(container).toMatchSnapshot()
-  })
+  describe('viewType InputSet', () => {
+    test('initial render', () => {
+      const { container } = render(
+        <TestWrapper>
+          <StageInputSetForm {...props} viewType={StepViewType.InputSet} />
+        </TestWrapper>
+      )
+      expect(container).toMatchSnapshot()
+    })
 
-  test('initial render2', () => {
-    const formProps: any = merge({}, props)
-    formProps.deploymentStageTemplate.infrastructure.spec = null
-    const { container } = render(
-      <TestWrapper>
-        <StageInputSetForm {...merge({}, props)} />
-      </TestWrapper>
-    )
-    expect(container).toMatchSnapshot()
+    test('initial render2', () => {
+      const formProps: any = merge({}, props)
+      formProps.deploymentStageTemplate.infrastructure.spec = null
+      const { container } = render(
+        <TestWrapper>
+          <StageInputSetForm {...merge({}, props)} viewType={StepViewType.InputSet} />
+        </TestWrapper>
+      )
+      expect(container).toMatchSnapshot()
+    })
+  })
+  describe('viewType DeploymentForm', () => {
+    test('initial render', () => {
+      const { container } = render(
+        <TestWrapper>
+          <StageInputSetForm {...props} viewType={StepViewType.DeploymentForm} />
+        </TestWrapper>
+      )
+      expect(container).toMatchSnapshot()
+    })
+
+    test('initial render2', () => {
+      const formProps: any = merge({}, props)
+      formProps.deploymentStageTemplate.infrastructure.spec = null
+      const { container } = render(
+        <TestWrapper>
+          <StageInputSetForm {...merge({}, props)} viewType={StepViewType.DeploymentForm} />
+        </TestWrapper>
+      )
+      expect(container).toMatchSnapshot()
+    })
   })
 })

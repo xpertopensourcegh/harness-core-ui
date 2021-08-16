@@ -1286,6 +1286,7 @@ exports[`Restore Cache GCS Step InputSet View should not render any fields 1`] =
   >
     <form
       class="FormikForm--main removeBpPopoverWrapperTopMargin"
+      style="width: 50%;"
     >
       <div />
     </form>
@@ -1318,6 +1319,7 @@ exports[`Restore Cache GCS Step InputSet View should render all fields 1`] = `
   >
     <form
       class="FormikForm--main removeBpPopoverWrapperTopMargin"
+      style="width: 50%;"
     >
       <div>
         <div
@@ -1350,12 +1352,12 @@ exports[`Restore Cache GCS Step InputSet View should render all fields 1`] = `
               >
                 <div
                   class="Layout--horizontal StyledProps--main MultiTypeInput--main"
-                  style="width: 560px;"
+                  style="width: 455px;"
                 >
                   <button
                     class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                     data-testid="cr-field-spec.connectorRef"
-                    style="width: 560px;"
+                    style="width: 455px;"
                     type="button"
                   >
                     <span
@@ -1985,6 +1987,7 @@ exports[`Restore Cache GCS Step InputSet View should render properly 1`] = `
   >
     <form
       class="FormikForm--main removeBpPopoverWrapperTopMargin"
+      style="width: 50%;"
     >
       <div />
     </form>

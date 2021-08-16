@@ -8,13 +8,14 @@ import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import StepCommonFieldsInputSet from '@pipeline/components/StepCommonFields/StepCommonFieldsInputSet'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea/MultiTypeTextArea'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import type { PluginStepProps } from './PluginStep'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
-export const PluginStepInputSet: React.FC<PluginStepProps> = ({ template, path, readonly }) => {
+export const PluginStepInputSet: React.FC<PluginStepProps> = ({ template, path, readonly, stepViewType }) => {
   const { getString } = useStrings()
 
   const { expressions } = useVariablesExpression()
@@ -34,7 +35,7 @@ export const PluginStepInputSet: React.FC<PluginStepProps> = ({ template, path, 
   >()
 
   return (
-    <FormikForm className={css.removeBpPopoverWrapperTopMargin}>
+    <FormikForm className={css.removeBpPopoverWrapperTopMargin} style={{ width: '50%' }}>
       {getMultiTypeFromValue(template?.description) === MultiTypeInputType.RUNTIME && (
         <FormMultiTypeTextAreaField
           multiTypeTextArea={{
@@ -59,7 +60,7 @@ export const PluginStepInputSet: React.FC<PluginStepProps> = ({ template, path, 
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
-          width={560}
+          width={stepViewType === StepViewType.DeploymentForm ? 391 : 455}
           gitScope={{ branch, repo, getDefaultFromOtherRepo: true }}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.connectorRef`}
           placeholder={getString('select')}

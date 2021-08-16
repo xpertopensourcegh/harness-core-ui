@@ -26,7 +26,7 @@ import { StepType } from '../PipelineSteps/PipelineStepInterface'
 import { CollapseForm } from './CollapseForm'
 import { getStepFromStage } from '../PipelineStudio/StepUtil'
 import { StepWidget } from '../AbstractSteps/StepWidget'
-import { StepViewType } from '../AbstractSteps/Step'
+import type { StepViewType } from '../AbstractSteps/Step'
 import { useVariablesExpression } from '../PipelineStudio/PiplineHooks/useVariablesExpression'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './PipelineInputSetForm.module.scss'
@@ -37,6 +37,7 @@ function ServiceDependencyForm({
   values,
   onUpdate,
   readonly,
+  viewType,
   path
 }: {
   template?: any
@@ -44,6 +45,7 @@ function ServiceDependencyForm({
   values?: any
   onUpdate: (data: any) => void
   readonly?: boolean
+  viewType?: StepViewType
   path: string
 }): JSX.Element {
   const { getString } = useStrings()
@@ -66,7 +68,7 @@ function ServiceDependencyForm({
           allValues={allValues || {}}
           type={(allValues?.type as StepType) || ''}
           onUpdate={onUpdate}
-          stepViewType={StepViewType.InputSet}
+          stepViewType={viewType}
         />
       </div>
     </Layout.Vertical>
@@ -79,6 +81,7 @@ function StepForm({
   values,
   onUpdate,
   readonly,
+  viewType,
   path
 }: {
   template?: ExecutionWrapperConfig
@@ -86,6 +89,7 @@ function StepForm({
   values?: ExecutionWrapperConfig
   onUpdate: (data: any) => void
   readonly?: boolean
+  viewType?: StepViewType
   path: string
 }): JSX.Element {
   const { getString } = useStrings()
@@ -111,7 +115,7 @@ function StepForm({
           allValues={allValues?.step || {}}
           type={(allValues?.step?.type as StepType) || ''}
           onUpdate={onUpdate}
-          stepViewType={StepViewType.InputSet}
+          stepViewType={viewType}
         />
         {getMultiTypeFromValue(template?.step?.spec?.delegateSelectors) === MultiTypeInputType.RUNTIME && (
           <div className={cx(stepCss.formGroup, stepCss.sm)}>
@@ -136,6 +140,7 @@ export interface StageInputSetFormProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   formik?: any
   readonly?: boolean
+  viewType: StepViewType
   stageIdentifier?: string
 }
 
@@ -146,8 +151,9 @@ function ExecutionWrapperInputSetForm(props: {
   allValues?: ExecutionWrapperConfig[]
   values?: ExecutionWrapperConfig[]
   readonly?: boolean
+  viewType: StepViewType
 }): JSX.Element {
-  const { stepsTemplate, allValues, values, path, formik, readonly } = props
+  const { stepsTemplate, allValues, values, path, formik, readonly, viewType } = props
   return (
     <>
       {stepsTemplate?.map((item, index) => {
@@ -162,6 +168,7 @@ function ExecutionWrapperInputSetForm(props: {
               values={initialValues}
               path={`${path}[${index}].step`}
               readonly={readonly}
+              viewType={viewType}
               onUpdate={data => {
                 /* istanbul ignore next */
                 if (initialValues) {
@@ -246,6 +253,7 @@ function ExecutionWrapperInputSetForm(props: {
                       path={`${path}[${index}].parallel[${indexp}].stepGroup.steps`}
                       allValues={stepGroup?.stepGroup?.steps}
                       values={initialValues?.stepGroup?.steps}
+                      viewType={viewType}
                     />
                   </CollapseForm>
                   {nodep.stepGroup.rollbackSteps && (
@@ -261,6 +269,7 @@ function ExecutionWrapperInputSetForm(props: {
                         path={`${path}[${index}].parallel[${indexp}].stepGroup.rollbackSteps`}
                         allValues={stepGroup?.stepGroup?.rollbackSteps}
                         values={initialValues?.stepGroup?.rollbackSteps}
+                        viewType={viewType}
                       />
                     </CollapseForm>
                   )}
@@ -285,6 +294,7 @@ function ExecutionWrapperInputSetForm(props: {
                   path={`${path}[${index}].stepGroup.steps`}
                   allValues={stepGroup?.stepGroup?.steps}
                   values={initialValues?.stepGroup?.steps}
+                  viewType={viewType}
                 />
               </CollapseForm>
               {item.stepGroup.rollbackSteps && (
@@ -300,6 +310,7 @@ function ExecutionWrapperInputSetForm(props: {
                     path={`${path}[${index}].stepGroup.rollbackSteps`}
                     allValues={stepGroup?.stepGroup?.rollbackSteps}
                     values={initialValues?.stepGroup?.rollbackSteps}
+                    viewType={viewType}
                   />
                 </CollapseForm>
               )}
@@ -317,6 +328,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
   path,
   formik,
   readonly,
+  viewType,
   stageIdentifier
 }) => {
   const deploymentStageInputSet = get(formik?.values, path, {})
@@ -336,7 +348,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                 initialValues={deploymentStageInputSet?.serviceConfig || {}}
                 template={deploymentStageTemplate?.serviceConfig || {}}
                 type={StepType.DeployService}
-                stepViewType={StepViewType.InputSet}
+                stepViewType={viewType}
                 path={`${path}.serviceConfig`}
                 readonly={readonly}
                 customStepProps={{ stageIdentifier }}
@@ -356,7 +368,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                     : deploymentStageTemplate?.serviceConfig?.serviceDefinition?.spec || {}
                 }
                 type={StepType.K8sServiceSpec}
-                stepViewType={StepViewType.InputSet}
+                stepViewType={viewType}
                 path={
                   isPropagating
                     ? `${path}.serviceConfig.stageOverrides`
@@ -392,7 +404,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
         <div id={`Stage.${stageIdentifier}.Infrastructure`} className={cx(css.accordionSummary)}>
           <div className={css.inputheader}>{getString('infrastructureText')}</div>
 
-          <div className={css.nestedAccordions}>
+          <div className={css.nestedAccordions} style={{ width: '50%' }}>
             {(deploymentStageTemplate.infrastructure as any).spec?.namespace && (
               <FormInput.MultiTextInput
                 label={
@@ -455,7 +467,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                 initialValues={deploymentStageInputSet?.infrastructure || {}}
                 template={deploymentStageTemplate?.infrastructure || {}}
                 type={StepType.DeployEnvironment}
-                stepViewType={StepViewType.InputSet}
+                stepViewType={viewType}
                 path={`${path}.infrastructure`}
                 readonly={readonly}
               />
@@ -481,7 +493,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                     formik?.setValues(set(formik?.values, path, deploymentStageInputSet))
                   }
                 }}
-                stepViewType={StepViewType.InputSet}
+                stepViewType={viewType}
               />
             )}
           </div>
@@ -504,6 +516,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                 values={deploymentStageInputSet?.infrastructure?.infrastructureDefinition?.provisioner?.steps}
                 formik={formik}
                 readonly={readonly}
+                viewType={viewType}
               />
             )}
             {deploymentStageTemplate.infrastructure.infrastructureDefinition?.provisioner?.rollbackSteps && (
@@ -516,6 +529,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                 values={deploymentStageInputSet?.infrastructure?.infrastructureDefinition?.provisioner?.rollbackSteps}
                 formik={formik}
                 readonly={readonly}
+                viewType={viewType}
               />
             )}
           </div>
@@ -526,7 +540,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
           id={`Stage.${stageIdentifier}.SharedPaths`}
           className={cx(css.accordionSummary)}
         >
-          <div className={css.nestedAccordions}>
+          <div className={css.nestedAccordions} style={{ width: '50%' }}>
             <MultiTypeListInputSet
               name={`${isEmpty(path) ? '' : `${path}.`}sharedPaths`}
               multiTextInputProps={{
@@ -566,6 +580,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                   allValues={(deploymentStage as any)?.serviceDependencies?.[index]}
                   values={deploymentStageInputSet?.serviceDependencies?.[index]}
                   readonly={readonly}
+                  viewType={viewType}
                   key={identifier}
                   onUpdate={data => {
                     const originalServiceDependency = (deploymentStage as any)?.serviceDependencies?.[index]
@@ -608,6 +623,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                 values={deploymentStageInputSet?.execution?.steps}
                 formik={formik}
                 readonly={readonly}
+                viewType={viewType}
               />
             )}
             {deploymentStageTemplate.execution?.rollbackSteps && (
@@ -618,6 +634,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                 values={deploymentStageInputSet?.execution?.rollbackSteps}
                 formik={formik}
                 readonly={readonly}
+                viewType={viewType}
               />
             )}
           </div>

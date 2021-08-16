@@ -110,6 +110,7 @@ exports[`<MultiTypeMapInputSet /> tests Renders ok with minimal UI 1`] = `
                   <div
                     class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                     data-testid="value-test-[0]"
+                    style="flex-shrink: 1;"
                   >
                     <div
                       class="bp3-input-group MultiTypeInput--input"
@@ -305,6 +306,7 @@ exports[`<MultiTypeMapInputSet /> tests Should render properly 1`] = `
                   <div
                     class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                     data-testid="value-test-[0]"
+                    style="flex-shrink: 1;"
                   >
                     <div
                       class="bp3-input-group MultiTypeInput--input"

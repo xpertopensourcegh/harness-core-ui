@@ -112,6 +112,7 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                 </div>
                 <div
                   class="customVariablesInputSets customVariables"
+                  style="width: 50%;"
                 >
                   <div
                     class="variableListTable"
@@ -334,6 +335,7 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                         </div>
                         <div
                           class="nestedAccordions"
+                          style="width: 50%;"
                         >
                           <div
                             class="Layout--vertical Layout--layout-spacing-small StyledProps--main containerPadding StyledProps--padding-medium"

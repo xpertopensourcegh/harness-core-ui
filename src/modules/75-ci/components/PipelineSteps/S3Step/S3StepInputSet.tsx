@@ -6,12 +6,13 @@ import { useStrings } from 'framework/strings'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
+import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import StepCommonFieldsInputSet from '@pipeline/components/StepCommonFields/StepCommonFieldsInputSet'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import type { S3StepProps } from './S3Step'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
-export const S3StepInputSet: React.FC<S3StepProps> = ({ template, path, readonly }) => {
+export const S3StepInputSet: React.FC<S3StepProps> = ({ template, path, readonly, stepViewType }) => {
   const { getString } = useStrings()
 
   const { expressions } = useVariablesExpression()
@@ -31,7 +32,7 @@ export const S3StepInputSet: React.FC<S3StepProps> = ({ template, path, readonly
   >()
 
   return (
-    <FormikForm className={css.removeBpPopoverWrapperTopMargin}>
+    <FormikForm className={css.removeBpPopoverWrapperTopMargin} style={{ width: '50%' }}>
       {getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME && (
         <FormMultiTypeConnectorField
           label={
@@ -44,7 +45,7 @@ export const S3StepInputSet: React.FC<S3StepProps> = ({ template, path, readonly
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
-          width={560}
+          width={stepViewType === StepViewType.DeploymentForm ? 391 : 455}
           gitScope={{ branch, repo, getDefaultFromOtherRepo: true }}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.connectorRef`}
           placeholder={getString('select')}

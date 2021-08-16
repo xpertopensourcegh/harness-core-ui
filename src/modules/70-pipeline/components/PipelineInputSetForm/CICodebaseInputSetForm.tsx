@@ -5,7 +5,6 @@ import { connect, FormikContext } from 'formik'
 import { useStrings } from 'framework/strings'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { TriggerTypes, CUSTOM } from '../../pages/triggers/utils/TriggersWizardPageUtils'
-import css from './CICodebaseInputSetForm.module.scss'
 
 export interface CICodebaseInputSetFormProps {
   path: string
@@ -41,7 +40,7 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
   }
 
   return (
-    <div className={css.container}>
+    <>
       <FormInput.RadioGroup
         name={`${isEmpty(path) ? '' : `${path}.`}properties.ci.codebase.build.type`}
         items={radioGroupItems}
@@ -69,7 +68,7 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
           {getString('pipeline.triggers.pipelineInputPanel.automaticallyExtractedFromText')}
         </Text>
       )}
-    </div>
+    </>
   )
 }
 

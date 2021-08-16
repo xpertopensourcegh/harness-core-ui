@@ -190,6 +190,7 @@ export const MultiTypeMapInputSet = (props: MultiTypeMapProps): React.ReactEleme
                       data-testid={`value-${name}-[${index}]`}
                       allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
                       {...valueMultiTextInputProps}
+                      style={{ flexShrink: 1 }}
                     />
                     {!disabled && (
                       <Button

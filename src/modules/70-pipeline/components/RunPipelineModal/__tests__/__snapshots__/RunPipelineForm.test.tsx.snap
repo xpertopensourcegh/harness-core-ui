@@ -28,6 +28,7 @@ exports[`EXECUTION VIEW should should have the values prefilled and fields as di
                 </div>
                 <div
                   class="customVariablesInputSets customVariables"
+                  style="width: 50%;"
                 >
                   <div
                     class="variableListTable"
@@ -461,6 +462,7 @@ exports[`STUDIO MODE should accept values from input sets and submit the form: a
                 </div>
                 <div
                   class="customVariablesInputSets customVariables"
+                  style="width: 50%;"
                 >
                   <div
                     class="variableListTable"

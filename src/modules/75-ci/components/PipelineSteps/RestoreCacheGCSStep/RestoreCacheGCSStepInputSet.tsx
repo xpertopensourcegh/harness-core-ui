@@ -7,13 +7,19 @@ import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { MultiTypeSelectField } from '@common/components/MultiTypeSelect/MultiTypeSelect'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
+import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import StepCommonFieldsInputSet from '@pipeline/components/StepCommonFields/StepCommonFieldsInputSet'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import type { RestoreCacheGCSStepProps } from './RestoreCacheGCSStep'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
-export const RestoreCacheGCSStepInputSet: React.FC<RestoreCacheGCSStepProps> = ({ template, path, readonly }) => {
+export const RestoreCacheGCSStepInputSet: React.FC<RestoreCacheGCSStepProps> = ({
+  template,
+  path,
+  readonly,
+  stepViewType
+}) => {
   const { getString } = useStrings()
 
   const { expressions } = useVariablesExpression()
@@ -38,7 +44,7 @@ export const RestoreCacheGCSStepInputSet: React.FC<RestoreCacheGCSStepProps> = (
   ]
 
   return (
-    <FormikForm className={css.removeBpPopoverWrapperTopMargin}>
+    <FormikForm className={css.removeBpPopoverWrapperTopMargin} style={{ width: '50%' }}>
       {getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME && (
         <FormMultiTypeConnectorField
           label={
@@ -52,7 +58,7 @@ export const RestoreCacheGCSStepInputSet: React.FC<RestoreCacheGCSStepProps> = (
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
-          width={560}
+          width={stepViewType === StepViewType.DeploymentForm ? 391 : 455}
           gitScope={{ branch, repo, getDefaultFromOtherRepo: true }}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.connectorRef`}
           placeholder={getString('select')}

@@ -7,6 +7,7 @@ import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox
 import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea/MultiTypeTextArea'
 import MultiTypeListInputSet from '@common/components/MultiTypeListInputSet/MultiTypeListInputSet'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
+import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import MultiTypeMapInputSet from '@common/components/MultiTypeMapInputSet/MultiTypeMapInputSet'
@@ -14,7 +15,7 @@ import StepCommonFieldsInputSet from '@pipeline/components/StepCommonFields/Step
 import type { DependencyProps } from './Dependency'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
-export const DependencyInputSet: React.FC<DependencyProps> = ({ template, path, readonly }) => {
+export const DependencyInputSet: React.FC<DependencyProps> = ({ template, path, readonly, stepViewType }) => {
   const { getString } = useStrings()
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
@@ -26,7 +27,7 @@ export const DependencyInputSet: React.FC<DependencyProps> = ({ template, path, 
   const { expressions } = useVariablesExpression()
 
   return (
-    <FormikForm className={css.removeBpPopoverWrapperTopMargin}>
+    <FormikForm className={css.removeBpPopoverWrapperTopMargin} style={{ width: '50%' }}>
       {getMultiTypeFromValue(template?.description) === MultiTypeInputType.RUNTIME && (
         <FormMultiTypeTextAreaField
           name={`${isEmpty(path) ? '' : `${path}.`}description`}
@@ -56,7 +57,7 @@ export const DependencyInputSet: React.FC<DependencyProps> = ({ template, path, 
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
-          width={560}
+          width={stepViewType === StepViewType.DeploymentForm ? 391 : 455}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.connectorRef`}
           placeholder={getString('select')}
           multiTypeProps={{

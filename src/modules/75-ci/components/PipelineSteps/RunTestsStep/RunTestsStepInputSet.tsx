@@ -9,6 +9,7 @@ import StepCommonFieldsInputSet from '@pipeline/components/StepCommonFields/Step
 import MultiTypeMapInputSet from '@common/components/MultiTypeMapInputSet/MultiTypeMapInputSet'
 import MultiTypeListInputSet from '@common/components/MultiTypeListInputSet/MultiTypeListInputSet'
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
+import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { FormMultiTypeCheckboxField } from '@common/components'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import { MultiTypeSelectField } from '@common/components/MultiTypeSelect/MultiTypeSelect'
@@ -18,7 +19,7 @@ import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import type { RunTestsStepProps } from './RunTestsStep'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
-export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, path, readonly }) => {
+export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, path, readonly, stepViewType }) => {
   const { getString } = useStrings()
 
   const {
@@ -44,7 +45,7 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
   const languageOptions = [{ label: 'Java', value: 'java' }]
 
   return (
-    <FormikForm className={css.removeBpPopoverWrapperTopMargin}>
+    <FormikForm className={css.removeBpPopoverWrapperTopMargin} style={{ width: '50%' }}>
       {getMultiTypeFromValue(template?.description) === MultiTypeInputType.RUNTIME && (
         <FormMultiTypeTextAreaField
           name={`${isEmpty(path) ? '' : `${path}.`}description`}
@@ -69,7 +70,7 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
-          width={560}
+          width={stepViewType === StepViewType.DeploymentForm ? 391 : 455}
           gitScope={{ branch, repo, getDefaultFromOtherRepo: true }}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.connectorRef`}
           placeholder={getString('select')}

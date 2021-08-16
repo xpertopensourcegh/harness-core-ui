@@ -9,6 +9,7 @@ import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
 import MultiTypeListInputSet from '@common/components/MultiTypeListInputSet/MultiTypeListInputSet'
 import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox/MultiTypeCheckbox'
+import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
@@ -17,7 +18,7 @@ import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import type { RunStepProps } from './RunStep'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
-export const RunStepInputSet: React.FC<RunStepProps> = ({ template, path, readonly }) => {
+export const RunStepInputSet: React.FC<RunStepProps> = ({ template, path, readonly, stepViewType }) => {
   const { getString } = useStrings()
 
   const { expressions } = useVariablesExpression()
@@ -37,7 +38,7 @@ export const RunStepInputSet: React.FC<RunStepProps> = ({ template, path, readon
   >()
 
   return (
-    <FormikForm className={css.removeBpPopoverWrapperTopMargin}>
+    <FormikForm className={css.removeBpPopoverWrapperTopMargin} style={{ width: '50%' }}>
       {getMultiTypeFromValue(template?.description) === MultiTypeInputType.RUNTIME && (
         <FormMultiTypeTextAreaField
           name={`${isEmpty(path) ? '' : `${path}.`}description`}
@@ -61,7 +62,7 @@ export const RunStepInputSet: React.FC<RunStepProps> = ({ template, path, readon
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
-          width={560}
+          width={stepViewType === StepViewType.DeploymentForm ? 391 : 455}
           setRefValue
           gitScope={{ branch, repo, getDefaultFromOtherRepo: true }}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.connectorRef`}

@@ -10,11 +10,12 @@ import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeTe
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import StepCommonFieldsInputSet from '@pipeline/components/StepCommonFields/StepCommonFieldsInputSet'
+import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import type { DockerHubStepProps } from './DockerHubStep'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
-export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({ template, path, readonly }) => {
+export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({ template, path, readonly, stepViewType }) => {
   const { getString } = useStrings()
 
   const { expressions } = useVariablesExpression()
@@ -28,7 +29,7 @@ export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({ template, 
   >()
 
   return (
-    <FormikForm className={css.removeBpPopoverWrapperTopMargin}>
+    <FormikForm className={css.removeBpPopoverWrapperTopMargin} style={{ width: '50%' }}>
       {getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME && (
         <FormMultiTypeConnectorField
           label={
@@ -44,7 +45,7 @@ export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({ template, 
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
-          width={560}
+          width={stepViewType === StepViewType.DeploymentForm ? 391 : 455}
           gitScope={{ branch, repo: repoIdentifier || '', getDefaultFromOtherRepo: true }}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.connectorRef`}
           placeholder={getString('select')}

@@ -745,6 +745,7 @@ function RunPipelineFormBasic({
             template={parse(templateSource)?.pipeline}
             readonly={executionView}
             path=""
+            viewType={StepViewType.DeploymentForm}
             isRunPipelineForm
             maybeContainerClass={existingProvide === 'provide' ? css.inputSetFormRunPipeline : ''}
           />

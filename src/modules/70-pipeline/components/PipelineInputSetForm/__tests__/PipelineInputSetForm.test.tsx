@@ -3,6 +3,7 @@ import { render } from '@testing-library/react'
 import { Formik, RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 import type { AllNGVariables } from '@pipeline/utils/types'
+import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { PipelineInputSetForm, PipelineInputSetFormProps } from '../PipelineInputSetForm'
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
@@ -12,6 +13,7 @@ jest.mock('@common/utils/YamlUtils', () => ({}))
 const getCommonProps = () => ({
   path: '/dummypath',
   readonly: false,
+  viewType: StepViewType.InputSet,
   maybeContainerClass: ''
 })
 

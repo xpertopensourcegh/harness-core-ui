@@ -486,6 +486,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                                   readonly={!isEditable}
                                   originalPipeline={parse(pipeline.data?.yamlPipeline || '').pipeline}
                                   template={parse(template.data?.inputSetTemplateYaml || '').pipeline}
+                                  viewType={StepViewType.InputSet}
                                 />
                               )}
                           </Layout.Vertical>
