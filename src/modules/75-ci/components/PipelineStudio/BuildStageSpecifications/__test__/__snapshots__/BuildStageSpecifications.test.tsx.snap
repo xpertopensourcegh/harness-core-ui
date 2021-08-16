@@ -299,9 +299,15 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                 class="Accordion--chevron"
               />
               <div
-                class="Accordion--label"
+                class=""
               >
-                Advanced
+                <div
+                  class="tabHeading"
+                  id="advanced"
+                  style="margin-bottom: 0px;"
+                >
+                  advancedTitle
+                </div>
               </div>
             </div>
             <div
@@ -318,7 +324,7 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                   data-testid="advanced-details"
                 >
                   <div
-                    class="bp3-card bp3-elevation-0 Card--card sectionCard"
+                    class="bp3-card bp3-elevation-0 Card--card sectionCardVariables"
                     id="variables"
                   >
                     <div
@@ -344,9 +350,6 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
           </div>
         </div>
       </div>
-      <div
-        class="navigationButtons"
-      />
     </div>
   </div>
 </div>

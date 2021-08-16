@@ -1,13 +1,13 @@
 .wrapper {
   display: grid;
   // grid-template-columns: auto 1fr;
-  padding-bottom: 60px;
 }
 
 .content-section {
   padding: 48px;
   height: 100%;
   background-color: var(--form-bg);
+  padding-bottom: 96px;
 }
 
 .tabHeading {
@@ -33,6 +33,10 @@
       background-color: var(--white) !important;
     }
   }
+}
+
+.section-card-variables {
+  padding-bottom: 5px !important;
 }
 
 .section {
@@ -150,7 +154,7 @@
 
 .fields {
   position: relative;
-  width: 300px;
+  max-width: 785px;
 
   :global {
     .bp3-popover-wrapper {
@@ -274,9 +278,6 @@
   margin-bottom: var(--spacing-medium);
 }
 
-.navigationButtons {
-  margin-bottom: 40px;
-}
 .accordionTitle {
   background-color: transparent;
   max-width: 1024px;

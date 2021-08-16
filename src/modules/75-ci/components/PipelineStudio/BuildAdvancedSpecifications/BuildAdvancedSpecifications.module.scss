@@ -73,18 +73,13 @@
   padding: 48px;
   height: 100%;
   background: var(--form-bg);
+  padding-bottom: 96px;
 }
 
 .stage-create {
   max-width: 1000px;
 }
 
-.navigationButtons {
-  margin-bottom: 60px;
-  &.createModal {
-    margin-bottom: 0px;
-  }
-}
 .tabHeading {
   font-size: var(--font-size-medium);
   color: var(--grey-700);
@@ -106,4 +101,8 @@
 .create-stage-grid {
   display: grid;
   grid-template-columns: 1fr;
+}
+
+.navigation-buttons {
+  margin-top: 44px;
 }

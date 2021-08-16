@@ -566,7 +566,15 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                         <Accordion.Panel
                           id="advanced"
                           addDomId={true}
-                          summary={getString('advancedTitle')}
+                          summary={
+                            <div
+                              className={css.tabHeading}
+                              id="advanced"
+                              style={{ paddingLeft: 'var(--spacing-small)', marginBottom: 0 }}
+                            >
+                              {getString('advancedTitle')}
+                            </div>
+                          }
                           details={
                             <Card disabled={isReadonly} className={css.sectionCard}>
                               <MultiTypeTextField
@@ -643,7 +651,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
             )
           }}
         </Formik>
-        <div className={css.navigationButtons}>{children}</div>
+        {children}
       </div>
     </div>
   )

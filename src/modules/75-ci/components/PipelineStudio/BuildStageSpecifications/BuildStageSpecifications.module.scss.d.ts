@@ -6,6 +6,7 @@ declare const styles: {
   readonly tabHeading: string
   readonly tabSubHeading: string
   readonly sectionCard: string
+  readonly sectionCardVariables: string
   readonly section: string
   readonly noPadTop: string
   readonly specTabs: string
@@ -38,7 +39,6 @@ declare const styles: {
   readonly configureCodebase: string
   readonly repositoryUrl: string
   readonly predefinedValue: string
-  readonly navigationButtons: string
   readonly accordionTitle: string
 }
 export default styles

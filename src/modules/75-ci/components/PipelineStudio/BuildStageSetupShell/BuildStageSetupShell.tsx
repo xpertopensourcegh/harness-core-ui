@@ -146,7 +146,7 @@ export default function BuildStageSetupShell(): JSX.Element {
   }
 
   const navBtns = (
-    <Layout.Horizontal spacing="medium" padding="medium" className={css.footer}>
+    <Layout.Horizontal spacing="medium" className={css.footer}>
       <Button
         text={getString('ci.previous')}
         icon="chevron-left"

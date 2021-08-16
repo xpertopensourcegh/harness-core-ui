@@ -247,9 +247,17 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
                   <Accordion.Panel
                     id="advanced"
                     addDomId={true}
-                    summary={'Advanced'}
+                    summary={
+                      <div
+                        className={css.tabHeading}
+                        id="advanced"
+                        style={{ paddingLeft: 'var(--spacing-small)', marginBottom: 0 }}
+                      >
+                        {getString('advancedTitle')}
+                      </div>
+                    }
                     details={
-                      <Card className={css.sectionCard} id="variables">
+                      <Card className={(css.sectionCard, css.sectionCardVariables)} id="variables">
                         <div className={css.tabSubHeading}>Stage Variables</div>
                         <div className={css.stageSection}>
                           <div className={css.stageDetails}>
@@ -288,7 +296,7 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
             )
           }}
         </Formik>
-        <div className={css.navigationButtons}>{children}</div>
+        {children}
       </div>
     </div>
   )

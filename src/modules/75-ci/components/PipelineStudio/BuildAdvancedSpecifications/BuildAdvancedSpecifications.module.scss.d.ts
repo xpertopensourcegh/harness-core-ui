@@ -15,11 +15,10 @@ declare const styles: {
   readonly editStageGrid: string
   readonly contentSection: string
   readonly stageCreate: string
-  readonly navigationButtons: string
-  readonly createModal: string
   readonly tabHeading: string
   readonly tabSubHeading: string
   readonly sectionCard: string
   readonly createStageGrid: string
+  readonly navigationButtons: string
 }
 export default styles

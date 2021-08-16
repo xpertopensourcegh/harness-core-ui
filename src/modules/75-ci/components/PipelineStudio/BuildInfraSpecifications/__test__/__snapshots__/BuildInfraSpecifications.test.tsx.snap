@@ -899,9 +899,6 @@ exports[`BuildInfraSpecifications snapshot test Renders with multiple stages 1`]
           </form>
         </div>
       </div>
-      <div
-        class="navigationButtons"
-      />
     </div>
   </div>
 </div>
@@ -1172,9 +1169,15 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
                       class="Accordion--chevron"
                     />
                     <div
-                      class="Accordion--label"
+                      class=""
                     >
-                      advancedTitle
+                      <div
+                        class="tabHeading"
+                        id="advanced"
+                        style="margin-bottom: 0px;"
+                      >
+                        advancedTitle
+                      </div>
                     </div>
                   </div>
                   <div
@@ -1192,9 +1195,6 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
           </form>
         </div>
       </div>
-      <div
-        class="navigationButtons"
-      />
     </div>
   </div>
 </div>
@@ -1465,9 +1465,15 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
                       class="Accordion--chevron"
                     />
                     <div
-                      class="Accordion--label"
+                      class=""
                     >
-                      advancedTitle
+                      <div
+                        class="tabHeading"
+                        id="advanced"
+                        style="margin-bottom: 0px;"
+                      >
+                        advancedTitle
+                      </div>
                     </div>
                   </div>
                   <div
@@ -1485,9 +1491,6 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
           </form>
         </div>
       </div>
-      <div
-        class="navigationButtons"
-      />
     </div>
   </div>
 </div>

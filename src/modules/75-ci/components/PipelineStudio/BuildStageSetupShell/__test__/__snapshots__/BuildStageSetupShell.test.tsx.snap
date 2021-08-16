@@ -553,9 +553,15 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                       class="Accordion--chevron"
                     />
                     <div
-                      class="Accordion--label"
+                      class=""
                     >
-                      Advanced
+                      <div
+                        class="tabHeading"
+                        id="advanced"
+                        style="margin-bottom: 0px;"
+                      >
+                        advancedTitle
+                      </div>
                     </div>
                   </div>
                   <div
@@ -572,7 +578,7 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                         data-testid="advanced-details"
                       >
                         <div
-                          class="bp3-card bp3-elevation-0 Card--card sectionCard"
+                          class="bp3-card bp3-elevation-0 Card--card sectionCardVariables"
                           id="variables"
                         >
                           <div
@@ -599,72 +605,68 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
               </div>
             </div>
             <div
-              class="navigationButtons"
+              class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
             >
-              <div
-                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer StyledProps--padding-medium"
+              <button
+                class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main Button--with-current-color"
+                disabled=""
+                tabindex="-1"
+                type="button"
               >
-                <button
-                  class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main Button--with-current-color"
-                  disabled=""
-                  tabindex="-1"
-                  type="button"
+                <span
+                  class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
+                  icon="chevron-left"
                 >
-                  <span
-                    class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
-                    icon="chevron-left"
+                  <svg
+                    data-icon="chevron-left"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
                   >
-                    <svg
-                      data-icon="chevron-left"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      width="16"
-                    >
-                      <desc>
-                        chevron-left
-                      </desc>
-                      <path
-                        d="M7.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71l-4 4C5.11 7.47 5 7.72 5 8c0 .28.11.53.29.71l4 4a1.003 1.003 0 001.42-1.42L7.41 8z"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                  <span
-                    class="bp3-button-text"
-                  >
-                    ci.previous
-                  </span>
-                </button>
-                <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
-                  type="button"
+                    <desc>
+                      chevron-left
+                    </desc>
+                    <path
+                      d="M7.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71l-4 4C5.11 7.47 5 7.72 5 8c0 .28.11.53.29.71l4 4a1.003 1.003 0 001.42-1.42L7.41 8z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="bp3-button-text"
                 >
-                  <span
-                    class="bp3-button-text"
+                  ci.previous
+                </span>
+              </button>
+              <button
+                class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                type="button"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  ci.next
+                </span>
+                <span
+                  class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                  icon="chevron-right"
+                >
+                  <svg
+                    data-icon="chevron-right"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
                   >
-                    ci.next
-                  </span>
-                  <span
-                    class="bp3-icon bp3-icon-chevron-right StyledProps--main"
-                    icon="chevron-right"
-                  >
-                    <svg
-                      data-icon="chevron-right"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      width="16"
-                    >
-                      <desc>
-                        chevron-right
-                      </desc>
-                      <path
-                        d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </div>
+                    <desc>
+                      chevron-right
+                    </desc>
+                    <path
+                      d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
