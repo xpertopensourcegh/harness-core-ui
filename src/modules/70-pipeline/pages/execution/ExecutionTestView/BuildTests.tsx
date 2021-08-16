@@ -293,7 +293,7 @@ const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverview
                   totalTests={testOverviewData.total_tests}
                   skippedTests={testOverviewData.skipped_tests}
                   timeSavedMS={testOverviewData.time_saved_ms}
-                  durationMS={testOverviewData?.time_taken_ms}
+                  durationMS={testOverviewData.time_taken_ms}
                   testsCountDiff={testsCountDiff}
                 />
               )}
@@ -327,11 +327,13 @@ const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverview
           <Layout.Horizontal spacing="large" margin={{ bottom: 'xlarge' }}>
             {typeof testOverviewData?.total_tests !== 'undefined' &&
               typeof testOverviewData?.skipped_tests !== 'undefined' &&
-              typeof testOverviewData?.time_saved_ms !== 'undefined' && (
+              typeof testOverviewData?.time_saved_ms !== 'undefined' &&
+              typeof testOverviewData?.time_taken_ms !== 'undefined' && (
                 <TestsOverview
                   totalTests={testOverviewData.total_tests}
                   skippedTests={testOverviewData.skipped_tests}
                   timeSavedMS={testOverviewData.time_saved_ms}
+                  durationMS={testOverviewData.time_taken_ms}
                   testsCountDiff={testsCountDiff}
                 />
               )}
