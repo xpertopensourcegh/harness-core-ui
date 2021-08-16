@@ -56,7 +56,13 @@ import UserGroups from '@rbac/pages/UserGroups/UserGroups'
 import UsersPage from '@rbac/pages/Users/UsersPage'
 import ServiceAccountDetails from '@rbac/pages/ServiceAccountDetails/ServiceAccountDetails'
 import ServiceAccountsPage from '@rbac/pages/ServiceAccounts/ServiceAccounts'
+import { PubSubPipelineActions } from '@pipeline/factories/PubSubPipelineAction'
+import { PipelineActions } from '@pipeline/factories/PubSubPipelineAction/types'
 import CVTrialHomePage from './pages/home/CVTrialHomePage'
+
+PubSubPipelineActions.subscribe(PipelineActions.RunPipeline, ({ template }) => {
+  return Promise.resolve(template)
+})
 
 const RedirectToAccessControlHome = (): React.ReactElement => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()

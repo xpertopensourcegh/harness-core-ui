@@ -4,12 +4,8 @@ import type { PipelineActions } from './types'
 
 interface PipelineActionArgs {
   pipeline: PipelineInfoConfig
-  template?: PipelineInfoConfig
+  template: PipelineInfoConfig
   values?: PipelineInfoConfig
 }
 
-export const PubSubPipelineActions = new PubSubAction<
-  PipelineActions,
-  PipelineActionArgs,
-  Promise<PipelineInfoConfig | undefined>
->()
+export const PubSubPipelineActions = new PubSubAction<PipelineActions, PipelineActionArgs, PipelineInfoConfig>()

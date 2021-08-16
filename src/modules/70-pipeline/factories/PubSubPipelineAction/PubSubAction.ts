@@ -1,7 +1,7 @@
 export class PubSubAction<TTypes, T, TResult> {
-  subMap = new Map<TTypes, Array<(arg: T) => TResult>>()
+  private subMap = new Map<TTypes, Array<(arg: T) => Promise<TResult>>>()
 
-  subscribe(type: TTypes, cb: (arg: T) => TResult): void {
+  subscribe(type: TTypes, cb: (arg: T) => Promise<TResult>): void {
     const item = this.subMap.get(type)
     if (item) {
       item.push(cb)
@@ -11,13 +11,15 @@ export class PubSubAction<TTypes, T, TResult> {
     }
   }
 
-  publish(type: TTypes, arg: T): void {
+  publish(type: TTypes, arg: T): Promise<TResult[]> {
     const item = this.subMap.get(type)
+    const promiseAr: Array<Promise<TResult>> = []
     if (item) {
       item.forEach(cb => {
-        cb(arg)
+        promiseAr.push(cb(arg))
       })
     }
+    return Promise.all(promiseAr)
   }
   unsubscribe(type: TTypes): void {
     this.subMap.delete(type)

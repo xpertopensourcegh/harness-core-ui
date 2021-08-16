@@ -7,6 +7,8 @@ import { useStrings } from 'framework/strings'
 import type { AllNGVariables } from '@pipeline/utils/types'
 
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
+import { PubSubPipelineActions } from '@pipeline/factories/PubSubPipelineAction'
+import { PipelineActions } from '@pipeline/factories/PubSubPipelineAction/types'
 import { StageInputSetForm } from './StageInputSetForm'
 import { CICodebaseInputSetForm } from './CICodebaseInputSetForm'
 import { StepWidget } from '../AbstractSteps/StepWidget'
@@ -30,6 +32,7 @@ export interface PipelineInputSetFormProps {
   path?: string
   readonly?: boolean
   maybeContainerClass?: string
+  isRunPipelineForm?: boolean
 }
 
 const stageTypeToIconMap: Record<string, IconName> = {
@@ -194,9 +197,22 @@ const PipelineInputSetFormInternal: React.FC<PipelineInputSetFormProps> = props 
   )
 }
 export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props => {
+  const [template, setTemplate] = React.useState(props.template)
+  React.useEffect(() => {
+    if (props.isRunPipelineForm) {
+      PubSubPipelineActions.publish(PipelineActions.RunPipeline, {
+        pipeline: props.originalPipeline,
+        template: props.template
+      }).then(data => {
+        if (data.length > 0) {
+          setTemplate(Object.assign(props.template, ...data))
+        }
+      })
+    }
+  }, [])
   return (
     <PipelineVariablesContextProvider pipeline={props.originalPipeline}>
-      <PipelineInputSetFormInternal {...props} />
+      <PipelineInputSetFormInternal {...props} template={template} />
     </PipelineVariablesContextProvider>
   )
 }
