@@ -211,7 +211,7 @@ aws:
   accessKey: '{{ $.common.accessKey }}'
   secretKey: '{{ $.common.secretKey }}'
   enableCrossAcc: Enable cross-account access
-  crossAccURN: Cross account role URN
+  crossAccURN: Cross account role ARN
   externalId: External Id (Optional)
   assumeIAMRole: Assume IAM role on delegate
   validation:
