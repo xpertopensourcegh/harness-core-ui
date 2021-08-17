@@ -89,6 +89,7 @@ export interface StringsMap {
   'common.clearSelection': string
   'common.clientId': string
   'common.cluster': string
+  'common.comingSoon': string
   'common.comments': string
   'common.confictOccured': string
   'common.configureOptions.advancedHelp': string
@@ -120,6 +121,7 @@ export interface StringsMap {
   'common.datePickerShortcuts.LastWeek': string
   'common.datePickerShortcuts.Today': string
   'common.datePickerShortcuts.Yesterday': string
+  'common.deactivate': string
   'common.default': string
   'common.defaultExperience': string
   'common.delegateForTask': string
