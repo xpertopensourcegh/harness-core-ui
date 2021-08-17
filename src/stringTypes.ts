@@ -937,6 +937,7 @@ export interface StringsMap {
   'connectors.awsKms.validation.selectAWSArn': string
   'connectors.awsKms.validation.selectDelegate': string
   'connectors.awsKms.validation.selectRegion': string
+  'connectors.awsSecretManager.secretNamePrefix': string
   'connectors.azureKeyVault.labels.fetchVault': string
   'connectors.azureKeyVault.labels.subscription': string
   'connectors.azureKeyVault.labels.tenantId': string
@@ -1387,6 +1388,7 @@ export interface StringsMap {
   'connectors.title.aws': string
   'connectors.title.awsCodeCommit': string
   'connectors.title.awsKms': string
+  'connectors.title.awsSecretManager': string
   'connectors.title.azureKeyVault': string
   'connectors.title.bitbucketConnector': string
   'connectors.title.ceAws': string

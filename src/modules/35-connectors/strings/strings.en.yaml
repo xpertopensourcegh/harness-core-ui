@@ -71,6 +71,7 @@ title:
   nexus: 'Nexus Repository'
   artifactory: 'Artifactory Repository'
   awsKms: 'AWS Key Management Service'
+  awsSecretManager: 'AWS Secret Manager'
   delegateSelection: 'Delegate Selection'
   ceAzureConnector: 'Azure Connector'
   datadog: 'Datadog'
@@ -316,6 +317,8 @@ createdSuccessfully: 'Connector {{name}} created successfully'
 updatedSuccessfully: 'Connector {{name}} updated successfully'
 splunk:
   connectorDetailsHeader: Splunk Connection Details
+awsSecretManager:
+  secretNamePrefix: Secret Name Prefix
 awsKms:
   accessKeyLabel: 'AWS - Access Key ID'
   secretKeyLabel: 'AWS - Secret Access Key'
