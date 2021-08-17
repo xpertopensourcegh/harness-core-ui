@@ -429,6 +429,7 @@ export interface StringsMap {
   'common.trialInProgressDescription': string
   'common.unsavedChanges': string
   'common.updating': string
+  'common.useTemplate': string
   'common.userGroup': string
   'common.userGroups': string
   'common.validation.email.format': string

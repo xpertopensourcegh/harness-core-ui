@@ -100,9 +100,6 @@ exports[`<TemplateStep /> tests snapshot test 1`] = `
         </div>
       </div>
       <hr />
-      <div>
-        test
-      </div>
     </div>
   </div>
 </div>

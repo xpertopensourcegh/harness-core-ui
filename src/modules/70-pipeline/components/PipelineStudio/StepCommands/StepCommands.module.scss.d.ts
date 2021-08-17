@@ -6,5 +6,6 @@ declare const styles: {
   readonly withoutTabs: string
   readonly stepTabs: string
   readonly useTemplateBtn: string
+  readonly saveAsTempalteBtn: string
 }
 export default styles

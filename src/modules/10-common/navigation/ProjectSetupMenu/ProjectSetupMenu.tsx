@@ -2,7 +2,8 @@ import React from 'react'
 import { Layout } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
-import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
+import { FeatureFlag } from '@common/featureFlags'
 import type { Module, PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 import { SidebarLink } from '../SideNav/SideNav'
@@ -15,7 +16,7 @@ interface ProjectSetupMenuProps {
 const ProjectSetupMenu: React.FC<ProjectSetupMenuProps> = ({ module }) => {
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<PipelineType<ProjectPathProps>>()
-  const { NG_TEMPLATES } = useFeatureFlags()
+  const templatesEnabled = useFeatureFlag(FeatureFlag.NG_TEMPLATES)
   const params = { accountId, orgIdentifier, projectIdentifier, module }
   const getGitSyncEnabled = (): boolean => {
     if (module === 'ci' || module === 'cd' || !module) return true
@@ -34,7 +35,7 @@ const ProjectSetupMenu: React.FC<ProjectSetupMenuProps> = ({ module }) => {
             to={routes.toGitSyncAdmin({ accountId, orgIdentifier, projectIdentifier, module })}
           />
         ) : null}
-        {NG_TEMPLATES ? (
+        {templatesEnabled ? (
           <SidebarLink label={getString('common.templates')} to={routes.toTemplatesListing(params)} />
         ) : null}
       </Layout.Vertical>

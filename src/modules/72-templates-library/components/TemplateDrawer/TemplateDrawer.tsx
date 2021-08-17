@@ -28,7 +28,7 @@ export const TemplateDrawer: React.FC = (): JSX.Element => {
 
   const { stage: selectedStage } = getStageFromPipeline(selectedStageId || '')
 
-  /* 
+  /*
   const {
     state: {
       pipelineView: { drawerData, isDrawerOpened },
@@ -61,7 +61,6 @@ export const TemplateDrawer: React.FC = (): JSX.Element => {
       isOpen={isTemplateDrawerOpened}
       position={Position.RIGHT}
       data-type={type}
-      isCloseButtonShown={false}
     >
       <Button
         minimal

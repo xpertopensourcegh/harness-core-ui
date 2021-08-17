@@ -6,7 +6,8 @@ import type { FormikProps } from 'formik'
 import { isEmpty } from 'lodash-es'
 
 import { useStrings } from 'framework/strings'
-import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
+import { FeatureFlag } from '@common/featureFlags'
 import { StepWidgetWithFormikRef } from '@pipeline/components/AbstractSteps/StepWidget'
 import { AdvancedStepsWithRef } from '@pipeline/components/PipelineSteps/AdvancedSteps/AdvancedSteps'
 import type { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
@@ -53,10 +54,11 @@ export function StepCommands(
     stageType = StageType.DEPLOY
   } = props
   const { getString } = useStrings()
-  const { NG_TEMPLATES } = useFeatureFlags()
+  const templatesEnabled = useFeatureFlag(FeatureFlag.NG_TEMPLATES)
   const [activeTab, setActiveTab] = React.useState(StepCommandTabs.StepConfiguration)
   const stepRef = React.useRef<FormikProps<unknown> | null>(null)
   const advancedConfRef = React.useRef<FormikProps<unknown> | null>(null)
+  const isTemplateStep = (step as any)['template'] // TODO: fix this check later when BE is finalized
 
   async function handleTabChange(newTab: StepCommandTabs, prevTab: StepCommandTabs): Promise<void> {
     if (prevTab === StepCommandTabs.StepConfiguration && stepRef.current) {
@@ -128,8 +130,8 @@ export function StepCommands(
   const getStepWidgetWithFormikRef = () => {
     const stepType: StepType = isStepGroup
       ? StepType.StepGroup
-      : (step as any)['step-template']
-      ? StepType.TemplateStep
+      : isTemplateStep
+      ? StepType.Template
       : ((step as StepElementConfig).type as StepType)
 
     return (
@@ -175,20 +177,23 @@ export function StepCommands(
               />
             }
           />
-          {NG_TEMPLATES && (
+          {templatesEnabled && (
             <>
               <Expander />
-              <Button
-                icon="library"
-                minimal
-                small
-                onClick={() => {
-                  onUseTemplate?.(step)
-                }}
-                className={css.useTemplateBtn}
-              >
-                Use template
-              </Button>
+              <div>
+                <Button
+                  icon="library"
+                  minimal
+                  small
+                  onClick={() => {
+                    onUseTemplate?.(step)
+                  }}
+                  className={css.useTemplateBtn}
+                >
+                  {getString('common.useTemplate')}
+                </Button>
+                <Button withoutCurrentColor icon="upload-box" className={css.saveAsTempalteBtn} minimal small />
+              </div>
             </>
           )}
         </Tabs>

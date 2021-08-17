@@ -5,31 +5,21 @@ import { StepProps, StepViewType, ValidateInputSetProps } from '@pipeline/compon
 
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
-import { TemplateStepWidgetWithRef } from './TemplateStepWidget'
-
-export interface TemplateStepData {
-  identifier: string
-  name: string
-  type: StepType
-  'step-template': string
-  inputs: { [key: string]: any }
-}
+import { TemplateStepWidgetWithRef, TemplateStepData } from './TemplateStepWidget'
 
 export class TemplateStep extends PipelineStep<TemplateStepData> {
   constructor() {
     super()
   }
 
-  protected type = StepType.TemplateStep
+  protected type = StepType.Template
   protected stepName = 'Template step'
   protected stepIcon: IconName = 'library'
 
   protected defaultValues: TemplateStepData = {
     identifier: '',
     name: '',
-    type: StepType.TemplateStep,
-    'step-template': '',
-    inputs: []
+    template: {} as any
   }
 
   validateInputSet({
@@ -42,12 +32,12 @@ export class TemplateStep extends PipelineStep<TemplateStepData> {
     return errors
   }
 
-  processFormData(values: TemplateStepData) {
+  processFormData(values: TemplateStepData): TemplateStepData {
     return values //processFormData(values)
   }
 
   renderStep(this: TemplateStep, props: StepProps<TemplateStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, formikRef, isNewStep, readonly } = props
+    const { initialValues, onUpdate, stepViewType, formikRef, isNewStep, readonly, factory } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return <div />
@@ -58,15 +48,12 @@ export class TemplateStep extends PipelineStep<TemplateStepData> {
       <TemplateStepWidgetWithRef
         ref={formikRef}
         stepViewType={stepViewType}
-        initialValues={processInitialValues(initialValues)}
+        initialValues={initialValues}
         onUpdate={(values: TemplateStepData) => onUpdate?.(values)}
         isNewStep={isNewStep}
         readonly={readonly}
+        factory={factory}
       />
     )
   }
-}
-
-function processInitialValues<T>(initialValues: T): T {
-  return initialValues
 }
