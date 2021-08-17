@@ -964,7 +964,7 @@ pipelineSteps:
       confirmDeleteTitle: 'Are you sure you want to remove this stage '
       deleteStageText: 'You are removing a stage that is dependency for other stages. Removing this stage will clear configuration for following stages:'
     create:
-      aboutYourStage: 'About Your Stage'
+      aboutYourStage: 'About your stage'
       stageNameRequiredError: 'Stage Name is required'
       stageNameRegExpError: 'Stage Name can only contain alphanumerics, _ and $'
       stageDescriptionRegExpError: 'Stage Description can only contain alphanumerics, _ and $'

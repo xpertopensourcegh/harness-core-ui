@@ -20,14 +20,14 @@ exports[`EditStageView snapshot test should render properly 1`] = `
               style="display: flex; align-items: center;"
             >
               <span
-                class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall StyledProps--margin-right-xsmall"
                 data-icon="ci-main"
               >
                 <svg
                   fill="none"
-                  height="16"
+                  height="24"
                   viewBox="0 0 27 26"
-                  width="16"
+                  width="24"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
@@ -264,14 +264,14 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
               style="display: flex; align-items: center;"
             >
               <span
-                class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall StyledProps--margin-right-xsmall"
                 data-icon="ci-main"
               >
                 <svg
                   fill="none"
-                  height="16"
+                  height="24"
                   viewBox="0 0 27 26"
-                  width="16"
+                  width="24"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
@@ -475,7 +475,7 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
               class="configureCodebase"
             >
               <p
-                class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--margin-bottom-medium"
+                class="StyledProps--font StyledProps--main StyledProps--font-size-normal StyledProps--font-weight-semi-bold StyledProps--margin-bottom-medium"
                 style="display: flex; align-items: center;"
               >
                 <span
@@ -484,9 +484,9 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                 >
                   <svg
                     data-icon="cog"
-                    height="18"
+                    height="16"
                     viewBox="0 0 16 16"
-                    width="18"
+                    width="16"
                   >
                     <desc>
                       cog
@@ -523,7 +523,7 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                   <button
                     class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                     data-testid="cr-field-connectorRef"
-                    style="width: 382px;"
+                    style="width: 366px;"
                     type="button"
                   >
                     <span
