@@ -327,7 +327,8 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                     <section
                       className={cx(
                         css.category,
-                        selectedCategory === category.name && selectedLevel === 'category' && css.active
+                        selectedCategory === category.name && selectedLevel === 'category' && css.active,
+                        category?.name !== 'Kubernetes' && css.notKubernetes
                       )}
                       onClick={() => {
                         setSelectedLevel('category')

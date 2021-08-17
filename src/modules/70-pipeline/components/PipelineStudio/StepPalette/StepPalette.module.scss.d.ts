@@ -25,6 +25,7 @@ declare const styles: {
   readonly primaryCategories: string
   readonly secCategories: string
   readonly category: string
+  readonly notKubernetes: string
   readonly hasSubCategories: string
   readonly offset: string
   readonly active: string

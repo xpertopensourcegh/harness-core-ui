@@ -47,5 +47,8 @@ export const iconMapByName: iconMapOptions = {
   FlowControl: 'settings',
   Utilities: 'utility',
   'Continuous Integration': 'ci-solid-current-color',
-  'Continuous Verification': 'cv-solid-current-color'
+  'Continuous Verification': 'cv-solid-current-color',
+  Jira: 'service-jira',
+  Approval: 'approval-stage-icon',
+  Terraform: 'service-terraform'
 }
