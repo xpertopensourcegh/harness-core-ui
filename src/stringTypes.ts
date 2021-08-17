@@ -2171,12 +2171,14 @@ export interface StringsMap {
   'pipeline.triggers.artifactTriggerConfigPanel.selectAnArtifact': string
   'pipeline.triggers.cannotParseInputValues': string
   'pipeline.triggers.cannotParseTriggersData': string
+  'pipeline.triggers.conditionsPanel.artifactBuild': string
   'pipeline.triggers.conditionsPanel.attribute': string
   'pipeline.triggers.conditionsPanel.branchName': string
   'pipeline.triggers.conditionsPanel.changedFiles': string
   'pipeline.triggers.conditionsPanel.headerConditions': string
   'pipeline.triggers.conditionsPanel.jexlCondition': string
   'pipeline.triggers.conditionsPanel.jexlConditionPlaceholder': string
+  'pipeline.triggers.conditionsPanel.manifestVersion': string
   'pipeline.triggers.conditionsPanel.matchesValue': string
   'pipeline.triggers.conditionsPanel.matchesValuePlaceholder': string
   'pipeline.triggers.conditionsPanel.operator': string
@@ -2184,6 +2186,7 @@ export interface StringsMap {
   'pipeline.triggers.conditionsPanel.sourceBranch': string
   'pipeline.triggers.conditionsPanel.sourceBranchPlaceholder': string
   'pipeline.triggers.conditionsPanel.subtitle': string
+  'pipeline.triggers.conditionsPanel.subtitleManifest': string
   'pipeline.triggers.conditionsPanel.tagName': string
   'pipeline.triggers.conditionsPanel.targetBranch': string
   'pipeline.triggers.conditionsPanel.targetBranchPlaceholder': string
@@ -2278,6 +2281,7 @@ export interface StringsMap {
   'pipeline.triggers.validation.connector': string
   'pipeline.triggers.validation.cronExpression': string
   'pipeline.triggers.validation.event': string
+  'pipeline.triggers.validation.eventConditions': string
   'pipeline.triggers.validation.headerConditions': string
   'pipeline.triggers.validation.identifier': string
   'pipeline.triggers.validation.matchesValue': string

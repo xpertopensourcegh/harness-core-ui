@@ -11,7 +11,11 @@ import type { GitQueryParams, PipelineType } from '@common/interfaces/RouteInter
 import { usePermission } from '@rbac/hooks/usePermission'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
-import { manifestTypeIcons, manifestTypeLabels } from '@pipeline/components/ManifestSelection/Manifesthelper'
+import {
+  manifestTypeIcons,
+  manifestTypeLabels,
+  ManifestDataType
+} from '@pipeline/components/ManifestSelection/Manifesthelper'
 import { TriggersListSection, GoToEditWizardInterface } from './TriggersListSection'
 
 import { TriggerTypes } from '../utils/TriggersWizardPageUtils'
@@ -146,7 +150,7 @@ export default function TriggersList(props: TriggersListPropsInterface & GitQuer
         items: [
           {
             itemLabel: getString(manifestTypeLabels.HelmChart),
-            value: 'HelmChart',
+            value: ManifestDataType.HelmChart,
             iconName: manifestTypeIcons.HelmChart
           }
         ]
