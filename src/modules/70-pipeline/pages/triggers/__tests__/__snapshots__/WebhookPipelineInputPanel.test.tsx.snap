@@ -336,6 +336,9 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                         <div
                           class="nestedAccordions"
                           style="width: 50%;"
+                        />
+                        <div
+                          class="nestedAccordions"
                         >
                           <div
                             class="Layout--vertical Layout--layout-spacing-small StyledProps--main containerPadding StyledProps--padding-medium"

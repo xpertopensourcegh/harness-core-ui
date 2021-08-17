@@ -773,6 +773,9 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                                       </div>
                                     </div>
                                   </div>
+                                  <div
+                                    class="nestedAccordions"
+                                  />
                                 </div>
                                 <div
                                   class="accordionSummary"

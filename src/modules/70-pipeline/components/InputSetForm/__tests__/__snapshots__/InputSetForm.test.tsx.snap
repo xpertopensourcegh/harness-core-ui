@@ -670,6 +670,9 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                               <div
                                 class="nestedAccordions"
                                 style="width: 50%;"
+                              />
+                              <div
+                                class="nestedAccordions"
                               >
                                 <div
                                   class="Layout--vertical Layout--layout-spacing-small StyledProps--main containerPadding StyledProps--padding-medium"
@@ -2135,6 +2138,9 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                               <div
                                 class="nestedAccordions"
                                 style="width: 50%;"
+                              />
+                              <div
+                                class="nestedAccordions"
                               >
                                 <div
                                   class="Layout--vertical Layout--layout-spacing-small StyledProps--main containerPadding StyledProps--padding-medium"

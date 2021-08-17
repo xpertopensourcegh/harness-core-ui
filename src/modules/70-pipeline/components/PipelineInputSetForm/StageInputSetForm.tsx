@@ -461,6 +461,8 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                 disabled={readonly}
               />
             )}
+          </div>
+          <div className={css.nestedAccordions}>
             {deploymentStageTemplate.infrastructure?.environmentRef && (
               /* istanbul ignore next */ <StepWidget<PipelineInfrastructure>
                 factory={factory}
