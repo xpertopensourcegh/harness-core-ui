@@ -58,7 +58,7 @@ export const TestsOverview: React.FC<TestsOverviewProps> = ({
             </Text>
             <span className={cx(css.statsNumber, css.row)}>
               {totalTests}
-              {testsCountDiff ? (
+              {typeof testsCountDiff !== 'undefined' ? (
                 <span className={cx(css.diff, { [css.diffNegative]: testsCountDiff < 0 })}>
                   <Icon name={testsCountDiff < 0 ? 'arrow-down' : 'arrow-up'} size={11} />
                   &nbsp;
@@ -92,7 +92,7 @@ export const TestsOverview: React.FC<TestsOverviewProps> = ({
         </Layout.Horizontal>
 
         <Layout.Horizontal spacing="medium">
-          {durationMS ? (
+          {typeof durationMS !== 'undefined' ? (
             <Text
               className={css.stats}
               padding="medium"
