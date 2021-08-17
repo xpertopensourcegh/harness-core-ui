@@ -1,7 +1,7 @@
 .approvalStageMinimalWrapper {
   background-color: var(--white) !important;
   display: grid;
-  padding: var(--spacing-xlarge) !important;
+  padding: var(--spacing-xxlarge) !important;
   grid-template-columns: 1fr;
   height: 100%;
 }
@@ -9,4 +9,10 @@
 .approvalTypesThumbnail {
   margin: var(--spacing-medium) 0;
   min-width: 400px;
+}
+
+.addStageHeading {
+  color: var(--grey-800);
+  font-weight: 600 !important;
+  line-height: 24px;
 }

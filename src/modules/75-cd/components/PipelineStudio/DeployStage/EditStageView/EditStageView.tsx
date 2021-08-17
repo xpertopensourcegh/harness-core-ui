@@ -116,7 +116,11 @@ export const EditStageView: React.FC<EditStageViewProps> = ({
       {context ? (
         <div className={stageCss.tabSubHeading}>{getString('whatToDeploy')}</div>
       ) : (
-        <Text color={Color.BLACK_100} font={{ size: 'normal' }} tooltipProps={{ dataTooltipId: 'whatToDeploy' }}>
+        <Text
+          color={Color.GREY_700}
+          font={{ size: 'normal', weight: 'semi-bold' }}
+          tooltipProps={{ dataTooltipId: 'whatToDeploy' }}
+        >
           {getString('whatToDeploy')}
         </Text>
       )}
@@ -139,7 +143,7 @@ export const EditStageView: React.FC<EditStageViewProps> = ({
             {getString('stageOverview')}
           </div>
         ) : (
-          <Text icon="cd-main" iconProps={{ size: 16 }} style={{ paddingBottom: 'var(--spacing-medium)' }}>
+          <Text icon="cd-main" iconProps={{ size: 16 }} className={css.addStageHeading}>
             {getString('pipelineSteps.build.create.aboutYourStage')}
           </Text>
         )}
@@ -200,6 +204,7 @@ export const EditStageView: React.FC<EditStageViewProps> = ({
                       <NameIdDescriptionTags
                         formikProps={formikProps}
                         identifierProps={{
+                          inputLabel: getString('stageNameLabel'),
                           isIdentifierEditable: !context,
                           inputGroupProps: { disabled: isReadonly }
                         }}
@@ -211,6 +216,7 @@ export const EditStageView: React.FC<EditStageViewProps> = ({
                     <NameIdDescriptionTags
                       formikProps={formikProps}
                       identifierProps={{
+                        inputLabel: getString('stageNameLabel'),
                         isIdentifierEditable: !context && !isReadonly,
                         inputGroupProps: { disabled: isReadonly }
                       }}

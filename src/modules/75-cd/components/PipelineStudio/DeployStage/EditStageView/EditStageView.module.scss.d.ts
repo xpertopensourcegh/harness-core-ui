@@ -3,5 +3,6 @@
 declare const styles: {
   readonly contentSection: string
   readonly stageTypeThumbnail: string
+  readonly addStageHeading: string
 }
 export default styles

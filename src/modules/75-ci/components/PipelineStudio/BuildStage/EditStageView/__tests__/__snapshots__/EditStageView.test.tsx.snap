@@ -16,7 +16,7 @@ exports[`EditStageView snapshot test should render properly 1`] = `
         >
           <div>
             <p
-              class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--margin-bottom-medium"
+              class="StyledProps--font StyledProps--main addStageHeading StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--margin-bottom-medium"
               style="display: flex; align-items: center;"
             >
               <span
@@ -125,7 +125,7 @@ exports[`EditStageView snapshot test should render properly 1`] = `
                       class="Tooltip--acenter"
                       data-tooltip-id="ciEditStage_name"
                     >
-                      name
+                      stageNameLabel
                     </span>
                      
                     <span
@@ -260,7 +260,7 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
         >
           <div>
             <p
-              class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--margin-bottom-medium"
+              class="StyledProps--font StyledProps--main addStageHeading StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--margin-bottom-medium"
               style="display: flex; align-items: center;"
             >
               <span
@@ -367,7 +367,7 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                       class="Tooltip--acenter"
                       data-tooltip-id="ciEditStage_name"
                     >
-                      name
+                      stageNameLabel
                     </span>
                      
                     <span

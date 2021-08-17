@@ -10,5 +10,6 @@ declare const styles: {
   readonly repositoryUrl: string
   readonly cloneCodebaseInfo: string
   readonly connector: string
+  readonly addStageHeading: string
 }
 export default styles

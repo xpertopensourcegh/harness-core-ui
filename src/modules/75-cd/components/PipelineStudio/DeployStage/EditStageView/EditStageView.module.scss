@@ -1,8 +1,15 @@
 .contentSection {
-  padding: var(--spacing-xlarge);
+  padding: var(--spacing-xxlarge);
 }
 
 .stageTypeThumbnail {
   margin: var(--spacing-medium) 0;
   min-width: 400px;
+}
+
+.addStageHeading {
+  color: var(--grey-800);
+  font-weight: 600 !important;
+  line-height: 24px;
+  padding-bottom: var(--spacing-medium) !important;
 }

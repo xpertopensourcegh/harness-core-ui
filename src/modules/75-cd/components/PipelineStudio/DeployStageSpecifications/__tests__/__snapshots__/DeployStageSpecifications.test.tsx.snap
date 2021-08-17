@@ -71,7 +71,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                           class="Tooltip--acenter"
                           data-tooltip-id="cdEditStage_name"
                         >
-                          name
+                          stageNameLabel
                         </span>
                          
                         <span

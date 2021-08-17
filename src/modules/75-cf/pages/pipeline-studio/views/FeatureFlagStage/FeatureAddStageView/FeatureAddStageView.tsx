@@ -96,15 +96,15 @@ export const FeatureAddEditStageView: React.FC<FeatureAddEditStageViewProps> = (
         >
           {formikProps => (
             <FormikForm>
-              <Text
-                font={{ size: 'medium', weight: 'semi-bold' }}
-                icon="cf-main"
-                iconProps={{ size: 16 }}
-                margin={{ bottom: 'medium' }}
-              >
+              <Text font={{ weight: 'bold' }} icon="cf-main" iconProps={{ size: 16 }} margin={{ bottom: 'medium' }}>
                 {getString('pipelineSteps.build.create.aboutYourStage')}
               </Text>
-              <NameIdDescription formikProps={formikProps} />
+              <NameIdDescription
+                formikProps={formikProps}
+                identifierProps={{
+                  inputLabel: getString('stageNameLabel')
+                }}
+              />
               <Button
                 type="submit"
                 intent="primary"

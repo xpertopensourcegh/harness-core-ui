@@ -206,12 +206,14 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
                 icon="ci-main"
                 iconProps={{ size: 16 }}
                 margin={{ bottom: 'medium' }}
+                className={css.addStageHeading}
               >
                 {getString('pipelineSteps.build.create.aboutYourStage')}
               </Text>
               <NameIdDescriptionTags
                 formikProps={formikProps}
                 identifierProps={{
+                  inputLabel: getString('stageNameLabel'),
                   inputGroupProps: {
                     disabled: isReadonly,
                     placeholder: getString('pipeline.aboutYourStage.stageNamePlaceholder')

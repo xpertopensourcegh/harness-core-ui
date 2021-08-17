@@ -69,15 +69,21 @@ export const ApprovalStageMinimalMode: React.FC<ApprovalStageMinimalModeProps> =
               icon="pipeline-approval"
               iconProps={{ size: 16, intent: Intent.SUCCESS }}
               margin={{ bottom: 'medium' }}
+              className={css.addStageHeading}
             >
               {getString('pipelineSteps.build.create.aboutYourStage')}
             </Text>
 
-            <NameIdDescriptionTags formikProps={formikProps} />
+            <NameIdDescriptionTags
+              formikProps={formikProps}
+              identifierProps={{
+                inputLabel: getString('stageNameLabel')
+              }}
+            />
 
             <Text
-              color={Color.BLACK_100}
-              font={{ size: 'normal' }}
+              color={Color.GREY_700}
+              font={{ size: 'normal', weight: 'semi-bold' }}
               tooltipProps={{ dataTooltipId: 'approvalTypeHeading' }}
             >
               {getString('approvalStage.approvalTypeHeading')}
