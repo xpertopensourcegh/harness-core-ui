@@ -262,6 +262,7 @@ export interface StringsMap {
   'common.logs.noLogsText': string
   'common.manage': string
   'common.member': string
+  'common.modified': string
   'common.monthly': string
   'common.moreInfo': string
   'common.moreRefineSearch': string

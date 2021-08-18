@@ -461,6 +461,7 @@ apikey: API Key
 apiKeys: API Keys
 tokens: Tokens
 lastModifiedTime: Last modified
+modified: Modified
 expiryDate: Expiration Date
 extendTrial:
   heading: Congrats, your trial is extended
