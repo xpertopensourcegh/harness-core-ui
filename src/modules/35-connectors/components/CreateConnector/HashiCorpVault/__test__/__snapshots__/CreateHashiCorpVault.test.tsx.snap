@@ -528,10 +528,10 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
                   class="bp3-form-content"
                 >
                   <div
-                    class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                    class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
                   >
                     <label
-                      class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                      class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
                     >
                       <input
                         checked=""
@@ -545,7 +545,7 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
                       App Role
                     </label>
                     <label
-                      class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                      class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
                     >
                       <input
                         name="accessType"
@@ -646,10 +646,10 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
                   class="bp3-form-content"
                 >
                   <div
-                    class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                    class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
                   >
                     <label
-                      class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                      class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
                     >
                       <input
                         checked=""
@@ -663,7 +663,7 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
                       Fetch Engines
                     </label>
                     <label
-                      class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                      class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
                     >
                       <input
                         name="engineType"
@@ -1396,10 +1396,10 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                   class="bp3-form-content"
                 >
                   <div
-                    class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                    class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
                   >
                     <label
-                      class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                      class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
                     >
                       <input
                         checked=""
@@ -1413,7 +1413,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                       App Role
                     </label>
                     <label
-                      class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                      class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
                     >
                       <input
                         name="accessType"
@@ -1545,10 +1545,10 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                   class="bp3-form-content"
                 >
                   <div
-                    class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                    class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
                   >
                     <label
-                      class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                      class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
                     >
                       <input
                         checked=""
@@ -1562,7 +1562,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                       Fetch Engines
                     </label>
                     <label
-                      class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                      class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
                     >
                       <input
                         name="engineType"
@@ -2003,10 +2003,10 @@ exports[`Create Secret Manager Wizard should render form in edit 3`] = `
                   class="bp3-form-content"
                 >
                   <div
-                    class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                    class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
                   >
                     <label
-                      class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                      class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
                     >
                       <input
                         checked=""
@@ -2020,7 +2020,7 @@ exports[`Create Secret Manager Wizard should render form in edit 3`] = `
                       App Role
                     </label>
                     <label
-                      class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                      class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
                     >
                       <input
                         name="accessType"
@@ -2121,10 +2121,10 @@ exports[`Create Secret Manager Wizard should render form in edit 3`] = `
                   class="bp3-form-content"
                 >
                   <div
-                    class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                    class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
                   >
                     <label
-                      class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                      class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
                     >
                       <input
                         checked=""
@@ -2138,7 +2138,7 @@ exports[`Create Secret Manager Wizard should render form in edit 3`] = `
                       Fetch Engines
                     </label>
                     <label
-                      class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                      class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
                     >
                       <input
                         name="engineType"

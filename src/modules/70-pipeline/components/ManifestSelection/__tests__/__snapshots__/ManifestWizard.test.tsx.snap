@@ -359,7 +359,7 @@ exports[`ManifestSelection tests last step data with proper initial values 1`] =
                           </span>
                         </div>
                         <p
-                          class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500 StyledProps--margin-top-small"
+                          class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600 StyledProps--margin-top-small"
                         >
                           pipeline.manifestTypeLabels.K8sManifest
                         </p>
@@ -626,7 +626,7 @@ exports[`ManifestSelection tests last step data without initial values 1`] = `
                           </span>
                         </div>
                         <p
-                          class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500 StyledProps--margin-top-small"
+                          class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600 StyledProps--margin-top-small"
                         >
                           pipeline.manifestTypeLabels.K8sManifest
                         </p>
@@ -887,7 +887,7 @@ exports[`ManifestSelection tests new connector view works correctly 1`] = `
                         </span>
                       </div>
                       <p
-                        class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500 StyledProps--margin-top-small"
+                        class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600 StyledProps--margin-top-small"
                       >
                         pipeline.manifestType.gitConnectorLabel
                       </p>
@@ -1298,7 +1298,7 @@ exports[`ManifestSelection tests renders correctly with differnet manifest types
                           </span>
                         </div>
                         <p
-                          class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500 StyledProps--margin-top-small"
+                          class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600 StyledProps--margin-top-small"
                         >
                           pipeline.manifestTypeLabels.K8sManifest
                         </p>

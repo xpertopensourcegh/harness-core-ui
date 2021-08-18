@@ -224,7 +224,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                           </span>
                         </div>
                         <p
-                          class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500 StyledProps--margin-top-small"
+                          class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600 StyledProps--margin-top-small"
                         >
                           service
                         </p>

@@ -224,7 +224,7 @@ exports[`open and close Harness Environment Modal Rendering should open and clos
                     tabindex="0"
                   >
                     <p
-                      class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--color StyledProps--color-grey900"
+                      class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--color StyledProps--color-black"
                     >
                       production
                     </p>
@@ -243,7 +243,7 @@ exports[`open and close Harness Environment Modal Rendering should open and clos
                     tabindex="0"
                   >
                     <p
-                      class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--color StyledProps--color-grey900"
+                      class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--color StyledProps--color-black"
                     >
                       nonProduction
                     </p>

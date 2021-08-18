@@ -88,12 +88,12 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
         class="rhs"
       >
         <div
-          class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch  ExpandingSearchInput--alwaysExpanded"
+          class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch  ExpandingSearchInput--alwaysExpanded ExpandingSearchInput--light"
           data-name=""
           style="width: 200px; max-width: 200px;"
         >
           <span
-            class="bp3-icon StyledProps--main ExpandingSearchInput--icon "
+            class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey700"
             data-icon="thinner-search"
           >
             <svg
@@ -115,7 +115,7 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
             class="bp3-input  ExpandingSearchInput--filter"
             dir="auto"
             placeholder="Search"
-            style="padding-right: 36px;"
+            style="padding-right: 38px;"
             type="search"
             value=""
           />

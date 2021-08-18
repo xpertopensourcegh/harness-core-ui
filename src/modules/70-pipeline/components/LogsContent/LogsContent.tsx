@@ -102,6 +102,7 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
             ref={searchRef}
             showPrevNextButtons
             flip
+            theme={'dark'}
             className={css.search}
             fixedText={`${Math.min(currentIndex + 1, linesWithResults.length)} / ${linesWithResults.length}`}
             onNext={() => actions.goToNextSearchResult()}

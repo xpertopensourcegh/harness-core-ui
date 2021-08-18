@@ -491,10 +491,10 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                   class="bp3-form-content"
                 >
                   <div
-                    class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                    class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
                   >
                     <label
-                      class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                      class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
                     >
                       <input
                         checked=""
@@ -508,7 +508,7 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                       SSH_KEY
                     </label>
                     <label
-                      class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                      class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
                     >
                       <input
                         name="authScheme"

@@ -226,7 +226,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
 
               <ExpandingSearchInput
                 flip
-                width={200}
+                width={232}
                 throttle={200}
                 onChange={(text: string) => filterSteps(text, FilterContext.SEARCH)}
               />

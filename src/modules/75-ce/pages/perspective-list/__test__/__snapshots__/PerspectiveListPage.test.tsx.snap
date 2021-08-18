@@ -52,11 +52,11 @@ exports[`test cases for Perspective details Page should be able to render and sw
       style="flex-grow: 1;"
     />
     <div
-      class="bp3-input-group ui-search-box ExpandingSearchInput--main search  "
+      class="bp3-input-group ui-search-box ExpandingSearchInput--main search   ExpandingSearchInput--light"
       data-name=""
     >
       <span
-        class="bp3-icon StyledProps--main ExpandingSearchInput--icon "
+        class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey700"
         data-icon="thinner-search"
       >
         <svg
@@ -820,11 +820,11 @@ exports[`test cases for Perspective details Page should be able to render the de
       style="flex-grow: 1;"
     />
     <div
-      class="bp3-input-group ui-search-box ExpandingSearchInput--main search  "
+      class="bp3-input-group ui-search-box ExpandingSearchInput--main search   ExpandingSearchInput--light"
       data-name=""
     >
       <span
-        class="bp3-icon StyledProps--main ExpandingSearchInput--icon "
+        class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey700"
         data-icon="thinner-search"
       >
         <svg

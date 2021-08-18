@@ -563,10 +563,10 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                                     class="bp3-form-content"
                                   >
                                     <div
-                                      class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                                      class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
                                     >
                                       <label
-                                        class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                                        class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
                                       >
                                         <input
                                           checked=""
@@ -580,7 +580,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                                         gitBranch
                                       </label>
                                       <label
-                                        class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                                        class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
                                       >
                                         <input
                                           name="pipeline.properties.ci.codebase.build.type"

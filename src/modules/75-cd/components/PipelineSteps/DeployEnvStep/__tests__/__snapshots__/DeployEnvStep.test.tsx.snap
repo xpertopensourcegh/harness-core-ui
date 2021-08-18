@@ -292,7 +292,7 @@ exports[`Test DeployEnvironment Step should render edit Environment view (enviro
                       </span>
                     </span>
                     <p
-                      class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--color StyledProps--color-grey900"
+                      class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--color StyledProps--color-black"
                     >
                       nonProduction
                     </p>
@@ -603,7 +603,7 @@ exports[`Test DeployEnvironment Step should render environment view and save 1`]
                     tabindex="0"
                   >
                     <p
-                      class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--color StyledProps--color-grey900"
+                      class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--color StyledProps--color-black"
                     >
                       production
                     </p>
@@ -622,7 +622,7 @@ exports[`Test DeployEnvironment Step should render environment view and save 1`]
                     tabindex="0"
                   >
                     <p
-                      class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--color StyledProps--color-grey900"
+                      class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--color StyledProps--color-black"
                     >
                       nonProduction
                     </p>

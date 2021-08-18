@@ -203,11 +203,11 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
         </div>
         <div>
           <div
-            class="bp3-input-group ui-search-box ExpandingSearchInput--main searchInput  ExpandingSearchInput--alwaysExpanded"
+            class="bp3-input-group ui-search-box ExpandingSearchInput--main searchInput  ExpandingSearchInput--alwaysExpanded ExpandingSearchInput--light"
             data-name=""
           >
             <span
-              class="bp3-icon StyledProps--main ExpandingSearchInput--icon "
+              class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey700"
               data-icon="thinner-search"
             >
               <svg
@@ -229,7 +229,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
               class="bp3-input  ExpandingSearchInput--find"
               dir="auto"
               placeholder="Find..."
-              style="padding-right: 134px;"
+              style="padding-right: 130px;"
               type="search"
               value=""
             />

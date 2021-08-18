@@ -190,10 +190,10 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
           class="bp3-form-content"
         >
           <div
-            class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+            class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
           >
             <label
-              class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
             >
               <input
                 checked=""
@@ -207,7 +207,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
               filters.apply
             </label>
             <label
-              class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
             >
               <input
                 name="spec.configuration.command"
@@ -1594,10 +1594,10 @@ exports[`Test TerraformPlan should render edit view as edit step 1`] = `
           class="bp3-form-content"
         >
           <div
-            class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+            class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
           >
             <label
-              class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
             >
               <input
                 checked=""
@@ -1611,7 +1611,7 @@ exports[`Test TerraformPlan should render edit view as edit step 1`] = `
               filters.apply
             </label>
             <label
-              class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
             >
               <input
                 name="spec.configuration.command"
@@ -2062,10 +2062,10 @@ exports[`Test TerraformPlan should render edit view as new step 1`] = `
           class="bp3-form-content"
         >
           <div
-            class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+            class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
           >
             <label
-              class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
             >
               <input
                 checked=""
@@ -2079,7 +2079,7 @@ exports[`Test TerraformPlan should render edit view as new step 1`] = `
               filters.apply
             </label>
             <label
-              class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
             >
               <input
                 name="spec.configuration.command"
@@ -2530,10 +2530,10 @@ exports[`Test TerraformPlan should render edit view as new step 2`] = `
           class="bp3-form-content"
         >
           <div
-            class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+            class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
           >
             <label
-              class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
             >
               <input
                 checked=""
@@ -2547,7 +2547,7 @@ exports[`Test TerraformPlan should render edit view as new step 2`] = `
               filters.apply
             </label>
             <label
-              class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
             >
               <input
                 name="spec.configuration.command"
@@ -3000,10 +3000,10 @@ exports[`Test TerraformPlan should render edit view with command Destroy 1`] = `
           class="bp3-form-content"
         >
           <div
-            class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+            class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
           >
             <label
-              class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
             >
               <input
                 name="spec.configuration.command"
@@ -3016,7 +3016,7 @@ exports[`Test TerraformPlan should render edit view with command Destroy 1`] = `
               filters.apply
             </label>
             <label
-              class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
             >
               <input
                 checked=""
@@ -3922,10 +3922,10 @@ exports[`Test TerraformPlan should submit form for terraform plan 1`] = `
           class="bp3-form-content"
         >
           <div
-            class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+            class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
           >
             <label
-              class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
             >
               <input
                 checked=""
@@ -3939,7 +3939,7 @@ exports[`Test TerraformPlan should submit form for terraform plan 1`] = `
               filters.apply
             </label>
             <label
-              class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
             >
               <input
                 name="spec.configuration.command"

@@ -289,7 +289,7 @@ exports[`Test FilterCRUD component Add a new filter with visibke to Everyone 1`]
                   class="bp3-form-content"
                 >
                   <div
-                    class="StyledProps--font RadioButton--radioGroup StyledProps--main"
+                    class="StyledProps--font RadioButton--radioGroup FormikForm--inlineRadioGroup StyledProps--main"
                   >
                     <label
                       class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
@@ -878,7 +878,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 1`] =
                   class="bp3-form-content"
                 >
                   <div
-                    class="StyledProps--font RadioButton--radioGroup StyledProps--main"
+                    class="StyledProps--font RadioButton--radioGroup FormikForm--inlineRadioGroup StyledProps--main"
                   >
                     <label
                       class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
@@ -1467,7 +1467,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 3`] =
                   class="bp3-form-content"
                 >
                   <div
-                    class="StyledProps--font RadioButton--radioGroup StyledProps--main"
+                    class="StyledProps--font RadioButton--radioGroup FormikForm--inlineRadioGroup StyledProps--main"
                   >
                     <label
                       class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
@@ -2292,7 +2292,7 @@ exports[`Test FilterCRUD component Enable edit mode 1`] = `
                   class="bp3-form-content"
                 >
                   <div
-                    class="StyledProps--font RadioButton--radioGroup StyledProps--main"
+                    class="StyledProps--font RadioButton--radioGroup FormikForm--inlineRadioGroup StyledProps--main"
                   >
                     <label
                       class="bp3-control bp3-radio RadioButton--radio StyledProps--main"

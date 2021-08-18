@@ -544,10 +544,10 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                       class="bp3-form-content"
                     >
                       <div
-                        class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                        class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
                       >
                         <label
-                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                          class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
                         >
                           <input
                             checked=""
@@ -561,7 +561,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                           account
                         </label>
                         <label
-                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                          class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
                         >
                           <input
                             name="urlType"
@@ -589,10 +589,10 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                       class="bp3-form-content"
                     >
                       <div
-                        class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                        class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
                       >
                         <label
-                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                          class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
                         >
                           <input
                             checked=""
@@ -606,7 +606,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                           HTTP
                         </label>
                         <label
-                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                          class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
                         >
                           <input
                             name="connectionType"
@@ -972,10 +972,10 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                       class="bp3-form-content"
                     >
                       <div
-                        class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                        class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
                       >
                         <label
-                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                          class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
                         >
                           <input
                             checked=""
@@ -989,7 +989,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                           account
                         </label>
                         <label
-                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                          class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
                         >
                           <input
                             name="urlType"
@@ -1017,10 +1017,10 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                       class="bp3-form-content"
                     >
                       <div
-                        class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                        class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
                       >
                         <label
-                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                          class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
                         >
                           <input
                             checked=""
@@ -1034,7 +1034,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                           HTTP
                         </label>
                         <label
-                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                          class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
                         >
                           <input
                             name="connectionType"
@@ -1430,10 +1430,10 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                       class="bp3-form-content"
                     >
                       <div
-                        class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                        class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
                       >
                         <label
-                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                          class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
                         >
                           <input
                             checked=""
@@ -1447,7 +1447,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                           account
                         </label>
                         <label
-                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                          class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
                         >
                           <input
                             name="urlType"
@@ -1475,10 +1475,10 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                       class="bp3-form-content"
                     >
                       <div
-                        class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                        class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
                       >
                         <label
-                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                          class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
                         >
                           <input
                             checked=""
@@ -1492,7 +1492,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                           HTTP
                         </label>
                         <label
-                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                          class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
                         >
                           <input
                             name="connectionType"
@@ -1858,10 +1858,10 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                       class="bp3-form-content"
                     >
                       <div
-                        class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                        class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
                       >
                         <label
-                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                          class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
                         >
                           <input
                             checked=""
@@ -1875,7 +1875,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                           account
                         </label>
                         <label
-                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                          class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
                         >
                           <input
                             name="urlType"
@@ -1903,10 +1903,10 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                       class="bp3-form-content"
                     >
                       <div
-                        class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                        class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
                       >
                         <label
-                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                          class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
                         >
                           <input
                             checked=""
@@ -1920,7 +1920,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                           HTTP
                         </label>
                         <label
-                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                          class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
                         >
                           <input
                             name="connectionType"

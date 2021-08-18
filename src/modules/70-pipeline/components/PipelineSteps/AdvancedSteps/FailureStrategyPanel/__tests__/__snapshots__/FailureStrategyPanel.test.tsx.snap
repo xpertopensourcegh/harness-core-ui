@@ -221,7 +221,7 @@ exports[`<FailureStrategyPanel /> tests adding a new strategy works 1`] = `
                 </span>
               </div>
               <p
-                class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500 StyledProps--margin-top-small"
+                class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600 StyledProps--margin-top-small"
               >
                 pipeline.failureStrategies.strategiesLabel.ManualIntervention
               </p>
@@ -259,7 +259,7 @@ exports[`<FailureStrategyPanel /> tests adding a new strategy works 1`] = `
                 </span>
               </div>
               <p
-                class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500 StyledProps--margin-top-small"
+                class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600 StyledProps--margin-top-small"
               >
                 pipeline.failureStrategies.strategiesLabel.StageRollback
               </p>
@@ -297,7 +297,7 @@ exports[`<FailureStrategyPanel /> tests adding a new strategy works 1`] = `
                 </span>
               </div>
               <p
-                class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500 StyledProps--margin-top-small"
+                class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600 StyledProps--margin-top-small"
               >
                 pipeline.failureStrategies.strategiesLabel.Ignore
               </p>
@@ -335,7 +335,7 @@ exports[`<FailureStrategyPanel /> tests adding a new strategy works 1`] = `
                 </span>
               </div>
               <p
-                class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500 StyledProps--margin-top-small"
+                class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600 StyledProps--margin-top-small"
               >
                 pipeline.failureStrategies.strategiesLabel.Retry
               </p>
@@ -373,7 +373,7 @@ exports[`<FailureStrategyPanel /> tests adding a new strategy works 1`] = `
                 </span>
               </div>
               <p
-                class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500 StyledProps--margin-top-small"
+                class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600 StyledProps--margin-top-small"
               >
                 pipeline.failureStrategies.strategiesLabel.MarkAsSuccess
               </p>
@@ -411,7 +411,7 @@ exports[`<FailureStrategyPanel /> tests adding a new strategy works 1`] = `
                 </span>
               </div>
               <p
-                class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500 StyledProps--margin-top-small"
+                class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600 StyledProps--margin-top-small"
               >
                 pipeline.failureStrategies.strategiesLabel.Abort
               </p>
@@ -773,7 +773,7 @@ exports[`<FailureStrategyPanel /> tests removing a strategy works 1`] = `
                 </span>
               </div>
               <p
-                class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500 StyledProps--margin-top-small"
+                class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600 StyledProps--margin-top-small"
               >
                 pipeline.failureStrategies.strategiesLabel.Abort
               </p>
