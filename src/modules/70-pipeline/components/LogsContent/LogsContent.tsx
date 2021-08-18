@@ -33,6 +33,11 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
 
   const virtuosoRef = React.useRef<null | GroupedVirtuosoHandle | VirtuosoHandle>(null)
 
+  /* istanbul ignore next */
+  function getSectionName(index: number): string {
+    return getString('pipeline.logs.sectionName', { index })
+  }
+
   React.useEffect(() => {
     const currentStepId = queryParams.retryStep ? queryParams.retryStep : selectedStepId
     const selectedStep = allNodeMap[currentStepId]
@@ -41,7 +46,7 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
       node: selectedStep,
       selectedStep: selectedStepId,
       selectedStage: selectedStageId,
-      getSectionName: (index: number) => getString('pipeline.logs.sectionName', { index })
+      getSectionName
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
@@ -59,6 +64,7 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
   React.useEffect(() => {
     const index = linesWithResults[currentIndex]
 
+    /* istanbul ignore next */
     if (virtuosoRef.current && typeof index === 'number' && index >= 0) {
       virtuosoRef.current.scrollToIndex(index)
     }
@@ -66,6 +72,7 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
   }, [currentIndex])
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLElement>): void {
+    /* istanbul ignore else */
     if (e.key === 'ArrowUp') {
       e.preventDefault()
       actions.goToPrevSearchResult()
@@ -75,6 +82,7 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
     }
   }
 
+  /* istanbul ignore next */
   useGlobalEventListener('keydown', e => {
     const isMetaKey = navigator.userAgent.includes('Mac') ? e.metaKey : e.ctrlKey
 
@@ -105,9 +113,9 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
             theme={'dark'}
             className={css.search}
             fixedText={`${Math.min(currentIndex + 1, linesWithResults.length)} / ${linesWithResults.length}`}
-            onNext={() => actions.goToNextSearchResult()}
-            onPrev={() => actions.goToPrevSearchResult()}
-            onEnter={() => actions.goToNextSearchResult()}
+            onNext={/* istanbul ignore next */ () => actions.goToNextSearchResult()}
+            onPrev={/* istanbul ignore next */ () => actions.goToPrevSearchResult()}
+            onEnter={/* istanbul ignore next */ () => actions.goToNextSearchResult()}
           />
           {mode === 'step-details' ? (
             <Link className={css.toConsoleView} to={toConsoleView}>

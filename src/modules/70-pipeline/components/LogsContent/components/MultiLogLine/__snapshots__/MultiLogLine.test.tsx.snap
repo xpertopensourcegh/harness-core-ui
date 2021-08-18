@@ -1,0 +1,120 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MultiLogLine /> tests search with highlight works 1`] = `
+<div>
+  <div
+    class="logLine"
+    style="--char-size: 3ch;"
+  >
+    <span
+      class="lineNumber"
+    >
+      101
+    </span>
+    <span
+      class="logLine"
+    >
+      <span
+        class=""
+      >
+        INFO
+      </span>
+    </span>
+    <span>
+      Mock Date
+    </span>
+    <span
+      class="logLine"
+    >
+      <span
+        class=""
+      >
+        Error: something went 
+        <mark
+          data-current-search-result="true"
+          data-search-result-index="1"
+        >
+          wrong
+        </mark>
+      </span>
+    </span>
+  </div>
+</div>
+`;
+
+exports[`<MultiLogLine /> tests search works 1`] = `
+<div>
+  <div
+    class="logLine"
+    style="--char-size: 3ch;"
+  >
+    <span
+      class="lineNumber"
+    >
+      101
+    </span>
+    <span
+      class="logLine"
+    >
+      <span
+        class=""
+      >
+        INFO
+      </span>
+    </span>
+    <span>
+      Mock Date
+    </span>
+    <span
+      class="logLine"
+    >
+      <span
+        class=""
+      >
+        Error: something went 
+        <mark
+          data-search-result-index="1"
+        >
+          wrong
+        </mark>
+      </span>
+    </span>
+  </div>
+</div>
+`;
+
+exports[`<MultiLogLine /> tests snapshot test 1`] = `
+<div>
+  <div
+    class="logLine"
+    style="--char-size: 3ch;"
+  >
+    <span
+      class="lineNumber"
+    >
+      101
+    </span>
+    <span
+      class="logLine"
+    >
+      <span
+        class=""
+      >
+        INFO
+      </span>
+    </span>
+    <span>
+      Mock Date
+    </span>
+    <span
+      class="logLine"
+    >
+      <span
+        class=""
+      >
+        Error: something went wrong
+      </span>
+    </span>
+  </div>
+</div>
+`;

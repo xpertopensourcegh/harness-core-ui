@@ -1,4 +1,6 @@
 import React from 'react'
+import { defaultTo } from 'lodash-es'
+
 import { LogLine } from '@common/components/LogViewer/LogLine'
 import { formatDatetoLocale } from '@common/utils/dateUtils'
 
@@ -16,7 +18,7 @@ export interface GetTextWithSearchMarkersProps {
 export function getTextWithSearchMarkers(props: GetTextWithSearchMarkersProps): string {
   const { searchText, txt, searchIndices, currentSearchIndex } = props
   if (!searchText) {
-    return txt || ''
+    return defaultTo(txt, '')
   }
 
   if (!txt) {
@@ -29,6 +31,7 @@ export function getTextWithSearchMarkers(props: GetTextWithSearchMarkersProps): 
   const chunks: Array<{ start: number; end: number }> = []
 
   while ((match = searchRegex.exec(txt)) !== null) {
+    /* istanbul ignore else */
     if (searchRegex.lastIndex > match.index) {
       chunks.push({
         start: match.index,
@@ -45,7 +48,7 @@ export function getTextWithSearchMarkers(props: GetTextWithSearchMarkersProps): 
 
   chunks.forEach((chunk, i) => {
     const startShift = highlightedString.length - txt.length
-    const searchIndex = searchIndices?.[i] ?? -1
+    const searchIndex = defaultTo(searchIndices?.[i], -1)
     const openMarkTags = `${highlightedString.slice(
       0,
       chunk.start + startShift
