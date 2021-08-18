@@ -115,6 +115,7 @@ export interface StringsMap {
   'common.createPipeline': string
   'common.creating': string
   'common.current': string
+  'common.daily': string
   'common.dashboards': string
   'common.datePickerShortcuts.Last2Days': string
   'common.datePickerShortcuts.Last2Months': string
@@ -239,6 +240,7 @@ export interface StringsMap {
   'common.headerDefaultAccount': string
   'common.headers': string
   'common.home': string
+  'common.hourly': string
   'common.in': string
   'common.input': string
   'common.instanceLabel': string
@@ -2794,6 +2796,7 @@ export interface StringsMap {
   'ce.perspectives.searchPerspectives': string
   'ce.perspectives.sideNavText': string
   'ce.perspectives.timeAggregation.daily': string
+  'ce.perspectives.timeAggregation.hourly': string
   'ce.perspectives.timeAggregation.monthly': string
   'ce.perspectives.timeRange.calendarMonths': string
   'ce.perspectives.timeRange.recommended': string

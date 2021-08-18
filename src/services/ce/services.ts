@@ -701,16 +701,13 @@ export const FetchWorkloadTimeSeriesDocument = gql`
     $filters: [QLCEViewFilterWrapperInput]
     $aggregateFunction: [QLCEViewAggregationInput]
     $isClusterQuery: Boolean
+    $groupBy: [QLCEViewGroupByInput]
   ) {
     perspectiveTimeSeriesStats(
       filters: $filters
       isClusterQuery: $isClusterQuery
       aggregateFunction: $aggregateFunction
-      groupBy: [
-        { entityGroupBy: { fieldId: "workloadName", fieldName: "Workload", identifier: CLUSTER } }
-        { entityGroupBy: { fieldId: "clusterName", fieldName: "Cluster Name", identifier: CLUSTER } }
-        { timeTruncGroupBy: { resolution: DAY } }
-      ]
+      groupBy: $groupBy
       limit: 100
       offset: 0
       includeOthers: false
@@ -1458,6 +1455,7 @@ export type FetchWorkloadTimeSeriesQueryVariables = Exact<{
   filters: Maybe<Array<Maybe<QlceViewFilterWrapperInput>> | Maybe<QlceViewFilterWrapperInput>>
   aggregateFunction: Maybe<Array<Maybe<QlceViewAggregationInput>> | Maybe<QlceViewAggregationInput>>
   isClusterQuery: Maybe<Scalars['Boolean']>
+  groupBy: Maybe<Array<Maybe<QlceViewGroupByInput>> | Maybe<QlceViewGroupByInput>>
 }>
 
 export type FetchWorkloadTimeSeriesQuery = {

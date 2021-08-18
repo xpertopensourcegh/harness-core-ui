@@ -269,6 +269,7 @@ const PerspectiveDetailsPage: React.FC = () => {
           aggregation={aggregation}
           setTimeRange={setTimeRange}
           timeRange={timeRange}
+          showHourlyAggr={isClusterOnly}
         />
         <PerspectiveSummary data={summaryData?.perspectiveTrendStats as any} fetching={summaryFetching} />
         <Container margin="xlarge" background="white" className={css.chartGridContainer}>

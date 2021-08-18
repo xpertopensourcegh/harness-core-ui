@@ -507,6 +507,8 @@ discard: Discard
 default: Default
 searchPlaceholder: Search by name or ID
 monthly: Monthly
+hourly: Hourly
+daily: Daily
 yearly: Yearly
 billed: Billed
 plans:

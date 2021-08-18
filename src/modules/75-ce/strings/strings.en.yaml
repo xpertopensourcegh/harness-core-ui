@@ -422,8 +422,9 @@ perspectives:
     recommended: '{{$.common.recommended}}'
     selectCustomRange: 'Select custom range'
   timeAggregation:
-    daily: '{{$.pipeline.triggers.schedulePanel.dailyTabTitle}}'
-    monthly: '{{$.pipeline.triggers.schedulePanel.monthlyTabTitle}}'
+    daily: '{{$.common.daily}}'
+    monthly: '{{$.common.monthly}}'
+    hourly: '{{$.common.hourly}}'
   createPerspective:
     title: 'Perspective Builder'
     nameLabel: 'Enter a name for the view*'

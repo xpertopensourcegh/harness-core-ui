@@ -462,8 +462,8 @@ triggers:
   schedulePanel:
     title: 'Schedule'
     minutesLabel: 'Minutes'
-    hourlyTabTitle: 'Hourly'
-    dailyTabTitle: 'Daily'
+    hourlyTabTitle: '{{$.common.hourly}}'
+    dailyTabTitle: '{{$.common.daily}}'
     weeklyTabTitle: 'Weekly'
     monthlyTabTitle: '{{$.common.monthly}}'
     yearlyTabTitle: '{{$.common.yearly}}'
