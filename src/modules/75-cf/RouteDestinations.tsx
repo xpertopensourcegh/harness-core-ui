@@ -187,17 +187,17 @@ RbacFactory.registerResourceTypeHandler(ResourceType.TARGETGROUP, {
 
 export default (
   <>
-    <Route licenseRedirectData={licenseRedirectData} path={routes.toCF({ ...accountPathProps })} exact>
+    <RouteWithLayout licenseRedirectData={licenseRedirectData} path={routes.toCF({ ...accountPathProps })} exact>
       <RedirectToCFHome />
-    </Route>
+    </RouteWithLayout>
 
-    <Route
+    <RouteWithLayout
       licenseRedirectData={licenseRedirectData}
       path={routes.toCFProject({ ...accountPathProps, ...projectPathProps })}
       exact
     >
       <RedirectToCFProject />
-    </Route>
+    </RouteWithLayout>
 
     <RouteWithLayout
       layout={MinimalLayout}
@@ -264,13 +264,13 @@ export default (
       <TargetDetailPage />
     </RouteWithLayout>
 
-    <Route
+    <RouteWithLayout
       licenseRedirectData={licenseRedirectData}
       path={routes.toCFTargetManagement({ ...accountPathProps, ...projectPathProps })}
       exact
     >
       <RedirectToTargets />
-    </Route>
+    </RouteWithLayout>
 
     <RouteWithLayout
       licenseRedirectData={licenseRedirectData}
