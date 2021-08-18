@@ -1,7 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Container, SelectOption } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
-import { useGetDeploymentLogAnalysisResult, useGetDeploymentLogAnalysisClusters } from 'services/cv'
+import {
+  useGetDeploymentLogAnalysisResult,
+  useGetDeploymentLogAnalysisClusters,
+  GetDeploymentLogAnalysisResultQueryParams
+} from 'services/cv'
 import { useToaster } from '@common/exports'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import LogAnalysis from './LogAnalysis'
@@ -57,7 +61,9 @@ export default function LogAnalysisContainer({ step, hostName }: LogAnalysisCont
           pageNumber: initialPageNumber,
           pageSize,
           ...(hostName && { hostName }),
-          ...(selectedClusterType?.value && { clusterType: selectedClusterType?.value })
+          ...(selectedClusterType?.value && {
+            clusterType: selectedClusterType?.value as GetDeploymentLogAnalysisResultQueryParams['clusterType']
+          })
         }
       }),
       fetchClusterAnalysis({
