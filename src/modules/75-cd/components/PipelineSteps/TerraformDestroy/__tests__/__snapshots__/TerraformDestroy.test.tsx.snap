@@ -325,26 +325,40 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
           >
             cd.configFilePlaceHolder
           </p>
-          <span
-            class="bp3-icon bp3-icon-edit StyledProps--main"
+          <button
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main editBtn Button--iconOnly Button--without-shadow"
             data-name="config-edit"
-            icon="edit"
+            type="button"
           >
-            <svg
-              data-icon="edit"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="Edit"
             >
-              <desc>
-                edit
-              </desc>
-              <path
-                d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
+              <svg
+                height="16"
+                viewBox="0 0 12 12"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g
+                  fill="none"
+                  fill-rule="evenodd"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                    stroke="#555770"
+                  />
+                  <path
+                    d="M6.583 5.146l2.063-2.063"
+                    opacity="0.3"
+                    stroke="#606170"
+                  />
+                </g>
+              </svg>
+            </span>
+          </button>
         </div>
       </div>
     </div>
@@ -1346,26 +1360,40 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
           >
             cd.configFilePlaceHolder
           </p>
-          <span
-            class="bp3-icon bp3-icon-edit StyledProps--main"
+          <button
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main editBtn Button--iconOnly Button--without-shadow"
             data-name="config-edit"
-            icon="edit"
+            type="button"
           >
-            <svg
-              data-icon="edit"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="Edit"
             >
-              <desc>
-                edit
-              </desc>
-              <path
-                d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
+              <svg
+                height="16"
+                viewBox="0 0 12 12"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g
+                  fill="none"
+                  fill-rule="evenodd"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                    stroke="#555770"
+                  />
+                  <path
+                    d="M6.583 5.146l2.063-2.063"
+                    opacity="0.3"
+                    stroke="#606170"
+                  />
+                </g>
+              </svg>
+            </span>
+          </button>
         </div>
       </div>
     </div>
