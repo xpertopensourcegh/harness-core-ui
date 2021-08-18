@@ -143,5 +143,14 @@ module.exports = {
     customProps: {
       base: `{getConfig("ccm/api")}`
     }
+  },
+  'ccm-recommender': {
+    output: 'src/services/ce/recommenderService.tsx',
+    file: 'src/services/ce/recommender-service.json',
+    transformer: 'scripts/swagger-transform.js',
+    customImport: `import { getConfig } from "../config";`,
+    customProps: {
+      base: `{getConfig("ccm/recommendations/api/v1")}`
+    }
   }
 }

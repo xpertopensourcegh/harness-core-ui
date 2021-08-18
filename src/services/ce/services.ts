@@ -396,7 +396,12 @@ export function useFetchPerspectiveTimeSeriesQuery(
   return Urql.useQuery<FetchPerspectiveTimeSeriesQuery>({ query: FetchPerspectiveTimeSeriesDocument, ...options })
 }
 export const FetchRecommendationDocument = gql`
-  query FetchRecommendation($id: String!, $startTime: OffsetDateTime!, $endTime: OffsetDateTime!) {
+  query FetchRecommendation(
+    $id: String!
+    $resourceType: ResourceType!
+    $startTime: OffsetDateTime!
+    $endTime: OffsetDateTime!
+  ) {
     recommendationStatsV2(filter: { ids: [$id] }) {
       totalMonthlyCost
       totalMonthlySaving
@@ -409,7 +414,7 @@ export const FetchRecommendationDocument = gql`
         resourceName
       }
     }
-    recommendationDetails(id: $id, resourceType: WORKLOAD, startTime: $startTime, endTime: $endTime) {
+    recommendationDetails(id: $id, resourceType: $resourceType, startTime: $startTime, endTime: $endTime) {
       ... on WorkloadRecommendationDTO {
         containerRecommendations
         items {
@@ -445,6 +450,67 @@ export const FetchRecommendationDocument = gql`
             precomputed
             totalWeight
           }
+        }
+      }
+      ... on NodeRecommendationDTO {
+        current {
+          instanceCategory
+          nodePools {
+            sumNodes
+            vm {
+              avgPrice
+              cpusPerVm
+              memPerVm
+              onDemandPrice
+              type
+            }
+          }
+          provider
+          region
+          service
+        }
+        id
+        nodePoolId {
+          clusterid
+          nodepoolname
+        }
+        recommended {
+          accuracy {
+            cpu
+            masterPrice
+            memory
+            nodes
+            spotNodes
+            spotPrice
+            totalPrice
+            workerPrice
+          }
+          instanceCategory
+          nodePools {
+            role
+            sumNodes
+            vmClass
+            vm {
+              avgPrice
+              cpusPerVm
+              memPerVm
+              onDemandPrice
+              type
+            }
+          }
+          provider
+          region
+          service
+        }
+        resourceRequirement {
+          allowBurst
+          maxNodes
+          minNodes
+          onDemandPct
+          sameSize
+          sumCpu
+          sumGpu
+          sumMem
         }
       }
     }
@@ -1091,6 +1157,7 @@ export type FetchPerspectiveTimeSeriesQuery = {
 
 export type FetchRecommendationQueryVariables = Exact<{
   id: Scalars['String']
+  resourceType: ResourceType
   startTime: Scalars['OffsetDateTime']
   endTime: Scalars['OffsetDateTime']
 }>
@@ -1117,7 +1184,81 @@ export type FetchRecommendationQuery = {
     >
   }>
   recommendationDetails: Maybe<
-    | { __typename?: 'NodeRecommendationDTO' }
+    | {
+        __typename?: 'NodeRecommendationDTO'
+        id: Maybe<string>
+        current: Maybe<{
+          __typename?: 'RecommendationResponse'
+          instanceCategory: Maybe<InstanceCategory>
+          provider: Maybe<string>
+          region: Maybe<string>
+          service: Maybe<string>
+          nodePools: Maybe<
+            Array<
+              Maybe<{
+                __typename?: 'NodePool'
+                sumNodes: Maybe<any>
+                vm: Maybe<{
+                  __typename?: 'VirtualMachine'
+                  avgPrice: Maybe<number>
+                  cpusPerVm: Maybe<number>
+                  memPerVm: Maybe<number>
+                  onDemandPrice: Maybe<number>
+                  type: Maybe<string>
+                }>
+              }>
+            >
+          >
+        }>
+        nodePoolId: Maybe<{ __typename?: 'NodePoolId'; clusterid: string; nodepoolname: string }>
+        recommended: Maybe<{
+          __typename?: 'RecommendationResponse'
+          instanceCategory: Maybe<InstanceCategory>
+          provider: Maybe<string>
+          region: Maybe<string>
+          service: Maybe<string>
+          accuracy: Maybe<{
+            __typename?: 'ClusterRecommendationAccuracy'
+            cpu: Maybe<number>
+            masterPrice: Maybe<number>
+            memory: Maybe<number>
+            nodes: Maybe<any>
+            spotNodes: Maybe<any>
+            spotPrice: Maybe<number>
+            totalPrice: Maybe<number>
+            workerPrice: Maybe<number>
+          }>
+          nodePools: Maybe<
+            Array<
+              Maybe<{
+                __typename?: 'NodePool'
+                role: Maybe<string>
+                sumNodes: Maybe<any>
+                vmClass: Maybe<string>
+                vm: Maybe<{
+                  __typename?: 'VirtualMachine'
+                  avgPrice: Maybe<number>
+                  cpusPerVm: Maybe<number>
+                  memPerVm: Maybe<number>
+                  onDemandPrice: Maybe<number>
+                  type: Maybe<string>
+                }>
+              }>
+            >
+          >
+        }>
+        resourceRequirement: Maybe<{
+          __typename?: 'RecommendClusterRequest'
+          allowBurst: Maybe<boolean>
+          maxNodes: Maybe<any>
+          minNodes: Maybe<any>
+          onDemandPct: Maybe<any>
+          sameSize: Maybe<boolean>
+          sumCpu: Maybe<number>
+          sumGpu: Maybe<any>
+          sumMem: Maybe<number>
+        }>
+      }
     | {
         __typename?: 'WorkloadRecommendationDTO'
         containerRecommendations: Maybe<any>

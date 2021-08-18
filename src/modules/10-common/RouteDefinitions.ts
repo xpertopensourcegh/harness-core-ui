@@ -1041,6 +1041,10 @@ const routes = {
     ({ recommendation, recommendationName }: { recommendation: string; recommendationName: string }) =>
       `/ce/recommendations/${recommendation}/name/${recommendationName}/details`
   ),
+  toCENodeRecommendationDetails: withAccountId(
+    ({ recommendation, recommendationName }: { recommendation: string; recommendationName: string }) =>
+      `/ce/node-recommendations/${recommendation}/name/${recommendationName}/details`
+  ),
   toCERecommendationWorkloadDetails: withAccountId(
     ({
       recommendation,

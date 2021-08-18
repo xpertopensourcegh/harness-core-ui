@@ -341,6 +341,7 @@ export interface StringsMap {
   'common.purpose.welcome': string
   'common.readOnly': string
   'common.readonlyPermissions': string
+  'common.recommended': string
   'common.references': string
   'common.refresh': string
   'common.reject': string
@@ -2651,6 +2652,33 @@ export interface StringsMap {
   'ce.gridColumnSelector': string
   'ce.homepage.slogan': string
   'ce.learnMore': string
+  'ce.nodeRecommendation.aks': string
+  'ce.nodeRecommendation.compare': string
+  'ce.nodeRecommendation.costPerHour': string
+  'ce.nodeRecommendation.cpus': string
+  'ce.nodeRecommendation.distribution': string
+  'ce.nodeRecommendation.eks': string
+  'ce.nodeRecommendation.estimatedSavings': string
+  'ce.nodeRecommendation.gke': string
+  'ce.nodeRecommendation.howItWorks': string
+  'ce.nodeRecommendation.instanceFam': string
+  'ce.nodeRecommendation.maxNode': string
+  'ce.nodeRecommendation.mem': string
+  'ce.nodeRecommendation.memory': string
+  'ce.nodeRecommendation.minNode': string
+  'ce.nodeRecommendation.monthlyCost': string
+  'ce.nodeRecommendation.nodeCount': string
+  'ce.nodeRecommendation.nodepool': string
+  'ce.nodeRecommendation.onDemand': string
+  'ce.nodeRecommendation.poolDetails': string
+  'ce.nodeRecommendation.recommended': string
+  'ce.nodeRecommendation.resourceNeed': string
+  'ce.nodeRecommendation.rightSize': string
+  'ce.nodeRecommendation.spot': string
+  'ce.nodeRecommendation.suitable.prod': string
+  'ce.nodeRecommendation.suitable.qa': string
+  'ce.nodeRecommendation.text1': string
+  'ce.nodeRecommendation.text2': string
   'ce.overview.addClusterBtn': string
   'ce.overview.addClusterDesc': string
   'ce.overview.cardtitles.aws': string
@@ -2809,6 +2837,7 @@ export interface StringsMap {
   'ce.recommendation.listPage.monthlySavingsText': string
   'ce.recommendation.listPage.recommendationDetails.resize': string
   'ce.recommendation.listPage.recommendationTypes.resizing': string
+  'ce.recommendation.listPage.recommendationTypes.rightSizing': string
   'ce.recommendation.listPage.recommnedationBreakdown': string
   'ce.recommendation.listPage.uptoText': string
   'ce.recommendation.recommendationChart.cpuPlaceholder': string
