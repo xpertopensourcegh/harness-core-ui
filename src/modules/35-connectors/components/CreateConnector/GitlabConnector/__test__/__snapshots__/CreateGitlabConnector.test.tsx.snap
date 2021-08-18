@@ -677,7 +677,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                     >
                       <span
                         class="Tooltip--acenter"
-                        data-tooltip-id="gitDetailsStepForm_url"
+                        data-tooltip-id="gitlabDetailsStepForm_url"
                       >
                         common.git.gitLabAccountUrl
                       </span>
@@ -742,7 +742,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                       >
                         <span
                           class="Tooltip--acenter"
-                          data-tooltip-id="gitDetailsStepForm_validationRepo"
+                          data-tooltip-id="gitlabDetailsStepForm_validationRepo"
                         >
                           common.git.testRepository
                         </span>
@@ -1128,7 +1128,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                     >
                       <span
                         class="Tooltip--acenter"
-                        data-tooltip-id="gitDetailsStepForm_url"
+                        data-tooltip-id="gitlabDetailsStepForm_url"
                       >
                         common.git.gitLabAccountUrl
                       </span>
@@ -1193,7 +1193,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                       >
                         <span
                           class="Tooltip--acenter"
-                          data-tooltip-id="gitDetailsStepForm_validationRepo"
+                          data-tooltip-id="gitlabDetailsStepForm_validationRepo"
                         >
                           common.git.testRepository
                         </span>
@@ -1609,7 +1609,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
                     >
                       <span
                         class="Tooltip--acenter"
-                        data-tooltip-id="gitDetailsStepForm_url"
+                        data-tooltip-id="gitlabDetailsStepForm_url"
                       >
                         common.git.gitLabAccountUrl
                       </span>
@@ -1674,7 +1674,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
                       >
                         <span
                           class="Tooltip--acenter"
-                          data-tooltip-id="gitDetailsStepForm_validationRepo"
+                          data-tooltip-id="gitlabDetailsStepForm_validationRepo"
                         >
                           common.git.testRepository
                         </span>
@@ -2060,7 +2060,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
                     >
                       <span
                         class="Tooltip--acenter"
-                        data-tooltip-id="gitDetailsStepForm_url"
+                        data-tooltip-id="gitlabDetailsStepForm_url"
                       >
                         common.git.gitLabAccountUrl
                       </span>
@@ -2125,7 +2125,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
                       >
                         <span
                           class="Tooltip--acenter"
-                          data-tooltip-id="gitDetailsStepForm_validationRepo"
+                          data-tooltip-id="gitlabDetailsStepForm_validationRepo"
                         >
                           common.git.testRepository
                         </span>

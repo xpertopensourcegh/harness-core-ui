@@ -627,7 +627,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                     >
                       <span
                         class="Tooltip--acenter"
-                        data-tooltip-id="gitDetailsStepForm_url"
+                        data-tooltip-id="githubDetailsStepForm_url"
                       >
                         common.git.gitHubAccountUrl
                       </span>
@@ -692,7 +692,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                       >
                         <span
                           class="Tooltip--acenter"
-                          data-tooltip-id="gitDetailsStepForm_validationRepo"
+                          data-tooltip-id="githubDetailsStepForm_validationRepo"
                         >
                           common.git.testRepository
                         </span>
@@ -1053,7 +1053,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                     >
                       <span
                         class="Tooltip--acenter"
-                        data-tooltip-id="gitDetailsStepForm_url"
+                        data-tooltip-id="githubDetailsStepForm_url"
                       >
                         common.git.gitHubAccountUrl
                       </span>
@@ -1118,7 +1118,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                       >
                         <span
                           class="Tooltip--acenter"
-                          data-tooltip-id="gitDetailsStepForm_validationRepo"
+                          data-tooltip-id="githubDetailsStepForm_validationRepo"
                         >
                           common.git.testRepository
                         </span>
@@ -1509,7 +1509,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 1`]
                     >
                       <span
                         class="Tooltip--acenter"
-                        data-tooltip-id="gitDetailsStepForm_url"
+                        data-tooltip-id="githubDetailsStepForm_url"
                       >
                         common.git.gitHubAccountUrl
                       </span>
@@ -1574,7 +1574,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 1`]
                       >
                         <span
                           class="Tooltip--acenter"
-                          data-tooltip-id="gitDetailsStepForm_validationRepo"
+                          data-tooltip-id="githubDetailsStepForm_validationRepo"
                         >
                           common.git.testRepository
                         </span>
@@ -1935,7 +1935,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 2`]
                     >
                       <span
                         class="Tooltip--acenter"
-                        data-tooltip-id="gitDetailsStepForm_url"
+                        data-tooltip-id="githubDetailsStepForm_url"
                       >
                         common.git.gitHubAccountUrl
                       </span>
@@ -2000,7 +2000,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 2`]
                       >
                         <span
                           class="Tooltip--acenter"
-                          data-tooltip-id="gitDetailsStepForm_validationRepo"
+                          data-tooltip-id="githubDetailsStepForm_validationRepo"
                         >
                           common.git.testRepository
                         </span>

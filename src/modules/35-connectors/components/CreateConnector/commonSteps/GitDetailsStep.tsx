@@ -256,6 +256,7 @@ const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsS
                     name="url"
                     label={getUrlLabel(props.type, formikProps.values.urlType)}
                     placeholder={getUrlLabelPlaceholder(props.type, formikProps.values.connectionType)}
+                    tooltipProps={{ dataTooltipId: `${props.type.toLocaleLowerCase()}DetailsStepForm_url` }}
                   />
                   {formikProps.values.urlType === 'Account' && (
                     <Container className={css.formElm}>
@@ -267,6 +268,9 @@ const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsS
                         name="validationRepo"
                         label={getString('common.git.testRepository')}
                         placeholder={getString('common.git.selectRepoLabel')}
+                        tooltipProps={{
+                          dataTooltipId: `${props.type.toLocaleLowerCase()}DetailsStepForm_validationRepo`
+                        }}
                       />
                     </Container>
                   )}

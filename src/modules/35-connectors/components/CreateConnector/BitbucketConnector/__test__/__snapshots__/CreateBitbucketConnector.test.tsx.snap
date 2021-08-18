@@ -631,7 +631,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                     >
                       <span
                         class="Tooltip--acenter"
-                        data-tooltip-id="gitDetailsStepForm_url"
+                        data-tooltip-id="bitbucketDetailsStepForm_url"
                       >
                         common.git.bitbucketAccountUrl
                       </span>
@@ -696,7 +696,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                       >
                         <span
                           class="Tooltip--acenter"
-                          data-tooltip-id="gitDetailsStepForm_validationRepo"
+                          data-tooltip-id="bitbucketDetailsStepForm_validationRepo"
                         >
                           common.git.testRepository
                         </span>
@@ -1059,7 +1059,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                     >
                       <span
                         class="Tooltip--acenter"
-                        data-tooltip-id="gitDetailsStepForm_url"
+                        data-tooltip-id="bitbucketDetailsStepForm_url"
                       >
                         common.git.bitbucketAccountUrl
                       </span>
@@ -1124,7 +1124,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                       >
                         <span
                           class="Tooltip--acenter"
-                          data-tooltip-id="gitDetailsStepForm_validationRepo"
+                          data-tooltip-id="bitbucketDetailsStepForm_validationRepo"
                         >
                           common.git.testRepository
                         </span>
@@ -1517,7 +1517,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                     >
                       <span
                         class="Tooltip--acenter"
-                        data-tooltip-id="gitDetailsStepForm_url"
+                        data-tooltip-id="bitbucketDetailsStepForm_url"
                       >
                         common.git.bitbucketAccountUrl
                       </span>
@@ -1582,7 +1582,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                       >
                         <span
                           class="Tooltip--acenter"
-                          data-tooltip-id="gitDetailsStepForm_validationRepo"
+                          data-tooltip-id="bitbucketDetailsStepForm_validationRepo"
                         >
                           common.git.testRepository
                         </span>
@@ -1945,7 +1945,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                     >
                       <span
                         class="Tooltip--acenter"
-                        data-tooltip-id="gitDetailsStepForm_url"
+                        data-tooltip-id="bitbucketDetailsStepForm_url"
                       >
                         common.git.bitbucketAccountUrl
                       </span>
@@ -2010,7 +2010,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                       >
                         <span
                           class="Tooltip--acenter"
-                          data-tooltip-id="gitDetailsStepForm_validationRepo"
+                          data-tooltip-id="bitbucketDetailsStepForm_validationRepo"
                         >
                           common.git.testRepository
                         </span>
