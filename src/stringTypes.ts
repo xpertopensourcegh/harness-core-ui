@@ -2387,7 +2387,6 @@ export interface StringsMap {
   'cd.configurationFile': string
   'cd.contentRequired': string
   'cd.continuous': string
-  'cd.createOrSelectProject': string
   'cd.dashboard.createProject': string
   'cd.dashboard.orSelectExisting': string
   'cd.dashboard.subHeading': string
