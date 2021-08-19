@@ -3,6 +3,7 @@ import { waitFor, fireEvent } from '@testing-library/dom'
 import type { UseGetReturn } from 'restful-react'
 import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
+import { ExecutionStatusEnum } from '@pipeline/utils/statusHelpers'
 import * as cvService from 'services/cv'
 import { ExecutionVerificationSummary } from '../ExecutionVerificationSummary'
 import { SampleResponse } from './ExecutionVerificationSummary.mock'
@@ -107,5 +108,42 @@ describe('Unit tests for VerifyExection', () => {
     )
 
     await waitFor(() => expect(container.querySelector('[class*="bp3-progress-meter"]')))
+  })
+
+  test('Ensure that when there is a failure message in the step, it is displayed', async () => {
+    const refetchFn = jest.fn()
+    jest.spyOn(cvService, 'useGetDeploymentActivitySummary').mockReturnValue({
+      refetch: refetchFn as unknown
+    } as UseGetReturn<any, any, any, any>)
+    const { rerender, container, getByText } = render(
+      <TestWrapper>
+        <ExecutionVerificationSummary step={{ failureInfo: { message: 'mockError' } }} />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(getByText('mockError')))
+
+    // ensure that message is not displayed
+    rerender(
+      <TestWrapper>
+        <ExecutionVerificationSummary step={{}} />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(container.querySelector('[class*="failureMessage"]')).toBeNull())
+  })
+
+  test('Ensure that manual intervention is displayed when the status is waiting', async () => {
+    const refetchFn = jest.fn()
+    jest.spyOn(cvService, 'useGetDeploymentActivitySummary').mockReturnValue({
+      refetch: refetchFn as unknown
+    } as UseGetReturn<any, any, any, any>)
+    const { container } = render(
+      <TestWrapper>
+        <ExecutionVerificationSummary step={{ status: ExecutionStatusEnum.InterventionWaiting }} />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(container.querySelector('[class*="manualInterventionTab"]')).not.toBeNull())
   })
 })

@@ -1,28 +1,26 @@
 import React, { useEffect, useState } from 'react'
-import { Container, Icon, Color } from '@wings-software/uicore'
+import { Container, Icon, Color, Text } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 import { useGetDeploymentActivitySummary } from 'services/cv'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { PageError } from '@common/components/Page/PageError'
-import type { ExecutionNode } from 'services/pipeline-ng'
+import { isExecutionWaitingForIntervention } from '@pipeline/utils/statusHelpers'
+import { ManualInterventionTab } from '@pipeline/components/execution/StepDetails/tabs/ManualInterventionTab/ManualInterventionTab'
+import { allowedStrategiesAsPerStep } from '@pipeline/components/PipelineSteps/AdvancedSteps/FailureStrategyPanel/StrategySelection/StrategyConfig'
+import { StepMode } from '@pipeline/utils/stepUtils'
+import { Strategy } from '@pipeline/utils/FailureStrategyUtils'
+import { StageType } from '@pipeline/utils/stageHelpers'
 import { SummaryOfDeployedNodes } from './components/SummaryOfDeployedNodes/SummaryOfDeployedNodes'
 import { getErrorMessage } from '../DeploymentMetrics/DeploymentMetrics.utils'
 import { DeploymentProgressAndNodes } from '../DeploymentProgressAndNodes/DeploymentProgressAndNodes'
-import type { DeploymentNodeAnalysisResult } from '../DeploymentProgressAndNodes/components/DeploymentNodes/DeploymentNodes.constants'
+import type { VerifyExecutionProps } from './ExecutionVerificationSummary.types'
 import css from './ExecutionVerificationSummary.module.scss'
 
 const POLLING_INTERVAL = 15000
 
-export interface VerifyExecutionProps {
-  step: ExecutionNode
-  displayAnalysisCount?: boolean
-  onSelectNode?: (selectedNode?: DeploymentNodeAnalysisResult) => void
-  className?: string
-}
-
 export function ExecutionVerificationSummary(props: VerifyExecutionProps): JSX.Element {
-  const { step, displayAnalysisCount = true, className, onSelectNode } = props
+  const { step, displayAnalysisCount = true, className, onSelectNode, stageType } = props
   const { accountId } = useParams<ProjectPathProps>()
   const [pollingIntervalId, setPollingIntervalId] = useState(-1)
   const [showSpinner, setShowSpinner] = useState(true)
@@ -33,6 +31,10 @@ export function ExecutionVerificationSummary(props: VerifyExecutionProps): JSX.E
     lazy: true
   })
   const { deploymentVerificationJobInstanceSummary = {} } = data?.resource || {}
+  const isManualInterruption = isExecutionWaitingForIntervention(step.status)
+  const failureStrategies = allowedStrategiesAsPerStep(stageType || StageType.DEPLOY)[StepMode.STEP].filter(
+    st => st !== Strategy.ManualIntervention
+  )
 
   useEffect(() => {
     if (!activityId) {
@@ -79,8 +81,22 @@ export function ExecutionVerificationSummary(props: VerifyExecutionProps): JSX.E
     )
   }
 
+  if (isManualInterruption) {
+    return <ManualInterventionTab step={step} allowedStrategies={failureStrategies} />
+  }
+
   return (
     <Container className={cx(css.main, className)}>
+      {step.failureInfo?.message && (
+        <Text
+          font={{ size: 'small', weight: 'bold' }}
+          className={css.failureMessage}
+          lineClamp={4}
+          color={Color.RED_500}
+        >
+          {step.failureInfo.message}
+        </Text>
+      )}
       <DeploymentProgressAndNodes
         deploymentSummary={deploymentVerificationJobInstanceSummary}
         className={css.details}
