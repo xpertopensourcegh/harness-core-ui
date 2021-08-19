@@ -272,7 +272,7 @@ exports[`test should validate edit mode snapshot 1`] = `
                   />
                 </label>
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main ThumbnailSelect--changeButton StyledProps--intent-primary Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main ThumbnailSelect--changeButton StyledProps--intent-primary Button--without-shadow Button--withLeftIcon"
                   data-testid="thumbnail-select-change"
                   type="button"
                 >
@@ -570,7 +570,7 @@ exports[`test should validate save 1`] = `
                   />
                 </label>
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main ThumbnailSelect--changeButton StyledProps--intent-primary Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main ThumbnailSelect--changeButton StyledProps--intent-primary Button--without-shadow Button--withLeftIcon"
                   data-testid="thumbnail-select-change"
                   type="button"
                 >
@@ -868,7 +868,7 @@ exports[`test validation are present if submited with empty value  1`] = `
                   />
                 </label>
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main ThumbnailSelect--changeButton StyledProps--intent-primary Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main ThumbnailSelect--changeButton StyledProps--intent-primary Button--without-shadow Button--withLeftIcon"
                   data-testid="thumbnail-select-change"
                   type="button"
                 >

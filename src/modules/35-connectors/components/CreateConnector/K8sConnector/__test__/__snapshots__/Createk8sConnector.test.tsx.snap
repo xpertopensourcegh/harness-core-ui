@@ -296,7 +296,7 @@ exports[`Create k8 connector Wizard should form for authtype username 1`] = `
                   class="Layout--horizontal StyledProps--main"
                 >
                   <button
-                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                     type="submit"
                   >
                     <span
@@ -801,7 +801,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
                   data-name="k8sBackButton"
                   type="button"
                 >
@@ -831,7 +831,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
                   </span>
                 </button>
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium Button--with-current-color"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium Button--with-current-color Button--withRightIcon"
                   type="submit"
                 >
                   <span
@@ -1626,7 +1626,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
                   data-name="k8sBackButton"
                   type="button"
                 >
@@ -1656,7 +1656,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                   </span>
                 </button>
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium Button--with-current-color"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium Button--with-current-color Button--withRightIcon"
                   type="submit"
                 >
                   <span
@@ -2098,7 +2098,7 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
                   data-name="k8sBackButton"
                   type="button"
                 >
@@ -2128,7 +2128,7 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
                   </span>
                 </button>
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium Button--with-current-color"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium Button--with-current-color Button--withRightIcon"
                   type="submit"
                 >
                   <span
@@ -2474,7 +2474,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 1`] =
                   class="Layout--horizontal StyledProps--main"
                 >
                   <button
-                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                     type="submit"
                   >
                     <span
@@ -3011,7 +3011,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
                   data-name="k8sBackButton"
                   type="button"
                 >
@@ -3041,7 +3041,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                   </span>
                 </button>
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium Button--with-current-color"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium Button--with-current-color Button--withRightIcon"
                   type="submit"
                 >
                   <span
@@ -3835,7 +3835,7 @@ exports[`should render form for edit authtype clientKey 1`] = `
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
                   data-name="k8sBackButton"
                   type="button"
                 >
@@ -3865,7 +3865,7 @@ exports[`should render form for edit authtype clientKey 1`] = `
                   </span>
                 </button>
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium Button--with-current-color"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium Button--with-current-color Button--withRightIcon"
                   type="submit"
                 >
                   <span
@@ -4220,7 +4220,7 @@ exports[`should render form for edit authtype clientKey 2`] = `
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small StyledProps--margin-top-xxxlarge"
               >
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
                   data-name="awsBackButton"
                   type="button"
                 >
@@ -4250,7 +4250,7 @@ exports[`should render form for edit authtype clientKey 2`] = `
                   </span>
                 </button>
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main saveAndContinue StyledProps--intent-primary Button--with-current-color"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main saveAndContinue StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                   data-name="delegateSaveAndContinue"
                   type="submit"
                 >

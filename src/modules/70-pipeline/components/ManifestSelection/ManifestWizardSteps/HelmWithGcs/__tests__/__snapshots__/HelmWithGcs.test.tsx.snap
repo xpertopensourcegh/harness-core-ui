@@ -819,7 +819,7 @@ exports[`helm with http tests expand advanced section 1`] = `
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
         >
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
             type="button"
           >
             <span
@@ -848,7 +848,7 @@ exports[`helm with http tests expand advanced section 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
             type="submit"
           >
             <span
@@ -1376,7 +1376,7 @@ exports[`helm with http tests renders correctly in edit case 1`] = `
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
         >
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
             type="button"
           >
             <span
@@ -1405,7 +1405,7 @@ exports[`helm with http tests renders correctly in edit case 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
             type="submit"
           >
             <span
@@ -1933,7 +1933,7 @@ exports[`helm with http tests renders while adding step first time 1`] = `
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
         >
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
             type="button"
           >
             <span
@@ -1962,7 +1962,7 @@ exports[`helm with http tests renders while adding step first time 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
             type="submit"
           >
             <span
@@ -2490,7 +2490,7 @@ exports[`helm with http tests renders without crashing 1`] = `
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
         >
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
             type="button"
           >
             <span
@@ -2519,7 +2519,7 @@ exports[`helm with http tests renders without crashing 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
             type="submit"
           >
             <span
@@ -3047,7 +3047,7 @@ exports[`helm with http tests submits with the right payload 1`] = `
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
         >
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
             type="button"
           >
             <span
@@ -3076,7 +3076,7 @@ exports[`helm with http tests submits with the right payload 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
             type="submit"
           >
             <span

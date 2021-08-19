@@ -31,7 +31,7 @@ exports[`TF Config Form tests edit view loads correctly 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                       tabindex="0"
                       type="button"
                     >
@@ -70,7 +70,7 @@ exports[`TF Config Form tests edit view loads correctly 1`] = `
                     style="width: 260px;"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                       data-testid="cr-field-spec.configuration.spec.configFiles.store.spec.connectorRef"
                       style="width: 260px;"
                       type="button"
@@ -462,7 +462,7 @@ exports[`TF Config Form tests initial render 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                       tabindex="0"
                       type="button"
                     >
@@ -501,7 +501,7 @@ exports[`TF Config Form tests initial render 1`] = `
                     style="width: 260px;"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                       data-testid="cr-field-spec.configuration.spec.configFiles.store.spec.connectorRef"
                       style="width: 260px;"
                       type="button"

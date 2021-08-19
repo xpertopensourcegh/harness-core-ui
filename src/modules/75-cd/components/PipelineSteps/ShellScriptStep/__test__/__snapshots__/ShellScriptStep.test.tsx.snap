@@ -142,7 +142,7 @@ exports[`Test Shell Script Step renders input sets 1`] = `
                   name="spec.source.spec.script"
                 />
                 <button
-                  class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
+                  class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly Button--withLeftIcon"
                   type="button"
                 >
                   <span
@@ -265,7 +265,7 @@ exports[`Test Shell Script Step renders input sets 1`] = `
                 style="flex-grow: 1;"
               >
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main value Button--with-current-color Button--iconOnly Button--without-shadow"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main value Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                   data-testid="create-or-select-secret"
                   type="button"
                 >
@@ -532,7 +532,12 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
           class="bp3-label"
           for="timeout"
         >
-          pipelineSteps.timeoutLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="shellScriptForm_timeout"
+          >
+            pipelineSteps.timeoutLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -731,7 +736,7 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
               name="spec.source.spec.script"
             />
             <button
-              class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
+              class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly Button--withLeftIcon"
               type="button"
             >
               <span
@@ -900,7 +905,12 @@ exports[`Test Shell Script Step should render edit view 1`] = `
           class="bp3-label"
           for="timeout"
         >
-          pipelineSteps.timeoutLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="shellScriptForm_timeout"
+          >
+            pipelineSteps.timeoutLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -1101,7 +1111,7 @@ exports[`Test Shell Script Step should render edit view 1`] = `
               test script
             </textarea>
             <button
-              class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
+              class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly Button--withLeftIcon"
               type="button"
             >
               <span
@@ -1270,7 +1280,12 @@ exports[`Test Shell Script Step should render edit view 2`] = `
           class="bp3-label"
           for="timeout"
         >
-          pipelineSteps.timeoutLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="shellScriptForm_timeout"
+          >
+            pipelineSteps.timeoutLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -1471,7 +1486,7 @@ exports[`Test Shell Script Step should render edit view 2`] = `
               test script
             </textarea>
             <button
-              class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
+              class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly Button--withLeftIcon"
               type="button"
             >
               <span
@@ -1640,7 +1655,12 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
           class="bp3-label"
           for="timeout"
         >
-          pipelineSteps.timeoutLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="shellScriptForm_timeout"
+          >
+            pipelineSteps.timeoutLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -1839,7 +1859,7 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
               name="spec.source.spec.script"
             />
             <button
-              class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
+              class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly Button--withLeftIcon"
               type="button"
             >
               <span
@@ -2006,7 +2026,12 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
           class="bp3-label"
           for="timeout"
         >
-          pipelineSteps.timeoutLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="shellScriptForm_timeout"
+          >
+            pipelineSteps.timeoutLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -2205,7 +2230,7 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
               name="spec.source.spec.script"
             />
             <button
-              class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
+              class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly Button--withLeftIcon"
               type="button"
             >
               <span

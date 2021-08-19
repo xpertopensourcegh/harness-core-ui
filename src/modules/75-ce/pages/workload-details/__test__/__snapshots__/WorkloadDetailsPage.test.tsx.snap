@@ -86,7 +86,7 @@ exports[`test cases for Workload details Page should be able to render the detai
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main timeRangeButton StyledProps--intent-primary StyledProps--padding-small Button--with-current-color Button--without-shadow"
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main timeRangeButton StyledProps--intent-primary StyledProps--padding-small Button--with-current-color Button--without-shadow Button--withLeftIcon Button--withRightIcon"
             type="button"
           >
             <span

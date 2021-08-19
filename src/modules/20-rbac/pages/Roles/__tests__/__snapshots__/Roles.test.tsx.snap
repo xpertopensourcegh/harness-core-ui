@@ -12,7 +12,7 @@ exports[`Role Details Page render data 1`] = `
         class="Layout--horizontal StyledProps--main StyledProps--padding-left-large"
       >
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
           data-testid="createRole"
           type="button"
         >
@@ -106,7 +106,7 @@ exports[`Role Details Page render data 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                   type="button"
                 >
                   <span
@@ -180,7 +180,7 @@ exports[`Role Details Page render data 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                   type="button"
                 >
                   <span
@@ -254,7 +254,7 @@ exports[`Role Details Page render data 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                   type="button"
                 >
                   <span

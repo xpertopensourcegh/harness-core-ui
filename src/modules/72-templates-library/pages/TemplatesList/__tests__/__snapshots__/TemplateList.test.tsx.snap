@@ -33,7 +33,7 @@ exports[`<TemplatesList /> tests snapshot test 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withRightIcon"
               type="button"
             >
               <span
@@ -241,7 +241,7 @@ exports[`<TemplatesList /> tests snapshot test 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -482,7 +482,7 @@ exports[`<TemplatesList /> tests snapshot test 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -723,7 +723,7 @@ exports[`<TemplatesList /> tests snapshot test 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -964,7 +964,7 @@ exports[`<TemplatesList /> tests snapshot test 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -1205,7 +1205,7 @@ exports[`<TemplatesList /> tests snapshot test 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -1446,7 +1446,7 @@ exports[`<TemplatesList /> tests snapshot test 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -1687,7 +1687,7 @@ exports[`<TemplatesList /> tests snapshot test 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -1928,7 +1928,7 @@ exports[`<TemplatesList /> tests snapshot test 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -2169,7 +2169,7 @@ exports[`<TemplatesList /> tests snapshot test 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -2410,7 +2410,7 @@ exports[`<TemplatesList /> tests snapshot test 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span

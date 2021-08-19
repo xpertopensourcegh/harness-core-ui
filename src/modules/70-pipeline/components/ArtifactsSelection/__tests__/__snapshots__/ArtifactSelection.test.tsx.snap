@@ -207,7 +207,7 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
               class="Layout--horizontal StyledProps--main"
             >
               <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                 type="button"
               >
                 <span
@@ -231,7 +231,7 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
                 </span>
               </button>
               <button
-                class="bp3-button bp3-disabled bp3-loading bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                class="bp3-button bp3-disabled bp3-loading bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                 disabled=""
                 tabindex="-1"
                 type="button"
@@ -373,7 +373,7 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
                 class="Layout--horizontal StyledProps--main"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                   type="button"
                 >
                   <span
@@ -397,7 +397,7 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
                   </span>
                 </button>
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                   type="button"
                 >
                   <span
@@ -605,7 +605,7 @@ exports[`ArtifactsSelection tests delete artifact list works correctly 1`] = `
               class="Layout--horizontal StyledProps--main"
             >
               <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                 type="button"
               >
                 <span
@@ -629,7 +629,7 @@ exports[`ArtifactsSelection tests delete artifact list works correctly 1`] = `
                 </span>
               </button>
               <button
-                class="bp3-button bp3-disabled bp3-loading bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                class="bp3-button bp3-disabled bp3-loading bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                 disabled=""
                 tabindex="-1"
                 type="button"
@@ -864,7 +864,7 @@ exports[`ArtifactsSelection tests edit artifact list works correctly 1`] = `
               class="Layout--horizontal StyledProps--main"
             >
               <button
-                class="bp3-button bp3-disabled bp3-loading bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                class="bp3-button bp3-disabled bp3-loading bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                 disabled=""
                 tabindex="-1"
                 type="button"
@@ -916,7 +916,7 @@ exports[`ArtifactsSelection tests edit artifact list works correctly 1`] = `
                 </span>
               </button>
               <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                 type="button"
               >
                 <span
@@ -1406,7 +1406,7 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
               class="Layout--horizontal StyledProps--main"
             >
               <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                 type="button"
               >
                 <span
@@ -1430,7 +1430,7 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
                 </span>
               </button>
               <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                 type="button"
               >
                 <span
@@ -1597,7 +1597,7 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
                 class="Layout--horizontal StyledProps--main"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                   type="button"
                 >
                   <span
@@ -1621,7 +1621,7 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
                   </span>
                 </button>
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                   type="button"
                 >
                   <span
@@ -1734,7 +1734,7 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
                 class="Layout--horizontal StyledProps--main"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                   type="button"
                 >
                   <span
@@ -1758,7 +1758,7 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
                   </span>
                 </button>
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                   type="button"
                 >
                   <span

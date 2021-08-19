@@ -330,7 +330,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                   class="Layout--horizontal StyledProps--main"
                 >
                   <button
-                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                     type="submit"
                   >
                     <span
@@ -728,7 +728,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                   class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
                 >
                   <button
-                    class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
                     data-name="commonGitBackButton"
                     type="button"
                   >
@@ -758,7 +758,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                     </span>
                   </button>
                   <button
-                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                     type="submit"
                   >
                     <span
@@ -1186,7 +1186,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                   class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
                 >
                   <button
-                    class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
                     data-name="commonGitBackButton"
                     type="button"
                   >
@@ -1216,7 +1216,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                     </span>
                   </button>
                   <button
-                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                     type="submit"
                   >
                     <span
@@ -1614,7 +1614,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                   class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
                 >
                   <button
-                    class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
                     data-name="commonGitBackButton"
                     type="button"
                   >
@@ -1644,7 +1644,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                     </span>
                   </button>
                   <button
-                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                     type="submit"
                   >
                     <span
@@ -2072,7 +2072,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                   class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
                 >
                   <button
-                    class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
                     data-name="commonGitBackButton"
                     type="button"
                   >
@@ -2102,7 +2102,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                     </span>
                   </button>
                   <button
-                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                     type="submit"
                   >
                     <span
@@ -2604,7 +2604,7 @@ exports[`Create Bitbucketconnector Wizard should be able to edit  usernamePasswo
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
                   data-name="bitbucketBackButton"
                   type="button"
                 >
@@ -2634,7 +2634,7 @@ exports[`Create Bitbucketconnector Wizard should be able to edit  usernamePasswo
                   </span>
                 </button>
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                   type="submit"
                 >
                   <span
@@ -3384,7 +3384,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
                   data-name="bitbucketBackButton"
                   type="button"
                 >
@@ -3414,7 +3414,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                   </span>
                 </button>
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                   type="submit"
                 >
                   <span

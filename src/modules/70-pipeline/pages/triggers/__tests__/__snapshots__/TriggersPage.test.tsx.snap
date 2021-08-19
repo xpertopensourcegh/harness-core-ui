@@ -398,7 +398,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main actionButton Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main actionButton Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                       type="button"
                     >
                       <span
@@ -609,7 +609,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                 class="textCentered"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main webhookUrl StyledProps--color StyledProps--color-blue500 Button--with-current-color Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main webhookUrl StyledProps--color StyledProps--color-blue500 Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                   type="button"
                 >
                   <span
@@ -669,7 +669,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main actionButton Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main actionButton Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                       type="button"
                     >
                       <span
@@ -811,7 +811,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                 class="textCentered"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main webhookUrl StyledProps--color StyledProps--color-blue500 Button--with-current-color Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main webhookUrl StyledProps--color StyledProps--color-blue500 Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                   type="button"
                 >
                   <span
@@ -870,7 +870,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main actionButton Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main actionButton Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                       type="button"
                     >
                       <span
@@ -1021,7 +1021,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main webhookUrl Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main webhookUrl Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                       type="button"
                     >
                       <span
@@ -1082,7 +1082,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main actionButton Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main actionButton Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                       type="button"
                     >
                       <span

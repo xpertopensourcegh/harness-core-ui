@@ -310,7 +310,7 @@ exports[`test cases for Perspective Create Budgets should be able to open create
                     class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
                   >
                     <button
-                      class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+                      class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
                       type="button"
                     >
                       <span
@@ -339,7 +339,7 @@ exports[`test cases for Perspective Create Budgets should be able to open create
                       </span>
                     </button>
                     <button
-                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                       type="button"
                     >
                       <span
@@ -377,7 +377,7 @@ exports[`test cases for Perspective Create Budgets should be able to open create
     </div>
   </div>
   <button
-    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main crossIcon Button--with-current-color Button--iconOnly Button--without-shadow"
+    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main crossIcon Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
     type="button"
   >
     <span
@@ -1631,7 +1631,7 @@ exports[`test cases for Perspective Reports and Budget page should be able to re
           class="Layout--horizontal Layout--layout-spacing-large StyledProps--main StyledProps--padding-top-medium"
         >
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
             type="button"
           >
             <span

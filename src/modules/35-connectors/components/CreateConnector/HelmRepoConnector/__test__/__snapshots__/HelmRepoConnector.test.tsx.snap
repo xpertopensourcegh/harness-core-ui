@@ -289,7 +289,7 @@ exports[`Create Helm Connector  Wizard Should render form 1`] = `
                   class="Layout--horizontal StyledProps--main"
                 >
                   <button
-                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                     type="submit"
                   >
                     <span
@@ -729,7 +729,7 @@ exports[`Create Helm Connector  Wizard Should render form 2`] = `
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
                   data-name="helmBackButton"
                   type="button"
                 >
@@ -759,7 +759,7 @@ exports[`Create Helm Connector  Wizard Should render form 2`] = `
                   </span>
                 </button>
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                   type="submit"
                 >
                   <span
@@ -1063,7 +1063,7 @@ exports[`Create Helm Connector  Wizard Should render form for editing provider t
                   class="Layout--horizontal StyledProps--main"
                 >
                   <button
-                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                     type="submit"
                   >
                     <span
@@ -1352,7 +1352,7 @@ exports[`Create Helm Connector  Wizard Should render form for editing provider t
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
                   data-name="helmBackButton"
                   type="button"
                 >
@@ -1382,7 +1382,7 @@ exports[`Create Helm Connector  Wizard Should render form for editing provider t
                   </span>
                 </button>
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                   type="submit"
                 >
                   <span

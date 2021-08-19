@@ -241,7 +241,7 @@ exports[`DockerRegistry Image Path Artifact tests renders correctly in edit case
               class="configureOptions"
             >
               <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
                 id="configureOptions"
                 type="button"
               >
@@ -272,7 +272,7 @@ exports[`DockerRegistry Image Path Artifact tests renders correctly in edit case
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
         >
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
             type="button"
           >
             <span
@@ -301,7 +301,7 @@ exports[`DockerRegistry Image Path Artifact tests renders correctly in edit case
             </span>
           </button>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
             type="submit"
           >
             <span
@@ -577,7 +577,7 @@ exports[`DockerRegistry Image Path Artifact tests renders while adding step firs
               class="configureOptions"
             >
               <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
                 id="configureOptions"
                 type="button"
               >
@@ -608,7 +608,7 @@ exports[`DockerRegistry Image Path Artifact tests renders while adding step firs
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
         >
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
             type="button"
           >
             <span
@@ -637,7 +637,7 @@ exports[`DockerRegistry Image Path Artifact tests renders while adding step firs
             </span>
           </button>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
             type="submit"
           >
             <span
@@ -913,7 +913,7 @@ exports[`DockerRegistry Image Path Artifact tests renders without crashing 1`] =
               class="configureOptions"
             >
               <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
                 id="configureOptions"
                 type="button"
               >
@@ -944,7 +944,7 @@ exports[`DockerRegistry Image Path Artifact tests renders without crashing 1`] =
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
         >
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
             type="button"
           >
             <span
@@ -973,7 +973,7 @@ exports[`DockerRegistry Image Path Artifact tests renders without crashing 1`] =
             </span>
           </button>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
             type="submit"
           >
             <span

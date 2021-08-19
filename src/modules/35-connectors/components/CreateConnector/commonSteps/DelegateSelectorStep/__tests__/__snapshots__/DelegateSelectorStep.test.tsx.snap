@@ -528,7 +528,7 @@ exports[`DelegateSelectorStep should open Git Sync modal on clicking Save and Co
     </div>
   </div>
   <button
-    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main crossIcon Button--with-current-color Button--iconOnly Button--without-shadow"
+    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main crossIcon Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
     type="button"
   >
     <span
@@ -690,7 +690,7 @@ exports[`DelegateSelectorStep should render DelegateSelectorStep component 1`] =
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small StyledProps--margin-top-xxxlarge"
           >
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
               data-name="awsBackButton"
               type="button"
             >
@@ -720,7 +720,7 @@ exports[`DelegateSelectorStep should render DelegateSelectorStep component 1`] =
               </span>
             </button>
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main saveAndContinue StyledProps--intent-primary Button--with-current-color"
+              class="bp3-button Button--button StyledProps--font StyledProps--main saveAndContinue StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
               data-name="delegateSaveAndContinue"
               type="submit"
             >

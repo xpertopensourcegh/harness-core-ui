@@ -319,7 +319,7 @@ exports[`CreateAWSCodeCommitConnector matches snapshot and goes through steps co
                   class="Layout--horizontal StyledProps--main"
                 >
                   <button
-                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                     type="submit"
                   >
                     <span

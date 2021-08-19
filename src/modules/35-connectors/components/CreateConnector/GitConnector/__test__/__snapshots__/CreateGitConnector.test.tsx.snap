@@ -329,7 +329,7 @@ exports[`Create Git connector Wizard Creating Git step one 1`] = `
                   class="Layout--horizontal StyledProps--main"
                 >
                   <button
-                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                     type="submit"
                   >
                     <span
@@ -726,7 +726,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
                   class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
                 >
                   <button
-                    class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
                     data-name="commonGitBackButton"
                     type="button"
                   >
@@ -756,7 +756,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
                     </span>
                   </button>
                   <button
-                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                     type="submit"
                   >
                     <span
@@ -1183,7 +1183,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
                   class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
                 >
                   <button
-                    class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
                     data-name="commonGitBackButton"
                     type="button"
                   >
@@ -1213,7 +1213,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
                     </span>
                   </button>
                   <button
-                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                     type="submit"
                   >
                     <span
@@ -1534,7 +1534,7 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
                   class="Layout--horizontal StyledProps--main"
                 >
                   <button
-                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                     type="submit"
                   >
                     <span
@@ -1938,7 +1938,7 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
                   data-name="gitBackButton"
                   type="button"
                 >
@@ -1968,7 +1968,7 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
                   </span>
                 </button>
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                   type="submit"
                 >
                   <span

@@ -289,7 +289,7 @@ exports[`Open shift params with git tests renders form in edit mode 1`] = `
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main StyledProps--margin-top-huge"
         >
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
             type="button"
           >
             <span
@@ -318,7 +318,7 @@ exports[`Open shift params with git tests renders form in edit mode 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
             type="submit"
           >
             <span
@@ -732,7 +732,7 @@ exports[`Open shift params with git tests renders without crashing 1`] = `
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main StyledProps--margin-top-huge"
         >
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
             type="button"
           >
             <span
@@ -761,7 +761,7 @@ exports[`Open shift params with git tests renders without crashing 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
             type="submit"
           >
             <span

@@ -371,7 +371,7 @@ exports[`<ExecutionStepDetails /> tests retried steps does not fetches data for 
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main retry Button--with-current-color Button--iconOnly Button--without-shadow"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main retry Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
               data-status=""
               data-testid="retry-logs"
               type="button"
@@ -758,7 +758,7 @@ exports[`<ExecutionStepDetails /> tests retried steps fetches data for retry ste
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main retry Button--with-current-color Button--iconOnly Button--without-shadow"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main retry Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
               data-status=""
               data-testid="retry-logs"
               type="button"
@@ -1144,7 +1144,7 @@ exports[`<ExecutionStepDetails /> tests retried steps shows loader while loading
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main retry Button--with-current-color Button--iconOnly Button--without-shadow"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main retry Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
               data-status=""
               data-testid="retry-logs"
               type="button"
@@ -1391,7 +1391,7 @@ exports[`<ExecutionStepDetails /> tests retried steps shows step selection 1`] =
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main retry Button--with-current-color Button--iconOnly Button--without-shadow"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main retry Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
               data-status=""
               data-testid="retry-logs"
               type="button"

@@ -83,7 +83,7 @@ exports[`Unit tests for createting monitored source Health source table and envi
           class="saveHeader"
         >
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main saveButton StyledProps--intent-primary Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main saveButton StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
             type="button"
           >
             <span

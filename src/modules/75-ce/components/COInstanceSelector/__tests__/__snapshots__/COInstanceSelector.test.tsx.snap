@@ -106,7 +106,7 @@ exports[`Instance Selector Modal search and select instances successfully 1`] = 
             class="ExpandingSearchInput--btnWrapper"
           >
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
               type="button"
             >
               <span

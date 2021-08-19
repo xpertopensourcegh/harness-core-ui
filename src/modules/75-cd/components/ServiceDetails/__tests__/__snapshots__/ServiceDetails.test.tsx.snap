@@ -113,7 +113,7 @@ exports[`ServiceDetails should render ServiceDetails 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main timeRangeButton StyledProps--font StyledProps--font-size-xsmall Button--with-current-color Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main timeRangeButton StyledProps--font StyledProps--font-size-xsmall Button--with-current-color Button--without-shadow Button--withRightIcon"
                   style="height: 20px;"
                   type="button"
                 >

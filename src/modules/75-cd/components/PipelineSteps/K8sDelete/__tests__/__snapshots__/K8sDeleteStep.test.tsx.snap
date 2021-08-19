@@ -110,7 +110,12 @@ exports[`Test K8sDeleteStep should render edit view -with ManifestPaths selected
             class="bp3-label"
             for="timeout"
           >
-            pipelineSteps.timeoutLabel
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="k8DeleteData_timeout"
+            >
+              pipelineSteps.timeoutLabel
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -354,7 +359,12 @@ exports[`Test K8sDeleteStep should render edit view -with ReleaseName selected 1
             class="bp3-label"
             for="timeout"
           >
-            pipelineSteps.timeoutLabel
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="k8DeleteData_timeout"
+            >
+              pipelineSteps.timeoutLabel
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -608,7 +618,12 @@ exports[`Test K8sDeleteStep should render edit view -with ResourceName selected 
             class="bp3-label"
             for="timeout"
           >
-            pipelineSteps.timeoutLabel
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="k8DeleteData_timeout"
+            >
+              pipelineSteps.timeoutLabel
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -850,7 +865,12 @@ exports[`Test K8sDeleteStep should render edit view as new step 1`] = `
             class="bp3-label"
             for="timeout"
           >
-            pipelineSteps.timeoutLabel
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="k8DeleteData_timeout"
+            >
+              pipelineSteps.timeoutLabel
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -1007,7 +1027,12 @@ exports[`Test K8sDeleteStep validate input set in deployment form - only timeout
           class="bp3-label"
           for="timeout"
         >
-          pipelineSteps.timeoutLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="stepTestUtilForm_timeout"
+          >
+            pipelineSteps.timeoutLabel
+          </span>
            
           <span
             class="bp3-text-muted"

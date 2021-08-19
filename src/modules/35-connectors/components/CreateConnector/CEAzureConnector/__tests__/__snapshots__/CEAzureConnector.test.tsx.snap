@@ -192,7 +192,7 @@ exports[`Create Azure connector Wizard should render create new billing exports 
                 class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
               >
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main launchTemplateBtn Button--with-current-color Button--without-shadow"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main launchTemplateBtn Button--with-current-color Button--without-shadow Button--withLeftIcon"
                   type="submit"
                 >
                   <span
@@ -595,7 +595,7 @@ exports[`Create Azure connector Wizard should render create new billing exports 
                       class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
                     >
                       <button
-                        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+                        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
                         type="button"
                       >
                         <span
@@ -624,7 +624,7 @@ exports[`Create Azure connector Wizard should render create new billing exports 
                         </span>
                       </button>
                       <button
-                        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                         type="submit"
                       >
                         <span
@@ -1167,7 +1167,7 @@ exports[`Create Azure connector Wizard should render existing billing exports fo
                       class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
                     >
                       <button
-                        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+                        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
                         type="button"
                       >
                         <span
@@ -1196,7 +1196,7 @@ exports[`Create Azure connector Wizard should render existing billing exports fo
                         </span>
                       </button>
                       <button
-                        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                         type="submit"
                       >
                         <span
@@ -1842,7 +1842,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
                       class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main continueAndPreviousBtns"
                     >
                       <button
-                        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+                        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
                         type="button"
                       >
                         <span
@@ -1871,7 +1871,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
                         </span>
                       </button>
                       <button
-                        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                         type="submit"
                       >
                         <span
@@ -2264,7 +2264,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
               class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main continueAndPreviousBtns"
             >
               <button
-                class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+                class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
                 type="button"
               >
                 <span
@@ -2293,7 +2293,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
                 </span>
               </button>
               <button
-                class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                 type="submit"
               >
                 <span
@@ -2673,7 +2673,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
               </div>
             </div>
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main continueAndPreviousBtns StyledProps--intent-primary Button--with-current-color"
+              class="bp3-button Button--button StyledProps--font StyledProps--main continueAndPreviousBtns StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
               type="button"
             >
               <span
@@ -3086,7 +3086,7 @@ exports[`Create Azure connector Wizard should render overview step 1`] = `
                     class="Layout--horizontal StyledProps--main"
                   >
                     <button
-                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                       type="submit"
                     >
                       <span
@@ -3605,7 +3605,7 @@ exports[`Create Azure connector Wizard should throw an error when connectors alr
                     class="Layout--horizontal StyledProps--main"
                   >
                     <button
-                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                       type="submit"
                     >
                       <span

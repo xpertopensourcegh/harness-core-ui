@@ -147,7 +147,7 @@ exports[`About Project test create project  1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button Button--button StyledProps--font StyledProps--main ColorPicker--picker Button--with-current-color"
+                          class="bp3-button Button--button StyledProps--font StyledProps--main ColorPicker--picker Button--with-current-color Button--withRightIcon"
                           style="width: 60px; height: 38px;"
                           type="button"
                         >
@@ -620,7 +620,7 @@ exports[`About Project test create project  2`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button Button--button StyledProps--font StyledProps--main ColorPicker--picker Button--with-current-color"
+                          class="bp3-button Button--button StyledProps--font StyledProps--main ColorPicker--picker Button--with-current-color Button--withRightIcon"
                           style="width: 60px; height: 38px;"
                           type="button"
                         >
@@ -1075,7 +1075,7 @@ exports[`About Project test edit project  1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button Button--button StyledProps--font StyledProps--main ColorPicker--picker Button--with-current-color"
+                          class="bp3-button Button--button StyledProps--font StyledProps--main ColorPicker--picker Button--with-current-color Button--withRightIcon"
                           style="width: 60px; height: 38px;"
                           type="button"
                         >
@@ -1396,7 +1396,7 @@ exports[`About Project test edit project  2`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button Button--button StyledProps--font StyledProps--main ColorPicker--picker Button--with-current-color"
+                          class="bp3-button Button--button StyledProps--font StyledProps--main ColorPicker--picker Button--with-current-color Button--withRightIcon"
                           style="width: 60px; height: 38px;"
                           type="button"
                         >

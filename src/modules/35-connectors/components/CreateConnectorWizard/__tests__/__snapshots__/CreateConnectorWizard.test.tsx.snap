@@ -290,7 +290,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Artifacto
                     class="Layout--horizontal StyledProps--main"
                   >
                     <button
-                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                       type="submit"
                     >
                       <span
@@ -635,7 +635,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for BITBUCKET
                     class="Layout--horizontal StyledProps--main"
                   >
                     <button
-                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                       type="submit"
                     >
                       <span
@@ -969,7 +969,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for DOCKER 1`
                     class="Layout--horizontal StyledProps--main"
                   >
                     <button
-                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                       type="submit"
                     >
                       <span
@@ -1356,7 +1356,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for GCP 1`] =
                     class="Layout--horizontal StyledProps--main"
                   >
                     <button
-                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                       type="submit"
                     >
                       <span
@@ -1700,7 +1700,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Git 1`] =
                     class="Layout--horizontal StyledProps--main"
                   >
                     <button
-                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                       type="submit"
                     >
                       <span
@@ -2043,7 +2043,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Github 1`
                     class="Layout--horizontal StyledProps--main"
                   >
                     <button
-                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                       type="submit"
                     >
                       <span
@@ -2411,7 +2411,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Gitlab 1`
                     class="Layout--horizontal StyledProps--main"
                   >
                     <button
-                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                       type="submit"
                     >
                       <span
@@ -2756,7 +2756,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Nexus 1`]
                     class="Layout--horizontal StyledProps--main"
                   >
                     <button
-                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                       type="submit"
                     >
                       <span
@@ -3071,7 +3071,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for VAULT 1`]
                     class="Layout--horizontal StyledProps--main"
                   >
                     <button
-                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                       type="submit"
                     >
                       <span
@@ -3410,7 +3410,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for k8 1`] = 
                     class="Layout--horizontal StyledProps--main"
                   >
                     <button
-                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                       type="submit"
                     >
                       <span

@@ -212,7 +212,7 @@ exports[`Connector details step Test for  create  connector step one required fe
               class="Layout--horizontal StyledProps--main"
             >
               <button
-                class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                 type="submit"
               >
                 <span
@@ -435,7 +435,7 @@ exports[`Connector details step Test for going to next step 1`] = `
               class="Layout--horizontal StyledProps--main"
             >
               <button
-                class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                 type="submit"
               >
                 <span

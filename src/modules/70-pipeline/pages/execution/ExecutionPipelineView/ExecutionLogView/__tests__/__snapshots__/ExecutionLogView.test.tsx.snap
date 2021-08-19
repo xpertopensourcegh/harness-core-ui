@@ -18,7 +18,7 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
             class=""
           >
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly"
+              class="bp3-button Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--withRightIcon"
               type="button"
             >
               <span

@@ -58,7 +58,7 @@ exports[`test cases for Perspective details Page should be able to render no dat
           </h2>
         </div>
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
           type="button"
         >
           <span
@@ -145,7 +145,7 @@ exports[`test cases for Perspective details Page should be able to render no dat
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main timeRangeButton StyledProps--intent-primary StyledProps--padding-small Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main timeRangeButton StyledProps--intent-primary StyledProps--padding-small Button--with-current-color Button--without-shadow Button--withLeftIcon Button--withRightIcon"
               type="button"
             >
               <span
@@ -206,7 +206,7 @@ exports[`test cases for Perspective details Page should be able to render no dat
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main timeGranularityButton StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main timeGranularityButton StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withRightIcon"
               type="button"
             >
               <span
@@ -382,7 +382,7 @@ exports[`test cases for Perspective details Page should be able to render the de
           </h2>
         </div>
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
           type="button"
         >
           <span
@@ -469,7 +469,7 @@ exports[`test cases for Perspective details Page should be able to render the de
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main timeRangeButton StyledProps--intent-primary StyledProps--padding-small Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main timeRangeButton StyledProps--intent-primary StyledProps--padding-small Button--with-current-color Button--without-shadow Button--withLeftIcon Button--withRightIcon"
               type="button"
             >
               <span
@@ -530,7 +530,7 @@ exports[`test cases for Perspective details Page should be able to render the de
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main timeGranularityButton StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main timeGranularityButton StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withRightIcon"
               type="button"
             >
               <span

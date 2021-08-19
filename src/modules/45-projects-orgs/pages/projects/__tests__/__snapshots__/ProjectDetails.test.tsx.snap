@@ -218,7 +218,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
             type="button"
           >
             <span
@@ -1260,7 +1260,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
             type="button"
           >
             <span

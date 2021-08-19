@@ -15,7 +15,7 @@ exports[`Unit tests for createting monitored source Check discard and save butto
           unsavedChanges
         </div>
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main saveButton StyledProps--intent-primary Button--with-current-color"
+          class="bp3-button Button--button StyledProps--font StyledProps--main saveButton StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
           type="button"
         >
           <span
@@ -339,7 +339,7 @@ exports[`Unit tests for createting monitored source Health source tabel and envi
         class="saveHeader"
       >
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main saveButton StyledProps--intent-primary Button--with-current-color"
+          class="bp3-button Button--button StyledProps--font StyledProps--main saveButton StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
           type="button"
         >
           <span
@@ -668,7 +668,7 @@ exports[`Unit tests for createting monitored source Health source table and envi
           unsavedChanges
         </div>
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main saveButton StyledProps--intent-primary Button--with-current-color"
+          class="bp3-button Button--button StyledProps--font StyledProps--main saveButton StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
           type="button"
         >
           <span

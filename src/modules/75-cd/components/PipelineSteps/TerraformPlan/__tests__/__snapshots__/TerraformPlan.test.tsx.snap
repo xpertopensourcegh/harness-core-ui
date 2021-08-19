@@ -106,7 +106,12 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
           class="bp3-label"
           for="timeout"
         >
-          pipelineSteps.timeoutLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="terraformPlanEditView-tfPlan-_timeout"
+          >
+            pipelineSteps.timeoutLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -321,7 +326,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                 style="width: 280px;"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                   data-testid="cr-field-spec.configuration.secretManagerRef"
                   style="width: 280px;"
                   type="button"
@@ -614,7 +619,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                             </span>
                           </div>
                           <button
-                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                             data-testid="remove-tfvar-file-0"
                             type="button"
                           >
@@ -702,7 +707,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                             </span>
                           </div>
                           <button
-                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                             data-testid="remove-tfvar-file-1"
                             type="button"
                           >
@@ -732,7 +737,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addTfVarFile StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addTfVarFile StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                             data-testid="add-tfvar-file"
                             type="button"
                           >
@@ -837,7 +842,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                         class="monacoWrapper"
                       >
                         <button
-                          class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
+                          class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -1002,7 +1007,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                               </div>
                             </div>
                             <button
-                              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                               data-testid="remove-spec.configuration.targets-[0]"
                               type="button"
                             >
@@ -1178,7 +1183,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                                   </div>
                                 </div>
                                 <button
-                                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                                   data-testid="remove-spec.configuration.environmentVariables-[0]"
                                   type="button"
                                 >
@@ -1324,7 +1329,12 @@ exports[`Test TerraformPlan should render edit view 1`] = `
               class="bp3-label"
               for="timeout"
             >
-              pipelineSteps.timeoutLabel
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="stepTestUtilForm_timeout"
+              >
+                pipelineSteps.timeoutLabel
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -1510,7 +1520,12 @@ exports[`Test TerraformPlan should render edit view as edit step 1`] = `
           class="bp3-label"
           for="timeout"
         >
-          pipelineSteps.timeoutLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="terraformPlanEditView-tfPlan-_timeout"
+          >
+            pipelineSteps.timeoutLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -1725,7 +1740,7 @@ exports[`Test TerraformPlan should render edit view as edit step 1`] = `
                 style="width: 280px;"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                   data-testid="cr-field-spec.configuration.secretManagerRef"
                   style="width: 280px;"
                   type="button"
@@ -1978,7 +1993,12 @@ exports[`Test TerraformPlan should render edit view as new step 1`] = `
           class="bp3-label"
           for="timeout"
         >
-          pipelineSteps.timeoutLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="terraformPlanEditView-tfPlan-_timeout"
+          >
+            pipelineSteps.timeoutLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -2193,7 +2213,7 @@ exports[`Test TerraformPlan should render edit view as new step 1`] = `
                 style="width: 280px;"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                   data-testid="cr-field-spec.configuration.secretManagerRef"
                   style="width: 280px;"
                   type="button"
@@ -2446,7 +2466,12 @@ exports[`Test TerraformPlan should render edit view as new step 2`] = `
           class="bp3-label"
           for="timeout"
         >
-          pipelineSteps.timeoutLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="terraformPlanEditView-tfPlan-_timeout"
+          >
+            pipelineSteps.timeoutLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -2661,7 +2686,7 @@ exports[`Test TerraformPlan should render edit view as new step 2`] = `
                 style="width: 280px;"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                   data-testid="cr-field-spec.configuration.secretManagerRef"
                   style="width: 280px;"
                   type="button"
@@ -2916,7 +2941,12 @@ exports[`Test TerraformPlan should render edit view with command Destroy 1`] = `
           class="bp3-label"
           for="timeout"
         >
-          pipelineSteps.timeoutLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="terraformPlanEditView-tfPlan-_timeout"
+          >
+            pipelineSteps.timeoutLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -3131,7 +3161,7 @@ exports[`Test TerraformPlan should render edit view with command Destroy 1`] = `
                 style="width: 280px;"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                   data-testid="cr-field-spec.configuration.secretManagerRef"
                   style="width: 280px;"
                   type="button"
@@ -3464,7 +3494,7 @@ exports[`Test TerraformPlan should render input set view 1`] = `
                     style="width: 400px;"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                       data-testid="cr-field-test.spec.configuration.configFiles.store.spec.connectorRef"
                       style="width: 400px;"
                       type="button"
@@ -3838,7 +3868,12 @@ exports[`Test TerraformPlan should submit form for terraform plan 1`] = `
           class="bp3-label"
           for="timeout"
         >
-          pipelineSteps.timeoutLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="terraformPlanEditView-tfPlan-_timeout"
+          >
+            pipelineSteps.timeoutLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -4053,7 +4088,7 @@ exports[`Test TerraformPlan should submit form for terraform plan 1`] = `
                 style="width: 280px;"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                   data-testid="cr-field-spec.configuration.secretManagerRef"
                   style="width: 280px;"
                   type="button"
