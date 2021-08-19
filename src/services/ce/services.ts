@@ -329,25 +329,13 @@ export const FetchPerspectiveDetailsSummaryDocument = gql`
         statsValue
         value
       }
-      idleCost {
-        statsLabel
-        statsValue
-        value
-      }
-      unallocatedCost {
-        statsLabel
-        statsValue
-        value
-      }
-      utilizedCost {
-        statsLabel
-        statsValue
-        value
-      }
-      efficiencyScoreStats {
+    }
+    perspectiveForecastCost(filters: $filters, aggregateFunction: $aggregateFunction, isClusterQuery: $isClusterQuery) {
+      cost {
         statsLabel
         statsTrend
         statsValue
+        statsDescription
       }
     }
   }
@@ -1112,14 +1100,15 @@ export type FetchPerspectiveDetailsSummaryQuery = {
       statsValue: string
       value: Maybe<any>
     }>
-    idleCost: Maybe<{ __typename?: 'StatsInfo'; statsLabel: string; statsValue: string; value: Maybe<any> }>
-    unallocatedCost: Maybe<{ __typename?: 'StatsInfo'; statsLabel: string; statsValue: string; value: Maybe<any> }>
-    utilizedCost: Maybe<{ __typename?: 'StatsInfo'; statsLabel: string; statsValue: string; value: Maybe<any> }>
-    efficiencyScoreStats: Maybe<{
-      __typename?: 'EfficiencyScoreStats'
-      statsLabel: Maybe<string>
+  }>
+  perspectiveForecastCost: Maybe<{
+    __typename?: 'PerspectiveTrendStats'
+    cost: Maybe<{
+      __typename?: 'StatsInfo'
+      statsLabel: string
       statsTrend: Maybe<any>
-      statsValue: Maybe<string>
+      statsValue: string
+      statsDescription: string
     }>
   }>
 }
