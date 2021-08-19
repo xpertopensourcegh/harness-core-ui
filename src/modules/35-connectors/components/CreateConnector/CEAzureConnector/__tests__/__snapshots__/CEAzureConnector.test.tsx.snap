@@ -49,7 +49,7 @@ exports[`Create Azure connector Wizard should render create new billing exports 
               class="StepWizard--completedIcon"
             >
               <span
-                class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
+                class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-primary7"
                 icon="small-tick"
               >
                 <svg
@@ -70,13 +70,13 @@ exports[`Create Azure connector Wizard should render create new billing exports 
             </span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               connectors.ceAzure.steps.overview
             </p>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               
             </p>
@@ -91,7 +91,7 @@ exports[`Create Azure connector Wizard should render create new billing exports 
             </span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               connectors.ceAzure.steps.billingExports
             </p>
@@ -106,7 +106,7 @@ exports[`Create Azure connector Wizard should render create new billing exports 
             </span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               connectors.ceAzure.steps.requirements
             </p>
@@ -121,7 +121,7 @@ exports[`Create Azure connector Wizard should render create new billing exports 
             </span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               connectors.ceAzure.steps.servicePrincipal
             </p>
@@ -136,7 +136,7 @@ exports[`Create Azure connector Wizard should render create new billing exports 
             </span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               connectors.ceAzure.steps.testConnection
             </p>
@@ -659,6 +659,23 @@ exports[`Create Azure connector Wizard should render create new billing exports 
             </div>
           </div>
         </div>
+        <span
+          class="bp3-icon StyledProps--main StepWizard--harnessWatermark StyledProps--color StyledProps--color-grey50"
+          data-icon="harness-with-color"
+        >
+          <svg
+            height="346"
+            viewBox="0 0 25 25"
+            width="346"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M22.974 8.186L16.708 1.88a7.023 7.023 0 00-2.59-1.572C11.98-.409 9.858.154 8.135 1.88L1.868 8.186a7.081 7.081 0 00-1.562 2.606c-.713 2.153-.153 4.289 1.562 6.023l6.266 6.306a7.113 7.113 0 002.589 1.58 5.663 5.663 0 001.808.308c1.503 0 2.946-.64 4.177-1.88l6.266-6.305a7.08 7.08 0 001.562-2.606c.713-2.162.153-4.298-1.562-6.032zm-10.07-4.477c.706.213 1.232.7 1.274.735l1.851 1.862-3.608 3.631-3.608-3.63 1.859-1.872c.5-.496 1.197-1.034 2.233-.726zm-9.219 8.305c.212-.71.696-1.24.73-1.282l1.85-1.863 3.609 3.632-3.608 3.63-1.86-1.87c-.492-.504-1.027-1.214-.721-2.247zm8.252 9.279c-.705-.214-1.231-.701-1.273-.735l-1.851-1.863 3.608-3.631 3.608 3.631-1.86 1.871c-.5.496-1.205 1.034-2.232.726zm9.22-8.305c-.212.709-.696 1.239-.73 1.281l-1.851 1.863-3.608-3.631 3.608-3.632 1.86 1.872c.492.504 1.027 1.204.72 2.247z"
+              fill="currentColor"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
       </div>
     </div>
     <div
@@ -863,7 +880,7 @@ exports[`Create Azure connector Wizard should render existing billing exports fo
               class="StepWizard--completedIcon"
             >
               <span
-                class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
+                class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-primary7"
                 icon="small-tick"
               >
                 <svg
@@ -884,13 +901,13 @@ exports[`Create Azure connector Wizard should render existing billing exports fo
             </span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               connectors.ceAzure.steps.overview
             </p>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               
             </p>
@@ -905,7 +922,7 @@ exports[`Create Azure connector Wizard should render existing billing exports fo
             </span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               connectors.ceAzure.steps.billingExports
             </p>
@@ -920,7 +937,7 @@ exports[`Create Azure connector Wizard should render existing billing exports fo
             </span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               connectors.ceAzure.steps.requirements
             </p>
@@ -935,7 +952,7 @@ exports[`Create Azure connector Wizard should render existing billing exports fo
             </span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               connectors.ceAzure.steps.servicePrincipal
             </p>
@@ -950,7 +967,7 @@ exports[`Create Azure connector Wizard should render existing billing exports fo
             </span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               connectors.ceAzure.steps.testConnection
             </p>
@@ -1231,6 +1248,23 @@ exports[`Create Azure connector Wizard should render existing billing exports fo
             </div>
           </div>
         </div>
+        <span
+          class="bp3-icon StyledProps--main StepWizard--harnessWatermark StyledProps--color StyledProps--color-grey50"
+          data-icon="harness-with-color"
+        >
+          <svg
+            height="346"
+            viewBox="0 0 25 25"
+            width="346"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M22.974 8.186L16.708 1.88a7.023 7.023 0 00-2.59-1.572C11.98-.409 9.858.154 8.135 1.88L1.868 8.186a7.081 7.081 0 00-1.562 2.606c-.713 2.153-.153 4.289 1.562 6.023l6.266 6.306a7.113 7.113 0 002.589 1.58 5.663 5.663 0 001.808.308c1.503 0 2.946-.64 4.177-1.88l6.266-6.305a7.08 7.08 0 001.562-2.606c.713-2.162.153-4.298-1.562-6.032zm-10.07-4.477c.706.213 1.232.7 1.274.735l1.851 1.862-3.608 3.631-3.608-3.63 1.859-1.872c.5-.496 1.197-1.034 2.233-.726zm-9.219 8.305c.212-.71.696-1.24.73-1.282l1.85-1.863 3.609 3.632-3.608 3.63-1.86-1.87c-.492-.504-1.027-1.214-.721-2.247zm8.252 9.279c-.705-.214-1.231-.701-1.273-.735l-1.851-1.863 3.608-3.631 3.608 3.631-1.86 1.871c-.5.496-1.205 1.034-2.232.726zm9.22-8.305c-.212.709-.696 1.239-.73 1.281l-1.851 1.863-3.608-3.631 3.608-3.632 1.86 1.872c.492.504 1.027 1.204.72 2.247z"
+              fill="currentColor"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
       </div>
     </div>
   </div>
@@ -1286,7 +1320,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
               class="StepWizard--completedIcon"
             >
               <span
-                class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
+                class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-primary7"
                 icon="small-tick"
               >
                 <svg
@@ -1307,13 +1341,13 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
             </span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               connectors.ceAzure.steps.overview
             </p>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               
             </p>
@@ -1325,7 +1359,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
               class="StepWizard--completedIcon"
             >
               <span
-                class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
+                class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-primary7"
                 icon="small-tick"
               >
                 <svg
@@ -1346,7 +1380,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
             </span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               connectors.ceAzure.steps.billingExports
             </p>
@@ -1361,7 +1395,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
             </span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               connectors.ceAzure.steps.requirements
             </p>
@@ -1376,7 +1410,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
             </span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               connectors.ceAzure.steps.servicePrincipal
             </p>
@@ -1391,7 +1425,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
             </span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               connectors.ceAzure.steps.testConnection
             </p>
@@ -1906,6 +1940,23 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
             </div>
           </div>
         </div>
+        <span
+          class="bp3-icon StyledProps--main StepWizard--harnessWatermark StyledProps--color StyledProps--color-grey50"
+          data-icon="harness-with-color"
+        >
+          <svg
+            height="346"
+            viewBox="0 0 25 25"
+            width="346"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M22.974 8.186L16.708 1.88a7.023 7.023 0 00-2.59-1.572C11.98-.409 9.858.154 8.135 1.88L1.868 8.186a7.081 7.081 0 00-1.562 2.606c-.713 2.153-.153 4.289 1.562 6.023l6.266 6.306a7.113 7.113 0 002.589 1.58 5.663 5.663 0 001.808.308c1.503 0 2.946-.64 4.177-1.88l6.266-6.305a7.08 7.08 0 001.562-2.606c.713-2.162.153-4.298-1.562-6.032zm-10.07-4.477c.706.213 1.232.7 1.274.735l1.851 1.862-3.608 3.631-3.608-3.63 1.859-1.872c.5-.496 1.197-1.034 2.233-.726zm-9.219 8.305c.212-.71.696-1.24.73-1.282l1.85-1.863 3.609 3.632-3.608 3.63-1.86-1.87c-.492-.504-1.027-1.214-.721-2.247zm8.252 9.279c-.705-.214-1.231-.701-1.273-.735l-1.851-1.863 3.608-3.631 3.608 3.631-1.86 1.871c-.5.496-1.205 1.034-2.232.726zm9.22-8.305c-.212.709-.696 1.239-.73 1.281l-1.851 1.863-3.608-3.631 3.608-3.632 1.86 1.872c.492.504 1.027 1.204.72 2.247z"
+              fill="currentColor"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
       </div>
     </div>
   </div>
@@ -1961,7 +2012,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
               class="StepWizard--completedIcon"
             >
               <span
-                class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
+                class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-primary7"
                 icon="small-tick"
               >
                 <svg
@@ -1982,13 +2033,13 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
             </span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               connectors.ceAzure.steps.overview
             </p>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               
             </p>
@@ -2000,7 +2051,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
               class="StepWizard--completedIcon"
             >
               <span
-                class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
+                class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-primary7"
                 icon="small-tick"
               >
                 <svg
@@ -2021,7 +2072,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
             </span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               connectors.ceAzure.steps.billingExports
             </p>
@@ -2033,7 +2084,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
               class="StepWizard--completedIcon"
             >
               <span
-                class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
+                class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-primary7"
                 icon="small-tick"
               >
                 <svg
@@ -2054,7 +2105,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
             </span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               connectors.ceAzure.steps.requirements
             </p>
@@ -2069,7 +2120,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
             </span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               connectors.ceAzure.steps.servicePrincipal
             </p>
@@ -2084,7 +2135,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
             </span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               connectors.ceAzure.steps.testConnection
             </p>
@@ -2324,6 +2375,23 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
             </div>
           </div>
         </div>
+        <span
+          class="bp3-icon StyledProps--main StepWizard--harnessWatermark StyledProps--color StyledProps--color-grey50"
+          data-icon="harness-with-color"
+        >
+          <svg
+            height="346"
+            viewBox="0 0 25 25"
+            width="346"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M22.974 8.186L16.708 1.88a7.023 7.023 0 00-2.59-1.572C11.98-.409 9.858.154 8.135 1.88L1.868 8.186a7.081 7.081 0 00-1.562 2.606c-.713 2.153-.153 4.289 1.562 6.023l6.266 6.306a7.113 7.113 0 002.589 1.58 5.663 5.663 0 001.808.308c1.503 0 2.946-.64 4.177-1.88l6.266-6.305a7.08 7.08 0 001.562-2.606c.713-2.162.153-4.298-1.562-6.032zm-10.07-4.477c.706.213 1.232.7 1.274.735l1.851 1.862-3.608 3.631-3.608-3.63 1.859-1.872c.5-.496 1.197-1.034 2.233-.726zm-9.219 8.305c.212-.71.696-1.24.73-1.282l1.85-1.863 3.609 3.632-3.608 3.63-1.86-1.87c-.492-.504-1.027-1.214-.721-2.247zm8.252 9.279c-.705-.214-1.231-.701-1.273-.735l-1.851-1.863 3.608-3.631 3.608 3.631-1.86 1.871c-.5.496-1.205 1.034-2.232.726zm9.22-8.305c-.212.709-.696 1.239-.73 1.281l-1.851 1.863-3.608-3.631 3.608-3.632 1.86 1.872c.492.504 1.027 1.204.72 2.247z"
+              fill="currentColor"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
       </div>
     </div>
   </div>
@@ -2379,7 +2447,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
               class="StepWizard--completedIcon"
             >
               <span
-                class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
+                class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-primary7"
                 icon="small-tick"
               >
                 <svg
@@ -2400,13 +2468,13 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
             </span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               connectors.ceAzure.steps.overview
             </p>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               
             </p>
@@ -2418,7 +2486,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
               class="StepWizard--completedIcon"
             >
               <span
-                class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
+                class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-primary7"
                 icon="small-tick"
               >
                 <svg
@@ -2439,7 +2507,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
             </span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               connectors.ceAzure.steps.billingExports
             </p>
@@ -2451,7 +2519,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
               class="StepWizard--completedIcon"
             >
               <span
-                class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
+                class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-primary7"
                 icon="small-tick"
               >
                 <svg
@@ -2472,7 +2540,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
             </span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               connectors.ceAzure.steps.requirements
             </p>
@@ -2484,7 +2552,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
               class="StepWizard--completedIcon"
             >
               <span
-                class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
+                class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-primary7"
                 icon="small-tick"
               >
                 <svg
@@ -2505,7 +2573,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
             </span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               connectors.ceAzure.steps.servicePrincipal
             </p>
@@ -2520,7 +2588,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
             </span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               connectors.ceAzure.steps.testConnection
             </p>
@@ -2703,6 +2771,23 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
             </button>
           </div>
         </div>
+        <span
+          class="bp3-icon StyledProps--main StepWizard--harnessWatermark StyledProps--color StyledProps--color-grey50"
+          data-icon="harness-with-color"
+        >
+          <svg
+            height="346"
+            viewBox="0 0 25 25"
+            width="346"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M22.974 8.186L16.708 1.88a7.023 7.023 0 00-2.59-1.572C11.98-.409 9.858.154 8.135 1.88L1.868 8.186a7.081 7.081 0 00-1.562 2.606c-.713 2.153-.153 4.289 1.562 6.023l6.266 6.306a7.113 7.113 0 002.589 1.58 5.663 5.663 0 001.808.308c1.503 0 2.946-.64 4.177-1.88l6.266-6.305a7.08 7.08 0 001.562-2.606c.713-2.162.153-4.298-1.562-6.032zm-10.07-4.477c.706.213 1.232.7 1.274.735l1.851 1.862-3.608 3.631-3.608-3.63 1.859-1.872c.5-.496 1.197-1.034 2.233-.726zm-9.219 8.305c.212-.71.696-1.24.73-1.282l1.85-1.863 3.609 3.632-3.608 3.63-1.86-1.87c-.492-.504-1.027-1.214-.721-2.247zm8.252 9.279c-.705-.214-1.231-.701-1.273-.735l-1.851-1.863 3.608-3.631 3.608 3.631-1.86 1.871c-.5.496-1.205 1.034-2.232.726zm9.22-8.305c-.212.709-.696 1.239-.73 1.281l-1.851 1.863-3.608-3.631 3.608-3.632 1.86 1.872c.492.504 1.027 1.204.72 2.247z"
+              fill="currentColor"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
       </div>
     </div>
   </div>
@@ -2761,13 +2846,13 @@ exports[`Create Azure connector Wizard should render overview step 1`] = `
             </span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               connectors.ceAzure.steps.overview
             </p>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               
             </p>
@@ -2782,7 +2867,7 @@ exports[`Create Azure connector Wizard should render overview step 1`] = `
             </span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               connectors.ceAzure.steps.billingExports
             </p>
@@ -2797,7 +2882,7 @@ exports[`Create Azure connector Wizard should render overview step 1`] = `
             </span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               connectors.ceAzure.steps.requirements
             </p>
@@ -2812,7 +2897,7 @@ exports[`Create Azure connector Wizard should render overview step 1`] = `
             </span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               connectors.ceAzure.steps.servicePrincipal
             </p>
@@ -2827,7 +2912,7 @@ exports[`Create Azure connector Wizard should render overview step 1`] = `
             </span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               connectors.ceAzure.steps.testConnection
             </p>
@@ -3122,6 +3207,23 @@ exports[`Create Azure connector Wizard should render overview step 1`] = `
             </div>
           </div>
         </div>
+        <span
+          class="bp3-icon StyledProps--main StepWizard--harnessWatermark StyledProps--color StyledProps--color-grey50"
+          data-icon="harness-with-color"
+        >
+          <svg
+            height="346"
+            viewBox="0 0 25 25"
+            width="346"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M22.974 8.186L16.708 1.88a7.023 7.023 0 00-2.59-1.572C11.98-.409 9.858.154 8.135 1.88L1.868 8.186a7.081 7.081 0 00-1.562 2.606c-.713 2.153-.153 4.289 1.562 6.023l6.266 6.306a7.113 7.113 0 002.589 1.58 5.663 5.663 0 001.808.308c1.503 0 2.946-.64 4.177-1.88l6.266-6.305a7.08 7.08 0 001.562-2.606c.713-2.162.153-4.298-1.562-6.032zm-10.07-4.477c.706.213 1.232.7 1.274.735l1.851 1.862-3.608 3.631-3.608-3.63 1.859-1.872c.5-.496 1.197-1.034 2.233-.726zm-9.219 8.305c.212-.71.696-1.24.73-1.282l1.85-1.863 3.609 3.632-3.608 3.63-1.86-1.87c-.492-.504-1.027-1.214-.721-2.247zm8.252 9.279c-.705-.214-1.231-.701-1.273-.735l-1.851-1.863 3.608-3.631 3.608 3.631-1.86 1.871c-.5.496-1.205 1.034-2.232.726zm9.22-8.305c-.212.709-.696 1.239-.73 1.281l-1.851 1.863-3.608-3.631 3.608-3.632 1.86 1.872c.492.504 1.027 1.204.72 2.247z"
+              fill="currentColor"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
       </div>
     </div>
   </div>
@@ -3180,13 +3282,13 @@ exports[`Create Azure connector Wizard should throw an error when connectors alr
             </span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               connectors.ceAzure.steps.overview
             </p>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               
             </p>
@@ -3201,7 +3303,7 @@ exports[`Create Azure connector Wizard should throw an error when connectors alr
             </span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               connectors.ceAzure.steps.billingExports
             </p>
@@ -3216,7 +3318,7 @@ exports[`Create Azure connector Wizard should throw an error when connectors alr
             </span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               connectors.ceAzure.steps.requirements
             </p>
@@ -3231,7 +3333,7 @@ exports[`Create Azure connector Wizard should throw an error when connectors alr
             </span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               connectors.ceAzure.steps.servicePrincipal
             </p>
@@ -3246,7 +3348,7 @@ exports[`Create Azure connector Wizard should throw an error when connectors alr
             </span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-              style="--text-line-clamp: 2; width: 240px;"
+              style="--text-line-clamp: 2; width: 200px;"
             >
               connectors.ceAzure.steps.testConnection
             </p>
@@ -3641,6 +3743,23 @@ exports[`Create Azure connector Wizard should throw an error when connectors alr
             </div>
           </div>
         </div>
+        <span
+          class="bp3-icon StyledProps--main StepWizard--harnessWatermark StyledProps--color StyledProps--color-grey50"
+          data-icon="harness-with-color"
+        >
+          <svg
+            height="346"
+            viewBox="0 0 25 25"
+            width="346"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M22.974 8.186L16.708 1.88a7.023 7.023 0 00-2.59-1.572C11.98-.409 9.858.154 8.135 1.88L1.868 8.186a7.081 7.081 0 00-1.562 2.606c-.713 2.153-.153 4.289 1.562 6.023l6.266 6.306a7.113 7.113 0 002.589 1.58 5.663 5.663 0 001.808.308c1.503 0 2.946-.64 4.177-1.88l6.266-6.305a7.08 7.08 0 001.562-2.606c.713-2.162.153-4.298-1.562-6.032zm-10.07-4.477c.706.213 1.232.7 1.274.735l1.851 1.862-3.608 3.631-3.608-3.63 1.859-1.872c.5-.496 1.197-1.034 2.233-.726zm-9.219 8.305c.212-.71.696-1.24.73-1.282l1.85-1.863 3.609 3.632-3.608 3.63-1.86-1.87c-.492-.504-1.027-1.214-.721-2.247zm8.252 9.279c-.705-.214-1.231-.701-1.273-.735l-1.851-1.863 3.608-3.631 3.608 3.631-1.86 1.871c-.5.496-1.205 1.034-2.232.726zm9.22-8.305c-.212.709-.696 1.239-.73 1.281l-1.851 1.863-3.608-3.631 3.608-3.632 1.86 1.872c.492.504 1.027 1.204.72 2.247z"
+              fill="currentColor"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
       </div>
     </div>
   </div>
