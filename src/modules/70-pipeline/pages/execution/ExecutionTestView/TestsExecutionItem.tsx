@@ -313,6 +313,7 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
               columns={columns}
               data={data?.content || []}
               getRowClassName={row => (row.original === selectedRow ? css.rowSelected : '')}
+              sortable
               onRowClick={
                 onShowCallGraphForClass
                   ? row => {
