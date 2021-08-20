@@ -68,27 +68,32 @@ export function getTextWithSearchMarkers(props: GetTextWithSearchMarkersProps): 
 }
 
 export function getTextWithSearchMarkersAndLinks(props: GetTextWithSearchMarkersProps): string {
-  const { txt } = props
+  const { txt, searchText } = props
 
   if (!txt) {
     return ''
   }
 
+  const searchRegex = getRegexForSearch(defaultTo(searchText, ''))
+
+  let offset = 0
   return breakOnLinks(txt)
     .map(textItem => {
+      const matches = searchText ? defaultTo(textItem.content.match(searchRegex), []) : []
+
+      const highligtedText = getTextWithSearchMarkers({
+        ...props,
+        txt: textItem.content,
+        searchIndices: props.searchIndices?.slice(offset)
+      })
+
+      offset += matches.length
+
       if (textItem.type === 'URL') {
-        return `<a href="${
-          textItem.content
-        }" class="ansi-decoration-link" target="_blank" rel="noreferrer">${getTextWithSearchMarkers({
-          ...props,
-          txt: textItem.content
-        })}</a>`
+        return `<a href="${textItem.content}" class="ansi-decoration-link" target="_blank" rel="noreferrer">${highligtedText}</a>`
       }
 
-      return getTextWithSearchMarkers({
-        ...props,
-        txt: textItem.content
-      })
+      return highligtedText
     })
     .join('')
 }

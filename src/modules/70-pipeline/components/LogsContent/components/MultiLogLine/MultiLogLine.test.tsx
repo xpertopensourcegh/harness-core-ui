@@ -75,4 +75,26 @@ describe('<MultiLogLine /> tests', () => {
     `)
     expect(container).toMatchSnapshot()
   })
+
+  test('works with mutliple links containing search text', () => {
+    const { container } = render(
+      <MultiLogLine
+        text={{
+          level: 'info',
+          time: '20/08/2021 11:12:18',
+          out: 'registry=https://npm.pkg.github.com, pkg:harness, registry=https://npm.pkg.github.com, registry=https://npm.pkg.github.com'
+        }}
+        searchIndices={{
+          out: [0, 1, 2, 3]
+        }}
+        lineNumber={1}
+        limit={58}
+        searchText="pk"
+        currentSearchIndex={0}
+      />
+    )
+
+    expect(container.querySelectorAll('[data-search-result-index="0"]').length).toBe(1)
+    expect(container).toMatchSnapshot()
+  })
 })
