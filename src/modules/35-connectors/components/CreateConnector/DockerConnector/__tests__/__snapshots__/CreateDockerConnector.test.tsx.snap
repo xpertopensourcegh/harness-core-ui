@@ -562,11 +562,16 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
                     </div>
                   </div>
                 </div>
-                <p
-                  class="StyledProps--font StyledProps--main"
+                <div
+                  class="Text--withDocsTooltip"
+                  data-tooltip-id="dockerConnectorProviderType"
                 >
-                  connectors.docker.dockerProvideType
-                </p>
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    connectors.docker.dockerProvideType
+                  </p>
+                </div>
                 <div
                   class="bp3-form-group bp3-inline dockerProviderType"
                   data-id="dockerProviderType-1"
@@ -636,11 +641,16 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
                 <div
                   class="StyledProps--font StyledProps--main authHeaderRow"
                 >
-                  <span
-                    class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="dockerConnectorAuthentication"
                   >
-                    authentication
-                  </span>
+                    <span
+                      class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                    >
+                      authentication
+                    </span>
+                  </div>
                   <div
                     class="bp3-form-group authTypeSelectLarge"
                     data-id="authType-2"
@@ -1461,11 +1471,16 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                     </div>
                   </div>
                 </div>
-                <p
-                  class="StyledProps--font StyledProps--main"
+                <div
+                  class="Text--withDocsTooltip"
+                  data-tooltip-id="dockerConnectorProviderType"
                 >
-                  connectors.docker.dockerProvideType
-                </p>
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    connectors.docker.dockerProvideType
+                  </p>
+                </div>
                 <div
                   class="bp3-form-group bp3-inline dockerProviderType"
                   data-id="dockerProviderType-1"
@@ -1535,11 +1550,16 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                 <div
                   class="StyledProps--font StyledProps--main authHeaderRow"
                 >
-                  <span
-                    class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="dockerConnectorAuthentication"
                   >
-                    authentication
-                  </span>
+                    <span
+                      class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                    >
+                      authentication
+                    </span>
+                  </div>
                   <div
                     class="bp3-form-group authTypeSelectLarge"
                     data-id="authType-2"

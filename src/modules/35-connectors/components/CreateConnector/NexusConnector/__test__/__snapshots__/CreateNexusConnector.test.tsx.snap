@@ -502,11 +502,16 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
         class="Layout--vertical StyledProps--main StyledProps--margin-small"
         style="height: inherit;"
       >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="NexusConnectorDetailsTooltip"
         >
-          details
-        </p>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+          >
+            details
+          </p>
+        </div>
         <div
           class="OverlaySpinner--overlaySpinner"
         >
@@ -688,11 +693,16 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
                 <div
                   class="StyledProps--font StyledProps--main authHeaderRow"
                 >
-                  <span
-                    class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="NexusConnectorAuthentication"
                   >
-                    authentication
-                  </span>
+                    <span
+                      class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                    >
+                      authentication
+                    </span>
+                  </div>
                   <div
                     class="bp3-form-group authTypeSelectLarge"
                     data-id="authType-2"
@@ -1487,11 +1497,16 @@ exports[`Create Nexus connector Wizard Should render form for edit  2`] = `
         class="Layout--vertical StyledProps--main StyledProps--margin-small"
         style="height: inherit;"
       >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="NexusConnectorDetailsTooltip"
         >
-          details
-        </p>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+          >
+            details
+          </p>
+        </div>
         <div
           class="OverlaySpinner--overlaySpinner"
         >
@@ -1613,11 +1628,16 @@ exports[`Create Nexus connector Wizard Should render form for edit  2`] = `
                 <div
                   class="StyledProps--font StyledProps--main authHeaderRow"
                 >
-                  <span
-                    class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="NexusConnectorAuthentication"
                   >
-                    authentication
-                  </span>
+                    <span
+                      class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                    >
+                      authentication
+                    </span>
+                  </div>
                   <div
                     class="bp3-form-group authTypeSelectLarge"
                     data-id="authType-2"
