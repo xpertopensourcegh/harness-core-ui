@@ -212,7 +212,7 @@ aws:
   awsAccessKey: AWS Access Key
   accessKey: '{{ $.common.accessKey }}'
   secretKey: '{{ $.common.secretKey }}'
-  enableCrossAcc: Enable cross-account access
+  enableCrossAcc: Enable cross-account access (STS Role)
   crossAccURN: Cross account role ARN
   externalId: External Id (Optional)
   assumeIAMRole: Assume IAM role on delegate
