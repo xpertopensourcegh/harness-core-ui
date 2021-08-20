@@ -805,16 +805,21 @@ exports[`Create Secret Manager Wizard should be able to render first step form 2
                               </g>
                             </svg>
                           </span>
-                          <p
-                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                          <div
+                            class="Text--withDocsTooltip"
+                            data-tooltip-id="azureKeyVaultForm_secretKey"
                           >
-                            <div>
-                              secret.configureSecret
-                            </div>
-                            <div>
-                              &lt;mockSecret&gt;
-                            </div>
-                          </p>
+                            <p
+                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                            >
+                              <div>
+                                secret.configureSecret
+                              </div>
+                              <div>
+                                &lt;mockSecret&gt;
+                              </div>
+                            </p>
+                          </div>
                         </a>
                         <button
                           class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
@@ -1446,16 +1451,21 @@ exports[`Create Secret Manager Wizard should be able to render first step form 3
                               </g>
                             </svg>
                           </span>
-                          <p
-                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                          <div
+                            class="Text--withDocsTooltip"
+                            data-tooltip-id="azureKeyVaultForm_secretKey"
                           >
-                            <div>
-                              secret.configureSecret
-                            </div>
-                            <div>
-                              &lt;mockSecret&gt;
-                            </div>
-                          </p>
+                            <p
+                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                            >
+                              <div>
+                                secret.configureSecret
+                              </div>
+                              <div>
+                                &lt;mockSecret&gt;
+                              </div>
+                            </p>
+                          </div>
                         </a>
                         <button
                           class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"

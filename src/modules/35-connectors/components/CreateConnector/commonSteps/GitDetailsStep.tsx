@@ -231,14 +231,18 @@ const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsS
             return (
               <FormikForm>
                 <Container style={{ minHeight: 460 }}>
-                  <Text>{getString('common.git.urlType')}</Text>
+                  <Text tooltipProps={{ dataTooltipId: `${props.type.toLocaleLowerCase()}URLType` }}>
+                    {getString('common.git.urlType')}
+                  </Text>
                   <FormInput.RadioGroup
                     style={{ fontSize: 'normal' }}
                     radioGroup={{ inline: true }}
                     name="urlType"
                     items={urlTypeOptions}
                   />
-                  <Text>{getString('common.git.connectionType')}</Text>
+                  <Text tooltipProps={{ dataTooltipId: `${props.type.toLocaleLowerCase()}ConnectionType` }}>
+                    {getString('common.git.connectionType')}
+                  </Text>
                   <FormInput.RadioGroup
                     style={{ fontSize: 'normal' }}
                     name="connectionType"

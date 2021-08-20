@@ -1032,13 +1032,18 @@ exports[`Create Secret Manager Wizard should be able to render first and second 
                               </g>
                             </svg>
                           </span>
-                          <p
-                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                          <div
+                            class="Text--withDocsTooltip"
+                            data-tooltip-id="awsKmsConfigForm_accessKey"
                           >
-                            <div>
-                              createOrSelectSecret
-                            </div>
-                          </p>
+                            <p
+                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                            >
+                              <div>
+                                createOrSelectSecret
+                              </div>
+                            </p>
+                          </div>
                         </a>
                       </div>
                     </div>
@@ -1091,13 +1096,18 @@ exports[`Create Secret Manager Wizard should be able to render first and second 
                               </g>
                             </svg>
                           </span>
-                          <p
-                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                          <div
+                            class="Text--withDocsTooltip"
+                            data-tooltip-id="awsKmsConfigForm_secretKey"
                           >
-                            <div>
-                              createOrSelectSecret
-                            </div>
-                          </p>
+                            <p
+                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                            >
+                              <div>
+                                createOrSelectSecret
+                              </div>
+                            </p>
+                          </div>
                         </a>
                       </div>
                     </div>
@@ -1150,13 +1160,18 @@ exports[`Create Secret Manager Wizard should be able to render first and second 
                               </g>
                             </svg>
                           </span>
-                          <p
-                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                          <div
+                            class="Text--withDocsTooltip"
+                            data-tooltip-id="awsKmsConfigForm_awsArn"
                           >
-                            <div>
-                              createOrSelectSecret
-                            </div>
-                          </p>
+                            <p
+                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                            >
+                              <div>
+                                createOrSelectSecret
+                              </div>
+                            </p>
+                          </div>
                         </a>
                       </div>
                     </div>

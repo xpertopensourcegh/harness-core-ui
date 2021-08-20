@@ -602,6 +602,7 @@ exports[`Create Helm Connector  Wizard Should render form 2`] = `
                     >
                       <div
                         class="label"
+                        data-tooltip-id="helmRepoAuthForm_username"
                       >
                         <label>
                           username
@@ -729,13 +730,18 @@ exports[`Create Helm Connector  Wizard Should render form 2`] = `
                               </g>
                             </svg>
                           </span>
-                          <p
-                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                          <div
+                            class="Text--withDocsTooltip"
+                            data-tooltip-id="helmRepoAuthForm_password"
                           >
-                            <div>
-                              createOrSelectSecret
-                            </div>
-                          </p>
+                            <p
+                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                            >
+                              <div>
+                                createOrSelectSecret
+                              </div>
+                            </p>
+                          </div>
                         </a>
                       </div>
                     </div>

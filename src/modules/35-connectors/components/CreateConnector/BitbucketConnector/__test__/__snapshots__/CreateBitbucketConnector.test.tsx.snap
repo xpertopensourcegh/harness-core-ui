@@ -548,11 +548,16 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                   class="StyledProps--font StyledProps--main"
                   style="min-height: 460px;"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="bitbucketURLType"
                   >
-                    common.git.urlType
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      common.git.urlType
+                    </p>
+                  </div>
                   <div
                     class="bp3-form-group"
                     data-id="urlType-0"
@@ -593,11 +598,16 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                       </div>
                     </div>
                   </div>
-                  <p
-                    class="StyledProps--font StyledProps--main"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="bitbucketConnectionType"
                   >
-                    common.git.connectionType
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      common.git.connectionType
+                    </p>
+                  </div>
                   <div
                     class="bp3-form-group"
                     data-id="connectionType-1"
@@ -993,11 +1003,16 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                   class="StyledProps--font StyledProps--main"
                   style="min-height: 460px;"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="bitbucketURLType"
                   >
-                    common.git.urlType
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      common.git.urlType
+                    </p>
+                  </div>
                   <div
                     class="bp3-form-group"
                     data-id="urlType-0"
@@ -1038,11 +1053,16 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                       </div>
                     </div>
                   </div>
-                  <p
-                    class="StyledProps--font StyledProps--main"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="bitbucketConnectionType"
                   >
-                    common.git.connectionType
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      common.git.connectionType
+                    </p>
+                  </div>
                   <div
                     class="bp3-form-group"
                     data-id="connectionType-1"
@@ -1468,11 +1488,16 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                   class="StyledProps--font StyledProps--main"
                   style="min-height: 460px;"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="bitbucketURLType"
                   >
-                    common.git.urlType
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      common.git.urlType
+                    </p>
+                  </div>
                   <div
                     class="bp3-form-group"
                     data-id="urlType-0"
@@ -1513,11 +1538,16 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                       </div>
                     </div>
                   </div>
-                  <p
-                    class="StyledProps--font StyledProps--main"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="bitbucketConnectionType"
                   >
-                    common.git.connectionType
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      common.git.connectionType
+                    </p>
+                  </div>
                   <div
                     class="bp3-form-group"
                     data-id="connectionType-1"
@@ -1913,11 +1943,16 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                   class="StyledProps--font StyledProps--main"
                   style="min-height: 460px;"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="bitbucketURLType"
                   >
-                    common.git.urlType
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      common.git.urlType
+                    </p>
+                  </div>
                   <div
                     class="bp3-form-group"
                     data-id="urlType-0"
@@ -1958,11 +1993,16 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                       </div>
                     </div>
                   </div>
-                  <p
-                    class="StyledProps--font StyledProps--main"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="bitbucketConnectionType"
                   >
-                    common.git.connectionType
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      common.git.connectionType
+                    </p>
+                  </div>
                   <div
                     class="bp3-form-group"
                     data-id="connectionType-1"
@@ -2481,6 +2521,7 @@ exports[`Create Bitbucketconnector Wizard should be able to edit  usernamePasswo
                       >
                         <div
                           class="label"
+                          data-tooltip-id="bitbAuthForm_username"
                         >
                           <label>
                             username
@@ -2608,16 +2649,21 @@ exports[`Create Bitbucketconnector Wizard should be able to edit  usernamePasswo
                                 </g>
                               </svg>
                             </span>
-                            <p
-                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                            <div
+                              class="Text--withDocsTooltip"
+                              data-tooltip-id="bitbAuthForm_password"
                             >
-                              <div>
-                                secret.configureSecret
-                              </div>
-                              <div>
-                                &lt;githubPassword&gt;
-                              </div>
-                            </p>
+                              <p
+                                class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                              >
+                                <div>
+                                  secret.configureSecret
+                                </div>
+                                <div>
+                                  &lt;githubPassword&gt;
+                                </div>
+                              </p>
+                            </div>
                           </a>
                           <button
                             class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
@@ -3027,6 +3073,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                       >
                         <div
                           class="label"
+                          data-tooltip-id="bitbAuthForm_username"
                         >
                           <label>
                             username
@@ -3154,16 +3201,21 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                                 </g>
                               </svg>
                             </span>
-                            <p
-                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                            <div
+                              class="Text--withDocsTooltip"
+                              data-tooltip-id="bitbAuthForm_password"
                             >
-                              <div>
-                                secret.configureSecret
-                              </div>
-                              <div>
-                                &lt;githubPassword&gt;
-                              </div>
-                            </p>
+                              <p
+                                class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                              >
+                                <div>
+                                  secret.configureSecret
+                                </div>
+                                <div>
+                                  &lt;githubPassword&gt;
+                                </div>
+                              </p>
+                            </div>
                           </a>
                           <button
                             class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
@@ -3309,6 +3361,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                       >
                         <div
                           class="label"
+                          data-tooltip-id="bitbAuthForm_apiAccessUsername"
                         >
                           <label>
                             username
@@ -3436,16 +3489,21 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                                 </g>
                               </svg>
                             </span>
-                            <p
-                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                            <div
+                              class="Text--withDocsTooltip"
+                              data-tooltip-id="bitbAuthForm_accessToken"
                             >
-                              <div>
-                                secret.configureSecret
-                              </div>
-                              <div>
-                                &lt;githubPassword&gt;
-                              </div>
-                            </p>
+                              <p
+                                class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                              >
+                                <div>
+                                  secret.configureSecret
+                                </div>
+                                <div>
+                                  &lt;githubPassword&gt;
+                                </div>
+                              </p>
+                            </div>
                           </a>
                           <button
                             class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"

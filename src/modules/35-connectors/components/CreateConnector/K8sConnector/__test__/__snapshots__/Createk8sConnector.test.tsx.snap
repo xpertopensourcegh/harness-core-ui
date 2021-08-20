@@ -490,11 +490,16 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main secondStep"
         style="height: inherit;"
       >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="K8sConnectorDetails"
         >
-          details
-        </p>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+          >
+            details
+          </p>
+        </div>
         <div
           class="OverlaySpinner--overlaySpinner"
         >
@@ -598,11 +603,16 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
                 <div
                   class="StyledProps--font StyledProps--main authHeaderRow"
                 >
-                  <span
-                    class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="K8sAuthenticationTooltip"
                   >
-                    authentication
-                  </span>
+                    <span
+                      class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                    >
+                      authentication
+                    </span>
+                  </div>
                   <div
                     class="bp3-form-group authTypeSelect"
                     data-id="authType-1"
@@ -673,6 +683,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
                       >
                         <div
                           class="label"
+                          data-tooltip-id="k8ClusterForm_username"
                         >
                           <label>
                             username
@@ -800,13 +811,18 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
                                 </g>
                               </svg>
                             </span>
-                            <p
-                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                            <div
+                              class="Text--withDocsTooltip"
+                              data-tooltip-id="k8ClusterForm_password"
                             >
-                              <div>
-                                createOrSelectSecret
-                              </div>
-                            </p>
+                              <p
+                                class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                              >
+                                <div>
+                                  createOrSelectSecret
+                                </div>
+                              </p>
+                            </div>
                           </a>
                         </div>
                       </div>
@@ -1039,11 +1055,16 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main secondStep"
         style="height: inherit;"
       >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="K8sConnectorDetails"
         >
-          details
-        </p>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+          >
+            details
+          </p>
+        </div>
         <div
           class="OverlaySpinner--overlaySpinner"
         >
@@ -1147,11 +1168,16 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                 <div
                   class="StyledProps--font StyledProps--main authHeaderRow"
                 >
-                  <span
-                    class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="K8sAuthenticationTooltip"
                   >
-                    authentication
-                  </span>
+                    <span
+                      class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                    >
+                      authentication
+                    </span>
+                  </div>
                   <div
                     class="bp3-form-group authTypeSelect"
                     data-id="authType-1"
@@ -1260,6 +1286,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                         >
                           <div
                             class="label"
+                            data-tooltip-id="k8ClusterForm_oidcUsername"
                           >
                             <label>
                               connectors.k8.OIDCUsername
@@ -1387,16 +1414,21 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                                   </g>
                                 </svg>
                               </span>
-                              <p
-                                class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                              <div
+                                class="Text--withDocsTooltip"
+                                data-tooltip-id="k8ClusterForm_oidcPassword"
                               >
-                                <div>
-                                  secret.configureSecret
-                                </div>
-                                <div>
-                                  &lt;k8serviceToken&gt;
-                                </div>
-                              </p>
+                                <p
+                                  class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                                >
+                                  <div>
+                                    secret.configureSecret
+                                  </div>
+                                  <div>
+                                    &lt;k8serviceToken&gt;
+                                  </div>
+                                </p>
+                              </div>
                             </a>
                             <button
                               class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
@@ -1483,16 +1515,21 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                                   </g>
                                 </svg>
                               </span>
-                              <p
-                                class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                              <div
+                                class="Text--withDocsTooltip"
+                                data-tooltip-id="k8ClusterForm_oidcCleintId"
                               >
-                                <div>
-                                  secret.configureSecret
-                                </div>
-                                <div>
-                                  &lt;k8serviceToken&gt;
-                                </div>
-                              </p>
+                                <p
+                                  class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                                >
+                                  <div>
+                                    secret.configureSecret
+                                  </div>
+                                  <div>
+                                    &lt;k8serviceToken&gt;
+                                  </div>
+                                </p>
+                              </div>
                             </a>
                             <button
                               class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
@@ -1574,16 +1611,21 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                                   </g>
                                 </svg>
                               </span>
-                              <p
-                                class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                              <div
+                                class="Text--withDocsTooltip"
+                                data-tooltip-id="k8ClusterForm_oidcCleintSecret"
                               >
-                                <div>
-                                  secret.configureSecret
-                                </div>
-                                <div>
-                                  &lt;k8serviceToken&gt;
-                                </div>
-                              </p>
+                                <p
+                                  class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                                >
+                                  <div>
+                                    secret.configureSecret
+                                  </div>
+                                  <div>
+                                    &lt;k8serviceToken&gt;
+                                  </div>
+                                </p>
+                              </div>
                             </a>
                             <button
                               class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
@@ -1881,11 +1923,16 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main secondStep"
         style="height: inherit;"
       >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="K8sConnectorDetails"
         >
-          details
-        </p>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+          >
+            details
+          </p>
+        </div>
         <div
           class="OverlaySpinner--overlaySpinner"
         >
@@ -1989,11 +2036,16 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
                 <div
                   class="StyledProps--font StyledProps--main authHeaderRow"
                 >
-                  <span
-                    class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="K8sAuthenticationTooltip"
                   >
-                    authentication
-                  </span>
+                    <span
+                      class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                    >
+                      authentication
+                    </span>
+                  </div>
                   <div
                     class="bp3-form-group authTypeSelect"
                     data-id="authType-1"
@@ -2099,16 +2151,21 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
                                 </g>
                               </svg>
                             </span>
-                            <p
-                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                            <div
+                              class="Text--withDocsTooltip"
+                              data-tooltip-id="k8ClusterForm_serviceAccountToken"
                             >
-                              <div>
-                                secret.configureSecret
-                              </div>
-                              <div>
-                                &lt;k8serviceToken&gt;
-                              </div>
-                            </p>
+                              <p
+                                class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                              >
+                                <div>
+                                  secret.configureSecret
+                                </div>
+                                <div>
+                                  &lt;k8serviceToken&gt;
+                                </div>
+                              </p>
+                            </div>
                           </a>
                           <button
                             class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
@@ -2736,11 +2793,16 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main secondStep"
         style="height: inherit;"
       >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="K8sConnectorDetails"
         >
-          details
-        </p>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+          >
+            details
+          </p>
+        </div>
         <div
           class="OverlaySpinner--overlaySpinner"
         >
@@ -2844,11 +2906,16 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                 <div
                   class="StyledProps--font StyledProps--main authHeaderRow"
                 >
-                  <span
-                    class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="K8sAuthenticationTooltip"
                   >
-                    authentication
-                  </span>
+                    <span
+                      class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                    >
+                      authentication
+                    </span>
+                  </div>
                   <div
                     class="bp3-form-group authTypeSelect"
                     data-id="authType-1"
@@ -2919,6 +2986,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                       >
                         <div
                           class="label"
+                          data-tooltip-id="k8ClusterForm_username"
                         >
                           <label>
                             username
@@ -3046,16 +3114,21 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                                 </g>
                               </svg>
                             </span>
-                            <p
-                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                            <div
+                              class="Text--withDocsTooltip"
+                              data-tooltip-id="k8ClusterForm_password"
                             >
-                              <div>
-                                secret.configureSecret
-                              </div>
-                              <div>
-                                &lt;k8serviceToken&gt;
-                              </div>
-                            </p>
+                              <p
+                                class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                              >
+                                <div>
+                                  secret.configureSecret
+                                </div>
+                                <div>
+                                  &lt;k8serviceToken&gt;
+                                </div>
+                              </p>
+                            </div>
                           </a>
                           <button
                             class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
@@ -3317,11 +3390,16 @@ exports[`should render form for edit authtype clientKey 1`] = `
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main secondStep"
         style="height: inherit;"
       >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="K8sConnectorDetails"
         >
-          details
-        </p>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+          >
+            details
+          </p>
+        </div>
         <div
           class="OverlaySpinner--overlaySpinner"
         >
@@ -3425,11 +3503,16 @@ exports[`should render form for edit authtype clientKey 1`] = `
                 <div
                   class="StyledProps--font StyledProps--main authHeaderRow"
                 >
-                  <span
-                    class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="K8sAuthenticationTooltip"
                   >
-                    authentication
-                  </span>
+                    <span
+                      class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                    >
+                      authentication
+                    </span>
+                  </div>
                   <div
                     class="bp3-form-group authTypeSelect"
                     data-id="authType-1"
@@ -3537,16 +3620,21 @@ exports[`should render form for edit authtype clientKey 1`] = `
                                   </g>
                                 </svg>
                               </span>
-                              <p
-                                class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                              <div
+                                class="Text--withDocsTooltip"
+                                data-tooltip-id="k8ClusterForm_clientKey"
                               >
-                                <div>
-                                  secret.configureSecret
-                                </div>
-                                <div>
-                                  &lt;k8serviceToken&gt;
-                                </div>
-                              </p>
+                                <p
+                                  class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                                >
+                                  <div>
+                                    secret.configureSecret
+                                  </div>
+                                  <div>
+                                    &lt;k8serviceToken&gt;
+                                  </div>
+                                </p>
+                              </div>
                             </a>
                             <button
                               class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
@@ -3628,16 +3716,21 @@ exports[`should render form for edit authtype clientKey 1`] = `
                                   </g>
                                 </svg>
                               </span>
-                              <p
-                                class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                              <div
+                                class="Text--withDocsTooltip"
+                                data-tooltip-id="k8ClusterForm_clientKeyCertificate"
                               >
-                                <div>
-                                  secret.configureSecret
-                                </div>
-                                <div>
-                                  &lt;k8serviceToken&gt;
-                                </div>
-                              </p>
+                                <p
+                                  class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                                >
+                                  <div>
+                                    secret.configureSecret
+                                  </div>
+                                  <div>
+                                    &lt;k8serviceToken&gt;
+                                  </div>
+                                </p>
+                              </div>
                             </a>
                             <button
                               class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
@@ -3723,16 +3816,21 @@ exports[`should render form for edit authtype clientKey 1`] = `
                                   </g>
                                 </svg>
                               </span>
-                              <p
-                                class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                              <div
+                                class="Text--withDocsTooltip"
+                                data-tooltip-id="k8ClusterForm_clientKeyPassphrase"
                               >
-                                <div>
-                                  secret.configureSecret
-                                </div>
-                                <div>
-                                  &lt;k8serviceToken&gt;
-                                </div>
-                              </p>
+                                <p
+                                  class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                                >
+                                  <div>
+                                    secret.configureSecret
+                                  </div>
+                                  <div>
+                                    &lt;k8serviceToken&gt;
+                                  </div>
+                                </p>
+                              </div>
                             </a>
                             <button
                               class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
@@ -3887,16 +3985,21 @@ exports[`should render form for edit authtype clientKey 1`] = `
                                 </g>
                               </svg>
                             </span>
-                            <p
-                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                            <div
+                              class="Text--withDocsTooltip"
+                              data-tooltip-id="k8ClusterForm_clientKeyCACertificate"
                             >
-                              <div>
-                                secret.configureSecret
-                              </div>
-                              <div>
-                                &lt;k8serviceToken&gt;
-                              </div>
-                            </p>
+                              <p
+                                class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                              >
+                                <div>
+                                  secret.configureSecret
+                                </div>
+                                <div>
+                                  &lt;k8serviceToken&gt;
+                                </div>
+                              </p>
+                            </div>
                           </a>
                           <button
                             class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
@@ -4201,6 +4304,7 @@ exports[`should render form for edit authtype clientKey 2`] = `
                 >
                   <div
                     class="Layout--horizontal StyledProps--main StyledProps--margin-bottom-medium StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+                    data-tooltip-id="connectors.delegate.delegateSelectorAny"
                   >
                     <label
                       class="bp3-control bp3-radio radio"
@@ -4218,6 +4322,7 @@ exports[`should render form for edit authtype clientKey 2`] = `
                   </div>
                   <div
                     class="Layout--horizontal StyledProps--main StyledProps--margin-bottom-small StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+                    data-tooltip-id="connectors.delegate.delegateSelectorSelective"
                   >
                     <label
                       class="bp3-control bp3-radio radio"

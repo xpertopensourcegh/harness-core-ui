@@ -692,13 +692,18 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                             </g>
                           </svg>
                         </span>
-                        <p
-                          class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                        <div
+                          class="Text--withDocsTooltip"
+                          data-tooltip-id="stepAuthenticationForm_key"
                         >
-                          <div>
-                            createOrSelectSecret
-                          </div>
-                        </p>
+                          <p
+                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                          >
+                            <div>
+                              createOrSelectSecret
+                            </div>
+                          </p>
+                        </div>
                       </a>
                     </div>
                   </div>
@@ -751,13 +756,18 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                             </g>
                           </svg>
                         </span>
-                        <p
-                          class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                        <div
+                          class="Text--withDocsTooltip"
+                          data-tooltip-id="stepAuthenticationForm_encryptedPassphrase"
                         >
-                          <div>
-                            createOrSelectSecret
-                          </div>
-                        </p>
+                          <p
+                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                          >
+                            <div>
+                              createOrSelectSecret
+                            </div>
+                          </p>
+                        </div>
                       </a>
                     </div>
                   </div>

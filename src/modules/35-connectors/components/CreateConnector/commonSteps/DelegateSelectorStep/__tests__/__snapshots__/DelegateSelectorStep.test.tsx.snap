@@ -585,6 +585,7 @@ exports[`DelegateSelectorStep should render DelegateSelectorStep component 1`] =
             >
               <div
                 class="Layout--horizontal StyledProps--main StyledProps--margin-bottom-medium StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+                data-tooltip-id="connectors.delegate.delegateSelectorAny"
               >
                 <label
                   class="bp3-control bp3-radio radio"
@@ -603,6 +604,7 @@ exports[`DelegateSelectorStep should render DelegateSelectorStep component 1`] =
               </div>
               <div
                 class="Layout--horizontal StyledProps--main StyledProps--margin-bottom-small StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+                data-tooltip-id="connectors.delegate.delegateSelectorSelective"
               >
                 <label
                   class="bp3-control bp3-radio radio"

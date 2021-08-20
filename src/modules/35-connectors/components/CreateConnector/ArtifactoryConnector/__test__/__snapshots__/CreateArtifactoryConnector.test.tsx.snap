@@ -129,11 +129,16 @@ exports[`Create Artifactory connector Wizard Should be able to edit connector 1`
         class="Layout--vertical StyledProps--main StyledProps--margin-small"
         style="height: inherit;"
       >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="artifactRepositoryDetails"
         >
-          details
-        </p>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+          >
+            details
+          </p>
+        </div>
         <div
           class="OverlaySpinner--overlaySpinner"
         >
@@ -187,11 +192,16 @@ exports[`Create Artifactory connector Wizard Should be able to edit connector 1`
                 <div
                   class="StyledProps--font StyledProps--main authHeaderRow"
                 >
-                  <span
-                    class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="artifactRepositoryAuthentication"
                   >
-                    authentication
-                  </span>
+                    <span
+                      class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                    >
+                      authentication
+                    </span>
+                  </div>
                   <div
                     class="bp3-form-group authTypeSelectLarge"
                     data-id="authType-1"
@@ -261,6 +271,7 @@ exports[`Create Artifactory connector Wizard Should be able to edit connector 1`
                       >
                         <div
                           class="label"
+                          data-tooltip-id="stepArtifactoryAuthForm_username"
                         >
                           <label>
                             username
@@ -388,16 +399,21 @@ exports[`Create Artifactory connector Wizard Should be able to edit connector 1`
                                 </g>
                               </svg>
                             </span>
-                            <p
-                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                            <div
+                              class="Text--withDocsTooltip"
+                              data-tooltip-id="stepArtifactoryAuthForm_password"
                             >
-                              <div>
-                                secret.configureSecret
-                              </div>
-                              <div>
-                                &lt;connectorPass&gt;
-                              </div>
-                            </p>
+                              <p
+                                class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                              >
+                                <div>
+                                  secret.configureSecret
+                                </div>
+                                <div>
+                                  &lt;connectorPass&gt;
+                                </div>
+                              </p>
+                            </div>
                           </a>
                           <button
                             class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
@@ -999,11 +1015,16 @@ exports[`Create Artifactory connector Wizard Should render form 2`] = `
         class="Layout--vertical StyledProps--main StyledProps--margin-small"
         style="height: inherit;"
       >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="artifactRepositoryDetails"
         >
-          details
-        </p>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+          >
+            details
+          </p>
+        </div>
         <div
           class="OverlaySpinner--overlaySpinner"
         >
@@ -1087,11 +1108,16 @@ exports[`Create Artifactory connector Wizard Should render form 2`] = `
                 <div
                   class="StyledProps--font StyledProps--main authHeaderRow"
                 >
-                  <span
-                    class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="artifactRepositoryAuthentication"
                   >
-                    authentication
-                  </span>
+                    <span
+                      class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                    >
+                      authentication
+                    </span>
+                  </div>
                   <div
                     class="bp3-form-group authTypeSelectLarge"
                     data-id="authType-1"
@@ -1161,6 +1187,7 @@ exports[`Create Artifactory connector Wizard Should render form 2`] = `
                       >
                         <div
                           class="label"
+                          data-tooltip-id="stepArtifactoryAuthForm_username"
                         >
                           <label>
                             username
@@ -1293,13 +1320,18 @@ exports[`Create Artifactory connector Wizard Should render form 2`] = `
                                 </g>
                               </svg>
                             </span>
-                            <p
-                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                            <div
+                              class="Text--withDocsTooltip"
+                              data-tooltip-id="stepArtifactoryAuthForm_password"
                             >
-                              <div>
-                                createOrSelectSecret
-                              </div>
-                            </p>
+                              <p
+                                class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                              >
+                                <div>
+                                  createOrSelectSecret
+                                </div>
+                              </p>
+                            </div>
                           </a>
                         </div>
                       </div>

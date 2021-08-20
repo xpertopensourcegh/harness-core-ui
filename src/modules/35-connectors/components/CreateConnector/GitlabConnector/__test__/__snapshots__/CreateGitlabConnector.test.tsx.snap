@@ -594,11 +594,16 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                   class="StyledProps--font StyledProps--main"
                   style="min-height: 460px;"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="gitlabURLType"
                   >
-                    common.git.urlType
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      common.git.urlType
+                    </p>
+                  </div>
                   <div
                     class="bp3-form-group"
                     data-id="urlType-0"
@@ -639,11 +644,16 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                       </div>
                     </div>
                   </div>
-                  <p
-                    class="StyledProps--font StyledProps--main"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="gitlabConnectionType"
                   >
-                    common.git.connectionType
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      common.git.connectionType
+                    </p>
+                  </div>
                   <div
                     class="bp3-form-group"
                     data-id="connectionType-1"
@@ -1062,11 +1072,16 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                   class="StyledProps--font StyledProps--main"
                   style="min-height: 460px;"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="gitlabURLType"
                   >
-                    common.git.urlType
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      common.git.urlType
+                    </p>
+                  </div>
                   <div
                     class="bp3-form-group"
                     data-id="urlType-0"
@@ -1107,11 +1122,16 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                       </div>
                     </div>
                   </div>
-                  <p
-                    class="StyledProps--font StyledProps--main"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="gitlabConnectionType"
                   >
-                    common.git.connectionType
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      common.git.connectionType
+                    </p>
+                  </div>
                   <div
                     class="bp3-form-group"
                     data-id="connectionType-1"
@@ -1560,11 +1580,16 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
                   class="StyledProps--font StyledProps--main"
                   style="min-height: 460px;"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="gitlabURLType"
                   >
-                    common.git.urlType
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      common.git.urlType
+                    </p>
+                  </div>
                   <div
                     class="bp3-form-group"
                     data-id="urlType-0"
@@ -1605,11 +1630,16 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
                       </div>
                     </div>
                   </div>
-                  <p
-                    class="StyledProps--font StyledProps--main"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="gitlabConnectionType"
                   >
-                    common.git.connectionType
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      common.git.connectionType
+                    </p>
+                  </div>
                   <div
                     class="bp3-form-group"
                     data-id="connectionType-1"
@@ -2028,11 +2058,16 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
                   class="StyledProps--font StyledProps--main"
                   style="min-height: 460px;"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="gitlabURLType"
                   >
-                    common.git.urlType
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      common.git.urlType
+                    </p>
+                  </div>
                   <div
                     class="bp3-form-group"
                     data-id="urlType-0"
@@ -2073,11 +2108,16 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
                       </div>
                     </div>
                   </div>
-                  <p
-                    class="StyledProps--font StyledProps--main"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="gitlabConnectionType"
                   >
-                    common.git.connectionType
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      common.git.connectionType
+                    </p>
+                  </div>
                   <div
                     class="bp3-form-group"
                     data-id="connectionType-1"
@@ -2619,6 +2659,7 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
                       >
                         <div
                           class="label"
+                          data-tooltip-id="stepGitlabAuth_username"
                         >
                           <label>
                             username
@@ -2746,16 +2787,21 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
                                 </g>
                               </svg>
                             </span>
-                            <p
-                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                            <div
+                              class="Text--withDocsTooltip"
+                              data-tooltip-id="stepGitlabAuth_password"
                             >
-                              <div>
-                                secret.configureSecret
-                              </div>
-                              <div>
-                                &lt;gitlabPassword&gt;
-                              </div>
-                            </p>
+                              <p
+                                class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                              >
+                                <div>
+                                  secret.configureSecret
+                                </div>
+                                <div>
+                                  &lt;gitlabPassword&gt;
+                                </div>
+                              </p>
+                            </div>
                           </a>
                           <button
                             class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
@@ -3166,16 +3212,21 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                                 </g>
                               </svg>
                             </span>
-                            <p
-                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                            <div
+                              class="Text--withDocsTooltip"
+                              data-tooltip-id="stepGitlabAuth_sshKey"
                             >
-                              <div>
-                                secret.configureSecret
-                              </div>
-                              <div>
-                                &lt;gitlabPassword&gt;
-                              </div>
-                            </p>
+                              <p
+                                class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                              >
+                                <div>
+                                  secret.configureSecret
+                                </div>
+                                <div>
+                                  &lt;gitlabPassword&gt;
+                                </div>
+                              </p>
+                            </div>
                           </a>
                           <button
                             class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
@@ -3362,16 +3413,21 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                                 </g>
                               </svg>
                             </span>
-                            <p
-                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                            <div
+                              class="Text--withDocsTooltip"
+                              data-tooltip-id="stepGitlabAuth_apiAccessToken"
                             >
-                              <div>
-                                secret.configureSecret
-                              </div>
-                              <div>
-                                &lt;gitlabPassword&gt;
-                              </div>
-                            </p>
+                              <p
+                                class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                              >
+                                <div>
+                                  secret.configureSecret
+                                </div>
+                                <div>
+                                  &lt;gitlabPassword&gt;
+                                </div>
+                              </p>
+                            </div>
                           </a>
                           <button
                             class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
