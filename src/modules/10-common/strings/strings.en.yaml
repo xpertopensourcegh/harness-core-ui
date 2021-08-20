@@ -121,6 +121,10 @@ role: Role
 projectViewer: Project Viewer
 orgViewer: Organization Viewer
 accViewer: Account Viewer
+genericErrors:
+  inviteExpired: This invite link has expired
+  unauthorized: You are not authorized to access Next Gen
+  licenseCallFailed: Failed to retrieve license information
 plusNumber: + {{number}}
 plusNumberNoSpace: '+{{number}}'
 userGroup: User Group

@@ -161,6 +161,9 @@ export interface StringsMap {
   'common.filters.saveNewFilter': string
   'common.filters.unsavedFilter': string
   'common.frequency': string
+  'common.genericErrors.inviteExpired': string
+  'common.genericErrors.licenseCallFailed': string
+  'common.genericErrors.unauthorized': string
   'common.git.APIAccessDescription': string
   'common.git.APIAuthentication': string
   'common.git.addUserCredentialLabel': string
@@ -5235,10 +5238,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   generalSettings: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'generic_errors.INVITE_EXPIRED': string
   /**
    * @deprecated migrate this string to module level file
    */
