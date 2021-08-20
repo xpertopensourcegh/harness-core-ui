@@ -2,7 +2,7 @@ import React from 'react'
 import { defaultTo } from 'lodash-es'
 
 import { LogLine } from '@common/components/LogViewer/LogLine'
-import { formatDatetoLocale } from '@common/utils/dateUtils'
+import { breakOnLinks } from '@common/components/LinkifyText/LinkifyText'
 
 import { getRegexForSearch } from '../../LogsState/utils'
 import type { LogLineData } from '../../LogsState/types'
@@ -67,6 +67,32 @@ export function getTextWithSearchMarkers(props: GetTextWithSearchMarkersProps): 
   return highlightedString
 }
 
+export function getTextWithSearchMarkersAndLinks(props: GetTextWithSearchMarkersProps): string {
+  const { txt } = props
+
+  if (!txt) {
+    return ''
+  }
+
+  return breakOnLinks(txt)
+    .map(textItem => {
+      if (textItem.type === 'URL') {
+        return `<a href="${
+          textItem.content
+        }" class="ansi-decoration-link" target="_blank" rel="noreferrer">${getTextWithSearchMarkers({
+          ...props,
+          txt: textItem.content
+        })}</a>`
+      }
+
+      return getTextWithSearchMarkers({
+        ...props,
+        txt: textItem.content
+      })
+    })
+    .join('')
+}
+
 export interface MultiLogLineProps extends LogLineData {
   /**
    * Zero index based line number
@@ -84,6 +110,7 @@ export function MultiLogLine(props: MultiLogLineProps): React.ReactElement {
     <div className={css.logLine} style={{ '--char-size': `${limit.toString().length}ch` } as any}>
       <span className={css.lineNumber}>{lineNumber + 1}</span>
       <LogLine
+        skipLinkify
         data={getTextWithSearchMarkers({
           txt: text.level,
           searchText,
@@ -94,7 +121,7 @@ export function MultiLogLine(props: MultiLogLineProps): React.ReactElement {
       <span
         dangerouslySetInnerHTML={{
           __html: getTextWithSearchMarkers({
-            txt: formatDatetoLocale(text.time as string),
+            txt: text.time,
             searchText,
             searchIndices: searchIndices?.time,
             currentSearchIndex
@@ -102,7 +129,8 @@ export function MultiLogLine(props: MultiLogLineProps): React.ReactElement {
         }}
       />
       <LogLine
-        data={getTextWithSearchMarkers({
+        skipLinkify
+        data={getTextWithSearchMarkersAndLinks({
           txt: text.out,
           searchText,
           searchIndices: searchIndices?.out,

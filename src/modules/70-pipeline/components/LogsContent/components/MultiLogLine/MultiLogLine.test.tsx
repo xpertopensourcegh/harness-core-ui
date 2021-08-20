@@ -14,8 +14,6 @@ const props: MultiLogLineProps = {
     out: 'Error: something went wrong'
   }
 }
-
-jest.mock('@common/utils/dateUtils', () => ({ formatDatetoLocale: jest.fn(() => 'Mock Date') }))
 describe('<MultiLogLine /> tests', () => {
   test('snapshot test', () => {
     const { container } = render(<MultiLogLine {...props} />)
@@ -36,5 +34,45 @@ describe('<MultiLogLine /> tests', () => {
     expect(container).toMatchSnapshot()
     expect(container.querySelector('[data-current-search-result="true"]')?.innerHTML).toBe('wrong')
     expect(container.querySelector('[data-search-result-index="1"]')?.innerHTML).toBe('wrong')
+  })
+
+  test('works with link containing search text', () => {
+    const { container } = render(
+      <MultiLogLine
+        text={{
+          level: 'info',
+          time: '20/08/2021 11:12:18',
+          out: '+ echo @wings-software:registry=https://npm.pkg.github.com'
+        }}
+        searchIndices={{
+          out: [0]
+        }}
+        lineNumber={1}
+        limit={58}
+        searchText="pk"
+        currentSearchIndex={0}
+      />
+    )
+
+    const link = container.querySelector<HTMLAnchorElement>('a.ansi-decoration-link')
+
+    expect(link).toMatchInlineSnapshot(`
+      <a
+        class="ansi-decoration-link"
+        href="https://npm.pkg.github.com"
+        rel="noreferrer"
+        target="_blank"
+      >
+        https://npm.
+        <mark
+          data-current-search-result="true"
+          data-search-result-index="0"
+        >
+          pk
+        </mark>
+        g.github.com
+      </a>
+    `)
+    expect(container).toMatchSnapshot()
   })
 })
