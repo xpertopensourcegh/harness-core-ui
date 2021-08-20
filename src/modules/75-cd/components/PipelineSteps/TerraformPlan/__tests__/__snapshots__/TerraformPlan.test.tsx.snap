@@ -309,7 +309,12 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
           class="StyledProps--font StyledProps--main"
           style="margin-bottom: 5px;"
         >
-          connectors.title.secretManager
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="terraformPlanEditView-tfPlan-_spec.configuration.secretManagerRef"
+          >
+            connectors.title.secretManager
+          </span>
         </div>
         <div
           style="display: flex; align-items: center;"
@@ -399,6 +404,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
     >
       <label
         class="Label--main configLabel"
+        data-tooltip-id="tfConfigurationFile"
       >
         cd.configurationFile
       </label>
@@ -784,13 +790,18 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                       <div
                         class="formLabel"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                          style="color: rgb(11, 11, 13);"
+                        <span
+                          class="Tooltip--acenter"
+                          data-tooltip-id="terraformPlanEditView-tfPlan-_spec.configuration.backendConfig.spec.content"
                         >
-                           
-                          optionalField
-                        </p>
+                          <p
+                            class="StyledProps--font StyledProps--main"
+                            style="color: rgb(11, 11, 13);"
+                          >
+                             
+                            optionalField
+                          </p>
+                        </span>
                         <div
                           class="bp3-popover-wrapper typeSelectorWrapper"
                         >
@@ -893,12 +904,17 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                         <div
                           class="formLabel"
                         >
-                          <p
-                            class="StyledProps--font StyledProps--main"
-                            style="display: flex; align-items: center; color: rgb(11, 11, 13);"
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="terraformPlanEditView-tfPlan-_spec.configuration.targets"
                           >
-                            optionalField
-                          </p>
+                            <p
+                              class="StyledProps--font StyledProps--main"
+                              style="display: flex; align-items: center; color: rgb(11, 11, 13);"
+                            >
+                              optionalField
+                            </p>
+                          </span>
                           <div
                             class="bp3-popover-wrapper typeSelectorWrapper"
                           >
@@ -1062,17 +1078,22 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                         <div
                           class="formLabel"
                         >
-                          <div
-                            class="Text--withDocsTooltip"
-                            data-tooltip-id="dependencyEnvironmentVariables"
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="terraformPlanEditView-tfPlan-_spec.configuration.environmentVariables"
                           >
-                            <p
-                              class="StyledProps--font StyledProps--main"
-                              style="display: flex; align-items: center; color: rgb(11, 11, 13);"
+                            <div
+                              class="Text--withDocsTooltip"
+                              data-tooltip-id="dependencyEnvironmentVariables"
                             >
-                              optionalField
-                            </p>
-                          </div>
+                              <p
+                                class="StyledProps--font StyledProps--main"
+                                style="display: flex; align-items: center; color: rgb(11, 11, 13);"
+                              >
+                                optionalField
+                              </p>
+                            </div>
+                          </span>
                         </div>
                          
                         <span
@@ -1723,7 +1744,12 @@ exports[`Test TerraformPlan should render edit view as edit step 1`] = `
           class="StyledProps--font StyledProps--main"
           style="margin-bottom: 5px;"
         >
-          connectors.title.secretManager
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="terraformPlanEditView-tfPlan-_spec.configuration.secretManagerRef"
+          >
+            connectors.title.secretManager
+          </span>
         </div>
         <div
           style="display: flex; align-items: center;"
@@ -1813,6 +1839,7 @@ exports[`Test TerraformPlan should render edit view as edit step 1`] = `
     >
       <label
         class="Label--main configLabel"
+        data-tooltip-id="tfConfigurationFile"
       >
         cd.configurationFile
       </label>
@@ -2196,7 +2223,12 @@ exports[`Test TerraformPlan should render edit view as new step 1`] = `
           class="StyledProps--font StyledProps--main"
           style="margin-bottom: 5px;"
         >
-          connectors.title.secretManager
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="terraformPlanEditView-tfPlan-_spec.configuration.secretManagerRef"
+          >
+            connectors.title.secretManager
+          </span>
         </div>
         <div
           style="display: flex; align-items: center;"
@@ -2286,6 +2318,7 @@ exports[`Test TerraformPlan should render edit view as new step 1`] = `
     >
       <label
         class="Label--main configLabel"
+        data-tooltip-id="tfConfigurationFile"
       >
         cd.configurationFile
       </label>
@@ -2669,7 +2702,12 @@ exports[`Test TerraformPlan should render edit view as new step 2`] = `
           class="StyledProps--font StyledProps--main"
           style="margin-bottom: 5px;"
         >
-          connectors.title.secretManager
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="terraformPlanEditView-tfPlan-_spec.configuration.secretManagerRef"
+          >
+            connectors.title.secretManager
+          </span>
         </div>
         <div
           style="display: flex; align-items: center;"
@@ -2759,6 +2797,7 @@ exports[`Test TerraformPlan should render edit view as new step 2`] = `
     >
       <label
         class="Label--main configLabel"
+        data-tooltip-id="tfConfigurationFile"
       >
         cd.configurationFile
       </label>
@@ -3144,7 +3183,12 @@ exports[`Test TerraformPlan should render edit view with command Destroy 1`] = `
           class="StyledProps--font StyledProps--main"
           style="margin-bottom: 5px;"
         >
-          connectors.title.secretManager
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="terraformPlanEditView-tfPlan-_spec.configuration.secretManagerRef"
+          >
+            connectors.title.secretManager
+          </span>
         </div>
         <div
           style="display: flex; align-items: center;"
@@ -3234,6 +3278,7 @@ exports[`Test TerraformPlan should render edit view with command Destroy 1`] = `
     >
       <label
         class="Label--main configLabel"
+        data-tooltip-id="tfConfigurationFile"
       >
         cd.configurationFile
       </label>
@@ -3476,7 +3521,12 @@ exports[`Test TerraformPlan should render input set view 1`] = `
               class="StyledProps--font StyledProps--main"
               style="margin-bottom: 5px;"
             >
-              connector
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="stepTestUtilForm_test.spec.configuration.configFiles.store.spec.connectorRef"
+              >
+                connector
+              </span>
             </div>
             <div
               style="display: flex; align-items: center;"
@@ -4071,7 +4121,12 @@ exports[`Test TerraformPlan should submit form for terraform plan 1`] = `
           class="StyledProps--font StyledProps--main"
           style="margin-bottom: 5px;"
         >
-          connectors.title.secretManager
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="terraformPlanEditView-tfPlan-_spec.configuration.secretManagerRef"
+          >
+            connectors.title.secretManager
+          </span>
         </div>
         <div
           style="display: flex; align-items: center;"
@@ -4211,6 +4266,7 @@ exports[`Test TerraformPlan should submit form for terraform plan 1`] = `
     >
       <label
         class="Label--main configLabel"
+        data-tooltip-id="tfConfigurationFile"
       >
         cd.configurationFile
       </label>

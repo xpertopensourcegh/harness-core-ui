@@ -61,6 +61,10 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
                 </span>
               </span>
             </div>
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="runtimeInputsTest_checkboxValue"
+            />
           </div>
         </div>
         <div
@@ -511,6 +515,10 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
                 </span>
               </span>
             </div>
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="runtimeInputsTest_checkboxValue"
+            />
           </div>
         </div>
         <div

@@ -175,11 +175,16 @@ exports[`JFrogArtifactory Step Edit View edit mode works 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="jfrogArt_spec.connectorRef"
             >
-              pipelineSteps.connectorLabel
-            </p>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+              >
+                pipelineSteps.connectorLabel
+              </p>
+            </span>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -704,11 +709,16 @@ exports[`JFrogArtifactory Step Edit View renders runtime inputs 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="jfrogArt_spec.connectorRef"
             >
-              pipelineSteps.connectorLabel
-            </p>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+              >
+                pipelineSteps.connectorLabel
+              </p>
+            </span>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -1211,11 +1221,16 @@ exports[`JFrogArtifactory Step Edit View should render properly 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="jfrogArt_spec.connectorRef"
             >
-              pipelineSteps.connectorLabel
-            </p>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+              >
+                pipelineSteps.connectorLabel
+              </p>
+            </span>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -1645,11 +1660,16 @@ exports[`JFrogArtifactory Step InputSet View should render all fields 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <p
-              class="StyledProps--font StyledProps--main"
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="stepTestUtilForm_spec.connectorRef"
             >
-              pipelineSteps.connectorLabel
-            </p>
+              <p
+                class="StyledProps--font StyledProps--main"
+              >
+                pipelineSteps.connectorLabel
+              </p>
+            </span>
           </div>
           <div
             style="display: flex; align-items: center;"

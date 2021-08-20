@@ -105,17 +105,22 @@ exports[`GCR Step Edit View edit mode works 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <div
-              class="Text--withDocsTooltip"
-              data-tooltip-id="gcrConnector"
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="ciGcrStep_spec.connectorRef"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="gcrConnector"
               >
-                pipelineSteps.gcpConnectorLabel
-              </p>
-            </div>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="display: flex; align-items: center;"
+                >
+                  pipelineSteps.gcpConnectorLabel
+                </p>
+              </div>
+            </span>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -476,17 +481,22 @@ exports[`GCR Step Edit View edit mode works 1`] = `
               <div
                 class="formLabel"
               >
-                <div
-                  class="Text--withDocsTooltip"
-                  data-tooltip-id="tags"
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="ciGcrStep_spec.tags"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                    style="display: flex; align-items: center;"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="tags"
                   >
-                    tagsLabel
-                  </p>
-                </div>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="display: flex; align-items: center;"
+                    >
+                      tagsLabel
+                    </p>
+                  </div>
+                </span>
                 <div
                   class="bp3-popover-wrapper typeSelectorWrapper"
                 >
@@ -936,17 +946,22 @@ exports[`GCR Step Edit View renders runtime inputs 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <div
-              class="Text--withDocsTooltip"
-              data-tooltip-id="gcrConnector"
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="ciGcrStep_spec.connectorRef"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="gcrConnector"
               >
-                pipelineSteps.gcpConnectorLabel
-              </p>
-            </div>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="display: flex; align-items: center;"
+                >
+                  pipelineSteps.gcpConnectorLabel
+                </p>
+              </div>
+            </span>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -1591,17 +1606,22 @@ exports[`GCR Step Edit View should render properly 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <div
-              class="Text--withDocsTooltip"
-              data-tooltip-id="gcrConnector"
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="ciGcrStep_spec.connectorRef"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="gcrConnector"
               >
-                pipelineSteps.gcpConnectorLabel
-              </p>
-            </div>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="display: flex; align-items: center;"
+                >
+                  pipelineSteps.gcpConnectorLabel
+                </p>
+              </div>
+            </span>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -1962,17 +1982,22 @@ exports[`GCR Step Edit View should render properly 1`] = `
               <div
                 class="formLabel"
               >
-                <div
-                  class="Text--withDocsTooltip"
-                  data-tooltip-id="tags"
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="ciGcrStep_spec.tags"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                    style="display: flex; align-items: center;"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="tags"
                   >
-                    tagsLabel
-                  </p>
-                </div>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="display: flex; align-items: center;"
+                    >
+                      tagsLabel
+                    </p>
+                  </div>
+                </span>
                 <div
                   class="bp3-popover-wrapper typeSelectorWrapper"
                 >
@@ -2207,17 +2232,22 @@ exports[`GCR Step InputSet View should render all fields 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <div
-              class="Text--withDocsTooltip"
-              data-tooltip-id="gcrConnector"
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="stepTestUtilForm_spec.connectorRef"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="gcrConnector"
               >
-                pipelineSteps.gcpConnectorLabel
-              </p>
-            </div>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="display: flex; align-items: center;"
+                >
+                  pipelineSteps.gcpConnectorLabel
+                </p>
+              </div>
+            </span>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -2536,17 +2566,22 @@ exports[`GCR Step InputSet View should render all fields 1`] = `
               <div
                 class="formLabel"
               >
-                <div
-                  class="Text--withDocsTooltip"
-                  data-tooltip-id="tags"
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="stepTestUtilForm_spec.tags"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                    style="display: flex; align-items: center;"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="tags"
                   >
-                    tagsLabel
-                  </p>
-                </div>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="display: flex; align-items: center;"
+                    >
+                      tagsLabel
+                    </p>
+                  </div>
+                </span>
                 <div
                   class="bp3-popover-wrapper typeSelectorWrapper"
                 >
@@ -2847,17 +2882,22 @@ exports[`GCR Step InputSet View should render all fields 1`] = `
               <div
                 class="formLabel"
               >
-                <div
-                  class="Text--withDocsTooltip"
-                  data-tooltip-id="labels"
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="stepTestUtilForm_spec.labels"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                    style="display: flex; align-items: center;"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="labels"
                   >
-                    pipelineSteps.labelsLabel
-                  </p>
-                </div>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="display: flex; align-items: center;"
+                    >
+                      pipelineSteps.labelsLabel
+                    </p>
+                  </div>
+                </span>
                 <div
                   class="bp3-popover-wrapper typeSelectorWrapper"
                 >
@@ -3047,17 +3087,22 @@ exports[`GCR Step InputSet View should render all fields 1`] = `
               <div
                 class="formLabel"
               >
-                <div
-                  class="Text--withDocsTooltip"
-                  data-tooltip-id="buildArgs"
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="stepTestUtilForm_spec.buildArgs"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                    style="display: flex; align-items: center;"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="buildArgs"
                   >
-                    pipelineSteps.buildArgsLabel
-                  </p>
-                </div>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="display: flex; align-items: center;"
+                    >
+                      pipelineSteps.buildArgsLabel
+                    </p>
+                  </div>
+                </span>
                 <div
                   class="bp3-popover-wrapper typeSelectorWrapper"
                 >
@@ -3283,6 +3328,10 @@ exports[`GCR Step InputSet View should render all fields 1`] = `
                 </span>
               </span>
             </div>
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="stepTestUtilForm_spec.optimize"
+            />
           </div>
         </div>
         <div

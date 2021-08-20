@@ -457,16 +457,21 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                           <div
                             class="formLabel"
                           >
-                            <div
-                              class="Text--withDocsTooltip"
-                              data-tooltip-id="stageSpecificationsSharedPaths"
+                            <span
+                              class="Tooltip--acenter"
+                              data-tooltip-id="ciBuildStage_sharedPaths"
                             >
-                              <p
-                                class="StyledProps--font StyledProps--main"
+                              <div
+                                class="Text--withDocsTooltip"
+                                data-tooltip-id="stageSpecificationsSharedPaths"
                               >
-                                pipelineSteps.build.stageSpecifications.sharedPaths
-                              </p>
-                            </div>
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                >
+                                  pipelineSteps.build.stageSpecifications.sharedPaths
+                                </p>
+                              </div>
+                            </span>
                             <div
                               class="bp3-popover-wrapper typeSelectorWrapper"
                             >

@@ -85,7 +85,12 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 1`] = `
           class="bp3-label"
           for="spec.instanceSelection"
         >
-          common.instanceLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="stepTestUtilForm_spec.instanceSelection"
+          >
+            common.instanceLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -406,7 +411,12 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
           class="bp3-label"
           for="spec.instanceSelection"
         >
-          common.instanceLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8Scale_spec.instanceSelection"
+          >
+            common.instanceLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -621,6 +631,10 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
               </span>
             </span>
           </div>
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8Scale_spec.skipSteadyStateCheck"
+          />
         </div>
       </div>
     </div>
@@ -808,7 +822,12 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
           class="bp3-label"
           for="spec.instanceSelection"
         >
-          common.instanceLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8Scale_spec.instanceSelection"
+          >
+            common.instanceLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -1287,7 +1306,12 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
           class="bp3-label"
           for="spec.instanceSelection"
         >
-          common.instanceLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8Scale_spec.instanceSelection"
+          >
+            common.instanceLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -1502,6 +1526,10 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
               </span>
             </span>
           </div>
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8Scale_spec.skipSteadyStateCheck"
+          />
         </div>
       </div>
     </div>
@@ -1758,7 +1786,12 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid payload for instan
           class="bp3-label"
           for="spec.instanceSelection"
         >
-          common.instanceLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8Scale_spec.instanceSelection"
+          >
+            common.instanceLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -1974,6 +2007,10 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid payload for instan
               </span>
             </span>
           </div>
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8Scale_spec.skipSteadyStateCheck"
+          />
         </div>
       </div>
     </div>
@@ -2161,7 +2198,12 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid payload for instan
           class="bp3-label"
           for="spec.instanceSelection"
         >
-          common.instanceLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8Scale_spec.instanceSelection"
+          >
+            common.instanceLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -2376,6 +2418,10 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid payload for instan
               </span>
             </span>
           </div>
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8Scale_spec.skipSteadyStateCheck"
+          />
         </div>
       </div>
     </div>
@@ -2593,7 +2639,12 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
           class="bp3-label"
           for="spec.instanceSelection"
         >
-          common.instanceLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8Scale_spec.instanceSelection"
+          >
+            common.instanceLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -2808,6 +2859,10 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
               </span>
             </span>
           </div>
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8Scale_spec.skipSteadyStateCheck"
+          />
         </div>
       </div>
     </div>

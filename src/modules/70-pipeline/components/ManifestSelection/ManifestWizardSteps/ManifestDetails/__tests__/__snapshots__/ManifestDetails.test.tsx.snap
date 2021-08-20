@@ -215,11 +215,16 @@ exports[`Manifest Details tests expand advanced section - when type is k8smanife
                 <div
                   class="formLabel"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="manifestDetails_paths"
                   >
-                    fileFolderPathText
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      fileFolderPathText
+                    </p>
+                  </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
                   >
@@ -465,6 +470,10 @@ exports[`Manifest Details tests expand advanced section - when type is k8smanife
                               </span>
                             </span>
                           </div>
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="manifestDetails_skipResourceVersioning"
+                          />
                         </div>
                       </div>
                       <span
@@ -785,11 +794,16 @@ exports[`Manifest Details tests initial rendering 1`] = `
                 <div
                   class="formLabel"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="manifestDetails_paths"
                   >
-                    common.git.filePath
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      common.git.filePath
+                    </p>
+                  </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
                   >
@@ -1230,11 +1244,16 @@ exports[`Manifest Details tests renders form in edit mode - when gitfetchtype is
                 <div
                   class="formLabel"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="manifestDetails_paths"
                   >
-                    common.git.filePath
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      common.git.filePath
+                    </p>
+                  </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
                   >
@@ -1675,11 +1694,16 @@ exports[`Manifest Details tests renders form in edit mode 1`] = `
                 <div
                   class="formLabel"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="manifestDetails_paths"
                   >
-                    common.git.filePath
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      common.git.filePath
+                    </p>
+                  </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
                   >
@@ -2120,11 +2144,16 @@ exports[`Manifest Details tests runtime value for connector should make runtime 
                 <div
                   class="formLabel"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="manifestDetails_paths"
                   >
-                    common.git.filePath
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      common.git.filePath
+                    </p>
+                  </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
                   >
@@ -2565,11 +2594,16 @@ exports[`Manifest Details tests when branch is runtime input 1`] = `
                 <div
                   class="formLabel"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="manifestDetails_paths"
                   >
-                    common.git.filePath
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      common.git.filePath
+                    </p>
+                  </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
                   >
@@ -3010,11 +3044,16 @@ exports[`Manifest Details tests when connectionType is of repo 1`] = `
                 <div
                   class="formLabel"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="manifestDetails_paths"
                   >
-                    common.git.filePath
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      common.git.filePath
+                    </p>
+                  </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
                   >
@@ -3455,11 +3494,16 @@ exports[`Manifest Details tests when scope is of account 1`] = `
                 <div
                   class="formLabel"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="manifestDetails_paths"
                   >
-                    common.git.filePath
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      common.git.filePath
+                    </p>
+                  </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
                   >

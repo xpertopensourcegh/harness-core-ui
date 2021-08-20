@@ -456,7 +456,12 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
           <div
             class="formLabel"
           >
-            common.git.filePath
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="k8Apply_spec.filePaths"
+            >
+              common.git.filePath
+            </span>
             <div
               class="bp3-popover-wrapper typeSelectorWrapper"
             >
@@ -836,6 +841,10 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
               </span>
             </span>
           </div>
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8Apply_spec.skipSteadyStateCheck"
+          />
         </div>
       </div>
     </div>
@@ -1024,7 +1033,12 @@ exports[`Test K8sApplyStep should render edit view as new step 1`] = `
           <div
             class="formLabel"
           >
-            common.git.filePath
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="k8Apply_spec.filePaths"
+            >
+              common.git.filePath
+            </span>
             <div
               class="bp3-popover-wrapper typeSelectorWrapper"
             >
@@ -1224,6 +1238,10 @@ exports[`Test K8sApplyStep should render edit view as new step 1`] = `
               </span>
             </span>
           </div>
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8Apply_spec.skipDryRun"
+          />
         </div>
       </div>
     </div>
@@ -1280,6 +1298,10 @@ exports[`Test K8sApplyStep should render edit view as new step 1`] = `
               </span>
             </span>
           </div>
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8Apply_spec.skipSteadyStateCheck"
+          />
         </div>
       </div>
     </div>

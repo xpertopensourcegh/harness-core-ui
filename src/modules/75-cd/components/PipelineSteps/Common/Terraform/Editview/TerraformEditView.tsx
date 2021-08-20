@@ -10,7 +10,8 @@ import {
   Layout,
   Color,
   Label,
-  Button
+  Button,
+  HarnessDocTooltip
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import cx from 'classnames'
@@ -187,8 +188,13 @@ export default function TerraformEditView(
               {formik.values?.spec?.configuration?.type === ConfigurationTypes.Inline && (
                 <>
                   <Layout.Vertical className={cx(css.addMarginBottom)}>
-                    <Label style={{ color: Color.GREY_900 }} className={css.configLabel}>
+                    <Label
+                      style={{ color: Color.GREY_900 }}
+                      className={css.configLabel}
+                      data-tooltip-id="tfConfigurationFile"
+                    >
                       {getString('cd.configurationFile')}
+                      <HarnessDocTooltip useStandAlone={true} tooltipId="tfConfigurationFile" />
                     </Label>
                     <div className={cx(css.configFile, css.addMarginBottom)}>
                       <div className={css.configField}>

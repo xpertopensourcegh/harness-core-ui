@@ -402,12 +402,17 @@ exports[`Artifact WizardStep tests new connector view works correctly 1`] = `
                     class="StyledProps--font StyledProps--main"
                     style="margin-bottom: 5px;"
                   >
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                      style="margin-bottom: 8px;"
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="artifactConnForm_connectorId"
                     >
-                      Docker Registry connector
-                    </p>
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                        style="margin-bottom: 8px;"
+                      >
+                        Docker Registry connector
+                      </p>
+                    </span>
                   </div>
                   <div
                     class="bp3-form-group"

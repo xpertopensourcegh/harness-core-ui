@@ -176,17 +176,22 @@ exports[`Plugin Step Edit View edit mode works 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <div
-              class="Text--withDocsTooltip"
-              data-tooltip-id="connector"
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="pluginStep_spec.connectorRef"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="connector"
               >
-                pipelineSteps.connectorLabel
-              </p>
-            </div>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="display: flex; align-items: center;"
+                >
+                  pipelineSteps.connectorLabel
+                </p>
+              </div>
+            </span>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -641,17 +646,22 @@ exports[`Plugin Step Edit View renders runtime inputs 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <div
-              class="Text--withDocsTooltip"
-              data-tooltip-id="connector"
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="pluginStep_spec.connectorRef"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="connector"
               >
-                pipelineSteps.connectorLabel
-              </p>
-            </div>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="display: flex; align-items: center;"
+                >
+                  pipelineSteps.connectorLabel
+                </p>
+              </div>
+            </span>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -1053,17 +1063,22 @@ exports[`Plugin Step Edit View should render properly 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <div
-              class="Text--withDocsTooltip"
-              data-tooltip-id="connector"
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="pluginStep_spec.connectorRef"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="connector"
               >
-                pipelineSteps.connectorLabel
-              </p>
-            </div>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="display: flex; align-items: center;"
+                >
+                  pipelineSteps.connectorLabel
+                </p>
+              </div>
+            </span>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -1426,17 +1441,22 @@ exports[`Plugin Step InputSet View should render all fields 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <div
-              class="Text--withDocsTooltip"
-              data-tooltip-id="connector"
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="stepTestUtilForm_spec.connectorRef"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="connector"
               >
-                pipelineSteps.connectorLabel
-              </p>
-            </div>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="display: flex; align-items: center;"
+                >
+                  pipelineSteps.connectorLabel
+                </p>
+              </div>
+            </span>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -1646,6 +1666,10 @@ exports[`Plugin Step InputSet View should render all fields 1`] = `
                 </span>
               </span>
             </div>
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="privileged"
+            />
           </div>
         </div>
         <div
@@ -1663,17 +1687,22 @@ exports[`Plugin Step InputSet View should render all fields 1`] = `
               <div
                 class="formLabel"
               >
-                <div
-                  class="Text--withDocsTooltip"
-                  data-tooltip-id="pluginSettings"
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="stepTestUtilForm_spec.settings"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                    style="display: flex; align-items: center;"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="pluginSettings"
                   >
-                    settingsLabel
-                  </p>
-                </div>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="display: flex; align-items: center;"
+                    >
+                      settingsLabel
+                    </p>
+                  </div>
+                </span>
                 <div
                   class="bp3-popover-wrapper typeSelectorWrapper"
                 >

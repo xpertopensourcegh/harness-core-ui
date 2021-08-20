@@ -176,17 +176,22 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <div
-              class="Text--withDocsTooltip"
-              data-tooltip-id="connector"
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="ciRunTests_spec.connectorRef"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="connector"
               >
-                pipelineSteps.connectorLabel
-              </p>
-            </div>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="display: flex; align-items: center;"
+                >
+                  pipelineSteps.connectorLabel
+                </p>
+              </div>
+            </span>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -987,17 +992,22 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <div
-              class="Text--withDocsTooltip"
-              data-tooltip-id="connector"
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="ciRunTests_spec.connectorRef"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="connector"
               >
-                pipelineSteps.connectorLabel
-              </p>
-            </div>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="display: flex; align-items: center;"
+                >
+                  pipelineSteps.connectorLabel
+                </p>
+              </div>
+            </span>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -1799,17 +1809,22 @@ exports[`RunTests Step Edit View should render properly 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <div
-              class="Text--withDocsTooltip"
-              data-tooltip-id="connector"
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="ciRunTests_spec.connectorRef"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="connector"
               >
-                pipelineSteps.connectorLabel
-              </p>
-            </div>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="display: flex; align-items: center;"
+                >
+                  pipelineSteps.connectorLabel
+                </p>
+              </div>
+            </span>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -2514,17 +2529,22 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <div
-              class="Text--withDocsTooltip"
-              data-tooltip-id="connector"
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="stepTestUtilForm_spec.connectorRef"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="connector"
               >
-                pipelineSteps.connectorLabel
-              </p>
-            </div>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="display: flex; align-items: center;"
+                >
+                  pipelineSteps.connectorLabel
+                </p>
+              </div>
+            </span>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -3092,6 +3112,10 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
                 </span>
               </span>
             </div>
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="stepTestUtilForm_spec.runOnlySelectedTests"
+            />
           </div>
         </div>
         <div
@@ -3179,17 +3203,22 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
             <div
               class="formLabel"
             >
-              <div
-                class="Text--withDocsTooltip"
-                data-tooltip-id="runTestsPreCommand"
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="stepTestUtilForm_spec.preCommand"
               >
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="display: flex; align-items: center;"
+                <div
+                  class="Text--withDocsTooltip"
+                  data-tooltip-id="runTestsPreCommand"
                 >
-                  preCommandLabel
-                </p>
-              </div>
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                    style="display: flex; align-items: center;"
+                  >
+                    preCommandLabel
+                  </p>
+                </div>
+              </span>
               <div
                 class="bp3-popover-wrapper typeSelectorWrapper"
               >
@@ -3282,17 +3311,22 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
             <div
               class="formLabel"
             >
-              <div
-                class="Text--withDocsTooltip"
-                data-tooltip-id="runTestsPostCommand"
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="stepTestUtilForm_spec.postCommand"
               >
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="display: flex; align-items: center;"
+                <div
+                  class="Text--withDocsTooltip"
+                  data-tooltip-id="runTestsPostCommand"
                 >
-                  postCommandLabel
-                </p>
-              </div>
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                    style="display: flex; align-items: center;"
+                  >
+                    postCommandLabel
+                  </p>
+                </div>
+              </span>
               <div
                 class="bp3-popover-wrapper typeSelectorWrapper"
               >
@@ -3388,17 +3422,22 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
               <div
                 class="formLabel"
               >
-                <div
-                  class="Text--withDocsTooltip"
-                  data-tooltip-id="reportPaths"
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="stepTestUtilForm_spec.reports.spec.paths"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                    style="display: flex; align-items: center;"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="reportPaths"
                   >
-                    pipelineSteps.reportPathsLabel
-                  </p>
-                </div>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="display: flex; align-items: center;"
+                    >
+                      pipelineSteps.reportPathsLabel
+                    </p>
+                  </div>
+                </span>
                 <div
                   class="bp3-popover-wrapper typeSelectorWrapper"
                 >
@@ -3554,17 +3593,22 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
               <div
                 class="formLabel"
               >
-                <div
-                  class="Text--withDocsTooltip"
-                  data-tooltip-id="environmentVariables"
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="stepTestUtilForm_spec.envVariables"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                    style="display: flex; align-items: center;"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="environmentVariables"
                   >
-                    environmentVariables
-                  </p>
-                </div>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="display: flex; align-items: center;"
+                    >
+                      environmentVariables
+                    </p>
+                  </div>
+                </span>
                 <div
                   class="bp3-popover-wrapper typeSelectorWrapper"
                 >
@@ -3754,17 +3798,22 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
               <div
                 class="formLabel"
               >
-                <div
-                  class="Text--withDocsTooltip"
-                  data-tooltip-id="outputVariables"
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="stepTestUtilForm_spec.outputVariables"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                    style="display: flex; align-items: center;"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="outputVariables"
                   >
-                    pipelineSteps.outputVariablesLabel
-                  </p>
-                </div>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="display: flex; align-items: center;"
+                    >
+                      pipelineSteps.outputVariablesLabel
+                    </p>
+                  </div>
+                </span>
                 <div
                   class="bp3-popover-wrapper typeSelectorWrapper"
                 >

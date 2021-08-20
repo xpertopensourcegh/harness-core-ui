@@ -142,7 +142,12 @@ exports[`BuildInfraSpecifications snapshot test Renders with multiple stages 1`]
                         class="StyledProps--font StyledProps--main"
                         style="margin-bottom: 5px;"
                       >
-                        
+                        <span
+                          class="Tooltip--acenter"
+                          data-tooltip-id="ciBuildInfra_connectorRef"
+                        >
+                          
+                        </span>
                       </div>
                       <div
                         style="display: flex; align-items: center;"
@@ -580,11 +585,16 @@ exports[`BuildInfraSpecifications snapshot test Renders with multiple stages 1`]
                           <div
                             class="formLabel"
                           >
-                            <p
-                              class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--margin-bottom-xsmall"
+                            <span
+                              class="Tooltip--acenter"
+                              data-tooltip-id="ciBuildInfra_annotations"
                             >
-                              ci.annotations
-                            </p>
+                              <p
+                                class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--margin-bottom-xsmall"
+                              >
+                                ci.annotations
+                              </p>
+                            </span>
                           </div>
                            
                           <span
@@ -628,11 +638,16 @@ exports[`BuildInfraSpecifications snapshot test Renders with multiple stages 1`]
                           <div
                             class="formLabel"
                           >
-                            <p
-                              class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--margin-bottom-xsmall"
+                            <span
+                              class="Tooltip--acenter"
+                              data-tooltip-id="ciBuildInfra_labels"
                             >
-                              ci.labels
-                            </p>
+                              <p
+                                class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--margin-bottom-xsmall"
+                              >
+                                ci.labels
+                              </p>
+                            </span>
                           </div>
                            
                           <span
@@ -943,7 +958,12 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
                     class="StyledProps--font StyledProps--main"
                     style="margin-bottom: 5px;"
                   >
-                    connectors.title.k8sCluster
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="ciBuildInfra_connectorRef"
+                    >
+                      connectors.title.k8sCluster
+                    </span>
                   </div>
                   <div
                     style="display: flex; align-items: center;"
@@ -1239,7 +1259,12 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
                     class="StyledProps--font StyledProps--main"
                     style="margin-bottom: 5px;"
                   >
-                    connectors.title.k8sCluster
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="ciBuildInfra_connectorRef"
+                    >
+                      connectors.title.k8sCluster
+                    </span>
                   </div>
                   <div
                     style="display: flex; align-items: center;"

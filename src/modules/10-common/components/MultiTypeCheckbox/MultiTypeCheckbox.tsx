@@ -127,6 +127,7 @@ export const FormMultiTypeCheckbox: React.FC<FormMultiTypeTextboxProps> = props 
           onChange?.(val, valueType, type)
         }}
       />
+      {!labelToBePassed ? <HarnessDocTooltip tooltipId={dataTooltipId} labelText={labelToBePassed} /> : null}
     </FormGroup>
   )
 }

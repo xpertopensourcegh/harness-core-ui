@@ -1004,12 +1004,17 @@ exports[`ManifestSelection tests new connector view works correctly 1`] = `
                     class="StyledProps--font StyledProps--main"
                     style="margin-bottom: 5px;"
                   >
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                      style="margin-bottom: 5px;"
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="manifestStore_connectorRef"
                     >
-                      pipeline.manifestType.gitConnectorLabel connector
-                    </p>
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                        style="margin-bottom: 5px;"
+                      >
+                        pipeline.manifestType.gitConnectorLabel connector
+                      </p>
+                    </span>
                   </div>
                   <div
                     class="bp3-form-group"

@@ -140,7 +140,12 @@ exports[`Terraform Remote Form tests initial rendering 1`] = `
                 <div
                   class="formLabel"
                 >
-                  filePaths
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="tfRemoteWizardForm_varFile.spec.store.spec.paths"
+                  >
+                    filePaths
+                  </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
                   >
@@ -646,8 +651,12 @@ exports[`Terraform Remote Form tests should be able to load edit mode correctly 
                   class="formLabel"
                 >
                   <span>
-                    filePaths
-                     
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="tfRemoteWizardForm_varFile.spec.store.spec.paths"
+                    >
+                      filePaths
+                    </span>
                     <b>
                       &lt;+input&gt;
                     </b>
@@ -1007,7 +1016,12 @@ exports[`Terraform Remote Form tests should be able to load edit mode correctly 
                 <div
                   class="formLabel"
                 >
-                  filePaths
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="tfRemoteWizardForm_varFile.spec.store.spec.paths"
+                  >
+                    filePaths
+                  </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
                   >
@@ -1593,7 +1607,12 @@ exports[`Terraform Remote Form tests should be able to load with commitId edit m
                 <div
                   class="formLabel"
                 >
-                  filePaths
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="tfRemoteWizardForm_varFile.spec.store.spec.paths"
+                  >
+                    filePaths
+                  </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
                   >
@@ -2179,7 +2198,12 @@ exports[`Terraform Remote Form tests should be able to remove and add paths 1`] 
                 <div
                   class="formLabel"
                 >
-                  filePaths
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="tfRemoteWizardForm_varFile.spec.store.spec.paths"
+                  >
+                    filePaths
+                  </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
                   >

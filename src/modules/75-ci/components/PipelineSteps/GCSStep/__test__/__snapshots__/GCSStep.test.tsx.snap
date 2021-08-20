@@ -104,17 +104,22 @@ exports[`GCS Step Edit View edit mode works 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <div
-              class="Text--withDocsTooltip"
-              data-tooltip-id="gcsConnector"
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="ciGcsStep_spec.connectorRef"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="gcsConnector"
               >
-                pipelineSteps.gcpConnectorLabel
-              </p>
-            </div>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="display: flex; align-items: center;"
+                >
+                  pipelineSteps.gcpConnectorLabel
+                </p>
+              </div>
+            </span>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -532,17 +537,22 @@ exports[`GCS Step Edit View renders runtime inputs 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <div
-              class="Text--withDocsTooltip"
-              data-tooltip-id="gcsConnector"
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="ciGcsStep_spec.connectorRef"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="gcsConnector"
               >
-                pipelineSteps.gcpConnectorLabel
-              </p>
-            </div>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="display: flex; align-items: center;"
+                >
+                  pipelineSteps.gcpConnectorLabel
+                </p>
+              </div>
+            </span>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -975,17 +985,22 @@ exports[`GCS Step Edit View should render edit view as new step 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <div
-              class="Text--withDocsTooltip"
-              data-tooltip-id="gcsConnector"
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="ciGcsStep_spec.connectorRef"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="gcsConnector"
               >
-                pipelineSteps.gcpConnectorLabel
-              </p>
-            </div>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="display: flex; align-items: center;"
+                >
+                  pipelineSteps.gcpConnectorLabel
+                </p>
+              </div>
+            </span>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -1349,17 +1364,22 @@ exports[`GCS Step InputSet View InputSet View should render all fields 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <div
-              class="Text--withDocsTooltip"
-              data-tooltip-id="gcsConnector"
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="stepTestUtilForm_spec.connectorRef"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="gcsConnector"
               >
-                pipelineSteps.gcpConnectorLabel
-              </p>
-            </div>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="display: flex; align-items: center;"
+                >
+                  pipelineSteps.gcpConnectorLabel
+                </p>
+              </div>
+            </span>
           </div>
           <div
             style="display: flex; align-items: center;"

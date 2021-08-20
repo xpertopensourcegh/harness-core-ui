@@ -432,6 +432,10 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests expand advanced secti
                               </span>
                             </span>
                           </div>
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="helmSkipResourceVersion"
+                          />
                         </div>
                       </div>
                     </div>

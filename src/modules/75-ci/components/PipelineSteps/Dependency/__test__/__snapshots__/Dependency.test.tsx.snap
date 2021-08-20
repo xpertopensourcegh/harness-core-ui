@@ -177,17 +177,22 @@ exports[`Dependency Edit view edit mode fails when cpu present but memory is not
               class="StyledProps--font StyledProps--main"
               style="margin-bottom: 5px;"
             >
-              <div
-                class="Text--withDocsTooltip"
-                data-tooltip-id="dependencyConnector"
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="dependencyBase_spec.connectorRef"
               >
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="display: flex; align-items: center;"
+                <div
+                  class="Text--withDocsTooltip"
+                  data-tooltip-id="dependencyConnector"
                 >
-                  pipelineSteps.connectorLabel
-                </p>
-              </div>
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                    style="display: flex; align-items: center;"
+                  >
+                    pipelineSteps.connectorLabel
+                  </p>
+                </div>
+              </span>
             </div>
             <div
               style="display: flex; align-items: center;"
@@ -609,17 +614,22 @@ exports[`Dependency Edit view edit mode works 1`] = `
               class="StyledProps--font StyledProps--main"
               style="margin-bottom: 5px;"
             >
-              <div
-                class="Text--withDocsTooltip"
-                data-tooltip-id="dependencyConnector"
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="dependencyBase_spec.connectorRef"
               >
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="display: flex; align-items: center;"
+                <div
+                  class="Text--withDocsTooltip"
+                  data-tooltip-id="dependencyConnector"
                 >
-                  pipelineSteps.connectorLabel
-                </p>
-              </div>
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                    style="display: flex; align-items: center;"
+                  >
+                    pipelineSteps.connectorLabel
+                  </p>
+                </div>
+              </span>
             </div>
             <div
               style="display: flex; align-items: center;"
@@ -1041,17 +1051,22 @@ exports[`Dependency Edit view edit mode works when memory present but cpu is not
               class="StyledProps--font StyledProps--main"
               style="margin-bottom: 5px;"
             >
-              <div
-                class="Text--withDocsTooltip"
-                data-tooltip-id="dependencyConnector"
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="dependencyBase_spec.connectorRef"
               >
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="display: flex; align-items: center;"
+                <div
+                  class="Text--withDocsTooltip"
+                  data-tooltip-id="dependencyConnector"
                 >
-                  pipelineSteps.connectorLabel
-                </p>
-              </div>
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                    style="display: flex; align-items: center;"
+                  >
+                    pipelineSteps.connectorLabel
+                  </p>
+                </div>
+              </span>
             </div>
             <div
               style="display: flex; align-items: center;"
@@ -1508,17 +1523,22 @@ exports[`Dependency Edit view renders runtime inputs 1`] = `
               class="StyledProps--font StyledProps--main"
               style="margin-bottom: 5px;"
             >
-              <div
-                class="Text--withDocsTooltip"
-                data-tooltip-id="dependencyConnector"
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="dependencyBase_spec.connectorRef"
               >
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="display: flex; align-items: center;"
+                <div
+                  class="Text--withDocsTooltip"
+                  data-tooltip-id="dependencyConnector"
                 >
-                  pipelineSteps.connectorLabel
-                </p>
-              </div>
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                    style="display: flex; align-items: center;"
+                  >
+                    pipelineSteps.connectorLabel
+                  </p>
+                </div>
+              </span>
             </div>
             <div
               style="display: flex; align-items: center;"
@@ -1922,17 +1942,22 @@ exports[`Dependency Edit view should render properly 1`] = `
               class="StyledProps--font StyledProps--main"
               style="margin-bottom: 5px;"
             >
-              <div
-                class="Text--withDocsTooltip"
-                data-tooltip-id="dependencyConnector"
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="dependencyBase_spec.connectorRef"
               >
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="display: flex; align-items: center;"
+                <div
+                  class="Text--withDocsTooltip"
+                  data-tooltip-id="dependencyConnector"
                 >
-                  pipelineSteps.connectorLabel
-                </p>
-              </div>
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                    style="display: flex; align-items: center;"
+                  >
+                    pipelineSteps.connectorLabel
+                  </p>
+                </div>
+              </span>
             </div>
             <div
               style="display: flex; align-items: center;"
@@ -2292,17 +2317,22 @@ exports[`Dependency InputSet View should render all fields 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <div
-              class="Text--withDocsTooltip"
-              data-tooltip-id="dependencyConnectorInfo"
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="stepTestUtilForm_spec.connectorRef"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="dependencyConnectorInfo"
               >
-                pipelineSteps.connectorLabel
-              </p>
-            </div>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="display: flex; align-items: center;"
+                >
+                  pipelineSteps.connectorLabel
+                </p>
+              </div>
+            </span>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -2512,6 +2542,10 @@ exports[`Dependency InputSet View should render all fields 1`] = `
                 </span>
               </span>
             </div>
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="privileged"
+            />
           </div>
         </div>
         <div
@@ -2529,17 +2563,22 @@ exports[`Dependency InputSet View should render all fields 1`] = `
               <div
                 class="formLabel"
               >
-                <div
-                  class="Text--withDocsTooltip"
-                  data-tooltip-id="dependencyEnvironmentVariables"
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="stepTestUtilForm_spec.envVariables"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                    style="display: flex; align-items: center;"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="dependencyEnvironmentVariables"
                   >
-                    environmentVariables
-                  </p>
-                </div>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="display: flex; align-items: center;"
+                    >
+                      environmentVariables
+                    </p>
+                  </div>
+                </span>
                 <div
                   class="bp3-popover-wrapper typeSelectorWrapper"
                 >
@@ -2729,17 +2768,22 @@ exports[`Dependency InputSet View should render all fields 1`] = `
               <div
                 class="formLabel"
               >
-                <div
-                  class="Text--withDocsTooltip"
-                  data-tooltip-id="dependencyEntryPoint"
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="stepTestUtilForm_spec.entrypoint"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                    style="display: flex; align-items: center;"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="dependencyEntryPoint"
                   >
-                    entryPointLabel
-                  </p>
-                </div>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="display: flex; align-items: center;"
+                    >
+                      entryPointLabel
+                    </p>
+                  </div>
+                </span>
                 <div
                   class="bp3-popover-wrapper typeSelectorWrapper"
                 >
@@ -2894,17 +2938,22 @@ exports[`Dependency InputSet View should render all fields 1`] = `
               <div
                 class="formLabel"
               >
-                <div
-                  class="Text--withDocsTooltip"
-                  data-tooltip-id="dependencyArgs"
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="stepTestUtilForm_spec.args"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                    style="display: flex; align-items: center;"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="dependencyArgs"
                   >
-                    argsLabel
-                  </p>
-                </div>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="display: flex; align-items: center;"
+                    >
+                      argsLabel
+                    </p>
+                  </div>
+                </span>
                 <div
                   class="bp3-popover-wrapper typeSelectorWrapper"
                 >

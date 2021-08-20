@@ -436,6 +436,10 @@ exports[`helm with GIT tests expand advanced section 1`] = `
                                 </span>
                               </span>
                             </div>
+                            <span
+                              class="Tooltip--acenter"
+                              data-tooltip-id="helmWithGit_skipResourceVersioning"
+                            />
                           </div>
                         </div>
                         <span
@@ -480,13 +484,18 @@ exports[`helm with GIT tests expand advanced section 1`] = `
                             <div
                               class="formLabel"
                             >
-                              <div
-                                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex"
+                              <span
+                                class="Tooltip--acenter"
+                                data-tooltip-id="helmWithGit_commandFlags"
                               >
-                                <div>
-                                  pipeline.manifestType.helmCommandFlagLabel
+                                <div
+                                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex"
+                                >
+                                  <div>
+                                    pipeline.manifestType.helmCommandFlagLabel
+                                  </div>
                                 </div>
-                              </div>
+                              </span>
                             </div>
                              
                             <span

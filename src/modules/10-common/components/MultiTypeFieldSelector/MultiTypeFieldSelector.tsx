@@ -8,7 +8,10 @@ import {
   getMultiTypeFromValue,
   RUNTIME_INPUT_VALUE,
   MultiTypeInputMenu,
-  FormError
+  FormError,
+  FormikTooltipContext,
+  DataTooltipInterface,
+  HarnessDocTooltip
 } from '@wings-software/uicore'
 import { Popover, IFormGroupProps, Intent, FormGroup } from '@blueprintjs/core'
 import cx from 'classnames'
@@ -33,6 +36,7 @@ export interface MultiTypeFieldSelectorProps extends Omit<IFormGroupProps, 'labe
   allowedTypes?: MultiTypeInputType[]
   isOptional?: boolean
   optionalLabel?: string
+  tooltipProps?: DataTooltipInterface
 }
 
 export interface ConnectedMultiTypeFieldSelectorProps extends MultiTypeFieldSelectorProps {
@@ -100,6 +104,10 @@ export function MultiTypeFieldSelector(props: ConnectedMultiTypeFieldSelectorPro
     ...rest
   } = restProps
 
+  const tooltipContext = React.useContext(FormikTooltipContext)
+  const dataTooltipId =
+    props.tooltipProps?.dataTooltipId || (tooltipContext?.formName ? `${tooltipContext?.formName}_${name}` : '')
+
   const value: string = get(formik?.values, name, '')
 
   const [type, setType] = React.useState(getMultiTypeFromValue(value))
@@ -123,10 +131,10 @@ export function MultiTypeFieldSelector(props: ConnectedMultiTypeFieldSelectorPro
       label={
         <div className={css.formLabel}>
           {type === MultiTypeInputType.FIXED ? (
-            labelText
+            <HarnessDocTooltip tooltipId={dataTooltipId} labelText={labelText} />
           ) : (
             <span>
-              {labelText}{' '}
+              <HarnessDocTooltip tooltipId={dataTooltipId} labelText={labelText} />
               {skipRenderValueInExpressionLabel && type === MultiTypeInputType.EXPRESSION ? null : <b>{value}</b>}
             </span>
           )}

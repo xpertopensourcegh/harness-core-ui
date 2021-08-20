@@ -87,7 +87,12 @@ exports[`Test Shell Script Step renders input sets 1`] = `
               <div
                 class="formLabel"
               >
-                script
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="stepTestUtilForm_spec.source.spec.script"
+                >
+                  script
+                </span>
                 <div
                   class="bp3-popover-wrapper typeSelectorWrapper"
                 >
@@ -681,7 +686,12 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
           <div
             class="formLabel"
           >
-            script
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="shellScriptForm_spec.source.spec.script"
+            >
+              script
+            </span>
             <div
               class="bp3-popover-wrapper typeSelectorWrapper"
             >
@@ -1054,7 +1064,12 @@ exports[`Test Shell Script Step should render edit view 1`] = `
           <div
             class="formLabel"
           >
-            script
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="shellScriptForm_spec.source.spec.script"
+            >
+              script
+            </span>
             <div
               class="bp3-popover-wrapper typeSelectorWrapper"
             >
@@ -1429,7 +1444,12 @@ exports[`Test Shell Script Step should render edit view 2`] = `
           <div
             class="formLabel"
           >
-            script
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="shellScriptForm_spec.source.spec.script"
+            >
+              script
+            </span>
             <div
               class="bp3-popover-wrapper typeSelectorWrapper"
             >
@@ -1804,7 +1824,12 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
           <div
             class="formLabel"
           >
-            script
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="shellScriptForm_spec.source.spec.script"
+            >
+              script
+            </span>
             <div
               class="bp3-popover-wrapper typeSelectorWrapper"
             >
@@ -2175,7 +2200,12 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
           <div
             class="formLabel"
           >
-            script
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="shellScriptForm_spec.source.spec.script"
+            >
+              script
+            </span>
             <div
               class="bp3-popover-wrapper typeSelectorWrapper"
             >

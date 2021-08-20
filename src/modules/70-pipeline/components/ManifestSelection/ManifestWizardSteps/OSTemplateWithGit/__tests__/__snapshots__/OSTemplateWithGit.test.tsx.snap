@@ -361,6 +361,10 @@ exports[`Open shift template with git tests expand advanced section 1`] = `
                               </span>
                             </span>
                           </div>
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="osTemplateWithGit_skipResourceVersioning"
+                          />
                         </div>
                       </div>
                       <span

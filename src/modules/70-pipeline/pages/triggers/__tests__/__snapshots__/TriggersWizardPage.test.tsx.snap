@@ -897,17 +897,22 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                                                 <div
                                                   class="formLabel"
                                                 >
-                                                  <div
-                                                    class="Text--withDocsTooltip"
-                                                    data-tooltip-id="runCommand"
+                                                  <span
+                                                    class="Tooltip--acenter"
+                                                    data-tooltip-id="wizardForm_webhook_pipeline.stages[0].stage.spec.execution.steps[0].step.spec.command"
                                                   >
-                                                    <p
-                                                      class="StyledProps--font StyledProps--main"
-                                                      style="display: flex; align-items: center;"
+                                                    <div
+                                                      class="Text--withDocsTooltip"
+                                                      data-tooltip-id="runCommand"
                                                     >
-                                                      commandLabel
-                                                    </p>
-                                                  </div>
+                                                      <p
+                                                        class="StyledProps--font StyledProps--main"
+                                                        style="display: flex; align-items: center;"
+                                                      >
+                                                        commandLabel
+                                                      </p>
+                                                    </div>
+                                                  </span>
                                                   <div
                                                     class="bp3-popover-wrapper typeSelectorWrapper"
                                                   >

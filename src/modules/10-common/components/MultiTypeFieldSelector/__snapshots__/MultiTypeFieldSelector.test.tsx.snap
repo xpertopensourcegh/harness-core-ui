@@ -94,7 +94,6 @@ exports[`<MultiTypeFieldSelector /> tests "disableTypeSelection" does not render
         >
           <span>
             Test Label
-             
             <b>
               &lt;+input&gt;
             </b>
@@ -141,7 +140,6 @@ exports[`<MultiTypeFieldSelector /> tests Change from "Fixed value" to "Runtime 
         >
           <span>
             Test Label
-             
             <b>
               &lt;+input&gt;
             </b>
@@ -297,7 +295,6 @@ exports[`<MultiTypeFieldSelector /> tests Detects "Runtime input" correctly: inp
         >
           <span>
             Test Label
-             
             <b>
               &lt;+input&gt;
             </b>

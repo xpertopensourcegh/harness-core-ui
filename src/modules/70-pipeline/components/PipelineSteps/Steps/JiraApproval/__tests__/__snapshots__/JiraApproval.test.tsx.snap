@@ -928,7 +928,12 @@ exports[`Jira Approval tests Edit stage - readonly: edit stage view readonly 1`]
               class="StyledProps--font StyledProps--main"
               style="margin-bottom: 5px;"
             >
-              pipeline.jiraApprovalStep.connectorRef
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="jiraApproval_spec.connectorRef"
+              >
+                pipeline.jiraApprovalStep.connectorRef
+              </span>
             </div>
             <div
               class="bp3-form-group connector"

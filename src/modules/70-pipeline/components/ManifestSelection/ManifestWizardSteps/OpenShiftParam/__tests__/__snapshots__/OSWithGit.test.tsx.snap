@@ -212,12 +212,17 @@ exports[`Open shift params with git tests renders form in edit mode 1`] = `
                 <div
                   class="formLabel"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                    style="display: flex; align-items: center;"
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="osWithGit_paths"
                   >
-                    pipelineSteps.paths
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="display: flex; align-items: center;"
+                    >
+                      pipelineSteps.paths
+                    </p>
+                  </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
                   >
@@ -565,12 +570,17 @@ exports[`Open shift params with git tests renders without crashing 1`] = `
                 <div
                   class="formLabel"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                    style="display: flex; align-items: center;"
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="osWithGit_paths"
                   >
-                    pipelineSteps.paths
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="display: flex; align-items: center;"
+                    >
+                      pipelineSteps.paths
+                    </p>
+                  </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
                   >
