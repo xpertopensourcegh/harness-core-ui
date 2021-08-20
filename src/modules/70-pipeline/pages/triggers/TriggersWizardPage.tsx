@@ -1331,6 +1331,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
   const renderArtifactWizard = (): JSX.Element | undefined => {
     const isEdit = !!onEditInitialValues?.identifier
     if (!wizardMap) return undefined
+
     return (
       <Wizard
         key={wizardKey} // re-renders with yaml to visual initialValues
