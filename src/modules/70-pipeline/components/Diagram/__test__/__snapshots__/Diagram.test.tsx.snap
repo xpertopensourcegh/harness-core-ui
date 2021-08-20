@@ -134,7 +134,7 @@ exports[`Test Diagram App should test basic snapshot 1`] = `
                   </svg>
                 </span>
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main closeNode Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main closeNode Button--iconOnly Button--without-shadow Button--withLeftIcon"
                   type="button"
                 >
                   <span
