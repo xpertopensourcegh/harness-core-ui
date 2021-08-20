@@ -66,6 +66,7 @@ cdLaunchText: Launch CD First Generation
 serviceDashboard:
   activeServiceInstancesLabel: '{{$.common.subscriptions.usage.srvcInst}}'
   servicesInLast: 'Services added in {{period}}'
+  serviceInstancesInLast: 'Active service instance trend in {{period}}'
   month: 'Last 30 days'
   3months: 'Last 3 months'
   6months: 'Last 6 months'
@@ -95,3 +96,4 @@ serviceDashboard:
   totalPipelines: Total Pipelines
   noPipelines: No pipeline execution in {{timeRange}} matches the given criteria
   envName: Env Name
+  noActiveServiceInstances: No Active Service Instances

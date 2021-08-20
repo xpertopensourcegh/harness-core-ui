@@ -2434,6 +2434,7 @@ export interface StringsMap {
   'cd.serviceDashboard.lastDeployment': string
   'cd.serviceDashboard.month': string
   'cd.serviceDashboard.mostActiveServices': string
+  'cd.serviceDashboard.noActiveServiceInstances': string
   'cd.serviceDashboard.noDeployments': string
   'cd.serviceDashboard.noPipelines': string
   'cd.serviceDashboard.noServiceDetails': string
@@ -2444,6 +2445,7 @@ export interface StringsMap {
   'cd.serviceDashboard.prod': string
   'cd.serviceDashboard.seeMore': string
   'cd.serviceDashboard.serviceInstances': string
+  'cd.serviceDashboard.serviceInstancesInLast': string
   'cd.serviceDashboard.servicesInLast': string
   'cd.serviceDashboard.totalPipelines': string
   'cd.serviceDashboard.totalServices': string

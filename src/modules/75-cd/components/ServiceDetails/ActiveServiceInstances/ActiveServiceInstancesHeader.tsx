@@ -132,7 +132,12 @@ export const ActiveServiceInstancesHeader: React.FC = () => {
       <Layout.Horizontal>
         {trendData.length ? (
           <Container margin={{ right: 'medium' }}>
-            <TrendPopover data={trendData}>
+            <TrendPopover
+              title={getString('cd.serviceDashboard.serviceInstancesInLast', {
+                period: getString('cd.serviceDashboard.6months')
+              })}
+              data={trendData}
+            >
               <SparklineChart
                 title={getString('cd.serviceDashboard.6monthTrend')}
                 data={trendData}

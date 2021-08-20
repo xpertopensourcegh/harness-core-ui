@@ -260,7 +260,7 @@ exports[`ServiceDetails should render ServiceDetails 1`] = `
                         <p
                           class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
                         >
-                          cd.serviceDashboard.noDeployments
+                          cd.serviceDashboard.noActiveServiceInstances
                         </p>
                       </div>
                     </div>
