@@ -68,8 +68,7 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
     if (virtuosoRef.current && typeof index === 'number' && index >= 0) {
       virtuosoRef.current.scrollToIndex(index)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentIndex])
+  }, [currentIndex, linesWithResults])
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLElement>): void {
     /* istanbul ignore else */
