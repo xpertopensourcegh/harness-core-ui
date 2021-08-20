@@ -79,14 +79,17 @@ const COLoadBalancerList: React.FC = () => {
     setAllAccessPoints(newAccessPoints)
   }
 
-  const { openCreateAccessPointModal } = useCreateAccessPointDialog({
-    onAccessPointSave: savedLb => {
-      // if (isCreateMode) {
-      //   setAccessPointsList([{ label: savedLb.name as string, value: savedLb.id as string }, ...accessPointsList])
-      // }
-      setAccessPoint(savedLb)
-    }
-  })
+  const { openCreateAccessPointModal } = useCreateAccessPointDialog(
+    {
+      onAccessPointSave: savedLb => {
+        // if (isCreateMode) {
+        //   setAccessPointsList([{ label: savedLb.name as string, value: savedLb.id as string }, ...accessPointsList])
+        // }
+        setAccessPoint(savedLb)
+      }
+    },
+    [allAccessPoints]
+  )
 
   const [selectedAccessPoints, setSelectedAccessPoints] = useState<AccessPoint[]>([])
   function CheckBoxCell(tableProps: CellProps<AccessPoint>): JSX.Element {
