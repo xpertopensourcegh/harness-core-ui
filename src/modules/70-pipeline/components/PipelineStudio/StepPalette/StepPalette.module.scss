@@ -218,12 +218,14 @@
         :global {
           .bp3-icon {
             margin-right: var(--spacing-small);
-            color: white !important;
           }
         }
       }
-      .notKubernetes {
+      .fillWhite {
         :global {
+          .bp3-icon {
+            color: white !important;
+          }
           path {
             fill: white !important;
           }

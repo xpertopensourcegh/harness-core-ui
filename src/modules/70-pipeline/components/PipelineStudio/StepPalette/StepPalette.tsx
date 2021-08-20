@@ -328,7 +328,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                       className={cx(
                         css.category,
                         selectedCategory === category.name && selectedLevel === 'category' && css.active,
-                        category?.name !== 'Kubernetes' && css.notKubernetes
+                        !iconMapByName[category.name || '']?.keepOriginal && css.fillWhite
                       )}
                       onClick={() => {
                         setSelectedLevel('category')
@@ -338,7 +338,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                     >
                       <Icon
                         size={14}
-                        name={iconMapByName[category.name || /* istanbul ignore next */ '']}
+                        name={iconMapByName[category.name || /* istanbul ignore next */ '']?.icon}
                         className={css.paletteIcon}
                       />
                       {category.name} ({category.stepsData?.length})
@@ -352,7 +352,8 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                       className={cx(
                         css.category,
                         selectedCategory === category.name && selectedLevel === 'category' && css.active,
-                        subCategory.length && css.hasSubCategories
+                        subCategory.length && css.hasSubCategories,
+                        !iconMapByName[category.name || '']?.keepOriginal && css.fillWhite
                       )}
                       onClick={() => {
                         setSelectedLevel('category')
@@ -362,7 +363,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                     >
                       <Icon
                         size={14}
-                        name={iconMapByName[category.name || /* istanbul ignore next */ '']}
+                        name={iconMapByName[category.name || /* istanbul ignore next */ '']?.icon}
                         className={css.paletteIcon}
                       />
                       {category.name}({subCategory.length})
