@@ -2934,6 +2934,7 @@ export interface StringsMap {
   'cf.auditLogs.timePST': string
   'cf.auditLogs.title': string
   'cf.auditLogs.unknown': string
+  'cf.auditLogs.updateMessageSegment': string
   'cf.auditLogs.user': string
   'cf.auditLogs.viewEventSummary': string
   'cf.auditLogs.yamlDifference': string
