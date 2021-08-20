@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react'
 import { isEqual } from 'lodash-es'
 import { Container, Text } from '@wings-software/uicore'
-import { DeploymentNodes } from '@pipeline/components/ExecutionVerification/components/DeploymentProgressAndNodes/components/DeploymentNodes/DeploymentNodes'
+import { DeploymentNodes } from '@cv/components/ExecutionVerification/components/DeploymentProgressAndNodes/components/DeploymentNodes/DeploymentNodes'
 import type { DeploymentNodeAnalysisResult } from '../../../DeploymentProgressAndNodes/components/DeploymentNodes/DeploymentNodes.constants'
 import css from './PrimaryAndCanaryNodes.module.scss'
 

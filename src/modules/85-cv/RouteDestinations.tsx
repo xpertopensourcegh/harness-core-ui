@@ -23,6 +23,7 @@ import type { AccountPathProps, ModulePathParams, ProjectPathProps } from '@comm
 import { MinimalLayout } from '@common/layouts'
 
 import './components/PipelineSteps'
+import './components/ExecutionVerification'
 import CVDashboardPage from '@cv/pages/dashboard/CVDashboardPage'
 import DeploymentDrilldownView from '@cv/pages/dashboard/deployment-drilldown/DeploymentDrilldownView'
 import ActivityChangesDrilldownView from '@cv/pages/dashboard/activity-changes-drilldown/ActivityChangesDrilldownView'
