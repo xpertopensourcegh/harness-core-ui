@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Sidenav render 1`] = `
+exports[`Sidenav it should render 1`] = `
 <div>
   <div
     class="Layout--vertical Layout--layout-spacing-small StyledProps--main"

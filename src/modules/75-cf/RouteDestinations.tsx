@@ -77,9 +77,9 @@ import { SegmentDetailPage } from './pages/segment-details/SegmentDetailPage'
 import { OnboardingPage } from './pages/onboarding/OnboardingPage'
 import { OnboardingDetailPage } from './pages/onboarding/OnboardingDetailPage'
 
-// temporarily disabled until feature flag ready
-// import './pages/pipeline-studio/views/FeatureFlagStage'
-// import './components/PipelineSteps/index'
+// register FF pipelines with pipeline studio
+import './pages/pipeline-studio/views/FeatureFlagStage'
+import './components/PipelineSteps/index'
 
 import CFTrialHomePage from './pages/home/CFTrialHomePage'
 import CFPipelineDeploymentList from './pages/pipeline-deployment-list/CFPipelineDeploymentList'
