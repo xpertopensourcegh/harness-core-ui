@@ -1,12 +1,11 @@
 import React from 'react'
 import type { FormikProps } from 'formik'
-import { FormInput, Text, Color, ModalErrorHandlerBinding } from '@wings-software/uicore'
+import { FormInput, Text, Color, ModalErrorHandlerBinding, Icon } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { useListAwsRegions } from 'services/portal'
 import { AwsSecretManagerConfigFormData, CredTypeValues } from '@connectors/interfaces/ConnectorInterface'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import { Connectors } from '@connectors/constants'
-import { PageSpinner } from '@common/components'
 
 interface AwsSecretManagerAccessKeyFormProps {
   formik: FormikProps<AwsSecretManagerConfigFormData>
@@ -62,7 +61,7 @@ const AwsSecretManagerAccessKeyForm: React.FC<AwsSecretManagerAccessKeyFormProps
       )}
       <FormInput.Text name="secretNamePrefix" label={getString('connectors.awsSecretManager.secretNamePrefix')} />
       {loading ? (
-        <PageSpinner />
+        <Icon margin="medium" name="spinner" size={15} color={Color.BLUE_500} />
       ) : (
         <FormInput.Select name="region" items={regionValues} label={getString('regionLabel')} />
       )}

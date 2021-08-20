@@ -1400,6 +1400,7 @@ export interface StringsMap {
   'connectors.testConnectionStep.validationText.appD': string
   'connectors.testConnectionStep.validationText.artifactory': string
   'connectors.testConnectionStep.validationText.aws': string
+  'connectors.testConnectionStep.validationText.awsSecretManager': string
   'connectors.testConnectionStep.validationText.azure': string
   'connectors.testConnectionStep.validationText.azureKeyVault': string
   'connectors.testConnectionStep.validationText.bitbucket': string

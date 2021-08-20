@@ -187,7 +187,7 @@ export const getConnectorIconByType = (type: string): IconName => {
     case Connectors.CEAWS:
       return 'service-aws'
     case Connectors.AWS_SECRET_MANAGER:
-      return 'cog'
+      return 'aws-secret-manager'
     default:
       return 'placeholder'
   }

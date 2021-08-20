@@ -124,6 +124,7 @@ testConnectionStep:
     appD: Validating AppDynamics authentication and permissions
     splunk: Validating Splunk authentication and permissions
     vault: Validating HashiCorp Vault authentication and permissions
+    awsSecretManager: Validating AWS Secret Manager authentication and permissions
     bitbucket: Validating Bitbucket authentication and permissions
     gitlab: Validating GitLab authentication and permissions
     github: Validating GitHub authentication and permissions

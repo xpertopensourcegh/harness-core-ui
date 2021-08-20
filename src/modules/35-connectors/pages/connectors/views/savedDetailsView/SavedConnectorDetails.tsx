@@ -376,7 +376,19 @@ const getAwsSecretManagerSchema = (connector: ConnectorInfoDTO): Array<ActivityD
   return [
     {
       label: 'credType',
-      value: data.credential?.type
+      value: data.credential.type
+    },
+    {
+      label: 'connectors.awsKms.accessKeyLabel',
+      value: data.credential.spec?.accessKey
+    },
+    {
+      label: 'connectors.awsKms.secretKeyLabel',
+      value: data.credential.spec?.secretKey
+    },
+    {
+      label: 'connectors.awsSecretManager.secretNamePrefix',
+      value: data.secretNamePrefix
     },
     {
       label: 'regionLabel',

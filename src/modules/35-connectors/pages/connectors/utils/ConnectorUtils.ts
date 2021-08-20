@@ -1313,6 +1313,8 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
       return 'service-jira'
     case Connectors.AWS_KMS:
       return 'aws-kms'
+    case Connectors.AWS_SECRET_MANAGER:
+      return 'aws-secret-manager'
     case Connectors.CE_AZURE:
       return 'service-azure'
     case Connectors.DATADOG:
@@ -1436,7 +1438,7 @@ export const getReferredEntityLabelByType = (type: string) => {
   }
 }
 
-export function GetTestConnectionValidationTextByType(type: ConnectorConfigDTO['type']) {
+export function GetTestConnectionValidationTextByType(type: ConnectorConfigDTO['type']): string {
   const { getString } = useStrings()
   switch (type) {
     case Connectors.DOCKER:
@@ -1459,6 +1461,8 @@ export function GetTestConnectionValidationTextByType(type: ConnectorConfigDTO['
       return getString('connectors.testConnectionStep.validationText.splunk')
     case Connectors.VAULT:
       return getString('connectors.testConnectionStep.validationText.vault')
+    case Connectors.AWS_SECRET_MANAGER:
+      return getString('connectors.testConnectionStep.validationText.awsSecretManager')
     case Connectors.BITBUCKET:
       return getString('connectors.testConnectionStep.validationText.bitbucket')
     case Connectors.GITLAB:
