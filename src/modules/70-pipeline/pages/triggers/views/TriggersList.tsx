@@ -20,13 +20,28 @@ import { TriggersListSection, GoToEditWizardInterface } from './TriggersListSect
 
 import { TriggerTypes } from '../utils/TriggersWizardPageUtils'
 import { getCategoryItems, ItemInterface, TriggerDataInterface } from '../utils/TriggersListUtils'
+import { isGeneralStoreAccount, isLocalHost, isProduction, isQA, isValidQAAccount } from './TriggerHelper'
+
 import css from './TriggersList.module.scss'
 
 interface TriggersListPropsInterface {
   onNewTriggerClick: (val: TriggerDataInterface) => void
 }
-// This is temporary feature flag for NewArtifact Trigger
-const NG_NEWARTIFACT_TRIGGER = (false && window.location.href.includes('localhost')) || false
+
+const canEnableManifestTrigger = (accountId: string) => {
+  /* istanbul ignore next */
+  if (isProduction()) {
+    /* istanbul ignore next */
+    return isGeneralStoreAccount(accountId)
+  } else if (isQA()) {
+    /* istanbul ignore next */
+    return isValidQAAccount(accountId)
+  } else if (isLocalHost()) {
+    return true
+  }
+  return false
+}
+
 export default function TriggersList(props: TriggersListPropsInterface & GitQueryParams): JSX.Element {
   const { onNewTriggerClick, repoIdentifier, branch } = props
 
@@ -38,6 +53,8 @@ export default function TriggersList(props: TriggersListPropsInterface & GitQuer
       pipelineIdentifier: string
     }>
   >()
+  // This is temporary feature flag for NewArtifact Trigger
+  const NG_NEWARTIFACT_TRIGGER = canEnableManifestTrigger(accountId)
 
   const [searchParam, setSearchParam] = useState('')
   const { getString } = useStrings()
@@ -115,6 +132,7 @@ export default function TriggersList(props: TriggersListPropsInterface & GitQuer
     )
   }
   const goToDetails = ({ triggerIdentifier }: GoToEditWizardInterface): void => {
+    /* istanbul ignore next */
     history.push(
       routes.toTriggersDetailPage({
         accountId,
@@ -130,6 +148,7 @@ export default function TriggersList(props: TriggersListPropsInterface & GitQuer
   }
 
   const [openDrawer, hideDrawer] = useModalHook(() => {
+    /* istanbul ignore next */
     const onSelect = (val: ItemInterface): void => {
       if (val?.categoryValue) {
         hideDrawer()
@@ -143,6 +162,7 @@ export default function TriggersList(props: TriggersListPropsInterface & GitQuer
     }
 
     const categoryItems = getCategoryItems(getString)
+    /* istanbul ignore next */
     if (NG_NEWARTIFACT_TRIGGER) {
       categoryItems.categories.splice(1, 0, {
         categoryLabel: getString('manifestsText'),
