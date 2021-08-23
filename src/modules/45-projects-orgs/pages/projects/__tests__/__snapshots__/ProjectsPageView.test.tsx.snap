@@ -224,9 +224,9 @@ exports[`Project Page List Create Project and Close 1`] = `
         style="flex: 1;"
       />
       <div
-        class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch ExpandingSearchInput--flip  ExpandingSearchInput--light"
+        class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch  ExpandingSearchInput--alwaysExpanded ExpandingSearchInput--light"
         data-name=""
-        style="max-width: 350px;"
+        style="width: 300px; max-width: 300px;"
       >
         <span
           class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey700"
@@ -251,7 +251,7 @@ exports[`Project Page List Create Project and Close 1`] = `
           class="bp3-input  ExpandingSearchInput--filter"
           dir="auto"
           placeholder="projectsOrgs.search"
-          style="padding-right: 0px;"
+          style="padding-right: 38px;"
           type="search"
           value=""
         />
@@ -3561,9 +3561,9 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
         style="flex: 1;"
       />
       <div
-        class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch ExpandingSearchInput--flip  ExpandingSearchInput--light"
+        class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch  ExpandingSearchInput--alwaysExpanded ExpandingSearchInput--light"
         data-name=""
-        style="max-width: 350px;"
+        style="width: 300px; max-width: 300px;"
       >
         <span
           class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey700"
@@ -3588,7 +3588,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
           class="bp3-input  ExpandingSearchInput--filter"
           dir="auto"
           placeholder="projectsOrgs.search"
-          style="padding-right: 0px;"
+          style="padding-right: 38px;"
           type="search"
           value=""
         />
@@ -6898,9 +6898,9 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
         style="flex: 1;"
       />
       <div
-        class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch ExpandingSearchInput--flip  ExpandingSearchInput--light"
+        class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch  ExpandingSearchInput--alwaysExpanded ExpandingSearchInput--light"
         data-name=""
-        style="max-width: 350px;"
+        style="width: 300px; max-width: 300px;"
       >
         <span
           class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey700"
@@ -6925,7 +6925,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
           class="bp3-input  ExpandingSearchInput--filter"
           dir="auto"
           placeholder="projectsOrgs.search"
-          style="padding-right: 0px;"
+          style="padding-right: 38px;"
           type="search"
           value=""
         />
@@ -10235,9 +10235,9 @@ exports[`Project Page List Whole Modal Test 1`] = `
         style="flex: 1;"
       />
       <div
-        class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch ExpandingSearchInput--flip  ExpandingSearchInput--light"
+        class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch  ExpandingSearchInput--alwaysExpanded ExpandingSearchInput--light"
         data-name=""
-        style="max-width: 350px;"
+        style="width: 300px; max-width: 300px;"
       >
         <span
           class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey700"
@@ -10262,7 +10262,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
           class="bp3-input  ExpandingSearchInput--filter"
           dir="auto"
           placeholder="projectsOrgs.search"
-          style="padding-right: 0px;"
+          style="padding-right: 38px;"
           type="search"
           value=""
         />

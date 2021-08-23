@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, TextInput, useModalHook } from '@wings-software/uicore'
+import { Button, Color, TextInput, useModalHook } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { Page } from '@common/exports'
@@ -197,10 +197,11 @@ export default function TriggersList(props: TriggersListPropsInterface & GitQuer
           onClick={openDrawer}
         ></Button>
         <TextInput
-          leftIcon="search"
+          leftIcon="thinner-search"
+          leftIconProps={{ name: 'thinner-search', size: 14, color: Color.GREY_700 }}
           placeholder={getString('search')}
           data-name="search"
-          className={css.search}
+          wrapperClassName={css.searchWrapper}
           value={searchParam}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setSearchParam(e.target.value.trim())

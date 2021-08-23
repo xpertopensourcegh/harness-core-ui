@@ -367,9 +367,9 @@ exports[`Services should render Services 1`] = `
             class="Layout--horizontal StyledProps--main StyledProps--margin-left-small"
           >
             <div
-              class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch ExpandingSearchInput--flip  ExpandingSearchInput--light"
+              class="bp3-input-group ui-search-box ExpandingSearchInput--main  ExpandingSearchInput--flip  ExpandingSearchInput--light"
               data-name=""
-              style="max-width: 200px;"
+              style="max-width: 232px;"
             >
               <span
                 class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey700"
