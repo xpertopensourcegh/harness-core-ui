@@ -2401,9 +2401,11 @@ export interface StringsMap {
   'cd.filePathRequired': string
   'cd.folderPath': string
   'cd.gitFetchTypeRequired': string
+  'cd.gitOps': string
   'cd.learnMore': string
   'cd.manifestPathsCannotBeEmpty': string
   'cd.namespaceValidation': string
+  'cd.newProvider': string
   'cd.pathCannotBeEmpty': string
   'cd.pipelineSteps.infraTab.deploymentType': string
   'cd.pipelineSteps.serviceTab.deploymentTypeRequired': string
