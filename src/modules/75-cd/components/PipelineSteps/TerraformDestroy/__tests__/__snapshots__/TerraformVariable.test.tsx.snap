@@ -734,7 +734,7 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
                             class="bp3-popover-target typeSelector"
                           >
                             <button
-                              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                               type="button"
                             >
                               <span
@@ -755,11 +755,6 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
                                       fill="currentColor"
                                     />
                                   </svg>
-                                </span>
-                                <span
-                                  class="btnText"
-                                >
-                                  inputTypes.FIXED
                                 </span>
                               </span>
                             </button>
@@ -847,7 +842,7 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
                               class="bp3-popover-target typeSelector"
                             >
                               <button
-                                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                                 type="button"
                               >
                                 <span
@@ -868,11 +863,6 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
                                         fill="currentColor"
                                       />
                                     </svg>
-                                  </span>
-                                  <span
-                                    class="btnText"
-                                  >
-                                    inputTypes.FIXED
                                   </span>
                                 </span>
                               </button>

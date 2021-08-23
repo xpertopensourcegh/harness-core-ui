@@ -11,15 +11,13 @@ import {
   FormError,
   FormikTooltipContext,
   DataTooltipInterface,
-  HarnessDocTooltip
+  HarnessDocTooltip,
+  FormInput
 } from '@wings-software/uicore'
 import { Popover, IFormGroupProps, Intent, FormGroup } from '@blueprintjs/core'
 import cx from 'classnames'
 import { FormikContext, connect } from 'formik'
 import { get } from 'lodash-es'
-
-import { String } from 'framework/strings'
-import type { StringKeys } from 'framework/strings'
 import { errorCheck } from '@common/utils/formikHelpers'
 
 import css from './MultiTypeFieldSelctor.module.scss'
@@ -63,15 +61,11 @@ function TypeSelector(props: TypeSelectorProps): React.ReactElement {
       targetClassName={css.typeSelector}
       popoverClassName={css.popover}
     >
-      <Button minimal className={css.btn} withoutBoxShadow>
+      <Button minimal className={css.btn} withoutBoxShadow withoutCurrentColor>
         <Icon
           className={cx(css.icon, (css as any)[type.toLowerCase()])}
           size={TypeIconSize[type]}
           name={TypeIcon[type]}
-        />
-        <String
-          className={css.btnText}
-          stringID={`inputTypes.${type}` as StringKeys /* TODO: fix this properly using a map */}
         />
       </Button>
       <MultiTypeInputMenu allowedTypes={allowedTypes} onTypeSelect={onChange} />
@@ -130,25 +124,20 @@ export function MultiTypeFieldSelector(props: ConnectedMultiTypeFieldSelectorPro
       disabled={disabled}
       label={
         <div className={css.formLabel}>
-          {type === MultiTypeInputType.FIXED ? (
-            <HarnessDocTooltip tooltipId={dataTooltipId} labelText={labelText} />
-          ) : (
-            <span>
-              <HarnessDocTooltip tooltipId={dataTooltipId} labelText={labelText} />
-              {skipRenderValueInExpressionLabel && type === MultiTypeInputType.EXPRESSION ? null : <b>{value}</b>}
-            </span>
-          )}
+          <HarnessDocTooltip tooltipId={dataTooltipId} labelText={labelText} />
           {disableTypeSelection ? null : (
             <TypeSelector allowedTypes={allowedTypes} type={type} onChange={handleChange} />
           )}
         </div>
       }
     >
-      {disableTypeSelection || type === MultiTypeInputType.FIXED
-        ? children
-        : type === MultiTypeInputType.EXPRESSION && typeof expressionRender === 'function'
-        ? expressionRender()
-        : null}
+      {disableTypeSelection || type === MultiTypeInputType.FIXED ? (
+        children
+      ) : type === MultiTypeInputType.EXPRESSION && typeof expressionRender === 'function' ? (
+        expressionRender()
+      ) : type === MultiTypeInputType.RUNTIME && typeof value === 'string' ? (
+        <FormInput.Text className={css.runtimeDisabled} name={name} disabled label="" />
+      ) : null}
     </FormGroup>
   )
 }

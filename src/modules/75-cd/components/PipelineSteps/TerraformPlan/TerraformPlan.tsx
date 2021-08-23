@@ -266,9 +266,7 @@ function TerraformPlanWidget(
                           )}
                         </div>
                         <TfVarFileList formik={formik} isReadonly={props.readonly} />
-                        <div
-                          className={cx(stepCss.formGroup, stepCss.alignStart, css.addMarginTop, css.addMarginBottom)}
-                        >
+                        <div className={cx(stepCss.formGroup, css.addMarginTop, css.addMarginBottom)}>
                           <MultiTypeFieldSelector
                             name="spec.configuration.backendConfig.spec.content"
                             label={

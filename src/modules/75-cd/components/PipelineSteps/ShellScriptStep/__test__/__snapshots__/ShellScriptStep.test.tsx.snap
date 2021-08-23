@@ -100,7 +100,7 @@ exports[`Test Shell Script Step renders input sets 1`] = `
                     class="bp3-popover-target typeSelector"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                       type="button"
                     >
                       <span
@@ -121,11 +121,6 @@ exports[`Test Shell Script Step renders input sets 1`] = `
                               fill="currentColor"
                             />
                           </svg>
-                        </span>
-                        <span
-                          class="btnText"
-                        >
-                          inputTypes.FIXED
                         </span>
                       </span>
                     </button>
@@ -699,7 +694,7 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
                 class="bp3-popover-target typeSelector"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                   type="button"
                 >
                   <span
@@ -720,11 +715,6 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
                           fill="currentColor"
                         />
                       </svg>
-                    </span>
-                    <span
-                      class="btnText"
-                    >
-                      inputTypes.FIXED
                     </span>
                   </span>
                 </button>
@@ -1077,7 +1067,7 @@ exports[`Test Shell Script Step should render edit view 1`] = `
                 class="bp3-popover-target typeSelector"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                   type="button"
                 >
                   <span
@@ -1098,11 +1088,6 @@ exports[`Test Shell Script Step should render edit view 1`] = `
                           fill="currentColor"
                         />
                       </svg>
-                    </span>
-                    <span
-                      class="btnText"
-                    >
-                      inputTypes.FIXED
                     </span>
                   </span>
                 </button>
@@ -1457,7 +1442,7 @@ exports[`Test Shell Script Step should render edit view 2`] = `
                 class="bp3-popover-target typeSelector"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                   type="button"
                 >
                   <span
@@ -1478,11 +1463,6 @@ exports[`Test Shell Script Step should render edit view 2`] = `
                           fill="currentColor"
                         />
                       </svg>
-                    </span>
-                    <span
-                      class="btnText"
-                    >
-                      inputTypes.FIXED
                     </span>
                   </span>
                 </button>
@@ -1837,7 +1817,7 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
                 class="bp3-popover-target typeSelector"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                   type="button"
                 >
                   <span
@@ -1858,11 +1838,6 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
                           fill="currentColor"
                         />
                       </svg>
-                    </span>
-                    <span
-                      class="btnText"
-                    >
-                      inputTypes.FIXED
                     </span>
                   </span>
                 </button>
@@ -2213,7 +2188,7 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
                 class="bp3-popover-target typeSelector"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                   type="button"
                 >
                   <span
@@ -2234,11 +2209,6 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
                           fill="currentColor"
                         />
                       </svg>
-                    </span>
-                    <span
-                      class="btnText"
-                    >
-                      inputTypes.FIXED
                     </span>
                   </span>
                 </button>

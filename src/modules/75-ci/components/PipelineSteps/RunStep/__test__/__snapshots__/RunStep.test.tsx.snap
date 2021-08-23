@@ -434,7 +434,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                     class="bp3-popover-target typeSelector"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                       type="button"
                     >
                       <span
@@ -455,11 +455,6 @@ exports[`Run Step Edit View edit mode works 1`] = `
                               fill="currentColor"
                             />
                           </svg>
-                        </span>
-                        <span
-                          class="btnText"
-                        >
-                          inputTypes.FIXED
                         </span>
                       </span>
                     </button>
@@ -725,7 +720,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
               </div>
               <button
                 class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
-                id="configureOptions"
+                id="configureOptions_description"
                 type="button"
               >
                 <span
@@ -840,7 +835,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
             </div>
             <button
               class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
-              id="configureOptions"
+              id="configureOptions_spec.connectorRef"
               type="button"
             >
               <span
@@ -940,7 +935,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
             </div>
             <button
               class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
-              id="configureOptions"
+              id="configureOptions_spec.image"
               type="button"
             >
               <span
@@ -980,26 +975,21 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
               <div
                 class="formLabel"
               >
-                <span>
-                  <span
-                    class="Tooltip--acenter"
-                    data-tooltip-id="ciRunStep_spec.command"
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="ciRunStep_spec.command"
+                >
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="runCommand"
                   >
-                    <div
-                      class="Text--withDocsTooltip"
-                      data-tooltip-id="runCommand"
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="display: flex; align-items: center;"
                     >
-                      <p
-                        class="StyledProps--font StyledProps--main"
-                        style="display: flex; align-items: center;"
-                      >
-                        commandLabel
-                      </p>
-                    </div>
-                  </span>
-                  <b>
-                    &lt;+input&gt;
-                  </b>
+                      commandLabel
+                    </p>
+                  </div>
                 </span>
                 <div
                   class="bp3-popover-wrapper typeSelectorWrapper"
@@ -1008,7 +998,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
                     class="bp3-popover-target typeSelector"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                       type="button"
                     >
                       <span
@@ -1030,11 +1020,6 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
                             />
                           </svg>
                         </span>
-                        <span
-                          class="btnText"
-                        >
-                          inputTypes.RUNTIME
-                        </span>
                       </span>
                     </button>
                   </div>
@@ -1047,11 +1032,34 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
             </label>
             <div
               class="bp3-form-content"
-            />
+            >
+              <div
+                class="bp3-form-group bp3-disabled runtimeDisabled"
+                data-id="spec.command-5"
+              >
+                
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="bp3-input-group bp3-disabled"
+                  >
+                    <input
+                      autocomplete="off"
+                      class="bp3-input"
+                      disabled=""
+                      name="spec.command"
+                      type="text"
+                      value="<+input>"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <button
             class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
-            id="configureOptions"
+            id="configureOptions_spec.command"
             type="button"
           >
             <span
@@ -1543,7 +1551,7 @@ exports[`Run Step Edit View should render properly 1`] = `
                     class="bp3-popover-target typeSelector"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                       type="button"
                     >
                       <span
@@ -1564,11 +1572,6 @@ exports[`Run Step Edit View should render properly 1`] = `
                               fill="currentColor"
                             />
                           </svg>
-                        </span>
-                        <span
-                          class="btnText"
-                        >
-                          inputTypes.FIXED
                         </span>
                       </span>
                     </button>
@@ -1978,7 +1981,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
                   class="bp3-popover-target typeSelector"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                     type="button"
                   >
                     <span
@@ -1999,11 +2002,6 @@ exports[`Run Step InputSet View should render all fields 1`] = `
                             fill="currentColor"
                           />
                         </svg>
-                      </span>
-                      <span
-                        class="btnText"
-                      >
-                        inputTypes.FIXED
                       </span>
                     </span>
                   </button>
@@ -2146,7 +2144,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
                     class="bp3-popover-target typeSelector"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                       type="button"
                     >
                       <span
@@ -2167,11 +2165,6 @@ exports[`Run Step InputSet View should render all fields 1`] = `
                               fill="currentColor"
                             />
                           </svg>
-                        </span>
-                        <span
-                          class="btnText"
-                        >
-                          inputTypes.FIXED
                         </span>
                       </span>
                     </button>
@@ -2317,7 +2310,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
                     class="bp3-popover-target typeSelector"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                       type="button"
                     >
                       <span
@@ -2338,11 +2331,6 @@ exports[`Run Step InputSet View should render all fields 1`] = `
                               fill="currentColor"
                             />
                           </svg>
-                        </span>
-                        <span
-                          class="btnText"
-                        >
-                          inputTypes.FIXED
                         </span>
                       </span>
                     </button>
@@ -2522,7 +2510,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
                     class="bp3-popover-target typeSelector"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                       type="button"
                     >
                       <span
@@ -2543,11 +2531,6 @@ exports[`Run Step InputSet View should render all fields 1`] = `
                               fill="currentColor"
                             />
                           </svg>
-                        </span>
-                        <span
-                          class="btnText"
-                        >
-                          inputTypes.FIXED
                         </span>
                       </span>
                     </button>

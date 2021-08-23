@@ -230,7 +230,7 @@ exports[`Open shift params with git tests renders form in edit mode 1`] = `
                       class="bp3-popover-target typeSelector"
                     >
                       <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                         type="button"
                       >
                         <span
@@ -251,11 +251,6 @@ exports[`Open shift params with git tests renders form in edit mode 1`] = `
                                 fill="currentColor"
                               />
                             </svg>
-                          </span>
-                          <span
-                            class="btnText"
-                          >
-                            inputTypes.FIXED
                           </span>
                         </span>
                       </button>
@@ -588,7 +583,7 @@ exports[`Open shift params with git tests renders without crashing 1`] = `
                       class="bp3-popover-target typeSelector"
                     >
                       <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                         type="button"
                       >
                         <span
@@ -609,11 +604,6 @@ exports[`Open shift params with git tests renders without crashing 1`] = `
                                 fill="currentColor"
                               />
                             </svg>
-                          </span>
-                          <span
-                            class="btnText"
-                          >
-                            inputTypes.FIXED
                           </span>
                         </span>
                       </button>

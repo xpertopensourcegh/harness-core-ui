@@ -469,7 +469,7 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
                 class="bp3-popover-target typeSelector"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                   type="button"
                 >
                   <span
@@ -490,11 +490,6 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
                           fill="currentColor"
                         />
                       </svg>
-                    </span>
-                    <span
-                      class="btnText"
-                    >
-                      inputTypes.FIXED
                     </span>
                   </span>
                 </button>
@@ -764,7 +759,7 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
       </div>
       <button
         class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
-        id="configureOptions"
+        id="configureOptions_spec.skipDryRun"
         type="button"
       >
         <span
@@ -1046,7 +1041,7 @@ exports[`Test K8sApplyStep should render edit view as new step 1`] = `
                 class="bp3-popover-target typeSelector"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                   type="button"
                 >
                   <span
@@ -1067,11 +1062,6 @@ exports[`Test K8sApplyStep should render edit view as new step 1`] = `
                           fill="currentColor"
                         />
                       </svg>
-                    </span>
-                    <span
-                      class="btnText"
-                    >
-                      inputTypes.FIXED
                     </span>
                   </span>
                 </button>

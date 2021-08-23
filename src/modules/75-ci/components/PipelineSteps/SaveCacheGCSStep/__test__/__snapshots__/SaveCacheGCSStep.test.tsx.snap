@@ -432,7 +432,7 @@ exports[`Save Cache GCS Step Edit View edit mode works 1`] = `
                     class="bp3-popover-target typeSelector"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                       type="button"
                     >
                       <span
@@ -453,11 +453,6 @@ exports[`Save Cache GCS Step Edit View edit mode works 1`] = `
                               fill="currentColor"
                             />
                           </svg>
-                        </span>
-                        <span
-                          class="btnText"
-                        >
-                          inputTypes.FIXED
                         </span>
                       </span>
                     </button>
@@ -795,7 +790,7 @@ exports[`Save Cache GCS Step Edit View renders runtime inputs 1`] = `
             </div>
             <button
               class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
-              id="configureOptions"
+              id="configureOptions_spec.connectorRef"
               type="button"
             >
               <span
@@ -895,7 +890,7 @@ exports[`Save Cache GCS Step Edit View renders runtime inputs 1`] = `
             </div>
             <button
               class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
-              id="configureOptions"
+              id="configureOptions_spec.bucket"
               type="button"
             >
               <span
@@ -995,7 +990,7 @@ exports[`Save Cache GCS Step Edit View renders runtime inputs 1`] = `
             </div>
             <button
               class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
-              id="configureOptions"
+              id="configureOptions_spec.key"
               type="button"
             >
               <span
@@ -1108,7 +1103,7 @@ exports[`Save Cache GCS Step Edit View renders runtime inputs 1`] = `
           </div>
           <button
             class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
-            id="configureOptions"
+            id="configureOptions_spec.sourcePaths"
             type="button"
           >
             <span
@@ -1600,7 +1595,7 @@ exports[`Save Cache GCS Step Edit View should render properly 1`] = `
                     class="bp3-popover-target typeSelector"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                       type="button"
                     >
                       <span
@@ -1621,11 +1616,6 @@ exports[`Save Cache GCS Step Edit View should render properly 1`] = `
                               fill="currentColor"
                             />
                           </svg>
-                        </span>
-                        <span
-                          class="btnText"
-                        >
-                          inputTypes.FIXED
                         </span>
                       </span>
                     </button>
@@ -2111,7 +2101,7 @@ exports[`Save Cache GCS Step InputSet View should render all fields 1`] = `
                     class="bp3-popover-target typeSelector"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                       type="button"
                     >
                       <span
@@ -2132,11 +2122,6 @@ exports[`Save Cache GCS Step InputSet View should render all fields 1`] = `
                               fill="currentColor"
                             />
                           </svg>
-                        </span>
-                        <span
-                          class="btnText"
-                        >
-                          inputTypes.FIXED
                         </span>
                       </span>
                     </button>

@@ -242,7 +242,7 @@ exports[`DockerRegistry Image Path Artifact tests renders correctly in edit case
             >
               <button
                 class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
-                id="configureOptions"
+                id="configureOptions_tag"
                 type="button"
               >
                 <span
@@ -578,7 +578,7 @@ exports[`DockerRegistry Image Path Artifact tests renders while adding step firs
             >
               <button
                 class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
-                id="configureOptions"
+                id="configureOptions_tag"
                 type="button"
               >
                 <span
@@ -914,7 +914,7 @@ exports[`DockerRegistry Image Path Artifact tests renders without crashing 1`] =
             >
               <button
                 class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
-                id="configureOptions"
+                id="configureOptions_tag"
                 type="button"
               >
                 <span

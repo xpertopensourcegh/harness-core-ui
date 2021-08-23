@@ -1489,7 +1489,7 @@ exports[`Dependency Edit view renders runtime inputs 1`] = `
                 </div>
                 <button
                   class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
-                  id="configureOptions"
+                  id="configureOptions_description"
                   type="button"
                 >
                   <span
@@ -1605,7 +1605,7 @@ exports[`Dependency Edit view renders runtime inputs 1`] = `
               </div>
               <button
                 class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
-                id="configureOptions"
+                id="configureOptions_spec.connectorRef"
                 type="button"
               >
                 <span
@@ -1705,7 +1705,7 @@ exports[`Dependency Edit view renders runtime inputs 1`] = `
               </div>
               <button
                 class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
-                id="configureOptions"
+                id="configureOptions_spec.image"
                 type="button"
               >
                 <span
@@ -2586,7 +2586,7 @@ exports[`Dependency InputSet View should render all fields 1`] = `
                     class="bp3-popover-target typeSelector"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                       type="button"
                     >
                       <span
@@ -2607,11 +2607,6 @@ exports[`Dependency InputSet View should render all fields 1`] = `
                               fill="currentColor"
                             />
                           </svg>
-                        </span>
-                        <span
-                          class="btnText"
-                        >
-                          inputTypes.FIXED
                         </span>
                       </span>
                     </button>
@@ -2791,7 +2786,7 @@ exports[`Dependency InputSet View should render all fields 1`] = `
                     class="bp3-popover-target typeSelector"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                       type="button"
                     >
                       <span
@@ -2812,11 +2807,6 @@ exports[`Dependency InputSet View should render all fields 1`] = `
                               fill="currentColor"
                             />
                           </svg>
-                        </span>
-                        <span
-                          class="btnText"
-                        >
-                          inputTypes.FIXED
                         </span>
                       </span>
                     </button>
@@ -2961,7 +2951,7 @@ exports[`Dependency InputSet View should render all fields 1`] = `
                     class="bp3-popover-target typeSelector"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                       type="button"
                     >
                       <span
@@ -2982,11 +2972,6 @@ exports[`Dependency InputSet View should render all fields 1`] = `
                               fill="currentColor"
                             />
                           </svg>
-                        </span>
-                        <span
-                          class="btnText"
-                        >
-                          inputTypes.FIXED
                         </span>
                       </span>
                     </button>

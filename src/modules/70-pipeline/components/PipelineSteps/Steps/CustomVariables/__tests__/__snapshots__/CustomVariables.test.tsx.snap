@@ -1186,7 +1186,7 @@ exports[`Custom Variables can delete variable: Before Delete 1`] = `
         </div>
         <button
           class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
-          id="configureOptions"
+          id="configureOptions_myVar1"
           type="button"
         >
           <span
@@ -1904,7 +1904,7 @@ exports[`Custom Variables should render variables 1`] = `
         </div>
         <button
           class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
-          id="configureOptions"
+          id="configureOptions_myVar1"
           type="button"
         >
           <span
