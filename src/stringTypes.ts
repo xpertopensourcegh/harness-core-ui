@@ -1965,6 +1965,8 @@ export interface StringsMap {
   'pipeline.jiraUpdateStep.validations.status': string
   'pipeline.keyPlaceholder': string
   'pipeline.lastSevenDays': string
+  'pipeline.logs.errorText': string
+  'pipeline.logs.retry': string
   'pipeline.logs.sectionName': string
   'pipeline.manifestToConnectorLabelMap.AWSLabel': string
   'pipeline.manifestToConnectorLabelMap.GCPLabel': string

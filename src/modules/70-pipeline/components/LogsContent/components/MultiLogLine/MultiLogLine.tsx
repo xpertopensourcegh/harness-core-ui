@@ -116,6 +116,7 @@ export function MultiLogLine(props: MultiLogLineProps): React.ReactElement {
       <span className={css.lineNumber}>{lineNumber + 1}</span>
       <LogLine
         skipLinkify
+        className={css.level}
         data={getTextWithSearchMarkers({
           txt: text.level,
           searchText,
@@ -124,6 +125,7 @@ export function MultiLogLine(props: MultiLogLineProps): React.ReactElement {
         })}
       />
       <span
+        className={css.time}
         dangerouslySetInnerHTML={{
           __html: getTextWithSearchMarkers({
             txt: text.time,

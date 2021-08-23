@@ -344,6 +344,8 @@ executionFilters:
     Waiting: Waiting for resources
 logs:
   sectionName: 'Section {{index}}'
+  errorText: Something has gone wrong while fetching logs
+  retry: '{{ $.retry }}'
 conditionalExecution:
   title: Conditional Execution
   subTitle: Use conditions to determine when this {{entity}} is executed.

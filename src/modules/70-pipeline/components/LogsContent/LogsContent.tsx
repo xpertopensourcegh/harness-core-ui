@@ -1,12 +1,19 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import cx from 'classnames'
-import { ExpandingSearchInput, ExpandingSearchInputHandle, Icon, Text } from '@wings-software/uicore'
+import {
+  Button,
+  ButtonSize,
+  ButtonVariation,
+  ExpandingSearchInput,
+  ExpandingSearchInputHandle,
+  Icon,
+  Text
+} from '@wings-software/uicore'
 import type { GroupedVirtuosoHandle, VirtuosoHandle } from 'react-virtuoso'
 
-import { String } from 'framework/strings'
+import { String as StrTemplate, useStrings } from 'framework/strings'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
-import { useStrings } from 'framework/strings'
 import { useGlobalEventListener } from '@common/hooks'
 import type { ConsoleViewStepDetailProps } from '@pipeline/factories/ExecutionFactory/types'
 
@@ -102,7 +109,10 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
   return (
     <div className={cx(css.main, { [css.hasErrorMessage]: !!errorMessage })} data-mode={mode}>
       <div className={css.header}>
-        <String tagName="div" stringID={mode === 'console-view' ? 'execution.consoleLogs' : 'execution.stepLogs'} />
+        <StrTemplate
+          tagName="div"
+          stringID={mode === 'console-view' ? 'execution.consoleLogs' : 'execution.stepLogs'}
+        />
         <div className={css.rhs} onKeyDown={handleKeyDown}>
           <ExpandingSearchInput
             onChange={handleSearchChange}
@@ -118,7 +128,7 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
           />
           {mode === 'step-details' ? (
             <Link className={css.toConsoleView} to={toConsoleView}>
-              <String stringID="consoleView" />
+              <StrTemplate stringID="consoleView" />
             </Link>
           ) : null}
         </div>
@@ -131,12 +141,12 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
             <GroupedLogs ref={virtuosoRef} state={state} actions={actions} />
           )
         ) : (
-          <String tagName="div" className={css.noLogs} stringID="common.logs.noLogsText" />
+          <StrTemplate tagName="div" className={css.noLogs} stringID="common.logs.noLogsText" />
         )}
       </pre>
       {mode === 'console-view' && errorMessage ? (
         <div className={cx(css.errorMessage, { [css.isWarning]: isWarning })}>
-          <String className={css.summary} tagName="div" stringID="summary" />
+          <StrTemplate className={css.summary} tagName="div" stringID="summary" />
           <div className={css.error}>
             <Icon name={isWarning ? 'warning-sign' : 'circle-cross'} />
             <Text lineClamp={1}>{errorMessage}</Text>
@@ -147,12 +157,50 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
   )
 }
 
+export interface LogsContentState {
+  hasError: boolean
+}
+
+export class LogsContentWithErrorBoundary extends React.Component<LogsContentProps, LogsContentState> {
+  constructor(props: LogsContentProps) {
+    super(props)
+    this.state = { hasError: false }
+  }
+
+  static getDerivedStateFromError(): LogsContentState {
+    return { hasError: true }
+  }
+
+  componentDidCatch(error: unknown): void {
+    window?.bugsnagClient?.notify?.(error)
+  }
+
+  handleRetry = (): void => {
+    this.setState({ hasError: false })
+  }
+
+  render(): React.ReactElement {
+    if (this.state.hasError) {
+      return (
+        <div className={css.errorContainer}>
+          <StrTemplate tagName="div" className={css.txt} stringID="pipeline.logs.errorText" />
+          <Button onClick={this.handleRetry} variation={ButtonVariation.PRIMARY} size={ButtonSize.SMALL}>
+            <StrTemplate stringID="pipeline.logs.retry" />
+          </Button>
+        </div>
+      )
+    }
+
+    return <LogsContent {...this.props} />
+  }
+}
+
 export function DefaultConsoleViewStepDetails(props: ConsoleViewStepDetailProps): React.ReactElement {
   const { errorMessage, isSkipped } = props
 
   return (
     <div className={css.logViewer}>
-      <LogsContent mode="console-view" errorMessage={errorMessage} isWarning={isSkipped} />
+      <LogsContentWithErrorBoundary mode="console-view" errorMessage={errorMessage} isWarning={isSkipped} />
     </div>
   )
 }
