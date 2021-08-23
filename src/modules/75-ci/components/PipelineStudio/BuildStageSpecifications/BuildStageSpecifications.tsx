@@ -268,8 +268,15 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
                       </div>
                     }
                     details={
-                      <Card className={(css.sectionCard, css.sectionCardVariables)} id="variables">
+                      <Card
+                        className={(css.sectionCard, css.sectionCardVariables)}
+                        id="variables"
+                        style={{ width: '100%' }}
+                      >
                         <div className={css.tabSubHeading}>Stage Variables</div>
+                        <Text style={{ color: 'var(--grey-500)', lineHeight: '24px' }}>
+                          {getString('workflowVariableInfo')}
+                        </Text>
                         <div className={css.stageSection}>
                           <div className={css.stageDetails}>
                             <StepWidget<CustomVariablesData>

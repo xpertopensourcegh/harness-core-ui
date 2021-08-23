@@ -347,12 +347,19 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                   <div
                     class="bp3-card bp3-elevation-0 Card--card sectionCardVariables"
                     id="variables"
+                    style="width: 100%;"
                   >
                     <div
                       class="tabSubHeading"
                     >
                       Stage Variables
                     </div>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="line-height: 24px;"
+                    >
+                      workflowVariableInfo
+                    </p>
                     <div
                       class="stageSection"
                     >
