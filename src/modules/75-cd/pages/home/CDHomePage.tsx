@@ -130,7 +130,9 @@ export const CDHomePage: React.FC = () => {
   )
 
   React.useEffect(() => {
-    fetchPipelines()
+    if (selectedProject?.identifier && selectedProject?.orgIdentifier) {
+      fetchPipelines()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedProject?.identifier, selectedProject?.orgIdentifier])
 
