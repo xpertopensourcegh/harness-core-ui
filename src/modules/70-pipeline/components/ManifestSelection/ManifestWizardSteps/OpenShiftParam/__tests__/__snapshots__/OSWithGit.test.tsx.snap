@@ -270,7 +270,7 @@ exports[`Open shift params with git tests renders form in edit mode 1`] = `
                 >
                   <span>
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addFileButton StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                      class="bp3-button Button--button StyledProps--font StyledProps--main addFileButton Button--with-current-color Button--variation Button--variation-link"
                       type="button"
                     >
                       <span
@@ -289,7 +289,7 @@ exports[`Open shift params with git tests renders form in edit mode 1`] = `
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main StyledProps--margin-top-huge"
         >
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon Button--variation Button--variation-secondary"
             type="button"
           >
             <span
@@ -318,7 +318,7 @@ exports[`Open shift params with git tests renders form in edit mode 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
             type="submit"
           >
             <span
@@ -713,7 +713,7 @@ exports[`Open shift params with git tests renders without crashing 1`] = `
                   </div>
                   <span>
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addFileButton StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                      class="bp3-button Button--button StyledProps--font StyledProps--main addFileButton Button--with-current-color Button--variation Button--variation-link"
                       type="button"
                     >
                       <span
@@ -732,7 +732,7 @@ exports[`Open shift params with git tests renders without crashing 1`] = `
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main StyledProps--margin-top-huge"
         >
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon Button--variation Button--variation-secondary"
             type="button"
           >
             <span
@@ -761,7 +761,7 @@ exports[`Open shift params with git tests renders without crashing 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
             type="submit"
           >
             <span

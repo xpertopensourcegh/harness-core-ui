@@ -10,7 +10,8 @@ import {
   MultiTypeInputType,
   Icon,
   Color,
-  StepProps
+  StepProps,
+  ButtonVariation
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { Form, FieldArrayRenderProps, FieldArray } from 'formik'
@@ -415,9 +416,8 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                           ))}
                           <span>
                             <Button
-                              minimal
                               text={getString('addFileText')}
-                              intent="primary"
+                              variation={ButtonVariation.LINK}
                               className={css.addFileButton}
                               onClick={() => arrayHelpers.push({ path: '', uuid: uuid('', nameSpace()) })}
                             />
@@ -482,8 +482,18 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
               </div>
 
               <Layout.Horizontal spacing="xxlarge" className={css.saveBtn}>
-                <Button text={getString('back')} icon="chevron-left" onClick={() => previousStep?.(prevStepData)} />
-                <Button intent="primary" type="submit" text={getString('submit')} rightIcon="chevron-right" />
+                <Button
+                  variation={ButtonVariation.SECONDARY}
+                  text={getString('back')}
+                  icon="chevron-left"
+                  onClick={() => previousStep?.(prevStepData)}
+                />
+                <Button
+                  variation={ButtonVariation.PRIMARY}
+                  type="submit"
+                  text={getString('submit')}
+                  rightIcon="chevron-right"
+                />
               </Layout.Horizontal>
             </Form>
           )

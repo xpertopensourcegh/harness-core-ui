@@ -10,7 +10,8 @@ import {
   getMultiTypeFromValue,
   MultiTypeInputType,
   Color,
-  SelectOption
+  SelectOption,
+  ButtonVariation
 } from '@wings-software/uicore'
 import { Form } from 'formik'
 import * as Yup from 'yup'
@@ -270,8 +271,18 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
             </div>
 
             <Layout.Horizontal spacing="xxlarge" className={css.saveBtn}>
-              <Button text={getString('back')} icon="chevron-left" onClick={() => previousStep?.(prevStepData)} />
-              <Button intent="primary" type="submit" text={getString('submit')} rightIcon="chevron-right" />
+              <Button
+                text={getString('back')}
+                icon="chevron-left"
+                variation={ButtonVariation.SECONDARY}
+                onClick={() => previousStep?.(prevStepData)}
+              />
+              <Button
+                variation={ButtonVariation.PRIMARY}
+                type="submit"
+                text={getString('submit')}
+                rightIcon="chevron-right"
+              />
             </Layout.Horizontal>
           </Form>
         )}

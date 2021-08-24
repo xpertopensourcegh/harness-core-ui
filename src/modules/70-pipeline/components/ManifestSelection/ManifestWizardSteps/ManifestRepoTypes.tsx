@@ -8,7 +8,8 @@ import {
   IconName,
   Layout,
   StepProps,
-  ThumbnailSelect
+  ThumbnailSelect,
+  ButtonVariation
 } from '@wings-software/uicore'
 import { Form } from 'formik'
 import * as Yup from 'yup'
@@ -90,7 +91,7 @@ export const ManifestRepoTypes: React.FC<StepProps<ConnectorConfigDTO> & Manifes
             </div>
             <Layout.Horizontal>
               <Button
-                intent="primary"
+                variation={ButtonVariation.PRIMARY}
                 type="submit"
                 disabled={selectedManifestType === null}
                 text={getString('continue')}

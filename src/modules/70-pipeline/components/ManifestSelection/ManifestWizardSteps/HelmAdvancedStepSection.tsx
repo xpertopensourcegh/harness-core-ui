@@ -6,7 +6,8 @@ import {
   MultiTypeInputType,
   Color,
   Icon,
-  getMultiTypeFromValue
+  getMultiTypeFromValue,
+  ButtonVariation
 } from '@wings-software/uicore'
 import { Tooltip } from '@blueprintjs/core'
 import cx from 'classnames'
@@ -174,7 +175,7 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({
                     <Button
                       minimal
                       text={getString('add')}
-                      intent="primary"
+                      variation={ButtonVariation.PRIMARY}
                       onClick={() => push({ commandType: '', flag: '', id: uuid('', nameSpace()) })}
                     />
                   </span>

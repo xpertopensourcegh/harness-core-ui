@@ -151,7 +151,7 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
               class="Layout--horizontal StyledProps--main"
             >
               <button
-                class="bp3-button Button--button StyledProps--font StyledProps--main saveBtn StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
+                class="bp3-button Button--button StyledProps--font StyledProps--main saveBtn Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
                 type="submit"
               >
                 <span
@@ -435,7 +435,7 @@ exports[`ManifestSelection tests last step data with proper initial values 1`] =
               class="Layout--horizontal StyledProps--main"
             >
               <button
-                class="bp3-button Button--button StyledProps--font StyledProps--main saveBtn StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
+                class="bp3-button Button--button StyledProps--font StyledProps--main saveBtn Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
                 type="submit"
               >
                 <span
@@ -719,7 +719,7 @@ exports[`ManifestSelection tests last step data without initial values 1`] = `
               class="Layout--horizontal StyledProps--main"
             >
               <button
-                class="bp3-button Button--button StyledProps--font StyledProps--main saveBtn StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
+                class="bp3-button Button--button StyledProps--font StyledProps--main saveBtn Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
                 type="submit"
               >
                 <span
@@ -1095,7 +1095,7 @@ exports[`ManifestSelection tests new connector view works correctly 1`] = `
                   </div>
                 </div>
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addNewManifest StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main addNewManifest Button--with-current-color Button--withLeftIcon Button--variation Button--variation-link"
                   id="new-manifest-connector"
                   type="button"
                 >
@@ -1130,7 +1130,7 @@ exports[`ManifestSelection tests new connector view works correctly 1`] = `
               class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
             >
               <button
-                class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
+                class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon Button--variation Button--variation-secondary"
                 type="button"
               >
                 <span
@@ -1159,7 +1159,7 @@ exports[`ManifestSelection tests new connector view works correctly 1`] = `
                 </span>
               </button>
               <button
-                class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
+                class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
                 disabled=""
                 tabindex="-1"
                 type="submit"
@@ -1430,7 +1430,7 @@ exports[`ManifestSelection tests renders correctly with differnet manifest types
               class="Layout--horizontal StyledProps--main"
             >
               <button
-                class="bp3-button Button--button StyledProps--font StyledProps--main saveBtn StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
+                class="bp3-button Button--button StyledProps--font StyledProps--main saveBtn Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
                 type="submit"
               >
                 <span
@@ -1635,7 +1635,7 @@ exports[`ManifestSelection tests renders without crashing 1`] = `
               class="Layout--horizontal StyledProps--main"
             >
               <button
-                class="bp3-button Button--button StyledProps--font StyledProps--main saveBtn StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
+                class="bp3-button Button--button StyledProps--font StyledProps--main saveBtn Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
                 type="submit"
               >
                 <span

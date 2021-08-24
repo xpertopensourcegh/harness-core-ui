@@ -705,7 +705,7 @@ exports[`helm with GIT tests expand advanced section 1`] = `
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
         >
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon Button--variation Button--variation-secondary"
             type="button"
           >
             <span
@@ -734,7 +734,7 @@ exports[`helm with GIT tests expand advanced section 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
             type="submit"
           >
             <span
@@ -1151,7 +1151,7 @@ exports[`helm with GIT tests renders correctly in edit case 1`] = `
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
         >
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon Button--variation Button--variation-secondary"
             type="button"
           >
             <span
@@ -1180,7 +1180,7 @@ exports[`helm with GIT tests renders correctly in edit case 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
             type="submit"
           >
             <span
@@ -1597,7 +1597,7 @@ exports[`helm with GIT tests renders while adding step first time 1`] = `
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
         >
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon Button--variation Button--variation-secondary"
             type="button"
           >
             <span
@@ -1626,7 +1626,7 @@ exports[`helm with GIT tests renders while adding step first time 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
             type="submit"
           >
             <span
@@ -2043,7 +2043,7 @@ exports[`helm with GIT tests renders without crashing 1`] = `
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
         >
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon Button--variation Button--variation-secondary"
             type="button"
           >
             <span
@@ -2072,7 +2072,7 @@ exports[`helm with GIT tests renders without crashing 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
             type="submit"
           >
             <span

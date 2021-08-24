@@ -582,7 +582,7 @@ const ManifestListView = ({
             isReadonly={isReadonly}
           />
         </div>
-        <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={onClose} className={css.crossIcon} />
+        <Button minimal icon="cross" onClick={onClose} className={css.crossIcon} />
       </Dialog>
     )
   }, [selectedManifest, connectorView, manifestIndex, manifestStore, expressions.length, expressions, isEditMode])

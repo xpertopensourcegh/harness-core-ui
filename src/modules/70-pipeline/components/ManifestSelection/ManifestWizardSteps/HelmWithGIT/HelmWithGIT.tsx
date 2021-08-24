@@ -10,7 +10,8 @@ import {
   Color,
   StepProps,
   Accordion,
-  SelectOption
+  SelectOption,
+  ButtonVariation
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { Form } from 'formik'
@@ -376,8 +377,18 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
             </div>
 
             <Layout.Horizontal spacing="xxlarge" className={css.saveBtn}>
-              <Button text={getString('back')} icon="chevron-left" onClick={() => previousStep?.(prevStepData)} />
-              <Button intent="primary" type="submit" text={getString('submit')} rightIcon="chevron-right" />
+              <Button
+                text={getString('back')}
+                icon="chevron-left"
+                variation={ButtonVariation.SECONDARY}
+                onClick={() => previousStep?.(prevStepData)}
+              />
+              <Button
+                variation={ButtonVariation.PRIMARY}
+                type="submit"
+                text={getString('submit')}
+                rightIcon="chevron-right"
+              />
             </Layout.Horizontal>
           </Form>
         )}

@@ -10,7 +10,8 @@ import {
   getMultiTypeFromValue,
   MultiTypeInputType,
   Color,
-  SelectOption
+  SelectOption,
+  ButtonVariation
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 
@@ -404,8 +405,18 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
             </div>
 
             <Layout.Horizontal spacing="xxlarge" className={css.saveBtn}>
-              <Button text={getString('back')} icon="chevron-left" onClick={() => previousStep?.(prevStepData)} />
-              <Button intent="primary" type="submit" text={getString('submit')} rightIcon="chevron-right" />
+              <Button
+                text={getString('back')}
+                variation={ButtonVariation.SECONDARY}
+                icon="chevron-left"
+                onClick={() => previousStep?.(prevStepData)}
+              />
+              <Button
+                variation={ButtonVariation.PRIMARY}
+                type="submit"
+                text={getString('submit')}
+                rightIcon="chevron-right"
+              />
             </Layout.Horizontal>
           </Form>
         )}

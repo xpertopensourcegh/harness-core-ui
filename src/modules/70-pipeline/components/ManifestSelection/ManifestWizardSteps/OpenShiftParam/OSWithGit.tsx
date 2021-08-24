@@ -9,7 +9,8 @@ import {
   MultiTypeInputType,
   Color,
   StepProps,
-  Icon
+  Icon,
+  ButtonVariation
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
@@ -395,9 +396,8 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
                         })}
                         <span>
                           <Button
-                            minimal
                             text={getString('addFileText')}
-                            intent="primary"
+                            variation={ButtonVariation.LINK}
                             className={css.addFileButton}
                             onClick={() => arrayHelpers.push({ value: '', id: uuid('', nameSpace()) })}
                           />
@@ -422,8 +422,18 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
             </div>
 
             <Layout.Horizontal spacing="xxlarge" margin={{ top: 'huge' }}>
-              <Button text={getString('back')} icon="chevron-left" onClick={() => previousStep?.(prevStepData)} />
-              <Button intent="primary" type="submit" text={getString('submit')} rightIcon="chevron-right" />
+              <Button
+                variation={ButtonVariation.SECONDARY}
+                text={getString('back')}
+                icon="chevron-left"
+                onClick={() => previousStep?.(prevStepData)}
+              />
+              <Button
+                variation={ButtonVariation.PRIMARY}
+                type="submit"
+                text={getString('submit')}
+                rightIcon="chevron-right"
+              />
             </Layout.Horizontal>
           </Form>
         )}

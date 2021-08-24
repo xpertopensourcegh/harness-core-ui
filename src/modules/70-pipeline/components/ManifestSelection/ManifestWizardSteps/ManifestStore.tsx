@@ -10,7 +10,8 @@ import {
   getMultiTypeFromValue,
   MultiTypeInputType,
   ThumbnailSelect,
-  IconName
+  IconName,
+  ButtonVariation
 } from '@wings-software/uicore'
 import { Form } from 'formik'
 import * as Yup from 'yup'
@@ -194,8 +195,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                     </div>
                   ) : (
                     <Button
-                      intent="primary"
-                      minimal
+                      variation={ButtonVariation.LINK}
                       disabled={isReadonly || !canCreate}
                       id="new-manifest-connector"
                       text={newConnectorLabel}
@@ -212,9 +212,14 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
             </div>
 
             <Layout.Horizontal spacing="xxlarge" className={css.saveBtn}>
-              <Button text={getString('back')} icon="chevron-left" onClick={() => previousStep?.(prevStepData)} />
               <Button
-                intent="primary"
+                text={getString('back')}
+                icon="chevron-left"
+                variation={ButtonVariation.SECONDARY}
+                onClick={() => previousStep?.(prevStepData)}
+              />
+              <Button
+                variation={ButtonVariation.PRIMARY}
                 type="submit"
                 text={getString('continue')}
                 rightIcon="chevron-right"
