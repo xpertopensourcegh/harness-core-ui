@@ -403,7 +403,7 @@ exports[`Artifact WizardStep tests new connector view works correctly 1`] = `
                     style="margin-bottom: 5px;"
                   >
                     <span
-                      class="Tooltip--acenter"
+                      class="Tooltip--acenter bp3-label"
                       data-tooltip-id="artifactConnForm_connectorId"
                     >
                       <p

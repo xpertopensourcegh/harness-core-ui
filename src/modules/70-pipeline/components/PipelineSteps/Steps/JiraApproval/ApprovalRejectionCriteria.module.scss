@@ -84,6 +84,12 @@
 
 .box {
   margin: var(--spacing-medium) 0;
+
+  :global {
+    .Tooltip--tooltipIcon {
+      margin-top: var(--spacing-xlarge);
+    }
+  }
 }
 
 .conditionalContent {

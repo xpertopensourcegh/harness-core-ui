@@ -695,7 +695,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                         style="margin-bottom: 5px;"
                                       >
                                         <span
-                                          class="Tooltip--acenter"
+                                          class="Tooltip--acenter bp3-label"
                                           data-tooltip-id="k8sDirectInfraConnector"
                                         >
                                           connector
@@ -2177,7 +2177,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                         style="margin-bottom: 5px;"
                                       >
                                         <span
-                                          class="Tooltip--acenter"
+                                          class="Tooltip--acenter bp3-label"
                                           data-tooltip-id="k8sDirectInfraConnector"
                                         >
                                           connector

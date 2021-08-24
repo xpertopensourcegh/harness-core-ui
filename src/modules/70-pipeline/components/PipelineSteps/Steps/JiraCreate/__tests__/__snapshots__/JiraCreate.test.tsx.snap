@@ -1589,7 +1589,7 @@ exports[`Jira Create tests Edit Stage - readonly view: edit-stage-readonly 1`] =
               style="margin-bottom: 5px;"
             >
               <span
-                class="Tooltip--acenter"
+                class="Tooltip--acenter bp3-label"
                 data-tooltip-id="jiraCreate_spec.connectorRef"
               >
                 pipeline.jiraApprovalStep.connectorRef

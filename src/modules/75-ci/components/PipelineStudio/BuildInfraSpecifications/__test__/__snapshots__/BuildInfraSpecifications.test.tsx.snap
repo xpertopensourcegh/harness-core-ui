@@ -143,7 +143,7 @@ exports[`BuildInfraSpecifications snapshot test Renders with multiple stages 1`]
                         style="margin-bottom: 5px;"
                       >
                         <span
-                          class="Tooltip--acenter"
+                          class="Tooltip--acenter bp3-label"
                           data-tooltip-id="ciBuildInfra_connectorRef"
                         >
                           
@@ -959,7 +959,7 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
                     style="margin-bottom: 5px;"
                   >
                     <span
-                      class="Tooltip--acenter"
+                      class="Tooltip--acenter bp3-label"
                       data-tooltip-id="ciBuildInfra_connectorRef"
                     >
                       connectors.title.k8sCluster
@@ -1260,7 +1260,7 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
                     style="margin-bottom: 5px;"
                   >
                     <span
-                      class="Tooltip--acenter"
+                      class="Tooltip--acenter bp3-label"
                       data-tooltip-id="ciBuildInfra_connectorRef"
                     >
                       connectors.title.k8sCluster

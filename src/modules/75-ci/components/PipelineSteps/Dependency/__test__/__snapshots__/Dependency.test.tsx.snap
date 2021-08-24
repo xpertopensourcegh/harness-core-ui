@@ -178,7 +178,7 @@ exports[`Dependency Edit view edit mode fails when cpu present but memory is not
               style="margin-bottom: 5px;"
             >
               <span
-                class="Tooltip--acenter"
+                class="Tooltip--acenter bp3-label"
                 data-tooltip-id="dependencyBase_spec.connectorRef"
               >
                 <div
@@ -615,7 +615,7 @@ exports[`Dependency Edit view edit mode works 1`] = `
               style="margin-bottom: 5px;"
             >
               <span
-                class="Tooltip--acenter"
+                class="Tooltip--acenter bp3-label"
                 data-tooltip-id="dependencyBase_spec.connectorRef"
               >
                 <div
@@ -1052,7 +1052,7 @@ exports[`Dependency Edit view edit mode works when memory present but cpu is not
               style="margin-bottom: 5px;"
             >
               <span
-                class="Tooltip--acenter"
+                class="Tooltip--acenter bp3-label"
                 data-tooltip-id="dependencyBase_spec.connectorRef"
               >
                 <div
@@ -1524,7 +1524,7 @@ exports[`Dependency Edit view renders runtime inputs 1`] = `
               style="margin-bottom: 5px;"
             >
               <span
-                class="Tooltip--acenter"
+                class="Tooltip--acenter bp3-label"
                 data-tooltip-id="dependencyBase_spec.connectorRef"
               >
                 <div
@@ -1943,7 +1943,7 @@ exports[`Dependency Edit view should render properly 1`] = `
               style="margin-bottom: 5px;"
             >
               <span
-                class="Tooltip--acenter"
+                class="Tooltip--acenter bp3-label"
                 data-tooltip-id="dependencyBase_spec.connectorRef"
               >
                 <div
@@ -2318,7 +2318,7 @@ exports[`Dependency InputSet View should render all fields 1`] = `
             style="margin-bottom: 5px;"
           >
             <span
-              class="Tooltip--acenter"
+              class="Tooltip--acenter bp3-label"
               data-tooltip-id="stepTestUtilForm_spec.connectorRef"
             >
               <div

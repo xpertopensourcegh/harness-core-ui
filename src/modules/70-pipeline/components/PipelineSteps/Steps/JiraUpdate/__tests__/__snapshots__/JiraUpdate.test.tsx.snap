@@ -1017,7 +1017,7 @@ exports[`Jira Update tests Edit stage - readony view: editstage-readonly 1`] = `
               style="margin-bottom: 5px;"
             >
               <span
-                class="Tooltip--acenter"
+                class="Tooltip--acenter bp3-label"
                 data-tooltip-id="jiraUpdate_spec.connectorRef"
               >
                 pipeline.jiraApprovalStep.connectorRef

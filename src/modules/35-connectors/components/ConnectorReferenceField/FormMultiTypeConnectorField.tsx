@@ -11,7 +11,7 @@ import {
   FormikTooltipContext
 } from '@wings-software/uicore'
 import { connect, FormikContext } from 'formik'
-import { FormGroup, Intent } from '@blueprintjs/core'
+import { Classes, FormGroup, Intent } from '@blueprintjs/core'
 import { get, isEmpty } from 'lodash-es'
 import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
 import useCreateConnectorMultiTypeModal from '@connectors/modals/ConnectorModal/useCreateConnectorMultiTypeModal'
@@ -336,7 +336,7 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
   return (
     <div style={style} className={css.connectorLabel}>
       <Container style={{ marginBottom: 5 }}>
-        <HarnessDocTooltip tooltipId={dataTooltipId} labelText={label} />
+        <HarnessDocTooltip tooltipId={dataTooltipId} labelText={label} className={Classes.LABEL} />
       </Container>
       {enableConfigureOptions ? (
         <div style={{ display: 'flex', alignItems: 'center' }}>

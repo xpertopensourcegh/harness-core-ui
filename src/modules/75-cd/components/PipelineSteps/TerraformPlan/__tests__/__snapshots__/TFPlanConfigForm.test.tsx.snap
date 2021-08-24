@@ -21,7 +21,7 @@ exports[`TF Config Form tests edit view loads correctly -with commitId 1`] = `
               style="margin-bottom: 5px;"
             >
               <span
-                class="Tooltip--acenter"
+                class="Tooltip--acenter bp3-label"
                 data-tooltip-id="tfPlanConfigForm_spec.configuration.configFiles.store.spec.connectorRef"
               >
                 connector
@@ -424,7 +424,7 @@ exports[`TF Config Form tests edit view loads correctly 1`] = `
               style="margin-bottom: 5px;"
             >
               <span
-                class="Tooltip--acenter"
+                class="Tooltip--acenter bp3-label"
                 data-tooltip-id="tfPlanConfigForm_spec.configuration.configFiles.store.spec.connectorRef"
               >
                 connector
@@ -827,7 +827,7 @@ exports[`TF Config Form tests initial render 1`] = `
               style="margin-bottom: 5px;"
             >
               <span
-                class="Tooltip--acenter"
+                class="Tooltip--acenter bp3-label"
                 data-tooltip-id="tfPlanConfigForm_spec.configuration.configFiles.store.spec.connectorRef"
               >
                 connector

@@ -2557,7 +2557,7 @@ exports[`Test TerraformApply should be able to edit inline config 1`] = `
               style="margin-bottom: 5px;"
             >
               <span
-                class="Tooltip--acenter"
+                class="Tooltip--acenter bp3-label"
                 data-tooltip-id="configForm_spec.configuration.spec.configFiles.store.spec.connectorRef"
               >
                 connectors.title.gitConnector

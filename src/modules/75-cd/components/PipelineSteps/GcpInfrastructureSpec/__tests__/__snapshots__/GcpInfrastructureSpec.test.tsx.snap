@@ -19,7 +19,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view for inputse
             style="margin-bottom: 5px;"
           >
             <span
-              class="Tooltip--acenter"
+              class="Tooltip--acenter bp3-label"
               data-tooltip-id="gcpInfraConnector"
             >
               connector
@@ -395,7 +395,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with empty 
                 style="margin-bottom: 5px;"
               >
                 <span
-                  class="Tooltip--acenter"
+                  class="Tooltip--acenter bp3-label"
                   data-tooltip-id="gcpInfraConnector"
                 >
                   connector
@@ -801,7 +801,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with runtim
                 style="margin-bottom: 5px;"
               >
                 <span
-                  class="Tooltip--acenter"
+                  class="Tooltip--acenter bp3-label"
                   data-tooltip-id="gcpInfraConnector"
                 >
                   connector
@@ -1190,7 +1190,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with values
                 style="margin-bottom: 5px;"
               >
                 <span
-                  class="Tooltip--acenter"
+                  class="Tooltip--acenter bp3-label"
                   data-tooltip-id="gcpInfraConnector"
                 >
                   connector

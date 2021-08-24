@@ -105,7 +105,7 @@ exports[`GCS Step Edit View edit mode works 1`] = `
             style="margin-bottom: 5px;"
           >
             <span
-              class="Tooltip--acenter"
+              class="Tooltip--acenter bp3-label"
               data-tooltip-id="ciGcsStep_spec.connectorRef"
             >
               <div
@@ -538,7 +538,7 @@ exports[`GCS Step Edit View renders runtime inputs 1`] = `
             style="margin-bottom: 5px;"
           >
             <span
-              class="Tooltip--acenter"
+              class="Tooltip--acenter bp3-label"
               data-tooltip-id="ciGcsStep_spec.connectorRef"
             >
               <div
@@ -986,7 +986,7 @@ exports[`GCS Step Edit View should render edit view as new step 1`] = `
             style="margin-bottom: 5px;"
           >
             <span
-              class="Tooltip--acenter"
+              class="Tooltip--acenter bp3-label"
               data-tooltip-id="ciGcsStep_spec.connectorRef"
             >
               <div
@@ -1365,7 +1365,7 @@ exports[`GCS Step InputSet View InputSet View should render all fields 1`] = `
             style="margin-bottom: 5px;"
           >
             <span
-              class="Tooltip--acenter"
+              class="Tooltip--acenter bp3-label"
               data-tooltip-id="stepTestUtilForm_spec.connectorRef"
             >
               <div

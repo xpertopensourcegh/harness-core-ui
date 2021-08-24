@@ -310,7 +310,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
           style="margin-bottom: 5px;"
         >
           <span
-            class="Tooltip--acenter"
+            class="Tooltip--acenter bp3-label"
             data-tooltip-id="terraformPlanEditView-tfPlan-_spec.configuration.secretManagerRef"
           >
             connectors.title.secretManager
@@ -1730,7 +1730,7 @@ exports[`Test TerraformPlan should render edit view as edit step 1`] = `
           style="margin-bottom: 5px;"
         >
           <span
-            class="Tooltip--acenter"
+            class="Tooltip--acenter bp3-label"
             data-tooltip-id="terraformPlanEditView-tfPlan-_spec.configuration.secretManagerRef"
           >
             connectors.title.secretManager
@@ -2209,7 +2209,7 @@ exports[`Test TerraformPlan should render edit view as new step 1`] = `
           style="margin-bottom: 5px;"
         >
           <span
-            class="Tooltip--acenter"
+            class="Tooltip--acenter bp3-label"
             data-tooltip-id="terraformPlanEditView-tfPlan-_spec.configuration.secretManagerRef"
           >
             connectors.title.secretManager
@@ -2688,7 +2688,7 @@ exports[`Test TerraformPlan should render edit view as new step 2`] = `
           style="margin-bottom: 5px;"
         >
           <span
-            class="Tooltip--acenter"
+            class="Tooltip--acenter bp3-label"
             data-tooltip-id="terraformPlanEditView-tfPlan-_spec.configuration.secretManagerRef"
           >
             connectors.title.secretManager
@@ -3169,7 +3169,7 @@ exports[`Test TerraformPlan should render edit view with command Destroy 1`] = `
           style="margin-bottom: 5px;"
         >
           <span
-            class="Tooltip--acenter"
+            class="Tooltip--acenter bp3-label"
             data-tooltip-id="terraformPlanEditView-tfPlan-_spec.configuration.secretManagerRef"
           >
             connectors.title.secretManager
@@ -3507,7 +3507,7 @@ exports[`Test TerraformPlan should render input set view 1`] = `
               style="margin-bottom: 5px;"
             >
               <span
-                class="Tooltip--acenter"
+                class="Tooltip--acenter bp3-label"
                 data-tooltip-id="stepTestUtilForm_test.spec.configuration.configFiles.store.spec.connectorRef"
               >
                 connector
@@ -4107,7 +4107,7 @@ exports[`Test TerraformPlan should submit form for terraform plan 1`] = `
           style="margin-bottom: 5px;"
         >
           <span
-            class="Tooltip--acenter"
+            class="Tooltip--acenter bp3-label"
             data-tooltip-id="terraformPlanEditView-tfPlan-_spec.configuration.secretManagerRef"
           >
             connectors.title.secretManager

@@ -464,7 +464,7 @@ exports[`Terraform Var Store tests on edit mode for tf var store  1`] = `
               style="margin-bottom: 5px;"
             >
               <span
-                class="Tooltip--acenter"
+                class="Tooltip--acenter bp3-label"
                 data-tooltip-id="tfVarStoreForm_varFile.spec.store.spec.connectorRef"
               >
                 <p
@@ -846,7 +846,7 @@ exports[`Terraform Var Store tests select one of the types 1`] = `
               style="margin-bottom: 5px;"
             >
               <span
-                class="Tooltip--acenter"
+                class="Tooltip--acenter bp3-label"
                 data-tooltip-id="tfVarStoreForm_varFile.spec.store.spec.connectorRef"
               >
                 <p

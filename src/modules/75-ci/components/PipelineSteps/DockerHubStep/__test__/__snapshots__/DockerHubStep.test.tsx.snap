@@ -106,7 +106,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
             style="margin-bottom: 5px;"
           >
             <span
-              class="Tooltip--acenter"
+              class="Tooltip--acenter bp3-label"
               data-tooltip-id="dockerHubStep_spec.connectorRef"
             >
               <div
@@ -801,7 +801,7 @@ exports[`DockerHub Step Edit View renders runtime inputs 1`] = `
             style="margin-bottom: 5px;"
           >
             <span
-              class="Tooltip--acenter"
+              class="Tooltip--acenter bp3-label"
               data-tooltip-id="dockerHubStep_spec.connectorRef"
             >
               <div
@@ -1261,7 +1261,7 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
             style="margin-bottom: 5px;"
           >
             <span
-              class="Tooltip--acenter"
+              class="Tooltip--acenter bp3-label"
               data-tooltip-id="dockerHubStep_spec.connectorRef"
             >
               <div
@@ -1661,7 +1661,7 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
             style="margin-bottom: 5px;"
           >
             <span
-              class="Tooltip--acenter"
+              class="Tooltip--acenter bp3-label"
               data-tooltip-id="stepTestUtilForm_spec.connectorRef"
             >
               <div
