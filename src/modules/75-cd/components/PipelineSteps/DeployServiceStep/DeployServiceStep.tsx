@@ -9,7 +9,8 @@ import {
   MultiTypeInputType,
   SelectOption,
   useModalHook,
-  Container
+  Container,
+  ButtonVariation
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { get, isEmpty, noop, omit } from 'lodash-es'
@@ -167,11 +168,11 @@ export const NewEditServiceModal: React.FC<NewEditServiceModalProps> = ({
             <Button
               data-id="service-save"
               onClick={() => formikProps.submitForm()}
-              intent="primary"
+              variation={ButtonVariation.PRIMARY}
               text={getString('save')}
             />
             &nbsp; &nbsp;
-            <Button text={getString('cancel')} onClick={closeModal} />
+            <Button variation={ButtonVariation.SECONDARY} text={getString('cancel')} onClick={closeModal} />
           </Container>
         </Layout.Vertical>
       )}
@@ -398,8 +399,7 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
               />
               {type === MultiTypeInputType.FIXED ? (
                 <Button
-                  minimal
-                  intent="primary"
+                  variation={ButtonVariation.LINK}
                   disabled={readonly || (isEditService(values) ? !canEdit : !canCreate)}
                   onClick={() => {
                     const isEdit = isEditService(values)
@@ -568,8 +568,7 @@ const DeployServiceInputStep: React.FC<DeployServiceProps & { formik?: any }> = 
           />
           {getMultiTypeFromValue(initialValues?.serviceRef) === MultiTypeInputType.FIXED && (
             <Button
-              minimal
-              intent="primary"
+              variation={ButtonVariation.LINK}
               disabled={inputSetData?.readonly || (isEditService(initialValues) ? !canEdit : !canCreate)}
               onClick={() => {
                 const isEdit = isEditService(initialValues)

@@ -243,7 +243,7 @@ exports[`Test DeployService Step Should be able save even if there is 63 charact
         class="StyledProps--font StyledProps--main StyledProps--padding-top-xlarge"
       >
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-primary"
           data-id="service-save"
           type="button"
         >
@@ -255,7 +255,7 @@ exports[`Test DeployService Step Should be able save even if there is 63 charact
         </button>
            
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-secondary"
           type="button"
         >
           <span
@@ -513,7 +513,7 @@ exports[`Test DeployService Step should render edit service view (service), then
         class="StyledProps--font StyledProps--main StyledProps--padding-top-xlarge"
       >
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-primary"
           data-id="service-save"
           type="button"
         >
@@ -525,7 +525,7 @@ exports[`Test DeployService Step should render edit service view (service), then
         </button>
            
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-secondary"
           type="button"
         >
           <span
@@ -755,7 +755,7 @@ exports[`Test DeployService Step should render service view and save 1`] = `
         class="StyledProps--font StyledProps--main StyledProps--padding-top-xlarge"
       >
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-primary"
           data-id="service-save"
           type="button"
         >
@@ -767,7 +767,7 @@ exports[`Test DeployService Step should render service view and save 1`] = `
         </button>
            
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-secondary"
           type="button"
         >
           <span

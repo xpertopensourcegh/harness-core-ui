@@ -8,7 +8,8 @@ import {
   SelectOption,
   MultiSelectOption,
   Layout,
-  RUNTIME_INPUT_VALUE
+  RUNTIME_INPUT_VALUE,
+  ButtonVariation
 } from '@wings-software/uicore'
 import { Dialog, Classes, FormGroup, Position } from '@blueprintjs/core'
 import * as Yup from 'yup'
@@ -265,8 +266,7 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
                       {showAdvanced ? (
                         <span className={css.advancedBtn}>
                           <Button
-                            minimal
-                            intent="primary"
+                            variation={ButtonVariation.LINK}
                             tooltip={
                               values.isAdvanced ? undefined : (
                                 <Layout.Horizontal padding="medium">
@@ -339,16 +339,19 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
                   )}
                 </div>
               </div>
-              <div className={css.buttonsContainer}>
+              <Layout.Horizontal spacing="xxlarge" margin={{ top: 'medium' }}>
                 <Button
-                  intent="primary"
+                  variation={ButtonVariation.SECONDARY}
+                  text={<String stringID="cancel" />}
+                  onClick={() => closeModal()}
+                />
+                <Button
+                  variation={ButtonVariation.PRIMARY}
                   text={<String stringID="submit" />}
                   onClick={submitForm}
                   disabled={isReadonly}
                 />{' '}
-                &nbsp; &nbsp;
-                <Button text={<String stringID="cancel" />} onClick={() => closeModal()} />
-              </div>
+              </Layout.Horizontal>
             </>
           )}
         </Formik>

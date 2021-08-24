@@ -12,7 +12,8 @@ import {
   Container,
   ThumbnailSelect,
   Label,
-  FormikForm
+  FormikForm,
+  ButtonVariation
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { get, isEmpty, noop, omit } from 'lodash-es'
@@ -185,11 +186,11 @@ export const NewEditEnvironmentModal: React.FC<NewEditEnvironmentModalProps> = (
               <Button
                 data-id="environment-save"
                 onClick={() => formikProps.submitForm()}
-                intent="primary"
+                variation={ButtonVariation.PRIMARY}
                 text={getString('save')}
               />
               &nbsp; &nbsp;
-              <Button text={getString('cancel')} onClick={closeModal} />
+              <Button variation={ButtonVariation.SECONDARY} text={getString('cancel')} onClick={closeModal} />
             </Container>
           </Layout.Vertical>
         )}
@@ -424,8 +425,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
                 />
                 {type === MultiTypeInputType.FIXED && (
                   <Button
-                    minimal
-                    intent="primary"
+                    variation={ButtonVariation.LINK}
                     disabled={readonly || (isEditEnvironment(values) ? !canEdit : !canCreate)}
                     onClick={() => {
                       const isEdit = isEditEnvironment(values)
