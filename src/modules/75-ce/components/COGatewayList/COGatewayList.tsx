@@ -296,9 +296,6 @@ const COGatewayList: React.FC = () => {
             )}
           </Layout.Horizontal>
           <Layout.Horizontal spacing="small">
-            <span style={{ color: tableProps.row.original.disabled ? textColor.disable : Color.GREY_500 }}>
-              {hasCustomDomains ? 'Custom Domain: ' : 'Host name: '}
-            </span>
             <Text
               style={{
                 flex: 1,
