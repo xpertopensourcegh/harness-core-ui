@@ -404,4 +404,82 @@ describe('Subscriptions Page', () => {
     expect(getByText('common.purpose.cd.delivery')).toBeTruthy()
     expect(container).toMatchSnapshot()
   })
+
+  describe('Subscription Details Card', () => {
+    test('should render CD details', () => {
+      useGetModuleLicenseInfoMock.mockImplementation(() => {
+        return {
+          data: {
+            data: [
+              {
+                edition: Editions.ENTERPRISE,
+                workloads: 100,
+                moduleType: 'CD'
+              }
+            ],
+            status: 'SUCCESS'
+          },
+          refetch: jest.fn()
+        }
+      })
+
+      useGetAccountMock.mockImplementation(() => {
+        return {
+          data: {
+            data: {
+              accountId: '123'
+            },
+            status: 'SUCCESS'
+          },
+          refetch: jest.fn()
+        }
+      })
+
+      const { getByText } = render(
+        <TestWrapper defaultAppStoreValues={{ featureFlags }} pathParams={{ module: ModuleName.CD }}>
+          <SubscriptionsPage />
+        </TestWrapper>
+      )
+
+      expect(getByText('common.subscriptions.cd.services'))
+    })
+
+    test('should render CCM details', () => {
+      useGetModuleLicenseInfoMock.mockImplementation(() => {
+        return {
+          data: {
+            data: [
+              {
+                edition: Editions.ENTERPRISE,
+                spendLimit: -1,
+                moduleType: 'CE'
+              }
+            ],
+            status: 'SUCCESS'
+          },
+          refetch: jest.fn()
+        }
+      })
+
+      useGetAccountMock.mockImplementation(() => {
+        return {
+          data: {
+            data: {
+              accountId: '123'
+            },
+            status: 'SUCCESS'
+          },
+          refetch: jest.fn()
+        }
+      })
+
+      const { getByText } = render(
+        <TestWrapper defaultAppStoreValues={{ featureFlags }} pathParams={{ module: ModuleName.CE }}>
+          <SubscriptionsPage />
+        </TestWrapper>
+      )
+
+      expect(getByText('common.subscriptions.ccm.cloudSpend'))
+    })
+  })
 })

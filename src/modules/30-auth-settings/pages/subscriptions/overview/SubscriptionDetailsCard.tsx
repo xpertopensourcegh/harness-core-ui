@@ -12,7 +12,13 @@ import { useLicenseStore, handleUpdateLicenseStore } from 'framework/LicenseStor
 import { useExtendTrialLicense, StartTrialDTO, FeedbackFormDTO, useSaveFeedback } from 'services/cd-ng'
 import { useToaster } from '@common/components'
 import { ModuleName } from 'framework/types/ModuleName'
-import type { ModuleLicenseDTO, CFModuleLicenseDTO, CIModuleLicenseDTO } from 'services/cd-ng'
+import type {
+  ModuleLicenseDTO,
+  CFModuleLicenseDTO,
+  CIModuleLicenseDTO,
+  CDModuleLicenseDTO,
+  CEModuleLicenseDTO
+} from 'services/cd-ng'
 import routes from '@common/RouteDefinitions'
 import {
   useExtendTrialOrFeedbackModal,
@@ -147,6 +153,40 @@ const SubscriptionDetailsCard: React.FC<SubscriptionDetailsCardProps> = props =>
               <Layout.Vertical spacing="medium">
                 <Text color={Color.BLACK} font={{ weight: 'semi-bold' }} margin={{ bottom: 5 }}>
                   {getString('common.subscriptions.ci.developers', { developers: committers })}
+                </Text>
+              </Layout.Vertical>
+            </React.Fragment>
+          )
+        }
+        break
+      case ModuleName.CD:
+        {
+          const cdModuleLicenseDTO = licenseData as CDModuleLicenseDTO
+          const workloads = cdModuleLicenseDTO?.workloads
+
+          fields.push(
+            <React.Fragment key="licenseCount">
+              <Text color={Color.GREY_600}>{getString('common.account.licenseCount')}</Text>
+              <Layout.Vertical spacing="medium">
+                <Text color={Color.BLACK} font={{ weight: 'semi-bold' }} margin={{ bottom: 5 }}>
+                  {getString('common.subscriptions.cd.services', { workloads: workloads })}
+                </Text>
+              </Layout.Vertical>
+            </React.Fragment>
+          )
+        }
+        break
+      case ModuleName.CE:
+        {
+          const ceModuleLicenseDTO = licenseData as CEModuleLicenseDTO
+          const spendLimit =
+            ceModuleLicenseDTO?.spendLimit === -1 ? getString('common.unlimited') : ceModuleLicenseDTO?.spendLimit
+          fields.push(
+            <React.Fragment key="licenseCount">
+              <Text color={Color.GREY_600}>{getString('common.account.licenseCount')}</Text>
+              <Layout.Vertical spacing="medium">
+                <Text color={Color.BLACK} font={{ weight: 'semi-bold' }} margin={{ bottom: 5 }}>
+                  {getString('common.subscriptions.ccm.cloudSpend', { cloudSpend: spendLimit })}
                 </Text>
               </Layout.Vertical>
             </React.Fragment>

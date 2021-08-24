@@ -320,6 +320,7 @@ location: Location
 subscribed: Subscribed
 overSubscribed: Oversubscribed
 totalHarnessUser: Total Harness users
+unlimited: Unlimited
 subscriptions:
   title: Subscriptions
   tabs:
@@ -331,6 +332,10 @@ subscriptions:
     plan: Plan
     expiry: Trial Expiry Date
     subscribe: Subscribe
+  ccm:
+    cloudSpend: '{{ spendLimit }} Cloud Spend'
+  cd:
+    services: '{{ workloads }} Services'
   featureFlags:
     users: '{{ users }} Feature Flag developers'
     mau: '{{ maus }} Monthly Active users'

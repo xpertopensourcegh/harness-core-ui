@@ -394,6 +394,8 @@ export interface StringsMap {
   'common.submittingRequestToGitViaDelegate': string
   'common.subscribed': string
   'common.subscriptions.banner.enterprise': string
+  'common.subscriptions.ccm.cloudSpend': string
+  'common.subscriptions.cd.services': string
   'common.subscriptions.ci.developers': string
   'common.subscriptions.enterprisePaid': string
   'common.subscriptions.enterpriseTrial': string
@@ -438,6 +440,7 @@ export interface StringsMap {
   'common.totalSelected': string
   'common.trialInProgress': string
   'common.trialInProgressDescription': string
+  'common.unlimited': string
   'common.unsavedChanges': string
   'common.updating': string
   'common.useTemplate': string
