@@ -6,12 +6,13 @@ import css from './CardWithOuterTitle.module.scss'
 interface CardWithOuterTitleProp {
   title?: string
   children: JSX.Element
+  className?: string
 }
 
-export default function CardWithOuterTitle({ title, children }: CardWithOuterTitleProp): JSX.Element {
+export default function CardWithOuterTitle({ title, children, className }: CardWithOuterTitleProp): JSX.Element {
   return (
     <>
-      <Layout.Vertical margin={'xxlarge'}>
+      <Layout.Vertical margin={'xxlarge'} className={className}>
         {title && (
           <Text color={Color.BLACK} className={css.header}>
             {title}

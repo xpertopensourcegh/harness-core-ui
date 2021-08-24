@@ -1,5 +1,5 @@
 import type { MonitoredServiceDTO } from 'services/cv'
-import type { MonitoredServiceForm } from './MonitoredService.types'
+import type { MonitoredServiceForm } from './Service.types'
 
 export const getInitFormData = (data: MonitoredServiceDTO | undefined, isEdit: boolean): MonitoredServiceForm => {
   const {

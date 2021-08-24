@@ -101,15 +101,17 @@ function CVMonitoredServiceListingPage(): JSX.Element {
           contentText={getString('cv.monitoredServices.deleteMonitoredServiceWarning') + `: ${rowdata.identifier}`}
           onDelete={async () => await onDelete(rowdata.identifier)}
           onEdit={() => {
-            history.push(
-              routes.toCVAddMonitoringServicesEdit({
+            history.push({
+              pathname: routes.toCVAddMonitoringServicesEdit({
                 accountId: params.accountId,
                 projectIdentifier: params.projectIdentifier,
                 orgIdentifier: params.orgIdentifier,
                 identifier: rowdata.identifier,
                 module: 'cv'
-              })
-            )
+              }),
+              // TODO - this will be removed once the bakend support is availble to populate currentHealthScore
+              state: { currentHealthScore: rowdata?.currentHealthScore }
+            })
           }}
           onToggleMonitoredServiceData={{
             refetch,

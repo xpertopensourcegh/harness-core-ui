@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Unit tests for EditHeader Verify if all the fields are rendered correctly inside EditHeader 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main container"
+  >
+    <div
+      class="StyledProps--font StyledProps--main leftContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold"
+      >
+        monitored-service-name
+      </p>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--padding-left-medium StyledProps--padding-top-xsmall"
+      >
+        ID: monitored-service-identifier
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main rightContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+      >
+        Last updated: 08/11/2021 06:49:02 pm
+      </p>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--padding-top-small"
+      >
+        Environment: env
+      </p>
+    </div>
+  </div>
+</div>
+`;

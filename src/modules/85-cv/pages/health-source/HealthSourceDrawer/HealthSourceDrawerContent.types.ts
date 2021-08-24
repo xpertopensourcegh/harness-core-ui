@@ -1,4 +1,4 @@
-import type { MonitoredServiceRef } from '@cv/pages/monitored-service/component/MonitoredService.types'
+import type { MonitoredServiceRef } from '@cv/pages/monitored-service/components/Configurations/components/Service/Service.types'
 import type {
   HealthSource,
   AppDynamicsHealthSourceSpec,

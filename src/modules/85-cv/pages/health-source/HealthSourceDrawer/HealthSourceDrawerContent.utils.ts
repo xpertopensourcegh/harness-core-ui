@@ -1,4 +1,4 @@
-import type { MonitoredServiceRef } from '@cv/pages/monitored-service/component/MonitoredService.types'
+import type { MonitoredServiceRef } from '@cv/pages/monitored-service/components/Configurations/components/Service/Service.types'
 import { GCOProduct } from '../connectors/GCOMetricsHealthSource/GCOMetricsHealthSource.utils'
 import type { RowData, SourceDataInterface, UpdatedHealthSource } from './HealthSourceDrawerContent.types'
 

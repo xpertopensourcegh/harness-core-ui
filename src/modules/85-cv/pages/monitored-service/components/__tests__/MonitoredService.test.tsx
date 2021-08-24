@@ -6,7 +6,7 @@ import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import * as dbHook from '@cv/hooks/IndexedDBHook/IndexedDBHook'
 import { InputTypes, setFieldValue } from '@common/utils/JestFormHelper'
-import MonitoredService from '../MonitoredService'
+import MonitoredService from '../Configurations/Configurations'
 
 const testWrapperProps: TestWrapperProps = {
   path: routes.toCVAddMonitoringServicesSetup({ ...accountPathProps, ...projectPathProps }),

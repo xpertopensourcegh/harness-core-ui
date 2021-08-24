@@ -1,0 +1,12 @@
+.monitoredServiceTabs {
+  :global {
+    .bp3-tab-list {
+      background-color: var(--white);
+      padding: var(--spacing-none) var(--spacing-medium);
+    }
+
+    .bp3-tab-panel {
+      margin-top: var(--spacing-none) !important;
+    }
+  }
+}

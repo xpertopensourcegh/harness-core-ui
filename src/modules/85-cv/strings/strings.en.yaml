@@ -545,6 +545,15 @@ monitoredServices:
   monitoredServiceUpdated: Monitoring Service updated
   monitoredServiceToggle: 'Monitored Service successfully {{enabled}}'
   serviceCount: Showing {{serviceCount}} Services
+  serviceHealth:
+    last4Hrs: Last 4 hours
+    last24Hrs: Last 24 hours
+    last3Days: Last 3 days
+    last7Days: '{{ $.common.last7days }}'
+  monitoredServiceTabs:
+    serviceHealth: Service Health
+    configurations: Configurations
+    slos: SLOs
   riskLabel:
     lowRisk: Low risk
     mediumRisk: Medium risk

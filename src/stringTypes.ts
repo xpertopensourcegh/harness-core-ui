@@ -3569,6 +3569,9 @@ export interface StringsMap {
   'cv.monitoredServices.monitoredServiceCreated': string
   'cv.monitoredServices.monitoredServiceDetails': string
   'cv.monitoredServices.monitoredServiceName': string
+  'cv.monitoredServices.monitoredServiceTabs.configurations': string
+  'cv.monitoredServices.monitoredServiceTabs.serviceHealth': string
+  'cv.monitoredServices.monitoredServiceTabs.slos': string
   'cv.monitoredServices.monitoredServiceToggle': string
   'cv.monitoredServices.monitoredServiceUpdated': string
   'cv.monitoredServices.nameValidation': string
@@ -3579,6 +3582,10 @@ export interface StringsMap {
   'cv.monitoredServices.riskLabel.mediumRisk': string
   'cv.monitoredServices.serviceAndEnvironment': string
   'cv.monitoredServices.serviceCount': string
+  'cv.monitoredServices.serviceHealth.last24Hrs': string
+  'cv.monitoredServices.serviceHealth.last3Days': string
+  'cv.monitoredServices.serviceHealth.last4Hrs': string
+  'cv.monitoredServices.serviceHealth.last7Days': string
   'cv.monitoredServices.serviceValidation': string
   'cv.monitoredServices.table.healthMonitoring': string
   'cv.monitoredServices.table.lastestHealthTrend': string

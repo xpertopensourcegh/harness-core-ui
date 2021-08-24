@@ -19,15 +19,15 @@ import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import SaveAndDiscardButton from '@common/components/SaveAndDiscardButton/SaveAndDiscardButton'
 import { useIndexedDBHook, CVObjectStoreNames } from '@cv/hooks/IndexedDBHook/IndexedDBHook'
 import { NavigationCheck } from '@common/components/NavigationCheck/NavigationCheck'
-import ServiceEnvironment from './serviceEnvironment/MonitoredServiceEnvironment'
-import MonitoredServiceDetails from './monitoredServiceDetails/MonitoredServiceDetails'
-import CardWithOuterTitle from '../../health-source/common/CardWithOuterTitle/CardWithOuterTitle'
-import HealthSourceTable from '../../health-source/HealthSourceTable'
-import type { MonitoredServiceForm } from './MonitoredService.types'
-import { getInitFormData } from './MonitoredService.utils'
-import css from './MonitoredService.module.scss'
+import CardWithOuterTitle from '@cv/pages/health-source/common/CardWithOuterTitle/CardWithOuterTitle'
+import HealthSourceTable from '@cv/pages/health-source/HealthSourceTable'
+import type { MonitoredServiceForm } from './Service.types'
+import { getInitFormData } from './Service.utils'
+import MonitoredServiceDetails from '../../../monitoredServiceDetails/MonitoredServiceDetails'
+import ServiceEnvironment from '../../../serviceEnvironment/MonitoredServiceEnvironment'
+import css from './Service.module.scss'
 
-function MonitoredService(): JSX.Element {
+function Service(): JSX.Element {
   const { getString } = useStrings()
   const history = useHistory()
   const { showWarning, showError, showSuccess } = useToaster()
@@ -269,4 +269,4 @@ function MonitoredService(): JSX.Element {
   )
 }
 
-export default MonitoredService
+export default Service

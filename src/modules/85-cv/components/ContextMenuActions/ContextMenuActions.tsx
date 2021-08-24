@@ -3,7 +3,7 @@ import { Menu, MenuItem, Popover, Position } from '@blueprintjs/core'
 import { Color, Button } from '@wings-software/uicore'
 import { useConfirmationDialog } from '@common/exports'
 import { String, useStrings } from 'framework/strings'
-import ToggleMonitoring from '@cv/pages/monitored-service/component/toggleMonitoring/ToggleMonitoring'
+import ToggleMonitoring from '@cv/pages/monitored-service/components/toggleMonitoring/ToggleMonitoring'
 
 export interface ContextMenuActionsProps {
   onEdit?(): void
