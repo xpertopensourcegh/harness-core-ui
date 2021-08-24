@@ -264,6 +264,8 @@ learnMore: Learn more about Cloud Cost Management
 ceTrialHomePage:
   startTrial:
     description: Take your software build processes to the next level using our Harness Continuous Efficiency.
+    startBtn:
+      description: Start 14 day CCM Enterprise trial
   modal:
     title: You're ready to go...
     welcome: Your trial of Harness Cloud Cost Management has started.

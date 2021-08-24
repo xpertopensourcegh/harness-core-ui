@@ -2476,6 +2476,7 @@ export interface StringsMap {
   'ce.ceTrialHomePage.modal.title': string
   'ce.ceTrialHomePage.modal.welcome': string
   'ce.ceTrialHomePage.startTrial.description': string
+  'ce.ceTrialHomePage.startTrial.startBtn.description': string
   'ce.co.accessPoint.ap': string
   'ce.co.accessPoint.aps': string
   'ce.co.accessPoint.asssociatedRules': string

@@ -7,6 +7,7 @@ import { StartTrialTemplate } from '@common/components/TrialHomePageTemplate/Sta
 import { useStartTrialLicense } from 'services/cd-ng'
 import useCreateConnector from '@ce/components/CreateConnector/CreateConnector'
 import useCETrialModal from '@ce/modals/CETrialModal/useCETrialModal'
+import { useToaster } from '@common/components'
 import { handleUpdateLicenseStore, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import { ModuleName } from 'framework/types/ModuleName'
@@ -43,34 +44,40 @@ const CETrialHomePage: React.FC = () => {
     }
   })
 
+  const { showError } = useToaster()
+
   const handleStartTrial = async (): Promise<void> => {
-    const data = await startTrial({ moduleType: 'CE' })
+    try {
+      const data = await startTrial({ moduleType: 'CE' })
 
-    const expiryTime = data?.data?.expiryTime
+      const expiryTime = data?.data?.expiryTime
 
-    const updatedLicenseInfo = data?.data && {
-      ...licenseInformation?.['CE'],
-      ...pick(data?.data, ['licenseType', 'edition']),
-      expiryTime
+      const updatedLicenseInfo = data?.data && {
+        ...licenseInformation?.['CE'],
+        ...pick(data?.data, ['licenseType', 'edition']),
+        expiryTime
+      }
+
+      handleUpdateLicenseStore(
+        { ...licenseInformation },
+        updateLicenseStore,
+        ModuleName.CE.toString() as Module,
+        updatedLicenseInfo
+      )
+      showModal()
+    } catch (error) {
+      showError(error.data?.message)
     }
-
-    handleUpdateLicenseStore(
-      { ...licenseInformation },
-      updateLicenseStore,
-      ModuleName.CE.toString() as Module,
-      updatedLicenseInfo
-    )
-    showModal()
   }
 
   const startTrialProps = {
     description: getString('ce.homepage.slogan'),
     learnMore: {
       description: getString('ce.learnMore'),
-      url: 'https://ngdocs.harness.io/category/c9j6jejsws-cd-quickstarts'
+      url: 'https://ngdocs.harness.io/article/dvspc6ub0v-create-cost-perspectives'
     },
     startBtn: {
-      description: getString('common.startTrial'),
+      description: getString('ce.ceTrialHomePage.startTrial.startBtn.description'),
       onClick: handleStartTrial
     }
   }
