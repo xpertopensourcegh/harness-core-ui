@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Switch, Tab } from '@blueprintjs/core'
+import copy from 'copy-to-clipboard'
 import { Layout, Container, Text, Icon, Link, Tabs, Heading } from '@wings-software/uicore'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
@@ -120,6 +121,17 @@ const DATE_FORMAT = 'YYYY-MM-DDTHH:mm:ssZ'
 const today = () => moment()
 const startOfDay = (time: moment.Moment) => time.startOf('day').toDate()
 const endOfDay = (time: moment.Moment) => time.endOf('day').toDate()
+
+const CopyURL = (props: { textToCopy: string }) => {
+  const { showError, showSuccess } = useToaster()
+  const { getString } = useStrings()
+
+  const copyToClipboard = () => {
+    copy(props.textToCopy) ? showSuccess(getString('clipboardCopySuccess')) : showError(getString('clipboardCopyFail'))
+  }
+
+  return <Icon name="copy" size={20} color="blue500" onClick={copyToClipboard} style={{ cursor: 'pointer' }} />
+}
 
 const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams<{
@@ -289,24 +301,26 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
               )}
             </Layout.Horizontal>
             <Text>Host name</Text>
-            <Layout.Horizontal spacing="xsmall">
+            <Layout.Horizontal spacing="small">
               <Link
                 href={`http://${props.service?.data.host_name}`}
                 target="_blank"
-                style={{ maxWidth: 400, textAlign: 'left' }}
+                style={{ maxWidth: 300, textAlign: 'left' }}
               >
                 {props.service?.data.host_name}
               </Link>
+              <CopyURL textToCopy={`http://${props.service?.data.host_name}`} />
             </Layout.Horizontal>
             {props.service?.data.custom_domains?.length ? (
               <>
                 <Text>Custom Domain</Text>
                 {props.service?.data.custom_domains.map((d, i) => {
                   return (
-                    <Layout.Horizontal spacing="xsmall" key={`custom_domain${i}`}>
+                    <Layout.Horizontal spacing="small" key={`custom_domain${i}`}>
                       <Link key={`custom_domain${i}`} href={`http://${d}`} target="_blank">
                         {d}
                       </Link>
+                      <CopyURL textToCopy={d} />
                     </Layout.Horizontal>
                   )
                 })}
