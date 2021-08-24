@@ -361,7 +361,7 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
               role="columnheader"
               style="width: 18%;"
             >
-              NAME
+              ce.co.rulesTableHeaders.name
             </div>
             <div
               class="cell"
@@ -369,7 +369,7 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
               role="columnheader"
               style="width: 8%;"
             >
-              IDLE TIME
+              ce.co.rulesTableHeaders.idleTime
             </div>
             <div
               class="cell"
@@ -377,7 +377,7 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
               role="columnheader"
               style="width: 12%;"
             >
-              COMPUTE TYPE
+              ce.co.rulesTableHeaders.fulfilment
             </div>
             <div
               class="cell"
@@ -385,7 +385,7 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
               role="columnheader"
               style="width: 22%;"
             >
-              RESOURCES MANAGED BY THE RULE
+              ce.co.rulesTableHeaders.mangedResources
             </div>
             <div
               class="cell"
@@ -393,7 +393,7 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
               role="columnheader"
               style="width: 15%;"
             >
-              CUMULATIVE SAVINGS
+              ce.co.rulesTableHeaders.savings
             </div>
             <div
               class="cell"
@@ -401,7 +401,7 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
               role="columnheader"
               style="width: 10%;"
             >
-              LAST ACTIVITY
+              ce.co.rulesTableHeaders.lastActivity
             </div>
             <div
               class="cell"
@@ -409,7 +409,7 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
               role="columnheader"
               style="width: 10%;"
             >
-              STATUS
+              ce.co.rulesTableHeaders.status
             </div>
             <div
               class="cell"
@@ -1045,7 +1045,7 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
               role="columnheader"
               style="width: 18%;"
             >
-              NAME
+              ce.co.rulesTableHeaders.name
             </div>
             <div
               class="cell"
@@ -1053,7 +1053,7 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
               role="columnheader"
               style="width: 8%;"
             >
-              IDLE TIME
+              ce.co.rulesTableHeaders.idleTime
             </div>
             <div
               class="cell"
@@ -1061,7 +1061,7 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
               role="columnheader"
               style="width: 12%;"
             >
-              COMPUTE TYPE
+              ce.co.rulesTableHeaders.fulfilment
             </div>
             <div
               class="cell"
@@ -1069,7 +1069,7 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
               role="columnheader"
               style="width: 22%;"
             >
-              RESOURCES MANAGED BY THE RULE
+              ce.co.rulesTableHeaders.mangedResources
             </div>
             <div
               class="cell"
@@ -1077,7 +1077,7 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
               role="columnheader"
               style="width: 15%;"
             >
-              CUMULATIVE SAVINGS
+              ce.co.rulesTableHeaders.savings
             </div>
             <div
               class="cell"
@@ -1085,7 +1085,7 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
               role="columnheader"
               style="width: 10%;"
             >
-              LAST ACTIVITY
+              ce.co.rulesTableHeaders.lastActivity
             </div>
             <div
               class="cell"
@@ -1093,7 +1093,7 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
               role="columnheader"
               style="width: 10%;"
             >
-              STATUS
+              ce.co.rulesTableHeaders.status
             </div>
             <div
               class="cell"
@@ -1729,7 +1729,7 @@ exports[`Test COGatewayList renders without crashing 1`] = `
               role="columnheader"
               style="width: 18%;"
             >
-              NAME
+              ce.co.rulesTableHeaders.name
             </div>
             <div
               class="cell"
@@ -1737,7 +1737,7 @@ exports[`Test COGatewayList renders without crashing 1`] = `
               role="columnheader"
               style="width: 8%;"
             >
-              IDLE TIME
+              ce.co.rulesTableHeaders.idleTime
             </div>
             <div
               class="cell"
@@ -1745,7 +1745,7 @@ exports[`Test COGatewayList renders without crashing 1`] = `
               role="columnheader"
               style="width: 12%;"
             >
-              COMPUTE TYPE
+              ce.co.rulesTableHeaders.fulfilment
             </div>
             <div
               class="cell"
@@ -1753,7 +1753,7 @@ exports[`Test COGatewayList renders without crashing 1`] = `
               role="columnheader"
               style="width: 22%;"
             >
-              RESOURCES MANAGED BY THE RULE
+              ce.co.rulesTableHeaders.mangedResources
             </div>
             <div
               class="cell"
@@ -1761,7 +1761,7 @@ exports[`Test COGatewayList renders without crashing 1`] = `
               role="columnheader"
               style="width: 15%;"
             >
-              CUMULATIVE SAVINGS
+              ce.co.rulesTableHeaders.savings
             </div>
             <div
               class="cell"
@@ -1769,7 +1769,7 @@ exports[`Test COGatewayList renders without crashing 1`] = `
               role="columnheader"
               style="width: 10%;"
             >
-              LAST ACTIVITY
+              ce.co.rulesTableHeaders.lastActivity
             </div>
             <div
               class="cell"
@@ -1777,7 +1777,7 @@ exports[`Test COGatewayList renders without crashing 1`] = `
               role="columnheader"
               style="width: 10%;"
             >
-              STATUS
+              ce.co.rulesTableHeaders.status
             </div>
             <div
               class="cell"

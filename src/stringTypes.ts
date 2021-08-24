@@ -2650,6 +2650,13 @@ export interface StringsMap {
   'ce.co.landingPageText': string
   'ce.co.newAutoStoppingRule': string
   'ce.co.noData': string
+  'ce.co.rulesTableHeaders.fulfilment': string
+  'ce.co.rulesTableHeaders.idleTime': string
+  'ce.co.rulesTableHeaders.lastActivity': string
+  'ce.co.rulesTableHeaders.mangedResources': string
+  'ce.co.rulesTableHeaders.name': string
+  'ce.co.rulesTableHeaders.savings': string
+  'ce.co.rulesTableHeaders.status': string
   'ce.co.setupCloudProvider': string
   'ce.co.sshSetup': string
   'ce.connector.AWS.crossAccountRole.arn': string

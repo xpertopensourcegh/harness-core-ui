@@ -601,43 +601,43 @@ const COGatewayList: React.FC = () => {
                       columns={[
                         {
                           accessor: 'name',
-                          Header: 'Name'.toUpperCase(),
+                          Header: getString('ce.co.rulesTableHeaders.name'),
                           width: '18%',
                           Cell: NameCell,
                           disableSortBy: true
                         },
                         {
                           accessor: 'idle_time_mins',
-                          Header: 'Idle Time'.toUpperCase(),
+                          Header: getString('ce.co.rulesTableHeaders.idleTime'),
                           width: '8%',
                           Cell: TimeCell,
                           disableSortBy: true
                         },
                         {
                           accessor: 'fulfilment',
-                          Header: 'Compute Type'.toUpperCase(),
+                          Header: getString('ce.co.rulesTableHeaders.fulfilment'),
                           width: '12%',
                           Cell: IconCell,
                           disableSortBy: true
                         },
                         {
-                          Header: 'Resources Managed By The Rule'.toUpperCase(),
+                          Header: getString('ce.co.rulesTableHeaders.mangedResources'),
                           width: '22%',
                           Cell: ResourcesCell
                         },
                         {
-                          Header: 'Cumulative Savings'.toUpperCase(),
+                          Header: getString('ce.co.rulesTableHeaders.savings'),
                           width: '15%',
                           Cell: SavingsCell,
                           disableSortBy: true
                         },
                         {
-                          Header: 'Last Activity'.toUpperCase(),
+                          Header: getString('ce.co.rulesTableHeaders.lastActivity'),
                           width: '10%',
                           Cell: ActivityCell
                         },
                         {
-                          Header: 'STATUS',
+                          Header: getString('ce.co.rulesTableHeaders.status'),
                           width: '10%',
                           Cell: StatusCell
                         },
