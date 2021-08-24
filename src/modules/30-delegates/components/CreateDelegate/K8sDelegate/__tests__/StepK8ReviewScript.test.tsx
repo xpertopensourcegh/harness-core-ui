@@ -12,9 +12,11 @@ jest.mock('services/portal', () => ({
   useGenerateKubernetesYaml: jest.fn().mockImplementation(() => {
     generateYamlMock()
     return {
-      mutate: jest.fn().mockImplementation(() => {
-        return new Promise(() => new Promise(() => null))
-      })
+      mutate: () => {
+        return new Promise(resolve => {
+          resolve([])
+        })
+      }
     }
   })
 }))
@@ -39,7 +41,7 @@ describe('Create Step Review Script Delegate', () => {
       fireEvent.click(stepReviewScriptContinueButton!)
     })
     await waitFor(() => {
-      expect(nextStep).toBeCalled()
+      expect(nextStep).not.toBeCalled()
     })
   })
   test('Click back button', async () => {

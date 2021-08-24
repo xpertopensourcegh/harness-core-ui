@@ -76,4 +76,5 @@ reviewScript:
   docLinkBefore: 'Please refer to '
   docLink: 'documentation'
   docLinkAfter: ' page.'
+  copyYamlError: 'Download the YAML file before clicking on the continue button'
 delegateIdentifier: 'Delegate Identifier'

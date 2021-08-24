@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Button, Layout, StepProps, Heading, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
@@ -13,6 +13,7 @@ import css from '../CreateK8sDelegate.module.scss'
 const Stepk8ReviewScript: React.FC<StepProps<StepK8Data>> = props => {
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
+  const [isYAMLDownloaded, setIsYAMLDownloaded] = useState(false)
   const { showError } = useToaster()
   const { mutate: downloadYaml } = useGenerateKubernetesYaml({
     queryParams: {
@@ -37,21 +38,19 @@ const Stepk8ReviewScript: React.FC<StepProps<StepK8Data>> = props => {
 
   const onDownload = (data: DelegateSetupDetails | undefined): void => {
     downloadYaml(data as DelegateSetupDetails)
-      .then((response: any) => {
-        return new Response(response)
-      })
-      .then(response => response.blob())
-      .then(blob => {
+      .then(async (response: any) => {
+        setIsYAMLDownloaded(true)
+        const blobResponse = await new Response(response)
+        const blob = await blobResponse.blob()
         if (linkRef?.current) {
           const content = new Blob([blob], { type: 'data:text/plain;charset=utf-8' })
           linkRef.current.href = window.URL.createObjectURL(content)
           linkRef.current.download = `harness-delegate.yaml`
+          linkRef.current.click()
         }
-        linkRef?.current?.click()
       })
       .catch(err => {
         showError(err.message)
-        throw err
       })
   }
   return (
@@ -97,7 +96,13 @@ const Stepk8ReviewScript: React.FC<StepProps<StepK8Data>> = props => {
               intent="primary"
               text={getString('continue')}
               rightIcon="chevron-right"
-              onClick={() => props.nextStep?.(props?.prevStepData)}
+              onClick={() => {
+                if (isYAMLDownloaded) {
+                  props.nextStep?.(props?.prevStepData)
+                } else {
+                  showError('delegates.reviewScript.copyYamlError')
+                }
+              }}
             />
           </Layout.Horizontal>
         </Layout.Vertical>
