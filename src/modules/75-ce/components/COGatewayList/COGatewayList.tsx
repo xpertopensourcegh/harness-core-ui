@@ -99,6 +99,8 @@ function NameCell(tableProps: CellProps<Service>): JSX.Element {
   )
 }
 
+const TOTAL_ITEMS_PER_PAGE = 5
+
 const COGatewayList: React.FC = () => {
   const { getString } = useStrings()
   const history = useHistory()
@@ -113,6 +115,7 @@ const COGatewayList: React.FC = () => {
   const [selectedService, setSelectedService] = useState<{ data: Service; index: number } | null>()
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false)
   const [tableData, setTableData] = useState<Service[]>([])
+  const [pageIndex, setPageIndex] = useState<number>(0)
 
   const {
     data: servicesData,
@@ -128,7 +131,7 @@ const COGatewayList: React.FC = () => {
   })
 
   useEffect(() => {
-    setTableData(servicesData?.response || [])
+    if (servicesData?.response) setTableData(servicesData?.response || [])
   }, [servicesData?.response])
 
   if (error) {
@@ -572,15 +575,18 @@ const COGatewayList: React.FC = () => {
                     </Layout.Horizontal>
                   ) : (
                     <Table<Service>
-                      data={tableData}
+                      data={tableData.slice(
+                        pageIndex * TOTAL_ITEMS_PER_PAGE,
+                        pageIndex * TOTAL_ITEMS_PER_PAGE + TOTAL_ITEMS_PER_PAGE
+                      )}
                       className={css.table}
-                      // pagination={{
-                      //   itemCount: 50, //data?.data?.totalItems || 0,
-                      //   pageSize: 10, //data?.data?.pageSize || 10,
-                      //   pageCount: 5, //data?.data?.totalPages || 0,
-                      //   pageIndex: page, //data?.data?.pageIndex || 0,
-                      //   gotoPage: (pageNumber: number) => setPage(pageNumber)
-                      // }}
+                      pagination={{
+                        pageSize: TOTAL_ITEMS_PER_PAGE,
+                        pageIndex: pageIndex,
+                        pageCount: Math.ceil(tableData.length / TOTAL_ITEMS_PER_PAGE) ?? 1,
+                        itemCount: tableData.length,
+                        gotoPage: newPageIndex => setPageIndex(newPageIndex)
+                      }}
                       onRowClick={(e, index) => {
                         setSelectedService({ data: e, index })
                         setIsDrawerOpen(true)

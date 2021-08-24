@@ -1,5 +1,5 @@
 import React from 'react'
-import { fireEvent, render } from '@testing-library/react'
+import { fireEvent, render, waitFor } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
 import { TestWrapper } from '@common/utils/testUtils'
 import COGatewayList from '../COGatewayList'
@@ -141,6 +141,21 @@ describe('Test COGatewayList', () => {
     expect(row).toBeDefined()
     act(() => {
       fireEvent.click(row!)
+    })
+    expect(container).toMatchSnapshot()
+  })
+
+  test('clicking on refresh button refetch all rules', async () => {
+    const { container } = render(
+      <TestWrapper path={testpath} pathParams={testparams}>
+        <COGatewayList></COGatewayList>
+      </TestWrapper>
+    )
+
+    const refreshIcon = container.querySelector('.refreshIconContainer')
+    expect(refreshIcon).toBeDefined()
+    await waitFor(() => {
+      fireEvent.click(refreshIcon!)
     })
     expect(container).toMatchSnapshot()
   })
