@@ -11,7 +11,6 @@ declare const styles: {
   readonly strategyType: string
   readonly active: string
   readonly strategyDetailsPanel: string
-  readonly learnMore: string
   readonly preview: string
   readonly previewContainer: string
   readonly info: string

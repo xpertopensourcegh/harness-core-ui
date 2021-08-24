@@ -39,7 +39,7 @@ exports[`<EnableGitExperience /> clicking on Enable Git Experience should displa
       class="Layout--horizontal StyledProps--main StyledProps--border StyledProps--border-top StyledProps--padding-top-medium StyledProps--margin-top-medium"
     >
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--margin-right-medium StyledProps--intent-primary Button--with-current-color"
+        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--margin-right-medium Button--with-current-color Button--variation Button--variation-primary"
         data-test-id="enableGitExpBtn"
         data-tooltip-id="enableGitExpBtn"
         type="button"
@@ -51,7 +51,7 @@ exports[`<EnableGitExperience /> clicking on Enable Git Experience should displa
         </span>
       </button>
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main bp3-popover-dismiss Button--with-current-color"
+        class="bp3-button Button--button StyledProps--font StyledProps--main bp3-popover-dismiss Button--with-current-color Button--variation Button--variation-secondary"
         data-test-id="skipNowBtn"
         data-tooltip-id="skipNowBtn"
         type="button"
@@ -112,7 +112,7 @@ exports[`<EnableGitExperience /> should render EnableGitExperience component pro
           class="bp3-popover-target"
         >
           <a
-            class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main StyledProps--margin-right-medium StyledProps--intent-primary Button--with-current-color"
+            class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main StyledProps--margin-right-medium Button--with-current-color Button--variation Button--variation-primary"
             data-test-id="enableGitExpBtn"
             data-tooltip-id="enableGitExpBtn"
             disabled=""
@@ -128,7 +128,7 @@ exports[`<EnableGitExperience /> should render EnableGitExperience component pro
         </span>
       </span>
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main bp3-popover-dismiss Button--with-current-color"
+        class="bp3-button Button--button StyledProps--font StyledProps--main bp3-popover-dismiss Button--with-current-color Button--variation Button--variation-secondary"
         data-test-id="skipNowBtn"
         data-tooltip-id="skipNowBtn"
         type="button"

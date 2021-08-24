@@ -83,14 +83,6 @@
       line-height: 28px !important;
       margin-right: 12px;
     }
-    .learnMore {
-      font-style: normal;
-      font-size: 14px !important;
-      font-weight: 500 !important;
-      line-height: 24px !important;
-      color: var(--primary-7) !important;
-      box-shadow: none !important;
-    }
   }
   .preview {
     .previewContainer {
@@ -126,16 +118,7 @@
           margin-left: 40px;
 
           .playButton {
-            background: none;
-            line-height: 1;
-            color: black;
-            text-align: center;
-            outline: 0;
-            padding: 0;
-            cursor: pointer;
-            max-width: 50px;
             position: absolute;
-            border: none;
             :global(.bp3-icon) {
               color: var(--primary-5);
             }

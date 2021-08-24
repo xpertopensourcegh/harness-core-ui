@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import YAML from 'yaml'
-import { Text, Icon, Layout, Button, Card, IconName, Switch, Color } from '@wings-software/uicore'
+import { Text, Icon, Layout, Button, Card, IconName, Switch, Color, ButtonVariation } from '@wings-software/uicore'
 import { get, isEmpty, startCase } from 'lodash-es'
 import cx from 'classnames'
 import produce from 'immer'
@@ -233,10 +233,9 @@ const ExecutionStrategyRef = (
             )}
           </Layout.Horizontal>
           <Button
-            minimal
+            variation={ButtonVariation.LINK}
             href={learnMoreLinkByType[selectedStrategy]}
             target="_blank"
-            className={css.learnMore}
             withoutBoxShadow={true}
           >
             {getString('learnMore')}
@@ -263,13 +262,13 @@ const ExecutionStrategyRef = (
                   <div className={css.playerControls}>
                     <Button
                       minimal
+                      variation={ButtonVariation.ICON}
                       className={css.playButton}
                       onClick={toggleVideo}
-                      withoutBoxShadow={true}
                       data-testid="playButton"
                       icon="play-circle"
                       iconProps={{ size: 42 }}
-                      withoutCurrentColor={true}
+                      withoutCurrentColor
                     />
                   </div>
                 )}
@@ -296,7 +295,7 @@ const ExecutionStrategyRef = (
           </section>
         </section>
         <Button
-          intent="primary"
+          variation={ButtonVariation.PRIMARY}
           text={getString('pipeline.executionStrategy.useStrategy')}
           className={css.selectBtn}
           onClick={() => {

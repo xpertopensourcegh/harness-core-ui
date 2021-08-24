@@ -1,7 +1,16 @@
 import React from 'react'
 import { Classes, Dialog, IDialogProps } from '@blueprintjs/core'
 import cx from 'classnames'
-import { useModalHook, Text, Icon, Layout, Button, SelectOption, Container } from '@wings-software/uicore'
+import {
+  useModalHook,
+  Text,
+  Icon,
+  Layout,
+  Button,
+  SelectOption,
+  Container,
+  ButtonVariation
+} from '@wings-software/uicore'
 import { useHistory, useParams, matchPath } from 'react-router-dom'
 import { parse } from 'yaml'
 import { isEmpty, isEqual, merge, omit } from 'lodash-es'
@@ -629,9 +638,8 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
             />
             <Button
               aria-label="close modal"
-              minimal
               icon="cross"
-              iconProps={{ size: 18 }}
+              variation={ButtonVariation.ICON}
               onClick={() => {
                 onCloseRunPipelineModal()
               }}
@@ -850,15 +858,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                   </Container>
                 )}
                 {isYaml || isReadonly ? null : (
-                  <Button
-                    className={css.pipelineEditBtn}
-                    minimal
-                    icon="Edit"
-                    withoutBoxShadow
-                    iconProps={{ size: 16 }}
-                    onClick={showModal}
-                    withoutCurrentColor={true}
-                  />
+                  <Button variation={ButtonVariation.ICON} icon="Edit" onClick={showModal} />
                 )}
               </Layout.Horizontal>
 
@@ -885,7 +885,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
               <div>
                 {!isReadonly && (
                   <Button
-                    intent="primary"
+                    variation={ButtonVariation.PRIMARY}
                     text={getString('save')}
                     onClick={saveAndPublish}
                     icon="send-data"
@@ -900,13 +900,15 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                       fetchPipeline({ forceFetch: true, forceUpdate: true })
                     }}
                     className={css.discardBtn}
+                    variation={ButtonVariation.SECONDARY}
                     text={getString('pipeline.discard')}
                   />
                 )}
                 <RbacButton
                   data-testid="card-run-pipeline"
-                  intent="primary"
+                  variation={ButtonVariation.PRIMARY}
                   icon="run-pipeline"
+                  intent="success"
                   disabled={isUpdated}
                   className={css.runPipelineBtn}
                   text={getString('runPipelineText')}

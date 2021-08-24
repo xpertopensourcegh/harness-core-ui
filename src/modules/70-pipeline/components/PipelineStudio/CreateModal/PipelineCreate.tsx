@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Formik, FormikForm, Button, Accordion } from '@wings-software/uicore'
+import { Container, Formik, FormikForm, Button, Accordion, ButtonVariation } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { omit } from 'lodash-es'
 import { useParams } from 'react-router-dom'
@@ -105,9 +105,13 @@ export default function CreatePipelines({
           </Accordion>
 
           <Container padding={{ top: 'xlarge' }}>
-            <Button intent="primary" type="submit" text={isEdit ? getString('save') : getString('start')} />
+            <Button
+              variation={ButtonVariation.PRIMARY}
+              type="submit"
+              text={isEdit ? getString('save') : getString('start')}
+            />
             &nbsp; &nbsp;
-            <Button text={getString('cancel')} onClick={closeModal} />
+            <Button variation={ButtonVariation.TERTIARY} text={getString('cancel')} onClick={closeModal} />
           </Container>
         </FormikForm>
       )}

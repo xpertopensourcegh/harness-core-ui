@@ -26,13 +26,13 @@ $dot-space: 10px;
 .add-step-popover {
   display: inline-block;
   min-width: 180px;
-  button {
-    color: var(--white) !important;
-    height: 80px;
-    justify-content: start;
 
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.2) !important;
+  .add-popover {
+    button {
+      justify-content: flex-start;
+      --background-color: transparent !important;
+      --background-color-hover: rgba(255, 255, 255, 0.2) !important;
+      --background-color-active: rgba(255, 255, 255, 0.2) !important;
     }
   }
 }

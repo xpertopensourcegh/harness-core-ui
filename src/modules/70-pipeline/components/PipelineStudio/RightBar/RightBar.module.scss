@@ -14,16 +14,15 @@
   .icon-button {
     padding: 0px !important;
     position: relative !important;
-    border: 0 !important;
-    border-radius: 0 !important;
-    background-color: transparent !important;
     height: 70px !important;
     flex-direction: column;
     row-gap: var(--spacing-small);
     margin-bottom: 24px !important;
-    box-shadow: none !important;
     text-align: center !important;
-    max-height: none !important;
+    border-radius: 0 !important;
+    --background-color: transparent !important;
+    --background-color-hover: transparent !important;
+    --background-color-active: transparent !important;
 
     &:global(.bp3-button > .bp3-icon) {
       padding: 0 !important;
@@ -36,8 +35,9 @@
     }
 
     &.selected {
-      color: var(--white) !important;
-      background-color: var(--right-bar-bg, var(--white)) !important;
+      --background-color: var(--right-bar-bg, var(--white)) !important;
+      --background-color-active: var(--right-bar-bg, var(--white)) !important;
+      --background-color-hover: var(--right-bar-bg, var(--white)) !important;
     }
 
     &.enableGitExpIcon {
@@ -125,6 +125,9 @@
       &.selected {
         --right-bar-bg: var(--purple-400);
         --right-bar-icon: var(--white);
+        path[clip-path] {
+          fill: var(--white) !important;
+        }
         span {
           color: var(--white) !important;
         }

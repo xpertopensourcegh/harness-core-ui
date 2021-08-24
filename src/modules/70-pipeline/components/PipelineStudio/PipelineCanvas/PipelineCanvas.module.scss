@@ -125,21 +125,9 @@
   }
 
   .runPipelineBtn {
-    width: 64px !important;
-    height: 24px !important;
-    border-radius: 4px;
-    font-size: 13px !important;
-    background-color: var(--green-600) !important;
-    border-color: var(--green-600) !important;
     margin-left: var(--spacing-3) !important;
   }
   .discardBtn {
-    width: 78px !important;
-    height: 24px !important;
-    border-radius: 4px;
-    font-size: 13px !important;
-    border: 1px solid var(--primary-6) !important;
-    color: var(--primary-7) !important;
     margin-left: var(--spacing-3) !important;
   }
 }
@@ -162,12 +150,6 @@
     }
     .tagsContainer {
       margin-right: var(--spacing-small);
-    }
-    .pipelineEditBtn {
-      min-width: 24px !important;
-      width: 24px !important;
-      box-shadow: none !important;
-      padding: 0 !important;
     }
     .pipelineIcon {
       vertical-align: middle;

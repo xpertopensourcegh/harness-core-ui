@@ -148,6 +148,7 @@ export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
               icon="cross"
               iconProps={{ size: 10 }}
               onMouseDown={e => onClick(e, props.node)}
+              withoutCurrentColor={true}
             />
           )}
         </div>

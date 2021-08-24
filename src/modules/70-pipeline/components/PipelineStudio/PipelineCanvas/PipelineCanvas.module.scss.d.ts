@@ -20,7 +20,6 @@ declare const styles: {
   readonly pipelineNameContainer: string
   readonly pipelineName: string
   readonly tagsContainer: string
-  readonly pipelineEditBtn: string
   readonly pipelineIcon: string
   readonly gitDetails: string
   readonly repoDetails: string

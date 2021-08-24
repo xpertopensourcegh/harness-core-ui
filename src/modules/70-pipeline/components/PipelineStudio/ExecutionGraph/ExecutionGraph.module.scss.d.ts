@@ -4,6 +4,7 @@ declare const styles: {
   readonly container: string
   readonly canvas: string
   readonly addStepPopover: string
+  readonly addPopover: string
   readonly rollbackBanner: string
   readonly canvasButtons: string
 }

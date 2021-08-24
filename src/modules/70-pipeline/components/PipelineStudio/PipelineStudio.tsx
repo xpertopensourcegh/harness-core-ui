@@ -1,6 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
-import { Button, Container, Layout, Text } from '@wings-software/uicore'
+import { Button, ButtonVariation, Container, Layout, Text } from '@wings-software/uicore'
 import type {
   PipelinePathProps,
   ProjectPathProps,
@@ -70,6 +70,7 @@ export class PipelineStudio extends React.Component<PipelineStudioProps, Pipelin
               <String stringID="please" />
             </Text>
             <Button
+              variation={ButtonVariation.SECONDARY}
               onClick={() => {
                 return deletePipelineCache().then(() => {
                   window.location.reload()

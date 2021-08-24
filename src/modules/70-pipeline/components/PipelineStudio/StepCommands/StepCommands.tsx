@@ -1,5 +1,5 @@
 import React from 'react'
-import { Tabs, Tab, Button } from '@wings-software/uicore'
+import { Tabs, Tab, Button, ButtonVariation, ButtonSize } from '@wings-software/uicore'
 import { Expander } from '@blueprintjs/core'
 import cx from 'classnames'
 import type { FormikProps } from 'formik'
@@ -177,14 +177,15 @@ export function StepCommands(
               />
             }
           />
-          {templatesEnabled && (
+          {templatesEnabled ? (
             <>
               <Expander />
               <div>
                 <Button
                   icon="library"
                   minimal
-                  small
+                  size={ButtonSize.SMALL}
+                  variation={ButtonVariation.PRIMARY}
                   onClick={() => {
                     onUseTemplate?.(step)
                   }}
@@ -192,10 +193,17 @@ export function StepCommands(
                 >
                   {getString('common.useTemplate')}
                 </Button>
-                <Button withoutCurrentColor icon="upload-box" className={css.saveAsTempalteBtn} minimal small />
+                <Button
+                  withoutCurrentColor
+                  variation={ButtonVariation.ICON}
+                  icon="upload-box"
+                  className={css.saveAsTempalteBtn}
+                  minimal
+                  size={ButtonSize.SMALL}
+                />
               </div>
             </>
-          )}
+          ) : null}
         </Tabs>
       </div>
     </div>

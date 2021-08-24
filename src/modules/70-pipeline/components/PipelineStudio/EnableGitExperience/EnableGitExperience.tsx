@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { noop } from 'lodash-es'
-import { Button, Container, Icon, Layout } from '@wings-software/uicore'
+import { Button, ButtonVariation, Container, Icon, Layout } from '@wings-software/uicore'
 import { Classes } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -47,7 +47,7 @@ export const EnableGitExperience: React.FC = (): JSX.Element => {
       <Layout.Horizontal border={{ top: true }} padding={{ top: 'medium' }} margin={{ top: 'medium' }}>
         <RbacButton
           margin={{ right: 'medium' }}
-          intent="primary"
+          variation={ButtonVariation.PRIMARY}
           text={getString('enableGitExperience')}
           data-tooltip-id="enableGitExpBtn"
           data-test-id="enableGitExpBtn"
@@ -66,6 +66,7 @@ export const EnableGitExperience: React.FC = (): JSX.Element => {
           text={getString('pipeline.gitExperience.skipNow')}
           data-tooltip-id="skipNowBtn"
           data-test-id="skipNowBtn"
+          variation={ButtonVariation.SECONDARY}
           className={Classes.POPOVER_DISMISS}
           disabled={isReadonly}
         />

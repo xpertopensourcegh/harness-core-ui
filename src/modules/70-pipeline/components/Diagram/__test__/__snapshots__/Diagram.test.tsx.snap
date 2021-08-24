@@ -487,7 +487,7 @@ exports[`Test Diagram App should test basic snapshot 1`] = `
                     </div>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main closeNode diamondClose Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main closeNode diamondClose Button--iconOnly Button--without-shadow Button--withLeftIcon"
                     type="button"
                   >
                     <span

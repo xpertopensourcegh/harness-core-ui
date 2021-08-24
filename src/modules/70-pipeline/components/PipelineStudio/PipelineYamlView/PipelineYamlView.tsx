@@ -1,7 +1,7 @@
 import React from 'react'
 import { isEqual, isEqualWith, isNil, omit } from 'lodash-es'
 import { parse } from 'yaml'
-import { Tag } from '@wings-software/uicore'
+import { ButtonVariation, Tag } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
@@ -128,6 +128,7 @@ const PipelineYamlView: React.FC = () => {
               },
               permission: PermissionIdentifier.EDIT_PIPELINE
             }}
+            variation={ButtonVariation.SECONDARY}
             text={getString('common.editYaml')}
             onClick={() => {
               updatePipelineView({ ...pipelineView, isYamlEditable: true })

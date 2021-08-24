@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { cloneDeep, set } from 'lodash-es'
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 import type { BaseModelListener } from '@projectstorm/react-canvas-core'
-import { Button, Layout, Text } from '@wings-software/uicore'
+import { Button, ButtonVariation, Layout, Text } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import type { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
@@ -99,20 +99,20 @@ const renderPopover = ({
   } else if (labels) {
     return (
       <>
-        <Layout.Vertical spacing="small" padding="small">
+        <Layout.Vertical className={css.addPopover} spacing="small" padding="small">
           <Button
             minimal
+            variation={ButtonVariation.PRIMARY}
             icon="Edit"
             text={labels.addStep}
             onClick={() => onPopoverSelection?.(false, isParallelNodeClicked, event)}
-            withoutBoxShadow
           />
           <Button
             minimal
+            variation={ButtonVariation.PRIMARY}
             icon="step-group"
             text={labels.addStepGroup}
             onClick={() => onPopoverSelection?.(true, isParallelNodeClicked, event)}
-            withoutBoxShadow
           />
         </Layout.Vertical>
       </>

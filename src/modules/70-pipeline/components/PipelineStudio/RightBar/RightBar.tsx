@@ -15,7 +15,8 @@ import {
   Color,
   Layout,
   getMultiTypeFromValue,
-  MultiTypeInputType
+  MultiTypeInputType,
+  ButtonVariation
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { isEmpty, get, set } from 'lodash-es'
@@ -335,6 +336,7 @@ export const RightBar = (): JSX.Element => {
             className={cx(css.iconButton, css.enableGitExpIcon, {
               [css.selected]: isGitExpOpen
             })}
+            variation={ButtonVariation.TERTIARY}
             font={{ weight: 'semi-bold', size: 'xsmall' }}
             icon="service-github"
             text={getString('gitsync.label')}
@@ -355,6 +357,7 @@ export const RightBar = (): JSX.Element => {
         <Button
           className={cx(css.iconButton, css.codebaseIcon)}
           text={getString('codebase')}
+          variation={ButtonVariation.TERTIARY}
           font={{ weight: 'semi-bold', size: 'xsmall' }}
           icon={codebaseIcons[codebaseStatus] as IconName}
           iconProps={{ size: 20 }}
@@ -377,6 +380,7 @@ export const RightBar = (): JSX.Element => {
         className={cx(css.iconButton, css.notificationsIcon, {
           [css.selected]: type === DrawerTypes.PipelineNotifications
         })}
+        variation={ButtonVariation.TERTIARY}
         onClick={() => {
           updatePipelineView({
             ...pipelineView,
@@ -397,6 +401,7 @@ export const RightBar = (): JSX.Element => {
         className={cx(css.iconButton, css.flowControlIcon, {
           [css.selected]: type === DrawerTypes.FlowControl
         })}
+        variation={ButtonVariation.TERTIARY}
         onClick={() => {
           updatePipelineView({
             ...pipelineView,
@@ -408,6 +413,7 @@ export const RightBar = (): JSX.Element => {
         }}
         font={{ weight: 'semi-bold', size: 'xsmall' }}
         icon="settings"
+        withoutCurrentColor={true}
         iconProps={{ size: 20 }}
         text={getString('pipeline.barriers.flowControl')}
       />
@@ -423,8 +429,10 @@ export const RightBar = (): JSX.Element => {
             splitViewData: {}
           })
         }
+        variation={ButtonVariation.TERTIARY}
         font={{ weight: 'semi-bold', size: 'xsmall' }}
         icon="pipeline-variables"
+        withoutCurrentColor={true}
         iconProps={{ size: 20 }}
         text={getString('variablesText')}
         data-testid="input-variable"
@@ -670,8 +678,13 @@ export const RightBar = (): JSX.Element => {
                   </FormikForm>
                 </div>
                 <div className={Classes.DIALOG_FOOTER}>
-                  <Button intent="primary" text={getString('save')} onClick={submitForm} /> &nbsp; &nbsp;
-                  <Button text={getString('cancel')} onClick={closeCodebaseDialog} />
+                  <Button variation={ButtonVariation.PRIMARY} text={getString('save')} onClick={submitForm} /> &nbsp;
+                  &nbsp;
+                  <Button
+                    variation={ButtonVariation.TERTIARY}
+                    text={getString('cancel')}
+                    onClick={closeCodebaseDialog}
+                  />
                 </div>
               </>
             )}
