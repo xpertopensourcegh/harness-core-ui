@@ -177,9 +177,9 @@ const FormContent = ({
         }
       }}
       style={{
-        cursor: isApprovalStepFieldDisabled(readonly) ? 'not-allowed' : 'pointer',
-        marginBottom: 'var(--spacing-medium)'
+        cursor: isApprovalStepFieldDisabled(readonly) ? 'not-allowed' : 'pointer'
       }}
+      tooltipProps={{ dataTooltipId: 'jiraUpdateAddFields' }}
       intent="primary"
     >
       {getString('pipeline.jiraCreateStep.fieldSelectorAdd')}

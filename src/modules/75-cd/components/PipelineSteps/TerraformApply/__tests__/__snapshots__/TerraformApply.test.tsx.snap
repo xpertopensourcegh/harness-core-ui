@@ -825,17 +825,12 @@ exports[`Test TerraformApply expand backend Spec config 1`] = `
                             class="Tooltip--acenter"
                             data-tooltip-id="terraformEdit-TerraformApply-_spec.configuration.spec.environmentVariables"
                           >
-                            <div
-                              class="Text--withDocsTooltip"
-                              data-tooltip-id="dependencyEnvironmentVariables"
+                            <p
+                              class="StyledProps--font StyledProps--main"
+                              style="display: flex; align-items: center; color: rgb(11, 11, 13);"
                             >
-                              <p
-                                class="StyledProps--font StyledProps--main"
-                                style="display: flex; align-items: center; color: rgb(11, 11, 13);"
-                              >
-                                optionalField
-                              </p>
-                            </div>
+                              optionalField
+                            </p>
                           </span>
                         </div>
                          
@@ -2338,17 +2333,12 @@ exports[`Test TerraformApply rendering more than one varfile 2`] = `
                             class="Tooltip--acenter"
                             data-tooltip-id="terraformEdit-TerraformApply-_spec.configuration.spec.environmentVariables"
                           >
-                            <div
-                              class="Text--withDocsTooltip"
-                              data-tooltip-id="dependencyEnvironmentVariables"
+                            <p
+                              class="StyledProps--font StyledProps--main"
+                              style="display: flex; align-items: center; color: rgb(11, 11, 13);"
                             >
-                              <p
-                                class="StyledProps--font StyledProps--main"
-                                style="display: flex; align-items: center; color: rgb(11, 11, 13);"
-                              >
-                                optionalField
-                              </p>
-                            </div>
+                              optionalField
+                            </p>
                           </span>
                         </div>
                          

@@ -875,17 +875,12 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
                             class="Tooltip--acenter"
                             data-tooltip-id="terraformEdit-TerraformDestroy-_spec.configuration.spec.environmentVariables"
                           >
-                            <div
-                              class="Text--withDocsTooltip"
-                              data-tooltip-id="dependencyEnvironmentVariables"
+                            <p
+                              class="StyledProps--font StyledProps--main"
+                              style="display: flex; align-items: center; color: rgb(11, 11, 13);"
                             >
-                              <p
-                                class="StyledProps--font StyledProps--main"
-                                style="display: flex; align-items: center; color: rgb(11, 11, 13);"
-                              >
-                                optionalField
-                              </p>
-                            </div>
+                              optionalField
+                            </p>
                           </span>
                         </div>
                          
@@ -1922,17 +1917,12 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
                             class="Tooltip--acenter"
                             data-tooltip-id="terraformEdit-TerraformDestroy-_spec.configuration.spec.environmentVariables"
                           >
-                            <div
-                              class="Text--withDocsTooltip"
-                              data-tooltip-id="dependencyEnvironmentVariables"
+                            <p
+                              class="StyledProps--font StyledProps--main"
+                              style="display: flex; align-items: center; color: rgb(11, 11, 13);"
                             >
-                              <p
-                                class="StyledProps--font StyledProps--main"
-                                style="display: flex; align-items: center; color: rgb(11, 11, 13);"
-                              >
-                                optionalField
-                              </p>
-                            </div>
+                              optionalField
+                            </p>
                           </span>
                         </div>
                          

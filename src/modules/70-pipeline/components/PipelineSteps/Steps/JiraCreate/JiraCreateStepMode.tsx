@@ -232,8 +232,7 @@ const FormContent = ({
         }
       }}
       style={{
-        cursor: isApprovalStepFieldDisabled(readonly) ? 'not-allowed' : 'pointer',
-        marginBottom: 'var(--spacing-medium)'
+        cursor: isApprovalStepFieldDisabled(readonly) ? 'not-allowed' : 'pointer'
       }}
       tooltipProps={{ dataTooltipId: 'jiraCreateAddFields' }}
       intent="primary"

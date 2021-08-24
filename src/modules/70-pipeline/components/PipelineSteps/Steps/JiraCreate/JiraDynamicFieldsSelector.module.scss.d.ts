@@ -10,5 +10,7 @@ declare const styles: {
   readonly label: string
   readonly buttons: string
   readonly secondButton: string
+  readonly contentWrapper: string
+  readonly addFieldsButton: string
 }
 export default styles

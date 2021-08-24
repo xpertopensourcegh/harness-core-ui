@@ -180,10 +180,13 @@ const ProvideFieldList = (props: JiraDynamicFieldsSelectorContentInterface) => {
               render={({ push, remove }) => {
                 return (
                   <div>
-                    <div className={css.headerRow}>
-                      <String className={css.label} stringID="keyLabel" />
-                      <String className={css.label} stringID="valueLabel" />
-                    </div>
+                    {formik.values.fieldList?.length ? (
+                      <div className={css.headerRow}>
+                        <String className={css.label} stringID="keyLabel" />
+                        <String className={css.label} stringID="valueLabel" />
+                      </div>
+                    ) : null}
+
                     {formik.values.fieldList?.map((_unused: JiraCreateFieldType, i: number) => (
                       <div className={css.headerRow} key={i}>
                         <FormInput.Text
@@ -213,8 +216,9 @@ const ProvideFieldList = (props: JiraDynamicFieldsSelectorContentInterface) => {
                       intent="primary"
                       data-testid="add-fieldList"
                       onClick={() => push({ name: '', value: '' })}
+                      className={css.addFieldsButton}
                     >
-                      Field
+                      {getString('pipeline.jiraCreateStep.addFields')}
                     </Button>
                   </div>
                 )
@@ -242,7 +246,7 @@ const Content = (props: JiraDynamicFieldsSelectorContentInterface) => {
     connectorRef ? JiraCreateFormFieldSelector.FIXED : JiraCreateFormFieldSelector.EXPRESSION
   )
   return (
-    <div>
+    <div className={css.contentWrapper}>
       <div className={css.radioGroup}>
         <Radio
           onClick={() => setType(JiraCreateFormFieldSelector.FIXED)}
