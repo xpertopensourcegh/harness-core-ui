@@ -9,7 +9,8 @@ import {
   Accordion,
   HarnessDocTooltip,
   ThumbnailSelect,
-  Color
+  Color,
+  ButtonVariation
 } from '@wings-software/uicore'
 import type { Item } from '@wings-software/uicore/dist/components/ThumbnailSelect/ThumbnailSelect'
 import cx from 'classnames'
@@ -231,7 +232,7 @@ export const EditStageView: React.FC<EditStageViewProps> = ({
                     <Button
                       margin={{ top: 'medium' }}
                       type="submit"
-                      intent="primary"
+                      variation={ButtonVariation.PRIMARY}
                       text={getString('pipelineSteps.build.create.setupStage')}
                     />
                   )}

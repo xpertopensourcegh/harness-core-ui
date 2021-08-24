@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Tabs, Tab, Button, Icon } from '@wings-software/uicore'
+import { Layout, Tabs, Tab, Button, Icon, ButtonVariation } from '@wings-software/uicore'
 import cx from 'classnames'
 import type { HarnessIconName } from '@wings-software/uicore/dist/icons/HarnessIcons'
 import ExecutionGraph, {
@@ -140,6 +140,7 @@ export default function DeployStageSetupShell(): JSX.Element {
       {selectedTabId !== DeployTabs.OVERVIEW && (
         <Button
           text={getString('previous')}
+          variation={ButtonVariation.SECONDARY}
           icon="chevron-left"
           onClick={() => {
             handleTabChange(TabsOrder[Math.max(0, TabsOrder.indexOf(selectedTabId) - 1)])
@@ -149,7 +150,7 @@ export default function DeployStageSetupShell(): JSX.Element {
       {selectedTabId !== DeployTabs.ADVANCED && (
         <Button
           text={selectedTabId === DeployTabs.EXECUTION ? getString('save') : getString('next')}
-          intent="primary"
+          variation={ButtonVariation.PRIMARY}
           rightIcon="chevron-right"
           onClick={() => {
             if (selectedTabId === DeployTabs.EXECUTION) {

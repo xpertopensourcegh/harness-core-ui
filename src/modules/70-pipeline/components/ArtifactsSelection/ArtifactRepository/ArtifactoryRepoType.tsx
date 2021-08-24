@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react'
 import {
   Button,
+  ButtonVariation,
   Color,
   Container,
   Formik,
@@ -90,7 +91,7 @@ export const ArtifactoryRepoType: React.FC<StepProps<ConnectorConfigDTO> & Artif
             </div>
             <Layout.Horizontal>
               <Button
-                intent="primary"
+                variation={ButtonVariation.PRIMARY}
                 type="submit"
                 disabled={selectedArtifact === null}
                 text={getString('continue')}

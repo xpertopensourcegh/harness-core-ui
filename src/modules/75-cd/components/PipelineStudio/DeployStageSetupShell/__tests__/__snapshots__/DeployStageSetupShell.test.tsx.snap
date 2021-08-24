@@ -662,7 +662,7 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
                     class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
                   >
                     <button
-                      class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
+                      class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon Button--variation Button--variation-secondary"
                       type="button"
                     >
                       <span
@@ -691,7 +691,7 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
                       </span>
                     </button>
                     <button
-                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
+                      class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
                       type="button"
                     >
                       <span

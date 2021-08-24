@@ -6,7 +6,8 @@ import {
   Layout,
   MultiTypeInputType,
   Button,
-  StepProps
+  StepProps,
+  ButtonVariation
 } from '@wings-software/uicore'
 import { Form } from 'formik'
 import * as Yup from 'yup'
@@ -129,8 +130,7 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
                   </div>
                 ) : (
                   <Button
-                    intent="primary"
-                    minimal
+                    variation={ButtonVariation.LINK}
                     id="new-artifact-connector"
                     text={newConnectorLabel}
                     icon="plus"
@@ -145,9 +145,14 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
               </div>
             </div>
             <Layout.Horizontal spacing="xxlarge">
-              <Button text={getString('back')} icon="chevron-left" onClick={() => previousStep?.(prevStepData)} />
               <Button
-                intent="primary"
+                variation={ButtonVariation.SECONDARY}
+                text={getString('back')}
+                icon="chevron-left"
+                onClick={() => previousStep?.(prevStepData)}
+              />
+              <Button
+                variation={ButtonVariation.PRIMARY}
                 type="submit"
                 text={getString('continue')}
                 rightIcon="chevron-right"

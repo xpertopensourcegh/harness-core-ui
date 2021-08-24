@@ -9,7 +9,8 @@ import {
   Button,
   StepProps,
   Text,
-  RUNTIME_INPUT_VALUE
+  RUNTIME_INPUT_VALUE,
+  ButtonVariation
 } from '@wings-software/uicore'
 import { Form } from 'formik'
 import memoize from 'lodash-es/memoize'
@@ -357,8 +358,18 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
               ) : null}
             </div>
             <Layout.Horizontal spacing="xxlarge" className={css.saveBtn}>
-              <Button text={getString('back')} icon="chevron-left" onClick={() => previousStep?.(prevStepData)} />
-              <Button intent="primary" type="submit" text={getString('submit')} rightIcon="chevron-right" />
+              <Button
+                variation={ButtonVariation.SECONDARY}
+                text={getString('back')}
+                icon="chevron-left"
+                onClick={() => previousStep?.(prevStepData)}
+              />
+              <Button
+                variation={ButtonVariation.PRIMARY}
+                type="submit"
+                text={getString('submit')}
+                rightIcon="chevron-right"
+              />
             </Layout.Horizontal>
           </Form>
         )}
