@@ -7,7 +7,6 @@ import { CompletionItemKind } from 'vscode-languageserver-types'
 import { Page, useToaster } from '@common/exports'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import Wizard from '@common/components/Wizard/Wizard'
-import { PageError } from '@common/components/Page/PageError'
 import { connectorUrlType } from '@connectors/constants'
 import routes from '@common/RouteDefinitions'
 import {
@@ -200,7 +199,6 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
   }
 
   const [enabledStatus, setEnabledStatus] = useState<boolean>(true)
-  const [getTriggerErrorMessage, setGetTriggerErrorMessage] = useState<string>('')
   const [currentPipeline, setCurrentPipeline] = useState<{ pipeline?: PipelineInfoConfig } | undefined>(undefined)
   const [wizardKey, setWizardKey] = useState<number>(0)
   const [artifactManifestType, setArtifactManifestType] = useState<string | undefined>(undefined)
@@ -550,7 +548,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           pipelineJson = parse(inputYaml)?.pipeline
         } catch (e) {
           // set error
-          setGetTriggerErrorMessage(getString('pipeline.triggers.cannotParseInputValues'))
+          setErrorToasterMessage(getString('pipeline.triggers.cannotParseInputValues'))
         }
 
         triggerValues = {
@@ -644,7 +642,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           pipelineJson = parse(inputYaml)?.pipeline
         } catch (e) {
           // set error
-          setGetTriggerErrorMessage(getString('pipeline.triggers.cannotParseInputValues'))
+          setErrorToasterMessage(getString('pipeline.triggers.cannotParseInputValues'))
         }
 
         triggerValues = {
@@ -665,7 +663,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       }
     } catch (e) {
       // set error
-      setGetTriggerErrorMessage(getString('pipeline.triggers.cannotParseTriggersData'))
+      setErrorToasterMessage(getString('pipeline.triggers.cannotParseTriggersData'))
     }
 
     return triggerValues
@@ -701,7 +699,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         pipelineJson = parse(inputYaml)?.pipeline
       } catch (e) {
         // set error
-        setGetTriggerErrorMessage(getString('pipeline.triggers.cannotParseInputValues'))
+        setErrorToasterMessage(getString('pipeline.triggers.cannotParseInputValues'))
       }
       const expressionBreakdownValues = getBreakdownValues(expression)
       const newExpressionBreakdown = { ...resetScheduleObject, ...expressionBreakdownValues }
@@ -719,7 +717,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       return newOnEditInitialValues
     } catch (e) {
       // set error
-      setGetTriggerErrorMessage(getString('pipeline.triggers.cannotParseTriggersData'))
+      setErrorToasterMessage(getString('pipeline.triggers.cannotParseTriggersData'))
     }
   }
 
@@ -764,9 +762,8 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         pipelineJson = parse(inputYaml)?.pipeline
       } catch (e) {
         // set error
-        setGetTriggerErrorMessage(getString('pipeline.triggers.cannotParseInputValues'))
+        setErrorToasterMessage(getString('pipeline.triggers.cannotParseInputValues'))
       }
-
       const eventConditions = source?.spec?.spec?.eventConditions || []
       const { value: versionValue, operator: versionOperator } =
         eventConditions?.find(
@@ -800,7 +797,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       return newOnEditInitialValues
     } catch (e) {
       // set error
-      setGetTriggerErrorMessage(getString('pipeline.triggers.cannotParseTriggersData'))
+      setErrorToasterMessage(getString('pipeline.triggers.cannotParseTriggersData'))
     }
   }
   const getScheduleTriggerYaml = ({
@@ -1088,18 +1085,18 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
             ...onEditInitialValues,
             originalPipeline: newOriginalPipeline,
             pipeline: newPipeline,
-            ...{ additionalValues }
+            ...additionalValues
           })
         } else {
           setInitialValues({
             ...initialValues,
             originalPipeline: newOriginalPipeline,
-            ...{ additionalValues }
+            ...additionalValues
           })
         }
       } catch (e) {
         // set error
-        setGetTriggerErrorMessage(getString('pipeline.triggers.cannotParseInputValues'))
+        setErrorToasterMessage(getString('pipeline.triggers.cannotParseInputValues'))
       }
     }
   }, [pipelineResponse?.data?.yamlPipeline, onEditInitialValues?.identifier, initialValues, currentPipeline])
@@ -1167,7 +1164,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         setInitialValues({ ...initialValues, ...getWebhookTriggerValues({ triggerYaml }) })
         setWizardKey(wizardKey + 1)
       } catch (e) {
-        setGetTriggerErrorMessage(getString('pipeline.triggers.cannotParseInputValues'))
+        setErrorToasterMessage(getString('pipeline.triggers.cannotParseInputValues'))
       }
     }
   }
@@ -1181,7 +1178,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         setInitialValues({ ...initialValues, ...getScheduleTriggerValues({ triggerYaml }) })
         setWizardKey(wizardKey + 1)
       } catch (e) {
-        setGetTriggerErrorMessage(getString('pipeline.triggers.cannotParseInputValues'))
+        setErrorToasterMessage(getString('pipeline.triggers.cannotParseInputValues'))
       }
     }
   }
@@ -1195,7 +1192,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         setInitialValues({ ...initialValues, ...getArtifactTriggerValues({ triggerYaml }) })
         setWizardKey(wizardKey + 1)
       } catch (e) {
-        setGetTriggerErrorMessage(getString('pipeline.triggers.cannotParseInputValues'))
+        setErrorToasterMessage(getString('pipeline.triggers.cannotParseInputValues'))
       }
     }
   }
@@ -1431,27 +1428,17 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     )
   }
 
-  return triggerIdentifier && !getTriggerErrorMessage && !wizardMap ? (
+  return triggerIdentifier && !wizardMap ? (
     <div style={{ position: 'relative', height: 'calc(100vh - 128px)' }}>
       <PageSpinner />
     </div>
   ) : (
     <>
       <Page.Body>
-        {!loadingGetTrigger && getTriggerErrorMessage && <PageError message={getTriggerErrorMessage} />}
-        {!loadingGetTrigger &&
-          !getTriggerErrorMessage &&
-          initialValues.triggerType === TriggerTypes.WEBHOOK &&
-          renderWebhookWizard()}
-        {!loadingGetTrigger &&
-          !getTriggerErrorMessage &&
-          initialValues.triggerType === TriggerTypes.SCHEDULE &&
-          renderScheduleWizard()}
+        {!loadingGetTrigger && initialValues.triggerType === TriggerTypes.WEBHOOK && renderWebhookWizard()}
+        {!loadingGetTrigger && initialValues.triggerType === TriggerTypes.SCHEDULE && renderScheduleWizard()}
 
-        {!loadingGetTrigger &&
-          !getTriggerErrorMessage &&
-          isArtifactOrManifestTrigger(initialValues.triggerType) &&
-          renderArtifactWizard()}
+        {!loadingGetTrigger && isArtifactOrManifestTrigger(initialValues.triggerType) && renderArtifactWizard()}
       </Page.Body>
     </>
   )

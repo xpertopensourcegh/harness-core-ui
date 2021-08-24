@@ -6,6 +6,10 @@ export const isQA = () => {
   return location.hostname === 'qa.harness.io'
 }
 
+export const isPR = () => {
+  return location.hostname === 'pr.harness.io'
+}
+
 export const isLocalHost = () => {
   return location.hostname === 'localhost'
 }
@@ -15,5 +19,5 @@ export const isGeneralStoreAccount = (accountId: string) => {
 }
 
 export const isValidQAAccount = (accountId: string) => {
-  return ['zEaak-FLS425IEO7OLzMUg', 'lnFZRF6jQO6tQnB9znMALw'].includes(accountId)
+  return ['zEaak-FLS425IEO7OLzMUg', 'lnFZRF6jQO6tQnB9znMALw', 'px7xd_BFRCi-pfWPYXVjvw'].includes(accountId)
 }

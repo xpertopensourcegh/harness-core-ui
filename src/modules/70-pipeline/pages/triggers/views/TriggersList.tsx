@@ -20,7 +20,7 @@ import { TriggersListSection, GoToEditWizardInterface } from './TriggersListSect
 
 import { TriggerTypes } from '../utils/TriggersWizardPageUtils'
 import { getCategoryItems, ItemInterface, TriggerDataInterface } from '../utils/TriggersListUtils'
-import { isGeneralStoreAccount, isLocalHost, isProduction, isQA, isValidQAAccount } from './TriggerHelper'
+import { isGeneralStoreAccount, isLocalHost, isProduction, isQA, isPR, isValidQAAccount } from './TriggerHelper'
 
 import css from './TriggersList.module.scss'
 
@@ -36,7 +36,7 @@ const canEnableManifestTrigger = (accountId: string) => {
   } else if (isQA()) {
     /* istanbul ignore next */
     return isValidQAAccount(accountId)
-  } else if (isLocalHost()) {
+  } else if (isLocalHost() || isPR()) {
     return true
   }
   return false

@@ -6,7 +6,6 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
     class="StyledProps--font StyledProps--main pageBody"
     data-name="page-body"
   >
-    
     <section
       class="wizardShell tabs"
     >
@@ -1090,7 +1089,6 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
     class="StyledProps--font StyledProps--main pageBody"
     data-name="page-body"
   >
-    
     <section
       class="wizardShell tabs"
     >
@@ -2048,7 +2046,6 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
     class="StyledProps--font StyledProps--main pageBody"
     data-name="page-body"
   >
-    
     <section
       class="wizardShell tabs"
     >
@@ -2970,7 +2967,6 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
     class="StyledProps--font StyledProps--main pageBody"
     data-name="page-body"
   >
-    
     <section
       class="wizardShell tabs"
     >
@@ -3416,7 +3412,6 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
     class="StyledProps--font StyledProps--main pageBody"
     data-name="page-body"
   >
-    
     <section
       class="wizardShell tabs"
     >

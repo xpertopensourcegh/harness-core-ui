@@ -9,10 +9,10 @@ import * as cdng from 'services/cd-ng'
 import { queryByNameAttribute, TestWrapper } from '@common/utils/testUtils'
 import { branchStatusMock, gitConfigs, sourceCodeManagers } from '@connectors/mocks/mock'
 import {
-  GetGitTriggerEventDetailsResponse,
   PostCreateVariables,
   GetSchemaYaml,
   GetManifestTriggerResponse,
+  GetParseableManifestTriggerResponse,
   updateManifestTriggerMockResponseYaml
 } from './webhookMockResponses'
 
@@ -20,11 +20,11 @@ import {
   GetPipelineResponse,
   GetTemplateFromPipelineResponse,
   GetMergeInputSetFromPipelineTemplateWithListInputResponse,
-  ConnectorResponse,
   GetInputSetsResponse,
   GetManifestPipelineResponse,
   GetManifestTemplateFromPipelineResponse,
-  GetManifestInputSetsResponse
+  GetManifestInputSetsResponse,
+  GetParseableTemplateFromPipelineResponse
 } from './sharedMockResponses'
 import TriggersWizardPage from '../TriggersWizardPage'
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
@@ -89,8 +89,6 @@ jest.mock('services/portal', () => ({
 
 describe('Manifest Trigger Tests', () => {
   test('throws validation error when select artifact/manifest is not added', async () => {
-    jest.spyOn(cdng, 'useGetConnector').mockReturnValue(ConnectorResponse as UseGetReturn<any, any, any, any>)
-
     jest.spyOn(pipelineNg, 'useGetSchemaYaml').mockImplementation(() => {
       return {
         data: GetSchemaYaml as any,
@@ -151,7 +149,6 @@ describe('Manifest Trigger Tests', () => {
   })
 
   test('Check chartVersion to be disabled and default value is <+trigger.manifest.version>', async () => {
-    jest.spyOn(cdng, 'useGetConnector').mockReturnValue(ConnectorResponse as UseGetReturn<any, any, any, any>)
     jest.spyOn(pipelineNg, 'useGetSchemaYaml').mockImplementation(() => {
       return {
         data: GetSchemaYaml as any,
@@ -164,9 +161,6 @@ describe('Manifest Trigger Tests', () => {
       }
     })
 
-    jest
-      .spyOn(pipelineNg, 'useGetGitTriggerEventDetails')
-      .mockReturnValue(GetGitTriggerEventDetailsResponse as UseGetReturn<any, any, any, any>)
     jest.spyOn(pipelineNg, 'useCreateVariables').mockImplementation(() => ({
       cancel: jest.fn(),
       loading: false,
@@ -216,7 +210,6 @@ describe('Manifest Trigger Tests', () => {
   })
 
   test('submit on edit with right payload', async () => {
-    jest.spyOn(cdng, 'useGetConnector').mockReturnValue(ConnectorResponse as UseGetReturn<any, any, any, any>)
     jest.spyOn(pipelineNg, 'useGetSchemaYaml').mockImplementation(() => {
       return {
         data: GetSchemaYaml as any,
@@ -229,9 +222,6 @@ describe('Manifest Trigger Tests', () => {
       }
     })
 
-    jest
-      .spyOn(pipelineNg, 'useGetGitTriggerEventDetails')
-      .mockReturnValue(GetGitTriggerEventDetailsResponse as UseGetReturn<any, any, any, any>)
     jest.spyOn(pipelineNg, 'useCreateVariables').mockImplementation(() => ({
       cancel: jest.fn(),
       loading: false,
@@ -276,5 +266,85 @@ describe('Manifest Trigger Tests', () => {
     await waitFor(() => expect(mockUpdate).toHaveBeenCalledTimes(1))
 
     expect(mockUpdate).toBeCalledWith(updateManifestTriggerMockResponseYaml)
+  })
+
+  test('function getArtifactSpecObj by displaying select artifact', async () => {
+    jest.spyOn(pipelineNg, 'useGetSchemaYaml').mockImplementation(() => {
+      return {
+        data: GetSchemaYaml as any,
+        refetch: jest.fn(),
+        error: null,
+        loading: false,
+        absolutePath: '',
+        cancel: jest.fn(),
+        response: null
+      }
+    })
+
+    jest.spyOn(pipelineNg, 'useCreateVariables').mockImplementation(() => ({
+      cancel: jest.fn(),
+      loading: false,
+      error: null,
+      mutate: jest.fn().mockImplementation(() => PostCreateVariables)
+    }))
+    jest
+      .spyOn(pipelineNg, 'useGetInputSetsListForPipeline')
+      .mockReturnValue(GetManifestInputSetsResponse as UseGetReturn<any, any, any, any>)
+    jest
+      .spyOn(pipelineNg, 'useGetPipeline')
+      .mockReturnValue(GetManifestPipelineResponse as UseGetReturn<any, any, any, any>)
+    jest
+      .spyOn(pipelineNg, 'useGetTemplateFromPipeline')
+      .mockReturnValue(GetParseableTemplateFromPipelineResponse as UseGetReturn<any, any, any, any>)
+    jest
+      .spyOn(pipelineNg, 'useGetTrigger')
+      .mockReturnValue(GetParseableManifestTriggerResponse as UseGetReturn<any, any, any, any>)
+    jest.spyOn(pipelineNg, 'useGetMergeInputSetFromPipelineTemplateWithListInput').mockReturnValue({
+      mutate: jest.fn().mockReturnValue(GetMergeInputSetFromPipelineTemplateWithListInputResponse) as unknown
+    } as UseMutateReturn<any, any, any, any, any>)
+    jest.spyOn(pipelineNg, 'useUpdateTrigger').mockReturnValue({
+      mutate: mockUpdate as unknown
+    } as UseMutateReturn<any, any, any, any, any>)
+    const { container } = render(<WrapperComponent />)
+    await waitFor(() => expect(() => queryByText(document.body, 'Loading, please wait...')).toBeDefined())
+
+    const yamlBtn = container.querySelector('[data-name="yaml-btn"]')
+
+    if (!yamlBtn) {
+      throw Error('No yaml button')
+    }
+    fireEvent.click(yamlBtn)
+
+    await waitFor(() => expect(result.current.getString('pipeline.triggers.updateTrigger')).not.toBeNull())
+
+    const visualBtn = container.querySelector('[data-name="visual-btn"]')
+
+    if (!visualBtn) {
+      throw Error('No visual button')
+    }
+    fireEvent.click(visualBtn)
+
+    await waitFor(() => expect(result.current.getString('pipeline.triggers.triggerConfigurationLabel')).not.toBeNull())
+
+    expect(container).toMatchSnapshot()
+    const deleteIcon = container.querySelector('[data-name="main-delete"]')
+    if (!deleteIcon) {
+      throw Error('No delete icon')
+    }
+    fireEvent.click(deleteIcon)
+
+    const selectManifest = container.querySelector('[data-name="plusAdd"]')
+    if (!selectManifest) {
+      throw Error('No select manifest')
+    }
+    fireEvent.click(selectManifest)
+
+    await waitFor(() =>
+      expect(
+        result.current.getString('pipeline.triggers.artifactTriggerConfigPanel.plusSelect', {
+          artifact: 'Manifest'
+        })
+      ).not.toBeNull()
+    )
   })
 })
