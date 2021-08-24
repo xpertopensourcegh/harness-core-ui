@@ -89,9 +89,11 @@ const OverviewStep: React.FC<StepProps<ConnectorConfigDTO> & OverviewStepProps> 
 
   const handleSubmit = async (formData: ConnectorConfigDTO): Promise<void> => {
     mounted.current = true
+    const configInfo = { ...props.connectorInfo } as ConnectorConfigDTO
     const spec = {
-      featuresEnabled: ['VISIBILITY'],
-      connectorRef: selectedConnector?.value || formData.referenceConnector
+      featuresEnabled: configInfo?.spec?.featuresEnabled || ['VISIBILITY'],
+      connectorRef: selectedConnector?.value || formData.referenceConnector,
+      fixFeatureSelection: configInfo?.spec?.featuresEnabled?.includes('OPTIMIZATION') // TEMPORARY FLAG TO FIX FEATURE SELECTION IN CASE OF K8s RULE CREATION FLOW
     }
     if (isEdit) {
       //In edit mode validateTheIdentifierIsUnique API not required

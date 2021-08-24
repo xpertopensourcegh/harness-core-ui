@@ -10,7 +10,7 @@ import {
   Text
 } from '@wings-software/uicore'
 import { useParams } from 'react-router'
-
+import { omit as _omit } from 'lodash-es'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { ConnectorInfoDTO, ConnectorRequestBody, useCreateConnector, useUpdateConnector } from 'services/cd-ng'
 import { downloadYamlAsFile } from '@common/utils/downloadYamlUtils'
@@ -65,7 +65,11 @@ const ProvidePermissions: React.FC<StepProps<StepSecretManagerProps> & ProvidePe
     try {
       modalErrorHandler?.hide()
       const connector: ConnectorRequestBody = {
-        connector: { ...props.prevStepData, type: Connectors.CE_KUBERNETES } as ConnectorInfoDTO
+        connector: {
+          ...props.prevStepData,
+          spec: _omit({ ...props.prevStepData?.spec }, 'fixFeatureSelection'),
+          type: Connectors.CE_KUBERNETES
+        } as ConnectorInfoDTO
       }
       const response = props.isEditMode ? await updateConnector(connector) : await createConnector(connector)
       props.onSuccess?.(response?.data as ConnectorRequestBody)

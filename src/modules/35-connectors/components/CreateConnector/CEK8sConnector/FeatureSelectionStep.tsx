@@ -82,7 +82,7 @@ const FeatureSelectionStep: React.FC<StepProps<StepSecretManagerProps> & Feature
 
   const handleCardSelection = (item: CardData) => {
     // return for VISIBLIITY feature
-    if (item.value === Features[0]) return
+    if (prevStepData?.spec?.fixFeatureSelection || item.value === Features[0]) return
     const selectedAr = [...cardsSelected]
     const index = selectedAr.map(i => i.value).indexOf(item.value)
     if (index > -1) {
@@ -99,8 +99,14 @@ const FeatureSelectionStep: React.FC<StepProps<StepSecretManagerProps> & Feature
         {getString('connectors.ceK8S.chooseRequirements.heading')}
       </Heading>
       <div style={{ padding: 5, paddingBottom: 20 }}>
-        <Text> {getString('connectors.ceK8S.chooseRequirements.subheading')}</Text>
-        {getString('connectors.ceK8S.chooseRequirements.description')}
+        {!prevStepData?.spec?.fixFeatureSelection && (
+          <Text> {getString('connectors.ceK8S.chooseRequirements.subheading')}</Text>
+        )}
+        {getString(
+          prevStepData?.spec?.fixFeatureSelection
+            ? 'connectors.ceK8S.chooseRequirements.fixFeaturesDescription'
+            : 'connectors.ceK8S.chooseRequirements.description'
+        )}
       </div>
       <div style={{ flex: 1 }}>
         <CardSelect

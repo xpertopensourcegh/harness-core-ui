@@ -649,6 +649,7 @@ ceK8S:
     heading: '{{ $.connectors.ceAzure.steps.requirements }}'
     subheading: '{{ $.connectors.ceAzure.chooseRequirements.featureDesc }}'
     description: '(Deep Kubernetes cost Visibility is selected by default. Select the other option to enable Intelligent Cloud AutoStopping for Kubernetes)'
+    fixFeaturesDescription: 'Both the options below are required for Kubernetes AutoStopping and are selected by default. Click Continue to proceed.'
     visibility:
       heading: 'DEEP KUBERNETES'
       subheading: '{{ $.connectors.costVisibility }}'

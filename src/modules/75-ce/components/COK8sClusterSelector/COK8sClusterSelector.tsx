@@ -320,7 +320,11 @@ const COK8sClusterSelector: React.FC<COK8sClusterSelectorProps> = props => {
               className={css.borderBtn}
               onClick={() =>
                 openConnectorModal(false, Connectors.CE_KUBERNETES, {
-                  connectorInfo: { orgIdentifier: '', projectIdentifier: '' } as unknown as ConnectorInfoDTO
+                  connectorInfo: {
+                    orgIdentifier: '',
+                    projectIdentifier: '',
+                    spec: { featuresEnabled: ['VISIBILITY', 'OPTIMIZATION'] }
+                  } as unknown as ConnectorInfoDTO
                 })
               }
             >

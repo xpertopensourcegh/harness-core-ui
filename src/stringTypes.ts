@@ -1230,6 +1230,7 @@ export interface StringsMap {
   'connectors.ceK8.infoText': string
   'connectors.ceK8.selectConnectorLabel': string
   'connectors.ceK8S.chooseRequirements.description': string
+  'connectors.ceK8S.chooseRequirements.fixFeaturesDescription': string
   'connectors.ceK8S.chooseRequirements.heading': string
   'connectors.ceK8S.chooseRequirements.optimization.description': string
   'connectors.ceK8S.chooseRequirements.optimization.heading': string
