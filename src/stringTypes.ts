@@ -2511,7 +2511,9 @@ export interface StringsMap {
   'ce.co.accessPoint.status': string
   'ce.co.accessPoint.success': string
   'ce.co.accessPoint.validation.connector': string
+  'ce.co.accessPoint.validation.domainRequired': string
   'ce.co.accessPoint.validation.name': string
+  'ce.co.accessPoint.validation.nonValidDomain': string
   'ce.co.accessPoint.validation.securityGroup': string
   'ce.co.accessPoint.validation.subnets': string
   'ce.co.accessPoint.validation.vpc': string

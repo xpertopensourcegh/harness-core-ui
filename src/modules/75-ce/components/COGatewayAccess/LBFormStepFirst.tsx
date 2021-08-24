@@ -15,6 +15,7 @@ import {
 } from '@wings-software/uicore'
 import { useToaster } from '@common/exports'
 import { useStrings } from 'framework/strings'
+import { VALID_DOMAIN_REGEX } from '@ce/constants'
 import { AccessPoint, useAllHostedZones } from 'services/lw'
 import helpTextIcon from './images/OthersHelpText.svg'
 import css from './COGatewayAccess.module.scss'
@@ -243,6 +244,15 @@ const LBFormStepFirst: React.FC<LBFormStepFirstProps> = props => {
           is: 'others',
           then: Yup.string(),
           otherwise: Yup.string().required('Select Rout53 hosted zone')
+        }),
+        customDomainPrefix: Yup.string().when('dnsProvider', {
+          is: 'others',
+          then: Yup.string()
+            .required(getString('ce.co.accessPoint.validation.domainRequired'))
+            .matches(VALID_DOMAIN_REGEX, getString('ce.co.accessPoint.validation.nonValidDomain')),
+          otherwise: Yup.string()
+            .required(getString('ce.co.accessPoint.validation.domainRequired'))
+            .matches(/^[A-Za-z0-9-]*$/, getString('ce.co.accessPoint.validation.nonValidDomain'))
         })
       })}
     ></Formik>

@@ -182,6 +182,8 @@ co:
       vpc: 'VPC is a required field'
       subnets: 'Atleast 2 subnets are mandatory'
       securityGroup: 'Atleast one security group is mandatory'
+      domainRequired: 'Domain name is a required field'
+      nonValidDomain: 'Enter a valid domain'
     hostedZone:
       noResult: 'Access point name does not match any of the existing domains'
     delete:
