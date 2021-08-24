@@ -1099,7 +1099,7 @@ exports[`Create CE K8s Connector Wizard Proceed with following steps 3`] = `
               <p
                 class="StyledProps--font StyledProps--main"
               >
-                $ kubectl apply -f cost-optimisation-crd.yaml
+                kubectl apply -f cost-optimisation-crd.yaml
               </p>
               <span
                 class="bp3-icon StyledProps--main"

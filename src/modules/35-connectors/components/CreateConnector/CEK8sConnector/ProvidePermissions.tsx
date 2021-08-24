@@ -120,7 +120,7 @@ const ProvidePermissions: React.FC<StepProps<StepSecretManagerProps> & ProvidePe
               Copy the downloaded YAML to a machine where you have kubectl installed and have access to your Kubernetes
               cluster. Run the following command to apply the Harness delegate to your Kubernetes Cluster
             </Text>
-            <CopyCodeSection snippet={`$ ${command}`} />
+            <CopyCodeSection snippet={`${command}`} />
             {!isDelegateDone && (
               <Button
                 intent={'primary'}
