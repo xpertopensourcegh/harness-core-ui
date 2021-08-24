@@ -35,19 +35,25 @@ const PercentageRollout: React.FC<PercentageRolloutProps> = ({
   style
 }) => {
   const [bucketByValue, setBucketByValue] = useState<string>(bucketBy || 'identifier')
-  const [percentageValues, setPercentageValues] = useState<PercentageValues[]>([])
+
   const [percentageError, setPercentageError] = useState(false)
   const { getString } = useStrings()
 
   const variationsToPercentage = variations?.map((elem, i) => {
     const weightedVariation = weightedVariations.find(wvElem => wvElem.variation === elem.identifier)
+
     return {
       id: elem.identifier,
       displayName: elem.name || elem.value,
-      value: weightedVariation?.weight || Math.floor(100 / (variations?.length ?? 1)),
+      value:
+        weightedVariation?.weight || weightedVariation?.weight === 0
+          ? weightedVariation?.weight
+          : Math.floor(100 / (variations?.length ?? 1)),
       color: CFVariationColors[i % CFVariationColors.length]
     }
   })
+
+  const [percentageValues, setPercentageValues] = useState<PercentageValues[]>(() => variationsToPercentage)
 
   const changeColorWidthSlider = (e: React.ChangeEvent<HTMLInputElement>, id: string): void => {
     if (percentageValues) {
@@ -67,10 +73,6 @@ const PercentageRollout: React.FC<PercentageRolloutProps> = ({
   }
 
   useEffect(() => {
-    setPercentageValues(variationsToPercentage)
-  }, [])
-
-  useEffect(() => {
     onSetPercentageValues?.({
       bucketBy: bucketByValue,
       variations: percentageValues.map(elem => ({
@@ -79,6 +81,7 @@ const PercentageRollout: React.FC<PercentageRolloutProps> = ({
       }))
     })
   }, [bucketByValue, percentageValues])
+
   const { bucketByItems, addBucketByItem } = useBucketByItems()
   const { targetAttributes } = useTargetAttributes()
   const bucketBySelectValue = useMemo(() => {
@@ -124,6 +127,7 @@ const PercentageRollout: React.FC<PercentageRolloutProps> = ({
         </Text>
         {editing && (
           <Select
+            data-testid="bucket-by"
             name="bucketBy"
             value={bucketBySelectValue}
             items={sortedBucketByItems}
@@ -155,6 +159,7 @@ const PercentageRollout: React.FC<PercentageRolloutProps> = ({
         {percentageValues?.map(elem => (
           <span
             key={elem.id}
+            data-testid={`${elem.id}-bar-percentage`}
             style={{
               width: `${elem.value}%`,
               backgroundColor: elem.color,
@@ -167,7 +172,12 @@ const PercentageRollout: React.FC<PercentageRolloutProps> = ({
       <Container margin={{ top: 'medium' }}>
         {percentageValues?.length &&
           percentageValues?.map((elem, i) => (
-            <Layout.Horizontal key={`${elem.id}-${i}`} margin={{ bottom: 'medium' }} style={{ alignItems: 'baseline' }}>
+            <Layout.Horizontal
+              key={`${elem.id}-${i}`}
+              data-testid={`${elem.id}-percentage`}
+              margin={{ bottom: 'medium' }}
+              style={{ alignItems: 'baseline' }}
+            >
               <span
                 className={css.circle}
                 style={{
@@ -183,6 +193,7 @@ const PercentageRollout: React.FC<PercentageRolloutProps> = ({
                 <Text>
                   <input
                     type="number"
+                    data-testid={`${elem.id}-percentage-value`}
                     onChange={e => changeColorWidthSlider(e, elem.id)}
                     style={{ width: '50px', marginRight: 'var(--spacing-xsmall)' }}
                     value={elem.value}
