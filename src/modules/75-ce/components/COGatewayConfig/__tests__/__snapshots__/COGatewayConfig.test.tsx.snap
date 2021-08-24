@@ -27,6 +27,7 @@ exports[`Auto stopping Rule creation Tests Config screen renders without crashin
           </div>
           <p
             class="StyledProps--font StyledProps--main title"
+            data-tooltip-id="defineAwsAsRule"
           >
             ce.co.autoStoppingRule.configuration.step1.title
           </p>
@@ -410,6 +411,7 @@ exports[`Auto stopping Rule creation Tests Config screen renders without crashin
           </div>
           <p
             class="StyledProps--font StyledProps--main title"
+            data-tooltip-id="awsSetupAdvancedConfig"
           >
             ce.co.autoStoppingRule.configuration.step4.setup ce.co.autoStoppingRule.configuration.step4.advancedConfiguration
           </p>
@@ -490,6 +492,7 @@ exports[`Auto stopping Rule creation Tests Fill remaining form for INSTANCES 1`]
           </div>
           <p
             class="StyledProps--font StyledProps--main title"
+            data-tooltip-id="defineAwsAsRule"
           >
             ce.co.autoStoppingRule.configuration.step1.title
           </p>
@@ -1087,6 +1090,7 @@ exports[`Auto stopping Rule creation Tests Fill remaining form for INSTANCES 1`]
           </div>
           <p
             class="StyledProps--font StyledProps--main title"
+            data-tooltip-id="awsSetupAdvancedConfig"
           >
             ce.co.autoStoppingRule.configuration.step4.setup ce.co.autoStoppingRule.configuration.step4.advancedConfiguration
           </p>
@@ -1167,6 +1171,7 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 1`] = `
           </div>
           <p
             class="StyledProps--font StyledProps--main title"
+            data-tooltip-id="defineAwsAsRule"
           >
             ce.co.autoStoppingRule.configuration.step1.title
           </p>
@@ -1744,6 +1749,7 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 1`] = `
           </div>
           <p
             class="StyledProps--font StyledProps--main title"
+            data-tooltip-id="awsSetupAdvancedConfig"
           >
             ce.co.autoStoppingRule.configuration.step4.setup ce.co.autoStoppingRule.configuration.step4.advancedConfiguration
           </p>
@@ -1824,6 +1830,7 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 2`] = `
           </div>
           <p
             class="StyledProps--font StyledProps--main title"
+            data-tooltip-id="defineAwsAsRule"
           >
             ce.co.autoStoppingRule.configuration.step1.title
           </p>
@@ -2401,6 +2408,7 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 2`] = `
           </div>
           <p
             class="StyledProps--font StyledProps--main title"
+            data-tooltip-id="awsSetupAdvancedConfig"
           >
             ce.co.autoStoppingRule.configuration.step4.setup ce.co.autoStoppingRule.configuration.step4.advancedConfiguration
           </p>
@@ -2481,6 +2489,7 @@ exports[`Auto stopping Rule creation Tests kubernestes config edit 1`] = `
           </div>
           <p
             class="StyledProps--font StyledProps--main title"
+            data-tooltip-id="defineAwsAsRule"
           >
             ce.co.autoStoppingRule.configuration.step1.title
           </p>
@@ -2782,6 +2791,7 @@ exports[`Auto stopping Rule creation Tests kubernestes config edit 1`] = `
           </div>
           <p
             class="StyledProps--font StyledProps--main title"
+            data-tooltip-id="awsSetupAdvancedConfig"
           >
             ce.co.autoStoppingRule.configuration.step4.setup ce.co.autoStoppingRule.configuration.step4.advancedConfiguration
           </p>

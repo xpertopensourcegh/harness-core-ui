@@ -1,7 +1,7 @@
 // import { ProgressBar } from '@blueprintjs/core'
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { Color, Container, Heading, Icon, Layout, Text } from '@wings-software/uicore'
+import { Color, Container, HarnessDocTooltip, Heading, Icon, Layout, Text } from '@wings-software/uicore'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import { useStrings } from 'framework/strings'
@@ -132,7 +132,10 @@ const COGatewayCumulativeAnalytics: React.FC<COGatewayCumulativeAnalyticsProps> 
   return (
     <Container padding="small">
       <div>
-        <Text className={css.summaryHeading}>SUMMARY OF RULES</Text>
+        <Text className={css.summaryHeading} data-tooltip-id="summaryOfRulesHeader">
+          SUMMARY OF RULES
+          <HarnessDocTooltip tooltipId="summaryOfRulesHeader" useStandAlone={true} />
+        </Text>
         <Layout.Horizontal
           spacing="xxlarge"
           background={Color.WHITE}

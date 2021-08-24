@@ -1,6 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { CardSelect, Layout, CardBody, Button, Heading, Container, Text } from '@wings-software/uicore'
+import {
+  CardSelect,
+  Layout,
+  CardBody,
+  Button,
+  Heading,
+  Container,
+  Text,
+  HarnessDocTooltip
+} from '@wings-software/uicore'
 import type { IconName } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
@@ -87,7 +96,10 @@ const COProviderSelector: React.FC<COProviderSelectorProps> = props => {
       />
       <Container style={{ margin: '0 auto', paddingTop: 100, paddingLeft: 50 }}>
         <Layout.Vertical spacing="large" padding="large">
-          <Heading className={css.title}>{getString('common.letsGetYouStarted')}</Heading>
+          <Heading className={css.title} data-tooltip-id="coGetStarted">
+            {getString('common.letsGetYouStarted')}
+            <HarnessDocTooltip tooltipId="coGetStarted" useStandAlone={true} />
+          </Heading>
           <Heading level={2}>{getString('ce.co.autoStoppingRule.providerSelector.description')}</Heading>
           <Layout.Vertical spacing="small">
             <Layout.Horizontal spacing="small" style={{ paddingTop: '29px' }}>

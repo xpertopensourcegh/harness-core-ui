@@ -9,7 +9,9 @@ import {
   Icon,
   Link,
   ExpandingSearchInput,
-  Popover
+  Popover,
+  HarnessDocTooltip,
+  Heading
 } from '@wings-software/uicore'
 import { isEmpty as _isEmpty } from 'lodash-es'
 import HighchartsReact from 'highcharts-react-official'
@@ -500,7 +502,12 @@ const COGatewayList: React.FC = () => {
         <>
           {
             <>
-              <Page.Header title={getString('ce.co.breadCrumb.rules')} className={css.header} />
+              <Layout.Horizontal flex className={css.header} padding={{ left: 'xlarge', right: 'xlarge' }}>
+                <Heading data-tooltip-id="autostoppingRule" level={2} color={Color.GREY_800} font={{ weight: 'bold' }}>
+                  {getString('ce.co.breadCrumb.rules')}
+                </Heading>
+                <HarnessDocTooltip tooltipId="autostoppingRule" useStandAlone={true} />
+              </Layout.Horizontal>
               <Drawer
                 autoFocus={true}
                 enforceFocus={true}

@@ -900,6 +900,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
             subTitle={getString('ce.co.autoStoppingRule.configuration.step1.subTitle')}
             totalStepsCount={totalStepsCount}
             id={CONFIG_STEP_IDS[0]}
+            dataTooltip={{ titleId: isAwsProvider ? 'defineAwsAsRule' : 'defineAzureAsRule' }}
           >
             <Layout.Horizontal>
               <Card interactive={false} className={css.displayCard}>
@@ -1296,6 +1297,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
             subTitle={getString('ce.co.gatewayConfig.advancedConfigDescription')}
             totalStepsCount={totalStepsCount}
             id={CONFIG_STEP_IDS[3]}
+            dataTooltip={{ titleId: isAwsProvider ? 'awsSetupAdvancedConfig' : 'azureSetupAdvancedConfig' }}
           >
             <Layout.Vertical spacing="medium">
               {serviceDependencies && serviceDependencies.length ? (

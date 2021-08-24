@@ -1,5 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { Heading, Container, Layout, Checkbox, Icon, Tabs, Tab, Button, Text } from '@wings-software/uicore'
+import {
+  Heading,
+  Container,
+  Layout,
+  Checkbox,
+  Icon,
+  Tabs,
+  Tab,
+  Button,
+  Text,
+  HarnessDocTooltip
+} from '@wings-software/uicore'
 import { isEmpty as _isEmpty } from 'lodash-es'
 import { Drawer } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
@@ -26,6 +37,7 @@ interface COGatewayAccessProps {
 const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
   const { getString } = useStrings()
   const { showSuccess } = useToaster()
+  const isAwsProvider = Utils.isProviderAws(props.gatewayDetails.provider)
   const [accessDetails, setAccessDetails] = useState<ConnectionMetadata>(
     props.gatewayDetails.opts.access_details // eslint-disable-line
       ? (props.gatewayDetails.opts.access_details as ConnectionMetadata) // eslint-disable-line
@@ -160,6 +172,8 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
     showSuccess(getString('ce.savedYamlSuccess'))
   }
 
+  const tooltipId = isAwsProvider ? 'awsSetupAccess' : 'azureSetupAccess'
+
   return (
     <Container className={css.page}>
       {/* <COFixedDrawer
@@ -207,8 +221,14 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
       <Layout.Vertical spacing="large" padding="medium" style={{ marginLeft: '10px' }}>
         <Layout.Vertical spacing="small" padding="medium">
           <Layout.Horizontal spacing="small">
-            <Heading level={2} font={{ weight: 'semi-bold' }} className={css.setupAccessHeading}>
+            <Heading
+              level={2}
+              font={{ weight: 'semi-bold' }}
+              className={css.setupAccessHeading}
+              data-tooltip-id={tooltipId}
+            >
               {getString('ce.co.autoStoppingRule.setupAccess.pageName')}
+              <HarnessDocTooltip tooltipId={tooltipId} useStandAlone={true} />
             </Heading>
           </Layout.Horizontal>
           {/* <Heading level={3} font={{ weight: 'light' }} className={css.setupAccessSubHeading}>

@@ -17,6 +17,7 @@ exports[`Testing COGatewayAccess DNS checkbox checks succesfully 1`] = `
         >
           <h2
             class="StyledProps--font StyledProps--font-h2 StyledProps--main setupAccessHeading StyledProps--font-weight-semi-bold"
+            data-tooltip-id="awsSetupAccess"
             level="2"
           >
             ce.co.autoStoppingRule.setupAccess.pageName
@@ -1005,6 +1006,7 @@ exports[`Testing COGatewayAccess SSH checkbox checks succesfully and download os
         >
           <h2
             class="StyledProps--font StyledProps--font-h2 StyledProps--main setupAccessHeading StyledProps--font-weight-semi-bold"
+            data-tooltip-id="awsSetupAccess"
             level="2"
           >
             ce.co.autoStoppingRule.setupAccess.pageName
@@ -1223,6 +1225,7 @@ exports[`Testing COGatewayAccess render yaml editor for k8s rule: k8s rule setup
         >
           <h2
             class="StyledProps--font StyledProps--font-h2 StyledProps--main setupAccessHeading StyledProps--font-weight-semi-bold"
+            data-tooltip-id="awsSetupAccess"
             level="2"
           >
             ce.co.autoStoppingRule.setupAccess.pageName
@@ -1278,6 +1281,7 @@ exports[`Testing COGatewayAccess renders without crashing 1`] = `
         >
           <h2
             class="StyledProps--font StyledProps--font-h2 StyledProps--main setupAccessHeading StyledProps--font-weight-semi-bold"
+            data-tooltip-id="awsSetupAccess"
             level="2"
           >
             ce.co.autoStoppingRule.setupAccess.pageName

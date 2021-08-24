@@ -212,6 +212,7 @@ exports[`Edit rule page render edit rule page successfully 1`] = `
                   </div>
                   <p
                     class="StyledProps--font StyledProps--main title"
+                    data-tooltip-id="defineAwsAsRule"
                   >
                     ce.co.autoStoppingRule.configuration.step1.title
                   </p>
@@ -513,6 +514,7 @@ exports[`Edit rule page render edit rule page successfully 1`] = `
                   </div>
                   <p
                     class="StyledProps--font StyledProps--main title"
+                    data-tooltip-id="awsSetupAdvancedConfig"
                   >
                     ce.co.autoStoppingRule.configuration.step4.setup ce.co.autoStoppingRule.configuration.step4.advancedConfiguration
                   </p>

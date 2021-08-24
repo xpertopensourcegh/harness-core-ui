@@ -1,6 +1,11 @@
 import React from 'react'
-import { Icon, Layout, Text } from '@wings-software/uicore'
+import { HarnessDocTooltip, Icon, Layout, Text } from '@wings-software/uicore'
 import css from './COGatewayConfig.module.scss'
+
+interface DataTooltip {
+  titleId?: string
+  subTitleId?: string
+}
 
 interface COGatewayConfigStepProps {
   count: number
@@ -9,6 +14,7 @@ interface COGatewayConfigStepProps {
   totalStepsCount?: number
   id?: string
   onInfoIconClick?: () => void
+  dataTooltip?: DataTooltip
 }
 
 const stepInfoColorMap: { [key: string]: { main: string; secondary: string } } = {
@@ -27,11 +33,21 @@ const COGatewayConfigStep: React.FC<COGatewayConfigStepProps> = props => {
           props.totalStepsCount || props.count
         }`}</span>
       </Layout.Horizontal>
-      <Text className={css.title}>
+      <Text className={css.title} data-tooltip-id={props.dataTooltip?.titleId}>
         {props.title}
+        {props.dataTooltip?.titleId && (
+          <HarnessDocTooltip tooltipId={props.dataTooltip.titleId} useStandAlone={true}></HarnessDocTooltip>
+        )}
         {props.onInfoIconClick && <Icon name="info" onClick={props.onInfoIconClick}></Icon>}
       </Text>
-      {props.subTitle && <Text className={css.subTitle}>{props.subTitle}</Text>}
+      {props.subTitle && (
+        <Text className={css.subTitle} data-tooltip-id={props.dataTooltip?.subTitleId}>
+          {props.subTitle}
+          {props.dataTooltip?.subTitleId && (
+            <HarnessDocTooltip tooltipId={props.dataTooltip.subTitleId} useStandAlone={true} />
+          )}
+        </Text>
+      )}
       {props.children && <div className={css.childrenContainer}>{props.children}</div>}
     </Layout.Vertical>
   )

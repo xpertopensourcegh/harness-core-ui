@@ -1119,6 +1119,7 @@ exports[`Test GatewayDetails renders review screen 2`] = `
                   </div>
                   <p
                     class="StyledProps--font StyledProps--main title"
+                    data-tooltip-id="defineAwsAsRule"
                   >
                     ce.co.autoStoppingRule.configuration.step1.title
                   </p>
@@ -1716,6 +1717,7 @@ exports[`Test GatewayDetails renders review screen 2`] = `
                   </div>
                   <p
                     class="StyledProps--font StyledProps--main title"
+                    data-tooltip-id="awsSetupAdvancedConfig"
                   >
                     ce.co.autoStoppingRule.configuration.step4.setup ce.co.autoStoppingRule.configuration.step4.advancedConfiguration
                   </p>
@@ -2037,6 +2039,7 @@ exports[`Test GatewayDetails renders setup access screen 1`] = `
                 >
                   <h2
                     class="StyledProps--font StyledProps--font-h2 StyledProps--main setupAccessHeading StyledProps--font-weight-semi-bold"
+                    data-tooltip-id="awsSetupAccess"
                     level="2"
                   >
                     ce.co.autoStoppingRule.setupAccess.pageName
@@ -2429,6 +2432,7 @@ exports[`Test GatewayDetails renders setup access screen and move to previous st
                 >
                   <h2
                     class="StyledProps--font StyledProps--font-h2 StyledProps--main setupAccessHeading StyledProps--font-weight-semi-bold"
+                    data-tooltip-id="awsSetupAccess"
                     level="2"
                   >
                     ce.co.autoStoppingRule.setupAccess.pageName
@@ -2831,6 +2835,7 @@ exports[`Test GatewayDetails renders setup access screen and move to previous st
                   </div>
                   <p
                     class="StyledProps--font StyledProps--main title"
+                    data-tooltip-id="defineAwsAsRule"
                   >
                     ce.co.autoStoppingRule.configuration.step1.title
                   </p>
@@ -3428,6 +3433,7 @@ exports[`Test GatewayDetails renders setup access screen and move to previous st
                   </div>
                   <p
                     class="StyledProps--font StyledProps--main title"
+                    data-tooltip-id="awsSetupAdvancedConfig"
                   >
                     ce.co.autoStoppingRule.configuration.step4.setup ce.co.autoStoppingRule.configuration.step4.advancedConfiguration
                   </p>
@@ -3815,6 +3821,7 @@ exports[`Test GatewayDetails renders without crashing 1`] = `
                   </div>
                   <p
                     class="StyledProps--font StyledProps--main title"
+                    data-tooltip-id="defineAwsAsRule"
                   >
                     ce.co.autoStoppingRule.configuration.step1.title
                   </p>
@@ -4412,6 +4419,7 @@ exports[`Test GatewayDetails renders without crashing 1`] = `
                   </div>
                   <p
                     class="StyledProps--font StyledProps--main title"
+                    data-tooltip-id="awsSetupAdvancedConfig"
                   >
                     ce.co.autoStoppingRule.configuration.step4.setup ce.co.autoStoppingRule.configuration.step4.advancedConfiguration
                   </p>

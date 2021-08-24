@@ -8,6 +8,7 @@ exports[`Cumulative Analytics tests render component 1`] = `
     <div>
       <p
         class="StyledProps--font StyledProps--main summaryHeading"
+        data-tooltip-id="summaryOfRulesHeader"
       >
         SUMMARY OF RULES
       </p>

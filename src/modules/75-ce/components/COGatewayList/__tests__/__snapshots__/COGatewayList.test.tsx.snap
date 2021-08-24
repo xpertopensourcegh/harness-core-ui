@@ -7,18 +7,15 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
     style="height: 100vh;"
   >
     <div
-      class="Layout--horizontal StyledProps--main container standard header StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+      class="Layout--horizontal StyledProps--main header StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
     >
-      <div
-        class="Layout--vertical StyledProps--main"
+      <h2
+        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+        data-tooltip-id="autostoppingRule"
+        level="2"
       >
-        <h2
-          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
-          level="2"
-        >
-          ce.co.breadCrumb.rules
-        </h2>
-      </div>
+        ce.co.breadCrumb.rules
+      </h2>
     </div>
     <div
       class="Layout--horizontal StyledProps--main StyledProps--padding-large"
@@ -109,6 +106,7 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
         <div>
           <p
             class="StyledProps--font StyledProps--main summaryHeading"
+            data-tooltip-id="summaryOfRulesHeader"
           >
             SUMMARY OF RULES
           </p>
@@ -693,18 +691,15 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
     style="height: 100vh;"
   >
     <div
-      class="Layout--horizontal StyledProps--main container standard header StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+      class="Layout--horizontal StyledProps--main header StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
     >
-      <div
-        class="Layout--vertical StyledProps--main"
+      <h2
+        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+        data-tooltip-id="autostoppingRule"
+        level="2"
       >
-        <h2
-          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
-          level="2"
-        >
-          ce.co.breadCrumb.rules
-        </h2>
-      </div>
+        ce.co.breadCrumb.rules
+      </h2>
     </div>
     <div
       class="Layout--horizontal StyledProps--main StyledProps--padding-large"
@@ -795,6 +790,7 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
         <div>
           <p
             class="StyledProps--font StyledProps--main summaryHeading"
+            data-tooltip-id="summaryOfRulesHeader"
           >
             SUMMARY OF RULES
           </p>
@@ -1379,18 +1375,15 @@ exports[`Test COGatewayList renders without crashing 1`] = `
     style="height: 100vh;"
   >
     <div
-      class="Layout--horizontal StyledProps--main container standard header StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+      class="Layout--horizontal StyledProps--main header StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
     >
-      <div
-        class="Layout--vertical StyledProps--main"
+      <h2
+        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+        data-tooltip-id="autostoppingRule"
+        level="2"
       >
-        <h2
-          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
-          level="2"
-        >
-          ce.co.breadCrumb.rules
-        </h2>
-      </div>
+        ce.co.breadCrumb.rules
+      </h2>
     </div>
     <div
       class="Layout--horizontal StyledProps--main StyledProps--padding-large"
@@ -1481,6 +1474,7 @@ exports[`Test COGatewayList renders without crashing 1`] = `
         <div>
           <p
             class="StyledProps--font StyledProps--main summaryHeading"
+            data-tooltip-id="summaryOfRulesHeader"
           >
             SUMMARY OF RULES
           </p>
