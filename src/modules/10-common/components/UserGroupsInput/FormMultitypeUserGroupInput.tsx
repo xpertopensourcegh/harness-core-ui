@@ -47,12 +47,7 @@ export const FormMultiTypeUserGroupInput: React.FC<Extended> = props => {
     <FormGroup
       helperText={showFormError ? <FormError errorMessage={formError} /> : null}
       intent={formError ? Intent.DANGER : Intent.NONE}
-      label={
-        <label data-tooltip-id={tooltipProps?.dataTooltipId}>
-          {label}
-          <HarnessDocTooltip tooltipId={tooltipProps?.dataTooltipId} useStandAlone={true} />
-        </label>
-      }
+      label={<HarnessDocTooltip tooltipId={tooltipProps?.dataTooltipId} labelText={label} />}
     >
       <ExpressionAndRuntimeType
         value={value as string}

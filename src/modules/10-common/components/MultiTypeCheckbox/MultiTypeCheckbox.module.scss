@@ -11,3 +11,13 @@
     background-color: var(--grey-100) !important;
   }
 }
+
+.multi-type-checkbox {
+  position: relative;
+
+  .tooltip {
+    position: absolute;
+    top: var(--spacing-3);
+    right: -24px;
+  }
+}

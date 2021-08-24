@@ -10,7 +10,7 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
     >
       <div>
         <div
-          class="bp3-form-group"
+          class="bp3-form-group multiTypeCheckbox"
           data-id="checkboxValue-0"
         >
           <div
@@ -62,7 +62,7 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
               </span>
             </div>
             <span
-              class="Tooltip--acenter"
+              class="Tooltip--acenter tooltip"
               data-tooltip-id="runtimeInputsTest_checkboxValue"
             />
           </div>
@@ -233,7 +233,7 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
     >
       <div>
         <div
-          class="bp3-form-group"
+          class="bp3-form-group multiTypeCheckbox"
           data-id="checkboxValue-0"
         >
           <label
@@ -465,7 +465,7 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
     >
       <div>
         <div
-          class="bp3-form-group"
+          class="bp3-form-group multiTypeCheckbox"
           data-id="checkboxValue-0"
         >
           <div
@@ -516,7 +516,7 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
               </span>
             </div>
             <span
-              class="Tooltip--acenter"
+              class="Tooltip--acenter tooltip"
               data-tooltip-id="runtimeInputsTest_checkboxValue"
             />
           </div>

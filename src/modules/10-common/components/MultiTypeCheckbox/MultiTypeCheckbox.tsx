@@ -74,7 +74,16 @@ export interface FormMultiTypeTextboxProps extends Omit<IFormGroupProps, 'label'
 }
 
 export const FormMultiTypeCheckbox: React.FC<FormMultiTypeTextboxProps> = props => {
-  const { label, multiTypeTextbox, formik, name, onChange, setToFalseWhenEmpty = false, ...restProps } = props
+  const {
+    label,
+    multiTypeTextbox,
+    formik,
+    name,
+    onChange,
+    setToFalseWhenEmpty = false,
+    className = '',
+    ...restProps
+  } = props
   const hasError = errorCheck(name, formik)
 
   const {
@@ -107,6 +116,7 @@ export const FormMultiTypeCheckbox: React.FC<FormMultiTypeTextboxProps> = props 
         labelToBePassed ? <HarnessDocTooltip tooltipId={dataTooltipId} labelText={labelToBePassed} /> : labelToBePassed
       }
       labelFor={name}
+      className={cx(css.multiTypeCheckbox, className)}
       helperText={helperText}
       intent={intent}
       disabled={disabled}
@@ -127,7 +137,9 @@ export const FormMultiTypeCheckbox: React.FC<FormMultiTypeTextboxProps> = props 
           onChange?.(val, valueType, type)
         }}
       />
-      {!labelToBePassed ? <HarnessDocTooltip tooltipId={dataTooltipId} labelText={labelToBePassed} /> : null}
+      {!labelToBePassed ? (
+        <HarnessDocTooltip className={css.tooltip} tooltipId={dataTooltipId} labelText={labelToBePassed} />
+      ) : null}
     </FormGroup>
   )
 }

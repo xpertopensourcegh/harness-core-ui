@@ -281,7 +281,7 @@ exports[`Test K8sCanaryDeployStep should render edit view 1`] = `
       class="formGroup md"
     >
       <div
-        class="bp3-form-group"
+        class="bp3-form-group multiTypeCheckbox"
       >
         <div
           class="bp3-form-content"
@@ -331,7 +331,7 @@ exports[`Test K8sCanaryDeployStep should render edit view 1`] = `
             </span>
           </div>
           <span
-            class="Tooltip--acenter"
+            class="Tooltip--acenter tooltip"
             data-tooltip-id="k8CanaryDeploy_spec.skipDryRun"
           />
         </div>
@@ -652,7 +652,7 @@ exports[`Test K8sCanaryDeployStep should render edit view as edit step with all 
       class="formGroup md"
     >
       <div
-        class="bp3-form-group"
+        class="bp3-form-group multiTypeCheckbox"
       >
         <label
           class="bp3-label"
@@ -1006,7 +1006,7 @@ exports[`Test K8sCanaryDeployStep should render edit view as new step 1`] = `
       class="formGroup md"
     >
       <div
-        class="bp3-form-group"
+        class="bp3-form-group multiTypeCheckbox"
       >
         <div
           class="bp3-form-content"
@@ -1056,7 +1056,7 @@ exports[`Test K8sCanaryDeployStep should render edit view as new step 1`] = `
             </span>
           </div>
           <span
-            class="Tooltip--acenter"
+            class="Tooltip--acenter tooltip"
             data-tooltip-id="k8CanaryDeploy_spec.skipDryRun"
           />
         </div>
@@ -1075,7 +1075,7 @@ exports[`Test K8sCanaryDeployStep should render input set view 1`] = `
       class="formGroup sm"
     >
       <div
-        class="bp3-form-group"
+        class="bp3-form-group multiTypeCheckbox"
       >
         <div
           class="bp3-form-content"
@@ -1125,7 +1125,7 @@ exports[`Test K8sCanaryDeployStep should render input set view 1`] = `
             </span>
           </div>
           <span
-            class="Tooltip--acenter"
+            class="Tooltip--acenter tooltip"
             data-tooltip-id="stepTestUtilForm_spec.skipDryRun"
           />
         </div>
@@ -1612,7 +1612,7 @@ exports[`Test K8sCanaryDeployStep should submit with valid payload for instance 
       class="formGroup md"
     >
       <div
-        class="bp3-form-group"
+        class="bp3-form-group multiTypeCheckbox"
       >
         <div
           class="bp3-form-content"
@@ -1662,7 +1662,7 @@ exports[`Test K8sCanaryDeployStep should submit with valid payload for instance 
             </span>
           </div>
           <span
-            class="Tooltip--acenter"
+            class="Tooltip--acenter tooltip"
             data-tooltip-id="k8CanaryDeploy_spec.skipDryRun"
           />
         </div>
@@ -1953,7 +1953,7 @@ exports[`Test K8sCanaryDeployStep should submit with valid paylod for instace ty
       class="formGroup md"
     >
       <div
-        class="bp3-form-group"
+        class="bp3-form-group multiTypeCheckbox"
       >
         <div
           class="bp3-form-content"
@@ -2003,7 +2003,7 @@ exports[`Test K8sCanaryDeployStep should submit with valid paylod for instace ty
             </span>
           </div>
           <span
-            class="Tooltip--acenter"
+            class="Tooltip--acenter tooltip"
             data-tooltip-id="k8CanaryDeploy_spec.skipDryRun"
           />
         </div>
@@ -2324,7 +2324,7 @@ exports[`Test K8sCanaryDeployStep should throw validation error without instance
       class="formGroup md"
     >
       <div
-        class="bp3-form-group"
+        class="bp3-form-group multiTypeCheckbox"
       >
         <div
           class="bp3-form-content"
@@ -2374,7 +2374,7 @@ exports[`Test K8sCanaryDeployStep should throw validation error without instance
             </span>
           </div>
           <span
-            class="Tooltip--acenter"
+            class="Tooltip--acenter tooltip"
             data-tooltip-id="k8CanaryDeploy_spec.skipDryRun"
           />
         </div>

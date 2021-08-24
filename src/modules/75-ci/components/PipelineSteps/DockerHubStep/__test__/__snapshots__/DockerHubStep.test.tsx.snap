@@ -1999,7 +1999,7 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
           </div>
         </div>
         <div
-          class="bp3-form-group"
+          class="bp3-form-group multiTypeCheckbox"
           data-id="spec.optimize-3"
         >
           <div
@@ -2050,7 +2050,7 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
               </span>
             </div>
             <span
-              class="Tooltip--acenter"
+              class="Tooltip--acenter tooltip"
               data-tooltip-id="stepTestUtilForm_spec.optimize"
             />
           </div>
