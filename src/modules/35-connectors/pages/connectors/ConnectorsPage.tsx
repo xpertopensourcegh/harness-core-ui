@@ -64,6 +64,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import ConnectorsListView from './views/ConnectorsListView'
 import { getIconByType, getConnectorDisplayName } from './utils/ConnectorUtils'
@@ -631,7 +632,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
 
   return (
     <>
-      <Page.Header title={getString('connectorsLabel')} />
+      <Page.Header title={getString('connectorsLabel')} breadcrumbs={<NGBreadcrumbs />} />
       <Layout.Vertical height={'calc(100vh - 64px'} className={css.listPage}>
         <Layout.Horizontal flex className={css.header}>
           <Layout.Horizontal spacing="small">

@@ -8,7 +8,6 @@ import { PageSpinner } from '@common/components/Page/PageSpinner'
 import {
   useGetConnector,
   ConnectorResponse,
-  useGetOrganizationAggregateDTO,
   EntityGitDetails,
   useGetListOfBranchesWithStatus,
   GitBranchDTO
@@ -16,7 +15,7 @@ import {
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { useStrings } from 'framework/strings'
 import ActivityHistory from '@connectors/components/activityHistory/ActivityHistory/ActivityHistory'
-import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import type { ProjectPathProps, ConnectorPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { PageError } from '@common/components/Page/PageError'
@@ -41,13 +40,6 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
   const { connectorId, accountId, orgIdentifier, projectIdentifier, module } =
     useParams<PipelineType<ProjectPathProps & ConnectorPathProps>>()
   const { repoIdentifier, branch } = useQueryParams<EntityGitDetails>()
-
-  const { data: orgData } = useGetOrganizationAggregateDTO({
-    identifier: orgIdentifier,
-    queryParams: {
-      accountIdentifier: accountId
-    }
-  })
 
   const defaultQueryParam = {
     accountIdentifier: accountId,
@@ -128,29 +120,16 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
   }
 
   const RenderBreadCrumb: React.FC = () => {
-    let links = [
-      {
-        url: routes.toConnectors({ accountId, orgIdentifier, projectIdentifier, module }),
-        label: getString('resources')
-      },
-      {
-        label: getString('connectorsLabel'),
-        url: ''
-      }
-    ]
-    if (projectIdentifier) {
-      return <Breadcrumbs links={links} />
-    }
-    if (orgIdentifier) {
-      links = [
-        {
-          url: routes.toOrganizationDetails({ accountId, orgIdentifier }),
-          label: orgData?.data ? orgData?.data?.organizationResponse.organization.name : ''
-        },
-        ...links
-      ]
-    }
-    return <Breadcrumbs links={links} />
+    return (
+      <NGBreadcrumbs
+        links={[
+          {
+            url: routes.toConnectors({ accountId, orgIdentifier, projectIdentifier, module }),
+            label: getString('connectorsLabel')
+          }
+        ]}
+      />
+    )
   }
 
   const handleBranchClick = (selected: string): void => {
@@ -225,7 +204,7 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
       </Layout.Vertical>
     ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [orgData, connectorData, branchSelectOptions, activeCategory, selectedBranch, loadingBranchList]
+    [connectorData, branchSelectOptions, activeCategory, selectedBranch, loadingBranchList]
   )
 
   const getPageBody = (): React.ReactElement => {

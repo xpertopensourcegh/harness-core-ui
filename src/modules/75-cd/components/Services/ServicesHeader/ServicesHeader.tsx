@@ -1,11 +1,9 @@
 import React, { useCallback } from 'react'
 import { useParams } from 'react-router-dom'
-import { Button, Color, Layout, Text, useModalHook } from '@wings-software/uicore'
+import { Button, Layout, useModalHook } from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
-import routes from '@common/RouteDefinitions'
-import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { useStrings } from 'framework/strings'
-import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { Page } from '@common/exports'
 import { ParamsType, useServiceStore, Views } from '@cd/components/Services/common'
 import { NewEditServiceModal } from '@cd/components/PipelineSteps/DeployServiceStep/DeployServiceStep'
@@ -17,8 +15,7 @@ import css from '@cd/components/Services/ServicesHeader/ServicesHeader.module.sc
 const useSetView = (fn: (arg: Views) => void, arg: Views): (() => void) => useCallback(() => fn(arg), [arg, fn])
 
 export const ServicesHeader: React.FC = () => {
-  const { orgIdentifier, projectIdentifier, accountId, module } = useParams<ParamsType>()
-  const { selectedProject: { name: selectedProjectName = '' } = {} } = useAppStore()
+  const { orgIdentifier, projectIdentifier } = useParams<ParamsType>()
   const { getString } = useStrings()
   const { view, setView, fetchDeploymentList } = useServiceStore()
 
@@ -51,24 +48,7 @@ export const ServicesHeader: React.FC = () => {
 
   return (
     <>
-      <Page.Header
-        title={
-          <Layout.Vertical spacing="xsmall">
-            <Breadcrumbs
-              links={[
-                {
-                  url: routes.toServices({ orgIdentifier, projectIdentifier, accountId, module }),
-                  label: selectedProjectName
-                },
-                { url: '#', label: getString('services') }
-              ]}
-            />
-            <Text font={{ size: 'medium' }} color={Color.GREY_700}>
-              {getString('services')}
-            </Text>
-          </Layout.Vertical>
-        }
-      />
+      <Page.Header title={getString('services')} breadcrumbs={<NGBreadcrumbs />} />
       <Layout.Horizontal className={css.header} flex={{ distribution: 'space-between' }}>
         <Layout.Horizontal>
           <RbacButton
