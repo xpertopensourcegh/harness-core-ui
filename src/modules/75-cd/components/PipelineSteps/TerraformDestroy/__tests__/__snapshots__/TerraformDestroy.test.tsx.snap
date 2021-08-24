@@ -547,7 +547,7 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
                           class="bp3-popover-target bp3-popover-open"
                         >
                           <button
-                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addTfVarFile bp3-active StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                            class="bp3-button Button--button StyledProps--font StyledProps--main addTfVarFile bp3-active Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-link"
                             data-testid="add-tfvar-file"
                             type="button"
                           >
@@ -1589,7 +1589,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
                           class="bp3-popover-target bp3-popover-open"
                         >
                           <button
-                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addTfVarFile bp3-active StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                            class="bp3-button Button--button StyledProps--font StyledProps--main addTfVarFile bp3-active Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-link"
                             data-testid="add-tfvar-file"
                             type="button"
                           >

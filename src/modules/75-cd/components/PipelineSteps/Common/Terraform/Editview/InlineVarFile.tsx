@@ -7,7 +7,8 @@ import {
   Formik,
   MultiTypeInputType,
   getMultiTypeFromValue,
-  FormikForm
+  FormikForm,
+  ButtonVariation
 } from '@wings-software/uicore'
 import cx from 'classnames'
 
@@ -118,7 +119,7 @@ const InlineVarFile = (props: InlineVarFileProps) => {
                 </div>
 
                 <Layout.Horizontal spacing={'medium'} margin={{ top: 'huge' }}>
-                  <Button type="submit" intent={'primary'} data-testid="submit-inlinevar">
+                  <Button type="submit" variation={ButtonVariation.PRIMARY} data-testid="submit-inlinevar">
                     {getString('submit')}
                   </Button>
                 </Layout.Horizontal>

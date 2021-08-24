@@ -375,7 +375,7 @@ exports[`TF Config Form tests edit view loads correctly 1`] = `
             class="StyledProps--font StyledProps--main StyledProps--padding-top-xlarge"
           >
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-primary"
               type="submit"
             >
               <span
@@ -385,7 +385,7 @@ exports[`TF Config Form tests edit view loads correctly 1`] = `
               </span>
             </button>
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--padding-left-medium Button--with-current-color"
+              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--padding-left-medium Button--with-current-color Button--variation Button--variation-secondary"
               type="button"
             >
               <span
@@ -706,7 +706,7 @@ exports[`TF Config Form tests initial render 1`] = `
             class="StyledProps--font StyledProps--main StyledProps--padding-top-xlarge"
           >
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-primary"
               type="submit"
             >
               <span
@@ -716,7 +716,7 @@ exports[`TF Config Form tests initial render 1`] = `
               </span>
             </button>
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--padding-left-medium Button--with-current-color"
+              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--padding-left-medium Button--with-current-color Button--variation Button--variation-secondary"
               type="button"
             >
               <span

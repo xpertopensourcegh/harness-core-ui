@@ -4,6 +4,7 @@ import * as Yup from 'yup'
 
 import {
   Button,
+  ButtonVariation,
   Card,
   Color,
   Formik,
@@ -146,7 +147,7 @@ export const TFVarStore: React.FC<StepProps<any> & TFVarStoreProps> = ({ nextSte
 
               <Layout.Horizontal spacing="xxlarge" className={css.saveBtn}>
                 <Button
-                  intent="primary"
+                  variation={ButtonVariation.PRIMARY}
                   type="submit"
                   text={getString('continue')}
                   rightIcon="chevron-right"

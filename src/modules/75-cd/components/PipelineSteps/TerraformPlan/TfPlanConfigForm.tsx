@@ -10,7 +10,8 @@ import {
   MultiTypeInputType,
   Button,
   SelectOption,
-  Container
+  Container,
+  ButtonVariation
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { Form, FormikProps } from 'formik'
@@ -215,11 +216,11 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                 <Container padding={{ top: 'xlarge' }}>
                   <Button
                     text={getString('submit')}
-                    intent="primary"
+                    variation={ButtonVariation.PRIMARY}
                     type="submit"
                     disabled={!formik?.values?.spec?.configuration?.configFiles?.store?.spec?.connectorRef}
                   />
-                  <Button text={getString('cancel')} onClick={props.onHide} />
+                  <Button variation={ButtonVariation.SECONDARY} text={getString('cancel')} onClick={props.onHide} />
                 </Container>
               </Form>
             </Layout.Vertical>

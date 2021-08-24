@@ -193,7 +193,7 @@ exports[`Inline var file testing click submit for inline var file 1`] = `
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-huge"
           >
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--variation Button--variation-primary"
               data-testid="submit-inlinevar"
               type="submit"
             >
@@ -404,7 +404,7 @@ exports[`Inline var file testing edit view for inline vars 1`] = `
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-huge"
           >
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--variation Button--variation-primary"
               data-testid="submit-inlinevar"
               type="submit"
             >
@@ -613,7 +613,7 @@ exports[`Inline var file testing initial render 1`] = `
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-huge"
           >
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--variation Button--variation-primary"
               data-testid="submit-inlinevar"
               type="submit"
             >
@@ -834,7 +834,7 @@ exports[`Inline var file testing when content is runtime input 1`] = `
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-huge"
           >
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--variation Button--variation-primary"
               data-testid="submit-inlinevar"
               type="submit"
             >

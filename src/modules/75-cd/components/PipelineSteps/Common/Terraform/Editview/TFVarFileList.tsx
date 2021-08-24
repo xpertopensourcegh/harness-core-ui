@@ -11,7 +11,8 @@ import {
   Color,
   Label,
   FormikTooltipContext,
-  HarnessDocTooltip
+  HarnessDocTooltip,
+  ButtonVariation
 } from '@wings-software/uicore'
 import { Classes, MenuItem, Popover, PopoverInteractionKind, Menu, Dialog, IDialogProps } from '@blueprintjs/core'
 import { FieldArray, FieldArrayRenderProps } from 'formik'
@@ -246,8 +247,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                 >
                   <Button
                     icon="plus"
-                    minimal
-                    intent="primary"
+                    variation={ButtonVariation.LINK}
                     data-testid="add-tfvar-file"
                     className={css.addTfVarFile}
                   >

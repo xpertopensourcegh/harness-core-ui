@@ -1,7 +1,7 @@
 import React from 'react'
 import { Classes, Dialog } from '@blueprintjs/core'
 import cx from 'classnames'
-import { Layout, Card, Icon, Text, IconName, Button, useModalHook } from '@wings-software/uicore'
+import { Layout, Card, Icon, Text, IconName, Button, useModalHook, ButtonVariation } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 
 import { ProvisionerTypes } from '../Common/ProvisionerConstants'
@@ -78,7 +78,7 @@ const useChooseProvisioner = (props: ChooseProvisionerProps) => {
           ))}
         </Layout.Horizontal>
         <Button
-          intent="primary"
+          variation={ButtonVariation.PRIMARY}
           text={getString('cd.setUpProvisionerBtnText')}
           className={css.provisionerBtnText}
           onClick={() => {

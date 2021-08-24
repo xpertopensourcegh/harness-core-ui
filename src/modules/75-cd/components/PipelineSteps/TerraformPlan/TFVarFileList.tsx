@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Layout, Text, Button, Icon } from '@wings-software/uicore'
+import { Layout, Text, Button, Icon, ButtonVariation } from '@wings-software/uicore'
 
 import { FieldArray } from 'formik'
 import type { FormikProps } from 'formik'
@@ -65,7 +65,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                 </div>
               )
             })}
-            <Button icon="plus" minimal intent="primary" data-testid="add-tfvar-file">
+            <Button icon="plus" variation={ButtonVariation.LINK} data-testid="add-tfvar-file">
               {getString('pipelineSteps.addTerraformVarFile')}
             </Button>
           </div>

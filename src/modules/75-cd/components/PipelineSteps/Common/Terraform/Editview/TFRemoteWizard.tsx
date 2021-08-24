@@ -1,5 +1,6 @@
 import {
   Button,
+  ButtonVariation,
   Color,
   Formik,
   FormInput,
@@ -362,8 +363,7 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
                             )}
                             <Button
                               icon="plus"
-                              minimal
-                              intent="primary"
+                              variation={ButtonVariation.LINK}
                               data-testid="add-header"
                               onClick={() => arrayHelpers.push({ path: '' })}
                             >
@@ -393,11 +393,17 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
               <Layout.Horizontal spacing="xxlarge" className={css.saveBtn}>
                 <Button
                   text={getString('back')}
+                  variation={ButtonVariation.SECONDARY}
                   icon="chevron-left"
                   onClick={() => previousStep?.()}
                   data-name="tf-remote-back-btn"
                 />
-                <Button type="submit" intent="primary" text={getString('submit')} rightIcon="chevron-right" />
+                <Button
+                  type="submit"
+                  variation={ButtonVariation.PRIMARY}
+                  text={getString('submit')}
+                  rightIcon="chevron-right"
+                />
               </Layout.Horizontal>
             </Form>
           )

@@ -2,7 +2,7 @@ import React from 'react'
 
 import cx from 'classnames'
 
-import { Layout, Text, Button, Icon, StepWizard, Color, Label } from '@wings-software/uicore'
+import { Layout, Text, Button, Icon, StepWizard, Color, Label, ButtonVariation } from '@wings-software/uicore'
 import { Classes, MenuItem, Popover, PopoverInteractionKind, Menu, Dialog, IDialogProps } from '@blueprintjs/core'
 import { FieldArray, FieldArrayRenderProps } from 'formik'
 import type { FormikProps } from 'formik'
@@ -245,8 +245,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                 >
                   <Button
                     icon="plus"
-                    minimal
-                    intent="primary"
+                    variation={ButtonVariation.LINK}
                     data-testid="add-tfvar-file"
                     className={css.addTfVarFile}
                   >
