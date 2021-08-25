@@ -1,13 +1,19 @@
 import React from 'react'
-import { render, waitFor, queryByText, fireEvent } from '@testing-library/react'
+import { render, waitFor, queryByText, fireEvent, act, getByText } from '@testing-library/react'
 import { renderHook } from '@testing-library/react-hooks'
 import type { UseGetReturn, UseMutateReturn } from 'restful-react'
 import { useStrings } from 'framework/strings'
 import * as pipelineNg from 'services/pipeline-ng'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import * as cdng from 'services/cd-ng'
-import { queryByNameAttribute, TestWrapper } from '@common/utils/testUtils'
+import { findDialogContainer, queryByNameAttribute, TestWrapper } from '@common/utils/testUtils'
 import { branchStatusMock, gitConfigs, sourceCodeManagers } from '@connectors/mocks/mock'
+// eslint-disable-next-line no-restricted-imports
+import { ManifestInputForm } from '@cd/components/ManifestInputForm/ManifestInputForm'
+
+import { connectorsData } from '@connectors/pages/connectors/__tests__/mockData'
+import TriggerFactory from '@pipeline/factories/ArtifactTriggerInputFactory/index'
+import { TriggerFormType } from '@pipeline/factories/ArtifactTriggerInputFactory/types'
 import {
   PostCreateVariables,
   GetSchemaYaml,
@@ -27,8 +33,8 @@ import {
   GetParseableTemplateFromPipelineResponse
 } from './sharedMockResponses'
 import TriggersWizardPage from '../TriggersWizardPage'
-jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 jest.mock('@common/utils/YamlUtils', () => ({}))
 jest.mock('react-monaco-editor', () => ({ value, onChange, name }: any) => (
   <textarea value={value} onChange={e => onChange(e.target.value)} name={name || 'spec.source.spec.script'} />
@@ -45,10 +51,16 @@ const params = {
 
 const getListOfBranchesWithStatus = jest.fn(() => Promise.resolve(branchStatusMock))
 const getListGitSync = jest.fn(() => Promise.resolve(gitConfigs))
+const fetchConnectors = jest.fn(() => Promise.resolve(connectorsData))
 
 jest.spyOn(cdng, 'useGetListOfBranchesWithStatus').mockImplementation((): any => {
   return { data: branchStatusMock, refetch: getListOfBranchesWithStatus, loading: false }
 })
+
+jest.spyOn(cdng, 'useGetConnector').mockImplementation((): any => {
+  return { data: connectorsData, refetch: fetchConnectors, loading: false }
+})
+
 jest.spyOn(cdng, 'useListGitSync').mockImplementation((): any => {
   return { data: gitConfigs, refetch: getListGitSync, loading: false }
 })
@@ -62,14 +74,6 @@ const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactEle
   <TestWrapper>{children}</TestWrapper>
 )
 const { result } = renderHook(() => useStrings(), { wrapper })
-
-jest.mock('@pipeline/factories/ArtifactTriggerInputFactory', () => ({
-  getTriggerFormDetails: jest.fn().mockImplementation(() => () => {
-    return {
-      component: <div>ABC</div>
-    }
-  })
-}))
 
 function WrapperComponent(): JSX.Element {
   return (
@@ -88,6 +92,12 @@ jest.mock('services/portal', () => ({
 }))
 
 describe('Manifest Trigger Tests', () => {
+  beforeAll(() => {
+    TriggerFactory.registerTriggerForm(TriggerFormType.Manifest, {
+      component: ManifestInputForm
+    })
+  })
+
   test('throws validation error when select artifact/manifest is not added', async () => {
     jest.spyOn(pipelineNg, 'useGetSchemaYaml').mockImplementation(() => {
       return {
@@ -327,6 +337,98 @@ describe('Manifest Trigger Tests', () => {
     await waitFor(() => expect(result.current.getString('pipeline.triggers.triggerConfigurationLabel')).not.toBeNull())
 
     expect(container).toMatchSnapshot()
+    const deleteIcon = container.querySelector('[data-name="main-delete"]')
+    if (!deleteIcon) {
+      throw Error('No delete icon')
+    }
+    fireEvent.click(deleteIcon)
+
+    const selectManifest = container.querySelector('[data-name="plusAdd"]')
+    if (!selectManifest) {
+      throw Error('No select manifest')
+    }
+    fireEvent.click(selectManifest)
+
+    await waitFor(() =>
+      expect(
+        result.current.getString('pipeline.triggers.artifactTriggerConfigPanel.plusSelect', {
+          artifact: 'Manifest'
+        })
+      ).not.toBeNull()
+    )
+  })
+
+  test('on click of edit - submits thru the right payload', async () => {
+    jest.spyOn(pipelineNg, 'useGetSchemaYaml').mockImplementation(() => {
+      return {
+        data: GetSchemaYaml as any,
+        refetch: jest.fn(),
+        error: null,
+        loading: false,
+        absolutePath: '',
+        cancel: jest.fn(),
+        response: null
+      }
+    })
+
+    jest.spyOn(pipelineNg, 'useCreateVariables').mockImplementation(() => ({
+      cancel: jest.fn(),
+      loading: false,
+      error: null,
+      mutate: jest.fn().mockImplementation(() => PostCreateVariables)
+    }))
+    jest
+      .spyOn(pipelineNg, 'useGetInputSetsListForPipeline')
+      .mockReturnValue(GetManifestInputSetsResponse as UseGetReturn<any, any, any, any>)
+    jest
+      .spyOn(pipelineNg, 'useGetPipeline')
+      .mockReturnValue(GetManifestPipelineResponse as UseGetReturn<any, any, any, any>)
+    jest
+      .spyOn(pipelineNg, 'useGetTemplateFromPipeline')
+      .mockReturnValue(GetParseableTemplateFromPipelineResponse as UseGetReturn<any, any, any, any>)
+    jest
+      .spyOn(pipelineNg, 'useGetTrigger')
+      .mockReturnValue(GetParseableManifestTriggerResponse as UseGetReturn<any, any, any, any>)
+    jest.spyOn(pipelineNg, 'useGetMergeInputSetFromPipelineTemplateWithListInput').mockReturnValue({
+      mutate: jest.fn().mockReturnValue(GetMergeInputSetFromPipelineTemplateWithListInputResponse) as unknown
+    } as UseMutateReturn<any, any, any, any, any>)
+    jest.spyOn(pipelineNg, 'useUpdateTrigger').mockReturnValue({
+      mutate: mockUpdate as unknown
+    } as UseMutateReturn<any, any, any, any, any>)
+    const { container } = render(<WrapperComponent />)
+    await waitFor(() => expect(() => queryByText(document.body, 'Loading, please wait...')).toBeDefined())
+
+    const yamlBtn = container.querySelector('[data-name="yaml-btn"]')
+
+    if (!yamlBtn) {
+      throw Error('No yaml button')
+    }
+    fireEvent.click(yamlBtn)
+
+    await waitFor(() => expect(result.current.getString('pipeline.triggers.updateTrigger')).not.toBeNull())
+
+    const visualBtn = container.querySelector('[data-name="visual-btn"]')
+
+    if (!visualBtn) {
+      throw Error('No visual button')
+    }
+    fireEvent.click(visualBtn)
+
+    await waitFor(() => expect(result.current.getString('pipeline.triggers.triggerConfigurationLabel')).not.toBeNull())
+
+    expect(container).toMatchSnapshot()
+
+    const editIcon = container.querySelector('[data-name="select-artifact-edit"]')
+
+    fireEvent.click(editIcon!)
+
+    await act(async () => {
+      const dialog = findDialogContainer() as HTMLElement
+      const applyBtn = getByText(dialog, 'filters.apply')
+      fireEvent.click(applyBtn!)
+      expect(dialog).toMatchSnapshot()
+    })
+
     const deleteIcon = container.querySelector('[data-name="main-delete"]')
     if (!deleteIcon) {
       throw Error('No delete icon')

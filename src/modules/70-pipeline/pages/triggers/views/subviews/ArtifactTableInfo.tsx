@@ -159,6 +159,7 @@ const RenderColumnEdit = ({ column }: { column: RenderColumnEditColumn }) => {
         <Button
           // style={{ color: 'var(--primary-7)' }}
           minimal
+          data-name="select-artifact-edit"
           // className={css.actionButton}
           icon="edit"
           onClick={() => column.editArtifact()}
