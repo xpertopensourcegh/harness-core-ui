@@ -12,6 +12,7 @@ export interface QueryContentProps {
   textAreaProps?: TextAreaProps['textArea']
   textAreaName?: string
   onClickExpand: (isOpen: boolean) => void
+  staleRecordsWarning?: string
 }
 
 export interface QueryViewerProps {
@@ -25,6 +26,8 @@ export interface QueryViewerProps {
   postFetchingRecords?: () => void
   fetchRecords: () => void
   queryNotExecutedMessage?: string
+  queryTextAreaProps?: TextAreaProps['textArea']
+  staleRecordsWarning?: string
 }
 
 export interface QueryViewDialogProps extends RecordsProps {

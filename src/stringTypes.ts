@@ -3777,6 +3777,7 @@ export interface StringsMap {
   'cv.monitoringSources.serviceValidation': string
   'cv.monitoringSources.splunk.savedSearchQuery': string
   'cv.monitoringSources.splunk.splunkLogsQuery': string
+  'cv.monitoringSources.splunk.staleRecordsWarning': string
   'cv.monitoringSources.splunk.submitQueryToSeeRecords': string
   'cv.monitoringSources.totalMappedQueries': string
   'cv.navLinks.activities': string
@@ -3852,6 +3853,7 @@ export interface StringsMap {
   'cv.searchForAService': string
   'cv.selectCreateService': string
   'cv.selectOrCreateEnv': string
+  'cv.selectQuery': string
   'cv.selectedTimeInterval': string
   'cv.serviceDashboardPage.fifteenMinutes': string
   'cv.serviceDashboardPage.fiveMinutes': string

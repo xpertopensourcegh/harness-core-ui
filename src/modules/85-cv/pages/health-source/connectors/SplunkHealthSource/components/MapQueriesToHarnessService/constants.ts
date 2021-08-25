@@ -2,7 +2,8 @@ export const MapSplunkToServiceFieldNames = {
   METRIC_NAME: 'metricName',
   QUERY: 'query',
   SERVICE_INSTANCE: 'serviceInstance',
-  RECORD_COUNT: 'recordCount'
+  RECORD_COUNT: 'recordCount',
+  IS_STALE_RECORD: 'isStaleRecord'
 }
 
 export const initialFormData = {

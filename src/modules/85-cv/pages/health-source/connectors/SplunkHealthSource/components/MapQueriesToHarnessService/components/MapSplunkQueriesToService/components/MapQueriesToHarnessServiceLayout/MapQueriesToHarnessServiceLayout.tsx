@@ -1,4 +1,4 @@
-import { Accordion, FormInput, Layout, Utils } from '@wings-software/uicore'
+import { Accordion, FormInput, Layout, SelectOption, Utils } from '@wings-software/uicore'
 import React, { useCallback, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { MapSplunkToServiceFieldNames } from '@cv/pages/health-source/connectors/SplunkHealthSource/components/MapQueriesToHarnessService/constants'
@@ -57,9 +57,10 @@ export default function MapQueriesToHarnessServiceLayout(props: MapQueriesToHarn
   }, [query])
 
   const postFetchingRecords = useCallback(() => {
-    // resetting values of service and message indentifier once fetch records button is clicked.
+    // resetting values of service once fetch records button is clicked.
     onChange(MapSplunkToServiceFieldNames.SERVICE_INSTANCE, '')
     // eslint-disable-next-line react-hooks/exhaustive-deps
+    onChange(MapSplunkToServiceFieldNames.IS_STALE_RECORD, false)
   }, [])
 
   const savedSearchQueryOption = useMemo(
@@ -73,24 +74,29 @@ export default function MapQueriesToHarnessServiceLayout(props: MapQueriesToHarn
     [loadingSavedQuery]
   )
 
+  const onSavedQueryChange = useCallback(
+    (item: SelectOption) => {
+      onChange(MapSplunkToServiceFieldNames.QUERY, item.value as string)
+      onChange(MapSplunkToServiceFieldNames.SERVICE_INSTANCE, '')
+      onChange(MapSplunkToServiceFieldNames.RECORD_COUNT, '0')
+      setIsQueryExecuted(false)
+    },
+    [query]
+  )
+
+  const getSavedQueryValue = useCallback(
+    () => savedSearchQueryOption?.find(item => item.value === query) || { value: '', label: '' },
+    [query]
+  )
+
+  const staleRecordsWarningMessage = useMemo(
+    () => (values?.isStaleRecord ? getString('cv.monitoringSources.splunk.staleRecordsWarning') : ''),
+    [values?.isStaleRecord]
+  )
+
   return (
     <Card>
       <>
-        <FormInput.Select
-          name={'savedSearchQuery'}
-          placeholder={
-            loadingSavedQuery ? getString('loading') : getString('cv.monitoringSources.splunk.savedSearchQuery')
-          }
-          value={savedSearchQueryOption?.find(item => item.value === query)}
-          className={css.savedSearchQuery}
-          items={savedSearchQueryOption}
-          onChange={item => {
-            onChange(MapSplunkToServiceFieldNames.QUERY, item.value as string)
-            onChange(MapSplunkToServiceFieldNames.SERVICE_INSTANCE, '')
-            onChange(MapSplunkToServiceFieldNames.RECORD_COUNT, '0')
-            setIsQueryExecuted(false)
-          }}
-        />
         <Layout.Horizontal>
           <Accordion activeId="metricToService" className={css.accordian}>
             <Accordion.Panel
@@ -106,17 +112,34 @@ export default function MapQueriesToHarnessServiceLayout(props: MapQueriesToHarn
               }
             />
           </Accordion>
-          <QueryViewer
-            isQueryExecuted={isQueryExecuted}
-            className={css.validationContainer}
-            records={splunkData?.resource}
-            fetchRecords={fetchSplunkRecords}
-            postFetchingRecords={postFetchingRecords}
-            loading={loading}
-            error={error}
-            query={query}
-            queryNotExecutedMessage={getString('cv.monitoringSources.splunk.submitQueryToSeeRecords')}
-          />
+          <div className={css.queryViewContainer}>
+            <FormInput.Select
+              className={css.savedQueryDropdown}
+              label={getString('cv.selectQuery')}
+              name={'savedSearchQuery'}
+              placeholder={getString('cv.monitoringSources.splunk.savedSearchQuery')}
+              value={getSavedQueryValue()}
+              items={savedSearchQueryOption}
+              onChange={onSavedQueryChange}
+            />
+            <QueryViewer
+              isQueryExecuted={isQueryExecuted}
+              className={css.validationContainer}
+              records={splunkData?.resource}
+              fetchRecords={fetchSplunkRecords}
+              postFetchingRecords={postFetchingRecords}
+              loading={loading}
+              error={error}
+              query={query}
+              queryNotExecutedMessage={getString('cv.monitoringSources.splunk.submitQueryToSeeRecords')}
+              queryTextAreaProps={{
+                onChangeCapture: () => {
+                  onChange(MapSplunkToServiceFieldNames.IS_STALE_RECORD, true)
+                }
+              }}
+              staleRecordsWarning={staleRecordsWarningMessage}
+            />
+          </div>
         </Layout.Horizontal>
       </>
     </Card>

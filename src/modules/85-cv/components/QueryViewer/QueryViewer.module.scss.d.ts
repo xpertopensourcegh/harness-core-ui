@@ -15,5 +15,6 @@ declare const styles: {
   readonly recordContainer: string
   readonly formQueryBox: string
   readonly labelText: string
+  readonly warningText: string
 }
 export default styles

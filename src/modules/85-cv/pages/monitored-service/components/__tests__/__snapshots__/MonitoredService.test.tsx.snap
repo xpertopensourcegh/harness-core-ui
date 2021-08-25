@@ -399,7 +399,7 @@ exports[`Unit tests for createting monitored source Check discard and save butto
 </div>
 `;
 
-exports[`Unit tests for createting monitored source Health source tabel and environment services component renders 1`] = `
+exports[`Unit tests for createting monitored source Health source table and environment services component renders 1`] = `
 <div>
   <div
     class="StyledProps--font StyledProps--main configurationTabs"
@@ -793,7 +793,7 @@ exports[`Unit tests for createting monitored source Health source tabel and envi
 </div>
 `;
 
-exports[`Unit tests for createting monitored source Health source table and environment services component renders 1`] = `
+exports[`Unit tests for createting monitored source Health source table and environment services component renders 2`] = `
 <div>
   <div
     class="StyledProps--font StyledProps--main configurationTabs"

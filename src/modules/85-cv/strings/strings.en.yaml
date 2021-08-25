@@ -46,6 +46,7 @@ jobNamePlaceholder: Enter a Job Name
 throughput: Throughput
 responseTime: Response Time
 query: Query
+selectQuery: Select Query (Optional)
 addNew: + Add New
 turnService: Turn service
 serviceDashboardPage:
@@ -402,6 +403,7 @@ monitoringSources:
     splunkLogsQuery: SPLUNK Logs Query
     savedSearchQuery: Select saved query
     submitQueryToSeeRecords: Submit query to see records from Splunk
+    staleRecordsWarning: Records not upated with latest query. Please fetch records
   gcoLogs:
     query: QUERY
     gcoLogsServiceInstance: Add service instance

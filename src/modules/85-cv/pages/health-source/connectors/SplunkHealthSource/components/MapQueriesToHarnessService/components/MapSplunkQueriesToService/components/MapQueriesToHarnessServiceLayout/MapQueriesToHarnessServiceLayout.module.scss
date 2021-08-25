@@ -14,11 +14,13 @@
 }
 
 .validationContainer {
-  flex-basis: 55%;
-  max-width: 55%;
+  max-width: 100%;
 }
 
-.savedSearchQuery {
-  width: 515px;
-  margin-left: 45.6%;
+.queryViewContainer {
+  width: 55%;
+}
+
+.savedQueryDropdown {
+  padding: var(--spacing-none) var(--spacing-small);
 }

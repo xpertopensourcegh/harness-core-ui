@@ -123,7 +123,7 @@ function Service(): JSX.Element {
         name,
         description,
         tags,
-        sources
+        sources = {}
       } = formikValues
       const payload: MonitoredServiceDTO = {
         orgIdentifier,

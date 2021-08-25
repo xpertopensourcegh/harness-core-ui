@@ -3,6 +3,7 @@ import { Formik, FormikForm, Utils } from '@wings-software/uicore'
 import { SetupSourceCardHeader } from '@cv/components/CVSetupSourcesView/SetupSourceCardHeader/SetupSourceCardHeader'
 import { SetupSourceLayout } from '@cv/components/CVSetupSourcesView/SetupSourceLayout/SetupSourceLayout'
 import { useStrings } from 'framework/strings'
+import { useToaster } from '@common/components/Toaster/useToaster'
 import { MultiItemsSideNav } from '@cv/components/MultiItemsSideNav/MultiItemsSideNav'
 import DrawerFooter from '@cv/pages/health-source/common/DrawerFooter/DrawerFooter'
 import { updateSelectedMetricsMap, validateMappings } from './utils'
@@ -13,6 +14,7 @@ import css from './SplunkQueryBuilder.module.scss'
 
 export function SplunkQueryBuilder(props: SplunkQueryBuilderProps): JSX.Element {
   const { getString } = useStrings()
+  const { showError } = useToaster()
   const { onSubmit, data: sourceData, onPrevious } = props
 
   const [{ selectedMetric, mappedMetrics }, setMappedMetrics] = useState<{
@@ -43,9 +45,14 @@ export function SplunkQueryBuilder(props: SplunkQueryBuilderProps): JSX.Element 
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       onSubmit={async updatedSource => {
+        if (updatedSource?.isStaleRecord) {
+          showError(getString('cv.monitoringSources.splunk.staleRecordsWarning'))
+          return
+        }
         if (updatedSource) {
           mappedMetrics.set(selectedMetric, updatedSource)
         }
+
         await onSubmit({ ...sourceData, mappedServicesAndEnvs: new Map(mappedMetrics) })
       }}
       formName="mapSplunk"

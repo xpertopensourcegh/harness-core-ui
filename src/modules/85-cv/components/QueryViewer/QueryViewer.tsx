@@ -10,8 +10,17 @@ import { QueryViewDialog } from './components/QueryViewDialog'
 import css from './QueryViewer.module.scss'
 
 export function QueryContent(props: QueryContentProps): JSX.Element {
-  const { handleFetchRecords, query, loading, onClickExpand, onEditQuery, isDialogOpen, textAreaProps, textAreaName } =
-    props
+  const {
+    handleFetchRecords,
+    query,
+    loading,
+    onClickExpand,
+    onEditQuery,
+    isDialogOpen,
+    textAreaProps,
+    textAreaName,
+    staleRecordsWarning
+  } = props
   const { getString } = useStrings()
   return (
     <Container className={css.queryContainer}>
@@ -33,12 +42,15 @@ export function QueryContent(props: QueryContentProps): JSX.Element {
         textArea={textAreaProps}
         className={cx(css.formQueryBox)}
       />
-      <Button
-        intent="primary"
-        text={getString('cv.monitoringSources.gcoLogs.fetchRecords')}
-        onClick={handleFetchRecords}
-        disabled={isEmpty(query) || loading}
-      />
+      <Layout.Horizontal spacing={'large'}>
+        <Button
+          intent="primary"
+          text={getString('cv.monitoringSources.gcoLogs.fetchRecords')}
+          onClick={handleFetchRecords}
+          disabled={isEmpty(query) || loading}
+        />
+        {staleRecordsWarning && <Text className={css.warningText}>{staleRecordsWarning}</Text>}
+      </Layout.Horizontal>
     </Container>
   )
 }
@@ -53,7 +65,9 @@ export function QueryViewer(props: QueryViewerProps): JSX.Element {
     query,
     isQueryExecuted,
     postFetchingRecords,
-    queryNotExecutedMessage
+    queryNotExecutedMessage,
+    queryTextAreaProps,
+    staleRecordsWarning
   } = props
   const { getString } = useStrings()
   const [isDialogOpen, setIsDialogOpen] = useState(false)
@@ -83,6 +97,8 @@ export function QueryViewer(props: QueryViewerProps): JSX.Element {
         isDialogOpen={isDialogOpen}
         loading={loading}
         handleFetchRecords={handleFetchRecords}
+        textAreaProps={queryTextAreaProps}
+        staleRecordsWarning={staleRecordsWarning}
       />
       <Records
         fetchRecords={handleFetchRecords}

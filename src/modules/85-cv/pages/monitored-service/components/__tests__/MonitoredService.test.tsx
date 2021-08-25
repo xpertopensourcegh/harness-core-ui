@@ -64,7 +64,7 @@ jest.mock('services/cv', () => ({
 }))
 
 describe('Unit tests for createting monitored source', () => {
-  test('Health source tabel and environment services component renders', async () => {
+  test('Health source table and environment services component renders', async () => {
     jest.spyOn(dbHook, 'useIndexedDBHook').mockReturnValue({
       dbInstance: {
         put: jest.fn(),

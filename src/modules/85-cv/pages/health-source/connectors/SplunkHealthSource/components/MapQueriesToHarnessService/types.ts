@@ -12,6 +12,7 @@ export type MapSplunkQueryToService = {
   metricName: string
   serviceInstance?: string
   query: string
+  isStaleRecord?: boolean
 }
 
 export interface SplunkQueryDefinition {
