@@ -12,7 +12,7 @@ import { useStrings } from 'framework/strings'
 import type { TableProps } from '@common/components/Table/Table'
 import { Ticker } from '@common/components/Ticker/Ticker'
 import { PieChart, PieChartProps } from '@cd/components/PieChart/PieChart'
-import { INVALID_CHANGE_RATE, numberFormatter } from '@cd/components/Services/common'
+import { getFixed, INVALID_CHANGE_RATE, numberFormatter } from '@cd/components/Services/common'
 import type { ServiceDetailsDTO } from 'services/cd-ng'
 import { DeploymentTypeIcons } from '@cd/components/DeploymentTypeIcons/DeploymentTypeIcons'
 import css from '@cd/components/Services/ServicesList/ServiceList.module.scss'
@@ -103,6 +103,7 @@ const RenderType: Renderer<CellProps<ServiceListItem>> = ({ row }) => {
 
 const TickerCard: React.FC<{ item: ChangeValue & { name: string } }> = props => {
   const { item } = props
+  const value = Number(item.value)
   const isBoostMode = item.change === INVALID_CHANGE_RATE
   const color = (() => {
     if (item.name !== 'failureRate') {
@@ -114,7 +115,13 @@ const TickerCard: React.FC<{ item: ChangeValue & { name: string } }> = props => 
   return (
     <Layout.Vertical padding={'small'} key={item.name} width={'fit-content'} className={css.tickerContainer}>
       <Ticker
-        value={isBoostMode ? <></> : <Text color={color} font={{ size: 'small' }}>{`${Math.abs(item.change)}%`}</Text>}
+        value={
+          isBoostMode ? (
+            <></>
+          ) : (
+            <Text color={color} font={{ size: 'small' }}>{`${Math.abs(getFixed(item.change))}%`}</Text>
+          )
+        }
         decreaseMode={!isBoostMode && item.change < 0}
         boost={isBoostMode}
         color={color}
@@ -122,7 +129,7 @@ const TickerCard: React.FC<{ item: ChangeValue & { name: string } }> = props => 
         size={isBoostMode ? 10 : 6}
       >
         <Text color={Color.BLACK} font={{ weight: 'semi-bold', size: 'medium' }} margin={{ right: 'xsmall' }}>
-          {item.value}
+          {isNaN(value) ? item.value : numberFormatter(value)}
         </Text>
       </Ticker>
     </Layout.Vertical>
