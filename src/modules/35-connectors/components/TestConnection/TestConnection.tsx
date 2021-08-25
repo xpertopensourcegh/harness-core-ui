@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from '@wings-software/uicore'
+import { Button, ButtonVariation } from '@wings-software/uicore'
 import type { ResponseConnectorValidationResult, ConnectorInfoDTO, EntityGitDetails } from 'services/cd-ng'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import useTestConnectionModal from '@connectors/common/useTestConnectionModal/useTestConnectionModal'
@@ -29,6 +29,7 @@ const TestConnection: React.FC<TestConnectionProps> = props => {
       onClick={() => {
         openErrorModal({ connector, gitDetails, testUrl })
       }}
+      variation={ButtonVariation.SECONDARY}
     />
   )
 }

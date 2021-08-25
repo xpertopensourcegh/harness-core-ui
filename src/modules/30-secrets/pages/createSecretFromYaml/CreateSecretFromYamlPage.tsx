@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Container, Button, Layout } from '@wings-software/uicore'
+import { Container, Button, Layout, ButtonVariation } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import { useHistory, useParams } from 'react-router-dom'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
@@ -153,8 +153,15 @@ const CreateSecretFromYamlPage: React.FC<{ mockSchemaData?: UseGetMockData<Respo
             intent="primary"
             margin={{ top: 'xlarge' }}
             onClick={handleCreate}
+            variation={ButtonVariation.PRIMARY}
           />
-          <Button text={getString('cancel')} intent="none" margin={{ top: 'xlarge' }} onClick={handleCancel} />
+          <Button
+            text={getString('cancel')}
+            intent="none"
+            margin={{ top: 'xlarge' }}
+            onClick={handleCancel}
+            variation={ButtonVariation.SECONDARY}
+          />
         </Layout.Horizontal>
       </Container>
     </Container>

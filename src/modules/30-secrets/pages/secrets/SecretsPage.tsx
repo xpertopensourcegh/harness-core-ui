@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
-import { Layout, Popover, Icon, ExpandingSearchInput, Container } from '@wings-software/uicore'
+import { Layout, Popover, Icon, ExpandingSearchInput, Container, ButtonVariation } from '@wings-software/uicore'
 import { Menu, PopoverInteractionKind, Position } from '@blueprintjs/core'
 import { useListSecretsV2, ResponsePageSecretResponseWrapper, Error } from 'services/cd-ng'
 import routes from '@common/RouteDefinitions'
@@ -83,6 +83,7 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ mock }) => {
               onClick={() => {
                 setOpenPopOver(true)
               }}
+              variation={ButtonVariation.PRIMARY}
             />
             {openPopOver && (
               <Menu large>
@@ -123,7 +124,7 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ mock }) => {
                 projectIdentifier
               }
             }}
-            withoutBoxShadow
+            variation={ButtonVariation.SECONDARY}
           />
         </Layout.Horizontal>
         <ExpandingSearchInput

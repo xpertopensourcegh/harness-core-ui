@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { parse } from 'yaml'
 import { omit, without } from 'lodash-es'
-import { Layout, Container, Button } from '@wings-software/uicore'
+import { Layout, Container, Button, ButtonVariation } from '@wings-software/uicore'
 
 import {
   SecretTextSpecDTO,
@@ -209,6 +209,7 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
                     resourceIdentifier: secretData.secret.identifier
                   }
                 }}
+                variation={ButtonVariation.PRIMARY}
               />
             </Layout.Horizontal>
           )}
@@ -243,8 +244,19 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
             )}
             {edit && (
               <Layout.Horizontal spacing="medium">
-                <Button text={getString('cancel')} margin={{ top: 'large' }} onClick={resetEditor} />
-                <Button intent="primary" text={getString('save')} onClick={handleSaveYaml} margin={{ top: 'large' }} />
+                <Button
+                  intent="primary"
+                  text={getString('save')}
+                  onClick={handleSaveYaml}
+                  margin={{ top: 'large' }}
+                  variation={ButtonVariation.PRIMARY}
+                />
+                <Button
+                  text={getString('cancel')}
+                  margin={{ top: 'large' }}
+                  onClick={resetEditor}
+                  variation={ButtonVariation.SECONDARY}
+                />
               </Layout.Horizontal>
             )}
           </Container>

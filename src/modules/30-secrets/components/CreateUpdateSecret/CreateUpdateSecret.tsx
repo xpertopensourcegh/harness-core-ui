@@ -7,7 +7,8 @@ import {
   SelectOption,
   Text,
   ModalErrorHandlerBinding,
-  ModalErrorHandler
+  ModalErrorHandler,
+  ButtonVariation
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
@@ -365,6 +366,7 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
                 text={loading ? getString('secret.saving') : getString('save')}
                 margin={{ top: 'large' }}
                 disabled={loading || !typeOfSelectedSecretManager}
+                variation={ButtonVariation.PRIMARY}
               />
             </FormikForm>
           )

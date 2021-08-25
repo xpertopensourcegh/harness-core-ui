@@ -6,7 +6,8 @@ import {
   FormInput,
   MultiSelectOption,
   ExpandingSearchInput,
-  Container
+  Container,
+  ButtonVariation
 } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
 import type { GetDataError } from 'restful-react'
@@ -637,7 +638,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
         <Layout.Horizontal flex className={css.header}>
           <Layout.Horizontal spacing="small">
             <RbacButton
-              intent="primary"
+              variation={ButtonVariation.PRIMARY}
               text={getString('connector')}
               icon="plus"
               permission={{
@@ -667,7 +668,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
               onClick={rerouteBasedOnContext}
               id="newYamlConnectorBtn"
               data-test="createViaYamlButton"
-              minimal
+              variation={ButtonVariation.SECONDARY}
             />
             {isGitSyncEnabled && (
               <GitSyncStoreProvider>

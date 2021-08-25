@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { isEmpty, noop, omit } from 'lodash-es'
-import { Button, Layout, Container, Icon, Text, Color } from '@wings-software/uicore'
+import { Button, Layout, Container, Icon, Text, Color, ButtonVariation } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import moment from 'moment'
 import { useToaster, useConfirmationDialog, StringUtils } from '@common/exports'
@@ -367,7 +367,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
                     })
                   : undefined
               }}
-              withoutBoxShadow
+              variation={ButtonVariation.SECONDARY}
             />
           )}
         </Container>
@@ -432,8 +432,14 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
                       margin={{ top: 'large' }}
                       title={isValidYAML ? '' : getString('invalidYaml')}
                       disabled={!isGitSyncEnabled && !hasConnectorChanged}
+                      variation={ButtonVariation.PRIMARY}
                     />
-                    <Button text={getString('cancel')} margin={{ top: 'large' }} onClick={resetEditor} />
+                    <Button
+                      text={getString('cancel')}
+                      margin={{ top: 'large' }}
+                      onClick={resetEditor}
+                      variation={ButtonVariation.SECONDARY}
+                    />
                   </Layout.Horizontal>
                 </div>
               </>

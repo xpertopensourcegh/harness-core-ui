@@ -2,7 +2,18 @@ import React, { useState } from 'react'
 import { Classes, Dialog } from '@blueprintjs/core'
 import { isEmpty, noop, omit, pick } from 'lodash-es'
 import * as Yup from 'yup'
-import { Container, Button, Layout, useModalHook, Formik, FormikForm, Color, Text, Icon } from '@wings-software/uicore'
+import {
+  Container,
+  Button,
+  Layout,
+  useModalHook,
+  Formik,
+  FormikForm,
+  Color,
+  Text,
+  Icon,
+  ButtonVariation
+} from '@wings-software/uicore'
 import { parse } from 'yaml'
 import { useHistory, useParams } from 'react-router-dom'
 
@@ -199,9 +210,14 @@ const CreateConnectorFromYamlPage: React.FC = () => {
                       />
                     </GitSyncStoreProvider>
                     <Container padding={{ top: 'xlarge' }}>
-                      <Button intent="primary" type="submit" text={getString('save')} />
+                      <Button
+                        intent="primary"
+                        type="submit"
+                        text={getString('save')}
+                        variation={ButtonVariation.PRIMARY}
+                      />
                       &nbsp; &nbsp;
-                      <Button text={getString('cancel')} onClick={hideModal} />
+                      <Button text={getString('cancel')} onClick={hideModal} variation={ButtonVariation.SECONDARY} />
                     </Container>
                   </FormikForm>
                 )}
@@ -262,7 +278,7 @@ const CreateConnectorFromYamlPage: React.FC = () => {
           <Layout.Horizontal spacing="small">
             <Button
               text={getString('saveChanges')}
-              intent="primary"
+              variation={ButtonVariation.PRIMARY}
               margin={{ top: 'xlarge' }}
               onClick={() => {
                 // only sanitized yaml allowed, invalid yaml with/out schema issues should be rejected
@@ -295,7 +311,12 @@ const CreateConnectorFromYamlPage: React.FC = () => {
               disabled={!hasConnectorChanged}
             />
             {hasConnectorChanged ? (
-              <Button text={getString('cancel')} margin={{ top: 'xlarge' }} onClick={resetEditor} />
+              <Button
+                text={getString('cancel')}
+                margin={{ top: 'xlarge' }}
+                onClick={resetEditor}
+                variation={ButtonVariation.SECONDARY}
+              />
             ) : null}
           </Layout.Horizontal>
         </Container>
