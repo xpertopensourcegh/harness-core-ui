@@ -17,8 +17,8 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { DeleteConfirmDialogContent } from '@pipeline/pages/utils/DeleteConfirmDialogContent'
 import { getIconsForPipeline, getStatusColor } from '../PipelineListUtils'
-import { DeleteConfirmDialogContent } from './PipelineCard/PipelineCard'
 import css from '../PipelinesPage.module.scss'
 
 interface PipelineListViewProps {
@@ -77,7 +77,8 @@ const RenderColumnMenu: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => 
   const { openDialog: confirmDelete } = useConfirmationDialog({
     contentText: (
       <DeleteConfirmDialogContent
-        pipelineName={data?.name}
+        entityName={data?.name || ''}
+        entityType={'pipeline'}
         gitDetails={data.gitDetails}
         commitMsg={commitMsg}
         onCommitMsgChange={setCommitMsg}

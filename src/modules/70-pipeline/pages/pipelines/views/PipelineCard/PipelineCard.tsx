@@ -12,7 +12,7 @@ import {
   ButtonVariation,
   ButtonSize
 } from '@wings-software/uicore'
-import { Classes, Intent, Menu, TextArea } from '@blueprintjs/core'
+import { Classes, Intent, Menu } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { isEmpty, pick } from 'lodash-es'
 import { useHistory } from 'react-router-dom'
@@ -20,7 +20,7 @@ import cx from 'classnames'
 import { TimeAgoPopover, useConfirmationDialog, useToaster } from '@common/exports'
 import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
-import { EntityGitDetails, PMSPipelineSummaryResponse, useSoftDeletePipeline } from 'services/pipeline-ng'
+import { PMSPipelineSummaryResponse, useSoftDeletePipeline } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { TagsPopover } from '@common/components'
@@ -30,6 +30,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
+import { DeleteConfirmDialogContent } from '@pipeline/pages/utils/DeleteConfirmDialogContent'
 import { getIconsForPipeline } from '../../PipelineListUtils'
 import css from './PipelineCard.module.scss'
 
@@ -41,41 +42,6 @@ export interface PipelineCardProps {
   goToPipelineDetail: (pipeline?: PMSPipelineSummaryResponse) => void
   goToPipelineStudio: (pipeline?: PMSPipelineSummaryResponse) => void
   refetchPipeline: () => void
-}
-
-interface DeleteConfirmDialogContentProps {
-  gitDetails?: EntityGitDetails
-  pipelineName?: string
-  commitMsg: string
-  onCommitMsgChange: (commitMsg: string) => void
-}
-
-export const DeleteConfirmDialogContent: React.FC<DeleteConfirmDialogContentProps> = ({
-  gitDetails = {},
-  pipelineName = '',
-  commitMsg,
-  onCommitMsgChange
-}): JSX.Element => {
-  const { getString } = useStrings()
-
-  return (
-    <div className={'pipelineDeleteDialog'}>
-      <Text margin={{ bottom: 'medium' }} title={pipelineName}>{`${getString(
-        'pipeline-list.confirmDelete'
-      )} ${pipelineName}?`}</Text>
-      {gitDetails?.objectId && (
-        <>
-          <Text>{getString('common.git.commitMessage')}</Text>
-          <TextArea
-            value={commitMsg}
-            onInput={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
-              onCommitMsgChange(event.target.value)
-            }}
-          />
-        </>
-      )}
-    </div>
-  )
 }
 
 interface ContextMenuProps {
@@ -125,7 +91,8 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
   const { openDialog: confirmDelete } = useConfirmationDialog({
     contentText: (
       <DeleteConfirmDialogContent
-        pipelineName={pipeline?.name}
+        entityName={pipeline?.name || ''}
+        entityType={'pipeline'}
         gitDetails={pipeline.gitDetails}
         commitMsg={commitMsg}
         onCommitMsgChange={setCommitMsg}

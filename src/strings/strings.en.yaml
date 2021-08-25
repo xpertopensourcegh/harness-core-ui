@@ -1135,7 +1135,7 @@ pipeline-list:
   createPipeline: '+ Create Pipeline'
   confirmDeleteTitle: Delete Pipeline
   pipelineDeleted: Pipeline {{name}} deleted
-  confirmDelete: Are you sure want to delete pipeline {{name}}
+  confirmDelete: Are you sure want to delete {{entity}} {{name}}
   readyToRun: Ready To Run
 variables:
   copyVariableName: copy variable name
