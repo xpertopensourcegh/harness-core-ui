@@ -1,7 +1,7 @@
 import React from 'react'
 import * as Yup from 'yup'
 import { Dialog } from '@blueprintjs/core'
-import { Button, Formik, FormikForm, FormInput } from '@wings-software/uicore'
+import { Button, Formik, FormikForm, FormInput, ButtonVariation } from '@wings-software/uicore'
 
 import { useStrings } from 'framework/strings'
 import type { AllNGVariables } from '@pipeline/utils/types'
@@ -91,8 +91,8 @@ export default function AddEditCustomVariable(props: AddEditCustomVariableProps)
               placeholder={getString('pipeline.variable.typePlaceholder')}
             />
             <div className="buttons-container">
-              <Button intent="primary" text={getString('save')} onClick={submitForm} /> &nbsp; &nbsp;
-              <Button text={getString('cancel')} onClick={() => closeModal()} />
+              <Button variation={ButtonVariation.PRIMARY} text={getString('save')} onClick={submitForm} /> &nbsp; &nbsp;
+              <Button variation={ButtonVariation.TERTIARY} text={getString('cancel')} onClick={() => closeModal()} />
             </div>
           </FormikForm>
         )}

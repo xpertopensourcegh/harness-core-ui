@@ -585,7 +585,7 @@ exports[`STUDIO MODE should accept values from input sets and submit the form: a
             class="Layout--horizontal StyledProps--main actionButtons"
           >
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-success Button--with-current-color Button--variation Button--variation-primary"
               type="submit"
             >
               <span

@@ -993,8 +993,8 @@ function RunPipelineFormBasic({
                 >
                   <Layout.Horizontal className={cx(css.actionButtons)}>
                     <RbacButton
-                      style={{ backgroundColor: 'var(--green-600' }}
-                      intent="primary"
+                      variation={ButtonVariation.PRIMARY}
+                      intent="success"
                       type="submit"
                       text={getString('runPipeline')}
                       onClick={event => {
