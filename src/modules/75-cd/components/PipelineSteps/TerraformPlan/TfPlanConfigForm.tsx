@@ -213,7 +213,7 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                   )}
                 </div>
 
-                <Container padding={{ top: 'xlarge' }}>
+                <Container padding={{ top: 'xlarge' }} flex width={200}>
                   <Button
                     text={getString('submit')}
                     variation={ButtonVariation.PRIMARY}

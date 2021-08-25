@@ -373,7 +373,8 @@ exports[`TF Config Form tests edit view loads correctly -with commitId 1`] = `
             </div>
           </div>
           <div
-            class="StyledProps--font StyledProps--main StyledProps--padding-top-xlarge"
+            class="StyledProps--font StyledProps--main StyledProps--padding-top-xlarge StyledProps--flex"
+            style="width: 200px;"
           >
             <button
               class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-primary"
@@ -776,7 +777,8 @@ exports[`TF Config Form tests edit view loads correctly 1`] = `
             </div>
           </div>
           <div
-            class="StyledProps--font StyledProps--main StyledProps--padding-top-xlarge"
+            class="StyledProps--font StyledProps--main StyledProps--padding-top-xlarge StyledProps--flex"
+            style="width: 200px;"
           >
             <button
               class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-primary"
@@ -1108,7 +1110,8 @@ exports[`TF Config Form tests initial render 1`] = `
             </div>
           </div>
           <div
-            class="StyledProps--font StyledProps--main StyledProps--padding-top-xlarge"
+            class="StyledProps--font StyledProps--main StyledProps--padding-top-xlarge StyledProps--flex"
+            style="width: 200px;"
           >
             <button
               class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-primary"

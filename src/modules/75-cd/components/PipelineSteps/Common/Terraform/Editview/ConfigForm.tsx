@@ -219,10 +219,11 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                   )}
                 </div>
 
-                <Container padding={{ top: 'xlarge' }}>
+                <Container padding={{ top: 'xlarge' }} flex width={200}>
                   <Button
                     text={getString('submit')}
                     variation={ButtonVariation.PRIMARY}
+                    margin={{ right: '10' }}
                     type="submit"
                     disabled={!formik?.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef}
                   />

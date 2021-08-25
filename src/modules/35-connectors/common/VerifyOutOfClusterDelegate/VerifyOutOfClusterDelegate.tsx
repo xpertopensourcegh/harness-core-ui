@@ -180,6 +180,8 @@ const VerifyOutOfClusterDelegate: React.FC<StepProps<VerifyOutOfClusterStepProps
           return 'https://ngdocs.harness.io/article/iz5tucdwyu-bitbucket-connector-settings-reference'
         case Connectors.Jira:
           return 'https://ngdocs.harness.io/article/e6s32ec7i7'
+        case Connectors.HttpHelmRepo:
+          return 'https://ngdocs.harness.io/article/a0jotsvsi7'
         default:
           return ''
       }

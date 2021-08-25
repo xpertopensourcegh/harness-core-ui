@@ -2838,7 +2838,8 @@ exports[`Test TerraformApply should be able to edit inline config 1`] = `
             </div>
           </div>
           <div
-            class="StyledProps--font StyledProps--main StyledProps--padding-top-xlarge"
+            class="StyledProps--font StyledProps--main StyledProps--padding-top-xlarge StyledProps--flex"
+            style="width: 200px;"
           >
             <button
               class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-primary"
