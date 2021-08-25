@@ -1,58 +1,29 @@
-@import '../../ExecutionVars';
+@import '../ExecutionLandingPage.module.scss';
 
 .main {
   display: flex;
   align-items: center;
   padding: var(--spacing-none) var(--spacing-medium) var(--spacing-none) var(--spacing-xxlarge);
-  height: $tabs-height;
-  border-bottom: 4px solid var(--primary-3);
+  height: var(--execution-tabs-height);
+  border-bottom: 1px solid var(--grey-200);
   flex: 0 0 auto;
 
-  & .tabs {
-    display: flex;
-    height: 100%;
-    position: relative;
+  & .tabLink {
+    &:hover,
+    &.activeLink {
+      color: var(--primary-7);
 
-    & .tabLink {
-      display: inline-flex;
-      align-items: center;
-      height: 100%;
-      padding: var(--spacing-none) var(--spacing-medium);
-      color: var(--grey-600);
-      cursor: pointer;
-
-      &:not(:last-child) {
-        margin-right: var(--spacing-medium);
-      }
-
-      &:hover,
-      &.activeLink {
-        text-decoration: none;
+      & :global(.bp3-icon) {
         color: var(--primary-7);
-
-        & :global(.bp3-icon) {
-          color: var(--primary-7);
-        }
-      }
-
-      & > :global(.bp3-icon) {
-        margin-right: var(--spacing-small);
-      }
-
-      & [icon='add-to-artifact'] {
-        transform: translateY(-2px);
       }
     }
 
-    & .tabIndicator {
-      background-color: var(--primary-7);
-      height: 4px;
-      min-width: 10px;
-      position: absolute;
-      left: 0;
-      top: 100%;
-      transform-origin: left center;
-      transition: transform 0.2s ease-in-out;
+    & > :global(.bp3-icon) {
+      margin-right: var(--spacing-small);
+    }
+
+    & [icon='add-to-artifact'] {
+      transform: translateY(-2px);
     }
   }
 

@@ -93,7 +93,7 @@ describe('<ExecutionLandingPage /> tests', () => {
       </TestWrapper>
     )
 
-    const tabElem = await findByTextContainer(container.querySelector('.tabs') as HTMLElement, tab)
+    const tabElem = await findByTextContainer(container.querySelector('.bp3-tab-list') as HTMLElement, tab)
 
     fireEvent.click(tabElem.closest('a')!)
     expect(getByTestId('location').innerHTML.endsWith(url)).toBe(true)

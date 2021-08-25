@@ -3,48 +3,52 @@
 exports[`<CDStageDetails /> tests snapshot test 1`] = `
 <div>
   <div
-    class="main"
+    class="container"
   >
-    <div>
-      <div
-        class="title"
-      >
-        serviceOrServices
-      </div>
-      <ul
-        class="values"
-      >
-        <li>
-          <div
-            class="bp3-popover-wrapper serviceWrapper"
-          >
+    <div
+      class="main"
+    >
+      <div>
+        <div
+          class="title"
+        >
+          serviceOrServices
+        </div>
+        <ul
+          class="values"
+        >
+          <li>
             <div
-              class="bp3-popover-target"
+              class="bp3-popover-wrapper serviceWrapper"
             >
               <div
-                class="serviceName"
-                tabindex="0"
+                class="bp3-popover-target"
               >
-                Order
+                <div
+                  class="serviceName"
+                  tabindex="0"
+                >
+                  Order
+                </div>
               </div>
             </div>
-          </div>
-        </li>
-      </ul>
-    </div>
-    <div>
-      <div
-        class="title"
-      >
-        environmentOrEnvironments
+          </li>
+        </ul>
       </div>
-      <ul
-        class="values"
-      >
-        <li>
-          Production
-        </li>
-      </ul>
+      <div>
+        <div
+          class="title"
+        >
+          environmentOrEnvironments
+        </div>
+        <ul
+          class="values"
+        >
+          <li>
+            Production
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>

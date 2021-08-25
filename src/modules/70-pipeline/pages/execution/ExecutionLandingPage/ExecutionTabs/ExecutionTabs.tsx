@@ -1,5 +1,5 @@
 import React from 'react'
-import { HarnessDocTooltip, Icon } from '@wings-software/uicore'
+import { HarnessDocTooltip, Icon, Tabs } from '@wings-software/uicore'
 import { Switch } from '@blueprintjs/core'
 import { NavLink, useParams, useLocation, matchPath } from 'react-router-dom'
 
@@ -14,7 +14,16 @@ import { useStrings } from 'framework/strings'
 
 import css from './ExecutionTabs.module.scss'
 
+const TAB_ID_MAP = {
+  PIPELINE: 'pipeline_view',
+  INPUTS: 'inputs_view',
+  ARTIFACTS: 'artifacts_view',
+  COMMITS: 'commits_view',
+  TESTS: 'tests_view'
+}
+
 export default function ExecutionTabs(props: React.PropsWithChildren<unknown>): React.ReactElement {
+  const [selectedTabId, setSelectedTabId] = React.useState('')
   const { children } = props
   const { getString } = useStrings()
   const { pipelineExecutionDetail } = useExecutionContext()
@@ -23,12 +32,9 @@ export default function ExecutionTabs(props: React.PropsWithChildren<unknown>): 
   const { view } = useQueryParams<ExecutionQueryParams>()
   const { updateQueryParams } = useUpdateQueryParams<ExecutionQueryParams>()
 
-  const isPipeLineView = !!matchPath(location.pathname, {
-    path: routes.toExecutionPipelineView({ ...accountPathProps, ...executionPathProps, ...pipelineModuleParams })
-  })
+  const routeParams = { ...accountPathProps, ...executionPathProps, ...pipelineModuleParams }
   // const isGraphView = !view || view === 'graph'
   const isLogView = view === 'log'
-  const indicatorRef = React.useRef<HTMLDivElement | null>(null)
   const isCI = params.module === 'ci'
   const isCIInPipeline = pipelineExecutionDetail?.pipelineExecutionSummary?.moduleInfo?.ci
 
@@ -44,30 +50,45 @@ export default function ExecutionTabs(props: React.PropsWithChildren<unknown>): 
     updateQueryParams({ view: checked ? 'log' : 'graph' })
   }
 
-  /* The following function does not have any business logic and hence can be ignored */
-  /* istanbul ignore next */
   React.useEffect(() => {
-    const id = window.setTimeout(() => {
-      if (!indicatorRef.current) return
-
-      const parent = indicatorRef.current.parentElement
-      const activeLink = parent?.querySelector(`.${css.activeLink}`)
-
-      if (!parent || !activeLink) return
-      const parentRect = parent.getBoundingClientRect()
-      const rect = activeLink.getBoundingClientRect()
-
-      indicatorRef.current.style.transform = `translateX(${rect.x - parentRect.x}px) scaleX(${rect.width / 10})`
-    }, 100)
-
-    return () => {
-      clearTimeout(id)
+    const isPipeLineView = !!matchPath(location.pathname, {
+      path: routes.toExecutionPipelineView(routeParams)
+    })
+    if (isPipeLineView) {
+      return setSelectedTabId(TAB_ID_MAP.PIPELINE)
     }
+    const isInputsView = !!matchPath(location.pathname, {
+      path: routes.toExecutionInputsView(routeParams)
+    })
+    if (isInputsView) {
+      return setSelectedTabId(TAB_ID_MAP.INPUTS)
+    }
+    const isArtifactsView = !!matchPath(location.pathname, {
+      path: routes.toExecutionArtifactsView(routeParams)
+    })
+    if (isArtifactsView) {
+      return setSelectedTabId(TAB_ID_MAP.ARTIFACTS)
+    }
+    const isCommitsView = !!matchPath(location.pathname, {
+      path: routes.toExecutionCommitsView(routeParams)
+    })
+    if (isCommitsView) {
+      return setSelectedTabId(TAB_ID_MAP.COMMITS)
+    }
+    const isTestsView = !!matchPath(location.pathname, {
+      path: routes.toExecutionTestsView(routeParams)
+    })
+    if (isTestsView) {
+      return setSelectedTabId(TAB_ID_MAP.TESTS)
+    }
+    // Defaults to Pipelines Tab
+    return setSelectedTabId(TAB_ID_MAP.PIPELINE)
   }, [location.pathname])
 
-  return (
-    <div className={css.main}>
-      <div className={css.tabs}>
+  const tabList = [
+    {
+      id: TAB_ID_MAP.PIPELINE,
+      title: (
         <NavLink
           to={routes.toExecutionPipelineView(params) + location.search}
           className={css.tabLink}
@@ -76,6 +97,11 @@ export default function ExecutionTabs(props: React.PropsWithChildren<unknown>): 
           <Icon name="alignment-vertical-center" size={16} />
           <span>{getString('common.pipeline')}</span>
         </NavLink>
+      )
+    },
+    {
+      id: TAB_ID_MAP.INPUTS,
+      title: (
         <NavLink
           to={routes.toExecutionInputsView(params) + location.search}
           className={css.tabLink}
@@ -84,42 +110,64 @@ export default function ExecutionTabs(props: React.PropsWithChildren<unknown>): 
           <Icon name="manually-entered-data" size={16} />
           <span>{getString('inputs')}</span>
         </NavLink>
-        {isCI && (
-          <>
-            <NavLink
-              to={routes.toExecutionArtifactsView(params) + location.search}
-              className={css.tabLink}
-              activeClassName={css.activeLink}
-            >
-              <Icon name="add-to-artifact" size={16} />
-              <span>{getString('artifacts')}</span>
-            </NavLink>
-            {ciShowCommitsTab ? (
-              <NavLink
-                to={routes.toExecutionCommitsView(params) + location.search}
-                className={css.tabLink}
-                activeClassName={css.activeLink}
-              >
-                <Icon name="git-commit" size={16} />
-                <span>{getString('commits')}</span>
-              </NavLink>
-            ) : null}
-          </>
-        )}
-        {(isCI || isCIInPipeline) && (
+      )
+    }
+  ]
+
+  if (isCI) {
+    tabList.push({
+      id: TAB_ID_MAP.ARTIFACTS,
+      title: (
+        <NavLink
+          to={routes.toExecutionArtifactsView(params) + location.search}
+          className={css.tabLink}
+          activeClassName={css.activeLink}
+        >
+          <Icon name="add-to-artifact" size={16} />
+          <span>{getString('artifacts')}</span>
+        </NavLink>
+      )
+    })
+    if (ciShowCommitsTab) {
+      tabList.push({
+        id: TAB_ID_MAP.COMMITS,
+        title: (
           <NavLink
-            to={routes.toExecutionTestsView(params) + location.search}
+            to={routes.toExecutionCommitsView(params) + location.search}
             className={css.tabLink}
             activeClassName={css.activeLink}
           >
-            <Icon name="lab-test" size={16} />
-            <span>{getString('tests')}</span>
+            <Icon name="git-commit" size={16} />
+            <span>{getString('commits')}</span>
           </NavLink>
-        )}
-        <div ref={indicatorRef} className={css.tabIndicator} />
+        )
+      })
+    }
+  }
+
+  if (isCI || isCIInPipeline) {
+    tabList.push({
+      id: TAB_ID_MAP.TESTS,
+      title: (
+        <NavLink
+          to={routes.toExecutionTestsView(params) + location.search}
+          className={css.tabLink}
+          activeClassName={css.activeLink}
+        >
+          <Icon name="lab-test" size={16} />
+          <span>{getString('tests')}</span>
+        </NavLink>
+      )
+    })
+  }
+
+  return (
+    <div className={css.main}>
+      <div>
+        <Tabs id="execution-tabs" selectedTabId={selectedTabId} renderAllTabPanels={false} tabList={tabList} />
       </div>
       <div className={css.children}>{children}</div>
-      {isPipeLineView ? (
+      {selectedTabId === TAB_ID_MAP.PIPELINE ? (
         <div className={css.viewToggle}>
           <span data-tooltip-id="consoleViewToggle">{getString('consoleView')}</span>
           <Switch checked={isLogView} name="console-view-toggle" onChange={handleLogViewChange} />

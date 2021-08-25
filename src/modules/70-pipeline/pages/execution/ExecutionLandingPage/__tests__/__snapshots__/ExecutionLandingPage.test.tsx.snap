@@ -337,70 +337,126 @@ exports[`<ExecutionLandingPage /> tests loading state - snapshot test 1`] = `
       <div
         class="main"
       >
-        <div
-          class="tabs"
-        >
-          <a
-            class="tabLink"
-            href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline"
-          >
-            <span
-              class="bp3-icon bp3-icon-alignment-vertical-center StyledProps--main"
-              icon="alignment-vertical-center"
-            >
-              <svg
-                data-icon="alignment-vertical-center"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-              >
-                <desc>
-                  alignment-vertical-center
-                </desc>
-                <path
-                  d="M13 2H9V1c0-.55-.45-1-1-1S7 .45 7 1v1H3c-.55 0-1 .45-1 1v3c0 .55.45 1 1 1h4v2H6c-.55 0-1 .45-1 1v3c0 .55.45 1 1 1h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c.55 0 1-.45 1-1v-3c0-.55-.45-1-1-1H9V7h4c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-            <span>
-              common.pipeline
-            </span>
-          </a>
-          <a
-            class="tabLink"
-            href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/inputs"
-          >
-            <span
-              class="bp3-icon bp3-icon-manually-entered-data StyledProps--main"
-              icon="manually-entered-data"
-            >
-              <svg
-                data-icon="manually-entered-data"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-              >
-                <desc>
-                  manually-entered-data
-                </desc>
-                <path
-                  d="M1 8h3.76l2-2H1c-.55 0-1 .45-1 1s.45 1 1 1zm14.49-4.01c.31-.32.51-.76.51-1.24C16 1.78 15.22 1 14.25 1c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.45-1.43zM1 4h7.76l2-2H1c-.55 0-1 .45-1 1s.45 1 1 1zm0 6c-.55 0-1 .45-1 1 0 .48.35.86.8.96L2.76 10H1zm9.95-6.43l-6.69 6.69 2.47 2.47 6.69-6.69-2.47-2.47zm4.25 2.47L13.24 8H15c.55 0 1-.45 1-1 0-.48-.35-.86-.8-.96zM2 15l3.86-1.39-2.46-2.44L2 15zm13-5h-3.76l-2 2H15c.55 0 1-.45 1-1s-.45-1-1-1z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-            <span>
-              inputs
-            </span>
-          </a>
+        <div>
           <div
-            class="tabIndicator"
-          />
+            class="bp3-tabs Tabs--main Tabs--horizontal"
+          >
+            <div
+              class="bp3-tab-list"
+              role="tablist"
+            >
+              <div
+                class="bp3-tab-indicator-wrapper"
+                style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+              >
+                <div
+                  class="bp3-tab-indicator"
+                />
+              </div>
+              <div
+                aria-controls="bp3-tab-panel_execution-tabs_pipeline_view"
+                aria-disabled="false"
+                aria-expanded="true"
+                aria-selected="true"
+                class="bp3-tab"
+                data-tab-id="pipeline_view"
+                id="bp3-tab-title_execution-tabs_pipeline_view"
+                role="tab"
+                tabindex="0"
+              >
+                <a
+                  class="tabLink"
+                  href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline"
+                >
+                  <span
+                    class="bp3-icon bp3-icon-alignment-vertical-center StyledProps--main"
+                    icon="alignment-vertical-center"
+                  >
+                    <svg
+                      data-icon="alignment-vertical-center"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                    >
+                      <desc>
+                        alignment-vertical-center
+                      </desc>
+                      <path
+                        d="M13 2H9V1c0-.55-.45-1-1-1S7 .45 7 1v1H3c-.55 0-1 .45-1 1v3c0 .55.45 1 1 1h4v2H6c-.55 0-1 .45-1 1v3c0 .55.45 1 1 1h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c.55 0 1-.45 1-1v-3c0-.55-.45-1-1-1H9V7h4c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  <span>
+                    common.pipeline
+                  </span>
+                </a>
+              </div>
+              <div
+                aria-controls="bp3-tab-panel_execution-tabs_inputs_view"
+                aria-disabled="false"
+                aria-expanded="false"
+                aria-selected="false"
+                class="bp3-tab"
+                data-tab-id="inputs_view"
+                id="bp3-tab-title_execution-tabs_inputs_view"
+                role="tab"
+                tabindex="0"
+              >
+                <a
+                  class="tabLink"
+                  href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/inputs"
+                >
+                  <span
+                    class="bp3-icon bp3-icon-manually-entered-data StyledProps--main"
+                    icon="manually-entered-data"
+                  >
+                    <svg
+                      data-icon="manually-entered-data"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                    >
+                      <desc>
+                        manually-entered-data
+                      </desc>
+                      <path
+                        d="M1 8h3.76l2-2H1c-.55 0-1 .45-1 1s.45 1 1 1zm14.49-4.01c.31-.32.51-.76.51-1.24C16 1.78 15.22 1 14.25 1c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.45-1.43zM1 4h7.76l2-2H1c-.55 0-1 .45-1 1s.45 1 1 1zm0 6c-.55 0-1 .45-1 1 0 .48.35.86.8.96L2.76 10H1zm9.95-6.43l-6.69 6.69 2.47 2.47 6.69-6.69-2.47-2.47zm4.25 2.47L13.24 8H15c.55 0 1-.45 1-1 0-.48-.35-.86-.8-.96zM2 15l3.86-1.39-2.46-2.44L2 15zm13-5h-3.76l-2 2H15c.55 0 1-.45 1-1s-.45-1-1-1z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  <span>
+                    inputs
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
         <div
           class="children"
         />
+        <div
+          class="viewToggle"
+        >
+          <span
+            data-tooltip-id="consoleViewToggle"
+          >
+            consoleView
+          </span>
+          <label
+            class="bp3-control bp3-switch"
+          >
+            <input
+              name="console-view-toggle"
+              type="checkbox"
+            />
+            <span
+              class="bp3-control-indicator"
+            />
+          </label>
+        </div>
       </div>
       <div
         class="childContainer"
