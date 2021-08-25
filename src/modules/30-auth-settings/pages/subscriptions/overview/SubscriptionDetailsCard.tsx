@@ -186,7 +186,7 @@ const SubscriptionDetailsCard: React.FC<SubscriptionDetailsCardProps> = props =>
               <Text color={Color.GREY_600}>{getString('common.account.licenseCount')}</Text>
               <Layout.Vertical spacing="medium">
                 <Text color={Color.BLACK} font={{ weight: 'semi-bold' }} margin={{ bottom: 5 }}>
-                  {getString('common.subscriptions.ccm.cloudSpend', { cloudSpend: spendLimit })}
+                  {getString('common.subscriptions.ccm.cloudSpend', { spendLimit: spendLimit })}
                 </Text>
               </Layout.Vertical>
             </React.Fragment>
