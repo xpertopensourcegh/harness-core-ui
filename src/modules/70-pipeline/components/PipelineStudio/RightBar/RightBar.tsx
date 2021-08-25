@@ -602,33 +602,27 @@ export const RightBar = (): JSX.Element => {
                             <FormInput.Text
                               name="depth"
                               label={
-                                <div className={css.labelWrapper}>
-                                  <Text>{getString('pipeline.depth')}</Text>
-                                  <Button
-                                    icon="question"
-                                    minimal
-                                    tooltip={getString('pipeline.depth')}
-                                    iconProps={{ size: 14 }}
-                                  />
-                                </div>
+                                <Text
+                                  tooltipProps={{
+                                    dataTooltipId: 'depth'
+                                  }}
+                                >
+                                  {getString('pipeline.depth')}
+                                </Text>
                               }
-                              style={{ width: '50%' }}
                             />
                             <FormInput.Select
                               name="sslVerify"
                               label={
-                                <div className={css.labelWrapper}>
-                                  <Text>{getString('pipeline.sslVerify')}</Text>
-                                  <Button
-                                    icon="question"
-                                    minimal
-                                    tooltip={getString('pipeline.sslVerify')}
-                                    iconProps={{ size: 14 }}
-                                  />
-                                </div>
+                                <Text
+                                  tooltipProps={{
+                                    dataTooltipId: 'sslVerify'
+                                  }}
+                                >
+                                  {getString('pipeline.sslVerify')}
+                                </Text>
                               }
                               items={sslVerifyOptions}
-                              style={{ width: '50%' }}
                             />
                             <MultiTypeSelectField
                               name="prCloneStrategy"
