@@ -50,6 +50,7 @@ export const addLegendColorToRow = (data: QlceViewEntityStatsDataPoint[]): GridD
 
 const SUM = QlceViewAggregateOperation.Sum
 const MAX = QlceViewAggregateOperation.Max
+const MIN = QlceViewAggregateOperation.Min
 
 const AGGREGATE_COST = { operationType: SUM, columnName: 'cost' }
 
@@ -71,6 +72,9 @@ const AGGREGATE_UNALLOCATED_COST = { operationType: SUM, columnName: 'unallocate
 const AGGREGATE_ACTUAL_IDLE_COST = { operationType: SUM, columnName: 'actualidlecost' }
 const AGGREGATE_SYSTEM_COST = { operationType: SUM, columnName: 'systemcost' }
 const AGGREGATE_NETWORK_COST = { operationType: SUM, columnName: 'networkcost' }
+
+const AGGREGATION_START_TIME_MAX = { operationType: MAX, columnName: 'startTime' }
+const AGGREGATION_START_TIME_MIN = { operationType: MIN, columnName: 'startTime' }
 
 const AGGREGATE_FUNCTION_TYPE1 = [
   AGGREGATE_COST,
@@ -104,6 +108,7 @@ const AGGREGATE_FUNCTION_NODE = [
   AGGREGATE_STORAGE_UNALLOCATED_COST
 ]
 
+const AGGREGATE_FUNCTION_COST_AND_TIME = [AGGREGATE_COST, AGGREGATION_START_TIME_MAX, AGGREGATION_START_TIME_MIN]
 const AGGREGATE_FUNCTION_STORAGE = [
   AGGREGATE_COST,
   AGGREGATE_STORAGE_COST,
@@ -128,6 +133,7 @@ export const AGGREGATE_FUNCTION: Record<string, AggregationFunction[]> = {
   instanceName: AGGREGATE_FUNCTION_NODE,
   storage: AGGREGATE_FUNCTION_STORAGE,
 
+  COST_AND_TIME: AGGREGATE_FUNCTION_COST_AND_TIME,
   CLUSTER: AGGREGATE_FUNCTION_TYPE1,
   DEFAULT: AGGREGATE_FUNCTION_DEFAULT
 }

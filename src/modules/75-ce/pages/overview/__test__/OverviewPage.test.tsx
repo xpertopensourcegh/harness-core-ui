@@ -50,8 +50,8 @@ const params = {
   perspectiveName: 'sample perspective'
 }
 
-describe('test cases for Perspective details Page', () => {
-  test('should be able to render the details page', async () => {
+describe('test cases for Overview Page', () => {
+  test('should be able to render the overview dashboard', async () => {
     useGetModuleLicenseInfoMock.mockImplementation(() => {
       return {
         data: {

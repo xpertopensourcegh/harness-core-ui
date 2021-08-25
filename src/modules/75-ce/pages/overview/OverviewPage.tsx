@@ -6,11 +6,9 @@ import { pick } from 'lodash-es'
 import { Page } from '@common/components/Page/Page'
 import {
   CcmMetaData,
-  QlceViewAggregateOperation,
   StatsInfo,
   useFetchCcmMetaDataQuery,
-  useFetchPerspectiveDetailsSummaryQuery,
-  useFetchPerspectiveForecastCostQuery
+  useFetchPerspectiveDetailsSummaryQuery
 } from 'services/ce/services'
 import { getTimeFilters } from '@ce/utils/perspectiveUtils'
 import { CE_DATE_FORMAT_INTERNAL, DATE_RANGE_SHORTCUTS, getGMTStartDateTime } from '@ce/utils/momentUtils'
@@ -103,27 +101,14 @@ const OverviewPage: React.FC = () => {
   const [summaryResult] = useFetchPerspectiveDetailsSummaryQuery({
     variables: {
       isClusterQuery: false,
-      aggregateFunction: [
-        { operationType: QlceViewAggregateOperation.Sum, columnName: 'cost' },
-        { operationType: QlceViewAggregateOperation.Max, columnName: 'startTime' },
-        { operationType: QlceViewAggregateOperation.Min, columnName: 'startTime' }
-      ],
-      filters: [...getTimeFilters(getGMTStartDateTime(timeRange.from), getGMTStartDateTime(timeRange.to))]
-    }
-  })
-
-  const [forecastedCostResult] = useFetchPerspectiveForecastCostQuery({
-    variables: {
-      aggregateFunction: AGGREGATE_FUNCTION.DEFAULT,
+      aggregateFunction: AGGREGATE_FUNCTION.COST_AND_TIME,
       filters: [...getTimeFilters(getGMTStartDateTime(timeRange.from), getGMTStartDateTime(timeRange.to))]
     }
   })
 
   const { data: summaryData, fetching: summaryFetching } = summaryResult
   const cloudCost = (summaryData?.perspectiveTrendStats?.cost || {}) as StatsInfo
-
-  const { data: forecastedCostData, fetching: forecastedCostFetching } = forecastedCostResult
-  const forecastedCost = (forecastedCostData?.perspectiveForecastCost?.cost || {}) as StatsInfo
+  const forecastedCost = (summaryData?.perspectiveForecastCost?.cost || {}) as StatsInfo
 
   const { data, refetch, loading } = useGetLicensesAndSummary({
     queryParams: { moduleType: ModuleName.CE as any },
@@ -191,7 +176,7 @@ const OverviewPage: React.FC = () => {
               <div className={css.columnOne}>
                 <div className={cx(css.summary, css.noColor)}>
                   <OverviewSummary cost={cloudCost} fetching={summaryFetching} />
-                  <OverviewSummary cost={forecastedCost} fetching={forecastedCostFetching} />
+                  <OverviewSummary cost={forecastedCost} fetching={summaryFetching} />
                 </div>
                 {clusterDataPresent && (
                   <OverviewClusterCostBreakdown

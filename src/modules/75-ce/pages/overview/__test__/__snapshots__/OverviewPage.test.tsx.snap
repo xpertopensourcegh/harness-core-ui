@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test cases for Perspective details Page should be able to render the details page 1`] = `
+exports[`test cases for Overview Page should be able to render the overview dashboard 1`] = `
 <div>
   <div
     class="StyledProps--font StyledProps--main body hasNoBanner"
@@ -158,39 +158,17 @@ exports[`test cases for Perspective details Page should be able to render the de
                     >
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--font-small"
-                      >
-                        Forecasted Cost
-                      </p>
+                      />
                       <span
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey700 StyledProps--inline"
-                        style="display: inline-flex; align-items: center;"
                       >
-                        <span
-                          class="bp3-icon bp3-icon-caret-up StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-red500"
-                          icon="caret-up"
-                        >
-                          <svg
-                            data-icon="caret-up"
-                            height="16"
-                            viewBox="0 0 16 16"
-                            width="16"
-                          >
-                            <desc>
-                              caret-up
-                            </desc>
-                            <path
-                              d="M11.87 9.17s.01 0 0 0l-3.5-4C8.28 5.07 8.15 5 8 5s-.28.07-.37.17l-3.5 4a.495.495 0 00.37.83h7a.495.495 0 00.37-.83z"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                        10%
+                        —
                       </span>
                     </div>
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-medium"
                     >
-                      $10,000
+                      na
                     </p>
                   </div>
                 </div>
@@ -686,7 +664,7 @@ exports[`test cases for Perspective details Page should be able to render the de
 </div>
 `;
 
-exports[`test cases for Perspective details Page should render NoData page when cluster and cloud data are not present 1`] = `
+exports[`test cases for Overview Page should render NoData page when cluster and cloud data are not present 1`] = `
 <div>
   <div
     class="body hasNoBanner"
