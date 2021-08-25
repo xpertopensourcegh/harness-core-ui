@@ -2353,7 +2353,6 @@ exports[`CD Pipeline Page List render list view 1`] = `
           >
             <button
               class="bp3-button Button--button StyledProps--font StyledProps--main runPipelineListBtn StyledProps--intent-success Button--with-current-color Button--withLeftIcon Button--variation Button--variation-primary"
-              style="text-align: end;"
               type="button"
             >
               <span
@@ -2728,7 +2727,6 @@ exports[`CD Pipeline Page List render list view 1`] = `
           >
             <button
               class="bp3-button Button--button StyledProps--font StyledProps--main runPipelineListBtn StyledProps--intent-success Button--with-current-color Button--withLeftIcon Button--variation Button--variation-primary"
-              style="text-align: end;"
               type="button"
             >
               <span
@@ -3103,7 +3101,6 @@ exports[`CD Pipeline Page List render list view 1`] = `
           >
             <button
               class="bp3-button Button--button StyledProps--font StyledProps--main runPipelineListBtn StyledProps--intent-success Button--with-current-color Button--withLeftIcon Button--variation Button--variation-primary"
-              style="text-align: end;"
               type="button"
             >
               <span

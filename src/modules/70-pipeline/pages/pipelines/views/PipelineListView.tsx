@@ -315,7 +315,6 @@ const RenderRunPipeline: Renderer<CellProps<PipelineDTO>> = ({ row }): JSX.Eleme
   return (
     <RbacButton
       variation={ButtonVariation.PRIMARY}
-      style={{ textAlign: 'end' }}
       intent="success"
       icon="run-pipeline"
       className={css.runPipelineListBtn}
