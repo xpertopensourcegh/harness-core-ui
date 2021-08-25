@@ -3,6 +3,7 @@ import { FieldArray } from 'formik'
 import type { FormikProps } from 'formik'
 import {
   Button,
+  ButtonVariation,
   FormInput,
   getMultiTypeFromValue,
   Layout,
@@ -122,7 +123,7 @@ export default function OptionalConfiguration(props: {
                           />
                         </FormGroup>
                         <Button
-                          minimal
+                          variation={ButtonVariation.ICON}
                           icon="main-trash"
                           data-testid={`remove-environmentVar-${i}`}
                           onClick={() => remove(i)}
@@ -133,8 +134,7 @@ export default function OptionalConfiguration(props: {
                   })}
                   <Button
                     icon="plus"
-                    minimal
-                    intent="primary"
+                    variation={ButtonVariation.ICON}
                     data-testid="add-environmentVar"
                     disabled={readonly}
                     onClick={() => push({ name: '', type: 'String', value: '', id: uuid() })}
@@ -190,8 +190,7 @@ export default function OptionalConfiguration(props: {
                   ))}
                   <Button
                     icon="plus"
-                    minimal
-                    intent="primary"
+                    variation={ButtonVariation.ICON}
                     onClick={() => push({ name: '', type: 'String', value: '', id: uuid() })}
                     disabled={readonly}
                   >

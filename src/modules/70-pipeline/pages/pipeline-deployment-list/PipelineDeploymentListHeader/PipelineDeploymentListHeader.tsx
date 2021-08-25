@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { Checkbox, Color, ExpandingSearchInput } from '@wings-software/uicore'
+import { ButtonVariation, Checkbox, Color, ExpandingSearchInput } from '@wings-software/uicore'
 
 import cx from 'classnames'
 import { String, useStrings } from 'framework/strings'
@@ -77,8 +77,8 @@ export function PipelineDeploymentListHeader(props: PipelineDeploymentListHeader
     <Page.SubHeader className={css.main}>
       <div className={css.lhs}>
         <RbacButton
+          variation={ButtonVariation.PRIMARY}
           className={css.runButton}
-          intent="primary"
           onClick={props.onRunPipeline}
           permission={{
             resource: {

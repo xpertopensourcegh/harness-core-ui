@@ -3,7 +3,7 @@ import * as Yup from 'yup'
 import { Drawer, IDrawerProps } from '@blueprintjs/core'
 import { Formik, FormikProps, FormikErrors } from 'formik'
 import { truncate } from 'lodash-es'
-import { FormikForm, Button, Layout, OverlaySpinner } from '@wings-software/uicore'
+import { FormikForm, Button, Layout, OverlaySpinner, ButtonVariation } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { CrudOperation, FilterCRUD, FilterCRUDRef } from './FilterCRUD/FilterCRUD'
 import type { FilterInterface, FilterDataInterface } from './Constants'
@@ -146,8 +146,13 @@ const FilterRef = <T, U extends FilterInterface>(props: FilterProps<T, U>, filte
                             {formFields && React.cloneElement(formFields, { ...formFields.props, formikProps: formik })}
                           </div>
                           <Layout.Horizontal spacing={'medium'} padding={{ bottom: 'xsmall' }}>
-                            <Button type="submit" intent="primary" text={getString('filters.apply')} />
                             <Button
+                              variation={ButtonVariation.PRIMARY}
+                              type="submit"
+                              text={getString('filters.apply')}
+                            />
+                            <Button
+                              variation={ButtonVariation.TERTIARY}
                               type={'reset'}
                               intent={'none'}
                               text={getString('filters.clearAll')}

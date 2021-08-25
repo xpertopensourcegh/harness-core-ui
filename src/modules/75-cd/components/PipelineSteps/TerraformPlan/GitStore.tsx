@@ -7,7 +7,8 @@ import {
   MultiTypeInputType,
   Text,
   Button,
-  SelectOption
+  SelectOption,
+  ButtonVariation
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'
@@ -75,7 +76,7 @@ export default function GitStore(props: GitStoreProps): React.ReactElement {
             {getString('connectors.title.gitConnector')}
             <Button
               icon="question"
-              minimal
+              variation={ButtonVariation.ICON}
               tooltip={getString('connectors.title.gitConnector')}
               iconProps={{ size: 14 }}
             />

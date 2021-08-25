@@ -14,7 +14,8 @@ import {
   useModalHook,
   Heading,
   Color,
-  Popover
+  Popover,
+  ButtonVariation
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useHistory } from 'react-router-dom'
@@ -271,7 +272,7 @@ const SaveAsInputSet = ({
                     )}
                     <Layout.Horizontal spacing="medium">
                       <Button
-                        intent="primary"
+                        variation={ButtonVariation.PRIMARY}
                         text={createInputSetLoading ? getString('loading') : getString('save')}
                         type="submit"
                         disabled={createInputSetLoading}
@@ -280,7 +281,11 @@ const SaveAsInputSet = ({
                           submitFormIs()
                         }}
                       />
-                      <Button className={Classes.POPOVER_DISMISS} text={getString('cancel')} />
+                      <Button
+                        variation={ButtonVariation.SECONDARY}
+                        className={Classes.POPOVER_DISMISS}
+                        text={getString('cancel')}
+                      />
                     </Layout.Horizontal>
                   </Layout.Vertical>
                 )
@@ -290,8 +295,7 @@ const SaveAsInputSet = ({
         }
       >
         <RbacButton
-          minimal
-          intent="primary"
+          variation={ButtonVariation.SECONDARY}
           text={getString('inputSets.saveAsInputSet')}
           permission={{
             permission: PermissionIdentifier.EDIT_PIPELINE,
@@ -1013,6 +1017,7 @@ function RunPipelineFormBasic({
                     />
                     <div className={css.secondaryButton}>
                       <Button
+                        variation={ButtonVariation.SECONDARY}
                         id="cancel-runpipeline"
                         text={getString('cancel')}
                         margin={{ left: 'medium' }}

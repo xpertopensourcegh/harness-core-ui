@@ -19,7 +19,7 @@ exports[`<CIPipelineDeploymentList /> tests snapshot test 1`] = `
         class="lhs"
       >
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main runButton StyledProps--intent-primary Button--with-current-color"
+          class="bp3-button Button--button StyledProps--font StyledProps--main runButton Button--with-current-color Button--iconOnly Button--variation Button--variation-primary"
           type="button"
         >
           <span

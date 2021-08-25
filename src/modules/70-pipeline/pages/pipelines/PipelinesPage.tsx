@@ -11,7 +11,8 @@ import {
   Text,
   useModalHook,
   GridListToggle,
-  Views
+  Views,
+  ButtonVariation
 } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'
@@ -515,7 +516,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
         <Page.SubHeader>
           <Layout.Horizontal>
             <RbacButton
-              intent="primary"
+              variation={ButtonVariation.PRIMARY}
               data-testid="add-pipeline"
               text={getString('addPipeline')}
               onClick={() => goToPipeline()}
@@ -632,7 +633,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
                 </Text>
 
                 <RbacButton
-                  intent="primary"
+                  variation={ButtonVariation.PRIMARY}
                   onClick={() => goToPipeline()}
                   text={getString('common.createPipeline')}
                   permission={{

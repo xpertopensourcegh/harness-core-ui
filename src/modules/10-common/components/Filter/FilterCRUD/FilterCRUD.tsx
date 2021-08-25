@@ -13,7 +13,8 @@ import {
   Label,
   Popover,
   useModalHook,
-  OverlaySpinner
+  OverlaySpinner,
+  ButtonVariation
 } from '@wings-software/uicore'
 import type { FormikProps, FormikErrors } from 'formik'
 import { Menu, Classes, Position, PopoverInteractionKind, Dialog, IDialogProps } from '@blueprintjs/core'
@@ -227,7 +228,7 @@ const FilterCRUDRef = <T extends FilterInterface>(props: FilterCRUDProps<T>, fil
         </div>
         <div className={Classes.DIALOG_FOOTER}>
           <Button
-            intent="primary"
+            variation={ButtonVariation.PRIMARY}
             text={getString('confirm')}
             onClick={() => {
               if (identifier) {
@@ -239,7 +240,7 @@ const FilterCRUDRef = <T extends FilterInterface>(props: FilterCRUDProps<T>, fil
             }}
           />
           &nbsp; &nbsp;
-          <Button text={getString('cancel')} onClick={hideModal} />
+          <Button variation={ButtonVariation.SECONDARY} text={getString('cancel')} onClick={hideModal} />
         </div>
       </Dialog>
     )
@@ -249,6 +250,7 @@ const FilterCRUDRef = <T extends FilterInterface>(props: FilterCRUDProps<T>, fil
     return (
       <Popover interactionKind={PopoverInteractionKind.HOVER} className={Classes.DARK} position={Position.RIGHT_TOP}>
         <Button
+          variation={ButtonVariation.ICON}
           id={`filtermenu-${filter?.identifier}`}
           minimal
           icon="Options"
@@ -368,7 +370,7 @@ const FilterCRUDRef = <T extends FilterInterface>(props: FilterCRUDProps<T>, fil
             <Icon name="ng-filter" size={25} color={Color.WHITE} />
             <span className={css.title}>Filter</span>
           </Layout.Horizontal>
-          <Button minimal icon="cross" onClick={onClose} className={css.closeFilter} withoutBoxShadow />
+          <Button icon="cross" onClick={onClose} className={css.closeFilter} withoutBoxShadow />
         </Layout.Horizontal>
       </Layout.Vertical>
       {isRefreshingFilters || isLoading ? (
@@ -379,7 +381,7 @@ const FilterCRUDRef = <T extends FilterInterface>(props: FilterCRUDProps<T>, fil
         <>
           <Layout.Vertical padding={{ top: 'xlarge' }}>
             <Button
-              intent="primary"
+              variation={ButtonVariation.PRIMARY}
               icon="plus"
               text={
                 unsavedFilter && isNewFilter
@@ -456,6 +458,7 @@ const FilterCRUDRef = <T extends FilterInterface>(props: FilterCRUDProps<T>, fil
                       </Layout.Vertical>
                       <Layout.Horizontal spacing={'medium'} margin={{ top: 'large' }}>
                         <Button
+                          variation={ButtonVariation.PRIMARY}
                           text={getCRUDOperationLabel()}
                           className={css.saveFilterBtn}
                           type="submit"
@@ -467,8 +470,7 @@ const FilterCRUDRef = <T extends FilterInterface>(props: FilterCRUDProps<T>, fil
                         />
                         <Button
                           type="reset"
-                          intent={'primary'}
-                          minimal
+                          variation={ButtonVariation.SECONDARY}
                           text={getString('cancel')}
                           className={css.cancelBtn}
                           onClick={(event: React.MouseEvent<Element, MouseEvent>) => {

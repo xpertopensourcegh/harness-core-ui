@@ -1,7 +1,7 @@
 import React from 'react'
 import { FieldArray } from 'formik'
 import type { FormikProps } from 'formik'
-import { FormInput, Button, MultiTypeInputType, getMultiTypeFromValue } from '@wings-software/uicore'
+import { FormInput, Button, MultiTypeInputType, getMultiTypeFromValue, ButtonVariation } from '@wings-software/uicore'
 import { v4 as uuid } from 'uuid'
 
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
@@ -80,7 +80,7 @@ export default function OptionalConfiguration(props: {
                         label=""
                       />
                       <Button
-                        minimal
+                        variation={ButtonVariation.ICON}
                         icon="main-trash"
                         data-testid={`remove-header-${i}`}
                         onClick={() => remove(i)}
@@ -90,8 +90,7 @@ export default function OptionalConfiguration(props: {
                   ))}
                   <Button
                     icon="plus"
-                    minimal
-                    intent="primary"
+                    variation={ButtonVariation.ICON}
                     data-testid="add-header"
                     onClick={() => push({ key: '', value: '', id: uuid() })}
                     disabled={readonly}
@@ -136,7 +135,7 @@ export default function OptionalConfiguration(props: {
                           label=""
                         />
                         <Button
-                          minimal
+                          variation={ButtonVariation.ICON}
                           icon="main-trash"
                           data-testid={`remove-response-mapping-${i}`}
                           onClick={() => remove(i)}
@@ -147,8 +146,7 @@ export default function OptionalConfiguration(props: {
                   )}
                   <Button
                     icon="plus"
-                    minimal
-                    intent="primary"
+                    variation={ButtonVariation.ICON}
                     data-testid="add-response-mapping"
                     onClick={() => push({ name: '', value: '', type: 'String', id: uuid() })}
                     disabled={readonly}

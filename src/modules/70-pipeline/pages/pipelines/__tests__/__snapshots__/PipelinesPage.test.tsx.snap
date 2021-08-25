@@ -106,7 +106,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
         data-tooltip-id="addPipeline"
       >
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-primary"
           data-testid="add-pipeline"
           type="button"
         >
@@ -752,7 +752,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-top-small StyledProps--flex"
                 >
                   <button
-                    class="bp3-button Button--button StyledProps--font StyledProps--main cardBtns runBtn Button--with-current-color Button--withLeftIcon"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main cardBtns runBtn StyledProps--intent-success Button--with-current-color Button--withLeftIcon Button--variation Button--variation-primary Button--size Button--small"
                     data-testid="card-run-pipeline"
                     type="button"
                   >
@@ -779,7 +779,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                     </span>
                   </button>
                   <button
-                    class="bp3-button Button--button StyledProps--font StyledProps--main cardBtns viewExecutionsBtn Button--with-current-color"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main cardBtns viewExecutionsBtn Button--with-current-color Button--variation Button--variation-secondary Button--size Button--small"
                     type="button"
                   >
                     <span
@@ -1156,7 +1156,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-top-small StyledProps--flex"
                 >
                   <button
-                    class="bp3-button Button--button StyledProps--font StyledProps--main cardBtns runBtn Button--with-current-color Button--withLeftIcon"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main cardBtns runBtn StyledProps--intent-success Button--with-current-color Button--withLeftIcon Button--variation Button--variation-primary Button--size Button--small"
                     data-testid="card-run-pipeline"
                     type="button"
                   >
@@ -1183,7 +1183,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                     </span>
                   </button>
                   <button
-                    class="bp3-button Button--button StyledProps--font StyledProps--main cardBtns viewExecutionsBtn Button--with-current-color"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main cardBtns viewExecutionsBtn Button--with-current-color Button--variation Button--variation-secondary Button--size Button--small"
                     type="button"
                   >
                     <span
@@ -1550,7 +1550,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-top-small StyledProps--flex"
                 >
                   <button
-                    class="bp3-button Button--button StyledProps--font StyledProps--main cardBtns runBtn Button--with-current-color Button--withLeftIcon"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main cardBtns runBtn StyledProps--intent-success Button--with-current-color Button--withLeftIcon Button--variation Button--variation-primary Button--size Button--small"
                     data-testid="card-run-pipeline"
                     type="button"
                   >
@@ -1577,7 +1577,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                     </span>
                   </button>
                   <button
-                    class="bp3-button Button--button StyledProps--font StyledProps--main cardBtns viewExecutionsBtn Button--with-current-color"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main cardBtns viewExecutionsBtn Button--with-current-color Button--variation Button--variation-secondary Button--size Button--small"
                     type="button"
                   >
                     <span
@@ -1723,7 +1723,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
         data-tooltip-id="addPipeline"
       >
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-primary"
           data-testid="add-pipeline"
           type="button"
         >
@@ -2352,7 +2352,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
             style="width: 10%;"
           >
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main runPipelineListBtn StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
+              class="bp3-button Button--button StyledProps--font StyledProps--main runPipelineListBtn StyledProps--intent-success Button--with-current-color Button--withLeftIcon Button--variation Button--variation-primary"
               style="text-align: end;"
               type="button"
             >
@@ -2727,7 +2727,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
             style="width: 10%;"
           >
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main runPipelineListBtn StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
+              class="bp3-button Button--button StyledProps--font StyledProps--main runPipelineListBtn StyledProps--intent-success Button--with-current-color Button--withLeftIcon Button--variation Button--variation-primary"
               style="text-align: end;"
               type="button"
             >
@@ -3102,7 +3102,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
             style="width: 10%;"
           >
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main runPipelineListBtn StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
+              class="bp3-button Button--button StyledProps--font StyledProps--main runPipelineListBtn StyledProps--intent-success Button--with-current-color Button--withLeftIcon Button--variation Button--variation-primary"
               style="text-align: end;"
               type="button"
             >

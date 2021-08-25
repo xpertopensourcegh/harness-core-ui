@@ -1,7 +1,7 @@
 import React from 'react'
 import type { CellProps, Column, Renderer } from 'react-table'
 import { pick } from 'lodash-es'
-import { Button, Color, Layout, Popover, Text, SparkChart, Icon } from '@wings-software/uicore'
+import { Button, Color, Layout, Popover, Text, SparkChart, Icon, ButtonVariation } from '@wings-software/uicore'
 import { Classes, Menu, Position } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import Table from '@common/components/Table/Table'
@@ -313,8 +313,9 @@ const RenderRunPipeline: Renderer<CellProps<PipelineDTO>> = ({ row }): JSX.Eleme
 
   return (
     <RbacButton
+      variation={ButtonVariation.PRIMARY}
       style={{ textAlign: 'end' }}
-      intent="primary"
+      intent="success"
       icon="run-pipeline"
       className={css.runPipelineListBtn}
       permission={{

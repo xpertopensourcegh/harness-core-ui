@@ -6,7 +6,8 @@ import {
   Button,
   Layout,
   getMultiTypeFromValue,
-  MultiTypeInputType
+  MultiTypeInputType,
+  ButtonVariation
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { FieldArray, FormikErrors, FormikProps, yupToFormErrors } from 'formik'
@@ -203,7 +204,7 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
                             />
 
                             <Button
-                              minimal
+                              variation={ButtonVariation.ICON}
                               icon="main-trash"
                               onClick={() => arrayHelpers.remove(index)}
                               disabled={isDisabled}
@@ -212,9 +213,8 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
                         ))}
                         <span>
                           <Button
-                            minimal
+                            variation={ButtonVariation.PRIMARY}
                             text={getString('addFileText')}
-                            intent="primary"
                             onClick={() => {
                               arrayHelpers.push({ value: '', id: uuid() })
                             }}

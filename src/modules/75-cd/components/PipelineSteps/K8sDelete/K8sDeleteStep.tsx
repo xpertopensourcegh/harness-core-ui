@@ -8,7 +8,8 @@ import {
   Button,
   Layout,
   getMultiTypeFromValue,
-  MultiTypeInputType
+  MultiTypeInputType,
+  ButtonVariation
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { FieldArray, FormikErrors, FormikProps, yupToFormErrors } from 'formik'
@@ -310,7 +311,7 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
                               {/* istanbul ignore next */}
                               {formikProps.values?.spec?.deleteResources?.spec?.resourceNames && (
                                 <Button
-                                  minimal
+                                  variation={ButtonVariation.ICON}
                                   icon="main-trash"
                                   onClick={() => {
                                     /* istanbul ignore next */
@@ -323,9 +324,8 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
                           ))}
                           <span>
                             <Button
-                              minimal
+                              variation={ButtonVariation.PRIMARY}
                               text={getString('plusAdd')}
-                              intent="primary"
                               className={css.addBtn}
                               onClick={() => {
                                 /* istanbul ignore next */
@@ -390,7 +390,7 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
                               {/* istanbul ignore next */}
                               {formikProps.values?.spec?.deleteResources?.spec?.manifestPaths && (
                                 <Button
-                                  minimal
+                                  variation={ButtonVariation.ICON}
                                   icon="main-trash"
                                   onClick={() => arrayHelpers.remove(index)}
                                   disabled={isDisabled}
@@ -400,10 +400,9 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
                           ))}
                           <span>
                             <Button
-                              minimal
+                              variation={ButtonVariation.PRIMARY}
                               text={getString('addFileText')}
                               className={css.addBtn}
-                              intent="primary"
                               disabled={isDisabled}
                               onClick={() => arrayHelpers.push({ value: '', id: uuid() })}
                             />

@@ -1,5 +1,17 @@
 import React from 'react'
-import { Card, Text, Color, Container, Layout, SparkChart, CardBody, Icon, Button } from '@wings-software/uicore'
+import {
+  Card,
+  Text,
+  Color,
+  Container,
+  Layout,
+  SparkChart,
+  CardBody,
+  Icon,
+  Button,
+  ButtonVariation,
+  ButtonSize
+} from '@wings-software/uicore'
 import { Classes, Intent, Menu, TextArea } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { isEmpty, pick } from 'lodash-es'
@@ -483,6 +495,9 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
             <RbacButton
               data-testid="card-run-pipeline"
               icon="command-start"
+              variation={ButtonVariation.PRIMARY}
+              size={ButtonSize.SMALL}
+              intent="success"
               iconProps={{ size: 9 }}
               className={cx(css.cardBtns, css.runBtn)}
               text={getString('runPipelineText')}
@@ -500,6 +515,8 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
             />
             {pipeline.executionSummaryInfo?.lastExecutionTs && (
               <Button
+                variation={ButtonVariation.SECONDARY}
+                size={ButtonSize.SMALL}
                 className={cx(css.cardBtns, css.viewExecutionsBtn)}
                 text={getString('viewExecutions')}
                 onClick={(e: React.MouseEvent) => {
