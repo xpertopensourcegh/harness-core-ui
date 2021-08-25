@@ -73,6 +73,7 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
   const artifactOrManifestText = isManifest
     ? getString('manifestsText')
     : getString('pipeline.triggers.artifactTriggerConfigPanel.artifact')
+
   return (
     <Dialog
       className={`${css.selectArtifactModal} padded-dialog`}
@@ -152,10 +153,18 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
                   artifactId: selectedArtifactId,
                   isManifest
                 })
-                // will it alays be stage index 0 and manifest index 0?
 
+                /*
+                          when we have multiple stages - need to filter undefined values
+                          in this case formikprops.values.stages will be [undefined, [stage obj]]
+                          when chartVersion alone is runtime input, stages array could be empty
+                      */
+                const filterFormStages = formikProps.values?.stages?.filter((item: any) => item)
+                // when stages is empty array, filteredArtifact will be empty object
                 const formFilteredArtifact =
-                  formikProps.values.stages?.[0]?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests[0]
+                  filterFormStages && filterFormStages.length
+                    ? filterFormStages[0]?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests[0]
+                    : {}
                 const finalArtifact = merge({}, orginalArtifact, formFilteredArtifact)?.[
                   isManifest ? 'manifest' : 'artifact'
                 ]

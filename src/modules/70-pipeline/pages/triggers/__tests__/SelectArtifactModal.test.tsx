@@ -2,12 +2,37 @@ import React from 'react'
 import { act, fireEvent, getByText, render } from '@testing-library/react'
 import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
 
+import TriggerFactory from '@pipeline/factories/ArtifactTriggerInputFactory/index'
+// eslint-disable-next-line no-restricted-imports
+import { ManifestInputForm } from '@cd/components/ManifestInputForm/ManifestInputForm'
+import { TriggerFormType } from '@pipeline/factories/ArtifactTriggerInputFactory/types'
 import { SelectArtifactModal } from '../views/modals'
 
 const defaultProps = {
   isModalOpen: true,
+  identifier: 'testhelmmanifest',
+  stageIdentifier: 'stagea',
+  manifestType: 'HelmChart',
+  name: 'testhelmmanifest',
   formikProps: {
+    setValues: jest.fn(),
     values: {
+      selectedArtifact: {
+        identifier: 'testhelmmanifest',
+        spec: {
+          chartName: 'test',
+          chartVersion: '<+trigger.manifest.version>'
+        },
+        store: {
+          type: 's3',
+          spec: {
+            bucketName: 'test-bucket',
+            connectorRef: 'testecr2',
+            folderPath: 'test-path-1',
+            region: 'regionA'
+          }
+        }
+      },
       originalPipeline: {
         identifier: 'stagea',
         name: 'stagea',
@@ -86,6 +111,7 @@ const defaultProps = {
   ],
   closeModal: jest.fn(),
   isManifest: true,
+
   runtimeData: [
     {
       stage: {
@@ -125,14 +151,21 @@ const defaultProps = {
   ]
 }
 
-jest.mock('@pipeline/factories/ArtifactTriggerInputFactory', () => ({
-  getTriggerFormDetails: jest.fn().mockImplementation(() => () => {
-    return {
-      component: <div>ABC</div>
-    }
+const mockRegions = {
+  resource: [{ name: 'region1', value: 'region1' }]
+}
+
+jest.mock('services/portal', () => ({
+  useListAwsRegions: jest.fn().mockImplementation(() => {
+    return { data: mockRegions, refetch: jest.fn(), error: null, loading: false }
   })
 }))
 describe('Select Artifact Modal tests', () => {
+  beforeAll(() => {
+    TriggerFactory.registerTriggerForm(TriggerFormType.Manifest, {
+      component: ManifestInputForm
+    })
+  })
   test('inital Render', () => {
     render(
       <TestWrapper>
@@ -161,10 +194,148 @@ describe('Select Artifact Modal tests', () => {
     })
   })
 
-  test('on click of select button', async () => {
+  test('on click of apply button', async () => {
     render(
       <TestWrapper>
         <SelectArtifactModal {...defaultProps} />
+      </TestWrapper>
+    )
+
+    await act(async () => {
+      const dialog = findDialogContainer() as HTMLElement
+      const applyBtn = getByText(dialog, 'filters.apply')
+
+      fireEvent.click(applyBtn!)
+
+      expect(defaultProps.closeModal).toBeCalled()
+    })
+  })
+
+  test('on click of select button', async () => {
+    const props = {
+      isModalOpen: true,
+      formikProps: {
+        values: {
+          originalPipeline: {
+            identifier: 'stagea',
+            name: 'stagea',
+            orgIdentifier: 'default',
+            stages: [
+              {
+                stage: {
+                  name: 'stagea',
+                  identifier: 'stagea',
+                  spec: {
+                    execution: {
+                      steps: [],
+                      rollbackSteps: []
+                    },
+                    infrastructure: {
+                      allowSimultaneousDeployments: false,
+                      environmentRef: 'TestEnv',
+                      infrastructureDefinition: {
+                        provisioner: {
+                          steps: [],
+                          rollbackSteps: []
+                        },
+                        spec: {
+                          connectorRef: 'test',
+                          namespace: 'test',
+                          releaseName: 'test-name'
+                        },
+                        type: 'KubernetesDirect'
+                      },
+                      serviceConfig: {
+                        serviceRef: 'seveice',
+                        serviceDefinition: {
+                          spec: {
+                            manifests: [
+                              {
+                                manifest: {
+                                  identifier: 'testhelmmanifest',
+                                  spec: {
+                                    chartName: '<+input>',
+                                    chartVersion: '<+input>',
+                                    helmVersion: 'V2',
+                                    skipResourceVersioning: false
+                                  },
+                                  store: {
+                                    type: 's3',
+                                    spec: {
+                                      bucketName: '<+input>',
+                                      connectorRef: 'testecr2',
+                                      folderPath: '<+input>',
+                                      region: '<+input>'
+                                    }
+                                  }
+                                }
+                              }
+                            ],
+                            variables: []
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      artifactTableData: [
+        {
+          artifactId: 'dsfds',
+          artifactLabel: 'stagea: dsfds',
+          artifactRepository: undefined,
+          hasRuntimeInputs: true,
+          stageId: 'stagea'
+        }
+      ],
+      closeModal: jest.fn(),
+      isManifest: true,
+      runtimeData: [
+        {
+          stage: {
+            identifier: 'stagea',
+            spec: {
+              serviceConfig: {
+                serviceDefinition: {
+                  spec: {
+                    manifests: [
+                      {
+                        manifest: {
+                          identifier: 'testhelmmanifest',
+                          spec: {
+                            chartName: '<+input>',
+                            chartVersion: '<+input>',
+                            helmVersion: 'V2',
+                            skipResourceVersioning: false
+                          },
+                          store: {
+                            type: 's3',
+                            spec: {
+                              bucketName: '<+input>',
+                              connectorRef: 'testecr2',
+                              folderPath: '<+input>',
+                              region: '<+input>'
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+
+    render(
+      <TestWrapper>
+        <SelectArtifactModal {...props} />
       </TestWrapper>
     )
 
