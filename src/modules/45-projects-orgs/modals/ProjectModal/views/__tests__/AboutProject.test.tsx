@@ -120,7 +120,7 @@ jest.mock('services/cd-ng', () => ({
 
 describe('About Project test', () => {
   test('create project ', async () => {
-    const { container } = render(
+    const { container, getByTestId } = render(
       <TestWrapper path="/account/:accountId" pathParams={{ accountId: 'testAcc' }}>
         <StepProject
           orgMockData={orgMockData as UseGetMockData<ResponsePageOrganizationResponse>}
@@ -130,10 +130,8 @@ describe('About Project test', () => {
     )
     expect(queryByText(container, 'projectsOrgs.aboutProject')).toBeDefined()
     expect(container).toMatchSnapshot()
-
     setFieldValue({ type: InputTypes.TEXTFIELD, container: container, fieldId: 'name', value: 'dummy name' })
-    fireEvent.click(container.querySelectorAll('[data-icon="Edit"]')[0]!)
-
+    fireEvent.click(getByTestId('description-edit'))
     setFieldValue({
       type: InputTypes.TEXTAREA,
       container: container,
@@ -151,14 +149,9 @@ describe('About Project test', () => {
       )
       expect(queryByText(container, 'projectsOrgs.projectEdit')).toBeDefined()
       expect(container).toMatchSnapshot()
-
+      setFieldValue({ type: InputTypes.TEXTFIELD, container: container, fieldId: 'name', value: 'dummy name_updated' })
       await act(async () => {
-        fireEvent.change(container.querySelector('input[name="name"]')!, {
-          target: { value: 'dummy name' }
-        })
-      })
-      await act(async () => {
-        fireEvent.click(container.querySelector('button[type="submit"]')!)
+        clickSubmit(container)
       })
       expect(container).toMatchSnapshot()
     })

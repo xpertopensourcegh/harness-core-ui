@@ -43,7 +43,7 @@ jest.mock('services/cd-ng', () => ({
 
 describe('Create SSH Cred Wizard', () => {
   test('should render form', async () => {
-    const { container, getAllByText } = render(
+    const { container, getAllByText, getByTestId } = render(
       <TestWrapper path="/account/:accountId/resources/secrets" pathParams={{ accountId: 'dummy' }}>
         <CreateSSHCredWizard hideModal={noop} onSuccess={noop} />
       </TestWrapper>
@@ -51,8 +51,7 @@ describe('Create SSH Cred Wizard', () => {
 
     // match step 1
     expect(container).toMatchSnapshot()
-
-    fireEvent.click(container?.querySelectorAll('[data-icon="Edit"]')[0]!)
+    fireEvent.click(getByTestId('description-edit'))
 
     // fill step 1
     fillAtForm([
