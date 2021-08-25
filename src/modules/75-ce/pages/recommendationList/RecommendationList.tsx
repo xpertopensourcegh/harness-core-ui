@@ -275,12 +275,12 @@ const RecommendationList: React.FC = () => {
             <Layout.Horizontal spacing="medium">
               <RecommendationSavingsCard
                 title={getString('ce.recommendation.listPage.monthlySavingsText')}
-                amount={isEmptyView ? '$-' : formatCost(totalMonthlyCost)}
+                amount={isEmptyView ? '$-' : formatCost(totalSavings)}
                 iconName="money-icon"
               />
               <RecommendationSavingsCard
                 title={getString('ce.recommendation.listPage.monthlyForcastedCostText')}
-                amount={isEmptyView ? '$-' : formatCost(totalSavings)}
+                amount={isEmptyView ? '$-' : formatCost(totalMonthlyCost)}
                 subTitle={getString('ce.recommendation.listPage.forecatedCostSubText')}
               />
             </Layout.Horizontal>
