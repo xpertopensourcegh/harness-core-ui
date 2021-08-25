@@ -14,6 +14,7 @@ import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import routes from '@common/RouteDefinitions'
+import { setPageNumber } from '@common/utils/utils'
 import css from './Roles.module.scss'
 
 const Roles: React.FC = () => {
@@ -36,8 +37,8 @@ const Roles: React.FC = () => {
   })
 
   useEffect(() => {
-    if (searchTerm) setPage(0)
-  }, [searchTerm])
+    setPageNumber({ setPage, page, pageItemsCount: data?.data?.pageItemCount })
+  }, [data?.data])
 
   const { openRoleModal } = useRoleModal({
     onSuccess: role => {
@@ -89,6 +90,7 @@ const Roles: React.FC = () => {
               placeholder={getString('common.searchPlaceholder')}
               onChange={text => {
                 setSearchTerm(text.trim())
+                setPage(0)
               }}
               width={250}
             />

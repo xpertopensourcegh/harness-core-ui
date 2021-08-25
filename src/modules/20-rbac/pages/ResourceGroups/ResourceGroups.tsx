@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Layout, ExpandingSearchInput } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
@@ -13,6 +13,7 @@ import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import routes from '@common/RouteDefinitions'
+import { setPageNumber } from '@common/utils/utils'
 
 const ResourceGroups: React.FC = () => {
   const { accountId, projectIdentifier, orgIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()
@@ -33,6 +34,10 @@ const ResourceGroups: React.FC = () => {
     },
     debounce: 300
   })
+
+  useEffect(() => {
+    setPageNumber({ setPage, page, pageItemsCount: data?.data?.pageItemCount })
+  }, [data?.data])
 
   const { openResourceGroupModal } = useResourceGroupModal({
     onSuccess: resourceGroup => {

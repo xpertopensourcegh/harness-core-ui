@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ExpandingSearchInput, Layout } from '@wings-software/uicore'
 
 import { useParams } from 'react-router-dom'
@@ -13,6 +13,7 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import ManagePrincipalButton from '@rbac/components/ManagePrincipalButton/ManagePrincipalButton'
+import { setPageNumber } from '@common/utils/utils'
 
 const UserGroupsPage: React.FC = () => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
@@ -31,6 +32,10 @@ const UserGroupsPage: React.FC = () => {
     },
     debounce: 300
   })
+
+  useEffect(() => {
+    setPageNumber({ setPage, page, pageItemsCount: data?.data?.pageItemCount })
+  }, [data?.data])
 
   const { openUserGroupModal } = useUserGroupModal({
     onSuccess: refetch
@@ -61,6 +66,7 @@ const UserGroupsPage: React.FC = () => {
               placeholder={getString('rbac.userGroupPage.search')}
               onChange={text => {
                 setsearchTerm(text.trim())
+                setPage(0)
               }}
               width={250}
             />

@@ -1,6 +1,13 @@
 import type { IconName } from '@wings-software/uicore'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { ModuleName } from 'framework/types/ModuleName'
+
+interface SetPageNumberProps {
+  setPage: (value: React.SetStateAction<number>) => void
+  pageItemsCount?: number
+  page: number
+}
+
 export const getModuleIcon = (module: ModuleName): IconName => {
   switch (module) {
     case ModuleName.CD:
@@ -25,5 +32,11 @@ export const getReference = (scope?: Scope, identifier?: string): string | undef
       return `org.${identifier}`
     case Scope.ACCOUNT:
       return `account.${identifier}`
+  }
+}
+
+export const setPageNumber = ({ setPage, pageItemsCount, page }: SetPageNumberProps): void => {
+  if (pageItemsCount === 0 && page > 0) {
+    setPage(page - 1)
   }
 }

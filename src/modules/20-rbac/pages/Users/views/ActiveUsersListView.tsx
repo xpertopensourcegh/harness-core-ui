@@ -25,6 +25,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import ManagePrincipalButton from '@rbac/components/ManagePrincipalButton/ManagePrincipalButton'
 import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
 import RbacButton from '@rbac/components/Button/Button'
+import { setPageNumber } from '@common/utils/utils'
 import css from './UserListView.module.scss'
 
 interface ActiveUserListViewProps {
@@ -255,6 +256,10 @@ const ActiveUserListView: React.FC<ActiveUserListViewProps> = ({ searchTerm, ope
     },
     debounce: 300
   })
+
+  useEffect(() => {
+    setPageNumber({ setPage, page, pageItemsCount: data?.data?.pageItemCount })
+  }, [data?.data])
 
   const { openRoleAssignmentModal: addRole } = useRoleAssignmentModal({
     onSuccess: refetch

@@ -15,6 +15,7 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
+import { setPageNumber } from '@common/utils/utils'
 import css from './UserListView.module.scss'
 
 interface PendingUserListViewProps {
@@ -187,6 +188,10 @@ const PendingUserListView: React.FC<PendingUserListViewProps> = ({ searchTerm, r
     },
     debounce: 300
   })
+
+  useEffect(() => {
+    setPageNumber({ setPage, page, pageItemsCount: data?.data?.pageItemCount })
+  }, [data?.data])
 
   useEffect(() => {
     if (searchTerm) setPage(0)
