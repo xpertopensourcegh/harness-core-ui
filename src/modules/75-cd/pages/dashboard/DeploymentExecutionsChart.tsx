@@ -35,7 +35,7 @@ export default function DeploymentExecutionsChart() {
 
   return (
     <ExecutionsChart
-      titleText={getString('pipeline.dashboards.buildExecutions')}
+      titleText={getString('deploymentsText')}
       data={chartData}
       loading={loading}
       range={range}

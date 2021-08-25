@@ -1,5 +1,5 @@
 import React from 'react'
-import { isPlainObject, get, isNil } from 'lodash-es'
+import { isPlainObject, get, isNil, escape } from 'lodash-es'
 import cx from 'classnames'
 
 import { Text, useNestedAccordion } from '@wings-software/uicore'
@@ -72,8 +72,8 @@ export function VariablesListTable<T>(props: VariableListTableProps<T>): React.R
                 })}
                 dangerouslySetInnerHTML={{
                   __html: getTextWithSearchMarkers({
-                    searchText,
-                    txt: variableName,
+                    searchText: escape(searchText),
+                    txt: escape(variableName),
                     className: cx(css.selectedSearchText, {
                       [css.currentSelection]: searchedEntityType === 'key' && hasSameMetaKeyId
                     })
@@ -88,8 +88,8 @@ export function VariablesListTable<T>(props: VariableListTableProps<T>): React.R
                 })}
                 dangerouslySetInnerHTML={{
                   __html: getTextWithSearchMarkers({
-                    searchText,
-                    txt: formattedValue,
+                    searchText: escape(searchText),
+                    txt: escape(formattedValue),
                     className: cx(css.selectedSearchText, {
                       [css.currentSelection]: searchedEntityType === 'value' && hasSameMetaKeyId && isValidValueMatch
                     })

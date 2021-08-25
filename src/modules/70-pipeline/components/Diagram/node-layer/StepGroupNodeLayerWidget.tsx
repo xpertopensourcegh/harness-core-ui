@@ -62,7 +62,7 @@ export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): 
   const layerRef = React.useRef<HTMLDivElement>(null)
   const [showAdd, setVisibilityOfAdd] = React.useState(false)
   const [addClicked, setAddClicked] = React.useState(false)
-  const [hover, setHover] = React.useState(false)
+  // const [hover, setHover] = React.useState(false)
   React.useEffect(() => {
     const nodeLayer = layerRef.current
 
@@ -132,7 +132,7 @@ export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): 
   return (
     <>
       <div
-        className={classnames(css.stepGroup, 'ok1', { [css.stepGroupHover]: hover })}
+        className={classnames(css.stepGroup)}
         ref={layerRef}
         style={{
           left: config.minX,
@@ -213,11 +213,11 @@ export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): 
         }}
         onMouseOver={e => {
           e.stopPropagation()
-          setHover(true)
+          //setHover(true)
         }}
         onMouseOut={e => {
           e.stopPropagation()
-          setHover(false)
+          //setHover(false)
         }}
       >
         <Icon

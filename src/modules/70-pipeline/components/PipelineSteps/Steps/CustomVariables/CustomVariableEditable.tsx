@@ -10,7 +10,7 @@ import {
 import { Formik, FieldArray } from 'formik'
 import { v4 as uuid } from 'uuid'
 import cx from 'classnames'
-import { debounce } from 'lodash-es'
+import { debounce, escape } from 'lodash-es'
 
 import { String } from 'framework/strings'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
@@ -169,8 +169,8 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                             })}
                             dangerouslySetInnerHTML={{
                               __html: getTextWithSearchMarkers({
-                                searchText,
-                                txt: variableName,
+                                searchText: escape(searchText),
+                                txt: escape(variableName),
                                 className: cx(css.selectedSearchText, {
                                   [css.currentSelection]: searchedEntityType === 'key' && hasSameMetaPath
                                 })
@@ -186,7 +186,10 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                               'selected-search-text': searchedEntityType === 'key' && hasSameMetaPath
                             })}
                             dangerouslySetInnerHTML={{
-                              __html: getTextWithSearchMarkers({ searchText, txt: variable.name })
+                              __html: getTextWithSearchMarkers({
+                                searchText: escape(searchText),
+                                txt: escape(variable.name)
+                              })
                             }}
                           />
                         </Text>
