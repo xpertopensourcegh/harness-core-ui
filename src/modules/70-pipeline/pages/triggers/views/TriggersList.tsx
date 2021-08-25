@@ -20,26 +20,11 @@ import { TriggersListSection, GoToEditWizardInterface } from './TriggersListSect
 
 import { TriggerTypes } from '../utils/TriggersWizardPageUtils'
 import { getCategoryItems, ItemInterface, TriggerDataInterface } from '../utils/TriggersListUtils'
-import { isGeneralStoreAccount, isLocalHost, isProduction, isQA, isPR, isValidQAAccount } from './TriggerHelper'
 
 import css from './TriggersList.module.scss'
 
 interface TriggersListPropsInterface {
   onNewTriggerClick: (val: TriggerDataInterface) => void
-}
-
-const canEnableManifestTrigger = (accountId: string) => {
-  /* istanbul ignore next */
-  if (isProduction()) {
-    /* istanbul ignore next */
-    return isGeneralStoreAccount(accountId)
-  } else if (isQA()) {
-    /* istanbul ignore next */
-    return isValidQAAccount(accountId)
-  } else if (isLocalHost() || isPR()) {
-    return true
-  }
-  return false
 }
 
 export default function TriggersList(props: TriggersListPropsInterface & GitQueryParams): JSX.Element {
@@ -54,7 +39,7 @@ export default function TriggersList(props: TriggersListPropsInterface & GitQuer
     }>
   >()
   // This is temporary feature flag for NewArtifact Trigger
-  const NG_NEWARTIFACT_TRIGGER = canEnableManifestTrigger(accountId)
+  const NG_NEWARTIFACT_TRIGGER = true
 
   const [searchParam, setSearchParam] = useState('')
   const { getString } = useStrings()
