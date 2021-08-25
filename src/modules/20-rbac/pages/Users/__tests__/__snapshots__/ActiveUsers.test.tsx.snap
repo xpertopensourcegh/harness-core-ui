@@ -526,7 +526,7 @@ exports[`UsersPage Test Add Roles 1`] = `
               class="Layout--horizontal StyledProps--main"
             >
               <button
-                class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-primary"
                 type="submit"
               >
                 <span
@@ -581,7 +581,7 @@ exports[`UsersPage Test render data 1`] = `
         style="width: 350px;"
       >
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
+          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon Button--variation Button--variation-primary"
           type="button"
         >
           <span
@@ -817,7 +817,7 @@ exports[`UsersPage Test render data 1`] = `
                 </span>
               </span>
               <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main roleButton StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                class="bp3-button Button--button StyledProps--font StyledProps--main roleButton Button--with-current-color Button--variation Button--variation-link"
                 data-testid="addRole-123"
                 type="button"
               >
@@ -989,7 +989,7 @@ exports[`UsersPage Test render data 1`] = `
                 </span>
               </span>
               <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main roleButton StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                class="bp3-button Button--button StyledProps--font StyledProps--main roleButton Button--with-current-color Button--variation Button--variation-link"
                 data-testid="addRole-locked"
                 type="button"
               >

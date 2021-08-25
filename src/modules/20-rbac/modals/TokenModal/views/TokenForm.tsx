@@ -10,7 +10,8 @@ import {
   ModalErrorHandler,
   ModalErrorHandlerBinding,
   Text,
-  TextInput
+  TextInput,
+  ButtonVariation
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import moment from 'moment'
@@ -162,7 +163,7 @@ const TokenForm: React.FC<TokenModalData> = props => {
                     <Button text={getString('close')} onClick={onClose} />
                   ) : (
                     <Button
-                      intent="primary"
+                      variation={ButtonVariation.PRIMARY}
                       text={isEdit ? getString('save') : getString('rbac.generateToken')}
                       type="submit"
                       disabled={saving || updating}

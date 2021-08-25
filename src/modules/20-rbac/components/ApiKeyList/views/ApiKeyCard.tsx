@@ -1,5 +1,16 @@
 import React, { useState } from 'react'
-import { Button, Card, Collapse, Color, Container, Intent, Layout, Popover, Text } from '@wings-software/uicore'
+import {
+  Button,
+  ButtonVariation,
+  Card,
+  Collapse,
+  Color,
+  Container,
+  Intent,
+  Layout,
+  Popover,
+  Text
+} from '@wings-software/uicore'
 import ReactTimeago from 'react-timeago'
 import { Classes, Menu, Position } from '@blueprintjs/core'
 import { ApiKeyAggregateDTO, ApiKeyDTO, TokenDTO, useDeleteApiKey } from 'services/cd-ng'
@@ -200,10 +211,9 @@ const ApiKeyCard: React.FC<ApiKeyCardProps> = ({
             />
             <RbacButton
               text={getString('plusNumber', { number: getString('token') })}
-              minimal
               data-testid={`new_token-${apiKey.identifier}`}
               margin={{ top: 'medium' }}
-              intent="primary"
+              variation={ButtonVariation.LINK}
               className={css.noPadding}
               onClick={() => openTokenModal(apiKey.identifier)}
               permission={{
@@ -221,8 +231,7 @@ const ApiKeyCard: React.FC<ApiKeyCardProps> = ({
         ) : (
           <RbacButton
             text={getString('plusNumber', { number: getString('token') })}
-            minimal
-            intent="primary"
+            variation={ButtonVariation.LINK}
             data-testid={`new_token-${apiKey.identifier}`}
             className={css.noPadding}
             onClick={() => openTokenModal(apiKey.identifier)}

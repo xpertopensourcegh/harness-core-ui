@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react'
-import { Text, Layout, Button, Popover, Avatar } from '@wings-software/uicore'
+import { Text, Layout, Button, Popover, Avatar, ButtonVariation } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Classes, Position, Menu, Tag } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
@@ -263,7 +263,7 @@ const PendingUserListView: React.FC<PendingUserListViewProps> = ({ searchTerm, r
               button: (
                 <RbacButton
                   text={getString('rbac.user')}
-                  intent="primary"
+                  variation={ButtonVariation.PRIMARY}
                   icon="plus"
                   onClick={() => openRoleAssignmentModal()}
                   permission={{

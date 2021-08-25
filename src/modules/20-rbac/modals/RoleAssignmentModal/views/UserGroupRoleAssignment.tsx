@@ -8,7 +8,8 @@ import {
   ModalErrorHandlerBinding,
   Text,
   FormInput,
-  ModalErrorHandler
+  ModalErrorHandler,
+  ButtonVariation
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
@@ -116,7 +117,12 @@ const UserGroupRoleAssignment: React.FC<UserGroupRoleAssignmentData> = props => 
                   onSuccess={onSuccess}
                 />
                 <Layout.Horizontal>
-                  <Button intent="primary" text={getString('save')} type="submit" disabled={saving} />
+                  <Button
+                    variation={ButtonVariation.PRIMARY}
+                    text={getString('save')}
+                    type="submit"
+                    disabled={saving}
+                  />
                 </Layout.Horizontal>
               </Form>
             )

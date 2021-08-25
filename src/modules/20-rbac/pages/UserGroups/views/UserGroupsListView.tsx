@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react'
-import { Text, Layout, Button, Popover, Color } from '@wings-software/uicore'
+import { Text, Layout, Button, Popover, Color, ButtonVariation } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Classes, Position, Menu, Intent } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
@@ -108,7 +108,7 @@ const RenderColumnMembers: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row, 
     <Layout.Horizontal>
       <ManagePrincipalButton
         text={getString('plusNumber', { number: getString('members') })}
-        minimal
+        variation={ButtonVariation.LINK}
         onClick={handleAddMember}
         className={css.roleButton}
         resourceType={ResourceType.USERGROUP}
@@ -129,7 +129,7 @@ const RenderColumnRoleAssignments: Renderer<CellProps<UserGroupAggregateDTO>> = 
       <RoleBindingsList data={data} length={2} />
       <ManagePrincipalButton
         text={getString('common.plusNumber', { number: getString('common.role') })}
-        minimal
+        variation={ButtonVariation.LINK}
         data-testid={`addRole-${row.original.userGroupDTO.identifier}`}
         className={css.roleButton}
         onClick={event => {

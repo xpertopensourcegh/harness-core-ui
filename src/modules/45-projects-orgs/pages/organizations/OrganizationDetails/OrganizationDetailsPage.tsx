@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Color, Heading, Icon, Layout, Text, Button } from '@wings-software/uicore'
+import { Card, Color, Heading, Icon, Layout, Text, Button, ButtonVariation } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
@@ -138,16 +138,27 @@ const OrganizationDetailsPage: React.FC = () => {
                 <Text font={{ size: 'large', weight: 'bold' }} color={Color.PRIMARY_7} className={css.projectCount}>
                   {data?.data?.projectsCount}
                 </Text>
-                <Layout.Horizontal spacing="xxlarge" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+                <Layout.Horizontal spacing="xxlarge" flex>
                   <Text font={{ size: 'medium', weight: 'light' }}>
                     <String stringID="projectsOrgs.projectsInOrg" useRichText={true} />
                   </Text>
-                  <Button
-                    intent="primary"
-                    text={getString('projectsOrgs.createAProject')}
-                    className={css.createBtn}
-                    onClick={() => openProjectModal()}
-                  />
+                  <Layout.Horizontal spacing="small" padding={{ left: 'xxlarge' }}>
+                    <Button
+                      variation={ButtonVariation.PRIMARY}
+                      text={getString('projectsOrgs.createAProject')}
+                      onClick={() => openProjectModal()}
+                    />
+                    <Button
+                      variation={ButtonVariation.LINK}
+                      text={getString('projectsOrgs.viewProjects')}
+                      onClick={() => {
+                        history.push({
+                          pathname: routes.toProjects({ accountId }),
+                          search: `?orgIdentifier=${orgIdentifier}`
+                        })
+                      }}
+                    />
+                  </Layout.Horizontal>
                 </Layout.Horizontal>
               </Layout.Horizontal>
             </Card>

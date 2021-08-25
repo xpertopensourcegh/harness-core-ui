@@ -10,7 +10,8 @@ import {
   ModalErrorHandler,
   ModalErrorHandlerBinding,
   Text,
-  TextInput
+  TextInput,
+  ButtonVariation
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
@@ -118,7 +119,12 @@ const ServiceAccountForm: React.FC<ServiceAccountModalData> = props => {
                   <DescriptionTags formikProps={formikProps} />
                 </Container>
                 <Layout.Horizontal>
-                  <Button intent="primary" text={getString('save')} type="submit" disabled={saving || updating} />
+                  <Button
+                    variation={ButtonVariation.PRIMARY}
+                    text={getString('save')}
+                    type="submit"
+                    disabled={saving || updating}
+                  />
                 </Layout.Horizontal>
               </Form>
             )

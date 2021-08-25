@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Color, Text, Container } from '@wings-software/uicore'
+import { Color, Text, Container, ButtonVariation } from '@wings-software/uicore'
 import { TokenDTO, useListAggregatedApiKeys } from 'services/cd-ng'
 import type { ProjectPathProps, ServiceAccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
@@ -74,7 +74,7 @@ const ApiKeyList: React.FC<ApiKeyListProps> = ({ apiKeyType = 'SERVICE_ACCOUNT',
       </Container>
       <RbacButton
         text={getString('plusNumber', { number: getString('common.apikey') })}
-        minimal
+        variation={ButtonVariation.LINK}
         onClick={() => openApiKeyModal()}
         data-testid="createNewApiKey"
         permission={{

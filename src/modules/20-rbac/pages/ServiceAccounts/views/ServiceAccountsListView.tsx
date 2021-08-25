@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import { Avatar, Button, Color, Layout, Popover, Text } from '@wings-software/uicore'
+import { Avatar, Button, ButtonVariation, Color, Layout, Popover, Text } from '@wings-software/uicore'
 import type { CellProps, Column, Renderer } from 'react-table'
 import { Classes, Intent, Menu, Position } from '@blueprintjs/core'
 import Table from '@common/components/Table/Table'
@@ -66,7 +66,7 @@ const RenderColumnRoleAssignments: Renderer<CellProps<ServiceAccountAggregateDTO
       <RoleBindingsList data={data.roleAssignmentsMetadataDTO} length={2} />
       <RbacButton
         text={getString('common.plusNumber', { number: getString('common.role') })}
-        minimal
+        variation={ButtonVariation.LINK}
         className={css.roleButton}
         data-testid={`addRole-${data.serviceAccount.identifier}`}
         onClick={event => {

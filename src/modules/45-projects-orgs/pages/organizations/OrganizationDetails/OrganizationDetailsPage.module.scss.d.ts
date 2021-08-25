@@ -10,6 +10,5 @@ declare const styles: {
   readonly accessControl: string
   readonly projectsCard: string
   readonly projectCount: string
-  readonly createBtn: string
 }
 export default styles

@@ -7,7 +7,8 @@ import {
   FormInput,
   Layout,
   ModalErrorHandler,
-  ModalErrorHandlerBinding
+  ModalErrorHandlerBinding,
+  ButtonVariation
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
@@ -112,7 +113,7 @@ const ResourceGroupForm: React.FC<ResourceGroupModalData> = props => {
                 </Container>
                 <Layout.Horizontal>
                   <Button
-                    intent="primary"
+                    variation={ButtonVariation.PRIMARY}
                     text={getString('filters.apply')}
                     type="submit"
                     disabled={saving || updating}

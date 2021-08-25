@@ -9,7 +9,8 @@ import {
   ModalErrorHandler,
   ModalErrorHandlerBinding,
   Text,
-  FormInput
+  FormInput,
+  ButtonVariation
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { useToaster } from '@common/components'
@@ -101,7 +102,7 @@ const UnlinkSSOProviderForm: React.FC<UnlinkSSOProviderModalData> = props => {
                 </Container>
                 <Layout.Horizontal>
                   <Button
-                    intent="primary"
+                    variation={ButtonVariation.PRIMARY}
                     data-testid="submitLinkSSOProvider"
                     text={getString('save')}
                     type="submit"

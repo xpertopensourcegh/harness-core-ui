@@ -11,7 +11,8 @@ import {
   Container,
   Color,
   ModalErrorHandler,
-  ModalErrorHandlerBinding
+  ModalErrorHandlerBinding,
+  ButtonVariation
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { DescriptionTags } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
@@ -104,7 +105,12 @@ const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
                   <DescriptionTags formikProps={formikProps} />
                 </Container>
                 <Layout.Horizontal>
-                  <Button intent="primary" text={getString('saveAndContinue')} type="submit" disabled={disableSubmit} />
+                  <Button
+                    variation={ButtonVariation.PRIMARY}
+                    text={getString('saveAndContinue')}
+                    type="submit"
+                    disabled={disableSubmit}
+                  />
                 </Layout.Horizontal>
               </Layout.Vertical>
               {displayProjectCardPreview && (

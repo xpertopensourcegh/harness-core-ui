@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Position, PopoverInteractionKind, Classes } from '@blueprintjs/core'
 import { useParams, useHistory } from 'react-router-dom'
 import cx from 'classnames'
-import { Text, Layout, Color, Container, Popover, Pagination, Button } from '@wings-software/uicore'
+import { Text, Layout, Color, Container, Popover, Pagination, Button, ButtonVariation } from '@wings-software/uicore'
 import { ExpandingSearchInput } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import { Project, useGetProjectAggregateDTOList } from 'services/cd-ng'
@@ -85,8 +85,7 @@ const ProjectSelect: React.FC<ProjectSelectorProps> = ({ onSelect }) => {
             {getString('selectProject')}
           </Text>
           <Button
-            intent="primary"
-            minimal
+            variation={ButtonVariation.LINK}
             text={getString('projectsOrgs.viewAllProjects')}
             onClick={() => history.push(routes.toProjects({ accountId }))}
           />

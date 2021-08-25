@@ -15,7 +15,8 @@ import {
   Icon,
   ModalErrorHandlerBinding,
   ModalErrorHandler,
-  Avatar
+  Avatar,
+  ButtonVariation
 } from '@wings-software/uicore'
 import { Select } from '@blueprintjs/select'
 import cx from 'classnames'
@@ -299,7 +300,7 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
                 />
                 <Button
                   text={getString('add')}
-                  intent="primary"
+                  variation={ButtonVariation.PRIMARY}
                   inline
                   disabled={role.value === 'none' || formik.values.collaborators.length === 0 ? true : false}
                   type="submit"
@@ -362,7 +363,7 @@ export const ProjectCollaboratorsStep: React.FC<StepProps<Project> & Collaborato
       <Layout.Horizontal spacing="small">
         <Button onClick={() => previousStep?.(prevStepData)} text={getString('back')} />
         <Button
-          intent="primary"
+          variation={ButtonVariation.PRIMARY}
           text={getString('saveAndContinue')}
           onClick={() => {
             /* istanbul ignore else */ if (prevStepData) {
@@ -389,7 +390,7 @@ export const OrgCollaboratorsStep: React.FC<StepProps<Organization> & Collaborat
         <Layout.Horizontal spacing="small">
           <Button onClick={() => previousStep?.(prevStepData)} text={getString('back')} />
           <Button
-            intent="primary"
+            variation={ButtonVariation.PRIMARY}
             text={getString('finish')}
             onClick={() => {
               /* istanbul ignore else */ if (prevStepData) {

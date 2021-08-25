@@ -34,21 +34,20 @@ type CustomColumn<T extends Record<string, any>> = Column<T> & {
 }
 
 const RenderColumnProject: Renderer<CellProps<ProjectAggregateDTO>> = ({ row }) => {
-  const data = row.original
+  const project = row.original.projectResponse.project
+  const { getString } = useStrings()
   return (
-    <Layout.Horizontal spacing="small">
-      <div className={css.colorbox} style={{ backgroundColor: `${data.projectResponse.project.color}` }} />
-      <Layout.Vertical padding={{ left: 'small' }} className={css.verticalCenter}>
+    <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+      <div className={css.colorbox} style={{ backgroundColor: `${project.color}` }} />
+      <Layout.Vertical spacing="xsmall" padding={{ left: 'small' }} className={css.verticalCenter}>
         <Layout.Horizontal spacing="small">
           <Text color={Color.BLACK} lineClamp={1} className={css.project}>
-            {data.projectResponse.project.name}
+            {project.name}
           </Text>
-          {data.projectResponse.project.tags && Object.keys(data.projectResponse.project.tags).length ? (
-            <TagsPopover tags={data.projectResponse.project.tags} />
-          ) : null}
+          {project.tags && Object.keys(project.tags).length ? <TagsPopover tags={project.tags} /> : null}
         </Layout.Horizontal>
-        <Text color={Color.GREY_400} lineClamp={1} className={css.project} font={{ size: 'small' }}>
-          {data.projectResponse.project.identifier}
+        <Text color={Color.GREY_600} lineClamp={1} className={css.project} font={{ size: 'small' }}>
+          {getString('idLabel', { id: project.identifier })}
         </Text>
       </Layout.Vertical>
     </Layout.Horizontal>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Color, Container, ExpandingSearchInput, Layout, Text } from '@wings-software/uicore'
+import { Button, ButtonVariation, Color, Container, ExpandingSearchInput, Layout, Text } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacFactory from '@rbac/factories/RbacFactory'
@@ -60,7 +60,7 @@ const AddResourceModal: React.FC<RoleModalData> = ({ resource, onSuccess, onClos
         </Container>
         <Layout.Horizontal spacing="small">
           <Button
-            intent="primary"
+            variation={ButtonVariation.PRIMARY}
             text={`${getString('add')} ${selectedItems.length} ${
               resource === ResourceType['DASHBOARDS']
                 ? getString(resourceHandler.labelOverride || 'dashboards.homePage.folders')

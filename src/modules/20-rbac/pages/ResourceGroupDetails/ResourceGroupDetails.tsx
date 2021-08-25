@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Text, Layout, Container, Color } from '@wings-software/uicore'
+import { Text, Layout, Container, Color, ButtonVariation } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
 import produce from 'immer'
@@ -295,7 +295,7 @@ const ResourceGroupDetails: React.FC = () => {
                     text={getString('applyChanges')}
                     onClick={() => updateResourceGroupData(resourceGroup)}
                     disabled={updating || !isUpdated}
-                    intent="primary"
+                    variation={ButtonVariation.PRIMARY}
                     permission={{
                       resource: {
                         resourceType: ResourceType.RESOURCEGROUP,

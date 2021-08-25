@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Card, Color, Container, Icon, Layout, Text } from '@wings-software/uicore'
+import { Card, Color, Container, Icon, Layout, Text, ButtonVariation } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
 import produce from 'immer'
@@ -244,7 +244,7 @@ const RoleDetails: React.FC = () => {
                   <RbacButton
                     onClick={() => submitChanges(role)}
                     text={getString('applyChanges')}
-                    intent="primary"
+                    variation={ButtonVariation.PRIMARY}
                     disabled={data?.data?.harnessManaged || !isUpdated}
                     permission={{
                       resource: {

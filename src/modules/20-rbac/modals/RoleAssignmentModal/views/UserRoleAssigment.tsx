@@ -9,7 +9,8 @@ import {
   Text,
   SelectOption,
   FormInput,
-  ModalErrorHandler
+  ModalErrorHandler,
+  ButtonVariation
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
@@ -231,7 +232,12 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
                   onSuccess={onSuccess}
                 />
                 <Layout.Horizontal>
-                  <Button intent="primary" text={getString('save')} type="submit" disabled={saving || sending} />
+                  <Button
+                    variation={ButtonVariation.PRIMARY}
+                    text={getString('save')}
+                    type="submit"
+                    disabled={saving || sending}
+                  />
                 </Layout.Horizontal>
               </Form>
             )

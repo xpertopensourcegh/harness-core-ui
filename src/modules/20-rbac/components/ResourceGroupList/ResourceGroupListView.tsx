@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 import cx from 'classnames'
 import type { CellProps, Column, Renderer } from 'react-table'
 import ReactTimeago from 'react-timeago'
-import { Layout, Text, Color, Button } from '@wings-software/uicore'
+import { Layout, Text, Color, Button, ButtonVariation } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import { get } from 'lodash-es'
 import Table from '@common/components/Table/Table'
@@ -88,9 +88,8 @@ const RenderColumnSummary: Renderer<CellProps<ResourceGroupResponse>> = ({ row, 
     </Text>
   ) : (
     <Button
-      minimal
+      variation={ButtonVariation.LINK}
       className={css.selectResource}
-      intent="primary"
       onClick={e => {
         e.stopPropagation()
         ;(column as any).openResourceSelector(resourceGroup.identifier)

@@ -320,7 +320,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-end"
             >
               <button
-                class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-primary"
                 disabled=""
                 tabindex="-1"
                 type="button"
@@ -809,7 +809,7 @@ exports[`Role Details Page render data 1`] = `
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-end"
             >
               <button
-                class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-primary"
                 disabled=""
                 tabindex="-1"
                 type="button"

@@ -10,7 +10,8 @@ import {
   ModalErrorHandler,
   ModalErrorHandlerBinding,
   Text,
-  TextInput
+  TextInput,
+  ButtonVariation
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import copy from 'copy-to-clipboard'
@@ -139,7 +140,7 @@ const RotateTokenForm: React.FC<TokenModalData> = props => {
                     <Button text={getString('close')} onClick={onClose} />
                   ) : (
                     <Button
-                      intent="primary"
+                      variation={ButtonVariation.PRIMARY}
                       text={getString('rbac.token.rotateLabel')}
                       type="submit"
                       disabled={saving}

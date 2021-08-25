@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Text, Card, Color, Button, Radio } from '@wings-software/uicore'
+import { Layout, Text, Card, Color, Button, Radio, ButtonVariation } from '@wings-software/uicore'
 import { useParams } from 'react-router'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import { useStrings } from 'framework/strings'
@@ -57,8 +57,7 @@ const ResourcesCard: React.FC<ResourcesCardProps> = ({
                 {getString('rbac.resourceGroup.limitAccess', { name: getString(label) })}
               </Text>
               <Button
-                intent="primary"
-                minimal
+                variation={ButtonVariation.LINK}
                 data-testid={`addResources-${resourceType}`}
                 disabled={disableAddingResources}
                 className={css.addResourceBtn}

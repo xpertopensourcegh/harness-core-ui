@@ -9,7 +9,8 @@ import {
   Color,
   Container,
   GridListToggle,
-  Views
+  Views,
+  ButtonVariation
 } from '@wings-software/uicore'
 
 import { Select } from '@blueprintjs/select'
@@ -110,7 +111,7 @@ const ProjectsListPage: React.FC = () => {
       orgIdentifier: orgFilter.value == 'ALL' ? undefined : orgFilter.value.toString(),
       searchTerm: searchParam,
       pageIndex: page,
-      pageSize: 10
+      pageSize: 50
     },
     debounce: 300
   })
@@ -145,7 +146,12 @@ const ProjectsListPage: React.FC = () => {
       <Page.Header breadcrumbs={<NGBreadcrumbs />} title={getString('projectsText')} />
       {data?.data?.totalItems || searchParam || loading || error ? (
         <Layout.Horizontal spacing="large" className={css.header}>
-          <Button intent="primary" text={getString('projectLabel')} icon="plus" onClick={() => openProjectModal()} />
+          <Button
+            variation={ButtonVariation.PRIMARY}
+            text={getString('projectLabel')}
+            icon="plus"
+            onClick={() => openProjectModal()}
+          />
           <CustomSelect
             disabled={loading}
             items={organizations}
@@ -179,15 +185,13 @@ const ProjectsListPage: React.FC = () => {
           </CustomSelect>
 
           <div style={{ flex: 1 }}></div>
-
           <ExpandingSearchInput
             alwaysExpanded
-            placeholder={getString('projectsOrgs.search')}
             onChange={text => {
               setSearchParam(text.trim())
             }}
-            className={css.expandSearch}
             width={300}
+            className={css.expandSearch}
           />
           <GridListToggle initialSelectedView={Views.GRID} onViewToggle={setView} />
         </Layout.Horizontal>

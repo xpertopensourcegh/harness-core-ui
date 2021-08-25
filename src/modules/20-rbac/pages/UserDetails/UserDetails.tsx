@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Layout, Color, Card, Avatar, Icon } from '@wings-software/uicore'
+import { Text, Layout, Color, Card, Avatar, Icon, ButtonVariation } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { useGetAggregatedUser } from 'services/cd-ng'
@@ -109,8 +109,7 @@ const UserDetails: React.FC = () => {
               <ManagePrincipalButton
                 data-testid={'addRole-UserGroup'}
                 text={getString('common.plusNumber', { number: getString('common.role') })}
-                minimal
-                intent="primary"
+                variation={ButtonVariation.LINK}
                 onClick={event => {
                   event.stopPropagation()
                   openRoleAssignmentModal(PrincipalType.USER, user, data?.data?.roleAssignmentMetadata)

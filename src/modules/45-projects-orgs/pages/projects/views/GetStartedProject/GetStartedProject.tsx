@@ -2,7 +2,7 @@ import React from 'react'
 
 import { useHistory, useParams } from 'react-router-dom'
 import cx from 'classnames'
-import { Button, Heading, Color, Layout } from '@wings-software/uicore'
+import { Button, Heading, Color, Layout, ButtonVariation } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
 import { Page } from '@common/components/Page/Page'
@@ -48,7 +48,12 @@ const GetStartedProject: React.FC = () => {
               {getString('projectsOrgs.welcomeSecondLine')}
             </Heading>
           </Layout.Vertical>
-          <Button intent="primary" text={getString('projectLabel')} icon="plus" onClick={() => openProjectModal()} />
+          <Button
+            variation={ButtonVariation.PRIMARY}
+            text={getString('projectLabel')}
+            icon="plus"
+            onClick={() => openProjectModal()}
+          />
         </Layout.Vertical>
       </Page.Body>
     </>

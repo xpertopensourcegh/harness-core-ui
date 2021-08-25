@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { ExpandingSearchInput, Layout } from '@wings-software/uicore'
+import React, { useState, useEffect } from 'react'
+import { ButtonVariation, ExpandingSearchInput, Layout } from '@wings-software/uicore'
 
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
@@ -48,7 +48,7 @@ const UserGroupsPage: React.FC = () => {
   const newUserGroupsBtn = (): JSX.Element => (
     <ManagePrincipalButton
       text={getString('rbac.userGroupPage.newUserGroup')}
-      intent="primary"
+      variation={ButtonVariation.PRIMARY}
       icon="plus"
       onClick={() => openUserGroupModal()}
       resourceType={ResourceType.USERGROUP}

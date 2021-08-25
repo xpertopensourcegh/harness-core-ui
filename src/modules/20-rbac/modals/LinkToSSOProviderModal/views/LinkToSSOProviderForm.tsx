@@ -10,6 +10,7 @@ import {
   ModalErrorHandlerBinding,
   Text,
   SelectOption,
+  ButtonVariation,
   FormInput
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
@@ -37,7 +38,7 @@ const getSelectPlaceholder = (
   ssoSettings: SelectOption[],
   fetching: boolean,
   getString: (key: keyof StringsMap, vars?: Record<string, any> | undefined) => string
-) => {
+): string => {
   const dataPlaceholder = !ssoSettings.length
     ? getString('noData')
     : getString('rbac.userDetails.linkToSSOProviderModal.selectSSOSetting')
@@ -158,7 +159,7 @@ const LinkToSSOProviderForm: React.FC<LinkToSSOProviderModalData> = props => {
                   </Container>
                   <Layout.Horizontal>
                     <Button
-                      intent="primary"
+                      variation={ButtonVariation.PRIMARY}
                       data-testid="submitLinkSSOProvider"
                       text={getString('save')}
                       type="submit"

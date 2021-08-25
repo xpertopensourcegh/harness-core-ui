@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Layout, Color, Avatar, Card } from '@wings-software/uicore'
+import { Text, Layout, Color, Avatar, Card, ButtonVariation } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import moment from 'moment'
 import { useStrings } from 'framework/strings'
@@ -131,7 +131,7 @@ const ServiceAccountDetails: React.FC = () => {
             <RbacButton
               data-testid={'addRole-ServiceAccount'}
               text={getString('common.plusNumber', { number: getString('common.role') })}
-              minimal
+              variation={ButtonVariation.LINK}
               onClick={event => {
                 event.stopPropagation()
                 openRoleAssignmentModal(

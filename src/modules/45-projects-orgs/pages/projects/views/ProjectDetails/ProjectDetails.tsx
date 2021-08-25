@@ -10,7 +10,6 @@ import { Project, useGetProjectAggregateDTO } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { ModuleName } from 'framework/types/ModuleName'
 import ModuleListCard from '@projects-orgs/components/ModuleListCard/ModuleListCard'
-import ModuleEnableCard from '@projects-orgs/components/ModuleEnableCard/ModuleEnableCard'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
 import { useCollaboratorModal } from '@projects-orgs/modals/ProjectModal/useCollaboratorModal'
 import ContextMenu from '@projects-orgs/components/Menu/ContextMenu'
@@ -78,17 +77,6 @@ const ProjectDetails: React.FC = () => {
   const { openDialog } = useDeleteProjectDialog(projectData || { identifier: '', name: '' }, onDeleted)
   useDocumentTitle(getString('projectsText'))
 
-  const getEnableModules = (): Required<Project>['modules'] => {
-    const modulesPresent: Required<Project>['modules'] = []
-    if (CDNG_ENABLED) modulesPresent.push(ModuleName.CD)
-    if (CVNG_ENABLED) modulesPresent.push(ModuleName.CV)
-    if (CING_ENABLED) modulesPresent.push(ModuleName.CI)
-    if (CENG_ENABLED) modulesPresent.push(ModuleName.CE)
-    if (CFNG_ENABLED) modulesPresent.push(ModuleName.CF)
-
-    return modulesPresent.filter(module => !projectData?.modules?.includes(module))
-  }
-
   const getModuleInfoCards = (): React.ReactElement | React.ReactElement[] => {
     if (!projectData?.modules?.length) {
       return (
@@ -102,10 +90,10 @@ const ProjectDetails: React.FC = () => {
     const infoCards = []
 
     if (CDNG_ENABLED && projectData.modules.includes(ModuleName.CD)) infoCards.push(ModuleName.CD)
-    if (CVNG_ENABLED && projectData.modules.includes(ModuleName.CV)) infoCards.push(ModuleName.CV)
     if (CING_ENABLED && projectData.modules.includes(ModuleName.CI)) infoCards.push(ModuleName.CI)
-    if (CENG_ENABLED && projectData.modules.includes(ModuleName.CE)) infoCards.push(ModuleName.CE)
     if (CFNG_ENABLED && projectData.modules.includes(ModuleName.CF)) infoCards.push(ModuleName.CF)
+    if (CENG_ENABLED && projectData.modules.includes(ModuleName.CE)) infoCards.push(ModuleName.CE)
+    if (CVNG_ENABLED && projectData.modules.includes(ModuleName.CV)) infoCards.push(ModuleName.CV)
 
     return infoCards.map(module => (
       <ModuleListCard
@@ -258,52 +246,14 @@ const ProjectDetails: React.FC = () => {
       />
       <Page.Body>
         <Layout.Horizontal>
-          <div>
-            <Container padding="xxlarge" className={css.enabledModules}>
-              <Layout.Vertical padding="small" spacing="large">
-                <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.BLACK}>
-                  {getString('projectsOrgs.modulesEnabled')}
-                </Text>
-                {getModuleInfoCards()}
-              </Layout.Vertical>
-            </Container>
-            <Container padding="xxlarge">
-              {getEnableModules().length === 0 ? null : (
-                <>
-                  <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.BLACK}>
-                    {getString('projectsOrgs.enableModules')}
-                  </Text>
-                  <Layout.Horizontal spacing="small" padding={{ top: 'large' }}>
-                    {getEnableModules().map(module => (
-                      <ModuleEnableCard
-                        key={module}
-                        data={projectData as Project}
-                        module={module as ModuleName}
-                        refetchProject={refetchProject}
-                      />
-                    ))}
-                  </Layout.Horizontal>
-                </>
-              )}
-            </Container>
-          </div>
-          {/* TODO: ENABLE THIS WHEN WE HAVE INFO */}
-          {/* <Layout.Vertical padding="huge" spacing="large">
-            <Text font={{ size: 'medium', weight: 'bold' }} color={Color.BLACK}>
-              {getString('projectsOrgs.recentActivities')}
-            </Text>
-            <Card className={css.activityCard}>
-              <ActivityStack
-                items={[]}
-                tooltip={item => (
-                  <Layout.Vertical padding="medium">
-                    <Text>{item.activity}</Text>
-                    <Text>{item.updatedBy}</Text>
-                  </Layout.Vertical>
-                )}
-              />
-            </Card>
-          </Layout.Vertical>*/}
+          <Container padding="xxlarge" className={css.enabledModules}>
+            <Layout.Vertical padding="small" spacing="large">
+              <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.BLACK}>
+                {getString('modules')}
+              </Text>
+              {getModuleInfoCards()}
+            </Layout.Vertical>
+          </Container>
         </Layout.Horizontal>
       </Page.Body>
     </>

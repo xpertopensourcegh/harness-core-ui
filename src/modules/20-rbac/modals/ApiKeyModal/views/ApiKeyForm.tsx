@@ -8,7 +8,8 @@ import {
   Button,
   Container,
   ModalErrorHandler,
-  ModalErrorHandlerBinding
+  ModalErrorHandlerBinding,
+  ButtonVariation
 } from '@wings-software/uicore'
 import { Form } from 'formik'
 import { useParams } from 'react-router-dom'
@@ -100,7 +101,12 @@ const ApiKeyForm: React.FC<ApiKeyModalData> = ({ data, isEdit, onSubmit, apiKeyT
                   />
                 </Container>
                 <Layout.Horizontal>
-                  <Button intent="primary" text={getString('save')} type="submit" disabled={saving || updating} />
+                  <Button
+                    variation={ButtonVariation.PRIMARY}
+                    text={getString('save')}
+                    type="submit"
+                    disabled={saving || updating}
+                  />
                 </Layout.Horizontal>
               </Form>
             )

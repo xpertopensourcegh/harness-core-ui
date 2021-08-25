@@ -9,7 +9,8 @@ import {
   Heading,
   Layout,
   ModalErrorHandlerBinding,
-  ModalErrorHandler
+  ModalErrorHandler,
+  ButtonVariation
 } from '@wings-software/uicore'
 import { OrganizationCard } from '@projects-orgs/components/OrganizationCard/OrganizationCard'
 import type { Organization } from 'services/cd-ng'
@@ -72,7 +73,7 @@ const OrganizationForm: React.FC<OrganizationFormData> = ({
                 />
               </Container>
               <Layout.Horizontal spacing="xsmall">
-                <Button type="submit" intent="primary" text={submitTitle} disabled={disableSubmit} />
+                <Button type="submit" variation={ButtonVariation.PRIMARY} text={submitTitle} disabled={disableSubmit} />
               </Layout.Horizontal>
             </Layout.Vertical>
             {disablePreview ? null : (

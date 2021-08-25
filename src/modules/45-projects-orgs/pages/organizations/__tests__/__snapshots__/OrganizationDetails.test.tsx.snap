@@ -287,7 +287,7 @@ exports[`Organization Details Render 1`] = `
               class="StyledProps--font StyledProps--main projectCount StyledProps--font-size-large StyledProps--font-weight-bold StyledProps--color StyledProps--color-primary7"
             />
             <div
-              class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+              class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main StyledProps--flex"
             >
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-light"
@@ -296,16 +296,30 @@ exports[`Organization Details Render 1`] = `
                   projectsOrgs.projectsInOrg
                 </span>
               </p>
-              <button
-                class="bp3-button Button--button StyledProps--font StyledProps--main createBtn StyledProps--intent-primary Button--with-current-color"
-                type="button"
+              <div
+                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-left-xxlarge"
               >
-                <span
-                  class="bp3-button-text"
+                <button
+                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-primary"
+                  type="button"
                 >
-                  projectsOrgs.createAProject
-                </span>
-              </button>
+                  <span
+                    class="bp3-button-text"
+                  >
+                    projectsOrgs.createAProject
+                  </span>
+                </button>
+                <button
+                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-link"
+                  type="button"
+                >
+                  <span
+                    class="bp3-button-text"
+                  >
+                    projectsOrgs.viewProjects
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
         </div>

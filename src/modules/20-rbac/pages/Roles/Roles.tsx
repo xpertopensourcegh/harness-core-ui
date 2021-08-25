@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Container, ExpandingSearchInput, Layout, Pagination } from '@wings-software/uicore'
+import { Container, ExpandingSearchInput, Layout, Pagination, ButtonVariation } from '@wings-software/uicore'
 
 import { useHistory, useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
@@ -62,7 +62,7 @@ const Roles: React.FC = () => {
     <RbacButton
       text={getString('newRole')}
       data-testid="createRole"
-      intent="primary"
+      variation={ButtonVariation.PRIMARY}
       icon="plus"
       onClick={() => openRoleModal()}
       permission={{

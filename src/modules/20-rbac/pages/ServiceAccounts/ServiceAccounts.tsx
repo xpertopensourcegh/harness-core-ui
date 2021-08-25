@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ExpandingSearchInput, Layout } from '@wings-software/uicore'
+import { ButtonVariation, ExpandingSearchInput, Layout } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { Page } from '@common/exports'
@@ -42,7 +42,7 @@ const ServiceAccountsPage: React.FC = () => {
           <Layout.Horizontal padding={{ left: 'large' }} spacing="small">
             <RbacButton
               text={getString('rbac.serviceAccounts.newServiceAccount')}
-              intent="primary"
+              variation={ButtonVariation.PRIMARY}
               icon="plus"
               onClick={() => openServiceAccountModal()}
               permission={{
@@ -81,7 +81,7 @@ const ServiceAccountsPage: React.FC = () => {
                 button: (
                   <RbacButton
                     text={getString('rbac.serviceAccounts.newServiceAccount')}
-                    intent="primary"
+                    variation={ButtonVariation.PRIMARY}
                     icon="plus"
                     onClick={() => openServiceAccountModal()}
                     permission={{

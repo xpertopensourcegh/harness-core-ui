@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
-import { ExpandingSearchInput, Layout, Container } from '@wings-software/uicore'
+import { ExpandingSearchInput, Layout, Container, ButtonVariation } from '@wings-software/uicore'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { OrganizationAggregateDTO, useGetOrganizationAggregateDTOList, Error } from 'services/cd-ng'
@@ -33,7 +33,7 @@ const OrganizationsPage: React.FC = () => {
 
   const newOrgButton = (): JSX.Element => (
     <RbacButton
-      intent="primary"
+      variation={ButtonVariation.PRIMARY}
       icon="plus"
       text={getString('orgLabel')}
       onClick={() => openOrganizationModal()}

@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react'
-import { Text, Layout, Button, Popover, Avatar, Color, Icon } from '@wings-software/uicore'
+import { Text, Layout, Button, Popover, Avatar, Color, Icon, ButtonVariation } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Classes, Position, Menu } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
@@ -92,8 +92,7 @@ const RenderColumnRoleAssignments: Renderer<CellProps<UserAggregate>> = ({ row, 
       <RoleBindingsList data={data} length={2} />
       <ManagePrincipalButton
         text={getString('common.plusNumber', { number: getString('common.role') })}
-        minimal
-        intent="primary"
+        variation={ButtonVariation.LINK}
         className={css.roleButton}
         data-testid={`addRole-${row.original.user.uuid}`}
         onClick={handleAddRole}
@@ -320,7 +319,7 @@ const ActiveUserListView: React.FC<ActiveUserListViewProps> = ({ searchTerm, ope
               button: (
                 <RbacButton
                   text={getString('rbac.user')}
-                  intent="primary"
+                  variation={ButtonVariation.PRIMARY}
                   icon="plus"
                   onClick={() => openRoleAssignmentModal()}
                   permission={{

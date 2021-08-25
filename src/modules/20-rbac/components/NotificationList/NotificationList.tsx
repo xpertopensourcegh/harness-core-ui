@@ -1,7 +1,17 @@
 import React, { useState } from 'react'
 import * as Yup from 'yup'
 import cx from 'classnames'
-import { Button, Container, Formik, FormInput, Icon, Layout, SelectOption, Text } from '@wings-software/uicore'
+import {
+  Button,
+  ButtonVariation,
+  Container,
+  Formik,
+  FormInput,
+  Icon,
+  Layout,
+  SelectOption,
+  Text
+} from '@wings-software/uicore'
 import { Form, FormikProps } from 'formik'
 import produce from 'immer'
 import { useParams } from 'react-router-dom'
@@ -346,9 +356,8 @@ const NotificationList: React.FC<NotificationListProps> = ({ userGroup, onSubmit
         {values.length < 4 && !values.includes(null) ? (
           <Button
             text={getString('plusNumber', { number: getString('common.channel') })}
-            minimal
             data-testid="addChannel"
-            intent="primary"
+            variation={ButtonVariation.LINK}
             onClick={() => {
               setValues(
                 produce(values, draft => {

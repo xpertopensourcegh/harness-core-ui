@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Layout, ExpandingSearchInput } from '@wings-software/uicore'
+import { Layout, ExpandingSearchInput, ButtonVariation } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { PageHeader } from '@common/components/Page/PageHeader'
@@ -60,7 +60,7 @@ const ResourceGroups: React.FC = () => {
           <Layout.Horizontal padding={{ left: 'large' }}>
             <RbacButton
               text={getString('rbac.resourceGroup.newResourceGroup')}
-              intent="primary"
+              variation={ButtonVariation.PRIMARY}
               icon="plus"
               onClick={() => openResourceGroupModal()}
               data-testid="addNewResourceGroup"

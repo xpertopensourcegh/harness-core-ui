@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Layout, Color, Card, Container } from '@wings-software/uicore'
+import { Text, Layout, Color, Card, Container, ButtonVariation } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
 import cx from 'classnames'
@@ -130,7 +130,7 @@ const UserGroupDetails: React.FC = () => {
                     : getString('rbac.userDetails.linkToSSOProviderModal.linkLabel')
                 }
                 icon={userGroup.ssoLinked ? 'cross' : 'link'}
-                minimal
+                variation={ButtonVariation.LINK}
                 onClick={() => {
                   openLinkToSSOProviderModal(userGroup)
                 }}
@@ -145,7 +145,7 @@ const UserGroupDetails: React.FC = () => {
                     : undefined
                 }
                 text={getString('common.plusNumber', { number: getString('members') })}
-                minimal
+                variation={ButtonVariation.LINK}
                 onClick={() => {
                   openUserGroupModal(userGroup, true)
                 }}
@@ -171,8 +171,7 @@ const UserGroupDetails: React.FC = () => {
               <ManagePrincipalButton
                 data-testid={'addRole-UserGroup'}
                 text={getString('common.plusNumber', { number: getString('common.role') })}
-                minimal
-                intent="primary"
+                variation={ButtonVariation.LINK}
                 onClick={event => {
                   event.stopPropagation()
                   openRoleAssignmentModal(PrincipalType.USER_GROUP, userGroup, data?.data?.roleAssignmentsMetadataDTO)
