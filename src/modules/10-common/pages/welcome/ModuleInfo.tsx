@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
-import { Color, Container, Text, Icon, IconName, Layout, Heading } from '@wings-software/uicore'
+import { useHistory, useParams } from 'react-router-dom'
+import { Button, Color, Container, Text, Icon, IconName, Layout, Heading } from '@wings-software/uicore'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import routes from '@common/RouteDefinitions'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import { String, useStrings } from 'framework/strings'
 import { Experiences } from '@common/constants/Utils'
+import { useToaster } from '@common/components'
 import type { StringsMap } from 'stringTypes'
 import { useUpdateAccountDefaultExperienceNG } from 'services/cd-ng'
 import { Category, PurposeActions } from '@common/constants/TrackingConstants'
@@ -35,34 +36,43 @@ const ModuleInfo: React.FC<ModuleInfoProps> = ({ setStep, moduleProps }) => {
   const [selectedInfoCard, setSelectedInfoCard] = useState<ModuleInfoCard>()
   const { getString } = useStrings()
   const { trackEvent } = useTelemetry()
+  const { showError } = useToaster()
   const { GTM_CD_ENABLED } = useFeatureFlags()
+  const history = useHistory()
 
   const { accountId } = useParams<{
     accountId: string
   }>()
-  const { mutate: updateDefaultExperience } = useUpdateAccountDefaultExperienceNG({
+  const { mutate: updateDefaultExperience, loading: updatingDefaultExperience } = useUpdateAccountDefaultExperienceNG({
     accountIdentifier: accountId
   })
 
   const getModuleLink = (module: Module): React.ReactElement => {
     async function handleUpdateDefaultExperience(): Promise<void> {
-      await updateDefaultExperience({
-        defaultExperience: !selectedInfoCard || selectedInfoCard?.isNgRoute ? Experiences.NG : Experiences.CG
-      })
+      try {
+        await updateDefaultExperience({
+          defaultExperience: !selectedInfoCard || selectedInfoCard?.isNgRoute ? Experiences.NG : Experiences.CG
+        })
+      } catch (error) {
+        showError(error.data?.message || getString('somethingWentWrong'))
+      }
     }
 
     if (!selectedInfoCard || selectedInfoCard?.isNgRoute) {
       return (
-        <Link
+        <Button
+          disabled={updatingDefaultExperience}
+          intent="primary"
           className={css.continueButton}
           onClick={() => {
-            handleUpdateDefaultExperience()
             trackEvent(PurposeActions.ModuleContinue, { category: Category.SIGNUP, module: module })
+            handleUpdateDefaultExperience().then(() =>
+              history.push(routes.toModuleHome({ accountId, module, source: 'purpose' }))
+            )
           }}
-          to={routes.toModuleHome({ accountId, module, source: 'purpose' })}
         >
           {getString('continue')}
-        </Link>
+        </Button>
       )
     }
 
