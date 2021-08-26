@@ -1,4 +1,4 @@
-import { Color, Text, Icon, Layout, Button, ButtonProps, Container } from '@wings-software/uicore'
+import { Color, Text, Icon, Layout, Button, ButtonVariation, ButtonProps, Container } from '@wings-software/uicore'
 import React from 'react'
 import i18n from './PageError.i18n'
 
@@ -22,7 +22,14 @@ export const PageError: React.FC<PageErrorProps> = props => (
       <Text font={{ align: 'center' }} color={Color.RED_500}>
         {props.message || i18n.generalError}
       </Text>
-      {props.onClick && <Button intent="primary" text={i18n.retry} onClick={props.onClick} disabled={props.disabled} />}
+      {props.onClick && (
+        <Button
+          variation={ButtonVariation.PRIMARY}
+          text={i18n.retry}
+          onClick={props.onClick}
+          disabled={props.disabled}
+        />
+      )}
     </Layout.Vertical>
   </Container>
 )

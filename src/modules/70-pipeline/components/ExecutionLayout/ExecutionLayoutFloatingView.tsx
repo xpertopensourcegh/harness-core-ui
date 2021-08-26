@@ -1,7 +1,7 @@
 import React from 'react'
 import Draggable, { DraggableData } from 'react-draggable'
 import { usePopper } from 'react-popper'
-import { Button } from '@wings-software/uicore'
+import { Button, ButtonVariation } from '@wings-software/uicore'
 
 import { String } from 'framework/strings'
 import { useLocalStorage } from '@common/hooks'
@@ -63,9 +63,7 @@ export default function ExecutionLayoutFloatingView(props: React.PropsWithChildr
               onClick={toggleDialog}
               className={css.toggleButton}
               rightIcon={isOpen ? 'minus' : 'plus'}
-              minimal
-              small
-              intent="primary"
+              variation={ButtonVariation.LINK}
               data-testid="restore"
             >
               <String stringID="pipeline.stepDetails" />
