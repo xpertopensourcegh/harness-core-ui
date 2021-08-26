@@ -1,7 +1,14 @@
 import React, { useState } from 'react'
-import { Container, Layout, Button, IconName } from '@wings-software/uicore'
+import { useHistory, useParams } from 'react-router'
+import { Layout, Button, IconName } from '@wings-software/uicore'
+import routes from '@common/RouteDefinitions'
+import { useUpdateAccountDefaultExperienceNG } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
-import type { Module } from '@common/interfaces/RouteInterfaces'
+import { Experiences } from '@common/constants/Utils'
+import { useTelemetry } from '@common/hooks/useTelemetry'
+import { useToaster } from '@common/components'
+import { Category, PurposeActions } from '@common/constants/TrackingConstants'
+import type { Module, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import ModuleCard from './ModuleCard'
 import css from './WelcomePage.module.scss'
 
@@ -27,6 +34,12 @@ const SelectModuleList: React.FC<SelectModuleListProps> = ({ setStep, setModule,
   const [selected, setSelected] = useState<Module>()
 
   const { getString } = useStrings()
+  const { accountId } = useParams<AccountPathProps>()
+  const { trackEvent } = useTelemetry()
+  const { showError } = useToaster()
+  const { mutate: updateDefaultExperience, loading: updatingDefaultExperience } = useUpdateAccountDefaultExperienceNG({
+    accountIdentifier: accountId
+  })
 
   const handleModuleSelection = (module: Module): void => {
     setSelected(module)
@@ -36,6 +49,7 @@ const SelectModuleList: React.FC<SelectModuleListProps> = ({ setStep, setModule,
     setStep(STEPS.MODULE_INFO)
     setModule(selected)
   }
+  const history = useHistory()
 
   const Modules: React.FC = () => {
     return (
@@ -54,15 +68,48 @@ const SelectModuleList: React.FC<SelectModuleListProps> = ({ setStep, setModule,
     )
   }
 
+  const getContinue = (): React.ReactElement => {
+    switch (selected) {
+      case 'cd':
+        return (
+          <Button onClick={handleContinue} intent="primary" width={100}>
+            {getString('continue')}
+          </Button>
+        )
+      case 'ci':
+      case 'ce':
+      case 'cv':
+      case 'cf': {
+        return (
+          <Button
+            disabled={updatingDefaultExperience}
+            intent="primary"
+            className={css.continueButton}
+            onClick={() => {
+              trackEvent(PurposeActions.ModuleContinue, { category: Category.SIGNUP, module: selected })
+              try {
+                updateDefaultExperience({
+                  defaultExperience: Experiences.NG
+                }).then(() => history.push(routes.toModuleHome({ accountId, module: selected, source: 'purpose' })))
+              } catch (error) {
+                showError(error.data?.message || getString('somethingWentWrong'))
+              }
+            }}
+          >
+            {getString('continue')}
+          </Button>
+        )
+      }
+      default:
+        return <></>
+    }
+  }
+
   return (
-    <Container>
+    <Layout.Vertical spacing="xxlarge">
       <Modules />
-      {selected && (
-        <Button onClick={handleContinue} intent="primary" margin={{ top: 'xxlarge' }}>
-          {getString('continue')}
-        </Button>
-      )}
-    </Container>
+      {selected && getContinue()}
+    </Layout.Vertical>
   )
 }
 

@@ -44,12 +44,15 @@
 .continueButton {
   cursor: pointer;
   background-color: var(--primary-7);
+  color: var(--grey-0) !important;
+  box-shadow: var(--button-shadow);
+  height: 32px;
+  max-height: 32px;
   width: 100px;
+  padding: 5px 20px;
   border-radius: 4px;
-  line-height: 2.5;
+  letter-spacing: 0.4px;
   text-align: center;
-  color: var(--white) !important;
-  text-decoration: none;
 }
 
 .moduleInfoDescription {

@@ -28,7 +28,7 @@ describe('Welcome Page', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('Should render ModuleInfo page when select any module and continue', async () => {
+  test('Should render ModuleInfo page when select cd module and continue', async () => {
     const { container, getByText, getByTestId } = render(
       <TestWrapper defaultAppStoreValues={{ featureFlags }}>
         <WelcomePage />
@@ -37,6 +37,18 @@ describe('Welcome Page', () => {
     fireEvent.click(getByTestId('cd'))
     fireEvent.click(getByText('continue'))
     await waitFor(() => getByText('common.purpose.cd.description'))
+    expect(container).toMatchSnapshot()
+  })
+
+  test('Should go to module home page when select non cd module and continue', async () => {
+    const { container, getByText, getByTestId, queryByText } = render(
+      <TestWrapper defaultAppStoreValues={{ featureFlags }}>
+        <WelcomePage />
+      </TestWrapper>
+    )
+    fireEvent.click(getByTestId('ci'))
+    fireEvent.click(getByText('continue'))
+    await waitFor(() => expect(queryByText('common.purpose.ci.description')).not.toBeInTheDocument())
     expect(container).toMatchSnapshot()
   })
 })
