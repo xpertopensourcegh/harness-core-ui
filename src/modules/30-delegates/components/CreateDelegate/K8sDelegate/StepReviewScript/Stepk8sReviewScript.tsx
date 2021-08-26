@@ -100,7 +100,7 @@ const Stepk8ReviewScript: React.FC<StepProps<StepK8Data>> = props => {
                 if (isYAMLDownloaded) {
                   props.nextStep?.(props?.prevStepData)
                 } else {
-                  showError('delegates.reviewScript.copyYamlError')
+                  showError(getString('delegates.reviewScript.copyYamlError'))
                 }
               }}
             />
