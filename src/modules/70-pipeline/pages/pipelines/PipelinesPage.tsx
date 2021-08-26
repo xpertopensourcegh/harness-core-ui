@@ -501,6 +501,19 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
     gitFilter
   ])
 
+  const shouldRenderFilterSelector = (): boolean => {
+    if (isGitSyncEnabled) {
+      if (pipelineList?.content?.length) {
+        return true
+      }
+      if (appliedFilter || searchParam) {
+        return true
+      }
+      return false
+    }
+    return true
+  }
+
   return (
     <>
       <Page.Header
@@ -554,16 +567,18 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
                 }}
                 className={css.expandSearch}
               />
-              <Layout.Horizontal padding={{ left: 'small', right: 'small' }}>
-                <FilterSelector<FilterDTO>
-                  appliedFilter={appliedFilter}
-                  filters={filters}
-                  onFilterBtnClick={openFilterDrawer}
-                  onFilterSelect={handleFilterSelection}
-                  fieldToLabelMapping={fieldToLabelMapping}
-                  filterWithValidFields={filterWithValidFieldsWithMetaInfo}
-                />
-              </Layout.Horizontal>
+              {shouldRenderFilterSelector() && (
+                <Layout.Horizontal padding={{ left: 'small', right: 'small' }}>
+                  <FilterSelector<FilterDTO>
+                    appliedFilter={appliedFilter}
+                    filters={filters}
+                    onFilterBtnClick={openFilterDrawer}
+                    onFilterSelect={handleFilterSelection}
+                    fieldToLabelMapping={fieldToLabelMapping}
+                    filterWithValidFields={filterWithValidFieldsWithMetaInfo}
+                  />
+                </Layout.Horizontal>
+              )}
             </>
             <GridListToggle initialSelectedView={Views.GRID} onViewToggle={setView} />
           </Layout.Horizontal>

@@ -337,4 +337,19 @@ describe('Pipeline Card View Test Cases', () => {
     })
     expect(mockDeleteFunction).toBeCalled()
   })
+
+  describe('When Git Sync is enabled', () => {
+    test('should render fine', async () => {
+      const { getByTestId, container } = render(
+        <TestWrapper path={TEST_PATH} pathParams={params} defaultAppStoreValues={{ isGitSyncEnabled: true }}>
+          <CDPipelinesPage />
+        </TestWrapper>
+      )
+      await waitFor(() => getByTestId(params.pipelineIdentifier))
+      const repoSelector = container.querySelector('input[name="repo"]')
+      expect(repoSelector).toBeInTheDocument()
+      const branchSelector = container.querySelector('input[name="branch"]')
+      expect(branchSelector).toBeInTheDocument()
+    })
+  })
 })
