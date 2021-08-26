@@ -7,7 +7,7 @@ import { TimestampChart } from '../TimestampChart/TimestampChart'
 import css from './Timeline.module.scss'
 
 export function Timeline(props: TimelineProps): JSX.Element {
-  const { timelineRows, timestamps, labelWidth } = props
+  const { timelineRows, timestamps, labelWidth, timeFormat } = props
   const { getString } = useStrings()
   return (
     <Container className={css.main}>
@@ -18,7 +18,7 @@ export function Timeline(props: TimelineProps): JSX.Element {
         <Text className={css.timelineLabel} width={labelWidth}>
           {getString('cv.timeline').toUpperCase()}
         </Text>
-        <TimestampChart timestamps={timestamps} />
+        <TimestampChart timestamps={timestamps} timeFormat={timeFormat} />
       </Container>
     </Container>
   )

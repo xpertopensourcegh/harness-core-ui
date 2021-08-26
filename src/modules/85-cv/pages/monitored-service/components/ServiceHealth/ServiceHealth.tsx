@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Color, Container, Layout, Select, SelectOption, Text } from '@wings-software/uicore'
 import Card from '@cv/components/Card/Card'
 import { useStrings } from 'framework/strings'
 // import { Ticker, TickerVerticalAlignment } from '@common/components/Ticker/Ticker'
 import ChangeTimeline from '@cv/components/ChangeTimeline/ChangeTimeline'
 import { getRiskColorValue } from '@common/components/HeatMap/ColorUtils'
-import { getTimePeriods, getTimestampsForPeriod } from './ServiceHealth.utils'
+import { getTimeFormat, getTimePeriods, getTimestampsForPeriod } from './ServiceHealth.utils'
 import {
   // tickerData,
   TimePeriodEnum
@@ -32,6 +32,10 @@ export default function ServiceHealth({
   useEffect(() => {
     const timestampsForPeriod = getTimestampsForPeriod(selectedTimePeriod.value as string)
     setTimestamps(timestampsForPeriod)
+  }, [selectedTimePeriod?.value])
+
+  const timeFormat = useMemo(() => {
+    return getTimeFormat(selectedTimePeriod?.value as string)
   }, [selectedTimePeriod?.value])
 
   return (
@@ -85,7 +89,7 @@ export default function ServiceHealth({
               duration={selectedTimePeriod.value as TimePeriodEnum}
               monitoredServiceIdentifier={monitoredServiceIdentifier as string}
             />
-            <ChangeTimeline timestamps={timestamps} />
+            <ChangeTimeline timestamps={timestamps} timeFormat={timeFormat} />
           </>
         </Card>
       </Container>

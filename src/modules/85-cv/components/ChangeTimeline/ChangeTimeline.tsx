@@ -3,7 +3,7 @@ import type { ChangeTimelineProps } from './ChangeTimeline.types'
 import { Timeline } from './components/Timeline/Timeline'
 
 export default function ChangeTimeline(props: ChangeTimelineProps): JSX.Element {
-  const { timestamps } = props
+  const { timestamps, timeFormat } = props
   return (
     <Timeline
       timelineRows={[
@@ -48,6 +48,7 @@ export default function ChangeTimeline(props: ChangeTimelineProps): JSX.Element 
         }
       ]}
       timestamps={timestamps}
+      timeFormat={timeFormat}
       labelWidth={90}
     />
   )

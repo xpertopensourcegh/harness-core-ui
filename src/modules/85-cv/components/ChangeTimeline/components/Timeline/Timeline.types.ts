@@ -5,4 +5,5 @@ export interface TimelineProps {
   timelineRows: Omit<TimelineRowProps, 'labelWidth'>[]
   labelWidth?: number
   timestamps?: TimestampChartProps['timestamps']
+  timeFormat?: string
 }

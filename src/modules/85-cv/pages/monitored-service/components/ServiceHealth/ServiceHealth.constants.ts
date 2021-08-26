@@ -35,3 +35,6 @@ export enum TimePeriodEnum {
 }
 
 export const NUMBER_OF_DATA_POINTS = 48
+
+export const HOURS = 'hours'
+export const DAYS = 'days'

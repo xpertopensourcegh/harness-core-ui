@@ -1,6 +1,8 @@
 import React from 'react'
 import { render, waitFor } from '@testing-library/react'
 import { TimestampChart } from '../TimestampChart'
+import { getTimeFormat } from '../TimestampChart.utils'
+import { daysTimeFormat, hoursTimeFormat } from '../TimestampChart.constants'
 
 describe('Unit tests for TimestampChart', () => {
   let mockDate: any
@@ -22,5 +24,11 @@ describe('Unit tests for TimestampChart', () => {
 
     await waitFor(() => expect(container.querySelector('[class*="highcharts"]')).not.toBeNull())
     expect(container.querySelector('[class*="highcharts-xaxis-labels"]')).not.toBeNull()
+  })
+
+  test('Verify if correct timeformat is returned from getTimeFormat method', async () => {
+    expect(getTimeFormat('hours')).toEqual(hoursTimeFormat)
+    expect(getTimeFormat('days')).toEqual(daysTimeFormat)
+    expect(getTimeFormat('default')).toEqual(hoursTimeFormat)
   })
 })

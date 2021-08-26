@@ -3,7 +3,7 @@ import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import type { StringKeys } from 'framework/strings'
 import ServiceHealth from '../ServiceHealth'
-import { getTimeInHrs, getTimePeriods, getTimestampsForPeriod } from '../ServiceHealth.utils'
+import { getTimeFormat, getTimeInHrs, getTimePeriods, getTimestampsForPeriod } from '../ServiceHealth.utils'
 import type { ServiceHealthProps } from '../ServiceHealth.types'
 import { NUMBER_OF_DATA_POINTS, TimePeriodEnum } from '../ServiceHealth.constants'
 import { timePeriodsMockData } from './ServiceHealth.mock'
@@ -45,5 +45,14 @@ describe('Unit tests for ServiceHealth', () => {
   test('Verify if correct number of data points are returned from getTimestampsForPeriod method', async () => {
     const timeLineDataPoints = getTimestampsForPeriod(TimePeriodEnum.FOUR_HOURS)
     expect(timeLineDataPoints).toHaveLength(NUMBER_OF_DATA_POINTS)
+  })
+
+  test('Verify if correct timeformat is returned from getTimeFormat method', async () => {
+    expect(getTimeFormat(TimePeriodEnum.FOUR_HOURS)).toEqual('hours')
+    expect(getTimeFormat(TimePeriodEnum.TWENTY_FOUR_HOURS)).toEqual('hours')
+    expect(getTimeFormat(TimePeriodEnum.THREE_DAYS)).toEqual('days')
+    expect(getTimeFormat(TimePeriodEnum.SEVEN_DAYS)).toEqual('days')
+    expect(getTimeFormat(TimePeriodEnum.THIRTY_DAYS)).toEqual('days')
+    expect(getTimeFormat('default')).toEqual('hours')
   })
 })

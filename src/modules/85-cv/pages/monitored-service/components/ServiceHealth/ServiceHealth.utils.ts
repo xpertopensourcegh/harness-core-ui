@@ -1,6 +1,6 @@
 import type { SelectOption } from '@wings-software/uicore'
 import type { UseStringsReturn } from 'framework/strings'
-import { NUMBER_OF_DATA_POINTS, TimePeriodEnum } from './ServiceHealth.constants'
+import { DAYS, HOURS, NUMBER_OF_DATA_POINTS, TimePeriodEnum } from './ServiceHealth.constants'
 
 export const getTimePeriods = (getString: UseStringsReturn['getString']): SelectOption[] => {
   return [
@@ -49,4 +49,28 @@ export const getTimeInHrs = (selectedTimePeriod: string): number => {
       timeInHrs = 24
   }
   return timeInHrs
+}
+
+export const getTimeFormat = (selectedTimePeriod: string): string => {
+  let timeFormat = HOURS
+  switch (selectedTimePeriod) {
+    case TimePeriodEnum.FOUR_HOURS:
+      timeFormat = HOURS
+      break
+    case TimePeriodEnum.TWENTY_FOUR_HOURS:
+      timeFormat = HOURS
+      break
+    case TimePeriodEnum.THREE_DAYS:
+      timeFormat = DAYS
+      break
+    case TimePeriodEnum.SEVEN_DAYS:
+      timeFormat = DAYS
+      break
+    case TimePeriodEnum.THIRTY_DAYS:
+      timeFormat = DAYS
+      break
+    default:
+      timeFormat = HOURS
+  }
+  return timeFormat
 }
