@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { Text, Layout, Color, Card, Icon, Container } from '@wings-software/uicore'
+import { Text, Layout, Color, Card, Icon, Container, Tag } from '@wings-software/uicore'
 import { PageError } from '@common/components/Page/PageError'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
@@ -30,17 +30,7 @@ const MyProjectsList: React.FC = () => {
         <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.GREY_900}>
           {getString('userProfile.myProjects')}
         </Text>
-        {projects?.data?.totalItems ? (
-          <Text
-            font={{ weight: 'bold' }}
-            color={Color.BLUE_500}
-            padding={{ top: 'xsmall', bottom: 'xsmall', left: 'small', right: 'small' }}
-            background={Color.BLUE_200}
-            border={{ radius: 8 }}
-          >
-            {projects.data.totalItems}
-          </Text>
-        ) : null}
+        {projects?.data?.totalItems ? <Tag className={css.tagClassName}>{projects.data.totalItems}</Tag> : null}
       </Layout.Horizontal>
       {loading ? (
         <Text color={Color.GREY_600}>{getString('common.loading')}</Text>
@@ -62,6 +52,7 @@ const MyProjectsList: React.FC = () => {
                     lineClamp={3}
                     color={Color.GREY_800}
                     font={{ size: 'small', align: 'center', weight: 'semi-bold' }}
+                    className={css.name}
                   >
                     {project.name}
                   </Text>
@@ -70,7 +61,7 @@ const MyProjectsList: React.FC = () => {
             )
           })}
           {Number(projects.data.totalItems) > Number(projects.data.content.length) && (
-            <Text margin={{ top: 'huge' }}>
+            <Text flex={{ alignItems: 'center' }}>
               {getString('more', {
                 number: Number(projects.data.totalItems) - Number(projects.data.content.length)
               })}

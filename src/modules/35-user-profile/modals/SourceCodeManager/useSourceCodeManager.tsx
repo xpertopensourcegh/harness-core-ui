@@ -1,6 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
-import { useModalHook, Button } from '@wings-software/uicore'
+import { useModalHook, Button, ButtonVariation } from '@wings-software/uicore'
 import { Dialog, Classes } from '@blueprintjs/core'
 import type { SourceCodeManagerDTO } from 'services/cd-ng'
 import SourceCodeManagerForm from './views/SourceCodeManagerForm'
@@ -38,7 +38,7 @@ export const useSourceCodeModal = ({ onSuccess, initialValues }: UseSourceCodeMo
         />
 
         <Button
-          minimal
+          variation={ButtonVariation.ICON}
           icon="cross"
           iconProps={{ size: 18 }}
           onClick={() => {

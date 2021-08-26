@@ -5,7 +5,6 @@
 }
 
 .dialog {
-  border-radius: 11px;
   position: relative;
   padding-bottom: var(--spacing-none);
   width: 750px;
@@ -18,12 +17,6 @@
 .description {
   overflow-wrap: anywhere;
   width: 350px !important;
-}
-
-.clone {
-  &:hover {
-    background: none !important;
-  }
 }
 
 .view {

@@ -8,9 +8,10 @@ import {
   FormikForm,
   FormInput,
   Container,
-  Heading,
+  Text,
   ModalErrorHandler,
-  ModalErrorHandlerBinding
+  ModalErrorHandlerBinding,
+  ButtonVariation
 } from '@wings-software/uicore'
 import { Divider } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
@@ -52,12 +53,11 @@ export enum ChangePasswordResponse {
 
 const InputIcon = ({ isVisible, onClick }: InputIcon): React.ReactElement => (
   <Button
-    minimal
+    variation={ButtonVariation.ICON}
     icon={isVisible ? 'eye-open' : 'eye-off'}
     iconProps={{ size: 20 }}
     onClick={onClick}
     margin={{ right: 'xsmall' }}
-    className={css.iconButton}
   />
 )
 
@@ -106,9 +106,9 @@ const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({ hideModal, pass
   return (
     <Layout.Vertical padding={{ left: 'huge', right: 'huge' }}>
       <ModalErrorHandler bind={setModalErrorHandler} />
-      <Heading level={1} color={Color.BLACK} font={{ weight: 'bold' }} margin={{ bottom: 'xxlarge' }}>
+      <Text color={Color.GREY_900} font={{ size: 'medium', weight: 'semi-bold' }} margin={{ bottom: 'xxlarge' }}>
         {getString('userProfile.changePassword')}
-      </Heading>
+      </Text>
       <Formik
         initialValues={{
           currentPassword: '',
@@ -217,11 +217,11 @@ const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({ hideModal, pass
               <Button
                 text={getString('userProfile.changePassword')}
                 type="submit"
-                intent="primary"
+                variation={ButtonVariation.PRIMARY}
                 margin={{ right: 'small' }}
                 disabled={changingUserPassword}
               />
-              <Button text={getString('cancel')} onClick={hideModal} />
+              <Button text={getString('cancel')} onClick={hideModal} variation={ButtonVariation.TERTIARY} />
             </Layout.Horizontal>
           </FormikForm>
         )}

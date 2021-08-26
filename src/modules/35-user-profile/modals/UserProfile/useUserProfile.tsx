@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react'
-import { useModalHook, Button } from '@wings-software/uicore'
+import { useModalHook, Button, ButtonVariation } from '@wings-software/uicore'
 import { Dialog, Classes } from '@blueprintjs/core'
 import cx from 'classnames'
 import type { UserInfo } from 'services/cd-ng'
@@ -40,7 +40,7 @@ export const useUserProfile = ({ onSuccess }: UseUserProfileProps): UseUserProfi
         )}
 
         <Button
-          minimal
+          variation={ButtonVariation.ICON}
           icon="cross"
           iconProps={{ size: 18 }}
           onClick={() => {

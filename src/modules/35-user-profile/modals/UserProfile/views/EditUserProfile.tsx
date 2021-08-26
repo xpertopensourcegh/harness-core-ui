@@ -9,7 +9,8 @@ import {
   FormInput,
   Container,
   ModalErrorHandlerBinding,
-  ModalErrorHandler
+  ModalErrorHandler,
+  ButtonVariation
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useStrings } from 'framework/strings'
@@ -48,9 +49,9 @@ const EditUserProfile: React.FC<UserProfileData> = props => {
   }
 
   return (
-    <Layout.Vertical padding="xxxlarge">
+    <Layout.Vertical padding={{ left: 'huge', right: 'huge', top: 'huge', bottom: 'xlarge' }}>
       <Layout.Vertical spacing="large">
-        <Text color={Color.BLACK} font="medium">
+        <Text color={Color.GREY_900} font={{ size: 'medium', weight: 'semi-bold' }}>
           {getString('userProfile.editProfile')}
         </Text>
         <Formik<UserInfo>
@@ -72,9 +73,14 @@ const EditUserProfile: React.FC<UserProfileData> = props => {
                   <ModalErrorHandler bind={setModalErrorHandler} />
                   <FormInput.Text name="name" label={getString('name')} />
                 </Container>
-                <Layout.Horizontal spacing="small" padding={{ top: 'huge' }}>
-                  <Button intent="primary" text={getString('save')} type="submit" disabled={loading} />
-                  <Button text={getString('cancel')} onClick={onClose} />
+                <Layout.Horizontal spacing="small" padding={{ top: 'large' }}>
+                  <Button
+                    variation={ButtonVariation.PRIMARY}
+                    text={getString('save')}
+                    type="submit"
+                    disabled={loading}
+                  />
+                  <Button text={getString('cancel')} onClick={onClose} variation={ButtonVariation.TERTIARY} />
                 </Layout.Horizontal>
               </Form>
             )

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Color, Container, Layout, Text, TextInput } from '@wings-software/uicore'
+import { Button, Color, Container, Layout, Text, TextInput, ButtonVariation } from '@wings-software/uicore'
 import QRCode from 'react-qr-code'
 import copy from 'copy-to-clipboard'
 import { TwoFactorAuthSettingsInfo, useEnableTwoFactorAuth, useGetTwoFactorAuthSettings } from 'services/cd-ng'
@@ -48,7 +48,7 @@ const EnableTwoFactorAuthView: React.FC<EnableTwoFactorAuthViewProps> = ({ isRes
   return (
     <>
       <Layout.Vertical padding="huge">
-        <Text color={Color.BLACK} font={{ size: 'large', weight: 'bold' }}>
+        <Text color={Color.GREY_900} font={{ size: 'medium', weight: 'semi-bold' }}>
           {isReset ? getString('userProfile.twoFactor.resetTitle') : getString('userProfile.twoFactor.enableTitle')}
         </Text>
         <Container className={css.view}>
@@ -70,7 +70,7 @@ const EnableTwoFactorAuthView: React.FC<EnableTwoFactorAuthViewProps> = ({ isRes
                       {getString('common.secretKey')}
                     </Text>
                     <TextInput
-                      disabled
+                      readOnly
                       value={authSettings.totpSecretKey}
                       rightElement={
                         (
@@ -78,7 +78,6 @@ const EnableTwoFactorAuthView: React.FC<EnableTwoFactorAuthViewProps> = ({ isRes
                             icon="duplicate"
                             inline
                             minimal
-                            className={css.clone}
                             onClick={() => {
                               copy(authSettings.totpSecretKey || '')
                                 ? showSuccess(getString('clipboardCopySuccess'))
@@ -94,11 +93,11 @@ const EnableTwoFactorAuthView: React.FC<EnableTwoFactorAuthViewProps> = ({ isRes
               <Layout.Horizontal flex>
                 <Layout.Horizontal spacing="small">
                   <Button
-                    intent="primary"
+                    variation={ButtonVariation.PRIMARY}
                     text={isReset ? getString('save') : getString('enable')}
                     onClick={() => handleEnableTwoFactorAuth(authSettings)}
                   />
-                  <Button text={getString('cancel')} onClick={onCancel} />
+                  <Button text={getString('cancel')} onClick={onCancel} variation={ButtonVariation.TERTIARY} />
                 </Layout.Horizontal>
                 <Button icon="reset" minimal onClick={() => refetchTwoFactorAuthSettings()} />
               </Layout.Horizontal>

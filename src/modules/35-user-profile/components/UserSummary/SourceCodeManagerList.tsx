@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { Text, Layout, Color, Button, Icon } from '@wings-software/uicore'
+import { Text, Layout, Color, Button, Icon, ButtonVariation } from '@wings-software/uicore'
 import type { CellProps, Column, Renderer } from 'react-table'
 import { useSourceCodeModal } from '@user-profile/modals/SourceCodeManager/useSourceCodeManager'
 import { useStrings } from 'framework/strings'
@@ -37,7 +37,14 @@ const RenderColumnEdit: Renderer<CellProps<SourceCodeManagerDTO>> = ({ row, colu
     openSourceCodeModal()
   }
 
-  return <Button icon="edit" data-testid={`${sourceCodeManagerData.name}-edit`} minimal onClick={handleEdit} />
+  return (
+    <Button
+      icon="Edit"
+      data-testid={`${sourceCodeManagerData.name}-edit`}
+      variation={ButtonVariation.ICON}
+      onClick={handleEdit}
+    />
+  )
 }
 
 const RenderColumnDelete: Renderer<CellProps<SourceCodeManagerDTO>> = ({ row, column }) => {
@@ -83,7 +90,9 @@ const RenderColumnDelete: Renderer<CellProps<SourceCodeManagerDTO>> = ({ row, co
     openDialog()
   }
 
-  return <Button icon="trash" data-testid={`${data.name}-delete`} minimal onClick={handleDelete} />
+  return (
+    <Button icon="trash" data-testid={`${data.name}-delete`} variation={ButtonVariation.ICON} onClick={handleDelete} />
+  )
 }
 
 const SourceCodeManagerList: React.FC = () => {
@@ -131,8 +140,7 @@ const SourceCodeManagerList: React.FC = () => {
           <Button
             text={getString('userProfile.plusSCM')}
             data-test="userProfileAddSCM"
-            minimal
-            intent="primary"
+            variation={ButtonVariation.LINK}
             onClick={openSourceCodeModal}
           />
         </Layout.Horizontal>

@@ -137,7 +137,7 @@ exports[`Switch Account render 1`] = `
             style="width: 30%;"
           >
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-link"
               type="button"
             >
               <span
@@ -192,7 +192,7 @@ exports[`Switch Account render 1`] = `
             style="width: 30%;"
           >
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-link"
               type="button"
             >
               <span
@@ -231,7 +231,7 @@ exports[`Switch Account render 1`] = `
             style="width: 20%;"
           >
             <button
-              class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color"
+              class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-tertiary"
               data-test-id="set-default-account-AutomationOne"
               type="button"
             >
@@ -253,7 +253,7 @@ exports[`Switch Account render 1`] = `
             style="width: 30%;"
           >
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-link"
               type="button"
             >
               <span
@@ -292,7 +292,7 @@ exports[`Switch Account render 1`] = `
             style="width: 20%;"
           >
             <button
-              class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color"
+              class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-tertiary"
               data-test-id="set-default-account-harness-dev"
               type="button"
             >
@@ -314,7 +314,7 @@ exports[`Switch Account render 1`] = `
             style="width: 30%;"
           >
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-link"
               type="button"
             >
               <span
@@ -353,7 +353,7 @@ exports[`Switch Account render 1`] = `
             style="width: 20%;"
           >
             <button
-              class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color"
+              class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-tertiary"
               data-test-id="set-default-account-abc1"
               type="button"
             >
@@ -375,7 +375,7 @@ exports[`Switch Account render 1`] = `
             style="width: 30%;"
           >
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-link"
               type="button"
             >
               <span
@@ -414,7 +414,7 @@ exports[`Switch Account render 1`] = `
             style="width: 20%;"
           >
             <button
-              class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color"
+              class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-tertiary"
               data-test-id="set-default-account-raj-ng-defaul-experience-1"
               type="button"
             >

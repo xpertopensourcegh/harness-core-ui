@@ -119,7 +119,7 @@ const RenderColumnMenu: React.FC<{
         position={Position.BOTTOM_RIGHT}
       >
         <Button
-          minimal
+          variation={ButtonVariation.ICON}
           icon="Options"
           data-testid={`apiKey-menu-${data.identifier}`}
           onClick={e => {
@@ -179,11 +179,11 @@ const ApiKeyCard: React.FC<ApiKeyCardProps> = ({
         <RenderColumnDetails {...apiKey} />
         <Text>
           {`${getString('created')} `}
-          <ReactTimeago date={createdAt} />
+          <ReactTimeago date={createdAt} minPeriod={60} />
         </Text>
         <Text>
           {`${getString('common.lastModifiedTime')} `}
-          <ReactTimeago date={lastModifiedAt} />
+          <ReactTimeago date={lastModifiedAt} minPeriod={60} />
         </Text>
         <RenderColumnMenu data={apiKey} reload={refetchApiKeys} />
       </div>
@@ -214,7 +214,6 @@ const ApiKeyCard: React.FC<ApiKeyCardProps> = ({
               data-testid={`new_token-${apiKey.identifier}`}
               margin={{ top: 'medium' }}
               variation={ButtonVariation.LINK}
-              className={css.noPadding}
               onClick={() => openTokenModal(apiKey.identifier)}
               permission={{
                 permission: PermissionIdentifier.MANAGE_SERVICEACCOUNT,
@@ -233,7 +232,6 @@ const ApiKeyCard: React.FC<ApiKeyCardProps> = ({
             text={getString('plusNumber', { number: getString('token') })}
             variation={ButtonVariation.LINK}
             data-testid={`new_token-${apiKey.identifier}`}
-            className={css.noPadding}
             onClick={() => openTokenModal(apiKey.identifier)}
             permission={{
               permission: PermissionIdentifier.MANAGE_SERVICEACCOUNT,

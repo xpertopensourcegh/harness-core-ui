@@ -5,7 +5,6 @@ declare const styles: {
   readonly dialog: string
   readonly qrCode: string
   readonly description: string
-  readonly clone: string
   readonly view: string
 }
 export default styles

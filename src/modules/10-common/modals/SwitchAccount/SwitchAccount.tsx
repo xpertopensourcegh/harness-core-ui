@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect } from 'react'
-import { Container, Text, Button } from '@wings-software/uicore'
+import { Container, Text, Button, ButtonVariation } from '@wings-software/uicore'
 import type { Column, Renderer, CellProps } from 'react-table'
 import { useHistory, useParams } from 'react-router-dom'
 import { get } from 'lodash-es'
@@ -71,6 +71,7 @@ const SwitchAccount: React.FC<SwitchAccountProps> = ({ searchString = '', mock }
         loading={switchAccountLoading}
         disabled={account.uuid === accountId}
         minimal={account.uuid === accountId}
+        variation={ButtonVariation.LINK}
       />
     )
   }
@@ -107,6 +108,7 @@ const SwitchAccount: React.FC<SwitchAccountProps> = ({ searchString = '', mock }
     ) : (
       <Button
         small
+        variation={ButtonVariation.TERTIARY}
         text={getString('common.setAsDefault')}
         onClick={openDialog}
         data-test-id={`set-default-account-${account.accountName}`}

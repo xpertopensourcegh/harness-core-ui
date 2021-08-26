@@ -70,36 +70,7 @@ exports[`User Profile Page User Profile 1`] = `
       class="Layout--vertical StyledProps--main details"
     >
       <div
-        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-end"
-      >
-        <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
-          data-testid="editUserProfile"
-          type="button"
-        >
-          <span
-            class="bp3-icon bp3-icon-edit StyledProps--main"
-            icon="edit"
-          >
-            <svg
-              data-icon="edit"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-            >
-              <desc>
-                edit
-              </desc>
-              <path
-                d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
-        </button>
-      </div>
-      <div
-        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+        class="Layout--vertical StyledProps--main StyledProps--margin-top-large"
       >
         <div
           class="avatar Avatar--Avatar Avatar--contentStyle"
@@ -120,12 +91,50 @@ exports[`User Profile Page User Profile 1`] = `
             </span>
           </span>
         </div>
-        <p
-          class="StyledProps--font Text--lineclamp StyledProps--main overflow StyledProps--color StyledProps--color-black StyledProps--font-size-large StyledProps--font-weight-semi-bold"
-          style="--text-line-clamp: 1;"
+        <div
+          class="Layout--horizontal StyledProps--main StyledProps--padding-top-medium StyledProps--flex StyledProps--flex-alignItems-baseline StyledProps--flex-justifyContent-flex-start"
         >
-          dummyname
-        </p>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main overflow StyledProps--color StyledProps--color-black StyledProps--font-size-large StyledProps--font-weight-semi-bold"
+            style="--text-line-clamp: 1;"
+          >
+            dummyname
+          </p>
+          <button
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
+            data-testid="editUserProfile"
+            type="button"
+          >
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="Edit"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 12 12"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g
+                  fill="none"
+                  fill-rule="evenodd"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                    stroke="#555770"
+                  />
+                  <path
+                    d="M6.583 5.146l2.063-2.063"
+                    opacity="0.3"
+                    stroke="#606170"
+                  />
+                </g>
+              </svg>
+            </span>
+          </button>
+        </div>
       </div>
       <div
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-huge StyledProps--padding-bottom-huge"
@@ -162,7 +171,7 @@ exports[`User Profile Page User Profile 1`] = `
           style="display: flex; align-items: center;"
         >
           <span
-            class="bp3-icon bp3-icon-lock StyledProps--main StyledProps--padding-right-medium"
+            class="bp3-icon bp3-icon-lock StyledProps--main StyledProps--padding-right-xsmall"
             icon="lock"
           >
             <svg
@@ -181,7 +190,7 @@ exports[`User Profile Page User Profile 1`] = `
             </svg>
           </span>
           <button
-            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main button StyledProps--font StyledProps--font-weight-semi-bold Button--with-current-color Button--iconOnly Button--without-shadow"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--font StyledProps--font-weight-semi-bold Button--with-current-color Button--iconOnly Button--variation Button--variation-link"
             type="button"
           >
             <span
@@ -196,7 +205,7 @@ exports[`User Profile Page User Profile 1`] = `
           style="display: flex; align-items: center;"
         >
           <span
-            class="bp3-icon bp3-icon-people StyledProps--main StyledProps--padding-right-medium"
+            class="bp3-icon bp3-icon-people StyledProps--main StyledProps--padding-right-xsmall"
             icon="people"
           >
             <svg
@@ -215,7 +224,7 @@ exports[`User Profile Page User Profile 1`] = `
             </svg>
           </span>
           <button
-            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main button StyledProps--font StyledProps--font-weight-semi-bold Button--with-current-color Button--iconOnly Button--without-shadow"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--font StyledProps--font-weight-semi-bold Button--with-current-color Button--iconOnly Button--variation Button--variation-link"
             type="button"
           >
             <span
@@ -311,11 +320,19 @@ exports[`User Profile Page User Profile 1`] = `
                   >
                     userProfile.myProjects
                   </p>
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-blue500 StyledProps--padding-top-xsmall StyledProps--padding-bottom-xsmall StyledProps--padding-left-small StyledProps--padding-right-small StyledProps--background-blue200 StyledProps--border"
+                  <span
+                    class="Tag--main"
                   >
-                    1
-                  </p>
+                    <span
+                      class="bp3-tag tagClassName"
+                    >
+                      <span
+                        class="bp3-text-overflow-ellipsis bp3-fill"
+                      >
+                        1
+                      </span>
+                    </span>
+                  </span>
                 </div>
                 <div
                   class="StyledProps--font StyledProps--main cardContainer"
@@ -344,7 +361,7 @@ exports[`User Profile Page User Profile 1`] = `
                         </svg>
                       </span>
                       <p
-                        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-size-small StyledProps--font-align-center StyledProps--font-weight-semi-bold"
+                        class="StyledProps--font Text--lineclamp StyledProps--main name StyledProps--color StyledProps--color-grey800 StyledProps--font-size-small StyledProps--font-align-center StyledProps--font-weight-semi-bold"
                         style="--text-line-clamp: 3; width: 100px;"
                       >
                         P3
@@ -375,7 +392,7 @@ exports[`User Profile Page User Profile 1`] = `
                         </svg>
                       </span>
                       <p
-                        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-size-small StyledProps--font-align-center StyledProps--font-weight-semi-bold"
+                        class="StyledProps--font Text--lineclamp StyledProps--main name StyledProps--color StyledProps--color-grey800 StyledProps--font-size-small StyledProps--font-align-center StyledProps--font-weight-semi-bold"
                         style="--text-line-clamp: 3; width: 100px;"
                       >
                         P1
@@ -396,7 +413,7 @@ exports[`User Profile Page User Profile 1`] = `
                   class="Layout--horizontal StyledProps--main StyledProps--padding-top-large"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-link"
                     data-test="userProfileAddSCM"
                     type="button"
                   >

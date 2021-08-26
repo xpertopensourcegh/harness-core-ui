@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react'
-import { useModalHook, Button } from '@wings-software/uicore'
+import { useModalHook, Button, ButtonVariation } from '@wings-software/uicore'
 import { Dialog, Classes } from '@blueprintjs/core'
 import cx from 'classnames'
 import EnableTwoFactorAuthView from '@user-profile/modals/EnableTwoFactorAuth/views/EnableTwoFactorView'
@@ -17,7 +17,13 @@ export const useEnableTwoFactorAuthModal = (): UseEnableTwoFactorAuthModalReturn
     () => (
       <Dialog enforceFocus={false} isOpen={true} onClose={hideModal} className={cx(css.dialog, Classes.DIALOG)}>
         <EnableTwoFactorAuthView onEnable={hideModal} onCancel={hideModal} isReset={isReset} />
-        <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideModal} className={css.crossIcon} />
+        <Button
+          variation={ButtonVariation.ICON}
+          icon="cross"
+          iconProps={{ size: 18 }}
+          onClick={hideModal}
+          className={css.crossIcon}
+        />
       </Dialog>
     ),
     [isReset]

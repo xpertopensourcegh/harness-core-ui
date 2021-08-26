@@ -1,6 +1,6 @@
 import React, { useMemo, useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { Color, Intent, Layout, Text, Button, Table } from '@wings-software/uicore'
+import { Color, Intent, Layout, Text, Button, Table, ButtonVariation } from '@wings-software/uicore'
 import { Classes, Menu, Popover, Position } from '@blueprintjs/core'
 import type { CellProps, Column, Renderer } from 'react-table'
 import ReactTimeago from 'react-timeago'
@@ -46,12 +46,12 @@ const RenderColumnDetails: Renderer<CellProps<TokenAggregateDTO>> = ({ row }) =>
 
 const RenderColumnUpdatedAt: Renderer<CellProps<TokenAggregateDTO>> = ({ row }) => {
   const data = row.original
-  return <ReactTimeago date={data.createdAt} />
+  return <ReactTimeago date={data.createdAt} minPeriod={60} />
 }
 
 const RenderColumnLastUpdated: Renderer<CellProps<TokenAggregateDTO>> = ({ row }) => {
   const data = row.original
-  return <ReactTimeago date={data.lastModifiedAt} />
+  return <ReactTimeago date={data.lastModifiedAt} minPeriod={60} />
 }
 
 const RenderColumnExpiryDate: Renderer<CellProps<TokenAggregateDTO>> = ({ row }) => {
@@ -166,7 +166,7 @@ const RenderColumnMenu: Renderer<CellProps<TokenAggregateDTO>> = ({ row, column 
         position={Position.BOTTOM_RIGHT}
       >
         <Button
-          minimal
+          variation={ButtonVariation.ICON}
           icon="Options"
           data-testid={`menu-${data.identifier}`}
           onClick={e => {
@@ -235,7 +235,7 @@ const TokenList: React.FC<TokenListProps> = ({
         Header: getString('token'),
         accessor: row => row.token.name,
         id: 'name',
-        width: '30%',
+        width: '20%',
         Cell: RenderColumnDetails
       },
       {
@@ -249,7 +249,7 @@ const TokenList: React.FC<TokenListProps> = ({
         Header: getString('common.expiryDate'),
         accessor: row => row.expiryAt,
         id: 'expiryDate',
-        width: '20%',
+        width: '30%',
         Cell: RenderColumnExpiryDate
       },
       {

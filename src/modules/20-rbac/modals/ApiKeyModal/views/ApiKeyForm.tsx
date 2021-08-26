@@ -64,7 +64,7 @@ const ApiKeyForm: React.FC<ApiKeyModalData> = ({ data, isEdit, onSubmit, apiKeyT
   return (
     <Layout.Vertical padding={{ bottom: 'xxxlarge', right: 'xxxlarge', left: 'xxxlarge' }}>
       <Layout.Vertical spacing="large">
-        <Text color={Color.BLACK} font="medium">
+        <Text color={Color.GREY_900} font={{ size: 'medium', weight: 'semi-bold' }}>
           {isEdit ? getString('rbac.apiKey.editLabel') : getString('rbac.apiKey.createLabel')}
         </Text>
         <Formik<ApiKeyDTO>

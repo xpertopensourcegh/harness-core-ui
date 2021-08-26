@@ -160,7 +160,7 @@ const TokenForm: React.FC<TokenModalData> = props => {
                 </Container>
                 <Layout.Horizontal>
                   {token ? (
-                    <Button text={getString('close')} onClick={onClose} />
+                    <Button text={getString('close')} onClick={onClose} variation={ButtonVariation.TERTIARY} />
                   ) : (
                     <Button
                       variation={ButtonVariation.PRIMARY}

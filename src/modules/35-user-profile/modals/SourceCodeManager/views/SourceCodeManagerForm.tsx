@@ -15,7 +15,8 @@ import {
   Container,
   SelectOption,
   ModalErrorHandler,
-  ModalErrorHandlerBinding
+  ModalErrorHandlerBinding,
+  ButtonVariation
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useStrings } from 'framework/strings'
@@ -281,7 +282,7 @@ const SourceCodeManagerForm: React.FC<SourceCodeManagerProps> = props => {
   ) : (
     <Layout.Vertical padding="xxxlarge">
       <Layout.Vertical spacing="large">
-        <Text color={Color.BLACK} font="medium">
+        <Text color={Color.GREY_900} font={{ size: 'medium', weight: 'semi-bold' }}>
           {getString('userProfile.addSCM')}
         </Text>
         <Formik<SCMData>
@@ -373,8 +374,7 @@ const SourceCodeManagerForm: React.FC<SourceCodeManagerProps> = props => {
                     {selected && MULTIPLE_SCM_TYPES_SUPPORTED ? (
                       <Button
                         text={getString('change')}
-                        minimal
-                        intent="primary"
+                        variation={ButtonVariation.LINK}
                         onClick={() => {
                           setSelected(undefined)
                           formikProps.setFieldValue('authType', null)
@@ -387,8 +387,12 @@ const SourceCodeManagerForm: React.FC<SourceCodeManagerProps> = props => {
                   <Authentication formikProps={formikProps} authOptions={getAuthOptions(selected.value)} />
                 ) : null}
                 <Layout.Horizontal spacing="small" padding={{ top: 'huge' }}>
-                  <Button intent="primary" text={isEditMode ? getString('update') : getString('add')} type="submit" />
-                  <Button text={getString('cancel')} onClick={onClose} />
+                  <Button
+                    variation={ButtonVariation.PRIMARY}
+                    text={isEditMode ? getString('update') : getString('add')}
+                    type="submit"
+                  />
+                  <Button text={getString('cancel')} onClick={onClose} variation={ButtonVariation.TERTIARY} />
                 </Layout.Horizontal>
               </Form>
             )
