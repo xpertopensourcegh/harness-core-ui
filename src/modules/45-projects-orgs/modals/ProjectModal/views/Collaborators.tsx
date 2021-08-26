@@ -16,7 +16,8 @@ import {
   ModalErrorHandlerBinding,
   ModalErrorHandler,
   Avatar,
-  ButtonVariation
+  ButtonVariation,
+  Label
 } from '@wings-software/uicore'
 import { Select } from '@blueprintjs/select'
 import cx from 'classnames'
@@ -211,43 +212,40 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
               <Text font="medium" color={Color.BLACK} padding={{ bottom: 'xxlarge' }}>
                 {getString('projectsOrgs.invite')}
               </Text>
-              <Text padding={{ bottom: 'small' }}>
+              <Label>
                 {projectIdentifier
                   ? getString('projectsOrgs.urlMessageProject')
                   : getString('projectsOrgs.urlMessageOrg')}
-              </Text>
-              <Layout.Horizontal>
-                <TextInput
-                  placeholder={getUrl()}
-                  disabled
-                  rightElement={
-                    (
-                      <Button
-                        icon="duplicate"
-                        onClick={() => {
-                          copy(getUrl() || '')
-                            ? showSuccess(getString('clipboardCopySuccess'))
-                            : showError(getString('clipboardCopyFail'))
-                        }}
-                        inline
-                        minimal
-                        className={css.clone}
-                      />
-                    ) as any
-                  }
-                  className={css.url}
-                />
-              </Layout.Horizontal>
+              </Label>
+              <TextInput
+                placeholder={getUrl()}
+                disabled
+                rightElement={
+                  (
+                    <Button
+                      icon="duplicate"
+                      onClick={() => {
+                        copy(getUrl() || '')
+                          ? showSuccess(getString('clipboardCopySuccess'))
+                          : showError(getString('clipboardCopyFail'))
+                      }}
+                      inline
+                      minimal
+                      className={css.clone}
+                    />
+                  ) as any
+                }
+              />
               <Layout.Horizontal padding={{ top: 'medium' }} spacing="xlarge" className={cx(css.align, css.input)}>
                 <Layout.Horizontal width="50%">
-                  <Text>{getString('projectsOrgs.inviteCollab')}</Text>
+                  <Label>{getString('projectsOrgs.inviteCollab')}</Label>
                 </Layout.Horizontal>
                 <Layout.Horizontal
                   width="50%"
                   spacing="xsmall"
                   flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
                 >
-                  <Text>{getString('projectsOrgs.roleLabel')}</Text>
+                  <Label>{getString('projectsOrgs.roleLabel')}</Label>
                   <CustomSelect
                     items={roles}
                     filterable={false}

@@ -21,7 +21,6 @@ declare const styles: {
   readonly pending: string
   readonly request: string
   readonly input: string
-  readonly url: string
   readonly pendingUser: string
   readonly name: string
   readonly email: string

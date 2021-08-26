@@ -39,7 +39,7 @@
 }
 
 .preview {
-  background: var(--grey-100) !important;
+  background: var(--white) !important;
 }
 
 .desc {
@@ -106,10 +106,6 @@
   :global(.bp3-input) {
     height: auto !important;
   }
-}
-
-.url {
-  width: 450px;
 }
 
 .pendingUser {

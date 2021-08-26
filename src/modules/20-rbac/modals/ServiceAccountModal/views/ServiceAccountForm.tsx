@@ -11,7 +11,8 @@ import {
   ModalErrorHandlerBinding,
   Text,
   TextInput,
-  ButtonVariation
+  ButtonVariation,
+  Label
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
@@ -53,7 +54,7 @@ const ServiceAccountForm: React.FC<ServiceAccountModalData> = props => {
   })
 
   const handleSubmit = async (values: ServiceAccountDTO): Promise<void> => {
-    const dataToSubmit = { ...values, email: values['identifier'].concat('@service.harness.io') }
+    const dataToSubmit = { ...values, email: values['identifier'].concat('@service.harness.io').toLowerCase() }
     try {
       if (isEdit) {
         const updated = await editServiceAccount(dataToSubmit)
@@ -111,8 +112,8 @@ const ServiceAccountForm: React.FC<ServiceAccountModalData> = props => {
                   <FormInput.InputWithIdentifier isIdentifierEditable={!isEdit} />
                   <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }} spacing="small">
                     <Layout.Vertical>
-                      <Text>{getString('email')}</Text>
-                      <TextInput disabled value={formikProps.values.identifier} />
+                      <Label>{getString('email')}</Label>
+                      <TextInput disabled value={formikProps.values.identifier.toLowerCase()} />
                     </Layout.Vertical>
                     <Text margin={{ top: 'xsmall' }}>{getString('rbac.serviceAccounts.email')}</Text>
                   </Layout.Horizontal>

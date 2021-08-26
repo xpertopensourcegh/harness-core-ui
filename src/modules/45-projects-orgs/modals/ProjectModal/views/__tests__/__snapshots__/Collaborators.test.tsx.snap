@@ -17,56 +17,52 @@ exports[`Collaborators test Render Collaborators  1`] = `
           >
             projectsOrgs.invite
           </p>
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--padding-bottom-small"
+          <label
+            class="Label--main"
           >
             projectsOrgs.urlMessageProject
-          </p>
+          </label>
           <div
-            class="Layout--horizontal StyledProps--main"
+            class="TextInput--main"
           >
             <div
-              class="TextInput--main"
+              class="bp3-input-group bp3-disabled"
             >
-              <div
-                class="bp3-input-group bp3-disabled url"
+              <input
+                class="bp3-input"
+                disabled=""
+                placeholder="http://localhost/#/account/testAcc/home/orgs/testOrg/projects/test/details"
+                style="padding-right: 0px;"
+                type="text"
+              />
+              <span
+                class="bp3-input-action"
               >
-                <input
-                  class="bp3-input"
-                  disabled=""
-                  placeholder="http://localhost/#/account/testAcc/home/orgs/testOrg/projects/test/details"
-                  style="padding-right: 0px;"
-                  type="text"
-                />
-                <span
-                  class="bp3-input-action"
+                <button
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main clone StyledProps--inline Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                  type="button"
                 >
-                  <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main clone StyledProps--inline Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
-                    type="button"
+                  <span
+                    class="bp3-icon bp3-icon-duplicate StyledProps--main"
+                    icon="duplicate"
                   >
-                    <span
-                      class="bp3-icon bp3-icon-duplicate StyledProps--main"
-                      icon="duplicate"
+                    <svg
+                      data-icon="duplicate"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
                     >
-                      <svg
-                        data-icon="duplicate"
-                        height="16"
-                        viewBox="0 0 16 16"
-                        width="16"
-                      >
-                        <desc>
-                          duplicate
-                        </desc>
-                        <path
-                          d="M15 0H5c-.55 0-1 .45-1 1v2h2V2h8v7h-1v2h2c.55 0 1-.45 1-1V1c0-.55-.45-1-1-1zm-4 4H1c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h10c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1zm-1 10H2V6h8v8z"
-                          fill-rule="evenodd"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </span>
-              </div>
+                      <desc>
+                        duplicate
+                      </desc>
+                      <path
+                        d="M15 0H5c-.55 0-1 .45-1 1v2h2V2h8v7h-1v2h2c.55 0 1-.45 1-1V1c0-.55-.45-1-1-1zm-4 4H1c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h10c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1zm-1 10H2V6h8v8z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
             </div>
           </div>
           <div
@@ -76,21 +72,21 @@ exports[`Collaborators test Render Collaborators  1`] = `
               class="Layout--horizontal StyledProps--main"
               style="width: 50%;"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
+              <label
+                class="Label--main"
               >
                 projectsOrgs.inviteCollab
-              </p>
+              </label>
             </div>
             <div
               class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
               style="width: 50%;"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
+              <label
+                class="Label--main"
               >
                 projectsOrgs.roleLabel
-              </p>
+              </label>
               <span
                 class="bp3-popover-wrapper"
               >
