@@ -157,21 +157,11 @@
           margin-bottom: 23px;
         }
         .toggleVerify {
-          :global(.bp3-control-indicator) {
-            width: 45px !important;
-            height: 25px !important;
-            background: linear-gradient(193.36deg, #b2eec0 5.77%, rgba(98, 249, 31, 0.69) 295.1%) !important;
-            border: 2px solid #000000;
-            box-sizing: border-box;
-            border-radius: 20px;
-
-            &::before {
-              width: 29px !important;
-              height: 29px !important;
-              margin-top: -3.7px !important;
-              margin-left: -7px !important;
-              border: 2px solid #000000;
-            }
+          :global(input ~ .bp3-control-indicator) {
+            background-color: var(--grey-200) !important;
+          }
+          :global(input:checked ~ .bp3-control-indicator) {
+            background-color: var(--primary-7) !important;
           }
         }
       }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import YAML from 'yaml'
-import { Text, Icon, Layout, Button, Card, IconName, Switch, Color, ButtonVariation } from '@wings-software/uicore'
+import { Classes, Switch } from '@blueprintjs/core'
+import { Text, Icon, Layout, Button, Card, IconName, Color, ButtonVariation } from '@wings-software/uicore'
 import { get, isEmpty, startCase } from 'lodash-es'
 import cx from 'classnames'
 import produce from 'immer'
@@ -285,9 +286,7 @@ const ExecutionStrategyRef = (
                 <Switch
                   checked={isVerifyEnabled}
                   onChange={() => setIsVerifyEnabled(prevIsVerifyEnabled => !prevIsVerifyEnabled)}
-                  className={css.toggleVerify}
-                  margin={{ bottom: 'small' }}
-                  size={25}
+                  className={cx(Classes.LARGE, css.toggleVerify)}
                   data-testid="enable-verification-options-switch"
                 />
               </section>
