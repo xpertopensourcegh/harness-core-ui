@@ -1,4 +1,5 @@
 import React from 'react'
+import cx from 'classnames'
 import {
   ExpressionAndRuntimeTypeProps,
   getMultiTypeFromValue,
@@ -57,6 +58,7 @@ export interface MultiTypeConnectorFieldProps extends Omit<ConnectorReferenceFie
   style?: React.CSSProperties
   tooltipProps?: DataTooltipInterface
   multitypeInputValue?: MultiTypeInputType
+  connectorLabelClass?: string
 }
 export interface ConnectorReferenceDTO extends ConnectorInfoDTO {
   status: ConnectorResponse['status']
@@ -84,6 +86,7 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
     gitScope,
     multiTypeProps = {},
     multitypeInputValue,
+    connectorLabelClass: connectorLabelClassFromProps = '',
     ...restProps
   } = props
   const hasError = errorCheck(name, formik)
@@ -334,7 +337,7 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
   )
 
   return (
-    <div style={style} className={css.connectorLabel}>
+    <div style={style} className={cx(css.connectorLabel, connectorLabelClassFromProps)}>
       <Container style={{ marginBottom: 5 }}>
         <HarnessDocTooltip tooltipId={dataTooltipId} labelText={label} className={Classes.LABEL} />
       </Container>

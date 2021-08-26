@@ -931,7 +931,7 @@ exports[`Jira Approval tests Edit stage - readonly: edit stage view readonly 1`]
           class="formGroup lg"
         >
           <div
-            class="connectorLabel"
+            class="connectorLabel connectorLabel"
           >
             <div
               class="StyledProps--font StyledProps--main"

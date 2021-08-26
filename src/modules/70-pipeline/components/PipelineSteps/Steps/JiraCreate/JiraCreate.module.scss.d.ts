@@ -4,6 +4,7 @@ declare const styles: {
   readonly md: string
   readonly connector: string
   readonly deploymentViewMedium: string
+  readonly connectorLabel: string
   readonly descriptionField: string
   readonly fieldsPopover: string
   readonly addFieldsModal: string

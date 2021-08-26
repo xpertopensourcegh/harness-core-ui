@@ -280,6 +280,7 @@ const FormContent = ({
           name="spec.connectorRef"
           label={getString('pipeline.jiraApprovalStep.connectorRef')}
           className={css.connector}
+          connectorLabelClass={css.connectorLabel}
           width={390}
           placeholder={getString('connectors.selectConnector')}
           accountIdentifier={accountId}
