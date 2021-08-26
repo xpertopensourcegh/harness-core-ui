@@ -2,15 +2,9 @@ import { Button, Color, Icon, IconName, Layout, Popover, Text } from '@wings-sof
 import React from 'react'
 import type { CellProps, Column, Renderer } from 'react-table'
 import { useParams } from 'react-router-dom'
-import { pick } from 'lodash-es'
 import { Classes, Menu, Position } from '@blueprintjs/core'
 import Table from '@common/components/Table/Table'
-import {
-  PageInputSetSummaryResponse,
-  useDeleteInputSetForPipeline,
-  InputSetSummaryResponse
-} from 'services/pipeline-ng'
-import { useConfirmationDialog, useToaster } from '@common/exports'
+import type { PageInputSetSummaryResponse, InputSetSummaryResponse } from 'services/pipeline-ng'
 import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'
 import { TagsPopover } from '@common/components'
 import { useQueryParams } from '@common/hooks'
@@ -21,7 +15,7 @@ import RbacButton from '@rbac/components/Button/Button'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
-import { DeleteConfirmDialogContent } from '../utils/DeleteConfirmDialogContent'
+import useDeleteConfirmationDialog from '../utils/DeleteConfirmDialog'
 import css from './InputSetList.module.scss'
 
 interface InputSetListViewProps {
@@ -34,7 +28,7 @@ interface InputSetListViewProps {
   pipelineHasRuntimeInputs?: boolean
 }
 
-interface InputSetLocal extends InputSetSummaryResponse {
+export interface InputSetLocal extends InputSetSummaryResponse {
   action?: string
   lastUpdatedBy?: string
   createdBy?: string
@@ -128,106 +122,20 @@ const RenderColumnActions: Renderer<CellProps<InputSetLocal>> = ({ row, column }
 const RenderColumnMenu: Renderer<CellProps<InputSetLocal>> = ({ row, column }) => {
   const data = row.original
   const [menuOpen, setMenuOpen] = React.useState(false)
-  const [commitMsg, setCommitMsg] = React.useState<string>(`Delete ${data.name}`)
   const { getString } = useStrings()
-  const { showSuccess, showError } = useToaster()
-  const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier } = useParams<{
+  const { pipelineIdentifier } = useParams<{
     projectIdentifier: string
     orgIdentifier: string
     accountId: string
     pipelineIdentifier: string
   }>()
 
-  const gitParams = data.gitDetails?.objectId
-    ? {
-        ...pick(data.gitDetails, ['branch', 'repoIdentifier', 'filePath', 'rootFolder']),
-        commitMsg,
-        lastObjectId: data.gitDetails?.objectId
-      }
-    : {}
-
-  const { mutate: deleteInputSet } = useDeleteInputSetForPipeline({
-    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier, pipelineIdentifier, ...gitParams }
-  })
-
-  const { openDialog: confirmDelete } = useConfirmationDialog({
-    contentText: getString('inputSets.confirmDeleteText', {
-      name: data.name,
-      type:
-        data.inputSetType === 'OVERLAY_INPUT_SET'
-          ? getString('inputSets.overlayInputSet')
-          : getString('inputSets.inputSetLabel')
-    }),
-
-    titleText: getString('inputSets.confirmDeleteTitle', {
-      type:
-        data.inputSetType === 'OVERLAY_INPUT_SET'
-          ? getString('inputSets.overlayInputSet')
-          : getString('inputSets.inputSetLabel')
-    }),
-    confirmButtonText: getString('delete'),
-    cancelButtonText: getString('cancel'),
-    onCloseDialog: async (isConfirmed: boolean) => {
-      /* istanbul ignore else */
-      if (isConfirmed) {
-        try {
-          const deleted = await deleteInputSet(data.identifier || /* istanbul ignore next */ '', {
-            headers: { 'content-type': 'application/json' }
-          })
-          /* istanbul ignore else */
-          if (deleted.status === 'SUCCESS') {
-            showSuccess(getString('inputSets.inputSetDeleted', { name: data.name }))
-          }
-          ;(column as any).refetchInputSet?.()
-        } catch (err) {
-          /* istanbul ignore next */
-          showError(err?.data?.message, undefined, 'pipeline.delete.inputset.error')
-        }
-      }
-    }
-  })
-
-  const { openDialog: confirmGitSyncDelete } = useConfirmationDialog({
-    contentText: (
-      <DeleteConfirmDialogContent
-        entityName={data?.name || ''}
-        entityType={
-          data.inputSetType === 'OVERLAY_INPUT_SET'
-            ? getString('inputSets.overlayInputSet')
-            : getString('inputSets.inputSetLabel')
-        }
-        gitDetails={data.gitDetails}
-        commitMsg={commitMsg}
-        onCommitMsgChange={setCommitMsg}
-      />
-    ),
-    titleText: getString('inputSets.confirmDeleteTitle', {
-      type:
-        data.inputSetType === 'OVERLAY_INPUT_SET'
-          ? getString('inputSets.overlayInputSet')
-          : getString('inputSets.inputSetLabel')
-    }),
-    confirmButtonText: getString('delete'),
-    cancelButtonText: getString('cancel'),
-    onCloseDialog: async (isConfirmed: boolean) => {
-      /* istanbul ignore else */
-      if (isConfirmed) {
-        try {
-          const deleted = await deleteInputSet(data.identifier || /* istanbul ignore next */ '', {
-            headers: { 'content-type': 'application/json' }
-          })
-          /* istanbul ignore else */
-          if (deleted.status === 'SUCCESS') {
-            showSuccess(getString('inputSets.inputSetDeleted', { name: data.name }))
-          }
-          ;(column as any).refetchInputSet?.()
-        } catch (err) {
-          /* istanbul ignore next */
-          showError(err?.data?.message, undefined, 'pipeline.delete.inputset.error')
-        }
-      }
-    }
-  })
+  const { confirmDelete } = useDeleteConfirmationDialog(
+    data,
+    data.inputSetType === 'OVERLAY_INPUT_SET' ? 'overlayInputSet' : 'inputSet',
+    (column as any).refetchInputSet,
+    pipelineIdentifier
+  )
 
   return (
     <Layout.Horizontal style={{ justifyContent: 'flex-end' }}>
@@ -278,12 +186,7 @@ const RenderColumnMenu: Renderer<CellProps<InputSetLocal>> = ({ row, column }) =
             text={getString('delete')}
             onClick={(e: React.MouseEvent) => {
               e.stopPropagation()
-              if ((column as any).isGitSyncEnabled) {
-                setCommitMsg('Delete ' + data.name)
-                confirmGitSyncDelete()
-              } else {
-                confirmDelete()
-              }
+              confirmDelete()
               setMenuOpen(false)
             }}
             disabled={!(column as any).canUpdate}
@@ -345,8 +248,7 @@ export const InputSetListView: React.FC<InputSetListViewProps> = ({
         goToInputSetDetail,
         refetchInputSet,
         cloneInputSet,
-        canUpdate,
-        isGitSyncEnabled
+        canUpdate
       }
     ],
     [goToInputSetDetail, refetchInputSet, cloneInputSet, pipelineHasRuntimeInputs]

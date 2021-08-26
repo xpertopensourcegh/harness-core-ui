@@ -1,23 +1,21 @@
 import React from 'react'
 import type { CellProps, Column, Renderer } from 'react-table'
-import { pick } from 'lodash-es'
 import { Button, Color, Layout, Popover, Text, SparkChart, Icon, ButtonVariation } from '@wings-software/uicore'
 import { Classes, Menu, Position } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import Table from '@common/components/Table/Table'
 import TagsPopover from '@common/components/TagsPopover/TagsPopover'
 import { formatDatetoLocale } from '@common/utils/dateUtils'
-import { useConfirmationDialog, useToaster } from '@common/exports'
 import { GitDetailsColumn } from '@common/components/Table/GitDetailsColumn/GitDetailsColumn'
 import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'
-import { PagePMSPipelineSummaryResponse, PMSPipelineSummaryResponse, useSoftDeletePipeline } from 'services/pipeline-ng'
+import useDeleteConfirmationDialog from '@pipeline/pages/utils/DeleteConfirmDialog'
+import type { PagePMSPipelineSummaryResponse, PMSPipelineSummaryResponse } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
-import { DeleteConfirmDialogContent } from '@pipeline/pages/utils/DeleteConfirmDialogContent'
 import { getIconsForPipeline, getStatusColor } from '../PipelineListUtils'
 import css from '../PipelinesPage.module.scss'
 
@@ -30,7 +28,7 @@ interface PipelineListViewProps {
 }
 
 // Todo: Remove this when BE updated
-interface PipelineDTO extends PMSPipelineSummaryResponse {
+export interface PipelineDTO extends PMSPipelineSummaryResponse {
   admin?: string
   collaborators?: string
   status?: string
@@ -45,7 +43,6 @@ type CustomColumn<T extends Record<string, any>> = Column<T> & {
 const RenderColumnMenu: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => {
   const data = row.original
   const [menuOpen, setMenuOpen] = React.useState(false)
-  const { showSuccess, showError } = useToaster()
   const { getString } = useStrings()
   const { projectIdentifier, orgIdentifier, accountId } = useParams<{
     projectIdentifier: string
@@ -53,60 +50,7 @@ const RenderColumnMenu: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => 
     accountId: string
   }>()
 
-  const [commitMsg, setCommitMsg] = React.useState<string>(
-    `${getString('pipeline-list.confirmDeleteTitle')} ${data.name}`
-  )
-
-  const gitParams = data.gitDetails?.objectId
-    ? {
-        ...pick(data.gitDetails, ['branch', 'repoIdentifier', 'filePath', 'rootFolder']),
-        commitMsg,
-        lastObjectId: data.gitDetails?.objectId
-      }
-    : {}
-
-  const { mutate: deletePipeline } = useSoftDeletePipeline({
-    queryParams: {
-      accountIdentifier: accountId,
-      orgIdentifier,
-      projectIdentifier,
-      ...gitParams
-    }
-  })
-
-  const { openDialog: confirmDelete } = useConfirmationDialog({
-    contentText: (
-      <DeleteConfirmDialogContent
-        entityName={data?.name || ''}
-        entityType={'pipeline'}
-        gitDetails={data.gitDetails}
-        commitMsg={commitMsg}
-        onCommitMsgChange={setCommitMsg}
-      />
-    ),
-    titleText: getString('pipeline-list.confirmDeleteTitle'),
-    confirmButtonText: getString('delete'),
-    cancelButtonText: getString('cancel'),
-    onCloseDialog: async (isConfirmed: boolean) => {
-      /* istanbul ignore else */
-      if (isConfirmed) {
-        try {
-          const deleted = await deletePipeline(data.identifier || /* istanbul ignore next */ '', {
-            headers: { 'content-type': 'application/json' }
-          })
-          /* istanbul ignore else */
-          if (deleted.status === 'SUCCESS') {
-            showSuccess(getString('pipeline-list.pipelineDeleted', { name: data.name }))
-          }
-          ;(column as any).refetchPipeline()
-        } catch (err) {
-          /* istanbul ignore next */
-          showError(err?.data?.message, undefined, 'pipeline.delete.pipeline.error')
-        }
-      }
-    }
-  })
-
+  const { confirmDelete } = useDeleteConfirmationDialog(data, 'pipeline', (column as any).refetchPipeline)
   const [canDelete, canRun] = usePermission(
     {
       resourceScope: {

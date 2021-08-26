@@ -272,6 +272,7 @@ git:
   selectRepoLabel: Repository name
   filePath: File Path
   commitMessage: Commit message
+  confirmDelete: Are you sure you want to delete {{entity}} {{name}}
   branchSelectHeader: Select Branch to Commit
   existingBranchCommitLabel: Commit to an existing branch
   newBranchCommitLabel: Commit to a new branch

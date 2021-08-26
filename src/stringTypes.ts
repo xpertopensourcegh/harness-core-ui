@@ -175,6 +175,7 @@ export interface StringsMap {
   'common.git.branchName': string
   'common.git.branchSelectHeader': string
   'common.git.commitMessage': string
+  'common.git.confirmDelete': string
   'common.git.connectionType': string
   'common.git.currentUserLabel': string
   'common.git.enableAPIAccess': string
@@ -5996,10 +5997,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'pipeline-list.aboutPipeline': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-list.confirmDelete': string
   /**
    * @deprecated migrate this string to module level file
    */

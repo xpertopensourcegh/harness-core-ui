@@ -14,13 +14,13 @@ import {
 } from '@wings-software/uicore'
 import { Classes, Intent, Menu } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
-import { isEmpty, pick } from 'lodash-es'
+import { isEmpty } from 'lodash-es'
 import { useHistory } from 'react-router-dom'
 import cx from 'classnames'
-import { TimeAgoPopover, useConfirmationDialog, useToaster } from '@common/exports'
+import { TimeAgoPopover } from '@common/exports'
 import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
-import { PMSPipelineSummaryResponse, useSoftDeletePipeline } from 'services/pipeline-ng'
+import type { PMSPipelineSummaryResponse } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { TagsPopover } from '@common/components'
@@ -30,7 +30,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
-import { DeleteConfirmDialogContent } from '@pipeline/pages/utils/DeleteConfirmDialogContent'
+import useDeleteConfirmationDialog from '@pipeline/pages/utils/DeleteConfirmDialog'
 import { getIconsForPipeline } from '../../PipelineListUtils'
 import css from './PipelineCard.module.scss'
 
@@ -64,62 +64,8 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
   orgIdentifier,
   accountIdentifier
 }): JSX.Element => {
-  const { showSuccess, showError } = useToaster()
   const { getString } = useStrings()
-
-  const [commitMsg, setCommitMsg] = React.useState<string>(
-    `${getString('pipeline-list.confirmDeleteTitle')} ${pipeline.name}`
-  )
-
-  const gitParams = pipeline.gitDetails?.objectId
-    ? {
-        ...pick(pipeline.gitDetails, ['branch', 'repoIdentifier', 'filePath', 'rootFolder']),
-        commitMsg,
-        lastObjectId: pipeline.gitDetails?.objectId
-      }
-    : {}
-
-  const { mutate: deletePipeline } = useSoftDeletePipeline({
-    queryParams: {
-      accountIdentifier,
-      orgIdentifier,
-      projectIdentifier,
-      ...gitParams
-    }
-  })
-
-  const { openDialog: confirmDelete } = useConfirmationDialog({
-    contentText: (
-      <DeleteConfirmDialogContent
-        entityName={pipeline?.name || ''}
-        entityType={'pipeline'}
-        gitDetails={pipeline.gitDetails}
-        commitMsg={commitMsg}
-        onCommitMsgChange={setCommitMsg}
-      />
-    ),
-    titleText: getString('pipeline-list.confirmDeleteTitle'),
-    confirmButtonText: getString('delete'),
-    cancelButtonText: getString('cancel'),
-    onCloseDialog: async (isConfirmed: boolean) => {
-      /* istanbul ignore else */
-      if (isConfirmed) {
-        try {
-          const deleted = await deletePipeline(pipeline.identifier || /* istanbul ignore next */ '', {
-            headers: { 'content-type': 'application/json' }
-          })
-          /* istanbul ignore else */
-          if (deleted.status === 'SUCCESS') {
-            showSuccess(getString('pipeline-list.pipelineDeleted', { name: pipeline.name }))
-          }
-          refetchPipeline()
-        } catch (err) {
-          /* istanbul ignore next */
-          showError(err?.data?.message, undefined, 'pipeline.delete.title.error')
-        }
-      }
-    }
-  })
+  const { confirmDelete } = useDeleteConfirmationDialog(pipeline, 'pipeline', refetchPipeline)
 
   const [canDelete, canRun] = usePermission(
     {

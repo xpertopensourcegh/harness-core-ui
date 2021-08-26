@@ -43,16 +43,6 @@ jest.mock('services/cd-ng', () => ({
   })
 }))
 
-// jest.spyOn(cdng, 'useGetListOfBranchesWithStatus').mockImplementation((): any => {
-//   return { data: branchStatusMock, refetch: getListOfBranchesWithStatus, loading: false }
-// })
-// jest.spyOn(cdng, 'useListGitSync').mockImplementation((): any => {
-//   return { data: gitConfigs, refetch: getListGitSync, loading: false }
-// })
-// jest.spyOn(cdng, 'useGetSourceCodeManagers').mockImplementation((): any => {
-//   return { data: sourceCodeManagers, refetch: jest.fn(), loading: false }
-// })
-
 jest.mock('@common/utils/dateUtils', () => ({
   formatDatetoLocale: (x: number) => x
 }))
@@ -97,7 +87,8 @@ jest.mock('services/pipeline-ng', () => ({
     mutate: jest.fn(),
     loading: false,
     cancel: jest.fn()
-  }))
+  })),
+  useDeleteInputSetForPipeline: jest.fn(() => ({ mutate: jest.fn() }))
 }))
 
 jest.mock('@pipeline/components/RunPipelineModal/useRunPipelineModal', () => ({
@@ -266,7 +257,7 @@ describe('Pipeline List View Test cases', () => {
     await waitFor(() => getByText(menuContent as HTMLElement, 'delete'))
     const deleteBtn = getByText(menuContent as HTMLElement, 'delete')
     fireEvent.click(deleteBtn)
-    await waitFor(() => getByText(document.body, 'pipeline-list.confirmDeleteTitle'))
+    await waitFor(() => getByText(document.body, 'delete common.pipeline'))
     const form = findDialogContainer()
     const confirmDelete = getByText(form as HTMLElement, 'delete')
     mockDeleteFunction.mockReset()
@@ -337,7 +328,7 @@ describe('Pipeline Card View Test Cases', () => {
     await waitFor(() => getByText(menuContent as HTMLElement, 'delete'))
     const deleteBtn = getByText(menuContent as HTMLElement, 'delete')
     fireEvent.click(deleteBtn)
-    await waitFor(() => getByText(document.body, 'pipeline-list.confirmDeleteTitle'))
+    await waitFor(() => getByText(document.body, 'delete common.pipeline'))
     const form = findDialogContainer()
     const confirmDelete = getByText(form as HTMLElement, 'delete')
     mockDeleteFunction.mockReset()

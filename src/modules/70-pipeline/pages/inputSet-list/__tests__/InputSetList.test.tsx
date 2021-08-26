@@ -49,7 +49,8 @@ jest.mock('services/pipeline-ng', () => ({
   useGetInputSetForPipeline: jest.fn(() => GetInputSetEdit),
   useDeleteInputSetForPipeline: jest.fn().mockImplementation(() => ({ mutate: deleteInputSet })),
   usePostPipelineExecuteWithInputSetYaml: jest.fn(() => ({})),
-  useGetSchemaYaml: jest.fn(() => ({}))
+  useGetSchemaYaml: jest.fn(() => ({})),
+  useSoftDeletePipeline: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
 }))
 
 const TEST_PATH = routes.toInputSetList({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })
@@ -172,7 +173,7 @@ describe('Input Set List - Actions tests', () => {
     const deleteMenu = getAllByText?.('delete')[0]
     await act(async () => {
       fireEvent.click(deleteMenu!)
-      await waitFor(() => getByText(document.body, 'inputSets.confirmDeleteTitle'))
+      await waitFor(() => getByText(document.body, 'delete inputSets.overlayInputSet'))
       const form = findDialogContainer()
       expect(form).toBeTruthy()
       const deleteBtn = queryByText(form as HTMLElement, 'delete')
@@ -189,7 +190,7 @@ describe('Input Set List - Actions tests', () => {
     const deleteMenu = getAllByText?.('delete')[0]
     await act(async () => {
       fireEvent.click(deleteMenu!)
-      await waitFor(() => getByText(document.body, 'inputSets.confirmDeleteTitle'))
+      await waitFor(() => getByText(document.body, 'delete inputSets.inputSetLabel'))
       const form = findDialogContainer()
       expect(form).toBeTruthy()
       const deleteBtn = queryByText(form as HTMLElement, 'delete')
