@@ -1,8 +1,29 @@
 .optionsViewContainer {
-  position: relative;
-  height: 100%;
-  margin-left: 20px !important;
-  margin-top: 10px !important;
+  margin: var(--spacing-small) 0 0 var(--spacing-small) !important;
+  .manifestForm {
+    min-height: 470px;
+
+    .connectorContainer {
+      display: inline-grid;
+      grid-template-columns: 1fr 1fr;
+      .bp3-popover-target > button {
+        width: 28px !important;
+      }
+      div.configureOptions {
+        height: fit-content;
+        line-height: 72px;
+      }
+    }
+    .addNewManifest {
+      position: relative;
+      top: 26px;
+      padding-right: 0 !important;
+      justify-content: flex-start;
+    }
+    .manifestStepWidth {
+      width: 100%;
+    }
+  }
 }
 
 .halfWidth {
@@ -14,46 +35,13 @@
   height: 100%;
   position: relative;
   div[class*='OverlaySpinner'] {
-    height: 100%;
+    height: 100% !important;
     margin-top: 0 !important;
   }
   :global(.bp3-collapse-body > div) {
     background-color: var(--white) !important;
   }
 
-  .formContainerStepOne {
-    height: 100%;
-    min-height: 280px;
-  }
-  .connectorContainer {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    .bp3-popover-target > button {
-      width: 28px !important;
-    }
-    div.configureOptions {
-      height: fit-content;
-      line-height: 72px;
-    }
-  }
-  .manifestDetailsWrapper {
-    padding: var(--spacing-small) 0 0 var(--spacing-small) !important;
-    height: 100%;
-    position: relative;
-    div[class*='OverlaySpinner'] {
-      height: 100%;
-    }
-    .manifestDetailsForm {
-      min-height: 400px;
-    }
-  }
-
-  .addNewManifest {
-    position: relative;
-    top: 26px;
-    padding-right: 0 !important;
-    justify-content: flex-start;
-  }
   .accountUrl {
     color: var(--grey-700);
   }

@@ -509,7 +509,7 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
               </Accordion>
             </div>
 
-            <Layout.Horizontal spacing="xxlarge" className={css.saveBtn}>
+            <Layout.Horizontal spacing="medium" className={css.saveBtn}>
               <Button
                 variation={ButtonVariation.SECONDARY}
                 text={getString('back')}

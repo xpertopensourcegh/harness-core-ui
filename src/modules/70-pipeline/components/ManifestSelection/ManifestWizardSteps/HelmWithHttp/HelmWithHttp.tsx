@@ -270,7 +270,7 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
               </Accordion>
             </div>
 
-            <Layout.Horizontal spacing="xxlarge" className={css.saveBtn}>
+            <Layout.Horizontal spacing="medium" className={css.saveBtn}>
               <Button
                 text={getString('back')}
                 icon="chevron-left"

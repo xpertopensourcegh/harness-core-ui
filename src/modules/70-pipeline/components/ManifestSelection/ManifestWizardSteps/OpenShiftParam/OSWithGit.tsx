@@ -421,7 +421,7 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
               </div>
             </div>
 
-            <Layout.Horizontal spacing="xxlarge" margin={{ top: 'huge' }}>
+            <Layout.Horizontal spacing="medium" margin={{ top: 'huge' }}>
               <Button
                 variation={ButtonVariation.SECONDARY}
                 text={getString('back')}

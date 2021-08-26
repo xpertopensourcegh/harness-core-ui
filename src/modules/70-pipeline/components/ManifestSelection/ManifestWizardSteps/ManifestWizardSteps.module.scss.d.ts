@@ -2,15 +2,14 @@
 // this is an auto-generated file
 declare const styles: {
   readonly optionsViewContainer: string
-  readonly halfWidth: string
-  readonly manifestStore: string
-  readonly formContainerStepOne: string
+  readonly manifestForm: string
   readonly connectorContainer: string
   readonly bp3PopoverTarget: string
   readonly configureOptions: string
-  readonly manifestDetailsWrapper: string
-  readonly manifestDetailsForm: string
   readonly addNewManifest: string
+  readonly manifestStepWidth: string
+  readonly halfWidth: string
+  readonly manifestStore: string
   readonly accountUrl: string
   readonly reponameField: string
   readonly repoName: string

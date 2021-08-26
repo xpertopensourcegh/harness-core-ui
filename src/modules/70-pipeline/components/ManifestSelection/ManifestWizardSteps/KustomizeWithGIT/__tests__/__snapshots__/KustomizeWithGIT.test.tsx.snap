@@ -446,7 +446,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests expand advanced secti
           </div>
         </div>
         <div
-          class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main saveBtn"
         >
           <button
             class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon Button--variation Button--variation-secondary"
@@ -892,7 +892,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
           </div>
         </div>
         <div
-          class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main saveBtn"
         >
           <button
             class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon Button--variation Button--variation-secondary"
@@ -1338,7 +1338,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
           </div>
         </div>
         <div
-          class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main saveBtn"
         >
           <button
             class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon Button--variation Button--variation-secondary"
@@ -1784,7 +1784,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
           </div>
         </div>
         <div
-          class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main saveBtn"
         >
           <button
             class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon Button--variation Button--variation-secondary"

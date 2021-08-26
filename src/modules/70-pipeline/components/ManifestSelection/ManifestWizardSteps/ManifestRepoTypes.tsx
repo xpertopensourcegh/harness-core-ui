@@ -2,7 +2,6 @@ import React, { useMemo } from 'react'
 import {
   Button,
   Color,
-  Container,
   Formik,
   Text,
   IconName,
@@ -57,7 +56,7 @@ export const ManifestRepoTypes: React.FC<StepProps<ConnectorConfigDTO> & Manifes
   )
 
   return (
-    <Container className={css.optionsViewContainer}>
+    <Layout.Vertical height={'inherit'} spacing="medium" className={css.optionsViewContainer}>
       <Text font="large" color={Color.GREY_1000} margin={{ bottom: 'medium' }}>
         {stepName}
       </Text>
@@ -79,7 +78,10 @@ export const ManifestRepoTypes: React.FC<StepProps<ConnectorConfigDTO> & Manifes
       >
         {() => (
           <Form>
-            <div className={css.headerContainer}>
+            <Layout.Vertical
+              flex={{ justifyContent: 'space-between', alignItems: 'flex-start' }}
+              className={css.manifestForm}
+            >
               <Layout.Horizontal spacing="large">
                 <ThumbnailSelect
                   className={css.thumbnailSelect}
@@ -88,20 +90,20 @@ export const ManifestRepoTypes: React.FC<StepProps<ConnectorConfigDTO> & Manifes
                   onChange={handleOptionSelection}
                 />
               </Layout.Horizontal>
-            </div>
-            <Layout.Horizontal>
-              <Button
-                variation={ButtonVariation.PRIMARY}
-                type="submit"
-                disabled={selectedManifestType === null}
-                text={getString('continue')}
-                rightIcon="chevron-right"
-                className={css.saveBtn}
-              />
-            </Layout.Horizontal>
+              <Layout.Horizontal>
+                <Button
+                  variation={ButtonVariation.PRIMARY}
+                  type="submit"
+                  disabled={selectedManifestType === null}
+                  text={getString('continue')}
+                  rightIcon="chevron-right"
+                  className={css.saveBtn}
+                />
+              </Layout.Horizontal>
+            </Layout.Vertical>
           </Form>
         )}
       </Formik>
-    </Container>
+    </Layout.Vertical>
   )
 }
