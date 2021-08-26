@@ -438,7 +438,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
                       text={getString('cancel')}
                       margin={{ top: 'large' }}
                       onClick={resetEditor}
-                      variation={ButtonVariation.SECONDARY}
+                      variation={ButtonVariation.TERTIARY}
                     />
                   </Layout.Horizontal>
                 </div>

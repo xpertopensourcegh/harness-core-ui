@@ -58,7 +58,7 @@ const UserGroupsPage: React.FC = () => {
   return (
     <>
       <PageHeader
-        title={<Layout.Horizontal padding={{ left: 'large' }}>{newUserGroupsBtn()}</Layout.Horizontal>}
+        title={<Layout.Horizontal>{newUserGroupsBtn()}</Layout.Horizontal>}
         toolbar={
           <Layout.Horizontal margin={{ right: 'small' }} height="xxxlarge">
             <ExpandingSearchInput

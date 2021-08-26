@@ -39,7 +39,7 @@ const ServiceAccountsPage: React.FC = () => {
     <>
       <Page.Header
         title={
-          <Layout.Horizontal padding={{ left: 'large' }} spacing="small">
+          <Layout.Horizontal spacing="small">
             <RbacButton
               text={getString('rbac.serviceAccounts.newServiceAccount')}
               variation={ButtonVariation.PRIMARY}

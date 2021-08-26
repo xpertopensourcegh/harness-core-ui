@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, ExpandingSearchInput, Layout, ButtonVariation } from '@wings-software/uicore'
+import { Button, ButtonVariation, ExpandingSearchInput, Layout } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useHistory, useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
@@ -44,7 +44,7 @@ const UsersPage: React.FC = () => {
     <>
       <Page.Header
         title={
-          <Layout.Horizontal padding={{ left: 'large' }} spacing="small" width={350}>
+          <Layout.Horizontal spacing="small" width={350}>
             <RbacButton
               text={getString('rbac.user')}
               variation={ButtonVariation.PRIMARY}

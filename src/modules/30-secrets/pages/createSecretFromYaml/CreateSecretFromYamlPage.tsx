@@ -160,7 +160,7 @@ const CreateSecretFromYamlPage: React.FC<{ mockSchemaData?: UseGetMockData<Respo
             intent="none"
             margin={{ top: 'xlarge' }}
             onClick={handleCancel}
-            variation={ButtonVariation.SECONDARY}
+            variation={ButtonVariation.TERTIARY}
           />
         </Layout.Horizontal>
       </Container>

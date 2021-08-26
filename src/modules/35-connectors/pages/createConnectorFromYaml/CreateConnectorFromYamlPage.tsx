@@ -217,7 +217,7 @@ const CreateConnectorFromYamlPage: React.FC = () => {
                         variation={ButtonVariation.PRIMARY}
                       />
                       &nbsp; &nbsp;
-                      <Button text={getString('cancel')} onClick={hideModal} variation={ButtonVariation.SECONDARY} />
+                      <Button text={getString('cancel')} onClick={hideModal} variation={ButtonVariation.TERTIARY} />
                     </Container>
                   </FormikForm>
                 )}
@@ -315,7 +315,7 @@ const CreateConnectorFromYamlPage: React.FC = () => {
                 text={getString('cancel')}
                 margin={{ top: 'xlarge' }}
                 onClick={resetEditor}
-                variation={ButtonVariation.SECONDARY}
+                variation={ButtonVariation.TERTIARY}
               />
             ) : null}
           </Layout.Horizontal>

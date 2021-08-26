@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Text, Layout, Container, Color, ButtonVariation } from '@wings-software/uicore'
+import { Text, Layout, Container, Color, Icon, ButtonVariation } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
 import produce from 'immer'
@@ -289,21 +289,31 @@ const ResourceGroupDetails: React.FC = () => {
           >
             {!isHarnessManaged && (
               <Layout.Vertical flex={{ alignItems: 'flex-end' }} padding="medium">
-                <Layout.Horizontal flex={{ justifyContent: 'flex-end' }} spacing="small">
-                  {isUpdated && <Text color={Color.BLACK}>{getString('unsavedChanges')}</Text>}
-                  <RbacButton
-                    text={getString('applyChanges')}
-                    onClick={() => updateResourceGroupData(resourceGroup)}
-                    disabled={updating || !isUpdated}
-                    variation={ButtonVariation.PRIMARY}
-                    permission={{
-                      resource: {
-                        resourceType: ResourceType.RESOURCEGROUP,
-                        resourceIdentifier: resourceGroupIdentifier
-                      },
-                      permission: PermissionIdentifier.UPDATE_RESOURCEGROUP
-                    }}
-                  />
+                <Layout.Horizontal flex={{ justifyContent: 'space-between' }} width="100%">
+                  <Text color={Color.BLACK}>
+                    {getString('rbac.resourceGroup.limitAccess', { name: getString('resources').toLowerCase() })}
+                  </Text>
+                  <Layout.Horizontal flex={{ justifyContent: 'flex-end' }} spacing="medium">
+                    {isUpdated && (
+                      <Layout.Horizontal spacing="xsmall" flex>
+                        <Icon name="dot" color={Color.ORANGE_600} size={20} />
+                        <Text color={Color.ORANGE_600}>{getString('unsavedChanges')}</Text>
+                      </Layout.Horizontal>
+                    )}
+                    <RbacButton
+                      text={getString('applyChanges')}
+                      onClick={() => updateResourceGroupData(resourceGroup)}
+                      disabled={updating || !isUpdated}
+                      variation={ButtonVariation.PRIMARY}
+                      permission={{
+                        resource: {
+                          resourceType: ResourceType.RESOURCEGROUP,
+                          resourceIdentifier: resourceGroupIdentifier
+                        },
+                        permission: PermissionIdentifier.UPDATE_RESOURCEGROUP
+                      }}
+                    />
+                  </Layout.Horizontal>
                 </Layout.Horizontal>
               </Layout.Vertical>
             )}

@@ -9,7 +9,7 @@ exports[`UsersPage Test Switch to Pending Users 1`] = `
       class="Layout--vertical StyledProps--main"
     >
       <div
-        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-left-large"
+        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
         style="width: 350px;"
       >
         <button

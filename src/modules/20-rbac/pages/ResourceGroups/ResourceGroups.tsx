@@ -57,7 +57,7 @@ const ResourceGroups: React.FC = () => {
     <>
       <PageHeader
         title={
-          <Layout.Horizontal padding={{ left: 'large' }}>
+          <Layout.Horizontal>
             <RbacButton
               text={getString('rbac.resourceGroup.newResourceGroup')}
               variation={ButtonVariation.PRIMARY}

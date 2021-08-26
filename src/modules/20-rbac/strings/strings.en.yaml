@@ -166,7 +166,7 @@ resourceGroup:
   confirmDelete: Deleting the resource group '{{name}}' would mean that you are also deleting all the role bindings it is associated with. Are you sure you want to delete the resource group?
   confirmDeleteTitle: 'Delete Resource Group'
   deletedMessage: 'Resource Group {{name}} deleted'
-  limitAccess: 'To limit access to specific set of {{name}} add to this list'
+  limitAccess: 'To limit access to specific set of {{name}}, add them as a list.'
   selectResourceGroup: 'Select Resource Group'
   add: '+ Add {{name}}'
   all: 'All {{name}}'

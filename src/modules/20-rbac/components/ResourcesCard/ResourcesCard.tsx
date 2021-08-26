@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Text, Card, Color, Button, Radio, ButtonVariation } from '@wings-software/uicore'
+import { Layout, Text, Card, Color, Button, Radio, Container, ButtonVariation } from '@wings-software/uicore'
 import { useParams } from 'react-router'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import { useStrings } from 'framework/strings'
@@ -36,39 +36,40 @@ const ResourcesCard: React.FC<ResourcesCardProps> = ({
   return (
     <Card className={css.selectedResourceGroupCardDetails} key={resourceType}>
       <Layout.Vertical>
-        <Layout.Horizontal className={css.resourceFields}>
-          <Text
-            color={Color.BLACK}
-            font={{ weight: 'semi-bold' }}
-            icon={icon}
-            iconProps={{ size: 30, padding: { right: 'medium' } }}
-          >
-            {getString(label)}
-          </Text>
-          <Radio
-            label={getString('rbac.resourceGroup.all', { name: getString(label) })}
-            checked={resourceValues === RbacResourceGroupTypes.DYNAMIC_RESOURCE_SELECTOR}
-            className={css.radioBtn}
-            onChange={e => onResourceSelectionChange(resourceType, e.currentTarget.checked)}
-          />
-          {addResourceModalBody && (
-            <>
-              <Text color={Color.GREY_400} className={css.limitAccessCell}>
-                {getString('rbac.resourceGroup.limitAccess', { name: getString(label) })}
-              </Text>
-              <Button
-                variation={ButtonVariation.LINK}
-                data-testid={`addResources-${resourceType}`}
-                disabled={disableAddingResources}
-                className={css.addResourceBtn}
-                onClick={() => {
-                  openAddResourceModal(resourceType, Array.isArray(resourceValues) ? resourceValues : [])
-                }}
-              >
-                {getString('rbac.resourceGroup.add', { name: getString(label) })}
-              </Button>
-            </>
-          )}
+        <Layout.Horizontal flex={{ justifyContent: 'space-between', alignItems: 'center' }}>
+          <Container>
+            <Text
+              color={Color.BLACK}
+              font={{ weight: 'semi-bold' }}
+              icon={icon}
+              iconProps={{ size: 30, padding: { right: 'medium' } }}
+            >
+              {getString(label)}
+            </Text>
+          </Container>
+          <Layout.Horizontal flex>
+            <Radio
+              label={getString('rbac.resourceGroup.all')}
+              checked={resourceValues === RbacResourceGroupTypes.DYNAMIC_RESOURCE_SELECTOR}
+              className={css.radioBtn}
+              onChange={e => onResourceSelectionChange(resourceType, e.currentTarget.checked)}
+            />
+            {addResourceModalBody && (
+              <>
+                <Button
+                  variation={ButtonVariation.LINK}
+                  data-testid={`addResources-${resourceType}`}
+                  disabled={disableAddingResources}
+                  className={css.addResourceBtn}
+                  onClick={() => {
+                    openAddResourceModal(resourceType, Array.isArray(resourceValues) ? resourceValues : [])
+                  }}
+                >
+                  {getString('rbac.resourceGroup.add')}
+                </Button>
+              </>
+            )}
+          </Layout.Horizontal>
         </Layout.Horizontal>
 
         {Array.isArray(resourceValues) && (

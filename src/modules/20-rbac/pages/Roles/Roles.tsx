@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Container, ExpandingSearchInput, Layout, Pagination, ButtonVariation } from '@wings-software/uicore'
+import { ButtonVariation, Container, ExpandingSearchInput, Layout, Pagination } from '@wings-software/uicore'
 
 import { useHistory, useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
@@ -82,7 +82,7 @@ const Roles: React.FC = () => {
   return (
     <>
       <PageHeader
-        title={<Layout.Horizontal padding={{ left: 'large' }}>{newRoleButton()}</Layout.Horizontal>}
+        title={<Layout.Horizontal>{newRoleButton()}</Layout.Horizontal>}
         toolbar={
           <Layout.Horizontal margin={{ right: 'small' }} height="xxxlarge">
             <ExpandingSearchInput
