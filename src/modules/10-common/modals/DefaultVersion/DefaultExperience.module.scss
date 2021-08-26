@@ -8,18 +8,13 @@
   grid-gap: var(--spacing-xxlarge);
   grid-template-columns: repeat(2, 1fr);
 
-  .card {
-    padding: var(--spacing-xxlarge) !important ;
-    box-shadow: var(--card-shadow);
+  .tag {
+    background-color: red !important;
+    color: white;
+    font-size: x-small;
+  }
 
-    .tag {
-      background-color: red;
-      color: white;
-      font-size: x-small;
-    }
-
-    .cardText {
-      line-height: var(--spacing-xlarge) !important;
-    }
+  .cardText {
+    line-height: var(--spacing-xlarge) !important;
   }
 }

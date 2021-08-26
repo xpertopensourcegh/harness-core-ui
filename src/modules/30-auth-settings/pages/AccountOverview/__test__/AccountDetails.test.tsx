@@ -72,7 +72,7 @@ describe('AccountDetails', () => {
         <AccountDetails />
       </TestWrapper>
     )
-    fireEvent.click(container?.getElementsByClassName('bp3-icon-edit')[0])
+    fireEvent.click(getByText('edit'))
     await waitFor(() => expect('save').toBeDefined())
     fireEvent.input(queryByNameAttribute('name', container)!, {
       target: { value: 'account name 2' },
@@ -97,7 +97,7 @@ describe('AccountDetails', () => {
         <AccountDetails />
       </TestWrapper>
     )
-    fireEvent.click(container?.getElementsByClassName('bp3-icon-edit')[0])
+    fireEvent.click(getByText('edit'))
     await waitFor(() => expect('save').toBeDefined())
     fireEvent.input(queryByNameAttribute('name', container)!, {
       target: { value: 'account name 2' },

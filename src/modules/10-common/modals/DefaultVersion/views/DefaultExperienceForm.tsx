@@ -9,7 +9,8 @@ import {
   Tag,
   Icon,
   CardSelect,
-  CardSelectType
+  CardSelectType,
+  ButtonVariation
 } from '@wings-software/uicore'
 import { Experiences } from '@common/constants/Utils'
 import { useStrings } from 'framework/strings'
@@ -49,7 +50,7 @@ const data: Data[] = [
     modules: [
       {
         name: Modules.CD,
-        size: 30
+        size: 25
       },
       {
         name: Modules.CE,
@@ -78,21 +79,20 @@ const DefaultExperienceForm: React.FC<Props> = ({ onSubmit, currentExperience, s
   const { getString } = useStrings()
   return (
     <Layout.Vertical padding={{ left: 'huge', right: 'huge' }}>
-      <Heading level={1} color={Color.GREY_800} font={{ weight: 'bold' }} margin={{ bottom: 'medium' }}>
+      <Text color={Color.GREY_900} font={{ size: 'medium', weight: 'semi-bold' }} margin={{ bottom: 'medium' }}>
         {getString('common.defaultExperience')}
-      </Heading>
+      </Text>
       <Text color={Color.GREY_700} font={{ size: 'normal' }} margin={{ bottom: 'xxxlarge' }}>
         {getString('common.selectDefaultExperience')}
       </Text>
       <CardSelect
         data={data}
         className={css.cardContainer}
-        cardClassName={css.card}
         type={CardSelectType.CardView}
         renderItem={item => (
           <Container>
             <Layout.Horizontal spacing="small">
-              <Heading level={2} color={Color.GREY_900} font={{ weight: 'bold' }} margin={{ bottom: 'medium' }}>
+              <Heading level={2} color={Color.GREY_900} font={{ weight: 'semi-bold' }} margin={{ bottom: 'medium' }}>
                 {getString(item.title as keyof StringsMap)}
               </Heading>
               {item.type === Experiences.NG && (
@@ -118,7 +118,7 @@ const DefaultExperienceForm: React.FC<Props> = ({ onSubmit, currentExperience, s
         selected={data.find(item => item.type === currentExperience)}
       />
       <Container padding={{ top: 'huge', bottom: 'xxlarge' }}>
-        <Button text={getString('save')} intent="primary" onClick={onSubmit} disabled={loading} />
+        <Button text={getString('save')} variation={ButtonVariation.PRIMARY} onClick={onSubmit} disabled={loading} />
       </Container>
     </Layout.Vertical>
   )

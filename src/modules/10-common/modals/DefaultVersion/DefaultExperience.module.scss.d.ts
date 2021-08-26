@@ -3,7 +3,6 @@
 declare const styles: {
   readonly dialog: string
   readonly cardContainer: string
-  readonly card: string
   readonly tag: string
   readonly cardText: string
 }

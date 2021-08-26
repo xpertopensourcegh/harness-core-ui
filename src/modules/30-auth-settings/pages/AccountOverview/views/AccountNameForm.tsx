@@ -1,6 +1,6 @@
 import React from 'react'
 import * as Yup from 'yup'
-import { Button, FormInput, Formik, FormikForm, Layout } from '@wings-software/uicore'
+import { Button, FormInput, Formik, FormikForm, Layout, ButtonVariation } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/components'
@@ -63,7 +63,12 @@ const AccountNameForm: React.FC<AccountNameFormProps> = ({
         <FormikForm>
           <Layout.Horizontal spacing="medium">
             <FormInput.Text name="name" className={css.nameInput} />
-            <Button intent="primary" text={getString('save')} type="submit" disabled={updatingAcctName} />
+            <Button
+              variation={ButtonVariation.PRIMARY}
+              text={getString('save')}
+              type="submit"
+              disabled={updatingAcctName}
+            />
             <Button
               text={getString('cancel')}
               onClick={() => {
@@ -72,6 +77,7 @@ const AccountNameForm: React.FC<AccountNameFormProps> = ({
                 }
                 setUpdateAccountName(false)
               }}
+              variation={ButtonVariation.TERTIARY}
             />
           </Layout.Horizontal>
         </FormikForm>

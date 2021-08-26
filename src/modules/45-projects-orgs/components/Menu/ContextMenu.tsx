@@ -123,29 +123,18 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
         <Menu.Item
           text={
             <Layout.Horizontal spacing="xsmall">
-              <Icon name="cd-main" />
+              <Icon name="cd-main" size={20} />
               <Text color={Color.WHITE}>{getString('projectsOrgs.gotoCD')}</Text>
             </Layout.Horizontal>
           }
           onClick={handleCD}
         />
       ) : null}
-      {CVNG_ENABLED && project.modules?.includes(ModuleName.CV) ? (
-        <Menu.Item
-          text={
-            <Layout.Horizontal spacing="xsmall">
-              <Icon name="cv-main" />
-              <Text color={Color.WHITE}>{getString('projectsOrgs.gotoCV')}</Text>
-            </Layout.Horizontal>
-          }
-          onClick={handleCV}
-        />
-      ) : null}
       {CING_ENABLED && project.modules?.includes(ModuleName.CI) ? (
         <Menu.Item
           text={
             <Layout.Horizontal spacing="xsmall">
-              <Icon name="ci-main" />
+              <Icon name="ci-main" size={20} />
               <Text color={Color.WHITE}>{getString('projectsOrgs.gotoCI')}</Text>
             </Layout.Horizontal>
           }
@@ -156,7 +145,7 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
         <Menu.Item
           text={
             <Layout.Horizontal spacing="xsmall">
-              <Icon name="cf-main" />
+              <Icon name="cf-main" size={20} />
               <Text color={Color.WHITE}>{getString('projectsOrgs.gotoCF')}</Text>
             </Layout.Horizontal>
           }
@@ -167,11 +156,22 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
         <Menu.Item
           text={
             <Layout.Horizontal spacing="xsmall">
-              <Icon name="ce-main" />
+              <Icon name="ce-main" size={20} />
               <Text color={Color.WHITE}>{getString('projectsOrgs.gotoCE')}</Text>
             </Layout.Horizontal>
           }
           onClick={handleCE}
+        />
+      ) : null}
+      {CVNG_ENABLED && project.modules?.includes(ModuleName.CV) ? (
+        <Menu.Item
+          text={
+            <Layout.Horizontal spacing="xsmall">
+              <Icon name="cv-main" size={20} />
+              <Text color={Color.WHITE}>{getString('projectsOrgs.gotoCV')}</Text>
+            </Layout.Horizontal>
+          }
+          onClick={handleCV}
         />
       ) : null}
       <RbacMenuItem

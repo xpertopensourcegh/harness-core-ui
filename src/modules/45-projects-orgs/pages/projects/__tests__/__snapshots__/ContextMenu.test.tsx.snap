@@ -24,9 +24,9 @@ exports[`Context Menu test render 1`] = `
             >
               <svg
                 fill="none"
-                height="16"
+                height="20"
                 viewBox="0 0 27 29"
-                width="16"
+                width="20"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -78,69 +78,13 @@ exports[`Context Menu test render 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main"
-              data-icon="cv-main"
-            >
-              <svg
-                fill="none"
-                height="16"
-                viewBox="0 0 26 28"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M11.194 27.156l.417.24a2.75 2.75 0 001.389.351 2.75 2.75 0 001.361-.352l.417-.239C21.396 23.376 25.493 16.28 25.5 8.581v-.197a2.822 2.822 0 00-1.389-2.463l-.332-.189L12.94 19.381a.67.67 0 01-.926.119L5.82 14.855a.67.67 0 01-.134-.938l.344-.46a.67.67 0 01.938-.133l4.705 3.528c.29.218.7.165.926-.12l9.498-11.96L14.389.378a2.747 2.747 0 00-2.778 0L1.89 5.921A2.822 2.822 0 00.5 8.384v.197c.002 7.692 4.087 14.788 10.694 18.575z"
-                  fill="url(#cv-main_svg__paint0_linear)"
-                />
-                <defs>
-                  <lineargradient
-                    gradientUnits="userSpaceOnUse"
-                    id="cv-main_svg__paint0_linear"
-                    x1="4.827"
-                    x2="20.016"
-                    y1="0"
-                    y2="26.457"
-                  >
-                    <stop
-                      stop-color="#BEA1FF"
-                    />
-                    <stop
-                      offset="1"
-                      stop-color="#8A36FF"
-                    />
-                  </lineargradient>
-                </defs>
-              </svg>
-            </span>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
-            >
-              projectsOrgs.gotoCV
-            </p>
-          </div>
-        </div>
-      </a>
-    </li>
-    <li
-      class=""
-    >
-      <a
-        class="bp3-menu-item bp3-popover-dismiss"
-      >
-        <div
-          class="bp3-text-overflow-ellipsis bp3-fill"
-        >
-          <div
-            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
-          >
-            <span
-              class="bp3-icon StyledProps--main"
               data-icon="ci-main"
             >
               <svg
                 fill="none"
-                height="16"
+                height="20"
                 viewBox="0 0 27 26"
-                width="16"
+                width="20"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -196,9 +140,9 @@ exports[`Context Menu test render 1`] = `
             >
               <svg
                 fill="none"
-                height="16"
+                height="20"
                 viewBox="0 0 28 28"
-                width="16"
+                width="20"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -272,9 +216,9 @@ exports[`Context Menu test render 1`] = `
             >
               <svg
                 fill="none"
-                height="16"
+                height="20"
                 viewBox="0 0 31 22"
-                width="16"
+                width="20"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -305,6 +249,62 @@ exports[`Context Menu test render 1`] = `
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
             >
               projectsOrgs.gotoCE
+            </p>
+          </div>
+        </div>
+      </a>
+    </li>
+    <li
+      class=""
+    >
+      <a
+        class="bp3-menu-item bp3-popover-dismiss"
+      >
+        <div
+          class="bp3-text-overflow-ellipsis bp3-fill"
+        >
+          <div
+            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+          >
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="cv-main"
+            >
+              <svg
+                fill="none"
+                height="20"
+                viewBox="0 0 26 28"
+                width="20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M11.194 27.156l.417.24a2.75 2.75 0 001.389.351 2.75 2.75 0 001.361-.352l.417-.239C21.396 23.376 25.493 16.28 25.5 8.581v-.197a2.822 2.822 0 00-1.389-2.463l-.332-.189L12.94 19.381a.67.67 0 01-.926.119L5.82 14.855a.67.67 0 01-.134-.938l.344-.46a.67.67 0 01.938-.133l4.705 3.528c.29.218.7.165.926-.12l9.498-11.96L14.389.378a2.747 2.747 0 00-2.778 0L1.89 5.921A2.822 2.822 0 00.5 8.384v.197c.002 7.692 4.087 14.788 10.694 18.575z"
+                  fill="url(#cv-main_svg__paint0_linear)"
+                />
+                <defs>
+                  <lineargradient
+                    gradientUnits="userSpaceOnUse"
+                    id="cv-main_svg__paint0_linear"
+                    x1="4.827"
+                    x2="20.016"
+                    y1="0"
+                    y2="26.457"
+                  >
+                    <stop
+                      stop-color="#BEA1FF"
+                    />
+                    <stop
+                      offset="1"
+                      stop-color="#8A36FF"
+                    />
+                  </lineargradient>
+                </defs>
+              </svg>
+            </span>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
+            >
+              projectsOrgs.gotoCV
             </p>
           </div>
         </div>

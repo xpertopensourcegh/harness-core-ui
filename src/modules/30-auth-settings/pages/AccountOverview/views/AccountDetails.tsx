@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Color, Container, Layout, Text } from '@wings-software/uicore'
+import { Button, ButtonVariation, Color, Container, Layout, Text } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { truncate } from 'lodash-es'
 import { useStrings } from 'framework/strings'
@@ -43,9 +43,8 @@ const AccountDetails: React.FC = () => {
     <React.Fragment>
       <Text color={Color.GREY_800}>{truncate(accountData?.name)}</Text>
       <RbacButton
-        minimal
-        intent="primary"
-        icon="edit"
+        variation={ButtonVariation.LINK}
+        icon="Edit"
         text={getString('edit')}
         onClick={() => setUpdateAccountName(true)}
         permission={{
@@ -55,7 +54,11 @@ const AccountDetails: React.FC = () => {
           }
         }}
       />
-      <Button minimal intent="primary" text={getString('common.switchAccount')} onClick={openSwitchAccountModal} />
+      <Button
+        variation={ButtonVariation.LINK}
+        text={getString('common.switchAccount')}
+        onClick={openSwitchAccountModal}
+      />
     </React.Fragment>
   )
 
@@ -105,8 +108,7 @@ const AccountDetails: React.FC = () => {
         <Text className={css.minWidth}>{getString('common.defaultExperience')}</Text>
         <Text color={Color.GREY_800}>{defaultExperienceStr}</Text>
         <RbacButton
-          minimal
-          intent="primary"
+          variation={ButtonVariation.LINK}
           padding="none"
           text={getString('change')}
           onClick={() => openDefaultExperienceModal(accountData?.defaultExperience as Experiences)}
