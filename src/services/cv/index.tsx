@@ -184,6 +184,10 @@ export interface AppdynamicsValidationResponse {
   values?: AppdynamicsMetricValueValidationResponse[]
 }
 
+export type ArgoConnector = ConnectorConfigDTO & {
+  adapterUrl?: string
+}
+
 export interface ArtifactoryAuthCredentials {
   [key: string]: any
 }
@@ -295,6 +299,36 @@ export type AwsManualConfigSpec = AwsCredentialSpec & {
   accessKey?: string
   accessKeyRef?: string
   secretKeyRef: string
+}
+
+export type AwsSMCredentialSpecAssumeIAM = AwsSecretManagerCredentialSpec & { [key: string]: any }
+
+export type AwsSMCredentialSpecAssumeSTS = AwsSecretManagerCredentialSpec & {
+  assumeStsRoleDuration?: number
+  externalId?: string
+  roleArn: string
+}
+
+export type AwsSMCredentialSpecManualConfig = AwsSecretManagerCredentialSpec & {
+  accessKey: string
+  secretKey: string
+}
+
+export interface AwsSecretManagerCredential {
+  spec?: AwsSecretManagerCredentialSpec
+  type: 'AssumeIAMRole' | 'AssumeSTSRole' | 'ManualConfig'
+}
+
+export interface AwsSecretManagerCredentialSpec {
+  [key: string]: any
+}
+
+export type AwsSecretManagerDTO = ConnectorConfigDTO & {
+  credential: AwsSecretManagerCredential
+  default?: boolean
+  delegateSelectors?: string[]
+  region: string
+  secretNamePrefix?: string
 }
 
 export type AzureKeyVaultConnectorDTO = ConnectorConfigDTO & {
@@ -488,6 +522,7 @@ export interface ConnectorInfoDTO {
     | 'Local'
     | 'AwsKms'
     | 'GcpKms'
+    | 'AwsSecretManager'
     | 'Gcp'
     | 'Aws'
     | 'Artifactory'
@@ -502,9 +537,11 @@ export interface ConnectorInfoDTO {
     | 'GcpCloudCost'
     | 'CEK8sCluster'
     | 'HttpHelmRepo'
+    | 'ArgoConnector'
     | 'NewRelic'
     | 'Datadog'
     | 'SumoLogic'
+    | 'PagerDuty'
 }
 
 export interface ControlClusterSummary {
@@ -2258,6 +2295,11 @@ export interface PageVerificationJobDTO {
   pageSize?: number
   totalItems?: number
   totalPages?: number
+}
+
+export type PagerDutyConnectorDTO = ConnectorConfigDTO & {
+  apiTokenRef: string
+  delegateSelectors?: string[]
 }
 
 export interface PartialSchemaDTO {
@@ -7690,6 +7732,99 @@ export const setHealthMonitoringFlagPromise = (
     void,
     SetHealthMonitoringFlagPathParams
   >('PUT', getConfig('cv/api'), `/monitored-service/${identifier}/health-monitoring-flag`, props, signal)
+
+export interface GetMonitoredServiceOverAllHealthScoreQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+  duration: 'FOUR_HOURS' | 'TWENTY_FOUR_HOURS' | 'THREE_DAYS' | 'SEVEN_DAYS' | 'THIRTY_DAYS'
+  endTime: number
+}
+
+export interface GetMonitoredServiceOverAllHealthScorePathParams {
+  identifier: string
+}
+
+export type GetMonitoredServiceOverAllHealthScoreProps = Omit<
+  GetProps<
+    ResponseHistoricalTrend,
+    unknown,
+    GetMonitoredServiceOverAllHealthScoreQueryParams,
+    GetMonitoredServiceOverAllHealthScorePathParams
+  >,
+  'path'
+> &
+  GetMonitoredServiceOverAllHealthScorePathParams
+
+/**
+ * get monitored service overall health score data
+ */
+export const GetMonitoredServiceOverAllHealthScore = ({
+  identifier,
+  ...props
+}: GetMonitoredServiceOverAllHealthScoreProps) => (
+  <Get<
+    ResponseHistoricalTrend,
+    unknown,
+    GetMonitoredServiceOverAllHealthScoreQueryParams,
+    GetMonitoredServiceOverAllHealthScorePathParams
+  >
+    path={`/monitored-service/${identifier}/overall-health-score`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetMonitoredServiceOverAllHealthScoreProps = Omit<
+  UseGetProps<
+    ResponseHistoricalTrend,
+    unknown,
+    GetMonitoredServiceOverAllHealthScoreQueryParams,
+    GetMonitoredServiceOverAllHealthScorePathParams
+  >,
+  'path'
+> &
+  GetMonitoredServiceOverAllHealthScorePathParams
+
+/**
+ * get monitored service overall health score data
+ */
+export const useGetMonitoredServiceOverAllHealthScore = ({
+  identifier,
+  ...props
+}: UseGetMonitoredServiceOverAllHealthScoreProps) =>
+  useGet<
+    ResponseHistoricalTrend,
+    unknown,
+    GetMonitoredServiceOverAllHealthScoreQueryParams,
+    GetMonitoredServiceOverAllHealthScorePathParams
+  >(
+    (paramsInPath: GetMonitoredServiceOverAllHealthScorePathParams) =>
+      `/monitored-service/${paramsInPath.identifier}/overall-health-score`,
+    { base: getConfig('cv/api'), pathParams: { identifier }, ...props }
+  )
+
+/**
+ * get monitored service overall health score data
+ */
+export const getMonitoredServiceOverAllHealthScorePromise = (
+  {
+    identifier,
+    ...props
+  }: GetUsingFetchProps<
+    ResponseHistoricalTrend,
+    unknown,
+    GetMonitoredServiceOverAllHealthScoreQueryParams,
+    GetMonitoredServiceOverAllHealthScorePathParams
+  > & { identifier: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    ResponseHistoricalTrend,
+    unknown,
+    GetMonitoredServiceOverAllHealthScoreQueryParams,
+    GetMonitoredServiceOverAllHealthScorePathParams
+  >(getConfig('cv/api'), `/monitored-service/${identifier}/overall-health-score`, props, signal)
 
 export interface GetNewRelicApplicationsQueryParams {
   accountId: string

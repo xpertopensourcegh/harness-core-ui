@@ -13,9 +13,9 @@ import { PageError } from '@common/components/Page/PageError'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import Configurations from './components/Configurations/Configurations'
 import { MonitoringServicesHeader } from './monitoredService.styled'
-import ServiceHealth from './components/ServiceHealth/ServiceHealth'
 import EditHeader from './components/EditHeader/EditHeader'
 import { MonitoredServiceEnum } from './MonitoredServicePage.constants'
+import ServiceHealth from './components/ServiceHealth/ServiceHealth'
 import css from './MonitoredServicePage.module.scss'
 
 function MonitoredServicePage(): JSX.Element {
@@ -101,7 +101,12 @@ function MonitoredServicePage(): JSX.Element {
             <Tab
               id={MonitoredServiceEnum.ServiceHealth}
               title={getString('cv.monitoredServices.monitoredServiceTabs.serviceHealth')}
-              panel={<ServiceHealth currentHealthScore={(state as any)?.currentHealthScore} />}
+              panel={
+                <ServiceHealth
+                  currentHealthScore={(state as any)?.currentHealthScore}
+                  monitoredServiceIdentifier={monitoredServiceData?.data?.monitoredService?.identifier}
+                />
+              }
             />
             <Tab
               id={MonitoredServiceEnum.SLOs}

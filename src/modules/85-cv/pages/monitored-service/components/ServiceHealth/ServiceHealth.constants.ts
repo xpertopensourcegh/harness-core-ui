@@ -25,3 +25,13 @@ export const tickerData = [
     id: 4
   }
 ]
+
+export enum TimePeriodEnum {
+  FOUR_HOURS = 'FOUR_HOURS',
+  TWENTY_FOUR_HOURS = 'TWENTY_FOUR_HOURS',
+  THREE_DAYS = 'THREE_DAYS',
+  SEVEN_DAYS = 'SEVEN_DAYS',
+  THIRTY_DAYS = 'THIRTY_DAYS'
+}
+
+export const NUMBER_OF_DATA_POINTS = 48

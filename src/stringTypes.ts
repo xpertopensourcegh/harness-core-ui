@@ -3601,6 +3601,8 @@ export interface StringsMap {
   'cv.monitoredServices.serviceHealth.last3Days': string
   'cv.monitoredServices.serviceHealth.last4Hrs': string
   'cv.monitoredServices.serviceHealth.last7Days': string
+  'cv.monitoredServices.serviceHealth.noDataAvailableForHealthScore': string
+  'cv.monitoredServices.serviceHealth.overallHealthScore': string
   'cv.monitoredServices.serviceValidation': string
   'cv.monitoredServices.table.healthMonitoring': string
   'cv.monitoredServices.table.lastestHealthTrend': string

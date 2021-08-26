@@ -1,26 +1,38 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Color, Container, Layout, Select, SelectOption, Text } from '@wings-software/uicore'
-// import Card from '@cv/components/Card/Card'
+import Card from '@cv/components/Card/Card'
 import { useStrings } from 'framework/strings'
 // import { Ticker, TickerVerticalAlignment } from '@common/components/Ticker/Ticker'
-// import { ChangeTimeline } from '@cv/components/ChangeTimeline/ChangeTimeline'
+import ChangeTimeline from '@cv/components/ChangeTimeline/ChangeTimeline'
 import { getRiskColorValue } from '@common/components/HeatMap/ColorUtils'
-import { getTimePeriods } from './ServiceHealth.utils'
-// import { tickerData } from './ServiceHealth.constants'
+import { getTimePeriods, getTimestampsForPeriod } from './ServiceHealth.utils'
+import {
+  // tickerData,
+  TimePeriodEnum
+} from './ServiceHealth.constants'
 // import type { TickerType } from './ServiceHealth.types'
 // import TickerValue from './components/TickerValue/TickerValue'
 import type { ServiceHealthProps } from './ServiceHealth.types'
+import HealthScoreChart from './components/HealthScoreChart/HealthScoreChart'
 import css from './ServiceHealth.module.scss'
 
-export default function ServiceHealth({ currentHealthScore }: ServiceHealthProps): JSX.Element {
+export default function ServiceHealth({
+  currentHealthScore,
+  monitoredServiceIdentifier
+}: ServiceHealthProps): JSX.Element {
   const { getString } = useStrings()
   const [selectedTimePeriod, setSelectedTimePeriod] = useState<SelectOption>({
-    value: 'Last 24 hours',
+    value: TimePeriodEnum.TWENTY_FOUR_HOURS,
     label: getString('cv.monitoredServices.serviceHealth.last24Hrs')
   })
-
+  const [timestamps, setTimestamps] = useState<number[]>([])
   const { riskStatus, healthScore = -2 } = currentHealthScore || {}
   const color = getRiskColorValue(riskStatus)
+
+  useEffect(() => {
+    const timestampsForPeriod = getTimestampsForPeriod(selectedTimePeriod.value as string)
+    setTimestamps(timestampsForPeriod)
+  }, [selectedTimePeriod?.value])
 
   return (
     <>
@@ -40,11 +52,12 @@ export default function ServiceHealth({ currentHealthScore }: ServiceHealthProps
           </Text>
         </Layout.Horizontal>
       </Container>
-      {/* TODO - Will be added back once the backend api data is available */}
-      {/* <Container className={css.serviceHealthCard}>
+
+      <Container className={css.serviceHealthCard}>
         <Card>
           <>
-            <Container className={css.tickersRow}>
+            {/* TODO - Will be added back once the backend api data is available */}
+            {/* <Container className={css.tickersRow}>
               {tickerData.map((ticker: TickerType) => {
                 return (
                   <Container key={ticker.id} className={css.ticker}>
@@ -67,11 +80,15 @@ export default function ServiceHealth({ currentHealthScore }: ServiceHealthProps
                   </Container>
                 )
               })}
-            </Container>
-            <ChangeTimeline />
+            </Container> */}
+            <HealthScoreChart
+              duration={selectedTimePeriod.value as TimePeriodEnum}
+              monitoredServiceIdentifier={monitoredServiceIdentifier as string}
+            />
+            <ChangeTimeline timestamps={timestamps} />
           </>
         </Card>
-      </Container> */}
+      </Container>
     </>
   )
 }

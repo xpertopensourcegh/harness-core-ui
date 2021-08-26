@@ -10,4 +10,5 @@ export interface ServiceHealthProps {
     riskStatus: string
     healthScore: number
   }
+  monitoredServiceIdentifier?: string
 }

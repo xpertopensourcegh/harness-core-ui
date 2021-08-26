@@ -552,6 +552,8 @@ monitoredServices:
     last24Hrs: Last 24 hours
     last3Days: Last 3 days
     last7Days: '{{ $.common.last7days }}'
+    overallHealthScore: Overall Health Score
+    noDataAvailableForHealthScore: No data available for health score
   monitoredServiceTabs:
     serviceHealth: Service Health
     configurations: Configurations

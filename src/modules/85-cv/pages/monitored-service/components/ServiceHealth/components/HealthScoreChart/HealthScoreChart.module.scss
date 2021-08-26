@@ -1,0 +1,34 @@
+.main {
+  width: 100% !important;
+
+  .timelineRow {
+    margin-bottom: var(--spacing-small) !important;
+    display: flex;
+    align-items: center;
+
+    .rowLabel {
+      color: var(--grey-300) !important;
+      font-size: var(--font-size-small) !important;
+      padding-top: var(--spacing-huge);
+    }
+
+    > div {
+      flex: 1;
+    }
+  }
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+}
+
+.noData {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  padding-top: var(--spacing-13) !important;
+}
