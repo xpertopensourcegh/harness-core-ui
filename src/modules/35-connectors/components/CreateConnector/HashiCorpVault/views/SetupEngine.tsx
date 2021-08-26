@@ -1,0 +1,287 @@
+import React, { useState, useEffect } from 'react'
+import * as Yup from 'yup'
+import {
+  Container,
+  Text,
+  Formik,
+  FormikForm,
+  Button,
+  Layout,
+  FormInput,
+  StepProps,
+  SelectOption,
+  Color,
+  ModalErrorHandler,
+  ModalErrorHandlerBinding
+} from '@wings-software/uicore'
+import type { IOptionProps } from '@blueprintjs/core'
+import { useStrings } from 'framework/strings'
+import type {
+  StepDetailsProps,
+  ConnectorDetailsProps,
+  SetupEngineFormData
+} from '@connectors/interfaces/ConnectorInterface'
+import { setupEngineFormData } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import { PageSpinner } from '@common/components'
+import {
+  useGetMetadata,
+  VaultMetadataRequestSpecDTO,
+  VaultAppRoleCredentialDTO,
+  VaultAuthTokenCredentialDTO,
+  VaultMetadataSpecDTO,
+  useCreateConnector,
+  useUpdateConnector,
+  ConnectorRequestBody,
+  ConnectorConfigDTO
+} from 'services/cd-ng'
+import { shouldShowError } from '@common/utils/errorUtils'
+import { useToaster } from '@common/exports'
+import { buildVaultPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
+
+const defaultInitialFormData: SetupEngineFormData = {
+  secretEngine: '',
+  engineType: 'fetch',
+  secretEngineName: '',
+  secretEngineVersion: 2
+}
+
+const SetupEngine: React.FC<StepProps<StepDetailsProps> & ConnectorDetailsProps> = ({
+  prevStepData,
+  previousStep,
+  nextStep,
+  onConnectorCreated,
+  isEditMode,
+  connectorInfo,
+  accountId,
+  orgIdentifier,
+  projectIdentifier
+}) => {
+  const { getString } = useStrings()
+  const { showSuccess, showError } = useToaster()
+  const [initialValues, setInitialValues] = useState(defaultInitialFormData)
+  const [loadingFormData, setLoadingFormData] = useState(isEditMode)
+  const [secretEngineOptions, setSecretEngineOptions] = useState<SelectOption[]>([])
+  const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
+
+  const { mutate: getMetadata, loading } = useGetMetadata({ queryParams: { accountIdentifier: accountId } })
+  const { mutate: createConnector, loading: creating } = useCreateConnector({
+    queryParams: { accountIdentifier: accountId }
+  })
+  const { mutate: updateConnector, loading: updating } = useUpdateConnector({
+    queryParams: { accountIdentifier: accountId }
+  })
+
+  const engineTypeOptions: IOptionProps[] = [
+    {
+      label: getString('connectors.hashiCorpVault.fetchEngines'),
+      value: 'fetch'
+    },
+    {
+      label: getString('connectors.hashiCorpVault.manuallyConfigureEngine'),
+      value: 'manual'
+    }
+  ]
+
+  useEffect(() => {
+    if (isEditMode && connectorInfo) {
+      setupEngineFormData(connectorInfo).then(data => {
+        setInitialValues(data as SetupEngineFormData)
+        setLoadingFormData(false)
+      })
+    }
+  }, [isEditMode, connectorInfo, accountId])
+
+  const isFetchDisabled = (formData: ConnectorConfigDTO): boolean => {
+    if (isEditMode && (loading || loadingFormData)) return true
+    switch (formData.accessType) {
+      case 'APP_ROLE':
+        if (!formData.appRoleId?.trim() || !formData.secretId?.referenceString || !formData.secretId?.identifier)
+          return true
+        break
+      case 'TOKEN':
+        if (!formData.authToken?.referenceString || !formData.authToken?.identifier) return true
+        break
+    }
+    return false
+  }
+
+  const handleFetchEngines = async (formData: ConnectorConfigDTO): Promise<void> => {
+    try {
+      const res = await getMetadata({
+        identifier: formData.identifier,
+        encryptionType: 'VAULT',
+        orgIdentifier,
+        projectIdentifier,
+        spec: {
+          url: formData.vaultUrl,
+          accessType: formData.accessType,
+          delegateSelectors: formData.delegateSelectors,
+          spec:
+            formData.accessType === 'APP_ROLE'
+              ? ({
+                  appRoleId: formData.appRoleId,
+                  secretId: formData.secretId?.referenceString
+                } as VaultAppRoleCredentialDTO)
+              : ({
+                  authToken: formData.authToken?.referenceString
+                } as VaultAuthTokenCredentialDTO)
+        } as VaultMetadataRequestSpecDTO
+      })
+
+      setSecretEngineOptions(
+        (res.data?.spec as VaultMetadataSpecDTO)?.secretEngines?.map(secretEngine => {
+          return {
+            label: secretEngine.name || '',
+            value: `${secretEngine.name || ''}@@@${secretEngine.version || 2}`
+          }
+        }) || []
+      )
+    } catch (err) {
+      /* istanbul ignore else */
+      //added condition to don't show the toaster if it's an abort error
+      if (shouldShowError(err)) {
+        showError(err.data?.message || err.message)
+      }
+    }
+  }
+
+  useEffect(() => {
+    if (
+      isEditMode &&
+      !loadingFormData &&
+      prevStepData &&
+      connectorInfo &&
+      !connectorInfo.spec.secretEngineManuallyConfigured
+    ) {
+      handleFetchEngines(prevStepData as ConnectorConfigDTO)
+    }
+  }, [isEditMode, loadingFormData, prevStepData, connectorInfo])
+
+  useEffect(() => {
+    if (
+      isEditMode &&
+      !loadingFormData &&
+      loading &&
+      connectorInfo &&
+      !connectorInfo.spec.secretEngineManuallyConfigured
+    ) {
+      setSecretEngineOptions([
+        {
+          label: connectorInfo.spec.secretEngineName || '',
+          value: `${connectorInfo.spec.secretEngineName || ''}@@@${connectorInfo.spec.secretEngineVersion || 2}`
+        }
+      ])
+    }
+  }, [isEditMode, loadingFormData, loading, connectorInfo])
+
+  const handleCreateOrEdit = async (formData: SetupEngineFormData): Promise<void> => {
+    modalErrorHandler?.hide()
+    if (prevStepData) {
+      const data: ConnectorRequestBody = buildVaultPayload({ ...prevStepData, ...formData })
+
+      try {
+        if (isEditMode) {
+          const response = await updateConnector(data)
+          nextStep?.({ ...prevStepData, ...formData })
+          onConnectorCreated?.(response.data)
+          showSuccess(getString('connectors.updatedSuccessfully'))
+        } else {
+          const response = await createConnector(data)
+          nextStep?.({ ...prevStepData, ...formData })
+          onConnectorCreated?.(response.data)
+          showSuccess(getString('connectors.createdSuccessfully'))
+        }
+      } catch (err) {
+        /* istanbul ignore next */
+        modalErrorHandler?.showDanger(err?.data?.message)
+      }
+    }
+  }
+
+  return loadingFormData ? (
+    <PageSpinner />
+  ) : (
+    <Container padding={{ top: 'medium' }} width="64%">
+      <Text font={{ size: 'medium' }} padding={{ bottom: 'xlarge' }} color={Color.BLACK}>
+        {getString('connectors.hashiCorpVault.setupEngine')}
+      </Text>
+      <ModalErrorHandler bind={setModalErrorHandler} />
+      <Formik<SetupEngineFormData>
+        enableReinitialize
+        initialValues={initialValues}
+        formName="vaultConfigForm"
+        validationSchema={Yup.object().shape({
+          secretEngineName: Yup.string().when('engineType', {
+            is: 'manual',
+            then: Yup.string().trim().required(getString('validation.secretEngineName'))
+          }),
+          secretEngineVersion: Yup.number().when('engineType', {
+            is: 'manual',
+            then: Yup.number()
+              .positive(getString('validation.engineVersionNumber'))
+              .required(getString('validation.engineVersion'))
+          }),
+          secretEngine: Yup.string().when('engineType', {
+            is: 'fetch',
+            then: Yup.string().trim().required(getString('validation.secretEngine'))
+          })
+        })}
+        onSubmit={formData => {
+          handleCreateOrEdit(formData)
+        }}
+      >
+        {formik => {
+          return (
+            <FormikForm>
+              <Container height={490}>
+                <FormInput.RadioGroup
+                  name="engineType"
+                  label={getString('connectors.hashiCorpVault.secretEngine')}
+                  radioGroup={{ inline: true }}
+                  items={engineTypeOptions}
+                />
+                {formik.values['engineType'] === 'fetch' ? (
+                  <Layout.Horizontal spacing="medium">
+                    <FormInput.Select
+                      name="secretEngine"
+                      items={secretEngineOptions}
+                      disabled={secretEngineOptions.length === 0 || loading}
+                    />
+                    <Button
+                      intent="primary"
+                      text={getString('connectors.hashiCorpVault.fetchEngines')}
+                      onClick={() => handleFetchEngines(prevStepData as ConnectorConfigDTO)}
+                      disabled={isFetchDisabled(prevStepData as ConnectorConfigDTO)}
+                      loading={loading}
+                    />
+                  </Layout.Horizontal>
+                ) : null}
+                {formik.values['engineType'] === 'manual' ? (
+                  <Layout.Horizontal spacing="medium">
+                    <FormInput.Text name="secretEngineName" label={getString('connectors.hashiCorpVault.engineName')} />
+                    <FormInput.Text
+                      name="secretEngineVersion"
+                      label={getString('connectors.hashiCorpVault.engineVersion')}
+                    />
+                  </Layout.Horizontal>
+                ) : null}
+              </Container>
+              <Layout.Horizontal spacing="medium">
+                <Button text={getString('back')} onClick={() => previousStep?.(prevStepData)} />
+                <Button
+                  type="submit"
+                  intent="primary"
+                  rightIcon="chevron-right"
+                  text={getString('saveAndContinue')}
+                  disabled={creating || updating}
+                />
+              </Layout.Horizontal>
+            </FormikForm>
+          )
+        }}
+      </Formik>
+    </Container>
+  )
+}
+
+export default SetupEngine

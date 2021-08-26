@@ -1,6 +1,11 @@
 import type { Intent, SelectOption } from '@wings-software/uicore'
 import type { SecretReference } from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
-import type { ConnectorConfigDTO, ConnectorInfoDTO, ConnectorRequestBody } from 'services/cd-ng'
+import type {
+  ConnectorConfigDTO,
+  ConnectorInfoDTO,
+  ConnectorRequestBody,
+  VaultMetadataRequestSpecDTO
+} from 'services/cd-ng'
 
 export interface KubFormData {
   name?: string
@@ -79,4 +84,22 @@ export interface AwsSecretManagerConfigFormData {
   externalId?: string
   assumeStsRoleDuration?: string
   default: boolean
+}
+export interface VaultConfigFormData {
+  vaultUrl: string
+  basePath: string
+  readOnly: boolean
+  default: boolean
+  accessType: VaultMetadataRequestSpecDTO['accessType']
+  appRoleId?: string
+  secretId?: SecretReference
+  authToken?: SecretReference
+  renewalIntervalMinutes: number
+}
+
+export interface SetupEngineFormData {
+  engineType?: 'fetch' | 'manual'
+  secretEngine?: string
+  secretEngineName?: string
+  secretEngineVersion?: number
 }

@@ -1,38 +1,25 @@
 import React from 'react'
 import { StepWizard } from '@wings-software/uicore'
-
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import {
   Connectors,
   CONNECTOR_CREDENTIALS_STEP_IDENTIFIER,
-  SECRET_MANAGER_TESTCONNECTION_STEP_INDEX
+  CreateConnectorModalProps,
+  GIT_TESTCONNECTION_STEP_INDEX
 } from '@connectors/constants'
 import { useStrings } from 'framework/strings'
-import type { ConnectorInfoDTO, ConnectorRequestBody } from 'services/cd-ng'
-
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
-import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
+import { buildVaultPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import DelegateSelectorStep from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelectorStep'
+import SetupEngine from './views/SetupEngine'
 import ConnectorDetailsStep from '../commonSteps/ConnectorDetailsStep'
 import VaultConfigForm from './views/VaultConfigForm'
 
-export interface CreateHashiCorpVaultProps {
-  onClose: () => void
-  onSuccess: (data?: ConnectorRequestBody) => void | Promise<void>
-  isEditMode: boolean
-  mock?: any
-  connectorInfo?: ConnectorInfoDTO | void
-  gitDetails?: IGitContextFormProps
-}
-
-export interface StepSecretManagerProps extends ConnectorInfoDTO {
-  isEdit: boolean
-}
-
-const CreateHashiCorpVault: React.FC<CreateHashiCorpVaultProps> = props => {
+const CreateHashiCorpVault: React.FC<CreateConnectorModalProps> = props => {
   const { onClose, onSuccess } = props
   const { getString } = useStrings()
   return (
-    <StepWizard<StepSecretManagerProps>
+    <StepWizard
       icon={getConnectorIconByType(Connectors.VAULT)}
       iconProps={{ size: 37 }}
       title={getString(getConnectorTitleIdByType(Connectors.VAULT))}
@@ -49,8 +36,33 @@ const CreateHashiCorpVault: React.FC<CreateHashiCorpVaultProps> = props => {
       <VaultConfigForm
         name={getString('connectors.hashiCorpVault.stepTwoName')}
         identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
-        {...props}
-        onSuccess={onSuccess}
+        connectorInfo={props.connectorInfo}
+        isEditMode={props.isEditMode}
+        setIsEditMode={props.setIsEditMode}
+        accountId={props.accountId}
+        orgIdentifier={props.orgIdentifier}
+        projectIdentifier={props.projectIdentifier}
+      />
+      <DelegateSelectorStep
+        name={getString('delegate.DelegateselectionLabel')}
+        isEditMode={props.isEditMode}
+        setIsEditMode={props.setIsEditMode}
+        buildPayload={buildVaultPayload}
+        hideModal={onClose}
+        connectorInfo={props.connectorInfo}
+        gitDetails={props.gitDetails}
+        disableGitSync={true}
+        submitOnNextStep
+      />
+      <SetupEngine
+        name={getString('connectors.hashiCorpVault.setupEngine')}
+        onConnectorCreated={onSuccess}
+        connectorInfo={props.connectorInfo}
+        isEditMode={props.isEditMode}
+        setIsEditMode={props.setIsEditMode}
+        accountId={props.accountId}
+        orgIdentifier={props.orgIdentifier}
+        projectIdentifier={props.projectIdentifier}
       />
       <VerifyOutOfClusterDelegate
         name={getString('connectors.stepThreeName')}
@@ -59,7 +71,7 @@ const CreateHashiCorpVault: React.FC<CreateHashiCorpVaultProps> = props => {
         onClose={onClose}
         isLastStep={true}
         type={Connectors.VAULT}
-        stepIndex={SECRET_MANAGER_TESTCONNECTION_STEP_INDEX}
+        stepIndex={GIT_TESTCONNECTION_STEP_INDEX}
       />
     </StepWizard>
   )

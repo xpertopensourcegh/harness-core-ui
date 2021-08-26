@@ -171,6 +171,7 @@ hashiCorpVault:
   secretId: 'Secret ID'
   stepTwoName: 'HashiCorp Vault Details'
   vaultUrl: 'Vault URL'
+  secretEngine: Secret Engine
   engineName: 'Secret Engine Name'
   engineVersion: 'Secret Engine Version'
   renewal: 'Renewal Interval (minutes)'
@@ -178,6 +179,9 @@ hashiCorpVault:
   readOnlyVault: 'Read-only Vault'
   default: '{{$.common.default}}'
   defaultVault: 'Use as Default Secrets Manager'
+  fetchEngines: Fetch Engines
+  setupEngine: Setup Engine
+  manuallyConfigureEngine: Manually Configure Engine
 nexus:
   nexusServerUrl: 'Nexus Repository URL'
 artifactory:

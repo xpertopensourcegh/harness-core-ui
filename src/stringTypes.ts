@@ -1298,10 +1298,14 @@ export interface StringsMap {
   'connectors.hashiCorpVault.defaultVault': string
   'connectors.hashiCorpVault.engineName': string
   'connectors.hashiCorpVault.engineVersion': string
+  'connectors.hashiCorpVault.fetchEngines': string
+  'connectors.hashiCorpVault.manuallyConfigureEngine': string
   'connectors.hashiCorpVault.readOnly': string
   'connectors.hashiCorpVault.readOnlyVault': string
   'connectors.hashiCorpVault.renewal': string
+  'connectors.hashiCorpVault.secretEngine': string
   'connectors.hashiCorpVault.secretId': string
+  'connectors.hashiCorpVault.setupEngine': string
   'connectors.hashiCorpVault.stepTwoName': string
   'connectors.hashiCorpVault.vaultUrl': string
   'connectors.hashicorpVaultDetails': string

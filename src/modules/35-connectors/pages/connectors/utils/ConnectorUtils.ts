@@ -14,7 +14,8 @@ import type {
   AwsSecretManagerDTO,
   AwsSecretManagerCredential,
   AwsSMCredentialSpecManualConfig,
-  AwsSMCredentialSpecAssumeSTS
+  AwsSMCredentialSpecAssumeSTS,
+  VaultConnectorDTO
 } from 'services/cd-ng'
 import { FormData, CredTypeValues } from '@connectors/interfaces/ConnectorInterface'
 import type { SecretReferenceInterface } from '@secrets/utils/SecretField'
@@ -731,6 +732,37 @@ export const buildAWSKmsSMPayload = (formData: FormData): ConnectorRequestBody =
   return { connector: savedData }
 }
 
+interface BuildVaultPayloadReturnType {
+  connector: Omit<ConnectorInfoDTO, 'spec'> & {
+    spec: VaultConnectorDTO
+  }
+}
+
+export const buildVaultPayload = (formData: FormData): BuildVaultPayloadReturnType => {
+  const savedData = {
+    name: formData.name,
+    description: formData.description,
+    projectIdentifier: formData.projectIdentifier,
+    identifier: formData.identifier,
+    orgIdentifier: formData.orgIdentifier,
+    tags: formData.tags,
+    type: Connectors.VAULT,
+    spec: {
+      ...pick(formData, ['basePath', 'vaultUrl', 'readOnly', 'default', 'renewalIntervalMinutes', 'delegateSelectors']),
+      authToken: formData.accessType === 'TOKEN' ? formData.authToken?.referenceString : undefined,
+      appRoleId: formData.accessType === 'APP_ROLE' ? formData.appRoleId : undefined,
+      secretId: formData.accessType === 'APP_ROLE' ? formData.secretId?.referenceString : undefined,
+      secretEngineManuallyConfigured: formData.engineType === 'manual',
+      secretEngineName:
+        formData.engineType === 'manual' ? formData.secretEngineName : formData.secretEngine?.split('@@@')[0],
+      secretEngineVersion:
+        formData.engineType === 'manual' ? formData.secretEngineVersion : formData.secretEngine?.split('@@@')[1]
+    }
+  }
+
+  return { connector: savedData }
+}
+
 export const buildAWSCodeCommitPayload = (formData: FormData) => {
   const connector = {
     name: formData.name,
@@ -1262,11 +1294,18 @@ export const setupVaultFormData = async (connectorInfo: ConnectorInfoDTO, accoun
     appRoleId: connectorInfoSpec?.appRoleId || '',
     secretId: secretId || undefined,
     authToken: authToken || undefined,
-    secretEngine: `${connectorInfoSpec?.secretEngineName || ''}@@@${connectorInfoSpec?.secretEngineVersion}` || '',
+    renewalIntervalMinutes: connectorInfoSpec?.renewalIntervalMinutes || 10
+  }
+}
+
+export const setupEngineFormData = async (connectorInfo: ConnectorInfoDTO): Promise<FormData> => {
+  const connectorInfoSpec = connectorInfo?.spec
+
+  return {
+    secretEngine: `${connectorInfoSpec?.secretEngineName || ''}@@@${connectorInfoSpec?.secretEngineVersion || 2}`,
     engineType: connectorInfoSpec?.secretEngineManuallyConfigured ? 'manual' : 'fetch',
     secretEngineName: connectorInfoSpec?.secretEngineName || '',
-    secretEngineVersion: connectorInfoSpec?.secretEngineVersion || 2,
-    renewalIntervalMinutes: connectorInfoSpec?.renewalIntervalMinutes || 10
+    secretEngineVersion: connectorInfoSpec?.secretEngineVersion || 2
   }
 }
 

@@ -61,6 +61,7 @@ export interface DelegateSelectorProps {
   connectorInfo: ConnectorInfoDTO | void
   gitDetails?: EntityGitDetails
   disableGitSync?: boolean
+  submitOnNextStep?: boolean
   customHandleCreate?: (
     payload: ConnectorConfigDTO,
     prevData: ConnectorConfigDTO,
@@ -249,6 +250,11 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
               delegateSelectors: mode === DelegateOptions.DelegateOptionsAny ? [] : delegateSelectors
             }
 
+            if (props.submitOnNextStep) {
+              nextStep?.({ ...prevStepData, ...updatedStepData })
+              return
+            }
+
             const connectorData: BuildPayloadProps = {
               ...prevStepData,
               ...updatedStepData,
@@ -323,7 +329,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
               <Button
                 type="submit"
                 intent={'primary'}
-                text={getString('saveAndContinue')}
+                text={getString(props.submitOnNextStep ? 'continue' : 'saveAndContinue')}
                 className={css.saveAndContinue}
                 disabled={isSaveButtonDisabled}
                 rightIcon="chevron-right"

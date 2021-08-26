@@ -3219,6 +3219,36 @@ exports[`Create connector Wizard should open CreateConnectorWizard for VAULT 1`]
             class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
             style="--text-line-clamp: 2; width: 200px;"
           >
+            delegate.DelegateselectionLabel
+          </p>
+        </div>
+        <div
+          class="StepWizard--navStep"
+        >
+          <span
+            class="StepWizard--number"
+          >
+            4
+          </span>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+            style="--text-line-clamp: 2; width: 200px;"
+          >
+            connectors.hashiCorpVault.setupEngine
+          </p>
+        </div>
+        <div
+          class="StepWizard--navStep"
+        >
+          <span
+            class="StepWizard--number"
+          >
+            5
+          </span>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+            style="--text-line-clamp: 2; width: 200px;"
+          >
             connectors.stepThreeName
           </p>
         </div>

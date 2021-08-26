@@ -1,102 +1,93 @@
 import React from 'react'
 import { noop } from 'lodash-es'
-import { render, fireEvent } from '@testing-library/react'
+import { render, fireEvent, queryByText, waitFor } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
-
+import routes from '@common/RouteDefinitions'
+import { accountPathProps } from '@common/utils/routeUtils'
 import { TestWrapper } from '@common/utils/testUtils'
-import { Connectors } from '@connectors/constants'
 import { clickSubmit, fillAtForm, InputTypes } from '@common/utils/JestFormHelper'
+import { mockSecretList, mockResponse, connectorMockData, mockSecret, secretManagerInfo } from './mock'
 import CreateHashiCorpVault from '../CreateHashiCorpVault'
 
-const secretManagerInfo = {
-  name: 'sm14',
-  identifier: 'sm14',
-  description: 'asd',
-  type: Connectors.Vault,
-  spec: {
-    vaultUrl: 'https://vaultqa.harness.io',
-    renewalIntervalMinutes: 10,
-    secretEngineName: 'secret',
-    secretEngineVersion: 2,
-    default: false,
-    readOnly: false
-  }
-}
-
-const delegateNameresponse = {
-  metaData: {},
-  resource: true,
-  responseMessages: 'true'
+const commonProps = {
+  accountId: 'dummy',
+  orgIdentifier: '',
+  projectIdentifier: '',
+  setIsEditMode: noop,
+  onClose: noop,
+  onSuccess: noop
 }
 
 jest.mock('services/portal', () => ({
+  useGetDelegateTags: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  useGetDelegateSelectorsUpTheHierarchy: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  useGetDelegatesUpTheHierarchy: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  useGetDelegateSelectors: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  useGetDelegatesStatusV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
   useGetDelegateFromId: jest.fn().mockImplementation(() => {
-    return { ...delegateNameresponse, refetch: jest.fn(), error: null, loading: false }
+    return { ...mockResponse, refetch: jest.fn(), error: null, loading: false }
   })
 }))
 
 jest.mock('services/cd-ng', () => ({
   useUpdateConnector: jest.fn().mockImplementation(() => ({
-    mutate: async () => {
-      return {
-        status: 'SUCCESS'
-      }
-    },
+    mutate: () => Promise.resolve(mockResponse),
     loading: false
   })),
-  validateTheIdentifierIsUniquePromise: jest.fn(() =>
-    Promise.resolve({
-      status: 'SUCCESS',
-      data: true,
-      metaData: null
-    })
-  ),
+  validateTheIdentifierIsUniquePromise: jest.fn(() => Promise.resolve(mockResponse)),
   useCreateConnector: jest.fn().mockImplementation(() => ({
-    mutate: async () => {
-      return {
-        status: 'SUCCESS'
-      }
-    },
+    mutate: () => Promise.resolve(mockResponse),
     loading: false
   })),
   useGetTestConnectionResult: jest.fn().mockImplementation(() => jest.fn()),
   useGetMetadata: jest.fn().mockImplementation(() => ({
-    mutate: async () => {
-      return {
-        status: 'SUCCESS'
-      }
-    },
+    mutate: () => Promise.resolve(mockResponse),
     loading: false
-  }))
+  })),
+  listSecretsV2Promise: jest.fn().mockImplementation(() => Promise.resolve(mockSecretList)),
+  useGetSecretV2: jest.fn().mockImplementation(() => {
+    return { data: mockSecretList, refetch: jest.fn() }
+  }),
+  useGetConnectorList: jest.fn().mockImplementation(() => {
+    return { ...connectorMockData, refetch: jest.fn(), error: null, loading: false }
+  }),
+  useGetConnector: jest.fn().mockImplementation(() => {
+    return { data: {}, refetch: jest.fn() }
+  }),
+  usePostSecret: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(mockResponse) })),
+  usePostSecretFileV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  usePutSecret: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  usePutSecretFileV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  getSecretV2Promise: jest.fn().mockImplementation(() => Promise.resolve(mockSecret)),
+  useGetFileContent: jest.fn().mockImplementation(() => ({ refetch: jest.fn() })),
+  useCreatePR: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
 }))
 
 describe('Create Secret Manager Wizard', () => {
   test('should render form', async () => {
     const { container, getAllByText } = render(
-      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateHashiCorpVault onClose={noop} onSuccess={noop} mock={true} isEditMode={false} />
+      <TestWrapper path={routes.toConnectors({ ...accountPathProps })} pathParams={{ accountId: 'testAcc' }}>
+        <CreateHashiCorpVault {...commonProps} isEditMode={false} connectorInfo={undefined} mock={mockResponse} />
       </TestWrapper>
     )
 
-    // match step 1
-    expect(container).toMatchSnapshot()
-
-    // fill step 1
+    // Step 1
     fillAtForm([
       {
         container,
         type: InputTypes.TEXTFIELD,
         fieldId: 'name',
-        value: 'dummyname'
+        value: 'dummyName'
       }
     ])
+    expect(container).toMatchSnapshot()
 
     await act(async () => {
       clickSubmit(container)
     })
 
-    // match step 2
-    expect(getAllByText('connectors.hashiCorpVault.stepTwoName')[1]).toBeDefined()
+    // Step 2
+    expect(getAllByText('authentication')[0]).toBeTruthy()
     fillAtForm([
       {
         container,
@@ -107,15 +98,46 @@ describe('Create Secret Manager Wizard', () => {
       {
         container,
         type: InputTypes.TEXTFIELD,
-        fieldId: 'basePath',
-        value: '/test'
-      },
-      {
-        container,
-        type: InputTypes.RADIOS,
-        fieldId: 'accessType',
-        value: 'TOKEN'
-      },
+        fieldId: 'appRoleId',
+        value: '123'
+      }
+    ])
+
+    const password = queryByText(container, 'createOrSelectSecret')
+    act(() => {
+      fireEvent.click(password!)
+    })
+
+    await waitFor(() => queryByText(container, 'secrets.titleCreate'))
+    const selectSecret = queryByText(document.body, 'secrets.titleSelect')
+    expect(selectSecret).toBeTruthy()
+
+    const secret = queryByText(document.body, 'selected_secret')
+    expect(secret).toBeTruthy()
+    act(() => {
+      fireEvent.click(secret!)
+    })
+
+    const applySelected = queryByText(document.body, 'entityReference.apply')
+    act(() => {
+      fireEvent.click(applySelected!)
+    })
+
+    expect(container).toMatchSnapshot()
+
+    await act(async () => {
+      clickSubmit(container)
+    })
+
+    // Step 3
+    expect(getAllByText('delegate.DelegateselectionLabel')[1]).toBeTruthy()
+    await act(async () => {
+      clickSubmit(container)
+    })
+
+    // Step 4
+    expect(getAllByText('connectors.hashiCorpVault.setupEngine')[1]).toBeTruthy()
+    fillAtForm([
       {
         container,
         type: InputTypes.RADIOS,
@@ -129,42 +151,41 @@ describe('Create Secret Manager Wizard', () => {
         value: 'secret'
       }
     ])
+
+    expect(container).toMatchSnapshot()
+
     await act(async () => {
       clickSubmit(container)
     })
-    expect(container).toMatchSnapshot()
+
+    expect(getAllByText('connectors.createdSuccessfully')[0]).toBeTruthy()
   }),
     test('should render form in edit', async () => {
-      const { container } = render(
-        <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
+      const { container, getAllByText } = render(
+        <TestWrapper path={routes.toConnectors({ ...accountPathProps })} pathParams={{ accountId: 'dummy' }}>
           <CreateHashiCorpVault
+            {...commonProps}
             connectorInfo={secretManagerInfo}
-            onClose={noop}
-            onSuccess={noop}
-            mock={true}
+            mock={mockResponse}
             isEditMode={true}
           />
         </TestWrapper>
       )
 
-      // match step 1
-      expect(container).toMatchSnapshot()
-
-      // edit at step 1
+      // Edit step 1
       fillAtForm([
         {
           container,
           type: InputTypes.TEXTFIELD,
           fieldId: 'name',
-          value: 'dummyname'
+          value: 'dummyName'
         }
       ])
-
       await act(async () => {
         clickSubmit(container)
       })
 
-      // match step 2
+      // Edit step 2
       expect(container).toMatchSnapshot()
 
       fillAtForm([
@@ -173,17 +194,54 @@ describe('Create Secret Manager Wizard', () => {
           type: InputTypes.RADIOS,
           fieldId: 'accessType',
           value: 'TOKEN'
-        },
-        {
-          container,
-          type: InputTypes.RADIOS,
-          fieldId: 'engineType',
-          value: 'manual'
         }
       ])
-      await act(async () => {
-        fireEvent.click(container.querySelector('button[type="submit"]')!)
+
+      const password = queryByText(container, 'createOrSelectSecret')
+      act(() => {
+        fireEvent.click(password!)
       })
-      expect(container).toMatchSnapshot()
+
+      await waitFor(() => queryByText(container, 'secrets.titleCreate'))
+      const selectSecret = queryByText(document.body, 'secrets.titleSelect')
+      expect(selectSecret).toBeTruthy()
+
+      const secret = queryByText(document.body, 'selected_secret')
+      expect(secret).toBeTruthy()
+      act(() => {
+        fireEvent.click(secret!)
+      })
+
+      const applySelected = queryByText(document.body, 'entityReference.apply')
+      act(() => {
+        fireEvent.click(applySelected!)
+      })
+
+      await act(async () => {
+        clickSubmit(container)
+      })
+
+      // Step 3
+      expect(getAllByText('delegate.DelegateselectionLabel')[1]).toBeTruthy()
+      await act(async () => {
+        clickSubmit(container)
+      })
+
+      // Edit Step 4
+      expect(getAllByText('connectors.hashiCorpVault.setupEngine')[1]).toBeTruthy()
+      fillAtForm([
+        {
+          container,
+          type: InputTypes.TEXTFIELD,
+          fieldId: 'secretEngineName',
+          value: 'secret 123'
+        }
+      ])
+
+      await act(async () => {
+        clickSubmit(container)
+      })
+
+      expect(getAllByText('connectors.updatedSuccessfully')[0]).toBeTruthy()
     })
 })
