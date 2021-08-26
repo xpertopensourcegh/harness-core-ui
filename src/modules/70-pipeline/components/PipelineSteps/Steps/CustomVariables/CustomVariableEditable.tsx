@@ -5,7 +5,8 @@ import {
   FormInput,
   MultiTypeInputType,
   getMultiTypeFromValue,
-  useNestedAccordion
+  useNestedAccordion,
+  ButtonVariation
 } from '@wings-software/uicore'
 import { Formik, FieldArray } from 'formik'
 import { v4 as uuid } from 'uuid'
@@ -132,8 +133,14 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                 {values.canAddVariable ? (
                   <div className={css.headerRow}>
                     {heading ? heading : <div />}
-                    <Button minimal intent="primary" icon="plus" onClick={addNew} disabled={readonly}>
-                      <String stringID="common.addVariable" />
+                    <Button
+                      className="add-variable"
+                      variation={ButtonVariation.LINK}
+                      icon="plus"
+                      onClick={addNew}
+                      disabled={readonly}
+                    >
+                      <String stringID="variableLabel" />
                     </Button>
                   </div>
                 ) : /* istanbul ignore next */ null}
@@ -235,7 +242,6 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                         <div className={css.actionButtons}>
                           {getMultiTypeFromValue(variable.value as string) === MultiTypeInputType.RUNTIME && (
                             <div className={cx(css.configureButton)}>
-                              {' '}
                               <ConfigureOptions
                                 value={variable.value as string}
                                 defaultValue={variable.default}
@@ -253,26 +259,30 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                           <div>
                             {initialValues.canAddVariable && (
                               <Button
-                                icon="edit"
+                                variation={ButtonVariation.ICON}
+                                iconProps={{ size: 18 }} //color: '#6B6D85' }}
+                                withoutCurrentColor
+                                icon="Edit"
                                 tooltip={<String className={css.tooltip} stringID="common.editVariable" />}
                                 data-testid={`edit-variable-${index}`}
                                 disabled={readonly}
                                 onClick={() => {
                                   setSelectedVariable({ variable, index })
                                 }}
-                                minimal
                               />
                             )}
                           </div>
                           <div>
                             {initialValues.canAddVariable && (
                               <Button
+                                variation={ButtonVariation.ICON}
+                                iconProps={{ size: 16, color: '#6B6D85' }}
+                                withoutCurrentColor
                                 icon="main-trash"
                                 data-testid={`delete-variable-${index}`}
                                 tooltip={<String className={css.tooltip} stringID="common.removeThisVariable" />}
                                 disabled={readonly}
                                 onClick={() => handleRemove(index)}
-                                minimal
                               />
                             )}
                           </div>

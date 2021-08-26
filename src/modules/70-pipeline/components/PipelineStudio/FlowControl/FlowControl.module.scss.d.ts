@@ -16,5 +16,7 @@ declare const styles: {
   readonly deleteIcon: string
   readonly disabledIcon: string
   readonly newBarrier: string
+  readonly barrierAction: string
+  readonly addbarrier: string
 }
 export default styles

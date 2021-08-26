@@ -84,3 +84,13 @@
     }
   }
 }
+
+.barrierAction {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.addbarrier {
+  padding-left: 0 !important;
+  padding-top: var(--spacing-small) !important;
+}

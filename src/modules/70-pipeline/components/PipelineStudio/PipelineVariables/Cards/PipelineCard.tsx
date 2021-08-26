@@ -63,7 +63,7 @@ export default function PipelineCard(props: PipelineCardProps): React.ReactEleme
             customStepProps={{
               variableNamePrefix: 'pipeline.variables.',
               domId: 'Pipeline.Variables-panel',
-              className: cx(css.customVariables, css.customVarPadL1),
+              className: cx(css.customVariables, css.customVarPadL1, css.addVariableL1),
               // heading: <b>{getString('customVariables.title')}</b>,
               path: 'pipeline.variables',
               yamlProperties: (variablePipeline.variables as AllNGVariables[])?.map(

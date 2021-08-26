@@ -44,13 +44,13 @@ describe('Custom Variables', () => {
       />
     )
 
-    const add = await findByText('common.addVariable')
+    const add = await findByText('variableLabel')
 
     act(() => {
       fireEvent.click(add)
     })
 
-    await waitFor(() => findByTextGlobal(document.body, 'common.addVariable', { selector: 'h4.bp3-heading' }))
+    await waitFor(() => findByTextGlobal(document.body, 'variableLabel'))
 
     const name = queryByAttribute('name', document.body.querySelector('.bp3-dialog') as HTMLElement, 'name')
 

@@ -3,7 +3,7 @@ import cx from 'classnames'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import produce from 'immer'
 import * as Yup from 'yup'
-import { Icon, Accordion, Tag, Text, Formik } from '@wings-software/uicore'
+import { Icon, Accordion, Tag, Text, Formik, ButtonVariation } from '@wings-software/uicore'
 import { set, debounce, cloneDeep } from 'lodash-es'
 import { FieldArray } from 'formik'
 import { Tooltip } from '@blueprintjs/core'
@@ -14,6 +14,9 @@ import { useGetBarriersSetupInfoList, StageDetail } from 'services/pipeline-ng'
 import { useMutateAsGet } from '@common/hooks'
 import { NameId } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
+import RbacButton from '@rbac/components/Button/Button'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import css from './FlowControl.module.scss'
 
@@ -253,7 +256,7 @@ const BarrierList: React.FC<BarrierListProps> = ({
                             </Tag>
                           ))}
                         </div>
-                        <div>
+                        <div className={css.barrierAction}>
                           <Tooltip
                             content={
                               barrier.stages?.length
@@ -261,12 +264,20 @@ const BarrierList: React.FC<BarrierListProps> = ({
                                 : ''
                             }
                           >
-                            <Icon
-                              name="main-trash"
-                              size={20}
+                            <RbacButton
+                              permission={{
+                                permission: PermissionIdentifier.EDIT_PIPELINE,
+                                resource: {
+                                  resourceType: ResourceType.PIPELINE
+                                }
+                              }}
+                              icon="main-trash"
+                              variation={ButtonVariation.ICON}
                               className={cx(css.deleteIcon, {
                                 [css.disabledIcon]: loadingSetupInfo || barrier.stages?.length
                               })}
+                              withoutCurrentColor
+                              iconProps={{ size: 16, color: '#6B6D85' }}
                               onClick={() => deleteItem(index, remove)}
                             />
                           </Tooltip>
@@ -291,10 +302,18 @@ const BarrierList: React.FC<BarrierListProps> = ({
                             }}
                           />
                         </div>
-                        <div>
-                          <Icon
-                            name="bin-main"
-                            size={20}
+                        <div className={css.barrierAction}>
+                          <RbacButton
+                            permission={{
+                              permission: PermissionIdentifier.EDIT_PIPELINE,
+                              resource: {
+                                resourceType: ResourceType.PIPELINE
+                              }
+                            }}
+                            variation={ButtonVariation.ICON}
+                            iconProps={{ color: '#6B6D85', size: 16 }}
+                            icon="main-trash"
+                            withoutCurrentColor
                             className={css.deleteIcon}
                             onClick={() => deleteItem(index, remove)}
                           />
@@ -303,9 +322,23 @@ const BarrierList: React.FC<BarrierListProps> = ({
                     )
                   )}
                 </div>
-                <span className={css.addLink} onClick={() => createItem(push)}>
+
+                <RbacButton
+                  permission={{
+                    permission: PermissionIdentifier.EDIT_PIPELINE,
+                    resource: {
+                      resourceType: ResourceType.PIPELINE
+                    }
+                  }}
+                  intent="primary"
+                  variation={ButtonVariation.LINK}
+                  icon="plus"
+                  onClick={() => createItem(push)}
+                  withoutCurrentColor
+                  className={css.addbarrier}
+                >
                   <String stringID="pipeline.barriers.addBarrier" />
-                </span>
+                </RbacButton>
               </div>
             )
           }}

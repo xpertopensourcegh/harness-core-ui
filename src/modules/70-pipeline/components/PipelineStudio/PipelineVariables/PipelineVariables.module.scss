@@ -32,7 +32,7 @@
       z-index: 9;
       display: grid;
       grid-template-columns: 180px 2fr 1fr;
-      padding: var(--spacing-xxlarge) var(--spacing-xlarge);
+      padding: var(--spacing-xlarge) var(--spacing-xlarge);
       font-size: var(--font-size-medium);
       font-weight: 600;
       border-bottom: solid 1px;
@@ -42,6 +42,7 @@
           font-size: var(--font-size-medium);
           padding-right: var(--padding-button);
           vertical-align: initial;
+          margin-bottom: -2px;
         }
       }
       .variableTitle {
@@ -272,33 +273,33 @@
 }
 .variable-padding-l1 {
   :global(.variable-name-cell) {
-    padding-left: var(--spacing-xxxlarge);
+    padding-left: var(--spacing-xlarge);
   }
 }
 .variable-padding-l2 {
   :global(.variable-name-cell) {
-    padding-left: calc(var(--spacing-11) + 8px) !important;
+    padding-left: calc(var(--spacing-xxlarge) + 8px) !important;
   }
 }
 
 .variable-padding-l3 {
   :global(.variable-name-cell) {
-    padding-left: calc(var(--spacing-13) + 8px) !important;
+    padding-left: calc(var(--spacing-huge) + 8px) !important;
   }
 }
 
 .custom-var-pad-l1 {
   :global(.variable-name-cell) {
-    padding-left: calc(var(--spacing-xlarge) + 2px) !important;
+    padding-left: calc(var(--spacing-xlarge) + 4px) !important;
   }
   :global(.variable-value-cell) {
-    padding-left: var(--spacing-xxlarge);
+    padding-left: var(--spacing-xlarge);
   }
 }
 
 .custom-var-pad-l2 {
   :global(.variable-name-cell) {
-    padding-left: calc(var(--spacing-12) + 20px) !important;
+    padding-left: calc(var(--spacing-xxxlarge) + 20px) !important;
   }
   :global(.variable-value-cell) {
     padding-left: var(--spacing-xxlarge);
@@ -315,20 +316,31 @@
 }
 
 .accordian-summary-l1 {
-  padding-left: var(--spacing-xxlarge) !important;
+  padding-left: var(--spacing-medium) !important;
 }
 
 .accordian-summary-l2 {
-  padding-left: var(--spacing-11) !important;
+  padding-left: calc(var(--spacing-xlarge) + 8px) !important;
 }
 
 .accordian-summary-l3 {
-  padding-left: var(--spacing-13) !important;
+  padding-left: calc(var(--spacing-9) + 8px) !important;
 }
 .descriptionTooltip {
   :global {
     .bp3-popover-content {
       width: 300px !important;
     }
+  }
+}
+
+.addVariableL1 {
+  :global(.add-variable) {
+    padding-left: 30px !important;
+  }
+}
+.addVariableL2 {
+  :global(.add-variable) {
+    padding-left: 48px !important;
   }
 }

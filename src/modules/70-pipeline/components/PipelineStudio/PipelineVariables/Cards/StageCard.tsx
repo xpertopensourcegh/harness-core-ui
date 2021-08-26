@@ -100,7 +100,7 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
                     customStepProps={{
                       variableNamePrefix: `${originalStage.identifier}.variables.`,
                       domId: `Stage.${originalStage.identifier}.Variables-panel`,
-                      className: cx(css.customVariables, css.customVarPadL1),
+                      className: cx(css.customVariables, css.customVarPadL1, css.addVariableL1),
                       // heading: <b>{getString('customVariables.title')}</b>,
                       path: `${path}.customVariables`,
                       yamlProperties: (defaultTo(stage.variables, []) as AllNGVariables[]).map?.(

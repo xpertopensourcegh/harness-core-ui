@@ -571,7 +571,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                           data-testid="pipeline.variables-details"
                         >
                           <div
-                            class="customVariables customVariables customVarPadL1"
+                            class="customVariables customVariables customVarPadL1 addVariableL1"
                             id="Pipeline.Variables-panel"
                           >
                             <div
@@ -579,7 +579,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                             >
                               <div />
                               <button
-                                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                class="bp3-button Button--button StyledProps--font StyledProps--main add-variable Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-link"
                                 type="button"
                               >
                                 <span
@@ -605,7 +605,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                   class="bp3-button-text"
                                 >
                                   <span>
-                                    common.addVariable
+                                    variableLabel
                                   </span>
                                 </span>
                               </button>
@@ -728,28 +728,37 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                         class="bp3-popover-target"
                                       >
                                         <button
-                                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                                          class="bp3-button Button--button StyledProps--font StyledProps--main Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
                                           data-testid="edit-variable-0"
                                           tabindex="0"
                                           type="button"
                                         >
                                           <span
-                                            class="bp3-icon bp3-icon-edit StyledProps--main"
-                                            icon="edit"
+                                            class="bp3-icon StyledProps--main"
+                                            data-icon="Edit"
                                           >
                                             <svg
-                                              data-icon="edit"
-                                              height="16"
-                                              viewBox="0 0 16 16"
-                                              width="16"
+                                              height="18"
+                                              viewBox="0 0 12 12"
+                                              width="18"
+                                              xmlns="http://www.w3.org/2000/svg"
                                             >
-                                              <desc>
-                                                edit
-                                              </desc>
-                                              <path
-                                                d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                                              <g
+                                                fill="none"
                                                 fill-rule="evenodd"
-                                              />
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                              >
+                                                <path
+                                                  d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                                                  stroke="#555770"
+                                                />
+                                                <path
+                                                  d="M6.583 5.146l2.063-2.063"
+                                                  opacity="0.3"
+                                                  stroke="#606170"
+                                                />
+                                              </g>
                                             </svg>
                                           </span>
                                         </button>
@@ -764,13 +773,13 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                         class="bp3-popover-target"
                                       >
                                         <button
-                                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                                          class="bp3-button Button--button StyledProps--font StyledProps--main Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
                                           data-testid="delete-variable-0"
                                           tabindex="0"
                                           type="button"
                                         >
                                           <span
-                                            class="bp3-icon StyledProps--main"
+                                            class="bp3-icon StyledProps--main StyledProps--color"
                                             data-icon="main-trash"
                                           >
                                             <svg
@@ -910,28 +919,37 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                         class="bp3-popover-target"
                                       >
                                         <button
-                                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                                          class="bp3-button Button--button StyledProps--font StyledProps--main Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
                                           data-testid="edit-variable-1"
                                           tabindex="0"
                                           type="button"
                                         >
                                           <span
-                                            class="bp3-icon bp3-icon-edit StyledProps--main"
-                                            icon="edit"
+                                            class="bp3-icon StyledProps--main"
+                                            data-icon="Edit"
                                           >
                                             <svg
-                                              data-icon="edit"
-                                              height="16"
-                                              viewBox="0 0 16 16"
-                                              width="16"
+                                              height="18"
+                                              viewBox="0 0 12 12"
+                                              width="18"
+                                              xmlns="http://www.w3.org/2000/svg"
                                             >
-                                              <desc>
-                                                edit
-                                              </desc>
-                                              <path
-                                                d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                                              <g
+                                                fill="none"
                                                 fill-rule="evenodd"
-                                              />
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                              >
+                                                <path
+                                                  d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                                                  stroke="#555770"
+                                                />
+                                                <path
+                                                  d="M6.583 5.146l2.063-2.063"
+                                                  opacity="0.3"
+                                                  stroke="#606170"
+                                                />
+                                              </g>
                                             </svg>
                                           </span>
                                         </button>
@@ -946,13 +964,13 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                         class="bp3-popover-target"
                                       >
                                         <button
-                                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                                          class="bp3-button Button--button StyledProps--font StyledProps--main Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
                                           data-testid="delete-variable-1"
                                           tabindex="0"
                                           type="button"
                                         >
                                           <span
-                                            class="bp3-icon StyledProps--main"
+                                            class="bp3-icon StyledProps--main StyledProps--color"
                                             data-icon="main-trash"
                                           >
                                             <svg
@@ -1306,7 +1324,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                   data-testid="pipeline.stage_1.variables-details"
                                 >
                                   <div
-                                    class="customVariables customVariables customVarPadL1"
+                                    class="customVariables customVariables customVarPadL1 addVariableL1"
                                     id="Stage.stage_1.Variables-panel"
                                   >
                                     <div
@@ -1314,7 +1332,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                     >
                                       <div />
                                       <button
-                                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                        class="bp3-button Button--button StyledProps--font StyledProps--main add-variable Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-link"
                                         type="button"
                                       >
                                         <span
@@ -1340,7 +1358,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                           class="bp3-button-text"
                                         >
                                           <span>
-                                            common.addVariable
+                                            variableLabel
                                           </span>
                                         </span>
                                       </button>
@@ -1463,28 +1481,37 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                 class="bp3-popover-target"
                                               >
                                                 <button
-                                                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                                                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
                                                   data-testid="edit-variable-0"
                                                   tabindex="0"
                                                   type="button"
                                                 >
                                                   <span
-                                                    class="bp3-icon bp3-icon-edit StyledProps--main"
-                                                    icon="edit"
+                                                    class="bp3-icon StyledProps--main"
+                                                    data-icon="Edit"
                                                   >
                                                     <svg
-                                                      data-icon="edit"
-                                                      height="16"
-                                                      viewBox="0 0 16 16"
-                                                      width="16"
+                                                      height="18"
+                                                      viewBox="0 0 12 12"
+                                                      width="18"
+                                                      xmlns="http://www.w3.org/2000/svg"
                                                     >
-                                                      <desc>
-                                                        edit
-                                                      </desc>
-                                                      <path
-                                                        d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                                                      <g
+                                                        fill="none"
                                                         fill-rule="evenodd"
-                                                      />
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                      >
+                                                        <path
+                                                          d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                                                          stroke="#555770"
+                                                        />
+                                                        <path
+                                                          d="M6.583 5.146l2.063-2.063"
+                                                          opacity="0.3"
+                                                          stroke="#606170"
+                                                        />
+                                                      </g>
                                                     </svg>
                                                   </span>
                                                 </button>
@@ -1499,13 +1526,13 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                 class="bp3-popover-target"
                                               >
                                                 <button
-                                                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                                                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
                                                   data-testid="delete-variable-0"
                                                   tabindex="0"
                                                   type="button"
                                                 >
                                                   <span
-                                                    class="bp3-icon StyledProps--main"
+                                                    class="bp3-icon StyledProps--main StyledProps--color"
                                                     data-icon="main-trash"
                                                   >
                                                     <svg
@@ -1645,28 +1672,37 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                 class="bp3-popover-target"
                                               >
                                                 <button
-                                                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                                                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
                                                   data-testid="edit-variable-1"
                                                   tabindex="0"
                                                   type="button"
                                                 >
                                                   <span
-                                                    class="bp3-icon bp3-icon-edit StyledProps--main"
-                                                    icon="edit"
+                                                    class="bp3-icon StyledProps--main"
+                                                    data-icon="Edit"
                                                   >
                                                     <svg
-                                                      data-icon="edit"
-                                                      height="16"
-                                                      viewBox="0 0 16 16"
-                                                      width="16"
+                                                      height="18"
+                                                      viewBox="0 0 12 12"
+                                                      width="18"
+                                                      xmlns="http://www.w3.org/2000/svg"
                                                     >
-                                                      <desc>
-                                                        edit
-                                                      </desc>
-                                                      <path
-                                                        d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                                                      <g
+                                                        fill="none"
                                                         fill-rule="evenodd"
-                                                      />
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                      >
+                                                        <path
+                                                          d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                                                          stroke="#555770"
+                                                        />
+                                                        <path
+                                                          d="M6.583 5.146l2.063-2.063"
+                                                          opacity="0.3"
+                                                          stroke="#606170"
+                                                        />
+                                                      </g>
                                                     </svg>
                                                   </span>
                                                 </button>
@@ -1681,13 +1717,13 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                 class="bp3-popover-target"
                                               >
                                                 <button
-                                                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                                                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
                                                   data-testid="delete-variable-1"
                                                   tabindex="0"
                                                   type="button"
                                                 >
                                                   <span
-                                                    class="bp3-icon StyledProps--main"
+                                                    class="bp3-icon StyledProps--main StyledProps--color"
                                                     data-icon="main-trash"
                                                   >
                                                     <svg
@@ -3346,7 +3382,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                   data-testid="pipeline.stage_2.variables-details"
                                 >
                                   <div
-                                    class="customVariables customVariables customVarPadL1"
+                                    class="customVariables customVariables customVarPadL1 addVariableL1"
                                     id="Stage.stage_2.Variables-panel"
                                   >
                                     <div
@@ -3354,7 +3390,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                     >
                                       <div />
                                       <button
-                                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                        class="bp3-button Button--button StyledProps--font StyledProps--main add-variable Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-link"
                                         type="button"
                                       >
                                         <span
@@ -3380,7 +3416,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                           class="bp3-button-text"
                                         >
                                           <span>
-                                            common.addVariable
+                                            variableLabel
                                           </span>
                                         </span>
                                       </button>
@@ -4410,7 +4446,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                   data-testid="pipeline.parallel_stage_.variables-details"
                                 >
                                   <div
-                                    class="customVariables customVariables customVarPadL1"
+                                    class="customVariables customVariables customVarPadL1 addVariableL1"
                                     id="Stage.parallel_stage_.Variables-panel"
                                   >
                                     <div
@@ -4418,7 +4454,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                     >
                                       <div />
                                       <button
-                                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                        class="bp3-button Button--button StyledProps--font StyledProps--main add-variable Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-link"
                                         type="button"
                                       >
                                         <span
@@ -4444,7 +4480,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                           class="bp3-button-text"
                                         >
                                           <span>
-                                            common.addVariable
+                                            variableLabel
                                           </span>
                                         </span>
                                       </button>
@@ -5409,7 +5445,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                   data-testid="pipeline.parallel_stage_2.variables-details"
                                 >
                                   <div
-                                    class="customVariables customVariables customVarPadL1"
+                                    class="customVariables customVariables customVarPadL1 addVariableL1"
                                     id="Stage.parallel_stage_2.Variables-panel"
                                   >
                                     <div
@@ -5417,7 +5453,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                     >
                                       <div />
                                       <button
-                                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                        class="bp3-button Button--button StyledProps--font StyledProps--main add-variable Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-link"
                                         type="button"
                                       >
                                         <span
@@ -5443,7 +5479,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                           class="bp3-button-text"
                                         >
                                           <span>
-                                            common.addVariable
+                                            variableLabel
                                           </span>
                                         </span>
                                       </button>

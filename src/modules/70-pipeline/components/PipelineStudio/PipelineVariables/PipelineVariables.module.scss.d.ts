@@ -47,5 +47,7 @@ declare const styles: {
   readonly accordianSummaryL2: string
   readonly accordianSummaryL3: string
   readonly descriptionTooltip: string
+  readonly addVariableL1: string
+  readonly addVariableL2: string
 }
 export default styles

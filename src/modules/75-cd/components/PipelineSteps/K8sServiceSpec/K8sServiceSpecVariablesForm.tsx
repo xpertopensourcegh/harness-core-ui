@@ -154,7 +154,7 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
             readonly={readonly}
             customStepProps={{
               variableNamePrefix: 'serviceConfig.variables.',
-              className: cx(css.customVariables, pipelineVariableCss.customVarPadL2),
+              className: cx(css.customVariables, pipelineVariableCss.customVarPadL2, pipelineVariableCss.addVariableL2),
               path: path,
               // heading: <b>{getString('customVariables.title')}</b>,
               yamlProperties: (variablesData?.variables as AllNGVariables[])?.map(

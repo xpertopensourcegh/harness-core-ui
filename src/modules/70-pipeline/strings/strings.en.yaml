@@ -306,7 +306,7 @@ targets:
 barriers:
   syncBarriers: Synchronization Barriers
   flowControl: Flow Control
-  addBarrier: + Add Barrier
+  addBarrier: Add Barrier
   tooltips:
     barrierWaiting: 'Waiting for another barrier '
     timeout: 'to Timeout'

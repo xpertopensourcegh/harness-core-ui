@@ -111,11 +111,6 @@
       border-radius: var(--spacing-xxlarge) !important;
       padding: 0 !important;
       vertical-align: initial;
-      :global {
-        svg {
-          height: 12px;
-        }
-      }
     }
   }
 }
@@ -218,14 +213,13 @@
   background-color: var(--yellow-300);
 }
 .selectedSearchTextValueRow {
-  background-color: var(--yellow-300);
-  .configureButton {
-    background-color: var(--yellow-300);
+  :global(.bp3-form-group) {
+    border: solid 2px var(--yellow-300) !important;
   }
+
   &:global(.selected-search-text) {
-    background-color: var(--orange-400);
-    :local(.configureButton) {
-      background-color: var(--orange-400) !important;
+    :global(.bp3-form-group) {
+      border: solid 2px var(--orange-400) !important;
     }
   }
 }
