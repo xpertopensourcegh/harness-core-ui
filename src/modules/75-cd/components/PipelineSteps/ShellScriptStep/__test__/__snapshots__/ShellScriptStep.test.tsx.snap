@@ -296,7 +296,12 @@ exports[`Test Shell Script Step renders input sets 1`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    createOrSelectSecret
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main"
+                      style="--text-line-clamp: 1;"
+                    >
+                      createOrSelectSecret
+                    </p>
                   </span>
                 </button>
                 <span

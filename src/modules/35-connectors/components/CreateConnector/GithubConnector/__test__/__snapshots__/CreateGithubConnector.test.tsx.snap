@@ -5302,7 +5302,12 @@ exports[`Create Github connector Wizard should render form for edit http and aut
                             <span
                               class="bp3-button-text"
                             >
-                              account.githubPassword
+                              <p
+                                class="StyledProps--font Text--lineclamp StyledProps--main"
+                                style="--text-line-clamp: 1;"
+                              >
+                                account.githubPassword
+                              </p>
                             </span>
                           </button>
                           <span

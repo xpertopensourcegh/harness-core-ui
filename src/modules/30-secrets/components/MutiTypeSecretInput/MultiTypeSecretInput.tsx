@@ -7,7 +7,8 @@ import {
   ExpressionAndRuntimeType,
   ButtonProps,
   ExpressionAndRuntimeTypeProps,
-  MultiTypeInputType
+  MultiTypeInputType,
+  Text
 } from '@wings-software/uicore'
 import { get } from 'lodash-es'
 import { FormGroup, IFormGroupProps, Intent } from '@blueprintjs/core'
@@ -39,7 +40,7 @@ export function MultiTypeSecretInputFixedTypeComponent(
       data-testid={'create-or-select-secret'}
       disabled={disabled}
     >
-      {value || getString('createOrSelectSecret')}
+      <Text lineClamp={1}>{value || getString('createOrSelectSecret')}</Text>
     </Button>
   )
 }
