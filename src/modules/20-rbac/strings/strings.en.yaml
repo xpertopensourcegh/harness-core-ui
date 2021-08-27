@@ -52,6 +52,7 @@ permissionLabels:
 categoryLabels:
   sharedResources: Shared Resources
 roleBinding: Role Bindings (Role - Resource Group)
+noRoleBinding: No Role Bindings found.
 activeUsers: Active Users
 addRole: Add Role
 addUser: Add User

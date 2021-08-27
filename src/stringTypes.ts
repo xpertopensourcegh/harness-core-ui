@@ -279,6 +279,7 @@ export interface StringsMap {
   'common.new': string
   'common.newLines': string
   'common.newVersion': string
+  'common.noAPIKeysFound': string
   'common.noRefData': string
   'common.note': string
   'common.notificationPreferences': string
@@ -535,6 +536,7 @@ export interface StringsMap {
   'rbac.generateToken': string
   'rbac.in': string
   'rbac.myApiKeys': string
+  'rbac.noRoleBinding': string
   'rbac.org': string
   'rbac.pendingUsers': string
   'rbac.permissionLabels.access': string

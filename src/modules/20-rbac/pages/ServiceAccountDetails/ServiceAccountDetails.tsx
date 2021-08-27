@@ -1,7 +1,8 @@
 import React from 'react'
 import { Text, Layout, Color, Avatar, Card, ButtonVariation } from '@wings-software/uicore'
+import isEmpty from 'lodash/isEmpty'
 import { useParams } from 'react-router-dom'
-import moment from 'moment'
+import ReactTimeago from 'react-timeago'
 import { useStrings } from 'framework/strings'
 import { useListAggregatedServiceAccounts } from 'services/cd-ng'
 import { Page } from '@common/exports'
@@ -105,7 +106,7 @@ const ServiceAccountDetails: React.FC = () => {
                 {getString('created')}
               </Text>
               <Text font="small" color={Color.BLACK}>
-                {moment(serviceAccountData.createdAt).format('MM/DD/YYYY hh:mm:ss a')}
+                <ReactTimeago date={serviceAccountData.createdAt || ''} />
               </Text>
             </Layout.Vertical>
             <Layout.Vertical spacing="xsmall" padding={{ left: 'xlarge' }}>
@@ -113,7 +114,7 @@ const ServiceAccountDetails: React.FC = () => {
                 {getString('common.lastModifiedTime')}
               </Text>
               <Text font="small" color={Color.BLACK}>
-                {moment(serviceAccountData.lastModifiedAt).format('MM/DD/YYYY hh:mm:ss a')}
+                <ReactTimeago date={serviceAccountData.lastModifiedAt || ''} />
               </Text>
             </Layout.Vertical>
           </Layout.Horizontal>
@@ -124,9 +125,17 @@ const ServiceAccountDetails: React.FC = () => {
           <Text color={Color.BLACK} font={{ size: 'medium', weight: 'semi-bold' }}>
             {getString('rbac.roleBinding')}
           </Text>
-          <Card className={css.card}>
-            <RoleBindingsList data={serviceAccountData.roleAssignmentsMetadataDTO} />
-          </Card>
+          {isEmpty(serviceAccountData.roleAssignmentsMetadataDTO) ? (
+            <Card>
+              <Text color={Color.GREY_500} flex={{ justifyContent: 'center' }} padding={{ top: 'xsmall' }}>
+                {getString('rbac.noRoleBinding')}
+              </Text>
+            </Card>
+          ) : (
+            <Card className={css.card}>
+              <RoleBindingsList data={serviceAccountData.roleAssignmentsMetadataDTO} />
+            </Card>
+          )}
           <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }} padding={{ top: 'medium' }}>
             <RbacButton
               data-testid={'addRole-ServiceAccount'}

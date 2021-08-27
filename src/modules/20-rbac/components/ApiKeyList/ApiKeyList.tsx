@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Color, Text, Container, ButtonVariation } from '@wings-software/uicore'
+import isEmpty from 'lodash/isEmpty'
+import { Color, Text, Container, ButtonVariation, Card } from '@wings-software/uicore'
 import { TokenDTO, useListAggregatedApiKeys } from 'services/cd-ng'
 import type { ProjectPathProps, ServiceAccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
@@ -12,6 +13,8 @@ import ApiKeyCard from '@rbac/components/ApiKeyList/views/ApiKeyCard'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
+
+import css from './ApiKeyList.module.scss'
 
 interface ApiKeyListProps {
   apiKeyType?: TokenDTO['apiKeyType']
@@ -61,16 +64,24 @@ const ApiKeyList: React.FC<ApiKeyListProps> = ({ apiKeyType = 'SERVICE_ACCOUNT',
       <Container padding={{ top: 'medium', bottom: 'medium' }}>
         {loading && <PageSpinner />}
         {error && <PageError message={(error.data as Error)?.message || error.message} onClick={() => refetch()} />}
-        {data?.data?.content?.map(apiKey => (
-          <ApiKeyCard
-            key={apiKey.apiKey.identifier}
-            data={apiKey}
-            refetchApiKeys={refetch}
-            openTokenModal={openTokenModal}
-            refetchTokens={refetchTokens}
-            onRefetchComplete={onRefetchComplete}
-          />
-        ))}
+        {isEmpty(data?.data?.content) ? (
+          <Card className={css.fullWidth}>
+            <Text color={Color.GREY_500} flex={{ justifyContent: 'center' }} padding={{ top: 'xsmall' }}>
+              {getString('common.noAPIKeysFound')}
+            </Text>
+          </Card>
+        ) : (
+          data?.data?.content?.map(apiKey => (
+            <ApiKeyCard
+              key={apiKey.apiKey.identifier}
+              data={apiKey}
+              refetchApiKeys={refetch}
+              openTokenModal={openTokenModal}
+              refetchTokens={refetchTokens}
+              onRefetchComplete={onRefetchComplete}
+            />
+          ))
+        )}
       </Container>
       <RbacButton
         text={getString('plusNumber', { number: getString('common.apikey') })}

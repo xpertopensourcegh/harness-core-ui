@@ -5,5 +5,7 @@ declare const styles: {
   readonly card: string
   readonly wordBreak: string
   readonly collapse: string
+  readonly noPadding: string
+  readonly fullWidth: string
 }
 export default styles
