@@ -23,7 +23,6 @@ import ExecutionContext, { GraphCanvasState } from '@pipeline/context/ExecutionC
 import { ExecutionHeader } from './ExecutionHeader/ExecutionHeader'
 import ExecutionMetadata from './ExecutionMetadata/ExecutionMetadata'
 import ExecutionTabs from './ExecutionTabs/ExecutionTabs'
-import RightBar from './RightBar/RightBar'
 
 import css from './ExecutionLandingPage.module.scss'
 
@@ -196,7 +195,6 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
               {props.children}
             </div>
           </div>
-          <RightBar />
         </main>
       )}
     </ExecutionContext.Provider>

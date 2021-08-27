@@ -4,8 +4,6 @@
   --execution-stage-details-height: 84px;
   --execution-children-height: calc(100vh - var(--execution-header-height) - var(--execution-tabs-height));
   height: 100vh;
-  display: grid;
-  grid-template-columns: 1fr 60px;
   overflow: hidden;
 
   .lhs {

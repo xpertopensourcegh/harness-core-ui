@@ -470,9 +470,6 @@ exports[`<ExecutionLandingPage /> tests loading state - snapshot test 1`] = `
         </div>
       </div>
     </div>
-    <div
-      class="main"
-    />
   </main>
 </div>
 `;

@@ -5,6 +5,7 @@
   .btn {
     width: 100%;
     justify-content: space-between;
+    box-shadow: none !important;
 
     & > .icon {
       color: var(--primary-7) !important;
