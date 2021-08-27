@@ -10,9 +10,11 @@ import {
 import { useStrings } from 'framework/strings'
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
+import { buildAWSCodeCommitPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import AWSCCAuthStep from './AWSCCAuthStep'
 import AWSCCDetailsStep from './AWSCCDetailsStep'
+import DelegateSelectorStep from '../commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 
 export default function CreateAWSCodeCommitConnector(props: CreateConnectorModalProps) {
   const { getString } = useStrings()
@@ -41,6 +43,17 @@ export default function CreateAWSCodeCommitConnector(props: CreateConnectorModal
         connectorInfo={props.connectorInfo as ConnectorInfoDTO}
         onSuccess={props.onSuccess}
         setIsEditMode={props.setIsEditMode}
+      />
+
+      <DelegateSelectorStep
+        name={getString('delegate.DelegateselectionLabel')}
+        isEditMode={props.isEditMode}
+        setIsEditMode={props.setIsEditMode}
+        buildPayload={buildAWSCodeCommitPayload}
+        hideModal={props.onClose}
+        onConnectorCreated={props.onSuccess}
+        connectorInfo={props.connectorInfo}
+        gitDetails={props.gitDetails}
       />
       <VerifyOutOfClusterDelegate
         name={getString('connectors.stepThreeName')}

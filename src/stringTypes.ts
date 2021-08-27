@@ -1723,6 +1723,7 @@ export interface StringsMap {
   'pipeline.buildRepo': string
   'pipeline.ciCodebase.prCloneStrategy': string
   'pipeline.clickHere': string
+  'pipeline.clickToExpandErrorDetails': string
   'pipeline.closeStepConfig': string
   'pipeline.collapseIsDisabledWhileStageIsRunning': string
   'pipeline.conditionalExecution.belowExpression': string
