@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FormEvent } from 'react'
 import {
   Text,
   Formik,
@@ -6,7 +6,9 @@ import {
   getMultiTypeFromValue,
   MultiTypeInputType,
   FormikForm,
-  Accordion
+  Accordion,
+  RadioButtonGroup,
+  CodeBlock
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'
@@ -51,6 +53,8 @@ export const RunTestsStepBase = (
     },
     getStageFromPipeline
   } = React.useContext(PipelineContext)
+
+  const [mavenSetupQuestionAnswer, setMavenSetupQuestionAnswer] = React.useState('yes')
 
   const { getString } = useStrings()
 
@@ -157,17 +161,19 @@ export const RunTestsStepBase = (
                 disabled: readonly
               }}
             />
-            <MultiTypeTextField
-              name="spec.args"
+            <MultiTypeSelectField
+              name="spec.language"
               label={
-                <Text margin={{ top: 'small' }} tooltipProps={{ dataTooltipId: 'runTestsArgs' }}>
-                  {getString('argsLabel')}
+                <Text margin={{ top: 'small' }} tooltipProps={{ dataTooltipId: 'runTestsLanguage' }}>
+                  {getString('languageLabel')}
                 </Text>
               }
-              multiTextInputProps={{
-                multiTextInputProps: { expressions },
+              multiTypeInputProps={{
+                selectItems: languageOptions,
+                multiTypeInputProps: { expressions },
                 disabled: readonly
               }}
+              disabled={readonly}
             />
             <MultiTypeSelectField
               name="spec.buildTool"
@@ -183,19 +189,55 @@ export const RunTestsStepBase = (
               }}
               disabled={readonly}
             />
-            <MultiTypeSelectField
-              name="spec.language"
+            {(formik.values?.spec?.language as any)?.value === 'Java' &&
+              (formik.values?.spec?.buildTool as any)?.value === 'Maven' && (
+                <>
+                  <Text margin={{ top: 'small', bottom: 'small' }} color="grey800">
+                    {getString('ci.runTestsMavenSetupTitle')}
+                  </Text>
+                  <Text font={{ size: 'small' }}>{getString('ci.runTestsMavenSetupText1')}</Text>
+                  <RadioButtonGroup
+                    inline={true}
+                    selectedValue={mavenSetupQuestionAnswer}
+                    onChange={(e: FormEvent<HTMLInputElement>) => {
+                      setMavenSetupQuestionAnswer(e.currentTarget.value)
+                    }}
+                    options={[
+                      { label: 'Yes', value: 'yes' },
+                      { label: 'No', value: 'no' }
+                    ]}
+                    margin={{ bottom: 'small' }}
+                  />
+                  {mavenSetupQuestionAnswer === 'yes' && (
+                    <>
+                      <Text
+                        font={{ size: 'small' }}
+                        margin={{ bottom: 'xsmall' }}
+                        tooltipProps={{ dataTooltipId: 'runTestsMavenSetupText2' }}
+                      >
+                        {getString('ci.runTestsMavenSetupText2')}
+                      </Text>
+                      <CodeBlock
+                        allowCopy
+                        codeToCopy="${env.HARNESS_JAVA_AGENT}"
+                        format="pre"
+                        snippet={getString('ci.runTestsMavenSetupSample')}
+                      />
+                    </>
+                  )}
+                </>
+              )}
+            <MultiTypeTextField
+              name="spec.args"
               label={
-                <Text margin={{ top: 'small' }} tooltipProps={{ dataTooltipId: 'runTestsLanguage' }}>
-                  {getString('languageLabel')}
+                <Text margin={{ top: 'small' }} tooltipProps={{ dataTooltipId: 'runTestsArgs' }}>
+                  {getString('argsLabel')}
                 </Text>
               }
-              multiTypeInputProps={{
-                selectItems: languageOptions,
-                multiTypeInputProps: { expressions },
+              multiTextInputProps={{
+                multiTextInputProps: { expressions },
                 disabled: readonly
               }}
-              disabled={readonly}
             />
             <MultiTypeTextField
               name="spec.packages"

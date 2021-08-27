@@ -23,16 +23,16 @@ export const transformValuesFieldsConfig = [
     type: TransformValuesTypes.Text
   },
   {
-    name: 'spec.args',
-    type: TransformValuesTypes.Text
+    name: 'spec.language',
+    type: TransformValuesTypes.Language
   },
   {
     name: 'spec.buildTool',
     type: TransformValuesTypes.BuildTool
   },
   {
-    name: 'spec.language',
-    type: TransformValuesTypes.Language
+    name: 'spec.args',
+    type: TransformValuesTypes.Text
   },
   {
     name: 'spec.packages',

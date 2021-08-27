@@ -17,6 +17,7 @@ import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import type { RunTestsStepProps } from './RunTestsStep'
+import RunTestsStepInputSetMavenSetup from './RunTestsStepInputSetMavenSetup'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, path, readonly, stepViewType }) => {
@@ -106,17 +107,21 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
-      {getMultiTypeFromValue(template?.spec?.args) === MultiTypeInputType.RUNTIME && (
-        <MultiTypeTextField
+      {getMultiTypeFromValue(template?.spec?.language) === MultiTypeInputType.RUNTIME && (
+        <MultiTypeSelectField
           className={css.removeBpLabelMargin}
-          name={`${isEmpty(path) ? '' : `${path}.`}spec.args`}
+          name={`${isEmpty(path) ? '' : `${path}.`}spec.language`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'runTestsArgs' }}>
-              {getString('argsLabel')}
+            <Text
+              style={{ display: 'flex', alignItems: 'center' }}
+              tooltipProps={{ dataTooltipId: 'runTestsLanguage' }}
+            >
+              {getString('languageLabel')}
             </Text>
           }
-          multiTextInputProps={{
-            multiTextInputProps: {
+          multiTypeInputProps={{
+            selectItems: languageOptions,
+            multiTypeInputProps: {
               expressions,
               allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
             },
@@ -148,21 +153,18 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
-      {getMultiTypeFromValue(template?.spec?.language) === MultiTypeInputType.RUNTIME && (
-        <MultiTypeSelectField
+      <RunTestsStepInputSetMavenSetup path={path} />
+      {getMultiTypeFromValue(template?.spec?.args) === MultiTypeInputType.RUNTIME && (
+        <MultiTypeTextField
           className={css.removeBpLabelMargin}
-          name={`${isEmpty(path) ? '' : `${path}.`}spec.language`}
+          name={`${isEmpty(path) ? '' : `${path}.`}spec.args`}
           label={
-            <Text
-              style={{ display: 'flex', alignItems: 'center' }}
-              tooltipProps={{ dataTooltipId: 'runTestsLanguage' }}
-            >
-              {getString('languageLabel')}
+            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'runTestsArgs' }}>
+              {getString('argsLabel')}
             </Text>
           }
-          multiTypeInputProps={{
-            selectItems: languageOptions,
-            multiTypeInputProps: {
+          multiTextInputProps={{
+            multiTextInputProps: {
               expressions,
               allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
             },

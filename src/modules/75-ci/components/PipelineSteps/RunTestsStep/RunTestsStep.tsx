@@ -26,9 +26,9 @@ import { getInputSetViewValidateFieldsConfig, transformValuesFieldsConfig } from
 export interface RunTestsStepSpec {
   connectorRef: string
   image: string
-  args: string
-  buildTool: MultiTypePullOption
   language: MultiTypePullOption
+  buildTool: MultiTypePullOption
+  args: string
   packages: string
   runOnlySelectedTests?: boolean
   testAnnotations?: string
@@ -62,8 +62,8 @@ export interface RunTestsStepSpecUI
     'connectorRef' | 'buildTool' | 'language' | 'reports' | 'envVariables' | 'outputVariables' | 'resources'
   > {
   connectorRef: MultiTypeConnectorRef
-  buildTool: MultiTypeSelectOption
   language: MultiTypeSelectOption
+  buildTool: MultiTypeSelectOption
   reportPaths?: MultiTypeListUIType
   envVariables?: MultiTypeMapUIType
   outputVariables?: MultiTypeListUIType

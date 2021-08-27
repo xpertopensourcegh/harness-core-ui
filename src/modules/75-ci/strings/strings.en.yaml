@@ -44,3 +44,9 @@ remoteCacheImage:
   dockerInfo: The remote cache repository needs to be created in the same account and organization as the build image. The repository must already exist for caching to work
 remoteCacheRepository:
   label: Remote Cache Repository
+runTestsMavenSetupTitle: Maven setup
+runTestsMavenSetupText1: Does your pom.xml contain <argLine>?
+runTestsMavenSetupText2: Update pom.xml by adding HARNESS_JAVA_AGENT env variable
+runTestsMavenSetupSample: |
+  Sample:
+  <argLine> existing ${env.HARNESS_JAVA_AGENT} </argLine>

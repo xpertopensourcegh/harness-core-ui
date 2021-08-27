@@ -409,12 +409,12 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
         <div>
           <div
             class="Text--withDocsTooltip"
-            data-tooltip-id="runTestsArgs"
+            data-tooltip-id="runTestsLanguage"
           >
             <p
               class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
             >
-              argsLabel
+              languageLabel
             </p>
           </div>
           <div
@@ -422,7 +422,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="spec.args-4"
+              data-id="spec.language-4"
               style="margin-bottom: 0px; flex-grow: 1;"
             >
               
@@ -433,15 +433,48 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                   class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                 >
                   <div
-                    class="bp3-input-group MultiTypeInput--input"
+                    class="bp3-popover-wrapper MultiTypeInput--select MultiTypeInput--fixedValueInput Select--main bp3-fill"
                   >
-                    <input
-                      autocomplete="off"
-                      class="bp3-input"
-                      name="spec.args"
-                      type="text"
-                      value="-Dmaven.test.failure.ignore=true -T 2C test -e -Dbuild.number=\${BUILD_NUMBER}"
-                    />
+                    <div
+                      class="bp3-popover-target"
+                    >
+                      <div
+                        class="bp3-input-group"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="spec.language"
+                          placeholder="Search..."
+                          style="padding-right: 0px;"
+                          type="text"
+                          value="Java"
+                        />
+                        <span
+                          class="bp3-input-action"
+                        >
+                          <span
+                            class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                            icon="chevron-down"
+                          >
+                            <svg
+                              data-icon="chevron-down"
+                              height="14"
+                              viewBox="0 0 16 16"
+                              width="14"
+                            >
+                              <desc>
+                                chevron-down
+                              </desc>
+                              <path
+                                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
                   </div>
                   <span
                     class="bp3-popover-wrapper MultiTypeInput--wrapper"
@@ -579,15 +612,97 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
             </div>
           </div>
         </div>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small StyledProps--color StyledProps--color-grey800"
+        >
+          ci.runTestsMavenSetupTitle
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+        >
+          ci.runTestsMavenSetupText1
+        </p>
+        <div
+          class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main StyledProps--margin-bottom-small"
+        >
+          <label
+            class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+          >
+            <input
+              checked=""
+              name="Blueprint3.RadioGroup-0"
+              type="radio"
+              value="yes"
+            />
+            <span
+              class="bp3-control-indicator"
+            />
+            Yes
+          </label>
+          <label
+            class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+          >
+            <input
+              name="Blueprint3.RadioGroup-0"
+              type="radio"
+              value="no"
+            />
+            <span
+              class="bp3-control-indicator"
+            />
+            No
+          </label>
+        </div>
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="runTestsMavenSetupText2"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-bottom-xsmall"
+          >
+            ci.runTestsMavenSetupText2
+          </p>
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main CodeBlock--codeBlock StyledProps--padding-xsmall StyledProps--background-grey100 StyledProps--margin-none StyledProps--flex"
+        >
+          <pre>
+            ci.runTestsMavenSetupSample
+          </pre>
+          <button
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+            type="button"
+          >
+            <span
+              class="bp3-icon bp3-icon-duplicate StyledProps--main"
+              icon="duplicate"
+            >
+              <svg
+                data-icon="duplicate"
+                height="12"
+                viewBox="0 0 16 16"
+                width="12"
+              >
+                <desc>
+                  duplicate
+                </desc>
+                <path
+                  d="M15 0H5c-.55 0-1 .45-1 1v2h2V2h8v7h-1v2h2c.55 0 1-.45 1-1V1c0-.55-.45-1-1-1zm-4 4H1c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h10c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1zm-1 10H2V6h8v8z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
         <div>
           <div
             class="Text--withDocsTooltip"
-            data-tooltip-id="runTestsLanguage"
+            data-tooltip-id="runTestsArgs"
           >
             <p
               class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
             >
-              languageLabel
+              argsLabel
             </p>
           </div>
           <div
@@ -595,7 +710,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="spec.language-6"
+              data-id="spec.args-6"
               style="margin-bottom: 0px; flex-grow: 1;"
             >
               
@@ -606,48 +721,15 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                   class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                 >
                   <div
-                    class="bp3-popover-wrapper MultiTypeInput--select MultiTypeInput--fixedValueInput Select--main bp3-fill"
+                    class="bp3-input-group MultiTypeInput--input"
                   >
-                    <div
-                      class="bp3-popover-target"
-                    >
-                      <div
-                        class="bp3-input-group"
-                      >
-                        <input
-                          autocomplete="off"
-                          class="bp3-input"
-                          name="spec.language"
-                          placeholder="Search..."
-                          style="padding-right: 0px;"
-                          type="text"
-                          value="Java"
-                        />
-                        <span
-                          class="bp3-input-action"
-                        >
-                          <span
-                            class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
-                            icon="chevron-down"
-                          >
-                            <svg
-                              data-icon="chevron-down"
-                              height="14"
-                              viewBox="0 0 16 16"
-                              width="14"
-                            >
-                              <desc>
-                                chevron-down
-                              </desc>
-                              <path
-                                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
-                          </span>
-                        </span>
-                      </div>
-                    </div>
+                    <input
+                      autocomplete="off"
+                      class="bp3-input"
+                      name="spec.args"
+                      type="text"
+                      value="-Dmaven.test.failure.ignore=true -T 2C test -e -Dbuild.number=\${BUILD_NUMBER}"
+                    />
                   </div>
                   <span
                     class="bp3-popover-wrapper MultiTypeInput--wrapper"
@@ -1220,12 +1302,12 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
         <div>
           <div
             class="Text--withDocsTooltip"
-            data-tooltip-id="runTestsArgs"
+            data-tooltip-id="runTestsLanguage"
           >
             <p
               class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
             >
-              argsLabel
+              languageLabel
             </p>
           </div>
           <div
@@ -1233,7 +1315,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="spec.args-4"
+              data-id="spec.language-4"
               style="margin-bottom: 0px; flex-grow: 1;"
             >
               
@@ -1252,7 +1334,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
                       <input
                         class="bp3-input"
                         disabled=""
-                        name="spec.args"
+                        name="spec.language"
                         placeholder="<+input>"
                         type="text"
                         value="<+input>"
@@ -1292,7 +1374,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
             </div>
             <button
               class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
-              id="configureOptions_spec.args"
+              id="configureOptions_spec.language"
               type="button"
             >
               <span
@@ -1420,12 +1502,12 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
         <div>
           <div
             class="Text--withDocsTooltip"
-            data-tooltip-id="runTestsLanguage"
+            data-tooltip-id="runTestsArgs"
           >
             <p
               class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
             >
-              languageLabel
+              argsLabel
             </p>
           </div>
           <div
@@ -1433,7 +1515,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="spec.language-6"
+              data-id="spec.args-6"
               style="margin-bottom: 0px; flex-grow: 1;"
             >
               
@@ -1452,7 +1534,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
                       <input
                         class="bp3-input"
                         disabled=""
-                        name="spec.language"
+                        name="spec.args"
                         placeholder="<+input>"
                         type="text"
                         value="<+input>"
@@ -1492,7 +1574,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
             </div>
             <button
               class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
-              id="configureOptions_spec.language"
+              id="configureOptions_spec.args"
               type="button"
             >
               <span
@@ -2060,12 +2142,12 @@ exports[`RunTests Step Edit View should render properly 1`] = `
         <div>
           <div
             class="Text--withDocsTooltip"
-            data-tooltip-id="runTestsArgs"
+            data-tooltip-id="runTestsLanguage"
           >
             <p
               class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
             >
-              argsLabel
+              languageLabel
             </p>
           </div>
           <div
@@ -2073,7 +2155,7 @@ exports[`RunTests Step Edit View should render properly 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="spec.args-4"
+              data-id="spec.language-4"
               style="margin-bottom: 0px; flex-grow: 1;"
             >
               
@@ -2084,15 +2166,48 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                   class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                 >
                   <div
-                    class="bp3-input-group MultiTypeInput--input"
+                    class="bp3-popover-wrapper MultiTypeInput--select MultiTypeInput--fixedValueInput Select--main bp3-fill"
                   >
-                    <input
-                      autocomplete="off"
-                      class="bp3-input"
-                      name="spec.args"
-                      type="text"
-                      value=""
-                    />
+                    <div
+                      class="bp3-popover-target"
+                    >
+                      <div
+                        class="bp3-input-group"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="spec.language"
+                          placeholder="Search..."
+                          style="padding-right: 0px;"
+                          type="text"
+                          value="Java"
+                        />
+                        <span
+                          class="bp3-input-action"
+                        >
+                          <span
+                            class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                            icon="chevron-down"
+                          >
+                            <svg
+                              data-icon="chevron-down"
+                              height="14"
+                              viewBox="0 0 16 16"
+                              width="14"
+                            >
+                              <desc>
+                                chevron-down
+                              </desc>
+                              <path
+                                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
                   </div>
                   <span
                     class="bp3-popover-wrapper MultiTypeInput--wrapper"
@@ -2233,12 +2348,12 @@ exports[`RunTests Step Edit View should render properly 1`] = `
         <div>
           <div
             class="Text--withDocsTooltip"
-            data-tooltip-id="runTestsLanguage"
+            data-tooltip-id="runTestsArgs"
           >
             <p
               class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
             >
-              languageLabel
+              argsLabel
             </p>
           </div>
           <div
@@ -2246,7 +2361,7 @@ exports[`RunTests Step Edit View should render properly 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="spec.language-6"
+              data-id="spec.args-6"
               style="margin-bottom: 0px; flex-grow: 1;"
             >
               
@@ -2257,48 +2372,15 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                   class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                 >
                   <div
-                    class="bp3-popover-wrapper MultiTypeInput--select MultiTypeInput--fixedValueInput Select--main bp3-fill"
+                    class="bp3-input-group MultiTypeInput--input"
                   >
-                    <div
-                      class="bp3-popover-target"
-                    >
-                      <div
-                        class="bp3-input-group"
-                      >
-                        <input
-                          autocomplete="off"
-                          class="bp3-input"
-                          name="spec.language"
-                          placeholder="Search..."
-                          style="padding-right: 0px;"
-                          type="text"
-                          value="Java"
-                        />
-                        <span
-                          class="bp3-input-action"
-                        >
-                          <span
-                            class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
-                            icon="chevron-down"
-                          >
-                            <svg
-                              data-icon="chevron-down"
-                              height="14"
-                              viewBox="0 0 16 16"
-                              width="14"
-                            >
-                              <desc>
-                                chevron-down
-                              </desc>
-                              <path
-                                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
-                          </span>
-                        </span>
-                      </div>
-                    </div>
+                    <input
+                      autocomplete="off"
+                      class="bp3-input"
+                      name="spec.args"
+                      type="text"
+                      value=""
+                    />
                   </div>
                   <span
                     class="bp3-popover-wrapper MultiTypeInput--wrapper"
@@ -2450,7 +2532,90 @@ exports[`RunTests Step InputSet View should not render any fields 1`] = `
       class="FormikForm--main removeBpPopoverWrapperTopMargin"
       style="width: 50%;"
     >
-      <div />
+      <div>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small StyledProps--color StyledProps--color-grey800"
+        >
+          ci.runTestsMavenSetupTitle
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+        >
+          ci.runTestsMavenSetupText1
+        </p>
+        <div
+          class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main StyledProps--margin-bottom-small"
+        >
+          <label
+            class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+          >
+            <input
+              checked=""
+              name="Blueprint3.RadioGroup-3"
+              type="radio"
+              value="yes"
+            />
+            <span
+              class="bp3-control-indicator"
+            />
+            Yes
+          </label>
+          <label
+            class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+          >
+            <input
+              name="Blueprint3.RadioGroup-3"
+              type="radio"
+              value="no"
+            />
+            <span
+              class="bp3-control-indicator"
+            />
+            No
+          </label>
+        </div>
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="runTestsMavenSetupText2"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-bottom-xsmall"
+          >
+            ci.runTestsMavenSetupText2
+          </p>
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main CodeBlock--codeBlock StyledProps--padding-xsmall StyledProps--background-grey100 StyledProps--margin-none StyledProps--flex"
+        >
+          <pre>
+            ci.runTestsMavenSetupSample
+          </pre>
+          <button
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+            type="button"
+          >
+            <span
+              class="bp3-icon bp3-icon-duplicate StyledProps--main"
+              icon="duplicate"
+            >
+              <svg
+                data-icon="duplicate"
+                height="12"
+                viewBox="0 0 16 16"
+                width="12"
+              >
+                <desc>
+                  duplicate
+                </desc>
+                <path
+                  d="M15 0H5c-.55 0-1 .45-1 1v2h2V2h8v7h-1v2h2c.55 0 1-.45 1-1V1c0-.55-.45-1-1-1zm-4 4H1c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h10c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1zm-1 10H2V6h8v8z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+      </div>
     </form>
     <p
       class="StyledProps--font StyledProps--main"
@@ -2735,13 +2900,13 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
         >
           <div
             class="Text--withDocsTooltip"
-            data-tooltip-id="runTestsArgs"
+            data-tooltip-id="runTestsLanguage"
           >
             <p
               class="StyledProps--font StyledProps--main"
               style="display: flex; align-items: center;"
             >
-              argsLabel
+              languageLabel
             </p>
           </div>
           <div
@@ -2749,7 +2914,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="spec.args-3"
+              data-id="spec.language-3"
               style="margin-bottom: 0px; flex-grow: 1;"
             >
               
@@ -2760,15 +2925,48 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
                   class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                 >
                   <div
-                    class="bp3-input-group MultiTypeInput--input"
+                    class="bp3-popover-wrapper MultiTypeInput--select MultiTypeInput--fixedValueInput Select--main bp3-fill"
                   >
-                    <input
-                      autocomplete="off"
-                      class="bp3-input"
-                      name="spec.args"
-                      type="text"
-                      value=""
-                    />
+                    <div
+                      class="bp3-popover-target"
+                    >
+                      <div
+                        class="bp3-input-group"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="spec.language"
+                          placeholder="Search..."
+                          style="padding-right: 0px;"
+                          type="text"
+                          value=""
+                        />
+                        <span
+                          class="bp3-input-action"
+                        >
+                          <span
+                            class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                            icon="chevron-down"
+                          >
+                            <svg
+                              data-icon="chevron-down"
+                              height="14"
+                              viewBox="0 0 16 16"
+                              width="14"
+                            >
+                              <desc>
+                                chevron-down
+                              </desc>
+                              <path
+                                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
                   </div>
                   <span
                     class="bp3-popover-wrapper MultiTypeInput--wrapper"
@@ -2909,18 +3107,100 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
             </div>
           </div>
         </div>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small StyledProps--color StyledProps--color-grey800"
+        >
+          ci.runTestsMavenSetupTitle
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+        >
+          ci.runTestsMavenSetupText1
+        </p>
+        <div
+          class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main StyledProps--margin-bottom-small"
+        >
+          <label
+            class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+          >
+            <input
+              checked=""
+              name="Blueprint3.RadioGroup-2"
+              type="radio"
+              value="yes"
+            />
+            <span
+              class="bp3-control-indicator"
+            />
+            Yes
+          </label>
+          <label
+            class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+          >
+            <input
+              name="Blueprint3.RadioGroup-2"
+              type="radio"
+              value="no"
+            />
+            <span
+              class="bp3-control-indicator"
+            />
+            No
+          </label>
+        </div>
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="runTestsMavenSetupText2"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-bottom-xsmall"
+          >
+            ci.runTestsMavenSetupText2
+          </p>
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main CodeBlock--codeBlock StyledProps--padding-xsmall StyledProps--background-grey100 StyledProps--margin-none StyledProps--flex"
+        >
+          <pre>
+            ci.runTestsMavenSetupSample
+          </pre>
+          <button
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+            type="button"
+          >
+            <span
+              class="bp3-icon bp3-icon-duplicate StyledProps--main"
+              icon="duplicate"
+            >
+              <svg
+                data-icon="duplicate"
+                height="12"
+                viewBox="0 0 16 16"
+                width="12"
+              >
+                <desc>
+                  duplicate
+                </desc>
+                <path
+                  d="M15 0H5c-.55 0-1 .45-1 1v2h2V2h8v7h-1v2h2c.55 0 1-.45 1-1V1c0-.55-.45-1-1-1zm-4 4H1c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h10c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1zm-1 10H2V6h8v8z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
         <div
           class="removeBpLabelMargin"
         >
           <div
             class="Text--withDocsTooltip"
-            data-tooltip-id="runTestsLanguage"
+            data-tooltip-id="runTestsArgs"
           >
             <p
               class="StyledProps--font StyledProps--main"
               style="display: flex; align-items: center;"
             >
-              languageLabel
+              argsLabel
             </p>
           </div>
           <div
@@ -2928,7 +3208,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="spec.language-5"
+              data-id="spec.args-5"
               style="margin-bottom: 0px; flex-grow: 1;"
             >
               
@@ -2939,48 +3219,15 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
                   class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                 >
                   <div
-                    class="bp3-popover-wrapper MultiTypeInput--select MultiTypeInput--fixedValueInput Select--main bp3-fill"
+                    class="bp3-input-group MultiTypeInput--input"
                   >
-                    <div
-                      class="bp3-popover-target"
-                    >
-                      <div
-                        class="bp3-input-group"
-                      >
-                        <input
-                          autocomplete="off"
-                          class="bp3-input"
-                          name="spec.language"
-                          placeholder="Search..."
-                          style="padding-right: 0px;"
-                          type="text"
-                          value=""
-                        />
-                        <span
-                          class="bp3-input-action"
-                        >
-                          <span
-                            class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
-                            icon="chevron-down"
-                          >
-                            <svg
-                              data-icon="chevron-down"
-                              height="14"
-                              viewBox="0 0 16 16"
-                              width="14"
-                            >
-                              <desc>
-                                chevron-down
-                              </desc>
-                              <path
-                                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
-                          </span>
-                        </span>
-                      </div>
-                    </div>
+                    <input
+                      autocomplete="off"
+                      class="bp3-input"
+                      name="spec.args"
+                      type="text"
+                      value=""
+                    />
                   </div>
                   <span
                     class="bp3-popover-wrapper MultiTypeInput--wrapper"
@@ -4222,7 +4469,90 @@ exports[`RunTests Step InputSet View should render properly 1`] = `
       class="FormikForm--main removeBpPopoverWrapperTopMargin"
       style="width: 50%;"
     >
-      <div />
+      <div>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small StyledProps--color StyledProps--color-grey800"
+        >
+          ci.runTestsMavenSetupTitle
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+        >
+          ci.runTestsMavenSetupText1
+        </p>
+        <div
+          class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main StyledProps--margin-bottom-small"
+        >
+          <label
+            class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+          >
+            <input
+              checked=""
+              name="Blueprint3.RadioGroup-1"
+              type="radio"
+              value="yes"
+            />
+            <span
+              class="bp3-control-indicator"
+            />
+            Yes
+          </label>
+          <label
+            class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+          >
+            <input
+              name="Blueprint3.RadioGroup-1"
+              type="radio"
+              value="no"
+            />
+            <span
+              class="bp3-control-indicator"
+            />
+            No
+          </label>
+        </div>
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="runTestsMavenSetupText2"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-bottom-xsmall"
+          >
+            ci.runTestsMavenSetupText2
+          </p>
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main CodeBlock--codeBlock StyledProps--padding-xsmall StyledProps--background-grey100 StyledProps--margin-none StyledProps--flex"
+        >
+          <pre>
+            ci.runTestsMavenSetupSample
+          </pre>
+          <button
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+            type="button"
+          >
+            <span
+              class="bp3-icon bp3-icon-duplicate StyledProps--main"
+              icon="duplicate"
+            >
+              <svg
+                data-icon="duplicate"
+                height="12"
+                viewBox="0 0 16 16"
+                width="12"
+              >
+                <desc>
+                  duplicate
+                </desc>
+                <path
+                  d="M15 0H5c-.55 0-1 .45-1 1v2h2V2h8v7h-1v2h2c.55 0 1-.45 1-1V1c0-.55-.45-1-1-1zm-4 4H1c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h10c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1zm-1 10H2V6h8v8z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+      </div>
     </form>
     <p
       class="StyledProps--font StyledProps--main"
@@ -4563,7 +4893,7 @@ exports[`RunTests Step InputVariable View should render properly 1`] = `
           <span
             class=""
           >
-            args
+            language
           </span>
         </div>
         <div
@@ -4607,7 +4937,7 @@ exports[`RunTests Step InputVariable View should render properly 1`] = `
         <span
           class=""
         >
-          -Dmaven.test.failure.ignore=true -T 2C test -e -Dbuild.number=\${BUILD_NUMBER}
+          Java
         </span>
       </p>
     </div>
@@ -4683,7 +5013,7 @@ exports[`RunTests Step InputVariable View should render properly 1`] = `
           <span
             class=""
           >
-            language
+            args
           </span>
         </div>
         <div
@@ -4727,7 +5057,7 @@ exports[`RunTests Step InputVariable View should render properly 1`] = `
         <span
           class=""
         >
-          Java
+          -Dmaven.test.failure.ignore=true -T 2C test -e -Dbuild.number=\${BUILD_NUMBER}
         </span>
       </p>
     </div>

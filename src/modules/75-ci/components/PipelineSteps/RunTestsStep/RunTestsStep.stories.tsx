@@ -58,9 +58,9 @@ RunTestsStep.args = {
     spec: {
       connectorRef: 'account.connectorRef',
       image: 'image',
-      args: '-Dmaven.test.failure.ignore=true -T 2C test -e -Dbuild.number=${BUILD_NUMBER}',
-      buildTool: 'maven',
       language: 'java',
+      buildTool: 'maven',
+      args: '-Dmaven.test.failure.ignore=true -T 2C test -e -Dbuild.number=${BUILD_NUMBER}',
       packages: 'io.harness., software.wings., migrations.',
       runOnlySelectedTests: false,
       testAnnotations: 'org.junit.Test, org.junit.jupiter.api.Test, org.testng.annotations.Test',
@@ -103,9 +103,9 @@ RunTestsStep.args = {
     spec: {
       connectorRef: RUNTIME_INPUT_VALUE,
       image: RUNTIME_INPUT_VALUE,
-      args: RUNTIME_INPUT_VALUE,
-      buildTool: RUNTIME_INPUT_VALUE,
       language: RUNTIME_INPUT_VALUE,
+      buildTool: RUNTIME_INPUT_VALUE,
+      args: RUNTIME_INPUT_VALUE,
       packages: RUNTIME_INPUT_VALUE,
       runOnlySelectedTests: RUNTIME_INPUT_VALUE,
       testAnnotations: RUNTIME_INPUT_VALUE,
@@ -138,9 +138,9 @@ RunTestsStep.args = {
     spec: {
       connectorRef: RUNTIME_INPUT_VALUE,
       image: RUNTIME_INPUT_VALUE,
-      args: RUNTIME_INPUT_VALUE,
-      buildTool: RUNTIME_INPUT_VALUE,
       language: RUNTIME_INPUT_VALUE,
+      buildTool: RUNTIME_INPUT_VALUE,
+      args: RUNTIME_INPUT_VALUE,
       packages: RUNTIME_INPUT_VALUE,
       runOnlySelectedTests: RUNTIME_INPUT_VALUE,
       testAnnotations: RUNTIME_INPUT_VALUE,
@@ -197,10 +197,10 @@ RunTestsStep.args = {
           localName: 'step.runTests.spec.image'
         }
       },
-      'step-args': {
+      'step-language': {
         yamlProperties: {
-          fqn: 'pipeline.stages.qaStage.execution.steps.runTests.spec.args',
-          localName: 'step.runTests.spec.args'
+          fqn: 'pipeline.stages.qaStage.execution.steps.runTests.spec.language',
+          localName: 'step.runTests.spec.language'
         }
       },
       'step-buildTool': {
@@ -209,10 +209,10 @@ RunTestsStep.args = {
           localName: 'step.runTests.spec.buildTool'
         }
       },
-      'step-language': {
+      'step-args': {
         yamlProperties: {
-          fqn: 'pipeline.stages.qaStage.execution.steps.runTests.spec.language',
-          localName: 'step.runTests.spec.language'
+          fqn: 'pipeline.stages.qaStage.execution.steps.runTests.spec.args',
+          localName: 'step.runTests.spec.args'
         }
       },
       'step-packages': {
@@ -292,9 +292,9 @@ RunTestsStep.args = {
       spec: {
         connectorRef: 'step-connectorRef',
         image: 'step-image',
-        args: 'step-args',
-        buildTool: 'step-buildTool',
         language: 'step-language',
+        buildTool: 'step-buildTool',
+        args: 'step-args',
         packages: 'step-packages',
         runOnlySelectedTests: 'step-runOnlySelectedTests',
         testAnnotations: 'step-testAnnotations',

@@ -3382,6 +3382,10 @@ export interface StringsMap {
   'ci.remoteCacheImage.label': string
   'ci.remoteCacheImage.placeholder': string
   'ci.remoteCacheRepository.label': string
+  'ci.runTestsMavenSetupSample': string
+  'ci.runTestsMavenSetupText1': string
+  'ci.runTestsMavenSetupText2': string
+  'ci.runTestsMavenSetupTitle': string
   'ci.save': string
   'ci.secrets': string
   'ci.templates': string
