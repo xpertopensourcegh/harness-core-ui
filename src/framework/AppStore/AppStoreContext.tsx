@@ -8,7 +8,9 @@ import {
   useGetCurrentUserInfo,
   UserInfo,
   isGitSyncEnabledPromise,
-  GitEnabledDTO
+  GitEnabledDTO,
+  Organization,
+  useGetOrganization
 } from 'services/cd-ng'
 import { useGetFeatureFlags } from 'services/portal'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
@@ -24,6 +26,7 @@ export type FeatureFlagMap = Partial<Record<FeatureFlag, boolean>>
  */
 export interface AppStoreContextProps {
   readonly selectedProject?: Project
+  readonly selectedOrg?: Organization
   readonly isGitSyncEnabled?: boolean
   readonly connectivityMode?: GitEnabledDTO['connectivityMode'] //'MANAGER' | 'DELEGATE'
   readonly currentUserInfo: UserInfo
@@ -32,7 +35,10 @@ export interface AppStoreContextProps {
 
   updateAppStore(
     data: Partial<
-      Pick<AppStoreContextProps, 'selectedProject' | 'isGitSyncEnabled' | 'connectivityMode' | 'currentUserInfo'>
+      Pick<
+        AppStoreContextProps,
+        'selectedOrg' | 'selectedProject' | 'isGitSyncEnabled' | 'connectivityMode' | 'currentUserInfo'
+      >
     >
   ): void
 }
@@ -71,7 +77,13 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
     },
     lazy: true
   })
-
+  const { refetch: refetchOrg, data: orgDetails } = useGetOrganization({
+    identifier: orgIdentifier,
+    queryParams: {
+      accountIdentifier: accountId
+    },
+    lazy: true
+  })
   const { data: userInfo, loading: userInfoLoading } = useGetCurrentUserInfo({})
 
   useEffect(() => {
@@ -132,7 +144,13 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
       selectedProject: project?.data?.project
     }))
   }, [project?.data?.project])
-
+  // set selectedOrg when orgDetails are fetched
+  useEffect(() => {
+    setState(prevState => ({
+      ...prevState,
+      selectedOrg: orgDetails?.data?.organization
+    }))
+  }, [orgDetails?.data?.organization])
   // update selectedProject when projectIdentifier in URL changes
   useEffect(() => {
     if (projectIdentifier && orgIdentifier) {
@@ -140,12 +158,19 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [projectIdentifier, orgIdentifier])
-
-  // clear selectedProject when accountId changes
+  // update selectedOrg when orgidentifier in url changes
+  useEffect(() => {
+    if (orgIdentifier) {
+      refetchOrg()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [orgIdentifier])
+  // clear selectedProject selectedOrg when accountId changes
   useEffect(() => {
     setState(prevState => ({
       ...prevState,
-      selectedProject: undefined
+      selectedProject: undefined,
+      selectedOrg: undefined
     }))
   }, [accountId])
 
@@ -162,11 +187,15 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
 
   function updateAppStore(
     data: Partial<
-      Pick<AppStoreContextProps, 'selectedProject' | 'isGitSyncEnabled' | 'connectivityMode' | 'currentUserInfo'>
+      Pick<
+        AppStoreContextProps,
+        'selectedOrg' | 'selectedProject' | 'isGitSyncEnabled' | 'connectivityMode' | 'currentUserInfo'
+      >
     >
   ): void {
     setState(prevState => ({
       ...prevState,
+      selectedOrg: data.selectedOrg,
       selectedProject: data.selectedProject,
       isGitSyncEnabled: data.isGitSyncEnabled || prevState?.isGitSyncEnabled,
       connectivityMode: data.connectivityMode || prevState?.connectivityMode,

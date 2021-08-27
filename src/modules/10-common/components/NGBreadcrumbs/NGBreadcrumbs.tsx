@@ -11,14 +11,20 @@ import paths from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 
-export const NGBreadcrumbs: React.FC<Partial<BreadcrumbsProps>> = ({ links = [], className = '' }) => {
+export interface NGBreadcrumbsProps extends BreadcrumbsProps {
+  orgBreadCrumbOptional: boolean
+}
+export const NGBreadcrumbs: React.FC<Partial<NGBreadcrumbsProps>> = ({
+  links = [],
+  className = '',
+  orgBreadCrumbOptional = false
+}) => {
   const { getString } = useStrings()
   const params = useParams<ProjectPathProps & SecretsPathProps & ModulePathParams>()
-  const { module, projectIdentifier } = params
-  const { selectedProject } = useAppStore()
+  const { module, projectIdentifier, orgIdentifier } = params
+  const { selectedProject, selectedOrg } = useAppStore()
   const { pathname } = useLocation()
-
-  let primaryBreadCrumb: Breadcrumb = {
+  let moduleBreadCrumb: Breadcrumb = {
     label: getString('common.accountSettings'),
     iconProps: { name: 'cog', color: 'primary7' },
     url: paths.toAccountSettings(params)
@@ -28,13 +34,13 @@ export const NGBreadcrumbs: React.FC<Partial<BreadcrumbsProps>> = ({ links = [],
   const isDashBoards = pathname.indexOf(routes.toCustomDashboard({ accountId: params.accountId })) !== -1
 
   if (isHome) {
-    primaryBreadCrumb = {
+    moduleBreadCrumb = {
       label: getString('common.home'),
       iconProps: { name: 'harness', color: 'primary7' },
       url: paths.toHome(params)
     }
   } else if (isDashBoards) {
-    primaryBreadCrumb = {
+    moduleBreadCrumb = {
       label: getString('common.dashboards'),
       iconProps: { name: 'dashboard', color: 'primary7' },
       url: paths.toCustomDashboard(params)
@@ -73,12 +79,21 @@ export const NGBreadcrumbs: React.FC<Partial<BreadcrumbsProps>> = ({ links = [],
           ? selectedProject.name
           : projectIdentifier
     }
-    primaryBreadCrumb = {
+    moduleBreadCrumb = {
       label,
       iconProps: { name: getModuleIcon(module.toUpperCase() as ModuleName) },
       url
     }
   }
-
-  return <UiCoreBreadcrumbs links={[primaryBreadCrumb, ...links]} className={className} />
+  const breadCrumbsList = [moduleBreadCrumb]
+  // display org breadcrumb only in org scope and not in project scope (project scope will also have org scope nested in it)
+  if (orgIdentifier && !projectIdentifier && !orgBreadCrumbOptional) {
+    const orgBreadCrumb = {
+      label: selectedOrg?.name && orgIdentifier === selectedOrg?.identifier ? selectedOrg.name : orgIdentifier,
+      url: paths.toOrganizationDetails(params)
+    }
+    breadCrumbsList.push(orgBreadCrumb)
+  }
+  breadCrumbsList.push(...links)
+  return <UiCoreBreadcrumbs links={breadCrumbsList} className={className} />
 }

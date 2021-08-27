@@ -67,6 +67,7 @@ const OrganizationDetailsPage: React.FC = () => {
         size="xlarge"
         breadcrumbs={
           <NGBreadcrumbs
+            orgBreadCrumbOptional
             links={[
               {
                 url: routes.toOrganizations({ accountId }),
