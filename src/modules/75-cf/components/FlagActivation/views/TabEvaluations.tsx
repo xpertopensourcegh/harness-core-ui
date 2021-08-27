@@ -29,6 +29,7 @@ export interface TabEvaluationsProps {
 // Remove year in chart for only current year dates
 const _formatDateWithoutYear = (date: number): string => {
   const currentYear = new Date(date).getFullYear()
+
   return formatDate(date)
     .replace(new RegExp(currentYear + '$', 'i'), '')
     .trim()
@@ -71,21 +72,21 @@ export const TabEvaluations: React.FC<TabEvaluationsProps> = ({ flagData, startD
   const metricsGroupedByDay = _data?.reduce((_metricsGroupedByDay, entry) => {
     const _entry = _metricsGroupedByDay.find(
       ({ day, variationIdentifier }) =>
-        variationIdentifier === entry.variationIdentifier && day === _formatDateWithoutYear(entry.date as number)
+        variationIdentifier === entry.variationIdentifier && day === moment.utc(entry.date).format('MMM DD')
     )
 
     if (_entry) {
       _entry.count = (_entry.count || 0) + (entry.count || 0)
     } else {
-      _metricsGroupedByDay.push({ ...entry, day: _formatDateWithoutYear(entry.date as number) })
+      _metricsGroupedByDay.push({ ...entry, day: moment.utc(entry.date).format('MMM DD') })
     }
 
     return _metricsGroupedByDay
   }, [] as (FeatureEvaluation & { day: string })[])
 
   // categories is used to render x-axis
-  const categories = Array.from(moment.range(moment(startDate), moment(endDate)).by('day', { step: 1 })).map(interval =>
-    _formatDateWithoutYear(interval.valueOf())
+  const categories = Array.from(moment.range(new Date(startDate), new Date(endDate)).by('day', { step: 1 })).map(
+    interval => _formatDateWithoutYear(interval.valueOf())
   )
 
   // series is used to render y-axis + tooltip
