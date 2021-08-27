@@ -10,5 +10,6 @@ declare const styles: {
   readonly cdMain: string
   readonly enabled: string
   readonly footerTitle: string
+  readonly compareVersion: string
 }
 export default styles

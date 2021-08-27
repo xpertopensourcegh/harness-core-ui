@@ -1,5 +1,6 @@
 import React from 'react'
 import { Route, useParams, Redirect } from 'react-router-dom'
+import { useQueryParams } from '@common/hooks'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { RouteWithLayout } from '@common/router'
 import { MinimalLayout } from '@common/layouts'
@@ -180,11 +181,14 @@ const RedirectToModuleTrialHome = (): React.ReactElement => {
     accountId: string
   }>()
 
+  const { source } = useQueryParams<{ source?: string }>()
+
   return (
     <Redirect
       to={routes.toModuleTrialHome({
         accountId,
-        module: 'cd'
+        module: 'cd',
+        source
       })}
     />
   )

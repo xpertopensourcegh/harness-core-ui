@@ -2,11 +2,23 @@
 
 exports[`ModuleInfoCards Test Rendering should render footer when it is cd module 1`] = `
 <div>
-  <h1
-    class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--padding-top-xlarge"
+  <div
+    class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
   >
-    common.purpose.howToProceed
-  </h1>
+    <h1
+      class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--padding-top-xlarge"
+    >
+      common.purpose.howToProceed
+    </h1>
+    <a
+      class="compareVersion"
+      href="https://ngdocs.harness.io/article/1fjmm4by22-harness-first-gen-vs-harness-next-gen"
+      rel="noreferrer"
+      target="_blank"
+    >
+      common.purpose.compare
+    </a>
+  </div>
   <div
     class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
   >
@@ -962,11 +974,23 @@ exports[`ModuleInfoCards Test Rendering that nothing is rendered 1`] = `<div />`
 
 exports[`ModuleInfoCards Test Rendering that the module info cards get selected 1`] = `
 <div>
-  <h1
-    class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--padding-top-xlarge"
+  <div
+    class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
   >
-    common.purpose.howToProceed
-  </h1>
+    <h1
+      class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--padding-top-xlarge"
+    >
+      common.purpose.howToProceed
+    </h1>
+    <a
+      class="compareVersion"
+      href="https://ngdocs.harness.io/article/1fjmm4by22-harness-first-gen-vs-harness-next-gen"
+      rel="noreferrer"
+      target="_blank"
+    >
+      common.purpose.compare
+    </a>
+  </div>
   <div
     class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
   >
@@ -1920,11 +1944,23 @@ exports[`ModuleInfoCards Test Rendering that the module info cards get selected 
 
 exports[`ModuleInfoCards Test Rendering that the module info cards render 1`] = `
 <div>
-  <h1
-    class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--padding-top-xlarge"
+  <div
+    class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
   >
-    common.purpose.howToProceed
-  </h1>
+    <h1
+      class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--padding-top-xlarge"
+    >
+      common.purpose.howToProceed
+    </h1>
+    <a
+      class="compareVersion"
+      href="https://ngdocs.harness.io/article/1fjmm4by22-harness-first-gen-vs-harness-next-gen"
+      rel="noreferrer"
+      target="_blank"
+    >
+      common.purpose.compare
+    </a>
+  </div>
   <div
     class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
   >

@@ -338,6 +338,7 @@ export interface StringsMap {
   'common.purpose.ci.description': string
   'common.purpose.ci.integration': string
   'common.purpose.ci.subtitle': string
+  'common.purpose.compare': string
   'common.purpose.continuous': string
   'common.purpose.cv.continuous': string
   'common.purpose.cv.description': string

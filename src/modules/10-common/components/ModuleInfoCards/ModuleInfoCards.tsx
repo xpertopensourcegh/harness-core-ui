@@ -238,9 +238,19 @@ const ModuleInfoCards: React.FC<ModuleInfoCardsProps> = props => {
 
   return (
     <>
-      <Heading color={fontColor} font={{ size: 'medium', weight: 'bold' }} padding={{ top: 'xlarge' }}>
-        {getString('common.purpose.howToProceed')}
-      </Heading>
+      <Layout.Horizontal flex={{ justifyContent: 'space-between' }}>
+        <Heading color={fontColor} font={{ size: 'medium', weight: 'bold' }} padding={{ top: 'xlarge' }}>
+          {getString('common.purpose.howToProceed')}
+        </Heading>
+        <a
+          className={css.compareVersion}
+          href="https://ngdocs.harness.io/article/1fjmm4by22-harness-first-gen-vs-harness-next-gen"
+          target="_blank"
+          rel="noreferrer"
+        >
+          {getString('common.purpose.compare')}
+        </a>
+      </Layout.Horizontal>
       <Layout.Horizontal spacing="small" style={{ ...style }}>
         {infoCards}
       </Layout.Horizontal>

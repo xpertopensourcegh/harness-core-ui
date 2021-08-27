@@ -459,7 +459,12 @@ const routes = {
     }
     return `/${module}/home`
   }),
-  toModuleTrialHome: withAccountId(({ module }: ModulePathParams) => `/${module}/home/trial`),
+  toModuleTrialHome: withAccountId(({ module, source }: ModuleHomeParams) => {
+    if (source) {
+      return `/${module}/home/trial?source=${source}`
+    }
+    return `/${module}/home/trial`
+  }),
   toCDHome: withAccountId(() => `/cd/home`),
   toCDProject: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>

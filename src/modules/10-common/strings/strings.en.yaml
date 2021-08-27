@@ -143,6 +143,7 @@ new: new
 purpose:
   welcome: 'Hello there, welcome to Harness'
   howToProceed: 'How would you like to proceed?'
+  compare: Compare both versions
   continuous: CONTINUOUS
   change: CHANGE
   moduleSuccess: Module Added Successfully
