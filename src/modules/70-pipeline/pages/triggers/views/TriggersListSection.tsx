@@ -91,7 +91,7 @@ const RenderColumnMenu: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
             headers: { 'content-type': 'application/json' }
           })
           /* istanbul ignore else */
-          if (deleted.status === 'SUCCESS') {
+          if (deleted.status === ResponseStatus.SUCCESS) {
             column.showSuccess(
               `${column.getString('pipeline.triggers.triggerLabel')} ${
                 data.name || /* istanbul ignore next */ ''
@@ -184,10 +184,14 @@ const RenderColumnTrigger: Renderer<CellProps<NGTriggerDetailsResponse>> = ({ ro
         />
         <Layout.Vertical padding={{ left: 'small' }}>
           <Layout.Horizontal spacing="small" data-testid={data.identifier}>
-            <Text color={Color.BLACK}>{data.name}</Text>
-            {!isEmpty(data.tags) ? <TagsPopover tags={data.tags as tagsType} /> : null}
+            <Text color={Color.BLACK} lineClamp={1} width={!isEmpty(data.tags) ? '270px' : '300px'}>
+              {data.name}
+              {!isEmpty(data.tags) ? <TagsPopover tags={data.tags as tagsType} /> : null}
+            </Text>
           </Layout.Horizontal>
-          <Text color={Color.GREY_400}>{data.identifier}</Text>
+          <Text color={Color.GREY_400} lineClamp={1} width="300px">
+            {data.identifier}
+          </Text>
         </Layout.Vertical>
       </Layout.Horizontal>
     </>
@@ -203,16 +207,16 @@ const RenderColumnStatus: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
 }) => {
   const data = row.original
   const { validationStatus, pollingSubscriptionStatus, webhookAutoRegistrationStatus } = data?.triggerStatus || {}
-  const statusResult =
-    validationStatus?.statusResult ||
-    pollingSubscriptionStatus?.statusResult ||
-    webhookAutoRegistrationStatus?.registrationResult
-  const isStatusFailed = statusResult && errorStatusList.includes(statusResult)
-  const statusMessage = isStatusFailed
-    ? validationStatus?.detailedMessage ||
-      pollingSubscriptionStatus?.detailedMessage ||
-      webhookAutoRegistrationStatus?.detailedMessage
-    : undefined
+  let statusMessage: string | undefined = ''
+
+  if (errorStatusList.includes(validationStatus?.statusResult || '')) {
+    statusMessage = validationStatus?.detailedMessage
+  } else if (errorStatusList.includes(pollingSubscriptionStatus?.statusResult || '')) {
+    statusMessage = pollingSubscriptionStatus?.detailedMessage
+  } else if (errorStatusList.includes(webhookAutoRegistrationStatus?.registrationResult || '')) {
+    statusMessage = webhookAutoRegistrationStatus?.detailedMessage
+  }
+
   return (
     <Layout.Horizontal spacing="small" data-testid={data.identifier}>
       {statusMessage && (
@@ -598,6 +602,7 @@ export const TriggersListSection: React.FC<TriggersListSectionProps> = ({
     ],
     [goToEditWizard, refetchTriggerList, getString]
   )
+
   return (
     <Table<NGTriggerDetailsResponse>
       className={css.table}
