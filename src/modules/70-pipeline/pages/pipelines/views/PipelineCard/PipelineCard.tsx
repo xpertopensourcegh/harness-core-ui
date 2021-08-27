@@ -237,7 +237,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
               <Text className={css.label} font="small" width={LEFT_COLUMN_WIDTH} color={Color.GREY_700}>
                 {getString('stages')}
               </Text>
-              <Text font="small" color={Color.BLACK} lineClamp={1}>
+              <Text font="small" color={Color.BLACK} width="114px" lineClamp={1}>
                 {pipeline.stageNames?.join(', ')}
               </Text>
             </Layout.Horizontal>
@@ -254,7 +254,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
                 {getString('pipeline.buildRepo')}
               </Text>
               {pipeline.filters?.ci?.repoNames?.length ? (
-                <Text font="small" color={Color.BLACK} lineClamp={1}>
+                <Text font="small" color={Color.BLACK} width="128px" lineClamp={1}>
                   {pipeline.filters?.ci?.repoNames.join(', ')}
                 </Text>
               ) : (

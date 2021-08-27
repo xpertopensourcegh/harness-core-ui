@@ -298,7 +298,7 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
               </p>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold"
-                style="--text-line-clamp: 1;"
+                style="--text-line-clamp: 1; width: 424px;"
               >
                 Trigger__1
               </p>
@@ -310,7 +310,7 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
               </p>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold"
-                style="--text-line-clamp: 1;"
+                style="--text-line-clamp: 1; width: 424px;"
               >
                 -
               </p>
@@ -322,7 +322,7 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
               </p>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold"
-                style="--text-line-clamp: 1;"
+                style="--text-line-clamp: 1; width: 424px;"
               >
                 Trigger__1
               </p>
@@ -353,25 +353,25 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
               </p>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold"
-                style="--text-line-clamp: 1;"
+                style="--text-line-clamp: 1; width: 424px;"
               >
                 sourceBranch equals ng-trigger-demo
               </p>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold"
-                style="--text-line-clamp: 1;"
+                style="--text-line-clamp: 1; width: 424px;"
               >
                 targetBranch in master, main
               </p>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold"
-                style="--text-line-clamp: 1;"
+                style="--text-line-clamp: 1; width: 424px;"
               >
                 \${eventPayload.pull_request.user.id} equals 56320710
               </p>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold"
-                style="--text-line-clamp: 1;"
+                style="--text-line-clamp: 1; width: 424px;"
               >
                 \${eventPayload.pull_request.head.ref} regex ^ng-trigger-demo
               </p>

@@ -38,6 +38,8 @@ filters:
   environmentPlaceholder: Search/Select Environment
   builtTypePlaceholder: Select Build Type
 selectStagePlaceholder: Search/Select Stage
+rightBar:
+  editCodebaseConfiguration: Edit Codebase Configuration
 barrierStep:
   barrierReference: Barrier Reference
   barrierReferenceRequired: Barrier Reference is required

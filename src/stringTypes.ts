@@ -2073,6 +2073,7 @@ export interface StringsMap {
   'pipeline.resourceConstraints.infoText': string
   'pipeline.resourceConstraints.title': string
   'pipeline.resourceConstraints.yourPipeline': string
+  'pipeline.rightBar.editCodebaseConfiguration': string
   'pipeline.runAPipeline': string
   'pipeline.runModalNoPipelineText': string
   'pipeline.savingInProgress': string

@@ -277,17 +277,17 @@ export default function TriggersDetailPage(): JSX.Element {
                   <Text font={{ size: 'medium', weight: 'bold' }}>{getString('overview')}</Text>
                   <Layout.Vertical spacing="medium" padding={{ top: 'medium' }}>
                     <Text>{getString('pipeline.triggers.triggerConfigurationPanel.triggerName')}</Text>
-                    <Text font={{ weight: 'bold' }} lineClamp={1}>
+                    <Text font={{ weight: 'bold' }} width="424px" lineClamp={1}>
                       {triggerResponse?.data?.name}
                     </Text>
                     <hr />
                     <Text>{getString('description')}</Text>
-                    <Text font={{ weight: 'bold' }} lineClamp={1}>
+                    <Text font={{ weight: 'bold' }} width="424px" lineClamp={1}>
                       {triggerResponse?.data?.description || '-'}
                     </Text>
                     <hr />
                     <Text>{getString('identifier')}</Text>
-                    <Text font={{ weight: 'bold' }} lineClamp={1}>
+                    <Text font={{ weight: 'bold' }} width="424px" lineClamp={1}>
                       {triggerResponse?.data?.identifier}
                     </Text>
                     <hr />
@@ -304,7 +304,7 @@ export default function TriggersDetailPage(): JSX.Element {
                       <>
                         <Text>{getString('conditions')}</Text>
                         {conditionsArr.map(conditionStr => (
-                          <Text key={conditionStr} font={{ weight: 'bold' }} lineClamp={1}>
+                          <Text key={conditionStr} font={{ weight: 'bold' }} width="424px" lineClamp={1}>
                             {conditionStr}
                           </Text>
                         ))}
@@ -313,7 +313,7 @@ export default function TriggersDetailPage(): JSX.Element {
                     {jexlCondition ? (
                       <>
                         <Text>{getString('pipeline.triggers.conditionsPanel.jexlCondition')}</Text>
-                        <Text font={{ weight: 'bold' }} lineClamp={1}>
+                        <Text font={{ weight: 'bold' }} width="424px" lineClamp={1}>
                           {jexlCondition}
                         </Text>
                       </>
@@ -321,7 +321,7 @@ export default function TriggersDetailPage(): JSX.Element {
                     {cronExpression ? (
                       <>
                         <Text>{getString('pipeline.triggers.schedulePanel.cronExpression')}</Text>
-                        <Text font={{ weight: 'bold' }} lineClamp={1}>
+                        <Text font={{ weight: 'bold' }} width="424px" lineClamp={1}>
                           {cronExpression}
                         </Text>
                       </>

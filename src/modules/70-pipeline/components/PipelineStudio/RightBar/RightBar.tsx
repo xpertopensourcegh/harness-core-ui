@@ -443,8 +443,9 @@ export const RightBar = (): JSX.Element => {
           isOpen={true}
           enforceFocus={false}
           title={
-            // TODO: Move to strings
-            codebaseStatus === CodebaseStatuses.NotConfigured ? 'Configure Codebase' : 'Edit Codebase Configuration'
+            codebaseStatus === CodebaseStatuses.NotConfigured
+              ? getString('pipelineSteps.build.create.configureCodebase')
+              : getString('pipeline.rightBar.editCodebaseConfiguration')
           }
           onClose={closeCodebaseDialog}
         >
@@ -575,15 +576,16 @@ export const RightBar = (): JSX.Element => {
                     ) : (
                       <>
                         <FormInput.Text
-                          // TODO: Move to strings, in EditStageView too
-                          label={'Repository Name'}
+                          label={getString('pipelineSteps.build.create.repositoryNameLabel')}
                           name="repoName"
                           style={{ flexGrow: 1 }}
                         />
                         {connectorUrl.length > 0 ? (
                           <div className={css.predefinedValue}>
-                            {(connectorUrl[connectorUrl.length - 1] === '/' ? connectorUrl : connectorUrl + '/') +
-                              (values.repoName ? values.repoName : '')}
+                            <Text lineClamp={1} width="460px">
+                              {(connectorUrl[connectorUrl.length - 1] === '/' ? connectorUrl : connectorUrl + '/') +
+                                (values.repoName ? values.repoName : '')}
+                            </Text>
                           </div>
                         ) : null}
                       </>

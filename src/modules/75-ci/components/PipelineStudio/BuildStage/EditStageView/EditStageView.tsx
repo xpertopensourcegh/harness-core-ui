@@ -288,7 +288,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
                     <>
                       <FormInput.Text
                         className={css.repositoryUrl}
-                        label={'Repository Name'}
+                        label={getString('pipelineSteps.build.create.repositoryNameLabel')}
                         name="repoName"
                         style={{ flexGrow: 1 }}
                         disabled={isReadonly}
