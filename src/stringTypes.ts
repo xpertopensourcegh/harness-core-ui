@@ -279,7 +279,7 @@ export interface StringsMap {
   'common.new': string
   'common.newLines': string
   'common.newVersion': string
-  'common.noAPIKeysFound': string
+  'common.noAPIKeys': string
   'common.noRefData': string
   'common.note': string
   'common.notificationPreferences': string

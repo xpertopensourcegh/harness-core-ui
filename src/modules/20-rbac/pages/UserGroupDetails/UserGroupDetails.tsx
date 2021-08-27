@@ -162,7 +162,7 @@ const UserGroupDetails: React.FC = () => {
               {getString('rbac.roleBinding')}
             </Text>
             <Card className={css.card}>
-              <RoleBindingsList data={userGroupAggregateResponse?.roleAssignmentsMetadataDTO} />
+              <RoleBindingsList data={userGroupAggregateResponse?.roleAssignmentsMetadataDTO} showNoData={true} />
             </Card>
             <Layout.Horizontal
               flex={{ alignItems: 'center', justifyContent: 'flex-start' }}

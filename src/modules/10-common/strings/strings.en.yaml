@@ -469,7 +469,7 @@ seconds: Seconds
 move: Move
 apikey: API Key
 apiKeys: API Keys
-noAPIKeysFound: No API Keys found.
+noAPIKeys: No API Keys
 tokens: Tokens
 lastModifiedTime: Last modified
 modified: Modified

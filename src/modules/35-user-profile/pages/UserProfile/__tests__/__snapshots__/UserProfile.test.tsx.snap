@@ -440,9 +440,9 @@ exports[`User Profile Page User Profile 1`] = `
                     class="bp3-card bp3-elevation-0 Card--card fullWidth"
                   >
                     <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--flex StyledProps--flex-justifyContent-center StyledProps--padding-top-xsmall"
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--padding-top-xsmall"
                     >
-                      common.noAPIKeysFound
+                      common.noAPIKeys
                     </p>
                   </div>
                 </div>

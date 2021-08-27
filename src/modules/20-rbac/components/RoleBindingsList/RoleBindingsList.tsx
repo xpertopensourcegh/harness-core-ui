@@ -1,6 +1,7 @@
 import React from 'react'
+import { isEmpty } from 'lodash-es'
 import { Tag, Popover, PopoverInteractionKind } from '@blueprintjs/core'
-import { Layout } from '@wings-software/uicore'
+import { Color, Layout, Text } from '@wings-software/uicore'
 import { Link, useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import type { RoleAssignmentMetadataDTO, RoleBinding } from 'services/cd-ng'
@@ -11,6 +12,7 @@ import css from './RoleBindingsList.module.scss'
 interface RoleBindingsListProps {
   data?: RoleAssignmentMetadataDTO[] | RoleBinding[]
   length?: number
+  showNoData?: boolean
 }
 
 const RoleBindingTag = ({ roleAssignment }: { roleAssignment: RoleBinding }): React.ReactElement => {
@@ -51,18 +53,22 @@ const RoleBindingTag = ({ roleAssignment }: { roleAssignment: RoleBinding }): Re
   )
 }
 
-const RoleBindingsList: React.FC<RoleBindingsListProps> = ({ data, length = data?.length }) => {
+const RoleBindingsList: React.FC<RoleBindingsListProps> = ({ data, length = data?.length, showNoData = false }) => {
   const baseData = data?.slice(0, length)
   const popoverData = data?.slice(length, data.length)
   const { getString } = useStrings()
   return (
     <>
-      {baseData?.map(roleAssignment => (
-        <RoleBindingTag
-          key={`${roleAssignment.roleIdentifier} ${roleAssignment.resourceGroupIdentifier}`}
-          roleAssignment={roleAssignment}
-        />
-      ))}
+      {showNoData && isEmpty(baseData) ? (
+        <Text color={Color.GREY_500}>{getString('rbac.noRoleBinding')}</Text>
+      ) : (
+        baseData?.map(roleAssignment => (
+          <RoleBindingTag
+            key={`${roleAssignment.roleIdentifier} ${roleAssignment.resourceGroupIdentifier}`}
+            roleAssignment={roleAssignment}
+          />
+        ))
+      )}
       {popoverData?.length ? (
         <Popover interactionKind={PopoverInteractionKind.HOVER}>
           <Layout.Horizontal flex={{ align: 'center-center' }} spacing="xsmall">

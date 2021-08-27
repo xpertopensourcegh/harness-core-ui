@@ -1,6 +1,5 @@
 import React from 'react'
 import { Text, Layout, Color, Avatar, Card, ButtonVariation } from '@wings-software/uicore'
-import isEmpty from 'lodash/isEmpty'
 import { useParams } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
 import { useStrings } from 'framework/strings'
@@ -125,17 +124,9 @@ const ServiceAccountDetails: React.FC = () => {
           <Text color={Color.BLACK} font={{ size: 'medium', weight: 'semi-bold' }}>
             {getString('rbac.roleBinding')}
           </Text>
-          {isEmpty(serviceAccountData.roleAssignmentsMetadataDTO) ? (
-            <Card>
-              <Text color={Color.GREY_500} flex={{ justifyContent: 'center' }} padding={{ top: 'xsmall' }}>
-                {getString('rbac.noRoleBinding')}
-              </Text>
-            </Card>
-          ) : (
-            <Card className={css.card}>
-              <RoleBindingsList data={serviceAccountData.roleAssignmentsMetadataDTO} />
-            </Card>
-          )}
+          <Card className={css.card}>
+            <RoleBindingsList data={serviceAccountData.roleAssignmentsMetadataDTO} showNoData={true} />
+          </Card>
           <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }} padding={{ top: 'medium' }}>
             <RbacButton
               data-testid={'addRole-ServiceAccount'}

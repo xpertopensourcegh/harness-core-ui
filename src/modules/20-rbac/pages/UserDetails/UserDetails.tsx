@@ -100,7 +100,7 @@ const UserDetails: React.FC = () => {
               {getString('rbac.roleBinding')}
             </Text>
             <Card className={css.card}>
-              <RoleBindingsList data={data?.data?.roleAssignmentMetadata} />
+              <RoleBindingsList data={data?.data?.roleAssignmentMetadata} showNoData={true} />
             </Card>
             <Layout.Horizontal
               flex={{ alignItems: 'center', justifyContent: 'flex-start' }}

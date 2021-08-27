@@ -66,8 +66,8 @@ const ApiKeyList: React.FC<ApiKeyListProps> = ({ apiKeyType = 'SERVICE_ACCOUNT',
         {error && <PageError message={(error.data as Error)?.message || error.message} onClick={() => refetch()} />}
         {isEmpty(data?.data?.content) ? (
           <Card className={css.fullWidth}>
-            <Text color={Color.GREY_500} flex={{ justifyContent: 'center' }} padding={{ top: 'xsmall' }}>
-              {getString('common.noAPIKeysFound')}
+            <Text color={Color.GREY_500} padding={{ top: 'xsmall' }}>
+              {getString('common.noAPIKeys')}
             </Text>
           </Card>
         ) : (
