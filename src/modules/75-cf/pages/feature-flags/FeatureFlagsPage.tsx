@@ -11,7 +11,8 @@ import {
   Layout,
   Pagination,
   Text,
-  Utils
+  Utils,
+  HarnessDocTooltip
 } from '@wings-software/uicore'
 // import ReactTimeago from 'react-timeago'
 import { noop } from 'lodash-es'
@@ -561,8 +562,11 @@ const FeatureFlagsPage: React.FC = () => {
   const title = getString('featureFlagsText')
   const header = (
     <Layout.Horizontal flex={{ align: 'center-center' }} style={{ flexGrow: 1 }} padding={{ right: 'xlarge' }}>
-      <ListingPageTitle style={{ borderBottom: 'none' }} data-tooltip-id="ff_ffListing_heading">
-        {title}
+      <ListingPageTitle style={{ borderBottom: 'none' }}>
+        <span data-tooltip-id="ff_ffListing_heading">
+          {title}
+          <HarnessDocTooltip tooltipId="ff_ffListing_heading" useStandAlone />
+        </span>
       </ListingPageTitle>
       <FlexExpander />
       {!!environments?.length && <CFEnvironmentSelect component={<EnvironmentSelect />} />}

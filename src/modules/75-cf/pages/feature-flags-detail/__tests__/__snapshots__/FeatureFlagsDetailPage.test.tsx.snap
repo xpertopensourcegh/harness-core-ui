@@ -127,10 +127,14 @@ exports[`FeatureFlagsDetailPage FeatureFlagsDetailPage should render data correc
             >
               <p
                 class="StyledProps--font StyledProps--main"
-                data-tooltip-id="ff_ffVariations_heading"
                 style="color: rgb(28, 28, 40); font-weight: 600; font-size: 14px; line-height: 22px;"
               >
-                cf.shared.variations
+                <span
+                  class="align"
+                  data-tooltip-id="ff_ffVariations_heading"
+                >
+                  cf.shared.variations
+                </span>
               </p>
               <span
                 style="flex-grow: 1;"
@@ -247,10 +251,14 @@ exports[`FeatureFlagsDetailPage FeatureFlagsDetailPage should render data correc
                   </span>
                   <p
                     class="StyledProps--font StyledProps--main"
-                    data-tooltip-id="ff_ffPrerequisites_heading"
                     style="font-size: 14px; color: rgb(34, 34, 42); font-weight: 600; line-height: 20px;"
                   >
-                    cf.shared.prerequisites
+                    <span
+                      class="align"
+                      data-tooltip-id="ff_ffPrerequisites_heading"
+                    >
+                      cf.shared.prerequisites
+                    </span>
                     <span
                       style="font-size: 12px; font-weight: 400; display: inline-block;"
                     >

@@ -17,6 +17,7 @@ import cx from 'classnames'
 import type { IconName } from '@blueprintjs/core'
 import { Dialog } from '@blueprintjs/core'
 import { useToaster } from '@common/exports'
+import StringWithTooltip from '@cf/components/StringWithTooltip/StringWithTooltip'
 import { useStrings } from 'framework/strings'
 import RbacButton from '@rbac/components/Button/Button'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
@@ -291,9 +292,8 @@ export const FlagPrerequisites: React.FC<FlagPrerequisitesProps> = props => {
         lineHeight: '20px',
         paddingLeft: 'var(--spacing-small)'
       }}
-      data-tooltip-id="ff_ffPrerequisites_heading"
     >
-      {getString('cf.shared.prerequisites')}
+      <StringWithTooltip stringId="cf.shared.prerequisites" tooltipId="ff_ffPrerequisites_heading" />
       <span style={{ fontSize: '12px', fontWeight: 400, display: 'inline-block', marginLeft: 'var(--spacing-xsmall)' }}>
         {getString('cf.featureFlags.prerequisitesDesc')}
       </span>

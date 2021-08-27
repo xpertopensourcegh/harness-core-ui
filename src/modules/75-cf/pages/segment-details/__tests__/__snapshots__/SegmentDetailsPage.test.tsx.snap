@@ -241,9 +241,13 @@ exports[`SegmentDetailsPage SegmentDetailsPage should render data correctly 1`] 
                 >
                   <p
                     class="StyledProps--font StyledProps--main tabTitle"
-                    data-tooltip-id="ff_segmentRules_heading"
                   >
-                    cf.shared.rules
+                    <span
+                      class="align"
+                      data-tooltip-id="ff_segmentRules_heading"
+                    >
+                      cf.shared.rules
+                    </span>
                   </p>
                 </div>
                 <div

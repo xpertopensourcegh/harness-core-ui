@@ -3,7 +3,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import type { Column } from 'react-table'
 import { get } from 'lodash-es'
 import { Position } from '@blueprintjs/core'
-import { Container, Layout, Pagination, Text } from '@wings-software/uicore'
+import { Container, Layout, Pagination, Text, HarnessDocTooltip } from '@wings-software/uicore'
 import { EnvironmentResponseDTO, useDeleteEnvironmentV2, useGetEnvironmentListForProject } from 'services/cd-ng'
 import Table from '@common/components/Table/Table'
 import { useToaster } from '@common/exports'
@@ -233,8 +233,11 @@ const EnvironmentsPage: React.FC = () => {
     <ListingPageTemplate
       pageTitle={title}
       header={
-        <ListingPageTitle style={{ borderBottom: 'none' }} data-tooltip-id="ff_env_heading">
-          {title}
+        <ListingPageTitle style={{ borderBottom: 'none' }}>
+          <span data-tooltip-id="ff_env_heading">
+            {title}
+            <HarnessDocTooltip tooltipId="ff_env_heading" useStandAlone />
+          </span>
         </ListingPageTitle>
       }
       headerStyle={{ display: 'flex' }}

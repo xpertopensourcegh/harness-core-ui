@@ -1,35 +1,21 @@
 import React, { ReactElement } from 'react'
 import { useParams } from 'react-router'
 import { NavLink } from 'react-router-dom'
+import type { StringKeys } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
 import { useQueryParams } from '@common/hooks'
-import { useStrings } from 'framework/strings'
-import type { StringsMap } from 'stringTypes'
+import StringWithTooltip from '@cf/components/StringWithTooltip/StringWithTooltip'
 import css from './SectionToggle.module.scss'
 
 const SectionToggle = (): ReactElement => {
   const params = useParams<ProjectPathProps & { accountId: string }>()
-  const { getString } = useStrings()
   const { activeEnvironment } = useQueryParams<{ activeEnvironment: string }>()
 
-  const Item = ({
-    link,
-    text,
-    tooltipId
-  }: {
-    link: string
-    text: keyof StringsMap
-    tooltipId: string
-  }): ReactElement => (
+  const Item = ({ link, text, tooltipId }: { link: string; text: StringKeys; tooltipId: string }): ReactElement => (
     <li className={css.item}>
-      <NavLink
-        to={`${link}?activeEnvironment=${activeEnvironment}`}
-        className={css.link}
-        activeClassName={css.active}
-        data-tooltip-id={tooltipId}
-      >
-        {getString(text)}
+      <NavLink to={`${link}?activeEnvironment=${activeEnvironment}`} className={css.link} activeClassName={css.active}>
+        <StringWithTooltip stringId={text} tooltipId={tooltipId} />
       </NavLink>
     </li>
   )

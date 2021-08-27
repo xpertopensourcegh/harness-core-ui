@@ -4,6 +4,7 @@ import { Container, FlexExpander, Layout, Text } from '@wings-software/uicore'
 import { SelectSegmentsModalButton } from '@cf/components/SelectSegmentsModalButton/SelectSegmentsModalButton'
 import { PageError } from '@common/components/Page/PageError'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
+import StringWithTooltip from '@cf/components/StringWithTooltip/StringWithTooltip'
 import { getErrorMessage } from '@cf/utils/CFUtils'
 import { NoDataFoundRow } from '@cf/components/NoDataFoundRow/NoDataFoundRow'
 import { useStrings } from 'framework/strings'
@@ -88,12 +89,11 @@ export const TabSegments: React.FC<{ target?: Target | null }> = ({ target }) =>
       {/* MANUALLY ADDED / INCLUDE LIST */}
       <Container padding={{ top: 'xsmall', right: 'xxlarge', left: 'xxlarge', bottom: 'xxlarge' }}>
         <Layout.Horizontal style={{ alignItems: 'center' }}>
-          <Text
-            style={{ color: '#4F5162', fontSize: '10px', fontWeight: 'bold' }}
-            padding={{ left: 'small' }}
-            data-tooltip-id="ff_targetTargetGroups_manuallyAdded"
-          >
-            {getString('cf.targetDetail.manuallyAdded')}
+          <Text style={{ color: '#4F5162', fontSize: '10px', fontWeight: 'bold' }} padding={{ left: 'small' }}>
+            <StringWithTooltip
+              stringId="cf.targetDetail.manuallyAdded"
+              tooltipId="ff_targetTargetGroups_manuallyAdded"
+            />
           </Text>
           <FlexExpander />
           <SelectSegmentsModalButton
@@ -151,12 +151,11 @@ export const TabSegments: React.FC<{ target?: Target | null }> = ({ target }) =>
       {/* EXCLUSION LIST */}
       <Container padding={{ top: 'xsmall', right: 'xxlarge', left: 'xxlarge', bottom: 'xxlarge' }}>
         <Layout.Horizontal style={{ alignItems: 'center' }}>
-          <Text
-            style={{ color: '#4F5162', fontSize: '10px', fontWeight: 'bold' }}
-            padding={{ left: 'small' }}
-            data-tooltip-id="ff_targetTargetGroups_exclusionList"
-          >
-            {getString('cf.targetDetail.exclusionList')}
+          <Text style={{ color: '#4F5162', fontSize: '10px', fontWeight: 'bold' }} padding={{ left: 'small' }}>
+            <StringWithTooltip
+              stringId="cf.targetDetail.exclusionList"
+              tooltipId="ff_targetTargetGroups_exclusionList"
+            />
           </Text>
           <FlexExpander />
           <SelectSegmentsModalButton

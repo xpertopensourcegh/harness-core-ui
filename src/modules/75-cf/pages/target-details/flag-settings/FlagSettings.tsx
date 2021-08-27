@@ -22,6 +22,7 @@ import { PageError } from '@common/components/Page/PageError'
 import { CFVariationColors } from '@cf/constants'
 import { FlagPatchParams, useServeFeatureFlagVariationToTargets } from '@cf/utils/FlagUtils'
 import { useToaster } from '@common/exports'
+import StringWithTooltip from '@cf/components/StringWithTooltip/StringWithTooltip'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
@@ -143,8 +144,8 @@ export const FlagSettings: React.FC<{ target?: Target | undefined | null }> = ({
           background: '#fcfdfd'
         }}
       >
-        <DetailHeading style={{ alignSelf: 'baseline' }} data-tooltip-id="ff_targetFlagSettings_heading">
-          {getString('cf.targetDetail.flagSetting')}
+        <DetailHeading style={{ alignSelf: 'baseline' }}>
+          <StringWithTooltip stringId="cf.targetDetail.flagSetting" tooltipId="ff_targetFlagSettings_heading" />
         </DetailHeading>
         <FlexExpander />
         <Container height={35} style={{ alignSelf: 'baseline' }}>

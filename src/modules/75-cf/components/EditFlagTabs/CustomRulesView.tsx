@@ -42,6 +42,7 @@ import {
   // useGetTargetsAndSegments
 } from 'services/cf'
 import { useStrings } from 'framework/strings'
+import StringWithTooltip from '@cf/components/StringWithTooltip/StringWithTooltip'
 import { unescapeI18nSupportedTags, useBucketByItems } from '@cf/utils/CFUtils'
 import { extraOperators, extraOperatorReference, useOperatorsFromYaml, CFVariationColors } from '@cf/constants'
 import { useTargetAttributes } from '@cf/hooks/useTargetAttributes'
@@ -945,8 +946,8 @@ const CustomRulesView: React.FC<CustomRulesViewProps> = ({
 
   return (
     <>
-      <Text className={cx(css.ruleTitle, css.custom)} data-tooltip-id="ff_ffCustomRules_heading">
-        {getString('cf.featureFlags.rules.customRules')}
+      <Text className={cx(css.ruleTitle, css.custom)}>
+        <StringWithTooltip stringId="cf.featureFlags.rules.customRules" tooltipId="ff_ffCustomRules_heading" />
       </Text>
       <Layout.Vertical>
         {servings.length > 0 && (

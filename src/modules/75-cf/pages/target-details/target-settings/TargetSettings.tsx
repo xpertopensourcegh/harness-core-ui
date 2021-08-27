@@ -1,6 +1,7 @@
 import React from 'react'
 import { Container, Tab, Tabs, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
+import StringWithTooltip from '@cf/components/StringWithTooltip/StringWithTooltip'
 import type { Target } from 'services/cf'
 import { DetailHeading } from '../DetailHeading'
 import { TabAttributes } from '../attributes/TabAtrributes'
@@ -17,8 +18,8 @@ export const TargetSettings: React.FC<{ target?: Target | undefined | null }> = 
       style={{ background: '#F8FAFB', overflow: 'auto', minWidth: '480px' }}
       className={css.targetSettings}
     >
-      <DetailHeading style={{ paddingBottom: 0 }} data-tooltip-id="ff_targetTargetSettings_heading">
-        {getString('cf.targetDetail.targetSetting')}
+      <DetailHeading style={{ paddingBottom: 0 }}>
+        <StringWithTooltip stringId="cf.targetDetail.targetSetting" tooltipId="ff_targetTargetSettings_heading" />
       </DetailHeading>
       <Container className={css.tabContainer}>
         <Tabs id="targetSettings">

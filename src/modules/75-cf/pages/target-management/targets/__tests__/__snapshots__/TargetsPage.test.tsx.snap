@@ -31,10 +31,14 @@ exports[`TargetsPage TargetsPage should render data correctly 1`] = `
         >
           <a
             class="link"
-            data-tooltip-id="ff_targets_heading"
             href="/account/dummy/cf/orgs/dummy/projects/dummy/target-management/targets?activeEnvironment=undefined"
           >
-            cf.shared.targets
+            <span
+              class="align"
+              data-tooltip-id="ff_targets_heading"
+            >
+              cf.shared.targets
+            </span>
           </a>
         </li>
         <li
@@ -42,10 +46,14 @@ exports[`TargetsPage TargetsPage should render data correctly 1`] = `
         >
           <a
             class="link"
-            data-tooltip-id="ff_segments_heading"
             href="/account/dummy/cf/orgs/dummy/projects/dummy/target-management/target-groups?activeEnvironment=undefined"
           >
-            cf.shared.segments
+            <span
+              class="align"
+              data-tooltip-id="ff_segments_heading"
+            >
+              cf.shared.segments
+            </span>
           </a>
         </li>
       </ul>

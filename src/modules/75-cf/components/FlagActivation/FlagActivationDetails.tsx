@@ -22,6 +22,7 @@ import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
 import type { StringKeys } from 'framework/strings'
 import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
+import StringWithTooltip from '@cf/components/StringWithTooltip/StringWithTooltip'
 import {
   DeleteFeatureFlagQueryParams,
   Feature,
@@ -70,11 +71,8 @@ const VariationsList: React.FC<{ featureFlag: Feature; onEditSuccess: () => void
   return (
     <Layout.Vertical padding="large" margin={{ top: 'large' }} className={css.module}>
       <Layout.Horizontal flex={{ align: 'center-center' }} margin={{ bottom: 'medium' }}>
-        <Text
-          style={{ color: '#1C1C28', fontWeight: 600, fontSize: '14px', lineHeight: '22px' }}
-          data-tooltip-id="ff_ffVariations_heading"
-        >
-          {getString('cf.shared.variations')}
+        <Text style={{ color: '#1C1C28', fontWeight: 600, fontSize: '14px', lineHeight: '22px' }}>
+          <StringWithTooltip stringId="cf.shared.variations" tooltipId="ff_ffVariations_heading" />
         </Text>
         <FlexExpander />
         <EditVariationsModal

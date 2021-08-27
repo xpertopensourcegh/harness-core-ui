@@ -10,7 +10,8 @@ import {
   Layout,
   FlexExpander,
   Icon,
-  Pagination
+  Pagination,
+  HarnessDocTooltip
 } from '@wings-software/uicore'
 import { CF_DEFAULT_PAGE_SIZE, getErrorMessage, SegmentsSortByField, SortOrder } from '@cf/utils/CFUtils'
 import { useStrings } from 'framework/strings'
@@ -144,9 +145,11 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
               lineHeight: '20px',
               padding: 'var(--spacing-large) 0 0 var(--spacing-small)'
             }}
-            data-tooltip-id="ff_segmentAddToFlagModal_heading"
           >
-            {modalTitle}
+            <span data-tooltip-id="ff_segmentAddToFlagModal_heading">
+              {modalTitle}
+              <HarnessDocTooltip tooltipId="ff_segmentAddToFlagModal_heading" useStandAlone />
+            </span>
           </Text>
         }
         style={{ width: 700, height: 700 }}

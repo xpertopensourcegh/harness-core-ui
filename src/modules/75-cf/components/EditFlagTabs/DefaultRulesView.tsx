@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Container, FormInput, Layout, SelectOption, Text } from '@wings-software/uicore'
 import cx from 'classnames'
+import StringWithTooltip from '@cf/components/StringWithTooltip/StringWithTooltip'
 import { useStrings } from 'framework/strings'
 import type { Distribution, Variation, WeightedVariation } from 'services/cf'
 import { CFVariationColors } from '@cf/constants'
@@ -52,8 +53,8 @@ export const DefaultRulesView: React.FC<DefaultRulesProps> = ({
 
   return (
     <>
-      <Text className={css.ruleTitle} data-tooltip-id="ff_ffDefaultRules_heading">
-        {getString('cf.featureFlags.rules.defaultRules')}
+      <Text className={css.ruleTitle}>
+        <StringWithTooltip stringId="cf.featureFlags.rules.defaultRules" tooltipId="ff_ffDefaultRules_heading" />
       </Text>
       <Container className={css.rulesContainer}>
         <Layout.Horizontal margin={{ bottom: 'medium' }} style={{ alignItems: 'center' }}>

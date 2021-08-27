@@ -2,6 +2,7 @@ import React from 'react'
 import { Container, Tab, Tabs, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import type { Feature, Segment } from 'services/cf'
+import StringWithTooltip from '@cf/components/StringWithTooltip/StringWithTooltip'
 import { AuditLogs } from '@cf/components/AuditLogs/AuditLogs'
 import { AuditLogObjectType } from '@cf/utils/CFUtils'
 import { SegmentRules } from '../SegmentRules'
@@ -22,8 +23,8 @@ export const SegmentSettings: React.FC<SegmentSettingsProps> = ({ segment, onUpd
           <Tab
             id="attributes"
             title={
-              <Text className={css.tabTitle} data-tooltip-id="ff_segmentRules_heading">
-                {getString('cf.shared.rules')}
+              <Text className={css.tabTitle}>
+                <StringWithTooltip stringId="cf.shared.rules" tooltipId="ff_segmentRules_heading" />
               </Text>
             }
             panel={segment ? <SegmentRules segment={segment} onUpdate={onUpdate} /> : undefined}
