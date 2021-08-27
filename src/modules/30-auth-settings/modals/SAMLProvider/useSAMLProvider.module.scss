@@ -9,7 +9,6 @@
 
 .card {
   margin-right: var(--spacing-large);
-  box-shadow: var(--card-shadow);
   width: 64px;
   height: 64px;
   .text {
@@ -20,12 +19,6 @@
 
 .authorizationCard {
   width: 100%;
-}
-
-.copyToClipboardButton {
-  &:hover {
-    background: none !important;
-  }
 }
 
 .notes {

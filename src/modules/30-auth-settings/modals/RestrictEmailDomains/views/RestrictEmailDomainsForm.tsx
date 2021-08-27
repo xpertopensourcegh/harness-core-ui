@@ -3,14 +3,15 @@ import * as yup from 'yup'
 import { useParams } from 'react-router-dom'
 import {
   Layout,
-  Heading,
+  Text,
   Color,
   Formik,
   FormikForm,
   FormInput,
   Button,
   ModalErrorHandler,
-  ModalErrorHandlerBinding
+  ModalErrorHandlerBinding,
+  ButtonVariation
 } from '@wings-software/uicore'
 import { useToaster } from '@common/components'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
@@ -55,9 +56,9 @@ const RestrictEmailDomainsForm: React.FC<Props> = ({ onSubmit, onCancel, whiteli
   return (
     <Layout.Vertical padding={{ left: 'huge', right: 'huge' }}>
       <ModalErrorHandler bind={setModalErrorHandler} />
-      <Heading level={1} color={Color.BLACK} font={{ weight: 'bold' }} margin={{ bottom: 'xxlarge' }}>
+      <Text color={Color.GREY_900} font={{ size: 'medium', weight: 'semi-bold' }} margin={{ bottom: 'xxlarge' }}>
         {getString('authSettings.allowLoginFromTheseDomains')}
-      </Heading>
+      </Text>
       <Formik
         formName="restrictEmailDomainsForm"
         initialValues={{
@@ -82,12 +83,12 @@ const RestrictEmailDomainsForm: React.FC<Props> = ({ onSubmit, onCancel, whiteli
             <Layout.Horizontal margin={{ top: 'xxxlarge', bottom: 'xlarge' }}>
               <Button
                 text={getString('save')}
-                intent="primary"
+                variation={ButtonVariation.PRIMARY}
                 type="submit"
                 margin={{ right: 'small' }}
                 disabled={updatingWhitelistedDomains}
               />
-              <Button text={getString('cancel')} onClick={onCancel} />
+              <Button text={getString('cancel')} onClick={onCancel} variation={ButtonVariation.TERTIARY} />
             </Layout.Horizontal>
           </FormikForm>
         )}

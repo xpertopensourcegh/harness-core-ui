@@ -92,7 +92,7 @@ describe('PasswordExpire', () => {
       expect(cancelButton).toMatchSnapshot()
     }),
     test('Enable password Expire', async () => {
-      const { getByTestId } = render(
+      const { container, getByTestId } = render(
         <TestWrapper
           path={routes.toAuthenticationSettings({ ...accountPathProps })}
           pathParams={{ accountId: 'testAcc' }}
@@ -114,6 +114,8 @@ describe('PasswordExpire', () => {
       await waitFor(() => queryByText(document.body, 'authSettings.passwordExpiration'))
       const passwordExpireForm = findDialogContainer()
       expect(passwordExpireForm).toBeTruthy()
+
+      expect(container).toMatchSnapshot()
 
       const saveButton = queryByText(passwordExpireForm!, 'save')
       await act(async () => {

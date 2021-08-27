@@ -76,6 +76,7 @@ describe('RestrictEmailDomains', () => {
       const form = findDialogContainer()
       expect(form).toBeTruthy()
 
+      expect(container).toMatchSnapshot()
       const saveButton = queryByText(form!, 'save')
       await act(async () => {
         fireEvent.click(saveButton!)

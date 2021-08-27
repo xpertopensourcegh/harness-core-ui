@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction } from 'react'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
-import { Layout, Text, Switch, Collapse, Color, Button } from '@wings-software/uicore'
+import { Layout, Text, Switch, Collapse, Color, Button, ButtonVariation } from '@wings-software/uicore'
 import type { LoginSettings } from 'services/cd-ng'
 import { useToaster } from '@common/components'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
@@ -126,9 +126,8 @@ const PasswordStrength: React.FC<Props> = ({ loginSettings, refetchAuthSettings,
       >
         <div className={cssHarnessAccount.editIcon}>
           <Button
-            minimal
-            intent="primary"
-            icon="edit"
+            variation={ButtonVariation.ICON}
+            icon="Edit"
             onClick={() => openPasswordStrengthModal(true)}
             data-testid="updatePasswordSettings"
             disabled={!canEdit}

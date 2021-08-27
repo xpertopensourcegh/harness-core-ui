@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction } from 'react'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
-import { Layout, Text, Color, Container, Switch, Collapse, Button } from '@wings-software/uicore'
+import { Layout, Text, Color, Container, Switch, Collapse, Button, ButtonVariation } from '@wings-software/uicore'
 import type { LoginSettings } from 'services/cd-ng'
 import { usePasswordExpirationModal } from '@auth-settings/modals/PasswordExpiration/usePasswordExpiration'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
@@ -124,9 +124,8 @@ const PasswordExpire: React.FC<Props> = ({ loginSettings, refetchAuthSettings, c
       >
         <div className={cssHarnessAccount.editIcon}>
           <Button
-            minimal
-            intent="primary"
-            icon="edit"
+            variation={ButtonVariation.ICON}
+            icon="Edit"
             onClick={() => openPasswordExpirationModal(true)}
             data-testid="update-password-expire-settings"
             disabled={!canEdit}

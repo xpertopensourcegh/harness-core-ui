@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction } from 'react'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
-import { Radio, Container, Collapse, Color, Card, Text, Button, Popover } from '@wings-software/uicore'
+import { Radio, Container, Collapse, Color, Card, Text, Button, Popover, ButtonVariation } from '@wings-software/uicore'
 import { Menu, MenuItem } from '@blueprintjs/core'
 import { useToaster } from '@common/components'
 import { useStrings } from 'framework/strings'
@@ -145,7 +145,7 @@ const SAMLProvider: React.FC<Props> = ({
       <Container flex width="100%">
         <Button
           className={css.leftMarginAuto}
-          intent="primary"
+          variation={ButtonVariation.PRIMARY}
           text={getString('test')}
           disabled={!!childWindow || fetchingSamlLoginTestData}
           onClick={() => {
@@ -214,10 +214,8 @@ const SAMLProvider: React.FC<Props> = ({
                 )}
               </Text>
               <Button
-                minimal
                 text={getString('test')}
-                intent="primary"
-                className={css.testButton}
+                variation={ButtonVariation.SECONDARY}
                 disabled={!!childWindow || fetchingSamlLoginTestData}
                 onClick={() => {
                   getSamlLoginTestData()
@@ -245,7 +243,7 @@ const SAMLProvider: React.FC<Props> = ({
                   </Menu>
                 }
               >
-                <Button minimal icon="Options" data-testid="provider-button" />
+                <Button minimal icon="Options" data-testid="provider-button" variation={ButtonVariation.ICON} />
               </Popover>
             </Card>
           </Container>

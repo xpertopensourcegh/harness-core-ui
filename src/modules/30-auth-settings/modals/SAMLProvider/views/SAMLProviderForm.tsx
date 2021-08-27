@@ -17,9 +17,10 @@ import {
   Card,
   Checkbox,
   ModalErrorHandler,
-  ModalErrorHandlerBinding
+  ModalErrorHandlerBinding,
+  TextInput,
+  ButtonVariation
 } from '@wings-software/uicore'
-import { InputGroup } from '@blueprintjs/core'
 import copy from 'copy-to-clipboard'
 import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/components'
@@ -148,9 +149,9 @@ const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider })
   return (
     <Layout.Vertical padding={{ left: 'huge', right: 'huge' }}>
       <ModalErrorHandler bind={setModalErrorHandler} />
-      <Heading level={1} color={Color.BLACK} font={{ weight: 'bold' }} margin={{ bottom: 'xxlarge' }}>
+      <Text color={Color.GREY_900} font={{ size: 'medium', weight: 'semi-bold' }} margin={{ bottom: 'xxlarge' }}>
         {samlProvider ? getString('authSettings.editSAMLProvider') : getString('authSettings.addSAMLProvider')}
-      </Heading>
+      </Text>
       <Layout.Horizontal>
         <Layout.Vertical width={660} padding={{ right: 'xxxlarge' }}>
           <Formik
@@ -207,8 +208,7 @@ const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider })
                       {selected ? (
                         <Button
                           text={getString('change')}
-                          minimal
-                          intent="primary"
+                          variation={ButtonVariation.LINK}
                           onClick={() => {
                             setFieldValue('files', [])
                             setSelected(undefined)
@@ -225,23 +225,23 @@ const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider })
                         selectedSAMLProvider
                       })}
                     </Text>
-                    <InputGroup
-                      name="endPoint"
+                    <TextInput
                       value={getSamlEndpoint(accountId)}
                       rightElement={
-                        <Button
-                          icon="duplicate"
-                          inline
-                          minimal
-                          className={css.copyToClipboardButton}
-                          onClick={() => {
-                            copy(getSamlEndpoint(accountId))
-                              ? showSuccess(getString('clipboardCopySuccess'))
-                              : showError(getString('clipboardCopyFail'))
-                          }}
-                        />
+                        (
+                          <Button
+                            icon="duplicate"
+                            inline
+                            variation={ButtonVariation.ICON}
+                            onClick={() => {
+                              copy(getSamlEndpoint(accountId))
+                                ? showSuccess(getString('clipboardCopySuccess'))
+                                : showError(getString('clipboardCopyFail'))
+                            }}
+                          />
+                        ) as any
                       }
-                      disabled
+                      readOnly
                     />
                     <Text color={Color.GREY_500} margin={{ bottom: 'xsmall' }} padding={{ top: 'huge' }}>
                       {getString(
@@ -261,16 +261,14 @@ const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider })
                       />
                     </Container>
                     <Card className={css.authorizationCard}>
-                      <Container margin={{ left: 'xlarge' }}>
-                        <Checkbox
-                          name="authorization"
-                          label={getString('authSettings.enableAuthorization')}
-                          font={{ weight: 'semi-bold' }}
-                          color={Color.GREY_600}
-                          checked={values.authorizationEnabled}
-                          onChange={e => setFieldValue('authorizationEnabled', e.currentTarget.checked)}
-                        />
-                      </Container>
+                      <Checkbox
+                        name="authorization"
+                        label={getString('authSettings.enableAuthorization')}
+                        font={{ weight: 'semi-bold' }}
+                        color={Color.GREY_600}
+                        checked={values.authorizationEnabled}
+                        onChange={e => setFieldValue('authorizationEnabled', e.currentTarget.checked)}
+                      />
                       {values.authorizationEnabled && (
                         <Container width={300} margin={{ top: 'large' }}>
                           <FormInput.Text
@@ -284,12 +282,12 @@ const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider })
                 )}
                 <Layout.Horizontal spacing="small" padding={{ top: 'huge', bottom: 'xlarge' }}>
                   <Button
-                    intent="primary"
+                    variation={ButtonVariation.PRIMARY}
                     text={getString(samlProvider ? 'save' : 'add')}
                     type="submit"
                     disabled={uploadingSamlSettings || updatingSamlSettings}
                   />
-                  <Button text={getString('cancel')} onClick={onCancel} />
+                  <Button text={getString('cancel')} onClick={onCancel} variation={ButtonVariation.TERTIARY} />
                 </Layout.Horizontal>
               </FormikForm>
             )}

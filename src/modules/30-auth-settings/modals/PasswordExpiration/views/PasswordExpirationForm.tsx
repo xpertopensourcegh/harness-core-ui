@@ -3,14 +3,15 @@ import * as yup from 'yup'
 import { useParams } from 'react-router-dom'
 import {
   Layout,
-  Heading,
+  Text,
   Color,
   Formik,
   FormikForm,
   FormInput,
   Button,
   ModalErrorHandler,
-  ModalErrorHandlerBinding
+  ModalErrorHandlerBinding,
+  ButtonVariation
 } from '@wings-software/uicore'
 import { useToaster } from '@common/components'
 import type { LoginSettings, PasswordExpirationPolicy } from 'services/cd-ng'
@@ -70,9 +71,9 @@ const PasswordExpirationForm: React.FC<Props> = ({ onSubmit, onCancel, loginSett
   return (
     <Layout.Vertical padding={{ left: 'huge', right: 'huge' }}>
       <ModalErrorHandler bind={setModalErrorHandler} />
-      <Heading level={1} color={Color.BLACK} font={{ weight: 'bold' }} margin={{ bottom: 'xxlarge' }}>
+      <Text color={Color.GREY_900} font={{ size: 'medium', weight: 'semi-bold' }} margin={{ bottom: 'xxlarge' }}>
         {getString('authSettings.passwordExpiration')}
-      </Heading>
+      </Text>
       <Formik
         formName="passwordExpirationForm"
         initialValues={{
@@ -119,11 +120,11 @@ const PasswordExpirationForm: React.FC<Props> = ({ onSubmit, onCancel, loginSett
               <Button
                 text={getString('save')}
                 type="submit"
-                intent="primary"
+                variation={ButtonVariation.PRIMARY}
                 margin={{ right: 'small' }}
                 disabled={updatingLoginSettings}
               />
-              <Button text={getString('cancel')} onClick={onCancel} />
+              <Button text={getString('cancel')} onClick={onCancel} variation={ButtonVariation.TERTIARY} />
             </Layout.Horizontal>
           </FormikForm>
         )}

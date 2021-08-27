@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction } from 'react'
 import { useParams } from 'react-router-dom'
-import { Container, Card, Switch, Text, Color, Button } from '@wings-software/uicore'
+import { Container, Card, Switch, Text, Color, Button, ButtonVariation } from '@wings-software/uicore'
 import { TagInput } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
@@ -98,9 +98,8 @@ const RestrictEmailDomains: React.FC<Props> = ({ whitelistedDomains, refetchAuth
             values={whitelistedDomains}
             rightElement={
               <Button
-                minimal
-                intent="primary"
-                icon="edit"
+                variation={ButtonVariation.ICON}
+                icon="Edit"
                 onClick={openRestrictEmailDomainsModal}
                 disabled={!canEdit}
                 data-testid="update-restrict-email-domains"

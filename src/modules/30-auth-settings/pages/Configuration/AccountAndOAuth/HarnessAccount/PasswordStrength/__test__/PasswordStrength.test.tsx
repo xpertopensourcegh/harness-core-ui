@@ -93,7 +93,7 @@ describe('PasswordStrength', () => {
       expect(cancelButton).toMatchSnapshot()
     }),
     test('Enable password strength', async () => {
-      const { getByTestId } = render(
+      const { container, getByTestId } = render(
         <TestWrapper
           path={routes.toAuthenticationSettings({ ...accountPathProps })}
           pathParams={{ accountId: 'testAcc' }}
@@ -120,6 +120,8 @@ describe('PasswordStrength', () => {
       const lowercaseCheckbox = queryByText(passwordStrengthForm!, 'authSettings.haveOneLowercase')
       const digitCheckbox = queryByText(passwordStrengthForm!, 'authSettings.haveOneDigit')
       const specialCharCheckbox = queryByText(passwordStrengthForm!, 'authSettings.haveOneSpecialChar')
+
+      expect(container).toMatchSnapshot()
 
       const saveButton = queryByText(passwordStrengthForm!, 'save')
       await act(async () => {

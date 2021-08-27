@@ -92,7 +92,7 @@ describe('LockoutPolicy', () => {
       expect(cancelButton).toMatchSnapshot()
     }),
     test('Enable lockout policy', async () => {
-      const { getByTestId } = render(
+      const { container, getByTestId } = render(
         <TestWrapper
           path={routes.toAuthenticationSettings({ ...accountPathProps })}
           pathParams={{ accountId: 'testAcc' }}
@@ -116,6 +116,8 @@ describe('LockoutPolicy', () => {
       expect(lockoutPolicyForm).toBeTruthy()
 
       const notifyUserCheckbox = queryByText(lockoutPolicyForm!, 'authSettings.notifyUsersWhenTheyLocked')
+
+      expect(container).toMatchSnapshot()
 
       const saveButton = queryByText(lockoutPolicyForm!, 'save')
       await act(async () => {

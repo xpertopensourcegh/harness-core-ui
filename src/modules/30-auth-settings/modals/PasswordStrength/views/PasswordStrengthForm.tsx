@@ -3,7 +3,7 @@ import * as yup from 'yup'
 import { useParams } from 'react-router-dom'
 import {
   Layout,
-  Heading,
+  Text,
   Color,
   Formik,
   FormikForm,
@@ -11,7 +11,8 @@ import {
   Checkbox,
   Button,
   ModalErrorHandler,
-  ModalErrorHandlerBinding
+  ModalErrorHandlerBinding,
+  ButtonVariation
 } from '@wings-software/uicore'
 import { useToaster } from '@common/components'
 import type { LoginSettings, PasswordStrengthPolicy } from 'services/cd-ng'
@@ -79,9 +80,9 @@ const PasswordStrengthForm: React.FC<Props> = ({ onSubmit, onCancel, loginSettin
   return (
     <Layout.Vertical padding={{ left: 'huge', right: 'huge' }}>
       <ModalErrorHandler bind={setModalErrorHandler} />
-      <Heading level={1} color={Color.BLACK} font={{ weight: 'bold' }} margin={{ bottom: 'xxlarge' }}>
+      <Text color={Color.GREY_900} font={{ size: 'medium', weight: 'semi-bold' }} margin={{ bottom: 'xxlarge' }}>
         {getString('authSettings.passwordStrength')}
-      </Heading>
+      </Text>
       <Formik
         formName="passwordStrengthForm"
         initialValues={{
@@ -119,7 +120,7 @@ const PasswordStrengthForm: React.FC<Props> = ({ onSubmit, onCancel, loginSettin
                 type: 'number'
               }}
             />
-            <Layout.Vertical spacing="medium" padding={{ left: 'xxlarge', top: 'xxlarge' }}>
+            <Layout.Vertical spacing="medium" padding={{ top: 'xxlarge' }}>
               <Checkbox
                 label={getString('authSettings.haveOneUppercase')}
                 checked={values.atLeastOneUppercase}
@@ -145,11 +146,11 @@ const PasswordStrengthForm: React.FC<Props> = ({ onSubmit, onCancel, loginSettin
               <Button
                 text={getString('save')}
                 type="submit"
-                intent="primary"
+                variation={ButtonVariation.PRIMARY}
                 margin={{ right: 'small' }}
                 disabled={updatingLoginSettings}
               />
-              <Button text={getString('cancel')} onClick={onCancel} />
+              <Button text={getString('cancel')} onClick={onCancel} variation={ButtonVariation.TERTIARY} />
             </Layout.Horizontal>
           </FormikForm>
         )}
