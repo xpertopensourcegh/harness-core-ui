@@ -1702,6 +1702,7 @@ exports[`Manifest Trigger Tests function getArtifactSpecObj by displaying select
                               </div>
                             </div>
                           </div>
+                          
                           <button
                             class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                             data-name="main-delete"
@@ -2303,6 +2304,7 @@ exports[`Manifest Trigger Tests on click of edit - submits thru the right payloa
                               </div>
                             </div>
                           </div>
+                          
                           <button
                             class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                             data-name="main-delete"

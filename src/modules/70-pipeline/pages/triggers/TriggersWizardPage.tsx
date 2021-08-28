@@ -863,9 +863,6 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       manifestType: onEditManifestType
     } = val
 
-    // actions will be required thru validation
-    const stringifyPipelineRuntimeInput = yamlStringify({ pipeline: clearNullUndefined(pipelineRuntimeInput) })
-
     if (selectedArtifact?.spec?.chartVersion) {
       // hardcode manifest chart version to default
       selectedArtifact.spec.chartVersion = replaceTriggerDefaultBuild({
@@ -874,6 +871,20 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     } else if (!isEmpty(selectedArtifact) && selectedArtifact?.spec?.chartVersion === '') {
       selectedArtifact.spec.chartVersion = TriggerDefaultFieldList.chartVersion
     }
+
+    const newPipelineObj = { ...pipelineRuntimeInput }
+    const filteredStage = newPipelineObj.stages?.find((item: any) => item.stage?.identifier === stageId)
+    const stageArtifacts = filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests
+    const stageArtifactIdx = filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests?.findIndex(
+      (item: any) => item.manifest?.identifier === selectedArtifact?.identifier
+    )
+
+    if (stageArtifactIdx >= 0) {
+      stageArtifacts[stageArtifactIdx].manifest = selectedArtifact
+    }
+
+    // actions will be required thru validation
+    const stringifyPipelineRuntimeInput = yamlStringify({ pipeline: clearNullUndefined(newPipelineObj) })
 
     // clears any runtime inputs
     const artifactSourceSpec = clearRuntimeInputValue(

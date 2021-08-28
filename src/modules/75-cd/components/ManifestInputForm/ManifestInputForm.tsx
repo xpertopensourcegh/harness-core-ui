@@ -122,6 +122,8 @@ const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
     value: item
   }))
 
+  const isSelectedStage = stageIdentifier === formik?.values?.stageId
+
   const fromPipelineInputTriggerTab = () => {
     return (
       formik?.values?.triggerType === TriggerTypes.MANIFEST && formik?.values?.selectedArtifact !== null && !fromTrigger
@@ -190,39 +192,44 @@ const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                     (item: ManifestConfigWrapper) =>
                       item?.manifest?.identifier === formik?.values?.selectedArtifact?.identifier
                   ) || 0
-                if (selectedManifest && initialValues && initialValues.manifests && selectedIndex >= 0) {
-                  const artifactSpec = formik?.values?.selectedArtifact?.spec || {}
-                  /*
-                   backend requires eventConditions inside selectedArtifact but should not be added to inputYaml
-                  */
-                  if (artifactSpec.eventConditions) {
-                    delete artifactSpec.eventConditions
-                  }
 
-                  selectedManifest = {
-                    manifest: {
-                      identifier: formik?.values?.selectedArtifact?.identifier,
-                      type: formik?.values?.selectedArtifact?.type,
-                      spec: {
-                        ...artifactSpec
+                if (stageIdentifier === formik?.values?.stageId) {
+                  if (selectedManifest && initialValues && initialValues.manifests && selectedIndex >= 0) {
+                    const artifactSpec = formik?.values?.selectedArtifact?.spec || {}
+                    /*
+                     backend requires eventConditions inside selectedArtifact but should not be added to inputYaml
+                    */
+                    if (artifactSpec.eventConditions) {
+                      delete artifactSpec.eventConditions
+                    }
+
+                    selectedManifest = {
+                      manifest: {
+                        identifier: formik?.values?.selectedArtifact?.identifier,
+                        type: formik?.values?.selectedArtifact?.type,
+                        spec: {
+                          ...artifactSpec
+                        }
                       }
                     }
                   }
-                }
-                if (initialValues.manifests && selectedIndex >= 0 && initialValues.manifests[selectedIndex]) {
-                  initialValues.manifests[selectedIndex] = selectedManifest
+                  if (initialValues.manifests && selectedIndex >= 0 && initialValues.manifests[selectedIndex]) {
+                    initialValues.manifests[selectedIndex] = selectedManifest
+                  }
                 }
               }
               const filteredManifest = allValues?.manifests?.find(item => item.manifest?.identifier === identifier)
               const isSelectedManifest: boolean =
                 isPipelineInputTab &&
+                stageIdentifier === formik?.values?.stageId &&
                 formik?.values?.selectedArtifact &&
                 identifier === formik?.values?.selectedArtifact?.identifier
 
               const disableField = (fieldName: string) => {
                 if (fromTrigger) {
+                  // Trigger Configuration Tab
                   return get(TriggerDefaultFieldList, fieldName) ? true : false
-                } else if (isPipelineInputTab && isSelectedManifest) {
+                } else if (isPipelineInputTab && isSelectedManifest && isSelectedStage) {
                   return true
                 }
                 return readonly

@@ -60,6 +60,7 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
       pipelineIdentifier
     }
   })
+  // Selected Artifact is applied to inputYaml on Pipeline Input Panel in ManifestInputForm.tsx
   // This is to apply the selected artifact values
   // to the applied input sets pipeline stage values
   const applySelectedArtifactToPipelineObject = (pipelineObj: any) => {
