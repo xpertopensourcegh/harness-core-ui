@@ -63,8 +63,8 @@ const MODULE_SELECT_CARDS: ModuleSelectCard[] = [
   {
     icon: 'ce-main',
     module: ModuleName.CE,
-    title: 'common.purpose.continuous',
-    titleDescriptor: 'common.purpose.ce.efficiency'
+    title: 'common.purpose.ce.cloudCost',
+    titleDescriptor: 'common.purpose.ce.management'
   },
   {
     icon: 'cf-main',
@@ -237,8 +237,9 @@ const SubscriptionsPage: React.FC = () => {
       return null
     }
 
+    const moduleStr = getString(`common.module.${selectedModuleCard.module.toLowerCase()}` as keyof StringsMap)
     const moduleEnterpriseMessage = getString('common.subscriptions.banner.enterprise', {
-      module: selectedModuleCard.module === 'CF' ? 'FF' : selectedModuleCard.module.toString()
+      module: moduleStr
     })
     const expiryMessage = isExpired
       ? getString('common.subscriptions.expired', {

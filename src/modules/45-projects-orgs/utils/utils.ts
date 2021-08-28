@@ -5,25 +5,30 @@ export const getModuleTitle = (module: ModuleName): keyof StringsMap => {
   switch (module) {
     case ModuleName.CV:
       return 'projectsOrgs.purposeList.change'
+    case ModuleName.CE:
+      return 'common.purpose.ce.cloudCost'
+    case ModuleName.CF:
+      return 'common.purpose.cf.feature'
+    case ModuleName.CD:
+    case ModuleName.CI:
     default:
       return 'projectsOrgs.purposeList.continuous'
   }
 }
 
-export const getModulePurpose = (module: ModuleName): string => {
+export const getModulePurpose = (module: ModuleName): keyof StringsMap | undefined => {
   switch (module) {
     case ModuleName.CD:
-      return 'Delivery'
+      return 'common.purpose.cd.delivery'
     case ModuleName.CV:
-      return 'Intelligence'
+      return 'common.purpose.cv.verification'
     case ModuleName.CI:
-      return 'Integration'
+      return 'common.purpose.ci.integration'
     case ModuleName.CE:
-      return 'Efficiency'
+      return 'common.purpose.ce.management'
     case ModuleName.CF:
-      return 'Features'
+      return 'common.purpose.cf.flags'
   }
-  return ''
 }
 
 export const getModuleDescription = (module: ModuleName): StringKeys => {

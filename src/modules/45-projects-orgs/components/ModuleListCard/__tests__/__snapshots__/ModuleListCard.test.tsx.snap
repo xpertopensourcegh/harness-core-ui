@@ -65,7 +65,7 @@ exports[`Project Details render 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
               >
-                Delivery
+                common.purpose.cd.delivery
               </p>
             </div>
           </div>
@@ -139,7 +139,7 @@ exports[`Project Details render 2`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
               >
-                Intelligence
+                common.purpose.cv.verification
               </p>
             </div>
           </div>
@@ -208,12 +208,12 @@ exports[`Project Details render 3`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small"
               >
-                projectsOrgs.purposeList.continuous
+                common.purpose.ce.cloudCost
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
               >
-                Efficiency
+                common.purpose.ce.management
               </p>
             </div>
           </div>
@@ -302,12 +302,12 @@ exports[`Project Details render 4`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small"
               >
-                projectsOrgs.purposeList.continuous
+                common.purpose.cf.feature
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
               >
-                Features
+                common.purpose.cf.flags
               </p>
             </div>
           </div>
@@ -383,7 +383,7 @@ exports[`Project Details render 5`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
               >
-                Integration
+                common.purpose.ci.integration
               </p>
             </div>
           </div>

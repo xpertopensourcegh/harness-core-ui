@@ -269,6 +269,11 @@ export interface StringsMap {
   'common.manage': string
   'common.member': string
   'common.modified': string
+  'common.module.cd': string
+  'common.module.ce': string
+  'common.module.cf': string
+  'common.module.ci': string
+  'common.module.cv': string
   'common.monthly': string
   'common.moreInfo': string
   'common.moreRefineSearch': string

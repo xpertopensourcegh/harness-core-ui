@@ -54,6 +54,8 @@ const ModuleListCard: React.FC<ModuleListCardProps> = ({ module, accountId, orgI
     return ''
   }
 
+  const purpose = getModulePurpose(module)
+
   return (
     <>
       <Card className={css.card} interactive onClick={() => history.push(getModuleLink())}>
@@ -65,7 +67,7 @@ const ModuleListCard: React.FC<ModuleListCardProps> = ({ module, accountId, orgI
                 <Layout.Vertical padding={{ bottom: 'medium' }}>
                   <Text font={{ size: 'small' }}>{getString(getModuleTitle(module))}</Text>
                   <Text font={{ size: 'medium' }} color={Color.BLACK}>
-                    {getModulePurpose(module)}
+                    {purpose && getString(purpose)}
                   </Text>
                 </Layout.Vertical>
               </div>

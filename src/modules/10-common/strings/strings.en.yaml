@@ -533,3 +533,9 @@ deactivate: Deactivate
 recommended: 'Recommended'
 azure: Azure
 aws: AWS
+module:
+  cd: CD
+  ci: CI
+  cf: FF
+  ce: CCM
+  cv: CV

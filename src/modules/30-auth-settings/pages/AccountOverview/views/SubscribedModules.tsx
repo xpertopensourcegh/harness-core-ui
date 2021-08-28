@@ -21,28 +21,34 @@ interface ModuleCardProps {
 const MODULE_PROPS: {
   [key in ModuleLicenseDTO['moduleType'] as string]: {
     icon: string
-    title: string
+    title1: string
+    title2: string
   }
 } = {
   CD: {
     icon: 'cd-main',
-    title: 'common.purpose.cd.delivery'
+    title1: 'common.purpose.continuous',
+    title2: 'common.purpose.cd.delivery'
   },
   CE: {
     icon: 'ce-main',
-    title: 'common.purpose.ce.efficiency'
+    title1: 'common.purpose.ce.cloudCost',
+    title2: 'common.purpose.ce.management'
   },
   CV: {
     icon: 'cv-main',
-    title: 'common.purpose.cv.verification'
+    title1: 'common.purpose.continuous',
+    title2: 'common.purpose.cv.verification'
   },
   CF: {
     icon: 'cf-main',
-    title: 'common.purpose.cf.features'
+    title1: 'common.purpose.cf.feature',
+    title2: 'common.purpose.cf.flags'
   },
   CI: {
     icon: 'ci-main',
-    title: 'common.purpose.ci.integration'
+    title1: 'common.purpose.continuous',
+    title2: 'common.purpose.ci.integration'
   }
 }
 
@@ -58,10 +64,14 @@ const ModuleCard: React.FC<ModuleCardProps> = ({ module }) => {
       .concat(capitalize(module.licenseType))
       .concat(')')
   }
-
-  const moduleTypeStr =
+  const title1 =
     module.moduleType && MODULE_PROPS[module.moduleType]
-      ? getString(MODULE_PROPS[module.moduleType].title as keyof StringsMap)
+      ? getString(MODULE_PROPS[module.moduleType].title1 as keyof StringsMap)
+      : ''
+
+  const title2 =
+    module.moduleType && MODULE_PROPS[module.moduleType]
+      ? getString(MODULE_PROPS[module.moduleType].title2 as keyof StringsMap)
       : ''
 
   return (
@@ -73,9 +83,9 @@ const ModuleCard: React.FC<ModuleCardProps> = ({ module }) => {
               <Icon name={MODULE_PROPS[module.moduleType].icon as IconName} size={25} margin={{ right: 'small' }} />
             )}
             <Layout.Vertical>
-              <Text font={{ size: 'xsmall' }}>{getString('common.purpose.continuous')}</Text>
+              <Text font={{ size: 'xsmall' }}>{title1}</Text>
               <Text font={{ size: 'small', weight: 'semi-bold' }} padding={{ bottom: 'large' }} color={Color.BLACK}>
-                {moduleTypeStr}
+                {title2}
               </Text>
             </Layout.Vertical>
           </Layout.Horizontal>
