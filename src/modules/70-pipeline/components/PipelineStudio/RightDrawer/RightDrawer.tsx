@@ -378,7 +378,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
     }
   })
 
-  const closeDrawer = (e?: SyntheticEvent<HTMLElement, Event> | undefined) => {
+  const closeDrawer = (e?: SyntheticEvent<HTMLElement, Event> | undefined): void => {
     e?.persist()
     if (checkDuplicateStep(formikRef, data, getString)) {
       return
@@ -391,6 +391,64 @@ export const RightDrawer: React.FC = (): JSX.Element => {
     setSelectedStepId(undefined)
   }
   const { onSearchInputChange } = usePipelineVariables()
+
+  const onStepSelection = async (item: StepData): Promise<void> => {
+    const paletteData = data?.paletteData
+    if (paletteData?.entity) {
+      const { stage: pipelineStage } = cloneDeep(getStageFromPipeline(selectedStageId || ''))
+      const newStepData = {
+        step: {
+          type: item.type,
+          name: item.name,
+          identifier: generateRandomString(item.name),
+          spec: {}
+        }
+      }
+      if (pipelineStage && !pipelineStage.stage?.spec) {
+        set(pipelineStage, 'stage.spec', {})
+      }
+      if (pipelineStage && isNil(pipelineStage.stage?.spec?.execution)) {
+        if (paletteData.isRollback) {
+          set(pipelineStage, 'stage.spec.execution', { rollbackSteps: [] })
+        } else {
+          set(pipelineStage, 'stage.spec.execution', { steps: [] })
+        }
+      }
+      data?.paletteData?.onUpdate?.(newStepData.step)
+      addStepOrGroup(
+        paletteData.entity,
+        pipelineStage?.stage?.spec?.execution as any,
+        newStepData,
+        paletteData.isParallelNodeClicked,
+        paletteData.isRollback
+      )
+
+      if (pipelineStage?.stage) {
+        await updateStage(pipelineStage?.stage)
+      }
+      updatePipelineView({
+        ...pipelineView,
+        isDrawerOpened: true,
+        drawerData: {
+          type: DrawerTypes.StepConfig,
+          data: {
+            stepConfig: {
+              node: newStepData.step,
+              stepsMap: paletteData.stepsMap,
+              onUpdate: data?.paletteData?.onUpdate,
+              isStepGroup: false,
+              addOrEdit: 'edit',
+              hiddenAdvancedPanels: data?.paletteData?.hiddenAdvancedPanels
+            }
+          }
+        }
+      })
+
+      return
+    }
+    updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
+  }
+
   return (
     <Drawer
       onClose={async e => {
@@ -463,69 +521,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           selectedStage={selectedStage || {}}
           stepsFactory={stepsFactory}
           stageType={stageType as StageType}
-          onSelect={async (item: StepData) => {
-            const paletteData = data.paletteData
-            if (paletteData?.entity) {
-              const { stage: pipelineStage } = cloneDeep(getStageFromPipeline(selectedStageId))
-              const newStepData = {
-                step: {
-                  type: item.type,
-                  name: item.name,
-                  identifier: generateRandomString(item.name),
-                  spec: {}
-                }
-              }
-              if (pipelineStage && !pipelineStage.stage?.spec) {
-                set(pipelineStage, 'stage.spec', {})
-              }
-              if (pipelineStage && isNil(pipelineStage.stage?.spec?.execution)) {
-                if (paletteData.isRollback) {
-                  set(pipelineStage, 'stage.spec.execution', { rollbackSteps: [] })
-                } else {
-                  set(pipelineStage, 'stage.spec.execution', { steps: [] })
-                }
-              }
-              data?.paletteData?.onUpdate?.(newStepData.step)
-              addStepOrGroup(
-                paletteData.entity,
-                pipelineStage?.stage?.spec?.execution as any,
-                newStepData,
-                paletteData.isParallelNodeClicked,
-                paletteData.isRollback
-              )
-
-              if (pipelineStage?.stage) {
-                await updateStage(pipelineStage?.stage)
-              }
-              updatePipelineView({
-                ...pipelineView,
-                isDrawerOpened: true,
-                drawerData: {
-                  type: DrawerTypes.StepConfig,
-                  data: {
-                    stepConfig: {
-                      node: newStepData.step,
-                      stepsMap: paletteData.stepsMap,
-                      onUpdate: data?.paletteData?.onUpdate,
-                      isStepGroup: false,
-                      addOrEdit: 'edit',
-                      hiddenAdvancedPanels: data.paletteData?.hiddenAdvancedPanels
-                    }
-                  }
-                }
-              })
-
-              return
-            }
-            updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
-          }}
-          onClose={() =>
-            updatePipelineView({
-              ...pipelineView,
-              isDrawerOpened: false,
-              drawerData: { type: DrawerTypes.AddStep }
-            })
-          }
+          onSelect={onStepSelection}
         />
       )}
       {/* TODO */}
@@ -621,13 +617,6 @@ export const RightDrawer: React.FC = (): JSX.Element => {
             }
             updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
           }}
-          onClose={() =>
-            updatePipelineView({
-              ...pipelineView,
-              isDrawerOpened: false,
-              drawerData: { type: DrawerTypes.AddStep }
-            })
-          }
         />
       )}
       {type === DrawerTypes.ProvisionerStepConfig && data?.stepConfig?.node && (

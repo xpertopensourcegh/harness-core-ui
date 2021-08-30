@@ -28,7 +28,12 @@ export const StepPopover: React.FC<StepPopoverProps> = props => {
       className={Classes.DARK}
       {...popoverProps}
     >
-      <Card interactive={!isNil(step)} selected={false} className={css.paletteCard}>
+      <Card
+        interactive={!isNil(step)}
+        selected={false}
+        className={css.paletteCard}
+        data-testid={`step-card-${stepData.name}`}
+      >
         {stepsFactory.getStepIsHarnessSpecific(stepData.type || '') && (
           <Icon size={12} name="harness-logo-white-bg-blue" className={css.stepHarnessLogo} />
         )}

@@ -101,7 +101,6 @@ enum FilterContext {
 
 export interface StepPaletteProps {
   onSelect: (item: FactoryStepData) => void
-  onClose: () => void
   stepsFactory: AbstractStepFactory
   selectedStage: any
   stageType: StageType

@@ -1,4 +1,7 @@
-const mock = {
+import type { PipelineContextInterface } from '../../PipelineContext/PipelineContext'
+import type { PipelineSelectionState } from '../../PipelineQueryParamState/usePipelineQueryParam'
+
+const stateMock = {
   pipeline: {
     name: 'stage1',
     identifier: 'stage1',
@@ -37,7 +40,15 @@ const mock = {
                   }
                 }
               ]
-            }
+            },
+            serviceDependencies: [
+              {
+                identifier: 'step1',
+                name: '',
+                description: '',
+                spec: {}
+              }
+            ]
           }
         }
       }
@@ -109,7 +120,36 @@ const mock = {
               privileged: false
             }
           },
-          stepsMap: new Map(),
+          stepsMap: new Map([
+            [
+              'step3',
+              {
+                type: 'Run',
+                name: 'step3',
+                identifier: 'step1',
+                spec: {
+                  connectorRef: 'harnessImage',
+                  image: 'alpine',
+                  command: "echo 'run'",
+                  privileged: false
+                }
+              }
+            ],
+            [
+              'step2',
+              {
+                type: 'Run',
+                name: 'step2',
+                identifier: 'step2',
+                spec: {
+                  connectorRef: 'harnessImage',
+                  image: 'alpine',
+                  command: "echo 'run'",
+                  privileged: false
+                }
+              }
+            ]
+          ]),
           isStepGroup: false,
           addOrEdit: 'edit'
         }
@@ -130,4 +170,159 @@ const mock = {
   error: ''
 }
 
-export default mock
+const pipelineContextMock: PipelineContextInterface = {
+  state: stateMock as any,
+  stepsFactory: {
+    getStep: (type: string) => {
+      switch (type) {
+        case 'Run':
+          return {
+            icon: 'run-step',
+            name: 'Configure Run Step',
+            type: 'Run'
+          }
+      }
+    },
+    getStepDescription: (type: string) => {
+      return 'Awesome description for step ' + type
+    },
+    getStepIsHarnessSpecific: (type: string) => {
+      if (type) {
+        return true
+      }
+    },
+    getStepData: () => ({
+      icon: 'run-step',
+      name: 'Configure Run Step',
+      type: 'Run'
+    }),
+    getStepIcon: () => 'run-step'
+  } as any,
+  stagesMap: {},
+  setSchemaErrorView: () => undefined,
+  isReadonly: false,
+  view: 'VISUAL',
+  updateGitDetails: () => new Promise<void>(() => undefined),
+  setView: () => void 0,
+  runPipeline: () => undefined,
+  // eslint-disable-next-line react/display-name
+  renderPipelineStage: jest.fn(),
+  fetchPipeline: () => new Promise<void>(() => undefined),
+  updatePipelineView: jest.fn(),
+  updateTemplateView: () => undefined,
+  updateStage: jest.fn().mockResolvedValue({}),
+  getStageFromPipeline: () => ({ stage: stateMock.pipeline.stages[0] as any, parent: undefined }),
+  setYamlHandler: () => undefined,
+  updatePipeline: () => new Promise<void>(() => undefined),
+  pipelineSaved: () => undefined,
+  deletePipelineCache: () => new Promise<void>(() => undefined),
+  setSelectedStageId: (_selectedStageId: string | undefined) => undefined,
+  setSelectedStepId: (_selectedStepId: string | undefined) => undefined,
+  setSelectedSectionId: (_selectedSectionId: string | undefined) => undefined,
+  setSelection: (_selectedState: PipelineSelectionState) => undefined,
+  getStagePathFromPipeline: () => ''
+}
+
+export const updateStageFnArg1 = {
+  description: '',
+  identifier: 's1',
+  name: 's1',
+  spec: {
+    cloneCodebase: false,
+    execution: {
+      steps: [
+        {
+          step: {
+            description: 'test desc',
+            identifier: 'step1',
+            name: 'step1',
+            spec: {
+              command: "echo 'run'",
+              connectorRef: 'harnessImage',
+              image: 'alpine',
+              privileged: false
+            },
+            type: 'Run'
+          }
+        }
+      ]
+    },
+    infrastructure: {
+      spec: {
+        connectorRef: 'account.yogesh',
+        namespace: 'harness-delegate'
+      },
+      type: 'KubernetesDirect'
+    },
+    serviceDependencies: [
+      {
+        description: '',
+        identifier: 'step1',
+        name: '',
+        spec: {}
+      }
+    ]
+  },
+  type: 'CI'
+}
+
+export const updatePipelineViewFnArg1 = {
+  drawerData: {
+    data: {
+      stepConfig: {
+        addOrEdit: 'edit',
+        isStepGroup: false,
+        node: {
+          description: 'test desc',
+          identifier: 'step1',
+          name: 'step1',
+          spec: {
+            command: "echo 'run'",
+            connectorRef: 'harnessImage',
+            image: 'alpine',
+            privileged: false
+          },
+          type: 'Run'
+        },
+        stepsMap: new Map([
+          [
+            'step3',
+            {
+              type: 'Run',
+              name: 'step3',
+              identifier: 'step1',
+              spec: {
+                connectorRef: 'harnessImage',
+                image: 'alpine',
+                command: "echo 'run'",
+                privileged: false
+              }
+            }
+          ],
+          [
+            'step2',
+            {
+              type: 'Run',
+              name: 'step2',
+              identifier: 'step2',
+              spec: {
+                connectorRef: 'harnessImage',
+                image: 'alpine',
+                command: "echo 'run'",
+                privileged: false
+              }
+            }
+          ]
+        ])
+      }
+    },
+    type: 'StepConfig'
+  },
+  isDrawerOpened: true,
+  isSplitViewOpen: true,
+  splitViewData: {
+    type: 'StageView'
+  }
+}
+
+export default pipelineContextMock
