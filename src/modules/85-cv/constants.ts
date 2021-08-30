@@ -12,7 +12,8 @@ export enum HealthSourcesType {
   NewRelic = 'NewRelic',
   Prometheus = 'Prometheus',
   Stackdriver = 'Stackdriver',
-  StackdriverLog = 'StackdriverLog'
+  StackdriverLog = 'StackdriverLog',
+  Splunk = 'Splunk'
 }
 
 export const appId = '_ia5NKUCSoytYrZJMM15mQ' //t0-jbpLoR7S2BTsNfsk4Iw'

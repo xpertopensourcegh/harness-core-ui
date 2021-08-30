@@ -5,8 +5,8 @@ import { isEmpty } from 'lodash-es'
 import Table from '@common/components/Table/Table'
 import { useStrings } from 'framework/strings'
 import type { HealthSource } from 'services/cv'
-import { HealthSourcesType } from '@cv/constants'
 import Card from '@cv/components/Card/Card'
+import { getIconBySourceType } from '@cv/pages/health-source/HealthSourceTable/HealthSourceTable.utils'
 import type { HealthSourcesProps } from './HealthSources.types'
 import css from './HealthSources.module.scss'
 
@@ -18,48 +18,12 @@ export default function HealthSources(props: HealthSourcesProps): React.ReactEle
     const type = tableProps?.row?.values?.type
     const name = tableProps?.row?.values?.name
     return (
-      <Container>
-        {type === HealthSourcesType.AppDynamics ? (
-          <div className={css.healthsourcename}>
-            <div className={css.healthsourcetype}>
-              <Icon name="service-appdynamics" size={18} />
-            </div>
-            {name}
-          </div>
-        ) : null}
-        {type === HealthSourcesType.Stackdriver ? (
-          <div className={css.healthsourcename}>
-            <div className={css.healthsourcetype}>
-              <Icon name="service-stackdriver" size={18} />
-            </div>
-            {name}
-          </div>
-        ) : null}
-        {type === HealthSourcesType.StackdriverLog ? (
-          <div className={css.healthsourcename}>
-            <div className={css.healthsourcetype}>
-              <Icon name="service-stackdriver" size={18} />
-            </div>
-            {name}
-          </div>
-        ) : null}
-        {type === HealthSourcesType.Prometheus ? (
-          <div className={css.healthsourcename}>
-            <div className={css.healthsourcetype}>
-              <Icon name="service-prometheus" size={18} />
-            </div>
-            {name}
-          </div>
-        ) : null}
-        {type === HealthSourcesType.NewRelic ? (
-          <div className={css.healthsourcename}>
-            <div className={css.healthsourcetype}>
-              <Icon name="service-newrelic" size={18} />
-            </div>
-            {name}
-          </div>
-        ) : null}
-      </Container>
+      <div className={css.healthsourcename}>
+        <div className={css.healthsourcetype}>
+          <Icon name={getIconBySourceType(type)} size={18} />
+        </div>
+        {name}
+      </div>
     )
   }
 
