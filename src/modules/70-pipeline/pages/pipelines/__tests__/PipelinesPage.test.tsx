@@ -189,7 +189,7 @@ describe('CD Pipeline Page List', () => {
         orgIdentifier: 'testOrg',
         projectIdentifier: 'test',
         searchTerm: 'asd',
-        size: 10,
+        size: 20,
         sort: ['lastUpdatedAt', 'DESC']
       }
     })

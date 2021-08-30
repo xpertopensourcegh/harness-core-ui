@@ -118,6 +118,7 @@ export const CDDashboardPage: React.FC = () => {
                 percentSuccess={workload.percentSuccess!}
                 rateSuccess={workload.rateSuccess!}
                 workload={workload.workload}
+                serviceId={workload.serviceId}
               />
             ))}
           </CardRailView>

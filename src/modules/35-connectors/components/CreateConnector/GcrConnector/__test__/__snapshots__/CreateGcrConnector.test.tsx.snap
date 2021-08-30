@@ -289,7 +289,7 @@ exports[`Create GCP connector Wizard Should render form 1`] = `
                       class="StyledProps--font StyledProps--main"
                     >
                       <label
-                        class="Label--main descriptionLabel"
+                        class="Label--main bp3-label descriptionLabel"
                       >
                         optionalField
                         <span
@@ -328,7 +328,7 @@ exports[`Create GCP connector Wizard Should render form 1`] = `
                       class="StyledProps--font StyledProps--main"
                     >
                       <label
-                        class="Label--main descriptionLabel"
+                        class="Label--main bp3-label descriptionLabel"
                       >
                         optionalField
                         <span
@@ -1060,7 +1060,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                       style="margin-bottom: 0px;"
                     >
                       <label
-                        class="Label--main descriptionLabel"
+                        class="Label--main bp3-label descriptionLabel"
                       >
                         optionalField
                       </label>
@@ -1087,7 +1087,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                       class="StyledProps--font StyledProps--main"
                     >
                       <label
-                        class="Label--main descriptionLabel"
+                        class="Label--main bp3-label descriptionLabel"
                       >
                         optionalField
                         <span

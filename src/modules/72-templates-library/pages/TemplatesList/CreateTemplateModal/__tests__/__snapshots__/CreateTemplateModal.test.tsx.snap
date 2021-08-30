@@ -202,7 +202,7 @@ exports[`CREATE MODE if form changesupdate the preview card: changed value shoul
                   class="StyledProps--font StyledProps--main"
                 >
                   <label
-                    class="Label--main descriptionLabel"
+                    class="Label--main bp3-label descriptionLabel"
                   >
                     optionalField
                     <span
@@ -241,7 +241,7 @@ exports[`CREATE MODE if form changesupdate the preview card: changed value shoul
                   class="StyledProps--font StyledProps--main"
                 >
                   <label
-                    class="Label--main descriptionLabel"
+                    class="Label--main bp3-label descriptionLabel"
                   >
                     optionalField
                     <span

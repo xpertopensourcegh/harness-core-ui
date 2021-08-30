@@ -250,7 +250,7 @@ describe('Input Set List - Actions tests', () => {
         accountIdentifier: 'testAcc',
         orgIdentifier: 'testOrg',
         pageIndex: 0,
-        pageSize: 10,
+        pageSize: 20,
         pipelineIdentifier: 'pipeline',
         projectIdentifier: 'test',
         searchTerm: 'asd'

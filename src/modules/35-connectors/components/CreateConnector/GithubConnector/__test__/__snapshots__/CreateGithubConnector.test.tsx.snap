@@ -273,7 +273,7 @@ exports[`Create Github connector Wizard Creating Github step one 1`] = `
                       class="StyledProps--font StyledProps--main"
                     >
                       <label
-                        class="Label--main descriptionLabel"
+                        class="Label--main bp3-label descriptionLabel"
                       >
                         optionalField
                         <span
@@ -312,7 +312,7 @@ exports[`Create Github connector Wizard Creating Github step one 1`] = `
                       class="StyledProps--font StyledProps--main"
                     >
                       <label
-                        class="Label--main descriptionLabel"
+                        class="Label--main bp3-label descriptionLabel"
                       >
                         optionalField
                         <span
@@ -2499,7 +2499,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
                       style="margin-bottom: 0px;"
                     >
                       <label
-                        class="Label--main descriptionLabel"
+                        class="Label--main bp3-label descriptionLabel"
                       >
                         optionalField
                       </label>
@@ -2526,7 +2526,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
                       class="StyledProps--font StyledProps--main"
                     >
                       <label
-                        class="Label--main descriptionLabel"
+                        class="Label--main bp3-label descriptionLabel"
                       >
                         optionalField
                         <span

@@ -121,7 +121,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                 class="StyledProps--font StyledProps--main"
               >
                 <label
-                  class="Label--main descriptionLabel"
+                  class="Label--main bp3-label descriptionLabel"
                   data-tooltip-id="webhookTrigger_description"
                 >
                   optionalField
@@ -161,7 +161,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                 class="StyledProps--font StyledProps--main"
               >
                 <label
-                  class="Label--main descriptionLabel"
+                  class="Label--main bp3-label descriptionLabel"
                   data-tooltip-id="webhookTrigger_tags"
                 >
                   optionalField
@@ -405,7 +405,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                 class="StyledProps--font StyledProps--main"
               >
                 <label
-                  class="Label--main descriptionLabel"
+                  class="Label--main bp3-label descriptionLabel"
                   data-tooltip-id="webhookTrigger_description"
                 >
                   optionalField
@@ -445,7 +445,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                 class="StyledProps--font StyledProps--main"
               >
                 <label
-                  class="Label--main descriptionLabel"
+                  class="Label--main bp3-label descriptionLabel"
                   data-tooltip-id="webhookTrigger_tags"
                 >
                   optionalField

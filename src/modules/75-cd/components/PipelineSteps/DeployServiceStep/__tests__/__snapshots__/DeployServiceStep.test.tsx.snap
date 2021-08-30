@@ -120,7 +120,7 @@ exports[`Test DeployService Step Should be able save even if there is 63 charact
             style="margin-bottom: 0px;"
           >
             <label
-              class="Label--main descriptionLabel"
+              class="Label--main bp3-label descriptionLabel"
             >
               optionalField
             </label>
@@ -147,7 +147,7 @@ exports[`Test DeployService Step Should be able save even if there is 63 charact
             class="StyledProps--font StyledProps--main"
           >
             <label
-              class="Label--main descriptionLabel"
+              class="Label--main bp3-label descriptionLabel"
             >
               optionalField
             </label>
@@ -395,7 +395,7 @@ exports[`Test DeployService Step should render edit service view (service), then
             style="margin-bottom: 0px;"
           >
             <label
-              class="Label--main descriptionLabel"
+              class="Label--main bp3-label descriptionLabel"
             >
               optionalField
             </label>
@@ -422,7 +422,7 @@ exports[`Test DeployService Step should render edit service view (service), then
             class="StyledProps--font StyledProps--main"
           >
             <label
-              class="Label--main descriptionLabel"
+              class="Label--main bp3-label descriptionLabel"
             >
               optionalField
             </label>
@@ -697,7 +697,7 @@ exports[`Test DeployService Step should render service view and save 1`] = `
             class="StyledProps--font StyledProps--main"
           >
             <label
-              class="Label--main descriptionLabel"
+              class="Label--main bp3-label descriptionLabel"
             >
               optionalField
               <span
@@ -736,7 +736,7 @@ exports[`Test DeployService Step should render service view and save 1`] = `
             class="StyledProps--font StyledProps--main"
           >
             <label
-              class="Label--main descriptionLabel"
+              class="Label--main bp3-label descriptionLabel"
             >
               optionalField
               <span

@@ -42,7 +42,7 @@ const InputSetList: React.FC = (): JSX.Element => {
       projectIdentifier,
       pipelineIdentifier,
       pageIndex: page,
-      pageSize: 10,
+      pageSize: 20,
       searchTerm: searchParam,
       ...(!isEmpty(repoIdentifier) && !isEmpty(branch)
         ? {

@@ -111,7 +111,7 @@ exports[`Test HarnessServicetModal should validate create mode save 1`] = `
           class="StyledProps--font StyledProps--main"
         >
           <label
-            class="Label--main descriptionLabel"
+            class="Label--main bp3-label descriptionLabel"
           >
             optionalField
             <span
@@ -150,7 +150,7 @@ exports[`Test HarnessServicetModal should validate create mode save 1`] = `
           class="StyledProps--font StyledProps--main"
         >
           <label
-            class="Label--main descriptionLabel"
+            class="Label--main bp3-label descriptionLabel"
           >
             optionalField
             <span
@@ -298,7 +298,7 @@ exports[`Test HarnessServicetModal should validate edit mode snapshot 1`] = `
           class="StyledProps--font StyledProps--main"
         >
           <label
-            class="Label--main descriptionLabel"
+            class="Label--main bp3-label descriptionLabel"
           >
             optionalField
             <span
@@ -337,7 +337,7 @@ exports[`Test HarnessServicetModal should validate edit mode snapshot 1`] = `
           class="StyledProps--font StyledProps--main"
         >
           <label
-            class="Label--main descriptionLabel"
+            class="Label--main bp3-label descriptionLabel"
           >
             optionalField
             <span
@@ -545,7 +545,7 @@ exports[`Test HarnessServicetModal validation are present if submited with empty
           class="StyledProps--font StyledProps--main"
         >
           <label
-            class="Label--main descriptionLabel"
+            class="Label--main bp3-label descriptionLabel"
           >
             optionalField
             <span
@@ -584,7 +584,7 @@ exports[`Test HarnessServicetModal validation are present if submited with empty
           class="StyledProps--font StyledProps--main"
         >
           <label
-            class="Label--main descriptionLabel"
+            class="Label--main bp3-label descriptionLabel"
           >
             optionalField
             <span

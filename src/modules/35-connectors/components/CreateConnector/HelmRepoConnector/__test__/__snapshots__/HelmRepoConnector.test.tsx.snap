@@ -234,7 +234,7 @@ exports[`Create Helm Connector  Wizard Should render form 1`] = `
                       class="StyledProps--font StyledProps--main"
                     >
                       <label
-                        class="Label--main descriptionLabel"
+                        class="Label--main bp3-label descriptionLabel"
                       >
                         optionalField
                         <span
@@ -273,7 +273,7 @@ exports[`Create Helm Connector  Wizard Should render form 1`] = `
                       class="StyledProps--font StyledProps--main"
                     >
                       <label
-                        class="Label--main descriptionLabel"
+                        class="Label--main bp3-label descriptionLabel"
                       >
                         optionalField
                         <span
@@ -1069,7 +1069,7 @@ exports[`Create Helm Connector  Wizard Should render form for editing provider t
                       style="margin-bottom: 0px;"
                     >
                       <label
-                        class="Label--main descriptionLabel"
+                        class="Label--main bp3-label descriptionLabel"
                       >
                         optionalField
                       </label>
@@ -1096,7 +1096,7 @@ exports[`Create Helm Connector  Wizard Should render form for editing provider t
                       class="StyledProps--font StyledProps--main"
                     >
                       <label
-                        class="Label--main descriptionLabel"
+                        class="Label--main bp3-label descriptionLabel"
                       >
                         optionalField
                         <span

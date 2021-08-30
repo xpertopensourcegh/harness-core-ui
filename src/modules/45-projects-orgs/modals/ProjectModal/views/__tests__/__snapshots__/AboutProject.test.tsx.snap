@@ -268,7 +268,7 @@ exports[`About Project test create project  1`] = `
                   class="StyledProps--font StyledProps--main"
                 >
                   <label
-                    class="Label--main descriptionLabel"
+                    class="Label--main bp3-label descriptionLabel"
                   >
                     optionalField
                     <span
@@ -307,7 +307,7 @@ exports[`About Project test create project  1`] = `
                   class="StyledProps--font StyledProps--main"
                 >
                   <label
-                    class="Label--main descriptionLabel"
+                    class="Label--main bp3-label descriptionLabel"
                   >
                     optionalField
                     <span
@@ -767,7 +767,7 @@ exports[`About Project test create project  2`] = `
                   style="margin-bottom: 0px;"
                 >
                   <label
-                    class="Label--main descriptionLabel"
+                    class="Label--main bp3-label descriptionLabel"
                   >
                     optionalField
                   </label>
@@ -793,7 +793,7 @@ exports[`About Project test create project  2`] = `
                   class="StyledProps--font StyledProps--main"
                 >
                   <label
-                    class="Label--main descriptionLabel"
+                    class="Label--main bp3-label descriptionLabel"
                   >
                     optionalField
                     <span
@@ -1230,7 +1230,7 @@ exports[`About Project test edit project  1`] = `
                   style="margin-bottom: 0px;"
                 >
                   <label
-                    class="Label--main descriptionLabel"
+                    class="Label--main bp3-label descriptionLabel"
                   >
                     optionalField
                   </label>
@@ -1257,7 +1257,7 @@ exports[`About Project test edit project  1`] = `
                   class="StyledProps--font StyledProps--main"
                 >
                   <label
-                    class="Label--main descriptionLabel"
+                    class="Label--main bp3-label descriptionLabel"
                   >
                     optionalField
                     <span
@@ -1558,7 +1558,7 @@ exports[`About Project test edit project  2`] = `
                   style="margin-bottom: 0px;"
                 >
                   <label
-                    class="Label--main descriptionLabel"
+                    class="Label--main bp3-label descriptionLabel"
                   >
                     optionalField
                   </label>
@@ -1585,7 +1585,7 @@ exports[`About Project test edit project  2`] = `
                   class="StyledProps--font StyledProps--main"
                 >
                   <label
-                    class="Label--main descriptionLabel"
+                    class="Label--main bp3-label descriptionLabel"
                   >
                     optionalField
                     <span

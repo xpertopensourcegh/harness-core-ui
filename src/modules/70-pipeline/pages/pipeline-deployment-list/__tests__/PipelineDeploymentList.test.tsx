@@ -234,12 +234,16 @@ describe('Test Pipeline Deployment list', () => {
         accountIdentifier: 'testAcc',
         orgIdentifier: 'testOrg',
         page: 0,
+        size: 20,
         pipelineIdentifier: undefined,
         projectIdentifier: 'testProject',
         status: 'Failed',
         filterIdentifier: undefined,
         module: 'cd',
-        myDeployments: false
+        myDeployments: false,
+        repoIdentifier: undefined,
+        searchTerm: undefined,
+        branch: undefined
       }
     })
 
@@ -268,11 +272,16 @@ describe('Test Pipeline Deployment list', () => {
         accountIdentifier: 'testAcc',
         orgIdentifier: 'testOrg',
         page: 0,
+        size: 20,
         pipelineIdentifier: undefined,
         projectIdentifier: 'testProject',
         filterIdentifier: undefined,
         module: 'cd',
-        myDeployments: false
+        myDeployments: false,
+        repoIdentifier: undefined,
+        searchTerm: undefined,
+
+        branch: undefined
       }
     })
   })
@@ -315,12 +324,17 @@ describe('Test Pipeline Deployment list', () => {
         accountIdentifier: 'testAcc',
         orgIdentifier: 'testOrg',
         page: 0,
+        size: 20,
         pipelineIdentifier: 'pipeline1',
         projectIdentifier: 'testProject',
         status: undefined,
         filterIdentifier: undefined,
         module: 'cd',
-        myDeployments: false
+        myDeployments: false,
+        repoIdentifier: undefined,
+        searchTerm: undefined,
+
+        branch: undefined
       }
     })
 
@@ -354,7 +368,11 @@ describe('Test Pipeline Deployment list', () => {
         status: undefined,
         filterIdentifier: undefined,
         module: 'cd',
-        myDeployments: false
+        myDeployments: false,
+        repoIdentifier: undefined,
+        searchTerm: undefined,
+        size: 20,
+        branch: undefined
       }
     })
   })
@@ -388,7 +406,11 @@ describe('Test Pipeline Deployment list', () => {
         status: undefined,
         filterIdentifier: undefined,
         module: 'cd',
-        myDeployments: false
+        myDeployments: false,
+        repoIdentifier: undefined,
+        searchTerm: undefined,
+        size: 20,
+        branch: undefined
       }
     })
   })

@@ -543,7 +543,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                         style="margin-bottom: 0px;"
                       >
                         <label
-                          class="Label--main descriptionLabel"
+                          class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
                         </label>
@@ -570,7 +570,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                         class="StyledProps--font StyledProps--main"
                       >
                         <label
-                          class="Label--main descriptionLabel"
+                          class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
                           <span
@@ -1353,7 +1353,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
                   style="margin-bottom: 0px;"
                 >
                   <label
-                    class="Label--main descriptionLabel"
+                    class="Label--main bp3-label descriptionLabel"
                   >
                     optionalField
                   </label>
@@ -1380,7 +1380,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
                   class="StyledProps--font StyledProps--main"
                 >
                   <label
-                    class="Label--main descriptionLabel"
+                    class="Label--main bp3-label descriptionLabel"
                   >
                     optionalField
                     <span
@@ -2034,7 +2034,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                         style="margin-bottom: 0px;"
                       >
                         <label
-                          class="Label--main descriptionLabel"
+                          class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
                         </label>
@@ -2061,7 +2061,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                         class="StyledProps--font StyledProps--main"
                       >
                         <label
-                          class="Label--main descriptionLabel"
+                          class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
                           <span
@@ -2726,7 +2726,7 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
                   style="margin-bottom: 0px;"
                 >
                   <label
-                    class="Label--main descriptionLabel"
+                    class="Label--main bp3-label descriptionLabel"
                   >
                     optionalField
                   </label>
@@ -2753,7 +2753,7 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
                   class="StyledProps--font StyledProps--main"
                 >
                   <label
-                    class="Label--main descriptionLabel"
+                    class="Label--main bp3-label descriptionLabel"
                   >
                     optionalField
                     <span

@@ -91,7 +91,7 @@ exports[`Artifact Trigger Config Panel  tests Renders/snapshots edit render 1`] 
                 class="StyledProps--font StyledProps--main"
               >
                 <label
-                  class="Label--main descriptionLabel"
+                  class="Label--main bp3-label descriptionLabel"
                   data-tooltip-id="artifactTrigger_description"
                 >
                   optionalField
@@ -131,7 +131,7 @@ exports[`Artifact Trigger Config Panel  tests Renders/snapshots edit render 1`] 
                 class="StyledProps--font StyledProps--main"
               >
                 <label
-                  class="Label--main descriptionLabel"
+                  class="Label--main bp3-label descriptionLabel"
                   data-tooltip-id="artifactTrigger_tags"
                 >
                   optionalField
@@ -468,7 +468,7 @@ exports[`Artifact Trigger Config Panel  tests Renders/snapshots inital Render 1`
                 class="StyledProps--font StyledProps--main"
               >
                 <label
-                  class="Label--main descriptionLabel"
+                  class="Label--main bp3-label descriptionLabel"
                   data-tooltip-id="artifactTrigger_description"
                 >
                   optionalField
@@ -508,7 +508,7 @@ exports[`Artifact Trigger Config Panel  tests Renders/snapshots inital Render 1`
                 class="StyledProps--font StyledProps--main"
               >
                 <label
-                  class="Label--main descriptionLabel"
+                  class="Label--main bp3-label descriptionLabel"
                   data-tooltip-id="artifactTrigger_tags"
                 >
                   optionalField

@@ -272,7 +272,7 @@ exports[`Create Jira Connector  Wizard Should render form 1`] = `
                       class="StyledProps--font StyledProps--main"
                     >
                       <label
-                        class="Label--main descriptionLabel"
+                        class="Label--main bp3-label descriptionLabel"
                       >
                         optionalField
                         <span
@@ -311,7 +311,7 @@ exports[`Create Jira Connector  Wizard Should render form 1`] = `
                       class="StyledProps--font StyledProps--main"
                     >
                       <label
-                        class="Label--main descriptionLabel"
+                        class="Label--main bp3-label descriptionLabel"
                       >
                         optionalField
                         <span

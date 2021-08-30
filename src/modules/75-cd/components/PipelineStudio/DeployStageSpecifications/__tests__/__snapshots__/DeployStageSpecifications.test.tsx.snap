@@ -99,7 +99,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                     class="StyledProps--font StyledProps--main"
                   >
                     <label
-                      class="Label--main descriptionLabel"
+                      class="Label--main bp3-label descriptionLabel"
                     >
                       optionalField
                       <span
@@ -138,7 +138,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                     class="StyledProps--font StyledProps--main"
                   >
                     <label
-                      class="Label--main descriptionLabel"
+                      class="Label--main bp3-label descriptionLabel"
                     >
                       optionalField
                       <span

@@ -352,7 +352,7 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                         class="StyledProps--font StyledProps--main"
                       >
                         <label
-                          class="Label--main descriptionLabel"
+                          class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
                           <span
@@ -391,7 +391,7 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                         class="StyledProps--font StyledProps--main"
                       >
                         <label
-                          class="Label--main descriptionLabel"
+                          class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
                           <span

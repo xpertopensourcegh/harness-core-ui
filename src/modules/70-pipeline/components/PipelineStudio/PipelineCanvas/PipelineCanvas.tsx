@@ -413,7 +413,8 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
           <Dialog
             style={{
               width: isGitSyncEnabled ? '614px' : '385px',
-              background: 'var(--form-bg)'
+              background: 'var(--form-bg)',
+              paddingTop: '36px'
             }}
             enforceFocus={false}
             isOpen={true}

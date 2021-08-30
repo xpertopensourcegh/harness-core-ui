@@ -224,7 +224,7 @@ exports[`Unit tests for cv connector hoc should render form 1`] = `
                       class="StyledProps--font StyledProps--main"
                     >
                       <label
-                        class="Label--main descriptionLabel"
+                        class="Label--main bp3-label descriptionLabel"
                       >
                         optionalField
                         <span
@@ -263,7 +263,7 @@ exports[`Unit tests for cv connector hoc should render form 1`] = `
                       class="StyledProps--font StyledProps--main"
                     >
                       <label
-                        class="Label--main descriptionLabel"
+                        class="Label--main bp3-label descriptionLabel"
                       >
                         optionalField
                         <span

@@ -124,7 +124,7 @@ exports[`CreatePipelineForm Rendering should closeModal when click Setup Later 1
             class="StyledProps--font StyledProps--main"
           >
             <label
-              class="Label--main descriptionLabel"
+              class="Label--main bp3-label descriptionLabel"
             >
               optionalField
               <span
@@ -163,7 +163,7 @@ exports[`CreatePipelineForm Rendering should closeModal when click Setup Later 1
             class="StyledProps--font StyledProps--main"
           >
             <label
-              class="Label--main descriptionLabel"
+              class="Label--main bp3-label descriptionLabel"
             >
               optionalField
               <span
@@ -414,7 +414,7 @@ exports[`CreatePipelineForm Rendering should render CreatePipelineForm 1`] = `
             class="StyledProps--font StyledProps--main"
           >
             <label
-              class="Label--main descriptionLabel"
+              class="Label--main bp3-label descriptionLabel"
             >
               optionalField
               <span
@@ -453,7 +453,7 @@ exports[`CreatePipelineForm Rendering should render CreatePipelineForm 1`] = `
             class="StyledProps--font StyledProps--main"
           >
             <label
-              class="Label--main descriptionLabel"
+              class="Label--main bp3-label descriptionLabel"
             >
               optionalField
               <span
@@ -734,7 +734,7 @@ exports[`CreatePipelineForm Rendering should validate inputs 1`] = `
             class="StyledProps--font StyledProps--main"
           >
             <label
-              class="Label--main descriptionLabel"
+              class="Label--main bp3-label descriptionLabel"
             >
               optionalField
               <span
@@ -773,7 +773,7 @@ exports[`CreatePipelineForm Rendering should validate inputs 1`] = `
             class="StyledProps--font StyledProps--main"
           >
             <label
-              class="Label--main descriptionLabel"
+              class="Label--main bp3-label descriptionLabel"
             >
               optionalField
               <span

@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { Layout, ButtonGroup, Button } from '@wings-software/uicore'
+import { Layout, ButtonGroup, Button, ButtonVariation } from '@wings-software/uicore'
 import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
@@ -78,6 +78,7 @@ export const CanvasButtons: React.FC<CanvasButtonsProps> = ({
     <>
       <ButtonGroup>
         <Button
+          variation={ButtonVariation.TERTIARY}
           icon="canvas-position"
           tooltip={getString('canvasButtons.zoomToFit')}
           tooltipProps={{ position: tooltipPosition as any }}
@@ -86,6 +87,7 @@ export const CanvasButtons: React.FC<CanvasButtonsProps> = ({
       </ButtonGroup>
       <ButtonGroup>
         <Button
+          variation={ButtonVariation.TERTIARY}
           icon="canvas-selector"
           tooltip={getString('reset')}
           onClick={zoomReset}
@@ -95,12 +97,14 @@ export const CanvasButtons: React.FC<CanvasButtonsProps> = ({
       <span className={layout === 'vertical' ? css.verticalButtons : ''}>
         <ButtonGroup>
           <Button
+            variation={ButtonVariation.TERTIARY}
             icon="zoom-in"
             tooltip={getString('canvasButtons.zoomIn')}
             onClick={zoomIn}
             tooltipProps={{ position: tooltipPosition as any }}
           />
           <Button
+            variation={ButtonVariation.TERTIARY}
             icon="zoom-out"
             tooltip={getString('canvasButtons.zoomOut')}
             onClick={zoomOut}

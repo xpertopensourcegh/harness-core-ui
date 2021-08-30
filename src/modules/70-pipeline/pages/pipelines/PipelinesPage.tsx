@@ -184,7 +184,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
     searchTerm: searchParam,
     page,
     sort,
-    size: 10,
+    size: 20,
     ...(gitFilter?.repo &&
       gitFilter.branch && {
         repoIdentifier: gitFilter.repo,

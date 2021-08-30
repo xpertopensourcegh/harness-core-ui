@@ -147,7 +147,7 @@ exports[`open and close Harness Service Modal Rendering should open and close th
           class="StyledProps--font StyledProps--main"
         >
           <label
-            class="Label--main descriptionLabel"
+            class="Label--main bp3-label descriptionLabel"
           >
             optionalField
             <span
@@ -186,7 +186,7 @@ exports[`open and close Harness Service Modal Rendering should open and close th
           class="StyledProps--font StyledProps--main"
         >
           <label
-            class="Label--main descriptionLabel"
+            class="Label--main bp3-label descriptionLabel"
           >
             optionalField
             <span

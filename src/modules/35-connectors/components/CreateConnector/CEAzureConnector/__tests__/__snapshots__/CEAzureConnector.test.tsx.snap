@@ -3116,7 +3116,7 @@ exports[`Create Azure connector Wizard should render overview step 1`] = `
                         class="StyledProps--font StyledProps--main"
                       >
                         <label
-                          class="Label--main descriptionLabel"
+                          class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
                           <span
@@ -3155,7 +3155,7 @@ exports[`Create Azure connector Wizard should render overview step 1`] = `
                         class="StyledProps--font StyledProps--main"
                       >
                         <label
-                          class="Label--main descriptionLabel"
+                          class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
                           <span
@@ -3579,7 +3579,7 @@ exports[`Create Azure connector Wizard should throw an error when connectors alr
                         class="StyledProps--font StyledProps--main"
                       >
                         <label
-                          class="Label--main descriptionLabel"
+                          class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
                           <span
@@ -3618,7 +3618,7 @@ exports[`Create Azure connector Wizard should throw an error when connectors alr
                         class="StyledProps--font StyledProps--main"
                       >
                         <label
-                          class="Label--main descriptionLabel"
+                          class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
                           <span

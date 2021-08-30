@@ -241,7 +241,7 @@ exports[`Create k8 connector Wizard should form for authtype username 1`] = `
                       class="StyledProps--font StyledProps--main"
                     >
                       <label
-                        class="Label--main descriptionLabel"
+                        class="Label--main bp3-label descriptionLabel"
                       >
                         optionalField
                         <span
@@ -280,7 +280,7 @@ exports[`Create k8 connector Wizard should form for authtype username 1`] = `
                       class="StyledProps--font StyledProps--main"
                     >
                       <label
-                        class="Label--main descriptionLabel"
+                        class="Label--main bp3-label descriptionLabel"
                       >
                         optionalField
                         <span
@@ -2532,7 +2532,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 1`] =
                       style="margin-bottom: 0px;"
                     >
                       <label
-                        class="Label--main descriptionLabel"
+                        class="Label--main bp3-label descriptionLabel"
                       >
                         optionalField
                       </label>
@@ -2559,7 +2559,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 1`] =
                       class="StyledProps--font StyledProps--main"
                     >
                       <label
-                        class="Label--main descriptionLabel"
+                        class="Label--main bp3-label descriptionLabel"
                       >
                         optionalField
                       </label>

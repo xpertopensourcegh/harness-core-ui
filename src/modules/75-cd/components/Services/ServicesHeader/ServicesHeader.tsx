@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react'
+import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { Button, Layout, useModalHook } from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
@@ -29,7 +30,7 @@ export const ServicesHeader: React.FC = () => {
         onClose={hideModal}
         title={getString('newService')}
         isCloseButtonShown
-        className={'padded-dialog'}
+        className={cx('padded-dialog', css.dialogStyles)}
       >
         <NewEditServiceModal
           data={{ name: '', identifier: '', orgIdentifier, projectIdentifier }}

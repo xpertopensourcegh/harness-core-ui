@@ -349,14 +349,14 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main title"
           >
-            pipeline.dashboards.workloads
+            services
           </p>
         </div>
         <div
           class="StyledProps--font StyledProps--main content"
         >
           <div
-            class="StyledProps--font StyledProps--main repositoryCard"
+            class="StyledProps--font StyledProps--main repositoryCard hoverService"
           >
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main title StyledProps--color StyledProps--color-black"

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Container, FormInput, Icon, Label, DataTooltipInterface, HarnessDocTooltip } from '@wings-software/uicore'
 import type { InputWithIdentifierProps } from '@wings-software/uicore/dist/components/InputWithIdentifier/InputWithIdentifier'
 import { isEmpty } from 'lodash-es'
-import type { IInputGroupProps, ITagInputProps } from '@blueprintjs/core'
+import { Classes, IInputGroupProps, ITagInputProps } from '@blueprintjs/core'
 import cx from 'classnames'
 import type { FormikProps } from 'formik'
 import { useStrings } from 'framework/strings'
@@ -54,7 +54,7 @@ export const Description = (props: DescriptionComponentProps): JSX.Element => {
 
   return (
     <Container style={{ marginBottom: isDescriptionOpen ? '0' : 'var(--spacing-medium)' }}>
-      <Label className={css.descriptionLabel} data-tooltip-id={props.dataTooltipId}>
+      <Label className={cx(Classes.LABEL, css.descriptionLabel)} data-tooltip-id={props.dataTooltipId}>
         {isOptional ? getString('optionalField', { name: getString('description') }) : getString('description')}
         {props.dataTooltipId ? <HarnessDocTooltip useStandAlone={true} tooltipId={props.dataTooltipId} /> : null}
         {!isDescriptionOpen && (
@@ -92,7 +92,7 @@ export const Tags = (props: TagsComponentProps): JSX.Element => {
 
   return (
     <Container>
-      <Label className={css.descriptionLabel} data-tooltip-id={props.dataTooltipId}>
+      <Label className={cx(Classes.LABEL, css.descriptionLabel)} data-tooltip-id={props.dataTooltipId}>
         {isOptional ? getString('optionalField', { name: getString('tagsLabel') }) : getString('tagsLabel')}
         {props.dataTooltipId ? <HarnessDocTooltip useStandAlone={true} tooltipId={props.dataTooltipId} /> : null}
         {!isTagsOpen && (
@@ -120,7 +120,7 @@ function TagsDeprecated(props: TagsDeprecatedComponentProps): JSX.Element {
 
   return (
     <Container>
-      <Label className={css.descriptionLabel}>
+      <Label className={cx(Classes.LABEL, css.descriptionLabel)}>
         {getString('tagsLabel')}
         {!isTagsOpen && (
           <Icon

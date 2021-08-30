@@ -178,7 +178,7 @@ exports[`Unit tests for DefineYourMonitoringSource Ensure card renders passed in
                 class="StyledProps--font StyledProps--main"
               >
                 <label
-                  class="Label--main descriptionLabel"
+                  class="Label--main bp3-label descriptionLabel"
                 >
                   optionalField
                   <span
@@ -217,7 +217,7 @@ exports[`Unit tests for DefineYourMonitoringSource Ensure card renders passed in
                 class="StyledProps--font StyledProps--main"
               >
                 <label
-                  class="Label--main descriptionLabel"
+                  class="Label--main bp3-label descriptionLabel"
                 >
                   optionalField
                   <span

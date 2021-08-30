@@ -192,7 +192,7 @@ exports[`Create Delegate Wizard render data 1`] = `
                     class="StyledProps--font StyledProps--main"
                   >
                     <label
-                      class="Label--main descriptionLabel"
+                      class="Label--main bp3-label descriptionLabel"
                     >
                       optionalField
                       <span
@@ -231,7 +231,7 @@ exports[`Create Delegate Wizard render data 1`] = `
                     class="StyledProps--font StyledProps--main"
                   >
                     <label
-                      class="Label--main descriptionLabel"
+                      class="Label--main bp3-label descriptionLabel"
                     >
                       optionalField
                       <span

@@ -123,7 +123,7 @@ exports[`Test DeployEnvironment Step should render edit Environment view (enviro
               style="margin-bottom: 0px;"
             >
               <label
-                class="Label--main descriptionLabel"
+                class="Label--main bp3-label descriptionLabel"
               >
                 optionalField
               </label>
@@ -150,7 +150,7 @@ exports[`Test DeployEnvironment Step should render edit Environment view (enviro
               class="StyledProps--font StyledProps--main"
             >
               <label
-                class="Label--main descriptionLabel"
+                class="Label--main bp3-label descriptionLabel"
               >
                 optionalField
               </label>
@@ -532,7 +532,7 @@ exports[`Test DeployEnvironment Step should render environment view and save 1`]
               class="StyledProps--font StyledProps--main"
             >
               <label
-                class="Label--main descriptionLabel"
+                class="Label--main bp3-label descriptionLabel"
               >
                 optionalField
                 <span
@@ -571,7 +571,7 @@ exports[`Test DeployEnvironment Step should render environment view and save 1`]
               class="StyledProps--font StyledProps--main"
             >
               <label
-                class="Label--main descriptionLabel"
+                class="Label--main bp3-label descriptionLabel"
               >
                 optionalField
                 <span

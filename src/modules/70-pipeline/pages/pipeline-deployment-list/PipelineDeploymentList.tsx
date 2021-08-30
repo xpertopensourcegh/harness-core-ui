@@ -50,7 +50,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
       return {
         ...params,
         page: parseInt(params.page || '1', 10),
-        size: parseInt(params.size || '10', 10),
+        size: parseInt(params.size || '20', 10),
         sort: [],
         status: params.status as QuickStatusParam,
         myDeployments: !!params.myDeployments,
@@ -85,6 +85,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
       projectIdentifier,
       orgIdentifier,
       module,
+      size: 20,
       pipelineIdentifier: pipelineIdentifier || queryParams.pipelineIdentifier,
       page: page ? page - 1 : 0,
       filterIdentifier: hasFilterIdentifier ? filterIdentifier : undefined,

@@ -284,7 +284,7 @@ exports[`Approval Stage readonly view if readonly view works: readonly view appr
                         class="StyledProps--font StyledProps--main"
                       >
                         <label
-                          class="Label--main descriptionLabel"
+                          class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
                           <span
@@ -323,7 +323,7 @@ exports[`Approval Stage readonly view if readonly view works: readonly view appr
                         class="StyledProps--font StyledProps--main"
                       >
                         <label
-                          class="Label--main descriptionLabel"
+                          class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
                           <span

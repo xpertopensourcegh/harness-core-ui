@@ -211,7 +211,7 @@ exports[`Create AWS connector Wizard Should edit a connector with delegates 1`] 
                       class="StyledProps--font StyledProps--main"
                     >
                       <label
-                        class="Label--main descriptionLabel"
+                        class="Label--main bp3-label descriptionLabel"
                       >
                         optionalField
                         <span
@@ -250,7 +250,7 @@ exports[`Create AWS connector Wizard Should edit a connector with delegates 1`] 
                       class="StyledProps--font StyledProps--main"
                     >
                       <label
-                        class="Label--main descriptionLabel"
+                        class="Label--main bp3-label descriptionLabel"
                       >
                         optionalField
                         <span
@@ -590,7 +590,7 @@ exports[`Create AWS connector Wizard Should render form 1`] = `
                       class="StyledProps--font StyledProps--main"
                     >
                       <label
-                        class="Label--main descriptionLabel"
+                        class="Label--main bp3-label descriptionLabel"
                       >
                         optionalField
                         <span
@@ -629,7 +629,7 @@ exports[`Create AWS connector Wizard Should render form 1`] = `
                       class="StyledProps--font StyledProps--main"
                     >
                       <label
-                        class="Label--main descriptionLabel"
+                        class="Label--main bp3-label descriptionLabel"
                       >
                         optionalField
                         <span
@@ -1438,7 +1438,7 @@ exports[`Create AWS connector Wizard Should render form for edit  1`] = `
                       style="margin-bottom: 0px;"
                     >
                       <label
-                        class="Label--main descriptionLabel"
+                        class="Label--main bp3-label descriptionLabel"
                       >
                         optionalField
                       </label>
@@ -1465,7 +1465,7 @@ exports[`Create AWS connector Wizard Should render form for edit  1`] = `
                       class="StyledProps--font StyledProps--main"
                     >
                       <label
-                        class="Label--main descriptionLabel"
+                        class="Label--main bp3-label descriptionLabel"
                       >
                         optionalField
                         <span

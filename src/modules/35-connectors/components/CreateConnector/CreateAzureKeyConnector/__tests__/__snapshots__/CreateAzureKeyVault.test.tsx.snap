@@ -314,7 +314,7 @@ exports[`Create Secret Manager Wizard should be able to render first step form 1
                       class="StyledProps--font StyledProps--main"
                     >
                       <label
-                        class="Label--main descriptionLabel"
+                        class="Label--main bp3-label descriptionLabel"
                       >
                         optionalField
                         <span
@@ -353,7 +353,7 @@ exports[`Create Secret Manager Wizard should be able to render first step form 1
                       class="StyledProps--font StyledProps--main"
                     >
                       <label
-                        class="Label--main descriptionLabel"
+                        class="Label--main bp3-label descriptionLabel"
                       >
                         optionalField
                         <span
@@ -1993,7 +1993,7 @@ exports[`Create Secret Manager Wizard should render form in edit 1`] = `
                       style="margin-bottom: 0px;"
                     >
                       <label
-                        class="Label--main descriptionLabel"
+                        class="Label--main bp3-label descriptionLabel"
                       >
                         optionalField
                       </label>
@@ -2020,7 +2020,7 @@ exports[`Create Secret Manager Wizard should render form in edit 1`] = `
                       class="StyledProps--font StyledProps--main"
                     >
                       <label
-                        class="Label--main descriptionLabel"
+                        class="Label--main bp3-label descriptionLabel"
                       >
                         optionalField
                         <span
@@ -2432,7 +2432,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                       style="margin-bottom: 0px;"
                     >
                       <label
-                        class="Label--main descriptionLabel"
+                        class="Label--main bp3-label descriptionLabel"
                       >
                         optionalField
                       </label>
@@ -2459,7 +2459,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                       class="StyledProps--font StyledProps--main"
                     >
                       <label
-                        class="Label--main descriptionLabel"
+                        class="Label--main bp3-label descriptionLabel"
                       >
                         optionalField
                         <span
@@ -2871,7 +2871,7 @@ exports[`Create Secret Manager Wizard should render form in edit 3`] = `
                       style="margin-bottom: 0px;"
                     >
                       <label
-                        class="Label--main descriptionLabel"
+                        class="Label--main bp3-label descriptionLabel"
                       >
                         optionalField
                       </label>
@@ -2898,7 +2898,7 @@ exports[`Create Secret Manager Wizard should render form in edit 3`] = `
                       class="StyledProps--font StyledProps--main"
                     >
                       <label
-                        class="Label--main descriptionLabel"
+                        class="Label--main bp3-label descriptionLabel"
                       >
                         optionalField
                         <span

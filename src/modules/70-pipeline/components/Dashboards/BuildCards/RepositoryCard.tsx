@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import cx from 'classnames'
 import { Container, Text, Avatar, Icon, Color } from '@wings-software/uicore'
 import moment from 'moment'
 import HighchartsReact from 'highcharts-react-official'
@@ -23,6 +24,8 @@ export interface RepositoryCardProps {
   countLabel?: string
   seriesName?: string
   countList?: RepositoryBuildInfo[]
+  onClick?: () => void
+  className?: string
 }
 
 export default function RepositoryCard({
@@ -38,7 +41,9 @@ export default function RepositoryCard({
   lastBuildStatus,
   countLabel = 'builds',
   seriesName = 'Builds',
-  countList
+  countList,
+  onClick,
+  className
 }: RepositoryCardProps) {
   const [chartOptions, setChartOptions] = useState(defaultChartOptions)
   const duration = diffStartAndEndTime(startTime, endTime)
@@ -68,7 +73,7 @@ export default function RepositoryCard({
   }, [countList])
 
   return (
-    <Container className={styles.repositoryCard}>
+    <Container className={cx(styles.repositoryCard, className)} onClick={onClick}>
       <Text className={styles.title} color={Color.BLACK} lineClamp={1}>
         {title}
       </Text>

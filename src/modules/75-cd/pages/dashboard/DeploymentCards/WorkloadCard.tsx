@@ -1,8 +1,11 @@
 import React, { useMemo } from 'react'
 import { Layout, Icon, Color } from '@wings-software/uicore'
+import { useHistory, useParams } from 'react-router-dom'
 import RepositoryCard from '@pipeline/components/Dashboards/BuildCards/RepositoryCard'
 import type { WorkloadDateCountInfo, LastWorkloadInfo } from 'services/cd-ng'
-
+import routes from '@common/RouteDefinitions'
+import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import css from '../CDDashboardPage.module.scss'
 export interface WorkloadCardProps {
   serviceName: string
   lastExecuted?: LastWorkloadInfo
@@ -12,6 +15,7 @@ export interface WorkloadCardProps {
   rateSuccess: number
   username?: string
   workload?: WorkloadDateCountInfo[]
+  serviceId?: string
 }
 
 export default function WorkloadCard({
@@ -22,8 +26,12 @@ export default function WorkloadCard({
   percentSuccess,
   rateSuccess,
   username,
-  workload
+  workload,
+  serviceId = ''
 }: WorkloadCardProps) {
+  const history = useHistory()
+
+  const { accountId, orgIdentifier, projectIdentifier, module } = useParams<ProjectPathProps & ModulePathParams>()
   const countList = useMemo(() => {
     if (workload) {
       return workload.map(val => ({
@@ -35,6 +43,9 @@ export default function WorkloadCard({
     }
   }, [workload])
 
+  const gotoServices = (): void => {
+    history.push(routes.toServiceDetails({ accountId, orgIdentifier, projectIdentifier, serviceId, module }))
+  }
   return (
     <RepositoryCard
       title={
@@ -53,6 +64,8 @@ export default function WorkloadCard({
       successRate={percentSuccess}
       successRateDiff={rateSuccess}
       countList={countList}
+      onClick={gotoServices}
+      className={css.hoverService}
     />
   )
 }

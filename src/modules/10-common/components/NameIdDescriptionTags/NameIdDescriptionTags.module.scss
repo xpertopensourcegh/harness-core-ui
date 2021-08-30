@@ -33,6 +33,15 @@
     min-height: 50px;
     resize: vertical;
   }
+  :global {
+    .TextInput--main {
+      margin: 0;
+      .bp3-form-group {
+        margin: 0;
+      }
+      margin-bottom: var(--spacing-medium);
+    }
+  }
 }
 
 .editOpen {
@@ -46,8 +55,5 @@
   }
 }
 .descriptionLabel {
-  font-size: 13;
-  font-weight: 500;
-  color: var(--grey-600) !important;
-  margin-bottom: var(--spacing-xsmall);
+  margin-bottom: var(--spacing-xsmall) !important;
 }

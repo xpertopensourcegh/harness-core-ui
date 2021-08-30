@@ -112,7 +112,7 @@ exports[`NameIdDescriptionTags  tests Renders/snapshots Initial Render - Name, I
             class="StyledProps--font StyledProps--main"
           >
             <label
-              class="Label--main descriptionLabel"
+              class="Label--main bp3-label descriptionLabel"
             >
               optionalField
               <span
@@ -151,7 +151,7 @@ exports[`NameIdDescriptionTags  tests Renders/snapshots Initial Render - Name, I
             class="StyledProps--font StyledProps--main"
           >
             <label
-              class="Label--main descriptionLabel"
+              class="Label--main bp3-label descriptionLabel"
             >
               optionalField
               <span
@@ -308,7 +308,7 @@ exports[`NameIdDescriptionTags  tests Renders/snapshots On Edit Render - Name, I
             style="margin-bottom: 0px;"
           >
             <label
-              class="Label--main descriptionLabel"
+              class="Label--main bp3-label descriptionLabel"
             >
               optionalField
             </label>
@@ -335,7 +335,7 @@ exports[`NameIdDescriptionTags  tests Renders/snapshots On Edit Render - Name, I
             class="StyledProps--font StyledProps--main"
           >
             <label
-              class="Label--main descriptionLabel"
+              class="Label--main bp3-label descriptionLabel"
             >
               optionalField
             </label>

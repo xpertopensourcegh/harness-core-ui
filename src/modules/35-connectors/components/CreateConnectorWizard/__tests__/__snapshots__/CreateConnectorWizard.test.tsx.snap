@@ -235,7 +235,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Artifacto
                         class="StyledProps--font StyledProps--main"
                       >
                         <label
-                          class="Label--main descriptionLabel"
+                          class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
                           <span
@@ -274,7 +274,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Artifacto
                         class="StyledProps--font StyledProps--main"
                       >
                         <label
-                          class="Label--main descriptionLabel"
+                          class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
                           <span
@@ -622,7 +622,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for BITBUCKET
                         class="StyledProps--font StyledProps--main"
                       >
                         <label
-                          class="Label--main descriptionLabel"
+                          class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
                           <span
@@ -661,7 +661,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for BITBUCKET
                         class="StyledProps--font StyledProps--main"
                       >
                         <label
-                          class="Label--main descriptionLabel"
+                          class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
                           <span
@@ -998,7 +998,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for DOCKER 1`
                         class="StyledProps--font StyledProps--main"
                       >
                         <label
-                          class="Label--main descriptionLabel"
+                          class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
                           <span
@@ -1037,7 +1037,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for DOCKER 1`
                         class="StyledProps--font StyledProps--main"
                       >
                         <label
-                          class="Label--main descriptionLabel"
+                          class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
                           <span
@@ -1427,7 +1427,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for GCP 1`] =
                         class="StyledProps--font StyledProps--main"
                       >
                         <label
-                          class="Label--main descriptionLabel"
+                          class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
                           <span
@@ -1466,7 +1466,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for GCP 1`] =
                         class="StyledProps--font StyledProps--main"
                       >
                         <label
-                          class="Label--main descriptionLabel"
+                          class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
                           <span
@@ -1813,7 +1813,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Git 1`] =
                         class="StyledProps--font StyledProps--main"
                       >
                         <label
-                          class="Label--main descriptionLabel"
+                          class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
                           <span
@@ -1852,7 +1852,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Git 1`] =
                         class="StyledProps--font StyledProps--main"
                       >
                         <label
-                          class="Label--main descriptionLabel"
+                          class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
                           <span
@@ -2198,7 +2198,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Github 1`
                         class="StyledProps--font StyledProps--main"
                       >
                         <label
-                          class="Label--main descriptionLabel"
+                          class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
                           <span
@@ -2237,7 +2237,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Github 1`
                         class="StyledProps--font StyledProps--main"
                       >
                         <label
-                          class="Label--main descriptionLabel"
+                          class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
                           <span
@@ -2608,7 +2608,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Gitlab 1`
                         class="StyledProps--font StyledProps--main"
                       >
                         <label
-                          class="Label--main descriptionLabel"
+                          class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
                           <span
@@ -2647,7 +2647,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Gitlab 1`
                         class="StyledProps--font StyledProps--main"
                       >
                         <label
-                          class="Label--main descriptionLabel"
+                          class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
                           <span
@@ -2995,7 +2995,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Nexus 1`]
                         class="StyledProps--font StyledProps--main"
                       >
                         <label
-                          class="Label--main descriptionLabel"
+                          class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
                           <span
@@ -3034,7 +3034,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Nexus 1`]
                         class="StyledProps--font StyledProps--main"
                       >
                         <label
-                          class="Label--main descriptionLabel"
+                          class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
                           <span
@@ -3382,7 +3382,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for VAULT 1`]
                         class="StyledProps--font StyledProps--main"
                       >
                         <label
-                          class="Label--main descriptionLabel"
+                          class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
                           <span
@@ -3421,7 +3421,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for VAULT 1`]
                         class="StyledProps--font StyledProps--main"
                       >
                         <label
-                          class="Label--main descriptionLabel"
+                          class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
                           <span
@@ -3763,7 +3763,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for k8 1`] = 
                         class="StyledProps--font StyledProps--main"
                       >
                         <label
-                          class="Label--main descriptionLabel"
+                          class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
                           <span
@@ -3802,7 +3802,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for k8 1`] = 
                         class="StyledProps--font StyledProps--main"
                       >
                         <label
-                          class="Label--main descriptionLabel"
+                          class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
                           <span

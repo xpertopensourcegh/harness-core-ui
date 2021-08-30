@@ -1487,7 +1487,7 @@ exports[`Manifest Trigger Tests function getArtifactSpecObj by displaying select
                           class="StyledProps--font StyledProps--main"
                         >
                           <label
-                            class="Label--main descriptionLabel"
+                            class="Label--main bp3-label descriptionLabel"
                             data-tooltip-id="artifactTrigger_description"
                           >
                             optionalField
@@ -1527,7 +1527,7 @@ exports[`Manifest Trigger Tests function getArtifactSpecObj by displaying select
                           class="StyledProps--font StyledProps--main"
                         >
                           <label
-                            class="Label--main descriptionLabel"
+                            class="Label--main bp3-label descriptionLabel"
                             data-tooltip-id="artifactTrigger_tags"
                           >
                             optionalField
@@ -2094,7 +2094,7 @@ exports[`Manifest Trigger Tests on click of edit - submits thru the right payloa
                           class="StyledProps--font StyledProps--main"
                         >
                           <label
-                            class="Label--main descriptionLabel"
+                            class="Label--main bp3-label descriptionLabel"
                             data-tooltip-id="artifactTrigger_description"
                           >
                             optionalField
@@ -2134,7 +2134,7 @@ exports[`Manifest Trigger Tests on click of edit - submits thru the right payloa
                           class="StyledProps--font StyledProps--main"
                         >
                           <label
-                            class="Label--main descriptionLabel"
+                            class="Label--main bp3-label descriptionLabel"
                             data-tooltip-id="artifactTrigger_tags"
                           >
                             optionalField
@@ -3275,7 +3275,7 @@ exports[`Manifest Trigger Tests throws validation error when select artifact/man
                           class="StyledProps--font StyledProps--main"
                         >
                           <label
-                            class="Label--main descriptionLabel"
+                            class="Label--main bp3-label descriptionLabel"
                             data-tooltip-id="artifactTrigger_description"
                           >
                             optionalField
@@ -3315,7 +3315,7 @@ exports[`Manifest Trigger Tests throws validation error when select artifact/man
                           class="StyledProps--font StyledProps--main"
                         >
                           <label
-                            class="Label--main descriptionLabel"
+                            class="Label--main bp3-label descriptionLabel"
                             data-tooltip-id="artifactTrigger_tags"
                           >
                             optionalField

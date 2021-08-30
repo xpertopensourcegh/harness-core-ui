@@ -13,5 +13,6 @@ declare const styles: {
   readonly chartWrap: string
   readonly serviceTag: string
   readonly cdCustomIcon: string
+  readonly hoverService: string
 }
 export default styles

@@ -39,7 +39,7 @@ export default function CardRailView({
     REPOSITORY: getString('repositories'),
     FAILED_BUILD: getString('pipeline.dashboards.failedBuilds'),
     ACTIVE_BUILD: getString('pipeline.dashboards.activeBuilds'),
-    WORKLOAD: getString('pipeline.dashboards.workloads'),
+    WORKLOAD: getString('services'),
     FAILED_DEPLOYMENT: getString('pipeline.dashboards.failedDeployments'),
     ACTIVE_DEPLOYMENT: getString('pipeline.dashboards.activeDeployments'),
     PENDING_DEPLOYMENT: getString('pipeline.dashboards.pendingDeployments')

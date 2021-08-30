@@ -1391,7 +1391,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                           style="margin-bottom: 0px;"
                         >
                           <label
-                            class="Label--main descriptionLabel"
+                            class="Label--main bp3-label descriptionLabel"
                             data-tooltip-id="webhookTrigger_description"
                           >
                             optionalField
@@ -1419,7 +1419,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                           class="StyledProps--font StyledProps--main"
                         >
                           <label
-                            class="Label--main descriptionLabel"
+                            class="Label--main bp3-label descriptionLabel"
                             data-tooltip-id="webhookTrigger_tags"
                           >
                             optionalField
@@ -2357,7 +2357,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                           class="StyledProps--font StyledProps--main"
                         >
                           <label
-                            class="Label--main descriptionLabel"
+                            class="Label--main bp3-label descriptionLabel"
                             data-tooltip-id="webhookTrigger_description"
                           >
                             optionalField
@@ -2397,7 +2397,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                           class="StyledProps--font StyledProps--main"
                         >
                           <label
-                            class="Label--main descriptionLabel"
+                            class="Label--main bp3-label descriptionLabel"
                             data-tooltip-id="webhookTrigger_tags"
                           >
                             optionalField
@@ -3286,7 +3286,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                         style="margin-bottom: 0px;"
                       >
                         <label
-                          class="Label--main descriptionLabel"
+                          class="Label--main bp3-label descriptionLabel"
                           data-tooltip-id="triggerOverview_description"
                         >
                           optionalField
@@ -3314,7 +3314,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                         class="StyledProps--font StyledProps--main"
                       >
                         <label
-                          class="Label--main descriptionLabel"
+                          class="Label--main bp3-label descriptionLabel"
                           data-tooltip-id="triggerOverview_tags"
                         >
                           optionalField

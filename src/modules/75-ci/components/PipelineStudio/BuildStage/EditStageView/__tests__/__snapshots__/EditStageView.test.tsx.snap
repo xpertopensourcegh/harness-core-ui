@@ -164,7 +164,7 @@ exports[`EditStageView snapshot test should render properly 1`] = `
                 style="margin-bottom: 0px;"
               >
                 <label
-                  class="Label--main descriptionLabel"
+                  class="Label--main bp3-label descriptionLabel"
                 >
                   optionalField
                 </label>
@@ -191,7 +191,7 @@ exports[`EditStageView snapshot test should render properly 1`] = `
                 class="StyledProps--font StyledProps--main"
               >
                 <label
-                  class="Label--main descriptionLabel"
+                  class="Label--main bp3-label descriptionLabel"
                 >
                   optionalField
                   <span
@@ -421,7 +421,7 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                 class="StyledProps--font StyledProps--main"
               >
                 <label
-                  class="Label--main descriptionLabel"
+                  class="Label--main bp3-label descriptionLabel"
                 >
                   optionalField
                   <span
@@ -460,7 +460,7 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                 class="StyledProps--font StyledProps--main"
               >
                 <label
-                  class="Label--main descriptionLabel"
+                  class="Label--main bp3-label descriptionLabel"
                 >
                   optionalField
                   <span
