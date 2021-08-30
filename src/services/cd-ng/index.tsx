@@ -455,7 +455,7 @@ export type AwsConnector = ConnectorConfigDTO & {
 export interface AwsCredential {
   crossAccountAccess?: CrossAccountAccess
   spec?: AwsCredentialSpec
-  type: 'InheritFromDelegate' | 'ManualConfig'
+  type: 'InheritFromDelegate' | 'ManualConfig' | 'Irsa'
 }
 
 export interface AwsCredentialSpec {
@@ -1462,6 +1462,7 @@ export interface EntityDetail {
     | 'ApprovalStage'
     | 'FeatureFlagStage'
     | 'Triggers'
+    | 'MonitoredService'
 }
 
 export interface EntityGitDetails {
@@ -2413,6 +2414,7 @@ export interface GitEntityBranchFilterSummaryProperties {
     | 'ApprovalStage'
     | 'FeatureFlagStage'
     | 'Triggers'
+    | 'MonitoredService'
   )[]
   moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
   searchTerm?: string
@@ -2440,6 +2442,7 @@ export interface GitEntityFilterProperties {
     | 'ApprovalStage'
     | 'FeatureFlagStage'
     | 'Triggers'
+    | 'MonitoredService'
   )[]
   gitSyncConfigIdentifiers?: string[]
   moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
@@ -2543,6 +2546,7 @@ export interface GitSyncEntityDTO {
     | 'ApprovalStage'
     | 'FeatureFlagStage'
     | 'Triggers'
+    | 'MonitoredService'
   folderPath?: string
   gitConnectorId?: string
   repoProviderType?: 'github' | 'gitlab' | 'bitbucket' | 'unknown'
@@ -2572,6 +2576,7 @@ export interface GitSyncEntityListDTO {
     | 'ApprovalStage'
     | 'FeatureFlagStage'
     | 'Triggers'
+    | 'MonitoredService'
   gitSyncEntities?: GitSyncEntityDTO[]
 }
 
@@ -3560,10 +3565,9 @@ export type NumberNGVariable = NGVariable & {
   value: number
 }
 
-export interface OAuthSettings {
+export type OAuthSettings = NGAuthSettings & {
   allowedProviders?: ('AZURE' | 'BITBUCKET' | 'GITHUB' | 'GITLAB' | 'GOOGLE' | 'LINKEDIN')[]
   filter?: string
-  settingsType?: 'USER_PASSWORD' | 'SAML' | 'LDAP' | 'OAUTH'
 }
 
 export interface OAuthSignupDTO {
@@ -4253,6 +4257,13 @@ export interface ResponseApiKeyDTO {
 export interface ResponseBoolean {
   correlationId?: string
   data?: boolean
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseByteArray {
+  correlationId?: string
+  data?: string[]
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -5791,6 +5802,21 @@ export interface SecretRequestWrapper {
   secret: SecretDTOV2
 }
 
+export interface SecretResourceFilterDTO {
+  identifiers?: string[]
+  includeSecretsFromEverySubScope?: boolean
+  searchTerm?: string
+  secretTypes?: ('SecretFile' | 'SecretText' | 'SSHKey')[]
+  sourceCategory?:
+    | 'CLOUD_PROVIDER'
+    | 'SECRET_MANAGER'
+    | 'CLOUD_COST'
+    | 'ARTIFACTORY'
+    | 'CODE_REPO'
+    | 'MONITORING'
+    | 'TICKETING'
+}
+
 export interface SecretResponseWrapper {
   createdAt?: number
   draft?: boolean
@@ -6975,6 +7001,7 @@ export interface ListActivitiesQueryParams {
     | 'ApprovalStage'
     | 'FeatureFlagStage'
     | 'Triggers'
+    | 'MonitoredService'
   referredByEntityType?:
     | 'Projects'
     | 'Pipelines'
@@ -6996,6 +7023,7 @@ export interface ListActivitiesQueryParams {
     | 'ApprovalStage'
     | 'FeatureFlagStage'
     | 'Triggers'
+    | 'MonitoredService'
 }
 
 export type ListActivitiesProps = Omit<GetProps<ResponsePageActivity, unknown, ListActivitiesQueryParams, void>, 'path'>
@@ -7164,6 +7192,7 @@ export interface GetActivitiesSummaryQueryParams {
     | 'ApprovalStage'
     | 'FeatureFlagStage'
     | 'Triggers'
+    | 'MonitoredService'
   referredByEntityType?:
     | 'Projects'
     | 'Pipelines'
@@ -7185,6 +7214,7 @@ export interface GetActivitiesSummaryQueryParams {
     | 'ApprovalStage'
     | 'FeatureFlagStage'
     | 'Triggers'
+    | 'MonitoredService'
 }
 
 export type GetActivitiesSummaryProps = Omit<
@@ -12584,6 +12614,7 @@ export interface ListReferredByEntitiesQueryParams {
     | 'ApprovalStage'
     | 'FeatureFlagStage'
     | 'Triggers'
+    | 'MonitoredService'
   searchTerm?: string
   branch?: string
   repoIdentifier?: string
@@ -14509,6 +14540,7 @@ export interface ListGitSyncEntitiesByTypePathParams {
     | 'ApprovalStage'
     | 'FeatureFlagStage'
     | 'Triggers'
+    | 'MonitoredService'
 }
 
 export type ListGitSyncEntitiesByTypeProps = Omit<
@@ -14598,6 +14630,7 @@ export const listGitSyncEntitiesByTypePromise = (
       | 'ApprovalStage'
       | 'FeatureFlagStage'
       | 'Triggers'
+      | 'MonitoredService'
   },
   signal?: RequestInit['signal']
 ) =>
@@ -14962,6 +14995,78 @@ export const getNGManagerHealthStatusPromise = (
   props: GetUsingFetchProps<ResponseString, unknown, void, void>,
   signal?: RequestInit['signal']
 ) => getUsingFetch<ResponseString, unknown, void, void>(getConfig('ng/api'), `/health`, props, signal)
+
+export interface GetInstanceSyncPerpetualTaskResponseQueryParams {
+  accountIdentifier: string
+  perpetualTaskId: string
+}
+
+export type GetInstanceSyncPerpetualTaskResponseProps = Omit<
+  MutateProps<
+    ResponseBoolean,
+    Failure | Error,
+    GetInstanceSyncPerpetualTaskResponseQueryParams,
+    DelegateResponseData,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Get instance sync perpetual task response
+ */
+export const GetInstanceSyncPerpetualTaskResponse = (props: GetInstanceSyncPerpetualTaskResponseProps) => (
+  <Mutate<ResponseBoolean, Failure | Error, GetInstanceSyncPerpetualTaskResponseQueryParams, DelegateResponseData, void>
+    verb="POST"
+    path={`/instancesync/response`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetInstanceSyncPerpetualTaskResponseProps = Omit<
+  UseMutateProps<
+    ResponseBoolean,
+    Failure | Error,
+    GetInstanceSyncPerpetualTaskResponseQueryParams,
+    DelegateResponseData,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Get instance sync perpetual task response
+ */
+export const useGetInstanceSyncPerpetualTaskResponse = (props: UseGetInstanceSyncPerpetualTaskResponseProps) =>
+  useMutate<
+    ResponseBoolean,
+    Failure | Error,
+    GetInstanceSyncPerpetualTaskResponseQueryParams,
+    DelegateResponseData,
+    void
+  >('POST', `/instancesync/response`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Get instance sync perpetual task response
+ */
+export const getInstanceSyncPerpetualTaskResponsePromise = (
+  props: MutateUsingFetchProps<
+    ResponseBoolean,
+    Failure | Error,
+    GetInstanceSyncPerpetualTaskResponseQueryParams,
+    DelegateResponseData,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseBoolean,
+    Failure | Error,
+    GetInstanceSyncPerpetualTaskResponseQueryParams,
+    DelegateResponseData,
+    void
+  >('POST', getConfig('ng/api'), `/instancesync/response`, props, signal)
 
 export interface GetInvitesQueryParams {
   accountIdentifier: string
@@ -16778,12 +16883,12 @@ export const processPollingResultNgPromise = (
   >('POST', getConfig('ng/api'), `/polling/delegate-response/${perpetualTaskId}`, props, signal)
 
 export type SubscribeProps = Omit<
-  MutateProps<string[], Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  MutateProps<ResponseByteArray, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const Subscribe = (props: SubscribeProps) => (
-  <Mutate<string[], Failure | Error, void, UnsubscribeBodyRequestBody, void>
+  <Mutate<ResponseByteArray, Failure | Error, void, UnsubscribeBodyRequestBody, void>
     verb="POST"
     path={`/polling/subscribe`}
     base={getConfig('ng/api')}
@@ -16792,21 +16897,21 @@ export const Subscribe = (props: SubscribeProps) => (
 )
 
 export type UseSubscribeProps = Omit<
-  UseMutateProps<string[], Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  UseMutateProps<ResponseByteArray, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const useSubscribe = (props: UseSubscribeProps) =>
-  useMutate<string[], Failure | Error, void, UnsubscribeBodyRequestBody, void>('POST', `/polling/subscribe`, {
+  useMutate<ResponseByteArray, Failure | Error, void, UnsubscribeBodyRequestBody, void>('POST', `/polling/subscribe`, {
     base: getConfig('ng/api'),
     ...props
   })
 
 export const subscribePromise = (
-  props: MutateUsingFetchProps<string[], Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  props: MutateUsingFetchProps<ResponseByteArray, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<string[], Failure | Error, void, UnsubscribeBodyRequestBody, void>(
+  mutateUsingFetch<ResponseByteArray, Failure | Error, void, UnsubscribeBodyRequestBody, void>(
     'POST',
     getConfig('ng/api'),
     `/polling/subscribe`,
@@ -22427,6 +22532,81 @@ export const putSecretFileV2Promise = (
     PutSecretFileV2PathParams
   >('PUT', getConfig('ng/api'), `/v2/secrets/files/${identifier}`, props, signal)
 
+export interface ListSecretsV3QueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  pageIndex?: number
+  pageSize?: number
+}
+
+export type ListSecretsV3Props = Omit<
+  MutateProps<
+    ResponsePageSecretResponseWrapper,
+    Failure | Error,
+    ListSecretsV3QueryParams,
+    SecretResourceFilterDTO,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * List secrets
+ */
+export const ListSecretsV3 = (props: ListSecretsV3Props) => (
+  <Mutate<ResponsePageSecretResponseWrapper, Failure | Error, ListSecretsV3QueryParams, SecretResourceFilterDTO, void>
+    verb="POST"
+    path={`/v2/secrets/list`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseListSecretsV3Props = Omit<
+  UseMutateProps<
+    ResponsePageSecretResponseWrapper,
+    Failure | Error,
+    ListSecretsV3QueryParams,
+    SecretResourceFilterDTO,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * List secrets
+ */
+export const useListSecretsV3 = (props: UseListSecretsV3Props) =>
+  useMutate<
+    ResponsePageSecretResponseWrapper,
+    Failure | Error,
+    ListSecretsV3QueryParams,
+    SecretResourceFilterDTO,
+    void
+  >('POST', `/v2/secrets/list`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * List secrets
+ */
+export const listSecretsV3Promise = (
+  props: MutateUsingFetchProps<
+    ResponsePageSecretResponseWrapper,
+    Failure | Error,
+    ListSecretsV3QueryParams,
+    SecretResourceFilterDTO,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponsePageSecretResponseWrapper,
+    Failure | Error,
+    ListSecretsV3QueryParams,
+    SecretResourceFilterDTO,
+    void
+  >('POST', getConfig('ng/api'), `/v2/secrets/list`, props, signal)
+
 export interface ValidateSecretQueryParams {
   accountIdentifier: string
   orgIdentifier?: string
@@ -23041,6 +23221,7 @@ export interface GetYamlSchemaQueryParams {
     | 'ApprovalStage'
     | 'FeatureFlagStage'
     | 'Triggers'
+    | 'MonitoredService'
   subtype?:
     | 'K8sCluster'
     | 'Git'

@@ -109,7 +109,8 @@ const displayDelegatesTagsSummary = (delegateSelectors: []): JSX.Element => {
 }
 
 const getAWSDisplaySummary = (connector: ConnectorInfoDTO): JSX.Element | string => {
-  return connector?.spec?.credential?.type === DelegateTypes.DELEGATE_IN_CLUSTER
+  return connector?.spec?.credential?.type === DelegateTypes.DELEGATE_IN_CLUSTER ||
+    connector?.spec?.credential?.type === DelegateTypes.DELEGATE_IN_CLUSTER_IRSA
     ? displayDelegatesTagsSummary(connector.spec.delegateSelectors)
     : getConnectorDisplaySummaryLabel(
         'connectors.aws.accessKey',

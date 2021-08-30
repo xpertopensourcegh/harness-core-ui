@@ -1,7 +1,6 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly expandedInput: string
   readonly stepInside: string
   readonly paletteCardHeader: string
   readonly title: string

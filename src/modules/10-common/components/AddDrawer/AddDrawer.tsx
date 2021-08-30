@@ -1,5 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import { ExpandingSearchInput, Card, Text, Icon, Layout, Button, IconName } from '@wings-software/uicore'
+import {
+  ExpandingSearchInput,
+  Card,
+  Text,
+  Icon,
+  Layout,
+  Button,
+  IconName,
+  Color,
+  Heading
+} from '@wings-software/uicore'
 import { cloneDeep, uniqBy } from 'lodash-es'
 import { Drawer, IDrawerProps, Position } from '@blueprintjs/core'
 import cx from 'classnames'
@@ -160,18 +170,10 @@ export default function AddDrawer(props: AddDrawerProps): JSX.Element {
           <section className={css.stepsRenderer}>
             <Layout.Vertical padding="large" spacing="large">
               <Layout.Horizontal className={css.paletteCardHeader} spacing="medium">
-                <Layout.Vertical>
-                  <Text
-                    style={{
-                      width: '185px',
-                      color: 'var(--grey-700)',
-                      fontSize: 14,
-                      lineHeight: '24px',
-                      fontWeight: 500
-                    }}
-                  >
+                <Layout.Vertical spacing="small">
+                  <Heading level={2} color={Color.GREY_800} font={{ weight: 'bold' }} className={css.title}>
                     {addDrawerMap.drawerLabel}
-                  </Text>
+                  </Heading>
                   {addDrawerMap.drawerSubLabel && (
                     <Text className={css.drawerSubLabel}>{addDrawerMap.drawerSubLabel}</Text>
                   )}
@@ -179,7 +181,7 @@ export default function AddDrawer(props: AddDrawerProps): JSX.Element {
 
                 <ExpandingSearchInput
                   flip
-                  width={200}
+                  width={232}
                   placeholder={addDrawerMap.searchPlaceholder || getString('search')}
                   throttle={200}
                   onChange={(text: string) => filterSteps(text, filterContext.SEARCH)}

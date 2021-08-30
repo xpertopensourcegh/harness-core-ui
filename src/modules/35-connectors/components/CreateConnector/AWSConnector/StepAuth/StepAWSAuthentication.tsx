@@ -102,6 +102,10 @@ const StepAWSAuthentication: React.FC<StepProps<StepAWSAuthenticationProps> & Co
                   {
                     label: getString('connectors.aws.assumeIAMRole'),
                     value: DelegateTypes.DELEGATE_IN_CLUSTER
+                  },
+                  {
+                    label: getString('connectors.aws.useIRSA'),
+                    value: DelegateTypes.DELEGATE_IN_CLUSTER_IRSA
                   }
                 ]}
                 className={css.radioGroup}
@@ -128,11 +132,7 @@ const StepAWSAuthentication: React.FC<StepProps<StepAWSAuthenticationProps> & Co
               )}
 
               <Layout.Vertical spacing="small">
-                <FormInput.CheckBox
-                  name="crossAccountAccess"
-                  label={getString('connectors.aws.enableCrossAcc')}
-                  className={css.stl}
-                />
+                <FormInput.CheckBox name="crossAccountAccess" label={getString('connectors.aws.enableCrossAcc')} />
                 {formikProps.values?.crossAccountAccess ? (
                   <>
                     <FormInput.Text

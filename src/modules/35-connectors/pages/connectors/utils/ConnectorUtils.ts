@@ -40,6 +40,7 @@ export const GCP_AUTH_TYPE = {
 
 export const DelegateTypes: CredentialType = {
   DELEGATE_IN_CLUSTER: 'InheritFromDelegate',
+  DELEGATE_IN_CLUSTER_IRSA: 'Irsa',
   DELEGATE_OUT_CLUSTER: 'ManualConfig'
 }
 

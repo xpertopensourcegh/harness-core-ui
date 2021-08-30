@@ -123,6 +123,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
   const isDelegateSelectorMandatory = (): boolean => {
     return (
       DelegateTypes.DELEGATE_IN_CLUSTER === prevStepData?.delegateType ||
+      DelegateTypes.DELEGATE_IN_CLUSTER_IRSA === prevStepData?.delegateType ||
       CredTypeValues.AssumeIAMRole === prevStepData?.credType ||
       CredTypeValues.AssumeRoleSTS === prevStepData?.credType
     )

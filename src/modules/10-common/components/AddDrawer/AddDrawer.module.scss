@@ -20,6 +20,7 @@
   justify-content: space-between;
   border-bottom: 1px solid rgb(151, 151, 151, 0.2);
   mix-blend-mode: normal;
+  padding-bottom: var(--spacing-medium) !important;
 }
 
 .stepPalette {
@@ -87,7 +88,6 @@
     .drawerSubLabel {
       opacity: 0.4;
       color: var(--grey-400);
-      margin-top: 0 !important;
     }
   }
 

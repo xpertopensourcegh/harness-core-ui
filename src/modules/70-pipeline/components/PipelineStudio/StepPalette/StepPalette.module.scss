@@ -1,16 +1,3 @@
-.expanded-input {
-  width: 200px;
-  height: 35px;
-  display: flex;
-  justify-content: flex-end;
-
-  input {
-    border: 0 !important;
-    &:focus {
-      border: 1px solid var(--grey-350) !important;
-    }
-  }
-}
 .stepInside {
   display: flex;
 }

@@ -942,6 +942,7 @@ export interface StringsMap {
   'connectors.aws.enableCrossAcc': string
   'connectors.aws.externalId': string
   'connectors.aws.secretKey': string
+  'connectors.aws.useIRSA': string
   'connectors.aws.validation.accessKey': string
   'connectors.aws.validation.crossAccountRoleArn': string
   'connectors.aws.validation.delegateSelector': string

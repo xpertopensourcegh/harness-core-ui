@@ -220,6 +220,7 @@ aws:
   crossAccURN: Cross account role ARN
   externalId: External Id (Optional)
   assumeIAMRole: Assume IAM role on delegate
+  useIRSA: Use IRSA
   validation:
     delegateSelector: 'Delegate Tag is required'
     secretKeyRef: 'Secret key is required'

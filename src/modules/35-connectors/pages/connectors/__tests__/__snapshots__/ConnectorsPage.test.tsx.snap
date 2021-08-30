@@ -1794,19 +1794,19 @@ exports[`Connectors Page Test Render and check create connector panel: Connector
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main paletteCardHeader"
               >
                 <div
-                  class="Layout--vertical StyledProps--main"
+                  class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                    style="width: 185px; font-size: 14px; line-height: 24px; font-weight: 500;"
+                  <h2
+                    class="StyledProps--font StyledProps--font-h2 StyledProps--main title StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+                    level="2"
                   >
                     Connectors
-                  </p>
+                  </h2>
                 </div>
                 <div
                   class="bp3-input-group ui-search-box ExpandingSearchInput--main  ExpandingSearchInput--flip  ExpandingSearchInput--light"
                   data-name=""
-                  style="max-width: 200px;"
+                  style="max-width: 232px;"
                 >
                   <span
                     class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey700"

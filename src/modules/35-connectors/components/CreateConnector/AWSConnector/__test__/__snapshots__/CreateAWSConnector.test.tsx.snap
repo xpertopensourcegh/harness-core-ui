@@ -916,6 +916,19 @@ exports[`Create AWS connector Wizard Should render form 2`] = `
                         />
                         connectors.aws.assumeIAMRole
                       </label>
+                      <label
+                        class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                      >
+                        <input
+                          name="delegateType"
+                          type="radio"
+                          value="Irsa"
+                        />
+                        <span
+                          class="bp3-control-indicator"
+                        />
+                        connectors.aws.useIRSA
+                      </label>
                     </div>
                   </div>
                 </div>
@@ -1102,7 +1115,7 @@ exports[`Create AWS connector Wizard Should render form 2`] = `
                       class="bp3-form-content"
                     >
                       <label
-                        class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox stl StyledProps--main StyledProps--inline"
+                        class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--inline"
                       >
                         <input
                           name="crossAccountAccess"
@@ -1737,6 +1750,19 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
                         />
                         connectors.aws.assumeIAMRole
                       </label>
+                      <label
+                        class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                      >
+                        <input
+                          name="delegateType"
+                          type="radio"
+                          value="Irsa"
+                        />
+                        <span
+                          class="bp3-control-indicator"
+                        />
+                        connectors.aws.useIRSA
+                      </label>
                     </div>
                   </div>
                 </div>
@@ -1955,7 +1981,7 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
                       class="bp3-form-content"
                     >
                       <label
-                        class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox stl StyledProps--main StyledProps--inline"
+                        class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--inline"
                       >
                         <input
                           checked=""
