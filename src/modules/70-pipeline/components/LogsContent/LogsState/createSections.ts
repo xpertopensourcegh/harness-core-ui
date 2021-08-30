@@ -126,7 +126,12 @@ export function createSections(state: State, action: Action<ActionType.CreateSec
       unitToOpen = runningUnit || null
     }
   } else if (logKeys.length === 1) {
-    unitToOpen = logKeys[0]
+    const isExecutionRunning = isExecutionRunningLike(dataMap[logKeys[0]]?.unitStatus)
+
+    // only open the unit if it is running/complete
+    if (isExecutionRunning || isStepComplete) {
+      unitToOpen = logKeys[0]
+    }
   }
 
   if (unitToOpen && !dataMap[unitToOpen].manuallyToggled) {
