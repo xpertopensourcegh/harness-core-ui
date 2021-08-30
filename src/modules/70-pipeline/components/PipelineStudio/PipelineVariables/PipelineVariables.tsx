@@ -109,14 +109,14 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
               {/* WIP Variabes Search */}
               <ExpandingSearchInput
                 alwaysExpanded
+                width={450}
                 onChange={onSearchInputChange}
                 showPrevNextButtons
-                className={css.searchInput}
                 fixedText={`${Math.min((searchIndex || 0) + 1, searchResults?.length)} / ${searchResults?.length}`}
                 onNext={goToNextSearchResult}
                 onPrev={goToPrevSearchResult}
                 onEnter={goToNextSearchResult}
-                placeholder="Find..."
+                placeholder={getString('search')}
               />
             </div>
 

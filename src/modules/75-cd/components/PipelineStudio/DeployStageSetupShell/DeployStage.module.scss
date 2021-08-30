@@ -8,6 +8,7 @@
       color: var(--black);
       margin-top: var(--spacing-7);
       font-weight: 600;
+      line-height: 24px;
       &:first-child {
         margin-top: 0;
       }
@@ -22,6 +23,10 @@
       width: 1024px;
       margin-top: var(--spacing-3);
       display: block;
+      padding: var(--spacing-7);
+      .info {
+        font-size: 13px;
+      }
       .thumbnailSelect {
         &:global(.bp3-form-group) {
           margin-bottom: 0px;
@@ -42,6 +47,7 @@
       color: var(--black);
       font-weight: 600;
       margin-left: var(--spacing-small);
+      line-height: 24px;
     }
   }
 }

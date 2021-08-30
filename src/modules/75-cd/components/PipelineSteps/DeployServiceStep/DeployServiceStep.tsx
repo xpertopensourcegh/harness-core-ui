@@ -1,16 +1,18 @@
 import React from 'react'
 import {
-  IconName,
-  Formik,
-  FormInput,
   Button,
-  Layout,
+  ButtonSize,
+  ButtonVariation,
+  Container,
+  Formik,
+  FormikForm,
+  FormInput,
   getMultiTypeFromValue,
+  IconName,
+  Layout,
   MultiTypeInputType,
   SelectOption,
-  useModalHook,
-  Container,
-  ButtonVariation
+  useModalHook
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { get, isEmpty, noop, omit } from 'lodash-es'
@@ -20,12 +22,12 @@ import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import { connect, FormikErrors, FormikProps } from 'formik'
 import {
-  ServiceConfig,
-  useCreateServicesV2,
-  ServiceRequestDTO,
-  useGetServiceList,
-  useGetServiceAccessList,
   getServiceListPromise,
+  ServiceConfig,
+  ServiceRequestDTO,
+  useCreateServicesV2,
+  useGetServiceAccessList,
+  useGetServiceList,
   useUpsertServiceV2
 } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
@@ -145,13 +147,7 @@ export const NewEditServiceModal: React.FC<NewEditServiceModalProps> = ({
       })}
     >
       {formikProps => (
-        <Layout.Vertical
-          onKeyDown={e => {
-            if (e.key === 'Enter') {
-              formikProps.handleSubmit()
-            }
-          }}
-        >
+        <FormikForm>
           <NameIdDescriptionTags
             formikProps={formikProps}
             identifierProps={{
@@ -166,15 +162,15 @@ export const NewEditServiceModal: React.FC<NewEditServiceModalProps> = ({
           />
           <Container padding={{ top: 'xlarge' }}>
             <Button
-              data-id="service-save"
-              onClick={() => formikProps.submitForm()}
               variation={ButtonVariation.PRIMARY}
+              type={'submit'}
               text={getString('save')}
+              data-id="service-save"
             />
             &nbsp; &nbsp;
             <Button variation={ButtonVariation.SECONDARY} text={getString('cancel')} onClick={closeModal} />
           </Container>
-        </Layout.Vertical>
+        </FormikForm>
       )}
     </Formik>
   )
@@ -372,7 +368,11 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
           const { values, setFieldValue } = formik
           formikRef.current = formik
           return (
-            <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+            <Layout.Horizontal
+              className={css.formRow}
+              spacing="medium"
+              flex={{ alignItems: 'flex-start', justifyContent: 'flex-start' }}
+            >
               <FormInput.MultiTypeInput
                 tooltipProps={{ dataTooltipId: 'specifyYourService' }}
                 label={getString('pipelineSteps.serviceTab.specifyYourService')}
@@ -399,6 +399,7 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
               />
               {type === MultiTypeInputType.FIXED ? (
                 <Button
+                  size={ButtonSize.SMALL}
                   variation={ButtonVariation.LINK}
                   disabled={readonly || (isEditService(values) ? !canEdit : !canCreate)}
                   onClick={() => {

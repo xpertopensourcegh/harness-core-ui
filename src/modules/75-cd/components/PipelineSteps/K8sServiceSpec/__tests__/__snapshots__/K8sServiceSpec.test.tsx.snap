@@ -145,19 +145,20 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
               <section />
             </div>
           </div>
-          <div>
-            <div
-              class="addManifest"
+          <div
+            class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-alignItems-flex-start"
+          >
+            <button
+              class="bp3-button Button--button StyledProps--font StyledProps--main addManifest Button--with-current-color Button--variation Button--variation-link Button--size Button--small"
+              data-test-id="addManifest"
+              type="button"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--intent-primary"
-                data-test-id="addManifest"
+              <span
+                class="bp3-button-text"
               >
-                <span>
-                  pipelineSteps.serviceTab.manifestList.addManifest
-                </span>
-              </p>
-            </div>
+                pipelineSteps.serviceTab.manifestList.addManifest
+              </span>
+            </button>
           </div>
         </div>
       </div>
@@ -185,29 +186,29 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
             <section />
           </div>
         </div>
-        <div>
-          <div
-            class="addArtifact"
+        <div
+          class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-alignItems-flex-start"
+        >
+          <button
+            class="bp3-button Button--button StyledProps--font StyledProps--main addArtifact Button--with-current-color Button--variation Button--variation-link Button--size Button--small"
+            type="button"
           >
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--intent-primary"
+            <span
+              class="bp3-button-text"
             >
-              <span>
-                pipelineSteps.serviceTab.artifactList.addPrimary
-              </span>
-            </p>
-          </div>
-          <div
-            class="addArtifact"
+              pipelineSteps.serviceTab.artifactList.addPrimary
+            </span>
+          </button>
+          <button
+            class="bp3-button Button--button StyledProps--font StyledProps--main addArtifact Button--with-current-color Button--variation Button--variation-link Button--size Button--small"
+            type="button"
           >
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--intent-primary"
+            <span
+              class="bp3-button-text"
             >
-              <span>
-                pipelineSteps.serviceTab.artifactList.addSidecar
-              </span>
-            </p>
-          </div>
+              pipelineSteps.serviceTab.artifactList.addSidecar
+            </span>
+          </button>
         </div>
       </div>
     </div>
@@ -235,8 +236,8 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
         >
           <section>
             <p
-              class="StyledProps--font StyledProps--main"
-              style="line-height: 24px;"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey500"
+              style="font-size: 13px;"
             >
               workflowVariableInfo
             </p>

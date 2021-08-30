@@ -225,19 +225,20 @@ exports[`ManifestSelection tests delete manifest list works correctly 1`] = `
         </section>
       </div>
     </div>
-    <div>
-      <div
-        class="addManifest"
+    <div
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-alignItems-flex-start"
+    >
+      <button
+        class="bp3-button Button--button StyledProps--font StyledProps--main addManifest Button--with-current-color Button--variation Button--variation-link Button--size Button--small"
+        data-test-id="addManifest"
+        type="button"
       >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--intent-primary"
-          data-test-id="addManifest"
+        <span
+          class="bp3-button-text"
         >
-          <span>
-            pipelineSteps.serviceTab.manifestList.addManifest
-          </span>
-        </p>
-      </div>
+          pipelineSteps.serviceTab.manifestList.addManifest
+        </span>
+      </button>
     </div>
   </div>
 </div>
@@ -500,19 +501,20 @@ exports[`ManifestSelection tests edit manifest list works correctly 1`] = `
         </section>
       </div>
     </div>
-    <div>
-      <div
-        class="addManifest"
+    <div
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-alignItems-flex-start"
+    >
+      <button
+        class="bp3-button Button--button StyledProps--font StyledProps--main addManifest Button--with-current-color Button--variation Button--variation-link Button--size Button--small"
+        data-test-id="addManifest"
+        type="button"
       >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--intent-primary"
-          data-test-id="addManifest"
+        <span
+          class="bp3-button-text"
         >
-          <span>
-            pipelineSteps.serviceTab.manifestList.addManifest
-          </span>
-        </p>
-      </div>
+          pipelineSteps.serviceTab.manifestList.addManifest
+        </span>
+      </button>
     </div>
   </div>
 </div>
@@ -533,19 +535,20 @@ exports[`ManifestSelection tests renders Manifest Listview with connectors Data 
         <section />
       </div>
     </div>
-    <div>
-      <div
-        class="addManifest"
+    <div
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-alignItems-flex-start"
+    >
+      <button
+        class="bp3-button Button--button StyledProps--font StyledProps--main addManifest Button--with-current-color Button--variation Button--variation-link Button--size Button--small"
+        data-test-id="addManifest"
+        type="button"
       >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--intent-primary"
-          data-test-id="addManifest"
+        <span
+          class="bp3-button-text"
         >
-          <span>
-            pipelineSteps.serviceTab.manifestList.addManifest
-          </span>
-        </p>
-      </div>
+          pipelineSteps.serviceTab.manifestList.addManifest
+        </span>
+      </button>
     </div>
   </div>
 </div>
@@ -566,7 +569,9 @@ exports[`ManifestSelection tests renders Manifest Listview with overrideSetIdent
         <section />
       </div>
     </div>
-    <div />
+    <div
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-alignItems-flex-start"
+    />
   </div>
 </div>
 `;
@@ -586,19 +591,20 @@ exports[`ManifestSelection tests renders Manifest Listview without crashing 1`] 
         <section />
       </div>
     </div>
-    <div>
-      <div
-        class="addManifest"
+    <div
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-alignItems-flex-start"
+    >
+      <button
+        class="bp3-button Button--button StyledProps--font StyledProps--main addManifest Button--with-current-color Button--variation Button--variation-link Button--size Button--small"
+        data-test-id="addManifest"
+        type="button"
       >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--intent-primary"
-          data-test-id="addManifest"
+        <span
+          class="bp3-button-text"
         >
-          <span>
-            pipelineSteps.serviceTab.manifestList.addManifest
-          </span>
-        </p>
-      </div>
+          pipelineSteps.serviceTab.manifestList.addManifest
+        </span>
+      </button>
     </div>
   </div>
 </div>
@@ -622,19 +628,20 @@ exports[`ManifestSelection tests renders add Manifest option without crashing 1`
           <section />
         </div>
       </div>
-      <div>
-        <div
-          class="addManifest"
+      <div
+        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-alignItems-flex-start"
+      >
+        <button
+          class="bp3-button Button--button StyledProps--font StyledProps--main addManifest Button--with-current-color Button--variation Button--variation-link Button--size Button--small"
+          data-test-id="addManifest"
+          type="button"
         >
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--intent-primary"
-            data-test-id="addManifest"
+          <span
+            class="bp3-button-text"
           >
-            <span>
-              pipelineSteps.serviceTab.manifestList.addManifest
-            </span>
-          </p>
-        </div>
+            pipelineSteps.serviceTab.manifestList.addManifest
+          </span>
+        </button>
       </div>
     </div>
   </div>
@@ -659,7 +666,9 @@ exports[`ManifestSelection tests renders manifest selection when overrideSetIden
           <section />
         </div>
       </div>
-      <div />
+      <div
+        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-alignItems-flex-start"
+      />
     </div>
   </div>
 </div>
@@ -683,19 +692,20 @@ exports[`ManifestSelection tests renders without crashing 1`] = `
           <section />
         </div>
       </div>
-      <div>
-        <div
-          class="addManifest"
+      <div
+        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-alignItems-flex-start"
+      >
+        <button
+          class="bp3-button Button--button StyledProps--font StyledProps--main addManifest Button--with-current-color Button--variation Button--variation-link Button--size Button--small"
+          data-test-id="addManifest"
+          type="button"
         >
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--intent-primary"
-            data-test-id="addManifest"
+          <span
+            class="bp3-button-text"
           >
-            <span>
-              pipelineSteps.serviceTab.manifestList.addManifest
-            </span>
-          </p>
-        </div>
+            pipelineSteps.serviceTab.manifestList.addManifest
+          </span>
+        </button>
       </div>
     </div>
   </div>

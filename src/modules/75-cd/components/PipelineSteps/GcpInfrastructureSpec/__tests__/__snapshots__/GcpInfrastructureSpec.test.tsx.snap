@@ -388,7 +388,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with empty 
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main formRow"
           >
             <div
-              class="connectorLabel"
+              class="connectorLabel connectorRef"
             >
               <div
                 class="StyledProps--font StyledProps--main"
@@ -402,7 +402,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with empty 
                 </span>
               </div>
               <div
-                class="bp3-form-group connectorRef"
+                class="bp3-form-group"
                 data-id="undefined-0"
                 style="margin-bottom: 0px;"
               >
@@ -711,7 +711,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with empty 
             class="Accordion--accordion"
           >
             <div
-              class="Accordion--panel"
+              class="Accordion--panel accordionPanel"
               data-open="false"
               data-testid="advanced-panel"
               id="advanced-panel"
@@ -741,7 +741,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with empty 
             </div>
           </div>
           <div
-            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main lastRow"
             style="align-items: center;"
           >
             <div
@@ -794,7 +794,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with runtim
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main formRow"
           >
             <div
-              class="connectorLabel"
+              class="connectorLabel connectorRef"
             >
               <div
                 class="StyledProps--font StyledProps--main"
@@ -808,7 +808,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with runtim
                 </span>
               </div>
               <div
-                class="bp3-form-group connectorRef"
+                class="bp3-form-group"
                 data-id="connectorRef-0"
                 style="margin-bottom: 0px;"
               >
@@ -1100,7 +1100,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with runtim
             class="Accordion--accordion"
           >
             <div
-              class="Accordion--panel"
+              class="Accordion--panel accordionPanel"
               data-open="false"
               data-testid="advanced-panel"
               id="advanced-panel"
@@ -1130,7 +1130,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with runtim
             </div>
           </div>
           <div
-            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main lastRow"
             style="align-items: center;"
           >
             <div
@@ -1183,7 +1183,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with values
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main formRow"
           >
             <div
-              class="connectorLabel"
+              class="connectorLabel connectorRef"
             >
               <div
                 class="StyledProps--font StyledProps--main"
@@ -1197,7 +1197,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with values
                 </span>
               </div>
               <div
-                class="bp3-form-group connectorRef"
+                class="bp3-form-group"
                 data-id="undefined-0"
                 style="margin-bottom: 0px;"
               >
@@ -1522,7 +1522,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with values
             class="Accordion--accordion"
           >
             <div
-              class="Accordion--panel"
+              class="Accordion--panel accordionPanel"
               data-open="false"
               data-testid="advanced-panel"
               id="advanced-panel"
@@ -1552,7 +1552,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with values
             </div>
           </div>
           <div
-            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main lastRow"
             style="align-items: center;"
           >
             <div

@@ -136,7 +136,7 @@ export default function DeployStageSetupShell(): JSX.Element {
 
   const executionRef = React.useRef<ExecutionGraphRefObj | null>(null)
   const navBtns = (
-    <Layout.Horizontal spacing="medium">
+    <Layout.Horizontal className={css.navigationBtns}>
       {selectedTabId !== DeployTabs.OVERVIEW && (
         <Button
           text={getString('previous')}

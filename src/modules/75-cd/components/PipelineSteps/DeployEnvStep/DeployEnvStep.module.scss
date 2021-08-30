@@ -13,6 +13,24 @@
   width: 400px;
 }
 
+.formRow {
+  :global {
+    .bp3-form-group {
+      margin-bottom: 0px;
+    }
+    .TextInput--main {
+      margin-bottom: 0px !important;
+    }
+  }
+  > button {
+    margin-top: 25px !important;
+  }
+}
+
+.label {
+  margin-bottom: var(--spacing-xsmall) !important;
+}
+
 .thumbnailSelect {
   &:global(.bp3-form-group) {
     margin-bottom: 0px;

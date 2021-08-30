@@ -9,7 +9,6 @@ declare const styles: {
   readonly variablePanelHeader: string
   readonly variableTitle: string
   readonly description: string
-  readonly searchInput: string
   readonly searchActions: string
   readonly applyChanges: string
   readonly discard: string

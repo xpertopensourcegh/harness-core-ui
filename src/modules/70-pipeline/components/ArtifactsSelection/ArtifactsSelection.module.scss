@@ -39,9 +39,7 @@
   }
 }
 .addArtifact {
-  cursor: pointer;
-  margin-top: var(--spacing-medium);
-  margin-bottom: var(--spacing-medium);
+  padding: 0px !important;
 }
 .artifactId {
   color: var(--pipeline-color-dark-grey);

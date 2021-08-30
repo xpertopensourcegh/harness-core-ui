@@ -229,10 +229,10 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
                   multiTypeProps={{ expressions }}
                   projectIdentifier={projectIdentifier}
                   orgIdentifier={orgIdentifier}
-                  className={css.connectorRef}
                   width={450}
+                  connectorLabelClass={css.connectorRef}
                   enableConfigureOptions={false}
-                  style={{ marginTop: 'var(--spacing-small)', marginBottom: 'var(--spacing-medium)' }}
+                  style={{ marginBottom: 'var(--spacing-large)' }}
                   type={'Gcp'}
                   onChange={(value: any, _valueType, type) => {
                     if (type === MultiTypeInputType.FIXED && value.record) {
@@ -347,7 +347,11 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
                   />
                 )}
               </Layout.Horizontal>
-              <Accordion activeId={!isEmpty(formik.errors.releaseName) ? 'advanced' : ''}>
+              <Accordion
+                panelClassName={css.accordionPanel}
+                detailsClassName={css.accordionDetails}
+                activeId={!isEmpty(formik.errors.releaseName) ? 'advanced' : ''}
+              >
                 <Accordion.Panel
                   id="advanced"
                   addDomId={true}
@@ -383,7 +387,7 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
                   }
                 />
               </Accordion>
-              <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+              <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }} className={css.lastRow}>
                 <FormInput.CheckBox
                   className={css.simultaneousDeployment}
                   tooltipProps={{

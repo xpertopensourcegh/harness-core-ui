@@ -54,21 +54,6 @@
         padding-left: var(--spacing-small) !important;
         vertical-align: baseline;
       }
-      .searchInput {
-        width: 450px;
-        :global(.ExpandingSearchInput--find) {
-          border-color: var(--form-field-border) !important;
-        }
-        :global(.ExpandingSearchInput--btnWrapper) {
-          & > span {
-            border-right: 1px solid;
-            padding-right: var(--spacing-small);
-            height: 20px;
-            line-height: 20px;
-            border-color: var(--grey-400);
-          }
-        }
-      }
       .search-actions {
         padding-bottom: 2px;
         display: grid;

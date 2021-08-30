@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Text } from '@wings-software/uicore'
+import { Layout, Text, Color } from '@wings-software/uicore'
 import { defaultTo, set, get, isEmpty } from 'lodash-es'
 
 import type { AllNGVariables as Variable } from '@pipeline/utils/types'
@@ -153,7 +153,9 @@ export default function WorkflowVariables({
 
       <section>
         {overrideSetIdentifier?.length === 0 && !isForOverrideSets && (
-          <Text style={{ color: 'var(--grey-500)', lineHeight: '24px' }}>{getString('workflowVariableInfo')}</Text>
+          <Text color={Color.GREY_500} style={{ fontSize: '13px' }}>
+            {getString('workflowVariableInfo')}
+          </Text>
         )}
         <StepWidget<CustomVariablesData, CustomVariableEditableExtraProps>
           factory={factory}

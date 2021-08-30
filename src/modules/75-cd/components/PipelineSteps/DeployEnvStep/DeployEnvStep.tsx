@@ -1,34 +1,36 @@
 import React from 'react'
 import {
-  IconName,
-  Formik,
-  FormInput,
   Button,
-  Layout,
+  ButtonSize,
+  ButtonVariation,
+  Container,
+  Formik,
+  FormikForm,
+  FormInput,
   getMultiTypeFromValue,
+  IconName,
+  Label,
+  Layout,
   MultiTypeInputType,
   SelectOption,
-  useModalHook,
-  Container,
   ThumbnailSelect,
-  Label,
-  FormikForm,
-  ButtonVariation
+  useModalHook
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { get, isEmpty, noop, omit } from 'lodash-es'
 import { useParams } from 'react-router-dom'
-import { Dialog } from '@blueprintjs/core'
+import { Classes, Dialog } from '@blueprintjs/core'
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import { connect, FormikErrors, FormikProps } from 'formik'
+import cx from 'classnames'
 import {
-  PipelineInfrastructure,
   EnvironmentResponseDTO,
-  useGetEnvironmentList,
-  useGetEnvironmentAccessList,
   getEnvironmentListPromise,
+  PipelineInfrastructure,
   useCreateEnvironmentV2,
+  useGetEnvironmentAccessList,
+  useGetEnvironmentList,
   useUpsertEnvironmentV2
 } from 'services/cd-ng'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
@@ -159,13 +161,7 @@ export const NewEditEnvironmentModal: React.FC<NewEditEnvironmentModalProps> = (
         })}
       >
         {formikProps => (
-          <Layout.Vertical
-            onKeyDown={e => {
-              if (e.key === 'Enter') {
-                formikProps.handleSubmit()
-              }
-            }}
-          >
+          <FormikForm>
             <NameIdDescriptionTags
               formikProps={formikProps}
               identifierProps={{
@@ -179,20 +175,20 @@ export const NewEditEnvironmentModal: React.FC<NewEditEnvironmentModalProps> = (
               }}
             />
             <Layout.Vertical spacing={'small'} style={{ marginBottom: 'var(--spacing-medium)' }}>
-              <Label style={{ fontSize: 13, fontWeight: 'normal' }}>{getString('envType')}</Label>
+              <Label className={cx(Classes.LABEL, css.label)}>{getString('envType')}</Label>
               <ThumbnailSelect className={css.thumbnailSelect} name={'type'} items={typeList} />
             </Layout.Vertical>
             <Container padding={{ top: 'xlarge' }}>
               <Button
-                data-id="environment-save"
-                onClick={() => formikProps.submitForm()}
                 variation={ButtonVariation.PRIMARY}
+                type={'submit'}
                 text={getString('save')}
+                data-id="environment-save"
               />
               &nbsp; &nbsp;
               <Button variation={ButtonVariation.SECONDARY} text={getString('cancel')} onClick={closeModal} />
             </Container>
-          </Layout.Vertical>
+          </FormikForm>
         )}
       </Formik>
     </Layout.Vertical>
@@ -395,7 +391,11 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
           const { values, setFieldValue } = formik
           return (
             <FormikForm>
-              <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+              <Layout.Horizontal
+                className={css.formRow}
+                spacing="medium"
+                flex={{ alignItems: 'flex-start', justifyContent: 'flex-start' }}
+              >
                 <FormInput.MultiTypeInput
                   label={getString('pipelineSteps.environmentTab.specifyYourEnvironment')}
                   tooltipProps={{ dataTooltipId: 'specifyYourEnvironment' }}
@@ -425,6 +425,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
                 />
                 {type === MultiTypeInputType.FIXED && (
                   <Button
+                    size={ButtonSize.SMALL}
                     variation={ButtonVariation.LINK}
                     disabled={readonly || (isEditEnvironment(values) ? !canEdit : !canCreate)}
                     onClick={() => {

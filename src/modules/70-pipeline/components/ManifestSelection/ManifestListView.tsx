@@ -9,7 +9,9 @@ import {
   StepProps,
   Button,
   MultiTypeInputType,
-  getMultiTypeFromValue
+  getMultiTypeFromValue,
+  ButtonSize,
+  ButtonVariation
 } from '@wings-software/uicore'
 
 import { useParams } from 'react-router-dom'
@@ -19,7 +21,7 @@ import { get, set } from 'lodash-es'
 
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import produce from 'immer'
-import { String, useStrings } from 'framework/strings'
+import { useStrings } from 'framework/strings'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
 import GitDetailsStep from '@connectors/components/CreateConnector/commonSteps/GitDetailsStep'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
@@ -684,15 +686,18 @@ const ManifestListView = ({
           </section>
         </Layout.Vertical>
       </Layout.Vertical>
-      <div>
+      <Layout.Vertical spacing={'medium'} flex={{ alignItems: 'flex-start' }}>
         {!overrideSetIdentifier?.length && !isReadonly && (
-          <div className={css.addManifest}>
-            <Text font={{ size: 'small' }} intent="primary" onClick={() => addNewManifest()} data-test-id="addManifest">
-              <String stringID="pipelineSteps.serviceTab.manifestList.addManifest" />
-            </Text>
-          </div>
+          <Button
+            className={css.addManifest}
+            size={ButtonSize.SMALL}
+            variation={ButtonVariation.LINK}
+            data-test-id="addManifest"
+            onClick={addNewManifest}
+            text={getString('pipelineSteps.serviceTab.manifestList.addManifest')}
+          />
         )}
-      </div>
+      </Layout.Vertical>
     </Layout.Vertical>
   )
 }

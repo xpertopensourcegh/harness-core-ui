@@ -69,7 +69,7 @@ export const InfraProvisioningBase = (
     >
       {(formik: FormikProps<InfraProvisioningDataUI>) => {
         return (
-          <FormikForm>
+          <FormikForm className={css.provisionerForm}>
             <FormInput.CheckBox
               name={`provisionerEnabled`}
               disabled={formik.values.provisionerSnippetLoading}

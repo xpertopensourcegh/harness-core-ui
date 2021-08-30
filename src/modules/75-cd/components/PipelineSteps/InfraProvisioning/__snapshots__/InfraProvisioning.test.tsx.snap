@@ -6,7 +6,7 @@ exports[`InfraProvisioning Edit View should render properly - loading case 1`] =
     class="OverlaySpinner--overlaySpinner"
   >
     <form
-      class="FormikForm--main"
+      class="FormikForm--main provisionerForm"
     >
       <div>
         <div
@@ -79,7 +79,7 @@ exports[`InfraProvisioning Edit View should render properly - not enabled case 1
     class="OverlaySpinner--overlaySpinner"
   >
     <form
-      class="FormikForm--main"
+      class="FormikForm--main provisionerForm"
     >
       <div>
         <div

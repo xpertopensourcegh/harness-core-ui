@@ -203,8 +203,9 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
         </div>
         <div>
           <div
-            class="bp3-input-group ui-search-box ExpandingSearchInput--main searchInput  ExpandingSearchInput--alwaysExpanded ExpandingSearchInput--light"
+            class="bp3-input-group ui-search-box ExpandingSearchInput--main   ExpandingSearchInput--alwaysExpanded ExpandingSearchInput--light"
             data-name=""
+            style="width: 450px; max-width: 450px;"
           >
             <span
               class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey700"
@@ -228,7 +229,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
             <input
               class="bp3-input  ExpandingSearchInput--find"
               dir="auto"
-              placeholder="Find..."
+              placeholder="search"
               style="padding-right: 130px;"
               type="search"
               value=""

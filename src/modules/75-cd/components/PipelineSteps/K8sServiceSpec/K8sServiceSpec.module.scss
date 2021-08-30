@@ -100,6 +100,7 @@
 .section-card {
   width: 1024px;
   margin-top: var(--spacing-3);
+  padding: var(--spacing-7) !important;
   &.notwide {
     width: auto;
   }

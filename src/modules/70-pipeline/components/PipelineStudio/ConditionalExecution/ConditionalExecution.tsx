@@ -54,10 +54,10 @@ export default function ConditionalExecution(props: ConditionalExecutionProps): 
     >
       {(formikProps: FormikProps<ConditionalExecutionOption>) => {
         return (
-          <Container width={846} padding={{ left: 'medium', right: 'huge' }}>
+          <Container width={846}>
             <ConditionalExecutionHeader mode={Modes.STAGE} />
             <Layout.Horizontal
-              padding={{ top: 'xxlarge', bottom: 'medium' }}
+              padding={{ top: 'xxlarge' }}
               margin={{ top: 'medium' }}
               border={{ top: true, color: Color.GREY_200 }}
             >

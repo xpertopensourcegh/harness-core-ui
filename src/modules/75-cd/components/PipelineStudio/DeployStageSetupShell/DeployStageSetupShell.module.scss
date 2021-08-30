@@ -73,4 +73,8 @@
       }
     }
   }
+
+  .navigationBtns {
+    column-gap: var(--spacing-4);
+  }
 }

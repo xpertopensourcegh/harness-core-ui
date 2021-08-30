@@ -441,18 +441,19 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
         </section>
       </div>
     </div>
-    <div>
-      <div
-        class="addArtifact"
+    <div
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-alignItems-flex-start"
+    >
+      <button
+        class="bp3-button Button--button StyledProps--font StyledProps--main addArtifact Button--with-current-color Button--variation Button--variation-link Button--size Button--small"
+        type="button"
       >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--intent-primary"
+        <span
+          class="bp3-button-text"
         >
-          <span>
-            pipelineSteps.serviceTab.artifactList.addSidecar
-          </span>
-        </p>
-      </div>
+          pipelineSteps.serviceTab.artifactList.addSidecar
+        </span>
+      </button>
     </div>
   </div>
 </div>
@@ -709,18 +710,19 @@ exports[`ArtifactsSelection tests delete artifact list works correctly 1`] = `
         </section>
       </div>
     </div>
-    <div>
-      <div
-        class="addArtifact"
+    <div
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-alignItems-flex-start"
+    >
+      <button
+        class="bp3-button Button--button StyledProps--font StyledProps--main addArtifact Button--with-current-color Button--variation Button--variation-link Button--size Button--small"
+        type="button"
       >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--intent-primary"
+        <span
+          class="bp3-button-text"
         >
-          <span>
-            pipelineSteps.serviceTab.artifactList.addSidecar
-          </span>
-        </p>
-      </div>
+          pipelineSteps.serviceTab.artifactList.addSidecar
+        </span>
+      </button>
     </div>
   </div>
 </div>
@@ -977,18 +979,19 @@ exports[`ArtifactsSelection tests edit artifact list works correctly 1`] = `
         </section>
       </div>
     </div>
-    <div>
-      <div
-        class="addArtifact"
+    <div
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-alignItems-flex-start"
+    >
+      <button
+        class="bp3-button Button--button StyledProps--font StyledProps--main addArtifact Button--with-current-color Button--variation Button--variation-link Button--size Button--small"
+        type="button"
       >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--intent-primary"
+        <span
+          class="bp3-button-text"
         >
-          <span>
-            pipelineSteps.serviceTab.artifactList.addSidecar
-          </span>
-        </p>
-      </div>
+          pipelineSteps.serviceTab.artifactList.addSidecar
+        </span>
+      </button>
     </div>
   </div>
 </div>
@@ -1159,18 +1162,19 @@ exports[`ArtifactsSelection tests renders Artifact Listview with connectors Data
         </section>
       </div>
     </div>
-    <div>
-      <div
-        class="addArtifact"
+    <div
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-alignItems-flex-start"
+    >
+      <button
+        class="bp3-button Button--button StyledProps--font StyledProps--main addArtifact Button--with-current-color Button--variation Button--variation-link Button--size Button--small"
+        type="button"
       >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--intent-primary"
+        <span
+          class="bp3-button-text"
         >
-          <span>
-            pipelineSteps.serviceTab.artifactList.addSidecar
-          </span>
-        </p>
-      </div>
+          pipelineSteps.serviceTab.artifactList.addSidecar
+        </span>
+      </button>
     </div>
   </div>
 </div>
@@ -1288,18 +1292,19 @@ exports[`ArtifactsSelection tests renders Artifact Listview without crashing 1`]
         </section>
       </div>
     </div>
-    <div>
-      <div
-        class="addArtifact"
+    <div
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-alignItems-flex-start"
+    >
+      <button
+        class="bp3-button Button--button StyledProps--font StyledProps--main addArtifact Button--with-current-color Button--variation Button--variation-link Button--size Button--small"
+        type="button"
       >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--intent-primary"
+        <span
+          class="bp3-button-text"
         >
-          <span>
-            pipelineSteps.serviceTab.artifactList.addSidecar
-          </span>
-        </p>
-      </div>
+          pipelineSteps.serviceTab.artifactList.addSidecar
+        </span>
+      </button>
     </div>
   </div>
 </div>
@@ -1320,29 +1325,29 @@ exports[`ArtifactsSelection tests renders add Artifact option without crashing 1
         <section />
       </div>
     </div>
-    <div>
-      <div
-        class="addArtifact"
+    <div
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-alignItems-flex-start"
+    >
+      <button
+        class="bp3-button Button--button StyledProps--font StyledProps--main addArtifact Button--with-current-color Button--variation Button--variation-link Button--size Button--small"
+        type="button"
       >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--intent-primary"
+        <span
+          class="bp3-button-text"
         >
-          <span>
-            pipelineSteps.serviceTab.artifactList.addPrimary
-          </span>
-        </p>
-      </div>
-      <div
-        class="addArtifact"
+          pipelineSteps.serviceTab.artifactList.addPrimary
+        </span>
+      </button>
+      <button
+        class="bp3-button Button--button StyledProps--font StyledProps--main addArtifact Button--with-current-color Button--variation Button--variation-link Button--size Button--small"
+        type="button"
       >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--intent-primary"
+        <span
+          class="bp3-button-text"
         >
-          <span>
-            pipelineSteps.serviceTab.artifactList.addSidecar
-          </span>
-        </p>
-      </div>
+          pipelineSteps.serviceTab.artifactList.addSidecar
+        </span>
+      </button>
     </div>
   </div>
 </div>
@@ -1363,7 +1368,9 @@ exports[`ArtifactsSelection tests renders artifact when overrideSetIdentifier an
         <section />
       </div>
     </div>
-    <div />
+    <div
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-alignItems-flex-start"
+    />
   </div>
 </div>
 `;
@@ -1847,18 +1854,19 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
         </section>
       </div>
     </div>
-    <div>
-      <div
-        class="addArtifact"
+    <div
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-alignItems-flex-start"
+    >
+      <button
+        class="bp3-button Button--button StyledProps--font StyledProps--main addArtifact Button--with-current-color Button--variation Button--variation-link Button--size Button--small"
+        type="button"
       >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--intent-primary"
+        <span
+          class="bp3-button-text"
         >
-          <span>
-            pipelineSteps.serviceTab.artifactList.addSidecar
-          </span>
-        </p>
-      </div>
+          pipelineSteps.serviceTab.artifactList.addSidecar
+        </span>
+      </button>
     </div>
   </div>
 </div>

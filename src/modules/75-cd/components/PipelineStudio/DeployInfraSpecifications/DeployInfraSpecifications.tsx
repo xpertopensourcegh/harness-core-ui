@@ -352,7 +352,9 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
           <String stringID="pipelineSteps.deploy.infrastructure.infraDefinition" />
         </div>
         <Card className={stageCss.sectionCard}>
-          <Text margin={{ bottom: 'medium' }}>{getString('pipelineSteps.deploy.infrastructure.selectMethod')}</Text>
+          <Text margin={{ bottom: 'medium' }} className={stageCss.info}>
+            {getString('pipelineSteps.deploy.infrastructure.selectMethod')}
+          </Text>
           <SelectDeploymentType
             isReadonly={isReadonly}
             selectedInfrastructureType={selectedDeploymentType}

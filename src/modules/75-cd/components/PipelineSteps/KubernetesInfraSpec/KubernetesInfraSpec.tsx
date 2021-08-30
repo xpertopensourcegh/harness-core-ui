@@ -140,8 +140,9 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                   projectIdentifier={projectIdentifier}
                   orgIdentifier={orgIdentifier}
                   width={450}
+                  connectorLabelClass={css.connectorRef}
                   enableConfigureOptions={false}
-                  style={{ marginTop: 'var(--spacing-small)', marginBottom: 'var(--spacing-medium)' }}
+                  style={{ marginBottom: 'var(--spacing-large)' }}
                   gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
                 />
                 {getMultiTypeFromValue(formik.values.connectorRef) === MultiTypeInputType.RUNTIME && !readonly && (
@@ -191,7 +192,11 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                   />
                 )}
               </Layout.Horizontal>
-              <Accordion activeId={!isEmpty(formik.errors.releaseName) ? 'advanced' : ''}>
+              <Accordion
+                panelClassName={css.accordionPanel}
+                detailsClassName={css.accordionDetails}
+                activeId={!isEmpty(formik.errors.releaseName) ? 'advanced' : ''}
+              >
                 <Accordion.Panel
                   id="advanced"
                   addDomId={true}
@@ -228,7 +233,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                 />
               </Accordion>
 
-              <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+              <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }} className={css.lastRow}>
                 <FormInput.CheckBox
                   className={css.simultaneousDeployment}
                   name={'allowSimultaneousDeployments'}

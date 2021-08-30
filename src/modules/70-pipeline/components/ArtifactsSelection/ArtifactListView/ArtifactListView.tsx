@@ -1,7 +1,17 @@
 import React from 'react'
-import { Layout, Text, Icon, Color, getMultiTypeFromValue, MultiTypeInputType, Button } from '@wings-software/uicore'
+import {
+  Layout,
+  Text,
+  Icon,
+  Color,
+  getMultiTypeFromValue,
+  MultiTypeInputType,
+  Button,
+  ButtonSize,
+  ButtonVariation
+} from '@wings-software/uicore'
 import cx from 'classnames'
-import { String, useStrings } from 'framework/strings'
+import { useStrings } from 'framework/strings'
 import { getConnectorNameFromValue, getStatus } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import type { SidecarArtifactWrapper } from 'services/cd-ng'
 import { ArtifactIconByType } from '../ArtifactHelper'
@@ -146,22 +156,26 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
         </Layout.Vertical>
       </Layout.Vertical>
 
-      <div>
+      <Layout.Vertical spacing={'medium'} flex={{ alignItems: 'flex-start' }}>
         {!primaryArtifact && overrideSetIdentifier?.length === 0 && !isReadonly && (
-          <div className={css.addArtifact}>
-            <Text font={{ size: 'small' }} intent="primary" onClick={() => addNewArtifact(ModalViewFor.PRIMARY)}>
-              <String stringID="pipelineSteps.serviceTab.artifactList.addPrimary" />
-            </Text>
-          </div>
+          <Button
+            className={css.addArtifact}
+            size={ButtonSize.SMALL}
+            variation={ButtonVariation.LINK}
+            onClick={() => addNewArtifact(ModalViewFor.PRIMARY)}
+            text={getString('pipelineSteps.serviceTab.artifactList.addPrimary')}
+          />
         )}
         {!overrideSetIdentifier?.length && !isReadonly && (
-          <div className={css.addArtifact}>
-            <Text font={{ size: 'small' }} intent="primary" onClick={() => addNewArtifact(ModalViewFor.SIDECAR)}>
-              <String stringID="pipelineSteps.serviceTab.artifactList.addSidecar" />
-            </Text>
-          </div>
+          <Button
+            className={css.addArtifact}
+            size={ButtonSize.SMALL}
+            variation={ButtonVariation.LINK}
+            onClick={() => addNewArtifact(ModalViewFor.SIDECAR)}
+            text={getString('pipelineSteps.serviceTab.artifactList.addSidecar')}
+          />
         )}
-      </div>
+      </Layout.Vertical>
     </Layout.Vertical>
   )
 }

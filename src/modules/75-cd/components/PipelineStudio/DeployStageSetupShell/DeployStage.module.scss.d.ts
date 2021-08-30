@@ -6,6 +6,7 @@ declare const styles: {
   readonly tabHeading: string
   readonly tabSubHeading: string
   readonly sectionCard: string
+  readonly info: string
   readonly thumbnailSelect: string
   readonly accordion: string
 }

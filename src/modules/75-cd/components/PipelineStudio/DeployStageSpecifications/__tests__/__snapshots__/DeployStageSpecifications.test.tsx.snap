@@ -28,7 +28,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                 class="bp3-card bp3-elevation-0 Card--card sectionCard"
               >
                 <div
-                  class="StyledProps--font StyledProps--main main"
+                  class="StyledProps--font StyledProps--main main nameIdDescriptionTags"
                 >
                   <div
                     class="InputWithIdentifier--txtNameContainer TextInput--main"

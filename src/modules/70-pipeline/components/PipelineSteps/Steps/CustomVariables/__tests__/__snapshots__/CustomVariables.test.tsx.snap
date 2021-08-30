@@ -627,11 +627,16 @@ exports[`Custom Variables can delete variable: After Delete 1`] = `
         </div>
       </div>
     </div>
-    <p
-      class="StyledProps--font StyledProps--main addVariable StyledProps--font-size-small StyledProps--intent-primary"
+    <button
+      class="bp3-button Button--button StyledProps--font StyledProps--main addVariable Button--with-current-color Button--variation Button--variation-link Button--size Button--small"
+      type="button"
     >
-      + common.addVariable
-    </p>
+      <span
+        class="bp3-button-text"
+      >
+        + common.addVariable
+      </span>
+    </button>
   </div>
 </div>
 `;
@@ -1298,11 +1303,16 @@ exports[`Custom Variables can delete variable: Before Delete 1`] = `
         </div>
       </div>
     </div>
-    <p
-      class="StyledProps--font StyledProps--main addVariable StyledProps--font-size-small StyledProps--intent-primary"
+    <button
+      class="bp3-button Button--button StyledProps--font StyledProps--main addVariable Button--with-current-color Button--variation Button--variation-link Button--size Button--small"
+      type="button"
     >
-      + common.addVariable
-    </p>
+      <span
+        class="bp3-button-text"
+      >
+        + common.addVariable
+      </span>
+    </button>
   </div>
 </div>
 `;
@@ -2016,11 +2026,16 @@ exports[`Custom Variables should render variables 1`] = `
         </div>
       </div>
     </div>
-    <p
-      class="StyledProps--font StyledProps--main addVariable StyledProps--font-size-small StyledProps--intent-primary"
+    <button
+      class="bp3-button Button--button StyledProps--font StyledProps--main addVariable Button--with-current-color Button--variation Button--variation-link Button--size Button--small"
+      type="button"
     >
-      + common.addVariable
-    </p>
+      <span
+        class="bp3-button-text"
+      >
+        + common.addVariable
+      </span>
+    </button>
   </div>
 </div>
 `;

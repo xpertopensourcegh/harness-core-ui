@@ -1,5 +1,4 @@
 import React from 'react'
-import { Classes } from '@blueprintjs/core'
 import { Formik, FormikProps } from 'formik'
 import * as Yup from 'yup'
 import { debounce } from 'lodash-es'
@@ -100,14 +99,7 @@ export function FailureStrategy(props: FailureStrategyProps, ref: StepCommandsRe
         !!tabName && window.dispatchEvent(new CustomEvent('UPDATE_ERRORS_STRIP', { detail: tabName }))
         formikRef.current = formik
         return (
-          <div className={Classes.DIALOG_BODY}>
-            <FailureStrategyPanel
-              isReadonly={isReadonly}
-              mode={Modes.STAGE}
-              stageType={stageType}
-              formikProps={formik}
-            />
-          </div>
+          <FailureStrategyPanel isReadonly={isReadonly} mode={Modes.STAGE} stageType={stageType} formikProps={formik} />
         )
       }}
     </Formik>

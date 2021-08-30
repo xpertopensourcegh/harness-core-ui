@@ -6,7 +6,7 @@ exports[`ConditionalExecution matches snapshot when no data 1`] = `
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="StyledProps--font StyledProps--main StyledProps--padding-left-medium StyledProps--padding-right-huge"
+      class="StyledProps--font StyledProps--main"
       style="width: 846px;"
     >
       <p
@@ -30,7 +30,7 @@ exports[`ConditionalExecution matches snapshot when no data 1`] = `
         </a>
       </p>
       <div
-        class="Layout--horizontal StyledProps--main StyledProps--padding-top-xxlarge StyledProps--padding-bottom-medium StyledProps--margin-top-medium StyledProps--border StyledProps--border-top StyledProps--border-color-grey200"
+        class="Layout--horizontal StyledProps--main StyledProps--padding-top-xxlarge StyledProps--margin-top-medium StyledProps--border StyledProps--border-top StyledProps--border-color-grey200"
       >
         <div
           class="StyledProps--font StyledProps--main StyledProps--padding-right-xxlarge StyledProps--border StyledProps--border-right StyledProps--border-color-grey200"
@@ -125,7 +125,7 @@ exports[`ConditionalExecution matches snapshot with data 1`] = `
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="StyledProps--font StyledProps--main StyledProps--padding-left-medium StyledProps--padding-right-huge"
+      class="StyledProps--font StyledProps--main"
       style="width: 846px;"
     >
       <p
@@ -149,7 +149,7 @@ exports[`ConditionalExecution matches snapshot with data 1`] = `
         </a>
       </p>
       <div
-        class="Layout--horizontal StyledProps--main StyledProps--padding-top-xxlarge StyledProps--padding-bottom-medium StyledProps--margin-top-medium StyledProps--border StyledProps--border-top StyledProps--border-color-grey200"
+        class="Layout--horizontal StyledProps--main StyledProps--padding-top-xxlarge StyledProps--margin-top-medium StyledProps--border StyledProps--border-top StyledProps--border-color-grey200"
       >
         <div
           class="StyledProps--font StyledProps--main StyledProps--padding-right-xxlarge StyledProps--border StyledProps--border-right StyledProps--border-color-grey200"

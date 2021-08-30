@@ -211,6 +211,7 @@ export const EditStageView: React.FC<EditStageViewProps> = ({
                         }}
                         descriptionProps={{ disabled: isReadonly }}
                         tagsProps={{ disabled: isReadonly }}
+                        className={css.nameIdDescriptionTags}
                       />
                     </Card>
                   ) : (
