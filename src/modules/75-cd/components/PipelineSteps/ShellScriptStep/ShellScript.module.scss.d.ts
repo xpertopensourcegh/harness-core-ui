@@ -12,5 +12,6 @@ declare const styles: {
   readonly outputVarHeader: string
   readonly variablesList: string
   readonly minConfigBtn: string
+  readonly addButton: string
 }
 export default styles

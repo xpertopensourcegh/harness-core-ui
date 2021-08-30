@@ -134,10 +134,11 @@ export default function OptionalConfiguration(props: {
                   })}
                   <Button
                     icon="plus"
-                    variation={ButtonVariation.ICON}
+                    variation={ButtonVariation.LINK}
                     data-testid="add-environmentVar"
                     disabled={readonly}
                     onClick={() => push({ name: '', type: 'String', value: '', id: uuid() })}
+                    className={css.addButton}
                   >
                     {getString('addInputVar')}
                   </Button>
@@ -190,9 +191,10 @@ export default function OptionalConfiguration(props: {
                   ))}
                   <Button
                     icon="plus"
-                    variation={ButtonVariation.ICON}
+                    variation={ButtonVariation.LINK}
                     onClick={() => push({ name: '', type: 'String', value: '', id: uuid() })}
                     disabled={readonly}
+                    className={css.addButton}
                   >
                     {getString('addOutputVar')}
                   </Button>

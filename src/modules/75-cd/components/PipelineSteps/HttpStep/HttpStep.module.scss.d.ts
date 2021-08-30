@@ -6,5 +6,6 @@ declare const styles: {
   readonly responseMappingRow: string
   readonly label: string
   readonly requestBody: string
+  readonly addButton: string
 }
 export default styles

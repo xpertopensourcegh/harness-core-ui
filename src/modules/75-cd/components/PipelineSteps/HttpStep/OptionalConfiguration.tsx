@@ -90,12 +90,13 @@ export default function OptionalConfiguration(props: {
                   ))}
                   <Button
                     icon="plus"
-                    variation={ButtonVariation.ICON}
+                    variation={ButtonVariation.LINK}
                     data-testid="add-header"
                     onClick={() => push({ key: '', value: '', id: uuid() })}
                     disabled={readonly}
+                    className={css.addButton}
                   >
-                    Add
+                    {getString('add')}
                   </Button>
                 </div>
               )
@@ -146,12 +147,13 @@ export default function OptionalConfiguration(props: {
                   )}
                   <Button
                     icon="plus"
-                    variation={ButtonVariation.ICON}
+                    variation={ButtonVariation.LINK}
                     data-testid="add-response-mapping"
                     onClick={() => push({ name: '', value: '', type: 'String', id: uuid() })}
                     disabled={readonly}
+                    className={css.addButton}
                   >
-                    Add
+                    {getString('add')}
                   </Button>
                 </div>
               )
