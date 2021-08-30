@@ -74,7 +74,7 @@ function CustomVariableInputSetBasic(props: CustomVariableInputSetProps): React.
   }, [])
 
   return (
-    <div className={cx(css.customVariablesInputSets, 'customVariables')} id={domId} style={{ width: '50%' }}>
+    <div className={cx(css.customVariablesInputSets, 'customVariables')} id={domId}>
       {stepViewType === StepViewType.StageVariable && initialValues.variables.length > 0 && (
         <section className={css.subHeader}>
           <String stringID="name" />

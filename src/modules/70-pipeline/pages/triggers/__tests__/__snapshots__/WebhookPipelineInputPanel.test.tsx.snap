@@ -112,7 +112,6 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                 </div>
                 <div
                   class="customVariablesInputSets customVariables"
-                  style="width: 50%;"
                 >
                   <div
                     class="variableListTable"

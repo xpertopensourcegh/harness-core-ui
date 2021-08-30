@@ -289,7 +289,6 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                           </div>
                           <div
                             class="customVariablesInputSets customVariables"
-                            style="width: 50%;"
                           >
                             <div
                               class="variableListTable"

@@ -2756,7 +2756,6 @@ exports[`VARIABLES renders the service variables form: variables with default va
         >
           <div
             class="customVariablesInputSets customVariables"
-            style="width: 50%;"
           >
             <div
               class="variableListTable"

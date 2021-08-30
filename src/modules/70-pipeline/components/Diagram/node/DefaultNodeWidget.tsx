@@ -1,6 +1,6 @@
 import React from 'react'
 import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
-import { Icon, Text, Button, Color } from '@wings-software/uicore'
+import { Icon, Text, Button, Color, ButtonVariation } from '@wings-software/uicore'
 import cx from 'classnames'
 import { Position } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
@@ -269,6 +269,7 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
             className={css.closeNode}
             minimal
             icon="cross"
+            variation={ButtonVariation.PRIMARY}
             iconProps={{ size: 10 }}
             onMouseDown={e => onRemoveClick(e, props.node)}
             withoutCurrentColor={true}

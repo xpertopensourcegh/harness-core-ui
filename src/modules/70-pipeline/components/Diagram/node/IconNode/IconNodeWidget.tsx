@@ -2,7 +2,7 @@ import * as React from 'react'
 import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
 import { isEmpty } from 'lodash-es'
 import cx from 'classnames'
-import { Text, IconName, Icon, Button } from '@wings-software/uicore'
+import { Text, IconName, Icon, Button, ButtonVariation } from '@wings-software/uicore'
 import { Position } from '@blueprintjs/core'
 import { DefaultPortLabel } from '../../port/DefaultPortLabelWidget'
 import type { DefaultPortModel } from '../../port/DefaultPortModel'
@@ -144,7 +144,9 @@ export const IconNodeWidget: React.FC<IconNodeWidgetProps> = (props): JSX.Elemen
           {options.canDelete && (
             <Button
               className={cx(cssDefault.closeNode)}
+              variation={ButtonVariation.PRIMARY}
               minimal
+              withoutCurrentColor
               icon="cross"
               iconProps={{ size: 10 }}
               onMouseDown={e => onClick(e, props.node)}

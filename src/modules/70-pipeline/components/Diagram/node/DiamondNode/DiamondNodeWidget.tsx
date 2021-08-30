@@ -1,7 +1,7 @@
 import React from 'react'
 import { Position } from '@blueprintjs/core'
 import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
-import { Icon, Text, Button } from '@wings-software/uicore'
+import { Icon, Text, Button, ButtonVariation } from '@wings-software/uicore'
 import cx from 'classnames'
 import { DefaultPortLabel } from '@pipeline/components/Diagram/port/DefaultPortLabelWidget'
 import type { DefaultPortModel } from '@pipeline/components/Diagram/port/DefaultPortModel'
@@ -145,6 +145,7 @@ export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
             <Button
               className={cx(cssDefault.closeNode, css.diamondClose)}
               minimal
+              variation={ButtonVariation.PRIMARY}
               icon="cross"
               iconProps={{ size: 10 }}
               onMouseDown={e => onClick(e, props.node)}
