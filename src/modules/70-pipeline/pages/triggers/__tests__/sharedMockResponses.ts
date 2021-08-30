@@ -54,6 +54,29 @@ export const GetManifestPipelineResponse: UseGetReturnData<ResponsePMSPipelineRe
   }
 }
 
+export const GetManifestWithEventConditionsResponse: UseGetReturnData<ResponsePMSPipelineResponseDTO> = {
+  loading: false,
+  refetch: jest.fn(),
+  error: null,
+  data: {
+    status: 'SUCCESS',
+    data: {
+      yamlPipeline:
+        'pipeline:\n    name: TestPipeline-ABC\n    identifier: TestPipelineABC\n    projectIdentifier: project1\n    orgIdentifier: default\n    timeout: 10m\n    tags: {}\n    stages:\n        - stage:\n              name: stagea\n              identifier: stagea\n              description: ""\n              type: Deployment\n              spec:\n                  serviceConfig:\n                      serviceRef: seveice\n                      serviceDefinition:\n                          type: Kubernetes\n                          spec:\n                              variables: []\n                              manifests:\n                                  - manifest:\n                                        identifier: sdfds\n                                        type: HelmChart\n                                        spec:\n                                            store:\n                                                type: S3\n                                                spec:\n                                                    connectorRef: testecr2\n                                                    bucketName: <+input>\n                                                    folderPath: <+input>\n                                                    region: us-east-1\n                                            chartName: <+input>\n                                            chartVersion: <+input>\n                                            helmVersion: V2\n                                            skipResourceVersioning: false\n                                  - manifest:\n                                        identifier: testhelmmanifest\n                                        type: HelmChart\n                                        spec:\n                                            store:\n                                                type: S3\n                                                spec:\n                                                    connectorRef: testecr2\n                                                    bucketName: <+input>\n                                                    folderPath: <+input>\n                                                    region: <+input>\n                                            chartName: <+input>\n                                            chartVersion: <+input>\n                                            helmVersion: V2\n                                            skipResourceVersioning: false\n                  infrastructure:\n                      environmentRef: TestEnv\n                      infrastructureDefinition:\n                          type: KubernetesDirect\n                          spec:\n                              connectorRef: testk8s\n                              namespace: sdfds\n                              releaseName: release-<+INFRA_KEY>\n                          provisioner:\n                              steps:\n                                  - step:\n                                        type: TerraformDestroy\n                                        name: xzcxcx\n                                        identifier: xzcxcx\n                                        spec:\n                                            provisionerIdentifier: xcxzcx\n                                            configuration:\n                                                type: InheritFromApply\n                                        timeout: 10m\n                              rollbackSteps: []\n                      allowSimultaneousDeployments: false\n                  execution:\n                      steps:\n                          - step:\n                                name: Rollout Deployment\n                                identifier: rolloutDeployment\n                                type: K8sRollingDeploy\n                                timeout: 10m\n                                spec:\n                                    skipDryRun: false\n                      rollbackSteps:\n                          - step:\n                                name: Rollback Rollout Deployment\n                                identifier: rollbackRolloutDeployment\n                                type: K8sRollingRollback\n                                timeout: 10m\n                                spec: {}\n              tags: {}\n              failureStrategies:\n                  - onFailure:\n                        errors:\n                            - AllErrors\n                        action:\n                            type: StageRollback\n',
+      version: 15,
+      gitDetails: {
+        objectId: null,
+        branch: null,
+        repoIdentifier: null,
+        rootFolder: null,
+        filePath: null
+      }
+    } as unknown as PMSPipelineResponseDTO,
+    metaData: null as unknown as undefined,
+    correlationId: '26a25fc1-882a-4499-9059-d1ed08ae12fb'
+  }
+}
+
 export const GetParseableManifestPipelineResponse: UseGetReturnData<ResponsePMSPipelineResponseDTO> = {
   loading: false,
   refetch: jest.fn(),

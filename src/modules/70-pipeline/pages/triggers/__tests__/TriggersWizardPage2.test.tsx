@@ -19,7 +19,8 @@ import {
   GetSchemaYaml,
   GetManifestTriggerResponse,
   GetParseableManifestTriggerResponse,
-  updateManifestTriggerMockResponseYaml
+  updateManifestTriggerMockResponseYaml,
+  GetTriggerWithEventConditionsResponse
 } from './webhookMockResponses'
 
 import {
@@ -448,5 +449,54 @@ describe('Manifest Trigger Tests', () => {
         })
       ).not.toBeNull()
     )
+  })
+
+  test('on edit -with event conditions payload', async () => {
+    jest.spyOn(pipelineNg, 'useGetSchemaYaml').mockImplementation(() => {
+      return {
+        data: GetSchemaYaml as any,
+        refetch: jest.fn(),
+        error: null,
+        loading: false,
+        absolutePath: '',
+        cancel: jest.fn(),
+        response: null
+      }
+    })
+
+    jest.spyOn(pipelineNg, 'useCreateVariables').mockImplementation(() => ({
+      cancel: jest.fn(),
+      loading: false,
+      error: null,
+      mutate: jest.fn().mockImplementation(() => PostCreateVariables)
+    }))
+    jest
+      .spyOn(pipelineNg, 'useGetInputSetsListForPipeline')
+      .mockReturnValue(GetManifestInputSetsResponse as UseGetReturn<any, any, any, any>)
+    jest
+      .spyOn(pipelineNg, 'useGetPipeline')
+      .mockReturnValue(GetManifestPipelineResponse as UseGetReturn<any, any, any, any>)
+    jest
+      .spyOn(pipelineNg, 'useGetTemplateFromPipeline')
+      .mockReturnValue(GetManifestTemplateFromPipelineResponse as UseGetReturn<any, any, any, any>)
+    jest
+      .spyOn(pipelineNg, 'useGetTrigger')
+      .mockReturnValue(GetTriggerWithEventConditionsResponse as UseGetReturn<any, any, any, any>)
+    jest.spyOn(pipelineNg, 'useGetMergeInputSetFromPipelineTemplateWithListInput').mockReturnValue({
+      mutate: jest.fn().mockReturnValue(GetMergeInputSetFromPipelineTemplateWithListInputResponse) as unknown
+    } as UseMutateReturn<any, any, any, any, any>)
+    jest.spyOn(pipelineNg, 'useUpdateTrigger').mockReturnValue({
+      mutate: mockUpdate as unknown
+    } as UseMutateReturn<any, any, any, any, any>)
+    const { container } = render(<WrapperComponent />)
+    await waitFor(() => expect(() => queryByText(document.body, 'Loading, please wait...')).toBeDefined())
+
+    const tab2 = container.querySelector('[data-tab-id="Conditions"]')
+
+    if (!tab2) {
+      throw Error('No conditions tab')
+    }
+    fireEvent.click(tab2)
+    expect(container).toMatchSnapshot()
   })
 })

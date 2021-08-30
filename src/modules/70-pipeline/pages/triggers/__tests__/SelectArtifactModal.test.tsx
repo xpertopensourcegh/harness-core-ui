@@ -418,4 +418,145 @@ describe('Select Artifact Modal tests', () => {
       expect(selectBtn).not.toBeDisabled()
     })
   })
+
+  test('when selected manifest-chart is not runtime input', async () => {
+    const props = {
+      isModalOpen: true,
+      formikProps: {
+        values: {
+          originalPipeline: {
+            identifier: 'stagea',
+            name: 'stagea',
+            orgIdentifier: 'default',
+            stages: [
+              {
+                stage: {
+                  name: 'stagea',
+                  identifier: 'stagea',
+                  spec: {
+                    execution: {
+                      steps: [],
+                      rollbackSteps: []
+                    },
+                    infrastructure: {
+                      allowSimultaneousDeployments: false,
+                      environmentRef: 'TestEnv',
+                      infrastructureDefinition: {
+                        provisioner: {
+                          steps: [],
+                          rollbackSteps: []
+                        },
+                        spec: {
+                          connectorRef: 'test',
+                          namespace: 'test',
+                          releaseName: 'test-name'
+                        },
+                        type: 'KubernetesDirect'
+                      },
+                      serviceConfig: {
+                        serviceRef: 'seveice',
+                        serviceDefinition: {
+                          spec: {
+                            manifests: [
+                              {
+                                manifest: {
+                                  identifier: 'testhelmmanifest',
+                                  spec: {
+                                    chartName: '<+input>',
+
+                                    store: {
+                                      type: 's3',
+                                      spec: {
+                                        bucketName: '<+input>',
+                                        folderPath: '<+input>'
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ],
+                            variables: []
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      artifactTableData: [
+        {
+          artifactId: 'testhelmmanifest',
+          artifactLabel: 'stagea: testhelmmanifest',
+          artifactRepository: 'testecr2',
+          disabled: true,
+          hasRuntimeInputs: true,
+          isStageOverrideManifest: false,
+          location: 'Runtime Input',
+          stageId: 'stagea',
+          version: 'Runtime Input'
+        }
+      ],
+      closeModal: jest.fn(),
+      isManifest: true,
+      runtimeData: [
+        {
+          stage: {
+            identifier: 'stagea',
+            spec: {
+              serviceConfig: {
+                serviceDefinition: {
+                  spec: {
+                    manifests: [
+                      {
+                        manifest: {
+                          identifier: 'testhelmmanifest',
+                          spec: {
+                            chartName: '<+input>',
+
+                            store: {
+                              type: 's3',
+                              spec: {
+                                bucketName: '<+input>',
+                                folderPath: '<+input>'
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+
+    render(
+      <TestWrapper>
+        <SelectArtifactModal {...props} />
+      </TestWrapper>
+    )
+
+    const dialog = findDialogContainer() as HTMLElement
+
+    await act(async () => {
+      const firstRow = dialog.querySelector('.table .body .row:first-child')
+      const radioBtn = firstRow?.querySelector('input[name=artifactLabel]')
+      fireEvent.click(radioBtn!)
+    })
+
+    await act(async () => {
+      const selectBtn = getByText(dialog, 'select')
+
+      expect(selectBtn).not.toBeDisabled()
+    })
+
+    expect(dialog).toMatchSnapshot()
+  })
 })

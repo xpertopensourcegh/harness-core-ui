@@ -77,6 +77,30 @@ export const GetParseableManifestTriggerResponse: UseGetReturnData<ResponseNGTri
   }
 }
 
+export const GetTriggerWithEventConditionsResponse: UseGetReturnData<ResponseNGTriggerResponse> = {
+  loading: false,
+  refetch: jest.fn(),
+  error: null,
+  data: {
+    status: 'SUCCESS',
+    data: {
+      name: 'test-helm-chart',
+      identifier: 'newManifest',
+      type: 'Manifest',
+      accountIdentifier: 'px7xd_BFRCi-pfWPYXVjvw',
+      orgIdentifier: 'harness',
+      projectIdentifier: 'mtran',
+      targetIdentifier: 'testmanifest',
+      yaml: 'trigger:\n    name: trigger-two-2a\n    identifier: triggertwo2a\n    enabled: true\n    tags: {}\n    orgIdentifier: default\n    projectIdentifier: test\n    pipelineIdentifier: Testpipeline3\n    source:\n        type: Manifest\n        spec:\n            stageIdentifier: stageb\n            manifestRef: sdfds\n            type: HelmChart\n            spec:\n                store:\n                    type: S3\n                    spec:\n                        connectorRef: testecr2\n                        bucketName: ""\n                        folderPath: sdfdsfd\n                        region: us-west-2\n                chartName: sdfdsfd\n                chartVersion: <+trigger.manifest.version>\n                helmVersion: V2\n                skipResourceVersioning: false\n                eventConditions:\n                    - key: version\n                      operator: NotEquals\n                      value: "121"\n    inputYaml: |\n        pipeline:\n            identifier: Testpipeline3\n            stages:\n                - stage:\n                      identifier: stagea\n                      type: Deployment\n                      spec:\n                          serviceConfig:\n                              serviceDefinition:\n                                  type: Kubernetes\n                                  spec:\n                                      manifests:\n                                          - manifest:\n                                                identifier: sdfds\n                                                type: HelmChart\n                                                spec:\n                                                    store:\n                                                        type: S3\n                                                        spec:\n                                                            connectorRef: ""\n                                                            bucketName: ""\n                                                            region: ""\n                                                    chartVersion: ""\n                                          - manifest:\n                                                identifier: sfdsqeqemanifestid\n                                                type: HelmChart\n                                                spec:\n                                                    store:\n                                                        type: S3\n                                                        spec:\n                                                            connectorRef: ""\n                                                            bucketName: ""\n                                                            folderPath: ""\n                                                            region: ""\n                                                    chartName: ""\n                                                    chartVersion: ""\n                - stage:\n                      identifier: stageb\n                      type: Deployment\n                      spec:\n                          serviceConfig:\n                              serviceDefinition:\n                                  type: Kubernetes\n                                  spec:\n                                      manifests:\n                                          - manifest:\n                                                identifier: sdfds\n                                                type: HelmChart\n                                                spec:\n                                                    store:\n                                                        type: S3\n                                                        spec:\n                                                            connectorRef: testecr2\n                                                            bucketName: ""\n                                                            folderPath: sdfdsfd\n                                                            region: us-west-2\n                                                    chartName: sdfdsfd\n                                                    chartVersion: <+trigger.manifest.version>\n                                                    helmVersion: V2\n                                                    skipResourceVersioning: false\n',
+
+      version: 10,
+      enabled: false
+    },
+    metaData: null as unknown as undefined,
+    correlationId: '25df5700-e9a4-49c4-98eb-dea4c371fd6e'
+  }
+}
+
 export const GetManifestTriggerResponse: UseGetReturnData<ResponseNGTriggerResponse> = {
   loading: false,
   refetch: jest.fn(),
