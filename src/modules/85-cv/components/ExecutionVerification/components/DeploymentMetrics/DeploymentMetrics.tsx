@@ -249,7 +249,7 @@ export function DeploymentMetrics(props: DeploymentMetricsProps): JSX.Element {
         />
         <HealthSourceDropDown
           onChange={selectedHealthSource => {
-            setQueryParams(oldQueryParams => ({
+            setQueryParams((oldQueryParams: any) => ({
               ...oldQueryParams,
               pageNumber: 0,
               healthSource: selectedHealthSource

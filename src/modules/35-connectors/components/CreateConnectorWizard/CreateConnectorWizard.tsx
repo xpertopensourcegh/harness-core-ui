@@ -25,6 +25,7 @@ import CreateAwsSecretManagerConnector from '../CreateConnector/AWSSecretManager
 import CreateNewRelicConnector from '../CreateConnector/NewRelicConnector/CreateNewRelicConnector'
 import CreatePrometheusConnector from '../CreateConnector/PrometheusConnector/CreatePrometheusConnector'
 import CreateDataDogConnector from '../CreateConnector/DataDogConnector/CreateDataDogConnector'
+import CreatePagerDutyConnector from '../CreateConnector/PagerDutyConnector/CreatePagerDutyConnector'
 import CreateCeAzureConnector from '../CreateConnector/CEAzureConnector/CreateCeAzureConnector'
 import CreateCEK8sConnector from '../CreateConnector/CEK8sConnector/CreateCEK8sConnector'
 import CreateAzureKeyVaultConnector from '../CreateConnector/CreateAzureKeyConnector/CreateAzureKeyVaultConnector'
@@ -117,6 +118,8 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
       return <CENGAwsConnector {...commonProps} />
     case Connectors.CE_GCP:
       return <CreateCeGcpConnector {...commonProps} />
+    case Connectors.PAGER_DUTY:
+      return <CreatePagerDutyConnector {...commonProps} />
     default:
       return null
   }

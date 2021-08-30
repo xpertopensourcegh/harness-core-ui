@@ -127,6 +127,8 @@ export interface AlertRuleDTO {
 export interface AnalysisResult {
   count?: number
   label?: number
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  riskScore?: number
   tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
 }
 
@@ -182,10 +184,6 @@ export interface AppdynamicsValidationResponse {
   metricPackName?: string
   overallStatus?: 'SUCCESS' | 'NO_DATA' | 'FAILED'
   values?: AppdynamicsMetricValueValidationResponse[]
-}
-
-export type ArgoConnector = ConnectorConfigDTO & {
-  adapterUrl?: string
 }
 
 export interface ArtifactoryAuthCredentials {
@@ -248,7 +246,7 @@ export type AwsConnector = ConnectorConfigDTO & {
 export interface AwsCredential {
   crossAccountAccess?: CrossAccountAccess
   spec?: AwsCredentialSpec
-  type: 'InheritFromDelegate' | 'ManualConfig'
+  type: 'InheritFromDelegate' | 'ManualConfig' | 'Irsa'
 }
 
 export interface AwsCredentialSpec {
@@ -473,6 +471,20 @@ export interface CategoryRisksDTO {
   startTimeEpoch?: number
 }
 
+export interface ChangeSourceDTO {
+  category?: 'Deployment' | 'Infrastructure' | 'Alert'
+  description?: string
+  enabled?: boolean
+  identifier?: string
+  name?: string
+  spec: ChangeSourceSpec
+  type?: 'HarnessCD' | 'PagerDuty'
+}
+
+export interface ChangeSourceSpec {
+  [key: string]: any
+}
+
 export interface Cluster {
   label?: number
   text?: string
@@ -537,7 +549,6 @@ export interface ConnectorInfoDTO {
     | 'GcpCloudCost'
     | 'CEK8sCluster'
     | 'HttpHelmRepo'
-    | 'ArgoConnector'
     | 'NewRelic'
     | 'Datadog'
     | 'SumoLogic'
@@ -598,6 +609,7 @@ export interface DataCollectionRequest {
     | 'PROMETHEUS_LABEL_NAMES_GET'
     | 'PROMETHEUS_LABEL_VALUES_GET'
     | 'PROMETHEUS_SAMPLE_DATA'
+    | 'PAGERDUTY_SERVICES'
 }
 
 export interface DataCollectionTaskDTO {
@@ -1591,12 +1603,18 @@ export type GitlabUsernameToken = GitlabHttpCredentialsSpecDTO & {
   usernameRef?: string
 }
 
+export type HarnessCDChangeSourceSpec = ChangeSourceSpec & { [key: string]: any }
+
 export interface HealthMonitoringFlagResponse {
   accountId?: string
   healthMonitoringEnabled?: boolean
   identifier?: string
   orgIdentifier?: string
   projectIdentifier?: string
+}
+
+export interface HealthScoreDTO {
+  currentHealthScore?: RiskData
 }
 
 export interface HealthSource {
@@ -2297,9 +2315,19 @@ export interface PageVerificationJobDTO {
   totalPages?: number
 }
 
+export type PagerDutyChangeSourceSpec = ChangeSourceSpec & {
+  connectorRef?: string
+  pagerDutyServiceId?: string
+}
+
 export type PagerDutyConnectorDTO = ConnectorConfigDTO & {
   apiTokenRef: string
   delegateSelectors?: string[]
+}
+
+export interface PagerDutyServiceDetail {
+  id?: string
+  name?: string
 }
 
 export interface PartialSchemaDTO {
@@ -2370,6 +2398,13 @@ export interface ResponseActivitySourceDTO {
 export interface ResponseBoolean {
   correlationId?: string
   data?: boolean
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseHealthScoreDTO {
+  correlationId?: string
+  data?: HealthScoreDTO
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -3112,6 +3147,14 @@ export interface RestResponseListMetricPackDTO {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseListPagerDutyServiceDetail {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: PagerDutyServiceDetail[]
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponseListSplunkSavedSearch {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -3345,6 +3388,7 @@ export interface ResultSummary {
 export interface RiskData {
   healthScore?: number
   riskStatus?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  timeRange?: TimeRange
 }
 
 export interface RiskNotify {
@@ -3435,6 +3479,7 @@ export interface ServiceSummaryDetails {
 }
 
 export interface Sources {
+  changeSources?: ChangeSourceDTO[]
   healthSources?: HealthSource[]
 }
 
@@ -4873,6 +4918,14 @@ export interface GetDeploymentMetricsQueryParams {
   anomalousMetricsOnly?: boolean
   hostName?: string
   filter?: string
+  healthSource?:
+    | 'APP_DYNAMICS'
+    | 'SPLUNK'
+    | 'STACKDRIVER'
+    | 'STACKDRIVER_LOG'
+    | 'KUBERNETES'
+    | 'NEW_RELIC'
+    | 'PROMETHEUS'
   pageNumber?: number
   pageSize?: number
 }

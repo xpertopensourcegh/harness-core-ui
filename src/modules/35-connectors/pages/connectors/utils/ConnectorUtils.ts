@@ -1150,6 +1150,42 @@ export interface DatadogInitialValue {
   loading?: boolean
 }
 
+export interface PagerDutyInitialValue {
+  apiTokenRef?: SecretReferenceInterface | void
+  accountId?: string | undefined
+  projectIdentifier?: string
+  orgIdentifier?: string
+  loading?: boolean
+}
+
+export const buildPagerDutyPayload = (formData: FormData) => {
+  const {
+    name,
+    identifier,
+    projectIdentifier,
+    orgIdentifier,
+    delegateSelectors,
+    description,
+    tags,
+    apiTokenRef: { referenceString: apiReferenceKey }
+  } = formData
+  return {
+    connector: {
+      name,
+      identifier,
+      type: Connectors.PAGER_DUTY,
+      projectIdentifier,
+      orgIdentifier,
+      description,
+      tags,
+      spec: {
+        apiTokenRef: apiReferenceKey,
+        delegateSelectors: delegateSelectors || {}
+      }
+    }
+  }
+}
+
 export const buildDatadogPayload = (formData: FormData) => {
   const {
     name,
@@ -1369,6 +1405,8 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
       return 'service-kubernetes'
     case Connectors.CE_GCP:
       return 'service-gcp'
+    case Connectors.PAGER_DUTY:
+      return 'service-pagerduty'
     default:
       return 'cog'
   }
@@ -1519,6 +1557,8 @@ export function GetTestConnectionValidationTextByType(type: ConnectorConfigDTO['
       return getString('connectors.testConnectionStep.validationText.sumologic')
     case Connectors.CE_AZURE_KEY_VAULT:
       return getString('connectors.testConnectionStep.validationText.azureKeyVault')
+    case Connectors.PAGER_DUTY:
+      return getString('connectors.testConnectionStep.validationText.pagerduty')
     default:
       return ''
   }

@@ -70,7 +70,8 @@ export const Connectors: ConnectorType = {
   DYNATRACE: 'Dynatrace',
   SUMOLOGIC: 'SumoLogic',
   CE_GCP: 'GcpCloudCost',
-  AWS_SECRET_MANAGER: 'AwsSecretManager'
+  AWS_SECRET_MANAGER: 'AwsSecretManager',
+  PAGER_DUTY: 'PagerDuty'
 }
 
 export const ConnectorInfoText = {

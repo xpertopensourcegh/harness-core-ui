@@ -26,6 +26,7 @@ hashicorpVaultDetails: 'HashiCorp Vault Overview'
 appDynamicsDetails: 'AppDynamics Connector Details'
 splunkConnectorDetails: 'Splunk Connector Details'
 datadogConnectorDetails: 'Datadog Connector Details'
+pagerDutyConnectorDetails: 'PagerDuty Connector Details'
 sumoLogicConnectorDetails: 'SumoLogic Connector Details'
 newRelicConnectorDetails: New Relic Connector Details
 prometheusConnectorDetails: Prometheus Connector Details
@@ -131,6 +132,7 @@ testConnectionStep:
     git: Validating Git authentication and permissions
     azure: Validating Azure authentication and permissions
     datadog: Validating Datadog authentication and permissions
+    pagerduty: Validating PagerDuty authentication and permissions
     azureKeyVault: Validating Azure key vault authentication and permissions
     jira: Validating Jira authentication and permissions
     sumologic: Validating Sumologic authentication and permissions

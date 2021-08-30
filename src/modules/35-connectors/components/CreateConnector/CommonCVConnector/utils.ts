@@ -20,6 +20,8 @@ export function dsconfigTypetoResourcesConnectorDetailsTitle(
       return getString('connectors.sumoLogicConnectorDetails')
     case 'Splunk':
       return getString('connectors.splunkConnectorDetails')
+    case 'PagerDuty':
+      return getString('connectors.pagerDutyConnectorDetails')
     default:
       return ''
   }

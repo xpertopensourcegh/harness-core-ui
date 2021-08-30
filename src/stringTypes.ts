@@ -1373,6 +1373,7 @@ export interface StringsMap {
   'connectors.newRelicConnectorDetails': string
   'connectors.newRelicLabel': string
   'connectors.nexus.nexusServerUrl': string
+  'connectors.pagerDutyConnectorDetails': string
   'connectors.prometheus.urlValidation': string
   'connectors.prometheusConnectorDetails': string
   'connectors.prometheusLabel': string
@@ -1433,6 +1434,7 @@ export interface StringsMap {
   'connectors.testConnectionStep.validationText.jira': string
   'connectors.testConnectionStep.validationText.k8s': string
   'connectors.testConnectionStep.validationText.nexus': string
+  'connectors.testConnectionStep.validationText.pagerduty': string
   'connectors.testConnectionStep.validationText.splunk': string
   'connectors.testConnectionStep.validationText.sumologic': string
   'connectors.testConnectionStep.validationText.vault': string
