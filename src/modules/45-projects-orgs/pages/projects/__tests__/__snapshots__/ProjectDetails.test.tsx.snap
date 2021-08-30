@@ -519,7 +519,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-size-small"
                       >
-                        projectsOrgs.purposeList.continuous
+                        PROJECTSORGS.PURPOSELIST.CONTINUOUS
                       </p>
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
@@ -590,7 +590,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-size-small"
                       >
-                        projectsOrgs.purposeList.continuous
+                        PROJECTSORGS.PURPOSELIST.CONTINUOUS
                       </p>
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
@@ -679,7 +679,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-size-small"
                       >
-                        common.purpose.cf.feature
+                        COMMON.PURPOSE.CF.FEATURE
                       </p>
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
@@ -748,7 +748,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-size-small"
                       >
-                        common.purpose.ce.cloudCost
+                        COMMON.PURPOSE.CE.CLOUDCOST
                       </p>
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
@@ -817,7 +817,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-size-small"
                       >
-                        projectsOrgs.purposeList.change
+                        PROJECTSORGS.PURPOSELIST.CHANGE
                       </p>
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"

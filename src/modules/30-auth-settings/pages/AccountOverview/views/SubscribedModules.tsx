@@ -66,7 +66,7 @@ const ModuleCard: React.FC<ModuleCardProps> = ({ module }) => {
   }
   const title1 =
     module.moduleType && MODULE_PROPS[module.moduleType]
-      ? getString(MODULE_PROPS[module.moduleType].title1 as keyof StringsMap)
+      ? getString(MODULE_PROPS[module.moduleType].title1 as keyof StringsMap).toUpperCase()
       : ''
 
   const title2 =

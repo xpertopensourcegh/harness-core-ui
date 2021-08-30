@@ -65,7 +65,7 @@ const ModuleListCard: React.FC<ModuleListCardProps> = ({ module, accountId, orgI
               <Icon name={getModuleIcon(module)} size={70}></Icon>
               <div>
                 <Layout.Vertical padding={{ bottom: 'medium' }}>
-                  <Text font={{ size: 'small' }}>{getString(getModuleTitle(module))}</Text>
+                  <Text font={{ size: 'small' }}>{getString(getModuleTitle(module)).toUpperCase()}</Text>
                   <Text font={{ size: 'medium' }} color={Color.BLACK}>
                     {purpose && getString(purpose)}
                   </Text>

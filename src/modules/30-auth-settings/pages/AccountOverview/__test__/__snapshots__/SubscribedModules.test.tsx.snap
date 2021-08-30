@@ -101,7 +101,7 @@ exports[`SubscribedModules should render modules when api call returns modules 1
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
                   >
-                    common.purpose.continuous
+                    COMMON.PURPOSE.CONTINUOUS
                   </p>
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--padding-bottom-large StyledProps--color StyledProps--color-black"
