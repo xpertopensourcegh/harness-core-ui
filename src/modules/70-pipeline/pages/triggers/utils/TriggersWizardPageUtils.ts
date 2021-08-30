@@ -1318,3 +1318,28 @@ export function getArtifactSpecObj({
   })
   return newAppliedArtifactSpecObj
 }
+
+export function updatePipelineManifest({
+  pipeline,
+  stageIdentifier,
+  selectedArtifact,
+  newArtifact = selectedArtifact
+}: {
+  pipeline: any
+  selectedArtifact: artifactManifestData
+  stageIdentifier: string
+  newArtifact: any
+}): any {
+  const newPipelineObj = { ...pipeline }
+  const pipelineStages = newPipelineObj?.stages.find((item: any) => item.stage.identifier === stageIdentifier)
+  const stageArtifacts = pipelineStages?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests
+  const stageArtifactIdx = pipelineStages?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests?.findIndex(
+    (item: any) => item.manifest?.identifier === selectedArtifact?.identifier
+  )
+
+  if (stageArtifactIdx >= 0) {
+    stageArtifacts[stageArtifactIdx].manifest = newArtifact
+  }
+
+  return newPipelineObj
+}

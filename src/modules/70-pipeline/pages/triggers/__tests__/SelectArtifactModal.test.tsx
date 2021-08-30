@@ -97,6 +97,71 @@ const defaultProps = {
             }
           }
         ]
+      },
+      pipeline: {
+        identifier: 'stagea',
+        name: 'stagea',
+        orgIdentifier: 'default',
+        stages: [
+          {
+            stage: {
+              name: 'stagea',
+              identifier: 'stagea',
+              spec: {
+                execution: {
+                  steps: [],
+                  rollbackSteps: []
+                },
+                infrastructure: {
+                  allowSimultaneousDeployments: false,
+                  environmentRef: 'TestEnv',
+                  infrastructureDefinition: {
+                    provisioner: {
+                      steps: [],
+                      rollbackSteps: []
+                    },
+                    spec: {
+                      connectorRef: 'test',
+                      namespace: 'test',
+                      releaseName: 'test-name'
+                    },
+                    type: 'KubernetesDirect'
+                  },
+                  serviceConfig: {
+                    serviceRef: 'seveice',
+                    serviceDefinition: {
+                      spec: {
+                        manifests: [
+                          {
+                            manifest: {
+                              identifier: 'testhelmmanifest',
+                              spec: {
+                                chartName: '<+input>',
+                                chartVersion: '<+input>',
+                                helmVersion: 'V2',
+                                skipResourceVersioning: false
+                              },
+                              store: {
+                                type: 's3',
+                                spec: {
+                                  bucketName: '<+input>',
+                                  connectorRef: 'testecr2',
+                                  folderPath: '<+input>',
+                                  region: '<+input>'
+                                }
+                              }
+                            }
+                          }
+                        ],
+                        variables: []
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
       }
     }
   },

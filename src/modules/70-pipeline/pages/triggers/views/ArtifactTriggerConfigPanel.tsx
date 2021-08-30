@@ -11,7 +11,8 @@ import {
   artifactManifestData,
   artifactTableItem,
   getPathString,
-  getArtifactSpecObj
+  getArtifactSpecObj,
+  updatePipelineManifest
 } from '../utils/TriggersWizardPageUtils'
 import css from './ArtifactTriggerConfigPanel.module.scss'
 
@@ -149,8 +150,16 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
                 data-name="main-delete"
                 icon="main-trash"
                 onClick={_ => {
+                  const { pipeline } = formikProps.values
+                  const newPipelineObj = updatePipelineManifest({
+                    pipeline,
+                    stageIdentifier: stageId,
+                    selectedArtifact: formikProps?.values?.selectedArtifact,
+                    newArtifact: {}
+                  })
                   formikProps.setValues({
                     ...formikProps.values,
+                    pipeline: newPipelineObj,
                     selectedArtifact: undefined,
                     stageId: undefined,
                     stages: undefined // clears all artifact runtime inputs

@@ -14,7 +14,8 @@ import {
   filterArtifact,
   getPathString,
   getTemplateObject,
-  replaceTriggerDefaultBuild
+  replaceTriggerDefaultBuild,
+  updatePipelineManifest
 } from '../../utils/TriggersWizardPageUtils'
 import css from './SelectArtifactModal.module.scss'
 
@@ -155,10 +156,10 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
                 })
 
                 /*
-                          when we have multiple stages - need to filter undefined values
-                          in this case formikprops.values.stages will be [undefined, [stage obj]]
-                          when chartVersion alone is runtime input, stages array could be empty
-                      */
+                              when we have multiple stages - need to filter undefined values
+                              in this case formikprops.values.stages will be [undefined, [stage obj]]
+                              when chartVersion alone is runtime input, stages array could be empty
+                    */
                 const filterFormStages = formikProps.values?.stages?.filter((item: any) => item)
                 // when stages is empty array, filteredArtifact will be empty object
                 const formFilteredArtifact =
@@ -175,9 +176,17 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
                     chartVersion: finalArtifact.spec.chartVersion
                   })
                 }
+                const { pipeline, stageId, selectedArtifact } = formikProps.values
+                const newPipelineObj = updatePipelineManifest({
+                  pipeline,
+                  stageIdentifier: stageId,
+                  selectedArtifact,
+                  newArtifact: clearRuntimeInputValue(finalArtifact)
+                })
 
                 formikProps.setValues({
                   ...formikProps.values,
+                  pipeline: newPipelineObj,
                   selectedArtifact: clearRuntimeInputValue(finalArtifact),
                   stageId: selectedStageId
                 })
