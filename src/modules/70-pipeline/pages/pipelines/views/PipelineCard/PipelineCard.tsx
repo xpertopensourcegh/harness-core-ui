@@ -185,7 +185,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
 
   return (
     <Card className={css.pipelineCard} interactive onClick={() => goToPipelineStudio(pipeline)}>
-      <Container padding={'xlarge'} border={{ bottom: true }} className={css.pipelineInfo}>
+      <Container padding={'xlarge'} border={{ bottom: true }}>
         <CardBody.Menu
           menuContent={
             <ContextMenu
@@ -237,7 +237,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
               <Text className={css.label} font="small" width={LEFT_COLUMN_WIDTH} color={Color.GREY_700}>
                 {getString('stages')}
               </Text>
-              <Text font="small" color={Color.BLACK} width="114px" lineClamp={1}>
+              <Text font="small" color={Color.BLACK} lineClamp={1}>
                 {pipeline.stageNames?.join(', ')}
               </Text>
             </Layout.Horizontal>
@@ -250,11 +250,11 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
         >
           {(module === 'ci' || !!pipeline.filters?.ci?.repoNames?.length) && (
             <Layout.Horizontal flex={{ justifyContent: 'flex-start' }} spacing={'small'}>
-              <Text font="small" width={LEFT_COLUMN_WIDTH} color={Color.GREY_700}>
+              <Text className={css.label} font="small" width={LEFT_COLUMN_WIDTH} color={Color.GREY_700}>
                 {getString('pipeline.buildRepo')}
               </Text>
               {pipeline.filters?.ci?.repoNames?.length ? (
-                <Text font="small" color={Color.BLACK} width="128px" lineClamp={1}>
+                <Text font="small" color={Color.BLACK} lineClamp={1}>
                   {pipeline.filters?.ci?.repoNames.join(', ')}
                 </Text>
               ) : (

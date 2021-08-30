@@ -370,7 +370,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
             tabindex="0"
           >
             <div
-              class="StyledProps--font StyledProps--main pipelineInfo StyledProps--padding-xlarge StyledProps--border StyledProps--border-bottom"
+              class="StyledProps--font StyledProps--main StyledProps--padding-xlarge StyledProps--border StyledProps--border-bottom"
             >
               <div
                 class="Card--cardMenu"
@@ -802,7 +802,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
             tabindex="0"
           >
             <div
-              class="StyledProps--font StyledProps--main pipelineInfo StyledProps--padding-xlarge StyledProps--border StyledProps--border-bottom"
+              class="StyledProps--font StyledProps--main StyledProps--padding-xlarge StyledProps--border StyledProps--border-bottom"
             >
               <div
                 class="Card--cardMenu"
@@ -1206,7 +1206,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
             tabindex="0"
           >
             <div
-              class="StyledProps--font StyledProps--main pipelineInfo StyledProps--padding-xlarge StyledProps--border StyledProps--border-bottom"
+              class="StyledProps--font StyledProps--main StyledProps--padding-xlarge StyledProps--border StyledProps--border-bottom"
             >
               <div
                 class="Card--cardMenu"
