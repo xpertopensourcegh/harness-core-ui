@@ -222,13 +222,11 @@ describe('Test ContinousVerificationStep Step', () => {
     await waitFor(() => {
       const sensitivityDropdown = container.querySelector('input[name="spec.spec.sensitivity"]') as HTMLInputElement
       const durationDropdown = container.querySelector('input[name="spec.spec.duration"]') as HTMLInputElement
-      const trafficsplitDropdown = container.querySelector('input[name="spec.spec.trafficsplit"]') as HTMLInputElement
       const deploymentTagField = container.querySelector('input[name="spec.spec.deploymentTag"]') as HTMLInputElement
 
       expect(sensitivityDropdown).toBeTruthy()
       expect(durationDropdown).toBeTruthy()
       expect(deploymentTagField).toBeTruthy()
-      expect(trafficsplitDropdown).toBeTruthy()
     })
   })
 

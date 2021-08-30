@@ -7,12 +7,7 @@ import { useStrings } from 'framework/strings'
 import type { ContinousVerificationData } from '@cv/components/PipelineSteps/ContinousVerification/types'
 import Card from '@cv/components/Card/Card'
 import { defaultDeploymentTag, VerificationTypes } from './constants'
-import {
-  BaselineSelect,
-  Duration,
-  TrafficSplit,
-  VerificationSensitivity
-} from '../VerificationJobFields/VerificationJobFields'
+import { BaselineSelect, Duration, VerificationSensitivity } from '../VerificationJobFields/VerificationJobFields'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export default function ConfigureFields(props: { formik: FormikProps<ContinousVerificationData> }): React.ReactElement {
@@ -76,12 +71,13 @@ export default function ConfigureFields(props: { formik: FormikProps<ContinousVe
               />
             </div>
             <div className={cx(stepCss.formGroup)}>
-              <TrafficSplit
+              {/* Note - This has to be removed for now but might be required in future, hence commenting the code */}
+              {/* <TrafficSplit
                 name={`spec.spec.trafficsplit`}
                 label={getString('connectors.cdng.trafficsplit')}
                 expressions={expressions}
                 formik={formik}
-              />
+              /> */}
             </div>
           </>
         )
