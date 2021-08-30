@@ -5,7 +5,6 @@ declare const styles: {
   readonly table: string
   readonly gitFilter: string
   readonly actionButton: string
-  readonly runPipelineBtn: string
   readonly gitDetails: string
   readonly menuList: string
 }

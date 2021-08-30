@@ -3,7 +3,6 @@
 declare const styles: {
   readonly main: string
   readonly panel: string
-  readonly edit: string
   readonly information: string
   readonly overview: string
   readonly inputSet: string

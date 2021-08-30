@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Color, TextInput, useModalHook } from '@wings-software/uicore'
+import { Button, ButtonVariation, Color, TextInput, useModalHook } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { Page } from '@common/exports'
@@ -178,7 +178,7 @@ export default function TriggersList(props: TriggersListPropsInterface & GitQuer
         <Button
           disabled={!isEditable}
           text={getString('pipeline.triggers.newTrigger')}
-          intent="primary"
+          variation={ButtonVariation.PRIMARY}
           onClick={openDrawer}
         ></Button>
         <TextInput

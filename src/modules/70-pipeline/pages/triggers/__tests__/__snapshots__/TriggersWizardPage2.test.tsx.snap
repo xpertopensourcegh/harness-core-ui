@@ -247,7 +247,7 @@ exports[`Manifest Trigger Tests Check chartVersion to be disabled and default va
                                 class="renderSelectedValue inputSetSelectedValue"
                               >
                                 <button
-                                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addInputSetButton StyledProps--color StyledProps--color-primary7 StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addInputSetButton StyledProps--color StyledProps--color-primary7 Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon Button--variation Button--variation-link"
                                   type="button"
                                 >
                                   <span
@@ -1105,7 +1105,7 @@ exports[`Manifest Trigger Tests Check chartVersion to be disabled and default va
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow Button--withLeftIcon Button--variation Button--variation-secondary"
                   type="button"
                 >
                   <span
@@ -1134,7 +1134,7 @@ exports[`Manifest Trigger Tests Check chartVersion to be disabled and default va
                   </span>
                 </button>
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
                   type="submit"
                 >
                   <span
@@ -1162,11 +1162,16 @@ exports[`Manifest Trigger Tests Check chartVersion to be disabled and default va
                     </svg>
                   </span>
                 </button>
-                <p
-                  class="StyledProps--font StyledProps--main cancel"
+                <button
+                  class="bp3-button Button--button StyledProps--font StyledProps--main cancel Button--with-current-color Button--variation Button--variation-secondary"
+                  type="button"
                 >
-                  cancel
-                </p>
+                  <span
+                    class="bp3-button-text"
+                  >
+                    cancel
+                  </span>
+                </button>
               </div>
             </div>
           </form>
@@ -1736,7 +1741,7 @@ exports[`Manifest Trigger Tests function getArtifactSpecObj by displaying select
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
               >
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
                   type="button"
                 >
                   <span
@@ -1764,11 +1769,16 @@ exports[`Manifest Trigger Tests function getArtifactSpecObj by displaying select
                     </svg>
                   </span>
                 </button>
-                <p
-                  class="StyledProps--font StyledProps--main cancel"
+                <button
+                  class="bp3-button Button--button StyledProps--font StyledProps--main cancel Button--with-current-color Button--variation Button--variation-secondary"
+                  type="button"
                 >
-                  cancel
-                </p>
+                  <span
+                    class="bp3-button-text"
+                  >
+                    cancel
+                  </span>
+                </button>
               </div>
             </div>
           </form>
@@ -2338,7 +2348,7 @@ exports[`Manifest Trigger Tests on click of edit - submits thru the right payloa
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
               >
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
                   type="button"
                 >
                   <span
@@ -2366,11 +2376,16 @@ exports[`Manifest Trigger Tests on click of edit - submits thru the right payloa
                     </svg>
                   </span>
                 </button>
-                <p
-                  class="StyledProps--font StyledProps--main cancel"
+                <button
+                  class="bp3-button Button--button StyledProps--font StyledProps--main cancel Button--with-current-color Button--variation Button--variation-secondary"
+                  type="button"
                 >
-                  cancel
-                </p>
+                  <span
+                    class="bp3-button-text"
+                  >
+                    cancel
+                  </span>
+                </button>
               </div>
             </div>
           </form>
@@ -3371,7 +3386,7 @@ exports[`Manifest Trigger Tests throws validation error when select artifact/man
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
               >
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
                   type="button"
                 >
                   <span
@@ -3399,11 +3414,16 @@ exports[`Manifest Trigger Tests throws validation error when select artifact/man
                     </svg>
                   </span>
                 </button>
-                <p
-                  class="StyledProps--font StyledProps--main cancel"
+                <button
+                  class="bp3-button Button--button StyledProps--font StyledProps--main cancel Button--with-current-color Button--variation Button--variation-secondary"
+                  type="button"
                 >
-                  cancel
-                </p>
+                  <span
+                    class="bp3-button-text"
+                  >
+                    cancel
+                  </span>
+                </button>
               </div>
             </div>
           </form>

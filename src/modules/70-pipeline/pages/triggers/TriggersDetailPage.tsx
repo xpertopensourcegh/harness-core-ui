@@ -1,4 +1,4 @@
-import { Button, Card, Color, Container, Icon, Layout, Switch, Text } from '@wings-software/uicore'
+import { Button, ButtonVariation, Card, Color, Container, Icon, Layout, Switch, Text } from '@wings-software/uicore'
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { isEmpty } from 'lodash-es'
@@ -262,8 +262,7 @@ export default function TriggersDetailPage(): JSX.Element {
                 }}
               ></VisualYamlToggle>
               <Button
-                className={css.edit}
-                intent="primary"
+                variation={ButtonVariation.SECONDARY}
                 icon="Edit"
                 onClick={goToEditWizard}
                 minimal

@@ -400,7 +400,7 @@ exports[`STUDIO MODE should accept values from input sets and submit the form: a
                         </button>
                       </li>
                       <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addInputSetButton StyledProps--color StyledProps--color-primary7 StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addInputSetButton StyledProps--color StyledProps--color-primary7 Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon Button--variation Button--variation-link"
                         type="button"
                       >
                         <span

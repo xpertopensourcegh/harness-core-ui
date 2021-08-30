@@ -104,7 +104,7 @@ exports[`CIBuildSettingsPage snapshot test should render properly 1`] = `
           class="buttonContainer"
         >
           <button
-            class="bp3-button bp3-large Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--font StyledProps--font-size-medium StyledProps--font-weight-semi-bold Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--font StyledProps--font-size-medium StyledProps--font-weight-semi-bold Button--with-current-color Button--variation Button--variation-primary Button--size Button--large"
             type="button"
           >
             <span

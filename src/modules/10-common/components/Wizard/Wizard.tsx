@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, createRef, RefObject } from 'react'
-import { Layout, Tabs, Tab, Button, Formik, FormikForm, Heading, Text } from '@wings-software/uicore'
+import { Layout, Tabs, Tab, Button, Formik, FormikForm, Heading, ButtonVariation } from '@wings-software/uicore'
 import type { IconName } from '@wings-software/uicore'
 import { useHistory } from 'react-router-dom'
 import cx from 'classnames'
@@ -277,6 +277,7 @@ const Wizard: React.FC<WizardProps> = ({
               <Layout.Horizontal spacing="medium" className={css.footer}>
                 {!isYamlView && selectedTabIndex !== 0 && (
                   <Button
+                    variation={ButtonVariation.SECONDARY}
                     text={getString('back')}
                     icon="chevron-left"
                     minimal
@@ -292,7 +293,7 @@ const Wizard: React.FC<WizardProps> = ({
                 {!isYamlView && !lastTab && (
                   <Button
                     text={getString('continue')}
-                    intent="primary"
+                    variation={ButtonVariation.PRIMARY}
                     rightIcon="chevron-right"
                     onClick={() => {
                       const upcomingTabIndex = selectedTabIndex + 1
@@ -306,7 +307,7 @@ const Wizard: React.FC<WizardProps> = ({
                 {!isYamlView && lastTab && (
                   <Button
                     text={submitLabel || getString('submit')}
-                    intent="primary"
+                    variation={ButtonVariation.PRIMARY}
                     rightIcon="chevron-right"
                     type="submit"
                     disabled={disableSubmit}
@@ -324,15 +325,18 @@ const Wizard: React.FC<WizardProps> = ({
                   />
                 )}
                 {!isYamlView && (
-                  <Text className={css.cancel} onClick={onHide}>
-                    {getString('cancel')}
-                  </Text>
+                  <Button
+                    className={css.cancel}
+                    variation={ButtonVariation.SECONDARY}
+                    onClick={onHide}
+                    text={getString('cancel')}
+                  />
                 )}
                 {isYamlView && yamlBuilderReadOnlyModeProps && !loadingYamlView && (
                   <>
                     <Button
                       text={submitLabel || getString('submit')}
-                      intent="primary"
+                      variation={ButtonVariation.PRIMARY}
                       rightIcon="chevron-right"
                       onClick={() => {
                         const latestYaml = yamlHandler?.getLatestYaml() || /* istanbul ignore next */ ''
@@ -359,9 +363,12 @@ const Wizard: React.FC<WizardProps> = ({
                       }}
                       disabled={disableSubmit}
                     />
-                    <Text className={css.cancel} onClick={onHide}>
-                      {getString('cancel')}
-                    </Text>
+                    <Button
+                      className={css.cancel}
+                      variation={ButtonVariation.SECONDARY}
+                      onClick={onHide}
+                      text={getString('cancel')}
+                    />
                   </>
                 )}
               </Layout.Horizontal>

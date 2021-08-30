@@ -615,12 +615,17 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                     </button>
                   </div>
                 </div>
-                <p
-                  class="StyledProps--font StyledProps--main StyledProps--intent-primary"
-                  style="cursor: pointer; width: 70px;"
+                <button
+                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-link"
+                  style="padding: 0px;"
+                  type="button"
                 >
-                  plusAdd
-                </p>
+                  <span
+                    class="bp3-button-text"
+                  >
+                    plusAdd
+                  </span>
+                </button>
               </section>
               <div
                 class="bp3-form-group"

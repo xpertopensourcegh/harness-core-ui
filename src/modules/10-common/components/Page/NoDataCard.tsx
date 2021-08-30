@@ -1,5 +1,17 @@
 import React from 'react'
-import { ButtonProps, Button, Color, Heading, Container, Icon, Layout, IconName, Text } from '@wings-software/uicore'
+import {
+  ButtonProps,
+  Button,
+  Color,
+  Heading,
+  Container,
+  Icon,
+  Layout,
+  IconName,
+  Text,
+  ButtonVariation,
+  ButtonSize
+} from '@wings-software/uicore'
 import classNames from 'classnames'
 import { useStrings } from 'framework/strings'
 import css from './NoDataCard.module.scss'
@@ -63,8 +75,8 @@ export const NoDataCard: React.FC<NoDataCardProps> = props => {
             props.button
           ) : props.buttonText ? (
             <Button
-              large
-              intent="primary"
+              size={ButtonSize.LARGE}
+              variation={ButtonVariation.PRIMARY}
               text={props.buttonText}
               font={{ size: 'medium', weight: 'semi-bold' }}
               onClick={props.onClick}

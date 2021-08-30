@@ -247,7 +247,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                                 class="renderSelectedValue inputSetSelectedValue"
                               >
                                 <button
-                                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addInputSetButton StyledProps--color StyledProps--color-primary7 StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addInputSetButton StyledProps--color StyledProps--color-primary7 Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon Button--variation Button--variation-link"
                                   type="button"
                                 >
                                   <span
@@ -1008,7 +1008,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow Button--withLeftIcon Button--variation Button--variation-secondary"
                   type="button"
                 >
                   <span
@@ -1037,7 +1037,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                   </span>
                 </button>
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
                   type="submit"
                 >
                   <span
@@ -1065,11 +1065,16 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                     </svg>
                   </span>
                 </button>
-                <p
-                  class="StyledProps--font StyledProps--main cancel"
+                <button
+                  class="bp3-button Button--button StyledProps--font StyledProps--main cancel Button--with-current-color Button--variation Button--variation-secondary"
+                  type="button"
                 >
-                  cancel
-                </p>
+                  <span
+                    class="bp3-button-text"
+                  >
+                    cancel
+                  </span>
+                </button>
               </div>
             </div>
           </form>
@@ -1661,12 +1666,17 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                               </button>
                             </div>
                           </div>
-                          <p
-                            class="StyledProps--font StyledProps--main StyledProps--intent-primary"
-                            style="cursor: pointer; width: 70px;"
+                          <button
+                            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-link"
+                            style="padding: 0px;"
+                            type="button"
                           >
-                            plusAdd
-                          </p>
+                            <span
+                              class="bp3-button-text"
+                            >
+                              plusAdd
+                            </span>
+                          </button>
                           <div
                             class="bp3-form-group"
                           >
@@ -1994,7 +2004,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
               >
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
                   type="button"
                 >
                   <span
@@ -2022,11 +2032,16 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                     </svg>
                   </span>
                 </button>
-                <p
-                  class="StyledProps--font StyledProps--main cancel"
+                <button
+                  class="bp3-button Button--button StyledProps--font StyledProps--main cancel Button--with-current-color Button--variation Button--variation-secondary"
+                  type="button"
                 >
-                  cancel
-                </p>
+                  <span
+                    class="bp3-button-text"
+                  >
+                    cancel
+                  </span>
+                </button>
               </div>
             </div>
           </form>
@@ -2603,12 +2618,17 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                               </button>
                             </div>
                           </div>
-                          <p
-                            class="StyledProps--font StyledProps--main StyledProps--intent-primary"
-                            style="cursor: pointer; width: 70px;"
+                          <button
+                            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-link"
+                            style="padding: 0px;"
+                            type="button"
                           >
-                            plusAdd
-                          </p>
+                            <span
+                              class="bp3-button-text"
+                            >
+                              plusAdd
+                            </span>
+                          </button>
                           <p
                             class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
                           >
@@ -2915,7 +2935,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
               >
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
                   type="button"
                 >
                   <span
@@ -2943,11 +2963,16 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                     </svg>
                   </span>
                 </button>
-                <p
-                  class="StyledProps--font StyledProps--main cancel"
+                <button
+                  class="bp3-button Button--button StyledProps--font StyledProps--main cancel Button--with-current-color Button--variation Button--variation-secondary"
+                  type="button"
                 >
-                  cancel
-                </p>
+                  <span
+                    class="bp3-button-text"
+                  >
+                    cancel
+                  </span>
+                </button>
               </div>
             </div>
           </form>
@@ -3360,7 +3385,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
               >
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
                   type="button"
                 >
                   <span
@@ -3388,11 +3413,16 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                     </svg>
                   </span>
                 </button>
-                <p
-                  class="StyledProps--font StyledProps--main cancel"
+                <button
+                  class="bp3-button Button--button StyledProps--font StyledProps--main cancel Button--with-current-color Button--variation Button--variation-secondary"
+                  type="button"
                 >
-                  cancel
-                </p>
+                  <span
+                    class="bp3-button-text"
+                  >
+                    cancel
+                  </span>
+                </button>
               </div>
             </div>
           </form>
@@ -3882,7 +3912,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow Button--withLeftIcon Button--variation Button--variation-secondary"
                   type="button"
                 >
                   <span
@@ -3911,7 +3941,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                   </span>
                 </button>
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
                   type="button"
                 >
                   <span
@@ -3939,11 +3969,16 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                     </svg>
                   </span>
                 </button>
-                <p
-                  class="StyledProps--font StyledProps--main cancel"
+                <button
+                  class="bp3-button Button--button StyledProps--font StyledProps--main cancel Button--with-current-color Button--variation Button--variation-secondary"
+                  type="button"
                 >
-                  cancel
-                </p>
+                  <span
+                    class="bp3-button-text"
+                  >
+                    cancel
+                  </span>
+                </button>
               </div>
             </div>
           </form>

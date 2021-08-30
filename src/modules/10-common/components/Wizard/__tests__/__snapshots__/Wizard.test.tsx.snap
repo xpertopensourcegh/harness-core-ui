@@ -192,7 +192,7 @@ exports[`Wizard tests Interactivity Tab Change: Show warning for each touched pa
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
               >
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
                   type="button"
                 >
                   <span
@@ -220,11 +220,16 @@ exports[`Wizard tests Interactivity Tab Change: Show warning for each touched pa
                     </svg>
                   </span>
                 </button>
-                <p
-                  class="StyledProps--font StyledProps--main cancel"
+                <button
+                  class="bp3-button Button--button StyledProps--font StyledProps--main cancel Button--with-current-color Button--variation Button--variation-secondary"
+                  type="button"
                 >
-                  cancel
-                </p>
+                  <span
+                    class="bp3-button-text"
+                  >
+                    cancel
+                  </span>
+                </button>
               </div>
             </div>
           </form>
@@ -393,7 +398,7 @@ exports[`Wizard tests Renders/snapshots Initial Render - 3 panels 1`] = `
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
               >
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
                   type="button"
                 >
                   <span
@@ -421,11 +426,16 @@ exports[`Wizard tests Renders/snapshots Initial Render - 3 panels 1`] = `
                     </svg>
                   </span>
                 </button>
-                <p
-                  class="StyledProps--font StyledProps--main cancel"
+                <button
+                  class="bp3-button Button--button StyledProps--font StyledProps--main cancel Button--with-current-color Button--variation Button--variation-secondary"
+                  type="button"
                 >
-                  cancel
-                </p>
+                  <span
+                    class="bp3-button-text"
+                  >
+                    cancel
+                  </span>
+                </button>
               </div>
             </div>
           </form>

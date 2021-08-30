@@ -2,7 +2,18 @@ import React from 'react'
 import { isEmpty, isNull, isUndefined, omit, omitBy } from 'lodash-es'
 import { Classes, Dialog, IDialogProps } from '@blueprintjs/core'
 import * as Yup from 'yup'
-import { Button, Color, Formik, FormikForm, FormInput, Icon, Layout, SelectOption, Text } from '@wings-software/uicore'
+import {
+  Button,
+  ButtonVariation,
+  Color,
+  Formik,
+  FormikForm,
+  FormInput,
+  Icon,
+  Layout,
+  SelectOption,
+  Text
+} from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { parse } from 'yaml'
 import { FieldArray, FieldArrayRenderProps } from 'formik'
@@ -654,7 +665,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
                                     <Button
                                       minimal
                                       text={getString('inputSets.addInputSetPlus')}
-                                      intent="primary"
+                                      variation={ButtonVariation.LINK}
                                       onClick={() => arrayHelpers.push('')}
                                       disabled={isReadOnly}
                                     />
@@ -666,9 +677,14 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
                         </Layout.Vertical>
                       </div>
                       <div className={Classes.DIALOG_FOOTER}>
-                        <Button intent="primary" type="submit" text={getString('save')} disabled={isReadOnly} />
+                        <Button
+                          variation={ButtonVariation.PRIMARY}
+                          type="submit"
+                          text={getString('save')}
+                          disabled={isReadOnly}
+                        />
                         &nbsp; &nbsp;
-                        <Button onClick={closeForm} text={getString('cancel')} />
+                        <Button variation={ButtonVariation.SECONDARY} onClick={closeForm} text={getString('cancel')} />
                       </div>
                     </FormikForm>
                   ) : (
@@ -689,7 +705,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
                       )}
                       <Layout.Horizontal padding={{ top: 'medium' }}>
                         <Button
-                          intent="primary"
+                          variation={ButtonVariation.PRIMARY}
                           type="submit"
                           text={getString('save')}
                           onClick={() => {
@@ -703,7 +719,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
                           disabled={isReadOnly}
                         />
                         &nbsp; &nbsp;
-                        <Button onClick={closeForm} text={getString('cancel')} />
+                        <Button variation={ButtonVariation.SECONDARY} onClick={closeForm} text={getString('cancel')} />
                       </Layout.Horizontal>
                     </div>
                   )}

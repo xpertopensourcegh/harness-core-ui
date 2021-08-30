@@ -9,7 +9,8 @@ import {
   SelectOption,
   Button,
   Text,
-  TextInput
+  TextInput,
+  ButtonVariation
 } from '@wings-software/uicore'
 import { clone, isEmpty } from 'lodash-es'
 import cx from 'classnames'
@@ -167,7 +168,7 @@ const RenderValue = React.memo(function RenderValue({
         onClick={() => setOpenInputSetsList(false)}
         color={Color.PRIMARY_7}
         minimal
-        intent="primary"
+        variation={ButtonVariation.LINK}
       >
         {getString('pipeline.inputSets.selectPlaceholder')}
       </Button>
@@ -459,7 +460,7 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
                         ? getString('pipeline.inputSets.applyInputSets')
                         : getString('pipeline.inputSets.applyInputSet')
                     }
-                    intent="primary"
+                    variation={ButtonVariation.PRIMARY}
                     disabled={!selectedInputSets?.length}
                     onClick={() => {
                       setOpenInputSetsList(true)

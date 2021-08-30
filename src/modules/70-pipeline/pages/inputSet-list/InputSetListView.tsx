@@ -1,4 +1,4 @@
-import { Button, Color, Icon, IconName, Layout, Popover, Text } from '@wings-software/uicore'
+import { Button, ButtonVariation, Color, Icon, IconName, Layout, Popover, Text } from '@wings-software/uicore'
 import React from 'react'
 import type { CellProps, Column, Renderer } from 'react-table'
 import { useParams } from 'react-router-dom'
@@ -102,8 +102,8 @@ const RenderColumnActions: Renderer<CellProps<InputSetLocal>> = ({ row, column }
     <RbacButton
       disabled={!(column as any)?.pipelineHasRuntimeInputs}
       icon="run-pipeline"
-      className={css.runPipelineBtn}
-      intent="primary"
+      variation={ButtonVariation.PRIMARY}
+      intent="success"
       text={getString('runPipeline')}
       onClick={e => {
         e.stopPropagation()

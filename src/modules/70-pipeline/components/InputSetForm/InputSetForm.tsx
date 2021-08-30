@@ -9,7 +9,8 @@ import {
   Layout,
   NestedAccordionProvider,
   Heading,
-  Color
+  Color,
+  ButtonVariation
 } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import { parse } from 'yaml'
@@ -493,7 +494,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                         )}
                         <Layout.Horizontal className={css.footer} padding="xlarge">
                           <Button
-                            intent="primary"
+                            variation={ButtonVariation.PRIMARY}
                             type="submit"
                             onClick={e => {
                               e.preventDefault()
@@ -511,6 +512,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                           />
                           &nbsp; &nbsp;
                           <Button
+                            variation={ButtonVariation.SECONDARY}
                             onClick={() => {
                               history.goBack()
                             }}
@@ -538,7 +540,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                     </Layout.Vertical>
                     <Layout.Horizontal className={css.footer} padding="xlarge">
                       <Button
-                        intent="primary"
+                        variation={ButtonVariation.PRIMARY}
                         type="submit"
                         disabled={!isEditable}
                         text={getString('save')}
@@ -553,6 +555,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                       />
                       &nbsp; &nbsp;
                       <Button
+                        variation={ButtonVariation.SECONDARY}
                         onClick={() => {
                           history.goBack()
                         }}

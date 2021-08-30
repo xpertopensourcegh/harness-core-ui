@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { isEmpty } from 'lodash-es'
-import { Popover, Layout, TextInput, useModalHook, Text, Color } from '@wings-software/uicore'
+import { Popover, Layout, TextInput, useModalHook, Text, Color, ButtonVariation } from '@wings-software/uicore'
 import { Menu, MenuItem, Position } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
@@ -166,7 +166,7 @@ const InputSetList: React.FC = (): JSX.Element => {
             <RbacButton
               text={getString('inputSets.newInputSet')}
               rightIcon="caret-down"
-              intent="primary"
+              variation={ButtonVariation.PRIMARY}
               permission={{
                 resource: {
                   resourceType: ResourceType.PIPELINE,

@@ -1,5 +1,5 @@
 import React from 'react'
-import { FormInput, Text, Icon, Heading, Color } from '@wings-software/uicore'
+import { FormInput, Text, Icon, Heading, Color, Button, ButtonVariation } from '@wings-software/uicore'
 import cx from 'classnames'
 import { FieldArray } from 'formik'
 import { useStrings } from 'framework/strings'
@@ -121,7 +121,7 @@ export const AddConditionsSection: React.FC<AddConditionsSectionPropsInterface> 
       <FieldArray
         name={fieldId}
         render={() => (
-          <div style={{ marginTop: '20px' }}>
+          <div>
             {addConditions?.map((_addCondition: AddConditionInterface, index: number) => (
               <div key={index} style={{ display: 'flex', alignItems: 'center' }}>
                 <AddConditionRow
@@ -163,18 +163,17 @@ export const AddConditionsSection: React.FC<AddConditionsSectionPropsInterface> 
           </div>
         )}
       />
-      <Text
+      <Button
+        variation={ButtonVariation.LINK}
         data-name="plusAdd"
-        intent="primary"
-        style={{ cursor: 'pointer', width: '70px' }}
+        style={{ padding: 0 }}
         onClick={() => {
           const emptyRow = { key: '', operator: '', value: '' }
           if (!addConditions) setFieldValue(fieldId, [emptyRow])
           else setFieldValue(fieldId, [...addConditions, emptyRow])
         }}
-      >
-        {getString('plusAdd')}
-      </Text>
+        text={getString('plusAdd')}
+      />
     </section>
   )
 }
