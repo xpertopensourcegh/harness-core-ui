@@ -80,7 +80,7 @@ export const getPipelineByIdentifier = (
   ).then(response => {
     let obj = {} as ResponsePMSPipelineResponseDTO
     if ((typeof response as unknown) === 'string') {
-      obj = parse(response as string).data.yamlPipeline
+      obj = parse(response as string).data?.yamlPipeline || {}
     } else if (response.data?.yamlPipeline) {
       obj = response
     }
@@ -416,7 +416,11 @@ const _updatePipeline = async (
 
     if (typeof pipelineArg === 'function') {
       const dbPipeline = await IdbPipeline.get(IdbPipelineStoreName, id)
-      pipeline = pipelineArg(dbPipeline.pipeline)
+      if (dbPipeline?.pipeline) {
+        pipeline = pipelineArg(dbPipeline.pipeline)
+      } else {
+        pipeline = {} as PipelineInfoConfig
+      }
     }
     const isUpdated = !isEqual(omit(originalPipeline, 'repo', 'branch'), pipeline)
     const payload: PipelinePayload = {
