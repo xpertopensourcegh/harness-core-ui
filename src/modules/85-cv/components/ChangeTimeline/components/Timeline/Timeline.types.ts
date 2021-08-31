@@ -6,4 +6,5 @@ export interface TimelineProps {
   labelWidth?: number
   timestamps?: TimestampChartProps['timestamps']
   timeFormat?: string
+  onFocusTimeRange?: (startTime: number, endTime: number) => void
 }

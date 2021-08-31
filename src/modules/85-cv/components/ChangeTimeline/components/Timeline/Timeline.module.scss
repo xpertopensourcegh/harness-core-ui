@@ -1,4 +1,6 @@
 .main {
+  position: relative;
+
   .timelineChartContainer {
     display: flex;
     align-items: center;
@@ -13,5 +15,9 @@
     > div {
       flex: 1;
     }
+  }
+
+  .slider {
+    top: 0;
   }
 }
