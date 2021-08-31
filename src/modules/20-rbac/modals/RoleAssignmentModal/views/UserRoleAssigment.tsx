@@ -19,16 +19,18 @@ import { useCreateRoleAssignments, RoleAssignment as RBACRoleAssignment } from '
 import { useStrings } from 'framework/strings'
 import {
   UserMetadataDTO,
-  useGetCurrentGenUsers,
   useSendInvite,
   CreateInvite,
   RoleAssignmentMetadataDTO,
-  ResponseListInviteOperationResponse
+  ResponseListInviteOperationResponse,
+  useGetUsers
 } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { EmailSchema } from '@common/utils/Validation'
 import { UserItemRenderer, handleInvitationResponse, getScopeBasedDefaultAssignment } from '@rbac/utils/utils'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
+import { useMutateAsGet } from '@common/hooks/useMutateAsGet'
+import { Scope } from '@common/interfaces/SecretsInterface'
 import RoleAssignmentForm, { InviteType } from './RoleAssignmentForm'
 
 interface UserRoleAssignmentData {
@@ -62,6 +64,7 @@ export interface UserRoleAssignmentValues {
 const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
   const { user, roleBindings, onSubmit, isInvite, onSuccess } = props
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
+  const scope = getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
   const { getString } = useStrings()
   const [query, setQuery] = useState<string>()
   const { showSuccess } = useToaster()
@@ -79,15 +82,21 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
     }
   })
 
-  const { data: userList, refetch: refetchUsers } = useGetCurrentGenUsers({
-    queryParams: { accountIdentifier: accountId, searchString: query },
+  const { data: userList, refetch: refetchUsers } = useMutateAsGet(useGetUsers, {
+    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier },
+    body: {
+      searchTerm: query,
+      parentFilter: 'STRICTLY_PARENT_SCOPES'
+    },
     debounce: 300,
     lazy: true
   })
 
   useEffect(() => {
-    if (isInvite || query) refetchUsers()
-  }, [isInvite, query])
+    if ((isInvite || query) && scope !== Scope.ACCOUNT) {
+      refetchUsers()
+    }
+  }, [isInvite, query, scope])
 
   const users: SelectOption[] =
     userList?.data?.content?.map(response => {
@@ -113,11 +122,7 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
           assignmentIdentifier: roleAssignment.identifier
         }
       }
-    }) ||
-    /* istanbul ignore next */ getScopeBasedDefaultAssignment(
-      getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier }),
-      getString
-    )
+    }) || /* istanbul ignore next */ getScopeBasedDefaultAssignment(scope, getString)
 
   const handleRoleAssignment = async (values: UserRoleAssignmentValues, userInfo: string): Promise<void> => {
     const dataToSubmit: RBACRoleAssignment[] = values.assignments.map(value => {
@@ -206,7 +211,7 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
                 <FormInput.Select
                   name="user"
                   placeholder={getString('rbac.roleAssignment.userPlaceHolder')}
-                  label={getString('rbac.usersPage.forUser')}
+                  label={getString('rbac.addUser')}
                   items={
                     user
                       ? [
@@ -217,11 +222,11 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
                         ]
                       : users
                   }
+                  onQueryChange={val => {
+                    setQuery(val)
+                  }}
                   selectProps={{
                     allowCreatingNewItems: true,
-                    onQueryChange: val => {
-                      setQuery(val)
-                    },
                     itemRenderer: UserItemRenderer
                   }}
                   disabled={!isInvite}

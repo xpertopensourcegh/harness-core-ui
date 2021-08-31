@@ -655,7 +655,6 @@ export interface StringsMap {
   'rbac.usersPage.deleteConfirmation': string
   'rbac.usersPage.deleteSuccessMessage': string
   'rbac.usersPage.deleteTitle': string
-  'rbac.usersPage.forUser': string
   'rbac.usersPage.invitationError': string
   'rbac.usersPage.invitationSuccess': string
   'rbac.usersPage.lockedOutLabel': string
