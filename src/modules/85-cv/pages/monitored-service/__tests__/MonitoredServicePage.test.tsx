@@ -5,6 +5,7 @@ import routes from '@common/RouteDefinitions'
 import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import * as cvServices from 'services/cv'
+import { yamlResponse } from './MonitoreService.mock'
 import MonitoredServicePage from '../MonitoredServicePage'
 
 const testWrapperProps: TestWrapperProps = {
@@ -111,6 +112,13 @@ describe('Unit tests for createting monitored source', () => {
               }
             }
           }
+        } as any)
+    )
+    jest.spyOn(cvServices, 'useGetMonitoredServiceYamlTemplate').mockImplementation(
+      () =>
+        ({
+          data: yamlResponse,
+          refetch: jest.fn()
         } as any)
     )
   })

@@ -1,0 +1,20 @@
+.alignHorizontal {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-xlarge) !important;
+  p {
+    align-self: center;
+  }
+  div {
+    margin-bottom: 0px !important;
+  }
+}
+
+.selectChangeSource {
+  font-size: var(--font-size-normal);
+}
+
+.divider {
+  background: var(--grey-400);
+  color: var(--grey-400);
+}

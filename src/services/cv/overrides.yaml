@@ -73,12 +73,14 @@ allowpaths:
   - /prometheus/metric-list
   - /prometheus/sample-data
   - /sumologic/endpoints
+  - /pagerduty/services
   - /monitored-service
   - /monitored-service/{identifier}
   - /monitored-service/environments
   - /monitored-service/create-default
   - /monitored-service/service-environment
   - /monitored-service/{identifier}/health-monitoring-flag
+  - /monitored-service/yaml-template
   - /monitored-service/{identifier}/overall-health-score
   - /verify-step/input-set-template
 operationIdOverrides:

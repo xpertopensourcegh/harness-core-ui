@@ -7547,6 +7547,56 @@ export const getMonitoredServiceFromServiceAndEnvironmentPromise = (
     void
   >(getConfig('cv/api'), `/monitored-service/service-environment`, props, signal)
 
+export interface GetMonitoredServiceYamlTemplateQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type GetMonitoredServiceYamlTemplateProps = Omit<
+  GetProps<RestResponseString, unknown, GetMonitoredServiceYamlTemplateQueryParams, void>,
+  'path'
+>
+
+/**
+ * yaml template for monitored service
+ */
+export const GetMonitoredServiceYamlTemplate = (props: GetMonitoredServiceYamlTemplateProps) => (
+  <Get<RestResponseString, unknown, GetMonitoredServiceYamlTemplateQueryParams, void>
+    path={`/monitored-service/yaml-template`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetMonitoredServiceYamlTemplateProps = Omit<
+  UseGetProps<RestResponseString, unknown, GetMonitoredServiceYamlTemplateQueryParams, void>,
+  'path'
+>
+
+/**
+ * yaml template for monitored service
+ */
+export const useGetMonitoredServiceYamlTemplate = (props: UseGetMonitoredServiceYamlTemplateProps) =>
+  useGet<RestResponseString, unknown, GetMonitoredServiceYamlTemplateQueryParams, void>(
+    `/monitored-service/yaml-template`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * yaml template for monitored service
+ */
+export const getMonitoredServiceYamlTemplatePromise = (
+  props: GetUsingFetchProps<RestResponseString, unknown, GetMonitoredServiceYamlTemplateQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseString, unknown, GetMonitoredServiceYamlTemplateQueryParams, void>(
+    getConfig('cv/api'),
+    `/monitored-service/yaml-template`,
+    props,
+    signal
+  )
+
 export interface DeleteMonitoredServiceQueryParams {
   accountId: string
   orgIdentifier: string
@@ -8116,6 +8166,63 @@ export const getNewRelicMetricDataPromise = (
     MetricPackDTOArrayRequestBody,
     void
   >('POST', getConfig('cv/api'), `/newrelic/metric-data`, props, signal)
+
+export interface GetServicesFromPagerDutyQueryParams {
+  accountId?: string
+  orgIdentifier: string
+  projectIdentifier: string
+  connectorIdentifier?: string
+  requestGuid: string
+}
+
+export type GetServicesFromPagerDutyProps = Omit<
+  GetProps<RestResponseListPagerDutyServiceDetail, Failure | Error, GetServicesFromPagerDutyQueryParams, void>,
+  'path'
+>
+
+/**
+ * gets services from PagerDuty
+ */
+export const GetServicesFromPagerDuty = (props: GetServicesFromPagerDutyProps) => (
+  <Get<RestResponseListPagerDutyServiceDetail, Failure | Error, GetServicesFromPagerDutyQueryParams, void>
+    path={`/pagerduty/services`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetServicesFromPagerDutyProps = Omit<
+  UseGetProps<RestResponseListPagerDutyServiceDetail, Failure | Error, GetServicesFromPagerDutyQueryParams, void>,
+  'path'
+>
+
+/**
+ * gets services from PagerDuty
+ */
+export const useGetServicesFromPagerDuty = (props: UseGetServicesFromPagerDutyProps) =>
+  useGet<RestResponseListPagerDutyServiceDetail, Failure | Error, GetServicesFromPagerDutyQueryParams, void>(
+    `/pagerduty/services`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * gets services from PagerDuty
+ */
+export const getServicesFromPagerDutyPromise = (
+  props: GetUsingFetchProps<
+    RestResponseListPagerDutyServiceDetail,
+    Failure | Error,
+    GetServicesFromPagerDutyQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseListPagerDutyServiceDetail, Failure | Error, GetServicesFromPagerDutyQueryParams, void>(
+    getConfig('cv/api'),
+    `/pagerduty/services`,
+    props,
+    signal
+  )
 
 export interface GetLabelNamesQueryParams {
   accountId: string

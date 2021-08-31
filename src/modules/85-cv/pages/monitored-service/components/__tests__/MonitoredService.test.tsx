@@ -7,6 +7,7 @@ import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import * as dbHook from '@cv/hooks/IndexedDBHook/IndexedDBHook'
 import { InputTypes, setFieldValue } from '@common/utils/JestFormHelper'
 import MonitoredService from '../Configurations/Configurations'
+import { yamlResponse } from '../../__tests__/MonitoreService.mock'
 
 const testWrapperProps: TestWrapperProps = {
   path: routes.toCVAddMonitoringServicesSetup({ ...accountPathProps, ...projectPathProps }),
@@ -54,13 +55,17 @@ jest.mock('@cv/components/HarnessServiceAndEnvironment/HarnessServiceAndEnvironm
   }
 }))
 
+const fetchMonitoredServiceYAML = jest.fn(() => Promise.resolve({ data: yamlResponse }))
+
 jest.mock('services/cv', () => ({
   useSaveMonitoredService: () =>
     jest.fn().mockImplementation(() => ({ loading: false, error: null, data: {}, refetch: jest.fn() })),
   useUpdateMonitoredService: () =>
     jest.fn().mockImplementation(() => ({ loading: false, error: null, data: {}, refetch: jest.fn() })),
   useGetMonitoredService: () =>
-    jest.fn().mockImplementation(() => ({ loading: false, error: null, data: {}, refetch: jest.fn() }))
+    jest.fn().mockImplementation(() => ({ loading: false, error: null, data: {}, refetch: jest.fn() })),
+  useGetMonitoredServiceYamlTemplate: () =>
+    jest.fn().mockImplementation(() => ({ loading: false, error: null, data: {}, refetch: fetchMonitoredServiceYAML }))
 }))
 
 describe('Unit tests for createting monitored source', () => {
@@ -118,7 +123,7 @@ describe('Unit tests for createting monitored source', () => {
     await waitFor(() => expect(queryByText('cv.monitoredServices.nameValidation')).toBeNull())
   })
 
-  test('Health source table and environment services component renders', async () => {
+  test('Update Monitored service name', async () => {
     jest.spyOn(dbHook, 'useIndexedDBHook').mockReturnValue({
       dbInstance: {
         put: jest.fn(),

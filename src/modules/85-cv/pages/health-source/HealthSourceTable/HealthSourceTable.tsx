@@ -30,7 +30,8 @@ export default function HealthSourceTable({
   isRunTimeInput,
   onCloseDrawer,
   validMonitoredSource,
-  validateMonitoredSource
+  validateMonitoredSource,
+  changeSources
 }: HealthSourceTableInterface): JSX.Element {
   const [modalOpen, setModalOpen] = useState(false)
   const history = useHistory()
@@ -98,7 +99,7 @@ export default function HealthSourceTable({
       const healthSources = createHealthsourceList(tableData, data as UpdatedHealthSource)
       const payload = {
         monitoredService: {
-          sources: { healthSources }
+          sources: { healthSources, changeSources }
         }
       }
       onSuccess(payload as MonitoredServiceResponse)
@@ -161,7 +162,7 @@ export default function HealthSourceTable({
       ) : (
         <>
           <Text className={css.tableTitle}>{getString('connectors.cdng.healthSources.label')}</Text>
-          {tableData.length ? (
+          {tableData?.length ? (
             <Table
               className={css.tableWrapper}
               sortable={true}

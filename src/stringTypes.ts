@@ -1657,7 +1657,6 @@ export interface StringsMap {
   'projectsOrgs.purposeList.features': string
   'projectsOrgs.purposeList.integration': string
   'projectsOrgs.purposeList.linkcv': string
-  'projectsOrgs.purposeList.linkcvChangeSources': string
   'projectsOrgs.purposeList.moduleSuccess': string
   'projectsOrgs.purposeList.name': string
   'projectsOrgs.purposeList.selectAModule': string
@@ -3433,7 +3432,6 @@ export interface StringsMap {
   'cv.activitySources.harnessCD.harnessApps': string
   'cv.activitySources.harnessCD.iconLabel': string
   'cv.activitySources.harnessCD.select': string
-  'cv.activitySources.harnessCD.selectActivitySource': string
   'cv.activitySources.harnessCD.selectApplication': string
   'cv.activitySources.harnessCD.selectEnvironment': string
   'cv.activitySources.harnessCD.selectService': string
@@ -3533,6 +3531,20 @@ export interface StringsMap {
   'cv.analysisScreens.totalClusters': string
   'cv.anomalous': string
   'cv.anomalousMetrics': string
+  'cv.changeSource.PageDuty.pagerDutyService': string
+  'cv.changeSource.PageDuty.selectPagerDutyService': string
+  'cv.changeSource.addChangeSource': string
+  'cv.changeSource.alertText': string
+  'cv.changeSource.connectChangeSource': string
+  'cv.changeSource.defineChangeSource': string
+  'cv.changeSource.duplicateIdentifier': string
+  'cv.changeSource.editChangeSource': string
+  'cv.changeSource.noData': string
+  'cv.changeSource.selectChangeSource': string
+  'cv.changeSource.selectChangeSourceName': string
+  'cv.changeSource.selectChangeSourceProvider': string
+  'cv.changeSource.selectChangeSourceType': string
+  'cv.changeSource.sourceName': string
   'cv.changeTimeline': string
   'cv.changesPage.changeSourceDetails': string
   'cv.changesPage.changeSummary': string

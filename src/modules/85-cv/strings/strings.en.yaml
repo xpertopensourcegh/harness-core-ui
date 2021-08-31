@@ -435,7 +435,6 @@ activitySources:
   harnessCD:
     defaultName: 'My Harness CD'
     select: 'Select your Change Source'
-    selectActivitySource: 'Select Change Source'
     selectApplication: 'Select Applications'
     selectEnvironment: 'Select Environments'
     selectService: 'Select Services'
@@ -567,6 +566,22 @@ monitoredServices:
     lastestHealthTrend: Last 24 HR Health Trends
     serviceHealthScore: service Health Score
     healthMonitoring: Health Monitoring
+changeSource:
+  alertText: Alert
+  noData: No Change Sources Present
+  addChangeSource: Add New Change Source
+  selectChangeSource: Select Change Source
+  defineChangeSource: Define Change Sources
+  connectChangeSource: Connect Change Source
+  sourceName: Source Name
+  editChangeSource: Edit Change Source
+  duplicateIdentifier: identifier already exist
+  selectChangeSourceName: Select change source name
+  selectChangeSourceProvider: Select change source provider
+  selectChangeSourceType: Select change source type
+  PageDuty:
+    pagerDutyService: PagerDuty Service
+    selectPagerDutyService: Select PageDuty Service
 healthSource:
   nameLabel: Health Source Name
   namePlaceholder: Type your health source name
