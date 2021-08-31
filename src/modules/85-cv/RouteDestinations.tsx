@@ -1,6 +1,7 @@
 import React from 'react'
 import { Route, useParams, Redirect } from 'react-router-dom'
 
+import { parse } from 'yaml'
 import CVHomePage from '@cv/pages/home/CVHomePage'
 import { RouteWithLayout } from '@common/router'
 import routes from '@common/RouteDefinitions'
@@ -59,11 +60,27 @@ import ServiceAccountDetails from '@rbac/pages/ServiceAccountDetails/ServiceAcco
 import ServiceAccountsPage from '@rbac/pages/ServiceAccounts/ServiceAccounts'
 import { PubSubPipelineActions } from '@pipeline/factories/PubSubPipelineAction'
 import { PipelineActions } from '@pipeline/factories/PubSubPipelineAction/types'
+import { inputSetTemplatePromise } from 'services/cv'
+import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import CVTrialHomePage from './pages/home/CVTrialHomePage'
 
-PubSubPipelineActions.subscribe(PipelineActions.RunPipeline, ({ template }) => {
-  return Promise.resolve(template)
-})
+PubSubPipelineActions.subscribe(
+  PipelineActions.RunPipeline,
+  async ({ template, accountPathProps: accountPathParams, pipeline }) => {
+    let response = { ...template }
+    const payload = { pipelineYaml: yamlStringify({ pipeline }), templateYaml: yamlStringify(template) }
+
+    const updatedResponse = await inputSetTemplatePromise({
+      queryParams: { accountId: accountPathParams?.accountId },
+      body: payload
+    })
+    if (updatedResponse?.data?.inputSetTemplateYaml) {
+      response = { ...parse(updatedResponse.data.inputSetTemplateYaml)?.pipeline }
+    }
+
+    return Promise.resolve(response)
+  }
+)
 
 const RedirectToAccessControlHome = (): React.ReactElement => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()

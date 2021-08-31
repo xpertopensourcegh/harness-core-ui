@@ -471,6 +471,22 @@ export interface CategoryRisksDTO {
   startTimeEpoch?: number
 }
 
+export interface ChangeEventDTO {
+  accountId: string
+  changeEventMetaData: ChangeEventMetaData
+  changeSourceIdentifier?: string
+  envIdentifier: string
+  eventTime?: number
+  orgIdentifier: string
+  projectIdentifier: string
+  serviceIdentifier: string
+  type?: 'HarnessCD' | 'PagerDuty'
+}
+
+export interface ChangeEventMetaData {
+  [key: string]: any
+}
+
 export interface ChangeSourceDTO {
   category?: 'Deployment' | 'Infrastructure' | 'Alert'
   description?: string
@@ -1605,6 +1621,36 @@ export type GitlabUsernameToken = GitlabHttpCredentialsSpecDTO & {
 
 export type HarnessCDChangeSourceSpec = ChangeSourceSpec & { [key: string]: any }
 
+export type HarnessCDEventMetaData = ChangeEventMetaData & {
+  deploymentEndTime?: number
+  deploymentStartTime?: number
+  executionId?: string
+  stageId?: string
+  status?:
+    | 'NO_OP'
+    | 'RUNNING'
+    | 'INTERVENTION_WAITING'
+    | 'TIMED_WAITING'
+    | 'ASYNC_WAITING'
+    | 'TASK_WAITING'
+    | 'DISCONTINUING'
+    | 'PAUSING'
+    | 'QUEUED'
+    | 'SKIPPED'
+    | 'PAUSED'
+    | 'ABORTED'
+    | 'ERRORED'
+    | 'FAILED'
+    | 'EXPIRED'
+    | 'SUSPENDED'
+    | 'SUCCEEDED'
+    | 'IGNORE_FAILED'
+    | 'APPROVAL_WAITING'
+    | 'RESOURCE_WAITING'
+    | 'APPROVAL_REJECTED'
+    | 'UNRECOGNIZED'
+}
+
 export interface HealthMonitoringFlagResponse {
   accountId?: string
   healthMonitoringEnabled?: boolean
@@ -1687,6 +1733,15 @@ export type HttpHelmUsernamePasswordDTO = HttpHelmAuthCredentialsDTO & {
   passwordRef: string
   username?: string
   usernameRef?: string
+}
+
+export interface InputSetTemplateRequest {
+  pipelineYaml?: string
+  templateYaml?: string
+}
+
+export interface InputSetTemplateResponse {
+  inputSetTemplateYaml?: string
 }
 
 export type JiraConnector = ConnectorConfigDTO & {
@@ -2412,6 +2467,13 @@ export interface ResponseHealthScoreDTO {
 export interface ResponseHistoricalTrend {
   correlationId?: string
   data?: HistoricalTrend
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseInputSetTemplateResponse {
+  correlationId?: string
+  data?: InputSetTemplateResponse
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -9575,3 +9637,60 @@ export const updateVerificationJobPromise = (
     VerificationJobDTORequestBody,
     UpdateVerificationJobPathParams
   >('PUT', getConfig('cv/api'), `/verification-job/${identifier}`, props, signal)
+
+export interface InputSetTemplateQueryParams {
+  accountId: string
+}
+
+export type InputSetTemplateProps = Omit<
+  MutateProps<ResponseInputSetTemplateResponse, unknown, InputSetTemplateQueryParams, InputSetTemplateRequest, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Given a template Add verify step to it if required
+ */
+export const InputSetTemplate = (props: InputSetTemplateProps) => (
+  <Mutate<ResponseInputSetTemplateResponse, unknown, InputSetTemplateQueryParams, InputSetTemplateRequest, void>
+    verb="POST"
+    path={`/verify-step/input-set-template`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseInputSetTemplateProps = Omit<
+  UseMutateProps<ResponseInputSetTemplateResponse, unknown, InputSetTemplateQueryParams, InputSetTemplateRequest, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Given a template Add verify step to it if required
+ */
+export const useInputSetTemplate = (props: UseInputSetTemplateProps) =>
+  useMutate<ResponseInputSetTemplateResponse, unknown, InputSetTemplateQueryParams, InputSetTemplateRequest, void>(
+    'POST',
+    `/verify-step/input-set-template`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * Given a template Add verify step to it if required
+ */
+export const inputSetTemplatePromise = (
+  props: MutateUsingFetchProps<
+    ResponseInputSetTemplateResponse,
+    unknown,
+    InputSetTemplateQueryParams,
+    InputSetTemplateRequest,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseInputSetTemplateResponse,
+    unknown,
+    InputSetTemplateQueryParams,
+    InputSetTemplateRequest,
+    void
+  >('POST', getConfig('cv/api'), `/verify-step/input-set-template`, props, signal)

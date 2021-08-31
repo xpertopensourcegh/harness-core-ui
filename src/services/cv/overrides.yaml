@@ -80,6 +80,7 @@ allowpaths:
   - /monitored-service/service-environment
   - /monitored-service/{identifier}/health-monitoring-flag
   - /monitored-service/{identifier}/overall-health-score
+  - /verify-step/input-set-template
 operationIdOverrides:
   /appdynamics/applications.get: getAppDynamicsApplications
   /appdynamics/metric-data.post: getAppDynamicsMetricData
