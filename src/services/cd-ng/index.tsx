@@ -6411,6 +6411,7 @@ export interface SourceCodeManagerAuthentication {
 }
 
 export interface SourceCodeManagerDTO {
+  accountIdentifier?: string
   authentication?: SourceCodeManagerAuthentication
   createdAt?: number
   id?: string
@@ -7086,7 +7087,7 @@ export type UserFilterRequestBody = UserFilter
 
 export type UserGroupDTORequestBody = UserGroupDTO
 
-export type ProcessPollingResultNgBodyRequestBody = string[]
+export type SubscribeBodyRequestBody = string[]
 
 export type UpdateWhitelistedDomainsBodyRequestBody = string[]
 
@@ -17190,7 +17191,7 @@ export type ProcessPollingResultNgProps = Omit<
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    ProcessPollingResultNgBodyRequestBody,
+    SubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >,
   'path' | 'verb'
@@ -17202,7 +17203,7 @@ export const ProcessPollingResultNg = ({ perpetualTaskId, ...props }: ProcessPol
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    ProcessPollingResultNgBodyRequestBody,
+    SubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >
     verb="POST"
@@ -17217,7 +17218,7 @@ export type UseProcessPollingResultNgProps = Omit<
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    ProcessPollingResultNgBodyRequestBody,
+    SubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >,
   'path' | 'verb'
@@ -17229,7 +17230,7 @@ export const useProcessPollingResultNg = ({ perpetualTaskId, ...props }: UseProc
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    ProcessPollingResultNgBodyRequestBody,
+    SubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >(
     'POST',
@@ -17245,7 +17246,7 @@ export const processPollingResultNgPromise = (
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    ProcessPollingResultNgBodyRequestBody,
+    SubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   > & { perpetualTaskId: string },
   signal?: RequestInit['signal']
@@ -17254,17 +17255,17 @@ export const processPollingResultNgPromise = (
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    ProcessPollingResultNgBodyRequestBody,
+    SubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >('POST', getConfig('ng/api'), `/polling/delegate-response/${perpetualTaskId}`, props, signal)
 
 export type SubscribeProps = Omit<
-  MutateProps<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
+  MutateProps<ResponsePollingResponseDTO, Failure | Error, void, SubscribeBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const Subscribe = (props: SubscribeProps) => (
-  <Mutate<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>
+  <Mutate<ResponsePollingResponseDTO, Failure | Error, void, SubscribeBodyRequestBody, void>
     verb="POST"
     path={`/polling/subscribe`}
     base={getConfig('ng/api')}
@@ -17273,28 +17274,22 @@ export const Subscribe = (props: SubscribeProps) => (
 )
 
 export type UseSubscribeProps = Omit<
-  UseMutateProps<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
+  UseMutateProps<ResponsePollingResponseDTO, Failure | Error, void, SubscribeBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const useSubscribe = (props: UseSubscribeProps) =>
-  useMutate<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
+  useMutate<ResponsePollingResponseDTO, Failure | Error, void, SubscribeBodyRequestBody, void>(
     'POST',
     `/polling/subscribe`,
     { base: getConfig('ng/api'), ...props }
   )
 
 export const subscribePromise = (
-  props: MutateUsingFetchProps<
-    ResponsePollingResponseDTO,
-    Failure | Error,
-    void,
-    ProcessPollingResultNgBodyRequestBody,
-    void
-  >,
+  props: MutateUsingFetchProps<ResponsePollingResponseDTO, Failure | Error, void, SubscribeBodyRequestBody, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
+  mutateUsingFetch<ResponsePollingResponseDTO, Failure | Error, void, SubscribeBodyRequestBody, void>(
     'POST',
     getConfig('ng/api'),
     `/polling/subscribe`,
@@ -17303,12 +17298,12 @@ export const subscribePromise = (
   )
 
 export type UnsubscribeProps = Omit<
-  MutateProps<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
+  MutateProps<boolean, Failure | Error, void, SubscribeBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const Unsubscribe = (props: UnsubscribeProps) => (
-  <Mutate<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>
+  <Mutate<boolean, Failure | Error, void, SubscribeBodyRequestBody, void>
     verb="POST"
     path={`/polling/unsubscribe`}
     base={getConfig('ng/api')}
@@ -17317,22 +17312,21 @@ export const Unsubscribe = (props: UnsubscribeProps) => (
 )
 
 export type UseUnsubscribeProps = Omit<
-  UseMutateProps<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
+  UseMutateProps<boolean, Failure | Error, void, SubscribeBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const useUnsubscribe = (props: UseUnsubscribeProps) =>
-  useMutate<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
-    'POST',
-    `/polling/unsubscribe`,
-    { base: getConfig('ng/api'), ...props }
-  )
+  useMutate<boolean, Failure | Error, void, SubscribeBodyRequestBody, void>('POST', `/polling/unsubscribe`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
 
 export const unsubscribePromise = (
-  props: MutateUsingFetchProps<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
+  props: MutateUsingFetchProps<boolean, Failure | Error, void, SubscribeBodyRequestBody, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
+  mutateUsingFetch<boolean, Failure | Error, void, SubscribeBodyRequestBody, void>(
     'POST',
     getConfig('ng/api'),
     `/polling/unsubscribe`,
@@ -19808,13 +19802,20 @@ export const verifyTokenPromise = (
     signal
   )
 
-export type GetSourceCodeManagersProps = Omit<GetProps<ResponseListSourceCodeManagerDTO, unknown, void, void>, 'path'>
+export interface GetSourceCodeManagersQueryParams {
+  accountIdentifier: string
+}
+
+export type GetSourceCodeManagersProps = Omit<
+  GetProps<ResponseListSourceCodeManagerDTO, unknown, GetSourceCodeManagersQueryParams, void>,
+  'path'
+>
 
 /**
  * get source code manager information
  */
 export const GetSourceCodeManagers = (props: GetSourceCodeManagersProps) => (
-  <Get<ResponseListSourceCodeManagerDTO, unknown, void, void>
+  <Get<ResponseListSourceCodeManagerDTO, unknown, GetSourceCodeManagersQueryParams, void>
     path={`/source-code-manager`}
     base={getConfig('ng/api')}
     {...props}
@@ -19822,7 +19823,7 @@ export const GetSourceCodeManagers = (props: GetSourceCodeManagersProps) => (
 )
 
 export type UseGetSourceCodeManagersProps = Omit<
-  UseGetProps<ResponseListSourceCodeManagerDTO, unknown, void, void>,
+  UseGetProps<ResponseListSourceCodeManagerDTO, unknown, GetSourceCodeManagersQueryParams, void>,
   'path'
 >
 
@@ -19830,7 +19831,7 @@ export type UseGetSourceCodeManagersProps = Omit<
  * get source code manager information
  */
 export const useGetSourceCodeManagers = (props: UseGetSourceCodeManagersProps) =>
-  useGet<ResponseListSourceCodeManagerDTO, unknown, void, void>(`/source-code-manager`, {
+  useGet<ResponseListSourceCodeManagerDTO, unknown, GetSourceCodeManagersQueryParams, void>(`/source-code-manager`, {
     base: getConfig('ng/api'),
     ...props
   })
@@ -19839,10 +19840,10 @@ export const useGetSourceCodeManagers = (props: UseGetSourceCodeManagersProps) =
  * get source code manager information
  */
 export const getSourceCodeManagersPromise = (
-  props: GetUsingFetchProps<ResponseListSourceCodeManagerDTO, unknown, void, void>,
+  props: GetUsingFetchProps<ResponseListSourceCodeManagerDTO, unknown, GetSourceCodeManagersQueryParams, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseListSourceCodeManagerDTO, unknown, void, void>(
+  getUsingFetch<ResponseListSourceCodeManagerDTO, unknown, GetSourceCodeManagersQueryParams, void>(
     getConfig('ng/api'),
     `/source-code-manager`,
     props,
@@ -19896,8 +19897,12 @@ export const saveSourceCodeManagersPromise = (
     signal
   )
 
+export interface DeleteSourceCodeManagersQueryParams {
+  accountIdentifier: string
+}
+
 export type DeleteSourceCodeManagersProps = Omit<
-  MutateProps<ResponseBoolean, unknown, void, string, void>,
+  MutateProps<ResponseBoolean, unknown, DeleteSourceCodeManagersQueryParams, string, void>,
   'path' | 'verb'
 >
 
@@ -19905,7 +19910,7 @@ export type DeleteSourceCodeManagersProps = Omit<
  * delete source code manager
  */
 export const DeleteSourceCodeManagers = (props: DeleteSourceCodeManagersProps) => (
-  <Mutate<ResponseBoolean, unknown, void, string, void>
+  <Mutate<ResponseBoolean, unknown, DeleteSourceCodeManagersQueryParams, string, void>
     verb="DELETE"
     path={`/source-code-manager`}
     base={getConfig('ng/api')}
@@ -19914,7 +19919,7 @@ export const DeleteSourceCodeManagers = (props: DeleteSourceCodeManagersProps) =
 )
 
 export type UseDeleteSourceCodeManagersProps = Omit<
-  UseMutateProps<ResponseBoolean, unknown, void, string, void>,
+  UseMutateProps<ResponseBoolean, unknown, DeleteSourceCodeManagersQueryParams, string, void>,
   'path' | 'verb'
 >
 
@@ -19922,19 +19927,20 @@ export type UseDeleteSourceCodeManagersProps = Omit<
  * delete source code manager
  */
 export const useDeleteSourceCodeManagers = (props: UseDeleteSourceCodeManagersProps) =>
-  useMutate<ResponseBoolean, unknown, void, string, void>('DELETE', `/source-code-manager`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
+  useMutate<ResponseBoolean, unknown, DeleteSourceCodeManagersQueryParams, string, void>(
+    'DELETE',
+    `/source-code-manager`,
+    { base: getConfig('ng/api'), ...props }
+  )
 
 /**
  * delete source code manager
  */
 export const deleteSourceCodeManagersPromise = (
-  props: MutateUsingFetchProps<ResponseBoolean, unknown, void, string, void>,
+  props: MutateUsingFetchProps<ResponseBoolean, unknown, DeleteSourceCodeManagersQueryParams, string, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponseBoolean, unknown, void, string, void>(
+  mutateUsingFetch<ResponseBoolean, unknown, DeleteSourceCodeManagersQueryParams, string, void>(
     'DELETE',
     getConfig('ng/api'),
     `/source-code-manager`,
