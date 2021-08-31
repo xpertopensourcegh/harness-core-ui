@@ -12,12 +12,10 @@ import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/Mu
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { FormMultiTypeCheckboxField } from '@common/components'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
-import { MultiTypeSelectField } from '@common/components/MultiTypeSelect/MultiTypeSelect'
 import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea/MultiTypeTextArea'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import type { RunTestsStepProps } from './RunTestsStep'
-import RunTestsStepInputSetMavenSetup from './RunTestsStepInputSetMavenSetup'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, path, readonly, stepViewType }) => {
@@ -38,12 +36,6 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
   >()
 
   const { expressions } = useVariablesExpression()
-
-  const buildToolOptions = [
-    { label: 'Bazel', value: 'bazel' },
-    { label: 'Maven', value: 'maven' }
-  ]
-  const languageOptions = [{ label: 'Java', value: 'java' }]
 
   return (
     <FormikForm className={css.removeBpPopoverWrapperTopMargin} style={{ width: '50%' }}>
@@ -107,53 +99,6 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
-      {getMultiTypeFromValue(template?.spec?.language) === MultiTypeInputType.RUNTIME && (
-        <MultiTypeSelectField
-          className={css.removeBpLabelMargin}
-          name={`${isEmpty(path) ? '' : `${path}.`}spec.language`}
-          label={
-            <Text
-              style={{ display: 'flex', alignItems: 'center' }}
-              tooltipProps={{ dataTooltipId: 'runTestsLanguage' }}
-            >
-              {getString('languageLabel')}
-            </Text>
-          }
-          multiTypeInputProps={{
-            selectItems: languageOptions,
-            multiTypeInputProps: {
-              expressions,
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-            },
-            disabled: readonly
-          }}
-          style={{ marginBottom: 'var(--spacing-small)' }}
-        />
-      )}
-      {getMultiTypeFromValue(template?.spec?.buildTool) === MultiTypeInputType.RUNTIME && (
-        <MultiTypeSelectField
-          className={css.removeBpLabelMargin}
-          name={`${isEmpty(path) ? '' : `${path}.`}spec.buildTool`}
-          label={
-            <Text
-              style={{ display: 'flex', alignItems: 'center' }}
-              tooltipProps={{ dataTooltipId: 'runTestsBuildTool' }}
-            >
-              {getString('buildToolLabel')}
-            </Text>
-          }
-          multiTypeInputProps={{
-            selectItems: buildToolOptions,
-            multiTypeInputProps: {
-              expressions,
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-            },
-            disabled: readonly
-          }}
-          style={{ marginBottom: 'var(--spacing-small)' }}
-        />
-      )}
-      <RunTestsStepInputSetMavenSetup path={path} />
       {getMultiTypeFromValue(template?.spec?.args) === MultiTypeInputType.RUNTIME && (
         <MultiTypeTextField
           className={css.removeBpLabelMargin}

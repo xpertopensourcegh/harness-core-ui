@@ -1323,22 +1323,50 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
                 class="bp3-form-content"
               >
                 <div
-                  class="Layout--horizontal StyledProps--main MultiTypeInput--main MultiTypeInput--disabled"
+                  class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                 >
                   <div
-                    class="TextInput--main MultiTypeInput--input"
+                    class="bp3-popover-wrapper MultiTypeInput--select MultiTypeInput--fixedValueInput Select--main bp3-fill"
                   >
                     <div
-                      class="bp3-input-group bp3-disabled"
+                      class="bp3-popover-target"
                     >
-                      <input
-                        class="bp3-input"
-                        disabled=""
-                        name="spec.language"
-                        placeholder="<+input>"
-                        type="text"
-                        value="<+input>"
-                      />
+                      <div
+                        class="bp3-input-group"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="spec.language"
+                          placeholder="Search..."
+                          style="padding-right: 0px;"
+                          type="text"
+                          value="Java"
+                        />
+                        <span
+                          class="bp3-input-action"
+                        >
+                          <span
+                            class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                            icon="chevron-down"
+                          >
+                            <svg
+                              data-icon="chevron-down"
+                              height="14"
+                              viewBox="0 0 16 16"
+                              width="14"
+                            >
+                              <desc>
+                                chevron-down
+                              </desc>
+                              <path
+                                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </div>
                     </div>
                   </div>
                   <span
@@ -1348,21 +1376,21 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
                       class="bp3-popover-target"
                     >
                       <button
-                        class="MultiTypeInput--btn MultiTypeInput--RUNTIME"
+                        class="MultiTypeInput--btn MultiTypeInput--FIXED"
                       >
                         <span
                           class="bp3-icon StyledProps--main"
-                          data-icon="runtime-input"
+                          data-icon="fixed-input"
                         >
                           <svg
                             height="12"
-                            viewBox="0 0 10 7.97"
+                            viewBox="0 0 9 9"
                             width="12"
                             xmlns="http://www.w3.org/2000/svg"
                           >
                             <path
-                              d="M8.14 4L8 3.72a2.53 2.53 0 01-.12-.3l-.16-.35c-.11-.25-.22-.38-.32-.38s-.28.15-.37.44C7 3.1 7 3.07 7 3a.73.73 0 01.24-.46.66.66 0 01.42-.26c.25 0 .5.35.76 1.05l.07.17.07-.12c.47-.73.86-1.1 1.18-1.1a.71.71 0 01.29.07l-.4.42h-.11c-.24 0-.52.28-.86.83l-.09.16.07.2c.29.79.53 1.18.71 1.18s.31-.12.4-.36q.09.06.09.12t-.27.39a.74.74 0 01-.45.23c-.25 0-.51-.36-.77-1.07l-.12-.25-.1.17c-.44.76-.87 1.14-1.28 1.14a.65.65 0 01-.39-.12L6.84 5a.32.32 0 00.23.1c.25 0 .53-.25.83-.74l.17-.28zm-4-.32L1.7.59h2.47S5 .52 5.35 1a3.28 3.28 0 01.42 1.14h.31L5.94 0H0v.31l3.06 3.74L0 7.62V8h6.08l.38-2.36-.31-.07a2.43 2.43 0 01-.52 1c-.42.48-2 .41-2 .41H1.39z"
-                              fill="current-color"
+                              d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                              fill="currentColor"
                             />
                           </svg>
                         </span>
@@ -1372,31 +1400,6 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
                 </div>
               </div>
             </div>
-            <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
-              id="configureOptions_spec.language"
-              type="button"
-            >
-              <span
-                class="bp3-icon bp3-icon-cog StyledProps--main"
-                icon="cog"
-              >
-                <svg
-                  data-icon="cog"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                >
-                  <desc>
-                    cog
-                  </desc>
-                  <path
-                    d="M15.19 6.39h-1.85c-.11-.37-.27-.71-.45-1.04l1.36-1.36c.31-.31.31-.82 0-1.13l-1.13-1.13a.803.803 0 00-1.13 0l-1.36 1.36c-.33-.17-.67-.33-1.04-.44V.79c0-.44-.36-.8-.8-.8h-1.6c-.44 0-.8.36-.8.8v1.86c-.39.12-.75.28-1.1.47l-1.3-1.3c-.3-.3-.79-.3-1.09 0L1.82 2.91c-.3.3-.3.79 0 1.09l1.3 1.3c-.2.34-.36.7-.48 1.09H.79c-.44 0-.8.36-.8.8v1.6c0 .44.36.8.8.8h1.85c.11.37.27.71.45 1.04l-1.36 1.36c-.31.31-.31.82 0 1.13l1.13 1.13c.31.31.82.31 1.13 0l1.36-1.36c.33.18.67.33 1.04.44v1.86c0 .44.36.8.8.8h1.6c.44 0 .8-.36.8-.8v-1.86c.39-.12.75-.28 1.1-.47l1.3 1.3c.3.3.79.3 1.09 0l1.09-1.09c.3-.3.3-.79 0-1.09l-1.3-1.3c.19-.35.36-.71.48-1.1h1.85c.44 0 .8-.36.8-.8v-1.6a.816.816 0 00-.81-.79zm-7.2 4.6c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </button>
           </div>
         </div>
         <div>
@@ -1423,22 +1426,50 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
                 class="bp3-form-content"
               >
                 <div
-                  class="Layout--horizontal StyledProps--main MultiTypeInput--main MultiTypeInput--disabled"
+                  class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                 >
                   <div
-                    class="TextInput--main MultiTypeInput--input"
+                    class="bp3-popover-wrapper MultiTypeInput--select MultiTypeInput--fixedValueInput Select--main bp3-fill"
                   >
                     <div
-                      class="bp3-input-group bp3-disabled"
+                      class="bp3-popover-target"
                     >
-                      <input
-                        class="bp3-input"
-                        disabled=""
-                        name="spec.buildTool"
-                        placeholder="<+input>"
-                        type="text"
-                        value="<+input>"
-                      />
+                      <div
+                        class="bp3-input-group"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="spec.buildTool"
+                          placeholder="Search..."
+                          style="padding-right: 0px;"
+                          type="text"
+                          value="Bazel"
+                        />
+                        <span
+                          class="bp3-input-action"
+                        >
+                          <span
+                            class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                            icon="chevron-down"
+                          >
+                            <svg
+                              data-icon="chevron-down"
+                              height="14"
+                              viewBox="0 0 16 16"
+                              width="14"
+                            >
+                              <desc>
+                                chevron-down
+                              </desc>
+                              <path
+                                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </div>
                     </div>
                   </div>
                   <span
@@ -1448,21 +1479,21 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
                       class="bp3-popover-target"
                     >
                       <button
-                        class="MultiTypeInput--btn MultiTypeInput--RUNTIME"
+                        class="MultiTypeInput--btn MultiTypeInput--FIXED"
                       >
                         <span
                           class="bp3-icon StyledProps--main"
-                          data-icon="runtime-input"
+                          data-icon="fixed-input"
                         >
                           <svg
                             height="12"
-                            viewBox="0 0 10 7.97"
+                            viewBox="0 0 9 9"
                             width="12"
                             xmlns="http://www.w3.org/2000/svg"
                           >
                             <path
-                              d="M8.14 4L8 3.72a2.53 2.53 0 01-.12-.3l-.16-.35c-.11-.25-.22-.38-.32-.38s-.28.15-.37.44C7 3.1 7 3.07 7 3a.73.73 0 01.24-.46.66.66 0 01.42-.26c.25 0 .5.35.76 1.05l.07.17.07-.12c.47-.73.86-1.1 1.18-1.1a.71.71 0 01.29.07l-.4.42h-.11c-.24 0-.52.28-.86.83l-.09.16.07.2c.29.79.53 1.18.71 1.18s.31-.12.4-.36q.09.06.09.12t-.27.39a.74.74 0 01-.45.23c-.25 0-.51-.36-.77-1.07l-.12-.25-.1.17c-.44.76-.87 1.14-1.28 1.14a.65.65 0 01-.39-.12L6.84 5a.32.32 0 00.23.1c.25 0 .53-.25.83-.74l.17-.28zm-4-.32L1.7.59h2.47S5 .52 5.35 1a3.28 3.28 0 01.42 1.14h.31L5.94 0H0v.31l3.06 3.74L0 7.62V8h6.08l.38-2.36-.31-.07a2.43 2.43 0 01-.52 1c-.42.48-2 .41-2 .41H1.39z"
-                              fill="current-color"
+                              d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                              fill="currentColor"
                             />
                           </svg>
                         </span>
@@ -1472,31 +1503,6 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
                 </div>
               </div>
             </div>
-            <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
-              id="configureOptions_spec.buildTool"
-              type="button"
-            >
-              <span
-                class="bp3-icon bp3-icon-cog StyledProps--main"
-                icon="cog"
-              >
-                <svg
-                  data-icon="cog"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                >
-                  <desc>
-                    cog
-                  </desc>
-                  <path
-                    d="M15.19 6.39h-1.85c-.11-.37-.27-.71-.45-1.04l1.36-1.36c.31-.31.31-.82 0-1.13l-1.13-1.13a.803.803 0 00-1.13 0l-1.36 1.36c-.33-.17-.67-.33-1.04-.44V.79c0-.44-.36-.8-.8-.8h-1.6c-.44 0-.8.36-.8.8v1.86c-.39.12-.75.28-1.1.47l-1.3-1.3c-.3-.3-.79-.3-1.09 0L1.82 2.91c-.3.3-.3.79 0 1.09l1.3 1.3c-.2.34-.36.7-.48 1.09H.79c-.44 0-.8.36-.8.8v1.6c0 .44.36.8.8.8h1.85c.11.37.27.71.45 1.04l-1.36 1.36c-.31.31-.31.82 0 1.13l1.13 1.13c.31.31.82.31 1.13 0l1.36-1.36c.33.18.67.33 1.04.44v1.86c0 .44.36.8.8.8h1.6c.44 0 .8-.36.8-.8v-1.86c.39-.12.75-.28 1.1-.47l1.3 1.3c.3.3.79.3 1.09 0l1.09-1.09c.3-.3.3-.79 0-1.09l-1.3-1.3c.19-.35.36-.71.48-1.1h1.85c.44 0 .8-.36.8-.8v-1.6a.816.816 0 00-.81-.79zm-7.2 4.6c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </button>
           </div>
         </div>
         <div>
@@ -2532,90 +2538,7 @@ exports[`RunTests Step InputSet View should not render any fields 1`] = `
       class="FormikForm--main removeBpPopoverWrapperTopMargin"
       style="width: 50%;"
     >
-      <div>
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small StyledProps--color StyledProps--color-grey800"
-        >
-          ci.runTestsMavenSetupTitle
-        </p>
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
-        >
-          ci.runTestsMavenSetupText1
-        </p>
-        <div
-          class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main StyledProps--margin-bottom-small"
-        >
-          <label
-            class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-          >
-            <input
-              checked=""
-              name="Blueprint3.RadioGroup-3"
-              type="radio"
-              value="yes"
-            />
-            <span
-              class="bp3-control-indicator"
-            />
-            Yes
-          </label>
-          <label
-            class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-          >
-            <input
-              name="Blueprint3.RadioGroup-3"
-              type="radio"
-              value="no"
-            />
-            <span
-              class="bp3-control-indicator"
-            />
-            No
-          </label>
-        </div>
-        <div
-          class="Text--withDocsTooltip"
-          data-tooltip-id="runTestsMavenSetupText2"
-        >
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-bottom-xsmall"
-          >
-            ci.runTestsMavenSetupText2
-          </p>
-        </div>
-        <div
-          class="StyledProps--font StyledProps--main CodeBlock--codeBlock StyledProps--padding-xsmall StyledProps--background-grey100 StyledProps--margin-none StyledProps--flex"
-        >
-          <pre>
-            ci.runTestsMavenSetupSample
-          </pre>
-          <button
-            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
-            type="button"
-          >
-            <span
-              class="bp3-icon bp3-icon-duplicate StyledProps--main"
-              icon="duplicate"
-            >
-              <svg
-                data-icon="duplicate"
-                height="12"
-                viewBox="0 0 16 16"
-                width="12"
-              >
-                <desc>
-                  duplicate
-                </desc>
-                <path
-                  d="M15 0H5c-.55 0-1 .45-1 1v2h2V2h8v7h-1v2h2c.55 0 1-.45 1-1V1c0-.55-.45-1-1-1zm-4 4H1c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h10c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1zm-1 10H2V6h8v8z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
-        </div>
-      </div>
+      <div />
     </form>
     <p
       class="StyledProps--font StyledProps--main"
@@ -2900,300 +2823,6 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
         >
           <div
             class="Text--withDocsTooltip"
-            data-tooltip-id="runTestsLanguage"
-          >
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="display: flex; align-items: center;"
-            >
-              languageLabel
-            </p>
-          </div>
-          <div
-            style="display: flex; align-items: center;"
-          >
-            <div
-              class="bp3-form-group"
-              data-id="spec.language-3"
-              style="margin-bottom: 0px; flex-grow: 1;"
-            >
-              
-              <div
-                class="bp3-form-content"
-              >
-                <div
-                  class="Layout--horizontal StyledProps--main MultiTypeInput--main"
-                >
-                  <div
-                    class="bp3-popover-wrapper MultiTypeInput--select MultiTypeInput--fixedValueInput Select--main bp3-fill"
-                  >
-                    <div
-                      class="bp3-popover-target"
-                    >
-                      <div
-                        class="bp3-input-group"
-                      >
-                        <input
-                          autocomplete="off"
-                          class="bp3-input"
-                          name="spec.language"
-                          placeholder="Search..."
-                          style="padding-right: 0px;"
-                          type="text"
-                          value=""
-                        />
-                        <span
-                          class="bp3-input-action"
-                        >
-                          <span
-                            class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
-                            icon="chevron-down"
-                          >
-                            <svg
-                              data-icon="chevron-down"
-                              height="14"
-                              viewBox="0 0 16 16"
-                              width="14"
-                            >
-                              <desc>
-                                chevron-down
-                              </desc>
-                              <path
-                                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
-                          </span>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <span
-                    class="bp3-popover-wrapper MultiTypeInput--wrapper"
-                  >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <button
-                        class="MultiTypeInput--btn MultiTypeInput--FIXED"
-                      >
-                        <span
-                          class="bp3-icon StyledProps--main"
-                          data-icon="fixed-input"
-                        >
-                          <svg
-                            height="12"
-                            viewBox="0 0 9 9"
-                            width="12"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                              fill="currentColor"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                    </span>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="removeBpLabelMargin"
-        >
-          <div
-            class="Text--withDocsTooltip"
-            data-tooltip-id="runTestsBuildTool"
-          >
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="display: flex; align-items: center;"
-            >
-              buildToolLabel
-            </p>
-          </div>
-          <div
-            style="display: flex; align-items: center;"
-          >
-            <div
-              class="bp3-form-group"
-              data-id="spec.buildTool-4"
-              style="margin-bottom: 0px; flex-grow: 1;"
-            >
-              
-              <div
-                class="bp3-form-content"
-              >
-                <div
-                  class="Layout--horizontal StyledProps--main MultiTypeInput--main"
-                >
-                  <div
-                    class="bp3-popover-wrapper MultiTypeInput--select MultiTypeInput--fixedValueInput Select--main bp3-fill"
-                  >
-                    <div
-                      class="bp3-popover-target"
-                    >
-                      <div
-                        class="bp3-input-group"
-                      >
-                        <input
-                          autocomplete="off"
-                          class="bp3-input"
-                          name="spec.buildTool"
-                          placeholder="Search..."
-                          style="padding-right: 0px;"
-                          type="text"
-                          value=""
-                        />
-                        <span
-                          class="bp3-input-action"
-                        >
-                          <span
-                            class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
-                            icon="chevron-down"
-                          >
-                            <svg
-                              data-icon="chevron-down"
-                              height="14"
-                              viewBox="0 0 16 16"
-                              width="14"
-                            >
-                              <desc>
-                                chevron-down
-                              </desc>
-                              <path
-                                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
-                          </span>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <span
-                    class="bp3-popover-wrapper MultiTypeInput--wrapper"
-                  >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <button
-                        class="MultiTypeInput--btn MultiTypeInput--FIXED"
-                      >
-                        <span
-                          class="bp3-icon StyledProps--main"
-                          data-icon="fixed-input"
-                        >
-                          <svg
-                            height="12"
-                            viewBox="0 0 9 9"
-                            width="12"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                              fill="currentColor"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                    </span>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small StyledProps--color StyledProps--color-grey800"
-        >
-          ci.runTestsMavenSetupTitle
-        </p>
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
-        >
-          ci.runTestsMavenSetupText1
-        </p>
-        <div
-          class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main StyledProps--margin-bottom-small"
-        >
-          <label
-            class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-          >
-            <input
-              checked=""
-              name="Blueprint3.RadioGroup-2"
-              type="radio"
-              value="yes"
-            />
-            <span
-              class="bp3-control-indicator"
-            />
-            Yes
-          </label>
-          <label
-            class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-          >
-            <input
-              name="Blueprint3.RadioGroup-2"
-              type="radio"
-              value="no"
-            />
-            <span
-              class="bp3-control-indicator"
-            />
-            No
-          </label>
-        </div>
-        <div
-          class="Text--withDocsTooltip"
-          data-tooltip-id="runTestsMavenSetupText2"
-        >
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-bottom-xsmall"
-          >
-            ci.runTestsMavenSetupText2
-          </p>
-        </div>
-        <div
-          class="StyledProps--font StyledProps--main CodeBlock--codeBlock StyledProps--padding-xsmall StyledProps--background-grey100 StyledProps--margin-none StyledProps--flex"
-        >
-          <pre>
-            ci.runTestsMavenSetupSample
-          </pre>
-          <button
-            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
-            type="button"
-          >
-            <span
-              class="bp3-icon bp3-icon-duplicate StyledProps--main"
-              icon="duplicate"
-            >
-              <svg
-                data-icon="duplicate"
-                height="12"
-                viewBox="0 0 16 16"
-                width="12"
-              >
-                <desc>
-                  duplicate
-                </desc>
-                <path
-                  d="M15 0H5c-.55 0-1 .45-1 1v2h2V2h8v7h-1v2h2c.55 0 1-.45 1-1V1c0-.55-.45-1-1-1zm-4 4H1c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h10c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1zm-1 10H2V6h8v8z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
-        </div>
-        <div
-          class="removeBpLabelMargin"
-        >
-          <div
-            class="Text--withDocsTooltip"
             data-tooltip-id="runTestsArgs"
           >
             <p
@@ -3208,7 +2837,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="spec.args-5"
+              data-id="spec.args-3"
               style="margin-bottom: 0px; flex-grow: 1;"
             >
               
@@ -3281,7 +2910,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="spec.packages-6"
+              data-id="spec.packages-4"
               style="margin-bottom: 0px; flex-grow: 1;"
             >
               
@@ -3337,7 +2966,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
         </div>
         <div
           class="bp3-form-group multiTypeCheckbox"
-          data-id="spec.runOnlySelectedTests-7"
+          data-id="spec.runOnlySelectedTests-5"
         >
           <div
             class="bp3-form-content"
@@ -3411,7 +3040,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="spec.testAnnotations-8"
+              data-id="spec.testAnnotations-6"
               style="margin-bottom: 0px; flex-grow: 1;"
             >
               
@@ -3467,7 +3096,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
         </div>
         <div
           class="bp3-form-group"
-          data-id="spec.preCommand-9"
+          data-id="spec.preCommand-7"
           style="flex-grow: 1; margin-bottom: 0px;"
         >
           <label
@@ -3570,7 +3199,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
         </div>
         <div
           class="bp3-form-group"
-          data-id="spec.postCommand-10"
+          data-id="spec.postCommand-8"
           style="flex-grow: 1; margin-bottom: 0px;"
         >
           <label
@@ -3676,7 +3305,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
         >
           <div
             class="bp3-form-group"
-            data-id="spec.reports.spec.paths[0].value-11"
+            data-id="spec.reports.spec.paths[0].value-9"
             style="flex-grow: 1; margin-bottom: 0px;"
           >
             <label
@@ -3842,7 +3471,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
         >
           <div
             class="bp3-form-group"
-            data-id="spec.envVariables[0].key-12"
+            data-id="spec.envVariables[0].key-10"
             style="flex-grow: 1; margin-bottom: 0px;"
           >
             <label
@@ -4042,7 +3671,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
         >
           <div
             class="bp3-form-group"
-            data-id="spec.outputVariables[0].value-13"
+            data-id="spec.outputVariables[0].value-11"
             style="flex-grow: 1; margin-bottom: 0px;"
           >
             <label
@@ -4229,7 +3858,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
             >
               <div
                 class="bp3-form-group"
-                data-id="spec.resources.limits.memory-14"
+                data-id="spec.resources.limits.memory-12"
                 style="margin-bottom: 0px; flex-grow: 1;"
               >
                 
@@ -4298,7 +3927,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
             >
               <div
                 class="bp3-form-group"
-                data-id="spec.resources.limits.cpu-15"
+                data-id="spec.resources.limits.cpu-13"
                 style="margin-bottom: 0px; flex-grow: 1;"
               >
                 
@@ -4356,7 +3985,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
         </div>
         <div
           class="bp3-form-group removeBpLabelMargin"
-          data-id="timeout-16"
+          data-id="timeout-14"
         >
           <label
             class="bp3-label"
@@ -4469,90 +4098,7 @@ exports[`RunTests Step InputSet View should render properly 1`] = `
       class="FormikForm--main removeBpPopoverWrapperTopMargin"
       style="width: 50%;"
     >
-      <div>
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small StyledProps--color StyledProps--color-grey800"
-        >
-          ci.runTestsMavenSetupTitle
-        </p>
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
-        >
-          ci.runTestsMavenSetupText1
-        </p>
-        <div
-          class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main StyledProps--margin-bottom-small"
-        >
-          <label
-            class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-          >
-            <input
-              checked=""
-              name="Blueprint3.RadioGroup-1"
-              type="radio"
-              value="yes"
-            />
-            <span
-              class="bp3-control-indicator"
-            />
-            Yes
-          </label>
-          <label
-            class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-          >
-            <input
-              name="Blueprint3.RadioGroup-1"
-              type="radio"
-              value="no"
-            />
-            <span
-              class="bp3-control-indicator"
-            />
-            No
-          </label>
-        </div>
-        <div
-          class="Text--withDocsTooltip"
-          data-tooltip-id="runTestsMavenSetupText2"
-        >
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-bottom-xsmall"
-          >
-            ci.runTestsMavenSetupText2
-          </p>
-        </div>
-        <div
-          class="StyledProps--font StyledProps--main CodeBlock--codeBlock StyledProps--padding-xsmall StyledProps--background-grey100 StyledProps--margin-none StyledProps--flex"
-        >
-          <pre>
-            ci.runTestsMavenSetupSample
-          </pre>
-          <button
-            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
-            type="button"
-          >
-            <span
-              class="bp3-icon bp3-icon-duplicate StyledProps--main"
-              icon="duplicate"
-            >
-              <svg
-                data-icon="duplicate"
-                height="12"
-                viewBox="0 0 16 16"
-                width="12"
-              >
-                <desc>
-                  duplicate
-                </desc>
-                <path
-                  d="M15 0H5c-.55 0-1 .45-1 1v2h2V2h8v7h-1v2h2c.55 0 1-.45 1-1V1c0-.55-.45-1-1-1zm-4 4H1c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h10c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1zm-1 10H2V6h8v8z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
-        </div>
-      </div>
+      <div />
     </form>
     <p
       class="StyledProps--font StyledProps--main"

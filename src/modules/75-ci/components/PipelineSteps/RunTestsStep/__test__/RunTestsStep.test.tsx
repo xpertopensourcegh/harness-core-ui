@@ -68,8 +68,8 @@ describe('RunTests Step', () => {
         spec: {
           connectorRef: RUNTIME_INPUT_VALUE,
           image: RUNTIME_INPUT_VALUE,
-          language: RUNTIME_INPUT_VALUE,
-          buildTool: RUNTIME_INPUT_VALUE,
+          language: 'Java',
+          buildTool: 'Bazel',
           args: RUNTIME_INPUT_VALUE,
           packages: RUNTIME_INPUT_VALUE,
           runOnlySelectedTests: RUNTIME_INPUT_VALUE,
@@ -192,8 +192,6 @@ describe('RunTests Step', () => {
         spec: {
           connectorRef: RUNTIME_INPUT_VALUE,
           image: RUNTIME_INPUT_VALUE,
-          language: RUNTIME_INPUT_VALUE,
-          buildTool: RUNTIME_INPUT_VALUE,
           args: RUNTIME_INPUT_VALUE,
           packages: RUNTIME_INPUT_VALUE,
           runOnlySelectedTests: RUNTIME_INPUT_VALUE,
@@ -228,8 +226,6 @@ describe('RunTests Step', () => {
         spec: {
           connectorRef: RUNTIME_INPUT_VALUE,
           image: RUNTIME_INPUT_VALUE,
-          language: RUNTIME_INPUT_VALUE,
-          buildTool: RUNTIME_INPUT_VALUE,
           args: RUNTIME_INPUT_VALUE,
           packages: RUNTIME_INPUT_VALUE,
           runOnlySelectedTests: RUNTIME_INPUT_VALUE,

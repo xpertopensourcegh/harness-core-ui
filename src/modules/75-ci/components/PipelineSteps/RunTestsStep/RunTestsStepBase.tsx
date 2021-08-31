@@ -170,7 +170,10 @@ export const RunTestsStepBase = (
               }
               multiTypeInputProps={{
                 selectItems: languageOptions,
-                multiTypeInputProps: { expressions },
+                multiTypeInputProps: {
+                  allowableTypes: [MultiTypeInputType.FIXED],
+                  expressions
+                },
                 disabled: readonly
               }}
               disabled={readonly}
@@ -184,7 +187,10 @@ export const RunTestsStepBase = (
               }
               multiTypeInputProps={{
                 selectItems: buildToolOptions,
-                multiTypeInputProps: { expressions },
+                multiTypeInputProps: {
+                  allowableTypes: [MultiTypeInputType.FIXED],
+                  expressions
+                },
                 disabled: readonly
               }}
               disabled={readonly}
