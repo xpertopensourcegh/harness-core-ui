@@ -42,7 +42,7 @@ exports[`<CDPipelineDeploymentList /> tests snapshot test 1`] = `
           pipeline.myDeploymentsText
         </label>
         <div
-          class="bp3-popover-wrapper DropDown--main "
+          class="bp3-popover-wrapper DropDown--main"
         >
           <div
             class="bp3-popover-target"
@@ -51,7 +51,7 @@ exports[`<CDPipelineDeploymentList /> tests snapshot test 1`] = `
               class=""
             >
               <div
-                class="Layout--horizontal StyledProps--main DropDown--dropdownButton StyledProps--flex"
+                class="Layout--horizontal StyledProps--main DropDown--dropdownButton DropDown--withBorder DropDown--minWidth StyledProps--flex"
                 data-testid="status-select"
                 style="min-width: 130px;"
               >
@@ -59,8 +59,9 @@ exports[`<CDPipelineDeploymentList /> tests snapshot test 1`] = `
                   class="Layout--horizontal StyledProps--main DropDown--labelWrapper StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main DropDown--label"
+                    class="StyledProps--font Text--lineclamp StyledProps--main DropDown--label"
                     data-testid="dropdown-value"
+                    style="--text-line-clamp: 1;"
                   >
                     status
                   </p>
@@ -136,7 +137,7 @@ exports[`<CDPipelineDeploymentList /> tests snapshot test 1`] = `
               class=""
             >
               <div
-                class="Layout--horizontal StyledProps--main DropDown--dropdownButton StyledProps--flex"
+                class="Layout--horizontal StyledProps--main DropDown--dropdownButton DropDown--withBorder DropDown--minWidth StyledProps--flex"
                 data-testid="filter-select"
                 style="min-width: 220px;"
               >
@@ -144,8 +145,9 @@ exports[`<CDPipelineDeploymentList /> tests snapshot test 1`] = `
                   class="Layout--horizontal StyledProps--main DropDown--labelWrapper StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main DropDown--label"
+                    class="StyledProps--font Text--lineclamp StyledProps--main DropDown--label"
                     data-testid="dropdown-value"
+                    style="--text-line-clamp: 1;"
                   >
                     common.filters.noFilterSaved
                   </p>

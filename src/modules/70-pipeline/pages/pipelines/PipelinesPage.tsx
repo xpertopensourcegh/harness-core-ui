@@ -6,13 +6,13 @@ import {
   Icon,
   Layout,
   OverlaySpinner,
-  Select,
   SelectOption,
   Text,
   useModalHook,
   GridListToggle,
   Views,
-  ButtonVariation
+  ButtonVariation,
+  DropDown
 } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'
@@ -598,10 +598,13 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
             <Text color={Color.GREY_800} iconProps={{ size: 14 }}>
               {getString('total')}: {pipelineList?.totalElements}
             </Text>
-            <Select
+            <DropDown
               items={sortOptions}
-              value={selectedSort}
-              className={css.sortSelector}
+              value={selectedSort.value.toString()}
+              filterable={false}
+              width={180}
+              icon={'main-sort'}
+              iconProps={{ size: 16, color: Color.GREY_400 }}
               onChange={item => {
                 if (item.value === SortFields.AZ09) {
                   setStort([SortFields.Name, Sort.ASC])

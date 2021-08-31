@@ -764,7 +764,6 @@ exports[`JFrogArtifactory Step Edit View renders runtime inputs 1`] = `
                         disabled=""
                         name="spec.connectorRef"
                         placeholder="<+input>"
-                        style="width: 487px;"
                         type="text"
                         value="<+input>"
                       />

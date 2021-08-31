@@ -1602,7 +1602,6 @@ exports[`Dependency Edit view renders runtime inputs 1`] = `
                           disabled=""
                           name="spec.connectorRef"
                           placeholder="<+input>"
-                          style="width: 487px;"
                           type="text"
                           value="<+input>"
                         />
