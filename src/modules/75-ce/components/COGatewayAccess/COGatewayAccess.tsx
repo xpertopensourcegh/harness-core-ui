@@ -140,18 +140,36 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
     setSelectedHelpText(helpTextBase)
   }, [selectedTabId])
 
-  const handleYamlSave = (_data: Record<any, any>) => {
+  useEffect(() => {
+    if (yamlData && Utils.getHyphenSpacedString(props.gatewayDetails.name) !== yamlData?.metadata?.name) {
+      handleYamlSave(yamlData, 'gateway', true)
+    }
+  }, [props.gatewayDetails.name])
+
+  /**
+   * function to update yaml & gatewayDetails with correct information
+   * @param _data yaml Data Object
+   * @param nameToUpdateWith name to pick for updation
+   * @param disableSuccessMsg enable/disable success message (optional)
+   */
+  const handleYamlSave = (
+    _data: Record<any, any>,
+    nameToUpdateWith: 'yaml' | 'gateway' = 'yaml',
+    disableSuccessMsg?: boolean
+  ) => {
     const yamlRuleName = _data?.metadata?.name
     const updatedName = yamlRuleName && Utils.getHyphenSpacedString(props.gatewayDetails.name)
+    const nameToReplace = nameToUpdateWith === 'yaml' ? yamlRuleName : updatedName
     const yamlToSave =
       yamlRuleName !== updatedName
         ? {
             ..._data,
             metadata: {
               ..._data.metadata,
+              name: nameToReplace,
               annotations: {
                 ..._data.metadata.annotations,
-                'nginx.ingress.kubernetes.io/configuration-snippet': `more_set_input_headers "AutoStoppingRule: ${yamlRuleName}";`
+                'nginx.ingress.kubernetes.io/configuration-snippet': `more_set_input_headers "AutoStoppingRule: ${nameToReplace}";`
               }
             }
           }
@@ -159,7 +177,7 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
     setYamlData(yamlToSave)
     const updatedGatewayDetails: GatewayDetails = {
       ...props.gatewayDetails,
-      ...(yamlRuleName !== updatedName && { name: Utils.hyphenatedToSpacedString(yamlRuleName) }),
+      ...(yamlRuleName !== updatedName && { name: Utils.hyphenatedToSpacedString(nameToReplace) }),
       routing: {
         ...props.gatewayDetails.routing,
         k8s: {
@@ -169,7 +187,7 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
       }
     }
     props.setGatewayDetails(updatedGatewayDetails)
-    showSuccess(getString('ce.savedYamlSuccess'))
+    !disableSuccessMsg && showSuccess(getString('ce.savedYamlSuccess'))
   }
 
   const tooltipId = isAwsProvider ? 'awsSetupAccess' : 'azureSetupAccess'

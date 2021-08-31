@@ -99,7 +99,7 @@ const managedResources = [
   {
     label: 'Kubernetes Cluster',
     value: RESOURCES.KUBERNETES,
-    providers: ['aws'],
+    providers: ['aws', 'azure'],
     ffDependencies: ['CE_AS_KUBERNETES_ENABLED']
   }
 ]
