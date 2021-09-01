@@ -1141,7 +1141,7 @@ variables:
   copyFqn: copy fully qualified name
 customVariables:
   pipelineVariablesTitle: Pipeline Variables
-  pipelineVariablesDescription: Every aspect of the pipeline configuration is represented in pipeline variables and its corresponding values. These variables can be referenced within stages and step. Custom variables may be added whose values are prompted for during the execution of this pipeline
+  pipelineVariablesDescription: All Pipeline settings and values can be referenced as variable expressions within stages and steps. You can add custom runtime variables also. Click a variable below to see its expression. [Learn More](https://ngdocs.harness.io/article/lml71vhsim)
   title: Custom Variables
   variableAndType: '{{name}} [Type: {{type}}]'
 
