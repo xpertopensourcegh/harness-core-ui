@@ -1,11 +1,12 @@
 import React from 'react'
-import { Button, Utils } from '@wings-software/uicore'
+import { Button, Utils, IconName } from '@wings-software/uicore'
 import cx from 'classnames'
 import { String } from 'framework/strings'
 import css from './CopyText.module.scss'
 
 export interface CopyTextProps {
   children: React.ReactNode
+  iconName?: IconName
   className?: string
   textToCopy: string
 }
@@ -26,7 +27,7 @@ export function CopyText(props: CopyTextProps): React.ReactElement {
     <div className={css.main}>
       <div className={cx(css.text, props.className)}>{props.children}</div>
       <Button
-        icon="copy-alt"
+        icon={props.iconName || 'copy-alt'}
         minimal
         intent="primary"
         small

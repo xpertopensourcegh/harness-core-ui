@@ -35647,23 +35647,76 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         </svg>
                       </span>
                     </button>
-                    <span
-                      class="bp3-popover-wrapper"
+                    <div
+                      class="Layout--horizontal StyledProps--main"
                     >
-                      <span
-                        class="bp3-popover-target"
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                        style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                          style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
-                          tabindex="0"
+                        <div
+                          class="main"
                         >
-                          pipeline.testsReports.testSuite
-                           
-                          software.wings.graphql.datafetcher.billing.BillingTimeSeriesDataFetcherTest
-                        </p>
-                      </span>
-                    </span>
+                          <div
+                            class="text"
+                          >
+                            <span
+                              class="bp3-popover-wrapper"
+                            >
+                              <span
+                                class="bp3-popover-target"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                  tabindex="0"
+                                >
+                                  <span
+                                    class="testSuiteName"
+                                  >
+                                    pipeline.testsReports.testSuite
+                                     
+                                    software.wings.graphql.datafetcher.billing.BillingTimeSeriesDataFetcherTest
+                                  </span>
+                                </p>
+                              </span>
+                            </span>
+                          </div>
+                          <div
+                            class="bp3-popover-wrapper btnWrapper"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <button
+                                class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <span
+                                  class="bp3-icon StyledProps--main"
+                                  data-icon="clipboard-alt"
+                                >
+                                  <svg
+                                    fill="none"
+                                    height="16"
+                                    viewBox="0 0 10 12"
+                                    width="16"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M3.833.751a.292.292 0 00-.291.292v.875c0 .161.13.292.291.292h2.625c.161 0 .292-.13.292-.292v-.875a.292.292 0 00-.292-.292H3.833zm-.875.292c0-.483.392-.875.875-.875h2.625c.484 0 .875.392.875.875v.292H8.5c.483 0 .875.391.875.875v8.166a.875.875 0 01-.875.875h-7a.875.875 0 01-.875-.875V2.21c0-.484.392-.875.875-.875h1.458v-.292zm0 .875H1.5a.292.292 0 00-.292.292v8.166c0 .161.13.292.292.292h7c.161 0 .292-.13.292-.292V2.21a.292.292 0 00-.292-.292H7.333a.875.875 0 01-.875.875H3.833a.875.875 0 01-.875-.875z"
+                                      fill="currentColor"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
+                              </button>
+                            </span>
+                          </div>
+                        </div>
+                      </p>
+                    </div>
                   </p>
                   <div
                     class="StyledProps--font StyledProps--main StyledProps--flex"
@@ -37955,23 +38008,76 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         </svg>
                       </span>
                     </button>
-                    <span
-                      class="bp3-popover-wrapper"
+                    <div
+                      class="Layout--horizontal StyledProps--main"
                     >
-                      <span
-                        class="bp3-popover-target"
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                        style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                          style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
-                          tabindex="0"
+                        <div
+                          class="main"
                         >
-                          pipeline.testsReports.testSuite
-                           
-                          software.wings.graphql.datafetcher.execution.PipelineExecutionControllerTest
-                        </p>
-                      </span>
-                    </span>
+                          <div
+                            class="text"
+                          >
+                            <span
+                              class="bp3-popover-wrapper"
+                            >
+                              <span
+                                class="bp3-popover-target"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                  tabindex="0"
+                                >
+                                  <span
+                                    class="testSuiteName"
+                                  >
+                                    pipeline.testsReports.testSuite
+                                     
+                                    software.wings.graphql.datafetcher.execution.PipelineExecutionControllerTest
+                                  </span>
+                                </p>
+                              </span>
+                            </span>
+                          </div>
+                          <div
+                            class="bp3-popover-wrapper btnWrapper"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <button
+                                class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <span
+                                  class="bp3-icon StyledProps--main"
+                                  data-icon="clipboard-alt"
+                                >
+                                  <svg
+                                    fill="none"
+                                    height="16"
+                                    viewBox="0 0 10 12"
+                                    width="16"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M3.833.751a.292.292 0 00-.291.292v.875c0 .161.13.292.291.292h2.625c.161 0 .292-.13.292-.292v-.875a.292.292 0 00-.292-.292H3.833zm-.875.292c0-.483.392-.875.875-.875h2.625c.484 0 .875.392.875.875v.292H8.5c.483 0 .875.391.875.875v8.166a.875.875 0 01-.875.875h-7a.875.875 0 01-.875-.875V2.21c0-.484.392-.875.875-.875h1.458v-.292zm0 .875H1.5a.292.292 0 00-.292.292v8.166c0 .161.13.292.292.292h7c.161 0 .292-.13.292-.292V2.21a.292.292 0 00-.292-.292H7.333a.875.875 0 01-.875.875H3.833a.875.875 0 01-.875-.875z"
+                                      fill="currentColor"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
+                              </button>
+                            </span>
+                          </div>
+                        </div>
+                      </p>
+                    </div>
                   </p>
                   <div
                     class="StyledProps--font StyledProps--main StyledProps--flex"
@@ -38088,23 +38194,76 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         </svg>
                       </span>
                     </button>
-                    <span
-                      class="bp3-popover-wrapper"
+                    <div
+                      class="Layout--horizontal StyledProps--main"
                     >
-                      <span
-                        class="bp3-popover-target"
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                        style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                          style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
-                          tabindex="0"
+                        <div
+                          class="main"
                         >
-                          pipeline.testsReports.testSuite
-                           
-                          io.harness.PipelineTest
-                        </p>
-                      </span>
-                    </span>
+                          <div
+                            class="text"
+                          >
+                            <span
+                              class="bp3-popover-wrapper"
+                            >
+                              <span
+                                class="bp3-popover-target"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                  tabindex="0"
+                                >
+                                  <span
+                                    class="testSuiteName"
+                                  >
+                                    pipeline.testsReports.testSuite
+                                     
+                                    io.harness.PipelineTest
+                                  </span>
+                                </p>
+                              </span>
+                            </span>
+                          </div>
+                          <div
+                            class="bp3-popover-wrapper btnWrapper"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <button
+                                class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <span
+                                  class="bp3-icon StyledProps--main"
+                                  data-icon="clipboard-alt"
+                                >
+                                  <svg
+                                    fill="none"
+                                    height="16"
+                                    viewBox="0 0 10 12"
+                                    width="16"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M3.833.751a.292.292 0 00-.291.292v.875c0 .161.13.292.291.292h2.625c.161 0 .292-.13.292-.292v-.875a.292.292 0 00-.292-.292H3.833zm-.875.292c0-.483.392-.875.875-.875h2.625c.484 0 .875.392.875.875v.292H8.5c.483 0 .875.391.875.875v8.166a.875.875 0 01-.875.875h-7a.875.875 0 01-.875-.875V2.21c0-.484.392-.875.875-.875h1.458v-.292zm0 .875H1.5a.292.292 0 00-.292.292v8.166c0 .161.13.292.292.292h7c.161 0 .292-.13.292-.292V2.21a.292.292 0 00-.292-.292H7.333a.875.875 0 01-.875.875H3.833a.875.875 0 01-.875-.875z"
+                                      fill="currentColor"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
+                              </button>
+                            </span>
+                          </div>
+                        </div>
+                      </p>
+                    </div>
                   </p>
                   <div
                     class="StyledProps--font StyledProps--main StyledProps--flex"
@@ -38221,23 +38380,76 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         </svg>
                       </span>
                     </button>
-                    <span
-                      class="bp3-popover-wrapper"
+                    <div
+                      class="Layout--horizontal StyledProps--main"
                     >
-                      <span
-                        class="bp3-popover-target"
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                        style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                          style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
-                          tabindex="0"
+                        <div
+                          class="main"
                         >
-                          pipeline.testsReports.testSuite
-                           
-                          io.harness.SSOProviderTest
-                        </p>
-                      </span>
-                    </span>
+                          <div
+                            class="text"
+                          >
+                            <span
+                              class="bp3-popover-wrapper"
+                            >
+                              <span
+                                class="bp3-popover-target"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                  tabindex="0"
+                                >
+                                  <span
+                                    class="testSuiteName"
+                                  >
+                                    pipeline.testsReports.testSuite
+                                     
+                                    io.harness.SSOProviderTest
+                                  </span>
+                                </p>
+                              </span>
+                            </span>
+                          </div>
+                          <div
+                            class="bp3-popover-wrapper btnWrapper"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <button
+                                class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <span
+                                  class="bp3-icon StyledProps--main"
+                                  data-icon="clipboard-alt"
+                                >
+                                  <svg
+                                    fill="none"
+                                    height="16"
+                                    viewBox="0 0 10 12"
+                                    width="16"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M3.833.751a.292.292 0 00-.291.292v.875c0 .161.13.292.291.292h2.625c.161 0 .292-.13.292-.292v-.875a.292.292 0 00-.292-.292H3.833zm-.875.292c0-.483.392-.875.875-.875h2.625c.484 0 .875.392.875.875v.292H8.5c.483 0 .875.391.875.875v8.166a.875.875 0 01-.875.875h-7a.875.875 0 01-.875-.875V2.21c0-.484.392-.875.875-.875h1.458v-.292zm0 .875H1.5a.292.292 0 00-.292.292v8.166c0 .161.13.292.292.292h7c.161 0 .292-.13.292-.292V2.21a.292.292 0 00-.292-.292H7.333a.875.875 0 01-.875.875H3.833a.875.875 0 01-.875-.875z"
+                                      fill="currentColor"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
+                              </button>
+                            </span>
+                          </div>
+                        </div>
+                      </p>
+                    </div>
                   </p>
                   <div
                     class="StyledProps--font StyledProps--main StyledProps--flex"
@@ -38354,23 +38566,76 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         </svg>
                       </span>
                     </button>
-                    <span
-                      class="bp3-popover-wrapper"
+                    <div
+                      class="Layout--horizontal StyledProps--main"
                     >
-                      <span
-                        class="bp3-popover-target"
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                        style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                          style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
-                          tabindex="0"
+                        <div
+                          class="main"
                         >
-                          pipeline.testsReports.testSuite
-                           
-                          io.harness.ngpipeline.inputset.services.impl.InputSetEntityServiceImplTest
-                        </p>
-                      </span>
-                    </span>
+                          <div
+                            class="text"
+                          >
+                            <span
+                              class="bp3-popover-wrapper"
+                            >
+                              <span
+                                class="bp3-popover-target"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                  tabindex="0"
+                                >
+                                  <span
+                                    class="testSuiteName"
+                                  >
+                                    pipeline.testsReports.testSuite
+                                     
+                                    io.harness.ngpipeline.inputset.services.impl.InputSetEntityServiceImplTest
+                                  </span>
+                                </p>
+                              </span>
+                            </span>
+                          </div>
+                          <div
+                            class="bp3-popover-wrapper btnWrapper"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <button
+                                class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <span
+                                  class="bp3-icon StyledProps--main"
+                                  data-icon="clipboard-alt"
+                                >
+                                  <svg
+                                    fill="none"
+                                    height="16"
+                                    viewBox="0 0 10 12"
+                                    width="16"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M3.833.751a.292.292 0 00-.291.292v.875c0 .161.13.292.291.292h2.625c.161 0 .292-.13.292-.292v-.875a.292.292 0 00-.292-.292H3.833zm-.875.292c0-.483.392-.875.875-.875h2.625c.484 0 .875.392.875.875v.292H8.5c.483 0 .875.391.875.875v8.166a.875.875 0 01-.875.875h-7a.875.875 0 01-.875-.875V2.21c0-.484.392-.875.875-.875h1.458v-.292zm0 .875H1.5a.292.292 0 00-.292.292v8.166c0 .161.13.292.292.292h7c.161 0 .292-.13.292-.292V2.21a.292.292 0 00-.292-.292H7.333a.875.875 0 01-.875.875H3.833a.875.875 0 01-.875-.875z"
+                                      fill="currentColor"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
+                              </button>
+                            </span>
+                          </div>
+                        </div>
+                      </p>
+                    </div>
                   </p>
                   <div
                     class="StyledProps--font StyledProps--main StyledProps--flex"
@@ -38487,23 +38752,76 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         </svg>
                       </span>
                     </button>
-                    <span
-                      class="bp3-popover-wrapper"
+                    <div
+                      class="Layout--horizontal StyledProps--main"
                     >
-                      <span
-                        class="bp3-popover-target"
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                        style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                          style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
-                          tabindex="0"
+                        <div
+                          class="main"
                         >
-                          pipeline.testsReports.testSuite
-                           
-                          io.harness.ConnectionTest
-                        </p>
-                      </span>
-                    </span>
+                          <div
+                            class="text"
+                          >
+                            <span
+                              class="bp3-popover-wrapper"
+                            >
+                              <span
+                                class="bp3-popover-target"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                  tabindex="0"
+                                >
+                                  <span
+                                    class="testSuiteName"
+                                  >
+                                    pipeline.testsReports.testSuite
+                                     
+                                    io.harness.ConnectionTest
+                                  </span>
+                                </p>
+                              </span>
+                            </span>
+                          </div>
+                          <div
+                            class="bp3-popover-wrapper btnWrapper"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <button
+                                class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <span
+                                  class="bp3-icon StyledProps--main"
+                                  data-icon="clipboard-alt"
+                                >
+                                  <svg
+                                    fill="none"
+                                    height="16"
+                                    viewBox="0 0 10 12"
+                                    width="16"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M3.833.751a.292.292 0 00-.291.292v.875c0 .161.13.292.291.292h2.625c.161 0 .292-.13.292-.292v-.875a.292.292 0 00-.292-.292H3.833zm-.875.292c0-.483.392-.875.875-.875h2.625c.484 0 .875.392.875.875v.292H8.5c.483 0 .875.391.875.875v8.166a.875.875 0 01-.875.875h-7a.875.875 0 01-.875-.875V2.21c0-.484.392-.875.875-.875h1.458v-.292zm0 .875H1.5a.292.292 0 00-.292.292v8.166c0 .161.13.292.292.292h7c.161 0 .292-.13.292-.292V2.21a.292.292 0 00-.292-.292H7.333a.875.875 0 01-.875.875H3.833a.875.875 0 01-.875-.875z"
+                                      fill="currentColor"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
+                              </button>
+                            </span>
+                          </div>
+                        </div>
+                      </p>
+                    </div>
                   </p>
                   <div
                     class="StyledProps--font StyledProps--main StyledProps--flex"
@@ -38620,23 +38938,76 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         </svg>
                       </span>
                     </button>
-                    <span
-                      class="bp3-popover-wrapper"
+                    <div
+                      class="Layout--horizontal StyledProps--main"
                     >
-                      <span
-                        class="bp3-popover-target"
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                        style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                          style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
-                          tabindex="0"
+                        <div
+                          class="main"
                         >
-                          pipeline.testsReports.testSuite
-                           
-                          io.harness.ConnectorTest
-                        </p>
-                      </span>
-                    </span>
+                          <div
+                            class="text"
+                          >
+                            <span
+                              class="bp3-popover-wrapper"
+                            >
+                              <span
+                                class="bp3-popover-target"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                  tabindex="0"
+                                >
+                                  <span
+                                    class="testSuiteName"
+                                  >
+                                    pipeline.testsReports.testSuite
+                                     
+                                    io.harness.ConnectorTest
+                                  </span>
+                                </p>
+                              </span>
+                            </span>
+                          </div>
+                          <div
+                            class="bp3-popover-wrapper btnWrapper"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <button
+                                class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <span
+                                  class="bp3-icon StyledProps--main"
+                                  data-icon="clipboard-alt"
+                                >
+                                  <svg
+                                    fill="none"
+                                    height="16"
+                                    viewBox="0 0 10 12"
+                                    width="16"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M3.833.751a.292.292 0 00-.291.292v.875c0 .161.13.292.291.292h2.625c.161 0 .292-.13.292-.292v-.875a.292.292 0 00-.292-.292H3.833zm-.875.292c0-.483.392-.875.875-.875h2.625c.484 0 .875.392.875.875v.292H8.5c.483 0 .875.391.875.875v8.166a.875.875 0 01-.875.875h-7a.875.875 0 01-.875-.875V2.21c0-.484.392-.875.875-.875h1.458v-.292zm0 .875H1.5a.292.292 0 00-.292.292v8.166c0 .161.13.292.292.292h7c.161 0 .292-.13.292-.292V2.21a.292.292 0 00-.292-.292H7.333a.875.875 0 01-.875.875H3.833a.875.875 0 01-.875-.875z"
+                                      fill="currentColor"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
+                              </button>
+                            </span>
+                          </div>
+                        </div>
+                      </p>
+                    </div>
                   </p>
                   <div
                     class="StyledProps--font StyledProps--main StyledProps--flex"
@@ -38753,23 +39124,76 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         </svg>
                       </span>
                     </button>
-                    <span
-                      class="bp3-popover-wrapper"
+                    <div
+                      class="Layout--horizontal StyledProps--main"
                     >
-                      <span
-                        class="bp3-popover-target"
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                        style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                          style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
-                          tabindex="0"
+                        <div
+                          class="main"
                         >
-                          pipeline.testsReports.testSuite
-                           
-                          software.wings.service.impl.analysis.MetricDataAnalysisServiceImplTest
-                        </p>
-                      </span>
-                    </span>
+                          <div
+                            class="text"
+                          >
+                            <span
+                              class="bp3-popover-wrapper"
+                            >
+                              <span
+                                class="bp3-popover-target"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                  tabindex="0"
+                                >
+                                  <span
+                                    class="testSuiteName"
+                                  >
+                                    pipeline.testsReports.testSuite
+                                     
+                                    software.wings.service.impl.analysis.MetricDataAnalysisServiceImplTest
+                                  </span>
+                                </p>
+                              </span>
+                            </span>
+                          </div>
+                          <div
+                            class="bp3-popover-wrapper btnWrapper"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <button
+                                class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <span
+                                  class="bp3-icon StyledProps--main"
+                                  data-icon="clipboard-alt"
+                                >
+                                  <svg
+                                    fill="none"
+                                    height="16"
+                                    viewBox="0 0 10 12"
+                                    width="16"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M3.833.751a.292.292 0 00-.291.292v.875c0 .161.13.292.291.292h2.625c.161 0 .292-.13.292-.292v-.875a.292.292 0 00-.292-.292H3.833zm-.875.292c0-.483.392-.875.875-.875h2.625c.484 0 .875.392.875.875v.292H8.5c.483 0 .875.391.875.875v8.166a.875.875 0 01-.875.875h-7a.875.875 0 01-.875-.875V2.21c0-.484.392-.875.875-.875h1.458v-.292zm0 .875H1.5a.292.292 0 00-.292.292v8.166c0 .161.13.292.292.292h7c.161 0 .292-.13.292-.292V2.21a.292.292 0 00-.292-.292H7.333a.875.875 0 01-.875.875H3.833a.875.875 0 01-.875-.875z"
+                                      fill="currentColor"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
+                              </button>
+                            </span>
+                          </div>
+                        </div>
+                      </p>
+                    </div>
                   </p>
                   <div
                     class="StyledProps--font StyledProps--main StyledProps--flex"
@@ -38886,23 +39310,76 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         </svg>
                       </span>
                     </button>
-                    <span
-                      class="bp3-popover-wrapper"
+                    <div
+                      class="Layout--horizontal StyledProps--main"
                     >
-                      <span
-                        class="bp3-popover-target"
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                        style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                          style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
-                          tabindex="0"
+                        <div
+                          class="main"
                         >
-                          pipeline.testsReports.testSuite
-                           
-                          io.harness.VerificationComponentTest
-                        </p>
-                      </span>
-                    </span>
+                          <div
+                            class="text"
+                          >
+                            <span
+                              class="bp3-popover-wrapper"
+                            >
+                              <span
+                                class="bp3-popover-target"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                  tabindex="0"
+                                >
+                                  <span
+                                    class="testSuiteName"
+                                  >
+                                    pipeline.testsReports.testSuite
+                                     
+                                    io.harness.VerificationComponentTest
+                                  </span>
+                                </p>
+                              </span>
+                            </span>
+                          </div>
+                          <div
+                            class="bp3-popover-wrapper btnWrapper"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <button
+                                class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <span
+                                  class="bp3-icon StyledProps--main"
+                                  data-icon="clipboard-alt"
+                                >
+                                  <svg
+                                    fill="none"
+                                    height="16"
+                                    viewBox="0 0 10 12"
+                                    width="16"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M3.833.751a.292.292 0 00-.291.292v.875c0 .161.13.292.291.292h2.625c.161 0 .292-.13.292-.292v-.875a.292.292 0 00-.292-.292H3.833zm-.875.292c0-.483.392-.875.875-.875h2.625c.484 0 .875.392.875.875v.292H8.5c.483 0 .875.391.875.875v8.166a.875.875 0 01-.875.875h-7a.875.875 0 01-.875-.875V2.21c0-.484.392-.875.875-.875h1.458v-.292zm0 .875H1.5a.292.292 0 00-.292.292v8.166c0 .161.13.292.292.292h7c.161 0 .292-.13.292-.292V2.21a.292.292 0 00-.292-.292H7.333a.875.875 0 01-.875.875H3.833a.875.875 0 01-.875-.875z"
+                                      fill="currentColor"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
+                              </button>
+                            </span>
+                          </div>
+                        </div>
+                      </p>
+                    </div>
                   </p>
                   <div
                     class="StyledProps--font StyledProps--main StyledProps--flex"
@@ -39019,23 +39496,76 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         </svg>
                       </span>
                     </button>
-                    <span
-                      class="bp3-popover-wrapper"
+                    <div
+                      class="Layout--horizontal StyledProps--main"
                     >
-                      <span
-                        class="bp3-popover-target"
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                        style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                          style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
-                          tabindex="0"
+                        <div
+                          class="main"
                         >
-                          pipeline.testsReports.testSuite
-                           
-                          software.wings.graphql.datafetcher.budget.BudgetTrendStatsDataFetcherTest
-                        </p>
-                      </span>
-                    </span>
+                          <div
+                            class="text"
+                          >
+                            <span
+                              class="bp3-popover-wrapper"
+                            >
+                              <span
+                                class="bp3-popover-target"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                  tabindex="0"
+                                >
+                                  <span
+                                    class="testSuiteName"
+                                  >
+                                    pipeline.testsReports.testSuite
+                                     
+                                    software.wings.graphql.datafetcher.budget.BudgetTrendStatsDataFetcherTest
+                                  </span>
+                                </p>
+                              </span>
+                            </span>
+                          </div>
+                          <div
+                            class="bp3-popover-wrapper btnWrapper"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <button
+                                class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <span
+                                  class="bp3-icon StyledProps--main"
+                                  data-icon="clipboard-alt"
+                                >
+                                  <svg
+                                    fill="none"
+                                    height="16"
+                                    viewBox="0 0 10 12"
+                                    width="16"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M3.833.751a.292.292 0 00-.291.292v.875c0 .161.13.292.291.292h2.625c.161 0 .292-.13.292-.292v-.875a.292.292 0 00-.292-.292H3.833zm-.875.292c0-.483.392-.875.875-.875h2.625c.484 0 .875.392.875.875v.292H8.5c.483 0 .875.391.875.875v8.166a.875.875 0 01-.875.875h-7a.875.875 0 01-.875-.875V2.21c0-.484.392-.875.875-.875h1.458v-.292zm0 .875H1.5a.292.292 0 00-.292.292v8.166c0 .161.13.292.292.292h7c.161 0 .292-.13.292-.292V2.21a.292.292 0 00-.292-.292H7.333a.875.875 0 01-.875.875H3.833a.875.875 0 01-.875-.875z"
+                                      fill="currentColor"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
+                              </button>
+                            </span>
+                          </div>
+                        </div>
+                      </p>
+                    </div>
                   </p>
                   <div
                     class="StyledProps--font StyledProps--main StyledProps--flex"
@@ -39152,23 +39682,76 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         </svg>
                       </span>
                     </button>
-                    <span
-                      class="bp3-popover-wrapper"
+                    <div
+                      class="Layout--horizontal StyledProps--main"
                     >
-                      <span
-                        class="bp3-popover-target"
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                        style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                          style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
-                          tabindex="0"
+                        <div
+                          class="main"
                         >
-                          pipeline.testsReports.testSuite
-                           
-                          io.harness.managerclient.VerificationManagerClientHelperTest
-                        </p>
-                      </span>
-                    </span>
+                          <div
+                            class="text"
+                          >
+                            <span
+                              class="bp3-popover-wrapper"
+                            >
+                              <span
+                                class="bp3-popover-target"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                  tabindex="0"
+                                >
+                                  <span
+                                    class="testSuiteName"
+                                  >
+                                    pipeline.testsReports.testSuite
+                                     
+                                    io.harness.managerclient.VerificationManagerClientHelperTest
+                                  </span>
+                                </p>
+                              </span>
+                            </span>
+                          </div>
+                          <div
+                            class="bp3-popover-wrapper btnWrapper"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <button
+                                class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <span
+                                  class="bp3-icon StyledProps--main"
+                                  data-icon="clipboard-alt"
+                                >
+                                  <svg
+                                    fill="none"
+                                    height="16"
+                                    viewBox="0 0 10 12"
+                                    width="16"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M3.833.751a.292.292 0 00-.291.292v.875c0 .161.13.292.291.292h2.625c.161 0 .292-.13.292-.292v-.875a.292.292 0 00-.292-.292H3.833zm-.875.292c0-.483.392-.875.875-.875h2.625c.484 0 .875.392.875.875v.292H8.5c.483 0 .875.391.875.875v8.166a.875.875 0 01-.875.875h-7a.875.875 0 01-.875-.875V2.21c0-.484.392-.875.875-.875h1.458v-.292zm0 .875H1.5a.292.292 0 00-.292.292v8.166c0 .161.13.292.292.292h7c.161 0 .292-.13.292-.292V2.21a.292.292 0 00-.292-.292H7.333a.875.875 0 01-.875.875H3.833a.875.875 0 01-.875-.875z"
+                                      fill="currentColor"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
+                              </button>
+                            </span>
+                          </div>
+                        </div>
+                      </p>
+                    </div>
                   </p>
                   <div
                     class="StyledProps--font StyledProps--main StyledProps--flex"
@@ -39285,23 +39868,76 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         </svg>
                       </span>
                     </button>
-                    <span
-                      class="bp3-popover-wrapper"
+                    <div
+                      class="Layout--horizontal StyledProps--main"
                     >
-                      <span
-                        class="bp3-popover-target"
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                        style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                          style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
-                          tabindex="0"
+                        <div
+                          class="main"
                         >
-                          pipeline.testsReports.testSuite
-                           
-                          io.harness.ChangeSetTest
-                        </p>
-                      </span>
-                    </span>
+                          <div
+                            class="text"
+                          >
+                            <span
+                              class="bp3-popover-wrapper"
+                            >
+                              <span
+                                class="bp3-popover-target"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                  tabindex="0"
+                                >
+                                  <span
+                                    class="testSuiteName"
+                                  >
+                                    pipeline.testsReports.testSuite
+                                     
+                                    io.harness.ChangeSetTest
+                                  </span>
+                                </p>
+                              </span>
+                            </span>
+                          </div>
+                          <div
+                            class="bp3-popover-wrapper btnWrapper"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <button
+                                class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <span
+                                  class="bp3-icon StyledProps--main"
+                                  data-icon="clipboard-alt"
+                                >
+                                  <svg
+                                    fill="none"
+                                    height="16"
+                                    viewBox="0 0 10 12"
+                                    width="16"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M3.833.751a.292.292 0 00-.291.292v.875c0 .161.13.292.291.292h2.625c.161 0 .292-.13.292-.292v-.875a.292.292 0 00-.292-.292H3.833zm-.875.292c0-.483.392-.875.875-.875h2.625c.484 0 .875.392.875.875v.292H8.5c.483 0 .875.391.875.875v8.166a.875.875 0 01-.875.875h-7a.875.875 0 01-.875-.875V2.21c0-.484.392-.875.875-.875h1.458v-.292zm0 .875H1.5a.292.292 0 00-.292.292v8.166c0 .161.13.292.292.292h7c.161 0 .292-.13.292-.292V2.21a.292.292 0 00-.292-.292H7.333a.875.875 0 01-.875.875H3.833a.875.875 0 01-.875-.875z"
+                                      fill="currentColor"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
+                              </button>
+                            </span>
+                          </div>
+                        </div>
+                      </p>
+                    </div>
                   </p>
                   <div
                     class="StyledProps--font StyledProps--main StyledProps--flex"
@@ -39418,23 +40054,76 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         </svg>
                       </span>
                     </button>
-                    <span
-                      class="bp3-popover-wrapper"
+                    <div
+                      class="Layout--horizontal StyledProps--main"
                     >
-                      <span
-                        class="bp3-popover-target"
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                        style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                          style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
-                          tabindex="0"
+                        <div
+                          class="main"
                         >
-                          pipeline.testsReports.testSuite
-                           
-                          software.wings.delegatetasks.aws.ecs.ecstaskhandler.deploy.EcsDeployCommandTaskHelperTest
-                        </p>
-                      </span>
-                    </span>
+                          <div
+                            class="text"
+                          >
+                            <span
+                              class="bp3-popover-wrapper"
+                            >
+                              <span
+                                class="bp3-popover-target"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                  tabindex="0"
+                                >
+                                  <span
+                                    class="testSuiteName"
+                                  >
+                                    pipeline.testsReports.testSuite
+                                     
+                                    software.wings.delegatetasks.aws.ecs.ecstaskhandler.deploy.EcsDeployCommandTaskHelperTest
+                                  </span>
+                                </p>
+                              </span>
+                            </span>
+                          </div>
+                          <div
+                            class="bp3-popover-wrapper btnWrapper"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <button
+                                class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <span
+                                  class="bp3-icon StyledProps--main"
+                                  data-icon="clipboard-alt"
+                                >
+                                  <svg
+                                    fill="none"
+                                    height="16"
+                                    viewBox="0 0 10 12"
+                                    width="16"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M3.833.751a.292.292 0 00-.291.292v.875c0 .161.13.292.291.292h2.625c.161 0 .292-.13.292-.292v-.875a.292.292 0 00-.292-.292H3.833zm-.875.292c0-.483.392-.875.875-.875h2.625c.484 0 .875.392.875.875v.292H8.5c.483 0 .875.391.875.875v8.166a.875.875 0 01-.875.875h-7a.875.875 0 01-.875-.875V2.21c0-.484.392-.875.875-.875h1.458v-.292zm0 .875H1.5a.292.292 0 00-.292.292v8.166c0 .161.13.292.292.292h7c.161 0 .292-.13.292-.292V2.21a.292.292 0 00-.292-.292H7.333a.875.875 0 01-.875.875H3.833a.875.875 0 01-.875-.875z"
+                                      fill="currentColor"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
+                              </button>
+                            </span>
+                          </div>
+                        </div>
+                      </p>
+                    </div>
                   </p>
                   <div
                     class="StyledProps--font StyledProps--main StyledProps--flex"
@@ -39551,23 +40240,76 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         </svg>
                       </span>
                     </button>
-                    <span
-                      class="bp3-popover-wrapper"
+                    <div
+                      class="Layout--horizontal StyledProps--main"
                     >
-                      <span
-                        class="bp3-popover-target"
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                        style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                          style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
-                          tabindex="0"
+                        <div
+                          class="main"
                         >
-                          pipeline.testsReports.testSuite
-                           
-                          io.harness.userGroup.AddAppPermissionTest
-                        </p>
-                      </span>
-                    </span>
+                          <div
+                            class="text"
+                          >
+                            <span
+                              class="bp3-popover-wrapper"
+                            >
+                              <span
+                                class="bp3-popover-target"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                  tabindex="0"
+                                >
+                                  <span
+                                    class="testSuiteName"
+                                  >
+                                    pipeline.testsReports.testSuite
+                                     
+                                    io.harness.userGroup.AddAppPermissionTest
+                                  </span>
+                                </p>
+                              </span>
+                            </span>
+                          </div>
+                          <div
+                            class="bp3-popover-wrapper btnWrapper"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <button
+                                class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <span
+                                  class="bp3-icon StyledProps--main"
+                                  data-icon="clipboard-alt"
+                                >
+                                  <svg
+                                    fill="none"
+                                    height="16"
+                                    viewBox="0 0 10 12"
+                                    width="16"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M3.833.751a.292.292 0 00-.291.292v.875c0 .161.13.292.291.292h2.625c.161 0 .292-.13.292-.292v-.875a.292.292 0 00-.292-.292H3.833zm-.875.292c0-.483.392-.875.875-.875h2.625c.484 0 .875.392.875.875v.292H8.5c.483 0 .875.391.875.875v8.166a.875.875 0 01-.875.875h-7a.875.875 0 01-.875-.875V2.21c0-.484.392-.875.875-.875h1.458v-.292zm0 .875H1.5a.292.292 0 00-.292.292v8.166c0 .161.13.292.292.292h7c.161 0 .292-.13.292-.292V2.21a.292.292 0 00-.292-.292H7.333a.875.875 0 01-.875.875H3.833a.875.875 0 01-.875-.875z"
+                                      fill="currentColor"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
+                              </button>
+                            </span>
+                          </div>
+                        </div>
+                      </p>
+                    </div>
                   </p>
                   <div
                     class="StyledProps--font StyledProps--main StyledProps--flex"
@@ -39684,23 +40426,76 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         </svg>
                       </span>
                     </button>
-                    <span
-                      class="bp3-popover-wrapper"
+                    <div
+                      class="Layout--horizontal StyledProps--main"
                     >
-                      <span
-                        class="bp3-popover-target"
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                        style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                          style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
-                          tabindex="0"
+                        <div
+                          class="main"
                         >
-                          pipeline.testsReports.testSuite
-                           
-                          software.wings.graphql.datafetcher.billing.SunburstChartStatsDataFetcherTest
-                        </p>
-                      </span>
-                    </span>
+                          <div
+                            class="text"
+                          >
+                            <span
+                              class="bp3-popover-wrapper"
+                            >
+                              <span
+                                class="bp3-popover-target"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                  tabindex="0"
+                                >
+                                  <span
+                                    class="testSuiteName"
+                                  >
+                                    pipeline.testsReports.testSuite
+                                     
+                                    software.wings.graphql.datafetcher.billing.SunburstChartStatsDataFetcherTest
+                                  </span>
+                                </p>
+                              </span>
+                            </span>
+                          </div>
+                          <div
+                            class="bp3-popover-wrapper btnWrapper"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <button
+                                class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <span
+                                  class="bp3-icon StyledProps--main"
+                                  data-icon="clipboard-alt"
+                                >
+                                  <svg
+                                    fill="none"
+                                    height="16"
+                                    viewBox="0 0 10 12"
+                                    width="16"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M3.833.751a.292.292 0 00-.291.292v.875c0 .161.13.292.291.292h2.625c.161 0 .292-.13.292-.292v-.875a.292.292 0 00-.292-.292H3.833zm-.875.292c0-.483.392-.875.875-.875h2.625c.484 0 .875.392.875.875v.292H8.5c.483 0 .875.391.875.875v8.166a.875.875 0 01-.875.875h-7a.875.875 0 01-.875-.875V2.21c0-.484.392-.875.875-.875h1.458v-.292zm0 .875H1.5a.292.292 0 00-.292.292v8.166c0 .161.13.292.292.292h7c.161 0 .292-.13.292-.292V2.21a.292.292 0 00-.292-.292H7.333a.875.875 0 01-.875.875H3.833a.875.875 0 01-.875-.875z"
+                                      fill="currentColor"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
+                              </button>
+                            </span>
+                          </div>
+                        </div>
+                      </p>
+                    </div>
                   </p>
                   <div
                     class="StyledProps--font StyledProps--main StyledProps--flex"
@@ -74897,23 +75692,76 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         </svg>
                       </span>
                     </button>
-                    <span
-                      class="bp3-popover-wrapper"
+                    <div
+                      class="Layout--horizontal StyledProps--main"
                     >
-                      <span
-                        class="bp3-popover-target"
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                        style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                          style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
-                          tabindex="0"
+                        <div
+                          class="main"
                         >
-                          pipeline.testsReports.testSuite
-                           
-                          software.wings.graphql.datafetcher.billing.BillingTimeSeriesDataFetcherTest
-                        </p>
-                      </span>
-                    </span>
+                          <div
+                            class="text"
+                          >
+                            <span
+                              class="bp3-popover-wrapper"
+                            >
+                              <span
+                                class="bp3-popover-target"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                  tabindex="0"
+                                >
+                                  <span
+                                    class="testSuiteName"
+                                  >
+                                    pipeline.testsReports.testSuite
+                                     
+                                    software.wings.graphql.datafetcher.billing.BillingTimeSeriesDataFetcherTest
+                                  </span>
+                                </p>
+                              </span>
+                            </span>
+                          </div>
+                          <div
+                            class="bp3-popover-wrapper btnWrapper"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <button
+                                class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <span
+                                  class="bp3-icon StyledProps--main"
+                                  data-icon="clipboard-alt"
+                                >
+                                  <svg
+                                    fill="none"
+                                    height="16"
+                                    viewBox="0 0 10 12"
+                                    width="16"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M3.833.751a.292.292 0 00-.291.292v.875c0 .161.13.292.291.292h2.625c.161 0 .292-.13.292-.292v-.875a.292.292 0 00-.292-.292H3.833zm-.875.292c0-.483.392-.875.875-.875h2.625c.484 0 .875.392.875.875v.292H8.5c.483 0 .875.391.875.875v8.166a.875.875 0 01-.875.875h-7a.875.875 0 01-.875-.875V2.21c0-.484.392-.875.875-.875h1.458v-.292zm0 .875H1.5a.292.292 0 00-.292.292v8.166c0 .161.13.292.292.292h7c.161 0 .292-.13.292-.292V2.21a.292.292 0 00-.292-.292H7.333a.875.875 0 01-.875.875H3.833a.875.875 0 01-.875-.875z"
+                                      fill="currentColor"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
+                              </button>
+                            </span>
+                          </div>
+                        </div>
+                      </p>
+                    </div>
                   </p>
                   <div
                     class="StyledProps--font StyledProps--main StyledProps--flex"
@@ -77205,23 +78053,76 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         </svg>
                       </span>
                     </button>
-                    <span
-                      class="bp3-popover-wrapper"
+                    <div
+                      class="Layout--horizontal StyledProps--main"
                     >
-                      <span
-                        class="bp3-popover-target"
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                        style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                          style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
-                          tabindex="0"
+                        <div
+                          class="main"
                         >
-                          pipeline.testsReports.testSuite
-                           
-                          software.wings.graphql.datafetcher.execution.PipelineExecutionControllerTest
-                        </p>
-                      </span>
-                    </span>
+                          <div
+                            class="text"
+                          >
+                            <span
+                              class="bp3-popover-wrapper"
+                            >
+                              <span
+                                class="bp3-popover-target"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                  tabindex="0"
+                                >
+                                  <span
+                                    class="testSuiteName"
+                                  >
+                                    pipeline.testsReports.testSuite
+                                     
+                                    software.wings.graphql.datafetcher.execution.PipelineExecutionControllerTest
+                                  </span>
+                                </p>
+                              </span>
+                            </span>
+                          </div>
+                          <div
+                            class="bp3-popover-wrapper btnWrapper"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <button
+                                class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <span
+                                  class="bp3-icon StyledProps--main"
+                                  data-icon="clipboard-alt"
+                                >
+                                  <svg
+                                    fill="none"
+                                    height="16"
+                                    viewBox="0 0 10 12"
+                                    width="16"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M3.833.751a.292.292 0 00-.291.292v.875c0 .161.13.292.291.292h2.625c.161 0 .292-.13.292-.292v-.875a.292.292 0 00-.292-.292H3.833zm-.875.292c0-.483.392-.875.875-.875h2.625c.484 0 .875.392.875.875v.292H8.5c.483 0 .875.391.875.875v8.166a.875.875 0 01-.875.875h-7a.875.875 0 01-.875-.875V2.21c0-.484.392-.875.875-.875h1.458v-.292zm0 .875H1.5a.292.292 0 00-.292.292v8.166c0 .161.13.292.292.292h7c.161 0 .292-.13.292-.292V2.21a.292.292 0 00-.292-.292H7.333a.875.875 0 01-.875.875H3.833a.875.875 0 01-.875-.875z"
+                                      fill="currentColor"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
+                              </button>
+                            </span>
+                          </div>
+                        </div>
+                      </p>
+                    </div>
                   </p>
                   <div
                     class="StyledProps--font StyledProps--main StyledProps--flex"
@@ -77338,23 +78239,76 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         </svg>
                       </span>
                     </button>
-                    <span
-                      class="bp3-popover-wrapper"
+                    <div
+                      class="Layout--horizontal StyledProps--main"
                     >
-                      <span
-                        class="bp3-popover-target"
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                        style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                          style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
-                          tabindex="0"
+                        <div
+                          class="main"
                         >
-                          pipeline.testsReports.testSuite
-                           
-                          io.harness.PipelineTest
-                        </p>
-                      </span>
-                    </span>
+                          <div
+                            class="text"
+                          >
+                            <span
+                              class="bp3-popover-wrapper"
+                            >
+                              <span
+                                class="bp3-popover-target"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                  tabindex="0"
+                                >
+                                  <span
+                                    class="testSuiteName"
+                                  >
+                                    pipeline.testsReports.testSuite
+                                     
+                                    io.harness.PipelineTest
+                                  </span>
+                                </p>
+                              </span>
+                            </span>
+                          </div>
+                          <div
+                            class="bp3-popover-wrapper btnWrapper"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <button
+                                class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <span
+                                  class="bp3-icon StyledProps--main"
+                                  data-icon="clipboard-alt"
+                                >
+                                  <svg
+                                    fill="none"
+                                    height="16"
+                                    viewBox="0 0 10 12"
+                                    width="16"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M3.833.751a.292.292 0 00-.291.292v.875c0 .161.13.292.291.292h2.625c.161 0 .292-.13.292-.292v-.875a.292.292 0 00-.292-.292H3.833zm-.875.292c0-.483.392-.875.875-.875h2.625c.484 0 .875.392.875.875v.292H8.5c.483 0 .875.391.875.875v8.166a.875.875 0 01-.875.875h-7a.875.875 0 01-.875-.875V2.21c0-.484.392-.875.875-.875h1.458v-.292zm0 .875H1.5a.292.292 0 00-.292.292v8.166c0 .161.13.292.292.292h7c.161 0 .292-.13.292-.292V2.21a.292.292 0 00-.292-.292H7.333a.875.875 0 01-.875.875H3.833a.875.875 0 01-.875-.875z"
+                                      fill="currentColor"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
+                              </button>
+                            </span>
+                          </div>
+                        </div>
+                      </p>
+                    </div>
                   </p>
                   <div
                     class="StyledProps--font StyledProps--main StyledProps--flex"
@@ -77471,23 +78425,76 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         </svg>
                       </span>
                     </button>
-                    <span
-                      class="bp3-popover-wrapper"
+                    <div
+                      class="Layout--horizontal StyledProps--main"
                     >
-                      <span
-                        class="bp3-popover-target"
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                        style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                          style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
-                          tabindex="0"
+                        <div
+                          class="main"
                         >
-                          pipeline.testsReports.testSuite
-                           
-                          io.harness.SSOProviderTest
-                        </p>
-                      </span>
-                    </span>
+                          <div
+                            class="text"
+                          >
+                            <span
+                              class="bp3-popover-wrapper"
+                            >
+                              <span
+                                class="bp3-popover-target"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                  tabindex="0"
+                                >
+                                  <span
+                                    class="testSuiteName"
+                                  >
+                                    pipeline.testsReports.testSuite
+                                     
+                                    io.harness.SSOProviderTest
+                                  </span>
+                                </p>
+                              </span>
+                            </span>
+                          </div>
+                          <div
+                            class="bp3-popover-wrapper btnWrapper"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <button
+                                class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <span
+                                  class="bp3-icon StyledProps--main"
+                                  data-icon="clipboard-alt"
+                                >
+                                  <svg
+                                    fill="none"
+                                    height="16"
+                                    viewBox="0 0 10 12"
+                                    width="16"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M3.833.751a.292.292 0 00-.291.292v.875c0 .161.13.292.291.292h2.625c.161 0 .292-.13.292-.292v-.875a.292.292 0 00-.292-.292H3.833zm-.875.292c0-.483.392-.875.875-.875h2.625c.484 0 .875.392.875.875v.292H8.5c.483 0 .875.391.875.875v8.166a.875.875 0 01-.875.875h-7a.875.875 0 01-.875-.875V2.21c0-.484.392-.875.875-.875h1.458v-.292zm0 .875H1.5a.292.292 0 00-.292.292v8.166c0 .161.13.292.292.292h7c.161 0 .292-.13.292-.292V2.21a.292.292 0 00-.292-.292H7.333a.875.875 0 01-.875.875H3.833a.875.875 0 01-.875-.875z"
+                                      fill="currentColor"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
+                              </button>
+                            </span>
+                          </div>
+                        </div>
+                      </p>
+                    </div>
                   </p>
                   <div
                     class="StyledProps--font StyledProps--main StyledProps--flex"
@@ -77604,23 +78611,76 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         </svg>
                       </span>
                     </button>
-                    <span
-                      class="bp3-popover-wrapper"
+                    <div
+                      class="Layout--horizontal StyledProps--main"
                     >
-                      <span
-                        class="bp3-popover-target"
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                        style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                          style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
-                          tabindex="0"
+                        <div
+                          class="main"
                         >
-                          pipeline.testsReports.testSuite
-                           
-                          io.harness.ngpipeline.inputset.services.impl.InputSetEntityServiceImplTest
-                        </p>
-                      </span>
-                    </span>
+                          <div
+                            class="text"
+                          >
+                            <span
+                              class="bp3-popover-wrapper"
+                            >
+                              <span
+                                class="bp3-popover-target"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                  tabindex="0"
+                                >
+                                  <span
+                                    class="testSuiteName"
+                                  >
+                                    pipeline.testsReports.testSuite
+                                     
+                                    io.harness.ngpipeline.inputset.services.impl.InputSetEntityServiceImplTest
+                                  </span>
+                                </p>
+                              </span>
+                            </span>
+                          </div>
+                          <div
+                            class="bp3-popover-wrapper btnWrapper"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <button
+                                class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <span
+                                  class="bp3-icon StyledProps--main"
+                                  data-icon="clipboard-alt"
+                                >
+                                  <svg
+                                    fill="none"
+                                    height="16"
+                                    viewBox="0 0 10 12"
+                                    width="16"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M3.833.751a.292.292 0 00-.291.292v.875c0 .161.13.292.291.292h2.625c.161 0 .292-.13.292-.292v-.875a.292.292 0 00-.292-.292H3.833zm-.875.292c0-.483.392-.875.875-.875h2.625c.484 0 .875.392.875.875v.292H8.5c.483 0 .875.391.875.875v8.166a.875.875 0 01-.875.875h-7a.875.875 0 01-.875-.875V2.21c0-.484.392-.875.875-.875h1.458v-.292zm0 .875H1.5a.292.292 0 00-.292.292v8.166c0 .161.13.292.292.292h7c.161 0 .292-.13.292-.292V2.21a.292.292 0 00-.292-.292H7.333a.875.875 0 01-.875.875H3.833a.875.875 0 01-.875-.875z"
+                                      fill="currentColor"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
+                              </button>
+                            </span>
+                          </div>
+                        </div>
+                      </p>
+                    </div>
                   </p>
                   <div
                     class="StyledProps--font StyledProps--main StyledProps--flex"
@@ -77737,23 +78797,76 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         </svg>
                       </span>
                     </button>
-                    <span
-                      class="bp3-popover-wrapper"
+                    <div
+                      class="Layout--horizontal StyledProps--main"
                     >
-                      <span
-                        class="bp3-popover-target"
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                        style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                          style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
-                          tabindex="0"
+                        <div
+                          class="main"
                         >
-                          pipeline.testsReports.testSuite
-                           
-                          io.harness.ConnectionTest
-                        </p>
-                      </span>
-                    </span>
+                          <div
+                            class="text"
+                          >
+                            <span
+                              class="bp3-popover-wrapper"
+                            >
+                              <span
+                                class="bp3-popover-target"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                  tabindex="0"
+                                >
+                                  <span
+                                    class="testSuiteName"
+                                  >
+                                    pipeline.testsReports.testSuite
+                                     
+                                    io.harness.ConnectionTest
+                                  </span>
+                                </p>
+                              </span>
+                            </span>
+                          </div>
+                          <div
+                            class="bp3-popover-wrapper btnWrapper"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <button
+                                class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <span
+                                  class="bp3-icon StyledProps--main"
+                                  data-icon="clipboard-alt"
+                                >
+                                  <svg
+                                    fill="none"
+                                    height="16"
+                                    viewBox="0 0 10 12"
+                                    width="16"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M3.833.751a.292.292 0 00-.291.292v.875c0 .161.13.292.291.292h2.625c.161 0 .292-.13.292-.292v-.875a.292.292 0 00-.292-.292H3.833zm-.875.292c0-.483.392-.875.875-.875h2.625c.484 0 .875.392.875.875v.292H8.5c.483 0 .875.391.875.875v8.166a.875.875 0 01-.875.875h-7a.875.875 0 01-.875-.875V2.21c0-.484.392-.875.875-.875h1.458v-.292zm0 .875H1.5a.292.292 0 00-.292.292v8.166c0 .161.13.292.292.292h7c.161 0 .292-.13.292-.292V2.21a.292.292 0 00-.292-.292H7.333a.875.875 0 01-.875.875H3.833a.875.875 0 01-.875-.875z"
+                                      fill="currentColor"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
+                              </button>
+                            </span>
+                          </div>
+                        </div>
+                      </p>
+                    </div>
                   </p>
                   <div
                     class="StyledProps--font StyledProps--main StyledProps--flex"
@@ -77870,23 +78983,76 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         </svg>
                       </span>
                     </button>
-                    <span
-                      class="bp3-popover-wrapper"
+                    <div
+                      class="Layout--horizontal StyledProps--main"
                     >
-                      <span
-                        class="bp3-popover-target"
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                        style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                          style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
-                          tabindex="0"
+                        <div
+                          class="main"
                         >
-                          pipeline.testsReports.testSuite
-                           
-                          io.harness.ConnectorTest
-                        </p>
-                      </span>
-                    </span>
+                          <div
+                            class="text"
+                          >
+                            <span
+                              class="bp3-popover-wrapper"
+                            >
+                              <span
+                                class="bp3-popover-target"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                  tabindex="0"
+                                >
+                                  <span
+                                    class="testSuiteName"
+                                  >
+                                    pipeline.testsReports.testSuite
+                                     
+                                    io.harness.ConnectorTest
+                                  </span>
+                                </p>
+                              </span>
+                            </span>
+                          </div>
+                          <div
+                            class="bp3-popover-wrapper btnWrapper"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <button
+                                class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <span
+                                  class="bp3-icon StyledProps--main"
+                                  data-icon="clipboard-alt"
+                                >
+                                  <svg
+                                    fill="none"
+                                    height="16"
+                                    viewBox="0 0 10 12"
+                                    width="16"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M3.833.751a.292.292 0 00-.291.292v.875c0 .161.13.292.291.292h2.625c.161 0 .292-.13.292-.292v-.875a.292.292 0 00-.292-.292H3.833zm-.875.292c0-.483.392-.875.875-.875h2.625c.484 0 .875.392.875.875v.292H8.5c.483 0 .875.391.875.875v8.166a.875.875 0 01-.875.875h-7a.875.875 0 01-.875-.875V2.21c0-.484.392-.875.875-.875h1.458v-.292zm0 .875H1.5a.292.292 0 00-.292.292v8.166c0 .161.13.292.292.292h7c.161 0 .292-.13.292-.292V2.21a.292.292 0 00-.292-.292H7.333a.875.875 0 01-.875.875H3.833a.875.875 0 01-.875-.875z"
+                                      fill="currentColor"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
+                              </button>
+                            </span>
+                          </div>
+                        </div>
+                      </p>
+                    </div>
                   </p>
                   <div
                     class="StyledProps--font StyledProps--main StyledProps--flex"
@@ -78003,23 +79169,76 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         </svg>
                       </span>
                     </button>
-                    <span
-                      class="bp3-popover-wrapper"
+                    <div
+                      class="Layout--horizontal StyledProps--main"
                     >
-                      <span
-                        class="bp3-popover-target"
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                        style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                          style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
-                          tabindex="0"
+                        <div
+                          class="main"
                         >
-                          pipeline.testsReports.testSuite
-                           
-                          software.wings.service.impl.analysis.MetricDataAnalysisServiceImplTest
-                        </p>
-                      </span>
-                    </span>
+                          <div
+                            class="text"
+                          >
+                            <span
+                              class="bp3-popover-wrapper"
+                            >
+                              <span
+                                class="bp3-popover-target"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                  tabindex="0"
+                                >
+                                  <span
+                                    class="testSuiteName"
+                                  >
+                                    pipeline.testsReports.testSuite
+                                     
+                                    software.wings.service.impl.analysis.MetricDataAnalysisServiceImplTest
+                                  </span>
+                                </p>
+                              </span>
+                            </span>
+                          </div>
+                          <div
+                            class="bp3-popover-wrapper btnWrapper"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <button
+                                class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <span
+                                  class="bp3-icon StyledProps--main"
+                                  data-icon="clipboard-alt"
+                                >
+                                  <svg
+                                    fill="none"
+                                    height="16"
+                                    viewBox="0 0 10 12"
+                                    width="16"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M3.833.751a.292.292 0 00-.291.292v.875c0 .161.13.292.291.292h2.625c.161 0 .292-.13.292-.292v-.875a.292.292 0 00-.292-.292H3.833zm-.875.292c0-.483.392-.875.875-.875h2.625c.484 0 .875.392.875.875v.292H8.5c.483 0 .875.391.875.875v8.166a.875.875 0 01-.875.875h-7a.875.875 0 01-.875-.875V2.21c0-.484.392-.875.875-.875h1.458v-.292zm0 .875H1.5a.292.292 0 00-.292.292v8.166c0 .161.13.292.292.292h7c.161 0 .292-.13.292-.292V2.21a.292.292 0 00-.292-.292H7.333a.875.875 0 01-.875.875H3.833a.875.875 0 01-.875-.875z"
+                                      fill="currentColor"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
+                              </button>
+                            </span>
+                          </div>
+                        </div>
+                      </p>
+                    </div>
                   </p>
                   <div
                     class="StyledProps--font StyledProps--main StyledProps--flex"
@@ -78136,23 +79355,76 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         </svg>
                       </span>
                     </button>
-                    <span
-                      class="bp3-popover-wrapper"
+                    <div
+                      class="Layout--horizontal StyledProps--main"
                     >
-                      <span
-                        class="bp3-popover-target"
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                        style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                          style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
-                          tabindex="0"
+                        <div
+                          class="main"
                         >
-                          pipeline.testsReports.testSuite
-                           
-                          io.harness.VerificationComponentTest
-                        </p>
-                      </span>
-                    </span>
+                          <div
+                            class="text"
+                          >
+                            <span
+                              class="bp3-popover-wrapper"
+                            >
+                              <span
+                                class="bp3-popover-target"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                  tabindex="0"
+                                >
+                                  <span
+                                    class="testSuiteName"
+                                  >
+                                    pipeline.testsReports.testSuite
+                                     
+                                    io.harness.VerificationComponentTest
+                                  </span>
+                                </p>
+                              </span>
+                            </span>
+                          </div>
+                          <div
+                            class="bp3-popover-wrapper btnWrapper"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <button
+                                class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <span
+                                  class="bp3-icon StyledProps--main"
+                                  data-icon="clipboard-alt"
+                                >
+                                  <svg
+                                    fill="none"
+                                    height="16"
+                                    viewBox="0 0 10 12"
+                                    width="16"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M3.833.751a.292.292 0 00-.291.292v.875c0 .161.13.292.291.292h2.625c.161 0 .292-.13.292-.292v-.875a.292.292 0 00-.292-.292H3.833zm-.875.292c0-.483.392-.875.875-.875h2.625c.484 0 .875.392.875.875v.292H8.5c.483 0 .875.391.875.875v8.166a.875.875 0 01-.875.875h-7a.875.875 0 01-.875-.875V2.21c0-.484.392-.875.875-.875h1.458v-.292zm0 .875H1.5a.292.292 0 00-.292.292v8.166c0 .161.13.292.292.292h7c.161 0 .292-.13.292-.292V2.21a.292.292 0 00-.292-.292H7.333a.875.875 0 01-.875.875H3.833a.875.875 0 01-.875-.875z"
+                                      fill="currentColor"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
+                              </button>
+                            </span>
+                          </div>
+                        </div>
+                      </p>
+                    </div>
                   </p>
                   <div
                     class="StyledProps--font StyledProps--main StyledProps--flex"
@@ -78269,23 +79541,76 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         </svg>
                       </span>
                     </button>
-                    <span
-                      class="bp3-popover-wrapper"
+                    <div
+                      class="Layout--horizontal StyledProps--main"
                     >
-                      <span
-                        class="bp3-popover-target"
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                        style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                          style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
-                          tabindex="0"
+                        <div
+                          class="main"
                         >
-                          pipeline.testsReports.testSuite
-                           
-                          software.wings.graphql.datafetcher.budget.BudgetTrendStatsDataFetcherTest
-                        </p>
-                      </span>
-                    </span>
+                          <div
+                            class="text"
+                          >
+                            <span
+                              class="bp3-popover-wrapper"
+                            >
+                              <span
+                                class="bp3-popover-target"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                  tabindex="0"
+                                >
+                                  <span
+                                    class="testSuiteName"
+                                  >
+                                    pipeline.testsReports.testSuite
+                                     
+                                    software.wings.graphql.datafetcher.budget.BudgetTrendStatsDataFetcherTest
+                                  </span>
+                                </p>
+                              </span>
+                            </span>
+                          </div>
+                          <div
+                            class="bp3-popover-wrapper btnWrapper"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <button
+                                class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <span
+                                  class="bp3-icon StyledProps--main"
+                                  data-icon="clipboard-alt"
+                                >
+                                  <svg
+                                    fill="none"
+                                    height="16"
+                                    viewBox="0 0 10 12"
+                                    width="16"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M3.833.751a.292.292 0 00-.291.292v.875c0 .161.13.292.291.292h2.625c.161 0 .292-.13.292-.292v-.875a.292.292 0 00-.292-.292H3.833zm-.875.292c0-.483.392-.875.875-.875h2.625c.484 0 .875.392.875.875v.292H8.5c.483 0 .875.391.875.875v8.166a.875.875 0 01-.875.875h-7a.875.875 0 01-.875-.875V2.21c0-.484.392-.875.875-.875h1.458v-.292zm0 .875H1.5a.292.292 0 00-.292.292v8.166c0 .161.13.292.292.292h7c.161 0 .292-.13.292-.292V2.21a.292.292 0 00-.292-.292H7.333a.875.875 0 01-.875.875H3.833a.875.875 0 01-.875-.875z"
+                                      fill="currentColor"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
+                              </button>
+                            </span>
+                          </div>
+                        </div>
+                      </p>
+                    </div>
                   </p>
                   <div
                     class="StyledProps--font StyledProps--main StyledProps--flex"
@@ -78402,23 +79727,76 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         </svg>
                       </span>
                     </button>
-                    <span
-                      class="bp3-popover-wrapper"
+                    <div
+                      class="Layout--horizontal StyledProps--main"
                     >
-                      <span
-                        class="bp3-popover-target"
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                        style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                          style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
-                          tabindex="0"
+                        <div
+                          class="main"
                         >
-                          pipeline.testsReports.testSuite
-                           
-                          io.harness.managerclient.VerificationManagerClientHelperTest
-                        </p>
-                      </span>
-                    </span>
+                          <div
+                            class="text"
+                          >
+                            <span
+                              class="bp3-popover-wrapper"
+                            >
+                              <span
+                                class="bp3-popover-target"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                  tabindex="0"
+                                >
+                                  <span
+                                    class="testSuiteName"
+                                  >
+                                    pipeline.testsReports.testSuite
+                                     
+                                    io.harness.managerclient.VerificationManagerClientHelperTest
+                                  </span>
+                                </p>
+                              </span>
+                            </span>
+                          </div>
+                          <div
+                            class="bp3-popover-wrapper btnWrapper"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <button
+                                class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <span
+                                  class="bp3-icon StyledProps--main"
+                                  data-icon="clipboard-alt"
+                                >
+                                  <svg
+                                    fill="none"
+                                    height="16"
+                                    viewBox="0 0 10 12"
+                                    width="16"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M3.833.751a.292.292 0 00-.291.292v.875c0 .161.13.292.291.292h2.625c.161 0 .292-.13.292-.292v-.875a.292.292 0 00-.292-.292H3.833zm-.875.292c0-.483.392-.875.875-.875h2.625c.484 0 .875.392.875.875v.292H8.5c.483 0 .875.391.875.875v8.166a.875.875 0 01-.875.875h-7a.875.875 0 01-.875-.875V2.21c0-.484.392-.875.875-.875h1.458v-.292zm0 .875H1.5a.292.292 0 00-.292.292v8.166c0 .161.13.292.292.292h7c.161 0 .292-.13.292-.292V2.21a.292.292 0 00-.292-.292H7.333a.875.875 0 01-.875.875H3.833a.875.875 0 01-.875-.875z"
+                                      fill="currentColor"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
+                              </button>
+                            </span>
+                          </div>
+                        </div>
+                      </p>
+                    </div>
                   </p>
                   <div
                     class="StyledProps--font StyledProps--main StyledProps--flex"
@@ -78535,23 +79913,76 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         </svg>
                       </span>
                     </button>
-                    <span
-                      class="bp3-popover-wrapper"
+                    <div
+                      class="Layout--horizontal StyledProps--main"
                     >
-                      <span
-                        class="bp3-popover-target"
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                        style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                          style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
-                          tabindex="0"
+                        <div
+                          class="main"
                         >
-                          pipeline.testsReports.testSuite
-                           
-                          io.harness.ChangeSetTest
-                        </p>
-                      </span>
-                    </span>
+                          <div
+                            class="text"
+                          >
+                            <span
+                              class="bp3-popover-wrapper"
+                            >
+                              <span
+                                class="bp3-popover-target"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                  tabindex="0"
+                                >
+                                  <span
+                                    class="testSuiteName"
+                                  >
+                                    pipeline.testsReports.testSuite
+                                     
+                                    io.harness.ChangeSetTest
+                                  </span>
+                                </p>
+                              </span>
+                            </span>
+                          </div>
+                          <div
+                            class="bp3-popover-wrapper btnWrapper"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <button
+                                class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <span
+                                  class="bp3-icon StyledProps--main"
+                                  data-icon="clipboard-alt"
+                                >
+                                  <svg
+                                    fill="none"
+                                    height="16"
+                                    viewBox="0 0 10 12"
+                                    width="16"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M3.833.751a.292.292 0 00-.291.292v.875c0 .161.13.292.291.292h2.625c.161 0 .292-.13.292-.292v-.875a.292.292 0 00-.292-.292H3.833zm-.875.292c0-.483.392-.875.875-.875h2.625c.484 0 .875.392.875.875v.292H8.5c.483 0 .875.391.875.875v8.166a.875.875 0 01-.875.875h-7a.875.875 0 01-.875-.875V2.21c0-.484.392-.875.875-.875h1.458v-.292zm0 .875H1.5a.292.292 0 00-.292.292v8.166c0 .161.13.292.292.292h7c.161 0 .292-.13.292-.292V2.21a.292.292 0 00-.292-.292H7.333a.875.875 0 01-.875.875H3.833a.875.875 0 01-.875-.875z"
+                                      fill="currentColor"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
+                              </button>
+                            </span>
+                          </div>
+                        </div>
+                      </p>
+                    </div>
                   </p>
                   <div
                     class="StyledProps--font StyledProps--main StyledProps--flex"
@@ -78668,23 +80099,76 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         </svg>
                       </span>
                     </button>
-                    <span
-                      class="bp3-popover-wrapper"
+                    <div
+                      class="Layout--horizontal StyledProps--main"
                     >
-                      <span
-                        class="bp3-popover-target"
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                        style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                          style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
-                          tabindex="0"
+                        <div
+                          class="main"
                         >
-                          pipeline.testsReports.testSuite
-                           
-                          software.wings.delegatetasks.aws.ecs.ecstaskhandler.deploy.EcsDeployCommandTaskHelperTest
-                        </p>
-                      </span>
-                    </span>
+                          <div
+                            class="text"
+                          >
+                            <span
+                              class="bp3-popover-wrapper"
+                            >
+                              <span
+                                class="bp3-popover-target"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                  tabindex="0"
+                                >
+                                  <span
+                                    class="testSuiteName"
+                                  >
+                                    pipeline.testsReports.testSuite
+                                     
+                                    software.wings.delegatetasks.aws.ecs.ecstaskhandler.deploy.EcsDeployCommandTaskHelperTest
+                                  </span>
+                                </p>
+                              </span>
+                            </span>
+                          </div>
+                          <div
+                            class="bp3-popover-wrapper btnWrapper"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <button
+                                class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <span
+                                  class="bp3-icon StyledProps--main"
+                                  data-icon="clipboard-alt"
+                                >
+                                  <svg
+                                    fill="none"
+                                    height="16"
+                                    viewBox="0 0 10 12"
+                                    width="16"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M3.833.751a.292.292 0 00-.291.292v.875c0 .161.13.292.291.292h2.625c.161 0 .292-.13.292-.292v-.875a.292.292 0 00-.292-.292H3.833zm-.875.292c0-.483.392-.875.875-.875h2.625c.484 0 .875.392.875.875v.292H8.5c.483 0 .875.391.875.875v8.166a.875.875 0 01-.875.875h-7a.875.875 0 01-.875-.875V2.21c0-.484.392-.875.875-.875h1.458v-.292zm0 .875H1.5a.292.292 0 00-.292.292v8.166c0 .161.13.292.292.292h7c.161 0 .292-.13.292-.292V2.21a.292.292 0 00-.292-.292H7.333a.875.875 0 01-.875.875H3.833a.875.875 0 01-.875-.875z"
+                                      fill="currentColor"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
+                              </button>
+                            </span>
+                          </div>
+                        </div>
+                      </p>
+                    </div>
                   </p>
                   <div
                     class="StyledProps--font StyledProps--main StyledProps--flex"
@@ -78801,23 +80285,76 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         </svg>
                       </span>
                     </button>
-                    <span
-                      class="bp3-popover-wrapper"
+                    <div
+                      class="Layout--horizontal StyledProps--main"
                     >
-                      <span
-                        class="bp3-popover-target"
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                        style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                          style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
-                          tabindex="0"
+                        <div
+                          class="main"
                         >
-                          pipeline.testsReports.testSuite
-                           
-                          io.harness.userGroup.AddAppPermissionTest
-                        </p>
-                      </span>
-                    </span>
+                          <div
+                            class="text"
+                          >
+                            <span
+                              class="bp3-popover-wrapper"
+                            >
+                              <span
+                                class="bp3-popover-target"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                  tabindex="0"
+                                >
+                                  <span
+                                    class="testSuiteName"
+                                  >
+                                    pipeline.testsReports.testSuite
+                                     
+                                    io.harness.userGroup.AddAppPermissionTest
+                                  </span>
+                                </p>
+                              </span>
+                            </span>
+                          </div>
+                          <div
+                            class="bp3-popover-wrapper btnWrapper"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <button
+                                class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <span
+                                  class="bp3-icon StyledProps--main"
+                                  data-icon="clipboard-alt"
+                                >
+                                  <svg
+                                    fill="none"
+                                    height="16"
+                                    viewBox="0 0 10 12"
+                                    width="16"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M3.833.751a.292.292 0 00-.291.292v.875c0 .161.13.292.291.292h2.625c.161 0 .292-.13.292-.292v-.875a.292.292 0 00-.292-.292H3.833zm-.875.292c0-.483.392-.875.875-.875h2.625c.484 0 .875.392.875.875v.292H8.5c.483 0 .875.391.875.875v8.166a.875.875 0 01-.875.875h-7a.875.875 0 01-.875-.875V2.21c0-.484.392-.875.875-.875h1.458v-.292zm0 .875H1.5a.292.292 0 00-.292.292v8.166c0 .161.13.292.292.292h7c.161 0 .292-.13.292-.292V2.21a.292.292 0 00-.292-.292H7.333a.875.875 0 01-.875.875H3.833a.875.875 0 01-.875-.875z"
+                                      fill="currentColor"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
+                              </button>
+                            </span>
+                          </div>
+                        </div>
+                      </p>
+                    </div>
                   </p>
                   <div
                     class="StyledProps--font StyledProps--main StyledProps--flex"
@@ -78934,23 +80471,76 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         </svg>
                       </span>
                     </button>
-                    <span
-                      class="bp3-popover-wrapper"
+                    <div
+                      class="Layout--horizontal StyledProps--main"
                     >
-                      <span
-                        class="bp3-popover-target"
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                        style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                          style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
-                          tabindex="0"
+                        <div
+                          class="main"
                         >
-                          pipeline.testsReports.testSuite
-                           
-                          software.wings.graphql.datafetcher.billing.SunburstChartStatsDataFetcherTest
-                        </p>
-                      </span>
-                    </span>
+                          <div
+                            class="text"
+                          >
+                            <span
+                              class="bp3-popover-wrapper"
+                            >
+                              <span
+                                class="bp3-popover-target"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                  tabindex="0"
+                                >
+                                  <span
+                                    class="testSuiteName"
+                                  >
+                                    pipeline.testsReports.testSuite
+                                     
+                                    software.wings.graphql.datafetcher.billing.SunburstChartStatsDataFetcherTest
+                                  </span>
+                                </p>
+                              </span>
+                            </span>
+                          </div>
+                          <div
+                            class="bp3-popover-wrapper btnWrapper"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <button
+                                class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <span
+                                  class="bp3-icon StyledProps--main"
+                                  data-icon="clipboard-alt"
+                                >
+                                  <svg
+                                    fill="none"
+                                    height="16"
+                                    viewBox="0 0 10 12"
+                                    width="16"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M3.833.751a.292.292 0 00-.291.292v.875c0 .161.13.292.291.292h2.625c.161 0 .292-.13.292-.292v-.875a.292.292 0 00-.292-.292H3.833zm-.875.292c0-.483.392-.875.875-.875h2.625c.484 0 .875.392.875.875v.292H8.5c.483 0 .875.391.875.875v8.166a.875.875 0 01-.875.875h-7a.875.875 0 01-.875-.875V2.21c0-.484.392-.875.875-.875h1.458v-.292zm0 .875H1.5a.292.292 0 00-.292.292v8.166c0 .161.13.292.292.292h7c.161 0 .292-.13.292-.292V2.21a.292.292 0 00-.292-.292H7.333a.875.875 0 01-.875.875H3.833a.875.875 0 01-.875-.875z"
+                                      fill="currentColor"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
+                              </button>
+                            </span>
+                          </div>
+                        </div>
+                      </p>
+                    </div>
                   </p>
                   <div
                     class="StyledProps--font StyledProps--main StyledProps--flex"
