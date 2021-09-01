@@ -31,7 +31,8 @@ import type {
   InputSetGitQueryParams,
   ModuleCardPathParams,
   ServiceAccountPathProps,
-  ServicePathProps
+  ServicePathProps,
+  TemplateStudioPathParams
 } from '@common/interfaces/RouteInterfaces'
 
 const CV_HOME = `/cv/home`
@@ -704,6 +705,24 @@ const routes = {
   toTemplatesListing: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
       const path = `templates`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
+  ),
+  toTemplatesStudio: withAccountId(
+    ({
+      orgIdentifier,
+      projectIdentifier,
+      module,
+      templateIdentifier
+    }: Partial<ProjectPathProps & ModulePathParams & TemplateStudioPathParams>) => {
+      const path = `templates/${templateIdentifier}`
       return getScopeBasedRoute({
         scope: {
           orgIdentifier,

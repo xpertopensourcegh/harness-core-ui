@@ -2388,11 +2388,12 @@ export interface StringsMap {
   'pipeline.verificationResult': string
   'templatesLibrary.addNewTemplate': string
   'templatesLibrary.copyToNewPipeline': string
-  'templatesLibrary.createNewModal.defaultLabel': string
+  'templatesLibrary.createNewModal.defaultVersion': string
   'templatesLibrary.createNewModal.headingPrefix': string
   'templatesLibrary.createNewModal.headingSuffix': string
   'templatesLibrary.createNewModal.label': string
   'templatesLibrary.createNewModal.validation.name': string
+  'templatesLibrary.createNewModal.versionLabel': string
   'templatesLibrary.openEditTemplate': string
   'templatesLibrary.previewTemplate': string
   'templatesLibrary.referencedBy': string
