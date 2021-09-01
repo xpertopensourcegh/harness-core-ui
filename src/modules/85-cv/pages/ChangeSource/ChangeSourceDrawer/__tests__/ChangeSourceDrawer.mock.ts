@@ -8,6 +8,18 @@ export const changeSourceDrawerData = {
   spec: {}
 }
 
+export const pagerDutyChangeSourceDrawerDataWithoutService = {
+  name: 'PagerDuty 101',
+  identifier: 'pagerduty',
+  type: 'PagerDuty' as any,
+  desc: 'Alert from PagerDuty',
+  enabled: true,
+  category: 'Alert' as any,
+  spec: {
+    connectorRef: 'PagerDutyConnector'
+  }
+}
+
 export const pagerDutyChangeSourceDrawerData = {
   name: 'PagerDuty 101',
   identifier: 'pagerduty',
@@ -33,7 +45,7 @@ export const changeSourceTableData = [
   }
 ]
 
-export const onSuccessExpectedData = [
+export const onSuccessHarnessCD = [
   {
     category: 'Deployment',
     desc: 'Deployments from Harness CD',
@@ -42,6 +54,21 @@ export const onSuccessExpectedData = [
     name: 'Updated Change Source',
     spec: {},
     type: 'HarnessCD'
+  }
+]
+
+export const onSuccessPagerDuty = [
+  {
+    category: 'Alert',
+    desc: 'Alert from PagerDuty',
+    enabled: true,
+    identifier: 'pagerduty',
+    name: 'PagerDuty 101',
+    spec: {
+      connectorRef: 'PagerDutyConnector',
+      pagerDutyServiceId: 'pagerDutyServiceId101'
+    },
+    type: 'PagerDuty'
   }
 ]
 

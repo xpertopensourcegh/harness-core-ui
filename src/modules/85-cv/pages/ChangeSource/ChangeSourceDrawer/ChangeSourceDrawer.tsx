@@ -8,7 +8,8 @@ import {
   createCardOptions,
   createChangesourceList,
   validateChangeSource,
-  getChangeSourceOptions
+  getChangeSourceOptions,
+  updateSpecByType
 } from './ChangeSourceDrawer.utils'
 import type { ChangeSoureDrawerInterface, UpdatedChangeSourceDTO } from './ChangeSourceDrawer.types'
 import PageDutyChangeSource from './components/PagerDutyChangeSource/PagerDutyChangeSource'
@@ -25,15 +26,7 @@ export function ChangeSourceDrawer({
   const { getString } = useStrings()
 
   const onSuccessWrapper = (data: UpdatedChangeSourceDTO): void => {
-    if (!data?.spec) {
-      data['spec'] = {}
-      if (data.type === Connectors.PAGER_DUTY) {
-        data['spec'] = {
-          connectorRef: data?.spec?.connectorRef,
-          pagerDutyServiceId: data?.spec?.pagerDutyServiceId
-        }
-      }
-    }
+    data['spec'] = updateSpecByType(data)
     const updatedChangeSources = createChangesourceList(tableData, data)
     onSuccess(updatedChangeSources)
   }

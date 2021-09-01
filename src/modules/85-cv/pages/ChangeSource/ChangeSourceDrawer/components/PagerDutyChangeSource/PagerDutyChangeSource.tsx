@@ -5,6 +5,8 @@ import type { FormikProps } from 'formik'
 import { Color, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { useGetServicesFromPagerDuty } from 'services/cv'
+import { useToaster } from '@common/exports'
+import { getErrorMessage } from '@cv/utils/CommonUtils'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { FormConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/FormConnectorReferenceField'
 import CardWithOuterTitle from '@cv/pages/health-source/common/CardWithOuterTitle/CardWithOuterTitle'
@@ -13,10 +15,12 @@ import style from './PagerDutyChangeSource.module.scss'
 
 export default function PageDutyChangeSource({ formik }: { formik: FormikProps<UpdatedChangeSourceDTO> }): JSX.Element {
   const { getString } = useStrings()
+  const { showError, clear } = useToaster()
   const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps & { identifier: string }>()
 
   const {
     data: pagerdutyServices,
+    error: pagerdutyServicesError,
     refetch: fetchPagerDutyServices,
     loading: loadingPagerdutyServices
   } = useGetServicesFromPagerDuty({
@@ -37,7 +41,12 @@ export default function PageDutyChangeSource({ formik }: { formik: FormikProps<U
     }
   }, [formik?.values?.spec?.connectorRef])
 
-  const dataValue = useMemo(
+  if (pagerdutyServicesError) {
+    clear()
+    showError(getErrorMessage(pagerdutyServicesError))
+  }
+
+  const pagerDutyServiceOptions = useMemo(
     () =>
       pagerdutyServices?.resource?.map(item => {
         const service: SelectOption = {
@@ -74,20 +83,29 @@ export default function PageDutyChangeSource({ formik }: { formik: FormikProps<U
               />
             </div>
           </Container>
-          <Container margin={{ bottom: 'large' }} width={'400px'}>
-            <Text color={Color.BLACK} font={'small'} className={style.pagerDutyServiceTitle}>
-              {getString('cv.changeSource.PageDuty.pagerDutyService')}
-            </Text>
-            <FormInput.Select
-              name="spec.pagerDutyServiceId"
-              placeholder={
-                loadingPagerdutyServices
-                  ? getString('loading')
-                  : getString('cv.changeSource.PageDuty.selectPagerDutyService')
-              }
-              items={dataValue}
-            />
-          </Container>
+          {formik?.values?.spec?.connectorRef && (
+            <Container margin={{ bottom: 'large' }} width={'400px'}>
+              <Text color={Color.BLACK} font={'small'} className={style.pagerDutyServiceTitle}>
+                {getString('cv.changeSource.PageDuty.pagerDutyService')}
+              </Text>
+              <FormInput.Select
+                name="spec.pagerDutyServiceId"
+                placeholder={
+                  loadingPagerdutyServices
+                    ? getString('loading')
+                    : getString('cv.changeSource.PageDuty.selectPagerDutyService')
+                }
+                items={pagerDutyServiceOptions}
+              />
+              {!pagerDutyServiceOptions.length && !loadingPagerdutyServices && (
+                <Text font={'xsmall'} color={Color.ERROR}>
+                  {getString('cv.changeSource.PageDuty.pagerDutyEmptyService', {
+                    connector: formik?.values?.spec?.connectorRef
+                  })}
+                </Text>
+              )}
+            </Container>
+          )}
         </Layout.Horizontal>
       </CardWithOuterTitle>
     </>

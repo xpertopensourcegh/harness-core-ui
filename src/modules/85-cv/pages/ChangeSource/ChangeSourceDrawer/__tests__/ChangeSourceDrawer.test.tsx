@@ -2,11 +2,36 @@ import React from 'react'
 import { render, waitFor, fireEvent, act } from '@testing-library/react'
 import { InputTypes, setFieldValue } from '@common/utils/JestFormHelper'
 import { TestWrapper } from '@common/utils/testUtils'
+import * as cvServices from 'services/cv'
 import { ChangeSourceDrawer } from '../ChangeSourceDrawer'
-import { changeSourceTableData, changeSourceDrawerData, onSuccessExpectedData } from './ChangeSourceDrawer.mock'
+import {
+  changeSourceTableData,
+  changeSourceDrawerData,
+  onSuccessHarnessCD,
+  onSuccessPagerDuty,
+  pagerDutyChangeSourceDrawerData,
+  pagerDutyChangeSourceDrawerDataWithoutService
+} from './ChangeSourceDrawer.mock'
 
 const onSuccess = jest.fn()
 const hideDrawer = jest.fn()
+
+jest.mock('services/cd-ng', () => ({
+  ...(jest.requireActual('services/cd-ng') as any),
+  useGetConnectorList: () => {
+    return {
+      data: {},
+      refetch: jest.fn()
+    }
+  },
+  useGetConnector: () => {
+    return {
+      data: {},
+      refetch: jest.fn()
+    }
+  }
+}))
+
 describe('Test Change Source Drawer', () => {
   test('ChangeSource Drawer renders in create mode', async () => {
     const { container, getByText } = render(
@@ -70,7 +95,95 @@ describe('Test Change Source Drawer', () => {
     act(() => {
       fireEvent.click(getByText('submit'))
     })
-    await waitFor(() => expect(onSuccess).toHaveBeenCalledWith(onSuccessExpectedData))
+    await waitFor(() => expect(onSuccess).toHaveBeenCalledWith(onSuccessHarnessCD))
     expect(container).toMatchSnapshot()
   })
+})
+
+test('ChangeSource Drawer renders in create mode for PagerDuty', async () => {
+  jest.spyOn(cvServices, 'useGetServicesFromPagerDuty').mockImplementation(
+    () =>
+      ({
+        loading: false,
+        error: null,
+        data: {},
+        refetch: jest.fn()
+      } as any)
+  )
+
+  const { container, getByText, findByText } = render(
+    <TestWrapper>
+      <ChangeSourceDrawer
+        isEdit={false}
+        rowdata={pagerDutyChangeSourceDrawerDataWithoutService}
+        tableData={[pagerDutyChangeSourceDrawerDataWithoutService]}
+        onSuccess={onSuccess}
+        hideDrawer={hideDrawer}
+      />
+    </TestWrapper>
+  )
+
+  // change source name input and source type dropdown are rendered
+  await waitFor(() => expect(container.querySelector('input[value="cv.changeSource.alertText"]')).toBeTruthy())
+  await waitFor(() => expect(container.querySelector('input[value="PagerDuty"]')).toBeTruthy())
+  await waitFor(() => expect(getByText('common.pagerDuty')).toBeTruthy())
+
+  // connector is visible
+  await waitFor(() => expect(getByText('cv.changeSource.connectChangeSource')).toBeTruthy())
+  // pagerDuty service visible
+  await waitFor(() => expect(findByText('cv.changeSource.PageDuty.pagerDutyService')).toBeTruthy())
+  await waitFor(() => expect(container.querySelector('input[name="spec.pagerDutyServiceId"]')).toBeDefined())
+  // Service empty warning visible
+  await waitFor(() => expect(getByText('cv.changeSource.PageDuty.pagerDutyEmptyService')).toBeTruthy())
+
+  act(() => {
+    fireEvent.click(getByText('submit'))
+  })
+  // Service not select error
+  await waitFor(() => expect(getByText('cv.changeSource.PageDuty.selectPagerDutyService')).toBeTruthy())
+
+  expect(container).toMatchSnapshot()
+})
+test('ChangeSource Drawer renders in edit mode for PagerDuty', async () => {
+  jest.spyOn(cvServices, 'useGetServicesFromPagerDuty').mockImplementation(
+    () =>
+      ({
+        loading: false,
+        error: null,
+        data: {},
+        refetch: jest.fn()
+      } as any)
+  )
+
+  const { container, getByText } = render(
+    <TestWrapper>
+      <ChangeSourceDrawer
+        isEdit
+        rowdata={pagerDutyChangeSourceDrawerData}
+        tableData={[pagerDutyChangeSourceDrawerData]}
+        onSuccess={onSuccess}
+        hideDrawer={hideDrawer}
+      />
+    </TestWrapper>
+  )
+
+  // change source name input and source type dropdown are rendered
+  await waitFor(() => expect(container.querySelector('input[value="cv.changeSource.alertText"]')).toBeTruthy())
+  await waitFor(() => expect(container.querySelector('input[value="PagerDuty"]')).toBeTruthy())
+  await waitFor(() => expect(getByText('common.pagerDuty')).toBeTruthy())
+
+  // category dropdown and thumbnailSelect are disabled in editmode
+  await waitFor(() => expect(container.querySelector('input[value="cv.changeSource.alertText"]')).toBeDisabled())
+  await waitFor(() => expect(container.querySelector('input[value="PagerDuty"]')).toBeDisabled())
+
+  // connector and pagerduty service are visible
+  await waitFor(() => expect(getByText('cv.changeSource.connectChangeSource')).toBeTruthy())
+  await waitFor(() => expect(getByText('cv.changeSource.PageDuty.pagerDutyService')).toBeTruthy())
+
+  expect(container.querySelector('input[name="spec.pagerDutyServiceId"]')).toBeDefined()
+  act(() => {
+    fireEvent.click(getByText('submit'))
+  })
+  await waitFor(() => expect(onSuccess).toHaveBeenCalledWith(onSuccessPagerDuty))
+  expect(container).toMatchSnapshot()
 })

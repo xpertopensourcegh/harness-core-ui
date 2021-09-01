@@ -142,6 +142,11 @@ exports[`Test PagerDuty Change Source PagerDuty ChangeSource renders in create m
               </div>
             </div>
           </div>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-xsmall StyledProps--color StyledProps--color-error"
+          >
+            cv.changeSource.PageDuty.pagerDutyEmptyService
+          </p>
         </div>
       </div>
     </div>

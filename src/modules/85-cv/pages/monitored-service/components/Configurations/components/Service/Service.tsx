@@ -19,7 +19,7 @@ import {
   ChangeSourceDTO
 } from 'services/cv'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
+import { accountPathProps, projectPathProps, modulePathProps } from '@common/utils/routeUtils'
 import { useDrawer } from '@cv/hooks/useDrawerHook/useDrawerHook'
 import { ChangeSourceDrawer } from '@cv/pages/ChangeSource/ChangeSourceDrawer/ChangeSourceDrawer'
 import SaveAndDiscardButton from '@common/components/SaveAndDiscardButton/SaveAndDiscardButton'
@@ -328,6 +328,7 @@ function Service(): JSX.Element {
                         ? routes.toCVAddMonitoringServicesEdit({
                             ...accountPathProps,
                             ...projectPathProps,
+                            ...modulePathProps,
                             identifier: ':identifier'
                           })
                         : routes.toCVAddMonitoringServicesSetup({ ...accountPathProps, ...projectPathProps }),

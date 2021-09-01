@@ -3,7 +3,7 @@ import { isEmpty, cloneDeep } from 'lodash-es'
 import type { Item } from '@wings-software/uicore/dist/components/ThumbnailSelect/ThumbnailSelect'
 import type { StringsMap } from 'stringTypes'
 import type { UseStringsReturn } from 'framework/strings'
-import type { ChangeSourceDTO, PagerDutyChangeSourceSpec } from 'services/cv'
+import type { ChangeSourceDTO } from 'services/cv'
 import { Connectors } from '@connectors/constants'
 import { getIconBySource } from '../ChangeSource.utils'
 import { CARD_OPTIONS, CHANGESOURCE_OPTIONS, HarnessCD } from './ChangeSourceDrawer.constants'
@@ -80,17 +80,29 @@ export const validateChangeSource = (
     }
   }
 
-  if (type === Connectors.PAGER_DUTY) {
-    const { pagerDutyServiceId } = (spec as PagerDutyChangeSourceSpec) || {}
-    if (!pagerDutyServiceId) {
-      errors.spec = {
-        ...errors.spec,
-        pagerDutyServiceId: getString('cv.changeSource.PageDuty.selectPagerDutyService')
-      }
-    }
+  const specError = validateChangeSourceSpec(type, spec, errors?.spec || {}, getString)
+
+  if (!isEmpty(specError)) {
+    errors.spec = specError
   }
 
   return errors
+}
+
+export const validateChangeSourceSpec = (
+  type: ChangeSourceDTO['type'],
+  spec: ChangeSourceDTO['spec'],
+  errorSpec: { [key: string]: string },
+  getString: UseStringsReturn['getString']
+): { [key: string]: string } => {
+  switch (type) {
+    case Connectors.PAGER_DUTY:
+      return spec?.pagerDutyServiceId
+        ? {}
+        : { ...errorSpec, pagerDutyServiceId: getString('cv.changeSource.PageDuty.selectPagerDutyService') }
+    default:
+      return {}
+  }
 }
 
 export const getChangeSourceOptions = (getString: UseStringsReturn['getString']): SelectOption[] =>
@@ -98,3 +110,15 @@ export const getChangeSourceOptions = (getString: UseStringsReturn['getString'])
     item.label = getString(item.label as keyof StringsMap)
     return item
   })
+
+export const updateSpecByType = (data: ChangeSourceDTO): ChangeSourceDTO['spec'] => {
+  switch (data?.type) {
+    case Connectors.PAGER_DUTY:
+      return {
+        connectorRef: data?.spec?.connectorRef,
+        pagerDutyServiceId: data?.spec?.pagerDutyServiceId
+      }
+    default:
+      return {}
+  }
+}

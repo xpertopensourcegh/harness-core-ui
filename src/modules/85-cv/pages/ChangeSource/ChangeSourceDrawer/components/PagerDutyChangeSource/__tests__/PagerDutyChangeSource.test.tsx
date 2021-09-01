@@ -1,10 +1,8 @@
 import React from 'react'
-import type { FormikProps } from 'formik'
 import { render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import * as cvServices from 'services/cv'
 import PagerDutyChangeSource from '../PagerDutyChangeSource'
-import type { UpdatedChangeSourceDTO } from '../../../ChangeSourceDrawer.types'
 
 describe('Test PagerDuty Change Source', () => {
   test('PagerDuty ChangeSource renders in create mode', async () => {
@@ -23,9 +21,12 @@ describe('Test PagerDuty Change Source', () => {
           formik={
             {
               values: {
-                spec: {}
+                spec: {
+                  pagerDutyServiceId: 'cvng',
+                  connectorRef: 'PagerDutyConnector'
+                }
               }
-            } as FormikProps<UpdatedChangeSourceDTO>
+            } as any
           }
         />
       </TestWrapper>
@@ -33,6 +34,8 @@ describe('Test PagerDuty Change Source', () => {
 
     await waitFor(() => expect(getByText('cv.changeSource.connectChangeSource')).toBeTruthy())
     await waitFor(() => expect(getByText('cv.changeSource.PageDuty.pagerDutyService')).toBeTruthy())
+    await waitFor(() => expect(getByText('cv.changeSource.PageDuty.pagerDutyEmptyService')).toBeTruthy())
+    expect(container.querySelector('input[name="spec.pagerDutyServiceId"]')).toBeDefined()
 
     expect(container).toMatchSnapshot()
   })

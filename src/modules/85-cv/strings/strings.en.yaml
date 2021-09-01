@@ -582,6 +582,7 @@ changeSource:
   PageDuty:
     pagerDutyService: PagerDuty Service
     selectPagerDutyService: Select PageDuty Service
+    pagerDutyEmptyService: No service available for {{ connector }}
 healthSource:
   nameLabel: Health Source Name
   namePlaceholder: Type your health source name
