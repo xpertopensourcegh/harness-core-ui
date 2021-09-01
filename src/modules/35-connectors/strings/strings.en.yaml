@@ -368,6 +368,7 @@ azureKeyVault:
     subscription: Subscription
     vaultName: Vault Name
     fetchVault: Fetch Vault
+    setupVault: Setup Vault
   validation:
     clientId: Client ID is required
     tenantId: '{{ $.connectors.tenantIdRequired }}'

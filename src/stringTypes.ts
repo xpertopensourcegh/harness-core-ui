@@ -963,6 +963,7 @@ export interface StringsMap {
   'connectors.awsKms.validation.selectRegion': string
   'connectors.awsSecretManager.secretNamePrefix': string
   'connectors.azureKeyVault.labels.fetchVault': string
+  'connectors.azureKeyVault.labels.setupVault': string
   'connectors.azureKeyVault.labels.subscription': string
   'connectors.azureKeyVault.labels.tenantId': string
   'connectors.azureKeyVault.labels.vaultName': string

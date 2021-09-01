@@ -15,7 +15,8 @@ import type {
   AwsSecretManagerCredential,
   AwsSMCredentialSpecManualConfig,
   AwsSMCredentialSpecAssumeSTS,
-  VaultConnectorDTO
+  VaultConnectorDTO,
+  AzureKeyVaultConnectorDTO
 } from 'services/cd-ng'
 import { FormData, CredTypeValues } from '@connectors/interfaces/ConnectorInterface'
 import type { SecretReferenceInterface } from '@secrets/utils/SecretField'
@@ -979,6 +980,25 @@ export const buildAWSSecretManagerPayload = (formData: FormData): BuildAWSSecret
   return { connector: savedData }
 }
 
+interface BuildAzureKeyVaultPayloadReturnType {
+  connector: Omit<ConnectorInfoDTO, 'spec'> & {
+    spec: AzureKeyVaultConnectorDTO
+  }
+}
+
+export const buildAzureKeyVaultPayload = (formData: FormData): BuildAzureKeyVaultPayloadReturnType => {
+  const savedData = {
+    ...pick(formData, ['name', 'description', 'projectIdentifier', 'identifier', 'orgIdentifier', 'tags']),
+    type: Connectors.AZURE_KEY_VAULT,
+    spec: {
+      ...pick(formData, ['clientId', 'tenantId', 'default', 'subscription', 'vaultName', 'delegateSelectors']),
+      secretKey: formData.secretKey?.referenceString
+    }
+  }
+
+  return { connector: savedData }
+}
+
 export const buildGitPayload = (formData: FormData) => {
   const savedData = {
     name: formData.name,
@@ -1307,9 +1327,14 @@ export const setupAzureKeyVaultFormData = async (
     clientId: connectorInfoSpec?.clientId || undefined,
     secretKey: secretKey || undefined,
     tenantId: connectorInfoSpec?.tenantId || undefined,
-    vaultName: connectorInfoSpec?.vaultName || undefined,
     subscription: connectorInfoSpec?.subscription || undefined,
     default: connectorInfoSpec?.default || false
+  }
+}
+
+export const setupAzureKeyVaultNameFormData = async (connectorInfo: ConnectorInfoDTO): Promise<FormData> => {
+  return {
+    vaultName: connectorInfo?.spec?.vaultName
   }
 }
 
@@ -1555,7 +1580,7 @@ export function GetTestConnectionValidationTextByType(type: ConnectorConfigDTO['
       return getString('connectors.testConnectionStep.validationText.datadog')
     case Connectors.SUMOLOGIC:
       return getString('connectors.testConnectionStep.validationText.sumologic')
-    case Connectors.CE_AZURE_KEY_VAULT:
+    case Connectors.AZURE_KEY_VAULT:
       return getString('connectors.testConnectionStep.validationText.azureKeyVault')
     case Connectors.PAGER_DUTY:
       return getString('connectors.testConnectionStep.validationText.pagerduty')
