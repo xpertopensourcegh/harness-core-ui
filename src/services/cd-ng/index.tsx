@@ -3869,10 +3869,9 @@ export type NumberNGVariable = NGVariable & {
   value: number
 }
 
-export interface OAuthSettings {
+export type OAuthSettings = NGAuthSettings & {
   allowedProviders?: ('AZURE' | 'BITBUCKET' | 'GITHUB' | 'GITLAB' | 'GOOGLE' | 'LINKEDIN')[]
   filter?: string
-  settingsType?: 'USER_PASSWORD' | 'SAML' | 'LDAP' | 'OAUTH'
 }
 
 export interface OAuthSignupDTO {
@@ -6882,6 +6881,7 @@ export interface UserGroupFilterDTO {
   identifierFilter?: string[]
   orgIdentifier?: string
   projectIdentifier?: string
+  searchTerm?: string
   userIdentifierFilter?: string[]
 }
 

@@ -571,7 +571,7 @@ exports[`UsersPage Test render data 1`] = `
               class="Layout--vertical StyledProps--main"
             >
               <p
-                class="StyledProps--font StyledProps--main"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
               >
                 Testing User Group
               </p>
@@ -786,7 +786,7 @@ exports[`UsersPage Test render data 1`] = `
               class="Layout--vertical StyledProps--main"
             >
               <p
-                class="StyledProps--font StyledProps--main"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
               >
                 dummy
               </p>
@@ -890,7 +890,7 @@ exports[`UsersPage Test render data 1`] = `
               class="Layout--vertical StyledProps--main"
             >
               <p
-                class="StyledProps--font StyledProps--main"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
               >
                 Testing User Group With SSO
               </p>
@@ -920,7 +920,9 @@ exports[`UsersPage Test render data 1`] = `
                       />
                     </svg>
                   </span>
-                  rbac.userDetails.linkToSSOProviderModal.saml
+                  <span>
+                    rbac.userDetails.linkToSSOProviderModal.saml
+                  </span>
                 </p>
                 <p
                   class="StyledProps--font Text--lineclamp StyledProps--main"
@@ -931,7 +933,9 @@ exports[`UsersPage Test render data 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
                 >
-                  rbac.userDetails.linkToSSOProviderModal.group
+                  <span>
+                    rbac.userDetails.linkToSSOProviderModal.group
+                  </span>
                 </p>
                 <p
                   class="StyledProps--font Text--lineclamp StyledProps--main"
@@ -1152,7 +1156,7 @@ exports[`UsersPage Test render data 1`] = `
               class="Layout--vertical StyledProps--main"
             >
               <p
-                class="StyledProps--font StyledProps--main"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
               >
                 Testing User Group With SSO no Users
               </p>
@@ -1182,7 +1186,9 @@ exports[`UsersPage Test render data 1`] = `
                       />
                     </svg>
                   </span>
-                  rbac.userDetails.linkToSSOProviderModal.saml
+                  <span>
+                    rbac.userDetails.linkToSSOProviderModal.saml
+                  </span>
                 </p>
                 <p
                   class="StyledProps--font Text--lineclamp StyledProps--main"
@@ -1193,7 +1199,9 @@ exports[`UsersPage Test render data 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
                 >
-                  rbac.userDetails.linkToSSOProviderModal.group
+                  <span>
+                    rbac.userDetails.linkToSSOProviderModal.group
+                  </span>
                 </p>
                 <p
                   class="StyledProps--font Text--lineclamp StyledProps--main"
