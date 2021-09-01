@@ -887,6 +887,7 @@ export interface StringsMap {
   'secrets.labelSecretsManager': string
   'secrets.labelType': string
   'secrets.labelValue': string
+  'secrets.noSecrets': string
   'secrets.selectSecret': string
   'secrets.sshAuthFormFields.labelFile': string
   'secrets.sshAuthFormFields.labelKeyFilePath': string

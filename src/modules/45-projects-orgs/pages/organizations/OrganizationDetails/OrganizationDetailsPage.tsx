@@ -165,7 +165,7 @@ const OrganizationDetailsPage: React.FC = () => {
             </Card>
           </Layout.Vertical>
 
-          <Layout.Vertical spacing="medium">
+          <Layout.Vertical spacing="medium" padding={{ top: 'large' }}>
             <Heading font={{ size: 'medium', weight: 'bold' }} color={Color.BLACK}>
               {getString('projectsOrgs.orgResources.label')}
             </Heading>
