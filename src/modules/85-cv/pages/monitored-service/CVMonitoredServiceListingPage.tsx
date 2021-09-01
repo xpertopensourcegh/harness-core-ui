@@ -108,9 +108,7 @@ function CVMonitoredServiceListingPage(): JSX.Element {
                 orgIdentifier: params.orgIdentifier,
                 identifier: rowdata.identifier,
                 module: 'cv'
-              }),
-              // TODO - this will be removed once the bakend support is availble to populate currentHealthScore
-              state: { currentHealthScore: rowdata?.currentHealthScore }
+              })
             })
           }}
           onToggleMonitoredServiceData={{

@@ -7486,6 +7486,67 @@ export const getMonitoredServiceListEnvironmentsPromise = (
     signal
   )
 
+export interface GetMonitoredServiceScoresFromServiceAndEnvironmentQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+  serviceIdentifier: string
+  environmentIdentifier: string
+}
+
+export type GetMonitoredServiceScoresFromServiceAndEnvironmentProps = Omit<
+  GetProps<ResponseHealthScoreDTO, unknown, GetMonitoredServiceScoresFromServiceAndEnvironmentQueryParams, void>,
+  'path'
+>
+
+/**
+ * get monitored service scores from service and env ref
+ */
+export const GetMonitoredServiceScoresFromServiceAndEnvironment = (
+  props: GetMonitoredServiceScoresFromServiceAndEnvironmentProps
+) => (
+  <Get<ResponseHealthScoreDTO, unknown, GetMonitoredServiceScoresFromServiceAndEnvironmentQueryParams, void>
+    path={`/monitored-service/scores`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetMonitoredServiceScoresFromServiceAndEnvironmentProps = Omit<
+  UseGetProps<ResponseHealthScoreDTO, unknown, GetMonitoredServiceScoresFromServiceAndEnvironmentQueryParams, void>,
+  'path'
+>
+
+/**
+ * get monitored service scores from service and env ref
+ */
+export const useGetMonitoredServiceScoresFromServiceAndEnvironment = (
+  props: UseGetMonitoredServiceScoresFromServiceAndEnvironmentProps
+) =>
+  useGet<ResponseHealthScoreDTO, unknown, GetMonitoredServiceScoresFromServiceAndEnvironmentQueryParams, void>(
+    `/monitored-service/scores`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * get monitored service scores from service and env ref
+ */
+export const getMonitoredServiceScoresFromServiceAndEnvironmentPromise = (
+  props: GetUsingFetchProps<
+    ResponseHealthScoreDTO,
+    unknown,
+    GetMonitoredServiceScoresFromServiceAndEnvironmentQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseHealthScoreDTO, unknown, GetMonitoredServiceScoresFromServiceAndEnvironmentQueryParams, void>(
+    getConfig('cv/api'),
+    `/monitored-service/scores`,
+    props,
+    signal
+  )
+
 export interface GetMonitoredServiceFromServiceAndEnvironmentQueryParams {
   accountId: string
   orgIdentifier: string

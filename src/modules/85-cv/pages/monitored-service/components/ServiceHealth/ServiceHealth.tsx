@@ -1,10 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import { Color, Container, Layout, Select, SelectOption, Text } from '@wings-software/uicore'
+import { Container, Select, SelectOption } from '@wings-software/uicore'
 import Card from '@cv/components/Card/Card'
 import { useStrings } from 'framework/strings'
 // import { Ticker, TickerVerticalAlignment } from '@common/components/Ticker/Ticker'
 import ChangeTimeline from '@cv/components/ChangeTimeline/ChangeTimeline'
-import { getRiskColorValue } from '@common/components/HeatMap/ColorUtils'
 import { getTimeFormat, getTimePeriods, getTimestampsForPeriod } from './ServiceHealth.utils'
 import {
   // tickerData,
@@ -14,11 +13,13 @@ import {
 // import TickerValue from './components/TickerValue/TickerValue'
 import type { ServiceHealthProps } from './ServiceHealth.types'
 import HealthScoreChart from './components/HealthScoreChart/HealthScoreChart'
+import HealthScoreCard from './components/HealthScoreCard/HealthScoreCard'
 import css from './ServiceHealth.module.scss'
 
 export default function ServiceHealth({
-  currentHealthScore,
-  monitoredServiceIdentifier
+  monitoredServiceIdentifier,
+  serviceIdentifier,
+  environmentIdentifier
 }: ServiceHealthProps): JSX.Element {
   const { getString } = useStrings()
   const [selectedTimePeriod, setSelectedTimePeriod] = useState<SelectOption>({
@@ -26,8 +27,6 @@ export default function ServiceHealth({
     label: getString('cv.monitoredServices.serviceHealth.last24Hrs')
   })
   const [timestamps, setTimestamps] = useState<number[]>([])
-  const { riskStatus, healthScore = -2 } = currentHealthScore || {}
-  const color = getRiskColorValue(riskStatus)
 
   useEffect(() => {
     const timestampsForPeriod = getTimestampsForPeriod(selectedTimePeriod.value as string)
@@ -47,16 +46,8 @@ export default function ServiceHealth({
           className={css.timePeriods}
           onChange={setSelectedTimePeriod}
         />
-        <Layout.Horizontal className={css.healthScoreCardContainer}>
-          <div className={css.healthScoreCard} style={{ background: color }}>
-            {healthScore > -1 ? healthScore : ''}
-          </div>
-          <Text color={Color.BLACK} font={{ size: 'small' }}>
-            {getString('cv.monitoredServices.monitoredServiceTabs.serviceHealth')}
-          </Text>
-        </Layout.Horizontal>
+        <HealthScoreCard serviceIdentifier={serviceIdentifier} environmentIdentifier={environmentIdentifier} />
       </Container>
-
       <Container className={css.serviceHealthCard}>
         <Card>
           <>

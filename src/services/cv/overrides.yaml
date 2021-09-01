@@ -83,6 +83,7 @@ allowpaths:
   - /monitored-service/yaml-template
   - /monitored-service/{identifier}/overall-health-score
   - /verify-step/input-set-template
+  - /monitored-service/scores
 operationIdOverrides:
   /appdynamics/applications.get: getAppDynamicsApplications
   /appdynamics/metric-data.post: getAppDynamicsMetricData

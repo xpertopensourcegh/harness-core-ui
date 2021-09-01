@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useParams, useLocation } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { Container, Tab, Tabs } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
@@ -25,8 +25,6 @@ function MonitoredServicePage(): JSX.Element {
   const { orgIdentifier, projectIdentifier, accountId, identifier } = useParams<
     ProjectPathProps & { identifier: string }
   >()
-
-  const { state } = useLocation()
 
   const isEdit = !!identifier
 
@@ -103,8 +101,9 @@ function MonitoredServicePage(): JSX.Element {
               title={getString('cv.monitoredServices.monitoredServiceTabs.serviceHealth')}
               panel={
                 <ServiceHealth
-                  currentHealthScore={(state as any)?.currentHealthScore}
                   monitoredServiceIdentifier={monitoredServiceData?.data?.monitoredService?.identifier}
+                  serviceIdentifier={monitoredServiceData?.data?.monitoredService?.serviceRef as string}
+                  environmentIdentifier={monitoredServiceData?.data?.monitoredService?.environmentRef as string}
                 />
               }
             />
