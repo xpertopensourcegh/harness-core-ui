@@ -569,6 +569,7 @@ const DeployServiceInputStep: React.FC<DeployServiceProps & { formik?: any }> = 
           />
           {getMultiTypeFromValue(initialValues?.serviceRef) === MultiTypeInputType.FIXED && (
             <Button
+              size={ButtonSize.SMALL}
               variation={ButtonVariation.LINK}
               disabled={inputSetData?.readonly || (isEditService(initialValues) ? !canEdit : !canCreate)}
               onClick={() => {

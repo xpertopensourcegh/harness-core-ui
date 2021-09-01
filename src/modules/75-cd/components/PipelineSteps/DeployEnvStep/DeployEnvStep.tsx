@@ -600,8 +600,8 @@ const DeployEnvironmentInputStep: React.FC<DeployEnvironmentProps & { formik?: a
           />
           {getMultiTypeFromValue(initialValues?.environmentRef) === MultiTypeInputType.FIXED && (
             <Button
-              minimal
-              intent="primary"
+              size={ButtonSize.SMALL}
+              variation={ButtonVariation.LINK}
               disabled={inputSetData?.readonly || (isEditEnvironment(initialValues) ? !canEdit : !canCreate)}
               onClick={() => {
                 const isEdit = isEditEnvironment(initialValues)
