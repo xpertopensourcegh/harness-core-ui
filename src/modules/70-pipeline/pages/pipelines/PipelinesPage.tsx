@@ -629,7 +629,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
           <div className={css.noPipelineSection}>
             {appliedFilter || searchParam ? (
               <Layout.Vertical spacing="small" flex>
-                <Icon size={50} name={isCIModule ? 'ci-main' : 'cd-hover'} margin={{ bottom: 'large' }} />
+                <Icon size={50} name={isCIModule ? 'ci-main' : 'cd-main'} margin={{ bottom: 'large' }} />
                 <Text
                   margin={{ top: 'large', bottom: 'small' }}
                   font={{ weight: 'bold', size: 'medium' }}

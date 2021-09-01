@@ -195,11 +195,11 @@ exports[`<ExecutionFilters /> test snapshot testing for opened filter drawer 1`]
                   </span>
                 </div>
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon Button--variation Button--variation-icon"
                   type="button"
                 >
                   <span
-                    class="bp3-icon bp3-icon-cross StyledProps--main"
+                    class="bp3-icon bp3-icon-cross StyledProps--main StyledProps--color StyledProps--color-white"
                     icon="cross"
                   >
                     <svg
