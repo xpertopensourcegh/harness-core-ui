@@ -35821,7 +35821,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       style="width: calc(50% - 185px);"
                       title="Toggle SortBy"
                     >
-                      pipeline.testsReports.testCaseName
+                      PIPELINE.TESTSREPORTS.TESTCASENAME
                       <span
                         class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
                         icon="double-caret-vertical"
@@ -35849,7 +35849,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       style="width: calc(50% - 65px);"
                       title="Toggle SortBy"
                     >
-                      pipeline.testsReports.className
+                      PIPELINE.TESTSREPORTS.CLASSNAME
                       <span
                         class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
                         icon="double-caret-vertical"
@@ -75881,7 +75881,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       style="width: calc(50% - 185px);"
                       title="Toggle SortBy"
                     >
-                      pipeline.testsReports.testCaseName
+                      PIPELINE.TESTSREPORTS.TESTCASENAME
                       <span
                         class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
                         icon="double-caret-vertical"
@@ -75909,7 +75909,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       style="width: calc(50% - 65px);"
                       title="Toggle SortBy"
                     >
-                      pipeline.testsReports.className
+                      PIPELINE.TESTSREPORTS.CLASSNAME
                       <span
                         class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
                         icon="double-caret-vertical"

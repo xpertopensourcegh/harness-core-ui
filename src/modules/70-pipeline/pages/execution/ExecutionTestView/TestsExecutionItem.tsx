@@ -171,7 +171,7 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
         disableSortBy: true
       },
       {
-        Header: getString('pipeline.testsReports.testCaseName'),
+        Header: getString('pipeline.testsReports.testCaseName').toUpperCase(),
         accessor: 'name',
         width: 'calc(50% - 185px)',
         Cell: renderColumn({ col: 'name', openTestsFailedModal: openErrorModal }),
@@ -179,7 +179,7 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
         openErrorModal
       },
       {
-        Header: getString('pipeline.testsReports.className'),
+        Header: getString('pipeline.testsReports.className').toUpperCase(),
         accessor: 'class_name',
         width: 'calc(50% - 65px)',
         Cell: renderColumn({ col: 'class_name' }),

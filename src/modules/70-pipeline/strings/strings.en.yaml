@@ -599,8 +599,8 @@ testsReports:
   consoleOutput: Console Output
   testSuite: 'Test Suite:'
   totalTests: Total Tests
-  testCaseName: TEST NAME
-  className: CLASS NAME
+  testCaseName: Test Name
+  className: Class Name
   result: RESULT
   testCasesExecution: Tests Execution
   testExecutions: Test Executions
