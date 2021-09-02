@@ -9,7 +9,8 @@ import {
   Button,
   SelectOption,
   Container,
-  ButtonVariation
+  ButtonVariation,
+  FontVariation
 } from '@wings-software/uicore'
 import { useHistory, useParams, matchPath } from 'react-router-dom'
 import { parse } from 'yaml'
@@ -700,8 +701,9 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
                   whiteSpace: 'nowrap',
-                  maxWidth: '145px'
+                  maxWidth: window.innerWidth <= 1440 ? '70px' : '145px'
                 }}
+                font={FontVariation.SMALL}
                 tooltip={repoName}
               >
                 {repoName}
@@ -712,8 +714,9 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
                   whiteSpace: 'nowrap',
-                  maxWidth: '190px'
+                  maxWidth: window.innerWidth <= 1440 ? '70px' : '190px'
                 }}
+                font={FontVariation.SMALL}
                 tooltip={folderName}
               >
                 {folderName}
@@ -730,8 +733,9 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
                     whiteSpace: 'nowrap',
-                    maxWidth: '145px'
+                    maxWidth: window.innerWidth <= 1440 ? '70px' : '145px'
                   }}
+                  font={FontVariation.SMALL}
                   tooltip={gitDetails?.branch}
                 >
                   {gitDetails?.branch}
