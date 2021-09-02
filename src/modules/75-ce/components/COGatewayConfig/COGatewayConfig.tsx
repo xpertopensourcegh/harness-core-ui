@@ -287,7 +287,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
 
   const handleAsgSearch = (text: string) => {
     if (!text) {
-      setAsgToShow([])
+      setAsgToShow(allAsg)
       return
     }
     text = text.toLowerCase()
@@ -540,6 +540,12 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
       (selectedResource === RESOURCES.INSTANCES ? fullfilment != '' : true) &&
       (!_isEmpty(serviceDependencies)
         ? serviceDependencies.every(_dep => !isNaN(_dep.dep_id) && !isNaN(_dep.delay_secs))
+        : true) &&
+      (props.gatewayDetails.routing.instance.scale_group
+        ? (props.gatewayDetails.routing.instance.scale_group?.on_demand as number) > 0 &&
+          (props.gatewayDetails.routing.instance.scale_group?.on_demand as number) <=
+            (props.gatewayDetails.routing.instance.scale_group.max as number) &&
+          (props.gatewayDetails.routing.instance.scale_group?.spot as number) >= 0
         : true)
     )
   }
@@ -655,7 +661,8 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     selectedAsg,
     serviceDependencies,
     selectedResource,
-    selectedConnector
+    selectedConnector,
+    props.gatewayDetails.routing.instance.scale_group
   ])
 
   function handleSearch(text: string): void {
@@ -699,6 +706,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
           // eslint-disable-next-line
           updatedGatewayDetails.routing.instance.scale_group = {
             ...props.gatewayDetails.routing.instance.scale_group,
+            desired: selectedAsg?.mixed_instance ? props.gatewayDetails.routing.instance.scale_group?.max : numericVal, // desired = od + spot (which is always equal to max capacity)
             on_demand: numericVal, // eslint-disable-line
             // eslint-disable-next-line
             ...(selectedAsg?.mixed_instance && {
@@ -720,6 +728,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
           // eslint-disable-next-line
           updatedGatewayDetails.routing.instance.scale_group = {
             ...props.gatewayDetails.routing.instance.scale_group,
+            desired: props.gatewayDetails.routing.instance.scale_group?.max, // desired = od + spot (which is always equal to max capacity)
             spot: numericVal,
             on_demand: (props.gatewayDetails.routing.instance.scale_group?.max as number) - numericVal // eslint-disable-line
           }
@@ -1212,7 +1221,11 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                   <div className={css.asgInstanceDetails}>
                     <Text className={css.asgDetailRow}>
                       <span>Desired capacity: </span>
-                      <span>{selectedAsg.desired}</span>
+                      <span>
+                        {selectedAsg.desired ||
+                          (props.gatewayDetails.routing.instance.scale_group?.on_demand || 0) +
+                            (props.gatewayDetails.routing.instance.scale_group?.spot || 0)}
+                      </span>
                     </Text>
                     <Text className={css.asgDetailRow}>
                       <span>Min capacity: </span>
