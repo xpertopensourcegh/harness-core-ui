@@ -2559,6 +2559,7 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
           >
             <button
               class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+              data-name="copy-alt"
               tabindex="0"
               type="button"
             >
@@ -2619,6 +2620,7 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
           >
             <button
               class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+              data-name="copy-alt"
               tabindex="0"
               type="button"
             >
@@ -2679,6 +2681,7 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
           >
             <button
               class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+              data-name="copy-alt"
               tabindex="0"
               type="button"
             >
@@ -2739,6 +2742,7 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
           >
             <button
               class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+              data-name="copy-alt"
               tabindex="0"
               type="button"
             >
@@ -2799,6 +2803,7 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
           >
             <button
               class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+              data-name="copy-alt"
               tabindex="0"
               type="button"
             >
@@ -2859,6 +2864,7 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
           >
             <button
               class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+              data-name="copy-alt"
               tabindex="0"
               type="button"
             >
@@ -2919,6 +2925,7 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
           >
             <button
               class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+              data-name="copy-alt"
               tabindex="0"
               type="button"
             >
@@ -2979,6 +2986,7 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
           >
             <button
               class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+              data-name="copy-alt"
               tabindex="0"
               type="button"
             >
@@ -3039,6 +3047,7 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
           >
             <button
               class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+              data-name="copy-alt"
               tabindex="0"
               type="button"
             >
@@ -3099,6 +3108,7 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
           >
             <button
               class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+              data-name="copy-alt"
               tabindex="0"
               type="button"
             >
@@ -3159,6 +3169,7 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
           >
             <button
               class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+              data-name="copy-alt"
               tabindex="0"
               type="button"
             >
@@ -3219,6 +3230,7 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
           >
             <button
               class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+              data-name="copy-alt"
               tabindex="0"
               type="button"
             >
