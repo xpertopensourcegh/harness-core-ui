@@ -1,17 +1,13 @@
 .card {
   width: 280px;
-  min-height: 300px;
+  min-height: 290px;
 
   margin: 20px;
 
   box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
 
   .projectName {
-    line-height: 24px;
-    font-size: 14px;
-    font-weight: 600;
-
-    padding: 16px 0 0 0;
+    margin: 16px 0 8px 0 !important;
   }
 
   .id {
@@ -19,8 +15,7 @@
   }
 
   .description {
-    padding: 16px 0;
-    font-size: 12px;
+    padding: 16px 0 !important;
   }
 
   .urls {
@@ -86,4 +81,44 @@
 
 .launch {
   margin: 20px 0;
+}
+
+.frameContainer {
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  height: 100%;
+  background: white;
+}
+
+.frameHeader {
+  height: 40px;
+  position: relative;
+  background: #0278d5;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+
+  .closeIcon {
+    position: absolute;
+    right: 0;
+    color: white !important;
+  }
+
+  .argoLogo {
+    height: 24px;
+    margin-right: 12px;
+  }
+}
+
+.confirmText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.argoFrame {
+  height: calc(100% - 40px);
 }

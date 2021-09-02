@@ -2441,6 +2441,7 @@ export interface StringsMap {
   'cd.pipelineSteps.serviceTab.propagateFrom': string
   'cd.pipelineSteps.serviceTab.propagateStage': string
   'cd.pipelineSteps.serviceTab.stageOverrides': string
+  'cd.providerDetails': string
   'cd.releaseNameValidation': string
   'cd.resourceCannotBeEmpty': string
   'cd.scriptRequired': string

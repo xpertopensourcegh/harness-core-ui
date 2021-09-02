@@ -17,5 +17,10 @@ declare const styles: {
   readonly layout: string
   readonly argoLogo: string
   readonly launch: string
+  readonly frameContainer: string
+  readonly frameHeader: string
+  readonly closeIcon: string
+  readonly confirmText: string
+  readonly argoFrame: string
 }
 export default styles

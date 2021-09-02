@@ -1,30 +1,79 @@
 import React, { useState } from 'react'
-import { useModalHook, Button, Card, Color, Icon, Layout, Popover } from '@wings-software/uicore'
+import { useParams } from 'react-router-dom'
+import { useModalHook, Button, Card, Layout, Text, Popover, Color } from '@wings-software/uicore'
 import { Menu, Classes, Position, Dialog } from '@blueprintjs/core'
-import argoLogo from '../images/argo-icon-color.svg'
+import { useConfirmationDialog, useToaster } from '@common/exports'
+import { useDeleteConnector } from 'services/cd-ng'
+import { useStrings } from 'framework/strings'
+import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
+import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import argoLogo from '../images/argo-logo.svg'
 import harnessLogo from '../images/harness-logo.png'
 import css from './ProviderCard.module.scss'
 
 interface ProviderCardProps {
   provider: any
+  onDelete?: () => Promise<void>
 }
 
 const ProviderCard: React.FC<ProviderCardProps> = props => {
-  const { provider } = props
-
-  const logo = provider.type === 'nativeArgo' ? argoLogo : harnessLogo
-
-  const getStatusIcon = (status: any) => {
-    if (status === 'Active') {
-      return <Icon name="command-artifact-check" size={20} color={Color.GREEN_500} />
-    }
-    return <Icon name="warning-sign" size={20} color={Color.RED_500} />
-  }
-
+  const { provider, onDelete } = props
+  const { projectIdentifier, orgIdentifier, accountId } = useParams<PipelineType<ProjectPathProps>>()
+  const { getString } = useStrings()
+  const { showSuccess, showError } = useToaster()
+  const logo = provider.type === 'ArgoConnector' ? argoLogo : harnessLogo
   const [menuOpen, setMenuOpen] = useState(false)
 
+  const { mutate: deleteConnector } = useDeleteConnector({
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier: orgIdentifier,
+      projectIdentifier: projectIdentifier
+    }
+  })
+
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const handleDelete = () => {}
+  const handleEdit = () => {}
+
+  const getConfirmationDialogContent = (): JSX.Element => {
+    return (
+      <div className={'connectorDeleteDialog'}>
+        <Text margin={{ bottom: 'medium' }} className={css.confirmText} title={provider.connector?.name}>
+          {`${getString('connectors.confirmDelete')} ${provider.name}?`}
+        </Text>
+      </div>
+    )
+  }
+
+  const { openDialog } = useConfirmationDialog({
+    contentText: getConfirmationDialogContent(),
+    titleText: getString('connectors.confirmDeleteTitle'),
+    confirmButtonText: getString('delete'),
+    cancelButtonText: getString('cancel'),
+    onCloseDialog: async (isConfirmed: boolean) => {
+      if (isConfirmed) {
+        try {
+          const deleted = await deleteConnector(provider?.identifier || '', {
+            headers: { 'content-type': 'application/json' }
+          })
+
+          if (deleted) {
+            onDelete && onDelete()
+            showSuccess(`Connector ${provider?.name} deleted`)
+          }
+        } catch (err) {
+          showError(err?.data?.message || err?.message)
+        }
+      }
+    }
+  })
+
+  const handleDelete = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
+    e.stopPropagation()
+    setMenuOpen(false)
+    if (!provider.identifier) return
+    openDialog()
+  }
 
   const [openUploadCertiModal, closeUploadCertiModal] = useModalHook(() => {
     return (
@@ -41,29 +90,28 @@ const ProviderCard: React.FC<ProviderCardProps> = props => {
         }}
         enforceFocus={false}
       >
-        <div
-          style={{
-            height: '100%',
-            background: 'white'
-          }}
-        >
+        <div style={{}} className={css.frameContainer}>
+          <div className={css.frameHeader}>
+            <img className={css.argoLogo} src={logo} alt="" aria-hidden />
+            {provider.name} - {provider?.spec?.adapterUrl}
+            <Button
+              minimal
+              icon="cross"
+              className={css.closeIcon}
+              iconProps={{ size: 18 }}
+              onClick={closeUploadCertiModal}
+              data-testid={'close-certi-upload-modal'}
+            />
+          </div>
           <iframe
             id="argoCD"
-            height="100%"
+            className={css.argoFrame}
             width="100%"
             frameBorder="0"
             name="argoCD"
             title="argoCD"
-            src="http://localhost:8090/"
+            src={provider?.spec?.adapterUrl}
           ></iframe>
-          <Button
-            minimal
-            icon="cross"
-            iconProps={{ size: 18 }}
-            onClick={closeUploadCertiModal}
-            style={{ position: 'absolute', right: 'var(--spacing-large)', top: 'var(--spacing-small)' }}
-            data-testid={'close-certi-upload-modal'}
-          />
         </div>
       </Dialog>
     )
@@ -92,32 +140,33 @@ const ProviderCard: React.FC<ProviderCardProps> = props => {
               }}
             />
             <Menu style={{ minWidth: 'unset' }}>
+              <Menu.Item icon="edit" text="Edit" onClick={handleEdit} />
               <Menu.Item icon="trash" text="Delete" onClick={handleDelete} />
             </Menu>
           </Popover>
         </Layout.Horizontal>
       </div>
 
-      <div className={css.projectName}> {provider.name} </div>
-      <div className={css.id}> ID: {provider.id} </div>
-      <div className={css.description}>This is an application to use now. Amazing work and all that.</div>
+      <Text font="medium" lineClamp={1} color={Color.BLACK} className={css.projectName}>
+        {provider.name}
+      </Text>
+
+      <div className={css.id}> ID: {provider.identifier} </div>
+
+      <Text font="small" lineClamp={2} color={Color.GREY_600} className={css.description}>
+        {provider.description}
+      </Text>
+
+      {provider.tags && (
+        <Layout.Horizontal padding={{ top: 'small' }}>
+          <TagsRenderer tags={provider.tags || /* istanbul ignore next */ {}} length={2} />
+        </Layout.Horizontal>
+      )}
 
       <div className={css.urls}>
         <div className={css.serverUrl}>
-          <a> Argo Server URL: &nbsp; {provider.baseURL} </a>
+          <a> Adapter URL: {provider?.spec?.adapterUrl} </a>
         </div>
-
-        <div className={css.uiUrl}>
-          <a> Argo UI URL: &nbsp; {provider.baseURL} </a>
-        </div>
-      </div>
-
-      <div className={css.status}>
-        <div className={css.label}> Status </div>
-        <div className={`${css.serverStatus} ${provider.status === 'Active' ? css.success : css.failure}`}>
-          {provider.status === 'Active' ? 'Connected' : 'Failed'}
-        </div>
-        <div> {getStatusIcon(provider.status)} </div>
       </div>
     </Card>
   )

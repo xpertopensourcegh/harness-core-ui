@@ -100,3 +100,4 @@ serviceDashboard:
   noActiveServices: No Active Services in {{timeRange}}
 gitOps: GitOps
 newProvider: New Provider
+providerDetails: Provider Details

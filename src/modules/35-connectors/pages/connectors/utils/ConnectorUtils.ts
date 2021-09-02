@@ -1037,6 +1037,22 @@ export const buildGitPayload = (formData: FormData) => {
   return { connector: savedData }
 }
 
+export const buildArgoConnectorPayload = (formData: FormData) => {
+  const savedData = {
+    name: formData.name,
+    description: formData.description,
+    projectIdentifier: formData.projectIdentifier,
+    identifier: formData.identifier,
+    orgIdentifier: formData.orgIdentifier,
+    tags: formData.tags,
+    type: 'ArgoConnector',
+    spec: {
+      adapterUrl: formData.adapterURL
+    }
+  }
+  return { connector: savedData }
+}
+
 export const buildKubFormData = (connector: ConnectorInfoDTO) => {
   return {
     name: connector?.name,
@@ -1432,6 +1448,8 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
       return 'service-gcp'
     case Connectors.PAGER_DUTY:
       return 'service-pagerduty'
+    case Connectors.ARGO:
+      return 'argo'
     default:
       return 'cog'
   }
