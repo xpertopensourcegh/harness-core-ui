@@ -2464,6 +2464,7 @@ export interface StringsMap {
   'cd.serviceDashboard.month': string
   'cd.serviceDashboard.mostActiveServices': string
   'cd.serviceDashboard.noActiveServiceInstances': string
+  'cd.serviceDashboard.noActiveServices': string
   'cd.serviceDashboard.noDeployments': string
   'cd.serviceDashboard.noPipelines': string
   'cd.serviceDashboard.noServiceDetails': string

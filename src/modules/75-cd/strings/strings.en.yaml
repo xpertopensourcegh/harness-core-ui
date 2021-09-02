@@ -97,5 +97,6 @@ serviceDashboard:
   noPipelines: No pipeline execution in {{timeRange}} matches the given criteria
   envName: Env Name
   noActiveServiceInstances: No Active Service Instances
+  noActiveServices: No Active Services in {{timeRange}}
 gitOps: GitOps
 newProvider: New Provider

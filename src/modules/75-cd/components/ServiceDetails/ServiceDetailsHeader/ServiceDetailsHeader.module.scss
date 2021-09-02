@@ -1,0 +1,18 @@
+.header {
+  background-color: var(--primary-1) !important;
+  & > div {
+    width: 100% !important;
+  }
+  .serviceDetails {
+    flex-grow: 1;
+    max-width: 100%;
+    .detailsSection {
+      max-width: 85%;
+    }
+    .textOverflow {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap !important;
+    }
+  }
+}
