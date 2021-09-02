@@ -32,7 +32,6 @@ describe('Test PagerDuty Change Source', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(getByText('cv.changeSource.connectChangeSource')).toBeTruthy())
     await waitFor(() => expect(getByText('cv.changeSource.PageDuty.pagerDutyService')).toBeTruthy())
     await waitFor(() => expect(getByText('cv.changeSource.PageDuty.pagerDutyEmptyService')).toBeTruthy())
     expect(container.querySelector('input[name="spec.pagerDutyServiceId"]')).toBeDefined()

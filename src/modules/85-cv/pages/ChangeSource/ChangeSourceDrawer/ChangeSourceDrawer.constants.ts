@@ -1,16 +1,31 @@
 import { Connectors } from '@connectors/constants'
 import type { CardSelectOption } from './ChangeSourceDrawer.types'
 
-export const HarnessCD = 'HarnessCD'
+export const HARNESS_CD = 'HarnessCD'
 
-export const CHANGESOURCE_OPTIONS = [
-  { label: 'deploymentText', value: 'Deployment' },
-  { label: 'infrastructureText', value: 'Infrastructure' },
-  { label: 'cv.changeSource.alertText', value: 'Alert' }
+export const ChangeSourceCategoryName = {
+  DEPLOYMENT: 'Deployment',
+  INFRASTRUCTURE: 'Infrastructure',
+  ALERT: 'Alert'
+}
+
+export const ChangeSourceCategoryOptions = [
+  { label: 'deploymentText', value: ChangeSourceCategoryName.DEPLOYMENT },
+  { label: 'infrastructureText', value: ChangeSourceCategoryName.INFRASTRUCTURE },
+  { label: 'cv.changeSource.alertText', value: ChangeSourceCategoryName.ALERT }
 ]
 
-export const CARD_OPTIONS: CardSelectOption[] = [
-  { label: 'cv.onboarding.changeSourceTypes.HarnessCDNextGen.name', value: HarnessCD, category: 'Deployment' },
-  { label: 'kubernetesText', value: Connectors.KUBERNETES_CLUSTER, category: 'Infrastructure' },
-  { label: 'common.pagerDuty', value: Connectors.PAGER_DUTY, category: 'Alert' }
+export const ChangeSourceConnectorOptions: CardSelectOption[] = [
+  {
+    label: 'cv.onboarding.changeSourceTypes.HarnessCDNextGen.name',
+    value: HARNESS_CD,
+    category: ChangeSourceCategoryName.DEPLOYMENT
+  },
+  { label: 'kubernetesText', value: Connectors.KUBERNETES_CLUSTER, category: ChangeSourceCategoryName.INFRASTRUCTURE },
+  { label: 'common.pagerDuty', value: Connectors.PAGER_DUTY, category: ChangeSourceCategoryName.ALERT }
 ]
+
+export const ChangeSourceFieldNames = {
+  CATEGORY: 'category',
+  TYPE: 'type'
+}

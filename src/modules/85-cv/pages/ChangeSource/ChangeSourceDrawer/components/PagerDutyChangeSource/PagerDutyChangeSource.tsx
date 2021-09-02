@@ -9,7 +9,6 @@ import { useToaster } from '@common/exports'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { FormConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/FormConnectorReferenceField'
-import CardWithOuterTitle from '@cv/pages/health-source/common/CardWithOuterTitle/CardWithOuterTitle'
 import type { UpdatedChangeSourceDTO } from '../../ChangeSourceDrawer.types'
 import style from './PagerDutyChangeSource.module.scss'
 
@@ -59,55 +58,51 @@ export default function PageDutyChangeSource({ formik }: { formik: FormikProps<U
   )
 
   return (
-    <>
-      <CardWithOuterTitle title={getString('cv.changeSource.connectChangeSource')}>
-        <Layout.Horizontal spacing={'xxlarge'}>
-          <Container margin={{ bottom: 'large' }} width={'400px'}>
-            <div className={style.connectorField}>
-              <FormConnectorReferenceField
-                width={400}
-                formik={formik}
-                type={formik?.values?.type as any}
-                name={'spec.connectorRef'}
-                accountIdentifier={accountId}
-                projectIdentifier={projectIdentifier}
-                orgIdentifier={orgIdentifier}
-                placeholder={getString('cv.healthSource.connectors.selectConnector', {
-                  sourceType: formik?.values?.type
-                })}
-                label={
-                  <Text color={Color.BLACK} font={'small'} margin={{ bottom: 'small' }}>
-                    {getString('connectors.selectConnector')}
-                  </Text>
-                }
-              />
-            </div>
-          </Container>
-          {formik?.values?.spec?.connectorRef && (
-            <Container margin={{ bottom: 'large' }} width={'400px'}>
-              <Text color={Color.BLACK} font={'small'} className={style.pagerDutyServiceTitle}>
-                {getString('cv.changeSource.PageDuty.pagerDutyService')}
+    <Layout.Horizontal spacing={'xxlarge'}>
+      <Container margin={{ bottom: 'large' }} width={'400px'}>
+        <div className={style.connectorField}>
+          <FormConnectorReferenceField
+            width={400}
+            formik={formik}
+            type={formik?.values?.type as any}
+            name={'spec.connectorRef'}
+            accountIdentifier={accountId}
+            projectIdentifier={projectIdentifier}
+            orgIdentifier={orgIdentifier}
+            placeholder={getString('cv.healthSource.connectors.selectConnector', {
+              sourceType: formik?.values?.type
+            })}
+            label={
+              <Text color={Color.BLACK} font={'small'} margin={{ bottom: 'small' }}>
+                {getString('connectors.selectConnector')}
               </Text>
-              <FormInput.Select
-                name="spec.pagerDutyServiceId"
-                placeholder={
-                  loadingPagerdutyServices
-                    ? getString('loading')
-                    : getString('cv.changeSource.PageDuty.selectPagerDutyService')
-                }
-                items={pagerDutyServiceOptions}
-              />
-              {!pagerDutyServiceOptions.length && !loadingPagerdutyServices && (
-                <Text font={'xsmall'} color={Color.ERROR}>
-                  {getString('cv.changeSource.PageDuty.pagerDutyEmptyService', {
-                    connector: formik?.values?.spec?.connectorRef
-                  })}
-                </Text>
-              )}
-            </Container>
+            }
+          />
+        </div>
+      </Container>
+      {formik?.values?.spec?.connectorRef && (
+        <Container margin={{ bottom: 'large' }} width={'400px'}>
+          <Text color={Color.BLACK} font={'small'} className={style.pagerDutyServiceTitle}>
+            {getString('cv.changeSource.PageDuty.pagerDutyService')}
+          </Text>
+          <FormInput.Select
+            name="spec.pagerDutyServiceId"
+            placeholder={
+              loadingPagerdutyServices
+                ? getString('loading')
+                : getString('cv.changeSource.PageDuty.selectPagerDutyService')
+            }
+            items={pagerDutyServiceOptions}
+          />
+          {!pagerDutyServiceOptions.length && !loadingPagerdutyServices && (
+            <Text font={'xsmall'} color={Color.ERROR}>
+              {getString('cv.changeSource.PageDuty.pagerDutyEmptyService', {
+                connector: formik?.values?.spec?.connectorRef
+              })}
+            </Text>
           )}
-        </Layout.Horizontal>
-      </CardWithOuterTitle>
-    </>
+        </Container>
+      )}
+    </Layout.Horizontal>
   )
 }

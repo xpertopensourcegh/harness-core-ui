@@ -2,6 +2,7 @@
 // this is an auto-generated file
 declare const styles: {
   readonly alignHorizontal: string
+  readonly outerCard: string
   readonly selectChangeSource: string
   readonly divider: string
 }

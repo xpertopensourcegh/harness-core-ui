@@ -6,7 +6,14 @@ import type { UseStringsReturn } from 'framework/strings'
 import type { ChangeSourceDTO } from 'services/cv'
 import { Connectors } from '@connectors/constants'
 import { getIconBySource } from '../ChangeSource.utils'
-import { CARD_OPTIONS, CHANGESOURCE_OPTIONS, HarnessCD } from './ChangeSourceDrawer.constants'
+import {
+  ChangeSourceConnectorOptions,
+  ChangeSourceFieldNames,
+  ChangeSourceCategoryOptions,
+  HARNESS_CD,
+  ChangeSourceCategoryName
+} from './ChangeSourceDrawer.constants'
+import type { UpdatedChangeSourceDTO } from './ChangeSourceDrawer.types'
 
 export const createChangesourceList = (
   changeSource: ChangeSourceDTO[],
@@ -36,7 +43,7 @@ export const createCardOptions = (
   getString: UseStringsReturn['getString']
 ): Item[] => {
   return (
-    cloneDeep(CARD_OPTIONS)
+    cloneDeep(ChangeSourceConnectorOptions)
       .filter(item => item.category === category)
       .map(item => {
         item.icon = getIconBySource(item.value as ChangeSourceDTO['type'])
@@ -74,7 +81,7 @@ export const validateChangeSource = (
     errors.type = getString('cv.changeSource.selectChangeSourceType')
   }
 
-  if (!spec?.connectorRef && type !== HarnessCD) {
+  if (!spec?.connectorRef && type !== HARNESS_CD) {
     errors.spec = {
       connectorRef: getString('cv.onboarding.selectProductScreen.validationText.connectorRef')
     }
@@ -106,7 +113,7 @@ export const validateChangeSourceSpec = (
 }
 
 export const getChangeSourceOptions = (getString: UseStringsReturn['getString']): SelectOption[] =>
-  cloneDeep(CHANGESOURCE_OPTIONS).map(item => {
+  cloneDeep(ChangeSourceCategoryOptions).map(item => {
     item.label = getString(item.label as keyof StringsMap)
     return item
   })
@@ -120,5 +127,26 @@ export const updateSpecByType = (data: ChangeSourceDTO): ChangeSourceDTO['spec']
       }
     default:
       return {}
+  }
+}
+
+export const buildInitialData = (): UpdatedChangeSourceDTO => {
+  return {
+    [ChangeSourceFieldNames.CATEGORY]: ChangeSourceCategoryOptions[0].value,
+    [ChangeSourceFieldNames.TYPE]: ChangeSourceConnectorOptions[0].value,
+    spec: {}
+  }
+}
+
+export const preSelectChangeSourceConnectorOnCategoryChange = (categoryName: string): string => {
+  switch (categoryName) {
+    case ChangeSourceCategoryName.ALERT:
+      return Connectors.PAGER_DUTY
+    case ChangeSourceCategoryName.DEPLOYMENT:
+      return HARNESS_CD
+    case ChangeSourceCategoryName.INFRASTRUCTURE:
+      return Connectors.KUBERNETES_CLUSTER
+    default:
+      return ''
   }
 }
