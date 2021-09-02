@@ -35502,7 +35502,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
             class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600"
             level="2"
           >
-            pipeline.testsReports.testCasesExecution
+            pipeline.testsReports.testExecutions
           </h2>
           <span
             class="bp3-popover-wrapper"
@@ -35728,7 +35728,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.totalTests
+                        total
                       </span>
                       <span>
                         21
@@ -35740,7 +35740,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.failedTests
+                        failed
                       </span>
                       <span>
                         1
@@ -38090,7 +38090,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.totalTests
+                        total
                       </span>
                       <span>
                         15
@@ -38102,7 +38102,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.failedTests
+                        failed
                       </span>
                       <span>
                         2
@@ -38277,7 +38277,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.totalTests
+                        total
                       </span>
                       <span>
                         3
@@ -38289,7 +38289,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.failedTests
+                        failed
                       </span>
                       <span>
                         0
@@ -38464,7 +38464,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.totalTests
+                        total
                       </span>
                       <span>
                         3
@@ -38476,7 +38476,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.failedTests
+                        failed
                       </span>
                       <span>
                         0
@@ -38651,7 +38651,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.totalTests
+                        total
                       </span>
                       <span>
                         4
@@ -38663,7 +38663,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.failedTests
+                        failed
                       </span>
                       <span>
                         0
@@ -38838,7 +38838,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.totalTests
+                        total
                       </span>
                       <span>
                         2
@@ -38850,7 +38850,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.failedTests
+                        failed
                       </span>
                       <span>
                         0
@@ -39025,7 +39025,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.totalTests
+                        total
                       </span>
                       <span>
                         2
@@ -39037,7 +39037,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.failedTests
+                        failed
                       </span>
                       <span>
                         0
@@ -39212,7 +39212,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.totalTests
+                        total
                       </span>
                       <span>
                         6
@@ -39224,7 +39224,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.failedTests
+                        failed
                       </span>
                       <span>
                         0
@@ -39399,7 +39399,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.totalTests
+                        total
                       </span>
                       <span>
                         1
@@ -39411,7 +39411,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.failedTests
+                        failed
                       </span>
                       <span>
                         1
@@ -39586,7 +39586,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.totalTests
+                        total
                       </span>
                       <span>
                         2
@@ -39598,7 +39598,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.failedTests
+                        failed
                       </span>
                       <span>
                         0
@@ -39773,7 +39773,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.totalTests
+                        total
                       </span>
                       <span>
                         4
@@ -39785,7 +39785,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.failedTests
+                        failed
                       </span>
                       <span>
                         0
@@ -39960,7 +39960,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.totalTests
+                        total
                       </span>
                       <span>
                         5
@@ -39972,7 +39972,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.failedTests
+                        failed
                       </span>
                       <span>
                         0
@@ -40147,7 +40147,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.totalTests
+                        total
                       </span>
                       <span>
                         8
@@ -40159,7 +40159,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.failedTests
+                        failed
                       </span>
                       <span>
                         0
@@ -40334,7 +40334,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.totalTests
+                        total
                       </span>
                       <span>
                         1
@@ -40346,7 +40346,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.failedTests
+                        failed
                       </span>
                       <span>
                         0
@@ -40521,7 +40521,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.totalTests
+                        total
                       </span>
                       <span>
                         20
@@ -40533,7 +40533,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.failedTests
+                        failed
                       </span>
                       <span>
                         4
@@ -75562,7 +75562,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
             class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600"
             level="2"
           >
-            pipeline.testsReports.testCasesExecution
+            pipeline.testsReports.testExecutions
           </h2>
           <span
             class="bp3-popover-wrapper"
@@ -75788,7 +75788,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.totalTests
+                        total
                       </span>
                       <span>
                         21
@@ -75800,7 +75800,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.failedTests
+                        failed
                       </span>
                       <span>
                         1
@@ -78150,7 +78150,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.totalTests
+                        total
                       </span>
                       <span>
                         15
@@ -78162,7 +78162,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.failedTests
+                        failed
                       </span>
                       <span>
                         2
@@ -78337,7 +78337,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.totalTests
+                        total
                       </span>
                       <span>
                         3
@@ -78349,7 +78349,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.failedTests
+                        failed
                       </span>
                       <span>
                         0
@@ -78524,7 +78524,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.totalTests
+                        total
                       </span>
                       <span>
                         3
@@ -78536,7 +78536,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.failedTests
+                        failed
                       </span>
                       <span>
                         0
@@ -78711,7 +78711,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.totalTests
+                        total
                       </span>
                       <span>
                         4
@@ -78723,7 +78723,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.failedTests
+                        failed
                       </span>
                       <span>
                         0
@@ -78898,7 +78898,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.totalTests
+                        total
                       </span>
                       <span>
                         2
@@ -78910,7 +78910,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.failedTests
+                        failed
                       </span>
                       <span>
                         0
@@ -79085,7 +79085,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.totalTests
+                        total
                       </span>
                       <span>
                         2
@@ -79097,7 +79097,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.failedTests
+                        failed
                       </span>
                       <span>
                         0
@@ -79272,7 +79272,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.totalTests
+                        total
                       </span>
                       <span>
                         6
@@ -79284,7 +79284,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.failedTests
+                        failed
                       </span>
                       <span>
                         0
@@ -79459,7 +79459,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.totalTests
+                        total
                       </span>
                       <span>
                         1
@@ -79471,7 +79471,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.failedTests
+                        failed
                       </span>
                       <span>
                         1
@@ -79646,7 +79646,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.totalTests
+                        total
                       </span>
                       <span>
                         2
@@ -79658,7 +79658,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.failedTests
+                        failed
                       </span>
                       <span>
                         0
@@ -79833,7 +79833,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.totalTests
+                        total
                       </span>
                       <span>
                         4
@@ -79845,7 +79845,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.failedTests
+                        failed
                       </span>
                       <span>
                         0
@@ -80020,7 +80020,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.totalTests
+                        total
                       </span>
                       <span>
                         5
@@ -80032,7 +80032,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.failedTests
+                        failed
                       </span>
                       <span>
                         0
@@ -80207,7 +80207,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.totalTests
+                        total
                       </span>
                       <span>
                         8
@@ -80219,7 +80219,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.failedTests
+                        failed
                       </span>
                       <span>
                         0
@@ -80394,7 +80394,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.totalTests
+                        total
                       </span>
                       <span>
                         1
@@ -80406,7 +80406,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.failedTests
+                        failed
                       </span>
                       <span>
                         0
@@ -80581,7 +80581,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.totalTests
+                        total
                       </span>
                       <span>
                         20
@@ -80593,7 +80593,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       <span
                         style="white-space: nowrap;"
                       >
-                        pipeline.testsReports.failedTests
+                        failed
                       </span>
                       <span>
                         4

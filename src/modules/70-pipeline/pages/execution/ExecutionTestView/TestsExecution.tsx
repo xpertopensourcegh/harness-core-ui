@@ -97,9 +97,9 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId,
   const sortByItems = useMemo(
     () => [
       { label: getString('common.failureRate'), value: SortByKey.FAILURE_RATE },
-      { label: getString('pipeline.testsReports.failedTests'), value: SortByKey.FAILED_TESTS },
+      { label: getString('failed'), value: SortByKey.FAILED_TESTS },
       { label: getString('pipeline.duration'), value: SortByKey.DURATION_MS },
-      { label: getString('pipeline.testsReports.totalTests'), value: SortByKey.TOTAL_TESTS }
+      { label: getString('total'), value: SortByKey.TOTAL_TESTS }
     ],
     [getString]
   )
@@ -288,7 +288,7 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId,
     <div className={cx(css.widgetWrapper, css.rightContainer)}>
       <Container flex={{ justifyContent: 'flex-start' }} margin={{ bottom: 'xsmall' }}>
         <Heading level={2} font={{ weight: 'semi-bold' }} color={Color.GREY_600}>
-          {getString('pipeline.testsReports.testCasesExecution')}
+          {getString('pipeline.testsReports.testExecutions')}
         </Heading>
         <Button
           icon="question"

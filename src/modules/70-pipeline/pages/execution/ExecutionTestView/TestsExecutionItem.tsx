@@ -271,7 +271,7 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
             font={{ size: 'small' }}
             padding={{ left: 'small', right: 'small' }}
           >
-            <span style={{ whiteSpace: 'nowrap' }}>{getString('pipeline.testsReports.totalTests')}</span>
+            <span style={{ whiteSpace: 'nowrap' }}>{getString('total')}</span>
             <span>{executionSummary.total_tests}</span>
           </Text>
           <Text
@@ -280,7 +280,7 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
             font={{ size: 'small' }}
             padding={{ left: 'small', right: 'small' }}
           >
-            <span style={{ whiteSpace: 'nowrap' }}>{getString('pipeline.testsReports.failedTests')}</span>
+            <span style={{ whiteSpace: 'nowrap' }}>{getString('failed')}</span>
             <span>{executionSummary.failed_tests}</span>
           </Text>
           <Text
