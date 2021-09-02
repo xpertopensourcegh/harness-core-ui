@@ -1,6 +1,7 @@
 import type { StringsMap } from 'stringTypes'
 import type { KubernetesArtifactsProps } from '@cd/components/PipelineSteps/K8sServiceSpec/KubernetesArtifacts'
 import type { SelectOption } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
+import type { AsyncStatus } from '@cd/components/PipelineSteps/K8sServiceSpec/Utils'
 
 export interface ArtifactSourceRenderProps extends KubernetesArtifactsProps {
   isArtifactsRuntime: boolean
@@ -13,13 +14,6 @@ export interface ArtifactSourceRenderProps extends KubernetesArtifactsProps {
   pipelineIdentifier: string
   repoIdentifier?: string
   branch?: string
-}
-
-export enum AsyncStatus {
-  INIT = 'INIT',
-  SUCCESS = 'SUCCESS',
-  ERROR = 'ERROR',
-  INPROGRESS = 'INPROGRESS'
 }
 
 export abstract class ArtifactSourceBase<T> {
