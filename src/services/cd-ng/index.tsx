@@ -1144,6 +1144,7 @@ export interface ConnectorCatalogueItem {
     | 'Datadog'
     | 'SumoLogic'
     | 'PagerDuty'
+    | 'ArgoConnector'
   )[]
 }
 
@@ -1259,6 +1260,7 @@ export interface ConnectorInfoDTO {
     | 'Datadog'
     | 'SumoLogic'
     | 'PagerDuty'
+    | 'ArgoConnector'
 }
 
 export interface ConnectorResponse {

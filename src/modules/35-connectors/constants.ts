@@ -72,7 +72,7 @@ export const Connectors: ConnectorType = {
   CE_GCP: 'GcpCloudCost',
   AWS_SECRET_MANAGER: 'AwsSecretManager',
   PAGER_DUTY: 'PagerDuty',
-  ARGO: 'ArgoConnector'
+  ARGO_CONNECTOR: 'ArgoConnector'
 }
 
 export const ConnectorInfoText = {
