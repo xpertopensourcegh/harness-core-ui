@@ -52,9 +52,7 @@ const SetupEngine: React.FC<StepProps<StepDetailsProps> & ConnectorDetailsProps>
   onConnectorCreated,
   isEditMode,
   connectorInfo,
-  accountId,
-  orgIdentifier,
-  projectIdentifier
+  accountId
 }) => {
   const { getString } = useStrings()
   const { showSuccess, showError } = useToaster()
@@ -110,8 +108,8 @@ const SetupEngine: React.FC<StepProps<StepDetailsProps> & ConnectorDetailsProps>
       const res = await getMetadata({
         identifier: formData.identifier,
         encryptionType: 'VAULT',
-        orgIdentifier,
-        projectIdentifier,
+        orgIdentifier: formData.orgIdentifier,
+        projectIdentifier: formData.projectIdentifier,
         spec: {
           url: formData.vaultUrl,
           accessType: formData.accessType,

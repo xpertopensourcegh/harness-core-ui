@@ -252,7 +252,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
             }
 
             if (props.submitOnNextStep) {
-              nextStep?.({ ...prevStepData, ...updatedStepData })
+              nextStep?.({ ...prevStepData, ...updatedStepData, projectIdentifier, orgIdentifier })
               return
             }
 

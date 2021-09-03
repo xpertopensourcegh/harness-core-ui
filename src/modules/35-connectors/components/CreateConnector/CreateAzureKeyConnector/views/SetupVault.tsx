@@ -43,8 +43,6 @@ const defaultInitialFormData: SetupVaultFormData = {
 const SetupVault: React.FC<StepProps<StepDetailsProps> & ConnectorDetailsProps> = ({
   isEditMode,
   accountId,
-  orgIdentifier,
-  projectIdentifier,
   connectorInfo,
   prevStepData,
   previousStep,
@@ -83,8 +81,8 @@ const SetupVault: React.FC<StepProps<StepDetailsProps> & ConnectorDetailsProps> 
       const { data } = await getMetadata({
         identifier: formData.identifier,
         encryptionType: 'AZURE_VAULT',
-        orgIdentifier,
-        projectIdentifier,
+        orgIdentifier: formData.orgIdentifier,
+        projectIdentifier: formData.projectIdentifier,
         spec: {
           clientId: formData.clientId?.trim(),
           tenantId: formData.tenantId?.trim(),
