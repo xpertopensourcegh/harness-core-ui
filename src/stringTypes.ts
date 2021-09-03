@@ -1390,6 +1390,8 @@ export interface StringsMap {
   'connectors.splunk.connectorDetailsHeader': string
   'connectors.splunkConnectorDetails': string
   'connectors.splunkLabel': string
+  'connectors.stackdriverLogsLabel': string
+  'connectors.stackdriverMetricsLabel': string
   'connectors.stepFourName': string
   'connectors.stepThreeName': string
   'connectors.successfullCreate': string
@@ -2363,6 +2365,7 @@ export interface StringsMap {
   'pipeline.verification.healthSourcePlaceholder': string
   'pipeline.verification.logClustersInViolation': string
   'pipeline.verification.logs.actions': string
+  'pipeline.verification.logs.allEvents': string
   'pipeline.verification.logs.clusterType': string
   'pipeline.verification.logs.copyURL': string
   'pipeline.verification.logs.filterByClusterType': string
@@ -3641,8 +3644,10 @@ export interface StringsMap {
   'cv.monitoredServices.serviceHealth.last3Days': string
   'cv.monitoredServices.serviceHealth.last4Hrs': string
   'cv.monitoredServices.serviceHealth.last7Days': string
+  'cv.monitoredServices.serviceHealth.metricsAndLogs': string
   'cv.monitoredServices.serviceHealth.noDataAvailableForHealthScore': string
   'cv.monitoredServices.serviceHealth.overallHealthScore': string
+  'cv.monitoredServices.serviceHealth.selectTimeline': string
   'cv.monitoredServices.serviceValidation': string
   'cv.monitoredServices.table.healthMonitoring': string
   'cv.monitoredServices.table.lastestHealthTrend': string

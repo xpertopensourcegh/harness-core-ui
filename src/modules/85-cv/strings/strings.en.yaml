@@ -553,6 +553,8 @@ monitoredServices:
     last7Days: '{{ $.common.last7days }}'
     overallHealthScore: Overall Health Score
     noDataAvailableForHealthScore: No data available for health score
+    selectTimeline: Select a timeline to see metric & logs data
+    metricsAndLogs: Metrics & Logs
   monitoredServiceTabs:
     serviceHealth: Service Health
     configurations: Configurations

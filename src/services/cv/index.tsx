@@ -6968,6 +6968,71 @@ export const getTagCountPromise = (
     signal
   )
 
+export interface GetAllLogsDataQueryParams {
+  accountId?: string
+  orgIdentifier: string
+  projectIdentifier: string
+  serviceIdentifier: string
+  environmentIdentifier: string
+  clusterTypes?: ('KNOWN' | 'UNEXPECTED' | 'UNKNOWN')[]
+  startTime: number
+  endTime: number
+  datasourceType?:
+    | 'APP_DYNAMICS'
+    | 'SPLUNK'
+    | 'STACKDRIVER'
+    | 'STACKDRIVER_LOG'
+    | 'KUBERNETES'
+    | 'NEW_RELIC'
+    | 'PROMETHEUS'
+  page?: number
+  size?: number
+}
+
+export type GetAllLogsDataProps = Omit<
+  GetProps<RestResponsePageAnalyzedLogDataDTO, unknown, GetAllLogsDataQueryParams, void>,
+  'path'
+>
+
+/**
+ * get all log data for a time range
+ */
+export const GetAllLogsData = (props: GetAllLogsDataProps) => (
+  <Get<RestResponsePageAnalyzedLogDataDTO, unknown, GetAllLogsDataQueryParams, void>
+    path={`/log-dashboard/logs-data`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetAllLogsDataProps = Omit<
+  UseGetProps<RestResponsePageAnalyzedLogDataDTO, unknown, GetAllLogsDataQueryParams, void>,
+  'path'
+>
+
+/**
+ * get all log data for a time range
+ */
+export const useGetAllLogsData = (props: UseGetAllLogsDataProps) =>
+  useGet<RestResponsePageAnalyzedLogDataDTO, unknown, GetAllLogsDataQueryParams, void>(`/log-dashboard/logs-data`, {
+    base: getConfig('cv/api'),
+    ...props
+  })
+
+/**
+ * get all log data for a time range
+ */
+export const getAllLogsDataPromise = (
+  props: GetUsingFetchProps<RestResponsePageAnalyzedLogDataDTO, unknown, GetAllLogsDataQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponsePageAnalyzedLogDataDTO, unknown, GetAllLogsDataQueryParams, void>(
+    getConfig('cv/api'),
+    `/log-dashboard/logs-data`,
+    props,
+    signal
+  )
+
 export interface GetTagCountForActivityQueryParams {
   accountId?: string
   projectIdentifier: string
@@ -9152,6 +9217,72 @@ export const getMetricDataPromise = (
   getUsingFetch<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetMetricDataQueryParams, void>(
     getConfig('cv/api'),
     `/timeseries-dashboard/metric-data`,
+    props,
+    signal
+  )
+
+export interface GetTimeSeriesMetricDataQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+  serviceIdentifier: string
+  environmentIdentifier: string
+  startTime: number
+  endTime: number
+  anomalous?: boolean
+  filter?: string
+  datasourceType?:
+    | 'APP_DYNAMICS'
+    | 'SPLUNK'
+    | 'STACKDRIVER'
+    | 'STACKDRIVER_LOG'
+    | 'KUBERNETES'
+    | 'NEW_RELIC'
+    | 'PROMETHEUS'
+  page?: number
+  size?: number
+}
+
+export type GetTimeSeriesMetricDataProps = Omit<
+  GetProps<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetTimeSeriesMetricDataQueryParams, void>,
+  'path'
+>
+
+/**
+ * get all time series data in a given time range
+ */
+export const GetTimeSeriesMetricData = (props: GetTimeSeriesMetricDataProps) => (
+  <Get<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetTimeSeriesMetricDataQueryParams, void>
+    path={`/timeseries-dashboard/metrics`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetTimeSeriesMetricDataProps = Omit<
+  UseGetProps<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetTimeSeriesMetricDataQueryParams, void>,
+  'path'
+>
+
+/**
+ * get all time series data in a given time range
+ */
+export const useGetTimeSeriesMetricData = (props: UseGetTimeSeriesMetricDataProps) =>
+  useGet<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetTimeSeriesMetricDataQueryParams, void>(
+    `/timeseries-dashboard/metrics`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * get all time series data in a given time range
+ */
+export const getTimeSeriesMetricDataPromise = (
+  props: GetUsingFetchProps<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetTimeSeriesMetricDataQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetTimeSeriesMetricDataQueryParams, void>(
+    getConfig('cv/api'),
+    `/timeseries-dashboard/metrics`,
     props,
     signal
   )

@@ -79,24 +79,26 @@ export default function TimeseriesRow({
                 <HighchartsReact highcharts={Highcharts} options={data.options} />
               </div>
               {withContextMenu && (
-                <Popover
-                  content={
-                    <Menu>
-                      <MenuItem
-                        icon="fullscreen"
-                        text={getString('viewDetails')}
-                        onClick={() =>
-                          showDetails({
-                            name: data.name,
-                            series: data.series
-                          })
-                        }
-                      />
-                    </Menu>
-                  }
-                >
-                  <Icon name="main-more" className={styles.verticalMoreIcon} color={Color.GREY_350} />
-                </Popover>
+                <Container padding={{ right: 'xsmall' }}>
+                  <Popover
+                    content={
+                      <Menu>
+                        <MenuItem
+                          icon="fullscreen"
+                          text={getString('viewDetails')}
+                          onClick={() =>
+                            showDetails({
+                              name: data.name,
+                              series: data.series
+                            })
+                          }
+                        />
+                      </Menu>
+                    }
+                  >
+                    <Icon name="main-more" className={styles.verticalMoreIcon} color={Color.GREY_350} />
+                  </Popover>
+                </Container>
               )}
             </Container>
           </React.Fragment>

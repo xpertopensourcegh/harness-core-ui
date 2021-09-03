@@ -82,6 +82,8 @@ allowpaths:
   - /monitored-service/{identifier}/health-monitoring-flag
   - /monitored-service/yaml-template
   - /monitored-service/{identifier}/overall-health-score
+  - /log-dashboard/logs-data
+  - /timeseries-dashboard/metrics
   - /verify-step/input-set-template
   - /monitored-service/scores
 operationIdOverrides:

@@ -35,6 +35,8 @@ dynatraceLabel: Dynatrace
 appdLabel: AppDynamics
 newRelicLabel: New Relic
 splunkLabel: Splunk
+stackdriverMetricsLabel: Google Cloud Operations (Metrics)
+stackdriverLogsLabel: Google Cloud Operations (Logs)
 click: 'Click'
 dynatraceConnectorDetails: Dynatrace Connector Details
 connectorDetailsHeader: '{{type}} Connector Details'
