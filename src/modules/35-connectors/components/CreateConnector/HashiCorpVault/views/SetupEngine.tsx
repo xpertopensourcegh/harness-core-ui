@@ -16,10 +16,11 @@ import {
 } from '@wings-software/uicore'
 import type { IOptionProps } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
-import type {
+import {
   StepDetailsProps,
   ConnectorDetailsProps,
-  SetupEngineFormData
+  SetupEngineFormData,
+  HashiCorpVaultAccessTypes
 } from '@connectors/interfaces/ConnectorInterface'
 import { setupEngineFormData } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { PageSpinner } from '@common/components'
@@ -32,7 +33,8 @@ import {
   useCreateConnector,
   useUpdateConnector,
   ConnectorRequestBody,
-  ConnectorConfigDTO
+  ConnectorConfigDTO,
+  VaultAgentCredentialDTO
 } from 'services/cd-ng'
 import { shouldShowError } from '@common/utils/errorUtils'
 import { useToaster } from '@common/exports'
@@ -89,20 +91,6 @@ const SetupEngine: React.FC<StepProps<StepDetailsProps> & ConnectorDetailsProps>
     }
   }, [isEditMode, connectorInfo, accountId])
 
-  const isFetchDisabled = (formData: ConnectorConfigDTO): boolean => {
-    if (isEditMode && (loading || loadingFormData)) return true
-    switch (formData.accessType) {
-      case 'APP_ROLE':
-        if (!formData.appRoleId?.trim() || !formData.secretId?.referenceString || !formData.secretId?.identifier)
-          return true
-        break
-      case 'TOKEN':
-        if (!formData.authToken?.referenceString || !formData.authToken?.identifier) return true
-        break
-    }
-    return false
-  }
-
   const handleFetchEngines = async (formData: ConnectorConfigDTO): Promise<void> => {
     try {
       const res = await getMetadata({
@@ -114,15 +102,20 @@ const SetupEngine: React.FC<StepProps<StepDetailsProps> & ConnectorDetailsProps>
           url: formData.vaultUrl,
           accessType: formData.accessType,
           delegateSelectors: formData.delegateSelectors,
+          namespace: formData.namespace,
           spec:
-            formData.accessType === 'APP_ROLE'
+            formData.accessType === HashiCorpVaultAccessTypes.APP_ROLE
               ? ({
                   appRoleId: formData.appRoleId,
                   secretId: formData.secretId?.referenceString
                 } as VaultAppRoleCredentialDTO)
-              : ({
+              : formData.accessType === HashiCorpVaultAccessTypes.TOKEN
+              ? ({
                   authToken: formData.authToken?.referenceString
                 } as VaultAuthTokenCredentialDTO)
+              : ({
+                  sinkPath: formData.sinkPath
+                } as VaultAgentCredentialDTO)
         } as VaultMetadataRequestSpecDTO
       })
 
@@ -249,7 +242,7 @@ const SetupEngine: React.FC<StepProps<StepDetailsProps> & ConnectorDetailsProps>
                       intent="primary"
                       text={getString('connectors.hashiCorpVault.fetchEngines')}
                       onClick={() => handleFetchEngines(prevStepData as ConnectorConfigDTO)}
-                      disabled={isFetchDisabled(prevStepData as ConnectorConfigDTO)}
+                      disabled={loading}
                       loading={loading}
                     />
                   </Layout.Horizontal>

@@ -18,7 +18,7 @@ import type {
   VaultConnectorDTO,
   AzureKeyVaultConnectorDTO
 } from 'services/cd-ng'
-import { FormData, CredTypeValues } from '@connectors/interfaces/ConnectorInterface'
+import { FormData, CredTypeValues, HashiCorpVaultAccessTypes } from '@connectors/interfaces/ConnectorInterface'
 import type { SecretReferenceInterface } from '@secrets/utils/SecretField'
 import { ValueType } from '@secrets/components/TextReference/TextReference'
 import { useStrings } from 'framework/strings'
@@ -750,10 +750,22 @@ export const buildVaultPayload = (formData: FormData): BuildVaultPayloadReturnTy
     tags: formData.tags,
     type: Connectors.VAULT,
     spec: {
-      ...pick(formData, ['basePath', 'vaultUrl', 'readOnly', 'default', 'renewalIntervalMinutes', 'delegateSelectors']),
-      authToken: formData.accessType === 'TOKEN' ? formData.authToken?.referenceString : undefined,
-      appRoleId: formData.accessType === 'APP_ROLE' ? formData.appRoleId : undefined,
-      secretId: formData.accessType === 'APP_ROLE' ? formData.secretId?.referenceString : undefined,
+      ...pick(formData, [
+        'basePath',
+        'vaultUrl',
+        'namespace',
+        'readOnly',
+        'default',
+        'renewalIntervalMinutes',
+        'delegateSelectors'
+      ]),
+      authToken:
+        formData.accessType === HashiCorpVaultAccessTypes.TOKEN ? formData.authToken?.referenceString : undefined,
+      appRoleId: formData.accessType === HashiCorpVaultAccessTypes.APP_ROLE ? formData.appRoleId : undefined,
+      secretId:
+        formData.accessType === HashiCorpVaultAccessTypes.APP_ROLE ? formData.secretId?.referenceString : undefined,
+      useVaultAgent: formData.accessType === HashiCorpVaultAccessTypes.VAULT_AGENT,
+      sinkPath: formData.accessType === HashiCorpVaultAccessTypes.VAULT_AGENT ? formData.sinkPath : undefined,
       secretEngineManuallyConfigured: formData.engineType === 'manual',
       secretEngineName:
         formData.engineType === 'manual' ? formData.secretEngineName : formData.secretEngine?.split('@@@')[0],
@@ -1366,12 +1378,14 @@ export const setupVaultFormData = async (connectorInfo: ConnectorInfoDTO, accoun
   return {
     vaultUrl: connectorInfoSpec?.vaultUrl || '',
     basePath: connectorInfoSpec?.basePath || '',
+    namespace: connectorInfoSpec?.namespace,
     readOnly: connectorInfoSpec?.readOnly || false,
     default: connectorInfoSpec?.default || false,
-    accessType: connectorInfoSpec?.accessType || 'APP_ROLE',
+    accessType: connectorInfoSpec?.accessType || HashiCorpVaultAccessTypes.APP_ROLE,
     appRoleId: connectorInfoSpec?.appRoleId || '',
     secretId: secretId || undefined,
     authToken: authToken || undefined,
+    sinkPath: connectorInfoSpec?.sinkPath || '',
     renewalIntervalMinutes: connectorInfoSpec?.renewalIntervalMinutes || 10
   }
 }

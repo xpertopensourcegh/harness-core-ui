@@ -1302,6 +1302,7 @@ export interface StringsMap {
   'connectors.encryptedAPIKeyLabel': string
   'connectors.encryptedAPIKeyValidation': string
   'connectors.gcrConnectorDetails': string
+  'connectors.hashiCorpVault.appRole': string
   'connectors.hashiCorpVault.appRoleId': string
   'connectors.hashiCorpVault.baseSecretPath': string
   'connectors.hashiCorpVault.default': string
@@ -1313,10 +1314,14 @@ export interface StringsMap {
   'connectors.hashiCorpVault.readOnly': string
   'connectors.hashiCorpVault.readOnlyVault': string
   'connectors.hashiCorpVault.renewal': string
+  'connectors.hashiCorpVault.root': string
   'connectors.hashiCorpVault.secretEngine': string
   'connectors.hashiCorpVault.secretId': string
   'connectors.hashiCorpVault.setupEngine': string
+  'connectors.hashiCorpVault.sinkPath': string
+  'connectors.hashiCorpVault.sinkPathIsRequired': string
   'connectors.hashiCorpVault.stepTwoName': string
+  'connectors.hashiCorpVault.vaultAgent': string
   'connectors.hashiCorpVault.vaultUrl': string
   'connectors.hashicorpVaultDetails': string
   'connectors.helmRepo.helmRepoUrl': string

@@ -1144,7 +1144,6 @@ export interface ConnectorCatalogueItem {
     | 'Datadog'
     | 'SumoLogic'
     | 'PagerDuty'
-    | 'ArgoConnector'
   )[]
 }
 
@@ -1260,7 +1259,6 @@ export interface ConnectorInfoDTO {
     | 'Datadog'
     | 'SumoLogic'
     | 'PagerDuty'
-    | 'ArgoConnector'
 }
 
 export interface ConnectorResponse {
@@ -6972,6 +6970,10 @@ export type ValuesManifest = ManifestAttributes & {
   store?: StoreConfigWrapper
 }
 
+export type VaultAgentCredentialDTO = VaultCredentialDTO & {
+  sinkPath?: string
+}
+
 export type VaultAppRoleCredentialDTO = VaultCredentialDTO & {
   appRoleId?: string
   secretId?: string
@@ -6982,18 +6984,21 @@ export type VaultAuthTokenCredentialDTO = VaultCredentialDTO & {
 }
 
 export type VaultConnectorDTO = ConnectorConfigDTO & {
-  accessType?: 'APP_ROLE' | 'TOKEN'
+  accessType?: 'APP_ROLE' | 'TOKEN' | 'VAULT_AGENT'
   appRoleId?: string
   authToken?: string
   basePath?: string
   default?: boolean
   delegateSelectors?: string[]
+  namespace?: string
   readOnly?: boolean
   renewalIntervalMinutes?: number
   secretEngineManuallyConfigured?: boolean
   secretEngineName?: string
   secretEngineVersion?: number
   secretId?: string
+  sinkPath?: string
+  useVaultAgent?: boolean
   vaultUrl?: string
 }
 
@@ -7002,8 +7007,9 @@ export interface VaultCredentialDTO {
 }
 
 export type VaultMetadataRequestSpecDTO = SecretManagerMetadataRequestSpecDTO & {
-  accessType: 'APP_ROLE' | 'TOKEN'
+  accessType: 'APP_ROLE' | 'TOKEN' | 'VAULT_AGENT'
   delegateSelectors?: string[]
+  namespace?: string
   spec?: VaultCredentialDTO
   url: string
 }
@@ -7118,7 +7124,7 @@ export type UserFilterRequestBody = UserFilter
 
 export type UserGroupDTORequestBody = UserGroupDTO
 
-export type ProcessPollingResultNgBodyRequestBody = string[]
+export type UnsubscribeBodyRequestBody = string[]
 
 export type UpdateWhitelistedDomainsBodyRequestBody = string[]
 
@@ -17299,7 +17305,7 @@ export type ProcessPollingResultNgProps = Omit<
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    ProcessPollingResultNgBodyRequestBody,
+    UnsubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >,
   'path' | 'verb'
@@ -17311,7 +17317,7 @@ export const ProcessPollingResultNg = ({ perpetualTaskId, ...props }: ProcessPol
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    ProcessPollingResultNgBodyRequestBody,
+    UnsubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >
     verb="POST"
@@ -17326,7 +17332,7 @@ export type UseProcessPollingResultNgProps = Omit<
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    ProcessPollingResultNgBodyRequestBody,
+    UnsubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >,
   'path' | 'verb'
@@ -17338,7 +17344,7 @@ export const useProcessPollingResultNg = ({ perpetualTaskId, ...props }: UseProc
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    ProcessPollingResultNgBodyRequestBody,
+    UnsubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >(
     'POST',
@@ -17354,7 +17360,7 @@ export const processPollingResultNgPromise = (
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    ProcessPollingResultNgBodyRequestBody,
+    UnsubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   > & { perpetualTaskId: string },
   signal?: RequestInit['signal']
@@ -17363,17 +17369,17 @@ export const processPollingResultNgPromise = (
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    ProcessPollingResultNgBodyRequestBody,
+    UnsubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >('POST', getConfig('ng/api'), `/polling/delegate-response/${perpetualTaskId}`, props, signal)
 
 export type SubscribeProps = Omit<
-  MutateProps<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
+  MutateProps<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const Subscribe = (props: SubscribeProps) => (
-  <Mutate<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>
+  <Mutate<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>
     verb="POST"
     path={`/polling/subscribe`}
     base={getConfig('ng/api')}
@@ -17382,28 +17388,22 @@ export const Subscribe = (props: SubscribeProps) => (
 )
 
 export type UseSubscribeProps = Omit<
-  UseMutateProps<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
+  UseMutateProps<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const useSubscribe = (props: UseSubscribeProps) =>
-  useMutate<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
+  useMutate<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>(
     'POST',
     `/polling/subscribe`,
     { base: getConfig('ng/api'), ...props }
   )
 
 export const subscribePromise = (
-  props: MutateUsingFetchProps<
-    ResponsePollingResponseDTO,
-    Failure | Error,
-    void,
-    ProcessPollingResultNgBodyRequestBody,
-    void
-  >,
+  props: MutateUsingFetchProps<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
+  mutateUsingFetch<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>(
     'POST',
     getConfig('ng/api'),
     `/polling/subscribe`,
@@ -17412,12 +17412,12 @@ export const subscribePromise = (
   )
 
 export type UnsubscribeProps = Omit<
-  MutateProps<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
+  MutateProps<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const Unsubscribe = (props: UnsubscribeProps) => (
-  <Mutate<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>
+  <Mutate<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>
     verb="POST"
     path={`/polling/unsubscribe`}
     base={getConfig('ng/api')}
@@ -17426,22 +17426,21 @@ export const Unsubscribe = (props: UnsubscribeProps) => (
 )
 
 export type UseUnsubscribeProps = Omit<
-  UseMutateProps<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
+  UseMutateProps<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const useUnsubscribe = (props: UseUnsubscribeProps) =>
-  useMutate<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
-    'POST',
-    `/polling/unsubscribe`,
-    { base: getConfig('ng/api'), ...props }
-  )
+  useMutate<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>('POST', `/polling/unsubscribe`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
 
 export const unsubscribePromise = (
-  props: MutateUsingFetchProps<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
+  props: MutateUsingFetchProps<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
+  mutateUsingFetch<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>(
     'POST',
     getConfig('ng/api'),
     `/polling/unsubscribe`,

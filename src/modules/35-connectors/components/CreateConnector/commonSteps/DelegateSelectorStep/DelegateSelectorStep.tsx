@@ -38,7 +38,7 @@ import {
   DelegateSelector,
   DelegatesFoundState
 } from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/DelegateSelector'
-import { CredTypeValues } from '@connectors/interfaces/ConnectorInterface'
+import { CredTypeValues, HashiCorpVaultAccessTypes } from '@connectors/interfaces/ConnectorInterface'
 import css from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/DelegateSelector.module.scss'
 
 interface BuildPayloadProps {
@@ -125,7 +125,8 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
       DelegateTypes.DELEGATE_IN_CLUSTER === prevStepData?.delegateType ||
       DelegateTypes.DELEGATE_IN_CLUSTER_IRSA === prevStepData?.delegateType ||
       CredTypeValues.AssumeIAMRole === prevStepData?.credType ||
-      CredTypeValues.AssumeRoleSTS === prevStepData?.credType
+      CredTypeValues.AssumeRoleSTS === prevStepData?.credType ||
+      HashiCorpVaultAccessTypes.VAULT_AGENT === prevStepData?.accessType
     )
   }
   const initialDelegateSelectors = (() => {
