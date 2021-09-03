@@ -95,7 +95,7 @@
     "highcharts": "9.1.0",
     "highcharts-react-official": "3.0.0",
     "idb": "^5.0.4",
-    "immer": "^9.0.3",
+    "immer": "^9.0.6",
     "jsonc-parser": "^2.0.2",
     "lodash-es": "^4.17.15",
     "masonry-layout": "^4.2.2",
