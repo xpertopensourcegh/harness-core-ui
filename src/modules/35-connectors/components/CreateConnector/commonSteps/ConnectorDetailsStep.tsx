@@ -119,7 +119,7 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
   return (
     <Layout.Vertical spacing="xxlarge" className={css.firstep}>
       <div className={css.heading}>{getString(getHeadingIdByType(props.type))}</div>
-      <ModalErrorHandler bind={setModalErrorHandler} />
+      <ModalErrorHandler bind={setModalErrorHandler} style={{ maxWidth: '740px' }} />
 
       <Container padding="small" className={css.connectorForm}>
         <Formik<DetailsForm>
