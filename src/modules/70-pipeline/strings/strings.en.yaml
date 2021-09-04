@@ -654,7 +654,7 @@ artifactsSelection:
     enterTagRegex: Enter Tag Regex
   validation:
     imagePath: Image Path is a required
-    region: Region is required
+    region: '{{$.validation.regionRequired}}'
     tag: Tag is required
     tagRegex: Tag Regex is required
     sidecarId: Sidecar Identifier is required

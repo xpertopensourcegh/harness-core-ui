@@ -1,4 +1,4 @@
-createProject: Create Project
+createProject: '{{$.createProject}}'
 youHaveNoProjects: You have no projects
 noCollaborators: No Collaborators
 moduleSuccess: '{{$.common.purpose.moduleSuccess}}'
