@@ -112,6 +112,9 @@ export default function LogAnalysisContainer(props: MetricsAndLogsProps): JSX.El
 
   const onChangeHealthSource = useCallback(
     currentHealthSource => {
+      // Ignoring as BE need to update fetchMetricsData's payload
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       fetchLogAnalysis({ queryParams: { ...logsAnalysisQueryParams, datasourceType: currentHealthSource } })
       setSelectedHealthSource(currentHealthSource)
     },
