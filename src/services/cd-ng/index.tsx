@@ -1179,6 +1179,40 @@ export type ConnectorFilterProperties = FilterProperties & {
   connectorIdentifiers?: string[]
   connectorNames?: string[]
   description?: string
+  excludeTypes?: (
+    | 'K8sCluster'
+    | 'Git'
+    | 'Splunk'
+    | 'AppDynamics'
+    | 'Prometheus'
+    | 'Dynatrace'
+    | 'Vault'
+    | 'AzureKeyVault'
+    | 'DockerRegistry'
+    | 'Local'
+    | 'AwsKms'
+    | 'GcpKms'
+    | 'AwsSecretManager'
+    | 'Gcp'
+    | 'Aws'
+    | 'Artifactory'
+    | 'Jira'
+    | 'Nexus'
+    | 'Github'
+    | 'Gitlab'
+    | 'Bitbucket'
+    | 'Codecommit'
+    | 'CEAws'
+    | 'CEAzure'
+    | 'GcpCloudCost'
+    | 'CEK8sCluster'
+    | 'HttpHelmRepo'
+    | 'ArgoConnector'
+    | 'NewRelic'
+    | 'Datadog'
+    | 'SumoLogic'
+    | 'PagerDuty'
+  )[]
   inheritingCredentialsFromDelegate?: boolean
   types?: (
     | 'K8sCluster'

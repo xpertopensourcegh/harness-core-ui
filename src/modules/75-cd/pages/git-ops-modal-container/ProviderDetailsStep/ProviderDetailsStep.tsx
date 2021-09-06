@@ -86,7 +86,7 @@ const ProviderOverviewStep = (props: any) => {
   }
 
   return (
-    <>
+    <Layout.Vertical className={css.stepContainer}>
       {creating || updating ? (
         <PageSpinner
           message={
@@ -98,14 +98,16 @@ const ProviderOverviewStep = (props: any) => {
       ) : null}
 
       <Formik
-        initialValues={{}}
+        initialValues={{
+          adapterUrl: props?.provider?.spec?.adapterUrl || ''
+        }}
         validationSchema={Yup.object().shape({
-          adapterURL: Yup.string().trim().required('Adapter URL is required')
+          adapterUrl: Yup.string()
+            .trim()
+            .url('Please enter a valid Adapter URL')
+            .required('Please enter a valid Adapter URL')
         })}
         formName="connectionDetails"
-        // onSubmit={stepData => {
-        //   // nextStep?.({ ...props.connectorInfo, ...prevStepData, ...stepData })
-        // }}
         onSubmit={(stepData: any) => {
           const updatedStepData = {
             ...stepData
@@ -154,8 +156,8 @@ const ProviderOverviewStep = (props: any) => {
                 {'Provider Details'}
               </Heading>
 
-              <Layout.Vertical spacing="large">
-                <FormInput.Text name="adapterURL" label={'Adapter URL'} style={{ width: '60%' }} />
+              <Layout.Vertical spacing="large" className={css.stepFormContainer}>
+                <FormInput.Text name="adapterUrl" label={'Adapter URL'} style={{ width: '60%' }} />
 
                 <Layout.Horizontal className={css.layoutFooter} padding={{ top: 'small' }} spacing="medium">
                   <Button
@@ -173,7 +175,7 @@ const ProviderOverviewStep = (props: any) => {
           </Form>
         )}
       </Formik>
-    </>
+    </Layout.Vertical>
   )
 }
 

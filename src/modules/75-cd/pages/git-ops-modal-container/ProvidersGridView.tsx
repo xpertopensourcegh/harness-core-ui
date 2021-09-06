@@ -6,15 +6,16 @@ import css from './ProvidersGridView.module.scss'
 
 interface ProvidersGridViewProps {
   providers: any
+  data?: any
   loading?: boolean
   reloadPage?: () => Promise<void>
   gotoPage?: (index: number) => void
   onDelete?: () => Promise<void>
+  onEdit?: (provider: any) => Promise<void>
 }
 
 const ProvidersGridView: React.FC<ProvidersGridViewProps> = props => {
-  const { providers, loading } = props
-
+  const { providers, loading, onEdit } = props
   return (
     <>
       {loading ? (
@@ -22,15 +23,23 @@ const ProvidersGridView: React.FC<ProvidersGridViewProps> = props => {
           <PageSpinner />
         </div>
       ) : (
-        <Container className={css.masonry}>
-          <Layout.Masonry
-            center
-            gutter={10}
-            items={providers || []}
-            renderItem={(provider: any) => <ProviderCard provider={provider} onDelete={props.onDelete} />}
-            keyOf={(provider: any) => provider.name}
-          />
-        </Container>
+        <>
+          <Container className={css.masonry}>
+            <Layout.Masonry
+              center
+              gutter={10}
+              items={providers || []}
+              renderItem={(provider: any) => (
+                <ProviderCard
+                  provider={provider}
+                  onEdit={async () => onEdit && onEdit(provider)}
+                  onDelete={props.onDelete}
+                />
+              )}
+              keyOf={(provider: any) => provider.name}
+            />
+          </Container>
+        </>
       )}
     </>
   )

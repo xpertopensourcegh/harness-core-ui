@@ -2,8 +2,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { Container, HarnessDocTooltip, Layout, ExpandingSearchInput, useModalHook } from '@wings-software/uicore'
+import { HarnessDocTooltip, Layout, useModalHook } from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
+import { useGetConnectorListV2, GetConnectorListV2QueryParams } from 'services/cd-ng'
+
 import { useMutateAsGet } from '@common/hooks'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { useStrings } from 'framework/strings'
@@ -13,11 +15,8 @@ import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInt
 import routes from '@common/RouteDefinitions'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-
-import { useGetConnectorListV2, GetConnectorListV2QueryParams } from 'services/cd-ng'
-
-import ProvidersGridView from './ProvidersGridView'
 import NewProviderModal from './NewProviderModal/NewProviderModal'
+import ProvidersGridView from './ProvidersGridView'
 
 import css from './GitOpsModalContainer.module.scss'
 
@@ -29,6 +28,7 @@ const GitOpsModalContainer: React.FC = () => {
   const textIdentifier = 'gitOps'
 
   const [providers, setProviders] = useState([])
+  const [activeProvider, setActiveProvider] = useState(null)
   const [loadingConnectors, setLoadingConnectors] = useState(false)
 
   const defaultQueryParams: GetConnectorListV2QueryParams = {
@@ -43,7 +43,15 @@ const GitOpsModalContainer: React.FC = () => {
     queryParams: defaultQueryParams
   })
 
-  const searchProvider = () => {}
+  const handleEdit = (provider: any) => {
+    setActiveProvider(provider)
+  }
+
+  React.useEffect(() => {
+    if (activeProvider) {
+      addNewProviderModal()
+    }
+  }, [activeProvider])
 
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const processConnectorsResponse = (connectors: any) => {
@@ -59,12 +67,12 @@ const GitOpsModalContainer: React.FC = () => {
   const refetchConnectorList = async (): Promise<void> => {
     setLoadingConnectors(true)
 
-    const { data: connectorResponse } = await fetchConnectors({
+    const { data: connectorData } = await fetchConnectors({
       filterType: 'Connector',
       types: ['ArgoConnector']
     })
 
-    const data = connectorResponse?.content
+    const data = connectorData?.content
 
     processConnectorsResponse(data)
     setLoadingConnectors(false)
@@ -80,7 +88,7 @@ const GitOpsModalContainer: React.FC = () => {
     processConnectorsResponse(data)
   }, [connectorData])
 
-  const [addNewProdiverModal, closeNewProviderModal] = useModalHook(() => {
+  const [addNewProviderModal, closeNewProviderModal] = useModalHook(() => {
     const handleClose = () => {
       closeNewProviderModal()
       refetchConnectorList()
@@ -101,10 +109,10 @@ const GitOpsModalContainer: React.FC = () => {
         }}
         enforceFocus={false}
       >
-        <NewProviderModal onClose={handleClose} />
+        <NewProviderModal provider={activeProvider} onClose={handleClose} />
       </Dialog>
     )
-  })
+  }, [activeProvider])
 
   return (
     <div className={css.main}>
@@ -140,29 +148,21 @@ const GitOpsModalContainer: React.FC = () => {
                 resourceIdentifier: projectIdentifier
               }
             }}
-            onClick={addNewProdiverModal}
+            onClick={addNewProviderModal}
             id="newProviderBtn"
             data-test="newProviderButton"
             withoutBoxShadow
           />
         </Layout.Horizontal>
-
-        <Layout.Horizontal margin={{ left: 'small' }}>
-          <Container className={css.expandSearch} margin={{ right: 'small' }} data-name="providerSeachContainer">
-            <ExpandingSearchInput
-              placeholder={getString('search')}
-              throttle={200}
-              onChange={() => {
-                // Need to pass the changed text to the function
-                // Will update once the changes are ready
-                searchProvider()
-              }}
-            />
-          </Container>
-        </Layout.Horizontal>
       </Layout.Horizontal>
 
-      <ProvidersGridView onDelete={refetchConnectorList} providers={providers} loading={loading || loadingConnectors} />
+      <ProvidersGridView
+        onDelete={refetchConnectorList}
+        onEdit={async provider => handleEdit(provider)}
+        data={connectorData}
+        providers={providers}
+        loading={loading || loadingConnectors}
+      />
     </div>
   )
 }

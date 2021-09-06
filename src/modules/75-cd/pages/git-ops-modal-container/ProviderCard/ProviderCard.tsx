@@ -14,10 +14,11 @@ import css from './ProviderCard.module.scss'
 interface ProviderCardProps {
   provider: any
   onDelete?: () => Promise<void>
+  onEdit?: () => Promise<void>
 }
 
 const ProviderCard: React.FC<ProviderCardProps> = props => {
-  const { provider, onDelete } = props
+  const { provider, onDelete, onEdit } = props
   const { projectIdentifier, orgIdentifier, accountId } = useParams<PipelineType<ProjectPathProps>>()
   const { getString } = useStrings()
   const { showSuccess, showError } = useToaster()
@@ -32,8 +33,11 @@ const ProviderCard: React.FC<ProviderCardProps> = props => {
     }
   })
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const handleEdit = () => {}
+  const handleEdit = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
+    e.stopPropagation()
+    setMenuOpen(false)
+    onEdit && onEdit()
+  }
 
   const getConfirmationDialogContent = (): JSX.Element => {
     return (
