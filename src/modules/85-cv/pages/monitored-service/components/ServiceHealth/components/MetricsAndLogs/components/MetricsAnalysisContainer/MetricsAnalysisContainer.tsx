@@ -138,10 +138,7 @@ export default function MetricsAnalysisContainer(props: MetricsAndLogsProps): JS
 
   const handleHealthSourceChange = useCallback(
     selectedHealthSource => {
-      // Ignoring as BE need to update fetchMetricsData's payload
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      fetchMetricsData({ queryParams: { ...queryParams, datasourceType: selectedHealthSource } })
+      fetchMetricsData({ queryParams: { ...queryParams, healthSources: selectedHealthSource } })
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [queryParams]

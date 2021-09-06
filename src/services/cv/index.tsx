@@ -7436,6 +7436,67 @@ export const getMonitoredServiceListEnvironmentsPromise = (
     signal
   )
 
+export interface GetAllHealthSourcesForServiceAndEnvironmentQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+  serviceIdentifier: string
+  environmentIdentifier: string
+}
+
+export type GetAllHealthSourcesForServiceAndEnvironmentProps = Omit<
+  GetProps<RestResponseListHealthSourceDTO, unknown, GetAllHealthSourcesForServiceAndEnvironmentQueryParams, void>,
+  'path'
+>
+
+/**
+ * get all health sources for service and environment
+ */
+export const GetAllHealthSourcesForServiceAndEnvironment = (
+  props: GetAllHealthSourcesForServiceAndEnvironmentProps
+) => (
+  <Get<RestResponseListHealthSourceDTO, unknown, GetAllHealthSourcesForServiceAndEnvironmentQueryParams, void>
+    path={`/monitored-service/health-sources`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetAllHealthSourcesForServiceAndEnvironmentProps = Omit<
+  UseGetProps<RestResponseListHealthSourceDTO, unknown, GetAllHealthSourcesForServiceAndEnvironmentQueryParams, void>,
+  'path'
+>
+
+/**
+ * get all health sources for service and environment
+ */
+export const useGetAllHealthSourcesForServiceAndEnvironment = (
+  props: UseGetAllHealthSourcesForServiceAndEnvironmentProps
+) =>
+  useGet<RestResponseListHealthSourceDTO, unknown, GetAllHealthSourcesForServiceAndEnvironmentQueryParams, void>(
+    `/monitored-service/health-sources`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * get all health sources for service and environment
+ */
+export const getAllHealthSourcesForServiceAndEnvironmentPromise = (
+  props: GetUsingFetchProps<
+    RestResponseListHealthSourceDTO,
+    unknown,
+    GetAllHealthSourcesForServiceAndEnvironmentQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseListHealthSourceDTO, unknown, GetAllHealthSourcesForServiceAndEnvironmentQueryParams, void>(
+    getConfig('cv/api'),
+    `/monitored-service/health-sources`,
+    props,
+    signal
+  )
+
 export interface GetMonitoredServiceScoresFromServiceAndEnvironmentQueryParams {
   accountId: string
   orgIdentifier: string
