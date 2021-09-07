@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import cx from 'classnames'
 import { Button, Heading, Layout, Container, Text, Color } from '@wings-software/uicore'
@@ -33,7 +33,9 @@ import {
   getTimeRangeFilter,
   getFilters,
   DEFAULT_GROUP_BY,
-  perspectiveDefaultTimeRangeMapper
+  perspectiveDefaultTimeRangeMapper,
+  highlightNode,
+  resetNodeState
 } from '@ce/utils/perspectiveUtils'
 import { AGGREGATE_FUNCTION } from '@ce/components/PerspectiveGrid/Columns'
 import {
@@ -122,6 +124,8 @@ const PerspectiveDetailsPage: React.FC = () => {
       perspectiveId: perspectiveId
     }
   })
+
+  const chartRef = useRef<Highcharts.Chart>()
 
   const perspectiveData = perspectiveRes?.resource
 
@@ -287,6 +291,7 @@ const PerspectiveDetailsPage: React.FC = () => {
               />
               <CloudCostInsightChart
                 showLegends={true}
+                ref={chartRef as any}
                 chartType={chartType}
                 columnSequence={columnSequence}
                 setFilterUsingChartClick={setFilterUsingChartClick}
@@ -304,6 +309,8 @@ const PerspectiveDetailsPage: React.FC = () => {
               gridData={gridData?.perspectiveGrid?.data as any}
               gridFetching={gridFetching}
               columnSequence={columnSequence}
+              highlightNode={id => highlightNode(chartRef, id)}
+              resetNodeState={() => resetNodeState(chartRef)}
               setColumnSequence={colSeq => setColumnSequence(colSeq)}
               groupBy={groupBy}
             />

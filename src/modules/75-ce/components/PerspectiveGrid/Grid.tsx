@@ -10,10 +10,12 @@ interface GridProps<T extends Record<string, unknown>> {
   data: T[]
   showPagination?: boolean
   onRowClick?: (row: Row<T>) => void
+  onMouseEnter?: (row: Row<T>) => void
+  onMouseLeave?: (row: Row<T>) => void
 }
 
 const Grid = <T extends Record<string, unknown>>(props: GridProps<T>): JSX.Element => {
-  const { showPagination = true, onRowClick } = props
+  const { showPagination = true, onRowClick, onMouseEnter, onMouseLeave } = props
   const defaultColumn = React.useMemo(
     () => ({
       minWidth: 150,
@@ -68,6 +70,12 @@ const Grid = <T extends Record<string, unknown>>(props: GridProps<T>): JSX.Eleme
                 key={idx}
                 onClick={() => {
                   onRowClick && onRowClick(row)
+                }}
+                onMouseLeave={() => {
+                  onMouseLeave && onMouseLeave(row)
+                }}
+                onMouseEnter={() => {
+                  onMouseEnter && onMouseEnter(row)
                 }}
               >
                 {row.cells.map((cell, id) => (
