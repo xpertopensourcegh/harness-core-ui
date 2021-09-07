@@ -121,7 +121,6 @@ const OrganizationDetailsPage: React.FC = () => {
             </Layout.Vertical>
           </Layout.Horizontal>
         }
-        className={css.header}
       />
       <Page.Body
         retryOnError={() => {
