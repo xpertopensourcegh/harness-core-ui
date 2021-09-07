@@ -2437,6 +2437,7 @@ export interface StringsMap {
   'cd.folderPath': string
   'cd.gitFetchTypeRequired': string
   'cd.gitOps': string
+  'cd.launchArgo': string
   'cd.learnMore': string
   'cd.manifestPathsCannotBeEmpty': string
   'cd.namespaceValidation': string

@@ -10,7 +10,8 @@ import {
   Button,
   FormikForm as Form,
   ModalErrorHandler,
-  ModalErrorHandlerBinding
+  ModalErrorHandlerBinding,
+  ButtonVariation
 } from '@wings-software/uicore'
 import {
   useCreateConnector,
@@ -161,12 +162,19 @@ const ProviderOverviewStep = (props: any) => {
 
                 <Layout.Horizontal className={css.layoutFooter} padding={{ top: 'small' }} spacing="medium">
                   <Button
-                    text={'Back'}
+                    variation={ButtonVariation.SECONDARY}
+                    text={getString('back')}
                     icon="chevron-left"
                     onClick={() => props?.previousStep?.(props?.prevStepData)}
                     data-name="commonGitBackButton"
                   />
-                  <Button type="submit" intent="primary" rightIcon="chevron-right" disabled={isSaveButtonDisabled}>
+                  <Button
+                    variation={ButtonVariation.PRIMARY}
+                    type="submit"
+                    intent="primary"
+                    rightIcon="chevron-right"
+                    disabled={isSaveButtonDisabled}
+                  >
                     <String stringID="continue" />
                   </Button>
                 </Layout.Horizontal>

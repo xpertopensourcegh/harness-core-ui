@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect } from 'react'
-import { Layout, Heading, Container, StepsProgress, Intent, Button } from '@wings-software/uicore'
+import { Layout, Heading, Container, StepsProgress, Intent, Button, ButtonVariation } from '@wings-software/uicore'
 
+import { useStrings } from 'framework/strings'
 import css from './TestConnection.module.scss'
 
 export enum Status {
@@ -18,6 +19,7 @@ const TestConnection: React.FC<Record<string, unknown>> = (props: any) => {
   const [currentStatus, setCurrentStatus] = useState<Status>(Status.PROCESS)
   const [currentIntent, setCurrentIntent] = useState<Intent>(Intent.NONE)
 
+  const { getString } = useStrings()
   const handleSuccess = () => {
     props.onClose()
   }
@@ -56,7 +58,12 @@ const TestConnection: React.FC<Record<string, unknown>> = (props: any) => {
         <StepsProgress steps={[stepName]} intent={currentIntent} current={currentStep} currentStatus={currentStatus} />
 
         <Layout.Horizontal className={css.layoutFooter} padding={{ top: 'small' }} spacing="medium">
-          <Button text={'Finish'} onClick={handleSuccess} className={css.nextButton} />
+          <Button
+            variation={ButtonVariation.SECONDARY}
+            text={getString('finish')}
+            onClick={handleSuccess}
+            className={css.nextButton}
+          />
         </Layout.Horizontal>
       </Layout.Vertical>
     </Layout.Vertical>

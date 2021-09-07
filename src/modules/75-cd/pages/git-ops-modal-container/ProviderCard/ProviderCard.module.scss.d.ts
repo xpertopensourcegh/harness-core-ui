@@ -3,7 +3,9 @@
 declare const styles: {
   readonly card: string
   readonly projectName: string
+  readonly tagsPopover: string
   readonly id: string
+  readonly iconMore: string
   readonly description: string
   readonly urls: string
   readonly serverUrl: string

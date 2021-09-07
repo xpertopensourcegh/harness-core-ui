@@ -1,4 +1,4 @@
-import { Button } from '@wings-software/uicore'
+import { Button, ButtonVariation } from '@wings-software/uicore'
 import React, { useState, useEffect } from 'react'
 import cx from 'classnames'
 import CreateArgoProvider from '../CreateArgoProvider/CreateArgoProvider'
@@ -68,7 +68,7 @@ const NewProviderModal: React.FC<NewProviderModalProps> = props => {
       )}
 
       <Button
-        minimal
+        variation={ButtonVariation.ICON}
         icon="cross"
         iconProps={{ size: 18 }}
         onClick={() => {

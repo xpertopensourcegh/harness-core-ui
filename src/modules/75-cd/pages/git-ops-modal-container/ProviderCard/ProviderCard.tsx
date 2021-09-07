@@ -1,12 +1,23 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { useModalHook, Button, Card, Layout, Text, Popover, Color } from '@wings-software/uicore'
-import { Menu, Classes, Position, Dialog } from '@blueprintjs/core'
+import { isEmpty } from 'lodash-es'
+import {
+  useModalHook,
+  Button,
+  Card,
+  Layout,
+  Text,
+  Popover,
+  Color,
+  ButtonVariation,
+  Container
+} from '@wings-software/uicore'
+import { Menu, Classes, Position, Dialog, Intent } from '@blueprintjs/core'
 import { useConfirmationDialog, useToaster } from '@common/exports'
 import { useDeleteConnector } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
-import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
 import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { TagsPopover } from '@common/components'
 import argoLogo from '../images/argo-logo.svg'
 import harnessLogo from '../images/harness-logo.png'
 import css from './ProviderCard.module.scss'
@@ -99,12 +110,13 @@ const ProviderCard: React.FC<ProviderCardProps> = props => {
             <img className={css.argoLogo} src={logo} alt="" aria-hidden />
             {provider.name} - {provider?.spec?.adapterUrl}
             <Button
-              minimal
+              variation={ButtonVariation.ICON}
               icon="cross"
               className={css.closeIcon}
               iconProps={{ size: 18 }}
               onClick={closeUploadCertiModal}
               data-testid={'close-certi-upload-modal'}
+              withoutCurrentColor
             />
           </div>
           <iframe
@@ -136,8 +148,11 @@ const ProviderCard: React.FC<ProviderCardProps> = props => {
             position={Position.RIGHT_TOP}
           >
             <Button
-              minimal
-              icon="Options"
+              variation={ButtonVariation.ICON}
+              className={css.iconMore}
+              icon="more"
+              color="grey-450"
+              withoutCurrentColor
               onClick={e => {
                 e.stopPropagation()
                 setMenuOpen(true)
@@ -150,26 +165,38 @@ const ProviderCard: React.FC<ProviderCardProps> = props => {
           </Popover>
         </Layout.Horizontal>
       </div>
+      <Layout.Horizontal spacing={'medium'} flex={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}>
+        <Container>
+          <Text lineClamp={1} font={{ weight: 'bold' }} color={Color.GREY_800} data-testid={provider.identifier}>
+            {provider.name}
+          </Text>
+          <Text font="small" lineClamp={1} color={Color.GREY_600} margin={{ top: 'xsmall' }}>
+            {getString('idLabel', { id: provider.identifier })}
+          </Text>
+        </Container>
+        {!isEmpty(provider.tags) && (
+          <TagsPopover
+            className={css.tagsPopover}
+            iconProps={{ size: 14, color: Color.GREY_600 }}
+            tags={provider.tags}
+          />
+        )}
+      </Layout.Horizontal>
 
-      <Text font="medium" lineClamp={1} color={Color.BLACK} className={css.projectName}>
-        {provider.name}
-      </Text>
-
-      <div className={css.id}> ID: {provider.identifier} </div>
-
-      <Text font="small" lineClamp={2} color={Color.GREY_600} className={css.description}>
-        {provider.description}
-      </Text>
-
-      {provider.tags && (
-        <Layout.Horizontal padding={{ top: 'small' }}>
-          <TagsRenderer tags={provider.tags || /* istanbul ignore next */ {}} length={2} />
-        </Layout.Horizontal>
+      {!!provider.description?.length && (
+        <Text font="small" lineClamp={2} color={Color.GREY_600} className={css.description} margin={{ top: 'xsmall' }}>
+          {provider.description}
+        </Text>
       )}
-
       <div className={css.urls}>
         <div className={css.serverUrl}>
-          <a> Adapter URL: {provider?.spec?.adapterUrl} </a>
+          <Text intent={Intent.PRIMARY} font={{ size: 'small' }}>
+            Adapter URL:
+          </Text>
+          <Text intent={Intent.PRIMARY} font={{ size: 'small' }}>
+            {provider?.spec?.adapterUrl}
+          </Text>
+          {/* <a>  </a> */}
         </div>
       </div>
     </Card>

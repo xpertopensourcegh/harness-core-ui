@@ -28,7 +28,7 @@ const ProvidersGridView: React.FC<ProvidersGridViewProps> = props => {
           <Container className={css.masonry}>
             <Layout.Masonry
               center
-              gutter={10}
+              gutter={25}
               items={data?.content || []}
               renderItem={(provider: any) => (
                 <ProviderCard
