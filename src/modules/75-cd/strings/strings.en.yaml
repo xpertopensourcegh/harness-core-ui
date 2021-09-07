@@ -99,5 +99,5 @@ serviceDashboard:
   noActiveServiceInstances: No Active Service Instances
   noActiveServices: No Active Services in {{timeRange}}
 gitOps: GitOps
-newProvider: New Provider
+newProvider: Add Provider
 providerDetails: Provider Details

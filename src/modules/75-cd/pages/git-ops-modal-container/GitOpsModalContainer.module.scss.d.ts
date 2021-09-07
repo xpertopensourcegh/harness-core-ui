@@ -46,5 +46,7 @@ declare const styles: {
   readonly selectAuth: string
   readonly credForm: string
   readonly crossIcon: string
+  readonly pagination: string
+  readonly pageBody: string
 }
 export default styles

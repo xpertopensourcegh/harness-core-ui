@@ -2,9 +2,10 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { debounce } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import type { GetDataError } from 'restful-react'
-import { HarnessDocTooltip, Layout, useModalHook, ExpandingSearchInput, Container } from '@wings-software/uicore'
+import { HarnessDocTooltip, Layout, useModalHook, ExpandingSearchInput } from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 
 import { removeNullAndEmpty } from '@common/components/Filter/utils/FilterUtils'
 import { shouldShowError } from '@common/utils/errorUtils'
@@ -23,10 +24,7 @@ import {
 import { Page, useToaster } from '@common/exports'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { useStrings } from 'framework/strings'
-import { useAppStore } from 'framework/AppStore/AppStoreContext'
-import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import routes from '@common/RouteDefinitions'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import NewProviderModal from './NewProviderModal/NewProviderModal'
@@ -38,10 +36,7 @@ const textIdentifier = 'gitOps'
 
 const GitOpsModalContainer: React.FC = () => {
   const { getString } = useStrings()
-  const { accountId, projectIdentifier, orgIdentifier, module } = useParams<ProjectPathProps & ModulePathParams>()
-
-  const { selectedProject } = useAppStore()
-  const project = selectedProject
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps & ModulePathParams>()
 
   const [searchTerm, setSearchTerm] = useState('')
   const [activeProvider, setActiveProvider] = useState(null)
@@ -196,65 +191,52 @@ const GitOpsModalContainer: React.FC = () => {
 
   return (
     <>
-      <div className={css.main}>
-        <div className={css.header}>
-          <Breadcrumbs
-            links={[
-              {
-                label: project?.name || '',
-                url: routes.toProjectOverview({ orgIdentifier, projectIdentifier, accountId, module })
-              },
-              {
-                label: 'GitOps',
-                url: ''
-              }
-            ]}
-          />
+      <Page.Header
+        title={
           <div className="ng-tooltip-native">
-            <h2 data-tooltip-id={textIdentifier}>{getString('cd.gitOps')}</h2>
+            <h2 data-tooltip-id={textIdentifier}> {getString('cd.gitOps')}</h2>
             <HarnessDocTooltip tooltipId={textIdentifier} useStandAlone={true} />
           </div>
-        </div>
+        }
+        breadcrumbs={<NGBreadcrumbs links={[]} />}
+      ></Page.Header>
 
-        <Layout.Horizontal flex className={css.addProviderHeader}>
-          <Layout.Horizontal spacing="small">
-            <RbacButton
-              intent="primary"
-              text={getString('cd.newProvider')}
-              icon="plus"
-              permission={{
-                permission: PermissionIdentifier.CREATE_PROJECT, // change to ADD_NEW_PROVIDER
-                resource: {
-                  resourceType: ResourceType.ACCOUNT,
-                  resourceIdentifier: projectIdentifier
-                }
-              }}
-              onClick={() => {
-                setActiveProvider(null)
-                addNewProviderModal()
-              }}
-              id="newProviderBtn"
-              data-test="newProviderButton"
-            />
-          </Layout.Horizontal>
-
-          <Layout.Horizontal margin={{ left: 'small' }}>
-            <Container data-name="connectorSeachContainer">
-              <ExpandingSearchInput
-                alwaysExpanded
-                width={200}
-                placeholder={getString('search')}
-                throttle={200}
-                onChange={(query: string) => {
-                  debouncedConnectorSearch(encodeURIComponent(query))
-                  setSearchTerm(query)
-                }}
-                className={css.expandSearch}
-              />
-            </Container>
-          </Layout.Horizontal>
+      <Page.SubHeader>
+        <Layout.Horizontal>
+          <RbacButton
+            intent="primary"
+            text={getString('cd.newProvider')}
+            permission={{
+              permission: PermissionIdentifier.CREATE_PROJECT, // change to ADD_NEW_PROVIDER
+              resource: {
+                resourceType: ResourceType.ACCOUNT,
+                resourceIdentifier: projectIdentifier
+              }
+            }}
+            onClick={() => {
+              setActiveProvider(null)
+              addNewProviderModal()
+            }}
+            id="newProviderBtn"
+            data-test="newProviderButton"
+          />
         </Layout.Horizontal>
+        <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
+          <ExpandingSearchInput
+            alwaysExpanded
+            width={200}
+            placeholder={getString('search')}
+            throttle={200}
+            onChange={(query: string) => {
+              debouncedConnectorSearch(encodeURIComponent(query))
+              setSearchTerm(query)
+            }}
+            className={css.expandSearch}
+          />
+        </Layout.Horizontal>
+      </Page.SubHeader>
 
+      <Page.Body className={css.pageBody}>
         <Layout.Vertical>
           <Page.Body>
             {loading ? (
@@ -286,7 +268,7 @@ const GitOpsModalContainer: React.FC = () => {
             )}
           </Page.Body>
         </Layout.Vertical>
-      </div>
+      </Page.Body>
     </>
   )
 }

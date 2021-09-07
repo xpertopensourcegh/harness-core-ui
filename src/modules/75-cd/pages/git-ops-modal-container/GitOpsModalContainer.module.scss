@@ -398,3 +398,18 @@
   right: var(--spacing-large);
   top: var(--spacing-large);
 }
+
+.pagination {
+  padding: 0 var(--spacing-xxxlarge) !important ;
+}
+.pageBody {
+  --page-header-height: 144px;
+}
+
+.pagination {
+  position: static;
+  bottom: 0;
+  z-index: 3;
+  background: var(--grey-50);
+  padding-top: var(--spacing-medium);
+}
