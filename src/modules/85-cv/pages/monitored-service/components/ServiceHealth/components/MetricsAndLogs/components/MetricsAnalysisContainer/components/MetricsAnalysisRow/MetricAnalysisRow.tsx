@@ -15,6 +15,7 @@ interface MetricAnalysisRowProps {
   endTime: number
   displaySelectedTimeRange?: boolean
   setTimeSeriesRowRef?: (el: HTMLDivElement | null) => void
+  dataSourceType?: string
 }
 
 const ROW_HEIGHT = 60
@@ -46,7 +47,8 @@ export default function MetricAnalysisRow(props: MetricAnalysisRowProps): JSX.El
     startTime,
     endTime,
     displaySelectedTimeRange,
-    setTimeSeriesRowRef
+    setTimeSeriesRowRef,
+    dataSourceType
   } = props || {}
   const timeseriesOptions = useMemo(() => transformAnalysisDataToChartSeries(analysisData), [analysisData])
   return (
@@ -62,6 +64,7 @@ export default function MetricAnalysisRow(props: MetricAnalysisRowProps): JSX.El
       <TimeseriesRow
         transactionName={transactionName}
         metricName={metricName}
+        dataSourceType={dataSourceType}
         seriesData={timeseriesOptions}
         chartOptions={{
           chart: {

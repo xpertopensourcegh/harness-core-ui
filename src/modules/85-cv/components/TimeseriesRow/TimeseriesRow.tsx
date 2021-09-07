@@ -9,6 +9,7 @@ import merge from 'lodash-es/merge'
 import { Popover, Menu, MenuItem, Dialog } from '@blueprintjs/core'
 import { TimelineBar } from '@cv/components/TimelineView/TimelineBar'
 import { useStrings } from 'framework/strings'
+import { getIconBySourceType } from '@cv/pages/health-source/HealthSourceTable/HealthSourceTable.utils'
 import styles from './TimeseriesRow.module.scss'
 
 export interface SeriesConfig {
@@ -25,6 +26,7 @@ export interface TimeseriesRowProps {
   withContextMenu?: boolean
   className?: string
   setChartDivRef?: (element: HTMLDivElement | null) => void
+  dataSourceType?: string
 }
 
 const FONT_SIZE_SMALL: FontProps = {
@@ -38,7 +40,8 @@ export default function TimeseriesRow({
   className,
   chartOptions,
   withContextMenu = true,
-  setChartDivRef
+  setChartDivRef,
+  dataSourceType
 }: TimeseriesRowProps): JSX.Element {
   const { getString } = useStrings()
   const showDetails = useTimeseriesDetailsModal(transactionName, metricName)
@@ -67,7 +70,10 @@ export default function TimeseriesRow({
               {metricName}
             </Text>
           </div>
-          <Icon name="star-empty" color={Color.GREY_250} />
+          <Container className={styles.icons}>
+            {dataSourceType ? <Icon name={getIconBySourceType(dataSourceType)} size={14} /> : null}
+            <Icon name="star-empty" color={Color.GREY_250} padding={{ top: 'xsmall' }} />
+          </Container>
         </div>
       </Container>
       <Container className={styles.charts}>

@@ -97,11 +97,12 @@ export default function MetricsAnalysisContainer(props: MetricsAndLogsProps): JS
     return (
       <>
         {timeSeriesData?.map((d: TimeSeriesMetricDataDTO) => {
-          const { groupName, metricDataList, metricName } = d
+          const { groupName, metricDataList, metricName, dataSourceType } = d
           return metricName && groupName && metricDataList?.length ? (
             <MetricAnalysisRow
               key={`$${groupName}-${metricName}`}
               metricName={metricName}
+              dataSourceType={dataSourceType}
               startTime={startTime as number}
               endTime={endTime as number}
               transactionName={groupName}
