@@ -191,7 +191,7 @@ const ProviderCard: React.FC<ProviderCardProps> = props => {
       <div className={css.urls}>
         <div className={css.serverUrl}>
           <Text intent={Intent.PRIMARY} font={{ size: 'small' }}>
-            Adapter URL:
+            {getString('cd.argoAdapterURL')}
           </Text>
           <Text intent={Intent.PRIMARY} font={{ size: 'small' }}>
             {provider?.spec?.adapterUrl}

@@ -5,5 +5,6 @@ declare const styles: {
   readonly stepFormContainer: string
   readonly layoutFooter: string
   readonly nextButton: string
+  readonly fullHeight: string
 }
 export default styles

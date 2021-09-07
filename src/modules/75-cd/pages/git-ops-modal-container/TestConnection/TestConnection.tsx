@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect } from 'react'
+import classNames from 'classnames'
 import { Layout, Heading, Container, StepsProgress, Intent, Button, ButtonVariation } from '@wings-software/uicore'
 
 import { useStrings } from 'framework/strings'
@@ -47,19 +48,28 @@ const TestConnection: React.FC<Record<string, unknown>> = (props: any) => {
   }, [])
 
   return (
-    <Layout.Vertical spacing="xxlarge" className={css.stepContainer}>
+    <Layout.Vertical spacing="xxlarge" className={classNames(css.stepContainer, css.fullHeight)}>
       <Container>
         <Heading level={2} style={{ fontSize: '18px', color: 'black' }}>
           {'Test Connection'}
         </Heading>
       </Container>
 
-      <Layout.Vertical spacing="large">
+      <Layout.Vertical spacing="large" className={css.stepFormContainer}>
         <StepsProgress steps={[stepName]} intent={currentIntent} current={currentStep} currentStatus={currentStatus} />
 
         <Layout.Horizontal className={css.layoutFooter} padding={{ top: 'small' }} spacing="medium">
+          {currentStatus === Status.ERROR && (
+            <Button
+              variation={ButtonVariation.SECONDARY}
+              text={getString('back')}
+              icon="chevron-left"
+              onClick={() => props?.previousStep?.(props?.prevStepData)}
+              data-name="commonGitBackButton"
+            />
+          )}
           <Button
-            variation={ButtonVariation.SECONDARY}
+            variation={currentStatus === Status.ERROR ? ButtonVariation.PRIMARY : ButtonVariation.SECONDARY}
             text={getString('finish')}
             onClick={handleSuccess}
             className={css.nextButton}

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { debounce } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import type { GetDataError } from 'restful-react'
-import { HarnessDocTooltip, Layout, useModalHook, ExpandingSearchInput } from '@wings-software/uicore'
+import { HarnessDocTooltip, Layout, useModalHook, ExpandingSearchInput, ButtonVariation } from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
@@ -204,7 +204,7 @@ const GitOpsModalContainer: React.FC = () => {
       <Page.SubHeader>
         <Layout.Horizontal>
           <RbacButton
-            intent="primary"
+            variation={ButtonVariation.PRIMARY}
             text={getString('cd.newProvider')}
             permission={{
               permission: PermissionIdentifier.CREATE_PROJECT, // change to ADD_NEW_PROVIDER
