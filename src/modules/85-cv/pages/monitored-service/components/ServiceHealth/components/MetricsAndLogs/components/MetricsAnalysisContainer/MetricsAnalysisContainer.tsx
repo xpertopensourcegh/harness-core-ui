@@ -160,6 +160,7 @@ export default function MetricsAnalysisContainer(props: MetricsAndLogsProps): JS
         />
         {serviceIdentifier && environmentIdentifier ? (
           <HealthSourceDropDown
+            verificationType="TIME_SERIES"
             onChange={handleHealthSourceChange}
             serviceIdentifier={serviceIdentifier as string}
             environmentIdentifier={environmentIdentifier as string}

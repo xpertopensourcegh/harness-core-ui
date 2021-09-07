@@ -10,7 +10,7 @@ import type { HealthSourceDropDownProps } from './HealthSourceDropDown.types'
 import css from './HealthSourceDropDown.module.scss'
 
 export function HealthSourceDropDown(props: HealthSourceDropDownProps): JSX.Element {
-  const { onChange, serviceIdentifier, environmentIdentifier, className } = props
+  const { onChange, serviceIdentifier, environmentIdentifier, className, verificationType = 'TIME_SERIES' } = props
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
 
@@ -28,7 +28,7 @@ export function HealthSourceDropDown(props: HealthSourceDropDownProps): JSX.Elem
 
     const options = []
     for (const source of data?.resource || []) {
-      if (source.identifier && source.name) {
+      if (source?.identifier && source?.name && source?.verificationType === verificationType) {
         options.push({
           label: source.name,
           value: source.identifier as string,

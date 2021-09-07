@@ -15,7 +15,7 @@ export interface ActivityDTO {
   projectIdentifier?: string
   serviceIdentifier?: string
   tags?: string[]
-  type?: 'DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES'
+  type?: 'DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES' | 'HARNESS_CD' | 'PAGER_DUTY'
   verificationJobRuntimeDetails?: VerificationJobRuntimeDetails[]
 }
 
@@ -23,7 +23,15 @@ export interface ActivityDashboardDTO {
   activityId?: string
   activityName?: string
   activityStartTime?: number
-  activityType?: 'DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES'
+  activityType?:
+    | 'DEPLOYMENT'
+    | 'INFRASTRUCTURE'
+    | 'CUSTOM'
+    | 'CONFIG'
+    | 'OTHER'
+    | 'KUBERNETES'
+    | 'HARNESS_CD'
+    | 'PAGER_DUTY'
   activityVerificationSummary?: ActivityVerificationSummary
   environmentIdentifier?: string
   environmentName?: string
@@ -54,7 +62,15 @@ export interface ActivityVerificationResultDTO {
   activityId?: string
   activityName?: string
   activityStartTime?: number
-  activityType?: 'DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES'
+  activityType?:
+    | 'DEPLOYMENT'
+    | 'INFRASTRUCTURE'
+    | 'CUSTOM'
+    | 'CONFIG'
+    | 'OTHER'
+    | 'KUBERNETES'
+    | 'HARNESS_CD'
+    | 'PAGER_DUTY'
   endTime?: number
   environmentIdentifier?: string
   environmentName?: string
@@ -1690,6 +1706,7 @@ export interface HealthSourceDTO {
   identifier?: string
   name?: string
   type?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'STACKDRIVER_LOG' | 'KUBERNETES' | 'NEW_RELIC' | 'PROMETHEUS'
+  verificationType?: 'TIME_SERIES' | 'LOG'
 }
 
 export interface HealthSourceSpec {
@@ -1815,7 +1832,7 @@ export interface KubernetesActivityDTO {
   reason?: string
   serviceIdentifier?: string
   tags?: string[]
-  type?: 'DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES'
+  type?: 'DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES' | 'HARNESS_CD' | 'PAGER_DUTY'
   verificationJobRuntimeDetails?: VerificationJobRuntimeDetails[]
   workloadName?: string
 }
@@ -3125,7 +3142,16 @@ export interface RestResponseListActivityType {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: ('DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES')[]
+  resource?: (
+    | 'DEPLOYMENT'
+    | 'INFRASTRUCTURE'
+    | 'CUSTOM'
+    | 'CONFIG'
+    | 'OTHER'
+    | 'KUBERNETES'
+    | 'HARNESS_CD'
+    | 'PAGER_DUTY'
+  )[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -3558,7 +3584,7 @@ export interface ServiceGuardTxnMetricAnalysisDataDTO {
 }
 
 export interface ServiceRef {
-  serviceRef?: string
+  monitoredServiceIdentifier?: string
 }
 
 export interface ServiceResponseDTO {
@@ -3940,7 +3966,16 @@ export interface VerificationResult {
 }
 
 export interface VerificationsNotify {
-  activityTypes?: ('DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES')[]
+  activityTypes?: (
+    | 'DEPLOYMENT'
+    | 'INFRASTRUCTURE'
+    | 'CUSTOM'
+    | 'CONFIG'
+    | 'OTHER'
+    | 'KUBERNETES'
+    | 'HARNESS_CD'
+    | 'PAGER_DUTY'
+  )[]
   allActivityTpe?: boolean
   allVerificationStatuses?: boolean
   verificationStatuses?: ('VERIFICATION_PASSED' | 'VERIFICATION_FAILED')[]
@@ -5803,6 +5838,7 @@ export interface GetDeploymentTimeSeriesQueryParams {
   hostName?: string
   filter?: string
   pageNumber?: number
+  pageSize?: number
 }
 
 export interface GetDeploymentTimeSeriesPathParams {
