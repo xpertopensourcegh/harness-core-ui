@@ -1,4 +1,14 @@
-import { Button, Color, Formik, FormInput, Layout, MultiSelectOption, StepProps, Text } from '@wings-software/uicore'
+import {
+  Button,
+  ButtonVariation,
+  Color,
+  Formik,
+  FormInput,
+  Layout,
+  MultiSelectOption,
+  StepProps,
+  Text
+} from '@wings-software/uicore'
 import React from 'react'
 import { Form } from 'formik'
 import { startCase } from 'lodash-es'
@@ -160,7 +170,12 @@ const PipelineEvents: React.FC<PipelineEventsProps> = ({ nextStep, prevStepData,
                   )
                 })}
               </Layout.Vertical>
-              <Button type="submit" intent="primary" rightIcon="chevron-right" text={getString('continue')} />
+              <Button
+                type="submit"
+                variation={ButtonVariation.PRIMARY}
+                rightIcon="chevron-right"
+                text={getString('continue')}
+              />
             </Form>
           )
         }}

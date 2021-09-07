@@ -9,7 +9,8 @@ import {
   Icon,
   FormError,
   DataTooltipInterface,
-  HarnessDocTooltip
+  HarnessDocTooltip,
+  FormikTooltipContext
 } from '@wings-software/uicore'
 
 import { get } from 'lodash-es'
@@ -101,6 +102,10 @@ const UserGroupsInput: React.FC<FormikUserGroupsInput> = props => {
     setMappedUserGroups([])
   }
 
+  const tooltipContext = React.useContext(FormikTooltipContext)
+  const dataTooltipId =
+    tooltipProps?.dataTooltipId || (tooltipContext?.formName ? `${tooltipContext?.formName}_${name}` : '')
+
   return (
     <FormGroup
       helperText={errorCheck(name, formik) ? <FormError errorMessage={get(formik?.errors, name)} /> : null}
@@ -109,9 +114,9 @@ const UserGroupsInput: React.FC<FormikUserGroupsInput> = props => {
     >
       <Layout.Vertical>
         {label ? (
-          <label data-tooltip-id={tooltipProps?.dataTooltipId} className="bp3-label">
+          <label data-tooltip-id={dataTooltipId} className="bp3-label">
             {label}
-            <HarnessDocTooltip tooltipId={tooltipProps?.dataTooltipId} useStandAlone={true} />
+            <HarnessDocTooltip tooltipId={dataTooltipId} useStandAlone={true} />
           </label>
         ) : null}
         <Container
