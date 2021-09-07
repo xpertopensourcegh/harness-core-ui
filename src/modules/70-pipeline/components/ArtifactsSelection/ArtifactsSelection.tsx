@@ -459,7 +459,8 @@ export default function ArtifactsSelection({
         addArtifact(data)
       },
       artifactIdentifiers: sideCarArtifact?.map((item: SidecarArtifactWrapper) => item.sidecar?.identifier as string),
-      isReadonly: isReadonly
+      isReadonly: isReadonly,
+      selectedArtifact
     }
 
     return imagePathProps
