@@ -696,29 +696,11 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
           <Layout.Horizontal spacing="small" className={css.repoDetails}>
             <Icon name="repository" margin={{ left: 'medium' }}></Icon>
             {pipelineIdentifier === DefaultNewPipelineId && !loadingRepos ? (
-              <Text
-                style={{
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap',
-                  maxWidth: window.innerWidth <= 1440 ? '70px' : '145px'
-                }}
-                font={FontVariation.SMALL}
-                tooltip={repoName}
-              >
+              <Text font={FontVariation.SMALL} tooltip={repoName} className={css.repoName}>
                 {repoName}
               </Text>
             ) : (
-              <Text
-                style={{
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap',
-                  maxWidth: window.innerWidth <= 1440 ? '70px' : '190px'
-                }}
-                font={FontVariation.SMALL}
-                tooltip={folderName}
-              >
+              <Text font={FontVariation.SMALL} tooltip={folderName} className={css.folderName}>
                 {folderName}
               </Text>
             )}
@@ -728,16 +710,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
             {pipelineIdentifier === DefaultNewPipelineId || isReadonly ? (
               <>
                 <Icon name="git-new-branch" margin={{ left: 'medium' }}></Icon>
-                <Text
-                  style={{
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                    maxWidth: window.innerWidth <= 1440 ? '70px' : '145px'
-                  }}
-                  font={FontVariation.SMALL}
-                  tooltip={gitDetails?.branch}
-                >
+                <Text className={css.branchName} font={FontVariation.SMALL} tooltip={gitDetails?.branch}>
                   {gitDetails?.branch}
                 </Text>
               </>
