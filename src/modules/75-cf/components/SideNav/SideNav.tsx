@@ -13,6 +13,7 @@ import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import { isFFPipelinesEnabled } from '@cf/utils/pipelinesEnabled'
 import NavExpandable from '@common/navigation/NavExpandable/NavExpandable'
 import { useFeatureFlagTelemetry } from '@cf/hooks/useFeatureFlagTelemetry'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 
 export default function CFSideNav(): React.ReactElement {
   const { getString } = useStrings()
@@ -23,6 +24,8 @@ export default function CFSideNav(): React.ReactElement {
   const { withActiveEnvironment } = useActiveEnvironment()
   const { trial } = useQueryParams<{ trial?: boolean }>()
   const events = useFeatureFlagTelemetry()
+
+  const { FF_GITSYNC } = useFeatureFlags()
 
   /* istanbul ignore next */
   const projectSelectHandler: ProjectSelectorProps['onSelect'] = data => {
@@ -75,13 +78,21 @@ export default function CFSideNav(): React.ReactElement {
             label={getString('cf.shared.getStarted')}
             to={withActiveEnvironment(routes.toCFOnboarding(params))}
           />
-
-          <NavExpandable title={getString('common.projectSetup')} route={routes.toSetup(params)}>
+          <NavExpandable title={getString('common.projectSetup')} route={routes.toSetup({ ...params, module: 'cf' })}>
             <Layout.Vertical spacing="small">
               <SidebarLink
                 to={routes.toAccessControl({ ...params, module: 'cf' })}
                 label={getString('accessControl')}
               />
+              {FF_GITSYNC && (
+                <>
+                  <SidebarLink
+                    label={getString('connectorsLabel')}
+                    to={routes.toConnectors({ ...params, module: 'cf' })}
+                  />
+                  <SidebarLink label={getString('common.secrets')} to={routes.toSecrets({ ...params, module: 'cf' })} />
+                </>
+              )}
             </Layout.Vertical>
           </NavExpandable>
         </>
