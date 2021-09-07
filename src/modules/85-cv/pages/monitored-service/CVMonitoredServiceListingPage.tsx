@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { Layout, Color, Text, Button, SelectOption, Select } from '@wings-software/uicore'
 import type { CellProps, Renderer } from 'react-table'
 import { useParams, useHistory } from 'react-router-dom'
 import styled from '@emotion/styled'
 import { Page, useToaster } from '@common/exports'
-import { PageSpinner, Table } from '@common/components'
+import { Table } from '@common/components'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
@@ -16,16 +16,19 @@ import {
   useListMonitoredService,
   useDeleteMonitoredService,
   useGetMonitoredServiceListEnvironments,
-  MonitoredServiceListItemDTO
+  MonitoredServiceListItemDTO,
+  ChangeSummaryDTO
 } from 'services/cv'
 import ContextMenuActions from '@cv/components/ContextMenuActions/ContextMenuActions'
 import { MonitoringServicesHeader } from './monitoredService.styled'
 import {
+  showPageSpinner,
   RenderHealthTrend,
   RenderHealthScore,
   RenderTags,
   getFilterAndEnvironmentValue,
-  getEnvironmentOptions
+  getEnvironmentOptions,
+  calculateChangePercentage
 } from './CVMonitoredServiceListingPage.utils'
 
 const ServiceCount = styled(Text)`
@@ -73,6 +76,8 @@ function CVMonitoredServiceListingPage(): JSX.Element {
     }
   })
 
+  const { content = [], pageSize = 0, pageIndex = 0, totalPages = 0, totalItems = 0 } = data?.data ?? ({} as any)
+
   const onDelete = async (identifier?: string): Promise<void> => {
     try {
       if (identifier) {
@@ -80,8 +85,7 @@ function CVMonitoredServiceListingPage(): JSX.Element {
         const refetchPromise = refetch()
         await Promise.all([delPromise, refetchPromise])
       }
-      const { pageItemCount, pageIndex } = data?.data ?? {}
-      if (pageIndex! > 0 && pageItemCount === 1) {
+      if (pageIndex > 0 && data?.data?.pageItemCount === 1) {
         setPage(page - 1)
       }
     } catch (e) {
@@ -91,7 +95,7 @@ function CVMonitoredServiceListingPage(): JSX.Element {
       }
     }
   }
-  const { content = [], pageSize = 0, pageIndex = 0, totalPages = 0, totalItems = 0 } = data?.data ?? ({} as any)
+
   const MonitoredServiceActions: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ row }) => {
     const rowdata = row?.original
     return (
@@ -135,6 +139,43 @@ function CVMonitoredServiceListingPage(): JSX.Element {
     )
   }
 
+  const RenderServiceChanges: Renderer<CellProps<MonitoredServiceListItemDTO>> = useCallback(({ row }) => {
+    const rowData = row?.original
+    if (rowData?.changeSummary?.categoryCountMap) {
+      const { categoryCountMap } = rowData?.changeSummary as ChangeSummaryDTO
+      // ChangeSummaryDTO['categoryCountMap'] has not defined types as Infrastructure, Deployment, Alert
+      const {
+        Infrastructure: { count: infraCount = 0 },
+        Deployment: { count: deploymentCount = 0 },
+        Alert: { count: alertCount = 0 }
+      } = categoryCountMap as any
+      const { color, percentage } = calculateChangePercentage(rowData?.changeSummary)
+      return (
+        <Layout.Horizontal spacing={'medium'}>
+          <Text inline icon="cube" font={{ weight: 'semi-bold' }} iconProps={{ size: 16 }}>
+            {deploymentCount}
+          </Text>
+          <Text inline icon="infrastructure" font={{ weight: 'semi-bold' }} iconProps={{ size: 20 }}>
+            {infraCount}
+          </Text>
+          <Text inline icon="warning-outline" font={{ weight: 'semi-bold' }} iconProps={{ size: 16 }}>
+            {alertCount}
+          </Text>
+          <Text
+            inline
+            icon="symbol-triangle-up"
+            color={color}
+            font={{ size: 'xsmall' }}
+            iconProps={{ size: 6, color: color }}
+          >
+            {percentage}
+          </Text>
+        </Layout.Horizontal>
+      )
+    }
+    return <></>
+  }, [])
+
   return (
     <BGColorWrapper>
       <MonitoringServicesHeader height={'80px'}>
@@ -173,13 +214,7 @@ function CVMonitoredServiceListingPage(): JSX.Element {
                 leftIcon: 'search'
               }}
               defaultSelectedItem={{ label: getString('all'), value: getString('all') }}
-              items={
-                loadingServices
-                  ? [{ label: getString('loading'), value: 'loading' }]
-                  : environmentDataList
-                  ? getEnvironmentOptions(environmentDataList, getString('all'))
-                  : []
-              }
+              items={getEnvironmentOptions(environmentDataList, loadingServices, getString)}
               onChange={item => setEnvironment(item)}
             />
             {/* 
@@ -199,7 +234,7 @@ function CVMonitoredServiceListingPage(): JSX.Element {
           {getString('cv.monitoredServices.serviceCount', { serviceCount: content.length })}
         </ServiceCount>
 
-        {(loading || isDeleting) && <PageSpinner />}
+        {showPageSpinner(loading, isDeleting)}
         {content.length > 0 ? (
           <Table
             sortable={true}
@@ -210,23 +245,28 @@ function CVMonitoredServiceListingPage(): JSX.Element {
                 Cell: RenderServiceName
               },
               {
+                Header: getString('cv.monitoredServices.table.changes'),
+                width: '20%',
+                Cell: RenderServiceChanges
+              },
+              {
                 Header: getString('cv.monitoredServices.table.lastestHealthTrend'),
-                width: '30%',
+                width: '20%',
                 Cell: RenderHealthTrend
               },
               {
                 Header: getString('cv.monitoredServices.table.serviceHealthScore'),
-                width: '18%',
+                width: '20%',
                 Cell: RenderHealthScore
               },
               {
                 Header: getString('tagLabel'),
-                width: '12%',
+                width: '10%',
                 Cell: RenderTags
               },
               {
                 Header: getString('pipeline.triggers.triggerConfigurationPanel.actions'),
-                width: '15%',
+                width: '10%',
                 Cell: MonitoredServiceActions
               }
             ]}

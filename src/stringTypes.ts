@@ -3654,6 +3654,7 @@ export interface StringsMap {
   'cv.monitoredServices.serviceHealth.overallHealthScore': string
   'cv.monitoredServices.serviceHealth.selectTimeline': string
   'cv.monitoredServices.serviceValidation': string
+  'cv.monitoredServices.table.changes': string
   'cv.monitoredServices.table.healthMonitoring': string
   'cv.monitoredServices.table.lastestHealthTrend': string
   'cv.monitoredServices.table.serviceHealthScore': string
