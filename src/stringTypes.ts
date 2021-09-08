@@ -845,6 +845,7 @@ export interface StringsMap {
   'delegates.downloadYAMLFile': string
   'delegates.harnessDocs': string
   'delegates.lastUpdated': string
+  'delegates.newDelegate': string
   'delegates.newDelegateConfigWizard.matchAllEnvs': string
   'delegates.newDelegateConfigWizard.nonprodEnv': string
   'delegates.newDelegateConfigWizard.overviewTitle': string
@@ -854,6 +855,10 @@ export interface StringsMap {
   'delegates.newDelegateConfigWizard.specEnvNotPossible': string
   'delegates.newDelegateConfigWizard.specifyEnvs': string
   'delegates.newDelegateConfigWizard.successMessage': string
+  'delegates.newDelegateConfiguration': string
+  'delegates.noDelegatesInAccount': string
+  'delegates.noDelegatesInOrganization': string
+  'delegates.noDelegatesInProject': string
   'delegates.openTroubleshooter': string
   'delegates.permissionRequired': string
   'delegates.questionForceDeleteDelegate': string
@@ -4591,10 +4596,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'delegate.NEW_DELEGATE': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'delegate.ReturnToDelegates': string
   /**
    * @deprecated migrate this string to module level file
@@ -4820,10 +4821,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'delegate.kubernetes.url': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'delegate.newConfiguration': string
   /**
    * @deprecated migrate this string to module level file
    */

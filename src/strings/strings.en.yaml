@@ -714,9 +714,7 @@ delegate:
   selectEnvs: Select Environments...
   pendingApproval: Pending Approval
   notConnected: Not Connected
-  newConfiguration: New Delegate Configuration
   delegates: 'Delegates'
-  NEW_DELEGATE: 'New Delegate'
   DelegateName: 'Delegate'
   DelegateSelector: 'Delegate Selector'
   DelegateselectionLabel: 'Setup Delegates'

@@ -38,6 +38,8 @@ import ConnectorsPage from '@connectors/pages/connectors/ConnectorsPage'
 import CreateConnectorFromYamlPage from '@connectors/pages/createConnectorFromYaml/CreateConnectorFromYamlPage'
 import SecretsPage from '@secrets/pages/secrets/SecretsPage'
 import DelegatesPage from '@delegates/pages/delegates/DelegatesPage'
+import DelegateListing from '@delegates/pages/delegates/DelegateListing'
+import DelegateConfigurations from '@delegates/pages/delegates/DelegateConfigurations'
 import DelegateDetails from '@delegates/pages/delegates/DelegateDetails'
 import DelegateProfileDetails from '@delegates/pages/delegates/DelegateConfigurationDetailPage'
 import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsPage'
@@ -87,6 +89,12 @@ const RedirectToAccessControlHome = (): React.ReactElement => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
 
   return <Redirect to={routes.toUsers({ accountId, projectIdentifier, orgIdentifier, module: 'cv' })} />
+}
+
+const RedirectToDelegatesHome = (): React.ReactElement => {
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+
+  return <Redirect to={routes.toDelegateList({ accountId, projectIdentifier, orgIdentifier, module: 'cv' })} />
 }
 
 const RedirectToCVHome = (): React.ReactElement => {
@@ -234,7 +242,26 @@ export default (
       sidebarProps={CVSideNavProps}
       path={routes.toDelegates({ ...accountPathProps, ...projectPathProps, ...cvModuleParams })}
     >
-      <DelegatesPage />
+      <RedirectToDelegatesHome />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toDelegateList({ ...accountPathProps, ...projectPathProps, ...cvModuleParams })}
+    >
+      <DelegatesPage>
+        <DelegateListing />
+      </DelegatesPage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toDelegateConfigs({ ...accountPathProps, ...projectPathProps, ...cvModuleParams })}
+    >
+      <DelegatesPage>
+        <DelegateConfigurations />
+      </DelegatesPage>
     </RouteWithLayout>
     <RouteWithLayout
       exact

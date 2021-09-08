@@ -31,6 +31,8 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import ConnectorsPage from '@connectors/pages/connectors/ConnectorsPage'
 import SecretsPage from '@secrets/pages/secrets/SecretsPage'
 import DelegatesPage from '@delegates/pages/delegates/DelegatesPage'
+import DelegateListing from '@delegates/pages/delegates/DelegateListing'
+import DelegateConfigurations from '@delegates/pages/delegates/DelegateConfigurations'
 import DelegateDetails from '@delegates/pages/delegates/DelegateDetails'
 import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsPage'
 import SecretDetails from '@secrets/pages/secretDetails/SecretDetails'
@@ -115,6 +117,12 @@ const RedirectToGitSyncHome = (): React.ReactElement => {
   return <Redirect to={routes.toGitSyncReposAdmin({ projectIdentifier, accountId, orgIdentifier })} />
 }
 
+const RedirectToDelegatesHome = (): React.ReactElement => {
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+
+  return <Redirect to={routes.toDelegateList({ accountId, projectIdentifier, orgIdentifier })} />
+}
+
 export default (
   <>
     <RouteWithLayout sidebarProps={HomeSideNavProps} path={routes.toProjects({ ...accountPathProps })} exact>
@@ -124,7 +132,6 @@ export default (
     <RouteWithLayout sidebarProps={HomeSideNavProps} path={routes.toLandingDashboard({ ...accountPathProps })} exact>
       <LandingDashboardPage />
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={ProjectDetailsSideNavProps}
       path={routes.toProjectDetails({ ...accountPathProps, ...projectPathProps })}
@@ -132,7 +139,6 @@ export default (
     >
       <ProjectDetails />
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={ProjectDetailsSideNavProps}
       path={routes.toConnectors({ ...projectPathProps })}
@@ -140,7 +146,6 @@ export default (
     >
       <ConnectorsPage />
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={ProjectDetailsSideNavProps}
       path={routes.toSecrets({ ...accountPathProps, ...projectPathProps })}
@@ -148,7 +153,6 @@ export default (
     >
       <SecretsPage />
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={ProjectDetailsSideNavProps}
       path={routes.toDelegatesDetails({ ...projectPathProps, ...delegatePathProps })}
@@ -156,7 +160,6 @@ export default (
     >
       <DelegateDetails />
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={AccountSideNavProps}
       path={routes.toDelegatesDetails({ ...orgPathProps, ...delegatePathProps })}
@@ -170,7 +173,7 @@ export default (
       path={routes.toDelegates({ ...accountPathProps, ...projectPathProps })}
       exact
     >
-      <DelegatesPage />
+      <RedirectToDelegatesHome />
     </RouteWithLayout>
 
     <RouteWithLayout
@@ -178,9 +181,45 @@ export default (
       path={routes.toDelegates({ ...accountPathProps, ...orgPathProps })}
       exact
     >
-      <DelegatesPage />
+      <RedirectToDelegatesHome />
     </RouteWithLayout>
 
+    <RouteWithLayout
+      sidebarProps={ProjectDetailsSideNavProps}
+      path={routes.toDelegateList({ ...accountPathProps, ...projectPathProps })}
+      exact
+    >
+      <DelegatesPage>
+        <DelegateListing />
+      </DelegatesPage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={AccountSideNavProps}
+      path={routes.toDelegateList({ ...accountPathProps, ...orgPathProps })}
+      exact
+    >
+      <DelegatesPage>
+        <DelegateListing />
+      </DelegatesPage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={ProjectDetailsSideNavProps}
+      path={routes.toDelegateConfigs({ ...accountPathProps, ...projectPathProps })}
+      exact
+    >
+      <DelegatesPage>
+        <DelegateConfigurations />
+      </DelegatesPage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={AccountSideNavProps}
+      path={routes.toDelegateConfigs({ ...accountPathProps, ...orgPathProps })}
+      exact
+    >
+      <DelegatesPage>
+        <DelegateConfigurations />
+      </DelegatesPage>
+    </RouteWithLayout>
     <RouteWithLayout
       sidebarProps={ProjectDetailsSideNavProps}
       path={routes.toDelegateConfigsDetails({
@@ -192,7 +231,6 @@ export default (
     >
       <DelegateProfileDetails />
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={AccountSideNavProps}
       path={routes.toDelegateConfigsDetails({
@@ -204,7 +242,6 @@ export default (
     >
       <DelegateProfileDetails />
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={ProjectDetailsSideNavProps}
       path={routes.toEditDelegateConfigsDetails({
@@ -216,7 +253,6 @@ export default (
     >
       <DelegateProfileDetails />
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={AccountSideNavProps}
       path={routes.toEditDelegateConfigsDetails({
@@ -228,7 +264,6 @@ export default (
     >
       <DelegateProfileDetails />
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={ProjectDetailsSideNavProps}
       path={routes.toConnectorDetails({ ...accountPathProps, ...projectPathProps, ...connectorPathProps })}
@@ -236,7 +271,6 @@ export default (
     >
       <ConnectorDetailsPage />
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={AccountSideNavProps}
       path={routes.toConnectorDetails({ ...orgPathProps, ...connectorPathProps })}
@@ -244,7 +278,6 @@ export default (
     >
       <ConnectorDetailsPage />
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={ProjectDetailsSideNavProps}
       path={routes.toSecretDetails({ ...accountPathProps, ...projectPathProps, ...secretPathProps })}
@@ -270,7 +303,6 @@ export default (
         <SecretReferences />
       </SecretDetailsHomePage>
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={ProjectDetailsSideNavProps}
       path={routes.toCreateSecretFromYaml({
@@ -282,15 +314,12 @@ export default (
     >
       <CreateSecretFromYamlPage />
     </RouteWithLayout>
-
     <RouteWithLayout sidebarProps={AccountSideNavProps} path={routes.toOrganizations({ ...accountPathProps })} exact>
       <OrganizationsPage />
     </RouteWithLayout>
-
     <RouteWithLayout sidebarProps={AccountSideNavProps} path={routes.toConnectors({ ...orgPathProps })} exact>
       <ConnectorsPage />
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={AccountSideNavProps}
       path={routes.toConnectorDetails({ ...orgPathProps, ...connectorPathProps })}
@@ -298,7 +327,6 @@ export default (
     >
       <ConnectorDetailsPage />
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={ProjectDetailsSideNavProps}
       path={routes.toCreateConnectorFromYaml({ ...accountPathProps, ...projectPathProps })}
@@ -306,7 +334,6 @@ export default (
     >
       <CreateConnectorFromYamlPage />
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={AccountSideNavProps}
       path={routes.toCreateConnectorFromYaml({ ...orgPathProps })}
@@ -314,7 +341,6 @@ export default (
     >
       <CreateConnectorFromYamlPage />
     </RouteWithLayout>
-
     <RouteWithLayout sidebarProps={AccountSideNavProps} path={routes.toSecrets({ ...orgPathProps })} exact>
       <SecretsPage />
     </RouteWithLayout>
@@ -340,7 +366,6 @@ export default (
         <SecretDetails />
       </SecretDetailsHomePage>
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={AccountSideNavProps}
       path={routes.toSecretDetailsReferences({
@@ -353,21 +378,17 @@ export default (
         <SecretReferences />
       </SecretDetailsHomePage>
     </RouteWithLayout>
-
     <RouteWithLayout sidebarProps={AccountSideNavProps} path={routes.toCreateSecretFromYaml({ ...orgPathProps })} exact>
       <CreateSecretFromYamlPage />
     </RouteWithLayout>
-
     <RouteWithLayout sidebarProps={AccountSideNavProps} path={[routes.toAccessControl({ ...orgPathProps })]} exact>
       <RedirectToAccessControlHome />
     </RouteWithLayout>
-
     <RouteWithLayout sidebarProps={AccountSideNavProps} path={[routes.toUsers({ ...orgPathProps })]} exact>
       <AccessControlPage>
         <UsersPage />
       </AccessControlPage>
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={AccountSideNavProps}
       path={[routes.toUserDetails({ ...orgPathProps, ...userPathProps })]}
@@ -375,13 +396,11 @@ export default (
     >
       <UserDetails />
     </RouteWithLayout>
-
     <RouteWithLayout sidebarProps={AccountSideNavProps} path={[routes.toUserGroups({ ...orgPathProps })]} exact>
       <AccessControlPage>
         <UserGroups />
       </AccessControlPage>
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={AccountSideNavProps}
       path={[routes.toUserGroupDetails({ ...orgPathProps, ...userGroupPathProps })]}
@@ -389,13 +408,11 @@ export default (
     >
       <UserGroupDetails />
     </RouteWithLayout>
-
     <RouteWithLayout sidebarProps={AccountSideNavProps} path={routes.toServiceAccounts({ ...orgPathProps })} exact>
       <AccessControlPage>
         <ServiceAccountsPage />
       </AccessControlPage>
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={AccountSideNavProps}
       path={routes.toServiceAccountDetails({ ...orgPathProps, ...serviceAccountProps })}
@@ -403,19 +420,16 @@ export default (
     >
       <ServiceAccountDetails />
     </RouteWithLayout>
-
     <RouteWithLayout sidebarProps={AccountSideNavProps} path={[routes.toResourceGroups({ ...orgPathProps })]} exact>
       <AccessControlPage>
         <ResourceGroups />
       </AccessControlPage>
     </RouteWithLayout>
-
     <RouteWithLayout sidebarProps={AccountSideNavProps} path={[routes.toRoles({ ...orgPathProps })]} exact>
       <AccessControlPage>
         <Roles />
       </AccessControlPage>
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={AccountSideNavProps}
       path={[routes.toRoleDetails({ ...orgPathProps, ...rolePathProps })]}
@@ -430,7 +444,6 @@ export default (
     >
       <ResourceGroupDetails />
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={AccountSideNavProps}
       path={routes.toOrganizationDetails({ ...accountPathProps, ...orgPathProps })}
@@ -438,7 +451,6 @@ export default (
     >
       <OrganizationDetailsPage />
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={ProjectDetailsSideNavProps}
       path={[routes.toAccessControl({ ...projectPathProps })]}
@@ -446,13 +458,11 @@ export default (
     >
       <RedirectToAccessControlHome />
     </RouteWithLayout>
-
     <RouteWithLayout sidebarProps={ProjectDetailsSideNavProps} path={[routes.toUsers({ ...projectPathProps })]} exact>
       <AccessControlPage>
         <UsersPage />
       </AccessControlPage>
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={ProjectDetailsSideNavProps}
       path={[routes.toUserDetails({ ...projectPathProps, ...userPathProps })]}
@@ -460,7 +470,6 @@ export default (
     >
       <UserDetails />
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={ProjectDetailsSideNavProps}
       path={[routes.toUserGroups({ ...projectPathProps })]}
@@ -470,7 +479,6 @@ export default (
         <UserGroups />
       </AccessControlPage>
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={ProjectDetailsSideNavProps}
       path={[routes.toUserGroupDetails({ ...projectPathProps, ...userGroupPathProps })]}
@@ -478,7 +486,6 @@ export default (
     >
       <UserGroupDetails />
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={ProjectDetailsSideNavProps}
       path={routes.toServiceAccounts({ ...projectPathProps })}
@@ -488,7 +495,6 @@ export default (
         <ServiceAccountsPage />
       </AccessControlPage>
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={ProjectDetailsSideNavProps}
       path={routes.toServiceAccountDetails({ ...projectPathProps, ...serviceAccountProps })}
@@ -496,7 +502,6 @@ export default (
     >
       <ServiceAccountDetails />
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={ProjectDetailsSideNavProps}
       path={[routes.toResourceGroups({ ...projectPathProps })]}
@@ -506,13 +511,11 @@ export default (
         <ResourceGroups />
       </AccessControlPage>
     </RouteWithLayout>
-
     <RouteWithLayout sidebarProps={ProjectDetailsSideNavProps} path={[routes.toRoles({ ...projectPathProps })]} exact>
       <AccessControlPage>
         <Roles />
       </AccessControlPage>
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={ProjectDetailsSideNavProps}
       path={[routes.toRoleDetails({ ...projectPathProps, ...rolePathProps })]}
@@ -527,7 +530,6 @@ export default (
     >
       <ResourceGroupDetails />
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={ProjectDetailsSideNavProps}
       exact

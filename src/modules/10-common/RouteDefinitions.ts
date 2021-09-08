@@ -162,6 +162,19 @@ const routes = {
       })
     }
   ),
+  toDelegateList: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
+      const path = `resources/delegates/list`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
+  ),
   toDelegatesDetails: withAccountId(
     ({
       orgIdentifier,
@@ -169,7 +182,20 @@ const routes = {
       delegateIdentifier,
       module
     }: Partial<ProjectPathProps & ModulePathParams & DelegatePathProps>) => {
-      const path = `resources/delegates/${delegateIdentifier}`
+      const path = `resources/delegate/${delegateIdentifier}`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
+  ),
+  toDelegateConfigs: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
+      const path = `resources/delegates/configs`
       return getScopeBasedRoute({
         scope: {
           orgIdentifier,
@@ -187,7 +213,7 @@ const routes = {
       delegateConfigIdentifier,
       module
     }: Partial<ProjectPathProps & ModulePathParams & DelegateConfigProps>) => {
-      const path = `resources/delegateconfigs/${delegateConfigIdentifier}`
+      const path = `resources/delegates/configs/${delegateConfigIdentifier}`
       return getScopeBasedRoute({
         scope: {
           orgIdentifier,
@@ -205,7 +231,7 @@ const routes = {
       delegateConfigIdentifier,
       module
     }: Partial<ProjectPathProps & ModulePathParams & DelegateConfigProps>) => {
-      const path = `resources/delegateconfigs/${delegateConfigIdentifier}/edit`
+      const path = `resources/delegates/configs/${delegateConfigIdentifier}/edit`
       return getScopeBasedRoute({
         scope: {
           orgIdentifier,
