@@ -132,6 +132,7 @@ const PipelineEvents: React.FC<PipelineEventsProps> = ({ nextStep, prevStepData,
                     <Layout.Vertical key={event.label}>
                       <Layout.Horizontal margin={{ bottom: 'small' }} flex>
                         <FormInput.CheckBox
+                          className={formikProps.values.types[event.value] ? 'checked' : 'unchecked'}
                           name={`types.${event.value}`}
                           checked={formikProps.values.types[event.label]}
                           label={event.label}
