@@ -541,6 +541,7 @@ export interface StringsMap {
   'rbac.apiKey.form.editSuccess': string
   'rbac.apiKey.successMessage': string
   'rbac.categoryLabels.sharedResources': string
+  'rbac.forUser': string
   'rbac.generateToken': string
   'rbac.in': string
   'rbac.myApiKeys': string
@@ -653,7 +654,9 @@ export interface StringsMap {
   'rbac.userGroupPage.userList.deleteFailureMessage': string
   'rbac.userGroupPage.userList.deleteSuccessMessage': string
   'rbac.userGroupPage.userList.deleteTitle': string
-  'rbac.usersPage.assignRoles': string
+  'rbac.userRequired': string
+  'rbac.userUpperLimit': string
+  'rbac.usersPage.assignRoleBindings': string
   'rbac.usersPage.deleteConfirmation': string
   'rbac.usersPage.deleteSuccessMessage': string
   'rbac.usersPage.deleteTitle': string
@@ -676,6 +679,9 @@ export interface StringsMap {
   'rbac.usersPage.unlockTitle': string
   'rbac.usersPage.userAlreadyAdded': string
   'rbac.usersPage.userAlreadyInvited': string
+  'rbac.usersPage.userForm.title': string
+  'rbac.usersPage.userForm.userGroupLabel': string
+  'rbac.usersPage.userForm.userLabel': string
   'rbac.usersPage.validation.resourceGroup': string
   'rbac.usersPage.validation.role': string
   'rbac.youAreMissingTheFollowingPermission': string

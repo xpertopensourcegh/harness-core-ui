@@ -92,13 +92,17 @@ describe('UsersPage Test', () => {
     fireEvent.click(addUser!)
     const form = findDialogContainer()
     expect(form).toBeTruthy()
-    const selectCaret = document.body.querySelector('[data-icon="chevron-down"]')
-    expect(selectCaret).toBeTruthy()
+    const input = form?.querySelector('.bp3-input-ghost')!
+    expect(input).toBeDefined()
+    fireEvent.focus(input)
     await act(async () => {
-      fireEvent.click(selectCaret!)
+      fireEvent.keyDown(input, { key: 'Enter', code: 13 })
     })
-    const popover = findPopoverContainer()
-    fireEvent.click(getByText(popover!, 'admin@harness.io'))
+    const admin = getByText(form!, 'Admin')
+    await act(async () => {
+      fireEvent.click(admin)
+    })
+    expect(form).toMatchSnapshot()
     await act(async () => {
       clickSubmit(form!)
     })

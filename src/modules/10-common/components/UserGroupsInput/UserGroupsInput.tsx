@@ -41,11 +41,22 @@ export interface FormikUserGroupsInput extends UserGroupsInputProps {
   tooltipProps?: DataTooltipInterface
   disabled?: boolean
   formGroupClass?: string
+  onlyCurrentScope?: boolean
 }
 
 const UserGroupsInput: React.FC<FormikUserGroupsInput> = props => {
   const { getString } = useStrings()
-  const { formik, label, name, onSuccess, placeholder, tooltipProps, disabled, formGroupClass = '' } = props
+  const {
+    formik,
+    label,
+    name,
+    onSuccess,
+    placeholder,
+    tooltipProps,
+    disabled,
+    formGroupClass = '',
+    onlyCurrentScope
+  } = props
   const userGroupsReference: string[] = get(formik?.values, name)
 
   const { openSelectUserGroupsModal } = useSelectUserGroupsModal({
@@ -54,7 +65,8 @@ const UserGroupsInput: React.FC<FormikUserGroupsInput> = props => {
       formik.setFieldValue(name, scopeObjToStringArry)
       setUserGroupsScopeAndIndentifier(data)
       onSuccess?.(scopeObjToStringArry)
-    }
+    },
+    onlyCurrentScope
   })
 
   const [userGroupsScopeAndIndentifier, setUserGroupsScopeAndIndentifier] = useState<ScopeAndIdentifier[]>()
