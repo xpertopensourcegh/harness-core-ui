@@ -18,8 +18,7 @@ import {
   GetConnectorListV2QueryParams,
   FilterDTO,
   PageConnectorResponse,
-  Failure,
-  ConnectorFilterProperties
+  Failure
 } from 'services/cd-ng'
 import { Page, useToaster } from '@common/exports'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
@@ -72,33 +71,14 @@ const GitOpsModalContainer: React.FC = () => {
   })
 
   const refetchConnectorList = React.useCallback(
-    async (
-      params?: GetConnectorListV2QueryParams,
-      filter?: ConnectorFilterProperties,
-      needsRefinement = true
-    ): Promise<void> => {
+    async (params?: GetConnectorListV2QueryParams): Promise<void> => {
       setLoading(true)
-      const { connectorNames, connectorIdentifiers, description, types, connectivityStatuses, tags } = filter || {}
 
-      const requestBodyPayload = Object.assign(
-        filter
-          ? {
-              connectorNames: typeof connectorNames === 'string' ? [connectorNames] : connectorNames,
-              connectorIdentifiers:
-                typeof connectorIdentifiers === 'string' ? [connectorIdentifiers] : connectorIdentifiers,
-              description,
-              types: needsRefinement ? types?.map(type => type?.toString()) : types,
-              connectivityStatuses: needsRefinement
-                ? connectivityStatuses?.map(status => status?.toString())
-                : connectivityStatuses,
-              tags
-            }
-          : {},
-        {
-          includeTypes: ['ArgoConnector'],
-          filterType: 'Connector'
-        }
-      ) as ConnectorFilterProperties
+      const requestBodyPayload = {
+        types: ['ArgoConnector'],
+        filterType: 'Connector'
+      }
+
       const sanitizedFilterRequest = removeNullAndEmpty(requestBodyPayload)
       try {
         const { status, data } = await fetchConnectors(sanitizedFilterRequest, { queryParams: params })
@@ -156,7 +136,7 @@ const GitOpsModalContainer: React.FC = () => {
       searchTerm,
       pageIndex: page
     }
-    refetchConnectorList(updatedQueryParams, appliedFilter?.filterProperties)
+    refetchConnectorList(updatedQueryParams)
   }, [page])
 
   /* Through expandable filter text search */
@@ -169,13 +149,10 @@ const GitOpsModalContainer: React.FC = () => {
         pageIndex: 0
       }
       if (query) {
-        refetchConnectorList(updatedQueryParams, appliedFilter?.filterProperties)
+        refetchConnectorList(updatedQueryParams)
       } /* on clearing query */ else {
         page === 0
-          ? /* fetch connectors for 1st page */ refetchConnectorList(
-              updatedQueryParams,
-              appliedFilter?.filterProperties
-            )
+          ? /* fetch connectors for 1st page */ refetchConnectorList(updatedQueryParams)
           : /* or navigate to first page */ setPage(0)
       }
     }, 500),
