@@ -6,6 +6,7 @@ import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import { hasCDStage, hasCIStage, StageType } from '@pipeline/utils/stageHelpers'
 import factory from '@pipeline/factories/ExecutionFactory'
 import { mapTriggerTypeToStringID } from '@pipeline/utils/triggerUtils'
+import { UserLabel } from '@common/components/UserLabel/UserLabel'
 
 import css from './ExecutionMetadata.module.scss'
 
@@ -17,6 +18,9 @@ export default function ExecutionMetadata(): React.ReactElement {
   const HAS_CI = hasCIStage(pipelineExecutionSummary)
   const ciData = factory.getSummary(StageType.BUILD)
   const cdData = factory.getSummary(StageType.DEPLOY)
+  const executionTriggerInfo = pipelineExecutionSummary?.executionTriggerInfo
+  const isManualTriggerType = executionTriggerInfo?.triggerType === 'MANUAL'
+  const email = isManualTriggerType ? executionTriggerInfo?.triggeredBy?.extraInfo?.email : ''
 
   return (
     <div className={css.main}>
@@ -32,14 +36,22 @@ export default function ExecutionMetadata(): React.ReactElement {
             nodeMap: pipelineStagesMap
           })
         : null}
-      <div className={css.trigger}>
-        <Icon className={css.triggerIcon} size={14} name="trigger-execution" />
-        <String
-          tagName="div"
-          className={css.triggerText}
-          stringID={mapTriggerTypeToStringID(pipelineExecutionSummary?.executionTriggerInfo?.triggerType)}
+      {isManualTriggerType ? (
+        <UserLabel
+          name={executionTriggerInfo?.triggeredBy?.identifier || email || ''}
+          email={email}
+          iconProps={{ size: 16 }}
         />
-      </div>
+      ) : (
+        <div className={css.trigger}>
+          <Icon className={css.triggerIcon} size={14} name="trigger-execution" />
+          <String
+            tagName="div"
+            className={css.triggerText}
+            stringID={mapTriggerTypeToStringID(pipelineExecutionSummary?.executionTriggerInfo?.triggerType)}
+          />
+        </div>
+      )}
     </div>
   )
 }

@@ -4,7 +4,7 @@
   align-items: center;
   height: var(--spacing-6);
   margin-top: var(--spacing-4);
-  column-gap: 45px;
+  justify-content: space-between;
 
   .trigger {
     display: flex;
