@@ -2764,6 +2764,11 @@ export interface StringsMap {
   'ce.nodeRecommendation.gke': string
   'ce.nodeRecommendation.howItWorks': string
   'ce.nodeRecommendation.instanceFam': string
+  'ce.nodeRecommendation.item1': string
+  'ce.nodeRecommendation.item2': string
+  'ce.nodeRecommendation.item3': string
+  'ce.nodeRecommendation.item4': string
+  'ce.nodeRecommendation.listhead': string
   'ce.nodeRecommendation.maxNode': string
   'ce.nodeRecommendation.mem': string
   'ce.nodeRecommendation.memory': string
@@ -2775,7 +2780,6 @@ export interface StringsMap {
   'ce.nodeRecommendation.poolDetails': string
   'ce.nodeRecommendation.recommended': string
   'ce.nodeRecommendation.resourceNeed': string
-  'ce.nodeRecommendation.rightSize': string
   'ce.nodeRecommendation.spot': string
   'ce.nodeRecommendation.suitable.prod': string
   'ce.nodeRecommendation.suitable.qa': string
