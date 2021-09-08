@@ -77,14 +77,14 @@
     background-color: var(--red-100);
     display: flex;
     align-items: center;
-    padding: 0 var(--spacing-5);
+    padding: 0 0 0 var(--spacing-5);
     max-height: var(--execution-stage-details-height);
-    overflow-y: auto;
   }
 
   .errorMsg {
     padding: var(--spacing-5);
-    height: 100%;
+    max-height: 100%;
+    overflow-y: auto;
 
     p {
       font-size: var(--font-size-xsmall);
