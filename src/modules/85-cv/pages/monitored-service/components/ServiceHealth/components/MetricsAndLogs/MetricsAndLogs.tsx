@@ -20,12 +20,8 @@ export default function MetricsAndLogs(props: MetricsAndLogsProps): JSX.Element 
 
       {startTime && endTime && serviceIdentifier && environmentIdentifier ? (
         <Container className={css.analysisContainer} data-testid="analysis-view">
-          <Card className={css.analysisFields}>
-            <MetricsAnalysisContainer {...props} />
-          </Card>
-          <Card className={css.analysisFields}>
-            <LogAnalysisContainer {...props} />
-          </Card>
+          <MetricsAnalysisContainer {...props} />
+          <LogAnalysisContainer {...props} />
         </Container>
       ) : (
         <Card>

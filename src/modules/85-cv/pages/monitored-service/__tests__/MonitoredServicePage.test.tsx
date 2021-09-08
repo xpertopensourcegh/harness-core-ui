@@ -13,7 +13,8 @@ const testWrapperProps: TestWrapperProps = {
   pathParams: {
     accountId: '1234_accountId',
     projectIdentifier: '1234_project',
-    orgIdentifier: '1234_org'
+    orgIdentifier: '1234_org',
+    identifier: 'monitored-service'
   }
 }
 
@@ -65,7 +66,7 @@ describe('Unit tests for createting monitored source', () => {
             monitoredService: {
               orgIdentifier: 'default',
               projectIdentifier: 'Demo',
-              identifier: 'Monitoring_service_101',
+              identifier: 'monitored-service',
               name: 'Monitoring service 102 new',
               type: 'Application',
               description: '',

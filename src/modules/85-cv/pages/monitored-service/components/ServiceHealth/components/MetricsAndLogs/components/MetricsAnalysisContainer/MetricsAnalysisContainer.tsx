@@ -13,6 +13,7 @@ import {
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { HealthSourceDropDown } from '@cv/components/HealthSourceDropDown/HealthSourceDropDown'
 import { TimelineBar } from '@cv/components/TimelineView/TimelineBar'
+import Card from '@cv/components/Card/Card'
 import {
   MetricTypeOptions,
   PAGE_SIZE,
@@ -29,6 +30,9 @@ export default function MetricsAnalysisContainer(props: MetricsAndLogsProps): JS
   const { getString } = useStrings()
   const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps>()
   const [timeSeriesData, setTimeseriesData] = useState<TimeSeriesMetricDataDTO[]>([])
+  const [selectedHealthSource, setSelectedHealthSource] = useState<string>()
+  const [filterString, setFilterString] = useState<string>()
+  const [isAnamolousMetricType, setIsAnamolousMetricType] = useState<boolean>()
 
   const queryParams = useMemo(() => {
     return {
@@ -38,9 +42,23 @@ export default function MetricsAnalysisContainer(props: MetricsAndLogsProps): JS
       serviceIdentifier,
       environmentIdentifier,
       startTime,
-      endTime
+      endTime,
+      ...(selectedHealthSource && { healthSources: selectedHealthSource as any }),
+      ...(filterString && { filter: filterString }),
+      ...(isAnamolousMetricType && { anomalous: isAnamolousMetricType })
     }
-  }, [accountId, endTime, environmentIdentifier, orgIdentifier, projectIdentifier, serviceIdentifier, startTime])
+  }, [
+    accountId,
+    endTime,
+    environmentIdentifier,
+    filterString,
+    isAnamolousMetricType,
+    orgIdentifier,
+    projectIdentifier,
+    selectedHealthSource,
+    serviceIdentifier,
+    startTime
+  ])
 
   // api for fetching metrics data
   const {
@@ -126,62 +144,69 @@ export default function MetricsAnalysisContainer(props: MetricsAndLogsProps): JS
   const handleMetricsTypeChange = useCallback(
     item => {
       fetchMetricsData({ queryParams: { ...queryParams, anomalous: item.value === MetricType.ANOMALOUS } })
+      setIsAnamolousMetricType(item.value === MetricType.ANOMALOUS)
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [queryParams]
   )
 
   const handleSearch = useCallback(
-    filterString => {
-      fetchMetricsData({ queryParams: { ...queryParams, filter: filterString } })
+    currentFilterString => {
+      fetchMetricsData({ queryParams: { ...queryParams, filter: currentFilterString } })
+      setFilterString(currentFilterString)
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [queryParams]
   )
 
   const handleHealthSourceChange = useCallback(
-    selectedHealthSource => {
-      fetchMetricsData({ queryParams: { ...queryParams, healthSources: selectedHealthSource } })
+    currentHealthSource => {
+      fetchMetricsData({ queryParams: { ...queryParams, healthSources: currentHealthSource } })
+      setSelectedHealthSource(currentHealthSource)
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [queryParams]
   )
 
   return (
-    <Container className={css.main}>
-      <Container className={css.filters}>
-        <Text color={Color.BLACK} font={{ size: 'small', weight: 'bold' }}>
-          {getString('rbac.permissionLabels.view').toLocaleUpperCase()}:
-        </Text>
-        <Select
-          items={MetricTypeOptions}
-          className={css.maxDropDownWidth}
-          defaultSelectedItem={MetricTypeOptions[0]}
-          onChange={handleMetricsTypeChange}
-        />
-        {serviceIdentifier && environmentIdentifier ? (
-          <HealthSourceDropDown
-            verificationType="TIME_SERIES"
-            onChange={handleHealthSourceChange}
-            serviceIdentifier={serviceIdentifier as string}
-            environmentIdentifier={environmentIdentifier as string}
+    <Card className={css.main}>
+      <>
+        <Container className={css.filters}>
+          <Text color={Color.BLACK} font={{ size: 'small', weight: 'bold' }}>
+            {getString('rbac.permissionLabels.view').toLocaleUpperCase()}:
+          </Text>
+          <Select
+            items={MetricTypeOptions}
+            className={css.maxDropDownWidth}
+            defaultSelectedItem={MetricTypeOptions[0]}
+            onChange={handleMetricsTypeChange}
           />
-        ) : null}
-        <ExpandingSearchInput
-          throttle={500}
-          className={css.filterBy}
-          placeholder={getString('pipeline.verification.metricViewPlaceholder')}
-          onChange={handleSearch}
-        />
-      </Container>
-      <Container className={css.content}>{renderContent()}</Container>
-      <Pagination
-        pageSize={paginationInfo.pageSize as number}
-        pageCount={paginationInfo.totalPages as number}
-        itemCount={paginationInfo.totalItems as number}
-        pageIndex={paginationInfo.pageIndex}
-        gotoPage={goToMetricsPage}
-      />
-    </Container>
+          {serviceIdentifier && environmentIdentifier ? (
+            <HealthSourceDropDown
+              verificationType="TIME_SERIES"
+              onChange={handleHealthSourceChange}
+              serviceIdentifier={serviceIdentifier as string}
+              environmentIdentifier={environmentIdentifier as string}
+            />
+          ) : null}
+          <ExpandingSearchInput
+            throttle={500}
+            className={css.filterBy}
+            placeholder={getString('pipeline.verification.metricViewPlaceholder')}
+            onChange={handleSearch}
+          />
+        </Container>
+        <Container className={css.content}>{renderContent()}</Container>
+        <Container>
+          <Pagination
+            pageSize={paginationInfo.pageSize as number}
+            pageCount={paginationInfo.totalPages as number}
+            itemCount={paginationInfo.totalItems as number}
+            pageIndex={paginationInfo.pageIndex}
+            gotoPage={goToMetricsPage}
+          />
+        </Container>
+      </>
+    </Card>
   )
 }

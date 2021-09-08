@@ -91,17 +91,11 @@ export default function ServiceHealth({
                 )
               })}
             </Container> */}
-            <Container
-              onClick={() => {
-                setShowTimelineSlider(true)
-              }}
-              className={css.main}
-            >
+            <Container onClick={() => setShowTimelineSlider(true)} className={css.main}>
               <HealthScoreChart
                 duration={selectedTimePeriod.value as TimePeriodEnum}
                 monitoredServiceIdentifier={monitoredServiceIdentifier as string}
               />
-              <ChangeTimeline timestamps={timestamps} timeFormat={timeFormat} />
               {showTimelineSlider ? (
                 <TimelineSlider
                   initialSliderWidth={50}
@@ -114,6 +108,7 @@ export default function ServiceHealth({
                   }}
                 />
               ) : null}
+              <ChangeTimeline timestamps={timestamps} timeFormat={timeFormat} />
             </Container>
           </>
         </Card>

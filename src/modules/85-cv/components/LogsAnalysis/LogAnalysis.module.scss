@@ -7,6 +7,7 @@
   .tableContent {
     flex: 1;
     overflow-y: scroll;
+    min-height: 723px;
     .logAnalysisRow {
       display: flex;
       flex-direction: column;
@@ -33,6 +34,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-top: 57% !important;
   height: 170px;
 }
 
@@ -41,7 +43,7 @@
   justify-content: center;
   align-items: center;
   height: 170px;
-  padding-top: var(--spacing-huge) !important;
+  padding-top: 57% !important;
 }
 
 .refreshButton {

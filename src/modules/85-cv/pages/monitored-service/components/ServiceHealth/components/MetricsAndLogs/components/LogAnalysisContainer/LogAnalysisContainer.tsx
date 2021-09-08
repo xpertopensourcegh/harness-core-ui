@@ -11,7 +11,10 @@ import { getRiskColorValue } from '@common/components/HeatMap/ColorUtils'
 import LogAnalysis from '@cv/components/LogsAnalysis/LogAnalysis'
 import { LogEvents, pageSize } from '@cv/components/LogsAnalysis/LogAnalysis.constants'
 import type { LogAnalysisRowData } from '@cv/components/LogsAnalysis/LogAnalysis.types'
+import Card from '@cv/components/Card/Card'
 import type { MetricsAndLogsProps } from '../../MetricsAndLogs.types'
+import { roundOffRiskScore } from './LogAnalysisContainer.utils'
+import css from './LogAnalysisContainer.module.scss'
 
 export default function LogAnalysisContainer(props: MetricsAndLogsProps): JSX.Element {
   const { serviceIdentifier, environmentIdentifier, startTime, endTime } = props
@@ -133,25 +136,27 @@ export default function LogAnalysisContainer(props: MetricsAndLogsProps): JSX.El
             data: log?.logData?.trend?.map(trend => trend.count) as number[]
           }
         ],
-        riskScore: log?.logData?.riskScore as number,
+        riskScore: roundOffRiskScore(log),
         riskStatus: log?.logData?.riskStatus as string
       })) ?? []
     )
   }, [logsData])
 
   return (
-    <LogAnalysis
-      serviceIdentifier={serviceIdentifier}
-      environmentIdentifier={environmentIdentifier}
-      data={logsData}
-      logAnalysisTableData={logAnalysisTableData}
-      logsLoading={logsLoading}
-      // clusterChartData={clusterChartData}
-      // clusterChartLoading={clusterChartLoading}
-      goToPage={goToLogsPage}
-      selectedClusterType={selectedClusterType as SelectOption}
-      setSelectedClusterType={setSelectedClusterType}
-      onChangeHealthSource={onChangeHealthSource}
-    />
+    <Card className={css.logsContainer}>
+      <LogAnalysis
+        serviceIdentifier={serviceIdentifier}
+        environmentIdentifier={environmentIdentifier}
+        data={logsData}
+        logAnalysisTableData={logAnalysisTableData}
+        logsLoading={logsLoading}
+        // clusterChartData={clusterChartData}
+        // clusterChartLoading={clusterChartLoading}
+        goToPage={goToLogsPage}
+        selectedClusterType={selectedClusterType as SelectOption}
+        setSelectedClusterType={setSelectedClusterType}
+        onChangeHealthSource={onChangeHealthSource}
+      />
+    </Card>
   )
 }

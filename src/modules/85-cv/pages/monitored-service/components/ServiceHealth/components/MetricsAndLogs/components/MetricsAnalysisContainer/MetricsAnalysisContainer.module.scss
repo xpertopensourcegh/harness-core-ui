@@ -1,13 +1,8 @@
 .main {
   height: 100% !important;
-  width: 100% !important;
+  width: 49%;
   padding: var(--spacing-medium) !important;
   position: relative;
-
-  .refreshButton {
-    position: absolute;
-    right: 0;
-  }
 
   .filters {
     margin-bottom: var(--spacing-xlarge) !important;
@@ -28,7 +23,7 @@
 
   .content {
     overflow-y: scroll;
-    min-height: 250px;
+    min-height: 723px;
   }
 
   .loading,
@@ -47,19 +42,13 @@
     }
   }
 
-  .noActivityId > div:first-child {
-    height: unset !important;
-    position: relative;
-    top: 200px;
-  }
-
   .analysisRow {
     margin-bottom: var(--spacing-xsmall) !important;
   }
 
   .timeline {
-    padding-left: 25%;
-    padding-top: var(--spacing-medium);
+    padding-left: 25% !important;
+    padding-top: var(--spacing-medium) !important;
   }
 
   .maxDropDownWidth {

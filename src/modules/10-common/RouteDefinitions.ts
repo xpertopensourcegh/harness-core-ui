@@ -963,7 +963,15 @@ const routes = {
     }: Partial<ProjectPathProps & { identifier: string; module: string }>) =>
       `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/monitoringservices/edit/${identifier}`
   ),
-
+  toCVMonitoredServiceConfigurations: withAccountId(
+    ({
+      projectIdentifier,
+      orgIdentifier,
+      identifier,
+      module
+    }: Partial<ProjectPathProps & { identifier: string; module: string }>) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/monitoredserviceconfigurations/edit/${identifier}`
+  ),
   toCVOnBoardingSetup: withAccountId(
     ({ dataSourceType, projectIdentifier, orgIdentifier }: Partial<ProjectPathProps & CVDataSourceTypePathProps>) =>
       `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/onboarding/${dataSourceType}/setup`

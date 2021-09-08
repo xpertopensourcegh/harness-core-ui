@@ -2,6 +2,7 @@
   position: relative;
 
   .timelineChartContainer {
+    padding-top: var(--spacing-medium) !important;
     display: flex;
     align-items: center;
 

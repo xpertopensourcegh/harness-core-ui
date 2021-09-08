@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react'
 import { Layout, Color, Text, Button, SelectOption, Select } from '@wings-software/uicore'
 import type { CellProps, Renderer } from 'react-table'
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams, useHistory, Link } from 'react-router-dom'
 import styled from '@emotion/styled'
 import { Page, useToaster } from '@common/exports'
 import { Table } from '@common/components'
@@ -43,12 +43,10 @@ const PageBody = styled(Page.Body)`
 function CVMonitoredServiceListingPage(): JSX.Element {
   const { getString } = useStrings()
   const history = useHistory()
-  //const { selectedProject } = useAppStore()
   const { showError, clear } = useToaster()
   const params = useParams<ProjectPathProps>()
   const [page, setPage] = useState(0)
   const [environment, setEnvironment] = useState<SelectOption>()
-  // const [searchTerm, setSearchTerm] = useState('') // TODO: Need clarificaition from product
   const { data: environmentDataList, loading: loadingServices } = useGetMonitoredServiceListEnvironments({
     queryParams: {
       accountId: params.accountId,
@@ -68,6 +66,7 @@ function CVMonitoredServiceListingPage(): JSX.Element {
     },
     debounce: 400
   })
+
   const { mutate: deleteMonitoredService, loading: isDeleting } = useDeleteMonitoredService({
     queryParams: {
       accountId: params.accountId,
@@ -106,7 +105,7 @@ function CVMonitoredServiceListingPage(): JSX.Element {
           onDelete={async () => await onDelete(rowdata.identifier)}
           onEdit={() => {
             history.push({
-              pathname: routes.toCVAddMonitoringServicesEdit({
+              pathname: routes.toCVMonitoredServiceConfigurations({
                 accountId: params.accountId,
                 projectIdentifier: params.projectIdentifier,
                 orgIdentifier: params.orgIdentifier,
@@ -129,12 +128,32 @@ function CVMonitoredServiceListingPage(): JSX.Element {
     const rowData = row?.original
     return (
       <Layout.Vertical>
-        <Text color={Color.PRIMARY_7} font={{ align: 'left', size: 'normal' }}>
-          {rowData.serviceName}
-        </Text>
-        <Text color={Color.PRIMARY_7} margin={{ bottom: 'small' }} font={{ align: 'left', size: 'xsmall' }}>
-          {rowData.environmentName}
-        </Text>
+        <Link
+          to={routes.toCVAddMonitoringServicesEdit({
+            accountId: params.accountId,
+            projectIdentifier: params.projectIdentifier,
+            orgIdentifier: params.orgIdentifier,
+            identifier: rowData.identifier,
+            module: 'cv'
+          })}
+        >
+          <Text color={Color.PRIMARY_7} font={{ align: 'left', size: 'normal' }}>
+            {rowData.serviceName}
+          </Text>
+        </Link>
+        <Link
+          to={routes.toCVAddMonitoringServicesEdit({
+            accountId: params.accountId,
+            projectIdentifier: params.projectIdentifier,
+            orgIdentifier: params.orgIdentifier,
+            identifier: rowData.identifier,
+            module: 'cv'
+          })}
+        >
+          <Text color={Color.PRIMARY_7} margin={{ bottom: 'small' }} font={{ align: 'left', size: 'xsmall' }}>
+            {rowData.environmentName}
+          </Text>
+        </Link>
       </Layout.Vertical>
     )
   }

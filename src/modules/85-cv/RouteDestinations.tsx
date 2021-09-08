@@ -63,6 +63,7 @@ import { PipelineActions } from '@pipeline/factories/PubSubPipelineAction/types'
 import { inputSetTemplatePromise } from 'services/cv'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import CVTrialHomePage from './pages/home/CVTrialHomePage'
+import { editParams } from './utils/routeUtils'
 
 PubSubPipelineActions.subscribe(
   PipelineActions.RunPipeline,
@@ -192,8 +193,14 @@ export default (
         routes.toCVAddMonitoringServicesEdit({
           ...accountPathProps,
           ...projectPathProps,
-          identifier: ':identifier',
-          module: ':module(cv)'
+          ...editParams,
+          ...cvModuleParams
+        }),
+        routes.toCVMonitoredServiceConfigurations({
+          ...accountPathProps,
+          ...projectPathProps,
+          ...editParams,
+          ...cvModuleParams
         })
       ]}
     >
