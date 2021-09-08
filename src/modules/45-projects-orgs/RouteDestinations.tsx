@@ -19,8 +19,6 @@ import {
 } from '@common/utils/routeUtils'
 
 import ProjectsPage from '@projects-orgs/pages/projects/ProjectsPage'
-import GetStartedProject from '@projects-orgs/pages/projects/views/GetStartedProject/GetStartedProject'
-
 import ProjectDetails from '@projects-orgs/pages/projects/views/ProjectDetails/ProjectDetails'
 import OrganizationsPage from '@projects-orgs/pages/organizations/OrganizationsPage'
 import OrganizationDetailsPage from '@projects-orgs/pages/organizations/OrganizationDetails/OrganizationDetailsPage'
@@ -60,6 +58,10 @@ import GitSyncPage from '@gitsync/pages/GitSyncPage'
 import GitSyncRepoTab from '@gitsync/pages/repos/GitSyncRepoTab'
 import ServiceAccountDetails from '@rbac/pages/ServiceAccountDetails/ServiceAccountDetails'
 import ServiceAccountsPage from '@rbac/pages/ServiceAccounts/ServiceAccounts'
+import LandingDashboardFactory from '@common/factories/LandingDashboardFactory'
+import { ModuleName } from 'framework/types/ModuleName'
+import LandingDashboardSummaryWidget from './components/LandingDashboardSummaryWidget/LandingDashboardSummaryWidget'
+import LandingDashboardPage from './pages/LandingDashboardPage/LandingDashboardPage'
 
 const ProjectDetailsSideNavProps: SidebarContext = {
   navComponent: ProjectDetailsSideNav,
@@ -95,6 +97,12 @@ RbacFactory.registerResourceTypeHandler(ResourceType.ORGANIZATION, {
   addResourceModalBody: props => <OrgResourceModalBody {...props} />
 })
 
+LandingDashboardFactory.registerModuleDashboardHandler(ModuleName.COMMON, {
+  label: 'projectsOrgs.landingDashboard.atAGlance',
+  // eslint-disable-next-line react/display-name
+  moduleDashboardRenderer: () => <LandingDashboardSummaryWidget />
+})
+
 const RedirectToAccessControlHome = (): React.ReactElement => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
 
@@ -113,8 +121,8 @@ export default (
       <ProjectsPage />
     </RouteWithLayout>
 
-    <RouteWithLayout sidebarProps={HomeSideNavProps} path={routes.toGetStarted({ ...accountPathProps })} exact>
-      <GetStartedProject />
+    <RouteWithLayout sidebarProps={HomeSideNavProps} path={routes.toLandingDashboard({ ...accountPathProps })} exact>
+      <LandingDashboardPage />
     </RouteWithLayout>
 
     <RouteWithLayout

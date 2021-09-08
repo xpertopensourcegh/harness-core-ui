@@ -1623,6 +1623,14 @@ export interface StringsMap {
   'projectsOrgs.gotoFeatureFlags': string
   'projectsOrgs.invite': string
   'projectsOrgs.inviteCollab': string
+  'projectsOrgs.landingDashboard.atAGlance': string
+  'projectsOrgs.landingDashboard.dashboardTitle': string
+  'projectsOrgs.landingDashboard.last1Year': string
+  'projectsOrgs.landingDashboard.last30Days': string
+  'projectsOrgs.landingDashboard.last60Days': string
+  'projectsOrgs.landingDashboard.last90Days': string
+  'projectsOrgs.landingDashboard.welcomeMessage': string
+  'projectsOrgs.landingDashboard.welcomeMessageWithoutName': string
   'projectsOrgs.manageAProject': string
   'projectsOrgs.manageOrg': string
   'projectsOrgs.manageProject': string
@@ -2861,7 +2869,6 @@ export interface StringsMap {
   'ce.perspectives.timeRange.relativeDates': string
   'ce.perspectives.timeRange.selectCustomRange': string
   'ce.perspectives.timeRangeConstants.last12Months': string
-  'ce.perspectives.timeRangeConstants.last30Days': string
   'ce.perspectives.timeRangeConstants.last3Months': string
   'ce.perspectives.timeRangeConstants.last6Months': string
   'ce.perspectives.timeRangeConstants.last7Days': string

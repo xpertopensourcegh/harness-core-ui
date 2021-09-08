@@ -97,3 +97,13 @@ searchProjectPlaceHolder: Search your project by name or ID
 projectsInOrg: projects under <br/> your organization
 createAProject: Create a Project
 manageAProject: Click to manage project
+
+landingDashboard:
+  atAGlance: At a Glance
+  last30Days: Last 30 Days
+  last60Days: Last 60 Days
+  last90Days: Last 90 Days
+  last1Year: Last 1 Year
+  dashboardTitle: 'Good Morning, {{name}}'
+  welcomeMessage: "Welcome, {{name}}, let's get you started!"
+  welcomeMessageWithoutName: "Welcome, let's get you started!"

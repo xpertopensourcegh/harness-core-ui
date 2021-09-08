@@ -1,9 +1,9 @@
 .getStartedMainContainer {
-  background-color: #fbfcfd;
   display: flex;
   align-items: center;
   justify-content: center;
   height: calc(100vh - var(--page-header-height, 64px));
+  margin-top: var(--spacing-xlarge);
 }
 
 .image {
