@@ -10,7 +10,7 @@ import { useStartTrialLicense } from 'services/cd-ng'
 import { useToaster } from '@common/components'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { handleUpdateLicenseStore, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
-import bgImageURL from './images/cd-trial-enabled.svg'
+import bgImageURL from './images/cd.svg'
 
 const CDTrialHomePage: React.FC = () => {
   const { getString } = useStrings()
