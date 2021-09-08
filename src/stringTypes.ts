@@ -4527,10 +4527,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'customVariables.pipelineVariablesDescription': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'customVariables.pipelineVariablesTitle': string
   /**
    * @deprecated migrate this string to module level file
