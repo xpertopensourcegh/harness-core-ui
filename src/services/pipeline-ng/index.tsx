@@ -1700,6 +1700,7 @@ export interface GraphLayoutNode {
   edgeLayoutList?: EdgeLayoutList
   endTs?: number
   failureInfo?: ExecutionErrorInfo
+  failureInfoDTO?: FailureInfoDTO
   module?: string
   moduleInfo?: {
     [key: string]: {
@@ -3538,6 +3539,13 @@ export interface ResponseResourceConstraintExecutionInfo {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseRetryInfo {
+  correlationId?: string
+  data?: RetryInfo
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseStepCategory {
   correlationId?: string
   data?: StepCategory
@@ -3582,6 +3590,16 @@ export interface RestResponseString {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RetryGroup {
+  info?: RetryStageInfo[]
+}
+
+export interface RetryInfo {
+  errorMessage?: string
+  groups?: RetryGroup[]
+  resumable?: boolean
+}
+
 export interface RetryInterruptConfig {
   allFields?: {
     [key: string]: { [key: string]: any }
@@ -3608,6 +3626,41 @@ export interface RetryInterruptConfigOrBuilder {
   retryId?: string
   retryIdBytes?: ByteString
   unknownFields?: UnknownFieldSet
+}
+
+export interface RetryStageInfo {
+  createdAt?: number
+  identifier?: string
+  name?: string
+  nextId?: string
+  parentId?: string
+  status?:
+    | 'Running'
+    | 'AsyncWaiting'
+    | 'TaskWaiting'
+    | 'TimedWaiting'
+    | 'Failed'
+    | 'Errored'
+    | 'IgnoreFailed'
+    | 'NotStarted'
+    | 'Expired'
+    | 'Aborted'
+    | 'Discontinuing'
+    | 'Queued'
+    | 'Paused'
+    | 'ResourceWaiting'
+    | 'InterventionWaiting'
+    | 'ApprovalWaiting'
+    | 'Success'
+    | 'Suspended'
+    | 'Skipped'
+    | 'Pausing'
+    | 'ApprovalRejected'
+    | 'NOT_STARTED'
+    | 'INTERVENTION_WAITING'
+    | 'APPROVAL_WAITING'
+    | 'APPROVAL_REJECTED'
+    | 'WAITING'
 }
 
 export type ScheduledTriggerConfig = NGTriggerSpecV2 & {
@@ -6989,6 +7042,71 @@ export const postPipelineExecuteWithInputSetYamlv2Promise = (
     void,
     PostPipelineExecuteWithInputSetYamlv2PathParams
   >('POST', getConfig('pipeline/api'), `/pipeline/execute/${identifier}/v2`, props, signal)
+
+export interface GetRetryStagesQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  pipelineIdentifier?: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
+}
+
+export interface GetRetryStagesPathParams {
+  planExecutionId: string
+}
+
+export type GetRetryStagesProps = Omit<
+  GetProps<ResponseRetryInfo, unknown, GetRetryStagesQueryParams, GetRetryStagesPathParams>,
+  'path'
+> &
+  GetRetryStagesPathParams
+
+/**
+ * Get retry stages for failed pipeline
+ */
+export const GetRetryStages = ({ planExecutionId, ...props }: GetRetryStagesProps) => (
+  <Get<ResponseRetryInfo, unknown, GetRetryStagesQueryParams, GetRetryStagesPathParams>
+    path={`/pipeline/execute/${planExecutionId}/retryStages`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseGetRetryStagesProps = Omit<
+  UseGetProps<ResponseRetryInfo, unknown, GetRetryStagesQueryParams, GetRetryStagesPathParams>,
+  'path'
+> &
+  GetRetryStagesPathParams
+
+/**
+ * Get retry stages for failed pipeline
+ */
+export const useGetRetryStages = ({ planExecutionId, ...props }: UseGetRetryStagesProps) =>
+  useGet<ResponseRetryInfo, unknown, GetRetryStagesQueryParams, GetRetryStagesPathParams>(
+    (paramsInPath: GetRetryStagesPathParams) => `/pipeline/execute/${paramsInPath.planExecutionId}/retryStages`,
+    { base: getConfig('pipeline/api'), pathParams: { planExecutionId }, ...props }
+  )
+
+/**
+ * Get retry stages for failed pipeline
+ */
+export const getRetryStagesPromise = (
+  {
+    planExecutionId,
+    ...props
+  }: GetUsingFetchProps<ResponseRetryInfo, unknown, GetRetryStagesQueryParams, GetRetryStagesPathParams> & {
+    planExecutionId: string
+  },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseRetryInfo, unknown, GetRetryStagesQueryParams, GetRetryStagesPathParams>(
+    getConfig('pipeline/api'),
+    `/pipeline/execute/${planExecutionId}/retryStages`,
+    props,
+    signal
+  )
 
 export interface CreatePipelineQueryParams {
   accountIdentifier: string
