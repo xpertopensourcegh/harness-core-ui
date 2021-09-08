@@ -4,14 +4,15 @@ import cx from 'classnames'
 import { useStrings } from 'framework/strings'
 import type { FetchPlansQuery } from 'services/common/services'
 import { TIME_TYPE } from './Plan'
-import CIPlan from './CIPlan'
-import css from './CIPlans.module.scss'
+import PlanContainer from './PlanContainer'
+import css from './Plans.module.scss'
 
-interface CIPlansPanelProps {
-  ciSaasPlans?: NonNullable<FetchPlansQuery['pricing']>['ciSaasPlans']
+interface PlansPanelProps {
+  module: string
+  plans?: NonNullable<FetchPlansQuery['pricing']>['ciSaasPlans' | 'ffPlans' | 'cdPlans' | 'ccPlans']
 }
 
-const CIPlansPanel: React.FC<CIPlansPanelProps> = ({ ciSaasPlans }) => {
+const PlansPanel: React.FC<PlansPanelProps> = ({ plans, module }) => {
   const { getString } = useStrings()
   const [timeType, setTimeType] = useState<TIME_TYPE>(TIME_TYPE.YEARLY)
   const yearlySelected = timeType === TIME_TYPE.YEARLY ? css.selected : ''
@@ -38,12 +39,12 @@ const CIPlansPanel: React.FC<CIPlansPanelProps> = ({ ciSaasPlans }) => {
         </Text>
       </Layout.Horizontal>
       {timeType === TIME_TYPE.YEARLY ? (
-        <CIPlan ciSaasPlans={ciSaasPlans} timeType={TIME_TYPE.YEARLY} />
+        <PlanContainer plans={plans} timeType={TIME_TYPE.YEARLY} module={module} />
       ) : (
-        <CIPlan ciSaasPlans={ciSaasPlans} timeType={TIME_TYPE.MONTHLY} />
+        <PlanContainer plans={plans} timeType={TIME_TYPE.MONTHLY} module={module} />
       )}
     </Layout.Vertical>
   )
 }
 
-export default CIPlansPanel
+export default PlansPanel

@@ -5,14 +5,25 @@ import Table from '@common/components/Table/Table'
 import type { FetchPlansQuery } from 'services/common/services'
 import { useStrings } from 'framework/strings'
 import css from './Plan.module.scss'
+import plansCss from './Plans.module.scss'
 
 interface FeatureComparisonProps {
-  featureCaption?: NonNullable<FetchPlansQuery['pricing']>['ciSaasFeatureCaption']
-  featureGroup?: NonNullable<FetchPlansQuery['pricing']>['ciSaasFeatureGroup']
+  module: string
+  featureCaption?: NonNullable<FetchPlansQuery['pricing']>[
+    | 'ciSaasFeatureCaption'
+    | 'ffFeatureCaption'
+    | 'cdFeatureCaption'
+    | 'ccFeatureCaption']
+  featureGroup?: NonNullable<FetchPlansQuery['pricing']>[
+    | 'ciSaasFeatureGroup'
+    | 'ffFeatureGroup'
+    | 'cdFeatureGroup'
+    | 'ccFeatureGroup']
 }
 
 interface PlanInfo {
   title: string
+  link?: string
   freeText?: string
   freeValue?: string
   teamText?: string
@@ -25,8 +36,22 @@ interface PlanInfo {
 const RenderColumnPlans: Renderer<CellProps<PlanInfo>> = ({ row }) => {
   const data = row.original
   const className = data.className
+  if (data.link) {
+    return (
+      <a target="_blank" href={data.link} rel="noreferrer">
+        <Text
+          color={Color.PRIMARY_6}
+          rightIcon="main-share"
+          rightIconProps={{ color: Color.PRIMARY_6 }}
+          className={plansCss.inline}
+        >
+          {data.title}
+        </Text>
+      </a>
+    )
+  }
   return (
-    <Text className={className} color={Color.PRIMARY_6}>
+    <Text className={className} color={Color.BLACK}>
       {data.title}
     </Text>
   )
@@ -75,12 +100,23 @@ function getCell(text?: string, value?: string): React.ReactElement {
 }
 
 function getHeader(
+  module: string,
   index: number,
-  featureCaptions?: NonNullable<FetchPlansQuery['pricing']>['ciSaasFeatureCaption']
+  featureCaptions?: NonNullable<FetchPlansQuery['pricing']>[
+    | 'ciSaasFeatureCaption'
+    | 'ffFeatureCaption'
+    | 'cdFeatureCaption'
+    | 'ccFeatureCaption']
 ): React.ReactElement {
+  const moduleColorMap: Record<string, string> = {
+    cd: plansCss.cdColor,
+    ce: plansCss.ccmColor,
+    cf: plansCss.ffColor,
+    ci: plansCss.ciColor
+  }
   if (featureCaptions && featureCaptions[index]) {
     return (
-      <Text flex={{ align: 'center-center' }} color={Color.BLACK} font={{ weight: 'semi-bold' }}>
+      <Text flex={{ align: 'center-center' }} className={moduleColorMap[module]} font={{ weight: 'semi-bold' }}>
         {(featureCaptions as any[])[index].title}
       </Text>
     )
@@ -88,7 +124,7 @@ function getHeader(
   return <div></div>
 }
 
-const FeatureTable: React.FC<FeatureComparisonProps> = ({ featureCaption = [], featureGroup = [] }) => {
+const FeatureTable: React.FC<FeatureComparisonProps> = ({ featureCaption = [], featureGroup = [], module }) => {
   const { getString } = useStrings()
   const columns: Column<PlanInfo>[] = useMemo(
     () => [
@@ -104,21 +140,21 @@ const FeatureTable: React.FC<FeatureComparisonProps> = ({ featureCaption = [], f
         Cell: RenderColumnPlans
       },
       {
-        Header: getHeader(0, featureCaption),
+        Header: getHeader(module, 0, featureCaption),
         accessor: row => row.freeText,
         id: 'free',
         width: '25%',
         Cell: RenderColumnFree
       },
       {
-        Header: getHeader(1, featureCaption),
+        Header: getHeader(module, 1, featureCaption),
         accessor: row => row.teamText,
         id: 'team',
         width: '25%',
         Cell: RenderColumnTeam
       },
       {
-        Header: getHeader(2, featureCaption),
+        Header: getHeader(module, 2, featureCaption),
         accessor: row => row.enterpriseText,
         id: 'enterprise',
         width: '25%',
@@ -148,7 +184,7 @@ const FeatureTable: React.FC<FeatureComparisonProps> = ({ featureCaption = [], f
 
   return <Table<PlanInfo> columns={columns} data={data} />
 }
-const CIFeatureComparison: React.FC<FeatureComparisonProps> = ({ featureCaption, featureGroup }) => {
+const FeatureComparison: React.FC<FeatureComparisonProps> = ({ featureCaption, featureGroup, module }) => {
   const { getString } = useStrings()
 
   return (
@@ -160,10 +196,10 @@ const CIFeatureComparison: React.FC<FeatureComparisonProps> = ({ featureCaption,
             {getString('common.plans.featureComparison')}
           </Text>
         }
-        details={<FeatureTable featureCaption={featureCaption} featureGroup={featureGroup} />}
+        details={<FeatureTable featureCaption={featureCaption} featureGroup={featureGroup} module={module} />}
       />
     </Accordion>
   )
 }
 
-export default CIFeatureComparison
+export default FeatureComparison

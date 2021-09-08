@@ -519,6 +519,7 @@ discard: Discard
 default: Default
 searchPlaceholder: Search by name or ID
 monthly: Monthly
+perMonth: /month
 hourly: Hourly
 daily: Daily
 yearly: Yearly
@@ -539,3 +540,4 @@ module:
   cf: FF
   ce: CCM
   cv: CV
+customPricing: for Custom Pricing

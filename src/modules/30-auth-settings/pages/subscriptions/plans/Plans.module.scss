@@ -1,14 +1,10 @@
-.ciPlans {
+.plans {
   :global {
     .bp3-tab,
     .bp3-tab-indicator-wrapper {
       width: 50% !important;
     }
   }
-}
-
-.ciBackground {
-  background: linear-gradient(360deg, var(--primary-1) 0%, var(--white) 50%);
 }
 
 .selected {
@@ -36,4 +32,21 @@
 
 .primary6 {
   color: var(--primary-6) !important;
+}
+
+.cdColor {
+  color: var(--green-500) !important;
+}
+
+.ciColor {
+  color: var(--primary-5) !important;
+}
+.ccmColor {
+  color: var(--teal-500) !important;
+}
+.ffColor {
+  color: var(--orange-500) !important;
+}
+.inline {
+  display: inline !important;
 }

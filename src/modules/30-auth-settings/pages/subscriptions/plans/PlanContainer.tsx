@@ -15,15 +15,15 @@ import { PageError } from '@common/components/Page/PageError'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { TIME_TYPE } from './Plan'
 import Plan from './Plan'
-import css from './CIPlans.module.scss'
+import css from './Plans.module.scss'
 
-interface CIPlanProps {
-  ciSaasPlans?: NonNullable<FetchPlansQuery['pricing']>['ciSaasPlans']
+interface PlanProps {
+  module: string
+  plans?: NonNullable<FetchPlansQuery['pricing']>['ciSaasPlans' | 'ffPlans' | 'cdPlans' | 'ccPlans']
   timeType: TIME_TYPE
 }
 
-const CIPlan: React.FC<CIPlanProps> = ({ ciSaasPlans, timeType }) => {
-  const module = 'ci' as Module
+const PlanContainer: React.FC<PlanProps> = ({ plans, timeType, module }) => {
   const { showError } = useToaster()
   const { trackEvent } = useTelemetry()
   const { getString } = useStrings()
@@ -38,15 +38,24 @@ const CIPlan: React.FC<CIPlanProps> = ({ ciSaasPlans, timeType }) => {
   })
   const { licenseInformation, updateLicenseStore } = useLicenseStore()
 
+  const moduleType = module.toUpperCase() as StartTrialDTO['moduleType']
+
+  const moduleColorMap: Record<string, string> = {
+    cd: css.cdColor,
+    ce: css.ccmColor,
+    cf: css.ffColor,
+    ci: css.ciColor
+  }
+
   async function handleStartTrial(): Promise<void> {
     trackEvent(TrialActions.StartTrialClick, { category: Category.SIGNUP, module })
     try {
-      const data = await startTrial({ moduleType: 'CI' as StartTrialDTO['moduleType'] })
+      const data = await startTrial({ moduleType })
 
-      handleUpdateLicenseStore({ ...licenseInformation }, updateLicenseStore, module, data?.data)
+      handleUpdateLicenseStore({ ...licenseInformation }, updateLicenseStore, module as Module, data?.data)
 
       history.push({
-        pathname: routes.toModuleHome({ accountId, module }),
+        pathname: routes.toModuleHome({ accountId, module: module as Module }),
         search: '?trial=true'
       })
     } catch (error) {
@@ -60,7 +69,7 @@ const CIPlan: React.FC<CIPlanProps> = ({ ciSaasPlans, timeType }) => {
     refetch,
     loading: gettingLicense
   } = useGetLicensesAndSummary({
-    queryParams: { moduleType: 'CI' as StartTrialDTO['moduleType'] },
+    queryParams: { moduleType },
     accountIdentifier: accountId
   })
 
@@ -68,17 +77,17 @@ const CIPlan: React.FC<CIPlanProps> = ({ ciSaasPlans, timeType }) => {
   const expiryTime = licenseData?.data?.maxExpiryTime
 
   const updatedLicenseInfo = licenseData?.data && {
-    ...licenseInformation?.['CI'],
+    ...licenseInformation?.[moduleType],
     ...pick(licenseData?.data, ['licenseType', 'edition']),
     expiryTime
   }
 
   useEffect(() => {
-    handleUpdateLicenseStore({ ...licenseInformation }, updateLicenseStore, module, updatedLicenseInfo)
+    handleUpdateLicenseStore({ ...licenseInformation }, updateLicenseStore, module as Module, updatedLicenseInfo)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [licenseData])
 
-  ciSaasPlans?.map((plan: any) => {
+  plans?.map((plan: any) => {
     if (plan?.title) {
       if (plan.title.trim().toLowerCase() === 'enterprise') {
         if (hasLicense) {
@@ -102,17 +111,11 @@ const CIPlan: React.FC<CIPlanProps> = ({ ciSaasPlans, timeType }) => {
 
   return (
     <Layout.Horizontal spacing="large">
-      {ciSaasPlans?.map(plan => (
-        <Plan
-          key={plan?.title}
-          plan={plan}
-          timeType={timeType}
-          textColorClassName={css.primary6}
-          cardColorClassName={css.ciBackground}
-        />
+      {plans?.map((plan: any) => (
+        <Plan key={plan?.title} plan={plan} timeType={timeType} textColorClassName={moduleColorMap[module]} />
       ))}
     </Layout.Horizontal>
   )
 }
 
-export default CIPlan
+export default PlanContainer

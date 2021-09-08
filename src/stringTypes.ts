@@ -115,6 +115,7 @@ export interface StringsMap {
   'common.createPipeline': string
   'common.creating': string
   'common.current': string
+  'common.customPricing': string
   'common.daily': string
   'common.dashboards': string
   'common.datePickerShortcuts.Last2Days': string
@@ -301,6 +302,7 @@ export interface StringsMap {
   'common.paste': string
   'common.path': string
   'common.pendingInvitation': string
+  'common.perMonth': string
   'common.performAction': string
   'common.pipeline': string
   'common.pipelineDetails': string
