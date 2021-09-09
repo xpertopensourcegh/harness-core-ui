@@ -2292,6 +2292,7 @@ export interface StringsMap {
   'pipeline.triggers.newArtifactLabel': string
   'pipeline.triggers.newManifestLabel': string
   'pipeline.triggers.newTrigger': string
+  'pipeline.triggers.newTriggerWithoutPlus': string
   'pipeline.triggers.noTriggersFound': string
   'pipeline.triggers.onNewArtifactTitle': string
   'pipeline.triggers.onNewArtifactTitleWhole': string

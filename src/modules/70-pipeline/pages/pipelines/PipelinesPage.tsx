@@ -34,6 +34,7 @@ import {
   useUpdateFilter
 } from 'services/pipeline-ng'
 import { useGetServiceListForProject, useGetEnvironmentListForProject } from 'services/cd-ng'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import { String, useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
@@ -223,6 +224,8 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
     },
     [reloadPipelines, showError, cancel, appliedFilter]
   )
+
+  useDocumentTitle([getString('pipelines')])
 
   const reset = (): void => {
     setAppliedFilter(null)

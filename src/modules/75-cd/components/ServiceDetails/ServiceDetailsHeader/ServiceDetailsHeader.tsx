@@ -8,6 +8,7 @@ import { Page } from '@common/exports'
 import { useGetServiceHeaderInfo } from 'services/cd-ng'
 import { getReadableDateTime } from '@common/utils/dateUtils'
 import type { ModulePathParams, ProjectPathProps, ServicePathProps } from '@common/interfaces/RouteInterfaces'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { DeploymentTypeIcons } from '@cd/components/DeploymentTypeIcons/DeploymentTypeIcons'
 import css from '@cd/components/ServiceDetails/ServiceDetailsHeader/ServiceDetailsHeader.module.scss'
 
@@ -24,6 +25,9 @@ export const ServiceDetailsHeader: React.FC = () => {
       serviceId
     }
   })
+
+  useDocumentTitle([data?.data?.name || getString('services')])
+
   const TitleComponent =
     data?.data && !loading && !error ? (
       <Layout.Horizontal padding={{ top: 'small', right: 'medium' }} width="100%">

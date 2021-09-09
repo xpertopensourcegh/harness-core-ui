@@ -7,9 +7,7 @@ import { String, useStrings } from 'framework/strings'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { Page, StringUtils } from '@common/exports'
 import { useQueryParams, useMutateAsGet, useUpdateQueryParams } from '@common/hooks'
-import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
-import type { PipelineType } from '@common/interfaces/RouteInterfaces'
-import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
+import type { PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { UNSAVED_FILTER } from '@common/components/Filter/utils/FilterUtils'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
@@ -73,8 +71,6 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
   const isCIModule = module === 'ci'
   const { getString } = useStrings()
   const hasFilterIdentifier = filterIdentifier && filterIdentifier !== StringUtils.getIdentifierFromName(UNSAVED_FILTER)
-
-  useDocumentTitle([getString('pipelines'), getString('executionsText')])
 
   const {
     data,

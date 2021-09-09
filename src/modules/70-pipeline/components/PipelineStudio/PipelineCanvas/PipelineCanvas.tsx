@@ -45,6 +45,7 @@ import { TagsPopover } from '@common/components'
 import VisualYamlToggle, { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
 import { validateJSONWithSchema } from '@common/utils/YamlUtils'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { PipelineVariablesContextProvider } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { getRepoDetailsByIndentifier } from '@common/utils/gitSyncUtils'
@@ -163,6 +164,8 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   >()
 
   const { showSuccess, showError, clear } = useToaster()
+
+  useDocumentTitle([parse(pipeline?.name || getString('pipelines'))])
 
   const [discardBEUpdateDialog, setDiscardBEUpdate] = React.useState(false)
   const { openDialog: openConfirmBEUpdateError } = useConfirmationDialog({

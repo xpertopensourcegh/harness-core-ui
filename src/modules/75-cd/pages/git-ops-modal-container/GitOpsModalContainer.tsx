@@ -54,7 +54,7 @@ const GitOpsModalContainer: React.FC = () => {
     searchTerm: ''
   }
 
-  useDocumentTitle(getString('connectorsLabel'))
+  useDocumentTitle(getString('cd.gitOps'))
 
   React.useEffect(() => {
     if (activeProvider) {

@@ -374,6 +374,7 @@ triggers:
   searchPlaceholder: 'Search Triggers'
   noTriggersFound: 'No Triggers Found'
   newTrigger: + New Trigger
+  newTriggerWithoutPlus: New Trigger
   pipelineExecutionInput: Pipeline Execution Input
   lastActivationDetails: Last Activation Details
   lastActivationAt: 'Last activation at'

@@ -4,6 +4,7 @@ import { isEmpty } from 'lodash-es'
 
 import routes from '@common/RouteDefinitions'
 import { Duration } from '@common/components/Duration/Duration'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
 import ExecutionActions from '@pipeline/components/ExecutionActions/ExecutionActions'
 import { formatDatetoLocale } from '@common/utils/dateUtils'
@@ -43,6 +44,13 @@ export function ExecutionHeader(): React.ReactElement {
     },
     [orgIdentifier, projectIdentifier, accountId, pipelineIdentifier]
   )
+
+  useDocumentTitle([
+    `${pipelineExecutionSummary.name || getString('pipelines')} ${getString(
+      module === 'cd' ? 'execution.pipelineIdentifierTextCD' : 'execution.pipelineIdentifierTextCI',
+      pipelineExecutionSummary
+    )}`
+  ])
 
   return (
     <header className={css.header}>
