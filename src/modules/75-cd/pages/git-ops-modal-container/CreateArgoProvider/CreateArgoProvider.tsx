@@ -12,6 +12,7 @@ import css from './CreateArgoProvider.module.scss'
 
 interface CreateArgoProviderProps {
   isEditMode?: boolean
+  onUpdateMode?: any
   provider?: any
   connectorInfo?: any
   mock?: any
@@ -39,6 +40,7 @@ const CreateArgoProvider: React.FC<CreateArgoProviderProps> = props => {
       <ProviderOverviewStep
         provider={provider}
         isEditMode={props.isEditMode}
+        onUpdateMode={props.onUpdateMode}
         name={getString('cd.providerDetails')}
         buildPayload={buildArgoConnectorPayload}
       />

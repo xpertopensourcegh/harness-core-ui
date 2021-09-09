@@ -99,7 +99,9 @@ serviceDashboard:
   noActiveServiceInstances: No Active Service Instances
   noActiveServices: No Active Services in {{timeRange}}
 gitOps: GitOps
-newProvider: Add Provider
+newProvider: New Provider
 providerDetails: Provider Details
 launchArgo: Launch Argo App Dashboard
-argoAdapterURL: 'Adapter URL:'
+argoAdapterURL: 'Adapter URL'
+noProviderText: 'There are no providers in your project'
+aboutProvider: 'Providers help connect to your ArgoCD Instance and view your Apps.'

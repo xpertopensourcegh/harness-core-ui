@@ -2,10 +2,18 @@
   width: 250px;
   box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
 
-  padding: var(--spacing-xlarge) !important;
+  .projectInfo {
+    overflow-wrap: anywhere;
+  }
+
   .projectName {
     margin: 16px 0 8px 0 !important;
   }
+
+  .tags {
+    margin-top: var(--spacing-small);
+  }
+
   .tagsPopover {
     p {
       color: var(--grey-600);

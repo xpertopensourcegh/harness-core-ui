@@ -48,5 +48,10 @@ declare const styles: {
   readonly crossIcon: string
   readonly pagination: string
   readonly pageBody: string
+  readonly noPipelineSection: string
+  readonly clearFilterText: string
+  readonly image: string
+  readonly noProviderText: string
+  readonly aboutProvider: string
 }
 export default styles

@@ -7,85 +7,82 @@ exports[`ProviderCard snapshot test should render ProviderCard 1`] = `
     tabindex="0"
   >
     <div
-      class="mainTitle"
+      class="StyledProps--font StyledProps--main projectInfo"
     >
-      <img
-        alt=""
-        aria-hidden="true"
-        class="argoLogo"
-        src="test-file-stub"
-      />
       <div
-        class="Layout--horizontal StyledProps--main layout"
+        class="mainTitle"
       >
-        <span
-          class="bp3-popover-wrapper bp3-dark"
+        <img
+          alt=""
+          aria-hidden="true"
+          class="argoLogo"
+          src="test-file-stub"
+        />
+        <div
+          class="Layout--horizontal StyledProps--main layout"
         >
           <span
-            class="bp3-popover-target"
+            class="bp3-popover-wrapper bp3-dark"
           >
-            <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main iconMore StyledProps--color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
-              type="button"
+            <span
+              class="bp3-popover-target"
             >
-              <span
-                class="bp3-icon bp3-icon-more StyledProps--main"
-                icon="more"
+              <button
+                class="bp3-button Button--button StyledProps--font StyledProps--main iconMore StyledProps--color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
+                type="button"
               >
-                <svg
-                  data-icon="more"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
+                <span
+                  class="bp3-icon bp3-icon-more StyledProps--main"
+                  icon="more"
                 >
-                  <desc>
-                    more
-                  </desc>
-                  <path
-                    d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </button>
+                  <svg
+                    data-icon="more"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      more
+                    </desc>
+                    <path
+                      d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </span>
           </span>
-        </span>
+        </div>
       </div>
-    </div>
-    <div
-      class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-flex-start"
-    >
-      <div
-        class="StyledProps--font StyledProps--main"
+      <p
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold StyledProps--margin-top-small StyledProps--color StyledProps--color-grey800"
+        style="--text-line-clamp: 1;"
       >
-        <p
-          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey800"
-          style="--text-line-clamp: 1;"
-        >
-          Darwin Argo Dev Env
-        </p>
-        <p
-          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey600 StyledProps--margin-top-xsmall"
-          style="--text-line-clamp: 1;"
-        >
-          idLabel
-        </p>
-      </div>
-    </div>
-    <div
-      class="urls"
-    >
-      <div
-        class="serverUrl"
+        Darwin Argo Dev Env
+      </p>
+      <p
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey600 StyledProps--margin-top-xsmall"
+        style="--text-line-clamp: 1;"
       >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--font-size-small"
+        idLabel
+      </p>
+      <div
+        class="urls"
+      >
+        <div
+          class="serverUrl"
         >
-          cd.argoAdapterURL
-        </p>
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--font-size-small"
-        />
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+          >
+            cd.argoAdapterURL
+            :
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--font-size-small"
+          />
+        </div>
       </div>
     </div>
   </div>

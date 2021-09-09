@@ -2,7 +2,14 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { debounce } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import type { GetDataError } from 'restful-react'
-import { HarnessDocTooltip, Layout, useModalHook, ExpandingSearchInput, ButtonVariation } from '@wings-software/uicore'
+import {
+  HarnessDocTooltip,
+  Layout,
+  Text,
+  useModalHook,
+  ExpandingSearchInput,
+  ButtonVariation
+} from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
@@ -28,6 +35,8 @@ import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import NewProviderModal from './NewProviderModal/NewProviderModal'
 import ProvidersGridView from './ProvidersGridView'
+
+import providerIllustration from './images/provider-illustration-o.svg'
 
 import css from './GitOpsModalContainer.module.scss'
 
@@ -194,6 +203,7 @@ const GitOpsModalContainer: React.FC = () => {
               setActiveProvider(null)
               addNewProviderModal()
             }}
+            icon="plus"
             id="newProviderBtn"
             data-test="newProviderButton"
           />
@@ -241,7 +251,38 @@ const GitOpsModalContainer: React.FC = () => {
                 gotoPage={(pageNumber: number) => setPage(pageNumber)}
               />
             ) : (
-              <Page.NoDataCard icon="nav-dashboard" message={getString('noConnectorFound')} />
+              // <Page.NoDataCard icon="nav-dashboard" message={getString('noConnectorFound')} />
+              <div className={css.noPipelineSection}>
+                <Layout.Vertical spacing="small" flex={{ justifyContent: 'center', alignItems: 'center' }} width={720}>
+                  <img src={providerIllustration} className={css.image} />
+
+                  <Text className={css.noProviderText} margin={{ top: 'medium', bottom: 'small' }}>
+                    {getString('cd.noProviderText')}
+                  </Text>
+                  <Text className={css.aboutProvider} margin={{ top: 'xsmall', bottom: 'xlarge' }}>
+                    {getString('cd.aboutProvider')}
+                  </Text>
+
+                  <RbacButton
+                    variation={ButtonVariation.PRIMARY}
+                    text={getString('cd.newProvider')}
+                    permission={{
+                      permission: PermissionIdentifier.CREATE_PROJECT, // change to ADD_NEW_PROVIDER
+                      resource: {
+                        resourceType: ResourceType.ACCOUNT,
+                        resourceIdentifier: projectIdentifier
+                      }
+                    }}
+                    onClick={() => {
+                      setActiveProvider(null)
+                      addNewProviderModal()
+                    }}
+                    icon="plus"
+                    id="newProviderBtn"
+                    data-test="newProviderButton"
+                  />
+                </Layout.Vertical>
+              </div>
             )}
           </Page.Body>
         </Layout.Vertical>

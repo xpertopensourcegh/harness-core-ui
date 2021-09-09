@@ -58,7 +58,7 @@ const TestConnection: React.FC<Record<string, unknown>> = (props: any) => {
       <Layout.Vertical spacing="large" className={css.stepFormContainer}>
         <StepsProgress steps={[stepName]} intent={currentIntent} current={currentStep} currentStatus={currentStatus} />
 
-        <Layout.Horizontal className={css.layoutFooter} padding={{ top: 'small' }} spacing="medium">
+        <Layout.Horizontal className={css.layoutFooter} padding={{ top: 'small' }} spacing="large">
           {currentStatus === Status.ERROR && (
             <Button
               variation={ButtonVariation.SECONDARY}

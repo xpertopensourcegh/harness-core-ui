@@ -413,3 +413,46 @@
   background: var(--grey-50);
   padding-top: var(--spacing-medium);
 }
+
+.noPipelineSection {
+  $page-header-height: 144px;
+
+  display: flex;
+  height: calc(100vh - #{$page-header-height});
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  .clearFilterText {
+    color: var(--primary-7);
+    font-size: var(--spacing-medium);
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .image {
+    width: 400px;
+    margin-bottom: 40px;
+  }
+  .noProviderText {
+    font-size: 20px !important;
+    font-weight: bold !important;
+    line-height: 28px !important;
+    color: var(--grey-600) !important;
+  }
+  .aboutProvider {
+    font-size: 16px !important;
+    font-weight: normal !important;
+    line-height: 24px !important;
+    color: var(--grey-600) !important;
+  }
+}
+
+:global {
+  .pipelineDeleteDialog {
+    textarea {
+      margin-top: 5px;
+      max-height: 200px;
+      width: 100%;
+      resize: vertical;
+    }
+  }
+}

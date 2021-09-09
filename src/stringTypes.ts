@@ -2435,6 +2435,7 @@ export interface StringsMap {
   'templatesLibrary.templateSettings': string
   'templatesLibrary.useTemplate': string
   'templatesLibrary.versionLog': string
+  'cd.aboutProvider': string
   'cd.addInline': string
   'cd.addRemote': string
   'cd.addTFVarFileLabel': string
@@ -2466,6 +2467,7 @@ export interface StringsMap {
   'cd.manifestPathsCannotBeEmpty': string
   'cd.namespaceValidation': string
   'cd.newProvider': string
+  'cd.noProviderText': string
   'cd.pathCannotBeEmpty': string
   'cd.pipelineSteps.infraTab.deploymentType': string
   'cd.pipelineSteps.serviceTab.deploymentTypeRequired': string

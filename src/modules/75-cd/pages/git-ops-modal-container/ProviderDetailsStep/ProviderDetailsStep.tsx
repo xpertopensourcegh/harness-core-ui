@@ -6,7 +6,7 @@ import {
   Layout,
   Formik,
   FormInput,
-  Heading,
+  Container,
   Button,
   FormikForm as Form,
   ModalErrorHandler,
@@ -83,11 +83,12 @@ const ProviderOverviewStep = (props: any) => {
     : (connectorInfo as ConnectorInfoDTO)?.name
 
   const afterSuccessHandler = (response: any): void => {
+    props.onUpdateMode(true)
     nextStep?.({ ...props.connectorInfo, ...response?.data?.connector, ...prevStepData })
   }
 
   return (
-    <Layout.Vertical className={css.stepContainer}>
+    <>
       {creating || updating ? (
         <PageSpinner
           message={
@@ -97,70 +98,73 @@ const ProviderOverviewStep = (props: any) => {
           }
         />
       ) : null}
+      <Layout.Vertical spacing="xxlarge" className={css.stepContainer}>
+        <div className={css.heading}>Provider Details</div>
+        <ModalErrorHandler bind={setModalErrorHandler} />
 
-      <Formik
-        initialValues={{
-          adapterUrl: props?.provider?.spec?.adapterUrl || ''
-        }}
-        validationSchema={Yup.object().shape({
-          adapterUrl: Yup.string()
-            .trim()
-            .url('Please enter a valid Adapter URL')
-            .required('Please enter a valid Adapter URL')
-        })}
-        formName="connectionDetails"
-        onSubmit={(stepData: any) => {
-          const updatedStepData = {
-            ...stepData
-          }
+        <Container padding="small" className={css.connectorForm}>
+          <Formik
+            initialValues={{
+              adapterUrl: props?.prevStepData?.spec?.adapterUrl || props?.provider?.spec?.adapterUrl || ''
+            }}
+            validationSchema={Yup.object().shape({
+              adapterUrl: Yup.string()
+                .trim()
+                .url('Please enter a valid Adapter URL')
+                .required('Please enter a valid Adapter URL')
+            })}
+            formName="connectionDetails"
+            onSubmit={(stepData: any) => {
+              const updatedStepData = {
+                ...stepData
+              }
 
-          const connectorData: BuildPayloadProps = {
-            ...prevStepData,
-            ...updatedStepData,
-            projectIdentifier: projectIdentifier,
-            orgIdentifier: orgIdentifier
-          }
+              const connectorData: BuildPayloadProps = {
+                ...prevStepData,
+                ...updatedStepData,
+                projectIdentifier: projectIdentifier,
+                orgIdentifier: orgIdentifier
+              }
 
-          const data = buildPayload(connectorData)
-          setConnectorPayloadRef(data)
+              const data = buildPayload(connectorData)
+              setConnectorPayloadRef(data)
 
-          if (customHandleUpdate || customHandleCreate) {
-            props.isEditMode
-              ? customHandleUpdate?.(data, { ...prevStepData, ...updatedStepData }, props)
-              : customHandleCreate?.(data, { ...prevStepData, ...updatedStepData }, props)
-          } else {
-            handleCreateOrEdit({ payload: data }) /* Handling non-git flow */
-              .then(res => {
-                if (res.status === 'SUCCESS') {
-                  props.isEditMode
-                    ? showSuccess(getString('connectors.updatedSuccessfully'))
-                    : showSuccess(getString('connectors.createdSuccessfully'))
+              if (customHandleUpdate || customHandleCreate) {
+                props.isEditMode
+                  ? customHandleUpdate?.(data, { ...prevStepData, ...updatedStepData }, props)
+                  : customHandleCreate?.(data, { ...prevStepData, ...updatedStepData }, props)
+              } else {
+                handleCreateOrEdit({ payload: data }) /* Handling non-git flow */
+                  .then(res => {
+                    if (res.status === 'SUCCESS') {
+                      props.isEditMode
+                        ? showSuccess(getString('connectors.updatedSuccessfully'))
+                        : showSuccess(getString('connectors.createdSuccessfully'))
 
-                  res.nextCallback?.()
-                } else {
-                  /* TODO handle error with API status 200 */
-                }
-              })
-              .catch(e => {
-                if (shouldShowError(e)) {
-                  showError(getErrorInfoFromErrorObject(e))
-                }
-              })
-          }
-        }}
-      >
-        {() => (
-          <Form className={css.fullHeight}>
-            <ModalErrorHandler bind={setModalErrorHandler} />
-            <Layout.Vertical spacing="large" className={css.containerLayout}>
-              <Heading level={2} style={{ fontSize: '18px', color: 'black' }}>
-                {'Provider Details'}
-              </Heading>
-
-              <Layout.Vertical spacing="large" className={css.stepFormContainer}>
-                <FormInput.Text name="adapterUrl" label={'Adapter URL'} style={{ width: '60%' }} />
-
-                <Layout.Horizontal className={css.layoutFooter} padding={{ top: 'small' }} spacing="medium">
+                      res.nextCallback?.()
+                    } else {
+                      /* TODO handle error with API status 200 */
+                    }
+                  })
+                  .catch(e => {
+                    if (shouldShowError(e)) {
+                      showError(getErrorInfoFromErrorObject(e))
+                    }
+                  })
+              }
+            }}
+          >
+            {() => (
+              <Form>
+                <Container style={{ minHeight: 460 }}>
+                  <FormInput.Text
+                    className={css.adapterUrl}
+                    name="adapterUrl"
+                    label={'Adapter URL'}
+                    style={{ width: '60%' }}
+                  />
+                </Container>
+                <Layout.Horizontal spacing="large">
                   <Button
                     variation={ButtonVariation.SECONDARY}
                     text={getString('back')}
@@ -178,12 +182,12 @@ const ProviderOverviewStep = (props: any) => {
                     <String stringID="continue" />
                   </Button>
                 </Layout.Horizontal>
-              </Layout.Vertical>
-            </Layout.Vertical>
-          </Form>
-        )}
-      </Formik>
-    </Layout.Vertical>
+              </Form>
+            )}
+          </Formik>
+        </Container>
+      </Layout.Vertical>
+    </>
   )
 }
 

@@ -10,7 +10,7 @@
 
 .stepFormContainer {
   padding: 10px !important;
-  margin-top: 32px !important;
+  margin-top: var(--layout-spacing) !important;
 }
 
 .layoutFooter {
@@ -70,12 +70,17 @@
   bottom: 5%;
 }
 
-.fullHeight {
-  height: 100%;
-  min-height: 600px;
-}
-
 .title {
   margin: 8px 0;
   color: var(--grey-500);
+}
+
+.connectorForm {
+  min-height: 440px;
+}
+
+.adapterUrl {
+  color: var(--grey-600);
+  font-size: var(--form-input-font-size);
+  font-weight: 500;
 }

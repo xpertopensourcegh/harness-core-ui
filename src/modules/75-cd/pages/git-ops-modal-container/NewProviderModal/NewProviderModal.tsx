@@ -54,7 +54,7 @@ const NewProviderModal: React.FC<NewProviderModalProps> = props => {
                 //   onClick={() => createProvider('harnessManaged')}
               />
               <p>
-                Harness Managed <br /> Argo
+                Harness <br /> Managed Argo
               </p>
             </div>
           </div>
@@ -63,7 +63,12 @@ const NewProviderModal: React.FC<NewProviderModalProps> = props => {
 
       {showCreateModal && (
         <div className={css.providerModalContainer}>
-          <CreateArgoProvider isEditMode={isEditMode} provider={props.provider} onClose={props.onClose} />
+          <CreateArgoProvider
+            isEditMode={isEditMode}
+            onUpdateMode={(mode: boolean) => setIsEditMode(mode)}
+            provider={props.provider}
+            onClose={props.onClose}
+          />
         </div>
       )}
 

@@ -2,7 +2,9 @@
 // this is an auto-generated file
 declare const styles: {
   readonly card: string
+  readonly projectInfo: string
   readonly projectName: string
+  readonly tags: string
   readonly tagsPopover: string
   readonly id: string
   readonly iconMore: string

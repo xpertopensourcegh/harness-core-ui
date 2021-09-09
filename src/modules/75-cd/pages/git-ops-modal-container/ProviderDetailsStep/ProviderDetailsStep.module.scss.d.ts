@@ -14,7 +14,8 @@ declare const styles: {
   readonly enableButton: string
   readonly containerLayout: string
   readonly nextButton: string
-  readonly fullHeight: string
   readonly title: string
+  readonly connectorForm: string
+  readonly adapterUrl: string
 }
 export default styles

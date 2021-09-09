@@ -135,70 +135,82 @@ const ProviderCard: React.FC<ProviderCardProps> = props => {
 
   return (
     <Card className={css.card} interactive onClick={() => openUploadCertiModal()}>
-      <div className={css.mainTitle}>
-        <img className={css.argoLogo} src={logo} alt="" aria-hidden />
+      <Container className={css.projectInfo}>
+        <div className={css.mainTitle}>
+          <img className={css.argoLogo} src={logo} alt="" aria-hidden />
 
-        <Layout.Horizontal className={css.layout}>
-          <Popover
-            isOpen={menuOpen}
-            onInteraction={nextOpenState => {
-              setMenuOpen(nextOpenState)
-            }}
-            className={Classes.DARK}
-            position={Position.RIGHT_TOP}
-          >
-            <Button
-              variation={ButtonVariation.ICON}
-              className={css.iconMore}
-              icon="more"
-              color="grey-450"
-              withoutCurrentColor
-              onClick={e => {
-                e.stopPropagation()
-                setMenuOpen(true)
+          <Layout.Horizontal className={css.layout}>
+            <Popover
+              isOpen={menuOpen}
+              onInteraction={nextOpenState => {
+                setMenuOpen(nextOpenState)
               }}
-            />
-            <Menu style={{ minWidth: 'unset' }}>
-              <Menu.Item icon="edit" text="Edit" onClick={handleEdit} />
-              <Menu.Item icon="trash" text="Delete" onClick={handleDelete} />
-            </Menu>
-          </Popover>
-        </Layout.Horizontal>
-      </div>
-      <Layout.Horizontal spacing={'medium'} flex={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-        <Container>
-          <Text lineClamp={1} font={{ weight: 'bold' }} color={Color.GREY_800} data-testid={provider.identifier}>
-            {provider.name}
-          </Text>
-          <Text font="small" lineClamp={1} color={Color.GREY_600} margin={{ top: 'xsmall' }}>
-            {getString('idLabel', { id: provider.identifier })}
-          </Text>
-        </Container>
-        {!isEmpty(provider.tags) && (
-          <TagsPopover
-            className={css.tagsPopover}
-            iconProps={{ size: 14, color: Color.GREY_600 }}
-            tags={provider.tags}
-          />
-        )}
-      </Layout.Horizontal>
-
-      {!!provider.description?.length && (
-        <Text font="small" lineClamp={2} color={Color.GREY_600} className={css.description} margin={{ top: 'xsmall' }}>
-          {provider.description}
-        </Text>
-      )}
-      <div className={css.urls}>
-        <div className={css.serverUrl}>
-          <Text intent={Intent.PRIMARY} font={{ size: 'small' }}>
-            {getString('cd.argoAdapterURL')}
-          </Text>
-          <Text intent={Intent.PRIMARY} font={{ size: 'small' }}>
-            {provider?.spec?.adapterUrl}
-          </Text>
-          {/* <a>  </a> */}
+              className={Classes.DARK}
+              position={Position.RIGHT_TOP}
+            >
+              <Button
+                variation={ButtonVariation.ICON}
+                className={css.iconMore}
+                icon="more"
+                color="grey-450"
+                withoutCurrentColor
+                onClick={e => {
+                  e.stopPropagation()
+                  setMenuOpen(true)
+                }}
+              />
+              <Menu style={{ minWidth: 'unset' }}>
+                <Menu.Item icon="edit" text="Edit" onClick={handleEdit} />
+                <Menu.Item icon="trash" text="Delete" onClick={handleDelete} />
+              </Menu>
+            </Popover>
+          </Layout.Horizontal>
         </div>
-      </div>
+
+        <Text
+          lineClamp={1}
+          font={{ weight: 'bold' }}
+          margin={{ top: 'small' }}
+          color={Color.GREY_800}
+          data-testid={provider.identifier}
+        >
+          {provider.name}
+        </Text>
+        <Text lineClamp={1} font="small" color={Color.GREY_600} margin={{ top: 'xsmall' }}>
+          {getString('idLabel', { id: provider.identifier })}
+        </Text>
+
+        {!isEmpty(provider.tags) && (
+          <div className={css.tags}>
+            <TagsPopover
+              className={css.tagsPopover}
+              iconProps={{ size: 14, color: Color.GREY_600 }}
+              tags={provider.tags}
+            />
+          </div>
+        )}
+
+        {!!provider.description?.length && (
+          <Text
+            font="small"
+            lineClamp={2}
+            color={Color.GREY_600}
+            className={css.description}
+            margin={{ top: 'xsmall' }}
+          >
+            {provider.description}
+          </Text>
+        )}
+        <div className={css.urls}>
+          <div className={css.serverUrl}>
+            <Text font={{ size: 'small' }}>{getString('cd.argoAdapterURL')}:</Text>
+            <Text intent={Intent.PRIMARY} font={{ size: 'small' }}>
+              {provider?.spec?.adapterUrl}
+            </Text>
+            {/* <a>  </a> */}
+          </div>
+        </div>
+      </Container>
     </Card>
   )
 }
