@@ -15,13 +15,17 @@ export interface PerspectiveGridProps {
   groupBy: QlceViewFieldInputInput
   showColumnSelector?: boolean
   tempGridColumns?: boolean
-  showPagination?: boolean
   gridData: Maybe<Maybe<QlceViewEntityStatsDataPoint>[]> | undefined
   gridFetching: boolean
   isClusterOnly?: boolean
   goToWorkloadDetails?: (clusterName: string, namespace: string, workloadName: string) => void
   highlightNode?: (id: string) => void
   resetNodeState?: () => void
+  showPagination?: boolean
+  totalItemCount?: number
+  fetchData?: (pageIndex: number, pageSize: number) => void
+  pageSize?: number
+  gridPageIndex?: number
 }
 
 const PerspectiveGrid: React.FC<PerspectiveGridProps> = props => {
@@ -35,7 +39,11 @@ const PerspectiveGrid: React.FC<PerspectiveGridProps> = props => {
     isClusterOnly = false,
     goToWorkloadDetails,
     resetNodeState,
-    highlightNode
+    highlightNode,
+    totalItemCount,
+    pageSize,
+    gridPageIndex,
+    fetchData
   } = props
 
   const gridColumns = getGridColumnsByGroupBy(groupBy, isClusterOnly)
@@ -107,6 +115,10 @@ const PerspectiveGrid: React.FC<PerspectiveGridProps> = props => {
         }}
         columns={props.tempGridColumns ? (DEFAULT_COLS as Column<GridData>[]) : (selectedColumns as Column<GridData>[])}
         showPagination={props.showPagination}
+        totalItemCount={totalItemCount}
+        gridPageIndex={gridPageIndex}
+        pageSize={pageSize}
+        fetchData={fetchData}
       />
     </Container>
   )

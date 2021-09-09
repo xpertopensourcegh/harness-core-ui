@@ -16,7 +16,8 @@ import {
   useFetchperspectiveGridQuery,
   ViewChartType,
   ViewType,
-  QlceViewAggregateOperation
+  QlceViewAggregateOperation,
+  useFetchPerspectiveTotalCountQuery
 } from 'services/ce/services'
 import { useStrings } from 'framework/strings'
 import { PageBody } from '@common/components/Page/PageBody'
@@ -49,6 +50,7 @@ import { CCM_CHART_TYPES } from '@ce/constants'
 import { DAYS_FOR_TICK_INTERVAL } from '@ce/components/CloudCostInsightChart/Chart'
 import css from './PerspectiveDetailsPage.module.scss'
 
+const PAGE_SIZE = 10
 interface PerspectiveParams {
   perspectiveId: string
   perspectiveName: string
@@ -58,9 +60,7 @@ interface PerspectiveParams {
 const PerspectiveHeader: React.FC<{ title: string; viewType: string }> = ({ title, viewType }) => {
   const { perspectiveId, accountId } = useParams<{ perspectiveId: string; accountId: string }>()
   const history = useHistory()
-
   const { getString } = useStrings()
-
   const isDefaultPerspective = viewType === ViewType.Default
 
   const goToEditPerspective: () => void = () => {
@@ -134,6 +134,9 @@ const PerspectiveDetailsPage: React.FC = () => {
     isClusterOnly = true
   }
 
+  const [gridPageOffset, setGridPageOffset] = useState(0) // This tells us the starting point of next data fetching(used in the api call)
+  const [gridPageIndex, setPageIndex] = useState(0) // [Pagination] tells us the current page we are in the grid
+
   const [chartType, setChartType] = useState<CCM_CHART_TYPES>(CCM_CHART_TYPES.COLUMN)
   const [aggregation, setAggregation] = useState<QlceViewTimeGroupType>(QlceViewTimeGroupType.Day)
   const [groupBy, setGroupBy] = useState<QlceViewFieldInputInput>(DEFAULT_GROUP_BY)
@@ -193,7 +196,7 @@ const PerspectiveDetailsPage: React.FC = () => {
 
   const [summaryResult] = useFetchPerspectiveDetailsSummaryQuery({
     variables: {
-      isClusterQuery: false, // TODO: confirm with Jenil and Shubhanshu
+      isClusterQuery: false,
       aggregateFunction: [
         { operationType: QlceViewAggregateOperation.Sum, columnName: 'cost' },
         { operationType: QlceViewAggregateOperation.Max, columnName: 'startTime' },
@@ -225,15 +228,28 @@ const PerspectiveDetailsPage: React.FC = () => {
         ...getFilters(filters)
       ],
       isClusterOnly: isClusterOnly,
-      limit: 100,
-      offset: 0,
+      limit: PAGE_SIZE,
+      offset: gridPageOffset,
       groupBy: [getGroupByFilter(groupBy)]
+    }
+  })
+
+  const [perspectiveTotalCountResult] = useFetchPerspectiveTotalCountQuery({
+    variables: {
+      filters: [
+        getViewFilterForId(perspectiveId),
+        ...getTimeFilters(getGMTStartDateTime(timeRange.from), getGMTEndDateTime(timeRange.to)),
+        ...getFilters(filters)
+      ],
+      groupBy: [getGroupByFilter(groupBy)],
+      isClusterQuery: isClusterOnly
     }
   })
 
   const { data: chartData, fetching: chartFetching } = chartResult
   const { data: gridData, fetching: gridFetching } = gridResults
   const { data: summaryData, fetching: summaryFetching } = summaryResult
+  const { data: { perspectiveTotalCount } = {} } = perspectiveTotalCountResult
 
   const goToWorkloadDetails = (clusterName: string, namespace: string, workloadName: string) => {
     history.push(
@@ -313,6 +329,13 @@ const PerspectiveDetailsPage: React.FC = () => {
               resetNodeState={() => resetNodeState(chartRef)}
               setColumnSequence={colSeq => setColumnSequence(colSeq)}
               groupBy={groupBy}
+              totalItemCount={perspectiveTotalCount || 0}
+              gridPageIndex={gridPageIndex}
+              pageSize={PAGE_SIZE}
+              fetchData={(pageIndex, pageSize) => {
+                setPageIndex(pageIndex)
+                setGridPageOffset(pageIndex * pageSize)
+              }}
             />
           )}
           {isChartGridEmpty && (

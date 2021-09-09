@@ -12,10 +12,24 @@ interface GridProps<T extends Record<string, unknown>> {
   onRowClick?: (row: Row<T>) => void
   onMouseEnter?: (row: Row<T>) => void
   onMouseLeave?: (row: Row<T>) => void
+  totalItemCount?: number
+  gridPageIndex?: number
+  pageSize?: number
+  fetchData?: (pageIndex: number, pageSize: number) => void
 }
 
 const Grid = <T extends Record<string, unknown>>(props: GridProps<T>): JSX.Element => {
-  const { showPagination = true, onRowClick, onMouseEnter, onMouseLeave } = props
+  const {
+    showPagination = true,
+    onRowClick,
+    onMouseEnter,
+    onMouseLeave,
+    fetchData,
+    totalItemCount = 0,
+    pageSize: PAGE_SIZE = 10,
+    gridPageIndex = 0
+  } = props
+
   const defaultColumn = React.useMemo(
     () => ({
       minWidth: 150,
@@ -25,21 +39,14 @@ const Grid = <T extends Record<string, unknown>>(props: GridProps<T>): JSX.Eleme
     []
   )
 
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    prepareRow,
-    page,
-    pageCount,
-    gotoPage,
-    nextPage,
-    state: { pageIndex, pageSize }
-  } = useTable<T>(
+  const { getTableProps, getTableBodyProps, headerGroups, prepareRow, page, pageCount } = useTable<T>(
     {
       columns: props.columns || [],
       data: props.data || [],
-      defaultColumn
+      defaultColumn,
+      manualPagination: true,
+      initialState: { pageSize: PAGE_SIZE, pageIndex: gridPageIndex },
+      pageCount: Math.floor(totalItemCount / PAGE_SIZE) + (totalItemCount % PAGE_SIZE ? 1 : 0)
     },
     usePagination,
     useBlockLayout,
@@ -90,12 +97,16 @@ const Grid = <T extends Record<string, unknown>>(props: GridProps<T>): JSX.Eleme
       </div>
       {showPagination && (
         <Pagination
-          gotoPage={gotoPage}
-          itemCount={props.data.length || 0}
-          nextPage={nextPage}
+          gotoPage={idx => {
+            fetchData?.(idx, PAGE_SIZE)
+          }}
+          itemCount={totalItemCount || 0}
+          nextPage={idx => {
+            fetchData?.(idx, PAGE_SIZE)
+          }}
           pageCount={pageCount}
-          pageIndex={pageIndex}
-          pageSize={pageSize}
+          pageIndex={gridPageIndex}
+          pageSize={PAGE_SIZE}
         />
       )}
     </div>
