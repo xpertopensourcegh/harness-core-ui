@@ -531,7 +531,8 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
             <RbacButton
               variation={ButtonVariation.PRIMARY}
               data-testid="add-pipeline"
-              text={getString('addPipeline')}
+              icon="plus"
+              text={getString('pipeline.newPipelineText')}
               onClick={() => goToPipeline()}
               tooltipProps={{
                 dataTooltipId: 'addPipeline'

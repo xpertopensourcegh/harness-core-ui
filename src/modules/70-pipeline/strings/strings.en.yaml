@@ -809,3 +809,4 @@ executionStrategy:
           title: 'Step 2:'
         step3:
           title: 'Step 3:'
+newPipelineText: New Pipeline

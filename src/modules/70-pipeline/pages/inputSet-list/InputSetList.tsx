@@ -206,7 +206,7 @@ const InputSetList: React.FC = (): JSX.Element => {
           when: () => !inputSet?.data?.content?.length,
           icon: 'yaml-builder-input-sets',
           message: getString('inputSets.aboutInputSets'),
-          buttonText: getString('inputSets.addInputSet'),
+          buttonText: getString('inputSets.newInputSet'),
           onClick: () => goToInputSetForm(),
           buttonDisabled: !canUpdateInputSet || !pipelineHasRuntimeInputs,
           buttonDisabledTooltip: getString('pipeline.inputSets.noRuntimeInputsCurrently')

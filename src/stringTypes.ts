@@ -2083,6 +2083,7 @@ export interface StringsMap {
   'pipeline.myBuildsText': string
   'pipeline.myDeploymentsText': string
   'pipeline.neverRan': string
+  'pipeline.newPipelineText': string
   'pipeline.noBuckets': string
   'pipeline.noBuildsText': string
   'pipeline.noDeploymentText': string
