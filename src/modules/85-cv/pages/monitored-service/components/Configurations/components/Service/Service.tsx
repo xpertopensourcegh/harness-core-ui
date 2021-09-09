@@ -30,8 +30,8 @@ import HealthSourceTable from '@cv/pages/health-source/HealthSourceTable'
 import ChangeSourceTable from '@cv/pages/ChangeSource/ChangeSourceTable/ChangeSourceTable'
 import type { MonitoredServiceForm } from './Service.types'
 import { getInitFormData } from './Service.utils'
-import MonitoredServiceDetails from '../../../monitoredServiceDetails/MonitoredServiceDetails'
-import ServiceEnvironment from '../../../serviceEnvironment/MonitoredServiceEnvironment'
+import MonitoredServiceOverview from './components/MonitoredServiceOverview/MonitoredServiceOverview'
+import { MonitoredServiceType } from './components/MonitoredServiceOverview/MonitoredServiceOverview.constants'
 import css from './Service.module.scss'
 
 function Service(): JSX.Element {
@@ -274,7 +274,7 @@ function Service(): JSX.Element {
       onSuccessChangeSource: (data: ChangeSourceDTO[]) => void
     }) => {
       // has required fields
-      if (formik?.values.serviceRef && formik?.values.environmentRef && formik?.values.name) {
+      if (formik?.values.environmentRef && formik?.values.name) {
         showDrawer()
         setDrawerContentProps({
           hideDrawer,
@@ -296,7 +296,13 @@ function Service(): JSX.Element {
       }}
       validationSchema={Yup.object().shape({
         name: Yup.string().required(getString('cv.monitoredServices.nameValidation')),
-        serviceRef: Yup.string().required(getString('cv.monitoredServices.serviceValidation')),
+        type: Yup.string().required(getString('common.validation.typeIsRequired')),
+        serviceRef: Yup.string()
+          .nullable()
+          .when('type', {
+            is: type => type === MonitoredServiceType.APPLICATION,
+            then: Yup.string().required(getString('cv.monitoredServices.serviceValidation'))
+          }),
         environmentRef: Yup.string().required(getString('cv.monitoredServices.environmentValidation'))
       })}
       enableReinitialize
@@ -350,8 +356,7 @@ function Service(): JSX.Element {
                     }}
                   />
                 </div>
-                <MonitoredServiceDetails formik={formik} />
-                <ServiceEnvironment formik={formik} />
+                <MonitoredServiceOverview formikProps={formik} isEdit={isEdit} />
                 <Text color={Color.BLACK} className={css.sourceTableLabel}>
                   {getString('cv.healthSource.defineYourSource')}
                 </Text>

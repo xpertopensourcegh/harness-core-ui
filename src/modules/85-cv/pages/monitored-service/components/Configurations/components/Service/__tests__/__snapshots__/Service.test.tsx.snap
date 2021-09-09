@@ -60,238 +60,201 @@ exports[`Verify Service Monitored service is poplulated in Edit mode 1`] = `
       <p
         class="StyledProps--font StyledProps--main header StyledProps--color StyledProps--color-black"
       >
-        cv.monitoredServices.monitoredServiceDetails
+        overview
       </p>
       <div
         class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
       >
         <div
-          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
-          style="width: 400px;"
+          class="StyledProps--font StyledProps--main main nameTagsDescription"
         >
           <div
-            class="StyledProps--font StyledProps--main main"
+            class="InputWithIdentifier--txtNameContainer TextInput--main"
           >
             <div
-              class="InputWithIdentifier--txtNameContainer TextInput--main"
+              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
             >
-              <div
-                class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
+              <p
+                class="StyledProps--font StyledProps--main"
               >
-                <p
-                  class="StyledProps--font StyledProps--main"
-                >
-                  ID
-                  :
-                </p>
+                ID
+                :
+              </p>
+              <span
+                class="bp3-popover-wrapper"
+              >
                 <span
-                  class="bp3-popover-wrapper"
-                >
-                  <span
-                    class="bp3-popover-target"
-                  >
-                    <div
-                      class="bp3-editable-text bp3-disabled InputWithIdentifier--idValue"
-                    >
-                      <span
-                        class="bp3-editable-text-content"
-                        style="height: 1px; line-height: 1px; min-width: 0;"
-                      >
-                        monitoredservice101
-                      </span>
-                    </div>
-                  </span>
-                </span>
-              </div>
-              <div
-                class="bp3-form-group"
-              >
-                <label
-                  class="bp3-label"
-                  for="name"
-                >
-                  cv.monitoredServices.monitoredServiceName
-                   
-                  <span
-                    class="bp3-text-muted"
-                  />
-                </label>
-                <div
-                  class="bp3-form-content"
+                  class="bp3-popover-target"
                 >
                   <div
-                    class="bp3-input-group"
+                    class="bp3-editable-text bp3-disabled InputWithIdentifier--idValue"
                   >
+                    <span
+                      class="bp3-editable-text-content"
+                      style="height: 1px; line-height: 1px; min-width: 0;"
+                    >
+                      monitoredservice101
+                    </span>
+                  </div>
+                </span>
+              </span>
+            </div>
+            <div
+              class="bp3-form-group bp3-disabled"
+            >
+              <label
+                class="bp3-label"
+                for="name"
+              >
+                cv.monitoredServices.monitoredServiceName
+                 
+                <span
+                  class="bp3-text-muted"
+                />
+              </label>
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-input-group bp3-disabled"
+                >
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    disabled=""
+                    name="name"
+                    placeholder="common.namePlaceholder"
+                    type="text"
+                    value="Monitored Service 101"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="StyledProps--font StyledProps--main"
+            style="margin-bottom: 0px;"
+          >
+            <label
+              class="Label--main bp3-label descriptionLabel"
+            >
+              optionalField
+            </label>
+            <div
+              class="bp3-form-group"
+            >
+              <div
+                class="bp3-form-content"
+              >
+                <textarea
+                  autocomplete="off"
+                  class="bp3-input bp3-fill"
+                  maxlength="1024"
+                  name="description"
+                  placeholder="common.descriptionPlaceholder"
+                >
+                  Monitored Service with change source and health source
+                </textarea>
+              </div>
+            </div>
+          </div>
+          <div
+            class="StyledProps--font StyledProps--main"
+          >
+            <label
+              class="Label--main bp3-label descriptionLabel"
+            >
+              optionalField
+            </label>
+            <div
+              class="bp3-form-group"
+            >
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-input bp3-tag-input"
+                >
+                  <div
+                    class="bp3-tag-input-values"
+                  >
+                    <span
+                      class="bp3-tag"
+                      data-tag-index="0"
+                    >
+                      <span
+                        class="bp3-text-overflow-ellipsis bp3-fill"
+                      >
+                        tag1
+                      </span>
+                      <button
+                        class="bp3-tag-remove"
+                        type="button"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-small-cross"
+                          icon="small-cross"
+                        >
+                          <svg
+                            data-icon="small-cross"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            width="16"
+                          >
+                            <desc>
+                              small-cross
+                            </desc>
+                            <path
+                              d="M9.41 8l2.29-2.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42L6.59 8 4.3 10.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l2.29 2.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
+                    <span
+                      class="bp3-tag"
+                      data-tag-index="1"
+                    >
+                      <span
+                        class="bp3-text-overflow-ellipsis bp3-fill"
+                      >
+                        tag2
+                      </span>
+                      <button
+                        class="bp3-tag-remove"
+                        type="button"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-small-cross"
+                          icon="small-cross"
+                        >
+                          <svg
+                            data-icon="small-cross"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            width="16"
+                          >
+                            <desc>
+                              small-cross
+                            </desc>
+                            <path
+                              d="M9.41 8l2.29-2.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42L6.59 8 4.3 10.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l2.29 2.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
                     <input
-                      autocomplete="off"
-                      class="bp3-input"
-                      name="name"
-                      placeholder="common.namePlaceholder"
-                      type="text"
-                      value="Monitored Service 101"
+                      class="bp3-input-ghost"
+                      data-mentions="kv-tag-input-tags}"
+                      value=""
                     />
                   </div>
                 </div>
               </div>
             </div>
-            <div
-              class="StyledProps--font StyledProps--main"
-              style="margin-bottom: 0px;"
-            >
-              <label
-                class="Label--main bp3-label descriptionLabel"
-              >
-                optionalField
-              </label>
-              <div
-                class="bp3-form-group"
-              >
-                <div
-                  class="bp3-form-content"
-                >
-                  <textarea
-                    autocomplete="off"
-                    class="bp3-input bp3-fill"
-                    maxlength="1024"
-                    name="description"
-                    placeholder="common.descriptionPlaceholder"
-                  >
-                    Monitored Service with change source and health source
-                  </textarea>
-                </div>
-              </div>
-            </div>
-            <div
-              class="StyledProps--font StyledProps--main"
-            >
-              <label
-                class="Label--main bp3-label descriptionLabel"
-              >
-                optionalField
-              </label>
-              <div
-                class="bp3-form-group"
-              >
-                <div
-                  class="bp3-form-content"
-                >
-                  <div
-                    class="bp3-input bp3-tag-input"
-                  >
-                    <div
-                      class="bp3-tag-input-values"
-                    >
-                      <span
-                        class="bp3-tag"
-                        data-tag-index="0"
-                      >
-                        <span
-                          class="bp3-text-overflow-ellipsis bp3-fill"
-                        >
-                          tag1
-                        </span>
-                        <button
-                          class="bp3-tag-remove"
-                          type="button"
-                        >
-                          <span
-                            class="bp3-icon bp3-icon-small-cross"
-                            icon="small-cross"
-                          >
-                            <svg
-                              data-icon="small-cross"
-                              height="16"
-                              viewBox="0 0 16 16"
-                              width="16"
-                            >
-                              <desc>
-                                small-cross
-                              </desc>
-                              <path
-                                d="M9.41 8l2.29-2.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42L6.59 8 4.3 10.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l2.29 2.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
-                          </span>
-                        </button>
-                      </span>
-                      <span
-                        class="bp3-tag"
-                        data-tag-index="1"
-                      >
-                        <span
-                          class="bp3-text-overflow-ellipsis bp3-fill"
-                        >
-                          tag2
-                        </span>
-                        <button
-                          class="bp3-tag-remove"
-                          type="button"
-                        >
-                          <span
-                            class="bp3-icon bp3-icon-small-cross"
-                            icon="small-cross"
-                          >
-                            <svg
-                              data-icon="small-cross"
-                              height="16"
-                              viewBox="0 0 16 16"
-                              width="16"
-                            >
-                              <desc>
-                                small-cross
-                              </desc>
-                              <path
-                                d="M9.41 8l2.29-2.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42L6.59 8 4.3 10.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l2.29 2.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
-                          </span>
-                        </button>
-                      </span>
-                      <input
-                        class="bp3-input-ghost"
-                        data-mentions="kv-tag-input-tags}"
-                        value=""
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="Layout--vertical StyledProps--main StyledProps--margin-xxlarge"
-    >
-      <p
-        class="StyledProps--font StyledProps--main header StyledProps--color StyledProps--color-black"
-      >
-        cv.monitoredServices.serviceAndEnvironment
-      </p>
-      <div
-        class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
-      >
-        <div
-          class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
-        >
-          <div
-            class="StyledProps--font StyledProps--main"
-          >
-            <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main addService Button--with-current-color Button--iconOnly"
-              type="button"
-            />
-          </div>
-          <div
-            class="StyledProps--font StyledProps--main"
-          >
-            <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main addEnv Button--with-current-color Button--iconOnly"
-              type="button"
-            />
           </div>
         </div>
       </div>

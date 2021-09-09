@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, fireEvent, waitFor, act } from '@testing-library/react'
-import { Container, Button } from '@wings-software/uicore'
+import { Container, Button, FormInput } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
@@ -28,6 +28,7 @@ jest.mock('@cv/components/HarnessServiceAndEnvironment/HarnessServiceAndEnvironm
   HarnessServiceAsFormField: function MockComponent(props: any) {
     return (
       <Container>
+        <FormInput.Text name="serviceRef" />
         <Button
           className="addService"
           onClick={() => props.serviceProps.onNewCreated({ name: 'newService', identifier: 'newService' })}
@@ -85,9 +86,6 @@ describe('Unit tests for createting monitored source', () => {
       </TestWrapper>
     )
 
-    // Servie and environment
-    expect(getByText('cv.monitoredServices.serviceAndEnvironment')).toBeDefined()
-
     // Table cv.healthSource.defineYourSource
     expect(getByText('cv.healthSource.defineYourSource')).toBeDefined()
 
@@ -125,37 +123,6 @@ describe('Unit tests for createting monitored source', () => {
     await waitFor(() => expect(queryByText('cv.monitoredServices.nameValidation')).toBeNull())
   })
 
-  test('Update Monitored service name', async () => {
-    jest.spyOn(dbHook, 'useIndexedDBHook').mockReturnValue({
-      dbInstance: {
-        put: jest.fn(),
-        get: jest.fn().mockReturnValue(undefined)
-      } as any,
-      isInitializingDB: false
-    })
-    const { container, getAllByText } = render(
-      <TestWrapper {...testWrapperProps}>
-        <MonitoredService />
-      </TestWrapper>
-    )
-
-    await setFieldValue({
-      container,
-      type: InputTypes.TEXTFIELD,
-      fieldId: 'name',
-      value: 'Updated Monitored service'
-    })
-    // determine identifier is updated
-    expect(getAllByText('Updated_Monitored_service')).toBeDefined()
-    // value is refelecting in input
-    expect(container.querySelector('input[value="Updated Monitored service"]')).toBeDefined()
-    // TODO check a way to update service and environment
-    expect(container.querySelector('input[placeholder="Select or create a service"]')).toBeDefined()
-    expect(container.querySelector('input[placeholder="Select or create a environment"]')).toBeDefined()
-
-    expect(container).toMatchSnapshot()
-  })
-
   test('Check discard and save button', async () => {
     jest.spyOn(dbHook, 'useIndexedDBHook').mockReturnValue({
       dbInstance: {
@@ -164,7 +131,7 @@ describe('Unit tests for createting monitored source', () => {
       } as any,
       isInitializingDB: false
     })
-    const { container, getAllByText, getByText } = render(
+    const { container, getByText } = render(
       <TestWrapper {...testWrapperProps}>
         <MonitoredService />
       </TestWrapper>
@@ -179,11 +146,9 @@ describe('Unit tests for createting monitored source', () => {
     await setFieldValue({
       container,
       type: InputTypes.TEXTFIELD,
-      fieldId: 'name',
+      fieldId: 'serviceRef',
       value: 'Updated Monitored service'
     })
-
-    expect(getAllByText('Updated_Monitored_service')).toBeDefined()
 
     expect(container.querySelector('input[value="Updated Monitored service"]')).toBeDefined()
 

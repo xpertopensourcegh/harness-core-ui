@@ -1,4 +1,5 @@
 import type { MonitoredServiceDTO } from 'services/cv'
+import { MonitoredServiceType } from './components/MonitoredServiceOverview/MonitoredServiceOverview.constants'
 import type { MonitoredServiceForm } from './Service.types'
 
 export const getInitFormData = (
@@ -15,7 +16,8 @@ export const getInitFormData = (
     tags = {},
     serviceRef = '',
     environmentRef = '',
-    sources
+    sources,
+    type
   } = monitoredServiceData || {}
 
   return {
@@ -25,6 +27,7 @@ export const getInitFormData = (
     description,
     tags,
     serviceRef,
+    type: (type as string) || MonitoredServiceType.APPLICATION,
     environmentRef,
     sources
   }

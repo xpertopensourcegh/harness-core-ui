@@ -123,7 +123,7 @@ describe('Unit tests for createting monitored source', () => {
         } as any)
     )
   })
-  test('Health source table and environment services compoenet renders', async () => {
+  test('Health source table and environment services compoenet renders ', async () => {
     const { container, getByText } = render(
       <TestWrapper {...testWrapperProps}>
         <MonitoredServicePage />
@@ -132,11 +132,7 @@ describe('Unit tests for createting monitored source', () => {
     expect(getByText('cv.monitoredServices.title')).toBeDefined()
     expect(getByText('cv.monitoredServices.addNewMonitoredServices')).toBeDefined()
 
-    expect(getByText('cv.monitoredServices.monitoredServiceDetails')).toBeDefined()
     expect(getByText('cv.monitoredServices.monitoredServiceName')).toBeDefined()
-
-    // Servie and environment
-    expect(getByText('cv.monitoredServices.serviceAndEnvironment')).toBeDefined()
 
     // Table cv.healthSource.defineYourSource
     expect(getByText('cv.healthSource.defineYourSource')).toBeDefined()

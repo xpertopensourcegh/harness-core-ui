@@ -125,6 +125,10 @@ export const updateSpecByType = (data: ChangeSourceDTO): ChangeSourceDTO['spec']
         connectorRef: data?.spec?.connectorRef,
         pagerDutyServiceId: data?.spec?.pagerDutyServiceId
       }
+    case Connectors.KUBERNETES_CLUSTER:
+      return {
+        connectorRef: data?.spec?.connectorRef
+      }
     default:
       return {}
   }

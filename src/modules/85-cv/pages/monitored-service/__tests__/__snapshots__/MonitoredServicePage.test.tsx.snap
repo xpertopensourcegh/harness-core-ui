@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Unit tests for createting monitored source Health source table and environment services compoenet renders 1`] = `
+exports[`Unit tests for createting monitored source Health source table and environment services compoenet renders  1`] = `
 <div>
   <div
     class="css-hwoeic"
@@ -238,197 +238,7 @@ exports[`Unit tests for createting monitored source Health source table and envi
               <p
                 class="StyledProps--font StyledProps--main header StyledProps--color StyledProps--color-black"
               >
-                cv.monitoredServices.monitoredServiceDetails
-              </p>
-              <div
-                class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
-              >
-                <div
-                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
-                  style="width: 400px;"
-                >
-                  <div
-                    class="StyledProps--font StyledProps--main main"
-                  >
-                    <div
-                      class="InputWithIdentifier--txtNameContainer TextInput--main"
-                    >
-                      <div
-                        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
-                      >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                        >
-                          ID
-                          :
-                        </p>
-                        <span
-                          class="bp3-popover-wrapper"
-                        >
-                          <span
-                            class="bp3-popover-target"
-                          >
-                            <div
-                              class="bp3-editable-text bp3-editable-text-placeholder InputWithIdentifier--idValue"
-                              tabindex="0"
-                            >
-                              <span
-                                class="bp3-editable-text-content"
-                                style="height: 1px; line-height: 1px; min-width: 0;"
-                              />
-                            </div>
-                          </span>
-                        </span>
-                        <span
-                          class="bp3-icon StyledProps--main"
-                          data-icon="Edit"
-                          style="vertical-align: middle; cursor: pointer;"
-                        >
-                          <svg
-                            height="12"
-                            viewBox="0 0 12 12"
-                            width="12"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <g
-                              fill="none"
-                              fill-rule="evenodd"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            >
-                              <path
-                                d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
-                                stroke="#555770"
-                              />
-                              <path
-                                d="M6.583 5.146l2.063-2.063"
-                                opacity="0.3"
-                                stroke="#606170"
-                              />
-                            </g>
-                          </svg>
-                        </span>
-                      </div>
-                      <div
-                        class="bp3-form-group"
-                      >
-                        <label
-                          class="bp3-label"
-                          for="name"
-                        >
-                          cv.monitoredServices.monitoredServiceName
-                           
-                          <span
-                            class="bp3-text-muted"
-                          />
-                        </label>
-                        <div
-                          class="bp3-form-content"
-                        >
-                          <div
-                            class="bp3-input-group"
-                          >
-                            <input
-                              autocomplete="off"
-                              class="bp3-input"
-                              name="name"
-                              placeholder="common.namePlaceholder"
-                              type="text"
-                              value=""
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="StyledProps--font StyledProps--main"
-                    >
-                      <label
-                        class="Label--main bp3-label descriptionLabel"
-                      >
-                        optionalField
-                        <span
-                          class="bp3-icon StyledProps--main editOpen"
-                          data-icon="Edit"
-                          data-name="edit"
-                          data-testid="description-edit"
-                        >
-                          <svg
-                            height="12"
-                            viewBox="0 0 12 12"
-                            width="12"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <g
-                              fill="none"
-                              fill-rule="evenodd"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            >
-                              <path
-                                d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
-                                stroke="#555770"
-                              />
-                              <path
-                                d="M6.583 5.146l2.063-2.063"
-                                opacity="0.3"
-                                stroke="#606170"
-                              />
-                            </g>
-                          </svg>
-                        </span>
-                      </label>
-                    </div>
-                    <div
-                      class="StyledProps--font StyledProps--main"
-                    >
-                      <label
-                        class="Label--main bp3-label descriptionLabel"
-                      >
-                        optionalField
-                        <span
-                          class="bp3-icon StyledProps--main editOpen"
-                          data-icon="Edit"
-                          data-name="edit"
-                          data-testid="tags-edit"
-                        >
-                          <svg
-                            height="12"
-                            viewBox="0 0 12 12"
-                            width="12"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <g
-                              fill="none"
-                              fill-rule="evenodd"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            >
-                              <path
-                                d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
-                                stroke="#555770"
-                              />
-                              <path
-                                d="M6.583 5.146l2.063-2.063"
-                                opacity="0.3"
-                                stroke="#606170"
-                              />
-                            </g>
-                          </svg>
-                        </span>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              class="Layout--vertical StyledProps--main StyledProps--margin-xxlarge"
-            >
-              <p
-                class="StyledProps--font StyledProps--main header StyledProps--color StyledProps--color-black"
-              >
-                cv.monitoredServices.serviceAndEnvironment
+                overview
               </p>
               <div
                 class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
@@ -436,6 +246,68 @@ exports[`Unit tests for createting monitored source Health source table and envi
                 <div
                   class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
                 >
+                  <div
+                    class="bp3-form-group"
+                  >
+                    <label
+                      class="bp3-label"
+                      for="type"
+                    >
+                      typeLabel
+                       
+                      <span
+                        class="bp3-text-muted"
+                      />
+                    </label>
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="bp3-popover-wrapper Select--main bp3-fill"
+                      >
+                        <div
+                          class="bp3-popover-target"
+                        >
+                          <div
+                            class="bp3-input-group"
+                          >
+                            <input
+                              autocomplete="off"
+                              class="bp3-input"
+                              name="type"
+                              placeholder="- Select -"
+                              style="padding-right: 0px;"
+                              type="text"
+                              value="Application"
+                            />
+                            <span
+                              class="bp3-input-action"
+                            >
+                              <span
+                                class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                                icon="chevron-down"
+                              >
+                                <svg
+                                  data-icon="chevron-down"
+                                  height="14"
+                                  viewBox="0 0 16 16"
+                                  width="14"
+                                >
+                                  <desc>
+                                    chevron-down
+                                  </desc>
+                                  <path
+                                    d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                   <div
                     class="StyledProps--font StyledProps--main"
                   >
@@ -451,6 +323,152 @@ exports[`Unit tests for createting monitored source Health source table and envi
                       class="bp3-button Button--button StyledProps--font StyledProps--main addEnv Button--with-current-color Button--iconOnly"
                       type="button"
                     />
+                  </div>
+                </div>
+                <hr
+                  class="divider"
+                />
+                <div
+                  class="StyledProps--font StyledProps--main main nameTagsDescription"
+                >
+                  <div
+                    class="InputWithIdentifier--txtNameContainer TextInput--main"
+                  >
+                    <div
+                      class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        ID
+                        :
+                      </p>
+                      <span
+                        class="bp3-popover-wrapper"
+                      >
+                        <span
+                          class="bp3-popover-target"
+                        >
+                          <div
+                            class="bp3-editable-text bp3-disabled bp3-editable-text-placeholder InputWithIdentifier--idValue"
+                          >
+                            <span
+                              class="bp3-editable-text-content"
+                              style="height: 1px; line-height: 1px; min-width: 0;"
+                            />
+                          </div>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="bp3-form-group bp3-disabled"
+                    >
+                      <label
+                        class="bp3-label"
+                        for="name"
+                      >
+                        cv.monitoredServices.monitoredServiceName
+                         
+                        <span
+                          class="bp3-text-muted"
+                        />
+                      </label>
+                      <div
+                        class="bp3-form-content"
+                      >
+                        <div
+                          class="bp3-input-group bp3-disabled"
+                        >
+                          <input
+                            autocomplete="off"
+                            class="bp3-input"
+                            disabled=""
+                            name="name"
+                            placeholder="common.namePlaceholder"
+                            type="text"
+                            value=""
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    <label
+                      class="Label--main bp3-label descriptionLabel"
+                    >
+                      optionalField
+                      <span
+                        class="bp3-icon StyledProps--main editOpen"
+                        data-icon="Edit"
+                        data-name="edit"
+                        data-testid="description-edit"
+                      >
+                        <svg
+                          height="12"
+                          viewBox="0 0 12 12"
+                          width="12"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g
+                            fill="none"
+                            fill-rule="evenodd"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path
+                              d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                              stroke="#555770"
+                            />
+                            <path
+                              d="M6.583 5.146l2.063-2.063"
+                              opacity="0.3"
+                              stroke="#606170"
+                            />
+                          </g>
+                        </svg>
+                      </span>
+                    </label>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    <label
+                      class="Label--main bp3-label descriptionLabel"
+                    >
+                      optionalField
+                      <span
+                        class="bp3-icon StyledProps--main editOpen"
+                        data-icon="Edit"
+                        data-name="edit"
+                        data-testid="tags-edit"
+                      >
+                        <svg
+                          height="12"
+                          viewBox="0 0 12 12"
+                          width="12"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g
+                            fill="none"
+                            fill-rule="evenodd"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path
+                              d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                              stroke="#555770"
+                            />
+                            <path
+                              d="M6.583 5.146l2.063-2.063"
+                              opacity="0.3"
+                              stroke="#606170"
+                            />
+                          </g>
+                        </svg>
+                      </span>
+                    </label>
                   </div>
                 </div>
               </div>

@@ -531,7 +531,7 @@ monitoredServices:
   title: Monitored Services
   filterlabel: 'Environment:'
   noData: No Monitored Service
-  nameValidation: Monitored service name is required
+  nameValidation: Monitored Service Name is required
   environmentValidation: '{{$.pipelineSteps.environmentTab.environmentIsRequired}}'
   serviceValidation: '{{$.pipelineSteps.serviceTab.serviceIsRequired}}'
   serviceAndEnvironment: Service And Environment
@@ -592,8 +592,8 @@ healthSource:
   featureLabel: Select Feature
   noData: No Health Sources Present
   featurePlaceholder: Select your {{ sourceType }} feature
-  environmentLabel: Create or Select Environment(s)
-  serviceLabel: Create or Select a Service
+  environmentLabel: Create or select an Environment
+  serviceLabel: Create or select a Service
   addHealthSource: Add New Health Source
   editHealthSource: Edit Health Source
   backtoMonitoredService: Back to monitored service
