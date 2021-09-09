@@ -723,7 +723,7 @@ exports[`DelegateSelectorStep should render DelegateSelectorStep component 1`] =
             </button>
             <button
               class="bp3-button Button--button StyledProps--font StyledProps--main saveAndContinue StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
-              data-name="delegateSaveAndContinue"
+              data-testid="delegateSaveAndContinue"
               type="submit"
             >
               <span

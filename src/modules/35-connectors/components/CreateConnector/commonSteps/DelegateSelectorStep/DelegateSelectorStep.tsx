@@ -112,7 +112,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
   const projectIdentifier = connectorInfo ? connectorInfo.projectIdentifier : projectIdentifierFromUrl
   const orgIdentifier = connectorInfo ? connectorInfo.orgIdentifier : orgIdentifierFromUrl
   const { getString } = useStrings()
-  const isGitSyncEnabled = useAppStore().isGitSyncEnabled && !props.disableGitSync
+  const isGitSyncEnabled = useAppStore().isGitSyncEnabled && !props.disableGitSync && orgIdentifier && projectIdentifier
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const { mutate: createConnector, loading: creating } = useCreateConnector({
     queryParams: { accountIdentifier: accountId }
@@ -335,7 +335,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
                 className={css.saveAndContinue}
                 disabled={isSaveButtonDisabled}
                 rightIcon="chevron-right"
-                data-name="delegateSaveAndContinue"
+                data-testid="delegateSaveAndContinue"
               />
               <NoMatchingDelegateWarning delegatesFound={delegatesFound} />
             </Layout.Horizontal>
