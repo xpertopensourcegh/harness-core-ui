@@ -149,7 +149,7 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
                     durationText=" "
                     startTime={NOW}
                     endTime={NOW + (row.original[col] || 0)}
-                    showZeroSecondsResult
+                    showMsLessThanOneSecond={true}
                   />
                 ) : (
                   row.original[col]
