@@ -13,7 +13,7 @@ import { roundNumber, formatDuration, useErrorHandler, useRefetchCall } from '..
 import styles from './CIDashboardSummaryCards.module.scss'
 
 export interface SummaryCardProps {
-  title: string
+  title: any
   text?: any
   subContent?: React.ReactNode
   rate?: number
