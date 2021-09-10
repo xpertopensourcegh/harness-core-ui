@@ -633,7 +633,7 @@ addStage:
 pipelineSteps:
   customStage: Custom Stage
   chainedPipeline: Chained Pipeline
-  deployStageDescription: Deploy services and Serverless functions, or execute workloads.
+  deployStageDescription: Deploy services, Serverless functions, or other workloads.
   featureStageDescription: Enable or disable functionality remotely without redeploying code.
   approvalStageDescription: Approve or reject changes during Pipeline progress.
 aboutYourStage:
