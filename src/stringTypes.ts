@@ -398,6 +398,7 @@ export interface StringsMap {
   'common.showMore': string
   'common.sidecarArtifactsText': string
   'common.slack': string
+  'common.specified': string
   'common.specify': string
   'common.startTrial': string
   'common.submittingRequest': string
@@ -577,6 +578,7 @@ export interface StringsMap {
   'rbac.resourceGroup.summary': string
   'rbac.resourceGroup.updateResourceGroupDialogTitle': string
   'rbac.resourceGroup.updateSuccess': string
+  'rbac.resourceSelectorErrorMessage': string
   'rbac.roleAssignment.assignmentValidation': string
   'rbac.roleAssignment.deleteFailure': string
   'rbac.roleAssignment.deleteSuccess': string
