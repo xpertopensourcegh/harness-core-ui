@@ -30,7 +30,7 @@ const StepProcessing: React.FC<StepProps<StepK8Data>> = props => {
       accountId,
       projectId: projectIdentifier,
       orgId: orgIdentifier,
-      sessionId: props?.prevStepData?.delegateYaml?.sessionIdentifier
+      delegateName: props?.prevStepData?.delegateYaml?.name
     },
     debounce: 200
   })

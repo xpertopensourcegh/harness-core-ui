@@ -20504,7 +20504,7 @@ export interface GetDelegatesHeartbeatDetailsQueryParams {
   accountId?: string
   orgId?: string
   projectId?: string
-  sessionId?: string
+  delegateName?: string
 }
 
 export type GetDelegatesHeartbeatDetailsProps = Omit<
