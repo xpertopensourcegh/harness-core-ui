@@ -1,7 +1,18 @@
+import React from 'react'
+import { render, waitFor } from '@testing-library/react'
+import { Table } from '@common/components'
 import type { RiskData } from 'services/cv'
-import { changeSummary, changeSummaryWithNegativeChange, changeSummaryWithPositiveChange } from './MonitoreService.mock'
+import {
+  rowData,
+  changeSummary,
+  changeSummaryWithNegativeChange,
+  changeSummaryWithPositiveChange
+} from './MonitoreService.mock'
 import { HistoricalTrendChartOption, DefaultChangePercentage } from '../CVMonitoredServiceListingPage.constants'
 import {
+  RenderTags,
+  RenderHealthScore,
+  RenderHealthTrend,
   createTrendDataWithZone,
   getHistoricalTrendChartOption,
   calculateChangePercentage
@@ -13,6 +24,12 @@ const trendChartMockData: RiskData[] = [
   { healthScore: 8, riskStatus: 'MEDIUM' },
   { healthScore: 16, riskStatus: 'HIGH' }
 ]
+
+jest.mock('framework/strings', () => ({
+  useStrings: () => ({
+    getString: (val: string) => val
+  })
+}))
 describe('Test util functions', () => {
   test('validare createTrendDataWithZone', () => {
     const trendSeries = createTrendDataWithZone(trendChartMockData)
@@ -64,5 +81,37 @@ describe('Test util functions', () => {
       color: 'error',
       percentage: 20
     })
+  })
+
+  test('should render tags', async () => {
+    const { container, getByText } = render(
+      <Table
+        sortable={true}
+        columns={[
+          {
+            Header: 'RenderHealthTrend',
+            width: '20%',
+            Cell: RenderHealthTrend
+          },
+          {
+            Header: 'RenderHealthScore',
+            width: '20%',
+            Cell: RenderHealthScore
+          },
+          {
+            Header: 'RenderTags',
+            width: '10%',
+            Cell: RenderTags
+          }
+        ]}
+        data={[rowData.original]}
+      />
+    )
+
+    await waitFor(() => expect(container.querySelector('.highcharts-container')).toBeTruthy())
+    await waitFor(() => expect(getByText('cv.monitoredServices.riskLabel.mediumRisk')).toBeTruthy())
+    await waitFor(() => expect(getByText('tag1')).toBeTruthy())
+    await waitFor(() => expect(getByText('tag2')).toBeTruthy())
+    await waitFor(() => expect(getByText('tag3')).toBeTruthy())
   })
 })

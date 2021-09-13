@@ -7,6 +7,7 @@ import { accountPathProps, projectPathProps, modulePathProps } from '@common/uti
 import * as dbHook from '@cv/hooks/IndexedDBHook/IndexedDBHook'
 import Service from '../Service'
 import { editModeData, onUpdatePayload } from './Service.mock'
+import { monitoredService } from '../../Dependency/__tests__/Dependency.mock'
 
 const paramsEditMode = { ...accountPathProps, ...projectPathProps, ...modulePathProps, identifier: ':identifier' }
 const testWrapperProps: TestWrapperProps = {
@@ -59,6 +60,7 @@ jest.mock('@cv/components/HarnessServiceAndEnvironment/HarnessServiceAndEnvironm
 
 const fetchMonitoredServiceYAML = jest.fn(() => Promise.resolve({ data: {} }))
 const updateMonitoredService = jest.fn()
+const onSuccess = jest.fn()
 
 jest.mock('services/cv', () => ({
   useSaveMonitoredService: jest
@@ -86,7 +88,7 @@ describe('Verify Service', () => {
     })
     const { container, getByText } = render(
       <TestWrapper {...testWrapperProps}>
-        <Service />
+        <Service value={monitoredService} onSuccess={onSuccess} serviceTabformRef={{ current: {} }} />
       </TestWrapper>
     )
     // name
@@ -117,7 +119,7 @@ describe('Verify Service', () => {
     })
 
     // onSave works
-    await waitFor(() => expect(updateMonitoredService).toHaveBeenCalledWith(onUpdatePayload))
+    await waitFor(() => expect(onSuccess).toHaveBeenCalledWith(onUpdatePayload))
 
     expect(container).toMatchSnapshot()
   })

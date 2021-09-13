@@ -584,10 +584,15 @@ changeSource:
   selectChangeSourceName: Select change source name
   selectChangeSourceProvider: Select change source provider
   selectChangeSourceType: Select change source type
+  tooltip:
+    incident: Incident
   PageDuty:
     pagerDutyService: PagerDuty Service
     selectPagerDutyService: Select PageDuty Service
     pagerDutyEmptyService: No service available for {{ connector }}
+Dependency:
+  serviceList: Service list
+  noData: No Data For Dependency Graph
 healthSource:
   nameLabel: Health Source Name
   namePlaceholder: Type your health source name

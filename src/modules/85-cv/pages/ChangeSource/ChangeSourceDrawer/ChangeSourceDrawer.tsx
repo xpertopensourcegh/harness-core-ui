@@ -47,7 +47,7 @@ export function ChangeSourceDrawer({
 
       switch (changeSourceType) {
         case Connectors.PAGER_DUTY:
-          changeSource = <PageDutyChangeSource formik={formik} />
+          changeSource = <PageDutyChangeSource formik={formik} isEdit={isEdit} />
           break
         default:
           changeSource = (

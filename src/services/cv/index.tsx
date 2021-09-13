@@ -511,7 +511,7 @@ export interface ChangeEventDTO {
   orgIdentifier: string
   projectIdentifier: string
   serviceIdentifier: string
-  type?: 'HarnessCD' | 'PagerDuty'
+  type?: 'HarnessCD' | 'PagerDuty' | 'K8sCluster'
 }
 
 export interface ChangeEventMetaData {
@@ -524,7 +524,7 @@ export interface ChangeSourceDTO {
   identifier?: string
   name?: string
   spec: ChangeSourceSpec
-  type?: 'HarnessCD' | 'PagerDuty'
+  type?: 'HarnessCD' | 'PagerDuty' | 'K8sCluster'
 }
 
 export interface ChangeSourceSpec {
@@ -1158,6 +1158,7 @@ export interface Error {
     | 'SCM_NOT_MODIFIED'
     | 'JIRA_STEP_ERROR'
     | 'BUCKET_SERVER_ERROR'
+    | 'GIT_SYNC_ERROR'
   correlationId?: string
   detailedMessage?: string
   message?: string
@@ -1454,6 +1455,7 @@ export interface Failure {
     | 'SCM_NOT_MODIFIED'
     | 'JIRA_STEP_ERROR'
     | 'BUCKET_SERVER_ERROR'
+    | 'GIT_SYNC_ERROR'
   correlationId?: string
   errors?: ValidationError[]
   message?: string
@@ -1872,6 +1874,10 @@ export interface KubernetesAuthDTO {
   type: 'UsernamePassword' | 'ClientKeyCert' | 'ServiceAccount' | 'OpenIdConnect'
 }
 
+export type KubernetesChangeSourceSpec = ChangeSourceSpec & {
+  connectorRef?: string
+}
+
 export type KubernetesClientKeyCertDTO = KubernetesAuthCredentialDTO & {
   caCertRef?: string
   clientCertRef: string
@@ -2145,7 +2151,7 @@ export interface MonitoredServiceDTO {
   tags: {
     [key: string]: string
   }
-  type: 'Application'
+  type: 'Application' | 'Infrastructure'
 }
 
 export interface MonitoredServiceListItemDTO {
@@ -2162,7 +2168,7 @@ export interface MonitoredServiceListItemDTO {
   tags?: {
     [key: string]: string
   }
-  type?: 'Application'
+  type?: 'Application' | 'Infrastructure'
 }
 
 export interface MonitoredServiceRef {
@@ -2859,6 +2865,7 @@ export interface ResponseMessage {
     | 'SCM_NOT_MODIFIED'
     | 'JIRA_STEP_ERROR'
     | 'BUCKET_SERVER_ERROR'
+    | 'GIT_SYNC_ERROR'
   exception?: Throwable
   failureTypes?: (
     | 'EXPIRED'

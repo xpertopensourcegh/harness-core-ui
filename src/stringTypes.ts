@@ -3452,6 +3452,8 @@ export interface StringsMap {
   'ci.titleResources': string
   'ci.titleSettings': string
   'ci.welcome': string
+  'cv.Dependency.noData': string
+  'cv.Dependency.serviceList': string
   'cv.abbreviatedCategories.errors': string
   'cv.abbreviatedCategories.infrastructure': string
   'cv.abbreviatedCategories.performance': string
@@ -3593,6 +3595,7 @@ export interface StringsMap {
   'cv.changeSource.selectChangeSourceProvider': string
   'cv.changeSource.selectChangeSourceType': string
   'cv.changeSource.sourceName': string
+  'cv.changeSource.tooltip.incident': string
   'cv.changeTimeline': string
   'cv.changesPage.changeSourceDetails': string
   'cv.changesPage.changeSummary': string

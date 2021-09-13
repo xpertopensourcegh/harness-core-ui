@@ -55,12 +55,21 @@ export const editModeData = {
 }
 
 export const onUpdatePayload = {
+  dependencies: [
+    {
+      monitoredServiceIdentifier: 'service1'
+    },
+    {
+      monitoredServiceIdentifier: 'service2'
+    }
+  ],
   description: 'Monitored Service with change source and health source',
   environmentRef: 'EnvironmentRef102',
   identifier: 'monitoredservice101',
+  isEdit: true,
   name: 'Monitored Service 101',
-  orgIdentifier: '1234_org',
-  projectIdentifier: '1234_project',
+  orgIdentifier: 'default',
+  projectIdentifier: 'Demo',
   serviceRef: 'ServiceRef102',
   sources: {
     changeSources: [
