@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { Container, SelectOption } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import {
@@ -11,12 +11,14 @@ import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import LogAnalysis from './LogAnalysis'
 import { pageSize, initialPageNumber, POLLING_INTERVAL, StepStatus } from './LogAnalysis.constants'
 import type { LogAnalysisContainerProps } from './LogAnalysis.types'
+import { getActivityId } from '../../ExecutionVerificationView.utils'
 
 export default function LogAnalysisContainer({ step, hostName }: LogAnalysisContainerProps): React.ReactElement {
   const { accountId } = useParams<AccountPathProps>()
   const { showError } = useToaster()
   const [selectedClusterType, setSelectedClusterType] = useState<SelectOption>()
   const [pollingIntervalId, setPollingIntervalId] = useState<any>(-1)
+  const activityId = useMemo(() => getActivityId(step), [step])
 
   const {
     data: logsData,
@@ -24,7 +26,7 @@ export default function LogAnalysisContainer({ step, hostName }: LogAnalysisCont
     error: logsError,
     refetch: fetchLogAnalysis
   } = useGetDeploymentLogAnalysisResult({
-    activityId: step?.progressData?.activityId as unknown as string,
+    activityId: activityId as unknown as string,
     queryParams: {
       accountId,
       pageNumber: initialPageNumber,
@@ -39,7 +41,7 @@ export default function LogAnalysisContainer({ step, hostName }: LogAnalysisCont
     error: clusterChartError,
     refetch: fetchClusterAnalysis
   } = useGetDeploymentLogAnalysisClusters({
-    activityId: step?.progressData?.activityId as unknown as string,
+    activityId: activityId as unknown as string,
     queryParams: {
       accountId
     },
