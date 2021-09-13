@@ -1621,6 +1621,7 @@ export interface StringsMap {
   'projectsOrgs.createOrgLoader': string
   'projectsOrgs.createProject': string
   'projectsOrgs.createProjectLoader': string
+  'projectsOrgs.createProjectMessage': string
   'projectsOrgs.editTitle': string
   'projectsOrgs.enableModules': string
   'projectsOrgs.getStarted': string
@@ -1710,6 +1711,7 @@ export interface StringsMap {
   'projectsOrgs.viewProjects': string
   'projectsOrgs.welcome': string
   'projectsOrgs.welcomeSecondLine': string
+  'projectsOrgs.whyCreateProject': string
   'projectsOrgs.youHaveNoProjects': string
   'pipeline.aboutYourStage.stageNamePlaceholder': string
   'pipeline.addStage.description': string
