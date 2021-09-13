@@ -31,7 +31,8 @@ export default function TimelineSlider(props: TimelineSliderProps): JSX.Element 
     containerWidth: propsContainerWidth,
     leftContainerOffset = 0,
     minSliderWidth,
-    onSliderDragEnd
+    onSliderDragEnd,
+    infoCard
   } = props
   const [containerWidth, setContainerWidth] = useState<number>(0)
   const sliderContainerRef = useRef<HTMLDivElement>(null)
@@ -91,6 +92,9 @@ export default function TimelineSlider(props: TimelineSliderProps): JSX.Element 
         style={{ left: leftOffset, transition: onClickTransition }}
         onClick={e => e.stopPropagation()}
       >
+        {infoCard ? (
+          <Container className={cx(css.card, { [css.reverseCard]: leftOffset < 120 })}>{infoCard}</Container>
+        ) : null}
         <TimelineSliderHandle
           className={css.leftHandle}
           bounds={LEFT_SLIDER_BOUNDS}

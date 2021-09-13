@@ -38,3 +38,5 @@ export const NUMBER_OF_DATA_POINTS = 48
 
 export const HOURS = 'hours'
 export const DAYS = 'days'
+export const hoursTimeFormat = 'hh:mma'
+export const daysTimeFormat = 'DoMMM hh:mma'

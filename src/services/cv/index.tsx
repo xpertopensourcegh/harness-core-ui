@@ -161,6 +161,12 @@ export interface AnalyzedLogDataDTO {
   serviceIdentifier?: string
 }
 
+export interface AnomaliesSummaryDTO {
+  logsAnomalies?: number
+  timeSeriesAnomalies?: number
+  totalAnomalies?: number
+}
+
 export interface AppDynamicsApplication {
   id?: number
   name?: string
@@ -514,7 +520,6 @@ export interface ChangeEventMetaData {
 
 export interface ChangeSourceDTO {
   category?: 'Deployment' | 'Infrastructure' | 'Alert'
-  description?: string
   enabled?: boolean
   identifier?: string
   name?: string
@@ -1654,33 +1659,15 @@ export type GitlabUsernameToken = GitlabHttpCredentialsSpecDTO & {
 export type HarnessCDChangeSourceSpec = ChangeSourceSpec & { [key: string]: any }
 
 export type HarnessCDEventMetaData = ChangeEventMetaData & {
+  artifactTag?: string
+  artifactType?: string
   deploymentEndTime?: number
   deploymentStartTime?: number
-  executionId?: string
+  pipelineId?: string
+  planExecutionId?: string
   stageId?: string
-  status?:
-    | 'NO_OP'
-    | 'RUNNING'
-    | 'INTERVENTION_WAITING'
-    | 'TIMED_WAITING'
-    | 'ASYNC_WAITING'
-    | 'TASK_WAITING'
-    | 'DISCONTINUING'
-    | 'PAUSING'
-    | 'QUEUED'
-    | 'SKIPPED'
-    | 'PAUSED'
-    | 'ABORTED'
-    | 'ERRORED'
-    | 'FAILED'
-    | 'EXPIRED'
-    | 'SUSPENDED'
-    | 'SUCCEEDED'
-    | 'IGNORE_FAILED'
-    | 'APPROVAL_WAITING'
-    | 'RESOURCE_WAITING'
-    | 'APPROVAL_REJECTED'
-    | 'UNRECOGNIZED'
+  stageStepId?: string
+  status?: string
 }
 
 export interface HealthMonitoringFlagResponse {
@@ -2146,7 +2133,7 @@ export interface MetricValidationResponse {
 }
 
 export interface MonitoredServiceDTO {
-  dependencies?: ServiceRef[]
+  dependencies?: MonitoredServiceRef[]
   description?: string
   environmentRef: string
   identifier: string
@@ -2176,6 +2163,10 @@ export interface MonitoredServiceListItemDTO {
     [key: string]: string
   }
   type?: 'Application'
+}
+
+export interface MonitoredServiceRef {
+  monitoredServiceIdentifier?: string
 }
 
 export interface MonitoredServiceResponse {
@@ -3026,6 +3017,14 @@ export interface RestResponseAlertRuleDTO {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseAnomaliesSummaryDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AnomaliesSummaryDTO
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponseBoolean {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -3534,7 +3533,7 @@ export interface ResultSummary {
 export interface RiskData {
   healthScore?: number
   riskStatus?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
-  timeRange?: TimeRange
+  timeRangeParams?: TimeRangeParams
 }
 
 export interface RiskNotify {
@@ -3581,10 +3580,6 @@ export interface ServiceGuardTxnMetricAnalysisDataDTO {
   risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
   score?: number
   shortTermHistory?: number[]
-}
-
-export interface ServiceRef {
-  monitoredServiceIdentifier?: string
 }
 
 export interface ServiceResponseDTO {
@@ -3706,6 +3701,11 @@ export interface Throwable {
 }
 
 export interface TimeRange {
+  endTime?: number
+  startTime?: number
+}
+
+export interface TimeRangeParams {
   endTime?: number
   startTime?: number
 }
@@ -7911,6 +7911,72 @@ export const updateMonitoredServicePromise = (
     MonitoredServiceDTORequestBody,
     UpdateMonitoredServicePathParams
   >('PUT', getConfig('cv/api'), `/monitored-service/${identifier}`, props, signal)
+
+export interface GetAnomaliesSummaryQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+  startTime: number
+  endTime: number
+}
+
+export interface GetAnomaliesSummaryPathParams {
+  identifier: string
+}
+
+export type GetAnomaliesSummaryProps = Omit<
+  GetProps<RestResponseAnomaliesSummaryDTO, unknown, GetAnomaliesSummaryQueryParams, GetAnomaliesSummaryPathParams>,
+  'path'
+> &
+  GetAnomaliesSummaryPathParams
+
+/**
+ * get anomalies summary details
+ */
+export const GetAnomaliesSummary = ({ identifier, ...props }: GetAnomaliesSummaryProps) => (
+  <Get<RestResponseAnomaliesSummaryDTO, unknown, GetAnomaliesSummaryQueryParams, GetAnomaliesSummaryPathParams>
+    path={`/monitored-service/${identifier}/anomaliesCount`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetAnomaliesSummaryProps = Omit<
+  UseGetProps<RestResponseAnomaliesSummaryDTO, unknown, GetAnomaliesSummaryQueryParams, GetAnomaliesSummaryPathParams>,
+  'path'
+> &
+  GetAnomaliesSummaryPathParams
+
+/**
+ * get anomalies summary details
+ */
+export const useGetAnomaliesSummary = ({ identifier, ...props }: UseGetAnomaliesSummaryProps) =>
+  useGet<RestResponseAnomaliesSummaryDTO, unknown, GetAnomaliesSummaryQueryParams, GetAnomaliesSummaryPathParams>(
+    (paramsInPath: GetAnomaliesSummaryPathParams) => `/monitored-service/${paramsInPath.identifier}/anomaliesCount`,
+    { base: getConfig('cv/api'), pathParams: { identifier }, ...props }
+  )
+
+/**
+ * get anomalies summary details
+ */
+export const getAnomaliesSummaryPromise = (
+  {
+    identifier,
+    ...props
+  }: GetUsingFetchProps<
+    RestResponseAnomaliesSummaryDTO,
+    unknown,
+    GetAnomaliesSummaryQueryParams,
+    GetAnomaliesSummaryPathParams
+  > & { identifier: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    RestResponseAnomaliesSummaryDTO,
+    unknown,
+    GetAnomaliesSummaryQueryParams,
+    GetAnomaliesSummaryPathParams
+  >(getConfig('cv/api'), `/monitored-service/${identifier}/anomaliesCount`, props, signal)
 
 export interface SetHealthMonitoringFlagQueryParams {
   accountId: string

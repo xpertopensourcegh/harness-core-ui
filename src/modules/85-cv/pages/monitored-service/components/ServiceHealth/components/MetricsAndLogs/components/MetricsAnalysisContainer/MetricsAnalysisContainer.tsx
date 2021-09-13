@@ -75,7 +75,7 @@ export default function MetricsAnalysisContainer(props: MetricsAndLogsProps): JS
   }, [startTime, endTime])
 
   useEffect(() => {
-    if (metricsData && metricsData?.resource?.content?.length) {
+    if (metricsData && !metricsLoading && !metricsError) {
       const timeSeriesInfo = generatePointsForTimeSeries(
         metricsData as RestResponsePageTimeSeriesMetricDataDTO,
         startTime,

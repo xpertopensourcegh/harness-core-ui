@@ -13,6 +13,7 @@ export interface TimelineSliderProps {
   onSliderDragEnd?: (sliderEndPoints: SliderEndpoints) => void
   leftContainerOffset?: number
   className?: string
+  infoCard?: JSX.Element
 }
 
 export type SliderAspects = {

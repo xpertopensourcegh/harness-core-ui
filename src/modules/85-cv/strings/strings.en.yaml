@@ -555,6 +555,8 @@ monitoredServices:
     noDataAvailableForHealthScore: No data available for health score
     selectTimeline: Select a timeline to see metric & logs data
     metricsAndLogs: Metrics & Logs
+    lowestHealthScore: Lowest Health Score
+    anamolies: Anamolies
   monitoredServiceTabs:
     serviceHealth: Service Health
     configurations: Configurations

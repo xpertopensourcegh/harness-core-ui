@@ -2,20 +2,23 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { Container, Select, SelectOption } from '@wings-software/uicore'
 import Card from '@cv/components/Card/Card'
 import { useStrings } from 'framework/strings'
-// import { Ticker, TickerVerticalAlignment } from '@common/components/Ticker/Ticker'
 import ChangeTimeline from '@cv/components/ChangeTimeline/ChangeTimeline'
 import TimelineSlider from '@cv/components/ChangeTimeline/components/TimelineSlider/TimelineSlider'
-import { calculateStartAndEndTimes, getTimeFormat, getTimePeriods, getTimestampsForPeriod } from './ServiceHealth.utils'
+import type { RiskData } from 'services/cv'
 import {
-  // tickerData,
-  TimePeriodEnum
-} from './ServiceHealth.constants'
-// import type { TickerType } from './ServiceHealth.types'
-// import TickerValue from './components/TickerValue/TickerValue'
+  calculateLowestHealthScore,
+  calculateStartAndEndTimes,
+  getTimeFormat,
+  getTimePeriods,
+  getTimestampsForPeriod
+} from './ServiceHealth.utils'
+import { TimePeriodEnum } from './ServiceHealth.constants'
+
 import type { ServiceHealthProps } from './ServiceHealth.types'
 import HealthScoreChart from './components/HealthScoreChart/HealthScoreChart'
 import MetricsAndLogs from './components/MetricsAndLogs/MetricsAndLogs'
 import HealthScoreCard from './components/HealthScoreCard/HealthScoreCard'
+import AnomaliesCard from './components/AnomaliesCard/AnomaliesCard'
 import css from './ServiceHealth.module.scss'
 
 export default function ServiceHealth({
@@ -28,9 +31,11 @@ export default function ServiceHealth({
     value: TimePeriodEnum.TWENTY_FOUR_HOURS,
     label: getString('cv.monitoredServices.serviceHealth.last24Hrs')
   })
+
   const [timestamps, setTimestamps] = useState<number[]>([])
   const [timeRange, setTimeRange] = useState<{ startTime: number; endTime: number }>()
   const [showTimelineSlider, setShowTimelineSlider] = useState(false)
+  const [healthScoreData, setHealthScoreData] = useState<RiskData[]>()
 
   useEffect(() => {
     const timestampsForPeriod = getTimestampsForPeriod(selectedTimePeriod.value as string)
@@ -48,9 +53,33 @@ export default function ServiceHealth({
     return getTimeFormat(selectedTimePeriod?.value as string)
   }, [selectedTimePeriod?.value])
 
+  const lowestHealthScoreForTimeRange = useMemo(() => {
+    return calculateLowestHealthScore(timeRange?.startTime, timeRange?.endTime, healthScoreData)
+  }, [timeRange?.startTime, timeRange?.endTime, healthScoreData])
+
   const onFocusTimeRange = useCallback((startTime: number, endTime: number) => {
     setTimeRange({ startTime, endTime })
   }, [])
+
+  const renderInfoCard = useCallback(() => {
+    return (
+      <AnomaliesCard
+        timeRange={timeRange}
+        lowestHealthScoreForTimeRange={lowestHealthScoreForTimeRange}
+        timeFormat={timeFormat}
+        serviceIdentifier={serviceIdentifier}
+        environmentIdentifier={environmentIdentifier}
+        monitoredServiceIdentifier={monitoredServiceIdentifier}
+      />
+    )
+  }, [
+    environmentIdentifier,
+    lowestHealthScoreForTimeRange,
+    monitoredServiceIdentifier,
+    serviceIdentifier,
+    timeFormat,
+    timeRange
+  ])
 
   return (
     <>
@@ -95,6 +124,8 @@ export default function ServiceHealth({
               <HealthScoreChart
                 duration={selectedTimePeriod.value as TimePeriodEnum}
                 monitoredServiceIdentifier={monitoredServiceIdentifier as string}
+                setHealthScoreData={setHealthScoreData}
+                timeFormat={timeFormat}
               />
               {showTimelineSlider ? (
                 <TimelineSlider
@@ -102,6 +133,7 @@ export default function ServiceHealth({
                   leftContainerOffset={100}
                   className={css.slider}
                   minSliderWidth={50}
+                  infoCard={renderInfoCard()}
                   onSliderDragEnd={({ startXPercentage, endXPercentage }) => {
                     const startAndEndtime = calculateStartAndEndTimes(startXPercentage, endXPercentage, timestamps)
                     if (startAndEndtime) onFocusTimeRange?.(startAndEndtime[0], startAndEndtime[1])

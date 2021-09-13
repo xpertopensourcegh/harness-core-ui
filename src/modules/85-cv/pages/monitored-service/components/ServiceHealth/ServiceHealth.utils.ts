@@ -1,6 +1,15 @@
 import type { SelectOption } from '@wings-software/uicore'
+import { minBy } from 'lodash-es'
 import type { UseStringsReturn } from 'framework/strings'
-import { DAYS, HOURS, NUMBER_OF_DATA_POINTS, TimePeriodEnum } from './ServiceHealth.constants'
+import type { RiskData } from 'services/cv'
+import {
+  DAYS,
+  daysTimeFormat,
+  HOURS,
+  hoursTimeFormat,
+  NUMBER_OF_DATA_POINTS,
+  TimePeriodEnum
+} from './ServiceHealth.constants'
 
 export const getTimePeriods = (getString: UseStringsReturn['getString']): SelectOption[] => {
   return [
@@ -75,6 +84,22 @@ export const getTimeFormat = (selectedTimePeriod: string): string => {
   return timeFormat
 }
 
+export const getTimeFormatMoment = (format?: string): string => {
+  let timeFormat
+  switch (format) {
+    case HOURS:
+      timeFormat = hoursTimeFormat
+      break
+    case DAYS:
+      timeFormat = daysTimeFormat
+      break
+    default:
+      timeFormat = hoursTimeFormat
+  }
+
+  return timeFormat
+}
+
 export function calculateStartAndEndTimes(
   startXPercentage: number,
   endXPercentage: number,
@@ -84,4 +109,23 @@ export function calculateStartAndEndTimes(
   const startTime = Math.floor(startXPercentage * (timestamps[timestamps.length - 1] - timestamps[0]) + timestamps[0])
   const endTime = Math.floor(endXPercentage * (timestamps[timestamps.length - 1] - timestamps[0]) + timestamps[0])
   return [startTime, endTime]
+}
+
+export function calculateLowestHealthScore(
+  startTime?: number,
+  endTime?: number,
+  healthScoreData?: RiskData[]
+): number | undefined {
+  if (startTime && endTime && healthScoreData && healthScoreData.length) {
+    const dataPointsLyingInTheRange = healthScoreData.filter((el: RiskData) => isInTheRange(el, startTime, endTime))
+    return minBy(dataPointsLyingInTheRange, 'healthScore')?.healthScore
+  }
+}
+
+export const isInTheRange = (el: RiskData, startTime: number, endTime: number): boolean => {
+  if (el?.timeRangeParams?.startTime && el?.timeRangeParams?.endTime) {
+    return startTime <= el.timeRangeParams.startTime * 1000 && el.timeRangeParams.startTime * 1000 <= endTime
+  } else {
+    return false
+  }
 }
