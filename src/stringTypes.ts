@@ -2466,6 +2466,7 @@ export interface StringsMap {
   'cd.folderPath': string
   'cd.gitFetchTypeRequired': string
   'cd.gitOps': string
+  'cd.installAdapterHelperText': string
   'cd.launchArgo': string
   'cd.learnMore': string
   'cd.manifestPathsCannotBeEmpty': string
@@ -2481,6 +2482,7 @@ export interface StringsMap {
   'cd.pipelineSteps.serviceTab.propagateStage': string
   'cd.pipelineSteps.serviceTab.stageOverrides': string
   'cd.providerDetails': string
+  'cd.providerOverview': string
   'cd.releaseNameValidation': string
   'cd.resourceCannotBeEmpty': string
   'cd.scriptRequired': string

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect } from 'react'
-import classNames from 'classnames'
+import cx from 'classnames'
 import { Layout, Heading, Container, StepsProgress, Intent, Button, ButtonVariation } from '@wings-software/uicore'
 
 import { useStrings } from 'framework/strings'
@@ -13,26 +13,31 @@ export enum Status {
   ERROR = 'ERROR'
 }
 
-const stepName = 'Validate Adapter URL'
-
 const TestConnection: React.FC<Record<string, unknown>> = (props: any) => {
   const [currentStep] = useState(1)
   const [currentStatus, setCurrentStatus] = useState<Status>(Status.PROCESS)
   const [currentIntent, setCurrentIntent] = useState<Intent>(Intent.NONE)
+  const url = props?.prevStepData?.spec?.adapterUrl
+  const stepName = `Validating ${url}`
+  let validationStatusIntent = null
 
   const { getString } = useStrings()
   const handleSuccess = () => {
     props.onClose()
   }
 
-  const validateAdapterURL = () => {
-    let url = props?.prevStepData?.spec?.adapterUrl
+  const launchArgoDashboard = () => {
+    const provider = props?.prevStepData
+    props.onLaunchArgoDashboard(provider)
+  }
 
-    if (url) {
-      url += url.endsWith('/') ? `api/version` : `/api/version`
+  const validateAdapterURL = () => {
+    let updatedURL = url
+    if (updatedURL) {
+      updatedURL += url.endsWith('/') ? `api/version` : `/api/version`
     }
 
-    fetch(url)
+    fetch(updatedURL)
       .then(() => {
         setCurrentStatus(Status.DONE)
         setCurrentIntent(Intent.SUCCESS)
@@ -47,8 +52,14 @@ const TestConnection: React.FC<Record<string, unknown>> = (props: any) => {
     validateAdapterURL()
   }, [])
 
+  if (currentStatus === Status.DONE) {
+    validationStatusIntent = css.success
+  } else if (currentStatus === Status.ERROR) {
+    validationStatusIntent = css.error
+  }
+
   return (
-    <Layout.Vertical spacing="xxlarge" className={classNames(css.stepContainer, css.fullHeight)}>
+    <Layout.Vertical spacing="xxlarge" className={cx(css.stepContainer, css.fullHeight)}>
       <Container>
         <Heading level={2} style={{ fontSize: '18px', color: 'black' }}>
           {'Test Connection'}
@@ -57,6 +68,12 @@ const TestConnection: React.FC<Record<string, unknown>> = (props: any) => {
 
       <Layout.Vertical spacing="large" className={css.stepFormContainer}>
         <StepsProgress steps={[stepName]} intent={currentIntent} current={currentStep} currentStatus={currentStatus} />
+
+        {(currentStatus === Status.DONE || currentStatus === Status.ERROR) && (
+          <div className={cx(css.validationStatus, validationStatusIntent)}>
+            {currentStatus === Status.DONE ? 'Validation Successful' : 'Validation Failed'}{' '}
+          </div>
+        )}
 
         <Layout.Horizontal className={css.layoutFooter} padding={{ top: 'small' }} spacing="large">
           {currentStatus === Status.ERROR && (
@@ -74,6 +91,15 @@ const TestConnection: React.FC<Record<string, unknown>> = (props: any) => {
             onClick={handleSuccess}
             className={css.nextButton}
           />
+
+          {currentStatus === Status.DONE && (
+            <Button
+              variation={ButtonVariation.PRIMARY}
+              text={getString('cd.launchArgo')}
+              onClick={launchArgoDashboard}
+              className={css.nextButton}
+            />
+          )}
         </Layout.Horizontal>
       </Layout.Vertical>
     </Layout.Vertical>

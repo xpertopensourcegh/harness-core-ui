@@ -4,8 +4,8 @@ import { Connectors } from '@connectors/constants'
 import { getConnectorIconByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { buildArgoConnectorPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { useStrings } from 'framework/strings'
-import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
-import ProviderOverviewStep from '../ProviderDetailsStep/ProviderDetailsStep'
+import ProviderOverviewStep from '../ProviderOverviewStep/ProviderOverviewStep'
+import ProviderDetailsStep from '../ProviderDetailsStep/ProviderDetailsStep'
 import TestConnection from '../TestConnection/TestConnection'
 
 import css from './CreateArgoProvider.module.scss'
@@ -17,6 +17,7 @@ interface CreateArgoProviderProps {
   connectorInfo?: any
   mock?: any
   onClose?: void
+  onLaunchArgoDashboard?: (url: string) => void
 }
 
 const CreateArgoProvider: React.FC<CreateArgoProviderProps> = props => {
@@ -30,21 +31,25 @@ const CreateArgoProvider: React.FC<CreateArgoProviderProps> = props => {
       title={'Argo Provider'}
       className={css.stepWizard}
     >
-      <ConnectorDetailsStep
+      <ProviderOverviewStep
         type={Connectors.ARGO}
         name={getString('overview')}
         isEditMode={props.isEditMode}
         connectorInfo={props.provider}
         mock={props.mock}
       />
-      <ProviderOverviewStep
+      <ProviderDetailsStep
         provider={provider}
         isEditMode={props.isEditMode}
         onUpdateMode={props.onUpdateMode}
         name={getString('cd.providerDetails')}
         buildPayload={buildArgoConnectorPayload}
       />
-      <TestConnection onClose={props.onClose} name={getString('common.labelTestConnection')} />
+      <TestConnection
+        onClose={props.onClose}
+        onLaunchArgoDashboard={props.onLaunchArgoDashboard}
+        name={getString('common.labelTestConnection')}
+      />
     </StepWizard>
   )
 }

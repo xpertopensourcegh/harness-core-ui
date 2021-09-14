@@ -17,5 +17,6 @@ declare const styles: {
   readonly title: string
   readonly connectorForm: string
   readonly adapterUrl: string
+  readonly installAdapter: string
 }
 export default styles

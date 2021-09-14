@@ -53,5 +53,9 @@ declare const styles: {
   readonly image: string
   readonly noProviderText: string
   readonly aboutProvider: string
+  readonly frameContainer: string
+  readonly frameHeader: string
+  readonly closeIcon: string
+  readonly argoFrame: string
 }
 export default styles

@@ -10,6 +10,7 @@ import css from './NewProviderModal.module.scss'
 interface NewProviderModalProps {
   provider: any
   onClose: any
+  onLaunchArgoDashboard?: (url: string) => void
 }
 
 const NewProviderModal: React.FC<NewProviderModalProps> = props => {
@@ -68,6 +69,7 @@ const NewProviderModal: React.FC<NewProviderModalProps> = props => {
             onUpdateMode={(mode: boolean) => setIsEditMode(mode)}
             provider={props.provider}
             onClose={props.onClose}
+            onLaunchArgoDashboard={props.onLaunchArgoDashboard}
           />
         </div>
       )}

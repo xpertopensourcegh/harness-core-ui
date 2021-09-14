@@ -8,7 +8,8 @@ import {
   Text,
   useModalHook,
   ExpandingSearchInput,
-  ButtonVariation
+  ButtonVariation,
+  Button
 } from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
@@ -37,19 +38,33 @@ import NewProviderModal from './NewProviderModal/NewProviderModal'
 import ProvidersGridView from './ProvidersGridView'
 
 import providerIllustration from './images/provider-illustration-o.svg'
+import argoLogo from './images/argo-logo.svg'
+import harnessLogo from './images/harness-logo.png'
 
 import css from './GitOpsModalContainer.module.scss'
 
 const textIdentifier = 'gitOps'
+
+export interface SpecProps {
+  adapterUrl?: string
+}
+
+export interface ProviderProps {
+  type: string
+  name?: string
+  adapterUrl?: string
+  spec?: SpecProps
+}
 
 const GitOpsModalContainer: React.FC = () => {
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps & ModulePathParams>()
 
   const [searchTerm, setSearchTerm] = useState('')
-  const [activeProvider, setActiveProvider] = useState(null)
+  const [activeProvider, setActiveProvider] = useState<ProviderProps | null>(null)
   const [page, setPage] = useState(0)
   const [appliedFilter, setAppliedFilter] = useState<FilterDTO | null>()
+  const [editMode, setEditMode] = useState(false)
   const { showError } = useToaster()
   const [connectors, setConnectors] = useState<PageConnectorResponse | undefined>()
   const [loading, setLoading] = useState<boolean>(false)
@@ -65,15 +80,67 @@ const GitOpsModalContainer: React.FC = () => {
 
   useDocumentTitle(getString('cd.gitOps'))
 
-  React.useEffect(() => {
-    if (activeProvider) {
-      addNewProviderModal()
-    }
-  }, [activeProvider])
-
   const handleEdit = (provider: any) => {
     setActiveProvider(provider?.connector)
+    setEditMode(true)
   }
+
+  const handleLaunchArgoDashboard = (provider: any) => {
+    setEditMode(false)
+    closeNewProviderModal()
+    setActiveProvider(provider)
+    openArgoModal()
+  }
+
+  const [openArgoModal, closeArgoModal] = useModalHook(() => {
+    const logo = activeProvider?.type === 'ArgoConnector' ? argoLogo : harnessLogo
+
+    const handleCloseArgoModal = () => {
+      closeArgoModal()
+      reset()
+    }
+
+    return (
+      <Dialog
+        onClose={handleCloseArgoModal}
+        isOpen={true}
+        style={{
+          width: '100%',
+          padding: '40px',
+          position: 'relative',
+          height: '100vh',
+          background: 'none',
+          margin: '0px'
+        }}
+        enforceFocus={false}
+      >
+        <div style={{}} className={css.frameContainer}>
+          <div className={css.frameHeader}>
+            <img className={css.argoLogo} src={logo} alt="" aria-hidden />
+            {activeProvider?.name} - {activeProvider?.spec?.adapterUrl}
+            <Button
+              variation={ButtonVariation.ICON}
+              icon="cross"
+              className={css.closeIcon}
+              iconProps={{ size: 18 }}
+              onClick={handleCloseArgoModal}
+              data-testid={'close-certi-upload-modal'}
+              withoutCurrentColor
+            />
+          </div>
+          <iframe
+            id="argoCD"
+            className={css.argoFrame}
+            width="100%"
+            frameBorder="0"
+            name="argoCD"
+            title="argoCD"
+            src={activeProvider?.spec?.adapterUrl}
+          ></iframe>
+        </div>
+      </Dialog>
+    )
+  }, [activeProvider])
 
   const { mutate: fetchConnectors } = useGetConnectorListV2({
     queryParams: defaultQueryParams
@@ -109,7 +176,7 @@ const GitOpsModalContainer: React.FC = () => {
   const [addNewProviderModal, closeNewProviderModal] = useModalHook(() => {
     const handleClose = () => {
       closeNewProviderModal()
-      refetchConnectorList()
+      refetchConnectorList({ ...defaultQueryParams, searchTerm, pageIndex: 0 })
     }
 
     return (
@@ -127,7 +194,11 @@ const GitOpsModalContainer: React.FC = () => {
         }}
         enforceFocus={false}
       >
-        <NewProviderModal provider={activeProvider} onClose={handleClose} />
+        <NewProviderModal
+          provider={activeProvider}
+          onClose={handleClose}
+          onLaunchArgoDashboard={handleLaunchArgoDashboard}
+        />
       </Dialog>
     )
   }, [activeProvider])
@@ -167,6 +238,12 @@ const GitOpsModalContainer: React.FC = () => {
     }, 500),
     [refetchConnectorList, appliedFilter?.filterProperties]
   )
+
+  useEffect(() => {
+    if (editMode && activeProvider) {
+      addNewProviderModal()
+    }
+  }, [activeProvider, addNewProviderModal, editMode])
 
   /* Clearing filter from Connector Filter Panel */
   const reset = (): void => {

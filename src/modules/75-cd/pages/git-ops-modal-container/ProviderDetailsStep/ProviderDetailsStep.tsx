@@ -80,11 +80,11 @@ const ProviderOverviewStep = (props: any) => {
   const isSaveButtonDisabled = creating || updating
   const connectorName = creating
     ? (prevStepData as ConnectorConfigDTO)?.name
-    : (connectorInfo as ConnectorInfoDTO)?.name
+    : (props?.provider as ConnectorInfoDTO)?.name
 
   const afterSuccessHandler = (response: any): void => {
     props.onUpdateMode(true)
-    nextStep?.({ ...props.connectorInfo, ...response?.data?.connector, ...prevStepData })
+    nextStep?.({ ...props.connectorInfo, ...prevStepData, ...response?.data?.connector })
   }
 
   return (
@@ -163,6 +163,10 @@ const ProviderOverviewStep = (props: any) => {
                     label={'Adapter URL'}
                     style={{ width: '60%' }}
                   />
+
+                  <div className={css.installAdapter}>
+                    <String stringID="cd.installAdapterHelperText" useRichText={true} />
+                  </div>
                 </Container>
                 <Layout.Horizontal spacing="large">
                   <Button

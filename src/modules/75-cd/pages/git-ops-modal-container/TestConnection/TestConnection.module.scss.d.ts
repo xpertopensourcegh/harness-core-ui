@@ -6,5 +6,8 @@ declare const styles: {
   readonly layoutFooter: string
   readonly nextButton: string
   readonly fullHeight: string
+  readonly validationStatus: string
+  readonly error: string
+  readonly success: string
 }
 export default styles

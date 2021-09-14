@@ -19,3 +19,16 @@
   height: 100%;
   min-height: 600px;
 }
+
+.validationStatus {
+  margin-left: var(--spacing-xlarge);
+  font-weight: 600;
+}
+
+.error {
+  color: var(--red-700);
+}
+
+.success {
+  color: var(--green-700);
+}

@@ -456,3 +456,39 @@
     }
   }
 }
+
+.frameContainer {
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  height: 100%;
+  background: white;
+}
+
+.frameHeader {
+  height: 40px;
+  position: relative;
+  background: #0278d5;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+
+  .closeIcon {
+    position: absolute;
+    right: 0;
+    :global(.bp3-icon) {
+      color: white !important;
+    }
+  }
+
+  .argoLogo {
+    height: 24px;
+    margin-right: 12px;
+  }
+}
+
+.argoFrame {
+  height: calc(100% - 40px);
+}
