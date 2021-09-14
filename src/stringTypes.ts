@@ -3276,6 +3276,7 @@ export interface StringsMap {
   'cf.pipeline.flagConfiguration.runtimeInput': string
   'cf.pipeline.flagConfiguration.selectEnvironment': string
   'cf.pipeline.flagConfiguration.selectFlag': string
+  'cf.pipeline.flagConfiguration.selectOnOrOff': string
   'cf.pipeline.flagConfiguration.serve': string
   'cf.pipeline.flagConfiguration.serveMapping': string
   'cf.pipeline.flagConfiguration.servePercentageRollout': string

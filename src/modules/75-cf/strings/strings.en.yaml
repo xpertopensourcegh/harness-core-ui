@@ -421,6 +421,7 @@ pipeline:
     serveVariationToIndividualTarget: Serve Variation to Individual Target
     serveVariationToTargetGroup: Serve Variation to Target Group
     servePercentageRollout: Serve Percentage Rollout
+    selectOnOrOff: Select ON or OFF
 segmentDetail:
   directlyAdded: Directly Added
   autoAdded: Automatically Added Through Conditions
