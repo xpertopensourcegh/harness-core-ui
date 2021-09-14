@@ -13,11 +13,11 @@ import { useStrings } from 'framework/strings'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import type { MonitoredServiceForm } from '../Service/Service.types'
 import SelectServiceCard from './component/SelectServiceCard'
-import { onServiceChange } from './DependencyFormik.utils'
+import { onServiceChange } from './Dependency.utils'
 import { isUpdated } from '../../Configurations.utils'
 import css from './Dependency.module.scss'
 
-export default function DependencyFormik({
+export default function Dependency({
   value,
   onSuccess,
   cachedInitialValues,

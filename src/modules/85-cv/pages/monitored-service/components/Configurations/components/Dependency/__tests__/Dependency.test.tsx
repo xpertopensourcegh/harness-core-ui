@@ -2,7 +2,7 @@ import React from 'react'
 import { render, waitFor, act, fireEvent } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import { monitoredService, monitoredServiceList, updatedPayload } from './Dependency.mock'
-import DependencyFormik from '../DependencyFormik'
+import Dependency from '../Dependency'
 
 const onSuccess = jest.fn()
 const updateMonitoredService = jest.fn()
@@ -19,7 +19,7 @@ describe('Dependency compoennt', () => {
   test('should render', async () => {
     const { container, getByText } = render(
       <TestWrapper>
-        <DependencyFormik value={monitoredService} onSuccess={onSuccess} dependencyTabformRef={{ current: {} }} />
+        <Dependency value={monitoredService} onSuccess={onSuccess} dependencyTabformRef={{ current: {} }} />
       </TestWrapper>
     )
     await waitFor(() => expect(getByText(`total ${monitoredServiceList.data.content.length}`)).toBeTruthy())

@@ -23,7 +23,7 @@ import { PageSpinner, useToaster, NavigationCheck } from '@common/components'
 import { ChangeSourceCategoryName } from '@cv/pages/ChangeSource/ChangeSourceDrawer/ChangeSourceDrawer.constants'
 import { useStrings } from 'framework/strings'
 import Service from './components/Service/Service'
-import DependencyFormik from './components/Dependency/DependencyFormik'
+import Dependency from './components/Dependency/Dependency'
 import { getInitFormData } from './components/Service/Service.utils'
 import type { MonitoredServiceForm } from './components/Service/Service.types'
 import { determineUnSaveState, onTabChange, onSubmit, showErrorOnSubmit } from './Configurations.utils'
@@ -270,7 +270,7 @@ export default function Configurations(): JSX.Element {
           id={getString('pipelines-studio.dependenciesGroupTitle')}
           title={getString('pipelines-studio.dependenciesGroupTitle')}
           panel={
-            <DependencyFormik
+            <Dependency
               value={initialValues}
               dependencyTabformRef={dependencyTabformRef}
               onSuccess={async payload => onSuccess(payload, getString('pipelines-studio.dependenciesGroupTitle'))}

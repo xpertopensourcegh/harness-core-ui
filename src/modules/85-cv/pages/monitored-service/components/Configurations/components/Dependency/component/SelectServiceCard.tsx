@@ -20,7 +20,7 @@ export default function SelectServiceCard({ data, isChecked, onChange }: Service
           </div>
         </Container>
         <div className={css.serviceCardChip}>
-          <Text iconProps={{ size: 15, color: '#3446a7' }} icon={'dashboard'}>
+          <Text iconProps={{ size: 15 }} icon={'dashboard'}>
             {MonitoredServiceType.APPLICATION}
           </Text>
         </div>

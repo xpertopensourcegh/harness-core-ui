@@ -44,7 +44,7 @@ exports[`SelectServiceCard should render 1`] = `
           style="display: flex; align-items: center;"
         >
           <span
-            class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall StyledProps--color"
+            class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
             data-icon="dashboard"
           >
             <svg
@@ -112,7 +112,7 @@ exports[`SelectServiceCard should retain checked status 1`] = `
           style="display: flex; align-items: center;"
         >
           <span
-            class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall StyledProps--color"
+            class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
             data-icon="dashboard"
           >
             <svg

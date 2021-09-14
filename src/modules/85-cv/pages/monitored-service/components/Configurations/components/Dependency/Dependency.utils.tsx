@@ -13,10 +13,12 @@ export const onServiceChange = (
   const id = data?.currentTarget?.id
   const status = data?.currentTarget?.checked
   const dependenciesClone = clone(formik.values.dependencies)
+
   if (status) {
     dependenciesClone?.push({
       monitoredServiceIdentifier: id
     })
+
     formik.setFieldValue('dependencies', dependenciesClone)
   } else if (status === false && dependencyExits(dependenciesClone, id)) {
     const removedDependenceis = dependenciesClone?.filter(item => item.monitoredServiceIdentifier !== id)
