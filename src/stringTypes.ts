@@ -1670,6 +1670,7 @@ export interface StringsMap {
   'projectsOrgs.landingDashboard.last30Days': string
   'projectsOrgs.landingDashboard.last60Days': string
   'projectsOrgs.landingDashboard.last90Days': string
+  'projectsOrgs.landingDashboard.title': string
   'projectsOrgs.landingDashboard.welcomeMessage': string
   'projectsOrgs.landingDashboard.welcomeMessageWithoutName': string
   'projectsOrgs.manageAProject': string
