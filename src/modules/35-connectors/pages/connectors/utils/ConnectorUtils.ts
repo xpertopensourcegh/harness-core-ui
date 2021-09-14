@@ -750,15 +750,9 @@ export const buildVaultPayload = (formData: FormData): BuildVaultPayloadReturnTy
     tags: formData.tags,
     type: Connectors.VAULT,
     spec: {
-      ...pick(formData, [
-        'basePath',
-        'vaultUrl',
-        'namespace',
-        'readOnly',
-        'default',
-        'renewalIntervalMinutes',
-        'delegateSelectors'
-      ]),
+      ...pick(formData, ['basePath', 'vaultUrl', 'namespace', 'readOnly', 'default', 'delegateSelectors']),
+      renewalIntervalMinutes:
+        formData.accessType !== HashiCorpVaultAccessTypes.VAULT_AGENT ? formData.renewalIntervalMinutes : 10,
       authToken:
         formData.accessType === HashiCorpVaultAccessTypes.TOKEN ? formData.authToken?.referenceString : undefined,
       appRoleId: formData.accessType === HashiCorpVaultAccessTypes.APP_ROLE ? formData.appRoleId : undefined,
