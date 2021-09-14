@@ -3738,7 +3738,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                         >
                           <span
                             class="Tooltip--acenter"
-                            data-tooltip-id="stepGithubAuthForm_apiAccessToken"
+                            data-tooltip-id="gitHubPersonalAccessTooltip"
                           >
                             personalAccessToken
                           </span>
@@ -4467,7 +4467,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                         >
                           <span
                             class="Tooltip--acenter"
-                            data-tooltip-id="stepGithubAuthForm_apiAccessToken"
+                            data-tooltip-id="gitHubPersonalAccessTooltip"
                           >
                             personalAccessToken
                           </span>
