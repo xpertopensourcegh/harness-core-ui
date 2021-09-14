@@ -489,10 +489,13 @@ export interface StringsMap {
   'notifications.emailOrAlias': string
   'notifications.emailRecipients': string
   'notifications.emailTestSuccess': string
+  'notifications.eventRequired': string
   'notifications.helpPagerDuty': string
   'notifications.helpSlack': string
   'notifications.infoPagerDuty': string
   'notifications.infoSlack': string
+  'notifications.invalidPagerDutyKey': string
+  'notifications.invalidWebhookURL': string
   'notifications.labelBody': string
   'notifications.labelEmailUserGroups': string
   'notifications.labelMS': string
