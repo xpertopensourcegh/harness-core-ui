@@ -64,6 +64,7 @@ describe('Sidenav', () => {
 
     expect(screen.queryByText('connectorsLabel')).not.toBeInTheDocument()
     expect(screen.queryByText('common.secrets')).not.toBeInTheDocument()
+    expect(screen.queryByText('gitManagement')).not.toBeInTheDocument()
   })
 
   test('it should show the Git Experience links when FF_GITSYNC is TRUE', async () => {
@@ -73,8 +74,9 @@ describe('Sidenav', () => {
       <Subject path="/account/:accountId/cf/orgs/:orgIdentifier/projects/:projectIdentifier/setup/access-control/users" />
     )
 
-    expect(screen.getByText('connectorsLabel')).toBeInTheDocument()
+    expect(screen.queryByText('connectorsLabel')).toBeInTheDocument()
     expect(screen.queryByText('common.secrets')).toBeInTheDocument()
+    expect(screen.queryByText('gitManagement')).toBeInTheDocument()
   })
 
   test('it should fire telemetry event when Feature Flags menu item clicked', () => {

@@ -44,6 +44,8 @@ import RbacFactory from '@rbac/factories/RbacFactory'
 import { ResourceCategory, ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { String } from 'framework/strings'
+import GitSyncPage from '@gitsync/pages/GitSyncPage'
+import GitSyncRepoTab from '@gitsync/pages/repos/GitSyncRepoTab'
 import { TargetsPage } from './pages/target-management/targets/TargetsPage'
 import { TargetDetailPage } from './pages/target-details/TargetDetailPage'
 import { SegmentsPage } from './pages/target-management/segments/SegmentsPage'
@@ -352,6 +354,17 @@ const CFRoutes: FC = () => (
       <SecretDetailsHomePage>
         <SecretReferences />
       </SecretDetailsHomePage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
+      path={routes.toGitSyncAdmin({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
+      sidebarProps={CFSideNavProps}
+      exact
+    >
+      <GitSyncPage>
+        <GitSyncRepoTab />
+      </GitSyncPage>
     </RouteWithLayout>
 
     <AdminRouteDestinations />

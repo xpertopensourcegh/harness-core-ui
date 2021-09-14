@@ -90,6 +90,10 @@ export default function CFSideNav(): React.ReactElement {
                     to={routes.toConnectors({ ...params, module: 'cf' })}
                   />
                   <SidebarLink label={getString('common.secrets')} to={routes.toSecrets({ ...params, module: 'cf' })} />
+                  <SidebarLink
+                    label={getString('gitManagement')}
+                    to={routes.toGitSyncAdmin({ accountId, orgIdentifier, projectIdentifier, module: 'cf' })}
+                  />
                 </>
               )}
             </Layout.Vertical>
