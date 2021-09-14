@@ -7,7 +7,8 @@ import {
   ModalErrorHandlerBinding,
   ModalErrorHandler,
   FormikForm,
-  Container
+  Container,
+  ButtonVariation
 } from '@wings-software/uicore'
 import { useParams } from 'react-router'
 import * as Yup from 'yup'
@@ -173,7 +174,12 @@ const ProviderOverviewStep: React.FC<StepProps<ConnectorConfigDTO> & ProviderOve
                   )}
                 </Container>
                 <Layout.Horizontal>
-                  <Button type="submit" intent="primary" rightIcon="chevron-right" disabled={loading}>
+                  <Button
+                    type="submit"
+                    variation={ButtonVariation.PRIMARY}
+                    rightIcon="chevron-right"
+                    disabled={loading}
+                  >
                     <String stringID="continue" />
                   </Button>
                 </Layout.Horizontal>

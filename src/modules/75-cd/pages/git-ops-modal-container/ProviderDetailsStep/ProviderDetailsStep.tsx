@@ -8,6 +8,8 @@ import {
   FormInput,
   Container,
   Button,
+  Text,
+  Icon,
   FormikForm as Form,
   ModalErrorHandler,
   ModalErrorHandlerBinding,
@@ -24,6 +26,7 @@ import {
 import { getErrorInfoFromErrorObject, shouldShowError } from '@common/utils/errorUtils'
 import { String, useStrings } from 'framework/strings'
 import { PageSpinner, useToaster } from '@common/components'
+import aboutHarnessAdapterIllustration from '../images/aboutHarnessAdapterIllustration.svg'
 import css from './ProviderDetailsStep.module.scss'
 
 interface BuildPayloadProps {
@@ -35,6 +38,8 @@ interface BuildPayloadProps {
 interface ConnectorCreateEditProps {
   payload?: Connector
 }
+
+const aboutHarnessAdapterURL = `https://docs.harness.io/article/bymoar4glr-argo`
 
 const ProviderOverviewStep = (props: any) => {
   const { getString } = useStrings()
@@ -164,8 +169,23 @@ const ProviderOverviewStep = (props: any) => {
                     style={{ width: '60%' }}
                   />
 
-                  <div className={css.installAdapter}>
-                    <String stringID="cd.installAdapterHelperText" useRichText={true} />
+                  <div>
+                    <Text className={css.aboutHarnessAdapterQuestion} margin={{ top: 'medium', bottom: 'small' }}>
+                      {getString('cd.whatIsHarnessAdapter')}
+                    </Text>
+                    <Text className={css.aboutHarnessAdapterAnswer} margin={{ top: 'small', bottom: 'small' }}>
+                      {getString('cd.aboutHarnessAdapter')}
+                    </Text>
+
+                    <img src={aboutHarnessAdapterIllustration} className={css.aboutHarnessAdapterIllustration} />
+
+                    <div className={css.aboutHarnessAdapterUrl}>
+                      <Icon intent="primary" style={{ marginRight: '8px' }} size={16} name="info" />
+
+                      <a href={aboutHarnessAdapterURL} rel="noreferrer" target="_blank">
+                        {getString('cd.learnMoreAboutHarnessAdapter')}
+                      </a>
+                    </div>
                   </div>
                 </Container>
                 <Layout.Horizontal spacing="large">
@@ -183,7 +203,7 @@ const ProviderOverviewStep = (props: any) => {
                     rightIcon="chevron-right"
                     disabled={isSaveButtonDisabled}
                   >
-                    <String stringID="continue" />
+                    <String stringID="saveAndContinue" />
                   </Button>
                 </Layout.Horizontal>
               </Form>

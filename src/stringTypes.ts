@@ -2467,6 +2467,7 @@ export interface StringsMap {
   'templatesLibrary.templateSettings': string
   'templatesLibrary.useTemplate': string
   'templatesLibrary.versionLog': string
+  'cd.aboutHarnessAdapter': string
   'cd.aboutProvider': string
   'cd.addInline': string
   'cd.addRemote': string
@@ -2497,6 +2498,7 @@ export interface StringsMap {
   'cd.installAdapterHelperText': string
   'cd.launchArgo': string
   'cd.learnMore': string
+  'cd.learnMoreAboutHarnessAdapter': string
   'cd.manifestPathsCannotBeEmpty': string
   'cd.namespaceValidation': string
   'cd.newProvider': string
@@ -2562,6 +2564,7 @@ export interface StringsMap {
   'cd.tfVarStore': string
   'cd.varFile': string
   'cd.varFileDetails': string
+  'cd.whatIsHarnessAdapter': string
   'cd.workloadRequired': string
   'ce.ceTrialHomePage.modal.description': string
   'ce.ceTrialHomePage.modal.title': string

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect } from 'react'
 import cx from 'classnames'
-import { Layout, Heading, Container, StepsProgress, Intent, Button, ButtonVariation } from '@wings-software/uicore'
+import { Layout, Container, StepsProgress, Intent, Button, ButtonVariation } from '@wings-software/uicore'
 
 import { useStrings } from 'framework/strings'
 import css from './TestConnection.module.scss'
@@ -59,23 +59,28 @@ const TestConnection: React.FC<Record<string, unknown>> = (props: any) => {
   }
 
   return (
-    <Layout.Vertical spacing="xxlarge" className={cx(css.stepContainer, css.fullHeight)}>
-      <Container>
-        <Heading level={2} style={{ fontSize: '18px', color: 'black' }}>
-          {'Test Connection'}
-        </Heading>
-      </Container>
+    <Layout.Vertical className={css.stepContainer}>
+      <div className={css.heading}>Test Connection</div>
 
-      <Layout.Vertical spacing="large" className={css.stepFormContainer}>
-        <StepsProgress steps={[stepName]} intent={currentIntent} current={currentStep} currentStatus={currentStatus} />
+      <Container padding="small" className={css.connectorForm}>
+        <Container style={{ minHeight: 460 }}>
+          <Layout.Vertical spacing="large" className={css.stepFormContainer}>
+            <StepsProgress
+              steps={[stepName]}
+              intent={currentIntent}
+              current={currentStep}
+              currentStatus={currentStatus}
+            />
 
-        {(currentStatus === Status.DONE || currentStatus === Status.ERROR) && (
-          <div className={cx(css.validationStatus, validationStatusIntent)}>
-            {currentStatus === Status.DONE ? 'Validation Successful' : 'Validation Failed'}{' '}
-          </div>
-        )}
+            {(currentStatus === Status.DONE || currentStatus === Status.ERROR) && (
+              <div className={cx(css.validationStatus, validationStatusIntent)}>
+                {currentStatus === Status.DONE ? 'Validation Successful' : 'Validation Failed'}{' '}
+              </div>
+            )}
+          </Layout.Vertical>
+        </Container>
 
-        <Layout.Horizontal className={css.layoutFooter} padding={{ top: 'small' }} spacing="large">
+        <Layout.Horizontal spacing="large">
           {currentStatus === Status.ERROR && (
             <Button
               variation={ButtonVariation.SECONDARY}
@@ -101,7 +106,7 @@ const TestConnection: React.FC<Record<string, unknown>> = (props: any) => {
             />
           )}
         </Layout.Horizontal>
-      </Layout.Vertical>
+      </Container>
     </Layout.Vertical>
   )
 }
