@@ -156,6 +156,7 @@ export interface StringsMap {
   'common.extendTrial.feedback.title': string
   'common.extendTrial.heading': string
   'common.failureRate': string
+  'common.file': string
   'common.filters.clearFilters': string
   'common.filters.noFilterSaved': string
   'common.filters.noMatchingFilterData': string
@@ -903,6 +904,29 @@ export interface StringsMap {
   'secrets.labelType': string
   'secrets.labelValue': string
   'secrets.noSecrets': string
+  'secrets.secret.configureSecret': string
+  'secrets.secret.inlineSecret': string
+  'secrets.secret.labelFile': string
+  'secrets.secret.labelSecretFile': string
+  'secrets.secret.labelSecretReference': string
+  'secrets.secret.labelSecretType': string
+  'secrets.secret.labelText': string
+  'secrets.secret.messageSelectSM': string
+  'secrets.secret.noSecretsFound': string
+  'secrets.secret.placeholderSecretReference': string
+  'secrets.secret.placeholderSecretValue': string
+  'secrets.secret.referenceSecret': string
+  'secrets.secret.saving': string
+  'secrets.secret.secretActivity': string
+  'secrets.secret.secretCreated': string
+  'secrets.secret.titleCreateFile': string
+  'secrets.secret.titleCreateText': string
+  'secrets.secret.titleEditFile': string
+  'secrets.secret.titleEditText': string
+  'secrets.secret.updateSuccess': string
+  'secrets.secret.validationIdentifier': string
+  'secrets.secret.validationKms': string
+  'secrets.secret.validationNameChars': string
   'secrets.selectSecret': string
   'secrets.sshAuthFormFields.labelFile': string
   'secrets.sshAuthFormFields.labelKeyFilePath': string
@@ -7150,106 +7174,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   search: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.configureSecret': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.inlineSecret': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.labelFile': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.labelSecretFile': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.labelSecretReference': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.labelSecretType': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.labelText': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.messageSelectSM': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.noSecretsFound': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.placeholderSecretReference': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.placeholderSecretValue': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.referenceSecret': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.saving': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.secretActivity': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.secretCreated': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.titleCreateFile': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.titleCreateText': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.titleEditFile': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.titleEditText': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.updateSuccess': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.validationIdentifier': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.validationKms': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.validationName': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.validationNameChars': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.validationValue': string
   /**
    * @deprecated migrate this string to module level file
    */

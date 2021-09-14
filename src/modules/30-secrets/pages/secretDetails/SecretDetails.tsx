@@ -90,7 +90,7 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
     if (yamlData && jsonData) {
       try {
         await updateSecretYaml(yamlData as any)
-        showSuccess(getString('secret.updateSuccess'))
+        showSuccess(getString('secrets.secret.updateSuccess'))
         setEdit(false)
         props.refetch?.()
       } catch (err) {

@@ -561,7 +561,7 @@ testsReports:
     class: Class
     method: '{{ $.methodLabel }}'
     params: Params
-    file: '{{ $.secret.labelFile }}'
+    file: '{{ $.common.file }}'
     type: '{{ $.typeLabel }}'
   viewCallgraph: View Callgraph
   testMethods: Test methods
