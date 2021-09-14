@@ -3266,6 +3266,7 @@ export interface StringsMap {
   'cf.pipeline.flagConfiguration.editVariationMappingTitle': string
   'cf.pipeline.flagConfiguration.environmentRequired': string
   'cf.pipeline.flagConfiguration.fixedInput': string
+  'cf.pipeline.flagConfiguration.flagChanges': string
   'cf.pipeline.flagConfiguration.flagRequired': string
   'cf.pipeline.flagConfiguration.flagState': string
   'cf.pipeline.flagConfiguration.flagSwitch': string
@@ -3277,6 +3278,10 @@ export interface StringsMap {
   'cf.pipeline.flagConfiguration.selectFlag': string
   'cf.pipeline.flagConfiguration.serve': string
   'cf.pipeline.flagConfiguration.serveMapping': string
+  'cf.pipeline.flagConfiguration.servePercentageRollout': string
+  'cf.pipeline.flagConfiguration.serveVariationToIndividualTarget': string
+  'cf.pipeline.flagConfiguration.serveVariationToTargetGroup': string
+  'cf.pipeline.flagConfiguration.setFlagSwitch': string
   'cf.pipeline.flagConfiguration.stepName': string
   'cf.pipeline.flagConfiguration.switchTo': string
   'cf.pipeline.flagConfiguration.toGroups': string
