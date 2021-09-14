@@ -1,4 +1,4 @@
-continuous: '{{$.common.purpose.cv.continuous}}'
+continuous: '{{$.common.changeIntelligence}}'
 methodLabel: Method Label
 request: Request
 response: Response
@@ -90,7 +90,7 @@ metricVerificationModal:
   modalTitle: Metric Pack Connection Test
 dashboard:
   subHeading: Take your software build verification processes to the next level using our Harness Continuous Verifications
-  createProject: '{{$.ci.dashboard.createProject}}'
+  createProject: '{{$.createProject}}'
   notStarted: Not started
 hostNamePlaceholder: '${host}'
 harnessService: 'Harness Service'
@@ -232,7 +232,7 @@ onboarding:
   selectProductScreen:
     validationText:
       name: Name is required.
-      identifier: '{{$.common.validation.identifierIsRequired}}'
+      identifier: '{{$.validation.identifierRequired}}'
       connectorRef: Connector Selection is required.
       validIdRegex: Identifier can only contain alphanumerics, _ and $.
       product: 'Product selection is required.'

@@ -4,7 +4,7 @@ learnMore: Learn more about Continuous Delivery
 dynamicProvisioning: Dynamic provisioning
 dashboard:
   subHeading: Let Harness take your software release process to the next level with Continuous Delivery
-  createProject: '{{$.projectsOrgs.createProject}}'
+  createProject: '{{$.createProject}}'
   orSelectExisting: '{{$.orSelectExisting}}'
 steps:
   common:

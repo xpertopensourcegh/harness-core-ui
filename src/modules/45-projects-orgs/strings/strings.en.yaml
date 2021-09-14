@@ -18,7 +18,7 @@ purposeList:
   features: '{{$.common.purpose.cf.features}}'
   descriptionCF: '{{$.common.purpose.cf.subtitle}}'
   cd: '{{$.common.purpose.cd.continuous}}'
-  cv: '{{$.common.purpose.cv.continuous}}'
+  cv: '{{$.common.changeIntelligence}}'
   ci: '{{$.common.purpose.ci.continuous}}'
   ce: '{{$.common.purpose.ce.continuous}}'
   cf: '{{$.common.purpose.cf.continuous}}'
