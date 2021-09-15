@@ -9,7 +9,7 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetAnomaliesSummary } from 'services/cv'
 import { useToaster } from '@common/exports'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
-import { areAnomaliesAvailable } from './AnomaliesCard.utils'
+import { areAnomaliesAvailable, mapHealthBarRiskStatusToColor } from './AnomaliesCard.utils'
 import type { AnomaliesCardProps } from './Anomalies.types'
 import css from './AnomaliesCard.module.scss'
 
@@ -17,7 +17,7 @@ export default function AnomaliesCard(props: AnomaliesCardProps): JSX.Element {
   const {
     timeRange,
     timeFormat,
-    lowestHealthScoreForTimeRange,
+    lowestHealthScoreBarForTimeRange,
     serviceIdentifier,
     environmentIdentifier,
     monitoredServiceIdentifier
@@ -66,7 +66,7 @@ export default function AnomaliesCard(props: AnomaliesCardProps): JSX.Element {
     isLogsAnomaliesAvailable,
     isTotalAnomaliesAvailable,
     isLowestHealthScoreAvailable
-  } = areAnomaliesAvailable(anomaliesData, lowestHealthScoreForTimeRange)
+  } = areAnomaliesAvailable(anomaliesData, lowestHealthScoreBarForTimeRange?.healthScore)
   const momentTimeformat = getTimeFormatMoment(timeFormat)
 
   useEffect(() => {
@@ -151,10 +151,10 @@ export default function AnomaliesCard(props: AnomaliesCardProps): JSX.Element {
             </Text>
             <Text
               padding={{ top: 'xsmall', bottom: 'xxsmall' }}
-              color={Color.RED_400}
+              color={mapHealthBarRiskStatusToColor(lowestHealthScoreBarForTimeRange?.riskStatus as string)}
               font={{ size: 'large', weight: 'bold' }}
             >
-              {lowestHealthScoreForTimeRange}
+              {lowestHealthScoreBarForTimeRange?.healthScore}
             </Text>
           </Container>
         )}

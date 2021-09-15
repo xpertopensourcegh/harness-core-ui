@@ -1,10 +1,12 @@
 import React from 'react'
 import { render } from '@testing-library/react'
+import { Color } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
-import { useGetAnomaliesSummary } from 'services/cv'
+import { RiskData, useGetAnomaliesSummary } from 'services/cv'
+import { RiskValues } from '@cv/utils/CommonUtils'
 import AnomaliesCard from '../AnomaliesCard'
 import type { AnomaliesCardProps } from '../Anomalies.types'
-import { areAnomaliesAvailable } from '../AnomaliesCard.utils'
+import { areAnomaliesAvailable, mapHealthBarRiskStatusToColor } from '../AnomaliesCard.utils'
 import { mockedAnomaliesData } from './AnomaliesCard.mock'
 
 const WrapperComponent = (props: AnomaliesCardProps): JSX.Element => {
@@ -25,7 +27,10 @@ jest.mock('services/cv', () => ({
 
 describe('Unit tests for AnomaliesCard', () => {
   const initialProps = {
-    lowestHealthScoreForTimeRange: 100,
+    lowestHealthScoreBarForTimeRange: {
+      healthScore: 100,
+      riskStatus: RiskValues.LOW
+    } as RiskData,
     timeFormat: 'hours',
     timeRange: {
       startTime: 1631506424308,
@@ -63,5 +68,12 @@ describe('Unit tests for AnomaliesCard', () => {
       isTotalAnomaliesAvailable: true,
       isLowestHealthScoreAvailable: true
     })
+  })
+
+  test('Verify if Correct data is returned when mapHealthBarRiskStatusToColor method is called', async () => {
+    expect(mapHealthBarRiskStatusToColor(RiskValues.LOW)).toEqual(Color.GREEN_500)
+    expect(mapHealthBarRiskStatusToColor(RiskValues.MEDIUM)).toEqual(Color.ORANGE_500)
+    expect(mapHealthBarRiskStatusToColor(RiskValues.HIGH)).toEqual(Color.RED_500)
+    expect(mapHealthBarRiskStatusToColor('default')).toEqual(Color.GREY_200)
   })
 })

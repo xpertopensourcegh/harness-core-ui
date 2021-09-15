@@ -9,6 +9,7 @@ export type SliderEndpoints = {
 export interface TimelineSliderProps {
   initialSliderWidth: number
   minSliderWidth: number
+  maxSliderWidth?: number
   containerWidth?: number | string
   onSliderDragEnd?: (sliderEndPoints: SliderEndpoints) => void
   leftContainerOffset?: number

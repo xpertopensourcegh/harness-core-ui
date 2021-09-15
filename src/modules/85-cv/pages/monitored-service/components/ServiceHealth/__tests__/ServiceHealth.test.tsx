@@ -10,8 +10,9 @@ import {
   getTimePeriods,
   getTimestampsForPeriod,
   calculateStartAndEndTimes,
-  calculateLowestHealthScore,
-  isInTheRange
+  calculateLowestHealthScoreBar,
+  isInTheRange,
+  getSliderDimensions
 } from '../ServiceHealth.utils'
 import type { ServiceHealthProps } from '../ServiceHealth.types'
 import { NUMBER_OF_DATA_POINTS, TimePeriodEnum } from '../ServiceHealth.constants'
@@ -93,12 +94,12 @@ describe('Unit tests for ServiceHealth', () => {
     ])
   })
 
-  test('Verify if correct lowestHealthScore is returned from calculateLowestHealthScore method', async () => {
+  test('Verify if correct lowestHealthScore is returned from calculateLowestHealthScoreBar method', async () => {
     const startTime = 1630863277338
     const endTime = 1630887233649
     expect(
-      calculateLowestHealthScore(startTime, endTime, mockedHealthScoreDataForLowestHealthScore as RiskData[])
-    ).toEqual(0)
+      calculateLowestHealthScoreBar(startTime, endTime, mockedHealthScoreDataForLowestHealthScore as RiskData[])
+    ).toEqual({ healthScore: 0, riskStatus: 'HIGH', timeRangeParams: { endTime: 1630893600, startTime: 1630881000 } })
   })
 
   test('Verify if isInTheRange method returns correct result', async () => {
@@ -113,5 +114,14 @@ describe('Unit tests for ServiceHealth', () => {
     const startTime = 1630863277338
     const endTime = 1630887233649
     expect(isInTheRange(dataPoint as RiskData, startTime, endTime)).toEqual(false)
+  })
+
+  test('Verify if getSliderDimensions method gives correct slider dimensions', async () => {
+    const containerWidth = 1336
+    const expectedDimensions = {
+      maxWidth: 304,
+      minWidth: 76
+    }
+    expect(getSliderDimensions(containerWidth)).toEqual(expectedDimensions)
   })
 })

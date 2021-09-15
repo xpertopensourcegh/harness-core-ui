@@ -7,6 +7,9 @@ import {
   daysTimeFormat,
   HOURS,
   hoursTimeFormat,
+  LEFT_TEXTFIELD_WIDTH,
+  MAX_BARS_TO_SHOW,
+  MIN_BARS_TO_SHOW,
   NUMBER_OF_DATA_POINTS,
   TimePeriodEnum
 } from './ServiceHealth.constants'
@@ -111,14 +114,14 @@ export function calculateStartAndEndTimes(
   return [startTime, endTime]
 }
 
-export function calculateLowestHealthScore(
+export function calculateLowestHealthScoreBar(
   startTime?: number,
   endTime?: number,
   healthScoreData?: RiskData[]
-): number | undefined {
+): RiskData | undefined {
   if (startTime && endTime && healthScoreData && healthScoreData.length) {
     const dataPointsLyingInTheRange = healthScoreData.filter((el: RiskData) => isInTheRange(el, startTime, endTime))
-    return minBy(dataPointsLyingInTheRange, 'healthScore')?.healthScore
+    return minBy(dataPointsLyingInTheRange, 'healthScore')
   }
 }
 
@@ -128,4 +131,10 @@ export const isInTheRange = (el: RiskData, startTime: number, endTime: number): 
   } else {
     return false
   }
+}
+
+export const getSliderDimensions = (containerWidth: number): { minWidth: number; maxWidth: number } => {
+  const minWidth = (containerWidth - LEFT_TEXTFIELD_WIDTH) / (NUMBER_OF_DATA_POINTS / MIN_BARS_TO_SHOW)
+  const maxWidth = (containerWidth - LEFT_TEXTFIELD_WIDTH) / (NUMBER_OF_DATA_POINTS / MAX_BARS_TO_SHOW)
+  return { minWidth, maxWidth }
 }

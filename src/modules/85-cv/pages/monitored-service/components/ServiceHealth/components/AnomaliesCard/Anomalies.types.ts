@@ -1,3 +1,5 @@
+import type { RiskData } from 'services/cv'
+
 export interface IsAnomaliesDataAvailable {
   isTimeSeriesAnomaliesAvailable: boolean
   isLogsAnomaliesAvailable: boolean
@@ -7,7 +9,7 @@ export interface IsAnomaliesDataAvailable {
 
 export interface AnomaliesCardProps {
   timeRange?: { startTime: number; endTime: number }
-  lowestHealthScoreForTimeRange?: number
+  lowestHealthScoreBarForTimeRange?: RiskData
   timeFormat: string
   serviceIdentifier?: string
   environmentIdentifier?: string

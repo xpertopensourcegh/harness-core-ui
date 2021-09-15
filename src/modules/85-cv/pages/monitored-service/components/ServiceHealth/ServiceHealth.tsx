@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Container, Select, SelectOption } from '@wings-software/uicore'
 import Card from '@cv/components/Card/Card'
 import { useStrings } from 'framework/strings'
@@ -6,13 +6,14 @@ import ChangeTimeline from '@cv/components/ChangeTimeline/ChangeTimeline'
 import TimelineSlider from '@cv/components/ChangeTimeline/components/TimelineSlider/TimelineSlider'
 import type { RiskData } from 'services/cv'
 import {
-  calculateLowestHealthScore,
+  calculateLowestHealthScoreBar,
   calculateStartAndEndTimes,
+  getSliderDimensions,
   getTimeFormat,
   getTimePeriods,
   getTimestampsForPeriod
 } from './ServiceHealth.utils'
-import { TimePeriodEnum } from './ServiceHealth.constants'
+import { DEFAULT_MAX_SLIDER_WIDTH, DEFAULT_MIN_SLIDER_WIDTH, TimePeriodEnum } from './ServiceHealth.constants'
 
 import type { ServiceHealthProps } from './ServiceHealth.types'
 import HealthScoreChart from './components/HealthScoreChart/HealthScoreChart'
@@ -36,6 +37,7 @@ export default function ServiceHealth({
   const [timeRange, setTimeRange] = useState<{ startTime: number; endTime: number }>()
   const [showTimelineSlider, setShowTimelineSlider] = useState(false)
   const [healthScoreData, setHealthScoreData] = useState<RiskData[]>()
+  const containerRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
     const timestampsForPeriod = getTimestampsForPeriod(selectedTimePeriod.value as string)
@@ -49,12 +51,23 @@ export default function ServiceHealth({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTimePeriod?.value])
 
+  // calculating the min and max width for the the timeline slider
+  const sliderDimensions = useMemo(() => {
+    let dimensions = { minWidth: DEFAULT_MIN_SLIDER_WIDTH, maxWidth: DEFAULT_MAX_SLIDER_WIDTH }
+    const containerWidth = containerRef?.current?.offsetWidth
+    if (containerWidth) {
+      dimensions = { ...dimensions, ...getSliderDimensions(containerWidth) }
+    }
+    return dimensions
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [containerRef?.current])
+
   const timeFormat = useMemo(() => {
     return getTimeFormat(selectedTimePeriod?.value as string)
   }, [selectedTimePeriod?.value])
 
-  const lowestHealthScoreForTimeRange = useMemo(() => {
-    return calculateLowestHealthScore(timeRange?.startTime, timeRange?.endTime, healthScoreData)
+  const lowestHealthScoreBarForTimeRange = useMemo(() => {
+    return calculateLowestHealthScoreBar(timeRange?.startTime, timeRange?.endTime, healthScoreData)
   }, [timeRange?.startTime, timeRange?.endTime, healthScoreData])
 
   const onFocusTimeRange = useCallback((startTime: number, endTime: number) => {
@@ -65,7 +78,7 @@ export default function ServiceHealth({
     return (
       <AnomaliesCard
         timeRange={timeRange}
-        lowestHealthScoreForTimeRange={lowestHealthScoreForTimeRange}
+        lowestHealthScoreBarForTimeRange={lowestHealthScoreBarForTimeRange}
         timeFormat={timeFormat}
         serviceIdentifier={serviceIdentifier}
         environmentIdentifier={environmentIdentifier}
@@ -74,7 +87,7 @@ export default function ServiceHealth({
     )
   }, [
     environmentIdentifier,
-    lowestHealthScoreForTimeRange,
+    lowestHealthScoreBarForTimeRange,
     monitoredServiceIdentifier,
     serviceIdentifier,
     timeFormat,
@@ -120,7 +133,7 @@ export default function ServiceHealth({
                 )
               })}
             </Container> */}
-            <Container onClick={() => setShowTimelineSlider(true)} className={css.main}>
+            <Container onClick={() => setShowTimelineSlider(true)} className={css.main} ref={containerRef}>
               <HealthScoreChart
                 duration={selectedTimePeriod.value as TimePeriodEnum}
                 monitoredServiceIdentifier={monitoredServiceIdentifier as string}
@@ -129,10 +142,11 @@ export default function ServiceHealth({
               />
               {showTimelineSlider ? (
                 <TimelineSlider
-                  initialSliderWidth={50}
+                  initialSliderWidth={sliderDimensions.minWidth}
                   leftContainerOffset={100}
                   className={css.slider}
-                  minSliderWidth={50}
+                  minSliderWidth={sliderDimensions.minWidth}
+                  maxSliderWidth={sliderDimensions.maxWidth}
                   infoCard={renderInfoCard()}
                   onSliderDragEnd={({ startXPercentage, endXPercentage }) => {
                     const startAndEndtime = calculateStartAndEndTimes(startXPercentage, endXPercentage, timestamps)
