@@ -1,7 +1,7 @@
 import { Container, Tab, Tabs } from '@wings-software/uicore'
 import React, { useEffect, useMemo, useState, useCallback } from 'react'
 import { useHistory, useParams, matchPath } from 'react-router-dom'
-import { isEqual } from 'lodash-es'
+import { isEqual, omit } from 'lodash-es'
 import { parse } from 'yaml'
 import type { FormikProps } from 'formik'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
@@ -108,7 +108,19 @@ export default function Configurations(): JSX.Element {
         changeSource['category'] = ChangeSourceCategoryName.DEPLOYMENT as ChangeSourceDTO['category']
         changeSource['spec'] = {}
       })
-      setDefaultMonitoredService(monitoredService)
+      setDefaultMonitoredService(prevService => {
+        if (!prevService) {
+          return monitoredService
+        }
+        const currSources = prevService.sources?.changeSources || []
+        return {
+          ...prevService,
+          sources: {
+            changeSources: currSources.concat(monitoredService.sources?.changeSources || []),
+            healthSources: prevService.sources?.healthSources || []
+          }
+        }
+      })
     }
   }, [yamlMonitoredService])
 
@@ -263,6 +275,18 @@ export default function Configurations(): JSX.Element {
               cachedInitialValues={cachedInitialValues}
               setDBData={setDBData}
               onDiscard={onDiscard}
+              onChangeMonitoredServiceType={updatedDTO => {
+                setDefaultMonitoredService(omit(updatedDTO, ['isEdit']) as MonitoredServiceDTO)
+                setCachedInitialValue(updatedDTO)
+                fetchMonitoredServiceYAML({
+                  queryParams: {
+                    orgIdentifier,
+                    projectIdentifier,
+                    accountId,
+                    type: updatedDTO.type
+                  }
+                })
+              }}
             />
           }
         />

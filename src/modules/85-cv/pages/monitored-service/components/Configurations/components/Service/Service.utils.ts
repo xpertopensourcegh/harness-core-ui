@@ -80,3 +80,28 @@ export const onSave = async ({
     formik?.submitForm()
   }
 }
+
+export function updateMonitoredServiceDTOOnTypeChange(
+  type: MonitoredServiceDTO['type'],
+  monitoredServiceForm: MonitoredServiceForm
+): MonitoredServiceDTO {
+  const monitoredServiceDTO: MonitoredServiceDTO = omit(monitoredServiceForm, ['isEdit']) as MonitoredServiceDTO
+
+  if (!monitoredServiceDTO.sources) {
+    monitoredServiceDTO.sources = { changeSources: [], healthSources: [] }
+  }
+
+  monitoredServiceDTO.sources.changeSources =
+    monitoredServiceDTO.sources.changeSources?.filter(source => {
+      if (type === 'Application' && source.type !== 'K8sCluster') {
+        return true
+      }
+      if (type === 'Infrastructure' && source.type !== 'HarnessCD') {
+        return true
+      }
+      return false
+    }) || []
+
+  monitoredServiceDTO.type = type
+  return monitoredServiceDTO
+}

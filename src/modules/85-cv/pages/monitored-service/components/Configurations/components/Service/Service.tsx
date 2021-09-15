@@ -17,7 +17,7 @@ import ChangeSourceTable from '@cv/pages/ChangeSource/ChangeSourceTable/ChangeSo
 import type { MonitoredServiceForm } from './Service.types'
 import MonitoredServiceOverview from './components/MonitoredServiceOverview/MonitoredServiceOverview'
 import { MonitoredServiceType } from './components/MonitoredServiceOverview/MonitoredServiceOverview.constants'
-import { onSave } from './Service.utils'
+import { onSave, updateMonitoredServiceDTOOnTypeChange } from './Service.utils'
 import { isUpdated } from '../../Configurations.utils'
 import css from './Service.module.scss'
 
@@ -27,7 +27,8 @@ function Service({
   cachedInitialValues,
   setDBData,
   onDiscard,
-  serviceTabformRef
+  serviceTabformRef,
+  onChangeMonitoredServiceType
 }: {
   value: MonitoredServiceForm
   onSuccess: (val: any) => Promise<void>
@@ -35,6 +36,7 @@ function Service({
   setDBData?: (val: MonitoredServiceForm) => void
   onDiscard?: () => void
   serviceTabformRef?: any
+  onChangeMonitoredServiceType: (updatedValues: MonitoredServiceForm) => void
 }): JSX.Element {
   const history = useHistory()
   const { getString } = useStrings()
@@ -113,7 +115,8 @@ function Service({
         setDrawerContentProps({
           hideDrawer,
           tableData: formik?.values?.sources?.changeSources || [],
-          onSuccess: onSuccessChangeSource
+          onSuccess: onSuccessChangeSource,
+          monitoredServiceType: formik.values.type
         })
       } else {
         formik.submitForm()
@@ -129,15 +132,15 @@ function Service({
         setValidMonitoredSource(true)
       }}
       validationSchema={Yup.object().shape({
-        name: Yup.string().required(getString('cv.monitoredServices.nameValidation')),
-        type: Yup.string().required(getString('common.validation.typeIsRequired')),
+        name: Yup.string().nullable().required(getString('cv.monitoredServices.nameValidation')),
+        type: Yup.string().nullable().required(getString('common.validation.typeIsRequired')),
         serviceRef: Yup.string()
           .nullable()
           .when('type', {
             is: type => type === MonitoredServiceType.APPLICATION,
             then: Yup.string().required(getString('cv.monitoredServices.serviceValidation'))
           }),
-        environmentRef: Yup.string().required(getString('cv.monitoredServices.environmentValidation'))
+        environmentRef: Yup.string().nullable().required(getString('cv.monitoredServices.environmentValidation'))
       })}
       enableReinitialize
     >
@@ -168,7 +171,18 @@ function Service({
                     }}
                   />
                 </div>
-                <MonitoredServiceOverview formikProps={formik} isEdit={isEdit} />
+                <MonitoredServiceOverview
+                  formikProps={formik}
+                  isEdit={isEdit}
+                  onChangeMonitoredServiceType={type => {
+                    if (type === formik.values.type) return
+                    formik.setFieldValue('type', type)
+                    onChangeMonitoredServiceType({
+                      isEdit,
+                      ...updateMonitoredServiceDTOOnTypeChange(type, formik.values)
+                    })
+                  }}
+                />
                 <Text color={Color.BLACK} className={css.sourceTableLabel}>
                   {getString('cv.healthSource.defineYourSource')}
                 </Text>

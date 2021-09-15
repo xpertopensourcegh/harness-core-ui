@@ -7666,6 +7666,7 @@ export interface GetMonitoredServiceYamlTemplateQueryParams {
   accountId: string
   orgIdentifier: string
   projectIdentifier: string
+  type?: 'Application' | 'Infrastructure'
 }
 
 export type GetMonitoredServiceYamlTemplateProps = Omit<

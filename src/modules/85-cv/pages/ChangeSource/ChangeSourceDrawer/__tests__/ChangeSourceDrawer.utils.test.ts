@@ -1,4 +1,4 @@
-import { createCardOptions, validateChangeSource } from '../ChangeSourceDrawer.utils'
+import { createCardOptions, validateChangeSource, getChangeSourceOptions } from '../ChangeSourceDrawer.utils'
 import { allFieldsEmpty, emptyPagerDutyConnectorAndService } from './ChangeSourceDrawer.mock'
 
 function mockGetString(name: string): string {
@@ -57,5 +57,46 @@ describe('Validate ChnagSource Utils', () => {
         mockGetString
       )
     ).toEqual(emptyPagerDutyConnectorAndService)
+  })
+
+  test('Ensure getChangeSourceOptions works as intended', async () => {
+    // no infra options should be returned for application type
+    expect(getChangeSourceOptions(jest.fn(), 'Application')).toEqual([
+      {
+        label: undefined,
+        value: 'Deployment'
+      },
+      {
+        label: undefined,
+        value: 'Alert'
+      }
+    ])
+
+    // no deploymnt options should be return for infra type
+    expect(getChangeSourceOptions(jest.fn(), 'Infrastructure')).toEqual([
+      {
+        label: undefined,
+        value: 'Infrastructure'
+      },
+      {
+        label: undefined,
+        value: 'Alert'
+      }
+    ])
+
+    expect(getChangeSourceOptions(jest.fn())).toEqual([
+      {
+        label: undefined,
+        value: 'Deployment'
+      },
+      {
+        label: undefined,
+        value: 'Infrastructure'
+      },
+      {
+        label: undefined,
+        value: 'Alert'
+      }
+    ])
   })
 })

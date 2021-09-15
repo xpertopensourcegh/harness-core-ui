@@ -99,31 +99,9 @@ exports[`Test Change Source Drawer ChangeSource Drawer renders in create mode 1`
                   class="Thumbnail--squareCardContainer"
                 >
                   <div
-                    class="bp3-card bp3-elevation-0 Card--card Thumbnail--squareCard Card--selected"
+                    class="bp3-card bp3-interactive bp3-elevation-0 Card--card Thumbnail--squareCard Card--interactive"
+                    tabindex="0"
                   >
-                    <span
-                      class="Card--corner"
-                    >
-                      <span
-                        class="Card--badge"
-                      />
-                      <span
-                        class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
-                        data-icon="main-tick"
-                      >
-                        <svg
-                          height="10"
-                          viewBox="0 0 11 8"
-                          width="10"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M9.219.894c.356-.38.982-.413 1.398-.072.391.32.457.857.167 1.236l-.06.07-5.138 5.486c-.362.386-.993.41-1.403.068l-.07-.064-3.2-3.214A.88.88 0 01.95 3.098a1.045 1.045 0 011.328-.003l.074.067 2.443 2.454L9.22.894z"
-                            fill="currentColor"
-                          />
-                        </svg>
-                      </span>
-                    </span>
                     <span
                       class="bp3-icon StyledProps--main"
                       data-icon="cd-main"
@@ -168,7 +146,6 @@ exports[`Test Change Source Drawer ChangeSource Drawer renders in create mode 1`
                     cv.onboarding.changeSourceTypes.HarnessCDNextGen.name
                   </p>
                   <input
-                    checked=""
                     name="type"
                     type="checkbox"
                     value="HarnessCD"
@@ -345,6 +322,105 @@ exports[`Test Change Source Drawer ChangeSource Drawer renders in create mode 1`
                     </span>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="Layout--vertical StyledProps--main StyledProps--margin-xxlarge"
+    >
+      <p
+        class="StyledProps--font StyledProps--main header StyledProps--color StyledProps--color-black"
+      >
+        cv.changeSource.connectChangeSource
+      </p>
+      <div
+        class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
+      >
+        <div
+          class="bp3-form-group bp3-intent-danger"
+        >
+          <label
+            class="bp3-label"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-small StyledProps--margin-bottom-small"
+            >
+              connectors.selectConnector
+            </p>
+             
+            <span
+              class="bp3-text-muted"
+            />
+          </label>
+          <div
+            class="bp3-form-content"
+          >
+            <button
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
+              data-testid="cr-field-spec.connectorRef"
+              style="width: 400px;"
+              type="button"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                <span
+                  class="placeholder"
+                >
+                  cv.healthSource.connectors.selectConnector
+                </span>
+              </span>
+              <span
+                class="bp3-icon bp3-icon-chevron-down StyledProps--main"
+                icon="chevron-down"
+              >
+                <svg
+                  data-icon="chevron-down"
+                  height="14"
+                  viewBox="0 0 16 16"
+                  width="14"
+                >
+                  <desc>
+                    chevron-down
+                  </desc>
+                  <path
+                    d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+            <div
+              class="bp3-form-helper-text"
+            >
+              <div
+                class="FormError--errorDiv"
+              >
+                <span
+                  class="bp3-icon StyledProps--main FormError--errorTextIcon StyledProps--intent-danger"
+                  data-icon="circle-cross"
+                >
+                  <svg
+                    height="12"
+                    viewBox="0 0 13 13"
+                    width="12"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M.167 6.501a6.333 6.333 0 1012.666 0 6.333 6.333 0 00-12.666 0zm4.071-3.003l2.26 2.263 2.264-2.263c.495-.495 1.236.248.741.743L7.24 6.504l2.254 2.258c.495.495-.247 1.238-.742.743L6.497 7.246 4.238 9.505c-.495.495-1.236-.249-.741-.744l2.258-2.258-2.259-2.262c-.494-.495.248-1.238.742-.743z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="FormError--error"
+                >
+                  cv.onboarding.selectProductScreen.validationText.connectorRef
+                </span>
               </div>
             </div>
           </div>
