@@ -5178,6 +5178,68 @@ export const getDeploymentMetricsPromise = (
     GetDeploymentMetricsPathParams
   >(getConfig('cv/api'), `/activity/${activityId}/deployment-timeseries-data`, props, signal)
 
+export interface GetHealthSourcesQueryParams {
+  accountId: string
+}
+
+export interface GetHealthSourcesPathParams {
+  activityId: string
+}
+
+export type GetHealthSourcesProps = Omit<
+  GetProps<RestResponseSetHealthSourceDTO, unknown, GetHealthSourcesQueryParams, GetHealthSourcesPathParams>,
+  'path'
+> &
+  GetHealthSourcesPathParams
+
+/**
+ * get health sources  for an activity
+ */
+export const GetHealthSources = ({ activityId, ...props }: GetHealthSourcesProps) => (
+  <Get<RestResponseSetHealthSourceDTO, unknown, GetHealthSourcesQueryParams, GetHealthSourcesPathParams>
+    path={`/activity/${activityId}/healthSources`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetHealthSourcesProps = Omit<
+  UseGetProps<RestResponseSetHealthSourceDTO, unknown, GetHealthSourcesQueryParams, GetHealthSourcesPathParams>,
+  'path'
+> &
+  GetHealthSourcesPathParams
+
+/**
+ * get health sources  for an activity
+ */
+export const useGetHealthSources = ({ activityId, ...props }: UseGetHealthSourcesProps) =>
+  useGet<RestResponseSetHealthSourceDTO, unknown, GetHealthSourcesQueryParams, GetHealthSourcesPathParams>(
+    (paramsInPath: GetHealthSourcesPathParams) => `/activity/${paramsInPath.activityId}/healthSources`,
+    { base: getConfig('cv/api'), pathParams: { activityId }, ...props }
+  )
+
+/**
+ * get health sources  for an activity
+ */
+export const getHealthSourcesPromise = (
+  {
+    activityId,
+    ...props
+  }: GetUsingFetchProps<
+    RestResponseSetHealthSourceDTO,
+    unknown,
+    GetHealthSourcesQueryParams,
+    GetHealthSourcesPathParams
+  > & { activityId: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseSetHealthSourceDTO, unknown, GetHealthSourcesQueryParams, GetHealthSourcesPathParams>(
+    getConfig('cv/api'),
+    `/activity/${activityId}/healthSources`,
+    props,
+    signal
+  )
+
 export interface GetAlertRuleQueryParams {
   accountId: string
   orgIdentifier: string

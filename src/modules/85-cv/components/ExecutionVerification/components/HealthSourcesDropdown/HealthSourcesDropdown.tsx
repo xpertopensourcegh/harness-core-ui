@@ -1,29 +1,15 @@
 import React, { useMemo } from 'react'
 import { Select, SelectOption } from '@wings-software/uicore'
-import { useParams } from 'react-router-dom'
 import classNames from 'classnames'
 import { useStrings } from 'framework/strings'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { useGetAllHealthSourcesForServiceAndEnvironment } from 'services/cv'
-import type { HealthSourceDropDownProps } from './HealthSourceDropDown.types'
-import { VerificationType } from './HealthSourceDropDown.constants'
-import { getDropdownOptions } from './HealthSourceDropDown.utils'
-import css from './HealthSourceDropDown.module.scss'
+import { getDropdownOptions } from '@cv/components/HealthSourceDropDown/HealthSourceDropDown.utils'
+import { VerificationType } from '@cv/components/HealthSourceDropDown/HealthSourceDropDown.constants'
+import type { HealthSourceDropDownProps } from './HealthSourcesDropdown.types'
+import css from './HealthSourcesDropdown.module.scss'
 
 export function HealthSourceDropDown(props: HealthSourceDropDownProps): JSX.Element {
-  const {
-    onChange,
-    serviceIdentifier,
-    environmentIdentifier,
-    className,
-    verificationType = VerificationType.TIME_SERIES
-  } = props
+  const { onChange, className, verificationType = VerificationType.TIME_SERIES, data, error, loading } = props
   const { getString } = useStrings()
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
-
-  const { data, error, loading } = useGetAllHealthSourcesForServiceAndEnvironment({
-    queryParams: { accountId, projectIdentifier, orgIdentifier, serviceIdentifier, environmentIdentifier }
-  })
 
   const healthSources: SelectOption[] = useMemo(() => {
     return getDropdownOptions({ loading, error, data, verificationType }, getString)
