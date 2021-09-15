@@ -3886,6 +3886,7 @@ export interface StringsMap {
   'cv.monitoringSources.prometheus.serviceFilter': string
   'cv.monitoringSources.prometheus.stddevAggregator': string
   'cv.monitoringSources.prometheus.stdvarAggregator': string
+  'cv.monitoringSources.prometheus.submitQueryToSeeRecords': string
   'cv.monitoringSources.prometheus.sumAggregator': string
   'cv.monitoringSources.prometheus.undoManualQuery': string
   'cv.monitoringSources.prometheus.validation.aggregator': string
