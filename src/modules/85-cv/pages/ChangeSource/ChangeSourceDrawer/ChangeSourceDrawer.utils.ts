@@ -149,7 +149,7 @@ export const updateSpecByType = (data: ChangeSourceDTO): ChangeSourceDTO['spec']
 export const buildInitialData = (categoryOptions: SelectOption[]): UpdatedChangeSourceDTO => {
   return {
     [ChangeSourceFieldNames.CATEGORY]: categoryOptions[0].value,
-    [ChangeSourceFieldNames.TYPE]: categoryOptions[0].value,
+    [ChangeSourceFieldNames.TYPE]: preSelectChangeSourceConnectorOnCategoryChange(categoryOptions[0].value as string),
     spec: {}
   }
 }

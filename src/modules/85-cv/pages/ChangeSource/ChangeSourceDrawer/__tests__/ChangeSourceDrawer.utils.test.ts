@@ -1,5 +1,11 @@
-import { createCardOptions, validateChangeSource, getChangeSourceOptions } from '../ChangeSourceDrawer.utils'
+import {
+  createCardOptions,
+  validateChangeSource,
+  getChangeSourceOptions,
+  buildInitialData
+} from '../ChangeSourceDrawer.utils'
 import { allFieldsEmpty, emptyPagerDutyConnectorAndService } from './ChangeSourceDrawer.mock'
+import { ChangeSourceCategoryName } from '../ChangeSourceDrawer.constants'
 
 function mockGetString(name: string): string {
   switch (name) {
@@ -23,7 +29,7 @@ function mockGetString(name: string): string {
       return ''
   }
 }
-describe('Validate ChnagSource Utils', () => {
+describe('Validate ChangeSource Utils', () => {
   test('Validate CreateCardOptions', () => {
     expect(createCardOptions('Deployment', mockGetString)).toEqual([
       { category: 'Deployment', icon: 'cd-main', label: 'Harness CD NextGen', value: 'HarnessCD' }
@@ -98,5 +104,29 @@ describe('Validate ChnagSource Utils', () => {
         value: 'Alert'
       }
     ])
+  })
+
+  test('Ensure building initial data returns correct values', async () => {
+    expect(
+      buildInitialData([
+        { label: 'deploymentText', value: ChangeSourceCategoryName.DEPLOYMENT },
+        { label: 'cv.changeSource.alertText', value: ChangeSourceCategoryName.ALERT }
+      ])
+    ).toEqual({
+      category: 'Deployment',
+      spec: {},
+      type: 'HarnessCD'
+    })
+
+    expect(
+      buildInitialData([
+        { label: 'infrastructureText', value: ChangeSourceCategoryName.INFRASTRUCTURE },
+        { label: 'cv.changeSource.alertText', value: ChangeSourceCategoryName.ALERT }
+      ])
+    ).toEqual({
+      category: 'Infrastructure',
+      spec: {},
+      type: 'K8sCluster'
+    })
   })
 })
