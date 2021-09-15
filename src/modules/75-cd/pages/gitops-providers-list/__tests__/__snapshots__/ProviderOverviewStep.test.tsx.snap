@@ -3,7 +3,7 @@
 exports[`Connector details step Test for  create  connector step one required feilds 1`] = `
 <div>
   <div
-    class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep"
+    class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main stepContainer"
   >
     <div
       class="heading"
@@ -11,7 +11,7 @@ exports[`Connector details step Test for  create  connector step one required fe
       cd.providerOverview
     </div>
     <div
-      class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
+      class="StyledProps--font StyledProps--main connectorForm"
     >
       <div
         class="OverlaySpinner--overlaySpinner"
@@ -96,7 +96,7 @@ exports[`Connector details step Test for  create  connector step one required fe
                     >
                       <span
                         class="Tooltip--acenter"
-                        data-tooltip-id="ProviderOverviewStepFormK8sCluster_name"
+                        data-tooltip-id="GitOpsProviderStepFormundefined_name"
                       >
                         name
                       </span>
@@ -279,7 +279,7 @@ exports[`Connector details step Test for  create  connector step one required fe
 exports[`Connector details step Test for going to next step 1`] = `
 <div>
   <div
-    class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep"
+    class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main stepContainer"
   >
     <div
       class="heading"
@@ -287,7 +287,7 @@ exports[`Connector details step Test for going to next step 1`] = `
       cd.providerOverview
     </div>
     <div
-      class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
+      class="StyledProps--font StyledProps--main connectorForm"
     >
       <div
         class="OverlaySpinner--overlaySpinner"
@@ -374,7 +374,7 @@ exports[`Connector details step Test for going to next step 1`] = `
                     >
                       <span
                         class="Tooltip--acenter"
-                        data-tooltip-id="ProviderOverviewStepFormK8sCluster_name"
+                        data-tooltip-id="GitOpsProviderStepFormundefined_name"
                       >
                         name
                       </span>

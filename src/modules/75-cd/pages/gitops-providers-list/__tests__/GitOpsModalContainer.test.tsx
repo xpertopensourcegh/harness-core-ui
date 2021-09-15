@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import GitOpsModalContainer from '../GitOpsModalContainer'
+import GitOpsModalContainer from '../GitOpsProvidersList'
 
 const currentUser = {
   defaultAccountId: '123',

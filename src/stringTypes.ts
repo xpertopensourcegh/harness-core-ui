@@ -2482,8 +2482,12 @@ export interface StringsMap {
   'cd.configFilePlaceHolder': string
   'cd.configIdentifer': string
   'cd.configurationFile': string
+  'cd.confirmDeleteTitle': string
+  'cd.confirmProviderDelete': string
   'cd.contentRequired': string
   'cd.continuous': string
+  'cd.createdSuccessfully': string
+  'cd.creating': string
   'cd.dashboard.createProject': string
   'cd.dashboard.orSelectExisting': string
   'cd.dashboard.subHeading': string
@@ -2562,6 +2566,8 @@ export interface StringsMap {
   'cd.steps.kubernetesGcpStep.stepName': string
   'cd.terraformVarFiles': string
   'cd.tfVarStore': string
+  'cd.updatedSuccessfully': string
+  'cd.updating': string
   'cd.varFile': string
   'cd.varFileDetails': string
   'cd.whatIsHarnessAdapter': string

@@ -1,9 +1,22 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect } from 'react'
 import cx from 'classnames'
-import { Layout, Container, StepsProgress, Intent, Button, ButtonVariation } from '@wings-software/uicore'
+import {
+  Layout,
+  Container,
+  StepsProgress,
+  Intent,
+  Button,
+  Card,
+  Color,
+  Icon,
+  Text,
+  ButtonVariation
+} from '@wings-software/uicore'
 
 import { useStrings } from 'framework/strings'
+import type { ConnectedArgoGitOpsInfoDTO } from 'services/cd-ng'
+import type { BaseProviderStepProps } from '../types'
 import css from './TestConnection.module.scss'
 
 export enum Status {
@@ -13,25 +26,26 @@ export enum Status {
   ERROR = 'ERROR'
 }
 
-const TestConnection: React.FC<Record<string, unknown>> = (props: any) => {
+type TestConnectionProps = BaseProviderStepProps
+
+export default function TestConnection(props: TestConnectionProps): React.ReactElement {
   const [currentStep] = useState(1)
   const [currentStatus, setCurrentStatus] = useState<Status>(Status.PROCESS)
   const [currentIntent, setCurrentIntent] = useState<Intent>(Intent.NONE)
-  const url = props?.prevStepData?.spec?.adapterUrl
-  const stepName = `Validating ${url}`
-  let validationStatusIntent = null
+  const url = (props?.prevStepData?.spec as ConnectedArgoGitOpsInfoDTO)?.adapterUrl
+  const stepName = `Connecting to Adapter URL: ${url}`
 
   const { getString } = useStrings()
-  const handleSuccess = () => {
-    props.onClose()
+  const handleSuccess = (): void => {
+    props.onClose?.()
   }
 
-  const launchArgoDashboard = () => {
+  const launchArgoDashboard = (): void => {
     const provider = props?.prevStepData
-    props.onLaunchArgoDashboard(provider)
+    props.onLaunchArgoDashboard?.(provider)
   }
 
-  const validateAdapterURL = () => {
+  const validateAdapterURL = (): void => {
     let updatedURL = url
     if (updatedURL) {
       updatedURL += url.endsWith('/') ? `api/version` : `/api/version`
@@ -52,17 +66,11 @@ const TestConnection: React.FC<Record<string, unknown>> = (props: any) => {
     validateAdapterURL()
   }, [])
 
-  if (currentStatus === Status.DONE) {
-    validationStatusIntent = css.success
-  } else if (currentStatus === Status.ERROR) {
-    validationStatusIntent = css.error
-  }
-
   return (
     <Layout.Vertical className={css.stepContainer}>
       <div className={css.heading}>Test Connection</div>
 
-      <Container padding="small" className={css.connectorForm}>
+      <Container className={css.connectorForm}>
         <Container style={{ minHeight: 460 }}>
           <Layout.Vertical spacing="large" className={css.stepFormContainer}>
             <StepsProgress
@@ -73,8 +81,37 @@ const TestConnection: React.FC<Record<string, unknown>> = (props: any) => {
             />
 
             {(currentStatus === Status.DONE || currentStatus === Status.ERROR) && (
-              <div className={cx(css.validationStatus, validationStatusIntent)}>
-                {currentStatus === Status.DONE ? 'Validation Successful' : 'Validation Failed'}{' '}
+              <div className={cx(css.validationStatus, { [css.success]: currentStatus === Status.DONE })}>
+                {currentStatus === Status.DONE ? (
+                  'Connection Successful'
+                ) : (
+                  <Card className={css.card}>
+                    <Text color={Color.RED_700} font={{ weight: 'semi-bold' }} style={{ marginBottom: '16px' }}>
+                      Could not connect to the Adapter URL: &nbsp;
+                      <a href={url} target="_blank" rel="noreferrer">
+                        {url}
+                      </a>
+                    </Text>
+                    <div className={css.issueInfo}>
+                      <Icon color={Color.GREY_700} name="info" style={{ marginRight: '8px' }}></Icon>
+                      Issue could be
+                      <ul>
+                        <li> Adapter URL provided is not reachable </li>
+                      </ul>
+                    </div>
+
+                    <div className={css.issueSuggestion}>
+                      <Icon color={Color.GREY_700} name="lightbulb" style={{ marginRight: '8px' }}></Icon>
+                      Try these suggestions
+                      <ul>
+                        <li>
+                          Please provide the correct adapter URL of the kubernetes cluster. It can be obtained using
+                          &#39;kubectlcluster-info&#39; cli command
+                        </li>
+                      </ul>
+                    </div>
+                  </Card>
+                )}
               </div>
             )}
           </Layout.Vertical>
@@ -110,5 +147,3 @@ const TestConnection: React.FC<Record<string, unknown>> = (props: any) => {
     </Layout.Vertical>
   )
 }
-
-export default TestConnection

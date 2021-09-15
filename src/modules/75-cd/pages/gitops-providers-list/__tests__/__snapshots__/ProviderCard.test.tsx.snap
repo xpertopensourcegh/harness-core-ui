@@ -57,6 +57,7 @@ exports[`ProviderCard snapshot test should render ProviderCard 1`] = `
       </div>
       <p
         class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold StyledProps--margin-top-small StyledProps--color StyledProps--color-grey800"
+        data-testid="DarwinArgoDevEnv"
         style="--text-line-clamp: 1;"
       >
         Darwin Argo Dev Env

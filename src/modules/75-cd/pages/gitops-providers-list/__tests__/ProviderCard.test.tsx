@@ -15,10 +15,11 @@ const currentUser = {
 
 const provider = {
   name: 'Darwin Argo Dev Env',
-  id: 'DarwinArgoDevEnv',
+  identifier: 'DarwinArgoDevEnv',
   baseURL: 'https://34.136.244.5',
   status: 'Active',
-  type: 'nativeArgo'
+  type: 'nativeArgo',
+  spec: {}
 }
 
 describe('ProviderCard snapshot test', () => {

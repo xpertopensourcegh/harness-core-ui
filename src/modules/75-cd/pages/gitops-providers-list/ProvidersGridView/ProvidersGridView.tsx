@@ -1,17 +1,17 @@
 import React from 'react'
 import { Container, Layout, Pagination } from '@wings-software/uicore'
 import { PageSpinner } from '@common/components'
-import ProviderCard from './ProviderCard/ProviderCard'
+import type { GitopsProviderResponse, PageGitopsProviderResponse } from 'services/cd-ng'
+import ProviderCard from '../ProviderCard/ProviderCard'
 import css from './ProvidersGridView.module.scss'
 
 interface ProvidersGridViewProps {
-  providers: any
-  data?: any
+  data?: PageGitopsProviderResponse
   loading?: boolean
   reloadPage?: () => Promise<void>
   gotoPage: (index: number) => void
   onDelete?: () => Promise<void>
-  onEdit?: (provider: any) => Promise<void>
+  onEdit?: (provider: GitopsProviderResponse) => Promise<void>
 }
 
 const ProvidersGridView: React.FC<ProvidersGridViewProps> = props => {
@@ -30,14 +30,14 @@ const ProvidersGridView: React.FC<ProvidersGridViewProps> = props => {
               center
               gutter={25}
               items={data?.content || []}
-              renderItem={(provider: any) => (
+              renderItem={provider => (
                 <ProviderCard
-                  provider={provider?.connector}
+                  provider={provider}
                   onEdit={async () => onEdit && onEdit(provider)}
                   onDelete={props.onDelete}
                 />
               )}
-              keyOf={(provider: any) => provider.name}
+              keyOf={provider => provider.identifier}
             />
           </Container>
 

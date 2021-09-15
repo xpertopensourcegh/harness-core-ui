@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { isEmpty } from 'lodash-es'
+import { defaultTo, isEmpty } from 'lodash-es'
 import {
   useModalHook,
   Button,
@@ -14,16 +14,16 @@ import {
 } from '@wings-software/uicore'
 import { Menu, Classes, Position, Dialog, Intent } from '@blueprintjs/core'
 import { useConfirmationDialog, useToaster } from '@common/exports'
-import { useDeleteConnector } from 'services/cd-ng'
+import { ConnectedArgoGitOpsInfoDTO, GitopsProviderResponse, useDeleteGitOpsProvider } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { TagsPopover } from '@common/components'
-import argoLogo from '../images/argo-logo.svg'
-import harnessLogo from '../images/harness-logo.png'
+import { getGitOpsLogo } from '@cd/utils/GitOpsUtils'
+
 import css from './ProviderCard.module.scss'
 
 interface ProviderCardProps {
-  provider: any
+  provider: GitopsProviderResponse
   onDelete?: () => Promise<void>
   onEdit?: () => Promise<void>
 }
@@ -33,10 +33,10 @@ const ProviderCard: React.FC<ProviderCardProps> = props => {
   const { projectIdentifier, orgIdentifier, accountId } = useParams<PipelineType<ProjectPathProps>>()
   const { getString } = useStrings()
   const { showSuccess, showError } = useToaster()
-  const logo = provider.type === 'ArgoConnector' ? argoLogo : harnessLogo
+  const logo = getGitOpsLogo(provider.spec)
   const [menuOpen, setMenuOpen] = useState(false)
 
-  const { mutate: deleteConnector } = useDeleteConnector({
+  const { mutate: deleteConnector } = useDeleteGitOpsProvider({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier: orgIdentifier,
@@ -53,8 +53,8 @@ const ProviderCard: React.FC<ProviderCardProps> = props => {
   const getConfirmationDialogContent = (): JSX.Element => {
     return (
       <div className={'connectorDeleteDialog'}>
-        <Text margin={{ bottom: 'medium' }} className={css.confirmText} title={provider.connector?.name}>
-          {`${getString('connectors.confirmDelete')} ${provider.name}?`}
+        <Text margin={{ bottom: 'medium' }} className={css.confirmText} title={provider.name}>
+          {`${getString('cd.confirmProviderDelete')} ${provider.name}?`}
         </Text>
       </div>
     )
@@ -62,7 +62,7 @@ const ProviderCard: React.FC<ProviderCardProps> = props => {
 
   const { openDialog } = useConfirmationDialog({
     contentText: getConfirmationDialogContent(),
-    titleText: getString('connectors.confirmDeleteTitle'),
+    titleText: getString('cd.confirmDeleteTitle'),
     confirmButtonText: getString('delete'),
     cancelButtonText: getString('cancel'),
     onCloseDialog: async (isConfirmed: boolean) => {
@@ -74,7 +74,7 @@ const ProviderCard: React.FC<ProviderCardProps> = props => {
 
           if (deleted) {
             onDelete && onDelete()
-            showSuccess(`Connector ${provider?.name} deleted`)
+            showSuccess(`Provider ${provider?.name} deleted`)
           }
         } catch (err) {
           showError(err?.data?.message || err?.message)
@@ -108,7 +108,7 @@ const ProviderCard: React.FC<ProviderCardProps> = props => {
         <div style={{}} className={css.frameContainer}>
           <div className={css.frameHeader}>
             <img className={css.argoLogo} src={logo} alt="" aria-hidden />
-            {provider.name} - {provider?.spec?.adapterUrl}
+            {provider.name} - {(provider?.spec as ConnectedArgoGitOpsInfoDTO)?.adapterUrl}
             <Button
               variation={ButtonVariation.ICON}
               icon="cross"
@@ -126,7 +126,7 @@ const ProviderCard: React.FC<ProviderCardProps> = props => {
             frameBorder="0"
             name="argoCD"
             title="argoCD"
-            src={provider?.spec?.adapterUrl}
+            src={(provider?.spec as ConnectedArgoGitOpsInfoDTO)?.adapterUrl}
           ></iframe>
         </div>
       </Dialog>
@@ -185,7 +185,7 @@ const ProviderCard: React.FC<ProviderCardProps> = props => {
             <TagsPopover
               className={css.tagsPopover}
               iconProps={{ size: 14, color: Color.GREY_600 }}
-              tags={provider.tags}
+              tags={defaultTo(provider.tags, {})}
             />
           </div>
         )}
@@ -205,9 +205,8 @@ const ProviderCard: React.FC<ProviderCardProps> = props => {
           <div className={css.serverUrl}>
             <Text font={{ size: 'small' }}>{getString('cd.argoAdapterURL')}:</Text>
             <Text intent={Intent.PRIMARY} font={{ size: 'small' }}>
-              {provider?.spec?.adapterUrl}
+              {(provider?.spec as ConnectedArgoGitOpsInfoDTO)?.adapterUrl}
             </Text>
-            {/* <a>  </a> */}
           </div>
         </div>
       </Container>

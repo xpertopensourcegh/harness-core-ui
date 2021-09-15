@@ -1043,22 +1043,6 @@ export const buildGitPayload = (formData: FormData) => {
   return { connector: savedData }
 }
 
-export const buildArgoConnectorPayload = (formData: FormData) => {
-  const savedData = {
-    name: formData.name,
-    description: formData.description,
-    projectIdentifier: formData.projectIdentifier,
-    identifier: formData.identifier,
-    orgIdentifier: formData.orgIdentifier,
-    tags: formData.tags,
-    type: 'ArgoConnector',
-    spec: {
-      adapterUrl: formData.adapterUrl
-    }
-  }
-  return { connector: savedData }
-}
-
 export const buildKubFormData = (connector: ConnectorInfoDTO) => {
   return {
     name: connector?.name,

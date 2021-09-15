@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react'
-import { debounce } from 'lodash-es'
+import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import type { GetDataError } from 'restful-react'
 import {
   HarnessDocTooltip,
   Layout,
@@ -15,61 +13,42 @@ import { Dialog } from '@blueprintjs/core'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 
-import { removeNullAndEmpty } from '@common/components/Filter/utils/FilterUtils'
 import { shouldShowError } from '@common/utils/errorUtils'
 
 import { PageSpinner } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'
 
 import {
-  useGetConnectorListV2,
-  GetConnectorListV2QueryParams,
-  FilterDTO,
-  PageConnectorResponse,
-  Failure
+  useListGitOpsProviders,
+  ListGitOpsProvidersQueryParams,
+  GitopsProviderResponse,
+  ConnectedArgoGitOpsInfoDTO
 } from 'services/cd-ng'
-import { Page, useToaster } from '@common/exports'
+import { Page } from '@common/exports'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { useStrings } from 'framework/strings'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { getGitOpsLogo } from '@cd/utils/GitOpsUtils'
+
 import NewProviderModal from './NewProviderModal/NewProviderModal'
-import ProvidersGridView from './ProvidersGridView'
-
+import ProvidersGridView from './ProvidersGridView/ProvidersGridView'
 import providerIllustration from './images/provider-illustration-o.svg'
-import argoLogo from './images/argo-logo.svg'
-import harnessLogo from './images/harness-logo.png'
 
-import css from './GitOpsModalContainer.module.scss'
+import css from './GitOpsProvidersList.module.scss'
 
 const textIdentifier = 'gitOps'
-
-export interface SpecProps {
-  adapterUrl?: string
-}
-
-export interface ProviderProps {
-  type: string
-  name?: string
-  adapterUrl?: string
-  spec?: SpecProps
-}
 
 const GitOpsModalContainer: React.FC = () => {
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps & ModulePathParams>()
 
   const [searchTerm, setSearchTerm] = useState('')
-  const [activeProvider, setActiveProvider] = useState<ProviderProps | null>(null)
+  const [activeProvider, setActiveProvider] = useState<GitopsProviderResponse | null>(null)
   const [page, setPage] = useState(0)
-  const [appliedFilter, setAppliedFilter] = useState<FilterDTO | null>()
   const [editMode, setEditMode] = useState(false)
-  const { showError } = useToaster()
-  const [connectors, setConnectors] = useState<PageConnectorResponse | undefined>()
-  const [loading, setLoading] = useState<boolean>(false)
-  const [connectorFetchError, setConnectorFetchError] = useState<GetDataError<Failure | Error>>()
-  const defaultQueryParams: GetConnectorListV2QueryParams = {
+  const defaultQueryParams: ListGitOpsProvidersQueryParams = {
     pageIndex: page,
     pageSize: 10,
     projectIdentifier,
@@ -80,12 +59,12 @@ const GitOpsModalContainer: React.FC = () => {
 
   useDocumentTitle(getString('cd.gitOps'))
 
-  const handleEdit = (provider: any) => {
-    setActiveProvider(provider?.connector)
+  const handleEdit = (provider: GitopsProviderResponse): void => {
+    setActiveProvider(provider)
     setEditMode(true)
   }
 
-  const handleLaunchArgoDashboard = (provider: any) => {
+  const handleLaunchArgoDashboard = (provider: GitopsProviderResponse): void => {
     setEditMode(false)
     closeNewProviderModal()
     setActiveProvider(provider)
@@ -93,9 +72,9 @@ const GitOpsModalContainer: React.FC = () => {
   }
 
   const [openArgoModal, closeArgoModal] = useModalHook(() => {
-    const logo = activeProvider?.type === 'ArgoConnector' ? argoLogo : harnessLogo
+    const logo = getGitOpsLogo(activeProvider?.spec)
 
-    const handleCloseArgoModal = () => {
+    const handleCloseArgoModal = (): void => {
       closeArgoModal()
       reset()
     }
@@ -117,7 +96,7 @@ const GitOpsModalContainer: React.FC = () => {
         <div style={{}} className={css.frameContainer}>
           <div className={css.frameHeader}>
             <img className={css.argoLogo} src={logo} alt="" aria-hidden />
-            {activeProvider?.name} - {activeProvider?.spec?.adapterUrl}
+            {activeProvider?.name} - {(activeProvider?.spec as ConnectedArgoGitOpsInfoDTO)?.adapterUrl}
             <Button
               variation={ButtonVariation.ICON}
               icon="cross"
@@ -135,48 +114,27 @@ const GitOpsModalContainer: React.FC = () => {
             frameBorder="0"
             name="argoCD"
             title="argoCD"
-            src={activeProvider?.spec?.adapterUrl}
-          ></iframe>
+            src={(activeProvider?.spec as ConnectedArgoGitOpsInfoDTO)?.adapterUrl}
+          />
         </div>
       </Dialog>
     )
   }, [activeProvider])
 
-  const { mutate: fetchConnectors } = useGetConnectorListV2({
-    queryParams: defaultQueryParams
+  const {
+    data,
+    loading,
+    error: connectorFetchError,
+    refetch: refetchConnectorList
+  } = useListGitOpsProviders({
+    queryParams: defaultQueryParams,
+    debounce: 500
   })
 
-  const refetchConnectorList = React.useCallback(
-    async (params?: GetConnectorListV2QueryParams): Promise<void> => {
-      setLoading(true)
-
-      const requestBodyPayload = {
-        types: ['ArgoConnector'],
-        filterType: 'Connector'
-      }
-
-      const sanitizedFilterRequest = removeNullAndEmpty(requestBodyPayload)
-      try {
-        const { status, data } = await fetchConnectors(sanitizedFilterRequest, { queryParams: params })
-        /* istanbul ignore else */ if (status === 'SUCCESS') {
-          setConnectors(data)
-          setConnectorFetchError(undefined)
-        }
-      } /* istanbul ignore next */ catch (e) {
-        if (shouldShowError(e)) {
-          showError(e.data?.message || e.message)
-        }
-        setConnectorFetchError(e)
-      }
-      setLoading(false)
-    },
-    [fetchConnectors]
-  )
-
   const [addNewProviderModal, closeNewProviderModal] = useModalHook(() => {
-    const handleClose = () => {
+    const handleClose = (): void => {
       closeNewProviderModal()
-      refetchConnectorList({ ...defaultQueryParams, searchTerm, pageIndex: 0 })
+      refetchConnectorList({ queryParams: { ...defaultQueryParams, /*searchTerm, */ pageIndex: 0 } })
     }
 
     return (
@@ -203,41 +161,17 @@ const GitOpsModalContainer: React.FC = () => {
     )
   }, [activeProvider])
 
-  /* Initial page load */
-  useEffect(() => {
-    refetchConnectorList({ ...defaultQueryParams, searchTerm, pageIndex: 0 })
-    setPage(0)
-  }, [projectIdentifier, orgIdentifier])
-
   /* Through page browsing */
   useEffect(() => {
-    const updatedQueryParams = {
+    const updatedQueryParams: ListGitOpsProvidersQueryParams = {
       ...defaultQueryParams,
-      searchTerm,
+      projectIdentifier,
+      orgIdentifier,
+      // searchTerm,
       pageIndex: page
     }
-    refetchConnectorList(updatedQueryParams)
-  }, [page])
-
-  /* Through expandable filter text search */
-  const debouncedConnectorSearch = useCallback(
-    debounce((query: string): void => {
-      /* For a non-empty query string, always start from first page(index 0) */
-      const updatedQueryParams = {
-        ...defaultQueryParams,
-        searchTerm: query,
-        pageIndex: 0
-      }
-      if (query) {
-        refetchConnectorList(updatedQueryParams)
-      } /* on clearing query */ else {
-        page === 0
-          ? /* fetch connectors for 1st page */ refetchConnectorList(updatedQueryParams)
-          : /* or navigate to first page */ setPage(0)
-      }
-    }, 500),
-    [refetchConnectorList, appliedFilter?.filterProperties]
-  )
+    refetchConnectorList({ queryParams: updatedQueryParams })
+  }, [page, searchTerm, projectIdentifier, orgIdentifier])
 
   useEffect(() => {
     if (editMode && activeProvider) {
@@ -247,9 +181,7 @@ const GitOpsModalContainer: React.FC = () => {
 
   /* Clearing filter from Connector Filter Panel */
   const reset = (): void => {
-    refetchConnectorList({ ...defaultQueryParams, searchTerm })
-    setAppliedFilter(undefined)
-    setConnectorFetchError(undefined)
+    refetchConnectorList({ queryParams: { ...defaultQueryParams /*searchTerm */ } })
   }
 
   return (
@@ -292,7 +224,6 @@ const GitOpsModalContainer: React.FC = () => {
             placeholder={getString('search')}
             throttle={200}
             onChange={(query: string) => {
-              debouncedConnectorSearch(encodeURIComponent(query))
               setSearchTerm(query)
             }}
             className={css.expandSearch}
@@ -318,12 +249,11 @@ const GitOpsModalContainer: React.FC = () => {
                   }}
                 />
               </div>
-            ) : connectors?.content?.length ? (
+            ) : data?.data?.content?.length ? (
               <ProvidersGridView
                 onDelete={refetchConnectorList}
                 onEdit={async provider => handleEdit(provider)}
-                data={connectors}
-                providers={connectors?.content}
+                data={data?.data}
                 loading={loading}
                 gotoPage={(pageNumber: number) => setPage(pageNumber)}
               />

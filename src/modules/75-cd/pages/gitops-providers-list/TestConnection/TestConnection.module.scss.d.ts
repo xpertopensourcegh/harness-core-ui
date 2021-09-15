@@ -9,7 +9,9 @@ declare const styles: {
   readonly fullHeight: string
   readonly connectorForm: string
   readonly validationStatus: string
-  readonly error: string
   readonly success: string
+  readonly card: string
+  readonly issueInfo: string
+  readonly issueSuggestion: string
 }
 export default styles

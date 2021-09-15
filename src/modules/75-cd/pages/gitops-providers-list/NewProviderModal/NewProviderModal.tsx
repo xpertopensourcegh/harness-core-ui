@@ -1,16 +1,18 @@
 import { Button, ButtonVariation } from '@wings-software/uicore'
 import React, { useState, useEffect } from 'react'
 import cx from 'classnames'
-import CreateArgoProvider from '../CreateArgoProvider/CreateArgoProvider'
-import argoLogo from '../images/argo-logo.svg'
-import harnessLogo from '../images/harness-logo.png'
+import type { GitopsProviderResponse } from 'services/cd-ng'
+import { isConnectedGitOpsProvider } from '@cd/utils/GitOpsUtils'
+import argoLogo from '@cd/icons/argo-logo.svg'
+import harnessLogo from '@cd/icons/harness-logo.png'
+import CreateProvider from '../CreateProvider/CreateProvider'
 
 import css from './NewProviderModal.module.scss'
 
 interface NewProviderModalProps {
-  provider: any
-  onClose: any
-  onLaunchArgoDashboard?: (url: string) => void
+  provider: GitopsProviderResponse | null
+  onClose?(): void
+  onLaunchArgoDashboard?: (provider: GitopsProviderResponse) => void
 }
 
 const NewProviderModal: React.FC<NewProviderModalProps> = props => {
@@ -19,7 +21,7 @@ const NewProviderModal: React.FC<NewProviderModalProps> = props => {
   const [isEditMode, setIsEditMode] = useState(false)
 
   useEffect(() => {
-    if (provider && provider?.type === 'ArgoConnector') {
+    if (isConnectedGitOpsProvider(provider?.spec)) {
       setShowCreateModal(true)
       setIsEditMode(true)
     }
@@ -64,13 +66,7 @@ const NewProviderModal: React.FC<NewProviderModalProps> = props => {
 
       {showCreateModal && (
         <div className={css.providerModalContainer}>
-          <CreateArgoProvider
-            isEditMode={isEditMode}
-            onUpdateMode={(mode: boolean) => setIsEditMode(mode)}
-            provider={props.provider}
-            onClose={props.onClose}
-            onLaunchArgoDashboard={props.onLaunchArgoDashboard}
-          />
+          <CreateProvider isEditMode={isEditMode} onUpdateMode={(mode: boolean) => setIsEditMode(mode)} {...props} />
         </div>
       )}
 
@@ -79,7 +75,7 @@ const NewProviderModal: React.FC<NewProviderModalProps> = props => {
         icon="cross"
         iconProps={{ size: 18 }}
         onClick={() => {
-          props.onClose()
+          props.onClose?.()
         }}
         className={css.crossIcon}
       />

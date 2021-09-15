@@ -16,35 +16,30 @@ import {
   ButtonVariation
 } from '@wings-software/uicore'
 import {
-  useCreateConnector,
-  useUpdateConnector,
-  ConnectorConfigDTO,
-  ConnectorInfoDTO,
-  Connector,
-  CreateConnectorQueryParams
+  ConnectedArgoGitOpsInfoDTO,
+  CreateGitOpsProviderQueryParams,
+  GitOpsProvider,
+  useCreateGitOpsProvider,
+  useUpdateGitOpsProvider
 } from 'services/cd-ng'
 import { getErrorInfoFromErrorObject, shouldShowError } from '@common/utils/errorUtils'
 import { String, useStrings } from 'framework/strings'
 import { PageSpinner, useToaster } from '@common/components'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { GitOpsProviderTypeEnum } from '@cd/utils/GitOpsUtils'
 import aboutHarnessAdapterIllustration from '../images/aboutHarnessAdapterIllustration.svg'
+import type { BaseProviderStepProps } from '../types'
 import css from './ProviderDetailsStep.module.scss'
 
-interface BuildPayloadProps {
-  projectIdentifier: string
-  orgIdentifier: string
-  delegateSelectors: Array<string>
-}
+const aboutHarnessAdapterURL = `https://ngdocs.harness.io/article/ptlvh7c6z2-harness-argo-cd-git-ops-quickstart`
 
-interface ConnectorCreateEditProps {
-  payload?: Connector
-}
+export type ProviderOverviewStepProps = BaseProviderStepProps
 
-const aboutHarnessAdapterURL = `https://docs.harness.io/article/bymoar4glr-argo`
-
-const ProviderOverviewStep = (props: any) => {
+export default function ProviderOverviewStep(props: ProviderOverviewStepProps): React.ReactElement {
   const { getString } = useStrings()
   const { showSuccess, showError } = useToaster()
-  const { prevStepData, nextStep, buildPayload, customHandleCreate, customHandleUpdate, connectorInfo } = props
+
+  const { prevStepData, nextStep, provider } = props
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
@@ -52,21 +47,20 @@ const ProviderOverviewStep = (props: any) => {
     accountId,
     projectIdentifier: projectIdentifierFromUrl,
     orgIdentifier: orgIdentifierFromUrl
-  } = useParams<any>()
-  const projectIdentifier = connectorInfo ? connectorInfo.projectIdentifier : projectIdentifierFromUrl
-  const orgIdentifier = connectorInfo ? connectorInfo.orgIdentifier : orgIdentifierFromUrl
-  const { mutate: createConnector, loading: creating } = useCreateConnector({
+  } = useParams<ProjectPathProps>()
+  const projectIdentifier = provider ? provider.projectIdentifier : projectIdentifierFromUrl
+  const orgIdentifier = provider ? provider.orgIdentifier : orgIdentifierFromUrl
+  const { mutate: createConnector, loading: creating } = useCreateGitOpsProvider({
     queryParams: { accountIdentifier: accountId }
   })
-  const { mutate: updateConnector, loading: updating } = useUpdateConnector({
+  const { mutate: updateConnector, loading: updating } = useUpdateGitOpsProvider({
     queryParams: { accountIdentifier: accountId }
   })
-  const [connectorPayloadRef, setConnectorPayloadRef] = useState<Connector | undefined>()
+  // const [connectorPayloadRef, setConnectorPayloadRef] = useState<Connector | undefined>()
 
-  const handleCreateOrEdit = async (connectorData: ConnectorCreateEditProps): Promise<any> => {
-    const payload = connectorData.payload || (connectorPayloadRef as Connector)
+  const handleCreateOrEdit = async (payload: GitOpsProvider): Promise<any> => {
     modalErrorHandler?.hide()
-    const queryParams: CreateConnectorQueryParams = {}
+    const queryParams: CreateGitOpsProviderQueryParams = {}
 
     const response = props.isEditMode
       ? await updateConnector(payload, {
@@ -83,13 +77,11 @@ const ProviderOverviewStep = (props: any) => {
   }
 
   const isSaveButtonDisabled = creating || updating
-  const connectorName = creating
-    ? (prevStepData as ConnectorConfigDTO)?.name
-    : (props?.provider as ConnectorInfoDTO)?.name
+  const connectorName = creating ? prevStepData?.name : props?.provider?.name
 
   const afterSuccessHandler = (response: any): void => {
-    props.onUpdateMode(true)
-    nextStep?.({ ...props.connectorInfo, ...prevStepData, ...response?.data?.connector })
+    props.onUpdateMode?.(true)
+    nextStep?.({ ...props.provider, ...prevStepData, ...response?.data })
   }
 
   return (
@@ -98,8 +90,8 @@ const ProviderOverviewStep = (props: any) => {
         <PageSpinner
           message={
             creating
-              ? getString('connectors.creating', { name: connectorName })
-              : getString('connectors.updating', { name: connectorName })
+              ? getString('cd.creating', { name: connectorName })
+              : getString('cd.updating', { name: connectorName })
           }
         />
       ) : null}
@@ -107,10 +99,14 @@ const ProviderOverviewStep = (props: any) => {
         <div className={css.heading}>Provider Details</div>
         <ModalErrorHandler bind={setModalErrorHandler} />
 
-        <Container padding="small" className={css.connectorForm}>
-          <Formik
+        <Container className={css.connectorForm}>
+          <Formik<ConnectedArgoGitOpsInfoDTO>
             initialValues={{
-              adapterUrl: props?.prevStepData?.spec?.adapterUrl || props?.provider?.spec?.adapterUrl || ''
+              adapterUrl:
+                (props?.prevStepData?.spec as ConnectedArgoGitOpsInfoDTO)?.adapterUrl ||
+                (props?.provider?.spec as ConnectedArgoGitOpsInfoDTO)?.adapterUrl ||
+                '',
+              type: GitOpsProviderTypeEnum.ConnectedArgoProvider
             }}
             validationSchema={Yup.object().shape({
               adapterUrl: Yup.string()
@@ -119,44 +115,34 @@ const ProviderOverviewStep = (props: any) => {
                 .required('Please enter a valid Adapter URL')
             })}
             formName="connectionDetails"
-            onSubmit={(stepData: any) => {
-              const updatedStepData = {
-                ...stepData
-              }
-
-              const connectorData: BuildPayloadProps = {
-                ...prevStepData,
-                ...updatedStepData,
+            onSubmit={stepData => {
+              const data: GitOpsProvider = {
+                ...(prevStepData as GitOpsProvider),
+                spec: {
+                  ...stepData
+                },
                 projectIdentifier: projectIdentifier,
                 orgIdentifier: orgIdentifier
               }
+              // setConnectorPayloadRef(data)
 
-              const data = buildPayload(connectorData)
-              setConnectorPayloadRef(data)
+              handleCreateOrEdit(data) /* Handling non-git flow */
+                .then(res => {
+                  if (res.status === 'SUCCESS') {
+                    props.isEditMode
+                      ? showSuccess(getString('cd.updatedSuccessfully'))
+                      : showSuccess(getString('cd.createdSuccessfully'))
 
-              if (customHandleUpdate || customHandleCreate) {
-                props.isEditMode
-                  ? customHandleUpdate?.(data, { ...prevStepData, ...updatedStepData }, props)
-                  : customHandleCreate?.(data, { ...prevStepData, ...updatedStepData }, props)
-              } else {
-                handleCreateOrEdit({ payload: data }) /* Handling non-git flow */
-                  .then(res => {
-                    if (res.status === 'SUCCESS') {
-                      props.isEditMode
-                        ? showSuccess(getString('connectors.updatedSuccessfully'))
-                        : showSuccess(getString('connectors.createdSuccessfully'))
-
-                      res.nextCallback?.()
-                    } else {
-                      /* TODO handle error with API status 200 */
-                    }
-                  })
-                  .catch(e => {
-                    if (shouldShowError(e)) {
-                      showError(getErrorInfoFromErrorObject(e))
-                    }
-                  })
-              }
+                    res.nextCallback?.()
+                  } else {
+                    /* TODO handle error with API status 200 */
+                  }
+                })
+                .catch(e => {
+                  if (shouldShowError(e)) {
+                    showError(getErrorInfoFromErrorObject(e))
+                  }
+                })
             }}
           >
             {() => (
@@ -214,5 +200,3 @@ const ProviderOverviewStep = (props: any) => {
     </>
   )
 }
-
-export default ProviderOverviewStep
