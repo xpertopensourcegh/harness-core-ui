@@ -95,7 +95,7 @@ const getNumberOfDigits = (num = 0) => {
 
 export const VerticalLayout = (props: VerticalLayoutProps) => {
   const { title, chartData, totalCost, footer, showTrendInChart, seeAll } = props
-  const len = getNumberOfDigits(+(totalCost.value || 0).toFixed(2))
+  const len = getNumberOfDigits(+(totalCost?.value || 0).toFixed(2))
   const totalCostFontSize = len >= 7 ? '20px' : '24px'
 
   return (
@@ -163,9 +163,9 @@ const Gist = (props: GistProps) => {
         {label}
       </Text>
       <Text color="grey800" font={{ weight: 'bold' }} style={{ fontSize: totalCostFontSize }}>
-        {formatCost(totalCost.value)}
+        {formatCost(totalCost?.value)}
       </Text>
-      {showTrend && <CostTrend value={totalCost.trend} />}
+      {showTrend && <CostTrend value={totalCost?.trend} />}
     </Layout.Vertical>
   )
 }

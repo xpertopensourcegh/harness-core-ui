@@ -81,7 +81,7 @@ const Legends = ({ chartRef }: { chartRef: Highcharts.Chart }) => {
 
   return (
     <Container className={css.legendContainer}>
-      {chartRef.series.map(chart => {
+      {chartRef.series?.map(chart => {
         const chartColor: string = (chart as any).color
         return (
           <Layout.Horizontal key={chart.userOptions.name} spacing="small" style={{ alignItems: 'center' }}>
