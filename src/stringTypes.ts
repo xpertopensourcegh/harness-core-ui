@@ -3495,7 +3495,9 @@ export interface StringsMap {
   'ci.runTestsMavenSetupTitle': string
   'ci.save': string
   'ci.secrets': string
+  'ci.successful': string
   'ci.templates': string
+  'ci.testSummary': string
   'ci.titleGovernance': string
   'ci.titleResources': string
   'ci.titleSettings': string
