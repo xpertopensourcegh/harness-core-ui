@@ -3120,6 +3120,7 @@ export interface StringsMap {
   'cf.environments.apiKeys.keyType': string
   'cf.environments.apiKeys.message': string
   'cf.environments.apiKeys.noKeysFound': string
+  'cf.environments.apiKeys.redactionWarning': string
   'cf.environments.apiKeys.serverType': string
   'cf.environments.apiKeys.title': string
   'cf.environments.create.description': string

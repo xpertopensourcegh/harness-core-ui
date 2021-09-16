@@ -319,6 +319,7 @@ environments:
     deleteSuccess: 'Successfully deleted Key: {{keyName}}'
     keyType: 'Key Type'
     noKeysFound: 'No SDK Keys found in this environment. Click the button below to create a Key'
+    redactionWarning: Your secret will be redacted once you leave the page. Please make sure to copy and store your secret.
 auditLogs:
   title: Audit Logs
   summaryHeading: 'Module: Feature Flags • Project: {{project}} • Environment: {{environment}}'
