@@ -677,7 +677,7 @@ export const buildAWSPayload = (formData: FormData) => {
         crossAccountAccess: formData.crossAccountAccess
           ? {
               crossAccountRoleArn: formData.crossAccountRoleArn,
-              externalId: formData.externalId.length ? formData.externalId : null
+              externalId: formData.externalId?.length ? formData.externalId : null
             }
           : null
       }
