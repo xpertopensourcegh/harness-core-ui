@@ -22,6 +22,10 @@ import {
   mockedTimestamps,
   mockedHealthScoreDataForLowestHealthScore
 } from './ServiceHealth.mock'
+import {
+  changeSummaryWithPositiveChange,
+  expectedPositiveTextContent
+} from '../components/ChangesSourceCard/__tests__/ChangeSourceCard.mock'
 
 const WrapperComponent = (props: ServiceHealthProps): JSX.Element => {
   return (
@@ -48,6 +52,14 @@ jest.mock('services/cv', () => ({
   })),
   useGetMonitoredServiceOverAllHealthScore: jest.fn().mockImplementation(() => {
     return { data: mockedHealthScoreData, refetch: fetchHealthScore, error: null, loading: false }
+  }),
+  useGetChangeSummary: jest.fn().mockImplementation(() => {
+    return {
+      data: { resource: { ...changeSummaryWithPositiveChange } },
+      refetch: jest.fn(),
+      error: null,
+      loading: false
+    }
   })
 }))
 
@@ -123,5 +135,13 @@ describe('Unit tests for ServiceHealth', () => {
       minWidth: 76
     }
     expect(getSliderDimensions(containerWidth)).toEqual(expectedDimensions)
+  })
+
+  test('Verify ChangesSourceCard loads', () => {
+    const props = { serviceIdentifier: 'service-identifier', environmentIdentifier: 'env-identifier' }
+    const { container } = render(<WrapperComponent {...props} />)
+    container.querySelectorAll('.tickerValue[data-test="tickerValue"]').forEach((item, index) => {
+      expect(item.textContent).toEqual(expectedPositiveTextContent[index])
+    })
   })
 })

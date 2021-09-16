@@ -20,6 +20,7 @@ import HealthScoreChart from './components/HealthScoreChart/HealthScoreChart'
 import MetricsAndLogs from './components/MetricsAndLogs/MetricsAndLogs'
 import HealthScoreCard from './components/HealthScoreCard/HealthScoreCard'
 import AnomaliesCard from './components/AnomaliesCard/AnomaliesCard'
+import ChangesSourceCard from './components/ChangesSourceCard/ChangesSourceCard'
 import css from './ServiceHealth.module.scss'
 
 export default function ServiceHealth({
@@ -108,31 +109,9 @@ export default function ServiceHealth({
       <Container className={css.serviceHealthCard}>
         <Card>
           <>
-            {/* TODO - Will be added back once the backend api data is available */}
-            {/* <Container className={css.tickersRow}>
-              {tickerData.map((ticker: TickerType) => {
-                return (
-                  <Container key={ticker.id} className={css.ticker}>
-                    <Ticker
-                      value={
-                        <TickerValue
-                          value={ticker.percentage}
-                          label={ticker.label}
-                          color={ticker.percentage < 0 ? Color.GREEN_600 : Color.RED_500}
-                        />
-                      }
-                      decreaseMode={ticker.percentage < 0}
-                      color={ticker.percentage < 0 ? Color.GREEN_600 : Color.RED_500}
-                      verticalAlign={TickerVerticalAlignment.TOP}
-                    >
-                      <Text color={Color.BLACK} font={{ weight: 'bold', size: 'large' }} margin={{ right: 'medium' }}>
-                        {ticker.count}
-                      </Text>
-                    </Ticker>
-                  </Container>
-                )
-              })}
-            </Container> */}
+            {serviceIdentifier && environmentIdentifier && (
+              <ChangesSourceCard startTime={timeRange?.startTime as number} endTime={timeRange?.endTime as number} />
+            )}
             <Container onClick={() => setShowTimelineSlider(true)} className={css.main} ref={containerRef}>
               <HealthScoreChart
                 duration={selectedTimePeriod.value as TimePeriodEnum}

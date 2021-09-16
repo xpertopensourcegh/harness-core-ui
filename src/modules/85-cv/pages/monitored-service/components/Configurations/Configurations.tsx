@@ -241,12 +241,11 @@ export default function Configurations(): JSX.Element {
     )
   }
 
-  if (loadingGetMonitoredService || loadingFetchMonitoredServiceYAML || loadingUpdateMonitoredService) {
-    return <PageSpinner />
-  }
-
   return (
     <Container className={css.configurationTabs}>
+      {(loadingGetMonitoredService || loadingFetchMonitoredServiceYAML || loadingUpdateMonitoredService) && (
+        <PageSpinner />
+      )}
       {showErrorOnSubmit(errorUpdateMonitoredService, errorSaveMonitoredService, showError, getErrorMessage)}
       <Tabs
         id="configurationTabs"

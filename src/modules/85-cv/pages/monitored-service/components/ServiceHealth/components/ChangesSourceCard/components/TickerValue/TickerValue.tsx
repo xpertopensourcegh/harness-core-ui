@@ -5,7 +5,9 @@ import css from './TickerValue.module.scss'
 
 const TickerValue: React.FC<{ value: number; label: string; color: Color }> = props => (
   <Container className={css.tickerValue}>
-    <Text font={{ size: 'small', weight: 'bold' }}>{props.label}</Text>
+    <Text className={css.tickerLabel} font={{ size: 'small', weight: 'bold' }}>
+      {props.label}
+    </Text>
     <Text font={{ size: 'xsmall' }} color={props.color}>{`${numberFormatter(Math.abs(props.value), {
       truncate: false
     })}%`}</Text>

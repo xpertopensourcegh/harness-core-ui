@@ -8048,6 +8048,72 @@ export const getAnomaliesSummaryPromise = (
     GetAnomaliesSummaryPathParams
   >(getConfig('cv/api'), `/monitored-service/${identifier}/anomaliesCount`, props, signal)
 
+export interface GetChangeSummaryQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+  startTime: number
+  endTime: number
+}
+
+export interface GetChangeSummaryPathParams {
+  identifier: string
+}
+
+export type GetChangeSummaryProps = Omit<
+  GetProps<RestResponseChangeSummaryDTO, unknown, GetChangeSummaryQueryParams, GetChangeSummaryPathParams>,
+  'path'
+> &
+  GetChangeSummaryPathParams
+
+/**
+ * get ChangeEvent summary
+ */
+export const GetChangeSummary = ({ identifier, ...props }: GetChangeSummaryProps) => (
+  <Get<RestResponseChangeSummaryDTO, unknown, GetChangeSummaryQueryParams, GetChangeSummaryPathParams>
+    path={`/monitored-service/${identifier}/change-event/summary`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetChangeSummaryProps = Omit<
+  UseGetProps<RestResponseChangeSummaryDTO, unknown, GetChangeSummaryQueryParams, GetChangeSummaryPathParams>,
+  'path'
+> &
+  GetChangeSummaryPathParams
+
+/**
+ * get ChangeEvent summary
+ */
+export const useGetChangeSummary = ({ identifier, ...props }: UseGetChangeSummaryProps) =>
+  useGet<RestResponseChangeSummaryDTO, unknown, GetChangeSummaryQueryParams, GetChangeSummaryPathParams>(
+    (paramsInPath: GetChangeSummaryPathParams) => `/monitored-service/${paramsInPath.identifier}/change-event/summary`,
+    { base: getConfig('cv/api'), pathParams: { identifier }, ...props }
+  )
+
+/**
+ * get ChangeEvent summary
+ */
+export const getChangeSummaryPromise = (
+  {
+    identifier,
+    ...props
+  }: GetUsingFetchProps<
+    RestResponseChangeSummaryDTO,
+    unknown,
+    GetChangeSummaryQueryParams,
+    GetChangeSummaryPathParams
+  > & { identifier: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseChangeSummaryDTO, unknown, GetChangeSummaryQueryParams, GetChangeSummaryPathParams>(
+    getConfig('cv/api'),
+    `/monitored-service/${identifier}/change-event/summary`,
+    props,
+    signal
+  )
+
 export interface SetHealthMonitoringFlagQueryParams {
   accountId: string
   orgIdentifier: string

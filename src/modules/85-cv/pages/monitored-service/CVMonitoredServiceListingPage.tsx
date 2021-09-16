@@ -181,7 +181,7 @@ function CVMonitoredServiceListingPage(): JSX.Element {
             {deploymentCount}
           </Text>
           <Text
-            tooltip={getString('cv.abbreviatedCategories.infrastructure')}
+            tooltip={getString('infrastructureText')}
             inline
             icon="infrastructure"
             font={{ weight: 'semi-bold' }}
