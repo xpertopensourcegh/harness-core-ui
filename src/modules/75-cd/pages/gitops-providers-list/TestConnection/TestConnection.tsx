@@ -14,7 +14,7 @@ import {
   ButtonVariation
 } from '@wings-software/uicore'
 
-import { useStrings } from 'framework/strings'
+import { String, useStrings } from 'framework/strings'
 import type { ConnectedArgoGitOpsInfoDTO } from 'services/cd-ng'
 import type { BaseProviderStepProps } from '../types'
 import css from './TestConnection.module.scss'
@@ -94,21 +94,12 @@ export default function TestConnection(props: TestConnectionProps): React.ReactE
                     </Text>
                     <div className={css.issueInfo}>
                       <Icon color={Color.GREY_700} name="info" style={{ marginRight: '8px' }}></Icon>
-                      Issue could be
-                      <ul>
-                        <li> Adapter URL provided is not reachable </li>
-                      </ul>
+                      <String stringID="cd.connectionIssueInfo" useRichText />
                     </div>
 
                     <div className={css.issueSuggestion}>
                       <Icon color={Color.GREY_700} name="lightbulb" style={{ marginRight: '8px' }}></Icon>
-                      Try these suggestions
-                      <ul>
-                        <li>
-                          Please provide the correct adapter URL of the kubernetes cluster. It can be obtained using
-                          &#39;kubectlcluster-info&#39; cli command
-                        </li>
-                      </ul>
+                      <String stringID="cd.connectionIssueSuggestion" useRichText />
                     </div>
                   </Card>
                 )}

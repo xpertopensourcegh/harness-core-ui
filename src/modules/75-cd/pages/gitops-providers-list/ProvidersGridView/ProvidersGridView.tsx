@@ -10,12 +10,12 @@ interface ProvidersGridViewProps {
   loading?: boolean
   reloadPage?: () => Promise<void>
   gotoPage: (index: number) => void
-  onDelete?: () => Promise<void>
+  onDelete?: (provider: GitopsProviderResponse) => Promise<void>
   onEdit?: (provider: GitopsProviderResponse) => Promise<void>
 }
 
 const ProvidersGridView: React.FC<ProvidersGridViewProps> = props => {
-  const { loading, data, onEdit, gotoPage } = props
+  const { loading, data, onEdit, onDelete, gotoPage } = props
 
   return (
     <>
@@ -34,7 +34,7 @@ const ProvidersGridView: React.FC<ProvidersGridViewProps> = props => {
                 <ProviderCard
                   provider={provider}
                   onEdit={async () => onEdit && onEdit(provider)}
-                  onDelete={props.onDelete}
+                  onDelete={async () => onDelete && onDelete(provider)}
                 />
               )}
               keyOf={provider => provider.identifier}

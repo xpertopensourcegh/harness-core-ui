@@ -78,9 +78,9 @@ const ProviderOverviewStep: React.FC<ProviderOverviewStepProps> = props => {
         nextStep?.({ ...props.provider, ...prevStepData, ...formData })
       } else {
         modalErrorHandler?.showDanger(
-          getString('validation.duplicateIdError', {
-            connectorName: formData.name,
-            connectorIdentifier: formData.identifier
+          getString('cd.duplicateIdError', {
+            providerName: formData.name,
+            providerIdentifier: formData.identifier
           })
         )
       }
@@ -137,16 +137,6 @@ const ProviderOverviewStep: React.FC<ProviderOverviewStepProps> = props => {
                     formikProps={formikProps}
                     identifierProps={{ inputName: 'name', isIdentifierEditable: !isEdit }}
                   />
-
-                  {/* {showGitContextForm ? (
-                    <GitSyncStoreProvider>
-                      <GitContextForm
-                        formikProps={formikProps as any}
-                        gitDetails={props.gitDetails}
-                        className={'gitDetailsContainer'}
-                      />
-                    </GitSyncStoreProvider>
-                  ) : null} */}
                 </Container>
                 <Layout.Horizontal>
                   <Button

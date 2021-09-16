@@ -2484,6 +2484,8 @@ export interface StringsMap {
   'cd.configurationFile': string
   'cd.confirmDeleteTitle': string
   'cd.confirmProviderDelete': string
+  'cd.connectionIssueInfo': string
+  'cd.connectionIssueSuggestion': string
   'cd.contentRequired': string
   'cd.continuous': string
   'cd.createdSuccessfully': string
@@ -2491,6 +2493,7 @@ export interface StringsMap {
   'cd.dashboard.createProject': string
   'cd.dashboard.orSelectExisting': string
   'cd.dashboard.subHeading': string
+  'cd.duplicateIdError': string
   'cd.dynamicProvisioning': string
   'cd.environmentCreated': string
   'cd.environmentUpdated': string

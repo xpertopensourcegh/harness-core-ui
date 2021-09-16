@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useParams } from 'react-router-dom'
 import {
   HarnessDocTooltip,
@@ -22,8 +22,10 @@ import {
   useListGitOpsProviders,
   ListGitOpsProvidersQueryParams,
   GitopsProviderResponse,
-  ConnectedArgoGitOpsInfoDTO
+  ConnectedArgoGitOpsInfoDTO,
+  useDeleteGitOpsProvider
 } from 'services/cd-ng'
+import { useToaster } from '@common/exports'
 import { Page } from '@common/exports'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { useStrings } from 'framework/strings'
@@ -44,9 +46,13 @@ const GitOpsModalContainer: React.FC = () => {
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps & ModulePathParams>()
 
+  const { showSuccess, showError } = useToaster()
+  // Adding timeout to escape the timegap between loading set by useListGitOpsProviders and setting deleting to false
+  const [deleting, setDeleting] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const [activeProvider, setActiveProvider] = useState<GitopsProviderResponse | null>(null)
   const [page, setPage] = useState(0)
+  const timerRef = useRef<number | null>(null)
   const [editMode, setEditMode] = useState(false)
   const defaultQueryParams: ListGitOpsProvidersQueryParams = {
     pageIndex: page,
@@ -57,11 +63,47 @@ const GitOpsModalContainer: React.FC = () => {
     searchTerm: ''
   }
 
+  const { mutate: deleteConnector } = useDeleteGitOpsProvider({
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier: orgIdentifier,
+      projectIdentifier: projectIdentifier
+    }
+  })
+
   useDocumentTitle(getString('cd.gitOps'))
 
   const handleEdit = (provider: GitopsProviderResponse): void => {
     setActiveProvider(provider)
     setEditMode(true)
+  }
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current)
+      }
+    }
+  }, [])
+
+  const handleDelete = async (provider: GitopsProviderResponse): Promise<void> => {
+    try {
+      setDeleting(true)
+      const deleted = await deleteConnector(provider?.identifier || '', {
+        headers: { 'content-type': 'application/json' }
+      })
+
+      if (deleted) {
+        refetchConnectorList({ queryParams: { ...defaultQueryParams, searchTerm, pageIndex: 0 } })
+        showSuccess(`Provider ${provider?.name} deleted`)
+      }
+    } catch (err) {
+      showError(err?.data?.message || err?.message)
+    } finally {
+      timerRef.current = window.setTimeout(() => {
+        setDeleting(false)
+      }, 2000)
+    }
   }
 
   const handleLaunchArgoDashboard = (provider: GitopsProviderResponse): void => {
@@ -134,7 +176,7 @@ const GitOpsModalContainer: React.FC = () => {
   const [addNewProviderModal, closeNewProviderModal] = useModalHook(() => {
     const handleClose = (): void => {
       closeNewProviderModal()
-      refetchConnectorList({ queryParams: { ...defaultQueryParams, /*searchTerm, */ pageIndex: 0 } })
+      refetchConnectorList({ queryParams: { ...defaultQueryParams, searchTerm, pageIndex: 0 } })
     }
 
     return (
@@ -167,11 +209,15 @@ const GitOpsModalContainer: React.FC = () => {
       ...defaultQueryParams,
       projectIdentifier,
       orgIdentifier,
-      // searchTerm,
+      searchTerm,
       pageIndex: page
     }
     refetchConnectorList({ queryParams: updatedQueryParams })
-  }, [page, searchTerm, projectIdentifier, orgIdentifier])
+  }, [page, projectIdentifier, orgIdentifier])
+
+  useEffect(() => {
+    refetchConnectorList({ queryParams: { ...defaultQueryParams, searchTerm, pageIndex: 0 } })
+  }, [searchTerm])
 
   useEffect(() => {
     if (editMode && activeProvider) {
@@ -181,7 +227,7 @@ const GitOpsModalContainer: React.FC = () => {
 
   /* Clearing filter from Connector Filter Panel */
   const reset = (): void => {
-    refetchConnectorList({ queryParams: { ...defaultQueryParams /*searchTerm */ } })
+    refetchConnectorList({ queryParams: { ...defaultQueryParams, searchTerm } })
   }
 
   return (
@@ -234,7 +280,7 @@ const GitOpsModalContainer: React.FC = () => {
       <Page.Body className={css.pageBody}>
         <Layout.Vertical>
           <Page.Body>
-            {loading ? (
+            {loading || deleting ? (
               <div style={{ position: 'relative', height: 'calc(100vh - 128px)' }}>
                 <PageSpinner />
               </div>
@@ -251,7 +297,7 @@ const GitOpsModalContainer: React.FC = () => {
               </div>
             ) : data?.data?.content?.length ? (
               <ProvidersGridView
-                onDelete={refetchConnectorList}
+                onDelete={async (provider: GitopsProviderResponse) => handleDelete(provider)}
                 onEdit={async provider => handleEdit(provider)}
                 data={data?.data}
                 loading={loading}
