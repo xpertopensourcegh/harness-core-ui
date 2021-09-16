@@ -691,7 +691,7 @@ delegate:
   delegates: 'Delegates'
   DelegateName: 'Delegate'
   DelegateSelector: 'Delegate Selector'
-  DelegateselectionLabel: 'Setup Delegates'
+  DelegateselectionLabel: 'Delegates Setup'
   DelegateselectionConnectorText: 'Limit usage of this connector to the Delegates that have the following Tags'
   DelegateSelectorErrorMessage: 'Delegate Selector has an invalid expression. It does not include'
   DelegateSelectorErrMsgSplChars: 'has invalid characters. The Selector property cannot contain'
