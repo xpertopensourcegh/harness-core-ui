@@ -8866,6 +8866,58 @@ export const getSampleDataPromise = (
     signal
   )
 
+export interface GetServiceDependencyGraphQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+  envIdentifier?: string
+  serviceIdentifier?: string
+}
+
+export type GetServiceDependencyGraphProps = Omit<
+  GetProps<RestResponseServiceDependencyGraphDTO, unknown, GetServiceDependencyGraphQueryParams, void>,
+  'path'
+>
+
+/**
+ * get service dependency graph
+ */
+export const GetServiceDependencyGraph = (props: GetServiceDependencyGraphProps) => (
+  <Get<RestResponseServiceDependencyGraphDTO, unknown, GetServiceDependencyGraphQueryParams, void>
+    path={`/service-dependency-graph`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetServiceDependencyGraphProps = Omit<
+  UseGetProps<RestResponseServiceDependencyGraphDTO, unknown, GetServiceDependencyGraphQueryParams, void>,
+  'path'
+>
+
+/**
+ * get service dependency graph
+ */
+export const useGetServiceDependencyGraph = (props: UseGetServiceDependencyGraphProps) =>
+  useGet<RestResponseServiceDependencyGraphDTO, unknown, GetServiceDependencyGraphQueryParams, void>(
+    `/service-dependency-graph`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * get service dependency graph
+ */
+export const getServiceDependencyGraphPromise = (
+  props: GetUsingFetchProps<RestResponseServiceDependencyGraphDTO, unknown, GetServiceDependencyGraphQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseServiceDependencyGraphDTO, unknown, GetServiceDependencyGraphQueryParams, void>(
+    getConfig('cv/api'),
+    `/service-dependency-graph`,
+    props,
+    signal
+  )
+
 export interface GetCVSetupStatusQueryParams {
   accountId: string
   orgIdentifier: string
