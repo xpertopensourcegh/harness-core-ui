@@ -139,7 +139,10 @@ export default function LogAnalysisContainer({ step, hostName }: LogAnalysisCont
   const fetchLogsClusterDataForHealthSource = useCallback(
     currentHealthSource => {
       fetchClusterAnalysis({
-        queryParams: { ...logsAnalysisQueryParams, ...(currentHealthSource && { healthSource: currentHealthSource }) }
+        queryParams: {
+          ...clusterAnalysisQueryParams,
+          ...(currentHealthSource && { healthSource: currentHealthSource })
+        }
       })
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -149,7 +152,7 @@ export default function LogAnalysisContainer({ step, hostName }: LogAnalysisCont
   const fetchLogsClusterDataForCluster = useCallback(
     clusterType => {
       fetchClusterAnalysis({
-        queryParams: { ...logsAnalysisQueryParams, ...(clusterType && { clusterType }) }
+        queryParams: { ...clusterAnalysisQueryParams, ...(clusterType && { clusterType }) }
       })
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps

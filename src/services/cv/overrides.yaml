@@ -90,6 +90,7 @@ allowpaths:
   - /monitored-service/{identifier}/anomaliesCount
   - /monitored-service/{identifier}/change-event/summary
   - /activity/{activityId}/healthSources
+  - /log-dashboard/logs-cluster
 operationIdOverrides:
   /appdynamics/applications.get: getAppDynamicsApplications
   /appdynamics/metric-data.post: getAppDynamicsMetricData

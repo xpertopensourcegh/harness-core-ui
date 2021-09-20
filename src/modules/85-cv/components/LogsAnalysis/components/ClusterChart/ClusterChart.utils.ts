@@ -10,7 +10,7 @@ export const mapRisk = (risk?: Risk): Highcharts.PointOptionsObject => {
         marker: {
           lineWidth: 1,
           lineColor: 'var(--green-450)',
-          radius: 9
+          radius: 8
         }
       }
     case RiskValues.MEDIUM:
