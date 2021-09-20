@@ -51,7 +51,11 @@ const OverviewCostByProviders = (props: CostByProvidersProps) => {
   return (
     <div className={css.costByProviders}>
       <Layout.Vertical spacing="medium">
-        <Text color="grey800" font={{ weight: 'semi-bold', size: 'medium' }}>
+        <Text
+          color="grey800"
+          font={{ weight: 'semi-bold', size: 'medium' }}
+          tooltipProps={{ dataTooltipId: 'overviewCostByProvider' }}
+        >
           {getString('ce.overview.cardtitles.costByProviders')}
         </Text>
         <Layout.Horizontal style={{ justifyContent: 'space-between' }} spacing="medium">

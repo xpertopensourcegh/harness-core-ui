@@ -176,7 +176,7 @@ export const EfficiencyScore = (props: EfficiencyScoreProps) => {
   return (
     <div className={css.efficienyScore}>
       <Layout.Vertical>
-        <Text>{title}</Text>
+        <Text tooltipProps={{ dataTooltipId: 'overviewCostEfficiencyScore' }}>{title}</Text>
         <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
           <Text color="grey800" font={{ weight: 'bold' }} style={{ fontSize: 24 }}>
             {score}
