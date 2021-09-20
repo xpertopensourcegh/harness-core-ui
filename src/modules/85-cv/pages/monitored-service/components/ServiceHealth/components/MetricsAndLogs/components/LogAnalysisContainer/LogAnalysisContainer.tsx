@@ -122,7 +122,7 @@ export default function LogAnalysisContainer(props: MetricsAndLogsProps): JSX.El
       })
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [accountId, endTime, environmentIdentifier, orgIdentifier, projectIdentifier, serviceIdentifier, startTime]
+    [logsAnalysisQueryParams]
   )
 
   // showing error in case of any api errors.

@@ -24,7 +24,8 @@ export const mapRisk = (risk?: Risk): Highcharts.PointOptionsObject => {
       return {
         color: 'var(--red-500)',
         marker: {
-          radius: 7
+          radius: 7,
+          lineColor: 'var(--black-100)'
         }
       }
     default:
