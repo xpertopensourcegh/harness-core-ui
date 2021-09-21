@@ -3998,8 +3998,10 @@ export interface StringsMap {
   'cv.sampleMessage': string
   'cv.searchForAService': string
   'cv.selectCreateService': string
+  'cv.selectNamespace': string
   'cv.selectOrCreateEnv': string
   'cv.selectQuery': string
+  'cv.selectWorkload': string
   'cv.selectedTimeInterval': string
   'cv.serviceDashboardPage.fifteenMinutes': string
   'cv.serviceDashboardPage.fiveMinutes': string

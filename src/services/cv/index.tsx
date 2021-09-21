@@ -7723,6 +7723,60 @@ export const getAllHealthSourcesForServiceAndEnvironmentPromise = (
     signal
   )
 
+export interface GetMonitoredServiceListQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+  environmentIdentifier: string
+  offset: number
+  pageSize: number
+  filter?: string
+}
+
+export type GetMonitoredServiceListProps = Omit<
+  GetProps<ResponsePageMonitoredServiceResponse, unknown, GetMonitoredServiceListQueryParams, void>,
+  'path'
+>
+
+/**
+ * get list of monitored service data
+ */
+export const GetMonitoredServiceList = (props: GetMonitoredServiceListProps) => (
+  <Get<ResponsePageMonitoredServiceResponse, unknown, GetMonitoredServiceListQueryParams, void>
+    path={`/monitored-service/list`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetMonitoredServiceListProps = Omit<
+  UseGetProps<ResponsePageMonitoredServiceResponse, unknown, GetMonitoredServiceListQueryParams, void>,
+  'path'
+>
+
+/**
+ * get list of monitored service data
+ */
+export const useGetMonitoredServiceList = (props: UseGetMonitoredServiceListProps) =>
+  useGet<ResponsePageMonitoredServiceResponse, unknown, GetMonitoredServiceListQueryParams, void>(
+    `/monitored-service/list`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * get list of monitored service data
+ */
+export const getMonitoredServiceListPromise = (
+  props: GetUsingFetchProps<ResponsePageMonitoredServiceResponse, unknown, GetMonitoredServiceListQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponsePageMonitoredServiceResponse, unknown, GetMonitoredServiceListQueryParams, void>(
+    getConfig('cv/api'),
+    `/monitored-service/list`,
+    props,
+    signal
+  )
+
 export interface GetMonitoredServiceScoresFromServiceAndEnvironmentQueryParams {
   accountId: string
   orgIdentifier: string
