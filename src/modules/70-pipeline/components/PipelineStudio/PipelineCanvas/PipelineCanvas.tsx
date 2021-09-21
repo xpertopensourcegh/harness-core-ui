@@ -804,7 +804,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
               !matchDefault?.isExact &&
               localUpdated &&
               !isReadonly &&
-              !(pipelineIdentifier === DefaultNewPipelineId && isEmpty(pipeline.name))
+              !(pipelineIdentifier === DefaultNewPipelineId && isEmpty(pipeline?.name))
             )
           }}
           textProps={{
