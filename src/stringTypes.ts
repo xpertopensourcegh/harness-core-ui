@@ -3473,6 +3473,9 @@ export interface StringsMap {
   'ci.description': string
   'ci.executionLabel': string
   'ci.fileStore': string
+  'ci.gradleNote1': string
+  'ci.gradleNote2': string
+  'ci.gradleNotesTitle': string
   'ci.infraLabel': string
   'ci.labels': string
   'ci.learnMore': string
