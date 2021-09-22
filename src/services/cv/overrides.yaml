@@ -92,6 +92,8 @@ allowpaths:
   - /service-dependency-graph
   - /monitored-service/{identifier}/change-event/summary
   - /activity/{activityId}/healthSources
+  - /account/{accountIdentifier}/org/{orgIdentifier}/project/{projectIdentifier}/change-event
+  - /account/{accountIdentifier}/org/{orgIdentifier}/project/{projectIdentifier}/change-event/timeline
   - /log-dashboard/logs-cluster
 operationIdOverrides:
   /appdynamics/applications.get: getAppDynamicsApplications

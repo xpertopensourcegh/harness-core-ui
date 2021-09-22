@@ -574,6 +574,9 @@ monitoredServices:
     serviceHealthScore: service Health Score
     healthMonitoring: Health Monitoring
     changes: Changes (Last 24H)
+  changesTable:
+    noData: No change events
+    impact: Impact
 changeSource:
   alertText: Alert
   noData: No Change Sources Present
