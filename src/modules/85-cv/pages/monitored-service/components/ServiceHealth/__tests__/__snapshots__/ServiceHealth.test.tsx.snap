@@ -344,6 +344,10 @@ exports[`Unit tests for ServiceHealth Verify if all the fields are rendered corr
             </div>
           </div>
           <div
+            class="main slider"
+            style="left: 100px;"
+          />
+          <div
             class="StyledProps--font StyledProps--main main"
           >
             <div
