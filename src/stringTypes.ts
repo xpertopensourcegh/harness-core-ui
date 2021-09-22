@@ -289,6 +289,7 @@ export interface StringsMap {
   'common.noAPIKeys': string
   'common.noRefData': string
   'common.note': string
+  'common.noteAccountSwitch': string
   'common.notificationPreferences': string
   'common.ok': string
   'common.on': string
