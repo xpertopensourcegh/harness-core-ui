@@ -16,7 +16,7 @@ exports[`DOCKER renders the primary artifact form if all the attributes are runt
          
       </div>
       <div
-        class="nestedAccordions artifactsAccordion"
+        class="artifactsAccordion"
       >
         <p
           class="StyledProps--font StyledProps--main inputheader"
@@ -382,7 +382,7 @@ exports[`DOCKER renders the primary artifact form in readonly mode: primary arti
          
       </div>
       <div
-        class="nestedAccordions artifactsAccordion"
+        class="artifactsAccordion"
       >
         <p
           class="StyledProps--font StyledProps--main inputheader"
@@ -731,7 +731,7 @@ exports[`DOCKER renders the tag component if other values are fixed: fetch tags 
          
       </div>
       <div
-        class="nestedAccordions artifactsAccordion"
+        class="artifactsAccordion"
       >
         <p
           class="StyledProps--font StyledProps--main inputheader"
@@ -885,7 +885,7 @@ exports[`ECR renders the primary artifact form if all the attributes are runtime
          
       </div>
       <div
-        class="nestedAccordions artifactsAccordion"
+        class="artifactsAccordion"
       >
         <p
           class="StyledProps--font StyledProps--main inputheader"
@@ -1251,7 +1251,7 @@ exports[`ECR renders the primary artifact form in readonly mode: ecr - primary a
          
       </div>
       <div
-        class="nestedAccordions artifactsAccordion"
+        class="artifactsAccordion"
       >
         <p
           class="StyledProps--font StyledProps--main inputheader"
@@ -1600,7 +1600,7 @@ exports[`ECR renders the tag component if other values are fixed: fetch tags ecr
          
       </div>
       <div
-        class="nestedAccordions artifactsAccordion"
+        class="artifactsAccordion"
       >
         <p
           class="StyledProps--font StyledProps--main inputheader"
@@ -1754,7 +1754,7 @@ exports[`GCR renders the primary artifact form if all the attributes are runtime
          
       </div>
       <div
-        class="nestedAccordions artifactsAccordion"
+        class="artifactsAccordion"
       >
         <p
           class="StyledProps--font StyledProps--main inputheader"
@@ -2120,7 +2120,7 @@ exports[`GCR renders the primary artifact form in readonly mode: ecr - primary a
          
       </div>
       <div
-        class="nestedAccordions artifactsAccordion"
+        class="artifactsAccordion"
       >
         <p
           class="StyledProps--font StyledProps--main inputheader"
@@ -2469,7 +2469,7 @@ exports[`GCR renders the tag component if other values are fixed: fetch tags gcr
          
       </div>
       <div
-        class="nestedAccordions artifactsAccordion"
+        class="artifactsAccordion"
       >
         <p
           class="StyledProps--font StyledProps--main inputheader"
