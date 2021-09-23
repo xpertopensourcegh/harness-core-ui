@@ -228,6 +228,9 @@ const ProviderOverviewStep: React.FC<ProviderOverviewStepProps> = props => {
                           className={css.formElm}
                           formikProps={formikProps}
                           identifierProps={{ inputName: 'name', isIdentifierEditable: !isEdit }}
+                          tooltipProps={{
+                            dataTooltipId: `GitOpsProviderStepFormNameIdDescriptionTags`
+                          }}
                         />
 
                         <FormInput.Text className={css.adapterUrl} name="spec.adapterUrl" label={'Adapter URL'} />
