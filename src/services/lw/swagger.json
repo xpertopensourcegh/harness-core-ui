@@ -2229,6 +2229,12 @@
         },
         "timeout": {
           "type": "int"
+        },
+        "status_code_from": {
+          "type": "number"
+        },
+        "status_code_to": {
+          "type": "number"
         }
       }
     },

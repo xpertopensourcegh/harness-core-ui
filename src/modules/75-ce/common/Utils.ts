@@ -1,7 +1,8 @@
 import { isEmpty as _isEmpty } from 'lodash-es'
 import type { GatewayDetails, Provider } from '@ce/components/COCreateGateway/models'
 import type { CcmMetaData } from 'services/ce/services'
-import type { HealthCheck, PortConfig, Service, ServiceDep, YamlDependency } from 'services/lw'
+import type { HealthCheck, PortConfig, Service, ServiceDep } from 'services/lw'
+import type { YamlDependency } from '@ce/types'
 
 export class Utils {
   static booleanToString(val: boolean): string {
@@ -37,7 +38,9 @@ export class Utils {
     protocol: 'http',
     path: '/',
     port: 80,
-    timeout: 30
+    timeout: 30,
+    status_code_from: 200,
+    status_code_to: 299
   })
 
   static toBase64 = (file: any): Promise<string> =>

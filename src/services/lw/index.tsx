@@ -232,6 +232,8 @@ export interface HealthCheck {
   path?: string
   port?: any
   protocol?: string
+  status_code_from?: number
+  status_code_to?: number
   timeout?: any
 }
 
@@ -408,11 +410,6 @@ export interface ServiceDep {
   delay_secs?: any
   dep_id?: any
   service_id?: any
-}
-
-export interface YamlDependency {
-  selector: { ruleName: string }
-  wait: number
 }
 
 export interface ServiceDepTree {
