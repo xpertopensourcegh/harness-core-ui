@@ -185,7 +185,7 @@ const ProviderOverviewStep: React.FC<ProviderOverviewStepProps> = props => {
       ) : null}
 
       <Layout.Vertical spacing="xxlarge" className={css.stepContainer}>
-        <div className={css.heading}>{getString('cd.providerOverview')}</div>
+        <div className={css.heading}>{getString('overview')}</div>
         <Container className={css.connectorForm}>
           <Formik<GitOpsProvider>
             onSubmit={formData => {

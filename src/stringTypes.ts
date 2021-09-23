@@ -2469,6 +2469,7 @@ export interface StringsMap {
   'templatesLibrary.versionLog': string
   'cd.aboutHarnessAdapter': string
   'cd.aboutProvider': string
+  'cd.adapterDetails': string
   'cd.addInline': string
   'cd.addRemote': string
   'cd.addTFVarFileLabel': string
@@ -2502,14 +2503,15 @@ export interface StringsMap {
   'cd.folderPath': string
   'cd.gitFetchTypeRequired': string
   'cd.gitOps': string
+  'cd.gitOpsWizardTitle': string
   'cd.installAdapterHelperText': string
   'cd.launchArgo': string
   'cd.learnMore': string
   'cd.learnMoreAboutHarnessAdapter': string
   'cd.manifestPathsCannotBeEmpty': string
   'cd.namespaceValidation': string
-  'cd.newProvider': string
-  'cd.noProviderText': string
+  'cd.newAdapter': string
+  'cd.noAdapterText': string
   'cd.pathCannotBeEmpty': string
   'cd.pipelineSteps.infraTab.clusterError': string
   'cd.pipelineSteps.infraTab.deploymentType': string
@@ -2519,11 +2521,10 @@ export interface StringsMap {
   'cd.pipelineSteps.serviceTab.propagateFrom': string
   'cd.pipelineSteps.serviceTab.propagateStage': string
   'cd.pipelineSteps.serviceTab.stageOverrides': string
-  'cd.providerDetails': string
-  'cd.providerOverview': string
   'cd.releaseNameValidation': string
   'cd.resourceCannotBeEmpty': string
   'cd.scriptRequired': string
+  'cd.searchPlaceholder': string
   'cd.secretManagerRequired': string
   'cd.serviceCreated': string
   'cd.serviceDashboard.3months': string

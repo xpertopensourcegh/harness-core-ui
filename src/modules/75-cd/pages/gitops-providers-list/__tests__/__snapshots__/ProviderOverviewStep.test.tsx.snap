@@ -8,7 +8,7 @@ exports[`Connector details step Test for  create  connector step one required fe
     <div
       class="heading"
     >
-      cd.providerOverview
+      overview
     </div>
     <div
       class="StyledProps--font StyledProps--main connectorForm"
@@ -404,7 +404,7 @@ exports[`Connector details step Test for going to next step 1`] = `
     <div
       class="heading"
     >
-      cd.providerOverview
+      overview
     </div>
     <div
       class="StyledProps--font StyledProps--main connectorForm"
