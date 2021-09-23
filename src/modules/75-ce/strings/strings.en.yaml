@@ -5,6 +5,8 @@ pageErrorMsg:
   recommendationNoData: 'There are no recommendations yet. Recommendations typically take 24 hours to show up. Please check back later.'
   perspectiveNoData: 'There is not data available for the filters applied.'
   noDataMsg: No data found
+  noRecommendations: 'Currently there are no recommendations for your clusters.'
+  recommendationDesc: 'Recommendations are shown only for cluster data (workloads and nodes). Add now to get started.'
 homepage:
   slogan: 'Get granular cloud cost visibility, enable powerful cost optimization through intelligent automation, and set vital budgets and forecasts for cost governance. Take your cloud cost management to the next level with Harness.'
 co:
