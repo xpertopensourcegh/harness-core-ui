@@ -3717,12 +3717,12 @@ export interface StringsMap {
   'cv.metricVerificationModal.viewCalls': string
   'cv.monitoredServices.addNewMonitoredServices': string
   'cv.monitoredServices.changesTable.impact': string
-  'cv.monitoredServices.changesTable.noData': string
   'cv.monitoredServices.deleteMonitoredService': string
   'cv.monitoredServices.deleteMonitoredServiceWarning': string
   'cv.monitoredServices.editMonitoredServices': string
   'cv.monitoredServices.environmentValidation': string
   'cv.monitoredServices.filterlabel': string
+  'cv.monitoredServices.healthScoreDataNotAvailable': string
   'cv.monitoredServices.monitoredServiceCreated': string
   'cv.monitoredServices.monitoredServiceDetails': string
   'cv.monitoredServices.monitoredServiceName': string
@@ -3733,6 +3733,7 @@ export interface StringsMap {
   'cv.monitoredServices.monitoredServiceUpdated': string
   'cv.monitoredServices.nameValidation': string
   'cv.monitoredServices.newMonitoredServices': string
+  'cv.monitoredServices.noAvailableData': string
   'cv.monitoredServices.noData': string
   'cv.monitoredServices.riskLabel.highRisk': string
   'cv.monitoredServices.riskLabel.lowRisk': string
@@ -3748,6 +3749,7 @@ export interface StringsMap {
   'cv.monitoredServices.serviceHealth.metricsAndLogs': string
   'cv.monitoredServices.serviceHealth.noDataAvailableForHealthScore': string
   'cv.monitoredServices.serviceHealth.overallHealthScore': string
+  'cv.monitoredServices.serviceHealth.pleaseSelectAnotherTimeWindow': string
   'cv.monitoredServices.serviceHealth.selectTimeline': string
   'cv.monitoredServices.serviceValidation': string
   'cv.monitoredServices.table.changes': string
