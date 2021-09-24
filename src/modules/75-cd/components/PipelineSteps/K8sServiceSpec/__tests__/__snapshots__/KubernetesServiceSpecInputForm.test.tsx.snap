@@ -21,7 +21,12 @@ exports[`DOCKER renders the primary artifact form if all the attributes are runt
         <p
           class="StyledProps--font StyledProps--main inputheader"
         >
-          primaryArtifactText
+          <span
+            class="align"
+            data-tooltip-id="primaryArtifactText"
+          >
+            primaryArtifactText
+          </span>
         </p>
         <div
           class="Layout--vertical StyledProps--main inputWidth"
@@ -387,7 +392,12 @@ exports[`DOCKER renders the primary artifact form in readonly mode: primary arti
         <p
           class="StyledProps--font StyledProps--main inputheader"
         >
-          primaryArtifactText
+          <span
+            class="align"
+            data-tooltip-id="primaryArtifactText"
+          >
+            primaryArtifactText
+          </span>
         </p>
         <div
           class="Layout--vertical StyledProps--main inputWidth"
@@ -736,32 +746,11 @@ exports[`DOCKER renders the tag component if other values are fixed: fetch tags 
         <p
           class="StyledProps--font StyledProps--main inputheader"
         >
-          primaryArtifactText
           <span
-            class="bp3-popover-wrapper artifactInfoTooltip"
+            class="align"
+            data-tooltip-id="primaryArtifactText"
           >
-            <span
-              class="bp3-popover-target"
-            >
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="info"
-                tabindex="0"
-              >
-                <svg
-                  height="16"
-                  viewBox="0 0 12 12"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </span>
+            primaryArtifactText
           </span>
         </p>
         <div
@@ -890,7 +879,12 @@ exports[`ECR renders the primary artifact form if all the attributes are runtime
         <p
           class="StyledProps--font StyledProps--main inputheader"
         >
-          primaryArtifactText
+          <span
+            class="align"
+            data-tooltip-id="primaryArtifactText"
+          >
+            primaryArtifactText
+          </span>
         </p>
         <div
           class="Layout--vertical StyledProps--main inputWidth"
@@ -1256,7 +1250,12 @@ exports[`ECR renders the primary artifact form in readonly mode: ecr - primary a
         <p
           class="StyledProps--font StyledProps--main inputheader"
         >
-          primaryArtifactText
+          <span
+            class="align"
+            data-tooltip-id="primaryArtifactText"
+          >
+            primaryArtifactText
+          </span>
         </p>
         <div
           class="Layout--vertical StyledProps--main inputWidth"
@@ -1605,32 +1604,11 @@ exports[`ECR renders the tag component if other values are fixed: fetch tags ecr
         <p
           class="StyledProps--font StyledProps--main inputheader"
         >
-          primaryArtifactText
           <span
-            class="bp3-popover-wrapper artifactInfoTooltip"
+            class="align"
+            data-tooltip-id="primaryArtifactText"
           >
-            <span
-              class="bp3-popover-target"
-            >
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="info"
-                tabindex="0"
-              >
-                <svg
-                  height="16"
-                  viewBox="0 0 12 12"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </span>
+            primaryArtifactText
           </span>
         </p>
         <div
@@ -1759,7 +1737,12 @@ exports[`GCR renders the primary artifact form if all the attributes are runtime
         <p
           class="StyledProps--font StyledProps--main inputheader"
         >
-          primaryArtifactText
+          <span
+            class="align"
+            data-tooltip-id="primaryArtifactText"
+          >
+            primaryArtifactText
+          </span>
         </p>
         <div
           class="Layout--vertical StyledProps--main inputWidth"
@@ -2125,7 +2108,12 @@ exports[`GCR renders the primary artifact form in readonly mode: ecr - primary a
         <p
           class="StyledProps--font StyledProps--main inputheader"
         >
-          primaryArtifactText
+          <span
+            class="align"
+            data-tooltip-id="primaryArtifactText"
+          >
+            primaryArtifactText
+          </span>
         </p>
         <div
           class="Layout--vertical StyledProps--main inputWidth"
@@ -2474,32 +2462,11 @@ exports[`GCR renders the tag component if other values are fixed: fetch tags gcr
         <p
           class="StyledProps--font StyledProps--main inputheader"
         >
-          primaryArtifactText
           <span
-            class="bp3-popover-wrapper artifactInfoTooltip"
+            class="align"
+            data-tooltip-id="primaryArtifactText"
           >
-            <span
-              class="bp3-popover-target"
-            >
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="info"
-                tabindex="0"
-              >
-                <svg
-                  height="16"
-                  viewBox="0 0 12 12"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </span>
+            primaryArtifactText
           </span>
         </p>
         <div

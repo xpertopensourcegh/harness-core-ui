@@ -4,8 +4,8 @@ import cx from 'classnames'
 import { connect } from 'formik'
 import produce from 'immer'
 import get from 'lodash-es/get'
-import { Tooltip, Menu } from '@blueprintjs/core'
-import { cloneDeep, isEmpty, set } from 'lodash-es'
+import { Menu } from '@blueprintjs/core'
+import { cloneDeep, set } from 'lodash-es'
 
 import memoize from 'lodash-es/memoize'
 
@@ -19,7 +19,6 @@ import {
   getMultiTypeFromValue,
   MultiTypeInputType,
   FormInput,
-  Icon,
   SelectOption
 } from '@wings-software/uicore'
 import { useDeepCompareEffect, useMutateAsGet, useQueryParams } from '@common/hooks'
@@ -41,11 +40,12 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 import type { KubernetesServiceInputFormProps } from '@pipeline/factories/ArtifactTriggerInputFactory/types'
 import { ArtifactToConnectorMap, ENABLED_ARTIFACT_TYPES } from '@pipeline/components/ArtifactsSelection/ArtifactHelper'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
+import StringWithTooltip from '@common/components/StringWithTooltip/StringWithTooltip'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import { EXPRESSION_STRING } from '@pipeline/utils/constants'
 import ExperimentalInput from '../PipelineSteps/K8sServiceSpec/K8sServiceSpecForms/ExperimentalInput'
 
-import { clearRuntimeInputValue, getNonRuntimeFields } from '../PipelineSteps/K8sServiceSpec/K8sServiceSpecHelper'
+import { clearRuntimeInputValue } from '../PipelineSteps/K8sServiceSpec/K8sServiceSpecHelper'
 import type { LastQueryData } from '../PipelineSteps/K8sServiceSpec/K8sServiceSpecInterface'
 import css from './ArtifactInputForm.module.scss'
 
@@ -362,23 +362,7 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
           <div className={css.artifactsAccordion}>
             {template?.artifacts?.primary && (
               <Text className={css.inputheader}>
-                {getString('primaryArtifactText')}
-                {!isEmpty(
-                  JSON.parse(
-                    getNonRuntimeFields(get(artifacts, `primary.spec`), get(template, 'artifacts.primary.spec'))
-                  )
-                ) && (
-                  <Tooltip
-                    position="top"
-                    className={css.artifactInfoTooltip}
-                    content={getNonRuntimeFields(
-                      get(artifacts, `primary.spec`),
-                      get(template, 'artifacts.primary.spec')
-                    )}
-                  >
-                    <Icon name="info" />
-                  </Tooltip>
-                )}
+                <StringWithTooltip stringId="primaryArtifactText" tooltipId="primaryArtifactText" />
               </Text>
             )}
             {template?.artifacts?.primary && (
@@ -558,28 +542,7 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                 const currentSidecarSpec = initialValues.artifacts?.sidecars?.[index]?.sidecar?.spec
                 return (
                   <Layout.Vertical key={identifier} className={css.inputWidth}>
-                    <Text className={css.subSectionHeader}>
-                      {identifier}
-                      {!isEmpty(
-                        JSON.parse(
-                          getNonRuntimeFields(
-                            get(artifacts, `sidecars[${index}].sidecar.spec`),
-                            get(template, 'artifacts.primary.spec')
-                          )
-                        )
-                      ) && (
-                        <Tooltip
-                          position="top"
-                          className={css.artifactInfoTooltip}
-                          content={getNonRuntimeFields(
-                            get(artifacts, `sidecars[${index}].sidecar.spec`),
-                            get(template, `artifacts.sidecars[${index}].sidecar.spec`)
-                          )}
-                        >
-                          <Icon name="info" />
-                        </Tooltip>
-                      )}
-                    </Text>
+                    <Text className={css.subSectionHeader}>{identifier}</Text>
                     {getMultiTypeFromValue(connectorRef) === MultiTypeInputType.RUNTIME && (
                       <FormMultiTypeConnectorField
                         name={`${path}.artifacts.sidecars[${index}].sidecar.spec.connectorRef`}
