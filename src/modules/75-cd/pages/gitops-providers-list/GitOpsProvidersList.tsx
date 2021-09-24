@@ -307,7 +307,6 @@ const GitOpsModalContainer: React.FC = () => {
                 gotoPage={(pageNumber: number) => setPage(pageNumber)}
               />
             ) : (
-              // <Page.NoDataCard icon="nav-dashboard" message={getString('noConnectorFound')} />
               <div className={css.noPipelineSection}>
                 <Layout.Vertical spacing="small" flex={{ justifyContent: 'center', alignItems: 'center' }} width={720}>
                   <img src={noAdapterIllustration} className={css.image} />
