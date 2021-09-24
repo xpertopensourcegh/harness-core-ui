@@ -2620,6 +2620,8 @@ export interface StringsMap {
   'ce.co.accessPoint.select.vpc': string
   'ce.co.accessPoint.status': string
   'ce.co.accessPoint.success': string
+  'ce.co.accessPoint.successfulCreation': string
+  'ce.co.accessPoint.successfulEdition': string
   'ce.co.accessPoint.validation.connector': string
   'ce.co.accessPoint.validation.domainRequired': string
   'ce.co.accessPoint.validation.name': string

@@ -191,6 +191,8 @@ co:
     delete:
       withResource: 'Delete with all cloud resources'
       success: 'Deleted successfully'
+    successfulCreation: 'Load Balancer creation request is submitted and will be created in some time.'
+    successfulEdition: 'Load Balancer {{name}} successfully updated'
   dnsSetup:
     autoURL: 'Auto generated URL'
     customURL: 'Custom URL (Example: qa.yourcompany.com)'

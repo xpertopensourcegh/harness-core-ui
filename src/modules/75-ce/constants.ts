@@ -83,6 +83,11 @@ export const DEFAULT_ACCESS_DETAILS = {
   ipaddress: { selected: false }
 }
 
+export const providerLoadBalancerRefMap: Record<string, string> = {
+  azure: 'Application Gateway',
+  aws: 'Load Balancer'
+}
+
 export const CONFIG_STEP_IDS = ['configStep1', 'configStep2', 'configStep3', 'configStep4']
 
 export const CONFIG_IDLE_TIME_CONSTRAINTS = {

@@ -40,6 +40,7 @@ export interface ASGResourceFilterBody {
 export interface AccessPoint {
   account_id?: string
   cloud_account_id?: string
+  editables?: string[]
   host_name?: string
   id?: string
   metadata?: AccessPointMeta
@@ -543,6 +544,10 @@ export interface Vpc {
   name?: string
 }
 
+export type AccessPointRequestBody = AccessPoint
+
+export type ResourceFilterBodyRequestBody = ResourceFilterBody
+
 export interface DeleteAccessPointsQueryParams {
   accountIdentifier: string
 }
@@ -641,7 +646,13 @@ export interface CreateAccessPointPathParams {
 }
 
 export type CreateAccessPointProps = Omit<
-  MutateProps<CreateAccessPointResponse, void, CreateAccessPointQueryParams, AccessPoint, CreateAccessPointPathParams>,
+  MutateProps<
+    CreateAccessPointResponse,
+    void,
+    CreateAccessPointQueryParams,
+    AccessPointRequestBody,
+    CreateAccessPointPathParams
+  >,
   'path' | 'verb'
 > &
   CreateAccessPointPathParams
@@ -652,7 +663,13 @@ export type CreateAccessPointProps = Omit<
  * Create an AccessPoint
  */
 export const CreateAccessPoint = ({ account_id, ...props }: CreateAccessPointProps) => (
-  <Mutate<CreateAccessPointResponse, void, CreateAccessPointQueryParams, AccessPoint, CreateAccessPointPathParams>
+  <Mutate<
+    CreateAccessPointResponse,
+    void,
+    CreateAccessPointQueryParams,
+    AccessPointRequestBody,
+    CreateAccessPointPathParams
+  >
     verb="POST"
     path={`/accounts/${account_id}/autostopping/loadbalancers`}
     base={getConfig('lw/api')}
@@ -665,7 +682,7 @@ export type UseCreateAccessPointProps = Omit<
     CreateAccessPointResponse,
     void,
     CreateAccessPointQueryParams,
-    AccessPoint,
+    AccessPointRequestBody,
     CreateAccessPointPathParams
   >,
   'path' | 'verb'
@@ -678,9 +695,85 @@ export type UseCreateAccessPointProps = Omit<
  * Create an AccessPoint
  */
 export const useCreateAccessPoint = ({ account_id, ...props }: UseCreateAccessPointProps) =>
-  useMutate<CreateAccessPointResponse, void, CreateAccessPointQueryParams, AccessPoint, CreateAccessPointPathParams>(
+  useMutate<
+    CreateAccessPointResponse,
+    void,
+    CreateAccessPointQueryParams,
+    AccessPointRequestBody,
+    CreateAccessPointPathParams
+  >(
     'POST',
     (paramsInPath: CreateAccessPointPathParams) => `/accounts/${paramsInPath.account_id}/autostopping/loadbalancers`,
+    { base: getConfig('lw/api'), pathParams: { account_id }, ...props }
+  )
+
+export interface EditAccessPointQueryParams {
+  accountIdentifier: string
+}
+
+export interface EditAccessPointPathParams {
+  account_id: string
+}
+
+export type EditAccessPointProps = Omit<
+  MutateProps<
+    CreateAccessPointResponse,
+    void,
+    EditAccessPointQueryParams,
+    AccessPointRequestBody,
+    EditAccessPointPathParams
+  >,
+  'path' | 'verb'
+> &
+  EditAccessPointPathParams
+
+/**
+ * Edit an AccessPoint
+ *
+ * Edit an AccessPoint
+ */
+export const EditAccessPoint = ({ account_id, ...props }: EditAccessPointProps) => (
+  <Mutate<
+    CreateAccessPointResponse,
+    void,
+    EditAccessPointQueryParams,
+    AccessPointRequestBody,
+    EditAccessPointPathParams
+  >
+    verb="PUT"
+    path={`/accounts/${account_id}/autostopping/loadbalancers`}
+    base={getConfig('lw/api')}
+    {...props}
+  />
+)
+
+export type UseEditAccessPointProps = Omit<
+  UseMutateProps<
+    CreateAccessPointResponse,
+    void,
+    EditAccessPointQueryParams,
+    AccessPointRequestBody,
+    EditAccessPointPathParams
+  >,
+  'path' | 'verb'
+> &
+  EditAccessPointPathParams
+
+/**
+ * Edit an AccessPoint
+ *
+ * Edit an AccessPoint
+ */
+export const useEditAccessPoint = ({ account_id, ...props }: UseEditAccessPointProps) =>
+  useMutate<
+    CreateAccessPointResponse,
+    void,
+    EditAccessPointQueryParams,
+    AccessPointRequestBody,
+    EditAccessPointPathParams
+  >(
+    'PUT',
+    (paramsInPath: EditAccessPointPathParams) => `/accounts/${paramsInPath.account_id}/autostopping/loadbalancers`,
     { base: getConfig('lw/api'), pathParams: { account_id }, ...props }
   )
 

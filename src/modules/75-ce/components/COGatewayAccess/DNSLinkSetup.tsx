@@ -416,7 +416,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
               if (isCreateMode) setIsCreateMode(false)
               hideLoadBalancerModal()
             }}
-            createMode={isCreateMode}
+            mode={isCreateMode ? 'create' : 'import'}
             onSave={savedLb => {
               setAccessPoint(savedLb)
               if (isCreateMode) {
@@ -437,7 +437,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                 // apCoresRefetch()
               }
             }}
-            createMode={isCreateMode}
+            mode={isCreateMode ? 'create' : 'import'}
             onClose={_clearStatus => {
               if (_clearStatus && !isCreateMode) {
                 clearAPData()
