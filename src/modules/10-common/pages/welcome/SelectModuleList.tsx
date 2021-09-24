@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import { useHistory, useParams } from 'react-router'
 import type { IconName } from '@wings-software/uicore'
+import { useTelemetry } from '@common/hooks/useTelemetry'
+import { ModuleName } from 'framework/types/ModuleName'
 import routes from '@common/RouteDefinitions'
 import { useUpdateAccountDefaultExperienceNG } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { Experiences } from '@common/constants/Utils'
-import { useTelemetry } from '@common/hooks/useTelemetry'
 import { useToaster } from '@common/components'
 import { Category, PurposeActions } from '@common/constants/TrackingConstants'
 import type { Module, AccountPathProps } from '@common/interfaces/RouteInterfaces'
@@ -45,6 +46,7 @@ const SelectModuleList: React.FC<SelectModuleListProps> = ({ onModuleClick, modu
   const handleCDContinue = (): void => {
     onModuleClick(selected)
     openVersionSelection()
+    trackEvent(PurposeActions.CDModuleContinue, { category: Category.SIGNUP, module: ModuleName.CD })
   }
   const history = useHistory()
 

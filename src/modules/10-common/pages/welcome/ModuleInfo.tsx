@@ -10,6 +10,7 @@ import { useToaster } from '@common/components'
 import { useUpdateAccountDefaultExperienceNG } from 'services/cd-ng'
 import { Category, PurposeActions } from '@common/constants/TrackingConstants'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import { ModuleName } from 'framework/types/ModuleName'
 import ModuleInfoCards, { ModuleInfoCard, getInfoCardsProps } from '../../components/ModuleInfoCards/ModuleInfoCards'
 import css from './WelcomePage.module.scss'
 
@@ -50,7 +51,6 @@ const ModuleInfo: React.FC<ModuleProps> = ({ module = 'cd' }) => {
           intent="primary"
           className={css.continueButton}
           onClick={() => {
-            trackEvent(PurposeActions.ModuleContinue, { category: Category.SIGNUP, module: moduleLinkArg })
             handleUpdateDefaultExperience().then(() =>
               history.push(routes.toModuleHome({ accountId, module: moduleLinkArg, source: 'purpose' }))
             )
@@ -65,6 +65,8 @@ const ModuleInfo: React.FC<ModuleProps> = ({ module = 'cd' }) => {
       <div
         className={css.continueButton}
         onClick={async () => {
+          trackEvent(PurposeActions.CDCGModuleSelected, { category: Category.SIGNUP, module: ModuleName.CD })
+
           await updateDefaultExperience({
             defaultExperience: !selectedInfoCard || selectedInfoCard?.isNgRoute ? Experiences.NG : Experiences.CG
           })
