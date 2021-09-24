@@ -3655,6 +3655,7 @@ export interface StringsMap {
   'cv.changeSource.PageDuty.selectPagerDutyService': string
   'cv.changeSource.addChangeSource': string
   'cv.changeSource.alertText': string
+  'cv.changeSource.configureChangeSource': string
   'cv.changeSource.connectChangeSource': string
   'cv.changeSource.defineChangeSource': string
   'cv.changeSource.duplicateIdentifier': string
