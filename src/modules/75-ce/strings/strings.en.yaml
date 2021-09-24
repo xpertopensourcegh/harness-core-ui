@@ -486,7 +486,13 @@ perspectives:
     recipientLabel: Send report to
     searchTimezonePlaceholder: Search Timezone
   budgets:
+    addBudget: Add a budget to this perspective
     title: Budget
+    thisMonth: this month
+    spendExceededBy: Spend exceeded budget by
+    monthToDateSpend: Month to date spend is
+    budgetSmallTxt: budget
+    budgetMonthlyTxt: Budget - Monthly
     desc: Budget can help you recieve alerts when the spend exceeds or is about to exceed a specified threshold so that it can be prevented.
     createNew: + create new Budget
     wizardTitle: New Budget

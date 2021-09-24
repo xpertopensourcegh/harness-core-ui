@@ -2875,6 +2875,9 @@ export interface StringsMap {
   'ce.pageErrorMsg.recommendationDesc': string
   'ce.pageErrorMsg.recommendationNoData': string
   'ce.perspectives.budgets.actualSpend': string
+  'ce.perspectives.budgets.addBudget': string
+  'ce.perspectives.budgets.budgetMonthlyTxt': string
+  'ce.perspectives.budgets.budgetSmallTxt': string
   'ce.perspectives.budgets.configureAlerts.actual': string
   'ce.perspectives.budgets.configureAlerts.basedOn': string
   'ce.perspectives.budgets.configureAlerts.budgetAmount': string
@@ -2887,6 +2890,7 @@ export interface StringsMap {
   'ce.perspectives.budgets.createNew': string
   'ce.perspectives.budgets.desc': string
   'ce.perspectives.budgets.forecastedCost': string
+  'ce.perspectives.budgets.monthToDateSpend': string
   'ce.perspectives.budgets.sendAlerts': string
   'ce.perspectives.budgets.setBudgetAmount.budgetType': string
   'ce.perspectives.budgets.setBudgetAmount.lastMonthCost': string
@@ -2895,6 +2899,8 @@ export interface StringsMap {
   'ce.perspectives.budgets.setBudgetAmount.specifiedAmount': string
   'ce.perspectives.budgets.setBudgetAmount.specifyAmount': string
   'ce.perspectives.budgets.setBudgetAmount.title': string
+  'ce.perspectives.budgets.spendExceededBy': string
+  'ce.perspectives.budgets.thisMonth': string
   'ce.perspectives.budgets.title': string
   'ce.perspectives.budgets.wizardTitle': string
   'ce.perspectives.createPerspective.createCustomField': string
