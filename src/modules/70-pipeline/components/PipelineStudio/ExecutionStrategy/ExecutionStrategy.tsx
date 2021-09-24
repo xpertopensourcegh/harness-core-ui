@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import YAML from 'yaml'
 import { Classes, Switch } from '@blueprintjs/core'
 import { Text, Icon, Layout, Button, Card, IconName, Color, ButtonVariation, Container } from '@wings-software/uicore'
-import { get, isEmpty, startCase } from 'lodash-es'
+import { defaultTo, get, isEmpty, set, startCase } from 'lodash-es'
 import cx from 'classnames'
 import produce from 'immer'
 import {
@@ -150,12 +150,9 @@ const ExecutionStrategyRef = (
     if (yamlSnippet?.data) {
       updateStage(
         produce(selectedStage, draft => {
-          const jsonFromYaml = YAML.parse(yamlSnippet?.data || '') as StageElementConfig
-          if (draft.stage && draft.stage.spec) {
-            draft.stage.failureStrategies = jsonFromYaml.failureStrategies
-            ;(draft.stage.spec as DeploymentStageConfig).execution =
-              (jsonFromYaml.spec as DeploymentStageConfig)?.execution || {}
-          }
+          const jsonFromYaml = YAML.parse(defaultTo(yamlSnippet?.data, '{}')) as StageElementConfig
+          set(draft, 'stage.failureStrategies', jsonFromYaml.failureStrategies)
+          set(draft, 'stage.spec.execution', defaultTo((jsonFromYaml.spec as DeploymentStageConfig)?.execution, {}))
         }).stage as StageElementConfig
       )
     }
@@ -175,11 +172,9 @@ const ExecutionStrategyRef = (
   const cancelSelection = (): void => {
     updateStage(
       produce(selectedStage, draft => {
-        const jsonFromYaml = YAML.parse(yamlSnippet?.data || '') as StageElementConfig
-        if (draft.stage && draft.stage.spec) {
-          draft.stage.failureStrategies = jsonFromYaml.failureStrategies
-          ;(draft.stage.spec as DeploymentStageConfig).execution = { steps: [], rollbackSteps: [] }
-        }
+        const jsonFromYaml = YAML.parse(defaultTo(yamlSnippet?.data, '{}')) as StageElementConfig
+        set(draft, 'stage.failureStrategies', jsonFromYaml.failureStrategies)
+        set(draft, 'stage.spec.execution', { steps: [], rollbackSteps: [] })
       }).stage as StageElementConfig
     ).then(() => {
       updatePipelineViewState()

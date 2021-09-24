@@ -107,7 +107,9 @@ exports[`TestConnection snapshot test should render TestConnection 1`] = `
                   class="StyledProps--font StyledProps--main"
                   style="font-weight: bold;"
                 >
-                  Connecting to Adapter URL: undefined
+                  <span>
+                    cd.testConnectionStepName
+                  </span>
                 </div>
               </div>
             </div>
