@@ -4,7 +4,7 @@ exports[`Welcome Page Select Module Page Rendering 1`] = `
 <div>
   <div
     class="StyledProps--font StyledProps--main container StyledProps--padding-left-xxxlarge StyledProps--padding-top-xxxlarge StyledProps--flex StyledProps--flex-alignItems-start"
-    style="background-repeat: no-repeat; background-position: center;"
+    style="background-repeat: no-repeat; background-position: center; background-size: cover , cover;"
   >
     <div
       class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--padding-left-xxlarge StyledProps--padding-top-xxlarge"
@@ -163,11 +163,8 @@ exports[`Welcome Page Select Module Page Rendering 1`] = `
                     </g>
                   </svg>
                 </span>
-                <div
-                  style="height: 50px;"
-                />
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-align-center"
+                  class="StyledProps--font StyledProps--main iconDescription StyledProps--font-align-center"
                 >
                   common.purpose.cd.description
                 </p>
@@ -276,11 +273,8 @@ exports[`Welcome Page Select Module Page Rendering 1`] = `
                     </g>
                   </svg>
                 </span>
-                <div
-                  style="height: 50px;"
-                />
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-align-center"
+                  class="StyledProps--font StyledProps--main iconDescription StyledProps--font-align-center"
                 >
                   common.purpose.ci.descriptionOnly
                 </p>
@@ -387,11 +381,8 @@ exports[`Welcome Page Select Module Page Rendering 1`] = `
                     </g>
                   </svg>
                 </span>
-                <div
-                  style="height: 50px;"
-                />
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-align-center"
+                  class="StyledProps--font StyledProps--main iconDescription StyledProps--font-align-center"
                 >
                   common.purpose.cv.description
                 </p>
@@ -502,11 +493,8 @@ exports[`Welcome Page Select Module Page Rendering 1`] = `
                     </g>
                   </svg>
                 </span>
-                <div
-                  style="height: 50px;"
-                />
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-align-center"
+                  class="StyledProps--font StyledProps--main iconDescription StyledProps--font-align-center"
                 >
                   common.purpose.cf.descriptionOnly
                 </p>
@@ -621,11 +609,8 @@ exports[`Welcome Page Select Module Page Rendering 1`] = `
                     </g>
                   </svg>
                 </span>
-                <div
-                  style="height: 50px;"
-                />
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-align-center"
+                  class="StyledProps--font StyledProps--main iconDescription StyledProps--font-align-center"
                 >
                   common.purpose.ce.descriptionOnly
                 </p>
@@ -643,7 +628,7 @@ exports[`Welcome Page Should go to module home page when select non cd module an
 <div>
   <div
     class="StyledProps--font StyledProps--main container StyledProps--padding-left-xxxlarge StyledProps--padding-top-xxxlarge StyledProps--flex StyledProps--flex-alignItems-start"
-    style="background-repeat: no-repeat; background-position: center;"
+    style="background-repeat: no-repeat; background-position: center; background-size: cover , cover;"
   >
     <div
       class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--padding-left-xxlarge StyledProps--padding-top-xxlarge"
@@ -802,11 +787,8 @@ exports[`Welcome Page Should go to module home page when select non cd module an
                     </g>
                   </svg>
                 </span>
-                <div
-                  style="height: 50px;"
-                />
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-align-center"
+                  class="StyledProps--font StyledProps--main iconDescription StyledProps--font-align-center"
                 >
                   common.purpose.cd.description
                 </p>
@@ -915,11 +897,8 @@ exports[`Welcome Page Should go to module home page when select non cd module an
                     </g>
                   </svg>
                 </span>
-                <div
-                  style="height: 50px;"
-                />
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-align-center"
+                  class="StyledProps--font StyledProps--main iconDescription StyledProps--font-align-center"
                 >
                   common.purpose.ci.descriptionOnly
                 </p>
@@ -1037,11 +1016,8 @@ exports[`Welcome Page Should go to module home page when select non cd module an
                     </g>
                   </svg>
                 </span>
-                <div
-                  style="height: 50px;"
-                />
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-align-center"
+                  class="StyledProps--font StyledProps--main iconDescription StyledProps--font-align-center"
                 >
                   common.purpose.cv.description
                 </p>
@@ -1152,11 +1128,8 @@ exports[`Welcome Page Should go to module home page when select non cd module an
                     </g>
                   </svg>
                 </span>
-                <div
-                  style="height: 50px;"
-                />
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-align-center"
+                  class="StyledProps--font StyledProps--main iconDescription StyledProps--font-align-center"
                 >
                   common.purpose.cf.descriptionOnly
                 </p>
@@ -1271,11 +1244,8 @@ exports[`Welcome Page Should go to module home page when select non cd module an
                     </g>
                   </svg>
                 </span>
-                <div
-                  style="height: 50px;"
-                />
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-align-center"
+                  class="StyledProps--font StyledProps--main iconDescription StyledProps--font-align-center"
                 >
                   common.purpose.ce.descriptionOnly
                 </p>
@@ -1293,7 +1263,7 @@ exports[`Welcome Page Should render ModuleInfo page when select cd module and co
 <div>
   <div
     class="StyledProps--font StyledProps--main container StyledProps--padding-left-xxxlarge StyledProps--padding-top-xxxlarge StyledProps--flex StyledProps--flex-alignItems-start"
-    style="background-repeat: no-repeat; background-position: center;"
+    style="background-repeat: no-repeat; background-position: center; background-size: cover , cover;"
   >
     <div
       class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--padding-left-xxlarge StyledProps--padding-top-xxlarge"
@@ -1452,11 +1422,8 @@ exports[`Welcome Page Should render ModuleInfo page when select cd module and co
                     </g>
                   </svg>
                 </span>
-                <div
-                  style="height: 50px;"
-                />
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-align-center"
+                  class="StyledProps--font StyledProps--main iconDescription StyledProps--font-align-center"
                 >
                   common.purpose.cd.description
                 </p>
@@ -1576,11 +1543,8 @@ exports[`Welcome Page Should render ModuleInfo page when select cd module and co
                     </g>
                   </svg>
                 </span>
-                <div
-                  style="height: 50px;"
-                />
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-align-center"
+                  class="StyledProps--font StyledProps--main iconDescription StyledProps--font-align-center"
                 >
                   common.purpose.ci.descriptionOnly
                 </p>
@@ -1687,11 +1651,8 @@ exports[`Welcome Page Should render ModuleInfo page when select cd module and co
                     </g>
                   </svg>
                 </span>
-                <div
-                  style="height: 50px;"
-                />
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-align-center"
+                  class="StyledProps--font StyledProps--main iconDescription StyledProps--font-align-center"
                 >
                   common.purpose.cv.description
                 </p>
@@ -1802,11 +1763,8 @@ exports[`Welcome Page Should render ModuleInfo page when select cd module and co
                     </g>
                   </svg>
                 </span>
-                <div
-                  style="height: 50px;"
-                />
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-align-center"
+                  class="StyledProps--font StyledProps--main iconDescription StyledProps--font-align-center"
                 >
                   common.purpose.cf.descriptionOnly
                 </p>
@@ -1921,11 +1879,8 @@ exports[`Welcome Page Should render ModuleInfo page when select cd module and co
                     </g>
                   </svg>
                 </span>
-                <div
-                  style="height: 50px;"
-                />
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-align-center"
+                  class="StyledProps--font StyledProps--main iconDescription StyledProps--font-align-center"
                 >
                   common.purpose.ce.descriptionOnly
                 </p>

@@ -16,6 +16,7 @@ declare const styles: {
   readonly selectedModuleInfoCard: string
   readonly titleIcon: string
   readonly bodyIcon: string
+  readonly iconDescription: string
   readonly iconContainer: string
 }
 export default styles

@@ -136,7 +136,8 @@ const WelcomePage: React.FC = () => {
       style={{
         backgroundImage: `url(${ribbonImg}), url(${bgImageUrl})`,
         backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center'
+        backgroundPosition: 'center',
+        backgroundSize: 'cover , cover'
       }}
       className={css.container}
     >

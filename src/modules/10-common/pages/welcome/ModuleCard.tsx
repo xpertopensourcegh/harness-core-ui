@@ -46,8 +46,9 @@ const ModuleCard: React.FC<ModuleCardProps> = ({
         <Container className={css.iconContainer}>
           <Icon name={option.titleIcon} size={120} className={css.titleIcon} />
           <Icon name={option.bodyIcon} size={80} className={css.bodyIcon} />
-          <div style={{ height: '50px' }}></div>
-          <Text font={{ align: 'center' }}>{option.description}</Text>
+          <Text font={{ align: 'center' }} className={css.iconDescription}>
+            {option.description}
+          </Text>
         </Container>
       </Card>
       {selected && (
