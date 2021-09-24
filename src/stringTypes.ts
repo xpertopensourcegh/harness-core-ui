@@ -337,6 +337,7 @@ export interface StringsMap {
   'common.purpose.ce.visibilityCard.description': string
   'common.purpose.cf.continuous': string
   'common.purpose.cf.description': string
+  'common.purpose.cf.descriptionOnly': string
   'common.purpose.cf.feature': string
   'common.purpose.cf.features': string
   'common.purpose.cf.flags': string
@@ -345,6 +346,7 @@ export interface StringsMap {
   'common.purpose.changeSelection': string
   'common.purpose.ci.continuous': string
   'common.purpose.ci.description': string
+  'common.purpose.ci.descriptionOnly': string
   'common.purpose.ci.integration': string
   'common.purpose.ci.subtitle': string
   'common.purpose.compare': string
@@ -388,6 +390,8 @@ export interface StringsMap {
   'common.seeDetails': string
   'common.seeWhatChanged': string
   'common.selectAChannel': string
+  'common.selectAVersion.description': string
+  'common.selectAVersion.title': string
   'common.selectBranch': string
   'common.selectDefaultExperience': string
   'common.selectUserGroups': string

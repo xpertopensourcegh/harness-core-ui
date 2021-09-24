@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory, useParams } from 'react-router'
-import { Layout, Button, IconName } from '@wings-software/uicore'
+import type { IconName } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import { useUpdateAccountDefaultExperienceNG } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
@@ -12,25 +12,21 @@ import type { Module, AccountPathProps } from '@common/interfaces/RouteInterface
 import ModuleCard from './ModuleCard'
 import css from './WelcomePage.module.scss'
 
-enum STEPS {
-  SELECT_MODULE = 'SELECT',
-  MODULE_INFO = 'MODULE'
-}
-
 interface ModuleProps {
   enabled: boolean
   titleIcon: IconName
   bodyIcon: IconName
   module: Module
+  description: string
 }
 
 interface SelectModuleListProps {
-  setStep: (step: STEPS) => void
-  setModule: (module?: Module) => void
+  onModuleClick: (module?: Module) => void
   moduleList: ModuleProps[]
+  openVersionSelection: () => void
 }
 
-const SelectModuleList: React.FC<SelectModuleListProps> = ({ setStep, setModule, moduleList }) => {
+const SelectModuleList: React.FC<SelectModuleListProps> = ({ onModuleClick, moduleList, openVersionSelection }) => {
   const [selected, setSelected] = useState<Module>()
 
   const { getString } = useStrings()
@@ -43,74 +39,58 @@ const SelectModuleList: React.FC<SelectModuleListProps> = ({ setStep, setModule,
 
   const handleModuleSelection = (module: Module): void => {
     setSelected(module)
+    onModuleClick(module)
   }
 
-  const handleContinue = (): void => {
-    setStep(STEPS.MODULE_INFO)
-    setModule(selected)
+  const handleCDContinue = (): void => {
+    onModuleClick(selected)
+    openVersionSelection()
   }
   const history = useHistory()
 
-  const Modules: React.FC = () => {
-    return (
-      <Layout.Horizontal spacing="small" className={css.moduleList}>
-        {moduleList.map(option => {
-          return (
-            <ModuleCard
-              key={option.module}
-              option={option}
-              onClick={handleModuleSelection}
-              selected={selected === option.module}
-            />
-          )
-        })}
-      </Layout.Horizontal>
-    )
-  }
-
-  const getContinue = (): React.ReactElement => {
-    switch (selected) {
+  const getButtonProps = (buttonType: string): { clickHandle?: () => void; disabled?: boolean } => {
+    switch (buttonType) {
       case 'cd':
-        return (
-          <Button onClick={handleContinue} intent="primary" width={100}>
-            {getString('continue')}
-          </Button>
-        )
+        return { clickHandle: handleCDContinue }
       case 'ci':
       case 'ce':
       case 'cv':
-      case 'cf': {
-        return (
-          <Button
-            disabled={updatingDefaultExperience}
-            intent="primary"
-            className={css.continueButton}
-            onClick={() => {
-              trackEvent(PurposeActions.ModuleContinue, { category: Category.SIGNUP, module: selected })
-              try {
-                updateDefaultExperience({
-                  defaultExperience: Experiences.NG
-                }).then(() => history.push(routes.toModuleHome({ accountId, module: selected, source: 'purpose' })))
-              } catch (error) {
-                showError(error.data?.message || getString('somethingWentWrong'))
-              }
-            }}
-          >
-            {getString('continue')}
-          </Button>
-        )
-      }
+      case 'cf':
+        return {
+          clickHandle: () => {
+            trackEvent(PurposeActions.ModuleContinue, { category: Category.SIGNUP, module: buttonType })
+            try {
+              updateDefaultExperience({
+                defaultExperience: Experiences.NG
+              }).then(() => history.push(routes.toModuleHome({ accountId, module: buttonType, source: 'purpose' })))
+            } catch (error) {
+              showError(error.data?.message || getString('somethingWentWrong'))
+            }
+          },
+          disabled: updatingDefaultExperience
+        }
       default:
-        return <></>
+        return {}
     }
   }
 
-  return (
-    <Layout.Vertical spacing="xxlarge">
-      <Modules />
-      {selected && getContinue()}
-    </Layout.Vertical>
-  )
+  const moduleListElements = moduleList.map(option => {
+    const buttonProp: { clickHandle?: () => void; disabled?: boolean } = getButtonProps(option.module)
+
+    return (
+      <ModuleCard
+        key={option.module}
+        option={option}
+        onClick={handleModuleSelection}
+        selected={selected === option.module}
+        buttonText={getString('continue')}
+        buttonDisabled={buttonProp.disabled}
+        handleButtonClick={buttonProp.clickHandle}
+      />
+    )
+  })
+
+  return <div className={css.moduleList}>{moduleListElements}</div>
 }
 
 export default SelectModuleList
