@@ -114,10 +114,14 @@ updating: 'Updating adapter {{name}}'
 creating: 'Creating adapter {{name}}'
 createdSuccessfully: 'Adapter {{name}} created successfully'
 updatedSuccessfully: 'Adapter {{name}} updated successfully'
-confirmDeleteTitle: Delete adapter
+deletedSuccessfully: 'Adapter {{name}} deleted'
+confirmDeleteTitle: Delete Adapter
 confirmProviderDelete: Are you sure you want to delete the Adapter
-duplicateIdError: 'Failed to create Adapter: {{ providerName }}. There is already a Adapter with identifier {{ providerIdentifier }} present. Please provide a new unique identifier and save again.'
-connectionIssueSuggestion: 'Try these suggestions <ul> <li> Please provide the correct adapter URL of the kubernetes cluster. It can be obtained using &#39;kubectlcluster-info&#39; cli command </li> </ul>'
-connectionIssueInfo: 'Issue could be <ul> <li> Adapter URL provided is not reachable </li> </ul>'
+duplicateIdError: 'Failed to create Adapter: {{ providerName }}. There is already an Adapter with identifier {{ providerIdentifier }} present. Please provide a new unique identifier and save again.'
+connectionIssueSuggestion: 'Try these suggestions <ul> <li> Install the Adapter. Follow the <a target="_blank" href="https://docs.harness.io/article/bymoar4glr-argo#step_2_install_and_launch_the_ecs_delegate"> steps </a>  </li> <li> Make sure the Adapter URL is reachable from your network </li> </ul>'
+connectionIssueInfo: 'Issue could be <ul> <li> Adapter is not installed or not running </li> </ul>'
 searchPlaceholder: 'Search by name, description or tag'
 gitOpsWizardTitle: 'Adapter'
+notReachable: 'Could not reach the Adapter at URL: '
+adapterDelete: 'Adapter {{adapterName}} deleted'
+testConnectionStepName: 'Trying to reach the Adapter at URL: {{url}}/api/version'

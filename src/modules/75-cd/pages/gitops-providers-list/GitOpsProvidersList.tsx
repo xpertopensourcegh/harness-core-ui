@@ -95,7 +95,7 @@ const GitOpsModalContainer: React.FC = () => {
 
       if (deleted) {
         refetchConnectorList({ queryParams: { ...defaultQueryParams, searchTerm, pageIndex: 0 } })
-        showSuccess(`Provider ${provider?.name} deleted`)
+        showSuccess(getString('cd.adapterDelete', { adapterName: provider?.name }))
       }
     } catch (err) {
       showError(err?.data?.message || err?.message)

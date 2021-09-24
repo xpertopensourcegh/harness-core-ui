@@ -2469,6 +2469,7 @@ export interface StringsMap {
   'templatesLibrary.versionLog': string
   'cd.aboutHarnessAdapter': string
   'cd.aboutProvider': string
+  'cd.adapterDelete': string
   'cd.adapterDetails': string
   'cd.addInline': string
   'cd.addRemote': string
@@ -2494,6 +2495,7 @@ export interface StringsMap {
   'cd.dashboard.createProject': string
   'cd.dashboard.orSelectExisting': string
   'cd.dashboard.subHeading': string
+  'cd.deletedSuccessfully': string
   'cd.duplicateIdError': string
   'cd.dynamicProvisioning': string
   'cd.environmentCreated': string
@@ -2512,6 +2514,7 @@ export interface StringsMap {
   'cd.namespaceValidation': string
   'cd.newAdapter': string
   'cd.noAdapterText': string
+  'cd.notReachable': string
   'cd.pathCannotBeEmpty': string
   'cd.pipelineSteps.infraTab.clusterError': string
   'cd.pipelineSteps.infraTab.deploymentType': string
@@ -2570,6 +2573,7 @@ export interface StringsMap {
   'cd.steps.common.selectOrEnterClusterPlaceholder': string
   'cd.steps.kubernetesGcpStep.stepName': string
   'cd.terraformVarFiles': string
+  'cd.testConnectionStepName': string
   'cd.tfVarStore': string
   'cd.updatedSuccessfully': string
   'cd.updating': string
