@@ -856,14 +856,8 @@ export interface StringsMap {
   'delegates.harnessDocs': string
   'delegates.lastUpdated': string
   'delegates.newDelegate': string
-  'delegates.newDelegateConfigWizard.matchAllEnvs': string
-  'delegates.newDelegateConfigWizard.nonprodEnv': string
   'delegates.newDelegateConfigWizard.overviewTitle': string
-  'delegates.newDelegateConfigWizard.prodEnv': string
-  'delegates.newDelegateConfigWizard.scopeSubtitle': string
   'delegates.newDelegateConfigWizard.scriptTitle': string
-  'delegates.newDelegateConfigWizard.specEnvNotPossible': string
-  'delegates.newDelegateConfigWizard.specifyEnvs': string
   'delegates.newDelegateConfigWizard.successMessage': string
   'delegates.newDelegateConfiguration': string
   'delegates.noDelegatesInAccount': string
