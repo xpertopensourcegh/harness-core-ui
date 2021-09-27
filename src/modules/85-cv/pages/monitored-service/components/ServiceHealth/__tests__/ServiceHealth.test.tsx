@@ -53,6 +53,14 @@ jest.mock('services/cv', () => ({
   useGetMonitoredServiceOverAllHealthScore: jest.fn().mockImplementation(() => {
     return { data: mockedHealthScoreData, refetch: fetchHealthScore, error: null, loading: false }
   }),
+  useGetServiceDependencyGraph: jest.fn().mockImplementation(() => {
+    return {
+      data: {},
+      refetch: jest.fn(),
+      error: null,
+      loading: false
+    }
+  }),
   useGetChangeSummary: jest.fn().mockImplementation(() => {
     return {
       data: { resource: { ...changeSummaryWithPositiveChange } },
