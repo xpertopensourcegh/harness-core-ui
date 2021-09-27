@@ -145,6 +145,7 @@ export interface StringsMap {
   'common.errorHandler.tryTheseSuggestions': string
   'common.execute': string
   'common.expiryDate': string
+  'common.explorePlans': string
   'common.extendTrial.description': string
   'common.extendTrial.doItLater': string
   'common.extendTrial.expiryDate': string
@@ -156,6 +157,8 @@ export interface StringsMap {
   'common.extendTrial.feedback.title': string
   'common.extendTrial.heading': string
   'common.failureRate': string
+  'common.feature.upgradeRequired.description': string
+  'common.feature.upgradeRequired.title': string
   'common.file': string
   'common.filters.clearFilters': string
   'common.filters.noFilterSaved': string
