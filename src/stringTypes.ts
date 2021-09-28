@@ -3347,13 +3347,10 @@ export interface StringsMap {
   'cf.pipeline.flagConfiguration.variationMappingRuntime': string
   'cf.pipeline.flagConfiguration.viewDetail': string
   'cf.pipeline.flagConfiguration.whatToConfigure': string
+  'cf.pipeline.flagConfiguration.whenTheFlagIsOffServe': string
+  'cf.pipeline.flagConfiguration.whenTheFlagIsOnServe': string
   'cf.pipeline.listing': string
   'cf.pipeline.rollloutStrategy.title': string
-  'cf.pipeline.variationMapping.placeholder': string
-  'cf.pipeline.variationMapping.selectVariation': string
-  'cf.pipeline.variationMapping.targetTargetGroup': string
-  'cf.pipeline.variationMapping.targetTargetGroupRequired': string
-  'cf.pipeline.variationMapping.variationRequired': string
   'cf.rbac.category': string
   'cf.rbac.featureflag.delete': string
   'cf.rbac.featureflag.edit': string

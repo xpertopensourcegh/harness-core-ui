@@ -379,12 +379,6 @@ pipeline:
     title: Rollout Strategy
   advanced:
     title: '{{ $.advancedTitle }}'
-  variationMapping:
-    targetTargetGroup: 'Targets/Target Groups {{count}}'
-    selectVariation: Select Variation
-    targetTargetGroupRequired: Target/Target Group is required
-    variationRequired: Variation is required
-    placeholder: Search target or target group by name...
   flagConfiguration:
     fixedInput: Fixed Input List
     runtimeInput: Runtime Input List
@@ -423,6 +417,8 @@ pipeline:
     serveVariationToTargetGroup: Serve Variation to Target Group
     servePercentageRollout: Serve Percentage Rollout
     selectOnOrOff: Select ON or OFF
+    whenTheFlagIsOnServe: 'When the flag is ON, serve:'
+    whenTheFlagIsOffServe: 'When the flag is OFF, serve:'
 segmentDetail:
   directlyAdded: Directly Added
   autoAdded: Automatically Added Through Conditions
