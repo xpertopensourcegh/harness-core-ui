@@ -3382,6 +3382,11 @@ export interface StringsMap {
   'cf.segments.uploadImage': string
   'cf.segments.usingSegment': string
   'cf.segments.usingSegmentWithCount': string
+  'cf.selectFlagRepo.createRepoError': string
+  'cf.selectFlagRepo.dialogTitle': string
+  'cf.selectFlagRepo.introText': string
+  'cf.selectFlagRepo.newRepo': string
+  'cf.selectFlagRepo.useExistingRepo': string
   'cf.selectFlagsModal.empty': string
   'cf.selectFlagsModal.searchPlaceholder': string
   'cf.selectSegmentModal.empty': string

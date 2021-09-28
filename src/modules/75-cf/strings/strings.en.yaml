@@ -112,6 +112,12 @@ noTargetForEnv: There are currently no targets for this environment
 homepage:
   slogan: '{{ $.common.purpose.cf.descriptionOnly }}'
   learnMore: Learn more about Feature Flags
+selectFlagRepo:
+  introText: 'Git Experience has already been enabled for your project. Please confirm your Git setup before creating feature flags.'
+  useExistingRepo: 'Use an Existing Repository'
+  newRepo: 'Set up a New Repository'
+  dialogTitle: 'Set up with Existing Repository'
+  createRepoError: 'Unable to save flags to repository'
 clause:
   operators:
     and: and
