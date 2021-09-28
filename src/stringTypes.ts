@@ -807,6 +807,8 @@ export interface StringsMap {
   'authSettings.usePublicOAuth': string
   'authSettings.whitelistedDomainsDisabled': string
   'authSettings.yourAccountWillBeLockedOut': string
+  'delegates.delGroupStatus.DISABLED': string
+  'delegates.delGroupStatus.WAITING_FOR_APPROVAL': string
   'delegates.delSetup': string
   'delegates.delegateDeleted': string
   'delegates.delegateIdentifier': string
