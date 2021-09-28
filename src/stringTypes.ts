@@ -3664,6 +3664,7 @@ export interface StringsMap {
   'cv.changeSource.configureChangeSource': string
   'cv.changeSource.connectChangeSource': string
   'cv.changeSource.defineChangeSource': string
+  'cv.changeSource.deleteChangeSourceWarning': string
   'cv.changeSource.duplicateIdentifier': string
   'cv.changeSource.editChangeSource': string
   'cv.changeSource.noChangeSource': string
