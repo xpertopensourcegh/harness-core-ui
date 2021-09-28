@@ -382,6 +382,7 @@ export interface StringsMap {
   'common.repo_provider.gitlabLabel': string
   'common.reportName': string
   'common.reportNameRequired': string
+  'common.repositoryName': string
   'common.resolveConflict': string
   'common.role': string
   'common.saveAndClose': string
@@ -6240,10 +6241,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'pipelineSteps.build.create.connectorRequiredError': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.build.create.repositoryNameLabel': string
   /**
    * @deprecated migrate this string to module level file
    */
