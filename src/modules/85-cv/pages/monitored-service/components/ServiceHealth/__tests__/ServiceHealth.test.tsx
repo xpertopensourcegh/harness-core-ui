@@ -76,6 +76,14 @@ jest.mock('services/cv', () => ({
       error: null,
       loading: false
     }
+  }),
+  useChangeEventTimeline: jest.fn().mockImplementation(() => {
+    return {
+      data: {},
+      refetch: jest.fn(),
+      error: null,
+      loading: false
+    }
   })
 }))
 
@@ -166,7 +174,7 @@ describe('Unit tests for ServiceHealth', () => {
     const { container } = render(<WrapperComponent {...props} />)
     await waitFor(() => expect(container.querySelectorAll('.tickerValue[data-test="tickerValue"]').length).toEqual(4))
     container.querySelectorAll('.tickerValue[data-test="tickerValue"]').forEach(async (item, index) => {
-      await (() => expect(item.textContent).toEqual(expectedPositiveTextContent[index]))
+      await waitFor(() => expect(item.textContent).toEqual(expectedPositiveTextContent[index]))
     })
   })
 

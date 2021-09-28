@@ -60,7 +60,10 @@ export default function ChangeSourceCard(props: ChangeSourceCardInterfae): JSX.E
       return <ChangeSourceFetchingError errorMessage={getString('cv.monitoredServices.failedToFetchSummaryData')} />
     } else {
       return changeSummaryList.map((ticker: ChangeSourceCardData) => {
-        const tickerColor = getTickerColor(ticker.percentage)
+        const tickerColor =
+          ticker.label === getString('cv.changeSource.tooltip.incident')
+            ? getTickerColor(ticker.percentage)
+            : Color.PRIMARY_4
         return (
           <Container key={ticker.id} className={css.ticker}>
             <Ticker

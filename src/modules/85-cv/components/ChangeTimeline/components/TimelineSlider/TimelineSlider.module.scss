@@ -45,15 +45,29 @@
       width: 214px;
       position: absolute;
       transform: translate(-8%);
-      bottom: 0;
+      bottom: 15%;
       right: 100%;
       z-index: 8;
       pointer-events: initial;
     }
 
+    .resetButton {
+      position: absolute;
+      color: var(--primary);
+      left: 84%;
+      bottom: -20%;
+      cursor: pointer;
+      pointer-events: initial;
+      font-size: var(--font-size-small) !important;
+    }
+
     .reverseCard {
       transform: translate(8%);
       left: 100%;
+
+      .resetButton {
+        left: 0 !important;
+      }
     }
 
     &::after {

@@ -585,8 +585,9 @@ monitoredServices:
     noData: No data available for service dependencies
 changeSource:
   alertText: Alert
+  noChangeSource: No Change Sources Present
+  noData: No changes data available
   configureChangeSource: Configure Change Sources
-  noData: No Change Sources Present
   addChangeSource: Add New Change Source
   selectChangeSource: Select Change Source
   defineChangeSource: Define Change Sources
@@ -598,7 +599,7 @@ changeSource:
   selectChangeSourceProvider: Select change source provider
   selectChangeSourceType: Select change source type
   tooltip:
-    incident: Incident
+    incident: Incidents
   PageDuty:
     pagerDutyService: PagerDuty Service
     selectPagerDutyService: Select PageDuty Service

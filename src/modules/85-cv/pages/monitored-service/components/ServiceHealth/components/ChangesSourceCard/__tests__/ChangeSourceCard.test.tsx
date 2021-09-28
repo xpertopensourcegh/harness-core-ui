@@ -31,9 +31,6 @@ describe('Test ChangeSourcecard', () => {
       </TestWrapper>
     )
     expect(container.querySelectorAll('.iconContainer span[data-icon="main-caret-up"]').length).toEqual(4)
-    container.querySelectorAll('.iconContainer span').forEach(item => {
-      expect(item.className).toContain('StyledProps--color-green600')
-    })
     container.querySelectorAll('.tickerValue[data-test="tickerValue"]').forEach((item, index) => {
       expect(item.textContent).toEqual(expectedPositiveTextContent[index])
     })
@@ -54,11 +51,7 @@ describe('Test ChangeSourcecard', () => {
         <ChangesSourcecard startTime={0} endTime={0} />
       </TestWrapper>
     )
-
     expect(container.querySelectorAll('.iconContainer span[data-icon="main-caret-down"]').length).toEqual(4)
-    container.querySelectorAll('.iconContainer span').forEach(item => {
-      expect(item.className).toContain('StyledProps--color-red500')
-    })
     container.querySelectorAll('.tickerValue[data-test="tickerValue"]').forEach((item, index) => {
       expect(item.textContent).toEqual(expectedNegativeTextContent[index])
     })

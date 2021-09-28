@@ -24,7 +24,7 @@ exports[`Test ChangeSourcecard should render with negative change 1`] = `
             class="iconContainer"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-red500"
+              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-primary4"
               data-icon="main-caret-down"
             >
               <svg
@@ -53,7 +53,7 @@ exports[`Test ChangeSourcecard should render with negative change 1`] = `
                 changes
               </p>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-red500"
+                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-primary4"
               >
                 33.3%
               </p>
@@ -81,7 +81,7 @@ exports[`Test ChangeSourcecard should render with negative change 1`] = `
             class="iconContainer"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-red500"
+              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-primary4"
               data-icon="main-caret-down"
             >
               <svg
@@ -110,7 +110,7 @@ exports[`Test ChangeSourcecard should render with negative change 1`] = `
                 deploymentText
               </p>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-red500"
+                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-primary4"
               >
                 33.3%
               </p>
@@ -138,7 +138,7 @@ exports[`Test ChangeSourcecard should render with negative change 1`] = `
             class="iconContainer"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-red500"
+              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-primary4"
               data-icon="main-caret-down"
             >
               <svg
@@ -167,7 +167,7 @@ exports[`Test ChangeSourcecard should render with negative change 1`] = `
                 infrastructureText
               </p>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-red500"
+                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-primary4"
               >
                 33.3%
               </p>
@@ -261,7 +261,7 @@ exports[`Test ChangeSourcecard should render with positive change 1`] = `
             class="iconContainer"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-green600"
+              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-primary4"
               data-icon="main-caret-up"
             >
               <svg
@@ -290,7 +290,7 @@ exports[`Test ChangeSourcecard should render with positive change 1`] = `
                 changes
               </p>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-green600"
+                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-primary4"
               >
                 50%
               </p>
@@ -318,7 +318,7 @@ exports[`Test ChangeSourcecard should render with positive change 1`] = `
             class="iconContainer"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-green600"
+              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-primary4"
               data-icon="main-caret-up"
             >
               <svg
@@ -347,7 +347,7 @@ exports[`Test ChangeSourcecard should render with positive change 1`] = `
                 deploymentText
               </p>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-green600"
+                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-primary4"
               >
                 50%
               </p>
@@ -375,7 +375,7 @@ exports[`Test ChangeSourcecard should render with positive change 1`] = `
             class="iconContainer"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-green600"
+              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-primary4"
               data-icon="main-caret-up"
             >
               <svg
@@ -404,7 +404,7 @@ exports[`Test ChangeSourcecard should render with positive change 1`] = `
                 infrastructureText
               </p>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-green600"
+                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-primary4"
               >
                 50%
               </p>
