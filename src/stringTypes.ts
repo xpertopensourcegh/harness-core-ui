@@ -3738,6 +3738,8 @@ export interface StringsMap {
   'cv.monitoredServices.deleteMonitoredServiceWarning': string
   'cv.monitoredServices.editMonitoredServices': string
   'cv.monitoredServices.environmentValidation': string
+  'cv.monitoredServices.failedToFetchHealthScore': string
+  'cv.monitoredServices.failedToFetchSummaryData': string
   'cv.monitoredServices.filterlabel': string
   'cv.monitoredServices.healthScoreDataNotAvailable': string
   'cv.monitoredServices.monitoredServiceCreated': string

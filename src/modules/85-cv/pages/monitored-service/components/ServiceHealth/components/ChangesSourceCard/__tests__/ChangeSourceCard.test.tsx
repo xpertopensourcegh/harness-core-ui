@@ -75,12 +75,12 @@ describe('Test ChangeSourcecard', () => {
           loading: true
         } as any)
     )
-    const { container } = render(
+    const { container, getAllByTestId } = render(
       <TestWrapper>
         <ChangesSourcecard startTime={0} endTime={0} />
       </TestWrapper>
     )
-    expect(container.querySelector('span[data-icon="spinner"]')).toBeTruthy()
+    expect(getAllByTestId('loading-block')).toHaveLength(4)
     expect(container).toMatchSnapshot()
   })
 
@@ -94,13 +94,13 @@ describe('Test ChangeSourcecard', () => {
           loading: false
         } as any)
     )
-    const { container } = render(
+    const { container, getByText } = render(
       <TestWrapper>
         <ChangesSourcecard startTime={0} endTime={0} />
       </TestWrapper>
     )
 
-    expect(container.querySelector('span[icon="error"]')).toBeTruthy()
+    expect(getByText('cv.monitoredServices.failedToFetchSummaryData')).toBeTruthy()
     expect(container).toMatchSnapshot()
   })
 

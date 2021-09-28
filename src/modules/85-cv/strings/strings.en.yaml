@@ -551,6 +551,8 @@ monitoredServices:
   serviceCount: Showing {{serviceCount}} Services
   noAvailableData: No available data.
   healthScoreDataNotAvailable: Health score data not available.
+  failedToFetchHealthScore: Failed to fetch health score data.
+  failedToFetchSummaryData: Failed to fetch summary data
   serviceHealth:
     last4Hrs: Last 4 hours
     last24Hrs: Last 24 hours
