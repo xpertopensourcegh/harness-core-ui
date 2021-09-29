@@ -879,6 +879,7 @@ export interface StringsMap {
   'delegates.reviewScript.docLinkBefore': string
   'delegates.reviewYAML': string
   'delegates.searchDelegateName': string
+  'delegates.selectors': string
   'delegates.totalMemUnit': string
   'delegates.troubleshootOption': string
   'delegates.usedBy': string
