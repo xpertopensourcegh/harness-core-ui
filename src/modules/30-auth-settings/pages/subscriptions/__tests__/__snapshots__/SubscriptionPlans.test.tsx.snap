@@ -71,7 +71,7 @@ exports[`Subscription Plans should expand feature comparison when click on arrow
                 <span
                   class="bp3-button-text"
                 >
-                  Coming Soon
+                  common.deactivate
                 </span>
               </button>
               <p
@@ -186,7 +186,7 @@ exports[`Subscription Plans should expand feature comparison when click on arrow
                 <span
                   class="bp3-button-text"
                 >
-                  Coming Soon
+                  common.deactivate
                 </span>
               </button>
               <p
@@ -529,7 +529,7 @@ exports[`Subscription Plans should render the plans for CCM 1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Coming Soon
+                  common.deactivate
                 </span>
               </button>
               <p
@@ -655,7 +655,7 @@ exports[`Subscription Plans should render the plans for CCM 1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Coming Soon
+                  common.deactivate
                 </span>
               </button>
               <p
@@ -1027,7 +1027,7 @@ exports[`Subscription Plans should render the plans for CD 1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Coming Soon
+                  common.deactivate
                 </span>
               </button>
               <p
@@ -1162,7 +1162,7 @@ exports[`Subscription Plans should render the plans for CD 1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Coming Soon
+                  common.deactivate
                 </span>
               </button>
               <p
@@ -1509,7 +1509,7 @@ exports[`Subscription Plans should render the plans for CI 1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Coming Soon
+                  common.deactivate
                 </span>
               </button>
               <p
@@ -1624,7 +1624,7 @@ exports[`Subscription Plans should render the plans for CI 1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Coming Soon
+                  common.deactivate
                 </span>
               </button>
               <p
@@ -1967,7 +1967,7 @@ exports[`Subscription Plans should render the plans for FF 1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Coming Soon
+                  common.deactivate
                 </span>
               </button>
               <p
@@ -2125,7 +2125,7 @@ exports[`Subscription Plans should render the plans for FF 1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Coming Soon
+                  common.deactivate
                 </span>
               </button>
               <p

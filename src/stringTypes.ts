@@ -461,6 +461,7 @@ export interface StringsMap {
   'common.totalSelected': string
   'common.trialInProgress': string
   'common.trialInProgressDescription': string
+  'common.tryNow': string
   'common.unlimited': string
   'common.unsavedChanges': string
   'common.updating': string
