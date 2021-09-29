@@ -128,7 +128,7 @@ const getK8sYamlSchema = () => ({
                     type: 'object',
                     title: 'Rule Object',
                     description: '',
-                    required: ['host', 'http'],
+                    required: ['http'],
                     properties: {
                       host: {
                         $id: '#/properties/spec/properties/ingress/properties/rules/items/anyOf/0/properties/host',
