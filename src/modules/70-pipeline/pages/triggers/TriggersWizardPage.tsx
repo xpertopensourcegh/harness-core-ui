@@ -747,12 +747,14 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       } = triggerResponseJson
 
       let selectedArtifact
+      let triggerType
 
       if (type === TriggerTypes.MANIFEST) {
         const { manifestRef, type: _manifestType, spec } = source?.spec || {}
         if (_manifestType) {
           setArtifactManifestType(_manifestType)
         }
+        triggerType = TriggerTypes.MANIFEST
         selectedArtifact = {
           identifier: manifestRef,
           type: artifactManifestType || _manifestType,
@@ -763,6 +765,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         if (_artifactType) {
           setArtifactManifestType(_artifactType)
         }
+        triggerType = TriggerTypes.ARTIFACT
         selectedArtifact = {
           identifier: artifactRef,
           type: artifactManifestType || _artifactType,
@@ -793,7 +796,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         description,
         tags,
         pipeline: pipelineJson,
-        triggerType: TriggerTypes.MANIFEST as unknown as NGTriggerSourceV2['type'],
+        triggerType: triggerType as unknown as NGTriggerSourceV2['type'],
         manifestType: selectedArtifact?.type,
         stageId: source?.spec?.stageIdentifier,
         inputSetTemplateYamlObj: parse(template?.data?.inputSetTemplateYaml || ''),
@@ -949,7 +952,6 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       },
       inputYaml: stringifyPipelineRuntimeInput
     }
-
     if (artType) {
       if (triggerYaml?.source?.spec && Object.getOwnPropertyDescriptor(triggerYaml?.source?.spec, 'manifestRef')) {
         delete triggerYaml.source.spec.manifestRef
