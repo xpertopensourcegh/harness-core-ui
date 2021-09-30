@@ -1,10 +1,12 @@
+import type { IDrawerProps } from '@blueprintjs/core'
+
 export interface UseDrawerInterface {
-  showDrawer: () => void
+  showDrawer: (data?: any) => void
   hideDrawer: () => void
-  setDrawerContentProps: React.Dispatch<React.SetStateAction<any>>
 }
 
 export interface UseDrawerPropsInterface {
-  createHeader: () => JSX.Element
+  drawerOptions?: IDrawerProps
+  createHeader?: () => JSX.Element
   createDrawerContent: (props: any) => JSX.Element
 }

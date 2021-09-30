@@ -1,40 +1,19 @@
-import React, { useState } from 'react'
-import { Drawer, Intent, Position } from '@blueprintjs/core'
+import React, { useMemo, useState } from 'react'
+import { Drawer, Intent } from '@blueprintjs/core'
 import { Button, useModalHook } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { useConfirmationDialog } from '@common/exports'
-import { drawerOffSetLeft } from './useDrawerHook.constant'
+import { getDefaultDrawerProps, getParsedDrawerOptions } from './useDrawerHook.utils'
 import type { UseDrawerInterface, UseDrawerPropsInterface } from './useDrawerHook.types'
 import css from './useDrawerHook.module.scss'
 
-export const useDrawer = ({ createHeader, createDrawerContent }: UseDrawerPropsInterface): UseDrawerInterface => {
+export const useDrawer = ({
+  createHeader,
+  createDrawerContent,
+  drawerOptions
+}: UseDrawerPropsInterface): UseDrawerInterface => {
   const { getString } = useStrings()
   const [drawerContentProps, setDrawerContentProps] = useState({})
-  const [showModal, hideModal] = useModalHook(
-    () => (
-      <>
-        <Drawer
-          onClose={showWarning}
-          usePortal={true}
-          autoFocus={true}
-          canEscapeKeyClose={true}
-          canOutsideClickClose={true}
-          enforceFocus={false}
-          hasBackdrop={true}
-          size={`calc(100% - ${drawerOffSetLeft})`}
-          isOpen
-          position={Position.RIGHT}
-          title={createHeader()}
-          isCloseButtonShown={false}
-          portalClassName={'health-source-right-drawer'}
-        >
-          <div className={css.formFullheight}>{createDrawerContent(drawerContentProps)}</div>
-        </Drawer>
-        <Button minimal className={css.almostFullScreenCloseBtn} icon="cross" withoutBoxShadow onClick={hideModal} />
-      </>
-    ),
-    [drawerContentProps]
-  )
 
   const { openDialog: showWarning } = useConfirmationDialog({
     intent: Intent.WARNING,
@@ -45,9 +24,38 @@ export const useDrawer = ({ createHeader, createDrawerContent }: UseDrawerPropsI
     onCloseDialog: (isConfirmed: boolean) => isConfirmed && hideModal()
   })
 
+  const defaultOptions = useMemo(() => getDefaultDrawerProps({ showWarning, createHeader }), [])
+  const parsedOptions = useMemo(
+    () => getParsedDrawerOptions(defaultOptions, drawerOptions),
+    [defaultOptions, drawerOptions]
+  )
+
+  const [showModal, hideModal] = useModalHook(
+    () => (
+      <>
+        <Drawer {...parsedOptions}>
+          <div className={css.formFullheight}>{createDrawerContent(drawerContentProps)}</div>
+        </Drawer>
+        <Button
+          minimal
+          style={parsedOptions?.size ? { right: parsedOptions?.size } : {}}
+          className={css.almostFullScreenCloseBtn}
+          icon="cross"
+          withoutBoxShadow
+          onClick={hideModal}
+        />
+      </>
+    ),
+    [drawerContentProps]
+  )
+
   return {
-    showDrawer: showModal,
-    hideDrawer: hideModal,
-    setDrawerContentProps
+    showDrawer: data => {
+      if (data) {
+        setDrawerContentProps(data)
+      }
+      showModal()
+    },
+    hideDrawer: hideModal
   }
 }

@@ -1,1 +1,1 @@
-export const drawerOffSetLeft = '330px'
+export const DRAWER_OFFSET_LEFT = '330px'

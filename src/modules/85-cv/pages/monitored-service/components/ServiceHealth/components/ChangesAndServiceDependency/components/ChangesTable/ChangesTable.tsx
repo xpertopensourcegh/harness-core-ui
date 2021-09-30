@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react'
+import type { IDrawerProps } from '@blueprintjs/core'
 import { useParams } from 'react-router'
 import { Link } from 'react-router-dom'
 import type { Column } from 'react-table'
@@ -13,6 +14,7 @@ import { PageError } from '@common/components/Page/PageError'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import routes from '@common/RouteDefinitions'
 import noDataImage from '@cv/assets/noData.svg'
+import { useDrawer } from '@cv/hooks/useDrawerHook/useDrawerHook'
 import type { ChangesTableInterface } from './ChangesTable.types'
 import { renderTime, renderName, renderImpact, renderType, renderChangeType } from './ChangesTable.utils'
 import { defaultPageSize } from './ChangesTable.constants'
@@ -38,6 +40,11 @@ export default function ChangesTable({
   })
 
   const { content = [], pageSize = 0, pageIndex = 0, totalPages = 0, totalItems = 0 } = data?.resource ?? ({} as any)
+
+  const drawerOptions = {
+    size: '530px'
+  } as IDrawerProps
+  const { showDrawer } = useDrawer({ createDrawerContent: () => <> </>, drawerOptions })
 
   useEffect(() => {
     refetch({
@@ -150,6 +157,7 @@ export default function ChangesTable({
       return (
         <Card className={css.cardContainer}>
           <Table
+            onRowClick={showDrawer}
             sortable={true}
             columns={columns}
             data={content}

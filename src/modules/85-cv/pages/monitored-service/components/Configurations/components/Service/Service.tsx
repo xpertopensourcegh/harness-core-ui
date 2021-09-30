@@ -71,7 +71,7 @@ function Service({
           icon={'arrow-left'}
           iconProps={{ color: Color.PRIMARY_7, margin: { right: 'small' } }}
           color={Color.PRIMARY_7}
-          onClick={hideDrawer}
+          onClick={() => hideDrawer()}
         >
           {getString('cv.healthSource.backtoMonitoredService')}
         </Text>
@@ -83,7 +83,7 @@ function Service({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEdit])
 
-  const { showDrawer, hideDrawer, setDrawerContentProps } = useDrawer({
+  const { showDrawer, hideDrawer } = useDrawer({
     createHeader: createChangeSourceDrawerHeader,
     createDrawerContent: props => <ChangeSourceDrawer {...props} />
   })
@@ -98,8 +98,7 @@ function Service({
     }) => {
       // has required fields
       if (formik?.values.environmentRef && formik?.values.name) {
-        showDrawer()
-        setDrawerContentProps({
+        showDrawer({
           hideDrawer,
           tableData: formik?.values?.sources?.changeSources || [],
           onSuccess: onSuccessChangeSource,
@@ -177,8 +176,7 @@ function Service({
                 </Text>
                 <ChangeSourceTableContainer
                   onEdit={values => {
-                    showDrawer()
-                    setDrawerContentProps({ ...values, hideDrawer })
+                    showDrawer({ ...values, hideDrawer })
                   }}
                   onAddNewChangeSource={() => openChangeSourceDrawer({ formik, onSuccessChangeSource })}
                   value={formik?.values?.sources?.changeSources || []}
