@@ -10,98 +10,102 @@ exports[`Run Step Edit View edit mode works 1`] = `
     >
       <div>
         <div
-          class="InputWithIdentifier--txtNameContainer TextInput--main"
+          class="StyledProps--font StyledProps--main formGroup lg StyledProps--margin-bottom-small"
         >
           <div
-            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
+            class="InputWithIdentifier--txtNameContainer TextInput--main"
           >
-            <p
-              class="StyledProps--font StyledProps--main"
+            <div
+              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
             >
-              ID
-              :
-            </p>
-            <span
-              class="bp3-popover-wrapper"
-            >
+              <p
+                class="StyledProps--font StyledProps--main"
+              >
+                ID
+                :
+              </p>
               <span
-                class="bp3-popover-target"
+                class="bp3-popover-wrapper"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class="bp3-editable-text InputWithIdentifier--idValue"
+                    tabindex="0"
+                  >
+                    <span
+                      class="bp3-editable-text-content"
+                      style="height: 1px; line-height: 1px; min-width: 0;"
+                    >
+                      My_Run_Step
+                    </span>
+                  </div>
+                </span>
+              </span>
+              <span
+                class="bp3-icon StyledProps--main"
+                data-icon="Edit"
+                style="vertical-align: middle; cursor: pointer;"
+              >
+                <svg
+                  height="12"
+                  viewBox="0 0 12 12"
+                  width="12"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g
+                    fill="none"
+                    fill-rule="evenodd"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                      stroke="#555770"
+                    />
+                    <path
+                      d="M6.583 5.146l2.063-2.063"
+                      opacity="0.3"
+                      stroke="#606170"
+                    />
+                  </g>
+                </svg>
+              </span>
+            </div>
+            <div
+              class="bp3-form-group"
+              data-id="name-0"
+            >
+              <label
+                class="bp3-label"
+                for="name"
+              >
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="ciRunStep_name"
+                >
+                  pipelineSteps.stepNameLabel
+                </span>
+                 
+                <span
+                  class="bp3-text-muted"
+                />
+              </label>
+              <div
+                class="bp3-form-content"
               >
                 <div
-                  class="bp3-editable-text InputWithIdentifier--idValue"
-                  tabindex="0"
+                  class="bp3-input-group"
                 >
-                  <span
-                    class="bp3-editable-text-content"
-                    style="height: 1px; line-height: 1px; min-width: 0;"
-                  >
-                    My_Run_Step
-                  </span>
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    name="name"
+                    type="text"
+                    value="My Run Step"
+                  />
                 </div>
-              </span>
-            </span>
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="Edit"
-              style="vertical-align: middle; cursor: pointer;"
-            >
-              <svg
-                height="12"
-                viewBox="0 0 12 12"
-                width="12"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g
-                  fill="none"
-                  fill-rule="evenodd"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path
-                    d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
-                    stroke="#555770"
-                  />
-                  <path
-                    d="M6.583 5.146l2.063-2.063"
-                    opacity="0.3"
-                    stroke="#606170"
-                  />
-                </g>
-              </svg>
-            </span>
-          </div>
-          <div
-            class="bp3-form-group"
-            data-id="name-0"
-          >
-            <label
-              class="bp3-label"
-              for="name"
-            >
-              <span
-                class="Tooltip--acenter"
-                data-tooltip-id="ciRunStep_name"
-              >
-                pipelineSteps.stepNameLabel
-              </span>
-               
-              <span
-                class="bp3-text-muted"
-              />
-            </label>
-            <div
-              class="bp3-form-content"
-            >
-              <div
-                class="bp3-input-group"
-              >
-                <input
-                  autocomplete="off"
-                  class="bp3-input"
-                  name="name"
-                  type="text"
-                  value="My Run Step"
-                />
               </div>
             </div>
           </div>
@@ -340,7 +344,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
             data-tooltip-id="image"
           >
             <p
-              class="StyledProps--font StyledProps--main"
+              class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
             >
               imageLabel
             </p>
@@ -562,98 +566,102 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
     >
       <div>
         <div
-          class="InputWithIdentifier--txtNameContainer TextInput--main"
+          class="StyledProps--font StyledProps--main formGroup lg StyledProps--margin-bottom-small"
         >
           <div
-            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
+            class="InputWithIdentifier--txtNameContainer TextInput--main"
           >
-            <p
-              class="StyledProps--font StyledProps--main"
+            <div
+              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
             >
-              ID
-              :
-            </p>
-            <span
-              class="bp3-popover-wrapper"
-            >
+              <p
+                class="StyledProps--font StyledProps--main"
+              >
+                ID
+                :
+              </p>
               <span
-                class="bp3-popover-target"
+                class="bp3-popover-wrapper"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class="bp3-editable-text InputWithIdentifier--idValue"
+                    tabindex="0"
+                  >
+                    <span
+                      class="bp3-editable-text-content"
+                      style="height: 1px; line-height: 1px; min-width: 0;"
+                    >
+                      My_Run_Step
+                    </span>
+                  </div>
+                </span>
+              </span>
+              <span
+                class="bp3-icon StyledProps--main"
+                data-icon="Edit"
+                style="vertical-align: middle; cursor: pointer;"
+              >
+                <svg
+                  height="12"
+                  viewBox="0 0 12 12"
+                  width="12"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g
+                    fill="none"
+                    fill-rule="evenodd"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                      stroke="#555770"
+                    />
+                    <path
+                      d="M6.583 5.146l2.063-2.063"
+                      opacity="0.3"
+                      stroke="#606170"
+                    />
+                  </g>
+                </svg>
+              </span>
+            </div>
+            <div
+              class="bp3-form-group"
+              data-id="name-0"
+            >
+              <label
+                class="bp3-label"
+                for="name"
+              >
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="ciRunStep_name"
+                >
+                  pipelineSteps.stepNameLabel
+                </span>
+                 
+                <span
+                  class="bp3-text-muted"
+                />
+              </label>
+              <div
+                class="bp3-form-content"
               >
                 <div
-                  class="bp3-editable-text InputWithIdentifier--idValue"
-                  tabindex="0"
+                  class="bp3-input-group"
                 >
-                  <span
-                    class="bp3-editable-text-content"
-                    style="height: 1px; line-height: 1px; min-width: 0;"
-                  >
-                    My_Run_Step
-                  </span>
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    name="name"
+                    type="text"
+                    value="My Run Step"
+                  />
                 </div>
-              </span>
-            </span>
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="Edit"
-              style="vertical-align: middle; cursor: pointer;"
-            >
-              <svg
-                height="12"
-                viewBox="0 0 12 12"
-                width="12"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g
-                  fill="none"
-                  fill-rule="evenodd"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path
-                    d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
-                    stroke="#555770"
-                  />
-                  <path
-                    d="M6.583 5.146l2.063-2.063"
-                    opacity="0.3"
-                    stroke="#606170"
-                  />
-                </g>
-              </svg>
-            </span>
-          </div>
-          <div
-            class="bp3-form-group"
-            data-id="name-0"
-          >
-            <label
-              class="bp3-label"
-              for="name"
-            >
-              <span
-                class="Tooltip--acenter"
-                data-tooltip-id="ciRunStep_name"
-              >
-                pipelineSteps.stepNameLabel
-              </span>
-               
-              <span
-                class="bp3-text-muted"
-              />
-            </label>
-            <div
-              class="bp3-form-content"
-            >
-              <div
-                class="bp3-input-group"
-              >
-                <input
-                  autocomplete="off"
-                  class="bp3-input"
-                  name="name"
-                  type="text"
-                  value="My Run Step"
-                />
               </div>
             </div>
           </div>
@@ -883,7 +891,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
             data-tooltip-id="image"
           >
             <p
-              class="StyledProps--font StyledProps--main"
+              class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
             >
               imageLabel
             </p>
@@ -1148,96 +1156,100 @@ exports[`Run Step Edit View should render properly 1`] = `
     >
       <div>
         <div
-          class="InputWithIdentifier--txtNameContainer TextInput--main"
+          class="StyledProps--font StyledProps--main formGroup lg StyledProps--margin-bottom-small"
         >
           <div
-            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
+            class="InputWithIdentifier--txtNameContainer TextInput--main"
           >
-            <p
-              class="StyledProps--font StyledProps--main"
+            <div
+              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
             >
-              ID
-              :
-            </p>
-            <span
-              class="bp3-popover-wrapper"
-            >
+              <p
+                class="StyledProps--font StyledProps--main"
+              >
+                ID
+                :
+              </p>
               <span
-                class="bp3-popover-target"
+                class="bp3-popover-wrapper"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class="bp3-editable-text bp3-editable-text-placeholder InputWithIdentifier--idValue"
+                    tabindex="0"
+                  >
+                    <span
+                      class="bp3-editable-text-content"
+                      style="height: 1px; line-height: 1px; min-width: 0;"
+                    />
+                  </div>
+                </span>
+              </span>
+              <span
+                class="bp3-icon StyledProps--main"
+                data-icon="Edit"
+                style="vertical-align: middle; cursor: pointer;"
+              >
+                <svg
+                  height="12"
+                  viewBox="0 0 12 12"
+                  width="12"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g
+                    fill="none"
+                    fill-rule="evenodd"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                      stroke="#555770"
+                    />
+                    <path
+                      d="M6.583 5.146l2.063-2.063"
+                      opacity="0.3"
+                      stroke="#606170"
+                    />
+                  </g>
+                </svg>
+              </span>
+            </div>
+            <div
+              class="bp3-form-group"
+              data-id="name-0"
+            >
+              <label
+                class="bp3-label"
+                for="name"
+              >
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="ciRunStep_name"
+                >
+                  pipelineSteps.stepNameLabel
+                </span>
+                 
+                <span
+                  class="bp3-text-muted"
+                />
+              </label>
+              <div
+                class="bp3-form-content"
               >
                 <div
-                  class="bp3-editable-text bp3-editable-text-placeholder InputWithIdentifier--idValue"
-                  tabindex="0"
+                  class="bp3-input-group"
                 >
-                  <span
-                    class="bp3-editable-text-content"
-                    style="height: 1px; line-height: 1px; min-width: 0;"
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    name="name"
+                    type="text"
+                    value=""
                   />
                 </div>
-              </span>
-            </span>
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="Edit"
-              style="vertical-align: middle; cursor: pointer;"
-            >
-              <svg
-                height="12"
-                viewBox="0 0 12 12"
-                width="12"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g
-                  fill="none"
-                  fill-rule="evenodd"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path
-                    d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
-                    stroke="#555770"
-                  />
-                  <path
-                    d="M6.583 5.146l2.063-2.063"
-                    opacity="0.3"
-                    stroke="#606170"
-                  />
-                </g>
-              </svg>
-            </span>
-          </div>
-          <div
-            class="bp3-form-group"
-            data-id="name-0"
-          >
-            <label
-              class="bp3-label"
-              for="name"
-            >
-              <span
-                class="Tooltip--acenter"
-                data-tooltip-id="ciRunStep_name"
-              >
-                pipelineSteps.stepNameLabel
-              </span>
-               
-              <span
-                class="bp3-text-muted"
-              />
-            </label>
-            <div
-              class="bp3-form-content"
-            >
-              <div
-                class="bp3-input-group"
-              >
-                <input
-                  autocomplete="off"
-                  class="bp3-input"
-                  name="name"
-                  type="text"
-                  value=""
-                />
               </div>
             </div>
           </div>
@@ -1424,7 +1436,7 @@ exports[`Run Step Edit View should render properly 1`] = `
             data-tooltip-id="image"
           >
             <p
-              class="StyledProps--font StyledProps--main"
+              class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
             >
               imageLabel
             </p>

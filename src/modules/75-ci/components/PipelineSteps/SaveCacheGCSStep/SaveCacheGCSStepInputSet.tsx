@@ -14,6 +14,7 @@ import StepCommonFieldsInputSet from '@pipeline/components/StepCommonFields/Step
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import type { SaveCacheGCSStepProps } from './SaveCacheGCSStep'
+import { ArchiveFormatOptions } from '../../../constants/Constants'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const SaveCacheGCSStepInputSet: React.FC<SaveCacheGCSStepProps> = ({
@@ -39,11 +40,6 @@ export const SaveCacheGCSStepInputSet: React.FC<SaveCacheGCSStepProps> = ({
       accountId: string
     } & GitQueryParams
   >()
-
-  const archiveFormatOptions = [
-    { label: 'Tar', value: 'Tar' },
-    { label: 'Gzip', value: 'Gzip' }
-  ]
 
   return (
     <FormikForm className={css.removeBpPopoverWrapperTopMargin} style={{ width: '50%' }}>
@@ -140,7 +136,7 @@ export const SaveCacheGCSStepInputSet: React.FC<SaveCacheGCSStepProps> = ({
             </Text>
           }
           multiTypeInputProps={{
-            selectItems: archiveFormatOptions,
+            selectItems: ArchiveFormatOptions,
             multiTypeInputProps: {
               expressions,
               allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]

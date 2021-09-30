@@ -1,21 +1,11 @@
 import React from 'react'
-import {
-  Text,
-  Formik,
-  FormInput,
-  getMultiTypeFromValue,
-  MultiTypeInputType,
-  FormikForm,
-  Accordion
-} from '@wings-software/uicore'
-import { useParams } from 'react-router-dom'
+import { Text, Formik, FormikForm, Accordion } from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
+import { Connectors } from '@connectors/constants'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { useStrings } from 'framework/strings'
-import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
-import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 
 import StepCommonFields /*,{ /*usePullOptions }*/ from '@pipeline/components/StepCommonFields/StepCommonFields'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
@@ -24,10 +14,11 @@ import {
   getFormValuesInCorrectFormat
 } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
 import { validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
-import { useGitScope } from '@ci/services/CIUtils'
 import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './GCSStepFunctionConfigs'
 import type { GCSStepData, GCSStepDataUI, GCSStepProps } from './GCSStep'
+import { CIStep } from '../CIStep/CIStep'
+import { CIStepOptionalConfig } from '../CIStep/CIStepOptionalConfig'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const GCSStepBase = (
@@ -43,13 +34,6 @@ export const GCSStepBase = (
 
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
-  const gitScope = useGitScope()
-
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<{
-    projectIdentifier: string
-    orgIdentifier: string
-    accountId: string
-  }>()
 
   const { stage: currentStage } = getStageFromPipeline<BuildStageElementConfig>(selectedStageId || '')
 
@@ -90,56 +74,26 @@ export const GCSStepBase = (
 
         return (
           <FormikForm>
-            <FormInput.InputWithIdentifier
-              inputName="name"
-              idName="identifier"
-              isIdentifierEditable={isNewStep}
-              inputLabel={getString('pipelineSteps.stepNameLabel')}
-              inputGroupProps={{ disabled: readonly }}
-            />
-            <FormMultiTypeConnectorField
-              label={
-                <Text
-                  style={{ display: 'flex', alignItems: 'center' }}
-                  tooltipProps={{ dataTooltipId: 'gcsConnector' }}
-                >
-                  {getString('pipelineSteps.gcpConnectorLabel')}
-                </Text>
-              }
-              type={'Gcp'}
-              width={getMultiTypeFromValue(formik.values.spec.connectorRef) === MultiTypeInputType.RUNTIME ? 515 : 560}
-              name="spec.connectorRef"
-              placeholder={getString('select')}
-              accountIdentifier={accountId}
-              projectIdentifier={projectIdentifier}
-              orgIdentifier={orgIdentifier}
-              multiTypeProps={{ expressions, disabled: readonly }}
-              gitScope={gitScope}
-              style={{ marginBottom: 'var(--spacing-small)' }}
-              setRefValue
-            />
-            <MultiTypeTextField
-              name="spec.bucket"
-              label={
-                <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'gcsBucket' }}>
-                  {getString('pipelineSteps.bucketLabel')}
-                </Text>
-              }
-              multiTextInputProps={{
-                multiTextInputProps: { expressions },
-                disabled: readonly
+            <CIStep
+              isNewStep={isNewStep}
+              readonly={readonly}
+              expressions={expressions}
+              enableFields={{
+                'spec.connectorRef': {
+                  label: (
+                    <Text
+                      style={{ display: 'flex', alignItems: 'center' }}
+                      tooltipProps={{ dataTooltipId: 'gcsConnector' }}
+                    >
+                      {getString('pipelineSteps.gcpConnectorLabel')}
+                    </Text>
+                  ),
+                  type: Connectors.GCP
+                },
+                'spec.bucket': { tooltipId: 'gcsBucket' },
+                'spec.sourcePath': {}
               }}
-              style={{ marginBottom: 'var(--spacing-small)' }}
-            />
-            <MultiTypeTextField
-              name="spec.sourcePath"
-              label={
-                <Text tooltipProps={{ dataTooltipId: 'sourcePath' }}>{getString('pipelineSteps.sourcePathLabel')}</Text>
-              }
-              multiTextInputProps={{
-                multiTextInputProps: { expressions },
-                disabled: readonly
-              }}
+              formik={formik}
             />
             <Accordion className={css.accordion}>
               <Accordion.Panel
@@ -147,19 +101,9 @@ export const GCSStepBase = (
                 summary={getString('common.optionalConfig')}
                 details={
                   <>
-                    <MultiTypeTextField
-                      name="spec.target"
-                      label={
-                        <Text tooltipProps={{ dataTooltipId: 'gcsS3Target' }}>
-                          {getString('pipelineSteps.targetLabel')}
-                        </Text>
-                      }
-                      multiTextInputProps={{
-                        placeholder: getString('pipelineSteps.artifactsTargetPlaceholder'),
-                        multiTextInputProps: { expressions },
-                        disabled: readonly
-                      }}
-                      style={{ marginBottom: 'var(--spacing-small)' }}
+                    <CIStepOptionalConfig
+                      readonly={readonly}
+                      enableFields={{ 'spec.target': { tooltipId: 'gcsS3Target' } }}
                     />
                     <StepCommonFields disabled={readonly} />
                   </>

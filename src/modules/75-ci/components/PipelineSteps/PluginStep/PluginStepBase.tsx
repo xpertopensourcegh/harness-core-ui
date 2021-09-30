@@ -1,25 +1,11 @@
 import React from 'react'
-import {
-  Text,
-  Formik,
-  FormInput,
-  getMultiTypeFromValue,
-  MultiTypeInputType,
-  FormikForm,
-  Accordion
-} from '@wings-software/uicore'
-import cx from 'classnames'
-import { useParams } from 'react-router-dom'
+import { Text, Formik, FormikForm, Accordion } from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
+import { Connectors } from '@connectors/constants'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { useStrings } from 'framework/strings'
-import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
-import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea/MultiTypeTextArea'
-import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox/MultiTypeCheckbox'
-import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
-import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
 import StepCommonFields, { GetImagePullPolicyOptions } from '@pipeline/components/StepCommonFields/StepCommonFields'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import {
@@ -27,10 +13,11 @@ import {
   getFormValuesInCorrectFormat
 } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
 import { validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
-import { useGitScope } from '@ci/services/CIUtils'
 import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './PluginStepFunctionConfigs'
 import type { PluginStepProps, PluginStepData, PluginStepDataUI } from './PluginStep'
+import { CIStep } from '../CIStep/CIStep'
+import { CIStepOptionalConfig } from '../CIStep/CIStepOptionalConfig'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const PluginStepBase = (
@@ -46,13 +33,6 @@ export const PluginStepBase = (
 
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
-  const gitScope = useGitScope()
-
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<{
-    projectIdentifier: string
-    orgIdentifier: string
-    accountId: string
-  }>()
 
   const { stage: currentStage } = getStageFromPipeline<BuildStageElementConfig>(selectedStageId || '')
 
@@ -86,54 +66,33 @@ export const PluginStepBase = (
 
         return (
           <FormikForm>
-            <FormInput.InputWithIdentifier
-              inputName="name"
-              idName="identifier"
-              isIdentifierEditable={isNewStep}
-              inputLabel={getString('pipelineSteps.stepNameLabel')}
-              inputGroupProps={{ disabled: readonly }}
-            />
-            <FormMultiTypeTextAreaField
-              multiTypeTextArea={{ expressions, disabled: readonly }}
-              className={css.removeBpLabelMargin}
-              name="description"
-              label={<Text margin={{ bottom: 'xsmall' }}>{getString('description')}</Text>}
-            />
-            <FormMultiTypeConnectorField
-              label={
-                <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'connector' }}>
-                  {getString('pipelineSteps.connectorLabel')}
-                </Text>
-              }
-              type={['Gcp', 'Aws', 'DockerRegistry']}
-              width={getMultiTypeFromValue(formik.values.spec.connectorRef) === MultiTypeInputType.RUNTIME ? 515 : 560}
-              name="spec.connectorRef"
-              placeholder={getString('select')}
-              accountIdentifier={accountId}
-              projectIdentifier={projectIdentifier}
-              orgIdentifier={orgIdentifier}
-              multiTypeProps={{ expressions, disabled: readonly }}
-              gitScope={gitScope}
-              style={{ marginBottom: 0 }}
-              setRefValue
-            />
-            <MultiTypeTextField
-              name="spec.image"
-              label={
-                <Text
-                  margin={{ top: 'small' }}
-                  tooltipProps={{
-                    dataTooltipId: 'pluginImageInfo'
-                  }}
-                >
-                  {getString('imageLabel')}
-                </Text>
-              }
-              multiTextInputProps={{
-                placeholder: getString('pluginImagePlaceholder'),
-                multiTextInputProps: { expressions },
-                disabled: readonly
+            <CIStep
+              isNewStep={isNewStep}
+              readonly={readonly}
+              expressions={expressions}
+              enableFields={{
+                description: {},
+                'spec.connectorRef': {
+                  label: (
+                    <Text
+                      style={{ display: 'flex', alignItems: 'center' }}
+                      tooltipProps={{ dataTooltipId: 'connector' }}
+                    >
+                      {getString('pipelineSteps.connectorLabel')}
+                    </Text>
+                  ),
+                  type: [Connectors.GCP, Connectors.AWS, Connectors.DOCKER]
+                },
+                'spec.image': {
+                  tooltipId: 'pluginImageInfo',
+                  multiTextInputProps: {
+                    placeholder: getString('pluginImagePlaceholder'),
+                    multiTextInputProps: { expressions },
+                    disabled: readonly
+                  }
+                }
               }}
+              formik={formik}
             />
             <Accordion className={css.accordion}>
               <Accordion.Panel
@@ -141,32 +100,9 @@ export const PluginStepBase = (
                 summary={getString('common.optionalConfig')}
                 details={
                   <>
-                    <div className={cx(css.formGroup, css.sm)}>
-                      <FormMultiTypeCheckboxField
-                        name="spec.privileged"
-                        label={getString('ci.privileged')}
-                        multiTypeTextbox={{
-                          expressions
-                        }}
-                        tooltipProps={{ dataTooltipId: 'privileged' }}
-                        disabled={readonly}
-                      />
-                    </div>
-                    <MultiTypeMap
-                      name="spec.settings"
-                      valueMultiTextInputProps={{ expressions }}
-                      multiTypeFieldSelectorProps={{
-                        label: (
-                          <Text
-                            style={{ display: 'flex', alignItems: 'center' }}
-                            tooltipProps={{ dataTooltipId: 'pluginSettings' }}
-                          >
-                            {getString('settingsLabel')}
-                          </Text>
-                        )
-                      }}
-                      style={{ marginBottom: 'var(--spacing-small)' }}
-                      disabled={readonly}
+                    <CIStepOptionalConfig
+                      readonly={readonly}
+                      enableFields={{ 'spec.privileged': {}, 'spec.settings': {} }}
                     />
                     <StepCommonFields enableFields={['spec.imagePullPolicy']} disabled={readonly} />
                   </>

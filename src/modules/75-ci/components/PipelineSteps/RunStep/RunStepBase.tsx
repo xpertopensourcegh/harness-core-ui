@@ -1,16 +1,8 @@
 import React from 'react'
-import {
-  Text,
-  Formik,
-  FormInput,
-  getMultiTypeFromValue,
-  MultiTypeInputType,
-  FormikForm,
-  Accordion
-} from '@wings-software/uicore'
+import { Text, Formik, getMultiTypeFromValue, MultiTypeInputType, FormikForm, Accordion } from '@wings-software/uicore'
 import cx from 'classnames'
-import { useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'
+import { Connectors } from '@connectors/constants'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
@@ -18,12 +10,6 @@ import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineCon
 import { useStrings } from 'framework/strings'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { ShellScriptMonacoField } from '@common/components/ShellScriptMonaco/ShellScriptMonaco'
-import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
-import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea/MultiTypeTextArea'
-import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
-import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox/MultiTypeCheckbox'
-import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
-import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 
 import StepCommonFields, {
   GetImagePullPolicyOptions,
@@ -35,10 +21,11 @@ import {
   getFormValuesInCorrectFormat
 } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
 import { validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
-import { useGitScope } from '@ci/services/CIUtils'
 import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import type { RunStepProps, RunStepData, RunStepDataUI } from './RunStep'
 import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './RunStepFunctionConfigs'
+import { CIStep } from '../CIStep/CIStep'
+import { CIStepOptionalConfig } from '../CIStep/CIStepOptionalConfig'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const RunStepBase = (
@@ -54,13 +41,6 @@ export const RunStepBase = (
 
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
-  const gitScope = useGitScope()
-
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<{
-    projectIdentifier: string
-    orgIdentifier: string
-    accountId: string
-  }>()
 
   const { stage: currentStage } = getStageFromPipeline<BuildStageElementConfig>(selectedStageId || '')
 
@@ -94,57 +74,35 @@ export const RunStepBase = (
 
         return (
           <FormikForm>
-            <FormInput.InputWithIdentifier
-              inputName="name"
-              idName="identifier"
-              isIdentifierEditable={isNewStep}
-              inputLabel={getString('pipelineSteps.stepNameLabel')}
-              inputGroupProps={{ disabled: readonly }}
-            />
-            <FormMultiTypeTextAreaField
-              className={css.removeBpLabelMargin}
-              name="description"
-              label={<Text margin={{ bottom: 'xsmall' }}>{getString('description')}</Text>}
-              multiTypeTextArea={{ expressions, disabled: readonly }}
-              style={{ marginBottom: 'var(--spacing-small)' }}
-            />
-            <FormMultiTypeConnectorField
-              label={
-                <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'connector' }}>
-                  {getString('pipelineSteps.connectorLabel')}
-                </Text>
-              }
-              type={['Gcp', 'Aws', 'DockerRegistry']}
-              width={getMultiTypeFromValue(formik?.values.spec.connectorRef) === MultiTypeInputType.RUNTIME ? 515 : 560}
-              name="spec.connectorRef"
-              placeholder={getString('select')}
-              accountIdentifier={accountId}
-              projectIdentifier={projectIdentifier}
-              orgIdentifier={orgIdentifier}
-              multiTypeProps={{ expressions, disabled: readonly }}
-              gitScope={gitScope}
-              style={{ marginBottom: 'var(--spacing-small)' }}
-              setRefValue
-            />
-            <MultiTypeTextField
-              name="spec.image"
-              label={
-                <Text
-                  tooltipProps={{
-                    dataTooltipId: 'image'
-                  }}
-                >
-                  {getString('imageLabel')}
-                </Text>
-              }
-              multiTextInputProps={{
-                placeholder: getString('imagePlaceholder'),
-                disabled: readonly,
-                multiTextInputProps: {
-                  expressions
+            <CIStep
+              isNewStep={isNewStep}
+              readonly={readonly}
+              expressions={expressions}
+              enableFields={{
+                description: {},
+                'spec.connectorRef': {
+                  label: (
+                    <Text
+                      style={{ display: 'flex', alignItems: 'center' }}
+                      tooltipProps={{ dataTooltipId: 'connector' }}
+                    >
+                      {getString('pipelineSteps.connectorLabel')}
+                    </Text>
+                  ),
+                  type: [Connectors.GCP, Connectors.AWS, Connectors.DOCKER]
+                },
+                'spec.image': {
+                  tooltipId: 'image',
+                  multiTextInputProps: {
+                    placeholder: getString('imagePlaceholder'),
+                    disabled: readonly,
+                    multiTextInputProps: {
+                      expressions
+                    }
+                  }
                 }
               }}
-              style={{ marginBottom: 'var(--spacing-small)' }}
+              formik={formik}
             />
             <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
               <MultiTypeFieldSelector
@@ -201,64 +159,14 @@ export const RunStepBase = (
                 summary={getString('common.optionalConfig')}
                 details={
                   <>
-                    <div className={cx(css.formGroup, css.sm)}>
-                      <FormMultiTypeCheckboxField
-                        name="spec.privileged"
-                        label={getString('ci.privileged')}
-                        multiTypeTextbox={{
-                          expressions
-                        }}
-                        tooltipProps={{ dataTooltipId: 'privileged' }}
-                        disabled={readonly}
-                      />
-                    </div>
-                    <MultiTypeList
-                      name="spec.reportPaths"
-                      placeholder={getString('pipelineSteps.reportPathsPlaceholder')}
-                      multiTextInputProps={{ expressions }}
-                      multiTypeFieldSelectorProps={{
-                        label: (
-                          <Text
-                            style={{ display: 'flex', alignItems: 'center' }}
-                            tooltipProps={{ dataTooltipId: 'reportPaths' }}
-                          >
-                            {getString('pipelineSteps.reportPathsLabel')}
-                          </Text>
-                        )
+                    <CIStepOptionalConfig
+                      readonly={readonly}
+                      enableFields={{
+                        'spec.privileged': {},
+                        'spec.reportPaths': {},
+                        'spec.envVariables': { tooltipId: 'environmentVariables' },
+                        'spec.outputVariables': {}
                       }}
-                      style={{ marginBottom: 'var(--spacing-small)' }}
-                      disabled={readonly}
-                    />
-                    <MultiTypeMap
-                      name="spec.envVariables"
-                      valueMultiTextInputProps={{ expressions }}
-                      multiTypeFieldSelectorProps={{
-                        label: (
-                          <Text
-                            style={{ display: 'flex', alignItems: 'center' }}
-                            tooltipProps={{ dataTooltipId: 'environmentVariables' }}
-                          >
-                            {getString('environmentVariables')}
-                          </Text>
-                        )
-                      }}
-                      style={{ marginBottom: 'var(--spacing-small)' }}
-                      disabled={readonly}
-                    />
-                    <MultiTypeList
-                      name="spec.outputVariables"
-                      multiTextInputProps={{ expressions }}
-                      multiTypeFieldSelectorProps={{
-                        label: (
-                          <Text
-                            style={{ display: 'flex', alignItems: 'center' }}
-                            tooltipProps={{ dataTooltipId: 'outputVariables' }}
-                          >
-                            {getString('pipelineSteps.outputVariablesLabel')}
-                          </Text>
-                        )
-                      }}
-                      disabled={readonly}
                     />
                     <StepCommonFields enableFields={['spec.imagePullPolicy', 'spec.shell']} disabled={readonly} />
                   </>

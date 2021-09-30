@@ -10,7 +10,7 @@ exports[`JFrogArtifactory Step Edit View edit mode works 1`] = `
     >
       <div>
         <div
-          class="formGroup lg"
+          class="StyledProps--font StyledProps--main formGroup lg StyledProps--margin-bottom-small"
         >
           <div
             class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -402,9 +402,7 @@ exports[`JFrogArtifactory Step Edit View edit mode works 1`] = `
             </div>
           </div>
         </div>
-        <div
-          style="margin-bottom: 0px;"
-        >
+        <div>
           <div
             class="Text--withDocsTooltip"
             data-tooltip-id="sourcePath"
@@ -522,7 +520,7 @@ exports[`JFrogArtifactory Step Edit View renders runtime inputs 1`] = `
     >
       <div>
         <div
-          class="formGroup lg"
+          class="StyledProps--font StyledProps--main formGroup lg StyledProps--margin-bottom-small"
         >
           <div
             class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -935,9 +933,7 @@ exports[`JFrogArtifactory Step Edit View renders runtime inputs 1`] = `
             </button>
           </div>
         </div>
-        <div
-          style="margin-bottom: 0px;"
-        >
+        <div>
           <div
             class="Text--withDocsTooltip"
             data-tooltip-id="sourcePath"
@@ -1085,7 +1081,7 @@ exports[`JFrogArtifactory Step Edit View should render properly 1`] = `
     >
       <div>
         <div
-          class="formGroup lg"
+          class="StyledProps--font StyledProps--main formGroup lg StyledProps--margin-bottom-small"
         >
           <div
             class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -1423,9 +1419,7 @@ exports[`JFrogArtifactory Step Edit View should render properly 1`] = `
             </div>
           </div>
         </div>
-        <div
-          style="margin-bottom: 0px;"
-        >
+        <div>
           <div
             class="Text--withDocsTooltip"
             data-tooltip-id="sourcePath"
