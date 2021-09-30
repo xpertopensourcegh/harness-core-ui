@@ -1,71 +1,91 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { first } from 'lodash-es'
-import { Text, Button, Icon, Utils } from '@wings-software/uicore'
-import { Collapse, Tooltip } from '@blueprintjs/core'
-
+import { Text, Button, Icon, Utils, Container } from '@wings-software/uicore'
+import { Collapse } from '@blueprintjs/core'
 import type { CIBuildCommit } from 'services/ci'
-import { UserLabel } from '@common/components/UserLabel/UserLabel'
 import { String, useStrings } from 'framework/strings'
+import { UserLabel, TimeAgoPopover } from '@common/exports'
 
 import css from './CommitsInfo.module.scss'
 
 export interface CommitIdProps {
-  commitId?: string
+  commitId: string
+  commitLink?: string
 }
 
-export function CommitId({ commitId }: CommitIdProps): React.ReactElement {
-  const [copied, setCopied] = React.useState(false)
+export function CommitId({ commitId, commitLink }: CommitIdProps): React.ReactElement {
+  const [isCommitIdCopied, setIsCommitIdCopied] = useState(false)
   const { getString } = useStrings()
 
-  function handleCopy(e: React.SyntheticEvent): void {
+  const slicedCommitId = commitId.slice(0, 7)
+
+  const handleCopyButtonClick = (e: React.SyntheticEvent): void => {
     e.stopPropagation()
-    Utils.copy(commitId || '')
-    setCopied(true)
+    Utils.copy(commitLink || commitId)
+    setIsCommitIdCopied(true)
   }
 
-  function onClosed(): void {
-    setCopied(false)
+  const handleCopyButtonTooltipClosed = (): void => {
+    setIsCommitIdCopied(false)
+  }
+
+  const handleLinkClick = (event: any): void => {
+    event.stopPropagation()
+    window.open(event.target.href, '_blank')
   }
 
   return (
-    <Tooltip
-      wrapperTagName="div"
-      targetTagName="div"
-      content={getString(copied ? 'copiedToClipboard' : 'clickToCopy')}
-      onClosed={onClosed}
-      position="top"
-    >
-      <div className={css.commitId} onClick={handleCopy}>
-        <Icon name="clipboard-alt" size={10} />
-        <div className={css.sha}>{commitId?.slice(0, 6)}</div>
-      </div>
-    </Tooltip>
+    <Text className={css.commitId}>
+      {commitLink ? (
+        <a className={css.label} href={commitLink} rel="noreferrer" target="_blank" onClick={handleLinkClick}>
+          {slicedCommitId}
+        </a>
+      ) : (
+        <span className={css.label}>{slicedCommitId}</span>
+      )}
+      <Text
+        tooltip={
+          <Container padding="small">{getString(isCommitIdCopied ? 'copiedToClipboard' : 'clickToCopy')}</Container>
+        }
+        tooltipProps={{
+          onClosed: handleCopyButtonTooltipClosed
+        }}
+        style={{ cursor: 'pointer' }}
+      >
+        <Icon name="copy" size={14} onClick={handleCopyButtonClick} />
+      </Text>
+    </Text>
   )
 }
 
 export interface LastCommitProps {
-  lastCommit?: CIBuildCommit
+  lastCommit: CIBuildCommit
 }
 
 export function LastCommit({ lastCommit }: LastCommitProps): React.ReactElement {
   return (
-    <div className={css.lastCommit}>
+    <Text className={css.lastCommit}>
       <Icon className={css.icon} name="git-commit" size={14} />
-      <Text className={css.message}>{lastCommit?.message}</Text>
-      <CommitId commitId={lastCommit?.id} />
-    </div>
+      <div style={{ fontSize: 0 }}>
+        <Text className={css.message} tooltip={<Container padding="small">{lastCommit.message}</Container>}>
+          {lastCommit.message}
+        </Text>
+      </div>
+      {lastCommit?.id && <CommitId commitId={lastCommit.id} commitLink={lastCommit.link} />}
+    </Text>
   )
 }
 
 export interface CommitsInfoProps {
   commits?: CIBuildCommit[]
+  authorAvatar?: string
 }
 
 export function CommitsInfo(props: CommitsInfoProps): React.ReactElement | null {
-  const { commits = [] } = props
-  const lastCommit = first(commits || [])
-
   const [showCommits, setShowCommits] = React.useState(false)
+
+  const { commits = [], authorAvatar } = props
+  const lastCommit = first(commits || [])
 
   function toggleCommits(e: React.SyntheticEvent): void {
     e.stopPropagation()
@@ -94,9 +114,24 @@ export function CommitsInfo(props: CommitsInfoProps): React.ReactElement | null 
             {commits.slice(1).map((commit, i) => {
               return (
                 <div className={css.commit} key={i}>
-                  <Text lineClamp={1}>{commit.message}</Text>
-                  <UserLabel className={css.user} name={commit.ownerName || ''} iconProps={{ size: 16 }} />
-                  <CommitId commitId={commit.id} />
+                  <div style={{ fontSize: 0 }}>
+                    <Text className={css.commitText} tooltip={<Container padding="small">{commit.message}</Container>}>
+                      {commit.message}
+                    </Text>
+                  </div>
+                  <Container flex>
+                    {commit.ownerName && (
+                      <UserLabel
+                        className={css.user}
+                        name={commit.ownerName}
+                        email={commit.ownerEmail}
+                        profilePictureUrl={authorAvatar}
+                        iconProps={{ size: 16 }}
+                      />
+                    )}
+                    <TimeAgoPopover time={commit.timeStamp || 0} inline={false} />
+                  </Container>
+                  {commit.id && <CommitId commitId={commit.id} commitLink={commit.link} />}
                 </div>
               )
             })}

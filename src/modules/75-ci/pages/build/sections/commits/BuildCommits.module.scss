@@ -64,6 +64,16 @@
   padding-top: var(--spacing-small);
   padding-bottom: var(--spacing-small);
   margin-left: 34px;
+
+  :global(.bp3-popover-wrapper),
+  :global(.bp3-popover-target) {
+    display: block !important;
+  }
+
+  p {
+    --font-size: var(--font-size-small) !important;
+    --intent-color: var(--grey-900) !important;
+  }
 }
 
 .commitTitle {
@@ -77,13 +87,32 @@
   opacity: 0.68;
 }
 
-.avatar {
-  margin-right: var(--spacing-small);
+.user {
+  display: flex;
+  font-size: var(--font-size-small);
+  color: var(--grey-500);
 }
 
-.committed {
-  color: var(--black);
-  opacity: 0.68;
+.label {
+  display: flex !important;
+  align-items: center !important;
+  white-space: nowrap !important;
+  font-size: var(--font-size-small) !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+  color: var(--primary-7) !important;
+  background-color: var(--primary-1) !important;
+  border-radius: 8px !important;
+  padding: var(--spacing-xsmall) var(--spacing-small) !important;
+  margin: 0 var(--spacing-xsmall);
+
+  svg {
+    margin-right: var(--spacing-xsmall);
+
+    path {
+      fill: currentColor !important;
+    }
+  }
 }
 
 .hash {

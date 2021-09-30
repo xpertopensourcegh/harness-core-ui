@@ -1939,6 +1939,7 @@ export interface StringsMap {
   'pipeline.executionStrategy.strategies.rolling.steps.step3.description': string
   'pipeline.executionStrategy.useStrategy': string
   'pipeline.executionTarget': string
+  'pipeline.expressionsEvaluation': string
   'pipeline.failureStrategies.addedAllStrategies': string
   'pipeline.failureStrategies.errorTypeLabels.AllErrors': string
   'pipeline.failureStrategies.errorTypeLabels.Authentication': string
@@ -1987,6 +1988,8 @@ export interface StringsMap {
   'pipeline.gitExperience.selectDiffBranch': string
   'pipeline.gitExperience.selectRepoBranch': string
   'pipeline.gitExperience.skipNow': string
+  'pipeline.gitPullRequest': string
+  'pipeline.gitPullRequestNumber': string
   'pipeline.gitRepos': string
   'pipeline.imagePathLabel': string
   'pipeline.infraSpecifications.initTimeout': string
@@ -3502,6 +3505,7 @@ export interface StringsMap {
   'ci.ciTrialHomePage.startTrial.startBtn.description': string
   'ci.clipboardCopyFail': string
   'ci.clipboardCopySuccess': string
+  'ci.commitMessage': string
   'ci.commitsOn': string
   'ci.committed': string
   'ci.connectors': string
@@ -3526,6 +3530,7 @@ export interface StringsMap {
   'ci.noData': string
   'ci.optimize': string
   'ci.prSymbol': string
+  'ci.prTitle': string
   'ci.previous': string
   'ci.privileged': string
   'ci.remoteCacheImage.dockerInfo': string

@@ -49,69 +49,116 @@ exports[`BuildCommits snapshot test should render properly 1`] = `
           </p>
         </div>
         <div
-          class="StyledProps--font StyledProps--main StyledProps--flex"
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center"
         >
           <div
-            class="avatar Avatar--Avatar Avatar--contentStyle"
+            class="wrapper"
           >
             <span
-              class="bp3-popover-wrapper Avatar--avatarPopOver"
+              class="bp3-popover-wrapper"
             >
               <span
                 class="bp3-popover-target"
               >
                 <div
-                  class="Avatar--AvatarInner"
-                  style="border-radius: 100%; line-height: 12px; width: 16px; height: 16px; font-size: 7px;"
+                  class="userLabel user"
                   tabindex="0"
                 >
-                  <img
-                    alt="userid"
-                    class="Avatar--imageStyle"
-                    src="https://..."
-                    style="border-radius: 100%; line-height: 12px; width: 12px; height: 12px; font-size: 7px;"
-                  />
+                  <div
+                    class="profilePicture Avatar--Avatar Avatar--contentStyle"
+                  >
+                    <span
+                      class="bp3-popover-wrapper Avatar--avatarPopOver"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <div
+                          class="Avatar--AvatarInner"
+                          style="border-radius: 100%; line-height: 12px; width: 16px; height: 16px; font-size: 7px;"
+                          tabindex="0"
+                        >
+                          <img
+                            alt=""
+                            class="Avatar--imageStyle"
+                            src="https://..."
+                            style="border-radius: 100%; line-height: 12px; width: 12px; height: 12px; font-size: 7px;"
+                          />
+                        </div>
+                      </span>
+                    </span>
+                  </div>
+                  <span>
+                    userid
+                  </span>
                 </div>
               </span>
             </span>
           </div>
-          <p
-            class="StyledProps--font StyledProps--main committed StyledProps--font-xsmall StyledProps--margin-right-xlarge"
+          <span
+            class="bp3-popover-wrapper bp3-dark"
           >
-            userid
-             
-            ci.committed
-             
-            1 day ago
-          </p>
-          <button
-            class="hash"
-          >
-            <p
-              class="StyledProps--font StyledProps--main hashText StyledProps--font-size-xsmall StyledProps--font-weight-semi-bold StyledProps--padding-top-xsmall StyledProps--padding-right-small StyledProps--padding-bottom-xsmall StyledProps--padding-left-small StyledProps--margin-right-small"
-            >
-              abc
-            </p>
             <span
-              class="bp3-icon bp3-icon-clipboard StyledProps--main hashIcon StyledProps--margin-right-small"
-              icon="clipboard"
+              class="bp3-popover-target"
             >
-              <svg
-                data-icon="clipboard"
-                height="14"
-                viewBox="0 0 16 16"
-                width="14"
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--inline"
+                tabindex="0"
               >
-                <desc>
-                  clipboard
-                </desc>
-                <path
-                  d="M11 2c0-.55-.45-1-1-1h.22C9.88.4 9.24 0 8.5 0S7.12.4 6.78 1H7c-.55 0-1 .45-1 1v1h5V2zm2 0h-1v2H5V2H4c-.55 0-1 .45-1 1v12c0 .55.45 1 1 1h9c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1z"
-                  fill-rule="evenodd"
-                />
-              </svg>
+                dummy date
+              </p>
             </span>
-          </button>
+          </span>
+          <p
+            class="StyledProps--font StyledProps--main commitId"
+          >
+            <a
+              class="label"
+              href="https://git../commit/1234"
+              rel="noreferrer"
+              target="_blank"
+            >
+              1
+            </a>
+            <span
+              class="bp3-popover-wrapper"
+            >
+              <span
+                class="bp3-popover-target Text--targetClass"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="cursor: pointer;"
+                  tabindex="0"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main"
+                    data-icon="copy"
+                  >
+                    <svg
+                      height="14"
+                      viewBox="0 0 14 16"
+                      width="14"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g
+                        fill="#22272D"
+                        stroke="#22272D"
+                        stroke-width="0.25"
+                      >
+                        <path
+                          d="M12.89.55H6.388a3.28 3.28 0 00-3.043 2.067C1.672 2.76.34 4.17.34 5.87v9.271c0 .17.138.308.307.308H7.15c1.35 0 2.543-.825 3.042-2.066 1.673-.144 3.006-1.554 3.006-3.255V.86a.307.307 0 00-.308-.31zM7.15 14.835H.955V5.87c0-1.299.955-2.4 2.199-2.624-.002.01-.001.021-.003.032-.031.182-.05.367-.05.552v9.27c0 .17.138.308.308.308h6.105a2.67 2.67 0 01-2.364 1.425zm5.432-4.705a2.68 2.68 0 01-2.607 2.664H3.716V3.831a2.672 2.672 0 012.671-2.665h6.195v8.963z"
+                        />
+                        <path
+                          d="M6.11 6.672a.308.308 0 000 .615h1.732V9.02a.308.308 0 00.616 0V7.287h1.733a.308.308 0 000-.615H8.458V4.939a.308.308 0 00-.616 0v1.733H6.11z"
+                        />
+                      </g>
+                    </svg>
+                  </span>
+                </p>
+              </span>
+            </span>
+          </p>
         </div>
       </div>
       <div
@@ -130,69 +177,116 @@ exports[`BuildCommits snapshot test should render properly 1`] = `
           </p>
         </div>
         <div
-          class="StyledProps--font StyledProps--main StyledProps--flex"
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center"
         >
           <div
-            class="avatar Avatar--Avatar Avatar--contentStyle"
+            class="wrapper"
           >
             <span
-              class="bp3-popover-wrapper Avatar--avatarPopOver"
+              class="bp3-popover-wrapper"
             >
               <span
                 class="bp3-popover-target"
               >
                 <div
-                  class="Avatar--AvatarInner"
-                  style="border-radius: 100%; line-height: 12px; width: 16px; height: 16px; font-size: 7px;"
+                  class="userLabel user"
                   tabindex="0"
                 >
-                  <img
-                    alt="userid"
-                    class="Avatar--imageStyle"
-                    src="https://..."
-                    style="border-radius: 100%; line-height: 12px; width: 12px; height: 12px; font-size: 7px;"
-                  />
+                  <div
+                    class="profilePicture Avatar--Avatar Avatar--contentStyle"
+                  >
+                    <span
+                      class="bp3-popover-wrapper Avatar--avatarPopOver"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <div
+                          class="Avatar--AvatarInner"
+                          style="border-radius: 100%; line-height: 12px; width: 16px; height: 16px; font-size: 7px;"
+                          tabindex="0"
+                        >
+                          <img
+                            alt=""
+                            class="Avatar--imageStyle"
+                            src="https://..."
+                            style="border-radius: 100%; line-height: 12px; width: 12px; height: 12px; font-size: 7px;"
+                          />
+                        </div>
+                      </span>
+                    </span>
+                  </div>
+                  <span>
+                    userid
+                  </span>
                 </div>
               </span>
             </span>
           </div>
-          <p
-            class="StyledProps--font StyledProps--main committed StyledProps--font-xsmall StyledProps--margin-right-xlarge"
+          <span
+            class="bp3-popover-wrapper bp3-dark"
           >
-            userid
-             
-            ci.committed
-             
-            1 day ago
-          </p>
-          <button
-            class="hash"
-          >
-            <p
-              class="StyledProps--font StyledProps--main hashText StyledProps--font-size-xsmall StyledProps--font-weight-semi-bold StyledProps--padding-top-xsmall StyledProps--padding-right-small StyledProps--padding-bottom-xsmall StyledProps--padding-left-small StyledProps--margin-right-small"
-            >
-              abc
-            </p>
             <span
-              class="bp3-icon bp3-icon-clipboard StyledProps--main hashIcon StyledProps--margin-right-small"
-              icon="clipboard"
+              class="bp3-popover-target"
             >
-              <svg
-                data-icon="clipboard"
-                height="14"
-                viewBox="0 0 16 16"
-                width="14"
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--inline"
+                tabindex="0"
               >
-                <desc>
-                  clipboard
-                </desc>
-                <path
-                  d="M11 2c0-.55-.45-1-1-1h.22C9.88.4 9.24 0 8.5 0S7.12.4 6.78 1H7c-.55 0-1 .45-1 1v1h5V2zm2 0h-1v2H5V2H4c-.55 0-1 .45-1 1v12c0 .55.45 1 1 1h9c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1z"
-                  fill-rule="evenodd"
-                />
-              </svg>
+                dummy date
+              </p>
             </span>
-          </button>
+          </span>
+          <p
+            class="StyledProps--font StyledProps--main commitId"
+          >
+            <a
+              class="label"
+              href="https://git../commit/1234"
+              rel="noreferrer"
+              target="_blank"
+            >
+              2
+            </a>
+            <span
+              class="bp3-popover-wrapper"
+            >
+              <span
+                class="bp3-popover-target Text--targetClass"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="cursor: pointer;"
+                  tabindex="0"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main"
+                    data-icon="copy"
+                  >
+                    <svg
+                      height="14"
+                      viewBox="0 0 14 16"
+                      width="14"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g
+                        fill="#22272D"
+                        stroke="#22272D"
+                        stroke-width="0.25"
+                      >
+                        <path
+                          d="M12.89.55H6.388a3.28 3.28 0 00-3.043 2.067C1.672 2.76.34 4.17.34 5.87v9.271c0 .17.138.308.307.308H7.15c1.35 0 2.543-.825 3.042-2.066 1.673-.144 3.006-1.554 3.006-3.255V.86a.307.307 0 00-.308-.31zM7.15 14.835H.955V5.87c0-1.299.955-2.4 2.199-2.624-.002.01-.001.021-.003.032-.031.182-.05.367-.05.552v9.27c0 .17.138.308.308.308h6.105a2.67 2.67 0 01-2.364 1.425zm5.432-4.705a2.68 2.68 0 01-2.607 2.664H3.716V3.831a2.672 2.672 0 012.671-2.665h6.195v8.963z"
+                        />
+                        <path
+                          d="M6.11 6.672a.308.308 0 000 .615h1.732V9.02a.308.308 0 00.616 0V7.287h1.733a.308.308 0 000-.615H8.458V4.939a.308.308 0 00-.616 0v1.733H6.11z"
+                        />
+                      </g>
+                    </svg>
+                  </span>
+                </p>
+              </span>
+            </span>
+          </p>
         </div>
       </div>
     </div>
@@ -240,69 +334,23 @@ exports[`BuildCommits snapshot test should render properly 1`] = `
           </p>
         </div>
         <div
-          class="StyledProps--font StyledProps--main StyledProps--flex"
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center"
         >
-          <div
-            class="avatar Avatar--Avatar Avatar--contentStyle"
+          <span
+            class="bp3-popover-wrapper bp3-dark"
           >
             <span
-              class="bp3-popover-wrapper Avatar--avatarPopOver"
+              class="bp3-popover-target"
             >
-              <span
-                class="bp3-popover-target"
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--inline"
+                tabindex="0"
               >
-                <div
-                  class="Avatar--AvatarInner"
-                  style="border-radius: 100%; line-height: 12px; width: 16px; height: 16px; font-size: 7px;"
-                  tabindex="0"
-                >
-                  <img
-                    alt=""
-                    class="Avatar--imageStyle"
-                    src="https://..."
-                    style="border-radius: 100%; line-height: 12px; width: 12px; height: 12px; font-size: 7px;"
-                  />
-                </div>
-              </span>
+                dummy date
+              </p>
             </span>
-          </div>
-          <p
-            class="StyledProps--font StyledProps--main committed StyledProps--font-xsmall StyledProps--margin-right-xlarge"
-          >
-            userid
-             
-            ci.committed
-             
-            1 day ago
-          </p>
-          <button
-            class="hash"
-          >
-            <p
-              class="StyledProps--font StyledProps--main hashText StyledProps--font-size-xsmall StyledProps--font-weight-semi-bold StyledProps--padding-top-xsmall StyledProps--padding-right-small StyledProps--padding-bottom-xsmall StyledProps--padding-left-small StyledProps--margin-right-small"
-            >
-              abc
-            </p>
-            <span
-              class="bp3-icon bp3-icon-clipboard StyledProps--main hashIcon StyledProps--margin-right-small"
-              icon="clipboard"
-            >
-              <svg
-                data-icon="clipboard"
-                height="14"
-                viewBox="0 0 16 16"
-                width="14"
-              >
-                <desc>
-                  clipboard
-                </desc>
-                <path
-                  d="M11 2c0-.55-.45-1-1-1h.22C9.88.4 9.24 0 8.5 0S7.12.4 6.78 1H7c-.55 0-1 .45-1 1v1h5V2zm2 0h-1v2H5V2H4c-.55 0-1 .45-1 1v12c0 .55.45 1 1 1h9c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
+          </span>
+          
         </div>
       </div>
     </div>

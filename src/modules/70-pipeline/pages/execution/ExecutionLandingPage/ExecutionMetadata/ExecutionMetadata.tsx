@@ -1,7 +1,6 @@
 import React from 'react'
-import { Icon } from '@wings-software/uicore'
-
-import { String } from 'framework/strings'
+import { Text, Icon } from '@wings-software/uicore'
+import { useStrings } from 'framework/strings'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import { hasCDStage, hasCIStage, StageType } from '@pipeline/utils/stageHelpers'
 import factory from '@pipeline/factories/ExecutionFactory'
@@ -9,6 +8,47 @@ import { mapTriggerTypeToStringID } from '@pipeline/utils/triggerUtils'
 import { UserLabel } from '@common/components/UserLabel/UserLabel'
 
 import css from './ExecutionMetadata.module.scss'
+
+const ExecutionMetadataTrigger = () => {
+  const { getString } = useStrings()
+
+  const { pipelineExecutionDetail } = useExecutionContext()
+  const { pipelineExecutionSummary } = pipelineExecutionDetail || {}
+
+  const type = pipelineExecutionSummary?.executionTriggerInfo?.triggerType
+
+  if (type === 'WEBHOOK' || type === 'WEBHOOK_CUSTOM' || type === 'SCHEDULER_CRON') {
+    return (
+      <div className={css.trigger}>
+        <Icon
+          size={14}
+          name={type === 'SCHEDULER_CRON' ? 'stopwatch' : 'trigger-execution'}
+          margin={{ right: 'small' }}
+        />
+        <Text font={{ size: 'small' }} color="primary6" margin={{ right: 'xsmall' }}>
+          {pipelineExecutionSummary?.executionTriggerInfo?.triggeredBy?.identifier}
+        </Text>
+        <Text font={{ size: 'small' }} color="grey500">
+          ({getString(mapTriggerTypeToStringID(type))})
+        </Text>
+      </div>
+    )
+  } else {
+    return (
+      <div style={{ fontSize: 0 }}>
+        <UserLabel
+          name={
+            pipelineExecutionSummary?.executionTriggerInfo?.triggeredBy?.identifier ||
+            pipelineExecutionSummary?.executionTriggerInfo?.triggeredBy?.extraInfo?.email ||
+            ''
+          }
+          email={pipelineExecutionSummary?.executionTriggerInfo?.triggeredBy?.extraInfo?.email}
+          iconProps={{ size: 16 }}
+        />
+      </div>
+    )
+  }
+}
 
 export default function ExecutionMetadata(): React.ReactElement {
   const { pipelineExecutionDetail, pipelineStagesMap } = useExecutionContext()
@@ -18,9 +58,6 @@ export default function ExecutionMetadata(): React.ReactElement {
   const HAS_CI = hasCIStage(pipelineExecutionSummary)
   const ciData = factory.getSummary(StageType.BUILD)
   const cdData = factory.getSummary(StageType.DEPLOY)
-  const executionTriggerInfo = pipelineExecutionSummary?.executionTriggerInfo
-  const isManualTriggerType = executionTriggerInfo?.triggerType === 'MANUAL'
-  const email = isManualTriggerType ? executionTriggerInfo?.triggeredBy?.extraInfo?.email : ''
 
   return (
     <div className={css.main}>
@@ -36,22 +73,7 @@ export default function ExecutionMetadata(): React.ReactElement {
             nodeMap: pipelineStagesMap
           })
         : null}
-      {isManualTriggerType ? (
-        <UserLabel
-          name={executionTriggerInfo?.triggeredBy?.identifier || email || ''}
-          email={email}
-          iconProps={{ size: 16 }}
-        />
-      ) : (
-        <div className={css.trigger}>
-          <Icon className={css.triggerIcon} size={14} name="trigger-execution" />
-          <String
-            tagName="div"
-            className={css.triggerText}
-            stringID={mapTriggerTypeToStringID(pipelineExecutionSummary?.executionTriggerInfo?.triggerType)}
-          />
-        </div>
-      )}
+      <ExecutionMetadataTrigger />
     </div>
   )
 }

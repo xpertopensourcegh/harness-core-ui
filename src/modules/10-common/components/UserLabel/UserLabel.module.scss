@@ -1,3 +1,10 @@
+.wrapper {
+  :global(.bp3-popover-wrapper),
+  :global(.bp3-popover-target) {
+    display: block !important;
+  }
+}
+
 .userLabel {
   display: inline-flex;
   align-items: center;
@@ -9,4 +16,8 @@
 .rightSection {
   padding-left: var(--spacing-4) !important;
   gap: var(--spacing-1);
+}
+
+.profilePicture {
+  margin: 0 !important;
 }

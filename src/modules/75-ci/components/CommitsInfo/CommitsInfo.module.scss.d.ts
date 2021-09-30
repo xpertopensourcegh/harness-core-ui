@@ -7,9 +7,10 @@ declare const styles: {
   readonly divider: string
   readonly commit: string
   readonly user: string
+  readonly commitText: string
   readonly icon: string
   readonly message: string
+  readonly label: string
   readonly commitId: string
-  readonly sha: string
 }
 export default styles

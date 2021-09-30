@@ -185,7 +185,6 @@ $actions-translate: 10px;
     }
     .header {
       .actions {
-        width: $timer-width + $actions-translate;
         transform: translateX($actions-translate);
       }
     }
@@ -229,4 +228,8 @@ $actions-translate: 10px;
   :global(.bp3-popover-content) {
     border-radius: 8px;
   }
+}
+
+.user {
+  display: flex;
 }
