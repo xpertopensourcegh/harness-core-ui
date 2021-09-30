@@ -258,7 +258,7 @@ targetDetail:
   flagSetting: Flag Settings
   attribute: ATTRIBUTE
   attributes: Attributes ({{ counter }})
-  learnMore: To learn how to mark specific target attributes or information as private, read <a href="https://docs.harness.io" target="_blank" rel="noreferrer">documentation</a>.
+  learnMore: To learn how to mark specific target attributes or information as private, read <a href="https://ngdocs.harness.io/category/vjolt35atg-feature-flags" target="_blank" rel="noreferrer">documentation</a>.
   manuallyAdded: MANUALLY ADDED
   addToSegment: Add to Target Group
   autoAdded: AUTOMATICALLY ADDED THROUGH CONDITIONS
