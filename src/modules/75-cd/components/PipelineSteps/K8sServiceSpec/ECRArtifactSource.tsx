@@ -18,17 +18,17 @@ import { useMutateAsGet } from '@common/hooks'
 import { ErrorHandler } from '@common/components/ErrorHandler/ErrorHandler'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { EXPRESSION_STRING } from '@pipeline/utils/constants'
-import { useGetBuildDetailsForDockerWithYaml } from 'services/cd-ng'
-
+import { useGetBuildDetailsForEcrWithYaml } from 'services/cd-ng'
+import { useListAwsRegions } from 'services/portal'
 import ExperimentalInput from './K8sServiceSpecForms/ExperimentalInput'
 import { clearRuntimeInputValue, isFieldRuntime } from './K8sServiceSpecHelper'
 import css from './K8sServiceSpec.module.scss'
 
-interface DockerRenderContent extends ArtifactSourceRenderProps {
+interface ECRRenderContent extends ArtifactSourceRenderProps {
   isTagsSelectionDisabled: (data: ArtifactSourceRenderProps) => boolean
 }
 
-const Content = (props: DockerRenderContent) => {
+const Content = (props: ECRRenderContent) => {
   const {
     getString,
     isPrimaryArtifactsRuntime,
@@ -62,11 +62,11 @@ const Content = (props: DockerRenderContent) => {
 
   const isPropagatedStage = path?.includes('serviceConfig.stageOverrides')
   const {
-    data: dockerdata,
+    data: ecrTagsData,
     loading: fetchingTags,
     refetch: fetchTags,
     error: fetchTagsError
-  } = useMutateAsGet(useGetBuildDetailsForDockerWithYaml, {
+  } = useMutateAsGet(useGetBuildDetailsForEcrWithYaml, {
     body: yamlStringify(getYamlData()),
     requestOptions: {
       headers: {
@@ -87,6 +87,10 @@ const Content = (props: DockerRenderContent) => {
         getMultiTypeFromValue(artifacts?.primary?.spec?.connectorRef) !== MultiTypeInputType.RUNTIME
           ? artifacts?.primary?.spec?.connectorRef
           : initialValues.artifacts?.primary?.spec?.connectorRef,
+      region:
+        getMultiTypeFromValue(artifacts?.primary?.spec?.region) !== MultiTypeInputType.RUNTIME
+          ? artifacts?.primary?.spec?.region
+          : initialValues.artifacts?.primary?.spec?.region,
       pipelineIdentifier,
       fqnPath: isPropagatedStage
         ? `pipeline.stages.${stageIdentifier}.spec.serviceConfig.stageOverrides.artifacts.primary.spec.tag`
@@ -97,8 +101,8 @@ const Content = (props: DockerRenderContent) => {
 
   const [tagsList, setTagsList] = useState<SelectOption[]>([])
   useEffect(() => {
-    if (Array.isArray(dockerdata?.data?.buildDetailsList)) {
-      const toBeSetTagsList = dockerdata?.data?.buildDetailsList?.map(({ tag }) => ({
+    if (Array.isArray(ecrTagsData?.data?.buildDetailsList)) {
+      const toBeSetTagsList = ecrTagsData?.data?.buildDetailsList?.map(({ tag }) => ({
         label: tag || '',
         value: tag || ''
       }))
@@ -106,7 +110,17 @@ const Content = (props: DockerRenderContent) => {
         setTagsList(toBeSetTagsList)
       }
     }
-  }, [dockerdata])
+  }, [ecrTagsData])
+
+  const { data: regionData } = useListAwsRegions({
+    queryParams: {
+      accountId
+    }
+  })
+  const regions = (regionData?.resource || []).map((region: any) => ({
+    value: region.value,
+    label: region.name
+  }))
 
   return (
     <div className={cx(css.nopadLeft, css.accordionSummary)} id={`Stage.${props.stageIdentifier}.Service.Artifacts`}>
@@ -142,8 +156,35 @@ const Content = (props: DockerRenderContent) => {
                     formik?.setFieldValue(tagPath, '')
                 }}
                 className={css.connectorMargin}
-                type="DockerRegistry"
+                type="Aws"
                 gitScope={{ repo: repoIdentifier || '', branch: branch || '', getDefaultFromOtherRepo: true }}
+              />
+            )}
+
+            {isFieldRuntime('artifacts.primary.spec.region', template) && (
+              <ExperimentalInput
+                formik={formik}
+                multiTypeInputProps={{
+                  onChange: () => {
+                    const tagPath = `${path}.artifacts.primary.spec.tag`
+                    const tagValue = get(formik?.values, tagPath, '')
+                    getMultiTypeFromValue(tagValue) === MultiTypeInputType.FIXED &&
+                      tagValue?.length &&
+                      formik?.setFieldValue(tagPath, '')
+                  },
+                  selectProps: {
+                    usePortal: true,
+                    addClearBtn: true && !readonly,
+                    items: regions
+                  },
+                  expressions,
+                  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                }}
+                useValue
+                disabled={readonly}
+                selectItems={regions}
+                label={getString('regionLabel')}
+                name={`${path}.artifacts.primary.spec.region`}
               />
             )}
 
@@ -181,7 +222,6 @@ const Content = (props: DockerRenderContent) => {
                       ) {
                         return
                       }
-
                       if (!isTagsSelectionDisabled(props)) {
                         fetchTags()
                       }
@@ -237,8 +277,8 @@ const Content = (props: DockerRenderContent) => {
   )
 }
 
-export class DockerArtifactSource extends ArtifactSourceBase<ArtifactSourceRenderProps> {
-  protected artifactType = 'DockerRegistry'
+export class ECRArtifactSource extends ArtifactSourceBase<ArtifactSourceRenderProps> {
+  protected artifactType = 'Ecr'
   protected isSidecar = false
 
   isTagsSelectionDisabled(props: ArtifactSourceRenderProps) {
@@ -251,13 +291,18 @@ export class DockerArtifactSource extends ArtifactSourceBase<ArtifactSourceRende
       getMultiTypeFromValue(artifacts?.primary?.spec?.connectorRef) !== MultiTypeInputType.RUNTIME
         ? artifacts?.primary?.spec?.connectorRef
         : initialValues.artifacts?.primary?.spec?.connectorRef
-    return !(isImagePathPresent && isConnectorPresent)
+    const isRegionPresent =
+      getMultiTypeFromValue(artifacts?.primary?.spec?.region) !== MultiTypeInputType.RUNTIME
+        ? artifacts?.primary?.spec?.region
+        : initialValues.artifacts?.primary?.spec?.region
+    return !(isImagePathPresent && isConnectorPresent && isRegionPresent)
   }
 
   renderContent(props: ArtifactSourceRenderProps) {
     if (!props.isArtifactsRuntime) {
       return null
     }
+
     return <Content {...props} isTagsSelectionDisabled={this.isTagsSelectionDisabled.bind(this)} />
   }
 }
