@@ -11,7 +11,7 @@ import css from './PerspectiveGridView.module.scss'
 
 interface PerspectiveListViewProps {
   pespectiveData: QlceView[]
-  navigateToPerspectiveDetailsPage: (perspectiveId: string, viewState?: ViewState) => void
+  navigateToPerspectiveDetailsPage: (perspectiveId: string, viewState: ViewState, name: string) => void
   deletePerpsective: (perspectiveId: string) => void
   clonePerspective: (values: QlceView | Record<string, string>, isClone: boolean) => void
 }
@@ -67,7 +67,9 @@ const PerspectiveListView: React.FC<PerspectiveListViewProps> = ({
             interactive
             className={css.cardClass}
             onClick={() => {
-              data.id && navigateToPerspectiveDetailsPage(data?.id, data.viewState || undefined)
+              data.id &&
+                data.viewState &&
+                navigateToPerspectiveDetailsPage(data?.id, data.viewState, data?.name || data.id)
             }}
           >
             <CardBody.Menu

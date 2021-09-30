@@ -1,5 +1,5 @@
 query RecommendationFilters {
-  recommendationFilterStats(keys: ["name", "resourceType", "namespace", "clusterName"]) {
+  recommendationFilterStatsV2(keys: ["name", "resourceType", "namespace", "clusterName"]) {
     key
     values
   }

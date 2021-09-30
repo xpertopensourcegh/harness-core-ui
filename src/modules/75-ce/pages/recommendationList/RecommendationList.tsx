@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react'
-import { Card, Text, Layout, Container, Color, Icon } from '@wings-software/uicore'
+import { Card, Text, Layout, Container, Color, Icon, Button, ButtonVariation } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
 
@@ -17,8 +17,10 @@ import {
 
 import routes from '@common/RouteDefinitions'
 import { Page } from '@common/exports'
+import { useQueryParams } from '@common/hooks'
 import Table from '@common/components/Table/Table'
 import formatCost from '@ce/utils/formatCost'
+import { getViewFilterForId } from '@ce/utils/perspectiveUtils'
 import EmptyView from '@ce/images/empty-state.svg'
 import OverviewAddCluster from '@ce/components/OverviewPage/OverviewAddCluster'
 import RecommendationSavingsCard from '../../components/RecommendationSavingsCard/RecommendationSavingsCard'
@@ -65,6 +67,7 @@ const RecommendationsList: React.FC<RecommendationListProps> = ({
 }) => {
   const history = useHistory()
   const { accountId } = useParams<{ accountId: string }>()
+
   const { getString } = useStrings()
   const resourceTypeToRoute: Record<ResourceType, RouteFn> = useMemo(() => {
     return {
@@ -235,16 +238,24 @@ const RecommendationList: React.FC = () => {
   const [filters, setFilters] = useState<Record<string, string[]>>({})
   const [costFilters, setCostFilters] = useState<Record<string, number>>({})
   const [page, setPage] = useState(0)
+  const history = useHistory()
+  const { accountId } = useParams<{ accountId: string }>()
+  const { perspectiveId, perspectiveName } = useQueryParams<{ perspectiveId: string; perspectiveName: string }>()
 
   const modifiedCostFilters = costFilters['minSaving'] ? costFilters : { ...costFilters, minSaving: 0 }
 
   const [ccmMetaResult, refetchCCMMetaData] = useFetchCcmMetaDataQuery()
   const { data: ccmData, fetching: fetchingCCMMetaData } = ccmMetaResult
 
+  const perspectiveFilters = (
+    perspectiveId ? { perspectiveFilters: getViewFilterForId(perspectiveId) } : ({} as any)
+  ) as K8sRecommendationFilterDtoInput
+
   const [result] = useRecommendationsQuery({
     variables: {
       filter: {
         ...filters,
+        ...perspectiveFilters,
         ...modifiedCostFilters,
         offset: page * 10,
         limit: 10
@@ -257,8 +268,9 @@ const RecommendationList: React.FC = () => {
     variables: {
       filter: {
         ...filters,
+        ...perspectiveFilters,
         ...modifiedCostFilters
-      } as K8sRecommendationFilterDtoInput
+      } as unknown as K8sRecommendationFilterDtoInput
     }
   })
 
@@ -273,6 +285,16 @@ const RecommendationList: React.FC = () => {
   const recommendationItems = data?.recommendationsV2?.items || []
 
   const gotoPage = (pageNumber: number) => setPage(pageNumber)
+
+  const goBackToPerspective: () => void = () => {
+    history.push(
+      routes.toPerspectiveDetails({
+        perspectiveId,
+        perspectiveName,
+        accountId
+      })
+    )
+  }
 
   const pagination = {
     itemCount: summaryData?.recommendationStatsV2?.count || 0,
@@ -297,6 +319,18 @@ const RecommendationList: React.FC = () => {
           >
             Recommendations
           </Text>
+        }
+        toolbar={
+          perspectiveId ? (
+            <Button
+              text={getString('ce.recommendation.listPage.backToPerspectives', {
+                name: perspectiveName
+              })}
+              icon="chevron-left"
+              onClick={goBackToPerspective}
+              variation={ButtonVariation.PRIMARY}
+            />
+          ) : null
         }
       />
       <Page.Body loading={fetching || fetchingCCMMetaData}>

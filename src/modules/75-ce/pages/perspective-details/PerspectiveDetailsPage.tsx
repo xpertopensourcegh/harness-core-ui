@@ -36,7 +36,8 @@ import {
   DEFAULT_GROUP_BY,
   perspectiveDefaultTimeRangeMapper,
   highlightNode,
-  resetNodeState
+  resetNodeState,
+  clusterInfoUtil
 } from '@ce/utils/perspectiveUtils'
 import { AGGREGATE_FUNCTION } from '@ce/components/PerspectiveGrid/Columns'
 import {
@@ -129,10 +130,7 @@ const PerspectiveDetailsPage: React.FC = () => {
 
   const perspectiveData = perspectiveRes?.resource
 
-  let isClusterOnly = false
-  if (perspectiveData?.dataSources?.length === 1 && perspectiveData.dataSources[0] === 'CLUSTER') {
-    isClusterOnly = true
-  }
+  const { isClusterOnly, hasClusterAsSource } = clusterInfoUtil(perspectiveData?.dataSources)
 
   const [gridPageOffset, setGridPageOffset] = useState(0) // This tells us the starting point of next data fetching(used in the api call)
   const [gridPageIndex, setPageIndex] = useState(0) // [Pagination] tells us the current page we are in the grid
@@ -296,6 +294,7 @@ const PerspectiveDetailsPage: React.FC = () => {
           fetching={summaryFetching}
           forecastedCostData={summaryData?.perspectiveForecastCost as any}
           isDefaultPerspective={!!(perspectiveData?.viewType === ViewType.Default)}
+          hasClusterAsSource={hasClusterAsSource}
         />
         <Container margin="xlarge" background="white" className={css.chartGridContainer}>
           {!isChartGridEmpty && (

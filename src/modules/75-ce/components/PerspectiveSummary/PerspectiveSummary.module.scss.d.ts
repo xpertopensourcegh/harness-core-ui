@@ -9,5 +9,6 @@ declare const styles: {
   readonly loadingContainer: string
   readonly indicatorBar: string
   readonly indicatorBarWithPattern: string
+  readonly viewLink: string
 }
 export default styles

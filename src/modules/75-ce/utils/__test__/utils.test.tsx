@@ -9,6 +9,7 @@ import {
 import { convertNumberToFixedDecimalPlaces } from '../convertNumberToFixedDecimalPlaces'
 
 import formatCost from '../formatCost'
+import { clusterInfoUtil } from '../perspectiveUtils'
 
 describe('test cases for recommendation utils', () => {
   test('test cases for CPU value formatter', () => {
@@ -47,5 +48,15 @@ describe('test cases for recommendation utils', () => {
 describe('test cases for formatcost', () => {
   test('should be able to render cost correctly', () => {
     expect(formatCost(20)).toBe('$20.00')
+  })
+})
+
+describe('test cases for clusterInfoUtil', () => {
+  test('should return values as expected', () => {
+    expect(clusterInfoUtil()).toStrictEqual({ hasClusterAsSource: false, isClusterOnly: false })
+    expect(clusterInfoUtil([])).toStrictEqual({ hasClusterAsSource: false, isClusterOnly: false })
+    expect(clusterInfoUtil(['AWS'])).toStrictEqual({ hasClusterAsSource: false, isClusterOnly: false })
+    expect(clusterInfoUtil(['CLUSTER'])).toStrictEqual({ hasClusterAsSource: true, isClusterOnly: true })
+    expect(clusterInfoUtil(['AWS', 'CLUSTER'])).toStrictEqual({ hasClusterAsSource: true, isClusterOnly: false })
   })
 })

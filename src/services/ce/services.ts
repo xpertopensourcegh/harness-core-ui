@@ -620,7 +620,7 @@ export function useFetchRecommendationQuery(
 }
 export const RecommendationFiltersDocument = gql`
   query RecommendationFilters {
-    recommendationFilterStats(keys: ["name", "resourceType", "namespace", "clusterName"]) {
+    recommendationFilterStatsV2(keys: ["name", "resourceType", "namespace", "clusterName"]) {
       key
       values
     }
@@ -1475,7 +1475,7 @@ export type RecommendationFiltersQueryVariables = Exact<{ [key: string]: never }
 
 export type RecommendationFiltersQuery = {
   __typename?: 'Query'
-  recommendationFilterStats: Maybe<
+  recommendationFilterStatsV2: Maybe<
     Array<Maybe<{ __typename?: 'FilterStatsDTO'; key: Maybe<string>; values: Maybe<Array<Maybe<string>>> }>>
   >
 }
@@ -1784,6 +1784,8 @@ export type BillingData = {
   maxcpuutilizationvalue: Maybe<Scalars['Float']>
   maxmemoryutilization: Maybe<Scalars['Float']>
   maxmemoryutilizationvalue: Maybe<Scalars['Float']>
+  maxstoragerequest: Maybe<Scalars['Float']>
+  maxstorageutilizationvalue: Maybe<Scalars['Float']>
   memoryactualidlecost: Maybe<Scalars['Float']>
   memorybillingamount: Maybe<Scalars['Float']>
   memoryidlecost: Maybe<Scalars['Float']>
@@ -1826,7 +1828,9 @@ export type BillingDataDemo = {
 export type BudgetSummary = {
   __typename?: 'BudgetSummary'
   actualCost: Maybe<Scalars['Float']>
+  actualCostAlerts: Maybe<Array<Maybe<Scalars['Float']>>>
   budgetAmount: Maybe<Scalars['Float']>
+  forecastCostAlerts: Maybe<Array<Maybe<Scalars['Float']>>>
   id: Maybe<Scalars['String']>
   name: Maybe<Scalars['String']>
   timeLeft: Scalars['Int']
@@ -2166,6 +2170,8 @@ export type Query = {
   anomaliesForPerspective: Maybe<AnomalyDataList>
   billingData: Maybe<Array<Maybe<BillingData>>>
   billingdata: Maybe<Array<Maybe<BillingDataDemo>>>
+  /** Budget List */
+  budgetList: Maybe<Array<Maybe<BudgetSummary>>>
   /** Budget card for perspectives */
   budgetSummary: Maybe<BudgetSummary>
   /** Fetch CCM MetaData for account */
@@ -2194,16 +2200,10 @@ export type Query = {
   perspectives: Maybe<PerspectiveData>
   /** recommendation details/drillDown */
   recommendationDetails: Maybe<RecommendationDetails>
-  /** possible filter values for each column */
-  recommendationFilterStats: Maybe<Array<Maybe<FilterStatsDto>>>
   /** Possible filter values for each key */
   recommendationFilterStatsV2: Maybe<Array<Maybe<FilterStatsDto>>>
-  /** top panel stats API */
-  recommendationStats: Maybe<RecommendationOverviewStats>
   /** Top panel stats API, aggregated */
   recommendationStatsV2: Maybe<RecommendationOverviewStats>
-  /** the list of all types of recommendations for overview page */
-  recommendations: Maybe<RecommendationsDto>
   /** The list of all types of recommendations for overview page */
   recommendationsV2: Maybe<RecommendationsDto>
 }
@@ -2224,6 +2224,13 @@ export type QueryBillingdataArgs = {
   clusterid: Maybe<Scalars['String']>
   endTime: Maybe<Scalars['OffsetTime']>
   startTime: Maybe<Scalars['OffsetTime']>
+}
+
+/** Query root */
+export type QueryBudgetListArgs = {
+  fetchOnlyPerspectiveBudgets?: Maybe<Scalars['Boolean']>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
 }
 
 /** Query root */
@@ -2320,49 +2327,14 @@ export type QueryRecommendationDetailsArgs = {
 }
 
 /** Query root */
-export type QueryRecommendationFilterStatsArgs = {
-  clusterName: Maybe<Scalars['String']>
-  keys?: Maybe<Array<Maybe<Scalars['String']>>>
-  minCost: Maybe<Scalars['Float']>
-  minSaving: Maybe<Scalars['Float']>
-  name: Maybe<Scalars['String']>
-  namespace: Maybe<Scalars['String']>
-  resourceType: Maybe<ResourceType>
-}
-
-/** Query root */
 export type QueryRecommendationFilterStatsV2Args = {
   filter?: Maybe<K8sRecommendationFilterDtoInput>
   keys?: Maybe<Array<Maybe<Scalars['String']>>>
 }
 
 /** Query root */
-export type QueryRecommendationStatsArgs = {
-  clusterName: Maybe<Scalars['String']>
-  id: Maybe<Scalars['String']>
-  minCost: Maybe<Scalars['Float']>
-  minSaving: Maybe<Scalars['Float']>
-  name: Maybe<Scalars['String']>
-  namespace: Maybe<Scalars['String']>
-  resourceType: Maybe<ResourceType>
-}
-
-/** Query root */
 export type QueryRecommendationStatsV2Args = {
   filter?: Maybe<K8sRecommendationFilterDtoInput>
-}
-
-/** Query root */
-export type QueryRecommendationsArgs = {
-  clusterName: Maybe<Scalars['String']>
-  id: Maybe<Scalars['String']>
-  limit?: Maybe<Scalars['Long']>
-  minCost: Maybe<Scalars['Float']>
-  minSaving: Maybe<Scalars['Float']>
-  name: Maybe<Scalars['String']>
-  namespace: Maybe<Scalars['String']>
-  offset?: Maybe<Scalars['Long']>
-  resourceType: Maybe<ResourceType>
 }
 
 /** Query root */
@@ -2513,6 +2485,7 @@ export type WorkloadRecommendationDto = {
    * @deprecated Field no longer supported
    */
   containerRecommendations: Maybe<Scalars['Map_String_ContainerRecommendationScalar']>
+  id: Maybe<Scalars['String']>
   items: Maybe<Array<Maybe<ContainerHistogramDto>>>
   lastDayCost: Maybe<Cost>
 }
@@ -2667,6 +2640,7 @@ export type K8sRecommendationFilterDtoInput = {
   names: Maybe<Array<Maybe<Scalars['String']>>>
   namespaces: Maybe<Array<Maybe<Scalars['String']>>>
   offset: Maybe<Scalars['Long']>
+  perspectiveFilters: Maybe<Array<Maybe<QlceViewFilterWrapperInput>>>
   resourceTypes: Maybe<Array<Maybe<ResourceType>>>
 }
 

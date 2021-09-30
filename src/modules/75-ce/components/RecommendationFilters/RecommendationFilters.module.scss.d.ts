@@ -8,5 +8,7 @@ declare const styles: {
   readonly costInputContainer: string
   readonly costText: string
   readonly visible: string
+  readonly filterPillContainer: string
+  readonly filterValue: string
 }
 export default styles

@@ -66,6 +66,8 @@ type BillingData {
   maxcpuutilizationvalue: Float
   maxmemoryutilization: Float
   maxmemoryutilizationvalue: Float
+  maxstoragerequest: Float
+  maxstorageutilizationvalue: Float
   memoryactualidlecost: Float
   memorybillingamount: Float
   memoryidlecost: Float
@@ -106,7 +108,9 @@ type BillingDataDemo {
 
 type BudgetSummary {
   actualCost: Float
+  actualCostAlerts: [Float]
   budgetAmount: Float
+  forecastCostAlerts: [Float]
   id: String
   name: String
   timeLeft: Int!
@@ -418,6 +422,8 @@ type Query {
   anomaliesForPerspective(filters: [QLCEViewFilterWrapperInput], groupBy: [QLCEViewGroupByInput]): AnomalyDataList
   billingData(request: GridRequestInput): [BillingData]
   billingdata(clusterid: String, endTime: OffsetTime, startTime: OffsetTime): [BillingDataDemo]
+  "Budget List"
+  budgetList(fetchOnlyPerspectiveBudgets: Boolean = false, limit: Int = 1000, offset: Int = 0): [BudgetSummary]
   "Budget card for perspectives"
   budgetSummary(perspectiveId: String): BudgetSummary
   "Fetch CCM MetaData for account"
@@ -501,42 +507,10 @@ type Query {
     "defaults to Now().minusDays(7)"
     startTime: OffsetDateTime
   ): recommendationDetails
-  "possible filter values for each column"
-  recommendationFilterStats(
-    clusterName: String
-    keys: [String] = []
-    minCost: Float
-    minSaving: Float
-    name: String
-    namespace: String
-    resourceType: ResourceType
-  ): [FilterStatsDTO]
   "Possible filter values for each key"
   recommendationFilterStatsV2(filter: K8sRecommendationFilterDTOInput = {}, keys: [String] = []): [FilterStatsDTO]
-  "top panel stats API"
-  recommendationStats(
-    clusterName: String
-    id: String
-    minCost: Float
-    minSaving: Float
-    name: String
-    namespace: String
-    resourceType: ResourceType
-  ): RecommendationOverviewStats
   "Top panel stats API, aggregated"
   recommendationStatsV2(filter: K8sRecommendationFilterDTOInput = {}): RecommendationOverviewStats
-  "the list of all types of recommendations for overview page"
-  recommendations(
-    clusterName: String
-    id: String
-    limit: Long = 10
-    minCost: Float
-    minSaving: Float
-    name: String
-    namespace: String
-    offset: Long = 0
-    resourceType: ResourceType
-  ): RecommendationsDTO
   "The list of all types of recommendations for overview page"
   recommendationsV2(filter: K8sRecommendationFilterDTOInput = { limit: 10, offset: 0 }): RecommendationsDTO
 }
@@ -669,6 +643,7 @@ type VirtualMachine {
 type WorkloadRecommendationDTO {
   "use items.containerRecommendation"
   containerRecommendations: Map_String_ContainerRecommendationScalar @deprecated
+  id: String
   items: [ContainerHistogramDTO]
   lastDayCost: Cost
 }
@@ -847,6 +822,7 @@ input K8sRecommendationFilterDTOInput {
   names: [String]
   namespaces: [String]
   offset: Long
+  perspectiveFilters: [QLCEViewFilterWrapperInput]
   resourceTypes: [ResourceType]
 }
 

@@ -1,12 +1,16 @@
 import React, { useState } from 'react'
+import { useHistory, useParams } from 'react-router'
 import { Container, Popover, Text, Layout, Icon } from '@wings-software/uicore'
 import { PopoverInteractionKind, Position } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import { useRecommendationFiltersQuery } from 'services/ce/services'
+import routes from '@common/RouteDefinitions'
+import { useQueryParams } from '@common/hooks'
 import formatCost from '@ce/utils/formatCost'
 import ValuePopover from './views/ValuePopover'
 import FilterTypePopover from './views/TypePopover'
 import { COST_FILTER_KEYS, getLabelMappingForFilters, getFiltersLabelName } from './constants'
+import css from './RecommendationFilters.module.scss'
 
 // const CostInput = () => {
 //   const [showInput, setShowInput] = useState(false)
@@ -32,6 +36,55 @@ import { COST_FILTER_KEYS, getLabelMappingForFilters, getFiltersLabelName } from
 //   )
 // }
 
+interface FilterPillProps {
+  keyName: string
+  value: string
+  onClear: () => void
+  valueList?: string[]
+}
+
+const FilterPill: (props: FilterPillProps) => JSX.Element = ({ keyName, value, onClear, valueList }) => {
+  return (
+    <Layout.Horizontal
+      key={keyName}
+      background="blue100"
+      border={{
+        color: 'primary5'
+      }}
+      margin={{
+        right: 'small'
+      }}
+      padding="xsmall"
+      style={{
+        alignItems: 'center'
+      }}
+      className={css.filterPillContainer}
+    >
+      <Text color="blue800" font="small">{`${keyName}: `}</Text>
+      <Text
+        className={css.filterValue}
+        padding={{ left: 'xsmall' }}
+        color="blue800"
+        font="small"
+        lineClamp={1}
+        tooltip={
+          valueList ? (
+            <Container padding="small">
+              <Text font={{ weight: 'semi-bold' }}>{keyName}</Text>
+              {valueList.map(val => (
+                <Text key={val}>{val}</Text>
+              ))}
+            </Container>
+          ) : undefined
+        }
+      >
+        {value}
+      </Text>
+      <Icon color="blue800" name="cross" size={12} onClick={onClear} />
+    </Layout.Horizontal>
+  )
+}
+
 interface RecommendationFiltersProps {
   setFilters: React.Dispatch<React.SetStateAction<Record<string, string[]>>>
   filters: Record<string, string[]>
@@ -48,6 +101,11 @@ const RecommendationFilters: React.FC<RecommendationFiltersProps> = ({
   const [selectedType, setSelectedType] = useState<string>()
   const [currentFilters, setCurrentFilters] = useState<Record<string, boolean>>({})
   const [currentCost, setCurrentCost] = useState<number>(0)
+
+  const history = useHistory()
+  const { accountId } = useParams<{ accountId: string }>()
+
+  const { perspectiveId, perspectiveName } = useQueryParams<{ perspectiveId: string; perspectiveName: string }>()
 
   const { getString } = useStrings()
   const keyToLabelMapping = getLabelMappingForFilters(getString)
@@ -93,7 +151,7 @@ const RecommendationFilters: React.FC<RecommendationFiltersProps> = ({
 
   const { data, fetching } = result
 
-  const filterData = data?.recommendationFilterStats || []
+  const filterData = data?.recommendationFilterStatsV2 || []
 
   const valueMap: Record<string, string[]> = {}
 
@@ -103,85 +161,47 @@ const RecommendationFilters: React.FC<RecommendationFiltersProps> = ({
     }
   })
 
+  const renderPerspectiveFilterPill = () => {
+    if (!perspectiveId) {
+      return null
+    }
+
+    const onClear: () => void = () => {
+      history.replace(routes.toCERecommendations({ accountId }))
+    }
+
+    return <FilterPill keyName="Perspective" value={perspectiveName} onClear={onClear} />
+  }
+
   return fetching ? (
     <Icon name="spinner" size={24} color="blue500" style={{ alignSelf: 'center' }} />
   ) : (
     <>
       <Layout.Horizontal spacing="medium">
+        {renderPerspectiveFilterPill()}
         {Object.keys(filters).map(filter => {
           return filters[filter] ? (
-            <Layout.Horizontal
+            <FilterPill
               key={filter}
-              background="blue100"
-              border={{
-                color: 'primary5'
+              keyName={keyToLabelMapping[filter]}
+              value={filters[filter].join(', ')}
+              valueList={filters[filter]}
+              onClear={() => {
+                clearCurrentFilter(filter)
               }}
-              margin={{
-                right: 'small'
-              }}
-              padding="xsmall"
-              style={{
-                alignItems: 'center'
-              }}
-            >
-              <Text color="blue800" font="small">{`${keyToLabelMapping[filter]}: `}</Text>
-              <Text
-                padding={{ top: 'xsmall', left: 'xsmall' }}
-                color="blue800"
-                font="small"
-                lineClamp={1}
-                width={100}
-                tooltip={
-                  <Container padding="small">
-                    <Text font={{ weight: 'semi-bold' }}>{keyToLabelMapping[filter]}</Text>
-                    {filters[filter].map(val => (
-                      <Text key={val}>{val}</Text>
-                    ))}
-                  </Container>
-                }
-              >
-                {filters[filter].join(', ')}
-              </Text>
-              <Icon
-                color="blue800"
-                name="cross"
-                size={12}
-                onClick={() => {
-                  clearCurrentFilter(filter)
-                }}
-              />
-            </Layout.Horizontal>
+            />
           ) : null
         })}
         {Object.keys(costFilters).map(costFilter => {
           return costFilters[costFilter] ? (
-            <Layout.Horizontal
+            <FilterPill
               key={costFilter}
-              background="blue100"
-              border={{
-                color: 'primary5'
+              keyName={costFiltersLabels[costFilter]}
+              value={formatCost(costFilters[costFilter])}
+              onClear={() => {
+                clearCurrentCostFilter(costFilter)
               }}
-              margin={{
-                right: 'small'
-              }}
-              padding="xsmall"
-              style={{
-                alignItems: 'center'
-              }}
-            >
-              <Text color="blue800" font="small">{`${costFiltersLabels[costFilter]}: `}</Text>
-              <Text padding={{ top: 'xsmall', left: 'xsmall' }} color="blue800" font="small">
-                {formatCost(costFilters[costFilter])}
-              </Text>
-              <Icon
-                color="blue800"
-                name="cross"
-                size={12}
-                onClick={() => {
-                  clearCurrentCostFilter(costFilter)
-                }}
-              />
-            </Layout.Horizontal>
+            />
           ) : null
         })}
       </Layout.Horizontal>

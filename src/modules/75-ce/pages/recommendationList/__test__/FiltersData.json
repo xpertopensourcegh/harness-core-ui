@@ -1,6 +1,6 @@
 {
   "data": {
-    "recommendationFilterStats": [
+    "recommendationFilterStatsV2": [
       {
         "key": "name",
         "values": ["name1", "name2", "name3", "name4"],

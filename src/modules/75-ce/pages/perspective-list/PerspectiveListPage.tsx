@@ -120,16 +120,17 @@ const PerspectiveListPage: React.FC = () => {
     }
   }
 
-  const navigateToPerspectiveDetailsPage: (perspectiveId: string, viewState?: ViewState) => void = (
+  const navigateToPerspectiveDetailsPage: (perspectiveId: string, viewState: ViewState, name: string) => void = (
     perspectiveId,
-    viewState
+    viewState,
+    name
   ) => {
     if (viewState !== ViewState.Draft) {
       history.push(
         routes.toPerspectiveDetails({
           accountId: accountId,
           perspectiveId: perspectiveId,
-          perspectiveName: perspectiveId
+          perspectiveName: name
         })
       )
     } else {

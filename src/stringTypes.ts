@@ -492,6 +492,7 @@ export interface StringsMap {
   'common.validation.yamlFilePath': string
   'common.valuePlaceholder': string
   'common.videoNotSupportedError': string
+  'common.viewText': string
   'common.webhookURL': string
   'common.welcome': string
   'common.yearly': string
@@ -2944,6 +2945,9 @@ export interface StringsMap {
   'ce.perspectives.createPerspective.title': string
   'ce.perspectives.createPerspective.validationErrors.nameError': string
   'ce.perspectives.createPerspective.validationErrors.ruleError': string
+  'ce.perspectives.recommendations.perMonth': string
+  'ce.perspectives.recommendations.recommendationCountTxt': string
+  'ce.perspectives.recommendations.viewText': string
   'ce.perspectives.reports.createNew': string
   'ce.perspectives.reports.cronLabel': string
   'ce.perspectives.reports.desc': string
@@ -3011,6 +3015,7 @@ export interface StringsMap {
   'ce.recommendation.detailsPage.timeChangeText': string
   'ce.recommendation.detailsPage.totalCost': string
   'ce.recommendation.detailsPage.viewMoreDetailsText': string
+  'ce.recommendation.listPage.backToPerspectives': string
   'ce.recommendation.listPage.filterHereText': string
   'ce.recommendation.listPage.filters.clusterName': string
   'ce.recommendation.listPage.filters.enterCost': string

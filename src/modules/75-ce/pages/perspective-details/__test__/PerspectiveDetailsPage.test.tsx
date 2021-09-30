@@ -9,7 +9,8 @@ import {
   FetchPerspectiveDetailsSummaryDocument,
   FetchViewFieldsDocument,
   FetchperspectiveGridDocument,
-  FetchPerspectiveBudgetDocument
+  FetchPerspectiveBudgetDocument,
+  RecommendationsSummaryDocument
 } from 'services/ce/services'
 import PerspectiveDetailsPage from '../PerspectiveDetailsPage'
 
@@ -70,6 +71,18 @@ describe('test cases for Perspective details Page', () => {
                 timeUnit: 'days',
                 timeScope: 'monthly',
                 __typename: 'BudgetSummary'
+              }
+            }
+          })
+        }
+        if (query === RecommendationsSummaryDocument) {
+          return fromValue({
+            data: {
+              recommendationStatsV2: {
+                totalMonthlyCost: 479.8999999999999,
+                totalMonthlySaving: 283.86,
+                count: 145,
+                __typename: 'RecommendationOverviewStats'
               }
             }
           })

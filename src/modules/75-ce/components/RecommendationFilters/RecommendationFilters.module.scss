@@ -48,3 +48,13 @@
     }
   }
 }
+
+.filterPillContainer {
+  .filterValue {
+    max-width: 100px;
+  }
+
+  & > span {
+    line-height: 13px !important;
+  }
+}

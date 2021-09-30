@@ -47,7 +47,7 @@
         ]
       }
     ],
-    "dataSources": ["AWS", "GCP"],
+    "dataSources": ["AWS", "GCP", "CLUSTER"],
     "viewVisualization": {
       "granularity": null,
       "groupBy": { "fieldId": "product", "fieldName": "Product", "identifier": "COMMON", "identifierName": "Common" },

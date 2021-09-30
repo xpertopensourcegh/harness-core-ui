@@ -349,6 +349,7 @@ recommendation:
     uptoText: upto
     recommnedationBreakdown: 'Recommendations Breakdown'
     filterHereText: 'Filter here'
+    backToPerspectives: 'Back to perspective {{ name }}'
     filters:
       minSaving: Monthly savings greater than
       minCost: Monthly cost greater than
@@ -485,6 +486,10 @@ perspectives:
     emailPlaceholder: Enter emails separated by comma
     recipientLabel: Send report to
     searchTimezonePlaceholder: Search Timezone
+  recommendations:
+    viewText: '{{ $.common.viewText }}'
+    recommendationCountTxt: '{{ count }} recommendations saving upto'
+    perMonth: per month
   budgets:
     addBudget: Add a budget to this perspective
     title: Budget

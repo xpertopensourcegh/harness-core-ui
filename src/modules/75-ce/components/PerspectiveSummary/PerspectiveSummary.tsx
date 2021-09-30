@@ -8,6 +8,7 @@ import useBudgetModal from '@ce/components/PerspectiveReportsAndBudget/Perspecti
 import formatCost from '@ce/utils/formatCost'
 import { useGetLastMonthCost, useGetForecastCost } from 'services/ce'
 
+import RecommendationSummaryCard from './RecommendationSummaryCard'
 import css from './PerspectiveSummary.module.scss'
 
 const StatsTrendRenderer: React.FC<{ val: number }> = ({ val }) => {
@@ -258,13 +259,15 @@ interface PerspectiveSummaryProps {
   forecastedCostData: Maybe<PerspectiveTrendStats> | undefined
   errors?: any[] | null
   isDefaultPerspective: boolean
+  hasClusterAsSource: boolean
 }
 
 const PerspectiveSummary: React.FC<PerspectiveSummaryProps> = ({
   fetching,
   data,
   forecastedCostData,
-  isDefaultPerspective
+  isDefaultPerspective,
+  hasClusterAsSource
 }) => {
   return (
     <Layout.Horizontal margin="xlarge" spacing="large">
@@ -285,6 +288,7 @@ const PerspectiveSummary: React.FC<PerspectiveSummaryProps> = ({
         statsValue={forecastedCostData?.cost?.statsValue}
         isEmpty={!forecastedCostData?.cost}
       />
+      {hasClusterAsSource && <RecommendationSummaryCard />}
     </Layout.Horizontal>
   )
 }

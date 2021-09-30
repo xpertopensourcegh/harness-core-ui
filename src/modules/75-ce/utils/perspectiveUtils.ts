@@ -192,3 +192,19 @@ export const resetNodeState = (chartRef: React.RefObject<Highcharts.Chart | unde
       })
   }
 }
+
+export const clusterInfoUtil: (dataSources?: string[]) => { isClusterOnly: boolean; hasClusterAsSource: boolean } =
+  dataSources => {
+    let isClusterOnly = false
+    let hasClusterAsSource = false
+    if (!dataSources?.length) {
+      return { isClusterOnly, hasClusterAsSource }
+    }
+    if (dataSources.length === 1 && dataSources[0] === ViewFieldIdentifier.Cluster) {
+      isClusterOnly = true
+    }
+    if (dataSources.includes(ViewFieldIdentifier.Cluster)) {
+      hasClusterAsSource = true
+    }
+    return { isClusterOnly, hasClusterAsSource }
+  }

@@ -42,7 +42,7 @@ serviceAccounts:
 permissionLabels:
   createEdit: Create / Edit
   create: '{{ $.create }}'
-  view: View
+  view: '{{ $.common.viewText }}'
   pipelineExecution: Use in Pipeline Execution
   delete: '{{ $.delete}}'
   access: Access
