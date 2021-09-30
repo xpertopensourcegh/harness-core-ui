@@ -1,6 +1,7 @@
 import { FormikErrors, yupToFormErrors } from 'formik'
 import { getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import isEmpty from 'lodash-es/isEmpty'
+import has from 'lodash-es/has'
 import * as Yup from 'yup'
 import set from 'lodash-es/set'
 import reduce from 'lodash-es/reduce'
@@ -295,21 +296,29 @@ interface ValidatePipelineProps {
   path?: string
 }
 
-export const validatePipeline = ({
+/**
+ * Validation for CI Codebase
+ */
+export const validateCICodebase = ({
   pipeline,
   template,
   originalPipeline,
-  viewType,
-  getString,
-  path
+  getString
 }: ValidatePipelineProps): FormikErrors<PipelineInfoConfig> => {
   const errors = {}
-
   const isCloneCodebaseEnabledAtLeastAtOneStage = originalPipeline?.stages?.some(stage =>
     get(stage, 'stage.spec.cloneCodebase')
   )
 
-  // Validation for CI Codebase
+  if (
+    has(originalPipeline, 'properties') &&
+    has(originalPipeline?.properties, 'ci') &&
+    isEmpty(get(originalPipeline, 'properties.ci.codebase.build')) &&
+    getString
+  ) {
+    set(errors, 'properties.ci.codebase', getString('fieldRequired', { field: getString('ciCodebase') }))
+  }
+
   if (
     isCloneCodebaseEnabledAtLeastAtOneStage &&
     getMultiTypeFromValue((template as PipelineInfoConfig)?.properties?.ci?.codebase?.build as unknown as string) ===
@@ -356,6 +365,25 @@ export const validatePipeline = ({
       )
     }
   }
+  return errors
+}
+
+export const validatePipeline = ({
+  pipeline,
+  template,
+  originalPipeline,
+  viewType,
+  getString,
+  path
+}: ValidatePipelineProps): FormikErrors<PipelineInfoConfig> => {
+  const errors = validateCICodebase({
+    pipeline,
+    template,
+    originalPipeline,
+    viewType,
+    getString,
+    path
+  })
 
   if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
     let timeoutSchema = getDurationValidationSchema({ minimum: '10s' })

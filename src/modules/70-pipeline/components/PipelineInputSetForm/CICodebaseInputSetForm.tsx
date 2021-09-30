@@ -1,7 +1,7 @@
 import React, { FormEvent, useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { get, isEmpty } from 'lodash-es'
-import { FormInput, MultiTypeInputType } from '@wings-software/uicore'
+import { FormInput, MultiTypeInputType, Container } from '@wings-software/uicore'
 import { connect, FormikContext } from 'formik'
 import { useStrings } from 'framework/strings'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
@@ -110,46 +110,52 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
         style={{ marginBottom: 0 }}
       />
       {type === 'branch' && (
-        <FormInput.MultiTextInput
-          label={inputLabels[type]}
-          name={`${formattedPath}properties.ci.codebase.build.spec.branch`}
-          multiTextInputProps={{
-            expressions,
-            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-          }}
-          style={{ marginBottom: 0 }}
-          placeholder={triggerIdentifier ? defaultValues['branch'] : ''}
-          disabled={readonly}
-          onChange={handleInputChange}
-        />
+        <Container padding={{ bottom: 'small' }}>
+          <FormInput.MultiTextInput
+            label={inputLabels[type]}
+            name={`${formattedPath}properties.ci.codebase.build.spec.branch`}
+            multiTextInputProps={{
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+            }}
+            style={{ marginBottom: 0 }}
+            placeholder={triggerIdentifier ? defaultValues['branch'] : ''}
+            disabled={readonly}
+            onChange={handleInputChange}
+          />
+        </Container>
       )}
       {type === 'tag' && (
-        <FormInput.MultiTextInput
-          label={inputLabels[type]}
-          name={`${formattedPath}properties.ci.codebase.build.spec.tag`}
-          multiTextInputProps={{
-            expressions,
-            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-          }}
-          style={{ marginBottom: 0 }}
-          disabled={readonly}
-          placeholder={triggerIdentifier ? defaultValues['tag'] : ''}
-          onChange={handleInputChange}
-        />
+        <Container padding={{ bottom: 'small' }}>
+          <FormInput.MultiTextInput
+            label={inputLabels[type]}
+            name={`${formattedPath}properties.ci.codebase.build.spec.tag`}
+            multiTextInputProps={{
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+            }}
+            style={{ marginBottom: 0 }}
+            disabled={readonly}
+            placeholder={triggerIdentifier ? defaultValues['tag'] : ''}
+            onChange={handleInputChange}
+          />
+        </Container>
       )}
       {type === 'PR' && (
-        <FormInput.MultiTextInput
-          label={inputLabels[type]}
-          name={`${formattedPath}properties.ci.codebase.build.spec.number`}
-          multiTextInputProps={{
-            expressions,
-            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-          }}
-          style={{ marginBottom: 0 }}
-          disabled={readonly}
-          placeholder={triggerIdentifier ? defaultValues['PR'] : ''}
-          onChange={handleInputChange}
-        />
+        <Container padding={{ bottom: 'small' }}>
+          <FormInput.MultiTextInput
+            label={inputLabels[type]}
+            name={`${formattedPath}properties.ci.codebase.build.spec.number`}
+            multiTextInputProps={{
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+            }}
+            style={{ marginBottom: 0 }}
+            disabled={readonly}
+            placeholder={triggerIdentifier ? defaultValues['PR'] : ''}
+            onChange={handleInputChange}
+          />
+        </Container>
       )}
     </>
   )
