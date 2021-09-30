@@ -921,6 +921,7 @@ export interface StringsMap {
   'secrets.secret.labelSecretType': string
   'secrets.secret.labelText': string
   'secrets.secret.messageSelectSM': string
+  'secrets.secret.newSSHCredential': string
   'secrets.secret.noSecretsFound': string
   'secrets.secret.placeholderSecretReference': string
   'secrets.secret.placeholderSecretValue': string
