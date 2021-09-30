@@ -13,7 +13,8 @@ import {
   UseSortByState,
   UsePaginationOptions,
   UsePaginationInstanceProps,
-  UsePaginationState
+  UsePaginationState,
+  UseResizeColumnsColumnProps
 } from 'react-table'
 
 declare module 'react-table' {
@@ -42,5 +43,6 @@ declare module 'react-table' {
 
   export interface ColumnInstance<D extends Record<string, unknown> = Record<string, unknown>>
     extends UseFiltersColumnProps<D>,
-      UseSortByColumnProps<D> {}
+      UseSortByColumnProps<D>,
+      UseResizeColumnsColumnProps<D> {}
 }

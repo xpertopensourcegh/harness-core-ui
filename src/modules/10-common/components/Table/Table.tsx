@@ -1,5 +1,5 @@
 import React from 'react'
-import { useTable, Column, Row, useSortBy, usePagination } from 'react-table'
+import { useTable, Column, Row, useSortBy, usePagination, useResizeColumns } from 'react-table'
 import cx from 'classnames'
 import { Icon, Pagination, PaginationProps } from '@wings-software/uicore'
 import css from './Table.module.scss'
@@ -16,6 +16,7 @@ export interface TableProps<Data extends Record<string, any>> {
    * @default true
    */
   sortable?: boolean
+  resizable?: boolean
   hideHeaders?: boolean
   pagination?: PaginationProps
   onRowClick?: (data: Data, index: number) => void
@@ -34,11 +35,13 @@ const Table = <Data extends Record<string, any>>(props: TableProps<Data>): React
     data,
     className,
     sortable = false,
+    resizable = false,
     hideHeaders = false,
     pagination,
     rowDataTestID,
     getRowClassName
   } = props
+
   const { headerGroups, page, prepareRow } = useTable(
     {
       columns,
@@ -48,7 +51,8 @@ const Table = <Data extends Record<string, any>>(props: TableProps<Data>): React
       pageCount: pagination?.pageCount || -1
     },
     useSortBy,
-    usePagination
+    usePagination,
+    useResizeColumns
   )
 
   return (
@@ -69,7 +73,8 @@ const Table = <Data extends Record<string, any>>(props: TableProps<Data>): React
                     // eslint-disable-next-line react/jsx-key
                     <div
                       {...header.getHeaderProps(sortable ? header.getSortByToggleProps() : void 0)}
-                      className={cx(css.cell, { [css.sortable]: sortable })}
+                      {...header.getHeaderProps(resizable ? header.getHeaderProps() : void 0)}
+                      className={cx(css.cell, { [css.sortable]: sortable }, { [css.resizable]: resizable })}
                       style={{ width: header.width }}
                     >
                       {header.render('Header')}
@@ -86,6 +91,7 @@ const Table = <Data extends Record<string, any>>(props: TableProps<Data>): React
                           padding={{ left: 'small' }}
                         />
                       ) : null}
+                      {resizable && <div {...header.getResizerProps()} className={css.resizer} />}
                     </div>
                   )
                 })}

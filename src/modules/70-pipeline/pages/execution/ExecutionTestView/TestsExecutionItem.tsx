@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useCallback, useMemo, useRef } from 'react'
 import { Intent, ProgressBar } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
-import { get } from 'lodash-es'
+import { get, throttle } from 'lodash-es'
 import { Button, Color, Icon, Container, Text, useIsMounted, Layout } from '@wings-software/uicore'
+import { ResizeSensor } from '@blueprintjs/core'
 import cx from 'classnames'
 import type { CellProps, Column, Renderer } from 'react-table'
 import { TestSuite, useTestCaseSummary, TestCase, TestCaseSummaryQueryParams } from 'services/ti-service'
@@ -18,6 +19,8 @@ import css from './BuildTests.module.scss'
 const NOW = Date.now()
 const PAGE_SIZE = 10
 const COPY_CLIPBOARD_ICON_WIDTH = 16
+const SAFETY_TABLE_WIDTH = 216
+const THROTTLE_TIME = 300
 
 export interface TestExecutionEntryProps {
   buildIdentifier: string
@@ -106,7 +109,9 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
 }) => {
   const containerRef = useRef<HTMLElement>(null)
   const rightSideContainerRef = useRef<HTMLElement>(null)
+  const tableRef = useRef<HTMLDivElement>(null)
   const [titleWidth, setTitleWidth] = useState<number>()
+  const [tableWidth, setTableWidth] = useState<number>()
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier, pipelineIdentifier } = useParams<{
     projectIdentifier: string
@@ -209,54 +214,53 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
       },
     [pageIndex]
   )
-  const columns: Column<TestCase>[] = useMemo(
-    () => [
+
+  const columns: Column<TestCase>[] = useMemo(() => {
+    const nameClassNameWidth = tableWidth ? tableWidth * 0.5 - 185 : SAFETY_TABLE_WIDTH
+    return [
       {
         Header: '#',
         accessor: 'order' as 'name',
-        width: '50px',
+        width: 50,
         Cell: renderColumn({ col: 'order' }),
         disableSortBy: true
       },
       {
         Header: getString('pipeline.testsReports.testCaseName').toUpperCase(),
         accessor: 'name',
-        width: 'calc(50% - 185px)',
+        width: nameClassNameWidth,
         Cell: renderColumn({ col: 'name', openTestsFailedModal: openErrorModal }),
-        disableSortBy: (data?.content?.length || 0) === 1,
+        disableSortBy: data?.content?.length === 1,
         openErrorModal
       },
       {
         Header: getString('pipeline.testsReports.className').toUpperCase(),
         accessor: 'class_name',
-        width: 'calc(50% - 65px)',
+        width: nameClassNameWidth,
         Cell: renderColumn({ col: 'class_name' }),
-        disableSortBy: (data?.content?.length || 0) === 1
+        disableSortBy: data?.content?.length === 1
       },
       {
         Header: getString('pipeline.testsReports.result'),
         accessor: 'result',
-        width: '100px',
+        width: 100,
         Cell: renderColumn({ col: 'result' }),
-        disableSortBy: (data?.content?.length || 0) === 1
+        disableSortBy: data?.content?.length === 1
       },
       {
         Header: getString('pipeline.duration').toUpperCase(),
         accessor: 'duration_ms',
-        width: '100px',
+        width: 100,
         Cell: renderColumn({ col: 'duration_ms' }),
-        disableSortBy: (data?.content?.length || 0) === 1
+        disableSortBy: data?.content?.length === 1
       }
-    ],
-    [getString, renderColumn, data?.content?.length]
-  )
+    ]
+  }, [getString, renderColumn, data?.content?.length])
   const failureRate = (executionSummary.failed_tests || 0) / (executionSummary.total_tests || 1)
 
   useEffect(() => {
-    if (expanded) {
-      if (!data) {
-        refetchData(queryParams)
-      }
+    if (expanded && !data) {
+      refetchData(queryParams)
     }
   }, [expanded, queryParams, refetchData, data])
 
@@ -290,6 +294,15 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
       setTitleWidth(newTitleWidth)
     }
   }, [])
+
+  const onResize = useCallback(
+    throttle(() => {
+      if (tableRef?.current) {
+        setTableWidth(tableRef.current.clientWidth)
+      }
+    }, THROTTLE_TIME),
+    []
+  )
 
   return (
     <Container className={cx(css.widget, css.testSuite, expanded && css.expanded)} padding="medium" ref={containerRef}>
@@ -376,38 +389,43 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
             </Container>
           )}
           {!loading && !error && (
-            <Table<TestCase>
-              className={cx(css.testSuiteTable, !!onShowCallGraphForClass && css.clickable)}
-              columns={columns}
-              data={data?.content || []}
-              getRowClassName={row => (row.original === selectedRow ? css.rowSelected : '')}
-              sortable
-              onRowClick={
-                onShowCallGraphForClass
-                  ? row => {
-                      setSelectedRow(row)
-                      onShowCallGraphForClass(row.class_name as string)
-                    }
-                  : undefined
-              }
-              pagination={
-                (data?.data?.totalItems || 0) > PAGE_SIZE
-                  ? {
-                      itemCount: data?.data?.totalItems || 0,
-                      pageSize: data?.data?.pageSize || 0,
-                      pageCount: data?.data?.totalPages || 0,
-                      pageIndex,
-                      gotoPage: pageIdx => {
-                        setPageIndex(pageIdx)
-                        refetchData({
-                          ...queryParams,
-                          pageIndex: pageIdx
-                        })
-                      }
-                    }
-                  : undefined
-              }
-            />
+            <ResizeSensor onResize={onResize}>
+              <Container ref={tableRef}>
+                <Table<TestCase>
+                  className={cx(css.testSuiteTable, !!onShowCallGraphForClass && css.clickable)}
+                  columns={columns}
+                  data={data?.content || []}
+                  getRowClassName={row => (row.original === selectedRow ? css.rowSelected : '')}
+                  sortable
+                  resizable={true}
+                  onRowClick={
+                    onShowCallGraphForClass
+                      ? row => {
+                          setSelectedRow(row)
+                          onShowCallGraphForClass(row.class_name as string)
+                        }
+                      : undefined
+                  }
+                  pagination={
+                    (data?.data?.totalItems || 0) > PAGE_SIZE
+                      ? {
+                          itemCount: data?.data?.totalItems || 0,
+                          pageSize: data?.data?.pageSize || 0,
+                          pageCount: data?.data?.totalPages || 0,
+                          pageIndex,
+                          gotoPage: pageIdx => {
+                            setPageIndex(pageIdx)
+                            refetchData({
+                              ...queryParams,
+                              pageIndex: pageIdx
+                            })
+                          }
+                        }
+                      : undefined
+                  }
+                />
+              </Container>
+            </ResizeSensor>
           )}
         </>
       )}

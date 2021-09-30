@@ -61,4 +61,29 @@
     display: inline-block;
     vertical-align: middle;
   }
+
+  [role='columnheader'].resizable {
+    margin: 0;
+    padding: 0.5rem;
+    &:hover {
+      border-right: 1px solid var(--grey-200);
+    }
+    position: relative;
+
+    :last-child {
+      border-right: 0;
+    }
+  }
+
+  .resizer {
+    display: inline-block;
+    width: 10px;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: translateX(50%);
+    z-index: 1;
+    touch-action: none;
+  }
 }
