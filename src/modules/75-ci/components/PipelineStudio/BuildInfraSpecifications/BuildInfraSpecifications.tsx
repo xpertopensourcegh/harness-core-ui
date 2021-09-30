@@ -722,7 +722,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                                 multiTextInputProps={{
                                   multiTextInputProps: { expressions },
                                   disabled: isReadonly,
-                                  placeholder: getString('pipeline.infraSpecifications.namespacePlaceholder')
+                                  placeholder: getString('pipeline.infraSpecifications.serviceAccountNamePlaceholder')
                                 }}
                               />
                               <MultiTypeTextField
