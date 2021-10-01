@@ -9,7 +9,7 @@ exports[`Notification Table test render 1`] = `
       class="Layout--horizontal StyledProps--main headerActions StyledProps--flex"
     >
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
+        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon Button--variation Button--variation-primary"
         id="newNotificationBtn"
         type="button"
       >
@@ -121,7 +121,7 @@ exports[`Notification Table test render 1`] = `
           class="cell"
           colspan="1"
           role="columnheader"
-          style="width: 25%;"
+          style="width: 28%;"
         >
           NOTIFICATIONS.NOTIFICATIONMETHOD
         </div>
@@ -129,7 +129,7 @@ exports[`Notification Table test render 1`] = `
           class="cell"
           colspan="1"
           role="columnheader"
-          style="width: 5%;"
+          style="width: 2%;"
         >
           
         </div>
@@ -201,7 +201,7 @@ exports[`Notification Table test render 1`] = `
           <div
             class="cell"
             role="cell"
-            style="width: 25%;"
+            style="width: 28%;"
           >
             <div
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -256,7 +256,7 @@ exports[`Notification Table test render 1`] = `
           <div
             class="cell"
             role="cell"
-            style="width: 5%;"
+            style="width: 2%;"
           >
             <div
               class="Layout--horizontal StyledProps--main"
@@ -351,7 +351,7 @@ exports[`Notification Table test render 1`] = `
           <div
             class="cell"
             role="cell"
-            style="width: 25%;"
+            style="width: 28%;"
           >
             <div
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -382,7 +382,7 @@ exports[`Notification Table test render 1`] = `
           <div
             class="cell"
             role="cell"
-            style="width: 5%;"
+            style="width: 2%;"
           >
             <div
               class="Layout--horizontal StyledProps--main"
@@ -477,7 +477,7 @@ exports[`Notification Table test render 1`] = `
           <div
             class="cell"
             role="cell"
-            style="width: 25%;"
+            style="width: 28%;"
           >
             <div
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -519,7 +519,7 @@ exports[`Notification Table test render 1`] = `
           <div
             class="cell"
             role="cell"
-            style="width: 5%;"
+            style="width: 2%;"
           >
             <div
               class="Layout--horizontal StyledProps--main"

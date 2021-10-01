@@ -5,5 +5,6 @@ declare const styles: {
   readonly headerActions: string
   readonly notificationTable: string
   readonly content: string
+  readonly notificationTableHeader: string
 }
 export default styles

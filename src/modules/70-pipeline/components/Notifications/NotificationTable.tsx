@@ -9,7 +9,8 @@ import {
   Container,
   Icon,
   Select,
-  MultiSelectOption
+  MultiSelectOption,
+  ButtonVariation
 } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Classes, Menu, PopoverInteractionKind, Position, Tag } from '@blueprintjs/core'
@@ -214,6 +215,7 @@ const NotificationTable: React.FC<NotificationTableProps> = props => {
       {
         Header: getString('enabledLabel').toUpperCase(),
         id: 'enabled',
+        className: css.notificationTableHeader,
         accessor: row => row.notificationRules.enabled,
         onUpdate: onUpdate,
         width: '15%',
@@ -224,6 +226,7 @@ const NotificationTable: React.FC<NotificationTableProps> = props => {
       {
         Header: getString('notifications.nameOftheRule').toUpperCase(),
         id: 'name',
+        className: css.notificationTableHeader,
         accessor: row => row.notificationRules.name,
         width: '20%',
         Cell: RenderColumnName,
@@ -232,6 +235,7 @@ const NotificationTable: React.FC<NotificationTableProps> = props => {
       {
         Header: getString('notifications.pipelineEvents').toUpperCase(),
         id: 'events',
+        className: css.notificationTableHeader,
         accessor: row => row.notificationRules.pipelineEvents,
         width: '35%',
         Cell: RenderColumnEvents,
@@ -240,8 +244,9 @@ const NotificationTable: React.FC<NotificationTableProps> = props => {
       {
         Header: getString('notifications.notificationMethod').toUpperCase(),
         id: 'methods',
+        className: css.notificationTableHeader,
         accessor: row => row.notificationRules.notificationMethod?.type,
-        width: '25%',
+        width: '28%',
         Cell: RenderColumnMethod,
         disableSortBy: true
       },
@@ -249,7 +254,8 @@ const NotificationTable: React.FC<NotificationTableProps> = props => {
         Header: '',
         id: 'menu',
         accessor: row => row.notificationRules.notificationMethod?.spec,
-        width: '5%',
+        className: css.notificationTableHeader,
+        width: '2%',
         Cell: RenderColumnMenu,
         onUpdate: onUpdate,
         openNotificationModal: openNotificationModal,
@@ -267,7 +273,7 @@ const NotificationTable: React.FC<NotificationTableProps> = props => {
       <Container>
         <Layout.Horizontal flex className={css.headerActions}>
           <Button
-            intent="primary"
+            variation={ButtonVariation.PRIMARY}
             text={getString('notifications.name')}
             icon="plus"
             id="newNotificationBtn"

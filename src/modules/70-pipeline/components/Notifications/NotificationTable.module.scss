@@ -1,10 +1,11 @@
 .filterDropdown {
-  width: 30% !important;
+  width: 300px !important;
 }
 
 .headerActions {
   padding: var(--spacing-medium) !important;
   border-bottom: 2px solid var(--grey-200) !important;
+  border-bottom: 1px solid #dedede !important;
   padding: var(--spacing-large) var(--spacing-xlarge) !important;
   height: 72px;
 }
@@ -14,6 +15,12 @@
   :global {
     .bp3-switch {
       display: inline;
+    }
+
+    div[class*='Table-module_card'] {
+      box-shadow: 0px 0px 1px rgb(40 41 61 / 4%), 0px 2px 4px rgb(96 97 112 / 16%) !important;
+      border-radius: 5px !important;
+      margin-bottom: var(--spacing-medium);
     }
   }
 }
@@ -27,4 +34,11 @@
   margin-top: var(--spacing-large) !important;
   background-color: var(--grey-50) !important;
   padding: var(--spacing-large) !important;
+}
+
+.notificationTableHeader {
+  color: var(--grey-800);
+  font-size: 10px;
+  width: 20%;
+  font-weight: 600;
 }

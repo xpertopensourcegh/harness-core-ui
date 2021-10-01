@@ -349,13 +349,13 @@ export const RightBar = (): JSX.Element => {
           updatePipelineView({
             ...pipelineView,
             isDrawerOpened: true,
-            drawerData: { type: DrawerTypes.PipelineNotifications },
+            drawerData: { type: DrawerTypes.PipelineNotifications, title: `${pipeline?.name} : Notifications` },
             isSplitViewOpen: false,
             splitViewData: {}
           })
         }}
         font={{ weight: 'semi-bold', size: 'xsmall' }}
-        icon="right-bar-notification"
+        icon="pipeline-deploy"
         iconProps={{ size: 28 }}
         text={getString('notifications.name')}
         withoutCurrentColor={true}

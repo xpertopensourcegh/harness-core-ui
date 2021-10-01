@@ -189,7 +189,8 @@ describe('RightBar', () => {
     await waitFor(() => expect(pipelineContext.updatePipelineView).toHaveBeenCalled())
     expect(pipelineContext.updatePipelineView).toHaveBeenCalledWith({
       drawerData: {
-        type: 'PipelineNotifications'
+        type: 'PipelineNotifications',
+        title: `${stateMock?.pipeline?.name} : Notifications`
       },
       isDrawerOpened: true,
       isSplitViewOpen: false,
