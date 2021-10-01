@@ -4,73 +4,63 @@
     {
       "identifier": "tpl1",
       "name": "template 1 name in two rows template name",
-      "templateType": "pipeline",
-      "modules": ["cd", "ci"],
+      "templateEntityType": "Pipeline",
       "tags": { "tag1": "", "tag2": "", "tag3": "" }
     },
     {
       "identifier": "tpl2",
       "name": "template 2 qwerty qwerty qwerty",
-      "templateType": "stage",
-      "modules": ["cd"],
+      "templateEntityType": "Stage",
       "tags": { "tag1": "", "tag2": "", "tag3": "" }
     },
     {
       "identifier": "tpl3",
       "name": "template 3  qwerty qwerty qwerty",
-      "templateType": "service",
-      "modules": ["ci"],
+      "templateEntityType": "Service",
       "tags": { "tag1": "", "tag2": "", "tag3": "" }
     },
 
     {
       "identifier": "tpl4",
       "name": "template 4  qwerty qwerty qwerty",
-      "templateType": "service",
-      "modules": ["ci"],
+      "templateEntityType": "Service",
       "tags": { "tag1": "", "tag2": "", "tag3": "" }
     },
 
     {
       "identifier": "tpl4",
       "name": "template 4  qwerty qwerty qwerty",
-      "templateType": "service",
-      "modules": ["ci"],
+      "templateEntityType": "Service",
       "tags": { "tag1": "", "tag2": "", "tag3": "" }
     },
     {
       "identifier": "tpl5",
       "name": "template 5  qwerty qwerty qwerty",
-      "templateType": "service",
-      "modules": ["ci"],
+      "templateEntityType": "Service",
       "tags": { "tag1": "", "tag2": "", "tag3": "" }
     },
     {
       "identifier": "tpl6",
       "name": "template 6  qwerty qwerty qwerty",
-      "templateType": "service",
-      "modules": ["ci"],
+      "templateEntityType": "Service",
       "tags": { "tag1": "", "tag2": "", "tag3": "" }
     },
     {
       "identifier": "tpl7",
       "name": "template 7  qwerty qwerty qwerty",
-      "templateType": "service",
-      "modules": ["ci"],
+      "templateEntityType": "Service",
       "tags": { "tag1": "", "tag2": "", "tag3": "" }
     },
     {
       "identifier": "tpl8",
       "name": "template 8  qwerty qwerty qwerty",
-      "templateType": "service",
-      "modules": ["ci"],
+      "templateEntityType": "Service",
       "tags": { "tag1": "", "tag2": "", "tag3": "" }
     },
     {
       "identifier": "tpl9",
       "name": "template 9  qwerty qwerty qwerty",
-      "templateType": "service",
-      "modules": ["ci"],
+      "templateEntityType": "Service",
       "tags": { "tag1": "", "tag2": "", "tag3": "" }
     }
   ],

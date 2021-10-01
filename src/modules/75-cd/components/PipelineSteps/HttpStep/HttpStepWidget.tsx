@@ -1,14 +1,11 @@
 import React from 'react'
-import { Formik, Accordion, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
+import { Accordion, Formik, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
-
-import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
-import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
-import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
+import { setFormikRef, StepViewType, StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/strings'
-import type { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
+import { getNameAndIdentifierSchema } from '@cd/components/PipelineSteps/PipelineStepsUtil'
 import OptionalConfiguration from './OptionalConfiguration'
 import type { HttpStepData, HttpStepFormData } from './types'
 import HttpStepBase from './HttpStepBase'
@@ -25,15 +22,17 @@ export interface HttpStepWidgetProps {
   isNewStep?: boolean
   isDisabled?: boolean
   onUpdate?: (data: HttpStepFormData) => void
+  onChange?: (data: HttpStepFormData) => void
   stepViewType?: StepViewType
   readonly: boolean
+  allowableTypes?: MultiTypeInputType[]
 }
 
 export function HttpStepWidget(
   props: HttpStepWidgetProps,
   formikRef: StepFormikFowardRef<HttpStepData>
 ): React.ReactElement {
-  const { initialValues, onUpdate, isNewStep, isDisabled } = props
+  const { initialValues, onUpdate, onChange, isNewStep, isDisabled, stepViewType, allowableTypes } = props
   const { getString } = useStrings()
 
   return (
@@ -41,10 +40,12 @@ export function HttpStepWidget(
       onSubmit={values => {
         onUpdate?.(values)
       }}
+      validate={values => {
+        onChange?.(values)
+      }}
       initialValues={initialValues}
       formName="httpWidget"
       validationSchema={Yup.object().shape({
-        name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
         spec: Yup.object().shape({
           url: Yup.lazy((value): Yup.Schema<unknown> => {
@@ -69,7 +70,7 @@ export function HttpStepWidget(
             })
           )
         }),
-        identifier: IdentifierSchema()
+        ...getNameAndIdentifierSchema(getString, stepViewType)
       })}
     >
       {(formik: FormikProps<HttpStepFormData>) => {
@@ -78,12 +79,20 @@ export function HttpStepWidget(
 
         return (
           <React.Fragment>
-            <HttpStepBase formik={formik} isNewStep={isNewStep} readonly={isDisabled} />
+            <HttpStepBase
+              formik={formik}
+              isNewStep={isNewStep}
+              stepViewType={stepViewType}
+              readonly={isDisabled}
+              allowableTypes={allowableTypes}
+            />
             <Accordion activeId="step-1" className={stepCss.accordion}>
               <Accordion.Panel
                 id="optional-config"
                 summary={getString('common.optionalConfig')}
-                details={<OptionalConfiguration formik={formik} readonly={isDisabled} />}
+                details={
+                  <OptionalConfiguration formik={formik} readonly={isDisabled} allowableTypes={allowableTypes} />
+                }
               />
             </Accordion>
           </React.Fragment>

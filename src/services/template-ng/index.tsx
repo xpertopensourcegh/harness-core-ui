@@ -5,6 +5,104 @@ import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, Use
 
 import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from '../config'
 export const SPEC_VERSION = '2.0'
+export type AuditFilterProperties = FilterProperties & {
+  actions?: (
+    | 'CREATE'
+    | 'UPDATE'
+    | 'RESTORE'
+    | 'DELETE'
+    | 'UPSERT'
+    | 'INVITE'
+    | 'RESEND_INVITE'
+    | 'REVOKE_INVITE'
+    | 'ADD_COLLABORATOR'
+    | 'REMOVE_COLLABORATOR'
+    | 'ADD_MEMBERSHIP'
+    | 'REMOVE_MEMBERSHIP'
+  )[]
+  endTime?: number
+  environments?: Environment[]
+  modules?: ('CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE')[]
+  principals?: Principal[]
+  resources?: ResourceDTO[]
+  scopes?: ResourceScopeDTO[]
+  startTime?: number
+}
+
+export interface CcmConnectorFilter {
+  awsAccountId?: string
+  azureSubscriptionId?: string
+  azureTenantId?: string
+  featuresEnabled?: ('BILLING' | 'OPTIMIZATION' | 'VISIBILITY')[]
+  gcpProjectId?: string
+  k8sConnectorRef?: string
+}
+
+export type ConnectorFilterProperties = FilterProperties & {
+  categories?: (
+    | 'CLOUD_PROVIDER'
+    | 'SECRET_MANAGER'
+    | 'CLOUD_COST'
+    | 'ARTIFACTORY'
+    | 'CODE_REPO'
+    | 'MONITORING'
+    | 'TICKETING'
+  )[]
+  ccmConnectorFilter?: CcmConnectorFilter
+  connectivityStatuses?: ('SUCCESS' | 'FAILURE' | 'PARTIAL' | 'UNKNOWN')[]
+  connectorIdentifiers?: string[]
+  connectorNames?: string[]
+  description?: string
+  inheritingCredentialsFromDelegate?: boolean
+  types?: (
+    | 'K8sCluster'
+    | 'Git'
+    | 'Splunk'
+    | 'AppDynamics'
+    | 'Prometheus'
+    | 'Dynatrace'
+    | 'Vault'
+    | 'AzureKeyVault'
+    | 'DockerRegistry'
+    | 'Local'
+    | 'AwsKms'
+    | 'GcpKms'
+    | 'AwsSecretManager'
+    | 'Gcp'
+    | 'Aws'
+    | 'Artifactory'
+    | 'Jira'
+    | 'Nexus'
+    | 'Github'
+    | 'Gitlab'
+    | 'Bitbucket'
+    | 'Codecommit'
+    | 'CEAws'
+    | 'CEAzure'
+    | 'GcpCloudCost'
+    | 'CEK8sCluster'
+    | 'HttpHelmRepo'
+    | 'ArgoConnector'
+    | 'NewRelic'
+    | 'Datadog'
+    | 'SumoLogic'
+    | 'PagerDuty'
+  )[]
+}
+
+export interface EntityGitDetails {
+  branch?: string
+  filePath?: string
+  objectId?: string
+  repoIdentifier?: string
+  rootFolder?: string
+}
+
+export interface Environment {
+  identifier: string
+  type: 'PreProduction' | 'Production'
+}
+
 export interface Error {
   code?:
     | 'DEFAULT_ERROR_CODE'
@@ -294,6 +392,8 @@ export interface Error {
     | 'SCM_NOT_MODIFIED'
     | 'JIRA_STEP_ERROR'
     | 'BUCKET_SERVER_ERROR'
+    | 'GIT_SYNC_ERROR'
+    | 'TEMPLATE_EXCEPTION'
   correlationId?: string
   detailedMessage?: string
   message?: string
@@ -590,10 +690,21 @@ export interface Failure {
     | 'SCM_NOT_MODIFIED'
     | 'JIRA_STEP_ERROR'
     | 'BUCKET_SERVER_ERROR'
+    | 'GIT_SYNC_ERROR'
+    | 'TEMPLATE_EXCEPTION'
   correlationId?: string
   errors?: ValidationError[]
   message?: string
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface FilterDTO {
+  filterProperties: FilterProperties
+  filterVisibility?: 'EveryOne' | 'OnlyCreator'
+  identifier: string
+  name: string
+  orgIdentifier?: string
+  projectIdentifier?: string
 }
 
 export interface FilterProperties {
@@ -605,17 +716,57 @@ export interface FilterProperties {
     | 'PipelineExecution'
     | 'Deployment'
     | 'Audit'
+    | 'Template'
   tags?: {
     [key: string]: string
   }
 }
 
-export interface Optional {
-  present?: boolean
+export interface JsonNode {
+  array?: boolean
+  bigDecimal?: boolean
+  bigInteger?: boolean
+  binary?: boolean
+  boolean?: boolean
+  containerNode?: boolean
+  double?: boolean
+  float?: boolean
+  floatingPointNumber?: boolean
+  int?: boolean
+  integralNumber?: boolean
+  long?: boolean
+  missingNode?: boolean
+  nodeType?: 'ARRAY' | 'BINARY' | 'BOOLEAN' | 'MISSING' | 'NULL' | 'NUMBER' | 'OBJECT' | 'POJO' | 'STRING'
+  null?: boolean
+  number?: boolean
+  object?: boolean
+  pojo?: boolean
+  short?: boolean
+  textual?: boolean
+  valueNode?: boolean
 }
 
-export interface OptionalTemplateResponseDTO {
-  present?: boolean
+export interface NGTag {
+  key: string
+  value: string
+}
+
+export interface NGTemplateConfig {
+  template?: NGTemplateInfoConfig
+}
+
+export interface NGTemplateInfoConfig {
+  description?: string
+  identifier: string
+  name: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  spec?: JsonNode
+  tags?: {
+    [key: string]: string
+  }
+  type: 'Step' | 'Stage'
+  versionLabel: string
 }
 
 export interface Page {
@@ -632,8 +783,18 @@ export interface Page {
   totalPages?: number
 }
 
-export interface PageTemplateResponseDTO {
-  content?: TemplateResponseDTO[]
+export interface PageFilterDTO {
+  content?: FilterDTO[]
+  empty?: boolean
+  pageIndex?: number
+  pageItemCount?: number
+  pageSize?: number
+  totalItems?: number
+  totalPages?: number
+}
+
+export interface PageTemplateSummaryResponse {
+  content?: TemplateSummaryResponse[]
   empty?: boolean
   first?: boolean
   last?: boolean
@@ -655,9 +816,55 @@ export interface Pageable {
   unpaged?: boolean
 }
 
+export type PipelineFilterProperties = FilterProperties & {
+  description?: string
+  moduleProperties?: {
+    [key: string]: { [key: string]: any }
+  }
+  name?: string
+  pipelineIdentifiers?: string[]
+  pipelineTags?: NGTag[]
+}
+
+export interface Principal {
+  identifier: string
+  type: 'USER' | 'SYSTEM' | 'API_KEY' | 'SERVICE_ACCOUNT'
+}
+
+export interface ResourceDTO {
+  identifier: string
+  labels?: {
+    [key: string]: string
+  }
+  type: string
+}
+
+export interface ResourceScopeDTO {
+  accountIdentifier: string
+  labels?: {
+    [key: string]: string
+  }
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
 export interface Response {
   correlationId?: string
   data?: { [key: string]: any }
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseBoolean {
+  correlationId?: string
+  data?: boolean
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseFilterDTO {
+  correlationId?: string
+  data?: FilterDTO
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -951,6 +1158,8 @@ export interface ResponseMessage {
     | 'SCM_NOT_MODIFIED'
     | 'JIRA_STEP_ERROR'
     | 'BUCKET_SERVER_ERROR'
+    | 'GIT_SYNC_ERROR'
+    | 'TEMPLATE_EXCEPTION'
   exception?: Throwable
   failureTypes?: (
     | 'EXPIRED'
@@ -966,9 +1175,23 @@ export interface ResponseMessage {
   message?: string
 }
 
-export interface ResponsePageTemplateResponseDTO {
+export interface ResponseNGTemplateConfig {
   correlationId?: string
-  data?: PageTemplateResponseDTO
+  data?: NGTemplateConfig
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponsePageFilterDTO {
+  correlationId?: string
+  data?: PageFilterDTO
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponsePageTemplateSummaryResponse {
+  correlationId?: string
+  data?: PageTemplateSummaryResponse
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -980,9 +1203,9 @@ export interface ResponseString {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
-export interface ResponseTemplateResponseDTO {
+export interface ResponseTemplateResponse {
   correlationId?: string
-  data?: TemplateResponseDTO
+  data?: TemplateResponse
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -1001,17 +1224,42 @@ export interface StackTraceElement {
   nativeMethod?: boolean
 }
 
-export interface TemplateApplyRequestDTO {
+export interface TemplateApplyRequest {
   inputSetYamlList?: string[]
   originalEntityYaml: string
 }
 
-export interface TemplateResponseDTO {
+export interface TemplateDeleteListRequest {
+  templateVersionLabels?: string[]
+}
+
+export interface TemplateFilterProperties {
+  childTypes?: string[]
+  description?: string
+  filterType?:
+    | 'Connector'
+    | 'DelegateProfile'
+    | 'Delegate'
+    | 'PipelineSetup'
+    | 'PipelineExecution'
+    | 'Deployment'
+    | 'Audit'
+    | 'Template'
+  tags?: {
+    [key: string]: string
+  }
+  templateEntityTypes?: ('Step' | 'Stage')[]
+  templateIdentifiers?: string[]
+  templateNames?: string[]
+}
+
+export interface TemplateResponse {
   accountId?: string
   childType?: string
   description?: string
+  gitDetails?: EntityGitDetails
   identifier?: string
-  label?: string
+  lastUpdatedAt?: number
   name?: string
   orgIdentifier?: string
   projectIdentifier?: string
@@ -1019,8 +1267,31 @@ export interface TemplateResponseDTO {
   tags?: {
     [key: string]: string
   }
-  templateEntityType?: string
+  templateEntityType?: 'Step' | 'Stage'
   templateScope?: 'account' | 'org' | 'project' | 'unknown'
+  version?: number
+  versionLabel?: string
+  yaml?: string
+}
+
+export interface TemplateSummaryResponse {
+  accountId?: string
+  childType?: string
+  description?: string
+  gitDetails?: EntityGitDetails
+  identifier?: string
+  lastUpdatedAt?: number
+  name?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  stableTemplate?: boolean
+  tags?: {
+    [key: string]: string
+  }
+  templateEntityType?: 'Step' | 'Stage'
+  templateScope?: 'account' | 'org' | 'project' | 'unknown'
+  version?: number
+  versionLabel?: string
   yaml?: string
 }
 
@@ -1037,18 +1308,323 @@ export interface ValidationError {
   fieldId?: string
 }
 
-export type CreateTemplateBodyRequestBody = string
+export type FilterDTORequestBody = FilterDTO
+
+export type UpdateExistingTemplateLabelBodyRequestBody = string
+
+export interface GetFilterListQueryParams {
+  pageIndex?: number
+  pageSize?: number
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  type:
+    | 'Connector'
+    | 'DelegateProfile'
+    | 'Delegate'
+    | 'PipelineSetup'
+    | 'PipelineExecution'
+    | 'Deployment'
+    | 'Audit'
+    | 'Template'
+}
+
+export type GetFilterListProps = Omit<
+  GetProps<ResponsePageFilterDTO, Failure | Error, GetFilterListQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Filter
+ */
+export const GetFilterList = (props: GetFilterListProps) => (
+  <Get<ResponsePageFilterDTO, Failure | Error, GetFilterListQueryParams, void>
+    path={`/filters`}
+    base={getConfig('template/api')}
+    {...props}
+  />
+)
+
+export type UseGetFilterListProps = Omit<
+  UseGetProps<ResponsePageFilterDTO, Failure | Error, GetFilterListQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Filter
+ */
+export const useGetFilterList = (props: UseGetFilterListProps) =>
+  useGet<ResponsePageFilterDTO, Failure | Error, GetFilterListQueryParams, void>(`/filters`, {
+    base: getConfig('template/api'),
+    ...props
+  })
+
+/**
+ * Get Filter
+ */
+export const getFilterListPromise = (
+  props: GetUsingFetchProps<ResponsePageFilterDTO, Failure | Error, GetFilterListQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponsePageFilterDTO, Failure | Error, GetFilterListQueryParams, void>(
+    getConfig('template/api'),
+    `/filters`,
+    props,
+    signal
+  )
+
+export interface PostFilterQueryParams {
+  accountIdentifier: string
+}
+
+export type PostFilterProps = Omit<
+  MutateProps<ResponseFilterDTO, Failure | Error, PostFilterQueryParams, FilterDTORequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create a Filter
+ */
+export const PostFilter = (props: PostFilterProps) => (
+  <Mutate<ResponseFilterDTO, Failure | Error, PostFilterQueryParams, FilterDTORequestBody, void>
+    verb="POST"
+    path={`/filters`}
+    base={getConfig('template/api')}
+    {...props}
+  />
+)
+
+export type UsePostFilterProps = Omit<
+  UseMutateProps<ResponseFilterDTO, Failure | Error, PostFilterQueryParams, FilterDTORequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create a Filter
+ */
+export const usePostFilter = (props: UsePostFilterProps) =>
+  useMutate<ResponseFilterDTO, Failure | Error, PostFilterQueryParams, FilterDTORequestBody, void>('POST', `/filters`, {
+    base: getConfig('template/api'),
+    ...props
+  })
+
+/**
+ * Create a Filter
+ */
+export const postFilterPromise = (
+  props: MutateUsingFetchProps<ResponseFilterDTO, Failure | Error, PostFilterQueryParams, FilterDTORequestBody, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseFilterDTO, Failure | Error, PostFilterQueryParams, FilterDTORequestBody, void>(
+    'POST',
+    getConfig('template/api'),
+    `/filters`,
+    props,
+    signal
+  )
+
+export interface UpdateFilterQueryParams {
+  accountIdentifier?: string
+}
+
+export type UpdateFilterProps = Omit<
+  MutateProps<ResponseFilterDTO, Failure | Error, UpdateFilterQueryParams, FilterDTORequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Update a Filter
+ */
+export const UpdateFilter = (props: UpdateFilterProps) => (
+  <Mutate<ResponseFilterDTO, Failure | Error, UpdateFilterQueryParams, FilterDTORequestBody, void>
+    verb="PUT"
+    path={`/filters`}
+    base={getConfig('template/api')}
+    {...props}
+  />
+)
+
+export type UseUpdateFilterProps = Omit<
+  UseMutateProps<ResponseFilterDTO, Failure | Error, UpdateFilterQueryParams, FilterDTORequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Update a Filter
+ */
+export const useUpdateFilter = (props: UseUpdateFilterProps) =>
+  useMutate<ResponseFilterDTO, Failure | Error, UpdateFilterQueryParams, FilterDTORequestBody, void>(
+    'PUT',
+    `/filters`,
+    { base: getConfig('template/api'), ...props }
+  )
+
+/**
+ * Update a Filter
+ */
+export const updateFilterPromise = (
+  props: MutateUsingFetchProps<ResponseFilterDTO, Failure | Error, UpdateFilterQueryParams, FilterDTORequestBody, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseFilterDTO, Failure | Error, UpdateFilterQueryParams, FilterDTORequestBody, void>(
+    'PUT',
+    getConfig('template/api'),
+    `/filters`,
+    props,
+    signal
+  )
+
+export interface DeleteFilterQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  type:
+    | 'Connector'
+    | 'DelegateProfile'
+    | 'Delegate'
+    | 'PipelineSetup'
+    | 'PipelineExecution'
+    | 'Deployment'
+    | 'Audit'
+    | 'Template'
+}
+
+export type DeleteFilterProps = Omit<
+  MutateProps<ResponseBoolean, Failure | Error, DeleteFilterQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Delete a filter
+ */
+export const DeleteFilter = (props: DeleteFilterProps) => (
+  <Mutate<ResponseBoolean, Failure | Error, DeleteFilterQueryParams, string, void>
+    verb="DELETE"
+    path={`/filters`}
+    base={getConfig('template/api')}
+    {...props}
+  />
+)
+
+export type UseDeleteFilterProps = Omit<
+  UseMutateProps<ResponseBoolean, Failure | Error, DeleteFilterQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Delete a filter
+ */
+export const useDeleteFilter = (props: UseDeleteFilterProps) =>
+  useMutate<ResponseBoolean, Failure | Error, DeleteFilterQueryParams, string, void>('DELETE', `/filters`, {
+    base: getConfig('template/api'),
+    ...props
+  })
+
+/**
+ * Delete a filter
+ */
+export const deleteFilterPromise = (
+  props: MutateUsingFetchProps<ResponseBoolean, Failure | Error, DeleteFilterQueryParams, string, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseBoolean, Failure | Error, DeleteFilterQueryParams, string, void>(
+    'DELETE',
+    getConfig('template/api'),
+    `/filters`,
+    props,
+    signal
+  )
+
+export interface GetFilterQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  type:
+    | 'Connector'
+    | 'DelegateProfile'
+    | 'Delegate'
+    | 'PipelineSetup'
+    | 'PipelineExecution'
+    | 'Deployment'
+    | 'Audit'
+    | 'Template'
+}
+
+export interface GetFilterPathParams {
+  identifier: string
+}
+
+export type GetFilterProps = Omit<
+  GetProps<ResponseFilterDTO, Failure | Error, GetFilterQueryParams, GetFilterPathParams>,
+  'path'
+> &
+  GetFilterPathParams
+
+/**
+ * Get Filter
+ */
+export const GetFilter = ({ identifier, ...props }: GetFilterProps) => (
+  <Get<ResponseFilterDTO, Failure | Error, GetFilterQueryParams, GetFilterPathParams>
+    path={`/filters/${identifier}`}
+    base={getConfig('template/api')}
+    {...props}
+  />
+)
+
+export type UseGetFilterProps = Omit<
+  UseGetProps<ResponseFilterDTO, Failure | Error, GetFilterQueryParams, GetFilterPathParams>,
+  'path'
+> &
+  GetFilterPathParams
+
+/**
+ * Get Filter
+ */
+export const useGetFilter = ({ identifier, ...props }: UseGetFilterProps) =>
+  useGet<ResponseFilterDTO, Failure | Error, GetFilterQueryParams, GetFilterPathParams>(
+    (paramsInPath: GetFilterPathParams) => `/filters/${paramsInPath.identifier}`,
+    { base: getConfig('template/api'), pathParams: { identifier }, ...props }
+  )
+
+/**
+ * Get Filter
+ */
+export const getFilterPromise = (
+  {
+    identifier,
+    ...props
+  }: GetUsingFetchProps<ResponseFilterDTO, Failure | Error, GetFilterQueryParams, GetFilterPathParams> & {
+    identifier: string
+  },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseFilterDTO, Failure | Error, GetFilterQueryParams, GetFilterPathParams>(
+    getConfig('template/api'),
+    `/filters/${identifier}`,
+    props,
+    signal
+  )
 
 export interface CreateTemplateQueryParams {
   accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  branch?: string
+  repoIdentifier?: string
+  rootFolder?: string
+  filePath?: string
+  commitMsg?: string
+  baseBranch?: string
+  setDefaultTemplate?: boolean
+  comments?: string
 }
 
 export type CreateTemplateProps = Omit<
   MutateProps<
-    ResponseTemplateResponseDTO,
+    ResponseTemplateResponse,
     Failure | Error,
     CreateTemplateQueryParams,
-    CreateTemplateBodyRequestBody,
+    UpdateExistingTemplateLabelBodyRequestBody,
     void
   >,
   'path' | 'verb'
@@ -1058,7 +1634,13 @@ export type CreateTemplateProps = Omit<
  * Creates a Template
  */
 export const CreateTemplate = (props: CreateTemplateProps) => (
-  <Mutate<ResponseTemplateResponseDTO, Failure | Error, CreateTemplateQueryParams, CreateTemplateBodyRequestBody, void>
+  <Mutate<
+    ResponseTemplateResponse,
+    Failure | Error,
+    CreateTemplateQueryParams,
+    UpdateExistingTemplateLabelBodyRequestBody,
+    void
+  >
     verb="POST"
     path={`/templates`}
     base={getConfig('template/api')}
@@ -1068,10 +1650,10 @@ export const CreateTemplate = (props: CreateTemplateProps) => (
 
 export type UseCreateTemplateProps = Omit<
   UseMutateProps<
-    ResponseTemplateResponseDTO,
+    ResponseTemplateResponse,
     Failure | Error,
     CreateTemplateQueryParams,
-    CreateTemplateBodyRequestBody,
+    UpdateExistingTemplateLabelBodyRequestBody,
     void
   >,
   'path' | 'verb'
@@ -1082,10 +1664,10 @@ export type UseCreateTemplateProps = Omit<
  */
 export const useCreateTemplate = (props: UseCreateTemplateProps) =>
   useMutate<
-    ResponseTemplateResponseDTO,
+    ResponseTemplateResponse,
     Failure | Error,
     CreateTemplateQueryParams,
-    CreateTemplateBodyRequestBody,
+    UpdateExistingTemplateLabelBodyRequestBody,
     void
   >('POST', `/templates`, { base: getConfig('template/api'), ...props })
 
@@ -1094,19 +1676,19 @@ export const useCreateTemplate = (props: UseCreateTemplateProps) =>
  */
 export const createTemplatePromise = (
   props: MutateUsingFetchProps<
-    ResponseTemplateResponseDTO,
+    ResponseTemplateResponse,
     Failure | Error,
     CreateTemplateQueryParams,
-    CreateTemplateBodyRequestBody,
+    UpdateExistingTemplateLabelBodyRequestBody,
     void
   >,
   signal?: RequestInit['signal']
 ) =>
   mutateUsingFetch<
-    ResponseTemplateResponseDTO,
+    ResponseTemplateResponse,
     Failure | Error,
     CreateTemplateQueryParams,
-    CreateTemplateBodyRequestBody,
+    UpdateExistingTemplateLabelBodyRequestBody,
     void
   >('POST', getConfig('template/api'), `/templates`, props, signal)
 
@@ -1117,13 +1699,7 @@ export interface GetYamlWithTemplateRefsResolvedQueryParams {
 }
 
 export type GetYamlWithTemplateRefsResolvedProps = Omit<
-  MutateProps<
-    ResponseString,
-    Failure | Error,
-    GetYamlWithTemplateRefsResolvedQueryParams,
-    TemplateApplyRequestDTO,
-    void
-  >,
+  MutateProps<ResponseString, Failure | Error, GetYamlWithTemplateRefsResolvedQueryParams, TemplateApplyRequest, void>,
   'path' | 'verb'
 >
 
@@ -1131,7 +1707,7 @@ export type GetYamlWithTemplateRefsResolvedProps = Omit<
  * Gets complete yaml with templateRefs resolved
  */
 export const GetYamlWithTemplateRefsResolved = (props: GetYamlWithTemplateRefsResolvedProps) => (
-  <Mutate<ResponseString, Failure | Error, GetYamlWithTemplateRefsResolvedQueryParams, TemplateApplyRequestDTO, void>
+  <Mutate<ResponseString, Failure | Error, GetYamlWithTemplateRefsResolvedQueryParams, TemplateApplyRequest, void>
     verb="POST"
     path={`/templates/applyTemplates`}
     base={getConfig('template/api')}
@@ -1144,7 +1720,7 @@ export type UseGetYamlWithTemplateRefsResolvedProps = Omit<
     ResponseString,
     Failure | Error,
     GetYamlWithTemplateRefsResolvedQueryParams,
-    TemplateApplyRequestDTO,
+    TemplateApplyRequest,
     void
   >,
   'path' | 'verb'
@@ -1154,7 +1730,7 @@ export type UseGetYamlWithTemplateRefsResolvedProps = Omit<
  * Gets complete yaml with templateRefs resolved
  */
 export const useGetYamlWithTemplateRefsResolved = (props: UseGetYamlWithTemplateRefsResolvedProps) =>
-  useMutate<ResponseString, Failure | Error, GetYamlWithTemplateRefsResolvedQueryParams, TemplateApplyRequestDTO, void>(
+  useMutate<ResponseString, Failure | Error, GetYamlWithTemplateRefsResolvedQueryParams, TemplateApplyRequest, void>(
     'POST',
     `/templates/applyTemplates`,
     { base: getConfig('template/api'), ...props }
@@ -1168,7 +1744,7 @@ export const getYamlWithTemplateRefsResolvedPromise = (
     ResponseString,
     Failure | Error,
     GetYamlWithTemplateRefsResolvedQueryParams,
-    TemplateApplyRequestDTO,
+    TemplateApplyRequest,
     void
   >,
   signal?: RequestInit['signal']
@@ -1177,9 +1753,53 @@ export const getYamlWithTemplateRefsResolvedPromise = (
     ResponseString,
     Failure | Error,
     GetYamlWithTemplateRefsResolvedQueryParams,
-    TemplateApplyRequestDTO,
+    TemplateApplyRequest,
     void
   >('POST', getConfig('template/api'), `/templates/applyTemplates`, props, signal)
+
+export type DummyApiForSwaggerSchemaCheckProps = Omit<
+  GetProps<ResponseNGTemplateConfig, Failure | Error, void, void>,
+  'path'
+>
+
+/**
+ * dummy api for checking template schema
+ */
+export const DummyApiForSwaggerSchemaCheck = (props: DummyApiForSwaggerSchemaCheckProps) => (
+  <Get<ResponseNGTemplateConfig, Failure | Error, void, void>
+    path={`/templates/dummyApiForSwaggerSchemaCheck`}
+    base={getConfig('template/api')}
+    {...props}
+  />
+)
+
+export type UseDummyApiForSwaggerSchemaCheckProps = Omit<
+  UseGetProps<ResponseNGTemplateConfig, Failure | Error, void, void>,
+  'path'
+>
+
+/**
+ * dummy api for checking template schema
+ */
+export const useDummyApiForSwaggerSchemaCheck = (props: UseDummyApiForSwaggerSchemaCheckProps) =>
+  useGet<ResponseNGTemplateConfig, Failure | Error, void, void>(`/templates/dummyApiForSwaggerSchemaCheck`, {
+    base: getConfig('template/api'),
+    ...props
+  })
+
+/**
+ * dummy api for checking template schema
+ */
+export const dummyApiForSwaggerSchemaCheckPromise = (
+  props: GetUsingFetchProps<ResponseNGTemplateConfig, Failure | Error, void, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseNGTemplateConfig, Failure | Error, void, void>(
+    getConfig('template/api'),
+    `/templates/dummyApiForSwaggerSchemaCheck`,
+    props,
+    signal
+  )
 
 export interface GetTemplateListQueryParams {
   accountIdentifier: string
@@ -1190,10 +1810,22 @@ export interface GetTemplateListQueryParams {
   sort?: string[]
   searchTerm?: string
   filterIdentifier?: string
+  templateListType: 'Stable' | 'LastUpdated' | 'All'
+  includeAllTemplatesAvailableAtScope?: boolean
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
+  getDistinctFromBranches?: boolean
 }
 
 export type GetTemplateListProps = Omit<
-  MutateProps<ResponsePageTemplateResponseDTO, Failure | Error, GetTemplateListQueryParams, FilterProperties, void>,
+  MutateProps<
+    ResponsePageTemplateSummaryResponse,
+    Failure | Error,
+    GetTemplateListQueryParams,
+    TemplateFilterProperties,
+    void
+  >,
   'path' | 'verb'
 >
 
@@ -1201,7 +1833,13 @@ export type GetTemplateListProps = Omit<
  * Gets all template list
  */
 export const GetTemplateList = (props: GetTemplateListProps) => (
-  <Mutate<ResponsePageTemplateResponseDTO, Failure | Error, GetTemplateListQueryParams, FilterProperties, void>
+  <Mutate<
+    ResponsePageTemplateSummaryResponse,
+    Failure | Error,
+    GetTemplateListQueryParams,
+    TemplateFilterProperties,
+    void
+  >
     verb="POST"
     path={`/templates/list`}
     base={getConfig('template/api')}
@@ -1210,7 +1848,13 @@ export const GetTemplateList = (props: GetTemplateListProps) => (
 )
 
 export type UseGetTemplateListProps = Omit<
-  UseMutateProps<ResponsePageTemplateResponseDTO, Failure | Error, GetTemplateListQueryParams, FilterProperties, void>,
+  UseMutateProps<
+    ResponsePageTemplateSummaryResponse,
+    Failure | Error,
+    GetTemplateListQueryParams,
+    TemplateFilterProperties,
+    void
+  >,
   'path' | 'verb'
 >
 
@@ -1218,30 +1862,32 @@ export type UseGetTemplateListProps = Omit<
  * Gets all template list
  */
 export const useGetTemplateList = (props: UseGetTemplateListProps) =>
-  useMutate<ResponsePageTemplateResponseDTO, Failure | Error, GetTemplateListQueryParams, FilterProperties, void>(
-    'POST',
-    `/templates/list`,
-    { base: getConfig('template/api'), ...props }
-  )
+  useMutate<
+    ResponsePageTemplateSummaryResponse,
+    Failure | Error,
+    GetTemplateListQueryParams,
+    TemplateFilterProperties,
+    void
+  >('POST', `/templates/list`, { base: getConfig('template/api'), ...props })
 
 /**
  * Gets all template list
  */
 export const getTemplateListPromise = (
   props: MutateUsingFetchProps<
-    ResponsePageTemplateResponseDTO,
+    ResponsePageTemplateSummaryResponse,
     Failure | Error,
     GetTemplateListQueryParams,
-    FilterProperties,
+    TemplateFilterProperties,
     void
   >,
   signal?: RequestInit['signal']
 ) =>
   mutateUsingFetch<
-    ResponsePageTemplateResponseDTO,
+    ResponsePageTemplateSummaryResponse,
     Failure | Error,
     GetTemplateListQueryParams,
-    FilterProperties,
+    TemplateFilterProperties,
     void
   >('POST', getConfig('template/api'), `/templates/list`, props, signal)
 
@@ -1249,7 +1895,7 @@ export interface GetTemplateInputSetYamlQueryParams {
   accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
-  label: string
+  versionLabel: string
 }
 
 export interface GetTemplateInputSetYamlPathParams {
@@ -1314,19 +1960,28 @@ export interface UpdateExistingTemplateLabelQueryParams {
   accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
+  branch?: string
+  repoIdentifier?: string
+  rootFolder?: string
+  filePath?: string
+  commitMsg?: string
+  lastObjectId?: string
+  baseBranch?: string
+  setDefaultTemplate?: boolean
+  comments?: string
 }
 
 export interface UpdateExistingTemplateLabelPathParams {
   templateIdentifier: string
-  label: string
+  versionLabel: string
 }
 
 export type UpdateExistingTemplateLabelProps = Omit<
   MutateProps<
-    ResponseString,
+    ResponseTemplateResponse,
     Failure | Error,
     UpdateExistingTemplateLabelQueryParams,
-    CreateTemplateBodyRequestBody,
+    UpdateExistingTemplateLabelBodyRequestBody,
     UpdateExistingTemplateLabelPathParams
   >,
   'path' | 'verb'
@@ -1338,18 +1993,18 @@ export type UpdateExistingTemplateLabelProps = Omit<
  */
 export const UpdateExistingTemplateLabel = ({
   templateIdentifier,
-  label,
+  versionLabel,
   ...props
 }: UpdateExistingTemplateLabelProps) => (
   <Mutate<
-    ResponseString,
+    ResponseTemplateResponse,
     Failure | Error,
     UpdateExistingTemplateLabelQueryParams,
-    CreateTemplateBodyRequestBody,
+    UpdateExistingTemplateLabelBodyRequestBody,
     UpdateExistingTemplateLabelPathParams
   >
     verb="PUT"
-    path={`/templates/update/${templateIdentifier}/${label}`}
+    path={`/templates/update/${templateIdentifier}/${versionLabel}`}
     base={getConfig('template/api')}
     {...props}
   />
@@ -1357,10 +2012,10 @@ export const UpdateExistingTemplateLabel = ({
 
 export type UseUpdateExistingTemplateLabelProps = Omit<
   UseMutateProps<
-    ResponseString,
+    ResponseTemplateResponse,
     Failure | Error,
     UpdateExistingTemplateLabelQueryParams,
-    CreateTemplateBodyRequestBody,
+    UpdateExistingTemplateLabelBodyRequestBody,
     UpdateExistingTemplateLabelPathParams
   >,
   'path' | 'verb'
@@ -1372,20 +2027,20 @@ export type UseUpdateExistingTemplateLabelProps = Omit<
  */
 export const useUpdateExistingTemplateLabel = ({
   templateIdentifier,
-  label,
+  versionLabel,
   ...props
 }: UseUpdateExistingTemplateLabelProps) =>
   useMutate<
-    ResponseString,
+    ResponseTemplateResponse,
     Failure | Error,
     UpdateExistingTemplateLabelQueryParams,
-    CreateTemplateBodyRequestBody,
+    UpdateExistingTemplateLabelBodyRequestBody,
     UpdateExistingTemplateLabelPathParams
   >(
     'PUT',
     (paramsInPath: UpdateExistingTemplateLabelPathParams) =>
-      `/templates/update/${paramsInPath.templateIdentifier}/${paramsInPath.label}`,
-    { base: getConfig('template/api'), pathParams: { templateIdentifier, label }, ...props }
+      `/templates/update/${paramsInPath.templateIdentifier}/${paramsInPath.versionLabel}`,
+    { base: getConfig('template/api'), pathParams: { templateIdentifier, versionLabel }, ...props }
   )
 
 /**
@@ -1394,170 +2049,38 @@ export const useUpdateExistingTemplateLabel = ({
 export const updateExistingTemplateLabelPromise = (
   {
     templateIdentifier,
-    label,
+    versionLabel,
     ...props
   }: MutateUsingFetchProps<
-    ResponseString,
+    ResponseTemplateResponse,
     Failure | Error,
     UpdateExistingTemplateLabelQueryParams,
-    CreateTemplateBodyRequestBody,
+    UpdateExistingTemplateLabelBodyRequestBody,
     UpdateExistingTemplateLabelPathParams
-  > & { templateIdentifier: string; label: string },
+  > & { templateIdentifier: string; versionLabel: string },
   signal?: RequestInit['signal']
 ) =>
   mutateUsingFetch<
-    ResponseString,
+    ResponseTemplateResponse,
     Failure | Error,
     UpdateExistingTemplateLabelQueryParams,
-    CreateTemplateBodyRequestBody,
+    UpdateExistingTemplateLabelBodyRequestBody,
     UpdateExistingTemplateLabelPathParams
-  >('PUT', getConfig('template/api'), `/templates/update/${templateIdentifier}/${label}`, props, signal)
-
-export interface GetTemplateQueryParams {
-  accountIdentifier: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  label?: string
-}
-
-export interface GetTemplatePathParams {
-  templateIdentifier: string
-}
-
-export type GetTemplateProps = Omit<
-  GetProps<TemplateResponseDTO, Failure | Error, GetTemplateQueryParams, GetTemplatePathParams>,
-  'path'
-> &
-  GetTemplatePathParams
-
-/**
- * Gets Template
- */
-export const GetTemplate = ({ templateIdentifier, ...props }: GetTemplateProps) => (
-  <Get<TemplateResponseDTO, Failure | Error, GetTemplateQueryParams, GetTemplatePathParams>
-    path={`/templates/${templateIdentifier}`}
-    base={getConfig('template/api')}
-    {...props}
-  />
-)
-
-export type UseGetTemplateProps = Omit<
-  UseGetProps<TemplateResponseDTO, Failure | Error, GetTemplateQueryParams, GetTemplatePathParams>,
-  'path'
-> &
-  GetTemplatePathParams
-
-/**
- * Gets Template
- */
-export const useGetTemplate = ({ templateIdentifier, ...props }: UseGetTemplateProps) =>
-  useGet<TemplateResponseDTO, Failure | Error, GetTemplateQueryParams, GetTemplatePathParams>(
-    (paramsInPath: GetTemplatePathParams) => `/templates/${paramsInPath.templateIdentifier}`,
-    { base: getConfig('template/api'), pathParams: { templateIdentifier }, ...props }
-  )
-
-/**
- * Gets Template
- */
-export const getTemplatePromise = (
-  {
-    templateIdentifier,
-    ...props
-  }: GetUsingFetchProps<TemplateResponseDTO, Failure | Error, GetTemplateQueryParams, GetTemplatePathParams> & {
-    templateIdentifier: string
-  },
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<TemplateResponseDTO, Failure | Error, GetTemplateQueryParams, GetTemplatePathParams>(
-    getConfig('template/api'),
-    `/templates/${templateIdentifier}`,
-    props,
-    signal
-  )
-
-export interface DeleteTemplateLabelQueryParams {
-  accountIdentifier: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-}
-
-export interface DeleteTemplateLabelPathParams {
-  templateIdentifier: string
-}
-
-export type DeleteTemplateLabelProps = Omit<
-  MutateProps<ResponseString, Failure | Error, DeleteTemplateLabelQueryParams, string, DeleteTemplateLabelPathParams>,
-  'path' | 'verb'
-> &
-  DeleteTemplateLabelPathParams
-
-/**
- * Deletes template label
- */
-export const DeleteTemplateLabel = ({ templateIdentifier, ...props }: DeleteTemplateLabelProps) => (
-  <Mutate<ResponseString, Failure | Error, DeleteTemplateLabelQueryParams, string, DeleteTemplateLabelPathParams>
-    verb="DELETE"
-    path={`/templates/${templateIdentifier}`}
-    base={getConfig('template/api')}
-    {...props}
-  />
-)
-
-export type UseDeleteTemplateLabelProps = Omit<
-  UseMutateProps<
-    ResponseString,
-    Failure | Error,
-    DeleteTemplateLabelQueryParams,
-    string,
-    DeleteTemplateLabelPathParams
-  >,
-  'path' | 'verb'
-> &
-  DeleteTemplateLabelPathParams
-
-/**
- * Deletes template label
- */
-export const useDeleteTemplateLabel = ({ templateIdentifier, ...props }: UseDeleteTemplateLabelProps) =>
-  useMutate<ResponseString, Failure | Error, DeleteTemplateLabelQueryParams, string, DeleteTemplateLabelPathParams>(
-    'DELETE',
-    (paramsInPath: DeleteTemplateLabelPathParams) => `/templates/${paramsInPath.templateIdentifier}`,
-    { base: getConfig('template/api'), pathParams: { templateIdentifier }, ...props }
-  )
-
-/**
- * Deletes template label
- */
-export const deleteTemplateLabelPromise = (
-  {
-    templateIdentifier,
-    ...props
-  }: MutateUsingFetchProps<
-    ResponseString,
-    Failure | Error,
-    DeleteTemplateLabelQueryParams,
-    string,
-    DeleteTemplateLabelPathParams
-  > & { templateIdentifier: string },
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    ResponseString,
-    Failure | Error,
-    DeleteTemplateLabelQueryParams,
-    string,
-    DeleteTemplateLabelPathParams
-  >('DELETE', getConfig('template/api'), `/templates/${templateIdentifier}`, props, signal)
+  >('PUT', getConfig('template/api'), `/templates/update/${templateIdentifier}/${versionLabel}`, props, signal)
 
 export interface UpdateStableTemplateQueryParams {
   accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
+  comments?: string
 }
 
 export interface UpdateStableTemplatePathParams {
   templateIdentifier: string
-  label: string
+  versionLabel: string
 }
 
 export type UpdateStableTemplateProps = Omit<
@@ -1569,10 +2092,10 @@ export type UpdateStableTemplateProps = Omit<
 /**
  * Updating stable template label
  */
-export const UpdateStableTemplate = ({ templateIdentifier, label, ...props }: UpdateStableTemplateProps) => (
+export const UpdateStableTemplate = ({ templateIdentifier, versionLabel, ...props }: UpdateStableTemplateProps) => (
   <Mutate<ResponseString, Failure | Error, UpdateStableTemplateQueryParams, void, UpdateStableTemplatePathParams>
     verb="PUT"
-    path={`/templates/${templateIdentifier}/${label}`}
+    path={`/templates/updateStableTemplate/${templateIdentifier}/${versionLabel}`}
     base={getConfig('template/api')}
     {...props}
   />
@@ -1593,12 +2116,12 @@ export type UseUpdateStableTemplateProps = Omit<
 /**
  * Updating stable template label
  */
-export const useUpdateStableTemplate = ({ templateIdentifier, label, ...props }: UseUpdateStableTemplateProps) =>
+export const useUpdateStableTemplate = ({ templateIdentifier, versionLabel, ...props }: UseUpdateStableTemplateProps) =>
   useMutate<ResponseString, Failure | Error, UpdateStableTemplateQueryParams, void, UpdateStableTemplatePathParams>(
     'PUT',
     (paramsInPath: UpdateStableTemplatePathParams) =>
-      `/templates/${paramsInPath.templateIdentifier}/${paramsInPath.label}`,
-    { base: getConfig('template/api'), pathParams: { templateIdentifier, label }, ...props }
+      `/templates/updateStableTemplate/${paramsInPath.templateIdentifier}/${paramsInPath.versionLabel}`,
+    { base: getConfig('template/api'), pathParams: { templateIdentifier, versionLabel }, ...props }
   )
 
 /**
@@ -1607,7 +2130,7 @@ export const useUpdateStableTemplate = ({ templateIdentifier, label, ...props }:
 export const updateStableTemplatePromise = (
   {
     templateIdentifier,
-    label,
+    versionLabel,
     ...props
   }: MutateUsingFetchProps<
     ResponseString,
@@ -1615,7 +2138,7 @@ export const updateStableTemplatePromise = (
     UpdateStableTemplateQueryParams,
     void,
     UpdateStableTemplatePathParams
-  > & { templateIdentifier: string; label: string },
+  > & { templateIdentifier: string; versionLabel: string },
   signal?: RequestInit['signal']
 ) =>
   mutateUsingFetch<
@@ -1624,4 +2147,335 @@ export const updateStableTemplatePromise = (
     UpdateStableTemplateQueryParams,
     void,
     UpdateStableTemplatePathParams
-  >('PUT', getConfig('template/api'), `/templates/${templateIdentifier}/${label}`, props, signal)
+  >(
+    'PUT',
+    getConfig('template/api'),
+    `/templates/updateStableTemplate/${templateIdentifier}/${versionLabel}`,
+    props,
+    signal
+  )
+
+export interface UpdateTemplateSettingsQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  updateStableTemplateVersion?: string
+  currentScope?: 'account' | 'org' | 'project' | 'unknown'
+  updateScope?: 'account' | 'org' | 'project' | 'unknown'
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
+  getDistinctFromBranches?: boolean
+}
+
+export interface UpdateTemplateSettingsPathParams {
+  templateIdentifier: string
+}
+
+export type UpdateTemplateSettingsProps = Omit<
+  MutateProps<
+    ResponseBoolean,
+    Failure | Error,
+    UpdateTemplateSettingsQueryParams,
+    void,
+    UpdateTemplateSettingsPathParams
+  >,
+  'path' | 'verb'
+> &
+  UpdateTemplateSettingsPathParams
+
+/**
+ * Updating template settings, template scope and template stable version
+ */
+export const UpdateTemplateSettings = ({ templateIdentifier, ...props }: UpdateTemplateSettingsProps) => (
+  <Mutate<ResponseBoolean, Failure | Error, UpdateTemplateSettingsQueryParams, void, UpdateTemplateSettingsPathParams>
+    verb="PUT"
+    path={`/templates/updateTemplateSettings/${templateIdentifier}`}
+    base={getConfig('template/api')}
+    {...props}
+  />
+)
+
+export type UseUpdateTemplateSettingsProps = Omit<
+  UseMutateProps<
+    ResponseBoolean,
+    Failure | Error,
+    UpdateTemplateSettingsQueryParams,
+    void,
+    UpdateTemplateSettingsPathParams
+  >,
+  'path' | 'verb'
+> &
+  UpdateTemplateSettingsPathParams
+
+/**
+ * Updating template settings, template scope and template stable version
+ */
+export const useUpdateTemplateSettings = ({ templateIdentifier, ...props }: UseUpdateTemplateSettingsProps) =>
+  useMutate<
+    ResponseBoolean,
+    Failure | Error,
+    UpdateTemplateSettingsQueryParams,
+    void,
+    UpdateTemplateSettingsPathParams
+  >(
+    'PUT',
+    (paramsInPath: UpdateTemplateSettingsPathParams) =>
+      `/templates/updateTemplateSettings/${paramsInPath.templateIdentifier}`,
+    { base: getConfig('template/api'), pathParams: { templateIdentifier }, ...props }
+  )
+
+/**
+ * Updating template settings, template scope and template stable version
+ */
+export const updateTemplateSettingsPromise = (
+  {
+    templateIdentifier,
+    ...props
+  }: MutateUsingFetchProps<
+    ResponseBoolean,
+    Failure | Error,
+    UpdateTemplateSettingsQueryParams,
+    void,
+    UpdateTemplateSettingsPathParams
+  > & { templateIdentifier: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseBoolean,
+    Failure | Error,
+    UpdateTemplateSettingsQueryParams,
+    void,
+    UpdateTemplateSettingsPathParams
+  >('PUT', getConfig('template/api'), `/templates/updateTemplateSettings/${templateIdentifier}`, props, signal)
+
+export interface DeleteTemplateVersionsOfIdentifierQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  branch?: string
+  repoIdentifier?: string
+  rootFolder?: string
+  filePath?: string
+  commitMsg?: string
+  lastObjectId?: string
+  comments?: string
+}
+
+export type DeleteTemplateVersionsOfIdentifierProps = Omit<
+  MutateProps<ResponseBoolean, Failure | Error, DeleteTemplateVersionsOfIdentifierQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Deletes multiple template versionLabels of a particular template identifier
+ */
+export const DeleteTemplateVersionsOfIdentifier = (props: DeleteTemplateVersionsOfIdentifierProps) => (
+  <Mutate<ResponseBoolean, Failure | Error, DeleteTemplateVersionsOfIdentifierQueryParams, string, void>
+    verb="DELETE"
+    path={`/templates`}
+    base={getConfig('template/api')}
+    {...props}
+  />
+)
+
+export type UseDeleteTemplateVersionsOfIdentifierProps = Omit<
+  UseMutateProps<ResponseBoolean, Failure | Error, DeleteTemplateVersionsOfIdentifierQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Deletes multiple template versionLabels of a particular template identifier
+ */
+export const useDeleteTemplateVersionsOfIdentifier = (props: UseDeleteTemplateVersionsOfIdentifierProps) =>
+  useMutate<ResponseBoolean, Failure | Error, DeleteTemplateVersionsOfIdentifierQueryParams, string, void>(
+    'DELETE',
+    `/templates`,
+    { base: getConfig('template/api'), ...props }
+  )
+
+/**
+ * Deletes multiple template versionLabels of a particular template identifier
+ */
+export const deleteTemplateVersionsOfIdentifierPromise = (
+  props: MutateUsingFetchProps<
+    ResponseBoolean,
+    Failure | Error,
+    DeleteTemplateVersionsOfIdentifierQueryParams,
+    string,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseBoolean, Failure | Error, DeleteTemplateVersionsOfIdentifierQueryParams, string, void>(
+    'DELETE',
+    getConfig('template/api'),
+    `/templates`,
+    props,
+    signal
+  )
+
+export interface GetTemplateQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  versionLabel?: string
+  deleted?: boolean
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
+}
+
+export interface GetTemplatePathParams {
+  templateIdentifier: string
+}
+
+export type GetTemplateProps = Omit<
+  GetProps<ResponseTemplateResponse, Failure | Error, GetTemplateQueryParams, GetTemplatePathParams>,
+  'path'
+> &
+  GetTemplatePathParams
+
+/**
+ * Gets Template
+ */
+export const GetTemplate = ({ templateIdentifier, ...props }: GetTemplateProps) => (
+  <Get<ResponseTemplateResponse, Failure | Error, GetTemplateQueryParams, GetTemplatePathParams>
+    path={`/templates/${templateIdentifier}`}
+    base={getConfig('template/api')}
+    {...props}
+  />
+)
+
+export type UseGetTemplateProps = Omit<
+  UseGetProps<ResponseTemplateResponse, Failure | Error, GetTemplateQueryParams, GetTemplatePathParams>,
+  'path'
+> &
+  GetTemplatePathParams
+
+/**
+ * Gets Template
+ */
+export const useGetTemplate = ({ templateIdentifier, ...props }: UseGetTemplateProps) =>
+  useGet<ResponseTemplateResponse, Failure | Error, GetTemplateQueryParams, GetTemplatePathParams>(
+    (paramsInPath: GetTemplatePathParams) => `/templates/${paramsInPath.templateIdentifier}`,
+    { base: getConfig('template/api'), pathParams: { templateIdentifier }, ...props }
+  )
+
+/**
+ * Gets Template
+ */
+export const getTemplatePromise = (
+  {
+    templateIdentifier,
+    ...props
+  }: GetUsingFetchProps<ResponseTemplateResponse, Failure | Error, GetTemplateQueryParams, GetTemplatePathParams> & {
+    templateIdentifier: string
+  },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseTemplateResponse, Failure | Error, GetTemplateQueryParams, GetTemplatePathParams>(
+    getConfig('template/api'),
+    `/templates/${templateIdentifier}`,
+    props,
+    signal
+  )
+
+export interface DeleteTemplateVersionLabelQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  branch?: string
+  repoIdentifier?: string
+  rootFolder?: string
+  filePath?: string
+  commitMsg?: string
+  lastObjectId?: string
+  comments?: string
+}
+
+export interface DeleteTemplateVersionLabelPathParams {
+  templateIdentifier: string
+}
+
+export type DeleteTemplateVersionLabelProps = Omit<
+  MutateProps<
+    ResponseBoolean,
+    Failure | Error,
+    DeleteTemplateVersionLabelQueryParams,
+    string,
+    DeleteTemplateVersionLabelPathParams
+  >,
+  'path' | 'verb'
+> &
+  DeleteTemplateVersionLabelPathParams
+
+/**
+ * Deletes template versionLabel
+ */
+export const DeleteTemplateVersionLabel = ({ templateIdentifier, ...props }: DeleteTemplateVersionLabelProps) => (
+  <Mutate<
+    ResponseBoolean,
+    Failure | Error,
+    DeleteTemplateVersionLabelQueryParams,
+    string,
+    DeleteTemplateVersionLabelPathParams
+  >
+    verb="DELETE"
+    path={`/templates/${templateIdentifier}`}
+    base={getConfig('template/api')}
+    {...props}
+  />
+)
+
+export type UseDeleteTemplateVersionLabelProps = Omit<
+  UseMutateProps<
+    ResponseBoolean,
+    Failure | Error,
+    DeleteTemplateVersionLabelQueryParams,
+    string,
+    DeleteTemplateVersionLabelPathParams
+  >,
+  'path' | 'verb'
+> &
+  DeleteTemplateVersionLabelPathParams
+
+/**
+ * Deletes template versionLabel
+ */
+export const useDeleteTemplateVersionLabel = ({ templateIdentifier, ...props }: UseDeleteTemplateVersionLabelProps) =>
+  useMutate<
+    ResponseBoolean,
+    Failure | Error,
+    DeleteTemplateVersionLabelQueryParams,
+    string,
+    DeleteTemplateVersionLabelPathParams
+  >('DELETE', (paramsInPath: DeleteTemplateVersionLabelPathParams) => `/templates/${paramsInPath.templateIdentifier}`, {
+    base: getConfig('template/api'),
+    pathParams: { templateIdentifier },
+    ...props
+  })
+
+/**
+ * Deletes template versionLabel
+ */
+export const deleteTemplateVersionLabelPromise = (
+  {
+    templateIdentifier,
+    ...props
+  }: MutateUsingFetchProps<
+    ResponseBoolean,
+    Failure | Error,
+    DeleteTemplateVersionLabelQueryParams,
+    string,
+    DeleteTemplateVersionLabelPathParams
+  > & { templateIdentifier: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseBoolean,
+    Failure | Error,
+    DeleteTemplateVersionLabelQueryParams,
+    string,
+    DeleteTemplateVersionLabelPathParams
+  >('DELETE', getConfig('template/api'), `/templates/${templateIdentifier}`, props, signal)

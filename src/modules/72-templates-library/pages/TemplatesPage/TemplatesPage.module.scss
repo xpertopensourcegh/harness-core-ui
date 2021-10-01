@@ -1,0 +1,27 @@
+.deleteTemplateDialog {
+  width: 752px;
+  overflow: hidden;
+  padding: var(--spacing-xlarge) var(--spacing-medium);
+  position: relative;
+  min-height: 400px;
+}
+.updateTemplateSettingsDialog {
+  width: 875px;
+  overflow: hidden;
+  padding-bottom: 0;
+  position: relative;
+  min-height: 400px;
+}
+
+.expandSearch {
+  margin-right: var(--spacing-medium);
+}
+
+.loading {
+  margin: auto;
+  height: 100vh;
+}
+
+.illustration {
+  width: 400px;
+}

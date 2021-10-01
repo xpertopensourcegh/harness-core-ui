@@ -9,6 +9,7 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 import { ShellScriptMonacoField, ScriptType } from '@common/components/ShellScriptMonaco/ShellScriptMonaco'
 
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
+import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { ShellScriptFormData } from './shellScriptTypes'
 
 import css from './ShellScript.module.scss'
@@ -23,30 +24,39 @@ export default function BaseShellScript(props: {
   formik: FormikProps<ShellScriptFormData>
   isNewStep: boolean
   readonly?: boolean
+  stepViewType?: StepViewType
 }): React.ReactElement {
   const {
     formik: { values: formValues, setFieldValue },
     isNewStep,
-    readonly
+    readonly,
+    stepViewType
   } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   const scriptType: ScriptType = formValues.spec?.shell || 'Bash'
+  const allowableTypes = [
+    MultiTypeInputType.FIXED,
+    MultiTypeInputType.RUNTIME,
+    ...(stepViewType !== StepViewType.Template ? [MultiTypeInputType.EXPRESSION] : [])
+  ]
 
   return (
     <>
       <div className={cx(stepCss.formGroup, stepCss.lg)}>
-        <FormInput.InputWithIdentifier
-          inputLabel={getString('pipelineSteps.stepNameLabel')}
-          isIdentifierEditable={isNewStep && !readonly}
-          inputGroupProps={{ disabled: readonly }}
-        />
+        {stepViewType !== StepViewType.Template && (
+          <FormInput.InputWithIdentifier
+            inputLabel={getString('pipelineSteps.stepNameLabel')}
+            isIdentifierEditable={isNewStep && !readonly}
+            inputGroupProps={{ disabled: readonly }}
+          />
+        )}
       </div>
       <div className={cx(stepCss.formGroup, stepCss.sm)}>
         <FormMultiTypeDurationField
           name="timeout"
           label={getString('pipelineSteps.timeoutLabel')}
-          multiTypeDurationProps={{ enableConfigureOptions: false, expressions, disabled: readonly }}
+          multiTypeDurationProps={{ enableConfigureOptions: false, expressions, disabled: readonly, allowableTypes }}
           className={stepCss.duration}
           disabled={readonly}
         />
@@ -81,7 +91,7 @@ export default function BaseShellScript(props: {
           label={getString('script')}
           defaultValueToReset=""
           disabled={readonly}
-          allowedTypes={[MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]}
+          allowedTypes={allowableTypes}
           disableTypeSelection={readonly}
           skipRenderValueInExpressionLabel
           expressionRender={() => {

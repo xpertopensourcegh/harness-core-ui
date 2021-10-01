@@ -24,7 +24,8 @@ import type {
   UserGroupPathProps,
   UserPathProps,
   ServiceAccountPathProps,
-  ServicePathProps
+  ServicePathProps,
+  TemplateStudioPathProps
 } from '@common/interfaces/RouteInterfaces'
 
 export const accountPathProps: AccountPathProps = {
@@ -44,6 +45,12 @@ export const projectPathProps: ProjectPathProps = {
 export const pipelinePathProps: PipelinePathProps = {
   ...projectPathProps,
   pipelineIdentifier: ':pipelineIdentifier'
+}
+
+export const templatePathProps: TemplateStudioPathProps = {
+  ...projectPathProps,
+  templateIdentifier: ':templateIdentifier',
+  templateType: ':templateType'
 }
 
 export const inputSetFormPathProps: InputSetPathProps = {

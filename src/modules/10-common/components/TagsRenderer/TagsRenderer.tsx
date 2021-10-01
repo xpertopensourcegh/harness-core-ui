@@ -11,6 +11,7 @@ export interface ListTagsProps {
   className?: string
   tagClassName?: string
   width?: number
+  targetClassName?: string
 }
 
 const getWidthForTags = (length: number, width: number): number => {
@@ -24,7 +25,7 @@ const getWidthForTags = (length: number, width: number): number => {
   }
 }
 const TagsRenderer: React.FC<ListTagsProps> = props => {
-  const { tags, length = 3, className, width = 240, tagClassName } = props
+  const { tags, length = 3, className, width = 240, tagClassName, targetClassName } = props
   const baseTags = Object.keys(tags).slice(0, length)
   const remainingTags = Object.keys(tags)
     .slice(length)
@@ -48,7 +49,7 @@ const TagsRenderer: React.FC<ListTagsProps> = props => {
           <TagsPopover
             tags={remainingTags}
             tagClassName={tagClassName}
-            target={<Text>{getString('plus') + (Object.keys(tags).length - length)}</Text>}
+            target={<Text className={targetClassName}>{getString('plus') + (Object.keys(tags).length - length)}</Text>}
           />
         )}
       </Layout.Horizontal>

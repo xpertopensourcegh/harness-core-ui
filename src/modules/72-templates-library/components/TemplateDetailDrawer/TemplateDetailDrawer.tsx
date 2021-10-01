@@ -1,14 +1,17 @@
 import React from 'react'
 import { Drawer, Position } from '@blueprintjs/core'
+import { Button } from '@wings-software/uicore'
 import { TemplateDetails } from '../TemplateDetails/TemplateDetails'
+import css from './TemplateDetailDrawer.module.scss'
 
 export interface TemplateDetailsProps {
-  templateIdentifier: string | undefined
+  templateIdentifier?: string
+  versionLabel?: string
   onClose: () => void
 }
 
 export const TemplateDetailsDrawer: React.FC<TemplateDetailsProps> = props => {
-  const { templateIdentifier, onClose } = props
+  const { templateIdentifier, versionLabel, onClose } = props
 
   return (
     <Drawer
@@ -23,7 +26,10 @@ export const TemplateDetailsDrawer: React.FC<TemplateDetailsProps> = props => {
       isOpen={!!templateIdentifier}
       position={Position.RIGHT}
     >
-      <TemplateDetails templateIdentifier={templateIdentifier} />
+      <Button minimal className={css.almostFullScreenCloseBtn} icon="cross" withoutBoxShadow onClick={onClose} />
+      {templateIdentifier && (
+        <TemplateDetails templateIdentifier={templateIdentifier} versionLabel={versionLabel} onClose={onClose} />
+      )}
     </Drawer>
   )
 }

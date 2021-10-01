@@ -1,31 +1,18 @@
 import React from 'react'
-import { Formik, FormInput } from '@wings-software/uicore'
+import { Color, Formik, FormInput, Layout, MultiTypeInputType, Text } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import cx from 'classnames'
 import type { FormikProps } from 'formik'
-
 import { NameSchema } from '@common/utils/Validation'
-import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
-import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
+import { setFormikRef, StepViewType, StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/strings'
-import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import type { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
+import type { StepElementConfig } from 'services/cd-ng'
 import type { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
-
+import type { TemplateStepData } from '@pipeline/utils/tempates'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
-export interface TemplateStepData<T = unknown> {
-  identifier: string
-  name: string
-  template: {
-    templateRef: string
-    templateInputs: {
-      type: StepType
-      spec: T
-    }
-  }
-}
 export interface TemplateStepFormData extends TemplateStepData {
   stepType?: any // TODO: step type
 }
@@ -46,9 +33,7 @@ export function TemplateStepWidget(
 ): React.ReactElement {
   const { initialValues, factory, onUpdate, isNewStep, readonly } = props
   const { getString } = useStrings()
-  //const { expressions } = useVariablesExpression()
-  const stepType = initialValues.template.templateInputs.type
-  // const ref = React.useRef<StepFormikRef<unknown> | null>(null)
+  const stepType = initialValues.template.templateInputs.type as StepType
 
   return (
     <Formik<TemplateStepData /*TemplateStepFormData*/>
@@ -75,17 +60,27 @@ export function TemplateStepWidget(
                   inputGroupProps={{ disabled: readonly }}
                 />
               </div>
-              <hr />
-              <StepWidget
-                factory={factory}
-                initialValues={initialValues.template.templateInputs}
-                readonly={readonly}
-                isNewStep={isNewStep}
-                // onUpdate={onChange}
-                type={stepType}
-                stepViewType={StepViewType.InputSet}
-                inputSetData={{ template: initialValues.template.templateInputs, path: '' }}
-              />
+              <Layout.Vertical
+                margin={{ top: 'medium' }}
+                padding={{ top: 'large', bottom: 'large' }}
+                border={{ top: true }}
+                spacing={'large'}
+              >
+                <Text style={{ fontSize: 16 }} font={{ weight: 'bold' }} color={Color.BLACK}>
+                  {getString('templatesLibrary.templateInputs')}
+                </Text>
+                <StepWidget<Partial<StepElementConfig>>
+                  factory={factory}
+                  initialValues={initialValues.template.templateInputs}
+                  template={initialValues.template.templateInputs}
+                  readonly={readonly}
+                  isNewStep={isNewStep}
+                  type={stepType}
+                  path={'template.templateInputs'}
+                  stepViewType={StepViewType.InputSet}
+                  allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION, MultiTypeInputType.RUNTIME]}
+                />
+              </Layout.Vertical>
             </div>
           </React.Fragment>
         )

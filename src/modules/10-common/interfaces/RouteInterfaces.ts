@@ -7,6 +7,7 @@ export interface AccountPathProps {
 export interface OrgPathProps extends AccountPathProps {
   orgIdentifier: string
 }
+
 export interface GitQueryParams {
   branch?: EntityGitDetails['branch']
   repoIdentifier?: EntityGitDetails['repoIdentifier']
@@ -36,6 +37,28 @@ export interface ProjectPathProps extends OrgPathProps {
 
 export interface PipelinePathProps extends ProjectPathProps {
   pipelineIdentifier: string
+}
+
+export type TemplateType =
+  | 'Step'
+  | 'Stage'
+  | 'Pipeline'
+  | 'Service'
+  | 'Infrastructure'
+  | 'StepGroup'
+  | 'Execution'
+  | ':templateType(Step)'
+  | ':templateType(Stage)'
+  | ':templateType(Pipeline)'
+  | ':templateType(Service)'
+  | ':templateType(Infrastructure)'
+  | ':templateType(StepGroup)'
+  | ':templateType(Execution)'
+  | ':templateType'
+
+export interface TemplateStudioPathProps extends ProjectPathProps {
+  templateType: TemplateType
+  templateIdentifier: string
 }
 export interface InputSetPathProps extends PipelinePathProps {
   inputSetIdentifier: string
@@ -148,6 +171,6 @@ export interface ModuleCardPathParams {
   moduleCard?: Module
 }
 
-export interface TemplateStudioPathParams {
-  templateIdentifier?: string
+export interface TemplateStudioQueryParams {
+  versionLabel?: string
 }

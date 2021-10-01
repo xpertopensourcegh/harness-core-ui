@@ -3,12 +3,18 @@ import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { factory } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
-import { TemplateStepWidgetWithRef, TemplateStepData } from '../TemplateStepWidget'
+import type { TemplateStepData } from '@pipeline/utils/tempates'
+import { TemplateStepWidgetWithRef } from '../TemplateStepWidget'
+
 const getDefaultStepValues = (): TemplateStepData => {
   return {
     identifier: 'id',
     name: 'name',
-    template: { templateRef: 'steptemplate', templateInputs: { type: StepType.SHELLSCRIPT, spec: {} } }
+    template: {
+      templateRef: 'steptemplate',
+      versionLabel: 'version1',
+      templateInputs: { type: StepType.SHELLSCRIPT, spec: {} }
+    }
   }
 }
 

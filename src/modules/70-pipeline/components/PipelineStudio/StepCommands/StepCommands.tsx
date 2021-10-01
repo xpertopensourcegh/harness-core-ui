@@ -1,10 +1,20 @@
 import React from 'react'
-import { Tabs, Tab, Button, ButtonVariation, ButtonSize } from '@wings-software/uicore'
+import {
+  Button,
+  ButtonSize,
+  ButtonVariation,
+  Color,
+  Container,
+  Icon,
+  Layout,
+  Tab,
+  Tabs,
+  Text
+} from '@wings-software/uicore'
 import { Expander } from '@blueprintjs/core'
 import cx from 'classnames'
 import type { FormikProps } from 'formik'
-import { isEmpty } from 'lodash-es'
-
+import { isEmpty, noop } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { FeatureFlag } from '@common/featureFlags'
@@ -14,7 +24,8 @@ import type { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineSt
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { StageType } from '@pipeline/utils/stageHelpers'
 import type { StepElementConfig } from 'services/cd-ng'
-import type { StepCommandsProps } from './StepCommandTypes'
+import type { TemplateStepData } from '@pipeline/utils/tempates'
+import { StepCommandsProps, StepCommandsViews } from './StepCommandTypes'
 import css from './StepCommands.module.scss'
 
 export type StepFormikRef<T = unknown> = {
@@ -23,6 +34,7 @@ export type StepFormikRef<T = unknown> = {
   getErrors(): FormikProps<T>['errors']
   setFieldError(key: string, error: string): void
   getValues(): T
+  resetForm: FormikProps<T>['resetForm']
 }
 
 export type StepCommandsRef<T = unknown> =
@@ -42,7 +54,9 @@ export function StepCommands(
   const {
     step,
     onChange,
+    onUpdate,
     onUseTemplate,
+    onSaveAsTemplate,
     isStepGroup,
     isReadonly,
     stepsFactory,
@@ -51,7 +65,11 @@ export function StepCommands(
     hasStepGroupAncestor,
     withoutTabs,
     isNewStep = true,
-    stageType = StageType.DEPLOY
+    stageType = StageType.DEPLOY,
+    stepViewType,
+    className = '',
+    viewType,
+    allowableTypes
   } = props
   const { getString } = useStrings()
   const templatesEnabled = useFeatureFlag(FeatureFlag.NG_TEMPLATES)
@@ -124,16 +142,25 @@ export function StepCommands(
         : activeTab === StepCommandTabs.Advanced && advancedConfRef.current
         ? advancedConfRef.current.values
         : {}
+    },
+    resetForm() {
+      if (activeTab === StepCommandTabs.StepConfiguration && stepRef.current) {
+        return stepRef.current?.resetForm()
+      }
+      if (activeTab === StepCommandTabs.Advanced && advancedConfRef.current) {
+        return advancedConfRef.current.resetForm()
+      }
+      return noop
     }
   }))
 
-  const getStepWidgetWithFormikRef = () => {
-    const stepType: StepType = isStepGroup
-      ? StepType.StepGroup
-      : isTemplateStep
-      ? StepType.Template
-      : ((step as StepElementConfig).type as StepType)
+  const stepType: StepType = isStepGroup
+    ? StepType.StepGroup
+    : isTemplateStep
+    ? StepType.Template
+    : ((step as StepElementConfig).type as StepType)
 
+  const getStepWidgetWithFormikRef = () => {
     return (
       <StepWidgetWithFormikRef
         factory={stepsFactory}
@@ -141,8 +168,11 @@ export function StepCommands(
         readonly={isReadonly}
         isNewStep={isNewStep}
         onUpdate={onChange}
+        onChange={onChange}
         type={stepType}
+        stepViewType={stepViewType}
         ref={stepRef}
+        allowableTypes={allowableTypes}
       />
     )
   }
@@ -152,7 +182,24 @@ export function StepCommands(
   }
 
   return (
-    <div className={css.stepCommand}>
+    <div className={cx(css.stepCommand, className)}>
+      {stepType === StepType.Template && (
+        <Container
+          margin={'medium'}
+          padding={{ top: 'small', right: 'medium', bottom: 'small', left: 'medium' }}
+          background={Color.PRIMARY_6}
+          border={{ radius: 4 }}
+        >
+          <Layout.Horizontal spacing={'small'} flex={{ alignItems: 'center' }}>
+            <Icon size={11} color={Color.WHITE} name={'template-library'} />
+            <Text font={{ size: 'small' }} color={Color.WHITE}>
+              {`Using Template: ${(step as TemplateStepData)?.template.templateRef} (${
+                (step as TemplateStepData)?.template.versionLabel
+              })`}
+            </Text>
+          </Layout.Horizontal>
+        </Container>
+      )}
       <div className={cx(css.stepTabs, { stepTabsAdvanced: activeTab === StepCommandTabs.Advanced })}>
         <Tabs id="step-commands" selectedTabId={activeTab} onChange={handleTabChange}>
           <Tab
@@ -169,15 +216,17 @@ export function StepCommands(
                 isReadonly={isReadonly}
                 stepsFactory={stepsFactory}
                 onChange={onChange}
+                onUpdate={onUpdate}
                 hiddenPanels={hiddenPanels}
                 isStepGroup={isStepGroup}
                 hasStepGroupAncestor={hasStepGroupAncestor}
                 ref={advancedConfRef}
                 stageType={stageType}
+                stepType={stepType}
               />
             }
           />
-          {templatesEnabled ? (
+          {templatesEnabled && viewType === StepCommandsViews.Pipeline && stepType !== StepType.Template ? (
             <>
               <Expander />
               <div>
@@ -200,6 +249,7 @@ export function StepCommands(
                   className={css.saveAsTempalteBtn}
                   minimal
                   size={ButtonSize.SMALL}
+                  onClick={() => onSaveAsTemplate?.(step)}
                 />
               </div>
             </>

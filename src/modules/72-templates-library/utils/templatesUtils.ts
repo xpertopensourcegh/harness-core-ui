@@ -1,13 +1,13 @@
 import type { UseStringsReturn } from 'framework/strings'
 
 export enum TemplateType {
-  pipeline = 'pipeline',
-  stage = 'stage',
-  service = 'service',
-  infrastructure = 'infrastructure',
-  step = 'step',
-  stepGroup = 'stepGroup',
-  execution = 'execution'
+  Step = 'Step',
+  Stage = 'Stage',
+  Pipeline = 'Pipeline',
+  Service = 'Service',
+  Infrastructure = 'Infrastructure',
+  StepGroup = 'StepGroup',
+  Execution = 'Execution'
 }
 
 export interface TemplateTypeOption {
@@ -18,31 +18,31 @@ export interface TemplateTypeOption {
 
 export const getAllowedTemplateTypes = (getString: UseStringsReturn['getString']): TemplateTypeOption[] => [
   {
-    label: getString('common.pipeline'),
-    value: TemplateType.pipeline
+    label: getString('step'),
+    value: TemplateType.Step
   },
   {
     label: getString('templatesLibrary.stageTemplate'),
-    value: TemplateType.stage
+    value: TemplateType.Stage
   },
   {
-    label: getString('step'),
-    value: TemplateType.step
+    label: getString('common.pipeline'),
+    value: TemplateType.Pipeline
   },
   {
     label: getString('service'),
-    value: TemplateType.service
+    value: TemplateType.Service
   },
   {
     label: getString('infrastructureText'),
-    value: TemplateType.infrastructure
+    value: TemplateType.Infrastructure
   },
   {
     label: getString('stepGroup'),
-    value: TemplateType.stepGroup
+    value: TemplateType.StepGroup
   },
   {
     label: getString('executionText'),
-    value: TemplateType.execution
+    value: TemplateType.Execution
   }
 ]

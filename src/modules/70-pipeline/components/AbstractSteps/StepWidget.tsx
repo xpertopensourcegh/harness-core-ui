@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text } from '@wings-software/uicore'
+import { MultiTypeInputType, Text } from '@wings-software/uicore'
 
 import { String } from 'framework/strings'
 import type { AbstractStepFactory } from './AbstractStepFactory'
@@ -16,7 +16,9 @@ export interface StepWidgetProps<T = unknown, U = unknown> extends Omit<StepProp
   path?: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onUpdate?: (data: any) => void
+  onChange?: (data: any) => void
   readonly?: boolean
+  allowableTypes?: MultiTypeInputType[]
 }
 
 export function StepWidget<T = unknown, U = unknown>(
@@ -30,7 +32,9 @@ export function StepWidget<T = unknown, U = unknown>(
     path = '',
     stepViewType = StepViewType.Edit,
     onUpdate,
+    onChange,
     readonly,
+    allowableTypes,
     customStepProps
   }: StepWidgetProps<T, U>,
   formikRef: StepFormikFowardRef<T>
@@ -52,13 +56,15 @@ export function StepWidget<T = unknown, U = unknown>(
           initialValues: values,
           formikRef,
           onUpdate,
+          onChange,
           isNewStep,
           stepViewType,
           inputSetData: { template, allValues, path, readonly },
           factory,
           readonly,
           path,
-          customStepProps
+          customStepProps,
+          allowableTypes
         })}
       </>
     )

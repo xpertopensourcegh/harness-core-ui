@@ -1,12 +1,11 @@
 import React from 'react'
-import { Formik, Accordion } from '@wings-software/uicore'
+import { Accordion, Formik } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
 
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
-import { StepFormikFowardRef, setFormikRef } from '@pipeline/components/AbstractSteps/Step'
-import type { StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { setFormikRef, StepFormikFowardRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/strings'
 
 import type { ShellScriptFormData } from './shellScriptTypes'
@@ -23,19 +22,19 @@ import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 interface ShellScriptWidgetProps {
   initialValues: ShellScriptFormData
   onUpdate?: (data: ShellScriptFormData) => void
+  onChange?: (data: ShellScriptFormData) => void
   readonly?: boolean
   stepViewType?: StepViewType
   isNewStep?: boolean
 }
 
 export function ShellScriptWidget(
-  { initialValues, onUpdate, isNewStep = true, readonly }: ShellScriptWidgetProps,
+  { initialValues, onUpdate, onChange, isNewStep = true, readonly, stepViewType }: ShellScriptWidgetProps,
   formikRef: StepFormikFowardRef
 ): JSX.Element {
   const { getString } = useStrings()
 
   const defaultSSHSchema = Yup.object().shape({
-    name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
     timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
     spec: Yup.object().shape({
       shell: Yup.string().trim().required(getString('validation.scriptTypeRequired')),
@@ -59,7 +58,10 @@ export function ShellScriptWidget(
         })
       )
     }),
-    identifier: IdentifierSchema()
+    ...(stepViewType !== StepViewType.Template && {
+      name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
+      identifier: IdentifierSchema()
+    })
   })
 
   const values: any = {
@@ -80,6 +82,9 @@ export function ShellScriptWidget(
       onSubmit={submit => {
         onUpdate?.(submit)
       }}
+      validate={formValues => {
+        onChange?.(formValues)
+      }}
       formName="shellScriptForm"
       initialValues={values}
       validationSchema={validationSchema}
@@ -90,7 +95,7 @@ export function ShellScriptWidget(
 
         return (
           <React.Fragment>
-            <BaseShellScript isNewStep={isNewStep} formik={formik} readonly={readonly} />
+            <BaseShellScript isNewStep={isNewStep} stepViewType={stepViewType} formik={formik} readonly={readonly} />
             <Accordion className={stepCss.accordion}>
               <Accordion.Panel
                 id="optional-config"

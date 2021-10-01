@@ -3,18 +3,23 @@ import { noop, set } from 'lodash-es'
 import produce from 'immer'
 import { Drawer, Position } from '@blueprintjs/core'
 import { Button } from '@wings-software/uicore'
+import { parse } from 'yaml'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { TemplateDrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import { updateStepWithinStage } from '@pipeline/components/PipelineStudio/RightDrawer/RightDrawer'
+import type { TemplateType } from '@templates-library/utils/templatesUtils'
+import type { TemplateStepData } from '@pipeline/utils/tempates'
 import { TemplateSelector } from '../TemplateSelector/TemplateSelector'
-
 import css from './TemplateDrawer.module.scss'
 
 export const TemplateDrawer: React.FC = (): JSX.Element => {
   const {
     state: {
       selectionState: { selectedStageId },
-      templateView: { isTemplateDrawerOpened, templateDrawerData },
+      templateView: {
+        isTemplateDrawerOpened,
+        templateDrawerData: { type, data }
+      },
       pipelineView: { drawerData },
       pipelineView
     },
@@ -23,28 +28,9 @@ export const TemplateDrawer: React.FC = (): JSX.Element => {
     updatePipelineView,
     updateStage
   } = usePipelineContext()
-  const { type } = templateDrawerData
-  const { data } = drawerData
-
   const { stage: selectedStage } = getStageFromPipeline(selectedStageId || '')
-
-  /*
-  const {
-    state: {
-      pipelineView: { drawerData, isDrawerOpened },
-      pipelineView,
-      selectionState: { selectedStageId, selectedStepId }
-    },
-    isReadonly,
-    updateStage,
-    updatePipelineView,
-    updateTemplateView,
-    getStageFromPipeline,
-    stepsFactory,
-    setSelectedStepId
-  } = usePipelineContext()
-  const { type, data, ...restDrawerProps } = drawerData
-  */
+  const templateTypes = data?.selectorData?.templateTypes
+  const childTypes = data?.selectorData?.childTypes
 
   return (
     <Drawer
@@ -57,7 +43,7 @@ export const TemplateDrawer: React.FC = (): JSX.Element => {
       canOutsideClickClose={true}
       enforceFocus={false}
       hasBackdrop={true}
-      size={'calc(100% - 540px)'}
+      size={'1260px'}
       isOpen={isTemplateDrawerOpened}
       position={Position.RIGHT}
       data-type={type}
@@ -74,52 +60,53 @@ export const TemplateDrawer: React.FC = (): JSX.Element => {
           })
         }}
       />
+      {templateTypes && childTypes && (
+        <TemplateSelector
+          onClose={noop}
+          onSelect={noop}
+          templateTypes={templateTypes as TemplateType[]}
+          childTypes={childTypes}
+          onUseTemplate={async template => {
+            updateTemplateView({
+              isTemplateDrawerOpened: false,
+              templateDrawerData: { type: TemplateDrawerTypes.UseTemplate }
+            })
 
-      <TemplateSelector
-        onClose={noop}
-        onSelect={noop}
-        onUseTemplate={async _templateId => {
-          updateTemplateView({
-            isTemplateDrawerOpened: false,
-            templateDrawerData: { type: TemplateDrawerTypes.UseTemplate }
-          })
+            if (drawerData.data?.stepConfig?.node) {
+              const node = drawerData.data?.stepConfig?.node
 
-          if (data?.stepConfig?.node) {
-            const node = data?.stepConfig?.node
-
-            // TODO: HARDCODED PART
-            const processNode = {
-              identifier: node.identifier,
-              name: node.name,
-              type: (node as any).type,
-              'step-template': 'project1.echo-directory:1',
-              inputs: {
-                'file-directory': '/opt',
-                timeout: '120s'
+              const processNode: TemplateStepData = {
+                identifier: node.identifier,
+                name: node.name || '',
+                template: {
+                  templateRef: template.identifier || '',
+                  versionLabel: template.versionLabel || '',
+                  templateInputs: parse(template.yaml || '').template.spec
+                }
               }
-            }
 
-            if (data?.stepConfig?.node?.identifier) {
-              if (selectedStage?.stage?.spec?.execution) {
-                const processingNodeIdentifier = data?.stepConfig?.node?.identifier
-                const stageData = produce(selectedStage, draft => {
-                  updateStepWithinStage(draft.stage!.spec!.execution!, processingNodeIdentifier, processNode as any)
-                })
-
-                // update view data before updating pipeline because its async
-                updatePipelineView(
-                  produce(pipelineView, draft => {
-                    set(draft, 'drawerData.data.stepConfig.node', processNode)
+              if (drawerData.data?.stepConfig?.node?.identifier) {
+                if (selectedStage?.stage?.spec?.execution) {
+                  const processingNodeIdentifier = drawerData.data?.stepConfig?.node?.identifier
+                  const stageData = produce(selectedStage, draft => {
+                    updateStepWithinStage(draft.stage!.spec!.execution!, processingNodeIdentifier, processNode as any)
                   })
-                )
-                await updateStage(stageData.stage!)
 
-                data?.stepConfig?.onUpdate?.(processNode)
+                  // update view data before updating pipeline because its async
+                  updatePipelineView(
+                    produce(pipelineView, draft => {
+                      set(draft, 'drawerData.data.stepConfig.node', processNode)
+                    })
+                  )
+                  await updateStage(stageData.stage!)
+
+                  // drawerData.data?.stepConfig?.onUpdate?.(processNode)
+                }
               }
             }
-          }
-        }}
-      />
+          }}
+        />
+      )}
     </Drawer>
   )
 }

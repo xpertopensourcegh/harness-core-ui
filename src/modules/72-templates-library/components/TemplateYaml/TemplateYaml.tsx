@@ -5,11 +5,11 @@ import MonacoEditor from '@common/components/MonacoEditor/MonacoEditor'
 import css from './TemplateYaml.module.scss'
 
 export interface TemplateYamlProps {
-  templateInputs?: any
+  templateYaml?: string
 }
 
-export const TemplateYaml: React.FC<TemplateYamlProps> = _props => {
-  const yaml = 'spec:\n  id: abc\n  name: abc\n  name2: abc\n  name3: abc\n'
+export const TemplateYaml: React.FC<TemplateYamlProps> = props => {
+  const { templateYaml } = props
 
   return (
     <div className={css.main}>
@@ -19,7 +19,7 @@ export const TemplateYaml: React.FC<TemplateYamlProps> = _props => {
         </Text>
       </div>
       <MonacoEditor
-        value={yaml}
+        value={templateYaml}
         language={'yaml'}
         height="400"
         options={

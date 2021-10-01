@@ -1,11 +1,11 @@
 import React from 'react'
-import { IconName, getMultiTypeFromValue, MultiTypeInputType, SelectOption } from '@wings-software/uicore'
+import { getMultiTypeFromValue, IconName, MultiTypeInputType, SelectOption } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { yupToFormErrors, FormikErrors } from 'formik'
+import { FormikErrors, yupToFormErrors } from 'formik'
 import { v4 as uuid } from 'uuid'
 import { isEmpty, set } from 'lodash-es'
 
-import { StepViewType, StepProps, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
+import { StepProps, StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import type { HttpHeaderConfig, StringNGVariable } from 'services/cd-ng'
 
@@ -26,8 +26,18 @@ export class HttpStep extends PipelineStep<HttpStepData> {
   }
 
   renderStep(this: HttpStep, props: StepProps<HttpStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep, readonly } =
-      props
+    const {
+      initialValues,
+      onUpdate,
+      onChange,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep,
+      readonly,
+      allowableTypes
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -38,6 +48,7 @@ export class HttpStep extends PipelineStep<HttpStepData> {
           readonly={!!inputSetData?.readonly}
           template={inputSetData?.template}
           path={inputSetData?.path || ''}
+          allowableTypes={allowableTypes || [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
         />
       )
     }
@@ -50,9 +61,11 @@ export class HttpStep extends PipelineStep<HttpStepData> {
       <HttpStepWidgetWithRef
         initialValues={this.processInitialValues(initialValues)}
         onUpdate={data => onUpdate?.(this.processFormData(data))}
+        onChange={data => onChange?.(this.processFormData(data))}
         stepViewType={stepViewType}
         isNewStep={isNewStep}
         readonly={!!inputSetData?.readonly}
+        allowableTypes={allowableTypes}
         isDisabled={readonly}
         ref={formikRef}
       />

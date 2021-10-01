@@ -1,83 +1,30 @@
 .main {
-  background: #f8fcff; // todo
-  padding: var(--spacing-small) var(--spacing-medium) !important;
-  height: 100vh;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-.details {
-  display: flex;
-  flex-direction: column;
-}
-
-.tabsContainer {
-  background: white;
-  border: 1px solid var(--grey-200);
-  border-radius: 5px;
-  flex-grow: 1;
-  overflow: hidden;
-  margin: var(--spacing-small);
-
-  :global(.bp3-tab) {
-    min-width: auto !important;
+  padding-top: var(--spacing-10) !important;
+  position: relative;
+  :global {
+    .Card--dots {
+      top: -42px !important;
+      right: -12px !important;
+    }
+    .DropDown--dropdownButton {
+      background-color: var(--white) !important;
+    }
   }
-  :global(.bp3-tag) {
-    border-radius: 30px !important;
-  }
-}
+  .tabsContainer {
+    background: white;
+    border: 1px solid var(--grey-200);
+    border-radius: var(--spacing-3);
+    flex-grow: 1;
+    overflow: hidden;
 
-.actionHolder {
-  display: flex;
-  padding: var(--spacing-large);
-}
-
-.titleHolder {
-  display: flex;
-  align-items: center;
-  margin-bottom: var(--spacing-small);
-}
-
-.openBtn {
-  height: 20px !important;
-  margin-left: auto !important;
-  border: 1px solid var(--primary-6) !important;
-  color: var(--primary-7) !important;
-  box-shadow: none !important;
-}
-
-.row {
-  padding: var(--spacing-small);
-}
-
-.tag {
-  background-color: var(--grey-100) !important;
-  margin-right: var(--spacing-xsmall);
-  color: var(--grey-600);
-  border-radius: var(--spacing-small);
-}
-
-.tags {
-  margin-top: var(--spacing-medium);
-}
-
-.smallTitle {
-  margin-bottom: var(--spacing-4) !important;
-}
-
-.emptyHolder {
-  background: var(--grey-50);
-  width: 100%;
-  height: 100%;
-  padding: var(--spacing-xlarge) var(--spacing-medium);
-
-  .emptyHolderInner {
-    border: 1px dashed var(--grey-200);
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    :global {
+      .bp3-tab-list {
+        justify-content: space-evenly;
+        border-bottom: 1px solid var(--grey-100);
+      }
+      .bp3-tab {
+        font-size: 12px !important;
+      }
+    }
   }
 }

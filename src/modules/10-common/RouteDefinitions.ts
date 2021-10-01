@@ -32,7 +32,8 @@ import type {
   ModuleCardPathParams,
   ServiceAccountPathProps,
   ServicePathProps,
-  TemplateStudioPathParams
+  TemplateStudioPathProps,
+  TemplateStudioQueryParams
 } from '@common/interfaces/RouteInterfaces'
 
 const CV_HOME = `/cv/home`
@@ -728,9 +729,9 @@ const routes = {
       `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/`
   ),
   /********************************************************************************************************************/
-  toTemplatesListing: withAccountId(
+  toTemplates: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
-      const path = `templates`
+      const path = `resources/templates`
       return getScopeBasedRoute({
         scope: {
           orgIdentifier,
@@ -741,14 +742,23 @@ const routes = {
       })
     }
   ),
-  toTemplatesStudio: withAccountId(
+  toTemplateStudio: withAccountId(
     ({
       orgIdentifier,
       projectIdentifier,
       module,
-      templateIdentifier
-    }: Partial<ProjectPathProps & ModulePathParams & TemplateStudioPathParams>) => {
-      const path = `templates/${templateIdentifier}`
+      accountId: _accountId,
+      templateType,
+      templateIdentifier,
+      ...rest
+    }: Partial<TemplateStudioPathProps & ModulePathParams & TemplateStudioQueryParams>) => {
+      const queryString = qs.stringify(rest, { skipNulls: true })
+      let path
+      if (queryString.length > 0) {
+        path = `resources/template-studio/${templateType}/template/${templateIdentifier}/?${queryString}`
+      } else {
+        path = `resources/template-studio/${templateType}/template/${templateIdentifier}/`
+      }
       return getScopeBasedRoute({
         scope: {
           orgIdentifier,

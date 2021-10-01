@@ -9,6 +9,7 @@ import secretsRoutes from '@secrets/RouteDestinations'
 import rbacRoutes from '@rbac/RouteDestinations'
 import projectsOrgsRoutes from '@projects-orgs/RouteDestinations'
 import connectorRoutes from '@connectors/RouteDestinations'
+import tempatesRoutes from '@templates-library/RouteDestinations'
 import userProfileRoutes from '@user-profile/RouteDestinations'
 import '@pipeline/RouteDestinations'
 import '@templates-library/RouteDestinations'
@@ -40,6 +41,7 @@ export default function RouteDestinations(): React.ReactElement {
       {...projectsOrgsRoutes.props.children}
       {...DASHBOARDRoutes.props.children}
       {...connectorRoutes.props.children}
+      {...tempatesRoutes.props.children}
       {...userProfileRoutes.props.children}
       {...CING_ENABLED ? CIRoutes.props.children : []}
       {...CDNG_ENABLED ? CDRoutes.props.children : []}

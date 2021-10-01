@@ -75,6 +75,10 @@ export abstract class AbstractStepFactory {
     return this.stepBank.get(type)?.getDescription()
   }
 
+  getStepName(type: string): string | undefined {
+    return this.stepBank.get(type)?.getStepName()
+  }
+
   getStepIcon(type: string): IconName {
     return this.stepBank.get(type)?.getIconName() || 'disable'
   }

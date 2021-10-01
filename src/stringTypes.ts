@@ -2472,19 +2472,42 @@ export interface StringsMap {
   'pipeline.verificationResult': string
   'templatesLibrary.addNewTemplate': string
   'templatesLibrary.copyToNewPipeline': string
-  'templatesLibrary.createNewModal.defaultVersion': string
-  'templatesLibrary.createNewModal.headingPrefix': string
-  'templatesLibrary.createNewModal.headingSuffix': string
+  'templatesLibrary.copyToPipeline': string
+  'templatesLibrary.createNewModal.editHeading': string
+  'templatesLibrary.createNewModal.heading': string
   'templatesLibrary.createNewModal.label': string
+  'templatesLibrary.createNewModal.namePlaceholder': string
   'templatesLibrary.createNewModal.validation.name': string
+  'templatesLibrary.createNewModal.validation.versionLabel': string
   'templatesLibrary.createNewModal.versionLabel': string
+  'templatesLibrary.createNewModal.versionPlaceholder': string
+  'templatesLibrary.deleteTemplate': string
+  'templatesLibrary.editModal.heading': string
+  'templatesLibrary.errorWhileDeleting': string
+  'templatesLibrary.errorWhileSaving': string
+  'templatesLibrary.errorWhileUpdating': string
   'templatesLibrary.openEditTemplate': string
-  'templatesLibrary.previewTemplate': string
+  'templatesLibrary.openInTemplateStudio': string
+  'templatesLibrary.publishTemplate': string
   'templatesLibrary.referencedBy': string
+  'templatesLibrary.saveAsNewLabelModal.heading': string
+  'templatesLibrary.saveAsNewTemplateModal.heading': string
   'templatesLibrary.selectTemplateToPreview': string
   'templatesLibrary.stageTemplate': string
   'templatesLibrary.templateInputs': string
   'templatesLibrary.templateSettings': string
+  'templatesLibrary.templateSettingsModal.defaultVersionLabel': string
+  'templatesLibrary.templateSettingsModal.scopeLabel': string
+  'templatesLibrary.templateStudio': string
+  'templatesLibrary.templateTitle': string
+  'templatesLibrary.templateUpdated': string
+  'templatesLibrary.templateUpdatedError': string
+  'templatesLibrary.templatesDeleted': string
+  'templatesLibrary.templatesPage.noTemplates': string
+  'templatesLibrary.updateTemplateModal.addCommentPlaceholder': string
+  'templatesLibrary.updateTemplateModal.commentLabel': string
+  'templatesLibrary.updateTemplateModal.heading': string
+  'templatesLibrary.updateTemplateModal.info': string
   'templatesLibrary.useTemplate': string
   'templatesLibrary.versionLog': string
   'cd.aboutHarnessAdapter': string

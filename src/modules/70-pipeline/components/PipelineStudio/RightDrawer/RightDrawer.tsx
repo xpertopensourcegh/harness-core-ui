@@ -1,9 +1,8 @@
 import React, { SyntheticEvent } from 'react'
 import { Drawer, Position } from '@blueprintjs/core'
 import { Button, Icon, Text, Color } from '@wings-software/uicore'
-import { cloneDeep, get, isEmpty, isNil, set } from 'lodash-es'
+import { cloneDeep, get, isEmpty, isNil, noop, set } from 'lodash-es'
 import cx from 'classnames'
-
 import produce from 'immer'
 import { useStrings, UseStringsReturn } from 'framework/strings'
 import type { ExecutionElementConfig, StepElementConfig, StepGroupElementConfig } from 'services/cd-ng'
@@ -12,10 +11,11 @@ import { StageType } from '@pipeline/utils/stageHelpers'
 import type { BuildStageElementConfig, DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import type { DependencyElement } from 'services/ci'
 import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
+import type { TemplateStepData } from '@pipeline/utils/tempates'
 import { usePipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerData, DrawerSizes, DrawerTypes, TemplateDrawerTypes } from '../PipelineContext/PipelineActions'
 import { StepCommandsWithRef as StepCommands, StepFormikRef } from '../StepCommands/StepCommands'
-import { TabTypes, Values } from '../StepCommands/StepCommandTypes'
+import { StepCommandsViews, TabTypes, Values } from '../StepCommands/StepCommandTypes'
 import { StepPalette } from '../StepPalette/StepPalette'
 import { addService, addStepOrGroup, generateRandomString, getStepFromId } from '../ExecutionGraph/ExecutionGraphUtil'
 import PipelineVariables from '../PipelineVariables/PipelineVariables'
@@ -25,7 +25,6 @@ import { ExecutionStrategy, ExecutionStrategyRefInterface } from '../ExecutionSt
 import type { StepData } from '../../AbstractSteps/AbstractStepFactory'
 import { StepType } from '../../PipelineSteps/PipelineStepInterface'
 import { FlowControl } from '../FlowControl/FlowControl'
-
 import css from './RightDrawer.module.scss'
 
 export const FullscreenDrawers: DrawerTypes[] = [
@@ -116,6 +115,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
   let stepData = (data?.stepConfig?.node as StepElementConfig)?.type
     ? stepsFactory.getStepData((data?.stepConfig?.node as StepElementConfig)?.type)
     : null
+  const templateStepTemplate = (data?.stepConfig?.node as TemplateStepData)?.template
   const formikRef = React.useRef<StepFormikRef | null>(null)
   const executionStrategyRef = React.useRef<ExecutionStrategyRefInterface | null>(null)
   const { getString } = useStrings()
@@ -154,17 +154,19 @@ export const RightDrawer: React.FC = (): JSX.Element => {
     setSelectedStepId(undefined)
   }
 
-  if (stepData) {
+  if (stepData || templateStepTemplate) {
+    const stepType = (stepData ? stepData?.type : templateStepTemplate?.templateInputs?.type) || ''
+    const toolTipType = type ? `_${type}` : ''
     title = (
       <div className={css.stepConfig}>
         <div className={css.title}>
-          <Icon name={stepsFactory.getStepIcon(stepData?.type || /* istanbul ignore next */ '')} />
+          <Icon name={stepsFactory.getStepIcon(stepType)} />
           <Text
             lineClamp={1}
             color={Color.BLACK}
-            tooltipProps={{ dataTooltipId: `${stepData.type}_stepName${type ? `_${type}` : ''}` }}
+            tooltipProps={{ dataTooltipId: `${stepType}_stepName${toolTipType}` }}
           >
-            {stepData?.name}
+            {stepData ? stepData?.name : stepsFactory.getStepName(stepType)}
           </Text>
         </div>
         <div>
@@ -232,7 +234,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
 
   const onSubmitStep = async (item: Partial<Values>, drawerType: DrawerTypes): Promise<void> => {
     if (data?.stepConfig?.node) {
-      const processNode = produce(data.stepConfig.node as StepElementConfig, node => {
+      const processNode = produce(data.stepConfig.node as StepElementConfig & TemplateStepData, node => {
         // Add/replace values only if they are presented
         if (item.name && item.tab !== TabTypes.Advanced) node.name = item.name
         if (item.identifier && item.tab !== TabTypes.Advanced) node.identifier = item.identifier
@@ -262,7 +264,9 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         ) {
           delete node.spec.delegateSelectors
         }
-
+        if (item.template) {
+          node.template = item.template
+        }
         if ((item as StepElementConfig).spec && item.tab !== TabTypes.Advanced) {
           node.spec = { ...(item as StepElementConfig).spec }
         }
@@ -505,12 +509,22 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           stepsFactory={stepsFactory}
           hasStepGroupAncestor={!!data?.stepConfig?.isUnderStepGroup}
           onChange={value => onSubmitStep(value, DrawerTypes.StepConfig)}
+          viewType={StepCommandsViews.Pipeline}
           onUseTemplate={_step =>
             updateTemplateView({
               isTemplateDrawerOpened: true,
-              templateDrawerData: { type: TemplateDrawerTypes.UseTemplate }
+              templateDrawerData: {
+                type: TemplateDrawerTypes.UseTemplate,
+                data: {
+                  selectorData: {
+                    templateTypes: ['Step'],
+                    childTypes: [(data?.stepConfig?.node as StepElementConfig)?.type]
+                  }
+                }
+              }
             })
           }
+          onSaveAsTemplate={noop}
           isStepGroup={data.stepConfig.isStepGroup}
           hiddenPanels={data.stepConfig.hiddenAdvancedPanels}
           stageType={stageType as StageType}

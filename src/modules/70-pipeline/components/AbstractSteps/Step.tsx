@@ -1,4 +1,4 @@
-import type { IconName } from '@wings-software/uicore'
+import type { IconName, MultiTypeInputType } from '@wings-software/uicore'
 import type { FormikErrors, FormikProps } from 'formik'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import type { UseStringsReturn } from 'framework/strings'
@@ -11,7 +11,8 @@ export enum StepViewType {
   InputVariable = 'InputVariable',
   DeploymentForm = 'DeploymentForm',
   StageVariable = 'StageVariable',
-  Edit = 'Edit'
+  Edit = 'Edit',
+  Template = 'Template'
 }
 
 export interface InputSetData<T> {
@@ -38,6 +39,7 @@ export type StepFormikFowardRef<T = unknown> =
 export interface StepProps<T, U = unknown> {
   initialValues: T
   onUpdate?: (data: T) => void
+  onChange?: (data: T) => void
   isNewStep?: boolean
   stepViewType?: StepViewType
   inputSetData?: InputSetData<T>
@@ -46,6 +48,7 @@ export interface StepProps<T, U = unknown> {
   readonly?: boolean
   formikRef?: StepFormikFowardRef<T>
   customStepProps?: U
+  allowableTypes?: MultiTypeInputType[]
 }
 
 export function setFormikRef<T = unknown, U = unknown>(ref: StepFormikFowardRef<T>, formik: FormikProps<U>): void {

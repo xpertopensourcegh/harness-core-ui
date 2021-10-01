@@ -7,7 +7,13 @@ describe('<TemplateSelector /> tests', () => {
   test('snapshot test', async () => {
     const { container } = render(
       <TestWrapper>
-        <TemplateSelector onSelect={jest.fn()} onClose={jest.fn()} onUseTemplate={jest.fn()} />
+        <TemplateSelector
+          templateTypes={['Step']}
+          childTypes={['Http']}
+          onSelect={jest.fn()}
+          onClose={jest.fn()}
+          onUseTemplate={jest.fn()}
+        />
       </TestWrapper>
     )
 

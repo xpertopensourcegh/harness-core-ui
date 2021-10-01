@@ -1,0 +1,7 @@
+.container {
+  border-bottom: 1px solid var(--primary-6);
+  .step-palette:global(.bp3-card) {
+    border: 2px solid var(--primary-6) !important;
+    box-shadow: var(--elevation-4) !important;
+  }
+}

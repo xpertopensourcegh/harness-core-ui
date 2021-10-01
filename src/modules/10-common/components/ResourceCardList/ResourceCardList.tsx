@@ -5,6 +5,8 @@ import { Card, Color, Icon, IconName, Layout, Text } from '@wings-software/uicor
 import { String } from 'framework/strings'
 import type { OrgPathProps } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
+import { FeatureFlag } from '@common/featureFlags'
 import css from './ResourceCardList.module.scss'
 
 interface ResourceOption {
@@ -20,6 +22,8 @@ interface ResourceCardListProps {
 const ResourceCardList: React.FC<ResourceCardListProps> = ({ items }) => {
   const { accountId, orgIdentifier } = useParams<OrgPathProps>()
   const history = useHistory()
+  const templatesEnabled: boolean = useFeatureFlag(FeatureFlag.NG_TEMPLATES)
+
   const options: ResourceOption[] = items || [
     {
       label: <String stringID="connectorsLabel" />,
@@ -38,7 +42,17 @@ const ResourceCardList: React.FC<ResourceCardListProps> = ({ items }) => {
       icon: 'secrets-icon',
       route: routes.toSecrets({ accountId, orgIdentifier }),
       colorClass: css.secrets
-    }
+    },
+    ...(templatesEnabled
+      ? [
+          {
+            label: <String stringID="common.templates" />,
+            icon: 'template-library',
+            route: routes.toTemplates({ accountId, orgIdentifier }),
+            colorClass: css.templates
+          } as ResourceOption
+        ]
+      : [])
   ]
 
   return (

@@ -22,7 +22,8 @@ import {
   userPathProps,
   userGroupPathProps,
   serviceAccountProps,
-  servicePathProps
+  servicePathProps,
+  templatePathProps
 } from '@common/utils/routeUtils'
 import type {
   PipelinePathProps,
@@ -93,12 +94,13 @@ import ServiceAccountsPage from '@rbac/pages/ServiceAccounts/ServiceAccounts'
 import ServiceAccountDetails from '@rbac/pages/ServiceAccountDetails/ServiceAccountDetails'
 import executionFactory from '@pipeline/factories/ExecutionFactory'
 import { StageType } from '@pipeline/utils/stageHelpers'
-import TemplatesList from '@templates-library/pages/TemplatesList/TemplatesList'
 
 import { TriggerFormType } from '@pipeline/factories/ArtifactTriggerInputFactory/types'
 import TriggerFactory from '@pipeline/factories/ArtifactTriggerInputFactory/index'
 
 import { LicenseRedirectProps, LICENSE_STATE_NAMES } from 'framework/LicenseStore/LicenseStoreContext'
+import { TemplateStudioWrapper } from '@templates-library/components/TemplateStudio/TemplateStudioWrapper'
+import TemplatesPage from '@templates-library/pages/TemplatesPage/TemplatesPage'
 import CDTrialHomePage from './pages/home/CDTrialHomePage'
 
 import { CDExecutionCardSummary } from './components/CDExecutionCardSummary/CDExecutionCardSummary'
@@ -235,6 +237,11 @@ const CDSideNavProps: SidebarContext = {
 const pipelineModuleParams: ModulePathParams = {
   module: ':module(cd)'
 }
+
+const templateModuleParams: ModulePathParams = {
+  module: ':module(cd)'
+}
+
 TriggerFactory.registerTriggerForm(TriggerFormType.Manifest, {
   component: ManifestInputForm
 })
@@ -317,6 +324,14 @@ export default (
       <PipelineDetails>
         <CDPipelineStudio />
       </PipelineDetails>
+    </RouteWithLayout>
+    <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
+      sidebarProps={CDSideNavProps}
+      exact
+      path={routes.toTemplateStudio({ ...accountPathProps, ...templatePathProps, ...templateModuleParams })}
+    >
+      <TemplateStudioWrapper />
     </RouteWithLayout>
     <RouteWithLayout
       exact
@@ -772,9 +787,9 @@ export default (
       exact
       licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
-      path={routes.toTemplatesListing({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
+      path={routes.toTemplates({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
     >
-      <TemplatesList />
+      <TemplatesPage />
     </RouteWithLayout>
     <RouteWithLayout
       exact

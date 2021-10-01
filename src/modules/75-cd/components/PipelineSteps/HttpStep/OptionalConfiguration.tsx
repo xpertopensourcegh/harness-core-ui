@@ -1,7 +1,6 @@
 import React from 'react'
-import { FieldArray } from 'formik'
-import type { FormikProps } from 'formik'
-import { FormInput, Button, MultiTypeInputType, getMultiTypeFromValue, ButtonVariation } from '@wings-software/uicore'
+import { FieldArray, FormikProps } from 'formik'
+import { Button, ButtonVariation, FormInput, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import { v4 as uuid } from 'uuid'
 
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
@@ -16,12 +15,14 @@ import css from './HttpStep.module.scss'
 export default function OptionalConfiguration(props: {
   formik: FormikProps<HttpStepFormData>
   readonly?: boolean
+  allowableTypes?: MultiTypeInputType[]
 }): React.ReactElement {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   const {
     formik: { values: formValues, setFieldValue },
-    readonly
+    readonly,
+    allowableTypes = [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION, MultiTypeInputType.RUNTIME]
   } = props
 
   return (
@@ -33,7 +34,7 @@ export default function OptionalConfiguration(props: {
           isOptional
           optionalLabel={getString('common.optionalLabel')}
           disabled={readonly}
-          multiTextInputProps={{ expressions, disabled: readonly }}
+          multiTextInputProps={{ expressions, disabled: readonly, allowableTypes }}
         />
         {getMultiTypeFromValue(formValues.spec.assertion) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
@@ -73,7 +74,7 @@ export default function OptionalConfiguration(props: {
                         name={`spec.headers[${i}].value`}
                         disabled={readonly}
                         multiTextInputProps={{
-                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                          allowableTypes: allowableTypes.filter(item => item !== MultiTypeInputType.RUNTIME),
                           expressions,
                           disabled: readonly
                         }}
@@ -129,7 +130,7 @@ export default function OptionalConfiguration(props: {
                           name={`spec.outputVariables[${i}].value`}
                           disabled={readonly}
                           multiTextInputProps={{
-                            allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                            allowableTypes: allowableTypes.filter(item => item !== MultiTypeInputType.RUNTIME),
                             expressions,
                             disabled: readonly
                           }}

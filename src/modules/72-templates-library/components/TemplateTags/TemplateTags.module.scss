@@ -1,0 +1,14 @@
+.tagsContainer {
+  flex-wrap: wrap;
+  .tag:global(.bp3-tag) {
+    background-color: var(--grey-100);
+    margin: 0px var(--spacing-xsmall) var(--spacing-xsmall) 0px;
+    color: var(--primary-9);
+    border-radius: var(--spacing-small);
+    font-size: var(--font-size-xsmall);
+  }
+  p.count {
+    font-size: var(--font-size-small) !important;
+    line-height: 20px !important;
+  }
+}

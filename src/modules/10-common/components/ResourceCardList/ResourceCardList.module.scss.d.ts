@@ -5,5 +5,6 @@ declare const styles: {
   readonly connectors: string
   readonly secrets: string
   readonly delegates: string
+  readonly templates: string
 }
 export default styles

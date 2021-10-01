@@ -36,7 +36,7 @@ const ProjectSetupMenu: React.FC<ProjectSetupMenuProps> = ({ module }) => {
           />
         ) : null}
         {templatesEnabled ? (
-          <SidebarLink label={getString('common.templates')} to={routes.toTemplatesListing(params)} />
+          <SidebarLink label={getString('common.templates')} to={routes.toTemplates(params)} />
         ) : null}
       </Layout.Vertical>
     </NavExpandable>

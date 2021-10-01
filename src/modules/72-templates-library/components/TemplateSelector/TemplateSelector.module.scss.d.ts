@@ -1,12 +1,10 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly templateSelector: string
-  readonly templateList: string
-  readonly templateListInner: string
-  readonly levelSelect: string
-  readonly gridLayout: string
-  readonly templateSelectorInner: string
-  readonly templateDetails: string
+  readonly preview: string
+  readonly empty: string
+  readonly selectorContainer: string
+  readonly searchBox: string
+  readonly illustration: string
 }
 export default styles

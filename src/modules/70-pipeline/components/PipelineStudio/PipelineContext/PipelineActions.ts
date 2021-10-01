@@ -1,12 +1,13 @@
 import { clone } from 'lodash-es'
 import type { IDrawerProps } from '@blueprintjs/core'
-import type { YamlSnippetMetaData, PipelineInfoConfig, StepElementConfig, StepGroupElementConfig } from 'services/cd-ng'
+import type { YamlSnippetMetaData, PipelineInfoConfig } from 'services/cd-ng'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
 import type * as Diagram from '@pipeline/components/Diagram'
 import type { EntityGitDetails } from 'services/pipeline-ng'
 import type { DependencyElement } from 'services/ci'
+import type { TemplateType } from '@common/interfaces/RouteInterfaces'
 import type { StepState } from '../ExecutionGraph/ExecutionGraphUtil'
-import type { AdvancedPanels } from '../StepCommands/StepCommandTypes'
+import type { AdvancedPanels, StepOrStepGroupOrTemplateStepData } from '../StepCommands/StepCommandTypes'
 
 export enum PipelineActions {
   DBInitialize = 'DBInitialize',
@@ -70,17 +71,17 @@ export interface DrawerData extends Omit<IDrawerProps, 'isOpen'> {
     paletteData?: {
       isRollback: boolean
       isParallelNodeClicked: boolean
-      onUpdate?: (stepOrGroup: StepElementConfig | StepGroupElementConfig | DependencyElement) => void
+      onUpdate?: (stepOrGroup: StepOrStepGroupOrTemplateStepData | DependencyElement) => void
       entity: Diagram.DefaultNodeModel
       stepsMap: Map<string, StepState>
       hiddenAdvancedPanels?: AdvancedPanels[]
     }
     stepConfig?: {
-      node: StepElementConfig | StepGroupElementConfig | DependencyElement
+      node: StepOrStepGroupOrTemplateStepData | DependencyElement
       addOrEdit: 'add' | 'edit'
       isStepGroup: boolean
       stepsMap: Map<string, StepState>
-      onUpdate?: (stepOrGroup: StepElementConfig | StepGroupElementConfig | DependencyElement) => void
+      onUpdate?: (stepOrGroup: StepOrStepGroupOrTemplateStepData | DependencyElement) => void
       isUnderStepGroup?: boolean
       hiddenAdvancedPanels?: AdvancedPanels[]
     }
@@ -90,22 +91,9 @@ export interface DrawerData extends Omit<IDrawerProps, 'isOpen'> {
 export interface TemplateDrawerData extends Omit<IDrawerProps, 'isOpen'> {
   type: TemplateDrawerTypes
   data?: {
-    paletteData?: {
-      //isRollback: boolean
-      //isParallelNodeClicked: boolean
-      //onUpdate?: (stepOrGroup: ExecutionWrapper) => void
-      //entity: Diagram.DefaultNodeModel
-      //stepsMap: Map<string, StepState>
-      //hiddenAdvancedPanels?: AdvancedPanels[]
-    }
-    stepConfig?: {
-      //node: ExecutionWrapper | DependenciesWrapper
-      //addOrEdit: 'add' | 'edit'
-      //isStepGroup: boolean
-      //stepsMap: Map<string, StepState>
-      //onUpdate?: (stepOrGroup: ExecutionWrapper) => void
-      //isUnderStepGroup?: boolean
-      //hiddenAdvancedPanels?: AdvancedPanels[]
+    selectorData?: {
+      templateTypes: TemplateType[]
+      childTypes?: string[]
     }
   }
 }

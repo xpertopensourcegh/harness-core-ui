@@ -7,6 +7,9 @@
   display: flex !important;
   justify-content: center;
   align-items: center;
+  &.addStep {
+    border: 2px dashed var(--grey-300);
+  }
 }
 
 .stepHarnessLogo {

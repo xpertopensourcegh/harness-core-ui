@@ -1,0 +1,12 @@
+.basicDetails {
+  padding: var(--spacing-10) var(--spacing-11) !important;
+  :global(.TextInput--main) {
+    margin-bottom: 0px;
+  }
+}
+
+.closeIcon {
+  position: absolute;
+  top: var(--spacing-5);
+  right: var(--spacing-5);
+}

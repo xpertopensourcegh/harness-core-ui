@@ -2,7 +2,7 @@ import React from 'react'
 import type { FormikProps } from 'formik'
 import { Formik, FormikForm, Accordion, AccordionHandle } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { defaultTo, isEmpty } from 'lodash-es'
+import { debounce, defaultTo, isEmpty } from 'lodash-es'
 
 import { useStrings } from 'framework/strings'
 import {
@@ -13,12 +13,12 @@ import {
 import { TabTypes } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 import { StepFormikFowardRef, setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { StepMode as Modes } from '@pipeline/utils/stepUtils'
-import type { StepElementConfig } from 'services/cd-ng'
-
+import type { StepElementConfig, StepGroupElementConfig } from 'services/cd-ng'
+import type { TemplateStepData } from '@pipeline/utils/tempates'
 import DelegateSelectorPanel from './DelegateSelectorPanel/DelegateSelectorPanel'
 import FailureStrategyPanel, { AllFailureStrategyConfig } from './FailureStrategyPanel/FailureStrategyPanel'
 import { getFailureStrategiesValidationSchema } from './FailureStrategyPanel/validation'
-import { StepType } from '../PipelineStepInterface'
+import type { StepType } from '../PipelineStepInterface'
 import ConditionalExecutionPanel from './ConditionalExecutionPanel/ConditionalExecutionPanel'
 import css from './AdvancedSteps.module.scss'
 
@@ -27,23 +27,43 @@ export type FormValues = Pick<Values, 'delegateSelectors' | 'when'> & {
 }
 
 export interface AdvancedStepsProps extends StepCommandsProps {
-  _?: unknown // to void empty interface error
+  stepType?: StepType
 }
 
 export default function AdvancedSteps(props: AdvancedStepsProps, formikRef: StepFormikFowardRef): React.ReactElement {
-  const { step, onChange } = props
+  const { step, onChange, onUpdate } = props
   const { getString } = useStrings()
+
+  const debouncedUpdate = React.useCallback(
+    debounce((data: FormValues): void => {
+      onUpdate?.({ ...data, tab: TabTypes.Advanced })
+    }, 300),
+    [onUpdate]
+  )
+
+  const failureStrategies =
+    (step as TemplateStepData)?.template?.templateInputs?.failureStrategies ||
+    (step as StepElementConfig | StepGroupElementConfig)?.failureStrategies
+
+  const delegateSelectors =
+    (step as TemplateStepData)?.template?.templateInputs?.failureStrategies ||
+    (step as StepElementConfig)?.spec?.delegateSelectors
+
+  const when =
+    (step as TemplateStepData)?.template?.templateInputs?.when ||
+    (step as StepElementConfig | StepGroupElementConfig)?.when
 
   return (
     <Formik<FormValues>
       initialValues={{
-        failureStrategies: defaultTo(step.failureStrategies, []) as AllFailureStrategyConfig[],
-        delegateSelectors: defaultTo((step as StepElementConfig).spec?.delegateSelectors, []),
-        when: step.when
+        failureStrategies: defaultTo(failureStrategies, []) as AllFailureStrategyConfig[],
+        delegateSelectors: defaultTo(delegateSelectors, []),
+        when
       }}
       onSubmit={data => {
         onChange({ ...data, tab: TabTypes.Advanced })
       }}
+      validate={debouncedUpdate}
       formName="pipelineAdvancedSteps"
       validationSchema={Yup.object().shape({
         failureStrategies: getFailureStrategiesValidationSchema(getString)
@@ -64,16 +84,16 @@ export interface AdvancedTabFormProps extends Omit<AdvancedStepsProps, 'onChange
 
 export function AdvancedTabForm(props: AdvancedTabFormProps): React.ReactElement {
   const {
-    step,
     formikProps,
     hiddenPanels = [],
     hasStepGroupAncestor,
     isStepGroup,
     stepsFactory,
     isReadonly,
-    stageType
+    stageType,
+    stepType
   } = props
-  const stepType = isStepGroup ? StepType.StepGroup : (step as StepElementConfig).type
+
   const accordionRef = React.useRef<AccordionHandle>({} as AccordionHandle)
   const { getString } = useStrings()
 

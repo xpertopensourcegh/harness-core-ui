@@ -2,10 +2,10 @@ import React from 'react'
 import type { FormikErrors } from 'formik'
 import type { IconName } from '@wings-software/uicore'
 import { StepProps, StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
-
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
-import { TemplateStepWidgetWithRef, TemplateStepData } from './TemplateStepWidget'
+import type { TemplateStepData } from '@pipeline/utils/tempates'
+import { TemplateStepWidgetWithRef } from './TemplateStepWidget'
 
 export class TemplateStep extends PipelineStep<TemplateStepData> {
   constructor() {
@@ -14,7 +14,7 @@ export class TemplateStep extends PipelineStep<TemplateStepData> {
 
   protected type = StepType.Template
   protected stepName = 'Template step'
-  protected stepIcon: IconName = 'library'
+  protected stepIcon: IconName = 'template-library'
 
   protected defaultValues: TemplateStepData = {
     identifier: '',

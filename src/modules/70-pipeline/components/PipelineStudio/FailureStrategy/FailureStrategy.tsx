@@ -67,6 +67,13 @@ export function FailureStrategy(props: FailureStrategyProps, ref: StepCommandsRe
       }
 
       return {}
+    },
+    resetForm() {
+      if (formikRef.current) {
+        return formikRef.current.resetForm()
+      }
+
+      return {}
     }
   }))
 

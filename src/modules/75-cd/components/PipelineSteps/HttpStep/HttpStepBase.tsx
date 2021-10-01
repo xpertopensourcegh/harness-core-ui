@@ -9,6 +9,7 @@ import { useStrings } from 'framework/strings'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { HttpStepFormData } from './types'
 import css from './HttpStep.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
@@ -26,31 +27,42 @@ export default function HttpStepBase(props: {
   formik: FormikProps<HttpStepFormData>
   isNewStep?: boolean
   readonly?: boolean
+  stepViewType?: StepViewType
+  allowableTypes?: MultiTypeInputType[]
 }): React.ReactElement {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   const {
     formik: { values: formValues, setFieldValue },
     isNewStep = true,
-    readonly
+    readonly,
+    stepViewType,
+    allowableTypes
   } = props
 
   return (
     <div className={stepCss.stepPanel}>
       <div className={cx(stepCss.formGroup, stepCss.lg)}>
-        <FormInput.InputWithIdentifier
-          inputLabel={getString('name')}
-          isIdentifierEditable={isNewStep && !readonly}
-          inputGroupProps={{
-            disabled: readonly
-          }}
-        />
+        {stepViewType !== StepViewType.Template && (
+          <FormInput.InputWithIdentifier
+            inputLabel={getString('name')}
+            isIdentifierEditable={isNewStep && !readonly}
+            inputGroupProps={{
+              disabled: readonly
+            }}
+          />
+        )}
       </div>
       <div className={cx(stepCss.formGroup, stepCss.sm)}>
         <FormMultiTypeDurationField
           name="timeout"
           label={getString('pipelineSteps.timeoutLabel')}
-          multiTypeDurationProps={{ enableConfigureOptions: false, expressions, disabled: readonly }}
+          multiTypeDurationProps={{
+            enableConfigureOptions: false,
+            expressions,
+            disabled: readonly,
+            allowableTypes
+          }}
           disabled={readonly}
         />
         {getMultiTypeFromValue(formValues.timeout) === MultiTypeInputType.RUNTIME && (
@@ -74,7 +86,7 @@ export default function HttpStepBase(props: {
           name="spec.url"
           label={getString('UrlLabel')}
           disabled={readonly}
-          multiTextInputProps={{ expressions, disabled: readonly }}
+          multiTextInputProps={{ expressions, disabled: readonly, allowableTypes }}
         />
         {getMultiTypeFromValue(formValues.spec.url) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
@@ -93,7 +105,7 @@ export default function HttpStepBase(props: {
         <FormInput.MultiTypeInput
           selectItems={httpStepType}
           disabled={readonly}
-          multiTypeInputProps={{ expressions, disabled: readonly }}
+          multiTypeInputProps={{ expressions, disabled: readonly, allowableTypes }}
           label={getString('methodLabel')}
           name="spec.method"
         />
@@ -115,7 +127,7 @@ export default function HttpStepBase(props: {
           name="spec.requestBody"
           label={getString('requestBodyLabel')}
           className={css.requestBody}
-          multiTypeTextArea={{ enableConfigureOptions: false, expressions, disabled: readonly }}
+          multiTypeTextArea={{ enableConfigureOptions: false, expressions, disabled: readonly, allowableTypes }}
         />
         {getMultiTypeFromValue(formValues.spec.requestBody) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions

@@ -1,0 +1,15 @@
+.canvas-container {
+  height: 100%;
+  padding: 0 !important;
+  position: relative;
+
+  .canvas-wrapper {
+    width: 100%;
+
+    :global(.Resizer.horizontal) {
+      height: 4px;
+      background-color: var(--primary-3);
+      cursor: row-resize;
+    }
+  }
+}

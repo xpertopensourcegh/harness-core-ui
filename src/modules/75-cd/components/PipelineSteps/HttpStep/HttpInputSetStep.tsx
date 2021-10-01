@@ -19,13 +19,15 @@ export interface HttpInputSetStepProps {
   readonly?: boolean
   template?: HttpStepData
   path: string
+  allowableTypes?: MultiTypeInputType[]
 }
 
 export default function HttpInputSetStep(props: HttpInputSetStepProps): React.ReactElement {
-  const { template, path, readonly } = props
+  const { template, path, readonly, allowableTypes } = props
   const { getString } = useStrings()
   const prefix = isEmpty(path) ? '' : `${path}.`
   const { expressions } = useVariablesExpression()
+
   return (
     <React.Fragment>
       {getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME ? (
@@ -37,7 +39,7 @@ export default function HttpInputSetStep(props: HttpInputSetStepProps): React.Re
               enableConfigureOptions: false,
               expressions,
               disabled: readonly,
-              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+              allowableTypes
             }}
             disabled={readonly}
           />
@@ -51,7 +53,7 @@ export default function HttpInputSetStep(props: HttpInputSetStepProps): React.Re
             multiTextInputProps={{
               expressions,
               disabled: readonly,
-              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+              allowableTypes
             }}
             disabled={readonly}
           />
@@ -67,7 +69,7 @@ export default function HttpInputSetStep(props: HttpInputSetStepProps): React.Re
             multiTypeInputProps={{
               expressions,
               disabled: readonly,
-              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+              allowableTypes
             }}
             disabled={readonly}
           />
@@ -82,7 +84,7 @@ export default function HttpInputSetStep(props: HttpInputSetStepProps): React.Re
               enableConfigureOptions: false,
               expressions,
               disabled: readonly,
-              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+              allowableTypes
             }}
             disabled={readonly}
           />
@@ -97,7 +99,7 @@ export default function HttpInputSetStep(props: HttpInputSetStepProps): React.Re
             multiTextInputProps={{
               expressions,
               disabled: readonly,
-              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+              allowableTypes
             }}
           />
         </div>

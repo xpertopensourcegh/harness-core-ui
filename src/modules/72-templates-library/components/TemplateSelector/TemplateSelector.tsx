@@ -1,20 +1,42 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import {
+  Button,
+  ButtonSize,
+  ButtonVariation,
+  Color,
+  Container,
+  DropDown,
+  ExpandingSearchInput,
+  GridListToggle,
+  Icon,
+  Layout,
+  SelectOption,
+  Text,
+  Views
+} from '@wings-software/uicore'
+import { useParams } from 'react-router-dom'
 import { noop } from 'lodash-es'
-import { useGet } from 'restful-react'
-import { Layout, Select, SelectOption, Text } from '@wings-software/uicore'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
-import templatesMock from '@templates-library/temporary-mock/templates-list.json'
-import { TemplatesGridView } from '@templates-library/pages/TemplatesList/TemplatesGridView/TemplatesGridView'
-
-import type { TemplatesPageSummaryResponse } from '@templates-library/temporary-mock/model'
+import { TemplatesGridView } from '@templates-library/pages/TemplatesPage/views/TemplatesGridView/TemplatesGridView'
+import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { TemplateSummaryResponse, useGetTemplateList } from 'services/template-ng'
+import type { TemplateType } from '@templates-library/utils/templatesUtils'
+import { useStrings } from 'framework/strings'
+import { TemplateListView } from '@templates-library/pages/TemplatesPage/views/TemplatesListView/TemplateListView'
+import templateIllustration from '@templates-library/pages/TemplatesPage/images/templates-illustration.svg'
+import { PageSpinner } from '@common/components'
+import { PageError } from '@common/components/Page/PageError'
+import { useMutateAsGet } from '@common/hooks'
+import { TemplateListType } from '@templates-library/pages/TemplatesPage/TemplatesPageUtils'
 import { TemplateDetails } from '../TemplateDetails/TemplateDetails'
-
 import css from './TemplateSelector.module.scss'
 
 export interface TemplateSelectorProps {
+  templateTypes: (keyof typeof TemplateType)[]
+  childTypes: string[]
   onSelect: (template: any) => void
   onClose: () => void
-  onUseTemplate: (template: any) => void
+  onUseTemplate: (template: TemplateSummaryResponse) => void
 }
 
 const levelOptions: SelectOption[] = [
@@ -33,66 +55,182 @@ const levelOptions: SelectOption[] = [
 ]
 
 export const TemplateSelector: React.FC<TemplateSelectorProps> = (props): JSX.Element => {
-  const { onUseTemplate } = props
-
+  const { templateTypes, childTypes, onUseTemplate } = props
   const [selectedLevel, setSelectedLevel] = useState(levelOptions[0])
+  const [selectedTemplate, setSelectedTemplate] = useState<TemplateSummaryResponse | undefined>()
+  const { getString } = useStrings()
+  const [page, setPage] = useState(0)
+  const [view, setView] = useState<Views>(Views.GRID)
+  const [searchParam, setSearchParam] = useState('')
+  const { projectIdentifier, orgIdentifier, accountId, module } = useParams<ProjectPathProps & ModulePathParams>()
 
-  const { data } = useGet<TemplatesPageSummaryResponse>('', {
-    mock: { loading: false, data: templatesMock as TemplatesPageSummaryResponse }
+  const {
+    data: templateData,
+    refetch: reloadTemplates,
+    loading,
+    error
+  } = useMutateAsGet(useGetTemplateList, {
+    body: {
+      filterType: 'Template',
+      templateEntityTypes: templateTypes,
+      childTypes: childTypes
+    },
+    queryParams: {
+      accountIdentifier: accountId,
+      projectIdentifier,
+      module,
+      orgIdentifier,
+      templateListType: TemplateListType.LastUpdated,
+      searchTerm: searchParam,
+      page,
+      size: 20
+    },
+    queryParamStringifyOptions: { arrayFormat: 'comma' }
   })
 
-  const [selectedTemplateId, setSelectedTemplateId] = useState<string | undefined>()
+  useEffect(() => {
+    reloadTemplates()
+  }, [page, accountId, projectIdentifier, orgIdentifier, module, searchParam])
+
+  const reset = (): void => {
+    setSearchParam('')
+  }
+
   return (
-    <div className={css.templateSelector}>
-      <div className={css.templateSelectorInner}>
-        <section className={css.templateList}>
-          <div className={css.templateListInner}>
-            <Breadcrumbs
-              links={[
-                {
-                  url: '/',
-                  label: 'Templates'
-                },
-                {
-                  url: '/',
-                  label: 'Step Templates'
-                }
-              ]}
-            />
-            <Layout.Horizontal>
-              <Select
-                items={levelOptions}
-                value={selectedLevel}
-                onChange={item => setSelectedLevel(item)}
-                className={css.levelSelect}
-              ></Select>
-            </Layout.Horizontal>
-            <Layout.Horizontal>
-              <Text font={{ weight: 'bold' }}>Templates: 8</Text>
-            </Layout.Horizontal>
-            <div style={{ display: 'flex', flexDirection: 'column', overflow: 'auto' }}>
-              <TemplatesGridView
-                data={data}
-                gotoPage={noop}
-                onSelect={templateId => {
-                  setSelectedTemplateId(templateId)
-                }}
-                gridLayoutClass={css.gridLayout}
-                selectedIdentifier={selectedTemplateId}
-              />
-            </div>
-          </div>
-        </section>
-        <section className={css.templateDetails}>
-          <TemplateDetails
-            templateIdentifier={selectedTemplateId}
-            showActions={true}
-            onTemplateSelect={templateIdentifier => {
-              onUseTemplate(templateIdentifier)
-            }}
-          />
-        </section>
-      </div>
-    </div>
+    <Container height={'100%'}>
+      <Layout.Horizontal height={'100%'}>
+        <Container width={735} background={Color.FORM_BG} className={css.selectorContainer}>
+          <Layout.Vertical spacing={'xxlarge'} height={'100%'}>
+            <Container>
+              <Layout.Vertical spacing={'small'}>
+                <Breadcrumbs
+                  links={[
+                    {
+                      url: '/',
+                      label: 'Templates'
+                    },
+                    {
+                      url: '/',
+                      label: 'Step Templates'
+                    }
+                  ]}
+                />
+                <Container>
+                  <Layout.Horizontal spacing={'small'}>
+                    <DropDown
+                      items={levelOptions}
+                      value={selectedLevel.value.toString()}
+                      onChange={item => setSelectedLevel(item)}
+                      filterable={false}
+                    />
+                    <ExpandingSearchInput
+                      className={css.searchBox}
+                      alwaysExpanded={true}
+                      onChange={(text: string) => {
+                        setPage(0)
+                        setSearchParam(text)
+                      }}
+                    />
+                  </Layout.Horizontal>
+                </Container>
+              </Layout.Vertical>
+            </Container>
+            <Container style={{ flexGrow: 1, position: 'relative' }}>
+              {loading && <PageSpinner />}
+              {!loading && error && <PageError message={error?.message} onClick={reloadTemplates} />}
+              {!templateData?.data?.content?.length && (
+                <Layout.Vertical height={'100%'} spacing={'xlarge'} flex={{ align: 'center-center' }}>
+                  {searchParam ? (
+                    <>
+                      <Icon color={Color.GREY_400} name="template-library" size={50} />
+                      <Text font={{ weight: 'bold', size: 'medium' }} color={Color.GREY_400}>
+                        {getString('common.filters.noMatchingFilterData')}
+                      </Text>
+                      <Button
+                        variation={ButtonVariation.LINK}
+                        size={ButtonSize.LARGE}
+                        onClick={reset}
+                        text={getString('common.filters.clearFilters')}
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <img src={templateIllustration} className={css.illustration} />
+                      <Text font={{ size: 'large', weight: 'bold' }} color={Color.GREY_300}>
+                        {getString('templatesLibrary.templatesPage.noTemplates')}
+                      </Text>
+                    </>
+                  )}
+                </Layout.Vertical>
+              )}
+              {!!templateData?.data?.content?.length && (
+                <Layout.Vertical height={'100%'}>
+                  <Container>
+                    <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'space-between' }}>
+                      <Text font={{ size: 'xsmall', weight: 'bold' }} color={Color.GREY_800}>
+                        {getString('common.templates').toUpperCase()} ({templateData?.data?.totalElements})
+                      </Text>
+                      <GridListToggle initialSelectedView={Views.GRID} onViewToggle={setView} />
+                    </Layout.Horizontal>
+                  </Container>
+                  <Container style={{ flexGrow: 1 }}>
+                    {view === Views.GRID ? (
+                      <TemplatesGridView
+                        data={templateData?.data}
+                        gotoPage={setPage}
+                        onSelect={setSelectedTemplate}
+                        selectedIdentifier={selectedTemplate?.identifier}
+                      />
+                    ) : (
+                      <TemplateListView
+                        data={templateData?.data}
+                        gotoPage={setPage}
+                        onSelect={setSelectedTemplate}
+                        selectedIdentifier={selectedTemplate?.identifier}
+                      />
+                    )}
+                  </Container>
+                </Layout.Vertical>
+              )}
+            </Container>
+          </Layout.Vertical>
+        </Container>
+        <Container className={css.preview} background={Color.FORM_BG}>
+          {selectedTemplate ? (
+            <Layout.Vertical height={'100%'}>
+              <TemplateDetails templateIdentifier={selectedTemplate.identifier || ''} />
+              <Container>
+                <Layout.Horizontal
+                  padding={{ right: 'xxlarge', bottom: 'xxxlarge', left: 'xxlarge' }}
+                  spacing={'small'}
+                >
+                  <Button
+                    variation={ButtonVariation.PRIMARY}
+                    text={getString('templatesLibrary.useTemplate')}
+                    onClick={() => {
+                      onUseTemplate?.(selectedTemplate)
+                    }}
+                  />
+                  <Button
+                    variation={ButtonVariation.LINK}
+                    disabled
+                    text={getString('templatesLibrary.copyToPipeline')}
+                    onClick={noop}
+                  />
+                </Layout.Horizontal>
+              </Container>
+            </Layout.Vertical>
+          ) : (
+            <Container padding={'xlarge'} height={'100%'}>
+              <Layout.Vertical className={css.empty} height={'100%'} flex={{ align: 'center-center' }}>
+                <Text font={{ size: 'small', italic: true }} color={Color.GREY_300}>
+                  {getString('templatesLibrary.selectTemplateToPreview')}
+                </Text>
+              </Layout.Vertical>
+            </Container>
+          )}
+        </Container>
+      </Layout.Horizontal>
+    </Container>
   )
 }

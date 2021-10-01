@@ -1,172 +1,211 @@
 import React from 'react'
-import { isEmpty } from 'lodash-es'
-import cx from 'classnames'
-import { Menu } from '@blueprintjs/core'
 import {
   Button,
+  ButtonVariation,
   Color,
+  Container,
+  DropDown,
   Layout,
-  Popover,
-  Select,
   SelectOption,
-  Tag,
-  Text,
-  Tabs,
   Tab,
-  Icon
+  Tabs,
+  Tag,
+  Text
 } from '@wings-software/uicore'
+import { useHistory } from 'react-router'
+import { useParams } from 'react-router-dom'
+import { isEmpty } from 'lodash-es'
 import { useStrings } from 'framework/strings'
+import routes from '@common/RouteDefinitions'
+import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { TemplateTags } from '@templates-library/components/TemplateTags/TemplateTags'
+import { PageSpinner, useToaster } from '@common/components'
+import { TemplateListType } from '@templates-library/pages/TemplatesPage/TemplatesPageUtils'
+import { useMutateAsGet } from '@common/hooks'
+import { useGetTemplateList, TemplateSummaryResponse } from 'services/template-ng'
 import { TemplateInputs } from '../TemplateInputs/TemplateInputs'
 import { TemplateYaml } from '../TemplateYaml/TemplateYaml'
-
 import css from './TemplateDetails.module.scss'
 
 export interface TemplateDetailsProps {
-  templateIdentifier: string | undefined
-  showActions?: boolean
-  onTemplateSelect?: (templateIdentifier: string) => void
+  templateIdentifier: string
+  versionLabel?: string
+  onClose?: () => void
 }
 
 export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
-  const { templateIdentifier, showActions = false, onTemplateSelect } = props
+  const { templateIdentifier, versionLabel = false, onClose } = props
   const { getString } = useStrings()
+  const history = useHistory()
+  const { accountId, projectIdentifier, orgIdentifier, module } = useParams<ProjectPathProps & ModulePathParams>()
+  const [versionOptions, setVersionOptions] = React.useState<SelectOption[]>([])
+  const { showError } = useToaster()
+  const [selectedVersion, setSelectedVersion] = React.useState<TemplateSummaryResponse>()
 
-  const template: { tags: { [key: string]: string }; version: string } = {
-    tags: { tag1: '', tag2: '', tag3: '' },
-    version: 'V4.6'
-  }
+  const {
+    data: templateData,
+    loading,
+    error: templatesError
+  } = useMutateAsGet(useGetTemplateList, {
+    body: {
+      filterType: 'Template',
+      templateIdentifiers: [templateIdentifier]
+    },
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      module,
+      templateListType: TemplateListType.All
+    },
+    queryParamStringifyOptions: { arrayFormat: 'comma' }
+  })
 
-  const versionOptions: SelectOption[] = [
-    {
-      label: 'Default (V4.6)',
-      value: 'V4.6'
+  const onChangeVersion = React.useCallback(
+    (version: string) => {
+      const newSelectedVersion = templateData?.data?.content?.find(item => item.versionLabel === version)
+      setSelectedVersion(newSelectedVersion)
     },
-    {
-      label: 'V4.4',
-      value: 'V4.4'
-    },
-    {
-      label: 'V4.3',
-      value: 'V4.3'
+    [templateData?.data?.content]
+  )
+
+  React.useEffect(() => {
+    if (!isEmpty(templateData?.data?.content)) {
+      setSelectedVersion(
+        templateData?.data?.content?.find(item => item.versionLabel === versionLabel) ||
+          templateData?.data?.content?.[0]
+      )
+      const newVersionOptions = templateData?.data?.content?.map(item => {
+        return {
+          label: item.versionLabel,
+          value: item.versionLabel
+        } as SelectOption
+      }) || [{ label: '', value: '' } as SelectOption]
+      newVersionOptions.sort((a, b) => a.label.localeCompare(b.label))
+      setVersionOptions(newVersionOptions)
     }
-  ]
+  }, [templateData?.data?.content, versionLabel])
 
-  const ContextMenu = () => {
-    return (
-      <Menu style={{ minWidth: 'unset' }} onClick={e => e.stopPropagation()}>
-        <Menu.Item
-          text={getString('templatesLibrary.templateSettings')}
-          onClick={(e: React.MouseEvent) => {
-            e.stopPropagation()
-          }}
-        />
-      </Menu>
-    )
+  React.useEffect(() => {
+    if (templatesError) {
+      onClose?.()
+      showError(templatesError.message, undefined, 'template.fetch.template.error')
+    }
+  }, [templatesError])
+
+  const goToTemplateStudio = () => {
+    if (selectedVersion) {
+      history.push(
+        routes.toTemplateStudio({
+          projectIdentifier,
+          orgIdentifier,
+          accountId,
+          module,
+          templateType: selectedVersion.templateEntityType,
+          templateIdentifier: selectedVersion.identifier,
+          versionLabel: selectedVersion.versionLabel
+        })
+      )
+    }
   }
 
-  if (!templateIdentifier) {
-    return (
-      <div className={css.emptyHolder}>
-        <div className={css.emptyHolderInner}>
-          <Icon name="advanced" size={100} color={Color.GREY_200} />
-          <Text color={Color.GREY_200}>
-            <i>{getString('templatesLibrary.selectTemplateToPreview')}</i>
-          </Text>
-        </div>
-      </div>
-    )
+  const onChange = (item: SelectOption): void => {
+    onChangeVersion?.(item.value?.toString() || '')
   }
 
   return (
-    <div className={css.main}>
-      <div className={css.details}>
-        <div>
-          <Layout.Horizontal spacing="medium" flex={true} style={{ justifyContent: 'flex-end' }}>
-            <Popover content={<ContextMenu />} minimal>
-              <Button icon="Options" minimal />
-            </Popover>
-          </Layout.Horizontal>
-
-          <div className={cx(css.row, css.titleHolder)}>
-            <Text font={{ size: 'medium', weight: 'bold' }} color={Color.GREY_800}>
-              Template title
-            </Text>
-            <Button small className={css.openBtn}>
-              Open template in Pipeline Studio
-            </Button>
+    <Container
+      height={'100%'}
+      padding={{ top: 'huge', right: 'xxlarge', bottom: 'huge', left: 'xxlarge' }}
+      background={Color.FORM_BG}
+      className={css.main}
+    >
+      {loading && <PageSpinner />}
+      {selectedVersion && (
+        <Layout.Vertical spacing={'xxxlarge'} height={'100%'}>
+          <Container>
+            <Layout.Horizontal flex={{ alignItems: 'center' }} spacing={'huge'}>
+              <Text font={{ size: 'medium', weight: 'bold' }} color={Color.GREY_800}>
+                {selectedVersion.name}
+              </Text>
+              <Button onClick={goToTemplateStudio} variation={ButtonVariation.SECONDARY}>
+                {getString('templatesLibrary.openInTemplateStudio')}
+              </Button>
+            </Layout.Horizontal>
+          </Container>
+          <Container>
+            <Layout.Vertical spacing={'large'}>
+              <Container>
+                <Layout.Vertical spacing={'small'}>
+                  <Text font={{ size: 'small' }} color={Color.GREY_500}>
+                    Version
+                  </Text>
+                  {selectedVersion.versionLabel && (
+                    <DropDown
+                      filterable={false}
+                      items={versionOptions}
+                      value={selectedVersion.versionLabel}
+                      onChange={onChange}
+                      width={300}
+                    />
+                  )}
+                </Layout.Vertical>
+              </Container>
+              <Container>
+                <Layout.Vertical spacing={'small'}>
+                  <Text font={{ size: 'small' }} color={Color.GREY_500}>
+                    Description
+                  </Text>
+                  <Text color={Color.GREY_700}>{selectedVersion.description ?? '-'}</Text>
+                </Layout.Vertical>
+              </Container>
+              <Container>
+                <Layout.Vertical spacing={'small'}>
+                  <Text font={{ size: 'small' }} color={Color.GREY_500}>
+                    Tags
+                  </Text>
+                  {selectedVersion.tags && !isEmpty(selectedVersion.tags) ? (
+                    <TemplateTags tags={selectedVersion.tags} />
+                  ) : (
+                    <Text color={Color.GREY_700}>-</Text>
+                  )}
+                </Layout.Vertical>
+              </Container>
+            </Layout.Vertical>
+          </Container>
+          <div className={css.tabsContainer}>
+            <Tabs id="template-details" selectedTabId={'template-yaml'}>
+              <Tab
+                id="template-input"
+                disabled={true}
+                title={getString('templatesLibrary.templateInputs')}
+                panel={<TemplateInputs />}
+              />
+              <Tab
+                id="template-yaml"
+                title={getString('yaml')}
+                panel={<TemplateYaml templateYaml={selectedVersion.yaml} />}
+              />
+              <Tab
+                id="template-referenced-by"
+                disabled={true}
+                title={
+                  <>
+                    {getString('templatesLibrary.referencedBy')} &nbsp; <Tag>5</Tag>
+                  </>
+                }
+                panel={<div>Referenced By</div>}
+              />
+              <Tab
+                id="template-version-log"
+                disabled={true}
+                title={getString('templatesLibrary.versionLog')}
+                panel={<div>Version Log</div>}
+              />
+            </Tabs>
           </div>
-
-          <div className={css.row}>
-            <Text font={{ size: 'small' }} color={Color.GREY_500} className={css.smallTitle}>
-              Description
-            </Text>
-            <Text color={Color.GREY_700}>
-              Template description...Template description...Template description...Template description...Template
-              description...Template description...Template description...
-            </Text>
-          </div>
-
-          <div className={css.row}>
-            <Text font={{ size: 'small' }} color={Color.GREY_500}>
-              Tags
-            </Text>
-            <div className={css.tags}>
-              {!isEmpty(template.tags) &&
-                template.tags &&
-                Object.keys(template.tags).map(key => {
-                  const value = template?.tags?.[key]
-                  return (
-                    <Tag className={css.tag} key={key}>
-                      {value ? `${key}:${value}` : key}
-                    </Tag>
-                  )
-                })}
-            </div>
-          </div>
-
-          <div className={css.row}>
-            <Text font={{ size: 'small' }} color={Color.GREY_500}>
-              Version
-            </Text>
-            <div className={css.tags}>
-              <Select items={versionOptions} value={versionOptions[0]} />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className={cx(css.tabsContainer)}>
-        <Tabs id="template-details">
-          <Tab id="template-input" title={getString('templatesLibrary.templateInputs')} panel={<TemplateInputs />} />
-          <Tab id="template-yaml" title={getString('yaml')} panel={<TemplateYaml />} />
-          <Tab
-            id="template-referenced-by"
-            title={
-              <>
-                {getString('templatesLibrary.referencedBy')} &nbsp; <Tag>5</Tag>
-              </>
-            }
-            panel={<div>Referenced By</div>}
-          />
-          <Tab
-            id="template-version-log"
-            title={getString('templatesLibrary.versionLog')}
-            panel={<div>Version Log</div>}
-          />
-        </Tabs>
-      </div>
-      {showActions && (
-        <div className={css.actionHolder}>
-          <Button
-            intent="primary"
-            onClick={() => {
-              onTemplateSelect?.(templateIdentifier)
-            }}
-          >
-            Use template
-          </Button>
-          <Button minimal>Copy to pipeline</Button>
-        </div>
+        </Layout.Vertical>
       )}
-    </div>
+    </Container>
   )
 }

@@ -1,0 +1,557 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CREATE MODE if form changesupdate the preview card: changed value should be present in the preview 1`] = `
+<div>
+  <div
+    class="Layout--horizontal StyledProps--main"
+  >
+    <div
+      class="StyledProps--font StyledProps--main basicDetails StyledProps--background-form StyledProps--padding-huge"
+      style="width: 55%;"
+    >
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--margin-bottom-xlarge"
+      >
+        Some Title
+      </p>
+      <div
+        class="OverlaySpinner--overlaySpinner"
+      >
+        <form
+          class="FormikForm--main"
+        >
+          <div>
+            <div
+              class="Layout--vertical Layout--layout-spacing-huge StyledProps--main"
+            >
+              <div
+                class="StyledProps--font StyledProps--main"
+              >
+                <div
+                  class="Layout--vertical StyledProps--main"
+                >
+                  <div
+                    class="StyledProps--font StyledProps--main main nameIdDescriptionTags"
+                  >
+                    <div
+                      class="InputWithIdentifier--txtNameContainer TextInput--main"
+                    >
+                      <div
+                        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          ID
+                          :
+                        </p>
+                        <span
+                          class="bp3-popover-wrapper"
+                        >
+                          <span
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="bp3-editable-text InputWithIdentifier--idValue"
+                              tabindex="0"
+                            >
+                              <span
+                                class="bp3-editable-text-content"
+                                style="height: 1px; line-height: 1px; min-width: 0;"
+                              >
+                                templatename
+                              </span>
+                            </div>
+                          </span>
+                        </span>
+                        <span
+                          class="bp3-icon StyledProps--main"
+                          data-icon="Edit"
+                          style="vertical-align: middle; cursor: pointer;"
+                        >
+                          <svg
+                            height="12"
+                            viewBox="0 0 12 12"
+                            width="12"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <g
+                              fill="none"
+                              fill-rule="evenodd"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <path
+                                d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                                stroke="#555770"
+                              />
+                              <path
+                                d="M6.583 5.146l2.063-2.063"
+                                opacity="0.3"
+                                stroke="#606170"
+                              />
+                            </g>
+                          </svg>
+                        </span>
+                      </div>
+                      <div
+                        class="bp3-form-group"
+                        data-id="name-0"
+                      >
+                        <label
+                          class="bp3-label"
+                          for="name"
+                        >
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="createStepTemplate_name"
+                          >
+                            name
+                          </span>
+                           
+                          <span
+                            class="bp3-text-muted"
+                          />
+                        </label>
+                        <div
+                          class="bp3-form-content"
+                        >
+                          <div
+                            class="bp3-input-group"
+                          >
+                            <input
+                              autocomplete="off"
+                              class="bp3-input"
+                              name="name"
+                              placeholder="common.namePlaceholder"
+                              type="text"
+                              value="templatename"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      <label
+                        class="Label--main bp3-label descriptionLabel"
+                        data-tooltip-id="createStepTemplate_description"
+                      >
+                        optionalField
+                        <span
+                          class="bp3-icon StyledProps--main editOpen"
+                          data-icon="Edit"
+                          data-name="edit"
+                          data-testid="description-edit"
+                        >
+                          <svg
+                            height="12"
+                            viewBox="0 0 12 12"
+                            width="12"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <g
+                              fill="none"
+                              fill-rule="evenodd"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <path
+                                d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                                stroke="#555770"
+                              />
+                              <path
+                                d="M6.583 5.146l2.063-2.063"
+                                opacity="0.3"
+                                stroke="#606170"
+                              />
+                            </g>
+                          </svg>
+                        </span>
+                      </label>
+                    </div>
+                    <div
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      <label
+                        class="Label--main bp3-label descriptionLabel"
+                        data-tooltip-id="createStepTemplate_tags"
+                      >
+                        optionalField
+                        <span
+                          class="bp3-icon StyledProps--main editOpen"
+                          data-icon="Edit"
+                          data-name="edit"
+                          data-testid="tags-edit"
+                        >
+                          <svg
+                            height="12"
+                            viewBox="0 0 12 12"
+                            width="12"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <g
+                              fill="none"
+                              fill-rule="evenodd"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <path
+                                d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                                stroke="#555770"
+                              />
+                              <path
+                                d="M6.583 5.146l2.063-2.063"
+                                opacity="0.3"
+                                stroke="#606170"
+                              />
+                            </g>
+                          </svg>
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                  <div
+                    class="bp3-form-group"
+                    data-id="versionLabel-1"
+                  >
+                    <label
+                      class="bp3-label"
+                      for="versionLabel"
+                    >
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="createStepTemplate_versionLabel"
+                      >
+                        templatesLibrary.createNewModal.versionLabel
+                      </span>
+                       
+                      <span
+                        class="bp3-text-muted"
+                      />
+                    </label>
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="bp3-input-group"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="versionLabel"
+                          placeholder="templatesLibrary.createNewModal.versionPlaceholder"
+                          type="text"
+                          value="v1"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="StyledProps--font StyledProps--main"
+              >
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-flex-end StyledProps--flex-justifyContent-flex-start"
+                >
+                  <button
+                    class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-primary"
+                    type="submit"
+                  >
+                    <span
+                      class="bp3-button-text"
+                    >
+                      save
+                    </span>
+                  </button>
+                  <button
+                    class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-secondary"
+                    type="button"
+                  >
+                    <span
+                      class="bp3-button-text"
+                    >
+                      cancel
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div
+      class="Layout--horizontal StyledProps--main preview StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-center StyledProps--padding-top-huge StyledProps--padding-bottom-huge"
+    >
+      <div
+        class="bp3-card bp3-elevation-0 Card--card templateCard"
+      >
+        <div />
+        <div
+          class="StyledProps--font StyledProps--main"
+        >
+          <div
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+          >
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="cd-main"
+            >
+              <svg
+                fill="none"
+                height="14"
+                viewBox="0 0 27 29"
+                width="14"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M23.642 5.06c1.558.91 2.515 2.616 2.5 4.46l-.075 8.934c-.015 1.797-.953 3.451-2.464 4.35l-7.774 4.618a4.806 4.806 0 01-4.891.021l-7.553-4.402c-1.558-.909-2.515-2.615-2.5-4.458L.96 9.648c.015-1.797.952-3.452 2.464-4.35L11.197.68A4.806 4.806 0 0116.09.66l7.553 4.402zm-2.748 6.938c-.409 1.586-1.971 2.538-3.5 2.141l-7.274-2.026a4.449 4.449 0 00-3.517.48 4.76 4.76 0 00-2.158 2.925 4.96 4.96 0 00.465 3.664c.622 1.12 1.624 1.917 2.822 2.251a4.448 4.448 0 003.517-.48 4.76 4.76 0 002.158-2.924l.254-1.047a.25.25 0 00-.172-.302l-1.223-.34a.242.242 0 00-.299.18l-.248 1.025c-.413 1.602-2.005 2.556-3.547 2.127-1.537-.428-2.45-2.073-2.04-3.67.41-1.586 1.972-2.538 3.5-2.142l7.275 2.027a4.448 4.448 0 003.516-.48 4.76 4.76 0 002.159-2.925 4.96 4.96 0 00-.466-3.664 4.639 4.639 0 00-2.821-2.251 4.448 4.448 0 00-3.517.48A4.76 4.76 0 0013.62 9.97l-.24.828a.251.251 0 00.169.312l1.222.34a.242.242 0 00.296-.169l.24-.827c.414-1.602 2.006-2.557 3.547-2.127 1.538.428 2.451 2.073 2.04 3.67z"
+                  fill="url(#cd-main_svg__paint0_linear)"
+                  fill-rule="evenodd"
+                />
+                <defs>
+                  <lineargradient
+                    gradientUnits="userSpaceOnUse"
+                    id="cd-main_svg__paint0_linear"
+                    x1="4.551"
+                    x2="19.517"
+                    y1="0"
+                    y2="27.642"
+                  >
+                    <stop
+                      stop-color="#62F91F"
+                    />
+                    <stop
+                      offset="1"
+                      stop-color="#45BD35"
+                    />
+                  </lineargradient>
+                </defs>
+              </svg>
+            </span>
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="ci-main"
+            >
+              <svg
+                fill="none"
+                height="14"
+                viewBox="0 0 27 26"
+                width="14"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M26.142 13a13.36 13.36 0 01-.83 4.6.371.371 0 01-.619.13l-3.875-3.94a.546.546 0 01-.083-.628c.42-.827.63-1.773.63-2.762.055-3.222-2.526-5.878-5.71-5.878-1.011 0-1.938.26-2.743.706a.503.503 0 01-.605-.08l-3.45-3.504c-.243-.247-.169-.668.15-.794A12.11 12.11 0 0113.513 0c6.973 0 12.629 5.822 12.629 13zM6.204 2.42a.553.553 0 01.725.072l3.92 4.035c.173.178.188.46.053.67a5.951 5.951 0 00-.958 3.26c0 3.278 2.581 5.934 5.766 5.934a5.548 5.548 0 003.166-.985.505.505 0 01.65.054l4.244 4.368a.595.595 0 01.063.756C21.503 23.86 17.787 26 13.513 26 6.54 26 .885 20.178.885 13c0-4.403 2.082-8.231 5.319-10.58zm9.506 11.71c2.141 0 3.843-1.752 3.843-3.956 0-2.204-1.702-3.957-3.843-3.957-2.142 0-3.844 1.753-3.844 3.957 0 2.204 1.702 3.956 3.844 3.956z"
+                  fill="url(#ci-main_svg__paint0_linear)"
+                  fill-rule="evenodd"
+                />
+                <defs>
+                  <lineargradient
+                    gradientUnits="userSpaceOnUse"
+                    id="ci-main_svg__paint0_linear"
+                    x1="-7.274"
+                    x2="9.718"
+                    y1="8.398"
+                    y2="33.949"
+                  >
+                    <stop
+                      stop-color="#73DFE7"
+                    />
+                    <stop
+                      offset="1"
+                      stop-color="#0095F7"
+                    />
+                  </lineargradient>
+                </defs>
+              </svg>
+            </span>
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="cv-main"
+            >
+              <svg
+                fill="none"
+                height="14"
+                viewBox="0 0 26 28"
+                width="14"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M11.194 27.156l.417.24a2.75 2.75 0 001.389.351 2.75 2.75 0 001.361-.352l.417-.239C21.396 23.376 25.493 16.28 25.5 8.581v-.197a2.822 2.822 0 00-1.389-2.463l-.332-.189L12.94 19.381a.67.67 0 01-.926.119L5.82 14.855a.67.67 0 01-.134-.938l.344-.46a.67.67 0 01.938-.133l4.705 3.528c.29.218.7.165.926-.12l9.498-11.96L14.389.378a2.747 2.747 0 00-2.778 0L1.89 5.921A2.822 2.822 0 00.5 8.384v.197c.002 7.692 4.087 14.788 10.694 18.575z"
+                  fill="url(#cv-main_svg__paint0_linear)"
+                />
+                <defs>
+                  <lineargradient
+                    gradientUnits="userSpaceOnUse"
+                    id="cv-main_svg__paint0_linear"
+                    x1="4.827"
+                    x2="20.016"
+                    y1="0"
+                    y2="26.457"
+                  >
+                    <stop
+                      stop-color="#BEA1FF"
+                    />
+                    <stop
+                      offset="1"
+                      stop-color="#8A36FF"
+                    />
+                  </lineargradient>
+                </defs>
+              </svg>
+            </span>
+          </div>
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main"
+        >
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey800"
+            data-testid="templatename"
+            style="--text-line-clamp: 1;"
+          >
+            templatename
+          </p>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey400 StyledProps--margin-top-xsmall"
+            style="--text-line-clamp: 1;"
+          >
+            idLabel
+          </p>
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main"
+        >
+          <span
+            class="Tag--main"
+          >
+            <span
+              class="bp3-tag version"
+            >
+              <span
+                class="bp3-text-overflow-ellipsis bp3-fill"
+              >
+                v1
+              </span>
+            </span>
+          </span>
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main StyledProps--background-grey100"
+          style="height: 1px;"
+        />
+        <div
+          class="StyledProps--font StyledProps--main userLabel"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main"
+          >
+            <div
+              class="wrapper"
+            >
+              <span
+                class="bp3-popover-wrapper"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class="userLabel"
+                    tabindex="0"
+                  >
+                    <span
+                      class="bp3-icon bp3-icon-user StyledProps--main"
+                      icon="user"
+                    >
+                      <svg
+                        data-icon="user"
+                        height="18"
+                        viewBox="0 0 16 16"
+                        width="18"
+                      >
+                        <desc>
+                          user
+                        </desc>
+                        <path
+                          d="M7.99-.01A7.998 7.998 0 00.03 8.77c.01.09.03.18.04.28.02.15.04.31.07.47.02.11.05.22.08.34.03.13.06.26.1.38.04.12.08.25.12.37.04.11.08.21.12.32a6.583 6.583 0 00.3.65c.07.14.14.27.22.4.04.07.08.13.12.2l.27.42.1.13a7.973 7.973 0 003.83 2.82c.03.01.05.02.07.03.37.12.75.22 1.14.29l.2.03c.39.06.79.1 1.2.1s.81-.04 1.2-.1l.2-.03c.39-.07.77-.16 1.14-.29.03-.01.05-.02.07-.03a8.037 8.037 0 003.83-2.82c.03-.04.06-.08.09-.13.1-.14.19-.28.28-.42.04-.07.08-.13.12-.2.08-.13.15-.27.22-.41.04-.08.08-.17.12-.26.06-.13.11-.26.17-.39.04-.1.08-.21.12-.32.04-.12.08-.24.12-.37.04-.13.07-.25.1-.38.03-.11.06-.22.08-.34.03-.16.05-.31.07-.47.01-.09.03-.18.04-.28.02-.26.04-.51.04-.78-.03-4.41-3.61-7.99-8.03-7.99zm0 14.4c-1.98 0-3.75-.9-4.92-2.31.67-.36 1.49-.66 2.14-.95 1.16-.52 1.04-.84 1.08-1.27.01-.06.01-.11.01-.17-.41-.36-.74-.86-.96-1.44v-.01c0-.01-.01-.02-.01-.02-.05-.13-.09-.26-.12-.39-.28-.05-.44-.35-.5-.63-.06-.11-.18-.38-.15-.69.04-.41.2-.59.38-.67v-.06c0-.51.05-1.24.14-1.72.02-.13.05-.26.09-.39.17-.59.53-1.12 1.01-1.49.49-.38 1.19-.59 1.82-.59.62 0 1.32.2 1.82.59.48.37.84.9 1.01 1.49.04.13.07.26.09.4.09.48.14 1.21.14 1.72v.07c.18.08.33.26.37.66.03.31-.1.58-.16.69-.06.27-.21.57-.48.62-.03.13-.07.26-.12.38 0 .01-.01.04-.01.04-.21.57-.54 1.06-.94 1.42 0 .06.01.13.01.19.04.43-.12.75 1.05 1.27.65.29 1.47.6 2.14.95a6.415 6.415 0 01-4.93 2.31z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                    <span />
+                  </div>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary7 StyledProps--font-size-xsmall StyledProps--font-weight-semi-bold"
+        >
+          5 referenced
+        </p>
+        <div
+          class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-center StyledProps--padding-top-large"
+        >
+          <div
+            class="templateColor"
+          >
+            <div
+              class="absolutePos"
+            >
+              <svg
+                fill="none"
+                height="18"
+                viewBox="0 0 121 18"
+                width="121"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M10.6577 4.36758L0.989019 17.5H120.044L111.076 4.58226C109.301 2.02513 106.385 0.5 103.272 0.5H18.3079C15.288 0.5 12.4481 1.93575 10.6577 4.36758Z"
+                  fill="#EADEFF"
+                  stroke="#E1D0FF"
+                />
+              </svg>
+            </div>
+            <p
+              class="StyledProps--font StyledProps--main text absolutePos"
+              style="color: rgb(89, 43, 170);"
+            >
+              STEP
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button
+      class="bp3-button Button--button StyledProps--font StyledProps--main closeIcon Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
+      type="button"
+    >
+      <span
+        class="bp3-icon bp3-icon-cross StyledProps--main StyledProps--color StyledProps--color-grey500"
+        icon="cross"
+      >
+        <svg
+          data-icon="cross"
+          height="24"
+          viewBox="0 0 20 20"
+          width="24"
+        >
+          <desc>
+            cross
+          </desc>
+          <path
+            d="M11.41 10l4.29-4.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L10 8.59l-4.29-4.3a1.003 1.003 0 00-1.42 1.42L8.59 10 4.3 14.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4.29-4.3 4.29 4.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L11.41 10z"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </span>
+    </button>
+  </div>
+</div>
+`;
