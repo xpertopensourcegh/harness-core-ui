@@ -32,12 +32,14 @@ interface StepSecretManagerProps extends ConnectorInfoDTO {
   spec: any
 }
 
+const yamlFileName = 'ccm-kubernetes.yaml'
+
 const ProvidePermissions: React.FC<StepProps<StepSecretManagerProps> & ProvidePermissionsProps> = props => {
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
   const [isDownloadComplete, setIsDownloadComplete] = useState<boolean>(false)
   const [isDelegateDone, setIsDelegateDone] = useState<boolean>(false)
-  const [command] = useState('kubectl apply -f cost-optimisation-crd.yaml')
+  const [command] = useState(`kubectl apply -f ${yamlFileName}`)
   const [isSaving, setIsSaving] = useState<boolean>(false)
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const { triggerExtension } = useContext(DialogExtensionContext)
@@ -56,7 +58,7 @@ const ProvidePermissions: React.FC<StepProps<StepSecretManagerProps> & ProvidePe
       featuresEnabled: props.prevStepData?.spec?.featuresEnabled,
       ccmConnectorIdentifier: props.prevStepData?.identifier as string
     })
-    const { status } = await downloadYamlAsFile(response, 'cost-optimisation-crd.yaml')
+    const { status } = await downloadYamlAsFile(response, yamlFileName)
     status && setIsDownloadComplete(true)
   }
 
