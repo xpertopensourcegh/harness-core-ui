@@ -11,7 +11,7 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { ServiceConfig, StageElementConfig, useGetServiceList } from 'services/cd-ng'
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
-import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import {
   getStageIndexFromPipeline,
   getFlattenedStages
@@ -49,7 +49,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     isReadonly,
     getStageFromPipeline,
     updateStage
-  } = React.useContext(PipelineContext)
+  } = usePipelineContext()
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounceUpdateStage = React.useCallback(

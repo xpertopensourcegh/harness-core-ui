@@ -51,7 +51,7 @@ import {
 } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import { useQueryParams } from '@common/hooks'
 import { StageType } from '@pipeline/utils/stageHelpers'
-import { PipelineContext } from '../PipelineContext/PipelineContext'
+import { usePipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerTypes } from '../PipelineContext/PipelineActions'
 import { RightDrawer } from '../RightDrawer/RightDrawer'
 import css from './RightBar.module.scss'
@@ -112,7 +112,7 @@ export const RightBar = (): JSX.Element => {
     view,
     updatePipeline,
     updatePipelineView
-  } = React.useContext(PipelineContext)
+  } = usePipelineContext()
   const codebase = (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase
   const [codebaseStatus, setCodebaseStatus] = React.useState<CodebaseStatuses>(CodebaseStatuses.ZeroState)
 

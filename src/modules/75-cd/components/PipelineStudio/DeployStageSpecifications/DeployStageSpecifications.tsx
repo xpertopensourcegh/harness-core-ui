@@ -1,6 +1,6 @@
 import React from 'react'
 import { debounce } from 'lodash-es'
-import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import type { StageElementConfig } from 'services/cd-ng'
 import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import { EditStageView } from '../DeployStage/EditStageView/EditStageView'
@@ -13,7 +13,7 @@ export default function DeployStageSpecifications(props: React.PropsWithChildren
     updateStage,
     isReadonly,
     getStageFromPipeline
-  } = React.useContext(PipelineContext)
+  } = usePipelineContext()
   const { stage } = getStageFromPipeline<DeploymentStageElementConfig>(selectedStageId)
 
   // eslint-disable-next-line react-hooks/exhaustive-deps

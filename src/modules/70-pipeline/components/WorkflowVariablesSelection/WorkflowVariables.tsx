@@ -3,7 +3,7 @@ import { Layout, Text, Color } from '@wings-software/uicore'
 import { defaultTo, set, get, isEmpty } from 'lodash-es'
 
 import type { AllNGVariables as Variable } from '@pipeline/utils/types'
-import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PredefinedOverrideSets } from '@pipeline/components/PredefinedOverrideSets/PredefinedOverrideSets'
 import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
@@ -47,7 +47,7 @@ export default function WorkflowVariables({
     },
     getStageFromPipeline,
     updatePipeline
-  } = React.useContext(PipelineContext)
+  } = usePipelineContext()
   const { getString } = useStrings()
 
   const { stage } = getStageFromPipeline<DeploymentStageElementConfig>(selectedStageId || '')

@@ -12,7 +12,7 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import type { AllNGVariables } from '@pipeline/utils/types'
 import type { NGVariable, StageElementConfig, StringNGVariable } from 'services/cd-ng'
-import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import type { CustomVariablesData } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
 import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
 import { useStrings } from 'framework/strings'
@@ -48,7 +48,7 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
     updateStage,
     stepsFactory,
     isReadonly
-  } = React.useContext(PipelineContext)
+  } = usePipelineContext()
 
   const scrollRef = React.useRef<HTMLDivElement | null>(null)
 

@@ -48,7 +48,7 @@ import {
 import { useStageBuilderCanvasState } from './useStageBuilderCanvasState'
 import { StageList } from './views/StageList'
 import { SplitViewTypes } from '../PipelineContext/PipelineActions'
-import { PipelineContext } from '../PipelineContext/PipelineContext'
+import { usePipelineContext } from '../PipelineContext/PipelineContext'
 import css from './StageBuilder.module.scss'
 
 export type StageStateMap = Map<string, StageState>
@@ -179,7 +179,7 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
     renderPipelineStage,
     getStageFromPipeline,
     setSelection
-  } = React.useContext(PipelineContext)
+  } = usePipelineContext()
 
   // NOTE: we are using ref as setSelection is getting cached somewhere
   const setSelectionRef = React.useRef(setSelection)

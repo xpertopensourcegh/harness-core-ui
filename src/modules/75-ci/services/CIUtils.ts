@@ -1,8 +1,7 @@
-import { useContext } from 'react'
 import { isEmpty } from 'lodash-es'
 import moment from 'moment'
 import type { GitFilterScope } from '@common/components/GitFilters/GitFilters'
-import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
 
@@ -32,7 +31,7 @@ export function getTimeAgo(timeStamp: number): string {
 }
 
 export function useGitScope(): GitFilterScope | undefined {
-  const gitDetails = useContext(PipelineContext)?.state?.gitDetails
+  const gitDetails = usePipelineContext()?.state?.gitDetails
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
 
   if (!isEmpty(gitDetails)) {

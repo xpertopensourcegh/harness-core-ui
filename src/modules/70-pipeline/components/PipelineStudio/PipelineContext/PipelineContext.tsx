@@ -808,5 +808,7 @@ export const PipelineProvider: React.FC<{
 }
 
 export function usePipelineContext(): PipelineContextInterface {
+  // disabling this because this the definition of usePipelineContext
+  // eslint-disable-next-line no-restricted-syntax
   return React.useContext(PipelineContext)
 }

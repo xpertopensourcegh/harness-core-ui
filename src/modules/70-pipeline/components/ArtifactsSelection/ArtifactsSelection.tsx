@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { Color, useModalHook, StepWizard, StepProps } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
@@ -18,7 +18,7 @@ import {
   PrimaryArtifact,
   StageElementConfig
 } from 'services/cd-ng'
-import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { CONNECTOR_CREDENTIALS_STEP_IDENTIFIER } from '@connectors/constants'
 
 import type { GitQueryParams, PipelineType } from '@common/interfaces/RouteInterfaces'
@@ -77,7 +77,7 @@ export default function ArtifactsSelection({
     getStageFromPipeline,
     updateStage,
     isReadonly
-  } = useContext(PipelineContext)
+  } = usePipelineContext()
 
   const [isEditMode, setIsEditMode] = useState(false)
   const [selectedArtifact, setSelectedArtifact] = useState<ArtifactType | null>(null)

@@ -2,7 +2,7 @@ import React from 'react'
 import { Layout, Tabs, Tab, Button, Icon } from '@wings-software/uicore'
 import cx from 'classnames'
 import { set } from 'lodash-es'
-import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { useStrings } from 'framework/strings'
 import StageAdvancedSettings from '../StageAdvancedSettings/StageAdvancedSettings'
 import StageOverview from '../StageOverview/StageOverview'
@@ -27,7 +27,7 @@ export default function FeatureStageSetupShell(): JSX.Element {
     updatePipeline,
     getStageFromPipeline,
     updatePipelineView
-  } = React.useContext(PipelineContext)
+  } = usePipelineContext()
 
   React.useEffect(() => {
     if (stageNames.indexOf(selectedStageId) !== -1) {

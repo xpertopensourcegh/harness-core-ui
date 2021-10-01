@@ -5,7 +5,7 @@ import ExecutionGraph, {
   ExecutionGraphRefObj
 } from '@pipeline/components/PipelineStudio/ExecutionGraph/ExecutionGraph'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
-import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { AdvancedPanels } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 import type { StageElementWrapper } from '@pipeline/utils/pipelineTypes'
 
@@ -23,7 +23,7 @@ export const ApprovalStageExecution: React.FC = () => {
     getStageFromPipeline,
     setSelectedStepId,
     getStagePathFromPipeline
-  } = React.useContext(PipelineContext)
+  } = usePipelineContext()
   const selectedStage = getStageFromPipeline(selectedStageId).stage
   const originalStage = getStageFromPipeline(selectedStageId, originalPipeline).stage
   const executionRef = React.useRef<ExecutionGraphRefObj | null>(null)

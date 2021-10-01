@@ -14,7 +14,7 @@ import {
 import { isArray, clone } from 'lodash-es'
 import cx from 'classnames'
 import { Classes, Position } from '@blueprintjs/core'
-import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useStrings } from 'framework/strings'
 import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
@@ -81,7 +81,7 @@ export const OverrideSetsInputSelector: React.FC<InputSetSelectorProps> = ({
       selectionState: { selectedStageId }
     },
     getStageFromPipeline
-  } = React.useContext(PipelineContext)
+  } = usePipelineContext()
 
   const { stage: currentStage } = getStageFromPipeline<DeploymentStageElementConfig>(selectedStageId || '')
 

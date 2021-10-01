@@ -2,7 +2,7 @@ import React from 'react'
 import { Text, Formik, FormikForm, Accordion, MultiTypeInputType } from '@wings-software/uicore'
 import { Connectors } from '@connectors/constants'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
-import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/strings'
@@ -29,7 +29,7 @@ export const DependencyBase = (
       selectionState: { selectedStageId }
     },
     getStageFromPipeline
-  } = React.useContext(PipelineContext)
+  } = usePipelineContext()
 
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()

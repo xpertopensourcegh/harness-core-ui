@@ -27,10 +27,7 @@ import type {
 } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
-import {
-  usePipelineContext,
-  PipelineContext
-} from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import type { AllNGVariables } from '@pipeline/utils/types'
 import { NameIdDescriptionTags } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
@@ -64,7 +61,7 @@ export const EditStageView: React.FC<EditStageViewProps> = ({
     state: {
       pipeline: { stages = [] }
     }
-  } = React.useContext(PipelineContext)
+  } = usePipelineContext()
   const { getString } = useStrings()
   const newStageData: Item[] = [
     {

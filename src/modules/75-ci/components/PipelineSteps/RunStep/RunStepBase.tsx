@@ -6,7 +6,7 @@ import { Connectors } from '@connectors/constants'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
-import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { useStrings } from 'framework/strings'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { ShellScriptMonacoField } from '@common/components/ShellScriptMonaco/ShellScriptMonaco'
@@ -37,7 +37,7 @@ export const RunStepBase = (
       selectionState: { selectedStageId }
     },
     getStageFromPipeline
-  } = React.useContext(PipelineContext)
+  } = usePipelineContext()
 
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()

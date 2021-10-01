@@ -1,7 +1,7 @@
 import React from 'react'
 import { Layout, Text, SelectOption } from '@wings-software/uicore'
 import { isArray } from 'lodash-es'
-import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 // eslint-disable-next-line no-restricted-imports
 import { OverrideSetsInputSelector } from '@cd/components/OverrideSetsInputSelector/OverrideSetsInputSelector'
 // eslint-disable-next-line no-restricted-imports
@@ -16,7 +16,7 @@ export const PredefinedOverrideSets: React.FC<{
   const {
     state: { pipeline },
     updatePipeline
-  } = React.useContext(PipelineContext)
+  } = usePipelineContext()
 
   const getCurrentSpec = (): StageOverridesConfig | undefined => {
     return currentStage?.stage?.spec?.serviceConfig?.stageOverrides

@@ -3,7 +3,7 @@ import { Spinner } from '@blueprintjs/core'
 import { Field, FormikProps } from 'formik'
 import { Container, Formik, FormikForm, FormInput } from '@wings-software/uicore'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
-import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { useStrings } from 'framework/strings'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import { AdvancedPanels } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
@@ -35,7 +35,7 @@ export const InfraProvisioningBase = (
     updatePipelineView,
     isReadonly,
     getStagePathFromPipeline
-  } = React.useContext(PipelineContext)
+  } = usePipelineContext()
 
   const { getString } = useStrings()
   const stagePath = getStagePathFromPipeline(selectedStageId || '', 'pipeline.stages')

@@ -3,7 +3,7 @@ import * as Yup from 'yup'
 import { Formik } from 'formik'
 import { Button, Color, Container, FormikForm, Intent, Text } from '@wings-software/uicore'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
-import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import { useStrings } from 'framework/strings'
 import { NameIdDescriptionTags } from '@common/components'
@@ -27,7 +27,7 @@ export const ApprovalStageMinimalMode: React.FC<ApprovalStageMinimalModeProps> =
 
   const {
     state: { pipeline }
-  } = React.useContext(PipelineContext)
+  } = usePipelineContext()
 
   const handleValidate = (values: ApprovalStageMinimalValues): Record<string, string | undefined> | undefined => {
     const errors: { name?: string } = {}

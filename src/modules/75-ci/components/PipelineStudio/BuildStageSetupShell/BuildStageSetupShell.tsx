@@ -3,7 +3,7 @@ import { cloneDeep, isEmpty, isEqual, set } from 'lodash-es'
 import produce from 'immer'
 import { Tabs, Tab, Icon, Button, Layout, Color } from '@wings-software/uicore'
 import type { HarnessIconName } from '@wings-software/uicore/dist/icons/HarnessIcons'
-import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { useStrings } from 'framework/strings'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import ExecutionGraph, {
@@ -66,7 +66,7 @@ export default function BuildStageSetupShell(): JSX.Element {
     updateStage,
     setSelectedStepId,
     getStagePathFromPipeline
-  } = React.useContext(PipelineContext)
+  } = usePipelineContext()
 
   const stagePath = getStagePathFromPipeline(selectedStageId || '', 'pipeline.stages')
   const [stageData, setStageData] = React.useState<BuildStageElementConfig | undefined>()

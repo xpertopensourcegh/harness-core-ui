@@ -4,7 +4,7 @@ import { Container, FormInput, RUNTIME_INPUT_VALUE } from '@wings-software/uicor
 import { useParams } from 'react-router-dom'
 import { useMemo } from 'react'
 import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
-import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import {
   MonitoredServiceResponse,
   useCreateDefaultMonitoredService,
@@ -36,7 +36,7 @@ export default function MonitoredService({
       selectionState: { selectedStageId }
     },
     getStageFromPipeline
-  } = React.useContext(PipelineContext)
+  } = usePipelineContext()
   const selectedStage = getStageFromPipeline<DeploymentStageElementConfig>(selectedStageId as string)?.stage
   const environmentIdentifier =
     selectedStage?.stage?.spec?.infrastructure?.environment?.identifier ||

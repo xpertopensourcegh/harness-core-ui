@@ -4,7 +4,7 @@ import type { FormikProps } from 'formik'
 import { Connectors } from '@connectors/constants'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
-import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { useStrings } from 'framework/strings'
 
 import StepCommonFields /*,{ /*usePullOptions }*/ from '@pipeline/components/StepCommonFields/StepCommonFields'
@@ -33,7 +33,7 @@ export const JFrogArtifactoryStepBase = (
       selectionState: { selectedStageId }
     },
     getStageFromPipeline
-  } = React.useContext(PipelineContext)
+  } = usePipelineContext()
 
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()

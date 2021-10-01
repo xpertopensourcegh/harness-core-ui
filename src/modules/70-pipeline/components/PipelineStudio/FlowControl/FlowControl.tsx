@@ -17,7 +17,7 @@ import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
-import { PipelineContext } from '../PipelineContext/PipelineContext'
+import { usePipelineContext } from '../PipelineContext/PipelineContext'
 import css from './FlowControl.module.scss'
 
 const getErrors = (barriers: Barrier[], getString: UseStringsReturn['getString']): Barrier[] => {
@@ -67,7 +67,7 @@ export const FlowControl: React.FC = (): JSX.Element => {
   const {
     state: { pipeline, originalPipeline },
     updatePipeline
-  } = React.useContext(PipelineContext)
+  } = usePipelineContext()
   const [barriers, updateBarriers] = React.useState<Barrier[]>(pipeline?.flowControl?.barriers || [])
   const { data, loading: loadingSetupInfo } = useMutateAsGet(useGetBarriersSetupInfoList, {
     body: yamlStringify({ pipeline: originalPipeline }) as unknown as void,

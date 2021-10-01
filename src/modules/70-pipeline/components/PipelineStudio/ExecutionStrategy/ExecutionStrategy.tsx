@@ -14,7 +14,7 @@ import {
   useGetExecutionStrategyYaml
 } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
-import { PipelineContext } from '../PipelineContext/PipelineContext'
+import { usePipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerTypes } from '../PipelineContext/PipelineActions'
 import Default from './resources/BlankCanvas.png'
 import Steps from './Steps'
@@ -71,7 +71,7 @@ const ExecutionStrategyRef = (
     state: { pipelineView },
     updateStage,
     updatePipelineView
-  } = React.useContext(PipelineContext)
+  } = usePipelineContext()
   const { getString } = useStrings()
   const [strategiesByDeploymentType, setStrategies] = useState([])
   const [isSubmitDisabled, disableSubmit] = useState(false)

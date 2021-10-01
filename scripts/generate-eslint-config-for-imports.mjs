@@ -9,6 +9,10 @@ import runPrettier from './utils/runPrettier.cjs'
 const layers = await getLayers()
 const flattenedLayers = _.flatten(layers)
 const modulesPath = path.resolve(process.cwd(), 'src/modules')
+const eslintConfigPath = path.resolve(process.cwd(), '.eslintrc.yml')
+const eslintConfig = yaml.parse(fs.readFileSync(eslintConfigPath, 'utf8'))
+
+const noRestrictedImports = eslintConfig.rules['no-restricted-imports']
 
 for (const { dirName, moduleName } of flattenedLayers) {
   const layerIndex = layers.findIndex(layer => layer.find(mod => dirName === mod.dirName))
@@ -18,21 +22,14 @@ for (const { dirName, moduleName } of flattenedLayers) {
   const config = {
     rules: {
       'no-restricted-imports': [
-        'error',
+        noRestrictedImports[0],
         {
           patterns: [
-            'lodash.*',
+            ...noRestrictedImports[1].patterns,
             ...restrictedDirs.map(mod => `modules/${mod.dirName}/*`),
             ...restrictedDirs.map(mod => `@${mod.moduleName}/*`)
           ],
-          paths: [
-            'lodash',
-            {
-              name: 'yaml',
-              importNames: ['stringify'],
-              message: 'Please use yamlStringify from @common/utils/YamlHelperMethods instead of this'
-            }
-          ]
+          paths: [...noRestrictedImports[1].paths]
         }
       ]
     }

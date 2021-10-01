@@ -18,7 +18,7 @@ import type { FormikErrors } from 'formik'
 import { produce } from 'immer'
 import type { PipelineInfoConfig } from 'services/cd-ng'
 import { ConnectorInfoDTO, useGetConnector } from 'services/cd-ng'
-import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { useStrings } from 'framework/strings'
 import {
   ConnectorReferenceField,
@@ -69,7 +69,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
   const {
     state: { pipeline },
     isReadonly
-  } = React.useContext(PipelineContext)
+  } = usePipelineContext()
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string

@@ -14,7 +14,7 @@ import { useStrings, UseStringsReturn } from 'framework/strings'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
-import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import {
   getStageIndexFromPipeline,
   getFlattenedStages
@@ -199,7 +199,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
     isReadonly,
     updateStage,
     getStageFromPipeline
-  } = React.useContext(PipelineContext)
+  } = usePipelineContext()
 
   const { stage } = getStageFromPipeline<BuildStageElementConfig>(selectedStageId || '')
 

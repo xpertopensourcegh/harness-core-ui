@@ -3,7 +3,7 @@ import { noop, set } from 'lodash-es'
 import produce from 'immer'
 import { Drawer, Position } from '@blueprintjs/core'
 import { Button } from '@wings-software/uicore'
-import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { TemplateDrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import { updateStepWithinStage } from '@pipeline/components/PipelineStudio/RightDrawer/RightDrawer'
 import { TemplateSelector } from '../TemplateSelector/TemplateSelector'
@@ -22,7 +22,7 @@ export const TemplateDrawer: React.FC = (): JSX.Element => {
     getStageFromPipeline,
     updatePipelineView,
     updateStage
-  } = React.useContext(PipelineContext)
+  } = usePipelineContext()
   const { type } = templateDrawerData
   const { data } = drawerData
 
@@ -42,7 +42,7 @@ export const TemplateDrawer: React.FC = (): JSX.Element => {
     getStageFromPipeline,
     stepsFactory,
     setSelectedStepId
-  } = React.useContext(PipelineContext)
+  } = usePipelineContext()
   const { type, data, ...restDrawerProps } = drawerData
   */
 

@@ -51,7 +51,7 @@ import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { getRepoDetailsByIndentifier } from '@common/utils/gitSyncUtils'
 import { RunPipelineForm } from '@pipeline/components/RunPipelineModal/RunPipelineForm'
 import { InputSetSummaryResponse, useGetInputsetYaml } from 'services/pipeline-ng'
-import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
+import { savePipeline, usePipelineContext } from '../PipelineContext/PipelineContext'
 import CreatePipelines from '../CreateModal/PipelineCreate'
 import { DefaultNewPipelineId, DrawerTypes } from '../PipelineContext/PipelineActions'
 import PipelineYamlView from '../PipelineYamlView/PipelineYamlView'
@@ -122,7 +122,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     updatePipelineView,
     setSelectedStageId,
     setSelectedSectionId
-  } = React.useContext(PipelineContext)
+  } = usePipelineContext()
   const {
     repoIdentifier,
     branch,

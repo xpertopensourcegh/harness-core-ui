@@ -11,7 +11,7 @@ import RbacButton from '@rbac/components/Button/Button'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import { PipelineContext } from '../PipelineContext/PipelineContext'
+import { usePipelineContext } from '../PipelineContext/PipelineContext'
 import { useVariablesExpression } from '../PiplineHooks/useVariablesExpression'
 import { usePipelineSchema } from '../PipelineSchema/PipelineSchemaContext'
 import css from './PipelineYamlView.module.scss'
@@ -43,7 +43,7 @@ const PipelineYamlView: React.FC = () => {
     isReadonly,
     updatePipeline,
     setYamlHandler: setYamlHandlerContext
-  } = React.useContext(PipelineContext)
+  } = usePipelineContext()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
     PipelineType<{
       orgIdentifier: string

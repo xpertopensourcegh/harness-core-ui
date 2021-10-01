@@ -1,8 +1,8 @@
-import { useEffect, useState, useContext } from 'react'
+import { useEffect, useState } from 'react'
 import { identity, isEmpty, map, sortBy, sortedUniq } from 'lodash-es'
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
 import { usePipelineVariables } from '../../PipelineVariablesContext/PipelineVariablesContext'
-import { PipelineContext } from '../PipelineContext/PipelineContext'
+import { usePipelineContext } from '../PipelineContext/PipelineContext'
 /**
  * Traverse over stage and find out all local fqn
  */
@@ -31,7 +31,7 @@ export function useVariablesExpression(): { expressions: string[] } {
   const {
     state: { selectionState: { selectedStageId } = { selectedStageId: '' } },
     getStageFromPipeline
-  } = useContext(PipelineContext)
+  } = usePipelineContext()
 
   useEffect(() => {
     if (!initLoading && selectedStageId && !isEmpty(selectedStageId)) {

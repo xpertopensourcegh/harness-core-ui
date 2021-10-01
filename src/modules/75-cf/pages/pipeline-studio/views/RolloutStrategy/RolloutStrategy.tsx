@@ -6,7 +6,7 @@ import ExecutionGraph, {
   ExecutionGraphRefObj
 } from '@pipeline/components/PipelineStudio/ExecutionGraph/ExecutionGraph'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
-import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 
 import { AdvancedPanels } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 
@@ -25,7 +25,7 @@ export const RolloutStrategy: React.FC<RolloutStrategyProps> = ({ selectedStageI
     updatePipelineView,
     setSelectedStepId,
     getStagePathFromPipeline
-  } = React.useContext(PipelineContext)
+  } = usePipelineContext()
   const stagePath = getStagePathFromPipeline(selectedStageId || '', 'pipeline.stages')
 
   React.useEffect(() => {

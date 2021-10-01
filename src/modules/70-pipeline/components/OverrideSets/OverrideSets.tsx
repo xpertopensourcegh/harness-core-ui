@@ -17,7 +17,7 @@ import { Dialog, IDialogProps } from '@blueprintjs/core'
 import { get, isEmpty, set } from 'lodash-es'
 import * as Yup from 'yup'
 import cx from 'classnames'
-import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { useStrings } from 'framework/strings'
 import WorkflowVariables from '@pipeline/components/WorkflowVariablesSelection/WorkflowVariables'
 import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
@@ -54,7 +54,7 @@ export default function OverrideSets({
     },
     updatePipeline,
     getStageFromPipeline
-  } = React.useContext(PipelineContext)
+  } = usePipelineContext()
   const { stage } = getStageFromPipeline<DeploymentStageElementConfig>(selectedStageId || '')
   const { stages } = getFlattenedStages(pipeline)
   const serviceDefPath = 'stage.spec.serviceConfig.serviceDefinition.spec'

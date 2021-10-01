@@ -7,7 +7,7 @@ import { Accordion, Card, Container, FormikForm, Layout } from '@wings-software/
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { NameIdDescriptionTags } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import { useStrings } from 'framework/strings'
-import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import type { CustomVariablesData } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
@@ -30,7 +30,7 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
     isReadonly,
     updateStage,
     getStageFromPipeline
-  } = React.useContext(PipelineContext)
+  } = usePipelineContext()
   const { variablesPipeline, metadataMap } = usePipelineVariables()
   const { stage } = getStageFromPipeline<ApprovalStageElementConfig>(selectedStageId || '')
   const cloneOriginalData = cloneDeep(stage)!

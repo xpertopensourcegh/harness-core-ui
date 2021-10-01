@@ -12,7 +12,7 @@ import { StageType } from '@pipeline/utils/stageHelpers'
 import type { BuildStageElementConfig, DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import type { DependencyElement } from 'services/ci'
 import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
-import { PipelineContext } from '../PipelineContext/PipelineContext'
+import { usePipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerData, DrawerSizes, DrawerTypes, TemplateDrawerTypes } from '../PipelineContext/PipelineActions'
 import { StepCommandsWithRef as StepCommands, StepFormikRef } from '../StepCommands/StepCommands'
 import { TabTypes, Values } from '../StepCommands/StepCommandTypes'
@@ -107,7 +107,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
     getStageFromPipeline,
     stepsFactory,
     setSelectedStepId
-  } = React.useContext(PipelineContext)
+  } = usePipelineContext()
   const { type, data, ...restDrawerProps } = drawerData
 
   const { stage: selectedStage } = getStageFromPipeline(selectedStageId || '')

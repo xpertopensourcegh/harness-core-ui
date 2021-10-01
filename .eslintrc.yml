@@ -102,6 +102,12 @@ rules:
           importNames:
             - stringify
           message: 'Please use yamlStringify from @common/utils/YamlHelperMethods instead of this'
+  no-restricted-syntax:
+    - error
+    - selector: "CallExpression[callee.name='useContext'][arguments.0.name='PipelineContext']"
+      message: 'Please use usePipelineContext instead'
+    - selector: "CallExpression[callee.object.name='React'][callee.property.name='useContext'][arguments.0.name='PipelineContext']"
+      message: 'Please use usePipelineContext instead'
 
 overrides:
   - files:

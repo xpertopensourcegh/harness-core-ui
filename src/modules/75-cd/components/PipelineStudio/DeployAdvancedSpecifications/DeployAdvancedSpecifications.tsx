@@ -2,7 +2,7 @@ import React from 'react'
 import { Card, Container, HarnessDocTooltip, Layout } from '@wings-software/uicore'
 import { produce } from 'immer'
 import { set } from 'lodash-es'
-import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { FailureStrategyWithRef } from '@pipeline/components/PipelineStudio/FailureStrategy/FailureStrategy'
 import type { StepFormikRef } from '@pipeline/components/PipelineStudio/StepCommands/StepCommands'
 import ConditionalExecution from '@pipeline/components/PipelineStudio/ConditionalExecution/ConditionalExecution'
@@ -26,7 +26,7 @@ const DeployAdvancedSpecifications: React.FC<AdvancedSpecifications> = ({ childr
     isReadonly,
     getStageFromPipeline,
     updateStage
-  } = React.useContext(PipelineContext)
+  } = usePipelineContext()
   const { stage } = getStageFromPipeline(selectedStageId || '')
 
   const formikRef = React.useRef<StepFormikRef | null>(null)

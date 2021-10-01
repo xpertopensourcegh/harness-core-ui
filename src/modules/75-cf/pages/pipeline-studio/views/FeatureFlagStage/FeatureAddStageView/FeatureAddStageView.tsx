@@ -4,7 +4,7 @@ import * as Yup from 'yup'
 import type { FormikErrors } from 'formik'
 import { debounce } from 'lodash-es'
 import type { FeatureFlagStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
-import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { useStrings } from 'framework/strings'
 import { NameIdDescription } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
@@ -32,7 +32,7 @@ export const FeatureAddEditStageView: React.FC<FeatureAddEditStageViewProps> = (
 
   const {
     state: { pipeline }
-  } = React.useContext(PipelineContext)
+  } = usePipelineContext()
 
   const initialValues: Values = {
     identifier: data?.stage?.identifier || '',

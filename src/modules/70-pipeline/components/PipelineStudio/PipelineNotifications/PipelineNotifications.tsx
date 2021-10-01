@@ -4,7 +4,7 @@ import produce from 'immer'
 import NotificationTable, { NotificationRulesItem } from '@pipeline/components/Notifications/NotificationTable'
 import type { NotificationRules } from 'services/pipeline-ng'
 import { Actions } from '@pipeline/components/Notifications/NotificationUtils'
-import { PipelineContext } from '../PipelineContext/PipelineContext'
+import { usePipelineContext } from '../PipelineContext/PipelineContext'
 import { getStagesMultiSelectOptionFromPipeline } from '../CommonUtils/CommonUtils'
 import css from './PipelineNotifications.module.scss'
 
@@ -15,7 +15,7 @@ export const PipelineNotifications: React.FC = (): JSX.Element => {
     state: { pipeline },
     updatePipeline,
     isReadonly
-  } = React.useContext(PipelineContext)
+  } = usePipelineContext()
 
   const [page, setPage] = React.useState(0)
 

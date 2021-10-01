@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import YAML from 'yaml'
 import produce from 'immer'
 import { Button, Color, Icon, Layout, Tab, Tabs } from '@wings-software/uicore'
-import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { PageSpinner } from '@common/components'
 import { useStrings } from 'framework/strings'
 import { GetInitialStageYamlSnippetQueryParams, useGetInitialStageYamlSnippet } from 'services/pipeline-ng'
@@ -31,7 +31,7 @@ export const ApprovalStageSetupShellMode: React.FC = () => {
     getStageFromPipeline,
     updatePipeline,
     updateStage
-  } = React.useContext(PipelineContext)
+  } = usePipelineContext()
 
   const [loadGraph, setLoadGraph] = React.useState(false)
   const { stage: selectedStage } = getStageFromPipeline<ApprovalStageElementConfig>(selectedStageId)

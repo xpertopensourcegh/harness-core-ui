@@ -5,7 +5,7 @@ import { cloneDeep, debounce } from 'lodash-es'
 import { Heading, Container, FormikForm, Color } from '@wings-software/uicore'
 import { NameIdDescription } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import { useStrings } from 'framework/strings'
-import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
 import type { StageElementConfig } from 'services/cd-ng'
@@ -19,7 +19,7 @@ export default function StageOverview(_props: React.PropsWithChildren<unknown>):
     isReadonly,
     updateStage,
     getStageFromPipeline
-  } = React.useContext(PipelineContext)
+  } = usePipelineContext()
   const { stage } = getStageFromPipeline(selectedStageId || '')
   const cloneOriginalData = cloneDeep(stage)
 
