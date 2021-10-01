@@ -33,7 +33,7 @@ interface TriggersListPropsInterface {
 }
 
 const canEnableArtifactTrigger = () => {
-  return location.hostname === 'localhost' || location.hostname === 'qa.harness.io'
+  return ['localhost', 'qa.harness.io', 'pr.harness.io'].includes(location.hostname)
 }
 
 export default function TriggersList(props: TriggersListPropsInterface & GitQueryParams): JSX.Element {
