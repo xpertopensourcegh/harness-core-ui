@@ -46,7 +46,11 @@ import { ArtifactToConnectorMap, ENABLED_ARTIFACT_TYPES } from '@pipeline/compon
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import { EXPRESSION_STRING } from '@pipeline/utils/constants'
-import { TriggerDefaultFieldList, TriggerTypes } from '@pipeline/pages/triggers/utils/TriggersWizardPageUtils'
+import {
+  PRIMARY_ARTIFACT,
+  TriggerDefaultFieldList,
+  TriggerTypes
+} from '@pipeline/pages/triggers/utils/TriggersWizardPageUtils'
 import ExperimentalInput from '../PipelineSteps/K8sServiceSpec/K8sServiceSpecForms/ExperimentalInput'
 
 import { clearRuntimeInputValue, getNonRuntimeFields } from '../PipelineSteps/K8sServiceSpec/K8sServiceSpecHelper'
@@ -451,7 +455,7 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
     isPipelineInputTab &&
     stageIdentifier === formik?.values?.stageId &&
     formik?.values?.selectedArtifact &&
-    !formik?.values?.selectedArtifact.identifier
+    (!formik?.values?.selectedArtifact.identifier || formik?.values?.selectedArtifact.identifier === PRIMARY_ARTIFACT)
   const disablePrimaryFields = (fieldName: string, isTag = false) => {
     if (fromTrigger) {
       // Trigger Configuration Tab

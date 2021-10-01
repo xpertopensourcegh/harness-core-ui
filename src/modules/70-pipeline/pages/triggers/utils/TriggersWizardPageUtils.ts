@@ -1086,7 +1086,7 @@ export const parseArtifactsManifests = ({
             if (newAppliedArtifact) {
               appliedArtifact = newAppliedArtifact
             } else if (
-              artifactRef === 'primary' &&
+              artifactRef === PRIMARY_ARTIFACT &&
               filteredArtifacts?.primary &&
               Object.entries(filteredArtifacts?.primary).length &&
               !filteredArtifacts?.primary?.identifier
@@ -1120,7 +1120,7 @@ export const parseArtifactsManifests = ({
           )
           if (newAppliedArtifact) {
             appliedArtifact = newAppliedArtifact
-          } else if (artifactRef === 'primary') {
+          } else if (artifactRef === PRIMARY_ARTIFACT) {
             appliedArtifact = filteredArtifacts?.primary
           }
         }
@@ -1182,7 +1182,7 @@ export const filterArtifact = ({
       )
     )
   } else {
-    if (artifactId === 'primary') {
+    if (artifactId === PRIMARY_ARTIFACT) {
       return {
         primary:
           filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts?.primary ||
@@ -1215,7 +1215,7 @@ export const filterSideCarArtifacts = ({
 
   const { sidecars, primary } = artifacts
 
-  if (artifactId === 'primary') {
+  if (artifactId === PRIMARY_ARTIFACT) {
     return primary
   }
 

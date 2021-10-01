@@ -62,6 +62,7 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
 
       if (formikValues.event === eventTypes.PULL_REQUEST) {
         formikValues.pipeline = {
+          ...formikValues.pipeline,
           properties: {
             ci: {
               codebase: {
@@ -72,6 +73,7 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
         }
       } else {
         formikValues.pipeline = {
+          ...formikValues.pipeline,
           properties: {
             ci: {
               codebase: {

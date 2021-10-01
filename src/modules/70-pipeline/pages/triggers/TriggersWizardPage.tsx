@@ -55,7 +55,8 @@ import {
   FlatValidArtifactFormikValuesInterface,
   clearRuntimeInputValue,
   replaceTriggerDefaultBuild,
-  TriggerDefaultFieldList
+  TriggerDefaultFieldList,
+  PRIMARY_ARTIFACT
 } from './utils/TriggersWizardPageUtils'
 import {
   ArtifactTriggerConfigPanel,
@@ -86,6 +87,181 @@ import {
 } from './utils/TriggersWizardPageUtils'
 import { resetScheduleObject, getBreakdownValues } from './views/subviews/ScheduleUtils'
 import css from './TriggersWizardPage.module.scss'
+
+const replaceRunTimeVariables = ({
+  manifestType,
+  artifactType,
+  selectedArtifact
+}: {
+  artifactType: string
+  selectedArtifact: any
+  manifestType?: string
+}) => {
+  if (manifestType) {
+    if (selectedArtifact?.spec?.chartVersion) {
+      // hardcode manifest chart version to default
+      selectedArtifact.spec.chartVersion = replaceTriggerDefaultBuild({
+        chartVersion: selectedArtifact?.spec?.chartVersion
+      })
+    } else if (!isEmpty(selectedArtifact) && selectedArtifact?.spec?.chartVersion === '') {
+      selectedArtifact.spec.chartVersion = TriggerDefaultFieldList.chartVersion
+    }
+  } else if (artifactType && selectedArtifact?.spec?.tag) {
+    selectedArtifact.spec.tag = TriggerDefaultFieldList.build
+  }
+}
+
+const replaceStageManifests = ({ filteredStage, selectedArtifact }: { filteredStage: any; selectedArtifact: any }) => {
+  const stageArtifacts = filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests
+  const stageArtifactIdx = filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests?.findIndex(
+    (item: any) => item.manifest?.identifier === selectedArtifact?.identifier
+  )
+
+  if (stageArtifactIdx >= 0) {
+    stageArtifacts[stageArtifactIdx].manifest = selectedArtifact
+  }
+}
+
+const replaceStageArtifacts = ({ filteredStage, selectedArtifact }: { filteredStage: any; selectedArtifact: any }) => {
+  const stageArtifacts = filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts
+  const stageArtifactIdx =
+    filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts?.sidecars?.findIndex(
+      (item: any) => item.sidecar?.identifier === selectedArtifact?.identifier
+    )
+
+  if (stageArtifactIdx >= 0) {
+    stageArtifacts['sidecars'][stageArtifactIdx].sidecar = selectedArtifact
+  }
+}
+
+const replaceEventConditions = ({
+  values,
+  persistIncomplete,
+  triggerYaml
+}: {
+  values: any
+  persistIncomplete: boolean
+  triggerYaml: any
+}) => {
+  const { versionOperator, versionValue, buildOperator, buildValue, eventConditions = [] } = values
+  if (
+    ((versionOperator && versionValue?.trim()) || (persistIncomplete && (versionOperator || versionValue?.trim()))) &&
+    !eventConditions.some((eventCondition: AddConditionInterface) => eventCondition.key === EventConditionTypes.VERSION)
+  ) {
+    eventConditions.unshift({
+      key: EventConditionTypes.VERSION,
+      operator: versionOperator || '',
+      value: versionValue || ''
+    })
+  } else if (
+    ((buildOperator && buildValue?.trim()) || (persistIncomplete && (buildOperator || buildValue?.trim()))) &&
+    !eventConditions.some((eventCondition: AddConditionInterface) => eventCondition.key === EventConditionTypes.BUILD)
+  ) {
+    eventConditions.unshift({
+      key: EventConditionTypes.BUILD,
+      operator: buildOperator || '',
+      value: buildValue || ''
+    })
+  }
+
+  if (triggerYaml.source?.spec) {
+    const sourceSpecSpec = { ...triggerYaml.source?.spec.spec }
+    sourceSpecSpec.eventConditions = persistIncomplete
+      ? eventConditions
+      : eventConditions.filter((eventCondition: AddConditionInterface) => isRowFilled(eventCondition))
+    triggerYaml.source.spec.spec = sourceSpecSpec
+  }
+}
+
+const getArtifactManifestTriggerYaml = ({
+  values: val,
+  manifestType,
+  orgIdentifier,
+  enabledStatus,
+  projectIdentifier,
+  pipelineIdentifier,
+  persistIncomplete = false
+}: {
+  values: any
+
+  orgIdentifier: string
+  enabledStatus: boolean
+  projectIdentifier: string
+  pipelineIdentifier: string
+  manifestType?: string
+  persistIncomplete?: boolean
+}): TriggerConfigDTO => {
+  const {
+    name,
+    identifier,
+    description,
+    tags,
+    pipeline: pipelineRuntimeInput,
+    triggerType: formikValueTriggerType,
+    selectedArtifact,
+    stageId,
+    manifestType: onEditManifestType,
+    artifactType
+  } = val
+
+  replaceRunTimeVariables({ manifestType, artifactType, selectedArtifact })
+  const newPipelineObj = { ...pipelineRuntimeInput }
+  const filteredStage = newPipelineObj.stages?.find((item: any) => item.stage?.identifier === stageId)
+  if (manifestType) {
+    replaceStageManifests({ filteredStage, selectedArtifact })
+  } else if (artifactType) {
+    replaceStageArtifacts({ filteredStage, selectedArtifact })
+  }
+
+  // actions will be required thru validation
+  const stringifyPipelineRuntimeInput = yamlStringify({ pipeline: clearNullUndefined(newPipelineObj) })
+
+  // clears any runtime inputs
+  const artifactSourceSpec = clearRuntimeInputValue(
+    cloneDeep(
+      parse(
+        JSON.stringify({
+          spec: selectedArtifact?.spec
+        }) || ''
+      )
+    )
+  )
+  const triggerYaml: NGTriggerConfigV2 = {
+    name,
+    identifier,
+    enabled: enabledStatus,
+    description,
+    tags,
+    orgIdentifier,
+    projectIdentifier,
+    pipelineIdentifier,
+    source: {
+      type: formikValueTriggerType as unknown as NGTriggerSourceV2['type'],
+      spec: {
+        stageIdentifier: stageId,
+        manifestRef: selectedArtifact?.identifier,
+        type: onEditManifestType ? onEditManifestType : artifactType,
+        ...artifactSourceSpec
+      }
+    },
+    inputYaml: stringifyPipelineRuntimeInput
+  }
+  if (artifactType) {
+    if (triggerYaml?.source?.spec && Object.getOwnPropertyDescriptor(triggerYaml?.source?.spec, 'manifestRef')) {
+      delete triggerYaml.source.spec.manifestRef
+    }
+    if (triggerYaml?.source?.spec) {
+      triggerYaml.source.spec.artifactRef = selectedArtifact?.identifier
+        ? selectedArtifact?.identifier
+        : PRIMARY_ARTIFACT
+    }
+  }
+
+  replaceEventConditions({ values: val, persistIncomplete, triggerYaml })
+
+  return clearNullUndefined(triggerYaml)
+}
+
 const TriggersWizardPage: React.FC = (): JSX.Element => {
   const { orgIdentifier, accountId, projectIdentifier, pipelineIdentifier, triggerIdentifier, module } = useParams<
     PipelineType<{
@@ -176,7 +352,15 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
 
       return { trigger: res }
     } else if (values.triggerType === TriggerTypes.MANIFEST || values.triggerType === TriggerTypes.ARTIFACT) {
-      const res = getArtifactManifestTriggerYaml({ values, persistIncomplete: true })
+      const res = getArtifactManifestTriggerYaml({
+        values,
+        persistIncomplete: true,
+        manifestType,
+        enabledStatus,
+        orgIdentifier,
+        projectIdentifier,
+        pipelineIdentifier
+      })
 
       return { trigger: res }
     }
@@ -214,14 +398,6 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         }
       }
   >({ triggerType: triggerTypeOnNew })
-
-  // useEffect(() => {
-  //   // fetch initial onEdit
-  //   if (!onEditInitialValues?.identifier && triggerIdentifier && !triggerResponse && !loadingGetTrigger) {
-  //     getTriggerDetails()
-  //   }
-  // }, [onEditInitialValues?.triggerType])
-  // // }, [onEditInitialValues?.triggerType])
 
   useEffect(() => {
     if (onEditInitialValues?.pipeline && template?.data?.inputSetTemplateYaml && mergedPipelineKey < 1) {
@@ -856,144 +1032,6 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     })
   }
 
-  const getArtifactManifestTriggerYaml = ({
-    values: val,
-    persistIncomplete = false
-  }: {
-    values: any
-    persistIncomplete?: boolean
-  }): TriggerConfigDTO => {
-    const {
-      name,
-      identifier,
-      description,
-      tags,
-      pipeline: pipelineRuntimeInput,
-      triggerType: formikValueTriggerType,
-      selectedArtifact,
-      stageId,
-      versionOperator,
-      versionValue,
-      buildOperator,
-      buildValue,
-      eventConditions = [],
-      manifestType: onEditManifestType,
-      artifactType: artType
-    } = val
-
-    if (manifestType) {
-      if (selectedArtifact?.spec?.chartVersion) {
-        // hardcode manifest chart version to default
-        selectedArtifact.spec.chartVersion = replaceTriggerDefaultBuild({
-          chartVersion: selectedArtifact?.spec?.chartVersion
-        })
-      } else if (!isEmpty(selectedArtifact) && selectedArtifact?.spec?.chartVersion === '') {
-        selectedArtifact.spec.chartVersion = TriggerDefaultFieldList.chartVersion
-      }
-    } else if (artType) {
-      selectedArtifact.spec.tag = TriggerDefaultFieldList.build
-    }
-    const newPipelineObj = { ...pipelineRuntimeInput }
-    const filteredStage = newPipelineObj.stages?.find((item: any) => item.stage?.identifier === stageId)
-    if (manifestType) {
-      const stageArtifacts = filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests
-      const stageArtifactIdx = filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests?.findIndex(
-        (item: any) => item.manifest?.identifier === selectedArtifact?.identifier
-      )
-
-      if (stageArtifactIdx >= 0) {
-        stageArtifacts[stageArtifactIdx].manifest = selectedArtifact
-      }
-    } else if (artType) {
-      const stageArtifacts = filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts
-      const stageArtifactIdx =
-        filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts?.sidecars?.findIndex(
-          (item: any) => item.sidecar?.identifier === selectedArtifact?.identifier
-        )
-
-      if (stageArtifactIdx >= 0) {
-        stageArtifacts['sidecars'][stageArtifactIdx].sidecar = selectedArtifact
-      }
-    }
-
-    // actions will be required thru validation
-    const stringifyPipelineRuntimeInput = yamlStringify({ pipeline: clearNullUndefined(newPipelineObj) })
-
-    // clears any runtime inputs
-    const artifactSourceSpec = clearRuntimeInputValue(
-      cloneDeep(
-        parse(
-          JSON.stringify({
-            spec: selectedArtifact?.spec
-          }) || ''
-        )
-      )
-    )
-    const triggerYaml: NGTriggerConfigV2 = {
-      name,
-      identifier,
-      enabled: enabledStatus,
-      description,
-      tags,
-      orgIdentifier,
-      projectIdentifier,
-      pipelineIdentifier,
-      source: {
-        type: formikValueTriggerType as unknown as NGTriggerSourceV2['type'],
-        spec: {
-          stageIdentifier: stageId,
-          manifestRef: selectedArtifact?.identifier,
-          type: onEditManifestType ? onEditManifestType : artType,
-          ...artifactSourceSpec
-        }
-      },
-      inputYaml: stringifyPipelineRuntimeInput
-    }
-    if (artType) {
-      if (triggerYaml?.source?.spec && Object.getOwnPropertyDescriptor(triggerYaml?.source?.spec, 'manifestRef')) {
-        delete triggerYaml.source.spec.manifestRef
-      }
-      if (triggerYaml?.source?.spec) {
-        triggerYaml.source.spec.artifactRef = selectedArtifact?.identifier
-      }
-    }
-
-    if (
-      ((versionOperator && versionValue?.trim()) || (persistIncomplete && (versionOperator || versionValue?.trim()))) &&
-      !eventConditions.some(
-        (eventCondition: AddConditionInterface) => eventCondition.key === EventConditionTypes.VERSION
-      )
-    ) {
-      eventConditions.unshift({
-        key: EventConditionTypes.VERSION,
-        operator: versionOperator || '',
-        value: versionValue || ''
-      })
-    } else if (
-      ((buildOperator && buildValue?.trim()) || (persistIncomplete && (buildOperator || buildValue?.trim()))) &&
-      !eventConditions.some((eventCondition: AddConditionInterface) => eventCondition.key === EventConditionTypes.BUILD)
-    ) {
-      eventConditions.unshift({
-        key: EventConditionTypes.BUILD,
-        operator: buildOperator || '',
-        value: buildValue || ''
-      })
-    }
-
-    if (triggerYaml.source?.spec) {
-      const sourceSpecSpec = { ...triggerYaml.source?.spec.spec }
-      sourceSpecSpec.eventConditions = persistIncomplete
-        ? eventConditions
-        : eventConditions.filter((eventCondition: AddConditionInterface) => isRowFilled(eventCondition))
-      // triggerYaml.source.spec.spec.eventConditions = persistIncomplete
-      //   ? eventConditions
-      //   : eventConditions.filter((eventCondition: AddConditionInterface) => isRowFilled(eventCondition))
-      triggerYaml.source.spec.spec = sourceSpecSpec
-    }
-
-    return clearNullUndefined(triggerYaml)
-  }
-
   // TriggerConfigDTO is NGTriggerConfigV2 with optional identifier
   const submitTrigger = async (triggerYaml: NGTriggerConfigV2 | TriggerConfigDTO): Promise<void> => {
     if (onEditInitialValues?.identifier) {
@@ -1048,7 +1086,14 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
   }
 
   const handleArtifactSubmit = async (val: FlatValidArtifactFormikValuesInterface): Promise<void> => {
-    const triggerYaml = getArtifactManifestTriggerYaml({ values: val })
+    const triggerYaml = getArtifactManifestTriggerYaml({
+      values: val,
+      manifestType,
+      enabledStatus,
+      orgIdentifier,
+      projectIdentifier,
+      pipelineIdentifier
+    })
     submitTrigger(triggerYaml)
   }
 
