@@ -625,7 +625,7 @@ pipelines-studio:
   pipelineUpdated: Pipeline Updated
   publishPipeline: 'Pipeline published successfully'
   errorWhileSaving: Error occurred saving Pipeline
-  pipelineUpdatedError: The Pipeline is updated by someone else. Do you want to take the latest Pipeline? You might lose your saved Pipeline settings.
+  pipelineUpdatedError: The Pipeline was updated by another user. If you update the Pipeline their changes will overwrite your changes. Would you like to update the Pipeline?
 inputTypes:
   FIXED: Fixed value
   RUNTIME: Runtime input
