@@ -178,7 +178,7 @@ export const findMatchedResultsInPipeline = (
 ): SearchResult[] => {
   const finalFound: SearchResult[] = []
   pipelineFqns.forEach(({ value: fqn, metaKeyId }, index) => {
-    const fqnParts = defaultTo(fqn?.split('.'), '')
+    const fqnParts = fqn ? defaultTo(fqn?.split('.'), '') : ''
     const path = defaultTo(pipelineMetaKeys?.[index]?.value, '')
     //removes pipeline tags from search as we are showing them in popover
 
