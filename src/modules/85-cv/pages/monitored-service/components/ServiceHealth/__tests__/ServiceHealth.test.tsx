@@ -16,17 +16,16 @@ import {
   getDimensionsAsPerContainerWidth
 } from '../ServiceHealth.utils'
 import type { ServiceHealthProps } from '../ServiceHealth.types'
-import { NUMBER_OF_DATA_POINTS, TimePeriodEnum } from '../ServiceHealth.constants'
+import { TimePeriodEnum } from '../ServiceHealth.constants'
 import {
   mockedHealthScoreData,
   timePeriodsMockData,
   mockedTimestamps,
-  mockedHealthScoreDataForLowestHealthScore
+  mockedHealthScoreDataForLowestHealthScore,
+  mockRiskValue,
+  expectedTimelineForGetTimestampsForPeriod
 } from './ServiceHealth.mock'
-import {
-  changeSummaryWithPositiveChange,
-  expectedPositiveTextContent
-} from '../components/ChangesSourceCard/__tests__/ChangeSourceCard.mock'
+import { changeSummaryWithPositiveChange } from '../components/ChangesSourceCard/__tests__/ChangeSourceCard.mock'
 
 const WrapperComponent = (props: ServiceHealthProps): JSX.Element => {
   return (
@@ -113,8 +112,8 @@ describe('Unit tests for ServiceHealth', () => {
   })
 
   test('Verify if correct number of data points are returned from getTimestampsForPeriod method', async () => {
-    const timeLineDataPoints = getTimestampsForPeriod(TimePeriodEnum.FOUR_HOURS)
-    expect(timeLineDataPoints).toHaveLength(NUMBER_OF_DATA_POINTS)
+    const timeLineDataPoints = getTimestampsForPeriod(mockRiskValue as RiskData[])
+    expect(timeLineDataPoints).toEqual(expectedTimelineForGetTimestampsForPeriod)
   })
 
   test('Verify if correct timeformat is returned from getTimeFormat method', async () => {
@@ -209,19 +208,6 @@ describe('Unit tests for ServiceHealth', () => {
     expect(getDimensionsAsPerContainerWidth(defaultMaxSliderWidth, selectedTimePeriod)).toEqual({
       maxWidth: 1336,
       minWidth: 75
-    })
-  })
-
-  test('Verify ChangesSourceCard loads', async () => {
-    const props = {
-      serviceIdentifier: 'service-identifier',
-      environmentIdentifier: 'env-identifier',
-      hasChangeSource: true
-    }
-    const { container } = render(<WrapperComponent {...props} />)
-    await waitFor(() => expect(container.querySelectorAll('.tickerValue[data-test="tickerValue"]').length).toEqual(4))
-    container.querySelectorAll('.tickerValue[data-test="tickerValue"]').forEach(async (item, index) => {
-      await waitFor(() => expect(item.textContent).toEqual(expectedPositiveTextContent[index]))
     })
   })
 

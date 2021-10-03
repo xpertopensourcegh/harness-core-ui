@@ -3,6 +3,7 @@
   position: absolute;
   height: 100% !important;
   z-index: 5;
+  pointer-events: none;
   top: 0;
 
   .mask {
@@ -10,7 +11,6 @@
     background-color: var(--form-bg) !important;
     opacity: 0.7;
     position: absolute;
-    pointer-events: none;
     left: 0;
     top: 0;
   }
@@ -21,7 +21,6 @@
     height: 100% !important;
     position: relative;
     box-sizing: border-box;
-    pointer-events: none;
 
     .leftHandle,
     .rightHandle {

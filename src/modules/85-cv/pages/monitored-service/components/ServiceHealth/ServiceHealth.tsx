@@ -44,9 +44,6 @@ export default function ServiceHealth({
   const containerRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
-    const timestampsForPeriod = getTimestampsForPeriod(selectedTimePeriod.value as string)
-    setTimestamps(timestampsForPeriod)
-
     //changing timeperiod in dropdown should reset the timerange and remove the slider.
     if (showTimelineSlider) {
       setTimeRange({ startTime: 0, endTime: 0 })
@@ -54,13 +51,6 @@ export default function ServiceHealth({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTimePeriod?.value])
-
-  useEffect(() => {
-    //changing timeperiod in dropdown should reset the timerange and remove the slider.
-    if (showTimelineSlider) {
-      setTimeRange({ startTime: 0, endTime: 0 })
-    }
-  }, [showTimelineSlider])
 
   // calculating the min and max width for the the timeline slider
   const sliderDimensions = useMemo(() => {
@@ -82,6 +72,7 @@ export default function ServiceHealth({
   }, [selectedTimePeriod?.value])
 
   const lowestHealthScoreBarForTimeRange = useMemo(() => {
+    setTimestamps(getTimestampsForPeriod(healthScoreData))
     return calculateLowestHealthScoreBar(timeRange?.startTime, timeRange?.endTime, healthScoreData)
   }, [timeRange?.startTime, timeRange?.endTime, healthScoreData])
 
@@ -152,25 +143,23 @@ export default function ServiceHealth({
               <HealthScoreChart
                 duration={selectedTimePeriod}
                 monitoredServiceIdentifier={monitoredServiceIdentifier as string}
-                setHealthScoreData={setHealthScoreData}
+                setHealthScoreData={d => setHealthScoreData(d)}
                 timeFormat={timeFormat}
               />
-              {showTimelineSlider ? (
-                <TimelineSlider
-                  resetFocus={() => setShowTimelineSlider(false)}
-                  initialSliderWidth={sliderDimensions.minWidth}
-                  leftContainerOffset={100}
-                  hideSlider={!showTimelineSlider}
-                  className={css.slider}
-                  minSliderWidth={sliderDimensions.minWidth}
-                  maxSliderWidth={sliderDimensions.maxWidth}
-                  infoCard={renderInfoCard()}
-                  onSliderDragEnd={({ startXPercentage, endXPercentage }) => {
-                    const startAndEndtime = calculateStartAndEndTimes(startXPercentage, endXPercentage, timestamps)
-                    if (startAndEndtime) onFocusTimeRange?.(startAndEndtime[0], startAndEndtime[1])
-                  }}
-                />
-              ) : null}
+              <TimelineSlider
+                resetFocus={() => setShowTimelineSlider(false)}
+                initialSliderWidth={sliderDimensions.minWidth}
+                leftContainerOffset={100}
+                hideSlider={!showTimelineSlider}
+                className={css.slider}
+                minSliderWidth={sliderDimensions.minWidth}
+                maxSliderWidth={sliderDimensions.maxWidth}
+                infoCard={renderInfoCard()}
+                onSliderDragEnd={({ startXPercentage, endXPercentage }) => {
+                  const startAndEndtime = calculateStartAndEndTimes(startXPercentage, endXPercentage, timestamps)
+                  if (startAndEndtime) onFocusTimeRange?.(startAndEndtime[0], startAndEndtime[1])
+                }}
+              />
               <ChangeTimeline
                 serviceIdentifier={serviceIdentifier}
                 environmentIdentifier={environmentIdentifier}

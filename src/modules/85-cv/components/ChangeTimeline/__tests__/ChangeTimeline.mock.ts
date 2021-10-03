@@ -57,7 +57,7 @@ export const singleDeploymentMarker = {
     toolTipLabel: 'Deployments  change'
   },
   fillColor: 'var(--green-400)',
-  radius: 4,
+  radius: 6,
   symbol: 'diamond'
 }
 
@@ -69,9 +69,9 @@ export const twoDeploymentMarker = {
     color: 'var(--green-400)',
     toolTipLabel: 'Deployments  change'
   },
-  height: 12,
+  height: 16,
   symbol: 'url(test-file-stub)',
-  width: 12
+  width: 16
 }
 
 export const multipleDeploymentMarker = {
@@ -82,9 +82,9 @@ export const multipleDeploymentMarker = {
     color: 'var(--green-400)',
     toolTipLabel: 'Deployments  change'
   },
-  height: 16,
+  height: 18,
   symbol: 'url(test-file-stub)',
-  width: 16
+  width: 18
 }
 
 export const mockDeploymentPayload = {
@@ -99,7 +99,7 @@ export const mockDeploymentPayload = {
           startTime: 1632009431325
         },
         fillColor: 'var(--green-400)',
-        radius: 4,
+        radius: 6,
         symbol: 'diamond'
       },
       x: 1632009431325,
@@ -115,7 +115,7 @@ export const mockDeploymentPayload = {
           startTime: 1632058781325
         },
         fillColor: 'var(--green-400)',
-        radius: 4,
+        radius: 6,
         symbol: 'diamond'
       },
       x: 1632058781325,
@@ -130,9 +130,9 @@ export const mockDeploymentPayload = {
           endTime: 1632145143825,
           startTime: 1632132806325
         },
-        height: 12,
+        height: 16,
         symbol: 'url(test-file-stub)',
-        width: 12
+        width: 16
       },
       x: 1632132806325,
       y: 0
@@ -146,9 +146,9 @@ export const mockDeploymentPayload = {
           endTime: 1632157481325,
           startTime: 1632145143825
         },
-        height: 16,
+        height: 18,
         symbol: 'url(test-file-stub)',
-        width: 16
+        width: 18
       },
       x: 1632145143825,
       y: 0
@@ -163,7 +163,7 @@ export const mockDeploymentPayload = {
           startTime: 1632157481325
         },
         fillColor: 'var(--green-400)',
-        radius: 4,
+        radius: 6,
         symbol: 'diamond'
       },
       x: 1632157481325,
@@ -178,9 +178,9 @@ export const mockDeploymentPayload = {
           endTime: 1632182156325,
           startTime: 1632169818825
         },
-        height: 16,
+        height: 18,
         symbol: 'url(test-file-stub)',
-        width: 16
+        width: 18
       },
       x: 1632169818825,
       y: 0
@@ -195,7 +195,7 @@ export const mockDeploymentPayload = {
           startTime: 1632182156325
         },
         fillColor: 'var(--green-400)',
-        radius: 4,
+        radius: 6,
         symbol: 'diamond'
       },
       x: 1632182156325,
@@ -211,7 +211,7 @@ export const mockDeploymentPayload = {
           startTime: 1632194493825
         },
         fillColor: 'var(--green-400)',
-        radius: 4,
+        radius: 6,
         symbol: 'diamond'
       },
       x: 1632194493825,
@@ -227,7 +227,7 @@ export const mockDeploymentPayload = {
           startTime: 1632219168825
         },
         fillColor: 'var(--green-400)',
-        radius: 4,
+        radius: 6,
         symbol: 'diamond'
       },
       x: 1632219168825,
@@ -242,9 +242,9 @@ export const mockDeploymentPayload = {
           endTime: 1632243843825,
           startTime: 1632231506325
         },
-        height: 12,
+        height: 16,
         symbol: 'url(test-file-stub)',
-        width: 12
+        width: 16
       },
       x: 1632231506325,
       y: 0
@@ -259,7 +259,7 @@ export const mockDeploymentPayload = {
           startTime: 1632243843825
         },
         fillColor: 'var(--green-400)',
-        radius: 4,
+        radius: 6,
         symbol: 'diamond'
       },
       x: 1632243843825,
@@ -274,9 +274,9 @@ export const mockDeploymentPayload = {
           endTime: 1632268518825,
           startTime: 1632256181325
         },
-        height: 12,
+        height: 16,
         symbol: 'url(test-file-stub)',
-        width: 12
+        width: 16
       },
       x: 1632256181325,
       y: 0
@@ -290,9 +290,9 @@ export const mockDeploymentPayload = {
           endTime: 1632280856325,
           startTime: 1632268518825
         },
-        height: 16,
+        height: 18,
         symbol: 'url(test-file-stub)',
-        width: 16
+        width: 18
       },
       x: 1632268518825,
       y: 0
@@ -306,9 +306,9 @@ export const mockDeploymentPayload = {
           endTime: 1632293193825,
           startTime: 1632280856325
         },
-        height: 12,
+        height: 16,
         symbol: 'url(test-file-stub)',
-        width: 12
+        width: 16
       },
       x: 1632280856325,
       y: 0
@@ -322,9 +322,9 @@ export const mockDeploymentPayload = {
           endTime: 1632305531325,
           startTime: 1632293193825
         },
-        height: 12,
+        height: 16,
         symbol: 'url(test-file-stub)',
-        width: 12
+        width: 16
       },
       x: 1632293193825,
       y: 0
@@ -346,7 +346,7 @@ export const mockIncidentPayload = {
           startTime: 1632009431325
         },
         fillColor: 'var(--purple-400)',
-        radius: 4,
+        radius: 6,
         symbol: 'diamond'
       },
       x: 1632009431325,
@@ -362,7 +362,7 @@ export const mockIncidentPayload = {
           startTime: 1632058781325
         },
         fillColor: 'var(--purple-400)',
-        radius: 4,
+        radius: 6,
         symbol: 'diamond'
       },
       x: 1632058781325,
@@ -377,9 +377,9 @@ export const mockIncidentPayload = {
           endTime: 1632145143825,
           startTime: 1632132806325
         },
-        height: 12,
+        height: 16,
         symbol: 'url(test-file-stub)',
-        width: 12
+        width: 16
       },
       x: 1632132806325,
       y: 0
@@ -393,9 +393,9 @@ export const mockIncidentPayload = {
           endTime: 1632157481325,
           startTime: 1632145143825
         },
-        height: 16,
+        height: 18,
         symbol: 'url(test-file-stub)',
-        width: 16
+        width: 18
       },
       x: 1632145143825,
       y: 0
@@ -410,7 +410,7 @@ export const mockIncidentPayload = {
           startTime: 1632157481325
         },
         fillColor: 'var(--purple-400)',
-        radius: 4,
+        radius: 6,
         symbol: 'diamond'
       },
       x: 1632157481325,
@@ -425,9 +425,9 @@ export const mockIncidentPayload = {
           endTime: 1632182156325,
           startTime: 1632169818825
         },
-        height: 16,
+        height: 18,
         symbol: 'url(test-file-stub)',
-        width: 16
+        width: 18
       },
       x: 1632169818825,
       y: 0
@@ -442,7 +442,7 @@ export const mockIncidentPayload = {
           startTime: 1632182156325
         },
         fillColor: 'var(--purple-400)',
-        radius: 4,
+        radius: 6,
         symbol: 'diamond'
       },
       x: 1632182156325,
@@ -458,7 +458,7 @@ export const mockIncidentPayload = {
           startTime: 1632194493825
         },
         fillColor: 'var(--purple-400)',
-        radius: 4,
+        radius: 6,
         symbol: 'diamond'
       },
       x: 1632194493825,
@@ -474,7 +474,7 @@ export const mockIncidentPayload = {
           startTime: 1632219168825
         },
         fillColor: 'var(--purple-400)',
-        radius: 4,
+        radius: 6,
         symbol: 'diamond'
       },
       x: 1632219168825,
@@ -489,9 +489,9 @@ export const mockIncidentPayload = {
           endTime: 1632243843825,
           startTime: 1632231506325
         },
-        height: 12,
+        height: 16,
         symbol: 'url(test-file-stub)',
-        width: 12
+        width: 16
       },
       x: 1632231506325,
       y: 0
@@ -506,7 +506,7 @@ export const mockIncidentPayload = {
           startTime: 1632243843825
         },
         fillColor: 'var(--purple-400)',
-        radius: 4,
+        radius: 6,
         symbol: 'diamond'
       },
       x: 1632243843825,
@@ -521,9 +521,9 @@ export const mockIncidentPayload = {
           endTime: 1632268518825,
           startTime: 1632256181325
         },
-        height: 12,
+        height: 16,
         symbol: 'url(test-file-stub)',
-        width: 12
+        width: 16
       },
       x: 1632256181325,
       y: 0
@@ -537,9 +537,9 @@ export const mockIncidentPayload = {
           endTime: 1632280856325,
           startTime: 1632268518825
         },
-        height: 16,
+        height: 18,
         symbol: 'url(test-file-stub)',
-        width: 16
+        width: 18
       },
       x: 1632268518825,
       y: 0
@@ -553,9 +553,9 @@ export const mockIncidentPayload = {
           endTime: 1632293193825,
           startTime: 1632280856325
         },
-        height: 12,
+        height: 16,
         symbol: 'url(test-file-stub)',
-        width: 12
+        width: 16
       },
       x: 1632280856325,
       y: 0
@@ -569,9 +569,9 @@ export const mockIncidentPayload = {
           endTime: 1632305531325,
           startTime: 1632293193825
         },
-        height: 12,
+        height: 16,
         symbol: 'url(test-file-stub)',
-        width: 12
+        width: 16
       },
       x: 1632293193825,
       y: 0
@@ -593,7 +593,7 @@ export const mockInfraPayload = {
           startTime: 1632009431325
         },
         fillColor: 'var(--primary-4)',
-        radius: 4,
+        radius: 6,
         symbol: 'diamond'
       },
       x: 1632009431325,
@@ -609,7 +609,7 @@ export const mockInfraPayload = {
           startTime: 1632058781325
         },
         fillColor: 'var(--primary-4)',
-        radius: 4,
+        radius: 6,
         symbol: 'diamond'
       },
       x: 1632058781325,
@@ -624,9 +624,9 @@ export const mockInfraPayload = {
           endTime: 1632145143825,
           startTime: 1632132806325
         },
-        height: 12,
+        height: 16,
         symbol: 'url(test-file-stub)',
-        width: 12
+        width: 16
       },
       x: 1632132806325,
       y: 0
@@ -640,9 +640,9 @@ export const mockInfraPayload = {
           endTime: 1632157481325,
           startTime: 1632145143825
         },
-        height: 16,
+        height: 18,
         symbol: 'url(test-file-stub)',
-        width: 16
+        width: 18
       },
       x: 1632145143825,
       y: 0
@@ -657,7 +657,7 @@ export const mockInfraPayload = {
           startTime: 1632157481325
         },
         fillColor: 'var(--primary-4)',
-        radius: 4,
+        radius: 6,
         symbol: 'diamond'
       },
       x: 1632157481325,
@@ -672,9 +672,9 @@ export const mockInfraPayload = {
           endTime: 1632182156325,
           startTime: 1632169818825
         },
-        height: 16,
+        height: 18,
         symbol: 'url(test-file-stub)',
-        width: 16
+        width: 18
       },
       x: 1632169818825,
       y: 0
@@ -689,7 +689,7 @@ export const mockInfraPayload = {
           startTime: 1632182156325
         },
         fillColor: 'var(--primary-4)',
-        radius: 4,
+        radius: 6,
         symbol: 'diamond'
       },
       x: 1632182156325,
@@ -705,7 +705,7 @@ export const mockInfraPayload = {
           startTime: 1632194493825
         },
         fillColor: 'var(--primary-4)',
-        radius: 4,
+        radius: 6,
         symbol: 'diamond'
       },
       x: 1632194493825,
@@ -721,7 +721,7 @@ export const mockInfraPayload = {
           startTime: 1632219168825
         },
         fillColor: 'var(--primary-4)',
-        radius: 4,
+        radius: 6,
         symbol: 'diamond'
       },
       x: 1632219168825,
@@ -736,9 +736,9 @@ export const mockInfraPayload = {
           endTime: 1632243843825,
           startTime: 1632231506325
         },
-        height: 12,
+        height: 16,
         symbol: 'url(test-file-stub)',
-        width: 12
+        width: 16
       },
       x: 1632231506325,
       y: 0
@@ -753,7 +753,7 @@ export const mockInfraPayload = {
           startTime: 1632243843825
         },
         fillColor: 'var(--primary-4)',
-        radius: 4,
+        radius: 6,
         symbol: 'diamond'
       },
       x: 1632243843825,
@@ -768,9 +768,9 @@ export const mockInfraPayload = {
           endTime: 1632268518825,
           startTime: 1632256181325
         },
-        height: 12,
+        height: 16,
         symbol: 'url(test-file-stub)',
-        width: 12
+        width: 16
       },
       x: 1632256181325,
       y: 0
@@ -784,9 +784,9 @@ export const mockInfraPayload = {
           endTime: 1632280856325,
           startTime: 1632268518825
         },
-        height: 16,
+        height: 18,
         symbol: 'url(test-file-stub)',
-        width: 16
+        width: 18
       },
       x: 1632268518825,
       y: 0
@@ -800,9 +800,9 @@ export const mockInfraPayload = {
           endTime: 1632293193825,
           startTime: 1632280856325
         },
-        height: 12,
+        height: 16,
         symbol: 'url(test-file-stub)',
-        width: 12
+        width: 16
       },
       x: 1632280856325,
       y: 0
@@ -816,9 +816,9 @@ export const mockInfraPayload = {
           endTime: 1632305531325,
           startTime: 1632293193825
         },
-        height: 12,
+        height: 16,
         symbol: 'url(test-file-stub)',
-        width: 12
+        width: 16
       },
       x: 1632293193825,
       y: 0

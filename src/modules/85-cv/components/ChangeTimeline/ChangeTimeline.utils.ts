@@ -63,13 +63,13 @@ const getSymbolAndColorByChangeType = (
   marker: PointMarkerOptionsObjectCustom
 ): PointMarkerOptionsObjectCustom => {
   if (count === 1) {
-    return { ...marker, radius: 4, fillColor: getChangeSoureIconColor(type, true), symbol: 'diamond' }
+    return { ...marker, radius: 6, fillColor: getChangeSoureIconColor(type, true), symbol: 'diamond' }
   } else if (count === 2) {
-    return { ...marker, height: 12, width: 12, symbol: getSymbolBytypeForTwoCluster(type) }
+    return { ...marker, height: 16, width: 16, symbol: getSymbolBytypeForTwoCluster(type) }
   } else if (count > 2) {
-    return { ...marker, height: 16, width: 16, symbol: getSymbolBytypeForGreaterThanTwoCluster(type) }
+    return { ...marker, height: 18, width: 18, symbol: getSymbolBytypeForGreaterThanTwoCluster(type) }
   } else {
-    return { ...marker, radius: 4, fillColor: getChangeSoureIconColor(), symbol: 'diamond' }
+    return { ...marker, radius: 6, fillColor: getChangeSoureIconColor(), symbol: 'diamond' }
   }
 }
 
