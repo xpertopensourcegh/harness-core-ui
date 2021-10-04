@@ -5,7 +5,7 @@ import * as Yup from 'yup'
 
 import { FormikErrors, FormikProps, yupToFormErrors } from 'formik'
 import { isEmpty } from 'lodash-es'
-import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
+import { IdentifierSchema } from '@common/utils/Validation'
 import { StepViewType, StepProps, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import type { K8sRollingStepInfo, StepElementConfig } from 'services/cd-ng'
 import { FormMultiTypeCheckboxField } from '@common/components'
@@ -25,6 +25,7 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 
 import type { StringsMap } from 'stringTypes'
+import { getNameAndIdentifierSchema } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import pipelineVariableCss from '@pipeline/components/PipelineStudio/PipelineVariables/PipelineVariables.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
@@ -37,7 +38,9 @@ export interface K8RolloutDeployData extends StepElementConfig {
 interface K8RolloutDeployProps {
   initialValues: K8RolloutDeployData
   onUpdate?: (data: K8RolloutDeployData) => void
-  stepViewType?: StepViewType
+  stepViewType: StepViewType
+  onChange?: (data: K8RolloutDeployData) => void
+  allowableTypes: MultiTypeInputType[]
   readonly?: boolean
   isNewStep?: boolean
   inputSetData?: {
@@ -51,7 +54,7 @@ function K8RolloutDeployWidget(
   props: K8RolloutDeployProps,
   formikRef: StepFormikFowardRef<K8RolloutDeployData>
 ): React.ReactElement {
-  const { initialValues, onUpdate, isNewStep = true, readonly } = props
+  const { initialValues, onUpdate, isNewStep = true, readonly, onChange, allowableTypes, stepViewType } = props
   const { expressions } = useVariablesExpression()
   const { getString } = useStrings()
   return (
@@ -62,8 +65,11 @@ function K8RolloutDeployWidget(
         }}
         formName="k8RolloutDeploy"
         initialValues={initialValues}
+        validate={data => {
+          onChange?.(data)
+        }}
         validationSchema={Yup.object().shape({
-          name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
+          ...getNameAndIdentifierSchema(getString, stepViewType),
           timeout: getDurationValidationSchema({ minimum: '10s' }).required(
             getString('validation.timeout10SecMinimum')
           ),
@@ -75,18 +81,26 @@ function K8RolloutDeployWidget(
           const { values, setFieldValue } = formik
           return (
             <>
-              <div className={cx(stepCss.formGroup, stepCss.lg)}>
-                <FormInput.InputWithIdentifier
-                  inputLabel={getString('name')}
-                  isIdentifierEditable={isNewStep && !readonly}
-                  inputGroupProps={{ disabled: readonly }}
-                />
-              </div>
+              {stepViewType !== StepViewType.Template && (
+                <div className={cx(stepCss.formGroup, stepCss.lg)}>
+                  <FormInput.InputWithIdentifier
+                    inputLabel={getString('name')}
+                    isIdentifierEditable={isNewStep && !readonly}
+                    inputGroupProps={{ disabled: readonly }}
+                  />
+                </div>
+              )}
+
               <div className={cx(stepCss.formGroup, stepCss.sm)}>
                 <FormMultiTypeDurationField
                   name="timeout"
                   label={getString('pipelineSteps.timeoutLabel')}
-                  multiTypeDurationProps={{ enableConfigureOptions: false, expressions, disabled: readonly }}
+                  multiTypeDurationProps={{
+                    enableConfigureOptions: false,
+                    expressions,
+                    disabled: readonly,
+                    allowableTypes
+                  }}
                   disabled={readonly}
                 />
                 {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
@@ -107,7 +121,7 @@ function K8RolloutDeployWidget(
               <div className={stepCss.divider} />
               <div className={cx(stepCss.formGroup, stepCss.sm)}>
                 <FormMultiTypeCheckboxField
-                  multiTypeTextbox={{ expressions }}
+                  multiTypeTextbox={{ expressions, allowableTypes }}
                   name="spec.skipDryRun"
                   label={getString('pipelineSteps.skipDryRun')}
                   disabled={readonly}
@@ -121,7 +135,7 @@ function K8RolloutDeployWidget(
   )
 }
 
-const K8RolloutDeployInputStep: React.FC<K8RolloutDeployProps> = ({ inputSetData }) => {
+const K8RolloutDeployInputStep: React.FC<K8RolloutDeployProps> = ({ inputSetData, allowableTypes }) => {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   return (
@@ -133,7 +147,7 @@ const K8RolloutDeployInputStep: React.FC<K8RolloutDeployProps> = ({ inputSetData
             label={getString('pipelineSteps.timeoutLabel')}
             multiTypeDurationProps={{
               enableConfigureOptions: false,
-              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+              allowableTypes,
               expressions,
               disabled: inputSetData?.readonly
             }}
@@ -146,7 +160,7 @@ const K8RolloutDeployInputStep: React.FC<K8RolloutDeployProps> = ({ inputSetData
           <FormMultiTypeCheckboxField
             multiTypeTextbox={{
               expressions,
-              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+              allowableTypes
             }}
             name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.skipDryRun`}
             label={getString('pipelineSteps.skipDryRun')}
@@ -189,14 +203,25 @@ export class K8RolloutDeployStep extends PipelineStep<K8RolloutDeployData> {
     this._hasDelegateSelectionVisible = true
   }
   renderStep(props: StepProps<K8RolloutDeployData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep, readonly } =
-      props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep,
+      readonly,
+      allowableTypes,
+      onChange
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <K8RolloutDeployInputStep
           initialValues={initialValues}
           onUpdate={onUpdate}
+          allowableTypes={allowableTypes}
           stepViewType={stepViewType}
           inputSetData={inputSetData}
         />
@@ -216,7 +241,9 @@ export class K8RolloutDeployStep extends PipelineStep<K8RolloutDeployData> {
         initialValues={initialValues}
         onUpdate={onUpdate}
         isNewStep={isNewStep}
-        stepViewType={stepViewType}
+        allowableTypes={allowableTypes}
+        onChange={onChange}
+        stepViewType={stepViewType || StepViewType.Edit}
         ref={formikRef}
         readonly={readonly}
       />

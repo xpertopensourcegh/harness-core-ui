@@ -26,7 +26,7 @@ export default function TerraformInputStep<T extends TerraformData = TerraformDa
   props: TerraformProps<T>
 ): React.ReactElement {
   const { getString } = useStrings()
-  const { inputSetData, readonly, path } = props
+  const { inputSetData, readonly, path, allowableTypes } = props
   const { expressions } = useVariablesExpression()
 
   return (
@@ -40,7 +40,7 @@ export default function TerraformInputStep<T extends TerraformData = TerraformDa
             disabled={readonly}
             multiTextInputProps={{
               expressions,
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+              allowableTypes
             }}
           />
         </div>
@@ -53,7 +53,7 @@ export default function TerraformInputStep<T extends TerraformData = TerraformDa
             disabled={readonly}
             multiTypeDurationProps={{
               enableConfigureOptions: false,
-              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+              allowableTypes,
               expressions,
               disabled: readonly
             }}
@@ -82,7 +82,7 @@ export default function TerraformInputStep<T extends TerraformData = TerraformDa
                     label={getString('pipelineSteps.content')}
                     multiTextInputProps={{
                       expressions,
-                      allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+                      allowableTypes
                     }}
                   />
                 </div>
@@ -92,6 +92,7 @@ export default function TerraformInputStep<T extends TerraformData = TerraformDa
         } else if (varFile.varFile?.type === TerraformStoreTypes.Remote) {
           return <TFRemoteSection remoteVar={varFile} index={index} {...props} />
         }
+        return <></>
       })}
 
       {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.spec?.backendConfig?.spec?.content) ===

@@ -21,7 +21,7 @@ export default function ConfigSection<T extends TerraformData = TerraformData>(
 ): React.ReactElement {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
-  const { inputSetData, readonly, initialValues, path } = props
+  const { inputSetData, readonly, initialValues, path, allowableTypes } = props
   const config = inputSetData?.template?.spec?.configuration
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -50,7 +50,7 @@ export default function ConfigSection<T extends TerraformData = TerraformData>(
             disabled={readonly}
             multiTextInputProps={{
               expressions,
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+              allowableTypes
             }}
           />
         </div>
@@ -62,7 +62,7 @@ export default function ConfigSection<T extends TerraformData = TerraformData>(
             selected={get(initialValues, 'spec.configuration.spec.configFiles.store.spec.connectorRef', '')}
             projectIdentifier={projectIdentifier}
             orgIdentifier={orgIdentifier}
-            multiTypeProps={{ allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED], expressions }}
+            multiTypeProps={{ allowableTypes, expressions }}
             width={445}
             type={[Connectors.GIT, Connectors.GITHUB, Connectors.GITLAB, Connectors.BITBUCKET]}
             name={`${path}.spec.configuration.spec.configFiles.store.spec.connectorRef`}
@@ -84,7 +84,7 @@ export default function ConfigSection<T extends TerraformData = TerraformData>(
             disabled={readonly}
             multiTextInputProps={{
               expressions,
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+              allowableTypes
             }}
           />
         </div>
@@ -99,7 +99,7 @@ export default function ConfigSection<T extends TerraformData = TerraformData>(
             disabled={readonly}
             multiTextInputProps={{
               expressions,
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+              allowableTypes
             }}
           />
         </div>
@@ -114,7 +114,7 @@ export default function ConfigSection<T extends TerraformData = TerraformData>(
             disabled={readonly}
             multiTextInputProps={{
               expressions,
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+              allowableTypes
             }}
           />
         </div>

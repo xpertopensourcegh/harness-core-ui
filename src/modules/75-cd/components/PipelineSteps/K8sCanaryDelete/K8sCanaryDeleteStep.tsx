@@ -3,8 +3,8 @@ import { IconName, Formik, FormInput, getMultiTypeFromValue, MultiTypeInputType 
 import * as Yup from 'yup'
 import cx from 'classnames'
 import { FormikErrors, FormikProps, yupToFormErrors } from 'formik'
-import { isEmpty } from 'lodash-es'
-import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
+import { defaultTo, isEmpty } from 'lodash-es'
+import { getNameAndIdentifierSchema } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import { StepViewType, StepProps, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
@@ -32,6 +32,8 @@ interface K8sCanaryDeployProps {
   initialValues: K8sCanaryDeleteStepData
   readonly?: boolean
   onUpdate?: (data: K8sCanaryDeleteStepData) => void
+  onChange?: (data: K8sCanaryDeleteStepData) => void
+  allowableTypes: MultiTypeInputType[]
   stepViewType?: StepViewType
   isNewStep?: boolean
   inputSetData?: {
@@ -53,7 +55,7 @@ function K8sCanaryDeleteWidget(
   props: K8sCanaryDeployProps,
   formikRef: StepFormikFowardRef<K8sCanaryDeleteStepData>
 ): React.ReactElement {
-  const { initialValues, onUpdate, isNewStep = true, readonly } = props
+  const { initialValues, onUpdate, isNewStep = true, readonly, allowableTypes, onChange, stepViewType } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   return (
@@ -62,14 +64,14 @@ function K8sCanaryDeleteWidget(
         onSubmit={(values: K8sCanaryDeleteStepData) => {
           onUpdate?.({ ...values, spec: { skipDryRun: false, ...values?.spec } })
         }}
+        validate={(values: K8sCanaryDeleteStepData) => {
+          onChange?.({ ...values, spec: { skipDryRun: false, ...values?.spec } })
+        }}
         formName="k*CanaryDelete"
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
-          name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
-          timeout: getDurationValidationSchema({ minimum: '10s' }).required(
-            getString('validation.timeout10SecMinimum')
-          ),
-          identifier: IdentifierSchema()
+          ...getNameAndIdentifierSchema(getString, stepViewType),
+          timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum'))
         })}
       >
         {(formik: FormikProps<K8sCanaryDeleteStepData>) => {
@@ -77,13 +79,15 @@ function K8sCanaryDeleteWidget(
           setFormikRef(formikRef, formik)
           return (
             <>
-              <div className={cx(stepCss.formGroup, stepCss.lg)}>
-                <FormInput.InputWithIdentifier
-                  inputLabel={getString('name')}
-                  isIdentifierEditable={isNewStep}
-                  inputGroupProps={{ disabled: readonly }}
-                />
-              </div>
+              {stepViewType === StepViewType.InputSet ? null : (
+                <div className={cx(stepCss.formGroup, stepCss.lg)}>
+                  <FormInput.InputWithIdentifier
+                    inputLabel={getString('name')}
+                    isIdentifierEditable={isNewStep}
+                    inputGroupProps={{ disabled: readonly }}
+                  />
+                </div>
+              )}
 
               <div className={cx(stepCss.formGroup, stepCss.sm)}>
                 <FormMultiTypeDurationField
@@ -91,7 +95,12 @@ function K8sCanaryDeleteWidget(
                   label={getString('pipelineSteps.timeoutLabel')}
                   className={stepCss.duration}
                   disabled={readonly}
-                  multiTypeDurationProps={{ enableConfigureOptions: false, expressions, disabled: readonly }}
+                  multiTypeDurationProps={{
+                    enableConfigureOptions: false,
+                    expressions,
+                    disabled: readonly,
+                    allowableTypes
+                  }}
                 />
                 {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
@@ -116,7 +125,7 @@ function K8sCanaryDeleteWidget(
   )
 }
 
-const K8sCanaryDeleteInputWidget: React.FC<K8sCanaryDeployProps> = ({ inputSetData }) => {
+const K8sCanaryDeleteInputWidget: React.FC<K8sCanaryDeployProps> = ({ inputSetData, allowableTypes }) => {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   return (
@@ -127,7 +136,7 @@ const K8sCanaryDeleteInputWidget: React.FC<K8sCanaryDeployProps> = ({ inputSetDa
             name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}timeout`}
             multiTypeDurationProps={{
               enableConfigureOptions: false,
-              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+              allowableTypes,
               expressions,
               disabled: inputSetData?.readonly
             }}
@@ -141,7 +150,7 @@ const K8sCanaryDeleteInputWidget: React.FC<K8sCanaryDeployProps> = ({ inputSetDa
           <FormMultiTypeCheckboxField
             multiTypeTextbox={{
               expressions,
-              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+              allowableTypes
             }}
             name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.skipDryRun`}
             className={stepCss.checkbox}
@@ -171,8 +180,18 @@ export class K8sCanaryDeleteStep extends PipelineStep<K8sCanaryDeleteStepData> {
     this._hasDelegateSelectionVisible = true
   }
   renderStep(props: StepProps<K8sCanaryDeleteStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep, readonly } =
-      props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep,
+      readonly,
+      allowableTypes,
+      onChange
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -181,6 +200,7 @@ export class K8sCanaryDeleteStep extends PipelineStep<K8sCanaryDeleteStepData> {
           onUpdate={onUpdate}
           stepViewType={stepViewType}
           inputSetData={inputSetData}
+          allowableTypes={allowableTypes}
         />
       )
     } else if (stepViewType === StepViewType.InputVariable) {
@@ -197,9 +217,11 @@ export class K8sCanaryDeleteStep extends PipelineStep<K8sCanaryDeleteStepData> {
         initialValues={initialValues}
         onUpdate={onUpdate}
         isNewStep={isNewStep}
-        stepViewType={stepViewType}
+        stepViewType={defaultTo(stepViewType, StepViewType.Edit)}
         ref={formikRef}
         readonly={readonly}
+        allowableTypes={allowableTypes}
+        onChange={onChange}
       />
     )
   }

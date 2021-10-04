@@ -2,6 +2,7 @@ import React from 'react'
 import { render, fireEvent, findByText, waitFor, getAllByText, findAllByText } from '@testing-library/react'
 
 import { act } from 'react-test-renderer'
+import { MultiTypeInputType } from '@wings-software/uicore'
 import { TestWrapper, UseGetReturnData } from '@common/utils/testUtils'
 import { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
@@ -151,6 +152,7 @@ describe('StepWidget tests', () => {
       <TestWrapper>
         <StepWidget<K8SDirectServiceStep>
           factory={factory}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
           initialValues={serviceTabInitialValues}
           type={StepType.K8sServiceSpec}
           stepViewType={StepViewType.Edit}
@@ -165,6 +167,7 @@ describe('StepWidget tests', () => {
       <TestWrapper>
         <StepWidget<K8SDirectServiceStep>
           factory={factory}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
           initialValues={serviceTabInitialValues}
           type={StepType.K8sServiceSpec}
           stepViewType={StepViewType.Edit}
@@ -197,6 +200,7 @@ describe('StepWidget tests', () => {
       >
         <StepWidget<K8SDirectServiceStep>
           factory={factory}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
           initialValues={serviceTabInitialValues}
           type={StepType.K8sServiceSpec}
           stepViewType={StepViewType.Edit}
@@ -237,6 +241,7 @@ describe('StepWidget tests', () => {
       >
         <StepWidget<K8SDirectServiceStep>
           factory={factory}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
           initialValues={serviceTabInitialValues}
           type={StepType.K8sServiceSpec}
           stepViewType={StepViewType.Edit}
@@ -305,6 +310,7 @@ describe('StepWidget tests', () => {
       <TestWrapper>
         <StepWidget<K8SDirectServiceStep>
           factory={factory}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
           initialValues={
             (PipelineContextValue.state.pipeline.stages[0].stage.spec.serviceConfig.serviceDefinition.spec as any) || {}
           }

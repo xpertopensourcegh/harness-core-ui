@@ -27,6 +27,8 @@ export const TerraformStoreTypes = {
 export interface TerraformProps<T = TerraformData> {
   initialValues: T
   onUpdate?: (data: T) => void
+  onChange?: (data: T) => void
+  allowableTypes: MultiTypeInputType[]
   stepViewType?: StepViewType
   configTypes?: SelectOption[]
   isNewStep?: boolean
@@ -43,6 +45,8 @@ export interface TerraformProps<T = TerraformData> {
 export interface TerraformPlanProps {
   initialValues: TFPlanFormData
   onUpdate?: (data: TFPlanFormData) => void
+  onChange?: (data: TFPlanFormData) => void
+  allowableTypes: MultiTypeInputType[]
   stepViewType?: StepViewType
   configTypes?: SelectOption[]
   isNewStep?: boolean

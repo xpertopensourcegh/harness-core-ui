@@ -10,7 +10,8 @@ import {
   HarnessDocTooltip,
   ThumbnailSelect,
   Color,
-  ButtonVariation
+  ButtonVariation,
+  MultiTypeInputType
 } from '@wings-software/uicore'
 import type { Item } from '@wings-software/uicore/dist/components/ThumbnailSelect/ThumbnailSelect'
 import cx from 'classnames'
@@ -264,6 +265,11 @@ export const EditStageView: React.FC<EditStageViewProps> = ({
                       readonly={isReadonly}
                       type={StepType.CustomVariable}
                       stepViewType={StepViewType.StageVariable}
+                      allowableTypes={[
+                        MultiTypeInputType.FIXED,
+                        MultiTypeInputType.RUNTIME,
+                        MultiTypeInputType.EXPRESSION
+                      ]}
                       onUpdate={({ variables }: CustomVariablesData) => {
                         onChange?.({ ...(data?.stage as DeploymentStageElementConfig), variables })
                       }}

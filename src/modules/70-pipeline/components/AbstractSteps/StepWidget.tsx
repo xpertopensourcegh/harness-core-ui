@@ -18,7 +18,7 @@ export interface StepWidgetProps<T = unknown, U = unknown> extends Omit<StepProp
   onUpdate?: (data: any) => void
   onChange?: (data: any) => void
   readonly?: boolean
-  allowableTypes?: MultiTypeInputType[]
+  allowableTypes: MultiTypeInputType[]
 }
 
 export function StepWidget<T = unknown, U = unknown>(

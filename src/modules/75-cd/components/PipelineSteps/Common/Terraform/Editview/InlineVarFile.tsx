@@ -32,10 +32,20 @@ interface InlineVarFileProps {
   onClose: () => void
   onSubmit: () => void
   isReadonly?: boolean
+  allowableTypes: MultiTypeInputType[]
 }
 
 const InlineVarFile = (props: InlineVarFileProps) => {
-  const { arrayHelpers, isEditMode, selectedVarIndex, onSubmit, selectedVar, onClose, isReadonly = false } = props
+  const {
+    arrayHelpers,
+    isEditMode,
+    selectedVarIndex,
+    onSubmit,
+    selectedVar,
+    onClose,
+    isReadonly = false,
+    allowableTypes
+  } = props
 
   const { getString } = useStrings()
 
@@ -84,7 +94,7 @@ const InlineVarFile = (props: InlineVarFileProps) => {
                     name="varFile.spec.content"
                     label={getString('pipelineSteps.content')}
                     defaultValueToReset=""
-                    allowedTypes={[MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]}
+                    allowedTypes={allowableTypes}
                     formik={formikProps}
                     expressionRender={() => {
                       /* istanbul ignore next */

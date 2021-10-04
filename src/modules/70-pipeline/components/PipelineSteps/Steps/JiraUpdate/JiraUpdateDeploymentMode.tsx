@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { isEmpty, set } from 'lodash-es'
+import { isEmpty } from 'lodash-es'
 import { FormInput, getMultiTypeFromValue, MultiTypeInputType, SelectOption } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import type {
@@ -10,18 +10,25 @@ import type {
   PipelineType
 } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
-import { DurationInputFieldForInputSet } from '@common/components/MultiTypeDuration/MultiTypeDuration'
+import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { JiraStatusNG, useGetJiraStatuses } from 'services/cd-ng'
-import { ConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
-import { Scope } from '@common/interfaces/SecretsInterface'
 import { isApprovalStepFieldDisabled } from '../ApprovalCommons'
 import { getGenuineValue } from '../JiraApproval/helper'
 import type { JiraUpdateDeploymentModeFormContentInterface, JiraUpdateDeploymentModeProps } from './types'
 import css from '../JiraCreate/JiraCreate.module.scss'
 
 const FormContent = (formContentProps: JiraUpdateDeploymentModeFormContentInterface) => {
-  const { inputSetData, onUpdate, initialValues, statusResponse, fetchingStatuses, refetchStatuses, statusFetchError } =
-    formContentProps
+  const {
+    inputSetData,
+    initialValues,
+    statusResponse,
+    fetchingStatuses,
+    refetchStatuses,
+    statusFetchError,
+    allowableTypes
+  } = formContentProps
   const template = inputSetData?.template
   const path = inputSetData?.path
   const prefix = isEmpty(path) ? '' : `${path}.`
@@ -30,6 +37,7 @@ const FormContent = (formContentProps: JiraUpdateDeploymentModeFormContentInterf
   const { accountId, projectIdentifier, orgIdentifier } =
     useParams<PipelineType<PipelinePathProps & AccountPathProps & GitQueryParams>>()
 
+  const { expressions } = useVariablesExpression()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const commonParams = {
     accountIdentifier: accountId,
@@ -77,16 +85,22 @@ const FormContent = (formContentProps: JiraUpdateDeploymentModeFormContentInterf
   return (
     <React.Fragment>
       {getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME ? (
-        <DurationInputFieldForInputSet
+        <FormMultiTypeDurationField
+          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}timeout`}
           label={getString('pipelineSteps.timeoutLabel')}
-          name={`${prefix}timeout`}
-          disabled={isApprovalStepFieldDisabled(readonly)}
           className={css.deploymentViewMedium}
+          multiTypeDurationProps={{
+            enableConfigureOptions: false,
+            allowableTypes,
+            expressions,
+            disabled: isApprovalStepFieldDisabled(readonly)
+          }}
+          disabled={isApprovalStepFieldDisabled(readonly)}
         />
       ) : null}
 
       {getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME ? (
-        <ConnectorReferenceField
+        <FormMultiTypeConnectorField
           name={`${prefix}spec.conectorRef`}
           label={getString('pipeline.jiraApprovalStep.connectorRef')}
           selected={(initialValues?.spec?.connectorRef as string) || ''}
@@ -94,68 +108,62 @@ const FormContent = (formContentProps: JiraUpdateDeploymentModeFormContentInterf
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
-          width={360}
+          width={385}
+          setRefValue
           disabled={isApprovalStepFieldDisabled(readonly)}
-          type={'Jira'}
-          onChange={(record, scope) => {
-            const connectorRef =
-              scope === Scope.ORG || scope === Scope.ACCOUNT ? `${scope}.${record?.identifier}` : record?.identifier
-            set(initialValues, 'spec.connectorRef', connectorRef)
-            onUpdate?.(initialValues)
+          multiTypeProps={{
+            allowableTypes,
+            expressions
           }}
+          type={'Jira'}
           gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
         />
       ) : null}
 
       {getMultiTypeFromValue(template?.spec?.issueKey) === MultiTypeInputType.RUNTIME ? (
-        <FormInput.Text
+        <FormInput.MultiTextInput
           label={getString('pipeline.jiraApprovalStep.issueKey')}
           className={css.deploymentViewMedium}
           name={`${prefix}spec.issueKey`}
           disabled={isApprovalStepFieldDisabled(readonly)}
           placeholder={getString('pipeline.jiraApprovalStep.issueKeyPlaceholder')}
+          multiTextInputProps={{ expressions, allowableTypes }}
         />
       ) : null}
 
       {getMultiTypeFromValue(template?.spec?.transitionTo?.status) === MultiTypeInputType.RUNTIME ? (
-        <FormInput.Select
-          items={statusOptions}
+        <FormInput.MultiTypeInput
+          selectItems={statusOptions}
           className={css.deploymentViewMedium}
           label={getString('status')}
           name={`${prefix}spec.transitionTo.status`}
           disabled={isApprovalStepFieldDisabled(readonly)}
-          value={statusValue}
-          selectProps={{
-            inputProps: {
-              placeholder: fetchingStatuses
-                ? getString('pipeline.jiraUpdateStep.fetchingStatus')
-                : statusFetchError?.message
-                ? statusFetchError.message
-                : getString('pipeline.jiraUpdateStep.selectStatus')
-            }
-          }}
-          onChange={(opt: SelectOption) => {
-            setStatusValue(opt)
-            onUpdate?.({
-              ...initialValues,
-              spec: {
-                ...initialValues.spec,
-                transitionTo: initialValues?.spec?.transitionTo
-                  ? { ...initialValues?.spec?.transitionTo, status: (opt as SelectOption).value?.toString() }
-                  : undefined
+          multiTypeInputProps={{
+            expressions,
+            allowableTypes,
+            selectProps: {
+              defaultSelectedItem: statusValue,
+              items: statusOptions,
+              inputProps: {
+                placeholder: fetchingStatuses
+                  ? getString('pipeline.jiraUpdateStep.fetchingStatus')
+                  : statusFetchError?.message
+                  ? statusFetchError.message
+                  : getString('pipeline.jiraUpdateStep.selectStatus')
               }
-            })
+            }
           }}
         />
       ) : null}
 
       {getMultiTypeFromValue(template?.spec?.transitionTo?.transitionName) === MultiTypeInputType.RUNTIME ? (
-        <FormInput.Text
+        <FormInput.MultiTextInput
           placeholder={getString('pipeline.jiraUpdateStep.transitionPlaceholder')}
           label={getString('pipeline.jiraUpdateStep.transitionLabel')}
           className={css.deploymentViewMedium}
           name={`${prefix}spec.transitionTo.transitionName`}
           disabled={isApprovalStepFieldDisabled(readonly)}
+          multiTextInputProps={{ expressions, allowableTypes }}
         />
       ) : null}
     </React.Fragment>

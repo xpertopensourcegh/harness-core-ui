@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { isEmpty, set } from 'lodash-es'
-import { FormInput, getMultiTypeFromValue, MultiTypeInputType, SelectOption } from '@wings-software/uicore'
+import { isEmpty } from 'lodash-es'
+import { FormInput, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import type {
   AccountPathProps,
@@ -10,10 +10,11 @@ import type {
   PipelineType
 } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
-import { DurationInputFieldForInputSet } from '@common/components/MultiTypeDuration/MultiTypeDuration'
+import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
+import { FormMultiTypeTextAreaField } from '@common/components'
 import { JiraProjectBasicNG, JiraProjectNG, useGetJiraIssueCreateMetadata, useGetJiraProjects } from 'services/cd-ng'
-import { ConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
-import { Scope } from '@common/interfaces/SecretsInterface'
 import { getGenuineValue, setIssueTypeOptions } from '../JiraApproval/helper'
 import type { JiraProjectSelectOption } from '../JiraApproval/types'
 import { isApprovalStepFieldDisabled } from '../ApprovalCommons'
@@ -23,7 +24,7 @@ import css from './JiraCreate.module.scss'
 const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterface) => {
   const {
     inputSetData,
-    onUpdate,
+    allowableTypes,
     initialValues,
     projectMetaResponse,
     projectsResponse,
@@ -41,6 +42,7 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } =
     useParams<PipelineType<PipelinePathProps & AccountPathProps & GitQueryParams>>()
+  const { expressions } = useVariablesExpression()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const commonParams = {
     accountIdentifier: accountId,
@@ -117,104 +119,115 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
   return (
     <React.Fragment>
       {getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME ? (
-        <DurationInputFieldForInputSet
+        <FormMultiTypeDurationField
+          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}timeout`}
           label={getString('pipelineSteps.timeoutLabel')}
-          name={`${prefix}timeout`}
-          disabled={isApprovalStepFieldDisabled(readonly)}
           className={css.deploymentViewMedium}
+          multiTypeDurationProps={{
+            enableConfigureOptions: false,
+            allowableTypes,
+            expressions,
+            disabled: isApprovalStepFieldDisabled(readonly)
+          }}
+          disabled={isApprovalStepFieldDisabled(readonly)}
         />
       ) : null}
 
       {getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME ? (
-        <ConnectorReferenceField
-          name={`${prefix}spec.conectorRef`}
+        <FormMultiTypeConnectorField
+          name={`${prefix}spec.connectorRef`}
           label={getString('pipeline.jiraApprovalStep.connectorRef')}
           selected={(initialValues?.spec?.connectorRef as string) || ''}
           placeholder={getString('pipeline.jiraApprovalStep.jiraConnectorPlaceholder')}
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
-          width={360}
+          width={385}
+          setRefValue
           disabled={isApprovalStepFieldDisabled(readonly)}
-          type={'Jira'}
-          onChange={(record, scope) => {
-            const connectorRef =
-              scope === Scope.ORG || scope === Scope.ACCOUNT ? `${scope}.${record?.identifier}` : record?.identifier
-            set(initialValues, 'spec.connectorRef', connectorRef)
-            onUpdate?.(initialValues)
+          multiTypeProps={{
+            allowableTypes,
+            expressions
           }}
+          type={'Jira'}
           gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
         />
       ) : null}
       {getMultiTypeFromValue(template?.spec?.projectKey) === MultiTypeInputType.RUNTIME ? (
-        <FormInput.Select
-          items={projectOptions}
+        <FormInput.MultiTypeInput
+          selectItems={projectOptions}
           className={css.deploymentViewMedium}
           label={getString('pipeline.jiraApprovalStep.project')}
           name={`${prefix}spec.projectKey`}
-          value={selectedProjectValue}
-          selectProps={{
-            inputProps: {
-              placeholder: fetchingProjects
-                ? getString('pipeline.jiraApprovalStep.fetchingProjectsPlaceholder')
-                : projectsFetchError?.message
-                ? projectsFetchError?.message
-                : getString('pipeline.jiraCreateStep.selectProject')
+          useValue
+          multiTypeInputProps={{
+            expressions,
+            allowableTypes,
+            selectProps: {
+              defaultSelectedItem: selectedProjectValue,
+              items: projectOptions,
+              inputProps: {
+                placeholder: fetchingProjects
+                  ? getString('pipeline.jiraApprovalStep.fetchingProjectsPlaceholder')
+                  : projectsFetchError?.message
+                  ? projectsFetchError?.message
+                  : getString('pipeline.jiraCreateStep.selectProject')
+              }
             }
           }}
           disabled={isApprovalStepFieldDisabled(readonly)}
-          onChange={(opt: SelectOption) => {
-            setSelectedProjectValue(opt as JiraProjectSelectOption)
-            onUpdate?.({
-              ...initialValues,
-              spec: { ...initialValues.spec, projectKey: (opt as JiraProjectSelectOption).key.toString() }
-            })
-          }}
         />
       ) : null}
 
       {getMultiTypeFromValue(template?.spec?.issueType) === MultiTypeInputType.RUNTIME ? (
-        <FormInput.Select
-          items={setIssueTypeOptions(projectMetadata?.issuetypes)}
+        <FormInput.MultiTypeInput
+          selectItems={setIssueTypeOptions(projectMetadata?.issuetypes)}
           className={css.deploymentViewMedium}
           placeholder={getString('pipeline.jiraApprovalStep.issueTypePlaceholder')}
           label={getString('pipeline.jiraApprovalStep.issueType')}
           name={`${prefix}spec.issueType`}
           disabled={isApprovalStepFieldDisabled(readonly)}
-          value={selectedIssueTypeValue}
-          selectProps={{
-            inputProps: {
-              placeholder: fetchingProjectMetadata
-                ? getString('pipeline.jiraApprovalStep.fetchingIssueTypePlaceholder')
-                : projectMetadataFetchError?.message
-                ? projectMetadataFetchError?.message
-                : getString('pipeline.jiraApprovalStep.issueTypePlaceholder')
+          useValue
+          multiTypeInputProps={{
+            expressions,
+            allowableTypes,
+            selectProps: {
+              defaultSelectedItem: selectedIssueTypeValue,
+              items: setIssueTypeOptions(projectMetadata?.issuetypes),
+              inputProps: {
+                placeholder: fetchingProjectMetadata
+                  ? getString('pipeline.jiraApprovalStep.fetchingIssueTypePlaceholder')
+                  : projectMetadataFetchError?.message
+                  ? projectMetadataFetchError?.message
+                  : getString('pipeline.jiraApprovalStep.issueTypePlaceholder')
+              }
             }
-          }}
-          onChange={(opt: SelectOption) => {
-            setSelectedIssueTypeValue(opt as JiraProjectSelectOption)
-            onUpdate?.({
-              ...initialValues,
-              spec: { ...initialValues.spec, issueType: (opt as JiraProjectSelectOption).key.toString() }
-            })
           }}
         />
       ) : null}
 
       {getMultiTypeFromValue(template?.spec?.fields?.find(field => field.name === 'Summary')?.value as string) ===
       MultiTypeInputType.RUNTIME ? (
-        <FormInput.Text
+        <FormInput.MultiTextInput
           label={getString('summary')}
           className={css.deploymentViewMedium}
           name={`${prefix}spec.summary`}
           disabled={isApprovalStepFieldDisabled(readonly)}
           placeholder={getString('pipeline.jiraCreateStep.summaryPlaceholder')}
+          multiTextInputProps={{
+            allowableTypes,
+            expressions
+          }}
         />
       ) : null}
 
       {getMultiTypeFromValue(template?.spec?.fields?.find(field => field.name === 'Description')?.value as string) ===
       MultiTypeInputType.RUNTIME ? (
-        <FormInput.TextArea
+        <FormMultiTypeTextAreaField
+          multiTypeTextArea={{
+            expressions,
+            allowableTypes
+          }}
           label={getString('description')}
           className={css.deploymentViewMedium}
           name={`${prefix}spec.description`}

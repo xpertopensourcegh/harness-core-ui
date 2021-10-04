@@ -1,7 +1,7 @@
 import React from 'react'
 import * as Yup from 'yup'
 import { isEmpty } from 'lodash-es'
-import { FormikErrors, yupToFormErrors } from 'formik'
+import { connect, FormikErrors, yupToFormErrors } from 'formik'
 import { getMultiTypeFromValue, IconName, MultiTypeInputType } from '@wings-software/uicore'
 import { StepProps, StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
@@ -15,6 +15,7 @@ import { getDefaultCriterias, processFormData, processInitialValues } from './he
 import JiraApprovalDeploymentMode from './JiraApprovalDeploymentMode'
 import JiraApprovalStepModeWithRef from './JiraApprovalStepMode'
 
+const JiraApprovalDeploymentModeWithFormik = connect(JiraApprovalDeploymentMode)
 export class JiraApproval extends PipelineStep<JiraApprovalData> {
   constructor() {
     super()
@@ -108,14 +109,25 @@ export class JiraApproval extends PipelineStep<JiraApprovalData> {
   }
 
   renderStep(this: JiraApproval, props: StepProps<JiraApprovalData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep, readonly } =
-      props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep,
+      readonly,
+      allowableTypes,
+      onChange
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
-        <JiraApprovalDeploymentMode
+        <JiraApprovalDeploymentModeWithFormik
           stepViewType={stepViewType}
           initialValues={initialValues}
+          allowableTypes={allowableTypes}
           onUpdate={(values: JiraApprovalData) => onUpdate?.(values)}
           inputSetData={inputSetData}
         />
@@ -133,12 +145,14 @@ export class JiraApproval extends PipelineStep<JiraApprovalData> {
     return (
       <JiraApprovalStepModeWithRef
         ref={formikRef}
-        stepViewType={stepViewType}
+        stepViewType={stepViewType || StepViewType.Edit}
         initialValues={processInitialValues(initialValues)}
         onUpdate={(values: JiraApprovalData) => {
           const forUpdate = this.processFormData(values)
           onUpdate?.(forUpdate)
         }}
+        allowableTypes={allowableTypes}
+        onChange={onChange}
         isNewStep={isNewStep}
         readonly={readonly}
       />

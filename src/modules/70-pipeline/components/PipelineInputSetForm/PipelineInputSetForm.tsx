@@ -83,6 +83,7 @@ function StageForm({
                   variables: (allValues?.stage?.variables || []) as AllNGVariables[],
                   canAddVariable: true
                 }}
+                allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
                 type={StepType.CustomVariable}
                 readonly={readonly}
                 stepViewType={viewType}
@@ -147,6 +148,7 @@ const PipelineInputSetFormInternal: React.FC<PipelineInputSetFormProps> = props 
                 variables: (originalPipeline.variables || []) as AllNGVariables[],
                 canAddVariable: true
               }}
+              allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
               readonly={readonly}
               type={StepType.CustomVariable}
               stepViewType={viewType}

@@ -1,6 +1,5 @@
 import React from 'react'
-import { FieldArray } from 'formik'
-import type { FormikProps } from 'formik'
+import { FormikProps, FieldArray } from 'formik'
 import {
   Button,
   ButtonVariation,
@@ -50,8 +49,9 @@ export const scriptOutputType: SelectOption[] = [{ label: 'String', value: 'Stri
 export default function OptionalConfiguration(props: {
   formik: FormikProps<ShellScriptFormData>
   readonly?: boolean
+  allowableTypes: MultiTypeInputType[]
 }): React.ReactElement {
-  const { formik, readonly } = props
+  const { formik, readonly, allowableTypes } = props
   const { values: formValues, setFieldValue } = formik
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
@@ -109,7 +109,7 @@ export default function OptionalConfiguration(props: {
                               type: formValues.spec.environmentVariables?.[i].type === 'Number' ? 'number' : 'text',
                               name: valueFieldName
                             }}
-                            allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
+                            allowableTypes={allowableTypes.filter(item => item !== MultiTypeInputType.RUNTIME)}
                             value={formValues.spec.environmentVariables?.[i].value as string}
                             intent={valueHasError ? Intent.DANGER : Intent.NONE}
                             onChange={value =>
@@ -179,7 +179,7 @@ export default function OptionalConfiguration(props: {
                       <FormInput.MultiTextInput
                         name={`spec.outputVariables[${i}].value`}
                         multiTextInputProps={{
-                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                          allowableTypes: allowableTypes.filter(item => item !== MultiTypeInputType.RUNTIME),
                           expressions,
                           disabled: readonly
                         }}
@@ -223,7 +223,7 @@ export default function OptionalConfiguration(props: {
               name="spec.executionTarget.host"
               label={getString('targetHost')}
               style={{ marginTop: 'var(--spacing-small)' }}
-              multiTextInputProps={{ expressions, disabled: readonly }}
+              multiTextInputProps={{ expressions, disabled: readonly, allowableTypes }}
               disabled={readonly}
             />
             {getMultiTypeFromValue(formValues.spec.executionTarget.host) === MultiTypeInputType.RUNTIME && (
@@ -246,6 +246,7 @@ export default function OptionalConfiguration(props: {
               name="spec.executionTarget.connectorRef"
               label={getString('sshConnector')}
               expressions={expressions}
+              allowableTypes={allowableTypes}
               disabled={readonly}
             />
             {getMultiTypeFromValue(formValues?.spec.executionTarget.connectorRef) === MultiTypeInputType.RUNTIME && (
@@ -274,7 +275,7 @@ export default function OptionalConfiguration(props: {
               label={getString('workingDirectory')}
               style={{ marginTop: 'var(--spacing-medium)' }}
               disabled={readonly}
-              multiTextInputProps={{ expressions, disabled: readonly }}
+              multiTextInputProps={{ expressions, disabled: readonly, allowableTypes }}
             />
             {getMultiTypeFromValue(formValues.spec.executionTarget.workingDirectory) === MultiTypeInputType.RUNTIME && (
               <ConfigureOptions

@@ -1,27 +1,30 @@
 import React from 'react'
-import { IconName, Formik, FormInput, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
+import { Formik, FormInput, getMultiTypeFromValue, IconName, MultiTypeInputType } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import cx from 'classnames'
 
 import { isEmpty } from 'lodash-es'
-import { FormikProps, yupToFormErrors, FormikErrors } from 'formik'
+import { FormikErrors, FormikProps, yupToFormErrors } from 'formik'
 import { PipelineStep, StepProps } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { useStrings } from 'framework/strings'
-import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import {
   DurationInputFieldForInputSet,
   FormMultiTypeDurationField,
   getDurationValidationSchema
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
-import { StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
-import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
-import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
+import {
+  StepFormikFowardRef,
+  setFormikRef,
+  StepViewType,
+  ValidateInputSetProps
+} from '@pipeline/components/AbstractSteps/Step'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import type { StringsMap } from 'stringTypes'
+import { getNameAndIdentifierSchema } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import type { TFRollbackData } from '../Common/Terraform/TerraformInterfaces'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import pipelineVariableCss from '@pipeline/components/PipelineStudio/PipelineVariables/PipelineVariables.module.scss'
@@ -29,6 +32,8 @@ import pipelineVariableCss from '@pipeline/components/PipelineStudio/PipelineVar
 interface TerraformRollbackProps {
   initialValues: TFRollbackData
   onUpdate?: (data: TFRollbackData) => void
+  onChange?: (data: TFRollbackData) => void
+  allowableTypes: MultiTypeInputType[]
   stepViewType?: StepViewType
   isNewStep?: boolean
   inputSetData?: {
@@ -58,7 +63,7 @@ function TerraformRollbackWidget(
   props: TerraformRollbackProps,
   formikRef: StepFormikFowardRef<TFRollbackData>
 ): React.ReactElement {
-  const { initialValues, onUpdate, isNewStep = true, readonly = false } = props
+  const { initialValues, onUpdate, onChange, allowableTypes, stepViewType, isNewStep = true, readonly = false } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
 
@@ -69,15 +74,17 @@ function TerraformRollbackWidget(
         onSubmit={(values: TFRollbackData) => {
           onUpdate?.(values)
         }}
+        validate={(values: TFRollbackData) => {
+          onChange?.(values)
+        }}
         formName="terraformRollback"
         initialValues={setInitialValues(initialValues)}
         validationSchema={Yup.object().shape({
-          name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
+          ...getNameAndIdentifierSchema(getString, stepViewType),
           timeout: getDurationValidationSchema({ minimum: '10s' }).required(
             getString('validation.timeout10SecMinimum')
           ),
 
-          identifier: IdentifierSchema(),
           spec: Yup.object().shape({
             provisionerIdentifier: Yup.string().required(getString('pipelineSteps.provisionerIdentifierRequired'))
           })
@@ -89,15 +96,17 @@ function TerraformRollbackWidget(
 
           return (
             <>
-              <div className={cx(stepCss.formGroup, stepCss.lg)}>
-                <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
-              </div>
+              {stepViewType !== StepViewType.Template && (
+                <div className={cx(stepCss.formGroup, stepCss.lg)}>
+                  <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
+                </div>
+              )}
 
               <div className={cx(stepCss.formGroup, stepCss.md)}>
                 <FormMultiTypeDurationField
                   name="timeout"
                   label={getString('pipelineSteps.timeoutLabel')}
-                  multiTypeDurationProps={{ enableConfigureOptions: false, expressions }}
+                  multiTypeDurationProps={{ enableConfigureOptions: false, expressions, allowableTypes }}
                 />
                 {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
@@ -120,7 +129,7 @@ function TerraformRollbackWidget(
                 <FormInput.MultiTextInput
                   name="spec.provisionerIdentifier"
                   label={getString('pipelineSteps.provisionerIdentifier')}
-                  multiTextInputProps={{ expressions }}
+                  multiTextInputProps={{ expressions, allowableTypes }}
                 />
                 {getMultiTypeFromValue(values.spec.provisionerIdentifier) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
@@ -245,12 +254,24 @@ export class TerraformRollback extends PipelineStep<TFRollbackData> {
     return errors
   }
   renderStep(props: StepProps<TFRollbackData, unknown>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep } = props
+    const {
+      initialValues,
+      onUpdate,
+      onChange,
+      allowableTypes,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep
+    } = props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <TerraformRollbackInputStep
           initialValues={initialValues}
           onUpdate={onUpdate}
+          onChange={onChange}
+          allowableTypes={allowableTypes}
           stepViewType={stepViewType}
           readonly={inputSetData?.readonly}
           inputSetData={inputSetData}
@@ -269,6 +290,8 @@ export class TerraformRollback extends PipelineStep<TFRollbackData> {
       <TerraformRollbackWidgetWithRef
         initialValues={initialValues}
         onUpdate={onUpdate}
+        onChange={onChange}
+        allowableTypes={allowableTypes}
         isNewStep={isNewStep}
         stepViewType={stepViewType}
         ref={formikRef}

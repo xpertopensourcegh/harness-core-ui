@@ -5,11 +5,10 @@ import type { FormikProps } from 'formik'
 import { setFormikRef, StepViewType, StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/strings'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
-import { getNameAndIdentifierSchema } from '@cd/components/PipelineSteps/PipelineStepsUtil'
+import { getNameAndIdentifierSchema } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import OptionalConfiguration from './OptionalConfiguration'
 import type { HttpStepData, HttpStepFormData } from './types'
 import HttpStepBase from './HttpStepBase'
-
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 /**

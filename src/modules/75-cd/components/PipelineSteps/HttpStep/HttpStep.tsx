@@ -48,7 +48,7 @@ export class HttpStep extends PipelineStep<HttpStepData> {
           readonly={!!inputSetData?.readonly}
           template={inputSetData?.template}
           path={inputSetData?.path || ''}
-          allowableTypes={allowableTypes || [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
+          allowableTypes={allowableTypes}
         />
       )
     }

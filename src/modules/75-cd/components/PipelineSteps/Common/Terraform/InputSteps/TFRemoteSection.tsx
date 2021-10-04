@@ -23,7 +23,7 @@ export default function TFRemoteSection<T extends TerraformData = TerraformData>
     index: number
   }
 ): React.ReactElement {
-  const { remoteVar, index } = props
+  const { remoteVar, index, allowableTypes } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
 
@@ -53,7 +53,7 @@ export default function TFRemoteSection<T extends TerraformData = TerraformData>
             `${path}.configuration?.spec?.varFiles[${index}].varFile.spec.store.spec.connectorRef`,
             ''
           )}
-          multiTypeProps={{ allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED], expressions }}
+          multiTypeProps={{ allowableTypes, expressions }}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
           width={445}
@@ -74,7 +74,7 @@ export default function TFRemoteSection<T extends TerraformData = TerraformData>
             label={getString('pipelineSteps.deploy.inputSet.branch')}
             multiTextInputProps={{
               expressions,
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+              allowableTypes
             }}
           />
         </div>
@@ -86,7 +86,7 @@ export default function TFRemoteSection<T extends TerraformData = TerraformData>
             label={getString('pipeline.manifestType.commitId')}
             multiTextInputProps={{
               expressions,
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+              allowableTypes
             }}
           />
         </div>

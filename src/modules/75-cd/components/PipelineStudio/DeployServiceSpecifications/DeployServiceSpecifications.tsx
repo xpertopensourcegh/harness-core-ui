@@ -1,6 +1,16 @@
 import React from 'react'
 import { useParams } from 'react-router'
-import { Layout, Card, SelectOption, Checkbox, FormikForm, Container, Color, Text } from '@wings-software/uicore'
+import {
+  Layout,
+  Card,
+  SelectOption,
+  Checkbox,
+  FormikForm,
+  Container,
+  Color,
+  Text,
+  MultiTypeInputType
+} from '@wings-software/uicore'
 
 import produce from 'immer'
 import { get, set, debounce, isEmpty } from 'lodash-es'
@@ -301,6 +311,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                     service: get(stage, 'stage.spec.serviceConfig.service', {}),
                     serviceRef: get(stage, 'stage.spec.serviceConfig.serviceRef', '')
                   }}
+                  allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
                   onUpdate={data => updateService(data)}
                   factory={factory}
                   stepViewType={StepViewType.Edit}
@@ -318,6 +329,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                     stageIndex,
                     setupModeType
                   }}
+                  allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
                   type={StepType.K8sServiceSpec}
                   stepViewType={StepViewType.Edit}
                 />
@@ -333,6 +345,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                   stageIndex,
                   setupModeType
                 }}
+                allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
                 type={StepType.K8sServiceSpec}
                 stepViewType={StepViewType.Edit}
               />

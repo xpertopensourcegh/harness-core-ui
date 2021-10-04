@@ -54,6 +54,7 @@ export function ServiceCard(props: ServiceCardProps): React.ReactElement {
         initialValues={originalServiceConfig.serviceDefinition?.spec || {}}
         type={StepsMap[originalServiceConfig.serviceDefinition?.type || '']}
         stepViewType={StepViewType.InputVariable}
+        allowableTypes={[]}
         onUpdate={onUpdateServiceConfig}
         readonly={readonly}
         customStepProps={{

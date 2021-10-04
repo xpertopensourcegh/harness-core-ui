@@ -37,6 +37,7 @@ export function StepCard(props: StepCardProps): React.ReactElement {
       <StepWidget<StepElementConfig>
         factory={stepsFactory}
         initialValues={originalStep}
+        allowableTypes={[]}
         type={originalStep.type as StepType}
         stepViewType={StepViewType.InputVariable}
         onUpdate={(data: StepElementConfig) => onUpdateStep(data, stepPath)}

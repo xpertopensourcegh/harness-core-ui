@@ -1,5 +1,6 @@
 import React from 'react'
 import { render } from '@testing-library/react'
+import { MultiTypeInputType } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 
 import TFPlanConfigForm from '../Editview/ConfigForm'
@@ -7,7 +8,8 @@ import TFPlanConfigForm from '../Editview/ConfigForm'
 const props = {
   onClick: jest.fn(),
   data: {},
-  onHide: jest.fn()
+  onHide: jest.fn(),
+  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION, MultiTypeInputType.RUNTIME]
 }
 
 const connectorMock = {
@@ -80,7 +82,8 @@ describe('TF Config Form tests', () => {
           }
         }
       },
-      onHide: () => jest.fn()
+      onHide: () => jest.fn(),
+      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION, MultiTypeInputType.RUNTIME]
     }
 
     const { container } = render(

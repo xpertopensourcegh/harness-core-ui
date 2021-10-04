@@ -20,7 +20,6 @@ import type { PipelineInfoConfig, StepElementConfig } from 'services/cd-ng'
 
 import { useGetPipeline, VariableMergeServiceResponse } from 'services/pipeline-ng'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
-import { NameSchema } from '@common/utils/Validation'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useStrings } from 'framework/strings'
 import {
@@ -36,6 +35,7 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 import type { GitQueryParams, InputSetPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
 import type { StringsMap } from 'stringTypes'
+import { getNameAndIdentifierSchema } from '../StepsValidateUtils'
 import css from './Barrier.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
@@ -52,13 +52,14 @@ export interface BarrierVariableStepProps {
 interface BarrierProps {
   initialValues: BarrierData
   onUpdate?: (data: BarrierData) => void
-  stepViewType?: StepViewType
+  stepViewType: StepViewType
   isNewStep?: boolean
   inputSetData?: {
     template?: BarrierData
     path?: string
     readonly?: boolean
   }
+  onChange?: (data: BarrierData) => void
   isReadonly?: boolean
 }
 
@@ -79,7 +80,7 @@ function BarrierWidget(props: BarrierProps, formikRef: StepFormikFowardRef<Barri
   const {
     state: { pipeline }
   } = usePipelineContext()
-  const { initialValues, onUpdate, isNewStep = true } = props
+  const { initialValues, onUpdate, isNewStep = true, onChange, stepViewType } = props
 
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
@@ -122,8 +123,11 @@ function BarrierWidget(props: BarrierProps, formikRef: StepFormikFowardRef<Barri
         }}
         formName="barrierStep"
         initialValues={{ ...initialValuesFormik }}
+        validate={data => {
+          onChange?.(data)
+        }}
         validationSchema={Yup.object().shape({
-          name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
+          ...getNameAndIdentifierSchema(getString, stepViewType),
           timeout: getDurationValidationSchema({ minimum: '10s' }).required(
             getString('validation.timeout10SecMinimum')
           ),
@@ -264,8 +268,17 @@ export class BarrierStep extends PipelineStep<BarrierData> {
   }
 
   renderStep(props: StepProps<BarrierData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep, readonly } =
-      props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep,
+      readonly,
+      onChange
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -290,9 +303,10 @@ export class BarrierStep extends PipelineStep<BarrierData> {
         initialValues={initialValues}
         onUpdate={onUpdate}
         isNewStep={isNewStep}
-        stepViewType={stepViewType}
+        stepViewType={stepViewType || StepViewType.Edit}
         ref={formikRef}
         isReadonly={readonly}
+        onChange={onChange}
       />
     )
   }

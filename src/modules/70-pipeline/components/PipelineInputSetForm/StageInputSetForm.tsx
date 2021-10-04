@@ -63,6 +63,7 @@ function ServiceDependencyForm({
           factory={factory}
           readonly={readonly}
           path={path}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
           template={template}
           initialValues={values || {}}
           allValues={allValues || {}}
@@ -110,6 +111,7 @@ function StepForm({
           factory={factory}
           readonly={readonly}
           path={path}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
           template={template?.step}
           initialValues={values?.step || {}}
           allValues={allValues?.step || {}}
@@ -351,6 +353,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                 type={StepType.DeployService}
                 stepViewType={viewType}
                 path={`${path}.serviceConfig`}
+                allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
                 readonly={readonly}
                 customStepProps={{ stageIdentifier }}
               />
@@ -363,6 +366,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                     ? (deploymentStageInputSet?.serviceConfig?.stageOverrides as StageOverridesConfig)
                     : deploymentStageInputSet?.serviceConfig?.serviceDefinition?.spec || {}
                 }
+                allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
                 template={
                   isPropagating && deploymentStageTemplate
                     ? deploymentStageTemplate?.serviceConfig?.stageOverrides
@@ -471,6 +475,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                 template={deploymentStageTemplate?.infrastructure || {}}
                 type={StepType.DeployEnvironment}
                 stepViewType={viewType}
+                allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
                 path={`${path}.infrastructure`}
                 readonly={readonly}
               />
@@ -480,6 +485,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                 factory={factory}
                 template={deploymentStageTemplate.infrastructure.infrastructureDefinition.spec}
                 initialValues={deploymentStageInputSet?.infrastructure?.infrastructureDefinition?.spec || {}}
+                allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
                 allValues={
                   deploymentStage?.infrastructure?.infrastructureDefinition?.spec || /* istanbul ignore next */ {}
                 }

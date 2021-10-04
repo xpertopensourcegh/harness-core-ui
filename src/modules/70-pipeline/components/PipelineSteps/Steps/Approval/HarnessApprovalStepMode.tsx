@@ -13,9 +13,8 @@ import {
   FormikForm,
   HarnessDocTooltip
 } from '@wings-software/uicore'
-import { setFormikRef, StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
+import { setFormikRef, StepFormikFowardRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { String, useStrings } from 'framework/strings'
-import { NameSchema } from '@common/utils/Validation'
 import {
   FormMultiTypeDurationField,
   getDurationValidationSchema
@@ -31,24 +30,33 @@ import type {
   ApproverInputsSubmitCallInterface,
   HarnessApprovalFormContentProps
 } from './types'
+import { getNameAndIdentifierSchema } from '../StepsValidateUtils'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './HarnessApproval.module.scss'
 
-const FormContent = ({ formik, isNewStep, readonly }: HarnessApprovalFormContentProps) => {
+const FormContent = ({
+  formik,
+  isNewStep,
+  readonly,
+  allowableTypes,
+  stepViewType
+}: HarnessApprovalFormContentProps) => {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
 
   return (
     <React.Fragment>
-      <div className={cx(stepCss.formGroup, stepCss.lg)}>
-        <FormInput.InputWithIdentifier
-          inputLabel={getString('name')}
-          isIdentifierEditable={isNewStep}
-          inputGroupProps={{
-            disabled: isApprovalStepFieldDisabled(readonly)
-          }}
-        />
-      </div>
+      {stepViewType !== StepViewType.Template && (
+        <div className={cx(stepCss.formGroup, stepCss.lg)}>
+          <FormInput.InputWithIdentifier
+            inputLabel={getString('name')}
+            isIdentifierEditable={isNewStep}
+            inputGroupProps={{
+              disabled: isApprovalStepFieldDisabled(readonly)
+            }}
+          />
+        </div>
+      )}
       <div className={cx(stepCss.formGroup, stepCss.sm)}>
         <FormMultiTypeDurationField
           name="timeout"
@@ -57,7 +65,8 @@ const FormContent = ({ formik, isNewStep, readonly }: HarnessApprovalFormContent
           disabled={isApprovalStepFieldDisabled(readonly)}
           multiTypeDurationProps={{
             expressions,
-            enableConfigureOptions: false
+            enableConfigureOptions: false,
+            allowableTypes
           }}
         />
         {getMultiTypeFromValue(formik.values.timeout) === MultiTypeInputType.RUNTIME && (
@@ -80,7 +89,7 @@ const FormContent = ({ formik, isNewStep, readonly }: HarnessApprovalFormContent
           name="spec.approvalMessage"
           label={getString('message')}
           className={css.approvalMessage}
-          multiTypeTextArea={{ enableConfigureOptions: false, expressions }}
+          multiTypeTextArea={{ enableConfigureOptions: false, expressions, allowableTypes }}
           placeholder="Please add relevant information for this step"
           disabled={isApprovalStepFieldDisabled(readonly)}
         />
@@ -112,6 +121,7 @@ const FormContent = ({ formik, isNewStep, readonly }: HarnessApprovalFormContent
           tooltipProps={{ dataTooltipId: 'harnessApproval_spec.approvers.userGroups' }}
           disabled={isApprovalStepFieldDisabled(readonly)}
           expressions={expressions}
+          allowableTypes={allowableTypes}
         />
       </div>
 
@@ -123,7 +133,8 @@ const FormContent = ({ formik, isNewStep, readonly }: HarnessApprovalFormContent
             expressions,
             textProps: {
               type: 'number'
-            }
+            },
+            allowableTypes
           }}
           disabled={isApprovalStepFieldDisabled(readonly)}
         />
@@ -229,7 +240,7 @@ function HarnessApprovalStepMode(
   props: HarnessApprovalStepModeProps,
   formikRef: StepFormikFowardRef<HarnessApprovalData>
 ) {
-  const { onUpdate, isNewStep = true, readonly } = props
+  const { onUpdate, isNewStep = true, readonly, stepViewType, onChange, allowableTypes } = props
   const { getString } = useStrings()
 
   return (
@@ -238,8 +249,11 @@ function HarnessApprovalStepMode(
       initialValues={props.initialValues}
       formName="harnessApproval"
       enableReinitialize={true}
+      validate={data => {
+        onChange?.(data)
+      }}
       validationSchema={Yup.object().shape({
-        name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
+        ...getNameAndIdentifierSchema(getString, stepViewType),
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
         spec: Yup.object().shape({
           approvalMessage: Yup.string().trim().required(getString('pipeline.approvalStep.validation.approvalMessage')),
@@ -258,7 +272,13 @@ function HarnessApprovalStepMode(
         setFormikRef(formikRef, formik)
         return (
           <FormikForm>
-            <FormContent formik={formik} isNewStep={isNewStep} readonly={readonly} />
+            <FormContent
+              formik={formik}
+              stepViewType={stepViewType}
+              allowableTypes={allowableTypes}
+              isNewStep={isNewStep}
+              readonly={readonly}
+            />
           </FormikForm>
         )
       }}

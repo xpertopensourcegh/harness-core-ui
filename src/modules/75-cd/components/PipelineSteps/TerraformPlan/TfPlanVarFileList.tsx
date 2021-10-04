@@ -2,7 +2,17 @@ import React from 'react'
 
 import cx from 'classnames'
 
-import { Layout, Text, Button, Icon, StepWizard, Color, Label, ButtonVariation } from '@wings-software/uicore'
+import {
+  Layout,
+  Text,
+  Button,
+  Icon,
+  StepWizard,
+  Color,
+  Label,
+  ButtonVariation,
+  MultiTypeInputType
+} from '@wings-software/uicore'
 import { Classes, MenuItem, Popover, PopoverInteractionKind, Menu, Dialog, IDialogProps } from '@blueprintjs/core'
 import { FieldArray, FieldArrayRenderProps } from 'formik'
 import type { FormikProps } from 'formik'
@@ -24,10 +34,11 @@ import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 interface TfVarFileProps {
   formik: FormikProps<TFPlanFormData>
   isReadonly?: boolean
+  allowableTypes: MultiTypeInputType[]
 }
 
 export default function TfVarFileList(props: TfVarFileProps): React.ReactElement {
-  const { formik, isReadonly = false } = props
+  const { formik, isReadonly = false, allowableTypes } = props
   const inlineInitValues: TerraformVarFileWrapper = {
     varFile: {
       identifier: '',
@@ -269,6 +280,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                           name={getString('cd.tfVarStore')}
                           initialValues={isEditMode ? selectedVar : remoteInitialValues}
                           isEditMode={isEditMode}
+                          allowableTypes={allowableTypes}
                         />
                         <TFRemoteWizard
                           name={getString('cd.varFileDetails')}
@@ -283,6 +295,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                           isEditMode={isEditMode}
                           // initialValues={remoteInitialValues}
                           isReadonly={isReadonly}
+                          allowableTypes={allowableTypes}
                         />
                       </StepWizard>
                     </div>
@@ -312,6 +325,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                       onCloseOfInlineVarForm()
                     }}
                     isReadonly={isReadonly}
+                    allowableTypes={allowableTypes}
                   />
                 )}
               </div>

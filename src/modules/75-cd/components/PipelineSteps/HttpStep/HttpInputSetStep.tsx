@@ -19,7 +19,7 @@ export interface HttpInputSetStepProps {
   readonly?: boolean
   template?: HttpStepData
   path: string
-  allowableTypes?: MultiTypeInputType[]
+  allowableTypes: MultiTypeInputType[]
 }
 
 export default function HttpInputSetStep(props: HttpInputSetStepProps): React.ReactElement {

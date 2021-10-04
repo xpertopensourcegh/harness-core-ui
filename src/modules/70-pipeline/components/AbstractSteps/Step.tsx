@@ -48,7 +48,7 @@ export interface StepProps<T, U = unknown> {
   readonly?: boolean
   formikRef?: StepFormikFowardRef<T>
   customStepProps?: U
-  allowableTypes?: MultiTypeInputType[]
+  allowableTypes: MultiTypeInputType[]
 }
 
 export function setFormikRef<T = unknown, U = unknown>(ref: StepFormikFowardRef<T>, formik: FormikProps<U>): void {

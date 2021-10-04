@@ -6,7 +6,6 @@ import { FormikErrors, FormikProps, yupToFormErrors } from 'formik'
 
 import { isEmpty } from 'lodash-es'
 
-import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { StepViewType, StepProps, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
@@ -28,11 +27,14 @@ import {
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 
+import { getNameAndIdentifierSchema } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 interface HelmDeployProps {
   initialValues: StepElementConfig
   onUpdate?: (data: StepElementConfig) => void
+  onChange?: (data: StepElementConfig) => void
+  allowableTypes: MultiTypeInputType[]
   stepViewType?: StepViewType
   isNewStep?: boolean
   inputSetData?: {
@@ -55,7 +57,7 @@ function HelmDeployWidget(
   props: HelmDeployProps,
   formikRef: StepFormikFowardRef<StepElementConfig>
 ): React.ReactElement {
-  const { initialValues, onUpdate, isNewStep = true } = props
+  const { initialValues, onUpdate, onChange, allowableTypes, isNewStep = true, stepViewType } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   return (
@@ -65,14 +67,14 @@ function HelmDeployWidget(
           /* istanbul ignore next */
           onUpdate?.({ ...values, spec: { skipDryRun: false } })
         }}
+        validate={(values: StepElementConfig) => {
+          onChange?.({ ...values, spec: { skipDryRun: false } })
+        }}
         formName="helmDeploy"
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
-          name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
-          timeout: getDurationValidationSchema({ minimum: '10s' }).required(
-            getString('validation.timeout10SecMinimum')
-          ),
-          identifier: IdentifierSchema()
+          ...getNameAndIdentifierSchema(getString, stepViewType),
+          timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum'))
         })}
       >
         {(formik: FormikProps<StepElementConfig>) => {
@@ -82,16 +84,18 @@ function HelmDeployWidget(
           return (
             <>
               <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
-                <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
-                </div>
+                {stepViewType !== StepViewType.Template && (
+                  <div className={cx(stepCss.formGroup, stepCss.md)}>
+                    <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
+                  </div>
+                )}
 
                 <div className={cx(stepCss.formGroup, stepCss.sm)}>
                   <FormMultiTypeDurationField
                     name="timeout"
                     label={getString('pipelineSteps.timeoutLabel')}
                     className={stepCss.duration}
-                    multiTypeDurationProps={{ enableConfigureOptions: false, expressions }}
+                    multiTypeDurationProps={{ enableConfigureOptions: false, expressions, allowableTypes }}
                   />
                   {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions
@@ -118,7 +122,7 @@ function HelmDeployWidget(
   )
 }
 
-const HelmDeployInputStep: React.FC<HelmDeployProps> = ({ inputSetData }) => {
+const HelmDeployInputStep: React.FC<HelmDeployProps> = ({ inputSetData, allowableTypes }) => {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   return (
@@ -131,7 +135,7 @@ const HelmDeployInputStep: React.FC<HelmDeployProps> = ({ inputSetData }) => {
             disabled={inputSetData?.readonly}
             multiTypeDurationProps={{
               enableConfigureOptions: false,
-              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+              allowableTypes,
               expressions,
               disabled: inputSetData?.readonly
             }}
@@ -158,7 +162,17 @@ export class HelmDeploy extends PipelineStep<StepElementConfig> {
     this._hasDelegateSelectionVisible = true
   }
   renderStep(props: StepProps<StepElementConfig>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep } = props
+    const {
+      initialValues,
+      onUpdate,
+      onChange,
+      allowableTypes,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -167,6 +181,7 @@ export class HelmDeploy extends PipelineStep<StepElementConfig> {
           onUpdate={onUpdate}
           stepViewType={stepViewType}
           inputSetData={inputSetData}
+          allowableTypes={allowableTypes}
         />
       )
     } else if (stepViewType === StepViewType.InputVariable) {
@@ -182,6 +197,8 @@ export class HelmDeploy extends PipelineStep<StepElementConfig> {
       <HelmDeployWithRef
         initialValues={initialValues}
         onUpdate={onUpdate}
+        onChange={onChange}
+        allowableTypes={allowableTypes}
         isNewStep={isNewStep}
         stepViewType={stepViewType}
         ref={formikRef}

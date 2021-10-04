@@ -100,6 +100,7 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
                       variables: defaultTo(originalStage.variables, []) as AllNGVariables[],
                       canAddVariable: true
                     }}
+                    allowableTypes={[]}
                     readonly={readonly}
                     type={StepType.CustomVariable}
                     stepViewType={StepViewType.InputVariable}

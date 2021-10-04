@@ -6,7 +6,6 @@ import { FormikErrors, FormikProps, yupToFormErrors } from 'formik'
 
 import { isEmpty } from 'lodash-es'
 
-import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { StepViewType, StepProps, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
@@ -27,11 +26,14 @@ import {
 
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
+import { getNameAndIdentifierSchema } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 interface HelmRollbackProps {
   initialValues: StepElementConfig
   onUpdate?: (data: StepElementConfig) => void
+  onChange?: (data: StepElementConfig) => void
+  allowableTypes: MultiTypeInputType[]
   stepViewType?: StepViewType
   isNewStep?: boolean
   inputSetData?: {
@@ -54,7 +56,7 @@ function HelmRollbackWidget(
   props: HelmRollbackProps,
   formikRef: StepFormikFowardRef<StepElementConfig>
 ): React.ReactElement {
-  const { initialValues, onUpdate, isNewStep = true } = props
+  const { initialValues, onUpdate, onChange, allowableTypes, isNewStep = true, stepViewType } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   return (
@@ -64,14 +66,15 @@ function HelmRollbackWidget(
           /* istanbul ignore next */
           onUpdate?.({ ...values, spec: { skipDryRun: false } })
         }}
+        validate={(values: StepElementConfig) => {
+          /* istanbul ignore next */
+          onChange?.({ ...values, spec: { skipDryRun: false } })
+        }}
         initialValues={initialValues}
         formName="helmRollback"
         validationSchema={Yup.object().shape({
-          name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
-          timeout: getDurationValidationSchema({ minimum: '10s' }).required(
-            getString('validation.timeout10SecMinimum')
-          ),
-          identifier: IdentifierSchema()
+          ...getNameAndIdentifierSchema(getString, stepViewType),
+          timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum'))
         })}
       >
         {(formik: FormikProps<StepElementConfig>) => {
@@ -81,16 +84,18 @@ function HelmRollbackWidget(
           return (
             <>
               <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
-                <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
-                </div>
+                {stepViewType !== StepViewType.Template && (
+                  <div className={cx(stepCss.formGroup, stepCss.md)}>
+                    <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
+                  </div>
+                )}
 
                 <div className={cx(stepCss.formGroup, stepCss.sm)}>
                   <FormMultiTypeDurationField
                     name="timeout"
                     label={getString('pipelineSteps.timeoutLabel')}
                     className={stepCss.duration}
-                    multiTypeDurationProps={{ enableConfigureOptions: false, expressions }}
+                    multiTypeDurationProps={{ enableConfigureOptions: false, expressions, allowableTypes }}
                   />
                   {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions
@@ -117,7 +122,7 @@ function HelmRollbackWidget(
   )
 }
 
-const HelmRollbackInputStep: React.FC<HelmRollbackProps> = ({ inputSetData }) => {
+const HelmRollbackInputStep: React.FC<HelmRollbackProps> = ({ inputSetData, allowableTypes }) => {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
 
@@ -131,7 +136,7 @@ const HelmRollbackInputStep: React.FC<HelmRollbackProps> = ({ inputSetData }) =>
             disabled={inputSetData?.readonly}
             multiTypeDurationProps={{
               enableConfigureOptions: false,
-              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+              allowableTypes,
               expressions,
               disabled: inputSetData?.readonly
             }}
@@ -158,7 +163,17 @@ export class HelmRollback extends PipelineStep<StepElementConfig> {
     this._hasDelegateSelectionVisible = true
   }
   renderStep(props: StepProps<StepElementConfig>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep } = props
+    const {
+      initialValues,
+      onUpdate,
+      onChange,
+      allowableTypes,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -167,6 +182,7 @@ export class HelmRollback extends PipelineStep<StepElementConfig> {
           onUpdate={onUpdate}
           stepViewType={stepViewType}
           inputSetData={inputSetData}
+          allowableTypes={allowableTypes}
         />
       )
     } else if (stepViewType === StepViewType.InputVariable) {
@@ -183,6 +199,8 @@ export class HelmRollback extends PipelineStep<StepElementConfig> {
         initialValues={initialValues}
         isNewStep={isNewStep}
         onUpdate={onUpdate}
+        onChange={onChange}
+        allowableTypes={allowableTypes}
         stepViewType={stepViewType}
         ref={formikRef}
         isReadonly={props.readonly}

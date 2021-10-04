@@ -42,8 +42,8 @@ export default function HttpStepBase(props: {
 
   return (
     <div className={stepCss.stepPanel}>
-      <div className={cx(stepCss.formGroup, stepCss.lg)}>
-        {stepViewType !== StepViewType.Template && (
+      {stepViewType !== StepViewType.Template && (
+        <div className={cx(stepCss.formGroup, stepCss.lg)}>
           <FormInput.InputWithIdentifier
             inputLabel={getString('name')}
             isIdentifierEditable={isNewStep && !readonly}
@@ -51,8 +51,8 @@ export default function HttpStepBase(props: {
               disabled: readonly
             }}
           />
-        )}
-      </div>
+        </div>
+      )}
       <div className={cx(stepCss.formGroup, stepCss.sm)}>
         <FormMultiTypeDurationField
           name="timeout"

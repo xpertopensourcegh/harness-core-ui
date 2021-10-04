@@ -12,7 +12,8 @@ import {
   Label,
   FormikTooltipContext,
   HarnessDocTooltip,
-  ButtonVariation
+  ButtonVariation,
+  MultiTypeInputType
 } from '@wings-software/uicore'
 import { Classes, MenuItem, Popover, PopoverInteractionKind, Menu, Dialog, IDialogProps } from '@blueprintjs/core'
 import { FieldArray, FieldArrayRenderProps } from 'formik'
@@ -33,10 +34,11 @@ import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 interface TfVarFileProps {
   formik: FormikProps<TerraformData>
   isReadonly?: boolean
+  allowableTypes: MultiTypeInputType[]
 }
 
 export default function TfVarFileList(props: TfVarFileProps): React.ReactElement {
-  const { formik, isReadonly = false } = props
+  const { formik, isReadonly = false, allowableTypes } = props
   const inlineInitValues: TerraformVarFileWrapper = {
     varFile: {
       spec: {},
@@ -270,6 +272,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                           name={getString('cd.tfVarStore')}
                           initialValues={isEditMode ? selectedVar : remoteInitialValues}
                           isEditMode={isEditMode}
+                          allowableTypes={allowableTypes}
                         />
                         <TFRemoteWizard
                           name={getString('cd.varFileDetails')}
@@ -282,6 +285,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                             onCloseOfRemoteWizard()
                           }}
                           isEditMode={isEditMode}
+                          allowableTypes={allowableTypes}
                           // initialValues={remoteInitialValues}
                         />
                       </StepWizard>
@@ -311,6 +315,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                       onCloseOfInlineVarForm()
                     }}
                     isReadonly={isReadonly}
+                    allowableTypes={allowableTypes}
                   />
                 )}
               </div>

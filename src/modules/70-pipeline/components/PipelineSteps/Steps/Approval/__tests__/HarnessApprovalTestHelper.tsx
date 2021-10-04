@@ -1,7 +1,8 @@
-import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
+import { MultiTypeInputType, RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { ResponsePageUserGroupDTO } from 'services/cd-ng'
+import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { HarnessApprovalStepModeProps } from '../types'
 
 export const getHarnessApprovalEditModeProps = () => ({
@@ -43,7 +44,9 @@ export const getHarnessApprovalEditModePropsWithValues = (): HarnessApprovalStep
       }
     }
   },
-  onUpdate: jest.fn()
+  onUpdate: jest.fn(),
+  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION],
+  stepViewType: StepViewType.Edit
 })
 
 export const getHarnessApprovalDeploymentModeProps = () => ({
@@ -157,7 +160,8 @@ export const getHarnessApprovalInputVariableModeProps = () => ({
       }
     }
   },
-  onUpdate: jest.fn()
+  onUpdate: jest.fn(),
+  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
 })
 
 export const mockUsersResponse = {

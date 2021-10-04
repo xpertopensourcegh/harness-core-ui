@@ -3,8 +3,7 @@ import { IconName, Formik, FormInput, getMultiTypeFromValue, MultiTypeInputType 
 import * as Yup from 'yup'
 import cx from 'classnames'
 import { FormikErrors, FormikProps, yupToFormErrors } from 'formik'
-import { isEmpty } from 'lodash-es'
-import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
+import { defaultTo, isEmpty } from 'lodash-es'
 import { StepViewType, StepProps, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
@@ -22,6 +21,7 @@ import { VariablesListTable } from '@pipeline/components/VariablesListTable/Vari
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import type { StringsMap } from 'stringTypes'
+import { getNameAndIdentifierSchema } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export interface K8sBGDeployData extends StepElementConfig {
@@ -36,6 +36,8 @@ interface K8BGDeployProps {
   stepViewType?: StepViewType
   readonly?: boolean
   isNewStep?: boolean
+  onChange?: (data: K8sBGDeployData) => void
+  allowableTypes: MultiTypeInputType[]
   inputSetData?: {
     template?: K8sBGDeployData
     path?: string
@@ -44,7 +46,7 @@ interface K8BGDeployProps {
 }
 
 function K8BGDeployWidget(props: K8BGDeployProps, formikRef: StepFormikFowardRef<K8sBGDeployData>): React.ReactElement {
-  const { initialValues, onUpdate, isNewStep = true, readonly } = props
+  const { initialValues, onUpdate, isNewStep = true, readonly, onChange, stepViewType, allowableTypes } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   return (
@@ -53,14 +55,14 @@ function K8BGDeployWidget(props: K8BGDeployProps, formikRef: StepFormikFowardRef
         onSubmit={(values: K8sBGDeployData) => {
           onUpdate?.(values)
         }}
+        validate={(values: K8sBGDeployData) => {
+          onChange?.(values)
+        }}
         formName="k8BG"
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
-          name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
-          timeout: getDurationValidationSchema({ minimum: '10s' }).required(
-            getString('validation.timeout10SecMinimum')
-          ),
-          identifier: IdentifierSchema()
+          ...getNameAndIdentifierSchema(getString, stepViewType),
+          timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum'))
         })}
       >
         {(formik: FormikProps<K8sBGDeployData>) => {
@@ -68,7 +70,7 @@ function K8BGDeployWidget(props: K8BGDeployProps, formikRef: StepFormikFowardRef
           setFormikRef(formikRef, formik)
           return (
             <>
-              <>
+              {stepViewType === StepViewType.InputSet ? null : (
                 <div className={cx(stepCss.formGroup, stepCss.lg)}>
                   <FormInput.InputWithIdentifier
                     inputLabel={getString('name')}
@@ -76,37 +78,47 @@ function K8BGDeployWidget(props: K8BGDeployProps, formikRef: StepFormikFowardRef
                     inputGroupProps={{ disabled: readonly }}
                   />
                 </div>
-                <div className={cx(stepCss.formGroup, stepCss.sm)}>
-                  <FormMultiTypeDurationField
-                    name="timeout"
-                    disabled={readonly}
-                    label={getString('pipelineSteps.timeoutLabel')}
-                    multiTypeDurationProps={{ enableConfigureOptions: false, expressions, disabled: readonly }}
+              )}
+              <div className={cx(stepCss.formGroup, stepCss.sm)}>
+                <FormMultiTypeDurationField
+                  name="timeout"
+                  disabled={readonly}
+                  label={getString('pipelineSteps.timeoutLabel')}
+                  multiTypeDurationProps={{
+                    enableConfigureOptions: false,
+                    expressions,
+                    disabled: readonly,
+                    allowableTypes
+                  }}
+                />
+                {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
+                  <ConfigureOptions
+                    value={values.timeout as string}
+                    type="String"
+                    variableName="step.timeout"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={value => {
+                      setFieldValue('timeout', value)
+                    }}
+                    isReadonly={readonly}
                   />
-                  {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
-                    <ConfigureOptions
-                      value={values.timeout as string}
-                      type="String"
-                      variableName="step.timeout"
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={value => {
-                        setFieldValue('timeout', value)
-                      }}
-                      isReadonly={readonly}
-                    />
-                  )}
-                </div>
-                <div className={stepCss.divider} />
-                <div className={cx(stepCss.formGroup, stepCss.sm)}>
-                  <FormMultiTypeCheckboxField
-                    name="spec.skipDryRun"
-                    label={getString('pipelineSteps.skipDryRun')}
-                    disabled={readonly}
-                  />
-                </div>
-              </>
+                )}
+              </div>
+              <div className={stepCss.divider} />
+              <div className={cx(stepCss.formGroup, stepCss.sm)}>
+                <FormMultiTypeCheckboxField
+                  name="spec.skipDryRun"
+                  label={getString('pipelineSteps.skipDryRun')}
+                  disabled={readonly}
+                  multiTypeTextbox={{
+                    expressions,
+                    disabled: readonly,
+                    allowableTypes
+                  }}
+                />
+              </div>
             </>
           )
         }}
@@ -115,7 +127,7 @@ function K8BGDeployWidget(props: K8BGDeployProps, formikRef: StepFormikFowardRef
   )
 }
 
-const K8BGDeployInputStep: React.FC<K8BGDeployProps> = ({ inputSetData }) => {
+const K8BGDeployInputStep: React.FC<K8BGDeployProps> = ({ inputSetData, allowableTypes }) => {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   return (
@@ -126,7 +138,7 @@ const K8BGDeployInputStep: React.FC<K8BGDeployProps> = ({ inputSetData }) => {
             label={getString('pipelineSteps.timeoutLabel')}
             multiTypeDurationProps={{
               enableConfigureOptions: false,
-              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+              allowableTypes,
               expressions,
               disabled: inputSetData?.readonly
             }}
@@ -140,7 +152,7 @@ const K8BGDeployInputStep: React.FC<K8BGDeployProps> = ({ inputSetData }) => {
           <FormMultiTypeCheckboxField
             multiTypeTextbox={{
               expressions,
-              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+              allowableTypes
             }}
             name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.skipDryRun`}
             className={stepCss.checkbox}
@@ -174,8 +186,18 @@ export class K8sBlueGreenDeployStep extends PipelineStep<K8sBGDeployData> {
     this._hasDelegateSelectionVisible = true
   }
   renderStep(props: StepProps<K8sBGDeployData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep, readonly } =
-      props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep,
+      readonly,
+      allowableTypes,
+      onChange
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -184,6 +206,7 @@ export class K8sBlueGreenDeployStep extends PipelineStep<K8sBGDeployData> {
           onUpdate={onUpdate}
           stepViewType={stepViewType}
           inputSetData={inputSetData}
+          allowableTypes={allowableTypes}
         />
       )
     } else if (stepViewType === StepViewType.InputVariable) {
@@ -200,7 +223,9 @@ export class K8sBlueGreenDeployStep extends PipelineStep<K8sBGDeployData> {
         initialValues={initialValues}
         onUpdate={onUpdate}
         isNewStep={isNewStep}
-        stepViewType={stepViewType}
+        stepViewType={defaultTo(stepViewType, StepViewType.Edit)}
+        allowableTypes={allowableTypes}
+        onChange={onChange}
         ref={formikRef}
         readonly={readonly}
       />

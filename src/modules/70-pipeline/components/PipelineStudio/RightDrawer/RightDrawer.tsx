@@ -1,6 +1,6 @@
 import React, { SyntheticEvent } from 'react'
 import { Drawer, Position } from '@blueprintjs/core'
-import { Button, Icon, Text, Color } from '@wings-software/uicore'
+import { Button, Icon, Text, Color, MultiTypeInputType } from '@wings-software/uicore'
 import { cloneDeep, get, isEmpty, isNil, noop, set } from 'lodash-es'
 import cx from 'classnames'
 import produce from 'immer'
@@ -510,6 +510,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           hasStepGroupAncestor={!!data?.stepConfig?.isUnderStepGroup}
           onChange={value => onSubmitStep(value, DrawerTypes.StepConfig)}
           viewType={StepCommandsViews.Pipeline}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
           onUseTemplate={_step =>
             updateTemplateView({
               isTemplateDrawerOpened: true,
@@ -556,6 +557,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           stepsFactory={stepsFactory}
           onChange={onServiceDependencySubmit}
           isStepGroup={false}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
           withoutTabs
           stageType={stageType as StageType}
         />
@@ -639,6 +641,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           step={data.stepConfig.node as StepElementConfig}
           ref={formikRef}
           isReadonly={isReadonly}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
           checkDuplicateStep={checkDuplicateStep.bind(null, formikRef, data, getString)}
           isNewStep={!data.stepConfig.stepsMap.get(data.stepConfig.node.identifier)?.isSaved}
           stepsFactory={stepsFactory}

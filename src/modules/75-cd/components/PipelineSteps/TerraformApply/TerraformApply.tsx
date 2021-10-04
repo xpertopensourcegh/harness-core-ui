@@ -137,6 +137,8 @@ export class TerraformApply extends PipelineStep<TFFormData> {
     const {
       initialValues,
       onUpdate,
+      onChange,
+      allowableTypes,
       stepViewType,
       formikRef,
       inputSetData,
@@ -150,6 +152,8 @@ export class TerraformApply extends PipelineStep<TFFormData> {
         <TerraformInputStep
           initialValues={initialValues}
           onUpdate={data => onUpdate?.(this.processFormData(data))}
+          onChange={data => onChange?.(this.processFormData(data))}
+          allowableTypes={allowableTypes}
           stepViewType={stepViewType}
           readonly={inputSetData?.readonly}
           inputSetData={inputSetData}
@@ -169,6 +173,8 @@ export class TerraformApply extends PipelineStep<TFFormData> {
       <TerraformApplyWidgetWithRef
         initialValues={this.getInitialValues(initialValues)}
         onUpdate={data => onUpdate?.(this.processFormData(data))}
+        onChange={data => onChange?.(this.processFormData(data))}
+        allowableTypes={allowableTypes}
         isNewStep={isNewStep}
         stepViewType={stepViewType}
         stepType={StepType.TerraformApply}

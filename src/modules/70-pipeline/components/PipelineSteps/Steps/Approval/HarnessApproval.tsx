@@ -3,7 +3,7 @@ import * as Yup from 'yup'
 import { parse } from 'yaml'
 import { isEmpty, get } from 'lodash-es'
 import { CompletionItemKind } from 'vscode-languageserver-types'
-import { FormikErrors, yupToFormErrors } from 'formik'
+import { connect, FormikErrors, yupToFormErrors } from 'formik'
 import { getMultiTypeFromValue, IconName, MultiTypeInputType } from '@wings-software/uicore'
 import { StepProps, StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import { getUserGroupListPromise } from 'services/cd-ng'
@@ -24,6 +24,7 @@ import type { HarnessApprovalData, HarnessApprovalVariableListModeProps } from '
 const UserGroupRegex = /^.+step\.spec\.approvers\.userGroups$/
 const logger = loggerFor(ModuleName.CD)
 
+const HarnessApprovalDeploymentModeWithFormik = connect(HarnessApprovalDeploymentMode)
 export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
   protected invocationMap: Map<
     RegExp,
@@ -193,15 +194,26 @@ export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
   }
 
   renderStep(this: HarnessApproval, props: StepProps<HarnessApprovalData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep, readonly } =
-      props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep,
+      readonly,
+      allowableTypes,
+      onChange
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
-        <HarnessApprovalDeploymentMode
+        <HarnessApprovalDeploymentModeWithFormik
           stepViewType={stepViewType}
           initialValues={processForInitialValues(initialValues)}
           onUpdate={values => onUpdate?.(processFormData(values))}
+          allowableTypes={allowableTypes}
           inputSetData={inputSetData}
           readonly={readonly}
         />
@@ -220,7 +232,9 @@ export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
       <HarnessApprovalStepModeWithRef
         ref={formikRef}
         isNewStep={isNewStep}
-        stepViewType={stepViewType}
+        stepViewType={stepViewType || StepViewType.Edit}
+        allowableTypes={allowableTypes}
+        onChange={onChange}
         initialValues={processForInitialValues(initialValues)}
         onUpdate={values => onUpdate?.(this.processFormData(values))}
         readonly={readonly}

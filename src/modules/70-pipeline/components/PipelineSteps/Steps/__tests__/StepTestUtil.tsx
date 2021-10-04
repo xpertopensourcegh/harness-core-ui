@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Formik, Text } from '@wings-software/uicore'
+import { Button, Formik, MultiTypeInputType, Text } from '@wings-software/uicore'
 import { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
 import { StepWidgetWithFormikRef, StepWidgetProps } from '@pipeline/components/AbstractSteps/StepWidget'
 import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
@@ -50,7 +50,7 @@ const FormikTestWrapper: React.FC<StepWidgetProps> = props => {
   )
 }
 
-export interface TestStepWidgetProps extends Omit<StepWidgetProps, 'factory'> {
+export interface TestStepWidgetProps extends Omit<StepWidgetProps, 'factory' | 'allowableTypes'> {
   testWrapperProps?: TestWrapperProps
 }
 
@@ -59,9 +59,18 @@ export function TestStepWidgetWithoutRef(props: TestStepWidgetProps, ref: StepFo
   return (
     <TestWrapper {...props.testWrapperProps}>
       {type === StepViewType.InputSet || type === StepViewType.DeploymentForm ? (
-        <FormikTestWrapper factory={factory} {...props} />
+        <FormikTestWrapper
+          factory={factory}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
+          {...props}
+        />
       ) : (
-        <StepWidgetWithFormikRef ref={ref} factory={factory} {...props} />
+        <StepWidgetWithFormikRef
+          ref={ref}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
+          factory={factory}
+          {...props}
+        />
       )}
     </TestWrapper>
   )

@@ -43,20 +43,26 @@ factory.registerStep(new StepTwo())
 
 describe('StepWidget tests', () => {
   test(`shows different steps based on type`, () => {
-    let { container } = render(<StepWidget type={'step-one' as StepType} factory={factory} initialValues={{}} />)
+    let { container } = render(
+      <StepWidget allowableTypes={[]} type={'step-one' as StepType} factory={factory} initialValues={{}} />
+    )
     expect(container).toMatchSnapshot()
-    container = render(<StepWidget type={'step-two' as StepType} factory={factory} initialValues={{}} />).container
+    container = render(
+      <StepWidget allowableTypes={[]} type={'step-two' as StepType} factory={factory} initialValues={{}} />
+    ).container
     expect(container).toMatchSnapshot()
   })
 
   test(`shows invalid step`, () => {
-    const { container } = render(<StepWidget type={'step-three' as StepType} factory={factory} initialValues={{}} />)
+    const { container } = render(
+      <StepWidget allowableTypes={[]} type={'step-three' as StepType} factory={factory} initialValues={{}} />
+    )
     expect(container).toMatchSnapshot()
   })
 
   test(`shows step and merge initial values`, () => {
     const { container } = render(
-      <StepWidget type={'step-one' as StepType} factory={factory} initialValues={{ a: 'b' }} />
+      <StepWidget type={'step-one' as StepType} allowableTypes={[]} factory={factory} initialValues={{ a: 'b' }} />
     )
     expect(container).toMatchSnapshot()
   })
@@ -64,7 +70,13 @@ describe('StepWidget tests', () => {
   test(`should call on submit of the form`, () => {
     const onSubmit = jest.fn()
     const { container } = render(
-      <StepWidget type={'step-one' as StepType} onUpdate={onSubmit} factory={factory} initialValues={{ a: 'b' }} />
+      <StepWidget
+        type={'step-one' as StepType}
+        allowableTypes={[]}
+        onUpdate={onSubmit}
+        factory={factory}
+        initialValues={{ a: 'b' }}
+      />
     )
     fireEvent.click(container.children[0])
     expect(onSubmit).toBeCalled()

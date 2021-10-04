@@ -67,6 +67,7 @@ export default function PipelineCard(props: PipelineCardProps): React.ReactEleme
             type={StepType.CustomVariable}
             stepViewType={StepViewType.InputVariable}
             readonly={readonly}
+            allowableTypes={[]}
             onUpdate={({ variables }: CustomVariablesData) => {
               updatePipeline({ ...pipeline, variables })
             }}

@@ -1,5 +1,5 @@
 import React from 'react'
-import type { IconName } from '@wings-software/uicore'
+import type { IconName, MultiTypeInputType } from '@wings-software/uicore'
 import type { FormikErrors } from 'formik'
 import type { StepViewType, StepProps } from '@pipeline/components/AbstractSteps/Step'
 import type { ExecutionElementConfig } from 'services/cd-ng'
@@ -31,6 +31,8 @@ export interface InfraProvisioningProps {
   readonly?: boolean
   stepViewType?: StepViewType
   onUpdate?: (data: InfraProvisioningData) => void
+  onChange?: (data: InfraProvisioningData) => void
+  allowableTypes: MultiTypeInputType[]
 }
 
 export class InfraProvisioning extends PipelineStep<any> {
@@ -51,13 +53,15 @@ export class InfraProvisioning extends PipelineStep<any> {
   }
 
   renderStep(props: StepProps<any>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, formikRef } = props
+    const { initialValues, onUpdate, onChange, allowableTypes, stepViewType, formikRef } = props
 
     return (
       <InfraProvisioningBaseWithRef
         initialValues={initialValues}
         stepViewType={stepViewType}
         onUpdate={onUpdate}
+        onChange={onChange}
+        allowableTypes={allowableTypes}
         ref={formikRef}
       />
     )

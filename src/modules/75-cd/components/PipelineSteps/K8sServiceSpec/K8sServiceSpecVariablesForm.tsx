@@ -151,6 +151,7 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
             type={StepType.CustomVariable}
             stepViewType={StepViewType.InputVariable}
             onUpdate={onUpdate}
+            allowableTypes={[]}
             readonly={readonly}
             customStepProps={{
               variableNamePrefix: 'serviceConfig.variables.',

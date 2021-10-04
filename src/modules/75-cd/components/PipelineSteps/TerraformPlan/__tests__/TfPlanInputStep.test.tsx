@@ -1,12 +1,13 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 
-import { Formik, FormikForm, RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
+import { Formik, FormikForm, MultiTypeInputType, RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 
 import TfPlanInputStep from '../TfPlanInputStep'
+
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
   <div>{children}</div>
 ))
@@ -95,6 +96,7 @@ describe('Test terraform input set', () => {
                 template
               }}
               path={'test'}
+              allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION, MultiTypeInputType.RUNTIME]}
             />
           </FormikForm>
         </Formik>

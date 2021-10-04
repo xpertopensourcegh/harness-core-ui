@@ -16,7 +16,7 @@ import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export default function ConfigSection(props: TerraformPlanProps): React.ReactElement {
   const { getString } = useStrings()
-  const { inputSetData, readonly, initialValues, path } = props
+  const { inputSetData, readonly, initialValues, path, allowableTypes } = props
   const config = inputSetData?.template?.spec?.configuration
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -45,7 +45,7 @@ export default function ConfigSection(props: TerraformPlanProps): React.ReactEle
             disabled={readonly}
             multiTextInputProps={{
               expressions,
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+              allowableTypes
             }}
           />
         </div>
@@ -57,7 +57,7 @@ export default function ConfigSection(props: TerraformPlanProps): React.ReactEle
             selected={get(initialValues, 'spec.configuration.configFiles.store.spec.connectorRef', '')}
             projectIdentifier={projectIdentifier}
             orgIdentifier={orgIdentifier}
-            multiTypeProps={{ allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED], expressions }}
+            multiTypeProps={{ allowableTypes, expressions }}
             width={400}
             type={[Connectors.GIT, Connectors.GITHUB, Connectors.GITLAB, Connectors.BITBUCKET]}
             name={`${path}.spec.configuration.configFiles.store.spec.connectorRef`}
@@ -79,7 +79,7 @@ export default function ConfigSection(props: TerraformPlanProps): React.ReactEle
             disabled={readonly}
             multiTextInputProps={{
               expressions,
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+              allowableTypes
             }}
           />
         </div>
@@ -94,7 +94,7 @@ export default function ConfigSection(props: TerraformPlanProps): React.ReactEle
             disabled={readonly}
             multiTextInputProps={{
               expressions,
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+              allowableTypes
             }}
           />
         </div>
@@ -109,7 +109,7 @@ export default function ConfigSection(props: TerraformPlanProps): React.ReactEle
             disabled={readonly}
             multiTextInputProps={{
               expressions,
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+              allowableTypes
             }}
           />
         </div>

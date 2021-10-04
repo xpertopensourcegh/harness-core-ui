@@ -32,13 +32,15 @@ interface TFRemoteProps {
   onSubmitCallBack: (data: RemoteVar) => void
   isEditMode: boolean
   isReadonly?: boolean
+  allowableTypes: MultiTypeInputType[]
 }
 export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
   previousStep,
   prevStepData,
   onSubmitCallBack,
   isEditMode,
-  isReadonly = false
+  isReadonly = false,
+  allowableTypes
 }) => {
   const { getString } = useStrings()
   const initialValues = isEditMode
@@ -228,7 +230,7 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
                       label={getString('pipelineSteps.repoName')}
                       name="varFile.spec.store.spec.repoName"
                       placeholder={getString('pipelineSteps.repoName')}
-                      multiTextInputProps={{ expressions }}
+                      multiTextInputProps={{ expressions, allowableTypes }}
                     />
                     {getMultiTypeFromValue(formik.values?.varFile?.spec?.store?.spec?.repoName) ===
                       MultiTypeInputType.RUNTIME && (
@@ -262,7 +264,7 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
                       label={getString('pipelineSteps.deploy.inputSet.branch')}
                       placeholder={getString('pipeline.manifestType.branchPlaceholder')}
                       name="varFile.spec.store.spec.branch"
-                      multiTextInputProps={{ expressions }}
+                      multiTextInputProps={{ expressions, allowableTypes }}
                     />
                     {getMultiTypeFromValue(formik.values?.varFile?.spec?.store?.spec?.branch) ===
                       MultiTypeInputType.RUNTIME && (
@@ -287,7 +289,7 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
                       label={getString('pipeline.manifestType.commitId')}
                       placeholder={getString('pipeline.manifestType.commitPlaceholder')}
                       name="varFile.spec.store.spec.commitId"
-                      multiTextInputProps={{ expressions }}
+                      multiTextInputProps={{ expressions, allowableTypes }}
                     />
                     {getMultiTypeFromValue(formik.values?.varFile?.spec?.store?.spec?.commitId) ===
                       MultiTypeInputType.RUNTIME && (
@@ -310,6 +312,7 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
                     name="varFile.spec.store.spec.paths"
                     label={getString('filePaths')}
                     style={{ width: 370 }}
+                    allowedTypes={allowableTypes.filter(item => item !== MultiTypeInputType.EXPRESSION)}
                   >
                     <FieldArray
                       name="varFile.spec.store.spec.paths"
@@ -347,7 +350,9 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
                                       label=""
                                       multiTextInputProps={{
                                         expressions,
-                                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                                        allowableTypes: allowableTypes.filter(
+                                          item => item !== MultiTypeInputType.RUNTIME
+                                        )
                                       }}
                                       style={{ width: 320 }}
                                     />

@@ -48,9 +48,15 @@ const tfVarIcons: any = {
 interface TFVarStoreProps {
   initialValues: any
   isEditMode: boolean
+  allowableTypes: MultiTypeInputType[]
 }
 
-export const TFVarStore: React.FC<StepProps<any> & TFVarStoreProps> = ({ nextStep, initialValues, isEditMode }) => {
+export const TFVarStore: React.FC<StepProps<any> & TFVarStoreProps> = ({
+  nextStep,
+  initialValues,
+  isEditMode,
+  allowableTypes
+}) => {
   const [selectedType, setSelectedType] = React.useState('')
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
@@ -140,7 +146,7 @@ export const TFVarStore: React.FC<StepProps<any> & TFVarStoreProps> = ({ nextSte
                     projectIdentifier={projectIdentifier}
                     orgIdentifier={orgIdentifier}
                     style={{ marginBottom: 10 }}
-                    multiTypeProps={{ expressions }}
+                    multiTypeProps={{ expressions, allowableTypes }}
                   />
                 )}
               </div>

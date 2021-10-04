@@ -32,6 +32,7 @@ interface ConfigFormProps {
   data?: any
   onHide: (values: any) => void
   isReadonly?: boolean
+  allowableTypes: MultiTypeInputType[]
 }
 
 export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
@@ -94,7 +95,7 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                   projectIdentifier={projectIdentifier}
                   orgIdentifier={orgIdentifier}
                   style={{ marginBottom: 10 }}
-                  multiTypeProps={{ expressions }}
+                  multiTypeProps={{ expressions, allowableTypes: props.allowableTypes }}
                 />
 
                 {(connectorValue?.connector?.spec?.connectionType === 'Account' ||
@@ -104,7 +105,7 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                       label={getString('pipelineSteps.repoName')}
                       name="spec.configuration.configFiles.store.spec.repoName"
                       placeholder={getString('pipelineSteps.repoName')}
-                      multiTextInputProps={{ expressions }}
+                      multiTextInputProps={{ expressions, allowableTypes: props.allowableTypes }}
                     />
                     {getMultiTypeFromValue(formik.values?.spec?.configuration?.configFiles?.store?.spec?.repoName) ===
                       MultiTypeInputType.RUNTIME && (
@@ -139,7 +140,7 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                       label={getString('pipelineSteps.deploy.inputSet.branch')}
                       placeholder={getString('pipeline.manifestType.branchPlaceholder')}
                       name="spec.configuration.configFiles.store.spec.branch"
-                      multiTextInputProps={{ expressions }}
+                      multiTextInputProps={{ expressions, allowableTypes: props.allowableTypes }}
                     />
                     {getMultiTypeFromValue(formik.values?.spec?.configuration?.configFiles?.store?.spec?.branch) ===
                       MultiTypeInputType.RUNTIME && (
@@ -165,7 +166,7 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                       label={getString('pipeline.manifestType.commitId')}
                       placeholder={getString('pipeline.manifestType.commitPlaceholder')}
                       name="spec.configuration.configFiles.store.spec.commitId"
-                      multiTextInputProps={{ expressions }}
+                      multiTextInputProps={{ expressions, allowableTypes: props.allowableTypes }}
                     />
                     {getMultiTypeFromValue(formik.values?.spec?.configuration?.configFiles?.store?.spec?.commitId) ===
                       MultiTypeInputType.RUNTIME && (
@@ -190,7 +191,7 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                     label={getString('cd.folderPath')}
                     placeholder={getString('pipeline.manifestType.pathPlaceholder')}
                     name="spec.configuration.configFiles.store.spec.folderPath"
-                    multiTextInputProps={{ expressions }}
+                    multiTextInputProps={{ expressions, allowableTypes: props.allowableTypes }}
                   />
                   {getMultiTypeFromValue(formik.values?.spec?.configuration?.configFiles?.store?.spec?.folderPath) ===
                     MultiTypeInputType.RUNTIME && (

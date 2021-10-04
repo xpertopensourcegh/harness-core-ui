@@ -1,13 +1,15 @@
 import React from 'react'
 
 import { fireEvent, render } from '@testing-library/react'
+import { MultiTypeInputType } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 import { TFRemoteWizard } from '../Editview/TFRemoteWizard'
 
 const props = {
   name: 'Terraform Var File Details',
   onSubmitCallBack: jest.fn(),
-  isEditMode: false
+  isEditMode: false,
+  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION, MultiTypeInputType.RUNTIME]
 }
 describe('Terraform Remote Form tests', () => {
   test('initial rendering', () => {
@@ -36,7 +38,8 @@ describe('Terraform Remote Form tests', () => {
             }
           }
         }
-      }
+      },
+      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION, MultiTypeInputType.RUNTIME]
     }
     const { container } = render(
       <TestWrapper>
@@ -64,7 +67,8 @@ describe('Terraform Remote Form tests', () => {
             }
           }
         }
-      }
+      },
+      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION, MultiTypeInputType.RUNTIME]
     }
     const { container, getByText } = render(
       <TestWrapper>
@@ -93,7 +97,8 @@ describe('Terraform Remote Form tests', () => {
             }
           }
         }
-      }
+      },
+      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION, MultiTypeInputType.RUNTIME]
     }
     const { container } = render(
       <TestWrapper>
@@ -121,7 +126,8 @@ describe('Terraform Remote Form tests', () => {
             }
           }
         }
-      }
+      },
+      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION, MultiTypeInputType.RUNTIME]
     }
     const { container } = render(
       <TestWrapper>

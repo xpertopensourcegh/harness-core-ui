@@ -30,7 +30,7 @@ export default {
   }
 } as Meta
 
-export const K8sRollingRollback: Story<Omit<StepWidgetProps, 'factory'>> = args => {
+export const K8sRollingRollback: Story<Omit<StepWidgetProps, 'factory' | 'allowableTypes'>> = args => {
   const [value, setValue] = React.useState({})
   return (
     <div style={{ display: 'grid', gridTemplateColumns: '480px 1fr', columnGap: '20px' }}>

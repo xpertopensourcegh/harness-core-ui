@@ -25,33 +25,30 @@ export default function BaseShellScript(props: {
   isNewStep: boolean
   readonly?: boolean
   stepViewType?: StepViewType
+  allowableTypes: MultiTypeInputType[]
 }): React.ReactElement {
   const {
     formik: { values: formValues, setFieldValue },
     isNewStep,
     readonly,
-    stepViewType
+    stepViewType,
+    allowableTypes
   } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   const scriptType: ScriptType = formValues.spec?.shell || 'Bash'
-  const allowableTypes = [
-    MultiTypeInputType.FIXED,
-    MultiTypeInputType.RUNTIME,
-    ...(stepViewType !== StepViewType.Template ? [MultiTypeInputType.EXPRESSION] : [])
-  ]
 
   return (
     <>
-      <div className={cx(stepCss.formGroup, stepCss.lg)}>
-        {stepViewType !== StepViewType.Template && (
+      {stepViewType !== StepViewType.Template && (
+        <div className={cx(stepCss.formGroup, stepCss.lg)}>
           <FormInput.InputWithIdentifier
             inputLabel={getString('pipelineSteps.stepNameLabel')}
             isIdentifierEditable={isNewStep && !readonly}
             inputGroupProps={{ disabled: readonly }}
           />
-        )}
-      </div>
+        </div>
+      )}
       <div className={cx(stepCss.formGroup, stepCss.sm)}>
         <FormMultiTypeDurationField
           name="timeout"

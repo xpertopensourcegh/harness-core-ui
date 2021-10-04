@@ -2,6 +2,7 @@ import React from 'react'
 
 import { render, queryByAttribute, fireEvent, act } from '@testing-library/react'
 
+import { MultiTypeInputType } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 import { TFVarStore } from '../Editview/TFVarStore'
 
@@ -12,7 +13,8 @@ const props = {
       type: 'Remote'
     }
   },
-  isEditMode: false
+  isEditMode: false,
+  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION, MultiTypeInputType.RUNTIME]
 }
 describe('Terraform Var Store tests', () => {
   test('initial render', async () => {
@@ -52,7 +54,8 @@ describe('Terraform Var Store tests', () => {
           }
         }
       },
-      isEditMode: true
+      isEditMode: true,
+      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION, MultiTypeInputType.RUNTIME]
     }
     const { container } = render(
       <TestWrapper>

@@ -2,8 +2,6 @@ import { getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicor
 import * as Yup from 'yup'
 import isEmpty from 'lodash/isEmpty'
 import type { UseStringsReturn } from 'framework/strings'
-import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
-import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 
 const namespaceRegex = /^[a-z0-9]([-a-z0-9]*[a-z0-9])?$/
 const releaseNameRegex = /^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$/
@@ -37,15 +35,4 @@ export function getReleaseNameSchema(
     return releaseNameSchema.required(getString('fieldRequired', { field: getString('common.releaseName') }))
   }
   return releaseNameSchema
-}
-export function getNameAndIdentifierSchema(
-  getString: UseStringsReturn['getString'],
-  stepViewType?: StepViewType
-): { [key: string]: Yup.Schema<string | undefined> } {
-  return stepViewType !== StepViewType.Template
-    ? {
-        name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
-        identifier: IdentifierSchema()
-      }
-    : {}
 }

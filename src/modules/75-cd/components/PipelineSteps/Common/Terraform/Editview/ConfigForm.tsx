@@ -30,6 +30,7 @@ interface ConfigFormProps {
   data?: any
   onHide: (values: any) => void
   isReadonly?: boolean
+  allowableTypes: MultiTypeInputType[]
 }
 
 export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
@@ -94,7 +95,7 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                   accountIdentifier={accountId}
                   projectIdentifier={projectIdentifier}
                   orgIdentifier={orgIdentifier}
-                  multiTypeProps={{ expressions }}
+                  multiTypeProps={{ expressions, allowableTypes: props.allowableTypes }}
                 />
 
                 {(connectorValue?.connector?.spec?.connectionType === 'Account' ||
@@ -104,7 +105,7 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                       label={getString('pipelineSteps.repoName')}
                       name="spec.configuration.spec.configFiles.store.spec.repoName"
                       placeholder={getString('pipelineSteps.repoName')}
-                      multiTextInputProps={{ expressions }}
+                      multiTextInputProps={{ expressions, allowableTypes: props.allowableTypes }}
                     />
                     {getMultiTypeFromValue(
                       formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.repoName
@@ -143,7 +144,7 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                       label={getString('pipelineSteps.deploy.inputSet.branch')}
                       placeholder={getString('pipeline.manifestType.branchPlaceholder')}
                       name="spec.configuration.spec.configFiles.store.spec.branch"
-                      multiTextInputProps={{ expressions }}
+                      multiTextInputProps={{ expressions, allowableTypes: props.allowableTypes }}
                     />
                     {getMultiTypeFromValue(
                       formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.branch
@@ -172,7 +173,7 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                       label={getString('pipeline.manifestType.commitId')}
                       placeholder={getString('pipeline.manifestType.commitPlaceholder')}
                       name="spec.configuration.spec.configFiles.store.spec.commitId"
-                      multiTextInputProps={{ expressions }}
+                      multiTextInputProps={{ expressions, allowableTypes: props.allowableTypes }}
                     />
                     {getMultiTypeFromValue(
                       formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.commitId
@@ -198,7 +199,7 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                     label={getString('cd.folderPath')}
                     placeholder={getString('pipeline.manifestType.pathPlaceholder')}
                     name="spec.configuration.spec.configFiles.store.spec.folderPath"
-                    multiTextInputProps={{ expressions }}
+                    multiTextInputProps={{ expressions, allowableTypes: props.allowableTypes }}
                   />
                   {getMultiTypeFromValue(
                     formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.folderPath

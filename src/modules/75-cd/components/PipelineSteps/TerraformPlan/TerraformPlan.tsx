@@ -1,17 +1,17 @@
 import React from 'react'
 import {
-  IconName,
-  FormInput,
   Accordion,
-  getMultiTypeFromValue,
-  MultiTypeInputType,
-  Text,
-  Icon,
-  Layout,
-  Formik,
-  Label,
   Color,
-  HarnessDocTooltip
+  Formik,
+  FormInput,
+  getMultiTypeFromValue,
+  HarnessDocTooltip,
+  Icon,
+  IconName,
+  Label,
+  Layout,
+  MultiTypeInputType,
+  Text
 } from '@wings-software/uicore'
 import { Classes, Dialog, IOptionProps } from '@blueprintjs/core'
 import * as Yup from 'yup'
@@ -21,8 +21,7 @@ import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 
 import { cloneDeep, isEmpty, set } from 'lodash-es'
-import { yupToFormErrors, FormikErrors, FormikProps } from 'formik'
-import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
+import { FormikErrors, FormikProps, yupToFormErrors } from 'formik'
 import { PipelineStep, StepProps } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 
@@ -55,6 +54,7 @@ import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import type { StringNGVariable } from 'services/cd-ng'
 
 import type { StringsMap } from 'stringTypes'
+import { getNameAndIdentifierSchema } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import {
   CommandTypes,
   onSubmitTFPlanData,
@@ -80,7 +80,7 @@ function TerraformPlanWidget(
   props: TerraformPlanProps,
   formikRef: StepFormikFowardRef<TFPlanFormData>
 ): React.ReactElement {
-  const { initialValues, onUpdate, isNewStep, readonly = false } = props
+  const { initialValues, onUpdate, onChange, allowableTypes, isNewStep, readonly = false, stepViewType } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
 
@@ -111,11 +111,13 @@ function TerraformPlanWidget(
       onSubmit={values => {
         onUpdate?.(values)
       }}
+      validate={values => {
+        onChange?.(values)
+      }}
       initialValues={setInitialValues(initialValues)}
       validationSchema={Yup.object().shape({
-        name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
+        ...getNameAndIdentifierSchema(getString, stepViewType),
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
-        identifier: IdentifierSchema(),
         spec: Yup.object().shape({
           provisionerIdentifier: Yup.string()
             .required(getString('pipelineSteps.provisionerIdentifierRequired'))
@@ -134,15 +136,17 @@ function TerraformPlanWidget(
         return (
           <>
             <>
-              <div className={cx(stepCss.formGroup, stepCss.lg)}>
-                <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
-              </div>
+              {stepViewType !== StepViewType.Template && (
+                <div className={cx(stepCss.formGroup, stepCss.lg)}>
+                  <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
+                </div>
+              )}
 
               <div className={cx(stepCss.formGroup, stepCss.sm)}>
                 <FormMultiTypeDurationField
                   name="timeout"
                   label={getString('pipelineSteps.timeoutLabel')}
-                  multiTypeDurationProps={{ enableConfigureOptions: false, expressions }}
+                  multiTypeDurationProps={{ enableConfigureOptions: false, expressions, allowableTypes }}
                 />
                 {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
@@ -176,7 +180,7 @@ function TerraformPlanWidget(
                 <FormInput.MultiTextInput
                   name="spec.provisionerIdentifier"
                   label={getString('pipelineSteps.provisionerIdentifier')}
-                  multiTextInputProps={{ expressions }}
+                  multiTextInputProps={{ expressions, allowableTypes }}
                 />
                 {getMultiTypeFromValue(values.spec?.provisionerIdentifier) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
@@ -206,7 +210,7 @@ function TerraformPlanWidget(
                   projectIdentifier={projectIdentifier}
                   orgIdentifier={orgIdentifier}
                   style={{ marginBottom: 10 }}
-                  multiTypeProps={{ expressions }}
+                  multiTypeProps={{ expressions, allowableTypes }}
                   gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
                 />
               </div>
@@ -245,7 +249,7 @@ function TerraformPlanWidget(
                           <FormInput.MultiTextInput
                             name="spec.configuration.workspace"
                             label={getString('pipelineSteps.workspace')}
-                            multiTextInputProps={{ expressions }}
+                            multiTextInputProps={{ expressions, allowableTypes }}
                             isOptional={true}
                           />
                           {getMultiTypeFromValue(formik.values.spec?.configuration?.workspace) ===
@@ -265,7 +269,7 @@ function TerraformPlanWidget(
                             />
                           )}
                         </div>
-                        <TfVarFileList formik={formik} isReadonly={props.readonly} />
+                        <TfVarFileList formik={formik} isReadonly={props.readonly} allowableTypes={allowableTypes} />
                         <div className={cx(stepCss.formGroup, css.addMarginTop, css.addMarginBottom)}>
                           <MultiTypeFieldSelector
                             name="spec.configuration.backendConfig.spec.content"
@@ -276,11 +280,7 @@ function TerraformPlanWidget(
                               </Text>
                             }
                             defaultValueToReset=""
-                            allowedTypes={[
-                              MultiTypeInputType.EXPRESSION,
-                              MultiTypeInputType.FIXED,
-                              MultiTypeInputType.RUNTIME
-                            ]}
+                            allowedTypes={allowableTypes}
                             expressionRender={() => {
                               return (
                                 <TFMonaco
@@ -317,7 +317,10 @@ function TerraformPlanWidget(
                         <div className={cx(stepCss.formGroup, css.addMarginTop, css.addMarginBottom)}>
                           <MultiTypeList
                             name="spec.configuration.targets"
-                            multiTextInputProps={{ expressions }}
+                            multiTextInputProps={{
+                              expressions,
+                              allowableTypes: allowableTypes.filter(item => item !== MultiTypeInputType.RUNTIME)
+                            }}
                             multiTypeFieldSelectorProps={{
                               label: (
                                 <Text style={{ display: 'flex', alignItems: 'center', color: 'rgb(11, 11, 13)' }}>
@@ -331,7 +334,10 @@ function TerraformPlanWidget(
                         <div className={cx(stepCss.formGroup, css.addMarginTop, css.addMarginBottom)}>
                           <MultiTypeMap
                             name="spec.configuration.environmentVariables"
-                            valueMultiTextInputProps={{ expressions }}
+                            valueMultiTextInputProps={{
+                              expressions,
+                              allowableTypes: allowableTypes.filter(item => item !== MultiTypeInputType.RUNTIME)
+                            }}
                             multiTypeFieldSelectorProps={{
                               disableTypeSelection: true,
                               label: (
@@ -382,6 +388,7 @@ function TerraformPlanWidget(
                   data={formik.values}
                   onHide={() => setShowModal(false)}
                   isReadonly={props.readonly}
+                  allowableTypes={allowableTypes}
                 />
               </Dialog>
             )}
@@ -505,13 +512,25 @@ export class TerraformPlan extends PipelineStep<TFPlanFormData> {
   }
 
   renderStep(props: StepProps<TFPlanFormData, TerraformPlanVariableStepProps>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, customStepProps, formikRef, isNewStep } = props
+    const {
+      initialValues,
+      onUpdate,
+      onChange,
+      allowableTypes,
+      stepViewType,
+      inputSetData,
+      customStepProps,
+      formikRef,
+      isNewStep
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <TerraformInputStep
           initialValues={this.getInitialValues(initialValues)}
           onUpdate={data => onUpdate?.(this.processFormData(data))}
+          onChange={data => onChange?.(this.processFormData(data))}
+          allowableTypes={allowableTypes}
           stepViewType={stepViewType}
           readonly={inputSetData?.readonly}
           inputSetData={inputSetData}
@@ -531,6 +550,8 @@ export class TerraformPlan extends PipelineStep<TFPlanFormData> {
       <TerraformPlanWidgetWithRef
         initialValues={this.getInitialValues(initialValues)}
         onUpdate={data => onUpdate?.(this.processFormData(data))}
+        onChange={data => onChange?.(this.processFormData(data))}
+        allowableTypes={allowableTypes}
         isNewStep={isNewStep}
         stepViewType={stepViewType}
         ref={formikRef}

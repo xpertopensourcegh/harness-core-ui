@@ -16,7 +16,7 @@ import {
   getMultiTypeFromValue,
   FormikForm
 } from '@wings-software/uicore'
-import { setFormikRef, StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
+import { setFormikRef, StepFormikFowardRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { String, useStrings } from 'framework/strings'
 import {
   FormMultiTypeDurationField,
@@ -30,7 +30,6 @@ import {
   useGetJiraProjects,
   useGetJiraIssueCreateMetadata
 } from 'services/cd-ng'
-import { NameSchema } from '@common/utils/Validation'
 import type {
   AccountPathProps,
   GitQueryParams,
@@ -60,6 +59,7 @@ import {
   getSelectedFieldsToBeAddedInForm
 } from './helper'
 import { JiraFieldsRenderer } from './JiraFieldsRenderer'
+import { getNameAndIdentifierSchema } from '../StepsValidateUtils'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './JiraCreate.module.scss'
 
@@ -74,8 +74,10 @@ const FormContent = ({
   fetchingProjects,
   fetchingProjectMetadata,
   isNewStep,
+  allowableTypes,
+  stepViewType,
   readonly
-}: JiraCreateFormContentInterface) => {
+}: JiraCreateFormContentInterface): JSX.Element => {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   const { accountId, projectIdentifier, orgIdentifier } =
@@ -243,13 +245,16 @@ const FormContent = ({
 
   return (
     <React.Fragment>
-      <div className={cx(stepCss.formGroup, stepCss.lg)}>
-        <FormInput.InputWithIdentifier
-          inputLabel={getString('name')}
-          isIdentifierEditable={isNewStep}
-          inputGroupProps={{ disabled: isApprovalStepFieldDisabled(readonly) }}
-        />
-      </div>
+      {stepViewType !== StepViewType.Template && (
+        <div className={cx(stepCss.formGroup, stepCss.lg)}>
+          <FormInput.InputWithIdentifier
+            inputLabel={getString('name')}
+            isIdentifierEditable={isNewStep}
+            inputGroupProps={{ disabled: isApprovalStepFieldDisabled(readonly) }}
+          />
+        </div>
+      )}
+
       <div className={cx(stepCss.formGroup, stepCss.sm)}>
         <FormMultiTypeDurationField
           name="timeout"
@@ -257,6 +262,7 @@ const FormContent = ({
           disabled={isApprovalStepFieldDisabled(readonly)}
           multiTypeDurationProps={{
             expressions,
+            allowableTypes,
             enableConfigureOptions: false
           }}
         />
@@ -286,7 +292,7 @@ const FormContent = ({
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
-          multiTypeProps={{ expressions }}
+          multiTypeProps={{ expressions, allowableTypes }}
           type="Jira"
           enableConfigureOptions={false}
           selected={formik?.values?.spec.connectorRef as string}
@@ -335,6 +341,7 @@ const FormContent = ({
           disabled={isApprovalStepFieldDisabled(readonly, fetchingProjects)}
           multiTypeInputProps={{
             expressions,
+            allowableTypes,
             onChange: (value: unknown) => {
               // Clear dependent fields
               if ((value as JiraProjectSelectOption)?.key !== projectKeyFixedValue) {
@@ -376,6 +383,7 @@ const FormContent = ({
           disabled={isApprovalStepFieldDisabled(readonly, fetchingProjectMetadata)}
           multiTypeInputProps={{
             expressions,
+            allowableTypes,
             onChange: (value: unknown) => {
               // Clear dependent fields
               if ((value as JiraProjectSelectOption)?.key !== issueTypeFixedValue) {
@@ -403,7 +411,8 @@ const FormContent = ({
           name="spec.summary"
           placeholder={getString('pipeline.jiraCreateStep.summaryPlaceholder')}
           multiTextInputProps={{
-            expressions
+            expressions,
+            allowableTypes
           }}
           disabled={isApprovalStepFieldDisabled(readonly)}
         />
@@ -434,7 +443,7 @@ const FormContent = ({
                   name="spec.description"
                   label={getString('description')}
                   className={cx(css.descriptionField)}
-                  multiTypeTextArea={{ enableConfigureOptions: false, expressions }}
+                  multiTypeTextArea={{ enableConfigureOptions: false, expressions, allowableTypes }}
                   placeholder={getString('common.descriptionPlaceholder')}
                   disabled={isApprovalStepFieldDisabled(readonly)}
                 />
@@ -517,7 +526,7 @@ const FormContent = ({
 }
 
 function JiraCreateStepMode(props: JiraCreateStepModeProps, formikRef: StepFormikFowardRef<JiraCreateData>) {
-  const { onUpdate, isNewStep, readonly } = props
+  const { onUpdate, isNewStep, readonly, onChange, stepViewType, allowableTypes } = props
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } =
     useParams<PipelineType<PipelinePathProps & AccountPathProps & GitQueryParams>>()
@@ -565,8 +574,11 @@ function JiraCreateStepMode(props: JiraCreateStepModeProps, formikRef: StepFormi
       formName="jiraCreate"
       initialValues={props.initialValues}
       enableReinitialize={true}
+      validate={data => {
+        onChange?.(data)
+      }}
       validationSchema={Yup.object().shape({
-        name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
+        ...getNameAndIdentifierSchema(getString, stepViewType),
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
         spec: Yup.object().shape({
           connectorRef: Yup.string().required(getString('pipeline.jiraApprovalStep.validations.connectorRef')),
@@ -582,6 +594,8 @@ function JiraCreateStepMode(props: JiraCreateStepModeProps, formikRef: StepFormi
           <FormikForm>
             <FormContent
               formik={formik}
+              allowableTypes={allowableTypes}
+              stepViewType={stepViewType}
               refetchProjects={refetchProjects}
               refetchProjectMetadata={refetchProjectMetadata}
               fetchingProjects={fetchingProjects}

@@ -3,7 +3,7 @@ import cx from 'classnames'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
 import { cloneDeep, debounce, noop } from 'lodash-es'
-import { Accordion, Card, Container, FormikForm, Layout } from '@wings-software/uicore'
+import { Accordion, Card, Container, FormikForm, Layout, MultiTypeInputType } from '@wings-software/uicore'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { NameIdDescriptionTags } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import { useStrings } from 'framework/strings'
@@ -120,6 +120,11 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
                         []) as AllNGVariables[],
                       canAddVariable: true
                     }}
+                    allowableTypes={[
+                      MultiTypeInputType.FIXED,
+                      MultiTypeInputType.RUNTIME,
+                      MultiTypeInputType.EXPRESSION
+                    ]}
                     type={StepType.CustomVariable}
                     stepViewType={StepViewType.StageVariable}
                     onUpdate={({ variables }: CustomVariablesData) => {

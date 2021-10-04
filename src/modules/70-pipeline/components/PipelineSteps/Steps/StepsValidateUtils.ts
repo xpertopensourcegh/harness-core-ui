@@ -9,7 +9,13 @@ import type { ExecutionWrapperConfig, StepElementConfig } from 'services/cd-ng'
 import type { StringKeys } from 'framework/strings'
 import { regexIdentifier } from '@common/utils/StringUtils'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
-import { IdentifierSchemaWithoutHook, NameSchemaWithoutHook } from '@common/utils/Validation'
+import {
+  IdentifierSchema,
+  IdentifierSchemaWithoutHook,
+  NameSchema,
+  NameSchemaWithoutHook
+} from '@common/utils/Validation'
+import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 
 export enum Types {
   Text,
@@ -435,4 +441,16 @@ export function validateInputSet(
   })
 
   return validate(values, configWithActiveState, dependencies)
+}
+
+export function getNameAndIdentifierSchema(
+  getString: UseStringsReturn['getString'],
+  stepViewType?: StepViewType
+): { [key: string]: yup.Schema<string | undefined> } {
+  return stepViewType !== StepViewType.Template
+    ? {
+        name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
+        identifier: IdentifierSchema()
+      }
+    : {}
 }

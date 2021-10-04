@@ -1,5 +1,5 @@
 import React from 'react'
-import { NestedAccordionPanel } from '@wings-software/uicore'
+import { MultiTypeInputType, NestedAccordionPanel } from '@wings-software/uicore'
 import cx from 'classnames'
 import { isEmpty, lowerCase } from 'lodash-es'
 import type { PipelineInfrastructure, Infrastructure, ExecutionElementConfig } from 'services/cd-ng'
@@ -63,6 +63,7 @@ export function InfrastructureCard(props: InfrastructureCardProps): React.ReactE
         initialValues={originalInfrastructure.infrastructureDefinition?.spec || {}}
         type={originalInfrastructure.infrastructureDefinition?.type as StepType}
         stepViewType={StepViewType.InputVariable}
+        allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
         onUpdate={onUpdateInfrastructure}
         readonly={readonly}
         customStepProps={{

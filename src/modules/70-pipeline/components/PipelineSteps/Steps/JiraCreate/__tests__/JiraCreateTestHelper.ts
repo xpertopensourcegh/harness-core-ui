@@ -1,4 +1,4 @@
-import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
+import { MultiTypeInputType, RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
@@ -24,7 +24,9 @@ export const getJiraCreateEditModeProps = (): JiraCreateStepModeProps => ({
       fields: []
     }
   },
-  onUpdate: jest.fn()
+  onUpdate: jest.fn(),
+  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION],
+  stepViewType: StepViewType.Edit
 })
 
 export const getJiraCreateEditModePropsWithValues = (): JiraCreateStepModeProps => ({
@@ -46,7 +48,9 @@ export const getJiraCreateEditModePropsWithValues = (): JiraCreateStepModeProps 
       ]
     }
   },
-  onUpdate: jest.fn()
+  onUpdate: jest.fn(),
+  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION],
+  stepViewType: StepViewType.Edit
 })
 
 export const getJiraCreateDeploymentModeProps = (): JiraCreateDeploymentModeProps => ({
@@ -94,7 +98,8 @@ export const getJiraCreateDeploymentModeProps = (): JiraCreateDeploymentModeProp
       }
     }
   },
-  onUpdate: jest.fn()
+  onUpdate: jest.fn(),
+  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
 })
 
 export const getJiraCreateInputVariableModeProps = () => ({

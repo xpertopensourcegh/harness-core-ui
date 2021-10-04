@@ -1,4 +1,4 @@
-import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
+import { MultiTypeInputType, RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
@@ -27,7 +27,9 @@ export const getJiraApprovalEditModeProps = (): JiraApprovalStepModeProps => ({
       rejectionCriteria: getDefaultCriterias()
     }
   },
-  onUpdate: jest.fn()
+  onUpdate: jest.fn(),
+  stepViewType: StepViewType.Edit,
+  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]
 })
 
 export const getJiraApprovalEditModePropsWithValues = (): JiraApprovalStepModeProps => ({
@@ -67,7 +69,10 @@ export const getJiraApprovalEditModePropsWithValues = (): JiraApprovalStepModePr
       }
     }
   },
-  onUpdate: jest.fn()
+  onUpdate: jest.fn(),
+  onChange: jest.fn(),
+  stepViewType: StepViewType.Edit,
+  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]
 })
 
 export const getJiraApprovalDeploymentModeProps = (): JiraApprovalDeploymentModeProps => ({
@@ -101,7 +106,8 @@ export const getJiraApprovalDeploymentModeProps = (): JiraApprovalDeploymentMode
       }
     }
   },
-  onUpdate: jest.fn()
+  onUpdate: jest.fn(),
+  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]
 })
 
 export const getJiraApprovalInputVariableModeProps = () => ({

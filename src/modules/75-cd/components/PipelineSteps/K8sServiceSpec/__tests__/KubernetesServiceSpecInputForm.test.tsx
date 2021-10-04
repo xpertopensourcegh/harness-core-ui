@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, act, waitFor, fireEvent } from '@testing-library/react'
-import { Formik, RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
+import { Formik, MultiTypeInputType, RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import type { AllNGVariables } from '@pipeline/utils/types'
@@ -97,6 +97,7 @@ describe('DOCKER', () => {
       <TestWrapper>
         <StepWidget<K8SDirectServiceStep>
           factory={factory}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
           initialValues={{}}
           type={StepType.K8sServiceSpec}
           stepViewType={StepViewType.InputSet}
@@ -130,6 +131,7 @@ describe('DOCKER', () => {
       <TestWrapper>
         <StepWidget<K8SDirectServiceStep>
           factory={factory}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
           initialValues={{}}
           type={StepType.K8sServiceSpec}
           stepViewType={StepViewType.InputSet}
@@ -164,6 +166,7 @@ describe('DOCKER', () => {
       <TestWrapper>
         <StepWidget<K8SDirectServiceStep>
           factory={factory}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
           initialValues={{}}
           type={StepType.K8sServiceSpec}
           stepViewType={StepViewType.InputSet}
@@ -220,6 +223,7 @@ describe('ECR', () => {
       <TestWrapper>
         <StepWidget<K8SDirectServiceStep>
           factory={factory}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
           initialValues={{}}
           type={StepType.K8sServiceSpec}
           stepViewType={StepViewType.InputSet}
@@ -253,6 +257,7 @@ describe('ECR', () => {
       <TestWrapper>
         <StepWidget<K8SDirectServiceStep>
           factory={factory}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
           initialValues={{}}
           type={StepType.K8sServiceSpec}
           stepViewType={StepViewType.InputSet}
@@ -287,6 +292,7 @@ describe('ECR', () => {
       <TestWrapper>
         <StepWidget<K8SDirectServiceStep>
           factory={factory}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
           initialValues={{}}
           type={StepType.K8sServiceSpec}
           stepViewType={StepViewType.InputSet}
@@ -342,6 +348,7 @@ describe('GCR', () => {
       <TestWrapper>
         <StepWidget<K8SDirectServiceStep>
           factory={factory}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
           initialValues={{}}
           type={StepType.K8sServiceSpec}
           stepViewType={StepViewType.InputSet}
@@ -375,6 +382,7 @@ describe('GCR', () => {
       <TestWrapper>
         <StepWidget<K8SDirectServiceStep>
           factory={factory}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
           initialValues={{}}
           type={StepType.K8sServiceSpec}
           stepViewType={StepViewType.InputSet}
@@ -409,6 +417,7 @@ describe('GCR', () => {
       <TestWrapper>
         <StepWidget<K8SDirectServiceStep>
           factory={factory}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
           initialValues={{}}
           type={StepType.K8sServiceSpec}
           stepViewType={StepViewType.InputSet}
@@ -470,6 +479,7 @@ describe('VARIABLES', () => {
             <TestWrapper>
               <StepWidget<K8SDirectServiceStep>
                 factory={factory}
+                allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
                 initialValues={{}}
                 type={StepType.K8sServiceSpec}
                 stepViewType={StepViewType.InputSet}
@@ -518,6 +528,7 @@ describe('MANIFEST', () => {
       <TestWrapper>
         <StepWidget<K8SDirectServiceStep>
           factory={factory}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
           initialValues={{}}
           type={StepType.K8sServiceSpec}
           stepViewType={StepViewType.InputSet}
@@ -1021,6 +1032,7 @@ describe('INPUT VARIABLE VIEW', () => {
       <TestWrapper>
         <StepWidget<K8SDirectServiceStep>
           factory={factory}
+          allowableTypes={[]}
           customStepProps={{
             variablesData: {
               artifacts: {

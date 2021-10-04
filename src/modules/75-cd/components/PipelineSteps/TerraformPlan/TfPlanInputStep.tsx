@@ -22,7 +22,7 @@ import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export default function TfPlanInputStep(props: TerraformPlanProps): React.ReactElement {
   const { getString } = useStrings()
-  const { inputSetData, readonly, initialValues } = props
+  const { inputSetData, readonly, initialValues, allowableTypes } = props
   const { expressions } = useVariablesExpression()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -40,7 +40,7 @@ export default function TfPlanInputStep(props: TerraformPlanProps): React.ReactE
             disabled={readonly}
             multiTextInputProps={{
               expressions,
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+              allowableTypes
             }}
           />
         </div>
@@ -53,7 +53,7 @@ export default function TfPlanInputStep(props: TerraformPlanProps): React.ReactE
             disabled={readonly}
             multiTypeDurationProps={{
               enableConfigureOptions: false,
-              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+              allowableTypes,
               expressions,
               disabled: readonly
             }}
@@ -71,7 +71,7 @@ export default function TfPlanInputStep(props: TerraformPlanProps): React.ReactE
             projectIdentifier={projectIdentifier}
             orgIdentifier={orgIdentifier}
             width={445}
-            multiTypeProps={{ allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED], expressions }}
+            multiTypeProps={{ allowableTypes, expressions }}
             category={'SECRET_MANAGER'}
             name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.configuration.secretManagerRef`}
             placeholder={getString('select')}
@@ -97,7 +97,7 @@ export default function TfPlanInputStep(props: TerraformPlanProps): React.ReactE
             disabled={readonly}
             multiTextInputProps={{
               expressions,
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+              allowableTypes
             }}
           />
         </div>

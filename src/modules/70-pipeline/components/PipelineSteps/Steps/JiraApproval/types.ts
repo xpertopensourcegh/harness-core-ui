@@ -1,6 +1,6 @@
 import type { FormikErrors, FormikProps } from 'formik'
 import type { GetDataError } from 'restful-react'
-import type { MultiSelectOption, SelectOption } from '@wings-software/uicore'
+import type { MultiSelectOption, MultiTypeInputType, SelectOption } from '@wings-software/uicore'
 import type { InputSetData, StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type {
   Failure,
@@ -56,14 +56,18 @@ export interface JiraApprovalVariableListModeProps {
 export interface JiraApprovalDeploymentModeProps {
   stepViewType: StepViewType
   initialValues: JiraApprovalData
+  allowableTypes: MultiTypeInputType[]
   onUpdate?: (data: JiraApprovalData) => void
   inputSetData?: InputSetData<JiraApprovalData>
+  formik?: any
 }
 
 export interface JiraApprovalStepModeProps {
-  stepViewType?: StepViewType
+  stepViewType: StepViewType
   initialValues: JiraApprovalData
+  allowableTypes: MultiTypeInputType[]
   onUpdate?: (data: JiraApprovalData) => void
+  onChange?: (data: JiraApprovalData) => void
   isNewStep?: boolean
   readonly?: boolean
 }
@@ -98,6 +102,8 @@ export interface JiraFormContentInterface {
   refetchProjects: (props: UseGetJiraProjectsProps) => Promise<void>
   refetchProjectMetadata: (props: UseGetJiraIssueCreateMetadataProps) => Promise<void>
   fetchingProjects: boolean
+  stepViewType: StepViewType
+  allowableTypes: MultiTypeInputType[]
   fetchingProjectMetadata: boolean
   projectsResponse: ResponseListJiraProjectBasicNG | null
   projectMetaResponse: ResponseJiraIssueCreateMetadataNG | null

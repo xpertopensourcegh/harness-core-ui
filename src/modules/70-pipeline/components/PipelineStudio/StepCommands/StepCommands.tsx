@@ -215,6 +215,7 @@ export function StepCommands(
                 step={step}
                 isReadonly={isReadonly}
                 stepsFactory={stepsFactory}
+                allowableTypes={allowableTypes}
                 onChange={onChange}
                 onUpdate={onUpdate}
                 hiddenPanels={hiddenPanels}

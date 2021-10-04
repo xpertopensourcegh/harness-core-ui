@@ -1,7 +1,7 @@
 import React from 'react'
 import * as Yup from 'yup'
 import { isEmpty } from 'lodash-es'
-import { FormikErrors, yupToFormErrors } from 'formik'
+import { connect, FormikErrors, yupToFormErrors } from 'formik'
 import { getMultiTypeFromValue, IconName, MultiTypeInputType } from '@wings-software/uicore'
 import { StepProps, StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
@@ -15,6 +15,7 @@ import { processFormData, processInitialValues } from './helper'
 import JiraCreateStepModeWithRef from './JiraCreateStepMode'
 import JiraCreateDeploymentMode from './JiraCreateDeploymentMode'
 
+const JiraCreateDeploymentModeWithFormik = connect(JiraCreateDeploymentMode)
 export class JiraCreate extends PipelineStep<JiraCreateData> {
   constructor() {
     super()
@@ -125,14 +126,25 @@ export class JiraCreate extends PipelineStep<JiraCreateData> {
   }
 
   renderStep(this: JiraCreate, props: StepProps<JiraCreateData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep, readonly } =
-      props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep,
+      readonly,
+      allowableTypes,
+      onChange
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
-        <JiraCreateDeploymentMode
+        <JiraCreateDeploymentModeWithFormik
           stepViewType={stepViewType}
           initialValues={initialValues}
+          allowableTypes={allowableTypes}
           onUpdate={(values: JiraCreateData) => onUpdate?.(values)}
           inputSetData={inputSetData}
         />
@@ -150,7 +162,9 @@ export class JiraCreate extends PipelineStep<JiraCreateData> {
     return (
       <JiraCreateStepModeWithRef
         ref={formikRef}
-        stepViewType={stepViewType}
+        stepViewType={stepViewType || StepViewType.Edit}
+        allowableTypes={allowableTypes}
+        onChange={onChange}
         initialValues={processInitialValues(initialValues)}
         onUpdate={(values: JiraCreateData) => onUpdate?.(values)}
         isNewStep={isNewStep}

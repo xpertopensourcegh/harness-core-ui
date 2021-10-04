@@ -58,6 +58,7 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
       initialValues,
       onUpdate,
       onChange,
+      allowableTypes,
       stepViewType,
       inputSetData,
       formikRef,
@@ -75,6 +76,7 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
           readonly={!!inputSetData?.readonly}
           template={inputSetData?.template}
           path={inputSetData?.path || ''}
+          allowableTypes={allowableTypes}
         />
       )
     }
@@ -93,6 +95,7 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
         initialValues={this.getInitialValues(initialValues)}
         onUpdate={data => onUpdate?.(this.processFormData(data))}
         onChange={data => onChange?.(this.processFormData(data))}
+        allowableTypes={allowableTypes}
         stepViewType={stepViewType}
         isNewStep={isNewStep}
         readonly={readonly}

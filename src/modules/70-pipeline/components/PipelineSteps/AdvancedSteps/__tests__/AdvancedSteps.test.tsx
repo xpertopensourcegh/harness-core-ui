@@ -1,6 +1,7 @@
 import React from 'react'
 import { render, act } from '@testing-library/react'
 
+import { MultiTypeInputType } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 import type { StepFormikRef } from '@pipeline/components/AbstractSteps/Step'
 
@@ -28,6 +29,7 @@ describe('<AdvancedSteps /> tests', () => {
           isStepGroup={false}
           isReadonly={false}
           step={{} as any}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
           stepsFactory={{ getStep: jest.fn(() => ({ hasDelegateSelectionVisible: true })) } as any}
           onChange={jest.fn()}
         />
@@ -47,6 +49,7 @@ describe('<AdvancedSteps /> tests', () => {
           isStepGroup={false}
           step={{} as any}
           isReadonly={false}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
           stepsFactory={{ getStep: jest.fn() } as any}
           ref={ref}
           onChange={onSubmit}

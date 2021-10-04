@@ -1,6 +1,15 @@
 import React, { useEffect } from 'react'
 import * as yup from 'yup'
-import { Formik, FormikForm, Switch, Text, Card, Accordion, HarnessDocTooltip } from '@wings-software/uicore'
+import {
+  Formik,
+  FormikForm,
+  Switch,
+  Text,
+  Card,
+  Accordion,
+  HarnessDocTooltip,
+  MultiTypeInputType
+} from '@wings-software/uicore'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { isEqual, debounce, cloneDeep, defaultTo, uniqBy } from 'lodash-es'
 import cx from 'classnames'
@@ -286,6 +295,11 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
                                 variables: ((stage?.stage as StageElementConfig)?.variables || []) as AllNGVariables[],
                                 canAddVariable: true
                               }}
+                              allowableTypes={[
+                                MultiTypeInputType.FIXED,
+                                MultiTypeInputType.RUNTIME,
+                                MultiTypeInputType.EXPRESSION
+                              ]}
                               type={StepType.CustomVariable}
                               stepViewType={StepViewType.StageVariable}
                               onUpdate={({ variables }: CustomVariablesData) => {

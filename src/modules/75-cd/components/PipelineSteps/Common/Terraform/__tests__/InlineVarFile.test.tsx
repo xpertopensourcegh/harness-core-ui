@@ -2,6 +2,7 @@ import React from 'react'
 
 import { render, waitFor, getByText as getByTextBody } from '@testing-library/react'
 
+import { MultiTypeInputType } from '@wings-software/uicore'
 import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
 import InlineVarFile from '../Editview/InlineVarFile'
 
@@ -15,7 +16,8 @@ const props = {
   showTfModal: true,
   selectedVar: {},
   onClose: jest.fn(),
-  onSubmit: jest.fn()
+  onSubmit: jest.fn(),
+  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION, MultiTypeInputType.RUNTIME]
 }
 
 jest.mock('react-monaco-editor', () => ({ value, onChange, name }: any) => {
@@ -53,7 +55,8 @@ describe('Inline var file testing', () => {
         }
       },
       onClose: jest.fn(),
-      onSubmit: jest.fn()
+      onSubmit: jest.fn(),
+      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION, MultiTypeInputType.RUNTIME]
     }
     render(
       <TestWrapper>
@@ -84,7 +87,8 @@ describe('Inline var file testing', () => {
         }
       },
       onClose: jest.fn(),
-      onSubmit: jest.fn()
+      onSubmit: jest.fn(),
+      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION, MultiTypeInputType.RUNTIME]
     }
     render(
       <TestWrapper>
@@ -115,7 +119,8 @@ describe('Inline var file testing', () => {
         }
       },
       onClose: jest.fn(),
-      onSubmit: jest.fn()
+      onSubmit: jest.fn(),
+      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION, MultiTypeInputType.RUNTIME]
     }
     render(
       <TestWrapper>

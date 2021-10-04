@@ -11,7 +11,7 @@ import {
   getMultiTypeFromValue,
   FormikForm
 } from '@wings-software/uicore'
-import { setFormikRef, StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
+import { setFormikRef, StepFormikFowardRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/strings'
 import {
   FormMultiTypeDurationField,
@@ -60,7 +60,9 @@ const FormContent = ({
   fetchingProjects,
   fetchingProjectMetadata,
   isNewStep,
-  readonly
+  readonly,
+  allowableTypes,
+  stepViewType
 }: JiraFormContentInterface) => {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
@@ -167,13 +169,16 @@ const FormContent = ({
 
   return (
     <React.Fragment>
-      <div className={cx(stepCss.formGroup, stepCss.lg)}>
-        <FormInput.InputWithIdentifier
-          inputLabel={getString('name')}
-          isIdentifierEditable={isNewStep}
-          inputGroupProps={{ disabled: isApprovalStepFieldDisabled(readonly) }}
-        />
-      </div>
+      {stepViewType !== StepViewType.InputSet && (
+        <div className={cx(stepCss.formGroup, stepCss.lg)}>
+          <FormInput.InputWithIdentifier
+            inputLabel={getString('name')}
+            isIdentifierEditable={isNewStep}
+            inputGroupProps={{ disabled: isApprovalStepFieldDisabled(readonly) }}
+          />
+        </div>
+      )}
+
       <div className={cx(stepCss.formGroup, stepCss.sm)}>
         <FormMultiTypeDurationField
           name="timeout"
@@ -181,7 +186,8 @@ const FormContent = ({
           disabled={isApprovalStepFieldDisabled(readonly)}
           multiTypeDurationProps={{
             expressions,
-            enableConfigureOptions: false
+            enableConfigureOptions: false,
+            allowableTypes
           }}
         />
         {getMultiTypeFromValue(formik.values.timeout) === MultiTypeInputType.RUNTIME && (
@@ -211,7 +217,7 @@ const FormContent = ({
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
-          multiTypeProps={{ expressions }}
+          multiTypeProps={{ expressions, allowableTypes }}
           type="Jira"
           enableConfigureOptions={false}
           selected={formik?.values?.spec.connectorRef as string}
@@ -330,7 +336,8 @@ const FormContent = ({
           placeholder={getString('pipeline.jiraApprovalStep.issueKeyPlaceholder')}
           disabled={isApprovalStepFieldDisabled(readonly)}
           multiTextInputProps={{
-            expressions
+            expressions,
+            allowableTypes
           }}
         />
         {getMultiTypeFromValue(formik.values.spec.issueKey) === MultiTypeInputType.RUNTIME && (
@@ -388,7 +395,7 @@ functional component as this component doesn't need a state of it's own.
 everything is governed from the parent
 */
 function JiraApprovalStepMode(props: JiraApprovalStepModeProps, formikRef: StepFormikFowardRef<JiraApprovalData>) {
-  const { onUpdate, readonly, isNewStep } = props
+  const { onUpdate, readonly, isNewStep, allowableTypes, stepViewType, onChange } = props
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } =
     useParams<PipelineType<PipelinePathProps & AccountPathProps & GitQueryParams>>()
@@ -435,6 +442,9 @@ function JiraApprovalStepMode(props: JiraApprovalStepModeProps, formikRef: StepF
       formName="jiraApproval"
       initialValues={props.initialValues}
       enableReinitialize={true}
+      validate={data => {
+        onChange?.(data)
+      }}
       validationSchema={Yup.object().shape({
         name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
@@ -463,6 +473,8 @@ function JiraApprovalStepMode(props: JiraApprovalStepModeProps, formikRef: StepF
           <FormikForm>
             <FormContent
               formik={formik}
+              allowableTypes={allowableTypes}
+              stepViewType={stepViewType}
               refetchProjects={refetchProjects}
               refetchProjectMetadata={refetchProjectMetadata}
               fetchingProjects={fetchingProjects}

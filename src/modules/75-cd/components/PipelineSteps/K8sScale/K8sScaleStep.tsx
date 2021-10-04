@@ -11,7 +11,7 @@ import {
 import cx from 'classnames'
 import * as Yup from 'yup'
 import { FormikErrors, FormikProps, yupToFormErrors } from 'formik'
-import { get, has, isEmpty } from 'lodash-es'
+import { defaultTo, get, has, isEmpty } from 'lodash-es'
 import { StepViewType, StepProps, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
@@ -20,7 +20,7 @@ import type { CountInstanceSelection, K8sScaleStepInfo, StepElementConfig } from
 
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
-import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
+import { getNameAndIdentifierSchema } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import { FormInstanceDropdown, FormMultiTypeCheckboxField } from '@common/components'
 import { InstanceTypes } from '@common/constants/InstanceTypes'
 import {
@@ -57,6 +57,8 @@ export interface K8sScaleVariableStepProps {
 interface K8sScaleProps {
   initialValues: K8sScaleData
   onUpdate?: (data: K8sScaleData) => void
+  onChange?: (data: K8sScaleData) => void
+  allowableTypes: MultiTypeInputType[]
   stepViewType?: StepViewType
   isNewStep?: boolean
   template?: K8sScaleData
@@ -65,7 +67,7 @@ interface K8sScaleProps {
 }
 
 function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRef<K8sScaleData>): React.ReactElement {
-  const { initialValues, onUpdate, isNewStep = true, readonly } = props
+  const { initialValues, onUpdate, isNewStep = true, readonly, allowableTypes, stepViewType, onChange } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   return (
@@ -74,18 +76,20 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
         onSubmit={(values: K8sScaleData) => {
           onUpdate?.(values)
         }}
+        validate={(values: K8sScaleData) => {
+          onChange?.(values)
+        }}
         formName="k8Scale"
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
-          name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
+          ...getNameAndIdentifierSchema(getString, stepViewType),
           timeout: getDurationValidationSchema({ minimum: '10s' }).required(
             getString('validation.timeout10SecMinimum')
           ),
           spec: Yup.object().shape({
             instanceSelection: getInstanceDropdownSchema({ required: true }, getString),
             workload: Yup.string().required(getString('cd.workloadRequired'))
-          }),
-          identifier: IdentifierSchema()
+          })
         })}
       >
         {(formik: FormikProps<K8sScaleData>) => {
@@ -94,20 +98,27 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
           return (
             <>
               <>
-                <div className={cx(stepCss.formGroup, stepCss.lg)}>
-                  <FormInput.InputWithIdentifier
-                    inputLabel={getString('name')}
-                    isIdentifierEditable={isNewStep}
-                    inputGroupProps={{ disabled: readonly }}
-                  />
-                </div>
+                {stepViewType === StepViewType.InputSet ? null : (
+                  <div className={cx(stepCss.formGroup, stepCss.lg)}>
+                    <FormInput.InputWithIdentifier
+                      inputLabel={getString('name')}
+                      isIdentifierEditable={isNewStep}
+                      inputGroupProps={{ disabled: readonly }}
+                    />
+                  </div>
+                )}
                 <div className={cx(stepCss.formGroup, stepCss.sm)}>
                   <FormMultiTypeDurationField
                     name="timeout"
                     label={getString('pipelineSteps.timeoutLabel')}
                     className={stepCss.duration}
                     disabled={readonly}
-                    multiTypeDurationProps={{ expressions, enableConfigureOptions: false, disabled: readonly }}
+                    multiTypeDurationProps={{
+                      expressions,
+                      enableConfigureOptions: false,
+                      disabled: readonly,
+                      allowableTypes
+                    }}
                   />
                   {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions
@@ -132,6 +143,7 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                     label={getString('common.instanceLabel')}
                     readonly={readonly}
                     expressions={expressions}
+                    allowableTypes={allowableTypes}
                   />
                   {(getMultiTypeFromValue(
                     (values?.spec?.instanceSelection?.spec as CountInstanceSelection | undefined)?.count as any
@@ -164,7 +176,7 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                     label={getString('pipelineSteps.workload')}
                     name={'spec.workload'}
                     disabled={readonly}
-                    multiTextInputProps={{ expressions, disabled: readonly }}
+                    multiTextInputProps={{ expressions, disabled: readonly, allowableTypes }}
                   />
                   {getMultiTypeFromValue(values.spec.workload) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions
@@ -186,7 +198,7 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                   <FormMultiTypeCheckboxField
                     name="spec.skipSteadyStateCheck"
                     label={getString('pipelineSteps.skipSteadyStateCheck')}
-                    multiTypeTextbox={{ expressions, disabled: readonly }}
+                    multiTypeTextbox={{ expressions, disabled: readonly, allowableTypes }}
                     disabled={readonly}
                   />
                 </div>
@@ -199,7 +211,7 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
   )
 }
 
-const K8ScaleInputStep: React.FC<K8sScaleProps> = ({ template, readonly, path }) => {
+const K8ScaleInputStep: React.FC<K8sScaleProps> = ({ template, readonly, path, allowableTypes }) => {
   const { getString } = useStrings()
   const prefix = isEmpty(path) ? '' : `${path}.`
   const { expressions } = useVariablesExpression()
@@ -214,7 +226,7 @@ const K8ScaleInputStep: React.FC<K8sScaleProps> = ({ template, readonly, path })
             multiTextInputProps={{
               expressions,
               disabled: readonly,
-              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+              allowableTypes
             }}
           />
         </div>
@@ -224,7 +236,7 @@ const K8ScaleInputStep: React.FC<K8sScaleProps> = ({ template, readonly, path })
           <FormMultiTypeDurationField
             multiTypeDurationProps={{
               enableConfigureOptions: false,
-              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+              allowableTypes,
               expressions,
               disabled: readonly
             }}
@@ -245,7 +257,7 @@ const K8ScaleInputStep: React.FC<K8sScaleProps> = ({ template, readonly, path })
             label={getString('common.instanceLabel')}
             name={`${prefix}spec.instanceSelection`}
             expressions={expressions}
-            allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
+            allowableTypes={allowableTypes}
             disabledType
             readonly={readonly}
           />
@@ -275,8 +287,18 @@ export class K8sScaleStep extends PipelineStep<K8sScaleData> {
     this._hasDelegateSelectionVisible = true
   }
   renderStep(props: StepProps<K8sScaleData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep, readonly } =
-      props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep,
+      readonly,
+      allowableTypes,
+      onChange
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -287,6 +309,7 @@ export class K8sScaleStep extends PipelineStep<K8sScaleData> {
           template={inputSetData?.template}
           readonly={inputSetData?.readonly}
           path={inputSetData?.path}
+          allowableTypes={allowableTypes}
         />
       )
     } else if (stepViewType === StepViewType.InputVariable) {
@@ -303,9 +326,11 @@ export class K8sScaleStep extends PipelineStep<K8sScaleData> {
         initialValues={initialValues}
         isNewStep={isNewStep}
         onUpdate={values => onUpdate?.(this.processFormData(values))}
-        stepViewType={stepViewType}
+        stepViewType={defaultTo(stepViewType, StepViewType.Edit)}
         ref={formikRef}
         readonly={readonly}
+        allowableTypes={allowableTypes}
+        onChange={onChange}
       />
     )
   }

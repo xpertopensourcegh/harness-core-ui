@@ -17,9 +17,8 @@ import {
   getMultiTypeFromValue,
   FormikForm
 } from '@wings-software/uicore'
-import { setFormikRef, StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
+import { setFormikRef, StepFormikFowardRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { String, useStrings } from 'framework/strings'
-import { NameSchema } from '@common/utils/Validation'
 import {
   FormMultiTypeDurationField,
   getDurationValidationSchema
@@ -45,6 +44,7 @@ import { JiraFieldsRenderer } from '../JiraCreate/JiraFieldsRenderer'
 import type { JiraUpdateFormContentInterface, JiraUpdateData, JiraUpdateStepModeProps } from './types'
 import { processFormData } from './helper'
 
+import { getNameAndIdentifierSchema } from '../StepsValidateUtils'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from '../JiraCreate/JiraCreate.module.scss'
 
@@ -56,8 +56,10 @@ const FormContent = ({
   fetchingStatuses,
   statusResponse,
   isNewStep,
-  readonly
-}: JiraUpdateFormContentInterface) => {
+  readonly,
+  allowableTypes,
+  stepViewType
+}: JiraUpdateFormContentInterface): JSX.Element => {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   const { accountId, projectIdentifier, orgIdentifier } =
@@ -188,13 +190,16 @@ const FormContent = ({
 
   return (
     <React.Fragment>
-      <div className={cx(stepCss.formGroup, stepCss.lg)}>
-        <FormInput.InputWithIdentifier
-          inputLabel={getString('name')}
-          isIdentifierEditable={isNewStep}
-          inputGroupProps={{ disabled: isApprovalStepFieldDisabled(readonly) }}
-        />
-      </div>
+      {stepViewType !== StepViewType.Template && (
+        <div className={cx(stepCss.formGroup, stepCss.lg)}>
+          <FormInput.InputWithIdentifier
+            inputLabel={getString('name')}
+            isIdentifierEditable={isNewStep}
+            inputGroupProps={{ disabled: isApprovalStepFieldDisabled(readonly) }}
+          />
+        </div>
+      )}
+
       <div className={cx(stepCss.formGroup, stepCss.sm)}>
         <FormMultiTypeDurationField
           name="timeout"
@@ -202,6 +207,7 @@ const FormContent = ({
           disabled={isApprovalStepFieldDisabled(readonly)}
           multiTypeDurationProps={{
             expressions,
+            allowableTypes,
             enableConfigureOptions: false
           }}
         />
@@ -230,7 +236,7 @@ const FormContent = ({
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
-          multiTypeProps={{ expressions }}
+          multiTypeProps={{ expressions, allowableTypes }}
           type="Jira"
           enableConfigureOptions={false}
           selected={formik?.values?.spec.connectorRef as string}
@@ -254,6 +260,7 @@ const FormContent = ({
         <FormInput.MultiTextInput
           label={getString('pipeline.jiraApprovalStep.issueKey')}
           name="spec.issueKey"
+          multiTextInputProps={{ expressions, allowableTypes }}
           placeholder={getString('pipeline.jiraApprovalStep.issueKeyPlaceholder')}
           disabled={isApprovalStepFieldDisabled(readonly)}
         />
@@ -288,7 +295,8 @@ const FormContent = ({
                       : getString('pipeline.jiraUpdateStep.selectStatus')
                   }
                   multiTypeInputProps={{
-                    expressions
+                    expressions,
+                    allowableTypes
                   }}
                   disabled={isApprovalStepFieldDisabled(readonly)}
                 />
@@ -311,7 +319,8 @@ const FormContent = ({
                   name="spec.transitionTo.transitionName"
                   placeholder={getString('pipeline.jiraUpdateStep.transitionPlaceholder')}
                   multiTextInputProps={{
-                    expressions
+                    expressions,
+                    allowableTypes
                   }}
                   disabled={isApprovalStepFieldDisabled(readonly)}
                 />
@@ -393,8 +402,11 @@ const FormContent = ({
   )
 }
 
-function JiraUpdateStepMode(props: JiraUpdateStepModeProps, formikRef: StepFormikFowardRef<JiraUpdateData>) {
-  const { onUpdate, isNewStep, readonly } = props
+function JiraUpdateStepMode(
+  props: JiraUpdateStepModeProps,
+  formikRef: StepFormikFowardRef<JiraUpdateData>
+): JSX.Element {
+  const { onUpdate, isNewStep, readonly, allowableTypes, onChange, stepViewType } = props
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } =
     useParams<PipelineType<PipelinePathProps & AccountPathProps & GitQueryParams>>()
@@ -439,8 +451,11 @@ function JiraUpdateStepMode(props: JiraUpdateStepModeProps, formikRef: StepFormi
       formName="jiraUpdate"
       initialValues={props.initialValues}
       enableReinitialize={true}
+      validate={data => {
+        onChange?.(data)
+      }}
       validationSchema={Yup.object().shape({
-        name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
+        ...getNameAndIdentifierSchema(getString, stepViewType),
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
         spec: Yup.object().shape({
           connectorRef: Yup.string().required(getString('pipeline.jiraApprovalStep.validations.connectorRef')),
@@ -460,6 +475,8 @@ function JiraUpdateStepMode(props: JiraUpdateStepModeProps, formikRef: StepFormi
           <FormikForm>
             <FormContent
               formik={formik}
+              allowableTypes={allowableTypes}
+              stepViewType={stepViewType}
               refetchProjects={refetchProjects}
               refetchStatuses={refetchStatuses}
               fetchingProjects={fetchingProjects}

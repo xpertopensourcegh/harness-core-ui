@@ -20,7 +20,7 @@ import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export default function TfVarFile(props: TerraformPlanProps): React.ReactElement {
   const { getString } = useStrings()
-  const { inputSetData, path } = props
+  const { inputSetData, path, allowableTypes } = props
 
   const { expressions } = useVariablesExpression()
 
@@ -44,7 +44,7 @@ export default function TfVarFile(props: TerraformPlanProps): React.ReactElement
                     label={getString('pipelineSteps.content')}
                     multiTextInputProps={{
                       expressions,
-                      allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+                      allowableTypes
                     }}
                   />
                 </div>
@@ -54,6 +54,7 @@ export default function TfVarFile(props: TerraformPlanProps): React.ReactElement
         } else if (varFile.varFile?.type === TerraformStoreTypes.Remote) {
           return <RemoteVarSection remoteVar={varFile} index={index} {...props} />
         }
+        return <></>
       })}
     </>
   )

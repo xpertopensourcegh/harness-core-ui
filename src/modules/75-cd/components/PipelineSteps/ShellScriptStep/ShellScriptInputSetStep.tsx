@@ -16,6 +16,8 @@ import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 export interface ShellScriptInputSetStepProps {
   initialValues: ShellScriptFormData
   onUpdate?: (data: ShellScriptFormData) => void
+  onChange?: (data: ShellScriptFormData) => void
+  allowableTypes: MultiTypeInputType[]
   stepViewType?: StepViewType
   readonly?: boolean
   template?: ShellScriptData
@@ -23,7 +25,7 @@ export interface ShellScriptInputSetStepProps {
 }
 
 export default function ShellScriptInputSetStep(props: ShellScriptInputSetStepProps): React.ReactElement {
-  const { template, path, readonly, initialValues } = props
+  const { template, path, readonly, initialValues, allowableTypes } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   const scriptType: ScriptType = get(initialValues, 'spec.shell') || 'Bash'
@@ -37,7 +39,7 @@ export default function ShellScriptInputSetStep(props: ShellScriptInputSetStepPr
             label={getString('script')}
             defaultValueToReset=""
             disabled={readonly}
-            allowedTypes={[MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]}
+            allowedTypes={allowableTypes}
             disableTypeSelection={readonly}
             skipRenderValueInExpressionLabel
             expressionRender={() => {
@@ -68,7 +70,7 @@ export default function ShellScriptInputSetStep(props: ShellScriptInputSetStepPr
             multiTextInputProps={{
               expressions,
               disabled: readonly,
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+              allowableTypes
             }}
             disabled={readonly}
             name={`${isEmpty(path) ? '' : `${path}.`}spec.executionTarget.host`}
@@ -81,7 +83,7 @@ export default function ShellScriptInputSetStep(props: ShellScriptInputSetStepPr
           <FormMultiTypeDurationField
             multiTypeDurationProps={{
               enableConfigureOptions: false,
-              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+              allowableTypes,
               expressions,
               disabled: readonly
             }}
@@ -97,7 +99,7 @@ export default function ShellScriptInputSetStep(props: ShellScriptInputSetStepPr
           <MultiTypeSecretInput
             type="SSHKey"
             expressions={expressions}
-            allowableTypes={[MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]}
+            allowableTypes={allowableTypes}
             name={`${isEmpty(path) ? '' : `${path}.`}spec.executionTarget.connectorRef`}
             label={getString('sshConnector')}
             disabled={readonly}
@@ -113,7 +115,7 @@ export default function ShellScriptInputSetStep(props: ShellScriptInputSetStepPr
             multiTextInputProps={{
               expressions,
               disabled: readonly,
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+              allowableTypes
             }}
             name={`${isEmpty(path) ? '' : `${path}.`}spec.executionTarget.workingDirectory`}
           />

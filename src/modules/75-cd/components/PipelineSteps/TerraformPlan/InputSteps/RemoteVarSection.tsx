@@ -22,7 +22,7 @@ export default function TFRemoteSection(
     index: number
   }
 ): React.ReactElement {
-  const { remoteVar, index } = props
+  const { remoteVar, index, allowableTypes } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
 
@@ -61,6 +61,7 @@ export default function TFRemoteSection(
             disabled={readonly}
             setRefValue
             gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
+            multiTypeProps={{ expressions, allowableTypes }}
           />
         </div>
       )}
@@ -72,7 +73,7 @@ export default function TFRemoteSection(
             label={getString('pipelineSteps.deploy.inputSet.branch')}
             multiTextInputProps={{
               expressions,
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+              allowableTypes
             }}
           />
         </div>
@@ -84,7 +85,7 @@ export default function TFRemoteSection(
             label={getString('pipeline.manifestType.commitId')}
             multiTextInputProps={{
               expressions,
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+              allowableTypes
             }}
           />
         </div>

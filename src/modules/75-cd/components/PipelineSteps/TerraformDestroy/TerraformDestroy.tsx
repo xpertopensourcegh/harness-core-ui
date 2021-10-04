@@ -126,7 +126,17 @@ export class TerraformDestroy extends PipelineStep<TFDestroyData> {
   }
 
   renderStep(props: StepProps<TFDestroyData, TerraformVariableStepProps>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep } = props
+    const {
+      initialValues,
+      onUpdate,
+      onChange,
+      allowableTypes,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -137,6 +147,7 @@ export class TerraformDestroy extends PipelineStep<TFDestroyData> {
           readonly={inputSetData?.readonly}
           inputSetData={inputSetData}
           path={inputSetData?.path}
+          allowableTypes={allowableTypes}
         />
       )
     } else if (stepViewType === StepViewType.InputVariable) {
@@ -152,6 +163,8 @@ export class TerraformDestroy extends PipelineStep<TFDestroyData> {
       <TerraformDestroyWidgetWithRef
         initialValues={this.getInitialValues(initialValues)}
         onUpdate={data => onUpdate?.(this.processFormData(data))}
+        onChange={data => onChange?.(this.processFormData(data))}
+        allowableTypes={allowableTypes}
         isNewStep={isNewStep}
         stepViewType={stepViewType}
         ref={formikRef}

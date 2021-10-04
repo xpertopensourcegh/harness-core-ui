@@ -1,13 +1,13 @@
 import React from 'react'
-import { Accordion, Formik } from '@wings-software/uicore'
+import { Accordion, Formik, MultiTypeInputType } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
 
-import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { setFormikRef, StepFormikFowardRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/strings'
 
+import { getNameAndIdentifierSchema } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import type { ShellScriptFormData } from './shellScriptTypes'
 import BaseShellScript from './BaseShellScript'
 import OptionalConfiguration from './OptionalConfiguration'
@@ -23,13 +23,22 @@ interface ShellScriptWidgetProps {
   initialValues: ShellScriptFormData
   onUpdate?: (data: ShellScriptFormData) => void
   onChange?: (data: ShellScriptFormData) => void
+  allowableTypes: MultiTypeInputType[]
   readonly?: boolean
   stepViewType?: StepViewType
   isNewStep?: boolean
 }
 
 export function ShellScriptWidget(
-  { initialValues, onUpdate, onChange, isNewStep = true, readonly, stepViewType }: ShellScriptWidgetProps,
+  {
+    initialValues,
+    onUpdate,
+    onChange,
+    allowableTypes,
+    isNewStep = true,
+    readonly,
+    stepViewType
+  }: ShellScriptWidgetProps,
   formikRef: StepFormikFowardRef
 ): JSX.Element {
   const { getString } = useStrings()
@@ -58,10 +67,7 @@ export function ShellScriptWidget(
         })
       )
     }),
-    ...(stepViewType !== StepViewType.Template && {
-      name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
-      identifier: IdentifierSchema()
-    })
+    ...getNameAndIdentifierSchema(getString, stepViewType)
   })
 
   const values: any = {
@@ -95,12 +101,18 @@ export function ShellScriptWidget(
 
         return (
           <React.Fragment>
-            <BaseShellScript isNewStep={isNewStep} stepViewType={stepViewType} formik={formik} readonly={readonly} />
+            <BaseShellScript
+              isNewStep={isNewStep}
+              stepViewType={stepViewType}
+              formik={formik}
+              readonly={readonly}
+              allowableTypes={allowableTypes}
+            />
             <Accordion className={stepCss.accordion}>
               <Accordion.Panel
                 id="optional-config"
                 summary={getString('common.optionalConfig')}
-                details={<OptionalConfiguration formik={formik} readonly={readonly} />}
+                details={<OptionalConfiguration formik={formik} readonly={readonly} allowableTypes={allowableTypes} />}
               />
             </Accordion>
           </React.Fragment>

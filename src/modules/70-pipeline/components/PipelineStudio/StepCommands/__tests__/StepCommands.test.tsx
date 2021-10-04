@@ -1,6 +1,7 @@
 import React from 'react'
 import { act, fireEvent, render } from '@testing-library/react'
 import type { IconName } from '@blueprintjs/core'
+import { MultiTypeInputType } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 import { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
@@ -45,6 +46,7 @@ describe('<StepCommands /> tests', () => {
               command: 'mvn clean compile war:war'
             }
           }}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
           onChange={jest.fn()}
           stepsFactory={stepFactory}
           isStepGroup={false}
@@ -69,6 +71,7 @@ describe('<StepCommands /> tests', () => {
               command: 'mvn clean compile war:war'
             }
           }}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
           onChange={jest.fn()}
           stepsFactory={stepFactory}
           isStepGroup={false}
@@ -97,6 +100,7 @@ describe('<StepCommands /> tests', () => {
               command: 'mvn clean compile war:war'
             }
           }}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
           onChange={jest.fn()}
           stepsFactory={stepFactory}
           isStepGroup={false}

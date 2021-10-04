@@ -23,7 +23,7 @@ import useChooseProvisioner from './ChooseProvisioner'
 import css from './InfraProvisioning.module.scss'
 
 export const InfraProvisioningBase = (
-  { initialValues, onUpdate }: InfraProvisioningProps,
+  { initialValues, onUpdate, onChange }: InfraProvisioningProps,
   _formikRef: StepFormikFowardRef<InfraProvisioningData>
 ): JSX.Element => {
   const {
@@ -59,6 +59,13 @@ export const InfraProvisioningBase = (
         transformValuesFieldsConfig
       )}
       formName="infraProvisionerBase"
+      validate={(_values: InfraProvisioningDataUI) => {
+        const schemaValues = getFormValuesInCorrectFormat<InfraProvisioningDataUI, InfraProvisioningData>(
+          _values,
+          transformValuesFieldsConfig
+        )
+        onChange?.(schemaValues)
+      }}
       onSubmit={(_values: InfraProvisioningDataUI) => {
         const schemaValues = getFormValuesInCorrectFormat<InfraProvisioningDataUI, InfraProvisioningData>(
           _values,

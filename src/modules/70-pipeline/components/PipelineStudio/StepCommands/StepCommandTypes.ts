@@ -39,7 +39,7 @@ export interface StepCommandsProps {
   stepViewType?: StepViewType
   className?: string
   viewType?: StepCommandsViews
-  allowableTypes?: MultiTypeInputType[]
+  allowableTypes: MultiTypeInputType[]
 }
 
 export enum TabTypes {

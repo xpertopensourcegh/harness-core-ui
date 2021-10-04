@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { isEmpty, set } from 'lodash-es'
+import { isEmpty } from 'lodash-es'
 import { FormInput, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import type {
@@ -10,15 +10,16 @@ import type {
   PipelineType
 } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
-import { DurationInputFieldForInputSet } from '@common/components/MultiTypeDuration/MultiTypeDuration'
-import { ConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
-import { Scope } from '@common/interfaces/SecretsInterface'
+import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import { FormMultiTypeTextAreaField } from '@common/components'
+import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { isApprovalStepFieldDisabled } from '../ApprovalCommons'
 import type { JiraApprovalDeploymentModeProps } from './types'
 import css from './JiraApproval.module.scss'
 
 const FormContent = (formContentProps: JiraApprovalDeploymentModeProps) => {
-  const { inputSetData, onUpdate, initialValues } = formContentProps
+  const { inputSetData, initialValues, allowableTypes } = formContentProps
   const template = inputSetData?.template
   const path = inputSetData?.path
   const prefix = isEmpty(path) ? '' : `${path}.`
@@ -27,67 +28,82 @@ const FormContent = (formContentProps: JiraApprovalDeploymentModeProps) => {
   const { accountId, projectIdentifier, orgIdentifier } =
     useParams<PipelineType<PipelinePathProps & AccountPathProps>>()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
+  const { expressions } = useVariablesExpression()
 
   return (
     <React.Fragment>
       {getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME ? (
-        <DurationInputFieldForInputSet
+        <FormMultiTypeDurationField
+          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}timeout`}
           label={getString('pipelineSteps.timeoutLabel')}
-          name={`${prefix}timeout`}
-          disabled={isApprovalStepFieldDisabled(readonly)}
           className={css.deploymentViewMedium}
+          multiTypeDurationProps={{
+            enableConfigureOptions: false,
+            allowableTypes,
+            expressions,
+            disabled: isApprovalStepFieldDisabled(readonly)
+          }}
+          disabled={isApprovalStepFieldDisabled(readonly)}
         />
       ) : null}
 
       {getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME ? (
-        <ConnectorReferenceField
-          name={`${prefix}spec.conectorRef`}
+        <FormMultiTypeConnectorField
+          name={`${prefix}spec.connectorRef`}
           label={getString('pipeline.jiraApprovalStep.connectorRef')}
           selected={(initialValues?.spec?.connectorRef as string) || ''}
           placeholder={getString('connectors.selectConnector')}
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
-          width={360}
+          width={385}
+          setRefValue
           disabled={isApprovalStepFieldDisabled(readonly)}
-          type={'Jira'}
-          onChange={(record, scope) => {
-            const connectorRef =
-              scope === Scope.ORG || scope === Scope.ACCOUNT ? `${scope}.${record?.identifier}` : record?.identifier
-            set(initialValues, 'spec.connectorRef', connectorRef)
-            onUpdate?.(initialValues)
+          multiTypeProps={{
+            allowableTypes,
+            expressions
           }}
+          type={'Jira'}
           gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
         />
       ) : null}
 
       {getMultiTypeFromValue(template?.spec?.issueKey) === MultiTypeInputType.RUNTIME ? (
-        <FormInput.Text
+        <FormInput.MultiTextInput
           label={getString('pipeline.jiraApprovalStep.issueKey')}
-          className={css.deploymentViewMedium}
           name={`${prefix}spec.issueKey`}
-          disabled={isApprovalStepFieldDisabled(readonly)}
-          placeholder={getString('pipeline.jiraApprovalStep.issueKeyPlaceholder')}
+          multiTextInputProps={{
+            disabled: isApprovalStepFieldDisabled(readonly),
+            expressions,
+            allowableTypes
+          }}
+          className={css.deploymentViewMedium}
         />
       ) : null}
 
       {getMultiTypeFromValue(template?.spec?.approvalCriteria?.spec?.expression) === MultiTypeInputType.RUNTIME ? (
-        <FormInput.TextArea
-          label={getString('pipeline.jiraApprovalStep.jexlExpressionLabelApproval')}
+        <FormMultiTypeTextAreaField
           className={css.deploymentViewMedium}
+          label={getString('pipeline.jiraApprovalStep.jexlExpressionLabelApproval')}
           name={`${prefix}spec.approvalCriteria.spec.expression`}
           disabled={isApprovalStepFieldDisabled(readonly)}
-          placeholder={getString('pipeline.jiraApprovalStep.jexlExpressionPlaceholder')}
+          multiTypeTextArea={{
+            expressions,
+            allowableTypes
+          }}
         />
       ) : null}
 
       {getMultiTypeFromValue(template?.spec?.rejectionCriteria?.spec?.expression) === MultiTypeInputType.RUNTIME ? (
-        <FormInput.TextArea
-          label={getString('pipeline.jiraApprovalStep.jexlExpressionLabelRejection')}
+        <FormMultiTypeTextAreaField
           className={css.deploymentViewMedium}
+          label={getString('pipeline.jiraApprovalStep.jexlExpressionLabelRejection')}
           name={`${prefix}spec.rejectionCriteria.spec.expression`}
           disabled={isApprovalStepFieldDisabled(readonly)}
-          placeholder={getString('pipeline.jiraApprovalStep.jexlExpressionPlaceholder')}
+          multiTypeTextArea={{
+            expressions,
+            allowableTypes
+          }}
         />
       ) : null}
     </React.Fragment>
