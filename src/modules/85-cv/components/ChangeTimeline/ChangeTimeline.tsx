@@ -1,12 +1,19 @@
 import React, { useEffect, useMemo } from 'react'
 import { useParams } from 'react-router'
 import { useStrings } from 'framework/strings'
+import { getErrorMessage } from '@cv/utils/CommonUtils'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useChangeEventTimeline } from 'services/cv'
 import type { ChangeTimelineProps } from './ChangeTimeline.types'
 import { Timeline } from './components/Timeline/Timeline'
 import { ChangeSourceTypes } from './ChangeTimeline.constants'
-import { createChangeInfoCardData, createTimelineSeriesData, getStartAndEndTime } from './ChangeTimeline.utils'
+import {
+  createChangeInfoCardData,
+  createNoDataMessage,
+  createTimelineSeriesData,
+  getStartAndEndTime
+} from './ChangeTimeline.utils'
+import ChangeTimelineError from './components/ChangeTimelineError/ChangeTimelineError'
 
 export default function ChangeTimeline(props: ChangeTimelineProps): JSX.Element {
   const { getString } = useStrings()
@@ -21,7 +28,7 @@ export default function ChangeTimeline(props: ChangeTimelineProps): JSX.Element 
     onSliderMoved
   } = props
 
-  const { data, refetch } = useChangeEventTimeline({
+  const { data, refetch, loading, error } = useChangeEventTimeline({
     lazy: true,
     accountIdentifier: accountId,
     projectIdentifier,
@@ -29,7 +36,7 @@ export default function ChangeTimeline(props: ChangeTimelineProps): JSX.Element 
   })
 
   const { interval, startTimeRoundedOffToNearest30min, endTimeRoundedOffToNearest30min } = useMemo(
-    () => getStartAndEndTime(selectedTimePeriod || ''),
+    () => getStartAndEndTime((selectedTimePeriod?.value as string) || ''),
     [selectedTimePeriod]
   )
 
@@ -61,6 +68,10 @@ export default function ChangeTimeline(props: ChangeTimelineProps): JSX.Element 
     }
   }, [startTime, endTime, Deployment, Infrastructure, Alert])
 
+  if (error) {
+    return <ChangeTimelineError error={getErrorMessage(error) || ''} />
+  }
+
   return (
     <Timeline
       timelineRows={[
@@ -68,17 +79,38 @@ export default function ChangeTimeline(props: ChangeTimelineProps): JSX.Element 
           labelName: getString('deploymentsText'),
           timelineSeries: [
             createTimelineSeriesData(categoryTimeline?.Deployment, ChangeSourceTypes.Deployments, getString)
-          ]
+          ],
+          isLoading: loading,
+          noDataMessage: createNoDataMessage(
+            categoryTimeline?.Deployment,
+            ChangeSourceTypes.Deployments,
+            selectedTimePeriod?.label,
+            getString
+          )
         },
         {
           labelName: getString('infrastructureText'),
           timelineSeries: [
             createTimelineSeriesData(categoryTimeline?.Infrastructure, ChangeSourceTypes.Infrastructure, getString)
-          ]
+          ],
+          isLoading: loading,
+          noDataMessage: createNoDataMessage(
+            categoryTimeline?.Infrastructure,
+            ChangeSourceTypes.Infrastructure,
+            selectedTimePeriod?.label,
+            getString
+          )
         },
         {
           labelName: getString('cv.changeSource.tooltip.incidents'),
-          timelineSeries: [createTimelineSeriesData(categoryTimeline?.Alert, ChangeSourceTypes.Incidents, getString)]
+          timelineSeries: [createTimelineSeriesData(categoryTimeline?.Alert, ChangeSourceTypes.Incidents, getString)],
+          isLoading: loading,
+          noDataMessage: createNoDataMessage(
+            categoryTimeline?.Alert,
+            ChangeSourceTypes.Incidents,
+            selectedTimePeriod?.label,
+            getString
+          )
         }
       ]}
       timestamps={[startTimeRoundedOffToNearest30min - interval, endTimeRoundedOffToNearest30min + interval]}

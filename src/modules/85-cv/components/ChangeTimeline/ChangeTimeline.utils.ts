@@ -182,3 +182,17 @@ export const createTimelineSeriesData = (
       : []
   }
 }
+
+export const createNoDataMessage = (
+  timeRangeDetail: TimeRangeDetail[] | undefined,
+  type: ChangeSourceTypes,
+  duration: string | undefined,
+  getString: UseStringsReturn['getString']
+): string => {
+  return timeRangeDetail && timeRangeDetail.length === 0
+    ? `${getString('cv.changeSource.noDataAvailableForChangeScore', {
+        type,
+        duration: duration?.toLowerCase() || ''
+      })}.  ${getString('cv.monitoredServices.serviceHealth.pleaseSelectAnotherTimeWindow')}`
+    : ''
+}

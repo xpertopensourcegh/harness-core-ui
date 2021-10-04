@@ -3717,6 +3717,7 @@ export interface StringsMap {
   'cv.changeSource.incident': string
   'cv.changeSource.noChangeSource': string
   'cv.changeSource.noData': string
+  'cv.changeSource.noDataAvailableForChangeScore': string
   'cv.changeSource.selectChangeSource': string
   'cv.changeSource.selectChangeSourceName': string
   'cv.changeSource.selectChangeSourceProvider': string

@@ -166,7 +166,7 @@ export default function ServiceHealth({
                 timeFormat={timeFormat}
                 startTime={timeRange?.startTime as number}
                 endTime={timeRange?.endTime as number}
-                selectedTimePeriod={selectedTimePeriod?.value as string}
+                selectedTimePeriod={selectedTimePeriod}
                 onSliderMoved={setChangeTimelineSummary}
               />
             </Container>

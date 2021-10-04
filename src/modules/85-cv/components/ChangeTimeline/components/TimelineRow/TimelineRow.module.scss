@@ -39,3 +39,25 @@
     margin-right: var(--spacing-4);
   }
 }
+
+.errorContainer {
+  height: 20px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background-color: var(--red-50) !important;
+  p {
+    margin-left: var(--spacing-medium) !important;
+  }
+}
+
+.noDataContainer {
+  height: 20px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background-color: var(--grey-100) !important;
+  p {
+    margin-left: var(--spacing-medium) !important;
+  }
+}

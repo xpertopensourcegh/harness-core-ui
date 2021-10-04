@@ -5,6 +5,8 @@ export interface TimelineRowProps {
   labelName: string
   min?: number
   max?: number
+  isLoading?: boolean
+  noDataMessage?: string | null
 }
 
 export interface PointMarkerOptionsObjectCustom extends PointMarkerOptionsObject {

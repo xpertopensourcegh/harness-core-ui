@@ -7,5 +7,7 @@ declare const styles: {
   readonly tooltipContainer: string
   readonly colorSidePanel: string
   readonly tooltipLabel: string
+  readonly errorContainer: string
+  readonly noDataContainer: string
 }
 export default styles

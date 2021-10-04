@@ -1,3 +1,4 @@
+import type { SelectOption } from '@wings-software/uicore'
 import type { ChangeSourceTypes } from './ChangeTimeline.constants'
 
 export interface ChangeTimelineProps {
@@ -7,7 +8,7 @@ export interface ChangeTimelineProps {
   startTime?: number
   endTime?: number
   onSliderMoved?: React.Dispatch<React.SetStateAction<ChangesInfoCardData[] | null>>
-  selectedTimePeriod?: string
+  selectedTimePeriod?: SelectOption
 }
 
 export interface ChangesInfoCardData {

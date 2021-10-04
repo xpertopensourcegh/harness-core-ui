@@ -606,6 +606,7 @@ changeSource:
   selectChangeSourceProvider: Select change source provider
   selectChangeSourceType: Select change source type
   deleteChangeSourceWarning: Are you sure you want to delete Change Source
+  noDataAvailableForChangeScore: No {{type}} data available in the last {{duration}}
   tooltip:
     incidents: Incidents
   PageDuty:
