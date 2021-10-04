@@ -5,38 +5,8 @@ import { useStrings, UseStringsReturn } from 'framework/strings'
 import type { ExecutionSummaryProps } from '@pipeline/factories/ExecutionFactory/types'
 import { getUIType, UIType } from '../common/getUIType'
 import { CommitId } from '../CommitsInfo/CommitsInfo'
+import { CICodebaseHeader } from '../CICodebaseHeader/CICodebaseHeader'
 import css from './CIExecutionSummary.module.scss'
-
-const RepoBranch = ({ repo, branch }: { repo: string; branch: string }): React.ReactElement => (
-  <div className={cx(css.label, css.multiple)}>
-    <Container flex>
-      <Icon name="repository" size={14} color="primary7" />
-      <Text
-        className={css.truncated}
-        tooltip={
-          <Container padding="small" style={{ whiteSpace: 'pre-line' }}>
-            {repo}
-          </Container>
-        }
-      >
-        {repo}
-      </Text>
-    </Container>
-    <Container flex>
-      <Icon name="git-new-branch" size={12} color="primary7" />
-      <Text
-        className={css.truncated}
-        tooltip={
-          <Container padding="small" style={{ whiteSpace: 'pre-line' }}>
-            {branch}
-          </Container>
-        }
-      >
-        {branch}
-      </Text>
-    </Container>
-  </div>
-)
 
 function getUIByType(
   uiType: UIType,
@@ -48,7 +18,7 @@ function getUIByType(
     case UIType.Branch:
       ui = (
         <>
-          <RepoBranch repo={data.repoName} branch={data.branch} />
+          <CICodebaseHeader repo={data.repoName} branch={data.branch} isDetailedView={true} />
           {data?.ciExecutionInfoDTO?.branch?.commits?.length > 0 && (
             <Layout.Horizontal flex spacing="small" margin={{ left: 'small' }}>
               <Icon name="git-branch-existing" size={14} />
@@ -78,27 +48,8 @@ function getUIByType(
       break
     case UIType.Tag:
       ui = (
-        <Layout.Horizontal flex spacing="small">
-          <div className={css.label}>
-            <Icon name="repository" size={14} color="primary7" />
-            <div className={css.truncated}>{data.repoName}</div>
-          </div>
-          <div className={css.label}>
-            <Icon name="tag" size={14} color="primary7" />
-            <Text
-              className={css.truncated}
-              tooltip={
-                <Container padding="small" style={{ whiteSpace: 'pre-line' }}>
-                  {data.tag}
-                </Container>
-              }
-            >
-              {data.tag}
-            </Text>
-          </div>
-          {/* <Text tooltip={<Container padding="small"> Notes</Container>}>
-            <Icon name="more" size={14} />
-          </Text> */}
+        <>
+          <CICodebaseHeader repo={data.repoName} tag={data.tag} isDetailedView={true} />
           {data?.ciExecutionInfoDTO?.branch?.commits?.length > 0 && (
             <Layout.Horizontal flex spacing="small">
               <Icon name="git-branch-existing" size={14} />
@@ -123,31 +74,18 @@ function getUIByType(
               )}
             </Layout.Horizontal>
           )}
-        </Layout.Horizontal>
+        </>
       )
       break
     case UIType.PullRequest:
       ui = (
         <>
-          <RepoBranch repo={data.repoName} branch={data?.ciExecutionInfoDTO?.pullRequest?.sourceBranch} />
-          {data?.ciExecutionInfoDTO?.pullRequest?.targetBranch && (
-            <>
-              <Icon name="arrow-right" size={14} />
-              <Container className={css.label}>
-                <Icon name="git-new-branch" size={12} color="primary7" />
-                <Text
-                  className={css.truncated}
-                  tooltip={
-                    <Container padding="small" style={{ whiteSpace: 'pre-line' }}>
-                      {data?.ciExecutionInfoDTO?.pullRequest?.targetBranch}
-                    </Container>
-                  }
-                >
-                  {data?.ciExecutionInfoDTO?.pullRequest?.targetBranch}
-                </Text>
-              </Container>
-            </>
-          )}
+          <CICodebaseHeader
+            repo={data.repoName}
+            branch={data?.ciExecutionInfoDTO?.pullRequest?.sourceBranch}
+            targetBranch={data?.ciExecutionInfoDTO?.pullRequest?.targetBranch}
+            isDetailedView={true}
+          />
           {data?.ciExecutionInfoDTO?.pullRequest && (
             <>
               {data?.ciExecutionInfoDTO?.pullRequest?.commits?.length > 0 && (

@@ -12,15 +12,10 @@
 
 .label {
   display: flex !important;
-  align-items: center !important;
-  white-space: nowrap !important;
-  font-size: var(--font-size-small) !important;
-  font-weight: 500 !important;
-  text-decoration: none !important;
-  color: var(--primary-7) !important;
   background-color: var(--primary-1) !important;
   border-radius: 8px !important;
   padding: var(--spacing-xsmall) var(--spacing-small) !important;
+  align-items: center;
 
   &.multiple {
     > * {

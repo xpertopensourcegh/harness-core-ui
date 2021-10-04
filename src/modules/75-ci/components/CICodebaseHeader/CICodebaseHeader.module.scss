@@ -1,0 +1,27 @@
+.label {
+  display: flex !important;
+  background-color: var(--primary-1) !important;
+  border-radius: 8px !important;
+  padding: var(--spacing-xsmall) var(--spacing-small) !important;
+  width: fit-content;
+
+  svg {
+    margin-right: var(--spacing-xsmall);
+
+    path {
+      fill: currentColor !important;
+    }
+  }
+}
+
+.separator {
+  border-right: 1px solid var(--primary-3) !important;
+}
+
+.partLabel {
+  flex: 1;
+}
+
+.strip {
+  max-width: 60%;
+}

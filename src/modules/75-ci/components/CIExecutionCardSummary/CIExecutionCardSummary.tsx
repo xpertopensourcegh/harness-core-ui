@@ -1,26 +1,13 @@
 import React from 'react'
-import cx from 'classnames'
 import { Icon, Container, Layout, Text } from '@wings-software/uicore'
 import type { ExecutionSummaryProps } from '@pipeline/factories/ExecutionFactory/types'
 import type { ExecutionCardInfoProps } from '@pipeline/factories/ExecutionFactory/types'
 import { CommitsInfo } from '@ci/components/CommitsInfo/CommitsInfo'
 import { useStrings, UseStringsReturn } from 'framework/strings'
 import { getUIType, UIType } from '../common/getUIType'
+import { CICodebaseHeader } from '../CICodebaseHeader/CICodebaseHeader'
 
 import css from './CIExecutionCardSummary.module.scss'
-
-const RepoBranch = ({ repo, branch }: { repo: string; branch: string }): React.ReactElement => (
-  <div className={cx(css.label, css.multiple, css.alignSelfStart)}>
-    <Container flex>
-      <Icon name="repository" size={14} color="primary7" />
-      <div>{repo}</div>
-    </Container>
-    <Container flex>
-      <Icon name="git-new-branch" size={12} color="primary7" />
-      <div>{branch}</div>
-    </Container>
-  </div>
-)
 
 function getUIByType(
   uiType: UIType,
@@ -37,7 +24,7 @@ function getUIByType(
     case UIType.Branch:
       ui = (
         <>
-          <RepoBranch repo={data.repoName} branch={data.branch} />
+          <CICodebaseHeader repo={data.repoName} branch={data.branch} />
           {data?.ciExecutionInfoDTO?.branch?.commits?.length > 0 && (
             <CommitsInfo
               commits={data?.ciExecutionInfoDTO?.branch?.commits}
@@ -50,19 +37,7 @@ function getUIByType(
     case UIType.Tag:
       ui = (
         <>
-          <Layout.Horizontal className={css.alignSelfStart} flex spacing="small">
-            <div className={css.label}>
-              <Icon name="repository" size={14} color="primary7" />
-              <div>{data.repoName}</div>
-            </div>
-            <div className={css.label}>
-              <Icon name="tag" size={14} color="primary7" />
-              <div>{data.tag}</div>
-            </div>
-            {/* <Text tooltip={<Container padding="small"> Notes</Container>}>
-            <Icon name="more" size={14} />
-          </Text> */}
-          </Layout.Horizontal>
+          <CICodebaseHeader repo={data.repoName} tag={data.tag} />
           {data?.ciExecutionInfoDTO?.branch?.commits?.length > 0 && (
             <CommitsInfo
               commits={data?.ciExecutionInfoDTO?.branch?.commits}
@@ -75,18 +50,11 @@ function getUIByType(
     case UIType.PullRequest:
       ui = (
         <>
-          <Layout.Horizontal className={css.alignSelfStart} flex spacing="small">
-            <RepoBranch repo={data.repoName} branch={data?.ciExecutionInfoDTO?.pullRequest?.sourceBranch} />
-            {data?.ciExecutionInfoDTO?.pullRequest?.targetBranch && (
-              <>
-                <Icon name="arrow-right" size={14} />
-                <Container className={css.label}>
-                  <Icon name="git-new-branch" size={12} color="primary7" />
-                  <div>{data?.ciExecutionInfoDTO?.pullRequest?.targetBranch}</div>
-                </Container>
-              </>
-            )}
-          </Layout.Horizontal>
+          <CICodebaseHeader
+            repo={data.repoName}
+            branch={data?.ciExecutionInfoDTO?.pullRequest?.sourceBranch}
+            targetBranch={data?.ciExecutionInfoDTO?.pullRequest?.targetBranch}
+          />
           <Layout.Horizontal className={css.alignSelfStart} flex spacing="small">
             <Icon name="git-pull" size={14} />
             <div style={{ fontSize: 0 }}>

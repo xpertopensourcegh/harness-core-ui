@@ -5,9 +5,8 @@ declare const styles: {
   readonly icon: string
   readonly pullRequest: string
   readonly truncated: string
-  readonly label: string
-  readonly multiple: string
   readonly commit: string
+  readonly label: string
   readonly state: string
 }
 export default styles
