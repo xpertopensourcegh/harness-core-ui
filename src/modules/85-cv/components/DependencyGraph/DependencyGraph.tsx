@@ -4,13 +4,8 @@ import Networkgraph from 'highcharts/modules/networkgraph'
 import HighchartsReact from 'highcharts-react-official'
 import { merge } from 'lodash-es'
 import { dependencyGraphOptions } from '@cv/components/DependencyGraph/DependencyGraph.utils'
-import type { DependencyData, NetworkgraphOptions } from '@cv/components/DependencyGraph/DependencyGraph.types'
+import type { DependencyGraphProps } from '@cv/components/DependencyGraph/DependencyGraph.types'
 import { wrappedArrowLength } from '@cv/components/DependencyGraph/DependencyGraph.constants'
-
-interface DependencyGraphProps {
-  dependencyData: DependencyData
-  options?: NetworkgraphOptions
-}
 
 const getParsedOptions = (defaultOptions: Highcharts.Options, options: Highcharts.Options): Highcharts.Options =>
   merge(defaultOptions, options)
@@ -84,11 +79,9 @@ export function DependencyGraph(props: DependencyGraphProps): JSX.Element {
   })(Highcharts)
 
   const chartComponent = React.useRef<any>(null)
-
   const { dependencyData, options = {} } = props
 
-  const defaultOptions = React.useMemo(() => dependencyGraphOptions(dependencyData), [])
-
+  const defaultOptions = useMemo(() => dependencyGraphOptions(dependencyData), [dependencyData])
   const parsedOptions = useMemo(() => getParsedOptions(defaultOptions, options), [defaultOptions, options])
 
   return (

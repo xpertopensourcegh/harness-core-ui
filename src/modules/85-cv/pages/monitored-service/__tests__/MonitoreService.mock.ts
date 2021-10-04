@@ -144,3 +144,38 @@ export const mockDeleteData = {
     empty: false
   }
 }
+
+export const graphData = {
+  metaData: {},
+  resource: {
+    nodes: [
+      {
+        serviceRef: 'service300',
+        environmentRef: 'env300',
+        riskScore: -1,
+        riskLevel: 'NO_ANALYSIS',
+        anomalousMetricsCount: 0,
+        anomalousLogsCount: 0,
+        changeCount: 0,
+        identifierRef: 'service300_env300'
+      },
+      {
+        serviceRef: 'service260',
+        environmentRef: 'env260',
+        riskScore: -1,
+        riskLevel: 'NO_ANALYSIS',
+        anomalousMetricsCount: 0,
+        anomalousLogsCount: 0,
+        changeCount: 0,
+        identifierRef: 'service260_env260'
+      }
+    ],
+    edges: [
+      {
+        from: 'service300_env300',
+        to: 'service260_env260'
+      }
+    ]
+  },
+  responseMessages: []
+}

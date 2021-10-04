@@ -19,3 +19,36 @@
 .tagsText {
   text-transform: capitalize;
 }
+
+.graphContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gridUnselected {
+  box-shadow: none !important;
+  &:hover {
+    color: var(--primary-7) !important;
+  }
+}
+
+.listUnselected {
+  box-shadow: none !important;
+  &:hover {
+    color: var(--primary-7) !important;
+  }
+}
+
+.gridButton,
+.listButton {
+  padding-left: var(--spacing-none) !important;
+  padding-right: var(--spacing-none) !important;
+  min-width: 24px;
+}
+
+.gridButton {
+  margin-right: var(--spacing-small) !important;
+}

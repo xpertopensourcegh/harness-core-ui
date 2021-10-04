@@ -10,7 +10,7 @@ import { PageError } from '@common/components/Page/PageError'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import noDataImage from '@cv/assets/noData.svg'
 import ServiceDependenciesLegend from '@cv/components/ServiceDependenciesLegend/ServiceDependenciesLegend'
-import { getDependencyData } from './MonitoredServiceDependenciesChart.utils'
+import { getDependencyData } from '@cv/components/DependencyGraph/DependencyGraph.utils'
 import type { MonitoredServiceDependenciesChartProps } from './MonitoredServiceDependenciesChart.types'
 import css from './MonitoredServiceDependenciesChart.module.scss'
 
@@ -63,9 +63,7 @@ export default function MonitoredServiceDependenciesChart(props: MonitoredServic
     } else {
       return (
         <Container padding={{ bottom: 'small' }}>
-          <Container>
-            <DependencyGraph dependencyData={dependencyData} options={{ chart: { height: 462 } }} />
-          </Container>
+          <DependencyGraph dependencyData={dependencyData} options={{ chart: { height: 462 } }} />
           <ServiceDependenciesLegend />
         </Container>
       )

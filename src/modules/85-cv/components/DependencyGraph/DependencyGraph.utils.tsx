@@ -1,10 +1,44 @@
 import React from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { HarnessIcons, Utils } from '@wings-software/uicore'
-import { statusColors } from '@cv/components/DependencyGraph/DependencyGraph.constants'
-import type { Node, DependencyData } from '@cv/components/DependencyGraph/DependencyGraph.types'
+import { serviceIcon, statusColors } from '@cv/components/DependencyGraph/DependencyGraph.constants'
+import type { Node, DependencyData, GraphData } from '@cv/components/DependencyGraph/DependencyGraph.types'
+import type { Edge, RestResponseServiceDependencyGraphDTO } from 'services/cv'
 
-export function formatNodes(nodes: Node[]) {
+function replaceFill(logo: any, primaryColor: string) {
+  if (Object.prototype.hasOwnProperty.call(logo, 'props')) {
+    if (Object.prototype.hasOwnProperty.call(logo.props, 'fill')) {
+      logo = { ...logo, props: { ...logo.props, fill: primaryColor } }
+    }
+    if (Object.prototype.hasOwnProperty.call(logo.props, 'stroke')) {
+      logo = { ...logo, props: { ...logo.props, stroke: primaryColor } }
+    }
+    if (Object.prototype.hasOwnProperty.call(logo.props, 'width' || 'height' || 'viewBox')) {
+      const { width, height, ...logoProps } = logo.props
+      logo = { ...logo, props: { ...logoProps, viewBox: '0 0 24 24' } }
+    }
+    if (Object.prototype.hasOwnProperty.call(logo.props, 'children')) {
+      logo = {
+        ...logo,
+        props: {
+          ...logo.props,
+          children:
+            logo.props.children.length > 1
+              ? Array.from(logo.props.children).map((child: any) => {
+                  return replaceFill(child, primaryColor)
+                })
+              : replaceFill(logo.props.children, primaryColor)
+        }
+      }
+    }
+  }
+  return logo
+}
+
+export function formatNodes(nodes?: Node[], data?: Edge[]) {
+  if (!nodes) {
+    return []
+  }
   function getColorCode(color: string) {
     return color.substring(4, color.length - 1)
   }
@@ -21,27 +55,7 @@ export function formatNodes(nodes: Node[]) {
     const LogoFactory = HarnessIcons[icon]
     const Logo = LogoFactory()
 
-    function replaceFill(logo: any) {
-      if (Object.prototype.hasOwnProperty.call(logo, 'props')) {
-        if (Object.prototype.hasOwnProperty.call(logo.props, 'fill')) {
-          logo = { ...logo, props: { ...logo.props, fill: primaryColor } }
-        }
-        if (Object.prototype.hasOwnProperty.call(logo.props, 'children')) {
-          logo = {
-            ...logo,
-            props: {
-              ...logo.props,
-              children: Array.from(logo.props.children).map((child: any) => {
-                return replaceFill(child)
-              })
-            }
-          }
-        }
-      }
-      return logo
-    }
-
-    const ColoredLogo = replaceFill(Logo)
+    const ColoredLogo = replaceFill(Logo, primaryColor)
 
     return (
       <svg width="60" height="69" viewBox="0 0 60 69" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -58,15 +72,7 @@ export function formatNodes(nodes: Node[]) {
           29.25 64.9896L3.53719 50.1443C3.07309 49.8764 2.78719 49.3812 2.78719 48.8453L2.78719 19.1547C2.78719 18.6188 3.07309 18.1236 3.53719 17.8557L29.25 3.01036Z"
             stroke={primaryColor}
           />
-          <svg
-            width="50%"
-            height="50%"
-            x="25%"
-            y="25%"
-            viewBox="0 0 23 24"
-            fill={primaryColor}
-            xmlns="http://www.w3.org/2000/svg"
-          >
+          <svg width="50%" height="50%" x="35%" y="33%" fill={primaryColor} xmlns="http://www.w3.org/2000/svg">
             {ColoredLogo}
           </svg>
         </g>
@@ -108,18 +114,38 @@ export function formatNodes(nodes: Node[]) {
     )
   }
 
-  return nodes.map((node: Node) => {
-    return {
-      id: node.id,
-      className: `PointData ${node.id.replace(' ', '')} Status_${node.status}`,
-      name: node.name,
-      marker: {
-        symbol: `url(data:image/svg+xml;utf8,${encodeURIComponent(
-          renderToStaticMarkup(hexSvg(node.status, node.icon))
-        )})`
+  const edgesWithMissingNode = [
+    ...(data?.filter(edge => !nodes.map(node => node?.id).includes(edge.from || '')).map(missing => missing.from) ||
+      []),
+    ...(data?.filter(edge => !nodes.map(node => node?.id).includes(edge.to || '')).map(missing => missing.to) || [])
+  ]
+
+  return [
+    ...nodes.map((node: Node) => {
+      return {
+        id: node?.id,
+        className: `PointData ${node?.name?.replace(' ', '')} Status_${node?.status}`,
+        marker: {
+          symbol: `url(data:image/svg+xml;utf8,${encodeURIComponent(
+            renderToStaticMarkup(hexSvg(node.status, node.icon || serviceIcon))
+          )})`
+        }
       }
-    }
-  })
+    }),
+    ...(edgesWithMissingNode.length > 0
+      ? edgesWithMissingNode.map(missing => {
+          return {
+            id: missing,
+            className: `PointData ${missing || ''.replace(' ', '')} Status_NO_ANALYSIS`,
+            marker: {
+              symbol: `url(data:image/svg+xml;utf8,${encodeURIComponent(
+                renderToStaticMarkup(hexSvg('NO_ANALYSIS', serviceIcon))
+              )})`
+            }
+          }
+        })
+      : [])
+  ]
 }
 
 export function deselectNodes() {
@@ -133,6 +159,25 @@ export function selectNodes(classNames: string) {
   Array.from(document.getElementsByClassName('PointData') as HTMLCollectionOf<HTMLElement>)
     .filter(p => !classNames.split(' ').every(val => [...p.classList].includes(val)))
     .forEach(p => (p.style.opacity = '0.3'))
+}
+
+export const getDependencyData = (
+  serviceDependencyGraphData: RestResponseServiceDependencyGraphDTO | null
+): DependencyData | null => {
+  let dependencyData = null
+  if (serviceDependencyGraphData?.resource?.nodes && serviceDependencyGraphData.resource.nodes.length) {
+    dependencyData = {
+      nodes: serviceDependencyGraphData.resource.nodes.map(node => ({
+        id: node?.identifierRef,
+        status: node?.riskLevel,
+        icon: serviceIcon,
+        name: node?.serviceRef
+      })) as Node[],
+      data: serviceDependencyGraphData?.resource?.edges as GraphData[]
+    }
+  }
+
+  return dependencyData
 }
 
 export function dependencyGraphOptions(dependencyData: DependencyData): Highcharts.Options {
@@ -152,6 +197,9 @@ export function dependencyGraphOptions(dependencyData: DependencyData): Highchar
     title: { text: '' },
     plotOptions: {
       networkgraph: {
+        layoutAlgorithm: {
+          integration: 'verlet'
+        },
         cursor: 'pointer',
         states: { inactive: { enabled: false }, hover: { enabled: false } },
         dataLabels: {
@@ -162,7 +210,10 @@ export function dependencyGraphOptions(dependencyData: DependencyData): Highchar
           y: 50,
           formatter: function (this: any) {
             if (this.key) {
-              return renderToStaticMarkup(<span>{this.key}</span>)
+              const filteredNode = dependencyData?.nodes?.filter(node => node?.id === this.key)?.[0]
+
+              const title = filteredNode ? filteredNode.name : this.key
+              return renderToStaticMarkup(<span>{title}</span>)
             } else {
               return ''
             }
@@ -180,7 +231,7 @@ export function dependencyGraphOptions(dependencyData: DependencyData): Highchar
         },
         type: 'networkgraph',
         data: dependencyData.data,
-        nodes: formatNodes(dependencyData.nodes),
+        nodes: formatNodes(dependencyData.nodes, dependencyData.data),
         point: {
           events: {
             click: function (e: any): void {

@@ -148,7 +148,7 @@ export const getEnvironmentOptions = (
   return []
 }
 
-export const calculateChangePercentage = (changeSummary: ChangeSummaryDTO) => {
+export const calculateChangePercentage = (changeSummary: ChangeSummaryDTO): { color: string; percentage: number } => {
   if (changeSummary?.categoryCountMap) {
     const { categoryCountMap } = changeSummary
     const { Infrastructure, Deployment, Alert } = categoryCountMap as any
@@ -168,6 +168,10 @@ export const calculateChangePercentage = (changeSummary: ChangeSummaryDTO) => {
   return DefaultChangePercentage
 }
 
-export const showPageSpinner = (loading: boolean, isDeleting: boolean) => {
-  return (loading || isDeleting) && <PageSpinner />
+export const showPageSpinner = (
+  loading: boolean,
+  isDeleting: boolean,
+  serviceDependencyGraphLoading: boolean
+): JSX.Element => {
+  return loading || isDeleting || serviceDependencyGraphLoading ? <PageSpinner /> : <></>
 }

@@ -39,3 +39,8 @@ export const DefaultChangePercentage = {
   color: Color.BLACK_100,
   percentage: 0
 }
+
+export enum Views {
+  LIST = 'LIST',
+  GRAPH = 'GRAPH'
+}

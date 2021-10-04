@@ -1,12 +1,12 @@
 import type { Options } from 'highcharts'
+import type { Edge } from 'services/cv'
 
 export type NetworkgraphOptions = Omit<Options, 'type'>
-
 export interface Node {
+  icon?: string
+  name: string
   id: string
   status: string
-  icon: string
-  name: string
 }
 
 export interface GraphData {
@@ -15,6 +15,11 @@ export interface GraphData {
 }
 
 export type DependencyData = {
-  data: GraphData[]
-  nodes: Node[]
+  data?: Edge[]
+  nodes?: Node[]
+}
+
+export interface DependencyGraphProps {
+  dependencyData: DependencyData
+  options?: NetworkgraphOptions
 }

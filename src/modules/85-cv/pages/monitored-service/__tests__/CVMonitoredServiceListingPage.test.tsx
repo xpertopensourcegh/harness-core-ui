@@ -5,7 +5,7 @@ import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import * as cvServices from 'services/cv'
 import CVMonitoredServiceListingPage from '../CVMonitoredServiceListingPage'
-import { monitoredServicelist, mockDeleteData } from './MonitoreService.mock'
+import { monitoredServicelist, mockDeleteData, graphData } from './MonitoreService.mock'
 
 const testWrapperProps: TestWrapperProps = {
   path: routes.toCVMonitoringServices({ ...accountPathProps, ...projectPathProps }),
@@ -50,7 +50,16 @@ describe('Monitored Service list', () => {
             error: {}
           },
           loading: false,
-          refetch: jest.fn(),
+          error: {}
+        } as any)
+    )
+    jest.spyOn(cvServices, 'useGetServiceDependencyGraph').mockImplementation(
+      () =>
+        ({
+          data: {
+            ...graphData
+          },
+          loading: false,
           error: {}
         } as any)
     )
@@ -138,5 +147,34 @@ describe('Monitored Service list', () => {
     )
     fireEvent.click(container.querySelector('.context-menu-mock-delete')!)
     await waitFor(() => expect(container.querySelectorAll('.body [role="row"]').length).toEqual(2))
+  })
+
+  test('Test Dependancy Graph renders', async () => {
+    const { container } = render(
+      <TestWrapper {...testWrapperProps}>
+        <CVMonitoredServiceListingPage />
+      </TestWrapper>
+    )
+
+    fireEvent.click(container.querySelector('#graph-select-button')!)
+    await waitFor(() => expect(container.querySelector('.DependencyGraph')).toBeDefined())
+  })
+
+  test('Test Dependancy Graph loading state renders', async () => {
+    jest.spyOn(cvServices, 'useGetServiceDependencyGraph').mockImplementation(
+      () =>
+        ({
+          data: {},
+          loading: true,
+          error: {}
+        } as any)
+    )
+    const { getByText } = render(
+      <TestWrapper {...testWrapperProps}>
+        <CVMonitoredServiceListingPage />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(getByText('common.loading')).toBeDefined())
   })
 })

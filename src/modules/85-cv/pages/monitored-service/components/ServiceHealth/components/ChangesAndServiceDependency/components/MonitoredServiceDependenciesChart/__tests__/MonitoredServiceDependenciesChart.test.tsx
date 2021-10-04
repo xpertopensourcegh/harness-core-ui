@@ -2,9 +2,8 @@ import React from 'react'
 import { fireEvent, render, waitFor, act } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import * as cvService from 'services/cv'
-import { mockedDependenciesResults, mockedServiceDependencies } from './MonitoredServiceDependenciesChart.mock'
+import { mockedServiceDependencies } from './MonitoredServiceDependenciesChart.mock'
 import MonitoredServiceDependenciesChart from '../MonitoredServiceDependenciesChart'
-import { getDependencyData } from '../MonitoredServiceDependenciesChart.utils'
 
 jest.mock('services/cv', () => ({
   useGetServiceDependencyGraph: jest.fn().mockImplementation(() => {
@@ -102,11 +101,5 @@ describe('MonitoredServiceDependenciesChart Tests', () => {
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
-  })
-
-  test('verify if getDependencyData gives correct results', () => {
-    expect(getDependencyData(mockedServiceDependencies as cvService.RestResponseServiceDependencyGraphDTO)).toEqual(
-      mockedDependenciesResults
-    )
   })
 })
