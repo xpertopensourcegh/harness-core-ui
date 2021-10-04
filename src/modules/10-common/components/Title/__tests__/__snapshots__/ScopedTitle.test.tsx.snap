@@ -1,0 +1,137 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Title test Account Scope  1`] = `
+<div>
+  <div
+    class="Layout--horizontal StyledProps--main"
+  >
+    <p
+      class="StyledProps--font StyledProps--main StyledProps--font-variation-h4"
+    >
+      account acc scope
+    </p>
+  </div>
+</div>
+`;
+
+exports[`Title test Account Scope  2`] = `
+<div>
+  <div
+    class="Layout--horizontal StyledProps--main"
+  >
+    <p
+      class="StyledProps--font StyledProps--main StyledProps--font-variation-h4"
+    >
+      account testTitle
+    </p>
+  </div>
+</div>
+`;
+
+exports[`Title test Org Scope  1`] = `
+<div>
+  <div
+    class="Layout--horizontal StyledProps--main"
+  >
+    <p
+      class="StyledProps--font StyledProps--main horizontal StyledProps--font-variation-h4"
+    >
+      [
+      <p
+        class="StyledProps--font Text--lineclamp StyledProps--main name StyledProps--font-variation-h4"
+        style="--text-line-clamp: 1;"
+      >
+        test Org
+      </p>
+      ]
+       
+    </p>
+    <p
+      class="StyledProps--font StyledProps--main StyledProps--font-variation-h4"
+    >
+      orgLabel org scope
+    </p>
+  </div>
+</div>
+`;
+
+exports[`Title test Org Scope  2`] = `
+<div>
+  <div
+    class="Layout--horizontal StyledProps--main"
+  >
+    <p
+      class="StyledProps--font StyledProps--main horizontal StyledProps--font-variation-h4"
+    >
+      [
+      <p
+        class="StyledProps--font Text--lineclamp StyledProps--main name StyledProps--font-variation-h4"
+        style="--text-line-clamp: 1;"
+      >
+        test Org
+      </p>
+      ]
+       
+    </p>
+    <p
+      class="StyledProps--font StyledProps--main StyledProps--font-variation-h4"
+    >
+      orgLabel testTitle
+    </p>
+  </div>
+</div>
+`;
+
+exports[`Title test Project Scope  1`] = `
+<div>
+  <div
+    class="Layout--horizontal StyledProps--main"
+  >
+    <p
+      class="StyledProps--font StyledProps--main horizontal StyledProps--font-variation-h4"
+    >
+      [
+      <p
+        class="StyledProps--font Text--lineclamp StyledProps--main name StyledProps--font-variation-h4"
+        style="--text-line-clamp: 1;"
+      >
+        test
+      </p>
+      ]
+       
+    </p>
+    <p
+      class="StyledProps--font StyledProps--main StyledProps--font-variation-h4"
+    >
+      projectLabel project scope
+    </p>
+  </div>
+</div>
+`;
+
+exports[`Title test Project Scope  2`] = `
+<div>
+  <div
+    class="Layout--horizontal StyledProps--main"
+  >
+    <p
+      class="StyledProps--font StyledProps--main horizontal StyledProps--font-variation-h4"
+    >
+      [
+      <p
+        class="StyledProps--font Text--lineclamp StyledProps--main name StyledProps--font-variation-h4"
+        style="--text-line-clamp: 1;"
+      >
+        test
+      </p>
+      ]
+       
+    </p>
+    <p
+      class="StyledProps--font StyledProps--main StyledProps--font-variation-h4"
+    >
+      projectLabel testTitle
+    </p>
+  </div>
+</div>
+`;

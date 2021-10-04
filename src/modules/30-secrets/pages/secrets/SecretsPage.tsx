@@ -17,6 +17,8 @@ import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { Page } from '@common/exports'
+import ScopedTitle from '@common/components/Title/ScopedTitle'
+import { Scope } from '@common/interfaces/SecretsInterface'
 import SecretsList from './views/SecretsListView/SecretsList'
 
 import SecretEmptyState from './secrets-empty-state.png'
@@ -111,7 +113,18 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ mock }) => {
   }
   return (
     <>
-      <Page.Header breadcrumbs={<NGBreadcrumbs />} title={getString('common.secrets')} />
+      <Page.Header
+        breadcrumbs={<NGBreadcrumbs />}
+        title={
+          <ScopedTitle
+            title={{
+              [Scope.PROJECT]: getString('common.secrets'),
+              [Scope.ORG]: getString('secrets.secretsTitle'),
+              [Scope.ACCOUNT]: getString('secrets.secretsTitle')
+            }}
+          />
+        }
+      />
       <Layout.Horizontal flex className={css.header}>
         <Layout.Horizontal spacing="small">
           <Popover minimal position={Position.BOTTOM_LEFT} interactionKind={PopoverInteractionKind.CLICK_TARGET_ONLY}>

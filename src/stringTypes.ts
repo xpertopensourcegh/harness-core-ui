@@ -938,6 +938,7 @@ export interface StringsMap {
   'secrets.secret.validationIdentifier': string
   'secrets.secret.validationKms': string
   'secrets.secret.validationNameChars': string
+  'secrets.secretsTitle': string
   'secrets.selectSecret': string
   'secrets.sshAuthFormFields.labelFile': string
   'secrets.sshAuthFormFields.labelKeyFilePath': string

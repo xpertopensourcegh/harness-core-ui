@@ -74,3 +74,4 @@ secret:
   configureSecret: 'Configure Secret'
   updateSuccess: 'Secret updated successfully'
   newSSHCredential: New SSH Credential
+secretsTitle: 'Resources: Secrets'

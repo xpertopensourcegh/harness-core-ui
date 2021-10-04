@@ -1,0 +1,68 @@
+import React from 'react'
+import { useParams } from 'react-router-dom'
+import { isObject } from 'lodash-es'
+import { Text, FontVariation, Layout } from '@wings-software/uicore'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { getScopeFromDTO, ScopedObjectDTO } from '@common/components/EntityReference/EntityReference'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { Scope } from '@common/interfaces/SecretsInterface'
+import { useStrings } from 'framework/strings'
+import css from './ScopedTitle.module.scss'
+
+interface TitleProps {
+  title: string | Record<Scope, string>
+  overrideScope?: ScopedObjectDTO
+}
+
+interface TitleInfo {
+  name?: string
+  label: string
+  title: string
+}
+
+const ScopedTitle: React.FC<TitleProps> = ({ title, overrideScope }) => {
+  const { selectedProject, selectedOrg } = useAppStore()
+  const { getString } = useStrings()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
+  const getScopedTitle = (): TitleInfo => {
+    const scope = getScopeFromDTO(overrideScope || { accountIdentifier: accountId, orgIdentifier, projectIdentifier })
+    switch (scope) {
+      case Scope.PROJECT:
+        return {
+          name: selectedProject?.name,
+          label: getString('projectLabel'),
+          title: isObject(title) ? title[Scope.PROJECT] : title
+        }
+      case Scope.ORG:
+        return {
+          name: selectedOrg?.name,
+          label: getString('orgLabel'),
+          title: isObject(title) ? title[Scope.ORG] : title
+        }
+      default:
+        return {
+          label: getString('account'),
+          title: isObject(title) ? title[Scope.ACCOUNT] : title
+        }
+    }
+  }
+
+  const titleInfo = getScopedTitle()
+  return (
+    <Layout.Horizontal>
+      {titleInfo.name && (
+        <Text font={{ variation: FontVariation.H4 }} className={css.horizontal}>
+          {`[`}
+          <Text lineClamp={1} font={{ variation: FontVariation.H4 }} className={css.name}>
+            {titleInfo.name}
+          </Text>
+          {`]`}
+          &nbsp;
+        </Text>
+      )}
+      <Text font={{ variation: FontVariation.H4 }}>{`${titleInfo.label} ${titleInfo.title}`}</Text>
+    </Layout.Horizontal>
+  )
+}
+
+export default ScopedTitle
