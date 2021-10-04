@@ -385,7 +385,8 @@ exports[`Project Page List Create Project and Close 1`] = `
                     test
                   </p>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    class="StyledProps--font Text--lineclamp StyledProps--main projectId StyledProps--font-variation-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    style="--text-line-clamp: 1;"
                   >
                     idLabel
                   </p>
@@ -819,7 +820,8 @@ exports[`Project Page List Create Project and Close 1`] = `
                     Online Banking
                   </p>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    class="StyledProps--font Text--lineclamp StyledProps--main projectId StyledProps--font-variation-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    style="--text-line-clamp: 1;"
                   >
                     idLabel
                   </p>
@@ -1253,7 +1255,8 @@ exports[`Project Page List Create Project and Close 1`] = `
                     Portal
                   </p>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    class="StyledProps--font Text--lineclamp StyledProps--main projectId StyledProps--font-variation-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    style="--text-line-clamp: 1;"
                   >
                     idLabel
                   </p>
@@ -1687,7 +1690,8 @@ exports[`Project Page List Create Project and Close 1`] = `
                     Project 1
                   </p>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    class="StyledProps--font Text--lineclamp StyledProps--main projectId StyledProps--font-variation-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    style="--text-line-clamp: 1;"
                   >
                     idLabel
                   </p>
@@ -2086,7 +2090,8 @@ exports[`Project Page List Create Project and Close 1`] = `
                     Project Demo
                   </p>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    class="StyledProps--font Text--lineclamp StyledProps--main projectId StyledProps--font-variation-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    style="--text-line-clamp: 1;"
                   >
                     idLabel
                   </p>
@@ -2520,7 +2525,8 @@ exports[`Project Page List Create Project and Close 1`] = `
                     Drone Data Supplier
                   </p>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    class="StyledProps--font Text--lineclamp StyledProps--main projectId StyledProps--font-variation-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    style="--text-line-clamp: 1;"
                   >
                     idLabel
                   </p>
@@ -2954,7 +2960,8 @@ exports[`Project Page List Create Project and Close 1`] = `
                     Swagger
                   </p>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    class="StyledProps--font Text--lineclamp StyledProps--main projectId StyledProps--font-variation-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    style="--text-line-clamp: 1;"
                   >
                     idLabel
                   </p>
@@ -3717,7 +3724,8 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                     test
                   </p>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    class="StyledProps--font Text--lineclamp StyledProps--main projectId StyledProps--font-variation-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    style="--text-line-clamp: 1;"
                   >
                     idLabel
                   </p>
@@ -4151,7 +4159,8 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                     Online Banking
                   </p>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    class="StyledProps--font Text--lineclamp StyledProps--main projectId StyledProps--font-variation-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    style="--text-line-clamp: 1;"
                   >
                     idLabel
                   </p>
@@ -4585,7 +4594,8 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                     Portal
                   </p>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    class="StyledProps--font Text--lineclamp StyledProps--main projectId StyledProps--font-variation-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    style="--text-line-clamp: 1;"
                   >
                     idLabel
                   </p>
@@ -5019,7 +5029,8 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                     Project 1
                   </p>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    class="StyledProps--font Text--lineclamp StyledProps--main projectId StyledProps--font-variation-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    style="--text-line-clamp: 1;"
                   >
                     idLabel
                   </p>
@@ -5418,7 +5429,8 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                     Project Demo
                   </p>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    class="StyledProps--font Text--lineclamp StyledProps--main projectId StyledProps--font-variation-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    style="--text-line-clamp: 1;"
                   >
                     idLabel
                   </p>
@@ -5852,7 +5864,8 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                     Drone Data Supplier
                   </p>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    class="StyledProps--font Text--lineclamp StyledProps--main projectId StyledProps--font-variation-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    style="--text-line-clamp: 1;"
                   >
                     idLabel
                   </p>
@@ -6286,7 +6299,8 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                     Swagger
                   </p>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    class="StyledProps--font Text--lineclamp StyledProps--main projectId StyledProps--font-variation-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    style="--text-line-clamp: 1;"
                   >
                     idLabel
                   </p>
@@ -7049,7 +7063,8 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                     test
                   </p>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    class="StyledProps--font Text--lineclamp StyledProps--main projectId StyledProps--font-variation-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    style="--text-line-clamp: 1;"
                   >
                     idLabel
                   </p>
@@ -7483,7 +7498,8 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                     Online Banking
                   </p>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    class="StyledProps--font Text--lineclamp StyledProps--main projectId StyledProps--font-variation-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    style="--text-line-clamp: 1;"
                   >
                     idLabel
                   </p>
@@ -7917,7 +7933,8 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                     Portal
                   </p>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    class="StyledProps--font Text--lineclamp StyledProps--main projectId StyledProps--font-variation-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    style="--text-line-clamp: 1;"
                   >
                     idLabel
                   </p>
@@ -8351,7 +8368,8 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                     Project 1
                   </p>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    class="StyledProps--font Text--lineclamp StyledProps--main projectId StyledProps--font-variation-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    style="--text-line-clamp: 1;"
                   >
                     idLabel
                   </p>
@@ -8750,7 +8768,8 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                     Project Demo
                   </p>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    class="StyledProps--font Text--lineclamp StyledProps--main projectId StyledProps--font-variation-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    style="--text-line-clamp: 1;"
                   >
                     idLabel
                   </p>
@@ -9184,7 +9203,8 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                     Drone Data Supplier
                   </p>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    class="StyledProps--font Text--lineclamp StyledProps--main projectId StyledProps--font-variation-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    style="--text-line-clamp: 1;"
                   >
                     idLabel
                   </p>
@@ -9618,7 +9638,8 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                     Swagger
                   </p>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    class="StyledProps--font Text--lineclamp StyledProps--main projectId StyledProps--font-variation-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    style="--text-line-clamp: 1;"
                   >
                     idLabel
                   </p>
@@ -10381,7 +10402,8 @@ exports[`Project Page List Whole Modal Test 1`] = `
                     test
                   </p>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    class="StyledProps--font Text--lineclamp StyledProps--main projectId StyledProps--font-variation-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    style="--text-line-clamp: 1;"
                   >
                     idLabel
                   </p>
@@ -10815,7 +10837,8 @@ exports[`Project Page List Whole Modal Test 1`] = `
                     Online Banking
                   </p>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    class="StyledProps--font Text--lineclamp StyledProps--main projectId StyledProps--font-variation-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    style="--text-line-clamp: 1;"
                   >
                     idLabel
                   </p>
@@ -11249,7 +11272,8 @@ exports[`Project Page List Whole Modal Test 1`] = `
                     Portal
                   </p>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    class="StyledProps--font Text--lineclamp StyledProps--main projectId StyledProps--font-variation-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    style="--text-line-clamp: 1;"
                   >
                     idLabel
                   </p>
@@ -11683,7 +11707,8 @@ exports[`Project Page List Whole Modal Test 1`] = `
                     Project 1
                   </p>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    class="StyledProps--font Text--lineclamp StyledProps--main projectId StyledProps--font-variation-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    style="--text-line-clamp: 1;"
                   >
                     idLabel
                   </p>
@@ -12082,7 +12107,8 @@ exports[`Project Page List Whole Modal Test 1`] = `
                     Project Demo
                   </p>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    class="StyledProps--font Text--lineclamp StyledProps--main projectId StyledProps--font-variation-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    style="--text-line-clamp: 1;"
                   >
                     idLabel
                   </p>
@@ -12516,7 +12542,8 @@ exports[`Project Page List Whole Modal Test 1`] = `
                     Drone Data Supplier
                   </p>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    class="StyledProps--font Text--lineclamp StyledProps--main projectId StyledProps--font-variation-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    style="--text-line-clamp: 1;"
                   >
                     idLabel
                   </p>
@@ -12950,7 +12977,8 @@ exports[`Project Page List Whole Modal Test 1`] = `
                     Swagger
                   </p>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    class="StyledProps--font Text--lineclamp StyledProps--main projectId StyledProps--font-variation-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    style="--text-line-clamp: 1;"
                   >
                     idLabel
                   </p>

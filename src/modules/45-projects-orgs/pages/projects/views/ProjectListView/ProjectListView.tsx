@@ -16,6 +16,7 @@ import RbacAvatarGroup from '@rbac/components/RbacAvatarGroup/RbacAvatarGroup'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import DescriptionPopover from '@common/components/DescriptionPopover.tsx/DescriptionPopover'
 import useDeleteProjectDialog from '../../DeleteProject'
 import css from './ProjectListView.module.scss'
 
@@ -45,6 +46,7 @@ const RenderColumnProject: Renderer<CellProps<ProjectAggregateDTO>> = ({ row }) 
             {project.name}
           </Text>
           {project.tags && Object.keys(project.tags).length ? <TagsPopover tags={project.tags} /> : null}
+          {project.description && <DescriptionPopover text={project.description} />}
         </Layout.Horizontal>
         <Text color={Color.GREY_600} lineClamp={1} className={css.project} font={{ size: 'small' }}>
           {getString('idLabel', { id: project.identifier })}

@@ -11,5 +11,6 @@ declare const styles: {
   readonly projectInfo: string
   readonly projectAvatarGroup: string
   readonly tagClassName: string
+  readonly projectId: string
 }
 export default styles

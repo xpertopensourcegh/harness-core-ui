@@ -806,7 +806,8 @@ exports[`About Project test create project  2`] = `
                     dummy name
                   </p>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    class="StyledProps--font Text--lineclamp StyledProps--main projectId StyledProps--font-variation-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+                    style="--text-line-clamp: 1;"
                   >
                     idLabel
                   </p>

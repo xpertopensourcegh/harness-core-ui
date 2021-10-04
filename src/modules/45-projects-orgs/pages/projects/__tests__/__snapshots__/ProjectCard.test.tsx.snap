@@ -23,7 +23,8 @@ exports[`Project Card test Preview is ok 1`] = `
           dummy name
         </p>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+          class="StyledProps--font Text--lineclamp StyledProps--main projectId StyledProps--font-variation-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+          style="--text-line-clamp: 1;"
         >
           idLabel
         </p>
@@ -439,7 +440,8 @@ exports[`Project Card test initializes ok  1`] = `
           dummy name
         </p>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+          class="StyledProps--font Text--lineclamp StyledProps--main projectId StyledProps--font-variation-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
+          style="--text-line-clamp: 1;"
         >
           idLabel
         </p>

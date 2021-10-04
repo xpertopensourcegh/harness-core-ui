@@ -96,7 +96,7 @@ const ProjectsListPage: React.FC = () => {
       orgIdentifier,
       searchTerm: searchParam,
       pageIndex: page,
-      pageSize: 50
+      pageSize: 100
     },
     debounce: 300
   })

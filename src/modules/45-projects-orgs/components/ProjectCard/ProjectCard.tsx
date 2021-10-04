@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import cx from 'classnames'
-import { Card, Text, Layout, CardBody, Container, Color } from '@wings-software/uicore'
+import { Card, Text, Layout, CardBody, Container, Color, FontVariation } from '@wings-software/uicore'
 import { Classes } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
@@ -119,7 +119,13 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
               {getString('projectCard.projectName')}
             </Text>
           ) : null}
-          <Text font={{ size: 'small' }} margin={{ top: 'xsmall' }} color={Color.GREY_700}>
+          <Text
+            className={css.projectId}
+            lineClamp={1}
+            font={{ variation: FontVariation.SMALL }}
+            margin={{ top: 'xsmall' }}
+            color={Color.GREY_700}
+          >
             {getString('idLabel', { id: data.identifier })}
           </Text>
           {harnessManagedOrg || isPreview ? null : (
