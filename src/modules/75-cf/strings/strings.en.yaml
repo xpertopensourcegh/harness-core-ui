@@ -485,13 +485,13 @@ onboarding:
     java: |
       # Setup
 
-      Add the following snippet to your project's `pom.xml` file:
+      Add the following snippet to your project's `pom.xml` file (version >= 1.0.4):
 
       ```xml
       <dependency>
         <groupId>io.harness.cf</groupId>
         <artifactId>cf-client-sdk-java</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.4</version>
       </dependency>
       ```
 
@@ -740,8 +740,8 @@ onboarding:
           }
       ```
 
-      In app module's `build.gradle` file add dependency for Harness's SDK
-      `implementation 'io.harness:ff-android-client-sdk:0.0.2'`
+      In app module's `build.gradle` file add dependency for Harness's SDK (version >= 1.0.3)
+      `implementation 'io.harness:ff-android-client-sdk:1.0.3'`
 
       After this step, the SDK elements, primarily `CfClient` should be accessible in main application.
 
@@ -895,7 +895,7 @@ onboarding:
 
       ```Swift
       dependencies: [
-          .package(url: "https://github.com/drone/ff-ios-client-sdk.git", .upToNextMinor(from: "1.0.0"))
+          .package(url: "https://github.com/drone/ff-ios-client-sdk.git", .upToNextMinor(from: "1.0.2"))
       ]
       ```
 
@@ -1152,7 +1152,97 @@ onboarding:
     dotnet: |
       # Install
 
-      To be defined...
+      You can reference the SDK in your project using NuGet package. Package is published to default package repository (nuget.org).
+      Package name is `ff-dotnet-server-sdk`. More information can be found here:
+      [https://docs.microsoft.com/en-us/nuget/quickstart/install-and-use-a-package-in-visual-studio](https://docs.microsoft.com/en-us/nuget/quickstart/install-and-use-a-package-in-visual-studio)
+
+      After the dependency has been added, the SDK elements, primarily `CfClient`, should be accessible in the main application.
+
+      # Use
+
+      `CfClient` is a base class that provides all features of the SDK.
+
+      ```
+      /**
+       * Put the API Key here from your environment
+       */
+      String API_KEY = "YOUR_API_KEY";
+
+      config = Config.Builder()
+                      .SetPollingInterval(60000)
+                      .SetAnalyticsEnabled()
+                      .SetStreamEnabled(true)
+                      .Build();
+
+      CfClient cfClient = await CfClient.getInstance(API_KEY, config);
+
+      /**
+       * Define the target for which you would like to evaluate
+       * the featureFlag
+       */
+      io.harness.cfsdk.client.dto.Target target =
+                      io.harness.cfsdk.client.dto.Target.builder()
+                      .Name("User1") //can change with your target name
+                      .Identifier("user1@example.com") //can change with your target identifier
+                      .build();
+      ```
+
+      `target` represents the desired target for which we want features to be evaluated.
+
+      `"YOUR_API_KEY"` is an authentication key, needed for access to Harness services.
+
+      **Your Harness SDK is now initialized. Congratulations!**
+
+      ### Public API Methods ###
+
+      The Public API exposes a few methods that you can utilize:
+
+      * `public async Task<bool> boolVariation(string key, dto.Target target, bool defaultValue)`
+
+      * `public async Task<string> stringVariation(string key, dto.Target target, string defaultValue)`
+
+      * `public async Task<double> numberVariation(string key, dto.Target target, int defaultValue)`
+
+      * `public async Task<JObject> jsonVariation(string key, dto.Target target, JObject defaultValue)`
+
+
+      ## Fetch evaluation's value
+
+      It is possible to fetch a value for a given evaluation. Evaluation is performed based on a different type. In case there
+      is no evaluation with the provided id, the default value is returned.
+
+      Use the appropriate method to fetch the desired Evaluation of a certain type.
+
+      ### Bool variation
+
+      ```
+      boolean result = await cfClient.boolVariation("sample_boolean_flag", target, false);
+      ```
+
+      ### Number variation
+
+      ```
+      double result = await cfClient.numberVariation("sample_number_flag", target, 0);
+      ```
+
+      ### String variation
+
+      ```
+      string result = await cfClient.stringVariation("sample_string_flag", target, "");
+      ```
+
+      ## Using feature flags metrics
+
+      The Metrics API endpoint can be changed like this:
+
+      ```
+      Config.builder()
+                    .EventUrl("METRICS_API_EVENTS_URL")
+                    .build();
+      ```
+
+      Otherwise, the default metrics endpoint URL will be used.
+
 learnMore: '{{ $.cf.homepage.learnMore }}'
 cfTrialHomePage:
   startTrial:
