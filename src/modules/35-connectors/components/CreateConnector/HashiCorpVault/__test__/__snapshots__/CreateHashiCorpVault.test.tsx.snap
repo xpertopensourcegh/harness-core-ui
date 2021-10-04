@@ -129,7 +129,7 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
           connectors.hashicorpVaultDetails
         </p>
         <div
-          class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
+          class="StyledProps--font StyledProps--main connectorForm"
         >
           <div
             class="OverlaySpinner--overlaySpinner"

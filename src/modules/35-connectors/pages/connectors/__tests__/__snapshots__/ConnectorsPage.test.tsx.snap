@@ -1804,9 +1804,9 @@ exports[`Connectors Page Test Render and check create connector panel: Connector
                   </h2>
                 </div>
                 <div
-                  class="bp3-input-group ui-search-box ExpandingSearchInput--main  ExpandingSearchInput--flip  ExpandingSearchInput--light"
+                  class="bp3-input-group ui-search-box ExpandingSearchInput--main   ExpandingSearchInput--alwaysExpanded ExpandingSearchInput--light"
                   data-name=""
-                  style="max-width: 232px;"
+                  style="width: 232px; max-width: 232px;"
                 >
                   <span
                     class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey700"
@@ -1831,7 +1831,7 @@ exports[`Connectors Page Test Render and check create connector panel: Connector
                     class="bp3-input  ExpandingSearchInput--filter"
                     dir="auto"
                     placeholder="search"
-                    style="padding-right: 0px;"
+                    style="padding-right: 38px;"
                     type="search"
                     value=""
                   />

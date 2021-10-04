@@ -228,7 +228,7 @@ exports[`Create Secret Manager Wizard should be able to render first step form 1
           overview
         </p>
         <div
-          class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
+          class="StyledProps--font StyledProps--main connectorForm"
         >
           <div
             class="OverlaySpinner--overlaySpinner"

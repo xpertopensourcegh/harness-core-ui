@@ -62,9 +62,9 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
                     </p>
                   </div>
                   <div
-                    class="bp3-input-group ui-search-box ExpandingSearchInput--main  ExpandingSearchInput--flip  ExpandingSearchInput--light"
+                    class="bp3-input-group ui-search-box ExpandingSearchInput--main   ExpandingSearchInput--alwaysExpanded ExpandingSearchInput--light"
                     data-name=""
-                    style="max-width: 232px;"
+                    style="width: 232px; max-width: 232px;"
                   >
                     <span
                       class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey700"
@@ -89,7 +89,7 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
                       class="bp3-input  ExpandingSearchInput--filter"
                       dir="auto"
                       placeholder="Search"
-                      style="padding-right: 0px;"
+                      style="padding-right: 38px;"
                       type="search"
                       value=""
                     />

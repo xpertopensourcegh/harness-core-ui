@@ -130,7 +130,7 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
       <Text font={{ variation: FontVariation.H3 }}>{getString(getHeadingIdByType(props.type))}</Text>
       <ModalErrorHandler bind={setModalErrorHandler} style={{ maxWidth: '740px' }} />
 
-      <Container padding="small" className={css.connectorForm}>
+      <Container className={css.connectorForm}>
         <Formik<DetailsForm>
           onSubmit={formData => {
             handleSubmit(formData)

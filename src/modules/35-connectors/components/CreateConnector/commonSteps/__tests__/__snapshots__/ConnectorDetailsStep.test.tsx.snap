@@ -11,7 +11,7 @@ exports[`Connector details step Test for  create  connector step one required fe
       overview
     </p>
     <div
-      class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
+      class="StyledProps--font StyledProps--main connectorForm"
     >
       <div
         class="OverlaySpinner--overlaySpinner"
@@ -287,7 +287,7 @@ exports[`Connector details step Test for going to next step 1`] = `
       overview
     </p>
     <div
-      class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
+      class="StyledProps--font StyledProps--main connectorForm"
     >
       <div
         class="OverlaySpinner--overlaySpinner"

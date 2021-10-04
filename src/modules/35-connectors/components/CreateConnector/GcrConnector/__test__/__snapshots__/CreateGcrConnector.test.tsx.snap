@@ -171,7 +171,7 @@ exports[`Create GCP connector Wizard Should render form 1`] = `
           connectors.gcrConnectorDetails
         </p>
         <div
-          class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
+          class="StyledProps--font StyledProps--main connectorForm"
         >
           <div
             class="OverlaySpinner--overlaySpinner"
@@ -971,7 +971,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
           connectors.gcrConnectorDetails
         </p>
         <div
-          class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
+          class="StyledProps--font StyledProps--main connectorForm"
         >
           <div
             class="OverlaySpinner--overlaySpinner"

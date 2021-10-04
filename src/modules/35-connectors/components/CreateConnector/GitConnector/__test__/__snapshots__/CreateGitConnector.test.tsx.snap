@@ -128,7 +128,7 @@ exports[`Create Git connector Wizard Creating Git step one 1`] = `
           overview
         </p>
         <div
-          class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
+          class="StyledProps--font StyledProps--main connectorForm"
         >
           <div
             class="OverlaySpinner--overlaySpinner"
@@ -1506,7 +1506,7 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
           overview
         </p>
         <div
-          class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
+          class="StyledProps--font StyledProps--main connectorForm"
         >
           <div
             class="OverlaySpinner--overlaySpinner"

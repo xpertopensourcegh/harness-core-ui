@@ -129,7 +129,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
           overview
         </p>
         <div
-          class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
+          class="StyledProps--font StyledProps--main connectorForm"
         >
           <div
             class="OverlaySpinner--overlaySpinner"

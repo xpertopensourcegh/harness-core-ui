@@ -180,7 +180,7 @@ export default function AddDrawer(props: AddDrawerProps): JSX.Element {
                 </Layout.Vertical>
 
                 <ExpandingSearchInput
-                  flip
+                  alwaysExpanded
                   width={232}
                   placeholder={addDrawerMap.searchPlaceholder || getString('search')}
                   throttle={200}

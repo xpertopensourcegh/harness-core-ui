@@ -662,7 +662,7 @@ exports[`Create Artifactory connector Wizard Should render form 1`] = `
           overview
         </p>
         <div
-          class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
+          class="StyledProps--font StyledProps--main connectorForm"
         >
           <div
             class="OverlaySpinner--overlaySpinner"

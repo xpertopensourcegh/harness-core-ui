@@ -119,7 +119,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Artifacto
             overview
           </p>
           <div
-            class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
+            class="StyledProps--font StyledProps--main connectorForm"
           >
             <div
               class="OverlaySpinner--overlaySpinner"
@@ -506,7 +506,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for BITBUCKET
             overview
           </p>
           <div
-            class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
+            class="StyledProps--font StyledProps--main connectorForm"
           >
             <div
               class="OverlaySpinner--overlaySpinner"
@@ -882,7 +882,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for DOCKER 1`
             overview
           </p>
           <div
-            class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
+            class="StyledProps--font StyledProps--main connectorForm"
           >
             <div
               class="OverlaySpinner--overlaySpinner"
@@ -1311,7 +1311,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for GCP 1`] =
             overview
           </p>
           <div
-            class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
+            class="StyledProps--font StyledProps--main connectorForm"
           >
             <div
               class="OverlaySpinner--overlaySpinner"
@@ -1702,7 +1702,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for GCP KMS 1
             overview
           </p>
           <div
-            class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
+            class="StyledProps--font StyledProps--main connectorForm"
           >
             <div
               class="OverlaySpinner--overlaySpinner"
@@ -2088,7 +2088,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Git 1`] =
             overview
           </p>
           <div
-            class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
+            class="StyledProps--font StyledProps--main connectorForm"
           >
             <div
               class="OverlaySpinner--overlaySpinner"
@@ -2473,7 +2473,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Github 1`
             overview
           </p>
           <div
-            class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
+            class="StyledProps--font StyledProps--main connectorForm"
           >
             <div
               class="OverlaySpinner--overlaySpinner"
@@ -2883,7 +2883,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Gitlab 1`
             overview
           </p>
           <div
-            class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
+            class="StyledProps--font StyledProps--main connectorForm"
           >
             <div
               class="OverlaySpinner--overlaySpinner"
@@ -3270,7 +3270,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Nexus 1`]
             overview
           </p>
           <div
-            class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
+            class="StyledProps--font StyledProps--main connectorForm"
           >
             <div
               class="OverlaySpinner--overlaySpinner"
@@ -3657,7 +3657,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for VAULT 1`]
             connectors.hashicorpVaultDetails
           </p>
           <div
-            class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
+            class="StyledProps--font StyledProps--main connectorForm"
           >
             <div
               class="OverlaySpinner--overlaySpinner"
@@ -4038,7 +4038,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for k8 1`] = 
             overview
           </p>
           <div
-            class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
+            class="StyledProps--font StyledProps--main connectorForm"
           >
             <div
               class="OverlaySpinner--overlaySpinner"
