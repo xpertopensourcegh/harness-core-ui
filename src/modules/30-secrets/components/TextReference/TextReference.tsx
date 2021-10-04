@@ -119,19 +119,22 @@ const TextReference: React.FC<FormikTextReference> = props => {
             stringId={props.stringId}
             className={cx(Classes.LABEL, css.stringWithTooltipLabel)}
           />
-          <FormInput.Select
+          <FormInput.DropDown
             name={`${name}fieldType`}
             items={[
               { label: getString('plaintext'), value: ValueType.TEXT },
               { label: getString('encrypted'), value: ValueType.ENCRYPTED }
             ]}
-            disabled={false}
             onChange={() => {
               formik.setFieldValue(props.name, undefined)
               formik.setFieldValue(`${name}textField`, undefined)
               formik.setFieldValue(`${name}secretField`, undefined)
             }}
-            className={css.labelSelect}
+            dropDownProps={{
+              isLabel: true,
+              filterable: false,
+              minWidth: 'unset'
+            }}
           />
         </div>
         {formik.values[`${name}fieldType`] === ValueType.TEXT ? (
