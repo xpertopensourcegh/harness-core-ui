@@ -33,6 +33,7 @@ exports[`<CIExecutionCardSummary /> tests branch snapshot 1`] = `
           <p
             class="StyledProps--font Text--lineclamp StyledProps--main partLabel StyledProps--color StyledProps--color-primary7 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
             style="--text-line-clamp: 1;"
+            title="nextgenui"
           >
             nextgenui
           </p>
@@ -59,6 +60,7 @@ exports[`<CIExecutionCardSummary /> tests branch snapshot 1`] = `
           <p
             class="StyledProps--font Text--lineclamp StyledProps--main partLabel StyledProps--color StyledProps--color-primary7 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
             style="--text-line-clamp: 1;"
+            title="master"
           >
             master
           </p>
@@ -197,6 +199,7 @@ exports[`<CIExecutionCardSummary /> tests default snapshot 1`] = `
           <p
             class="StyledProps--font Text--lineclamp StyledProps--main partLabel StyledProps--color StyledProps--color-primary7 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
             style="--text-line-clamp: 1;"
+            title="nextgenui"
           >
             nextgenui
           </p>
@@ -223,6 +226,7 @@ exports[`<CIExecutionCardSummary /> tests default snapshot 1`] = `
           <p
             class="StyledProps--font Text--lineclamp StyledProps--main partLabel StyledProps--color StyledProps--color-primary7 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
             style="--text-line-clamp: 1;"
+            title="master"
           >
             master
           </p>
@@ -266,6 +270,7 @@ exports[`<CIExecutionCardSummary /> tests pull request snapshot 1`] = `
           <p
             class="StyledProps--font Text--lineclamp StyledProps--main partLabel StyledProps--color StyledProps--color-primary7 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
             style="--text-line-clamp: 1;"
+            title="nextgenui"
           >
             nextgenui
           </p>
@@ -292,6 +297,7 @@ exports[`<CIExecutionCardSummary /> tests pull request snapshot 1`] = `
           <p
             class="StyledProps--font Text--lineclamp StyledProps--main partLabel StyledProps--color StyledProps--color-primary7 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
             style="--text-line-clamp: 1;"
+            title="feat/variables-ux"
           >
             feat/variables-ux
           </p>
@@ -341,6 +347,7 @@ exports[`<CIExecutionCardSummary /> tests pull request snapshot 1`] = `
           <p
             class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-primary7 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
             style="--text-line-clamp: 1;"
+            title="master"
           >
             master
           </p>

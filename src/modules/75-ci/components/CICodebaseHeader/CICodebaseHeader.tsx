@@ -1,4 +1,5 @@
 import React from 'react'
+import truncate from 'lodash/truncate'
 import cx from 'classnames'
 import { Text, Icon, Container, Layout } from '@wings-software/uicore'
 
@@ -11,6 +12,8 @@ interface CICodebaseHeaderProps {
   tag?: string
   isDetailedView?: boolean
 }
+
+const MAX_LABEL_CHAR_LENGTH = 30
 
 export const CICodebaseHeader: React.FC<CICodebaseHeaderProps> = props => {
   const { repo = '', branch = '', tag = '', targetBranch = '', isDetailedView } = props
@@ -26,8 +29,9 @@ export const CICodebaseHeader: React.FC<CICodebaseHeaderProps> = props => {
               color="primary7"
               font={{ size: 'small', weight: 'semi-bold' }}
               className={css.partLabel}
+              title={repo}
             >
-              {repo}
+              {truncate(repo, { length: MAX_LABEL_CHAR_LENGTH })}
             </Text>
           </Container>
         ) : null}
@@ -39,8 +43,9 @@ export const CICodebaseHeader: React.FC<CICodebaseHeaderProps> = props => {
               color="primary7"
               font={{ size: 'small', weight: 'semi-bold' }}
               className={css.partLabel}
+              title={branch}
             >
-              {branch}
+              {truncate(branch, { length: MAX_LABEL_CHAR_LENGTH })}
             </Text>
           </Container>
         ) : null}
@@ -50,8 +55,8 @@ export const CICodebaseHeader: React.FC<CICodebaseHeaderProps> = props => {
           <Icon name="arrow-right" size={14} padding={{ left: 'small', right: 'small' }} />
           <Container flex padding={{ left: 'medium', right: 'small' }} className={css.label}>
             <Icon name="git-new-branch" size={12} color="primary7" />
-            <Text lineClamp={1} color="primary7" font={{ size: 'small', weight: 'semi-bold' }}>
-              {targetBranch}
+            <Text lineClamp={1} color="primary7" font={{ size: 'small', weight: 'semi-bold' }} title={targetBranch}>
+              {truncate(targetBranch, { length: MAX_LABEL_CHAR_LENGTH })}
             </Text>
           </Container>
         </Container>
@@ -59,8 +64,8 @@ export const CICodebaseHeader: React.FC<CICodebaseHeaderProps> = props => {
       {tag ? (
         <Container flex className={css.label}>
           <Icon name="tag" size={14} color="primary7" />
-          <Text lineClamp={1} color="primary7" font={{ size: 'small', weight: 'semi-bold' }}>
-            {tag}
+          <Text lineClamp={1} color="primary7" font={{ size: 'small', weight: 'semi-bold' }} title={tag}>
+            {truncate(tag, { length: MAX_LABEL_CHAR_LENGTH })}
           </Text>
         </Container>
       ) : null}

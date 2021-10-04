@@ -70,6 +70,7 @@ exports[`CIExecutionSummary tests Shows Fails to Initialize Step - no commits 1`
           <p
             class="StyledProps--font Text--lineclamp StyledProps--main partLabel StyledProps--color StyledProps--color-primary7 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
             style="--text-line-clamp: 1;"
+            title="jhttp"
           >
             jhttp
           </p>
@@ -96,6 +97,7 @@ exports[`CIExecutionSummary tests Shows Fails to Initialize Step - no commits 1`
           <p
             class="StyledProps--font Text--lineclamp StyledProps--main partLabel StyledProps--color StyledProps--color-primary7 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
             style="--text-line-clamp: 1;"
+            title="aman/fix-sanity"
           >
             aman/fix-sanity
           </p>
@@ -145,6 +147,7 @@ exports[`CIExecutionSummary tests Shows Fails to Initialize Step - no commits 1`
           <p
             class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-primary7 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
             style="--text-line-clamp: 1;"
+            title="master"
           >
             master
           </p>
@@ -281,6 +284,7 @@ exports[`CIExecutionSummary tests Shows Successful summary 1`] = `
           <p
             class="StyledProps--font Text--lineclamp StyledProps--main partLabel StyledProps--color StyledProps--color-primary7 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
             style="--text-line-clamp: 1;"
+            title="portal"
           >
             portal
           </p>
@@ -307,6 +311,7 @@ exports[`CIExecutionSummary tests Shows Successful summary 1`] = `
           <p
             class="StyledProps--font Text--lineclamp StyledProps--main partLabel StyledProps--color StyledProps--color-primary7 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
             style="--text-line-clamp: 1;"
+            title="ownerId-patch-8"
           >
             ownerId-patch-8
           </p>
@@ -356,6 +361,7 @@ exports[`CIExecutionSummary tests Shows Successful summary 1`] = `
           <p
             class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-primary7 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
             style="--text-line-clamp: 1;"
+            title="master"
           >
             master
           </p>
