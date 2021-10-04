@@ -626,7 +626,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
           ci.runTestsMavenSetupText1
         </p>
         <div
-          class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main StyledProps--margin-bottom-small"
+          class="StyledProps--main StyledProps--margin-bottom-small"
         >
           <label
             class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"

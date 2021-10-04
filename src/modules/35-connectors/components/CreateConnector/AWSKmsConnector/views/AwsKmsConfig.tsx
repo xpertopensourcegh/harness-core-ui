@@ -9,7 +9,9 @@ import {
   Formik,
   FormikForm,
   Layout,
-  Button
+  Button,
+  FontVariation,
+  ButtonVariation
 } from '@wings-software/uicore'
 
 import { useStrings } from 'framework/strings'
@@ -79,7 +81,7 @@ const AwsKmsConfig: React.FC<StepProps<StepDetailsProps> & ConnectorDetailsProps
     <PageSpinner />
   ) : (
     <Container padding={{ top: 'medium' }} width="64%">
-      <Text font={{ size: 'medium' }} padding={{ bottom: 'xlarge' }}>
+      <Text font={{ variation: FontVariation.H3 }} padding={{ bottom: 'xlarge' }}>
         {getString('details')}
       </Text>
 
@@ -150,7 +152,12 @@ const AwsKmsConfig: React.FC<StepProps<StepDetailsProps> & ConnectorDetailsProps
                 />
               </Container>
               <Layout.Horizontal spacing="medium">
-                <Button text={getString('back')} onClick={() => previousStep?.(prevStepData)} />
+                <Button
+                  variation={ButtonVariation.SECONDARY}
+                  icon="chevron-left"
+                  text={getString('back')}
+                  onClick={() => previousStep?.(prevStepData)}
+                />
                 <Button type="submit" intent="primary" rightIcon="chevron-right" text={getString('continue')} />
               </Layout.Horizontal>
             </FormikForm>

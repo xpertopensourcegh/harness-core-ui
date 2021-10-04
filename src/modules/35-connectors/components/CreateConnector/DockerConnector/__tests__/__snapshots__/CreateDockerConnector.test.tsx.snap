@@ -112,11 +112,11 @@ exports[`Create Docker Connector  Wizard Should render form 1`] = `
       <div
         class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep"
       >
-        <div
-          class="heading"
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-h3"
         >
           overview
-        </div>
+        </p>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
         >
@@ -1115,11 +1115,11 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
       <div
         class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep"
       >
-        <div
-          class="heading"
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-h3"
         >
           overview
-        </div>
+        </p>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
         >

@@ -1,6 +1,16 @@
 import React, { useState } from 'react'
 import * as Yup from 'yup'
-import { Button, Formik, FormikForm, Layout, StepProps, Container, Text } from '@wings-software/uicore'
+import {
+  Button,
+  Formik,
+  FormikForm,
+  Layout,
+  StepProps,
+  Container,
+  Text,
+  FontVariation,
+  ButtonVariation
+} from '@wings-software/uicore'
 import type { VaultConnectorDTO } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { URLValidationSchema } from '@common/utils/Validation'
@@ -54,7 +64,7 @@ const VaultConfigForm: React.FC<StepProps<StepDetailsProps> & ConnectorDetailsPr
     <PageSpinner />
   ) : (
     <Container padding={{ top: 'medium' }} width="64%">
-      <Text font={{ size: 'medium' }} padding={{ bottom: 'xlarge' }}>
+      <Text font={{ variation: FontVariation.H3 }} padding={{ bottom: 'xlarge' }}>
         {getString('connectors.hashiCorpVault.stepTwoName')}
       </Text>
       <Formik<VaultConfigFormData>
@@ -107,7 +117,12 @@ const VaultConfigForm: React.FC<StepProps<StepDetailsProps> & ConnectorDetailsPr
             <FormikForm>
               <VaultConnectorFormFields formik={formik} />
               <Layout.Horizontal spacing="medium">
-                <Button text={getString('back')} onClick={() => previousStep?.(prevStepData)} />
+                <Button
+                  variation={ButtonVariation.SECONDARY}
+                  icon="chevron-left"
+                  text={getString('back')}
+                  onClick={() => previousStep?.(prevStepData)}
+                />
                 <Button type="submit" intent="primary" rightIcon="chevron-right" text={getString('continue')} />
               </Layout.Horizontal>
             </FormikForm>

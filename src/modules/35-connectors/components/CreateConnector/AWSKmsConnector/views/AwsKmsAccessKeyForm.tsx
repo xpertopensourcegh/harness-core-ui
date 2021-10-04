@@ -1,6 +1,6 @@
 import React from 'react'
 import type { FormikProps } from 'formik'
-import { FormInput, Text, Color, SelectOption, Icon } from '@wings-software/uicore'
+import { FormInput, Text, Color, SelectOption, Icon, FontVariation } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { useListAwsRegions } from 'services/portal'
 import { useToaster } from '@common/exports'
@@ -40,7 +40,7 @@ const AwsKmsAccessKeyForm: React.FC<AwsKmsAccessKeyFormProps> = ({ formik, accou
 
   return (
     <>
-      <Text font={{ size: 'medium' }} style={{ marginBottom: 'var(--spacing-medium)' }} color={Color.BLACK}>
+      <Text font={{ variation: FontVariation.LEAD }} margin={{ bottom: 'medium', top: 'xlarge' }} color={Color.BLACK}>
         {getString('authentication')}
       </Text>
       {formik.values?.credType === CredTypeValues.ManualConfig && (

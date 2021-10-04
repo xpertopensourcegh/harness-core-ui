@@ -117,11 +117,11 @@ exports[`Create AWS connector Wizard Should edit a connector with delegates 1`] 
       <div
         class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep"
       >
-        <div
-          class="heading"
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-h3"
         >
           overview
-        </div>
+        </p>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
         >
@@ -466,11 +466,11 @@ exports[`Create AWS connector Wizard Should render form 1`] = `
       <div
         class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep"
       >
-        <div
-          class="heading"
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-h3"
         >
           overview
-        </div>
+        </p>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
         >
@@ -1358,11 +1358,11 @@ exports[`Create AWS connector Wizard Should render form for edit  1`] = `
       <div
         class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep"
       >
-        <div
-          class="heading"
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-h3"
         >
           overview
-        </div>
+        </p>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
         >

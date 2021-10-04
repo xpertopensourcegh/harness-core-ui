@@ -10,7 +10,8 @@ import {
   Color,
   StepProps,
   Container,
-  ButtonVariation
+  ButtonVariation,
+  FontVariation
 } from '@wings-software/uicore'
 import { useGetDelegateFromId } from 'services/portal'
 import {
@@ -371,7 +372,7 @@ const VerifyOutOfClusterDelegate: React.FC<StepProps<VerifyOutOfClusterStepProps
     return (
       <Layout.Vertical padding={{ top: 'large', right: 'small', left: 'small', bottom: 'large' }} height={'100%'}>
         <Layout.Vertical>
-          <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.GREY_800}>
+          <Text font={{ variation: FontVariation.H3 }} color={Color.GREY_800}>
             {getString('connectors.stepThreeName')}
           </Text>
           {prevStepData?.delegateType === DelegateTypes.DELEGATE_IN_CLUSTER ? null : (

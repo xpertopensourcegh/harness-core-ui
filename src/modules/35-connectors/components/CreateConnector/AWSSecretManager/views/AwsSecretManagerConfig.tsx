@@ -11,7 +11,9 @@ import {
   Layout,
   Button,
   ModalErrorHandlerBinding,
-  ModalErrorHandler
+  ModalErrorHandler,
+  FontVariation,
+  ButtonVariation
 } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { setupAwsSecretManagerFormData } from '@connectors/pages/connectors/utils/ConnectorUtils'
@@ -80,7 +82,7 @@ const AwsSecretManagerConfig: React.FC<StepProps<StepDetailsProps> & ConnectorDe
     <PageSpinner />
   ) : (
     <Container padding={{ top: 'medium' }} width="64%">
-      <Text font={{ size: 'medium' }} padding={{ bottom: 'xlarge' }}>
+      <Text font={{ variation: FontVariation.H3 }} padding={{ bottom: 'xlarge' }}>
         {getString('details')}
       </Text>
       <ModalErrorHandler bind={setModalErrorHandler} />
@@ -150,7 +152,12 @@ const AwsSecretManagerConfig: React.FC<StepProps<StepDetailsProps> & ConnectorDe
                 />
               </Container>
               <Layout.Horizontal spacing="medium">
-                <Button text={getString('back')} onClick={() => previousStep?.(prevStepData)} />
+                <Button
+                  variation={ButtonVariation.SECONDARY}
+                  icon="chevron-left"
+                  text={getString('back')}
+                  onClick={() => previousStep?.(prevStepData)}
+                />
                 <Button type="submit" intent="primary" rightIcon="chevron-right" text={getString('continue')} />
               </Layout.Horizontal>
             </FormikForm>

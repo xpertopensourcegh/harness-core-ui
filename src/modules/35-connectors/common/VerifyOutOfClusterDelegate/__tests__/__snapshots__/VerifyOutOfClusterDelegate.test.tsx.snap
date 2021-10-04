@@ -10,7 +10,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
       class="Layout--vertical StyledProps--main"
     >
       <p
-        class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey800"
+        class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--color StyledProps--color-grey800"
       >
         connectors.stepThreeName
       </p>
@@ -148,7 +148,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
       class="Layout--vertical StyledProps--main"
     >
       <p
-        class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey800"
+        class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--color StyledProps--color-grey800"
       >
         connectors.stepThreeName
       </p>
@@ -286,7 +286,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
       class="Layout--vertical StyledProps--main"
     >
       <p
-        class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey800"
+        class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--color StyledProps--color-grey800"
       >
         connectors.stepThreeName
       </p>
@@ -424,7 +424,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
       class="Layout--vertical StyledProps--main"
     >
       <p
-        class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey800"
+        class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--color StyledProps--color-grey800"
       >
         connectors.stepThreeName
       </p>
@@ -562,7 +562,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
       class="Layout--vertical StyledProps--main"
     >
       <p
-        class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey800"
+        class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--color StyledProps--color-grey800"
       >
         connectors.stepThreeName
       </p>
@@ -700,7 +700,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
       class="Layout--vertical StyledProps--main"
     >
       <p
-        class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey800"
+        class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--color StyledProps--color-grey800"
       >
         connectors.stepThreeName
       </p>
@@ -787,7 +787,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
       class="Layout--vertical StyledProps--main"
     >
       <p
-        class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey800"
+        class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--color StyledProps--color-grey800"
       >
         connectors.stepThreeName
       </p>

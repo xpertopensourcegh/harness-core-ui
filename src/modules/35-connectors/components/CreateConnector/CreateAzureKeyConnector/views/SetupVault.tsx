@@ -11,7 +11,8 @@ import {
   StepProps,
   SelectOption,
   ModalErrorHandlerBinding,
-  ModalErrorHandler
+  ModalErrorHandler,
+  FontVariation
 } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/exports'
@@ -147,10 +148,10 @@ const SetupVault: React.FC<StepProps<StepDetailsProps> & ConnectorDetailsProps> 
     <PageSpinner />
   ) : (
     <Container padding={{ top: 'medium' }} width="64%">
-      <Text font={{ size: 'medium' }} padding={{ bottom: 'xlarge' }}>
-        {getString('connectors.azureKeyVault.labels.setupVault')}
-      </Text>
-      <ModalErrorHandler bind={setModalErrorHandler} />
+      <Text font={{ variation: FontVariation.H3 }}>{getString('connectors.azureKeyVault.labels.setupVault')}</Text>
+      <Container margin={{ bottom: 'xlarge' }}>
+        <ModalErrorHandler bind={setModalErrorHandler} />
+      </Container>
       <Formik
         formName="azureKeyVaultForm"
         enableReinitialize

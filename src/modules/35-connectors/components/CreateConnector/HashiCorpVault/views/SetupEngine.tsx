@@ -12,7 +12,8 @@ import {
   SelectOption,
   Color,
   ModalErrorHandler,
-  ModalErrorHandlerBinding
+  ModalErrorHandlerBinding,
+  FontVariation
 } from '@wings-software/uicore'
 import type { IOptionProps } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
@@ -193,7 +194,7 @@ const SetupEngine: React.FC<StepProps<StepDetailsProps> & ConnectorDetailsProps>
     <PageSpinner />
   ) : (
     <Container padding={{ top: 'medium' }} width="64%">
-      <Text font={{ size: 'medium' }} padding={{ bottom: 'xlarge' }} color={Color.BLACK}>
+      <Text font={{ variation: FontVariation.H3 }} padding={{ bottom: 'xlarge' }} color={Color.BLACK}>
         {getString('connectors.hashiCorpVault.setupEngine')}
       </Text>
       <ModalErrorHandler bind={setModalErrorHandler} />

@@ -165,11 +165,11 @@ exports[`Create GCP connector Wizard Should render form 1`] = `
       <div
         class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep"
       >
-        <div
-          class="heading"
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-h3"
         >
           connectors.gcrConnectorDetails
-        </div>
+        </p>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
         >
@@ -965,11 +965,11 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
       <div
         class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep"
       >
-        <div
-          class="heading"
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-h3"
         >
           connectors.gcrConnectorDetails
-        </div>
+        </p>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
         >

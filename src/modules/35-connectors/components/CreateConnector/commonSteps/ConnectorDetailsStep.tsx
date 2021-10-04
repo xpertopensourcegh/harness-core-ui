@@ -7,7 +7,9 @@ import {
   ModalErrorHandlerBinding,
   ModalErrorHandler,
   FormikForm,
-  Container
+  Container,
+  Text,
+  FontVariation
 } from '@wings-software/uicore'
 import { useParams } from 'react-router'
 import * as Yup from 'yup'
@@ -125,7 +127,7 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
 
   return (
     <Layout.Vertical spacing="xxlarge" className={css.firstep}>
-      <div className={css.heading}>{getString(getHeadingIdByType(props.type))}</div>
+      <Text font={{ variation: FontVariation.H3 }}>{getString(getHeadingIdByType(props.type))}</Text>
       <ModalErrorHandler bind={setModalErrorHandler} style={{ maxWidth: '740px' }} />
 
       <Container padding="small" className={css.connectorForm}>

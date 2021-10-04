@@ -113,11 +113,11 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Artifacto
         <div
           class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep"
         >
-          <div
-            class="heading"
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-h3"
           >
             overview
-          </div>
+          </p>
           <div
             class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
           >
@@ -500,11 +500,11 @@ exports[`Create connector Wizard should open CreateConnectorWizard for BITBUCKET
         <div
           class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep"
         >
-          <div
-            class="heading"
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-h3"
           >
             overview
-          </div>
+          </p>
           <div
             class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
           >
@@ -876,11 +876,11 @@ exports[`Create connector Wizard should open CreateConnectorWizard for DOCKER 1`
         <div
           class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep"
         >
-          <div
-            class="heading"
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-h3"
           >
             overview
-          </div>
+          </p>
           <div
             class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
           >
@@ -1305,11 +1305,11 @@ exports[`Create connector Wizard should open CreateConnectorWizard for GCP 1`] =
         <div
           class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep"
         >
-          <div
-            class="heading"
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-h3"
           >
             overview
-          </div>
+          </p>
           <div
             class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
           >
@@ -1696,11 +1696,11 @@ exports[`Create connector Wizard should open CreateConnectorWizard for GCP KMS 1
         <div
           class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep"
         >
-          <div
-            class="heading"
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-h3"
           >
             overview
-          </div>
+          </p>
           <div
             class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
           >
@@ -2082,11 +2082,11 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Git 1`] =
         <div
           class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep"
         >
-          <div
-            class="heading"
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-h3"
           >
             overview
-          </div>
+          </p>
           <div
             class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
           >
@@ -2467,11 +2467,11 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Github 1`
         <div
           class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep"
         >
-          <div
-            class="heading"
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-h3"
           >
             overview
-          </div>
+          </p>
           <div
             class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
           >
@@ -2877,11 +2877,11 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Gitlab 1`
         <div
           class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep"
         >
-          <div
-            class="heading"
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-h3"
           >
             overview
-          </div>
+          </p>
           <div
             class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
           >
@@ -3264,11 +3264,11 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Nexus 1`]
         <div
           class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep"
         >
-          <div
-            class="heading"
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-h3"
           >
             overview
-          </div>
+          </p>
           <div
             class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
           >
@@ -3651,11 +3651,11 @@ exports[`Create connector Wizard should open CreateConnectorWizard for VAULT 1`]
         <div
           class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep"
         >
-          <div
-            class="heading"
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-h3"
           >
             connectors.hashicorpVaultDetails
-          </div>
+          </p>
           <div
             class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
           >
@@ -4032,11 +4032,11 @@ exports[`Create connector Wizard should open CreateConnectorWizard for k8 1`] = 
         <div
           class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep"
         >
-          <div
-            class="heading"
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-h3"
           >
             overview
-          </div>
+          </p>
           <div
             class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
           >

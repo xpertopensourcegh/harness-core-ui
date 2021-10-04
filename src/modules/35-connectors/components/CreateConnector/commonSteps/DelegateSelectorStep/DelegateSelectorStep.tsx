@@ -9,7 +9,8 @@ import {
   ModalErrorHandlerBinding,
   FormikForm as Form,
   StepProps,
-  Color
+  Color,
+  FontVariation
 } from '@wings-software/uicore'
 // import * as Yup from 'yup'
 import { noop, omit } from 'lodash-es'
@@ -229,7 +230,12 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
         />
       ) : null}
       <Layout.Vertical height={'inherit'} padding={{ left: 'small' }}>
-        <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK} id="delegateSelectorStepTitle">
+        <Text
+          font={{ variation: FontVariation.H3 }}
+          margin={{ top: 'small' }}
+          color={Color.BLACK}
+          id="delegateSelectorStepTitle"
+        >
           {getString('delegate.DelegateselectionLabel')}
         </Text>
         <ModalErrorHandler bind={setModalErrorHandler} />

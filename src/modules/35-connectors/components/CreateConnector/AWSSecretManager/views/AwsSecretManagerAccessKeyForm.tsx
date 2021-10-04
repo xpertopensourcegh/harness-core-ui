@@ -1,6 +1,6 @@
 import React from 'react'
 import type { FormikProps } from 'formik'
-import { FormInput, Text, Color, ModalErrorHandlerBinding, Icon } from '@wings-software/uicore'
+import { FormInput, Text, Color, ModalErrorHandlerBinding, Icon, FontVariation } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { useListAwsRegions } from 'services/portal'
 import { AwsSecretManagerConfigFormData, CredTypeValues } from '@connectors/interfaces/ConnectorInterface'
@@ -42,7 +42,11 @@ const AwsSecretManagerAccessKeyForm: React.FC<AwsSecretManagerAccessKeyFormProps
 
   return (
     <>
-      <Text font={{ size: 'medium' }} style={{ marginBottom: 'var(--spacing-medium)' }} color={Color.BLACK}>
+      <Text
+        font={{ variation: FontVariation.LEAD }}
+        style={{ marginBottom: 'var(--spacing-medium)', marginTop: 'var(--spacing-7)' }}
+        color={Color.BLACK}
+      >
         {getString('authentication')}
       </Text>
       {formik.values?.credType === CredTypeValues.ManualConfig && (

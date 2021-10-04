@@ -1,6 +1,16 @@
 import React, { useState } from 'react'
 import * as Yup from 'yup'
-import { StepProps, Container, Text, Formik, FormikForm, Layout, Button } from '@wings-software/uicore'
+import {
+  StepProps,
+  Container,
+  Text,
+  Formik,
+  FormikForm,
+  Layout,
+  Button,
+  FontVariation,
+  ButtonVariation
+} from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import type { AzureKeyVaultConnectorDTO } from 'services/cd-ng'
 import { PageSpinner } from '@common/components'
@@ -44,7 +54,7 @@ const AzureKeyVaultForm: React.FC<StepProps<StepDetailsProps> & ConnectorDetails
 
   return (
     <Container padding={{ top: 'medium' }} width="64%">
-      <Text font={{ size: 'medium' }} padding={{ bottom: 'xlarge' }}>
+      <Text font={{ variation: FontVariation.H3 }} padding={{ bottom: 'xlarge' }}>
         {getString('details')}
       </Text>
       <Formik<AzureKeyVaultFormData>
@@ -69,7 +79,12 @@ const AzureKeyVaultForm: React.FC<StepProps<StepDetailsProps> & ConnectorDetails
             <AzureKeyVaultFormFields />
           </Container>
           <Layout.Horizontal spacing="medium">
-            <Button text={getString('back')} onClick={() => previousStep?.(prevStepData)} />
+            <Button
+              variation={ButtonVariation.SECONDARY}
+              icon="chevron-left"
+              text={getString('back')}
+              onClick={() => previousStep?.(prevStepData)}
+            />
             <Button
               type="submit"
               intent="primary"
