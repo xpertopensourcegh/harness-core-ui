@@ -840,7 +840,7 @@ export interface ResourceDTO {
 }
 
 export interface ResourceScopeDTO {
-  accountIdentifier: string
+  accountIdentifier?: string
   labels?: {
     [key: string]: string
   }
@@ -1203,9 +1203,23 @@ export interface ResponseString {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseTemplateMergeResponse {
+  correlationId?: string
+  data?: TemplateMergeResponse
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseTemplateResponse {
   correlationId?: string
   data?: TemplateResponse
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseTemplateWrapperResponse {
+  correlationId?: string
+  data?: TemplateWrapperResponse
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -1253,6 +1267,32 @@ export interface TemplateFilterProperties {
   templateNames?: string[]
 }
 
+export interface TemplateInputsErrorDTO {
+  fieldName?: string
+  identifierOfErrorSource?: string
+  message?: string
+}
+
+export interface TemplateInputsErrorResponseDTO {
+  errorMap?: {
+    [key: string]: TemplateInputsErrorDTO
+  }
+  errorYaml?: string
+}
+
+export interface TemplateMergeResponse {
+  errorResponse?: TemplateInputsErrorResponseDTO
+  mergedPipelineYaml?: string
+  templateReferenceSummaries?: TemplateReferenceSummary[]
+  valid?: boolean
+}
+
+export interface TemplateReferenceSummary {
+  fqn?: string
+  identifier?: string
+  versionLabel?: string
+}
+
 export interface TemplateResponse {
   accountId?: string
   childType?: string
@@ -1295,6 +1335,12 @@ export interface TemplateSummaryResponse {
   yaml?: string
 }
 
+export interface TemplateWrapperResponse {
+  templateInputsErrorResponseDTO?: TemplateInputsErrorResponseDTO
+  templateResponseDTO?: TemplateResponse
+  valid?: boolean
+}
+
 export interface Throwable {
   cause?: Throwable
   localizedMessage?: string
@@ -1310,7 +1356,7 @@ export interface ValidationError {
 
 export type FilterDTORequestBody = FilterDTO
 
-export type UpdateExistingTemplateLabelBodyRequestBody = string
+export type CreateTemplateBodyRequestBody = string
 
 export interface GetFilterListQueryParams {
   pageIndex?: number
@@ -1605,6 +1651,31 @@ export const getFilterPromise = (
     signal
   )
 
+export type GetTemplateHealthStatusProps = Omit<GetProps<ResponseString, unknown, void, void>, 'path'>
+
+/**
+ * get health for Template service
+ */
+export const GetTemplateHealthStatus = (props: GetTemplateHealthStatusProps) => (
+  <Get<ResponseString, unknown, void, void> path={`/health`} base={getConfig('template/api')} {...props} />
+)
+
+export type UseGetTemplateHealthStatusProps = Omit<UseGetProps<ResponseString, unknown, void, void>, 'path'>
+
+/**
+ * get health for Template service
+ */
+export const useGetTemplateHealthStatus = (props: UseGetTemplateHealthStatusProps) =>
+  useGet<ResponseString, unknown, void, void>(`/health`, { base: getConfig('template/api'), ...props })
+
+/**
+ * get health for Template service
+ */
+export const getTemplateHealthStatusPromise = (
+  props: GetUsingFetchProps<ResponseString, unknown, void, void>,
+  signal?: RequestInit['signal']
+) => getUsingFetch<ResponseString, unknown, void, void>(getConfig('template/api'), `/health`, props, signal)
+
 export interface CreateTemplateQueryParams {
   accountIdentifier: string
   orgIdentifier?: string
@@ -1621,10 +1692,10 @@ export interface CreateTemplateQueryParams {
 
 export type CreateTemplateProps = Omit<
   MutateProps<
-    ResponseTemplateResponse,
+    ResponseTemplateWrapperResponse,
     Failure | Error,
     CreateTemplateQueryParams,
-    UpdateExistingTemplateLabelBodyRequestBody,
+    CreateTemplateBodyRequestBody,
     void
   >,
   'path' | 'verb'
@@ -1635,10 +1706,10 @@ export type CreateTemplateProps = Omit<
  */
 export const CreateTemplate = (props: CreateTemplateProps) => (
   <Mutate<
-    ResponseTemplateResponse,
+    ResponseTemplateWrapperResponse,
     Failure | Error,
     CreateTemplateQueryParams,
-    UpdateExistingTemplateLabelBodyRequestBody,
+    CreateTemplateBodyRequestBody,
     void
   >
     verb="POST"
@@ -1650,10 +1721,10 @@ export const CreateTemplate = (props: CreateTemplateProps) => (
 
 export type UseCreateTemplateProps = Omit<
   UseMutateProps<
-    ResponseTemplateResponse,
+    ResponseTemplateWrapperResponse,
     Failure | Error,
     CreateTemplateQueryParams,
-    UpdateExistingTemplateLabelBodyRequestBody,
+    CreateTemplateBodyRequestBody,
     void
   >,
   'path' | 'verb'
@@ -1664,10 +1735,10 @@ export type UseCreateTemplateProps = Omit<
  */
 export const useCreateTemplate = (props: UseCreateTemplateProps) =>
   useMutate<
-    ResponseTemplateResponse,
+    ResponseTemplateWrapperResponse,
     Failure | Error,
     CreateTemplateQueryParams,
-    UpdateExistingTemplateLabelBodyRequestBody,
+    CreateTemplateBodyRequestBody,
     void
   >('POST', `/templates`, { base: getConfig('template/api'), ...props })
 
@@ -1676,19 +1747,19 @@ export const useCreateTemplate = (props: UseCreateTemplateProps) =>
  */
 export const createTemplatePromise = (
   props: MutateUsingFetchProps<
-    ResponseTemplateResponse,
+    ResponseTemplateWrapperResponse,
     Failure | Error,
     CreateTemplateQueryParams,
-    UpdateExistingTemplateLabelBodyRequestBody,
+    CreateTemplateBodyRequestBody,
     void
   >,
   signal?: RequestInit['signal']
 ) =>
   mutateUsingFetch<
-    ResponseTemplateResponse,
+    ResponseTemplateWrapperResponse,
     Failure | Error,
     CreateTemplateQueryParams,
-    UpdateExistingTemplateLabelBodyRequestBody,
+    CreateTemplateBodyRequestBody,
     void
   >('POST', getConfig('template/api'), `/templates`, props, signal)
 
@@ -1699,7 +1770,13 @@ export interface GetYamlWithTemplateRefsResolvedQueryParams {
 }
 
 export type GetYamlWithTemplateRefsResolvedProps = Omit<
-  MutateProps<ResponseString, Failure | Error, GetYamlWithTemplateRefsResolvedQueryParams, TemplateApplyRequest, void>,
+  MutateProps<
+    ResponseTemplateMergeResponse,
+    Failure | Error,
+    GetYamlWithTemplateRefsResolvedQueryParams,
+    TemplateApplyRequest,
+    void
+  >,
   'path' | 'verb'
 >
 
@@ -1707,7 +1784,13 @@ export type GetYamlWithTemplateRefsResolvedProps = Omit<
  * Gets complete yaml with templateRefs resolved
  */
 export const GetYamlWithTemplateRefsResolved = (props: GetYamlWithTemplateRefsResolvedProps) => (
-  <Mutate<ResponseString, Failure | Error, GetYamlWithTemplateRefsResolvedQueryParams, TemplateApplyRequest, void>
+  <Mutate<
+    ResponseTemplateMergeResponse,
+    Failure | Error,
+    GetYamlWithTemplateRefsResolvedQueryParams,
+    TemplateApplyRequest,
+    void
+  >
     verb="POST"
     path={`/templates/applyTemplates`}
     base={getConfig('template/api')}
@@ -1717,7 +1800,7 @@ export const GetYamlWithTemplateRefsResolved = (props: GetYamlWithTemplateRefsRe
 
 export type UseGetYamlWithTemplateRefsResolvedProps = Omit<
   UseMutateProps<
-    ResponseString,
+    ResponseTemplateMergeResponse,
     Failure | Error,
     GetYamlWithTemplateRefsResolvedQueryParams,
     TemplateApplyRequest,
@@ -1730,18 +1813,20 @@ export type UseGetYamlWithTemplateRefsResolvedProps = Omit<
  * Gets complete yaml with templateRefs resolved
  */
 export const useGetYamlWithTemplateRefsResolved = (props: UseGetYamlWithTemplateRefsResolvedProps) =>
-  useMutate<ResponseString, Failure | Error, GetYamlWithTemplateRefsResolvedQueryParams, TemplateApplyRequest, void>(
-    'POST',
-    `/templates/applyTemplates`,
-    { base: getConfig('template/api'), ...props }
-  )
+  useMutate<
+    ResponseTemplateMergeResponse,
+    Failure | Error,
+    GetYamlWithTemplateRefsResolvedQueryParams,
+    TemplateApplyRequest,
+    void
+  >('POST', `/templates/applyTemplates`, { base: getConfig('template/api'), ...props })
 
 /**
  * Gets complete yaml with templateRefs resolved
  */
 export const getYamlWithTemplateRefsResolvedPromise = (
   props: MutateUsingFetchProps<
-    ResponseString,
+    ResponseTemplateMergeResponse,
     Failure | Error,
     GetYamlWithTemplateRefsResolvedQueryParams,
     TemplateApplyRequest,
@@ -1750,7 +1835,7 @@ export const getYamlWithTemplateRefsResolvedPromise = (
   signal?: RequestInit['signal']
 ) =>
   mutateUsingFetch<
-    ResponseString,
+    ResponseTemplateMergeResponse,
     Failure | Error,
     GetYamlWithTemplateRefsResolvedQueryParams,
     TemplateApplyRequest,
@@ -1978,10 +2063,10 @@ export interface UpdateExistingTemplateLabelPathParams {
 
 export type UpdateExistingTemplateLabelProps = Omit<
   MutateProps<
-    ResponseTemplateResponse,
+    ResponseTemplateWrapperResponse,
     Failure | Error,
     UpdateExistingTemplateLabelQueryParams,
-    UpdateExistingTemplateLabelBodyRequestBody,
+    CreateTemplateBodyRequestBody,
     UpdateExistingTemplateLabelPathParams
   >,
   'path' | 'verb'
@@ -1997,10 +2082,10 @@ export const UpdateExistingTemplateLabel = ({
   ...props
 }: UpdateExistingTemplateLabelProps) => (
   <Mutate<
-    ResponseTemplateResponse,
+    ResponseTemplateWrapperResponse,
     Failure | Error,
     UpdateExistingTemplateLabelQueryParams,
-    UpdateExistingTemplateLabelBodyRequestBody,
+    CreateTemplateBodyRequestBody,
     UpdateExistingTemplateLabelPathParams
   >
     verb="PUT"
@@ -2012,10 +2097,10 @@ export const UpdateExistingTemplateLabel = ({
 
 export type UseUpdateExistingTemplateLabelProps = Omit<
   UseMutateProps<
-    ResponseTemplateResponse,
+    ResponseTemplateWrapperResponse,
     Failure | Error,
     UpdateExistingTemplateLabelQueryParams,
-    UpdateExistingTemplateLabelBodyRequestBody,
+    CreateTemplateBodyRequestBody,
     UpdateExistingTemplateLabelPathParams
   >,
   'path' | 'verb'
@@ -2031,10 +2116,10 @@ export const useUpdateExistingTemplateLabel = ({
   ...props
 }: UseUpdateExistingTemplateLabelProps) =>
   useMutate<
-    ResponseTemplateResponse,
+    ResponseTemplateWrapperResponse,
     Failure | Error,
     UpdateExistingTemplateLabelQueryParams,
-    UpdateExistingTemplateLabelBodyRequestBody,
+    CreateTemplateBodyRequestBody,
     UpdateExistingTemplateLabelPathParams
   >(
     'PUT',
@@ -2052,19 +2137,19 @@ export const updateExistingTemplateLabelPromise = (
     versionLabel,
     ...props
   }: MutateUsingFetchProps<
-    ResponseTemplateResponse,
+    ResponseTemplateWrapperResponse,
     Failure | Error,
     UpdateExistingTemplateLabelQueryParams,
-    UpdateExistingTemplateLabelBodyRequestBody,
+    CreateTemplateBodyRequestBody,
     UpdateExistingTemplateLabelPathParams
   > & { templateIdentifier: string; versionLabel: string },
   signal?: RequestInit['signal']
 ) =>
   mutateUsingFetch<
-    ResponseTemplateResponse,
+    ResponseTemplateWrapperResponse,
     Failure | Error,
     UpdateExistingTemplateLabelQueryParams,
-    UpdateExistingTemplateLabelBodyRequestBody,
+    CreateTemplateBodyRequestBody,
     UpdateExistingTemplateLabelPathParams
   >('PUT', getConfig('template/api'), `/templates/update/${templateIdentifier}/${versionLabel}`, props, signal)
 

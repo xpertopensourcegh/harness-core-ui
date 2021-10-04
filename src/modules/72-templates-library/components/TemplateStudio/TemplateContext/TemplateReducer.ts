@@ -85,7 +85,7 @@ export const TemplateReducer = (state: TemplateReducerState, data: ActionReturnT
     case TemplateActions.Loading: {
       return {
         ...state,
-        isLoading: true
+        isLoading: !!response?.isLoading
       }
     }
     case TemplateActions.UpdateTemplateView:

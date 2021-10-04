@@ -109,14 +109,18 @@ exports[`<TemplateStep /> tests snapshot test 1`] = `
         </div>
       </div>
       <div
-        class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--margin-top-medium StyledProps--padding-top-large StyledProps--padding-bottom-large StyledProps--border StyledProps--border-top"
+        class="StyledProps--font StyledProps--main"
       >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
-          style="font-size: 16px;"
+        <div
+          class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--margin-top-medium StyledProps--padding-top-large StyledProps--padding-bottom-large StyledProps--border StyledProps--border-top"
         >
-          templatesLibrary.templateInputs
-        </p>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
+            style="font-size: 16px;"
+          >
+            templatesLibrary.templateInputs
+          </p>
+        </div>
       </div>
     </div>
   </div>

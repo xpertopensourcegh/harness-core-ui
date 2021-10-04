@@ -1,0 +1,14 @@
+.popOver {
+  :global {
+    .bp3-menu-item {
+      font-size: var(--font-size-small);
+      padding: var(--spacing-3) var(--spacing-5);
+      .bp3-icon {
+        margin-right: var(--spacing-4);
+      }
+      &:hover .bp3-icon {
+        color: var(--white);
+      }
+    }
+  }
+}

@@ -2,19 +2,20 @@ import React from 'react'
 import { IconName, Menu, Position } from '@blueprintjs/core'
 import { Popover } from '@wings-software/uicore'
 import type { PopoverProps } from '@wings-software/uicore/dist/components/Popover/Popover'
+import css from './TemplatesActionPopover.module.scss'
 
 export interface TemplatesActionPopoverProps extends PopoverProps {
   open?: boolean
   items?: {
     icon?: IconName
-    text: string
+    label: string
     onClick: () => void
   }[]
   setMenuOpen: (flag: boolean) => void
   className?: string
 }
 export const TemplatesActionPopover = (props: React.PropsWithChildren<TemplatesActionPopoverProps>) => {
-  const { items, open, children, setMenuOpen, className, ...popoverProps } = props
+  const { items, open, children, setMenuOpen, className, content, ...popoverProps } = props
 
   return (
     <Popover
@@ -24,25 +25,29 @@ export const TemplatesActionPopover = (props: React.PropsWithChildren<TemplatesA
       }}
       position={Position.BOTTOM_RIGHT}
       className={className}
+      popoverClassName={css.popOver}
       {...popoverProps}
     >
       {children}
-      <Menu style={{ minWidth: 'unset' }} onClick={e => e.stopPropagation()}>
-        {items?.map(item => {
-          return (
-            <Menu.Item
-              icon={item.icon}
-              text={item.text}
-              key={item.text}
-              onClick={(e: React.MouseEvent) => {
-                e.stopPropagation()
-                item.onClick()
-                setMenuOpen(false)
-              }}
-            />
-          )
-        })}
-      </Menu>
+      {!!content && content}
+      {items && (
+        <Menu style={{ minWidth: 'unset' }} onClick={e => e.stopPropagation()}>
+          {items?.map(item => {
+            return (
+              <Menu.Item
+                icon={item.icon}
+                text={item.label}
+                key={item.label}
+                onClick={(e: React.MouseEvent) => {
+                  e.stopPropagation()
+                  item.onClick()
+                  setMenuOpen(false)
+                }}
+              />
+            )
+          })}
+        </Menu>
+      )}
     </Popover>
   )
 }

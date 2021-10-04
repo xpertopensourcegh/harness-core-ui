@@ -17,17 +17,16 @@ import {
 import { useParams } from 'react-router-dom'
 import { noop } from 'lodash-es'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
-import { TemplatesGridView } from '@templates-library/pages/TemplatesPage/views/TemplatesGridView/TemplatesGridView'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { TemplateSummaryResponse, useGetTemplateList } from 'services/template-ng'
 import type { TemplateType } from '@templates-library/utils/templatesUtils'
 import { useStrings } from 'framework/strings'
-import { TemplateListView } from '@templates-library/pages/TemplatesPage/views/TemplatesListView/TemplateListView'
 import templateIllustration from '@templates-library/pages/TemplatesPage/images/templates-illustration.svg'
 import { PageSpinner } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'
 import { useMutateAsGet } from '@common/hooks'
 import { TemplateListType } from '@templates-library/pages/TemplatesPage/TemplatesPageUtils'
+import TemplatesView from '@templates-library/pages/TemplatesPage/views/TemplatesView'
 import { TemplateDetails } from '../TemplateDetails/TemplateDetails'
 import css from './TemplateSelector.module.scss'
 
@@ -174,21 +173,13 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = (props): JSX.El
                     </Layout.Horizontal>
                   </Container>
                   <Container style={{ flexGrow: 1 }}>
-                    {view === Views.GRID ? (
-                      <TemplatesGridView
-                        data={templateData?.data}
-                        gotoPage={setPage}
-                        onSelect={setSelectedTemplate}
-                        selectedIdentifier={selectedTemplate?.identifier}
-                      />
-                    ) : (
-                      <TemplateListView
-                        data={templateData?.data}
-                        gotoPage={setPage}
-                        onSelect={setSelectedTemplate}
-                        selectedIdentifier={selectedTemplate?.identifier}
-                      />
-                    )}
+                    <TemplatesView
+                      data={templateData?.data}
+                      gotoPage={setPage}
+                      onSelect={setSelectedTemplate}
+                      selectedIdentifier={selectedTemplate?.identifier}
+                      view={view}
+                    />
                   </Container>
                 </Layout.Vertical>
               )}
@@ -198,7 +189,10 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = (props): JSX.El
         <Container className={css.preview} background={Color.FORM_BG}>
           {selectedTemplate ? (
             <Layout.Vertical height={'100%'}>
-              <TemplateDetails templateIdentifier={selectedTemplate.identifier || ''} />
+              <TemplateDetails
+                setTemplate={setSelectedTemplate}
+                templateIdentifier={selectedTemplate.identifier || ''}
+              />
               <Container>
                 <Layout.Horizontal
                   padding={{ right: 'xxlarge', bottom: 'xxxlarge', left: 'xxlarge' }}

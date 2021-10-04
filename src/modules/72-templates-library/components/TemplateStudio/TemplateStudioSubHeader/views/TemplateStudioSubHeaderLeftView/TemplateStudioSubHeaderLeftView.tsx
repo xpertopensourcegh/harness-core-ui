@@ -33,6 +33,7 @@ import { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlTogg
 import routes from '@common/RouteDefinitions'
 import { useUpdateStableTemplate, NGTemplateInfoConfig } from 'services/template-ng'
 import { useStrings } from 'framework/strings'
+import type { UseSaveSuccessResponse } from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
 import css from './TemplateStudioSubHeaderLeftView.module.scss'
 
 export const TemplateStudioSubHeaderLeftView: () => JSX.Element = () => {
@@ -42,7 +43,7 @@ export const TemplateStudioSubHeaderLeftView: () => JSX.Element = () => {
   const { accountId, projectIdentifier, orgIdentifier, module, templateType, templateIdentifier } = useParams<
     TemplateStudioPathProps & ModulePathParams
   >()
-  const iconColor = templateFactory.getTemplatePrimaryColorMap(templateType)?.primary || Color.BLACK
+  const iconColor = templateFactory.getTemplateColor(templateType) || Color.BLACK
   const [modalProps, setModalProps] = React.useState<ModalProps>()
   const isYaml = view === SelectedView.YAML
   const history = useHistory()
@@ -57,13 +58,14 @@ export const TemplateStudioSubHeaderLeftView: () => JSX.Element = () => {
       accountIdentifier: accountId,
       projectIdentifier,
       orgIdentifier
-    }
+    },
+    requestOptions: { headers: { 'content-type': 'application/json' } }
   })
 
   const [showConfigModal, hideConfigModal] = useModalHook(
     () => (
       <Dialog enforceFocus={false} isOpen={true} className={css.createTemplateDialog}>
-        <TemplateConfigModal initialValues={template} onClose={onCloseCreate} modalProps={modalProps} />
+        {modalProps && <TemplateConfigModal initialValues={template} onClose={onCloseCreate} modalProps={modalProps} />}
       </Dialog>
     ),
     [template, modalProps]
@@ -86,15 +88,17 @@ export const TemplateStudioSubHeaderLeftView: () => JSX.Element = () => {
   ])
 
   const onSubmit = React.useCallback(
-    (data: NGTemplateInfoConfig) => {
-      if (!isEmpty(data)) {
-        template.name = data.name
-        template.description = data.description
-        template.identifier = data.identifier
-        template.tags = data.tags ?? {}
-        template.versionLabel = data.versionLabel
-        updateTemplate(template)
-        hideConfigModal()
+    async (data: NGTemplateInfoConfig): Promise<UseSaveSuccessResponse> => {
+      template.name = data.name
+      template.description = data.description
+      template.identifier = data.identifier
+      template.tags = data.tags ?? {}
+      template.versionLabel = data.versionLabel
+      try {
+        await updateTemplate(template)
+        return { status: 'SUCCESS' }
+      } catch (error) {
+        return { status: 'ERROR' }
       }
     },
     [template]
@@ -128,12 +132,13 @@ export const TemplateStudioSubHeaderLeftView: () => JSX.Element = () => {
         undefined,
         'template.save.template.error'
       )
+      setLoading(false)
     }
   }
 
   React.useEffect(() => {
     if (updateStableTemplateLoading) {
-      setLoading()
+      setLoading(true)
     }
   }, [updateStableTemplateLoading])
 
@@ -153,7 +158,10 @@ export const TemplateStudioSubHeaderLeftView: () => JSX.Element = () => {
       if (template?.identifier === DefaultNewTemplateId && !isEmpty(template.type)) {
         setModalProps({
           title: getString('templatesLibrary.createNewModal.heading', { entity: template.type }),
-          onSubmit: onSubmit
+          promise: onSubmit,
+          onSuccess: () => {
+            hideConfigModal()
+          }
         })
         showConfigModal()
       }
@@ -182,7 +190,10 @@ export const TemplateStudioSubHeaderLeftView: () => JSX.Element = () => {
                 onClick={() => {
                   setModalProps({
                     title: getString('templatesLibrary.createNewModal.editHeading'),
-                    onSubmit: onSubmit,
+                    promise: onSubmit,
+                    onSuccess: () => {
+                      hideConfigModal()
+                    },
                     disabledFields:
                       templateIdentifier === DefaultNewTemplateId ? [] : [Fields.VersionLabel, Fields.Identifier]
                   })

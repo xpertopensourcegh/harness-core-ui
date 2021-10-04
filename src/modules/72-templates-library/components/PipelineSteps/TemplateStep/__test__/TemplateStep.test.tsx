@@ -13,10 +13,18 @@ const getDefaultStepValues = (): TemplateStepData => {
     template: {
       templateRef: 'steptemplate',
       versionLabel: 'version1',
-      templateInputs: { type: StepType.SHELLSCRIPT, spec: {} }
+      templateInputs: { type: StepType.HTTP, spec: {} }
     }
   }
 }
+
+jest.mock('services/template-ng', () => ({
+  useGetTemplateInputSetYaml: jest.fn().mockImplementation(() => ({
+    loading: false,
+    data: 'type: "Http"\nspec:\n  url: "<+input>"\n  requestBody: "<+input>"\n',
+    refetch: jest.fn()
+  }))
+}))
 
 describe('<TemplateStep /> tests', () => {
   test('snapshot test', () => {

@@ -30,11 +30,12 @@ import css from './TemplateDetails.module.scss'
 export interface TemplateDetailsProps {
   templateIdentifier: string
   versionLabel?: string
+  setTemplate?: (template: TemplateSummaryResponse) => void
   onClose?: () => void
 }
 
 export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
-  const { templateIdentifier, versionLabel = false, onClose } = props
+  const { templateIdentifier, versionLabel = false, onClose, setTemplate } = props
   const { getString } = useStrings()
   const history = useHistory()
   const { accountId, projectIdentifier, orgIdentifier, module } = useParams<ProjectPathProps & ModulePathParams>()
@@ -61,13 +62,20 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
     queryParamStringifyOptions: { arrayFormat: 'comma' }
   })
 
-  const onChangeVersion = React.useCallback(
-    (version: string) => {
+  const onChange = React.useCallback(
+    (option: SelectOption): void => {
+      const version = option.value?.toString() || ''
       const newSelectedVersion = templateData?.data?.content?.find(item => item.versionLabel === version)
       setSelectedVersion(newSelectedVersion)
     },
     [templateData?.data?.content]
   )
+
+  React.useEffect(() => {
+    if (selectedVersion) {
+      setTemplate?.(selectedVersion)
+    }
+  }, [selectedVersion])
 
   React.useEffect(() => {
     if (!isEmpty(templateData?.data?.content)) {
@@ -109,10 +117,6 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
     }
   }
 
-  const onChange = (item: SelectOption): void => {
-    onChangeVersion?.(item.value?.toString() || '')
-  }
-
   return (
     <Container
       height={'100%'}
@@ -128,7 +132,7 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
               <Text font={{ size: 'medium', weight: 'bold' }} color={Color.GREY_800}>
                 {selectedVersion.name}
               </Text>
-              <Button onClick={goToTemplateStudio} variation={ButtonVariation.SECONDARY}>
+              <Button className={css.openInStudio} onClick={goToTemplateStudio} variation={ButtonVariation.SECONDARY}>
                 {getString('templatesLibrary.openInTemplateStudio')}
               </Button>
             </Layout.Horizontal>
@@ -156,7 +160,7 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
                   <Text font={{ size: 'small' }} color={Color.GREY_500}>
                     Description
                   </Text>
-                  <Text color={Color.GREY_700}>{selectedVersion.description ?? '-'}</Text>
+                  <Text color={Color.GREY_700}>{selectedVersion.description || '-'}</Text>
                 </Layout.Vertical>
               </Container>
               <Container>

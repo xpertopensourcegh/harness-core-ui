@@ -2,7 +2,7 @@ import React from 'react'
 import { matchPath, useParams } from 'react-router-dom'
 import { parse } from 'yaml'
 import SplitPane from 'react-split-pane'
-import { debounce, isEmpty, noop, omit, set } from 'lodash-es'
+import { debounce, isEmpty, noop, omit } from 'lodash-es'
 import { Container, Layout } from '@wings-software/uicore'
 import { Formik, FormikProps } from 'formik'
 import { useHistory } from 'react-router'
@@ -25,10 +25,14 @@ import TemplateYamlView from '@templates-library/components/TemplateStudio/Templ
 import { accountPathProps, pipelineModuleParams, templatePathProps } from '@common/utils/routeUtils'
 import routes from '@common/RouteDefinitions'
 import { DefaultNewTemplateId } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateReducer'
+import type { NGTemplateInfoConfig } from 'services/template-ng'
+import type { GetErrorResponse } from '@templates-library/components/TemplateStudio/SaveTemplatePopover/SaveTemplatePopover'
 import css from './TemplateStudio.module.scss'
 
 export type TemplateFormikRef<T = unknown> = {
   resetForm: FormikProps<T>['resetForm']
+  submitForm: FormikProps<T>['submitForm']
+  getErrors: () => FormikProps<T>['errors']
 }
 
 export type TemplateFormRef<T = unknown> =
@@ -40,7 +44,7 @@ export function TemplateStudio(): React.ReactElement {
   const { state, view, updateTemplateView, updateTemplate, deleteTemplateCache, isReadonly, fetchTemplate, setView } =
     React.useContext(TemplateContext)
   const { templateIdentifier } = useParams<TemplateStudioPathProps>()
-  const { template, templateView, isLoading, isUpdated, yamlHandler, isBETemplateUpdated } = state
+  const { template, templateView, isLoading, isUpdated, yamlHandler, isBETemplateUpdated, isInitialized } = state
   const { isYamlEditable } = templateView
   const { getString } = useStrings()
   const { templateType } = useParams<TemplateStudioPathProps>()
@@ -78,9 +82,9 @@ export function TemplateStudio(): React.ReactElement {
     setSplitPaneSizeDeb.current(size)
   }
 
-  const onUpdate = async (formValues: any) => {
-    set(template, 'spec', omit(formValues, 'name', 'identifier'))
-    await updateTemplate(template)
+  const onUpdate = async (newTemplate: NGTemplateInfoConfig) => {
+    newTemplate.spec = omit(newTemplate.spec, 'name', 'identifier')
+    await updateTemplate(newTemplate)
   }
 
   const openStepSelection = async (onSelection: (data: StepElementConfig) => void) => {
@@ -156,6 +160,12 @@ export function TemplateStudio(): React.ReactElement {
     }, 0)
   }, [templateFormikRef])
 
+  const getErrors = async (): Promise<GetErrorResponse> => {
+    await templateFormikRef.current?.submitForm()
+    const errors = templateFormikRef.current?.getErrors()
+    return { status: 'SUCCESS', errors }
+  }
+
   React.useEffect(() => {
     if (!isLoading) {
       resetForm()
@@ -202,14 +212,14 @@ export function TemplateStudio(): React.ReactElement {
         {isLoading && <PageSpinner />}
         <Layout.Vertical height={'100%'}>
           {!isLoading && isEmpty(template) && <GenericErrorHandler />}
-          {!isEmpty(template) && (
+          {isInitialized && !isEmpty(template) && (
             <>
-              <TemplateStudioSubHeader onViewChange={onViewChange} />
+              <TemplateStudioSubHeader onViewChange={onViewChange} getErrors={getErrors} />
               <Container className={css.canvasContainer}>
-                <Formik<unknown>
+                <Formik<NGTemplateInfoConfig>
                   onSubmit={noop}
                   validate={onUpdate}
-                  initialValues={template.spec}
+                  initialValues={template}
                   enableReinitialize={true}
                 >
                   {formikProps => {

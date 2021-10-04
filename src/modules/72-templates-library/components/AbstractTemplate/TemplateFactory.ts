@@ -1,4 +1,5 @@
-import type { Template, TemplateColorMap } from '@templates-library/components/AbstractTemplate/Template'
+import type { Color } from '@wings-software/uicore'
+import type { Template } from '@templates-library/components/AbstractTemplate/Template'
 
 export class TemplateFactory {
   /**
@@ -29,11 +30,7 @@ export class TemplateFactory {
     return this.templateBank.get(type)?.getName()
   }
 
-  getTemplatePrimaryColorMap(type: string): TemplateColorMap | undefined {
-    return this.templateBank.get(type)?.getPrimaryColorMap()
-  }
-
-  getTemplateSecondaryColorMap(type: string): TemplateColorMap | undefined {
-    return this.templateBank.get(type)?.getSecondaryColorMap()
+  getTemplateColor(type: string): Color | undefined {
+    return this.templateBank.get(type)?.getColor()
   }
 }

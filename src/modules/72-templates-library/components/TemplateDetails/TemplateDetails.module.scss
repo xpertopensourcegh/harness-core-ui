@@ -10,6 +10,9 @@
       background-color: var(--white) !important;
     }
   }
+  .openInStudio {
+    flex-shrink: 0;
+  }
   .tabsContainer {
     background: white;
     border: 1px solid var(--grey-200);

@@ -34,7 +34,7 @@ export interface ActionReturnType {
 
 const dbInitialized = (): ActionReturnType => ({ type: TemplateActions.DBInitialize })
 const initialized = (): ActionReturnType => ({ type: TemplateActions.Initialize })
-const loading = (): ActionReturnType => ({ type: TemplateActions.Loading })
+const loading = (response: ActionResponse): ActionReturnType => ({ type: TemplateActions.Loading, response })
 const updateTemplateView = (response: ActionResponse): ActionReturnType => ({
   type: TemplateActions.UpdateTemplateView,
   response

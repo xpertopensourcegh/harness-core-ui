@@ -1,9 +1,10 @@
 import React from 'react'
 import { Dialog } from '@blueprintjs/core'
 import { Button, ButtonVariation, useModalHook } from '@wings-software/uicore'
-import { cloneDeep, noop } from 'lodash-es'
+import { cloneDeep, isEmpty, noop } from 'lodash-es'
 import { useHistory, useParams } from 'react-router'
 import { parse } from 'yaml'
+import type { FormikErrors } from 'formik'
 import { useStrings } from 'framework/strings'
 import { DefaultNewTemplateId } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateReducer'
 import type { ModulePathParams, TemplateStudioPathProps } from '@common/interfaces/RouteInterfaces'
@@ -18,12 +19,22 @@ import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/components'
 import { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import { TemplatesActionPopover } from '@templates-library/components/TemplatesActionPopover/TemplatesActionPopover'
-import { useCreateTemplate, useUpdateExistingTemplateLabel, NGTemplateInfoConfig } from 'services/template-ng'
+import {
+  NGTemplateInfoConfig,
+  createTemplatePromise,
+  updateExistingTemplateLabelPromise,
+  Failure
+} from 'services/template-ng'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import css from './SaveTemplatePopover.module.scss'
 
+export interface GetErrorResponse extends Omit<Failure, 'errors'> {
+  errors?: FormikErrors<unknown>
+}
+
 export interface SaveTemplatePopoverProps {
   disabled?: boolean
+  getErrors?: () => Promise<GetErrorResponse>
 }
 
 export function SaveTemplatePopover(props: SaveTemplatePopoverProps): React.ReactElement {
@@ -32,11 +43,10 @@ export function SaveTemplatePopover(props: SaveTemplatePopoverProps): React.Reac
     setLoading,
     fetchTemplate,
     deleteTemplateCache,
-    updateTemplate,
     view
   } = React.useContext(TemplateContext)
   const { getString } = useStrings()
-  const { disabled = false } = props
+  const { disabled = false, getErrors } = props
   const { templateIdentifier, templateType, projectIdentifier, orgIdentifier, accountId, module } = useParams<
     TemplateStudioPathProps & ModulePathParams
   >()
@@ -48,8 +58,10 @@ export function SaveTemplatePopover(props: SaveTemplatePopoverProps): React.Reac
 
   const [showConfigModal, hideConfigModal] = useModalHook(
     () => (
-      <Dialog enforceFocus={false} isOpen={true} className={css.createTemplateDialog}>
-        <TemplateConfigModal initialValues={template} onClose={hideConfigModal} modalProps={modalProps} />
+      <Dialog enforceFocus={false} isOpen={true} className={css.configDialog}>
+        {modalProps && (
+          <TemplateConfigModal initialValues={template} onClose={hideConfigModal} modalProps={modalProps} />
+        )}
       </Dialog>
     ),
     [template, modalProps]
@@ -57,7 +69,7 @@ export function SaveTemplatePopover(props: SaveTemplatePopoverProps): React.Reac
 
   const [showCommentsModal, hideCommentsModal] = useModalHook(() => {
     return (
-      <Dialog enforceFocus={false} isOpen={true} className={css.updateTemplateDialog}>
+      <Dialog enforceFocus={false} isOpen={true} className={css.commentsDialog}>
         <TemplateCommentModal
           title={getString('templatesLibrary.updateTemplateModal.heading', {
             name: template.name,
@@ -66,7 +78,7 @@ export function SaveTemplatePopover(props: SaveTemplatePopoverProps): React.Reac
           onClose={hideCommentsModal}
           onSubmit={comments => {
             hideCommentsModal()
-            setLoading()
+            setLoading(true)
             updateExistingLabel(comments)
           }}
         />
@@ -88,39 +100,38 @@ export function SaveTemplatePopover(props: SaveTemplatePopoverProps): React.Reac
     )
   }
 
-  const { mutate: updateExistingTemplateLabel } = useUpdateExistingTemplateLabel({
-    templateIdentifier: '',
-    versionLabel: '',
-    requestOptions: { headers: { 'Content-Type': 'application/yaml' } }
-  })
-
   const updateExistingLabel = async (comments?: string) => {
-    try {
-      await updateExistingTemplateLabel(yamlStringify(cloneDeep(template)), {
-        queryParams: {
-          accountIdentifier: accountId,
-          projectIdentifier,
-          orgIdentifier,
-          comments
+    updateExistingTemplateLabelPromise({
+      templateIdentifier: template.identifier,
+      versionLabel: template.versionLabel,
+      body: yamlStringify({ template: cloneDeep(template) }),
+      queryParams: {
+        accountIdentifier: accountId,
+        projectIdentifier,
+        orgIdentifier,
+        comments
+      },
+      requestOptions: { headers: { 'Content-Type': 'application/yaml' } }
+    })
+      .then(async response => {
+        if (response && response.status === 'SUCCESS') {
+          showSuccess(getString('templatesLibrary.templateUpdated'))
+          await fetchTemplate({ forceFetch: true, forceUpdate: true })
+        } else {
+          throw response
         }
       })
-      showSuccess(getString('templatesLibrary.templateUpdated'))
-      await fetchTemplate({ forceFetch: true, forceUpdate: true })
-    } catch (error) {
-      showError(
-        error?.message || getString('templatesLibrary.errorWhileUpdating'),
-        undefined,
-        'template.save.template.error'
-      )
-      await fetchTemplate({ forceFetch: true, forceUpdate: true })
-    }
+      .catch(error => {
+        setLoading(false)
+        showError(
+          error?.message || getString('templatesLibrary.errorWhileUpdating'),
+          undefined,
+          'template.update.template.error'
+        )
+      })
   }
 
-  const { mutate: createTemplate } = useCreateTemplate({
-    requestOptions: { headers: { 'Content-Type': 'application/yaml' } }
-  })
-
-  const createNewTemplate = async (latestTemplate: NGTemplateInfoConfig) => {
+  const createNewTemplate = (latestTemplate: NGTemplateInfoConfig) => {
     if (isYaml && yamlHandler) {
       if (!parse(yamlHandler.getLatestYaml())) {
         clear()
@@ -132,44 +143,64 @@ export function SaveTemplatePopover(props: SaveTemplatePopoverProps): React.Reac
         showError(err.message || err, undefined, 'pipeline.save.pipeline.error')
       }
     }
-    try {
-      await createTemplate(yamlStringify(cloneDeep(template)), {
-        queryParams: {
-          accountIdentifier: accountId,
-          projectIdentifier,
-          orgIdentifier
-        }
-      })
-      showSuccess(getString('templatesLibrary.publishTemplate'))
-      if (templateIdentifier === DefaultNewTemplateId) {
-        await deleteTemplateCache()
-      }
-      navigateToLocation(latestTemplate.identifier, latestTemplate.versionLabel)
-    } catch (error) {
-      showError(
-        error?.message || getString('templatesLibrary.errorWhileSaving'),
-        undefined,
-        'template.save.template.error'
-      )
-    }
+
+    return createTemplatePromise({
+      body: yamlStringify({ template: cloneDeep(latestTemplate) }),
+      queryParams: {
+        accountIdentifier: accountId,
+        projectIdentifier,
+        orgIdentifier
+      },
+      requestOptions: { headers: { 'Content-Type': 'application/yaml' } }
+    })
   }
 
   const saveAndPublish = React.useCallback(async () => {
-    hideConfigModal()
-    setLoading()
-    await createNewTemplate(template)
+    setLoading(true)
+    createNewTemplate(template)
+      .then(async response => {
+        if (response && response.status === 'SUCCESS') {
+          showSuccess(getString('templatesLibrary.publishTemplate'))
+          if (templateIdentifier === DefaultNewTemplateId) {
+            await deleteTemplateCache()
+          }
+          navigateToLocation(template.identifier, template.versionLabel)
+        } else {
+          throw response
+        }
+      })
+      .catch(error => {
+        setLoading(false)
+        showError(
+          error?.message || getString('templatesLibrary.errorWhileSaving'),
+          undefined,
+          'template.save.template.error'
+        )
+      })
   }, [template])
+
+  const onSaveSuccess = (modalValues: NGTemplateInfoConfig) => {
+    hideConfigModal()
+    showSuccess(getString('templatesLibrary.publishTemplate'))
+    navigateToLocation(modalValues.identifier, modalValues.versionLabel)
+  }
+
+  const onSaveFailure = (error: any) => {
+    showError(
+      error?.message || getString('templatesLibrary.errorWhileSaving'),
+      undefined,
+      'template.save.template.error'
+    )
+  }
 
   const saveAsNewLabel = (): void => {
     setModalProps({
       title: getString('templatesLibrary.saveAsNewLabelModal.heading'),
-      onSubmit: async values => {
-        hideConfigModal()
-        setLoading()
-        await updateTemplate(values)
-        await createNewTemplate(values)
-      },
-      disabledFields: [Fields.Identifier]
+      promise: createNewTemplate,
+      onSuccess: onSaveSuccess,
+      onFailure: onSaveFailure,
+      disabledFields: [Fields.Identifier],
+      emptyFields: [Fields.VersionLabel]
     })
     showConfigModal()
   }
@@ -177,11 +208,10 @@ export function SaveTemplatePopover(props: SaveTemplatePopoverProps): React.Reac
   const saveAsNewTemplate = (): void => {
     setModalProps({
       title: getString('templatesLibrary.saveAsNewTemplateModal.heading'),
-      onSubmit: async values => {
-        hideConfigModal()
-        setLoading()
-        await createNewTemplate(values)
-      }
+      promise: createNewTemplate,
+      onSuccess: onSaveSuccess,
+      onFailure: onSaveFailure,
+      emptyFields: [Fields.Name, Fields.Identifier, Fields.VersionLabel]
     })
     showConfigModal()
   }
@@ -190,31 +220,56 @@ export function SaveTemplatePopover(props: SaveTemplatePopoverProps): React.Reac
     templateIdentifier === DefaultNewTemplateId
       ? [
           {
-            text: getString('save'),
-            onClick: saveAndPublish
+            label: getString('save'),
+            onClick: () => {
+              getErrors?.().then(response => {
+                if (response.status === 'SUCCESS' && isEmpty(response.errors)) {
+                  saveAndPublish()
+                }
+              })
+            }
           }
         ]
       : [
           {
-            text: getString('save'),
-            onClick: showCommentsModal
+            label: getString('save'),
+            onClick: () => {
+              getErrors?.().then(response => {
+                if (response.status === 'SUCCESS' && isEmpty(response.errors)) {
+                  showCommentsModal()
+                }
+              })
+            }
           },
           {
-            text: getString('templatesLibrary.saveAsNewLabelModal.heading'),
-            onClick: saveAsNewLabel
+            label: getString('templatesLibrary.saveAsNewLabelModal.heading'),
+            onClick: () => {
+              getErrors?.().then(response => {
+                if (response.status === 'SUCCESS' && isEmpty(response.errors)) {
+                  saveAsNewLabel()
+                }
+              })
+            }
           },
           {
-            text: getString('templatesLibrary.saveAsNewTemplateModal.heading'),
-            onClick: saveAsNewTemplate
+            label: getString('templatesLibrary.saveAsNewTemplateModal.heading'),
+            onClick: () => {
+              getErrors?.().then(response => {
+                if (response.status === 'SUCCESS' && isEmpty(response.errors)) {
+                  saveAsNewTemplate()
+                }
+              })
+            }
           }
         ]
 
   return (
     <TemplatesActionPopover
-      open={menuOpen}
-      disabled={saveOptions.length === 1}
+      open={menuOpen && saveOptions.length > 1}
+      disabled={disabled}
       items={saveOptions}
       setMenuOpen={setMenuOpen}
+      minimal={true}
     >
       <Button
         disabled={disabled}

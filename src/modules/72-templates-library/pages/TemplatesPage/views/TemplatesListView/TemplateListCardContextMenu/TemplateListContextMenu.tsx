@@ -21,32 +21,32 @@ export const TemplateListContextMenu: React.FC<ContextMenuProps> = (props): JSX.
   const { template, onPreview, onOpenEdit, onOpenSettings, onDelete, className, ...popoverProps } = props
   const [menuOpen, setMenuOpen] = React.useState(false)
 
-  const getItems = (): { icon: IconName; text: string; onClick: () => void }[] => {
+  const getItems = (): { icon: IconName; label: string; onClick: () => void }[] => {
     return [
       {
         icon: 'eye-open',
-        text: getString('connectors.ceAws.crossAccountRoleExtention.step1.p2'),
+        label: getString('connectors.ceAws.crossAccountRoleExtention.step1.p2'),
         onClick: () => {
           onPreview?.(template)
         }
       },
       {
         icon: 'folder-shared-open',
-        text: getString('templatesLibrary.openEditTemplate'),
+        label: getString('templatesLibrary.openEditTemplate'),
         onClick: () => {
           onOpenEdit?.(template)
         }
       },
       {
         icon: 'settings',
-        text: getString('templatesLibrary.templateSettings'),
+        label: getString('templatesLibrary.templateSettings'),
         onClick: () => {
           onOpenSettings?.(template.identifier || '')
         }
       },
       {
         icon: 'delete',
-        text: getString('templatesLibrary.deleteTemplate'),
+        label: getString('templatesLibrary.deleteTemplate'),
         onClick: () => {
           onDelete?.(template.identifier || '')
         }

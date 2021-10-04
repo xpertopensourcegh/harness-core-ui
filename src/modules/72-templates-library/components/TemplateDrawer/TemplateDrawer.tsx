@@ -3,7 +3,6 @@ import { noop, set } from 'lodash-es'
 import produce from 'immer'
 import { Drawer, Position } from '@blueprintjs/core'
 import { Button } from '@wings-software/uicore'
-import { parse } from 'yaml'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { TemplateDrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import { updateStepWithinStage } from '@pipeline/components/PipelineStudio/RightDrawer/RightDrawer'
@@ -81,7 +80,7 @@ export const TemplateDrawer: React.FC = (): JSX.Element => {
                 template: {
                   templateRef: template.identifier || '',
                   versionLabel: template.versionLabel || '',
-                  templateInputs: parse(template.yaml || '').template.spec
+                  templateInputs: {}
                 }
               }
 

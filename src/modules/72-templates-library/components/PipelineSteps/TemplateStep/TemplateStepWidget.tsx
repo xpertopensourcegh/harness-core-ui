@@ -1,8 +1,11 @@
 import React from 'react'
-import { Color, Formik, FormInput, Layout, MultiTypeInputType, Text } from '@wings-software/uicore'
+import { Color, Container, Formik, FormInput, Layout, MultiTypeInputType, Text } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import cx from 'classnames'
 import type { FormikProps } from 'formik'
+import { useParams } from 'react-router'
+import { parse } from 'yaml'
+import { isEmpty } from 'lodash-es'
 import { NameSchema } from '@common/utils/Validation'
 import { setFormikRef, StepViewType, StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/strings'
@@ -11,17 +14,18 @@ import type { AbstractStepFactory } from '@pipeline/components/AbstractSteps/Abs
 import type { StepElementConfig } from 'services/cd-ng'
 import type { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { TemplateStepData } from '@pipeline/utils/tempates'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { useGetTemplateInputSetYaml } from 'services/template-ng'
+import { useToaster } from '@common/exports'
+import { PageError } from '@common/components/Page/PageError'
+import { PageSpinner } from '@common/components'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
-export interface TemplateStepFormData extends TemplateStepData {
-  stepType?: any // TODO: step type
-}
-
 export interface TemplateStepWidgetProps {
-  initialValues: TemplateStepData //TemplateStepFormData
+  initialValues: TemplateStepData
   isNewStep?: boolean
   isDisabled?: boolean
-  onUpdate?: (data: TemplateStepData /*TemplateStepFormData*/) => void
+  onUpdate?: (data: TemplateStepData) => void
   stepViewType?: StepViewType
   readonly?: boolean
   factory: AbstractStepFactory
@@ -34,6 +38,39 @@ export function TemplateStepWidget(
   const { initialValues, factory, onUpdate, isNewStep, readonly } = props
   const { getString } = useStrings()
   const stepType = initialValues.template.templateInputs.type as StepType
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
+  const [inputSetTemplate, setTnputSetTemplate] = React.useState<Partial<StepElementConfig>>()
+  const { showError } = useToaster()
+
+  const {
+    data: templateInputYaml,
+    error: inputSetError,
+    refetch,
+    loading
+  } = useGetTemplateInputSetYaml({
+    templateIdentifier: initialValues.template.templateRef,
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      versionLabel: initialValues.template.versionLabel
+    }
+  })
+
+  React.useEffect(() => {
+    try {
+      setTnputSetTemplate(parse(templateInputYaml?.data || ''))
+    } catch (error) {
+      showError(error.message, undefined, 'template.parse.inputSet.error')
+    }
+  }, [templateInputYaml?.data])
+
+  React.useEffect(() => {
+    if (isEmpty(initialValues.template.templateInputs) && !!inputSetTemplate) {
+      initialValues.template.templateInputs = inputSetTemplate
+      onUpdate?.(initialValues)
+    }
+  }, [initialValues.template.templateInputs, inputSetTemplate])
 
   return (
     <Formik<TemplateStepData /*TemplateStepFormData*/>
@@ -46,10 +83,8 @@ export function TemplateStepWidget(
         name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') })
       })}
     >
-      {(formik: FormikProps<TemplateStepFormData>) => {
-        // this is required
+      {(formik: FormikProps<TemplateStepData>) => {
         setFormikRef(formikRef, formik)
-
         return (
           <React.Fragment>
             <div className={stepCss.stepPanel}>
@@ -60,27 +95,37 @@ export function TemplateStepWidget(
                   inputGroupProps={{ disabled: readonly }}
                 />
               </div>
-              <Layout.Vertical
-                margin={{ top: 'medium' }}
-                padding={{ top: 'large', bottom: 'large' }}
-                border={{ top: true }}
-                spacing={'large'}
-              >
-                <Text style={{ fontSize: 16 }} font={{ weight: 'bold' }} color={Color.BLACK}>
-                  {getString('templatesLibrary.templateInputs')}
-                </Text>
-                <StepWidget<Partial<StepElementConfig>>
-                  factory={factory}
-                  initialValues={initialValues.template.templateInputs}
-                  template={initialValues.template.templateInputs}
-                  readonly={readonly}
-                  isNewStep={isNewStep}
-                  type={stepType}
-                  path={'template.templateInputs'}
-                  stepViewType={StepViewType.InputSet}
-                  allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION, MultiTypeInputType.RUNTIME]}
-                />
-              </Layout.Vertical>
+              <Container>
+                {loading && <PageSpinner />}
+                {!loading && inputSetError && <PageError message={inputSetError?.message} onClick={() => refetch()} />}
+                {!loading && !inputSetError && (
+                  <Layout.Vertical
+                    margin={{ top: 'medium' }}
+                    padding={{ top: 'large', bottom: 'large' }}
+                    border={{ top: true }}
+                    spacing={'large'}
+                  >
+                    <Text style={{ fontSize: 16 }} font={{ weight: 'bold' }} color={Color.BLACK}>
+                      {getString('templatesLibrary.templateInputs')}
+                    </Text>
+                    <StepWidget<Partial<StepElementConfig>>
+                      factory={factory}
+                      initialValues={initialValues.template.templateInputs}
+                      template={inputSetTemplate}
+                      readonly={readonly}
+                      isNewStep={isNewStep}
+                      type={stepType}
+                      path={'template.templateInputs'}
+                      stepViewType={StepViewType.InputSet}
+                      allowableTypes={[
+                        MultiTypeInputType.FIXED,
+                        MultiTypeInputType.EXPRESSION,
+                        MultiTypeInputType.RUNTIME
+                      ]}
+                    />
+                  </Layout.Vertical>
+                )}
+              </Container>
             </div>
           </React.Fragment>
         )

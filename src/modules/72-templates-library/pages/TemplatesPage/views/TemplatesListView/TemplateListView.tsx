@@ -76,34 +76,33 @@ const RenderColumnTemplate: Renderer<CellProps<TemplateSummaryResponse>> = ({ ro
   const data = row.original
   const { getString } = useStrings()
   return (
-    <Layout.Horizontal spacing="large">
-      <Layout.Vertical spacing="xsmall" data-testid={data.identifier}>
-        <Text
-          color={Color.GREY_800}
-          tooltipProps={{ position: Position.BOTTOM }}
-          tooltip={
-            <Layout.Vertical spacing="medium" padding="medium" style={{ maxWidth: 400 }}>
-              <Text>{getString('nameLabel', { name: data.name })}</Text>
-              <Text>{getString('idLabel', { id: data.identifier })}</Text>
-              <Text>{getString('descriptionLabel', { description: data.description })}</Text>
-            </Layout.Vertical>
-          }
-        >
-          {data.name}
-        </Text>
-        <Text tooltipProps={{ position: Position.BOTTOM }} color={Color.GREY_400} font={{ size: 'small' }}>
-          {getString('idLabel', { id: data.identifier })}
-        </Text>
-      </Layout.Vertical>
-    </Layout.Horizontal>
+    <Layout.Vertical spacing="xsmall" data-testid={data.identifier} padding={{ right: 'medium' }}>
+      <Text
+        color={Color.GREY_800}
+        tooltipProps={{ position: Position.BOTTOM }}
+        lineClamp={1}
+        tooltip={
+          <Layout.Vertical spacing="medium" padding="medium" style={{ maxWidth: 400 }}>
+            <Text>{getString('nameLabel', { name: data.name })}</Text>
+            <Text>{getString('idLabel', { id: data.identifier })}</Text>
+            <Text>{getString('descriptionLabel', { description: data.description || '-' })}</Text>
+          </Layout.Vertical>
+        }
+      >
+        {data.name}
+      </Text>
+      <Text tooltipProps={{ position: Position.BOTTOM }} color={Color.GREY_400} font={{ size: 'small' }}>
+        {getString('idLabel', { id: data.identifier })}
+      </Text>
+    </Layout.Vertical>
   )
 }
 
 const RenderColumnLabel: Renderer<CellProps<TemplateSummaryResponse>> = ({ row }) => {
   const data = row.original
   return (
-    <Layout.Horizontal spacing="large">
-      <Text color={Color.GREY_800} font={{ weight: 'semi-bold' }}>
+    <Layout.Horizontal padding={{ right: 'medium' }}>
+      <Text color={Color.GREY_800} font={{ weight: 'semi-bold' }} lineClamp={1}>
         {data.versionLabel}
       </Text>
     </Layout.Horizontal>
@@ -113,7 +112,7 @@ const RenderColumnLabel: Renderer<CellProps<TemplateSummaryResponse>> = ({ row }
 const RenderColumnTags: Renderer<CellProps<TemplateSummaryResponse>> = ({ row }) => {
   const data = row.original
   return (
-    <Layout.Horizontal spacing="large" style={{ alignItems: 'center' }}>
+    <Layout.Horizontal width={'100%'} padding={{ right: 'medium' }} style={{ alignItems: 'center' }}>
       {data.tags && !isEmpty(data.tags) ? (
         <TemplateTags tags={data.tags} length={3} />
       ) : (

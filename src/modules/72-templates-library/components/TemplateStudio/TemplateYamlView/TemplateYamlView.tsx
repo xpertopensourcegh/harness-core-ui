@@ -104,6 +104,7 @@ const TemplateYamlView: React.FC = () => {
         <div className={css.buttonsWrapper}>
           <Tag>{getString('common.readOnly')}</Tag>
           <RbacButton
+            disabled={true}
             permission={{
               resourceScope: {
                 accountIdentifier: accountId,

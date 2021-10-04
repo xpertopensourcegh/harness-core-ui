@@ -49,7 +49,7 @@ export class TemplateStep extends PipelineStep<TemplateStepData> {
         ref={formikRef}
         stepViewType={stepViewType}
         initialValues={initialValues}
-        onUpdate={(values: TemplateStepData) => onUpdate?.(values)}
+        onUpdate={data => onUpdate?.(this.processFormData(data))}
         isNewStep={isNewStep}
         readonly={readonly}
         factory={factory}

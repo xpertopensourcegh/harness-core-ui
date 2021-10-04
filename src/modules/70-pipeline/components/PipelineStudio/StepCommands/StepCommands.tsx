@@ -76,7 +76,7 @@ export function StepCommands(
   const [activeTab, setActiveTab] = React.useState(StepCommandTabs.StepConfiguration)
   const stepRef = React.useRef<FormikProps<unknown> | null>(null)
   const advancedConfRef = React.useRef<FormikProps<unknown> | null>(null)
-  const isTemplateStep = (step as any)['template'] // TODO: fix this check later when BE is finalized
+  const isTemplateStep = !!(step as TemplateStepData)?.template
 
   async function handleTabChange(newTab: StepCommandTabs, prevTab: StepCommandTabs): Promise<void> {
     if (prevTab === StepCommandTabs.StepConfiguration && stepRef.current) {
@@ -100,6 +100,12 @@ export function StepCommands(
       }
     }
   }
+
+  const stepType: StepType = isStepGroup
+    ? StepType.StepGroup
+    : isTemplateStep
+    ? StepType.Template
+    : ((step as StepElementConfig).type as StepType)
 
   React.useImperativeHandle(ref, () => ({
     setFieldError(fieldName: string, error: string) {
@@ -136,6 +142,8 @@ export function StepCommands(
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const stepObj = isStepGroup
         ? (stepsFactory.getStep(StepType.StepGroup) as PipelineStep<any>)
+        : stepType === StepType.Template
+        ? (stepsFactory.getStep(StepType.Template) as PipelineStep<any>)
         : (stepsFactory.getStep((step as StepElementConfig).type) as PipelineStep<any>)
       return activeTab === StepCommandTabs.StepConfiguration && stepRef.current
         ? stepObj.processFormData(stepRef.current.values)
@@ -153,12 +161,6 @@ export function StepCommands(
       return noop
     }
   }))
-
-  const stepType: StepType = isStepGroup
-    ? StepType.StepGroup
-    : isTemplateStep
-    ? StepType.Template
-    : ((step as StepElementConfig).type as StepType)
 
   const getStepWidgetWithFormikRef = () => {
     return (
@@ -190,7 +192,7 @@ export function StepCommands(
           background={Color.PRIMARY_6}
           border={{ radius: 4 }}
         >
-          <Layout.Horizontal spacing={'small'} flex={{ alignItems: 'center' }}>
+          <Layout.Horizontal spacing={'small'} flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
             <Icon size={11} color={Color.WHITE} name={'template-library'} />
             <Text font={{ size: 'small' }} color={Color.WHITE}>
               {`Using Template: ${(step as TemplateStepData)?.template.templateRef} (${
@@ -232,7 +234,8 @@ export function StepCommands(
               <Expander />
               <div>
                 <Button
-                  icon="library"
+                  icon="template-library"
+                  iconProps={{ size: 12 }}
                   minimal
                   size={ButtonSize.SMALL}
                   variation={ButtonVariation.PRIMARY}

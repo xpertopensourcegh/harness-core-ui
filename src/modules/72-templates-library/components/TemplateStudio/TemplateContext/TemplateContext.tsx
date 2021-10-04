@@ -303,7 +303,7 @@ export interface TemplateContextInterface {
   updateTemplate: (template: NGTemplateInfoConfig) => Promise<void>
   updateTemplateView: (data: TemplateViewData) => void
   deleteTemplateCache: () => Promise<void>
-  setLoading: () => void
+  setLoading: (loading: boolean) => void
 }
 
 const _deleteTemplateCache = async (
@@ -390,8 +390,8 @@ export const TemplateProvider: React.FC<{
     stableVersion: state.stableVersion
   })
 
-  const setLoading = () => {
-    dispatch(TemplateContextActions.loading())
+  const setLoading = (isLoading: boolean) => {
+    dispatch(TemplateContextActions.loading({ isLoading }))
   }
 
   const isReadonly = false

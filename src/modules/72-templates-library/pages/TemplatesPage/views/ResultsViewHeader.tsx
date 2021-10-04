@@ -16,10 +16,6 @@ export default function ResultsViewHeader(props: ResultsViewHeaderProps): React.
   const getSortOptions = React.useCallback(() => {
     return [
       {
-        label: getString('recentActivity'),
-        value: SortFields.RecentActivity
-      },
-      {
         label: getString('lastUpdatedSort'),
         value: SortFields.LastUpdatedAt
       },
@@ -34,7 +30,7 @@ export default function ResultsViewHeader(props: ResultsViewHeaderProps): React.
       }
     ]
   }, [])
-  const [selectedSort, setSelectedSort] = React.useState<SelectOption>(getSortOptions()[1])
+  const [selectedSort, setSelectedSort] = React.useState<SelectOption>(getSortOptions()[0])
   return (
     <Container>
       <Layout.Horizontal spacing="large" padding={{ top: 'large', bottom: 'large' }} flex={{ alignItems: 'center' }}>
@@ -55,8 +51,6 @@ export default function ResultsViewHeader(props: ResultsViewHeaderProps): React.
               setSort([SortFields.Name, Sort.DESC])
             } else if (item.value === SortFields.LastUpdatedAt) {
               setSort([SortFields.LastUpdatedAt, Sort.DESC])
-            } else if (item.value === SortFields.RecentActivity) {
-              setSort([SortFields.RecentActivity, Sort.DESC])
             }
             setPage(0)
             setSelectedSort(item)

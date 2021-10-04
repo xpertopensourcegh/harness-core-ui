@@ -5,16 +5,23 @@ import { useStrings } from 'framework/strings'
 import type { TemplateStudioPathProps } from '@common/interfaces/RouteInterfaces'
 import { TemplateContext } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateContext'
 import VisualYamlToggle, { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
-import { SaveTemplatePopover } from '@templates-library/components/TemplateStudio/SaveTemplatePopover/SaveTemplatePopover'
+import {
+  GetErrorResponse,
+  SaveTemplatePopover
+} from '@templates-library/components/TemplateStudio/SaveTemplatePopover/SaveTemplatePopover'
 import { DefaultNewTemplateId } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateReducer'
 import { TemplateStudioSubHeaderLeftView } from './views/TemplateStudioSubHeaderLeftView/TemplateStudioSubHeaderLeftView'
 import css from './TemplateStudioSubHeader.module.scss'
 
 export interface TemplateStudioSubHeaderProps {
   onViewChange: (view: SelectedView) => boolean
+  getErrors?: () => Promise<GetErrorResponse>
 }
 
-export const TemplateStudioSubHeader: (props: TemplateStudioSubHeaderProps) => JSX.Element = ({ onViewChange }) => {
+export const TemplateStudioSubHeader: (props: TemplateStudioSubHeaderProps) => JSX.Element = ({
+  onViewChange,
+  getErrors
+}) => {
   const { state, fetchTemplate, view, isReadonly } = React.useContext(TemplateContext)
   const { isUpdated } = state
   const { getString } = useStrings()
@@ -61,7 +68,7 @@ export const TemplateStudioSubHeader: (props: TemplateStudioSubHeaderProps) => J
             {!isReadonly && (
               <Container>
                 <Layout.Horizontal spacing={'small'} flex={{ alignItems: 'center' }}>
-                  <SaveTemplatePopover disabled={!isUpdated} />
+                  <SaveTemplatePopover disabled={!isUpdated} getErrors={getErrors} />
                   {templateIdentifier !== DefaultNewTemplateId && (
                     <Button
                       disabled={!isUpdated}

@@ -1,13 +1,13 @@
 import React from 'react'
 import { Menu, Position } from '@blueprintjs/core'
-import { Button, ButtonVariation, Popover } from '@wings-software/uicore'
+import { Button, ButtonVariation } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import { String, useStrings } from 'framework/strings'
 import { getAllowedTemplateTypes, TemplateType } from '@templates-library/utils/templatesUtils'
 import routes from '@common/RouteDefinitions'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { DefaultNewTemplateId } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateReducer'
-import css from './NewTemplatePopover.module.scss'
+import { TemplatesActionPopover } from '@templates-library/components/TemplatesActionPopover/TemplatesActionPopover'
 
 export function NewTemplatePopover(): React.ReactElement {
   const handleAddTemplate = () => undefined
@@ -15,6 +15,7 @@ export function NewTemplatePopover(): React.ReactElement {
   const history = useHistory()
   const allowedTemplateTypes = getAllowedTemplateTypes(getString)
   const { projectIdentifier, orgIdentifier, accountId, module } = useParams<ProjectPathProps & ModulePathParams>()
+  const [menuOpen, setMenuOpen] = React.useState(false)
 
   const goToTemplateStudio = React.useCallback(
     (templateType: TemplateType) => {
@@ -34,12 +35,11 @@ export function NewTemplatePopover(): React.ReactElement {
 
   const renderMenu = () => {
     return (
-      <Menu style={{ width: '120px' }} className={css.templateTypeMenu} onClick={e => e.stopPropagation()}>
+      <Menu style={{ width: '120px' }} onClick={e => e.stopPropagation()}>
         {allowedTemplateTypes.map(templateType => (
           <Menu.Item
             text={templateType.label}
             key={templateType.value}
-            className={css.templateTypeMenuItem}
             disabled={templateType.disabled}
             onClick={(e: React.MouseEvent) => {
               e.stopPropagation()
@@ -52,12 +52,12 @@ export function NewTemplatePopover(): React.ReactElement {
   }
 
   return (
-    <Popover
-      modifiers={{
-        arrow: { enabled: false }
-      }}
+    <TemplatesActionPopover
+      open={menuOpen}
+      minimal={true}
       content={renderMenu()}
       position={Position.BOTTOM}
+      setMenuOpen={setMenuOpen}
     >
       <Button
         icon="plus"
@@ -68,6 +68,6 @@ export function NewTemplatePopover(): React.ReactElement {
       >
         {<String stringID="templatesLibrary.addNewTemplate" />}
       </Button>
-    </Popover>
+    </TemplatesActionPopover>
   )
 }

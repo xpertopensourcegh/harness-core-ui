@@ -1,7 +1,6 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly templateTypeMenu: string
-  readonly templateTypeMenuItem: string
+  readonly popOver: string
 }
 export default styles

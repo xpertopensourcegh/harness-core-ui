@@ -1,6 +1,5 @@
 import React from 'react'
 import { render, act, fireEvent, waitFor } from '@testing-library/react'
-import { noop } from 'lodash-es'
 import { TestWrapper } from '@common/utils/testUtils'
 import { ConfigModalProps, TemplateConfigModal } from '../TemplateConfigModal'
 
@@ -14,7 +13,7 @@ const getProps = (): ConfigModalProps => ({
   },
   modalProps: {
     title: 'Some Title',
-    onSubmit: noop
+    promise: Promise.resolve
   }
 })
 

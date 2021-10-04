@@ -1,13 +1,13 @@
 import React from 'react'
-import { Color, Container, Layout, Text } from '@wings-software/uicore'
+import { Container, Layout, Text } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { TemplateType } from '@templates-library/utils/templatesUtils'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import routes from '@common/RouteDefinitions'
-import type { TemplateColorMap } from '@templates-library/components/AbstractTemplate/Template'
 import templateFactory from '@templates-library/components/Templates/TemplatesFactory'
 import type { ProjectPathProps, ModulePathParams } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
+import { templateStudioColorStyleMap } from '@templates-library/pages/TemplatesPage/TemplatesPageUtils'
 import css from './TemplateStudioHeader.module.scss'
 
 export interface TemplateStudioHeaderProps {
@@ -20,11 +20,7 @@ export const TemplateStudioHeader: React.FC<TemplateStudioHeaderProps> = props =
   const { accountId, orgIdentifier, projectIdentifier, module } = useParams<ProjectPathProps & ModulePathParams>()
 
   const studioTitle = templateFactory.getTemplateName(templateType) || 'Studio'
-  const colorMap: TemplateColorMap = templateFactory.getTemplatePrimaryColorMap(templateType) || {
-    primary: Color.BLACK,
-    secondary: Color.GREY_800,
-    text: Color.GREY_100
-  }
+  const style = templateStudioColorStyleMap[templateType || 'Step']
 
   return (
     <Container>
@@ -42,11 +38,11 @@ export const TemplateStudioHeader: React.FC<TemplateStudioHeaderProps> = props =
         <svg width="210" height="26" viewBox="0 0 210 26" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M20.3896 22.2945L1.10987 0.5H208.932L190.926 22.0853C189.121 24.2491 186.449 25.5 183.631 25.5H27.505C24.7836 25.5 22.1928 24.3328 20.3896 22.2945Z"
-            fill={colorMap.secondary}
-            stroke={colorMap.primary}
+            fill={style.fill}
+            stroke={style.stroke}
           />
         </svg>
-        <Text font={{ size: 'xsmall', weight: 'bold' }} color={Color.PURPLE_50} className={css.title}>
+        <Text font={{ size: 'xsmall', weight: 'bold' }} style={{ color: style.color }} className={css.title}>
           {studioTitle}
         </Text>
       </Container>

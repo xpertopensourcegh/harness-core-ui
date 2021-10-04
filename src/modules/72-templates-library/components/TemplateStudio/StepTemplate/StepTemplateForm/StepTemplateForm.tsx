@@ -12,15 +12,22 @@ import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { TabTypes } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 import type { TemplateProps } from '@templates-library/components/AbstractTemplate/Template'
 import type { TemplateFormRef } from '@templates-library/components/TemplateStudio/TemplateStudio'
+import type { NGTemplateInfoConfig } from 'services/template-ng'
 import css from './StepTemplateForm.module.scss'
 
-const StepTemplateForm = (props: TemplateProps<StepElementConfig>, formikRef: TemplateFormRef) => {
+const StepTemplateForm = (props: TemplateProps<NGTemplateInfoConfig>, formikRef: TemplateFormRef) => {
   const { formikProps } = props
   const stepFormikRef = React.useRef<StepFormikRef | null>(null)
 
   React.useImperativeHandle(formikRef, () => ({
     resetForm() {
       return stepFormikRef.current?.resetForm()
+    },
+    submitForm() {
+      return stepFormikRef.current?.submitForm()
+    },
+    getErrors() {
+      return stepFormikRef.current?.getErrors() || {}
     }
   }))
 
@@ -32,7 +39,7 @@ const StepTemplateForm = (props: TemplateProps<StepElementConfig>, formikRef: Te
       }
     >
   ): Promise<void> => {
-    const processNode = produce(formikProps.values as StepElementConfig, node => {
+    const processNode = produce(formikProps.values.spec as StepElementConfig, node => {
       if (item.tab !== TabTypes.Advanced) {
         if ((item as StepElementConfig).description) {
           node.description = (item as StepElementConfig).description
@@ -58,21 +65,21 @@ const StepTemplateForm = (props: TemplateProps<StepElementConfig>, formikRef: Te
         }
       }
       // default strategies can be present without having the need to click on Advanced Tab. For eg. in CV step.
-      if (Array.isArray(item.failureStrategies)) {
+      if (Array.isArray(item.failureStrategies) && !isEmpty(item.failureStrategies)) {
         node.failureStrategies = item.failureStrategies
       } else if (node.failureStrategies) {
         delete node.failureStrategies
       }
     })
-    formikProps?.setValues(processNode)
+    formikProps?.setFieldValue('spec', processNode)
   }
 
   return (
     <Container background={Color.FORM_BG}>
-      {formikProps && !isEmpty(formikProps.values) && !!formikProps.values.type && (
+      {formikProps && !isEmpty(formikProps.values.spec) && !!(formikProps.values.spec as StepElementConfig)?.type && (
         <StepCommands
           className={css.stepForm}
-          step={formikProps.values}
+          step={formikProps.values.spec as StepElementConfig}
           isReadonly={false}
           stepsFactory={factory}
           onChange={onSubmitStep}

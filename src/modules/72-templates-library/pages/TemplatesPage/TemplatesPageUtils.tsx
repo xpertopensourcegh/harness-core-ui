@@ -40,6 +40,44 @@ export const templateColorStyleMap: { [keyof in TemplateType]: React.CSSProperti
   }
 }
 
+export const templateStudioColorStyleMap: { [keyof in TemplateType]: React.CSSProperties } = {
+  [TemplateType.Step]: {
+    color: '#EADEFF',
+    stroke: '#6938C0',
+    fill: '#7D4DD3'
+  },
+  [TemplateType.Stage]: {
+    color: '#06B7C3',
+    stroke: '#C3ECEE',
+    fill: '#D3FCFE'
+  },
+  [TemplateType.Service]: {
+    color: '#299B2C',
+    stroke: '#D4E7D1',
+    fill: '#E4F7E1'
+  },
+  [TemplateType.Pipeline]: {
+    color: '#004BA4',
+    stroke: '#E4E6EF',
+    fill: '#F4F6FF'
+  },
+  [TemplateType.StepGroup]: {
+    color: '#299B2C',
+    stroke: '#D4E7D1',
+    fill: '#E4F7E1'
+  },
+  [TemplateType.Execution]: {
+    color: '#299B2C',
+    stroke: '#D4E7D1',
+    fill: '#E4F7E1'
+  },
+  [TemplateType.Infrastructure]: {
+    color: '#299B2C',
+    stroke: '#D4E7D1',
+    fill: '#E4F7E1'
+  }
+}
+
 export enum Sort {
   DESC = 'DESC',
   ASC = 'ASC'

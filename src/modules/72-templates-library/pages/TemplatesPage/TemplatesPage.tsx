@@ -20,7 +20,7 @@ import { TemplateDetailsDrawer } from '@templates-library/components/TemplateDet
 import { TemplateSummaryResponse, useGetTemplateList } from 'services/template-ng'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
-import { NewTemplatePopover } from '@templates-library/pages/TemplatesPage/views/TeplatesListHeader/NewTemplatePopover'
+import { NewTemplatePopover } from '@templates-library/pages/TemplatesPage/views/NewTemplatePopover'
 import { DeleteTemplateModal } from '@templates-library/components/DeleteTemplateModal/DeleteTemplateModal'
 import routes from '@common/RouteDefinitions'
 import { PageSpinner } from '@common/components'
