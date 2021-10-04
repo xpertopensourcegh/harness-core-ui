@@ -20,7 +20,7 @@ import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import welcomeVideo from './images/welcome-anim.mp4'
 import css from './LandingDashboardPage.module.scss'
 
-const modules: Array<ModuleName> = [ModuleName.COMMON]
+const modules: Array<ModuleName> = [ModuleName.COMMON, ModuleName.CD]
 
 enum View {
   Dashboard,

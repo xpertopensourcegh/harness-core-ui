@@ -83,7 +83,6 @@ serviceDashboard:
   noDeployments: No Deployments in {{timeRange}}
   noServices: No services in {{timeRange}} for given criteria
   noServiceInstances: No Service Instances in {{timeRange}}
-  mostActiveServices: Most active services
   seeMore: '+ {{count}} more'
   buildName: 'Build Name'
   noServiceDetails: No services matching the criteria

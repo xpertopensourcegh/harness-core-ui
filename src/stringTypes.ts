@@ -282,6 +282,7 @@ export interface StringsMap {
   'common.monthly': string
   'common.moreInfo': string
   'common.moreRefineSearch': string
+  'common.mostActiveServices': string
   'common.move': string
   'common.myProfile': string
   'common.namePlaceholder': string
@@ -1850,6 +1851,7 @@ export interface StringsMap {
   'pipeline.dashboards.totalBuilds': string
   'pipeline.dashboards.totalExecutions': string
   'pipeline.dashboards.workloads': string
+  'pipeline.deploymentFrequency': string
   'pipeline.depth': string
   'pipeline.discard': string
   'pipeline.duration': string
@@ -2590,7 +2592,6 @@ export interface StringsMap {
   'cd.serviceDashboard.instanceDetails': string
   'cd.serviceDashboard.lastDeployment': string
   'cd.serviceDashboard.month': string
-  'cd.serviceDashboard.mostActiveServices': string
   'cd.serviceDashboard.noActiveServiceInstances': string
   'cd.serviceDashboard.noActiveServices': string
   'cd.serviceDashboard.noDeployments': string

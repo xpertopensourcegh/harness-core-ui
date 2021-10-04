@@ -1,0 +1,100 @@
+@import '../Dashboards/sharedStyles.module.scss';
+
+.main {
+  @include dashboardVariables();
+  .badgesContainer {
+    height: 56px;
+    display: flex;
+    padding: 11px 18px 13px 18px;
+    margin-bottom: 15px;
+
+    .manualInterventionsBadge {
+      height: 32px;
+      border-radius: 8px;
+      padding: 8px 10px;
+      background-color: var(--yellow-50);
+      align-items: center;
+      margin-right: 8px;
+
+      .badgeText {
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 16px;
+        letter-spacing: 0.2px;
+        color: var(--primary-7);
+      }
+    }
+  }
+  .chartCardsContainer {
+    display: flex;
+    .deploymentsChartContainer {
+      margin-right: var(--spacing-medium);
+      padding: var(--spacing-xlarge);
+      width: 65%;
+      .summaryCardsContainer {
+        margin-left: 20px;
+        display: flex;
+        .summaryCard {
+          min-width: 142px;
+          min-height: 76px;
+          background-color: #fafbfc !important;
+          margin-right: var(--spacing-4) !important;
+          border-radius: 4px;
+          padding-left: var(--spacing-4) !important;
+          padding-right: var(--spacing-4) !important;
+
+          .cardTitle {
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 16px;
+            letter-spacing: 0.2px;
+            color: var(--gray-700);
+            margin-top: 12px;
+          }
+          .frequencyCount {
+            margin-top: 7px;
+            margin-right: var(--spacing-medium);
+            font-weight: 600;
+            font-size: 24px;
+            line-height: 32px;
+            display: flex;
+            align-items: center;
+            color: black;
+          }
+          .trendContainer {
+            margin-top: 7px;
+            line-height: 14px;
+            .trend {
+              margin-left: 6px;
+              font-weight: 500;
+              font-size: 10px;
+              line-height: 14px;
+              display: flex;
+              align-items: center;
+              letter-spacing: 0.2px;
+              color: var(--green=600);
+            }
+          }
+        }
+      }
+    }
+    .mostActiveServicesChartContainer {
+      width: 35%;
+      padding-left: var(--spacing-xlarge);
+      padding-right: var(--spacing-xlarge);
+      padding-bottom: var(--spacing-xlarge);
+      padding-top: 0;
+      .activeServicesTitle {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 24px;
+      }
+      .servicesByDropdown {
+        width: 150px;
+        > input {
+          border: none !important;
+        }
+      }
+    }
+  }
+}

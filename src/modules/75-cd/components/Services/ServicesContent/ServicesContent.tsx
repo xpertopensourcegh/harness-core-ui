@@ -85,7 +85,7 @@ export const ServicesContent: React.FC = () => {
             <Layout.Horizontal margin={{ bottom: 'large' }}>
               <ServiceInstancesWidget {...serviceInstanceProps} />
               <Card className={css.card}>
-                <MostActiveServicesWidget title={getString('cd.serviceDashboard.mostActiveServices')} />
+                <MostActiveServicesWidget title={getString('common.mostActiveServices')} />
                 <div className={css.separator} />
                 <DeploymentsWidget />
               </Card>
