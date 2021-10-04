@@ -112,6 +112,7 @@ export function formatNodes(nodes: Node[]) {
     return {
       id: node.id,
       className: `PointData ${node.id.replace(' ', '')} Status_${node.status}`,
+      name: node.name,
       marker: {
         symbol: `url(data:image/svg+xml;utf8,${encodeURIComponent(
           renderToStaticMarkup(hexSvg(node.status, node.icon))
@@ -138,6 +139,7 @@ export function dependencyGraphOptions(dependencyData: DependencyData): Highchar
   return {
     chart: {
       type: 'networkgraph',
+      backgroundColor: 'transparent',
       events: {
         click: function (): void {
           deselectNodes()
@@ -169,7 +171,6 @@ export function dependencyGraphOptions(dependencyData: DependencyData): Highchar
       }
     },
     tooltip: { enabled: false },
-
     series: [
       {
         id: 'lang-tree',

@@ -555,6 +555,20 @@ export interface ClusterSummary {
   testFrequencyData?: number[]
 }
 
+export interface ClusteredLog {
+  clusterCount?: number
+  clusterLabel?: string
+  clusterLevel?: 'L1' | 'L2'
+  createdAt?: number
+  host?: string
+  lastUpdatedAt?: number
+  log?: string
+  timestamp?: number
+  uuid?: string
+  validUntil?: string
+  verificationTaskId?: string
+}
+
 export interface ConnectorConfigDTO {
   [key: string]: any
 }
@@ -617,17 +631,6 @@ export interface CountByTag {
 export interface CrossAccountAccess {
   crossAccountRoleArn: string
   externalId?: string
-}
-
-export interface DSConfig {
-  accountId?: string
-  connectorIdentifier?: string
-  identifier?: string
-  monitoringSourceName?: string
-  orgIdentifier?: string
-  productName?: string
-  projectIdentifier?: string
-  type?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'STACKDRIVER_LOG' | 'KUBERNETES' | 'NEW_RELIC' | 'PROMETHEUS'
 }
 
 export interface DataCollectionInfo {
@@ -838,11 +841,6 @@ export interface EnvSummary {
   envName?: string
   riskScore?: number
   serviceSummaries?: ServiceSummary[]
-}
-
-export interface EnvToServicesDTO {
-  environment?: EnvironmentResponseDTO
-  services?: ServiceResponseDTO[]
 }
 
 export interface EnvironmentResponse {
@@ -1882,7 +1880,8 @@ export type KubernetesChangeEventMetadata = ChangeEventMetadata & {
   newYaml?: string
   oldYaml?: string
   reason?: string
-  resourceType?: 'Deployment' | 'ReplicaSet' | 'Secret' | 'Pod'
+  resourceType?: 'Deployment' | 'ReplicaSet' | 'Secret' | 'Pod' | 'ConfigMap' | 'StatefulSet'
+  resourceVersion?: string
   timestamp?: number
   workload?: string
 }
@@ -2037,6 +2036,38 @@ export interface LogAnalysisDTO {
   verificationTaskId?: string
 }
 
+export interface LogAnalysisRecord {
+  accountId?: string
+  analysisEndTime?: number
+  analysisMinute?: number
+  analysisStartTime?: number
+  analysisSummaryMessage?: string
+  controlClusters?: LogAnalysisCluster[]
+  controlEvents?: LogAnalysisCluster[]
+  createdAt?: number
+  lastUpdatedAt?: number
+  score?: number
+  testClusters?: LogAnalysisCluster[]
+  testEvents?: LogAnalysisCluster[]
+  unknownClusters?: LogAnalysisCluster[]
+  unknownEvents?: LogAnalysisCluster[][]
+  uuid?: string
+  validUntil?: string
+  verificationTaskId?: string
+}
+
+export interface LogAnalysisResult {
+  accountId?: string
+  analysisEndTime?: number
+  analysisStartTime?: number
+  createdAt?: number
+  lastUpdatedAt?: number
+  logAnalysisResults?: AnalysisResult[]
+  overallRisk?: number
+  uuid?: string
+  verificationTaskId?: string
+}
+
 export interface LogClusterDTO {
   clusterCount?: number
   clusterLabel?: string
@@ -2078,6 +2109,13 @@ export interface LogsAnalysisSummary {
   totalClusterCount?: number
 }
 
+export interface MessageFrequency {
+  count?: number
+  host?: string
+  oldLabel?: string
+  time?: number
+}
+
 export interface MetricData {
   risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
   timestamp?: number
@@ -2102,6 +2140,11 @@ export interface MetricDefinitionDTO {
   type?: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX' | 'OTHER'
   validationPath?: string
   validationResponseJsonPath?: string
+}
+
+export interface MetricHistory {
+  metricName?: string
+  value?: number[]
 }
 
 export interface MetricPack {
@@ -2198,18 +2241,6 @@ export interface MonitoredServiceResponse {
   createdAt?: number
   lastModifiedAt?: number
   monitoredService: MonitoredServiceDTO
-}
-
-export interface MonitoringSource {
-  importedAt?: number
-  monitoringSourceIdentifier?: string
-  monitoringSourceName?: string
-  numberOfServices?: number
-  type?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'STACKDRIVER_LOG' | 'KUBERNETES' | 'NEW_RELIC' | 'PROMETHEUS'
-}
-
-export interface MonitoringSourceImportStatus {
-  [key: string]: any
 }
 
 export interface NewRelicApplication {
@@ -2389,16 +2420,6 @@ export interface PageMonitoredServiceResponse {
   totalPages?: number
 }
 
-export interface PageMonitoringSource {
-  content?: MonitoringSource[]
-  empty?: boolean
-  pageIndex?: number
-  pageItemCount?: number
-  pageSize?: number
-  totalItems?: number
-  totalPages?: number
-}
-
 export interface PageStackdriverDashboardDTO {
   content?: StackdriverDashboardDTO[]
   empty?: boolean
@@ -2439,16 +2460,6 @@ export interface PageTransactionMetricInfo {
   totalPages?: number
 }
 
-export interface PageVerificationJobDTO {
-  content?: VerificationJobDTO[]
-  empty?: boolean
-  pageIndex?: number
-  pageItemCount?: number
-  pageSize?: number
-  totalItems?: number
-  totalPages?: number
-}
-
 export type PagerDutyChangeSourceSpec = ChangeSourceSpec & {
   connectorRef?: string
   pagerDutyServiceId?: string
@@ -2460,20 +2471,51 @@ export type PagerDutyConnectorDTO = ConnectorConfigDTO & {
 }
 
 export type PagerDutyEventMetaData = ChangeEventMetadata & {
+  assignment?: string
+  assignmentUrl?: string
+  escalationPolicy?: string
+  escalationPolicyUrl?: string
   eventId?: string
+  htmlUrl?: string
   pagerDutyUrl?: string
+  priority?: string
+  status?: string
   title?: string
+  triggeredAt?: number
+  urgency?: string
 }
 
 export interface PagerDutyIncidentDTO {
+  assignments?: PagerDutyObject[]
+  escalation_policy?: PagerDutyObject
+  html_url?: string
   id?: string
+  priority?: PagerDutyObject
   self?: string
+  status?: string
   title?: string
+  urgency?: string
+}
+
+export interface PagerDutyObject {
+  html_url?: string
+  id?: string
+  summary?: string
 }
 
 export interface PagerDutyServiceDetail {
   id?: string
   name?: string
+}
+
+export interface PagerDutyWebhookEvent {
+  event?: PagerDutyWebhookEventDTO
+}
+
+export interface PagerDutyWebhookEventDTO {
+  data?: PagerDutyIncidentDTO
+  event_type?: string
+  occurred_at?: number
 }
 
 export interface PartialSchemaDTO {
@@ -2616,13 +2658,6 @@ export interface ResponseListStackdriverDashboardDetail {
 export interface ResponseListString {
   correlationId?: string
   data?: string[]
-  metaData?: { [key: string]: any }
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-}
-
-export interface ResponseListVerificationJobDTO {
-  correlationId?: string
-  data?: VerificationJobDTO[]
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -2947,13 +2982,6 @@ export interface ResponseMonitoredServiceResponse {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
-export interface ResponseMonitoringSourceImportStatus {
-  correlationId?: string
-  data?: MonitoringSourceImportStatus
-  metaData?: { [key: string]: any }
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-}
-
 export interface ResponsePageActivitySourceDTO {
   correlationId?: string
   data?: PageActivitySourceDTO
@@ -2996,13 +3024,6 @@ export interface ResponsePageMonitoredServiceResponse {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
-export interface ResponsePageMonitoringSource {
-  correlationId?: string
-  data?: PageMonitoringSource
-  metaData?: { [key: string]: any }
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-}
-
 export interface ResponsePageStackdriverDashboardDTO {
   correlationId?: string
   data?: PageStackdriverDashboardDTO
@@ -3013,13 +3034,6 @@ export interface ResponsePageStackdriverDashboardDTO {
 export interface ResponsePageString {
   correlationId?: string
   data?: PageString
-  metaData?: { [key: string]: any }
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-}
-
-export interface ResponsePageVerificationJobDTO {
-  correlationId?: string
-  data?: PageVerificationJobDTO
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -3048,13 +3062,6 @@ export interface ResponseSetTimeSeriesSampleDTO {
 export interface ResponseString {
   correlationId?: string
   data?: string
-  metaData?: { [key: string]: any }
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-}
-
-export interface ResponseVerificationJobDTO {
-  correlationId?: string
-  data?: VerificationJobDTO
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -3123,6 +3130,14 @@ export interface RestResponseCategoryRisksDTO {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseChangeEventDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ChangeEventDTO
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponseChangeSummaryDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -3136,14 +3151,6 @@ export interface RestResponseChangeTimeline {
     [key: string]: { [key: string]: any }
   }
   resource?: ChangeTimeline
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseDSConfig {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DSConfig
   responseMessages?: ResponseMessage[]
 }
 
@@ -3252,11 +3259,11 @@ export interface RestResponseListChangeEventDTO {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseListDSConfig {
+export interface RestResponseListClusteredLog {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: DSConfig[]
+  resource?: ClusteredLog[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -3300,14 +3307,6 @@ export interface RestResponseListEnvServiceRiskDTO {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseListEnvToServicesDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: EnvToServicesDTO[]
-  responseMessages?: ResponseMessage[]
-}
-
 export interface RestResponseListHealthSourceDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -3347,6 +3346,22 @@ export interface RestResponseListLogAnalysisClusterChartDTO {
     [key: string]: { [key: string]: any }
   }
   resource?: LogAnalysisClusterChartDTO[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListLogAnalysisRecord {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: LogAnalysisRecord[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListLogAnalysisResult {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: LogAnalysisResult[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -3398,6 +3413,14 @@ export interface RestResponseListTestVerificationBaselineExecutionDTO {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseListTimeSeriesCumulativeSums {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: TimeSeriesCumulativeSums[]
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponseListTimeSeriesMetricDefinition {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -3411,6 +3434,14 @@ export interface RestResponseListTimeSeriesRecordDTO {
     [key: string]: { [key: string]: any }
   }
   resource?: TimeSeriesRecordDTO[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListTimeSeriesRiskSummary {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: TimeSeriesRiskSummary[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -3580,6 +3611,22 @@ export interface RestResponseString {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseTimeSeriesAnomalousPatterns {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: TimeSeriesAnomalousPatterns
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseTimeSeriesShortTermHistory {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: TimeSeriesShortTermHistory
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponseTimeSeriesTestDataDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -3593,14 +3640,6 @@ export interface RestResponseTransactionMetricInfoSummaryPageDTO {
     [key: string]: { [key: string]: any }
   }
   resource?: TransactionMetricInfoSummaryPageDTO
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseVerificationJobDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: VerificationJobDTO
   responseMessages?: ResponseMessage[]
 }
 
@@ -3682,20 +3721,6 @@ export interface ServiceGuardTxnMetricAnalysisDataDTO {
   shortTermHistory?: number[]
 }
 
-export interface ServiceResponseDTO {
-  accountId?: string
-  deleted?: boolean
-  description?: string
-  identifier?: string
-  name?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  tags?: {
-    [key: string]: string
-  }
-  version?: number
-}
-
 export interface ServiceRisk {
   risk?: number
   serviceIdentifier?: string
@@ -3714,6 +3739,7 @@ export interface ServiceSummaryDetails {
   anomalousMetricsCount?: number
   changeCount?: number
   environmentRef?: string
+  identifierRef?: string
   riskLevel?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
   riskScore?: number
   serviceRef?: string
@@ -3828,6 +3854,23 @@ export interface TimeSeriesAnomalies {
   transactionName?: string
 }
 
+export interface TimeSeriesAnomalousPatterns {
+  anomalies?: TimeSeriesAnomalies[]
+  compressedAnomalies?: string[]
+  createdAt?: number
+  lastUpdatedAt?: number
+  uuid?: string
+  verificationTaskId?: string
+}
+
+export interface TimeSeriesCumulativeSums {
+  analysisEndTime?: number
+  analysisStartTime?: number
+  transactionMetricSums?: TransactionMetricSums[]
+  uuid?: string
+  verificationTaskId?: string
+}
+
 export interface TimeSeriesDataCollectionRecord {
   accountId?: string
   cvConfigId?: string
@@ -3889,11 +3932,29 @@ export interface TimeSeriesRecordDTO {
   verificationTaskId?: string
 }
 
+export interface TimeSeriesRiskSummary {
+  analysisEndTime?: number
+  analysisStartTime?: number
+  overallRisk?: number
+  transactionMetricRiskList?: TransactionMetricRisk[]
+  uuid?: string
+  verificationTaskId?: string
+}
+
 export interface TimeSeriesSampleDTO {
   metricName?: string
   metricValue?: number
   timestamp?: number
   txnName?: string
+}
+
+export interface TimeSeriesShortTermHistory {
+  compressedMetricHistories?: string[]
+  createdAt?: number
+  lastUpdatedAt?: number
+  transactionMetricHistories?: TransactionMetricHistory[]
+  uuid?: string
+  verificationTaskId?: string
 }
 
 export interface TimeSeriesTestDataDTO {
@@ -3967,6 +4028,11 @@ export interface TransactionMetric {
   transactionName?: string
 }
 
+export interface TransactionMetricHistory {
+  metricHistoryList?: MetricHistory[]
+  transactionName?: string
+}
+
 export interface TransactionMetricHostData {
   anomalous?: boolean
   hostData?: HostData[]
@@ -3997,6 +4063,21 @@ export interface TransactionMetricInfoSummaryPageDTO {
   pageResponse?: PageTransactionMetricInfo
 }
 
+export interface TransactionMetricRisk {
+  anomalous?: boolean
+  lastSeenTime?: number
+  longTermPattern?: boolean
+  metricName?: string
+  metricRisk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  metricScore?: number
+  transactionName?: string
+}
+
+export interface TransactionMetricSums {
+  metricSums?: MetricSum[]
+  transactionName?: string
+}
+
 export interface ValidationError {
   error?: string
   fieldId?: string
@@ -4019,33 +4100,6 @@ export type VaultConnectorDTO = ConnectorConfigDTO & {
   sinkPath?: string
   useVaultAgent?: boolean
   vaultUrl?: string
-}
-
-export interface VerificationJobDTO {
-  activitySourceIdentifier?: string
-  allMonitoringSourcesEnabled?: boolean
-  dataSources?: (
-    | 'APP_DYNAMICS'
-    | 'SPLUNK'
-    | 'STACKDRIVER'
-    | 'STACKDRIVER_LOG'
-    | 'KUBERNETES'
-    | 'NEW_RELIC'
-    | 'PROMETHEUS'
-  )[]
-  defaultJob?: boolean
-  duration?: string
-  envIdentifier?: string
-  envName?: string
-  identifier?: string
-  jobName?: string
-  monitoringSources?: string[]
-  orgIdentifier?: string
-  projectIdentifier?: string
-  serviceIdentifier?: string
-  serviceName?: string
-  type?: 'TEST' | 'CANARY' | 'BLUE_GREEN' | 'HEALTH'
-  verificationJobUrl?: string
 }
 
 export interface VerificationJobRuntimeDetails {
@@ -4101,15 +4155,11 @@ export type CVConfigArrayRequestBody = CVConfig[]
 
 export type ChangeEventDTORequestBody = ChangeEventDTO
 
-export type DSConfigRequestBody = DSConfig
-
 export type MetricPackDTOArrayRequestBody = MetricPackDTO[]
 
 export type MonitoredServiceDTORequestBody = MonitoredServiceDTO
 
 export type ServiceGuardTimeSeriesAnalysisDTORequestBody = ServiceGuardTimeSeriesAnalysisDTO
-
-export type VerificationJobDTORequestBody = VerificationJobDTO
 
 export interface ChangeEventListQueryParams {
   serviceIdentifiers: string[]
@@ -6255,439 +6305,6 @@ export const getDeploymentTimeSeriesPromise = (
     GetDeploymentTimeSeriesQueryParams,
     GetDeploymentTimeSeriesPathParams
   >(getConfig('cv/api'), `/deployment-time-series-analysis/${verificationJobInstanceId}`, props, signal)
-
-export interface DeleteDSConfigQueryParams {
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  monitoringSourceIdentifier?: string
-}
-
-export type DeleteDSConfigProps = Omit<
-  MutateProps<void, Failure | Error, DeleteDSConfigQueryParams, void, void>,
-  'path' | 'verb'
->
-
-/**
- * deletes all data source configs for a group
- */
-export const DeleteDSConfig = (props: DeleteDSConfigProps) => (
-  <Mutate<void, Failure | Error, DeleteDSConfigQueryParams, void, void>
-    verb="DELETE"
-    path={`/ds-config`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseDeleteDSConfigProps = Omit<
-  UseMutateProps<void, Failure | Error, DeleteDSConfigQueryParams, void, void>,
-  'path' | 'verb'
->
-
-/**
- * deletes all data source configs for a group
- */
-export const useDeleteDSConfig = (props: UseDeleteDSConfigProps) =>
-  useMutate<void, Failure | Error, DeleteDSConfigQueryParams, void, void>('DELETE', `/ds-config`, {
-    base: getConfig('cv/api'),
-    ...props
-  })
-
-/**
- * deletes all data source configs for a group
- */
-export const deleteDSConfigPromise = (
-  props: MutateUsingFetchProps<void, Failure | Error, DeleteDSConfigQueryParams, void, void>,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<void, Failure | Error, DeleteDSConfigQueryParams, void, void>(
-    'DELETE',
-    getConfig('cv/api'),
-    `/ds-config`,
-    props,
-    signal
-  )
-
-export interface GetDataSourceConfigsQueryParams {
-  accountId?: string
-  connectorIdentifier?: string
-  productName?: string
-}
-
-export type GetDataSourceConfigsProps = Omit<
-  GetProps<RestResponseListDSConfig, Failure | Error, GetDataSourceConfigsQueryParams, void>,
-  'path'
->
-
-/**
- * gets list of data source configs
- */
-export const GetDataSourceConfigs = (props: GetDataSourceConfigsProps) => (
-  <Get<RestResponseListDSConfig, Failure | Error, GetDataSourceConfigsQueryParams, void>
-    path={`/ds-config`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseGetDataSourceConfigsProps = Omit<
-  UseGetProps<RestResponseListDSConfig, Failure | Error, GetDataSourceConfigsQueryParams, void>,
-  'path'
->
-
-/**
- * gets list of data source configs
- */
-export const useGetDataSourceConfigs = (props: UseGetDataSourceConfigsProps) =>
-  useGet<RestResponseListDSConfig, Failure | Error, GetDataSourceConfigsQueryParams, void>(`/ds-config`, {
-    base: getConfig('cv/api'),
-    ...props
-  })
-
-/**
- * gets list of data source configs
- */
-export const getDataSourceConfigsPromise = (
-  props: GetUsingFetchProps<RestResponseListDSConfig, Failure | Error, GetDataSourceConfigsQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<RestResponseListDSConfig, Failure | Error, GetDataSourceConfigsQueryParams, void>(
-    getConfig('cv/api'),
-    `/ds-config`,
-    props,
-    signal
-  )
-
-export interface CreateDataSourceQueryParams {
-  accountId?: string
-}
-
-export type CreateDataSourceProps = Omit<
-  MutateProps<void, Failure | Error, CreateDataSourceQueryParams, DSConfigRequestBody, void>,
-  'path' | 'verb'
->
-
-/**
- * creates a data source config
- */
-export const CreateDataSource = (props: CreateDataSourceProps) => (
-  <Mutate<void, Failure | Error, CreateDataSourceQueryParams, DSConfigRequestBody, void>
-    verb="POST"
-    path={`/ds-config`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseCreateDataSourceProps = Omit<
-  UseMutateProps<void, Failure | Error, CreateDataSourceQueryParams, DSConfigRequestBody, void>,
-  'path' | 'verb'
->
-
-/**
- * creates a data source config
- */
-export const useCreateDataSource = (props: UseCreateDataSourceProps) =>
-  useMutate<void, Failure | Error, CreateDataSourceQueryParams, DSConfigRequestBody, void>('POST', `/ds-config`, {
-    base: getConfig('cv/api'),
-    ...props
-  })
-
-/**
- * creates a data source config
- */
-export const createDataSourcePromise = (
-  props: MutateUsingFetchProps<void, Failure | Error, CreateDataSourceQueryParams, DSConfigRequestBody, void>,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<void, Failure | Error, CreateDataSourceQueryParams, DSConfigRequestBody, void>(
-    'POST',
-    getConfig('cv/api'),
-    `/ds-config`,
-    props,
-    signal
-  )
-
-export interface GetAvailableMonitoringSourcesQueryParams {
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-}
-
-export type GetAvailableMonitoringSourcesProps = Omit<
-  GetProps<RestResponseListString, Failure | Error, GetAvailableMonitoringSourcesQueryParams, void>,
-  'path'
->
-
-/**
- * gets a list of available monitoring sources
- */
-export const GetAvailableMonitoringSources = (props: GetAvailableMonitoringSourcesProps) => (
-  <Get<RestResponseListString, Failure | Error, GetAvailableMonitoringSourcesQueryParams, void>
-    path={`/ds-config/available-monitoring-sources`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseGetAvailableMonitoringSourcesProps = Omit<
-  UseGetProps<RestResponseListString, Failure | Error, GetAvailableMonitoringSourcesQueryParams, void>,
-  'path'
->
-
-/**
- * gets a list of available monitoring sources
- */
-export const useGetAvailableMonitoringSources = (props: UseGetAvailableMonitoringSourcesProps) =>
-  useGet<RestResponseListString, Failure | Error, GetAvailableMonitoringSourcesQueryParams, void>(
-    `/ds-config/available-monitoring-sources`,
-    { base: getConfig('cv/api'), ...props }
-  )
-
-/**
- * gets a list of available monitoring sources
- */
-export const getAvailableMonitoringSourcesPromise = (
-  props: GetUsingFetchProps<RestResponseListString, Failure | Error, GetAvailableMonitoringSourcesQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<RestResponseListString, Failure | Error, GetAvailableMonitoringSourcesQueryParams, void>(
-    getConfig('cv/api'),
-    `/ds-config/available-monitoring-sources`,
-    props,
-    signal
-  )
-
-export interface GetServicesQueryParams {
-  accountId: string
-  orgIdentifier?: string
-  projectIdentifier: string
-}
-
-export type GetServicesProps = Omit<
-  GetProps<RestResponseListEnvToServicesDTO, Failure | Error, GetServicesQueryParams, void>,
-  'path'
->
-
-/**
- * gets list of env to services mapping for which data sources are configured
- */
-export const GetServices = (props: GetServicesProps) => (
-  <Get<RestResponseListEnvToServicesDTO, Failure | Error, GetServicesQueryParams, void>
-    path={`/ds-config/env-to-services`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseGetServicesProps = Omit<
-  UseGetProps<RestResponseListEnvToServicesDTO, Failure | Error, GetServicesQueryParams, void>,
-  'path'
->
-
-/**
- * gets list of env to services mapping for which data sources are configured
- */
-export const useGetServices = (props: UseGetServicesProps) =>
-  useGet<RestResponseListEnvToServicesDTO, Failure | Error, GetServicesQueryParams, void>(
-    `/ds-config/env-to-services`,
-    { base: getConfig('cv/api'), ...props }
-  )
-
-/**
- * gets list of env to services mapping for which data sources are configured
- */
-export const getServicesPromise = (
-  props: GetUsingFetchProps<RestResponseListEnvToServicesDTO, Failure | Error, GetServicesQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<RestResponseListEnvToServicesDTO, Failure | Error, GetServicesQueryParams, void>(
-    getConfig('cv/api'),
-    `/ds-config/env-to-services`,
-    props,
-    signal
-  )
-
-export interface GetMonitoringSourcesQueryParams {
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  pageIndex?: number
-  pageSize?: number
-  filter?: string
-}
-
-export type GetMonitoringSourcesProps = Omit<
-  GetProps<ResponsePageMonitoringSource, Failure | Error, GetMonitoringSourcesQueryParams, void>,
-  'path'
->
-
-/**
- * gets list of monitoring sources
- */
-export const GetMonitoringSources = (props: GetMonitoringSourcesProps) => (
-  <Get<ResponsePageMonitoringSource, Failure | Error, GetMonitoringSourcesQueryParams, void>
-    path={`/ds-config/listMonitoringSources`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseGetMonitoringSourcesProps = Omit<
-  UseGetProps<ResponsePageMonitoringSource, Failure | Error, GetMonitoringSourcesQueryParams, void>,
-  'path'
->
-
-/**
- * gets list of monitoring sources
- */
-export const useGetMonitoringSources = (props: UseGetMonitoringSourcesProps) =>
-  useGet<ResponsePageMonitoringSource, Failure | Error, GetMonitoringSourcesQueryParams, void>(
-    `/ds-config/listMonitoringSources`,
-    { base: getConfig('cv/api'), ...props }
-  )
-
-/**
- * gets list of monitoring sources
- */
-export const getMonitoringSourcesPromise = (
-  props: GetUsingFetchProps<ResponsePageMonitoringSource, Failure | Error, GetMonitoringSourcesQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponsePageMonitoringSource, Failure | Error, GetMonitoringSourcesQueryParams, void>(
-    getConfig('cv/api'),
-    `/ds-config/listMonitoringSources`,
-    props,
-    signal
-  )
-
-export interface GetDSConfigQueryParams {
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-}
-
-export interface GetDSConfigPathParams {
-  identifier: string
-}
-
-export type GetDSConfigProps = Omit<
-  GetProps<RestResponseDSConfig, Failure | Error, GetDSConfigQueryParams, GetDSConfigPathParams>,
-  'path'
-> &
-  GetDSConfigPathParams
-
-/**
- * gets a monitoring sources
- */
-export const GetDSConfig = ({ identifier, ...props }: GetDSConfigProps) => (
-  <Get<RestResponseDSConfig, Failure | Error, GetDSConfigQueryParams, GetDSConfigPathParams>
-    path={`/ds-config/${identifier}`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseGetDSConfigProps = Omit<
-  UseGetProps<RestResponseDSConfig, Failure | Error, GetDSConfigQueryParams, GetDSConfigPathParams>,
-  'path'
-> &
-  GetDSConfigPathParams
-
-/**
- * gets a monitoring sources
- */
-export const useGetDSConfig = ({ identifier, ...props }: UseGetDSConfigProps) =>
-  useGet<RestResponseDSConfig, Failure | Error, GetDSConfigQueryParams, GetDSConfigPathParams>(
-    (paramsInPath: GetDSConfigPathParams) => `/ds-config/${paramsInPath.identifier}`,
-    { base: getConfig('cv/api'), pathParams: { identifier }, ...props }
-  )
-
-/**
- * gets a monitoring sources
- */
-export const getDSConfigPromise = (
-  {
-    identifier,
-    ...props
-  }: GetUsingFetchProps<RestResponseDSConfig, Failure | Error, GetDSConfigQueryParams, GetDSConfigPathParams> & {
-    identifier: string
-  },
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<RestResponseDSConfig, Failure | Error, GetDSConfigQueryParams, GetDSConfigPathParams>(
-    getConfig('cv/api'),
-    `/ds-config/${identifier}`,
-    props,
-    signal
-  )
-
-export interface UpdateDSConfigQueryParams {
-  accountId?: string
-}
-
-export interface UpdateDSConfigPathParams {
-  identifier: string
-}
-
-export type UpdateDSConfigProps = Omit<
-  MutateProps<void, Failure | Error, UpdateDSConfigQueryParams, DSConfigRequestBody, UpdateDSConfigPathParams>,
-  'path' | 'verb'
-> &
-  UpdateDSConfigPathParams
-
-/**
- * creates a data source config
- */
-export const UpdateDSConfig = ({ identifier, ...props }: UpdateDSConfigProps) => (
-  <Mutate<void, Failure | Error, UpdateDSConfigQueryParams, DSConfigRequestBody, UpdateDSConfigPathParams>
-    verb="PUT"
-    path={`/ds-config/${identifier}`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseUpdateDSConfigProps = Omit<
-  UseMutateProps<void, Failure | Error, UpdateDSConfigQueryParams, DSConfigRequestBody, UpdateDSConfigPathParams>,
-  'path' | 'verb'
-> &
-  UpdateDSConfigPathParams
-
-/**
- * creates a data source config
- */
-export const useUpdateDSConfig = ({ identifier, ...props }: UseUpdateDSConfigProps) =>
-  useMutate<void, Failure | Error, UpdateDSConfigQueryParams, DSConfigRequestBody, UpdateDSConfigPathParams>(
-    'PUT',
-    (paramsInPath: UpdateDSConfigPathParams) => `/ds-config/${paramsInPath.identifier}`,
-    { base: getConfig('cv/api'), pathParams: { identifier }, ...props }
-  )
-
-/**
- * creates a data source config
- */
-export const updateDSConfigPromise = (
-  {
-    identifier,
-    ...props
-  }: MutateUsingFetchProps<
-    void,
-    Failure | Error,
-    UpdateDSConfigQueryParams,
-    DSConfigRequestBody,
-    UpdateDSConfigPathParams
-  > & { identifier: string },
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<void, Failure | Error, UpdateDSConfigQueryParams, DSConfigRequestBody, UpdateDSConfigPathParams>(
-    'PUT',
-    getConfig('cv/api'),
-    `/ds-config/${identifier}`,
-    props,
-    signal
-  )
 
 export interface GetHeatmapQueryParams {
   accountId: string
@@ -10081,167 +9698,6 @@ export const getMetricDefinitionsPromise = (
     signal
   )
 
-export interface DeleteVerificationJobQueryParams {
-  accountId?: string
-  orgIdentifier: string
-  projectIdentifier: string
-  identifier?: string
-}
-
-export type DeleteVerificationJobProps = Omit<
-  MutateProps<void, Failure | Error, DeleteVerificationJobQueryParams, void, void>,
-  'path' | 'verb'
->
-
-/**
- * deletes a verification job for an identifier
- */
-export const DeleteVerificationJob = (props: DeleteVerificationJobProps) => (
-  <Mutate<void, Failure | Error, DeleteVerificationJobQueryParams, void, void>
-    verb="DELETE"
-    path={`/verification-job`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseDeleteVerificationJobProps = Omit<
-  UseMutateProps<void, Failure | Error, DeleteVerificationJobQueryParams, void, void>,
-  'path' | 'verb'
->
-
-/**
- * deletes a verification job for an identifier
- */
-export const useDeleteVerificationJob = (props: UseDeleteVerificationJobProps) =>
-  useMutate<void, Failure | Error, DeleteVerificationJobQueryParams, void, void>('DELETE', `/verification-job`, {
-    base: getConfig('cv/api'),
-    ...props
-  })
-
-/**
- * deletes a verification job for an identifier
- */
-export const deleteVerificationJobPromise = (
-  props: MutateUsingFetchProps<void, Failure | Error, DeleteVerificationJobQueryParams, void, void>,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<void, Failure | Error, DeleteVerificationJobQueryParams, void, void>(
-    'DELETE',
-    getConfig('cv/api'),
-    `/verification-job`,
-    props,
-    signal
-  )
-
-export interface GetVerificationJobQueryParams {
-  accountId?: string
-  orgIdentifier: string
-  projectIdentifier: string
-  identifier?: string
-}
-
-export type GetVerificationJobProps = Omit<
-  GetProps<ResponseVerificationJobDTO, Failure | Error, GetVerificationJobQueryParams, void>,
-  'path'
->
-
-/**
- * gets the verification job for an identifier
- */
-export const GetVerificationJob = (props: GetVerificationJobProps) => (
-  <Get<ResponseVerificationJobDTO, Failure | Error, GetVerificationJobQueryParams, void>
-    path={`/verification-job`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseGetVerificationJobProps = Omit<
-  UseGetProps<ResponseVerificationJobDTO, Failure | Error, GetVerificationJobQueryParams, void>,
-  'path'
->
-
-/**
- * gets the verification job for an identifier
- */
-export const useGetVerificationJob = (props: UseGetVerificationJobProps) =>
-  useGet<ResponseVerificationJobDTO, Failure | Error, GetVerificationJobQueryParams, void>(`/verification-job`, {
-    base: getConfig('cv/api'),
-    ...props
-  })
-
-/**
- * gets the verification job for an identifier
- */
-export const getVerificationJobPromise = (
-  props: GetUsingFetchProps<ResponseVerificationJobDTO, Failure | Error, GetVerificationJobQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseVerificationJobDTO, Failure | Error, GetVerificationJobQueryParams, void>(
-    getConfig('cv/api'),
-    `/verification-job`,
-    props,
-    signal
-  )
-
-export interface CreateVerificationJobQueryParams {
-  accountId?: string
-}
-
-export type CreateVerificationJobProps = Omit<
-  MutateProps<void, Failure | Error, CreateVerificationJobQueryParams, VerificationJobDTORequestBody, void>,
-  'path' | 'verb'
->
-
-/**
- * create a verification job
- */
-export const CreateVerificationJob = (props: CreateVerificationJobProps) => (
-  <Mutate<void, Failure | Error, CreateVerificationJobQueryParams, VerificationJobDTORequestBody, void>
-    verb="POST"
-    path={`/verification-job`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseCreateVerificationJobProps = Omit<
-  UseMutateProps<void, Failure | Error, CreateVerificationJobQueryParams, VerificationJobDTORequestBody, void>,
-  'path' | 'verb'
->
-
-/**
- * create a verification job
- */
-export const useCreateVerificationJob = (props: UseCreateVerificationJobProps) =>
-  useMutate<void, Failure | Error, CreateVerificationJobQueryParams, VerificationJobDTORequestBody, void>(
-    'POST',
-    `/verification-job`,
-    { base: getConfig('cv/api'), ...props }
-  )
-
-/**
- * create a verification job
- */
-export const createVerificationJobPromise = (
-  props: MutateUsingFetchProps<
-    void,
-    Failure | Error,
-    CreateVerificationJobQueryParams,
-    VerificationJobDTORequestBody,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<void, Failure | Error, CreateVerificationJobQueryParams, VerificationJobDTORequestBody, void>(
-    'POST',
-    getConfig('cv/api'),
-    `/verification-job`,
-    props,
-    signal
-  )
-
 export interface ListBaselineExecutionsQueryParams {
   accountId?: string
   orgIdentifier?: string
@@ -10297,256 +9753,6 @@ export const listBaselineExecutionsPromise = (
     props,
     signal
   )
-
-export interface GetDefaultHealthVerificationJobQueryParams {
-  accountId: string
-  projectIdentifier: string
-  orgIdentifier: string
-}
-
-export type GetDefaultHealthVerificationJobProps = Omit<
-  GetProps<ResponseVerificationJobDTO, Failure | Error, GetDefaultHealthVerificationJobQueryParams, void>,
-  'path'
->
-
-/**
- * gets the default health verification job for a project
- */
-export const GetDefaultHealthVerificationJob = (props: GetDefaultHealthVerificationJobProps) => (
-  <Get<ResponseVerificationJobDTO, Failure | Error, GetDefaultHealthVerificationJobQueryParams, void>
-    path={`/verification-job/default-health-job`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseGetDefaultHealthVerificationJobProps = Omit<
-  UseGetProps<ResponseVerificationJobDTO, Failure | Error, GetDefaultHealthVerificationJobQueryParams, void>,
-  'path'
->
-
-/**
- * gets the default health verification job for a project
- */
-export const useGetDefaultHealthVerificationJob = (props: UseGetDefaultHealthVerificationJobProps) =>
-  useGet<ResponseVerificationJobDTO, Failure | Error, GetDefaultHealthVerificationJobQueryParams, void>(
-    `/verification-job/default-health-job`,
-    { base: getConfig('cv/api'), ...props }
-  )
-
-/**
- * gets the default health verification job for a project
- */
-export const getDefaultHealthVerificationJobPromise = (
-  props: GetUsingFetchProps<
-    ResponseVerificationJobDTO,
-    Failure | Error,
-    GetDefaultHealthVerificationJobQueryParams,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseVerificationJobDTO, Failure | Error, GetDefaultHealthVerificationJobQueryParams, void>(
-    getConfig('cv/api'),
-    `/verification-job/default-health-job`,
-    props,
-    signal
-  )
-
-export interface CDNGVerificationJobsQueryParams {
-  accountId: string
-  projectIdentifier: string
-  orgIdentifier: string
-  serviceIdentifier?: string
-  envIdentifier?: string
-}
-
-export type CDNGVerificationJobsProps = Omit<
-  GetProps<ResponseListVerificationJobDTO, Failure | Error, CDNGVerificationJobsQueryParams, void>,
-  'path'
->
-
-/**
- * lists all verification jobs for CDNG config screen
- */
-export const CDNGVerificationJobs = (props: CDNGVerificationJobsProps) => (
-  <Get<ResponseListVerificationJobDTO, Failure | Error, CDNGVerificationJobsQueryParams, void>
-    path={`/verification-job/eligible-cdng-verification-jobs`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseCDNGVerificationJobsProps = Omit<
-  UseGetProps<ResponseListVerificationJobDTO, Failure | Error, CDNGVerificationJobsQueryParams, void>,
-  'path'
->
-
-/**
- * lists all verification jobs for CDNG config screen
- */
-export const useCDNGVerificationJobs = (props: UseCDNGVerificationJobsProps) =>
-  useGet<ResponseListVerificationJobDTO, Failure | Error, CDNGVerificationJobsQueryParams, void>(
-    `/verification-job/eligible-cdng-verification-jobs`,
-    { base: getConfig('cv/api'), ...props }
-  )
-
-/**
- * lists all verification jobs for CDNG config screen
- */
-export const cDNGVerificationJobsPromise = (
-  props: GetUsingFetchProps<ResponseListVerificationJobDTO, Failure | Error, CDNGVerificationJobsQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseListVerificationJobDTO, Failure | Error, CDNGVerificationJobsQueryParams, void>(
-    getConfig('cv/api'),
-    `/verification-job/eligible-cdng-verification-jobs`,
-    props,
-    signal
-  )
-
-export interface GetVerificationJobsQueryParams {
-  accountId?: string
-  projectIdentifier?: string
-  orgIdentifier?: string
-  offset: number
-  pageSize: number
-  filter?: string
-}
-
-export type GetVerificationJobsProps = Omit<
-  GetProps<ResponsePageVerificationJobDTO, Failure | Error, GetVerificationJobsQueryParams, void>,
-  'path'
->
-
-/**
- * lists all verification jobs for an identifier
- */
-export const GetVerificationJobs = (props: GetVerificationJobsProps) => (
-  <Get<ResponsePageVerificationJobDTO, Failure | Error, GetVerificationJobsQueryParams, void>
-    path={`/verification-job/list`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseGetVerificationJobsProps = Omit<
-  UseGetProps<ResponsePageVerificationJobDTO, Failure | Error, GetVerificationJobsQueryParams, void>,
-  'path'
->
-
-/**
- * lists all verification jobs for an identifier
- */
-export const useGetVerificationJobs = (props: UseGetVerificationJobsProps) =>
-  useGet<ResponsePageVerificationJobDTO, Failure | Error, GetVerificationJobsQueryParams, void>(
-    `/verification-job/list`,
-    { base: getConfig('cv/api'), ...props }
-  )
-
-/**
- * lists all verification jobs for an identifier
- */
-export const getVerificationJobsPromise = (
-  props: GetUsingFetchProps<ResponsePageVerificationJobDTO, Failure | Error, GetVerificationJobsQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponsePageVerificationJobDTO, Failure | Error, GetVerificationJobsQueryParams, void>(
-    getConfig('cv/api'),
-    `/verification-job/list`,
-    props,
-    signal
-  )
-
-export interface UpdateVerificationJobQueryParams {
-  accountId?: string
-}
-
-export interface UpdateVerificationJobPathParams {
-  identifier: string
-}
-
-export type UpdateVerificationJobProps = Omit<
-  MutateProps<
-    void,
-    Failure | Error,
-    UpdateVerificationJobQueryParams,
-    VerificationJobDTORequestBody,
-    UpdateVerificationJobPathParams
-  >,
-  'path' | 'verb'
-> &
-  UpdateVerificationJobPathParams
-
-/**
- * update a verification job
- */
-export const UpdateVerificationJob = ({ identifier, ...props }: UpdateVerificationJobProps) => (
-  <Mutate<
-    void,
-    Failure | Error,
-    UpdateVerificationJobQueryParams,
-    VerificationJobDTORequestBody,
-    UpdateVerificationJobPathParams
-  >
-    verb="PUT"
-    path={`/verification-job/${identifier}`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseUpdateVerificationJobProps = Omit<
-  UseMutateProps<
-    void,
-    Failure | Error,
-    UpdateVerificationJobQueryParams,
-    VerificationJobDTORequestBody,
-    UpdateVerificationJobPathParams
-  >,
-  'path' | 'verb'
-> &
-  UpdateVerificationJobPathParams
-
-/**
- * update a verification job
- */
-export const useUpdateVerificationJob = ({ identifier, ...props }: UseUpdateVerificationJobProps) =>
-  useMutate<
-    void,
-    Failure | Error,
-    UpdateVerificationJobQueryParams,
-    VerificationJobDTORequestBody,
-    UpdateVerificationJobPathParams
-  >('PUT', (paramsInPath: UpdateVerificationJobPathParams) => `/verification-job/${paramsInPath.identifier}`, {
-    base: getConfig('cv/api'),
-    pathParams: { identifier },
-    ...props
-  })
-
-/**
- * update a verification job
- */
-export const updateVerificationJobPromise = (
-  {
-    identifier,
-    ...props
-  }: MutateUsingFetchProps<
-    void,
-    Failure | Error,
-    UpdateVerificationJobQueryParams,
-    VerificationJobDTORequestBody,
-    UpdateVerificationJobPathParams
-  > & { identifier: string },
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    void,
-    Failure | Error,
-    UpdateVerificationJobQueryParams,
-    VerificationJobDTORequestBody,
-    UpdateVerificationJobPathParams
-  >('PUT', getConfig('cv/api'), `/verification-job/${identifier}`, props, signal)
 
 export interface InputSetTemplateQueryParams {
   accountId: string

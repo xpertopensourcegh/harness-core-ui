@@ -3823,6 +3823,10 @@ export interface StringsMap {
   'cv.monitoredServices.serviceHealth.overallHealthScore': string
   'cv.monitoredServices.serviceHealth.pleaseSelectAnotherTimeWindow': string
   'cv.monitoredServices.serviceHealth.selectTimeline': string
+  'cv.monitoredServices.serviceHealth.serviceDependencies.states.healthy': string
+  'cv.monitoredServices.serviceHealth.serviceDependencies.states.needsAttention': string
+  'cv.monitoredServices.serviceHealth.serviceDependencies.states.observe': string
+  'cv.monitoredServices.serviceHealth.serviceDependencies.states.unhealthy': string
   'cv.monitoredServices.serviceValidation': string
   'cv.monitoredServices.table.changes': string
   'cv.monitoredServices.table.healthMonitoring': string

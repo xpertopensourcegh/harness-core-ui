@@ -1,0 +1,17 @@
+.dependenciesLegendsContainer {
+  display: flex;
+  width: 351px;
+  height: 30px;
+  background-color: #e5e5e5;
+  border: 1px solid #cdf4fe;
+  box-sizing: border-box;
+  border-radius: var(--spacing-xsmall);
+  margin-left: var(--spacing-small) !important;
+}
+
+.serviceState {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  margin: var(--spacing-xsmall) !important;
+}

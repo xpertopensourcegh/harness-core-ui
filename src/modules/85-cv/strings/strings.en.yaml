@@ -565,6 +565,12 @@ monitoredServices:
     metricsAndLogs: Metrics & Logs
     lowestHealthScore: Lowest Health Score
     anamolies: Anamolies
+    serviceDependencies:
+      states:
+        unhealthy: Unhealthy
+        needsAttention: Needs attention
+        observe: Observe
+        healthy: Healthy
   monitoredServiceTabs:
     serviceHealth: Service Health
     configurations: Configurations

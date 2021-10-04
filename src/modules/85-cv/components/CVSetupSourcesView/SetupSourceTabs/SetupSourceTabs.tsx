@@ -3,7 +3,7 @@ import { Container, Tab, Tabs } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
-import type { ActivitySourceDTO, DSConfig } from 'services/cv'
+import type { ActivitySourceDTO } from 'services/cv'
 import { getRoutePathByType } from '@cv/utils/routeUtils'
 import { CVObjectStoreNames, useIndexedDBHook } from '@cv/hooks/IndexedDBHook/IndexedDBHook'
 import { OnboardingEntites } from './SetupSourceTabs.constants'
@@ -76,7 +76,7 @@ function initializeTabsInfo(tabTitles: string[]): TabInfo[] {
   return tabsInfo
 }
 
-export function typeToSetupSourceType(type: DSConfig['type'] | ActivitySourceDTO['type']): string {
+export function typeToSetupSourceType(type: any | ActivitySourceDTO['type']): string {
   switch (type) {
     case 'KUBERNETES':
     case 'HARNESS_CD10':
@@ -86,7 +86,7 @@ export function typeToSetupSourceType(type: DSConfig['type'] | ActivitySourceDTO
   }
 }
 
-export function getSetupSourceRoutingIndex(type: DSConfig['type'] | ActivitySourceDTO['type']): number {
+export function getSetupSourceRoutingIndex(type: any | ActivitySourceDTO['type']): number {
   switch (type) {
     case 'KUBERNETES':
     case 'HARNESS_CD10':
@@ -116,7 +116,7 @@ export function addItemToCache(sources: CachedSourceObject[], item: CachedSource
 }
 
 function getRouteUrlForOnboarding(
-  type: DSConfig['type'] | ActivitySourceDTO['type'],
+  type: any | ActivitySourceDTO['type'],
   sourceType: string,
   identifier: string,
   params: ProjectPathProps
@@ -192,9 +192,7 @@ export function useSetupSourceTabsHook<T>(data: T, tabsInformation: TabInfo[]): 
     if (!dbInstance) return
 
     if (newTabIndex > tabsInfo.length - 1) {
-      const setupSourceType = typeToSetupSourceType(
-        (updatedData as any).type as DSConfig['type'] | ActivitySourceDTO['type']
-      )
+      const setupSourceType = typeToSetupSourceType((updatedData as any).type as any | ActivitySourceDTO['type'])
       dbInstance.get(CVObjectStoreNames.SETUP, indexedDBEntryKey)?.then(async (savedData: CachedSetupObject) => {
         try {
           await Promise.all([
@@ -217,9 +215,7 @@ export function useSetupSourceTabsHook<T>(data: T, tabsInformation: TabInfo[]): 
             accountId,
             projectIdentifier,
             orgIdentifier
-          })}?step=${getSetupSourceRoutingIndex(
-            (updatedData as any).type as DSConfig['type'] | ActivitySourceDTO['type']
-          )}`
+          })}?step=${getSetupSourceRoutingIndex((updatedData as any).type as any | ActivitySourceDTO['type'])}`
         )
       })
     } else {

@@ -51,87 +51,14 @@ export const nodes = [
   {
     id: nodeIDs.LoginService,
     icon: icons.infrastructure,
-    status: 'HIGH'
+    status: 'HIGH',
+    name: nodeIDs.LoginService
   },
   {
     id: nodeIDs.Service4,
     icon: icons.infrastructure,
-    status: statuses.LOW
-  },
-  {
-    id: nodeIDs.Service5,
-    icon: icons.infrastructure,
-    status: statuses.MEDIUM
-  },
-  {
-    id: nodeIDs.Service8,
-    icon: icons.infrastructure,
-    status: statuses.TBD
-  },
-  {
-    id: nodeIDs.AuthService,
-    icon: icons.infrastructure,
-    status: statuses.HIGH
-  },
-  {
-    id: nodeIDs.K8Cluster6,
-    icon: icons.infrastructure,
-    status: statuses.LOW
-  },
-  {
-    id: nodeIDs.App123AB,
-    icon: icons.infrastructure,
-    status: statuses.MEDIUM
-  },
-  {
-    id: nodeIDs.AppCD789,
-    icon: icons.infrastructure,
-    status: statuses.TBD
-  },
-  {
-    id: nodeIDs.DBMongo,
-    icon: icons.infrastructure,
-    status: statuses.HIGH
-  },
-  {
-    id: nodeIDs.K8Cluster1,
-    icon: icons.infrastructure,
-    status: statuses.LOW
-  },
-  {
-    id: nodeIDs.AppCDAB,
-    icon: icons.infrastructure,
-    status: statuses.MEDIUM
-  },
-  {
-    id: nodeIDs.AppABC1,
-    icon: icons.infrastructure,
-    status: statuses.TBD
-  },
-  {
-    id: nodeIDs.App1B2C,
-    icon: icons.infrastructure,
-    status: statuses.HIGH
-  },
-  {
-    id: nodeIDs.App120DB,
-    icon: icons.infrastructure,
-    status: statuses.LOW
-  },
-  {
-    id: nodeIDs.Test1,
-    icon: icons.infrastructure,
-    status: statuses.MEDIUM
-  },
-  {
-    id: nodeIDs.Test2,
-    icon: icons.infrastructure,
-    status: statuses.TBD
-  },
-  {
-    id: nodeIDs.Test3,
-    icon: icons.infrastructure,
-    status: statuses.HIGH
+    status: statuses.LOW,
+    name: nodeIDs.Service4
   }
 ]
 
@@ -173,123 +100,20 @@ const uriEncodedSymbol =
 
 export const formattedNodes = [
   {
-    id: nodeIDs.LoginService,
     className: 'PointData LoginService Status_HIGH',
+    id: 'Login Service',
     marker: {
       symbol: uriEncodedSymbol
-    }
+    },
+    name: 'Login Service'
   },
   {
-    id: nodeIDs.Service4,
     className: 'PointData Service4 Status_LOW',
+    id: 'Service 4',
     marker: {
       symbol: uriEncodedSymbol
-    }
-  },
-  {
-    id: nodeIDs.Service5,
-    className: 'PointData Service5 Status_MEDIUM',
-    marker: {
-      symbol: uriEncodedSymbol
-    }
-  },
-  {
-    id: nodeIDs.Service8,
-    className: 'PointData Service8 Status_TBD',
-    marker: {
-      symbol: uriEncodedSymbol
-    }
-  },
-  {
-    id: nodeIDs.AuthService,
-    className: 'PointData AuthService Status_HIGH',
-    marker: {
-      symbol: uriEncodedSymbol
-    }
-  },
-  {
-    id: nodeIDs.K8Cluster6,
-    className: 'PointData K8Cluster 6 Status_LOW',
-    marker: {
-      symbol: uriEncodedSymbol
-    }
-  },
-  {
-    id: nodeIDs.App123AB,
-    className: 'PointData App123AB Status_MEDIUM',
-    marker: {
-      symbol: uriEncodedSymbol
-    }
-  },
-  {
-    id: nodeIDs.AppCD789,
-    className: 'PointData AppCD789 Status_TBD',
-    marker: {
-      symbol: uriEncodedSymbol
-    }
-  },
-  {
-    id: nodeIDs.DBMongo,
-    className: 'PointData DBMongo Status_HIGH',
-    marker: {
-      symbol: uriEncodedSymbol
-    }
-  },
-  {
-    id: nodeIDs.K8Cluster1,
-    className: 'PointData K8Cluster 1 Status_LOW',
-    marker: {
-      symbol: uriEncodedSymbol
-    }
-  },
-  {
-    id: nodeIDs.AppCDAB,
-    className: 'PointData AppCDAB Status_MEDIUM',
-    marker: {
-      symbol: uriEncodedSymbol
-    }
-  },
-  {
-    id: nodeIDs.AppABC1,
-    className: 'PointData AppABC1 Status_TBD',
-    marker: {
-      symbol: uriEncodedSymbol
-    }
-  },
-  {
-    id: nodeIDs.App1B2C,
-    className: 'PointData App1B2C Status_HIGH',
-    marker: {
-      symbol: uriEncodedSymbol
-    }
-  },
-  {
-    id: nodeIDs.App120DB,
-    className: 'PointData App120DB Status_LOW',
-    marker: {
-      symbol: uriEncodedSymbol
-    }
-  },
-  {
-    id: nodeIDs.Test1,
-    className: 'PointData Test1 Status_MEDIUM',
-    marker: {
-      symbol: uriEncodedSymbol
-    }
-  },
-  {
-    id: nodeIDs.Test2,
-    className: 'PointData Test2 Status_TBD',
-    marker: {
-      symbol: uriEncodedSymbol
-    }
-  },
-  {
-    id: nodeIDs.Test3,
-    className: 'PointData Test3 Status_HIGH',
-    marker: {
-      symbol: uriEncodedSymbol
-    }
+    },
+    name: 'Service 4'
   }
 ]
 

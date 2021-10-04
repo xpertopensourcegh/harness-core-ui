@@ -1,8 +1,8 @@
 import type { IconName } from '@wings-software/uicore'
-import type { HostData, MonitoringSource } from 'services/cv'
+import type { HostData } from 'services/cv'
 import type { HostTestData } from './DeploymentMetricsAnalysisRow.constants'
 
-export function healthSourceTypeToLogo(healthSourceType: MonitoringSource['type']): IconName {
+export function healthSourceTypeToLogo(healthSourceType: any): IconName {
   switch (healthSourceType) {
     case 'APP_DYNAMICS':
       return 'service-appdynamics'

@@ -3,7 +3,6 @@ import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
 import cx from 'classnames'
 import { Color, Container, Text, Icon, Button } from '@wings-software/uicore'
-import type { MonitoringSource } from 'services/cv'
 import { chartsConfig } from './DeeploymentMetricsChartConfig'
 import {
   healthSourceTypeToLogo,
@@ -13,7 +12,7 @@ import type { HostTestData } from './DeploymentMetricsAnalysisRow.constants'
 import css from './DeploymentMetricsAnalysisRow.module.scss'
 
 export interface DeploymentMetricsAnalysisRowProps {
-  healthSourceType: MonitoringSource['type']
+  healthSourceType: any
   transactionName: string
   metricName: string
   controlData?: Highcharts.SeriesLineOptions['data'][]

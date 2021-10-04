@@ -245,33 +245,29 @@ exports[`Unit tests for ServiceHealth Verify if all the fields are rendered corr
           pipeline.serviceDependenciesText
         </p>
         <div
-          class="StyledProps--font StyledProps--main cardContainer container"
+          class="StyledProps--font StyledProps--main container"
         >
           <div
-            class="StyledProps--font StyledProps--main cardContent content"
+            class="StyledProps--font StyledProps--main containerContent"
           >
             <div
-              class="StyledProps--font StyledProps--main"
+              class="StyledProps--font StyledProps--main noDataCard StyledProps--flex StyledProps--flex-align-center-center"
             >
               <div
-                class="StyledProps--font StyledProps--main noDataCard StyledProps--flex StyledProps--flex-align-center-center"
+                class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+                style="align-items: center; margin-top: -48px; width: 470px;"
               >
-                <div
-                  class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
-                  style="align-items: center; margin-top: -48px; width: 470px;"
+                <img
+                  src="test-file-stub"
+                />
+                <p
+                  class="StyledProps--font StyledProps--main message StyledProps--font-align-center StyledProps--color StyledProps--color-grey600"
                 >
-                  <img
-                    src="test-file-stub"
-                  />
-                  <p
-                    class="StyledProps--font StyledProps--main message StyledProps--font-align-center StyledProps--color StyledProps--color-grey600"
-                  >
-                    cv.monitoredServices.noAvailableData
-                  </p>
-                  <div
-                    class="buttonContainer"
-                  />
-                </div>
+                  cv.monitoredServices.noAvailableData
+                </p>
+                <div
+                  class="buttonContainer"
+                />
               </div>
             </div>
           </div>

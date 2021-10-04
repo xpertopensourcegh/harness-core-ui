@@ -8,11 +8,10 @@ export const getDependencyData = (
   if (serviceDependencyGraphData?.resource?.nodes && serviceDependencyGraphData.resource.nodes.length) {
     dependencyData = {
       nodes: serviceDependencyGraphData.resource.nodes.map(node => ({
-        // TODO - monitored service name has to come from backend directly.
-        id: `${node?.serviceRef}_${node?.environmentRef}`,
+        id: node?.identifierRef,
         status: node?.riskLevel,
-        // TODO - This will be updated once Matts changes for new icon are merged
-        icon: 'cd-main'
+        icon: 'cd-main',
+        name: node?.serviceRef
       })) as Node[],
       data: serviceDependencyGraphData?.resource?.edges as GraphData[]
     }

@@ -6,6 +6,7 @@ export interface Node {
   id: string
   status: string
   icon: string
+  name: string
 }
 
 export interface GraphData {

@@ -8,8 +8,8 @@ import { useGetServiceDependencyGraph } from 'services/cv'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { PageError } from '@common/components/Page/PageError'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
-import Card from '@cv/components/Card/Card'
 import noDataImage from '@cv/assets/noData.svg'
+import ServiceDependenciesLegend from '@cv/components/ServiceDependenciesLegend/ServiceDependenciesLegend'
 import { getDependencyData } from './MonitoredServiceDependenciesChart.utils'
 import type { MonitoredServiceDependenciesChartProps } from './MonitoredServiceDependenciesChart.types'
 import css from './MonitoredServiceDependenciesChart.module.scss'
@@ -44,30 +44,33 @@ export default function MonitoredServiceDependenciesChart(props: MonitoredServic
   const renderContent = useCallback(() => {
     if (loading) {
       return (
-        <Container>
+        <Container className={css.containerContent}>
           <Icon name="steps-spinner" color={Color.GREY_400} size={30} />
         </Container>
       )
     } else if (error) {
       return (
-        <Container>
+        <Container className={css.containerContent}>
           <PageError message={getErrorMessage(error)} onClick={() => fetchServiceDependencyData({ queryParams })} />
         </Container>
       )
     } else if (!dependencyData) {
       return (
-        <Container>
+        <Container className={css.containerContent}>
           <NoDataCard message={getString('cv.monitoredServices.noAvailableData')} image={noDataImage} />
         </Container>
       )
     } else {
-      return <DependencyGraph dependencyData={dependencyData} options={{ chart: { height: 500 } }} />
+      return (
+        <Container padding={{ bottom: 'small' }}>
+          <Container>
+            <DependencyGraph dependencyData={dependencyData} options={{ chart: { height: 462 } }} />
+          </Container>
+          <ServiceDependenciesLegend />
+        </Container>
+      )
     }
   }, [dependencyData, error, fetchServiceDependencyData, getString, loading, queryParams])
 
-  return (
-    <Card className={css.cardContainer} contentClassName={css.cardContent}>
-      {renderContent()}
-    </Card>
-  )
+  return <Container className={css.container}>{renderContent()}</Container>
 }
