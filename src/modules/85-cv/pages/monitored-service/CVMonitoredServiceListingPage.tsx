@@ -190,7 +190,7 @@ function CVMonitoredServiceListingPage(): JSX.Element {
             {infraCount}
           </Text>
           <Text
-            tooltip={getString('cv.changeSource.tooltip.incident')}
+            tooltip={getString('cv.changeSource.tooltip.incidents')}
             inline
             icon="warning-outline"
             font={{ weight: 'semi-bold' }}

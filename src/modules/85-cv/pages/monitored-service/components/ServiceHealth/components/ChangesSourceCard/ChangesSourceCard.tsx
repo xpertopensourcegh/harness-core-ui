@@ -61,7 +61,7 @@ export default function ChangeSourceCard(props: ChangeSourceCardInterfae): JSX.E
     } else {
       return changeSummaryList.map((ticker: ChangeSourceCardData) => {
         const tickerColor =
-          ticker.label === getString('cv.changeSource.tooltip.incident')
+          ticker.label === getString('cv.changeSource.tooltip.incidents')
             ? getTickerColor(ticker.percentage)
             : Color.PRIMARY_4
         return (

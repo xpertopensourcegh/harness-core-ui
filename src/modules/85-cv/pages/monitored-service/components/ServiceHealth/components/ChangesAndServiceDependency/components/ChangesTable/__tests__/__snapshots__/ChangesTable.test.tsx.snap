@@ -7,7 +7,7 @@ exports[`Change table should render with change events 1`] = `
   >
     changes
     (
-    3
+    2
     )
   </p>
   <div

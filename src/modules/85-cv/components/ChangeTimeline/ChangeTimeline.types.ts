@@ -12,5 +12,6 @@ export interface ChangeTimelineProps {
 
 export interface ChangesInfoCardData {
   key: ChangeSourceTypes
-  count: number
+  count?: number
+  message: string
 }

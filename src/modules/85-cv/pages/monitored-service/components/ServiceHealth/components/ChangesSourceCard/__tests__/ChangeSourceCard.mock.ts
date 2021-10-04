@@ -44,7 +44,7 @@ export const changeSoureCardData = [
   {
     count: 0,
     id: 'Alert',
-    label: 'cv.changeSource.tooltip.incident',
+    label: 'cv.changeSource.tooltip.incidents',
     percentage: 0
   }
 ]
@@ -71,7 +71,7 @@ export const changeSoureCardDataWithPositiveGrowth = [
   {
     count: 15,
     id: 'Alert',
-    label: 'cv.changeSource.tooltip.incident',
+    label: 'cv.changeSource.tooltip.incidents',
     percentage: 50
   }
 ]
@@ -80,12 +80,12 @@ export const expectedPositiveTextContent = [
   'changes50%',
   'deploymentText50%',
   'infrastructureText50%',
-  'cv.changeSource.tooltip.incident50%'
+  'cv.changeSource.tooltip.incidents50%'
 ]
 
 export const expectedNegativeTextContent = [
   'changes33.3%',
   'deploymentText33.3%',
   'infrastructureText33.3%',
-  'cv.changeSource.tooltip.incident33.3%'
+  'cv.changeSource.tooltip.incidents33.3%'
 ]

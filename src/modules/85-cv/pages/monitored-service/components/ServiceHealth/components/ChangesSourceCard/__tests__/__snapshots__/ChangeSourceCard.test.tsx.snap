@@ -221,7 +221,7 @@ exports[`Test ChangeSourcecard should render with negative change 1`] = `
               <p
                 class="StyledProps--font StyledProps--main tickerLabel StyledProps--font-size-small StyledProps--font-weight-bold"
               >
-                cv.changeSource.tooltip.incident
+                cv.changeSource.tooltip.incidents
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-red500"
@@ -458,7 +458,7 @@ exports[`Test ChangeSourcecard should render with positive change 1`] = `
               <p
                 class="StyledProps--font StyledProps--main tickerLabel StyledProps--font-size-small StyledProps--font-weight-bold"
               >
-                cv.changeSource.tooltip.incident
+                cv.changeSource.tooltip.incidents
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-green600"

@@ -47,6 +47,10 @@ export default function ChangesTable({
   const { showDrawer } = useDrawer({ createDrawerContent: () => <> </>, drawerOptions })
 
   useEffect(() => {
+    setPage(0)
+  }, [startTime, endTime])
+
+  useEffect(() => {
     refetch({
       queryParams: {
         serviceIdentifiers: [serviceIdentifier],
@@ -177,7 +181,7 @@ export default function ChangesTable({
   return (
     <>
       <Text font={{ weight: 'bold', size: 'normal' }} padding={{ bottom: 'medium' }}>
-        {getString('changes')}({content?.length})
+        {getString('changes')}({totalItems})
       </Text>
       {renderContent()}
     </>

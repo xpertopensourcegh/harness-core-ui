@@ -154,7 +154,7 @@ export default function AnomaliesCard(props: AnomaliesCardProps): JSX.Element {
                   color={Color.WHITE}
                   font={{ size: 'xsmall' }}
                 >
-                  {`${item?.count}  ${item.key} ${getString('change')}`}
+                  {item.message}
                 </Text>
               )
             })}

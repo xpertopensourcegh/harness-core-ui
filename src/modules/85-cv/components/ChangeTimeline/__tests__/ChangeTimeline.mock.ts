@@ -54,7 +54,7 @@ export const singleDeploymentMarker = {
     endTime: 0,
     startTime: 0,
     color: 'var(--green-400)',
-    toolTipLabel: 'Deployments  change'
+    toolTipLabel: '1 deploymentText'
   },
   fillColor: 'var(--green-400)',
   radius: 6,
@@ -67,7 +67,7 @@ export const twoDeploymentMarker = {
     endTime: 0,
     startTime: 0,
     color: 'var(--green-400)',
-    toolTipLabel: 'Deployments  change'
+    toolTipLabel: '2 Deployments'
   },
   height: 16,
   symbol: 'url(test-file-stub)',
@@ -80,7 +80,7 @@ export const multipleDeploymentMarker = {
     endTime: 0,
     startTime: 0,
     color: 'var(--green-400)',
-    toolTipLabel: 'Deployments  change'
+    toolTipLabel: '4 Deployments'
   },
   height: 18,
   symbol: 'url(test-file-stub)',
@@ -93,7 +93,7 @@ export const mockDeploymentPayload = {
       marker: {
         custom: {
           color: 'var(--green-400)',
-          toolTipLabel: 'Deployments  change',
+          toolTipLabel: '1 deploymentText',
           count: 1,
           endTime: 1632021768825,
           startTime: 1632009431325
@@ -109,7 +109,7 @@ export const mockDeploymentPayload = {
       marker: {
         custom: {
           color: 'var(--green-400)',
-          toolTipLabel: 'Deployments  change',
+          toolTipLabel: '1 deploymentText',
           count: 1,
           endTime: 1632071118825,
           startTime: 1632058781325
@@ -125,7 +125,7 @@ export const mockDeploymentPayload = {
       marker: {
         custom: {
           color: 'var(--green-400)',
-          toolTipLabel: 'Deployments  change',
+          toolTipLabel: '2 Deployments',
           count: 2,
           endTime: 1632145143825,
           startTime: 1632132806325
@@ -141,7 +141,7 @@ export const mockDeploymentPayload = {
       marker: {
         custom: {
           color: 'var(--green-400)',
-          toolTipLabel: 'Deployments  change',
+          toolTipLabel: '4 Deployments',
           count: 4,
           endTime: 1632157481325,
           startTime: 1632145143825
@@ -157,7 +157,7 @@ export const mockDeploymentPayload = {
       marker: {
         custom: {
           color: 'var(--green-400)',
-          toolTipLabel: 'Deployments  change',
+          toolTipLabel: '1 deploymentText',
           count: 1,
           endTime: 1632169818825,
           startTime: 1632157481325
@@ -173,7 +173,7 @@ export const mockDeploymentPayload = {
       marker: {
         custom: {
           color: 'var(--green-400)',
-          toolTipLabel: 'Deployments  change',
+          toolTipLabel: '3 Deployments',
           count: 3,
           endTime: 1632182156325,
           startTime: 1632169818825
@@ -189,7 +189,7 @@ export const mockDeploymentPayload = {
       marker: {
         custom: {
           color: 'var(--green-400)',
-          toolTipLabel: 'Deployments  change',
+          toolTipLabel: '1 deploymentText',
           count: 1,
           endTime: 1632194493825,
           startTime: 1632182156325
@@ -205,7 +205,7 @@ export const mockDeploymentPayload = {
       marker: {
         custom: {
           color: 'var(--green-400)',
-          toolTipLabel: 'Deployments  change',
+          toolTipLabel: '1 deploymentText',
           count: 1,
           endTime: 1632206831325,
           startTime: 1632194493825
@@ -221,7 +221,7 @@ export const mockDeploymentPayload = {
       marker: {
         custom: {
           color: 'var(--green-400)',
-          toolTipLabel: 'Deployments  change',
+          toolTipLabel: '1 deploymentText',
           count: 1,
           endTime: 1632231506325,
           startTime: 1632219168825
@@ -237,7 +237,7 @@ export const mockDeploymentPayload = {
       marker: {
         custom: {
           color: 'var(--green-400)',
-          toolTipLabel: 'Deployments  change',
+          toolTipLabel: '2 Deployments',
           count: 2,
           endTime: 1632243843825,
           startTime: 1632231506325
@@ -253,7 +253,7 @@ export const mockDeploymentPayload = {
       marker: {
         custom: {
           color: 'var(--green-400)',
-          toolTipLabel: 'Deployments  change',
+          toolTipLabel: '1 deploymentText',
           count: 1,
           endTime: 1632256181325,
           startTime: 1632243843825
@@ -269,7 +269,7 @@ export const mockDeploymentPayload = {
       marker: {
         custom: {
           color: 'var(--green-400)',
-          toolTipLabel: 'Deployments  change',
+          toolTipLabel: '2 Deployments',
           count: 2,
           endTime: 1632268518825,
           startTime: 1632256181325
@@ -285,7 +285,7 @@ export const mockDeploymentPayload = {
       marker: {
         custom: {
           color: 'var(--green-400)',
-          toolTipLabel: 'Deployments  change',
+          toolTipLabel: '3 Deployments',
           count: 3,
           endTime: 1632280856325,
           startTime: 1632268518825
@@ -301,7 +301,7 @@ export const mockDeploymentPayload = {
       marker: {
         custom: {
           color: 'var(--green-400)',
-          toolTipLabel: 'Deployments  change',
+          toolTipLabel: '2 Deployments',
           count: 2,
           endTime: 1632293193825,
           startTime: 1632280856325
@@ -317,7 +317,7 @@ export const mockDeploymentPayload = {
       marker: {
         custom: {
           color: 'var(--green-400)',
-          toolTipLabel: 'Deployments  change',
+          toolTipLabel: '2 Deployments',
           count: 2,
           endTime: 1632305531325,
           startTime: 1632293193825
@@ -340,7 +340,7 @@ export const mockIncidentPayload = {
       marker: {
         custom: {
           color: 'var(--purple-400)',
-          toolTipLabel: 'Incidents  change',
+          toolTipLabel: '1 cv.changeSource.tooltip.incidents',
           count: 1,
           endTime: 1632021768825,
           startTime: 1632009431325
@@ -356,7 +356,7 @@ export const mockIncidentPayload = {
       marker: {
         custom: {
           color: 'var(--purple-400)',
-          toolTipLabel: 'Incidents  change',
+          toolTipLabel: '1 cv.changeSource.tooltip.incidents',
           count: 1,
           endTime: 1632071118825,
           startTime: 1632058781325
@@ -372,7 +372,7 @@ export const mockIncidentPayload = {
       marker: {
         custom: {
           color: 'var(--purple-400)',
-          toolTipLabel: 'Incidents  change',
+          toolTipLabel: '2 cv.changeSource.incident',
           count: 2,
           endTime: 1632145143825,
           startTime: 1632132806325
@@ -388,7 +388,7 @@ export const mockIncidentPayload = {
       marker: {
         custom: {
           color: 'var(--purple-400)',
-          toolTipLabel: 'Incidents  change',
+          toolTipLabel: '4 cv.changeSource.incident',
           count: 4,
           endTime: 1632157481325,
           startTime: 1632145143825
@@ -404,7 +404,7 @@ export const mockIncidentPayload = {
       marker: {
         custom: {
           color: 'var(--purple-400)',
-          toolTipLabel: 'Incidents  change',
+          toolTipLabel: '1 cv.changeSource.tooltip.incidents',
           count: 1,
           endTime: 1632169818825,
           startTime: 1632157481325
@@ -420,7 +420,7 @@ export const mockIncidentPayload = {
       marker: {
         custom: {
           color: 'var(--purple-400)',
-          toolTipLabel: 'Incidents  change',
+          toolTipLabel: '3 cv.changeSource.incident',
           count: 3,
           endTime: 1632182156325,
           startTime: 1632169818825
@@ -436,7 +436,7 @@ export const mockIncidentPayload = {
       marker: {
         custom: {
           color: 'var(--purple-400)',
-          toolTipLabel: 'Incidents  change',
+          toolTipLabel: '1 cv.changeSource.tooltip.incidents',
           count: 1,
           endTime: 1632194493825,
           startTime: 1632182156325
@@ -452,7 +452,7 @@ export const mockIncidentPayload = {
       marker: {
         custom: {
           color: 'var(--purple-400)',
-          toolTipLabel: 'Incidents  change',
+          toolTipLabel: '1 cv.changeSource.tooltip.incidents',
           count: 1,
           endTime: 1632206831325,
           startTime: 1632194493825
@@ -468,7 +468,7 @@ export const mockIncidentPayload = {
       marker: {
         custom: {
           color: 'var(--purple-400)',
-          toolTipLabel: 'Incidents  change',
+          toolTipLabel: '1 cv.changeSource.tooltip.incidents',
           count: 1,
           endTime: 1632231506325,
           startTime: 1632219168825
@@ -484,7 +484,7 @@ export const mockIncidentPayload = {
       marker: {
         custom: {
           color: 'var(--purple-400)',
-          toolTipLabel: 'Incidents  change',
+          toolTipLabel: '2 cv.changeSource.incident',
           count: 2,
           endTime: 1632243843825,
           startTime: 1632231506325
@@ -500,7 +500,7 @@ export const mockIncidentPayload = {
       marker: {
         custom: {
           color: 'var(--purple-400)',
-          toolTipLabel: 'Incidents  change',
+          toolTipLabel: '1 cv.changeSource.tooltip.incidents',
           count: 1,
           endTime: 1632256181325,
           startTime: 1632243843825
@@ -516,7 +516,7 @@ export const mockIncidentPayload = {
       marker: {
         custom: {
           color: 'var(--purple-400)',
-          toolTipLabel: 'Incidents  change',
+          toolTipLabel: '2 cv.changeSource.incident',
           count: 2,
           endTime: 1632268518825,
           startTime: 1632256181325
@@ -532,7 +532,7 @@ export const mockIncidentPayload = {
       marker: {
         custom: {
           color: 'var(--purple-400)',
-          toolTipLabel: 'Incidents  change',
+          toolTipLabel: '3 cv.changeSource.incident',
           count: 3,
           endTime: 1632280856325,
           startTime: 1632268518825
@@ -548,7 +548,7 @@ export const mockIncidentPayload = {
       marker: {
         custom: {
           color: 'var(--purple-400)',
-          toolTipLabel: 'Incidents  change',
+          toolTipLabel: '2 cv.changeSource.incident',
           count: 2,
           endTime: 1632293193825,
           startTime: 1632280856325
@@ -564,7 +564,7 @@ export const mockIncidentPayload = {
       marker: {
         custom: {
           color: 'var(--purple-400)',
-          toolTipLabel: 'Incidents  change',
+          toolTipLabel: '2 cv.changeSource.incident',
           count: 2,
           endTime: 1632305531325,
           startTime: 1632293193825
@@ -587,7 +587,7 @@ export const mockInfraPayload = {
       marker: {
         custom: {
           color: 'var(--primary-4)',
-          toolTipLabel: 'Infrastructure  change',
+          toolTipLabel: '1 infrastructureText change',
           count: 1,
           endTime: 1632021768825,
           startTime: 1632009431325
@@ -603,7 +603,7 @@ export const mockInfraPayload = {
       marker: {
         custom: {
           color: 'var(--primary-4)',
-          toolTipLabel: 'Infrastructure  change',
+          toolTipLabel: '1 infrastructureText change',
           count: 1,
           endTime: 1632071118825,
           startTime: 1632058781325
@@ -619,7 +619,7 @@ export const mockInfraPayload = {
       marker: {
         custom: {
           color: 'var(--primary-4)',
-          toolTipLabel: 'Infrastructure  change',
+          toolTipLabel: '2 infrastructureText changes',
           count: 2,
           endTime: 1632145143825,
           startTime: 1632132806325
@@ -635,7 +635,7 @@ export const mockInfraPayload = {
       marker: {
         custom: {
           color: 'var(--primary-4)',
-          toolTipLabel: 'Infrastructure  change',
+          toolTipLabel: '4 infrastructureText changes',
           count: 4,
           endTime: 1632157481325,
           startTime: 1632145143825
@@ -651,7 +651,7 @@ export const mockInfraPayload = {
       marker: {
         custom: {
           color: 'var(--primary-4)',
-          toolTipLabel: 'Infrastructure  change',
+          toolTipLabel: '1 infrastructureText change',
           count: 1,
           endTime: 1632169818825,
           startTime: 1632157481325
@@ -667,7 +667,7 @@ export const mockInfraPayload = {
       marker: {
         custom: {
           color: 'var(--primary-4)',
-          toolTipLabel: 'Infrastructure  change',
+          toolTipLabel: '3 infrastructureText changes',
           count: 3,
           endTime: 1632182156325,
           startTime: 1632169818825
@@ -683,7 +683,7 @@ export const mockInfraPayload = {
       marker: {
         custom: {
           color: 'var(--primary-4)',
-          toolTipLabel: 'Infrastructure  change',
+          toolTipLabel: '1 infrastructureText change',
           count: 1,
           endTime: 1632194493825,
           startTime: 1632182156325
@@ -699,7 +699,7 @@ export const mockInfraPayload = {
       marker: {
         custom: {
           color: 'var(--primary-4)',
-          toolTipLabel: 'Infrastructure  change',
+          toolTipLabel: '1 infrastructureText change',
           count: 1,
           endTime: 1632206831325,
           startTime: 1632194493825
@@ -715,7 +715,7 @@ export const mockInfraPayload = {
       marker: {
         custom: {
           color: 'var(--primary-4)',
-          toolTipLabel: 'Infrastructure  change',
+          toolTipLabel: '1 infrastructureText change',
           count: 1,
           endTime: 1632231506325,
           startTime: 1632219168825
@@ -731,7 +731,7 @@ export const mockInfraPayload = {
       marker: {
         custom: {
           color: 'var(--primary-4)',
-          toolTipLabel: 'Infrastructure  change',
+          toolTipLabel: '2 infrastructureText changes',
           count: 2,
           endTime: 1632243843825,
           startTime: 1632231506325
@@ -747,7 +747,7 @@ export const mockInfraPayload = {
       marker: {
         custom: {
           color: 'var(--primary-4)',
-          toolTipLabel: 'Infrastructure  change',
+          toolTipLabel: '1 infrastructureText change',
           count: 1,
           endTime: 1632256181325,
           startTime: 1632243843825
@@ -763,7 +763,7 @@ export const mockInfraPayload = {
       marker: {
         custom: {
           color: 'var(--primary-4)',
-          toolTipLabel: 'Infrastructure  change',
+          toolTipLabel: '2 infrastructureText changes',
           count: 2,
           endTime: 1632268518825,
           startTime: 1632256181325
@@ -779,7 +779,7 @@ export const mockInfraPayload = {
       marker: {
         custom: {
           color: 'var(--primary-4)',
-          toolTipLabel: 'Infrastructure  change',
+          toolTipLabel: '3 infrastructureText changes',
           count: 3,
           endTime: 1632280856325,
           startTime: 1632268518825
@@ -795,7 +795,7 @@ export const mockInfraPayload = {
       marker: {
         custom: {
           color: 'var(--primary-4)',
-          toolTipLabel: 'Infrastructure  change',
+          toolTipLabel: '2 infrastructureText changes',
           count: 2,
           endTime: 1632293193825,
           startTime: 1632280856325
@@ -811,7 +811,7 @@ export const mockInfraPayload = {
       marker: {
         custom: {
           color: 'var(--primary-4)',
-          toolTipLabel: 'Infrastructure  change',
+          toolTipLabel: '2 infrastructureText changes',
           count: 2,
           endTime: 1632305531325,
           startTime: 1632293193825
@@ -827,3 +827,15 @@ export const mockInfraPayload = {
   name: 'Infrastructure',
   type: 'scatter'
 }
+
+export const infoCardDataSingleValue = [
+  { count: 1, key: 'Deployments', message: '1 deploymentText' },
+  { count: 1, key: 'Incidents', message: '1 cv.changeSource.tooltip.incidents' },
+  { count: 1, key: 'Infrastructure', message: '1 infrastructureText change' }
+]
+
+export const infoCardDataMultipleValue = [
+  { count: 9, key: 'Deployments', message: '9 Deployments' },
+  { count: 9, key: 'Incidents', message: '9 cv.changeSource.incident' },
+  { count: 9, key: 'Infrastructure', message: '9 infrastructureText changes' }
+]

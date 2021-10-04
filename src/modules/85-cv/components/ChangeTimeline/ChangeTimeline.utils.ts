@@ -73,31 +73,41 @@ const getSymbolAndColorByChangeType = (
   }
 }
 
+export const createTooltipLabel = (
+  count: number,
+  type: ChangeSourceTypes,
+  getString: UseStringsReturn['getString']
+): string => {
+  switch (type) {
+    case ChangeSourceTypes.Deployments:
+      return `${count} ${count > 1 ? type : getString('deploymentText')}`
+    case ChangeSourceTypes.Infrastructure:
+      return `${count} ${getString('infrastructureText')} ${count > 1 ? getString('changes') : getString('change')}`
+    case ChangeSourceTypes.Incidents:
+      return `${count} ${
+        count > 1 ? getString('cv.changeSource.incident') : getString('cv.changeSource.tooltip.incidents')
+      }`
+    default:
+      return ''
+  }
+}
+
 export const createMarkerSymbol = (
   timeline: TimeRangeDetail,
   type: ChangeSourceTypes,
   getString: UseStringsReturn['getString']
 ): PointMarkerOptionsObjectCustom => {
-  const { count = 0 } = timeline
+  const count = timeline.count || 0
   const marker: PointMarkerOptionsObjectCustom = {
     custom: {
-      count: timeline.count || 0,
+      count,
       startTime: timeline.startTime || 0,
       endTime: timeline.endTime || 0,
       color: getChangeSoureIconColor(type, true),
-      toolTipLabel: `${type}  ${getString('change')}`
+      toolTipLabel: createTooltipLabel(count, type, getString)
     }
   }
-  switch (type) {
-    case ChangeSourceTypes.Deployments:
-      return getSymbolAndColorByChangeType(count, type, marker)
-    case ChangeSourceTypes.Infrastructure:
-      return getSymbolAndColorByChangeType(count, type, marker)
-    case ChangeSourceTypes.Incidents:
-      return getSymbolAndColorByChangeType(count, type, marker)
-    default:
-      return marker
-  }
+  return getSymbolAndColorByChangeType(count, type, marker)
 }
 
 export const createChangeInfoCardData = (
@@ -105,7 +115,8 @@ export const createChangeInfoCardData = (
   endTime: number | undefined,
   Deployment: TimeRangeDetail[],
   Infrastructure: TimeRangeDetail[],
-  Alert: TimeRangeDetail[]
+  Alert: TimeRangeDetail[],
+  getString: UseStringsReturn['getString']
 ): ChangesInfoCardData[] => {
   if (startTime && endTime) {
     const filterDeployment = Deployment?.filter((item: TimeRangeDetail) =>
@@ -114,9 +125,21 @@ export const createChangeInfoCardData = (
     const filterInfra = Infrastructure?.filter((item: TimeRangeDetail) => isChangesInTheRange(item, startTime, endTime))
     const filterIncident = Alert?.filter((item: TimeRangeDetail) => isChangesInTheRange(item, startTime, endTime))
     return [
-      { key: ChangeSourceTypes.Deployments, count: sumBy(filterDeployment, 'count') },
-      { key: ChangeSourceTypes.Infrastructure, count: sumBy(filterInfra, 'count') },
-      { key: ChangeSourceTypes.Incidents, count: sumBy(filterIncident, 'count') }
+      {
+        key: ChangeSourceTypes.Deployments,
+        count: sumBy(filterDeployment, 'count'),
+        message: createTooltipLabel(sumBy(filterDeployment, 'count'), ChangeSourceTypes.Deployments, getString)
+      },
+      {
+        key: ChangeSourceTypes.Incidents,
+        count: sumBy(filterIncident, 'count'),
+        message: createTooltipLabel(sumBy(filterIncident, 'count'), ChangeSourceTypes.Incidents, getString)
+      },
+      {
+        key: ChangeSourceTypes.Infrastructure,
+        count: sumBy(filterInfra, 'count'),
+        message: createTooltipLabel(sumBy(filterInfra, 'count'), ChangeSourceTypes.Infrastructure, getString)
+      }
     ]
   } else {
     return []

@@ -48,7 +48,14 @@ export default function ChangeTimeline(props: ChangeTimelineProps): JSX.Element 
   const { Deployment, Infrastructure, Alert } = categoryTimeline || {}
 
   useEffect(() => {
-    const changeInfoCardData = createChangeInfoCardData(startTime, endTime, Deployment, Infrastructure, Alert)
+    const changeInfoCardData = createChangeInfoCardData(
+      startTime,
+      endTime,
+      Deployment,
+      Infrastructure,
+      Alert,
+      getString
+    )
     if (changeInfoCardData.length) {
       onSliderMoved?.(changeInfoCardData)
     }
@@ -70,7 +77,7 @@ export default function ChangeTimeline(props: ChangeTimelineProps): JSX.Element 
           ]
         },
         {
-          labelName: getString('cv.changeSource.tooltip.incident'),
+          labelName: getString('cv.changeSource.tooltip.incidents'),
           timelineSeries: [createTimelineSeriesData(categoryTimeline?.Alert, ChangeSourceTypes.Incidents, getString)]
         }
       ]}

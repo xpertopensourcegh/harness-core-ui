@@ -12,7 +12,7 @@ const labelByCategory = (categoryType: string, getString: UseStringsReturn['getS
     case ChangeSourceCategoryName.DEPLOYMENT:
       return getString('deploymentText')
     case ChangeSourceCategoryName.ALERT:
-      return getString('cv.changeSource.tooltip.incident')
+      return getString('cv.changeSource.tooltip.incidents')
     case changeLabel:
       return getString('changes')
     default:
@@ -66,4 +66,4 @@ export const calculateChangePercentage = (
   return []
 }
 
-export const getTickerColor = (percentage: number): Color => (percentage > 0 ? Color.GREEN_600 : Color.RED_500)
+export const getTickerColor = (percentage: number): Color => (percentage > -1 ? Color.GREEN_600 : Color.RED_500)

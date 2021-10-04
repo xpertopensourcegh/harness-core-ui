@@ -9,7 +9,6 @@ const dateFormat = 'Do MMM hh:mm A'
 export const EventTimelineHighChartsConfig: Highcharts.Options = {
   chart: {
     type: 'scatter',
-    renderTo: 'chart',
     height: 20,
     backgroundColor: 'transparent'
   },
@@ -49,7 +48,7 @@ export const EventTimelineHighChartsConfig: Highcharts.Options = {
         return renderToStaticMarkup(
           <div className={css.tooltipContainer}>
             <div className={css.colorSidePanel} style={{ backgroundColor: marker.custom.color }}></div>
-            <div className={css.tooltipLabel}>{marker.custom.toolTipLabel} </div>
+            <div className={css.tooltipLabel}>{`${marker.custom.toolTipLabel}`}</div>
             <div>{moment(new Date(marker.custom.startTime)).format(dateFormat)}</div>
           </div>
         )
@@ -60,10 +59,7 @@ export const EventTimelineHighChartsConfig: Highcharts.Options = {
   },
   plotOptions: {
     scatter: {
-      events: {},
-      marker: {
-        radius: 5
-      }
+      events: {}
     }
   },
   series: []

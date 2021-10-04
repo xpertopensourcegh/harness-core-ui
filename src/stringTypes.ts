@@ -3714,6 +3714,7 @@ export interface StringsMap {
   'cv.changeSource.deleteChangeSourceWarning': string
   'cv.changeSource.duplicateIdentifier': string
   'cv.changeSource.editChangeSource': string
+  'cv.changeSource.incident': string
   'cv.changeSource.noChangeSource': string
   'cv.changeSource.noData': string
   'cv.changeSource.selectChangeSource': string
@@ -3721,7 +3722,7 @@ export interface StringsMap {
   'cv.changeSource.selectChangeSourceProvider': string
   'cv.changeSource.selectChangeSourceType': string
   'cv.changeSource.sourceName': string
-  'cv.changeSource.tooltip.incident': string
+  'cv.changeSource.tooltip.incidents': string
   'cv.changeTimeline': string
   'cv.changesPage.changeSourceDetails': string
   'cv.changesPage.changeSummary': string
