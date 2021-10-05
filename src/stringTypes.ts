@@ -125,7 +125,6 @@ export interface StringsMap {
   'common.datePickerShortcuts.LastWeek': string
   'common.datePickerShortcuts.Today': string
   'common.datePickerShortcuts.Yesterday': string
-  'common.deactivate': string
   'common.default': string
   'common.defaultExperience': string
   'common.delegateForTask': string
@@ -312,8 +311,12 @@ export interface StringsMap {
   'common.performAction': string
   'common.pipeline': string
   'common.pipelineDetails': string
+  'common.plans.currentPlan': string
   'common.plans.faq': string
   'common.plans.featureComparison': string
+  'common.plans.freeTrial': string
+  'common.plans.manageSubscription': string
+  'common.plans.subscription': string
   'common.plans.title': string
   'common.plusNumber': string
   'common.plusNumberNoSpace': string

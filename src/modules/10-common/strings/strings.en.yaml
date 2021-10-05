@@ -530,9 +530,12 @@ plans:
   title: Upgrade to get the most out of Harness
   featureComparison: Show All Feature Comparison
   faq: View Pricing FAQs
+  currentPlan: Current Plan
+  freeTrial: Free Trial
+  subscription: Subsription
+  manageSubscription: Manage Subscription
 useTemplate: Use template
 comingSoon: Coming Soon
-deactivate: Deactivate
 tryNow: Try Now
 recommended: 'Recommended'
 azure: Azure

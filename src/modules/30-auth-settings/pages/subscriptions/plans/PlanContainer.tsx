@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
-import { pick } from 'lodash-es'
+import { pick, cloneDeep } from 'lodash-es'
 import { Layout } from '@wings-software/uicore'
 import { useToaster } from '@common/components'
 import { useTelemetry } from '@common/hooks/useTelemetry'
@@ -18,12 +18,24 @@ import type { Editions } from '@common/constants/SubscriptionTypes'
 import { ModuleLicenseType } from '@common/constants/SubscriptionTypes'
 import type { TIME_TYPE } from './Plan'
 import Plan from './Plan'
-import css from './Plans.module.scss'
 
 interface PlanProps {
-  module: string
+  module: ModuleName
   plans?: NonNullable<FetchPlansQuery['pricing']>['ciSaasPlans' | 'ffPlans' | 'cdPlans' | 'ccPlans']
   timeType: TIME_TYPE
+}
+interface PlanCalculatedProps {
+  btnProps: {
+    buttonText?: string
+    btnLoading: boolean
+    onClick?: () => void
+    isDisabled?: boolean
+  }
+  currentPlanProps: {
+    isCurrentPlan?: boolean
+    isTrial?: boolean
+    isPaid?: boolean
+  }
 }
 
 const PlanContainer: React.FC<PlanProps> = ({ plans, timeType, module }) => {
@@ -43,39 +55,38 @@ const PlanContainer: React.FC<PlanProps> = ({ plans, timeType, module }) => {
 
   const moduleType = module.toUpperCase() as StartTrialDTO['moduleType']
 
-  const moduleColorMap: Record<string, string> = {
-    cd: css.cdColor,
-    ce: css.ccmColor,
-    cf: css.ffColor,
-    ci: css.ciColor
-  }
-
   async function handleStartTrial(edition: Editions): Promise<void> {
     trackEvent(TrialActions.StartTrialClick, { category: Category.SIGNUP, module })
     try {
       const data = await startTrial({ moduleType, edition })
 
-      handleUpdateLicenseStore({ ...licenseInformation }, updateLicenseStore, module as Module, data?.data)
+      handleUpdateLicenseStore(
+        { ...licenseInformation },
+        updateLicenseStore,
+        module.toLowerCase() as Module,
+        data?.data
+      )
 
-      if (module === ModuleName.CE.toLowerCase()) {
+      if (module === ModuleName.CE) {
         history.push(routes.toCEOverview({ accountId }))
-      } else {
-        let search
-        if (data.data?.licenseType === ModuleLicenseType.TRIAL) {
-          search = '?trial=true'
-        }
-        history.push({
-          pathname: routes.toModuleHome({ accountId, module: module as Module }),
-          search
-        })
+        return
       }
+
+      let search
+      if (licenseData?.licenseType === ModuleLicenseType.TRIAL) {
+        search = '?trial=true'
+      }
+      history.push({
+        pathname: routes.toModuleHome({ accountId, module: module.toLowerCase() as Module }),
+        search
+      })
     } catch (ex: any) {
       showError(ex.data?.message)
     }
   }
 
   const {
-    data: licenseData,
+    data,
     error,
     refetch,
     loading: gettingLicense
@@ -84,34 +95,94 @@ const PlanContainer: React.FC<PlanProps> = ({ plans, timeType, module }) => {
     accountIdentifier: accountId
   })
 
-  const hasLicense = licenseData && licenseData.data
-  const expiryTime = licenseData?.data?.maxExpiryTime
+  const licenseData = data?.data
 
-  const updatedLicenseInfo = licenseData?.data && {
+  const updatedLicenseInfo = licenseData && {
     ...licenseInformation?.[moduleType],
-    ...pick(licenseData?.data, ['licenseType', 'edition']),
-    expiryTime
+    ...pick(licenseData, ['licenseType', 'edition']),
+    expiryTime: licenseData.maxExpiryTime
   }
 
   useEffect(() => {
-    handleUpdateLicenseStore({ ...licenseInformation }, updateLicenseStore, module as Module, updatedLicenseInfo)
+    handleUpdateLicenseStore(
+      { ...licenseInformation },
+      updateLicenseStore,
+      module.toLowerCase() as Module,
+      updatedLicenseInfo
+    )
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [licenseData])
 
-  plans?.map((plan: any) => {
-    if (plan?.title) {
-      if (hasLicense) {
-        plan.buttonText = getString('common.deactivate')
-        plan.onClick = null
-      } else {
-        plan.buttonText = getString('common.tryNow')
-        const edition = plan.title.toUpperCase() as Editions
-        plan.onClick = () => {
-          handleStartTrial(edition)
+  function getBtnProps(plan: any): PlanCalculatedProps['btnProps'] {
+    let buttonText, onClick, isDisabled
+    const planEdition = plan.title.toUpperCase() as Editions
+    if (licenseData) {
+      const { edition, licenseType } = licenseData
+      if (edition === planEdition) {
+        switch (licenseType) {
+          case 'PAID':
+            buttonText = getString('common.plans.manageSubscription')
+            break
+          case 'TRIAL':
+            buttonText = getString('common.subscriptions.overview.subscribe')
+            break
         }
+        onClick = undefined
+      } else {
+        buttonText = getString('common.tryNow')
+        onClick = undefined
+        isDisabled = true
       }
-      plan.btnLoading = loading
+    } else {
+      buttonText = getString('common.tryNow')
+      onClick = () => {
+        handleStartTrial(planEdition)
+      }
     }
+    const btnLoading = loading
+    return {
+      btnLoading,
+      buttonText,
+      onClick,
+      isDisabled
+    }
+  }
+
+  function getPlanCalculatedProps(plan: any): PlanCalculatedProps {
+    let isCurrentPlan, isTrial, isPaid
+    const planEdition = plan?.title?.toUpperCase() as Editions
+    if (licenseData?.edition === planEdition) {
+      isCurrentPlan = true
+    }
+
+    switch (licenseData?.licenseType) {
+      case 'PAID':
+        isPaid = true
+        break
+      case 'TRIAL':
+        isTrial = true
+        break
+    }
+
+    const btnProps = getBtnProps(plan)
+
+    return {
+      currentPlanProps: {
+        isCurrentPlan,
+        isTrial,
+        isPaid
+      },
+      btnProps
+    }
+  }
+
+  const calculatedPlans = cloneDeep(plans)
+
+  calculatedPlans?.map((plan: any) => {
+    const calculatedProps = getPlanCalculatedProps(plan)
+    const { btnProps, currentPlanProps } = calculatedProps
+    plan.btnProps = btnProps
+    plan.currentPlanProps = currentPlanProps
   })
 
   if (gettingLicense) {
@@ -119,13 +190,13 @@ const PlanContainer: React.FC<PlanProps> = ({ plans, timeType, module }) => {
   }
 
   if (error) {
-    return <PageError message={(error.data as Error)?.message || error.message} onClick={() => refetch()} />
+    return <PageError message={(error.data as Error)?.message} onClick={() => refetch()} />
   }
 
   return (
     <Layout.Horizontal spacing="large">
-      {plans?.map((plan: any) => (
-        <Plan key={plan?.title} plan={plan} timeType={timeType} textColorClassName={moduleColorMap[module]} />
+      {calculatedPlans?.map((plan: any) => (
+        <Plan key={plan?.title} plan={plan} timeType={timeType} module={module} />
       ))}
     </Layout.Horizontal>
   )

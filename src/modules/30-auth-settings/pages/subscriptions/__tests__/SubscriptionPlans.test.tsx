@@ -42,21 +42,24 @@ describe('Subscription Plans', () => {
       useGetLicensesAndSummaryMock.mockImplementation(() => {
         return {
           data: {
-            data: {},
+            data: {
+              edition: 'ENTERPRISE',
+              licenseType: 'TRIAL'
+            },
             status: 'SUCCESS'
           },
           refetch: jest.fn(),
           loading: false
         }
       })
-      const { container, getAllByText } = render(
+      const { container, getByText } = render(
         <TestWrapper>
           <Provider value={responseState as any}>
             <SubscriptionPlans module={ModuleName.CI} />
           </Provider>
         </TestWrapper>
       )
-      expect(getAllByText('common.deactivate')).toBeDefined()
+      expect(getByText('common.plans.currentPlan (common.plans.freeTrial)')).toBeInTheDocument()
       expect(container).toMatchSnapshot()
     })
   })
@@ -82,14 +85,13 @@ describe('Subscription Plans', () => {
           loading: false
         }
       })
-      const { container, getAllByText } = render(
+      const { container } = render(
         <TestWrapper>
           <Provider value={responseState as any}>
             <SubscriptionPlans module={ModuleName.CE} />
           </Provider>
         </TestWrapper>
       )
-      expect(getAllByText('common.deactivate')).toBeDefined()
       expect(container).toMatchSnapshot()
     })
   })
@@ -115,14 +117,13 @@ describe('Subscription Plans', () => {
           loading: false
         }
       })
-      const { container, getAllByText } = render(
+      const { container } = render(
         <TestWrapper>
           <Provider value={responseState as any}>
             <SubscriptionPlans module={ModuleName.CD} />
           </Provider>
         </TestWrapper>
       )
-      expect(getAllByText('common.deactivate')).toBeDefined()
       expect(container).toMatchSnapshot()
     })
   })
@@ -148,14 +149,13 @@ describe('Subscription Plans', () => {
           loading: false
         }
       })
-      const { container, getAllByText } = render(
+      const { container } = render(
         <TestWrapper>
           <Provider value={responseState as any}>
             <SubscriptionPlans module={ModuleName.CF} />
           </Provider>
         </TestWrapper>
       )
-      expect(getAllByText('common.deactivate')).toBeDefined()
       expect(container).toMatchSnapshot()
     })
   })
