@@ -4,7 +4,6 @@
   "version": "0.270.0",
   "author": "Harness Inc",
   "license": "Harness Inc",
-  "private": true,
   "homepage": "http://app.harness.io/",
   "repository": {
     "type": "git",
