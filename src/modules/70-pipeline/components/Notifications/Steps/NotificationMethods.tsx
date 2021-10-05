@@ -8,6 +8,7 @@ import { NotificationTypeSelectOptions } from '@notifications/constants'
 import ConfigureEmailNotifications from '@notifications/modals/ConfigureNotificationsModal/views/ConfigureEmailNotifications/ConfigureEmailNotifications'
 import ConfigureSlackNotifications from '@notifications/modals/ConfigureNotificationsModal/views/ConfigureSlackNotifications/ConfigureSlackNotifications'
 import ConfigurePagerDutyNotifications from '@notifications/modals/ConfigureNotificationsModal/views/ConfigurePagerDutyNotifications/ConfigurePagerDutyNotifications'
+import ConfigureMSTeamsNotifications from '@notifications/modals/ConfigureNotificationsModal/views/ConfigureMSTeamsNotifications/ConfigureMSTeamsNotifications'
 
 type NotificationMethodsProps = StepProps<NotificationRules> & {
   typeOptions?: SelectOption[]
@@ -47,6 +48,43 @@ const NotificationMethods: React.FC<NotificationMethodsProps> = ({
             }}
           />
         </Layout.Vertical>
+        {method?.value === NotificationType.MsTeams ? (
+          <ConfigureMSTeamsNotifications
+            withoutHeading={true}
+            submitButtonText={getString('finish')}
+            onSuccess={data => {
+              nextStep?.({
+                ...prevStepData,
+                notificationMethod: {
+                  type: method.value.toString(),
+                  spec: {
+                    userGroups: data.userGroups,
+                    msTeamKeys: data.msTeamKeys
+                  }
+                }
+              })
+            }}
+            hideModal={noop}
+            isStep={true}
+            onBack={data =>
+              previousStep?.({
+                ...prevStepData,
+                notificationMethod: {
+                  type: method.value.toString(),
+                  spec: {
+                    userGroups: data?.userGroups,
+                    msTeamKeys: data?.msTeamKeys
+                  }
+                }
+              })
+            }
+            config={{
+              type: NotificationType.MsTeams,
+              msTeamKeys: prevStepData?.notificationMethod?.spec?.msTeamKeys,
+              userGroups: (prevStepData?.notificationMethod?.spec as PmsSlackChannel)?.userGroups || []
+            }}
+          />
+        ) : null}
         {method?.value === NotificationType.Email ? (
           <>
             <ConfigureEmailNotifications
