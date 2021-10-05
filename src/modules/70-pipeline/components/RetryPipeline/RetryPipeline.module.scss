@@ -77,10 +77,20 @@
   margin-left: var(--spacing-medium) !important;
 }
 
-.footerCheckbox {
-  border-radius: 4px;
-  font-size: var(--font-size-small) !important;
-  opacity: 0.8;
+.footerContainer {
+  .footerCheckbox {
+    border-radius: 4px;
+    font-size: var(--font-size-small) !important;
+    opacity: 0.8;
+  }
+  :global {
+    .Checkbox--checkbox {
+      padding-top: var(--spacing-small) !important;
+      padding-bottom: var(--spacing-small) !important;
+      padding-left: var(--spacing-medium) !important;
+      padding-right: var(--spacing-medium) !important;
+    }
+  }
 }
 
 .inputSetFormRunPipeline {

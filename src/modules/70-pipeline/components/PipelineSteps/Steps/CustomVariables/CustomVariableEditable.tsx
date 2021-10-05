@@ -169,7 +169,7 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                   return (
                     <div key={key} className={css.variableListTable}>
                       {yamlData && yamlData.fqn && yamlData.localName ? (
-                        <CopyText className="variable-name-cell" textToCopy={toVariableStr(yamlData.fqn)}>
+                        <CopyText valueClassName="variable-name-cell" textToCopy={toVariableStr(yamlData.fqn)}>
                           <span
                             className={cx({
                               'selected-search-text': searchedEntityType === 'key' && hasSameMetaPath

@@ -15,6 +15,7 @@ declare const styles: {
   readonly inputSetsUpdatingSpinner: string
   readonly actionButtons: string
   readonly secondaryButton: string
+  readonly footerContainer: string
   readonly footerCheckbox: string
   readonly inputSetFormRunPipeline: string
   readonly selectStageWrapper: string

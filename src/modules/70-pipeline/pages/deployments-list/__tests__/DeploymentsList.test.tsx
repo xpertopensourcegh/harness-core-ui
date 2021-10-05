@@ -12,6 +12,7 @@ import environments from '../../pipelines/__tests__/mocks/environments.json'
 import DeploymentsList from '../DeploymentsList'
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
+jest.mock('@common/utils/YamlUtils', () => ({}))
 
 jest.mock('@pipeline/components/Dashboards/PipelineSummaryCards/PipelineSummaryCards', () => () => <div />)
 jest.mock('@pipeline/components/Dashboards/BuildExecutionsChart/PipelineBuildExecutionsChart', () => () => <div />)

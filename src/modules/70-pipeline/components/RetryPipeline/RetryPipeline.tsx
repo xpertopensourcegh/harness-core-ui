@@ -682,13 +682,15 @@ const RetryPipeline = ({
               </div>
             )}
 
-            <Layout.Horizontal padding={{ left: 'xlarge', right: 'xlarge', top: 'medium', bottom: 'medium' }}>
+            <Layout.Horizontal
+              margin={{ left: 'xlarge', right: 'xlarge', top: 'medium', bottom: 'medium' }}
+              className={css.footerContainer}
+            >
               <Checkbox
                 label={getString('pre-flight-check.skipCheckBtn')}
                 background={Color.GREY_100}
                 color={skipPreFlightCheck ? Color.PRIMARY_8 : Color.BLACK}
                 className={css.footerCheckbox}
-                padding={{ top: 'small', bottom: 'small', left: 'xxlarge', right: 'medium' }}
                 checked={skipPreFlightCheck}
                 onChange={e => setSkipPreFlightCheck(e.currentTarget.checked)}
               />
@@ -698,7 +700,6 @@ const RetryPipeline = ({
                   color={notifyOnlyMe ? Color.PRIMARY_7 : Color.BLACK}
                   className={css.footerCheckbox}
                   margin={{ left: 'medium' }}
-                  padding={{ top: 'small', bottom: 'small', left: 'xxlarge', right: 'medium' }}
                   disabled
                   label={getString('pipeline.runPipelineForm.notifyOnlyMe')}
                   checked={notifyOnlyMe}

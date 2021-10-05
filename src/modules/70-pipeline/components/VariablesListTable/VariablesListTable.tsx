@@ -72,7 +72,7 @@ export function VariablesListTable<T>(props: VariableListTableProps<T>): React.R
         const isValidValueMatch = `${formattedValue}`?.toLowerCase()?.includes(searchText?.toLowerCase() || '')
         return (
           <div key={key} className={css.variableListRow}>
-            <CopyText className="variable-name-cell" textToCopy={toVariableStr(defaultTo(yamlProps?.fqn, ''))}>
+            <CopyText valueClassName="variable-name-cell" textToCopy={toVariableStr(defaultTo(yamlProps?.fqn, ''))}>
               <span
                 className={cx({
                   'selected-search-text': searchedEntityType === 'key' && hasSameMetaKeyId

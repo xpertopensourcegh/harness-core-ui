@@ -6,6 +6,7 @@ declare const styles: {
   readonly header: string
   readonly key: string
   readonly value: string
+  readonly valueText: string
   readonly panel: string
   readonly panelTitle: string
 }

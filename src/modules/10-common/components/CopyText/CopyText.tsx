@@ -8,6 +8,7 @@ export interface CopyTextProps {
   children: React.ReactNode
   iconName?: IconName
   className?: string
+  valueClassName?: string
   textToCopy: string
 }
 
@@ -24,8 +25,8 @@ export function CopyText(props: CopyTextProps): React.ReactElement {
   }
 
   return (
-    <div className={css.main}>
-      <div className={cx(css.text, props.className)}>{props.children}</div>
+    <div className={cx(css.main, props.className)}>
+      <div className={cx(css.text, props.valueClassName)}>{props.children}</div>
       <Button
         data-name={icon}
         icon={copied ? 'execution-success' : icon}

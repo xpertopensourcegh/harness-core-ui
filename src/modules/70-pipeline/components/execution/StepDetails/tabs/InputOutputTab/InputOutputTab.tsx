@@ -96,7 +96,9 @@ export function InputOutputTabRow(props: InputOutputTabRowProps): React.ReactEle
               <CopyText textToCopy={toVariableStr(newKey)}>{key}</CopyText>
             </div>
             <div className={css.value}>
-              <CopyText textToCopy={value.toString()}>{value.toString()}</CopyText>
+              <CopyText textToCopy={value.toString()} className={css.valueText}>
+                {value.toString()}
+              </CopyText>
             </div>
           </div>
         )

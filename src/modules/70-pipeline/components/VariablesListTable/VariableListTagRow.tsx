@@ -41,7 +41,7 @@ export default function VariableListTagRow(props: VariableRowProps): React.React
   return (
     <div ref={tableRef as any} className={cx(css.variableListRowItem, css.variableBorderBottom, props.className)}>
       <div className={cx(css.nameSection, props.nameSectionClassName)}>
-        <CopyText className="variable-name-cell" textToCopy={props.fqn}>
+        <CopyText valueClassName="variable-name-cell" textToCopy={props.fqn}>
           <span
             className={cx({
               'selected-search-text': searchedEntityType === 'key' && searchedEntity.path?.includes('.tags.')
