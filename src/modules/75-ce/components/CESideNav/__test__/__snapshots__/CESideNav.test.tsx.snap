@@ -1,81 +1,297 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`side nav tests feedback tooltip appears on hover of project 1`] = `
+<div>
+  <div
+    class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+  >
+    <div
+      class="bp3-tabs sideNavTabs"
+    >
+      <div
+        class="bp3-tab-list"
+        role="tablist"
+      >
+        <div
+          class="bp3-tab-indicator-wrapper"
+          style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+        >
+          <div
+            class="bp3-tab-indicator"
+          />
+        </div>
+        <div
+          aria-controls="bp3-tab-panel_ccmNavTab_account"
+          aria-disabled="false"
+          aria-expanded="true"
+          aria-selected="true"
+          class="bp3-tab"
+          data-tab-id="account"
+          id="bp3-tab-title_ccmNavTab_account"
+          role="tab"
+          tabindex="0"
+        >
+          Account
+        </div>
+        <div
+          class="bp3-flex-expander"
+        />
+        <span
+          class="bp3-popover-wrapper"
+        >
+          <span
+            class="bp3-popover-target bp3-popover-open"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+              tabindex="0"
+            >
+              Project
+            </p>
+          </span>
+        </span>
+      </div>
+      <div
+        aria-hidden="false"
+        aria-labelledby="bp3-tab-title_ccmNavTab_account"
+        class="bp3-tab-panel"
+        id="bp3-tab-panel_ccmNavTab_account"
+        role="tabpanel"
+      >
+        <div
+          class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+        >
+          <a
+            class="link"
+            href="/account/accountId/ce/overview"
+          >
+            <p
+              class="StyledProps--font StyledProps--main text"
+            >
+              overview
+            </p>
+          </a>
+          <a
+            class="link"
+            href="/account/accountId/ce/perspectives"
+          >
+            <p
+              class="StyledProps--font StyledProps--main text"
+            >
+              ce.perspectives.sideNavText
+            </p>
+          </a>
+          <a
+            class="link"
+            href="/account/accountId/ce/recommendations"
+          >
+            <p
+              class="StyledProps--font StyledProps--main text"
+            >
+              ce.recommendation.sideNavText
+            </p>
+          </a>
+          <a
+            class="link"
+            href="/account/accountId/ce/autostopping-rules"
+          >
+            <p
+              class="StyledProps--font StyledProps--main text"
+            >
+              ce.co.breadCrumb.rules
+            </p>
+          </a>
+          <div>
+            <div
+              class="border"
+            />
+            <div
+              class="Layout--vertical StyledProps--main main"
+            >
+              <p
+                class="StyledProps--font StyledProps--main text StyledProps--font-xsmall StyledProps--flex StyledProps--flex-alignItems-flex-start StyledProps--flex-justifyContent-space-between"
+                style="display: flex; align-items: center;"
+              >
+                common.setup
+                <span
+                  class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-left-xsmall"
+                  icon="chevron-down"
+                >
+                  <svg
+                    data-icon="chevron-down"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      chevron-down
+                    </desc>
+                    <path
+                      d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </p>
+            </div>
+          </div>
+          <button
+            class="launchButtonPosition"
+            type="button"
+          >
+            common.ce.visibilityLaunchButton
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`side nav tests side nav renders without error when no project is selected 1`] = `
 <div>
   <div
     class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
   >
     <div
-      class="Layout--vertical StyledProps--main StyledProps--padding-top-xlarge StyledProps--padding-left-medium StyledProps--padding-bottom-xlarge StyledProps--padding-right-medium StyledProps--border StyledProps--border-bottom"
+      class="bp3-tabs sideNavTabs"
     >
-      <p
-        class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+      <div
+        class="bp3-tab-list"
+        role="tablist"
       >
-        Account
-      </p>
-      <p
-        class="StyledProps--font StyledProps--main StyledProps--font-size-normal StyledProps--color StyledProps--color-white"
-        style="padding-top: 10px;"
+        <div
+          class="bp3-tab-indicator-wrapper"
+          style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+        >
+          <div
+            class="bp3-tab-indicator"
+          />
+        </div>
+        <div
+          aria-controls="bp3-tab-panel_ccmNavTab_account"
+          aria-disabled="false"
+          aria-expanded="true"
+          aria-selected="true"
+          class="bp3-tab"
+          data-tab-id="account"
+          id="bp3-tab-title_ccmNavTab_account"
+          role="tab"
+          tabindex="0"
+        >
+          Account
+        </div>
+        <div
+          class="bp3-flex-expander"
+        />
+        <span
+          class="bp3-popover-wrapper"
+        >
+          <span
+            class="bp3-popover-target"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+              tabindex="0"
+            >
+              Project
+            </p>
+          </span>
+        </span>
+      </div>
+      <div
+        aria-hidden="false"
+        aria-labelledby="bp3-tab-title_ccmNavTab_account"
+        class="bp3-tab-panel"
+        id="bp3-tab-panel_ccmNavTab_account"
+        role="tabpanel"
       >
-        
-      </p>
+        <div
+          class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+        >
+          <a
+            class="link"
+            href="/account/accountId/ce/overview"
+          >
+            <p
+              class="StyledProps--font StyledProps--main text"
+            >
+              overview
+            </p>
+          </a>
+          <a
+            class="link"
+            href="/account/accountId/ce/perspectives"
+          >
+            <p
+              class="StyledProps--font StyledProps--main text"
+            >
+              ce.perspectives.sideNavText
+            </p>
+          </a>
+          <a
+            class="link"
+            href="/account/accountId/ce/recommendations"
+          >
+            <p
+              class="StyledProps--font StyledProps--main text"
+            >
+              ce.recommendation.sideNavText
+            </p>
+          </a>
+          <a
+            class="link"
+            href="/account/accountId/ce/autostopping-rules"
+          >
+            <p
+              class="StyledProps--font StyledProps--main text"
+            >
+              ce.co.breadCrumb.rules
+            </p>
+          </a>
+          <div>
+            <div
+              class="border"
+            />
+            <div
+              class="Layout--vertical StyledProps--main main"
+            >
+              <p
+                class="StyledProps--font StyledProps--main text StyledProps--font-xsmall StyledProps--flex StyledProps--flex-alignItems-flex-start StyledProps--flex-justifyContent-space-between"
+                style="display: flex; align-items: center;"
+              >
+                common.setup
+                <span
+                  class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-left-xsmall"
+                  icon="chevron-down"
+                >
+                  <svg
+                    data-icon="chevron-down"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      chevron-down
+                    </desc>
+                    <path
+                      d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </p>
+            </div>
+          </div>
+          <button
+            class="launchButtonPosition"
+            type="button"
+          >
+            common.ce.visibilityLaunchButton
+          </button>
+        </div>
+      </div>
     </div>
-    <a
-      class="link"
-      href="/account/accountId/ce/overview"
-    >
-      <p
-        class="StyledProps--font StyledProps--main text"
-      >
-        overview
-      </p>
-    </a>
-    <a
-      class="link"
-      href="/account/accountId/ce/perspectives"
-    >
-      <p
-        class="StyledProps--font StyledProps--main text"
-      >
-        ce.perspectives.sideNavText
-      </p>
-    </a>
-    <a
-      class="link"
-      href="/account/accountId/ce/recommendations"
-    >
-      <p
-        class="StyledProps--font StyledProps--main text"
-      >
-        ce.recommendation.sideNavText
-      </p>
-    </a>
-    <a
-      class="link"
-      href="/account/accountId/ce/autostopping-rules"
-    >
-      <p
-        class="StyledProps--font StyledProps--main text"
-      >
-        ce.co.breadCrumb.rules
-      </p>
-    </a>
-    <a
-      class="link"
-      href="/account/accountId/ce/access-points"
-    >
-      <p
-        class="StyledProps--font StyledProps--main text"
-      >
-        ce.co.accessPoint.loadbalancers
-      </p>
-    </a>
-    <button
-      class="launchButtonPosition"
-      type="button"
-    >
-      common.ce.visibilityLaunchButton
-    </button>
   </div>
 </div>
 `;
@@ -86,76 +302,144 @@ exports[`side nav tests side nav renders without error when on Access Point tab 
     class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
   >
     <div
-      class="Layout--vertical StyledProps--main StyledProps--padding-top-xlarge StyledProps--padding-left-medium StyledProps--padding-bottom-xlarge StyledProps--padding-right-medium StyledProps--border StyledProps--border-bottom"
+      class="bp3-tabs sideNavTabs"
     >
-      <p
-        class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+      <div
+        class="bp3-tab-list"
+        role="tablist"
       >
-        Account
-      </p>
-      <p
-        class="StyledProps--font StyledProps--main StyledProps--font-size-normal StyledProps--color StyledProps--color-white"
-        style="padding-top: 10px;"
+        <div
+          class="bp3-tab-indicator-wrapper"
+          style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+        >
+          <div
+            class="bp3-tab-indicator"
+          />
+        </div>
+        <div
+          aria-controls="bp3-tab-panel_ccmNavTab_account"
+          aria-disabled="false"
+          aria-expanded="true"
+          aria-selected="true"
+          class="bp3-tab"
+          data-tab-id="account"
+          id="bp3-tab-title_ccmNavTab_account"
+          role="tab"
+          tabindex="0"
+        >
+          Account
+        </div>
+        <div
+          class="bp3-flex-expander"
+        />
+        <span
+          class="bp3-popover-wrapper"
+        >
+          <span
+            class="bp3-popover-target"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+              tabindex="0"
+            >
+              Project
+            </p>
+          </span>
+        </span>
+      </div>
+      <div
+        aria-hidden="false"
+        aria-labelledby="bp3-tab-title_ccmNavTab_account"
+        class="bp3-tab-panel"
+        id="bp3-tab-panel_ccmNavTab_account"
+        role="tabpanel"
       >
-        
-      </p>
+        <div
+          class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+        >
+          <a
+            class="link"
+            href="/account/accountId/ce/overview"
+          >
+            <p
+              class="StyledProps--font StyledProps--main text"
+            >
+              overview
+            </p>
+          </a>
+          <a
+            class="link"
+            href="/account/accountId/ce/perspectives"
+          >
+            <p
+              class="StyledProps--font StyledProps--main text"
+            >
+              ce.perspectives.sideNavText
+            </p>
+          </a>
+          <a
+            class="link"
+            href="/account/accountId/ce/recommendations"
+          >
+            <p
+              class="StyledProps--font StyledProps--main text"
+            >
+              ce.recommendation.sideNavText
+            </p>
+          </a>
+          <a
+            class="link"
+            href="/account/accountId/ce/autostopping-rules"
+          >
+            <p
+              class="StyledProps--font StyledProps--main text"
+            >
+              ce.co.breadCrumb.rules
+            </p>
+          </a>
+          <div>
+            <div
+              class="border"
+            />
+            <div
+              class="Layout--vertical StyledProps--main main"
+            >
+              <p
+                class="StyledProps--font StyledProps--main text StyledProps--font-xsmall StyledProps--flex StyledProps--flex-alignItems-flex-start StyledProps--flex-justifyContent-space-between"
+                style="display: flex; align-items: center;"
+              >
+                common.setup
+                <span
+                  class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-left-xsmall"
+                  icon="chevron-down"
+                >
+                  <svg
+                    data-icon="chevron-down"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      chevron-down
+                    </desc>
+                    <path
+                      d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </p>
+            </div>
+          </div>
+          <button
+            class="launchButtonPosition"
+            type="button"
+          >
+            common.ce.visibilityLaunchButton
+          </button>
+        </div>
+      </div>
     </div>
-    <a
-      class="link"
-      href="/account/accountId/ce/overview"
-    >
-      <p
-        class="StyledProps--font StyledProps--main text"
-      >
-        overview
-      </p>
-    </a>
-    <a
-      class="link"
-      href="/account/accountId/ce/perspectives"
-    >
-      <p
-        class="StyledProps--font StyledProps--main text"
-      >
-        ce.perspectives.sideNavText
-      </p>
-    </a>
-    <a
-      class="link"
-      href="/account/accountId/ce/recommendations"
-    >
-      <p
-        class="StyledProps--font StyledProps--main text"
-      >
-        ce.recommendation.sideNavText
-      </p>
-    </a>
-    <a
-      class="link"
-      href="/account/accountId/ce/autostopping-rules"
-    >
-      <p
-        class="StyledProps--font StyledProps--main text"
-      >
-        ce.co.breadCrumb.rules
-      </p>
-    </a>
-    <a
-      class="link"
-      href="/account/accountId/ce/access-points"
-    >
-      <p
-        class="StyledProps--font StyledProps--main text"
-      >
-        ce.co.accessPoint.loadbalancers
-      </p>
-    </a>
-    <button
-      class="launchButtonPosition"
-      type="button"
-    >
-      common.ce.visibilityLaunchButton
-    </button>
   </div>
 </div>
 `;
@@ -166,76 +450,144 @@ exports[`side nav tests side nav renders without error when on AutoStopping Rule
     class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
   >
     <div
-      class="Layout--vertical StyledProps--main StyledProps--padding-top-xlarge StyledProps--padding-left-medium StyledProps--padding-bottom-xlarge StyledProps--padding-right-medium StyledProps--border StyledProps--border-bottom"
+      class="bp3-tabs sideNavTabs"
     >
-      <p
-        class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+      <div
+        class="bp3-tab-list"
+        role="tablist"
       >
-        Account
-      </p>
-      <p
-        class="StyledProps--font StyledProps--main StyledProps--font-size-normal StyledProps--color StyledProps--color-white"
-        style="padding-top: 10px;"
+        <div
+          class="bp3-tab-indicator-wrapper"
+          style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+        >
+          <div
+            class="bp3-tab-indicator"
+          />
+        </div>
+        <div
+          aria-controls="bp3-tab-panel_ccmNavTab_account"
+          aria-disabled="false"
+          aria-expanded="true"
+          aria-selected="true"
+          class="bp3-tab"
+          data-tab-id="account"
+          id="bp3-tab-title_ccmNavTab_account"
+          role="tab"
+          tabindex="0"
+        >
+          Account
+        </div>
+        <div
+          class="bp3-flex-expander"
+        />
+        <span
+          class="bp3-popover-wrapper"
+        >
+          <span
+            class="bp3-popover-target"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+              tabindex="0"
+            >
+              Project
+            </p>
+          </span>
+        </span>
+      </div>
+      <div
+        aria-hidden="false"
+        aria-labelledby="bp3-tab-title_ccmNavTab_account"
+        class="bp3-tab-panel"
+        id="bp3-tab-panel_ccmNavTab_account"
+        role="tabpanel"
       >
-        
-      </p>
+        <div
+          class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+        >
+          <a
+            class="link"
+            href="/account/accountId/ce/overview"
+          >
+            <p
+              class="StyledProps--font StyledProps--main text"
+            >
+              overview
+            </p>
+          </a>
+          <a
+            class="link"
+            href="/account/accountId/ce/perspectives"
+          >
+            <p
+              class="StyledProps--font StyledProps--main text"
+            >
+              ce.perspectives.sideNavText
+            </p>
+          </a>
+          <a
+            class="link"
+            href="/account/accountId/ce/recommendations"
+          >
+            <p
+              class="StyledProps--font StyledProps--main text"
+            >
+              ce.recommendation.sideNavText
+            </p>
+          </a>
+          <a
+            class="link"
+            href="/account/accountId/ce/autostopping-rules"
+          >
+            <p
+              class="StyledProps--font StyledProps--main text"
+            >
+              ce.co.breadCrumb.rules
+            </p>
+          </a>
+          <div>
+            <div
+              class="border"
+            />
+            <div
+              class="Layout--vertical StyledProps--main main"
+            >
+              <p
+                class="StyledProps--font StyledProps--main text StyledProps--font-xsmall StyledProps--flex StyledProps--flex-alignItems-flex-start StyledProps--flex-justifyContent-space-between"
+                style="display: flex; align-items: center;"
+              >
+                common.setup
+                <span
+                  class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-left-xsmall"
+                  icon="chevron-down"
+                >
+                  <svg
+                    data-icon="chevron-down"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      chevron-down
+                    </desc>
+                    <path
+                      d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </p>
+            </div>
+          </div>
+          <button
+            class="launchButtonPosition"
+            type="button"
+          >
+            common.ce.visibilityLaunchButton
+          </button>
+        </div>
+      </div>
     </div>
-    <a
-      class="link"
-      href="/account/accountId/ce/overview"
-    >
-      <p
-        class="StyledProps--font StyledProps--main text"
-      >
-        overview
-      </p>
-    </a>
-    <a
-      class="link"
-      href="/account/accountId/ce/perspectives"
-    >
-      <p
-        class="StyledProps--font StyledProps--main text"
-      >
-        ce.perspectives.sideNavText
-      </p>
-    </a>
-    <a
-      class="link"
-      href="/account/accountId/ce/recommendations"
-    >
-      <p
-        class="StyledProps--font StyledProps--main text"
-      >
-        ce.recommendation.sideNavText
-      </p>
-    </a>
-    <a
-      class="link"
-      href="/account/accountId/ce/autostopping-rules"
-    >
-      <p
-        class="StyledProps--font StyledProps--main text"
-      >
-        ce.co.breadCrumb.rules
-      </p>
-    </a>
-    <a
-      class="link"
-      href="/account/accountId/ce/access-points"
-    >
-      <p
-        class="StyledProps--font StyledProps--main text"
-      >
-        ce.co.accessPoint.loadbalancers
-      </p>
-    </a>
-    <button
-      class="launchButtonPosition"
-      type="button"
-    >
-      common.ce.visibilityLaunchButton
-    </button>
   </div>
 </div>
 `;

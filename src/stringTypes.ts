@@ -404,6 +404,7 @@ export interface StringsMap {
   'common.serviceCreated': string
   'common.serviceUpdated': string
   'common.setAsDefault': string
+  'common.setup': string
   'common.shell': string
   'common.showLess': string
   'common.showMore': string
@@ -4020,7 +4021,6 @@ export interface StringsMap {
   'cv.navLinks.activities': string
   'cv.navLinks.adminSideNavLinks.activitySources': string
   'cv.navLinks.adminSideNavLinks.monitoringSources': string
-  'cv.navLinks.adminSideNavLinks.setup': string
   'cv.noAnalysis': string
   'cv.noAnomalies': string
   'cv.nonAnomalous': string

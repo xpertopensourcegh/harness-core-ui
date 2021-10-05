@@ -1,7 +1,7 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { act, render, fireEvent, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import CESideNav from '../CESideNav'
+import CESideNav, { ProjectLevelFeedback } from '../CESideNav'
 
 const testpath = 'account/:accountId/ce/home'
 const testpathAS = '/account/:accountId/ce/orgs/:orgIdentifier/projects/:projectIdentifier/autostopping-rules/'
@@ -34,5 +34,51 @@ describe('side nav tests', () => {
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
+  })
+
+  test('feedback tooltip appears on hover of project', async () => {
+    const { container, getByText, getByTestId } = render(
+      <TestWrapper path={testpathAP} pathParams={testparams}>
+        <CESideNav />
+      </TestWrapper>
+    )
+
+    act(() => {
+      fireEvent.mouseEnter(getByText('Project'))
+    })
+    let supportTxtNode
+    await waitFor(() => {
+      supportTxtNode = getByTestId('supportText')
+    })
+    expect(supportTxtNode).toBeDefined()
+    expect(container).toMatchSnapshot()
+  })
+
+  test('should fill feedback form', async () => {
+    const { container, getByTestId, getByText } = render(<ProjectLevelFeedback shouldShowFeedbackCta={true} />)
+
+    act(() => {
+      fireEvent.click(getByTestId('fillFeedbackCta'))
+    })
+
+    const option = container.querySelector('input[type="checkbox"]') as HTMLInputElement
+    expect(option).toBeDefined()
+    act(() => {
+      fireEvent.click(option)
+    })
+
+    const moreInfo = container.querySelector('textarea')
+    expect(moreInfo).toBeDefined()
+    act(() => {
+      fireEvent.change(moreInfo!, { target: { value: 'some random info' } })
+    })
+
+    const cancelBtn = getByText('Cancel')
+    act(() => {
+      fireEvent.click(cancelBtn)
+    })
+    const formCta = getByTestId('fillFeedbackCta')
+    await waitFor(() => formCta)
+    expect(formCta).toBeDefined()
   })
 })
