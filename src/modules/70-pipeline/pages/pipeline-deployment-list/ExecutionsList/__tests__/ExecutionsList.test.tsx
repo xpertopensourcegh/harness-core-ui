@@ -11,6 +11,7 @@ import ExecutionsList from '../ExecutionsList'
 import filters from '../../__tests__/filters.json'
 import data from '../../__tests__/execution-list.json'
 
+jest.mock('@common/utils/YamlUtils', () => ({}))
 jest.mock('services/pipeline-ng', () => ({
   useGetFilterList: jest.fn().mockImplementation(() => {
     return { mutate: jest.fn(() => Promise.resolve(filters)), loading: false }

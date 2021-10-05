@@ -13,6 +13,7 @@ import mockCI from './mock-ci.json'
 import mockError from './mock-error.json'
 import ExecutionGraphView from '../ExecutionGraphView'
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
+jest.mock('@common/utils/YamlUtils', () => ({}))
 
 function renderNode(
   data: ExecutionPipelineNode<ExecutionNode>,

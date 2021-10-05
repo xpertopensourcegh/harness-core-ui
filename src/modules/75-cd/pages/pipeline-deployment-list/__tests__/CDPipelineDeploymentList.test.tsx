@@ -13,6 +13,7 @@ import CDPipelineDeploymentList from '../CDPipelineDeploymentList'
 import data from './response.json'
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
+jest.mock('@common/utils/YamlUtils', () => ({}))
 
 jest.mock('@pipeline/components/Dashboards/PipelineSummaryCards/PipelineSummaryCards', () => () => <div />)
 jest.mock('@pipeline/components/Dashboards/BuildExecutionsChart/PipelineBuildExecutionsChart', () => () => <div />)

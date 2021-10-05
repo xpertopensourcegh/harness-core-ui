@@ -4,6 +4,7 @@ import { TestWrapper } from '@common/utils/testUtils'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import CDDashboardPage from '../CDDashboardPage'
 
+jest.mock('@common/utils/YamlUtils', () => ({}))
 jest.mock('framework/exports', () => ({
   ...(jest.requireActual('framework/exports') as any),
   useRouteParams: () => ({

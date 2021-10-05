@@ -14,6 +14,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { usePipelineContext } from '../PipelineContext/PipelineContext'
 import { useVariablesExpression } from '../PiplineHooks/useVariablesExpression'
 import { usePipelineSchema } from '../PipelineSchema/PipelineSchemaContext'
+
 import css from './PipelineYamlView.module.scss'
 
 export const POLL_INTERVAL = 1 /* sec */ * 1000 /* ms */

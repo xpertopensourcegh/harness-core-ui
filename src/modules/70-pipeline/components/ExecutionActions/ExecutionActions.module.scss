@@ -28,3 +28,21 @@
     }
   }
 }
+
+.crossIcon {
+  position: absolute;
+  right: var(--spacing-large);
+  top: var(--spacing-large);
+}
+
+.modalContent {
+  max-height: fit-content;
+  min-height: 150px;
+  height: calc(100% - 48px);
+}
+
+.runPipelineDialog {
+  position: relative;
+  padding-bottom: 0 !important;
+  background-color: var(--form-bg) !important;
+}

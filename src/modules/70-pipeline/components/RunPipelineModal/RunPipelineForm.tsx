@@ -706,7 +706,7 @@ function RunPipelineFormBasic({
                       margin={{ left: 'medium' }}
                       padding={{ top: 'small', bottom: 'small', left: 'xxlarge', right: 'medium' }}
                       disabled
-                      label={getString('runPipelineForm.notifyOnlyMe')}
+                      label={getString('pipeline.runPipelineForm.notifyOnlyMe')}
                       checked={notifyOnlyMe}
                       onChange={e => setNotifyOnlyMe(e.currentTarget.checked)}
                     />
@@ -762,7 +762,7 @@ function RunPipelineFormBasic({
                     pipeline={pipeline}
                     currentPipeline={currentPipeline}
                     values={values}
-                    template={template}
+                    template={template?.data?.inputSetTemplateYaml}
                     canEdit={canEdit}
                     accountId={accountId}
                     projectIdentifier={projectIdentifier}

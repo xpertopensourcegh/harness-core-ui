@@ -571,7 +571,7 @@ exports[`STUDIO MODE should accept values from input sets and submit the form: a
                 <span
                   class="bp3-control-indicator"
                 />
-                runPipelineForm.notifyOnlyMe
+                pipeline.runPipelineForm.notifyOnlyMe
               </label>
             </span>
           </span>

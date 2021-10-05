@@ -39,6 +39,7 @@ filters:
   environmentPlaceholder: Search/Select Environment
   builtTypePlaceholder: Select Build Type
 selectStagePlaceholder: Search/Select Stage
+selectStage: Select Stage
 rightBar:
   editCodebaseConfiguration: Edit Codebase Configuration
 barrierStep:
@@ -815,3 +816,9 @@ gitPullRequest: Git Pull Request
 gitPullRequestNumber: Git Pull Request Number
 expressionsEvaluation: Expressions Evaluation
 deploymentFrequency: 'Deployment Frequency'
+retryPipeline: Retry Pipeline
+stagetoRetryFrom: Select the stage that you would like to resume from
+runAllParallelstages: Run all parallel stages
+runFailedStages: Run only failed stages
+runPipelineForm:
+  notifyOnlyMe: Notify only me about execution status

@@ -2173,9 +2173,13 @@ export interface StringsMap {
   'pipeline.resourceConstraints.infoText': string
   'pipeline.resourceConstraints.title': string
   'pipeline.resourceConstraints.yourPipeline': string
+  'pipeline.retryPipeline': string
   'pipeline.rightBar.editCodebaseConfiguration': string
   'pipeline.runAPipeline': string
+  'pipeline.runAllParallelstages': string
+  'pipeline.runFailedStages': string
   'pipeline.runModalNoPipelineText': string
+  'pipeline.runPipelineForm.notifyOnlyMe': string
   'pipeline.savingInProgress': string
   'pipeline.scriptInputVariables': string
   'pipeline.scriptOutputVariables': string
@@ -2183,10 +2187,12 @@ export interface StringsMap {
   'pipeline.selectOrCreatePipeline.pipelineNameRequired': string
   'pipeline.selectOrCreatePipeline.selectAPipeline': string
   'pipeline.selectOrCreatePipeline.setupHeader': string
+  'pipeline.selectStage': string
   'pipeline.selectStagePlaceholder': string
   'pipeline.serviceDependenciesText': string
   'pipeline.serviceDependencyText': string
   'pipeline.sslVerify': string
+  'pipeline.stagetoRetryFrom': string
   'pipeline.startTime': string
   'pipeline.startedOn': string
   'pipeline.stepCommonFields.ifNotPresent': string

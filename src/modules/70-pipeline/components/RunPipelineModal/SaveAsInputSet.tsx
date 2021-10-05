@@ -9,8 +9,7 @@ import type { PipelineInfoConfig } from 'services/cd-ng'
 import type {
   CreateInputSetForPipelineQueryParams,
   EntityGitDetails,
-  ResponseInputSetResponse,
-  ResponseInputSetTemplateResponse
+  ResponseInputSetResponse
 } from 'services/pipeline-ng'
 import { NameIdDescriptionTags } from '@common/components'
 import { useToaster } from '@common/exports'
@@ -33,7 +32,7 @@ import { getFormattedErrors } from './RunPipelineHelper'
 interface SaveAsInputSetProps {
   pipeline?: PipelineInfoConfig
   currentPipeline?: { pipeline?: PipelineInfoConfig }
-  template: ResponseInputSetTemplateResponse | null
+  template: string | undefined
   values: Values
   accountId: string
   projectIdentifier: string
@@ -155,7 +154,7 @@ const SaveAsInputSet = ({
     [createInputSet, showSuccess, showError, isGitSyncEnabled, pipeline]
   )
 
-  if (pipeline && currentPipeline && template?.data?.inputSetTemplateYaml) {
+  if (pipeline && currentPipeline && template) {
     return (
       <Popover
         disabled={!canEdit}

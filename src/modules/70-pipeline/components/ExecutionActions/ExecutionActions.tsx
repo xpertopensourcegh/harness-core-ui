@@ -1,22 +1,25 @@
 import React from 'react'
-import { Button, Popover, ButtonProps } from '@wings-software/uicore'
-import { Menu, MenuItem } from '@blueprintjs/core'
+import { Button, Popover, ButtonProps, useModalHook } from '@wings-software/uicore'
+import { Dialog, IDialogProps, Menu, MenuItem } from '@blueprintjs/core'
 import { Link, useHistory } from 'react-router-dom'
 
 import { useHandleInterrupt, useHandleStageInterrupt } from 'services/pipeline-ng'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
-import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
 import {
   isExecutionComplete,
   isExecutionActive,
   isExecutionPaused,
-  isExecutionPausing
+  isExecutionPausing,
+  ExecutionStatus,
+  isRetryPipelineAllowed
 } from '@pipeline/utils/statusHelpers'
 import { useStrings } from 'framework/strings'
 import type { StringKeys } from 'framework/strings'
 
 import type { GitQueryParams, PipelineType } from '@common/interfaces/RouteInterfaces'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import RetryPipeline from '../RetryPipeline/RetryPipeline'
 import css from './ExecutionActions.module.scss'
 
 const commonButtonProps: ButtonProps = {
@@ -66,6 +69,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
   const { showSuccess } = useToaster()
   const history = useHistory()
   const { getString } = useStrings()
+  const { RETRY_FAILED_PIPELINE } = useFeatureFlags()
 
   const reRunPipeline = (): void => {
     history.push(
@@ -176,6 +180,46 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
     }
   }
 
+  /*--------------------------------------Retry Pipeline---------------------------------------------*/
+  const retryPipeline = (): void => {
+    showRetryPipelineModal()
+  }
+  const showRetryPipeline = (): boolean => {
+    return isRetryPipelineAllowed(executionStatus) && (RETRY_FAILED_PIPELINE as boolean)
+  }
+
+  const DIALOG_PROPS: IDialogProps = {
+    isOpen: true,
+    usePortal: true,
+    autoFocus: true,
+    canEscapeKeyClose: false,
+    canOutsideClickClose: false,
+    enforceFocus: false,
+    className: css.runPipelineDialog,
+    style: { width: 872, height: 'fit-content', overflow: 'auto' }
+  }
+
+  const [showRetryPipelineModal, hideRetryPipelineModal] = useModalHook(() => {
+    const onClose = (): void => {
+      hideRetryPipelineModal()
+    }
+
+    return (
+      <Dialog onClose={onClose} {...DIALOG_PROPS}>
+        <div className={css.modalContent}>
+          <RetryPipeline
+            onClose={onClose}
+            executionIdentifier={executionIdentifier}
+            pipelineIdentifier={pipelineIdentifier}
+          />
+          <Button minimal icon="cross" onClick={onClose} className={css.crossIcon} />
+        </div>
+      </Dialog>
+    )
+  }, [])
+
+  /*--------------------------------------Retry Pipeline---------------------------------------------*/
+
   function killEvent(e: React.MouseEvent<HTMLDivElement>): void {
     e.preventDefault()
     e.stopPropagation()
@@ -255,6 +299,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
             <MenuItem text={getString(pauseText)} onClick={pausePipeline} disabled={!canPause} />
             <MenuItem text={getString(abortText)} onClick={abortPipeline} disabled={!canAbort} />
             <MenuItem text={getString(resumeText)} onClick={resumePipeline} disabled={!canResume} />
+            {showRetryPipeline() && <MenuItem text={getString('pipeline.retryPipeline')} onClick={retryPipeline} />}
             {stageId ? null : <MenuItem text={getString('pipeline.execution.actions.downloadLogs')} disabled />}
           </Menu>
         </Popover>

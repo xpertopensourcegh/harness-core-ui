@@ -1,0 +1,778 @@
+import React, { FormEvent, useCallback, useEffect, useRef, useState } from 'react'
+import {
+  Button,
+  Text,
+  ButtonVariation,
+  Color,
+  Formik,
+  FormikForm,
+  Heading,
+  Layout,
+  SelectOption,
+  Checkbox,
+  useModalHook
+} from '@wings-software/uicore'
+import { useHistory, useParams } from 'react-router-dom'
+import cx from 'classnames'
+import { parse } from 'yaml'
+import { isEmpty, pick } from 'lodash-es'
+import type { FormikErrors } from 'formik'
+import { Classes, Dialog, Tooltip } from '@blueprintjs/core'
+import { useStrings } from 'framework/strings'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
+import type { PipelineInfoConfig } from 'services/cd-ng'
+
+import VisualYamlToggle, { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
+import {
+  getInputSetForPipelinePromise,
+  InputSetSummaryResponse,
+  useCreateInputSetForPipeline,
+  useGetInputSetsListForPipeline,
+  useGetInputsetYamlV2,
+  useGetMergeInputSetFromPipelineTemplateWithListInput,
+  useGetPipeline,
+  useGetRetryStages,
+  useRetryPipeline
+} from 'services/pipeline-ng'
+
+import type {
+  ExecutionPathProps,
+  GitQueryParams,
+  PipelineType,
+  RunPipelineQueryParams
+} from '@common/interfaces/RouteInterfaces'
+import { useExecutionContext } from '@pipeline/context/ExecutionContext'
+import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
+
+import RbacButton from '@rbac/components/Button/Button'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { usePermission } from '@rbac/hooks/usePermission'
+import { PageSpinner } from '@common/components/Page/PageSpinner'
+import { yamlStringify } from '@common/utils/YamlHelperMethods'
+import { useToaster } from '@common/exports'
+import routes from '@common/RouteDefinitions'
+import { useQueryParams } from '@common/hooks'
+import { ErrorsStrip } from '../ErrorsStrip/ErrorsStrip'
+import GitPopover from '../GitPopover/GitPopover'
+import SelectStagetoRetry from './SelectStagetoRetry'
+import { YamlBuilderMemo } from '../PipelineStudio/PipelineYamlView/PipelineYamlView'
+import factory from '../PipelineSteps/PipelineStepFactory'
+
+import { PipelineInputSetForm } from '../PipelineInputSetForm/PipelineInputSetForm'
+import { StepViewType } from '../AbstractSteps/Step'
+import { clearRuntimeInput, getErrorsList, validatePipeline } from '../PipelineStudio/StepUtil'
+
+import SaveAsInputSet from '../RunPipelineModal/SaveAsInputSet'
+import type { InputSetDTO } from '../InputSetForm/InputSetForm'
+import { InputSetSelector, InputSetSelectorProps, InputSetValue } from '../InputSetSelector/InputSetSelector'
+import SelectExistingInputsOrProvideNew from '../RunPipelineModal/SelectExistingOrProvide'
+import { PreFlightCheckModal } from '../PreFlightCheckModal/PreFlightCheckModal'
+import { mergeTemplateWithInputSetData } from '../RunPipelineModal/RunPipelineHelper'
+import type { Values } from '../PipelineStudio/StepCommands/StepCommandTypes'
+import css from './RetryPipeline.module.scss'
+
+interface RetryPipelineProps {
+  executionIdentifier: string
+  pipelineIdentifier: string
+  onClose: () => void
+}
+
+const RetryPipeline = ({
+  executionIdentifier: executionId,
+  pipelineIdentifier: pipelineIdf,
+  onClose
+}: RetryPipelineProps): React.ReactElement => {
+  const { isGitSyncEnabled } = useAppStore()
+  const { getString } = useStrings()
+  const { showSuccess, showWarning, showError } = useToaster()
+  const history = useHistory()
+
+  const { projectIdentifier, orgIdentifier, pipelineIdentifier, accountId, executionIdentifier, module } =
+    useParams<PipelineType<ExecutionPathProps>>()
+
+  const { pipelineExecutionDetail } = useExecutionContext()
+
+  const repoIdentifier = pipelineExecutionDetail?.pipelineExecutionSummary?.gitDetails?.repoIdentifier
+  const branch = pipelineExecutionDetail?.pipelineExecutionSummary?.gitDetails?.branch
+  const { inputSetType, inputSetValue, inputSetLabel, inputSetRepoIdentifier, inputSetBranch } = useQueryParams<
+    GitQueryParams & RunPipelineQueryParams
+  >()
+  const planExecutionIdentifier = executionId ? executionId : executionIdentifier
+  const pipelineId = pipelineIdf ? pipelineIdf : pipelineIdentifier
+
+  const getInputSetSelected = (): InputSetValue[] => {
+    if (inputSetType) {
+      return [
+        {
+          type: inputSetType as InputSetSummaryResponse['inputSetType'],
+          value: inputSetValue ?? '',
+          label: inputSetLabel ?? '',
+          gitDetails: {
+            repoIdentifier: inputSetRepoIdentifier,
+            branch: inputSetBranch
+          }
+        }
+      ]
+    }
+    return []
+  }
+
+  const [selectedView, setSelectedView] = useState<SelectedView>(SelectedView.VISUAL)
+  const [yamlHandler, setYamlHandler] = useState<YamlBuilderHandlerBinding | undefined>()
+  const [inputSetYaml, setInputSetYaml] = useState('')
+  const [currentPipeline, setCurrentPipeline] = useState<{ pipeline?: PipelineInfoConfig } | undefined>(
+    inputSetYaml ? parse(inputSetYaml) : undefined
+  )
+  const [existingProvide, setExistingProvide] = useState('existing')
+  const [formErrors, setFormErrors] = useState<FormikErrors<InputSetDTO>>({})
+  const [retryClicked, setRetryClicked] = useState(false)
+  const [selectedStage, setSelectedStage] = useState<SelectOption | null>(null)
+  const [selectedInputSets, setSelectedInputSets] = useState<InputSetSelectorProps['value']>(getInputSetSelected())
+  const [isParallelStage, setIsParallelStage] = useState(false)
+  const [isAllStage, setIsAllStage] = useState(true)
+  const [inputSetTemplateYaml, setInputSetTemplateYaml] = useState('')
+  const [skipPreFlightCheck, setSkipPreFlightCheck] = useState(false)
+  const [notifyOnlyMe, setNotifyOnlyMe] = useState(false)
+  const [triggerValidation, setTriggerValidation] = useState(false)
+
+  const yamlTemplate = React.useMemo(() => {
+    return parse(inputSetTemplateYaml || '')?.pipeline
+  }, [inputSetTemplateYaml])
+
+  /*------------------------------------------------API Calls------------------------------*/
+
+  const { data: pipelineResponse, loading: loadingPipeline } = useGetPipeline({
+    pipelineIdentifier: pipelineId,
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      repoIdentifier,
+      branch
+    }
+  })
+
+  const { data: inputSetData, loading: loadingTemplate } = useGetInputsetYamlV2({
+    planExecutionId: planExecutionIdentifier,
+    queryParams: {
+      orgIdentifier,
+      resolveExpressions: false,
+      projectIdentifier,
+      accountIdentifier: accountId
+    },
+    requestOptions: {
+      headers: {
+        'content-type': 'application/yaml'
+      }
+    }
+  })
+
+  const { mutate: retryPipeline } = useRetryPipeline({
+    queryParams: {
+      accountIdentifier: accountId,
+      projectIdentifier,
+      orgIdentifier,
+      moduleType: module,
+      planExecutionId: planExecutionIdentifier,
+      retryStages: (!isParallelStage
+        ? [selectedStage?.value]
+        : (selectedStage?.value as string)?.split(' | ')) as string[],
+      runAllStages: isAllStage
+    },
+    identifier: pipelineId,
+    requestOptions: {
+      headers: {
+        'content-type': 'application/yaml'
+      }
+    }
+  })
+
+  const { mutate: createInputSet, loading: createInputSetLoading } = useCreateInputSetForPipeline({
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      pipelineIdentifier: pipelineId,
+      projectIdentifier,
+      pipelineRepoID: repoIdentifier,
+      pipelineBranch: branch
+    },
+    requestOptions: { headers: { 'content-type': 'application/yaml' } }
+  })
+  const {
+    refetch: getInputSetsList,
+    data: inputSetResponse,
+    loading: inputSetLoading
+  } = useGetInputSetsListForPipeline({
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      pipelineIdentifier: pipelineId,
+      ...(!isEmpty(repoIdentifier) && !isEmpty(branch)
+        ? {
+            repoIdentifier,
+            branch,
+            getDefaultFromOtherRepo: true
+          }
+        : {})
+    },
+    lazy: true
+  })
+
+  const { mutate: mergeInputSet, loading: loadingUpdate } = useGetMergeInputSetFromPipelineTemplateWithListInput({
+    queryParams: {
+      accountIdentifier: accountId,
+      projectIdentifier,
+      orgIdentifier,
+      pipelineIdentifier: pipelineId,
+      ...(!isEmpty(repoIdentifier) && !isEmpty(branch)
+        ? {
+            pipelineRepoID: repoIdentifier,
+            pipelineBranch: branch,
+            repoIdentifier,
+            branch,
+            getDefaultFromOtherRepo: true
+          }
+        : {})
+    }
+  })
+  const { data: stageResponse, loading: retryStageLoading } = useGetRetryStages({
+    planExecutionId: planExecutionIdentifier,
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      pipelineIdentifier: pipelineId,
+      repoIdentifier,
+      branch,
+      getDefaultFromOtherRepo: true
+    }
+  })
+  /*------------------------------------------------API Calls------------------------------*/
+
+  const pipeline: PipelineInfoConfig | undefined = parse(pipelineResponse?.data?.yamlPipeline || '')?.pipeline
+  const valuesPipelineRef = useRef<PipelineInfoConfig>()
+  const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
+    fileName: `retry-pipeline.yaml`,
+    entityType: 'Pipelines',
+    showSnippetSection: false,
+    yamlSanityConfig: {
+      removeEmptyString: false,
+      removeEmptyObject: false,
+      removeEmptyArray: false
+    }
+  }
+  const [canEdit] = usePermission(
+    {
+      resourceScope: {
+        accountIdentifier: accountId,
+        orgIdentifier,
+        projectIdentifier
+      },
+      resource: {
+        resourceType: ResourceType.PIPELINE,
+        resourceIdentifier: pipelineId
+      },
+      permissions: [PermissionIdentifier.EDIT_PIPELINE]
+    },
+    [accountId, orgIdentifier, projectIdentifier, pipelineId]
+  )
+  const inputSets = inputSetResponse?.data?.content
+
+  useEffect(() => {
+    // Won't actually render out RunPipelineForm
+    /* istanbul ignore else */ if (inputSetData?.data?.inputSetYaml) {
+      setInputSetYaml(inputSetData.data?.inputSetYaml)
+    }
+    /* istanbul ignore else */ if (inputSetData?.data?.inputSetTemplateYaml) {
+      setInputSetTemplateYaml(inputSetData.data.inputSetTemplateYaml)
+    }
+  }, [inputSetData])
+
+  useEffect(() => {
+    if (!inputSets?.length) {
+      setExistingProvide('provide')
+    }
+  }, [inputSets])
+
+  useEffect(() => {
+    if (inputSetYaml) {
+      const parsedYAML = parse(inputSetYaml)
+      setExistingProvide('provide')
+      setCurrentPipeline(parsedYAML)
+    }
+  }, [inputSetYaml])
+
+  useEffect(() => {
+    getInputSetsList()
+  }, [])
+
+  useEffect(() => {
+    setTriggerValidation(true)
+  }, [currentPipeline])
+
+  useEffect(() => {
+    if (inputSetTemplateYaml) {
+      const parsedTemplate = parse(inputSetTemplateYaml) as { pipeline: PipelineInfoConfig }
+      if ((selectedInputSets && selectedInputSets.length > 1) || selectedInputSets?.[0]?.type === 'OVERLAY_INPUT_SET') {
+        const fetchData = async (): Promise<void> => {
+          try {
+            const data = await mergeInputSet({
+              inputSetReferences: selectedInputSets.map(item => item.value as string)
+            })
+            if (data?.data?.pipelineYaml) {
+              const inputSetPortion = parse(data.data.pipelineYaml) as {
+                pipeline: PipelineInfoConfig
+              }
+              const toBeUpdated = mergeTemplateWithInputSetData(parsedTemplate, inputSetPortion)
+              setCurrentPipeline(toBeUpdated)
+            }
+          } catch (e) {
+            showError(e?.data?.message || e?.message, undefined, 'pipeline.feth.inputSetTemplateYaml.error')
+          }
+        }
+        fetchData()
+      } else if (selectedInputSets && selectedInputSets.length === 1) {
+        const fetchData = async (): Promise<void> => {
+          const data = await getInputSetForPipelinePromise({
+            inputSetIdentifier: selectedInputSets[0].value as string,
+            queryParams: {
+              accountIdentifier: accountId,
+              projectIdentifier,
+              orgIdentifier,
+              pipelineIdentifier: pipelineId,
+              repoIdentifier: selectedInputSets[0]?.gitDetails?.repoIdentifier,
+              branch: selectedInputSets[0]?.gitDetails?.branch
+            }
+          })
+          if (data?.data?.inputSetYaml) {
+            if (selectedInputSets[0].type === 'INPUT_SET') {
+              const inputSetPortion = pick(parse(data.data.inputSetYaml)?.inputSet, 'pipeline') as {
+                pipeline: PipelineInfoConfig
+              }
+              const toBeUpdated = mergeTemplateWithInputSetData(parsedTemplate, inputSetPortion)
+              setCurrentPipeline(toBeUpdated)
+            }
+          }
+        }
+        fetchData()
+      } else if (!selectedInputSets?.length && !inputSetYaml?.length) {
+        setCurrentPipeline(parsedTemplate)
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inputSetTemplateYaml, selectedInputSets, accountId, projectIdentifier, orgIdentifier, pipelineId])
+
+  useEffect(() => {
+    let errors: FormikErrors<InputSetDTO> = formErrors
+
+    if (
+      triggerValidation &&
+      currentPipeline?.pipeline &&
+      inputSetTemplateYaml &&
+      yamlTemplate &&
+      pipeline &&
+      retryClicked
+    ) {
+      errors = validatePipeline({
+        pipeline: { ...clearRuntimeInput(currentPipeline.pipeline) },
+        template: parse(inputSetTemplateYaml || '')?.pipeline,
+        originalPipeline: currentPipeline.pipeline,
+        getString,
+        viewType: StepViewType.DeploymentForm
+      }) as any
+      setFormErrors(errors)
+      // triggerValidation should be true every time 'currentPipeline' changes
+      // and it needs to be set as false here so that we do not trigger it indefinitely
+      setTriggerValidation(false)
+    }
+  }, [currentPipeline, pipeline, inputSetTemplateYaml, yamlTemplate, selectedInputSets, existingProvide])
+
+  const handleRetryPipeline = useCallback(
+    async (valuesPipeline?: PipelineInfoConfig, forceSkipFlightCheck = false) => {
+      if (Object.keys(formErrors).length) {
+        return
+      }
+      valuesPipelineRef.current = valuesPipeline
+      if (!skipPreFlightCheck && !forceSkipFlightCheck) {
+        // Not skipping pre-flight check - open the new modal
+        showPreflightCheckModal()
+        return
+      }
+
+      try {
+        const response = await retryPipeline(
+          !isEmpty(valuesPipelineRef.current) ? (yamlStringify({ pipeline: valuesPipelineRef.current }) as any) : ''
+        )
+        const retryPipelineData = response.data
+        if (response.status === 'SUCCESS') {
+          if (retryPipelineData && retryPipelineData.planExecution?.uuid) {
+            showSuccess(getString('runPipelineForm.pipelineRunSuccessFully'))
+            history.push(
+              routes.toExecutionPipelineView({
+                orgIdentifier,
+                pipelineIdentifier: pipelineId,
+                projectIdentifier,
+                executionIdentifier: retryPipelineData?.planExecution?.uuid || '',
+                accountId,
+                module
+              })
+            )
+          }
+        }
+      } catch (error) {
+        showWarning(error?.data?.message || getString('runPipelineForm.runPipelineFailed'))
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [
+      retryPipeline,
+      showWarning,
+      showSuccess,
+      pipelineId,
+      history,
+      orgIdentifier,
+      module,
+      projectIdentifier,
+      onClose,
+      accountId,
+      skipPreFlightCheck,
+      formErrors,
+      isParallelStage,
+      selectedStage,
+      isAllStage
+    ]
+  )
+
+  const checkIfRuntimeInputsNotPresent = (): string | undefined => {
+    if (pipeline && !inputSetTemplateYaml) {
+      return getString('pipeline.inputSets.noRuntimeInputsWhileExecution')
+    }
+  }
+
+  const handleModeSwitch = useCallback(
+    (view: SelectedView) => {
+      if (view === SelectedView.VISUAL) {
+        const presentPipeline = parse(yamlHandler?.getLatestYaml() || '') as { pipeline: PipelineInfoConfig }
+        setCurrentPipeline(presentPipeline)
+      }
+      setSelectedView(view)
+    },
+    [yamlHandler?.getLatestYaml]
+  )
+
+  const handleStageChange = (value: SelectOption): void => {
+    if (value.label.includes('|')) {
+      setIsParallelStage(true)
+    } else {
+      setIsParallelStage(false)
+    }
+    setSelectedStage(value)
+  }
+  const handleStageType = (e: FormEvent<HTMLInputElement>): void => {
+    if ((e.target as any).value === 'allparallel') {
+      setIsAllStage(true)
+    } else {
+      setIsAllStage(false)
+    }
+  }
+  const onExistingProvideRadioChange = (ev: FormEvent<HTMLInputElement>): void => {
+    setExistingProvide((ev.target as HTMLInputElement).value)
+  }
+  const getRetryPipelineDisabledState = (): boolean => {
+    return getErrorsList(formErrors).errorCount > 0 || !stageResponse?.data?.groups?.length
+  }
+
+  const [showPreflightCheckModal, hidePreflightCheckModal] = useModalHook(() => {
+    return (
+      <Dialog
+        className={cx(css.preFlightCheckModal, Classes.DIALOG)}
+        enforceFocus={false}
+        isOpen
+        onClose={hidePreflightCheckModal}
+      >
+        <PreFlightCheckModal
+          pipeline={valuesPipelineRef.current}
+          module={module}
+          accountId={accountId}
+          orgIdentifier={orgIdentifier}
+          projectIdentifier={projectIdentifier}
+          pipelineIdentifier={pipelineId}
+          branch={branch}
+          repoIdentifier={repoIdentifier}
+          onCloseButtonClick={hidePreflightCheckModal}
+          onContinuePipelineClick={() => {
+            hidePreflightCheckModal()
+            handleRetryPipeline(valuesPipelineRef.current, true)
+          }}
+        />
+      </Dialog>
+    )
+  }, [isParallelStage, isAllStage, selectedStage])
+
+  const renderPipelineInputSetForm = (): React.ReactElement | undefined => {
+    if (loadingUpdate) {
+      return (
+        <PageSpinner
+          className={css.inputSetsUpdatingSpinner}
+          message={getString('pipeline.inputSets.applyingInputSets')}
+        />
+      )
+    }
+    const templateSource = inputSetTemplateYaml
+    if (currentPipeline?.pipeline && pipeline && templateSource) {
+      return (
+        <>
+          {existingProvide === 'existing' ? <div className={css.divider} /> : null}
+          <PipelineInputSetForm
+            originalPipeline={{ ...pipeline }}
+            template={parse(templateSource)?.pipeline}
+            readonly={false}
+            path=""
+            viewType={StepViewType.DeploymentForm}
+            isRunPipelineForm
+            maybeContainerClass={existingProvide === 'provide' ? css.inputSetFormRunPipeline : ''}
+          />
+        </>
+      )
+    }
+  }
+
+  if (loadingPipeline || loadingTemplate || inputSetLoading) {
+    return <PageSpinner />
+  }
+
+  return (
+    <Formik
+      initialValues={(currentPipeline?.pipeline ? clearRuntimeInput(currentPipeline.pipeline) : {}) as Values}
+      formName="retryPipeline"
+      onSubmit={values => {
+        handleRetryPipeline(values as any)
+      }}
+      enableReinitialize
+      validate={async values => {
+        let errors: FormikErrors<InputSetDTO> = formErrors
+
+        setCurrentPipeline({ ...currentPipeline, pipeline: values as PipelineInfoConfig })
+
+        function validateErrors(): Promise<FormikErrors<InputSetDTO>> {
+          return new Promise(resolve => {
+            setTimeout(() => {
+              const validatedErrors =
+                (validatePipeline({
+                  pipeline: values as PipelineInfoConfig,
+                  template: parse(inputSetTemplateYaml || '')?.pipeline,
+                  originalPipeline: pipeline,
+                  getString,
+                  viewType: StepViewType.DeploymentForm
+                }) as any) || formErrors
+              resolve(validatedErrors)
+            }, 300)
+          })
+        }
+
+        errors = await validateErrors()
+
+        if (typeof errors !== undefined && retryClicked) {
+          setFormErrors(errors)
+        }
+        return errors
+      }}
+    >
+      {({ submitForm, values }) => {
+        const noRuntimeInputs = checkIfRuntimeInputsNotPresent()
+        return (
+          <Layout.Vertical>
+            <>
+              <div className={css.runModalHeader}>
+                <Heading
+                  level={2}
+                  font={{ weight: 'bold' }}
+                  color={Color.BLACK_100}
+                  className={css.runModalHeaderTitle}
+                >
+                  {getString('pipeline.retryPipeline')}
+                </Heading>
+                {isGitSyncEnabled && (
+                  <GitSyncStoreProvider>
+                    <GitPopover
+                      data={pipelineResponse?.data?.gitDetails ?? {}}
+                      iconProps={{ margin: { left: 'small', top: 'xsmall' } }}
+                    />
+                  </GitSyncStoreProvider>
+                )}
+                <div className={css.optionBtns}>
+                  <VisualYamlToggle
+                    initialSelectedView={selectedView}
+                    beforeOnChange={(nextMode, callback) => {
+                      handleModeSwitch(nextMode)
+                      callback(nextMode)
+                    }}
+                    disableYaml={!inputSetTemplateYaml}
+                  />
+                </div>
+              </div>
+              <ErrorsStrip formErrors={formErrors} />
+            </>
+            {selectedView === SelectedView.VISUAL ? (
+              <div className={css.runModalFormContent}>
+                <FormikForm>
+                  {!retryStageLoading && stageResponse?.data && (
+                    <SelectStagetoRetry
+                      handleStageChange={handleStageChange}
+                      selectedStage={selectedStage}
+                      stageResponse={stageResponse?.data}
+                      isParallelStage={isParallelStage}
+                      handleStageType={handleStageType}
+                      isAllStage={isAllStage}
+                    />
+                  )}
+                  {noRuntimeInputs ? (
+                    <Layout.Horizontal padding="medium" margin="medium">
+                      <Text>{noRuntimeInputs}</Text>
+                    </Layout.Horizontal>
+                  ) : (
+                    !!inputSets?.length && (
+                      <Layout.Vertical
+                        className={css.pipelineHeader}
+                        padding={{ top: 'xlarge', left: 'xlarge', right: 'xlarge' }}
+                      >
+                        <SelectExistingInputsOrProvideNew
+                          existingProvide={existingProvide}
+                          onExistingProvideRadioChange={onExistingProvideRadioChange}
+                        />
+                        {pipeline && currentPipeline && inputSetTemplateYaml && existingProvide === 'existing' && (
+                          <GitSyncStoreProvider>
+                            <InputSetSelector
+                              pipelineIdentifier={pipelineId}
+                              onChange={inputsets => {
+                                setSelectedInputSets(inputsets)
+                              }}
+                              value={selectedInputSets}
+                            />
+                          </GitSyncStoreProvider>
+                        )}
+                      </Layout.Vertical>
+                    )
+                  )}
+
+                  {renderPipelineInputSetForm()}
+                  {existingProvide === 'existing' && selectedInputSets && selectedInputSets?.length > 0 && (
+                    <div className={css.noPipelineInputSetForm} />
+                  )}
+                </FormikForm>
+              </div>
+            ) : (
+              <div className={css.editor}>
+                <Layout.Vertical className={css.content} padding="xlarge">
+                  <YamlBuilderMemo
+                    {...yamlBuilderReadOnlyModeProps}
+                    existingJSON={{ pipeline: values }}
+                    bind={setYamlHandler}
+                    schema={{}}
+                    invocationMap={factory.getInvocationMap()}
+                    height="55vh"
+                    width="100%"
+                    showSnippetSection={false}
+                    isEditModeSupported={canEdit}
+                  />
+                </Layout.Vertical>
+              </div>
+            )}
+
+            <Layout.Horizontal padding={{ left: 'xlarge', right: 'xlarge', top: 'medium', bottom: 'medium' }}>
+              <Checkbox
+                label={getString('pre-flight-check.skipCheckBtn')}
+                background={Color.GREY_100}
+                color={skipPreFlightCheck ? Color.PRIMARY_8 : Color.BLACK}
+                className={css.footerCheckbox}
+                padding={{ top: 'small', bottom: 'small', left: 'xxlarge', right: 'medium' }}
+                checked={skipPreFlightCheck}
+                onChange={e => setSkipPreFlightCheck(e.currentTarget.checked)}
+              />
+              <Tooltip position="top" content={getString('featureNA')}>
+                <Checkbox
+                  background={notifyOnlyMe ? Color.PRIMARY_2 : Color.GREY_100}
+                  color={notifyOnlyMe ? Color.PRIMARY_7 : Color.BLACK}
+                  className={css.footerCheckbox}
+                  margin={{ left: 'medium' }}
+                  padding={{ top: 'small', bottom: 'small', left: 'xxlarge', right: 'medium' }}
+                  disabled
+                  label={getString('pipeline.runPipelineForm.notifyOnlyMe')}
+                  checked={notifyOnlyMe}
+                  onChange={e => setNotifyOnlyMe(e.currentTarget.checked)}
+                />
+              </Tooltip>
+            </Layout.Horizontal>
+
+            <Layout.Horizontal
+              padding={{ left: 'xlarge', right: 'xlarge', top: 'large', bottom: 'large' }}
+              flex={{ justifyContent: 'space-between', alignItems: 'center' }}
+              className={css.footer}
+            >
+              <Layout.Horizontal className={cx(css.actionButtons)}>
+                <RbacButton
+                  variation={ButtonVariation.PRIMARY}
+                  intent="success"
+                  type="submit"
+                  text={getString('pipeline.retryPipeline')}
+                  onClick={event => {
+                    event.stopPropagation()
+                    setRetryClicked(true)
+                    if ((!selectedInputSets || selectedInputSets.length === 0) && existingProvide === 'existing') {
+                      setExistingProvide('provide')
+                    } else {
+                      submitForm()
+                    }
+                  }}
+                  permission={{
+                    resource: {
+                      resourceIdentifier: pipeline?.identifier as string,
+                      resourceType: ResourceType.PIPELINE
+                    },
+                    permission: PermissionIdentifier.EXECUTE_PIPELINE
+                  }}
+                  disabled={getRetryPipelineDisabledState()}
+                />
+                <div className={css.secondaryButton}>
+                  <Button
+                    variation={ButtonVariation.SECONDARY}
+                    id="cancel-runpipeline"
+                    text={getString('cancel')}
+                    margin={{ left: 'medium' }}
+                    background={Color.GREY_50}
+                    onClick={() => {
+                      if (onClose) {
+                        onClose()
+                      }
+                    }}
+                  />
+                </div>
+              </Layout.Horizontal>
+              <SaveAsInputSet
+                pipeline={pipeline}
+                currentPipeline={currentPipeline}
+                values={values}
+                template={inputSetTemplateYaml}
+                canEdit={canEdit}
+                accountId={accountId}
+                projectIdentifier={projectIdentifier}
+                orgIdentifier={orgIdentifier}
+                createInputSet={createInputSet}
+                createInputSetLoading={createInputSetLoading}
+                repoIdentifier={repoIdentifier}
+                branch={branch}
+                isGitSyncEnabled={isGitSyncEnabled}
+                setFormErrors={setFormErrors}
+                getInputSetsList={getInputSetsList}
+              />
+            </Layout.Horizontal>
+          </Layout.Vertical>
+        )
+      }}
+    </Formik>
+  )
+}
+export default RetryPipeline

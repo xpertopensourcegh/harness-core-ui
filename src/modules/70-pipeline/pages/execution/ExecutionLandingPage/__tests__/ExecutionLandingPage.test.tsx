@@ -30,6 +30,7 @@ jest.mock('services/pipeline-ng', () => ({
 }))
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
+jest.mock('@common/utils/YamlUtils', () => ({}))
 
 jest.useFakeTimers()
 

@@ -5,6 +5,7 @@ import ServiceDetails from '@cd/components/ServiceDetails/ServiceDetails'
 import * as cdngServices from 'services/cd-ng'
 
 jest.mock('highcharts-react-official', () => () => <></>)
+jest.mock('@common/utils/YamlUtils', () => ({}))
 
 jest.spyOn(cdngServices, 'useGetActiveServiceInstanceSummary').mockImplementation(() => {
   return { loading: false, error: false, data: [], refetch: jest.fn() } as any
