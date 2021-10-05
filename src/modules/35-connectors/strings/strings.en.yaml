@@ -371,7 +371,7 @@ delegate:
   matchingDelegates: matching delegates
   waitingForConnection: Waiting for connection
   noDelegates: You have no delegates
-  noMatchingDelegate: No eligible delegates found. Install a new delegate or continue to save.
+  noMatchingDelegate: No eligible delegates matching the given tags [{{tags}}]. Please Install a new delegate with the desired tags or continue to save.
   delegateselectionPlaceholder: Select or Enter Delegate Selectors
   noMatchingDelegatesActive: None of the matching delegates are in active state.
   couldNotFetch: Failed to update the delegate list, Will try again in {{pollingInterval}}

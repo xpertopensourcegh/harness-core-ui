@@ -77,29 +77,31 @@ export interface DelegateSelectorProps {
 
 type InitialFormData = { delegateSelectors: Array<string> }
 
-const NoMatchingDelegateWarning: React.FC<{ delegatesFound: DelegatesFoundState }> = props => {
-  const { getString } = useStrings()
-  const { delegatesFound } = props
-  if (delegatesFound === DelegatesFoundState.ActivelyConnected) {
-    return <></>
+const NoMatchingDelegateWarning: React.FC<{ delegatesFound: DelegatesFoundState; delegateSelectors: string[] }> =
+  props => {
+    const { getString } = useStrings()
+    const { delegatesFound, delegateSelectors } = props
+    if (delegatesFound === DelegatesFoundState.ActivelyConnected) {
+      return <></>
+    }
+    const message =
+      delegatesFound === DelegatesFoundState.NotConnected
+        ? getString('connectors.delegate.noMatchingDelegatesActive')
+        : getString('connectors.delegate.noMatchingDelegate', { tags: delegateSelectors.join(', ') })
+    const dataName =
+      delegatesFound === DelegatesFoundState.NotConnected ? 'delegateNoActiveMatchWarning' : 'delegateNoMatchWarning'
+    return (
+      <Text
+        icon="warning-sign"
+        iconProps={{ margin: { right: 'xsmall' }, color: Color.YELLOW_900 }}
+        font={{ size: 'small', weight: 'semi-bold' }}
+        data-name={dataName}
+        className={css.noDelegateWarning}
+      >
+        {message}
+      </Text>
+    )
   }
-  const message =
-    delegatesFound === DelegatesFoundState.NotConnected
-      ? getString('connectors.delegate.noMatchingDelegatesActive')
-      : getString('connectors.delegate.noMatchingDelegate')
-  const dataName =
-    delegatesFound === DelegatesFoundState.NotConnected ? 'delegateNoActiveMatchWarning' : 'delegateNoMatchWarning'
-  return (
-    <Text
-      icon="warning-sign"
-      iconProps={{ margin: { right: 'xsmall' }, color: Color.YELLOW_900 }}
-      font={{ size: 'small', weight: 'semi-bold' }}
-      data-name={dataName}
-    >
-      {message}
-    </Text>
-  )
-}
 
 const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSelectorProps> = props => {
   const { showSuccess, showError } = useToaster()
@@ -343,7 +345,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
                 rightIcon="chevron-right"
                 data-testid="delegateSaveAndContinue"
               />
-              <NoMatchingDelegateWarning delegatesFound={delegatesFound} />
+              <NoMatchingDelegateWarning delegatesFound={delegatesFound} delegateSelectors={delegateSelectors} />
             </Layout.Horizontal>
           </Form>
         </Formik>

@@ -753,7 +753,7 @@ exports[`DelegateSelectorStep should render DelegateSelectorStep component 1`] =
               </span>
             </button>
             <p
-              class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+              class="StyledProps--font StyledProps--main noDelegateWarning StyledProps--font-size-small StyledProps--font-weight-semi-bold"
               data-name="delegateNoMatchWarning"
               style="display: flex; align-items: center;"
             >

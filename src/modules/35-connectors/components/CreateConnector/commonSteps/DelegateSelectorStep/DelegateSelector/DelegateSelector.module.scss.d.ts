@@ -11,5 +11,6 @@ declare const styles: {
   readonly troubleshoot: string
   readonly tagContainer: string
   readonly saveAndContinue: string
+  readonly noDelegateWarning: string
 }
 export default styles
