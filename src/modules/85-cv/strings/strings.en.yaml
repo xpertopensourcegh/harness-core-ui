@@ -558,7 +558,7 @@ monitoredServices:
     last3Days: Last 3 days
     last7Days: '{{ $.common.last7days }}'
     overallHealthScore: Overall Health Score
-    noDataAvailableForHealthScore: No healthscore data available in the last {{duration}}
+    noDataAvailableForHealthScore: No healthscore data available in the {{duration}}
     pleaseSelectAnotherTimeWindow: Please select another time window.
     selectTimeline: Select a timeline to see metric & logs data
     metricsAndLogs: Metrics & Logs

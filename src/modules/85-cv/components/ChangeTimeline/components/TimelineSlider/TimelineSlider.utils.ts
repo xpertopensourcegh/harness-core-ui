@@ -127,11 +127,13 @@ export function calculateSliderDragEndData(
 }
 
 export function calculateSliderEndPoints(aspects: SliderAspects, containerWidth: number): SliderEndpoints {
+  const startX = Math.max(0, aspects.leftOffset)
+  const endX = Math.min(containerWidth, aspects.width + aspects.leftOffset)
   return {
-    startX: aspects.leftOffset,
-    endX: aspects.width + aspects.leftOffset,
-    startXPercentage: aspects.leftOffset / containerWidth,
-    endXPercentage: (aspects.width + aspects.leftOffset) / containerWidth
+    startX,
+    endX,
+    startXPercentage: startX / containerWidth,
+    endXPercentage: endX / containerWidth
   }
 }
 

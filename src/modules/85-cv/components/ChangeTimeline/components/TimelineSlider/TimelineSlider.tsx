@@ -64,7 +64,7 @@ export default function TimelineSlider(props: TimelineSliderProps): JSX.Element 
         onSliderDragEnd?.(calculateSliderDragEndData(updatedSliderAspects, e, containerWidth))
       }
     },
-    [width, leftOffset, rightHandlePosition, leftHandlePosition, containerWidth, hideSlider]
+    [width, leftOffset, rightHandlePosition, leftHandlePosition, containerWidth, hideSlider, onSliderDragEnd]
   )
 
   useLayoutEffect(() => {
