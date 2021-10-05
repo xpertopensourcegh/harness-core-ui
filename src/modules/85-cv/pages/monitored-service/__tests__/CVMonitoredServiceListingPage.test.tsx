@@ -169,12 +169,12 @@ describe('Monitored Service list', () => {
           error: {}
         } as any)
     )
-    const { getByText } = render(
+    const { container } = render(
       <TestWrapper {...testWrapperProps}>
         <CVMonitoredServiceListingPage />
       </TestWrapper>
     )
 
-    await waitFor(() => expect(getByText('common.loading')).toBeDefined())
+    await waitFor(() => expect(container.querySelector('[class*="spinner"]')).not.toBeNull)
   })
 })

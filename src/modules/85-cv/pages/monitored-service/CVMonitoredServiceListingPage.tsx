@@ -5,7 +5,7 @@ import { useParams, useHistory, Link } from 'react-router-dom'
 import styled from '@emotion/styled'
 import cx from 'classnames'
 import { Page, useToaster } from '@common/exports'
-import { Table } from '@common/components'
+import { PageSpinner, Table } from '@common/components'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
@@ -233,6 +233,23 @@ function CVMonitoredServiceListingPage(): JSX.Element {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const renderDependencyData = useCallback(() => {
+    if (serviceDependencyGraphLoading) {
+      return <PageSpinner />
+    } else if (dependencyData) {
+      return (
+        <Container>
+          <DependencyGraph dependencyData={dependencyData} options={{ chart: { height: 550 } }} />
+          <Container margin={{ top: 'xxxlarge' }}>
+            <ServiceDependenciesLegend />
+          </Container>
+        </Container>
+      )
+    } else {
+      return <></>
+    }
+  }, [dependencyData, serviceDependencyGraphLoading])
+
   return (
     <BGColorWrapper>
       <MonitoringServicesHeader height={'80px'}>
@@ -310,20 +327,15 @@ function CVMonitoredServiceListingPage(): JSX.Element {
         </HorizontalLayout>
       </MonitoringServicesHeader>
       <PageBody>
-        {selectedView === Views.GRAPH && dependencyData ? (
-          <Container>
-            <DependencyGraph dependencyData={dependencyData} options={{ chart: { height: 550 } }} />
-            <Container margin={{ top: 'xxxlarge' }}>
-              <ServiceDependenciesLegend />
-            </Container>
-          </Container>
+        {selectedView === Views.GRAPH ? (
+          renderDependencyData()
         ) : selectedView === Views.LIST ? (
           <>
             <ServiceCount font={{ size: 'medium' }}>
               {getString('cv.monitoredServices.serviceCount', { serviceCount: content.length })}
             </ServiceCount>
 
-            {showPageSpinner(loading, isDeleting, serviceDependencyGraphLoading)}
+            {showPageSpinner(loading, isDeleting)}
             {content.length > 0 ? (
               <Table
                 sortable={true}

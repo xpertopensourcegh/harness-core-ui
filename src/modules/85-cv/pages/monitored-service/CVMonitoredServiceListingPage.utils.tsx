@@ -168,10 +168,6 @@ export const calculateChangePercentage = (changeSummary: ChangeSummaryDTO): { co
   return DefaultChangePercentage
 }
 
-export const showPageSpinner = (
-  loading: boolean,
-  isDeleting: boolean,
-  serviceDependencyGraphLoading: boolean
-): JSX.Element => {
-  return loading || isDeleting || serviceDependencyGraphLoading ? <PageSpinner /> : <></>
+export const showPageSpinner = (loading: boolean, isDeleting: boolean): JSX.Element => {
+  return loading || isDeleting ? <PageSpinner /> : <></>
 }
