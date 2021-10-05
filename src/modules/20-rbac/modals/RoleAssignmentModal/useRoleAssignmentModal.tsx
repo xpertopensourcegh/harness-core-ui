@@ -11,6 +11,7 @@ import css from './useRoleAssignmentModal.module.scss'
 
 export interface UseRoleAssignmentModalProps {
   onSuccess: () => void
+  onUserAdded?: () => void
 }
 
 export enum PrincipalType {
@@ -28,7 +29,10 @@ export interface UseRoleAssignmentModalReturn {
   closeRoleAssignmentModal: () => void
 }
 
-export const useRoleAssignmentModal = ({ onSuccess }: UseRoleAssignmentModalProps): UseRoleAssignmentModalReturn => {
+export const useRoleAssignmentModal = ({
+  onSuccess,
+  onUserAdded
+}: UseRoleAssignmentModalProps): UseRoleAssignmentModalReturn => {
   const [roleBindings, setRoleBindings] = useState<RoleAssignmentMetadataDTO[]>()
   const [principalInfo, setPrincipalInfo] = useState<UserMetadataDTO | UserGroupDTO | ServiceAccountDTO>()
   const [principal, setPrincipal] = useState<PrincipalType>(PrincipalType.USER)
@@ -42,6 +46,10 @@ export const useRoleAssignmentModal = ({ onSuccess }: UseRoleAssignmentModalProp
             isInvite={!principalInfo}
             onSubmit={() => {
               onSuccess()
+              hideModal()
+            }}
+            onUserAdded={() => {
+              onUserAdded?.()
               hideModal()
             }}
             onSuccess={onSuccess}

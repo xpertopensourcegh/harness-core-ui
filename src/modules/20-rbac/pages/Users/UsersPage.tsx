@@ -16,7 +16,7 @@ import ActiveUserListView from './views/ActiveUsersListView'
 import PendingUserListView from './views/PendingUsersListView'
 import css from './UsersPage.module.scss'
 
-enum Views {
+export enum Views {
   PENDING = 'PENDING'
 }
 
@@ -37,6 +37,9 @@ const UsersPage: React.FC = () => {
         search: `view=${Views.PENDING}`
       })
       setReload(false)
+    },
+    onUserAdded: () => {
+      setReload(true)
     }
   })
 
@@ -96,9 +99,14 @@ const UsersPage: React.FC = () => {
         }
       />
       {view == Views.PENDING ? (
-        <PendingUserListView reload={reload} searchTerm={searchParam} />
+        <PendingUserListView shouldReload={reload} searchTerm={searchParam} />
       ) : (
-        <ActiveUserListView searchTerm={searchParam} openRoleAssignmentModal={openRoleAssignmentModal} />
+        <ActiveUserListView
+          shouldReload={reload}
+          onRefetch={() => setReload(false)}
+          searchTerm={searchParam}
+          openRoleAssignmentModal={openRoleAssignmentModal}
+        />
       )}
     </>
   )

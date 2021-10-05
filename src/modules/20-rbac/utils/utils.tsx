@@ -11,7 +11,7 @@ import {
   ModalErrorHandlerBinding
 } from '@wings-software/uicore'
 import type { StringsMap } from 'stringTypes'
-import type { AccessControlCheckError, ResponseListInviteOperationResponse } from 'services/cd-ng'
+import type { AccessControlCheckError } from 'services/cd-ng'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import type {
   Assignment,
@@ -71,12 +71,22 @@ export const UserItemRenderer: ItemRenderer<UserItem> = (item, { handleClick }) 
     onClick={handleClick}
   />
 )
+
+export enum InvitationStatus {
+  USER_INVITED_SUCCESSFULLY = 'USER_INVITED_SUCCESSFULLY',
+  USER_ADDED_SUCCESSFULLY = 'USER_ADDED_SUCCESSFULLY',
+  USER_ALREADY_ADDED = 'USER_ALREADY_ADDED',
+  USER_ALREADY_INVITED = 'USER_ALREADY_INVITED',
+  FAIL = 'FAIL'
+}
+
 interface HandleInvitationResponse {
-  responseType: Pick<ResponseListInviteOperationResponse, 'data'>
+  responseType: InvitationStatus
   getString: (key: keyof StringsMap, vars?: Record<string, any> | undefined) => string
   showSuccess: (message: string | ReactNode, timeout?: number, key?: string) => void
   modalErrorHandler?: ModalErrorHandlerBinding
   onSubmit?: () => void
+  onUserAdded?: () => void
 }
 
 export const handleInvitationResponse = ({
@@ -84,16 +94,21 @@ export const handleInvitationResponse = ({
   getString,
   showSuccess,
   modalErrorHandler,
-  onSubmit
+  onSubmit,
+  onUserAdded
 }: HandleInvitationResponse): void => {
   switch (responseType) {
-    case 'USER_INVITED_SUCCESSFULLY': {
+    case InvitationStatus.USER_INVITED_SUCCESSFULLY: {
       onSubmit?.()
       return showSuccess(getString('rbac.usersPage.invitationSuccess'))
     }
-    case 'USER_ALREADY_ADDED':
+    case InvitationStatus.USER_ADDED_SUCCESSFULLY: {
+      onUserAdded?.()
+      return showSuccess(getString('rbac.usersPage.userAddedSuccess'))
+    }
+    case InvitationStatus.USER_ALREADY_ADDED:
       return showSuccess(getString('rbac.usersPage.userAlreadyAdded'))
-    case 'USER_ALREADY_INVITED':
+    case InvitationStatus.USER_ALREADY_INVITED:
       return showSuccess(getString('rbac.usersPage.userAlreadyInvited'))
     default:
       return modalErrorHandler?.showDanger(getString('rbac.usersPage.invitationError'))

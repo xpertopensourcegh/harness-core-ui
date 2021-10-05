@@ -297,7 +297,6 @@ const UserGroupsListView: React.FC<UserGroupsListViewProps> = props => {
       className={css.table}
       columns={columns}
       data={data?.data?.content || []}
-      // TODO: enable when page is ready
       onRowClick={userGroup => {
         history.push(
           routes.toUserGroupDetails({

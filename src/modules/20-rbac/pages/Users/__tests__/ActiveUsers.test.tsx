@@ -53,7 +53,7 @@ jest.mock('@common/hooks/useMutateAsGet')
 jest.mock('services/cd-ng', () => ({
   useRemoveUser: jest.fn().mockImplementation(() => ({ mutate: deleteActiveUserMock })),
   useUnlockUser: jest.fn().mockImplementation(() => ({ mutate: unlockActiveUserMock })),
-  useSendInvite: jest.fn().mockImplementation(() => ({ mutate: createUserMock })),
+  useAddUsers: jest.fn().mockImplementation(() => ({ mutate: createUserMock })),
   useGetAggregatedUsers: jest.fn(() => ({
     cancel: jest.fn(),
     loading: false,

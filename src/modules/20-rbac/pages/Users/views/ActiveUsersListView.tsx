@@ -30,6 +30,8 @@ import css from './UserListView.module.scss'
 
 interface ActiveUserListViewProps {
   searchTerm?: string
+  shouldReload?: boolean
+  onRefetch?: () => void
   openRoleAssignmentModal: (
     type?: PrincipalType,
     principalInfo?: UserGroupDTO | UserMetadataDTO,
@@ -237,7 +239,12 @@ const RenderColumnMenu: Renderer<CellProps<UserAggregate>> = ({ row, column }) =
   )
 }
 
-const ActiveUserListView: React.FC<ActiveUserListViewProps> = ({ searchTerm, openRoleAssignmentModal }) => {
+const ActiveUserListView: React.FC<ActiveUserListViewProps> = ({
+  searchTerm,
+  openRoleAssignmentModal,
+  shouldReload,
+  onRefetch
+}) => {
   const { getString } = useStrings()
   const history = useHistory()
   const { accountId, orgIdentifier, projectIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()
@@ -267,6 +274,13 @@ const ActiveUserListView: React.FC<ActiveUserListViewProps> = ({ searchTerm, ope
   useEffect(() => {
     if (searchTerm) setPage(0)
   }, [searchTerm])
+
+  useEffect(() => {
+    if (shouldReload) {
+      refetch()
+      onRefetch?.()
+    }
+  }, [shouldReload])
 
   const columns: Column<UserAggregate>[] = useMemo(
     () => [

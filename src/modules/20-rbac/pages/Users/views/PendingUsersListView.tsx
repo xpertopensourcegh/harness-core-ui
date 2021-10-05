@@ -20,7 +20,7 @@ import css from './UserListView.module.scss'
 
 interface PendingUserListViewProps {
   searchTerm?: string
-  reload?: boolean
+  shouldReload?: boolean
 }
 
 const RenderColumnUser: Renderer<CellProps<Invite>> = ({ row }) => {
@@ -171,7 +171,7 @@ const RenderColumnMenu: Renderer<CellProps<Invite>> = ({ row, column }) => {
   )
 }
 
-const PendingUserListView: React.FC<PendingUserListViewProps> = ({ searchTerm, reload }) => {
+const PendingUserListView: React.FC<PendingUserListViewProps> = ({ searchTerm, shouldReload }) => {
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const [page, setPage] = useState(0)
@@ -202,8 +202,8 @@ const PendingUserListView: React.FC<PendingUserListViewProps> = ({ searchTerm, r
   })
 
   useEffect(() => {
-    reload && refetch()
-  }, [reload])
+    shouldReload && refetch()
+  }, [shouldReload])
 
   const columns: Column<Invite>[] = useMemo(
     () => [

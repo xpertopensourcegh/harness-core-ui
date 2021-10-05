@@ -19,32 +19,27 @@ import { defaultTo } from 'lodash-es'
 import { useToaster } from '@common/components'
 import { useCreateRoleAssignments, RoleAssignment as RBACRoleAssignment } from 'services/rbac'
 import { useStrings } from 'framework/strings'
-import {
-  UserMetadataDTO,
-  useSendInvite,
-  CreateInvite,
-  RoleAssignmentMetadataDTO,
-  ResponseListInviteOperationResponse,
-  useGetUsers
-} from 'services/cd-ng'
+import { UserMetadataDTO, RoleAssignmentMetadataDTO, useGetUsers, useAddUsers, AddUsers } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import {
   UserItemRenderer,
   handleInvitationResponse,
   getScopeBasedDefaultAssignment,
-  UserTagRenderer
+  UserTagRenderer,
+  InvitationStatus
 } from '@rbac/utils/utils'
 import { getIdentifierFromValue, getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import { useMutateAsGet } from '@common/hooks/useMutateAsGet'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import UserGroupsInput from '@common/components/UserGroupsInput/UserGroupsInput'
-import RoleAssignmentForm, { InviteType } from './RoleAssignmentForm'
+import RoleAssignmentForm from './RoleAssignmentForm'
 
 interface UserRoleAssignmentData {
   roleBindings?: RoleAssignmentMetadataDTO[]
   user?: UserMetadataDTO
   onSubmit?: () => void
   onSuccess?: () => void
+  onUserAdded?: () => void
   isInvite?: boolean
 }
 
@@ -78,7 +73,7 @@ export interface UserRoleAssignmentValues {
 }
 
 const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
-  const { user, roleBindings, onSubmit, isInvite, onSuccess } = props
+  const { user, roleBindings, onSubmit, isInvite, onSuccess, onUserAdded } = props
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const scope = getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
   const { getString } = useStrings()
@@ -89,7 +84,7 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
   })
 
-  const { mutate: sendInvitation, loading: sending } = useSendInvite({
+  const { mutate: sendInvitation, loading: sending } = useAddUsers({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier: orgIdentifier,
@@ -168,8 +163,8 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
       modalErrorHandler?.showDanger(getString('rbac.roleAssignment.assignmentValidation'))
       return
     }
-    const dataToSubmit: CreateInvite = {
-      users: values.users?.map(val => val.value.toString()),
+    const dataToSubmit: AddUsers = {
+      emails: values.users?.map(val => val.value.toString()),
       userGroups: values.userGroups?.map(val => getIdentifierFromValue(val)),
       roleBindings: values.assignments.map(value => {
         return {
@@ -179,18 +174,19 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
           resourceGroupName: value.resourceGroup.label,
           managedRole: value.role.managed
         }
-      }),
-      inviteType: InviteType.ADMIN_INITIATED
+      })
     }
 
     try {
       const response = await sendInvitation(dataToSubmit)
+      //TODO: @reetika Extend this to support multiple failures.
       handleInvitationResponse({
-        responseType: response.data?.[0] as Pick<ResponseListInviteOperationResponse, 'data'>,
+        responseType: Object.values(defaultTo(response.data?.addUserResponseMap, {}))?.[0] as InvitationStatus,
         getString,
         showSuccess,
         modalErrorHandler,
-        onSubmit
+        onSubmit,
+        onUserAdded
       })
     } catch (err) {
       /* istanbul ignore next */

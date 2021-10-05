@@ -700,6 +700,7 @@ export interface StringsMap {
   'rbac.usersPage.unlockConfirmation': string
   'rbac.usersPage.unlockSuccessMessage': string
   'rbac.usersPage.unlockTitle': string
+  'rbac.usersPage.userAddedSuccess': string
   'rbac.usersPage.userAlreadyAdded': string
   'rbac.usersPage.userAlreadyInvited': string
   'rbac.usersPage.userForm.title': string

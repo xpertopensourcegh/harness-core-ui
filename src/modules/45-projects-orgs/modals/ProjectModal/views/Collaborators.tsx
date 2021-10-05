@@ -24,24 +24,16 @@ import * as Yup from 'yup'
 import { Menu } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
 import copy from 'copy-to-clipboard'
-import {
-  Project,
-  useGetCurrentGenUsers,
-  useGetInvites,
-  CreateInvite,
-  useSendInvite,
-  Organization,
-  ResponseListInviteOperationResponse
-} from 'services/cd-ng'
+import { defaultTo } from 'lodash-es'
+import { Project, useGetCurrentGenUsers, useGetInvites, Organization, useAddUsers, AddUsers } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { getScopeFromDTO, ScopedObjectDTO } from '@common/components/EntityReference/EntityReference'
 import { useGetRoleList } from 'services/rbac'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
-import { InviteType } from '@rbac/modals/RoleAssignmentModal/views/RoleAssignmentForm'
 import { useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
-import { UserItemRenderer, UserTagRenderer } from '@rbac/utils/utils'
+import { InvitationStatus, UserItemRenderer, UserTagRenderer } from '@rbac/utils/utils'
 import { handleInvitationResponse } from '@rbac/utils/utils'
 import InviteListRenderer from './InviteListRenderer'
 import css from './Steps.module.scss'
@@ -88,7 +80,7 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
     }
   })
 
-  const { mutate: sendInvite, loading } = useSendInvite({
+  const { mutate: sendInvite, loading } = useAddUsers({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier: orgIdentifier,
@@ -150,25 +142,24 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
 
   const SendInvitation = async (values: MultiSelectOption[]): Promise<void> => {
     const usersToSubmit = values?.map(collaborator => {
-      return collaborator.value
+      return collaborator.value.toString()
     })
 
-    const dataToSubmit: CreateInvite = {
-      users: usersToSubmit as string[],
+    const dataToSubmit: AddUsers = {
+      emails: usersToSubmit,
       roleBindings: [
         {
           roleIdentifier: role.value.toString(),
           roleName: role.label,
           managedRole: role.managed
         }
-      ],
-      inviteType: InviteType.ADMIN_INITIATED
+      ]
     }
 
     try {
       const response = await sendInvite(dataToSubmit)
       handleInvitationResponse({
-        responseType: response.data?.[0] as Pick<ResponseListInviteOperationResponse, 'data'>,
+        responseType: Object.values(defaultTo(response.data?.addUserResponseMap, {}))?.[0] as InvitationStatus,
         getString,
         showSuccess,
         modalErrorHandler,

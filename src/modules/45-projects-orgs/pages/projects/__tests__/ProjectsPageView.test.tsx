@@ -58,7 +58,7 @@ jest.mock('services/cd-ng', () => ({
     .fn()
     .mockImplementation(() => ({ data: userMockData, loading: false, refetch: jest.fn() })),
   useGetInvites: jest.fn().mockImplementation(() => ({ data: invitesMockData, loading: false, refetch: jest.fn() })),
-  useSendInvite: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(response) })),
+  useAddUsers: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(response) })),
   useDeleteInvite: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(response) })),
   useUpdateInvite: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(response) })),
   useResendVerifyEmail: jest.fn().mockImplementation(() => {
