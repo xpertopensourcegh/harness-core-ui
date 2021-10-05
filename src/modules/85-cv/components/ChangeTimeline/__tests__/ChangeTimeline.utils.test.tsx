@@ -117,8 +117,8 @@ describe('Verify Util funcitons', () => {
   test('Shoudl valdiate createTooltipLabel', () => {
     expect(createTooltipLabel(1, ChangeSourceTypes.Deployments, getString)).toEqual('1 deploymentText')
     expect(createTooltipLabel(4, ChangeSourceTypes.Deployments, getString)).toEqual('4 Deployments')
-    expect(createTooltipLabel(1, ChangeSourceTypes.Incidents, getString)).toEqual('1 cv.changeSource.tooltip.incidents')
-    expect(createTooltipLabel(4, ChangeSourceTypes.Incidents, getString)).toEqual('4 cv.changeSource.incident')
+    expect(createTooltipLabel(1, ChangeSourceTypes.Incidents, getString)).toEqual('1 cv.changeSource.incident')
+    expect(createTooltipLabel(4, ChangeSourceTypes.Incidents, getString)).toEqual('4 cv.changeSource.tooltip.incidents')
     expect(createTooltipLabel(1, ChangeSourceTypes.Infrastructure, getString)).toEqual('1 infrastructureText change')
     expect(createTooltipLabel(4, ChangeSourceTypes.Infrastructure, getString)).toEqual('4 infrastructureText changes')
   })

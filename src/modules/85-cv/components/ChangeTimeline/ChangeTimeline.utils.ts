@@ -85,7 +85,7 @@ export const createTooltipLabel = (
       return `${count} ${getString('infrastructureText')} ${count > 1 ? getString('changes') : getString('change')}`
     case ChangeSourceTypes.Incidents:
       return `${count} ${
-        count > 1 ? getString('cv.changeSource.incident') : getString('cv.changeSource.tooltip.incidents')
+        count > 1 ? getString('cv.changeSource.tooltip.incidents') : getString('cv.changeSource.incident')
       }`
     default:
       return ''

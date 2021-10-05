@@ -340,7 +340,7 @@ export const mockIncidentPayload = {
       marker: {
         custom: {
           color: 'var(--purple-400)',
-          toolTipLabel: '1 cv.changeSource.tooltip.incidents',
+          toolTipLabel: '1 cv.changeSource.incident',
           count: 1,
           endTime: 1632021768825,
           startTime: 1632009431325
@@ -356,7 +356,7 @@ export const mockIncidentPayload = {
       marker: {
         custom: {
           color: 'var(--purple-400)',
-          toolTipLabel: '1 cv.changeSource.tooltip.incidents',
+          toolTipLabel: '1 cv.changeSource.incident',
           count: 1,
           endTime: 1632071118825,
           startTime: 1632058781325
@@ -372,7 +372,7 @@ export const mockIncidentPayload = {
       marker: {
         custom: {
           color: 'var(--purple-400)',
-          toolTipLabel: '2 cv.changeSource.incident',
+          toolTipLabel: '2 cv.changeSource.tooltip.incidents',
           count: 2,
           endTime: 1632145143825,
           startTime: 1632132806325
@@ -388,7 +388,7 @@ export const mockIncidentPayload = {
       marker: {
         custom: {
           color: 'var(--purple-400)',
-          toolTipLabel: '4 cv.changeSource.incident',
+          toolTipLabel: '4 cv.changeSource.tooltip.incidents',
           count: 4,
           endTime: 1632157481325,
           startTime: 1632145143825
@@ -404,7 +404,7 @@ export const mockIncidentPayload = {
       marker: {
         custom: {
           color: 'var(--purple-400)',
-          toolTipLabel: '1 cv.changeSource.tooltip.incidents',
+          toolTipLabel: '1 cv.changeSource.incident',
           count: 1,
           endTime: 1632169818825,
           startTime: 1632157481325
@@ -420,7 +420,7 @@ export const mockIncidentPayload = {
       marker: {
         custom: {
           color: 'var(--purple-400)',
-          toolTipLabel: '3 cv.changeSource.incident',
+          toolTipLabel: '3 cv.changeSource.tooltip.incidents',
           count: 3,
           endTime: 1632182156325,
           startTime: 1632169818825
@@ -436,7 +436,7 @@ export const mockIncidentPayload = {
       marker: {
         custom: {
           color: 'var(--purple-400)',
-          toolTipLabel: '1 cv.changeSource.tooltip.incidents',
+          toolTipLabel: '1 cv.changeSource.incident',
           count: 1,
           endTime: 1632194493825,
           startTime: 1632182156325
@@ -452,7 +452,7 @@ export const mockIncidentPayload = {
       marker: {
         custom: {
           color: 'var(--purple-400)',
-          toolTipLabel: '1 cv.changeSource.tooltip.incidents',
+          toolTipLabel: '1 cv.changeSource.incident',
           count: 1,
           endTime: 1632206831325,
           startTime: 1632194493825
@@ -468,7 +468,7 @@ export const mockIncidentPayload = {
       marker: {
         custom: {
           color: 'var(--purple-400)',
-          toolTipLabel: '1 cv.changeSource.tooltip.incidents',
+          toolTipLabel: '1 cv.changeSource.incident',
           count: 1,
           endTime: 1632231506325,
           startTime: 1632219168825
@@ -484,7 +484,7 @@ export const mockIncidentPayload = {
       marker: {
         custom: {
           color: 'var(--purple-400)',
-          toolTipLabel: '2 cv.changeSource.incident',
+          toolTipLabel: '2 cv.changeSource.tooltip.incidents',
           count: 2,
           endTime: 1632243843825,
           startTime: 1632231506325
@@ -500,7 +500,7 @@ export const mockIncidentPayload = {
       marker: {
         custom: {
           color: 'var(--purple-400)',
-          toolTipLabel: '1 cv.changeSource.tooltip.incidents',
+          toolTipLabel: '1 cv.changeSource.incident',
           count: 1,
           endTime: 1632256181325,
           startTime: 1632243843825
@@ -516,7 +516,7 @@ export const mockIncidentPayload = {
       marker: {
         custom: {
           color: 'var(--purple-400)',
-          toolTipLabel: '2 cv.changeSource.incident',
+          toolTipLabel: '2 cv.changeSource.tooltip.incidents',
           count: 2,
           endTime: 1632268518825,
           startTime: 1632256181325
@@ -532,7 +532,7 @@ export const mockIncidentPayload = {
       marker: {
         custom: {
           color: 'var(--purple-400)',
-          toolTipLabel: '3 cv.changeSource.incident',
+          toolTipLabel: '3 cv.changeSource.tooltip.incidents',
           count: 3,
           endTime: 1632280856325,
           startTime: 1632268518825
@@ -548,7 +548,7 @@ export const mockIncidentPayload = {
       marker: {
         custom: {
           color: 'var(--purple-400)',
-          toolTipLabel: '2 cv.changeSource.incident',
+          toolTipLabel: '2 cv.changeSource.tooltip.incidents',
           count: 2,
           endTime: 1632293193825,
           startTime: 1632280856325
@@ -564,7 +564,7 @@ export const mockIncidentPayload = {
       marker: {
         custom: {
           color: 'var(--purple-400)',
-          toolTipLabel: '2 cv.changeSource.incident',
+          toolTipLabel: '2 cv.changeSource.tooltip.incidents',
           count: 2,
           endTime: 1632305531325,
           startTime: 1632293193825
@@ -830,12 +830,12 @@ export const mockInfraPayload = {
 
 export const infoCardDataSingleValue = [
   { count: 1, key: 'Deployments', message: '1 deploymentText' },
-  { count: 1, key: 'Incidents', message: '1 cv.changeSource.tooltip.incidents' },
+  { count: 1, key: 'Incidents', message: '1 cv.changeSource.incident' },
   { count: 1, key: 'Infrastructure', message: '1 infrastructureText change' }
 ]
 
 export const infoCardDataMultipleValue = [
   { count: 9, key: 'Deployments', message: '9 Deployments' },
-  { count: 9, key: 'Incidents', message: '9 cv.changeSource.incident' },
+  { count: 9, key: 'Incidents', message: '9 cv.changeSource.tooltip.incidents' },
   { count: 9, key: 'Infrastructure', message: '9 infrastructureText changes' }
 ]
