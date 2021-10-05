@@ -12,7 +12,7 @@ exports[`Test GitSyncRepoFormStep Should not allow saving form if folder name is
     <p
       class="StyledProps--font StyledProps--main StyledProps--font-size-large StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
     >
-      gitsync.configureHarnessFolder
+      enableGitExperience
     </p>
     <div
       class="Layout--horizontal StyledProps--main"
@@ -615,7 +615,7 @@ exports[`Test GitSyncRepoFormStep Should not allow saving form if folder name is
     <p
       class="StyledProps--font StyledProps--main StyledProps--font-size-large StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
     >
-      gitsync.configureHarnessFolder
+      enableGitExperience
     </p>
     <div
       class="Layout--horizontal StyledProps--main"

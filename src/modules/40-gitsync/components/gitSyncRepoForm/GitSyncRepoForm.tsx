@@ -122,6 +122,10 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
 
   const handleCreate = async (data: GitSyncConfig): Promise<void> => {
     try {
+      if (isNewUser) {
+        props.onSuccess?.(data)
+        return
+      }
       modalErrorHandler?.hide()
       const response = await createGitSyncRepo(data)
       showSuccess(getString('gitsync.successfullCreate', { name: data.name }))
@@ -463,7 +467,7 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                     className={css.formButton}
                     type="submit"
                     intent="primary"
-                    text={getString('save')}
+                    text={isNewUser ? getString('continue') : getString('save')}
                     disabled={creatingGitSync || testing || testStatus === TestStatus.FAILED}
                   />
                   <Button

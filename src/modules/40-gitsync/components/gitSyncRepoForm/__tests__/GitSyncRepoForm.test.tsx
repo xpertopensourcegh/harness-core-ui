@@ -45,7 +45,7 @@ describe('Git Sync - repo tab', () => {
 
     // All required validation test
     await act(async () => {
-      fireEvent.click(getByText('save'))
+      fireEvent.click(getByText('continue'))
     })
 
     expect(container).toMatchSnapshot()
@@ -95,7 +95,7 @@ describe('Git Sync - repo tab', () => {
         <GitSyncRepoForm
           {...pathParams}
           isEditMode={false}
-          isNewUser={true}
+          isNewUser={false}
           gitSyncRepoInfo={undefined}
           onSuccess={noop}
           onClose={noop}

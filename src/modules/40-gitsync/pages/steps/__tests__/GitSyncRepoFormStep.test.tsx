@@ -15,7 +15,7 @@ describe('Test GitSyncRepoFormStep', () => {
           path="/account/:accountId/ci/orgs/:orgIdentifier/projects/:projectIdentifier/admin/git-sync/repos"
           pathParams={pathParams}
         >
-          <GitSyncRepoFormStep {...pathParams} isEditMode={false} isNewUser={true} gitSyncRepoInfo={undefined} />
+          <GitSyncRepoFormStep {...pathParams} isEditMode={false} isNewUser={false} gitSyncRepoInfo={undefined} />
         </TestWrapper>
       </MemoryRouter>
     )
@@ -28,5 +28,18 @@ describe('Test GitSyncRepoFormStep', () => {
     })
     expect(container.querySelector('[class*="bp3-intent-danger"]')).toBeTruthy()
     expect(container).toMatchSnapshot()
+  })
+  test('Should have continue button on first step for new user', async () => {
+    const { getByText } = render(
+      <MemoryRouter>
+        <TestWrapper
+          path="/account/:accountId/ci/orgs/:orgIdentifier/projects/:projectIdentifier/admin/git-sync/repos"
+          pathParams={pathParams}
+        >
+          <GitSyncRepoFormStep {...pathParams} isEditMode={false} isNewUser gitSyncRepoInfo={undefined} />
+        </TestWrapper>
+      </MemoryRouter>
+    )
+    expect(getByText('continue')).toBeTruthy()
   })
 })

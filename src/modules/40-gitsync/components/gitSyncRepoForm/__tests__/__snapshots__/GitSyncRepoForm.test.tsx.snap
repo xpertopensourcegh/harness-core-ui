@@ -483,7 +483,7 @@ exports[`Git Sync - repo tab Filling gitSync repo form: gitSync repo form 1`] = 
     <p
       class="StyledProps--font StyledProps--main StyledProps--font-size-large StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
     >
-      gitsync.configureHarnessFolder
+      enableGitExperience
     </p>
     <div
       class="Layout--horizontal StyledProps--main"
@@ -1612,7 +1612,7 @@ exports[`Git Sync - repo tab Repo type card should be enabled only for Github 1`
                   <span
                     class="bp3-button-text"
                   >
-                    save
+                    continue
                   </span>
                 </button>
                 <button
@@ -2215,7 +2215,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 1`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    save
+                    continue
                   </span>
                 </button>
                 <button
@@ -2908,7 +2908,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 2`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    save
+                    continue
                   </span>
                 </button>
                 <button

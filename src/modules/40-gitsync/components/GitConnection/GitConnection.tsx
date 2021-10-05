@@ -3,11 +3,17 @@ import cx from 'classnames'
 import { useParams } from 'react-router'
 import { Radio } from '@blueprintjs/core'
 import { Button, Card, Color, Container, Icon, Layout, StepProps, Text } from '@wings-software/uicore'
+import { pick } from 'lodash-es'
 import { useStrings } from 'framework/strings'
-import { GitSyncConfig, isSaasGitPromise, ResponseSaasGitDTO, usePostGitSyncSetting } from 'services/cd-ng'
+import {
+  GitSyncConfig,
+  isSaasGitPromise,
+  ResponseSaasGitDTO,
+  usePostGitSync,
+  usePostGitSyncSetting
+} from 'services/cd-ng'
 import { useToaster } from '@common/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-
 import css from './GitConnection.module.scss'
 
 interface GitConnectionStepProps {
@@ -31,6 +37,10 @@ const GitConnection: React.FC<StepProps<GitConnectionStepProps> & GitConnectionP
   const [agent, setAgent] = useState<Agent | undefined>()
   const { getString } = useStrings()
   const { showError, showSuccess } = useToaster()
+
+  const { mutate: createGitSyncRepo } = usePostGitSync({
+    queryParams: { accountIdentifier: accountId }
+  })
 
   const { mutate: registerAgent } = usePostGitSyncSetting({
     requestOptions: { headers: { accept: 'application/json' } }
@@ -56,6 +66,39 @@ const GitConnection: React.FC<StepProps<GitConnectionStepProps> & GitConnectionP
       })
     setLoading(false)
   }, [prevStepData?.repo])
+
+  const onSubmit = async (): Promise<void> => {
+    setLoading(true)
+    try {
+      const params = {
+        ...pick(props.prevStepData as GitSyncConfig, [
+          'gitConnectorType',
+          'branch',
+          'name',
+          'identifier',
+          'repo',
+          'gitConnectorRef',
+          'gitSyncFolderConfigDTOs',
+          'projectIdentifier',
+          'orgIdentifier'
+        ])
+      } as GitSyncConfig
+      await createGitSyncRepo(params)
+      const { status } = await registerAgent({
+        accountIdentifier: accountId,
+        projectIdentifier,
+        organizationIdentifier: orgIdentifier,
+        executeOnDelegate: agent === Agent.Delegate
+      })
+      if (status === 'SUCCESS') {
+        showSuccess(getString('gitsync.successfullySavedConnectivityMode'))
+        onSuccess()
+      }
+    } catch (e) {
+      showError(e.data?.message || e.message)
+    }
+    setLoading(false)
+  }
 
   return (
     <Layout.Vertical
@@ -125,27 +168,10 @@ const GitConnection: React.FC<StepProps<GitConnectionStepProps> & GitConnectionP
         <Button
           type="submit"
           intent="primary"
-          text={getString('saveAndContinue')}
+          text={getString('save')}
           rightIcon="chevron-right"
           disabled={loading || !agent}
-          onClick={async () => {
-            setLoading(true)
-            try {
-              const { status } = await registerAgent({
-                accountIdentifier: accountId,
-                projectIdentifier,
-                organizationIdentifier: orgIdentifier,
-                executeOnDelegate: agent === Agent.Delegate
-              })
-              if (status === 'SUCCESS') {
-                showSuccess(getString('gitsync.successfullySavedConnectivityMode'))
-                onSuccess()
-              }
-            } catch (e) {
-              showError(e.data?.message || e.message)
-            }
-            setLoading(false)
-          }}
+          onClick={onSubmit}
         />
       </Layout.Horizontal>
     </Layout.Vertical>
