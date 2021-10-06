@@ -232,11 +232,9 @@ failureStrategies:
   errorTypeLabels:
     Authentication: Authentication Errors
     Authorization: Authorization Errors
-    Connectivity: Connectivity Errors
     Timeout: Timeout Errors
     Verification: Verification Failures
     DelegateProvisioning: Delegate Provisioning Errors
-    AllErrors: All Errors
     Unknown: Unknown Errors
   validation:
     errorsRequired: At least one failure type is required

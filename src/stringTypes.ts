@@ -25,6 +25,7 @@ export interface StringsMap {
   'common.addAccountName': string
   'common.addVariable': string
   'common.advanced': string
+  'common.allErrors': string
   'common.apiKeys': string
   'common.apikey': string
   'common.approve': string
@@ -112,6 +113,7 @@ export interface StringsMap {
   'common.configureOptions.validationErrors.regExNotValid': string
   'common.configureOptions.values': string
   'common.confirmText': string
+  'common.connectivityErrors': string
   'common.createPipeline': string
   'common.creating': string
   'common.current': string
@@ -1954,10 +1956,8 @@ export interface StringsMap {
   'pipeline.executionTarget': string
   'pipeline.expressionsEvaluation': string
   'pipeline.failureStrategies.addedAllStrategies': string
-  'pipeline.failureStrategies.errorTypeLabels.AllErrors': string
   'pipeline.failureStrategies.errorTypeLabels.Authentication': string
   'pipeline.failureStrategies.errorTypeLabels.Authorization': string
-  'pipeline.failureStrategies.errorTypeLabels.Connectivity': string
   'pipeline.failureStrategies.errorTypeLabels.DelegateProvisioning': string
   'pipeline.failureStrategies.errorTypeLabels.Timeout': string
   'pipeline.failureStrategies.errorTypeLabels.Unknown': string

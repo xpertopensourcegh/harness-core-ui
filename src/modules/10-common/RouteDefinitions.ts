@@ -866,6 +866,19 @@ const routes = {
       })
     }
   ),
+  toGitSyncErrors: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
+      const path = `git-sync/errors`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
+  ),
   /********************************************************************************************************************/
   toCF: (params: Partial<ProjectPathProps>) =>
     params.orgIdentifier && params.projectIdentifier
