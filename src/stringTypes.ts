@@ -825,6 +825,7 @@ export interface StringsMap {
   'authSettings.usePublicOAuth': string
   'authSettings.whitelistedDomainsDisabled': string
   'authSettings.yourAccountWillBeLockedOut': string
+  'delegates.GBRam': string
   'delegates.delGroupStatus.DISABLED': string
   'delegates.delGroupStatus.WAITING_FOR_APPROVAL': string
   'delegates.delSetup': string
@@ -895,7 +896,6 @@ export interface StringsMap {
   'delegates.reviewScript.docLinkAfter': string
   'delegates.reviewScript.docLinkBefore': string
   'delegates.reviewYAML': string
-  'delegates.searchDelegateName': string
   'delegates.selectors': string
   'delegates.totalMemUnit': string
   'delegates.troubleshootOption': string
@@ -4896,14 +4896,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'delegate.delegateSizeUpto': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'delegate.delegateSpecificTags': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'delegate.delegateTagDescription': string
   /**
    * @deprecated migrate this string to module level file
    */
