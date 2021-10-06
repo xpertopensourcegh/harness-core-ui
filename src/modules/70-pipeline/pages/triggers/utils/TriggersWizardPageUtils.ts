@@ -1147,7 +1147,7 @@ export const parseArtifactsManifests = ({
   return {}
 }
 
-const getFilteredStage = (pipelineObj: any, stageId: string): any => {
+export const getFilteredStage = (pipelineObj: any, stageId: string): any => {
   let filteredStage
   for (const item of pipelineObj) {
     if (Array.isArray(item.parallel)) {
@@ -1224,6 +1224,7 @@ export const filterSideCarArtifacts = ({
     sidecars?.find((artifactObj: any) => artifactObj?.sidecar?.identifier === artifactId)
   )
 }
+
 // This is to filter the manifestIndex
 // with the selectedArtifact's index
 export const filterArtifactIndex = ({
@@ -1237,14 +1238,20 @@ export const filterArtifactIndex = ({
   artifactId: any
   isManifest: boolean
 }): number => {
-  const filteredStage = (runtimeData || []).find((item: any) => item?.stage?.identifier === stageId)
+  const filteredStage = getFilteredStage(runtimeData, stageId)
   if (isManifest) {
     return filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests.findIndex(
       (manifestObj: any) => manifestObj?.manifest?.identifier === artifactId
     )
   } else {
-    return filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts.findIndex(
-      (artifactObj: any) => artifactObj?.artifact?.identifier === artifactId
+    return (
+      filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts.sidecars?.findIndex(
+        (artifactObj: any) => artifactObj?.sidecar?.identifier === artifactId
+      ) ||
+      filteredStage?.stage?.spec?.serviceConfig?.stageOverrides?.artifacts?.sidecars?.findIndex(
+        (artifactObj: any) => artifactObj?.sidecar?.identifier === artifactId
+      ) ||
+      -1
     )
   }
 }

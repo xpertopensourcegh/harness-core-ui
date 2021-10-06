@@ -20,7 +20,9 @@ import {
   ciCodebaseBuild,
   ciCodebaseBuildPullRequest,
   filterArtifactIndex,
-  eventTypes
+  eventTypes,
+  getFilteredStage,
+  TriggerTypes
 } from '../utils/TriggersWizardPageUtils'
 import css from './WebhookPipelineInputPanel.module.scss'
 
@@ -29,6 +31,87 @@ interface WebhookPipelineInputPanelPropsInterface {
 }
 
 let hasEverRendered = false
+
+const applyArtifactToPipeline = (newPipelineObject: any, formikProps: any) => {
+  const artifactIndex = filterArtifactIndex({
+    runtimeData: newPipelineObject?.stages,
+    stageId: formikProps?.values?.stageId,
+    artifactId: formikProps?.values?.selectedArtifact?.identifier,
+    isManifest: false
+  })
+  const filteredStage = getFilteredStage(newPipelineObject?.stages, formikProps?.values?.stageId)
+  if (artifactIndex >= 0) {
+    const selectedArtifact = {
+      sidecar: {
+        identifier: formikProps?.values?.selectedArtifact?.identifier,
+        type: formikProps?.values?.selectedArtifact?.type,
+        spec: {
+          ...formikProps?.values?.selectedArtifact?.spec
+        }
+      }
+    }
+
+    const filteredStageArtifacts =
+      filteredStage.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts?.sidecars
+    filteredStageArtifacts[artifactIndex] = selectedArtifact
+  } else if (artifactIndex < 0) {
+    const selectedArtifact = {
+      identifier: formikProps?.values?.selectedArtifact?.identifier,
+      type: formikProps?.values?.selectedArtifact?.type,
+      spec: {
+        ...formikProps?.values?.selectedArtifact?.spec
+      }
+    }
+
+    const filteredStageArtifacts = filteredStage.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts
+    filteredStageArtifacts.primary = selectedArtifact
+  }
+  return newPipelineObject
+}
+// Selected Artifact is applied to inputYaml on Pipeline Input Panel in ManifestInputForm.tsx
+// This is to apply the selected artifact values
+// to the applied input sets pipeline stage values
+const applySelectedArtifactToPipelineObject = (pipelineObj: any, formikProps: any) => {
+  // Cloning or making into a new object
+  // so the original pipeline is not effected
+  const newPipelineObject = { ...pipelineObj }
+  if (!newPipelineObject) {
+    return {}
+  }
+
+  const { triggerType } = formikProps.values
+
+  if (triggerType === TriggerTypes.MANIFEST) {
+    const artifactIndex = filterArtifactIndex({
+      runtimeData: newPipelineObject?.stages,
+      stageId: formikProps?.values?.stageId,
+      artifactId: formikProps?.values?.selectedArtifact?.identifier,
+      isManifest: true
+    })
+    if (artifactIndex >= 0) {
+      const filteredStage =
+        (newPipelineObject?.stages || []).find(
+          (stage: any) => stage.stage.identifier === formikProps?.values?.stageId
+        ) || {}
+
+      const selectedArtifact = {
+        manifest: {
+          identifier: formikProps?.values?.selectedArtifact?.identifier,
+          type: formikProps?.values?.selectedArtifact?.type,
+          spec: {
+            ...formikProps?.values?.selectedArtifact?.spec
+          }
+        }
+      }
+
+      const filteredStageManifests = filteredStage.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests
+      filteredStageManifests[artifactIndex] = selectedArtifact
+    }
+  } else if (triggerType === TriggerTypes.ARTIFACT && newPipelineObject) {
+    return applyArtifactToPipeline(newPipelineObject, formikProps)
+  }
+  return newPipelineObject
+}
 
 const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInterface> = ({
   formikProps
@@ -102,45 +185,6 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
       pipelineIdentifier
     }
   })
-  // Selected Artifact is applied to inputYaml on Pipeline Input Panel in ManifestInputForm.tsx
-  // This is to apply the selected artifact values
-  // to the applied input sets pipeline stage values
-  const applySelectedArtifactToPipelineObject = (pipelineObj: any) => {
-    // Cloning or making into a new object
-    // so the original pipeline is not effected
-    const newPipelineObject = { ...pipelineObj }
-    if (!newPipelineObject) {
-      return {}
-    }
-
-    const artifactIndex = filterArtifactIndex({
-      runtimeData: newPipelineObject?.stages,
-      stageId: formikProps?.values?.stageId,
-      artifactId: formikProps?.values?.selectedArtifact?.identifier,
-      isManifest: true
-    })
-    if (artifactIndex >= 0) {
-      const filteredStage =
-        (newPipelineObject?.stages || []).find(
-          (stage: any) => stage.stage.identifier === formikProps?.values?.stageId
-        ) || {}
-
-      const selectedArtifact = {
-        manifest: {
-          identifier: formikProps?.values?.selectedArtifact?.identifier,
-          type: formikProps?.values?.selectedArtifact?.type,
-          spec: {
-            ...formikProps?.values?.selectedArtifact?.spec
-          }
-        }
-      }
-
-      const filteredStageManifests = filteredStage.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests
-      filteredStageManifests[artifactIndex] = selectedArtifact
-      return newPipelineObject
-    }
-    return newPipelineObject
-  }
 
   useEffect(() => {
     if (template?.data?.inputSetTemplateYaml) {
@@ -153,7 +197,7 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
             const pipelineObject = parse(data.data.pipelineYaml) as {
               pipeline: PipelineInfoConfig | any
             }
-            const newPipelineObject = applySelectedArtifactToPipelineObject(pipelineObject.pipeline)
+            const newPipelineObject = applySelectedArtifactToPipelineObject(pipelineObject.pipeline, formikProps)
             formikProps.setValues({
               ...values,
               inputSetSelected: selectedInputSets,
@@ -179,7 +223,7 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
                 pipeline: PipelineInfoConfig | any
               }
 
-              const newPipelineObject = applySelectedArtifactToPipelineObject(pipelineObject.pipeline)
+              const newPipelineObject = applySelectedArtifactToPipelineObject(pipelineObject.pipeline, formikProps)
 
               formikProps.setValues({
                 ...values,
