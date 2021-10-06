@@ -36,6 +36,7 @@ import {
   calculateChangePercentage
 } from './CVMonitoredServiceListingPage.utils'
 import { Views } from './CVMonitoredServiceListingPage.constants'
+import MonitoredServiceCategory from './components/Configurations/components/Dependency/component/components/MonitoredServiceCategory/MonitoredServiceCategory'
 import css from './CVMonitoredServiceListingPage.module.scss'
 
 const ServiceCount = styled(Text)`
@@ -43,10 +44,13 @@ const ServiceCount = styled(Text)`
   border-bottom: 1px solid var(--grey-200) !important;
 `
 
+const CategoryProps: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ row }) => (
+  <MonitoredServiceCategory type={row?.original?.type} abbrText verticalAlign />
+)
+
 const PageBody = styled(Page.Body)`
   margin: var(--spacing-xxxlarge) !important;
 `
-
 function CVMonitoredServiceListingPage(): JSX.Element {
   const { getString } = useStrings()
   const history = useHistory()
@@ -93,7 +97,6 @@ function CVMonitoredServiceListingPage(): JSX.Element {
   })
 
   const { content = [], pageSize = 0, pageIndex = 0, totalPages = 0, totalItems = 0 } = data?.data ?? ({} as any)
-
   const onDelete = async (identifier?: string): Promise<void> => {
     try {
       if (identifier) {
@@ -340,6 +343,11 @@ function CVMonitoredServiceListingPage(): JSX.Element {
               <Table
                 sortable={true}
                 columns={[
+                  {
+                    Header: ' ',
+                    width: '2.5%',
+                    Cell: CategoryProps
+                  },
                   {
                     Header: getString('cv.monitoredServices.table.serviceName'),
                     width: '20%',
