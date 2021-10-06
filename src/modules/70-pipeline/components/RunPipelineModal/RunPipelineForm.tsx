@@ -578,7 +578,8 @@ function RunPipelineFormBasic({
           if (typeof errors !== undefined && runClicked) {
             setFormErrors(errors)
           }
-          return errors
+          // https://github.com/formium/formik/issues/1392
+          throw errors
         }}
       >
         {({ submitForm, values }) => {
@@ -728,6 +729,7 @@ function RunPipelineFormBasic({
                       onClick={event => {
                         event.stopPropagation()
                         setRunClicked(true)
+
                         if ((!selectedInputSets || selectedInputSets.length === 0) && existingProvide === 'existing') {
                           setExistingProvide('provide')
                         } else {
