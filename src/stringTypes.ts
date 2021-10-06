@@ -621,6 +621,7 @@ export interface StringsMap {
   'rbac.serviceAccounts.confirmDelete': string
   'rbac.serviceAccounts.confirmDeleteTitle': string
   'rbac.serviceAccounts.email': string
+  'rbac.serviceAccounts.emptyStateDescription': string
   'rbac.serviceAccounts.form.createSuccess': string
   'rbac.serviceAccounts.form.editServiceAccount': string
   'rbac.serviceAccounts.form.editSuccess': string
@@ -678,6 +679,7 @@ export interface StringsMap {
   'rbac.userGroupPage.noUserGroups': string
   'rbac.userGroupPage.search': string
   'rbac.userGroupPage.successMessage': string
+  'rbac.userGroupPage.userGroupEmptyState': string
   'rbac.userGroupPage.userList.deleteConfirmation': string
   'rbac.userGroupPage.userList.deleteFailureMessage': string
   'rbac.userGroupPage.userList.deleteSuccessMessage': string
@@ -943,6 +945,7 @@ export interface StringsMap {
   'secrets.secret.saving': string
   'secrets.secret.secretActivity': string
   'secrets.secret.secretCreated': string
+  'secrets.secret.secretNotFound': string
   'secrets.secret.titleCreateFile': string
   'secrets.secret.titleCreateText': string
   'secrets.secret.titleEditFile': string
@@ -1325,8 +1328,10 @@ export interface StringsMap {
   'connectors.connectorAlreadyExist': string
   'connectors.connectorDetails': string
   'connectors.connectorDetailsHeader': string
+  'connectors.connectorEmptyState': string
   'connectors.connectorNotFound': string
   'connectors.costVisibility': string
+  'connectors.createConnector': string
   'connectors.createFromYaml': string
   'connectors.createNewConnector': string
   'connectors.createdSuccessfully': string
