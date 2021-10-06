@@ -561,3 +561,4 @@ repositoryName: Repository Name
 mostActiveServices: Most active services
 allErrors: All Errors
 connectivityErrors: Connectivity Errors
+apply: '{{ $.filters.apply }}'

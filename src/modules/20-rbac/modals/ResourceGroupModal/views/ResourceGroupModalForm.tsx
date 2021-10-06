@@ -114,7 +114,7 @@ const ResourceGroupForm: React.FC<ResourceGroupModalData> = props => {
                 <Layout.Horizontal>
                   <Button
                     variation={ButtonVariation.PRIMARY}
-                    text={getString('filters.apply')}
+                    text={getString('common.apply')}
                     type="submit"
                     disabled={saving || updating}
                   />

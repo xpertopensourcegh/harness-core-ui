@@ -28,6 +28,7 @@ export interface StringsMap {
   'common.allErrors': string
   'common.apiKeys': string
   'common.apikey': string
+  'common.apply': string
   'common.approve': string
   'common.artifactTag': string
   'common.at': string
