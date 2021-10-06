@@ -12,6 +12,7 @@ import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { StringsMap } from 'framework/strings/StringsContext'
 import { useGetAccountLicenses } from 'services/cd-ng'
 import type { ModuleLicenseDTO } from 'services/cd-ng'
+import { Editions } from '@common/constants/SubscriptionTypes'
 import css from '../AccountOverview.module.scss'
 
 interface ModuleCardProps {
@@ -57,6 +58,11 @@ const ModuleCard: React.FC<ModuleCardProps> = ({ module }) => {
   const { accountId } = useParams<AccountPathProps>()
   const getPlanDescription = (): string => {
     const days = Math.round(moment(module.expiryTime).diff(moment(module.createdAt), 'days', true)).toString()
+
+    if (module.edition === Editions.FREE) {
+      return capitalize(module.edition)
+    }
+
     return capitalize(module.edition)
       .concat('(')
       .concat(days)

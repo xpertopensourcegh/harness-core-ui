@@ -424,12 +424,10 @@ export interface StringsMap {
   'common.submittingRequest': string
   'common.submittingRequestToGitViaDelegate': string
   'common.subscribed': string
-  'common.subscriptions.banner.enterprise': string
+  'common.subscriptions.banner.trial': string
   'common.subscriptions.ccm.cloudSpend': string
   'common.subscriptions.cd.services': string
   'common.subscriptions.ci.developers': string
-  'common.subscriptions.enterprisePaid': string
-  'common.subscriptions.enterpriseTrial': string
   'common.subscriptions.expired': string
   'common.subscriptions.expiryCountdown': string
   'common.subscriptions.featureFlags.mau': string
@@ -439,10 +437,12 @@ export interface StringsMap {
   'common.subscriptions.overview.expiry': string
   'common.subscriptions.overview.plan': string
   'common.subscriptions.overview.subscribe': string
+  'common.subscriptions.paid': string
   'common.subscriptions.tabs.billing': string
   'common.subscriptions.tabs.overview': string
   'common.subscriptions.tabs.plans': string
   'common.subscriptions.title': string
+  'common.subscriptions.trial': string
   'common.subscriptions.usage.ccmUsers': string
   'common.subscriptions.usage.cdUsers': string
   'common.subscriptions.usage.ciUsers': string

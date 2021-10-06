@@ -461,7 +461,7 @@ exports[`Subscriptions Page it renders an expired banner when the trial is expir
       <p
         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-red700"
       >
-        common.subscriptions.banner.enterprise common.subscriptions.expired
+        common.subscriptions.banner.trial common.subscriptions.expired
       </p>
     </div>
     <div
@@ -515,7 +515,7 @@ exports[`Subscriptions Page it renders an expired banner when the trial is expir
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
               >
-                common.subscriptions.enterpriseTrial
+                common.subscriptions.trial
               </p>
               <div
                 class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -552,7 +552,7 @@ exports[`Subscriptions Page it renders an expired banner when the trial is expir
               common.subscriptions.overview.expiry
             </p>
             <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-variation-small-semi"
             >
               01 Jan 1970
             </p>
@@ -941,7 +941,7 @@ exports[`Subscriptions Page it renders the correct card in the subscriptions pag
       <p
         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-orange700"
       >
-        common.subscriptions.banner.enterprise common.subscriptions.expiryCountdown
+        common.subscriptions.banner.trial common.subscriptions.expiryCountdown
       </p>
     </div>
     <div
@@ -995,7 +995,7 @@ exports[`Subscriptions Page it renders the correct card in the subscriptions pag
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
               >
-                common.subscriptions.enterpriseTrial
+                common.subscriptions.trial
               </p>
               <div
                 class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -1032,7 +1032,7 @@ exports[`Subscriptions Page it renders the correct card in the subscriptions pag
               common.subscriptions.overview.expiry
             </p>
             <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-variation-small-semi"
             >
               21 Dec 2016
             </p>
@@ -1421,7 +1421,7 @@ exports[`Subscriptions Page it renders the subscriptions page 1`] = `
       <p
         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-orange700"
       >
-        common.subscriptions.banner.enterprise common.subscriptions.expiryCountdown
+        common.subscriptions.banner.trial common.subscriptions.expiryCountdown
       </p>
     </div>
     <div
@@ -1475,7 +1475,7 @@ exports[`Subscriptions Page it renders the subscriptions page 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
               >
-                common.subscriptions.enterpriseTrial
+                common.subscriptions.trial
               </p>
               <div
                 class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -1512,7 +1512,7 @@ exports[`Subscriptions Page it renders the subscriptions page 1`] = `
               common.subscriptions.overview.expiry
             </p>
             <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-variation-small-semi"
             >
               21 Dec 2016
             </p>
@@ -2339,7 +2339,7 @@ exports[`Subscriptions Page it should update the license store 1`] = `
       <p
         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-orange700"
       >
-        common.subscriptions.banner.enterprise common.subscriptions.expiryCountdown
+        common.subscriptions.banner.trial common.subscriptions.expiryCountdown
       </p>
     </div>
     <div
@@ -2393,7 +2393,7 @@ exports[`Subscriptions Page it should update the license store 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
               >
-                common.subscriptions.enterpriseTrial
+                common.subscriptions.trial
               </p>
               <div
                 class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -2430,7 +2430,7 @@ exports[`Subscriptions Page it should update the license store 1`] = `
               common.subscriptions.overview.expiry
             </p>
             <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-variation-small-semi"
             >
               21 Dec 2016
             </p>
