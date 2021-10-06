@@ -562,3 +562,5 @@ mostActiveServices: Most active services
 allErrors: All Errors
 connectivityErrors: Connectivity Errors
 apply: '{{ $.filters.apply }}'
+ON: 'ON'
+OFF: 'OFF'

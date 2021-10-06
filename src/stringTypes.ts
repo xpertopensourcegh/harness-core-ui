@@ -5,6 +5,8 @@
 export interface StringsMap {
   'common.ID': string
   'common.My': string
+  'common.OFF': string
+  'common.ON': string
   'common.PermissibleActions': string
   'common.accViewer': string
   'common.accessKey': string
@@ -3467,8 +3469,6 @@ export interface StringsMap {
   'cf.shared.getStarted': string
   'cf.shared.individual': string
   'cf.shared.lastEvaluated': string
-  'cf.shared.off': string
-  'cf.shared.on': string
   'cf.shared.pleaseSelectVariation': string
   'cf.shared.prerequisites': string
   'cf.shared.quickGuide': string
@@ -3814,7 +3814,9 @@ export interface StringsMap {
   'cv.monitoredServices.changesTable.impact': string
   'cv.monitoredServices.deleteMonitoredService': string
   'cv.monitoredServices.deleteMonitoredServiceWarning': string
+  'cv.monitoredServices.deleteService': string
   'cv.monitoredServices.editMonitoredServices': string
+  'cv.monitoredServices.editService': string
   'cv.monitoredServices.environmentValidation': string
   'cv.monitoredServices.failedToFetchHealthScore': string
   'cv.monitoredServices.failedToFetchSummaryData': string
@@ -3836,7 +3838,6 @@ export interface StringsMap {
   'cv.monitoredServices.riskLabel.lowRisk': string
   'cv.monitoredServices.riskLabel.mediumRisk': string
   'cv.monitoredServices.serviceAndEnvironment': string
-  'cv.monitoredServices.serviceCount': string
   'cv.monitoredServices.serviceDependencies.noData': string
   'cv.monitoredServices.serviceHealth.anamolies': string
   'cv.monitoredServices.serviceHealth.last24Hrs': string
@@ -3854,6 +3855,7 @@ export interface StringsMap {
   'cv.monitoredServices.serviceHealth.serviceDependencies.states.observe': string
   'cv.monitoredServices.serviceHealth.serviceDependencies.states.unhealthy': string
   'cv.monitoredServices.serviceValidation': string
+  'cv.monitoredServices.showingAllServices': string
   'cv.monitoredServices.table.changes': string
   'cv.monitoredServices.table.healthMonitoring': string
   'cv.monitoredServices.table.lastestHealthTrend': string

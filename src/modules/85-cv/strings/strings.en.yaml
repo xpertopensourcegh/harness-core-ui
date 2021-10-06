@@ -542,12 +542,14 @@ monitoredServices:
   newMonitoredServices: New Monitored Service
   addNewMonitoredServices: Add New Monitored Service
   editMonitoredServices: Edit Monitored Service
+  editService: Edit service
   deleteMonitoredServiceWarning: Are you sure you want to delete Monitored Service
   deleteMonitoredService: Delete Monitored Service
+  deleteService: Delete service
   monitoredServiceCreated: Monitoring Service created
   monitoredServiceUpdated: Monitoring Service updated
   monitoredServiceToggle: 'Monitored Service successfully {{enabled}}'
-  serviceCount: Showing {{serviceCount}} Services
+  showingAllServices: Showing all Services ({{ serviceCount }})
   noAvailableData: No available data.
   healthScoreDataNotAvailable: Health score data not available.
   failedToFetchHealthScore: Failed to fetch health score data.
@@ -575,12 +577,12 @@ monitoredServices:
     configurations: Configurations
     slos: SLOs
   riskLabel:
-    lowRisk: Low risk
-    mediumRisk: Medium risk
-    highRisk: High risk
+    lowRisk: Low Risk
+    mediumRisk: Medium Risk
+    highRisk: High Risk
   table:
     serviceName: Service Name
-    lastestHealthTrend: Last 24 HR Health Trends
+    lastestHealthTrend: Health trend (Last 24h)
     serviceHealthScore: service Health Score
     healthMonitoring: Health Monitoring
     changes: Changes (Last 24H)
