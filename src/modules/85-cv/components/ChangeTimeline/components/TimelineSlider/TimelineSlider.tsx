@@ -106,7 +106,13 @@ export default function TimelineSlider(props: TimelineSliderProps): JSX.Element 
           <Container flex>
             <Container className={cx(css.card, { [css.reverseCard]: leftOffset < LEFT_TEXTFIELD_WIDTH })}>
               {infoCard}
-              <Text className={css.resetButton} onClick={resetFocus}>
+              <Text
+                className={css.resetButton}
+                onClick={e => {
+                  e.stopPropagation()
+                  resetFocus?.()
+                }}
+              >
                 {getString('reset')}
               </Text>
             </Container>
