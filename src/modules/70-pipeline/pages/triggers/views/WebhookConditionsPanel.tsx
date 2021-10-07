@@ -28,8 +28,8 @@ const WebhookConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = (
         </Text>
       </h2>
       <HarnessDocTooltip tooltipId="conditionsOptional" useStandAlone={true} />
-      <Text data-tooltip-id="conditionsOptional">{getString('pipeline.triggers.conditionsPanel.subtitle')}</Text>
-      <HarnessDocTooltip tooltipId="conditionsOptional" useStandAlone={true} />
+      <Text data-tooltip-id="conditionsSubtitle">{getString('pipeline.triggers.conditionsPanel.subtitle')}</Text>
+      <HarnessDocTooltip tooltipId="conditionsSubtitle" useStandAlone={true} />
       {sourceRepo !== GitSourceProviders.CUSTOM.value && (
         <section>
           {event !== eventTypes.PUSH && event !== eventTypes.TAG && (
