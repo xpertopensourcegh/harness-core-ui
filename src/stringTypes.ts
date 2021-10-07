@@ -2022,6 +2022,7 @@ export interface StringsMap {
   'pipeline.inputSets.aboutInputSets': string
   'pipeline.inputSets.applyInputSet': string
   'pipeline.inputSets.applyInputSets': string
+  'pipeline.inputSets.applyingInputSet': string
   'pipeline.inputSets.applyingInputSets': string
   'pipeline.inputSets.inputSetPlaceholder': string
   'pipeline.inputSets.noRuntimeInputsCurrently': string

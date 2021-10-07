@@ -619,7 +619,8 @@ uniqueIdentifier: Identifier must be unique
 inputSets:
   applyInputSet: Apply Input Set
   applyInputSets: Apply Input Sets
-  applyingInputSets: Applying Inputs Sets
+  applyingInputSets: Applying Input Sets
+  applyingInputSet: Applying Input Set
   noRuntimeInputsCurrently: No runtime inputs in the pipeline currently
   noRuntimeInputsWhileExecution: No runtime inputs were present in the pipeline during this execution
   inputSetPlaceholder: Enter Input Sets
