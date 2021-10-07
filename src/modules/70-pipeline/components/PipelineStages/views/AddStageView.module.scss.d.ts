@@ -10,8 +10,6 @@ declare const styles: {
   readonly emptyStageView: string
   readonly cardNew: string
   readonly comingSoon: string
-  readonly pulse: string
-  readonly hoverStage: string
   readonly cardTitle: string
   readonly selected: string
   readonly stageTitle: string

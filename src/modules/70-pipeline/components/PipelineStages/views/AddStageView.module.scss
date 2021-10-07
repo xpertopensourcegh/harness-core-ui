@@ -44,29 +44,13 @@
       display: grid;
       justify-content: center;
 
-      @keyframes pulse {
-        50% {
-          box-shadow: 0 0 5px 5px var(--blue-600);
-        }
-      }
       .coming-soon {
-        background: var(--blue-600);
-        width: 10px;
-        height: 10px;
-        border-radius: 50px;
-        animation: pulse 1s infinite;
         position: absolute;
-        right: -5px;
-        top: -5px;
-
-        &.hover-stage {
-          animation: none;
-          width: 15px;
-          height: 15px;
-          right: -7px;
-          top: -7px;
-        }
+        right: -10px;
+        top: -10px;
+        opacity: 1 !important;
       }
+
       & > div {
         text-align: center;
       }

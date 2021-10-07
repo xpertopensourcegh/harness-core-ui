@@ -2,6 +2,7 @@ import React from 'react'
 import { Card, Icon, IconName } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
+import { ComingSoonIcon } from '@common/components/ComingSoonIcon/ComingSoonIcon'
 import type { PipelineStageProps } from '../PipelineStage'
 import EmptyStageView from './EmptyStageView'
 import StageHoverView from './StageHoverView'
@@ -51,7 +52,7 @@ export const AddStageView: React.FC<AddStageViewProps> = ({ callback, isParallel
                     }}
                   >
                     {stage.isComingSoon && (
-                      <span className={cx(css.comingSoon, { [css.hoverStage]: selectedType?.type === stage.type })} />
+                      <ComingSoonIcon className={css.comingSoon} active={selectedType?.type === stage.type} />
                     )}
                     <Icon name={stage.icon} size={24} {...stage.iconsProps} style={stage.iconsStyle} />
                   </Card>
