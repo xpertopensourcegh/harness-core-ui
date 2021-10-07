@@ -3736,6 +3736,8 @@ export interface StringsMap {
   'cv.changeSource.PageDuty.selectPagerDutyService': string
   'cv.changeSource.addChangeSource': string
   'cv.changeSource.alertText': string
+  'cv.changeSource.changeSourceCard.information': string
+  'cv.changeSource.changeSourceCard.triggred': string
   'cv.changeSource.configureChangeSource': string
   'cv.changeSource.connectChangeSource': string
   'cv.changeSource.defineChangeSource': string
@@ -3745,6 +3747,7 @@ export interface StringsMap {
   'cv.changeSource.incident': string
   'cv.changeSource.noChangeSource': string
   'cv.changeSource.noData': string
+  'cv.changeSource.noDataAvaiableForCard': string
   'cv.changeSource.noDataAvailableForChangeScore': string
   'cv.changeSource.selectChangeSource': string
   'cv.changeSource.selectChangeSourceName': string
