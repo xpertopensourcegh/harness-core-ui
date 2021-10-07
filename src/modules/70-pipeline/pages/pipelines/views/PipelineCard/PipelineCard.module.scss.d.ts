@@ -10,8 +10,5 @@ declare const styles: {
   readonly cardBtns: string
   readonly runBtn: string
   readonly viewExecutionsBtn: string
-  readonly alignIcon: string
-  readonly alignName: string
-  readonly alignButtons: string
 }
 export default styles

@@ -6,7 +6,6 @@
   }
   .label {
     flex-shrink: 0;
-    margin-left: -4px !important;
   }
   :global {
     .bp3-popover-wrapper {
@@ -47,17 +46,11 @@
     }
   }
 
-  .alignIcon {
-    margin-bottom: 8px !important;
-    margin-top: -7px !important;
-    margin-left: -4px !important;
-  }
-
-  .alignName {
-    margin-top: -8px !important;
-    margin-left: -4px !important;
-  }
-  .alignButtons {
-    margin-left: -5px !important;
+  :global {
+    .Card--cardMenu .Card--dots {
+      position: absolute;
+      top: -9px;
+      right: -19px;
+    }
   }
 }

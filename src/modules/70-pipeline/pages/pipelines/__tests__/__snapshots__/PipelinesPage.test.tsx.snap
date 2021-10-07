@@ -459,7 +459,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                 class="StyledProps--font StyledProps--main"
               >
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main alignIcon"
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-bottom-small"
                 >
                   <span
                     class="bp3-icon StyledProps--main"
@@ -535,7 +535,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   </span>
                 </div>
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main alignName StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-flex-start"
+                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-flex-start"
                 >
                   <div
                     class="StyledProps--font StyledProps--main"
@@ -570,7 +570,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main label StyledProps--font-small StyledProps--color StyledProps--color-grey700"
+                    class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey700"
                     style="width: 80px;"
                   >
                     services
@@ -790,7 +790,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   </div>
                 </div>
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main alignButtons StyledProps--margin-left-small StyledProps--flex"
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-top-small StyledProps--flex"
                 >
                   <button
                     class="bp3-button Button--button StyledProps--font StyledProps--main cardBtns runBtn StyledProps--intent-success Button--withLeftIcon Button--variation Button--variation-secondary Button--size Button--small"
@@ -889,7 +889,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                 class="StyledProps--font StyledProps--main"
               >
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main alignIcon"
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-bottom-small"
                 >
                   <span
                     class="bp3-icon StyledProps--main"
@@ -929,7 +929,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   </span>
                 </div>
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main alignName StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-flex-start"
+                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-flex-start"
                 >
                   <div
                     class="StyledProps--font StyledProps--main"
@@ -964,7 +964,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main label StyledProps--font-small StyledProps--color StyledProps--color-grey700"
+                    class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey700"
                     style="width: 80px;"
                   >
                     services
@@ -1193,7 +1193,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   </div>
                 </div>
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main alignButtons StyledProps--margin-left-small StyledProps--flex"
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-top-small StyledProps--flex"
                 >
                   <button
                     class="bp3-button Button--button StyledProps--font StyledProps--main cardBtns runBtn StyledProps--intent-success Button--withLeftIcon Button--variation Button--variation-secondary Button--size Button--small"
@@ -1292,7 +1292,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                 class="StyledProps--font StyledProps--main"
               >
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main alignIcon"
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-bottom-small"
                 >
                   <span
                     class="bp3-icon StyledProps--main"
@@ -1332,7 +1332,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   </span>
                 </div>
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main alignName StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-flex-start"
+                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-flex-start"
                 >
                   <div
                     class="StyledProps--font StyledProps--main"
@@ -1367,7 +1367,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main label StyledProps--font-small StyledProps--color StyledProps--color-grey700"
+                    class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey700"
                     style="width: 80px;"
                   >
                     services
@@ -1586,7 +1586,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   </div>
                 </div>
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main alignButtons StyledProps--margin-left-small StyledProps--flex"
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-top-small StyledProps--flex"
                 >
                   <button
                     class="bp3-button Button--button StyledProps--font StyledProps--main cardBtns runBtn StyledProps--intent-success Button--withLeftIcon Button--variation Button--variation-secondary Button--size Button--small"
