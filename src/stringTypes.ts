@@ -96,6 +96,7 @@ export interface StringsMap {
   'common.clientId': string
   'common.cluster': string
   'common.comingSoon': string
+  'common.comingSoon2': string
   'common.comments': string
   'common.confictOccured': string
   'common.configureOptions.advancedHelp': string
@@ -2172,7 +2173,9 @@ export interface StringsMap {
   'pipeline.overrideSets.overrideSetPlaceholder': string
   'pipeline.pipelineSteps.approvalStageDescription': string
   'pipeline.pipelineSteps.chainedPipeline': string
+  'pipeline.pipelineSteps.chainedPipelineDescription': string
   'pipeline.pipelineSteps.customStage': string
+  'pipeline.pipelineSteps.customStageDescription': string
   'pipeline.pipelineSteps.deployStageDescription': string
   'pipeline.pipelineSteps.featureStageDescription': string
   'pipeline.poweredByHarness': string

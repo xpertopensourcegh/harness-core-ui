@@ -20,12 +20,12 @@ export interface SelectedAddStageTypeData {
   type?: string
   icon?: IconName
   hoverIcon?: IconName
+  isComingSoon?: boolean
 }
 
 export const AddStageView: React.FC<AddStageViewProps> = ({ callback, isParallel = false, stages }) => {
   const { getString } = useStrings()
   const [selectedType, setSelectedType] = React.useState<SelectedAddStageTypeData | undefined>(undefined)
-
   return (
     <div className={cx(css.createNewContent, { [css.parallel]: isParallel })}>
       <div className={css.stageTypeSection}>
@@ -37,7 +37,7 @@ export const AddStageView: React.FC<AddStageViewProps> = ({ callback, isParallel
                 <div>
                   <Card
                     data-testid={`stage-${stage.type}`}
-                    onMouseOver={() => !stage.isDisabled && selectedType?.type !== stage.type && setSelectedType(stage)}
+                    onMouseOver={() => selectedType?.type !== stage.type && setSelectedType(stage)}
                     onMouseLeave={() => setSelectedType(undefined)}
                     interactive={true}
                     disabled={stage.isDisabled}
@@ -50,6 +50,9 @@ export const AddStageView: React.FC<AddStageViewProps> = ({ callback, isParallel
                       }
                     }}
                   >
+                    {stage.isComingSoon && (
+                      <span className={cx(css.comingSoon, { [css.hoverStage]: selectedType?.type === stage.type })} />
+                    )}
                     <Icon name={stage.icon} size={24} {...stage.iconsProps} style={stage.iconsStyle} />
                   </Card>
                   <div className={cx(css.cardTitle, { [css.selected]: selectedType?.type === stage.type })}>
