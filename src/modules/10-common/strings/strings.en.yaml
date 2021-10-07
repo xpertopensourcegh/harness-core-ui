@@ -565,3 +565,4 @@ connectivityErrors: Connectivity Errors
 apply: '{{ $.filters.apply }}'
 ON: 'ON'
 OFF: 'OFF'
+viewContent: View Content

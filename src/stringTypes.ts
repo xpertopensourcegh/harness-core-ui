@@ -503,6 +503,7 @@ export interface StringsMap {
   'common.validation.yamlFilePath': string
   'common.valuePlaceholder': string
   'common.videoNotSupportedError': string
+  'common.viewContent': string
   'common.viewText': string
   'common.webhookURL': string
   'common.welcome': string
@@ -1617,6 +1618,7 @@ export interface StringsMap {
   'gitsync.defaultBranch': string
   'gitsync.defaultFolder': string
   'gitsync.entitiesByRepositories': string
+  'gitsync.errorFixed': string
   'gitsync.fetchingBranches': string
   'gitsync.folderDetails': string
   'gitsync.gitEnabledBlockedTooltip': string
