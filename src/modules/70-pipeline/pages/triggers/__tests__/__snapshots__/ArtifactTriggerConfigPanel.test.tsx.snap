@@ -201,7 +201,11 @@ exports[`Artifact Trigger Config Panel  tests Renders/snapshots edit render 1`] 
                       role="columnheader"
                       style="width: 45%;"
                     >
-                      MANIFESTSTEXT
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+                      >
+                        MANIFESTSTEXT
+                      </p>
                     </div>
                     <div
                       class="cell"
@@ -209,7 +213,11 @@ exports[`Artifact Trigger Config Panel  tests Renders/snapshots edit render 1`] 
                       role="columnheader"
                       style="width: 25%;"
                     >
-                      PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.ARTIFACTREPOSITORY
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+                      >
+                        PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.ARTIFACTREPOSITORY
+                      </p>
                     </div>
                     <div
                       class="cell"
@@ -217,7 +225,11 @@ exports[`Artifact Trigger Config Panel  tests Renders/snapshots edit render 1`] 
                       role="columnheader"
                       style="width: 18%;"
                     >
-                      COMMON.LOCATION
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+                      >
+                        COMMON.LOCATION
+                      </p>
                     </div>
                     <div
                       class="cell"
@@ -225,7 +237,11 @@ exports[`Artifact Trigger Config Panel  tests Renders/snapshots edit render 1`] 
                       role="columnheader"
                       style="width: 10%;"
                     >
-                       
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+                      >
+                         
+                      </p>
                     </div>
                   </div>
                   <div

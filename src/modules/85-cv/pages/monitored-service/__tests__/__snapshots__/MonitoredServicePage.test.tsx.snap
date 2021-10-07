@@ -508,7 +508,11 @@ exports[`Unit tests for createting monitored source Health source table and envi
                       style="width: 30%;"
                       title="Toggle SortBy"
                     >
-                      name
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+                      >
+                        name
+                      </p>
                       <span
                         class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
                         icon="double-caret-vertical"
@@ -536,7 +540,11 @@ exports[`Unit tests for createting monitored source Health source table and envi
                       style="width: 35%;"
                       title="Toggle SortBy"
                     >
-                      typeLabel
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+                      >
+                        typeLabel
+                      </p>
                       <span
                         class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
                         icon="double-caret-vertical"
@@ -563,7 +571,11 @@ exports[`Unit tests for createting monitored source Health source table and envi
                       role="columnheader"
                       style="width: 35%;"
                     >
-                      source
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+                      >
+                        source
+                      </p>
                     </div>
                   </div>
                   <div

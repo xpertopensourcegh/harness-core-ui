@@ -1596,7 +1596,11 @@ exports[`Manifest Trigger Tests function getArtifactSpecObj by displaying select
                                 role="columnheader"
                                 style="width: 45%;"
                               >
-                                MANIFESTSTEXT
+                                <p
+                                  class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+                                >
+                                  MANIFESTSTEXT
+                                </p>
                               </div>
                               <div
                                 class="cell"
@@ -1604,7 +1608,11 @@ exports[`Manifest Trigger Tests function getArtifactSpecObj by displaying select
                                 role="columnheader"
                                 style="width: 25%;"
                               >
-                                PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.ARTIFACTREPOSITORY
+                                <p
+                                  class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+                                >
+                                  PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.ARTIFACTREPOSITORY
+                                </p>
                               </div>
                               <div
                                 class="cell"
@@ -1612,7 +1620,11 @@ exports[`Manifest Trigger Tests function getArtifactSpecObj by displaying select
                                 role="columnheader"
                                 style="width: 18%;"
                               >
-                                COMMON.LOCATION
+                                <p
+                                  class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+                                >
+                                  COMMON.LOCATION
+                                </p>
                               </div>
                               <div
                                 class="cell"
@@ -1620,7 +1632,11 @@ exports[`Manifest Trigger Tests function getArtifactSpecObj by displaying select
                                 role="columnheader"
                                 style="width: 10%;"
                               >
-                                 
+                                <p
+                                  class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+                                >
+                                   
+                                </p>
                               </div>
                             </div>
                             <div
@@ -2212,7 +2228,11 @@ exports[`Manifest Trigger Tests on click of edit - submits thru the right payloa
                                 role="columnheader"
                                 style="width: 45%;"
                               >
-                                MANIFESTSTEXT
+                                <p
+                                  class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+                                >
+                                  MANIFESTSTEXT
+                                </p>
                               </div>
                               <div
                                 class="cell"
@@ -2220,7 +2240,11 @@ exports[`Manifest Trigger Tests on click of edit - submits thru the right payloa
                                 role="columnheader"
                                 style="width: 25%;"
                               >
-                                PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.ARTIFACTREPOSITORY
+                                <p
+                                  class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+                                >
+                                  PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.ARTIFACTREPOSITORY
+                                </p>
                               </div>
                               <div
                                 class="cell"
@@ -2228,7 +2252,11 @@ exports[`Manifest Trigger Tests on click of edit - submits thru the right payloa
                                 role="columnheader"
                                 style="width: 18%;"
                               >
-                                COMMON.LOCATION
+                                <p
+                                  class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+                                >
+                                  COMMON.LOCATION
+                                </p>
                               </div>
                               <div
                                 class="cell"
@@ -2236,7 +2264,11 @@ exports[`Manifest Trigger Tests on click of edit - submits thru the right payloa
                                 role="columnheader"
                                 style="width: 10%;"
                               >
-                                 
+                                <p
+                                  class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+                                >
+                                   
+                                </p>
                               </div>
                             </div>
                             <div
@@ -3401,7 +3433,11 @@ exports[`Manifest Trigger Tests on click of edit artifact - submits thru the rig
                                 role="columnheader"
                                 style="width: 45%;"
                               >
-                                PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.ARTIFACT
+                                <p
+                                  class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+                                >
+                                  PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.ARTIFACT
+                                </p>
                               </div>
                               <div
                                 class="cell"
@@ -3409,7 +3445,11 @@ exports[`Manifest Trigger Tests on click of edit artifact - submits thru the rig
                                 role="columnheader"
                                 style="width: 25%;"
                               >
-                                PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.ARTIFACTREPOSITORY
+                                <p
+                                  class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+                                >
+                                  PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.ARTIFACTREPOSITORY
+                                </p>
                               </div>
                               <div
                                 class="cell"
@@ -3417,7 +3457,11 @@ exports[`Manifest Trigger Tests on click of edit artifact - submits thru the rig
                                 role="columnheader"
                                 style="width: 18%;"
                               >
-                                COMMON.LOCATION
+                                <p
+                                  class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+                                >
+                                  COMMON.LOCATION
+                                </p>
                               </div>
                               <div
                                 class="cell"
@@ -3425,7 +3469,11 @@ exports[`Manifest Trigger Tests on click of edit artifact - submits thru the rig
                                 role="columnheader"
                                 style="width: 10%;"
                               >
-                                 
+                                <p
+                                  class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+                                >
+                                   
+                                </p>
                               </div>
                             </div>
                             <div
