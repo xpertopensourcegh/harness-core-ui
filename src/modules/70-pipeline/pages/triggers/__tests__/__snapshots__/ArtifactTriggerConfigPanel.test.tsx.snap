@@ -14,6 +14,7 @@ exports[`Artifact Trigger Config Panel  tests Renders/snapshots edit render 1`] 
         >
           <h2
             class="heading"
+            data-tooltip-id="artifactManifestLabel"
           >
             pipeline.triggers.triggerConfigurationLabel
           </h2>
@@ -179,6 +180,7 @@ exports[`Artifact Trigger Config Panel  tests Renders/snapshots edit render 1`] 
             </div>
             <h2
               class="StyledProps--font StyledProps--font-h2 StyledProps--main listenOnNewWebhook"
+              data-tooltip-id="listenOnNewArtifactManifest"
               level="2"
             >
               pipeline.triggers.artifactTriggerConfigPanel.listenOnNewArtifact
@@ -386,6 +388,7 @@ exports[`Artifact Trigger Config Panel  tests Renders/snapshots inital Render 1`
         >
           <h2
             class="heading"
+            data-tooltip-id="artifactManifestLabel"
           >
             pipeline.triggers.triggerConfigurationLabel: pipeline.triggers.onNewArtifactTitle
           </h2>
@@ -581,6 +584,7 @@ exports[`Artifact Trigger Config Panel  tests Renders/snapshots inital Render 1`
             </div>
             <h2
               class="StyledProps--font StyledProps--font-h2 StyledProps--main listenOnNewWebhook"
+              data-tooltip-id="listenOnNewArtifactManifest"
               level="2"
             >
               pipeline.triggers.artifactTriggerConfigPanel.listenOnNewArtifact
@@ -588,6 +592,7 @@ exports[`Artifact Trigger Config Panel  tests Renders/snapshots inital Render 1`
             <section>
               <label
                 class="Label--main"
+                data-tooltip-id="artifactManifestLabel"
                 style="font-size: 13px; font-weight: normal;"
               >
                 manifestsText

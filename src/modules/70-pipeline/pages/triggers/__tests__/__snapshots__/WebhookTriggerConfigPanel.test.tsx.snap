@@ -14,8 +14,10 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
         >
           <h2
             class="heading"
+            data-tooltip-id="triggerConfigurationLabel"
           >
-            pipeline.triggers.triggerConfigurationLabel: pipeline.triggers.onNewWebhookTitle
+            pipeline.triggers.triggerConfigurationLabel
+            : pipeline.triggers.onNewWebhookTitle
           </h2>
           <div>
             <div
@@ -209,6 +211,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
             </div>
             <h2
               class="StyledProps--font StyledProps--font-h2 StyledProps--main listenOnNewWebhook"
+              data-tooltip-id="listenOnNewWebhook"
               level="2"
             >
               pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook
@@ -307,8 +310,10 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
         >
           <h2
             class="heading"
+            data-tooltip-id="triggerConfigurationLabel"
           >
-            pipeline.triggers.triggerConfigurationLabel: pipeline.triggers.onNewWebhookTitle
+            pipeline.triggers.triggerConfigurationLabel
+            : pipeline.triggers.onNewWebhookTitle
           </h2>
           <div>
             <div
@@ -502,6 +507,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
             </div>
             <h2
               class="StyledProps--font StyledProps--font-h2 StyledProps--main listenOnNewWebhook"
+              data-tooltip-id="listenOnNewWebhook"
               level="2"
             >
               pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook

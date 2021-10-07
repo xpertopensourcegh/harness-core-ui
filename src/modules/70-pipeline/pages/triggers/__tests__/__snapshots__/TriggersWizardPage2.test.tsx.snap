@@ -233,6 +233,7 @@ exports[`Manifest Trigger Tests Check chartVersion to be disabled and default va
                         >
                           <h2
                             class="StyledProps--font StyledProps--font-h2 StyledProps--main"
+                            data-tooltip-id="pipelineInputLabel"
                             level="2"
                           >
                             pipeline.triggers.pipelineInputLabel
@@ -1407,6 +1408,7 @@ exports[`Manifest Trigger Tests function getArtifactSpecObj by displaying select
                   >
                     <h2
                       class="heading"
+                      data-tooltip-id="artifactManifestLabel"
                     >
                       pipeline.triggers.triggerConfigurationLabel
                     </h2>
@@ -1574,6 +1576,7 @@ exports[`Manifest Trigger Tests function getArtifactSpecObj by displaying select
                       </div>
                       <h2
                         class="StyledProps--font StyledProps--font-h2 StyledProps--main listenOnNewWebhook"
+                        data-tooltip-id="listenOnNewArtifactManifest"
                         level="2"
                       >
                         pipeline.triggers.artifactTriggerConfigPanel.listenOnNewArtifact
@@ -2039,6 +2042,7 @@ exports[`Manifest Trigger Tests on click of edit - submits thru the right payloa
                   >
                     <h2
                       class="heading"
+                      data-tooltip-id="artifactManifestLabel"
                     >
                       pipeline.triggers.triggerConfigurationLabel
                     </h2>
@@ -2206,6 +2210,7 @@ exports[`Manifest Trigger Tests on click of edit - submits thru the right payloa
                       </div>
                       <h2
                         class="StyledProps--font StyledProps--font-h2 StyledProps--main listenOnNewWebhook"
+                        data-tooltip-id="listenOnNewArtifactManifest"
                         level="2"
                       >
                         pipeline.triggers.artifactTriggerConfigPanel.listenOnNewArtifact
@@ -3244,6 +3249,7 @@ exports[`Manifest Trigger Tests on click of edit artifact - submits thru the rig
                   >
                     <h2
                       class="heading"
+                      data-tooltip-id="artifactManifestLabel"
                     >
                       pipeline.triggers.triggerConfigurationLabel
                     </h2>
@@ -3411,6 +3417,7 @@ exports[`Manifest Trigger Tests on click of edit artifact - submits thru the rig
                       </div>
                       <h2
                         class="StyledProps--font StyledProps--font-h2 StyledProps--main listenOnNewWebhook"
+                        data-tooltip-id="listenOnNewArtifactManifest"
                         level="2"
                       >
                         pipeline.triggers.artifactTriggerConfigPanel.listenOnNewArtifact
@@ -4127,6 +4134,7 @@ exports[`Manifest Trigger Tests on edit -with event conditions payload 1`] = `
                   >
                     <h2
                       class="heading"
+                      data-tooltip-id="artifactManifestConditions"
                     >
                       conditions
                        
@@ -4139,6 +4147,7 @@ exports[`Manifest Trigger Tests on edit -with event conditions payload 1`] = `
                     </h2>
                     <p
                       class="StyledProps--font StyledProps--main"
+                      data-tooltip-id="artifactManifestConditionSubtitle"
                     >
                       pipeline.triggers.conditionsPanel.subtitle
                     </p>
@@ -4148,6 +4157,7 @@ exports[`Manifest Trigger Tests on edit -with event conditions payload 1`] = `
                       <div>
                         <p
                           class="StyledProps--font StyledProps--main"
+                          data-tooltip-id="version"
                           style="font-size: 16px;"
                         >
                           pipeline.triggers.conditionsPanel.manifestVersion
@@ -4569,6 +4579,7 @@ exports[`Manifest Trigger Tests throws validation error when select artifact/man
                   >
                     <h2
                       class="heading"
+                      data-tooltip-id="artifactManifestLabel"
                     >
                       pipeline.triggers.triggerConfigurationLabel
                     </h2>
@@ -4736,6 +4747,7 @@ exports[`Manifest Trigger Tests throws validation error when select artifact/man
                       </div>
                       <h2
                         class="StyledProps--font StyledProps--font-h2 StyledProps--main listenOnNewWebhook"
+                        data-tooltip-id="listenOnNewArtifactManifest"
                         level="2"
                       >
                         pipeline.triggers.artifactTriggerConfigPanel.listenOnNewArtifact
@@ -4743,6 +4755,7 @@ exports[`Manifest Trigger Tests throws validation error when select artifact/man
                       <section>
                         <label
                           class="Label--main"
+                          data-tooltip-id="artifactManifestLabel"
                           style="font-size: 13px; font-weight: normal;"
                         >
                           manifestsText

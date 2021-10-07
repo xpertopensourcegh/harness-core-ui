@@ -17,6 +17,7 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
           >
             <h2
               class="heading"
+              data-tooltip-id="pipelineInputLabel"
             >
               pipeline.triggers.pipelineInputLabel
             </h2>
@@ -56,6 +57,7 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
               >
                 <h2
                   class="StyledProps--font StyledProps--font-h2 StyledProps--main"
+                  data-tooltip-id="pipelineInputLabel"
                   level="2"
                 >
                   pipeline.triggers.pipelineInputLabel
@@ -218,6 +220,7 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
               >
                 <h2
                   class="StyledProps--font StyledProps--font-h2 StyledProps--main"
+                  data-tooltip-id="pipelineInputLabel"
                   level="2"
                 >
                   pipeline.triggers.pipelineInputLabel

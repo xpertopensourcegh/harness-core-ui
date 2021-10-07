@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { Layout, Heading, Text, NestedAccordionProvider } from '@wings-software/uicore'
+import { Layout, Heading, Text, NestedAccordionProvider, HarnessDocTooltip } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import { pick, merge, cloneDeep } from 'lodash-es'
 import { InputSetSelector, InputSetSelectorProps } from '@pipeline/components/InputSetSelector/InputSetSelector'
@@ -257,7 +257,10 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
         <div className={css.inputsetGrid}>
           <div className={css.inputSetContent}>
             <div className={css.pipelineInputRow}>
-              <Heading level={2}>{getString('pipeline.triggers.pipelineInputLabel')}</Heading>
+              <Heading level={2} data-tooltip-id="pipelineInputLabel">
+                {getString('pipeline.triggers.pipelineInputLabel')}
+              </Heading>
+              <HarnessDocTooltip tooltipId="pipelineInputLabel" useStandAlone={true} />
               <GitSyncStoreProvider>
                 <InputSetSelector
                   pipelineIdentifier={pipelineIdentifier}
@@ -281,9 +284,10 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
         </div>
       ) : (
         <Layout.Vertical style={{ padding: '0 var(--spacing-small)' }} margin="large" spacing="large">
-          <h2 className={css.heading} style={{ marginTop: '0!important' }}>
+          <h2 className={css.heading} style={{ marginTop: '0!important' }} data-tooltip-id="pipelineInputLabel">
             {getString('pipeline.triggers.pipelineInputLabel')}
           </h2>
+          <HarnessDocTooltip tooltipId="pipelineInputLabel" useStandAlone={true} />
           <Text>{getString('pipeline.triggers.pipelineInputPanel.noRuntimeInputs')}</Text>
         </Layout.Vertical>
       )}
