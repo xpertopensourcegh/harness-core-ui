@@ -661,10 +661,6 @@ export interface Approvers {
   userGroups: string[]
 }
 
-export type ArgoConnector = ConnectorConfigDTO & {
-  adapterUrl?: string
-}
-
 export interface ArtifactConfig {
   [key: string]: any
 }
@@ -1201,7 +1197,6 @@ export interface ConnectorCatalogueItem {
     | 'GcpCloudCost'
     | 'CEK8sCluster'
     | 'HttpHelmRepo'
-    | 'ArgoConnector'
     | 'NewRelic'
     | 'Datadog'
     | 'SumoLogic'
@@ -1270,7 +1265,6 @@ export type ConnectorFilterProperties = FilterProperties & {
     | 'GcpCloudCost'
     | 'CEK8sCluster'
     | 'HttpHelmRepo'
-    | 'ArgoConnector'
     | 'NewRelic'
     | 'Datadog'
     | 'SumoLogic'
@@ -1316,7 +1310,6 @@ export interface ConnectorInfoDTO {
     | 'GcpCloudCost'
     | 'CEK8sCluster'
     | 'HttpHelmRepo'
-    | 'ArgoConnector'
     | 'NewRelic'
     | 'Datadog'
     | 'SumoLogic'
@@ -1373,7 +1366,6 @@ export interface ConnectorTypeStatistics {
     | 'GcpCloudCost'
     | 'CEK8sCluster'
     | 'HttpHelmRepo'
-    | 'ArgoConnector'
     | 'NewRelic'
     | 'Datadog'
     | 'SumoLogic'
@@ -1938,10 +1930,10 @@ export interface Environment {
 export interface EnvironmentRequestDTO {
   color?: string
   description?: string
-  identifier: string
+  identifier?: string
   name?: string
-  orgIdentifier: string
-  projectIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
   tags?: {
     [key: string]: string
   }
@@ -2645,7 +2637,16 @@ export interface FeatureRestrictionDetailRequestDTO {
     | 'TEST5'
     | 'MULTIPLE_ORGANIZATIONS'
     | 'MULTIPLE_PROJECTS'
+    | 'INTEGRATED_APPROVALS_WITH_HARNESS_UI'
+    | 'INTEGRATED_APPROVALS_WITH_JIRA'
     | 'SECRET_MANAGERS'
+    | 'DEPLOYMENTS'
+    | 'BUILDS'
+    | 'SAML_SUPPORT'
+    | 'OAUTH_SUPPORT'
+    | 'LDAP_SUPPORT'
+    | 'TWO_FACTOR_AUTH_SUPPORT'
+    | 'CUSTOM_ROLES'
 }
 
 export interface FeatureRestrictionDetailsDTO {
@@ -2660,7 +2661,16 @@ export interface FeatureRestrictionDetailsDTO {
     | 'TEST5'
     | 'MULTIPLE_ORGANIZATIONS'
     | 'MULTIPLE_PROJECTS'
+    | 'INTEGRATED_APPROVALS_WITH_HARNESS_UI'
+    | 'INTEGRATED_APPROVALS_WITH_JIRA'
     | 'SECRET_MANAGERS'
+    | 'DEPLOYMENTS'
+    | 'BUILDS'
+    | 'SAML_SUPPORT'
+    | 'OAUTH_SUPPORT'
+    | 'LDAP_SUPPORT'
+    | 'TWO_FACTOR_AUTH_SUPPORT'
+    | 'CUSTOM_ROLES'
   restriction?: RestrictionDTO
   restrictionType?: 'AVAILABILITY' | 'STATIC_LIMIT' | 'RATE_LIMIT' | 'CUSTOM' | 'DURATION'
 }
@@ -2676,7 +2686,16 @@ export interface FeatureRestrictionMetadataDTO {
     | 'TEST5'
     | 'MULTIPLE_ORGANIZATIONS'
     | 'MULTIPLE_PROJECTS'
+    | 'INTEGRATED_APPROVALS_WITH_HARNESS_UI'
+    | 'INTEGRATED_APPROVALS_WITH_JIRA'
     | 'SECRET_MANAGERS'
+    | 'DEPLOYMENTS'
+    | 'BUILDS'
+    | 'SAML_SUPPORT'
+    | 'OAUTH_SUPPORT'
+    | 'LDAP_SUPPORT'
+    | 'TWO_FACTOR_AUTH_SUPPORT'
+    | 'CUSTOM_ROLES'
   restrictionMetadata?: {
     [key: string]: RestrictionMetadataDTO
   }
@@ -3070,6 +3089,57 @@ export interface GitSyncEntityListDTO {
   gitSyncEntities?: GitSyncEntityDTO[]
 }
 
+export interface GitSyncErrorAggregateByCommitDTO {
+  branchName?: string
+  commitMessage?: string
+  errorsForSummaryView?: GitSyncErrorDTO[]
+  failedCount?: number
+  gitCommitId?: string
+  repoId?: string
+}
+
+export interface GitSyncErrorDTO {
+  accountIdentifier?: string
+  additionalErrorDetails?: GitSyncErrorDetailsDTO
+  branchName?: string
+  changeType?: 'ADD' | 'RENAME' | 'MODIFY' | 'DELETE' | 'NONE'
+  completeFilePath?: string
+  entityReference?: EntityReference
+  entityType?:
+    | 'Projects'
+    | 'Pipelines'
+    | 'PipelineSteps'
+    | 'Connectors'
+    | 'Secrets'
+    | 'Service'
+    | 'Environment'
+    | 'InputSets'
+    | 'CvConfig'
+    | 'Delegates'
+    | 'DelegateConfigurations'
+    | 'CvVerificationJob'
+    | 'IntegrationStage'
+    | 'IntegrationSteps'
+    | 'CvKubernetesActivitySource'
+    | 'DeploymentSteps'
+    | 'DeploymentStage'
+    | 'ApprovalStage'
+    | 'FeatureFlagStage'
+    | 'Template'
+    | 'Triggers'
+    | 'MonitoredService'
+    | 'GitRepositories'
+  errorType?: 'GIT_TO_HARNESS' | 'CONNECTIVITY_ISSUE' | 'FULL_SYNC'
+  failureReason?: string
+  repoId?: string
+  repoUrl?: string
+  status?: 'ACTIVE' | 'DISCARDED' | 'EXPIRED' | 'RESOLVED' | 'OVERRIDDEN'
+}
+
+export interface GitSyncErrorDetailsDTO {
+  [key: string]: any
+}
+
 export interface GitSyncFolderConfigDTO {
   enabled?: boolean
   identifier?: string
@@ -3118,6 +3188,7 @@ export type GithubConnector = ConnectorConfigDTO & {
   apiAccess?: GithubApiAccess
   authentication: GithubAuthentication
   delegateSelectors?: string[]
+  executeOnManager?: boolean
   type: 'Account' | 'Repo'
   url: string
   validationRepo?: string
@@ -4072,10 +4143,9 @@ export type NumberNGVariable = NGVariable & {
   value: number
 }
 
-export interface OAuthSettings {
+export type OAuthSettings = NGAuthSettings & {
   allowedProviders?: ('AZURE' | 'BITBUCKET' | 'GITHUB' | 'GITLAB' | 'GOOGLE' | 'LINKEDIN')[]
   filter?: string
-  settingsType?: 'USER_PASSWORD' | 'SAML' | 'LDAP' | 'OAUTH'
 }
 
 export interface OAuthSignupDTO {
@@ -4271,6 +4341,26 @@ export interface PageGitBranchDTO {
 
 export interface PageGitSyncEntityListDTO {
   content?: GitSyncEntityListDTO[]
+  empty?: boolean
+  pageIndex?: number
+  pageItemCount?: number
+  pageSize?: number
+  totalItems?: number
+  totalPages?: number
+}
+
+export interface PageGitSyncErrorAggregateByCommitDTO {
+  content?: GitSyncErrorAggregateByCommitDTO[]
+  empty?: boolean
+  pageIndex?: number
+  pageItemCount?: number
+  pageSize?: number
+  totalItems?: number
+  totalPages?: number
+}
+
+export interface PageGitSyncErrorDTO {
+  content?: GitSyncErrorDTO[]
   empty?: boolean
   pageIndex?: number
   pageItemCount?: number
@@ -5725,6 +5815,20 @@ export interface ResponsePageGitSyncEntityListDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponsePageGitSyncErrorAggregateByCommitDTO {
+  correlationId?: string
+  data?: PageGitSyncErrorAggregateByCommitDTO
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponsePageGitSyncErrorDTO {
+  correlationId?: string
+  data?: PageGitSyncErrorDTO
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponsePageGitopsProviderResponse {
   correlationId?: string
   data?: PageGitopsProviderResponse
@@ -6693,10 +6797,10 @@ export interface ServicePipelineInfo {
 
 export interface ServiceRequestDTO {
   description?: string
-  identifier: string
+  identifier?: string
   name?: string
-  orgIdentifier: string
-  projectIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
   tags?: {
     [key: string]: string
   }
@@ -6988,7 +7092,6 @@ export interface StepGroupElementConfig {
   failureStrategies?: FailureStrategyConfig[]
   identifier: string
   name?: string
-  rollbackSteps?: ExecutionWrapperConfig[]
   steps: ExecutionWrapperConfig[]
   when?: StepWhenCondition
 }
@@ -7592,9 +7695,9 @@ export type RoleAssignmentFilterRequestBody = RoleAssignmentFilter
 
 export type ScopingRuleDetailsNgArrayRequestBody = ScopingRuleDetailsNg[]
 
-export type SecretRequestWrapperRequestBody = SecretRequestWrapper
+export type SecretRequestWrapperRequestBody = void
 
-export type SecretRequestWrapper2RequestBody = void
+export type SecretRequestWrapper2RequestBody = SecretRequestWrapper
 
 export type ServiceAccountDTORequestBody = ServiceAccountDTO
 
@@ -11140,7 +11243,6 @@ export interface GetConnectorListQueryParams {
     | 'GcpCloudCost'
     | 'CEK8sCluster'
     | 'HttpHelmRepo'
-    | 'ArgoConnector'
     | 'NewRelic'
     | 'Datadog'
     | 'SumoLogic'
@@ -11419,7 +11521,6 @@ export interface GetAllAllowedFieldValuesQueryParams {
     | 'GcpCloudCost'
     | 'CEK8sCluster'
     | 'HttpHelmRepo'
-    | 'ArgoConnector'
     | 'NewRelic'
     | 'Datadog'
     | 'SumoLogic'
@@ -15821,6 +15922,228 @@ export const listGitSyncEntitiesByTypePromise = (
     ListGitSyncEntitiesByTypeQueryParams,
     ListGitSyncEntitiesByTypePathParams
   >(getConfig('ng/api'), `/git-sync-entities/${entityType}`, props, signal)
+
+export interface ListGitSyncErrorsQueryParams {
+  pageIndex?: number
+  pageSize?: number
+  sortOrders?: string[]
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  searchTerm?: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
+  type?: 'GIT_TO_HARNESS' | 'CONNECTIVITY_ISSUE' | 'FULL_SYNC'
+}
+
+export type ListGitSyncErrorsProps = Omit<
+  GetProps<ResponsePageGitSyncErrorDTO, Failure | Error, ListGitSyncErrorsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets Error list
+ */
+export const ListGitSyncErrors = (props: ListGitSyncErrorsProps) => (
+  <Get<ResponsePageGitSyncErrorDTO, Failure | Error, ListGitSyncErrorsQueryParams, void>
+    path={`/git-sync-errors`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseListGitSyncErrorsProps = Omit<
+  UseGetProps<ResponsePageGitSyncErrorDTO, Failure | Error, ListGitSyncErrorsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets Error list
+ */
+export const useListGitSyncErrors = (props: UseListGitSyncErrorsProps) =>
+  useGet<ResponsePageGitSyncErrorDTO, Failure | Error, ListGitSyncErrorsQueryParams, void>(`/git-sync-errors`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Gets Error list
+ */
+export const listGitSyncErrorsPromise = (
+  props: GetUsingFetchProps<ResponsePageGitSyncErrorDTO, Failure | Error, ListGitSyncErrorsQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponsePageGitSyncErrorDTO, Failure | Error, ListGitSyncErrorsQueryParams, void>(
+    getConfig('ng/api'),
+    `/git-sync-errors`,
+    props,
+    signal
+  )
+
+export interface ListGitToHarnessErrorsCommitsQueryParams {
+  pageIndex?: number
+  pageSize?: number
+  sortOrders?: string[]
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  searchTerm?: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
+  numberOfErrorsInSummary?: number
+}
+
+export type ListGitToHarnessErrorsCommitsProps = Omit<
+  GetProps<
+    ResponsePageGitSyncErrorAggregateByCommitDTO,
+    Failure | Error,
+    ListGitToHarnessErrorsCommitsQueryParams,
+    void
+  >,
+  'path'
+>
+
+/**
+ * Gets Error list grouped by commit
+ */
+export const ListGitToHarnessErrorsCommits = (props: ListGitToHarnessErrorsCommitsProps) => (
+  <Get<ResponsePageGitSyncErrorAggregateByCommitDTO, Failure | Error, ListGitToHarnessErrorsCommitsQueryParams, void>
+    path={`/git-sync-errors/aggregate`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseListGitToHarnessErrorsCommitsProps = Omit<
+  UseGetProps<
+    ResponsePageGitSyncErrorAggregateByCommitDTO,
+    Failure | Error,
+    ListGitToHarnessErrorsCommitsQueryParams,
+    void
+  >,
+  'path'
+>
+
+/**
+ * Gets Error list grouped by commit
+ */
+export const useListGitToHarnessErrorsCommits = (props: UseListGitToHarnessErrorsCommitsProps) =>
+  useGet<ResponsePageGitSyncErrorAggregateByCommitDTO, Failure | Error, ListGitToHarnessErrorsCommitsQueryParams, void>(
+    `/git-sync-errors/aggregate`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Gets Error list grouped by commit
+ */
+export const listGitToHarnessErrorsCommitsPromise = (
+  props: GetUsingFetchProps<
+    ResponsePageGitSyncErrorAggregateByCommitDTO,
+    Failure | Error,
+    ListGitToHarnessErrorsCommitsQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    ResponsePageGitSyncErrorAggregateByCommitDTO,
+    Failure | Error,
+    ListGitToHarnessErrorsCommitsQueryParams,
+    void
+  >(getConfig('ng/api'), `/git-sync-errors/aggregate`, props, signal)
+
+export interface ListGitToHarnessErrorsForCommitQueryParams {
+  pageIndex?: number
+  pageSize?: number
+  sortOrders?: string[]
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
+}
+
+export interface ListGitToHarnessErrorsForCommitPathParams {
+  commitId: string
+}
+
+export type ListGitToHarnessErrorsForCommitProps = Omit<
+  GetProps<
+    ResponsePageGitSyncErrorDTO,
+    Failure | Error,
+    ListGitToHarnessErrorsForCommitQueryParams,
+    ListGitToHarnessErrorsForCommitPathParams
+  >,
+  'path'
+> &
+  ListGitToHarnessErrorsForCommitPathParams
+
+/**
+ * Gets Error list for a particular commit
+ */
+export const ListGitToHarnessErrorsForCommit = ({ commitId, ...props }: ListGitToHarnessErrorsForCommitProps) => (
+  <Get<
+    ResponsePageGitSyncErrorDTO,
+    Failure | Error,
+    ListGitToHarnessErrorsForCommitQueryParams,
+    ListGitToHarnessErrorsForCommitPathParams
+  >
+    path={`/git-sync-errors/commits/${commitId}`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseListGitToHarnessErrorsForCommitProps = Omit<
+  UseGetProps<
+    ResponsePageGitSyncErrorDTO,
+    Failure | Error,
+    ListGitToHarnessErrorsForCommitQueryParams,
+    ListGitToHarnessErrorsForCommitPathParams
+  >,
+  'path'
+> &
+  ListGitToHarnessErrorsForCommitPathParams
+
+/**
+ * Gets Error list for a particular commit
+ */
+export const useListGitToHarnessErrorsForCommit = ({ commitId, ...props }: UseListGitToHarnessErrorsForCommitProps) =>
+  useGet<
+    ResponsePageGitSyncErrorDTO,
+    Failure | Error,
+    ListGitToHarnessErrorsForCommitQueryParams,
+    ListGitToHarnessErrorsForCommitPathParams
+  >((paramsInPath: ListGitToHarnessErrorsForCommitPathParams) => `/git-sync-errors/commits/${paramsInPath.commitId}`, {
+    base: getConfig('ng/api'),
+    pathParams: { commitId },
+    ...props
+  })
+
+/**
+ * Gets Error list for a particular commit
+ */
+export const listGitToHarnessErrorsForCommitPromise = (
+  {
+    commitId,
+    ...props
+  }: GetUsingFetchProps<
+    ResponsePageGitSyncErrorDTO,
+    Failure | Error,
+    ListGitToHarnessErrorsForCommitQueryParams,
+    ListGitToHarnessErrorsForCommitPathParams
+  > & { commitId: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    ResponsePageGitSyncErrorDTO,
+    Failure | Error,
+    ListGitToHarnessErrorsForCommitQueryParams,
+    ListGitToHarnessErrorsForCommitPathParams
+  >(getConfig('ng/api'), `/git-sync-errors/commits/${commitId}`, props, signal)
 
 export interface GetGitSyncSettingsQueryParams {
   projectIdentifier?: string
@@ -23337,8 +23660,12 @@ export const getCurrentGenUsersPromise = (
     signal
   )
 
+export interface DisableTwoFactorAuthQueryParams {
+  routingId?: string
+}
+
 export type DisableTwoFactorAuthProps = Omit<
-  MutateProps<ResponseUserInfo, Failure | Error, void, void, void>,
+  MutateProps<ResponseUserInfo, Failure | Error, DisableTwoFactorAuthQueryParams, void, void>,
   'path' | 'verb'
 >
 
@@ -23346,7 +23673,7 @@ export type DisableTwoFactorAuthProps = Omit<
  * disable two factor auth settings
  */
 export const DisableTwoFactorAuth = (props: DisableTwoFactorAuthProps) => (
-  <Mutate<ResponseUserInfo, Failure | Error, void, void, void>
+  <Mutate<ResponseUserInfo, Failure | Error, DisableTwoFactorAuthQueryParams, void, void>
     verb="PUT"
     path={`/user/disable-two-factor-auth`}
     base={getConfig('ng/api')}
@@ -23355,7 +23682,7 @@ export const DisableTwoFactorAuth = (props: DisableTwoFactorAuthProps) => (
 )
 
 export type UseDisableTwoFactorAuthProps = Omit<
-  UseMutateProps<ResponseUserInfo, Failure | Error, void, void, void>,
+  UseMutateProps<ResponseUserInfo, Failure | Error, DisableTwoFactorAuthQueryParams, void, void>,
   'path' | 'verb'
 >
 
@@ -23363,19 +23690,20 @@ export type UseDisableTwoFactorAuthProps = Omit<
  * disable two factor auth settings
  */
 export const useDisableTwoFactorAuth = (props: UseDisableTwoFactorAuthProps) =>
-  useMutate<ResponseUserInfo, Failure | Error, void, void, void>('PUT', `/user/disable-two-factor-auth`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
+  useMutate<ResponseUserInfo, Failure | Error, DisableTwoFactorAuthQueryParams, void, void>(
+    'PUT',
+    `/user/disable-two-factor-auth`,
+    { base: getConfig('ng/api'), ...props }
+  )
 
 /**
  * disable two factor auth settings
  */
 export const disableTwoFactorAuthPromise = (
-  props: MutateUsingFetchProps<ResponseUserInfo, Failure | Error, void, void, void>,
+  props: MutateUsingFetchProps<ResponseUserInfo, Failure | Error, DisableTwoFactorAuthQueryParams, void, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponseUserInfo, Failure | Error, void, void, void>(
+  mutateUsingFetch<ResponseUserInfo, Failure | Error, DisableTwoFactorAuthQueryParams, void, void>(
     'PUT',
     getConfig('ng/api'),
     `/user/disable-two-factor-auth`,
@@ -23383,8 +23711,12 @@ export const disableTwoFactorAuthPromise = (
     signal
   )
 
+export interface EnableTwoFactorAuthQueryParams {
+  routingId?: string
+}
+
 export type EnableTwoFactorAuthProps = Omit<
-  MutateProps<ResponseUserInfo, Failure | Error, void, TwoFactorAuthSettingsInfo, void>,
+  MutateProps<ResponseUserInfo, Failure | Error, EnableTwoFactorAuthQueryParams, TwoFactorAuthSettingsInfo, void>,
   'path' | 'verb'
 >
 
@@ -23392,7 +23724,7 @@ export type EnableTwoFactorAuthProps = Omit<
  * enable two factor auth settings
  */
 export const EnableTwoFactorAuth = (props: EnableTwoFactorAuthProps) => (
-  <Mutate<ResponseUserInfo, Failure | Error, void, TwoFactorAuthSettingsInfo, void>
+  <Mutate<ResponseUserInfo, Failure | Error, EnableTwoFactorAuthQueryParams, TwoFactorAuthSettingsInfo, void>
     verb="PUT"
     path={`/user/enable-two-factor-auth`}
     base={getConfig('ng/api')}
@@ -23401,7 +23733,7 @@ export const EnableTwoFactorAuth = (props: EnableTwoFactorAuthProps) => (
 )
 
 export type UseEnableTwoFactorAuthProps = Omit<
-  UseMutateProps<ResponseUserInfo, Failure | Error, void, TwoFactorAuthSettingsInfo, void>,
+  UseMutateProps<ResponseUserInfo, Failure | Error, EnableTwoFactorAuthQueryParams, TwoFactorAuthSettingsInfo, void>,
   'path' | 'verb'
 >
 
@@ -23409,7 +23741,7 @@ export type UseEnableTwoFactorAuthProps = Omit<
  * enable two factor auth settings
  */
 export const useEnableTwoFactorAuth = (props: UseEnableTwoFactorAuthProps) =>
-  useMutate<ResponseUserInfo, Failure | Error, void, TwoFactorAuthSettingsInfo, void>(
+  useMutate<ResponseUserInfo, Failure | Error, EnableTwoFactorAuthQueryParams, TwoFactorAuthSettingsInfo, void>(
     'PUT',
     `/user/enable-two-factor-auth`,
     { base: getConfig('ng/api'), ...props }
@@ -23419,10 +23751,16 @@ export const useEnableTwoFactorAuth = (props: UseEnableTwoFactorAuthProps) =>
  * enable two factor auth settings
  */
 export const enableTwoFactorAuthPromise = (
-  props: MutateUsingFetchProps<ResponseUserInfo, Failure | Error, void, TwoFactorAuthSettingsInfo, void>,
+  props: MutateUsingFetchProps<
+    ResponseUserInfo,
+    Failure | Error,
+    EnableTwoFactorAuthQueryParams,
+    TwoFactorAuthSettingsInfo,
+    void
+  >,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponseUserInfo, Failure | Error, void, TwoFactorAuthSettingsInfo, void>(
+  mutateUsingFetch<ResponseUserInfo, Failure | Error, EnableTwoFactorAuthQueryParams, TwoFactorAuthSettingsInfo, void>(
     'PUT',
     getConfig('ng/api'),
     `/user/enable-two-factor-auth`,
@@ -24640,7 +24978,7 @@ export type PostSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
   'path' | 'verb'
@@ -24650,7 +24988,7 @@ export type PostSecretProps = Omit<
  * Create a secret
  */
 export const PostSecret = (props: PostSecretProps) => (
-  <Mutate<ResponseSecretResponseWrapper, Failure | Error, PostSecretQueryParams, SecretRequestWrapperRequestBody, void>
+  <Mutate<ResponseSecretResponseWrapper, Failure | Error, PostSecretQueryParams, SecretRequestWrapper2RequestBody, void>
     verb="POST"
     path={`/v2/secrets`}
     base={getConfig('ng/api')}
@@ -24663,7 +25001,7 @@ export type UsePostSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
   'path' | 'verb'
@@ -24677,7 +25015,7 @@ export const usePostSecret = (props: UsePostSecretProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >('POST', `/v2/secrets`, { base: getConfig('ng/api'), ...props })
 
@@ -24689,7 +25027,7 @@ export const postSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -24698,7 +25036,7 @@ export const postSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >('POST', getConfig('ng/api'), `/v2/secrets`, props, signal)
 
@@ -25091,7 +25429,7 @@ export type PostSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   'path' | 'verb'
@@ -25105,7 +25443,7 @@ export const PostSecretViaYaml = (props: PostSecretViaYamlProps) => (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >
     verb="POST"
@@ -25120,7 +25458,7 @@ export type UsePostSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   'path' | 'verb'
@@ -25134,7 +25472,7 @@ export const usePostSecretViaYaml = (props: UsePostSecretViaYamlProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >('POST', `/v2/secrets/yaml`, { base: getConfig('ng/api'), ...props })
 
@@ -25146,7 +25484,7 @@ export const postSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -25155,7 +25493,7 @@ export const postSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >('POST', getConfig('ng/api'), `/v2/secrets/yaml`, props, signal)
 
@@ -25290,7 +25628,7 @@ export type PutSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   >,
   'path' | 'verb'
@@ -25305,7 +25643,7 @@ export const PutSecret = ({ identifier, ...props }: PutSecretProps) => (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   >
     verb="PUT"
@@ -25320,7 +25658,7 @@ export type UsePutSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   >,
   'path' | 'verb'
@@ -25335,7 +25673,7 @@ export const usePutSecret = ({ identifier, ...props }: UsePutSecretProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   >('PUT', (paramsInPath: PutSecretPathParams) => `/v2/secrets/${paramsInPath.identifier}`, {
     base: getConfig('ng/api'),
@@ -25354,7 +25692,7 @@ export const putSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   > & { identifier: string },
   signal?: RequestInit['signal']
@@ -25363,7 +25701,7 @@ export const putSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   >('PUT', getConfig('ng/api'), `/v2/secrets/${identifier}`, props, signal)
 
@@ -25382,7 +25720,7 @@ export type PutSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   >,
   'path' | 'verb'
@@ -25397,7 +25735,7 @@ export const PutSecretViaYaml = ({ identifier, ...props }: PutSecretViaYamlProps
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   >
     verb="PUT"
@@ -25412,7 +25750,7 @@ export type UsePutSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   >,
   'path' | 'verb'
@@ -25427,7 +25765,7 @@ export const usePutSecretViaYaml = ({ identifier, ...props }: UsePutSecretViaYam
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   >('PUT', (paramsInPath: PutSecretViaYamlPathParams) => `/v2/secrets/${paramsInPath.identifier}/yaml`, {
     base: getConfig('ng/api'),
@@ -25446,7 +25784,7 @@ export const putSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   > & { identifier: string },
   signal?: RequestInit['signal']
@@ -25455,7 +25793,7 @@ export const putSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   >('PUT', getConfig('ng/api'), `/v2/secrets/${identifier}/yaml`, props, signal)
 
@@ -25562,7 +25900,6 @@ export interface GetYamlSchemaQueryParams {
     | 'GcpCloudCost'
     | 'CEK8sCluster'
     | 'HttpHelmRepo'
-    | 'ArgoConnector'
     | 'NewRelic'
     | 'Datadog'
     | 'SumoLogic'
@@ -25661,7 +25998,6 @@ export interface GetYamlSnippetMetadataQueryParams {
     | 'sumologic'
     | 'dynatrace'
     | 'pagerduty'
-    | 'argoconnector'
   )[]
 }
 
