@@ -21,7 +21,6 @@ import {
   GetSchemaYaml,
   GetManifestTriggerResponse,
   GetParseableManifestTriggerResponse,
-  updateManifestTriggerMockResponseYaml,
   GetTriggerWithEventConditionsResponse,
   GetParseableArtifactTriggerResponse
 } from './webhookMockResponses'
@@ -284,9 +283,8 @@ describe('Manifest Trigger Tests', () => {
     }
 
     fireEvent.click(updateButton)
-    await waitFor(() => expect(mockUpdate).toHaveBeenCalledTimes(1))
-
-    expect(mockUpdate).toBeCalledWith(updateManifestTriggerMockResponseYaml)
+    await waitFor(() => expect(mockUpdate).toHaveBeenCalledTimes(0)) // trigger save should not happen without adding CI Codebase details
+    // expect(mockUpdate).toBeCalledWith(updateManifestTriggerMockResponseYaml)
   })
 
   test('function getArtifactSpecObj by displaying select artifact', async () => {

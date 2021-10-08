@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pipeline with updated runtime input and pipeline variables 1`] = `
+exports[`TriggersWizardPage Triggers tests Payload/Values Comparison Existing Trigger has pipeline with updated runtime input and pipeline variables 1`] = `
 <div>
   <div
     class="StyledProps--font StyledProps--main pageBody"
@@ -616,7 +616,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                                   </div>
                                 </div>
                                 <div
-                                  class="StyledProps--font StyledProps--main StyledProps--padding-bottom-small"
+                                  class="StyledProps--font StyledProps--main StyledProps--padding-bottom-small StyledProps--padding-top-small"
                                 >
                                   <div
                                     class="bp3-form-group"
