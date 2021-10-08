@@ -543,8 +543,7 @@ monitoredServices:
   addNewMonitoredServices: Add New Monitored Service
   editMonitoredServices: Edit Monitored Service
   editService: Edit service
-  deleteMonitoredServiceWarning: Are you sure you want to delete Monitored Service
-  deleteMonitoredService: Delete Monitored Service
+  deleteMonitoredServiceWarning: Deleting your monitored service ‘{{ name }}’ will also delete its resources.
   deleteService: Delete service
   monitoredServiceCreated: Monitoring Service created
   monitoredServiceUpdated: Monitoring Service updated

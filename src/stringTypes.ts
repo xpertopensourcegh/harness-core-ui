@@ -134,6 +134,7 @@ export interface StringsMap {
   'common.default': string
   'common.defaultExperience': string
   'common.delegateForTask': string
+  'common.delete': string
   'common.descriptionPlaceholder': string
   'common.disable': string
   'common.discard': string
@@ -3825,7 +3826,6 @@ export interface StringsMap {
   'cv.metricVerificationModal.viewCalls': string
   'cv.monitoredServices.addNewMonitoredServices': string
   'cv.monitoredServices.changesTable.impact': string
-  'cv.monitoredServices.deleteMonitoredService': string
   'cv.monitoredServices.deleteMonitoredServiceWarning': string
   'cv.monitoredServices.deleteService': string
   'cv.monitoredServices.editMonitoredServices': string

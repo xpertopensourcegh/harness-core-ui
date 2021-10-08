@@ -566,3 +566,4 @@ apply: '{{ $.filters.apply }}'
 ON: 'ON'
 OFF: 'OFF'
 viewContent: View Content
+delete: Delete {{ name }}?
