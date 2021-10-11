@@ -80,7 +80,7 @@ function MonitoredServicePage(): JSX.Element {
           <NGBreadcrumbs
             links={[
               {
-                url: routes.toCVProjectOverview({
+                url: routes.toCVMonitoringServices({
                   orgIdentifier: orgIdentifier,
                   projectIdentifier: projectIdentifier,
                   accountId: accountId
