@@ -5023,23 +5023,19 @@
     vscode-uri "^2.1.1"
 
 "@wings-software/ng-tooltip@~1.30.26":
-  version "1.30.46"
-  resolved "https://npm.pkg.github.com/download/@wings-software/ng-tooltip/1.30.46/63ced951aba8e67e0035f90994d2866eee94fdcbbacadf01f8590a7aaa4a20b0#3a51b86e429832f09e5df986aa1a185a9e129392"
-  integrity sha512-6BgumGoIur4QBOLMOyQTlRz6co9olbbO5Mb15Howkj0qanTrKSsbR6rNnYJhmu98Re/v9m7892/iMQi616bVaQ==
+  version "1.30.51"
+  resolved "https://npm.pkg.github.com/download/@wings-software/ng-tooltip/1.30.51/198d1bac5ade72f2a63d13915767209e9c0050c79df48d24d8a4754c9e6c1fdd#89e3e5598f8dcf7f9211649e56218b22ac29fc23"
+  integrity sha512-SLcMMBejl/KIITPhHky9yznXkuR/7CMH+merV+vQ7UYFiP3Y6ce5j3GcIGYx+5dcgl3BqccXvLhPwGkQBN3oNw==
 
 "@wings-software/telemetry@^1.0.36":
   version "1.0.36"
   resolved "https://npm.pkg.github.com/download/@wings-software/telemetry/1.0.36/5f59a357aff1dceaa0f724acb8620985f6b3334233231838eea82ea25b3de4ce#cac20fc86f51e0bf91688d35664ad1a3cf84c124"
   integrity "sha1-ysIPyG9R4L+RaI01ZkrRo8+EwSQ= sha512-PrWLYNubOjFDlMO2DJlH1PljfeVgJ6zih6gHOmp2B/2+fdUhjOABSnEKduNSZwrTGqCFmHKmqF1gZ1ksQMEJLA=="
 
-
-
 "@wings-software/uicore@0.1.390":
   version "0.1.390"
   resolved "https://npm.pkg.github.com/download/@wings-software/uicore/0.1.390/c51fae247fbdfe3501791573631fe7718bddcec992e40120cd4f4bf7759db14d#38032c9f958b5cd317775f7cdf02830ea57bfd93"
   integrity sha512-+YsWtkGBxFL4EeHpC+D9an6YTkMeARy3ofBzOWlnpLPnAzkS5RJ29w2AWSXW37op3iZSlQa82VaH0aTLGnIM0w==
-
-
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
