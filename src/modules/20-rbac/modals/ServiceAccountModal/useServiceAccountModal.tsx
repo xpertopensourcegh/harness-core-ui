@@ -25,8 +25,8 @@ export const useServiceAccountModal = ({ onSuccess }: useServiceAccountModalProp
         onClose={hideModal}
         title={
           serviceAccountData
-            ? getString('rbac.serviceAccounts.newServiceAccount')
-            : getString('rbac.serviceAccounts.form.editServiceAccount')
+            ? getString('rbac.serviceAccounts.form.editServiceAccount')
+            : getString('rbac.serviceAccounts.newServiceAccount')
         }
       >
         <ServiceAccountForm
