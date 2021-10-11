@@ -4,9 +4,9 @@ export interface ChangeInfoData {
   triggerAt: string
   summary: {
     priority: string
-    assignee: string
+    assignee: { name: string; url?: string }
     urgency: string
-    policy: string
+    policy: { name: string; url?: string }
   }
 }
 
@@ -17,7 +17,7 @@ export interface ChangeDetailsDataInterface {
   details: {
     service: { name: string; url?: string }
     environment: { name: string; url?: string }
-    source: ChangeEventDTO['type']
+    source: { name: ChangeEventDTO['type']; url?: string }
   }
 }
 

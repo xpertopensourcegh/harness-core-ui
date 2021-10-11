@@ -9,7 +9,7 @@ export const createDetailsTitle = (type?: string, category?: string) => {
   }
 }
 
-export const onClickEvent = (detailsItem: { name: string; url?: string } | ChangeEventDTO['type']) => {
+export const getOnClickOptions = (detailsItem: { name: string | ChangeEventDTO['type']; url?: string }) => {
   if (typeof detailsItem !== 'string' && detailsItem?.url) {
     return {
       onClick: () => window.open(detailsItem?.url, '_blank')

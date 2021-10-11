@@ -11,20 +11,28 @@ export const createChangeDetailsData = (resource: ChangeEventDTO | undefined) =>
     details: {
       service: { name: serviceName },
       environment: { name: environmentName },
-      source: type
+      source: { name: type, url: metadata?.htmlUrl }
     }
   }
 }
 
 export const createChangeInfoData = (metadata: ChangeEventMetadata | undefined) => {
-  const { triggeredAt = 0, priority, eventId, urgency, escalationPolicy } = metadata || {}
+  const {
+    triggeredAt = 0,
+    priority,
+    urgency,
+    assignment,
+    assignmentUrl,
+    escalationPolicy,
+    escalationPolicyUrl
+  } = metadata || {}
   return {
     triggerAt: moment(new Date(triggeredAt * 1000)).format('Do MMM hh:mm A'),
     summary: {
       priority: priority,
-      assignee: eventId,
+      assignee: { name: assignment, url: assignmentUrl },
       urgency: urgency,
-      policy: escalationPolicy
+      policy: { name: escalationPolicy, url: escalationPolicyUrl }
     }
   }
 }

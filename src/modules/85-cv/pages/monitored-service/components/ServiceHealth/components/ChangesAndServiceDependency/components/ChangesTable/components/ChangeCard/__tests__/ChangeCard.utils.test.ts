@@ -14,7 +14,7 @@ describe('Validate Utils', () => {
         service: {
           name: 'service1'
         },
-        source: 'PagerDuty'
+        source: { name: 'PagerDuty', url: 'https://acme.pagerduty.com/incidents/PGR0VU2' }
       },
       status: 'triggered',
       type: 'PagerDuty'
@@ -23,7 +23,12 @@ describe('Validate Utils', () => {
 
   test('should createChangeDetailsData', () => {
     expect(createChangeInfoData(payload.resource.metadata)).toEqual({
-      summary: { assignee: 'PGR0VU2', policy: 'Default', priority: 'P2', urgency: 'high' },
+      summary: {
+        assignee: { name: null, url: null },
+        policy: { name: 'Default', url: 'https://acme.pagerduty.com/escalation_policies/PUS0KTE' },
+        priority: 'P2',
+        urgency: 'high'
+      },
       triggerAt: '2nd Oct 06:45 PM'
     })
   })

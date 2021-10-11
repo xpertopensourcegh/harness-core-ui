@@ -1,7 +1,8 @@
 import React from 'react'
+import cx from 'classnames'
 import { Text, Container, Color } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import { createDetailsTitle, onClickEvent } from './ChangeDetails.utils'
+import { createDetailsTitle, getOnClickOptions } from './ChangeDetails.utils'
 import type { ChangeDetailsDataInterface } from '../../ChangeCard.types'
 import StatusChip from './components/StatusChip/StatusChip'
 import css from './ChangeDetails.module.scss'
@@ -26,7 +27,7 @@ export default function ChangeDetails({
               <Text className={css.gridItem} font={{ size: 'small' }}>
                 {item[0]}
               </Text>
-              <Text font={{ size: 'small' }} color={Color.PRIMARY_7} {...onClickEvent(item[1])}>
+              <Text className={cx(item[1]?.url && css.isLink)} font={{ size: 'small' }} {...getOnClickOptions(item[1])}>
                 {typeof item[1] === 'string' ? item[1] : item[1]?.name}
               </Text>
             </>

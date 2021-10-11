@@ -23,6 +23,7 @@ jest.mock('services/cd-ng', () => ({
 }))
 
 interface InitValue {
+  isEdit?: boolean
   spec: {
     connectorRef?: string
     pagerDutyServiceId?: string
@@ -31,9 +32,9 @@ interface InitValue {
 
 const TestComponent = ({ initialValues }: { initialValues: InitValue }): React.ReactElement => (
   <TestWrapper>
-    <Formik initialValues={initialValues} onSubmit={noop}>
+    <Formik initialValues={{ spec: initialValues.spec }} onSubmit={noop}>
       {formik => {
-        return <PagerDutyChangeSource formik={formik} isEdit={true} />
+        return <PagerDutyChangeSource formik={formik} isEdit={initialValues.isEdit} />
       }}
     </Formik>
   </TestWrapper>
@@ -53,6 +54,7 @@ describe('Test PagerDuty Change Source', () => {
     const { container, getByText } = render(
       <TestComponent
         initialValues={{
+          isEdit: true,
           spec: {
             pagerDutyServiceId: '',
             connectorRef: 'PagerDutyConnector'
@@ -68,8 +70,6 @@ describe('Test PagerDuty Change Source', () => {
     await waitFor(() => expect(getByText('cv.changeSource.PageDuty.pagerDutyService')).toBeTruthy())
     await waitFor(() => expect(getByText('cv.changeSource.PageDuty.pagerDutyEmptyService')).toBeTruthy())
     expect(container.querySelector('input[name="spec.pagerDutyServiceId"]')).toBeDefined()
-
-    expect(container).toMatchSnapshot()
   })
 
   test('PagerDuty ChangeSource renders in edit mode', async () => {
@@ -94,6 +94,7 @@ describe('Test PagerDuty Change Source', () => {
     const { container } = render(
       <TestComponent
         initialValues={{
+          isEdit: true,
           spec: {
             pagerDutyServiceId: 'P9DDPEV',
             connectorRef: 'PagerDutyConnector'
@@ -105,6 +106,37 @@ describe('Test PagerDuty Change Source', () => {
     await waitFor(() => expect(refetch).toHaveBeenCalled())
     await waitFor(() => expect(container.querySelector('input[value="cvng"]')).toBeTruthy())
     await waitFor(() => expect(container.querySelector('.connectorField .bp3-disabled')).toBeDisabled())
+  })
+
+  test('PagerDuty ChangeSource verify service count', async () => {
+    const refetch = jest.fn()
+
+    jest.spyOn(cvServices, 'useGetServicesFromPagerDuty').mockImplementation(
+      () =>
+        ({
+          loading: false,
+          error: null,
+          data: {
+            metaData: {},
+            resource: [
+              { id: 'P9DDPEV', name: 'cvng' },
+              { id: 'PU7R5AE', name: 'Sowmya' }
+            ],
+            responseMessages: []
+          },
+          refetch
+        } as any)
+    )
+    const { container } = render(
+      <TestComponent
+        initialValues={{
+          isEdit: false,
+          spec: {
+            connectorRef: 'PagerDutyConnector'
+          }
+        }}
+      />
+    )
 
     // renders both service value in dropdown
     act(() => {

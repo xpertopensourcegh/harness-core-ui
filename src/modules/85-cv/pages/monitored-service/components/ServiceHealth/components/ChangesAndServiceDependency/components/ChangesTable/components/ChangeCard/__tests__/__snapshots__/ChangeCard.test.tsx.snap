@@ -9,16 +9,30 @@ exports[`Validate ChangeCard should render Pager Duty card 1`] = `
       class="StyledProps--font StyledProps--main main StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
     >
       <span
-        class="bp3-icon bp3-icon- StyledProps--main"
-        icon=""
+        class="bp3-icon StyledProps--main"
+        data-icon="service-pagerduty"
       >
         <svg
-          data-icon=""
           height="24"
-          viewBox="0 0 20 20"
+          viewBox="0 0 14 14"
           width="24"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          
+          <path
+            d="M14 .7v12.6c0 .1-.1.2-.1.3-.2.2-.3.4-.6.4H.8c-.4 0-.6-.3-.7-.6v-.3-10V.8C.1.7.1.5.2.4.3.2.4.1.6 0H13.4c.1 0 .2.1.3.2l.3.3z"
+            fill="#25bf50"
+          />
+          <path
+            d="M2.4 8.5V6.1c0-.3.1-.6.3-.9s.5-.4.9-.5h1.8c.3 0 .5 0 .8.2.3.1.5.4.6.8V8c0 .3-.1.5-.2.8-.2.3-.5.5-.9.5H3.5s-.1 0-.1.1V11s0 .1-.1.1h-.9s-.1 0-.1-.1c.1-.8.1-1.7.1-2.5zM11.6 5.6V8c0 .2 0 .4-.1.6-.2.4-.5.7-1 .8H8.7c-.2 0-.4 0-.7-.1-.4-.2-.7-.5-.8-1V8 6.2c0-.2 0-.4.1-.6.2-.4.5-.6 1-.7H10.5c.1 0 .1 0 .1-.1V3.2c0-.1 0-.1.1-.1h.9c.1 0 .1 0 .1.1-.1.7-.1 1.5-.1 2.4z"
+            fill="#fefefe"
+          />
+          <g
+            fill="#25c051"
+          >
+            <path
+              d="M3.4 7.1V6v-.2c0-.1.1-.2.3-.3h1.9s.2.1.2.2v2.2c0 .2-.1.3-.3.3h-2c-.1 0-.1 0-.1-.1v-1zM10.6 6.9V8c0 .3-.1.4-.4.4H8.5c-.1 0-.2-.1-.2-.2V8 6c0-.2.1-.3.3-.3h2c.1 0 .1 0 .1.1-.1.3-.1.7-.1 1.1z"
+            />
+          </g>
         </svg>
       </span>
       <div
@@ -61,7 +75,7 @@ exports[`Validate ChangeCard should render Pager Duty card 1`] = `
           service
         </p>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-primary7"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           service1
         </p>
@@ -71,7 +85,7 @@ exports[`Validate ChangeCard should render Pager Duty card 1`] = `
           environment
         </p>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-primary7"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           prod
         </p>
@@ -81,7 +95,7 @@ exports[`Validate ChangeCard should render Pager Duty card 1`] = `
           source
         </p>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-primary7"
+          class="StyledProps--font StyledProps--main isLink StyledProps--font-size-small"
         >
           PagerDuty
         </p>
@@ -178,9 +192,7 @@ exports[`Validate ChangeCard should render Pager Duty card 1`] = `
             >
               <p
                 class="StyledProps--font StyledProps--main summaryValue"
-              >
-                PGR0VU2
-              </p>
+              />
             </div>
           </div>
           <div
@@ -221,7 +233,7 @@ exports[`Validate ChangeCard should render Pager Duty card 1`] = `
               class="StyledProps--font StyledProps--main summaryCell"
             >
               <p
-                class="StyledProps--font StyledProps--main summaryValue"
+                class="StyledProps--font StyledProps--main summaryValue isLink"
               >
                 Default
               </p>

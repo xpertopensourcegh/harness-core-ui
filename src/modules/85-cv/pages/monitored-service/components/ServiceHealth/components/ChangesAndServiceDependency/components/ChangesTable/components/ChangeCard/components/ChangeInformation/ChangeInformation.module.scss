@@ -11,9 +11,15 @@
 
 .summaryTable {
   display: grid;
+  width: 70% !important;
   grid-template-columns: auto auto;
   grid-column-gap: var(--spacing-xxxlarge) !important;
   grid-row-gap: var(--spacing-small) !important;
+
+  .isLink {
+    cursor: pointer;
+    color: var(--primary) !important;
+  }
 
   .summaryRow {
     display: grid;

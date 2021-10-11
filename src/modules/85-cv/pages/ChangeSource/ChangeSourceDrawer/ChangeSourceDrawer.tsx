@@ -20,7 +20,12 @@ import {
 } from './ChangeSourceDrawer.utils'
 import type { ChangeSoureDrawerInterface, UpdatedChangeSourceDTO } from './ChangeSourceDrawer.types'
 import PageDutyChangeSource from './components/PagerDutyChangeSource/PagerDutyChangeSource'
-import { ChangeSourceFieldNames, HARNESS_CD, HARNESS_CD_NEXTGEN } from './ChangeSourceDrawer.constants'
+import {
+  ChangeSourceFieldNames,
+  HARNESS_CD,
+  HARNESS_CD_NEXTGEN,
+  ChangeSourceTypes
+} from './ChangeSourceDrawer.constants'
 import HarnessCDCurrentGenChangeSource from './components/HarnessCDCurrentGenChangeSource/HarnessCDCurrentGenChangeSource'
 import style from './ChangeSourceDrawer.module.scss'
 
@@ -36,6 +41,10 @@ export function ChangeSourceDrawer({
   const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps & { identifier: string }>()
 
   const onSuccessWrapper = (data: UpdatedChangeSourceDTO): void => {
+    // for PagerDuty
+    if (data.type === ChangeSourceTypes.PagerDuty) {
+      data.enabled = true
+    }
     data['spec'] = updateSpecByType(data)
     const updatedChangeSources = createChangesourceList(tableData, data)
     onSuccess(updatedChangeSources)

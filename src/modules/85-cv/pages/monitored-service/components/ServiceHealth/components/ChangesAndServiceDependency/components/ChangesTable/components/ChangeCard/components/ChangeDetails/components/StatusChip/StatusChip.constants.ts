@@ -3,17 +3,7 @@ export enum ChangeStatus {
   SUCCESS = 'success'
 }
 
-export const TriggredColorData = {
+export const ColorData = {
   color: 'red500',
   background: 'red100'
-}
-
-export const SuccessColorData = {
-  color: 'red500',
-  background: 'red100'
-}
-
-export const NoStatusColorData = {
-  color: 'grey500',
-  background: 'grey100'
 }

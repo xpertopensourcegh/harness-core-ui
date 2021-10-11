@@ -5,6 +5,7 @@ declare const styles: {
   readonly timeLabel: string
   readonly summaryTitle: string
   readonly summaryTable: string
+  readonly isLink: string
   readonly summaryRow: string
   readonly summaryCell: string
   readonly summaryKey: string

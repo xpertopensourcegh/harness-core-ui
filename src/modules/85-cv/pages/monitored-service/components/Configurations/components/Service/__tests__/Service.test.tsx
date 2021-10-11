@@ -126,8 +126,6 @@ describe('Verify Service', () => {
 
     // onSave works
     await waitFor(() => expect(onSuccess).toHaveBeenCalledWith(onUpdatePayload))
-
-    expect(container).toMatchSnapshot()
   })
 
   test('Ensure that any infra change source is removed when switching type to application', async () => {

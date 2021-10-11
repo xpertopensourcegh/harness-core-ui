@@ -35,3 +35,10 @@ export const ChangeSourceFieldNames = {
   CATEGORY: 'category',
   TYPE: 'type'
 }
+
+export enum ChangeSourceTypes {
+  HarnessCD = 'HarnessCD',
+  HarnessCDNextGen = 'HarnessCDNextGen',
+  PagerDuty = 'PagerDuty',
+  K8sCluster = 'K8sCluster'
+}
