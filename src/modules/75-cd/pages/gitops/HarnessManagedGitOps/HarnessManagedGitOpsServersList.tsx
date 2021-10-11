@@ -1,17 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useParams } from 'react-router-dom'
-import {
-  HarnessDocTooltip,
-  Layout,
-  Text,
-  useModalHook,
-  ExpandingSearchInput,
-  ButtonVariation,
-  Button
-} from '@wings-software/uicore'
+import { Layout, Text, useModalHook, ExpandingSearchInput, ButtonVariation, Button } from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
-import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 
 import { shouldShowError } from '@common/utils/errorUtils'
 
@@ -25,24 +16,20 @@ import {
   ConnectedArgoGitOpsInfoDTO,
   useDeleteGitOpsProvider
 } from 'services/cd-ng'
-import { useToaster } from '@common/exports'
-import { Page } from '@common/exports'
+import { useToaster, Page } from '@common/exports'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { useStrings } from 'framework/strings'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import { getGitOpsLogo } from '@cd/utils/GitOpsUtils'
+import harnessLogo from '@cd/icons/harness-logo.png'
+import NewGitOpsServerModal from './NewGitOpsServerModal/NewGitOpsServerModal'
+import GitOpsServersGridView from './GitOpsServersGridView/GitOpsServersGridView'
+import noGitOpsServersIllustration from '../images/noGitOpsServers.svg'
 
-import NewProviderModal from './NewProviderModal/NewProviderModal'
-import ProvidersGridView from './ProvidersGridView/ProvidersGridView'
-import noAdapterIllustration from './images/noAdapterIllustration.svg'
+import css from './HarnessManagedGitOpsServersList.module.scss'
 
-import css from './GitOpsProvidersList.module.scss'
-
-const textIdentifier = 'gitOps'
-
-const GitOpsModalContainer: React.FC = () => {
+const GitOpsServersList: React.FC = () => {
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps & ModulePathParams>()
 
@@ -60,7 +47,8 @@ const GitOpsModalContainer: React.FC = () => {
     projectIdentifier,
     orgIdentifier,
     accountIdentifier: accountId,
-    searchTerm: ''
+    searchTerm: '',
+    type: 'MANAGED_ARGO_PROVIDER'
   }
 
   const { mutate: deleteConnector } = useDeleteGitOpsProvider({
@@ -95,7 +83,7 @@ const GitOpsModalContainer: React.FC = () => {
 
       if (deleted) {
         refetchConnectorList({ queryParams: { ...defaultQueryParams, searchTerm, pageIndex: 0 } })
-        showSuccess(getString('cd.adapterDelete', { adapterName: provider?.name }))
+        showSuccess(getString('cd.GitOpsServerDelete', { adapterName: provider?.name }))
       }
     } catch (err) {
       showError(err?.data?.message || err?.message)
@@ -114,8 +102,6 @@ const GitOpsModalContainer: React.FC = () => {
   }
 
   const [openArgoModal, closeArgoModal] = useModalHook(() => {
-    const logo = getGitOpsLogo(activeProvider?.spec)
-
     const handleCloseArgoModal = (): void => {
       closeArgoModal()
       reset()
@@ -137,7 +123,7 @@ const GitOpsModalContainer: React.FC = () => {
       >
         <div style={{}} className={css.frameContainer}>
           <div className={css.frameHeader}>
-            <img className={css.argoLogo} src={logo} alt="" aria-hidden />
+            <img className={css.argoLogo} src={harnessLogo} alt="" aria-hidden />
             {activeProvider?.name} - {(activeProvider?.spec as ConnectedArgoGitOpsInfoDTO)?.adapterUrl}
             <Button
               variation={ButtonVariation.ICON}
@@ -194,7 +180,7 @@ const GitOpsModalContainer: React.FC = () => {
         }}
         enforceFocus={false}
       >
-        <NewProviderModal
+        <NewGitOpsServerModal
           isEditMode={editMode}
           onUpdateMode={(mode: boolean) => setEditMode(mode)}
           provider={activeProvider}
@@ -232,23 +218,19 @@ const GitOpsModalContainer: React.FC = () => {
     refetchConnectorList({ queryParams: { ...defaultQueryParams, searchTerm } })
   }
 
+  const handleAddNewGitOpsServer = (): void => {
+    setActiveProvider(null)
+    setEditMode(false)
+    addNewProviderModal()
+  }
+
   return (
     <>
-      <Page.Header
-        title={
-          <div className="ng-tooltip-native">
-            <h2 data-tooltip-id={textIdentifier}> {getString('cd.gitOps')}</h2>
-            <HarnessDocTooltip tooltipId={textIdentifier} useStandAlone={true} />
-          </div>
-        }
-        breadcrumbs={<NGBreadcrumbs links={[]} />}
-      ></Page.Header>
-
       <Page.SubHeader>
         <Layout.Horizontal>
           <RbacButton
             variation={ButtonVariation.PRIMARY}
-            text={getString('cd.newAdapter')}
+            text={getString('cd.newGitOpsServer')}
             permission={{
               permission: PermissionIdentifier.CREATE_PROJECT, // change to ADD_NEW_PROVIDER
               resource: {
@@ -256,14 +238,10 @@ const GitOpsModalContainer: React.FC = () => {
                 resourceIdentifier: projectIdentifier
               }
             }}
-            onClick={() => {
-              setActiveProvider(null)
-              setEditMode(false)
-              addNewProviderModal()
-            }}
+            onClick={handleAddNewGitOpsServer}
             icon="plus"
-            id="newProviderBtn"
-            data-test="newProviderButton"
+            id="newGitOpsServerBtn"
+            data-test="newGitOpsServerBtn"
           />
         </Layout.Horizontal>
         <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
@@ -299,7 +277,7 @@ const GitOpsModalContainer: React.FC = () => {
                 />
               </div>
             ) : data?.data?.content?.length ? (
-              <ProvidersGridView
+              <GitOpsServersGridView
                 onDelete={async (provider: GitopsProviderResponse) => handleDelete(provider)}
                 onEdit={async provider => handleEdit(provider)}
                 data={data?.data}
@@ -309,18 +287,18 @@ const GitOpsModalContainer: React.FC = () => {
             ) : (
               <div className={css.noPipelineSection}>
                 <Layout.Vertical spacing="small" flex={{ justifyContent: 'center', alignItems: 'center' }} width={720}>
-                  <img src={noAdapterIllustration} className={css.image} />
+                  <img src={noGitOpsServersIllustration} className={css.image} />
 
                   <Text className={css.noProviderText} margin={{ top: 'medium', bottom: 'small' }}>
-                    {getString('cd.noAdapterText')}
+                    {getString('cd.noGitOpsServerText')}
                   </Text>
                   <Text className={css.aboutProvider} margin={{ top: 'xsmall', bottom: 'xlarge' }}>
-                    {getString('cd.aboutProvider')}
+                    {getString('cd.aboutGitOpsServer')}
                   </Text>
 
                   <RbacButton
                     variation={ButtonVariation.PRIMARY}
-                    text={getString('cd.newAdapter')}
+                    text={getString('cd.newGitOpsServer')}
                     permission={{
                       permission: PermissionIdentifier.CREATE_PROJECT, // change to ADD_NEW_PROVIDER
                       resource: {
@@ -328,14 +306,10 @@ const GitOpsModalContainer: React.FC = () => {
                         resourceIdentifier: projectIdentifier
                       }
                     }}
-                    onClick={() => {
-                      setActiveProvider(null)
-                      setEditMode(false)
-                      addNewProviderModal()
-                    }}
+                    onClick={handleAddNewGitOpsServer}
                     icon="plus"
-                    id="newProviderBtn"
-                    data-test="newProviderButton"
+                    id="newGitOpsServerBtn"
+                    data-test="newGitOpsServerBtn"
                   />
                 </Layout.Vertical>
               </div>
@@ -347,4 +321,4 @@ const GitOpsModalContainer: React.FC = () => {
   )
 }
 
-export default GitOpsModalContainer
+export default GitOpsServersList

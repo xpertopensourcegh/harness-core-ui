@@ -1,10 +1,8 @@
 import React from 'react'
 import { StepWizard } from '@wings-software/uicore'
-import { Connectors } from '@connectors/constants'
-import { getConnectorIconByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { useStrings } from 'framework/strings'
 import ProviderOverviewStep from '../ProviderOverviewStep/ProviderOverviewStep'
-import type { BaseProviderStepProps } from '../types'
+import type { BaseProviderStepProps } from '../../types'
 import TestConnection from '../TestConnection/TestConnection'
 
 import css from './CreateProvider.module.scss'
@@ -18,7 +16,7 @@ const CreateArgoProvider: React.FC<CreateArgoProviderProps> = props => {
 
   return (
     <StepWizard
-      icon={getConnectorIconByType(Connectors.ARGO)}
+      icon={'argo'}
       iconProps={{ size: 50 }}
       title={getString('cd.gitOpsWizardTitle')}
       className={css.stepWizard}

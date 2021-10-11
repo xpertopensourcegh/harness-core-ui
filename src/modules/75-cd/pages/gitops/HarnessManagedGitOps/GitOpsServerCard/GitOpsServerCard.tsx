@@ -1,24 +1,14 @@
 import React, { useState } from 'react'
 import { defaultTo, isEmpty } from 'lodash-es'
-import {
-  useModalHook,
-  Button,
-  Card,
-  Layout,
-  Text,
-  Popover,
-  Color,
-  ButtonVariation,
-  Container
-} from '@wings-software/uicore'
-import { Menu, Classes, Position, Dialog, Intent } from '@blueprintjs/core'
+import { Button, Card, Layout, Text, Popover, Color, ButtonVariation, Container, Icon } from '@wings-software/uicore'
+import { Menu, Classes, Position } from '@blueprintjs/core'
 import { useConfirmationDialog } from '@common/exports'
-import type { ConnectedArgoGitOpsInfoDTO, GitopsProviderResponse } from 'services/cd-ng'
+import type { GitopsProviderResponse } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { TagsPopover } from '@common/components'
-import { getGitOpsLogo } from '@cd/utils/GitOpsUtils'
+import harnessLogo from '@cd/icons/harness-logo.png'
 
-import css from './ProviderCard.module.scss'
+import css from './GitOpsServerCard.module.scss'
 
 interface ProviderCardProps {
   provider: GitopsProviderResponse
@@ -29,7 +19,6 @@ interface ProviderCardProps {
 const ProviderCard: React.FC<ProviderCardProps> = props => {
   const { provider, onDelete, onEdit } = props
   const { getString } = useStrings()
-  const logo = getGitOpsLogo(provider.spec)
   const [menuOpen, setMenuOpen] = useState(false)
 
   const handleEdit = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
@@ -37,12 +26,17 @@ const ProviderCard: React.FC<ProviderCardProps> = props => {
     setMenuOpen(false)
     onEdit && onEdit()
   }
+  const handleViewApplications = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
+    // Need to implement the functionality onces product provides information
+    e.stopPropagation()
+    setMenuOpen(false)
+  }
 
   const getConfirmationDialogContent = (): JSX.Element => {
     return (
       <div className={'connectorDeleteDialog'}>
         <Text margin={{ bottom: 'medium' }} className={css.confirmText} title={provider.name}>
-          {`${getString('cd.confirmProviderDelete')} ${provider.name}?`}
+          {`${getString('cd.confirmGitOpsServerDelete')} ${provider.name}?`}
         </Text>
       </div>
     )
@@ -50,7 +44,7 @@ const ProviderCard: React.FC<ProviderCardProps> = props => {
 
   const { openDialog } = useConfirmationDialog({
     contentText: getConfirmationDialogContent(),
-    titleText: getString('cd.confirmDeleteTitle'),
+    titleText: getString('cd.confirmGitOpsServerDeleteTitle'),
     confirmButtonText: getString('delete'),
     cancelButtonText: getString('cancel'),
     onCloseDialog: async (isConfirmed: boolean) => {
@@ -63,58 +57,17 @@ const ProviderCard: React.FC<ProviderCardProps> = props => {
   const handleDelete = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
     e.stopPropagation()
     setMenuOpen(false)
-    if (!provider.identifier) return
+    if (!provider.identifier) {
+      return
+    }
     openDialog()
   }
 
-  const [openUploadCertiModal, closeUploadCertiModal] = useModalHook(() => {
-    return (
-      <Dialog
-        onClose={closeUploadCertiModal}
-        isOpen={true}
-        style={{
-          width: '100%',
-          padding: '40px',
-          position: 'relative',
-          height: '100vh',
-          background: 'none',
-          margin: '0px'
-        }}
-        enforceFocus={false}
-      >
-        <div style={{}} className={css.frameContainer}>
-          <div className={css.frameHeader}>
-            <img className={css.argoLogo} src={logo} alt="" aria-hidden />
-            {provider.name} - {(provider?.spec as ConnectedArgoGitOpsInfoDTO)?.adapterUrl}
-            <Button
-              variation={ButtonVariation.ICON}
-              icon="cross"
-              className={css.closeIcon}
-              iconProps={{ size: 18 }}
-              onClick={closeUploadCertiModal}
-              data-testid={'close-certi-upload-modal'}
-              withoutCurrentColor
-            />
-          </div>
-          <iframe
-            id="argoCD"
-            className={css.argoFrame}
-            width="100%"
-            frameBorder="0"
-            name="argoCD"
-            title="argoCD"
-            src={(provider?.spec as ConnectedArgoGitOpsInfoDTO)?.adapterUrl}
-          ></iframe>
-        </div>
-      </Dialog>
-    )
-  })
-
   return (
-    <Card className={css.card} interactive onClick={() => openUploadCertiModal()}>
+    <Card className={css.card}>
       <Container className={css.projectInfo}>
         <div className={css.mainTitle}>
-          <img className={css.argoLogo} src={logo} alt="" aria-hidden />
+          <img className={css.argoLogo} src={harnessLogo} alt="" aria-hidden />
 
           <Layout.Horizontal className={css.layout}>
             <Popover
@@ -138,6 +91,7 @@ const ProviderCard: React.FC<ProviderCardProps> = props => {
               />
               <Menu style={{ minWidth: 'unset' }}>
                 <Menu.Item icon="edit" text="Edit" onClick={handleEdit} />
+                <Menu.Item icon="eye-open" text="View Applications" onClick={handleViewApplications} />
                 <Menu.Item icon="trash" text="Delete" onClick={handleDelete} />
               </Menu>
             </Popover>
@@ -157,16 +111,6 @@ const ProviderCard: React.FC<ProviderCardProps> = props => {
           {getString('idLabel', { id: provider.identifier })}
         </Text>
 
-        {!isEmpty(provider.tags) && (
-          <div className={css.tags}>
-            <TagsPopover
-              className={css.tagsPopover}
-              iconProps={{ size: 14, color: Color.GREY_600 }}
-              tags={defaultTo(provider.tags, {})}
-            />
-          </div>
-        )}
-
         {!!provider.description?.length && (
           <Text
             font="small"
@@ -178,12 +122,24 @@ const ProviderCard: React.FC<ProviderCardProps> = props => {
             {provider.description}
           </Text>
         )}
-        <div className={css.urls}>
-          <div className={css.serverUrl}>
-            <Text font={{ size: 'small' }}>{getString('cd.argoAdapterURL')}:</Text>
-            <Text intent={Intent.PRIMARY} font={{ size: 'small' }}>
-              {(provider?.spec as ConnectedArgoGitOpsInfoDTO)?.adapterUrl}
-            </Text>
+
+        {!isEmpty(provider.tags) && (
+          <div className={css.tags}>
+            <TagsPopover
+              className={css.tagsPopover}
+              iconProps={{ size: 14, color: Color.GREY_600 }}
+              tags={defaultTo(provider.tags, {})}
+            />
+          </div>
+        )}
+
+        <div className={css.applications}>Applications: 5</div>
+
+        <div className={css.gitOpsServerStatusContainer}>
+          <div className={css.serverStatusContainer}>
+            <div className={css.gitOpsServerStatus}>
+              <Icon name="main-more" intent="success" className={css.statusIcon} /> RUNNING
+            </div>
           </div>
         </div>
       </Container>

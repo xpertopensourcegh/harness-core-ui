@@ -2548,7 +2548,10 @@ export interface StringsMap {
   'templatesLibrary.updateTemplateModal.info': string
   'templatesLibrary.useTemplate': string
   'templatesLibrary.versionLog': string
+  'cd.GitOpsServerDelete': string
+  'cd.aboutGitOpsServer': string
   'cd.aboutHarnessAdapter': string
+  'cd.aboutHarnessManagedGitOpsServer': string
   'cd.aboutProvider': string
   'cd.adapterDelete': string
   'cd.adapterDetails': string
@@ -2562,21 +2565,28 @@ export interface StringsMap {
   'cd.cdTrialHomePage.startTrial.description': string
   'cd.cdTrialHomePage.startTrial.startBtn.description': string
   'cd.chooseProvisionerText': string
+  'cd.componentsInstalled': string
   'cd.configFilePlaceHolder': string
   'cd.configIdentifer': string
   'cd.configurationFile': string
   'cd.confirmDeleteTitle': string
+  'cd.confirmGitOpsServerDelete': string
+  'cd.confirmGitOpsServerDeleteTitle': string
   'cd.confirmProviderDelete': string
   'cd.connectionIssueInfo': string
   'cd.connectionIssueSuggestion': string
   'cd.contentRequired': string
   'cd.continuous': string
+  'cd.createdGitOpsServerSuccessfully': string
   'cd.createdSuccessfully': string
   'cd.creating': string
+  'cd.creatingGitOpsServer': string
   'cd.dashboard.createProject': string
   'cd.dashboard.orSelectExisting': string
   'cd.dashboard.subHeading': string
+  'cd.deletedGitOpsServerSuccessfully': string
   'cd.deletedSuccessfully': string
+  'cd.duplicateGitOpsServerIdError': string
   'cd.duplicateIdError': string
   'cd.dynamicProvisioning': string
   'cd.environmentCreated': string
@@ -2587,6 +2597,7 @@ export interface StringsMap {
   'cd.gitFetchTypeRequired': string
   'cd.gitOps': string
   'cd.gitOpsWizardTitle': string
+  'cd.harnessManagedGitOpsWizardTitle': string
   'cd.installAdapterHelperText': string
   'cd.launchArgo': string
   'cd.learnMore': string
@@ -2594,7 +2605,9 @@ export interface StringsMap {
   'cd.manifestPathsCannotBeEmpty': string
   'cd.namespaceValidation': string
   'cd.newAdapter': string
+  'cd.newGitOpsServer': string
   'cd.noAdapterText': string
+  'cd.noGitOpsServerText': string
   'cd.notReachable': string
   'cd.pathCannotBeEmpty': string
   'cd.pipelineSteps.infraTab.clusterError': string
@@ -2606,6 +2619,7 @@ export interface StringsMap {
   'cd.pipelineSteps.serviceTab.propagateStage': string
   'cd.pipelineSteps.serviceTab.stageOverrides': string
   'cd.releaseNameValidation': string
+  'cd.requiredPermissions': string
   'cd.resourceCannotBeEmpty': string
   'cd.scriptRequired': string
   'cd.searchPlaceholder': string
@@ -2646,6 +2660,7 @@ export interface StringsMap {
   'cd.serviceDashboard.year': string
   'cd.serviceUpdated': string
   'cd.setUpProvisionerBtnText': string
+  'cd.setupGitOpsServerStep': string
   'cd.specifyTfVarStore': string
   'cd.stepName': string
   'cd.steps.common.clusterDetails': string
@@ -2655,11 +2670,14 @@ export interface StringsMap {
   'cd.terraformVarFiles': string
   'cd.testConnectionStepName': string
   'cd.tfVarStore': string
+  'cd.updatedGitOpsServerSuccessfully': string
   'cd.updatedSuccessfully': string
   'cd.updating': string
+  'cd.updatingGitOpsServer': string
   'cd.varFile': string
   'cd.varFileDetails': string
   'cd.whatIsHarnessAdapter': string
+  'cd.whatIsHarnessManagedGitOpsServer': string
   'cd.workloadRequired': string
   'ce.ceTrialHomePage.modal.description': string
   'ce.ceTrialHomePage.modal.title': string

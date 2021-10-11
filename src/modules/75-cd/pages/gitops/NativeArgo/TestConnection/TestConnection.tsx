@@ -16,7 +16,7 @@ import {
 
 import { String, useStrings } from 'framework/strings'
 import type { ConnectedArgoGitOpsInfoDTO } from 'services/cd-ng'
-import type { BaseProviderStepProps } from '../types'
+import type { BaseProviderStepProps } from '../../types'
 import css from './TestConnection.module.scss'
 
 export enum Status {
@@ -32,11 +32,12 @@ export default function TestConnection(props: TestConnectionProps): React.ReactE
   const [currentStatus, setCurrentStatus] = useState<Status>(Status.PROCESS)
   const [currentIntent, setCurrentIntent] = useState<Intent>(Intent.NONE)
   const url = (props?.prevStepData?.spec as ConnectedArgoGitOpsInfoDTO)?.adapterUrl
+  const healthCheckURL = url?.endsWith('/') ? `${url}api/version` : `${url}/api/version`
   const stepName = (
     <String
       stringID="cd.testConnectionStepName"
       vars={{
-        url: url
+        url: healthCheckURL
       }}
       useRichText
     />
@@ -53,12 +54,7 @@ export default function TestConnection(props: TestConnectionProps): React.ReactE
   }
 
   const validateAdapterURL = (): void => {
-    let updatedURL = url
-    if (updatedURL) {
-      updatedURL += url.endsWith('/') ? `api/version` : `/api/version`
-    }
-
-    fetch(updatedURL)
+    fetch(healthCheckURL)
       .then(() => {
         setCurrentStatus(Status.DONE)
         setCurrentIntent(Intent.SUCCESS)
@@ -96,7 +92,7 @@ export default function TestConnection(props: TestConnectionProps): React.ReactE
                     <Text color={Color.RED_700} font={{ weight: 'semi-bold' }} style={{ marginBottom: '16px' }}>
                       {getString('cd.notReachable')}
                       <a href={url} target="_blank" rel="noreferrer">
-                        {url}/api/version
+                        {healthCheckURL}
                       </a>
                     </Text>
                     <div className={css.issueInfo}>

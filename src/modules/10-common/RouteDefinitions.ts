@@ -538,6 +538,14 @@ const routes = {
     ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
       `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/gitops`
   ),
+  toHarnessManagedGitOps: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/gitops/harness-managed-gitops`
+  ),
+  toNativeArgo: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/gitops/native`
+  ),
   toServices: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
       `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/services`

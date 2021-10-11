@@ -1,40 +1,38 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
+import { useParams } from 'react-router'
+import * as Yup from 'yup'
+import { pick } from 'lodash-es'
+
 import {
   Layout,
   Button,
   Formik,
   ModalErrorHandlerBinding,
-  Text,
-  Icon,
+  Toggle,
   ModalErrorHandler,
   FormikForm,
   FormInput,
+  CodeBlock,
   Container,
   ButtonVariation
 } from '@wings-software/uicore'
 
-import { useParams } from 'react-router'
-import * as Yup from 'yup'
-import { pick } from 'lodash-es'
 import {
   GitOpsProvider,
-  validateProviderIdentifierIsUniquePromise,
-  Failure,
   useCreateGitOpsProvider,
   useUpdateGitOpsProvider,
   CreateGitOpsProviderQueryParams
 } from 'services/cd-ng'
 import { getErrorInfoFromErrorObject, shouldShowError } from '@common/utils/errorUtils'
-import { String, useStrings } from 'framework/strings'
-import { NameIdDescriptionTags, PageSpinner, useToaster } from '@common/components'
 import { saveCurrentStepData } from '@connectors/pages/connectors/utils/ConnectorUtils'
-import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
-import type { BaseProviderStepProps } from '../types'
-import aboutHarnessAdapterIllustration from '../images/aboutHarnessAdapterIllustration.svg'
-const aboutHarnessAdapterURL = `https://ngdocs.harness.io/article/ptlvh7c6z2-harness-argo-cd-git-ops-quickstart`
-import css from './ProviderOverviewStep.module.scss'
+import { String, useStrings } from 'framework/strings'
+import { PageSpinner, useToaster } from '@common/components'
 
-export type ProviderOverviewStepProps = BaseProviderStepProps
+import type { BaseProviderStepProps } from '../../types'
+
+import css from './SetupGitOpsServerStep.module.scss'
+
+type SetupGitOpsServerStepProps = BaseProviderStepProps
 
 type Params = {
   accountId: string
@@ -42,7 +40,33 @@ type Params = {
   orgIdentifier: string
 }
 
-const ProviderOverviewStep: React.FC<ProviderOverviewStepProps> = props => {
+const dummyYAML = `
+- num: -1083669237
+  tropical: true
+  iron: -928716494.5760937
+  instrument:
+    - 469156903.1044102
+    - topic:
+        direct: 456028677.1854496
+        yourself: -1746925063.3320909
+        community: true
+        remember: true
+        arm: member
+      stream: edge
+      practice: true
+      deeply:
+        lucky: true
+        save: false
+        well: 271507302.4167981
+        came: 468914455.00234985
+        belong: true
+      damage: 1708272278.8601089
+    - false
+    - getting
+    - 1976659262
+  bat: false
+`
+export default function SetupGitOpsServerStep(props: SetupGitOpsServerStepProps): React.ReactElement {
   const { prevStepData, nextStep, provider } = props
   const { showSuccess, showError } = useToaster()
   const {
@@ -53,8 +77,7 @@ const ProviderOverviewStep: React.FC<ProviderOverviewStepProps> = props => {
   const projectIdentifier = provider ? provider.projectIdentifier : projectIdentifierFromUrl
   const orgIdentifier = provider ? provider.orgIdentifier : orgIdentifierFromUrl
   const [providerName, setProviderName] = useState(props?.provider?.name)
-
-  const mounted = useRef(false)
+  const [highAvailability, setHighAvailability] = useState(false)
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const [loading, setLoading] = useState(false)
   const isEdit = props.isEditMode
@@ -93,6 +116,7 @@ const ProviderOverviewStep: React.FC<ProviderOverviewStepProps> = props => {
   }
 
   const handleSave = (formData: GitOpsProvider): void => {
+    setLoading(true)
     const data: GitOpsProvider = {
       ...formData,
       projectIdentifier: projectIdentifier,
@@ -105,8 +129,10 @@ const ProviderOverviewStep: React.FC<ProviderOverviewStepProps> = props => {
       .then(res => {
         if (res.status === 'SUCCESS') {
           props.isEditMode
-            ? showSuccess(getString('cd.updatedSuccessfully'))
-            : showSuccess(getString('cd.createdSuccessfully'))
+            ? showSuccess(getString('cd.updatedGitOpsServerSuccessfully'))
+            : showSuccess(getString('cd.createdGitOpsServerSuccessfully'))
+
+          setLoading(false)
 
           res.nextCallback?.()
         }
@@ -115,48 +141,15 @@ const ProviderOverviewStep: React.FC<ProviderOverviewStepProps> = props => {
         if (shouldShowError(e)) {
           showError(getErrorInfoFromErrorObject(e))
         }
+        setLoading(false)
       })
   }
 
   const handleSubmit = async (formData: GitOpsProvider): Promise<void> => {
-    mounted.current = true
-    if (isEdit) {
-      handleSave(formData)
-      return
-    }
-    setLoading(true)
-    try {
-      const response = await validateProviderIdentifierIsUniquePromise({
-        queryParams: {
-          identifier: formData.identifier,
-          accountIdentifier: accountId,
-          orgIdentifier: orgIdentifier,
-          projectIdentifier: projectIdentifier
-        }
-      })
-      setLoading(false)
-
-      if ('SUCCESS' !== response.status) {
-        modalErrorHandler?.showDanger((response as Failure)?.message || '')
-        return
-      }
-      if (response.data) {
-        handleSave(formData)
-      } else {
-        modalErrorHandler?.showDanger(
-          getString('cd.duplicateIdError', {
-            providerName: formData.name,
-            providerIdentifier: formData.identifier
-          })
-        )
-      }
-    } catch (error) {
-      setLoading(false)
-      modalErrorHandler?.showDanger(error.message)
-    }
+    handleSave(formData)
   }
 
-  const getInitialValues = (): GitOpsProvider => {
+  const getInitialValues = (): any => {
     if (isEdit) {
       return pick(props.provider, ['name', 'identifier', 'description', 'tags', 'spec']) as GitOpsProvider
     } else {
@@ -166,26 +159,26 @@ const ProviderOverviewStep: React.FC<ProviderOverviewStepProps> = props => {
         identifier: '',
         tags: {},
         spec: {
-          type: 'ConnectedArgoProvider'
+          namespace: '',
+          highAvailability: false
         }
       }
     }
   }
-
   return (
     <>
       {creating || updating ? (
         <PageSpinner
           message={
             creating
-              ? getString('cd.creating', { name: providerName })
-              : getString('cd.updating', { name: providerName })
+              ? getString('cd.creatingGitOpsServer', { name: providerName })
+              : getString('cd.updatingGitOpsServer', { name: providerName })
           }
         />
       ) : null}
 
       <Layout.Vertical spacing="xxlarge" className={css.stepContainer}>
-        <div className={css.heading}>{getString('overview')}</div>
+        <div className={css.heading}>{props.name}</div>
         <Container className={css.connectorForm}>
           <Formik<GitOpsProvider>
             onSubmit={formData => {
@@ -194,13 +187,8 @@ const ProviderOverviewStep: React.FC<ProviderOverviewStepProps> = props => {
             enableReinitialize={true}
             formName={`GitOpsProviderStepForm${provider?.spec?.type}`}
             validationSchema={Yup.object().shape({
-              name: NameSchema(),
-              identifier: IdentifierSchema(),
               spec: Yup.object().shape({
-                adapterUrl: Yup.string()
-                  .trim()
-                  .url('Please enter a valid Adapter URL')
-                  .required('Please enter a valid Adapter URL')
+                namespace: Yup.string().trim().required('Please enter namespace')
               })
             })}
             initialValues={{
@@ -224,39 +212,31 @@ const ProviderOverviewStep: React.FC<ProviderOverviewStepProps> = props => {
                     />
                     <div className={css.contentContainer}>
                       <div className={css.formContainer}>
-                        <NameIdDescriptionTags
-                          className={css.formElm}
-                          formikProps={formikProps}
-                          identifierProps={{ inputName: 'name', isIdentifierEditable: !isEdit }}
-                          tooltipProps={{
-                            dataTooltipId: `GitOpsProviderStepFormNameIdDescriptionTags`
+                        <FormInput.Text className={css.adapterUrl} name="spec.namespace" label={'Namespace'} />
+                        <Toggle
+                          label={'High Availabilty'}
+                          checked={highAvailability}
+                          onToggle={isToggled => {
+                            setHighAvailability(isToggled)
                           }}
+                          data-testid={'HighAvailablility'}
                         />
-
-                        <FormInput.Text className={css.adapterUrl} name="spec.adapterUrl" label={'Adapter URL'} />
                       </div>
-
                       <div className={css.aboutHarnessAdapterContainer}>
-                        <Text className={css.aboutHarnessAdapterQuestion} margin={{ bottom: 'small' }}>
-                          {getString('cd.whatIsHarnessAdapter')}
-                        </Text>
-                        <Text className={css.aboutHarnessAdapterAnswer} margin={{ top: 'small', bottom: 'small' }}>
-                          {getString('cd.aboutHarnessAdapter')}
-                        </Text>
-
-                        <img src={aboutHarnessAdapterIllustration} className={css.aboutHarnessAdapterIllustration} />
-
-                        <div className={css.aboutHarnessAdapterUrl}>
-                          <Icon intent="primary" style={{ marginRight: '8px' }} size={16} name="info" />
-
-                          <a href={aboutHarnessAdapterURL} rel="noreferrer" target="_blank">
-                            {getString('cd.learnMoreAboutHarnessAdapter')}
-                          </a>
-                        </div>
+                        <CodeBlock allowCopy format="pre" snippet={dummyYAML} />
                       </div>
                     </div>
                   </Container>
                   <Layout.Horizontal>
+                    <Button
+                      variation={ButtonVariation.SECONDARY}
+                      style={{ marginRight: '12px' }}
+                      text={getString('back')}
+                      icon="chevron-left"
+                      onClick={() => props?.previousStep?.(props?.prevStepData)}
+                      data-name="backToOverview"
+                    />
+
                     <Button
                       type="submit"
                       variation={ButtonVariation.PRIMARY}
@@ -275,5 +255,3 @@ const ProviderOverviewStep: React.FC<ProviderOverviewStepProps> = props => {
     </>
   )
 }
-
-export default ProviderOverviewStep
