@@ -181,7 +181,7 @@ function activityTypeToIcon(activityType: ActivityVerificationResultDTO['activit
       return 'service-kubernetes'
     case 'CONFIG':
     case 'OTHER':
-    case 'CUSTOM':
+    case 'CUSTOM' as any:
       return 'config-change'
     default:
       return 'custom-service'

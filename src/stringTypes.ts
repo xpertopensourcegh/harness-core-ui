@@ -3736,6 +3736,9 @@ export interface StringsMap {
   'cv.analysisScreens.totalClusters': string
   'cv.anomalous': string
   'cv.anomalousMetrics': string
+  'cv.changeSource.HarnessCDCurrentGen.selectHarnessAppId': string
+  'cv.changeSource.HarnessCDCurrentGen.selectHarnessEnv': string
+  'cv.changeSource.HarnessCDCurrentGen.selectHarnessService': string
   'cv.changeSource.PageDuty.pagerDutyEmptyService': string
   'cv.changeSource.PageDuty.pagerDutyService': string
   'cv.changeSource.PageDuty.selectPagerDutyService': string
@@ -4060,6 +4063,7 @@ export interface StringsMap {
   'cv.onboarding.activitySources.changeSourceInfo': string
   'cv.onboarding.activitySources.dontHaveChangeSource': string
   'cv.onboarding.activitySources.infrastructureProvider': string
+  'cv.onboarding.changeSourceTypes.HarnessCDCurrentGen.name': string
   'cv.onboarding.changeSourceTypes.HarnessCDNextGen.icon': string
   'cv.onboarding.changeSourceTypes.HarnessCDNextGen.name': string
   'cv.onboarding.defaultChangeSource': string

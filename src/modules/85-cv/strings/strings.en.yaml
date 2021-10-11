@@ -191,6 +191,8 @@ onboarding:
     HarnessCDNextGen:
       name: Harness CD NextGen
       icon: cd-main
+    HarnessCDCurrentGen:
+      name: Harness CD
   monitoringSources:
     addMoreSources: Add more Monitoring Sources
     select: Select your Monitoring Source
@@ -614,6 +616,10 @@ changeSource:
     pagerDutyService: PagerDuty Service
     selectPagerDutyService: Select PageDuty Service
     pagerDutyEmptyService: No service available for {{ connector }}
+  HarnessCDCurrentGen:
+    selectHarnessAppId: Select Application Id
+    selectHarnessService: Select Harness Service
+    selectHarnessEnv: Select Harness Environment
   changeSourceCard:
     information: Information
     triggred: Triggred

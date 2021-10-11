@@ -173,7 +173,7 @@ export const getDependencyData = (
         icon: serviceIcon,
         name: node?.serviceRef
       })) as Node[],
-      data: serviceDependencyGraphData?.resource?.edges as GraphData[]
+      data: (serviceDependencyGraphData?.resource?.edges as GraphData[]) || []
     }
   }
 
