@@ -197,7 +197,7 @@ function CVMonitoredServiceListingPage(): JSX.Element {
             font={{ size: 'xsmall' }}
             iconProps={{ size: 10, color: color }}
           >
-            {percentage}
+            {`${percentage}%`}
           </Text>
         </Layout.Horizontal>
       )

@@ -47,6 +47,9 @@ export default function ChangeTimeline(props: ChangeTimelineProps): JSX.Element 
         envIdentifiers: [environmentIdentifier],
         startTime: startTimeRoundedOffToNearest30min,
         endTime: endTimeRoundedOffToNearest30min
+      },
+      queryParamStringifyOptions: {
+        arrayFormat: 'repeat'
       }
     })
   }, [startTimeRoundedOffToNearest30min, endTimeRoundedOffToNearest30min, serviceIdentifier, environmentIdentifier])
