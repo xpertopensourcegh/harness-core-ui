@@ -1,40 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Card, FontVariation, Layout, Text } from '@wings-software/uicore'
-import { useLandingDashboardContext } from '@common/factories/LandingDashboardContext'
-import GlanceCard from '@common/components/GlanceCard/GlanceCard'
+import { TimeRangeToDays, useLandingDashboardContext } from '@common/factories/LandingDashboardContext'
 import { useStrings } from 'framework/strings'
 import TimeRangeSelect from '../TimeRangeSelect/TimeRangeSelect'
 
+import OverviewGlanceCards from '../OverviewGlanceCards/OverviewGlanceCards'
 import css from './LandingDashboardSummaryWidget.module.scss'
 
 const LandingDashboardSummaryWidget: React.FC = () => {
   const { selectedTimeRange } = useLandingDashboardContext()
   const { getString } = useStrings()
+  const [range] = useState([Date.now() - TimeRangeToDays[selectedTimeRange] * 24 * 60 * 60000, Date.now()])
 
   return (
     <div style={{ position: 'relative' }}>
       <TimeRangeSelect className={css.timeRangeSelect} />
-      <Layout.Horizontal spacing="large">
-        <Layout.Horizontal spacing="large">
-          <Layout.Vertical spacing="large">
-            <GlanceCard
-              title="Projects"
-              iconName="nav-project"
-              iconSize={16}
-              number={48}
-              delta="+1%"
-              styling
-              intent="success"
-              href={'/'}
-            />
-            <GlanceCard title="Environments" iconName="infrastructure" number={63} delta="-6%" intent="danger" />
-          </Layout.Vertical>
-          <Layout.Vertical spacing="large">
-            <GlanceCard title="Services" iconName="services" number={6} delta="6" intent="success" href={'/'} />
-            <GlanceCard title="Pipelines" iconName="pipeline" iconSize={38} number={460} delta="-6" intent="danger" />
-          </Layout.Vertical>
-        </Layout.Horizontal>
-        <Card style={{ width: '100%' }}>
+      <Layout.Horizontal className={css.atGlanceWrapper} spacing="large">
+        <OverviewGlanceCards range={range} />
+        <Card className={css.topProjectContainer}>
           <Layout.Vertical>
             <Text font={{ variation: FontVariation.CARD_TITLE }}>
               {getString('projectsOrgs.landingDashboard.title', { timeRange: selectedTimeRange })}

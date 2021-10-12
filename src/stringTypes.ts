@@ -380,6 +380,7 @@ export interface StringsMap {
   'common.recommended': string
   'common.references': string
   'common.refresh': string
+  'common.refreshPage': string
   'common.reject': string
   'common.releaseName': string
   'common.remove': string
@@ -458,6 +459,7 @@ export interface StringsMap {
   'common.subscriptions.usage.srvcInst': string
   'common.successfullCreate': string
   'common.successfullUpdate': string
+  'common.suggestionsLabel': string
   'common.supportedModals': string
   'common.switchAccount': string
   'common.switchAccountError': string
@@ -1704,6 +1706,7 @@ export interface StringsMap {
   'dashboards.sideNav.noDashboard': string
   'projectsOrgs.aboutProject': string
   'projectsOrgs.aboutTitle': string
+  'projectsOrgs.apiError': string
   'projectsOrgs.blank': string
   'projectsOrgs.capsAllValue': string
   'projectsOrgs.collaborator': string
