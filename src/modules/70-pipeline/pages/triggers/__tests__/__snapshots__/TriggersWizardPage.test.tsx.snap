@@ -1608,7 +1608,12 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             <label
                               class="bp3-label"
                             >
-                              connector
+                              <span
+                                class="Tooltip--acenter"
+                                data-tooltip-id="wizardForm_webhook_connectorRef"
+                              >
+                                connector
+                              </span>
                                
                               <span
                                 class="bp3-text-muted"
@@ -2572,7 +2577,12 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             <label
                               class="bp3-label"
                             >
-                              connector
+                              <span
+                                class="Tooltip--acenter"
+                                data-tooltip-id="wizardForm_webhook_connectorRef"
+                              >
+                                connector
+                              </span>
                                
                               <span
                                 class="bp3-text-muted"

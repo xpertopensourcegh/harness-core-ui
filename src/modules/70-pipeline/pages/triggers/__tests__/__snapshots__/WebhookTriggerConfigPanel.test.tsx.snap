@@ -593,7 +593,12 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                   <label
                     class="bp3-label"
                   >
-                    connector
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="wrapperComponentTestForm_connectorRef"
+                    >
+                      connector
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
