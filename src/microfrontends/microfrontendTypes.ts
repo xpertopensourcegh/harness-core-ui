@@ -11,27 +11,16 @@ export interface ParentContext {
   permissionsContext: React.Context<PermissionsContextProps>
   licenseStoreProvider: React.Context<LicenseStoreContextProps>
 }
-export interface ParentContextProps {
-  appStoreContext: AppStoreContextProps
-  permissionsContext: PermissionsContextProps
-  licenseStoreProvider: LicenseStoreContextProps
-}
-
-/**ParentContext Object which has parentcontext's and function which can be used by
- *  child to update the parent contexts
- *
- */
-export interface ParentContextObj {
-  parentContext: ParentContext
-}
 
 export interface RenderChildAppProps {
-  parentContextObj: ParentContextObj
+  parentContextObj: ParentContext
   renderUrl: string
+  mountPoint: HTMLDivElement
 }
 
 /**
  * function to render child app inside the parent
  */
-export type RenderChildApp = (params: RenderChildAppProps) => React.ReactElement
+export type RenderChildApp = (params: RenderChildAppProps) => void
+
 export { AppStoreContextProps, LicenseStoreContextProps, PermissionsContextProps }
