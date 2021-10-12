@@ -40,7 +40,7 @@ describe('Validate ChangeSource Utils', () => {
       },
       {
         category: 'Deployment',
-        icon: 'cd-main',
+        icon: 'harness',
         label: '',
         value: 'HarnessCD'
       }

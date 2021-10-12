@@ -84,6 +84,9 @@ exports[`Unit tests for ServiceHealth Verify if all the fields are rendered corr
         class="StyledProps--font StyledProps--main content"
       >
         <div
+          class="StyledProps--font StyledProps--main tickerContainer"
+        />
+        <div
           class="StyledProps--font StyledProps--main main"
         >
           <div

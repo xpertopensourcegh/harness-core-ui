@@ -6,8 +6,9 @@ import { HARNESS_CD, HARNESS_CD_NEXTGEN } from './ChangeSourceDrawer/ChangeSourc
 export const getIconBySource = (source: ChangeSourceDTO['type']): IconName => {
   switch (source) {
     case HARNESS_CD_NEXTGEN:
-    case HARNESS_CD:
       return 'cd-main' as IconName
+    case HARNESS_CD:
+      return 'harness' as IconName
     default:
       return getConnectorIconByType(source || '')
   }
