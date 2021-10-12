@@ -60,6 +60,7 @@ delegateInClusterInfo: 'Use the credentials of a specific Harness Delegate (IAM 
 createConnector: 'Create a Connector'
 connectorEmptyState: 'There are no connectors in your project'
 readMore: 'Read more'
+connectorsTitle: 'Resources: Connectors'
 title:
   k8sCluster: 'Kubernetes Cluster'
   gcpConnector: 'Google Cloud Provider'

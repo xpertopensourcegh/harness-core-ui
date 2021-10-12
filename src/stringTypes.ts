@@ -559,6 +559,11 @@ export interface StringsMap {
   'notifications.validationSubject': string
   'notifications.validationTo': string
   'notifications.validationWebhook': string
+  'rbac.accessControlTitle.resourceGroups': string
+  'rbac.accessControlTitle.roles': string
+  'rbac.accessControlTitle.serviceAccounts': string
+  'rbac.accessControlTitle.userGroups': string
+  'rbac.accessControlTitle.users': string
   'rbac.account': string
   'rbac.accountScope': string
   'rbac.activeUsers': string
@@ -1354,6 +1359,7 @@ export interface StringsMap {
   'connectors.connectorDetailsHeader': string
   'connectors.connectorEmptyState': string
   'connectors.connectorNotFound': string
+  'connectors.connectorsTitle': string
   'connectors.costVisibility': string
   'connectors.createConnector': string
   'connectors.createFromYaml': string
