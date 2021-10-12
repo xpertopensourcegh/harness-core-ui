@@ -289,8 +289,8 @@ const RetryPipeline = ({
     /* istanbul ignore else */ if (inputSetData?.data?.inputSetYaml) {
       setInputSetYaml(inputSetData.data?.inputSetYaml)
     }
-    /* istanbul ignore else */ if (inputSetData?.data?.inputSetTemplateYaml) {
-      setInputSetTemplateYaml(inputSetData.data.inputSetTemplateYaml)
+    /* istanbul ignore else */ if (inputSetData?.data?.latestTemplateYaml) {
+      setInputSetTemplateYaml(inputSetData.data.latestTemplateYaml)
     }
   }, [inputSetData])
 

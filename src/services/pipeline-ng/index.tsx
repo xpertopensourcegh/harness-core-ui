@@ -1874,6 +1874,7 @@ export interface InputSetSummaryResponse {
 export interface InputSetTemplateResponse {
   inputSetTemplateYaml?: string
   inputSetYaml?: string
+  latestTemplateYaml?: string
 }
 
 export interface InterruptConfig {
@@ -4491,9 +4492,9 @@ export type MergeInputSetRequestRequestBody = MergeInputSetRequest
 
 export type NGTriggerConfigV2RequestBody = NGTriggerConfigV2
 
-export type UpdateInputSetForPipelineBodyRequestBody = string
+export type CustomWebhookEndpointBodyRequestBody = string
 
-export type WebhookEndpointBodyRequestBody = string
+export type UpdateInputSetForPipelineBodyRequestBody = string
 
 export interface GetInitialStageYamlSnippetQueryParams {
   approvalType: 'HarnessApproval' | 'JiraApproval'
@@ -9652,7 +9653,13 @@ export interface CustomWebhookEndpointQueryParams {
 }
 
 export type CustomWebhookEndpointProps = Omit<
-  MutateProps<ResponseString, Failure | Error, CustomWebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>,
+  MutateProps<
+    ResponseString,
+    Failure | Error,
+    CustomWebhookEndpointQueryParams,
+    CustomWebhookEndpointBodyRequestBody,
+    void
+  >,
   'path' | 'verb'
 >
 
@@ -9660,7 +9667,7 @@ export type CustomWebhookEndpointProps = Omit<
  * accept custom webhook event
  */
 export const CustomWebhookEndpoint = (props: CustomWebhookEndpointProps) => (
-  <Mutate<ResponseString, Failure | Error, CustomWebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>
+  <Mutate<ResponseString, Failure | Error, CustomWebhookEndpointQueryParams, CustomWebhookEndpointBodyRequestBody, void>
     verb="POST"
     path={`/webhook/custom`}
     base={getConfig('pipeline/api')}
@@ -9673,7 +9680,7 @@ export type UseCustomWebhookEndpointProps = Omit<
     ResponseString,
     Failure | Error,
     CustomWebhookEndpointQueryParams,
-    WebhookEndpointBodyRequestBody,
+    CustomWebhookEndpointBodyRequestBody,
     void
   >,
   'path' | 'verb'
@@ -9683,11 +9690,13 @@ export type UseCustomWebhookEndpointProps = Omit<
  * accept custom webhook event
  */
 export const useCustomWebhookEndpoint = (props: UseCustomWebhookEndpointProps) =>
-  useMutate<ResponseString, Failure | Error, CustomWebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>(
-    'POST',
-    `/webhook/custom`,
-    { base: getConfig('pipeline/api'), ...props }
-  )
+  useMutate<
+    ResponseString,
+    Failure | Error,
+    CustomWebhookEndpointQueryParams,
+    CustomWebhookEndpointBodyRequestBody,
+    void
+  >('POST', `/webhook/custom`, { base: getConfig('pipeline/api'), ...props })
 
 /**
  * accept custom webhook event
@@ -9697,7 +9706,7 @@ export const customWebhookEndpointPromise = (
     ResponseString,
     Failure | Error,
     CustomWebhookEndpointQueryParams,
-    WebhookEndpointBodyRequestBody,
+    CustomWebhookEndpointBodyRequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -9706,7 +9715,7 @@ export const customWebhookEndpointPromise = (
     ResponseString,
     Failure | Error,
     CustomWebhookEndpointQueryParams,
-    WebhookEndpointBodyRequestBody,
+    CustomWebhookEndpointBodyRequestBody,
     void
   >('POST', getConfig('pipeline/api'), `/webhook/custom`, props, signal)
 
@@ -10019,7 +10028,7 @@ export interface WebhookEndpointQueryParams {
 }
 
 export type WebhookEndpointProps = Omit<
-  MutateProps<ResponseString, Failure | Error, WebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>,
+  MutateProps<ResponseString, Failure | Error, WebhookEndpointQueryParams, CustomWebhookEndpointBodyRequestBody, void>,
   'path' | 'verb'
 >
 
@@ -10027,7 +10036,7 @@ export type WebhookEndpointProps = Omit<
  * accept webhook event
  */
 export const WebhookEndpoint = (props: WebhookEndpointProps) => (
-  <Mutate<ResponseString, Failure | Error, WebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>
+  <Mutate<ResponseString, Failure | Error, WebhookEndpointQueryParams, CustomWebhookEndpointBodyRequestBody, void>
     verb="POST"
     path={`/webhook/trigger`}
     base={getConfig('pipeline/api')}
@@ -10036,7 +10045,13 @@ export const WebhookEndpoint = (props: WebhookEndpointProps) => (
 )
 
 export type UseWebhookEndpointProps = Omit<
-  UseMutateProps<ResponseString, Failure | Error, WebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>,
+  UseMutateProps<
+    ResponseString,
+    Failure | Error,
+    WebhookEndpointQueryParams,
+    CustomWebhookEndpointBodyRequestBody,
+    void
+  >,
   'path' | 'verb'
 >
 
@@ -10044,7 +10059,7 @@ export type UseWebhookEndpointProps = Omit<
  * accept webhook event
  */
 export const useWebhookEndpoint = (props: UseWebhookEndpointProps) =>
-  useMutate<ResponseString, Failure | Error, WebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>(
+  useMutate<ResponseString, Failure | Error, WebhookEndpointQueryParams, CustomWebhookEndpointBodyRequestBody, void>(
     'POST',
     `/webhook/trigger`,
     { base: getConfig('pipeline/api'), ...props }
@@ -10058,18 +10073,18 @@ export const webhookEndpointPromise = (
     ResponseString,
     Failure | Error,
     WebhookEndpointQueryParams,
-    WebhookEndpointBodyRequestBody,
+    CustomWebhookEndpointBodyRequestBody,
     void
   >,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponseString, Failure | Error, WebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>(
-    'POST',
-    getConfig('pipeline/api'),
-    `/webhook/trigger`,
-    props,
-    signal
-  )
+  mutateUsingFetch<
+    ResponseString,
+    Failure | Error,
+    WebhookEndpointQueryParams,
+    CustomWebhookEndpointBodyRequestBody,
+    void
+  >('POST', getConfig('pipeline/api'), `/webhook/trigger`, props, signal)
 
 export interface TriggerProcessingDetailsQueryParams {
   accountIdentifier: string
