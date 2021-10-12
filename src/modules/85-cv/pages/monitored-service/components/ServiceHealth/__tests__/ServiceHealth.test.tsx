@@ -61,7 +61,7 @@ jest.mock('services/cv', () => ({
       loading: false
     }
   }),
-  useGetChangeSummary: jest.fn().mockImplementation(() => {
+  useChangeEventSummary: jest.fn().mockImplementation(() => {
     return {
       data: { resource: { ...changeSummaryWithPositiveChange } },
       refetch: jest.fn(),

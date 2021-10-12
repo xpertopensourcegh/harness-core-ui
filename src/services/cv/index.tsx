@@ -4074,6 +4074,86 @@ export const changeEventListPromise = (
     signal
   )
 
+export interface ChangeEventSummaryQueryParams {
+  serviceIdentifiers: string[]
+  envIdentifiers: string[]
+  startTime: number
+  endTime: number
+}
+
+export interface ChangeEventSummaryPathParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type ChangeEventSummaryProps = Omit<
+  GetProps<RestResponseChangeSummaryDTO, unknown, ChangeEventSummaryQueryParams, ChangeEventSummaryPathParams>,
+  'path'
+> &
+  ChangeEventSummaryPathParams
+
+/**
+ * get ChangeEvent summary
+ */
+export const ChangeEventSummary = ({
+  accountIdentifier,
+  orgIdentifier,
+  projectIdentifier,
+  ...props
+}: ChangeEventSummaryProps) => (
+  <Get<RestResponseChangeSummaryDTO, unknown, ChangeEventSummaryQueryParams, ChangeEventSummaryPathParams>
+    path={`/account/${accountIdentifier}/org/${orgIdentifier}/project/${projectIdentifier}/change-event/summary`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseChangeEventSummaryProps = Omit<
+  UseGetProps<RestResponseChangeSummaryDTO, unknown, ChangeEventSummaryQueryParams, ChangeEventSummaryPathParams>,
+  'path'
+> &
+  ChangeEventSummaryPathParams
+
+/**
+ * get ChangeEvent summary
+ */
+export const useChangeEventSummary = ({
+  accountIdentifier,
+  orgIdentifier,
+  projectIdentifier,
+  ...props
+}: UseChangeEventSummaryProps) =>
+  useGet<RestResponseChangeSummaryDTO, unknown, ChangeEventSummaryQueryParams, ChangeEventSummaryPathParams>(
+    (paramsInPath: ChangeEventSummaryPathParams) =>
+      `/account/${paramsInPath.accountIdentifier}/org/${paramsInPath.orgIdentifier}/project/${paramsInPath.projectIdentifier}/change-event/summary`,
+    { base: getConfig('cv/api'), pathParams: { accountIdentifier, orgIdentifier, projectIdentifier }, ...props }
+  )
+
+/**
+ * get ChangeEvent summary
+ */
+export const changeEventSummaryPromise = (
+  {
+    accountIdentifier,
+    orgIdentifier,
+    projectIdentifier,
+    ...props
+  }: GetUsingFetchProps<
+    RestResponseChangeSummaryDTO,
+    unknown,
+    ChangeEventSummaryQueryParams,
+    ChangeEventSummaryPathParams
+  > & { accountIdentifier: string; orgIdentifier: string; projectIdentifier: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseChangeSummaryDTO, unknown, ChangeEventSummaryQueryParams, ChangeEventSummaryPathParams>(
+    getConfig('cv/api'),
+    `/account/${accountIdentifier}/org/${orgIdentifier}/project/${projectIdentifier}/change-event/summary`,
+    props,
+    signal
+  )
+
 export interface ChangeEventTimelineQueryParams {
   serviceIdentifiers: string[]
   envIdentifiers: string[]
@@ -7601,72 +7681,6 @@ export const getAnomaliesSummaryPromise = (
     GetAnomaliesSummaryQueryParams,
     GetAnomaliesSummaryPathParams
   >(getConfig('cv/api'), `/monitored-service/${identifier}/anomaliesCount`, props, signal)
-
-export interface GetChangeSummaryQueryParams {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
-  startTime: number
-  endTime: number
-}
-
-export interface GetChangeSummaryPathParams {
-  identifier: string
-}
-
-export type GetChangeSummaryProps = Omit<
-  GetProps<RestResponseChangeSummaryDTO, unknown, GetChangeSummaryQueryParams, GetChangeSummaryPathParams>,
-  'path'
-> &
-  GetChangeSummaryPathParams
-
-/**
- * get ChangeEvent summary
- */
-export const GetChangeSummary = ({ identifier, ...props }: GetChangeSummaryProps) => (
-  <Get<RestResponseChangeSummaryDTO, unknown, GetChangeSummaryQueryParams, GetChangeSummaryPathParams>
-    path={`/monitored-service/${identifier}/change-event/summary`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseGetChangeSummaryProps = Omit<
-  UseGetProps<RestResponseChangeSummaryDTO, unknown, GetChangeSummaryQueryParams, GetChangeSummaryPathParams>,
-  'path'
-> &
-  GetChangeSummaryPathParams
-
-/**
- * get ChangeEvent summary
- */
-export const useGetChangeSummary = ({ identifier, ...props }: UseGetChangeSummaryProps) =>
-  useGet<RestResponseChangeSummaryDTO, unknown, GetChangeSummaryQueryParams, GetChangeSummaryPathParams>(
-    (paramsInPath: GetChangeSummaryPathParams) => `/monitored-service/${paramsInPath.identifier}/change-event/summary`,
-    { base: getConfig('cv/api'), pathParams: { identifier }, ...props }
-  )
-
-/**
- * get ChangeEvent summary
- */
-export const getChangeSummaryPromise = (
-  {
-    identifier,
-    ...props
-  }: GetUsingFetchProps<
-    RestResponseChangeSummaryDTO,
-    unknown,
-    GetChangeSummaryQueryParams,
-    GetChangeSummaryPathParams
-  > & { identifier: string },
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<RestResponseChangeSummaryDTO, unknown, GetChangeSummaryQueryParams, GetChangeSummaryPathParams>(
-    getConfig('cv/api'),
-    `/monitored-service/${identifier}/change-event/summary`,
-    props,
-    signal
-  )
 
 export interface SetHealthMonitoringFlagQueryParams {
   accountId: string

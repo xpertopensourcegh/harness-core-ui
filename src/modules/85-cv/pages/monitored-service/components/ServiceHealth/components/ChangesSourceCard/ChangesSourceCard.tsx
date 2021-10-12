@@ -6,7 +6,7 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { Ticker, TickerVerticalAlignment } from '@common/components/Ticker/Ticker'
 import { useToaster } from '@common/components'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
-import { useGetChangeSummary } from 'services/cv'
+import { useChangeEventSummary } from 'services/cv'
 
 import type { ChangeSourceCardData, ChangeSourceCardInterfae } from './ChangesSourceCard.types'
 import TickerValue from './components/TickerValue/TickerValue'
@@ -16,17 +16,27 @@ import ChangesSourceLoading from './components/ChangesSourceLoading/ChangesSourc
 import css from './ChangesSourceCard.module.scss'
 
 export default function ChangeSourceCard(props: ChangeSourceCardInterfae): JSX.Element {
-  const { startTime, endTime, duration } = props
+  const { startTime, endTime, duration, serviceIdentifier, environmentIdentifier } = props
   const { getString } = useStrings()
   const { showError, clear } = useToaster()
-  const { orgIdentifier, projectIdentifier, accountId, identifier } = useParams<
-    ProjectPathProps & { identifier: string }
-  >()
+  const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps>()
 
-  const { data, refetch, loading, error } = useGetChangeSummary({ lazy: true, identifier })
+  const { data, refetch, loading, error } = useChangeEventSummary({
+    accountIdentifier: accountId,
+    orgIdentifier,
+    projectIdentifier,
+    lazy: true
+  })
 
   useEffect(() => {
-    refetch({ queryParams: { orgIdentifier, projectIdentifier, accountId, startTime, endTime } })
+    refetch({
+      queryParams: {
+        startTime,
+        endTime,
+        envIdentifiers: [environmentIdentifier],
+        serviceIdentifiers: [serviceIdentifier]
+      }
+    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [duration, startTime, endTime])
   const { Infrastructure, Deployment, Alert } = data?.resource?.categoryCountMap || {}

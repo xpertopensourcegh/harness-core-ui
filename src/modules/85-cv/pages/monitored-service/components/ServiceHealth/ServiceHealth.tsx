@@ -139,6 +139,8 @@ export default function ServiceHealth({
                 changesTableAndSourceCardStartAndEndtime[0] &&
                 changesTableAndSourceCardStartAndEndtime[1] && (
                   <ChangesSourceCard
+                    serviceIdentifier={serviceIdentifier}
+                    environmentIdentifier={environmentIdentifier}
                     startTime={changesTableAndSourceCardStartAndEndtime[0]}
                     endTime={changesTableAndSourceCardStartAndEndtime[1]}
                   />

@@ -90,7 +90,7 @@ allowpaths:
   - /monitored-service/health-sources
   - /monitored-service/{identifier}/anomaliesCount
   - /service-dependency-graph
-  - /monitored-service/{identifier}/change-event/summary
+  - /account/{accountIdentifier}/org/{orgIdentifier}/project/{projectIdentifier}/change-event/summary
   - /activity/{activityId}/healthSources
   - /account/{accountIdentifier}/org/{orgIdentifier}/project/{projectIdentifier}/change-event
   - /account/{accountIdentifier}/org/{orgIdentifier}/project/{projectIdentifier}/change-event/timeline
