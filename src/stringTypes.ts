@@ -2521,6 +2521,7 @@ export interface StringsMap {
   'templatesLibrary.createNewModal.versionPlaceholder': string
   'templatesLibrary.deleteTemplate': string
   'templatesLibrary.editModal.heading': string
+  'templatesLibrary.entityType': string
   'templatesLibrary.errorWhileDeleting': string
   'templatesLibrary.errorWhileSaving': string
   'templatesLibrary.errorWhileUpdating': string
@@ -2533,6 +2534,7 @@ export interface StringsMap {
   'templatesLibrary.selectTemplateToPreview': string
   'templatesLibrary.stageTemplate': string
   'templatesLibrary.templateInputs': string
+  'templatesLibrary.templateScope': string
   'templatesLibrary.templateSettings': string
   'templatesLibrary.templateSettingsModal.defaultVersionLabel': string
   'templatesLibrary.templateSettingsModal.scopeLabel': string

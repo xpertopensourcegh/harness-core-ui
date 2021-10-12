@@ -61,5 +61,8 @@ module.exports = {
   },
   '/ccm/recommendations/api': {
     target: targetLocalHost ? 'http://localhost:5000' : baseUrl
+  },
+  '/template/api': {
+    target: targetLocalHost ? 'http://localhost:15001' : baseUrl
   }
 }
