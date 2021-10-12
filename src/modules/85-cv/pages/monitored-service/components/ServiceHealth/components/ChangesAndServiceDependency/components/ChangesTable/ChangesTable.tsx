@@ -65,6 +65,9 @@ export default function ChangesTable({
         endTime,
         pageIndex: page,
         pageSize: 10
+      },
+      queryParamStringifyOptions: {
+        arrayFormat: 'repeat'
       }
     })
   }, [startTime, endTime, serviceIdentifier, environmentIdentifier, page])
