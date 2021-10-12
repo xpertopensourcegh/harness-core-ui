@@ -35,6 +35,9 @@ export default function ChangeSourceCard(props: ChangeSourceCardInterfae): JSX.E
         endTime,
         envIdentifiers: [environmentIdentifier],
         serviceIdentifiers: [serviceIdentifier]
+      },
+      queryParamStringifyOptions: {
+        arrayFormat: 'repeat'
       }
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
