@@ -3210,6 +3210,8 @@ export interface StringsMap {
   'cf.creationModal.flagOff': string
   'cf.creationModal.flagOn': string
   'cf.creationModal.flagType': string
+  'cf.creationModal.git.autoCommitMessage': string
+  'cf.creationModal.git.flagName': string
   'cf.creationModal.idIsRequired': string
   'cf.creationModal.jsonType': string
   'cf.creationModal.mustBeNumber': string
