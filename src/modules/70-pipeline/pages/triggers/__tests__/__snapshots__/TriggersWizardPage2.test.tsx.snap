@@ -50,7 +50,7 @@ exports[`Manifest Trigger Tests Check chartVersion to be disabled and default va
         >
           <div
             class="item selected"
-            data-name="visual-btn"
+            data-name="toggle-option-one"
             role="button"
             tabindex="0"
           >
@@ -58,7 +58,7 @@ exports[`Manifest Trigger Tests Check chartVersion to be disabled and default va
           </div>
           <div
             class="item"
-            data-name="yaml-btn"
+            data-name="toggle-option-two"
             role="button"
             tabindex="0"
           >
@@ -1234,7 +1234,7 @@ exports[`Manifest Trigger Tests function getArtifactSpecObj by displaying select
         >
           <div
             class="item selected"
-            data-name="visual-btn"
+            data-name="toggle-option-one"
             role="button"
             tabindex="0"
           >
@@ -1242,7 +1242,7 @@ exports[`Manifest Trigger Tests function getArtifactSpecObj by displaying select
           </div>
           <div
             class="item"
-            data-name="yaml-btn"
+            data-name="toggle-option-two"
             role="button"
             tabindex="0"
           >
@@ -1868,7 +1868,7 @@ exports[`Manifest Trigger Tests on click of edit - submits thru the right payloa
         >
           <div
             class="item selected"
-            data-name="visual-btn"
+            data-name="toggle-option-one"
             role="button"
             tabindex="0"
           >
@@ -1876,7 +1876,7 @@ exports[`Manifest Trigger Tests on click of edit - submits thru the right payloa
           </div>
           <div
             class="item"
-            data-name="yaml-btn"
+            data-name="toggle-option-two"
             role="button"
             tabindex="0"
           >
@@ -3075,7 +3075,7 @@ exports[`Manifest Trigger Tests on click of edit artifact - submits thru the rig
         >
           <div
             class="item selected"
-            data-name="visual-btn"
+            data-name="toggle-option-one"
             role="button"
             tabindex="0"
           >
@@ -3083,7 +3083,7 @@ exports[`Manifest Trigger Tests on click of edit artifact - submits thru the rig
           </div>
           <div
             class="item"
-            data-name="yaml-btn"
+            data-name="toggle-option-two"
             role="button"
             tabindex="0"
           >
@@ -3960,7 +3960,7 @@ exports[`Manifest Trigger Tests on edit -with event conditions payload 1`] = `
         >
           <div
             class="item selected"
-            data-name="visual-btn"
+            data-name="toggle-option-one"
             role="button"
             tabindex="0"
           >
@@ -3968,7 +3968,7 @@ exports[`Manifest Trigger Tests on edit -with event conditions payload 1`] = `
           </div>
           <div
             class="item"
-            data-name="yaml-btn"
+            data-name="toggle-option-two"
             role="button"
             tabindex="0"
           >
@@ -4405,7 +4405,7 @@ exports[`Manifest Trigger Tests throws validation error when select artifact/man
         >
           <div
             class="item selected"
-            data-name="visual-btn"
+            data-name="toggle-option-one"
             role="button"
             tabindex="0"
           >
@@ -4413,7 +4413,7 @@ exports[`Manifest Trigger Tests throws validation error when select artifact/man
           </div>
           <div
             class="item"
-            data-name="yaml-btn"
+            data-name="toggle-option-two"
             role="button"
             tabindex="0"
           >

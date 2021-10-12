@@ -489,7 +489,7 @@ describe('TriggersWizardPage Triggers tests', () => {
 
       await waitFor(() => expect(() => queryByText(document.body, '4 3 * * MON')).not.toBeNull())
 
-      const yamlBtn = document.body.querySelector('[data-name="yaml-btn"]')
+      const yamlBtn = document.body.querySelector('[data-name="toggle-option-two"]')
       if (!yamlBtn) {
         throw Error('No yaml button, likely cannot parse yaml. Can take snapshot/look at yaml.')
       }
@@ -506,7 +506,7 @@ describe('TriggersWizardPage Triggers tests', () => {
 
       fireEvent.click(tab3)
 
-      const visualBtn = document.body.querySelector('[data-name="visual-btn"]')
+      const visualBtn = document.body.querySelector('[data-name="toggle-option-one"]')
       if (!visualBtn) {
         throw Error('No visual button')
       }

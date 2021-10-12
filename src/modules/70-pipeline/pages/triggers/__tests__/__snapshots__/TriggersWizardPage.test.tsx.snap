@@ -50,7 +50,7 @@ exports[`TriggersWizardPage Triggers tests Payload/Values Comparison Existing Tr
         >
           <div
             class="item selected"
-            data-name="visual-btn"
+            data-name="toggle-option-one"
             role="button"
             tabindex="0"
           >
@@ -58,7 +58,7 @@ exports[`TriggersWizardPage Triggers tests Payload/Values Comparison Existing Tr
           </div>
           <div
             class="item"
-            data-name="yaml-btn"
+            data-name="toggle-option-two"
             role="button"
             tabindex="0"
           >
@@ -1164,7 +1164,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
         >
           <div
             class="item selected"
-            data-name="visual-btn"
+            data-name="toggle-option-one"
             role="button"
             tabindex="0"
           >
@@ -1172,7 +1172,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
           </div>
           <div
             class="item"
-            data-name="yaml-btn"
+            data-name="toggle-option-two"
             role="button"
             tabindex="0"
           >
@@ -2148,7 +2148,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
         >
           <div
             class="item selected"
-            data-name="visual-btn"
+            data-name="toggle-option-one"
             role="button"
             tabindex="0"
           >
@@ -2156,7 +2156,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
           </div>
           <div
             class="item"
-            data-name="yaml-btn"
+            data-name="toggle-option-two"
             role="button"
             tabindex="0"
           >
@@ -3097,7 +3097,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
         >
           <div
             class="item selected"
-            data-name="visual-btn"
+            data-name="toggle-option-one"
             role="button"
             tabindex="0"
           >
@@ -3105,7 +3105,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
           </div>
           <div
             class="item"
-            data-name="yaml-btn"
+            data-name="toggle-option-two"
             role="button"
             tabindex="0"
           >
@@ -3558,7 +3558,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
         >
           <div
             class="item selected"
-            data-name="visual-btn"
+            data-name="toggle-option-one"
             role="button"
             tabindex="0"
           >
@@ -3566,7 +3566,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
           </div>
           <div
             class="item"
-            data-name="yaml-btn"
+            data-name="toggle-option-two"
             role="button"
             tabindex="0"
           >
