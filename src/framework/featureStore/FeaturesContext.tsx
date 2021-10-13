@@ -34,6 +34,11 @@ export interface FeatureRequest {
   featureName: FeatureIdentifier
 }
 
+export interface FeatureProps {
+  featureRequest: FeatureRequest
+  isPermissionPrioritized?: boolean
+}
+
 export interface CheckFeatureReturn {
   enabled: boolean
   featureDetail?: FeatureDetail

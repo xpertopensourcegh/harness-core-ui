@@ -72,7 +72,7 @@ const WarningText = ({ tooltip, tooltipProps }: WarningTextProps): ReactElement 
 export const FeatureWarningTooltip = ({ featureName, module }: FeatureWarningTooltipProps): ReactElement => {
   const { getString } = useStrings()
   return (
-    <Layout.Vertical padding="medium">
+    <Layout.Vertical padding="medium" className={css.tooltip}>
       <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.GREY_800} padding={{ bottom: 'small' }}>
         {getString('common.feature.upgradeRequired.title')}
       </Text>
