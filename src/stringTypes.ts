@@ -166,6 +166,7 @@ export interface StringsMap {
   'common.feature.upgradeRequired.description': string
   'common.feature.upgradeRequired.title': string
   'common.file': string
+  'common.files': string
   'common.filters.clearFilters': string
   'common.filters.noFilterSaved': string
   'common.filters.noMatchingFilterData': string

@@ -570,3 +570,4 @@ viewContent: View Content
 delete: Delete {{ name }}?
 suggestionsLabel: 'Suggestions:'
 refreshPage: refresh your page.
+files: Files

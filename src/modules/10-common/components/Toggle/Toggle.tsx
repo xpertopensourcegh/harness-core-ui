@@ -2,12 +2,14 @@ import React, { SetStateAction, Dispatch } from 'react'
 import cx from 'classnames'
 import css from '@common/components/Toggle/Toggle.module.scss'
 
+interface ToggleOption<T> {
+  label: string
+  value: T
+}
+
 export interface ToggleProps<T> {
   initialSelectedView?: T
-  options: {
-    label: string
-    value: T
-  }[]
+  options: [ToggleOption<T>, ToggleOption<T>]
   beforeOnChange: (val: T, callbackFn: Dispatch<SetStateAction<T>>) => void
   disableSwitch?: boolean
   className?: string

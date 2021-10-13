@@ -5,6 +5,7 @@
       height: 100%;
     }
     .bp3-tab-list {
+      justify-content: space-between;
       background-color: var(--white) !important;
       border-bottom: 1px solid var(--grey-200);
     }
@@ -17,7 +18,7 @@
   }
 
   .gitSyncErrorsHeaderSides {
-    flex-grow: 1;
+    width: 600px !important;
     padding: 0 var(--spacing-7) !important;
     margin: var(--spacing-2) 0 !important;
   }

@@ -34,6 +34,8 @@ const GitSyncErrors: React.FC = () => {
   const onTabSwitch = (tabId: GitErrorExperienceTab): void => {
     if (tabId === GitErrorExperienceTab.CONNECTIVITY_ERRORS) {
       setSelectedView(null)
+    } else {
+      setSelectedView(GitErrorExperienceSubTab.ALL_ERRORS_COMMIT_VIEW)
     }
     setSelectedTab(tabId)
   }
@@ -44,7 +46,7 @@ const GitSyncErrors: React.FC = () => {
   }
 
   return (
-    <div className={styles.tabContainer}>
+    <div className={styles.tabContainer} data-testid="gitSyncErrorsTabContainer">
       <GitSyncErrorState.Provider value={contextValue}>
         <Tabs id="gitSyncErrorsTab" onChange={onTabSwitch}>
           <Layout.Horizontal className={styles.gitSyncErrorsHeaderSides}>

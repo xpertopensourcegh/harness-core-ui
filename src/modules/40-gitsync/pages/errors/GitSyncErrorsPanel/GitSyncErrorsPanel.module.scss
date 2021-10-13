@@ -2,3 +2,9 @@
   height: calc(100% - 60px);
   overflow: auto;
 }
+
+.toggle {
+  & > div {
+    width: 90px !important;
+  }
+}

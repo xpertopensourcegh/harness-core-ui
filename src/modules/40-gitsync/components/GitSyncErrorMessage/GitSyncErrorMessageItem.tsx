@@ -52,7 +52,11 @@ export const GitSyncErrorMessageItem: React.FC<GitSyncErrorMessageProps['items']
           </Layout.Horizontal>
           <Layout.Horizontal>
             <Icon name="git-commit" color={Color.PRIMARY_7} margin={{ right: 'small' }} />
-            <Text font={{ size: 'small', weight: 'semi-bold' }} color={Color.PRIMARY_7}>
+            <Text
+              font={{ size: 'small', weight: 'semi-bold' }}
+              color={Color.PRIMARY_7}
+              data-testid="gitSyncErrorMessageItemFixCommit"
+            >
               {fixCommit}
             </Text>
           </Layout.Horizontal>
@@ -62,10 +66,18 @@ export const GitSyncErrorMessageItem: React.FC<GitSyncErrorMessageProps['items']
     return <></>
   }, [showDetails, fixCommit, getString])
   return (
-    <Layout.Horizontal className={styles.section} flex={{ justifyContent: 'space-between' }}>
+    <Layout.Horizontal
+      className={styles.section}
+      flex={{ justifyContent: 'space-between' }}
+      data-testid="gitSyncErrorMessageItem"
+    >
       <Layout.Vertical>
         {title ? (
-          <Text font={{ size: 'small', weight: 'semi-bold' }} className={styles.errorItemTitle}>
+          <Text
+            font={{ size: 'small', weight: 'semi-bold' }}
+            className={styles.errorItemTitle}
+            data-testid="gitSyncErrorMessageItemTitle"
+          >
             {title}
           </Text>
         ) : null}
@@ -73,7 +85,7 @@ export const GitSyncErrorMessageItem: React.FC<GitSyncErrorMessageProps['items']
           <Text font={{ size: 'small' }} color={Color.RED_600} margin={{ right: 'large' }}>
             {getString('failed')}
           </Text>
-          <Text font={{ size: 'small' }} color={Color.GREY_900}>
+          <Text font={{ size: 'small' }} color={Color.GREY_900} data-testid="gitSyncErrorMessageItemReason">
             {reason}
           </Text>
         </Layout.Horizontal>
