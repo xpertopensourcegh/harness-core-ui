@@ -14,16 +14,17 @@ export default function DeploymentTimeDuration({ startTime, endTime }: { startTi
   return (
     <Container className={css.main}>
       <Layout.Horizontal flex={{ justifyContent: 'space-between' }}>
-        <Text icon={'time'} iconProps={{ size: 12 }} font={{ size: 'xsmall' }}>
+        <Text icon={'time'} iconProps={{ size: 12 }} font={{ size: 'small' }}>
           {getString('cv.changeSource.changeSourceCard.finished')}
           {moment(endTime).format(TIME_FORMAT)}
         </Text>
-        <Text icon={'time'} iconProps={{ size: 12 }} font={{ size: 'xsmall' }}>
+        <Text icon={'time'} iconProps={{ size: 12 }} font={{ size: 'small' }}>
           {getString('common.durationPrefix')}
           {durationString}
         </Text>
-        <Text icon={'calendar'} iconProps={{ size: 12 }} font={{ size: 'xsmall' }}>
-          {timePassed}
+        <Text icon={'calendar'} iconProps={{ size: 12 }} font={{ size: 'small' }}>
+          {timePassed || 0}
+          {getString('cv.changeSource.changeSourceCard.ago')}
         </Text>
       </Layout.Horizontal>
     </Container>

@@ -7,18 +7,18 @@
     margin-top: var(--spacing-xsmall) !important;
   }
 
-  p {
-    width: 90%;
+  .redirectButton {
+    height: 24px !important;
+    min-width: 124px !important;
+    font-size: x-small !important;
+    // margin-left: var(--spacing-xxxlarge) !important;
+    white-space: nowrap !important;
+  }
+
+  .addEllipsis {
+    width: 300px;
     overflow-x: hidden;
     white-space: nowrap !important;
     text-overflow: ellipsis;
-  }
-
-  .redirectButton {
-    height: 24px !important;
-    width: 124px !important;
-    font-size: x-small !important;
-    margin-left: var(--spacing-xxxlarge) !important;
-    white-space: nowrap !important;
   }
 }

@@ -3,5 +3,6 @@
 declare const styles: {
   readonly main: string
   readonly redirectButton: string
+  readonly addEllipsis: string
 }
 export default styles

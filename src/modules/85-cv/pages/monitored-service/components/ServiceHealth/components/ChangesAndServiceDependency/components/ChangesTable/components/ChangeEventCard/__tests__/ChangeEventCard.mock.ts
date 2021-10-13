@@ -32,7 +32,7 @@ export const payload = {
   responseMessages: []
 }
 
-export const HarnessCDMockData = {
+export const HarnessNextGenMockData = {
   metaData: {},
   resource: {
     id: 'FHj1QjXMTNySJF2mz4d5Bw',
@@ -71,6 +71,37 @@ export const HarnessCDMockData = {
     },
     category: 'Deployment' as any,
     type: 'HarnessCDNextGen' as any
+  },
+  responseMessages: []
+}
+
+export const HarnessCDMockData = {
+  metaData: {},
+  resource: {
+    id: 'fWjG6GwTSN-HtyqsgK564g',
+    accountId: 'kmpySmUISimoRrJL6NL73w',
+    orgIdentifier: 'default',
+    projectIdentifier: 'Harshil',
+    serviceIdentifier: 'service300',
+    serviceName: 'service-300',
+    envIdentifier: 'Env100',
+    environmentName: 'Env-100',
+    name: 'Deployment of service300 in Env100',
+    changeSourceIdentifier: 'Harness_CD_change_source',
+    eventTime: 1633961702460,
+    metadata: {
+      accountId: 'kmpySmUISimoRrJL6NL73w',
+      appId: 'iMIH7_pKT3CZliTdpajMNA',
+      serviceId: '06AAbdrjT8i1vABnuShL_Q',
+      environmentId: '06AAbdrjT8i1vABnuShL_Q',
+      workflowId: 'JL-tAhDPRp6hwqxFueTnDQ',
+      workflowStartTime: 1633961702460,
+      workflowEndTime: 1633962499782,
+      workflowExecutionId: 'c9yNq_htSLSYISZG9HFxRw',
+      name: 'To-Do List K8s Canary'
+    },
+    category: 'Deployment',
+    type: 'HarnessCD'
   },
   responseMessages: []
 }

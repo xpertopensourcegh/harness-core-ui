@@ -11,6 +11,7 @@ import { PageError } from '@common/components/Page/PageError'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import PagerDutyEventCard from './PagerDutyEventCard'
 import HarnessNextGenEventCard from './HarnessNextGenEventCard'
+import HarnessCDEventCard from './HarnessCDEventCard'
 
 export default function ChangeEventCard({ activityId }: { activityId: string }) {
   const { getString } = useStrings()
@@ -32,6 +33,8 @@ export default function ChangeEventCard({ activityId }: { activityId: string }) 
     switch (type) {
       case ChangeSourceTypes.PagerDuty:
         return <PagerDutyEventCard data={data?.resource} />
+      case ChangeSourceTypes.HarnessCD:
+        return <HarnessCDEventCard data={data?.resource} />
       case ChangeSourceTypes.HarnessCDNextGen:
         return <HarnessNextGenEventCard data={data?.resource} />
       default:

@@ -3,7 +3,7 @@ import { render, waitFor } from '@testing-library/react'
 import * as cvService from 'services/cv'
 import { TestWrapper } from '@common/utils/testUtils'
 import ChangeEventCard from '../ChangeEventCard'
-import { HarnessCDMockData, payload } from './ChangeEventCard.mock'
+import { HarnessCDMockData, HarnessNextGenMockData, payload } from './ChangeEventCard.mock'
 describe('Validate ChangeCard', () => {
   test('should render Pager Duty card', async () => {
     jest.spyOn(cvService, 'useGetChangeEventDetail').mockImplementation(
@@ -31,7 +31,31 @@ describe('Validate ChangeCard', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('should render Deployment card', async () => {
+  test('should render Deployment Harness NextGen card', async () => {
+    jest.spyOn(cvService, 'useGetChangeEventDetail').mockImplementation(
+      () =>
+        ({
+          data: HarnessNextGenMockData,
+          refetch: jest.fn(),
+          error: null,
+          loading: false
+        } as any)
+    )
+    const { getByText } = render(
+      <TestWrapper>
+        <ChangeEventCard activityId={'dasda'} />
+      </TestWrapper>
+    )
+    // Card Title is rendered Correctly
+    await waitFor(() => expect(getByText(HarnessNextGenMockData.resource.id)).toBeTruthy())
+    await waitFor(() => expect(getByText(HarnessNextGenMockData.resource.name)).toBeTruthy())
+    await waitFor(() => expect(getByText(HarnessNextGenMockData.resource.metadata.status)).toBeTruthy())
+
+    // Card details title
+    await waitFor(() => expect(getByText(`HarnessCDNextGen Deployment details`)).toBeTruthy())
+  })
+
+  test('should render Deployment HarnessCD card', async () => {
     jest.spyOn(cvService, 'useGetChangeEventDetail').mockImplementation(
       () =>
         ({
@@ -49,10 +73,9 @@ describe('Validate ChangeCard', () => {
     // Card Title is rendered Correctly
     await waitFor(() => expect(getByText(HarnessCDMockData.resource.id)).toBeTruthy())
     await waitFor(() => expect(getByText(HarnessCDMockData.resource.name)).toBeTruthy())
-    await waitFor(() => expect(getByText(HarnessCDMockData.resource.metadata.status)).toBeTruthy())
 
     // Card details title
-    await waitFor(() => expect(getByText(`HarnessCDNextGen Deployment details`)).toBeTruthy())
+    await waitFor(() => expect(getByText(`HarnessCD Deployment details`)).toBeTruthy())
   })
 
   test('should render in loading state', async () => {

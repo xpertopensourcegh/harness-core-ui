@@ -623,6 +623,7 @@ changeSource:
     viewPipeline: View Pipeline
     finished: 'Finished: '
     deploymentHealth: Deployment Health
+    ago: ago
 Dependency:
   serviceList: Service list
   noData: No Data For Dependency Graph
