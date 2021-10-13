@@ -3920,6 +3920,7 @@ export interface StringsMap {
   'cv.monitoredServices.serviceAndEnvironment': string
   'cv.monitoredServices.serviceDependencies.noData': string
   'cv.monitoredServices.serviceHealth.anamolies': string
+  'cv.monitoredServices.serviceHealth.healthScore': string
   'cv.monitoredServices.serviceHealth.last24Hrs': string
   'cv.monitoredServices.serviceHealth.last3Days': string
   'cv.monitoredServices.serviceHealth.last4Hrs': string
