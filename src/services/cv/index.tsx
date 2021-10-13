@@ -1629,6 +1629,18 @@ export type HarnessCDCurrentGenChangeSourceSpec = ChangeSourceSpec & {
   harnessServiceId?: string
 }
 
+export type HarnessCDCurrentGenEventMetadata = ChangeEventMetadata & {
+  accountId?: string
+  appId?: string
+  environmentId?: string
+  name?: string
+  serviceId?: string
+  workflowEndTime?: number
+  workflowExecutionId?: string
+  workflowId?: string
+  workflowStartTime?: number
+}
+
 export type HarnessCDEventMetadata = ChangeEventMetadata & {
   artifactTag?: string
   artifactType?: string
@@ -3556,13 +3568,12 @@ export interface ServiceSummary {
 }
 
 export interface ServiceSummaryDetails {
-  anomalousLogsCount?: number
-  anomalousMetricsCount?: number
-  changeCount?: number
+  environmentName?: string
   environmentRef?: string
   identifierRef?: string
   riskLevel?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   riskScore?: number
+  serviceName?: string
   serviceRef?: string
 }
 
@@ -3956,7 +3967,15 @@ export interface VerificationsNotify {
 }
 
 export interface VerifyStepSummary {
-  [key: string]: any
+  name?: string
+  verificationStatus?:
+    | 'IGNORED'
+    | 'NOT_STARTED'
+    | 'VERIFICATION_PASSED'
+    | 'VERIFICATION_FAILED'
+    | 'ERROR'
+    | 'ABORTED'
+    | 'IN_PROGRESS'
 }
 
 export interface Void {
@@ -6858,12 +6877,12 @@ export const saveMetricPacksPromise = (
   )
 
 export interface ListMonitoredServiceQueryParams {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
   environmentIdentifier?: string
-  offset: number
-  pageSize: number
+  offset?: number
+  pageSize?: number
   filter?: string
 }
 
@@ -7050,9 +7069,9 @@ export const createDefaultMonitoredServicePromise = (
   )
 
 export interface GetMonitoredServiceListEnvironmentsQueryParams {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
 }
 
 export type GetMonitoredServiceListEnvironmentsProps = Omit<
@@ -7166,12 +7185,12 @@ export const getAllHealthSourcesForServiceAndEnvironmentPromise = (
   )
 
 export interface GetMonitoredServiceListQueryParams {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
-  environmentIdentifier: string
-  offset: number
-  pageSize: number
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  environmentIdentifier?: string
+  offset?: number
+  pageSize?: number
   filter?: string
 }
 
@@ -7220,11 +7239,11 @@ export const getMonitoredServiceListPromise = (
   )
 
 export interface GetMonitoredServiceScoresFromServiceAndEnvironmentQueryParams {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
-  serviceIdentifier: string
-  environmentIdentifier: string
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  serviceIdentifier?: string
+  environmentIdentifier?: string
 }
 
 export type GetMonitoredServiceScoresFromServiceAndEnvironmentProps = Omit<
@@ -7281,11 +7300,11 @@ export const getMonitoredServiceScoresFromServiceAndEnvironmentPromise = (
   )
 
 export interface GetMonitoredServiceFromServiceAndEnvironmentQueryParams {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
-  serviceIdentifier: string
-  environmentIdentifier: string
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  serviceIdentifier?: string
+  environmentIdentifier?: string
 }
 
 export type GetMonitoredServiceFromServiceAndEnvironmentProps = Omit<
@@ -7446,9 +7465,9 @@ export const deleteMonitoredServicePromise = (
   )
 
 export interface GetMonitoredServiceQueryParams {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
 }
 
 export interface GetMonitoredServicePathParams {
@@ -7666,10 +7685,10 @@ export const getAnomaliesSummaryPromise = (
   >(getConfig('cv/api'), `/monitored-service/${identifier}/anomaliesCount`, props, signal)
 
 export interface SetHealthMonitoringFlagQueryParams {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
-  enable: boolean
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  enable?: boolean
 }
 
 export interface SetHealthMonitoringFlagPathParams {
@@ -7760,11 +7779,11 @@ export const setHealthMonitoringFlagPromise = (
   >('PUT', getConfig('cv/api'), `/monitored-service/${identifier}/health-monitoring-flag`, props, signal)
 
 export interface GetMonitoredServiceOverAllHealthScoreQueryParams {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
-  duration: 'FOUR_HOURS' | 'TWENTY_FOUR_HOURS' | 'THREE_DAYS' | 'SEVEN_DAYS' | 'THIRTY_DAYS'
-  endTime: number
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  duration?: 'FOUR_HOURS' | 'TWENTY_FOUR_HOURS' | 'THREE_DAYS' | 'SEVEN_DAYS' | 'THIRTY_DAYS'
+  endTime?: number
 }
 
 export interface GetMonitoredServiceOverAllHealthScorePathParams {

@@ -232,6 +232,7 @@ export const mockedServiceDependencies = {
       {
         identifierRef: 'service110_Test_env_102',
         serviceRef: 'service110',
+        serviceName: 'service110',
         environmentRef: 'Test_env_200',
         riskScore: -1,
         riskLevel: RiskValues.NO_ANALYSIS,
@@ -242,6 +243,7 @@ export const mockedServiceDependencies = {
       {
         identifierRef: 'Test_Service_103_Test_env_200',
         serviceRef: 'Test_Service_200',
+        serviceName: 'Test_Service_200',
         environmentRef: 'Test_env_200',
         riskScore: -1,
         riskLevel: RiskValues.NO_ANALYSIS,

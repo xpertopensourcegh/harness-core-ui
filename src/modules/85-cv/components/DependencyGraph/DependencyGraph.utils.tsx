@@ -175,7 +175,7 @@ export const getDependencyData = (
         id: node?.identifierRef,
         status: node?.riskLevel,
         icon: serviceIcon,
-        name: node?.serviceRef
+        name: node?.serviceName
       })) as Node[],
       data: (serviceDependencyGraphData?.resource?.edges as GraphData[]) || []
     }
