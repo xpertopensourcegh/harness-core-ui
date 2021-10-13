@@ -10,7 +10,7 @@ import {
   StepProps,
   Text
 } from '@wings-software/uicore'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import { omit as _omit, defaultTo as _defaultTo } from 'lodash-es'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { ConnectorInfoDTO, ConnectorRequestBody, useCreateConnector, useUpdateConnector } from 'services/cd-ng'

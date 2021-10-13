@@ -3,7 +3,7 @@ import cx from 'classnames'
 
 import moment from 'moment'
 import { useParams } from 'react-router-dom'
-import { useHistory } from 'react-router'
+import { useHistory } from 'react-router-dom'
 import { Card, Color, Container, Icon, IconName, Layout, Text, Heading } from '@wings-software/uicore'
 import { useQueryParams } from '@common/hooks'
 import { Page } from '@common/exports'

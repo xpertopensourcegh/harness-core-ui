@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from 'react'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'

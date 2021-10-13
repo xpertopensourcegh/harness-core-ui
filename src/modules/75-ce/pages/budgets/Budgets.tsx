@@ -12,7 +12,7 @@ import {
 } from '@wings-software/uicore'
 import { Classes, Menu, MenuItem, Position } from '@blueprintjs/core'
 import type { CellProps, Renderer } from 'react-table'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
 import Table from '@common/components/Table/Table'
 import { useFetchBudgetQuery, BudgetSummary } from 'services/ce/services'

@@ -17,6 +17,8 @@ const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin')
 const GenerateStringTypesPlugin = require('./scripts/webpack/GenerateStringTypesPlugin').GenerateStringTypesPlugin
 const { BugsnagSourceMapUploaderPlugin } = require('webpack-bugsnag-plugins')
 const moduleFederationConfig = require('./configs/modulefederation.config.js')
+const ExternalRemotesPlugin = require('external-remotes-plugin')
+
 const moduleFederationEnabled = process.env.ENABLE_MICROFRONTENDS === 'true'
 
 const DEV = process.env.NODE_ENV === 'development'
@@ -227,6 +229,7 @@ const commonPlugins = [
 ]
 
 if (moduleFederationEnabled) {
+  commonPlugins.unshift(new ExternalRemotesPlugin())
   commonPlugins.unshift(new webpack.container.ModuleFederationPlugin(moduleFederationConfig))
 }
 

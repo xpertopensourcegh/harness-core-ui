@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 import { pick, omit as _omit, defaultTo as _defaultTo } from 'lodash-es'
 import cx from 'classnames'

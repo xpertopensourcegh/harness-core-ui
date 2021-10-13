@@ -49,6 +49,7 @@ declare interface Window {
   Harness: {
     openNgTooltipEditor: () => void
   }
+  getApiBaseUrl: (str: string) => string
   MktoForms2: any
 }
 

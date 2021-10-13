@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useRef, useState } from 'react'
-import { useHistory, useParams } from 'react-router'
+import { useHistory, useParams } from 'react-router-dom'
 import type { IconName } from '@wings-software/uicore'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { ModuleName } from 'framework/types/ModuleName'
