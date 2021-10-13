@@ -79,7 +79,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             class="cell"
             colspan="1"
             role="columnheader"
-            style="width: 16%;"
+            style="width: 20%;"
           >
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
@@ -96,27 +96,19 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
             >
-              <div
-                class="textCentered"
-              >
-                ACTIVITY
-              </div>
+              ACTIVITY
             </p>
           </div>
           <div
             class="cell"
             colspan="1"
             role="columnheader"
-            style="width: 18%;"
+            style="width: 14%;"
           >
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
             >
-              <div
-                class="textCentered"
-              >
-                pipeline.triggers.lastActivationLabel
-              </div>
+              pipeline.triggers.lastActivationLabel
             </p>
           </div>
           <div
@@ -214,6 +206,8 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                     class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey400"
                     style="--text-line-clamp: 1; width: 300px;"
                   >
+                    common.ID
+                    : 
                     AllValues
                   </p>
                 </div>
@@ -222,7 +216,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             <div
               class="cell"
               role="cell"
-              style="width: 16%;"
+              style="width: 20%;"
             >
               <div
                 class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -236,6 +230,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             >
               <div
                 class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+                style="justify-content: flex-start;"
               >
                 <span
                   class="activityChart"
@@ -359,12 +354,12 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             <div
               class="cell"
               role="cell"
-              style="width: 18%;"
+              style="width: 14%;"
             >
               <div
                 class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                 data-testid="AllValues"
-                style="justify-content: center;"
+                style="justify-content: flex-start;"
               >
                 <div
                   class="activityStatement"
@@ -382,7 +377,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
                 >
-                  N/A
+                  na
                 </p>
               </div>
             </div>
@@ -500,7 +495,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                           class="bp3-popover-target"
                         >
                           <div
-                            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+                            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main tags StyledProps--flex StyledProps--flex-align-center-center"
                             tabindex="0"
                           >
                             <span
@@ -533,6 +528,8 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                     class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey400"
                     style="--text-line-clamp: 1; width: 300px;"
                   >
+                    common.ID
+                    : 
                     test1
                   </p>
                 </div>
@@ -541,7 +538,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             <div
               class="cell"
               role="cell"
-              style="width: 16%;"
+              style="width: 20%;"
             >
               <div
                 class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -555,6 +552,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             >
               <div
                 class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+                style="justify-content: flex-start;"
               >
                 <span
                   class="activityChart"
@@ -577,12 +575,12 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             <div
               class="cell"
               role="cell"
-              style="width: 18%;"
+              style="width: 14%;"
             >
               <div
                 class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                 data-testid="test1"
-                style="justify-content: center;"
+                style="justify-content: flex-start;"
               >
                 <div
                   class="activityStatement"
@@ -593,7 +591,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                   >
                     <div
                       class="StyledProps--font StyledProps--main"
-                      style="text-align: end;"
+                      style="text-align: start;"
                     >
                       <p
                         class="StyledProps--font StyledProps--main"
@@ -768,6 +766,8 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                     class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey400"
                     style="--text-line-clamp: 1; width: 300px;"
                   >
+                    common.ID
+                    : 
                     trigger2
                   </p>
                 </div>
@@ -776,7 +776,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             <div
               class="cell"
               role="cell"
-              style="width: 16%;"
+              style="width: 20%;"
             >
               <div
                 class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -790,6 +790,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             >
               <div
                 class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+                style="justify-content: flex-start;"
               >
                 <span
                   class="activityChart"
@@ -812,12 +813,12 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             <div
               class="cell"
               role="cell"
-              style="width: 18%;"
+              style="width: 14%;"
             >
               <div
                 class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                 data-testid="trigger2"
-                style="justify-content: center;"
+                style="justify-content: flex-start;"
               >
                 <div
                   class="activityStatement"
@@ -970,6 +971,8 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                     class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey400"
                     style="--text-line-clamp: 1; width: 300px;"
                   >
+                    common.ID
+                    : 
                     testcustomtrigger1
                   </p>
                 </div>
@@ -978,7 +981,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             <div
               class="cell"
               role="cell"
-              style="width: 16%;"
+              style="width: 20%;"
             >
               <div
                 class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -992,6 +995,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             >
               <div
                 class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+                style="justify-content: flex-start;"
               >
                 <span
                   class="activityChart"
@@ -1014,12 +1018,12 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             <div
               class="cell"
               role="cell"
-              style="width: 18%;"
+              style="width: 14%;"
             >
               <div
                 class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                 data-testid="testcustomtrigger1"
-                style="justify-content: center;"
+                style="justify-content: flex-start;"
               >
                 <div
                   class="activityStatement"
@@ -1177,6 +1181,8 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                     class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey400"
                     style="--text-line-clamp: 1; width: 300px;"
                   >
+                    common.ID
+                    : 
                     sdfsdfdsfdfd
                   </p>
                 </div>
@@ -1185,7 +1191,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             <div
               class="cell"
               role="cell"
-              style="width: 16%;"
+              style="width: 20%;"
             >
               <div
                 class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -1199,6 +1205,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             >
               <div
                 class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+                style="justify-content: flex-start;"
               >
                 <span
                   class="activityChart"
@@ -1221,12 +1228,12 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             <div
               class="cell"
               role="cell"
-              style="width: 18%;"
+              style="width: 14%;"
             >
               <div
                 class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                 data-testid="sdfsdfdsfdfd"
-                style="justify-content: center;"
+                style="justify-content: flex-start;"
               >
                 <div
                   class="activityStatement"
@@ -1244,7 +1251,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
                 >
-                  N/A
+                  na
                 </p>
               </div>
             </div>
@@ -1360,6 +1367,8 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                     class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey400"
                     style="--text-line-clamp: 1; width: 300px;"
                   >
+                    common.ID
+                    : 
                     gcrmanifest
                   </p>
                 </div>
@@ -1368,7 +1377,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             <div
               class="cell"
               role="cell"
-              style="width: 16%;"
+              style="width: 20%;"
             >
               <div
                 class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -1417,6 +1426,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             >
               <div
                 class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+                style="justify-content: flex-start;"
               >
                 <span
                   class="activityChart"
@@ -1439,12 +1449,12 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             <div
               class="cell"
               role="cell"
-              style="width: 18%;"
+              style="width: 14%;"
             >
               <div
                 class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                 data-testid="gcrmanifest"
-                style="justify-content: center;"
+                style="justify-content: flex-start;"
               >
                 <div
                   class="activityStatement"
@@ -1462,7 +1472,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
                 >
-                  N/A
+                  na
                 </p>
               </div>
             </div>
@@ -1578,6 +1588,8 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                     class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey400"
                     style="--text-line-clamp: 1; width: 300px;"
                   >
+                    common.ID
+                    : 
                     H1
                   </p>
                 </div>
@@ -1586,7 +1598,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             <div
               class="cell"
               role="cell"
-              style="width: 16%;"
+              style="width: 20%;"
             >
               <div
                 class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -1635,6 +1647,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             >
               <div
                 class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+                style="justify-content: flex-start;"
               >
                 <span
                   class="activityChart"
@@ -1657,12 +1670,12 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             <div
               class="cell"
               role="cell"
-              style="width: 18%;"
+              style="width: 14%;"
             >
               <div
                 class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                 data-testid="H1"
-                style="justify-content: center;"
+                style="justify-content: flex-start;"
               >
                 <div
                   class="activityStatement"
@@ -1680,7 +1693,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
                 >
-                  N/A
+                  na
                 </p>
               </div>
             </div>

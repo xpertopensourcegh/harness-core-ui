@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { get } from 'lodash-es'
 import type { FormikErrors } from 'formik'
 import { useHistory, useParams } from 'react-router-dom'
-import { Layout, SelectOption, Heading, Text, Switch } from '@wings-software/uicore'
+import { Layout, SelectOption, Color, Text, Switch } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import { isEmpty, isUndefined, merge, cloneDeep } from 'lodash-es'
 import { CompletionItemKind } from 'vscode-languageserver-types'
@@ -49,7 +49,6 @@ import { scheduleTabsId, getDefaultExpressionBreakdownValues } from './views/sub
 import type { AddConditionInterface } from './views/AddConditionsSection'
 import { GitSourceProviders } from './utils/TriggersListUtils'
 import {
-  eventTypes,
   getConnectorName,
   getConnectorValue,
   isRowFilled,
@@ -58,19 +57,7 @@ import {
   clearRuntimeInputValue,
   replaceTriggerDefaultBuild,
   TriggerDefaultFieldList,
-  PRIMARY_ARTIFACT
-} from './utils/TriggersWizardPageUtils'
-import {
-  ArtifactTriggerConfigPanel,
-  WebhookTriggerConfigPanel,
-  WebhookConditionsPanel,
-  WebhookPipelineInputPanel,
-  SchedulePanel,
-  TriggerOverviewPanel
-} from './views'
-import ArtifactConditionsPanel from './views/ArtifactConditionsPanel'
-
-import {
+  PRIMARY_ARTIFACT,
   clearNullUndefined,
   ConnectorRefInterface,
   FlatInitialValuesInterface,
@@ -85,8 +72,19 @@ import {
   TriggerTypes,
   scheduledTypes,
   getValidationSchema,
-  TriggerConfigDTO
+  TriggerConfigDTO,
+  eventTypes
 } from './utils/TriggersWizardPageUtils'
+import {
+  ArtifactTriggerConfigPanel,
+  WebhookTriggerConfigPanel,
+  WebhookConditionsPanel,
+  WebhookPipelineInputPanel,
+  SchedulePanel,
+  TriggerOverviewPanel
+} from './views'
+import ArtifactConditionsPanel from './views/ArtifactConditionsPanel'
+
 import { resetScheduleObject, getBreakdownValues } from './views/subviews/ScheduleUtils'
 import css from './TriggersWizardPage.module.scss'
 
@@ -1316,14 +1314,16 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
   const titleWithSwitch = ({ selectedView }: { selectedView: SelectedView }): JSX.Element => (
     <Layout.Horizontal
       spacing="medium"
-      style={{ paddingLeft: 'var(--spacing-large)', paddingTop: 'var(--spacing-xsmall)', alignItems: 'baseline' }}
+      style={{ paddingLeft: 'var(--spacing-xlarge)', paddingTop: 'var(--spacing-xsmall)', alignItems: 'baseline' }}
     >
-      <Heading level={2}>{wizardMap?.wizardLabel}</Heading>
+      <Text color={Color.GREY_800} font={{ weight: 'bold' }} style={{ fontSize: 20 }}>
+        {wizardMap?.wizardLabel}{' '}
+      </Text>
       {selectedView !== SelectedView.YAML ? (
         <>
-          <Text>{getString('enabledLabel')}</Text>
           <Switch
-            label=""
+            style={{ paddingLeft: '46px' }}
+            label={getString('enabledLabel')}
             disabled={isTriggerRbacDisabled}
             data-name="enabled-switch"
             key={Date.now()}
@@ -1430,7 +1430,8 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         }}
         className={css.tabs}
         wizardMap={wizardMap}
-        tabWidth="218px"
+        tabWidth="200px"
+        tabChevronOffset="178px"
         onHide={returnToTriggersPage}
         wizardType="webhook"
         // defaultTabId="Schedule"
@@ -1449,7 +1450,8 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           schema: triggerSchema?.data,
           onYamlSubmit: submitTrigger,
           loading: loadingYamlSchema,
-          invocationMap: invocationMapWebhook
+          invocationMap: invocationMapWebhook,
+          positionInHeader: true
         }}
         leftNav={titleWithSwitch}
       >
@@ -1484,7 +1486,8 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         }}
         className={css.tabs}
         wizardMap={wizardMap}
-        tabWidth="218px"
+        tabWidth="200px"
+        tabChevronOffset="178px"
         onHide={returnToTriggersPage}
         // defaultTabId="Schedule"
         submitLabel={
@@ -1536,7 +1539,8 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         }}
         className={css.tabs}
         wizardMap={wizardMap}
-        tabWidth="218px"
+        tabWidth="200px"
+        tabChevronOffset="178px"
         onHide={returnToTriggersPage}
         // defaultTabId="Conditions"
         submitLabel={

@@ -1,7 +1,7 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly tabs: string
-  readonly enabledSwitch: string
+  readonly wizard: string
+  readonly wizardBody: string
 }
 export default styles

@@ -1,5 +1,5 @@
 import React from 'react'
-import { FormInput, Text, Color, TextInput, Button, ButtonVariation, HarnessDocTooltip } from '@wings-software/uicore'
+import { FormInput, Text, Color, TextInput, HarnessDocTooltip } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { ConnectorConfigDTO } from 'services/cd-ng'
 import { Connectors, connectorUrlType } from '@connectors/constants'
@@ -100,7 +100,7 @@ export const ConnectorSection: React.FC<ConnectorSectionInterface> = ({ formikPr
       <ConnectorReferenceField
         error={formikProps.errors.connectorRef}
         name="connectorRef"
-        style={{ marginBottom: 'var(--spacing-xsmall)' }}
+        style={{ display: 'inline-block' }}
         width={324}
         type={Connectors[updatedSourceRepo?.toUpperCase()]}
         selected={formikProps.values.connectorRef}
@@ -115,16 +115,19 @@ export const ConnectorSection: React.FC<ConnectorSectionInterface> = ({ formikPr
         }}
         gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
       />
-      <Button
-        variation={ButtonVariation.LINK}
-        style={{ marginBottom: 'var(--spacing-small)', padding: 0 }}
+      <Text
+        className={css.addButton}
+        width={43}
+        color={Color.PRIMARY_7}
+        data-name="plusAdd"
         onClick={() => {
           openConnectorModal(false, Connectors[sourceRepo?.toUpperCase()], {
             gitDetails: { repoIdentifier, branch, getDefaultFromOtherRepo: true }
           }) // isEditMode, type, and connectorInfo
         }}
-        text={getString('plusAdd')}
-      />
+      >
+        {getString('plusAdd')}
+      </Text>
       {renderRepoUrl()}
     </section>
   )

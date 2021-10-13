@@ -570,7 +570,7 @@ export default (
       sidebarProps={CDSideNavProps}
       path={routes.toTriggersWizardPage({ ...accountPathProps, ...triggerPathProps, ...pipelineModuleParams })}
     >
-      <TriggerDetails>
+      <TriggerDetails wizard={true}>
         <TriggersWizardPage />
       </TriggerDetails>
     </RouteWithLayout>

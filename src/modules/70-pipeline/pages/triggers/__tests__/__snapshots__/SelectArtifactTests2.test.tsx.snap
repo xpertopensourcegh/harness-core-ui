@@ -61,7 +61,7 @@ exports[`Select Artifact - For Artifact tests initial render 1`] = `
         class="cell"
         colspan="1"
         role="columnheader"
-        style="width: 27%;"
+        style="width: 25%;"
       >
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
@@ -97,7 +97,7 @@ exports[`Select Artifact - For Artifact tests initial render 1`] = `
         class="cell"
         colspan="1"
         role="columnheader"
-        style="width: 16%;"
+        style="width: 13%;"
       >
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
@@ -109,7 +109,7 @@ exports[`Select Artifact - For Artifact tests initial render 1`] = `
         class="cell"
         colspan="1"
         role="columnheader"
-        style="width: 9%;"
+        style="width: 14%;"
       >
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
@@ -156,7 +156,7 @@ exports[`Select Artifact - For Artifact tests initial render 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 27%;"
+          style="width: 25%;"
         >
           <div
             class="Layout--horizontal StyledProps--main"
@@ -202,7 +202,7 @@ exports[`Select Artifact - For Artifact tests initial render 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 16%;"
+          style="width: 13%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -216,7 +216,7 @@ exports[`Select Artifact - For Artifact tests initial render 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 9%;"
+          style="width: 14%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -236,7 +236,7 @@ exports[`Select Artifact - For Artifact tests initial render 1`] = `
     class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
   >
     <button
-      class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+      class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-primary"
       data-name="selectBtn"
       disabled=""
       tabindex="-1"
@@ -248,18 +248,23 @@ exports[`Select Artifact - For Artifact tests initial render 1`] = `
         select
       </span>
     </button>
-    <p
-      class="StyledProps--font StyledProps--main cancel"
+    <button
+      class="bp3-button Button--button StyledProps--font StyledProps--main cancel Button--with-current-color Button--variation Button--variation-tertiary"
+      type="button"
     >
-      cancel
-    </p>
+      <span
+        class="bp3-button-text"
+      >
+        cancel
+      </span>
+    </button>
   </div>
 </div>
 `;
 
 exports[`Select Artifact - For Artifact tests on click of apply button 1`] = `
 <div
-  class="bp3-dialog selectArtifactModal padded-dialog"
+  class="bp3-dialog selectArtifactModal padded-dialog runtimeInputs"
 >
   <div
     class="bp3-dialog-header"
@@ -313,7 +318,7 @@ exports[`Select Artifact - For Artifact tests on click of apply button 1`] = `
     class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
   >
     <button
-      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow Button--withLeftIcon"
+      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow Button--withLeftIcon Button--variation Button--variation-secondary"
       type="button"
     >
       <span
@@ -342,7 +347,7 @@ exports[`Select Artifact - For Artifact tests on click of apply button 1`] = `
       </span>
     </button>
     <button
-      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+      class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-primary"
       type="button"
     >
       <span
@@ -351,11 +356,16 @@ exports[`Select Artifact - For Artifact tests on click of apply button 1`] = `
         filters.apply
       </span>
     </button>
-    <p
-      class="StyledProps--font StyledProps--main cancel"
+    <button
+      class="bp3-button Button--button StyledProps--font StyledProps--main cancel Button--with-current-color Button--variation Button--variation-tertiary"
+      type="button"
     >
-      cancel
-    </p>
+      <span
+        class="bp3-button-text"
+      >
+        cancel
+      </span>
+    </button>
   </div>
 </div>
 `;
@@ -421,7 +431,7 @@ exports[`Select Artifact - For Artifact tests on click of select button 1`] = `
         class="cell"
         colspan="1"
         role="columnheader"
-        style="width: 27%;"
+        style="width: 25%;"
       >
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
@@ -457,7 +467,7 @@ exports[`Select Artifact - For Artifact tests on click of select button 1`] = `
         class="cell"
         colspan="1"
         role="columnheader"
-        style="width: 16%;"
+        style="width: 13%;"
       >
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
@@ -469,7 +479,7 @@ exports[`Select Artifact - For Artifact tests on click of select button 1`] = `
         class="cell"
         colspan="1"
         role="columnheader"
-        style="width: 9%;"
+        style="width: 14%;"
       >
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
@@ -516,7 +526,7 @@ exports[`Select Artifact - For Artifact tests on click of select button 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 27%;"
+          style="width: 25%;"
         >
           <div
             class="Layout--horizontal StyledProps--main"
@@ -562,7 +572,7 @@ exports[`Select Artifact - For Artifact tests on click of select button 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 16%;"
+          style="width: 13%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -576,7 +586,7 @@ exports[`Select Artifact - For Artifact tests on click of select button 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 9%;"
+          style="width: 14%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -596,7 +606,7 @@ exports[`Select Artifact - For Artifact tests on click of select button 1`] = `
     class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
   >
     <button
-      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+      class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-primary"
       data-name="selectBtn"
       type="button"
     >
@@ -606,11 +616,16 @@ exports[`Select Artifact - For Artifact tests on click of select button 1`] = `
         select
       </span>
     </button>
-    <p
-      class="StyledProps--font StyledProps--main cancel"
+    <button
+      class="bp3-button Button--button StyledProps--font StyledProps--main cancel Button--with-current-color Button--variation Button--variation-tertiary"
+      type="button"
     >
-      cancel
-    </p>
+      <span
+        class="bp3-button-text"
+      >
+        cancel
+      </span>
+    </button>
   </div>
 </div>
 `;
@@ -676,7 +691,7 @@ exports[`Select Artifact - For Artifact tests when selected tag is not runtime i
         class="cell"
         colspan="1"
         role="columnheader"
-        style="width: 27%;"
+        style="width: 25%;"
       >
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
@@ -712,7 +727,7 @@ exports[`Select Artifact - For Artifact tests when selected tag is not runtime i
         class="cell"
         colspan="1"
         role="columnheader"
-        style="width: 16%;"
+        style="width: 13%;"
       >
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
@@ -724,7 +739,7 @@ exports[`Select Artifact - For Artifact tests when selected tag is not runtime i
         class="cell"
         colspan="1"
         role="columnheader"
-        style="width: 9%;"
+        style="width: 14%;"
       >
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
@@ -771,7 +786,7 @@ exports[`Select Artifact - For Artifact tests when selected tag is not runtime i
         <div
           class="cell"
           role="cell"
-          style="width: 27%;"
+          style="width: 25%;"
         >
           <div
             class="Layout--horizontal StyledProps--main"
@@ -817,7 +832,7 @@ exports[`Select Artifact - For Artifact tests when selected tag is not runtime i
         <div
           class="cell"
           role="cell"
-          style="width: 16%;"
+          style="width: 13%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -833,7 +848,7 @@ exports[`Select Artifact - For Artifact tests when selected tag is not runtime i
         <div
           class="cell"
           role="cell"
-          style="width: 9%;"
+          style="width: 14%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -853,7 +868,7 @@ exports[`Select Artifact - For Artifact tests when selected tag is not runtime i
     class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
   >
     <button
-      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+      class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-primary"
       data-name="selectBtn"
       type="button"
     >
@@ -863,11 +878,16 @@ exports[`Select Artifact - For Artifact tests when selected tag is not runtime i
         select
       </span>
     </button>
-    <p
-      class="StyledProps--font StyledProps--main cancel"
+    <button
+      class="bp3-button Button--button StyledProps--font StyledProps--main cancel Button--with-current-color Button--variation Button--variation-tertiary"
+      type="button"
     >
-      cancel
-    </p>
+      <span
+        class="bp3-button-text"
+      >
+        cancel
+      </span>
+    </button>
   </div>
 </div>
 `;

@@ -9,7 +9,7 @@ export enum ContentType {
   CUSTOM = 'CUSTOM'
 }
 
-interface Content {
+export interface Content {
   type?: ContentType
   label: string
   value?: string | JSX.Element
