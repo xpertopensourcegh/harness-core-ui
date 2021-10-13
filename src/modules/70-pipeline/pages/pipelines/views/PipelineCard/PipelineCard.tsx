@@ -24,6 +24,7 @@ import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRu
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import type { PMSPipelineSummaryResponse } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { TagsPopover } from '@common/components'
 import routes from '@common/RouteDefinitions'
@@ -426,6 +427,11 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
                   resourceIdentifier: pipeline.identifier as string
                 },
                 permission: PermissionIdentifier.EXECUTE_PIPELINE
+              }}
+              featureProps={{
+                featureRequest: {
+                  featureName: FeatureIdentifier.DEPLOYMENTS
+                }
               }}
               onClick={e => {
                 e.stopPropagation()

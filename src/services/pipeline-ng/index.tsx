@@ -219,6 +219,11 @@ export interface BuildDetails {
   buildType?: string
 }
 
+export interface BuildStore {
+  spec?: BuildStoreTypeSpec
+  type?: 'Http' | 'S3' | 'Gcs'
+}
+
 export interface BuildStoreTypeSpec {
   [key: string]: any
 }
@@ -1648,6 +1653,12 @@ export type GcrSpec = ArtifactTypeSpec & {
   tag?: string
 }
 
+export type GcsBuildStoreTypeSpec = BuildStoreTypeSpec & {
+  bucketName?: string
+  connectorRef?: string
+  folderPath?: string
+}
+
 export interface GithubEventSpec {
   [key: string]: any
 }
@@ -1816,11 +1827,12 @@ export type HelmManifestSpec = ManifestTypeSpec & {
   chartName?: string
   chartVersion?: string
   eventConditions?: TriggerEventDataCondition[]
-  spec?: BuildStoreTypeSpec
-  type?: 'HTTP' | 'S3' | 'GCS'
+  store?: BuildStore
 }
 
-export type HttpBuildStoreTypeSpec = BuildStoreTypeSpec & { [key: string]: any }
+export type HttpBuildStoreTypeSpec = BuildStoreTypeSpec & {
+  connectorRef?: string
+}
 
 export interface InputSetError {
   fieldName?: string
@@ -2785,6 +2797,11 @@ export interface PipelineOpaEvaluationContext {
   user?: UserOpaEvaluationContext
 }
 
+export interface PipelineSaveResponse {
+  governanceMetadata?: GovernanceMetadata
+  identifier?: string
+}
+
 export interface PipelineWrapperResponse {
   label?: string
   pipelineInputResponse?: PipelineInputResponse[]
@@ -3684,6 +3701,13 @@ export interface ResponsePipelineOpaEvaluationContext {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponsePipelineSaveResponse {
+  correlationId?: string
+  data?: PipelineSaveResponse
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponsePipelinesCount {
   correlationId?: string
   data?: PipelinesCount
@@ -3834,6 +3858,13 @@ export interface RetryStageInfo {
     | 'APPROVAL_WAITING'
     | 'APPROVAL_REJECTED'
     | 'WAITING'
+}
+
+export type S3BuildStoreTypeSpec = BuildStoreTypeSpec & {
+  bucketName?: string
+  connectorRef?: string
+  folderPath?: string
+  region?: string
 }
 
 export type ScheduledTriggerConfig = NGTriggerSpecV2 & {
@@ -4098,6 +4129,12 @@ export interface TaskExecutableResponseOrBuilder {
   unitsCount?: number
   unitsList?: string[]
   unknownFields?: UnknownFieldSet
+}
+
+export interface TemplateInputsErrorDTO {
+  fieldName?: string
+  identifierOfErrorSource?: string
+  message?: string
 }
 
 export interface Throwable {
@@ -4492,9 +4529,9 @@ export type MergeInputSetRequestRequestBody = MergeInputSetRequest
 
 export type NGTriggerConfigV2RequestBody = NGTriggerConfigV2
 
-export type CustomWebhookEndpointBodyRequestBody = string
-
 export type UpdateInputSetForPipelineBodyRequestBody = string
+
+export type WebhookEndpointBodyRequestBody = string
 
 export interface GetInitialStageYamlSnippetQueryParams {
   approvalType: 'HarnessApproval' | 'JiraApproval'
@@ -8583,6 +8620,91 @@ export const getPipelineSummaryPromise = (
     GetPipelineSummaryPathParams
   >(getConfig('pipeline/api'), `/pipelines/summary/${pipelineIdentifier}`, props, signal)
 
+export interface CreatePipelineV2QueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  branch?: string
+  repoIdentifier?: string
+  rootFolder?: string
+  filePath?: string
+  commitMsg?: string
+  baseBranch?: string
+}
+
+export type CreatePipelineV2Props = Omit<
+  MutateProps<
+    ResponsePipelineSaveResponse,
+    Failure | Error,
+    CreatePipelineV2QueryParams,
+    UpdateInputSetForPipelineBodyRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Create a Pipeline
+ */
+export const CreatePipelineV2 = (props: CreatePipelineV2Props) => (
+  <Mutate<
+    ResponsePipelineSaveResponse,
+    Failure | Error,
+    CreatePipelineV2QueryParams,
+    UpdateInputSetForPipelineBodyRequestBody,
+    void
+  >
+    verb="POST"
+    path={`/pipelines/v2`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseCreatePipelineV2Props = Omit<
+  UseMutateProps<
+    ResponsePipelineSaveResponse,
+    Failure | Error,
+    CreatePipelineV2QueryParams,
+    UpdateInputSetForPipelineBodyRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Create a Pipeline
+ */
+export const useCreatePipelineV2 = (props: UseCreatePipelineV2Props) =>
+  useMutate<
+    ResponsePipelineSaveResponse,
+    Failure | Error,
+    CreatePipelineV2QueryParams,
+    UpdateInputSetForPipelineBodyRequestBody,
+    void
+  >('POST', `/pipelines/v2`, { base: getConfig('pipeline/api'), ...props })
+
+/**
+ * Create a Pipeline
+ */
+export const createPipelineV2Promise = (
+  props: MutateUsingFetchProps<
+    ResponsePipelineSaveResponse,
+    Failure | Error,
+    CreatePipelineV2QueryParams,
+    UpdateInputSetForPipelineBodyRequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponsePipelineSaveResponse,
+    Failure | Error,
+    CreatePipelineV2QueryParams,
+    UpdateInputSetForPipelineBodyRequestBody,
+    void
+  >('POST', getConfig('pipeline/api'), `/pipelines/v2`, props, signal)
+
 export interface GetStepsV2QueryParams {
   accountId?: string
 }
@@ -8639,6 +8761,105 @@ export const getStepsV2Promise = (
     props,
     signal
   )
+
+export interface PutPipelineV2QueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  branch?: string
+  repoIdentifier?: string
+  rootFolder?: string
+  filePath?: string
+  commitMsg?: string
+  lastObjectId?: string
+  baseBranch?: string
+}
+
+export interface PutPipelineV2PathParams {
+  pipelineIdentifier: string
+}
+
+export type PutPipelineV2Props = Omit<
+  MutateProps<
+    ResponsePipelineSaveResponse,
+    Failure | Error,
+    PutPipelineV2QueryParams,
+    UpdateInputSetForPipelineBodyRequestBody,
+    PutPipelineV2PathParams
+  >,
+  'path' | 'verb'
+> &
+  PutPipelineV2PathParams
+
+/**
+ * Update a Pipeline
+ */
+export const PutPipelineV2 = ({ pipelineIdentifier, ...props }: PutPipelineV2Props) => (
+  <Mutate<
+    ResponsePipelineSaveResponse,
+    Failure | Error,
+    PutPipelineV2QueryParams,
+    UpdateInputSetForPipelineBodyRequestBody,
+    PutPipelineV2PathParams
+  >
+    verb="PUT"
+    path={`/pipelines/v2/${pipelineIdentifier}`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UsePutPipelineV2Props = Omit<
+  UseMutateProps<
+    ResponsePipelineSaveResponse,
+    Failure | Error,
+    PutPipelineV2QueryParams,
+    UpdateInputSetForPipelineBodyRequestBody,
+    PutPipelineV2PathParams
+  >,
+  'path' | 'verb'
+> &
+  PutPipelineV2PathParams
+
+/**
+ * Update a Pipeline
+ */
+export const usePutPipelineV2 = ({ pipelineIdentifier, ...props }: UsePutPipelineV2Props) =>
+  useMutate<
+    ResponsePipelineSaveResponse,
+    Failure | Error,
+    PutPipelineV2QueryParams,
+    UpdateInputSetForPipelineBodyRequestBody,
+    PutPipelineV2PathParams
+  >('PUT', (paramsInPath: PutPipelineV2PathParams) => `/pipelines/v2/${paramsInPath.pipelineIdentifier}`, {
+    base: getConfig('pipeline/api'),
+    pathParams: { pipelineIdentifier },
+    ...props
+  })
+
+/**
+ * Update a Pipeline
+ */
+export const putPipelineV2Promise = (
+  {
+    pipelineIdentifier,
+    ...props
+  }: MutateUsingFetchProps<
+    ResponsePipelineSaveResponse,
+    Failure | Error,
+    PutPipelineV2QueryParams,
+    UpdateInputSetForPipelineBodyRequestBody,
+    PutPipelineV2PathParams
+  > & { pipelineIdentifier: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponsePipelineSaveResponse,
+    Failure | Error,
+    PutPipelineV2QueryParams,
+    UpdateInputSetForPipelineBodyRequestBody,
+    PutPipelineV2PathParams
+  >('PUT', getConfig('pipeline/api'), `/pipelines/v2/${pipelineIdentifier}`, props, signal)
 
 export interface CreateVariablesQueryParams {
   accountIdentifier: string
@@ -9653,13 +9874,7 @@ export interface CustomWebhookEndpointQueryParams {
 }
 
 export type CustomWebhookEndpointProps = Omit<
-  MutateProps<
-    ResponseString,
-    Failure | Error,
-    CustomWebhookEndpointQueryParams,
-    CustomWebhookEndpointBodyRequestBody,
-    void
-  >,
+  MutateProps<ResponseString, Failure | Error, CustomWebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>,
   'path' | 'verb'
 >
 
@@ -9667,7 +9882,7 @@ export type CustomWebhookEndpointProps = Omit<
  * accept custom webhook event
  */
 export const CustomWebhookEndpoint = (props: CustomWebhookEndpointProps) => (
-  <Mutate<ResponseString, Failure | Error, CustomWebhookEndpointQueryParams, CustomWebhookEndpointBodyRequestBody, void>
+  <Mutate<ResponseString, Failure | Error, CustomWebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>
     verb="POST"
     path={`/webhook/custom`}
     base={getConfig('pipeline/api')}
@@ -9680,7 +9895,7 @@ export type UseCustomWebhookEndpointProps = Omit<
     ResponseString,
     Failure | Error,
     CustomWebhookEndpointQueryParams,
-    CustomWebhookEndpointBodyRequestBody,
+    WebhookEndpointBodyRequestBody,
     void
   >,
   'path' | 'verb'
@@ -9690,13 +9905,11 @@ export type UseCustomWebhookEndpointProps = Omit<
  * accept custom webhook event
  */
 export const useCustomWebhookEndpoint = (props: UseCustomWebhookEndpointProps) =>
-  useMutate<
-    ResponseString,
-    Failure | Error,
-    CustomWebhookEndpointQueryParams,
-    CustomWebhookEndpointBodyRequestBody,
-    void
-  >('POST', `/webhook/custom`, { base: getConfig('pipeline/api'), ...props })
+  useMutate<ResponseString, Failure | Error, CustomWebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>(
+    'POST',
+    `/webhook/custom`,
+    { base: getConfig('pipeline/api'), ...props }
+  )
 
 /**
  * accept custom webhook event
@@ -9706,7 +9919,7 @@ export const customWebhookEndpointPromise = (
     ResponseString,
     Failure | Error,
     CustomWebhookEndpointQueryParams,
-    CustomWebhookEndpointBodyRequestBody,
+    WebhookEndpointBodyRequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -9715,7 +9928,7 @@ export const customWebhookEndpointPromise = (
     ResponseString,
     Failure | Error,
     CustomWebhookEndpointQueryParams,
-    CustomWebhookEndpointBodyRequestBody,
+    WebhookEndpointBodyRequestBody,
     void
   >('POST', getConfig('pipeline/api'), `/webhook/custom`, props, signal)
 
@@ -10028,7 +10241,7 @@ export interface WebhookEndpointQueryParams {
 }
 
 export type WebhookEndpointProps = Omit<
-  MutateProps<ResponseString, Failure | Error, WebhookEndpointQueryParams, CustomWebhookEndpointBodyRequestBody, void>,
+  MutateProps<ResponseString, Failure | Error, WebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>,
   'path' | 'verb'
 >
 
@@ -10036,7 +10249,7 @@ export type WebhookEndpointProps = Omit<
  * accept webhook event
  */
 export const WebhookEndpoint = (props: WebhookEndpointProps) => (
-  <Mutate<ResponseString, Failure | Error, WebhookEndpointQueryParams, CustomWebhookEndpointBodyRequestBody, void>
+  <Mutate<ResponseString, Failure | Error, WebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>
     verb="POST"
     path={`/webhook/trigger`}
     base={getConfig('pipeline/api')}
@@ -10045,13 +10258,7 @@ export const WebhookEndpoint = (props: WebhookEndpointProps) => (
 )
 
 export type UseWebhookEndpointProps = Omit<
-  UseMutateProps<
-    ResponseString,
-    Failure | Error,
-    WebhookEndpointQueryParams,
-    CustomWebhookEndpointBodyRequestBody,
-    void
-  >,
+  UseMutateProps<ResponseString, Failure | Error, WebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>,
   'path' | 'verb'
 >
 
@@ -10059,7 +10266,7 @@ export type UseWebhookEndpointProps = Omit<
  * accept webhook event
  */
 export const useWebhookEndpoint = (props: UseWebhookEndpointProps) =>
-  useMutate<ResponseString, Failure | Error, WebhookEndpointQueryParams, CustomWebhookEndpointBodyRequestBody, void>(
+  useMutate<ResponseString, Failure | Error, WebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>(
     'POST',
     `/webhook/trigger`,
     { base: getConfig('pipeline/api'), ...props }
@@ -10073,18 +10280,18 @@ export const webhookEndpointPromise = (
     ResponseString,
     Failure | Error,
     WebhookEndpointQueryParams,
-    CustomWebhookEndpointBodyRequestBody,
+    WebhookEndpointBodyRequestBody,
     void
   >,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<
-    ResponseString,
-    Failure | Error,
-    WebhookEndpointQueryParams,
-    CustomWebhookEndpointBodyRequestBody,
-    void
-  >('POST', getConfig('pipeline/api'), `/webhook/trigger`, props, signal)
+  mutateUsingFetch<ResponseString, Failure | Error, WebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>(
+    'POST',
+    getConfig('pipeline/api'),
+    `/webhook/trigger`,
+    props,
+    signal
+  )
 
 export interface TriggerProcessingDetailsQueryParams {
   accountIdentifier: string
