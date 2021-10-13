@@ -577,10 +577,6 @@ monitoredServices:
     serviceHealth: Service Health
     configurations: Configurations
     slos: SLOs
-  riskLabel:
-    lowRisk: Low Risk
-    mediumRisk: Medium Risk
-    highRisk: High Risk
   table:
     serviceName: Service Name
     lastestHealthTrend: Health trend (Last 24h)

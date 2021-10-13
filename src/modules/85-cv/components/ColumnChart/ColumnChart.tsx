@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useRef, useState } from 'react'
 import { PopoverInteractionKind, PopoverPosition } from '@blueprintjs/core'
 import { Text, Container, Popover } from '@wings-software/uicore'
-import { mapHealthBarRiskStatusToColor } from '@cv/pages/monitored-service/components/ServiceHealth/components/AnomaliesCard/AnomaliesCard.utils'
+import { getRiskColorValue } from '@cv/utils/CommonUtils'
 import type { ColumnChartProps } from './ColumnChart.types'
 import { getTimestamps } from './ColumnChart.utils'
 import { COLUMN_WIDTH, COLUMN_HEIGHT, TOTAL_COLUMNS } from './ColumnChart.constants'
@@ -38,7 +38,7 @@ export default function ColumnChart(props: ColumnChartProps): JSX.Element {
                     cell.timeRange?.startTime
                   ).toLocaleString()} - ${new Date(cell.timeRange?.endTime).toLocaleString()}`}</Text>
                   <Text inline>Health Score:</Text>
-                  <Text className={css.healthScore} color={mapHealthBarRiskStatusToColor(cell.riskStatus as string)}>
+                  <Text className={css.healthScore} color={getRiskColorValue(cell.riskStatus, false)}>
                     {cell?.healthScore}
                   </Text>
                 </>
