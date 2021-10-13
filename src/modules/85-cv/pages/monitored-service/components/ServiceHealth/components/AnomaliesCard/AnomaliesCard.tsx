@@ -166,7 +166,7 @@ export default function AnomaliesCard(props: AnomaliesCardProps): JSX.Element {
   }, [changeTimelineSummary])
 
   return (
-    <>
+    <Container className={css.anomaliesContainer}>
       <Container className={css.cardRow}>
         <Text padding={{ left: 'small', top: 'small' }} color={Color.WHITE} font={{ size: 'xsmall' }}>
           {`${moment(timeRange?.startTime).format(momentTimeformat)} - ${moment(timeRange?.endTime).format(
@@ -193,6 +193,6 @@ export default function AnomaliesCard(props: AnomaliesCardProps): JSX.Element {
         )}
         <Container className={css.cardColumn}>{renderAnomaliesData()}</Container>
       </Container>
-    </>
+    </Container>
   )
 }
