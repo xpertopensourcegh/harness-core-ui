@@ -297,6 +297,7 @@ export interface StringsMap {
   'common.newLines': string
   'common.newVersion': string
   'common.noAPIKeys': string
+  'common.noDelegateForTask': string
   'common.noRefData': string
   'common.note': string
   'common.noteAccountSwitch': string

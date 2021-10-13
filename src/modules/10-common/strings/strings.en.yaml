@@ -7,6 +7,7 @@ accountSetup: Account Setup
 projectSetup: Project Setup
 orgSetup: Org Setup
 delegateForTask: '{{delegate}} for {{taskName}}'
+noDelegateForTask: 'No delegate found for {{taskName}}'
 pipeline: Pipeline
 duplicateId: 'Duplicate Identifier'
 createPipeline: Create a Pipeline
