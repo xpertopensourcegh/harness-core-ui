@@ -2,8 +2,8 @@ import React from 'react'
 import { render, waitFor } from '@testing-library/react'
 import * as cvService from 'services/cv'
 import { TestWrapper } from '@common/utils/testUtils'
-import ChangeCard from '../ChangeCard'
-import { payload } from './ChangeCard.mock'
+import ChangeEventCard from '../ChangeEventCard'
+import { HarnessCDMockData, payload } from './ChangeEventCard.mock'
 describe('Validate ChangeCard', () => {
   test('should render Pager Duty card', async () => {
     jest.spyOn(cvService, 'useGetChangeEventDetail').mockImplementation(
@@ -17,7 +17,7 @@ describe('Validate ChangeCard', () => {
     )
     const { container, getByText } = render(
       <TestWrapper>
-        <ChangeCard activityId={'dasda'} />
+        <ChangeEventCard activityId={'dasda'} />
       </TestWrapper>
     )
     // Card Title is rendered Correctly
@@ -29,6 +29,30 @@ describe('Validate ChangeCard', () => {
     await waitFor(() => expect(getByText(`PagerDuty Alert details`)).toBeTruthy())
 
     expect(container).toMatchSnapshot()
+  })
+
+  test('should render Deployment card', async () => {
+    jest.spyOn(cvService, 'useGetChangeEventDetail').mockImplementation(
+      () =>
+        ({
+          data: HarnessCDMockData,
+          refetch: jest.fn(),
+          error: null,
+          loading: false
+        } as any)
+    )
+    const { getByText } = render(
+      <TestWrapper>
+        <ChangeEventCard activityId={'dasda'} />
+      </TestWrapper>
+    )
+    // Card Title is rendered Correctly
+    await waitFor(() => expect(getByText(HarnessCDMockData.resource.id)).toBeTruthy())
+    await waitFor(() => expect(getByText(HarnessCDMockData.resource.name)).toBeTruthy())
+    await waitFor(() => expect(getByText(HarnessCDMockData.resource.metadata.status)).toBeTruthy())
+
+    // Card details title
+    await waitFor(() => expect(getByText(`HarnessCDNextGen Deployment details`)).toBeTruthy())
   })
 
   test('should render in loading state', async () => {
@@ -43,7 +67,7 @@ describe('Validate ChangeCard', () => {
     )
     const { container } = render(
       <TestWrapper>
-        <ChangeCard activityId={'dasda'} />
+        <ChangeEventCard activityId={'dasda'} />
       </TestWrapper>
     )
 
@@ -64,7 +88,7 @@ describe('Validate ChangeCard', () => {
     )
     const { container, getByText } = render(
       <TestWrapper>
-        <ChangeCard activityId={'dasda'} />
+        <ChangeEventCard activityId={'dasda'} />
       </TestWrapper>
     )
 

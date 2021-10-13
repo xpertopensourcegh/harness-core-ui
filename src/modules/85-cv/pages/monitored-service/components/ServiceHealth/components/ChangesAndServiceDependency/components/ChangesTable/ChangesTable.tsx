@@ -19,7 +19,7 @@ import { useDrawer } from '@cv/hooks/useDrawerHook/useDrawerHook'
 import type { ChangesTableInterface } from './ChangesTable.types'
 import { renderTime, renderName, renderImpact, renderType, renderChangeType } from './ChangesTable.utils'
 import { defaultPageSize } from './ChangesTable.constants'
-import ChangeCard from './components/ChangeCard/ChangeCard'
+import ChangeEventCard from './components/ChangeEventCard/ChangeEventCard'
 import css from './ChangeTable.module.scss'
 
 export default function ChangesTable({
@@ -48,7 +48,7 @@ export default function ChangesTable({
     onClose: noop
   } as IDrawerProps
   const { showDrawer } = useDrawer({
-    createDrawerContent: props => <ChangeCard activityId={props?.id} />,
+    createDrawerContent: props => <ChangeEventCard activityId={props?.id} />,
     drawerOptions
   })
 
@@ -90,13 +90,13 @@ export default function ChangesTable({
         Header: getString('cv.monitoredServices.changesTable.impact'),
         Cell: renderImpact,
         accessor: 'serviceIdentifier',
-        width: '25%'
+        width: '20%'
       },
       {
         Header: getString('source'),
         Cell: renderType,
         accessor: 'type',
-        width: '15%'
+        width: '20%'
       },
       {
         Header: getString('typeLabel'),

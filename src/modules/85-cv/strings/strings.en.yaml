@@ -618,7 +618,10 @@ changeSource:
     selectHarnessEnv: Select Harness Environment
   changeSourceCard:
     information: Information
-    triggred: Triggred
+    triggred: Triggered
+    viewPipeline: View Pipeline
+    finished: 'Finished: '
+    deploymentHealth: Deployment Health
 Dependency:
   serviceList: Service list
   noData: No Data For Dependency Graph

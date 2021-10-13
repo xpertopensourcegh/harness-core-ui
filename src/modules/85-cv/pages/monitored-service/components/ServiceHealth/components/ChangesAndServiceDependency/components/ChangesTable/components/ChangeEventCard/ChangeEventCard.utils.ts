@@ -1,6 +1,6 @@
 import moment from 'moment'
 import type { ChangeEventMetadata, ChangeEventDTO } from 'services/cv'
-import type { CustomChangeEventDTO } from './ChangeCard.types'
+import type { CustomChangeEventDTO } from './ChangeEventCard.types'
 
 export const createChangeDetailsData = (resource: ChangeEventDTO | undefined) => {
   const { type, category, serviceName = '', environmentName = '', metadata } = resource || {}
@@ -38,10 +38,11 @@ export const createChangeInfoData = (metadata: ChangeEventMetadata | undefined) 
 }
 
 export const createChangeTitleData = (resource: CustomChangeEventDTO | undefined) => {
-  const { name, id = '', type } = resource || {}
+  const { name, id = '', type, metadata } = resource || {}
   return {
     name,
     type,
-    executionId: id
+    executionId: id,
+    url: metadata?.pipelinePath
   }
 }

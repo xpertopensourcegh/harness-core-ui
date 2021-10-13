@@ -1,7 +1,7 @@
 import type { ChangeEventDTO } from 'services/cv'
-import type { CustomChangeEventDTO } from '../ChangeCard.types'
-import { createChangeDetailsData, createChangeInfoData, createChangeTitleData } from '../ChangeCard.utils'
-import { payload } from './ChangeCard.mock'
+import type { CustomChangeEventDTO } from '../ChangeEventCard.types'
+import { createChangeDetailsData, createChangeInfoData, createChangeTitleData } from '../ChangeEventCard.utils'
+import { payload } from './ChangeEventCard.mock'
 
 describe('Validate Utils', () => {
   test('should createChangeDetailsData', () => {

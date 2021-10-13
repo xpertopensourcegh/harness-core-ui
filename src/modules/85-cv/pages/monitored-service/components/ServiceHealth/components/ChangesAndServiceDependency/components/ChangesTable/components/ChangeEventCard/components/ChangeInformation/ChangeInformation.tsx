@@ -3,17 +3,8 @@ import cx from 'classnames'
 import { Text, Container, Color } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { getOnClickOptions } from '../ChangeDetails/ChangeDetails.utils'
+import type { ChangeInfoData } from '../../ChangeEventCard.types'
 import css from './ChangeInformation.module.scss'
-
-interface ChangeInfoData {
-  triggerAt: string
-  summary: {
-    priority: string
-    assignee: { name: string; url?: string }
-    urgency: string
-    policy: { name: string; url?: string }
-  }
-}
 
 export default function ChangeInformation({ infoData }: { infoData: ChangeInfoData }): JSX.Element {
   const { getString } = useStrings()
@@ -23,9 +14,11 @@ export default function ChangeInformation({ infoData }: { infoData: ChangeInfoDa
         {getString('cv.changeSource.changeSourceCard.information')}
       </Text>
       <Container className={css.infoContainer}>
-        <Text className={css.timeLabel} icon={'time'} iconProps={{ size: 13 }} font={{ size: 'small' }}>
-          {`${getString('cv.changeSource.changeSourceCard.triggred')} ${infoData.triggerAt}`}
-        </Text>
+        {infoData.triggerAt ? (
+          <Text className={css.timeLabel} icon={'time'} iconProps={{ size: 13 }} font={{ size: 'small' }}>
+            {`${getString('cv.changeSource.changeSourceCard.triggred')} ${infoData.triggerAt}`}
+          </Text>
+        ) : null}
         <Text className={css.summaryTitle}>{'Summary'}</Text>
         <div className={css.summaryTable}>
           {Object.entries(infoData.summary).map(item => {

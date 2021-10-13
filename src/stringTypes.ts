@@ -3808,8 +3808,11 @@ export interface StringsMap {
   'cv.changeSource.PageDuty.selectPagerDutyService': string
   'cv.changeSource.addChangeSource': string
   'cv.changeSource.alertText': string
+  'cv.changeSource.changeSourceCard.deploymentHealth': string
+  'cv.changeSource.changeSourceCard.finished': string
   'cv.changeSource.changeSourceCard.information': string
   'cv.changeSource.changeSourceCard.triggred': string
+  'cv.changeSource.changeSourceCard.viewPipeline': string
   'cv.changeSource.configureChangeSource': string
   'cv.changeSource.connectChangeSource': string
   'cv.changeSource.defineChangeSource': string

@@ -7,7 +7,7 @@ import { Ticker, TickerVerticalAlignment } from '@common/components/Ticker/Ticke
 import { useToaster } from '@common/components'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { useChangeEventSummary } from 'services/cv'
-
+import { numberFormatter } from '@cd/components/Services/common'
 import type { ChangeSourceCardData, ChangeSourceCardInterfae } from './ChangesSourceCard.types'
 import TickerValue from './components/TickerValue/TickerValue'
 import { calculateChangePercentage, getTickerColor } from './ChangesSourceCard.utils'
@@ -91,7 +91,9 @@ export default function ChangeSourceCard(props: ChangeSourceCardInterfae): JSX.E
                 font={{ weight: 'bold', size: 'large' }}
                 margin={{ right: 'small' }}
               >
-                {ticker.count}
+                {numberFormatter(Math.abs(ticker.count), {
+                  truncate: true
+                })}
               </Text>
             </Ticker>
           </Container>
