@@ -102,7 +102,7 @@ const RetryPipeline = ({
   const { inputSetType, inputSetValue, inputSetLabel, inputSetRepoIdentifier, inputSetBranch } = useQueryParams<
     GitQueryParams & RunPipelineQueryParams
   >()
-  const planExecutionIdentifier = executionId ? executionId : executionIdentifier
+  const planExecutionIdentifier = executionIdentifier ?? executionId
   const pipelineId = pipelineIdf ? pipelineIdf : pipelineIdentifier
 
   const getInputSetSelected = (): InputSetValue[] => {
