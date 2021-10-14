@@ -132,7 +132,6 @@ exports[`CREATE MODE if form changesupdate the preview card: changed value shoul
                               autocomplete="off"
                               class="bp3-input"
                               name="name"
-                              placeholder="common.namePlaceholder"
                               type="text"
                               value="templatename"
                             />

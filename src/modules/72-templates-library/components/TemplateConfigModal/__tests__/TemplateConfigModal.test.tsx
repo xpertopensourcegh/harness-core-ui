@@ -33,13 +33,13 @@ describe('CREATE MODE', () => {
 
   test('if form changesupdate the preview card', async () => {
     const props = getProps()
-    const { container, getByPlaceholderText } = render(
+    const { container } = render(
       <TestWrapper>
         <TemplateConfigModal {...props} />
       </TestWrapper>
     )
     act(() => {
-      fireEvent.change(getByPlaceholderText('common.namePlaceholder'), { target: { value: 'templatename' } })
+      fireEvent.change(container.querySelector('input[name="name"]')!, { target: { value: 'templatename' } })
     })
     expect(container).toMatchSnapshot('changed value should be present in the preview')
   })

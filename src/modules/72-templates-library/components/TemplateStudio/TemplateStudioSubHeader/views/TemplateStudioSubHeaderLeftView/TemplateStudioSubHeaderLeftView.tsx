@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {
   Button,
   ButtonSize,
@@ -34,11 +34,14 @@ import routes from '@common/RouteDefinitions'
 import { useUpdateStableTemplate, NGTemplateInfoConfig } from 'services/template-ng'
 import { useStrings } from 'framework/strings'
 import type { UseSaveSuccessResponse } from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
+import RbacButton from '@rbac/components/Button/Button'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
 import css from './TemplateStudioSubHeaderLeftView.module.scss'
 
 export const TemplateStudioSubHeaderLeftView: () => JSX.Element = () => {
   const { state, updateTemplate, deleteTemplateCache, fetchTemplate, view, isReadonly, setLoading } =
-    React.useContext(TemplateContext)
+    useContext(TemplateContext)
   const { template, versions, stableVersion, isUpdated, isInitialized } = state
   const { accountId, projectIdentifier, orgIdentifier, module, templateType, templateIdentifier } = useParams<
     TemplateStudioPathProps & ModulePathParams
@@ -184,7 +187,7 @@ export const TemplateStudioSubHeaderLeftView: () => JSX.Element = () => {
             </Text>
             {!isNil(template?.tags) && !isEmpty(template?.tags) && <TagsPopover tags={template.tags} />}
             {!isYaml && !isReadonly && (
-              <Button
+              <RbacButton
                 variation={ButtonVariation.ICON}
                 icon="Edit"
                 onClick={() => {
@@ -199,6 +202,12 @@ export const TemplateStudioSubHeaderLeftView: () => JSX.Element = () => {
                   })
                   showConfigModal()
                 }}
+                permission={{
+                  permission: PermissionIdentifier.EDIT_TEMPLATE,
+                  resource: {
+                    resourceType: ResourceType.TEMPLATE
+                  }
+                }}
               />
             )}
           </Layout.Horizontal>
@@ -209,6 +218,7 @@ export const TemplateStudioSubHeaderLeftView: () => JSX.Element = () => {
             items={versionOptions}
             value={template.versionLabel}
             filterable={false}
+            disabled={isReadonly}
             className={css.versionDropDown}
           />
         )}

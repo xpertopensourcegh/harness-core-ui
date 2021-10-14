@@ -1,16 +1,5 @@
 import React from 'react'
-import {
-  Button,
-  ButtonSize,
-  ButtonVariation,
-  Color,
-  Container,
-  Icon,
-  Layout,
-  Tab,
-  Tabs,
-  Text
-} from '@wings-software/uicore'
+import { ButtonSize, ButtonVariation, Color, Container, Icon, Layout, Tab, Tabs, Text } from '@wings-software/uicore'
 import { Expander } from '@blueprintjs/core'
 import cx from 'classnames'
 import type { FormikProps } from 'formik'
@@ -25,6 +14,9 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import { StageType } from '@pipeline/utils/stageHelpers'
 import type { StepElementConfig } from 'services/cd-ng'
 import type { TemplateStepData } from '@pipeline/utils/tempates'
+import RbacButton from '@rbac/components/Button/Button'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { StepCommandsProps, StepCommandsViews } from './StepCommandTypes'
 import css from './StepCommands.module.scss'
 
@@ -233,20 +225,24 @@ export function StepCommands(
             <>
               <Expander />
               <div>
-                <Button
+                <RbacButton
+                  text={getString('common.useTemplate')}
+                  variation={ButtonVariation.PRIMARY}
+                  minimal
                   icon="template-library"
                   iconProps={{ size: 12 }}
-                  minimal
-                  size={ButtonSize.SMALL}
-                  variation={ButtonVariation.PRIMARY}
                   onClick={() => {
                     onUseTemplate?.(step)
                   }}
                   className={css.useTemplateBtn}
-                >
-                  {getString('common.useTemplate')}
-                </Button>
-                <Button
+                  permission={{
+                    permission: PermissionIdentifier.ACCESS_TEMPLATE,
+                    resource: {
+                      resourceType: ResourceType.TEMPLATE
+                    }
+                  }}
+                />
+                <RbacButton
                   withoutCurrentColor
                   variation={ButtonVariation.ICON}
                   icon="upload-box"
@@ -254,6 +250,12 @@ export function StepCommands(
                   minimal
                   size={ButtonSize.SMALL}
                   onClick={() => onSaveAsTemplate?.(step)}
+                  permission={{
+                    permission: PermissionIdentifier.EDIT_TEMPLATE,
+                    resource: {
+                      resourceType: ResourceType.TEMPLATE
+                    }
+                  }}
                 />
               </div>
             </>

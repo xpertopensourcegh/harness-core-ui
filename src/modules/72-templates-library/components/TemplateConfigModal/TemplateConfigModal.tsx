@@ -1,4 +1,4 @@
-import React, { Dispatch, useState, SetStateAction } from 'react'
+import React, { Dispatch, useState, SetStateAction, useContext } from 'react'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
 import {
@@ -22,6 +22,10 @@ import type { NGTemplateInfoConfig, ResponseTemplateWrapperResponse } from 'serv
 import { TemplatePreview } from '@templates-library/components/TemplatePreview/TemplatePreview'
 import { PageSpinner } from '@common/components'
 import type { UseSaveSuccessResponse } from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
+import RbacButton from '@rbac/components/Button/Button'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { TemplateContext } from '../TemplateStudio/TemplateContext/TemplateContext'
 import css from './TemplateConfigModal.module.scss'
 
 export enum Fields {
@@ -59,6 +63,7 @@ const BasicTemplateDetails = (props: BasicDetailsInterface) => {
   const currentTemplateType = initialValues.type
   const formName = `create${currentTemplateType}Template`
   const [loading, setLoading] = React.useState<boolean>()
+  const { isReadonly } = useContext(TemplateContext)
 
   React.useEffect(() => {
     const edit = initialValues.identifier !== DefaultNewTemplateId
@@ -116,7 +121,8 @@ const BasicTemplateDetails = (props: BasicDetailsInterface) => {
                       }}
                       formikProps={formik}
                       identifierProps={{
-                        isIdentifierEditable: !disabledFields?.includes(Fields.Identifier)
+                        isIdentifierEditable: !disabledFields?.includes(Fields.Identifier),
+                        inputGroupProps: { disabled: isReadonly }
                       }}
                       className={css.nameIdDescriptionTags}
                     />
@@ -124,16 +130,22 @@ const BasicTemplateDetails = (props: BasicDetailsInterface) => {
                       name="versionLabel"
                       placeholder={getString('templatesLibrary.createNewModal.versionPlaceholder')}
                       label={getString('templatesLibrary.createNewModal.versionLabel')}
-                      disabled={!!disabledFields?.includes(Fields.VersionLabel)}
+                      disabled={!!disabledFields?.includes(Fields.VersionLabel) || isReadonly}
                     />
                   </Layout.Vertical>
                 </Container>
                 <Container>
                   <Layout.Horizontal spacing="small" flex={{ alignItems: 'flex-end', justifyContent: 'flex-start' }}>
-                    <Button
+                    <RbacButton
                       text={isEdit ? getString('save') : getString('start')}
                       type="submit"
                       variation={ButtonVariation.PRIMARY}
+                      permission={{
+                        permission: PermissionIdentifier.EDIT_TEMPLATE,
+                        resource: {
+                          resourceType: ResourceType.TEMPLATE
+                        }
+                      }}
                     />
                     <Button text={getString('cancel')} variation={ButtonVariation.SECONDARY} onClick={onClose} />
                   </Layout.Horizontal>
