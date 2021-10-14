@@ -1,6 +1,5 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {
-  Button,
   ButtonVariation,
   Color,
   Container,
@@ -23,8 +22,12 @@ import { PageSpinner, useToaster } from '@common/components'
 import { TemplateListType } from '@templates-library/pages/TemplatesPage/TemplatesPageUtils'
 import { useMutateAsGet } from '@common/hooks'
 import { useGetTemplateList, TemplateSummaryResponse } from 'services/template-ng'
+import RbacButton from '@rbac/components/Button/Button'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { TemplateInputs } from '../TemplateInputs/TemplateInputs'
 import { TemplateYaml } from '../TemplateYaml/TemplateYaml'
+import { TemplateContext } from '../TemplateStudio/TemplateContext/TemplateContext'
 import css from './TemplateDetails.module.scss'
 
 export interface TemplateDetailsProps {
@@ -42,6 +45,7 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
   const [versionOptions, setVersionOptions] = React.useState<SelectOption[]>([])
   const { showError } = useToaster()
   const [selectedVersion, setSelectedVersion] = React.useState<TemplateSummaryResponse>()
+  const { isReadonly } = useContext(TemplateContext)
 
   const {
     data: templateData,
@@ -132,9 +136,18 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
               <Text font={{ size: 'medium', weight: 'bold' }} color={Color.GREY_800}>
                 {selectedVersion.name}
               </Text>
-              <Button className={css.openInStudio} onClick={goToTemplateStudio} variation={ButtonVariation.SECONDARY}>
-                {getString('templatesLibrary.openInTemplateStudio')}
-              </Button>
+              <RbacButton
+                text={getString('templatesLibrary.openInTemplateStudio')}
+                variation={ButtonVariation.SECONDARY}
+                className={css.openInStudio}
+                onClick={goToTemplateStudio}
+                permission={{
+                  permission: PermissionIdentifier.VIEW_TEMPLATE,
+                  resource: {
+                    resourceType: ResourceType.TEMPLATE
+                  }
+                }}
+              />
             </Layout.Horizontal>
           </Container>
           <Container>
@@ -150,6 +163,7 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
                       items={versionOptions}
                       value={selectedVersion.versionLabel}
                       onChange={onChange}
+                      disabled={isReadonly}
                       width={300}
                     />
                   )}

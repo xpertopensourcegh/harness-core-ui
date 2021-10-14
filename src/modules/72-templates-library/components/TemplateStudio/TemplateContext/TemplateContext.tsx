@@ -18,7 +18,10 @@ import {
   NGTemplateInfoConfig,
   TemplateSummaryResponse
 } from 'services/template-ng'
-import { ActionReturnType, TemplateContextActions } from './TemplateActions'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { usePermission } from '@rbac/hooks/usePermission'
+import type { PermissionCheck } from 'services/rbac'
 import {
   DefaultNewTemplateId,
   DefaultNewVersionLabel,
@@ -28,6 +31,7 @@ import {
   TemplateReducerState,
   TemplateViewData
 } from './TemplateReducer'
+import { ActionReturnType, TemplateContextActions } from './TemplateActions'
 
 const logger = loggerFor(ModuleName.CD)
 
@@ -394,7 +398,29 @@ export const TemplateProvider: React.FC<{
     dispatch(TemplateContextActions.loading({ isLoading }))
   }
 
-  const isReadonly = false
+  const [isEdit] = usePermission(
+    {
+      resourceScope: {
+        accountIdentifier: queryParams.accountIdentifier,
+        orgIdentifier: queryParams.orgIdentifier,
+        projectIdentifier: queryParams.projectIdentifier
+      },
+      resource: {
+        resourceType: ResourceType.TEMPLATE,
+        resourceIdentifier: templateIdentifier
+      },
+      permissions: [PermissionIdentifier.EDIT_TEMPLATE],
+      options: {
+        skipCache: true,
+        skipCondition: (permissionCheck: PermissionCheck) => {
+          return permissionCheck.resourceIdentifier === '-1'
+        }
+      }
+    },
+    [queryParams.accountIdentifier, queryParams.orgIdentifier, queryParams.projectIdentifier, templateIdentifier]
+  )
+
+  const isReadonly = !isEdit
   const deleteTemplateCache = _deleteTemplateCache.bind(null, queryParams, templateIdentifier, versionLabel)
   const setYamlHandler = React.useCallback((yamlHandler: YamlBuilderHandlerBinding) => {
     dispatch(TemplateContextActions.setYamlHandler({ yamlHandler }))

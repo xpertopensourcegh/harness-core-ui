@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Color, Container, MultiTypeInputType } from '@wings-software/uicore'
 import produce from 'immer'
 import { isEmpty, set } from 'lodash-es'
@@ -13,11 +13,13 @@ import { TabTypes, Values } from '@pipeline/components/PipelineStudio/StepComman
 import type { TemplateProps } from '@templates-library/components/AbstractTemplate/Template'
 import type { TemplateFormRef } from '@templates-library/components/TemplateStudio/TemplateStudio'
 import type { NGTemplateInfoConfig } from 'services/template-ng'
+import { TemplateContext } from '../../TemplateContext/TemplateContext'
 import css from './StepTemplateForm.module.scss'
 
 const StepTemplateForm = (props: TemplateProps<NGTemplateInfoConfig>, formikRef: TemplateFormRef) => {
   const { formikProps } = props
   const stepFormikRef = React.useRef<StepFormikRef | null>(null)
+  const { isReadonly } = useContext(TemplateContext)
 
   React.useImperativeHandle(formikRef, () => ({
     resetForm() {
@@ -73,7 +75,7 @@ const StepTemplateForm = (props: TemplateProps<NGTemplateInfoConfig>, formikRef:
         <StepCommands
           className={css.stepForm}
           step={formikProps.values.spec as StepElementConfig}
-          isReadonly={false}
+          isReadonly={isReadonly}
           stepsFactory={factory}
           onChange={onSubmitStep}
           onUpdate={onSubmitStep}

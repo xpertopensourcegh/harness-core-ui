@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Color, Text } from '@wings-software/uicore'
 import MonacoEditor from '@common/components/MonacoEditor/MonacoEditor'
 
+import { TemplateContext } from '../TemplateStudio/TemplateContext/TemplateContext'
 import css from './TemplateYaml.module.scss'
 
 export interface TemplateYamlProps {
@@ -10,6 +11,7 @@ export interface TemplateYamlProps {
 
 export const TemplateYaml: React.FC<TemplateYamlProps> = props => {
   const { templateYaml } = props
+  const { isReadonly } = useContext(TemplateContext)
 
   return (
     <div className={css.main}>
@@ -30,7 +32,7 @@ export const TemplateYaml: React.FC<TemplateYamlProps> = props => {
             minimap: {
               enabled: false
             },
-            readOnly: false,
+            readOnly: isReadonly,
             scrollBeyondLastLine: false
           } as any
         }
