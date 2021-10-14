@@ -50,7 +50,7 @@ if (isCypress && isCypressCoverage) {
 /**
  * section for microfrontends
  */
-const MockChildApp = path.resolve(CONTEXT, './src/microfrontends/MockChildApp.tsx')
+const ChildAppError = path.resolve(CONTEXT, './src/microfrontends/ChildAppError.tsx')
 const enableGitOpsUI = process.env.ENABLE_GITOPSUI === 'true'
 const enableOPA = process.env.ENABLE_OPA === 'true'
 const moduleFederationEnabled = enableGitOpsUI || enableOPA
@@ -246,12 +246,12 @@ if (moduleFederationEnabled) {
 
 if (!enableGitOpsUI) {
   // render a mock app when MF is disabled
-  config.resolve.alias['gitopsui/MicroFrontendApp'] = MockChildApp
+  config.resolve.alias['gitopsui/MicroFrontendApp'] = ChildAppError
 }
 
 // if (!enableOPA) {
 //   // render a mock app when MF is disabled
-//   config.resolve.alias['opa/MicroFrontendApp'] =  MockChildApp
+//   config.resolve.alias['opa/MicroFrontendApp'] = ChildAppError
 // }
 
 const devOnlyPlugins = [

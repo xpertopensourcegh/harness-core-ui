@@ -7,7 +7,7 @@ import { AppStoreContext } from 'framework/AppStore/AppStoreContext'
 import { PageSpinner } from '@common/components'
 
 import type { ChildAppProps, Scope } from './microfrontendTypes'
-import MockChildApp from './MockChildApp'
+import ChildAppError from './ChildAppError'
 
 export interface ChildAppMounterProps extends RouteComponentProps<Scope> {
   ChildApp: React.LazyExoticComponent<React.ComponentType<ChildAppProps>>
@@ -34,7 +34,7 @@ export class ChildAppMounter extends React.Component<ChildAppMounterProps, Child
     const { url, params } = match
 
     if (this.state.hasError) {
-      return <MockChildApp />
+      return <ChildAppError />
     }
 
     return (
