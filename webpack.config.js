@@ -6,6 +6,9 @@ const path = require('path')
 const fs = require('fs')
 const devServerProxyConfig = require('./webpack.devServerProxy.config')
 
+const {
+  container: { ModuleFederationPlugin }
+} = webpack
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const CircularDependencyPlugin = require('circular-dependency-plugin')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
@@ -18,8 +21,6 @@ const GenerateStringTypesPlugin = require('./scripts/webpack/GenerateStringTypes
 const { BugsnagSourceMapUploaderPlugin } = require('webpack-bugsnag-plugins')
 const moduleFederationConfig = require('./configs/modulefederation.config.js')
 const ExternalRemotesPlugin = require('external-remotes-plugin')
-
-const moduleFederationEnabled = process.env.ENABLE_MICROFRONTENDS === 'true'
 
 const DEV = process.env.NODE_ENV === 'development'
 const ON_PREM = `${process.env.ON_PREM}` === 'true'
@@ -45,6 +46,15 @@ if (isCypress && isCypressCoverage) {
 } else {
   tsLoaders.push(tsLoaderConfig)
 }
+
+/**
+ * section for microfrontends
+ */
+const MockChildApp = path.resolve(CONTEXT, './src/microfrontends/MockChildApp.tsx')
+const enableGitOpsUI = process.env.ENABLE_GITOPSUI === 'true'
+const enableOPA = process.env.ENABLE_OPA === 'true'
+const moduleFederationEnabled = enableGitOpsUI || enableOPA
+
 const config = {
   context: CONTEXT,
   entry: './src/framework/app',
@@ -191,7 +201,8 @@ const config = {
   },
   resolve: {
     extensions: ['.mjs', '.js', '.ts', '.tsx', '.json', '.ttf'],
-    plugins: [new TsconfigPathsPlugin()]
+    plugins: [new TsconfigPathsPlugin()],
+    alias: {}
   },
   optimization: {
     splitChunks: {
@@ -230,8 +241,18 @@ const commonPlugins = [
 
 if (moduleFederationEnabled) {
   commonPlugins.unshift(new ExternalRemotesPlugin())
-  commonPlugins.unshift(new webpack.container.ModuleFederationPlugin(moduleFederationConfig))
+  commonPlugins.unshift(new ModuleFederationPlugin(moduleFederationConfig({ enableGitOpsUI, enableOPA })))
 }
+
+if (!enableGitOpsUI) {
+  // render a mock app when MF is disabled
+  config.resolve.alias['gitopsui/MicroFrontendApp'] = MockChildApp
+}
+
+// if (!enableOPA) {
+//   // render a mock app when MF is disabled
+//   config.resolve.alias['opa/MicroFrontendApp'] =  MockChildApp
+// }
 
 const devOnlyPlugins = [
   new webpack.WatchIgnorePlugin({
