@@ -1,7 +1,9 @@
 // eslint-disable-next-line import/order
+import type React from 'react'
 import type { PermissionsContextProps } from 'framework/rbac/PermissionsContext'
 import type { LicenseStoreContextProps } from 'framework/LicenseStore/LicenseStoreContext'
 import type { AppStoreContextProps } from 'framework/AppStore/AppStoreContext'
+import type { ScopeDTO } from 'services/cd-ng'
 
 /**
  * Parent contexts which consists of all the context used in the parent app
@@ -12,15 +14,15 @@ export interface ParentContext {
   licenseStoreProvider: React.Context<LicenseStoreContextProps>
 }
 
-export interface RenderChildAppProps {
+export interface ChildAppProps {
   parentContextObj: ParentContext
   renderUrl: string
-  mountPoint: HTMLDivElement
+  scope: ScopeDTO
 }
 
 /**
  * function to render child app inside the parent
  */
-export type RenderChildApp = (params: RenderChildAppProps) => void
+export type ChildAppComponent = React.ComponentType<ChildAppProps>
 
 export { AppStoreContextProps, LicenseStoreContextProps, PermissionsContextProps }

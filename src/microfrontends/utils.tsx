@@ -1,43 +1,34 @@
 import React from 'react'
-import { unmountComponentAtNode } from 'react-dom'
-import { useLocation } from 'react-router-dom'
+import { useParams, useRouteMatch } from 'react-router-dom'
 
-import { PermissionsContext } from '../framework/rbac/PermissionsContext'
-import { LicenseStoreContext } from '../framework/LicenseStore/LicenseStoreContext'
-import { AppStoreContext } from '../framework/AppStore/AppStoreContext'
+import type { ScopeDTO } from 'services/cd-ng'
+import { PermissionsContext } from 'framework/rbac/PermissionsContext'
+import { LicenseStoreContext } from 'framework/LicenseStore/LicenseStoreContext'
+import { AppStoreContext } from 'framework/AppStore/AppStoreContext'
 
-import type { RenderChildAppProps } from './microfrontendTypes'
+import type { ChildAppProps } from './microfrontendTypes'
 
-export interface ChildAppMounterProps extends React.HTMLProps<HTMLDivElement> {
-  mount: (props: RenderChildAppProps) => void
+export interface ChildAppMounterProps {
+  ChildApp: (props: ChildAppProps) => React.ReactElement
 }
 
 export function ChildAppMounter(props: ChildAppMounterProps): React.ReactElement {
-  const { mount, ...rest } = props
-  const rootRef = React.useRef<HTMLDivElement | null>(null)
-  const { pathname } = useLocation()
+  const { ChildApp } = props
+  const params = useParams<ScopeDTO>()
 
-  React.useEffect(() => {
-    const mountPoint = rootRef.current
-    if (mountPoint) {
-      mount({
-        mountPoint,
-        renderUrl: pathname,
-        parentContextObj: {
-          appStoreContext: AppStoreContext,
-          permissionsContext: PermissionsContext,
-          licenseStoreProvider: LicenseStoreContext
-        }
-      })
-    }
+  // We use routeMatch instead of location because,
+  // we want to pass the mount url and not the actual url
+  const { url } = useRouteMatch()
 
-    return () => {
-      if (mountPoint) {
-        unmountComponentAtNode(mountPoint)
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  return <div {...rest} ref={rootRef} />
+  return (
+    <ChildApp
+      renderUrl={url}
+      scope={params}
+      parentContextObj={{
+        appStoreContext: AppStoreContext,
+        permissionsContext: PermissionsContext,
+        licenseStoreProvider: LicenseStoreContext
+      }}
+    />
+  )
 }
