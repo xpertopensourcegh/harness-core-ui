@@ -133,7 +133,8 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     inputSetValue,
     inputSetLabel,
     inputSetRepoIdentifier,
-    inputSetBranch
+    inputSetBranch,
+    stagesExecuted
   } = useQueryParams<GitQueryParams & RunPipelineQueryParams>()
   const { updateQueryParams, replaceQueryParams } = useUpdateQueryParams<PipelineStudioQueryParams>()
 
@@ -641,6 +642,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
               onClose={() => {
                 onCloseRunPipelineModal()
               }}
+              stagesExecuted={stagesExecuted}
             />
             <Button
               aria-label="close modal"

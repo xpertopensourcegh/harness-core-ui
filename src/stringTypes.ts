@@ -1817,6 +1817,7 @@ export interface StringsMap {
   'pipeline.aboutYourStage.stageNamePlaceholder': string
   'pipeline.addStage.description': string
   'pipeline.addStage.title': string
+  'pipeline.allStages': string
   'pipeline.and': string
   'pipeline.approvalStage.settingUpStage': string
   'pipeline.approvalStep.addApproverInputs': string
@@ -2243,6 +2244,7 @@ export interface StringsMap {
   'pipeline.selectStagePlaceholder': string
   'pipeline.serviceDependenciesText': string
   'pipeline.serviceDependencyText': string
+  'pipeline.singleStageExecution': string
   'pipeline.sslVerify': string
   'pipeline.stagetoRetryFrom': string
   'pipeline.startTime': string
