@@ -144,6 +144,7 @@ function RunPipelineFormBasic({
     lazy: true
   })
 
+  const isCIModule = module === 'ci'
   React.useEffect(() => {
     getInputSetsList()
     getTemplateFromPipeline()
@@ -872,7 +873,7 @@ function RunPipelineFormBasic({
                       }}
                       featureProps={{
                         featureRequest: {
-                          featureName: FeatureIdentifier.DEPLOYMENTS
+                          featureName: isCIModule ? FeatureIdentifier.BUILDS : FeatureIdentifier.DEPLOYMENTS
                         }
                       }}
                       permission={{

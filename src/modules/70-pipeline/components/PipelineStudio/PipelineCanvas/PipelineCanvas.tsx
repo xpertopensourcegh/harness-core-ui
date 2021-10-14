@@ -164,7 +164,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     }> &
       GitQueryParams
   >()
-
+  const isCIModule = module === 'ci'
   const { showSuccess, showError, clear } = useToaster()
 
   useDocumentTitle([parse(pipeline?.name || getString('pipelines'))])
@@ -907,7 +907,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                   }}
                   featureProps={{
                     featureRequest: {
-                      featureName: FeatureIdentifier.DEPLOYMENTS
+                      featureName: isCIModule ? FeatureIdentifier.BUILDS : FeatureIdentifier.DEPLOYMENTS
                     }
                   }}
                   permission={{

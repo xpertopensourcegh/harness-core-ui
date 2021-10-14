@@ -65,6 +65,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
     repoIdentifier,
     stagesExecuted
   } = params
+  const isCIModule = module === 'ci'
   const { mutate: interrupt } = useHandleInterrupt({ planExecutionId: executionIdentifier })
   const { mutate: stageInterrupt } = useHandleStageInterrupt({
     planExecutionId: executionIdentifier,
@@ -263,7 +264,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
           disabled={!canExecute}
           featureProps={{
             featureRequest: {
-              featureName: FeatureIdentifier.DEPLOYMENTS
+              featureName: isCIModule ? FeatureIdentifier.BUILDS : FeatureIdentifier.DEPLOYMENTS
             }
           }}
         />
