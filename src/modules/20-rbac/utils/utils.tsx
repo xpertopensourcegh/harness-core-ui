@@ -10,8 +10,9 @@ import {
   Color,
   ModalErrorHandlerBinding
 } from '@wings-software/uicore'
+import { defaultTo } from 'lodash-es'
 import type { StringsMap } from 'stringTypes'
-import type { AccessControlCheckError, RoleAssignmentMetadataDTO } from 'services/cd-ng'
+import type { AccessControlCheckError, RoleAssignmentMetadataDTO, UserMetadataDTO } from 'services/cd-ng'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import type {
   Assignment,
@@ -301,4 +302,8 @@ export function getTooltip({
   }
 
   return {}
+}
+
+export const getUserName = (user: UserMetadataDTO): string => {
+  return defaultTo(user.name, user.email)
 }

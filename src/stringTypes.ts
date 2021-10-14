@@ -703,6 +703,9 @@ export interface StringsMap {
   'rbac.userUpperLimit': string
   'rbac.usersPage.assignRoleBindings': string
   'rbac.usersPage.deleteConfirmation': string
+  'rbac.usersPage.deleteLastAdminError': string
+  'rbac.usersPage.deleteLastAdminOrgConfirmation': string
+  'rbac.usersPage.deleteLastAdminProjectConfirmation': string
   'rbac.usersPage.deleteSuccessMessage': string
   'rbac.usersPage.deleteTitle': string
   'rbac.usersPage.invitationError': string
