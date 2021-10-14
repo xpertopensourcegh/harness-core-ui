@@ -250,7 +250,7 @@ interface FeatureProps {
 }
 
 interface TooltipProps {
-  permissionRequest: Omit<PermissionsRequest, 'permissions'> & { permission: PermissionIdentifier }
+  permissionRequest?: Omit<PermissionsRequest, 'permissions'> & { permission: PermissionIdentifier }
   featureProps?: FeatureProps
   canDoAction: boolean
   featureEnabled: boolean
@@ -269,7 +269,7 @@ export function getTooltip({
   module
 }: TooltipProps): TooltipReturn {
   // if permission check override the priorirty
-  if (featureProps?.isPermissionPrioritized && !canDoAction) {
+  if (featureProps?.isPermissionPrioritized && permissionRequest && !canDoAction) {
     return {
       tooltip: (
         <RBACTooltip
@@ -289,7 +289,7 @@ export function getTooltip({
   }
 
   // permission check
-  if (!canDoAction) {
+  if (permissionRequest && !canDoAction) {
     return {
       tooltip: (
         <RBACTooltip
