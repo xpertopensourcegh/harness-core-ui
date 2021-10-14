@@ -8,6 +8,8 @@ import { useStrings } from 'framework/strings'
 import type { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
 import { DynamicPopover, DynamicPopoverHandlerBinding } from '@common/components/DynamicPopover/DynamicPopover'
 import { useToaster } from '@common/exports'
+import { useTelemetry } from '@common/hooks/useTelemetry'
+import { StepActions } from '@common/constants/TrackingConstants'
 import { useValidationErrors } from '@pipeline/components/PipelineStudio/PiplineHooks/useValidationErrors'
 import { PipelineOrStageStatus } from '@pipeline/components/PipelineSteps/AdvancedSteps/ConditionalExecutionPanel/ConditionalExecutionPanelUtils'
 import HoverCard from '@pipeline/components/HoverCard/HoverCard'
@@ -192,6 +194,7 @@ function ExecutionGraphRef<T extends StageElementConfig>(
   // NOTE: we are using ref as DynamicPopover use memo
   const stageCloneRef = React.useRef<StageElementWrapper<T>>({})
   stageCloneRef.current = cloneDeep(stage)
+  const { trackEvent } = useTelemetry()
 
   const updateStageWithNewData = (stateToApply: ExecutionGraphState): void => {
     set(stageCloneRef.current, 'stage.spec.execution', stateToApply.stepsData)
@@ -427,6 +430,7 @@ function ExecutionGraphRef<T extends StageElementConfig>(
           states: newStateMap
         }))
         updateStageWithNewData(state)
+        trackEvent(StepActions.DeleteStep, { type: eventTemp.entity.getType() || '' })
       }
     },
     [Event.AddParallelNode]: (event: any) => {

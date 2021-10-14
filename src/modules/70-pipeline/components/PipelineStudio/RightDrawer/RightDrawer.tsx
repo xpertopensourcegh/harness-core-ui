@@ -7,6 +7,8 @@ import produce from 'immer'
 import { useStrings, UseStringsReturn } from 'framework/strings'
 import type { ExecutionElementConfig, StepElementConfig, StepGroupElementConfig } from 'services/cd-ng'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
+import { useTelemetry } from '@common/hooks/useTelemetry'
+import { StepActions } from '@common/constants/TrackingConstants'
 import { StageType } from '@pipeline/utils/stageHelpers'
 import type { BuildStageElementConfig, DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import type { DependencyElement } from 'services/ci'
@@ -108,6 +110,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
     setSelectedStepId
   } = usePipelineContext()
   const { type, data, ...restDrawerProps } = drawerData
+  const { trackEvent } = useTelemetry()
 
   const { stage: selectedStage } = getStageFromPipeline(selectedStageId || '')
   const stageType = selectedStage?.stage?.type
@@ -141,6 +144,10 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         }
       })
       setSelectedStepId(undefined)
+      trackEvent(StepActions.AddEditStep, {
+        name: data?.stepConfig?.node?.name || '',
+        type: (data?.stepConfig?.node as StepElementConfig)?.type || ''
+      })
     }
   }
   const discardChanges = (): void => {
