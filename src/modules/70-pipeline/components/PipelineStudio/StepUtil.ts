@@ -299,6 +299,7 @@ export const validateCICodebase = ({
   )
 
   if (
+    isCloneCodebaseEnabledAtLeastAtOneStage &&
     has(originalPipeline, 'properties') &&
     has(originalPipeline?.properties, 'ci') &&
     isEmpty(get(originalPipeline, 'properties.ci.codebase.build')) &&
