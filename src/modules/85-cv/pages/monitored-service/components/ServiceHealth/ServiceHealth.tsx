@@ -161,9 +161,10 @@ export default function ServiceHealth({
               ref={containerRef}
             >
               <HealthScoreChart
-                duration={selectedTimePeriod}
-                monitoredServiceIdentifier={monitoredServiceIdentifier as string}
+                duration={selectedTimePeriod?.value as TimePeriodEnum}
                 setHealthScoreData={setHealthScoreData}
+                serviceIdentifier={serviceIdentifier}
+                envIdentifier={environmentIdentifier}
                 timeFormat={timeFormat}
               />
               <TimelineSlider

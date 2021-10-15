@@ -3857,6 +3857,7 @@ export interface StringsMap {
   'cv.getRiskAssessment': string
   'cv.harnessEnvironment': string
   'cv.harnessService': string
+  'cv.healthScore': string
   'cv.healthSource.addHealthSource': string
   'cv.healthSource.backtoMonitoredService': string
   'cv.healthSource.connectHealthSource': string
@@ -3927,7 +3928,6 @@ export interface StringsMap {
   'cv.monitoredServices.serviceAndEnvironment': string
   'cv.monitoredServices.serviceDependencies.noData': string
   'cv.monitoredServices.serviceHealth.anamolies': string
-  'cv.monitoredServices.serviceHealth.healthScore': string
   'cv.monitoredServices.serviceHealth.last24Hrs': string
   'cv.monitoredServices.serviceHealth.last3Days': string
   'cv.monitoredServices.serviceHealth.last4Hrs': string
@@ -4195,6 +4195,7 @@ export interface StringsMap {
   'cv.sampleEvent': string
   'cv.sampleMessage': string
   'cv.searchForAService': string
+  'cv.seeYAML': string
   'cv.selectCreateService': string
   'cv.selectNamespace': string
   'cv.selectOrCreateEnv': string
@@ -4211,10 +4212,12 @@ export interface StringsMap {
   'cv.serviceDashboardPage.sevenDays': string
   'cv.serviceDashboardPage.thirtyDays': string
   'cv.serviceDashboardPage.twelveHours': string
+  'cv.serviceHealthTrend': string
   'cv.setup': string
   'cv.share': string
   'cv.showLess': string
   'cv.showMore': string
+  'cv.showYAMLChange': string
   'cv.statusCode': string
   'cv.thirdPartyCalls.modalTitle': string
   'cv.thirdPartyCalls.noCallsWereMade': string

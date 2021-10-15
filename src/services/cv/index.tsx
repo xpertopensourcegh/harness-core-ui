@@ -7240,6 +7240,74 @@ export const getMonitoredServiceListPromise = (
     signal
   )
 
+export interface GetMonitoredServiceOverAllHealthScoreWithServiceAndEnvQueryParams {
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  environmentIdentifier?: string
+  serviceIdentifier?: string
+  duration?: 'FOUR_HOURS' | 'TWENTY_FOUR_HOURS' | 'THREE_DAYS' | 'SEVEN_DAYS' | 'THIRTY_DAYS'
+  endTime?: number
+}
+
+export type GetMonitoredServiceOverAllHealthScoreWithServiceAndEnvProps = Omit<
+  GetProps<ResponseHistoricalTrend, unknown, GetMonitoredServiceOverAllHealthScoreWithServiceAndEnvQueryParams, void>,
+  'path'
+>
+
+/**
+ * get monitored service overall health score data using service and environment identifiers
+ */
+export const GetMonitoredServiceOverAllHealthScoreWithServiceAndEnv = (
+  props: GetMonitoredServiceOverAllHealthScoreWithServiceAndEnvProps
+) => (
+  <Get<ResponseHistoricalTrend, unknown, GetMonitoredServiceOverAllHealthScoreWithServiceAndEnvQueryParams, void>
+    path={`/monitored-service/overall-health-score`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetMonitoredServiceOverAllHealthScoreWithServiceAndEnvProps = Omit<
+  UseGetProps<
+    ResponseHistoricalTrend,
+    unknown,
+    GetMonitoredServiceOverAllHealthScoreWithServiceAndEnvQueryParams,
+    void
+  >,
+  'path'
+>
+
+/**
+ * get monitored service overall health score data using service and environment identifiers
+ */
+export const useGetMonitoredServiceOverAllHealthScoreWithServiceAndEnv = (
+  props: UseGetMonitoredServiceOverAllHealthScoreWithServiceAndEnvProps
+) =>
+  useGet<ResponseHistoricalTrend, unknown, GetMonitoredServiceOverAllHealthScoreWithServiceAndEnvQueryParams, void>(
+    `/monitored-service/overall-health-score`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * get monitored service overall health score data using service and environment identifiers
+ */
+export const getMonitoredServiceOverAllHealthScoreWithServiceAndEnvPromise = (
+  props: GetUsingFetchProps<
+    ResponseHistoricalTrend,
+    unknown,
+    GetMonitoredServiceOverAllHealthScoreWithServiceAndEnvQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    ResponseHistoricalTrend,
+    unknown,
+    GetMonitoredServiceOverAllHealthScoreWithServiceAndEnvQueryParams,
+    void
+  >(getConfig('cv/api'), `/monitored-service/overall-health-score`, props, signal)
+
 export interface GetMonitoredServiceScoresFromServiceAndEnvironmentQueryParams {
   accountId?: string
   orgIdentifier?: string

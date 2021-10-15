@@ -44,11 +44,11 @@ export default function ChangesTable({
   const { content = [], pageSize = 0, pageIndex = 0, totalPages = 0, totalItems = 0 } = data?.resource ?? ({} as any)
 
   const drawerOptions = {
-    size: '530px',
+    size: '830px',
     onClose: noop
   } as IDrawerProps
   const { showDrawer } = useDrawer({
-    createDrawerContent: props => <ChangeEventCard activityId={props?.id} />,
+    createDrawerContent: props => <ChangeEventCard activityId={props.id} />,
     drawerOptions
   })
 
@@ -71,7 +71,6 @@ export default function ChangesTable({
       }
     })
   }, [startTime, endTime, serviceIdentifier, environmentIdentifier, page])
-
   const columns: Column<any>[] = useMemo(
     () => [
       {
@@ -170,7 +169,9 @@ export default function ChangesTable({
       return (
         <Card className={css.cardContainer}>
           <Table
-            onRowClick={showDrawer}
+            onRowClick={info => {
+              showDrawer(info)
+            }}
             sortable={true}
             columns={columns}
             data={content}
