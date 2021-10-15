@@ -53,7 +53,7 @@ export default function K8sChangeEventCard({ data }: { data: ChangeEventDTO }): 
         {data.metadata?.newYaml && <K8sChangeEventYAML yaml={data.metadata.newYaml} />}
       </Container>
       <Divider className={changeEventCardCss.divider} />
-      {data.eventTime && (
+      {data?.eventTime && data.serviceIdentifier && data.envIdentifier && (
         <ChangeEventServiceHealth
           serviceIdentifier={data.serviceIdentifier}
           envIdentifier={data.envIdentifier}

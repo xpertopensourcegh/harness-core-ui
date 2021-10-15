@@ -3,12 +3,13 @@ import { Divider } from '@blueprintjs/core'
 import { Card, Color, Container, Text } from '@wings-software/uicore'
 import type { ChangeEventDTO } from 'services/cv'
 import { useStrings } from 'framework/strings'
-import type { ChangeTitleData, ChangeDetailsDataInterface } from './ChangeEventCard.types'
-import { createChangeTitleData, createChangeDetailsData } from './ChangeEventCard.utils'
-import ChangeDetails from './components/ChangeDetails/ChangeDetails'
-import ChangeTitle from './components/ChangeTitle/ChangeTitle'
-import DeploymentTimeDuration from './components/DeploymentTimeDuration/DeploymentTimeDuration'
-import css from './ChangeEventCard.module.scss'
+import ChangeEventServiceHealth from '@cv/pages/monitored-service/components/ServiceHealth/components/ChangesAndServiceDependency/components/ChangesTable/components/ChangeCard/components/ChangeEventServiceHealth/ChangeEventServiceHealth'
+import type { ChangeTitleData, ChangeDetailsDataInterface } from '../../../ChangeEventCard.types'
+import { createChangeTitleData, createChangeDetailsData } from '../../../ChangeEventCard.utils'
+import ChangeDetails from '../../ChangeDetails/ChangeDetails'
+import ChangeTitle from '../../ChangeTitle/ChangeTitle'
+import DeploymentTimeDuration from '../../DeploymentTimeDuration/DeploymentTimeDuration'
+import css from '../../../ChangeEventCard.module.scss'
 
 export default function HarnessCDEventCard({ data }: { data: ChangeEventDTO }) {
   const { getString } = useStrings()
@@ -35,6 +36,14 @@ export default function HarnessCDEventCard({ data }: { data: ChangeEventDTO }) {
         />
       </Container>
       <Divider className={css.divider} />
+      {data?.eventTime && data.serviceIdentifier && data.envIdentifier && (
+        <ChangeEventServiceHealth
+          serviceIdentifier={data.serviceIdentifier}
+          envIdentifier={data.envIdentifier}
+          startTime={data.eventTime}
+          eventType={data.type}
+        />
+      )}
     </Card>
   )
 }
