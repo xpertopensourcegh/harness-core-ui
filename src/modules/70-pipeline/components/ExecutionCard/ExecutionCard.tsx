@@ -167,10 +167,7 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
                 pipelineExecution?.stagesExecution &&
                 pipelineExecution?.stagesExecuted?.length === 1 && (
                   <Tag className={css.singleExecutionTag}>{`${getString('pipeline.singleStageExecution')} 
-                ${
-                  pipelineExecution.stagesExecutedNames &&
-                  pipelineExecution.stagesExecutedNames[pipelineExecution.stagesExecuted[0]]
-                }
+                ${pipelineExecution?.stagesExecuted?.[0]}
                  `}</Tag>
                 )}
               {HAS_CI && ciInfo ? (
