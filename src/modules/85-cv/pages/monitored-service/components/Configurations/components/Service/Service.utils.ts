@@ -77,7 +77,7 @@ export function updateMonitoredServiceDTOOnTypeChange(
       if (type === 'Application' && source.type !== 'K8sCluster') {
         return true
       }
-      if (type === 'Infrastructure' && source.type !== 'HarnessCD') {
+      if (type === 'Infrastructure' && source.type !== 'HarnessCD' && source.type !== 'HarnessCDNextGen') {
         return true
       }
       return false
