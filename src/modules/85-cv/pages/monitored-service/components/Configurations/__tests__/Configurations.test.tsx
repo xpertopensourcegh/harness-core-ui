@@ -3,8 +3,9 @@ import { fireEvent, render, waitFor } from '@testing-library/react'
 import { Container, Button } from '@wings-software/uicore'
 import * as dbHook from '@cv/hooks/IndexedDBHook/IndexedDBHook'
 import { TestWrapper } from '@common/utils/testUtils'
-import Configurations from './Configurations'
-import { cachedData, editModeData } from './components/Service/__tests__/Service.mock'
+import * as configUtils from '../Configurations.utils'
+import Configurations from '../Configurations'
+import { cachedData, editModeData } from '../components/Service/__tests__/Service.mock'
 
 jest.mock('@cv/components/HarnessServiceAndEnvironment/HarnessServiceAndEnvironment', () => ({
   useGetHarnessServices: () => ({
@@ -84,5 +85,28 @@ describe('Unit tests for Configuration', () => {
     await waitFor(() => expect(container.querySelector('[class*="menuItemLabel"]')).not.toBeNull())
     fireEvent.click(getByText('Infrastructure'))
     await waitFor(() => expect(getByText('cv.healthSource.noData')).not.toBeNull())
+  })
+
+  test('Ensure that error message is displayeed when api throws error', async () => {
+    jest.spyOn(configUtils, 'onSubmit').mockImplementation(() => {
+      throw new Error('mock error')
+    })
+    jest.spyOn(dbHook, 'useIndexedDBHook').mockReturnValue({
+      dbInstance: {
+        put: jest.fn(),
+        get: jest.fn().mockReturnValue(Promise.resolve({ currentData: cachedData }))
+      } as any,
+      isInitializingDB: false
+    })
+    const { container, getByText } = render(
+      <TestWrapper>
+        <Configurations />
+      </TestWrapper>
+    )
+    // name
+    await waitFor(() => expect(container.querySelector('input[value="Application"]')).toBeTruthy())
+    fireEvent.click(container.querySelector('button [data-icon*="send-data"]')!)
+
+    await waitFor(() => expect(getByText('mock error')).not.toBeNull())
   })
 })
