@@ -1,11 +1,22 @@
 import React from 'react'
-import { Color, Container, Formik, FormInput, Layout, MultiTypeInputType, Text } from '@wings-software/uicore'
+import {
+  Color,
+  Container,
+  Formik,
+  FormikForm,
+  FormInput,
+  getMultiTypeFromValue,
+  Layout,
+  MultiTypeInputType,
+  Heading
+} from '@wings-software/uicore'
 import * as Yup from 'yup'
 import cx from 'classnames'
 import type { FormikProps } from 'formik'
 import { useParams } from 'react-router-dom'
 import { parse } from 'yaml'
-import { set } from 'lodash-es'
+import { isEmpty, set } from 'lodash-es'
+import produce from 'immer'
 import { NameSchema } from '@common/utils/Validation'
 import { setFormikRef, StepViewType, StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/strings'
@@ -19,7 +30,10 @@ import { useGetTemplateInputSetYaml } from 'services/template-ng'
 import { useToaster } from '@common/exports'
 import { PageError } from '@common/components/Page/PageError'
 import { PageSpinner } from '@common/components'
+import MultiTypeDelegateSelector from '@common/components/MultiTypeDelegateSelector/MultiTypeDelegateSelector'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
+import css from './TemplateStepWidget.module.scss'
 
 export interface TemplateStepWidgetProps {
   initialValues: TemplateStepData
@@ -37,10 +51,10 @@ export function TemplateStepWidget(
 ): React.ReactElement {
   const { initialValues, factory, onUpdate, isNewStep, readonly } = props
   const { getString } = useStrings()
-  const stepType = initialValues.template?.templateInputs.type as StepType
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
-  const [inputSetTemplate, setTnputSetTemplate] = React.useState<Partial<StepElementConfig>>()
+  const [inputSetTemplate, setInputSetTemplate] = React.useState<Omit<StepElementConfig, 'name' | 'identifier'>>()
   const { showError } = useToaster()
+  const { expressions } = useVariablesExpression()
 
   const {
     data: templateInputYaml,
@@ -59,18 +73,21 @@ export function TemplateStepWidget(
 
   React.useEffect(() => {
     try {
-      setTnputSetTemplate(parse(templateInputYaml?.data || ''))
+      setInputSetTemplate(parse(templateInputYaml?.data || ''))
     } catch (error) {
       showError(error.message, undefined, 'template.parse.inputSet.error')
     }
   }, [templateInputYaml?.data])
 
   React.useEffect(() => {
-    if (inputSetTemplate && !loading) {
-      set(initialValues, 'template.templateInputs', inputSetTemplate)
-      onUpdate?.(initialValues)
+    if (!isEmpty(inputSetTemplate) && isEmpty(initialValues.template?.templateInputs)) {
+      onUpdate?.(
+        produce(initialValues, draft => {
+          set(draft, 'template.templateInputs', inputSetTemplate)
+        })
+      )
     }
-  }, [inputSetTemplate, loading])
+  }, [inputSetTemplate])
 
   return (
     <Formik<TemplateStepData /*TemplateStepFormData*/>
@@ -87,7 +104,7 @@ export function TemplateStepWidget(
       {(formik: FormikProps<TemplateStepData>) => {
         setFormikRef(formikRef, formik)
         return (
-          <React.Fragment>
+          <FormikForm>
             <div className={stepCss.stepPanel}>
               <div className={cx(stepCss.formGroup, stepCss.md)}>
                 <FormInput.InputWithIdentifier
@@ -96,26 +113,28 @@ export function TemplateStepWidget(
                   inputGroupProps={{ disabled: readonly }}
                 />
               </div>
-              <Container>
+              <Container className={css.inputsContainer}>
                 {loading && <PageSpinner />}
-                {!loading && inputSetError && <PageError message={inputSetError?.message} onClick={() => refetch()} />}
-                {!loading && !inputSetError && (
+                {!loading && inputSetError && (
+                  <PageError className={css.error} message={inputSetError?.message} onClick={() => refetch()} />
+                )}
+                {!loading && !inputSetError && inputSetTemplate && formik.values.template?.templateInputs && (
                   <Layout.Vertical
                     margin={{ top: 'medium' }}
                     padding={{ top: 'large', bottom: 'large' }}
                     border={{ top: true }}
                     spacing={'large'}
                   >
-                    <Text style={{ fontSize: 16 }} font={{ weight: 'bold' }} color={Color.BLACK}>
+                    <Heading level={5} color={Color.BLACK}>
                       {getString('templatesLibrary.templateInputs')}
-                    </Text>
+                    </Heading>
                     <StepWidget<Partial<StepElementConfig>>
                       factory={factory}
-                      initialValues={initialValues.template?.templateInputs || {}}
+                      initialValues={formik.values.template?.templateInputs}
                       template={inputSetTemplate}
                       readonly={readonly}
                       isNewStep={isNewStep}
-                      type={stepType}
+                      type={initialValues.template?.templateInputs?.type as StepType}
                       path={'template.templateInputs'}
                       stepViewType={StepViewType.InputSet}
                       allowableTypes={[
@@ -124,11 +143,28 @@ export function TemplateStepWidget(
                         MultiTypeInputType.RUNTIME
                       ]}
                     />
+                    {getMultiTypeFromValue(inputSetTemplate?.spec?.delegateSelectors) ===
+                      MultiTypeInputType.RUNTIME && (
+                      <div className={cx(stepCss.formGroup, stepCss.sm)}>
+                        <MultiTypeDelegateSelector
+                          expressions={expressions}
+                          inputProps={{ projectIdentifier, orgIdentifier }}
+                          allowableTypes={[
+                            MultiTypeInputType.FIXED,
+                            MultiTypeInputType.EXPRESSION,
+                            MultiTypeInputType.RUNTIME
+                          ]}
+                          label={getString('delegate.DelegateSelector')}
+                          name={'template.templateInputs.spec.delegateSelectors'}
+                          disabled={readonly}
+                        />
+                      </div>
+                    )}
                   </Layout.Vertical>
                 )}
               </Container>
             </div>
-          </React.Fragment>
+          </FormikForm>
         )
       }}
     </Formik>

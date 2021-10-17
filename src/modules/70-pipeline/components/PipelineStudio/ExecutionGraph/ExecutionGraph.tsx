@@ -164,6 +164,7 @@ export interface ExecutionGraphProp<T extends StageElementConfig> {
   canvasButtonsLayout?: 'horizontal' | 'vertical'
   canvasButtonsTooltipPosition?: 'top' | 'left'
   pathToStage: string
+  templateTypes?: { [key: string]: string }
 }
 
 function ExecutionGraphRef<T extends StageElementConfig>(
@@ -188,7 +189,8 @@ function ExecutionGraphRef<T extends StageElementConfig>(
     rollBackBannerStyle = {},
     canvasButtonsLayout,
     canvasButtonsTooltipPosition,
-    pathToStage
+    pathToStage,
+    templateTypes
   } = props
 
   // NOTE: we are using ref as DynamicPopover use memo
@@ -575,7 +577,8 @@ function ExecutionGraphRef<T extends StageElementConfig>(
     getString,
     isReadonly,
     parentPath: `${pathToStage}.steps`,
-    errorMap
+    errorMap,
+    templateTypes
   })
 
   // load model into engine

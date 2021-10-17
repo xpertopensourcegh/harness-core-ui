@@ -14,10 +14,6 @@ import {
 } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { NameIdDescriptionTags } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
-import {
-  DefaultNewTemplateId,
-  DefaultNewVersionLabel
-} from '@templates-library/components/TemplateStudio/TemplateContext/TemplateReducer'
 import type { NGTemplateInfoConfig, ResponseTemplateWrapperResponse } from 'services/template-ng'
 import { TemplatePreview } from '@templates-library/components/TemplatePreview/TemplatePreview'
 import { PageSpinner } from '@common/components'
@@ -25,7 +21,8 @@ import type { UseSaveSuccessResponse } from '@common/modals/SaveToGitDialog/useS
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
-import { TemplateContext } from '../TemplateStudio/TemplateContext/TemplateContext'
+import { TemplateContext } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateContext'
+import { DefaultNewTemplateId, DefaultNewVersionLabel } from '../templates'
 import css from './TemplateConfigModal.module.scss'
 
 export enum Fields {

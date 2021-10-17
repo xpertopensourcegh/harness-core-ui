@@ -1,6 +1,7 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly gridLayout: string
+  readonly inputsContainer: string
+  readonly error: string
 }
 export default styles

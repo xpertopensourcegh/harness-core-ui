@@ -22,16 +22,9 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { usePermission } from '@rbac/hooks/usePermission'
 import type { PermissionCheck } from 'services/rbac'
-import {
-  DefaultNewTemplateId,
-  DefaultNewVersionLabel,
-  DefaultTemplate,
-  initialState,
-  TemplateReducer,
-  TemplateReducerState,
-  TemplateViewData
-} from './TemplateReducer'
+import { DefaultNewTemplateId, DefaultNewVersionLabel, DefaultTemplate } from 'framework/Templates/templates'
 import { ActionReturnType, TemplateContextActions } from './TemplateActions'
+import { initialState, TemplateReducer, TemplateReducerState, TemplateViewData } from './TemplateReducer'
 
 const logger = loggerFor(ModuleName.CD)
 

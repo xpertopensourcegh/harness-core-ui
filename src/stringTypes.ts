@@ -400,6 +400,9 @@ export interface StringsMap {
   'common.resolveConflict': string
   'common.role': string
   'common.saveAndClose': string
+  'common.saveAsNewTemplateHeading': string
+  'common.saveTemplate.errorWhileSaving': string
+  'common.saveTemplate.publishTemplate': string
   'common.savedSuccessfully': string
   'common.searchPlaceholder': string
   'common.seconds': string
@@ -2557,14 +2560,11 @@ export interface StringsMap {
   'templatesLibrary.editModal.heading': string
   'templatesLibrary.entityType': string
   'templatesLibrary.errorWhileDeleting': string
-  'templatesLibrary.errorWhileSaving': string
   'templatesLibrary.errorWhileUpdating': string
   'templatesLibrary.openEditTemplate': string
   'templatesLibrary.openInTemplateStudio': string
-  'templatesLibrary.publishTemplate': string
   'templatesLibrary.referencedBy': string
   'templatesLibrary.saveAsNewLabelModal.heading': string
-  'templatesLibrary.saveAsNewTemplateModal.heading': string
   'templatesLibrary.selectTemplateToPreview': string
   'templatesLibrary.stageTemplate': string
   'templatesLibrary.templateInputs': string
@@ -2577,6 +2577,7 @@ export interface StringsMap {
   'templatesLibrary.templateUpdated': string
   'templatesLibrary.templateUpdatedError': string
   'templatesLibrary.templatesDeleted': string
+  'templatesLibrary.templatesLabel': string
   'templatesLibrary.templatesPage.noTemplates': string
   'templatesLibrary.updateTemplateModal.addCommentPlaceholder': string
   'templatesLibrary.updateTemplateModal.commentLabel': string

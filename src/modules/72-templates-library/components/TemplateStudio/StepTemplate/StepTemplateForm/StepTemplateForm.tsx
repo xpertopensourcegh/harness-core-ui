@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { Color, Container, MultiTypeInputType } from '@wings-software/uicore'
 import produce from 'immer'
-import { isEmpty, set } from 'lodash-es'
+import { debounce, isEmpty, set } from 'lodash-es'
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import {
   StepCommandsWithRef as StepCommands,
@@ -69,16 +69,20 @@ const StepTemplateForm = (props: TemplateProps<NGTemplateInfoConfig>, formikRef:
     formikProps?.setFieldValue('spec', processNode)
   }
 
+  const debounceSubmit = debounce((step: Partial<Values>): void => {
+    onSubmitStep(step)
+  }, 300)
+
   return (
-    <Container background={Color.FORM_BG}>
+    <Container background={Color.FORM_BG} key={formikProps.values.versionLabel}>
       {formikProps && !isEmpty(formikProps.values.spec) && !!(formikProps.values.spec as StepElementConfig)?.type && (
         <StepCommands
           className={css.stepForm}
           step={formikProps.values.spec as StepElementConfig}
           isReadonly={isReadonly}
           stepsFactory={factory}
-          onChange={onSubmitStep}
-          onUpdate={onSubmitStep}
+          onChange={debounceSubmit}
+          onUpdate={debounceSubmit}
           isStepGroup={false}
           stepViewType={StepViewType.Template}
           ref={stepFormikRef}

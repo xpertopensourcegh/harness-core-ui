@@ -17,15 +17,6 @@ import { useParams } from 'react-router-dom'
 import { Dialog } from '@blueprintjs/core'
 import { useHistory } from 'react-router-dom'
 import { TagsPopover, useToaster } from '@common/components'
-import {
-  DefaultNewTemplateId,
-  DefaultNewVersionLabel
-} from '@templates-library/components/TemplateStudio/TemplateContext/TemplateReducer'
-import {
-  Fields,
-  ModalProps,
-  TemplateConfigModal
-} from '@templates-library/components/TemplateConfigModal/TemplateConfigModal'
 import templateFactory from '@templates-library/components/Templates/TemplatesFactory'
 import type { ModulePathParams, TemplateStudioPathProps } from '@common/interfaces/RouteInterfaces'
 import { TemplateContext } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateContext'
@@ -37,6 +28,8 @@ import type { UseSaveSuccessResponse } from '@common/modals/SaveToGitDialog/useS
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { Fields, ModalProps, TemplateConfigModal } from 'framework/Templates/TemplateConfigModal/TemplateConfigModal'
+import { DefaultNewTemplateId, DefaultNewVersionLabel } from 'framework/Templates/templates'
 import css from './TemplateStudioSubHeaderLeftView.module.scss'
 
 export const TemplateStudioSubHeaderLeftView: () => JSX.Element = () => {

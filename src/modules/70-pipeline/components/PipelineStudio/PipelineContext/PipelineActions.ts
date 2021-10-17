@@ -6,6 +6,7 @@ import type * as Diagram from '@pipeline/components/Diagram'
 import type { EntityGitDetails } from 'services/pipeline-ng'
 import type { DependencyElement } from 'services/ci'
 import type { TemplateType } from '@common/interfaces/RouteInterfaces'
+import type { TemplateSummaryResponse } from 'services/template-ng'
 import type { StepState } from '../ExecutionGraph/ExecutionGraphUtil'
 import type { AdvancedPanels, StepOrStepGroupOrTemplateStepData } from '../StepCommands/StepCommandTypes'
 
@@ -18,6 +19,7 @@ export enum PipelineActions {
   UpdateTemplateView = 'UpdateTemplateView',
   UpdatePipeline = 'UpdatePipeline',
   SetYamlHandler = 'SetYamlHandler',
+  SetTemplateTypes = 'SetTemplateTypes',
   PipelineSaved = 'PipelineSaved',
   UpdateSchemaErrorsFlag = 'UpdateSchemaErrorsFlag',
   Success = 'Success',
@@ -92,8 +94,10 @@ export interface TemplateDrawerData extends Omit<IDrawerProps, 'isOpen'> {
   type: TemplateDrawerTypes
   data?: {
     selectorData?: {
-      templateTypes: TemplateType[]
+      templateType: TemplateType
       childTypes?: string[]
+      onCopyTemplate?: (template: TemplateSummaryResponse) => void
+      onUseTemplate?: (template: TemplateSummaryResponse) => void
     }
   }
 }
@@ -128,6 +132,7 @@ export interface PipelineReducerState {
   pipelineIdentifier: string
   error?: string
   schemaErrors: boolean
+  templateTypes: { [key: string]: string }
   gitDetails: EntityGitDetails
   isDBInitialized: boolean
   isLoading: boolean
@@ -150,6 +155,7 @@ export interface ActionResponse {
   gitDetails?: EntityGitDetails
   pipeline?: PipelineInfoConfig
   yamlHandler?: YamlBuilderHandlerBinding
+  templateTypes?: { [key: string]: string }
   originalPipeline?: PipelineInfoConfig
   isBEPipelineUpdated?: boolean
   pipelineView?: PipelineViewData
@@ -174,6 +180,10 @@ const updateTemplateView = (response: ActionResponse): ActionReturnType => ({
 })
 const setYamlHandler = (response: ActionResponse): ActionReturnType => ({
   type: PipelineActions.SetYamlHandler,
+  response
+})
+const setTemplateTypes = (response: ActionResponse): ActionReturnType => ({
+  type: PipelineActions.SetTemplateTypes,
   response
 })
 const updating = (): ActionReturnType => ({ type: PipelineActions.UpdatePipeline })
@@ -202,6 +212,7 @@ export const PipelineContextActions = {
   updatePipelineView,
   updateTemplateView,
   setYamlHandler,
+  setTemplateTypes,
   success,
   error,
   updateSchemaErrorsFlag,
@@ -227,6 +238,7 @@ export const initialState: PipelineReducerState = {
   },
   schemaErrors: false,
   gitDetails: {},
+  templateTypes: {},
   isLoading: false,
   isBEPipelineUpdated: false,
   isDBInitialized: false,
@@ -261,6 +273,11 @@ export const PipelineReducer = (state = initialState, data: ActionReturnType): P
       return {
         ...state,
         yamlHandler: data.response?.yamlHandler
+      }
+    case PipelineActions.SetTemplateTypes:
+      return {
+        ...state,
+        templateTypes: data.response?.templateTypes || {}
       }
     case PipelineActions.UpdatePipelineView:
       return {

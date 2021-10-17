@@ -52,8 +52,9 @@ export const TemplatesActionPopover = (props: React.PropsWithChildren<TemplatesA
       {...popoverProps}
     >
       {children}
-      {!!content && content}
-      {items && (
+      {content ? (
+        content
+      ) : items ? (
         <Menu style={{ minWidth: 'unset' }} onClick={e => e.stopPropagation()}>
           {items?.map(item => {
             return (
@@ -70,7 +71,7 @@ export const TemplatesActionPopover = (props: React.PropsWithChildren<TemplatesA
             )
           })}
         </Menu>
-      )}
+      ) : null}
     </Popover>
   )
 }
