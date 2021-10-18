@@ -101,7 +101,7 @@ exports[`Validate ChangeCard should render Pager Duty card 1`] = `
         </p>
       </div>
       <p
-        class="StyledProps--font StyledProps--main statusButton StyledProps--color StyledProps--color-red500 StyledProps--border StyledProps--border-color-red500 StyledProps--background-red100"
+        class="StyledProps--font StyledProps--main statusButton StyledProps--color StyledProps--color-grey500 StyledProps--border StyledProps--border-color-grey500"
       >
         triggered
       </p>

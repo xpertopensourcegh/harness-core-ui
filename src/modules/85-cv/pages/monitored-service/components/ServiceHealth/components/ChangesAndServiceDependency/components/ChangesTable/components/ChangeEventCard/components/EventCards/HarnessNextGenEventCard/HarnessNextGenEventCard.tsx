@@ -1,14 +1,16 @@
 import React, { useMemo } from 'react'
 import { Divider } from '@blueprintjs/core'
-import { Card, Color, Container, Layout, Text } from '@wings-software/uicore'
-import type { ChangeEventDTO } from 'services/cv'
+import { Card, Color, Container, Text } from '@wings-software/uicore'
+import type { ChangeEventDTO, VerificationResult } from 'services/cv'
 import { useStrings } from 'framework/strings'
+import { verificationResultToIcon } from '@cv/components/ActivitiesTimelineView/TimelineTooltip'
+import VerificationStatusCard from '@cv/components/ExecutionVerification/components/DeploymentProgressAndNodes/components/VerificationStatusCard/VerificationStatusCard'
+import type { EventData } from '@cv/components/ActivitiesTimelineView/ActivitiesTimelineView'
 import ChangeEventServiceHealth from '@cv/pages/monitored-service/components/ServiceHealth/components/ChangesAndServiceDependency/components/ChangesTable/components/ChangeCard/components/ChangeEventServiceHealth/ChangeEventServiceHealth'
 import type { ChangeTitleData, ChangeDetailsDataInterface } from '../../../ChangeEventCard.types'
 import { createChangeTitleData, createChangeDetailsData } from '../../../ChangeEventCard.utils'
 import ChangeDetails from '../../ChangeDetails/ChangeDetails'
 import ChangeTitle from '../../ChangeTitle/ChangeTitle'
-import StatusChip from '../../ChangeDetails/components/StatusChip/StatusChip'
 import DeploymentTimeDuration from '../../DeploymentTimeDuration/DeploymentTimeDuration'
 import css from '../../../ChangeEventCard.module.scss'
 
@@ -47,18 +49,19 @@ export default function HarnessNextGenEventCard({ data }: { data: ChangeEventDTO
           <Text font={{ size: 'medium', weight: 'bold' }} color={Color.GREY_800}>
             {getString('cv.changeSource.changeSourceCard.deploymentHealth')}
           </Text>
-          <Layout.Horizontal margin={{ top: 'large', bottom: 'large' }} flex={{ justifyContent: 'flex-start' }}>
+          <Container className={css.verificationContainer}>
             {summary?.map(item => {
+              const icon = verificationResultToIcon(item.verificationStatus as EventData['verificationResult'])
               return (
                 <Container className={css.flexColumn} key={item.name}>
-                  <Text className={css.summarylabel} font={{ size: 'xsmall' }} color={Color.GREY_400}>
+                  <Text icon={icon} className={css.summarylabel} font={{ size: 'xsmall' }} color={Color.GREY_400}>
                     {item.name}
                   </Text>
-                  <StatusChip status={item.verificationStatus} />
+                  <VerificationStatusCard status={item.verificationStatus as VerificationResult['status']} />
                 </Container>
               )
             })}
-          </Layout.Horizontal>
+          </Container>
         </Container>
       ) : null}
       {data?.eventTime && data.serviceIdentifier && data.envIdentifier && (

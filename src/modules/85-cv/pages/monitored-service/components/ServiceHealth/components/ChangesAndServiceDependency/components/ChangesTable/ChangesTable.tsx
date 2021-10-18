@@ -57,19 +57,21 @@ export default function ChangesTable({
   }, [startTime, endTime])
 
   useEffect(() => {
-    refetch({
-      queryParams: {
-        serviceIdentifiers: [serviceIdentifier],
-        envIdentifiers: [environmentIdentifier],
-        startTime,
-        endTime,
-        pageIndex: page,
-        pageSize: 10
-      },
-      queryParamStringifyOptions: {
-        arrayFormat: 'repeat'
-      }
-    })
+    if (startTime && endTime) {
+      refetch({
+        queryParams: {
+          serviceIdentifiers: [serviceIdentifier],
+          envIdentifiers: [environmentIdentifier],
+          startTime,
+          endTime,
+          pageIndex: page,
+          pageSize: 10
+        },
+        queryParamStringifyOptions: {
+          arrayFormat: 'repeat'
+        }
+      })
+    }
   }, [startTime, endTime, serviceIdentifier, environmentIdentifier, page])
   const columns: Column<any>[] = useMemo(
     () => [
@@ -148,13 +150,29 @@ export default function ChangesTable({
       })
       return (
         <Card className={css.cardContainer}>
-          <Container className={css.noData}>
-            <NoDataCard
-              button={<Link to={configurationsTabRoute}>{getString('cv.changeSource.configureChangeSource')}</Link>}
-              message={getString('cv.changeSource.noChangeSource')}
-              image={noDataImage}
+          {content?.length ? (
+            <Table
+              onRowClick={showDrawer}
+              sortable={true}
+              columns={columns}
+              data={content}
+              pagination={{
+                pageSize,
+                pageIndex,
+                pageCount: totalPages,
+                itemCount: totalItems,
+                gotoPage: setPage
+              }}
             />
-          </Container>
+          ) : (
+            <Container className={css.noData}>
+              <NoDataCard
+                button={<Link to={configurationsTabRoute}>{getString('cv.changeSource.configureChangeSource')}</Link>}
+                message={getString('cv.changeSource.noChangeSource')}
+                image={noDataImage}
+              />
+            </Container>
+          )}
         </Card>
       )
     } else if (!content?.length) {
