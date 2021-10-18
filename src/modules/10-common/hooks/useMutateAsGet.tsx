@@ -18,6 +18,7 @@ export type WrappedUseMutateProps<TData, TError, TQueryParams, TRequestBody, TPa
 > & {
   lazy?: boolean
   body: TRequestBody
+  mock?: TData | TError
   debounce?:
     | {
         wait?: number
@@ -117,6 +118,7 @@ export function useMutateAsGet<
 
   return {
     data,
+    ...props.mock,
     initLoading,
     loading,
     error,

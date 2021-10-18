@@ -1,9 +1,8 @@
 import React from 'react'
-import type { UseGetReturn } from 'restful-react'
 import { render, fireEvent, waitFor, act } from '@testing-library/react'
 import type { IconName } from '@wings-software/uicore'
+import { useMutateAsGet } from '@common/hooks'
 import { TestWrapper } from '@common/utils/testUtils'
-import * as pipelinesNgService from 'services/pipeline-ng'
 import { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { Step, StepProps } from '@pipeline/components/AbstractSteps/Step'
@@ -42,56 +41,71 @@ const getProps = () => ({
   stageType: StageType.DEPLOY
 })
 
-describe('Step Palette tests', () => {
-  const spy = jest.spyOn(pipelinesNgService, 'useGetSteps')
-  spy.mockReturnValue({
-    loading: false,
-    error: null,
+jest.mock('@common/hooks', () => ({
+  ...(jest.requireActual('@common/hooks') as any),
+  useMutateAsGet: jest.fn()
+}))
+
+const mockStepsData = {
+  loading: false,
+  error: null,
+  data: {
+    status: 'SUCCESS',
     data: {
-      status: 'SUCCESS',
-      data: {
-        name: 'Library',
-        stepCategories: [
-          {
-            name: 'K8',
-            stepCategories: [],
-            stepsData: [
-              {
-                name: 's1',
-                type: StepType.KubernetesDirect
-              },
-              {
-                name: 's2',
-                type: 't2'
-              }
-            ]
-          },
-          {
-            name: 'Utilities',
-            stepCategories: [
-              {
-                name: 'Scripted',
-                stepsData: [
-                  {
-                    name: 's3',
-                    type: 't3'
-                  },
-                  {
-                    name: 's4',
-                    type: 't4'
-                  }
-                ]
-              }
-            ],
-            stepsData: []
-          }
-        ],
-        stepsData: []
-      },
-      metaData: null as unknown as undefined,
-      correlationId: 'someId'
-    }
-  } as UseGetReturn<any, pipelinesNgService.Failure, any, unknown>)
+      name: 'Library',
+      stepCategories: [
+        {
+          name: 'CD',
+          stepCategories: [
+            {
+              name: 'K8',
+              stepCategories: [],
+              stepsData: [
+                {
+                  name: 's1',
+                  type: StepType.KubernetesDirect
+                },
+                {
+                  name: 's2',
+                  type: 't2',
+                  disabled: true
+                }
+              ]
+            },
+            {
+              name: 'Utilities',
+              stepCategories: [
+                {
+                  name: 'Scripted',
+                  stepsData: [
+                    {
+                      name: 's3',
+                      type: 't3'
+                    },
+                    {
+                      name: 's4',
+                      type: 't4'
+                    }
+                  ]
+                }
+              ],
+              stepsData: []
+            }
+          ]
+        }
+      ]
+    },
+    metaData: null as unknown as undefined,
+    correlationId: 'someId'
+  }
+}
+
+describe('Step Palette tests', () => {
+  beforeEach(() => {
+    // eslint-disable-next-line
+    // @ts-ignore
+    useMutateAsGet.mockReturnValue(mockStepsData)
+  })
 
   test('Show all steps count and filters correctly', async () => {
     const props = getProps()
@@ -124,6 +138,7 @@ describe('Step Palette tests', () => {
     })
     expect(getByText('K8')).toBeDefined()
     expect(container.getElementsByClassName('paletteCard')).toHaveLength(2)
+    expect(container).toMatchSnapshot('s2 should be disabled')
   })
 
   test('clicking on step category should display steps which are falling under that step category', async () => {
@@ -172,10 +187,13 @@ describe('Step Palette tests', () => {
     await waitFor(() => expect(props.onSelect).toBeCalled())
     expect(props.onSelect).toBeCalledWith({ icon: 'cross', name: 's1', type: 'KubernetesDirect' })
   })
+})
 
-  test('Loading indicator', () => {
-    const props = getProps()
-    spy.mockReturnValue({
+describe('loading indicator', () => {
+  beforeEach(() => {
+    // eslint-disable-next-line
+    // @ts-ignore
+    useMutateAsGet.mockReturnValue({
       loading: true,
       error: null,
       data: {
@@ -188,7 +206,10 @@ describe('Step Palette tests', () => {
         metaData: null as unknown as undefined,
         correlationId: 'someId'
       }
-    } as UseGetReturn<any, pipelinesNgService.Failure, any, unknown>)
+    })
+  })
+  test('Loading indicator', () => {
+    const props = getProps()
     const { queryByText } = render(
       <TestWrapper>
         <StepPalette {...props} />
@@ -199,10 +220,13 @@ describe('Step Palette tests', () => {
     expect(queryByText('Loading steps...')).toBeDefined()
     expect(queryByText('Show All Steps (0)')).toBeDefined()
   })
+})
 
-  test('No data indicator', () => {
-    const props = getProps()
-    spy.mockReturnValue({
+describe('no data indicator', () => {
+  beforeEach(() => {
+    // eslint-disable-next-line
+    // @ts-ignore
+    useMutateAsGet.mockReturnValue({
       loading: false,
       error: null,
       data: {
@@ -215,7 +239,11 @@ describe('Step Palette tests', () => {
         metaData: null as unknown as undefined,
         correlationId: 'someId'
       }
-    } as UseGetReturn<any, pipelinesNgService.Failure, any, unknown>)
+    })
+  })
+
+  test('No data indicator', () => {
+    const props = getProps()
     const { queryByText } = render(
       <TestWrapper>
         <StepPalette {...props} />

@@ -1,0 +1,255 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Step Palette tests clicking on category should display steps which are falling under that category: s2 should be disabled 1`] = `
+<div>
+  <div
+    class="stepPalette"
+  >
+    <div
+      class="stepInside"
+    >
+      <section
+        class="stepsRenderer"
+      >
+        <div
+          class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--padding-xlarge"
+        >
+          <div
+            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main paletteCardHeader"
+          >
+            <div
+              class="Layout--vertical StyledProps--main"
+            >
+              <h2
+                class="StyledProps--font StyledProps--font-h2 StyledProps--main title StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+                level="2"
+              >
+                stepPalette.title
+              </h2>
+            </div>
+            <div
+              class="bp3-input-group ui-search-box ExpandingSearchInput--main  ExpandingSearchInput--flip  ExpandingSearchInput--light"
+              data-name=""
+              style="max-width: 232px; width: 232px;"
+            >
+              <span
+                class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey700"
+                data-icon="thinner-search"
+              >
+                <svg
+                  fill="none"
+                  height="14"
+                  viewBox="0 0 16 16"
+                  width="14"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M7.125 13.25c1.617 0 3.32-.695 4.375-1.75L15 15l-3.5-3.5c1.021-1.005 1.75-2.894 1.75-4.375a6.125 6.125 0 10-6.125 6.125z"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+              <input
+                class="bp3-input  ExpandingSearchInput--filter"
+                dir="auto"
+                placeholder="Search"
+                style="padding-right: 38px;"
+                type="search"
+                value=""
+              />
+            </div>
+          </div>
+          <section
+            class="categorySteps"
+          >
+            <section
+              class="categoryName"
+            >
+              K8
+            </section>
+            <section
+              class="steps"
+            >
+              <section
+                class="step"
+              >
+                <span
+                  class="bp3-popover-wrapper bp3-dark"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="bp3-card bp3-interactive bp3-elevation-0 Card--card paletteCard Card--interactive"
+                      data-testid="step-card-s1"
+                      tabindex="0"
+                    >
+                      <span
+                        class="bp3-icon bp3-icon-cross StyledProps--main"
+                        icon="cross"
+                      >
+                        <svg
+                          data-icon="cross"
+                          height="25"
+                          viewBox="0 0 20 20"
+                          width="25"
+                        >
+                          <desc>
+                            cross
+                          </desc>
+                          <path
+                            d="M11.41 10l4.29-4.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L10 8.59l-4.29-4.3a1.003 1.003 0 00-1.42 1.42L8.59 10 4.3 14.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4.29-4.3 4.29 4.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L11.41 10z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  </span>
+                </span>
+                <section
+                  class="stepName"
+                >
+                  s1
+                </section>
+              </section>
+              <section
+                class="step"
+              >
+                <span
+                  class="bp3-popover-wrapper bp3-dark"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="bp3-card bp3-elevation-0 Card--card paletteCard Card--disabled"
+                      data-testid="step-card-s2"
+                    />
+                  </span>
+                </span>
+                <section
+                  class="stepName"
+                >
+                  s2
+                </section>
+              </section>
+            </section>
+          </section>
+        </div>
+      </section>
+      <section
+        class="categoriesRenderer"
+      >
+        <section
+          class="headerContainer"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--flex"
+          >
+            <div
+              class="StyledProps--font StyledProps--main libraryHeader StyledProps--flex"
+            >
+              <span
+                class="bp3-icon StyledProps--main paletteIcon library"
+                data-icon="library"
+              >
+                <svg
+                  fill="none"
+                  height="14"
+                  width="14"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M2 11.393c0 .32-.178.57-.396.57H.396c-.216 0-.396-.255-.396-.57V.607c0-.32.178-.57.396-.57h1.208c.216 0 .396.255.396.57v10.786zm2.967.57c.218 0 .396-.25.396-.57V.608c0-.315-.18-.57-.396-.57H3.759c-.218 0-.396.25-.396.57v10.786c0 .315.18.57.396.57h1.208zm4.491.019l.847-.252a.564.564 0 00.391-.696L7.94.614a.56.56 0 00-.682-.403L6.41.462a.564.564 0 00-.391.696l2.755 10.42c.082.303.39.482.683.404z"
+                    fill="#fff"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
+                style="font-size: 14px;"
+              >
+                stepPalette.library
+              </p>
+            </div>
+          </div>
+          <section
+            class="showAllBtn"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
+              style="font-size: 11px; font-weight: bold;"
+            >
+              stepPalette.showAllSteps
+               (
+              4
+              )
+            </p>
+          </section>
+        </section>
+        <hr
+          class="separator"
+        />
+        <section
+          class="secCategories"
+        >
+          <div
+            class="Layout--vertical StyledProps--main"
+          >
+            <section
+              class="category active fillWhite"
+            >
+              K8
+               (
+              2
+              )
+            </section>
+            <section
+              class="category hasSubCategories fillWhite"
+            >
+              <span
+                class="bp3-icon StyledProps--main paletteIcon"
+                data-icon="utility"
+              >
+                <svg
+                  fill="none"
+                  height="14"
+                  width="14"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M6.588 7.467v.878H3.953v-.878H.44v2.196c0 .242.197.44.44.44h8.784a.44.44 0 00.44-.44V7.467H6.587z"
+                    fill="#fff"
+                  />
+                  <path
+                    clip-rule="evenodd"
+                    d="M7.467 1.757h2.635a.44.44 0 01.44.44v4.391a.44.44 0 01-.44.44H6.588V5.71H3.953v1.318H.44a.44.44 0 01-.44-.44V2.196a.44.44 0 01.44-.44h2.635V.44A.44.44 0 013.514 0h3.514a.44.44 0 01.439.44v1.317zm-3.514 0h2.635V.878H3.953v.879z"
+                    fill="#fff"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              Utilities
+              (
+              1
+              )
+            </section>
+            <section
+              class="category subCategory offset lastSubCategory"
+            >
+              Scripted
+               (
+              2
+              )
+            </section>
+          </div>
+        </section>
+      </section>
+    </div>
+  </div>
+</div>
+`;

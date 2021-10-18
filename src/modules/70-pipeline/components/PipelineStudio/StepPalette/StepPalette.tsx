@@ -1,19 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { ExpandingSearchInput, Text, Icon, Layout, Color, Container, Heading } from '@wings-software/uicore'
-import { useGet } from 'restful-react'
-import { get, cloneDeep, uniqBy, isEmpty } from 'lodash-es'
+import { cloneDeep, uniqBy, isEmpty } from 'lodash-es'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
-import { getConfig } from 'services/config'
-import {
-  Failure,
-  GetStepsQueryParams,
-  ResponseStepCategory,
-  StepCategory,
-  StepData,
-  useGetSteps,
-  UseGetStepsProps
-} from 'services/pipeline-ng'
+import { ResponseStepCategory, StepCategory, StepData, useGetStepsV2 } from 'services/pipeline-ng'
+import { useMutateAsGet } from '@common/hooks'
 import { useStrings } from 'framework/strings'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { StepActions } from '@common/constants/TrackingConstants'
@@ -48,49 +39,22 @@ export const getAllStepsCountForPalette = (originalData: StepCategory[]): number
   return count
 }
 
-// TODO: This should be removed once the DTO is available
-const useGetFeatureSteps = (props: UseGetStepsProps) => {
-  return useGet<ResponseStepCategory, Failure | Error, GetStepsQueryParams, void>(
-    `/pipelines/configuration/featuresteps`,
-    {
-      base: getConfig('ng/api'),
-      ...props,
-      mock: {
-        loading: false,
-        data: featureStageSteps as unknown as ResponseStepCategory
-      }
+// TODO: remove once CI and CF onboard to the step palette v2 API
+const getMockedSteps = (stageType: StageType) => {
+  if (stageType === StageType.BUILD) {
+    return {
+      loading: false,
+      data: buildStageStepsWithRunTestsStep as unknown as ResponseStepCategory
     }
-  )
-}
-
-// TODO: This should be removed once the DTO is available
-const useGetBuildSteps = (props: UseGetStepsProps) => {
-  return useGet<ResponseStepCategory, Failure | Error, GetStepsQueryParams, void>(
-    `/pipelines/configuration/buildsteps`,
-    {
-      base: getConfig('ng/api'),
-      ...props,
-      mock: {
-        loading: false,
-        data: buildStageStepsWithRunTestsStep as unknown as ResponseStepCategory
-      }
+  } else if (stageType === StageType.FEATURE) {
+    return {
+      loading: false,
+      data: featureStageSteps as unknown as ResponseStepCategory
     }
-  )
-}
-
-// TODO: move to StepPaletteUtils.ts
-const dataSourceFactory = (stageType: StageType): any => {
-  switch (stageType) {
-    case StageType.BUILD:
-      return useGetBuildSteps
-    case StageType.DEPLOY:
-      return useGetSteps
-    case StageType.APPROVAL:
-      return useGetSteps
-    case StageType.FEATURE:
-      return useGetFeatureSteps
   }
+  return undefined
 }
+
 const primaryTypes = {
   SHOW_ALL: 'show_all',
   RECENTLY_USED: 'recently_used'
@@ -108,28 +72,14 @@ export interface StepPaletteProps {
   stageType: StageType
   isProvisioner?: boolean
 }
-export const StepPalette: React.FC<StepPaletteProps> = ({
-  onSelect,
-  selectedStage,
-  stepsFactory,
-  stageType,
-  isProvisioner = false
-}): JSX.Element => {
+export const StepPalette: React.FC<StepPaletteProps> = ({ onSelect, stepsFactory, stageType }): JSX.Element => {
   const [stepCategories, setStepsCategories] = useState<StepCategory[]>([])
   const [originalData, setOriginalCategories] = useState<StepCategory[]>([])
   const [selectedCategory, setSelectedCategory] = useState(primaryTypes.SHOW_ALL)
   const { trackEvent } = useTelemetry()
   // Need this when we have same names for category and sub category
   const [selectedLevel, setSelectedLevel] = useState<string | null>(null)
-  const { module, accountId } = useParams<{ module: string; accountId: string }>()
-  let categoryForStepPalette
-  if ((selectedStage as any).stage?.type === StageType.APPROVAL) {
-    categoryForStepPalette = StageType.APPROVAL
-  } else if (isProvisioner) {
-    categoryForStepPalette = 'Provisioner'
-  } else {
-    categoryForStepPalette = get(selectedStage, 'stage.spec.serviceConfig.serviceDefinition.type', 'Kubernetes')
-  }
+  const { accountId } = useParams<{ module: string; accountId: string }>()
 
   const Message = ({ stepsDataLoading }: { stepsDataLoading: boolean }) => {
     const message = stepsDataLoading
@@ -143,15 +93,48 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
     ) : null
   }
 
-  const { data: stepsData, loading: stepsDataLoading } = dataSourceFactory(stageType)({
-    queryParams: { category: categoryForStepPalette, module, accountId }
+  const { data: stepsData, loading: stepsDataLoading } = useMutateAsGet(useGetStepsV2, {
+    queryParams: {
+      accountId
+    },
+    body: {
+      stepPalleteModuleInfos: [
+        {
+          module: 'cd',
+          category: stageType === StageType.APPROVAL ? 'Approval' : undefined,
+          shouldShowCommonSteps: true
+        },
+        {
+          module: 'cv',
+          shouldShowCommonSteps: false
+        }
+      ]
+    },
+    mock: getMockedSteps(stageType)
   })
+
   const { getString } = useStrings()
   useEffect(() => {
-    const stepsCategories = stepsData?.data?.stepCategories
-    /* istanbul ignore else */ if (stepsCategories) {
-      setStepsCategories(stepsCategories)
-      setOriginalCategories(stepsCategories)
+    if (stageType === StageType.BUILD || stageType === StageType.FEATURE) {
+      // todo - remove once CF and CI are onboarded to the v2 step palette API
+      const stepsCategories = stepsData?.data?.stepCategories
+      /* istanbul ignore else */ if (stepsCategories) {
+        setStepsCategories(stepsCategories)
+        setOriginalCategories(stepsCategories)
+      }
+    } else {
+      // For CD stages, as per the v2 API
+      const fromApi = stepsData?.data?.stepCategories
+      const toShow: StepCategory[] = []
+      fromApi?.forEach(stepCat => {
+        if (stepCat?.stepCategories?.length) {
+          toShow.push(...stepCat?.stepCategories)
+        }
+      })
+      if (toShow) {
+        setStepsCategories(toShow)
+        setOriginalCategories(toShow)
+      }
     }
   }, [stepsData?.data?.stepCategories])
 
