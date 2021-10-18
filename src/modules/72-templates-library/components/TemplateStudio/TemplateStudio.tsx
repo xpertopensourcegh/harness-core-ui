@@ -27,6 +27,7 @@ import routes from '@common/RouteDefinitions'
 import type { NGTemplateInfoConfig } from 'services/template-ng'
 import type { GetErrorResponse } from '@templates-library/components/TemplateStudio/SaveTemplatePopover/SaveTemplatePopover'
 import { DefaultNewTemplateId } from 'framework/Templates/templates'
+import { sanitize } from '@common/utils/JSONUtils'
 import css from './TemplateStudio.module.scss'
 
 export type TemplateFormikRef<T = unknown> = {
@@ -84,6 +85,7 @@ export function TemplateStudio(): React.ReactElement {
 
   const onUpdate = async (newTemplate: NGTemplateInfoConfig) => {
     newTemplate.spec = omit(newTemplate.spec, 'name', 'identifier')
+    sanitize(newTemplate, { removeEmptyArray: false, removeEmptyObject: false, removeEmptyString: false })
     await updateTemplate(newTemplate)
   }
 

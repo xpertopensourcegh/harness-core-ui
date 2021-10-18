@@ -71,7 +71,7 @@ const StepTemplateForm = (props: TemplateProps<NGTemplateInfoConfig>, formikRef:
 
   const debounceSubmit = debounce((step: Partial<Values>): void => {
     onSubmitStep(step)
-  }, 300)
+  }, 500)
 
   return (
     <Container background={Color.FORM_BG} key={formikProps.values.versionLabel}>
