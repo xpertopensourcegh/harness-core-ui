@@ -245,6 +245,7 @@ export interface StringsMap {
   'common.gitSync.unSynced.message2': string
   'common.gitSync.unableToCreatePR': string
   'common.gitSync.updateResource': string
+  'common.governance': string
   'common.harnessClusterHostingAccount': string
   'common.harnessFirstGeneration': string
   'common.harnessFirstGenerationDescription': string
@@ -5632,10 +5633,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   goToHome: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  governance: string
   /**
    * @deprecated migrate this string to module level file
    */

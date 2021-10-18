@@ -52,8 +52,8 @@ if (isCypress && isCypressCoverage) {
  */
 const ChildAppError = path.resolve(CONTEXT, './src/microfrontends/ChildAppError.tsx')
 const enableGitOpsUI = process.env.ENABLE_GITOPSUI === 'true'
-const enableOPA = process.env.ENABLE_OPA === 'true'
-const moduleFederationEnabled = enableGitOpsUI || enableOPA
+const enableGovernance = process.env.ENABLE_GOVERNANCE === 'true'
+const moduleFederationEnabled = enableGitOpsUI || enableGovernance
 
 const config = {
   context: CONTEXT,
@@ -241,7 +241,7 @@ const commonPlugins = [
 
 if (moduleFederationEnabled) {
   commonPlugins.unshift(new ExternalRemotesPlugin())
-  commonPlugins.unshift(new ModuleFederationPlugin(moduleFederationConfig({ enableGitOpsUI, enableOPA })))
+  commonPlugins.unshift(new ModuleFederationPlugin(moduleFederationConfig({ enableGitOpsUI, enableGovernance })))
 }
 
 if (!enableGitOpsUI) {
@@ -249,10 +249,10 @@ if (!enableGitOpsUI) {
   config.resolve.alias['gitopsui/MicroFrontendApp'] = ChildAppError
 }
 
-// if (!enableOPA) {
-//   // render a mock app when MF is disabled
-//   config.resolve.alias['opa/MicroFrontendApp'] = ChildAppError
-// }
+if (!enableGovernance) {
+  // render a mock app when MF is disabled
+  config.resolve.alias['governance/App'] = ChildAppError
+}
 
 const devOnlyPlugins = [
   new webpack.WatchIgnorePlugin({

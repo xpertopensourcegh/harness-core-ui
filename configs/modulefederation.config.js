@@ -6,7 +6,7 @@ const { pick, omit, mapValues } = require('lodash')
  */
 const ExactSharedPackages = ['formik', 'react-dom', 'react']
 
-module.exports = ({ enableGitOpsUI, enableOPA }) => {
+module.exports = ({ enableGitOpsUI, enableGovernance }) => {
   const remotes = {}
 
   if (enableGitOpsUI) {
@@ -14,9 +14,9 @@ module.exports = ({ enableGitOpsUI, enableOPA }) => {
     remotes.gitopsui = "gitopsui@[window.getApiBaseUrl('gitops-ui/remoteEntry.js')]"
   }
 
-  // if (enableOPA) {
-  //   remotes.opa = "opa@[window.getApiBaseUrl('opa/remoteEntry.js')]"
-  // }
+  if (enableGovernance) {
+    remotes.governance = "opa@[window.getApiBaseUrl('pm/remoteEntry.js')]"
+  }
 
   return {
     name: 'nextgenui',
