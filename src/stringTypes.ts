@@ -552,6 +552,7 @@ export interface StringsMap {
   'notifications.pagerDutykey': string
   'notifications.pagerDutyuserGroups': string
   'notifications.pipelineEvents': string
+  'notifications.pipelineName': string
   'notifications.placeholderMSKeys': string
   'notifications.selectPipelineEvents': string
   'notifications.selectStagesPlaceholder': string

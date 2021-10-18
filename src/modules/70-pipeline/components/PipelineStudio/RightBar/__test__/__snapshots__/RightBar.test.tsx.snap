@@ -6,7 +6,7 @@ exports[`RightBar renders correctly 1`] = `
     class="rightBar"
   >
     <button
-      class="bp3-button Button--button StyledProps--font StyledProps--main iconButton variablesIcon StyledProps--font StyledProps--font-weight-semi-bold StyledProps--font-size-xsmall Button--withLeftIcon Button--variation Button--variation-tertiary"
+      class="bp3-button Button--button StyledProps--font StyledProps--main iconButton StyledProps--font StyledProps--font-weight-semi-bold StyledProps--font-size-xsmall Button--withLeftIcon Button--variation Button--variation-tertiary"
       data-testid="input-variable"
       type="button"
     >
@@ -15,9 +15,9 @@ exports[`RightBar renders correctly 1`] = `
         data-icon="pipeline-variables"
       >
         <svg
-          height="20"
+          height="28"
           viewBox="0 0 20 20"
-          width="20"
+          width="28"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
@@ -41,7 +41,7 @@ exports[`RightBar renders correctly 1`] = `
       </span>
     </button>
     <button
-      class="bp3-button Button--button StyledProps--font StyledProps--main iconButton notificationsIcon StyledProps--font StyledProps--font-weight-semi-bold StyledProps--font-size-xsmall Button--withLeftIcon Button--variation Button--variation-tertiary"
+      class="bp3-button Button--button StyledProps--font StyledProps--main iconButton StyledProps--font StyledProps--font-weight-semi-bold StyledProps--font-size-xsmall Button--withLeftIcon Button--variation Button--variation-tertiary"
       type="button"
     >
       <span
@@ -49,9 +49,9 @@ exports[`RightBar renders correctly 1`] = `
         data-icon="pipeline-deploy"
       >
         <svg
-          height="28"
+          height="24"
           viewBox="0 0 16 16"
-          width="28"
+          width="24"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
@@ -65,11 +65,11 @@ exports[`RightBar renders correctly 1`] = `
       <span
         class="bp3-button-text"
       >
-        notifications.name
+        notifications.pipelineName
       </span>
     </button>
     <button
-      class="bp3-button Button--button StyledProps--font StyledProps--main iconButton flowControlIcon StyledProps--font StyledProps--font-weight-semi-bold StyledProps--font-size-xsmall Button--withLeftIcon Button--variation Button--variation-tertiary"
+      class="bp3-button Button--button StyledProps--font StyledProps--main iconButton StyledProps--font StyledProps--font-weight-semi-bold StyledProps--font-size-xsmall Button--withLeftIcon Button--variation Button--variation-tertiary"
       type="button"
     >
       <span

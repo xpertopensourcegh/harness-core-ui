@@ -183,7 +183,7 @@ describe('RightBar', () => {
         </PipelineContext.Provider>
       </TestWrapper>
     )
-    const notificationsBtn = getByText('notifications.name')
+    const notificationsBtn = getByText('notifications.pipelineName')
     act(() => {
       fireEvent.click(notificationsBtn)
     })
