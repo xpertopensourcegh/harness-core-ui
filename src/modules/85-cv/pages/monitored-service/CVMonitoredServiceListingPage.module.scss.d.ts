@@ -5,9 +5,9 @@ declare const styles: {
   readonly healthScoreCard: string
   readonly tagsText: string
   readonly graphContainer: string
-  readonly gridUnselected: string
-  readonly listUnselected: string
-  readonly gridButton: string
-  readonly listButton: string
+  readonly filterCard: string
+  readonly filterSelect: string
+  readonly pageBody: string
+  readonly dependencyGraph: string
 }
 export default styles

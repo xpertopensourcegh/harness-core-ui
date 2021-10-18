@@ -1,5 +1,6 @@
 import React from 'react'
 import { render, waitFor, fireEvent } from '@testing-library/react'
+import { act } from 'react-dom/test-utils'
 import routes from '@common/RouteDefinitions'
 import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
@@ -146,7 +147,9 @@ describe('Monitored Service list', () => {
       </TestWrapper>
     )
 
-    fireEvent.click(container.querySelector('#graph-select-button')!)
+    act(() => {
+      fireEvent.click(container.querySelector('[data-icon="graph"]')!)
+    })
     await waitFor(() => expect(container.querySelector('.DependencyGraph')).toBeDefined())
   })
 

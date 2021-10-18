@@ -1,8 +1,18 @@
 import React, { useState, useCallback, useMemo } from 'react'
-import { Layout, Color, Text, Button, SelectOption, Select, Container } from '@wings-software/uicore'
+import {
+  Layout,
+  Color,
+  Text,
+  Button,
+  SelectOption,
+  Select,
+  Container,
+  ButtonVariation,
+  GridListToggle,
+  Views
+} from '@wings-software/uicore'
 import type { CellProps, Renderer } from 'react-table'
 import { useParams, useHistory, Link } from 'react-router-dom'
-import cx from 'classnames'
 import { Page, useToaster } from '@common/exports'
 import { Table } from '@common/components'
 import routes from '@common/RouteDefinitions'
@@ -11,7 +21,6 @@ import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { DependencyGraph } from '@cv/components/DependencyGraph/DependencyGraph'
-import { HorizontalLayout } from '@cv/pages/health-source/common/StyledComponents'
 import {
   useListMonitoredService,
   useDeleteMonitoredService,
@@ -19,14 +28,16 @@ import {
   MonitoredServiceListItemDTO,
   ChangeSummaryDTO,
   useGetServiceDependencyGraph,
-  useSetHealthMonitoringFlag
+  useSetHealthMonitoringFlag,
+  PageMonitoredServiceListItemDTO
 } from 'services/cv'
 import ContextMenuActions from '@cv/components/ContextMenuActions/ContextMenuActions'
 import ServiceDependenciesLegend from '@cv/components/ServiceDependenciesLegend/ServiceDependenciesLegend'
 import { getDependencyData } from '@cv/components/DependencyGraph/DependencyGraph.utils'
 import ToggleMonitoring from '@cv/pages/monitored-service/components/toggleMonitoring/ToggleMonitoring'
 import ImageDeleteService from '@cv/assets/delete-service.svg'
-import { MonitoringServicesHeader } from './monitoredService.styled'
+import FilterCard from '@cv/components/FilterCard/FilterCard'
+import type { FilterCardItem } from '@cv/components/FilterCard/FilterCard.types'
 import {
   RenderHealthTrend,
   RenderHealthScore,
@@ -34,7 +45,6 @@ import {
   getEnvironmentOptions,
   calculateChangePercentage
 } from './CVMonitoredServiceListingPage.utils'
-import { Views } from './CVMonitoredServiceListingPage.constants'
 import MonitoredServiceCategory from './components/Configurations/components/Dependency/component/components/MonitoredServiceCategory/MonitoredServiceCategory'
 import css from './CVMonitoredServiceListingPage.module.scss'
 
@@ -50,6 +60,8 @@ function CVMonitoredServiceListingPage(): JSX.Element {
   const [page, setPage] = useState(0)
   const [selectedView, setSelectedView] = useState<Views>(Views.LIST)
   const [environment, setEnvironment] = useState<SelectOption>()
+  const [selectedFilter, setSelectedFilter] = useState<FilterCardItem>()
+
   const { data: environmentDataList, loading: loadingServices } = useGetMonitoredServiceListEnvironments({
     queryParams: {
       accountId: params.accountId,
@@ -96,7 +108,13 @@ function CVMonitoredServiceListingPage(): JSX.Element {
     }
   })
 
-  const { content, pageSize = 0, pageIndex = 0, totalPages = 0, totalItems = 0 } = data?.data ?? ({} as any)
+  const {
+    content,
+    pageSize = 0,
+    pageIndex = 0,
+    totalPages = 0,
+    totalItems = 0
+  } = data?.data ?? ({} as PageMonitoredServiceListItemDTO)
 
   const onDelete = async (identifier?: string): Promise<void> => {
     try {
@@ -211,18 +229,38 @@ function CVMonitoredServiceListingPage(): JSX.Element {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const getFilterOptions: FilterCardItem[] = useMemo(() => {
+    return [
+      {
+        title: getString('cv.allServices'),
+        icon: 'services',
+        count: dependencyData?.nodes?.length ?? totalItems
+      }
+    ]
+  }, [dependencyData, totalItems, getString])
+
   const renderDependencyData = useCallback(() => {
     return dependencyData ? (
-      <Container padding="xxxlarge">
+      <Layout.Vertical
+        height="100%"
+        className={css.dependencyGraph}
+        padding={{ top: 'medium', left: 'xlarge', right: 'xlarge', bottom: 'xlarge' }}
+      >
+        <FilterCard
+          data={getFilterOptions}
+          cardClassName={css.filterCard}
+          selected={selectedFilter ?? getFilterOptions[0]}
+          onChange={item => setSelectedFilter(item)}
+        />
         <DependencyGraph dependencyData={dependencyData} options={{ chart: { height: 550 } }} />
         <Container margin={{ top: 'xxxlarge' }}>
           <ServiceDependenciesLegend />
         </Container>
-      </Container>
+      </Layout.Vertical>
     ) : (
       <></>
     )
-  }, [dependencyData])
+  }, [dependencyData, selectedFilter, getFilterOptions])
 
   const RenderStatusToggle: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ row }) => {
     const rowData = row?.original
@@ -270,21 +308,13 @@ function CVMonitoredServiceListingPage(): JSX.Element {
 
   return (
     <>
-      <MonitoringServicesHeader height={'80px'}>
-        <HorizontalLayout alignItem={'flex-end'}>
-          <div>
-            <NGBreadcrumbs />
-            <p>{getString('cv.monitoredServices.title')}</p>
-          </div>
-        </HorizontalLayout>
-      </MonitoringServicesHeader>
-      <MonitoringServicesHeader>
-        <HorizontalLayout>
+      <Page.Header breadcrumbs={<NGBreadcrumbs />} title={getString('cv.monitoredServices.title')} />
+      <Page.Header
+        title={
           <Button
-            intent="primary"
+            variation={ButtonVariation.PRIMARY}
             icon="plus"
             text={getString('cv.monitoredServices.newMonitoredServices')}
-            margin={{ bottom: 'small' }}
             onClick={() => {
               history.push(
                 routes.toCVAddMonitoringServicesSetup({
@@ -295,57 +325,27 @@ function CVMonitoredServiceListingPage(): JSX.Element {
               )
             }}
           />
-          <HorizontalLayout alignItem={'baseline'}>
-            <Text margin={{ right: 'large' }} font={{ size: 'small', weight: 'bold' }}>
-              {getString('cv.monitoredServices.filterlabel')}
-            </Text>
+        }
+        toolbar={
+          <Layout.Horizontal>
             <Select
-              name={''}
-              value={environment}
-              inputProps={{
-                leftIcon: 'search'
-              }}
+              value={
+                {
+                  ...environment,
+                  label: `${getString('environment')}: ${environment?.label ?? getString('all')}`
+                } as SelectOption
+              }
               defaultSelectedItem={{ label: getString('all'), value: getString('all') }}
               items={getEnvironmentOptions(environmentDataList, loadingServices, getString)}
               onChange={item => setEnvironment(item)}
+              className={css.filterSelect}
             />
-            <HorizontalLayout padding={{ left: 'medium' }}>
-              <Button
-                className={cx(
-                  {
-                    [css.listUnselected]: selectedView === Views.LIST
-                  },
-                  css.listButton
-                )}
-                minimal
-                icon="graph"
-                intent={selectedView === Views.GRAPH ? 'primary' : undefined}
-                onClick={() => {
-                  setSelectedView(Views.GRAPH)
-                }}
-                id="graph-select-button"
-              />
-              <Button
-                className={cx(
-                  {
-                    [css.listUnselected]: selectedView === Views.GRAPH
-                  },
-                  css.listButton
-                )}
-                minimal
-                icon="list"
-                intent={selectedView === Views.LIST ? 'primary' : undefined}
-                onClick={() => {
-                  setSelectedView(Views.LIST)
-                }}
-                id="list-select-button"
-              />
-            </HorizontalLayout>
-          </HorizontalLayout>
-        </HorizontalLayout>
-      </MonitoringServicesHeader>
+            <GridListToggle initialSelectedView={Views.LIST} onViewToggle={setSelectedView} icons={{ left: 'graph' }} />
+          </Layout.Horizontal>
+        }
+      />
 
-      {selectedView === Views.GRAPH ? (
+      {selectedView === Views.GRID ? (
         <Page.Body
           loading={serviceDependencyGraphLoading}
           error={getErrorMessage(serviceDependencyGraphError)}
@@ -354,6 +354,7 @@ function CVMonitoredServiceListingPage(): JSX.Element {
             when: () => !dependencyData,
             message: getString('cv.monitoredServices.noData')
           }}
+          className={css.pageBody}
         >
           {renderDependencyData()}
         </Page.Body>
@@ -367,10 +368,21 @@ function CVMonitoredServiceListingPage(): JSX.Element {
             icon: 'join-table',
             message: getString('cv.monitoredServices.noData')
           }}
+          className={css.pageBody}
         >
           {content?.length ? (
-            <Container padding="xxxlarge">
-              <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.GREY_800} padding={{ bottom: 'large' }}>
+            <Container padding={{ top: 'medium', left: 'xlarge', right: 'xlarge' }} height="inherit">
+              <FilterCard
+                data={getFilterOptions}
+                cardClassName={css.filterCard}
+                selected={selectedFilter ?? getFilterOptions[0]}
+                onChange={item => setSelectedFilter(item)}
+              />
+              <Text
+                font={{ size: 'medium', weight: 'semi-bold' }}
+                color={Color.GREY_800}
+                padding={{ top: 'large', bottom: 'large' }}
+              >
                 {getString('cv.monitoredServices.showingAllServices', { serviceCount: content.length })}
               </Text>
               <Table

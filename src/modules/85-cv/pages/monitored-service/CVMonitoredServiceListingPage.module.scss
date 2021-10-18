@@ -27,27 +27,20 @@
   align-items: center;
 }
 
-.gridUnselected {
-  box-shadow: none !important;
-  &:hover {
-    color: var(--primary-7) !important;
-  }
+.filterCard {
+  margin-right: var(--spacing-small);
+  margin-bottom: var(--spacing-small);
+  padding: 8px var(--spacing-large) !important;
 }
 
-.listUnselected {
-  box-shadow: none !important;
-  &:hover {
-    color: var(--primary-7) !important;
-  }
+.filterSelect {
+  margin-right: var(--spacing-large);
 }
 
-.gridButton,
-.listButton {
-  padding-left: var(--spacing-none) !important;
-  padding-right: var(--spacing-none) !important;
-  min-width: 24px;
+.pageBody {
+  --page-header-height: 146px !important;
 }
 
-.gridButton {
-  margin-right: var(--spacing-small) !important;
+.dependencyGraph {
+  justify-content: space-between;
 }
