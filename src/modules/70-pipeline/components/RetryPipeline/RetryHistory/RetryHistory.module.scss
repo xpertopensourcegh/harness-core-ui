@@ -1,0 +1,65 @@
+.modalContent {
+  max-height: fit-content;
+  min-height: 150px;
+  padding: var(--spacing-medium);
+
+  .retryHeaderSection {
+    border-bottom: 1px solid var(--grey-200);
+    height: 44px;
+
+    .retryModalHeader {
+      font-size: 20px !important;
+    }
+  }
+
+  .card {
+    display: block !important;
+    box-shadow: var(--card-shadow);
+    border: none !important;
+    overflow: hidden;
+    margin: var(--spacing-large);
+
+    &.hoverCard {
+      &:hover {
+        cursor: pointer;
+        box-shadow: var(--card-hover-shadow);
+      }
+    }
+    .content {
+      .cardSection {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .executionDetail {
+        margin-bottom: var(--spacing-medium);
+      }
+
+      .timerIcon {
+        margin-right: var(--spacing-2);
+        color: var(--grey-400) !important;
+      }
+
+      & .timeAgo {
+        flex: 1 1 auto;
+        justify-content: flex-end;
+
+        & time {
+          font-size: var(--font-size-small);
+          color: var(--grey-400);
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+
+  .crossIcon {
+    position: absolute;
+    right: var(--spacing-large);
+    top: var(--spacing-medium);
+  }
+}
+
+.retryPopover {
+  width: 500px;
+}

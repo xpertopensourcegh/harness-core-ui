@@ -110,6 +110,8 @@ export function ExecutionHeader(): React.ReactElement {
             }}
             canEdit={canEdit}
             canExecute={canExecute}
+            canRetry={pipelineExecutionSummary.canRetry}
+            showRetryHistory={pipelineExecutionSummary.showRetryHistory}
           />
         </div>
       </div>

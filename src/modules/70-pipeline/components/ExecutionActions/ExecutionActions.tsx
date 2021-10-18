@@ -22,6 +22,7 @@ import type { StringKeys } from 'framework/strings'
 import type { GitQueryParams, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import RetryPipeline from '../RetryPipeline/RetryPipeline'
+import RetryHistory from '../RetryPipeline/RetryHistory/RetryHistory'
 import css from './ExecutionActions.module.scss'
 
 const commonButtonProps: ButtonProps = {
@@ -50,10 +51,22 @@ export interface ExecutionActionsProps {
   stageName?: string
   canEdit?: boolean
   canExecute?: boolean
+  canRetry?: boolean
+  showRetryHistory?: boolean
 }
 
 export default function ExecutionActions(props: ExecutionActionsProps): React.ReactElement {
-  const { executionStatus, params, noMenu, stageId, canEdit = true, canExecute = true, stageName } = props
+  const {
+    executionStatus,
+    params,
+    noMenu,
+    stageId,
+    canEdit = true,
+    canExecute = true,
+    stageName,
+    canRetry = false,
+    showRetryHistory = false
+  } = props
   const {
     orgIdentifier,
     executionIdentifier,
@@ -191,7 +204,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
     showRetryPipelineModal()
   }
   const showRetryPipeline = (): boolean => {
-    return isRetryPipelineAllowed(executionStatus) && (RETRY_FAILED_PIPELINE as boolean)
+    return isRetryPipelineAllowed(executionStatus) && canRetry && (RETRY_FAILED_PIPELINE as boolean)
   }
 
   const DIALOG_PROPS: IDialogProps = {
@@ -246,6 +259,8 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
 
   return (
     <div className={css.main} onClick={killEvent}>
+      {showRetryHistory && <RetryHistory canExecute={canExecute} />}
+
       {canResume ? (
         <Button
           icon="play"

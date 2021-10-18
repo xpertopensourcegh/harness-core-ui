@@ -831,3 +831,6 @@ runPipelineForm:
   notifyOnlyMe: Notify only me about execution status
 singleStageExecution: 'SINGLE STAGE EXECUTION:'
 allStages: All Stages
+retryHistory: Retry History
+retryHistoryDescription: List of retries for my Pipeline
+recentExecutionText: Most Recent Execution

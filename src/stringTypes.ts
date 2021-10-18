@@ -2231,12 +2231,15 @@ export interface StringsMap {
   'pipeline.poweredByHarness': string
   'pipeline.progressPercentage': string
   'pipeline.provisionerSteps': string
+  'pipeline.recentExecutionText': string
   'pipeline.regionPlaceholder': string
   'pipeline.repositoryUrlPlaceholder': string
   'pipeline.resourceConstraints.currentlyExecuting': string
   'pipeline.resourceConstraints.infoText': string
   'pipeline.resourceConstraints.title': string
   'pipeline.resourceConstraints.yourPipeline': string
+  'pipeline.retryHistory': string
+  'pipeline.retryHistoryDescription': string
   'pipeline.retryPipeline': string
   'pipeline.rightBar.editCodebaseConfiguration': string
   'pipeline.runAPipeline': string

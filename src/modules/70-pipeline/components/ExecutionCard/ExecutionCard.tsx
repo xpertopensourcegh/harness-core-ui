@@ -157,6 +157,7 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
                   }}
                   canEdit={canEdit}
                   canExecute={canExecute}
+                  canRetry={pipelineExecution.canRetry}
                 />
               ) : null}
             </div>
