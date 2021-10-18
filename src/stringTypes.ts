@@ -1825,6 +1825,7 @@ export interface StringsMap {
   'pipeline.aboutYourStage.stageNamePlaceholder': string
   'pipeline.addStage.description': string
   'pipeline.addStage.title': string
+  'pipeline.advancedOptions': string
   'pipeline.allStages': string
   'pipeline.and': string
   'pipeline.approvalStage.settingUpStage': string
@@ -2225,6 +2226,8 @@ export interface StringsMap {
   'pipeline.pipelineSteps.customStageDescription': string
   'pipeline.pipelineSteps.deployStageDescription': string
   'pipeline.pipelineSteps.featureStageDescription': string
+  'pipeline.pipelineTimeoutHelpText': string
+  'pipeline.pipelineTimeoutSettings': string
   'pipeline.poweredByHarness': string
   'pipeline.progressPercentage': string
   'pipeline.provisionerSteps': string

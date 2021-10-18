@@ -404,6 +404,27 @@ export const RightBar = (): JSX.Element => {
           }}
         />
       )}
+
+      <Button
+        className={cx(css.iconButton, {
+          [css.selected]: type === DrawerTypes.AdvancedOptions
+        })}
+        variation={ButtonVariation.TERTIARY}
+        onClick={() => {
+          updatePipelineView({
+            ...pipelineView,
+            isDrawerOpened: true,
+            drawerData: { type: DrawerTypes.AdvancedOptions },
+            isSplitViewOpen: false,
+            splitViewData: {}
+          })
+        }}
+        font={{ weight: 'semi-bold', size: 'xsmall' }}
+        icon="pipeline-advanced"
+        withoutCurrentColor={true}
+        iconProps={{ size: 24 }}
+        text={getString('pipeline.advancedOptions')}
+      />
       <div />
       {isCodebaseDialogOpen && (
         <Dialog

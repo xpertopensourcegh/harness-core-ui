@@ -40,12 +40,14 @@ import { ExecutionStrategy, ExecutionStrategyRefInterface } from '../ExecutionSt
 import type { StepData } from '../../AbstractSteps/AbstractStepFactory'
 import { StepType } from '../../PipelineSteps/PipelineStepInterface'
 import { FlowControl } from '../FlowControl/FlowControl'
+import { AdvancedOptions } from '../AdvancedOptions/AdvancedOptions'
 import css from './RightDrawer.module.scss'
 
 export const FullscreenDrawers: DrawerTypes[] = [
   DrawerTypes.PipelineVariables,
   DrawerTypes.PipelineNotifications,
-  DrawerTypes.FlowControl
+  DrawerTypes.FlowControl,
+  DrawerTypes.AdvancedOptions
 ]
 
 const checkDuplicateStep = (
@@ -111,10 +113,12 @@ export const RightDrawer: React.FC = (): JSX.Element => {
   const {
     state: {
       templateTypes,
+      pipeline,
       pipelineView: { drawerData, isDrawerOpened, isSplitViewOpen },
       pipelineView,
       selectionState: { selectedStageId, selectedStepId }
     },
+    updatePipeline,
     isReadonly,
     updateStage,
     updatePipelineView,
@@ -688,6 +692,30 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       )}
       {type === DrawerTypes.PipelineNotifications && <PipelineNotifications />}
       {type === DrawerTypes.FlowControl && <FlowControl />}
+      {type === DrawerTypes.AdvancedOptions && (
+        <AdvancedOptions
+          pipeline={cloneDeep(pipeline)}
+          onApplyChanges={async updatedPipeline => {
+            await updatePipeline(updatedPipeline)
+            updatePipelineView({
+              ...pipelineView,
+              isDrawerOpened: false,
+              drawerData: {
+                type: DrawerTypes.AddStep
+              }
+            })
+          }}
+          onDiscard={() => {
+            updatePipelineView({
+              ...pipelineView,
+              isDrawerOpened: false,
+              drawerData: {
+                type: DrawerTypes.AddStep
+              }
+            })
+          }}
+        />
+      )}
       {type === DrawerTypes.ConfigureService && selectedStageId && data?.stepConfig && data?.stepConfig.node && (
         <StepCommands
           key={`step-form-${data.stepConfig.node.identifier}`}
