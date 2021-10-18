@@ -346,7 +346,7 @@ export class ExecutionStepModel extends DiagramModel {
               draggable: !isReadonly,
               canDelete: !isReadonly,
               customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' },
-              selected: this.selectedNodeId === node.step.identifier
+              defaultSelected: this.selectedNodeId === node.step.identifier
             })
 
       this.addNode(nodeRender)
