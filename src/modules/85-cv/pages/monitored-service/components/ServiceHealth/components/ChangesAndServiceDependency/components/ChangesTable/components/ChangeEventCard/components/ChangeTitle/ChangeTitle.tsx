@@ -1,5 +1,4 @@
-import React, { useMemo } from 'react'
-import { noop } from 'lodash-es'
+import React, { useMemo, useCallback } from 'react'
 import { Text, Container, Color, Icon, Layout, Button, ButtonVariation } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import type { ChangeTitleData } from '../../ChangeEventCard.types'
@@ -20,6 +19,13 @@ export default function ChangeTitle({ changeTitleData }: { changeTitleData: Chan
     [url, name]
   )
 
+  const openPipelineInNewTab = useCallback(() => {
+    const pipelineURL = `${window.location.origin}${window.location.pathname}#${url}`
+    if (url) {
+      window.open(pipelineURL, '_blank')
+    }
+  }, [url])
+
   return (
     <Container padding={{ top: 'medium', bottom: 'medium' }} className={css.main}>
       <Icon {...getIconByChangeType(type)} />
@@ -34,9 +40,7 @@ export default function ChangeTitle({ changeTitleData }: { changeTitleData: Chan
       </Layout.Vertical>
       {url ? (
         <Button
-          onClick={() => {
-            url ? window.open(`/#${url}`, '_blank') : noop
-          }}
+          onClick={openPipelineInNewTab}
           className={css.redirectButton}
           text={getString('cv.changeSource.changeSourceCard.viewPipeline')}
           icon="share"
