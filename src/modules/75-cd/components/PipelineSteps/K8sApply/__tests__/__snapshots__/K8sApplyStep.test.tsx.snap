@@ -1350,7 +1350,7 @@ exports[`Test K8sApplyStep should render variable view 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             skipDryRun
           </span>
@@ -1391,7 +1391,7 @@ exports[`Test K8sApplyStep should render variable view 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -1411,7 +1411,7 @@ exports[`Test K8sApplyStep should render variable view 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             skipSteadyStateCheck
           </span>
@@ -1452,7 +1452,7 @@ exports[`Test K8sApplyStep should render variable view 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span

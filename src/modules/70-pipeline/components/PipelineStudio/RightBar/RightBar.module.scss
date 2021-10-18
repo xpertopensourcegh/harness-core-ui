@@ -21,8 +21,15 @@
     text-align: center !important;
     border-radius: 0 !important;
     --background-color: transparent !important;
-    --background-color-hover: transparent !important;
-    --background-color-active: transparent !important;
+    --background-color-active: var(--primary-6) !important;
+    --background-color-hover: var(--primary-6) !important;
+
+    &:hover {
+      --right-bar-icon: var(--white);
+      span {
+        color: var(--white) !important;
+      }
+    }
 
     &:global(.bp3-button > .bp3-icon) {
       padding: 0 !important;

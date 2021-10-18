@@ -2486,7 +2486,7 @@ exports[`S3 Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             name
           </span>
@@ -2527,7 +2527,7 @@ exports[`S3 Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -2547,7 +2547,7 @@ exports[`S3 Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             timeout
           </span>
@@ -2588,7 +2588,7 @@ exports[`S3 Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -2608,7 +2608,7 @@ exports[`S3 Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             connectorRef
           </span>
@@ -2649,7 +2649,7 @@ exports[`S3 Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -2669,7 +2669,7 @@ exports[`S3 Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             region
           </span>
@@ -2710,7 +2710,7 @@ exports[`S3 Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -2730,7 +2730,7 @@ exports[`S3 Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             bucket
           </span>
@@ -2771,7 +2771,7 @@ exports[`S3 Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -2791,7 +2791,7 @@ exports[`S3 Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             sourcePath
           </span>
@@ -2832,7 +2832,7 @@ exports[`S3 Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -2852,7 +2852,7 @@ exports[`S3 Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             endpoint
           </span>
@@ -2893,7 +2893,7 @@ exports[`S3 Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -2913,7 +2913,7 @@ exports[`S3 Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             target
           </span>
@@ -2954,7 +2954,7 @@ exports[`S3 Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -2974,7 +2974,7 @@ exports[`S3 Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             memory
           </span>
@@ -3015,7 +3015,7 @@ exports[`S3 Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -3035,7 +3035,7 @@ exports[`S3 Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             cpu
           </span>
@@ -3076,7 +3076,7 @@ exports[`S3 Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span

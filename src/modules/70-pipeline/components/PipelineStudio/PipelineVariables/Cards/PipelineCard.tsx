@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, NestedAccordionPanel } from '@wings-software/uicore'
+import { Card, Color, FontVariation, NestedAccordionPanel, Text } from '@wings-software/uicore'
 import cx from 'classnames'
 import { isEmpty, lowerCase } from 'lodash-es'
 import type { PipelineInfoConfig } from 'services/cd-ng'
@@ -58,7 +58,13 @@ export default function PipelineCard(props: PipelineCardProps): React.ReactEleme
         collapseProps={{
           keepChildrenMounted: true
         }}
-        summary={<VariableAccordionSummary>{getString('customVariables.title')}</VariableAccordionSummary>}
+        summary={
+          <VariableAccordionSummary>
+            <Text font={{ variation: FontVariation.SMALL_SEMI }} color={Color.BLACK}>
+              {getString('customVariables.title')}
+            </Text>
+          </VariableAccordionSummary>
+        }
         summaryClassName={css.variableBorderBottom}
         details={
           <StepWidget<CustomVariablesData, CustomVariableEditableExtraProps>

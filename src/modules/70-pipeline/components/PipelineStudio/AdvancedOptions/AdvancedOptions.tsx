@@ -69,12 +69,17 @@ export const AdvancedOptions: React.FC<AdvancedOptionsProps> = ({ onApplyChanges
               </Text>
               <Card>
                 <Layout.Vertical spacing="small">
-                  <Text font={{ variation: FontVariation.SMALL_BOLD }}>
+                  <Text
+                    color={Color.GREY_600}
+                    style={{ marginBottom: 4 }}
+                    font={{ variation: FontVariation.SMALL_SEMI }}
+                  >
                     {getString('pipeline.pipelineTimeoutHelpText')}
                   </Text>
                   <FormMultiTypeDurationField
                     name="timeout"
                     isOptional
+                    style={{ width: 320 }}
                     label={getString('pipelineSteps.timeoutLabel')}
                     multiTypeDurationProps={{ enableConfigureOptions: true, expressions }}
                   />

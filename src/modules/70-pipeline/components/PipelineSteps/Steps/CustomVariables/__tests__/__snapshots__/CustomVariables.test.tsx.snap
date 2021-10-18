@@ -10,7 +10,7 @@ exports[`Custom Variables can add a string variable 1`] = `
     >
       <div />
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main add-variable Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-link"
+        class="bp3-button Button--button StyledProps--font StyledProps--main add-variable Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-link Button--size Button--small"
         type="button"
       >
         <span
@@ -36,7 +36,7 @@ exports[`Custom Variables can add a string variable 1`] = `
           class="bp3-button-text"
         >
           <span>
-            variableLabel
+            common.addVariable
           </span>
         </span>
       </button>
@@ -123,7 +123,7 @@ exports[`Custom Variables can add a string variable 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main buttonsActions Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
                   data-testid="edit-variable-0"
                   tabindex="0"
                   type="button"
@@ -168,7 +168,7 @@ exports[`Custom Variables can add a string variable 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main buttonsActions Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
                   data-testid="delete-variable-0"
                   tabindex="0"
                   type="button"
@@ -1329,7 +1329,7 @@ exports[`Custom Variables should render edit view as new step 1`] = `
     >
       <div />
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main add-variable Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-link"
+        class="bp3-button Button--button StyledProps--font StyledProps--main add-variable Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-link Button--size Button--small"
         type="button"
       >
         <span
@@ -1355,7 +1355,7 @@ exports[`Custom Variables should render edit view as new step 1`] = `
           class="bp3-button-text"
         >
           <span>
-            variableLabel
+            common.addVariable
           </span>
         </span>
       </button>

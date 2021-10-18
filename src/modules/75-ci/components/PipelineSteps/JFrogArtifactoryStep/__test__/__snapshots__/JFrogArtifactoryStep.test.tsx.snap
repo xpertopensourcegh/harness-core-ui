@@ -2300,7 +2300,7 @@ exports[`JFrogArtifactory Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             name
           </span>
@@ -2341,7 +2341,7 @@ exports[`JFrogArtifactory Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -2361,7 +2361,7 @@ exports[`JFrogArtifactory Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             description
           </span>
@@ -2402,7 +2402,7 @@ exports[`JFrogArtifactory Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -2422,7 +2422,7 @@ exports[`JFrogArtifactory Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             timeout
           </span>
@@ -2463,7 +2463,7 @@ exports[`JFrogArtifactory Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -2483,7 +2483,7 @@ exports[`JFrogArtifactory Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             connectorRef
           </span>
@@ -2524,7 +2524,7 @@ exports[`JFrogArtifactory Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -2544,7 +2544,7 @@ exports[`JFrogArtifactory Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             target
           </span>
@@ -2585,7 +2585,7 @@ exports[`JFrogArtifactory Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -2605,7 +2605,7 @@ exports[`JFrogArtifactory Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             sourcePath
           </span>
@@ -2646,7 +2646,7 @@ exports[`JFrogArtifactory Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -2666,7 +2666,7 @@ exports[`JFrogArtifactory Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             memory
           </span>
@@ -2707,7 +2707,7 @@ exports[`JFrogArtifactory Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -2727,7 +2727,7 @@ exports[`JFrogArtifactory Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             cpu
           </span>
@@ -2768,7 +2768,7 @@ exports[`JFrogArtifactory Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span

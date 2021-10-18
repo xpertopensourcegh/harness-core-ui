@@ -1,7 +1,7 @@
 import React from 'react'
 import produce from 'immer'
 import { set } from 'lodash-es'
-import { NestedAccordionPanel } from '@wings-software/uicore'
+import { Color, FontVariation, NestedAccordionPanel, Text } from '@wings-software/uicore'
 import cx from 'classnames'
 import type { ExecutionElementConfig, ExecutionWrapperConfig, StepElementConfig } from 'services/cd-ng'
 
@@ -171,7 +171,13 @@ export function ExecutionCardPanel(props: ExecutionCardProps): React.ReactElemen
       collapseProps={{
         keepChildrenMounted: true
       }}
-      summary={<VariableAccordionSummary> {props.title}</VariableAccordionSummary>}
+      summary={
+        <VariableAccordionSummary>
+          <Text font={{ variation: FontVariation.SMALL_SEMI }} color={Color.BLACK}>
+            {props.title}
+          </Text>
+        </VariableAccordionSummary>
+      }
       panelClassName={css.panel}
       summaryClassName={cx(css.variableBorderBottom, css.accordianSummaryL1)}
       details={<ExecutionCard {...props} />}

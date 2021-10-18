@@ -1,5 +1,5 @@
 import React from 'react'
-import { NestedAccordionPanel } from '@wings-software/uicore'
+import { Color, FontVariation, NestedAccordionPanel, Text } from '@wings-software/uicore'
 
 import { isEmpty, lowerCase } from 'lodash-es'
 import type { ServiceConfig, ServiceSpec } from 'services/cd-ng'
@@ -77,7 +77,13 @@ export function ServiceCardPanel(props: ServiceCardProps): React.ReactElement {
       isDefaultOpen
       addDomId
       id={`${props.path}.Service`}
-      summary={<VariableAccordionSummary>{getString('service')}</VariableAccordionSummary>}
+      summary={
+        <VariableAccordionSummary>
+          <Text font={{ variation: FontVariation.SMALL_SEMI }} color={Color.BLACK}>
+            {getString('service')}
+          </Text>
+        </VariableAccordionSummary>
+      }
       panelClassName={css.panel}
       summaryClassName={css.accordianSummaryL1}
       details={<ServiceCard {...props} path={`${props.path}.Service`} />}

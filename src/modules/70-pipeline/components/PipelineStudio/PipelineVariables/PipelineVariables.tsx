@@ -1,13 +1,21 @@
 import React from 'react'
-import { Icon, NestedAccordionPanel, NestedAccordionProvider, ExpandingSearchInput } from '@wings-software/uicore'
+import {
+  Icon,
+  NestedAccordionPanel,
+  NestedAccordionProvider,
+  ExpandingSearchInput,
+  Color,
+  Layout,
+  Text,
+  FontVariation
+} from '@wings-software/uicore'
 import { get } from 'lodash-es'
 
 import type {} from 'services/cd-ng'
 import { PageSpinner } from '@common/components'
-import { String, useStrings } from 'framework/strings'
+import { useStrings } from 'framework/strings'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { PageError } from '@common/components/Page/PageError'
-import StringWithTooltip from '@common/components/StringWithTooltip/StringWithTooltip'
 import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
 import { usePipelineContext } from '../PipelineContext/PipelineContext'
 import PipelineCard from './Cards/PipelineCard'
@@ -94,10 +102,12 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
         <div className={css.content}>
           <div className={css.variablePanelHeader}>
             <div className={css.variableTitle}>
-              <div>
-                <Icon name="pipeline-variables" />
-                <StringWithTooltip stringId="variablesText" tooltipId="pipelineVariables" />
-              </div>
+              <Layout.Horizontal>
+                <Icon name="pipeline-variables" size={24} color={Color.PRIMARY_7} />
+                <Text font={{ variation: FontVariation.H4 }} tooltipProps={{ dataTooltipId: 'pipelineVariables' }}>
+                  {getString('variablesText')}
+                </Text>
+              </Layout.Horizontal>
             </div>
             <div>
               {/* WIP Variabes Search */}
@@ -116,6 +126,22 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
 
             <div className={css.searchActions}></div>
           </div>
+          <div className={css.variableListHeader}>
+            <Text
+              font={{ variation: FontVariation.SMALL_BOLD }}
+              style={{ textTransform: 'capitalize' }}
+              color={Color.GREY_600}
+            >
+              {getString('variableLabel')}{' '}
+            </Text>
+            <Text
+              font={{ variation: FontVariation.SMALL_BOLD }}
+              style={{ textTransform: 'capitalize' }}
+              color={Color.GREY_600}
+            >
+              {getString('common.input')}{' '}
+            </Text>
+          </div>
           <div className={css.variableList} ref={pipelineVariablesRef as any}>
             <GitSyncStoreProvider>
               <NestedAccordionPanel
@@ -133,11 +159,6 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
                 panelClassName={css.pipelineMarginBottom}
                 details={
                   <>
-                    <div className={css.variableListHeader}>
-                      <String stringID="variableLabel" />
-                      <String stringID="valueLabel" />
-                    </div>
-
                     <PipelineCard
                       variablePipeline={variablesPipeline}
                       pipeline={originalPipeline}

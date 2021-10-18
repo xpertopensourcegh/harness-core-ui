@@ -2084,7 +2084,7 @@ exports[`GCS Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             name
           </span>
@@ -2125,7 +2125,7 @@ exports[`GCS Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -2145,7 +2145,7 @@ exports[`GCS Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             timeout
           </span>
@@ -2186,7 +2186,7 @@ exports[`GCS Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -2206,7 +2206,7 @@ exports[`GCS Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             connectorRef
           </span>
@@ -2247,7 +2247,7 @@ exports[`GCS Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -2267,7 +2267,7 @@ exports[`GCS Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             bucket
           </span>
@@ -2308,7 +2308,7 @@ exports[`GCS Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -2328,7 +2328,7 @@ exports[`GCS Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             sourcePath
           </span>
@@ -2369,7 +2369,7 @@ exports[`GCS Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -2389,7 +2389,7 @@ exports[`GCS Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             target
           </span>
@@ -2430,7 +2430,7 @@ exports[`GCS Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -2450,7 +2450,7 @@ exports[`GCS Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             memory
           </span>
@@ -2491,7 +2491,7 @@ exports[`GCS Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -2511,7 +2511,7 @@ exports[`GCS Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             cpu
           </span>
@@ -2552,7 +2552,7 @@ exports[`GCS Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span

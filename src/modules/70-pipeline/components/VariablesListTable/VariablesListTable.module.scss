@@ -11,6 +11,10 @@
     border-color: #d9dae599;
     position: relative;
     height: 32px;
+
+    .nameSection {
+      font-size: var(--form-input-font-size);
+    }
     &:before {
       position: absolute;
       width: 100%;
@@ -49,11 +53,12 @@
   display: grid;
   padding: var(--spacing-small) 0;
   grid-template-columns: 1fr 1fr;
+
   .nameSection {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-size: var(--font-size-small);
+    font-size: var(--form-input-font-size);
     color: var(--grey-500);
     display: inline;
   }

@@ -552,7 +552,8 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
             class="Layout--vertical StyledProps--main secondStep StyledProps--padding-top-large StyledProps--padding-bottom-large"
           >
             <div
-              class="StyledProps--font StyledProps--main formRow"
+              class="StyledProps--font StyledProps--main"
+              style="width: 56%;"
             >
               <div
                 class="bp3-form-group bp3-intent-danger urlInput"
@@ -621,6 +622,7 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
               </div>
               <div
                 class="bp3-form-group bp3-intent-danger versionInput"
+                style="width: 120px;"
               >
                 <label
                   class="bp3-label"
@@ -1557,7 +1559,8 @@ exports[`Create Nexus connector Wizard Should render form for edit  2`] = `
             class="Layout--vertical StyledProps--main secondStep StyledProps--padding-top-large StyledProps--padding-bottom-large"
           >
             <div
-              class="StyledProps--font StyledProps--main formRow"
+              class="StyledProps--font StyledProps--main"
+              style="width: 56%;"
             >
               <div
                 class="bp3-form-group urlInput"
@@ -1596,6 +1599,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  2`] = `
               </div>
               <div
                 class="bp3-form-group versionInput"
+                style="width: 120px;"
               >
                 <label
                   class="bp3-label"

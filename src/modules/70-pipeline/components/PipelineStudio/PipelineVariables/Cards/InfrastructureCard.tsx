@@ -1,5 +1,5 @@
 import React from 'react'
-import { MultiTypeInputType, NestedAccordionPanel } from '@wings-software/uicore'
+import { Color, FontVariation, MultiTypeInputType, NestedAccordionPanel, Text } from '@wings-software/uicore'
 import cx from 'classnames'
 import { isEmpty, lowerCase } from 'lodash-es'
 import type { PipelineInfrastructure, Infrastructure, ExecutionElementConfig } from 'services/cd-ng'
@@ -98,7 +98,13 @@ export function InfrastructureCardPanel(props: InfrastructureCardProps): React.R
       isDefaultOpen
       addDomId
       id={`${props.path}`}
-      summary={<VariableAccordionSummary>{getString('infrastructureText')}</VariableAccordionSummary>}
+      summary={
+        <VariableAccordionSummary>
+          <Text font={{ variation: FontVariation.SMALL_SEMI }} color={Color.BLACK}>
+            {getString('infrastructureText')}
+          </Text>
+        </VariableAccordionSummary>
+      }
       panelClassName={css.panel}
       summaryClassName={css.accordianSummaryL1}
       details={<InfrastructureCard {...props} />}

@@ -191,7 +191,7 @@ const StepDockerAuthentication: React.FC<StepProps<StepDockerAuthenticationProps
                   icon="chevron-left"
                   onClick={() => props?.previousStep?.(props?.prevStepData)}
                   data-name="dockerBackButton"
-                  variation={ButtonVariation.PRIMARY}
+                  variation={ButtonVariation.SECONDARY}
                 />
                 <Button
                   type="submit"

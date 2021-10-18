@@ -1,5 +1,5 @@
 import React from 'react'
-import { NestedAccordionPanel } from '@wings-software/uicore'
+import { Color, FontVariation, NestedAccordionPanel, Text } from '@wings-software/uicore'
 import cx from 'classnames'
 import type { StepElementConfig } from 'services/cd-ng'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
@@ -63,7 +63,13 @@ export function StepCardPanel(props: StepCardProps): React.ReactElement {
       isDefaultOpen
       addDomId
       id={`${props.stepPath}.${props.originalStep.identifier}`}
-      summary={<VariableAccordionSummary>{props.originalStep.name}</VariableAccordionSummary>}
+      summary={
+        <VariableAccordionSummary>
+          <Text font={{ variation: FontVariation.SMALL_SEMI }} color={Color.BLACK}>
+            {props.originalStep.name}
+          </Text>
+        </VariableAccordionSummary>
+      }
       summaryClassName={cx(css.variableBorderBottom, css.accordianSummaryL3)}
       details={<StepCard {...props} />}
     />
@@ -122,7 +128,13 @@ export function StepGroupCardPanel(props: StepGroupCardProps): React.ReactElemen
         keepChildrenMounted: true
       }}
       id={`${props.path}.StepGroup.${props.stepGroupIdentifier}`}
-      summary={<VariableAccordionSummary>{props.stepGroupOriginalName}</VariableAccordionSummary>}
+      summary={
+        <VariableAccordionSummary>
+          <Text font={{ variation: FontVariation.SMALL_SEMI }} color={Color.BLACK}>
+            {props.stepGroupOriginalName}
+          </Text>
+        </VariableAccordionSummary>
+      }
       summaryClassName={cx(css.variableBorderBottom, css.accordianSummaryL2)}
       details={<StepGroupCard {...props} />}
     />

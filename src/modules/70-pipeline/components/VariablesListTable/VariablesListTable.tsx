@@ -2,7 +2,7 @@ import React from 'react'
 import { isPlainObject, get, isNil, escape, defaultTo } from 'lodash-es'
 import cx from 'classnames'
 
-import { Text, useNestedAccordion } from '@wings-software/uicore'
+import { FontVariation, Text, useNestedAccordion } from '@wings-software/uicore'
 import { CopyText } from '@common/components/CopyText/CopyText'
 import type { VariableResponseMapValue } from 'services/pipeline-ng'
 import { toVariableStr } from '@common/utils/StringUtils'
@@ -74,7 +74,7 @@ export function VariablesListTable<T>(props: VariableListTableProps<T>): React.R
           <div key={key} className={css.variableListRow}>
             <CopyText valueClassName="variable-name-cell" textToCopy={toVariableStr(defaultTo(yamlProps?.fqn, ''))}>
               <span
-                className={cx({
+                className={cx(css.nameSection, {
                   'selected-search-text': searchedEntityType === 'key' && hasSameMetaKeyId
                 })}
                 dangerouslySetInnerHTML={{
@@ -88,7 +88,7 @@ export function VariablesListTable<T>(props: VariableListTableProps<T>): React.R
                 }}
               />
             </CopyText>
-            <Text lineClamp={1}>
+            <Text font={{ variation: FontVariation.BODY }} lineClamp={1}>
               <span
                 className={cx({
                   'selected-search-text': searchedEntityType === 'value' && hasSameMetaKeyId

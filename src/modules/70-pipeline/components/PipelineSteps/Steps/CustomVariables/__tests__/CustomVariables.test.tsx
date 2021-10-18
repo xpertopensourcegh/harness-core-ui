@@ -5,7 +5,8 @@ import {
   fireEvent,
   act,
   waitFor,
-  findByText as findByTextGlobal
+  findByText as findByTextGlobal,
+  findAllByText as findAllByTextGlobal
 } from '@testing-library/react'
 import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
@@ -44,13 +45,13 @@ describe('Custom Variables', () => {
       />
     )
 
-    const add = await findByText('variableLabel')
+    const add = await findByText('common.addVariable')
 
     act(() => {
       fireEvent.click(add)
     })
 
-    await waitFor(() => findByTextGlobal(document.body, 'variableLabel'))
+    await waitFor(() => findAllByTextGlobal(document.body, 'common.addVariable'))
 
     const name = queryByAttribute('name', document.body.querySelector('.bp3-dialog') as HTMLElement, 'name')
 

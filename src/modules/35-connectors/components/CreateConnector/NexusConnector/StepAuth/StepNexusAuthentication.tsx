@@ -129,18 +129,20 @@ const StepNexusAuthentication: React.FC<StepProps<StepNexusAuthenticationProps> 
         {formikProps => (
           <>
             <Layout.Vertical padding={{ top: 'large', bottom: 'large' }} className={css.secondStep}>
-              <Container className={css.formRow}>
+              <Container style={{ width: '56%' }}>
                 <FormInput.Text
                   className={css.urlInput}
                   name="nexusServerUrl"
                   placeholder={getString('UrlLabel')}
                   label={getString('connectors.nexus.nexusServerUrl')}
                 />
+
                 <FormInput.Select
                   className={css.versionInput}
                   name="nexusVersion"
                   label={getString('version')}
                   items={nexusVersions}
+                  style={{ width: 120 }}
                 />
               </Container>
 

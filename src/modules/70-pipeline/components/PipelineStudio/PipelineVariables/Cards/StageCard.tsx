@@ -1,7 +1,7 @@
 import React from 'react'
 import produce from 'immer'
 import { defaultTo, isEmpty, lowerCase, set } from 'lodash-es'
-import { Text, Color, NestedAccordionPanel } from '@wings-software/uicore'
+import { Text, Color, NestedAccordionPanel, FontVariation } from '@wings-software/uicore'
 import cx from 'classnames'
 import type { DeploymentStageConfig, StageElementConfig } from 'services/cd-ng'
 import type {
@@ -51,7 +51,7 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
       addDomId
       summary={
         <VariableAccordionSummary>
-          <Text className={css.stageTitle} color={Color.BLACK}>
+          <Text font={{ variation: FontVariation.SMALL_SEMI }} color={Color.BLACK}>
             {`Stage: ${originalStage.name}`}
           </Text>
         </VariableAccordionSummary>
@@ -84,7 +84,7 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
                 addDomId
                 summary={
                   <VariableAccordionSummary>
-                    <Text className={css.stageTitle} color={Color.BLACK}>
+                    <Text font={{ variation: FontVariation.SMALL_SEMI }} color={Color.BLACK}>
                       {getString('customVariables.title')}
                     </Text>
                   </VariableAccordionSummary>

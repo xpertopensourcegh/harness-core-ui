@@ -6,7 +6,8 @@ import {
   MultiTypeInputType,
   getMultiTypeFromValue,
   useNestedAccordion,
-  ButtonVariation
+  ButtonVariation,
+  ButtonSize
 } from '@wings-software/uicore'
 import { Formik, FieldArray } from 'formik'
 import { v4 as uuid } from 'uuid'
@@ -138,9 +139,10 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                       variation={ButtonVariation.LINK}
                       icon="plus"
                       onClick={addNew}
+                      size={ButtonSize.SMALL}
                       disabled={readonly}
                     >
-                      <String stringID="variableLabel" />
+                      <String stringID="common.addVariable" />
                     </Button>
                   </div>
                 ) : /* istanbul ignore next */ null}
@@ -263,9 +265,11 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                                 iconProps={{ size: 18 }} //color: '#6B6D85' }}
                                 withoutCurrentColor
                                 icon="Edit"
+                                className={css.buttonsActions}
                                 tooltip={<String className={css.tooltip} stringID="common.editVariable" />}
                                 data-testid={`edit-variable-${index}`}
                                 disabled={readonly}
+                                tooltipProps={{ isDark: true }}
                                 onClick={() => {
                                   setSelectedVariable({ variable, index })
                                 }}
@@ -279,8 +283,10 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                                 iconProps={{ size: 16, color: '#6B6D85' }}
                                 withoutCurrentColor
                                 icon="main-trash"
+                                className={css.buttonsActions}
                                 data-testid={`delete-variable-${index}`}
                                 tooltip={<String className={css.tooltip} stringID="common.removeThisVariable" />}
+                                tooltipProps={{ isDark: true }}
                                 disabled={readonly}
                                 onClick={() => handleRemove(index)}
                               />

@@ -3795,7 +3795,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             name
           </span>
@@ -3836,7 +3836,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -3856,7 +3856,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             timeout
           </span>
@@ -3897,7 +3897,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -3917,7 +3917,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             connectorRef
           </span>
@@ -3958,7 +3958,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -3978,7 +3978,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             host
           </span>
@@ -4019,7 +4019,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -4039,7 +4039,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             projectID
           </span>
@@ -4080,7 +4080,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -4100,7 +4100,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             imageName
           </span>
@@ -4141,7 +4141,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -4161,7 +4161,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             tags
           </span>
@@ -4202,7 +4202,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -4222,7 +4222,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             dockerfile
           </span>
@@ -4263,7 +4263,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -4283,7 +4283,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             context
           </span>
@@ -4324,7 +4324,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -4344,7 +4344,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             labels
           </span>
@@ -4385,7 +4385,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -4409,7 +4409,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             buildArgs
           </span>
@@ -4450,7 +4450,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -4474,7 +4474,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             optimize
           </span>
@@ -4515,7 +4515,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -4535,7 +4535,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             target
           </span>
@@ -4576,7 +4576,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -4596,7 +4596,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             remoteCacheImage
           </span>
@@ -4637,7 +4637,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -4657,7 +4657,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             memory
           </span>
@@ -4698,7 +4698,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -4718,7 +4718,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             cpu
           </span>
@@ -4759,7 +4759,7 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span

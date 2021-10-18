@@ -18,6 +18,7 @@ declare const styles: {
   readonly valueColumn: string
   readonly addVariable: string
   readonly tooltip: string
+  readonly buttonsActions: string
   readonly customVariablesInputSets: string
   readonly selectedSearchText: string
   readonly selectedSearchTextValueRow: string

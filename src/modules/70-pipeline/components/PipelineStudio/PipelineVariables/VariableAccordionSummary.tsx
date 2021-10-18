@@ -1,20 +1,17 @@
 import React from 'react'
-import { Icon } from '@wings-software/uicore'
+import { FontVariation, Icon, Text } from '@wings-software/uicore'
 import css from './PipelineVariables.module.scss'
 
 const VariableAccordionSummary = (props: { children: React.ReactNode; hideIcons?: boolean }) => {
   return (
     <div className={css.accordionSummary}>
-      <div>
-        {/* //className={css.variableSummaryIcons}> */}
-        {!props.hideIcons && (
-          <>
-            <Icon name="accordion-collapsed" className={css.iconCollapsed} />
-            <Icon name="accordion-expanded" className={css.iconExpanded} />
-          </>
-        )}
-      </div>
-      <div>{props.children}</div>
+      {!props.hideIcons && (
+        <>
+          <Icon name="accordion-collapsed" className={css.iconCollapsed} size={12} />
+          <Icon name="accordion-expanded" className={css.iconExpanded} size={12} />
+        </>
+      )}
+      <Text font={{ variation: FontVariation.H6 }}>{props.children}</Text>
     </div>
   )
 }

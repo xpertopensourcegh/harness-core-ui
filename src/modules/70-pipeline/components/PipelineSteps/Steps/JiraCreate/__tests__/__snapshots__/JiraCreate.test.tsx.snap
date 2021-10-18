@@ -468,7 +468,7 @@ exports[`Jira Create tests Basic snapshot - input variable view: jira-create-inp
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             name
           </span>
@@ -509,7 +509,7 @@ exports[`Jira Create tests Basic snapshot - input variable view: jira-create-inp
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -527,7 +527,7 @@ exports[`Jira Create tests Basic snapshot - input variable view: jira-create-inp
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             timeout
           </span>
@@ -568,7 +568,7 @@ exports[`Jira Create tests Basic snapshot - input variable view: jira-create-inp
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -588,7 +588,7 @@ exports[`Jira Create tests Basic snapshot - input variable view: jira-create-inp
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             connectorRef
           </span>
@@ -629,7 +629,7 @@ exports[`Jira Create tests Basic snapshot - input variable view: jira-create-inp
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -647,7 +647,7 @@ exports[`Jira Create tests Basic snapshot - input variable view: jira-create-inp
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             projectKey
           </span>
@@ -688,7 +688,7 @@ exports[`Jira Create tests Basic snapshot - input variable view: jira-create-inp
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -706,7 +706,7 @@ exports[`Jira Create tests Basic snapshot - input variable view: jira-create-inp
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             issueType
           </span>
@@ -747,7 +747,7 @@ exports[`Jira Create tests Basic snapshot - input variable view: jira-create-inp
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span

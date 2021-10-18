@@ -1,5 +1,5 @@
 import React from 'react'
-import { NestedAccordionPanel } from '@wings-software/uicore'
+import { Color, FontVariation, NestedAccordionPanel, Text } from '@wings-software/uicore'
 import cx from 'classnames'
 import { isEmpty, omit } from 'lodash-es'
 
@@ -53,7 +53,13 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
           addDomId
           noAutoScroll
           id={`${path}.Artifacts`}
-          summary={<VariableAccordionSummary> {getString('artifacts')}</VariableAccordionSummary>}
+          summary={
+            <VariableAccordionSummary>
+              <Text font={{ variation: FontVariation.SMALL_SEMI }} color={Color.BLACK}>
+                {getString('artifacts')}
+              </Text>
+            </VariableAccordionSummary>
+          }
           summaryClassName={cx(css.variableBorderBottom, pipelineVariableCss.accordianSummaryL3)}
           details={
             variablesData?.artifacts && (
@@ -64,7 +70,13 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
                   addDomId
                   collapseProps={{ keepChildrenMounted: true }}
                   id={`${path}.Artifacts.Primary`}
-                  summary={<VariableAccordionSummary> {getString('primaryArtifactText')}</VariableAccordionSummary>}
+                  summary={
+                    <VariableAccordionSummary>
+                      <Text font={{ variation: FontVariation.SMALL_SEMI }} color={Color.BLACK}>
+                        {getString('primaryArtifactText')}
+                      </Text>
+                    </VariableAccordionSummary>
+                  }
                   summaryClassName={cx(css.variableBorderBottom, pipelineVariableCss.accordianSummaryL3)}
                   details={
                     <VariablesListTable
@@ -84,7 +96,11 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
                       noAutoScroll
                       id={`${path}..Artifacts.Sidecars`}
                       summary={
-                        <VariableAccordionSummary> {getString('common.sidecarArtifactsText')}</VariableAccordionSummary>
+                        <VariableAccordionSummary>
+                          <Text font={{ variation: FontVariation.SMALL_SEMI }} color={Color.BLACK}>
+                            {getString('common.sidecarArtifactsText')}
+                          </Text>
+                        </VariableAccordionSummary>
                       }
                       summaryClassName={cx(css.variableBorderBottom, pipelineVariableCss.accordianSummaryL3)}
                       details={
@@ -115,7 +131,13 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
           noAutoScroll
           addDomId
           id={`${path}.Manifests`}
-          summary={<VariableAccordionSummary> {getString('manifests')}</VariableAccordionSummary>}
+          summary={
+            <VariableAccordionSummary>
+              <Text font={{ variation: FontVariation.SMALL_SEMI }} color={Color.BLACK}>
+                {getString('manifests')}
+              </Text>
+            </VariableAccordionSummary>
+          }
           summaryClassName={cx(css.variableBorderBottom, pipelineVariableCss.accordianSummaryL3)}
           details={
             !!manifestsVariables?.length && (
@@ -139,7 +161,13 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
         noAutoScroll
         addDomId
         id={`${path}.Variables`}
-        summary={<VariableAccordionSummary> {getString('variablesText')}</VariableAccordionSummary>}
+        summary={
+          <VariableAccordionSummary>
+            <Text font={{ variation: FontVariation.SMALL_SEMI }} color={Color.BLACK}>
+              {getString('variablesText')}
+            </Text>
+          </VariableAccordionSummary>
+        }
         summaryClassName={cx(css.variableBorderBottom, pipelineVariableCss.accordianSummaryL2)}
         details={
           <StepWidget<CustomVariablesData, CustomVariableEditableExtraProps>

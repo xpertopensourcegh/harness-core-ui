@@ -5,8 +5,8 @@
   }
   .header-row {
     display: inline-flex;
-    transform: translateY(-48px);
-    margin-left: 84%;
+    transform: translateY(-44px);
+    margin-left: 82%;
     width: 200px;
     height: 0;
     :global(.bp3-button) {
@@ -186,6 +186,12 @@
 .tooltip {
   display: block;
   padding: var(--spacing-small);
+}
+
+.buttonsActions {
+  &:hover path {
+    stroke: var(--primary-6) !important;
+  }
 }
 
 .custom-variables-input-sets {

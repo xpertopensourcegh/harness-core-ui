@@ -497,7 +497,7 @@ exports[`Harness Approval tests Basic snapshot - input variable view: harness-ap
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             name
           </span>
@@ -538,7 +538,7 @@ exports[`Harness Approval tests Basic snapshot - input variable view: harness-ap
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -556,7 +556,7 @@ exports[`Harness Approval tests Basic snapshot - input variable view: harness-ap
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             timeout
           </span>
@@ -597,7 +597,7 @@ exports[`Harness Approval tests Basic snapshot - input variable view: harness-ap
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -617,7 +617,7 @@ exports[`Harness Approval tests Basic snapshot - input variable view: harness-ap
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             approvalMessage
           </span>
@@ -658,7 +658,7 @@ exports[`Harness Approval tests Basic snapshot - input variable view: harness-ap
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -678,7 +678,7 @@ exports[`Harness Approval tests Basic snapshot - input variable view: harness-ap
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             includePipelineExecutionHistory
           </span>
@@ -719,7 +719,7 @@ exports[`Harness Approval tests Basic snapshot - input variable view: harness-ap
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -739,7 +739,7 @@ exports[`Harness Approval tests Basic snapshot - input variable view: harness-ap
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             userGroups
           </span>
@@ -780,7 +780,7 @@ exports[`Harness Approval tests Basic snapshot - input variable view: harness-ap
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -798,7 +798,7 @@ exports[`Harness Approval tests Basic snapshot - input variable view: harness-ap
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             minimumCount
           </span>
@@ -839,7 +839,7 @@ exports[`Harness Approval tests Basic snapshot - input variable view: harness-ap
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -859,7 +859,7 @@ exports[`Harness Approval tests Basic snapshot - input variable view: harness-ap
           class="text variable-name-cell"
         >
           <span
-            class=""
+            class="nameSection"
           >
             approverInputs
           </span>
@@ -900,7 +900,7 @@ exports[`Harness Approval tests Basic snapshot - input variable view: harness-ap
         </div>
       </div>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
         style="--text-line-clamp: 1;"
       >
         <span
