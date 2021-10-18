@@ -8,6 +8,16 @@ exports[`Test HarnessCDCurrentGenChangeSource Change Source HarnessCDCurrentGenC
     <div
       class="bp3-form-group"
     >
+      <label
+        class="bp3-label"
+        for="spec.harnessApplicationId"
+      >
+        cv.changeSource.HarnessCDCurrentGen.applicationId
+         
+        <span
+          class="bp3-text-muted"
+        />
+      </label>
       <div
         class="bp3-form-content"
       >

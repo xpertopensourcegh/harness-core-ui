@@ -118,6 +118,7 @@ export default function HarnessCDCurrentGenChangeSource({
     <Layout.Horizontal spacing={'xxlarge'}>
       <FormInput.Select
         name="spec.harnessApplicationId"
+        label={getString('cv.changeSource.HarnessCDCurrentGen.applicationId')}
         placeholder={getPlaceHolder(
           applicationsLoading,
           getString('cv.changeSource.HarnessCDCurrentGen.selectHarnessAppId'),
@@ -134,6 +135,7 @@ export default function HarnessCDCurrentGenChangeSource({
         <>
           <FormInput.Select
             name="spec.harnessServiceId"
+            label={getString('cv.harnessService')}
             placeholder={getPlaceHolder(
               loadingServices,
               getString('cv.changeSource.HarnessCDCurrentGen.selectHarnessService'),
@@ -145,6 +147,7 @@ export default function HarnessCDCurrentGenChangeSource({
           />
           <FormInput.Select
             name="spec.harnessEnvironmentId"
+            label={getString('cv.harnessEnvironment')}
             placeholder={getPlaceHolder(
               loadingEnvironments,
               getString('cv.changeSource.HarnessCDCurrentGen.selectHarnessEnv'),
