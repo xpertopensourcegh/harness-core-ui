@@ -82,7 +82,7 @@ export interface ActivityVerificationSummary {
   progress?: number
   progressPercentage?: number
   remainingTimeMs?: number
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   startTime?: number
   total?: number
   verficationStatusMap?: {
@@ -127,7 +127,7 @@ export interface AlertRuleDTO {
 export interface AnalysisResult {
   count?: number
   label?: number
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   riskScore?: number
   tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
 }
@@ -515,7 +515,7 @@ export interface ClusterSummary {
   count?: number
   label?: number
   risk?: number
-  riskLevel?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  riskLevel?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   score?: number
   testFrequencyData?: number[]
 }
@@ -729,7 +729,7 @@ export interface DeploymentResultSummary {
 
 export interface DeploymentTimeSeriesAnalysisDTO {
   hostSummaries?: HostInfo[]
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   score?: number
   transactionMetricSummaries?: TransactionMetricHostData[]
 }
@@ -744,7 +744,7 @@ export interface DeploymentVerificationJobInstanceSummary {
   logsAnalysisSummary?: LogsAnalysisSummary
   progressPercentage?: number
   remainingTimeMs?: number
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   startTime?: number
   status?:
     | 'IGNORED'
@@ -1632,8 +1632,6 @@ export type HarnessCDCurrentGenChangeSourceSpec = ChangeSourceSpec & {
 export type HarnessCDCurrentGenEventMetadata = ChangeEventMetadata & {
   accountId?: string
   appId?: string
-  artifactName?: string
-  artifactType?: string
   environmentId?: string
   name?: string
   serviceId?: string
@@ -1701,7 +1699,7 @@ export interface HostData {
   anomalous?: boolean
   controlData?: number[]
   hostName?: string
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   score?: number
   testData?: number[]
 }
@@ -1710,7 +1708,7 @@ export interface HostInfo {
   canary?: boolean
   hostName?: string
   primary?: boolean
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   score?: number
 }
 
@@ -1899,7 +1897,7 @@ export interface LearningEngineTask {
 }
 
 export interface LiveMonitoringLogAnalysisClusterDTO {
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
   text?: string
   x?: number
@@ -1933,7 +1931,7 @@ export interface LogAnalysisClusterChartDTO {
   clusterType?: 'KNOWN_EVENT' | 'UNKNOWN_EVENT' | 'UNEXPECTED_FREQUENCY'
   hostName?: string
   label?: number
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   text?: string
   x?: number
   y?: number
@@ -1945,7 +1943,7 @@ export interface LogAnalysisClusterDTO {
   count?: number
   label?: number
   message?: string
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   score?: number
   testFrequencyData?: number[]
 }
@@ -2007,7 +2005,7 @@ export interface LogData {
   count?: number
   label?: number
   riskScore?: number
-  riskStatus?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  riskStatus?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
   text?: string
   trend?: FrequencyDTO[]
@@ -2043,7 +2041,7 @@ export interface MessageFrequency {
 }
 
 export interface MetricData {
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   timestamp?: number
   value?: number
 }
@@ -3487,7 +3485,7 @@ export interface RestResponseVoid {
 export interface ResultSummary {
   controlClusterSummaries?: ControlClusterSummary[]
   risk?: number
-  riskLevel?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  riskLevel?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   score?: number
   testClusterSummaries?: ClusterSummary[]
 }
@@ -3495,7 +3493,7 @@ export interface ResultSummary {
 export interface RiskData {
   endTime?: number
   healthScore?: number
-  riskStatus?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  riskStatus?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   startTime?: number
   timeRangeParams?: TimeRangeParams
 }
@@ -3551,7 +3549,7 @@ export interface ServiceGuardTxnMetricAnalysisDataDTO {
   lastSeenTime?: number
   longTermPattern?: boolean
   metricType?: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX' | 'OTHER'
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   score?: number
   shortTermHistory?: number[]
 }
@@ -3573,7 +3571,7 @@ export interface ServiceSummaryDetails {
   environmentName?: string
   environmentRef?: string
   identifierRef?: string
-  riskLevel?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  riskLevel?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   riskScore?: number
   serviceName?: string
   serviceRef?: string
@@ -3857,7 +3855,7 @@ export interface TimeSeriesThresholdDTO {
 
 export interface TransactionMetric {
   metricName?: string
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   score?: number
   transactionName?: string
 }
@@ -3871,7 +3869,7 @@ export interface TransactionMetricHostData {
   anomalous?: boolean
   hostData?: HostData[]
   metricName?: string
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   score?: number
   transactionName?: string
 }
@@ -3902,7 +3900,7 @@ export interface TransactionMetricRisk {
   lastSeenTime?: number
   longTermPattern?: boolean
   metricName?: string
-  metricRisk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  metricRisk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   metricScore?: number
   transactionName?: string
 }
@@ -3940,7 +3938,7 @@ export interface VerificationResult {
   jobName?: string
   progressPercentage?: number
   remainingTimeMs?: number
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   startTime?: number
   status?:
     | 'IGNORED'

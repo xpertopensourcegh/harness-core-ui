@@ -2,6 +2,7 @@ import React from 'react'
 import { render, waitFor, fireEvent } from '@testing-library/react'
 import { Classes } from '@blueprintjs/core'
 import { TestWrapper } from '@common/utils/testUtils'
+import { RiskValues } from '@cv/utils/CommonUtils'
 import ColumnChart from '../ColumnChart'
 import type { ColumnChartProps } from '../ColumnChart.types'
 import { mockSeriesData } from './ColumnChart.mock'
@@ -56,7 +57,12 @@ describe('Unit tests for ColumnChart', () => {
     const { container } = render(
       <WrapperComponent
         data={[
-          { height: 0, timeRange: { startTime: 123213, endTime: 4535 }, color: 'var(--white)', riskStatus: 'MEDIUM' }
+          {
+            height: 0,
+            timeRange: { startTime: 123213, endTime: 4535 },
+            color: 'var(--white)',
+            riskStatus: RiskValues.NEED_ATTENTION
+          }
         ]}
       />
     )

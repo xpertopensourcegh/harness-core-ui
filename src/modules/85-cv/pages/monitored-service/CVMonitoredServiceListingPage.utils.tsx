@@ -13,7 +13,7 @@ import type {
   ResponseListEnvironmentResponse,
   RiskData
 } from 'services/cv'
-import { RiskValues, getRiskColorValue, RiskValuesTypes } from '@cv/utils/CommonUtils'
+import { RiskValues, getRiskColorValue } from '@cv/utils/CommonUtils'
 import type { FilterEnvInterface } from './CVMonitoredServiceListingPage.types'
 import { HistoricalTrendChartOption, DefaultChangePercentage } from './CVMonitoredServiceListingPage.constants'
 import css from './CVMonitoredServiceListingPage.module.scss'
@@ -74,20 +74,20 @@ export const getHistoricalTrendChartOption = (trendData: RiskData[]): Highcharts
   }
 }
 
-export const getRiskLabelStringId = (riskStatus?: RiskValuesTypes): keyof StringsMap => {
+export const getRiskLabelStringId = (riskStatus?: keyof typeof RiskValues): keyof StringsMap => {
   switch (riskStatus) {
     case RiskValues.NO_DATA:
       return 'noData'
     case RiskValues.NO_ANALYSIS:
       return 'cv.noAnalysis'
     case RiskValues.HEALTHY:
-      return 'connectors.cdng.verificationSensitivityLabel.low'
+      return 'cv.monitoredServices.serviceHealth.serviceDependencies.states.healthy'
     case RiskValues.OBSERVE:
-      return 'noData'
+      return 'cv.monitoredServices.serviceHealth.serviceDependencies.states.observe'
     case RiskValues.NEED_ATTENTION:
-      return 'connectors.cdng.verificationSensitivityLabel.medium'
+      return 'cv.monitoredServices.serviceHealth.serviceDependencies.states.needsAttention'
     case RiskValues.UNHEALTHY:
-      return 'connectors.cdng.verificationSensitivityLabel.high'
+      return 'cv.monitoredServices.serviceHealth.serviceDependencies.states.unhealthy'
     default:
       return 'na'
   }

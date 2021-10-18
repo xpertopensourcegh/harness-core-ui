@@ -14,7 +14,7 @@ exports[`ServiceDependenciesLegend Tests should render ServiceDependenciesLegend
       <p
         class="StyledProps--font StyledProps--main StyledProps--margin-right-small StyledProps--font-size-xsmall"
       >
-        connectors.cdng.verificationSensitivityLabel.high
+        cv.monitoredServices.serviceHealth.serviceDependencies.states.unhealthy
       </p>
     </div>
     <div
@@ -26,7 +26,7 @@ exports[`ServiceDependenciesLegend Tests should render ServiceDependenciesLegend
       <p
         class="StyledProps--font StyledProps--main StyledProps--margin-right-small StyledProps--font-size-xsmall"
       >
-        connectors.cdng.verificationSensitivityLabel.medium
+        cv.monitoredServices.serviceHealth.serviceDependencies.states.needsAttention
       </p>
     </div>
     <div
@@ -38,7 +38,19 @@ exports[`ServiceDependenciesLegend Tests should render ServiceDependenciesLegend
       <p
         class="StyledProps--font StyledProps--main StyledProps--margin-right-small StyledProps--font-size-xsmall"
       >
-        connectors.cdng.verificationSensitivityLabel.low
+        cv.monitoredServices.serviceHealth.serviceDependencies.states.observe
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main StyledProps--flex"
+    >
+      <div
+        class="StyledProps--font StyledProps--main serviceState"
+      />
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--margin-right-small StyledProps--font-size-xsmall"
+      >
+        cv.monitoredServices.serviceHealth.serviceDependencies.states.healthy
       </p>
     </div>
     <div

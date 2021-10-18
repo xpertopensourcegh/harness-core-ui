@@ -65,7 +65,7 @@ describe('Unit tests for VerifyExection', () => {
     expect(greyCount).toBe(3)
     expect(redCount).toBe(1)
     expect(greenCount).toBe(2)
-    expect(yellowCount).toBe(2)
+    expect(yellowCount).toBe(1)
   })
 
   test('Ensure that loading indicator is displayed when api is loading', async () => {

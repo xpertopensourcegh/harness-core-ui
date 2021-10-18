@@ -1,6 +1,7 @@
 import React from 'react'
 import { render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
+import { RiskValues } from '@cv/utils/CommonUtils'
 import ColumnChartPopoverContent from '../ColumnChartPopoverContent'
 import type { ColumnChartPopoverContentProps } from '../ColumnChartPopoverContent.types'
 
@@ -22,7 +23,7 @@ describe('Unittests for ColumnChartPopover', () => {
             endTime: 2342423
           },
           color: 'var(--grey-100)',
-          riskStatus: 'NO_DATA',
+          riskStatus: RiskValues.NO_DATA,
           height: 1
         }}
       />
@@ -42,7 +43,7 @@ describe('Unittests for ColumnChartPopover', () => {
           },
           color: 'var(--black)',
           healthScore: 2,
-          riskStatus: 'HIGH',
+          riskStatus: RiskValues.UNHEALTHY,
           height: 45
         }}
       />
