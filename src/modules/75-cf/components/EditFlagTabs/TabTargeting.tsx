@@ -1,16 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import {
-  Button,
-  FlexExpander,
-  Formik,
-  FormikForm as Form,
-  FormInput,
-  Layout,
-  Text,
-  useModalHook
-} from '@wings-software/uicore'
-import { Classes, Dialog, Switch } from '@blueprintjs/core'
+import { FlexExpander, Layout, Text } from '@wings-software/uicore'
+import { Classes, Switch } from '@blueprintjs/core'
 import cx from 'classnames'
+import type { FormikProps } from 'formik'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
@@ -22,18 +14,16 @@ import type { Feature } from 'services/cf'
 import { TargetAttributesProvider } from '@cf/hooks/useTargetAttributes'
 import CustomRulesView from './CustomRulesView'
 import { DefaultRulesView } from './DefaultRulesView'
+import type { FlagActivationFormValues } from '../FlagActivation/FlagActivation'
 import css from '../FlagActivation/FlagActivation.module.scss'
 
-interface TabTargetingProps {
+export interface TabTargetingProps {
   feature: Feature
-  formikProps: any
+  formikProps: FormikProps<FlagActivationFormValues>
   editing: boolean
-  refetch: any
-  targetData: Feature
-  isBooleanTypeFlag?: boolean
-  projectIdentifier: string
-  environmentIdentifier: string
   setEditing: (flag: boolean) => void
+  environmentIdentifier: string
+  projectIdentifier: string
   org: string
   accountIdentifier: string
 }
@@ -42,7 +32,6 @@ const TabTargeting: React.FC<TabTargetingProps> = props => {
   const {
     feature,
     formikProps,
-    targetData,
     editing,
     setEditing,
     environmentIdentifier,
@@ -67,27 +56,6 @@ const TabTargeting: React.FC<TabTargetingProps> = props => {
     if (!editing && isEditRulesOn) setEditRulesOn(false)
   }, [editing, isEditRulesOn])
 
-  const [, hideTargetModal] = useModalHook(() => (
-    <Dialog enforceFocus={false} onClose={hideTargetModal} title="" isOpen={true}>
-      <Layout.Vertical>
-        <Text>{getString('cf.featureFlags.rules.serveToFollowing')}</Text>
-
-        <Formik initialValues={{}} formName="tabTargeting" onSubmit={() => alert('To be implemented...')}>
-          {() => (
-            <Form>
-              <FormInput.TextArea name="targets" />
-            </Form>
-          )}
-        </Formik>
-
-        <Layout.Horizontal>
-          <Button intent="primary" text={getString('save')} onClick={() => alert('To be implemented...')} />
-          <Button minimal text={getString('cancel')} onClick={hideTargetModal} />
-        </Layout.Horizontal>
-      </Layout.Vertical>
-    </Dialog>
-  ))
-
   const onEditBtnHandler = (): void => {
     setEditRulesOn(!isEditRulesOn)
     setEditing(true)
@@ -95,12 +63,12 @@ const TabTargeting: React.FC<TabTargetingProps> = props => {
 
   const showCustomRules =
     editing ||
-    (targetData?.envProperties?.rules?.length || 0) > 0 ||
-    (targetData?.envProperties?.variationMap?.length || 0) > 0
-  const isFlagSwitchChanged = targetData.envProperties?.state !== formikProps.values.state
+    (feature?.envProperties?.rules?.length || 0) > 0 ||
+    (feature?.envProperties?.variationMap?.length || 0) > 0
+  const isFlagSwitchChanged = feature.envProperties?.state !== formikProps.values.state
   const switchOff = (formikProps.values.state || FeatureFlagActivationStatus.OFF) === FeatureFlagActivationStatus.OFF
 
-  const onChangeSwitchEnv = (_: string, _formikProps: any): void => {
+  const onChangeSwitchEnv = (_: string, _formikProps: FormikProps<FlagActivationFormValues>): void => {
     _formikProps.setFieldValue(
       'state',
       _formikProps.values.state === FeatureFlagActivationStatus.OFF
@@ -116,12 +84,8 @@ const TabTargeting: React.FC<TabTargetingProps> = props => {
       accountIdentifier={accountIdentifier}
       environment={environmentIdentifier}
     >
-      <Layout.Vertical padding={{ left: 'huge', right: 'large', bottom: 'large' }}>
-        <Layout.Horizontal
-          className={css.contentHeading}
-          style={{ alignItems: 'center' }}
-          margin={{ top: 'small', bottom: 'xlarge' }}
-        >
+      <Layout.Vertical padding={{ left: 'huge', right: 'large', bottom: 'large' }} spacing="medium">
+        <Layout.Horizontal className={css.contentHeading} flex={{ alignItems: 'center' }}>
           <Text
             tooltip={
               !canToggle ? (
@@ -167,23 +131,14 @@ const TabTargeting: React.FC<TabTargetingProps> = props => {
             }}
           />
         </Layout.Horizontal>
-        <Layout.Vertical>
-          <DefaultRulesView
-            formikProps={formikProps}
-            editing={isEditRulesOn}
-            defaultOnVariation={targetData.defaultOnVariation}
-            bucketBy={targetData.envProperties?.defaultServe.distribution?.bucketBy}
-            weightedVariations={targetData.envProperties?.defaultServe.distribution?.variations}
-            variations={targetData.variations}
-          />
-        </Layout.Vertical>
-        <Layout.Vertical>
+
+        <Layout.Vertical spacing="medium">
+          <DefaultRulesView formikProps={formikProps} editing={isEditRulesOn} variations={feature.variations} />
           {showCustomRules && (
             <CustomRulesView
               feature={feature}
               editing={isEditRulesOn}
               formikProps={formikProps}
-              target={targetData}
               environment={environmentIdentifier}
               project={projectIdentifier}
             />

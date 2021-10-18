@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState, useCallback } from 'react'
+import React, { useEffect, useMemo, useState, useCallback, MouseEvent } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
 import type { FormikActions } from 'formik'
@@ -13,7 +13,7 @@ import {
   FlexExpander,
   useModalHook,
   Formik,
-  FormikForm as Form
+  FormikForm
 } from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
 import cx from 'classnames'
@@ -25,7 +25,6 @@ import {
   Clause,
   Serve,
   VariationMap,
-  WeightedVariation,
   TargetMap,
   PatchFeatureQueryParams
 } from 'services/cf'
@@ -56,12 +55,11 @@ const WAIT_TIME_FOR_NEWLY_CREATED_ENVIRONMENT = 3000
 interface FlagActivationProps {
   project: string
   flagData: Feature
-  isBooleanFlag: boolean
-  refetchFlag: () => Promise<any>
+  refetchFlag: () => Promise<unknown>
 }
 
-interface Values {
-  [key: string]: any
+export interface FlagActivationFormValues {
+  [key: string]: unknown
   state: string
   offVariation: string
   defaultServe: Serve
@@ -81,7 +79,7 @@ const fromVariationMapToObj = (variationMap: VariationMap[]) =>
   }, {})
 
 const FlagActivation: React.FC<FlagActivationProps> = props => {
-  const { flagData, project, isBooleanFlag, refetchFlag } = props
+  const { flagData, project, refetchFlag } = props
   const { showError } = useToaster()
   const [editing, setEditing] = useState(false)
   const [loadingFlags, setLoadingFlags] = useState(false)
@@ -120,8 +118,6 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
         state: flagData.envProperties?.state as string,
         onVariation: flagData.envProperties?.defaultServe.variation
           ? flagData.envProperties?.defaultServe.variation
-          : flagData.envProperties?.defaultServe.distribution
-          ? 'percentage'
           : flagData.defaultOnVariation,
         offVariation: flagData.envProperties?.offVariation as string,
         defaultServe: flagData.envProperties?.defaultServe as Serve,
@@ -142,7 +138,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
   }
 
   const onSaveChanges = useCallback(
-    (values: Values, formikActions: FormikActions<Values>): void => {
+    (values: FlagActivationFormValues, formikActions: FormikActions<FlagActivationFormValues>): void => {
       // handle flag state changed - e.g. toggled from off to on
       if (values.state !== initialValues.state) {
         patch.feature.addInstruction(patch.creators.setFeatureFlagState(values?.state as FeatureState))
@@ -151,20 +147,9 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
       if (!isEqual(values.offVariation, initialValues.offVariation)) {
         patch.feature.addInstruction(patch.creators.updateOffVariation(values.offVariation as string))
       }
-      // handle flag default on variation changed - if not set to percentage rollout
+      // handle flag default on variation changed
       if (!isEqual(values.onVariation, initialValues.onVariation)) {
-        if (values.onVariation !== 'percentage') {
-          patch.feature.addInstruction(patch.creators.updateDefaultServeByVariation(values.onVariation as string))
-        }
-      }
-      // handle flag default on variation changed - if set to percentage rollout
-      if (!isEqual(values.defaultServe, initialValues.defaultServe) && values.onVariation === 'percentage') {
-        patch.feature.addInstruction(
-          patch.creators.updateDefaultServeByBucket(
-            values.defaultServe.distribution?.bucketBy || '',
-            values.defaultServe.distribution?.variations || []
-          )
-        )
+        patch.feature.addInstruction(patch.creators.updateDefaultServeByVariation(values.onVariation as string))
       }
       // handle custom rules changed (does not include target variations)
       if (!isEqual(values.customRules, initialValues.customRules)) {
@@ -244,13 +229,9 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
                 patch.feature.addInstruction(patch.creators.updateClause(initial.ruleId, c.id, toClauseData(updated)))
               )
 
-            // handle update to existing rule serve value (true/false/percentage rollout)
-            if (!isEqual(initial?.serve, current?.serve) && current) {
-              const variation =
-                (current.serve.distribution as { bucketBy: string; variations: WeightedVariation[] }) ??
-                current.serve.variation
-
-              patch.feature.addAllInstructions([patch.creators.updateRuleVariation(current?.ruleId, variation)])
+            // handle update to existing rule serve value (true/false)
+            if (current?.serve?.variation && !isEqual(initial?.serve?.variation, current?.serve?.variation)) {
+              patch.feature.addInstruction(patch.creators.updateRuleVariation(current?.ruleId, current.serve.variation))
             }
           })
       }
@@ -361,7 +342,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
     rules?: RuleErrors
     variationMap?: VariationMapErrors
   }
-  const validateForm = (values: Values) => {
+  const validateForm = (values: FlagActivationFormValues): FormErrors => {
     const errors: FormErrors = {}
 
     const [rules, validRules] = validateRules(values.customRules)
@@ -465,7 +446,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
     >
       {formikProps => {
         return (
-          <Form>
+          <FormikForm {...formikProps}>
             <Container className={css.formContainer}>
               <Layout.Horizontal
                 flex
@@ -497,9 +478,6 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
                           <TabTargeting
                             formikProps={formikProps}
                             editing={editing}
-                            refetch={refetchFlag}
-                            targetData={flagData}
-                            isBooleanTypeFlag={isBooleanFlag}
                             projectIdentifier={project}
                             environmentIdentifier={activeEnvironment}
                             setEditing={setEditing}
@@ -535,17 +513,13 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
               </Container>
               {(editing || formikProps.values.state !== flagData.envProperties?.state) &&
                 activeTabId === FFDetailPageTab.TARGETING && (
-                  <Layout.Horizontal className={css.actionButtons} padding="medium">
-                    <Button
-                      intent="primary"
-                      text={getString('save')}
-                      margin={{ right: 'small' }}
-                      onClick={formikProps.submitForm}
-                    />
+                  <Layout.Horizontal className={css.actionButtons} padding="medium" spacing="small">
+                    <Button type="submit" intent="primary" text={getString('save')} />
                     <Button
                       minimal
                       text={getString('cancel')}
-                      onClick={() => {
+                      onClick={(e: MouseEvent) => {
+                        e.preventDefault()
                         onCancelEditHandler()
                         formikProps.handleReset()
                       }}
@@ -553,7 +527,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
                   </Layout.Horizontal>
                 )}
             </Container>
-          </Form>
+          </FormikForm>
         )
       }}
     </Formik>

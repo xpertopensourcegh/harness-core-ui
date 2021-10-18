@@ -7,7 +7,7 @@
   margin-bottom: var(--spacing-xxlarge) !important;
   border: 1px solid var(--grey-200);
   background: var(--white);
-  box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
+  box-shadow: 0 0 1px rgba(40, 41, 61, 0.04), 0 2px 4px rgba(96, 97, 112, 0.16);
   border-radius: 6px;
 
   &.custom {
@@ -25,7 +25,6 @@
     }
 
     .bp3-input-left-container {
-      margin-top: 4px !important;
       margin-left: 2px;
     }
   }
@@ -143,21 +142,8 @@
   }
 }
 
-.defaultServe {
-  // :global {
-  //   .bp3-form-group {
-  //     margin-bottom: 0;
-  //     margin-left: var(--spacing-small);
-
-  //     .bp3-input-left-container {
-  //       padding-top: 2px;
-  //     }
-  //   }
-  // }
-
-  &.editing {
-    padding-left: 6px !important;
-  }
+.defaultServe.editing {
+  padding-left: var(--spacing-4) !important;
 }
 
 .serveLabel {
@@ -174,7 +160,7 @@
 }
 
 .serveCard {
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
 }
 

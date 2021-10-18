@@ -874,10 +874,9 @@ const ServingCard: React.FC<ServingCardProps> = ({
   )
 }
 
-interface CustomRulesViewProps {
+export interface CustomRulesViewProps {
   feature: Feature
   formikProps: any
-  target: Feature
   editing: boolean
   environment: string
   project: string
@@ -891,18 +890,11 @@ function arrayMove<T>(arr: T[], from: number, to: number): T[] {
   }
 }
 
-const CustomRulesView: React.FC<CustomRulesViewProps> = ({
-  feature,
-  formikProps,
-  target,
-  editing,
-  environment,
-  project
-}) => {
+const CustomRulesView: React.FC<CustomRulesViewProps> = ({ feature, formikProps, editing, environment, project }) => {
   const { getString } = useStrings()
   const tempRules: ServingRule[] = formikProps.values.customRules
   const setTempRules = (data: RuleData[]) => formikProps.setFieldValue('customRules', data)
-  const servings = formikProps.values.variationMap
+  const servings = formikProps.values.variationMap || []
   const setServings = (data: Serving[]) => formikProps.setFieldValue('variationMap', data)
 
   const handleAddServing = () => setServings([...servings, emptyServing()])
@@ -957,7 +949,7 @@ const CustomRulesView: React.FC<CustomRulesViewProps> = ({
               formikProps={formikProps}
               editing={editing}
               servings={servings}
-              variations={target.variations}
+              variations={feature.variations}
               environment={environment}
               project={project}
               onAdd={handleAddServing}
@@ -1006,13 +998,13 @@ const CustomRulesView: React.FC<CustomRulesViewProps> = ({
                             index={idx}
                             rule={rule}
                             dropSnapshot={dropSnapshot}
-                            variations={target.variations}
+                            variations={feature.variations}
                             onDelete={handleDeleteRule(idx)}
                             onChange={handleRuleChange(idx)}
                             errors={formikProps.errors?.rules?.[idx] || []}
                           />
                         ) : (
-                          <RuleViewCard key={idx} rule={rule} variations={target.variations} />
+                          <RuleViewCard key={idx} rule={rule} variations={feature.variations} />
                         )
                       })}
                     </Layout.Vertical>

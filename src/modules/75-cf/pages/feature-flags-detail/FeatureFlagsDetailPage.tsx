@@ -94,7 +94,6 @@ const FeatureFlagsDetailPage: React.FC = () => {
               }}
               project={projectIdentifier as string}
               flagData={featureFlag}
-              isBooleanFlag={featureFlag.kind === 'boolean'}
             />
           )}
         </Layout.Vertical>
