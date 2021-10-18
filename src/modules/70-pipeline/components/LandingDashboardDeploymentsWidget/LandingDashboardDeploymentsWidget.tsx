@@ -9,8 +9,11 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { OverviewChartsWithToggle } from '@common/components/OverviewChartsWithToggle/OverviewChartsWithToggle'
 import { StackedSummaryTable } from '@common/components/StackedSummaryTable/StackedSummaryTable'
 import { PageSpinner } from '@common/components'
+import routes from '@common/RouteDefinitions'
 import { useGetDeploymentStatsOverview } from 'services/dashboard-service'
 import { useErrorHandler } from '@pipeline/components/Dashboards/shared'
+import DashboardAPIErrorWidget from '@projects-orgs/components/DashboardAPIErrorWidget/DashboardAPIErrorWidget'
+import DashboardNoDataWidget from '@projects-orgs/components/DashboardNoDataWidget/DashboardNoDataWidget'
 
 import css from './LandingDashboardDeploymentsWidget.module.scss'
 
@@ -46,22 +49,26 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
   const deploymentStatsData = useMemo(() => {
     const successData: number[] = []
     const failureData: number[] = []
+    const custom: any = []
     if (response?.deploymentsStatsSummary?.deploymentStats?.length) {
       response.deploymentsStatsSummary.deploymentStats.forEach(val => {
         successData.push(defaultTo(val.countWithSuccessFailureDetails?.successCount, 0))
         failureData.push(defaultTo(val.countWithSuccessFailureDetails?.failureCount, 0))
+        custom.push(val)
       })
     }
     return [
       {
         name: 'Failed',
         data: failureData,
-        color: '#EE5F54'
+        color: '#EE5F54',
+        custom
       },
       {
         name: 'Success',
         data: successData,
-        color: '#5FB34E'
+        color: '#5FB34E',
+        custom
       }
     ]
   }, [data])
@@ -129,9 +136,15 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
   }
 
   const getTooltip = (currPoint: TooltipFormatterContextObject): string => {
+    const custom = currPoint?.series?.userOptions?.custom
+    const point = custom?.[currPoint.key]
+    const time = point
+      ? new Date(point.time).toLocaleDateString('en-US', { day: 'numeric', month: 'long' })
+      : currPoint.x
+
     return `<div style="padding: 16px; color: white; width: 282px; height: 128px;">
         <div style="display: flex; justify-content: space-between; border-bottom: 0.5px solid rgba(243, 243, 250); padding-bottom: 7px; margin-bottom: 15px;">
-          <div style="font-weight: normal; font-size: 12px; line-height: 18px; opacity: 0.8;">${currPoint.x}</div>
+          <div style="font-weight: normal; font-size: 12px; line-height: 18px; opacity: 0.8;">${time}</div>
           <div>
             <span style="white-space: pre; font-weight: bold; font-size: 12px; line-height: 18px; opacity: 0.8;">Deployments: </span>
             <span style="font-weight: bold; font-size: 12px; line-height: 18px;">${currPoint.y}</span>
@@ -187,6 +200,33 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
     )
   }
 
+  if (!response || error) {
+    return (
+      <Layout.Horizontal className={css.loaderContainer}>
+        <Card style={{ width: '100%', marginTop: '20px' }}>
+          <DashboardAPIErrorWidget className={css.apiErrorWidget} callback={refetch} iconProps={{ size: 90 }} />
+        </Card>
+      </Layout.Horizontal>
+    )
+  }
+
+  if (!response.deploymentsStatsSummary?.countAndChangeRate?.count) {
+    return (
+      <Layout.Horizontal className={css.loaderContainer}>
+        <Card style={{ width: '100%', marginTop: '20px' }}>
+          <DashboardNoDataWidget
+            label={
+              <Text color={Color.GREY_400} style={{ fontSize: '14px' }} margin="medium">
+                {'No Deployments'}
+              </Text>
+            }
+            getStartedLink={routes.toCDHome({ accountId })}
+          />
+        </Card>
+      </Layout.Horizontal>
+    )
+  }
+
   return (
     <div className={css.main}>
       <Card className={css.badgesContainer}>
@@ -227,6 +267,7 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
             />
           </Layout.Horizontal>
           <StackedSummaryTable
+            barLength={210}
             columnHeaders={['SERVICES', 'DEPLOYMENTS']}
             summaryData={defaultTo(mostActiveServicesData, [])}
           />
