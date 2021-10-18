@@ -184,26 +184,6 @@ exports[`Validate ChangeCard should render Pager Duty card 1`] = `
               <p
                 class="StyledProps--font StyledProps--main summaryKey"
               >
-                assignee
-              </p>
-            </div>
-            <div
-              class="StyledProps--font StyledProps--main summaryCell"
-            >
-              <p
-                class="StyledProps--font StyledProps--main summaryValue"
-              />
-            </div>
-          </div>
-          <div
-            class="summaryRow"
-          >
-            <div
-              class="StyledProps--font StyledProps--main summaryCell"
-            >
-              <p
-                class="StyledProps--font StyledProps--main summaryKey"
-              >
                 urgency
               </p>
             </div>

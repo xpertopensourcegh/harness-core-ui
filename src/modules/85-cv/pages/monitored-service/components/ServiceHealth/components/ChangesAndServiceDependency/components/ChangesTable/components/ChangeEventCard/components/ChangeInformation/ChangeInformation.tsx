@@ -23,7 +23,8 @@ export default function ChangeInformation({ infoData }: { infoData: ChangeInfoDa
         <div className={css.summaryTable}>
           {Object.entries(infoData.summary).map(item => {
             const itemHasURL = typeof item[1] !== 'string' ? !!item[1]?.url : false
-            return (
+            const value = typeof item[1] === 'string' ? item[1] : item[1]?.name
+            return value ? (
               <div key={item[0]} className={cx(css.summaryRow)}>
                 <Container className={css.summaryCell}>
                   <Text className={cx(css.summaryKey)}>{item[0]}</Text>
@@ -33,11 +34,11 @@ export default function ChangeInformation({ infoData }: { infoData: ChangeInfoDa
                     className={cx(css.summaryValue, itemHasURL && css.isLink)}
                     {...(typeof item[1] !== 'string' ? getOnClickOptions(item[1]) : {})}
                   >
-                    {typeof item[1] === 'string' ? item[1] : item[1]?.name}
+                    {value}
                   </Text>
                 </Container>
               </div>
-            )
+            ) : null
           })}
         </div>
       </Container>
