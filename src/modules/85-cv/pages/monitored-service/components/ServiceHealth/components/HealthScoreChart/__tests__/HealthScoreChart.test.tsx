@@ -28,7 +28,7 @@ describe('Unit tests for HealthScoreChart', () => {
     const props = {
       envIdentifier: '1234_env',
       serviceIdentifier: '1234_service',
-      duration: TimePeriodEnum.TWENTY_FOUR_HOURS
+      duration: { value: TimePeriodEnum.TWENTY_FOUR_HOURS, label: 'twenty_four_hours' }
     }
     const { container } = render(<WrapperComponent {...props} />)
     expect(container).toMatchSnapshot()
@@ -43,7 +43,7 @@ describe('Unit tests for HealthScoreChart', () => {
       <WrapperComponent
         envIdentifier="1234_env"
         serviceIdentifier="1234_service"
-        duration={TimePeriodEnum.TWENTY_FOUR_HOURS}
+        duration={{ value: TimePeriodEnum.TWENTY_FOUR_HOURS, label: 'twenty_four_hours' }}
         endTime={23234}
       />
     )

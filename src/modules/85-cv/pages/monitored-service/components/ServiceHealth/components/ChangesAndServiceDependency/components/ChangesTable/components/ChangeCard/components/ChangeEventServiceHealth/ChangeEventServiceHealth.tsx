@@ -21,7 +21,7 @@ export default function ChangeEventServiceHealth(props: ChangeEventServiceHealth
       <HealthScoreChart
         envIdentifier={envIdentifier}
         serviceIdentifier={serviceIdentifier}
-        duration={TimePeriodEnum.FOUR_HOURS}
+        duration={{ value: TimePeriodEnum.FOUR_HOURS, label: getString('cv.monitoredServices.serviceHealth.last4Hrs') }}
         columChartProps={{
           ...COLUMN_CHART_PROPS,
           timestampMarker: {

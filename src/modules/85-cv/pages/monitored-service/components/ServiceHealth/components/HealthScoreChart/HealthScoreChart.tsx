@@ -9,6 +9,7 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { ColumnData } from '@cv/components/ColumnChart/ColumnChart.types'
 import type { HealthScoreChartProps } from './HealthScoreChart.types'
 import { getSeriesData } from './HealthScoreChart.utils'
+import type { TimePeriodEnum } from '../../ServiceHealth.constants'
 import css from './HealthScoreChart.module.scss'
 
 export default function HealthScoreChart(props: HealthScoreChartProps): JSX.Element {
@@ -29,7 +30,7 @@ export default function HealthScoreChart(props: HealthScoreChartProps): JSX.Elem
       accountId,
       orgIdentifier,
       projectIdentifier,
-      duration,
+      duration: duration?.value as TimePeriodEnum,
       endTime: endTime || Date.now()
     },
     lazy: true
@@ -40,7 +41,7 @@ export default function HealthScoreChart(props: HealthScoreChartProps): JSX.Elem
       fetchHealthScore()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [duration, envIdentifier, serviceIdentifier])
+  }, [duration?.value, envIdentifier, serviceIdentifier])
 
   useEffect(() => {
     if (healthScoreData?.data?.healthScores && !isEmpty(healthScoreData?.data?.healthScores)) {
@@ -59,6 +60,7 @@ export default function HealthScoreChart(props: HealthScoreChartProps): JSX.Elem
         </Text>
         <ColumnChart
           data={seriesData}
+          duration={duration}
           leftOffset={90}
           {...columChartProps}
           isLoading={loading}

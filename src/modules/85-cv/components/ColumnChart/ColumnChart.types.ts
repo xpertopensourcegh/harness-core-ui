@@ -1,4 +1,5 @@
 import type { GetDataError } from 'restful-react'
+import type { SelectOption } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
 import type { RiskData } from 'services/cv'
 
 export type ColumnData = {
@@ -18,6 +19,7 @@ export interface ColumnChartProps {
   columnWidth?: number
   isLoading?: boolean
   error?: GetDataError<unknown> | null
+  duration?: SelectOption
   refetchOnError?: () => void
   columnHeight?: number
   timestampMarker?: {

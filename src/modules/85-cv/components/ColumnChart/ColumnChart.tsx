@@ -23,7 +23,8 @@ export default function ColumnChart(props: ColumnChartProps): JSX.Element {
     error,
     refetchOnError,
     columnHeight = COLUMN_HEIGHT,
-    timestampMarker
+    timestampMarker,
+    duration
   } = props
   const containerRef = useRef<HTMLDivElement>(null)
   const [cellPositions, setCellPositions] = useState<number[]>(Array(TOTAL_COLUMNS).fill(null))
@@ -78,8 +79,10 @@ export default function ColumnChart(props: ColumnChartProps): JSX.Element {
       <NoDataCard
         message={
           <>
-            <Text font={{ size: 'small' }} margin={{ top: 'xxsmall' }}>
-              {getString('cv.monitoredServices.serviceHealth.noDataAvailableForHealthScore')}
+            <Text font={{ size: 'small' }}>
+              {getString('cv.monitoredServices.serviceHealth.noDataAvailableForHealthScore', {
+                duration: duration?.label?.toLowerCase()
+              })}
             </Text>
             <Text font={{ size: 'small' }}>
               {getString('cv.monitoredServices.serviceHealth.pleaseSelectAnotherTimeWindow')}

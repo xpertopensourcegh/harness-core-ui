@@ -161,7 +161,7 @@ export default function ServiceHealth({
               ref={containerRef}
             >
               <HealthScoreChart
-                duration={selectedTimePeriod?.value as TimePeriodEnum}
+                duration={selectedTimePeriod}
                 setHealthScoreData={setHealthScoreData}
                 serviceIdentifier={serviceIdentifier}
                 envIdentifier={environmentIdentifier}
