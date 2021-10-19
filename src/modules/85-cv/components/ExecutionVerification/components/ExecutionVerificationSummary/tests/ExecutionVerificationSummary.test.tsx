@@ -62,7 +62,7 @@ describe('Unit tests for VerifyExection', () => {
       }
     })
 
-    expect(greyCount).toBe(3)
+    expect(greyCount).toBe(4)
     expect(redCount).toBe(1)
     expect(greenCount).toBe(2)
     expect(yellowCount).toBe(1)

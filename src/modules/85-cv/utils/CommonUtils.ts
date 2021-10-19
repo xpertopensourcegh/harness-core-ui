@@ -12,8 +12,6 @@ export enum RiskValues {
 
 export function getRiskColorValue(riskStatus?: keyof typeof RiskValues, realCSSColor = true): string {
   switch (riskStatus) {
-    case RiskValues.NO_DATA:
-      return realCSSColor ? Utils.getRealCSSColor(Color.GREY_400) : Color.GREY_400
     case RiskValues.HEALTHY:
       return realCSSColor ? Utils.getRealCSSColor(Color.GREEN_500) : Color.GREEN_500
     case RiskValues.OBSERVE:
@@ -23,7 +21,7 @@ export function getRiskColorValue(riskStatus?: keyof typeof RiskValues, realCSSC
     case RiskValues.UNHEALTHY:
       return realCSSColor ? Utils.getRealCSSColor(Color.RED_600) : Color.RED_600
     default:
-      return realCSSColor ? Utils.getRealCSSColor(Color.GREY_200) : Color.GREY_200
+      return realCSSColor ? Utils.getRealCSSColor(Color.GREY_400) : Color.GREY_400
   }
 }
 

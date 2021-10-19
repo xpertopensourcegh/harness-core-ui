@@ -11,7 +11,7 @@ describe('Unit tests for DeploymentMetricsAnalysisRow', () => {
     await waitFor(() => expect(container.querySelector('[class*="transactionMetric"]')).not.toBeNull())
     expect(container.querySelector('[class*="graphs"]')?.children.length).toBe(8)
     expect(container.querySelectorAll(`path[stroke="${getRiskColorValue(RiskValues.NO_DATA)}"]`).length).toBe(2)
-    expect(container.querySelectorAll(`path[stroke="${getRiskColorValue(RiskValues.NO_ANALYSIS)}"]`).length).toBe(1)
+    expect(container.querySelectorAll(`path[stroke="${getRiskColorValue(RiskValues.NO_ANALYSIS)}"]`).length).toBe(2)
     expect(container.querySelectorAll(`path[stroke="${getRiskColorValue(RiskValues.HEALTHY)}"]`).length).toBe(2)
     expect(container.querySelectorAll(`path[stroke="${getRiskColorValue(RiskValues.OBSERVE)}"]`).length).toBe(1)
     expect(container.querySelectorAll(`path[stroke="${getRiskColorValue(RiskValues.NEED_ATTENTION)}"]`).length).toBe(2)

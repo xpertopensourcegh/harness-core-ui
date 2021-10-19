@@ -8,8 +8,8 @@ describe('Test for getRiskColorValue', () => {
     expect(getRiskColorValue(RiskValues.OBSERVE)).toEqual(Utils.getRealCSSColor(Color.YELLOW_800))
     expect(getRiskColorValue(RiskValues.NEED_ATTENTION)).toEqual(Utils.getRealCSSColor(Color.ORANGE_600))
     expect(getRiskColorValue(RiskValues.UNHEALTHY)).toEqual(Utils.getRealCSSColor(Color.RED_600))
-    expect(getRiskColorValue(RiskValues.NO_ANALYSIS)).toEqual(Utils.getRealCSSColor(Color.GREY_200))
-    expect(getRiskColorValue()).toEqual(Utils.getRealCSSColor(Color.GREY_200))
+    expect(getRiskColorValue(RiskValues.NO_ANALYSIS)).toEqual(Utils.getRealCSSColor(Color.GREY_400))
+    expect(getRiskColorValue()).toEqual(Utils.getRealCSSColor(Color.GREY_400))
   }),
     test('getRiskColorValue should return correct non realCSSColors', () => {
       expect(getRiskColorValue(RiskValues.NO_DATA, false)).toEqual(Color.GREY_400)
@@ -17,8 +17,8 @@ describe('Test for getRiskColorValue', () => {
       expect(getRiskColorValue(RiskValues.OBSERVE, false)).toEqual(Color.YELLOW_800)
       expect(getRiskColorValue(RiskValues.NEED_ATTENTION, false)).toEqual(Color.ORANGE_600)
       expect(getRiskColorValue(RiskValues.UNHEALTHY, false)).toEqual(Color.RED_600)
-      expect(getRiskColorValue(RiskValues.NO_ANALYSIS, false)).toEqual(Color.GREY_200)
-      expect(getRiskColorValue()).toEqual(Utils.getRealCSSColor(Color.GREY_200))
+      expect(getRiskColorValue(RiskValues.NO_ANALYSIS, false)).toEqual(Color.GREY_400)
+      expect(getRiskColorValue()).toEqual(Utils.getRealCSSColor(Color.GREY_400))
     })
 })
 

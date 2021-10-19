@@ -55,10 +55,10 @@ describe('Unit tests for Deployment Nodes', () => {
     ).toBe(1)
     expect(
       container.querySelectorAll(`[data-node-health-color="${getRiskColorValue(RiskValues.NO_ANALYSIS)}"]`).length
-    ).toBe(2)
+    ).toBe(3)
     expect(
       container.querySelectorAll(`[data-node-health-color="${getRiskColorValue(RiskValues.NO_DATA)}"]`).length
-    ).toBe(1)
+    ).toBe(3)
 
     // make sure popover has right contents
     fireEvent.mouseOver(container.querySelector('[class*="hexagonContainer"]')!)
