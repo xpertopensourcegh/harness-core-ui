@@ -24,7 +24,7 @@ durationPrefix: 'Duration: '
 pipelineDetails: Pipeline Details
 accountName: Account Name
 readOnly: Read Only
-editYaml: Edit Yaml
+editYaml: Edit YAML
 provisioner: Provisioner
 templates: Templates
 comments: Comments
