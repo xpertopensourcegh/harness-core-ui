@@ -30,11 +30,6 @@ exports[`Unit tests for HealthScoreChart Verify if all the fields are rendered c
           >
             cv.monitoredServices.serviceHealth.noDataAvailableForHealthScore
           </p>
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--font-size-small"
-          >
-            cv.monitoredServices.serviceHealth.pleaseSelectAnotherTimeWindow
-          </p>
           <div
             class="buttonContainer"
           />

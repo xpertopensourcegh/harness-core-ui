@@ -22,6 +22,7 @@ export interface ColumnChartProps {
   duration?: SelectOption
   refetchOnError?: () => void
   columnHeight?: number
+  hasTimelineIntegration?: boolean
   timestampMarker?: {
     timestamp: number
     color: string

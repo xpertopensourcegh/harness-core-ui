@@ -161,6 +161,7 @@ export default function ServiceHealth({
               ref={containerRef}
             >
               <HealthScoreChart
+                hasTimelineIntegration
                 duration={selectedTimePeriod}
                 setHealthScoreData={setHealthScoreData}
                 serviceIdentifier={serviceIdentifier}

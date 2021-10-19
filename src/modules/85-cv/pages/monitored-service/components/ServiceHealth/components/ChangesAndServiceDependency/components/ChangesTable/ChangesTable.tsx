@@ -48,7 +48,13 @@ export default function ChangesTable({
     onClose: noop
   } as IDrawerProps
   const { showDrawer } = useDrawer({
-    createDrawerContent: props => <ChangeEventCard activityId={props.id} />,
+    createDrawerContent: props => (
+      <ChangeEventCard
+        activityId={props.id}
+        serviceIdentifier={serviceIdentifier}
+        environmentIdentifier={environmentIdentifier}
+      />
+    ),
     drawerOptions
   })
 

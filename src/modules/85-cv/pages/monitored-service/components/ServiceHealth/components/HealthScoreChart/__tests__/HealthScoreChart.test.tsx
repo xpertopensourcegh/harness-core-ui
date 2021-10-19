@@ -64,6 +64,48 @@ describe('Unit tests for HealthScoreChart', () => {
     )
   })
 
+  test('Verify hasTimelineIntegration flag set to true', async () => {
+    jest.spyOn(cvService, 'useGetMonitoredServiceOverAllHealthScoreWithServiceAndEnv').mockReturnValue({
+      data: {},
+      refetch: fetchHealthScore as unknown
+    } as UseGetReturn<any, any, any, any>)
+    const propsWithTimelineIntegration = {
+      envIdentifier: '1234_env',
+      serviceIdentifier: '1234_service',
+      hasTimelineIntegration: true,
+      duration: { value: TimePeriodEnum.TWENTY_FOUR_HOURS, label: 'twenty_four_hours' }
+    }
+    const { container, getByText } = render(<WrapperComponent {...propsWithTimelineIntegration} />)
+    await waitFor(() =>
+      expect(getByText('cv.monitoredServices.serviceHealth.pleaseSelectAnotherTimeWindow')).toBeTruthy()
+    )
+    await waitFor(() =>
+      expect(container.querySelector('.noDataCard')?.textContent).toEqual(
+        'cv.monitoredServices.serviceHealth.noDataAvailableForHealthScorecv.monitoredServices.serviceHealth.pleaseSelectAnotherTimeWindow'
+      )
+    )
+  })
+
+  test('Verify hasTimelineIntegration flag set to false', async () => {
+    jest.spyOn(cvService, 'useGetMonitoredServiceOverAllHealthScoreWithServiceAndEnv').mockReturnValue({
+      data: {},
+      refetch: fetchHealthScore as unknown
+    } as UseGetReturn<any, any, any, any>)
+
+    const propsWithOutTimelineIntegration = {
+      envIdentifier: '1234_env',
+      serviceIdentifier: '1234_service',
+      hasTimelineIntegration: false,
+      duration: { value: TimePeriodEnum.TWENTY_FOUR_HOURS, label: 'twenty_four_hours' }
+    }
+    const { container } = render(<WrapperComponent {...propsWithOutTimelineIntegration} />)
+    await waitFor(() =>
+      expect(container.querySelector('.noDataCard')?.textContent).toEqual(
+        'cv.monitoredServices.serviceHealth.noDataAvailableForHealthScore'
+      )
+    )
+  })
+
   test('Verify if correct series is returned for the health score bar graph', async () => {
     expect(getSeriesData(mockedHealthScoreData.healthScores as cvService.RiskData[])).toEqual(mockedSeriesData)
   })

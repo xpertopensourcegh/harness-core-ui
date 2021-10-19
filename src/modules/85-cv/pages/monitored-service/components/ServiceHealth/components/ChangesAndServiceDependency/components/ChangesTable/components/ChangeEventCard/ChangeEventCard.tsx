@@ -14,7 +14,15 @@ import HarnessNextGenEventCard from './components/EventCards/HarnessNextGenEvent
 import HarnessCDEventCard from './components/EventCards/HarnessCDEventCard/HarnessCDEventCard'
 import K8sChangeEventCard from './components/EventCards/K8sChangeEventCard/K8sChangeEventCard'
 
-export default function ChangeEventCard({ activityId }: { activityId: string }): JSX.Element {
+export default function ChangeEventCard({
+  activityId,
+  serviceIdentifier,
+  environmentIdentifier
+}: {
+  activityId: string
+  serviceIdentifier?: string
+  environmentIdentifier?: string
+}): JSX.Element {
   const { getString } = useStrings()
   const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps>()
   const { data, loading, error, refetch } = useGetChangeEventDetail({
@@ -33,13 +41,37 @@ export default function ChangeEventCard({ activityId }: { activityId: string }):
   } else if (data?.resource) {
     switch (type) {
       case ChangeSourceTypes.PagerDuty:
-        return <PagerDutyEventCard data={data?.resource} />
+        return (
+          <PagerDutyEventCard
+            data={data?.resource}
+            serviceIdentifier={serviceIdentifier}
+            environmentIdentifier={environmentIdentifier}
+          />
+        )
       case ChangeSourceTypes.HarnessCD:
-        return <HarnessCDEventCard data={data?.resource} />
+        return (
+          <HarnessCDEventCard
+            data={data?.resource}
+            serviceIdentifier={serviceIdentifier}
+            environmentIdentifier={environmentIdentifier}
+          />
+        )
       case ChangeSourceTypes.HarnessCDNextGen:
-        return <HarnessNextGenEventCard data={data?.resource} />
+        return (
+          <HarnessNextGenEventCard
+            data={data?.resource}
+            serviceIdentifier={serviceIdentifier}
+            environmentIdentifier={environmentIdentifier}
+          />
+        )
       case ChangeSourceTypes.K8sCluster:
-        return <K8sChangeEventCard data={data?.resource} />
+        return (
+          <K8sChangeEventCard
+            data={data?.resource}
+            serviceIdentifier={serviceIdentifier}
+            environmentIdentifier={environmentIdentifier}
+          />
+        )
       default:
         return <NoDataCard message={getString('cv.changeSource.noDataAvaiableForCard')} image={noDataImage} />
     }

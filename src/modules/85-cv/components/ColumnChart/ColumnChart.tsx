@@ -24,6 +24,7 @@ export default function ColumnChart(props: ColumnChartProps): JSX.Element {
     refetchOnError,
     columnHeight = COLUMN_HEIGHT,
     timestampMarker,
+    hasTimelineIntegration,
     duration
   } = props
   const containerRef = useRef<HTMLDivElement>(null)
@@ -84,9 +85,11 @@ export default function ColumnChart(props: ColumnChartProps): JSX.Element {
                 duration: duration?.label?.toLowerCase()
               })}
             </Text>
-            <Text font={{ size: 'small' }}>
-              {getString('cv.monitoredServices.serviceHealth.pleaseSelectAnotherTimeWindow')}
-            </Text>
+            {hasTimelineIntegration && (
+              <Text font={{ size: 'small' }}>
+                {getString('cv.monitoredServices.serviceHealth.pleaseSelectAnotherTimeWindow')}
+              </Text>
+            )}
           </>
         }
         image={noDataImage}

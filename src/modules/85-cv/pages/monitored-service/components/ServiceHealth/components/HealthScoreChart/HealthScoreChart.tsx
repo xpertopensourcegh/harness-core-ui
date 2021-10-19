@@ -13,7 +13,15 @@ import type { TimePeriodEnum } from '../../ServiceHealth.constants'
 import css from './HealthScoreChart.module.scss'
 
 export default function HealthScoreChart(props: HealthScoreChartProps): JSX.Element {
-  const { envIdentifier, serviceIdentifier, duration, setHealthScoreData, endTime, columChartProps } = props
+  const {
+    envIdentifier,
+    serviceIdentifier,
+    duration,
+    setHealthScoreData,
+    endTime,
+    columChartProps,
+    hasTimelineIntegration
+  } = props
   const { getString } = useStrings()
   const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps>()
   const [seriesData, setSeriesData] = useState<ColumnData[]>([])
@@ -59,6 +67,7 @@ export default function HealthScoreChart(props: HealthScoreChartProps): JSX.Elem
           {getString('cv.monitoredServices.serviceHealth.overallHealthScore')}
         </Text>
         <ColumnChart
+          hasTimelineIntegration={hasTimelineIntegration}
           data={seriesData}
           duration={duration}
           leftOffset={90}

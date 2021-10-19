@@ -19,6 +19,7 @@ export default function ChangeEventServiceHealth(props: ChangeEventServiceHealth
       <Text className={css.status}>{getString('status')}</Text>
       <Text className={css.healthTrend}>{getString('cv.serviceHealthTrend')}</Text>
       <HealthScoreChart
+        hasTimelineIntegration={false}
         envIdentifier={envIdentifier}
         serviceIdentifier={serviceIdentifier}
         duration={{ value: TimePeriodEnum.FOUR_HOURS, label: getString('cv.monitoredServices.serviceHealth.last4Hrs') }}

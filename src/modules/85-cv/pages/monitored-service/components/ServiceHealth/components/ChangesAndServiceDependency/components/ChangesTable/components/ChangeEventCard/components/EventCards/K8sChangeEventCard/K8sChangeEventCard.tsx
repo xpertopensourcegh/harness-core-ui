@@ -16,7 +16,15 @@ import { createK8ChangeInfoData } from './K8sChangeEventCard.utils'
 import changeEventCardCss from '../../../ChangeEventCard.module.scss'
 import css from './K8sChangeEventCard.module.scss'
 
-export default function K8sChangeEventCard({ data }: { data: ChangeEventDTO }): JSX.Element {
+export default function K8sChangeEventCard({
+  data,
+  serviceIdentifier,
+  environmentIdentifier
+}: {
+  data: ChangeEventDTO
+  serviceIdentifier?: string
+  environmentIdentifier?: string
+}): JSX.Element {
   const changeTitleData: ChangeTitleData = useMemo(() => createChangeTitleData(data), [data])
   const changeDetailsData: ChangeDetailsDataInterface = useMemo(() => createChangeDetailsData(data), [data])
   const changeInfoData: ChangeInfoData = useMemo(() => createK8ChangeInfoData(data.metadata), [data.metadata])
@@ -56,8 +64,8 @@ export default function K8sChangeEventCard({ data }: { data: ChangeEventDTO }): 
       <Divider className={changeEventCardCss.divider} />
       {data?.eventTime && data.serviceIdentifier && data.envIdentifier && (
         <ChangeEventServiceHealth
-          serviceIdentifier={data.serviceIdentifier}
-          envIdentifier={data.envIdentifier}
+          serviceIdentifier={serviceIdentifier ?? data.serviceIdentifier}
+          envIdentifier={environmentIdentifier ?? data.envIdentifier}
           startTime={data.eventTime}
           eventType={data.type}
         />

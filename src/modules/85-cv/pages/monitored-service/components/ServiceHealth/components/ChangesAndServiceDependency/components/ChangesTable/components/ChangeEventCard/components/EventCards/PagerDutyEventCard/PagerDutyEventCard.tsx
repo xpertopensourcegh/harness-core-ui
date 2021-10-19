@@ -10,7 +10,15 @@ import ChangeInformation from '../../ChangeInformation/ChangeInformation'
 import ChangeTitle from '../../ChangeTitle/ChangeTitle'
 import css from '../../../ChangeEventCard.module.scss'
 
-export default function PagerDutyEventCard({ data }: { data: ChangeEventDTO }) {
+export default function PagerDutyEventCard({
+  data,
+  serviceIdentifier,
+  environmentIdentifier
+}: {
+  data: ChangeEventDTO
+  serviceIdentifier?: string
+  environmentIdentifier?: string
+}): JSX.Element {
   const { metadata } = data || {}
   const changeTitleData: ChangeTitleData = useMemo(() => createChangeTitleData(data), [])
   const changeDetailsData: ChangeDetailsDataInterface = useMemo(() => createChangeDetailsData(data), [])
@@ -26,8 +34,8 @@ export default function PagerDutyEventCard({ data }: { data: ChangeEventDTO }) {
       <Divider className={css.divider} />
       {data?.eventTime && data.serviceIdentifier && data.envIdentifier && (
         <ChangeEventServiceHealth
-          serviceIdentifier={data.serviceIdentifier}
-          envIdentifier={data.envIdentifier}
+          serviceIdentifier={serviceIdentifier ?? data.serviceIdentifier}
+          envIdentifier={environmentIdentifier ?? data.envIdentifier}
           startTime={data.eventTime}
           eventType={data.type}
         />

@@ -266,11 +266,6 @@ exports[`Validate ChangeCard should render Pager Duty card 1`] = `
               >
                 cv.monitoredServices.serviceHealth.noDataAvailableForHealthScore
               </p>
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--font-size-small"
-              >
-                cv.monitoredServices.serviceHealth.pleaseSelectAnotherTimeWindow
-              </p>
               <div
                 class="buttonContainer"
               />

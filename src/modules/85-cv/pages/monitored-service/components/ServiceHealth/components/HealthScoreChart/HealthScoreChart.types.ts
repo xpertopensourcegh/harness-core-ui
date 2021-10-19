@@ -9,4 +9,5 @@ export interface HealthScoreChartProps {
   timeFormat?: string
   endTime?: number
   columChartProps?: Pick<ColumnChartProps, 'columnHeight' | 'columnWidth' | 'timestampMarker'>
+  hasTimelineIntegration?: boolean
 }
