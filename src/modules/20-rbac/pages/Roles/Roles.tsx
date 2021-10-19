@@ -15,6 +15,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import routes from '@common/RouteDefinitions'
 import { setPageNumber } from '@common/utils/utils'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import css from './Roles.module.scss'
 
 const Roles: React.FC = () => {
@@ -74,6 +75,11 @@ const Roles: React.FC = () => {
           accountIdentifier: accountId,
           orgIdentifier,
           projectIdentifier
+        }
+      }}
+      featureProps={{
+        featureRequest: {
+          featureName: FeatureIdentifier.CUSTOM_ROLES
         }
       }}
     />

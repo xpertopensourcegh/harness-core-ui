@@ -14,6 +14,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import routes from '@common/RouteDefinitions'
 import { setPageNumber } from '@common/utils/utils'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 
 const ResourceGroups: React.FC = () => {
   const { accountId, projectIdentifier, orgIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()
@@ -73,6 +74,11 @@ const ResourceGroups: React.FC = () => {
                   accountIdentifier: accountId,
                   orgIdentifier,
                   projectIdentifier
+                }
+              }}
+              featureProps={{
+                featureRequest: {
+                  featureName: FeatureIdentifier.CUSTOM_RESOURCE_GROUPS
                 }
               }}
             />
