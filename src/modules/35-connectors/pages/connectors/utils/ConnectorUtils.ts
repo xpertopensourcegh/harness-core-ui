@@ -1551,7 +1551,7 @@ export const getConnectorDisplayName = (type: string) => {
     case Connectors.CEAWS:
       return 'AWS'
     case Connectors.AWS_SECRET_MANAGER:
-      return 'AWS Secret Manager'
+      return 'AWS Secrets Manager'
     case Connectors.CE_AZURE:
       return 'Azure'
     case Connectors.CE_KUBERNETES:

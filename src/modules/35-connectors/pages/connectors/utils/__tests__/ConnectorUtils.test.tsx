@@ -960,7 +960,7 @@ describe('Connector Utils', () => {
       expect(getConnectorDisplayName(Connectors.AZURE_KEY_VAULT)).toEqual('Azure Key Vault')
       expect(getConnectorDisplayName(Connectors.DYNATRACE)).toEqual('Dynatrace')
       expect(getConnectorDisplayName(Connectors.CEAWS)).toEqual('AWS')
-      expect(getConnectorDisplayName(Connectors.AWS_SECRET_MANAGER)).toEqual('AWS Secret Manager')
+      expect(getConnectorDisplayName(Connectors.AWS_SECRET_MANAGER)).toEqual('AWS Secrets Manager')
       expect(getConnectorDisplayName(Connectors.CE_AZURE)).toEqual('Azure')
       expect(getConnectorDisplayName(Connectors.CE_KUBERNETES)).toEqual('Kubernetes')
       expect(getConnectorDisplayName(Connectors.CE_GCP)).toEqual('GCP')

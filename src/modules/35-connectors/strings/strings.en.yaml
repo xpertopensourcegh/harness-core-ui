@@ -79,7 +79,7 @@ title:
   nexus: 'Nexus Repository'
   artifactory: 'Artifactory Repository'
   awsKms: 'AWS Key Management Service'
-  awsSecretManager: 'AWS Secret Manager'
+  awsSecretManager: 'AWS Secrets Manager'
   delegateSelection: 'Delegate Selection'
   ceAzureConnector: 'Azure Connector'
   datadog: 'Datadog'
