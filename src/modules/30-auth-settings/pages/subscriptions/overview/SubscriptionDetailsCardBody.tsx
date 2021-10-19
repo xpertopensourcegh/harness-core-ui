@@ -129,7 +129,10 @@ const SubscriptionDetailsCardBody = ({
       case ModuleName.CI:
         {
           const ciModuleLicenseDTO = licenseData as CIModuleLicenseDTO
-          const committers = ciModuleLicenseDTO?.numberOfCommitters
+          const committers =
+            ciModuleLicenseDTO?.numberOfCommitters === -1
+              ? getString('common.unlimited')
+              : ciModuleLicenseDTO?.numberOfCommitters
 
           licenseCountFields.push(
             <React.Fragment key="licenseCount">

@@ -4,18 +4,24 @@ import { pick, cloneDeep } from 'lodash-es'
 import { Layout } from '@wings-software/uicore'
 import { useToaster } from '@common/components'
 import { useTelemetry } from '@common/hooks/useTelemetry'
-import { Category, TrialActions } from '@common/constants/TrackingConstants'
+import { Category, TrialActions, PlanActions } from '@common/constants/TrackingConstants'
 import type { FetchPlansQuery } from 'services/common/services'
 import { useLicenseStore, handleUpdateLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import { useStrings } from 'framework/strings'
-import { useStartTrialLicense, StartTrialDTO, useGetLicensesAndSummary } from 'services/cd-ng'
+import {
+  useStartTrialLicense,
+  StartTrialDTO,
+  useGetLicensesAndSummary,
+  useStartFreeLicense,
+  ResponseModuleLicenseDTO
+} from 'services/cd-ng'
 import routes from '@common/RouteDefinitions'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import { PageError } from '@common/components/Page/PageError'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { ModuleName } from 'framework/types/ModuleName'
-import type { Editions } from '@common/constants/SubscriptionTypes'
-import { ModuleLicenseType } from '@common/constants/SubscriptionTypes'
+import { ModuleLicenseType, Editions } from '@common/constants/SubscriptionTypes'
+import { getBtnProps } from './planUtils'
 import type { TIME_TYPE } from './Plan'
 import Plan from './Plan'
 
@@ -24,7 +30,7 @@ interface PlanProps {
   plans?: NonNullable<FetchPlansQuery['pricing']>['ciSaasPlans' | 'ffPlans' | 'cdPlans' | 'ccPlans']
   timeType: TIME_TYPE
 }
-interface PlanCalculatedProps {
+export interface PlanCalculatedProps {
   btnProps: {
     buttonText?: string
     btnLoading: boolean
@@ -43,28 +49,52 @@ const PlanContainer: React.FC<PlanProps> = ({ plans, timeType, module }) => {
   const { trackEvent } = useTelemetry()
   const { getString } = useStrings()
   const history = useHistory()
+  const moduleType = module.toUpperCase() as StartTrialDTO['moduleType']
   const { accountId } = useParams<{
     accountId: string
   }>()
-  const { mutate: startTrial, loading } = useStartTrialLicense({
+  const { mutate: startTrial, loading: startingTrial } = useStartTrialLicense({
     queryParams: {
       accountIdentifier: accountId
     }
   })
+  const { mutate: startFreePlan, loading: startingFreePlan } = useStartFreeLicense({
+    queryParams: {
+      accountIdentifier: accountId,
+      moduleType: moduleType
+    },
+    requestOptions: {
+      headers: {
+        'content-type': 'application/json'
+      }
+    }
+  })
   const { licenseInformation, updateLicenseStore } = useLicenseStore()
 
-  const moduleType = module.toUpperCase() as StartTrialDTO['moduleType']
+  function startPlanByEdition(edition: Editions): Promise<ResponseModuleLicenseDTO> {
+    switch (edition) {
+      case Editions.FREE: {
+        trackEvent(PlanActions.StartFreeClick, { category: Category.SIGNUP, module, plan: edition })
+        return startFreePlan()
+      }
+      case Editions.ENTERPRISE:
+      case Editions.TEAM:
+      default: {
+        trackEvent(TrialActions.StartTrialClick, { category: Category.SIGNUP, module, plan: edition })
+        return startTrial({ moduleType, edition })
+      }
+    }
+  }
 
-  async function handleStartTrial(edition: Editions): Promise<void> {
-    trackEvent(TrialActions.StartTrialClick, { category: Category.SIGNUP, module })
+  async function handleStartPlan(edition: Editions): Promise<void> {
     try {
-      const data = await startTrial({ moduleType, edition })
+      const planData = await startPlanByEdition(edition)
 
       handleUpdateLicenseStore(
         { ...licenseInformation },
         updateLicenseStore,
         module.toLowerCase() as Module,
-        data?.data
+        planData?.data
       )
 
       if (module === ModuleName.CE) {
@@ -113,41 +143,6 @@ const PlanContainer: React.FC<PlanProps> = ({ plans, timeType, module }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [licenseData])
 
-  function getBtnProps(plan: any): PlanCalculatedProps['btnProps'] {
-    let buttonText, onClick, isDisabled
-    const planEdition = plan.title.toUpperCase() as Editions
-    if (licenseData) {
-      const { edition, licenseType } = licenseData
-      if (edition === planEdition) {
-        switch (licenseType) {
-          case 'PAID':
-            buttonText = getString('common.plans.manageSubscription')
-            break
-          case 'TRIAL':
-            buttonText = getString('common.subscriptions.overview.subscribe')
-            break
-        }
-        onClick = undefined
-      } else {
-        buttonText = getString('common.tryNow')
-        onClick = undefined
-        isDisabled = true
-      }
-    } else {
-      buttonText = getString('common.tryNow')
-      onClick = () => {
-        handleStartTrial(planEdition)
-      }
-    }
-    const btnLoading = loading
-    return {
-      btnLoading,
-      buttonText,
-      onClick,
-      isDisabled
-    }
-  }
-
   function getPlanCalculatedProps(plan: any): PlanCalculatedProps {
     let isCurrentPlan, isTrial, isPaid
     const planEdition = plan?.title?.toUpperCase() as Editions
@@ -164,7 +159,7 @@ const PlanContainer: React.FC<PlanProps> = ({ plans, timeType, module }) => {
         break
     }
 
-    const btnProps = getBtnProps(plan)
+    const btnProps = getBtnProps(plan, licenseData, getString, handleStartPlan, startingTrial, startingFreePlan)
 
     return {
       currentPlanProps: {
