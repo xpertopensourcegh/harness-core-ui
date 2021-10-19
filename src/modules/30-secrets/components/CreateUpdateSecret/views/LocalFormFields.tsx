@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { FormInput } from '@wings-software/uicore'
 import type { FormikContext } from 'formik'
 import { useStrings } from 'framework/strings'
@@ -8,16 +8,33 @@ import type { SecretDTOV2 } from 'services/cd-ng'
 interface LocalFormFieldsProps {
   type: SecretDTOV2['type']
   editing: boolean
+  disableAutocomplete?: boolean
 }
 
 interface FormikContextProps<T> {
   formik?: FormikContext<T>
 }
 
-const LocalFormFields: React.FC<LocalFormFieldsProps & FormikContextProps<any>> = ({ editing, type }) => {
+const LocalFormFields: React.FC<LocalFormFieldsProps & FormikContextProps<any>> = ({
+  editing,
+  type,
+  disableAutocomplete
+}) => {
   const { getString } = useStrings()
+
+  const renderHiddenInputs = (): ReactNode => {
+    // Rendering these inputs to avoid autocomplete.
+    return (
+      <>
+        <input type="text" style={{ display: 'none' }} />
+        <input type="password" style={{ display: 'none' }} />
+      </>
+    )
+  }
+
   return (
     <>
+      {disableAutocomplete ? renderHiddenInputs() : null}
       {type === 'SecretText' ? (
         <FormInput.Text
           name="value"

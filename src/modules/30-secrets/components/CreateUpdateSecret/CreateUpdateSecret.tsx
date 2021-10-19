@@ -359,7 +359,7 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
               />
               {!typeOfSelectedSecretManager ? <Text>{getString('secrets.secret.messageSelectSM')}</Text> : null}
               {LocalFormFieldsSMList.findIndex(val => val === typeOfSelectedSecretManager) !== -1 ? (
-                <LocalFormFields formik={formikProps} type={type} editing={editing} />
+                <LocalFormFields disableAutocomplete formik={formikProps} type={type} editing={editing} />
               ) : null}
               {typeOfSelectedSecretManager === 'Vault' ||
               typeOfSelectedSecretManager === 'AzureKeyVault' ||
