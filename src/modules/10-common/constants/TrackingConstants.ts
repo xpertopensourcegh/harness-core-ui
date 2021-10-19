@@ -29,6 +29,22 @@ export enum StepActions {
   DeleteStep = 'Delete Step'
 }
 
+export enum PipelineActions {
+  StartedExecution = 'Started Pipeline Execution',
+  CompletedExecution = 'Completed Pipeline Execution',
+  PipelineCreatedViaVisual = 'Creating/Updating a pipeline using Visual Mode',
+  PipelineCreatedViaYAML = 'Creating/Updating a pipeline using YAML editor'
+}
+
+export enum NavigatedToPage {
+  DeploymentsPage = 'Navigates to Deployments/Builds page',
+  PipelinesPage = 'Navigates to Pipelines page',
+  PipelineStudio = 'Navigates to Pipline Studio',
+  PipelineInputSet = 'Navigates to Pipline Input Set',
+  PipelineTriggers = 'Navigates to Pipline Triggers',
+  PipelineExecutionHistory = 'Navigates to Pipline Execution History'
+}
+
 export enum Category {
   SIGNUP = 'SIGNUP'
 }

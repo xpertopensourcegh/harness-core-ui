@@ -58,6 +58,8 @@ import { useMutateAsGet, useQueryParams } from '@common/hooks'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import InfoStrip from '@common/components/InfoStrip/InfoStrip'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import { PipelineActions } from '@common/constants/TrackingConstants'
+import { useTelemetry } from '@common/hooks/useTelemetry'
 import type { InputSetDTO } from '../InputSetForm/InputSetForm'
 import { InputSetSelector, InputSetSelectorProps } from '../InputSetSelector/InputSetSelector'
 import { clearRuntimeInput, validatePipeline, getErrorsList } from '../PipelineStudio/StepUtil'
@@ -118,6 +120,7 @@ function RunPipelineFormBasic({
   const [currentPipeline, setCurrentPipeline] = React.useState<{ pipeline?: PipelineInfoConfig } | undefined>(
     inputSetYAML ? parse(inputSetYAML) : undefined
   )
+  const { trackEvent } = useTelemetry()
   const { showError, showSuccess, showWarning } = useToaster()
   const history = useHistory()
   const { getString } = useStrings()
@@ -489,6 +492,7 @@ function RunPipelineFormBasic({
                 module
               })
             )
+            trackEvent(PipelineActions.StartedExecution, { module })
           }
         }
       } catch (error) {

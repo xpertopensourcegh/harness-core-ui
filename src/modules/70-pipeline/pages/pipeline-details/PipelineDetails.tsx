@@ -1,12 +1,14 @@
 import React from 'react'
 import { isEmpty } from 'lodash-es'
 import { Color, Heading, Layout, TabNavigation, Text } from '@wings-software/uicore'
-import { useHistory, useParams, useRouteMatch } from 'react-router-dom'
+import { matchPath, useHistory, useLocation, useParams, useRouteMatch } from 'react-router-dom'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { useGlobalEventListener, useQueryParams } from '@common/hooks'
 import { useGetPipelineSummary } from 'services/pipeline-ng'
 import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
+import { NavigatedToPage } from '@common/constants/TrackingConstants'
+import { useTelemetry } from '@common/hooks/useTelemetry'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
@@ -93,6 +95,8 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
   const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module } =
     useParams<PipelineType<PipelinePathProps>>()
   const { isGitSyncEnabled } = useAppStore()
+  const location = useLocation()
+  const { trackEvent } = useTelemetry()
   const { branch, repoIdentifier } = useQueryParams<GitQueryParams>()
   const {
     data: pipeline,
@@ -110,6 +114,49 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
     lazy: true
   })
   const [pipelineName, setPipelineName] = React.useState('')
+
+  React.useEffect(() => {
+    const routeParams = {
+      orgIdentifier,
+      projectIdentifier,
+      pipelineIdentifier,
+      accountId,
+      module,
+      repoIdentifier,
+      branch
+    }
+    // Pipeline View
+    const isPipeLineStudioView = !!matchPath(location.pathname, {
+      path: routes.toPipelineStudio(routeParams)
+    })
+    if (isPipeLineStudioView) {
+      return trackEvent(NavigatedToPage.PipelineStudio, {})
+    }
+
+    // Inout View
+    const isInputSetsView = !!matchPath(location.pathname, {
+      path: routes.toInputSetList(routeParams)
+    })
+    if (isInputSetsView) {
+      return trackEvent(NavigatedToPage.PipelineInputSet, {})
+    }
+
+    // Triggers View
+    const isTriggersView = !!matchPath(location.pathname, {
+      path: routes.toTriggersPage(routeParams)
+    })
+    if (isTriggersView) {
+      return trackEvent(NavigatedToPage.PipelineTriggers, {})
+    }
+
+    // Execution History View
+    const isExecutionHistoryView = !!matchPath(location.pathname, {
+      path: routes.toPipelineDeploymentList(routeParams)
+    })
+    if (isExecutionHistoryView) {
+      return trackEvent(NavigatedToPage.PipelineExecutionHistory, {})
+    }
+  }, [location.pathname])
 
   React.useEffect(() => {
     setPipelineName(pipeline?.data?.name || '')

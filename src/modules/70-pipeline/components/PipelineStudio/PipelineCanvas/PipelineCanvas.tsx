@@ -50,6 +50,8 @@ import { PipelineVariablesContextProvider } from '@pipeline/components/PipelineV
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { getRepoDetailsByIndentifier } from '@common/utils/gitSyncUtils'
+import { useTelemetry } from '@common/hooks/useTelemetry'
+import { PipelineActions } from '@common/constants/TrackingConstants'
 import { RunPipelineForm } from '@pipeline/components/RunPipelineModal/RunPipelineForm'
 import { InputSetSummaryResponse, useGetInputsetYaml } from 'services/pipeline-ng'
 import { savePipeline, usePipelineContext } from '../PipelineContext/PipelineContext'
@@ -137,6 +139,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     stagesExecuted
   } = useQueryParams<GitQueryParams & RunPipelineQueryParams>()
   const { updateQueryParams, replaceQueryParams } = useUpdateQueryParams<PipelineStudioQueryParams>()
+  const { trackEvent } = useTelemetry()
 
   const {
     pipeline,
@@ -294,6 +297,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
         navigateToLocation(newPipelineId, updatedGitDetails)
         location.reload()
       }
+      trackEvent(isYaml ? PipelineActions.PipelineCreatedViaYAML : PipelineActions.PipelineCreatedViaVisual, {})
     } else {
       clear()
       setSchemaErrorView(true)

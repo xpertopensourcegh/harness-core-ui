@@ -61,6 +61,8 @@ import RbacButton from '@rbac/components/Button/Button'
 import { shouldShowError } from '@common/utils/errorUtils'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
+import { NavigatedToPage } from '@common/constants/TrackingConstants'
+import { useTelemetry } from '@common/hooks/useTelemetry'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { PipelineGridView } from './views/PipelineGridView'
@@ -127,6 +129,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
   const [pipelineList, setPipelineList] = useState<PagePMSPipelineSummaryResponse | undefined>()
   const [isFetchingMetaData, setIsFetchingMetaData] = useState<boolean>(false)
 
+  const { trackEvent } = useTelemetry()
   const history = useHistory()
   const { showError } = useToaster()
   const { selectedProject, isGitSyncEnabled } = useAppStore()
@@ -253,6 +256,10 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
   if (errorFetchingFilters && shouldShowError(errorFetchingFilters)) {
     showError(errorFetchingFilters?.data || errorFetchingFilters?.message, undefined, 'pipeline.fetch.filter.error')
   }
+
+  useEffect(() => {
+    trackEvent(NavigatedToPage.PipelinesPage, {})
+  }, [])
 
   useEffect(() => {
     setFilters(fetchedFilterResponse?.data?.content || [])
