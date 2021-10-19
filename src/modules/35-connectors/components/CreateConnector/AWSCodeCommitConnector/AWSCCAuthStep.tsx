@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react'
+import cx from 'classnames'
 import {
   StepProps,
   Formik,
   FormikForm,
   Layout,
   Text,
-  Color,
   ModalErrorHandler,
   ModalErrorHandlerBinding,
-  Button
+  Button,
+  ButtonVariation,
+  FontVariation,
+  Container
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
@@ -27,6 +30,8 @@ import { buildAWSCodeCommitPayload } from '@connectors/pages/connectors/utils/Co
 import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useToaster } from '@common/exports'
 import { setSecretField } from '@secrets/utils/SecretField'
+
+import css from '../commonSteps/ConnectorCommonStyles.module.scss'
 
 interface AWSCCAuthStepProps extends StepProps<ConnectorConfigDTO> {
   isEditMode: boolean
@@ -99,48 +104,55 @@ export default function AWSCCAuthStep(props: AWSCCAuthStepProps) {
   }
 
   return (
-    <Formik
-      initialValues={{ ...initialValues, ...props.prevStepData }}
-      validationSchema={Yup.object().shape({
-        accessKey: Yup.object().required(),
-        secretKey: Yup.mixed().required()
-      })}
-      formName="awsCcAuthForm"
-      onSubmit={formData => {
-        handleSubmit({
-          ...formData,
-          projectIdentifier,
-          orgIdentifier
-        })
-      }}
-    >
-      {formikPros => (
-        <FormikForm>
-          <ModalErrorHandler bind={setModalErrorHandler} />
-          <Layout.Vertical spacing="large" padding="small" width="60%" style={{ minHeight: 440 }}>
-            <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
-              {getString('credentials')}
-            </Text>
-            <Text margin={{ top: 'medium', bottom: 'medium' }}>{getString('authentication')}</Text>
-            <TextReference
-              name="accessKey"
-              stringId="connectors.aws.accessKey"
-              type={(formikPros.values as any)?.accessKey?.type}
-            />
-            <SecretInput name="secretKey" label={getString('connectors.aws.secretKey')} />
-          </Layout.Vertical>
-          <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
-            <Button onClick={() => props.previousStep?.({ ...props.prevStepData })} text={getString('back')} />
-            <Button
-              type="submit"
-              intent="primary"
-              rightIcon="chevron-right"
-              text={getString('saveAndContinue')}
-              disabled={isSaving}
-            />
-          </Layout.Horizontal>
-        </FormikForm>
-      )}
-    </Formik>
+    <Layout.Vertical width="60%" style={{ minHeight: 460 }} className={css.stepContainer}>
+      <ModalErrorHandler bind={setModalErrorHandler} />
+      <Text font={{ variation: FontVariation.H3 }}>{getString('credentials')}</Text>
+
+      <Formik
+        initialValues={{ ...initialValues, ...props.prevStepData }}
+        validationSchema={Yup.object().shape({
+          accessKey: Yup.object().required(),
+          secretKey: Yup.mixed().required()
+        })}
+        formName="awsCcAuthForm"
+        onSubmit={formData => {
+          handleSubmit({
+            ...formData,
+            projectIdentifier,
+            orgIdentifier
+          })
+        }}
+      >
+        {formikPros => (
+          <FormikForm className={cx(css.fullHeight, css.fullHeightDivsWithFlex)}>
+            <Container className={css.paddingTop8}>
+              <Text font={{ variation: FontVariation.H6 }}>{getString('authentication')}</Text>
+              <TextReference
+                name="accessKey"
+                stringId="connectors.aws.accessKey"
+                type={(formikPros.values as any)?.accessKey?.type}
+              />
+              <SecretInput name="secretKey" label={getString('connectors.aws.secretKey')} />
+            </Container>
+            <Layout.Horizontal spacing="medium">
+              <Button
+                icon="chevron-left"
+                onClick={() => props.previousStep?.({ ...props.prevStepData })}
+                text={getString('back')}
+                variation={ButtonVariation.SECONDARY}
+              />
+              <Button
+                type="submit"
+                intent="primary"
+                rightIcon="chevron-right"
+                text={getString('saveAndContinue')}
+                disabled={isSaving}
+                variation={ButtonVariation.PRIMARY}
+              />
+            </Layout.Horizontal>
+          </FormikForm>
+        )}
+      </Formik>
+    </Layout.Vertical>
   )
 }

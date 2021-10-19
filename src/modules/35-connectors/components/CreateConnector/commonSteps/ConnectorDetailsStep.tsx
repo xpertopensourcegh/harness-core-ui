@@ -9,7 +9,8 @@ import {
   FormikForm,
   Container,
   Text,
-  FontVariation
+  FontVariation,
+  ButtonVariation
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
@@ -173,7 +174,13 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
                   )}
                 </Container>
                 <Layout.Horizontal>
-                  <Button type="submit" intent="primary" rightIcon="chevron-right" disabled={loading}>
+                  <Button
+                    type="submit"
+                    intent="primary"
+                    rightIcon="chevron-right"
+                    disabled={loading}
+                    variation={ButtonVariation.PRIMARY}
+                  >
                     <String stringID="continue" />
                   </Button>
                 </Layout.Horizontal>

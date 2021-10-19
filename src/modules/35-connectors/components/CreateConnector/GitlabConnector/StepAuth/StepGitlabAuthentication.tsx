@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import cx from 'classnames'
 import {
   Layout,
   Button,
@@ -7,9 +8,10 @@ import {
   Text,
   FormikForm as Form,
   StepProps,
-  Color,
   Container,
-  SelectOption
+  SelectOption,
+  FontVariation,
+  ButtonVariation
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
@@ -24,6 +26,7 @@ import { GitAuthTypes, GitAPIAuthTypes } from '@connectors/pages/connectors/util
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import commonStyles from '@connectors/components/CreateConnector/commonSteps/ConnectorCommonStyles.module.scss'
 import css from './StepGitlabAuthentication.module.scss'
+import commonCss from '../../commonSteps/ConnectorCommonStyles.module.scss'
 
 interface StepGitlabAuthenticationProps extends ConnectorInfoDTO {
   name: string
@@ -113,11 +116,7 @@ const RenderAPIAccessForm: React.FC<FormikProps<GitlabFormInterface>> = props =>
   const { getString } = useStrings()
   switch (props.values.apiAuthType) {
     case GitAPIAuthTypes.TOKEN:
-      return (
-        <Container width={'52%'}>
-          <SecretInput name="apiAccessToken" label={getString('personalAccessToken')} />
-        </Container>
-      )
+      return <SecretInput name="apiAccessToken" label={getString('personalAccessToken')} />
     default:
       return null
   }
@@ -135,16 +134,11 @@ const RenderAPIAccessFormWrapper: React.FC<FormikProps<GitlabFormInterface>> = f
 
   return (
     <>
-      <Text font="small" margin={{ bottom: 'small' }}>
-        {getString('common.git.APIAccessDescription')}
-      </Text>
-      <Container className={css.authHeaderRow} width={'52%'}>
-        <Text className={css.authTitle} inline>
-          {getString('common.git.APIAuthentication')}
-        </Text>
+      <Container className={css.authHeaderRow}>
+        <Text font={{ variation: FontVariation.H6 }}>{getString('common.git.APIAuthentication')}</Text>
         <FormInput.Select name="apiAuthType" items={apiAuthOptions} className={commonStyles.authTypeSelect} />
       </Container>
-      <RenderAPIAccessForm {...formikProps} />{' '}
+      <RenderAPIAccessForm {...formikProps} />
     </>
   )
 }
@@ -194,10 +188,8 @@ const StepGitlabAuthentication: React.FC<StepProps<StepGitlabAuthenticationProps
     return loadingConnectorSecrets ? (
       <PageSpinner />
     ) : (
-      <Layout.Vertical height={'inherit'} spacing="medium" className={css.secondStep}>
-        <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
-          {getString('credentials')}
-        </Text>
+      <Layout.Vertical width="60%" style={{ minHeight: 460 }} className={cx(css.secondStep, commonCss.stepContainer)}>
+        <Text font={{ variation: FontVariation.H3 }}>{getString('credentials')}</Text>
 
         <Formik
           initialValues={{
@@ -251,21 +243,17 @@ const StepGitlabAuthentication: React.FC<StepProps<StepGitlabAuthenticationProps
           onSubmit={handleSubmit}
         >
           {formikProps => (
-            <Form>
-              <Container className={css.stepFormWrapper}>
+            <Form className={cx(commonCss.fullHeight, commonCss.fullHeightDivsWithFlex)}>
+              <Container className={cx(css.stepFormWrapper, commonCss.paddingTop8)}>
                 {formikProps.values.connectionType === GitConnectionType.SSH ? (
-                  <Container width={'52%'}>
-                    <Text font={{ weight: 'bold' }} className={css.authTitle}>
-                      {getString('authentication')}
-                    </Text>
+                  <Layout.Horizontal spacing="medium" flex={{ alignItems: 'baseline' }}>
+                    <Text font={{ variation: FontVariation.H6 }}>{getString('authentication')}</Text>
                     <SSHSecretInput name="sshKey" label={getString('SSH_KEY')} />
-                  </Container>
+                  </Layout.Horizontal>
                 ) : (
-                  <Container width={'52%'}>
-                    <Container className={css.authHeaderRow}>
-                      <Text className={css.authTitle} inline>
-                        {getString('authentication')}
-                      </Text>
+                  <Container>
+                    <Container className={css.authHeaderRow} flex={{ alignItems: 'baseline' }}>
+                      <Text font={{ variation: FontVariation.H6 }}>{getString('authentication')}</Text>
                       <FormInput.Select
                         name="authType"
                         items={authOptions}
@@ -283,7 +271,7 @@ const StepGitlabAuthentication: React.FC<StepProps<StepGitlabAuthenticationProps
                   label={getString('common.git.enableAPIAccess')}
                   padding={{ left: 'xxlarge' }}
                 />
-                <Text font="small" margin={{ bottom: 'small' }}>
+                <Text font="small" className={commonCss.bottomMargin4}>
                   {getString('common.git.APIAccessDescription')}
                 </Text>
                 {formikProps.values.enableAPIAccess ? <RenderAPIAccessFormWrapper {...formikProps} /> : null}
@@ -295,8 +283,15 @@ const StepGitlabAuthentication: React.FC<StepProps<StepGitlabAuthenticationProps
                   icon="chevron-left"
                   onClick={() => props?.previousStep?.(props?.prevStepData)}
                   data-name="gitlabBackButton"
+                  variation={ButtonVariation.SECONDARY}
                 />
-                <Button type="submit" intent="primary" text={getString('continue')} rightIcon="chevron-right" />
+                <Button
+                  type="submit"
+                  intent="primary"
+                  text={getString('continue')}
+                  rightIcon="chevron-right"
+                  variation={ButtonVariation.PRIMARY}
+                />
               </Layout.Horizontal>
             </Form>
           )}

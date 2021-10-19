@@ -1,5 +1,4 @@
 .secondStep {
-  margin: var(--spacing-small) 0 var(--spacing-small) var(--spacing-small) !important;
   .headingStepTwo {
     font-size: var(--font-size-medium);
     letter-spacing: 0;
@@ -7,10 +6,6 @@
   }
 
   .stepFormWrapper {
-    padding: 2px;
-    min-height: 480px;
-    overflow: auto;
-
     :global {
       .bp3-input,
       .bp3-button,
@@ -22,12 +17,7 @@
     .authHeaderRow {
       display: flex;
       justify-content: space-between;
-
-      .authTitle {
-        font-size: var(font-size-normal);
-        color: var(--black-600);
-        padding-top: var(--spacing-small);
-      }
+      justify-content: baseline;
       :global {
         .bp3-input-group {
           .bp3-input {

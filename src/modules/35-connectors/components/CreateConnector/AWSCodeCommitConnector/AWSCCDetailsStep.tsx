@@ -1,8 +1,22 @@
 import React, { useEffect, useState } from 'react'
-import { StepProps, Formik, FormikForm, FormInput, Layout, Text, Color, Button } from '@wings-software/uicore'
+import cx from 'classnames'
+import {
+  StepProps,
+  Formik,
+  FormikForm,
+  FormInput,
+  Layout,
+  Text,
+  Button,
+  FontVariation,
+  Container,
+  ButtonVariation
+} from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
+
+import css from '../commonSteps/ConnectorCommonStyles.module.scss'
 
 export interface AWSCCDetailsStepProps extends StepProps<ConnectorConfigDTO> {
   isEditMode: boolean
@@ -30,49 +44,62 @@ export default function AWSCCDetailsStep(props: AWSCCDetailsStepProps) {
   }, [])
 
   return (
-    <Formik
-      enableReinitialize
-      initialValues={{
-        ...initialValues,
-        ...props.prevStepData
-      }}
-      formName="awsCCDetailsForm"
-      validationSchema={Yup.object().shape({
-        urlType: Yup.string().required(),
-        url: Yup.string().required()
-      })}
-      onSubmit={handleSubmit}
-    >
-      <FormikForm>
-        <Layout.Vertical spacing="large" padding="small" width="60%" style={{ minHeight: 440 }}>
-          <Text
-            font="medium"
-            margin={{ top: 'small' }}
-            color={Color.BLACK}
-            tooltipProps={{ dataTooltipId: 'awsCCDetailsTooltip' }}
-          >
-            {getString('details')}
-          </Text>
-          <FormInput.RadioGroup
-            name="urlType"
-            label={getString('common.git.urlType')}
-            items={[
-              { value: 'Region', label: getString('regionLabel') },
-              { value: 'Repo', label: getString('repository') }
-            ]}
-            radioGroup={{ inline: true }}
-          />
-          <FormInput.Text
-            name="url"
-            label={getString('connectors.awsCodeCommit.repoUrl')}
-            placeholder={getString('UrlLabel')}
-          />
-        </Layout.Vertical>
-        <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
-          <Button onClick={() => props.previousStep?.({ ...props.prevStepData })} text={getString('back')} />
-          <Button type="submit" intent="primary" rightIcon="chevron-right" text={getString('saveAndContinue')} />
-        </Layout.Horizontal>
-      </FormikForm>
-    </Formik>
+    <Layout.Vertical width="60%" style={{ minHeight: 460 }} className={css.stepContainer}>
+      <Text font={{ variation: FontVariation.H3 }} tooltipProps={{ dataTooltipId: 'awsCCDetailsTooltip' }}>
+        {getString('details')}
+      </Text>
+
+      <Formik
+        enableReinitialize
+        initialValues={{
+          ...initialValues,
+          ...props.prevStepData
+        }}
+        formName="awsCCDetailsForm"
+        validationSchema={Yup.object().shape({
+          urlType: Yup.string().required(),
+          url: Yup.string().required()
+        })}
+        onSubmit={handleSubmit}
+      >
+        <FormikForm className={cx(css.fullHeight, css.fullHeightDivsWithFlex)}>
+          <Container className={css.paddingTop8}>
+            <FormInput.RadioGroup
+              name="urlType"
+              label={<Text font={{ variation: FontVariation.FORM_LABEL }}>{getString('common.git.urlType')}</Text>}
+              items={[
+                { value: 'Region', label: getString('regionLabel') },
+                { value: 'Repo', label: getString('repository') }
+              ]}
+              radioGroup={{ inline: true }}
+            />
+            <FormInput.Text
+              name="url"
+              label={
+                <Text font={{ variation: FontVariation.FORM_LABEL }}>
+                  {getString('connectors.awsCodeCommit.repoUrl')}
+                </Text>
+              }
+              placeholder={getString('UrlLabel')}
+            />
+          </Container>
+          <Layout.Horizontal spacing="medium">
+            <Button
+              icon="chevron-left"
+              onClick={() => props.previousStep?.({ ...props.prevStepData })}
+              text={getString('back')}
+              variation={ButtonVariation.SECONDARY}
+            />
+            <Button
+              type="submit"
+              intent="primary"
+              rightIcon="chevron-right"
+              text={getString('saveAndContinue')}
+              variation={ButtonVariation.PRIMARY}
+            />
+          </Layout.Horizontal>
+        </FormikForm>
+      </Formik>
+    </Layout.Vertical>
   )
 }

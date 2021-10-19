@@ -1,5 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import { Layout, Button, Formik, Text, FormikForm as Form, StepProps, Color, Container } from '@wings-software/uicore'
+import cx from 'classnames'
+import {
+  Layout,
+  Button,
+  Formik,
+  Text,
+  FormikForm as Form,
+  StepProps,
+  Container,
+  ButtonVariation,
+  FontVariation
+} from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
 import { setupGitFormData, GitConnectionType } from '@connectors/pages/connectors/utils/ConnectorUtils'
@@ -11,6 +22,7 @@ import TextReference, { TextReferenceInterface, ValueType } from '@secrets/compo
 import { useStrings } from 'framework/strings'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import css from './StepGitAuthentication.module.scss'
+import commonCss from '../../commonSteps/ConnectorCommonStyles.module.scss'
 
 interface StepGitAuthenticationProps extends ConnectorInfoDTO {
   name: string
@@ -84,10 +96,8 @@ const StepGitAuthentication: React.FC<StepProps<StepGitAuthenticationProps> & Gi
   return loadingConnectorSecrets ? (
     <PageSpinner />
   ) : (
-    <Layout.Vertical height={'inherit'} spacing="medium" className={css.secondStep}>
-      <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
-        {getString('credentials')}
-      </Text>
+    <Layout.Vertical width="60%" style={{ minHeight: 460 }} className={cx(css.secondStep, commonCss.stepContainer)}>
+      <Text font={{ variation: FontVariation.H3 }}>{getString('credentials')}</Text>
 
       <Formik
         initialValues={{
@@ -114,8 +124,8 @@ const StepGitAuthentication: React.FC<StepProps<StepGitAuthenticationProps> & Gi
         onSubmit={handleSubmit}
       >
         {formikProps => (
-          <Form>
-            <Container className={css.stepFormWrapper} width={'52%'}>
+          <Form className={cx(commonCss.fullHeight, commonCss.fullHeightDivsWithFlex)}>
+            <Container className={cx(css.stepFormWrapper, commonCss.paddingTop8)}>
               {formikProps.values.connectionType === GitConnectionType.SSH ? (
                 <SSHSecretInput name="sshKey" label={getString('SSH_KEY')} />
               ) : (
@@ -129,8 +139,15 @@ const StepGitAuthentication: React.FC<StepProps<StepGitAuthenticationProps> & Gi
                 icon="chevron-left"
                 onClick={() => props?.previousStep?.(props?.prevStepData)}
                 data-name="gitBackButton"
+                variation={ButtonVariation.SECONDARY}
               />
-              <Button type="submit" intent="primary" text={getString('continue')} rightIcon="chevron-right" />
+              <Button
+                type="submit"
+                intent="primary"
+                text={getString('continue')}
+                rightIcon="chevron-right"
+                variation={ButtonVariation.PRIMARY}
+              />
             </Layout.Horizontal>
           </Form>
         )}

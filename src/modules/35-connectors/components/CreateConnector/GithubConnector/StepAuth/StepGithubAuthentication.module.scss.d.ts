@@ -5,7 +5,6 @@ declare const styles: {
   readonly headingStepTwo: string
   readonly stepFormWrapper: string
   readonly authHeaderRow: string
-  readonly authTitle: string
   readonly formRow: string
 }
 export default styles

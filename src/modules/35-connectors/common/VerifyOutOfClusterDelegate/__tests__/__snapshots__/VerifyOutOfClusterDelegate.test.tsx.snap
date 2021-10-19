@@ -3,8 +3,7 @@
 exports[`Verification step for out of cluster delegate render VerifyOutOfClusterDelegate for AWS 1`] = `
 <div>
   <div
-    class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-right-small StyledProps--padding-left-small StyledProps--padding-bottom-large"
-    style="height: 100%;"
+    class="Layout--vertical StyledProps--main"
   >
     <div
       class="Layout--vertical StyledProps--main"
@@ -141,8 +140,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
 exports[`Verification step for out of cluster delegate render VerifyOutOfClusterDelegate for Artifactory 1`] = `
 <div>
   <div
-    class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-right-small StyledProps--padding-left-small StyledProps--padding-bottom-large"
-    style="height: 100%;"
+    class="Layout--vertical StyledProps--main"
   >
     <div
       class="Layout--vertical StyledProps--main"
@@ -279,8 +277,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
 exports[`Verification step for out of cluster delegate render VerifyOutOfClusterDelegate for Docker 1`] = `
 <div>
   <div
-    class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-right-small StyledProps--padding-left-small StyledProps--padding-bottom-large"
-    style="height: 100%;"
+    class="Layout--vertical StyledProps--main"
   >
     <div
       class="Layout--vertical StyledProps--main"
@@ -417,8 +414,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
 exports[`Verification step for out of cluster delegate render VerifyOutOfClusterDelegate for GCP 1`] = `
 <div>
   <div
-    class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-right-small StyledProps--padding-left-small StyledProps--padding-bottom-large"
-    style="height: 100%;"
+    class="Layout--vertical StyledProps--main"
   >
     <div
       class="Layout--vertical StyledProps--main"
@@ -555,8 +551,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
 exports[`Verification step for out of cluster delegate render VerifyOutOfClusterDelegate for K8s and last step 1`] = `
 <div>
   <div
-    class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-right-small StyledProps--padding-left-small StyledProps--padding-bottom-large"
-    style="height: 100%;"
+    class="Layout--vertical StyledProps--main"
   >
     <div
       class="Layout--vertical StyledProps--main"
@@ -693,8 +688,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
 exports[`Verification step for out of cluster delegate render VerifyOutOfClusterDelegate for K8s in edit screen 1`] = `
 <div>
   <div
-    class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-right-small StyledProps--padding-left-small StyledProps--padding-bottom-large"
-    style="height: 100%;"
+    class="Layout--vertical StyledProps--main"
   >
     <div
       class="Layout--vertical StyledProps--main"
@@ -780,8 +774,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
 exports[`Verification step for out of cluster delegate render VerifyOutOfClusterDelegate for Nexus 1`] = `
 <div>
   <div
-    class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-right-small StyledProps--padding-left-small StyledProps--padding-bottom-large"
-    style="height: 100%;"
+    class="Layout--vertical StyledProps--main"
   >
     <div
       class="Layout--vertical StyledProps--main"

@@ -378,7 +378,7 @@ exports[`Create GCP connector Wizard Should render form 1`] = `
                   class="Layout--horizontal StyledProps--main"
                 >
                   <button
-                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
                     type="submit"
                   >
                     <span
@@ -1146,7 +1146,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                   class="Layout--horizontal StyledProps--main"
                 >
                   <button
-                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
                     type="submit"
                   >
                     <span

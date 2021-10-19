@@ -95,7 +95,7 @@ const SSHSecretInput: React.FC<FormikSSHSecretInput> = ({
       intent={errorCheck() ? Intent.DANGER : Intent.NONE}
     >
       {label ? (
-        <label className={'bp3-label'}>
+        <label className="bp3-label">
           <HarnessDocTooltip tooltipId={dataTooltipId} labelText={label} />
         </label>
       ) : null}

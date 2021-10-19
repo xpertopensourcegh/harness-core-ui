@@ -113,7 +113,6 @@ describe('Create Git connector Wizard', () => {
     await act(async () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
-
     await act(async () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })

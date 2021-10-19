@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react'
+import cx from 'classnames'
 import {
   Layout,
   Button,
@@ -10,7 +11,8 @@ import {
   Container,
   FormInput,
   Text,
-  Icon
+  FontVariation,
+  ButtonVariation
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
@@ -29,6 +31,7 @@ import { GitUrlType, GitConnectionType, saveCurrentStepData } from '@connectors/
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { Connectors } from '@connectors/constants'
 import css from './ConnectorDetailsStep.module.scss'
+import commonCss from './ConnectorCommonStyles.module.scss'
 
 interface ConnectorDetailsStepProps extends StepProps<ConnectorInfoDTO> {
   type: ConnectorInfoDTO['type']
@@ -185,116 +188,144 @@ const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsS
   }
 
   return (
-    <Layout.Vertical spacing="xxlarge" className={css.firstep}>
-      <div className={css.heading}>{getString('details')}</div>
+    <Layout.Vertical width="60%" style={{ minHeight: 460 }} className={cx(css.firstep, commonCss.stepContainer)}>
       <ModalErrorHandler bind={setModalErrorHandler} />
+      <Text font={{ variation: FontVariation.H3 }} tooltipProps={{ dataTooltipId: 'awsCCDetailsTooltip' }}>
+        {getString('details')}
+      </Text>
 
-      <Container padding="small" className={css.connectorForm}>
-        <Formik
-          onSubmit={formData => {
-            handleSubmit(formData)
-          }}
-          formName="gitDetailsStepForm"
-          validationSchema={Yup.object().shape({
-            url: Yup.string().test('isValidUrl', getString('validation.urlIsNotValid'), function (_url) {
-              if (!_url) return false
+      <Formik
+        onSubmit={formData => {
+          handleSubmit(formData)
+        }}
+        formName="gitDetailsStepForm"
+        validationSchema={Yup.object().shape({
+          url: Yup.string().test('isValidUrl', getString('validation.urlIsNotValid'), function (_url) {
+            if (!_url) return false
 
-              if (this.parent.connectionType === GitConnectionType.SSH) {
-                const trimmedUrl = _url?.trim() || ''
-                return trimmedUrl.startsWith('git@') || trimmedUrl.startsWith('ssh://') ? true : false
-              }
-              try {
-                const url = new URL(_url)
-                return url.protocol === 'http:' || url.protocol === 'https:'
-              } catch (_) {
-                return false
-              }
-            }),
-            validationRepo: Yup.string()
-              .nullable()
-              .when('urlType', {
-                is: 'Account',
-                then: Yup.string().required(getString('common.validation.testRepoIsRequired'))
-              })
-          })}
-          initialValues={{
-            ...getInitialValues(),
-            ...prevStepData,
-            ...props.formData
-          }}
-        >
-          {(formikProps: FormikProps<DetailsStepInterface>) => {
-            saveCurrentStepData<ConnectorInfoDTO>(
-              props.getCurrentStepData,
-              formikProps.values as unknown as ConnectorInfoDTO
-            )
-            return (
-              <FormikForm>
-                <Container style={{ minHeight: 460 }}>
-                  <Text tooltipProps={{ dataTooltipId: `${props.type.toLocaleLowerCase()}URLType` }}>
-                    {getString('common.git.urlType')}
-                  </Text>
-                  <FormInput.RadioGroup
-                    style={{ fontSize: 'normal' }}
-                    radioGroup={{ inline: true }}
-                    name="urlType"
-                    items={urlTypeOptions}
-                  />
-                  <Text tooltipProps={{ dataTooltipId: `${props.type.toLocaleLowerCase()}ConnectionType` }}>
-                    {getString('common.git.connectionType')}
-                  </Text>
-                  <FormInput.RadioGroup
-                    style={{ fontSize: 'normal' }}
-                    name="connectionType"
-                    radioGroup={{ inline: true }}
-                    items={connectionTypeOptions}
-                    onChange={val => {
-                      // initialize authType for only 1 option
-                      if (val.currentTarget.value === GitConnectionType.HTTP && props.type === Connectors.BITBUCKET) {
-                        formikProps.setFieldValue('authType', GitAuthTypes.USER_PASSWORD)
-                      }
-                    }}
-                  />
-                  <FormInput.Text
-                    className={css.formElm}
-                    name="url"
-                    label={getUrlLabel(props.type, formikProps.values.urlType)}
-                    placeholder={getUrlLabelPlaceholder(props.type, formikProps.values.connectionType)}
-                    tooltipProps={{ dataTooltipId: `${props.type.toLocaleLowerCase()}DetailsStepForm_url` }}
-                  />
-                  {formikProps.values.urlType === 'Account' && (
-                    <Container className={css.formElm}>
-                      <Container className={css.infoGroup}>
-                        <Icon name="info" size={10} margin={{ right: 'small' }} />
-                        <Text font={{ size: 'xsmall' }}>{getString('common.git.testRepositoryDescription')}</Text>
-                      </Container>
-                      <FormInput.Text
-                        name="validationRepo"
-                        label={getString('common.git.testRepository')}
-                        placeholder={getString('common.git.selectRepoLabel')}
-                        tooltipProps={{
-                          dataTooltipId: `${props.type.toLocaleLowerCase()}DetailsStepForm_validationRepo`
-                        }}
-                      />
-                    </Container>
-                  )}
+            if (this.parent.connectionType === GitConnectionType.SSH) {
+              const trimmedUrl = _url?.trim() || ''
+              return trimmedUrl.startsWith('git@') || trimmedUrl.startsWith('ssh://') ? true : false
+            }
+            try {
+              const url = new URL(_url)
+              return url.protocol === 'http:' || url.protocol === 'https:'
+            } catch (_) {
+              return false
+            }
+          }),
+          validationRepo: Yup.string()
+            .nullable()
+            .when('urlType', {
+              is: 'Account',
+              then: Yup.string().required(getString('common.validation.testRepoIsRequired'))
+            })
+        })}
+        initialValues={{
+          ...getInitialValues(),
+          ...prevStepData,
+          ...props.formData
+        }}
+      >
+        {(formikProps: FormikProps<DetailsStepInterface>) => {
+          saveCurrentStepData<ConnectorInfoDTO>(
+            props.getCurrentStepData,
+            formikProps.values as unknown as ConnectorInfoDTO
+          )
+          return (
+            <FormikForm className={cx(commonCss.fullHeight, commonCss.fullHeightDivsWithFlex)}>
+              <Layout.Vertical className={commonCss.paddingTop8}>
+                <Container className={commonCss.bottomPadding1}>
+                  <Layout.Vertical spacing="xsmall">
+                    <Text
+                      tooltipProps={{ dataTooltipId: `${props.type.toLocaleLowerCase()}URLType` }}
+                      font={{ variation: FontVariation.FORM_LABEL }}
+                    >
+                      {getString('common.git.urlType')}
+                    </Text>
+                    <FormInput.RadioGroup
+                      style={{ fontSize: 'normal' }}
+                      radioGroup={{ inline: true }}
+                      name="urlType"
+                      items={urlTypeOptions}
+                    />
+                  </Layout.Vertical>
+                  <Layout.Vertical spacing="xsmall">
+                    <Text
+                      tooltipProps={{ dataTooltipId: `${props.type.toLocaleLowerCase()}ConnectionType` }}
+                      font={{ variation: FontVariation.FORM_LABEL }}
+                    >
+                      {getString('common.git.connectionType')}
+                    </Text>
+                    <FormInput.RadioGroup
+                      style={{ fontSize: 'normal' }}
+                      name="connectionType"
+                      radioGroup={{ inline: true }}
+                      items={connectionTypeOptions}
+                      onChange={val => {
+                        // initialize authType for only 1 option
+                        if (val.currentTarget.value === GitConnectionType.HTTP && props.type === Connectors.BITBUCKET) {
+                          formikProps.setFieldValue('authType', GitAuthTypes.USER_PASSWORD)
+                        }
+                      }}
+                    />
+                  </Layout.Vertical>
                 </Container>
-                <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
-                  <Button
-                    text={getString('back')}
-                    icon="chevron-left"
-                    onClick={() => props?.previousStep?.(props?.prevStepData)}
-                    data-name="commonGitBackButton"
-                  />
-                  <Button type="submit" intent="primary" rightIcon="chevron-right" disabled={loading}>
-                    <String stringID="continue" />
-                  </Button>
-                </Layout.Horizontal>
-              </FormikForm>
-            )
-          }}
-        </Formik>
-      </Container>
+                <FormInput.Text
+                  name="url"
+                  label={
+                    <Text font={{ variation: FontVariation.FORM_LABEL }}>
+                      {getUrlLabel(props.type, formikProps.values.urlType)}
+                    </Text>
+                  }
+                  placeholder={getUrlLabelPlaceholder(props.type, formikProps.values.connectionType)}
+                  tooltipProps={{ dataTooltipId: `${props.type.toLocaleLowerCase()}DetailsStepForm_url` }}
+                />
+                {formikProps.values.urlType === 'Account' && (
+                  <Container>
+                    <Text
+                      font={{ variation: FontVariation.BODY }}
+                      className={cx(commonCss.bottomMargin5, commonCss.topMargin1)}
+                    >
+                      {getString('common.git.testRepositoryDescription')}
+                    </Text>
+                    <FormInput.Text
+                      name="validationRepo"
+                      label={
+                        <Text font={{ variation: FontVariation.FORM_LABEL }}>
+                          {getString('common.git.testRepository')}
+                        </Text>
+                      }
+                      placeholder={getString('common.git.selectRepoLabel')}
+                      tooltipProps={{
+                        dataTooltipId: `${props.type.toLocaleLowerCase()}DetailsStepForm_validationRepo`
+                      }}
+                    />
+                  </Container>
+                )}
+              </Layout.Vertical>
+              <Layout.Horizontal spacing="medium">
+                <Button
+                  text={getString('back')}
+                  icon="chevron-left"
+                  onClick={() => props?.previousStep?.(props?.prevStepData)}
+                  data-name="commonGitBackButton"
+                  variation={ButtonVariation.SECONDARY}
+                />
+                <Button
+                  type="submit"
+                  intent="primary"
+                  rightIcon="chevron-right"
+                  disabled={loading}
+                  variation={ButtonVariation.PRIMARY}
+                >
+                  <String stringID="continue" />
+                </Button>
+              </Layout.Horizontal>
+            </FormikForm>
+          )
+        }}
+      </Formik>
     </Layout.Vertical>
   )
 }

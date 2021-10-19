@@ -13,6 +13,10 @@
         padding: var(--spacing-small) 0;
         min-width: 190px;
         text-align: end !important;
+        background-color: var(--form-bg);
+        &:hover {
+          background-color: var(--grey-100);
+        }
       }
     }
   }
@@ -22,4 +26,50 @@
   @extend .authTypeSelect;
   width: 280px;
   margin-top: var(--spacing-small);
+}
+
+.paddingTop8 {
+  padding-top: var(--spacing-8) !important;
+}
+
+.stepContainer {
+  height: 100%;
+  :global {
+    .OverlaySpinner--overlaySpinner {
+      height: 100%;
+    }
+  }
+}
+
+.fullHeight {
+  height: 100%;
+}
+
+.fullHeightDivsWithFlex {
+  & > div {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
+
+.label {
+  font-size: 24px;
+}
+
+.topMargin1 {
+  margin-top: var(--spacing-1) !important;
+}
+
+.bottomPadding1 {
+  padding-bottom: var(--spacing-1) !important;
+}
+
+.bottomMargin4 {
+  padding-bottom: var(--spacing-4) !important;
+}
+
+.bottomMargin5 {
+  padding-bottom: var(--spacing-5) !important;
 }

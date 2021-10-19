@@ -5,6 +5,5 @@ declare const styles: {
   readonly heading: string
   readonly connectorForm: string
   readonly formElm: string
-  readonly infoGroup: string
 }
 export default styles

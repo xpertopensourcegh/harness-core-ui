@@ -6,15 +6,8 @@
   }
 
   .connectorForm {
-    min-height: 440px;
     .formElm {
       width: 54%;
-    }
-    .infoGroup {
-      display: flex;
-      align-items: center;
-      margin-top: var(--spacing-large);
-      margin-bottom: var(--spacing-small);
     }
   }
 

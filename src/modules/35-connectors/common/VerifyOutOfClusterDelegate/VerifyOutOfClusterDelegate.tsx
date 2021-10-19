@@ -370,7 +370,7 @@ const VerifyOutOfClusterDelegate: React.FC<StepProps<VerifyOutOfClusterStepProps
       }
     }, [testConnectionResponse?.data?.delegateId])
     return (
-      <Layout.Vertical padding={{ top: 'large', right: 'small', left: 'small', bottom: 'large' }} height={'100%'}>
+      <Layout.Vertical>
         <Layout.Vertical>
           <Text font={{ variation: FontVariation.H3 }} color={Color.GREY_800}>
             {getString('connectors.stepThreeName')}
@@ -402,6 +402,7 @@ const VerifyOutOfClusterDelegate: React.FC<StepProps<VerifyOutOfClusterStepProps
                   props.onClose?.()
                 }}
                 text={getString('finish')}
+                variation={ButtonVariation.SECONDARY}
               />
             </Layout.Horizontal>
           ) : (
