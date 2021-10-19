@@ -361,7 +361,7 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
                           allowCreatingNewItems: true
                         },
                         onFocus: () => {
-                          if (!bucketData?.data && (formik.values?.region || (formik.values?.region as any).value)) {
+                          if (!bucketData?.data && (formik.values?.region || (formik.values?.region as any)?.value)) {
                             fetchBucket((formik.values?.region as any).value ?? formik.values?.region)
                           }
                         }
