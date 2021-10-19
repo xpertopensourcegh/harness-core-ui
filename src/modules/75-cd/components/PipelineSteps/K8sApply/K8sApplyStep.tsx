@@ -159,7 +159,7 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
           setFormikRef(formikRef, formik)
           return (
             <>
-              {stepViewType === StepViewType.InputSet ? null : (
+              {stepViewType === StepViewType.Template ? null : (
                 <div className={cx(stepCss.formGroup, stepCss.lg)}>
                   <FormInput.InputWithIdentifier
                     inputLabel={getString('name')}

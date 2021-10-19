@@ -27,22 +27,27 @@ export const getAllowedTemplateTypes = (getString: UseStringsReturn['getString']
   },
   {
     label: getString('common.pipeline'),
-    value: TemplateType.Pipeline
+    value: TemplateType.Pipeline,
+    disabled: true
   },
   {
     label: getString('service'),
-    value: TemplateType.Service
+    value: TemplateType.Service,
+    disabled: true
   },
   {
     label: getString('infrastructureText'),
-    value: TemplateType.Infrastructure
+    value: TemplateType.Infrastructure,
+    disabled: true
   },
   {
     label: getString('stepGroup'),
-    value: TemplateType.StepGroup
+    value: TemplateType.StepGroup,
+    disabled: true
   },
   {
     label: getString('executionText'),
-    value: TemplateType.Execution
+    value: TemplateType.Execution,
+    disabled: true
   }
 ]

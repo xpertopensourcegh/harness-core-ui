@@ -70,7 +70,7 @@ function K8BGDeployWidget(props: K8BGDeployProps, formikRef: StepFormikFowardRef
           setFormikRef(formikRef, formik)
           return (
             <>
-              {stepViewType === StepViewType.InputSet ? null : (
+              {stepViewType === StepViewType.Template ? null : (
                 <div className={cx(stepCss.formGroup, stepCss.lg)}>
                   <FormInput.InputWithIdentifier
                     inputLabel={getString('name')}

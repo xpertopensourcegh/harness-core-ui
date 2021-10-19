@@ -88,7 +88,7 @@ function K8sBGSwapWidget(
           return (
             <>
               <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
-                {stepViewType === StepViewType.InputSet ? null : (
+                {stepViewType === StepViewType.Template ? null : (
                   <div className={cx(stepCss.formGroup, stepCss.lg)}>
                     <FormInput.InputWithIdentifier
                       inputLabel={getString('name')}

@@ -98,7 +98,7 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
           return (
             <>
               <>
-                {stepViewType === StepViewType.InputSet ? null : (
+                {stepViewType === StepViewType.Template ? null : (
                   <div className={cx(stepCss.formGroup, stepCss.lg)}>
                     <FormInput.InputWithIdentifier
                       inputLabel={getString('name')}

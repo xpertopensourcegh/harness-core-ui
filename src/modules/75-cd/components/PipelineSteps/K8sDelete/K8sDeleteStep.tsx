@@ -240,7 +240,7 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
           const values = formikProps.values
           return (
             <>
-              {stepViewType === StepViewType.InputSet ? null : (
+              {stepViewType === StepViewType.Template ? null : (
                 <div className={cx(stepCss.formGroup, stepCss.lg)}>
                   <FormInput.InputWithIdentifier
                     inputLabel={getString('name')}
