@@ -17,6 +17,7 @@ declare const styles: {
   readonly activeServicesTitle: string
   readonly servicesByDropdown: string
   readonly loaderContainer: string
+  readonly loaderCard: string
   readonly apiErrorWidget: string
 }
 export default styles

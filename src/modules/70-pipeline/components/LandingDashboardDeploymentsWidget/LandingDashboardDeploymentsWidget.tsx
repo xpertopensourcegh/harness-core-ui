@@ -8,7 +8,6 @@ import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { OverviewChartsWithToggle } from '@common/components/OverviewChartsWithToggle/OverviewChartsWithToggle'
 import { StackedSummaryTable } from '@common/components/StackedSummaryTable/StackedSummaryTable'
-import { PageSpinner } from '@common/components'
 import routes from '@common/RouteDefinitions'
 import { useGetDeploymentStatsOverview } from 'services/dashboard-service'
 import { useErrorHandler } from '@pipeline/components/Dashboards/shared'
@@ -21,6 +20,14 @@ interface SummaryCardData {
   title: string
   count: string
   trend: string
+}
+
+const EmptyCard = ({ children }: { children: React.ReactElement }) => {
+  return (
+    <Layout.Horizontal className={css.loaderContainer}>
+      <Card className={css.loaderCard}>{children}</Card>
+    </Layout.Horizontal>
+  )
 }
 
 const LandingDashboardDeploymentsWidget: React.FC = () => {
@@ -36,7 +43,8 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
       endTime: range[1],
       groupBy: 'DAY',
       sortBy: 'DEPLOYMENTS'
-    }
+    },
+    lazy: true
   })
 
   const response = data?.data?.response
@@ -192,38 +200,32 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
 
   if (loading) {
     return (
-      <Layout.Horizontal className={css.loaderContainer}>
-        <Card style={{ width: '100%', marginTop: '20px' }}>
-          <PageSpinner />
-        </Card>
-      </Layout.Horizontal>
+      <EmptyCard>
+        <Icon name="spinner" size={24} color={Color.PRIMARY_7} />
+      </EmptyCard>
     )
   }
 
   if (!response || error) {
     return (
-      <Layout.Horizontal className={css.loaderContainer}>
-        <Card style={{ width: '100%', marginTop: '20px' }}>
-          <DashboardAPIErrorWidget className={css.apiErrorWidget} callback={refetch} iconProps={{ size: 90 }} />
-        </Card>
-      </Layout.Horizontal>
+      <EmptyCard>
+        <DashboardAPIErrorWidget className={css.apiErrorWidget} callback={refetch} iconProps={{ size: 90 }} />
+      </EmptyCard>
     )
   }
 
   if (!response.deploymentsStatsSummary?.countAndChangeRate?.count) {
     return (
-      <Layout.Horizontal className={css.loaderContainer}>
-        <Card style={{ width: '100%', marginTop: '20px' }}>
-          <DashboardNoDataWidget
-            label={
-              <Text color={Color.GREY_400} style={{ fontSize: '14px' }} margin="medium">
-                {'No Deployments'}
-              </Text>
-            }
-            getStartedLink={routes.toCDHome({ accountId })}
-          />
-        </Card>
-      </Layout.Horizontal>
+      <EmptyCard>
+        <DashboardNoDataWidget
+          label={
+            <Text color={Color.GREY_400} style={{ fontSize: '14px' }} margin="medium">
+              {'No Deployments'}
+            </Text>
+          }
+          getStartedLink={routes.toCDHome({ accountId })}
+        />
+      </EmptyCard>
     )
   }
 
