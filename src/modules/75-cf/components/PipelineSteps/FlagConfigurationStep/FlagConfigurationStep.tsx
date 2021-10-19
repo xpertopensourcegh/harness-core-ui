@@ -123,6 +123,28 @@ export class FlagConfigurationStep extends PipelineStep<FlagConfigurationStepDat
       }
     }
 
+    let percentageRollout: FlagConfigurationStepFormData['spec']['percentageRollout'] = undefined
+    const percentageRolloutRule = initialValues.spec.instructions.find(
+      ({ type }) => type === CFPipelineInstructionType.ADD_RULE
+    )
+
+    if (
+      percentageRolloutRule?.spec?.distribution?.bucketBy &&
+      percentageRolloutRule?.spec?.distribution?.variations &&
+      percentageRolloutRule?.spec?.distribution?.clauses?.[0]?.op === 'segmentMatch'
+    ) {
+      percentageRollout = {
+        targetGroup: percentageRolloutRule.spec.distribution.clauses[0].values[0],
+        bucketBy: percentageRolloutRule.spec.distribution.bucketBy,
+        variation: percentageRolloutRule.spec.distribution.variations.reduce(
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          (variations, { variation, weight }) => ({ ...variations, [variation]: weight }),
+          {}
+        )
+      }
+    }
+
     return {
       ...initialValues,
       spec: {
@@ -130,7 +152,8 @@ export class FlagConfigurationStep extends PipelineStep<FlagConfigurationStepDat
         environment: initialValues.spec.environment,
         featureFlag: initialValues.spec.feature,
         state,
-        defaultRules
+        defaultRules,
+        percentageRollout
       }
     }
   }
@@ -165,6 +188,28 @@ export class FlagConfigurationStep extends PipelineStep<FlagConfigurationStepDat
         type: CFPipelineInstructionType.SET_DEFAULT_OFF_VARIATION,
         spec: {
           variation: toValue(_data.spec.defaultRules.off)
+        }
+      })
+    }
+
+    if (
+      _data.spec.percentageRollout?.bucketBy &&
+      _data.spec.percentageRollout?.targetGroup &&
+      _data.spec.percentageRollout?.variation
+    ) {
+      instructions.push({
+        identifier: 'AddRuleIdentifier',
+        type: CFPipelineInstructionType.ADD_RULE,
+        spec: {
+          priority: 100,
+          distribution: {
+            bucketBy: _data.spec.percentageRollout.bucketBy,
+            variations: Object.entries(_data.spec.percentageRollout.variation).map(([variation, weight]) => ({
+              variation,
+              weight: weight || 0
+            })),
+            clauses: [{ op: 'segmentMatch', attribute: '', values: [_data.spec.percentageRollout.targetGroup] }]
+          }
         }
       })
     }

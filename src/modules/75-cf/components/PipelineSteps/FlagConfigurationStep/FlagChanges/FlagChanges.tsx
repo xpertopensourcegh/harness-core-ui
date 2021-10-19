@@ -1,8 +1,11 @@
 import React, { FC, useState, MouseEvent, useMemo } from 'react'
 import { Layout, Button, Heading, FontVariation, ButtonVariation } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import type { Feature } from 'services/cf'
-import type { FlagConfigurationStepFormData } from '@cf/components/PipelineSteps/FlagConfigurationStep/types'
+import type { Segment, TargetAttributesResponse, Variation } from 'services/cf'
+import type {
+  FlagConfigurationStepFormData,
+  FlagConfigurationStepFormDataValues
+} from '@cf/components/PipelineSteps/FlagConfigurationStep/types'
 import type { SubSectionProps } from './SubSection'
 import RemoveSubSectionButton from './RemoveSubSectionButton'
 import SubSectionSelector from './SubSectionSelector'
@@ -12,9 +15,12 @@ import SetFlagSwitch, { SetFlagSwitchProps } from './subSections/SetFlagSwitch'
 import DefaultRules, { DefaultRulesProps } from './subSections/DefaultRules'
 import ServeVariationToIndividualTarget from './subSections/ServeVariationToIndividualTarget'
 import ServeVariationToTargetGroup from './subSections/ServeVariationToTargetGroup'
-import ServePercentageRollout from './subSections/ServePercentageRollout'
+import ServePercentageRollout, { ServePercentageRolloutProps } from './subSections/ServePercentageRollout'
 
-type SubSectionComponentProps = SubSectionProps & DefaultRulesProps & SetFlagSwitchProps
+export type SubSectionComponentProps = SubSectionProps &
+  DefaultRulesProps &
+  SetFlagSwitchProps &
+  ServePercentageRolloutProps
 export type SubSectionComponent = FC<SubSectionComponentProps>
 
 export const allSubSections: SubSectionComponent[] = [
@@ -26,12 +32,22 @@ export const allSubSections: SubSectionComponent[] = [
 ]
 
 export interface FlagChangesProps {
-  feature?: Feature
+  targetGroups?: Segment[]
+  variations?: Variation[]
   spec: FlagConfigurationStepFormData['spec']
   clearField: (fieldName: string) => void
+  fieldValues: FlagConfigurationStepFormDataValues
+  targetAttributes?: TargetAttributesResponse
 }
 
-const FlagChanges: FC<FlagChangesProps> = ({ feature, spec, clearField }) => {
+const FlagChanges: FC<FlagChangesProps> = ({
+  targetGroups = [],
+  variations = [],
+  fieldValues,
+  spec,
+  targetAttributes = [],
+  clearField
+}) => {
   const [subSections, setSubSections] = useState<SubSectionComponent[]>(() => {
     const initialSubSections: SubSectionComponent[] = []
 
@@ -44,6 +60,9 @@ const FlagChanges: FC<FlagChangesProps> = ({ feature, spec, clearField }) => {
             break
           case 'defaultRules':
             initialSubSections.push(DefaultRules)
+            break
+          case 'percentageRollout':
+            initialSubSections.push(ServePercentageRollout)
             break
         }
       })
@@ -91,17 +110,17 @@ const FlagChanges: FC<FlagChangesProps> = ({ feature, spec, clearField }) => {
               onSubSectionChange={newSubSection => swapSubSection(SubSection, newSubSection)}
             />
           ),
-          clearField
+          clearField,
+          variations: variations ?? [],
+          targetGroups: targetGroups ?? [],
+          fieldValues: fieldValues ?? {},
+          targetAttributes: targetAttributes ?? []
         }
 
         if (subSections.length > 1) {
           subSectionProps.removeSubSectionButton = (
             <RemoveSubSectionButton onClick={() => removeSubSection(SubSection)} />
           )
-        }
-
-        if (SubSection === DefaultRules) {
-          subSectionProps.variations = (feature && feature.variations) || []
         }
 
         return <SubSection key={SubSection.name} {...subSectionProps} />

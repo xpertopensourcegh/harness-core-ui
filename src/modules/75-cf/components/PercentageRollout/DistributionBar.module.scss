@@ -1,0 +1,6 @@
+.distributionBar {
+  --barHeight: var(--spacing-medium);
+  height: var(--barHeight);
+  border-radius: calc(var(--barHeight) / 2);
+  background-color: var(--grey-100);
+}

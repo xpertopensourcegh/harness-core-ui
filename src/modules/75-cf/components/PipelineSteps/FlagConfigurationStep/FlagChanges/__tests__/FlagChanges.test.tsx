@@ -4,17 +4,19 @@ import userEvent from '@testing-library/user-event'
 import { TestWrapper } from '@common/utils/testUtils'
 import { subSectionNameMap } from '@cf/components/PipelineSteps/FlagConfigurationStep/FlagChanges/SubSectionSelector'
 import DefaultRules from '@cf/components/PipelineSteps/FlagConfigurationStep/FlagChanges/subSections/DefaultRules'
-import FlagChanges, { allSubSections } from '../FlagChanges'
+import FlagChanges, { allSubSections, FlagChangesProps } from '../FlagChanges'
 
-const renderComponent = (clearField = jest.fn()): RenderResult =>
+const renderComponent = (props: Partial<FlagChangesProps> = {}): RenderResult =>
   render(
     <TestWrapper>
       <FlagChanges
-        clearField={clearField}
+        clearField={jest.fn()}
         spec={{
           environment: 'dev',
           featureFlag: 'Test_Bool_Flag'
         }}
+        fieldValues={{ spec: { featureFlag: '', environment: '' }, type: '', identifier: '', name: '' }}
+        {...props}
       />
     </TestWrapper>
   )
@@ -90,7 +92,7 @@ describe('FlagChanges', () => {
 
   test('it should call the clearField function when the sub-section is removed', async () => {
     const clearFieldMock = jest.fn()
-    renderComponent(clearFieldMock)
+    renderComponent({ clearField: clearFieldMock })
 
     userEvent.click(getConfigureMoreButton())
 
@@ -119,9 +121,9 @@ describe('FlagChanges', () => {
     })
   })
 
-  test('it should called the clearField function when the sub-section is replaced', async () => {
+  test('it should call the clearField function when the sub-section is replaced', async () => {
     const clearFieldMock = jest.fn()
-    renderComponent(clearFieldMock)
+    renderComponent({ clearField: clearFieldMock })
 
     const setFlagSwitchSubSection = screen.getByTestId('flagChanges-setFlagSwitch')
 
@@ -132,6 +134,23 @@ describe('FlagChanges', () => {
 
     await waitFor(() => {
       expect(clearFieldMock).toHaveBeenCalled()
+    })
+  })
+
+  test('it should render the correct sub-sections based on the initial spec', async () => {
+    renderComponent({
+      spec: {
+        featureFlag: 'flag1',
+        environment: 'env1',
+        state: 'on',
+        defaultRules: { on: 'test1', off: 'test2' },
+        percentageRollout: { variation: { var1: '33', var2: '67' }, targetGroup: 'group1', bucketBy: 'attribute1' }
+      }
+    })
+    await waitFor(() => {
+      expect(screen.getByTestId('flagChanges-setFlagSwitch')).toBeInTheDocument()
+      expect(screen.getByTestId('flagChanges-defaultRules')).toBeInTheDocument()
+      expect(screen.getByTestId('flagChanges-servePercentageRollout')).toBeInTheDocument()
     })
   })
 })

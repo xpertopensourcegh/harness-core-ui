@@ -1,3 +1,4 @@
+import type { FormikState } from 'formik'
 import type { StepElementConfig, StepSpecType } from 'services/cd-ng'
 
 export interface FeatureFlagConfigurationSpec {
@@ -17,7 +18,8 @@ export interface FlagConfigurationStepData extends StepElementConfig {
 export enum CFPipelineInstructionType {
   SET_FEATURE_FLAG_STATE = 'SetFeatureFlagState',
   SET_DEFAULT_ON_VARIATION = 'SetOnVariation',
-  SET_DEFAULT_OFF_VARIATION = 'SetOffVariation'
+  SET_DEFAULT_OFF_VARIATION = 'SetOffVariation',
+  ADD_RULE = 'AddRule'
 }
 
 export interface FlagConfigurationStepFormData extends StepElementConfig {
@@ -29,5 +31,12 @@ export interface FlagConfigurationStepFormData extends StepElementConfig {
       on: string
       off: string
     }
+    percentageRollout?: {
+      variation: Record<string, number | string>
+      targetGroup: string
+      bucketBy: string
+    }
   }
 }
+
+export type FlagConfigurationStepFormDataValues = FormikState<FlagConfigurationStepFormData>['values']

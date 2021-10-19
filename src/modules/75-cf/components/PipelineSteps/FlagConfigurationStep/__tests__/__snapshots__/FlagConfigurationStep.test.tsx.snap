@@ -336,8 +336,7 @@ exports[`FlagConfigurationStep it should render 1`] = `
           data-testid="flagChanges-setFlagSwitch"
         >
           <div
-            class="Layout--horizontal StyledProps--main"
-            style="justify-content: space-between;"
+            class="Layout--horizontal StyledProps--main header"
           >
             <div
               class="Layout--horizontal StyledProps--main wrapper"

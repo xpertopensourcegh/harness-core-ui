@@ -1250,3 +1250,7 @@ cfTrialHomePage:
     description: Take your feature release processes to the next level using our Harness Feature Flags.
     startBtn:
       description: Start 14 day FF Enterprise trial
+percentageRollout:
+  toTargetGroup: 'To Target Group:'
+  invalidTotalError: Variation weights must add up to 100%
+  bucketBy: Bucket targets by

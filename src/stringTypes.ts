@@ -3473,6 +3473,9 @@ export interface StringsMap {
   'cf.onboarding.tryTarget': string
   'cf.onboarding.upAndRunning': string
   'cf.onboarding.waitForConnect': string
+  'cf.percentageRollout.bucketBy': string
+  'cf.percentageRollout.invalidTotalError': string
+  'cf.percentageRollout.toTargetGroup': string
   'cf.pipeline.advanced.title': string
   'cf.pipeline.flagConfiguration.addConditionalRules': string
   'cf.pipeline.flagConfiguration.addEditMapping': string

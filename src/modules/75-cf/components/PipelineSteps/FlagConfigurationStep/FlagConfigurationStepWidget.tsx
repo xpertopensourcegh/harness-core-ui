@@ -6,7 +6,6 @@ import {
   FormInput,
   Layout,
   MultiTypeInputType,
-  RUNTIME_INPUT_VALUE,
   SelectOption,
   Text
 } from '@wings-software/uicore'
@@ -17,7 +16,7 @@ import { get } from 'lodash-es'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { CF_DEFAULT_PAGE_SIZE, getErrorMessage } from '@cf/utils/CFUtils'
-import { useGetAllFeatures } from 'services/cf'
+import { useGetAllFeatures, useGetAllSegments, useGetAllTargetAttributes } from 'services/cf'
 import { useStrings } from 'framework/strings'
 import { useEnvironmentSelectV2 } from '@cf/hooks/useEnvironmentSelectV2'
 import type { StepViewType } from '@pipeline/components/AbstractSteps/Step'
@@ -81,9 +80,20 @@ export function FlagConfigurationStepWidget(
   } = useGetAllFeatures({
     queryParams
   })
-  const [, setServeVariationMappingAsRuntimeInput] = useState(
-    !!get(initialValues, 'spec.variationMappings')?.[RUNTIME_INPUT_VALUE]
-  )
+  const {
+    data: targetGroupsData,
+    loading: loadingTargetGroups,
+    error: errorTargetGroups,
+    refetch: refetchTargetGroups
+  } = useGetAllSegments({ queryParams: { ...queryParams, identifier: undefined } })
+
+  const {
+    data: targetAttributesData,
+    loading: loadingTargetAttributes,
+    error: errorTargetAttributes,
+    refetch: refetchTargetAttributes
+  } = useGetAllTargetAttributes({ queryParams: { ...queryParams } })
+
   const formik = useRef<FormikProps<FlagConfigurationStepFormData> | null>(null)
   const [loadingFromFocus, setLoadingFromFocus] = useState(false)
 
@@ -127,8 +137,9 @@ export function FlagConfigurationStepWidget(
     [queryParams, refetchFeatures]
   )
 
-  const loading = !loadingFromFocus && (loadingEnvironments || loadingFeatures)
-  const error = errorEnvironments || errorFeatures
+  const loading =
+    !loadingFromFocus && (loadingEnvironments || loadingFeatures || loadingTargetGroups || loadingTargetAttributes)
+  const error = errorEnvironments || errorFeatures || errorTargetGroups || errorTargetAttributes
 
   if (loading) {
     return (
@@ -147,6 +158,8 @@ export function FlagConfigurationStepWidget(
           onClick={() => {
             refetchFeatures()
             refetchEnvironments()
+            refetchTargetGroups()
+            refetchTargetAttributes()
           }}
         />
       </Container>
@@ -198,21 +211,7 @@ export function FlagConfigurationStepWidget(
               disabled={isDisabled}
               multiTypeInputProps={{
                 disabled: isDisabled,
-                allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME],
-                onChange: opt => {
-                  const resetVariationMapping =
-                    opt === RUNTIME_INPUT_VALUE ||
-                    !opt ||
-                    get(opt, 'value') !== formEnvironmentIdentifier ||
-                    !formFeatureFlagIdentifier
-
-                  if (resetVariationMapping) {
-                    _formik.setFieldValue('spec.variationMappings', undefined)
-                    if (opt === RUNTIME_INPUT_VALUE) {
-                      setServeVariationMappingAsRuntimeInput(true)
-                    }
-                  }
-                }
+                allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]
               }}
             />
             <FormInput.MultiTypeInput
@@ -262,9 +261,12 @@ export function FlagConfigurationStepWidget(
             />
 
             <FlagChanges
-              feature={currentFeature}
+              targetGroups={targetGroupsData?.segments || []}
+              variations={currentFeature?.variations || []}
               spec={initialValues.spec}
-              clearField={(fieldName: string) => _formik.setFieldValue(fieldName, '')}
+              clearField={(fieldName: string) => _formik.setFieldValue(fieldName, undefined)}
+              fieldValues={_formik.values}
+              targetAttributes={targetAttributesData || []}
             />
           </Layout.Vertical>
         )
