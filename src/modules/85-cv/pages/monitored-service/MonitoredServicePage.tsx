@@ -30,7 +30,6 @@ function MonitoredServicePage(): JSX.Element {
     return pathname.includes(configurationPath)
   }, [pathname])
   const isEdit = !!identifier
-
   const {
     data: monitoredServiceData,
     refetch,
@@ -54,7 +53,7 @@ function MonitoredServicePage(): JSX.Element {
       refetch()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isEdit])
+  }, [isEdit, projectIdentifier])
 
   useEffect(() => {
     const nextTab = shouldRenderConfigurations

@@ -41,13 +41,19 @@ jest.mock('@cv/components/HarnessServiceAndEnvironment/HarnessServiceAndEnvironm
   }
 }))
 
+const onChangeMonitoredServiceType = jest.fn()
+
 function WrapperComponent(props: any) {
   return (
     <TestWrapper>
       <Formik onSubmit={values => props.onSubmit(values)} initialValues={props.initialValues} formName="mockForm">
         {formikProps => (
           <FormikForm>
-            <MonitoredServiceOverview formikProps={formikProps} isEdit={props.isEdit} />
+            <MonitoredServiceOverview
+              onChangeMonitoredServiceType={onChangeMonitoredServiceType}
+              formikProps={formikProps}
+              isEdit={props.isEdit}
+            />
             <button type="submit" />
           </FormikForm>
         )}
@@ -140,5 +146,26 @@ describe('Unit tests for MonitoredServiceOverview', () => {
     // create new service
     fireEvent.click(container.querySelector('.newService')!)
     await waitFor(() => getByText('newService'))
+  })
+
+  test('Ensure that switching monitored service type works', async () => {
+    const onSubmitMock = jest.fn()
+    const { container, getByText } = render(
+      <WrapperComponent
+        onSubmit={onSubmitMock}
+        initialValues={{ type: MonitoredServiceType.APPLICATION, serviceRef: 'service1' }}
+      />
+    )
+
+    await waitFor(() => expect(container.querySelector('[class*="monitoredService"]')).not.toBeNull())
+    await waitFor(() => expect(container.querySelector('input[value="Application"]')).toBeTruthy())
+    fireEvent.click(
+      container.querySelector(`[class*="monitoredService"] .bp3-input-action [data-icon="chevron-down"]`)!
+    )
+    await waitFor(() => expect(container.querySelector('[class*="menuItemLabel"]')).not.toBeNull())
+    fireEvent.click(getByText('Infrastructure'))
+    fireEvent.click(getByText('confirm'))
+
+    expect(onChangeMonitoredServiceType).toHaveBeenCalledWith('Infrastructure')
   })
 })

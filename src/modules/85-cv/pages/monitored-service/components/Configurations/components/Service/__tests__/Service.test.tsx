@@ -219,6 +219,7 @@ describe('Verify Service', () => {
     )
     await waitFor(() => expect(container.querySelector('[class*="menuItemLabel"]')).not.toBeNull())
     fireEvent.click(getByText('Infrastructure'))
+    fireEvent.click(getByText('confirm'))
     await waitFor(() => expect(getByText('cv.healthSource.noData')).not.toBeNull())
     expect(onChangeType).toHaveBeenCalledWith({
       correlationId: 'c910c9e2-5a48-4f4b-9dad-afdeac54d060',

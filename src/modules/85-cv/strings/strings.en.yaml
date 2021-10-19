@@ -559,6 +559,8 @@ monitoredServices:
   healthScoreDataNotAvailable: Health score data not available.
   failedToFetchHealthScore: Failed to fetch health score data.
   failedToFetchSummaryData: Failed to fetch summary data
+  changeMonitoredServiceType: Change Monitored Service Type
+  changeMonitoredServiceTypeMessage: Changing monitored service type will reset change sources
   serviceHealth:
     last4Hrs: Last 4 hours
     last24Hrs: Last 24 hours

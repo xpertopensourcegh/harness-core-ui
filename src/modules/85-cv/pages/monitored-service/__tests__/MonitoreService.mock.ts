@@ -181,3 +181,57 @@ export const graphData = {
   },
   responseMessages: []
 }
+
+export const monitoredServiceMockData = {
+  createdAt: 1625571657044,
+  lastModifiedAt: 1625627957333,
+  monitoredService: {
+    orgIdentifier: 'default',
+    projectIdentifier: 'Demo',
+    identifier: 'monitored-service',
+    name: 'Monitoring service 102 new',
+    type: 'Application',
+    description: '',
+    serviceRef: 'AppDService101',
+    environmentRef: 'AppDTestEnv1',
+    sources: {
+      healthSources: [
+        {
+          name: 'new hs old',
+          identifier: 'new_hs',
+          type: 'AppDynamics',
+          spec: {
+            connectorRef: 'AppD_Connector_102',
+            feature: 'Application Monitoring',
+            appdApplicationName: '700712',
+            appdTierName: '1181911',
+            metricPacks: [
+              {
+                identifier: 'Errors'
+              }
+            ]
+          }
+        },
+        {
+          name: 'Health Source 101',
+          identifier: 'Health_Source_101',
+          type: 'AppDynamics',
+          spec: {
+            connectorRef: 'AppD_Connector_102',
+            feature: 'Application Monitoring',
+            appdApplicationName: '700015',
+            appdTierName: '1180990',
+            metricPacks: [
+              {
+                identifier: 'Performance'
+              },
+              {
+                identifier: 'Errors'
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

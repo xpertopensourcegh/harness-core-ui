@@ -18,11 +18,9 @@
 
   .serviceAndType {
     display: flex;
+    justify-content: space-between;
     > p {
       width: 110px !important;
-      &:last-of-type {
-        margin-left: var(--spacing-small) !important;
-      }
     }
   }
   .monitoredServiceData {

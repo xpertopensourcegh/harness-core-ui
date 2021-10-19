@@ -1,15 +1,25 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { render, waitFor, act, fireEvent } from '@testing-library/react'
 import { Container, Button } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import * as cvServices from 'services/cv'
-import { yamlResponse } from './MonitoreService.mock'
+import { yamlResponse, monitoredServiceMockData } from './MonitoreService.mock'
 import MonitoredServicePage from '../MonitoredServicePage'
 
 const testWrapperProps: TestWrapperProps = {
   path: routes.toCVAddMonitoringServicesSetup({ ...accountPathProps, ...projectPathProps }),
+  pathParams: {
+    accountId: '1234_accountId',
+    projectIdentifier: '1234_project',
+    orgIdentifier: '1234_org',
+    identifier: 'monitored-service'
+  }
+}
+
+const testWrapperEditMode = {
+  path: routes.toCVAddMonitoringServicesEdit({ ...accountPathProps, ...projectPathProps, identifier: ':identifier' }),
   pathParams: {
     accountId: '1234_accountId',
     projectIdentifier: '1234_project',
@@ -56,63 +66,13 @@ jest.mock('@cv/components/HarnessServiceAndEnvironment/HarnessServiceAndEnvironm
 }))
 
 describe('Unit tests for createting monitored source', () => {
-  beforeAll(() => {
+  test('Health source table and environment services compoenet renders ', async () => {
     jest.spyOn(cvServices, 'useGetMonitoredService').mockImplementation(
       () =>
         ({
-          data: {
-            createdAt: 1625571657044,
-            lastModifiedAt: 1625627957333,
-            monitoredService: {
-              orgIdentifier: 'default',
-              projectIdentifier: 'Demo',
-              identifier: 'monitored-service',
-              name: 'Monitoring service 102 new',
-              type: 'Application',
-              description: '',
-              serviceRef: 'AppDService101',
-              environmentRef: 'AppDTestEnv1',
-              sources: {
-                healthSources: [
-                  {
-                    name: 'new hs old',
-                    identifier: 'new_hs',
-                    type: 'AppDynamics',
-                    spec: {
-                      connectorRef: 'AppD_Connector_102',
-                      feature: 'Application Monitoring',
-                      appdApplicationName: '700712',
-                      appdTierName: '1181911',
-                      metricPacks: [
-                        {
-                          identifier: 'Errors'
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    name: 'Health Source 101',
-                    identifier: 'Health_Source_101',
-                    type: 'AppDynamics',
-                    spec: {
-                      connectorRef: 'AppD_Connector_102',
-                      feature: 'Application Monitoring',
-                      appdApplicationName: '700015',
-                      appdTierName: '1180990',
-                      metricPacks: [
-                        {
-                          identifier: 'Performance'
-                        },
-                        {
-                          identifier: 'Errors'
-                        }
-                      ]
-                    }
-                  }
-                ]
-              }
-            }
-          }
+          data: monitoredServiceMockData,
+          error: null,
+          loading: false
         } as any)
     )
     jest.spyOn(cvServices, 'useGetMonitoredServiceYamlTemplate').mockImplementation(
@@ -122,8 +82,6 @@ describe('Unit tests for createting monitored source', () => {
           refetch: jest.fn()
         } as any)
     )
-  })
-  test('Health source table and environment services compoenet renders ', async () => {
     const { getByText } = render(
       <TestWrapper {...testWrapperProps}>
         <MonitoredServicePage />
@@ -136,5 +94,174 @@ describe('Unit tests for createting monitored source', () => {
 
     // Table cv.healthSource.defineYourSource
     expect(getByText('cv.healthSource.defineYourSource')).toBeDefined()
+  })
+
+  test('should render loading state', () => {
+    jest.spyOn(cvServices, 'useGetMonitoredService').mockImplementation(
+      () =>
+        ({
+          data: {},
+          error: null,
+          loading: true,
+          refetch: jest.fn()
+        } as any)
+    )
+    const { getByText } = render(
+      <TestWrapper {...testWrapperEditMode}>
+        <MonitoredServicePage />
+      </TestWrapper>
+    )
+    expect(getByText('common.loading')).toBeTruthy()
+  })
+
+  test('should render error state', () => {
+    jest.spyOn(cvServices, 'useGetMonitoredService').mockImplementation(
+      () =>
+        ({
+          data: {},
+          error: { message: '' },
+          loading: false,
+          refetch: jest.fn()
+        } as any)
+    )
+    const { getByText } = render(
+      <TestWrapper {...testWrapperEditMode}>
+        <MonitoredServicePage />
+      </TestWrapper>
+    )
+    expect(getByText('We cannot perform your request at the moment. Please try again.')).toBeTruthy()
+  })
+
+  test('should render edit mode', async () => {
+    jest.spyOn(cvServices, 'useGetMonitoredService').mockImplementation(
+      () =>
+        ({
+          data: monitoredServiceMockData,
+          error: null,
+          loading: false,
+          refetch: jest.fn()
+        } as any)
+    )
+    jest.spyOn(cvServices, 'useChangeEventList').mockImplementation(
+      () =>
+        ({
+          data: {},
+          error: null,
+          loading: false,
+          refetch: jest.fn()
+        } as any)
+    )
+    jest.spyOn(cvServices, 'useChangeEventTimeline').mockImplementation(
+      () =>
+        ({
+          data: {
+            resource: {
+              categoryTimeline: {
+                Deployment: [],
+                Infrastructure: [],
+                Alert: []
+              }
+            }
+          },
+          refetch: jest.fn(),
+          error: null,
+          loading: false
+        } as any)
+    )
+    const { container, getByText, getAllByRole } = render(
+      <TestWrapper {...testWrapperEditMode}>
+        <MonitoredServicePage />
+      </TestWrapper>
+    )
+    expect(getAllByRole('tab').length).toEqual(3)
+
+    const tabTitle = [
+      'cv.monitoredServices.monitoredServiceTabs.serviceHealth',
+      'cv.monitoredServices.monitoredServiceTabs.slos',
+      'cv.monitoredServices.monitoredServiceTabs.configurations'
+    ]
+
+    getAllByRole('tab').forEach((tab, index) => {
+      expect(tab.textContent).toEqual(tabTitle[index])
+    })
+
+    await waitFor(() => expect(container.querySelector('div[data-tab-id="ServiceHealth"]')).toBeTruthy())
+    await waitFor(() => expect(container.querySelector('div[data-tab-id="SLOs"]')).toBeTruthy())
+    await waitFor(() => expect(container.querySelector('div[data-tab-id="Configurations"]')).toBeTruthy())
+    await waitFor(() => expect(getByText('cv.monitoredServices.monitoredServiceTabs.configurations')).toBeTruthy())
+    act(() => {
+      fireEvent.click(container.querySelector('div[data-tab-id="ServiceHealth"]')!)
+    })
+
+    act(() => {
+      fireEvent.click(container.querySelector('div[data-tab-id="Configurations"]')!)
+    })
+  })
+
+  test('should refetch on project change', async () => {
+    const refetchMonitoredService = jest.fn()
+    jest.spyOn(cvServices, 'useGetMonitoredService').mockImplementation(
+      () =>
+        ({
+          data: monitoredServiceMockData,
+          error: null,
+          loading: false,
+          refetch: refetchMonitoredService
+        } as any)
+    )
+    jest.spyOn(cvServices, 'useChangeEventList').mockImplementation(
+      () =>
+        ({
+          data: {},
+          error: null,
+          loading: false,
+          refetch: jest.fn()
+        } as any)
+    )
+    jest.spyOn(cvServices, 'useChangeEventTimeline').mockImplementation(
+      () =>
+        ({
+          data: {
+            resource: {
+              categoryTimeline: {
+                Deployment: [],
+                Infrastructure: [],
+                Alert: []
+              }
+            }
+          },
+          refetch: jest.fn(),
+          error: null,
+          loading: false
+        } as any)
+    )
+    const { rerender } = render(
+      <TestWrapper {...testWrapperEditMode}>
+        <MonitoredServicePage />
+      </TestWrapper>
+    )
+    expect(refetchMonitoredService).toHaveBeenCalledWith()
+
+    const renrenderProps = {
+      path: routes.toCVAddMonitoringServicesEdit({
+        ...accountPathProps,
+        ...projectPathProps,
+        identifier: ':identifier'
+      }),
+      pathParams: {
+        accountId: '1234_accountId',
+        projectIdentifier: '1234_project_new',
+        orgIdentifier: '1234_org',
+        identifier: 'monitored-service'
+      }
+    }
+    // rerender with different projectIdentifier
+    rerender(
+      <TestWrapper {...renrenderProps}>
+        <MonitoredServicePage />
+      </TestWrapper>
+    )
+
+    expect(refetchMonitoredService).toHaveBeenCalledWith()
   })
 })

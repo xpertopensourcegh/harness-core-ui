@@ -1,6 +1,7 @@
-import React, { useMemo } from 'react'
-import { Layout, FormInput, Utils } from '@wings-software/uicore'
+import React, { useMemo, useState } from 'react'
+import { Layout, FormInput, Utils, Intent } from '@wings-software/uicore'
 import { NameIdDescriptionTags } from '@common/components'
+import { useConfirmationDialog } from '@common/exports'
 import { useStrings } from 'framework/strings'
 import type { MonitoredServiceDTO } from 'services/cv'
 import CardWithOuterTitle from '@cv/pages/health-source/common/CardWithOuterTitle/CardWithOuterTitle'
@@ -21,10 +22,24 @@ import css from './MonitoredServiceOverview.module.scss'
 export default function MonitoredServiceOverview(props: MonitoredServiceOverviewProps): JSX.Element {
   const { formikProps, isEdit, onChangeMonitoredServiceType } = props
   const { getString } = useStrings()
+  const [tempServiceType, setTempServiceType] = useState<MonitoredServiceDTO['type']>()
   const { serviceOptions, setServiceOptions } = useGetHarnessServices()
   const { environmentOptions, setEnvironmentOptions } = useGetHarnessEnvironments()
   const values = formikProps.values || {}
   const keys = useMemo(() => [Utils.randomId(), Utils.randomId()], [values.serviceRef, values.environmentRef])
+
+  const { openDialog } = useConfirmationDialog({
+    contentText: getString('cv.monitoredServices.changeMonitoredServiceTypeMessage'),
+    titleText: getString('cv.monitoredServices.changeMonitoredServiceType'),
+    cancelButtonText: getString('cancel'),
+    confirmButtonText: getString('confirm'),
+    intent: Intent.WARNING,
+    onCloseDialog: (isConfirmed: boolean) => {
+      if (isConfirmed) {
+        onChangeMonitoredServiceType?.(tempServiceType as MonitoredServiceDTO['type'])
+      }
+    }
+  })
 
   return (
     <CardWithOuterTitle title={getString('overview')} className={css.monitoredService}>
@@ -40,7 +55,13 @@ export default function MonitoredServiceOverview(props: MonitoredServiceOverview
                   ? MonitoredServiceTypeOptions[1]
                   : MonitoredServiceTypeOptions[0]
               }
-              onChange={item => onChangeMonitoredServiceType?.(item.value as MonitoredServiceDTO['type'])}
+              onChange={item => {
+                if (formikProps.values.type !== item.value) {
+                  openDialog()
+                  formikProps.setFieldValue('type', formikProps.values.type)
+                  setTempServiceType(item.value as MonitoredServiceDTO['type'])
+                }
+              }}
             />
             <HarnessServiceAsFormField
               key={keys[0]}

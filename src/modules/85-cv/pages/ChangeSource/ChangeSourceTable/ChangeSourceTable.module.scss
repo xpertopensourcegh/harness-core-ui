@@ -16,6 +16,11 @@
     box-shadow: none;
     border-radius: 0;
     border-bottom: 1px solid var(--grey-100);
+
+    div[role='cell']:first-child {
+      word-break: break-all;
+      padding-right: var(--spacing-small);
+    }
   }
 }
 
