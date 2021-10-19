@@ -319,3 +319,19 @@ export const mockedDependenciesWithEdgesData = {
     }
   ]
 }
+
+export const mockedNodeWithInfraType = {
+  identifierRef: 'manager_prod',
+  serviceRef: 'manager',
+  serviceName: 'manager',
+  environmentRef: 'prod',
+  environmentName: 'env-name',
+  riskScore: 0.05795074188643601,
+  riskLevel: 'HEALTHY',
+  type: 'Infrastructure'
+}
+
+export const mockedNodeWithApplicationType = {
+  ...mockedNodeWithInfraType,
+  type: 'Application'
+}

@@ -1,7 +1,13 @@
 import React from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { HarnessIcons, Utils } from '@wings-software/uicore'
-import { serviceIcon, statusColors } from '@cv/components/DependencyGraph/DependencyGraph.constants'
+import {
+  infraIconCoordinates,
+  infrastructureIcon,
+  serviceIcon,
+  serviceIconCoordinates,
+  statusColors
+} from '@cv/components/DependencyGraph/DependencyGraph.constants'
 import type { Node, DependencyData, GraphData } from '@cv/components/DependencyGraph/DependencyGraph.types'
 import type { Edge, RestResponseServiceDependencyGraphDTO, ServiceSummaryDetails } from 'services/cv'
 import { getRiskColorValue, getSecondaryRiskColorValue, RiskValues } from '@cv/utils/CommonUtils'
@@ -60,6 +66,7 @@ export function formatNodes(nodes?: Node[], data?: Edge[]) {
     const Logo = LogoFactory()
 
     const ColoredLogo = replaceFill(Logo, primaryColor)
+    const { x, y } = getCoordinates(icon)
 
     return (
       <svg width="60" height="69" viewBox="0 0 60 69" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -76,7 +83,7 @@ export function formatNodes(nodes?: Node[], data?: Edge[]) {
           29.25 64.9896L3.53719 50.1443C3.07309 49.8764 2.78719 49.3812 2.78719 48.8453L2.78719 19.1547C2.78719 18.6188 3.07309 18.1236 3.53719 17.8557L29.25 3.01036Z"
             stroke={primaryColor}
           />
-          <svg width="50%" height="50%" x="35%" y="33%" fill={primaryColor} xmlns="http://www.w3.org/2000/svg">
+          <svg width="50%" height="50%" x={x} y={y} fill={primaryColor} xmlns="http://www.w3.org/2000/svg">
             {ColoredLogo}
           </svg>
         </g>
@@ -174,7 +181,7 @@ export const getDependencyData = (
       nodes: serviceDependencyGraphData.resource.nodes.map(node => ({
         id: node?.identifierRef,
         status: node?.riskLevel,
-        icon: serviceIcon,
+        icon: getIconForServiceNode(node),
         name: node?.serviceName
       })) as Node[],
       data: (serviceDependencyGraphData?.resource?.edges as GraphData[]) || []
@@ -182,6 +189,22 @@ export const getDependencyData = (
   }
 
   return dependencyData
+}
+
+export function getIconForServiceNode(node: ServiceSummaryDetails): string {
+  let icon = serviceIcon
+  if ((node as any)?.type === 'Infrastructure') {
+    icon = infrastructureIcon
+  }
+  return icon
+}
+
+export function getCoordinates(icon: string): { x: string; y: string } {
+  let coordinates = serviceIconCoordinates
+  if (icon === infrastructureIcon) {
+    coordinates = infraIconCoordinates
+  }
+  return coordinates
 }
 
 export function getEdgesData(dependencyData: DependencyData): Edge[] {

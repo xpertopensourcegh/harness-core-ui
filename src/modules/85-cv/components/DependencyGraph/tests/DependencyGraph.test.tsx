@@ -9,17 +9,28 @@ import {
   mockedDependenciesResults,
   mockedServiceDependencies,
   mockedDependenciesWithNoEdgesData,
-  mockedDependenciesWithEdgesData
+  mockedDependenciesWithEdgesData,
+  mockedNodeWithInfraType,
+  mockedNodeWithApplicationType
 } from '@cv/components/DependencyGraph/tests/DependencyGraph.mock'
 import type * as cvService from 'services/cv'
 import {
   formatNodes,
   dependencyGraphOptions,
   getDependencyData,
-  getEdgesData
+  getEdgesData,
+  getIconForServiceNode,
+  getCoordinates
 } from '@cv/components/DependencyGraph/DependencyGraph.utils'
 import { RiskValues } from '@cv/utils/CommonUtils'
+import type { ServiceSummaryDetails } from 'services/cv'
 import type { DependencyData } from '../DependencyGraph.types'
+import {
+  infraIconCoordinates,
+  infrastructureIcon,
+  serviceIcon,
+  serviceIconCoordinates
+} from '../DependencyGraph.constants'
 
 describe('Unit tests for DependencyGraph', () => {
   test('Ensure Graph Component renders', async () => {
@@ -87,6 +98,22 @@ describe('Unit tests for DependencyGraph', () => {
         to: 'Service_2_Environment_1'
       }
     ])
+  })
+
+  test('Verify if getIconForServiceNode gives correct icon when monitored service type is Infrastructure', () => {
+    expect(getIconForServiceNode(mockedNodeWithInfraType as ServiceSummaryDetails)).toEqual(infrastructureIcon)
+  })
+
+  test('Verify if getIconForServiceNode gives correct icon when monitored service type is Application', () => {
+    expect(getIconForServiceNode(mockedNodeWithApplicationType as ServiceSummaryDetails)).toEqual(serviceIcon)
+  })
+
+  test('Verify if getCoordinates gives correct coordinates when monitored service type is Application', () => {
+    expect(getCoordinates(serviceIcon)).toEqual(serviceIconCoordinates)
+  })
+
+  test('Verify if getCoordinates gives correct coordinates when monitored service type is Infrastructure', () => {
+    expect(getCoordinates(infrastructureIcon)).toEqual(infraIconCoordinates)
   })
 
   // eslint-disable-next-line jest/no-disabled-tests

@@ -35,3 +35,7 @@ export const statusColors = [
 
 export const wrappedArrowLength = 5
 export const serviceIcon = 'dependency-default-icon'
+export const infrastructureIcon = 'infrastructure'
+
+export const serviceIconCoordinates = { x: '35%', y: '33%' }
+export const infraIconCoordinates = { x: '26%', y: '27%' }

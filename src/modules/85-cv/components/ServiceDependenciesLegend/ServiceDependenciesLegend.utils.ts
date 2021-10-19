@@ -1,3 +1,4 @@
+import type { IconName } from '@wings-software/uicore'
 import type { StringsMap } from 'stringTypes'
 import { getRiskLabelStringId } from '@cv/pages/monitored-service/CVMonitoredServiceListingPage.utils'
 import { RiskValues, getRiskColorValue } from '@cv/utils/CommonUtils'
@@ -28,6 +29,23 @@ export const getServicesStates = (): { label: keyof StringsMap; identifier: stri
       label: 'na',
       identifier: 'na',
       color: getRiskColorValue(RiskValues.NO_DATA)
+    }
+  ]
+}
+
+export const getServicesTypes = (): { label: string; identifier: string; icon: IconName; size: number }[] => {
+  return [
+    {
+      label: 'Application',
+      identifier: 'application',
+      icon: 'dependency-default-icon',
+      size: 16
+    },
+    {
+      label: 'Infrastructure',
+      identifier: 'infrastructure',
+      icon: 'infrastructure',
+      size: 22
     }
   ]
 }

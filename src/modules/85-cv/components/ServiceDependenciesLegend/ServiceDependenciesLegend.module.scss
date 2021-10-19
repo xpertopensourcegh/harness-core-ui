@@ -1,12 +1,16 @@
-.dependenciesLegendsContainer {
+.serviceStatesContainer {
   display: flex;
   width: fit-content;
   height: 30px;
-  background-color: #e5e5e5;
   border: 1px solid #cdf4fe;
   box-sizing: border-box;
   border-radius: var(--spacing-xsmall);
   margin-left: var(--spacing-small) !important;
+}
+
+.serviceTypesContainer {
+  @extend .serviceStatesContainer;
+  min-width: 359.94px;
 }
 
 .serviceState {
