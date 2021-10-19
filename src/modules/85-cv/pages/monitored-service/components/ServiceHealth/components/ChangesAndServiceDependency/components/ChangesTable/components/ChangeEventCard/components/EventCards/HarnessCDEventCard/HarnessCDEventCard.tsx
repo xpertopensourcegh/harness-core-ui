@@ -24,8 +24,8 @@ export default function HarnessCDEventCard({
   const changeTitleData: ChangeTitleData = useMemo(() => createChangeTitleData(data), [])
   const changeDetailsData: ChangeDetailsDataInterface = useMemo(() => createChangeDetailsData(data), [])
 
-  const { name = '' } = data?.metadata || {}
-  const changeInfoData = { name }
+  const { name = '', artifactType = '', artifactName = '' } = data?.metadata || {}
+  const changeInfoData = { name, 'artifact type': artifactType, 'artifact name': artifactName }
 
   return (
     <Card className={css.main}>

@@ -17,6 +17,20 @@ describe('ServiceDependenciesLegend Tests', () => {
     await waitFor(() => expect(getByText(getRiskLabelStringId(RiskValues.OBSERVE))).toBeTruthy())
     await waitFor(() => expect(getByText(getRiskLabelStringId(RiskValues.HEALTHY))).toBeTruthy())
     await waitFor(() => expect(getByText('na')).toBeTruthy())
+
+    // should render servicetype legend
+    await waitFor(() => expect(container.querySelector('.serviceTypesContainer')).toBeTruthy())
+
+    expect(container).toMatchSnapshot()
+  })
+
+  test('should render ServiceDependenciesLegend without ServiceType legend', async () => {
+    const { container } = render(
+      <TestWrapper>
+        <ServiceDependenciesLegend hideServiceTypeLegend />
+      </TestWrapper>
+    )
+    await waitFor(() => expect(container.querySelector('.serviceTypesContainer')).not.toBeTruthy())
     expect(container).toMatchSnapshot()
   })
 })

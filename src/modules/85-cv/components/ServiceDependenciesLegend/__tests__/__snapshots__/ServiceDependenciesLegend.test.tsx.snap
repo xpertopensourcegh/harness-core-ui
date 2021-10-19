@@ -134,3 +134,76 @@ exports[`ServiceDependenciesLegend Tests should render ServiceDependenciesLegend
   </div>
 </div>
 `;
+
+exports[`ServiceDependenciesLegend Tests should render ServiceDependenciesLegend without ServiceType legend 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main StyledProps--padding-medium"
+  >
+    <div
+      class="StyledProps--font StyledProps--main serviceStatesContainer StyledProps--background-primary1"
+    >
+      <div
+        class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--padding-top-xsmall StyledProps--padding-right-xsmall"
+      >
+        <div
+          class="StyledProps--font StyledProps--main serviceState"
+        />
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--margin-right-small StyledProps--font-size-xsmall"
+        >
+          cv.monitoredServices.serviceHealth.serviceDependencies.states.unhealthy
+        </p>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--padding-top-xsmall StyledProps--padding-right-xsmall"
+      >
+        <div
+          class="StyledProps--font StyledProps--main serviceState"
+        />
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--margin-right-small StyledProps--font-size-xsmall"
+        >
+          cv.monitoredServices.serviceHealth.serviceDependencies.states.needsAttention
+        </p>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--padding-top-xsmall StyledProps--padding-right-xsmall"
+      >
+        <div
+          class="StyledProps--font StyledProps--main serviceState"
+        />
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--margin-right-small StyledProps--font-size-xsmall"
+        >
+          cv.monitoredServices.serviceHealth.serviceDependencies.states.observe
+        </p>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--padding-top-xsmall StyledProps--padding-right-xsmall"
+      >
+        <div
+          class="StyledProps--font StyledProps--main serviceState"
+        />
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--margin-right-small StyledProps--font-size-xsmall"
+        >
+          cv.monitoredServices.serviceHealth.serviceDependencies.states.healthy
+        </p>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--padding-top-xsmall StyledProps--padding-right-xsmall"
+      >
+        <div
+          class="StyledProps--font StyledProps--main serviceState"
+        />
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--margin-right-small StyledProps--font-size-xsmall"
+        >
+          na
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;

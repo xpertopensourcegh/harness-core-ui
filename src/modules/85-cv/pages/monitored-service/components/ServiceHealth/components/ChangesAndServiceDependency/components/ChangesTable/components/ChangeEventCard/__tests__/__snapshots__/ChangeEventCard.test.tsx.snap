@@ -345,68 +345,6 @@ exports[`Validate ChangeCard should render Pager Duty card 1`] = `
             </p>
           </div>
         </div>
-        <div
-          class="StyledProps--font StyledProps--main serviceTypesContainer legend StyledProps--background-primary1"
-        >
-          <div
-            class="StyledProps--font StyledProps--main StyledProps--flex"
-          >
-            <span
-              class="bp3-icon StyledProps--main StyledProps--padding-left-xsmall StyledProps--padding-right-xsmall"
-              data-icon="dependency-default-icon"
-            >
-              <svg
-                fill="none"
-                height="16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M.802.35h0a.49.49 0 01.042 0h6.133a.491.491 0 01.491.491v6.136a.49.49 0 01-.49.491h0H.84h0a.49.49 0 01-.347-.143M.802.35L.599 7.22l-.105.106s0 0 0 0M.802.35L.795.351h.007zM.494 7.325a.49.49 0 01-.144-.348m.144.348L.35 6.977m0 0h0V.842v0H.5L.35 6.976zM8.984.351h0l-.302.49h-.15v0s0 0 0 0v6.136a.491.491 0 00.49.491h6.137a.49.49 0 00.491-.49V.84v0a.49.49 0 00-.144-.347h0A.491.491 0 0015.16.35h0-6.133a.49.49 0 00-.042 0zM.802 8.532h0l-.302.49H.35V15.16h0a.491.491 0 00.49.491h6.137a.491.491 0 00.491-.49V9.022v0a.49.49 0 00-.49-.491h0H.843a.49.49 0 00-.042 0zm.53-7.2h5.154v5.155H1.332V1.332zm8.182 0h5.154v5.155H9.514V1.332zm2.577 7.195a3.569 3.569 0 00-3.56 3.564 3.564 3.564 0 003.56 3.559 3.564 3.564 0 003.559-3.559 3.569 3.569 0 00-3.56-3.564zm-10.76.987h5.155v5.154H1.332V9.514zm10.76 0a2.572 2.572 0 012.577 2.577 2.568 2.568 0 01-2.577 2.572 2.568 2.568 0 01-2.577-2.572 2.572 2.572 0 012.577-2.577z"
-                  fill="currentColor"
-                  stroke="currentColor"
-                  stroke-width="0.3"
-                />
-              </svg>
-            </span>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--margin-right-small StyledProps--font-size-xsmall"
-            >
-              Application
-            </p>
-          </div>
-          <div
-            class="StyledProps--font StyledProps--main StyledProps--flex"
-          >
-            <span
-              class="bp3-icon StyledProps--main StyledProps--padding-left-xsmall StyledProps--padding-right-xsmall"
-              data-icon="infrastructure"
-            >
-              <svg
-                fill="currentColor"
-                height="22"
-                viewBox="0 0 24 24"
-                width="22"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M4 4h16v16H4z"
-                  opacity="0.01"
-                />
-                <path
-                  clip-rule="evenodd"
-                  d="M12.487 8.343a.2.2 0 00.08.17l6.287 4.692a1 1 0 01.006 1.598l-6.257 4.74a1 1 0 01-1.207.002l-6.325-4.773a1 1 0 01-.026-1.577l.664-.536a.2.2 0 01.248-.002l.207.161a.3.3 0 01-.006.479l-.593.436a.2.2 0 00-.002.32l5.618 4.253a.2.2 0 00.321-.159v-2.515L5.066 10.8a1 1 0 010-1.6l6.344-4.758a1 1 0 011.187-.01l6.408 4.646a1 1 0 01-.036 1.645l-.905.597-.482-.471a.2.2 0 01.037-.315l.747-.449a.2.2 0 00.011-.335l-5.471-3.825a.2.2 0 00-.315.155l-.104 2.263zm-.767-2.476a.2.2 0 00-.32-.16L5.972 9.775a.2.2 0 000 .32l5.753 4.346a.5.5 0 00.567.025l2.642-1.65a.2.2 0 01.233.014l.452.37a.2.2 0 01-.02.324l-3.217 2.02a.2.2 0 00-.093.17v2.468a.2.2 0 00.322.158l5.42-4.18a.2.2 0 00-.001-.318l-5.853-4.469a.2.2 0 00-.245.002l-2.438 1.92a.2.2 0 01-.258-.008l-.382-.346a.2.2 0 01.011-.305l2.78-2.186a.2.2 0 00.075-.158V5.867z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--margin-right-small StyledProps--font-size-xsmall"
-            >
-              Infrastructure
-            </p>
-          </div>
-        </div>
       </div>
     </div>
   </div>

@@ -45,7 +45,7 @@ export default function ChangeEventServiceHealth(props: ChangeEventServiceHealth
       <Container className={css.timestamps}>
         <TimestampChart timestamps={timestamps} tickAmount={5} />
       </Container>
-      <ServiceDependenciesLegend className={css.legend} />
+      <ServiceDependenciesLegend className={css.legend} hideServiceTypeLegend />
     </Container>
   )
 }
