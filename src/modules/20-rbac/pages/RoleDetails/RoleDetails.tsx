@@ -12,7 +12,7 @@ import {
   Role,
   useGetPermissionList,
   useGetRole,
-  useUpdateRole,
+  usePutRole,
   useGetPermissionResourceTypesList
 } from 'services/rbac'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
@@ -65,7 +65,7 @@ const RoleDetails: React.FC = () => {
     queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier }
   })
 
-  const { mutate: addPermissions } = useUpdateRole({
+  const { mutate: addPermissions } = usePutRole({
     identifier: roleIdentifier,
     queryParams: {
       accountIdentifier: accountId,

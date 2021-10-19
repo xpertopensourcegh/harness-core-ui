@@ -15,7 +15,7 @@ import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
 import { defaultTo } from 'lodash-es'
 import { useToaster } from '@common/components'
-import { useCreateRoleAssignments, RoleAssignment as RBACRoleAssignment } from 'services/rbac'
+import { usePostRoleAssignments, RoleAssignment as RBACRoleAssignment } from 'services/rbac'
 import { useStrings } from 'framework/strings'
 import { UserMetadataDTO, RoleAssignmentMetadataDTO, useGetUsers, useAddUsers, AddUsers } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -79,7 +79,7 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
   const [query, setQuery] = useState<string>()
   const { showSuccess } = useToaster()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
-  const { mutate: createRoleAssignment, loading: saving } = useCreateRoleAssignments({
+  const { mutate: createRoleAssignment, loading: saving } = usePostRoleAssignments({
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
   })
 

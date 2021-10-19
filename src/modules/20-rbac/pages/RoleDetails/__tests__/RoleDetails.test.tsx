@@ -19,7 +19,7 @@ jest.mock('services/rbac', () => ({
   useGetRole: jest.fn().mockImplementation(() => {
     return { data: roleMockData, refetch: jest.fn(), error: null }
   }),
-  useUpdateRole: jest.fn().mockImplementation(() => ({ mutate: updateRole })),
+  usePutRole: jest.fn().mockImplementation(() => ({ mutate: updateRole })),
   useGetPermissionList: jest.fn().mockImplementation(() => {
     return { data: permissionListMockData, refetch: jest.fn(), error: null }
   }),

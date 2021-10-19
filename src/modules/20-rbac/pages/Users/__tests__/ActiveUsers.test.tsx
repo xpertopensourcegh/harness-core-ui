@@ -38,7 +38,7 @@ jest.mock('services/rbac', () => ({
   useGetRoleList: jest.fn().mockImplementation(() => {
     return { data: roleMockData, refetch: jest.fn(), error: null, loading: false }
   }),
-  useCreateRoleAssignments: jest.fn().mockImplementation(() => ({ mutate: createRoleMock })),
+  usePostRoleAssignments: jest.fn().mockImplementation(() => ({ mutate: createRoleMock })),
   useDeleteRoleAssignment: jest.fn().mockImplementation(() => ({ mutate: mockResponse }))
 }))
 

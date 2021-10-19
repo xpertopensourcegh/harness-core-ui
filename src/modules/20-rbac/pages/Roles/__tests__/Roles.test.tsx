@@ -30,8 +30,8 @@ jest.mock('services/rbac', () => ({
     return { data: rolesMockList, refetch: jest.fn(), error: null }
   }),
   useDeleteRole: jest.fn().mockImplementation(() => ({ mutate: deleteRoleMock })),
-  useCreateRole: jest.fn().mockImplementation(() => createRoleMockData),
-  useUpdateRole: jest.fn().mockImplementation(() => createRoleMockData)
+  usePostRole: jest.fn().mockImplementation(() => createRoleMockData),
+  usePutRole: jest.fn().mockImplementation(() => createRoleMockData)
 }))
 
 describe('Role Details Page', () => {
