@@ -72,6 +72,7 @@ const routes = {
   toAuthenticationSettings: withAccountId(() => '/settings/authentication'),
   toAccountConfiguration: withAccountId(() => '/settings/authentication/configuration'),
   toAccountActivityLog: withAccountId(() => '/settings/authentication/activity-log'),
+  toAccountSettingsGovernance: withAccountId(() => 'settings/governance'),
   toPolicyDashboardPage: withAccountId(() => 'settings/governance/policy-dashboard'),
   toPolicyListPage: withAccountId(() => 'settings/governance/policies'),
   toPolicyNewPage: withAccountId(() => 'settings/governance/policies/new'),
@@ -433,19 +434,6 @@ const routes = {
   toOrganizations: withAccountId(() => `/settings/organizations`),
   toOrganizationDetails: withAccountId(
     ({ orgIdentifier }: OrgPathProps) => `/settings/organizations/${orgIdentifier}/details`
-  ),
-  toGovernance: withAccountId(
-    ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
-      const path = `governance`
-      return getScopeBasedRoute({
-        scope: {
-          orgIdentifier,
-          projectIdentifier,
-          module
-        },
-        path
-      })
-    }
   ),
   toCreateSecretFromYaml: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
