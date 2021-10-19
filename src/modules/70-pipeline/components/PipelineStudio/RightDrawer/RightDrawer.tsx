@@ -164,10 +164,16 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         }
       })
       setSelectedStepId(undefined)
-      trackEvent(StepActions.AddEditStep, {
-        name: data?.stepConfig?.node?.name || '',
-        type: (data?.stepConfig?.node as StepElementConfig)?.type || ''
-      })
+      if (data?.stepConfig?.isStepGroup) {
+        trackEvent(StepActions.AddEditStepGroup, {
+          name: (formikRef?.current?.getValues?.() as Values).name || ''
+        })
+      } else {
+        trackEvent(StepActions.AddEditStep, {
+          name: data?.stepConfig?.node?.name || '',
+          type: (data?.stepConfig?.node as StepElementConfig)?.type || ''
+        })
+      }
     }
   }
   const discardChanges = (): void => {
