@@ -178,21 +178,13 @@ exports[`CIExecutionSummary tests Shows Fails to Initialize Step - no commits 1`
       <div
         style="font-size: 0px;"
       >
-        <span
-          class="bp3-popover-wrapper"
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+          style="max-width: 150px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
+          title="[CI-0]: Create tests cases for running in Bazel / maven"
         >
-          <span
-            class="bp3-popover-target Text--targetClass"
-          >
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--font-size-small"
-              style="max-width: 150px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
-              tabindex="0"
-            >
-              [CI-0]: Create tests cases for running in Bazel / maven
-            </p>
-          </span>
-        </span>
+          [CI-0]: Create tests cases for running in Bazel / maven
+        </p>
       </div>
       <a
         class="label"
@@ -391,21 +383,13 @@ exports[`CIExecutionSummary tests Shows Successful summary 1`] = `
       <div
         style="font-size: 0px;"
       >
-        <span
-          class="bp3-popover-wrapper"
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+          style="max-width: 150px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
+          title="Update ConnectorUtils.java"
         >
-          <span
-            class="bp3-popover-target Text--targetClass"
-          >
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--font-size-small"
-              style="max-width: 150px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
-              tabindex="0"
-            >
-              Update ConnectorUtils.java
-            </p>
-          </span>
-        </span>
+          Update ConnectorUtils.java
+        </p>
       </div>
       <p
         class="StyledProps--font StyledProps--main commitId"
@@ -483,21 +467,13 @@ exports[`CIExecutionSummary tests Shows Successful summary 1`] = `
       <div
         style="font-size: 0px;"
       >
-        <span
-          class="bp3-popover-wrapper"
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+          style="max-width: 150px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
+          title="[CI-0]: Example changes for TI demo"
         >
-          <span
-            class="bp3-popover-target Text--targetClass"
-          >
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--font-size-small"
-              style="max-width: 150px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
-              tabindex="0"
-            >
-              [CI-0]: Example changes for TI demo
-            </p>
-          </span>
-        </span>
+          [CI-0]: Example changes for TI demo
+        </p>
       </div>
       <a
         class="label"

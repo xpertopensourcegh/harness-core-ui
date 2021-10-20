@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon, Container, Layout, Text } from '@wings-software/uicore'
+import { Icon, Layout, Text } from '@wings-software/uicore'
 import type { ExecutionSummaryProps } from '@pipeline/factories/ExecutionFactory/types'
 import type { ExecutionCardInfoProps } from '@pipeline/factories/ExecutionFactory/types'
 import { CommitsInfo } from '@ci/components/CommitsInfo/CommitsInfo'
@@ -62,7 +62,7 @@ function getUIByType(
                 font={{ size: 'small' }}
                 color="grey900"
                 style={{ maxWidth: 500, whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}
-                tooltip={<Container padding="small">{data?.ciExecutionInfoDTO?.pullRequest?.title}</Container>}
+                title={data?.ciExecutionInfoDTO?.pullRequest?.title}
               >
                 {data?.ciExecutionInfoDTO?.pullRequest?.title}
               </Text>
