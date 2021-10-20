@@ -1,7 +1,6 @@
 import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import { Button, Container } from '@wings-software/uicore'
-import * as toaster from '@common/components/Toaster/useToaster'
 import { TestWrapper } from '@common/utils/testUtils'
 import type { useGetLabelNames, useGetMetricNames } from 'services/cv'
 import { PrometheusQueryBuilder } from '../PrometheusQueryBuilder'
@@ -9,6 +8,13 @@ import { PrometheusMonitoringSourceFieldNames } from '../../../PrometheusHealthS
 
 const MockLabels = ['label1', 'label2', 'label3']
 const MockMetricNames = ['metric1', 'metric2', 'metric3']
+
+const showErrorMock = jest.fn()
+
+jest.mock('@wings-software/uicore', () => ({
+  ...jest.requireActual('@wings-software/uicore'),
+  useToaster: jest.fn(() => ({ showError: showErrorMock, showSuccess: jest.fn(), clear: jest.fn() }))
+}))
 
 jest.mock('../components/PrometheusFilterSelector/PrometheusFilterSelector', () => ({
   PrometheusFilterSelector: function MockComponent(props: any) {
@@ -29,6 +35,10 @@ jest.mock('../components/PrometheusFilterSelector/PrometheusFilterSelector', () 
 }))
 
 describe('Unit tests for PrometheusQueryBuilder', () => {
+  beforeEach(() => {
+    showErrorMock.mockClear()
+  })
+
   test('Ensure when it is manual query no content is rendered', async () => {
     const { container } = render(
       <TestWrapper>
@@ -132,12 +142,6 @@ describe('Unit tests for PrometheusQueryBuilder', () => {
   })
 
   test('Ensure that error is displayed correctly', async () => {
-    const showErrorMock = jest.fn()
-    jest.spyOn(toaster, 'useToaster').mockReturnValue({
-      clear: jest.fn(),
-      showError: showErrorMock
-    } as any)
-
     // error for label names
     const { rerender } = render(
       <TestWrapper>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Text, Layout, Container, Color, Icon, ButtonVariation } from '@wings-software/uicore'
+import { Text, Layout, Container, Color, Icon, ButtonVariation, useToaster } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
 import { defaultTo } from 'lodash-es'
@@ -14,7 +14,6 @@ import {
   useGetResourceTypes
 } from 'services/resourcegroups'
 import { Page } from '@common/components/Page/Page'
-import { useToaster } from '@common/components/Toaster/useToaster'
 import { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
 import ResourcesCard from '@rbac/components/ResourcesCard/ResourcesCard'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'

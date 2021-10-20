@@ -1,6 +1,6 @@
 import { Intent } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
-import { useToaster } from '@common/components/Toaster/useToaster'
+import { useToaster } from '@wings-software/uicore'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import { useStrings } from 'framework/strings'
 import { Project, useDeleteProject } from 'services/cd-ng'

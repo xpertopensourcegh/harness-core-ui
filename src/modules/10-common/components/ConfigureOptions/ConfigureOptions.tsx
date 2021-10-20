@@ -9,14 +9,14 @@ import {
   MultiSelectOption,
   Layout,
   RUNTIME_INPUT_VALUE,
-  ButtonVariation
+  ButtonVariation,
+  useToaster
 } from '@wings-software/uicore'
 import { Dialog, Classes, FormGroup, Position } from '@blueprintjs/core'
 import * as Yup from 'yup'
 import cx from 'classnames'
 import isEmpty from 'lodash/isEmpty'
 import { useStrings, String } from 'framework/strings'
-import { useToaster } from '@common/components/Toaster/useToaster'
 import css from './ConfigureOptions.module.scss'
 
 export interface ConfigureOptionsProps {

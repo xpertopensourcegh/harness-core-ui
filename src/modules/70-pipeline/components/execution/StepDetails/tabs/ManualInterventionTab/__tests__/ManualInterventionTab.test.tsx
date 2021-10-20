@@ -15,7 +15,10 @@ jest.mock('services/pipeline-ng', () => ({
 }))
 
 const showError = jest.fn()
-jest.mock('@common/components/Toaster/useToaster', () => ({ useToaster: jest.fn(() => ({ showError })) }))
+jest.mock('@wings-software/uicore', () => ({
+  ...jest.requireActual('@wings-software/uicore'),
+  useToaster: jest.fn(() => ({ showError }))
+}))
 
 const TEST_PATH = routes.toExecutionPipelineView({
   ...accountPathProps,

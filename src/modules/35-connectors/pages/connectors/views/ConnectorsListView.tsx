@@ -10,7 +10,8 @@ import {
   StepsProgress,
   Container,
   ButtonVariation,
-  ButtonSize
+  ButtonSize,
+  useToaster
 } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Menu, Classes, Position, Intent, PopoverInteractionKind, TextArea } from '@blueprintjs/core'
@@ -18,7 +19,7 @@ import { useParams, useHistory } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
 import classNames from 'classnames'
 import { pick } from 'lodash-es'
-import { String } from 'framework/strings'
+import { String, useStrings } from 'framework/strings'
 import type { StringKeys } from 'framework/strings'
 import {
   ConnectorResponse,
@@ -32,12 +33,10 @@ import {
 } from 'services/cd-ng'
 import Table from '@common/components/Table/Table'
 import { useConfirmationDialog } from '@common/exports'
-import { useToaster } from '@common/components/Toaster/useToaster'
 import TagsPopover from '@common/components/TagsPopover/TagsPopover'
 import { StepIndex, STEP } from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { StepDetails, CredTypeValues } from '@connectors/interfaces/ConnectorInterface'
 import { ConnectorStatus, Connectors } from '@connectors/constants'
-import { useStrings } from 'framework/strings'
 import type { UseCreateConnectorModalReturn } from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
 import useTestConnectionErrorModal from '@connectors/common/useTestConnectionErrorModal/useTestConnectionErrorModal'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'

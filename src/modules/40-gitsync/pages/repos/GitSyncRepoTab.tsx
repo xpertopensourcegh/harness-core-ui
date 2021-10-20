@@ -13,7 +13,8 @@ import {
   useModalHook,
   ModalErrorHandlerBinding,
   ModalErrorHandler,
-  Tag
+  Tag,
+  useToaster
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import type { CellProps, Renderer, Column } from 'react-table'
@@ -35,17 +36,16 @@ import {
   getCompleteGitPath,
   getGitConnectorIcon,
   getRepoPath,
-  getHarnessFolderPathWithSuffix
+  getHarnessFolderPathWithSuffix,
+  getExternalUrl
 } from '@gitsync/common/gitSyncUtils'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
-import { useToaster } from '@common/components/Toaster/useToaster'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { HARNESS_FOLDER_NAME_PLACEHOLDER, HARNESS_FOLDER_SUFFIX } from '@gitsync/common/Constants'
 import { TestConnectionWidget, TestStatus } from '@common/components/TestConnectionWidget/TestConnectionWidget'
 import { getIdentifierFromValue } from '@common/components/EntityReference/EntityReference'
 import CopyToClipboard from '@common/components/CopyToClipBoard/CopyToClipBoard'
 import { StringUtils } from '@common/exports'
-import { getExternalUrl } from '@gitsync/common/gitSyncUtils'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import css from './GitSyncRepoTab.module.scss'
 

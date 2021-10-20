@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
+import { useToaster } from '@wings-software/uicore'
 import moment from 'moment'
 import type { GetDataError } from 'restful-react'
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
-import { useToaster } from '@common/components/Toaster/useToaster'
 import type { Failure, Error } from 'services/cd-ng'
 
 export function roundNumber(value?: number, precision = 2) {

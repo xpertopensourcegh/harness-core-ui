@@ -64,7 +64,9 @@ jest.mock('@common/hooks', () => ({
 const showError = jest.fn()
 const showSuccess = jest.fn()
 const toasterClear = jest.fn()
-jest.mock('@common/components/Toaster/useToaster', () => ({
+
+jest.mock('@wings-software/uicore', () => ({
+  ...jest.requireActual('@wings-software/uicore'),
   useToaster: jest.fn(() => ({ showError, showSuccess, clear: toasterClear }))
 }))
 

@@ -20,7 +20,8 @@ import {
   MultiTypeInputType,
   FormInput,
   Icon,
-  SelectOption
+  SelectOption,
+  useToaster
 } from '@wings-software/uicore'
 import { useDeepCompareEffect, useMutateAsGet, useQueryParams } from '@common/hooks'
 import { useStrings } from 'framework/strings'
@@ -44,7 +45,6 @@ import type {
 } from '@pipeline/factories/ArtifactTriggerInputFactory/types'
 import { ArtifactToConnectorMap, ENABLED_ARTIFACT_TYPES } from '@pipeline/components/ArtifactsSelection/ArtifactHelper'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
-import { useToaster } from '@common/components/Toaster/useToaster'
 import { EXPRESSION_STRING } from '@pipeline/utils/constants'
 import {
   PRIMARY_ARTIFACT,

@@ -1,6 +1,7 @@
 import React, { useContext, useMemo } from 'react'
 import { omit } from 'lodash-es'
 import { useParams } from 'react-router-dom'
+import { useToaster } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import {
   MonitoredServiceDTO,
@@ -9,7 +10,6 @@ import {
   useUpdateMonitoredService
 } from 'services/cv'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
-import { useToaster } from '@common/components/Toaster/useToaster'
 import { BGColorWrapper } from '@cv/pages/health-source/common/StyledComponents'
 import { SetupSourceTabsContext } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'

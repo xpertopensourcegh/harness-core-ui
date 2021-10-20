@@ -14,11 +14,11 @@ import {
   Popover,
   useModalHook,
   OverlaySpinner,
-  ButtonVariation
+  ButtonVariation,
+  useToaster
 } from '@wings-software/uicore'
 import type { FormikProps, FormikErrors } from 'formik'
 import { Menu, Classes, Position, PopoverInteractionKind, Dialog, IDialogProps } from '@blueprintjs/core'
-import { useToaster } from '@common/components/Toaster/useToaster'
 import { useStrings } from 'framework/strings'
 import { StringUtils } from '@common/exports'
 import { regexIdentifier, UNIQUE_ID_MAX_LENGTH } from '@common/utils/StringUtils'

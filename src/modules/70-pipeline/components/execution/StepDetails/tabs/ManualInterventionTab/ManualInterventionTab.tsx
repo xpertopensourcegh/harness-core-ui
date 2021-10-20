@@ -1,7 +1,7 @@
 import React from 'react'
 import { chunk } from 'lodash-es'
 import { useParams } from 'react-router-dom'
-import { Thumbnail } from '@wings-software/uicore'
+import { Thumbnail, useToaster } from '@wings-software/uicore'
 import cx from 'classnames'
 
 import { String, useStrings } from 'framework/strings'
@@ -12,7 +12,6 @@ import {
 } from 'services/pipeline-ng'
 import { Strategy, strategyIconMap, stringsMap } from '@pipeline/utils/FailureStrategyUtils'
 import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
-import { useToaster } from '@common/components/Toaster/useToaster'
 
 import css from './ManualInterventionTab.module.scss'
 

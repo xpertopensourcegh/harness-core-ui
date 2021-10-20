@@ -12,11 +12,11 @@ import {
   FormikForm as Form,
   Button,
   ModalErrorHandler,
-  ModalErrorHandlerBinding
+  ModalErrorHandlerBinding,
+  useToaster
 } from '@wings-software/uicore'
 import type { ConnectorInfoDTO, ConnectorRequestBody } from 'services/cd-ng'
 import { useCreateConnector } from 'services/cd-ng'
-import { useToaster } from '@common/components/Toaster/useToaster'
 import { DialogWithExtensionContext } from '@ce/common/DialogWithExtension/DialogWithExtension'
 import { useGetCloudFormationTemplate } from 'services/lw'
 import { useStrings } from 'framework/strings'

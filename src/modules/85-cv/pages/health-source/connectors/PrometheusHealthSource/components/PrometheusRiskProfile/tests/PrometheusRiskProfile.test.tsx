@@ -2,9 +2,15 @@ import React from 'react'
 import { render, waitFor } from '@testing-library/react'
 import { Classes } from '@blueprintjs/core'
 import type { useGetMetricPacks, useGetLabelNames } from 'services/cv'
-import * as toaster from '@common/components/Toaster/useToaster'
 import { TestWrapper } from '@common/utils/testUtils'
 import { PrometheusRiskProfile } from '../PrometheusRiskProfile'
+
+const showErrorMock = jest.fn()
+
+jest.mock('@wings-software/uicore', () => ({
+  ...jest.requireActual('@wings-software/uicore'),
+  useToaster: jest.fn(() => ({ showError: showErrorMock, showSuccess: jest.fn(), clear: jest.fn() }))
+}))
 
 const MockLabels = ['label1', 'label2', 'label3']
 const MockResponse = {
@@ -109,6 +115,9 @@ const MockResponse = {
 } as unknown as ReturnType<typeof useGetMetricPacks>
 
 describe('Unit tests for PrometheusRiskProfile', () => {
+  beforeEach(() => {
+    showErrorMock.mockClear()
+  })
   test('Ensure that api result is rendered correctly', async () => {
     const { getByText } = render(
       <TestWrapper>
@@ -140,12 +149,6 @@ describe('Unit tests for PrometheusRiskProfile', () => {
   })
 
   test('Ensure that when an error occurs, the error is displayed', async () => {
-    const showErrorMock = jest.fn()
-    jest.spyOn(toaster, 'useToaster').mockReturnValue({
-      clear: jest.fn(),
-      showError: showErrorMock
-    } as any)
-
     render(
       <TestWrapper>
         <PrometheusRiskProfile

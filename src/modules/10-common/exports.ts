@@ -1,7 +1,7 @@
 //
 // Common Module exports which are consumable by other Modules
 //
-
+export { useToaster } from '@wings-software/uicore'
 import * as StringUtils from './utils/StringUtils'
 import type { DynamicPopoverHandlerBinding as _DynamicPopoverHandlerBinding } from './components/DynamicPopover/DynamicPopover'
 // YamlUtils can't be imported as it's bundled as ESM
@@ -15,7 +15,6 @@ export { Page } from './components/Page/Page'
 export { StringUtils, rsql /*, YamlUtils */ }
 export { useConfirmationDialog } from './modals/ConfirmDialog/useConfirmationDialog'
 export { NavigationCheck } from './components/NavigationCheck/NavigationCheck'
-export { useToaster } from './components/Toaster/useToaster'
 export { EntityReference } from './components/EntityReference/EntityReference'
 export { MultiSelectEntityReference } from './components/MultiSelectEntityReference/MultiSelectEntityReference'
 export { ReferenceSelect, MultiTypeReferenceInput } from './components/ReferenceSelect/ReferenceSelect'
