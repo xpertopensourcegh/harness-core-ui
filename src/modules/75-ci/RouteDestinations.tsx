@@ -71,7 +71,7 @@ import './components/PipelineStudio/BuildStage'
 import GitSyncPage from '@gitsync/pages/GitSyncPage'
 import GitSyncRepoTab from '@gitsync/pages/repos/GitSyncRepoTab'
 import GitSyncEntityTab from '@gitsync/pages/entities/GitSyncEntityTab'
-import GitSyncErrors from '@gitsync/pages/errors/GitSyncErrors'
+import { GitSyncErrorsWithRedirect } from '@gitsync/pages/errors/GitSyncErrors'
 import AccessControlPage from '@rbac/pages/AccessControl/AccessControlPage'
 import UsersPage from '@rbac/pages/Users/UsersPage'
 import ResourceGroups from '@rbac/pages/ResourceGroups/ResourceGroups'
@@ -338,7 +338,7 @@ export default (
       path={routes.toGitSyncErrors({ ...accountPathProps, ...pipelineModuleParams, ...projectPathProps })}
     >
       <GitSyncPage>
-        <GitSyncErrors />
+        <GitSyncErrorsWithRedirect />
       </GitSyncPage>
     </RouteWithLayout>
     <RouteWithLayout

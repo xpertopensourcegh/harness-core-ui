@@ -32,7 +32,8 @@ const parseDataForCommitView = (data: GitSyncErrorAggregateByCommitDTO[] = []): 
     timestamp: item.createdAt,
     items: (item.errorsForSummaryView || []).map(error => ({
       title: error.completeFilePath,
-      reason: error.failureReason || ''
+      reason: error.failureReason || '',
+      ...(error.status === 'RESOLVED' ? { fixCommit: error.additionalErrorDetails?.['resolvedByCommitId'] } : {})
     }))
   }))
 }

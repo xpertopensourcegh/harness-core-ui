@@ -23,6 +23,9 @@ jest.mock('services/cd-ng', () => ({
   },
   useGetListOfBranchesWithStatus: jest.fn().mockImplementation(() => {
     return mockData
+  }),
+  useGetGitSyncErrorsCount: jest.fn().mockImplementation(() => {
+    return mockData
   })
 }))
 

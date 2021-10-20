@@ -26,4 +26,10 @@
   .searchInput {
     margin-right: var(--spacing-small);
   }
+
+  .tabTitle {
+    &:not(:last-child) {
+      margin-right: var(--spacing-small);
+    }
+  }
 }

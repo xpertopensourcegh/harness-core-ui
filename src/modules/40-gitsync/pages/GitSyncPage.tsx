@@ -9,6 +9,7 @@ import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { ModulePathParams } from '@common/interfaces/RouteInterfaces'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import NewUserView from './newUser/NewUserView'
 
@@ -20,6 +21,8 @@ export const GitSyncLandingView: React.FC<GitSyncPageProps> = ({ children }) => 
   const { accountId, projectIdentifier, orgIdentifier, module } = useParams<ProjectPathProps & ModulePathParams>()
   const { isGitSyncEnabled } = useAppStore()
   const { getString } = useStrings()
+  const { NG_GIT_ERROR_EXPERIENCE } = useFeatureFlags()
+
   useDocumentTitle(getString('gitManagement'))
 
   return (
@@ -39,12 +42,15 @@ export const GitSyncLandingView: React.FC<GitSyncPageProps> = ({ children }) => 
                 {
                   label: getString('entities'),
                   to: routes.toGitSyncEntitiesAdmin({ projectIdentifier, orgIdentifier, accountId, module })
-                }
-                // disabling till the feature is in dev, can still be accessed via url
-                // {
-                //   label: getString('errors'),
-                //   to: routes.toGitSyncErrors({ projectIdentifier, orgIdentifier, accountId, module })
-                // }
+                },
+                ...(NG_GIT_ERROR_EXPERIENCE
+                  ? [
+                      {
+                        label: getString('errors'),
+                        to: routes.toGitSyncErrors({ projectIdentifier, orgIdentifier, accountId, module })
+                      }
+                    ]
+                  : [])
               ]}
             />
           ) : null

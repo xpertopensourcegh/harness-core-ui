@@ -86,7 +86,7 @@ import UserGroups from '@rbac/pages/UserGroups/UserGroups'
 import GitSyncPage from '@gitsync/pages/GitSyncPage'
 import GitSyncRepoTab from '@gitsync/pages/repos/GitSyncRepoTab'
 import GitSyncEntityTab from '@gitsync/pages/entities/GitSyncEntityTab'
-import GitSyncErrors from '@gitsync/pages/errors/GitSyncErrors'
+import { GitSyncErrorsWithRedirect } from '@gitsync/pages/errors/GitSyncErrors'
 import BuildTests from '@pipeline/pages/execution/ExecutionTestView/BuildTests'
 import UserDetails from '@rbac/pages/UserDetails/UserDetails'
 import UserGroupDetails from '@rbac/pages/UserGroupDetails/UserGroupDetails'
@@ -795,7 +795,7 @@ export default (
       exact
     >
       <GitSyncPage>
-        <GitSyncErrors />
+        <GitSyncErrorsWithRedirect />
       </GitSyncPage>
     </RouteWithLayout>
     <RouteWithLayout
