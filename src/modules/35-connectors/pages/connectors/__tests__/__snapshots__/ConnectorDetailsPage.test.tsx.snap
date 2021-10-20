@@ -305,13 +305,14 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
                     tagsLabel
                   </p>
                   <div
-                    class="StyledProps--font StyledProps--main"
+                    class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
                   >
                     <span
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 240px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -843,13 +844,14 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
                     tagsLabel
                   </p>
                   <div
-                    class="StyledProps--font StyledProps--main"
+                    class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
                   >
                     <span
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 240px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"

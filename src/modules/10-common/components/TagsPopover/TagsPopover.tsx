@@ -5,7 +5,7 @@ import { IPopoverProps, PopoverInteractionKind } from '@blueprintjs/core'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 
 import type { tagsType } from '@common/utils/types'
-import i18n from './TagsPopover.i18n'
+import { useStrings } from 'framework/strings'
 import css from './TagsPopover.module.scss'
 
 export interface ListTagsProps {
@@ -18,6 +18,7 @@ export interface ListTagsProps {
 }
 const TagsPopover: React.FC<ListTagsProps> = props => {
   const { tags, target, tagClassName, popoverProps, iconProps, className } = props
+  const { getString } = useStrings()
   return (
     <Popover interactionKind={PopoverInteractionKind.HOVER} {...popoverProps}>
       {target || (
@@ -27,7 +28,7 @@ const TagsPopover: React.FC<ListTagsProps> = props => {
         </Layout.Horizontal>
       )}
       <Container padding="small">
-        <Text font={{ size: 'small', weight: 'bold' }}>{i18n.tags}</Text>
+        <Text font={{ size: 'small', weight: 'bold' }}>{getString('tagsLabel')}</Text>
         <Container className={css.tagsPopover}>
           {Object.keys(tags).map(key => {
             const value = tags[key]

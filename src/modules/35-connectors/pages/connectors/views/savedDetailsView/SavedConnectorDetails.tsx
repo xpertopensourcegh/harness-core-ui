@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Tag, Text, Color, Container, Icon, IconName, Card } from '@wings-software/uicore'
+import { Layout, Text, Color, Icon, IconName, Card } from '@wings-software/uicore'
 import moment from 'moment'
 import { Connectors } from '@connectors/constants'
 import type {
@@ -15,6 +15,7 @@ import type { TagsInterface } from '@common/interfaces/ConnectorsInterface'
 import { useStrings } from 'framework/strings'
 import type { StringKeys } from 'framework/strings'
 import { HashiCorpVaultAccessTypes } from '@connectors/interfaces/ConnectorInterface'
+import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
 import { getLabelForAuthType } from '../../utils/ConnectorHelper'
 import css from './SavedConnectorDetails.module.scss'
 
@@ -664,22 +665,6 @@ const getSchema = (props: SavedConnectorDetailsProps): Array<ActivityDetailsRowI
   ]
 }
 
-const renderTags = (tags: TagsInterface) => {
-  const tagKeys = Object.keys(tags)
-  return (
-    <Container>
-      {tagKeys.map(key => {
-        const value = tags[key]
-        return (
-          <Tag className={css.tag} key={key}>
-            {value ? `${key}:${value}` : key}
-          </Tag>
-        )
-      })}
-    </Container>
-  )
-}
-
 const getDate = (value?: number): string | null => {
   return value ? moment.unix(value / 1000).format(StringUtils.DEFAULT_DATE_FORMAT) : null
 }
@@ -733,43 +718,43 @@ export const RenderDetailsSection: React.FC<RenderDetailsSectionProps> = props =
         {props.title}
       </Text>
       {props.data.map((item, index) => {
-        if (item.value && (item.label === 'tagsLabel' ? Object.keys(item.value as TagsInterface).length : true)) {
-          return (
-            <Layout.Vertical
-              className={css.detailsSectionRowWrapper}
-              spacing="xsmall"
-              padding={{ top: 'medium', bottom: 'medium' }}
-              key={`${item.value}${index}`}
-            >
-              <Text font={{ size: 'small' }}>{getString(item.label as StringKeys)}</Text>
-              {item.label === 'tagsLabel' && typeof item.value === 'object' ? (
-                renderTags(item.value)
-              ) : (
-                <Layout.Horizontal spacing="small" className={css.detailsSectionRow}>
-                  <Text
-                    inline
-                    className={css.detailsValue}
-                    color={item.value === 'encrypted' ? Color.GREY_350 : Color.BLACK}
-                  >
-                    {item.value}
-                  </Text>
-                  {item.iconData?.icon ? (
-                    <Layout.Horizontal spacing="small">
-                      <Icon
-                        inline={true}
-                        name={item.iconData.icon}
-                        size={14}
-                        color={item.iconData.color}
-                        title={getString(item.iconData.textId)}
-                      />
-                      <Text inline>{getString(item.iconData.textId)}</Text>
-                    </Layout.Horizontal>
-                  ) : null}
-                </Layout.Horizontal>
-              )}
-            </Layout.Vertical>
-          )
-        }
+        return item.value && (item.label === 'tagsLabel' ? Object.keys(item.value as TagsInterface).length : true) ? (
+          <Layout.Vertical
+            className={css.detailsSectionRowWrapper}
+            spacing="xsmall"
+            padding={{ top: 'medium', bottom: 'medium' }}
+            key={`${item.value}${index}`}
+          >
+            <Text font={{ size: 'small' }}>{getString(item.label as StringKeys)}</Text>
+            {item.label === 'tagsLabel' && typeof item.value === 'object' ? (
+              <TagsRenderer tags={item.value} length={4} />
+            ) : (
+              <Layout.Horizontal spacing="small" className={css.detailsSectionRow}>
+                <Text
+                  inline
+                  className={css.detailsValue}
+                  color={item.value === 'encrypted' ? Color.GREY_350 : Color.BLACK}
+                >
+                  {item.value}
+                </Text>
+                {item.iconData?.icon ? (
+                  <Layout.Horizontal spacing="small">
+                    <Icon
+                      inline={true}
+                      name={item.iconData.icon}
+                      size={14}
+                      color={item.iconData.color}
+                      title={getString(item.iconData.textId)}
+                    />
+                    <Text inline>{getString(item.iconData.textId)}</Text>
+                  </Layout.Horizontal>
+                ) : null}
+              </Layout.Horizontal>
+            )}
+          </Layout.Vertical>
+        ) : (
+          <></>
+        )
       })}
     </Card>
   )
