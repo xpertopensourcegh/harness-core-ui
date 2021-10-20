@@ -209,9 +209,13 @@ const PerspectiveDetailsPage: React.FC = () => {
   })
 
   const getAggregationFunc = () => {
+    if (!isClusterOnly) {
+      return AGGREGATE_FUNCTION.DEFAULT
+    }
+
     const af = AGGREGATE_FUNCTION[groupBy.fieldId]
     if (!af) {
-      return isClusterOnly ? AGGREGATE_FUNCTION.CLUSTER : AGGREGATE_FUNCTION.DEFAULT
+      return AGGREGATE_FUNCTION.CLUSTER
     }
 
     return af
