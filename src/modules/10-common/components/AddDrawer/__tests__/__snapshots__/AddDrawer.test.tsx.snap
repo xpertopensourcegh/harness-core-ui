@@ -123,11 +123,13 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
                 <section
                   class="categorySteps"
                 >
-                  <section
-                    class="categoryName"
+                  <div
+                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main categoryName StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                   >
-                    New Artifact/Manifest
-                  </section>
+                    <span>
+                      New Artifact/Manifest
+                    </span>
+                  </div>
                   <section
                     class="steps"
                   >
@@ -218,11 +220,13 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
                 <section
                   class="categorySteps"
                 >
-                  <section
-                    class="categoryName"
+                  <div
+                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main categoryName StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                   >
-                    Scheduled
-                  </section>
+                    <span>
+                      Scheduled
+                    </span>
+                  </div>
                   <section
                     class="steps"
                   >
@@ -276,11 +280,13 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
                 <section
                   class="categorySteps"
                 >
-                  <section
-                    class="categoryName"
+                  <div
+                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main categoryName StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                   >
-                    Webhook
-                  </section>
+                    <span>
+                      Webhook
+                    </span>
+                  </div>
                   <section
                     class="steps"
                   >

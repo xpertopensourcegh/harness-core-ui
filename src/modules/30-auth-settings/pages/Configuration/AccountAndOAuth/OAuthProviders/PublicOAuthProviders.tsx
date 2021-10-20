@@ -9,8 +9,11 @@ import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useUpdateOauthProviders, useUpdateAuthMechanism, useRemoveOauthMechanism } from 'services/cd-ng'
 import { AuthenticationMechanisms } from '@auth-settings/constants/utils'
 import { OAuthProviders, Providers } from '@common/constants/OAuthProviders'
-import cssConfiguration from '@auth-settings/pages/Configuration/Configuration.module.scss'
+import { useFeature } from '@common/hooks/useFeatures'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
+import FeatureSwitch from '@rbac/components/Switch/Switch'
 import css from './PublicOAuthProviders.module.scss'
+import cssConfiguration from '@auth-settings/pages/Configuration/Configuration.module.scss'
 
 interface Props {
   authSettings: AuthenticationSettingsResponse
@@ -24,6 +27,11 @@ const PublicOAuthProviders: React.FC<Props> = ({ authSettings, refetchAuthSettin
   const { getString } = useStrings()
   const { showError, showSuccess, showWarning } = useToaster()
 
+  const { enabled: featureEnabled } = useFeature({
+    featureRequest: {
+      featureName: FeatureIdentifier.OAUTH_SUPPORT
+    }
+  })
   const samlOrLdapSettings = authSettings.ngAuthSettings?.find(
     settings =>
       settings.settingsType === AuthenticationMechanisms.SAML || settings.settingsType === AuthenticationMechanisms.LDAP
@@ -165,19 +173,25 @@ const PublicOAuthProviders: React.FC<Props> = ({ authSettings, refetchAuthSettin
 
   return (
     <Collapse
-      isOpen={oauthEnabled}
+      isOpen={oauthEnabled && featureEnabled}
       collapseHeaderClassName={cssConfiguration.collapseHeaderClassName}
       collapseClassName={cssConfiguration.collapseClassName}
       collapsedIcon="main-chevron-down"
       expandedIcon="main-chevron-up"
       heading={
-        <Switch
+        <FeatureSwitch
+          featureProps={{ featureRequest: { featureName: FeatureIdentifier.OAUTH_SUPPORT } }}
           label={getString('authSettings.usePublicOAuth')}
           font={{ weight: 'semi-bold', size: 'normal' }}
           color={Color.GREY_800}
           checked={oauthEnabled}
           onChange={toggleOAuthProviders}
-          disabled={!canEdit || loading || authSettings.authenticationMechanism === AuthenticationMechanisms.SAML}
+          disabled={
+            !featureEnabled ||
+            !canEdit ||
+            loading ||
+            authSettings.authenticationMechanism === AuthenticationMechanisms.SAML
+          }
           data-testid="toggle-oauth-providers"
         />
       }
@@ -196,7 +210,7 @@ const PublicOAuthProviders: React.FC<Props> = ({ authSettings, refetchAuthSettin
                   value={provider.type}
                   checked={oauthSettings?.allowedProviders?.includes(provider.type as Providers)}
                   onChange={handleOAuthChange}
-                  disabled={!canEdit || loading}
+                  disabled={!featureEnabled || !canEdit || loading}
                   className={css.switch}
                   data-testid={`toggle-oauth-${provider.type.toLowerCase()}`}
                 />

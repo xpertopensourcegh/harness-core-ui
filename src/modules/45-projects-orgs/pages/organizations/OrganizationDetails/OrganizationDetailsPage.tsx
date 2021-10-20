@@ -15,6 +15,8 @@ import RbacAvatarGroup from '@rbac/components/RbacAvatarGroup/RbacAvatarGroup'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import ResourceCardList from '@common/components/ResourceCardList/ResourceCardList'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
+import RbacButton from '@rbac/components/Button/Button'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import css from './OrganizationDetailsPage.module.scss'
 
 const OrganizationDetailsPage: React.FC = () => {
@@ -143,7 +145,12 @@ const OrganizationDetailsPage: React.FC = () => {
                     <String stringID="projectsOrgs.projectsInOrg" useRichText={true} />
                   </Text>
                   <Layout.Horizontal spacing="small" padding={{ left: 'xxlarge' }}>
-                    <Button
+                    <RbacButton
+                      featureProps={{
+                        featureRequest: {
+                          featureName: FeatureIdentifier.MULTIPLE_PROJECTS
+                        }
+                      }}
                       variation={ButtonVariation.PRIMARY}
                       text={getString('projectsOrgs.createAProject')}
                       onClick={() => openProjectModal()}

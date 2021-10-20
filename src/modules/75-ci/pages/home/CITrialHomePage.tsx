@@ -1,6 +1,6 @@
 import React from 'react'
 import { useStrings } from 'framework/strings'
-import { StartTrialTemplate } from '@common/components/TrialHomePageTemplate/StartTrialTemplate'
+import { StartTrialTemplate } from '@rbac/components/TrialHomePageTemplate/StartTrialTemplate'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { PageNames } from '@ci/constants/TrackingConstants'
 import { Category } from '@common/constants/TrackingConstants'

@@ -7,7 +7,6 @@ import {
   FlexExpander,
   Container,
   Color,
-  Button,
   ButtonVariation,
   Page
 } from '@wings-software/uicore'
@@ -21,6 +20,8 @@ import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectMo
 import type { Project } from 'services/cd-ng'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import type { Editions } from '@common/constants/SubscriptionTypes'
+import RbacButton from '@rbac/components/Button/Button'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import css from './HomePageTemplate.module.scss'
 
 export interface TrialBannerProps {
@@ -108,9 +109,18 @@ export const HomePageTemplate: React.FC<HomePageTemplate> = ({
               {documentText}
             </ExternalLink>
             <Layout.Horizontal spacing="large" flex>
-              <Button variation={ButtonVariation.PRIMARY} large onClick={() => openProjectModal()}>
+              <RbacButton
+                variation={ButtonVariation.PRIMARY}
+                featureProps={{
+                  featureRequest: {
+                    featureName: FeatureIdentifier.MULTIPLE_PROJECTS
+                  }
+                }}
+                large
+                onClick={() => openProjectModal()}
+              >
                 {getString('createProject')}
-              </Button>
+              </RbacButton>
               <Text font={{ size: 'medium' }} color={Color.BLACK}>
                 {getString('orSelectExisting')}
               </Text>

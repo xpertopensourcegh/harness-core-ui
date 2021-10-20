@@ -15,6 +15,8 @@ import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
 
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import RbacButton from '@rbac/components/Button/Button'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import welcomeVideo from './images/welcome-anim.mp4'
 import css from './LandingDashboardPage.module.scss'
 
@@ -111,7 +113,12 @@ const LandingDashboardPage: React.FC = () => {
                   {getString('projectsOrgs.welcomeSecondLine')}
                 </Heading>
               </Layout.Vertical>
-              <Button
+              <RbacButton
+                featureProps={{
+                  featureRequest: {
+                    featureName: FeatureIdentifier.MULTIPLE_PROJECTS
+                  }
+                }}
                 variation={ButtonVariation.PRIMARY}
                 text={getString('projectLabel')}
                 icon="plus"

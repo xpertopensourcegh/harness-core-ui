@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import {
   ExpandingSearchInput,
-  Card,
   Text,
   Icon,
   Layout,
@@ -9,12 +8,17 @@ import {
   IconName,
   Color,
   Heading,
-  Container
+  Container,
+  Card
 } from '@wings-software/uicore'
-import { cloneDeep, uniqBy } from 'lodash-es'
+import { cloneDeep, noop, uniqBy } from 'lodash-es'
 import { Drawer, IDrawerProps, Position } from '@blueprintjs/core'
 import cx from 'classnames'
+import { FeatureWarningWithTooltip } from '@common/components/FeatureWarning/FeatureWarning'
 import { useStrings } from 'framework/strings'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
+import type { Module } from '@common/interfaces/RouteInterfaces'
+import { useFeature } from '@common/hooks/useFeatures'
 import css from './AddDrawer.module.scss'
 
 const getAllItemsCount = (originalData: CategoryInterface[]): number | undefined => {
@@ -112,7 +116,6 @@ export default function AddDrawer(props: AddDrawerProps): JSX.Element {
   const [originalData, setOriginalCategories] = useState<CategoryInterface[]>([])
   const [selectedCategory, setSelectedCategory] = useState(primaryTypes.SHOW_ALL)
   const { getString } = useStrings()
-
   useEffect(() => {
     if (addDrawerMap.categories) {
       const stepsCategories = addDrawerMap.categories
@@ -120,6 +123,11 @@ export default function AddDrawer(props: AddDrawerProps): JSX.Element {
       setOriginalCategories(stepsCategories)
     }
   }, [addDrawerMap])
+  const { enabled: featureEnabled, featureDetail } = useFeature({
+    featureRequest: {
+      featureName: FeatureIdentifier.SECRET_MANAGERS
+    }
+  })
 
   const filterSteps = (str: string, context: string = filterContext.NAV): void => {
     const filteredData: CategoryInterface[] = []
@@ -211,16 +219,24 @@ export default function AddDrawer(props: AddDrawerProps): JSX.Element {
                 const categorySteps: JSX.Element[] = []
                 /* istanbul ignore else */ if (category?.items) {
                   category.items.forEach((item: ItemInterface) => {
+                    const secretManagersType = category.categoryLabel === getString('secretManagers')
+                    const featureEnabledTemp = secretManagersType ? featureEnabled : true
                     categorySteps.push(
                       <section
                         className={css.step}
                         key={item.itemLabel}
-                        onClick={() => onSelect({ ...Object.assign(item, { categoryValue: category.categoryValue }) })}
+                        onClick={
+                          featureEnabledTemp
+                            ? () => onSelect({ ...Object.assign(item, { categoryValue: category.categoryValue }) })
+                            : noop
+                        }
                       >
-                        <Card interactive={false} elevation={0} selected={false}>
+                        <Card interactive={false} elevation={0} selected={false} disabled={!featureEnabledTemp}>
                           <Icon size={defaultDrawerValues[drawerContext]?.iconSize} name={item.iconName} />
                         </Card>
-                        <section className={css.stepName}>{item.itemLabel}</section>
+                        <section className={cx(css.stepName, !featureEnabledTemp ? css.disabledHover : undefined)}>
+                          {item.itemLabel}
+                        </section>
                       </section>
                     )
                   })
@@ -260,7 +276,19 @@ export default function AddDrawer(props: AddDrawerProps): JSX.Element {
 
                 return (
                   <section className={css.categorySteps} key={category.categoryLabel}>
-                    <section className={cx(css.categoryName)}>{category.categoryLabel}</section>
+                    <Layout.Horizontal
+                      className={cx(css.categoryName)}
+                      flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
+                      spacing="small"
+                    >
+                      <span>{category.categoryLabel}</span>
+                      {category.categoryLabel === getString('secretManagers') && !featureEnabled && (
+                        <FeatureWarningWithTooltip
+                          featureName={FeatureIdentifier.SECRET_MANAGERS}
+                          module={featureDetail?.moduleType?.toLowerCase() as Module}
+                        />
+                      )}
+                    </Layout.Horizontal>
                     <section className={cx(css.steps)}>{[...categorySteps]}</section>
                   </section>
                 )

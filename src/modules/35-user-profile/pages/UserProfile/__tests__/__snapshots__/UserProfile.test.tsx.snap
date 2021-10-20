@@ -242,7 +242,7 @@ exports[`User Profile Page User Profile 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main twoFactorAuth"
         >
           <label
-            class="bp3-control bp3-switch switch"
+            class="bp3-control bp3-switch StyledProps--font Switch--switch switch StyledProps--main"
           >
             <input
               data-testid="TwoFactorAuthSwitch"

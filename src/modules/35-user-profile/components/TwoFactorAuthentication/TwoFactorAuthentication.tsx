@@ -1,6 +1,5 @@
 import React from 'react'
 import { Button, Color, Layout, Text } from '@wings-software/uicore'
-import { Switch } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import { useDisableTwoFactorAuth } from 'services/cd-ng'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
@@ -9,6 +8,8 @@ import { useQueryParams } from '@common/hooks'
 import { useEnableTwoFactorAuthModal } from '@user-profile/modals/EnableTwoFactorAuth/useEnableTwoFactorAuthModal'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { shouldShowError } from '@common/utils/errorUtils'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
+import FeatureSwitch from '@rbac/components/Switch/Switch'
 import css from './TwoFactorAuthentication.module.scss'
 
 interface Props {
@@ -20,7 +21,6 @@ const TwoFactorAuthentication: React.FC<Props> = ({ twoFactorAuthenticationDisab
   const { openTwoFactorModal } = useQueryParams<{ openTwoFactorModal?: string }>()
   const { showSuccess, showError } = useToaster()
   const { currentUserInfo, updateAppStore } = useAppStore()
-
   const { mutate: disableTwoFactorAuth } = useDisableTwoFactorAuth({})
 
   const { openEnableTwoFactorAuthModal } = useEnableTwoFactorAuthModal()
@@ -57,7 +57,8 @@ const TwoFactorAuthentication: React.FC<Props> = ({ twoFactorAuthenticationDisab
   return (
     <>
       <Layout.Horizontal spacing="small" className={css.twoFactorAuth}>
-        <Switch
+        <FeatureSwitch
+          featureProps={{ featureRequest: { featureName: FeatureIdentifier.TWO_FACTOR_AUTH_SUPPORT } }}
           className={css.switch}
           data-testid={'TwoFactorAuthSwitch'}
           checked={currentUserInfo.twoFactorAuthenticationEnabled}

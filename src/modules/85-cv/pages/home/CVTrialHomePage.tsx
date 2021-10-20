@@ -1,5 +1,5 @@
 import React from 'react'
-import { StartTrialTemplate } from '@common/components/TrialHomePageTemplate/StartTrialTemplate'
+import { StartTrialTemplate } from '@rbac/components/TrialHomePageTemplate/StartTrialTemplate'
 import { useStrings } from 'framework/strings'
 import bgImageURL from './images/homeIllustration.svg'
 

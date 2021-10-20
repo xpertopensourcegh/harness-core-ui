@@ -230,3 +230,8 @@ $top-offset: 110px;
 .library {
   margin-top: var(--spacing-small) !important;
 }
+.disabledHover {
+  &:hover {
+    cursor: not-allowed !important;
+  }
+}

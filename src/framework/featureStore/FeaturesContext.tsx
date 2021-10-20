@@ -3,7 +3,7 @@ import { isEmpty } from 'lodash-es'
 import produce from 'immer'
 
 import { useParams } from 'react-router-dom'
-import { useToaster } from '@common/components'
+import { useToaster } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { useLicenseStore, LICENSE_STATE_VALUES } from 'framework/LicenseStore/LicenseStoreContext'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'

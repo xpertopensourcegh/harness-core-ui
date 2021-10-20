@@ -14,6 +14,7 @@ interface ButtonProps extends CoreButtonProps {
   permission?: Omit<PermissionsRequest, 'permissions'> & { permission: PermissionIdentifier }
   featureProps?: FeatureProps
 }
+
 interface BtnProps {
   disabled: boolean
   tooltip?: ReactElement
@@ -28,7 +29,6 @@ const RbacButton: React.FC<ButtonProps> = ({
   const { enabled: featureEnabled, featureDetail } = useFeature({
     featureRequest: featureProps?.featureRequest
   })
-
   const [canDoAction] = usePermission(
     {
       ...pick(permissionRequest, ['resourceScope', 'resource', 'options']),

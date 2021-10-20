@@ -7,6 +7,8 @@ import { useTelemetry } from '@common/hooks/useTelemetry'
 import { Category, PageNames } from '@common/constants/TrackingConstants'
 import type { Editions } from '@common/constants/SubscriptionTypes'
 import { TrialLicenseBanner } from '@common/components/Banners/TrialLicenseBanner'
+import RbacButton from '@rbac/components/Button/Button'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import css from './TrialInProgressTemplate.module.scss'
 
 interface TrialBannerProps {
@@ -41,7 +43,22 @@ const TrialInProgressComponent: React.FC<TrialInProgressProps> = trialInProgress
         {description}
       </Text>
       <Layout.Horizontal spacing="small">
-        <Button width={200} height={45} intent="primary" text={startBtn.description} onClick={startBtn.onClick} />
+        {startBtn.description === getString('createProject') ? (
+          <RbacButton
+            featureProps={{
+              featureRequest: {
+                featureName: FeatureIdentifier.MULTIPLE_PROJECTS
+              }
+            }}
+            width={200}
+            height={45}
+            intent="primary"
+            text={startBtn.description}
+            onClick={startBtn.onClick}
+          />
+        ) : (
+          <Button width={200} height={45} intent="primary" text={startBtn.description} onClick={startBtn.onClick} />
+        )}
         <Text font={{ size: 'medium' }} color={Color.BLACK} padding={'small'}>
           {getString('orSelectExisting')}
         </Text>
@@ -66,7 +83,6 @@ export const TrialInProgressTemplate: React.FC<TrialInProgressTemplateProps> = (
 
   const [hasBanner, setHasBanner] = useState<boolean>(true)
   const bannerClassName = hasBanner ? css.hasBanner : css.hasNoBanner
-
   return (
     <>
       <TrialLicenseBanner {...trialBannerProps} setHasBanner={setHasBanner} />

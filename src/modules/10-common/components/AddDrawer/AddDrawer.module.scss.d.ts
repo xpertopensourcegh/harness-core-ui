@@ -28,5 +28,6 @@ declare const styles: {
   readonly showRighDrawer: string
   readonly fullScreen: string
   readonly paletteIcon: string
+  readonly disabledHover: string
 }
 export default styles

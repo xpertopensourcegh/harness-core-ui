@@ -1,11 +1,22 @@
 import React, { Dispatch, SetStateAction } from 'react'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
-import { Radio, Container, Collapse, Color, Card, Text, Button, Popover, ButtonVariation } from '@wings-software/uicore'
+import {
+  Radio,
+  Container,
+  Collapse,
+  Color,
+  Card,
+  Text,
+  Button,
+  Popover,
+  ButtonVariation,
+  Utils
+} from '@wings-software/uicore'
 import { Menu, MenuItem } from '@blueprintjs/core'
 import { useToaster } from '@common/components'
 import { useStrings } from 'framework/strings'
-import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
 import type { AuthenticationSettingsResponse, SamlSettings } from 'services/cd-ng'
 import { useDeleteSamlMetaData, useUpdateAuthMechanism, useGetSamlLoginTest } from 'services/cd-ng'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
@@ -14,8 +25,11 @@ import { useSAMLProviderModal } from '@auth-settings/modals/SAMLProvider/useSAML
 import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { PermissionRequest } from '@auth-settings/pages/Configuration/Configuration'
-import cssConfiguration from '@auth-settings/pages/Configuration/Configuration.module.scss'
+import { useFeature } from '@common/hooks/useFeatures'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
+import { FeatureWarningTooltip } from '@common/components/FeatureWarning/FeatureWarning'
 import css from './SAMLProvider.module.scss'
+import cssConfiguration from '@auth-settings/pages/Configuration/Configuration.module.scss'
 
 interface Props {
   authSettings: AuthenticationSettingsResponse
@@ -41,6 +55,11 @@ const SAMLProvider: React.FC<Props> = ({
     settings => settings.settingsType === AuthenticationMechanisms.SAML
   ) as SamlSettings | undefined
 
+  const { enabled: featureEnabled, featureDetail } = useFeature({
+    featureRequest: {
+      featureName: FeatureIdentifier.SAML_SUPPORT
+    }
+  })
   const onSuccess = (): void => {
     refetchAuthSettings()
   }
@@ -175,22 +194,33 @@ const SAMLProvider: React.FC<Props> = ({
     <Container margin="xlarge" background={Color.WHITE}>
       {samlSettings ? (
         <Collapse
-          isOpen={samlEnabled}
+          isOpen={samlEnabled && featureEnabled}
           collapseHeaderClassName={cx(cssConfiguration.collapseHeaderClassName, cssConfiguration.height60)}
           collapseClassName={cssConfiguration.collapseClassName}
           collapsedIcon="main-chevron-down"
           expandedIcon="main-chevron-up"
           heading={
-            <Container margin={{ left: 'xlarge' }}>
-              <Radio
-                checked={samlEnabled}
-                font={{ weight: 'bold', size: 'normal' }}
-                color={Color.GREY_900}
-                label={getString('authSettings.loginViaSAML')}
-                onChange={enableSamlProvide}
-                disabled={!canEdit || updatingAuthMechanismToSaml}
-              />
-            </Container>
+            <Utils.WrapOptionalTooltip
+              tooltip={
+                !featureEnabled ? (
+                  <FeatureWarningTooltip
+                    featureName={FeatureIdentifier.SAML_SUPPORT}
+                    module={featureDetail?.moduleType?.toLowerCase() as Module}
+                  />
+                ) : undefined
+              }
+            >
+              <Container margin={{ left: 'xlarge' }}>
+                <Radio
+                  checked={samlEnabled}
+                  font={{ weight: 'bold', size: 'normal' }}
+                  color={Color.GREY_900}
+                  label={getString('authSettings.loginViaSAML')}
+                  onChange={enableSamlProvide}
+                  disabled={!featureEnabled || !canEdit || updatingAuthMechanismToSaml}
+                />
+              </Container>
+            </Utils.WrapOptionalTooltip>
           }
         >
           <Container padding={{ bottom: 'large' }}>
@@ -249,18 +279,29 @@ const SAMLProvider: React.FC<Props> = ({
           </Container>
         </Collapse>
       ) : (
-        <Card className={css.cardWithRadioBtn}>
-          <Container margin={{ left: 'xlarge', top: 'xsmall' }}>
-            <Radio
-              checked={samlEnabled}
-              font={{ weight: 'semi-bold', size: 'normal' }}
-              onClick={() => openSAMlProvider()}
-              color={Color.BLUE_800}
-              label={getString('authSettings.plusSAMLProvider')}
-              disabled={!canEdit}
-            />
-          </Container>
-        </Card>
+        <Utils.WrapOptionalTooltip
+          tooltip={
+            !featureEnabled ? (
+              <FeatureWarningTooltip
+                featureName={FeatureIdentifier.SAML_SUPPORT}
+                module={featureDetail?.moduleType?.toLowerCase() as Module}
+              />
+            ) : undefined
+          }
+        >
+          <Card className={css.cardWithRadioBtn}>
+            <Container margin={{ left: 'xlarge', top: 'xsmall' }}>
+              <Radio
+                checked={samlEnabled}
+                font={{ weight: 'semi-bold', size: 'normal' }}
+                onClick={() => openSAMlProvider()}
+                color={Color.BLUE_800}
+                label={getString('authSettings.plusSAMLProvider')}
+                disabled={!featureEnabled || !canEdit}
+              />
+            </Container>
+          </Card>
+        </Utils.WrapOptionalTooltip>
       )}
     </Container>
   )

@@ -1,7 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import {
-  Button,
   Layout,
   SelectOption,
   ExpandingSearchInput,
@@ -26,6 +25,8 @@ import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import type { AccountPathProps, OrgPathProps } from '@common/interfaces/RouteInterfaces'
 import { EmailVerificationBanner } from '@common/components/Banners/EmailVerificationBanner'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
+import RbacButton from '@rbac/components/Button/Button'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import ProjectsListView from './views/ProjectListView/ProjectListView'
 import ProjectsGridView from './views/ProjectGridView/ProjectGridView'
 import ProjectsEmptyState from './projects-empty-state.png'
@@ -130,7 +131,12 @@ const ProjectsListPage: React.FC = () => {
       <Page.Header breadcrumbs={<NGBreadcrumbs />} title={getString('projectsText')} />
       {data?.data?.totalItems || searchParam || loading || error || orgIdentifier ? (
         <Layout.Horizontal spacing="large" className={css.header}>
-          <Button
+          <RbacButton
+            featureProps={{
+              featureRequest: {
+                featureName: FeatureIdentifier.MULTIPLE_PROJECTS
+              }
+            }}
             variation={ButtonVariation.PRIMARY}
             text={getString('projectsOrgs.newProject')}
             icon="plus"
