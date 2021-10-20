@@ -807,10 +807,13 @@ export interface StringsMap {
   'authSettings.loginSettingsHaveBeenUpdated': string
   'authSettings.loginViaSAML': string
   'authSettings.minLength': string
+  'authSettings.multipleOrganizations': string
+  'authSettings.multipleProjects': string
   'authSettings.newMembersWillNeedToSetUpTwoFADuringSignup': string
   'authSettings.notifyUsersWhenTheyLocked': string
   'authSettings.notifyUsersWhenUserLocked': string
   'authSettings.oauthSettingsHaveBeenUpdated': string
+  'authSettings.oauthSupport': string
   'authSettings.okta': string
   'authSettings.oneLogin': string
   'authSettings.passwordExpiration': string
@@ -833,6 +836,7 @@ export interface StringsMap {
   'authSettings.samlProviderAddedSuccessfully': string
   'authSettings.samlProviderDeleted': string
   'authSettings.samlProviderUpdatedSuccessfully': string
+  'authSettings.samlSupport': string
   'authSettings.samlTestFailed': string
   'authSettings.samlTestSuccessful': string
   'authSettings.selectSAMLProvider': string
@@ -841,6 +845,7 @@ export interface StringsMap {
   'authSettings.testingSSODescription': string
   'authSettings.twoFAEnforcementDisabled': string
   'authSettings.twoFAEnforcementEnabled': string
+  'authSettings.twoFactorAuthSupport': string
   'authSettings.typeAndPressEnterToAddADomain': string
   'authSettings.updating': string
   'authSettings.uploadIdentityProvider': string

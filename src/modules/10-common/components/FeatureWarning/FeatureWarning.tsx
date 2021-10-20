@@ -79,7 +79,8 @@ export const FeatureWarningTooltip = ({ featureName, module }: FeatureWarningToo
       </Text>
       <Layout.Vertical spacing="small">
         <Text font={{ size: 'small' }} color={Color.GREY_700}>
-          {getString('common.feature.upgradeRequired.description', { featureName: featureDescription })}
+          {getString('common.feature.upgradeRequired.description')}
+          {featureDescription}
         </Text>
         <ExplorePlansBtn module={module} />
       </Layout.Vertical>
@@ -105,7 +106,8 @@ export const FeatureWarning = ({ module, featureName, className }: FeatureWarnin
     >
       <WarningText />
       <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.GREY_800}>
-        {getString('common.feature.upgradeRequired.description', { featureName: featureDescription })}
+        {getString('common.feature.upgradeRequired.description')}
+        {featureDescription}
       </Text>
       <ExplorePlansBtn module={module} />
     </Layout.Horizontal>

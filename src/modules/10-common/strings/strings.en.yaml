@@ -559,7 +559,7 @@ explorePlans: Explore Plans
 feature:
   upgradeRequired:
     title: Upgrade Required
-    description: 'Requires upgrade to setup {{featureName}}'
+    description: 'Requires upgrade to setup '
 repositoryName: Repository Name
 mostActiveServices: Most active services
 allErrors: All Errors

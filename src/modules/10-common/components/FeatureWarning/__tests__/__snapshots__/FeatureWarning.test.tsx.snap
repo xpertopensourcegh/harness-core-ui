@@ -34,6 +34,9 @@ exports[`FeatureWarning FeatureWarning 1`] = `
       class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey800"
     >
       common.feature.upgradeRequired.description
+      <span>
+        authSettings.multipleOrganizations
+      </span>
     </p>
     <p
       class="StyledProps--font StyledProps--main explorePlans StyledProps--color StyledProps--color-primary6"

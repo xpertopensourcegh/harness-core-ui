@@ -10,7 +10,7 @@ describe('FeatureWarning', () => {
   test('FeatureWarning', () => {
     const { container } = render(
       <TestWrapper path={routes.toRoleDetails({ ...accountPathProps })} pathParams={{ accountId: 'dummy' }}>
-        <FeatureWarning featureName={FeatureIdentifier.BUILDS} />
+        <FeatureWarning featureName={FeatureIdentifier.MULTIPLE_ORGANIZATIONS} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
@@ -18,7 +18,7 @@ describe('FeatureWarning', () => {
   test('FeatureWarningWithTooltip', () => {
     const { container } = render(
       <TestWrapper path={routes.toRoleDetails({ ...accountPathProps })} pathParams={{ accountId: 'dummy' }}>
-        <FeatureWarningWithTooltip featureName={FeatureIdentifier.CUSTOM_RESOURCE_GROUPS} />
+        <FeatureWarningWithTooltip featureName={FeatureIdentifier.MULTIPLE_PROJECTS} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
