@@ -126,7 +126,7 @@ const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticat
   return (
     <>
       <ModalErrorHandler bind={setModalErrorHandler} />
-      <Container padding="small" width={350} style={{ minHeight: '500px' }}>
+      <Container padding="small" width={400} style={{ minHeight: '500px' }}>
         <Text margin={{ bottom: 'xlarge' }} font={{ size: 'medium' }} color={Color.BLACK}>
           {getString('secrets.createSSHCredWizard.titleAuth')}
         </Text>

@@ -505,7 +505,7 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
        
       <div
         class="StyledProps--font StyledProps--main StyledProps--padding-small"
-        style="min-height: 500px; width: 350px;"
+        style="min-height: 500px; width: 400px;"
       >
         <p
           class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xlarge StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
@@ -582,7 +582,7 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                 </div>
               </div>
               <div
-                class="Layout--horizontal StyledProps--main StyledProps--margin-bottom-medium"
+                class="Layout--horizontal StyledProps--main StyledProps--margin-bottom-medium StyledProps--flex"
               >
                 <p
                   class="StyledProps--font StyledProps--main"
@@ -609,47 +609,55 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                   </span>
                   authentication
                 </p>
-                <span
-                  class="bp3-popover-wrapper"
+                <div
+                  class="bp3-popover-wrapper DropDown--main"
                 >
-                  <span
+                  <div
                     class="bp3-popover-target"
                   >
                     <div
                       class=""
                     >
-                      <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--inline StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow Button--withRightIcon"
-                        type="button"
+                      <div
+                        class="Layout--horizontal StyledProps--main DropDown--dropdownButton DropDown--minWidth StyledProps--flex"
+                        data-testid="dropdown-button"
+                        style="min-width: unset;"
                       >
-                        <span
-                          class="bp3-button-text"
+                        <div
+                          class="Layout--horizontal StyledProps--main DropDown--labelWrapper StyledProps--flex"
                         >
-                          secrets.sshAuthFormFields.optionKey
-                        </span>
-                        <span
-                          class="bp3-icon bp3-icon-chevron-down StyledProps--main"
-                          icon="chevron-down"
-                        >
-                          <svg
-                            data-icon="chevron-down"
-                            height="16"
-                            viewBox="0 0 16 16"
-                            width="16"
+                          <p
+                            class="StyledProps--font Text--lineclamp StyledProps--main DropDown--label"
+                            data-testid="dropdown-value"
+                            style="--text-line-clamp: 1;"
                           >
-                            <desc>
-                              chevron-down
-                            </desc>
-                            <path
-                              d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                      </button>
+                            secrets.sshAuthFormFields.optionKey
+                          </p>
+                        </div>
+                        <div
+                          class="Layout--horizontal StyledProps--main DropDown--btnWrapper StyledProps--flex"
+                        >
+                          <span
+                            class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
+                            data-icon="main-chevron-down"
+                          >
+                            <svg
+                              height="8"
+                              viewBox="0 0 14 8"
+                              width="8"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M13 0c-.3 0-.5.1-.7.3L7 5.6 1.7.3C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7l6 6c.2.2.4.3.7.3s.5-.1.7-.3l6-6c.2-.2.3-.4.3-.7 0-.6-.4-1-1-1z"
+                                fill="#4d5969"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
                     </div>
-                  </span>
-                </span>
+                  </div>
+                </div>
               </div>
               <div
                 class="bp3-form-group"

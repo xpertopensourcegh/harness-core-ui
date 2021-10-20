@@ -1,13 +1,11 @@
 import React from 'react'
-import { FormInput, Layout, Button, Text, SelectOption } from '@wings-software/uicore'
-import { IOptionProps, MenuItem } from '@blueprintjs/core'
-import { Select } from '@blueprintjs/select'
+import { FormInput, Layout, Text, SelectOption, DropDown } from '@wings-software/uicore'
+import type { IOptionProps } from '@blueprintjs/core'
 import type { FormikProps } from 'formik'
 import { useStrings } from 'framework/strings'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import type { SSHConfigFormData } from '@secrets/modals/CreateSSHCredModal/views/StepAuthentication'
 
-const CustomSelect = Select.ofType<SelectOption>()
 interface SSHAuthFormFieldsProps {
   formik: FormikProps<SSHConfigFormData>
   secretName?: string
@@ -68,32 +66,20 @@ const SSHAuthFormFields: React.FC<SSHAuthFormFieldsProps> = props => {
       />
       {formik.values.authScheme === 'SSH' ? (
         <>
-          <Layout.Horizontal margin={{ bottom: 'medium' }}>
+          <Layout.Horizontal margin={{ bottom: 'medium' }} flex>
             <Text icon="lock" style={{ flex: 1 }}>
               {getString('authentication')}
             </Text>
-            <CustomSelect
+            <DropDown
               items={credentialTypeOptions}
+              value={formik.values.credentialType}
+              isLabel={true}
               filterable={false}
-              itemRenderer={(item, { handleClick }) => (
-                <MenuItem key={item.value as string} text={item.label} onClick={handleClick} />
-              )}
-              onItemSelect={item => {
+              minWidth="unset"
+              onChange={item => {
                 formik.setFieldValue('credentialType', item.value)
               }}
-              popoverProps={{ minimal: true }}
-            >
-              <Button
-                inline
-                minimal
-                rightIcon="chevron-down"
-                font="small"
-                text={
-                  credentialTypeOptions.filter(opt => opt.value === formik.values.credentialType)?.[0]?.label ||
-                  'Select...'
-                }
-              />
-            </CustomSelect>
+            />
           </Layout.Horizontal>
           <FormInput.Text name="userName" label={getString('username')} />
           {formik.values.credentialType === 'KeyReference' ? (
