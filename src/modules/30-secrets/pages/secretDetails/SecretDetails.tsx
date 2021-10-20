@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { parse } from 'yaml'
 import { omit, without, defaultTo } from 'lodash-es'
-import { Layout, Container, Button, ButtonVariation } from '@wings-software/uicore'
+import { Layout, Container, Button, ButtonVariation, PageHeader } from '@wings-software/uicore'
 
 import {
   SecretTextSpecDTO,
@@ -15,7 +15,6 @@ import {
 } from 'services/cd-ng'
 
 import { useStrings } from 'framework/strings'
-import { PageHeader } from '@common/components/Page/PageHeader'
 import YamlBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import type { SnippetFetchResponse, YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
 import { useConfirmationDialog, useToaster } from '@common/exports'

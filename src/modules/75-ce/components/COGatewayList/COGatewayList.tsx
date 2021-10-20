@@ -11,17 +11,17 @@ import {
   ExpandingSearchInput,
   Popover,
   HarnessDocTooltip,
-  Heading
+  Heading,
+  PageSpinner,
+  Page
 } from '@wings-software/uicore'
 import { isEmpty as _isEmpty } from 'lodash-es'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
-import { useHistory } from 'react-router-dom'
-import { useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { Classes, Drawer, Menu, Position } from '@blueprintjs/core'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
 import {
   AllResourcesOfAccountResponse,
   Service,
@@ -34,7 +34,6 @@ import {
   useGetServiceDiagnostics,
   ServiceError
 } from 'services/lw'
-import { Page } from '@common/components/Page/Page'
 import Table from '@common/components/Table/Table'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { String, useStrings } from 'framework/strings'

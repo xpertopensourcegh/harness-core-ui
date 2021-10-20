@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import cx from 'classnames'
-import { Position, PopoverInteractionKind, Spinner, Intent } from '@blueprintjs/core'
-import { Popover } from '@blueprintjs/core'
+import { Popover, Position, PopoverInteractionKind, Spinner, Intent } from '@blueprintjs/core'
 
 import { Icon, IconName } from '@wings-software/uicore'
 import { getIconNameForTag } from '@common/utils/SnippetUtils'

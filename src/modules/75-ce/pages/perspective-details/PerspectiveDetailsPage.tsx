@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import cx from 'classnames'
-import { Button, Heading, Layout, Container, Text, Color } from '@wings-software/uicore'
-import { PageHeader } from '@common/components/Page/PageHeader'
+import { Button, Heading, Layout, Container, Text, Color, PageHeader, PageBody } from '@wings-software/uicore'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import routes from '@common/RouteDefinitions'
 import { useGetPerspective } from 'services/ce/'
@@ -20,7 +19,6 @@ import {
   useFetchPerspectiveTotalCountQuery
 } from 'services/ce/services'
 import { useStrings } from 'framework/strings'
-import { PageBody } from '@common/components/Page/PageBody'
 import { PageSpinner } from '@common/components'
 import PerspectiveGrid from '@ce/components/PerspectiveGrid/PerspectiveGrid'
 import CloudCostInsightChart from '@ce/components/CloudCostInsightChart/CloudCostInsightChart'

@@ -11,10 +11,10 @@ import {
   Icon,
   IconName,
   Color,
-  Checkbox
+  Checkbox,
+  PageError
 } from '@wings-software/uicore'
 import { debounce, isEmpty, isEqual } from 'lodash-es'
-import { PageError } from '@common/components/Page/PageError'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { useStrings } from 'framework/strings'
 import type { StringKeys } from 'framework/strings'

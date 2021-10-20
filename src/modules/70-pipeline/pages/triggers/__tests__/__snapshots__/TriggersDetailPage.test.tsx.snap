@@ -202,7 +202,7 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
     </div>
   </div>
   <div
-    class="StyledProps--font StyledProps--main pageBody main"
+    class="StyledProps--font StyledProps--main PageBody--pageBody main"
     data-name="page-body"
   >
     <div

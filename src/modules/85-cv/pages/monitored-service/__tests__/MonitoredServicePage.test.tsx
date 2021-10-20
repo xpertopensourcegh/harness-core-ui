@@ -111,7 +111,7 @@ describe('Unit tests for createting monitored source', () => {
         <MonitoredServicePage />
       </TestWrapper>
     )
-    expect(getByText('common.loading')).toBeTruthy()
+    expect(getByText(/Loading, please wait\.\.\./)).toBeTruthy()
   })
 
   test('should render error state', () => {

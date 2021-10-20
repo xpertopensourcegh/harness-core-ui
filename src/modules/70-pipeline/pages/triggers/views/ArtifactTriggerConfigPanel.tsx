@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Layout, Text, Label, Container, Color, HarnessDocTooltip } from '@wings-software/uicore'
+import { Layout, Text, Label, Container, Color, HarnessDocTooltip, PageSpinner } from '@wings-software/uicore'
 import { NameIdDescriptionTags } from '@common/components'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useStrings } from 'framework/strings'
 import { SelectArtifactModal } from './modals'
 import ArtifactTableInfo from './subviews/ArtifactTableInfo'

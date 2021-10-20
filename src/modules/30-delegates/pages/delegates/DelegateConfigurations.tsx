@@ -18,7 +18,8 @@ import {
   FormInput,
   SelectOption,
   MultiSelectOption,
-  ExpandingSearchInput
+  ExpandingSearchInput,
+  PageError
 } from '@wings-software/uicore'
 import { PageSpinner } from '@common/components'
 import { shouldShowError } from '@common/utils/errorUtils'
@@ -48,7 +49,6 @@ import {
 } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
-import { PageError } from '@common/components/Page/PageError'
 import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
 import {
   removeNullAndEmpty,

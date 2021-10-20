@@ -12,14 +12,14 @@ import {
   Color,
   Text,
   Icon,
-  ButtonVariation
+  ButtonVariation,
+  PageBody,
+  PageHeader
 } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import { useHistory, useParams } from 'react-router-dom'
 
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
-import { PageBody } from '@common/components/Page/PageBody'
-import { PageHeader } from '@common/components/Page/PageHeader'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
 import { Connector, EntityGitDetails, useCreateConnector, useGetYamlSchema } from 'services/cd-ng'
 import { useToaster, useConfirmationDialog } from '@common/exports'

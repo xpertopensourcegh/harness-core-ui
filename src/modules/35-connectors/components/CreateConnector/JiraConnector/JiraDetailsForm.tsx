@@ -9,7 +9,8 @@ import {
   ModalErrorHandlerBinding,
   StepProps,
   FontVariation,
-  ButtonVariation
+  ButtonVariation,
+  PageSpinner
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
@@ -18,7 +19,6 @@ import { useStrings } from 'framework/strings'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 
 import TextReference, { TextReferenceInterface, ValueType } from '@secrets/components/TextReference/TextReference'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
 
 import { setupJiraFormData } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import type { SecretReferenceInterface } from '@secrets/utils/SecretField'

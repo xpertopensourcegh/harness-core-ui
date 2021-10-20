@@ -1,5 +1,5 @@
 import React, { RefObject, SetStateAction, Dispatch } from 'react'
-import { Color, Icon, IconName } from '@wings-software/uicore'
+import { Color, Icon, IconName, PageSpinner } from '@wings-software/uicore'
 import cx from 'classnames'
 import { parse } from 'yaml'
 import type { FormikProps, FormikErrors } from 'formik'
@@ -11,7 +11,6 @@ import type {
   YamlBuilderProps,
   InvocationMapFunction
 } from '@common/interfaces/YAMLBuilderProps'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
 
 import css from './Wizard.module.scss'
 

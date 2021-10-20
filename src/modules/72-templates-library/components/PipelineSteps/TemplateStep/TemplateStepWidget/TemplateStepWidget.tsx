@@ -8,7 +8,8 @@ import {
   getMultiTypeFromValue,
   Layout,
   MultiTypeInputType,
-  Heading
+  Heading,
+  PageError
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import cx from 'classnames'
@@ -28,7 +29,6 @@ import type { TemplateStepData } from '@pipeline/utils/tempates'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetTemplateInputSetYaml } from 'services/template-ng'
 import { useToaster } from '@common/exports'
-import { PageError } from '@common/components/Page/PageError'
 import { PageSpinner } from '@common/components'
 import MultiTypeDelegateSelector from '@common/components/MultiTypeDelegateSelector/MultiTypeDelegateSelector'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'

@@ -1,6 +1,5 @@
 import React, { useMemo, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { Link } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import {
   Container,
   ExpandingSearchInput,
@@ -9,7 +8,8 @@ import {
   Pagination,
   Select,
   SelectOption,
-  Text
+  Text,
+  PageError
 } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { Feature, Target, useGetAllFeatures, Variation } from 'services/cf'
@@ -18,7 +18,6 @@ import routes from '@common/RouteDefinitions'
 import { CF_DEFAULT_PAGE_SIZE, FlagsSortByField, getErrorMessage, SortOrder } from '@cf/utils/CFUtils'
 import { NoDataFoundRow } from '@cf/components/NoDataFoundRow/NoDataFoundRow'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
-import { PageError } from '@common/components/Page/PageError'
 import { CFVariationColors } from '@cf/constants'
 import { FlagPatchParams, useServeFeatureFlagVariationToTargets } from '@cf/utils/FlagUtils'
 import { useToaster } from '@common/exports'

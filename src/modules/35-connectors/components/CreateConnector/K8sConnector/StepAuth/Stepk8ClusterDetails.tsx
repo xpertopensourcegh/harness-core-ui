@@ -11,13 +11,13 @@ import {
   Button,
   SelectOption,
   FontVariation,
-  ButtonVariation
+  ButtonVariation,
+  PageSpinner
 } from '@wings-software/uicore'
 import React, { useState, useEffect } from 'react'
 import cx from 'classnames'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { ConnectorInfoDTO, ConnectorRequestBody, ConnectorConfigDTO } from 'services/cd-ng'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import {

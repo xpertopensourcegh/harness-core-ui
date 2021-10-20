@@ -1,6 +1,6 @@
 import React from 'react'
 import { Spinner, Tabs } from '@blueprintjs/core'
-import { Button, Layout } from '@wings-software/uicore'
+import { Button, Layout, PageError } from '@wings-software/uicore'
 import { get, merge } from 'lodash-es'
 
 import { useStrings } from 'framework/strings'
@@ -13,7 +13,6 @@ import {
 } from 'services/pipeline-ng'
 import { useDeepCompareEffect } from '@common/hooks'
 import { isExecutionWaiting } from '@pipeline/utils/statusHelpers'
-import { PageError } from '@common/components/Page/PageError'
 
 import {
   HarnessApprovalTab,

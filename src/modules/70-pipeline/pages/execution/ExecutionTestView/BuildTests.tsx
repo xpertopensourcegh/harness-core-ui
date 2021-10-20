@@ -1,9 +1,8 @@
-import { Layout, Select, Text, Container, SelectOption } from '@wings-software/uicore'
+import { Layout, Select, Text, Container, SelectOption, PageError } from '@wings-software/uicore'
 import React, { useState, useEffect, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import { get, uniqWith, isEqual } from 'lodash-es'
 import { useStrings } from 'framework/strings'
-import { PageError } from '@common/components/Page/PageError'
 import {
   useReportSummary,
   useGetToken,

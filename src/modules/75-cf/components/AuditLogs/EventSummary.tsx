@@ -3,7 +3,7 @@ import { Drawer, IDrawerProps, Classes } from '@blueprintjs/core'
 import { get } from 'lodash-es'
 import cx from 'classnames'
 import { MonacoDiffEditor } from 'react-monaco-editor'
-import { Layout, Container, Text, Color, Button, useToggle, Heading } from '@wings-software/uicore'
+import { Layout, Container, Text, Color, Button, useToggle, Heading, PageError } from '@wings-software/uicore'
 import {
   CF_LOCAL_STORAGE_ENV_KEY,
   DEFAULT_ENV,
@@ -14,7 +14,6 @@ import {
   getErrorMessage
 } from '@cf/utils/CFUtils'
 import { useLocalStorage } from '@common/hooks'
-import { PageError } from '@common/components/Page/PageError'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'

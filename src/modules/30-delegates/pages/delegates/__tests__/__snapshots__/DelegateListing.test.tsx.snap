@@ -189,7 +189,7 @@ exports[`Delegate Listing, open filter render list and open filter 1`] = `
       </div>
     </div>
     <div
-      class="StyledProps--font StyledProps--main pageBody"
+      class="StyledProps--font StyledProps--main PageBody--pageBody"
       data-name="page-body"
     >
       <div

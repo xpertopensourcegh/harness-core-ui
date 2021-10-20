@@ -557,7 +557,7 @@ exports[`Autostopping rule analytics drawer render analytics drawer 1`] = `
           role="tabpanel"
         >
           <div
-            class="StyledProps--font StyledProps--main pageBody pageContainer"
+            class="StyledProps--font StyledProps--main PageBody--pageBody pageContainer"
             data-name="page-body"
           >
             <p

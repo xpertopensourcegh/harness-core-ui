@@ -3,7 +3,7 @@
 exports[`Entity Usage render for connector data with gitSync 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container standard secondHeader StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard secondHeader StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
     <div
       class="Layout--vertical StyledProps--main"
@@ -58,7 +58,7 @@ exports[`Entity Usage render for connector data with gitSync 1`] = `
     </div>
   </div>
   <div
-    class="StyledProps--font StyledProps--main pageBody"
+    class="StyledProps--font StyledProps--main PageBody--pageBody"
     data-name="page-body"
   >
     <div
@@ -309,7 +309,7 @@ exports[`Entity Usage render for connector data with gitSync 1`] = `
 exports[`Entity Usage render for data 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container standard secondHeader StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard secondHeader StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
     <div
       class="Layout--vertical StyledProps--main"
@@ -364,7 +364,7 @@ exports[`Entity Usage render for data 1`] = `
     </div>
   </div>
   <div
-    class="StyledProps--font StyledProps--main pageBody"
+    class="StyledProps--font StyledProps--main PageBody--pageBody"
     data-name="page-body"
   >
     <div
@@ -463,7 +463,7 @@ exports[`Entity Usage render for data 1`] = `
 exports[`Entity Usage render for no data 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container standard secondHeader StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard secondHeader StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
     <div
       class="Layout--vertical StyledProps--main"
@@ -518,11 +518,11 @@ exports[`Entity Usage render for no data 1`] = `
     </div>
   </div>
   <div
-    class="StyledProps--font StyledProps--main pageBody"
+    class="StyledProps--font StyledProps--main PageBody--pageBody"
     data-name="page-body"
   >
     <div
-      class="StyledProps--font StyledProps--main noDataCard StyledProps--flex StyledProps--flex-align-center-center"
+      class="StyledProps--font StyledProps--main NoDataCard--noDataCard StyledProps--flex StyledProps--flex-align-center-center"
     >
       <div
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
@@ -545,12 +545,12 @@ exports[`Entity Usage render for no data 1`] = `
           </svg>
         </span>
         <p
-          class="StyledProps--font StyledProps--main message StyledProps--font-align-center StyledProps--color StyledProps--color-grey600"
+          class="StyledProps--font StyledProps--main NoDataCard--message StyledProps--font-align-center StyledProps--color StyledProps--color-grey600"
         >
           common.noRefData
         </p>
         <div
-          class="buttonContainer"
+          class="NoDataCard--buttonContainer"
         />
       </div>
     </div>

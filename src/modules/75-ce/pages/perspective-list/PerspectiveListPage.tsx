@@ -1,10 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
-import { Layout, Text, Button, Container, ExpandingSearchInput, FlexExpander } from '@wings-software/uicore'
+import { Layout, Text, Button, Container, ExpandingSearchInput, FlexExpander, Page } from '@wings-software/uicore'
 import { pick } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
-import { Page } from '@common/components/Page/Page'
 import { PageSpinner, useToaster } from '@common/components'
 import { useCreatePerspective, useDeletePerspective, CEView } from 'services/ce'
 import {

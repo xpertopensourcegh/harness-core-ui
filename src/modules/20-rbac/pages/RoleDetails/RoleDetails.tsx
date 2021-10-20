@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { Card, Color, Container, Icon, Layout, Text, ButtonVariation } from '@wings-software/uicore'
+import { Card, Color, Container, Icon, Layout, Text, ButtonVariation, PageError } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
 import { defaultTo } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import { Page, useToaster } from '@common/exports'
 import { PageSpinner } from '@common/components'
-import { PageError } from '@common/components/Page/PageError'
 import {
   Permission,
   Role,

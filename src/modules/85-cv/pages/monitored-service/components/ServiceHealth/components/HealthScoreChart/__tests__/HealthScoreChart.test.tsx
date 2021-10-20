@@ -80,7 +80,7 @@ describe('Unit tests for HealthScoreChart', () => {
       expect(getByText('cv.monitoredServices.serviceHealth.pleaseSelectAnotherTimeWindow')).toBeTruthy()
     )
     await waitFor(() =>
-      expect(container.querySelector('.noDataCard')?.textContent).toEqual(
+      expect(container.querySelector('.NoDataCard--noDataCard')?.textContent).toEqual(
         'cv.monitoredServices.serviceHealth.noDataAvailableForHealthScorecv.monitoredServices.serviceHealth.pleaseSelectAnotherTimeWindow'
       )
     )
@@ -100,7 +100,7 @@ describe('Unit tests for HealthScoreChart', () => {
     }
     const { container } = render(<WrapperComponent {...propsWithOutTimelineIntegration} />)
     await waitFor(() =>
-      expect(container.querySelector('.noDataCard')?.textContent).toEqual(
+      expect(container.querySelector('.NoDataCard--noDataCard')?.textContent).toEqual(
         'cv.monitoredServices.serviceHealth.noDataAvailableForHealthScore'
       )
     )

@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from 'react'
 import moment from 'moment'
 import { useParams } from 'react-router-dom'
-import { Container, Color } from '@wings-software/uicore'
+import { Container, Color, PageSpinner } from '@wings-software/uicore'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts, { SeriesColumnOptions } from 'highcharts'
 import type { DateRange } from '@blueprintjs/datetime'
@@ -12,7 +12,6 @@ import {
   GetConnectivitySummaryQueryParams,
   ResponsePageActivitySummary
 } from 'services/cd-ng'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'

@@ -251,7 +251,7 @@ exports[`Validate ChangeCard should render Pager Duty card 1`] = `
             cv.monitoredServices.serviceHealth.overallHealthScore
           </p>
           <div
-            class="StyledProps--font StyledProps--main noDataCard noData StyledProps--flex StyledProps--flex-align-center-center"
+            class="StyledProps--font StyledProps--main NoDataCard--noDataCard noData StyledProps--flex StyledProps--flex-align-center-center"
           >
             <div
               class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
@@ -267,7 +267,7 @@ exports[`Validate ChangeCard should render Pager Duty card 1`] = `
                 cv.monitoredServices.serviceHealth.noDataAvailableForHealthScore
               </p>
               <div
-                class="buttonContainer"
+                class="NoDataCard--buttonContainer"
               />
             </div>
           </div>
@@ -403,10 +403,10 @@ exports[`Validate ChangeCard should render in error state 1`] = `
 exports[`Validate ChangeCard should render in loading state 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main spinner StyledProps--flex StyledProps--flex-align-center-center"
+    class="StyledProps--font StyledProps--main PageSpinner--spinner StyledProps--flex StyledProps--flex-align-center-center"
   >
     <div
-      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main content"
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main PageSpinner--content"
       style="align-items: center; width: 500px;"
     >
       <span
@@ -473,7 +473,7 @@ exports[`Validate ChangeCard should render in loading state 1`] = `
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-align-center StyledProps--color StyledProps--color-grey600"
       >
-        common.loading
+        Loading, please wait...
       </p>
     </div>
   </div>

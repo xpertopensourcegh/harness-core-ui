@@ -108,7 +108,7 @@ exports[`EXECUTION VIEW should should have the values prefilled and fields as di
 exports[`STUDIO MODE should accept values from input sets and submit the form: after applying input sets 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main pageBody runForm"
+    class="StyledProps--font StyledProps--main PageBody--pageBody runForm"
     data-name="page-body"
   >
     <div

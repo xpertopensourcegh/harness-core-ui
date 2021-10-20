@@ -5,9 +5,9 @@ import type {
   ResponseInputSetResponse,
   ResponsePageInputSetSummaryResponse,
   ResponseMergeInputSetResponse,
-  ResponseOverlayInputSetResponse
+  ResponseOverlayInputSetResponse,
+  ResponsePMSPipelineResponseDTO
 } from 'services/pipeline-ng'
-import type { ResponsePMSPipelineResponseDTO } from 'services/pipeline-ng'
 
 export const TemplateResponse: UseGetReturnData<ResponseInputSetTemplateResponse> = {
   loading: false,

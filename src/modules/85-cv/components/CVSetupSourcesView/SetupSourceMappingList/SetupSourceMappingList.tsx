@@ -1,12 +1,18 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import { Container, Heading, Text } from '@wings-software/uicore'
+import {
+  Container,
+  Heading,
+  Text,
+  NoDataCard,
+  NoDataCardProps,
+  PageError,
+  PageErrorProps
+} from '@wings-software/uicore'
 import { Classes } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import { Table } from '@common/components'
 import type { TableProps } from '@common/components/Table/Table'
 import { TableFilter, TableFilterProps } from '@cv/components/TableFilter/TableFilter'
-import { NoDataCard, NoDataCardProps } from '@common/components/Page/NoDataCard'
-import { PageError, PageErrorProps } from '@common/components/Page/PageError'
 import { SetupSourceCardHeaderProps, SetupSourceEmptyCardHeader } from '../SetupSourceCardHeader/SetupSourceCardHeader'
 import { StepLabel } from '../StepLabel/StepLabel'
 import css from './SetupSourceMappingList.module.scss'

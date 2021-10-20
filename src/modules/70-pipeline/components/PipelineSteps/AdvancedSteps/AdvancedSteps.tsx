@@ -8,9 +8,9 @@ import { useStrings } from 'framework/strings'
 import {
   AdvancedPanels,
   StepCommandsProps,
-  Values
+  Values,
+  TabTypes
 } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
-import { TabTypes } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 import { StepFormikFowardRef, setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { StepMode as Modes } from '@pipeline/utils/stepUtils'
 import type { StepElementConfig, StepGroupElementConfig } from 'services/cd-ng'

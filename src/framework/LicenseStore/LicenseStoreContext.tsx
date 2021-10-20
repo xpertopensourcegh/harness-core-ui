@@ -3,8 +3,8 @@ import moment from 'moment'
 import { useParams } from 'react-router-dom'
 
 import isEmpty from 'lodash/isEmpty'
+import { PageSpinner } from '@wings-software/uicore'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 
 import { AccountLicenseDTO, ModuleLicenseDTO, useGetAccountLicenses } from 'services/cd-ng'

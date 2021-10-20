@@ -5,7 +5,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
   <div />
   <div>
     <div
-      class="Layout--horizontal StyledProps--main container StyledProps--flex"
+      class="Layout--horizontal StyledProps--main PageSubHeader--container StyledProps--flex"
     >
       <button
         class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-primary"
@@ -53,7 +53,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
       </div>
     </div>
     <div
-      class="StyledProps--font StyledProps--main pageBody"
+      class="StyledProps--font StyledProps--main PageBody--pageBody"
       data-name="page-body"
     >
       <div

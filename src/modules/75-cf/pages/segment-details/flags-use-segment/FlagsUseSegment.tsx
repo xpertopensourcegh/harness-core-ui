@@ -1,12 +1,11 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { Container, FlexExpander, Heading, Layout, Text } from '@wings-software/uicore'
+import { Container, FlexExpander, Heading, Layout, Text, PageError, useToaster } from '@wings-software/uicore'
 import type { HeadingProps } from '@wings-software/uicore/dist/components/Heading/Heading'
 import { useStrings } from 'framework/strings'
 import { Segment, SegmentFlag, SegmentFlagsResponseResponse, useGetSegmentFlags, usePatchFeature } from 'services/cf'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { getErrorMessage, EntityAddingMode } from '@cf/utils/CFUtils'
-import { PageError } from '@common/components/Page/PageError'
 import { OptionsMenuButton } from '@common/components'
 import {
   SelectedFeatureFlag,
@@ -14,7 +13,6 @@ import {
 } from '@cf/components/SelectFeatureFlagsModalButton/SelectFeatureFlagsModalButton'
 import { ItemContainer, ItemContainerProps } from '@cf/components/ItemContainer/ItemContainer'
 import { NoDataFoundRow } from '@cf/components/NoDataFoundRow/NoDataFoundRow'
-import { useToaster } from '@common/components'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import { DetailHeading } from '../DetailHeading'
 

@@ -9,7 +9,6 @@ import { ModuleName } from 'framework/types/ModuleName'
 
 import paths from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
-import routes from '@common/RouteDefinitions'
 
 export interface NGBreadcrumbsProps extends BreadcrumbsProps {
   orgBreadCrumbOptional: boolean
@@ -30,8 +29,8 @@ export const NGBreadcrumbs: React.FC<Partial<NGBreadcrumbsProps>> = ({
     url: paths.toAccountSettings(params)
   }
 
-  const isHome = pathname.indexOf(routes.toHome({ accountId: params.accountId })) !== -1
-  const isDashBoards = pathname.indexOf(routes.toCustomDashboard({ accountId: params.accountId })) !== -1
+  const isHome = pathname.indexOf(paths.toHome({ accountId: params.accountId })) !== -1
+  const isDashBoards = pathname.indexOf(paths.toCustomDashboard({ accountId: params.accountId })) !== -1
 
   if (isHome) {
     moduleBreadCrumb = {

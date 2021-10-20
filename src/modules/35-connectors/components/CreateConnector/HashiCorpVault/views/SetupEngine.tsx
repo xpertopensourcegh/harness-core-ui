@@ -24,7 +24,7 @@ import {
   SetupEngineFormData,
   HashiCorpVaultAccessTypes
 } from '@connectors/interfaces/ConnectorInterface'
-import { setupEngineFormData } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import { setupEngineFormData, buildVaultPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { PageSpinner } from '@common/components'
 import {
   useGetMetadata,
@@ -40,7 +40,6 @@ import {
 } from 'services/cd-ng'
 import { shouldShowError } from '@common/utils/errorUtils'
 import { useToaster } from '@common/exports'
-import { buildVaultPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
 
 const defaultInitialFormData: SetupEngineFormData = {
   secretEngine: '',

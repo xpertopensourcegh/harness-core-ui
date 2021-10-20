@@ -3,8 +3,7 @@ import { render } from '@testing-library/react'
 import { Connectors } from '@connectors/constants'
 import { TestWrapper } from '@common/utils/testUtils'
 import SplunkHealthSource from '../SplunkHealthSource'
-import { data } from './SplunkHealthSource.mock'
-import { mockedSplunkSampleData } from './SplunkHealthSource.mock'
+import { data, mockedSplunkSampleData } from './SplunkHealthSource.mock'
 
 const onNextMock = jest.fn().mockResolvedValue(jest.fn())
 const onPrevious = jest.fn().mockResolvedValue(jest.fn())

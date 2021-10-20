@@ -10,14 +10,14 @@ import {
   Button,
   Text,
   TextInput,
-  ButtonVariation
+  ButtonVariation,
+  PageSpinner
 } from '@wings-software/uicore'
 import { clone, isEmpty } from 'lodash-es'
 import cx from 'classnames'
 import { Classes, Position } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { EntityGitDetails, InputSetSummaryResponse, useGetInputSetsListForPipeline } from 'services/pipeline-ng'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useToaster } from '@common/exports'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'

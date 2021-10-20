@@ -3,7 +3,7 @@ import moment from 'moment'
 
 import { Position } from '@blueprintjs/core'
 import { DateRangePicker, DateRange, IDateRangeShortcut } from '@blueprintjs/datetime'
-import { Container, Color, Layout, Popover, Button, Text } from '@wings-software/uicore'
+import { Container, Color, Layout, Popover, Button, Text, PageSpinner } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import {
@@ -13,7 +13,6 @@ import {
   useGetConnectivitySummary,
   ResponseConnectivityCheckSummary
 } from 'services/cd-ng'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { UseGetMockData } from '@common/utils/testUtils'
 

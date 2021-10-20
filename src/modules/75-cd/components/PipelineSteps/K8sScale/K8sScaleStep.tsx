@@ -12,9 +12,8 @@ import cx from 'classnames'
 import * as Yup from 'yup'
 import { FormikErrors, FormikProps, yupToFormErrors } from 'formik'
 import { defaultTo, get, has, isEmpty } from 'lodash-es'
-import { StepViewType, StepProps, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
+import { StepViewType, StepProps, ValidateInputSetProps, setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
-import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 
 import type { CountInstanceSelection, K8sScaleStepInfo, StepElementConfig } from 'services/cd-ng'
 

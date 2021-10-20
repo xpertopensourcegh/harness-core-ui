@@ -1,10 +1,8 @@
 import React from 'react'
-import { Layout } from '@wings-software/uicore'
+import { Layout, PageError, PageSpinner } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { ModuleName } from 'framework/types/ModuleName'
 import { FetchPlansQuery, useFetchPlansQuery } from 'services/common/services'
-import { PageError } from '@common/components/Page/PageError'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
 import Plans from './Plans'
 
 interface SubscriptionPlansProps {

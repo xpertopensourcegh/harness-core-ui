@@ -1,5 +1,16 @@
 import React from 'react'
-import { Formik, FormikForm, Container, FormInput, Layout, FlexExpander, Button, Heading } from '@wings-software/uicore'
+import {
+  Formik,
+  FormikForm,
+  Container,
+  FormInput,
+  Layout,
+  FlexExpander,
+  Button,
+  Heading,
+  PageSpinner,
+  useToaster
+} from '@wings-software/uicore'
 import { Menu, MenuItem, Popover, Position } from '@blueprintjs/core'
 import { useParams, useHistory } from 'react-router-dom'
 import * as Yup from 'yup'
@@ -13,9 +24,7 @@ import {
 } from 'services/ce/services'
 import { useStrings } from 'framework/strings'
 import type { ViewIdCondition } from 'services/ce/'
-import { useToaster } from '@common/components'
 import { DEFAULT_GROUP_BY } from '@ce/utils/perspectiveUtils'
-import { PageSpinner } from '@common/components'
 import PerspectiveFilters from '../PerspectiveFilters'
 import PerspectiveBuilderPreview from '../PerspectiveBuilderPreview/PerspectiveBuilderPreview'
 // import ProTipIcon from './images/pro-tip.svg'
@@ -221,9 +230,9 @@ const PerspectiveBuilder: React.FC<{ perspectiveData?: CEView; onNext: (resource
                   </div>
                   <FlexExpander />
 
-                  {/* 
+                  {/*
                     this block is commented out, we will uncomment it once custom fields are Done
-                    
+
                   {<Container padding="medium" background="grey100" className={css.proTipContainer}>
                     <Layout.Horizontal spacing="medium">
                       <img src={ProTipIcon} />

@@ -3,7 +3,7 @@
 exports[`test cases for Perspective details Page should be able to render and switch to list view 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
     <div
       class="Layout--vertical StyledProps--main"
@@ -170,7 +170,7 @@ exports[`test cases for Perspective details Page should be able to render and sw
     </div>
   </div>
   <div
-    class="StyledProps--font StyledProps--main pageBody"
+    class="StyledProps--font StyledProps--main PageBody--pageBody"
     data-name="page-body"
   >
     <div
@@ -800,7 +800,7 @@ exports[`test cases for Perspective details Page should be able to render and sw
 exports[`test cases for Perspective details Page should be able to render the details page 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
     <div
       class="Layout--vertical StyledProps--main"
@@ -939,7 +939,7 @@ exports[`test cases for Perspective details Page should be able to render the de
     </div>
   </div>
   <div
-    class="StyledProps--font StyledProps--main pageBody"
+    class="StyledProps--font StyledProps--main PageBody--pageBody"
     data-name="page-body"
   >
     <div

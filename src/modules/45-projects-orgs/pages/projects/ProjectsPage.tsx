@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import {
   Button,
   Layout,
@@ -9,14 +9,13 @@ import {
   GridListToggle,
   Views,
   ButtonVariation,
-  DropDown
+  DropDown,
+  Page
 } from '@wings-software/uicore'
 
-import { useParams } from 'react-router-dom'
 import { useQueryParams } from '@common/hooks'
 import { useGetOrganizationList, useGetProjectAggregateDTOList } from 'services/cd-ng'
 import type { Project } from 'services/cd-ng'
-import { Page } from '@common/components/Page/Page'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
 import { useCollaboratorModal } from '@projects-orgs/modals/ProjectModal/useCollaboratorModal'
 import routes from '@common/RouteDefinitions'

@@ -3,13 +3,13 @@
 exports[`Project Details render with modules and edit menu 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container xxlarge header StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--xxlarge header StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
     <div
       class="Layout--vertical StyledProps--main"
     >
       <div
-        class="breadcrumbsDiv"
+        class="PageHeader--breadcrumbsDiv"
       >
         <div
           class="Layout--horizontal StyledProps--main Breadcrumbs--breadcrumbs StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-justifyContent-flex-start"
@@ -444,7 +444,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
     </div>
   </div>
   <div
-    class="StyledProps--font StyledProps--main pageBody"
+    class="StyledProps--font StyledProps--main PageBody--pageBody"
     data-name="page-body"
   >
     <div
@@ -835,13 +835,13 @@ exports[`Project Details render with modules and edit menu 1`] = `
 exports[`Project Details render with no modules and invite collaborators 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container xlarge header StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--xlarge header StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
     <div
       class="Layout--vertical StyledProps--main"
     >
       <div
-        class="breadcrumbsDiv"
+        class="PageHeader--breadcrumbsDiv"
       >
         <div
           class="Layout--horizontal StyledProps--main Breadcrumbs--breadcrumbs StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-justifyContent-flex-start"
@@ -1198,7 +1198,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
     </div>
   </div>
   <div
-    class="StyledProps--font StyledProps--main pageBody"
+    class="StyledProps--font StyledProps--main PageBody--pageBody"
     data-name="page-body"
   >
     <div

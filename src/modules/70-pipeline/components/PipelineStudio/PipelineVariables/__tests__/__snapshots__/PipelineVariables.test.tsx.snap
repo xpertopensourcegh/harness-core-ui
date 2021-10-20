@@ -46,10 +46,10 @@ exports[`<PipelineVariables /> tests renders error 1`] = `
 exports[`<PipelineVariables /> tests renders loader 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main spinner StyledProps--flex StyledProps--flex-align-center-center"
+    class="StyledProps--font StyledProps--main PageSpinner--spinner StyledProps--flex StyledProps--flex-align-center-center"
   >
     <div
-      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main content"
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main PageSpinner--content"
       style="align-items: center; width: 500px;"
     >
       <span
@@ -116,7 +116,7 @@ exports[`<PipelineVariables /> tests renders loader 1`] = `
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-align-center StyledProps--color StyledProps--color-grey600"
       >
-        common.loading
+        Loading, please wait...
       </p>
     </div>
   </div>

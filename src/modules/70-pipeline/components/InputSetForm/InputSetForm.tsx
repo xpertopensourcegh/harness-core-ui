@@ -10,7 +10,9 @@ import {
   NestedAccordionProvider,
   Heading,
   Color,
-  ButtonVariation
+  ButtonVariation,
+  PageHeader,
+  PageBody
 } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import { parse } from 'yaml'
@@ -32,8 +34,6 @@ import {
 import { useToaster } from '@common/exports'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
 import type { InputSetGitQueryParams, InputSetPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
-import { PageHeader } from '@common/components/Page/PageHeader'
-import { PageBody } from '@common/components/Page/PageBody'
 import { NameIdDescriptionTags } from '@common/components'
 import routes from '@common/RouteDefinitions'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'

@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react'
-import { Color, Container, Icon, Pagination, Select, Text } from '@wings-software/uicore'
-import { NoDataCard } from '@common/components/Page/NoDataCard'
+import { Color, Container, Icon, Pagination, Select, Text, NoDataCard } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { HealthSourceDropDown } from '@cv/components/HealthSourceDropDown/HealthSourceDropDown'
 import noDataImage from '@cv/assets/noData.svg'

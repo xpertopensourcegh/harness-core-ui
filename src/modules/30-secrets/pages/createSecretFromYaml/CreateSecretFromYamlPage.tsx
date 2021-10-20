@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
-import { Container, Button, Layout, ButtonVariation } from '@wings-software/uicore'
+import { Container, Button, Layout, ButtonVariation, PageHeader } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import { useHistory, useParams } from 'react-router-dom'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
-import { PageHeader } from '@common/components/Page/PageHeader'
 import { useStrings } from 'framework/strings'
 import type { SnippetFetchResponse, YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
 import {

@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import * as Yup from 'yup'
 import { pick, omit as _omit, defaultTo as _defaultTo } from 'lodash-es'
 import cx from 'classnames'
@@ -16,7 +16,6 @@ import {
   SelectOption,
   StepProps
 } from '@wings-software/uicore'
-import { Link } from 'react-router-dom'
 import { NameIdDescriptionTags } from '@common/components'
 import { StringUtils, useToaster } from '@common/exports'
 import { getHeadingIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'

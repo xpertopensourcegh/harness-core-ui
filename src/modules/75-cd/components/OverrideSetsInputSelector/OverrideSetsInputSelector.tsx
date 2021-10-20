@@ -9,13 +9,13 @@ import {
   SelectOption,
   Tag,
   Text,
-  TextInput
+  TextInput,
+  PageSpinner
 } from '@wings-software/uicore'
 import { isArray, clone } from 'lodash-es'
 import cx from 'classnames'
 import { Classes, Position } from '@blueprintjs/core'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useStrings } from 'framework/strings'
 import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import css from './OverrideSetsInputSelector.module.scss'

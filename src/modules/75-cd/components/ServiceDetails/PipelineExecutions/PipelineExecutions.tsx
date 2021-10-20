@@ -1,6 +1,15 @@
 import React, { useCallback, useContext, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Card, Color, Container, ExpandingSearchInput, Layout, Text } from '@wings-software/uicore'
+import {
+  Card,
+  Color,
+  Container,
+  ExpandingSearchInput,
+  Layout,
+  Text,
+  PageError,
+  NoDataCard
+} from '@wings-software/uicore'
 import { useGetDeploymentsByServiceId, GetDeploymentsByServiceIdQueryParams } from 'services/cd-ng'
 import type { ProjectPathProps, ServicePathProps } from '@common/interfaces/RouteInterfaces'
 import ExecutionCard from '@pipeline/components/ExecutionCard/ExecutionCard'
@@ -9,8 +18,6 @@ import { executionStatusInfoToExecutionSummary } from '@cd/pages/dashboard/CDDas
 import { DeploymentsTimeRangeContext } from '@cd/components/Services/common'
 import { useStrings } from 'framework/strings'
 import { PageSpinner } from '@common/components'
-import { PageError } from '@common/components/Page/PageError'
-import { NoDataCard } from '@common/components/Page/NoDataCard'
 import pipelineIllustration from '@pipeline/pages/pipelines/images/pipelines-illustration.svg'
 import css from '@cd/components/ServiceDetails/PipelineExecutions/PipelineExecutions.module.scss'
 

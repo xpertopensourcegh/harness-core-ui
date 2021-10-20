@@ -13,9 +13,8 @@ import {
   useModalHook
 } from '@wings-software/uicore'
 import { isEmpty, isNil } from 'lodash-es'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { Dialog } from '@blueprintjs/core'
-import { useHistory } from 'react-router-dom'
 import { TagsPopover, useToaster } from '@common/components'
 import templateFactory from '@templates-library/components/Templates/TemplatesFactory'
 import type { ModulePathParams, TemplateStudioPathProps } from '@common/interfaces/RouteInterfaces'

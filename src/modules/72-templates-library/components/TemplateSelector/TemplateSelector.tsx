@@ -13,7 +13,8 @@ import {
   Layout,
   SelectOption,
   Text,
-  Views
+  Views,
+  PageError
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
@@ -23,7 +24,6 @@ import type { TemplateType } from '@templates-library/utils/templatesUtils'
 import { useStrings } from 'framework/strings'
 import templateIllustration from '@templates-library/pages/TemplatesPage/images/templates-illustration.svg'
 import { PageSpinner } from '@common/components'
-import { PageError } from '@common/components/Page/PageError'
 import { useMutateAsGet } from '@common/hooks'
 import { TemplateListType } from '@templates-library/pages/TemplatesPage/TemplatesPageUtils'
 import TemplatesView from '@templates-library/pages/TemplatesPage/views/TemplatesView'

@@ -1,4 +1,4 @@
-import { Container, Tab, Tabs } from '@wings-software/uicore'
+import { Container, Tab, Tabs, PageError } from '@wings-software/uicore'
 import React, { useEffect, useMemo, useState, useCallback } from 'react'
 import { useHistory, useParams, matchPath } from 'react-router-dom'
 import { isEqual, omit } from 'lodash-es'
@@ -18,7 +18,6 @@ import {
   useSaveMonitoredService,
   useUpdateMonitoredService
 } from 'services/cv'
-import { PageError } from '@common/components/Page/PageError'
 import { PageSpinner, useToaster, NavigationCheck } from '@common/components'
 import { ChangeSourceCategoryName } from '@cv/pages/ChangeSource/ChangeSourceDrawer/ChangeSourceDrawer.constants'
 import { useStrings } from 'framework/strings'

@@ -14,7 +14,8 @@ import {
   Icon,
   Avatar,
   ModalErrorHandler,
-  ModalErrorHandlerBinding
+  ModalErrorHandlerBinding,
+  PageSpinner
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { debounce, isEmpty, pick } from 'lodash-es'
@@ -34,7 +35,6 @@ import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { getEntityNameFromType } from '@common/utils/StringUtils'
 import paths from '@common/RouteDefinitions'
-import { PageSpinner } from '../Page/PageSpinner'
 import { NameId } from '../NameIdDescriptionTags/NameIdDescriptionTags'
 import css from './SaveToGitForm.module.scss'
 

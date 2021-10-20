@@ -11,8 +11,10 @@ import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineCon
 import { setFormikRef, Step, StepProps, StepViewType, StepFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { TestStepWidget, factory } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
-import { getFormValuesInCorrectFormat } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
-import { Types as TransformValuesTypes } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
+import {
+  getFormValuesInCorrectFormat,
+  Types as TransformValuesTypes
+} from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
 import * as PipelineVariablesContext from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
 import { RightDrawer } from '../RightDrawer'
 import pipelineContextMock, { updatePipelineViewFnArg1, updateStageFnArg1 } from './stateMock'

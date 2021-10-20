@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from 'react'
-import { Container, Tabs, Tab } from '@wings-software/uicore'
+import { Container, Tabs, Tab, NoDataCard } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import { NoDataCard } from '@common/components/Page/NoDataCard'
 import type { ExecutionNode } from 'services/pipeline-ng'
 import { DeploymentMetrics } from './components/DeploymentMetrics/DeploymentMetrics'
 import { ExecutionVerificationSummary } from './components/ExecutionVerificationSummary/ExecutionVerificationSummary'

@@ -1,10 +1,20 @@
 import React, { useEffect, useMemo } from 'react'
-import { Layout, Container, Icon, Text, Color, SelectOption, Select } from '@wings-software/uicore'
+import {
+  Layout,
+  Container,
+  Icon,
+  Text,
+  Color,
+  SelectOption,
+  Select,
+  PageSpinner,
+  NoDataCard,
+  PageError
+} from '@wings-software/uicore'
 import { Menu, Tag } from '@blueprintjs/core'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
 import {
   useGetConnector,
   ConnectorResponse,
@@ -12,13 +22,11 @@ import {
   useGetListOfBranchesWithStatus,
   GitBranchDTO
 } from 'services/cd-ng'
-import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { useStrings } from 'framework/strings'
 import ActivityHistory from '@connectors/components/activityHistory/ActivityHistory/ActivityHistory'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import type { ProjectPathProps, ConnectorPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
-import { PageError } from '@common/components/Page/PageError'
 import { useQueryParams } from '@common/hooks'
 import routes from '@common/RouteDefinitions'
 import EntitySetupUsage from '@common/pages/entityUsage/EntityUsage'

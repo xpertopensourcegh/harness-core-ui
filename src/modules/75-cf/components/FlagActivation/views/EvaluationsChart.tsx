@@ -1,5 +1,4 @@
-import React from 'react'
-import { useMemo } from 'react'
+import React, { useMemo } from 'react'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts, { PlotOptions } from 'highcharts'
 import { clone, merge } from 'lodash-es'

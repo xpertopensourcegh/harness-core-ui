@@ -7,7 +7,7 @@ exports[`Project Page List Create Project and Close 1`] = `
     style="height: inherit;"
   >
     <div
-      class="Layout--horizontal StyledProps--main container standard page notSend StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+      class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard page notSend StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
     >
       <div
         class="Layout--vertical StyledProps--main"
@@ -67,13 +67,13 @@ exports[`Project Page List Create Project and Close 1`] = `
       </div>
     </div>
     <div
-      class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+      class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
     >
       <div
         class="Layout--vertical StyledProps--main"
       >
         <div
-          class="breadcrumbsDiv"
+          class="PageHeader--breadcrumbsDiv"
         >
           <div
             class="Layout--horizontal StyledProps--main Breadcrumbs--breadcrumbs StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-justifyContent-flex-start"
@@ -309,7 +309,7 @@ exports[`Project Page List Create Project and Close 1`] = `
       </div>
     </div>
     <div
-      class="StyledProps--font StyledProps--main pageBody hasBanner"
+      class="StyledProps--font StyledProps--main PageBody--pageBody hasBanner"
       data-name="page-body"
     >
       <div
@@ -3311,7 +3311,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
     style="height: inherit;"
   >
     <div
-      class="Layout--horizontal StyledProps--main container standard page notSend StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+      class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard page notSend StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
     >
       <div
         class="Layout--vertical StyledProps--main"
@@ -3371,13 +3371,13 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
       </div>
     </div>
     <div
-      class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+      class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
     >
       <div
         class="Layout--vertical StyledProps--main"
       >
         <div
-          class="breadcrumbsDiv"
+          class="PageHeader--breadcrumbsDiv"
         >
           <div
             class="Layout--horizontal StyledProps--main Breadcrumbs--breadcrumbs StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-justifyContent-flex-start"
@@ -3613,7 +3613,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
       </div>
     </div>
     <div
-      class="StyledProps--font StyledProps--main pageBody hasBanner"
+      class="StyledProps--font StyledProps--main PageBody--pageBody hasBanner"
       data-name="page-body"
     >
       <div
@@ -6615,7 +6615,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
     style="height: inherit;"
   >
     <div
-      class="Layout--horizontal StyledProps--main container standard page notSend StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+      class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard page notSend StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
     >
       <div
         class="Layout--vertical StyledProps--main"
@@ -6675,13 +6675,13 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
       </div>
     </div>
     <div
-      class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+      class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
     >
       <div
         class="Layout--vertical StyledProps--main"
       >
         <div
-          class="breadcrumbsDiv"
+          class="PageHeader--breadcrumbsDiv"
         >
           <div
             class="Layout--horizontal StyledProps--main Breadcrumbs--breadcrumbs StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-justifyContent-flex-start"
@@ -6917,7 +6917,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
       </div>
     </div>
     <div
-      class="StyledProps--font StyledProps--main pageBody hasBanner"
+      class="StyledProps--font StyledProps--main PageBody--pageBody hasBanner"
       data-name="page-body"
     >
       <div
@@ -9919,7 +9919,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
     style="height: inherit;"
   >
     <div
-      class="Layout--horizontal StyledProps--main container standard page notSend StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+      class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard page notSend StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
     >
       <div
         class="Layout--vertical StyledProps--main"
@@ -9979,13 +9979,13 @@ exports[`Project Page List Whole Modal Test 1`] = `
       </div>
     </div>
     <div
-      class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+      class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
     >
       <div
         class="Layout--vertical StyledProps--main"
       >
         <div
-          class="breadcrumbsDiv"
+          class="PageHeader--breadcrumbsDiv"
         >
           <div
             class="Layout--horizontal StyledProps--main Breadcrumbs--breadcrumbs StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-justifyContent-flex-start"
@@ -10221,7 +10221,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
       </div>
     </div>
     <div
-      class="StyledProps--font StyledProps--main pageBody hasBanner"
+      class="StyledProps--font StyledProps--main PageBody--pageBody hasBanner"
       data-name="page-body"
     >
       <div

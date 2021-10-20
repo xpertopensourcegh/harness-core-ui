@@ -11,7 +11,8 @@ import {
   Container,
   ButtonVariation,
   FontVariation,
-  useToaster
+  useToaster,
+  PageSpinner
 } from '@wings-software/uicore'
 import { useHistory, useParams, matchPath } from 'react-router-dom'
 import { parse } from 'yaml'
@@ -19,7 +20,6 @@ import { isEmpty, isEqual, merge, omit } from 'lodash-es'
 import type { PipelineInfoConfig } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { AppStoreContext } from 'framework/AppStore/AppStoreContext'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { NavigationCheck } from '@common/components/NavigationCheck/NavigationCheck'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import { accountPathProps, pipelinePathProps, pipelineModuleParams } from '@common/utils/routeUtils'

@@ -3,7 +3,6 @@ import { Color, Container, Text } from '@wings-software/uicore'
 import { Classes, Popover, PopoverInteractionKind } from '@blueprintjs/core'
 import cx from 'classnames'
 import isUndefined from 'lodash/isUndefined'
-import classnames from 'classnames'
 import { getColorStyle } from './ColorUtils'
 import styles from './HeatMap.module.scss'
 
@@ -101,7 +100,7 @@ export default function HeatMap({
   }, [seriesProp])
 
   return (
-    <Container className={classnames(styles.heatMap, className)}>
+    <Container className={cx(styles.heatMap, className)}>
       {series.map((serie, serieIndex) => (
         <div key={serieIndex} className={styles.heatMapRow}>
           {showLabels && (
@@ -179,7 +178,7 @@ export function HeatMapCell({
     }
   }, [isSelected])
   return (
-    <Container onClick={onClick} className={classnames(styles.cell, className)}>
+    <Container onClick={onClick} className={cx(styles.cell, className)}>
       <Popover
         className={cx(styles.cellContentWrapper, Classes.DARK)}
         disabled={popoverDisabled}
@@ -196,7 +195,7 @@ export function HeatMapCell({
         boundary="window"
       >
         <Container>
-          <Container className={classnames(styles.cellInner, colorClassName)} background={color} />
+          <Container className={cx(styles.cellInner, colorClassName)} background={color} />
           {isSelected && <Container height={17} width={17} className={styles.selectedSquare} />}
         </Container>
       </Popover>

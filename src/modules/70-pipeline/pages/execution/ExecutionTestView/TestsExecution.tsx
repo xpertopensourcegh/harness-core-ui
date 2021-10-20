@@ -15,12 +15,12 @@ import {
   Button,
   useModalHook,
   FlexExpander,
-  TextInput
+  TextInput,
+  PageError
 } from '@wings-software/uicore'
 import { get, noop, omit, debounce } from 'lodash-es'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
-import { PageError } from '@common/components/Page/PageError'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import { TestSuiteSummaryQueryParams, useTestSuiteSummary, useVgSearch } from 'services/ti-service'
 import { CallGraphAPIResponse, TestsCallgraph } from './TestsCallgraph'

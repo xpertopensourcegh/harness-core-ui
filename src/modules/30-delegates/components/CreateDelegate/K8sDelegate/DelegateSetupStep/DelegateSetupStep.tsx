@@ -27,10 +27,9 @@ import {
 import { useListDelegateProfilesNg } from 'services/cd-ng'
 
 import { useStrings } from 'framework/strings'
-import type { DelegateProfile } from '@delegates/DelegateInterface'
+import type { DelegateProfile, StepK8Data } from '@delegates/DelegateInterface'
 import { useToaster } from '@common/exports'
 
-import type { StepK8Data } from '@delegates/DelegateInterface'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { AddDescriptionAndKVTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
 

@@ -9,9 +9,8 @@ import {
   Container,
   ExpandingSearchInputHandle
 } from '@wings-software/uicore'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { Dialog } from '@blueprintjs/core'
-import { useHistory } from 'react-router-dom'
 import { TemplateSettingsModal } from '@templates-library/components/TemplateSettingsModal/TemplateSettingsModal'
 import { Page } from '@common/exports'
 import { useStrings } from 'framework/strings'

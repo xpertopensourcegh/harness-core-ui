@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import cx from 'classnames'
-import { Layout, FormInput, SelectOption, Text, HarnessDocTooltip } from '@wings-software/uicore'
+import { Layout, FormInput, SelectOption, Text, HarnessDocTooltip, PageSpinner } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import { useGetGitTriggerEventDetails } from 'services/pipeline-ng'
 import { NameIdDescriptionTags } from '@common/components'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useStrings } from 'framework/strings'
 import { GitSourceProviders, getSourceRepoOptions } from '../utils/TriggersListUtils'
 import {

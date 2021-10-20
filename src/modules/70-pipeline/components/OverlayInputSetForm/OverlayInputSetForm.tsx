@@ -12,7 +12,8 @@ import {
   Icon,
   Layout,
   SelectOption,
-  Text
+  Text,
+  PageSpinner
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { parse } from 'yaml'
@@ -43,7 +44,6 @@ import type {
 } from '@common/interfaces/YAMLBuilderProps'
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { NameIdDescriptionTags } from '@common/components'
 import { useStrings } from 'framework/strings'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'

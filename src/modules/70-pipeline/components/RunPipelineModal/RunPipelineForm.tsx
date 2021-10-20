@@ -15,14 +15,15 @@ import {
   SelectOption,
   Intent,
   HarnessDocTooltip,
-  DropDown
+  DropDown,
+  PageSpinner,
+  PageBody
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useHistory } from 'react-router-dom'
 import { parse } from 'yaml'
 import { pick, merge, isEmpty, isEqual, defaultTo } from 'lodash-es'
 import type { FormikErrors } from 'formik'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { PipelineInfoConfig, ResponseJsonNode } from 'services/cd-ng'
 import {
   useGetPipeline,
@@ -42,9 +43,12 @@ import routes from '@common/RouteDefinitions'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { PipelineInputSetForm } from '@pipeline/components/PipelineInputSetForm/PipelineInputSetForm'
-import type { GitQueryParams, InputSetGitQueryParams, PipelinePathProps } from '@common/interfaces/RouteInterfaces'
-import type { PipelineType } from '@common/interfaces/RouteInterfaces'
-import { PageBody } from '@common/components/Page/PageBody'
+import type {
+  GitQueryParams,
+  InputSetGitQueryParams,
+  PipelinePathProps,
+  PipelineType
+} from '@common/interfaces/RouteInterfaces'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'

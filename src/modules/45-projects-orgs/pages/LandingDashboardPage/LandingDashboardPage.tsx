@@ -1,10 +1,8 @@
 import React, { useState } from 'react'
-import { Button, ButtonVariation, Color, Heading, Layout } from '@wings-software/uicore'
+import { Button, ButtonVariation, Color, Heading, Layout, PageHeader, PageBody } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useHistory, useParams } from 'react-router-dom'
 
-import { PageHeader } from '@common/components/Page/PageHeader'
-import { PageBody } from '@common/components/Page/PageBody'
 import LandingDashboardFactory from '@common/factories/LandingDashboardFactory'
 import { LandingDashboardContextProvider } from '@common/factories/LandingDashboardContext'
 import { ModuleName } from 'framework/types/ModuleName'

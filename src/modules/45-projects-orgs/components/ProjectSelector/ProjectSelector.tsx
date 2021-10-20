@@ -2,8 +2,18 @@ import React, { useEffect, useState } from 'react'
 import { Position, PopoverInteractionKind, Classes } from '@blueprintjs/core'
 import { useParams, useHistory } from 'react-router-dom'
 import cx from 'classnames'
-import { Text, Layout, Color, Container, Popover, Pagination, Button, ButtonVariation } from '@wings-software/uicore'
-import { ExpandingSearchInput } from '@wings-software/uicore'
+import {
+  Text,
+  Layout,
+  Color,
+  Container,
+  Popover,
+  Pagination,
+  Button,
+  ButtonVariation,
+  ExpandingSearchInput,
+  NoDataCard
+} from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import { Project, useGetProjectAggregateDTOList } from 'services/cd-ng'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
@@ -11,7 +21,6 @@ import { useStrings } from 'framework/strings'
 import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import ProjectCard from '@projects-orgs/components/ProjectCard/ProjectCard'
 import { PageSpinner } from '@common/components'
-import { NoDataCard } from '@common/components/Page/NoDataCard'
 import pointerImage from './pointer.svg'
 import css from './ProjectSelector.module.scss'
 

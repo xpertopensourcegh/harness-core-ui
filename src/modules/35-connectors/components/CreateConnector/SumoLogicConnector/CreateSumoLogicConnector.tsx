@@ -1,6 +1,15 @@
 import React, { useEffect, useState, useMemo } from 'react'
 import * as Yup from 'yup'
-import { Container, FormikForm, Layout, FormInput, Formik, Button, SelectOption } from '@wings-software/uicore'
+import {
+  Container,
+  FormikForm,
+  Layout,
+  FormInput,
+  Formik,
+  Button,
+  SelectOption,
+  PageSpinner
+} from '@wings-software/uicore'
 import { buildSumoLogicPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import type { ConnectorConfigDTO } from 'services/cd-ng'
@@ -8,7 +17,6 @@ import { useStrings } from 'framework/strings'
 import { Connectors } from '@connectors/constants'
 import { useToaster } from '@common/exports'
 import { useGetSumoLogicEndPoints } from 'services/cv'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { cvConnectorHOC } from '../CommonCVConnector/CVConnectorHOC'
 import type { ConnectionConfigProps } from '../CommonCVConnector/constants'
 import { initializeSumoLogicConnectorWithStepData } from './utils'

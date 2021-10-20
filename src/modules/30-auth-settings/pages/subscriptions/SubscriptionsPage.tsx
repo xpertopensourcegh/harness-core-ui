@@ -2,19 +2,27 @@ import React, { useEffect, useState } from 'react'
 import cx from 'classnames'
 
 import moment from 'moment'
-import { useParams } from 'react-router-dom'
-import { useHistory } from 'react-router-dom'
-import { Card, Color, Container, Icon, IconName, Layout, Text, Heading } from '@wings-software/uicore'
+import { useParams, useHistory } from 'react-router-dom'
+import {
+  Card,
+  Color,
+  Container,
+  Icon,
+  IconName,
+  Layout,
+  Text,
+  Heading,
+  PageError,
+  useToaster
+} from '@wings-software/uicore'
 import { useQueryParams } from '@common/hooks'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
 import { Editions } from '@common/constants/SubscriptionTypes'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
-import { PageError } from '@common/components/Page/PageError'
 import { useStrings } from 'framework/strings'
 import type { StringsMap } from 'stringTypes'
-import { useToaster } from '@common/exports'
 import { ModuleName } from 'framework/types/ModuleName'
 import {
   useGetAccountNG,

@@ -8,7 +8,8 @@ import {
   Container,
   Color,
   Button,
-  ButtonVariation
+  ButtonVariation,
+  Page
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
@@ -19,7 +20,6 @@ import { TrialLicenseBanner } from '@common/components/Banners/TrialLicenseBanne
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
 import type { Project } from 'services/cd-ng'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
-import { Page } from '@common/components/Page/Page'
 import type { Editions } from '@common/constants/SubscriptionTypes'
 import css from './HomePageTemplate.module.scss'
 

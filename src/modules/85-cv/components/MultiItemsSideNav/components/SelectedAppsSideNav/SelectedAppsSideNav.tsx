@@ -1,9 +1,8 @@
 import React from 'react'
-import { Container, Icon, Text } from '@wings-software/uicore'
+import { Container, Icon, Text, PageError, PageErrorProps } from '@wings-software/uicore'
 import { Classes } from '@blueprintjs/core'
 import cx from 'classnames'
 import { TableFilter, TableFilterProps } from '@cv/components/TableFilter/TableFilter'
-import { PageError, PageErrorProps } from '@common/components/Page/PageError'
 import css from './SelectedAppsSideNav.module.scss'
 
 const LoadingCells = [1, 2, 3, 4, 5]

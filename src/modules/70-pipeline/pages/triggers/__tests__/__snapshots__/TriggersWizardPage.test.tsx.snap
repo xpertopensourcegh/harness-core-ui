@@ -3,7 +3,7 @@
 exports[`TriggersWizardPage Triggers tests Payload/Values Comparison Existing Trigger has pipeline with updated runtime input and pipeline variables 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main pageBody"
+    class="StyledProps--font StyledProps--main PageBody--pageBody"
     data-name="page-body"
   >
     <section
@@ -1152,7 +1152,7 @@ exports[`TriggersWizardPage Triggers tests Payload/Values Comparison Existing Tr
 exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - GitHub Show all fields filled 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main pageBody"
+    class="StyledProps--font StyledProps--main PageBody--pageBody"
     data-name="page-body"
   >
     <section
@@ -2174,7 +2174,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
 exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - GitHub with repo org level connector 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main pageBody"
+    class="StyledProps--font StyledProps--main PageBody--pageBody"
     data-name="page-body"
   >
     <section
@@ -3161,7 +3161,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
 exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Schedule  1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main pageBody"
+    class="StyledProps--font StyledProps--main PageBody--pageBody"
     data-name="page-body"
   >
     <section
@@ -3660,7 +3660,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
 exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Schedule  2`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main pageBody"
+    class="StyledProps--font StyledProps--main PageBody--pageBody"
     data-name="page-body"
   >
     <section

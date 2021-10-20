@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { get } from 'lodash-es'
 import type { FormikErrors } from 'formik'
 import { useHistory, useParams } from 'react-router-dom'
-import { Layout, SelectOption, Color, Text, Switch } from '@wings-software/uicore'
+import { Layout, SelectOption, Color, Text, Switch, PageSpinner } from '@wings-software/uicore'
 import { parse } from 'yaml'
-import { isEmpty, isUndefined, merge, cloneDeep } from 'lodash-es'
+import { isEmpty, isUndefined, merge, cloneDeep, get } from 'lodash-es'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import { Page, useToaster } from '@common/exports'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
 import Wizard from '@common/components/Wizard/Wizard'
 import { connectorUrlType } from '@connectors/constants'
 import routes from '@common/RouteDefinitions'
@@ -35,9 +33,12 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { clearRuntimeInput } from '@pipeline/components/PipelineStudio/StepUtil'
 import { Scope } from '@common/interfaces/SecretsInterface'
-import { getIdentifierFromValue, getScopeFromValue } from '@common/components/EntityReference/EntityReference'
+import {
+  getIdentifierFromValue,
+  getScopeFromValue,
+  getScopeFromDTO
+} from '@common/components/EntityReference/EntityReference'
 import { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
-import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import type {
   YamlBuilderHandlerBinding,
   YamlBuilderProps,
@@ -46,7 +47,12 @@ import type {
 } from '@common/interfaces/YAMLBuilderProps'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import { useMutateAsGet } from '@common/hooks'
-import { scheduleTabsId, getDefaultExpressionBreakdownValues } from './views/subviews/ScheduleUtils'
+import {
+  scheduleTabsId,
+  getDefaultExpressionBreakdownValues,
+  resetScheduleObject,
+  getBreakdownValues
+} from './views/subviews/ScheduleUtils'
 import type { AddConditionInterface } from './views/AddConditionsSection'
 import { GitSourceProviders } from './utils/TriggersListUtils'
 import {
@@ -86,7 +92,6 @@ import {
 } from './views'
 import ArtifactConditionsPanel from './views/ArtifactConditionsPanel'
 
-import { resetScheduleObject, getBreakdownValues } from './views/subviews/ScheduleUtils'
 import css from './TriggersWizardPage.module.scss'
 
 const replaceRunTimeVariables = ({

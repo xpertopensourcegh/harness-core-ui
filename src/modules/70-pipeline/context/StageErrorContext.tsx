@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import type { FormikProps } from 'formik'
+import type { FormikProps, FormikErrors } from 'formik'
 import { clone, merge } from 'lodash-es'
-import type { FormikErrors } from 'formik'
 
 interface DeployStageErrorState {
   errors: FormikErrors<unknown>

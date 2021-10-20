@@ -8,15 +8,15 @@ import {
   Container,
   ButtonVariation,
   Color,
-  ButtonSize
+  ButtonSize,
+  PageSpinner,
+  PageError
 } from '@wings-software/uicore'
 import { Menu, PopoverInteractionKind, Position } from '@blueprintjs/core'
 import { useListSecretsV2, ResponsePageSecretResponseWrapper, Error } from 'services/cd-ng'
 import routes from '@common/RouteDefinitions'
 import useCreateUpdateSecretModal from '@secrets/modals/CreateSecretModal/useCreateUpdateSecretModal'
 import useCreateSSHCredModal from '@secrets/modals/CreateSSHCredModal/useCreateSSHCredModal'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
-import { PageError } from '@common/components/Page/PageError'
 import { useStrings } from 'framework/strings'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import type { UseGetMockData } from '@common/utils/testUtils'

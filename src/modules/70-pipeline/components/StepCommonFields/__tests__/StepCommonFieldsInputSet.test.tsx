@@ -1,7 +1,6 @@
 import React from 'react'
 import { getByPlaceholderText, render } from '@testing-library/react'
-import { Formik, FormikForm } from '@wings-software/uicore'
-import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
+import { Formik, FormikForm, RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 
 import { TestWrapper } from '@common/utils/testUtils'
 

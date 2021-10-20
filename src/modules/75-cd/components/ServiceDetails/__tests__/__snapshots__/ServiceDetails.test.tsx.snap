@@ -6,13 +6,13 @@ exports[`ServiceDetails should render ServiceDetails 1`] = `
     class="Layout--vertical StyledProps--main"
   >
     <div
-      class="Layout--horizontal StyledProps--main container large header StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+      class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--large header StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
     >
       <div
         class="Layout--vertical StyledProps--main"
       >
         <div
-          class="breadcrumbsDiv"
+          class="PageHeader--breadcrumbsDiv"
         >
           <div
             class="Layout--horizontal StyledProps--main Breadcrumbs--breadcrumbs StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-justifyContent-flex-start"
@@ -182,7 +182,7 @@ exports[`ServiceDetails should render ServiceDetails 1`] = `
           role="tabpanel"
         >
           <div
-            class="StyledProps--font StyledProps--main pageBody"
+            class="StyledProps--font StyledProps--main PageBody--pageBody"
             data-name="page-body"
           >
             <div
@@ -414,7 +414,7 @@ exports[`ServiceDetails should render ServiceDetails 1`] = `
                         class="bp3-card bp3-elevation-0 Card--card pipelineExecutionsEmptyStateContainer"
                       >
                         <div
-                          class="StyledProps--font StyledProps--main noDataCard dataCard StyledProps--flex StyledProps--flex-align-center-center"
+                          class="StyledProps--font StyledProps--main NoDataCard--noDataCard dataCard StyledProps--flex StyledProps--flex-align-center-center"
                         >
                           <div
                             class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
@@ -425,12 +425,12 @@ exports[`ServiceDetails should render ServiceDetails 1`] = `
                               src="test-file-stub"
                             />
                             <p
-                              class="StyledProps--font StyledProps--main message StyledProps--font-align-center StyledProps--color StyledProps--color-grey600"
+                              class="StyledProps--font StyledProps--main NoDataCard--message StyledProps--font-align-center StyledProps--color StyledProps--color-grey600"
                             >
                               cd.serviceDashboard.noPipelines
                             </p>
                             <div
-                              class="buttonContainer"
+                              class="NoDataCard--buttonContainer"
                             />
                           </div>
                         </div>

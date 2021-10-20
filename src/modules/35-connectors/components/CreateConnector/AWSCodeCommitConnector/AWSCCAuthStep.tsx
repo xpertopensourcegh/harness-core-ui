@@ -11,7 +11,8 @@ import {
   Button,
   ButtonVariation,
   FontVariation,
-  Container
+  Container,
+  PageSpinner
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
@@ -23,7 +24,6 @@ import {
   ConnectorInfoDTO
 } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import TextReference, { ValueType } from '@secrets/components/TextReference/TextReference'
 import { buildAWSCodeCommitPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'

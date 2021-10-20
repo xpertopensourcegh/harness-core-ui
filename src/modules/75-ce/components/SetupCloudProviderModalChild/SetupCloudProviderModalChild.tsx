@@ -3,8 +3,7 @@ import cx from 'classnames'
 import { Button, Card, Heading, Color, Layout, Icon, IconName, Text } from '@wings-software/uicore'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useStrings } from 'framework/strings'
-import type { Project } from 'services/cd-ng'
-import type { ConnectorInfoDTO } from 'services/cd-ng'
+import type { Project, ConnectorInfoDTO } from 'services/cd-ng'
 
 import css from './SetupCloudProviderModalChild.module.scss'
 

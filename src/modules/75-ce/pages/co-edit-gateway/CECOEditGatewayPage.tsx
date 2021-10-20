@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { isEmpty as _isEmpty } from 'lodash-es'
+import { PageSpinner } from '@wings-software/uicore'
 import COGatewayDetails from '@ce/components/COGatewayDetails/COGatewayDetails'
 import type {
   GatewayDetails,
@@ -10,7 +11,6 @@ import type {
   ConnectionMetadata
 } from '@ce/components/COCreateGateway/models'
 import { HealthCheck, Service, ServiceDep, ServiceMetadata, useAllServiceResources, useRouteDetails } from 'services/lw'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { allProviders, GatewayKindType, PROVIDER_TYPES } from '@ce/constants'
 import { resourceToInstanceObject } from './helper'

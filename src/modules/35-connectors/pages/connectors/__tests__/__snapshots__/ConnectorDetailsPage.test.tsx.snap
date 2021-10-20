@@ -3,7 +3,7 @@
 exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container large header StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--large header StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
     <div
       class="Layout--vertical StyledProps--main"
@@ -176,7 +176,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
     </div>
   </div>
   <div
-    class="StyledProps--font StyledProps--main pageBody"
+    class="StyledProps--font StyledProps--main PageBody--pageBody"
     data-name="page-body"
   >
     <div
@@ -512,7 +512,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
 exports[`Connector DetailsPage Page Test Initial snapshot should match render at org level 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container large header StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--large header StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
     <div
       class="Layout--vertical StyledProps--main"
@@ -715,7 +715,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
     </div>
   </div>
   <div
-    class="StyledProps--font StyledProps--main pageBody"
+    class="StyledProps--font StyledProps--main PageBody--pageBody"
     data-name="page-body"
   >
     <div

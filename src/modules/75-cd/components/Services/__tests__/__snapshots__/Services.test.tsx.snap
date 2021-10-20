@@ -3,13 +3,13 @@
 exports[`Services should render Services 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
     <div
       class="Layout--vertical StyledProps--main"
     >
       <div
-        class="breadcrumbsDiv"
+        class="PageHeader--breadcrumbsDiv"
       >
         <div
           class="Layout--horizontal StyledProps--main Breadcrumbs--breadcrumbs StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-justifyContent-flex-start"
@@ -192,7 +192,7 @@ exports[`Services should render Services 1`] = `
     </div>
   </div>
   <div
-    class="StyledProps--font StyledProps--main pageBody pageBody"
+    class="StyledProps--font StyledProps--main PageBody--pageBody pageBody"
     data-name="page-body"
   >
     <div

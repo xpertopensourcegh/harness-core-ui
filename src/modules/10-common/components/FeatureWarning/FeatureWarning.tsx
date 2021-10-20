@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react'
 import cx from 'classnames'
-import { useHistory } from 'react-router-dom'
-import { useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { Color, Layout, Text } from '@wings-software/uicore'
 import type { PopoverPosition } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'

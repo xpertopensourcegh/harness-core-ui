@@ -11,13 +11,13 @@ import {
   useModalHook,
   SelectOption,
   FormInput,
-  MultiSelectOption
+  MultiSelectOption,
+  PageError
 } from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
 import { PageSpinner } from '@common/components'
 import { shouldShowError } from '@common/utils/errorUtils'
 import type { UseGetMockData } from '@common/utils/testUtils'
-import { PageError } from '@common/components/Page/PageError'
 import FilterSelector from '@common/components/Filter/FilterSelector/FilterSelector'
 import { Filter, FilterRef } from '@common/components/Filter/Filter'
 import type { CrudOperation } from '@common/components/Filter/FilterCRUD/FilterCRUD'

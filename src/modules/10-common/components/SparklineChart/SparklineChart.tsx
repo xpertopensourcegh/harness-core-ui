@@ -1,5 +1,4 @@
-import React from 'react'
-import { useMemo } from 'react'
+import React, { useMemo } from 'react'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts, { SeriesLineOptions } from 'highcharts'
 import { merge, noop } from 'lodash-es'

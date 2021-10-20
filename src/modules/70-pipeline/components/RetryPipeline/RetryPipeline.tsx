@@ -10,7 +10,8 @@ import {
   Layout,
   SelectOption,
   Checkbox,
-  useModalHook
+  useModalHook,
+  PageSpinner
 } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import cx from 'classnames'
@@ -49,7 +50,6 @@ import RbacButton from '@rbac/components/Button/Button'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { usePermission } from '@rbac/hooks/usePermission'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import { useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'

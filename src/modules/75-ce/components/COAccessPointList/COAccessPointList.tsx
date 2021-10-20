@@ -7,6 +7,8 @@ import {
   Container,
   Button,
   ExpandingSearchInput,
+  Page,
+  PageSpinner,
   // useModalHook,
   Icon
 } from '@wings-software/uicore'
@@ -16,11 +18,9 @@ import { Classes, Menu, Popover, Position } from '@blueprintjs/core'
 // import { Dialog, IconName, IDialogProps } from '@blueprintjs/core'
 import routes from '@common/RouteDefinitions'
 import { AccessPoint, useAccessPointActivity, useAccessPointRules, useAllAccessPoints } from 'services/lw'
-import { Page } from '@common/components/Page/Page'
 import Table from '@common/components/Table/Table'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { useToaster } from '@common/exports'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useStrings } from 'framework/strings'
 // import CreateAccessPointWizard from '../COGatewayAccess/CreateAccessPointWizard'
 import DeleteAccessPoint from '../COAccessPointDelete/DeleteAccessPoint'

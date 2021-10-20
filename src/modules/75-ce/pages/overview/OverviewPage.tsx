@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import cx from 'classnames'
-import { Container, Text } from '@wings-software/uicore'
+import { Container, Text, Page } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { pick } from 'lodash-es'
-import { Page } from '@common/components/Page/Page'
 import {
   CcmMetaData,
   StatsInfo,

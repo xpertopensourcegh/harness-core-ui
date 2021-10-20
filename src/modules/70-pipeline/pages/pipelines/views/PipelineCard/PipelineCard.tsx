@@ -14,9 +14,8 @@ import {
 } from '@wings-software/uicore'
 
 import { Classes, Intent, Menu } from '@blueprintjs/core'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { isEmpty } from 'lodash-es'
-import { useHistory } from 'react-router-dom'
 import cx from 'classnames'
 import { isExecutionComplete } from '@pipeline/utils/statusHelpers'
 import { TimeAgoPopover } from '@common/exports'

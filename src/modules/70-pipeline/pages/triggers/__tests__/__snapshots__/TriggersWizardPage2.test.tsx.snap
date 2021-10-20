@@ -3,7 +3,7 @@
 exports[`Manifest Trigger Tests Check chartVersion to be disabled and default value is <+trigger.manifest.version> 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main pageBody"
+    class="StyledProps--font StyledProps--main PageBody--pageBody"
     data-name="page-body"
   >
     <section
@@ -1225,7 +1225,7 @@ exports[`Manifest Trigger Tests Check chartVersion to be disabled and default va
 exports[`Manifest Trigger Tests function getArtifactSpecObj by displaying select artifact 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main pageBody"
+    class="StyledProps--font StyledProps--main PageBody--pageBody"
     data-name="page-body"
   >
     <section
@@ -1896,7 +1896,7 @@ exports[`Manifest Trigger Tests function getArtifactSpecObj by displaying select
 exports[`Manifest Trigger Tests on click of edit - submits thru the right payload 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main pageBody"
+    class="StyledProps--font StyledProps--main PageBody--pageBody"
     data-name="page-body"
   >
     <section
@@ -3147,7 +3147,7 @@ exports[`Manifest Trigger Tests on click of edit - submits thru the right payloa
 exports[`Manifest Trigger Tests on click of edit artifact - submits thru the right payload 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main pageBody"
+    class="StyledProps--font StyledProps--main PageBody--pageBody"
     data-name="page-body"
   >
     <section
@@ -4075,7 +4075,7 @@ exports[`Manifest Trigger Tests on click of edit artifact - submits thru the rig
 exports[`Manifest Trigger Tests on edit -with event conditions payload 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main pageBody"
+    class="StyledProps--font StyledProps--main PageBody--pageBody"
     data-name="page-body"
   >
     <section
@@ -4525,7 +4525,7 @@ exports[`Manifest Trigger Tests on edit -with event conditions payload 1`] = `
 exports[`Manifest Trigger Tests throws validation error when select artifact/manifest is not added 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main pageBody"
+    class="StyledProps--font StyledProps--main PageBody--pageBody"
     data-name="page-body"
   >
     <section

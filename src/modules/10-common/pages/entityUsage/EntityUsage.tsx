@@ -1,14 +1,12 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Layout, Container, ExpandingSearchInput } from '@wings-software/uicore'
+import { Layout, Container, ExpandingSearchInput, PageHeader, PageBody } from '@wings-software/uicore'
 import {
   useListReferredByEntities,
   ResponsePageEntitySetupUsageDTO,
   ListReferredByEntitiesQueryParams
 } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
-import { PageHeader } from '@common/components/Page/PageHeader'
-import { PageBody } from '@common/components/Page/PageBody'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import EntityUsageList from './views/EntityUsageListView/EntityUsageList'

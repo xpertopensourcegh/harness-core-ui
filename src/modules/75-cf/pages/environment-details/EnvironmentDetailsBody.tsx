@@ -10,7 +10,8 @@ import {
   Tab,
   Tabs,
   Text,
-  Utils
+  Utils,
+  PageError
 } from '@wings-software/uicore'
 import { get } from 'lodash-es'
 import type { Column } from 'react-table'
@@ -19,7 +20,6 @@ import { ApiKey, useDeleteApiKey, useGetAllAPIKeys } from 'services/cf'
 import { useToaster } from '@common/exports'
 import Table from '@common/components/Table/Table'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
-import { PageError } from '@common/components/Page/PageError'
 import { useEnvStrings } from '@cf/hooks/environment'
 import { CF_DEFAULT_PAGE_SIZE, EnvironmentSDKKeyType, getErrorMessage } from '@cf/utils/CFUtils'
 import { withTableData } from '@cf/utils/table-utils'

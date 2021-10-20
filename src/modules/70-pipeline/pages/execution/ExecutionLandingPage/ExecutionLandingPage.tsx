@@ -2,9 +2,9 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { get, isEmpty, pickBy } from 'lodash-es'
 
+import { PageSpinner, PageError } from '@wings-software/uicore'
 import { useGetExecutionDetail } from 'services/pipeline-ng'
 import type { ExecutionNode } from 'services/pipeline-ng'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { ExecutionStatus, isExecutionComplete } from '@pipeline/utils/statusHelpers'
 import {
   getPipelineStagesMap,
@@ -16,7 +16,6 @@ import { useQueryParams, useDeepCompareEffect } from '@common/hooks'
 import type { ExecutionPageQueryParams } from '@pipeline/utils/types'
 import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 
-import { PageError } from '@common/components/Page/PageError'
 import { logsCache } from '@pipeline/components/LogsContent/LogsState/utils'
 import ExecutionContext, { GraphCanvasState } from '@pipeline/context/ExecutionContext'
 

@@ -3,13 +3,13 @@
 exports[`CD Pipeline Page List render card view 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
     <div
       class="Layout--vertical StyledProps--main"
     >
       <div
-        class="breadcrumbsDiv"
+        class="PageHeader--breadcrumbsDiv"
       >
         <div
           class="Layout--horizontal StyledProps--main Breadcrumbs--breadcrumbs StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-justifyContent-flex-start"
@@ -95,7 +95,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
     </div>
   </div>
   <div
-    class="Layout--horizontal StyledProps--main container StyledProps--flex"
+    class="Layout--horizontal StyledProps--main PageSubHeader--container StyledProps--flex"
   >
     <div
       class="Layout--horizontal StyledProps--main"
@@ -316,7 +316,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
     </div>
   </div>
   <div
-    class="StyledProps--font StyledProps--main pageBody pageBody"
+    class="StyledProps--font StyledProps--main PageBody--pageBody pageBody"
     data-name="page-body"
   >
     <div
@@ -1659,13 +1659,13 @@ exports[`CD Pipeline Page List render card view 1`] = `
 exports[`CD Pipeline Page List render list view 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
     <div
       class="Layout--vertical StyledProps--main"
     >
       <div
-        class="breadcrumbsDiv"
+        class="PageHeader--breadcrumbsDiv"
       >
         <div
           class="Layout--horizontal StyledProps--main Breadcrumbs--breadcrumbs StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-justifyContent-flex-start"
@@ -1751,7 +1751,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
     </div>
   </div>
   <div
-    class="Layout--horizontal StyledProps--main container StyledProps--flex"
+    class="Layout--horizontal StyledProps--main PageSubHeader--container StyledProps--flex"
   >
     <div
       class="Layout--horizontal StyledProps--main"
@@ -1972,7 +1972,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
     </div>
   </div>
   <div
-    class="StyledProps--font StyledProps--main pageBody pageBody"
+    class="StyledProps--font StyledProps--main PageBody--pageBody pageBody"
     data-name="page-body"
   >
     <div

@@ -26,7 +26,7 @@ exports[`ChangesAndServiceDependency should render 1`] = `
             class="StyledProps--font StyledProps--main noData"
           >
             <div
-              class="StyledProps--font StyledProps--main noDataCard StyledProps--flex StyledProps--flex-align-center-center"
+              class="StyledProps--font StyledProps--main NoDataCard--noDataCard StyledProps--flex StyledProps--flex-align-center-center"
             >
               <div
                 class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
@@ -36,12 +36,12 @@ exports[`ChangesAndServiceDependency should render 1`] = `
                   src="test-file-stub"
                 />
                 <p
-                  class="StyledProps--font StyledProps--main message StyledProps--font-align-center StyledProps--color StyledProps--color-grey600"
+                  class="StyledProps--font StyledProps--main NoDataCard--message StyledProps--font-align-center StyledProps--color StyledProps--color-grey600"
                 >
                   cv.monitoredServices.noAvailableData
                 </p>
                 <div
-                  class="buttonContainer"
+                  class="NoDataCard--buttonContainer"
                 />
               </div>
             </div>
@@ -64,7 +64,7 @@ exports[`ChangesAndServiceDependency should render 1`] = `
           class="StyledProps--font StyledProps--main containerContent"
         >
           <div
-            class="StyledProps--font StyledProps--main noDataCard StyledProps--flex StyledProps--flex-align-center-center"
+            class="StyledProps--font StyledProps--main NoDataCard--noDataCard StyledProps--flex StyledProps--flex-align-center-center"
           >
             <div
               class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
@@ -74,12 +74,12 @@ exports[`ChangesAndServiceDependency should render 1`] = `
                 src="test-file-stub"
               />
               <p
-                class="StyledProps--font StyledProps--main message StyledProps--font-align-center StyledProps--color StyledProps--color-grey600"
+                class="StyledProps--font StyledProps--main NoDataCard--message StyledProps--font-align-center StyledProps--color StyledProps--color-grey600"
               >
                 cv.monitoredServices.noAvailableData
               </p>
               <div
-                class="buttonContainer"
+                class="NoDataCard--buttonContainer"
               />
             </div>
           </div>

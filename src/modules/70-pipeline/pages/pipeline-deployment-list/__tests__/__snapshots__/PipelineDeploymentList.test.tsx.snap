@@ -3,11 +3,11 @@
 exports[`Test Pipeline Deployment list should render deployment list 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main pageBody main"
+    class="StyledProps--font StyledProps--main PageBody--pageBody main"
     data-name="page-body"
   >
     <div
-      class="Layout--horizontal StyledProps--main container main StyledProps--flex"
+      class="Layout--horizontal StyledProps--main PageSubHeader--container main StyledProps--flex"
     >
       <div
         class="lhs"

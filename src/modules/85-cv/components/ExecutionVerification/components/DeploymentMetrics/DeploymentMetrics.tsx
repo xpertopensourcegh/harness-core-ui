@@ -1,13 +1,21 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { Color, Container, ExpandingSearchInput, Select, Text, Icon, Pagination } from '@wings-software/uicore'
+import {
+  Color,
+  Container,
+  ExpandingSearchInput,
+  Select,
+  Text,
+  Icon,
+  Pagination,
+  PageError,
+  NoDataCard
+} from '@wings-software/uicore'
 import { isEqual, omit } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { PageError } from '@common/components/Page/PageError'
 import type { ExecutionNode } from 'services/pipeline-ng'
 import { GetDeploymentMetricsQueryParams, useGetDeploymentMetrics, useGetHealthSources } from 'services/cv'
-import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { VerificationType } from '@cv/components/HealthSourceDropDown/HealthSourceDropDown.constants'
 import {
   MetricType,

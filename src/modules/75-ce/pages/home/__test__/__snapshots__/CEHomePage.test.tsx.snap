@@ -3,10 +3,10 @@
 exports[`CEHomePage snapshot test should display a loading spinner if the module license call is loading 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main spinner StyledProps--flex StyledProps--flex-align-center-center"
+    class="StyledProps--font StyledProps--main PageSpinner--spinner StyledProps--flex StyledProps--flex-align-center-center"
   >
     <div
-      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main content"
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main PageSpinner--content"
       style="align-items: center; width: 500px;"
     >
       <span
@@ -73,7 +73,7 @@ exports[`CEHomePage snapshot test should display a loading spinner if the module
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-align-center StyledProps--color StyledProps--color-grey600"
       >
-        common.loading
+        Loading, please wait...
       </p>
     </div>
   </div>
@@ -83,10 +83,10 @@ exports[`CEHomePage snapshot test should display a loading spinner if the module
 exports[`CEHomePage snapshot test should display an error if the get licenses call fails 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main spinner StyledProps--flex StyledProps--flex-align-center-center"
+    class="StyledProps--font StyledProps--main PageSpinner--spinner StyledProps--flex StyledProps--flex-align-center-center"
   >
     <div
-      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main content"
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main PageSpinner--content"
       style="align-items: center; width: 500px;"
     >
       <span
@@ -153,7 +153,7 @@ exports[`CEHomePage snapshot test should display an error if the get licenses ca
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-align-center StyledProps--color StyledProps--color-grey600"
       >
-        common.loading
+        Loading, please wait...
       </p>
     </div>
   </div>

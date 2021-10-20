@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { fromPairs } from 'lodash-es'
+import { PageSpinner } from '@wings-software/uicore'
 import {
   Project,
   useGetProject,
@@ -13,7 +14,6 @@ import {
   useGetOrganization
 } from 'services/cd-ng'
 import { useGetFeatureFlags } from 'services/portal'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { FeatureFlag } from '@common/featureFlags'
 

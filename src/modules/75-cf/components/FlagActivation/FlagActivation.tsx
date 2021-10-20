@@ -13,7 +13,8 @@ import {
   FlexExpander,
   useModalHook,
   Formik,
-  FormikForm
+  FormikForm,
+  PageError
 } from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
 import cx from 'classnames'
@@ -35,7 +36,6 @@ import { useQueryParams } from '@common/hooks'
 import { useEnvironmentSelectV2 } from '@cf/hooks/useEnvironmentSelectV2'
 import { FFDetailPageTab, getErrorMessage, rewriteCurrentLocationWithActiveEnvironment } from '@cf/utils/CFUtils'
 import routes from '@common/RouteDefinitions'
-import { PageError } from '@common/components/Page/PageError'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import type { FeatureFlagPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'

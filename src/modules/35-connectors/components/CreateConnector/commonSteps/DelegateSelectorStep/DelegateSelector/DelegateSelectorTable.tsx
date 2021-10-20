@@ -3,7 +3,7 @@ import type { CellProps, Renderer } from 'react-table'
 import type { GetDataError } from 'restful-react'
 import ReactTimeago from 'react-timeago'
 import { Tooltip } from '@blueprintjs/core'
-import { Color, Container, Icon, Layout, Text } from '@wings-software/uicore'
+import { Color, Container, Icon, Layout, Text, PageError } from '@wings-software/uicore'
 import DelegateEmptyState from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/icons/DelegateEmptyState.svg'
 import Table from '@common/components/Table/Table'
 import type { TableProps } from '@common/components/Table/Table'
@@ -16,7 +16,6 @@ import type {
   DelegateGroupDetailsCustom
 } from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/DelegateSelector'
 import { useTroubleshootModal } from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/TroubleshootModal'
-import { PageError } from '@common/components/Page/PageError'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import css from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/DelegateSelector.module.scss'
 

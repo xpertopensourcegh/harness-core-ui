@@ -7,7 +7,7 @@ import { IconName, getMultiTypeFromValue, MultiTypeInputType } from '@wings-soft
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import type { FormikErrors } from 'formik'
-import { StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
+import { StepViewType, ValidateInputSetProps, Step, StepProps } from '@pipeline/components/AbstractSteps/Step'
 import {
   ServiceSpec,
   getConnectorListV2Promise,
@@ -15,7 +15,6 @@ import {
   getBuildDetailsForGcrPromise,
   getBuildDetailsForEcrPromise
 } from 'services/cd-ng'
-import { Step, StepProps } from '@pipeline/components/AbstractSteps/Step'
 import { ArtifactToConnectorMap, ENABLED_ARTIFACT_TYPES } from '@pipeline/components/ArtifactsSelection/ArtifactHelper'
 
 import { loggerFor } from 'framework/logging/logging'

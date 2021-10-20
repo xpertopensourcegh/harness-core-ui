@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
-import { Card, Color, Container, LabelPosition, Layout, Text, WeightedStack } from '@wings-software/uicore'
+import { Card, Color, Container, LabelPosition, Layout, Text, WeightedStack, PageError } from '@wings-software/uicore'
 import { useStrings, UseStringsReturn } from 'framework/strings'
 import { Ticker, TickerVerticalAlignment } from '@common/components/Ticker/Ticker'
 import { DeploymentsTimeRangeContext, getFixed, INVALID_CHANGE_RATE } from '@cd/components/Services/common'
@@ -9,7 +9,6 @@ import { DashboardWorkloadDeployment, GetWorkloadsQueryParams, useGetWorkloads }
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { FAIL_COLORS, SUCCESS_COLORS } from '@dashboards/constants'
 import { PageSpinner } from '@common/components'
-import { PageError } from '@common/components/Page/PageError'
 import MostActiveServicesEmptyState from '@cd/icons/MostActiveServicesEmptyState.svg'
 import css from '@cd/components/Services/MostActiveServicesWidget/MostActiveServicesWidget.module.scss'
 

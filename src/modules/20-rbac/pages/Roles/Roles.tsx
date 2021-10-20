@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { ButtonVariation, Container, ExpandingSearchInput, Layout, Pagination } from '@wings-software/uicore'
+import {
+  ButtonVariation,
+  Container,
+  ExpandingSearchInput,
+  Layout,
+  Pagination,
+  PageHeader,
+  PageBody
+} from '@wings-software/uicore'
 
 import { useHistory, useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
-import { PageHeader } from '@common/components/Page/PageHeader'
-import { PageBody } from '@common/components/Page/PageBody'
 import { Role, RoleResponse, useGetRoleList } from 'services/rbac'
 import RoleCard from '@rbac/components/RoleCard/RoleCard'
 import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'

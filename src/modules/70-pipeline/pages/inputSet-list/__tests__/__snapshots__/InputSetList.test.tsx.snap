@@ -3,7 +3,7 @@
 exports[`Input Set List tests render Input Set List view 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container StyledProps--flex"
+    class="Layout--horizontal StyledProps--main PageSubHeader--container StyledProps--flex"
   >
     <div
       class="Layout--horizontal StyledProps--main"
@@ -85,7 +85,7 @@ exports[`Input Set List tests render Input Set List view 1`] = `
     </div>
   </div>
   <div
-    class="StyledProps--font StyledProps--main pageBody"
+    class="StyledProps--font StyledProps--main PageBody--pageBody"
     data-name="page-body"
   >
     <div

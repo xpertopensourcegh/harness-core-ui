@@ -3,7 +3,7 @@
 exports[`PipelineModal List View render list view 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
     <div
       class="Layout--vertical StyledProps--main"
@@ -49,7 +49,7 @@ exports[`PipelineModal List View render list view 1`] = `
     </div>
   </div>
   <div
-    class="StyledProps--font StyledProps--main pageBody main"
+    class="StyledProps--font StyledProps--main PageBody--pageBody main"
     data-name="page-body"
   >
     <div

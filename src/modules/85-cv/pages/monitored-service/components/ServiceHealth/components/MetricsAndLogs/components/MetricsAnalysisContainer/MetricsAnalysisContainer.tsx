@@ -1,16 +1,24 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react'
-import { Color, Container, ExpandingSearchInput, Select, Text, Icon, Pagination } from '@wings-software/uicore'
+import {
+  Color,
+  Container,
+  ExpandingSearchInput,
+  Select,
+  Text,
+  Icon,
+  Pagination,
+  PageError,
+  NoDataCard
+} from '@wings-software/uicore'
 import { omit } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { PageError } from '@common/components/Page/PageError'
 import {
   RestResponsePageTimeSeriesMetricDataDTO,
   TimeSeriesMetricDataDTO,
   useGetTimeSeriesMetricData
 } from 'services/cv'
-import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { HealthSourceDropDown } from '@cv/components/HealthSourceDropDown/HealthSourceDropDown'
 import { TimelineBar } from '@cv/components/TimelineView/TimelineBar'
 import Card from '@cv/components/Card/Card'

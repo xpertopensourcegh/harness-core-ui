@@ -1,7 +1,6 @@
-import type { SelectOption } from '@wings-software/uicore'
+import type { SelectOption, MultiSelectOption } from '@wings-software/uicore'
 import { isNumber } from 'lodash-es'
 import type { FormikProps } from 'formik'
-import type { MultiSelectOption } from '@wings-software/uicore'
 import type {
   MetricDefinition,
   PrometheusFilter,

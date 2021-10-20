@@ -3,7 +3,7 @@
 exports[`<PipelineDeploymentListHeader /> test snapshot testing 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container main StyledProps--flex"
+    class="Layout--horizontal StyledProps--main PageSubHeader--container main StyledProps--flex"
   >
     <div
       class="lhs"

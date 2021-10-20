@@ -15,7 +15,7 @@ exports[`Unit tests for HealthScoreChart Verify if all the fields are rendered c
         cv.monitoredServices.serviceHealth.overallHealthScore
       </p>
       <div
-        class="StyledProps--font StyledProps--main noDataCard noData StyledProps--flex StyledProps--flex-align-center-center"
+        class="StyledProps--font StyledProps--main NoDataCard--noDataCard noData StyledProps--flex StyledProps--flex-align-center-center"
       >
         <div
           class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
@@ -31,7 +31,7 @@ exports[`Unit tests for HealthScoreChart Verify if all the fields are rendered c
             cv.monitoredServices.serviceHealth.noDataAvailableForHealthScore
           </p>
           <div
-            class="buttonContainer"
+            class="NoDataCard--buttonContainer"
           />
         </div>
       </div>

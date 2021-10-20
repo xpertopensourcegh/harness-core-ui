@@ -3,7 +3,7 @@
 exports[`User Profile Page User Profile 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container standard page notSend StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard page notSend StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
     <div
       class="Layout--vertical StyledProps--main"
@@ -63,7 +63,7 @@ exports[`User Profile Page User Profile 1`] = `
     </div>
   </div>
   <div
-    class="StyledProps--font StyledProps--main pageBody filled hasBanner userProfilePage"
+    class="StyledProps--font StyledProps--main PageBody--pageBody PageBody--filled hasBanner userProfilePage"
     data-name="page-body"
   >
     <div

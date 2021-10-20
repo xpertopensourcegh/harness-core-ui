@@ -1,7 +1,6 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
 import { TabNavigation } from '@wings-software/uicore'
-import { useLocation, matchPath } from 'react-router-dom'
+import { useParams, useLocation, matchPath } from 'react-router-dom'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { Page } from '@common/exports'
 import { useStrings } from 'framework/strings'

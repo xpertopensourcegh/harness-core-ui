@@ -1,9 +1,20 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react'
 import cx from 'classnames'
-import { Container, TextInput, Button, Layout, Text, Tabs, Tab, Icon, IconName, Color } from '@wings-software/uicore'
+import {
+  Container,
+  TextInput,
+  Button,
+  Layout,
+  Text,
+  Tabs,
+  Tab,
+  Icon,
+  IconName,
+  Color,
+  PageError
+} from '@wings-software/uicore'
 import { Classes } from '@blueprintjs/core'
 import { debounce, isEmpty } from 'lodash-es'
-import { PageError } from '@common/components/Page/PageError'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { useStrings } from 'framework/strings'
 import type { StringKeys } from 'framework/strings'

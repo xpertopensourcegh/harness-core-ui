@@ -11,7 +11,7 @@ exports[`Test Change Source Table ChangeSource table renders empty with no data 
     class="StyledProps--font StyledProps--main noData"
   >
     <div
-      class="StyledProps--font StyledProps--main noDataCard StyledProps--flex StyledProps--flex-align-center-center"
+      class="StyledProps--font StyledProps--main NoDataCard--noDataCard StyledProps--flex StyledProps--flex-align-center-center"
     >
       <div
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
@@ -37,12 +37,12 @@ exports[`Test Change Source Table ChangeSource table renders empty with no data 
           </svg>
         </span>
         <p
-          class="StyledProps--font StyledProps--main message StyledProps--font-align-center StyledProps--color StyledProps--color-grey600"
+          class="StyledProps--font StyledProps--main NoDataCard--message StyledProps--font-align-center StyledProps--color StyledProps--color-grey600"
         >
           cv.changeSource.noChangeSource
         </p>
         <div
-          class="buttonContainer"
+          class="NoDataCard--buttonContainer"
         />
       </div>
     </div>

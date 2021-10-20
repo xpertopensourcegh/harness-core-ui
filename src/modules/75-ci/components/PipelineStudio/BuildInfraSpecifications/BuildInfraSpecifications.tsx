@@ -8,8 +8,10 @@ import cx from 'classnames'
 import { produce } from 'immer'
 import type { FormikProps } from 'formik'
 import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
-import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
-import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
+import {
+  FormMultiTypeDurationField,
+  getDurationValidationSchema
+} from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { useStrings, UseStringsReturn } from 'framework/strings'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'

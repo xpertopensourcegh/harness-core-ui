@@ -1,8 +1,13 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import { useGetLicensesAndSummary, useStartTrialLicense, useExtendTrialLicense } from 'services/cd-ng'
-import { useGetProjectList, useSaveFeedback } from 'services/cd-ng'
+import {
+  useGetLicensesAndSummary,
+  useStartTrialLicense,
+  useExtendTrialLicense,
+  useGetProjectList,
+  useSaveFeedback
+} from 'services/cd-ng'
 import useCETrialModal from '@ce/modals/CETrialModal/useCETrialModal'
 import CEHomePage from '../CEHomePage'
 

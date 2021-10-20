@@ -9,7 +9,8 @@ import {
   StepProps,
   Container,
   ButtonVariation,
-  FontVariation
+  FontVariation,
+  PageSpinner
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
@@ -20,7 +21,6 @@ import SSHSecretInput from '@secrets/components/SSHSecretInput/SSHSecretInput'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import TextReference, { TextReferenceInterface, ValueType } from '@secrets/components/TextReference/TextReference'
 import { useStrings } from 'framework/strings'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
 import css from './StepGitAuthentication.module.scss'
 import commonCss from '../../commonSteps/ConnectorCommonStyles.module.scss'
 

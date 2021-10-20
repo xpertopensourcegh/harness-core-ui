@@ -1,9 +1,8 @@
 import React from 'react'
-import { HarnessDocTooltip, Layout, Text } from '@wings-software/uicore'
+import { HarnessDocTooltip, Layout, Text, PageSpinner } from '@wings-software/uicore'
 import cx from 'classnames'
 import { NameIdDescriptionTags } from '@common/components'
 import { useStrings } from 'framework/strings'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
 import css from './TriggerOverviewPanel.module.scss'
 
 export interface TriggerOverviewPanelPropsInterface {

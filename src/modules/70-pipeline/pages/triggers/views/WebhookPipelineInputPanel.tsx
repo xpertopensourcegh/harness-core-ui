@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { Layout, Text, NestedAccordionProvider, HarnessDocTooltip } from '@wings-software/uicore'
+import { Layout, Text, NestedAccordionProvider, HarnessDocTooltip, PageSpinner } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import { pick, merge, cloneDeep } from 'lodash-es'
 import { InputSetSelector, InputSetSelectorProps } from '@pipeline/components/InputSetSelector/InputSetSelector'
@@ -11,7 +11,6 @@ import {
   useGetMergeInputSetFromPipelineTemplateWithListInput
 } from 'services/pipeline-ng'
 import { PipelineInputSetForm } from '@pipeline/components/PipelineInputSetForm/PipelineInputSetForm'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useStrings } from 'framework/strings'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { clearRuntimeInput } from '@pipeline/components/PipelineStudio/StepUtil'

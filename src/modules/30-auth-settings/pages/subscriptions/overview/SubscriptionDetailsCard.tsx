@@ -2,7 +2,7 @@ import React from 'react'
 
 import moment from 'moment'
 import { useParams } from 'react-router-dom'
-import { Card, Color, Heading, Layout } from '@wings-software/uicore'
+import { Card, Color, Heading, Layout, PageSpinner } from '@wings-software/uicore'
 import type { StringsMap } from 'stringTypes'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
@@ -19,7 +19,6 @@ import {
   FeedbackFormValues
 } from '@common/modals/ExtendTrial/useExtendTrialOrFeedbackModal'
 import { Editions } from '@common/constants/SubscriptionTypes'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
 import SubscriptionDetailsCardFooter from './SubscriptionDetailsCardFooter'
 import type { TrialInformation } from '../SubscriptionsPage'
 import SubscriptionDetailsCardBody from './SubscriptionDetailsCardBody'

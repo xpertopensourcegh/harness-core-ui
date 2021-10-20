@@ -7,22 +7,21 @@ import {
   Layout,
   MultiTypeInputType,
   SelectOption,
-  Text
+  Text,
+  PageError
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
 import { Link, useParams } from 'react-router-dom'
 import { get } from 'lodash-es'
-import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
+import type { StepFormikFowardRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { CF_DEFAULT_PAGE_SIZE, getErrorMessage } from '@cf/utils/CFUtils'
 import { useGetAllFeatures, useGetAllSegments, useGetAllTargetAttributes } from 'services/cf'
 import { useStrings } from 'framework/strings'
 import { useEnvironmentSelectV2 } from '@cf/hooks/useEnvironmentSelectV2'
-import type { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import routes from '@common/RouteDefinitions'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
-import { PageError } from '@common/components/Page/PageError'
 import type { StringsMap } from 'stringTypes'
 import type { FlagConfigurationStepData, FlagConfigurationStepFormData } from './types'
 import FlagChanges from './FlagChanges/FlagChanges'

@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Heading, Layout, Tabs, Tab, Icon, Text, HarnessDocTooltip } from '@wings-software/uicore'
-import { PageSpinner } from '@common/components'
-import { PageHeader } from '@common/components/Page/PageHeader'
+import {
+  Heading,
+  Layout,
+  Tabs,
+  Tab,
+  Icon,
+  Text,
+  HarnessDocTooltip,
+  PageHeader,
+  PageBody,
+  PageSpinner
+} from '@wings-software/uicore'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import routes from '@common/RouteDefinitions'
-import { PageBody } from '@common/components/Page/PageBody'
 import { useGetPerspective, CEView } from 'services/ce/'
 
 import PerspectiveBuilder from '../../components/PerspectiveBuilder'

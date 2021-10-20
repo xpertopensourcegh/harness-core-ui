@@ -7,7 +7,8 @@ import {
   Text,
   Layout,
   Formik,
-  getMultiTypeFromValue
+  getMultiTypeFromValue,
+  PageError
 } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import { noop } from 'lodash-es'
@@ -20,7 +21,6 @@ import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import { PageSpinner, useToaster } from '@common/components'
 import type { StepElementConfig } from 'services/cd-ng'
-import { PageError } from '@common/components/Page/PageError'
 import MultiTypeDelegateSelector from '@common/components/MultiTypeDelegateSelector/MultiTypeDelegateSelector'
 import { useStrings } from 'framework/strings'
 import css from './TemplateInputs.module.scss'

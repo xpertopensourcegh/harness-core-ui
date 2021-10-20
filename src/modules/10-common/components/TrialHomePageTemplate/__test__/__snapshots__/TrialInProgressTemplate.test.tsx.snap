@@ -3,7 +3,7 @@
 exports[`TrialInProgressTemplate snapshot test should render trial in progress 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main pageBody body hasNoBanner"
+    class="StyledProps--font StyledProps--main PageBody--pageBody body hasNoBanner"
     data-name="page-body"
   >
     <div

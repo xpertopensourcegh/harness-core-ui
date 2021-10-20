@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
-import { Container, Layout, SimpleTagInput, TextInput, useToggle } from '@wings-software/uicore'
+import { Container, Layout, SimpleTagInput, TextInput, useToggle, PageError } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import {
   SectionContainer,
@@ -16,7 +16,6 @@ import type {
   AccountPathProps
 } from '@common/interfaces/RouteInterfaces'
 import { useUpdateDelegateConfigNgV2, useGetDelegateConfigNgV2, DelegateProfileDetailsNg } from 'services/cd-ng'
-import { PageError } from '@common/components/Page/PageError'
 import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
 import { fullSizeContentStyle } from '@delegates/constants'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'

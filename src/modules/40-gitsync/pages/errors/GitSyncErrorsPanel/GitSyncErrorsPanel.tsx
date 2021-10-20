@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction, useContext, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Layout, Pagination, PaginationProps } from '@wings-software/uicore'
+import { Layout, Pagination, PaginationProps, PageError } from '@wings-software/uicore'
 import {
   GitErrorExperienceSubTab,
   GitErrorExperienceTab,
@@ -15,7 +15,6 @@ import {
 } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { PageSpinner } from '@common/components'
-import { PageError } from '@common/components/Page/PageError'
 import { Toggle, ToggleProps } from '@common/components/Toggle/Toggle'
 import { useStrings } from 'framework/strings'
 import type { GitSyncErrorMessageProps } from '@gitsync/components/GitSyncErrorMessage/GitSyncErrorMessageItem'

@@ -2,8 +2,9 @@ import type * as React from 'react'
 import type { IconName } from '@wings-software/uicore'
 import { has, isEmpty } from 'lodash-es'
 
-import { ExecutionStatus, ExecutionStatusEnum } from '@pipeline/utils/statusHelpers'
 import {
+  ExecutionStatus,
+  ExecutionStatusEnum,
   isExecutionSuccess,
   isExecutionCompletedWithBadState,
   isExecutionRunning,

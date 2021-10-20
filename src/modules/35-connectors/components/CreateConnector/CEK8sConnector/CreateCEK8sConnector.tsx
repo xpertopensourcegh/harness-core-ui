@@ -1,5 +1,4 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { StepWizard } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { getConnectorIconByType } from '@connectors/pages/connectors/utils/ConnectorHelper'

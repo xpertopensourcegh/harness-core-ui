@@ -43,7 +43,7 @@ describe('FeatureFlagsDetailPage', () => {
     )
 
     expect(container.querySelector('[data-icon="steps-spinner"]')).toBeDefined()
-    expect(getAllByText(container, 'common.loading')).toBeDefined()
+    expect(getAllByText(container, /Loading, please wait\.\.\./)).toBeDefined()
   })
 
   test('FeatureFlagsDetailPage should render error correctly 1', async () => {

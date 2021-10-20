@@ -37,7 +37,7 @@ describe('INPUT SET SELECTOR', () => {
     })
 
     // Show loading input sets after click
-    await waitFor(() => expect(queryByText('common.loading')).toBeTruthy())
+    await waitFor(() => expect(queryByText(/Loading, please wait\.\.\./)).toBeTruthy())
   })
 
   // eslint-disable-next-line jest/no-disabled-tests

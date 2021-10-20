@@ -2,8 +2,8 @@ import React, { useEffect, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { noop } from 'lodash-es'
+import { PageSpinner } from '@wings-software/uicore'
 import { GitSyncConfig, SourceCodeManagerDTO, useGetSourceCodeManagers, useListGitSync } from 'services/cd-ng'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
 export interface GitSyncStoreProps {

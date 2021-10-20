@@ -2,13 +2,12 @@ import React, { useCallback, useContext, useMemo } from 'react'
 import ReactDOM from 'react-dom'
 import { useParams } from 'react-router-dom'
 import type { SeriesAreaOptions } from 'highcharts'
-import { Card, Color, Container, Layout, Text } from '@wings-software/uicore'
+import { Card, Color, Container, Layout, Text, PageError } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { Ticker, TickerVerticalAlignment } from '@common/components/Ticker/Ticker'
 import { getBucketSizeForTimeRange } from '@cd/components/TimeRangeSelector/TimeRangeSelector'
 import { PageSpinner, TimeSeriesAreaChart } from '@common/components'
 import type { TimeSeriesAreaChartProps } from '@common/components/TimeSeriesAreaChart/TimeSeriesAreaChart'
-import { PageError } from '@common/components/Page/PageError'
 import {
   DeploymentsTimeRangeContext,
   getFixed,

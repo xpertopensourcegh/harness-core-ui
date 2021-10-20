@@ -1,11 +1,11 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
+import { PageSpinner } from '@wings-software/uicore'
 import { FeatureFlag } from '@common/featureFlags'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetGitRepo } from 'services/cf'
 import { useIsGitSyncEnabled } from 'services/cd-ng'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
 import FeatureFlagsPage from './FeatureFlagsPage'
 import SelectFlagGitRepoPage from './SelectFlagGitRepoPage'
 

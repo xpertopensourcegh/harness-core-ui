@@ -1,7 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { Text, Layout, Color, Card, Icon, Container, Tag } from '@wings-software/uicore'
-import { PageError } from '@common/components/Page/PageError'
+import { Text, Layout, Color, Card, Icon, Container, Tag, PageError } from '@wings-software/uicore'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 import { useGetUserProjectInfo } from 'services/cd-ng'

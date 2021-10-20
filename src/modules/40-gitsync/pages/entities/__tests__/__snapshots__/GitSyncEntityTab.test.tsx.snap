@@ -3,7 +3,7 @@
 exports[`Git Sync - entity tab rendering landing view 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main pageBody"
+    class="StyledProps--font StyledProps--main PageBody--pageBody"
     data-name="page-body"
   >
     <div

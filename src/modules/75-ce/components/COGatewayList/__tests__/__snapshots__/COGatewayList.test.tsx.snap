@@ -97,7 +97,7 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
       </div>
     </div>
     <div
-      class="StyledProps--font StyledProps--main pageBody pageContainer"
+      class="StyledProps--font StyledProps--main PageBody--pageBody pageContainer"
       data-name="page-body"
     >
       <div
@@ -810,7 +810,7 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
       </div>
     </div>
     <div
-      class="StyledProps--font StyledProps--main pageBody pageContainer"
+      class="StyledProps--font StyledProps--main PageBody--pageBody pageContainer"
       data-name="page-body"
     >
       <div
@@ -1523,7 +1523,7 @@ exports[`Test COGatewayList renders without crashing 1`] = `
       </div>
     </div>
     <div
-      class="StyledProps--font StyledProps--main pageBody pageContainer"
+      class="StyledProps--font StyledProps--main PageBody--pageBody pageContainer"
       data-name="page-body"
     >
       <div

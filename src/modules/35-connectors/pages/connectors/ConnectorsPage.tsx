@@ -7,7 +7,8 @@ import {
   MultiSelectOption,
   ExpandingSearchInput,
   Container,
-  ButtonVariation
+  ButtonVariation,
+  PageError
 } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
 import type { GetDataError } from 'restful-react'
@@ -29,11 +30,11 @@ import {
   ResponsePageFilterDTO,
   ResponseConnectorStatistics,
   GetConnectorListV2QueryParams,
-  Failure
+  Failure,
+  ConnectorInfoDTO
 } from 'services/cd-ng'
 import type { ConnectorFilterProperties } from 'services/cd-ng'
 import type { UseGetMockData } from '@common/utils/testUtils'
-import { PageError } from '@common/components/Page/PageError'
 import { Page, useToaster, StringUtils } from '@common/exports'
 import { AddDrawer, PageSpinner } from '@common/components'
 import {
@@ -44,7 +45,6 @@ import {
 } from '@common/components/AddDrawer/AddDrawer'
 import routes from '@common/RouteDefinitions'
 import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
-import type { ConnectorInfoDTO } from 'services/cd-ng'
 import { Filter, FilterRef } from '@common/components/Filter/Filter'
 import {
   removeNullAndEmpty,

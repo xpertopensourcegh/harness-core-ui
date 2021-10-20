@@ -1,8 +1,7 @@
 import React from 'react'
-import { useHistory, useParams } from 'react-router-dom'
+import { useHistory, useParams, Link } from 'react-router-dom'
 import { isEqual } from 'lodash-es'
 import moment from 'moment'
-import { Link } from 'react-router-dom'
 import {
   Color,
   Layout,

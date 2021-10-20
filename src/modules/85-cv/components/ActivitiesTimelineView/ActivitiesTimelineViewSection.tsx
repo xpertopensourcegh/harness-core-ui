@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Container } from '@wings-software/uicore'
+import { Container, NoDataCard } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
-import { NoDataCard } from '@common/components/Page/NoDataCard'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import {
   ListActivitiesForDashboardQueryParams,

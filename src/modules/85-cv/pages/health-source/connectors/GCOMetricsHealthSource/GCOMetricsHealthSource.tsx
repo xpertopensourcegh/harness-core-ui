@@ -9,7 +9,9 @@ import {
   Text,
   Icon,
   Utils,
-  FormError
+  FormError,
+  PageError,
+  NoDataCard
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
@@ -22,8 +24,6 @@ import MonacoEditor from '@common/components/MonacoEditor/MonacoEditor'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetMetricPacks, useGetStackdriverSampleData } from 'services/cv'
 import { useStrings } from 'framework/strings'
-import { PageError } from '@common/components/Page/PageError'
-import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { SetupSourceLayout } from '@cv/components/CVSetupSourcesView/SetupSourceLayout/SetupSourceLayout'
 import { SetupSourceTabsContext } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'

@@ -144,7 +144,7 @@ describe('Pipeline Canvas - new pipeline', () => {
         </PipelineContext.Provider>
       </TestWrapper>
     )
-    expect(queryByText('common.loading')).toBeTruthy()
+    expect(queryByText(/Loading, please wait\.\.\./)).toBeTruthy()
   })
 
   test('with git sync enabled - new pipeline', () => {

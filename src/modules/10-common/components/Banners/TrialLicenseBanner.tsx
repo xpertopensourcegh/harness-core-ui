@@ -3,7 +3,7 @@ import moment from 'moment'
 import cx from 'classnames'
 import { capitalize } from 'lodash-es'
 import { useParams } from 'react-router-dom'
-import { Text, Layout, Button, Color } from '@wings-software/uicore'
+import { Text, Layout, Button, Color, Page, PageSpinner } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import type { ModuleName } from 'framework/types/ModuleName'
 import type { StringsMap } from 'stringTypes'
@@ -19,8 +19,6 @@ import {
   FeedbackFormValues
 } from '@common/modals/ExtendTrial/useExtendTrialOrFeedbackModal'
 import { Editions } from '@common/constants/SubscriptionTypes'
-import { Page } from '../Page/Page'
-import { PageSpinner } from '../Page/PageSpinner'
 import css from './TrialLicenseBanner.module.scss'
 
 interface TrialBannerProps {

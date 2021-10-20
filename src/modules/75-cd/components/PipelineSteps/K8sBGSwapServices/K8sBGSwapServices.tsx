@@ -6,9 +6,8 @@ import { FormikErrors, FormikProps, yupToFormErrors } from 'formik'
 
 import { defaultTo, isEmpty } from 'lodash-es'
 
-import { StepViewType, StepProps, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
+import { StepViewType, StepProps, ValidateInputSetProps, setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
-import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { StepElementConfig, K8sBGSwapServicesStepInfo } from 'services/cd-ng'
 
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'

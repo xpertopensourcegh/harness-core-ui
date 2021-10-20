@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
-import { Text, Layout, Button, Color } from '@wings-software/uicore'
+import { Text, Layout, Button, Color, Page } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useResendVerifyEmail } from 'services/cd-ng'
 import { useToaster } from '@common/components'
 import { useStrings } from 'framework/strings'
-import { Page } from '../Page/Page'
 import css from './EmailVerificationBanner.module.scss'
 
 export const EmailVerificationBanner = (): React.ReactElement => {

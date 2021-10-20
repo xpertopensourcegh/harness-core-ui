@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react'
-import { cloneDeep, set } from 'lodash-es'
+import { cloneDeep, set, isEmpty } from 'lodash-es'
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 import type { BaseModelListener } from '@projectstorm/react-canvas-core'
 import { Button, ButtonVariation, Layout, Text } from '@wings-software/uicore'
-import { isEmpty } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import type { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
 import { DynamicPopover, DynamicPopoverHandlerBinding } from '@common/components/DynamicPopover/DynamicPopover'
@@ -16,8 +15,12 @@ import HoverCard from '@pipeline/components/HoverCard/HoverCard'
 import { StepMode as Modes } from '@pipeline/utils/stepUtils'
 import ConditionalExecutionTooltip from '@pipeline/components/ConditionalExecutionToolTip/ConditionalExecutionTooltip'
 import type { BuildStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
-import type { ExecutionElementConfig, ExecutionWrapperConfig, StageElementConfig } from 'services/cd-ng'
-import type { StepElementConfig } from 'services/cd-ng'
+import type {
+  ExecutionElementConfig,
+  ExecutionWrapperConfig,
+  StageElementConfig,
+  StepElementConfig
+} from 'services/cd-ng'
 import type { DependencyElement } from 'services/ci'
 import { ExecutionStepModel, GridStyleInterface } from './ExecutionStepModel'
 import { StepType as PipelineStepType } from '../../PipelineSteps/PipelineStepInterface'

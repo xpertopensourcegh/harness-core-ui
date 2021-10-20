@@ -9,12 +9,12 @@ import {
   Container,
   CardSelect,
   Color,
-  Icon
+  Icon,
+  PageSpinner
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
 import {
   DelegateTypes,
   DelegateCardInterface,

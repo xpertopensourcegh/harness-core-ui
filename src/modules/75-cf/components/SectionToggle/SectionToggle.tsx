@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react'
-import { useParams } from 'react-router-dom'
-import { NavLink } from 'react-router-dom'
+import { useParams, NavLink } from 'react-router-dom'
 import type { StringKeys } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'

@@ -8,9 +8,8 @@ import merge from 'lodash-es/merge'
 import moment from 'moment'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { RangeSelectorWithTitle } from '@pipeline/components/Dashboards/RangeSelector'
-import { roundNumber } from '@pipeline/components/Dashboards/shared'
+import { roundNumber, useErrorHandler } from '@pipeline/components/Dashboards/shared'
 import { useGetDeploymentHealth, DeploymentDateAndCount } from 'services/cd-ng'
-import { useErrorHandler } from '@pipeline/components/Dashboards/shared'
 import styles from './CDDashboardPage.module.scss'
 
 export interface HealthCardProps {

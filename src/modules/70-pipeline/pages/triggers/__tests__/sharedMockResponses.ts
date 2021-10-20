@@ -3,10 +3,11 @@ import type {
   ResponseInputSetTemplateResponse,
   ResponseMergeInputSetResponse,
   ResponsePageInputSetSummaryResponse,
-  ResponsePageNGTriggerDetailsResponse
+  ResponsePageNGTriggerDetailsResponse,
+  ResponsePMSPipelineResponseDTO,
+  PMSPipelineResponseDTO
 } from 'services/pipeline-ng'
 import type { ResponseConnectorResponse, ResponseListEnvironmentResponse } from 'services/cd-ng'
-import type { ResponsePMSPipelineResponseDTO, PMSPipelineResponseDTO } from 'services/pipeline-ng'
 
 export const GetPipelineResponse: UseGetReturnData<ResponsePMSPipelineResponseDTO> = {
   loading: false,

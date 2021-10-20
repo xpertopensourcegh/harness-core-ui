@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { ButtonSize, ButtonVariation, ExpandingSearchInput, Layout } from '@wings-software/uicore'
+import { ButtonSize, ButtonVariation, ExpandingSearchInput, Layout, PageHeader } from '@wings-software/uicore'
 
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
-import { PageHeader } from '@common/components/Page/PageHeader'
 import { Page } from '@common/exports'
 import { useGetUserGroupAggregateList } from 'services/cd-ng'
 import { useUserGroupModal } from '@rbac/modals/UserGroupModal/useUserGroupModal'

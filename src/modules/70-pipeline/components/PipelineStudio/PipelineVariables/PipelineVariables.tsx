@@ -7,15 +7,14 @@ import {
   Color,
   Layout,
   Text,
-  FontVariation
+  FontVariation,
+  PageError
 } from '@wings-software/uicore'
 import { get } from 'lodash-es'
 
-import type {} from 'services/cd-ng'
 import { PageSpinner } from '@common/components'
 import { useStrings } from 'framework/strings'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
-import { PageError } from '@common/components/Page/PageError'
 import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
 import { usePipelineContext } from '../PipelineContext/PipelineContext'
 import PipelineCard from './Cards/PipelineCard'

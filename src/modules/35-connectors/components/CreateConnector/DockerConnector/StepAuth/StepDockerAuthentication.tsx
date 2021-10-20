@@ -9,7 +9,8 @@ import {
   Container,
   SelectOption,
   FontVariation,
-  ButtonVariation
+  ButtonVariation,
+  PageSpinner
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { IOptionProps } from '@blueprintjs/core'
@@ -21,7 +22,6 @@ import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import TextReference, { TextReferenceInterface, ValueType } from '@secrets/components/TextReference/TextReference'
 import { useStrings } from 'framework/strings'
 import { AuthTypes } from '@connectors/pages/connectors/utils/ConnectorHelper'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
 import commonStyles from '@connectors/components/CreateConnector/commonSteps/ConnectorCommonStyles.module.scss'
 import css from '../CreateDockerConnector.module.scss'
 

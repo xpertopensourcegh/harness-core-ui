@@ -116,6 +116,6 @@ describe('FeatureFlagsLandingPage', () => {
 
     renderComponent()
 
-    expect(screen.getByText('common.loading')).toBeInTheDocument()
+    expect(screen.getByText(/Loading, please wait\.\.\./)).toBeInTheDocument()
   })
 })

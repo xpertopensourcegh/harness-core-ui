@@ -12,8 +12,7 @@ import {
   getMemoryValueInGBFromExpression,
   getCPUValueInCPUFromExpression
 } from '@ce/utils/formatResourceValue'
-import type { RecommendationItem, TimeRangeValue } from '@ce/types'
-import type { ResourceObject } from '@ce/types'
+import type { RecommendationItem, TimeRangeValue, ResourceObject } from '@ce/types'
 
 import { RecommendationType, ChartColors, ViewTimeRange } from './constants'
 import RecommendationTabs from './RecommendationTabs'

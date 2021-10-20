@@ -1,5 +1,4 @@
-import React from 'react'
-import { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { Dialog, IconName, IDialogProps } from '@blueprintjs/core'
 import {
   Button,

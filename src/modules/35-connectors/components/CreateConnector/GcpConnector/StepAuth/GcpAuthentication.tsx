@@ -9,11 +9,11 @@ import {
   CardSelect,
   Icon,
   FontVariation,
-  ButtonVariation
+  ButtonVariation,
+  PageSpinner
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import * as Yup from 'yup'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
 import {
   DelegateTypes,
   DelegateCardInterface,

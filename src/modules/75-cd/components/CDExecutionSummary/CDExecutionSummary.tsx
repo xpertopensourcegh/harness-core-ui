@@ -4,10 +4,9 @@ import { Icon, Text } from '@wings-software/uicore'
 import cx from 'classnames'
 import { identity, uniqBy } from 'lodash-es'
 
-import { String } from 'framework/strings'
+import { String, useStrings } from 'framework/strings'
 import type { CDPipelineModuleInfo, CDStageModuleInfo, ServiceExecutionSummary } from 'services/cd-ng'
 import type { ExecutionSummaryProps } from '@pipeline/factories/ExecutionFactory/types'
-import { useStrings } from 'framework/strings'
 
 import { ServicePopoverCard } from '../ServicePopoverCard/ServicePopoverCard'
 import css from './CDExecutionSummary.module.scss'
