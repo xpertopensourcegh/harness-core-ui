@@ -2,7 +2,7 @@
 # [(CCM|CD|CE|DOC|ER|HAR|LE|PL|SEC|SWAT|UI|DX)-[0-9]+]
 VERSION=$(cat package.json | grep version | cut -d: -f2 | cut -d\" -f2)
 echo $VERSION
-KEYS=`git log --pretty=oneline --abbrev-commit | awk "1;/Branching to release\//{exit}" | grep -o -iE '(CCM|CE|CD|CDC|CDP|CE|CI|CV|DOC|ER|HAR|LE|PL|SEC|SWAT|UI|DX|DEL|CDNG)-[0-9]+' | sort | uniq`
+KEYS=`git log --pretty=oneline --abbrev-commit | awk "1;/Branching to release\//{exit}" | grep -o -iE '(BT|CCE|CCM|CDC|CDNG|CDP|CE|CI|CV|CVNG|DEL|DOC|DX|ER|FFM|OPS|PIE|PL|SEC|SWAT|GTM|ONP)-[0-9]+' | sort | uniq`
 echo --- List of JIRA ---
 echo $KEYS
 echo --- End
