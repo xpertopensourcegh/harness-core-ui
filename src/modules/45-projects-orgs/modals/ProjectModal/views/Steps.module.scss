@@ -59,7 +59,7 @@
 }
 
 .manageUsers {
-  color: var(--primary-7) !important;
+  padding: var(--spacing-none) !important;
 }
 
 .invites {
@@ -103,9 +103,6 @@
 
 .input {
   width: 450px !important ;
-  :global(.bp3-input) {
-    height: auto !important;
-  }
 }
 
 .pendingUser {

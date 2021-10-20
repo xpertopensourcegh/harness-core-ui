@@ -1736,7 +1736,6 @@ export interface StringsMap {
   'projectsOrgs.goto': string
   'projectsOrgs.gotoBuilds': string
   'projectsOrgs.gotoCD': string
-  'projectsOrgs.gotoCE': string
   'projectsOrgs.gotoCF': string
   'projectsOrgs.gotoCI': string
   'projectsOrgs.gotoCV': string

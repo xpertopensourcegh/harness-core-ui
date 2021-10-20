@@ -24,7 +24,7 @@ exports[`About Project test create project  1`] = `
                 class="Layout--horizontal StyledProps--main StyledProps--padding-bottom-large"
               >
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-black"
+                  class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--color StyledProps--color-black"
                 >
                   projectsOrgs.aboutProject
                 </p>
@@ -446,7 +446,7 @@ exports[`About Project test create project  2`] = `
                 class="Layout--horizontal StyledProps--main StyledProps--padding-bottom-large"
               >
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-black"
+                  class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--color StyledProps--color-black"
                 >
                   projectsOrgs.aboutProject
                 </p>
@@ -967,7 +967,7 @@ exports[`About Project test edit project  1`] = `
                 class="Layout--horizontal StyledProps--main StyledProps--padding-bottom-large"
               >
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-black"
+                  class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--color StyledProps--color-black"
                 >
                   projectsOrgs.projectEdit
                 </p>
@@ -1304,7 +1304,7 @@ exports[`About Project test edit project  2`] = `
                 class="Layout--horizontal StyledProps--main StyledProps--padding-bottom-large"
               >
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-black"
+                  class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--color StyledProps--color-black"
                 >
                   projectsOrgs.projectEdit
                 </p>

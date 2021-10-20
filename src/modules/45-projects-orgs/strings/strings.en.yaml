@@ -44,11 +44,10 @@ collaboratorsTitle: 'Invite Members'
 saveAndClose: '{{$.common.saveAndClose}}'
 confirmDelete: Deleting the organization '{{name}}' would mean that you are also deleting all the projects and the resources associated with it. Are you sure you want to delete the organization?
 aboutProject: 'About the Project'
-gotoCV: 'Go to Continuous Verification'
+gotoCV: 'Go to Change Intelligence'
 gotoCD: 'Go to Continuous Delivery'
 gotoCF: 'Go to Feature Flags'
 gotoCI: 'Go to Continuous Integration'
-gotoCE: 'Go to Continuous Efficiency'
 invite: 'Invite Collaborators'
 urlMessageProject: "Your Project is only accessible to people you've invited"
 urlMessageOrg: "Your organization is only accessible to people you've invited"

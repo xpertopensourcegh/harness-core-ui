@@ -16,25 +16,23 @@ import {
   ModalErrorHandlerBinding,
   ModalErrorHandler,
   ButtonVariation,
-  Label
+  Label,
+  DropDown
 } from '@wings-software/uicore'
-import { Select } from '@blueprintjs/select'
 import cx from 'classnames'
 import * as Yup from 'yup'
-import { Menu } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
 import copy from 'copy-to-clipboard'
 import { defaultTo } from 'lodash-es'
 import { Project, useGetCurrentGenUsers, useGetInvites, Organization, useAddUsers, AddUsers } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
-import { Scope } from '@common/interfaces/SecretsInterface'
-import { getScopeFromDTO, ScopedObjectDTO } from '@common/components/EntityReference/EntityReference'
 import { useGetRoleList } from 'services/rbac'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { InvitationStatus, UserItemRenderer, UserTagRenderer } from '@rbac/utils/utils'
 import { handleInvitationResponse } from '@rbac/utils/utils'
+import { getDefaultRole, getDetailsUrl } from '@projects-orgs/utils/utils'
 import InviteListRenderer from './InviteListRenderer'
 import css from './Steps.module.scss'
 
@@ -51,8 +49,6 @@ interface RoleOption extends SelectOption {
 interface CollaboratorsData {
   collaborators: MultiSelectOption[]
 }
-
-const CustomSelect = Select.ofType<SelectOption>()
 
 const Collaborators: React.FC<CollaboratorModalData> = props => {
   const { projectIdentifier, orgIdentifier, showManage = true } = props
@@ -75,70 +71,51 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
   } = useGetInvites({
     queryParams: {
       accountIdentifier: accountId,
-      orgIdentifier: orgIdentifier,
-      projectIdentifier: projectIdentifier
+      orgIdentifier,
+      projectIdentifier
     }
   })
 
   const { mutate: sendInvite, loading } = useAddUsers({
     queryParams: {
       accountIdentifier: accountId,
-      orgIdentifier: orgIdentifier,
-      projectIdentifier: projectIdentifier
+      orgIdentifier,
+      projectIdentifier
     }
   })
 
   const { data: roleData } = useGetRoleList({
     queryParams: {
       accountIdentifier: accountId,
-      orgIdentifier: orgIdentifier || '',
-      projectIdentifier: projectIdentifier
+      orgIdentifier,
+      projectIdentifier
     }
   })
 
-  const users: SelectOption[] =
+  const users: SelectOption[] = defaultTo(
     userData?.data?.content?.map(user => {
       return {
-        label: user.name || user.email,
+        label: defaultTo(user.name, user.email),
         value: user.email
       }
-    }) || []
-
-  const getDefaultRole = (scope: ScopedObjectDTO): RoleOption => {
-    if (getScopeFromDTO(scope) === Scope.PROJECT)
-      return { label: getString('common.projectViewer'), value: '_project_viewer', managed: true }
-    if (getScopeFromDTO(scope) === Scope.ORG)
-      return {
-        label: getString('common.orgViewer'),
-        value: '_organization_viewer',
-        managed: true
-      }
-    return { label: getString('common.accViewer'), value: '_account_viewer', managed: true }
-  }
-
-  const [role, setRole] = useState<RoleOption>(
-    getDefaultRole({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
+    }),
+    []
   )
 
-  const roles: RoleOption[] =
+  const [role, setRole] = useState<RoleOption>(
+    getDefaultRole({ accountIdentifier: accountId, orgIdentifier, projectIdentifier }, getString)
+  )
+
+  const roles: RoleOption[] = defaultTo(
     roleData?.data?.content?.map(roleOption => {
       return {
         label: roleOption.role.name,
         value: roleOption.role.identifier,
-        managed: roleOption.harnessManaged || false
+        managed: defaultTo(roleOption.harnessManaged, false)
       }
-    }) || []
-
-  const getUrl = (): string | undefined => {
-    if (projectIdentifier && orgIdentifier)
-      return `${window.location.href.split('#')[0]}#${routes.toProjectDetails({
-        accountId,
-        orgIdentifier,
-        projectIdentifier
-      })}`
-    if (orgIdentifier)
-      return `${window.location.href.split('#')[0]}#${routes.toOrganizationDetails({ accountId, orgIdentifier })}`
-  }
+    }),
+    []
+  )
 
   const SendInvitation = async (values: MultiSelectOption[]): Promise<void> => {
     const usersToSubmit = values?.map(collaborator => {
@@ -166,7 +143,7 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
         onSubmit: reloadInvites
       })
     } catch (e) {
-      modalErrorHandler?.showDanger(e.data?.message || e.message)
+      modalErrorHandler?.showDanger(defaultTo(e.data?.message, e.message))
     }
   }
 
@@ -184,7 +161,7 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
       onSubmit={(values, { resetForm }) => {
         modalErrorHandler?.hide()
         SendInvitation(values.collaborators)
-        setRole(getDefaultRole({ accountIdentifier: accountId, orgIdentifier, projectIdentifier }))
+        setRole(getDefaultRole({ accountIdentifier: accountId, orgIdentifier, projectIdentifier }, getString))
         resetForm({ collaborators: [] })
       }}
       enableReinitialize={true}
@@ -203,14 +180,14 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
                   : getString('projectsOrgs.urlMessageOrg')}
               </Label>
               <TextInput
-                placeholder={getUrl()}
+                placeholder={getDetailsUrl({ accountId, orgIdentifier, projectIdentifier })}
                 disabled
                 rightElement={
                   (
                     <Button
                       icon="duplicate"
                       onClick={() => {
-                        copy(getUrl() || '')
+                        copy(getDetailsUrl({ accountId, orgIdentifier, projectIdentifier }))
                           ? showSuccess(getString('clipboardCopySuccess'))
                           : showError(getString('clipboardCopyFail'))
                       }}
@@ -221,42 +198,30 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
                   ) as any
                 }
               />
-              <Layout.Horizontal padding={{ top: 'medium' }} spacing="xlarge" className={cx(css.align, css.input)}>
+              <Layout.Horizontal padding={{ top: 'medium' }} className={cx(css.align, css.input)} flex>
                 <Layout.Horizontal width="50%">
                   <Label>{getString('projectsOrgs.inviteCollab')}</Label>
                 </Layout.Horizontal>
                 <Layout.Horizontal
                   width="50%"
-                  spacing="xsmall"
-                  flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
+                  flex={{ alignItems: 'center', justifyContent: 'flex-end' }}
+                  padding={{ right: 'medium' }}
                 >
-                  <Label>{getString('projectsOrgs.roleLabel')}</Label>
-                  <CustomSelect
-                    items={roles}
-                    filterable={false}
-                    itemRenderer={(item, { handleClick }) => (
-                      <div key={item.label}>
-                        <Menu.Item
-                          text={item.label}
-                          onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => handleClick(e)}
-                        />
-                      </div>
-                    )}
-                    onItemSelect={item => {
-                      setRole(item as RoleOption)
-                    }}
-                    popoverProps={{ minimal: true, popoverClassName: css.customselect }}
-                  >
-                    <Button
-                      inline
-                      minimal
-                      intent="primary"
-                      rightIcon="chevron-down"
-                      className={cx(css.toEnd, css.roleButton)}
-                    >
-                      <Text lineClamp={1}>{role.label}</Text>
-                    </Button>
-                  </CustomSelect>
+                  <Label>
+                    <Layout.Horizontal flex spacing="xsmall">
+                      {getString('projectsOrgs.roleLabel')}
+                      <DropDown
+                        items={roles}
+                        value={role.value.toString()}
+                        onChange={item => {
+                          setRole(item as RoleOption)
+                        }}
+                        isLabel={true}
+                        filterable={false}
+                        width={160}
+                      />
+                    </Layout.Horizontal>
+                  </Label>
                 </Layout.Horizontal>
               </Layout.Horizontal>
               <Layout.Horizontal spacing="small">
@@ -303,14 +268,15 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
             {showManage ? (
               <Layout.Horizontal>
                 <Button
-                  minimal
-                  className={css.manageUsers}
+                  variation={ButtonVariation.LINK}
+                  text={
+                    projectIdentifier ? getString('projectsOrgs.manageProject') : getString('projectsOrgs.manageOrg')
+                  }
                   onClick={() => {
                     history.push(routes.toUsers({ accountId, orgIdentifier, projectIdentifier }))
                   }}
-                >
-                  {projectIdentifier ? getString('projectsOrgs.manageProject') : getString('projectsOrgs.manageOrg')}
-                </Button>
+                  className={css.manageUsers}
+                />
               </Layout.Horizontal>
             ) : null}
           </Form>
@@ -336,7 +302,11 @@ export const ProjectCollaboratorsStep: React.FC<StepProps<Project> & Collaborato
         {...rest}
       />
       <Layout.Horizontal spacing="small">
-        <Button onClick={() => previousStep?.(prevStepData)} text={getString('back')} />
+        <Button
+          variation={ButtonVariation.SECONDARY}
+          onClick={() => previousStep?.(prevStepData)}
+          text={getString('back')}
+        />
         <Button
           variation={ButtonVariation.PRIMARY}
           text={getString('saveAndContinue')}

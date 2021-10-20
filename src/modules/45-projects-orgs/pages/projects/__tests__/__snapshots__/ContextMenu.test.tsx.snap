@@ -244,7 +244,7 @@ exports[`Context Menu test render 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
             >
-              projectsOrgs.gotoCE
+              projectsOrgs.gotoCloudCosts
             </p>
           </div>
         </div>

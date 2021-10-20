@@ -157,7 +157,7 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
           text={
             <Layout.Horizontal spacing="xsmall">
               <Icon name="ce-main" size={20} />
-              <Text color={Color.WHITE}>{getString('projectsOrgs.gotoCE')}</Text>
+              <Text color={Color.WHITE}>{getString('projectsOrgs.gotoCloudCosts')}</Text>
             </Layout.Horizontal>
           }
           onClick={handleCE}

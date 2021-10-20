@@ -47,7 +47,7 @@ describe('Collaborators test', () => {
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
-    const role = getByText(container, 'common.projectViewer')
+    const role = getByText(container, 'Project Viewer')
     fireEvent.click(role!)
     const popover = findPopoverContainer()
     const opt = getByText(popover as HTMLElement, 'Project Admin')
@@ -63,7 +63,7 @@ describe('Collaborators test', () => {
       fireEvent.click(refresh)
     })
     await act(async () => {
-      const deleteInvite = container.querySelectorAll('[height="20"]')[0]
+      const deleteInvite = container.querySelectorAll('[data-icon="remove"]')[0]
       fireEvent.click(deleteInvite)
     })
   })

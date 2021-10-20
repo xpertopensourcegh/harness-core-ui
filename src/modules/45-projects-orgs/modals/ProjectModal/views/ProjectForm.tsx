@@ -13,7 +13,8 @@ import {
   ModalErrorHandler,
   ModalErrorHandlerBinding,
   ButtonVariation,
-  IconName
+  IconName,
+  FontVariation
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { DescriptionTags } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
@@ -93,7 +94,7 @@ const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
               <Layout.Vertical width={displayProjectCardPreview ? '50%' : '100%'} padding="xxlarge">
                 <Container style={{ minHeight: '450px' }}>
                   <Layout.Horizontal padding={{ bottom: 'large' }}>
-                    <Text font="medium" color={Color.BLACK}>
+                    <Text font={{ variation: FontVariation.H3 }} color={Color.BLACK}>
                       {title}
                     </Text>
                   </Layout.Horizontal>
