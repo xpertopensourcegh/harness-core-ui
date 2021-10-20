@@ -70,18 +70,20 @@ export const DeleteTemplateModal = (props: DeleteTemplateProps) => {
 
   const performDelete = async (versions: string[]) => {
     try {
-      await deleteTemplates(JSON.stringify({ templateVersionLabels: versions }), {
+      await deleteTemplates(templateIdentifier, {
         queryParams: {
           accountIdentifier: accountId,
           orgIdentifier,
           projectIdentifier
-        }
+        },
+        body: JSON.stringify({ templateVersionLabels: versions }),
+        headers: { 'content-type': 'application/json' }
       })
       showSuccess(getString('templatesLibrary.templatesDeleted'))
       onSuccess?.()
     } catch (error) {
       showError(
-        error?.message || getString('templatesLibrary.errorWhileDeleting'),
+        error?.data?.message || error?.message || getString('templatesLibrary.errorWhileDeleting'),
         undefined,
         'template.delete.template.error'
       )

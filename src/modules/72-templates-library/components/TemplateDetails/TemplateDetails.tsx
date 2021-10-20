@@ -40,6 +40,13 @@ export interface TemplateDetailsProps {
   module?: Module
 }
 
+export enum TemplateTabs {
+  INPUTS = 'INPUTS',
+  YAML = 'YAML',
+  REFERENCEDBY = 'REFERENCEDBY',
+  ACTVITYLOG = 'ACTVITYLOG'
+}
+
 export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
   const {
     templateIdentifier,
@@ -57,6 +64,7 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
   const { showError } = useToaster()
   const { isReadonly } = useContext(TemplateContext)
   const [selectedTemplate, setSelectedTemplate] = React.useState<TemplateSummaryResponse>()
+  const [selectedTab, setSelectedTab] = React.useState<TemplateTabs>(TemplateTabs.YAML)
 
   const {
     data: templateData,
@@ -136,6 +144,10 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
     }
   }
 
+  const handleTabChange = React.useCallback((tab: TemplateTabs) => {
+    setSelectedTab(tab)
+  }, [])
+
   return (
     <Container
       height={'100%'}
@@ -211,20 +223,19 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
             </Layout.Vertical>
           </Container>
           <div className={css.tabsContainer}>
-            <Tabs id="template-details" selectedTabId={'template-yaml'}>
+            <Tabs id="template-details" selectedTabId={selectedTab} onChange={handleTabChange}>
               <Tab
-                id="template-input"
-                disabled={true}
+                id={TemplateTabs.INPUTS}
                 title={getString('templatesLibrary.templateInputs')}
-                panel={<TemplateInputs />}
+                panel={<TemplateInputs {...props} />}
               />
               <Tab
-                id="template-yaml"
+                id={TemplateTabs.YAML}
                 title={getString('yaml')}
                 panel={<TemplateYaml templateYaml={selectedTemplate.yaml} />}
               />
               <Tab
-                id="template-referenced-by"
+                id={TemplateTabs.REFERENCEDBY}
                 disabled={true}
                 title={
                   <>
@@ -234,9 +245,9 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
                 panel={<div>Referenced By</div>}
               />
               <Tab
-                id="template-version-log"
+                id={TemplateTabs.ACTVITYLOG}
                 disabled={true}
-                title={getString('templatesLibrary.versionLog')}
+                title={getString('activityLog')}
                 panel={<div>Version Log</div>}
               />
             </Tabs>

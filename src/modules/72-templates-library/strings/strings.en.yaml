@@ -9,7 +9,6 @@ copyToNewPipeline: Copy to New Pipeline
 templateSettings: Template Settings
 templateInputs: Template Inputs
 referencedBy: Referenced By
-versionLog: Version Log
 selectTemplateToPreview: Select a template to preview
 templateTitle: '{{ entity }} Template'
 templateUpdated: Template Updated

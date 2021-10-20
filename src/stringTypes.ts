@@ -2592,7 +2592,6 @@ export interface StringsMap {
   'templatesLibrary.updateTemplateModal.heading': string
   'templatesLibrary.updateTemplateModal.info': string
   'templatesLibrary.useTemplate': string
-  'templatesLibrary.versionLog': string
   'cd.GitOpsServerDelete': string
   'cd.aboutGitOpsServer': string
   'cd.aboutHarnessAdapter': string

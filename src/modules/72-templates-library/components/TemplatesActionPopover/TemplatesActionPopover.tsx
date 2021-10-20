@@ -1,7 +1,8 @@
 import React from 'react'
-import { IconName, Menu, Position } from '@blueprintjs/core'
-import { Popover } from '@wings-software/uicore'
+import { Menu, Position } from '@blueprintjs/core'
+import { Popover, Icon, IconName } from '@wings-software/uicore'
 import type { PopoverProps } from '@wings-software/uicore/dist/components/Popover/Popover'
+import cx from 'classnames'
 import css from './TemplatesActionPopover.module.scss'
 
 export interface TemplatesActionPopoverProps extends PopoverProps {
@@ -36,17 +37,20 @@ export const TemplatesActionPopover = (props: React.PropsWithChildren<TemplatesA
         <Menu style={{ minWidth: 'unset' }} onClick={e => e.stopPropagation()}>
           {items?.map(item => {
             return (
-              <Menu.Item
-                icon={item.icon}
-                text={item.label}
-                disabled={item.disabled}
+              <li
                 key={item.label}
-                onClick={(e: React.MouseEvent) => {
+                className={cx(css.menuItem, { [css.disabled]: item.disabled })}
+                onClick={e => {
                   e.stopPropagation()
-                  item.onClick()
-                  setMenuOpen(false)
+                  if (!item.disabled) {
+                    item.onClick()
+                    setMenuOpen(false)
+                  }
                 }}
-              />
+              >
+                {item.icon && <Icon name={item.icon} size={12} />}
+                {item.label}
+              </li>
             )
           })}
         </Menu>

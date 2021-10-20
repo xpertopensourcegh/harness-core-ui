@@ -1,14 +1,30 @@
 .popOver {
-  :global {
-    .bp3-menu-item {
-      font-size: var(--font-size-small);
-      padding: var(--spacing-3) var(--spacing-5);
-      .bp3-icon {
-        margin-right: var(--spacing-4);
+  .menuItem {
+    height: 36px;
+    padding: 0 var(--spacing-5);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: var(--grey-900);
+    font-weight: 500;
+    font-size: var(--font-size-small);
+    &.active {
+      background: var(--primary-7);
+      color: var(--white);
+    }
+    &.disabled {
+      color: var(--grey-400);
+      cursor: default;
+      :global(.bp3-icon) {
+        color: var(--grey-400);
       }
-      &:hover .bp3-icon {
-        color: var(--white);
-      }
+    }
+    &:hover:local:not(.active, .disabled) {
+      background: var(--primary-1);
+    }
+    :global(.bp3-icon) {
+      color: var(--grey-900);
+      margin-right: var(--spacing-4);
     }
   }
 }

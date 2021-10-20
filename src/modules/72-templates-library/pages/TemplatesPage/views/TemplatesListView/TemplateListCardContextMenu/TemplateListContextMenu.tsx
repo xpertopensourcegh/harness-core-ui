@@ -1,6 +1,5 @@
 import React from 'react'
-import { Button } from '@wings-software/uicore'
-import type { IconName } from '@blueprintjs/core'
+import { Button, IconName } from '@wings-software/uicore'
 import type { PopoverProps } from '@wings-software/uicore/dist/components/Popover/Popover'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
@@ -49,7 +48,7 @@ export const TemplateListContextMenu: React.FC<ContextMenuProps> = (props): JSX.
   const getItems = (): { icon: IconName; label: string; disabled: boolean; onClick: () => void }[] => {
     return [
       {
-        icon: 'eye-open',
+        icon: 'main-view',
         label: getString('connectors.ceAws.crossAccountRoleExtention.step1.p2'),
         disabled: !canView,
         onClick: () => {
@@ -57,7 +56,7 @@ export const TemplateListContextMenu: React.FC<ContextMenuProps> = (props): JSX.
         }
       },
       {
-        icon: 'folder-shared-open',
+        icon: 'main-share',
         label: getString('templatesLibrary.openEditTemplate'),
         disabled: !canEdit,
         onClick: () => {
@@ -65,7 +64,7 @@ export const TemplateListContextMenu: React.FC<ContextMenuProps> = (props): JSX.
         }
       },
       {
-        icon: 'settings',
+        icon: 'main-setup',
         label: getString('templatesLibrary.templateSettings'),
         disabled: !canEdit,
         onClick: () => {
@@ -73,7 +72,7 @@ export const TemplateListContextMenu: React.FC<ContextMenuProps> = (props): JSX.
         }
       },
       {
-        icon: 'delete',
+        icon: 'main-trash',
         label: getString('templatesLibrary.deleteTemplate'),
         disabled: !canDelete,
         onClick: () => {

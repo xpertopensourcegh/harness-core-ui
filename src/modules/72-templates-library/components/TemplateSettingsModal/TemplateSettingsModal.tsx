@@ -18,15 +18,9 @@ import { useStrings } from 'framework/strings'
 import { NameId } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { PageSpinner, useToaster } from '@common/components'
-import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import { TemplatePreview } from '@templates-library/components/TemplatePreview/TemplatePreview'
 import { TemplateListType } from '@templates-library/pages/TemplatesPage/TemplatesPageUtils'
-import {
-  useGetTemplateList,
-  useUpdateTemplateSettings,
-  TemplateSummaryResponse,
-  UpdateTemplateSettingsQueryParams
-} from 'services/template-ng'
+import { useGetTemplateList, TemplateSummaryResponse, useUpdateStableTemplate } from 'services/template-ng'
 import { useMutateAsGet } from '@common/hooks'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
@@ -45,10 +39,7 @@ interface BasicDetailsInterface extends TemplateSettingsModalProps {
   accountId: string
   orgIdentifier: string
   projectIdentifier: string
-  onUpdateSetting: (
-    updateScope: UpdateTemplateSettingsQueryParams['updateScope'],
-    updateStableTemplateVersion: string
-  ) => void
+  onUpdateSetting: (updateStableTemplateVersion: string) => void
 }
 
 const BasicTemplateDetails = (props: BasicDetailsInterface) => {
@@ -56,22 +47,6 @@ const BasicTemplateDetails = (props: BasicDetailsInterface) => {
   const { getString } = useStrings()
   const [versionOptions, setVersionOptions] = React.useState<SelectOption[]>([])
   const [selectedVersion, setSelectedVersion] = React.useState<string>()
-  const [selectedScope, setSelectedScope] = React.useState<UpdateTemplateSettingsQueryParams['updateScope']>()
-
-  const scopeOptions: SelectOption[] = [
-    {
-      label: 'Project',
-      value: 'project'
-    },
-    {
-      label: 'Organization',
-      value: 'org'
-    },
-    {
-      label: 'Account',
-      value: 'account'
-    }
-  ]
 
   React.useEffect(() => {
     if (templates && !isEmpty(templates)) {
@@ -82,8 +57,6 @@ const BasicTemplateDetails = (props: BasicDetailsInterface) => {
         }
       })
       setVersionOptions(newAllVersions)
-      const scope: UpdateTemplateSettingsQueryParams['updateScope'] = getScopeFromDTO(templates[0])
-      setSelectedScope(scope)
       const selectedVersionLabel = templates?.find(item => item.stableTemplate)?.versionLabel
       if (selectedVersionLabel) {
         setSelectedVersion(selectedVersionLabel)
@@ -100,12 +73,10 @@ const BasicTemplateDetails = (props: BasicDetailsInterface) => {
       >
         {getString('templatesLibrary.templateSettings')}
       </Text>
-      <Formik<
-        TemplateSummaryResponse & { scope?: UpdateTemplateSettingsQueryParams['updateScope']; defaultVersion?: string }
-      >
-        initialValues={{ ...templates?.[0], scope: selectedScope, defaultVersion: selectedVersion }}
+      <Formik<TemplateSummaryResponse & { defaultVersion?: string }>
+        initialValues={{ ...templates?.[0], defaultVersion: selectedVersion }}
         onSubmit={values => {
-          onUpdateSetting(values.scope, values.defaultVersion || '')
+          onUpdateSetting(values.defaultVersion || '')
         }}
         validate={values => {
           const previewTemplate = templates?.find(item => item.versionLabel === values.defaultVersion)
@@ -126,11 +97,6 @@ const BasicTemplateDetails = (props: BasicDetailsInterface) => {
                     isIdentifierEditable: false
                   }}
                   inputGroupProps={{ disabled: true }}
-                />
-                <FormInput.Select
-                  name={'scope'}
-                  items={scopeOptions}
-                  label={getString('templatesLibrary.templateSettingsModal.scopeLabel')}
                 />
                 <FormInput.Select
                   name={'defaultVersion'}
@@ -194,8 +160,15 @@ export const TemplateSettingsModal = (props: TemplateSettingsModalProps) => {
     queryParamStringifyOptions: { arrayFormat: 'comma' }
   })
 
-  const { mutate: updateTemplateSettings, loading: deleteLoading } = useUpdateTemplateSettings({
-    templateIdentifier: templateIdentifier
+  const { mutate: updateStableTemplate, loading: updateStableTemplateLoading } = useUpdateStableTemplate({
+    templateIdentifier: templateIdentifier,
+    versionLabel: '',
+    queryParams: {
+      accountIdentifier: accountId,
+      projectIdentifier,
+      orgIdentifier
+    },
+    requestOptions: { headers: { 'content-type': 'application/json' } }
   })
 
   React.useEffect(() => {
@@ -209,26 +182,19 @@ export const TemplateSettingsModal = (props: TemplateSettingsModalProps) => {
     }
   }, [templatesError])
 
-  const updateSettings = async (
-    updateScope: UpdateTemplateSettingsQueryParams['updateScope'],
-    updateStableTemplateVersion: string
-  ) => {
+  const updateSettings = async (updateStableTemplateVersion: string) => {
     try {
-      await updateTemplateSettings({} as unknown as void, {
-        queryParams: {
-          accountIdentifier: accountId,
-          orgIdentifier,
-          projectIdentifier,
-          currentScope: getScopeFromDTO(params),
-          updateScope,
-          updateStableTemplateVersion
+      await updateStableTemplate({} as unknown as void, {
+        pathParams: {
+          templateIdentifier: templateIdentifier,
+          versionLabel: updateStableTemplateVersion
         }
       })
       showSuccess(getString('templatesLibrary.templateUpdated'))
       onSuccess?.()
     } catch (error) {
       showError(
-        error?.message || getString('templatesLibrary.errorWhileUpdating'),
+        error?.data?.message || error?.message || getString('templatesLibrary.errorWhileUpdating'),
         undefined,
         'template.save.template.error'
       )
@@ -237,7 +203,7 @@ export const TemplateSettingsModal = (props: TemplateSettingsModalProps) => {
 
   return (
     <Layout.Horizontal style={{ flexGrow: 1 }}>
-      {(loading || deleteLoading) && <PageSpinner />}
+      {(loading || updateStableTemplateLoading) && <PageSpinner />}
       <BasicTemplateDetails
         {...props}
         onUpdateSetting={updateSettings}
