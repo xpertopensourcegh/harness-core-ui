@@ -2,16 +2,22 @@ import React, { FC } from 'react'
 import { render, RenderResult, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { TestWrapper } from '@common/utils/testUtils'
-import SubSectionSelector, { subSectionNameMap, SubSectionSelectorProps } from '../SubSectionSelector'
+import SubSectionSelector, { SubSectionSelectorProps } from '../SubSectionSelector'
 
 const SetFlagSwitch: FC = () => <span />
 const DefaultRules: FC = () => <span />
 const ServePercentageRollout: FC = () => <span />
 
+const subSectionNameMap = new Map()
+subSectionNameMap.set(SetFlagSwitch, 'Set Flag Switch')
+subSectionNameMap.set(DefaultRules, 'Default Rules')
+subSectionNameMap.set(ServePercentageRollout, 'Serve Percentage Rollout')
+
 const renderComponent = (props: Partial<SubSectionSelectorProps> = {}): RenderResult =>
   render(
     <TestWrapper>
       <SubSectionSelector
+        subSectionNameMap={subSectionNameMap}
         availableSubSections={[DefaultRules, ServePercentageRollout]}
         currentSubSection={SetFlagSwitch}
         onSubSectionChange={jest.fn()}
@@ -24,7 +30,7 @@ describe('SubSectionSelector', () => {
   test('it should display the current subsection name', async () => {
     renderComponent()
 
-    expect(screen.getByText(subSectionNameMap[SetFlagSwitch.name])).toBeInTheDocument()
+    expect(screen.getByText(subSectionNameMap.get(SetFlagSwitch))).toBeInTheDocument()
   })
 
   test('it should have a button which opens the sub-section menu', async () => {
@@ -32,13 +38,13 @@ describe('SubSectionSelector', () => {
 
     const btn = screen.getByRole('button')
     expect(btn).toBeInTheDocument()
-    expect(screen.queryByText(subSectionNameMap[DefaultRules.name])).not.toBeInTheDocument()
-    expect(screen.queryByText(subSectionNameMap[ServePercentageRollout.name])).not.toBeInTheDocument()
+    expect(screen.queryByText(subSectionNameMap.get(DefaultRules))).not.toBeInTheDocument()
+    expect(screen.queryByText(subSectionNameMap.get(ServePercentageRollout))).not.toBeInTheDocument()
 
     userEvent.click(btn)
 
-    expect(screen.getByText(subSectionNameMap[DefaultRules.name])).toBeInTheDocument()
-    expect(screen.getByText(subSectionNameMap[ServePercentageRollout.name])).toBeInTheDocument()
+    expect(screen.getByText(subSectionNameMap.get(DefaultRules))).toBeInTheDocument()
+    expect(screen.getByText(subSectionNameMap.get(ServePercentageRollout))).toBeInTheDocument()
   })
 
   test('it should call the onSubSectionChange handler when the sub-section is changed', async () => {
@@ -50,7 +56,7 @@ describe('SubSectionSelector', () => {
     const btn = screen.getByRole('button')
     userEvent.click(btn)
 
-    userEvent.click(screen.getByText(subSectionNameMap[newSubSection.name]))
+    userEvent.click(screen.getByText(subSectionNameMap.get(newSubSection)))
 
     expect(onSubSectionChange).toHaveBeenCalledWith(newSubSection)
   })
@@ -59,7 +65,7 @@ describe('SubSectionSelector', () => {
     const currentSubSection = DefaultRules
     renderComponent({ currentSubSection, availableSubSections: [] })
 
-    expect(screen.getByText(subSectionNameMap[currentSubSection.name])).toBeInTheDocument()
+    expect(screen.getByText(subSectionNameMap.get(currentSubSection))).toBeInTheDocument()
     expect(screen.queryByRole('button')).not.toBeInTheDocument()
   })
 })

@@ -2,8 +2,6 @@ import React from 'react'
 import { act, getByRole, getByTestId, render, RenderResult, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { TestWrapper } from '@common/utils/testUtils'
-import { subSectionNameMap } from '@cf/components/PipelineSteps/FlagConfigurationStep/FlagChanges/SubSectionSelector'
-import DefaultRules from '@cf/components/PipelineSteps/FlagConfigurationStep/FlagChanges/subSections/DefaultRules'
 import FlagChanges, { allSubSections, FlagChangesProps } from '../FlagChanges'
 
 const renderComponent = (props: Partial<FlagChangesProps> = {}): RenderResult =>
@@ -113,7 +111,7 @@ describe('FlagChanges', () => {
     expect(setFlagSwitchSubSection).toBeInTheDocument()
 
     userEvent.click(getByRole(setFlagSwitchSubSection, 'button'))
-    userEvent.click(screen.getByText(subSectionNameMap[DefaultRules.name]))
+    userEvent.click(screen.getByText('cf.featureFlags.rules.defaultRules'))
 
     await waitFor(() => {
       expect(setFlagSwitchSubSection).not.toBeInTheDocument()
@@ -130,7 +128,7 @@ describe('FlagChanges', () => {
     expect(clearFieldMock).not.toHaveBeenCalled()
 
     userEvent.click(getByRole(setFlagSwitchSubSection, 'button'))
-    userEvent.click(screen.getByText(subSectionNameMap[DefaultRules.name]))
+    userEvent.click(screen.getByText('cf.featureFlags.rules.defaultRules'))
 
     await waitFor(() => {
       expect(clearFieldMock).toHaveBeenCalled()

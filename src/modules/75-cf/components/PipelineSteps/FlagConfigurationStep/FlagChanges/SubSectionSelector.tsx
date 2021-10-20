@@ -6,20 +6,14 @@ import type { SubSectionComponent } from './FlagChanges'
 import css from './SubSectionSelector.module.scss'
 
 export interface SubSectionSelectorProps {
+  subSectionNameMap: Map<SubSectionComponent, StringKeys>
   availableSubSections: SubSectionComponent[]
   currentSubSection: SubSectionComponent
   onSubSectionChange: (newSubSection: SubSectionComponent) => void
 }
 
-export const subSectionNameMap: Record<string, StringKeys> = {
-  SetFlagSwitch: 'cf.pipeline.flagConfiguration.setFlagSwitch',
-  DefaultRules: 'cf.featureFlags.rules.defaultRules',
-  ServeVariationToIndividualTarget: 'cf.pipeline.flagConfiguration.serveVariationToIndividualTarget',
-  ServeVariationToTargetGroup: 'cf.pipeline.flagConfiguration.serveVariationToTargetGroup',
-  ServePercentageRollout: 'cf.pipeline.flagConfiguration.servePercentageRollout'
-}
-
 const SubSectionSelector: FC<SubSectionSelectorProps> = ({
+  subSectionNameMap,
   availableSubSections,
   currentSubSection,
   onSubSectionChange
@@ -28,13 +22,13 @@ const SubSectionSelector: FC<SubSectionSelectorProps> = ({
 
   const items = availableSubSections.map(subSection => ({
     onClick: () => onSubSectionChange(subSection),
-    text: getString(subSectionNameMap[subSection.name])
+    text: getString(subSectionNameMap.get(subSection) as StringKeys)
   }))
 
   return (
     <Layout.Horizontal className={css.wrapper}>
       <Heading level={6} font={{ variation: FontVariation.H6 }} className={css.heading}>
-        {getString(subSectionNameMap[currentSubSection.name])}
+        {getString(subSectionNameMap.get(currentSubSection) as StringKeys)}
       </Heading>
       {!!items.length && (
         <OptionsMenuButton

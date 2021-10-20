@@ -1,6 +1,6 @@
 import React, { FC, useState, MouseEvent, useMemo } from 'react'
 import { Layout, Button, Heading, FontVariation, ButtonVariation } from '@wings-software/uicore'
-import { useStrings } from 'framework/strings'
+import { StringKeys, useStrings } from 'framework/strings'
 import type { Segment, TargetAttributesResponse, Variation } from 'services/cf'
 import type {
   FlagConfigurationStepFormData,
@@ -75,6 +75,17 @@ const FlagChanges: FC<FlagChangesProps> = ({
   )
   const { getString } = useStrings()
 
+  const subSectionNameMap = useMemo<Map<SubSectionComponent, StringKeys>>(() => {
+    const nameMap = new Map<SubSectionComponent, StringKeys>()
+    nameMap.set(SetFlagSwitch, 'cf.pipeline.flagConfiguration.setFlagSwitch')
+    nameMap.set(DefaultRules, 'cf.featureFlags.rules.defaultRules')
+    nameMap.set(ServeVariationToIndividualTarget, 'cf.pipeline.flagConfiguration.serveVariationToIndividualTarget')
+    nameMap.set(ServeVariationToTargetGroup, 'cf.pipeline.flagConfiguration.serveVariationToTargetGroup')
+    nameMap.set(ServePercentageRollout, 'cf.pipeline.flagConfiguration.servePercentageRollout')
+
+    return nameMap
+  }, [])
+
   const handleConfigureMore = (e: MouseEvent): void => {
     e.preventDefault()
     const [newSubsection] = availableSubSections
@@ -105,6 +116,7 @@ const FlagChanges: FC<FlagChangesProps> = ({
         const subSectionProps: SubSectionComponentProps = {
           subSectionSelector: (
             <SubSectionSelector
+              subSectionNameMap={subSectionNameMap}
               availableSubSections={availableSubSections}
               currentSubSection={SubSection}
               onSubSectionChange={newSubSection => swapSubSection(SubSection, newSubSection)}
