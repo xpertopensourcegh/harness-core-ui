@@ -6,7 +6,6 @@ declare const styles: {
   readonly urlInput: string
   readonly versionInput: string
   readonly authHeaderRow: string
-  readonly authTitle: string
   readonly formWrapper: string
   readonly stepDetails: string
 }

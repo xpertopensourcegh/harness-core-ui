@@ -134,7 +134,7 @@ const StepArtifactoryAuthentication: React.FC<
 
               <Container className={css.authHeaderRow}>
                 <Text
-                  className={css.authTitle}
+                  font={{ variation: FontVariation.FORM_TITLE }}
                   inline
                   tooltipProps={{ dataTooltipId: 'artifactRepositoryAuthentication' }}
                 >

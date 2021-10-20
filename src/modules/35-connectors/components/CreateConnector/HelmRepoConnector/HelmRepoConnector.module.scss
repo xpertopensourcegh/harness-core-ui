@@ -2,11 +2,8 @@
   .authHeaderRow {
     display: flex;
     justify-content: space-between;
-    .authTitle {
-      font-size: var(font-size-normal);
-      color: var(--black-600);
-      padding-top: var(--spacing-small);
-      font-weight: bold !important;
+    & > [data-tooltip-id='helmConnectorAuthentication'] {
+      margin: 0 0 7px;
     }
   }
 }

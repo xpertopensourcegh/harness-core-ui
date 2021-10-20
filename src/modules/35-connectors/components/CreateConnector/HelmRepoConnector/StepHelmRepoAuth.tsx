@@ -147,7 +147,11 @@ const StepHelmAuthentication: React.FC<StepProps<StepHelmRepoAuthenticationProps
               />
 
               <Container className={css.authHeaderRow}>
-                <Text className={css.authTitle} inline>
+                <Text
+                  font={{ variation: FontVariation.FORM_TITLE }}
+                  inline
+                  tooltipProps={{ dataTooltipId: 'helmConnectorAuthentication' }}
+                >
                   {getString('authentication')}
                 </Text>
                 <FormInput.Select

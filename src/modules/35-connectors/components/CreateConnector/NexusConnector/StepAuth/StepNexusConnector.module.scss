@@ -14,30 +14,9 @@
     display: flex;
     width: 56%;
     justify-content: space-between;
-
-    :global {
-      .bp3-input,
-      .bp3-button,
-      .bp3-checkbox {
-        height: 36px;
-      }
-    }
-
-    .authTitle {
-      font-size: var(font-size-normal);
-      color: var(--black-600);
-      font-weight: bold !important;
-    }
-    :global {
-      .bp3-input-group {
-        .bp3-input {
-          width: 100% !important;
-          border: none !important;
-          padding: var(--spacing-small) 0;
-          min-width: 260px;
-          text-align: end !important;
-        }
-      }
+    & > [data-tooltip-id='artifactRepositoryAuthentication'],
+    & > [data-tooltip-id='NexusConnectorAuthentication'] {
+      margin: 0 0 7px;
     }
   }
 

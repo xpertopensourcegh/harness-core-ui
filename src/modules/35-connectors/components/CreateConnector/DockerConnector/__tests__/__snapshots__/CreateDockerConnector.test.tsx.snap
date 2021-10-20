@@ -682,7 +682,7 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
                 data-tooltip-id="dockerConnectorAuthentication"
               >
                 <span
-                  class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                  class="StyledProps--font StyledProps--main StyledProps--font-variation-form-sub-section StyledProps--inline"
                 >
                   authentication
                 </span>
@@ -1610,7 +1610,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                 data-tooltip-id="dockerConnectorAuthentication"
               >
                 <span
-                  class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                  class="StyledProps--font StyledProps--main StyledProps--font-variation-form-sub-section StyledProps--inline"
                 >
                   authentication
                 </span>
