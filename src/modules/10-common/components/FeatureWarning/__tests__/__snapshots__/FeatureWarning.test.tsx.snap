@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FeatureWarning FeatureWarning 1`] = `
+<div>
+  <div
+    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main expanded StyledProps--padding-small StyledProps--flex StyledProps--flex-alignItems-baseline"
+  >
+    <p
+      class="StyledProps--font StyledProps--main warning StyledProps--padding-top-small StyledProps--color StyledProps--color-orange800 StyledProps--font-weight-semi-bold"
+      style="display: flex; align-items: center;"
+    >
+      <span
+        class="bp3-icon bp3-icon-warning-sign StyledProps--main Text--icon StyledProps--padding-right-small StyledProps--color StyledProps--color-orange800"
+        icon="warning-sign"
+      >
+        <svg
+          data-icon="warning-sign"
+          height="16"
+          viewBox="0 0 16 16"
+          width="16"
+        >
+          <desc>
+            warning-sign
+          </desc>
+          <path
+            d="M15.84 13.5l.01-.01-7-12-.01.01c-.17-.3-.48-.5-.85-.5s-.67.2-.85.5l-.01-.01-7 12 .01.01c-.09.15-.15.31-.15.5 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-.19-.06-.35-.15-.5zm-6.85-.51h-2v-2h2v2zm0-3h-2v-5h2v5z"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </span>
+      COMMON.FEATURE.UPGRADEREQUIRED.TITLE
+    </p>
+    <p
+      class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey800"
+    >
+      common.feature.upgradeRequired.description
+    </p>
+    <p
+      class="StyledProps--font StyledProps--main explorePlans StyledProps--color StyledProps--color-primary6"
+    >
+      common.explorePlans
+    </p>
+  </div>
+</div>
+`;
+
+exports[`FeatureWarning FeatureWarningWithTooltip 1`] = `
+<div>
+  <span
+    class="bp3-popover-wrapper"
+  >
+    <span
+      class="bp3-popover-target Text--targetClass"
+    >
+      <p
+        class="StyledProps--font StyledProps--main warning StyledProps--padding-top-small StyledProps--color StyledProps--color-orange800 StyledProps--font-weight-semi-bold"
+        style="display: flex; align-items: center;"
+        tabindex="0"
+      >
+        <span
+          class="bp3-icon bp3-icon-warning-sign StyledProps--main Text--icon StyledProps--padding-right-small StyledProps--color StyledProps--color-orange800"
+          icon="warning-sign"
+        >
+          <svg
+            data-icon="warning-sign"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <desc>
+              warning-sign
+            </desc>
+            <path
+              d="M15.84 13.5l.01-.01-7-12-.01.01c-.17-.3-.48-.5-.85-.5s-.67.2-.85.5l-.01-.01-7 12 .01.01c-.09.15-.15.31-.15.5 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-.19-.06-.35-.15-.5zm-6.85-.51h-2v-2h2v2zm0-3h-2v-5h2v5z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+        COMMON.FEATURE.UPGRADEREQUIRED.TITLE
+      </p>
+    </span>
+  </span>
+</div>
+`;

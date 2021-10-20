@@ -4,9 +4,9 @@
     "data": [
       {
         "allowed": true,
-        "decription": "TEST1",
+        "decription": "BUILDS",
         "moduleType": "CD",
-        "name": "TEST1",
+        "name": "BUILDS",
         "restriction": {
           "enabled": true,
           "restrictionType": "AVAILABILITY"
@@ -20,9 +20,9 @@
     "status": "SUCCESS",
     "data": {
       "allowed": true,
-      "decription": "TEST3",
+      "decription": "CUSTOM_ROLES",
       "moduleType": "CE",
-      "name": "TEST3",
+      "name": "CUSTOM_ROLES",
       "restriction": {
         "limit": 100,
         "count": 20,
@@ -37,9 +37,9 @@
     "status": "SUCCESS",
     "data": {
       "allowed": false,
-      "decription": "TEST3",
+      "decription": "CUSTOM_ROLES",
       "moduleType": "CF",
-      "name": "TEST3",
+      "name": "CUSTOM_ROLES",
       "restriction": {
         "limit": 100,
         "count": 100,

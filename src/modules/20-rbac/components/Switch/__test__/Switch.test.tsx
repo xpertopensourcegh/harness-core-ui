@@ -19,7 +19,7 @@ jest.mock('@common/hooks/useFeatures', () => {
 
 const featureProps = {
   featureRequest: {
-    featureName: FeatureIdentifier.TEST1
+    featureName: FeatureIdentifier.BUILDS
   }
 }
 

@@ -50,20 +50,20 @@ beforeEach(() => {
   defaultLicenseStoreValues = {
     licenseInformation: {
       CD: {
-        // TEST1, AVAILABILITY, Enabled
+        // BUILDS, AVAILABILITY, Enabled
         edition: Editions.ENTERPRISE
       },
       CI: {
         edition: Editions.TEAM
       },
       CF: {
-        // TEST3, RATE_LIMIT
+        // CUSTOM_ROLES, RATE_LIMIT
         edition: Editions.FREE
       },
       CCM: {
         edition: Editions.ENTERPRISE
       }
-      // TEST2, CORE, AVAILABILITY, disabled
+      // CUSTOM_RESOURCE_GROUPS, CORE, AVAILABILITY, disabled
     }
   }
 })
@@ -88,7 +88,7 @@ describe('useFeatures', () => {
       () =>
         useFeature({
           featureRequest: {
-            featureName: FeatureIdentifier.TEST1
+            featureName: FeatureIdentifier.BUILDS
           },
           options: {
             skipCondition: () => true
@@ -115,7 +115,7 @@ describe('useFeatures', () => {
       () =>
         useFeature({
           featureRequest: {
-            featureName: FeatureIdentifier.TEST2
+            featureName: FeatureIdentifier.CUSTOM_RESOURCE_GROUPS
           }
         }),
       { wrapper }
@@ -139,7 +139,7 @@ describe('useFeatures', () => {
       () =>
         useFeature({
           featureRequest: {
-            featureName: FeatureIdentifier.TEST1
+            featureName: FeatureIdentifier.BUILDS
           },
           options: {
             skipCache: true
@@ -166,7 +166,7 @@ describe('useFeatures', () => {
       () =>
         useFeature({
           featureRequest: {
-            featureName: FeatureIdentifier.TEST3
+            featureName: FeatureIdentifier.CUSTOM_ROLES
           }
         }),
       { wrapper }
@@ -197,7 +197,7 @@ describe('useFeatures', () => {
       () =>
         useFeature({
           featureRequest: {
-            featureName: FeatureIdentifier.TEST3
+            featureName: FeatureIdentifier.CUSTOM_ROLES
           }
         }),
       { wrapper }
@@ -231,7 +231,7 @@ describe('useFeatures', () => {
       () =>
         useFeature({
           featureRequest: {
-            featureName: FeatureIdentifier.TEST1
+            featureName: FeatureIdentifier.BUILDS
           }
         }),
       { wrapper }
@@ -258,7 +258,7 @@ describe('useFeatures', () => {
       () =>
         useFeature({
           featureRequest: {
-            featureName: FeatureIdentifier.TEST3
+            featureName: FeatureIdentifier.CUSTOM_ROLES
           }
         }),
       { wrapper }

@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 import { Color, Layout, Text } from '@wings-software/uicore'
 import type { PopoverPosition } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
+import { FeatureDescriptor } from 'framework/featureStore/FeatureDescriptor'
 import routes from '@common/RouteDefinitions'
 import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
 import css from './FeatureWarning.module.scss'
@@ -71,6 +72,7 @@ const WarningText = ({ tooltip, tooltipProps }: WarningTextProps): ReactElement 
 
 export const FeatureWarningTooltip = ({ featureName, module }: FeatureWarningTooltipProps): ReactElement => {
   const { getString } = useStrings()
+  const featureDescription = FeatureDescriptor[featureName] ? FeatureDescriptor[featureName] : featureName
   return (
     <Layout.Vertical padding="medium" className={css.tooltip}>
       <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.GREY_800} padding={{ bottom: 'small' }}>
@@ -78,7 +80,7 @@ export const FeatureWarningTooltip = ({ featureName, module }: FeatureWarningToo
       </Text>
       <Layout.Vertical spacing="small">
         <Text font={{ size: 'small' }} color={Color.GREY_700}>
-          {getString('common.feature.upgradeRequired.description', { featureName: featureName })}
+          {getString('common.feature.upgradeRequired.description', { featureName: featureDescription })}
         </Text>
         <ExplorePlansBtn module={module} />
       </Layout.Vertical>
@@ -93,6 +95,7 @@ export const FeatureWarningWithTooltip = ({ featureName, module, tooltipProps }:
 
 export const FeatureWarning = ({ module, featureName, className }: FeatureWarningProps): ReactElement => {
   const { getString } = useStrings()
+  const featureDescription = FeatureDescriptor[featureName] ? FeatureDescriptor[featureName] : featureName
 
   return (
     <Layout.Horizontal
@@ -103,7 +106,7 @@ export const FeatureWarning = ({ module, featureName, className }: FeatureWarnin
     >
       <WarningText />
       <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.GREY_800}>
-        {getString('common.feature.upgradeRequired.description', { featureName: featureName })}
+        {getString('common.feature.upgradeRequired.description', { featureName: featureDescription })}
       </Text>
       <ExplorePlansBtn module={module} />
     </Layout.Horizontal>

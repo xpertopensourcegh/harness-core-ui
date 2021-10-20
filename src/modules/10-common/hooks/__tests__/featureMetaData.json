@@ -3,7 +3,7 @@
     "status": "SUCCESS",
     "data": [
       {
-        "name": "TEST3",
+        "name": "CUSTOM_ROLES",
         "moduleType": "CF",
         "restrictionMetadata": {
           "TEAM": {
@@ -29,7 +29,7 @@
         }
       },
       {
-        "name": "TEST2",
+        "name": "CUSTOM_RESOURCE_GROUPS",
         "moduleType": "CORE",
         "restrictionMetadata": {
           "TEAM": {
@@ -47,7 +47,7 @@
         }
       },
       {
-        "name": "TEST1",
+        "name": "BUILDS",
         "moduleType": "CD",
         "restrictionMetadata": {
           "TEAM": {
