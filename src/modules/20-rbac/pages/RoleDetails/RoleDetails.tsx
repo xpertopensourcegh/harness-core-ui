@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Card, Color, Container, Icon, Layout, Text, ButtonVariation } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
-import produce from 'immer'
+import { defaultTo } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import { Page, useToaster } from '@common/exports'
 import { PageSpinner } from '@common/components'
@@ -19,7 +19,7 @@ import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import PermissionCard from '@rbac/components/PermissionCard/PermissionCard'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
-import { getPermissionMap } from '@rbac/pages/RoleDetails/utils'
+import { getPermissionMap, onPermissionChange } from '@rbac/pages/RoleDetails/utils'
 import routes from '@common/RouteDefinitions'
 import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
 import { getRoleIcon } from '@rbac/utils/utils'
@@ -61,7 +61,7 @@ const RoleDetails: React.FC = () => {
     [roleIdentifier]
   )
 
-  const { data: resourceGroups } = useGetPermissionResourceTypesList({
+  const { data: resourceGroups, loading: resourceTypeLoading } = useGetPermissionResourceTypesList({
     queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier }
   })
 
@@ -74,7 +74,7 @@ const RoleDetails: React.FC = () => {
     }
   })
 
-  const { data: permissionList } = useGetPermissionList({
+  const { data: permissionList, loading: permissionLoading } = useGetPermissionList({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier,
@@ -82,44 +82,22 @@ const RoleDetails: React.FC = () => {
     }
   })
   useEffect(() => {
-    setPermissions(data?.data?.role.permissions || /* istanbul ignore next */ [])
+    setPermissions(defaultTo(data?.data?.role.permissions, []))
     setIsUpdated(false)
   }, [data?.data])
 
   useEffect(() => {
-    setResourceCategoryMap(RbacFactory.getResourceCategoryList((resourceGroups?.data || []) as ResourceType[]))
+    setResourceCategoryMap(RbacFactory.getResourceCategoryList(defaultTo(resourceGroups?.data, []) as ResourceType[]))
   }, [resourceGroups?.data])
 
   const permissionsMap: Map<ResourceType, Permission[]> = getPermissionMap(permissionList?.data)
 
   const isPermissionEnabled = (_permission: string): boolean => {
-    if (data?.data?.role.permissions?.includes(_permission)) return true
-    return false
+    return permissions.includes(_permission)
   }
 
-  const onChangePermission = async (permission: string, isAdd: boolean): Promise<void> => {
-    if (isAdd) {
-      if (
-        permission === PermissionIdentifier.EDIT_DASHBOARD ||
-        permissions.indexOf(PermissionIdentifier.EDIT_DASHBOARD) !== -1
-      ) {
-        setPermissions(_permissions => [...permissions, permission, PermissionIdentifier.VIEW_DASHBOARD])
-      } else {
-        setPermissions(_permissions => [...permissions, permission])
-      }
-    } else if (
-      !(
-        permission === PermissionIdentifier.VIEW_DASHBOARD &&
-        permissions.indexOf(PermissionIdentifier.EDIT_DASHBOARD) !== -1
-      )
-    ) {
-      setPermissions(_permissions =>
-        produce(_permissions, draft => {
-          draft?.splice(permissions.indexOf(permission), 1)
-        })
-      )
-    }
-
+  const onChangePermission = (permission: string, isAdd: boolean): void => {
+    onPermissionChange(permission, isAdd, permissions, setPermissions)
     setIsUpdated(true)
   }
 
@@ -133,20 +111,24 @@ const RoleDetails: React.FC = () => {
       }
     } catch (e) {
       /* istanbul ignore next */
-      showError(e.data?.message || e.message)
+      showError(defaultTo(e.data?.message, e.message))
     }
   }
+
   const role = data?.data?.role
   const disableEdit = data?.data?.harnessManaged || !canEdit
 
-  useDocumentTitle([role?.name || '', getString('roles')])
+  useDocumentTitle([defaultTo(role?.name, ''), getString('roles')])
 
-  if (loading) return <PageSpinner />
-  if (error) return <PageError message={(error.data as Error)?.message || error.message} onClick={() => refetch()} />
-
-  if (!role) return <></>
+  if (error) {
+    return <PageError message={defaultTo((error.data as Error)?.message, error.message)} onClick={() => refetch()} />
+  }
+  if (!role) {
+    return <></>
+  }
   return (
     <>
+      {loading && <PageSpinner />}
       <Page.Header
         size="xlarge"
         breadcrumbs={
@@ -173,7 +155,7 @@ const RoleDetails: React.FC = () => {
               {role.description && <Text lineClamp={2}>{role.description}</Text>}
               {role.tags && (
                 <Layout.Horizontal padding={{ top: 'small' }}>
-                  <TagsRenderer tags={role.tags || /* istanbul ignore next */ {}} length={6} />
+                  <TagsRenderer tags={role.tags} length={6} />
                 </Layout.Horizontal>
               )}
             </Layout.Vertical>
@@ -200,7 +182,7 @@ const RoleDetails: React.FC = () => {
           </Layout.Horizontal>
         }
       />
-      <Page.Body>
+      <Page.Body loading={permissionLoading || resourceTypeLoading}>
         <Layout.Horizontal className={css.body}>
           <Container className={css.resourceList}>
             <Layout.Vertical flex spacing="small">
@@ -239,7 +221,12 @@ const RoleDetails: React.FC = () => {
                   {getString('rbac.roleDetails.updateRolePermissions')}
                 </Text>
                 <Layout.Horizontal flex={{ justifyContent: 'flex-end' }} spacing="small">
-                  {isUpdated && <Text color={Color.BLACK}>{getString('unsavedChanges')}</Text>}
+                  {isUpdated && (
+                    <Layout.Horizontal spacing="xsmall" flex>
+                      <Icon name="dot" color={Color.ORANGE_600} size={20} />
+                      <Text color={Color.ORANGE_600}>{getString('unsavedChanges')}</Text>
+                    </Layout.Horizontal>
+                  )}
                   <RbacButton
                     onClick={() => submitChanges(role)}
                     text={getString('applyChanges')}
