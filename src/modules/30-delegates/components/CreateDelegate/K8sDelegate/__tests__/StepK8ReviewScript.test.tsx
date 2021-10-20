@@ -14,12 +14,14 @@ jest.mock('services/portal', () => ({
     return {
       mutate: () => {
         return new Promise(resolve => {
-          resolve([])
+          resolve('')
         })
       }
     }
   })
 }))
+
+global.URL.createObjectURL = jest.fn()
 
 describe('Create Step Review Script Delegate', () => {
   test('render data', () => {
@@ -70,7 +72,7 @@ describe('Create Step Review Script Delegate', () => {
     })
 
     await waitFor(() => {
-      expect(generateYamlMock).toBeCalled()
+      expect(global.URL.createObjectURL).toBeCalled()
     })
   })
 })

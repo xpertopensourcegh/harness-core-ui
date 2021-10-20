@@ -24,7 +24,7 @@ const Stepk8ReviewScript: React.FC<StepProps<StepK8Data>> = props => {
     } as GenerateKubernetesYamlQueryParams
   })
   const linkRef = React.useRef<HTMLAnchorElement>(null)
-  const [generatedYaml, setGeneratedYaml] = React.useState({})
+  const [generatedYaml, setGeneratedYaml] = React.useState<Record<string, any>>()
 
   const onGenYaml = async (): Promise<void> => {
     const data = props?.prevStepData?.delegateYaml
@@ -36,22 +36,14 @@ const Stepk8ReviewScript: React.FC<StepProps<StepK8Data>> = props => {
     onGenYaml()
   }, [])
 
-  const onDownload = (data: DelegateSetupDetails | undefined): void => {
-    downloadYaml(data as DelegateSetupDetails)
-      .then(async (response: any) => {
-        setIsYAMLDownloaded(true)
-        const blobResponse = await new Response(response)
-        const blob = await blobResponse.blob()
-        if (linkRef?.current) {
-          const content = new Blob([blob], { type: 'data:text/plain;charset=utf-8' })
-          linkRef.current.href = window.URL.createObjectURL(content)
-          linkRef.current.download = `harness-delegate.yaml`
-          linkRef.current.click()
-        }
-      })
-      .catch(err => {
-        showError(err.message)
-      })
+  const onDownload = (): void => {
+    setIsYAMLDownloaded(true)
+    if (linkRef?.current) {
+      const content = new Blob([generatedYaml as BlobPart], { type: 'data:text/plain;charset=utf-8' })
+      linkRef.current.href = window.URL.createObjectURL(content)
+      linkRef.current.download = `harness-delegate.yaml`
+      linkRef.current.click()
+    }
   }
   return (
     <>
@@ -77,7 +69,7 @@ const Stepk8ReviewScript: React.FC<StepProps<StepK8Data>> = props => {
               text={getString('delegates.downloadYAMLFile')}
               className={css.downloadButton}
               onClick={() => {
-                onDownload(props?.prevStepData?.delegateYaml)
+                onDownload()
               }}
               outlined
             />
