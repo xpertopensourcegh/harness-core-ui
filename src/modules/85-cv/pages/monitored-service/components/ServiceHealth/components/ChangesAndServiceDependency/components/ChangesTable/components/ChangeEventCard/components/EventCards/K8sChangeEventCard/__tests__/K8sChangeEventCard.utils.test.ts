@@ -10,7 +10,7 @@ describe('Validate Utils', () => {
         reason: null,
         workload: 'ingress-controller-leader-nginx'
       },
-      triggerAt: '1st Jan 12:00 AM'
+      triggerAt: '14th Oct 09:52 PM'
     })
   })
 })

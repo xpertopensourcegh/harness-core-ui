@@ -2,7 +2,7 @@ import React from 'react'
 import { fireEvent, render, waitFor, act } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import * as cvService from 'services/cv'
-import { mockData } from './ChangeTable.mock'
+import { mockData, mockPaginatedData } from './ChangeTable.mock'
 import ChangesTable from '../ChangesTable'
 
 jest.mock('services/cv', () => ({
@@ -100,13 +100,14 @@ describe('Change table', () => {
 
     expect(container).toMatchSnapshot()
   })
-  test('should render with change events', () => {
+  test('should verify pagination', () => {
+    const refetchChangeList = jest.fn()
     jest.spyOn(cvService, 'useChangeEventList').mockImplementation(
       () =>
         ({
-          data: mockData,
-          refetch: jest.fn(),
-          error: { message: '' },
+          data: mockPaginatedData,
+          refetch: refetchChangeList,
+          error: null,
           loading: false
         } as any)
     )
@@ -114,13 +115,74 @@ describe('Change table', () => {
       <TestWrapper>
         <ChangesTable
           hasChangeSource
-          startTime={0}
-          endTime={1}
+          startTime={1}
+          endTime={2}
           serviceIdentifier={'srv'}
           environmentIdentifier={'env'}
         />
       </TestWrapper>
     )
+
+    // verify pagination
+    const pageButtons = container.querySelectorAll('[class*="Pagination--container"] .bp3-button-text')
+    fireEvent.click(pageButtons[1])
+    expect(refetchChangeList).toHaveBeenLastCalledWith({
+      queryParamStringifyOptions: {
+        arrayFormat: 'repeat'
+      },
+      queryParams: {
+        endTime: 2,
+        envIdentifiers: ['env'],
+        pageIndex: 1,
+        pageSize: 10,
+        serviceIdentifiers: ['srv'],
+        startTime: 1
+      }
+    })
+  })
+
+  test('should verify changetable rendering with data', async () => {
+    const refetchChangeList = jest.fn()
+    jest.spyOn(cvService, 'useChangeEventList').mockImplementation(
+      () =>
+        ({
+          data: mockData,
+          refetch: refetchChangeList,
+          error: null,
+          loading: false
+        } as any)
+    )
+    const { container, getByText } = render(
+      <TestWrapper>
+        <ChangesTable
+          hasChangeSource
+          startTime={1}
+          endTime={2}
+          serviceIdentifier={'srv'}
+          environmentIdentifier={'env'}
+        />
+      </TestWrapper>
+    )
+
+    // verify row renders
+    await waitFor(() =>
+      expect(container.querySelectorAll('.body [role="row"]').length).toEqual(mockData.resource.content.length)
+    )
+    // verify changesource name
+    await waitFor(() => expect(getByText('Demo Test PD')).toBeTruthy())
+    await waitFor(() => expect(getByText('Kubernetes Deployment event')).toBeTruthy())
+    await waitFor(() => expect(getByText('Deployment of manager in prod HarnessCD')).toBeTruthy())
+    await waitFor(() => expect(getByText('Deployment of manager in prod HarnessCDNextGen')).toBeTruthy())
+
+    // verify types column
+    await waitFor(() => expect(getByText('HarnessCD')).toBeTruthy())
+    await waitFor(() => expect(getByText('HarnessCDNextGen')).toBeTruthy())
+    await waitFor(() => expect(getByText('PagerDuty')).toBeTruthy())
+    await waitFor(() => expect(getByText('K8sCluster')).toBeTruthy())
+
+    // verify count on table title
+    await waitFor(() => expect(getByText('changes(4)')).toBeTruthy())
+
     expect(container).toMatchSnapshot()
   })
 })

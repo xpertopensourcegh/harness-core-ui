@@ -47,6 +47,7 @@ export default function ChangesTable({
     onClose: noop
   } as IDrawerProps
   const { showDrawer } = useDrawer({
+    // eslint-disable-next-line react/display-name
     createDrawerContent: props => (
       <ChangeEventCard
         activityId={props.id}
@@ -78,6 +79,7 @@ export default function ChangesTable({
       })
     }
   }, [startTime, endTime, serviceIdentifier, environmentIdentifier, page])
+
   const columns: Column<any>[] = useMemo(
     () => [
       {

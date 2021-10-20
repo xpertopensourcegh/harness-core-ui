@@ -14,6 +14,14 @@ export const changeSummaryWithPositiveChange = {
   }
 }
 
+export const changeSummaryWithAbove100PositiveChange = {
+  categoryCountMap: {
+    Deployment: { count: 15000, countInPrecedingWindow: 10 },
+    Infrastructure: { count: 15000, countInPrecedingWindow: 10 },
+    Alert: { count: 15000, countInPrecedingWindow: 10 }
+  }
+}
+
 export const changeSummaryWithNegativeChange = {
   categoryCountMap: {
     Deployment: { count: 10, countInPrecedingWindow: 15 },
@@ -88,4 +96,11 @@ export const expectedNegativeTextContent = [
   'deploymentText33.3%',
   'infrastructureText33.3%',
   'cv.changeSource.tooltip.incidents33.3%'
+]
+
+export const expectedAbove100PositiveTextContent = [
+  'changes100+ %',
+  'deploymentText100+ %',
+  'infrastructureText100+ %',
+  'cv.changeSource.tooltip.incidents100+ %'
 ]

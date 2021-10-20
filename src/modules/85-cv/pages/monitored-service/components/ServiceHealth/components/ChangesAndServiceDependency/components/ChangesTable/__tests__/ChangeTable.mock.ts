@@ -1,78 +1,91 @@
 export const mockData = {
   metadata: {},
   resource: {
-    totalPages: 2,
-    totalItems: 2,
-    pageItemCount: 1,
-    pageSize: 1,
+    totalPages: 1,
+    totalItems: 4,
+    pageItemCount: 4,
+    pageSize: 10,
     content: [
       {
+        id: 'b9PIVuCSQJGd2pA2fE5YVA',
         accountId: 'kmpySmUISimoRrJL6NL73w',
-        orgIdentifier: 'cvng_org_JPcAHCpfuY',
-        projectIdentifier: 'cvng_proj_qrEn08ynSn',
-        name: 'Harness CD - cvng_service_gu0Jc9ru8i - cvng_env_prod_NH7IuY9D9O',
-        serviceIdentifier: 'cvng_service_gu0Jc9ru8i',
-        envIdentifier: 'cvng_env_prod_NH7IuY9D9O',
-        changeSourceIdentifier: 'cdNg',
-        type: 'HarnessCD',
-        eventTime: 15000,
-        metadata: {
-          deploymentStartTime: 1630992973462,
-          deploymentEndTime: 1630992998599,
-          planExecutionId: 'nzFbG8z_TGawDE8plGGagA',
-          pipelineId: 'test',
-          stageStepId: 'EOFUmKvJR1CEKvRmVvpzkw',
-          stageId: 'test',
-          artifactType: 'DockerRegistry',
-          artifactTag: 'praveen-cv-test',
-          status: 'ABORTED'
-        }
+        orgIdentifier: 'CVNG',
+        projectIdentifier: 'DemoDataProject',
+        serviceIdentifier: 'k8smanager',
+        serviceName: 'k8s-manager',
+        envIdentifier: 'prod',
+        environmentName: 'prod',
+        name: 'Kubernetes Deployment event',
+        changeSourceIdentifier: 'k8s',
+        eventTime: 1634650547505,
+        category: 'Infrastructure',
+        type: 'K8sCluster'
       },
       {
+        id: '0bt8b4CBTcugX-rORQp9SA',
         accountId: 'kmpySmUISimoRrJL6NL73w',
-        orgIdentifier: 'cvng_org_JPcAHCpfuY',
-        projectIdentifier: 'cvng_proj_qrEn08ynSn',
-        name: 'Harness CD - cvng_service_gu0Jc9ru8i - cvng_env_prod_NH7IuY9D9O',
-        serviceIdentifier: 'cvng_service_gu0Jc9ru8i',
-        envIdentifier: 'cvng_env_prod_NH7IuY9D9O',
-        changeSourceIdentifier: 'cdNg',
-        type: 'HarnessCD1',
-        eventTime: 15000,
-        metadata: {
-          deploymentStartTime: 1630999973541,
-          deploymentEndTime: 1630992998599,
-          planExecutionId: 'nzFbG8z_TGawDE8plGGagA',
-          pipelineId: 'test',
-          stageStepId: 'EOFUmKvJR1CEKvRmVvpzkw',
-          stageId: 'test',
-          artifactType: 'DockerRegistry',
-          artifactTag: 'praveen-cv-test',
-          status: 'ABORTED'
-        }
+        orgIdentifier: 'CVNG',
+        projectIdentifier: 'DemoDataProject',
+        serviceIdentifier: 'manager',
+        serviceName: 'manager',
+        envIdentifier: 'prod',
+        environmentName: 'prod',
+        name: 'Deployment of manager in prod HarnessCD',
+        changeSourceIdentifier: 'CurGenCD',
+        eventTime: 1634649907184,
+        category: 'Deployment',
+        type: 'HarnessCD'
       },
       {
+        id: 'OYg1Rz6sQDigjpRUKaheqA',
         accountId: 'kmpySmUISimoRrJL6NL73w',
-        orgIdentifier: 'cvng_org_JPcAHCpfuY',
-        projectIdentifier: 'cvng_proj_qrEn08ynSn',
-        name: 'Harness CD - cvng_service_gu0Jc9ru8i - cvng_env_prod_NH7IuY9D9O',
-        serviceIdentifier: 'cvng_service_gu0Jc9ru8i',
-        envIdentifier: 'cvng_env_prod_NH7IuY9D9O',
-        changeSourceIdentifier: 'cdNg',
-        type: 'HarnessCD2',
-        eventTime: 15000,
-        metadata: {
-          deploymentStartTime: 1630999973541,
-          deploymentEndTime: 1630992998599,
-          planExecutionId: 'nzFbG8z_TGawDE8plGGagA',
-          pipelineId: 'test',
-          stageStepId: 'EOFUmKvJR1CEKvRmVvpzkw',
-          stageId: 'test',
-          artifactType: 'DockerRegistry',
-          artifactTag: 'praveen-cv-test',
-          status: 'ABORTED'
-        }
+        orgIdentifier: 'CVNG',
+        projectIdentifier: 'DemoDataProject',
+        serviceIdentifier: 'manager',
+        serviceName: 'manager',
+        envIdentifier: 'prod',
+        environmentName: 'prod',
+        name: 'Deployment of manager in prod HarnessCDNextGen',
+        changeSourceIdentifier: 'harness_cd_next_gen',
+        eventTime: 1634648718481,
+        category: 'Deployment',
+        type: 'HarnessCDNextGen'
+      },
+      {
+        id: 'Wz75tpRlTVeacqcEhTXqRA',
+        accountId: 'kmpySmUISimoRrJL6NL73w',
+        orgIdentifier: 'CVNG',
+        projectIdentifier: 'DemoDataProject',
+        serviceIdentifier: 'manager',
+        serviceName: 'manager',
+        envIdentifier: 'prod',
+        environmentName: 'prod',
+        name: 'Demo Test PD',
+        changeSourceIdentifier: 'pageduty',
+        eventTime: 1634648078986,
+        category: 'Alert',
+        type: 'PagerDuty'
       }
     ],
+    pageIndex: 0,
+    empty: false
+  },
+  responseMessages: []
+}
+
+const content = []
+for (let index = 0; index < 50; index++) {
+  content.push({})
+}
+
+export const mockPaginatedData = {
+  metadata: {},
+  resource: {
+    totalPages: 5,
+    totalItems: 50,
+    pageItemCount: 1,
+    pageSize: 10,
+    content,
     pageIndex: 0,
     empty: false
   },

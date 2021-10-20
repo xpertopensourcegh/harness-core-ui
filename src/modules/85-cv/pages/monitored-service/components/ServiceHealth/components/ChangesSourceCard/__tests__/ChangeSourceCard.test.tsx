@@ -10,7 +10,9 @@ import {
   changeSoureCardData,
   changeSoureCardDataWithPositiveGrowth,
   expectedPositiveTextContent,
-  expectedNegativeTextContent
+  expectedNegativeTextContent,
+  changeSummaryWithAbove100PositiveChange,
+  expectedAbove100PositiveTextContent
 } from './ChangeSourceCard.mock'
 import { calculateChangePercentage } from '../ChangesSourceCard.utils'
 
@@ -66,6 +68,33 @@ describe('Test ChangeSourcecard', () => {
     expect(container.querySelectorAll('.iconContainer span[data-icon="main-caret-down"]').length).toEqual(4)
     container.querySelectorAll('.tickerValue[data-test="tickerValue"]').forEach((item, index) => {
       expect(item.textContent).toEqual(expectedNegativeTextContent[index])
+    })
+    expect(container).toMatchSnapshot()
+  })
+
+  test('should render with above 100 positive change', async () => {
+    jest.spyOn(cvService, 'useChangeEventSummary').mockImplementation(
+      () =>
+        ({
+          data: { resource: { ...changeSummaryWithAbove100PositiveChange } },
+          refetch: jest.fn(),
+          error: null,
+          loading: false
+        } as any)
+    )
+    const { container } = render(
+      <TestWrapper>
+        <ChangesSourcecard
+          startTime={0}
+          endTime={0}
+          serviceIdentifier={serviceIdentifier}
+          environmentIdentifier={environmentIdentifier}
+        />
+      </TestWrapper>
+    )
+    expect(container.querySelectorAll('.iconContainer span[data-icon="main-caret-up"]').length).toEqual(4)
+    container.querySelectorAll('.tickerValue[data-test="tickerValue"]').forEach((item, index) => {
+      expect(item.textContent).toEqual(expectedAbove100PositiveTextContent[index])
     })
     expect(container).toMatchSnapshot()
   })
