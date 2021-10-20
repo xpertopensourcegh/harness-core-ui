@@ -163,11 +163,11 @@ exports[`Project Page List Create Project and Close 1`] = `
         <span
           class="bp3-button-text"
         >
-          projectLabel
+          projectsOrgs.newProject
         </span>
       </button>
       <div
-        class="bp3-popover-wrapper DropDown--main"
+        class="bp3-popover-wrapper DropDown--main orgDropdown"
       >
         <div
           class="bp3-popover-target"
@@ -3467,11 +3467,11 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
         <span
           class="bp3-button-text"
         >
-          projectLabel
+          projectsOrgs.newProject
         </span>
       </button>
       <div
-        class="bp3-popover-wrapper DropDown--main"
+        class="bp3-popover-wrapper DropDown--main orgDropdown"
       >
         <div
           class="bp3-popover-target"
@@ -6771,11 +6771,11 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
         <span
           class="bp3-button-text"
         >
-          projectLabel
+          projectsOrgs.newProject
         </span>
       </button>
       <div
-        class="bp3-popover-wrapper DropDown--main"
+        class="bp3-popover-wrapper DropDown--main orgDropdown"
       >
         <div
           class="bp3-popover-target"
@@ -10075,11 +10075,11 @@ exports[`Project Page List Whole Modal Test 1`] = `
         <span
           class="bp3-button-text"
         >
-          projectLabel
+          projectsOrgs.newProject
         </span>
       </button>
       <div
-        class="bp3-popover-wrapper DropDown--main"
+        class="bp3-popover-wrapper DropDown--main orgDropdown"
       >
         <div
           class="bp3-popover-target"

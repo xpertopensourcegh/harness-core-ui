@@ -36,7 +36,7 @@ const OrganizationsPage: React.FC = () => {
     <RbacButton
       variation={ButtonVariation.PRIMARY}
       icon="plus"
-      text={getString('orgLabel')}
+      text={getString('projectsOrgs.newOrganization')}
       onClick={() => openOrganizationModal()}
       permission={{
         permission: PermissionIdentifier.CREATE_ORG,

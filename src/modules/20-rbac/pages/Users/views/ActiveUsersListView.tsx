@@ -378,7 +378,7 @@ const ActiveUserListView: React.FC<ActiveUserListViewProps> = ({
               message: getString('rbac.usersPage.noDataDescription'),
               button: (
                 <RbacButton
-                  text={getString('rbac.user')}
+                  text={getString('newUser')}
                   variation={ButtonVariation.PRIMARY}
                   icon="plus"
                   onClick={() => openRoleAssignmentModal()}

@@ -7,6 +7,7 @@ declare const styles: {
   readonly orgSelect: string
   readonly header: string
   readonly expandSearch: string
+  readonly orgDropdown: string
   readonly headerLayout: string
   readonly imageClassName: string
   readonly customselect: string

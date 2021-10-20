@@ -108,7 +108,7 @@ exports[`Org Page List Create New Org 1`] = `
           <span
             class="bp3-button-text"
           >
-            orgLabel
+            projectsOrgs.newOrganization
           </span>
         </button>
       </div>

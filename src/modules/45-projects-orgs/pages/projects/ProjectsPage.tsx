@@ -133,13 +133,14 @@ const ProjectsListPage: React.FC = () => {
         <Layout.Horizontal spacing="large" className={css.header}>
           <Button
             variation={ButtonVariation.PRIMARY}
-            text={getString('projectLabel')}
+            text={getString('projectsOrgs.newProject')}
             icon="plus"
             onClick={() => openProjectModal()}
           />
           <DropDown
             disabled={loading}
             filterable={false}
+            className={css.orgDropdown}
             items={organizations}
             value={orgIdentifier || OrgFilter.ALL}
             onChange={item => {

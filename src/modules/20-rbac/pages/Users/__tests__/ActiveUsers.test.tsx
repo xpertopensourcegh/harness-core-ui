@@ -81,14 +81,14 @@ describe('UsersPage Test', () => {
     )
     container = renderObj.container
     getAllByText = renderObj.getAllByText
-    await waitFor(() => getAllByText('rbac.user'))
+    await waitFor(() => getAllByText('newUser'))
   })
   test('render data', () => {
     expect(container).toMatchSnapshot()
   })
   test('Invite a User', async () => {
     createUser.mockReset()
-    const addUser = getByText(container, 'rbac.user')
+    const addUser = getByText(container, 'newUser')
     expect(addUser).toBeTruthy()
     fireEvent.click(addUser!)
     const form = findDialogContainer()

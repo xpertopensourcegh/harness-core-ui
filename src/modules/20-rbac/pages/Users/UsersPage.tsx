@@ -49,7 +49,7 @@ const UsersPage: React.FC = () => {
         title={
           <Layout.Horizontal spacing="small" width={350}>
             <RbacButton
-              text={getString('rbac.user')}
+              text={getString('newUser')}
               variation={ButtonVariation.PRIMARY}
               icon="plus"
               onClick={() => openRoleAssignmentModal()}

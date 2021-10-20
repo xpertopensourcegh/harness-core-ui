@@ -1759,6 +1759,8 @@ export interface StringsMap {
   'projectsOrgs.manageProject': string
   'projectsOrgs.moduleSuccess': string
   'projectsOrgs.modulesEnabled': string
+  'projectsOrgs.newOrganization': string
+  'projectsOrgs.newProject': string
   'projectsOrgs.noCollaborators': string
   'projectsOrgs.noDataMessage': string
   'projectsOrgs.noModules': string

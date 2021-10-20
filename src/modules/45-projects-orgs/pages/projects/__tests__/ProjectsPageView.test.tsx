@@ -115,7 +115,7 @@ describe('Project Page List', () => {
   test('Create Project and Close', async () => {
     expect(container).toMatchSnapshot()
     await act(async () => {
-      const newProject = getAllByText?.('projectLabel')[0]
+      const newProject = getAllByText?.('projectsOrgs.newProject')[0]
       expect(newProject).toBeDefined()
       fireEvent.click(newProject!)
       await waitFor(() => queryAllByText(document.body, 'projectsOrgs.aboutProject')[0])
@@ -130,7 +130,7 @@ describe('Project Page List', () => {
   }),
     test('Whole Modal Test', async () => {
       expect(container).toMatchSnapshot()
-      const newProject = getAllByText?.('projectLabel')[0]
+      const newProject = getAllByText?.('projectsOrgs.newProject')[0]
       expect(newProject).toBeDefined()
       fireEvent.click(newProject!)
       await waitFor(() => queryAllByText(document.body, 'projectsOrgs.aboutProject')[0])

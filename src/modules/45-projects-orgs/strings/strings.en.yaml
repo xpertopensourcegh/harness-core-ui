@@ -82,6 +82,8 @@ createOrSelectAProject: Create or Select a Project
 getStarted: 'Let’s get you started by enabling {{moduleDescription}} to a project'
 selectAnExistingProject: Select an existing project
 createANewProject: Create A New Project
+newProject: New Project
+newOrganization: New Organization
 gotoDeployments: Go to Deployments
 gotoBuilds: Go to Builds
 gotoFeatureFlags: '{{ $.projectsOrgs.gotoCF }}'

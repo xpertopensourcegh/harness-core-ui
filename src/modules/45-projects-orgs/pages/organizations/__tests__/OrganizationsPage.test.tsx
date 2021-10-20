@@ -90,7 +90,7 @@ describe('Org Page List', () => {
 
   test('Create New Org', async () => {
     expect(container).toMatchSnapshot()
-    const newOrg = getAllByText?.('orgLabel')[0]
+    const newOrg = getAllByText?.('projectsOrgs.newOrganization')[0]
     await act(async () => {
       if (newOrg) fireEvent.click(newOrg)
       await waitFor(() => findAllByText(document.body, 'projectsOrgs.aboutTitle'))
