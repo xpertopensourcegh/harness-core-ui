@@ -4,6 +4,7 @@ import { HashRouter, Route, Switch } from 'react-router-dom'
 
 import languageLoader from 'strings/languageLoader'
 import type { LangLocale } from 'strings/languageLoader'
+import { injectWalkme } from '3rd-party/Walkme'
 
 import { AppWithAuthentication, AppWithoutAuthentication } from './App'
 
@@ -27,6 +28,9 @@ export default async function render(): Promise<void> {
       }
     })
   }
+
+  injectWalkme()
+
   ReactDOM.render(
     <HashRouter>
       <Switch>
