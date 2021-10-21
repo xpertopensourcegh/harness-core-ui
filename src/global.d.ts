@@ -51,6 +51,7 @@ declare interface Window {
   }
   getApiBaseUrl: (str: string) => string
   MktoForms2: any
+  TOUR_GUIDE_USER_ID: string
 }
 
 declare interface Document {

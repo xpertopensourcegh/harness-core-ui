@@ -43,6 +43,7 @@ const Harness = (window.Harness = window.Harness || {})
 
 export function AppWithAuthentication(props: AppProps): React.ReactElement {
   const token = SessionToken.getToken()
+  const username = SessionToken.username()
   // always use accountId from URL, and not from local storage
   // if user lands on /, they'll first get redirected to a path with accountId
   const { accountId } = useParams<AccountPathProps>()
@@ -88,6 +89,11 @@ export function AppWithAuthentication(props: AppProps): React.ReactElement {
       AppStorage.set('lastTokenSetTime', +new Date())
     }
   }, [refreshTokenResponse])
+
+  useEffect(() => {
+    // Assign TOUR_GUIDE_USER_ID to let Walkme recognize current user
+    window.TOUR_GUIDE_USER_ID = username
+  }, [username])
 
   const checkAndRefreshToken = (): void => {
     const currentTime = +new Date()
