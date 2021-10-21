@@ -2,7 +2,7 @@
   max-height: fit-content;
   min-height: 150px;
   padding: var(--spacing-medium);
-
+  background-color: var(--form-bg);
   .retryHeaderSection {
     border-bottom: 1px solid var(--grey-200);
     height: 44px;
@@ -62,4 +62,13 @@
 
 .retryPopover {
   width: 500px;
+}
+.viewLatest {
+  cursor: pointer !important;
+}
+.cardBtns {
+  padding: 0 10px 0 10px !important;
+  &.retryHistoryBtn {
+    flex-grow: 1;
+  }
 }

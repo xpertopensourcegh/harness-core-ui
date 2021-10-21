@@ -13,5 +13,8 @@ declare const styles: {
   readonly timeAgo: string
   readonly crossIcon: string
   readonly retryPopover: string
+  readonly viewLatest: string
+  readonly cardBtns: string
+  readonly retryHistoryBtn: string
 }
 export default styles

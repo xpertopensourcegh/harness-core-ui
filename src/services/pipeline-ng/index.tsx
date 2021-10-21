@@ -777,6 +777,8 @@ export interface Error {
     | 'USAGE_RESTRICTION_ERROR'
     | 'STATE_EXECUTION_INSTANCE_NOT_FOUND'
     | 'DELEGATE_TASK_RETRY'
+    | 'KUBERNETES_API_TASK_EXCEPTION'
+    | 'KUBERNETES_TASK_EXCEPTION'
     | 'KUBERNETES_YAML_ERROR'
     | 'SAVE_FILE_INTO_GCP_STORAGE_FAILED'
     | 'READ_FILE_FROM_GCP_STORAGE_FAILED'
@@ -1372,6 +1374,8 @@ export interface Failure {
     | 'USAGE_RESTRICTION_ERROR'
     | 'STATE_EXECUTION_INSTANCE_NOT_FOUND'
     | 'DELEGATE_TASK_RETRY'
+    | 'KUBERNETES_API_TASK_EXCEPTION'
+    | 'KUBERNETES_TASK_EXCEPTION'
     | 'KUBERNETES_YAML_ERROR'
     | 'SAVE_FILE_INTO_GCP_STORAGE_FAILED'
     | 'READ_FILE_FROM_GCP_STORAGE_FAILED'
@@ -3578,6 +3582,8 @@ export interface ResponseMessage {
     | 'USAGE_RESTRICTION_ERROR'
     | 'STATE_EXECUTION_INSTANCE_NOT_FOUND'
     | 'DELEGATE_TASK_RETRY'
+    | 'KUBERNETES_API_TASK_EXCEPTION'
+    | 'KUBERNETES_TASK_EXCEPTION'
     | 'KUBERNETES_YAML_ERROR'
     | 'SAVE_FILE_INTO_GCP_STORAGE_FAILED'
     | 'READ_FILE_FROM_GCP_STORAGE_FAILED'
@@ -3851,6 +3857,13 @@ export interface ResponseRetryInfo {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseRetryLatestExecutionResponseDto {
+  correlationId?: string
+  data?: RetryLatestExecutionResponseDto
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseStepCategory {
   correlationId?: string
   data?: StepCategory
@@ -3971,6 +3984,11 @@ export interface RetryInterruptConfigOrBuilder {
   retryId?: string
   retryIdBytes?: ByteString
   unknownFields?: UnknownFieldSet
+}
+
+export interface RetryLatestExecutionResponseDto {
+  errorMessage?: string
+  latestExecutionId?: string
 }
 
 export interface RetryStageInfo {
@@ -4146,6 +4164,7 @@ export interface StepData {
     | 'TEST3'
     | 'TEST4'
     | 'TEST5'
+    | 'PERSPECTIVES'
     | 'MULTIPLE_ORGANIZATIONS'
     | 'MULTIPLE_PROJECTS'
     | 'INTEGRATED_APPROVALS_WITH_HARNESS_UI'
@@ -4715,9 +4734,9 @@ export type MergeInputSetRequestRequestBody = MergeInputSetRequest
 
 export type NGTriggerConfigV2RequestBody = NGTriggerConfigV2
 
-export type CustomWebhookEndpointBodyRequestBody = string
-
 export type UpdateInputSetForPipelineBodyRequestBody = string
+
+export type WebhookEndpointBodyRequestBody = string
 
 export interface GetInitialStageYamlSnippetQueryParams {
   approvalType: 'HarnessApproval' | 'JiraApproval'
@@ -6891,6 +6910,77 @@ export const handleStageInterruptPromise = (
     props,
     signal
   )
+
+export interface LatestExecutionIdQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  pipelineIdentifier: string
+}
+
+export interface LatestExecutionIdPathParams {
+  planExecutionId: string
+}
+
+export type LatestExecutionIdProps = Omit<
+  GetProps<ResponseRetryLatestExecutionResponseDto, unknown, LatestExecutionIdQueryParams, LatestExecutionIdPathParams>,
+  'path'
+> &
+  LatestExecutionIdPathParams
+
+/**
+ * Latest ExecutionId from Retry Executions
+ */
+export const LatestExecutionId = ({ planExecutionId, ...props }: LatestExecutionIdProps) => (
+  <Get<ResponseRetryLatestExecutionResponseDto, unknown, LatestExecutionIdQueryParams, LatestExecutionIdPathParams>
+    path={`/pipeline/execute/latestExecutionId/${planExecutionId}`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseLatestExecutionIdProps = Omit<
+  UseGetProps<
+    ResponseRetryLatestExecutionResponseDto,
+    unknown,
+    LatestExecutionIdQueryParams,
+    LatestExecutionIdPathParams
+  >,
+  'path'
+> &
+  LatestExecutionIdPathParams
+
+/**
+ * Latest ExecutionId from Retry Executions
+ */
+export const useLatestExecutionId = ({ planExecutionId, ...props }: UseLatestExecutionIdProps) =>
+  useGet<ResponseRetryLatestExecutionResponseDto, unknown, LatestExecutionIdQueryParams, LatestExecutionIdPathParams>(
+    (paramsInPath: LatestExecutionIdPathParams) =>
+      `/pipeline/execute/latestExecutionId/${paramsInPath.planExecutionId}`,
+    { base: getConfig('pipeline/api'), pathParams: { planExecutionId }, ...props }
+  )
+
+/**
+ * Latest ExecutionId from Retry Executions
+ */
+export const latestExecutionIdPromise = (
+  {
+    planExecutionId,
+    ...props
+  }: GetUsingFetchProps<
+    ResponseRetryLatestExecutionResponseDto,
+    unknown,
+    LatestExecutionIdQueryParams,
+    LatestExecutionIdPathParams
+  > & { planExecutionId: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    ResponseRetryLatestExecutionResponseDto,
+    unknown,
+    LatestExecutionIdQueryParams,
+    LatestExecutionIdPathParams
+  >(getConfig('pipeline/api'), `/pipeline/execute/latestExecutionId/${planExecutionId}`, props, signal)
 
 export interface HandleManualInterventionInterruptQueryParams {
   accountIdentifier: string
@@ -10146,13 +10236,7 @@ export interface CustomWebhookEndpointQueryParams {
 }
 
 export type CustomWebhookEndpointProps = Omit<
-  MutateProps<
-    ResponseString,
-    Failure | Error,
-    CustomWebhookEndpointQueryParams,
-    CustomWebhookEndpointBodyRequestBody,
-    void
-  >,
+  MutateProps<ResponseString, Failure | Error, CustomWebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>,
   'path' | 'verb'
 >
 
@@ -10160,7 +10244,7 @@ export type CustomWebhookEndpointProps = Omit<
  * accept custom webhook event
  */
 export const CustomWebhookEndpoint = (props: CustomWebhookEndpointProps) => (
-  <Mutate<ResponseString, Failure | Error, CustomWebhookEndpointQueryParams, CustomWebhookEndpointBodyRequestBody, void>
+  <Mutate<ResponseString, Failure | Error, CustomWebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>
     verb="POST"
     path={`/webhook/custom`}
     base={getConfig('pipeline/api')}
@@ -10173,7 +10257,7 @@ export type UseCustomWebhookEndpointProps = Omit<
     ResponseString,
     Failure | Error,
     CustomWebhookEndpointQueryParams,
-    CustomWebhookEndpointBodyRequestBody,
+    WebhookEndpointBodyRequestBody,
     void
   >,
   'path' | 'verb'
@@ -10183,13 +10267,11 @@ export type UseCustomWebhookEndpointProps = Omit<
  * accept custom webhook event
  */
 export const useCustomWebhookEndpoint = (props: UseCustomWebhookEndpointProps) =>
-  useMutate<
-    ResponseString,
-    Failure | Error,
-    CustomWebhookEndpointQueryParams,
-    CustomWebhookEndpointBodyRequestBody,
-    void
-  >('POST', `/webhook/custom`, { base: getConfig('pipeline/api'), ...props })
+  useMutate<ResponseString, Failure | Error, CustomWebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>(
+    'POST',
+    `/webhook/custom`,
+    { base: getConfig('pipeline/api'), ...props }
+  )
 
 /**
  * accept custom webhook event
@@ -10199,7 +10281,7 @@ export const customWebhookEndpointPromise = (
     ResponseString,
     Failure | Error,
     CustomWebhookEndpointQueryParams,
-    CustomWebhookEndpointBodyRequestBody,
+    WebhookEndpointBodyRequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -10208,7 +10290,7 @@ export const customWebhookEndpointPromise = (
     ResponseString,
     Failure | Error,
     CustomWebhookEndpointQueryParams,
-    CustomWebhookEndpointBodyRequestBody,
+    WebhookEndpointBodyRequestBody,
     void
   >('POST', getConfig('pipeline/api'), `/webhook/custom`, props, signal)
 
@@ -10521,7 +10603,7 @@ export interface WebhookEndpointQueryParams {
 }
 
 export type WebhookEndpointProps = Omit<
-  MutateProps<ResponseString, Failure | Error, WebhookEndpointQueryParams, CustomWebhookEndpointBodyRequestBody, void>,
+  MutateProps<ResponseString, Failure | Error, WebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>,
   'path' | 'verb'
 >
 
@@ -10529,7 +10611,7 @@ export type WebhookEndpointProps = Omit<
  * accept webhook event
  */
 export const WebhookEndpoint = (props: WebhookEndpointProps) => (
-  <Mutate<ResponseString, Failure | Error, WebhookEndpointQueryParams, CustomWebhookEndpointBodyRequestBody, void>
+  <Mutate<ResponseString, Failure | Error, WebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>
     verb="POST"
     path={`/webhook/trigger`}
     base={getConfig('pipeline/api')}
@@ -10538,13 +10620,7 @@ export const WebhookEndpoint = (props: WebhookEndpointProps) => (
 )
 
 export type UseWebhookEndpointProps = Omit<
-  UseMutateProps<
-    ResponseString,
-    Failure | Error,
-    WebhookEndpointQueryParams,
-    CustomWebhookEndpointBodyRequestBody,
-    void
-  >,
+  UseMutateProps<ResponseString, Failure | Error, WebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>,
   'path' | 'verb'
 >
 
@@ -10552,7 +10628,7 @@ export type UseWebhookEndpointProps = Omit<
  * accept webhook event
  */
 export const useWebhookEndpoint = (props: UseWebhookEndpointProps) =>
-  useMutate<ResponseString, Failure | Error, WebhookEndpointQueryParams, CustomWebhookEndpointBodyRequestBody, void>(
+  useMutate<ResponseString, Failure | Error, WebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>(
     'POST',
     `/webhook/trigger`,
     { base: getConfig('pipeline/api'), ...props }
@@ -10566,18 +10642,18 @@ export const webhookEndpointPromise = (
     ResponseString,
     Failure | Error,
     WebhookEndpointQueryParams,
-    CustomWebhookEndpointBodyRequestBody,
+    WebhookEndpointBodyRequestBody,
     void
   >,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<
-    ResponseString,
-    Failure | Error,
-    WebhookEndpointQueryParams,
-    CustomWebhookEndpointBodyRequestBody,
-    void
-  >('POST', getConfig('pipeline/api'), `/webhook/trigger`, props, signal)
+  mutateUsingFetch<ResponseString, Failure | Error, WebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>(
+    'POST',
+    getConfig('pipeline/api'),
+    `/webhook/trigger`,
+    props,
+    signal
+  )
 
 export interface TriggerProcessingDetailsQueryParams {
   accountIdentifier: string

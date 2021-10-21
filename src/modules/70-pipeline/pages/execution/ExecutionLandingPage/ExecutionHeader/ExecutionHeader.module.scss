@@ -7,7 +7,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: var(--spacing-5);
+    height: var(--spacing-7);
     margin-bottom: var(--spacing-4);
   }
 
@@ -66,4 +66,7 @@
       }
     }
   }
+}
+.viewLatest {
+  cursor: pointer !important;
 }

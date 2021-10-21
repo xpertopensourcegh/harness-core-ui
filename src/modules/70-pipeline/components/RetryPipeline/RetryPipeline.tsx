@@ -28,6 +28,7 @@ import VisualYamlToggle, { SelectedView } from '@common/components/VisualYamlTog
 import {
   getInputSetForPipelinePromise,
   InputSetSummaryResponse,
+  RetryGroup,
   useCreateInputSetForPipeline,
   useGetInputSetsListForPipeline,
   useGetInputsetYamlV2,
@@ -74,7 +75,7 @@ import type { Values } from '../PipelineStudio/StepCommands/StepCommandTypes'
 import css from './RetryPipeline.module.scss'
 
 export interface ParallelStageOption extends SelectOption {
-  isLastIndex: boolean
+  isLastIndex: number
 }
 interface RetryPipelineProps {
   executionIdentifier: string
@@ -131,7 +132,7 @@ const RetryPipeline = ({
   const [existingProvide, setExistingProvide] = useState('existing')
   const [formErrors, setFormErrors] = useState<FormikErrors<InputSetDTO>>({})
   const [retryClicked, setRetryClicked] = useState(false)
-  const [selectedStage, setSelectedStage] = useState<SelectOption | null>(null)
+  const [selectedStage, setSelectedStage] = useState<ParallelStageOption | null>(null)
   const [selectedInputSets, setSelectedInputSets] = useState<InputSetSelectorProps['value']>(getInputSetSelected())
   const [isParallelStage, setIsParallelStage] = useState(false)
   const [isLastIndex, setIsLastIndex] = useState(false)
@@ -140,6 +141,7 @@ const RetryPipeline = ({
   const [skipPreFlightCheck, setSkipPreFlightCheck] = useState(false)
   const [notifyOnlyMe, setNotifyOnlyMe] = useState(false)
   const [triggerValidation, setTriggerValidation] = useState(false)
+  const [listOfSelectedStages, setListOfSelectedStages] = useState<Array<string>>([])
 
   const yamlTemplate = React.useMemo(() => {
     return parse(inputSetTemplateYaml || '')?.pipeline
@@ -162,7 +164,7 @@ const RetryPipeline = ({
     planExecutionId: planExecutionIdentifier,
     queryParams: {
       orgIdentifier,
-      resolveExpressions: false,
+      resolveExpressions: true,
       projectIdentifier,
       accountIdentifier: accountId
     },
@@ -471,15 +473,27 @@ const RetryPipeline = ({
     [yamlHandler?.getLatestYaml]
   )
 
-  const handleStageChange = (value: SelectOption): void => {
+  const handleStageChange = (value: ParallelStageOption): void => {
+    const stagesList = stageResponse?.data?.groups?.filter((_, stageIdx) => stageIdx < value.isLastIndex)
+    const listOfIds: string[] = []
+
+    stagesList?.forEach(stageData => {
+      stageData?.info?.forEach(stageInfo => {
+        listOfIds.push(stageInfo.identifier as string)
+      })
+    })
+
     if (value.label.includes('|')) {
-      if ((value as ParallelStageOption).isLastIndex) {
+      if ((value as ParallelStageOption).isLastIndex === (stageResponse?.data?.groups as RetryGroup[])?.length - 1) {
         setIsLastIndex(true)
+      } else {
+        setIsLastIndex(false)
       }
       setIsParallelStage(true)
     } else {
       setIsParallelStage(false)
     }
+    setListOfSelectedStages(listOfIds)
     setSelectedStage(value)
   }
   const handleStageType = (e: FormEvent<HTMLInputElement>): void => {
@@ -545,6 +559,7 @@ const RetryPipeline = ({
             viewType={StepViewType.DeploymentForm}
             isRunPipelineForm
             maybeContainerClass={existingProvide === 'provide' ? css.inputSetFormRunPipeline : ''}
+            listOfSelectedStages={listOfSelectedStages}
           />
         </>
       )

@@ -36,6 +36,7 @@ export interface PipelineInputSetFormProps {
   maybeContainerClass?: string
   viewType: StepViewType
   isRunPipelineForm?: boolean
+  listOfSelectedStages?: string[]
 }
 
 const stageTypeToIconMap: Record<string, IconName> = {
@@ -120,6 +121,10 @@ const PipelineInputSetFormInternal: React.FC<PipelineInputSetFormProps> = props 
   )
   const { expressions } = useVariablesExpression()
 
+  const isInputStageDisabled = (stageId: string): boolean => {
+    return readonly || !!props.listOfSelectedStages?.includes(stageId)
+  }
+
   return (
     <PipelineVariablesContextProvider pipeline={originalPipeline}>
       <Layout.Vertical spacing="medium" className={cx(css.container, maybeContainerClass)}>
@@ -183,13 +188,14 @@ const PipelineInputSetFormInternal: React.FC<PipelineInputSetFormProps> = props 
             const pathPrefix = !isEmpty(path) ? `${path}.` : ''
             if (stageObj.stage) {
               const allValues = getStageFromPipeline(stageObj?.stage?.identifier || '', originalPipeline)
+
               return (
                 <Layout.Vertical key={stageObj?.stage?.identifier || index}>
                   <StageForm
                     template={stageObj}
                     allValues={allValues}
                     path={`${pathPrefix}stages[${index}].stage`}
-                    readonly={readonly}
+                    readonly={isInputStageDisabled(stageObj?.stage?.identifier)}
                     viewType={viewType}
                   />
                 </Layout.Vertical>
@@ -203,7 +209,7 @@ const PipelineInputSetFormInternal: React.FC<PipelineInputSetFormProps> = props 
                       template={stageP}
                       allValues={allValues}
                       path={`${pathPrefix}stages[${index}].parallel[${indexp}].stage`}
-                      readonly={readonly}
+                      readonly={isInputStageDisabled(stageP?.stage?.identifier as string)}
                       viewType={viewType}
                     />
                   </Layout.Vertical>

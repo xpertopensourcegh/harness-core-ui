@@ -1,36 +1,89 @@
-import React from 'react'
-import { Text, Button, ButtonProps, Card, Color, Layout, PageSpinner } from '@wings-software/uicore'
+import React, { useEffect } from 'react'
+import {
+  Text,
+  Button,
+  Card,
+  Color,
+  Layout,
+  PageSpinner,
+  ButtonVariation,
+  useToaster,
+  ButtonSize
+} from '@wings-software/uicore'
 import { Classes, Popover, PopoverInteractionKind, Position } from '@blueprintjs/core'
 import cx from 'classnames'
 import { useHistory, useParams } from 'react-router-dom'
 import { defaultTo } from 'lodash-es'
 import { useStrings } from 'framework/strings'
-import { ExecutionInfo, useRetryHistory } from 'services/pipeline-ng'
+import { ExecutionInfo, useLatestExecutionId, useRetryHistory } from 'services/pipeline-ng'
 import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { formatDatetoLocale } from '@common/utils/dateUtils'
 import { TimeAgoPopover } from '@common/components'
 import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
 import routes from '@common/RouteDefinitions'
+import RbacButton from '@rbac/components/Button/Button'
 import css from './RetryHistory.module.scss'
 
 interface RetryHistoryProps {
   canExecute: boolean
-}
-const commonButtonProps: ButtonProps = {
-  minimal: true,
-  small: true,
-  tooltipProps: {
-    isDark: true
-  },
-  withoutBoxShadow: true
+  showRetryHistory: boolean
+  canRetry: boolean
 }
 
-const RetryHistory = ({ canExecute }: RetryHistoryProps): React.ReactElement => {
+const RetryHistory = ({ canExecute, showRetryHistory, canRetry }: RetryHistoryProps): React.ReactElement => {
   const { getString } = useStrings()
   const { projectIdentifier, orgIdentifier, pipelineIdentifier, accountId, executionIdentifier, module } =
     useParams<PipelineType<ExecutionPathProps>>()
   const history = useHistory()
+  const { clear, showPrimary } = useToaster()
+
+  const { data: latestExecutionId, refetch: refetchLatestExecutionId } = useLatestExecutionId({
+    planExecutionId: executionIdentifier,
+    queryParams: {
+      orgIdentifier,
+      pipelineIdentifier: pipelineIdentifier,
+      projectIdentifier,
+      accountIdentifier: accountId
+    },
+    lazy: true
+  })
+  useEffect(() => {
+    if (latestExecutionId?.data?.latestExecutionId) {
+      clear()
+      history.push(
+        routes.toExecutionPipelineView({
+          orgIdentifier,
+          pipelineIdentifier: pipelineIdentifier,
+          projectIdentifier,
+          executionIdentifier: latestExecutionId.data.latestExecutionId || '',
+          accountId,
+          module
+        })
+      )
+    }
+  }, [latestExecutionId])
+
+  useEffect(() => {
+    if (showRetryHistory && !canRetry) {
+      showPrimary(
+        <Layout.Horizontal spacing="medium">
+          <Text color={Color.WHITE} margin={{ left: 'small' }}>
+            {getString('pipeline.viewLatestExecution')}
+          </Text>
+          <Text
+            color={Color.WHITE}
+            font={{ weight: 'bold' }}
+            className={css.viewLatest}
+            onClick={() => refetchLatestExecutionId()}
+          >
+            {getString('common.viewLatest')}
+          </Text>
+        </Layout.Horizontal>,
+        0
+      )
+    }
+  }, [showRetryHistory, canRetry])
 
   const {
     data: retryHistoryResponse,
@@ -158,13 +211,16 @@ const RetryHistory = ({ canExecute }: RetryHistoryProps): React.ReactElement => 
       content={<RetryExecutionList />}
       popoverClassName={css.retryPopover}
     >
-      <Button
+      <RbacButton
         icon="execution-history"
-        iconProps={{ size: 24 }}
+        text={getString('pipeline.retryHistory')}
+        variation={ButtonVariation.SECONDARY}
+        size={ButtonSize.SMALL}
+        iconProps={{ size: 24, color: Color.PRIMARY_7 }}
         tooltip={getString('pipeline.retryHistory')}
         onClick={showAllRetryHistory}
-        {...commonButtonProps}
         disabled={!canExecute}
+        className={cx(css.cardBtns, css.retryHistoryBtn)}
       />
     </Popover>
   )

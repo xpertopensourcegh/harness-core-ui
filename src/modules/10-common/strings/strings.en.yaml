@@ -576,3 +576,4 @@ saveAsNewTemplateHeading: Save as New Template
 saveTemplate:
   publishTemplate: Template published successfully
   errorWhileSaving: Error occurred saving Template
+viewLatest: View latest

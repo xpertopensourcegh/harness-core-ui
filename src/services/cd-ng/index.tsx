@@ -505,7 +505,7 @@ export type AddRuleYaml = PatchInstruction & {
 export interface AddRuleYamlSpec {
   clauses?: Clause[]
   distribution?: DistributionYamlSpec
-  priority: number
+  priority?: number
   serve?: Serve
 }
 
@@ -1126,7 +1126,7 @@ export interface Clause {
 }
 
 export interface ClauseYamlSpec {
-  attribute: string
+  attribute?: string
   op: string
   values: string[]
 }
@@ -1796,6 +1796,21 @@ export interface EcrRequestDTO {
 
 export interface EcrResponseDTO {
   buildDetailsList?: EcrBuildDetailsDTO[]
+}
+
+export interface EditionActionDTO {
+  action?:
+    | 'START_FREE'
+    | 'START_TRIAL'
+    | 'EXTEND_TRIAL'
+    | 'SUBSCRIBE'
+    | 'UPGRADE'
+    | 'CONTACT_SALES'
+    | 'CONTACT_SUPPORT'
+    | 'MANAGE'
+    | 'DISABLED_BY_TEAM'
+    | 'DISABLED_BY_ENTERPRISE'
+  reason?: string
 }
 
 export interface Element {
@@ -2640,6 +2655,7 @@ export interface FeatureRestrictionDetailRequestDTO {
     | 'TEST3'
     | 'TEST4'
     | 'TEST5'
+    | 'PERSPECTIVES'
     | 'MULTIPLE_ORGANIZATIONS'
     | 'MULTIPLE_PROJECTS'
     | 'INTEGRATED_APPROVALS_WITH_HARNESS_UI'
@@ -2679,6 +2695,7 @@ export interface FeatureRestrictionDetailsDTO {
     | 'TEST3'
     | 'TEST4'
     | 'TEST5'
+    | 'PERSPECTIVES'
     | 'MULTIPLE_ORGANIZATIONS'
     | 'MULTIPLE_PROJECTS'
     | 'INTEGRATED_APPROVALS_WITH_HARNESS_UI'
@@ -2719,6 +2736,7 @@ export interface FeatureRestrictionMetadataDTO {
     | 'TEST3'
     | 'TEST4'
     | 'TEST5'
+    | 'PERSPECTIVES'
     | 'MULTIPLE_ORGANIZATIONS'
     | 'MULTIPLE_PROJECTS'
     | 'INTEGRATED_APPROVALS_WITH_HARNESS_UI'
@@ -5473,6 +5491,15 @@ export interface ResponseListUserGroupAggregateDTO {
 export interface ResponseListUserGroupDTO {
   correlationId?: string
   data?: UserGroupDTO[]
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseMapEditionSetEditionActionDTO {
+  correlationId?: string
+  data?: {
+    [key: string]: EditionActionDTO[]
+  }
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -18099,6 +18126,55 @@ export const getAccountLicensesPromise = (
   getUsingFetch<ResponseAccountLicenseDTO, Failure | Error, GetAccountLicensesQueryParams, void>(
     getConfig('ng/api'),
     `/licenses/account`,
+    props,
+    signal
+  )
+
+export interface GetEditionActionsQueryParams {
+  accountIdentifier: string
+  moduleType: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
+}
+
+export type GetEditionActionsProps = Omit<
+  GetProps<ResponseMapEditionSetEditionActionDTO, Failure | Error, GetEditionActionsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Allowed Actions Under Each Edition
+ */
+export const GetEditionActions = (props: GetEditionActionsProps) => (
+  <Get<ResponseMapEditionSetEditionActionDTO, Failure | Error, GetEditionActionsQueryParams, void>
+    path={`/licenses/actions`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetEditionActionsProps = Omit<
+  UseGetProps<ResponseMapEditionSetEditionActionDTO, Failure | Error, GetEditionActionsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Allowed Actions Under Each Edition
+ */
+export const useGetEditionActions = (props: UseGetEditionActionsProps) =>
+  useGet<ResponseMapEditionSetEditionActionDTO, Failure | Error, GetEditionActionsQueryParams, void>(
+    `/licenses/actions`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Get Allowed Actions Under Each Edition
+ */
+export const getEditionActionsPromise = (
+  props: GetUsingFetchProps<ResponseMapEditionSetEditionActionDTO, Failure | Error, GetEditionActionsQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseMapEditionSetEditionActionDTO, Failure | Error, GetEditionActionsQueryParams, void>(
+    getConfig('ng/api'),
+    `/licenses/actions`,
     props,
     signal
   )

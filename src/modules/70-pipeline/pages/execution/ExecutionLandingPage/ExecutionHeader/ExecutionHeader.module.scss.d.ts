@@ -12,5 +12,6 @@ declare const styles: {
   readonly startTime: string
   readonly startTimeText: string
   readonly duration: string
+  readonly viewLatest: string
 }
 export default styles

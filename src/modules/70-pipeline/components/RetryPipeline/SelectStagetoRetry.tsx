@@ -2,17 +2,17 @@ import React, { useState, useEffect, FormEvent } from 'react'
 import { Color, Layout, Select, SelectOption, Text } from '@wings-software/uicore'
 import { Radio, RadioGroup } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
-import type { RetryGroup, RetryInfo } from 'services/pipeline-ng'
+import type { RetryInfo } from 'services/pipeline-ng'
 import type { ParallelStageOption } from './RetryPipeline'
 import css from './RetryPipeline.module.scss'
 
 interface SelectStagetoRetryProps {
   stageResponse?: RetryInfo
-  selectedStage: SelectOption | ParallelStageOption | null
+  selectedStage: ParallelStageOption | null
   isParallelStage: boolean
   isAllStage: boolean
   isLastIndex: boolean
-  handleStageChange: (value: SelectOption | ParallelStageOption) => void
+  handleStageChange: (value: ParallelStageOption) => void
   handleStageType: (e: FormEvent<HTMLInputElement>) => void
 }
 
@@ -32,13 +32,13 @@ const SelectStagetoRetry = ({
     if (stageResponse?.groups?.length) {
       const stageListValues = stageResponse.groups.map((stageGroup, idx) => {
         if (stageGroup.info?.length === 1) {
-          return { label: stageGroup.info[0].name, value: stageGroup.info[0].identifier }
+          return { label: stageGroup.info[0].name, value: stageGroup.info[0].identifier, isLastIndex: idx }
         } else {
           const parallelStagesLabel = stageGroup.info?.map(stageName => stageName.name).join(' | ')
           return {
             label: parallelStagesLabel,
             value: parallelStagesLabel,
-            isLastIndex: idx === (stageResponse.groups as RetryGroup[])?.length - 1
+            isLastIndex: idx
           }
         }
       })
@@ -61,7 +61,12 @@ const SelectStagetoRetry = ({
           spacing="medium"
           flex={{ justifyContent: 'flex-start', alignItems: 'flex-end' }}
         >
-          <Select value={selectedStage} items={stageList} onChange={handleStageChange} className={css.selectStage} />
+          <Select
+            value={selectedStage}
+            items={stageList}
+            onChange={handleStageChange as any}
+            className={css.selectStage}
+          />
           {isParallelStage && isLastIndex && (
             <RadioGroup inline selectedValue={isAllStage ? 'allparallel' : 'failedStages'} onChange={handleStageType}>
               <Radio label={getString('pipeline.runAllParallelstages')} value="allparallel" />

@@ -835,3 +835,4 @@ allStages: All Stages
 retryHistory: Retry History
 retryHistoryDescription: List of retries for my Pipeline
 recentExecutionText: Most Recent Execution
+viewLatestExecution: You are viewing an older execution of this pipeline.

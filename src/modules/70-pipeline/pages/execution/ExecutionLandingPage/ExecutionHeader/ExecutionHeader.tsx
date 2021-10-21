@@ -21,6 +21,7 @@ import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import { TagsPopover } from '@common/components'
 
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
+import RetryHistory from '@pipeline/components/RetryPipeline/RetryHistory/RetryHistory'
 import css from './ExecutionHeader.module.scss'
 
 export function ExecutionHeader(): React.ReactElement {
@@ -94,6 +95,13 @@ export function ExecutionHeader(): React.ReactElement {
             iconProps={{ size: 12 }}
             durationText={' '}
           />
+          {pipelineExecutionSummary.showRetryHistory && (
+            <RetryHistory
+              canExecute={canExecute}
+              showRetryHistory={pipelineExecutionSummary.showRetryHistory}
+              canRetry={pipelineExecutionSummary.canRetry || false}
+            />
+          )}
           <ExecutionActions
             executionStatus={pipelineExecutionSummary.status as ExecutionStatus}
             refetch={refetch}
@@ -111,7 +119,6 @@ export function ExecutionHeader(): React.ReactElement {
             canEdit={canEdit}
             canExecute={canExecute}
             canRetry={pipelineExecutionSummary.canRetry}
-            showRetryHistory={pipelineExecutionSummary.showRetryHistory}
           />
         </div>
       </div>

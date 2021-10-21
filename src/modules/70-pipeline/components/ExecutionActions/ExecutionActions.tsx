@@ -22,7 +22,6 @@ import type { StringKeys } from 'framework/strings'
 import type { GitQueryParams, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import RetryPipeline from '../RetryPipeline/RetryPipeline'
-import RetryHistory from '../RetryPipeline/RetryHistory/RetryHistory'
 import css from './ExecutionActions.module.scss'
 
 const commonButtonProps: ButtonProps = {
@@ -52,7 +51,6 @@ export interface ExecutionActionsProps {
   canEdit?: boolean
   canExecute?: boolean
   canRetry?: boolean
-  showRetryHistory?: boolean
 }
 
 export default function ExecutionActions(props: ExecutionActionsProps): React.ReactElement {
@@ -64,8 +62,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
     canEdit = true,
     canExecute = true,
     stageName,
-    canRetry = false,
-    showRetryHistory = false
+    canRetry = false
   } = props
   const {
     orgIdentifier,
@@ -259,8 +256,6 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
 
   return (
     <div className={css.main} onClick={killEvent}>
-      {showRetryHistory && <RetryHistory canExecute={canExecute} />}
-
       {canResume ? (
         <Button
           icon="play"

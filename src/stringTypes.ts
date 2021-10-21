@@ -513,6 +513,7 @@ export interface StringsMap {
   'common.valuePlaceholder': string
   'common.videoNotSupportedError': string
   'common.viewContent': string
+  'common.viewLatest': string
   'common.viewText': string
   'common.webhookURL': string
   'common.welcome': string
@@ -2560,6 +2561,7 @@ export interface StringsMap {
   'pipeline.verification.toGetLatest': string
   'pipeline.verification.waitForAnalysis': string
   'pipeline.verificationResult': string
+  'pipeline.viewLatestExecution': string
   'templatesLibrary.addNewTemplate': string
   'templatesLibrary.copyToNewPipeline': string
   'templatesLibrary.copyToPipeline': string
