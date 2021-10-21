@@ -23,6 +23,7 @@ import { TestStatus, NotificationType } from '@notifications/interfaces/Notifica
 import { useTestNotificationSetting, EmailSettingDTO } from 'services/notifications'
 import { useStrings } from 'framework/strings'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import { getErrorInfoFromErrorObject } from '@common/utils/errorUtils'
 import css from '../../ConfigureNotificationsModal.module.scss'
 
 interface EmailTestConfigData {
@@ -120,7 +121,7 @@ export const TestEmailNotifications: React.FC<{ onClick?: () => void; buttonProp
         setTestStatus(TestStatus.FAILED)
       }
     } catch (err) {
-      showError(err.data.message)
+      showError(getErrorInfoFromErrorObject(err))
       setTestStatus(TestStatus.ERROR)
     }
   }

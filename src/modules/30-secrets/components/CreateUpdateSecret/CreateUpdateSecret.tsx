@@ -36,6 +36,7 @@ import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
+import { getRBACErrorMessage } from '@rbac/utils/utils'
 import VaultFormFields from './views/VaultFormFields'
 import LocalFormFields from './views/LocalFormFields'
 
@@ -232,7 +233,7 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
 
       onSuccess?.(data)
     } catch (error) {
-      modalErrorHandler?.showDanger(error.data.message)
+      modalErrorHandler?.showDanger(getRBACErrorMessage(error))
     }
   }
 

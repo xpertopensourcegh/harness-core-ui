@@ -6,6 +6,7 @@ import { Organization, useGetOrganization, usePutOrganization } from 'services/c
 import { useStrings } from 'framework/strings'
 import { PageSpinner } from '@common/components'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import { getRBACErrorMessage } from '@rbac/utils/utils'
 import OrganizationForm from './OrganizationForm'
 
 interface EditModalData {
@@ -66,7 +67,7 @@ const EditOrganization: React.FC<StepProps<Organization> & EditModalData> = prop
       onSuccess?.(values)
     } catch (e) {
       /* istanbul ignore next */
-      modalErrorHandler?.showDanger(e.data.message)
+      modalErrorHandler?.showDanger(getRBACErrorMessage(e))
     }
   }
   return (

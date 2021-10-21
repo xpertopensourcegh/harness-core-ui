@@ -7,6 +7,7 @@ import { usePostOrganization } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { useToaster, PageSpinner } from '@common/components'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import { getRBACErrorMessage } from '@rbac/utils/utils'
 import OrganizationForm from './OrganizationForm'
 import type { OrgModalData } from './StepAboutOrganization'
 
@@ -43,7 +44,7 @@ const CreateOrganization: React.FC<StepProps<Organization> & OrgModalData> = pro
       onSuccess?.(values)
     } catch (e) {
       /* istanbul ignore next */
-      modalErrorHandler?.showDanger(e.data.message)
+      modalErrorHandler?.showDanger(getRBACErrorMessage(e))
     }
   }
   return (

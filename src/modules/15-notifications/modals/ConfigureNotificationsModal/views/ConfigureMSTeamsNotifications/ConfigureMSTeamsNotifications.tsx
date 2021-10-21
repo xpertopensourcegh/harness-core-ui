@@ -21,6 +21,7 @@ import { useStrings } from 'framework/strings'
 import { MSTeamSettingDTO, useTestNotificationSetting } from 'services/notifications'
 import UserGroupsInput from '@common/components/UserGroupsInput/UserGroupsInput'
 
+import { getErrorInfoFromErrorObject } from '@common/utils/errorUtils'
 import css from '@notifications/modals/ConfigureNotificationsModal/ConfigureNotificationsModal.module.scss'
 
 interface MSTeamsNotificationsData {
@@ -71,7 +72,7 @@ export const TestMSTeamsNotifications: React.FC<{
         setTestStatus(TestStatus.FAILED)
       }
     } catch (err) {
-      showError(err.data.message)
+      showError(getErrorInfoFromErrorObject(err))
       setTestStatus(TestStatus.ERROR)
     }
   }

@@ -6,6 +6,7 @@ import type { Project } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { PageSpinner } from '@common/components'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import { getRBACErrorMessage } from '@rbac/utils/utils'
 import ProjectForm from './ProjectForm'
 
 interface EditModalData {
@@ -84,7 +85,7 @@ const EditProject: React.FC<StepProps<Project> & EditModalData> = props => {
       isStep ? nextStep?.({ ...values }) : closeModal?.()
     } catch (e) {
       /* istanbul ignore next */
-      modalErrorHandler?.showDanger(e.data.message)
+      modalErrorHandler?.showDanger(getRBACErrorMessage(e))
     }
   }
 
