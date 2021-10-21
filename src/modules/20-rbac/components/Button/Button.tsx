@@ -10,12 +10,12 @@ import type { FeatureProps } from 'framework/featureStore/FeaturesContext'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import { FeatureWarningTooltip } from '@common/components/FeatureWarning/FeatureWarning'
 
-interface ButtonProps extends CoreButtonProps {
+export interface ButtonProps extends CoreButtonProps {
   permission?: Omit<PermissionsRequest, 'permissions'> & { permission: PermissionIdentifier }
   featureProps?: FeatureProps
 }
 
-interface BtnProps {
+export interface BtnProps {
   disabled: boolean
   tooltip?: ReactElement
 }

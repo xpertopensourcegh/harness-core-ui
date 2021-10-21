@@ -5,6 +5,9 @@ import { PermissionsContext } from 'framework/rbac/PermissionsContext'
 import { LicenseStoreContext } from 'framework/LicenseStore/LicenseStoreContext'
 import { AppStoreContext } from 'framework/AppStore/AppStoreContext'
 import { PageSpinner } from '@common/components'
+import RbacButton from '@rbac/components/Button/Button'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 
 import type { ChildAppProps, Scope } from './microfrontendTypes'
 import ChildAppError from './ChildAppError'
@@ -46,6 +49,13 @@ export class ChildAppMounter extends React.Component<ChildAppMounterProps, Child
             appStoreContext: AppStoreContext,
             permissionsContext: PermissionsContext,
             licenseStoreProvider: LicenseStoreContext
+          }}
+          components={{
+            RbacButton,
+            NGBreadcrumbs
+          }}
+          hooks={{
+            useDocumentTitle
           }}
         />
       </React.Suspense>

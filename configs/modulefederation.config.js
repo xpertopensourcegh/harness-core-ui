@@ -4,14 +4,22 @@ const { pick, omit, mapValues } = require('lodash')
 /**
  * These packages must be stricly shared with exact versions
  */
-const ExactSharedPackages = ['formik', 'react-dom', 'react']
+const ExactSharedPackages = [
+  'formik',
+  'react-dom',
+  'react',
+  '@wings-software/uicore',
+  '@blueprintjs/core',
+  '@blueprintjs/select',
+  '@blueprintjs/datetime'
+]
 
 module.exports = ({ enableGitOpsUI, enableGovernance }) => {
   const remotes = {}
 
   if (enableGitOpsUI) {
     // use of single quotes within function call is required to make this work
-    remotes.gitopsui = "gitopsui@[window.getApiBaseUrl('gitops-ui/remoteEntry.js')]"
+    remotes.gitopsui = "gitopsui@[window.getApiBaseUrl('gitops/remoteEntry.js')]"
   }
 
   if (enableGovernance) {

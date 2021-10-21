@@ -5,10 +5,6 @@ const targetLocalHost = (process.env.TARGET_LOCALHOST && JSON.parse(process.env.
 console.table({ baseUrl, targetLocalHost })
 
 module.exports = {
-  '/gitops-ui': {
-    pathRewrite: { '^/gitops-ui': '' },
-    target: process.env.GITOPSUI_URL || 'https://localhost:8183'
-  },
   '/ng/api': {
     pathRewrite: { '^/ng/api': '' },
     target: targetLocalHost ? 'https://localhost:7090' : `${baseUrl}/ng/api`
@@ -72,5 +68,9 @@ module.exports = {
   '/pm': {
     target: process.env.GOVERNANCE_APP_URL || baseUrl,
     pathRewrite: { '^/pm': '' }
+  },
+  '/gitops': {
+    pathRewrite: { '^/gitops': '' },
+    target: process.env.GITOPS_URL || 'https://localhost:8183'
   }
 }

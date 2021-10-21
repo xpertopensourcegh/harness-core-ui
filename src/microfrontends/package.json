@@ -1,6 +1,6 @@
 {
   "name": "@wings-software/microfrontends",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "",
   "types": "types/microfrontends/microfrontendTypes.d.ts",
   "author": "Harness Inc",

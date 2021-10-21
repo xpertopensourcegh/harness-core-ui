@@ -2,7 +2,7 @@ import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useDeepCompareEffect } from '@common/hooks/useDeepCompareEffect'
 
-type Title = string | string[]
+export type Title = string | string[]
 
 export interface UseDocumentTitleReturn {
   updateTitle: (newTitle: Title) => void
