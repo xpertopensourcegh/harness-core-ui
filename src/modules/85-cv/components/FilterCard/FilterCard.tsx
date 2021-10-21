@@ -1,4 +1,4 @@
-import { CardSelect, CardSelectType, Color, Text } from '@wings-software/uicore'
+import { CardSelect, CardSelectType, Color, Text, FontVariation } from '@wings-software/uicore'
 import React from 'react'
 import type { FilterCardProps } from './FilterCard.types'
 import css from './FilterCard.module.scss'
@@ -13,14 +13,14 @@ const FilterCard: React.FC<FilterCardProps> = ({ data, cardClassName, selected, 
         <>
           <Text
             color={Color.GREY_900}
-            font={{ size: 'small', weight: 'semi-bold' }}
+            font={{ variation: FontVariation.SMALL_SEMI }}
             rightIcon={icon}
             rightIconProps={{ color: Color.GREY_700, size: iconSize }}
-            className={css.lineHeight}
+            height={24}
           >
             {title}
           </Text>
-          <Text color={Color.BLACK} font={{ size: 'large', weight: 'bold' }} className={css.lineHeight}>
+          <Text color={Color.BLACK} font={{ variation: FontVariation.H2 }} className={css.lineHeight}>
             {count}
           </Text>
         </>

@@ -9,7 +9,8 @@ import {
   Container,
   ButtonVariation,
   GridListToggle,
-  Views
+  Views,
+  FontVariation
 } from '@wings-software/uicore'
 import type { CellProps, Renderer } from 'react-table'
 import { useParams, useHistory, Link } from 'react-router-dom'
@@ -237,7 +238,8 @@ function CVMonitoredServiceListingPage(): JSX.Element {
         count: dependencyData?.nodes?.length ?? totalItems
       }
     ]
-  }, [dependencyData, totalItems, getString])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dependencyData, totalItems])
 
   const renderDependencyData = useCallback(() => {
     return dependencyData ? (
@@ -250,7 +252,7 @@ function CVMonitoredServiceListingPage(): JSX.Element {
           data={getFilterOptions}
           cardClassName={css.filterCard}
           selected={selectedFilter ?? getFilterOptions[0]}
-          onChange={item => setSelectedFilter(item)}
+          onChange={setSelectedFilter}
         />
         <DependencyGraph dependencyData={dependencyData} options={{ chart: { height: 550 } }} />
         <Container margin={{ top: 'xxxlarge' }}>
@@ -329,12 +331,10 @@ function CVMonitoredServiceListingPage(): JSX.Element {
         toolbar={
           <Layout.Horizontal>
             <Select
-              value={
-                {
-                  ...environment,
-                  label: `${getString('environment')}: ${environment?.label ?? getString('all')}`
-                } as SelectOption
-              }
+              value={{
+                label: `${getString('environment')}: ${environment?.label ?? getString('all')}`,
+                value: environment?.value ?? getString('all')
+              }}
               defaultSelectedItem={{ label: getString('all'), value: getString('all') }}
               items={getEnvironmentOptions(environmentDataList, loadingServices, getString)}
               onChange={item => setEnvironment(item)}
@@ -376,10 +376,10 @@ function CVMonitoredServiceListingPage(): JSX.Element {
                 data={getFilterOptions}
                 cardClassName={css.filterCard}
                 selected={selectedFilter ?? getFilterOptions[0]}
-                onChange={item => setSelectedFilter(item)}
+                onChange={setSelectedFilter}
               />
               <Text
-                font={{ size: 'medium', weight: 'semi-bold' }}
+                font={{ variation: FontVariation.H6 }}
                 color={Color.GREY_800}
                 padding={{ top: 'large', bottom: 'large' }}
               >
