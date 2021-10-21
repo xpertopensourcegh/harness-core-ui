@@ -356,7 +356,7 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
                 </div>
               ) : null}
             </div>
-            <Layout.Horizontal spacing="xxlarge" className={css.saveBtn}>
+            <Layout.Horizontal spacing="xxlarge">
               <Button
                 variation={ButtonVariation.SECONDARY}
                 text={getString('back')}

@@ -230,7 +230,7 @@ exports[`Artifact WizardStep tests last step data without initial values 1`] = `
               class="Layout--horizontal StyledProps--main"
             >
               <button
-                class="bp3-button Button--button StyledProps--font StyledProps--main saveBtn Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
+                class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
                 type="submit"
               >
                 <span
@@ -765,7 +765,7 @@ exports[`Artifact WizardStep tests renders correctly with connector Data 1`] = `
               class="Layout--horizontal StyledProps--main"
             >
               <button
-                class="bp3-button Button--button StyledProps--font StyledProps--main saveBtn Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
+                class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
                 type="submit"
               >
                 <span
@@ -1087,7 +1087,7 @@ exports[`Artifact WizardStep tests renders correctly with differnet artifact typ
               class="Layout--horizontal StyledProps--main"
             >
               <button
-                class="bp3-button Button--button StyledProps--font StyledProps--main saveBtn Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
+                class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
                 type="submit"
               >
                 <span
@@ -1293,7 +1293,7 @@ exports[`Artifact WizardStep tests renders without crashing 1`] = `
               class="Layout--horizontal StyledProps--main"
             >
               <button
-                class="bp3-button Button--button StyledProps--font StyledProps--main saveBtn Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
+                class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
                 type="submit"
               >
                 <span

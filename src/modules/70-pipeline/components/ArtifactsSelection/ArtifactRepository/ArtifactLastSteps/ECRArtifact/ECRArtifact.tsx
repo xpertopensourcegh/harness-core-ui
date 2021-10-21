@@ -433,7 +433,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
               ) : null}
             </div>
 
-            <Layout.Horizontal spacing="xxlarge" className={css.saveBtn}>
+            <Layout.Horizontal spacing="xxlarge">
               <Button
                 variation={ButtonVariation.SECONDARY}
                 text={getString('back')}

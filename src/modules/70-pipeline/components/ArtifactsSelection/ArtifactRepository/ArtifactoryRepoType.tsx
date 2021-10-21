@@ -96,7 +96,6 @@ export const ArtifactoryRepoType: React.FC<StepProps<ConnectorConfigDTO> & Artif
                 disabled={selectedArtifact === null}
                 text={getString('continue')}
                 rightIcon="chevron-right"
-                className={css.saveBtn}
               />
             </Layout.Horizontal>
           </Form>
