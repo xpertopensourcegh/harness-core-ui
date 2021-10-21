@@ -15,7 +15,7 @@ import noDataImage from '@cv/assets/noData.svg'
 import { useDrawer } from '@cv/hooks/useDrawerHook/useDrawerHook'
 import type { ChangesTableInterface } from './ChangesTable.types'
 import { renderTime, renderName, renderImpact, renderType, renderChangeType } from './ChangesTable.utils'
-import { defaultPageSize } from './ChangesTable.constants'
+import { defaultPageSize, PAGE_SIZE } from './ChangesTable.constants'
 import ChangeEventCard from './components/ChangeEventCard/ChangeEventCard'
 import css from './ChangeTable.module.scss'
 
@@ -31,14 +31,6 @@ export default function ChangesTable({
   const { orgIdentifier, projectIdentifier, accountId, identifier } = useParams<
     ProjectPathProps & { identifier: string }
   >()
-  const { data, refetch, loading, error } = useChangeEventList({
-    lazy: true,
-    accountIdentifier: accountId,
-    projectIdentifier,
-    orgIdentifier
-  })
-
-  const { content = [], pageSize = 0, pageIndex = 0, totalPages = 0, totalItems = 0 } = data?.resource ?? ({} as any)
 
   const drawerOptions = {
     size: '830px',
@@ -60,23 +52,43 @@ export default function ChangesTable({
     setPage(0)
   }, [startTime, endTime])
 
+  const changeEventListQueryParams = useMemo(() => {
+    return {
+      serviceIdentifiers: [serviceIdentifier],
+      envIdentifiers: [environmentIdentifier],
+      startTime,
+      endTime,
+      pageIndex: page,
+      pageSize: PAGE_SIZE
+    }
+  }, [endTime, environmentIdentifier, serviceIdentifier, startTime, page])
+
+  const changeEventListPathParams = useMemo(() => {
+    return { accountIdentifier: accountId, projectIdentifier, orgIdentifier }
+  }, [accountId, projectIdentifier, orgIdentifier])
+
+  const { data, refetch, loading, error } = useChangeEventList({
+    lazy: true,
+    ...changeEventListPathParams,
+    queryParams: changeEventListQueryParams,
+    queryParamStringifyOptions: {
+      arrayFormat: 'repeat'
+    }
+  })
+
+  const { content = [], pageSize = 0, pageIndex = 0, totalPages = 0, totalItems = 0 } = data?.resource ?? {}
+
   useEffect(() => {
     if (startTime && endTime) {
       refetch({
-        queryParams: {
-          serviceIdentifiers: [serviceIdentifier],
-          envIdentifiers: [environmentIdentifier],
-          startTime,
-          endTime,
-          pageIndex: page,
-          pageSize: 10
-        },
+        queryParams: changeEventListQueryParams,
         queryParamStringifyOptions: {
           arrayFormat: 'repeat'
         }
       })
     }
-  }, [startTime, endTime, serviceIdentifier, environmentIdentifier, page])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [startTime, endTime])
 
   const columns: Column<any>[] = useMemo(
     () => [

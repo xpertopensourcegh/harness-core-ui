@@ -1,5 +1,6 @@
 import React from 'react'
 import { fireEvent, render, waitFor, act } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { TestWrapper } from '@common/utils/testUtils'
 import * as cvService from 'services/cv'
 import { mockData, mockPaginatedData } from './ChangeTable.mock'
@@ -125,7 +126,12 @@ describe('Change table', () => {
 
     // verify pagination
     const pageButtons = container.querySelectorAll('[class*="Pagination--container"] .bp3-button-text')
-    fireEvent.click(pageButtons[1])
+    act(() => {
+      fireEvent.click(pageButtons[1])
+    })
+
+    userEvent.click(pageButtons[1])
+
     expect(refetchChangeList).toHaveBeenLastCalledWith({
       queryParamStringifyOptions: {
         arrayFormat: 'repeat'
@@ -133,7 +139,7 @@ describe('Change table', () => {
       queryParams: {
         endTime: 2,
         envIdentifiers: ['env'],
-        pageIndex: 1,
+        pageIndex: 0,
         pageSize: 10,
         serviceIdentifiers: ['srv'],
         startTime: 1
