@@ -8,7 +8,8 @@ import {
   Text,
   ButtonProps,
   Formik,
-  ButtonVariation
+  ButtonVariation,
+  getErrorInfoFromErrorObject
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
@@ -21,7 +22,6 @@ import { useStrings } from 'framework/strings'
 import { MSTeamSettingDTO, useTestNotificationSetting } from 'services/notifications'
 import UserGroupsInput from '@common/components/UserGroupsInput/UserGroupsInput'
 
-import { getErrorInfoFromErrorObject } from '@common/utils/errorUtils'
 import css from '@notifications/modals/ConfigureNotificationsModal/ConfigureNotificationsModal.module.scss'
 
 interface MSTeamsNotificationsData {

@@ -10,7 +10,8 @@ import {
   Icon,
   Heading,
   ButtonProps,
-  ButtonVariation
+  ButtonVariation,
+  getErrorInfoFromErrorObject
 } from '@wings-software/uicore'
 import { Popover, Spinner } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
@@ -23,7 +24,6 @@ import { TestStatus, NotificationType } from '@notifications/interfaces/Notifica
 import { useTestNotificationSetting, EmailSettingDTO } from 'services/notifications'
 import { useStrings } from 'framework/strings'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
-import { getErrorInfoFromErrorObject } from '@common/utils/errorUtils'
 import css from '../../ConfigureNotificationsModal.module.scss'
 
 interface EmailTestConfigData {
