@@ -1,0 +1,1592 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test cases for Budgets List Page should be able to render the budget list page 1`] = `
+<div>
+  <div
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+  >
+    <div
+      class="Layout--vertical StyledProps--main"
+    >
+      <div
+        class="breadcrumbsDiv"
+      >
+        <div
+          class="breadcrumbs"
+        >
+          <div>
+            <a
+              class="breadcrumb"
+              href="/account/undefined/ce/budgets"
+            >
+              ce.budgets.sideNavText
+            </a>
+            <span
+              class="bp3-icon StyledProps--main separator"
+              data-icon="main-chevron-right"
+            >
+              <svg
+                height="11"
+                viewBox="0 0 8 14"
+                width="11"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
+                  fill="#4d5969"
+                />
+              </svg>
+            </span>
+          </div>
+          <div>
+            <span
+              class="lastBreadcrumb"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="StyledProps--font StyledProps--main pageBody"
+    data-name="page-body"
+  >
+    <div
+      class="bp3-card bp3-elevation-1 Card--card chartGridContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--margin-bottom-medium StyledProps--color StyledProps--color-grey500 StyledProps--font-variation-h6"
+      >
+        Budget History
+      </p>
+      <div
+        class="StyledProps--font StyledProps--main"
+      >
+        <mock
+          options="[object Object]"
+        />
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main"
+      >
+        <div
+          class="gridCtn"
+        >
+          <div
+            class="table sticky"
+            role="table"
+          >
+            <div
+              class="header"
+            >
+              <div
+                class="tr"
+                role="row"
+                style="display: flex; width: 750px;"
+              >
+                <div
+                  class="th"
+                  colspan="1"
+                  role="columnheader"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  ce.budgets.detailsPage.tableHeaders.month
+                </div>
+                <div
+                  class="th"
+                  colspan="1"
+                  role="columnheader"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  ce.budgets.detailsPage.tableHeaders.actualCost
+                </div>
+                <div
+                  class="th"
+                  colspan="1"
+                  role="columnheader"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  ce.budgets.detailsPage.tableHeaders.budgetCost
+                </div>
+                <div
+                  class="th"
+                  colspan="1"
+                  role="columnheader"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  ce.budgets.detailsPage.tableHeaders.budgetVariance
+                </div>
+                <div
+                  class="th"
+                  colspan="1"
+                  role="columnheader"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  ce.budgets.detailsPage.tableHeaders.budgetVariancePercentage
+                </div>
+              </div>
+            </div>
+            <div
+              class="body"
+              role="rowgroup"
+            >
+              <div
+                class="tr"
+                role="row"
+                style="display: flex; width: 750px;"
+              >
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                    >
+                      Oct 2021
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                    >
+                      $778.81
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                    >
+                      $1,506.66
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body StyledProps--color StyledProps--color-green600"
+                      style="display: flex; align-items: center;"
+                    >
+                      -727.85
+                      <span
+                        class="bp3-icon bp3-icon-caret-down StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-green600"
+                        icon="caret-down"
+                      >
+                        <svg
+                          data-icon="caret-down"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            caret-down
+                          </desc>
+                          <path
+                            d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body StyledProps--color StyledProps--color-green600"
+                      style="display: flex; align-items: center;"
+                    >
+                      -48.31
+                      <span
+                        class="bp3-icon bp3-icon-caret-down StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-green600"
+                        icon="caret-down"
+                      >
+                        <svg
+                          data-icon="caret-down"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            caret-down
+                          </desc>
+                          <path
+                            d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="tr"
+                role="row"
+                style="display: flex; width: 750px;"
+              >
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                    >
+                      Sep 2021
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                    >
+                      $707.20
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                    >
+                      $1,506.66
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body StyledProps--color StyledProps--color-green600"
+                      style="display: flex; align-items: center;"
+                    >
+                      -799.46
+                      <span
+                        class="bp3-icon bp3-icon-caret-down StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-green600"
+                        icon="caret-down"
+                      >
+                        <svg
+                          data-icon="caret-down"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            caret-down
+                          </desc>
+                          <path
+                            d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body StyledProps--color StyledProps--color-green600"
+                      style="display: flex; align-items: center;"
+                    >
+                      -53.06
+                      <span
+                        class="bp3-icon bp3-icon-caret-down StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-green600"
+                        icon="caret-down"
+                      >
+                        <svg
+                          data-icon="caret-down"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            caret-down
+                          </desc>
+                          <path
+                            d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="tr"
+                role="row"
+                style="display: flex; width: 750px;"
+              >
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                    >
+                      Aug 2021
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                    >
+                      $2,334.01
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                    >
+                      $1,506.66
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body StyledProps--color StyledProps--color-red600"
+                      style="display: flex; align-items: center;"
+                    >
+                      827.35
+                      <span
+                        class="bp3-icon bp3-icon-caret-up StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-red600"
+                        icon="caret-up"
+                      >
+                        <svg
+                          data-icon="caret-up"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            caret-up
+                          </desc>
+                          <path
+                            d="M11.87 9.17s.01 0 0 0l-3.5-4C8.28 5.07 8.15 5 8 5s-.28.07-.37.17l-3.5 4a.495.495 0 00.37.83h7a.495.495 0 00.37-.83z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body StyledProps--color StyledProps--color-red600"
+                      style="display: flex; align-items: center;"
+                    >
+                      54.91
+                      <span
+                        class="bp3-icon bp3-icon-caret-up StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-red600"
+                        icon="caret-up"
+                      >
+                        <svg
+                          data-icon="caret-up"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            caret-up
+                          </desc>
+                          <path
+                            d="M11.87 9.17s.01 0 0 0l-3.5-4C8.28 5.07 8.15 5 8 5s-.28.07-.37.17l-3.5 4a.495.495 0 00.37.83h7a.495.495 0 00.37-.83z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="tr"
+                role="row"
+                style="display: flex; width: 750px;"
+              >
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                    >
+                      Jul 2021
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                    >
+                      $1,732.63
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                    >
+                      $1,506.66
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body StyledProps--color StyledProps--color-red600"
+                      style="display: flex; align-items: center;"
+                    >
+                      225.97
+                      <span
+                        class="bp3-icon bp3-icon-caret-up StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-red600"
+                        icon="caret-up"
+                      >
+                        <svg
+                          data-icon="caret-up"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            caret-up
+                          </desc>
+                          <path
+                            d="M11.87 9.17s.01 0 0 0l-3.5-4C8.28 5.07 8.15 5 8 5s-.28.07-.37.17l-3.5 4a.495.495 0 00.37.83h7a.495.495 0 00.37-.83z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body StyledProps--color StyledProps--color-red600"
+                      style="display: flex; align-items: center;"
+                    >
+                      15
+                      <span
+                        class="bp3-icon bp3-icon-caret-up StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-red600"
+                        icon="caret-up"
+                      >
+                        <svg
+                          data-icon="caret-up"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            caret-up
+                          </desc>
+                          <path
+                            d="M11.87 9.17s.01 0 0 0l-3.5-4C8.28 5.07 8.15 5 8 5s-.28.07-.37.17l-3.5 4a.495.495 0 00.37.83h7a.495.495 0 00.37-.83z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="tr"
+                role="row"
+                style="display: flex; width: 750px;"
+              >
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                    >
+                      Jun 2021
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                    >
+                      $1,506.66
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                    >
+                      $1,506.66
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body StyledProps--color StyledProps--color-green600"
+                      style="display: flex; align-items: center;"
+                    >
+                      0
+                      <span
+                        class="bp3-icon bp3-icon-caret-down StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-green600"
+                        icon="caret-down"
+                      >
+                        <svg
+                          data-icon="caret-down"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            caret-down
+                          </desc>
+                          <path
+                            d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body StyledProps--color StyledProps--color-green600"
+                      style="display: flex; align-items: center;"
+                    >
+                      0
+                      <span
+                        class="bp3-icon bp3-icon-caret-down StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-green600"
+                        icon="caret-down"
+                      >
+                        <svg
+                          data-icon="caret-down"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            caret-down
+                          </desc>
+                          <path
+                            d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="tr"
+                role="row"
+                style="display: flex; width: 750px;"
+              >
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                    >
+                      May 2021
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                    >
+                      $2,829.34
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                    >
+                      $1,506.66
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body StyledProps--color StyledProps--color-red600"
+                      style="display: flex; align-items: center;"
+                    >
+                      1322.68
+                      <span
+                        class="bp3-icon bp3-icon-caret-up StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-red600"
+                        icon="caret-up"
+                      >
+                        <svg
+                          data-icon="caret-up"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            caret-up
+                          </desc>
+                          <path
+                            d="M11.87 9.17s.01 0 0 0l-3.5-4C8.28 5.07 8.15 5 8 5s-.28.07-.37.17l-3.5 4a.495.495 0 00.37.83h7a.495.495 0 00.37-.83z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body StyledProps--color StyledProps--color-red600"
+                      style="display: flex; align-items: center;"
+                    >
+                      87.79
+                      <span
+                        class="bp3-icon bp3-icon-caret-up StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-red600"
+                        icon="caret-up"
+                      >
+                        <svg
+                          data-icon="caret-up"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            caret-up
+                          </desc>
+                          <path
+                            d="M11.87 9.17s.01 0 0 0l-3.5-4C8.28 5.07 8.15 5 8 5s-.28.07-.37.17l-3.5 4a.495.495 0 00.37.83h7a.495.495 0 00.37-.83z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="tr"
+                role="row"
+                style="display: flex; width: 750px;"
+              >
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                    >
+                      Apr 2021
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                    >
+                      $5,184.22
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                    >
+                      $1,506.66
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body StyledProps--color StyledProps--color-red600"
+                      style="display: flex; align-items: center;"
+                    >
+                      3677.56
+                      <span
+                        class="bp3-icon bp3-icon-caret-up StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-red600"
+                        icon="caret-up"
+                      >
+                        <svg
+                          data-icon="caret-up"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            caret-up
+                          </desc>
+                          <path
+                            d="M11.87 9.17s.01 0 0 0l-3.5-4C8.28 5.07 8.15 5 8 5s-.28.07-.37.17l-3.5 4a.495.495 0 00.37.83h7a.495.495 0 00.37-.83z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body StyledProps--color StyledProps--color-red600"
+                      style="display: flex; align-items: center;"
+                    >
+                      244.09
+                      <span
+                        class="bp3-icon bp3-icon-caret-up StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-red600"
+                        icon="caret-up"
+                      >
+                        <svg
+                          data-icon="caret-up"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            caret-up
+                          </desc>
+                          <path
+                            d="M11.87 9.17s.01 0 0 0l-3.5-4C8.28 5.07 8.15 5 8 5s-.28.07-.37.17l-3.5 4a.495.495 0 00.37.83h7a.495.495 0 00.37-.83z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="tr"
+                role="row"
+                style="display: flex; width: 750px;"
+              >
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                    >
+                      Mar 2021
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                    >
+                      $11,908.22
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                    >
+                      $1,506.66
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body StyledProps--color StyledProps--color-red600"
+                      style="display: flex; align-items: center;"
+                    >
+                      10401.56
+                      <span
+                        class="bp3-icon bp3-icon-caret-up StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-red600"
+                        icon="caret-up"
+                      >
+                        <svg
+                          data-icon="caret-up"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            caret-up
+                          </desc>
+                          <path
+                            d="M11.87 9.17s.01 0 0 0l-3.5-4C8.28 5.07 8.15 5 8 5s-.28.07-.37.17l-3.5 4a.495.495 0 00.37.83h7a.495.495 0 00.37-.83z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body StyledProps--color StyledProps--color-red600"
+                      style="display: flex; align-items: center;"
+                    >
+                      690.37
+                      <span
+                        class="bp3-icon bp3-icon-caret-up StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-red600"
+                        icon="caret-up"
+                      >
+                        <svg
+                          data-icon="caret-up"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            caret-up
+                          </desc>
+                          <path
+                            d="M11.87 9.17s.01 0 0 0l-3.5-4C8.28 5.07 8.15 5 8 5s-.28.07-.37.17l-3.5 4a.495.495 0 00.37.83h7a.495.495 0 00.37-.83z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="tr"
+                role="row"
+                style="display: flex; width: 750px;"
+              >
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                    >
+                      Feb 2021
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                    >
+                      $6,625.33
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                    >
+                      $1,506.66
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body StyledProps--color StyledProps--color-red600"
+                      style="display: flex; align-items: center;"
+                    >
+                      5118.67
+                      <span
+                        class="bp3-icon bp3-icon-caret-up StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-red600"
+                        icon="caret-up"
+                      >
+                        <svg
+                          data-icon="caret-up"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            caret-up
+                          </desc>
+                          <path
+                            d="M11.87 9.17s.01 0 0 0l-3.5-4C8.28 5.07 8.15 5 8 5s-.28.07-.37.17l-3.5 4a.495.495 0 00.37.83h7a.495.495 0 00.37-.83z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body StyledProps--color StyledProps--color-red600"
+                      style="display: flex; align-items: center;"
+                    >
+                      339.74
+                      <span
+                        class="bp3-icon bp3-icon-caret-up StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-red600"
+                        icon="caret-up"
+                      >
+                        <svg
+                          data-icon="caret-up"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            caret-up
+                          </desc>
+                          <path
+                            d="M11.87 9.17s.01 0 0 0l-3.5-4C8.28 5.07 8.15 5 8 5s-.28.07-.37.17l-3.5 4a.495.495 0 00.37.83h7a.495.495 0 00.37-.83z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="tr"
+                role="row"
+                style="display: flex; width: 750px;"
+              >
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                    >
+                      Jan 2021
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                    >
+                      $20,436.88
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                    >
+                      $1,506.66
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body StyledProps--color StyledProps--color-red600"
+                      style="display: flex; align-items: center;"
+                    >
+                      18930.22
+                      <span
+                        class="bp3-icon bp3-icon-caret-up StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-red600"
+                        icon="caret-up"
+                      >
+                        <svg
+                          data-icon="caret-up"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            caret-up
+                          </desc>
+                          <path
+                            d="M11.87 9.17s.01 0 0 0l-3.5-4C8.28 5.07 8.15 5 8 5s-.28.07-.37.17l-3.5 4a.495.495 0 00.37.83h7a.495.495 0 00.37-.83z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body StyledProps--color StyledProps--color-red600"
+                      style="display: flex; align-items: center;"
+                    >
+                      1256.44
+                      <span
+                        class="bp3-icon bp3-icon-caret-up StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-red600"
+                        icon="caret-up"
+                      >
+                        <svg
+                          data-icon="caret-up"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            caret-up
+                          </desc>
+                          <path
+                            d="M11.87 9.17s.01 0 0 0l-3.5-4C8.28 5.07 8.15 5 8 5s-.28.07-.37.17l-3.5 4a.495.495 0 00.37.83h7a.495.495 0 00.37-.83z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="tr"
+                role="row"
+                style="display: flex; width: 750px;"
+              >
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                    >
+                      Dec 2020
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                    >
+                      $11,416.43
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                    >
+                      $1,506.66
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body StyledProps--color StyledProps--color-red600"
+                      style="display: flex; align-items: center;"
+                    >
+                      9909.77
+                      <span
+                        class="bp3-icon bp3-icon-caret-up StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-red600"
+                        icon="caret-up"
+                      >
+                        <svg
+                          data-icon="caret-up"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            caret-up
+                          </desc>
+                          <path
+                            d="M11.87 9.17s.01 0 0 0l-3.5-4C8.28 5.07 8.15 5 8 5s-.28.07-.37.17l-3.5 4a.495.495 0 00.37.83h7a.495.495 0 00.37-.83z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body StyledProps--color StyledProps--color-red600"
+                      style="display: flex; align-items: center;"
+                    >
+                      657.73
+                      <span
+                        class="bp3-icon bp3-icon-caret-up StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-red600"
+                        icon="caret-up"
+                      >
+                        <svg
+                          data-icon="caret-up"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            caret-up
+                          </desc>
+                          <path
+                            d="M11.87 9.17s.01 0 0 0l-3.5-4C8.28 5.07 8.15 5 8 5s-.28.07-.37.17l-3.5 4a.495.495 0 00.37.83h7a.495.495 0 00.37-.83z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="tr"
+                role="row"
+                style="display: flex; width: 750px;"
+              >
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                    >
+                      Nov 2020
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                    >
+                      $5,291.90
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                    >
+                      $1,506.66
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body StyledProps--color StyledProps--color-red600"
+                      style="display: flex; align-items: center;"
+                    >
+                      3785.24
+                      <span
+                        class="bp3-icon bp3-icon-caret-up StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-red600"
+                        icon="caret-up"
+                      >
+                        <svg
+                          data-icon="caret-up"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            caret-up
+                          </desc>
+                          <path
+                            d="M11.87 9.17s.01 0 0 0l-3.5-4C8.28 5.07 8.15 5 8 5s-.28.07-.37.17l-3.5 4a.495.495 0 00.37.83h7a.495.495 0 00.37-.83z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="td"
+                  role="cell"
+                  style="display: inline-block; box-sizing: border-box; width: 150px;"
+                >
+                  <div
+                    class="cellValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body StyledProps--color StyledProps--color-red600"
+                      style="display: flex; align-items: center;"
+                    >
+                      251.23
+                      <span
+                        class="bp3-icon bp3-icon-caret-up StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-red600"
+                        icon="caret-up"
+                      >
+                        <svg
+                          data-icon="caret-up"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            caret-up
+                          </desc>
+                          <path
+                            d="M11.87 9.17s.01 0 0 0l-3.5-4C8.28 5.07 8.15 5 8 5s-.28.07-.37.17l-3.5 4a.495.495 0 00.37.83h7a.495.495 0 00.37-.83z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

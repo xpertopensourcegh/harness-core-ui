@@ -2730,6 +2730,20 @@ export interface StringsMap {
   'cd.whatIsHarnessAdapter': string
   'cd.whatIsHarnessManagedGitOpsServer': string
   'cd.workloadRequired': string
+  'ce.budgets.detailsPage.alertsAt': string
+  'ce.budgets.detailsPage.budgetAmount': string
+  'ce.budgets.detailsPage.budgetStatus': string
+  'ce.budgets.detailsPage.chartNames.actualCost': string
+  'ce.budgets.detailsPage.chartNames.budgetedCost': string
+  'ce.budgets.detailsPage.chartNames.currentMonthCost': string
+  'ce.budgets.detailsPage.chartNames.forecastCost': string
+  'ce.budgets.detailsPage.monthToDateCost': string
+  'ce.budgets.detailsPage.tableHeaders.actualCost': string
+  'ce.budgets.detailsPage.tableHeaders.budgetCost': string
+  'ce.budgets.detailsPage.tableHeaders.budgetVariance': string
+  'ce.budgets.detailsPage.tableHeaders.budgetVariancePercentage': string
+  'ce.budgets.detailsPage.tableHeaders.month': string
+  'ce.budgets.detailsPage.timeLeft': string
   'ce.budgets.listPage.budgetCount': string
   'ce.budgets.listPage.forecastAlert': string
   'ce.budgets.listPage.mtdAlert': string
@@ -2937,6 +2951,7 @@ export interface StringsMap {
   'ce.co.rulesTableHeaders.status': string
   'ce.co.setupCloudProvider': string
   'ce.co.sshSetup': string
+  'ce.common.budget': string
   'ce.common.newBudget': string
   'ce.connector.AWS.crossAccountRole.arn': string
   'ce.connector.AWS.crossAccountRole.externalID': string

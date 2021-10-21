@@ -1,0 +1,11 @@
+.chartGridContainer {
+  width: calc(100% - 40px);
+  margin: var(--spacing-medium);
+
+  &.loadingContainer {
+    height: calc(100vh - 290px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

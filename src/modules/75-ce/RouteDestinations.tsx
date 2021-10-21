@@ -32,6 +32,7 @@ import PerspectiveListPage from './pages/perspective-list/PerspectiveListPage'
 import WorkloadDetailsPage from './pages/workload-details/WorkloadDetailsPage'
 import OverviewPage from './pages/overview/OverviewPage'
 import NodeRecommendationDetailsPage from './pages/node-recommendation-details/NodeRecommendationDetailsPage'
+import BudgetDetails from './pages/budget-details/BudgetDetails'
 
 const CESideNavProps: SidebarContext = {
   navComponent: CESideNav,
@@ -181,6 +182,18 @@ const CERoutes: React.FC = () => {
           exact
         >
           <Budgets />
+        </RouteWithLayout>
+
+        <RouteWithLayout
+          licenseRedirectData={licenseRedirectData}
+          sidebarProps={CESideNavProps}
+          path={routes.toCEBudgetDetails({
+            ...accountPathProps,
+            budgetId: ':budgetId',
+            budgetName: ':budgetName'
+          })}
+        >
+          <BudgetDetails />
         </RouteWithLayout>
 
         <RouteWithLayout

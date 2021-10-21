@@ -3,6 +3,7 @@ continuous: '{{$.common.purpose.ce.continuous}}'
 trialCta: 'Start 14 day CCM trial'
 common:
   newBudget: 'New Budget'
+  budget: 'Budget'
 pageErrorMsg:
   recommendationNoData: 'There are no recommendations yet. Recommendations typically take 24 hours to show up. Please check back later.'
   perspectiveNoData: 'There is not data available for the filters applied.'
@@ -494,7 +495,7 @@ perspectives:
     perMonth: per month
   budgets:
     addBudget: Add a budget to this perspective
-    title: Budget
+    title: '{{ $.ce.common.budget}}'
     thisMonth: this month
     spendExceededBy: Spend exceeded budget by
     monthToDateSpend: Month to date spend is
@@ -600,3 +601,20 @@ budgets:
       budgetAmount: BUDGET AMOUNT
       monthToDate: MONTH TO DATE & FORECASTED COST V/S BUDGET
       alerts: ALERTS
+  detailsPage:
+    chartNames:
+      actualCost: Actual cost
+      budgetedCost: '{{ $.ce.common.budget}}'
+      forecastCost: Forecased monthly cost
+      currentMonthCost: Month to Date cost
+    tableHeaders:
+      month: MONTH
+      actualCost: ACTUAL COST
+      budgetCost: BUDGETED COST
+      budgetVariance: BUDGET VARIANCE ($)
+      budgetVariancePercentage: BUDGET VARIANCE (%)
+    budgetStatus: 'Budget Status - {{ timeScope }}'
+    timeLeft: '{{ timeLeft }} {{ timeUnit }} left'
+    monthToDateCost: Month to Date Cost
+    budgetAmount: Budget amount
+    alertsAt: Alerts at

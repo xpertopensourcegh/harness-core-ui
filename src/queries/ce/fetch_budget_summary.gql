@@ -1,5 +1,5 @@
-query FetchBudget {
-  budgetList {
+query FetchBudgetSummary($id: String!) {
+  budgetSummary(budgetId: $id) {
     id
     name
     budgetAmount

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Layout, Text, FontVariation, Container, Color } from '@wings-software/uicore'
 import cx from 'classnames'
 import type { BudgetSummary } from 'services/ce/services'
+import { getAllBudgetCostInfo, getAllBudgetCostInfoReturnType, AlertStatus } from '@ce/utils/budgetUtils'
 import { useStrings } from 'framework/strings'
 import formatCost from '@ce/utils/formatCost'
 import css from './BudgetStatusBar.module.scss'
@@ -15,30 +16,51 @@ interface BudgetStatusBarProps {
 const BudgetStatusBar: (props: BudgetStatusBarProps) => JSX.Element | null = ({ rowData }) => {
   const { getString } = useStrings()
 
+  const [costState, setCostState] = useState<getAllBudgetCostInfoReturnType>({
+    actualCostStatus: {
+      cost: 0,
+      ratio: 0,
+      percentage: 0,
+      status: AlertStatus.Info
+    },
+    forecastedCostStatus: {
+      cost: 0,
+      ratio: 0,
+      percentage: 0,
+      status: AlertStatus.Info
+    },
+    budgetAmountStatus: {
+      cost: 0,
+      ratio: 0,
+      percentage: 0,
+      status: AlertStatus.Info
+    }
+  })
+
   const [widthState, setWidthState] = useState({
     actualCostBarWidth: 0,
     forecastCostBarWidth: 0
   })
 
-  const [cost, setCost] = useState({
-    actualCost: 0,
-    budgetAmount: 0,
-    forecastCost: 0
-  })
-
   useEffect(() => {
     const actualCost = rowData.actualCost || 0
     const budgetAmount = rowData.budgetAmount || 1
-    const forecastCost = actualCost * 1.2
-    const baseCost = Math.max(actualCost, forecastCost, budgetAmount)
+    const forecastCost = rowData.forecastCost
 
-    setCost({
+    const { actualCostStatus, forecastedCostStatus, budgetAmountStatus } = getAllBudgetCostInfo(
+      forecastCost,
       actualCost,
-      budgetAmount,
-      forecastCost
+      budgetAmount
+    )
+
+    setCostState({
+      actualCostStatus,
+      forecastedCostStatus,
+      budgetAmountStatus
     })
-    const actualCostBarWidth = Math.floor(BAR_WIDTH * (actualCost / baseCost))
-    const forecastCostBarWidth = Math.floor(BAR_WIDTH * (forecastCost / baseCost))
+
+    const actualCostBarWidth = Math.floor(BAR_WIDTH * actualCostStatus.ratio)
+    const forecastCostBarWidth = Math.floor(BAR_WIDTH * forecastedCostStatus.ratio)
     setWidthState({
       actualCostBarWidth,
       forecastCostBarWidth
@@ -60,20 +82,24 @@ const BudgetStatusBar: (props: BudgetStatusBarProps) => JSX.Element | null = ({ 
           style={{
             width: widthState.actualCostBarWidth
           }}
-          className={cx(css.actualCostBar, { [css.alert]: cost.forecastCost > cost.budgetAmount })}
+          className={cx(css.actualCostBar, { [css.alert]: costState.actualCostStatus.status === AlertStatus.Danger })}
         ></div>
 
         <div
           style={{
             width: widthState.forecastCostBarWidth
           }}
-          className={cx(css.forecastedBar, { [css.alert]: cost.forecastCost > cost.budgetAmount })}
+          className={cx(css.forecastedBar, {
+            [css.alert]: costState.forecastedCostStatus.status === AlertStatus.Danger
+          })}
         ></div>
         <div
           style={{
             left: widthState.actualCostBarWidth
           }}
-          className={cx(css.actualCostMarker, { [css.alert]: cost.forecastCost > cost.budgetAmount })}
+          className={cx(css.actualCostMarker, {
+            [css.alert]: costState.actualCostStatus.status === AlertStatus.Danger
+          })}
         ></div>
         <Text
           font={{ variation: FontVariation.SMALL_BOLD }}
@@ -86,13 +112,13 @@ const BudgetStatusBar: (props: BudgetStatusBarProps) => JSX.Element | null = ({ 
           }}
           className={cx(css.actualCost, { [css.left]: widthState.actualCostBarWidth > 80 })}
         >
-          {formatCost(cost.actualCost)}
+          {formatCost(costState.actualCostStatus.cost)}
         </Text>
 
         <div
           style={{
             left: widthState.forecastCostBarWidth,
-            opacity: cost.forecastCost > cost.budgetAmount ? 1 : 0
+            opacity: costState.forecastedCostStatus.cost > costState.budgetAmountStatus.cost ? 1 : 0
           }}
           className={css.overBudgetMarker}
         ></div>
@@ -111,18 +137,24 @@ const BudgetStatusBar: (props: BudgetStatusBarProps) => JSX.Element | null = ({ 
           }}
           style={{
             left: widthState.forecastCostBarWidth,
-            opacity: cost.forecastCost > cost.budgetAmount ? 1 : 0
+            opacity: costState.forecastedCostStatus.cost > costState.budgetAmountStatus.cost ? 1 : 0
           }}
           className={css.overBudgetText}
         >
-          {getString('ce.budgets.listPage.overBudgetText', { cost: formatCost(cost.forecastCost - cost.budgetAmount) })}
+          {getString('ce.budgets.listPage.overBudgetText', {
+            cost: formatCost(costState.forecastedCostStatus.cost - costState.budgetAmountStatus.cost)
+          })}
         </Text>
       </Container>
       <Text
-        color={cost.forecastCost > cost.budgetAmount ? Color.RED_800 : Color.GREY_400}
+        color={costState.forecastedCostStatus.cost > costState.budgetAmountStatus.cost ? Color.RED_800 : Color.GREY_400}
         font={{ variation: FontVariation.TINY }}
       >
-        {formatCost(cost.forecastCost > cost.budgetAmount ? cost.forecastCost : cost.budgetAmount)}
+        {formatCost(
+          costState.forecastedCostStatus.cost > costState.budgetAmountStatus.cost
+            ? costState.forecastedCostStatus.cost
+            : costState.budgetAmountStatus.cost
+        )}
       </Text>
     </Layout.Horizontal>
   )

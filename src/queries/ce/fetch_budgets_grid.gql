@@ -1,0 +1,12 @@
+query FetchBudgetsGridData($id: String!) {
+  budgetCostData(budgetId: $id) {
+    costData {
+      time
+      actualCost
+      budgeted
+      budgetVariance
+      budgetVariancePercentage
+    }
+    forecastCost
+  }
+}

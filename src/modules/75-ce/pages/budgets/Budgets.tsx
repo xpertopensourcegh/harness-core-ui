@@ -12,28 +12,77 @@ import {
 } from '@wings-software/uicore'
 import { Classes, Menu, MenuItem, Position } from '@blueprintjs/core'
 import type { CellProps, Renderer } from 'react-table'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { Page } from '@common/exports'
 import Table from '@common/components/Table/Table'
 import { useFetchBudgetQuery, BudgetSummary } from 'services/ce/services'
 import { useStrings } from 'framework/strings'
 import { useDeleteBudget } from 'services/ce'
 import { PageSpinner } from '@common/components'
+import routes from '@common/RouteDefinitions'
 import formatCost from '@ce/utils/formatCost'
 import BudgetStatusBar from '@ce/components/BudgetStatusBar/BudgetStatusBar'
 import useBudgetModal from '@ce/components/PerspectiveReportsAndBudget/PerspectiveCreateBudget'
 import css from './Budgets.module.scss'
 
+interface BudgetMenuProps {
+  onEdit: () => void
+  onDelete: () => void
+}
+
+const BudgetMenu: (props: BudgetMenuProps) => JSX.Element = ({ onEdit, onDelete }) => {
+  const [isOpen, setIsOpen] = useState(false)
+  return (
+    <Popover
+      isOpen={isOpen}
+      onInteraction={nextOpenState => {
+        setIsOpen(nextOpenState)
+      }}
+      className={Classes.DARK}
+      position={Position.RIGHT_TOP}
+    >
+      <Button
+        minimal
+        icon="Options"
+        onClick={e => {
+          e.stopPropagation()
+          setIsOpen(true)
+        }}
+      />
+      <Menu>
+        <MenuItem
+          text="Edit"
+          onClick={(e: any) => {
+            e.stopPropagation()
+            setIsOpen(false)
+            onEdit()
+          }}
+        />
+        <MenuItem
+          text="Delete"
+          onClick={(e: any) => {
+            e.stopPropagation()
+            setIsOpen(false)
+            onDelete()
+          }}
+        />
+      </Menu>
+    </Popover>
+  )
+}
+
 interface BudgetsListProps {
   budgetData: BudgetSummary[]
   handleDeleteBudget: (id: string) => void
   handleEditBudget: (id: string) => void
+  navigateToBudgetDetailsPage: (id: string, name: string) => void
 }
 
 const BudgetsList: (props: BudgetsListProps) => JSX.Element | null = ({
   budgetData,
   handleDeleteBudget,
-  handleEditBudget
+  handleEditBudget,
+  navigateToBudgetDetailsPage
 }) => {
   const { getString } = useStrings()
 
@@ -95,15 +144,7 @@ const BudgetsList: (props: BudgetsListProps) => JSX.Element | null = ({
       budgetId && handleEditBudget(budgetId)
     }
 
-    return (
-      <Popover className={Classes.DARK} position={Position.RIGHT_TOP}>
-        <Button minimal icon="Options" />
-        <Menu>
-          <MenuItem text="Edit" onClick={onEdit} />
-          <MenuItem text="Delete" onClick={onDelete} />
-        </Menu>
-      </Popover>
-    )
+    return <BudgetMenu onDelete={onDelete} onEdit={onEdit} />
   }
 
   if (!budgetData.length) {
@@ -113,6 +154,9 @@ const BudgetsList: (props: BudgetsListProps) => JSX.Element | null = ({
   return (
     <Table<BudgetSummary>
       data={budgetData}
+      onRowClick={row => {
+        navigateToBudgetDetailsPage(row.id, row.name)
+      }}
       columns={[
         {
           accessor: 'name',
@@ -147,6 +191,7 @@ const BudgetsList: (props: BudgetsListProps) => JSX.Element | null = ({
 }
 
 const Budgets: () => JSX.Element = () => {
+  const history = useHistory()
   const { getString } = useStrings()
   const [{ data, fetching }, refetchBudget] = useFetchBudgetQuery()
   const [searchParam, setSearchParam] = useState<string>('')
@@ -178,6 +223,16 @@ const Budgets: () => JSX.Element = () => {
         forecastCost: 0
       }
     })
+  }
+
+  const navigateToBudgetDetailsPage: (budgetId: string, budgetName: string) => void = (budgetId, budgetName) => {
+    history.push(
+      routes.toCEBudgetDetails({
+        accountId,
+        budgetName,
+        budgetId
+      })
+    )
   }
 
   const budgetData = (data?.budgetList || []) as unknown as BudgetSummary[]
@@ -239,6 +294,7 @@ const Budgets: () => JSX.Element = () => {
         </Layout.Horizontal>
         <Container padding="large">
           <BudgetsList
+            navigateToBudgetDetailsPage={navigateToBudgetDetailsPage}
             handleDeleteBudget={handleDeleteBudget}
             handleEditBudget={handleEditBudget}
             budgetData={filteredBudgetData}

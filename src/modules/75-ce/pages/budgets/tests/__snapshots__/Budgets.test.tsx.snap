@@ -172,7 +172,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
           class="body"
         >
           <div
-            class="row card"
+            class="row card clickable"
             role="row"
           >
             <div
@@ -229,7 +229,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
                   />
                   <div
                     class="forecastedBar"
-                    style="width: 88px;"
+                    style="width: 212px;"
                   />
                   <div
                     class="actualCostMarker"
@@ -243,11 +243,11 @@ exports[`test cases for Budgets List Page should be able to render the budget li
                   </p>
                   <div
                     class="overBudgetMarker"
-                    style="left: 88px; opacity: 0;"
+                    style="left: 212px; opacity: 0;"
                   />
                   <p
                     class="StyledProps--font StyledProps--main overBudgetText StyledProps--font-variation-small-bold StyledProps--padding-right-xsmall StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-red700"
-                    style="left: 88px; opacity: 0; display: flex; align-items: center;"
+                    style="left: 212px; opacity: 0; display: flex; align-items: center;"
                   >
                     <span
                       class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-red500"
@@ -338,7 +338,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
             </div>
           </div>
           <div
-            class="row card"
+            class="row card clickable"
             role="row"
           >
             <div
@@ -395,7 +395,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
                   />
                   <div
                     class="forecastedBar"
-                    style="width: 221px;"
+                    style="width: 199px;"
                   />
                   <div
                     class="actualCostMarker"
@@ -409,11 +409,11 @@ exports[`test cases for Budgets List Page should be able to render the budget li
                   </p>
                   <div
                     class="overBudgetMarker"
-                    style="left: 221px; opacity: 0;"
+                    style="left: 199px; opacity: 0;"
                   />
                   <p
                     class="StyledProps--font StyledProps--main overBudgetText StyledProps--font-variation-small-bold StyledProps--padding-right-xsmall StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-red700"
-                    style="left: 221px; opacity: 0; display: flex; align-items: center;"
+                    style="left: 199px; opacity: 0; display: flex; align-items: center;"
                   >
                     <span
                       class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-red500"
@@ -504,7 +504,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
             </div>
           </div>
           <div
-            class="row card"
+            class="row card clickable"
             role="row"
           >
             <div
@@ -557,29 +557,29 @@ exports[`test cases for Budgets List Page should be able to render the budget li
                 >
                   <div
                     class="actualCostBar"
-                    style="width: 23px;"
+                    style="width: 3px;"
                   />
                   <div
-                    class="forecastedBar"
-                    style="width: 27px;"
+                    class="forecastedBar alert"
+                    style="width: 266px;"
                   />
                   <div
                     class="actualCostMarker"
-                    style="left: 23px;"
+                    style="left: 3px;"
                   />
                   <p
                     class="StyledProps--font StyledProps--main actualCost StyledProps--font-variation-small-bold StyledProps--padding-right-xsmall StyledProps--padding-left-xsmall"
-                    style="left: 23px;"
+                    style="left: 3px;"
                   >
                     $866.68
                   </p>
                   <div
                     class="overBudgetMarker"
-                    style="left: 27px; opacity: 0;"
+                    style="left: 266px; opacity: 1;"
                   />
                   <p
                     class="StyledProps--font StyledProps--main overBudgetText StyledProps--font-variation-small-bold StyledProps--padding-right-xsmall StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-red700"
-                    style="left: 27px; opacity: 0; display: flex; align-items: center;"
+                    style="left: 266px; opacity: 1; display: flex; align-items: center;"
                   >
                     <span
                       class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-red500"
@@ -604,9 +604,9 @@ exports[`test cases for Budgets List Page should be able to render the budget li
                   </p>
                 </div>
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-variation-tiny"
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-red800 StyledProps--font-variation-tiny"
                 >
-                  $10,000.00
+                  $60,000.00
                 </p>
               </div>
             </div>
@@ -670,7 +670,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
             </div>
           </div>
           <div
-            class="row card"
+            class="row card clickable"
             role="row"
           >
             <div
@@ -723,7 +723,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
                 >
                   <div
                     class="actualCostBar alert"
-                    style="width: 221px;"
+                    style="width: 144px;"
                   />
                   <div
                     class="forecastedBar alert"
@@ -731,11 +731,11 @@ exports[`test cases for Budgets List Page should be able to render the budget li
                   />
                   <div
                     class="actualCostMarker alert"
-                    style="left: 221px;"
+                    style="left: 144px;"
                   />
                   <p
                     class="StyledProps--font StyledProps--main actualCost left StyledProps--font-variation-small-bold StyledProps--padding-right-xsmall StyledProps--padding-left-xsmall"
-                    style="left: 221px;"
+                    style="left: 144px;"
                   >
                     $27.14
                   </p>
@@ -772,7 +772,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-red800 StyledProps--font-variation-tiny"
                 >
-                  $32.56
+                  $50.00
                 </p>
               </div>
             </div>

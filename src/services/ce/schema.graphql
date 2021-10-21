@@ -106,16 +106,30 @@ type BillingDataDemo {
   starttime: Long
 }
 
+type BudgetCostData {
+  actualCost: Float!
+  budgetVariance: Float!
+  budgetVariancePercentage: Float!
+  budgeted: Float!
+  time: Long!
+}
+
+type BudgetData {
+  costData: [BudgetCostData]
+  forecastCost: Float!
+}
+
 type BudgetSummary {
-  actualCost: Float
-  actualCostAlerts: [Float]
-  budgetAmount: Float
-  forecastCostAlerts: [Float]
-  id: String
-  name: String
+  actualCost: Float!
+  actualCostAlerts: [Float]!
+  budgetAmount: Float!
+  forecastCost: Float!
+  forecastCostAlerts: [Float]!
+  id: String!
+  name: String!
   timeLeft: Int!
-  timeScope: String
-  timeUnit: String
+  timeScope: String!
+  timeUnit: String!
 }
 
 type CCMMetaData {
@@ -422,10 +436,12 @@ type Query {
   anomaliesForPerspective(filters: [QLCEViewFilterWrapperInput], groupBy: [QLCEViewGroupByInput]): AnomalyDataList
   billingData(request: GridRequestInput): [BillingData]
   billingdata(clusterid: String, endTime: OffsetTime, startTime: OffsetTime): [BillingDataDemo]
+  "Budget cost data"
+  budgetCostData(budgetId: String = ""): BudgetData
   "Budget List"
   budgetList(fetchOnlyPerspectiveBudgets: Boolean = false, limit: Int = 1000, offset: Int = 0): [BudgetSummary]
   "Budget card for perspectives"
-  budgetSummary(perspectiveId: String): BudgetSummary
+  budgetSummary(budgetId: String, perspectiveId: String): BudgetSummary
   "Fetch CCM MetaData for account"
   ccmMetaData: CCMMetaData
   instancedata(instanceid: String!): InstanceDataDemo

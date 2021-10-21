@@ -102,6 +102,28 @@ export function useRecommendationsSummaryQuery(
 ) {
   return Urql.useQuery<RecommendationsSummaryQuery>({ query: RecommendationsSummaryDocument, ...options })
 }
+export const FetchBudgetSummaryDocument = gql`
+  query FetchBudgetSummary($id: String!) {
+    budgetSummary(budgetId: $id) {
+      id
+      name
+      budgetAmount
+      actualCost
+      timeLeft
+      timeUnit
+      timeScope
+      actualCostAlerts
+      forecastCostAlerts
+      forecastCost
+    }
+  }
+`
+
+export function useFetchBudgetSummaryQuery(
+  options: Omit<Urql.UseQueryArgs<FetchBudgetSummaryQueryVariables>, 'query'> = {}
+) {
+  return Urql.useQuery<FetchBudgetSummaryQuery>({ query: FetchBudgetSummaryDocument, ...options })
+}
 export const FetchBudgetDocument = gql`
   query FetchBudget {
     budgetList {
@@ -114,12 +136,33 @@ export const FetchBudgetDocument = gql`
       timeScope
       actualCostAlerts
       forecastCostAlerts
+      forecastCost
     }
   }
 `
 
 export function useFetchBudgetQuery(options: Omit<Urql.UseQueryArgs<FetchBudgetQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<FetchBudgetQuery>({ query: FetchBudgetDocument, ...options })
+}
+export const FetchBudgetsGridDataDocument = gql`
+  query FetchBudgetsGridData($id: String!) {
+    budgetCostData(budgetId: $id) {
+      costData {
+        time
+        actualCost
+        budgeted
+        budgetVariance
+        budgetVariancePercentage
+      }
+      forecastCost
+    }
+  }
+`
+
+export function useFetchBudgetsGridDataQuery(
+  options: Omit<Urql.UseQueryArgs<FetchBudgetsGridDataQueryVariables>, 'query'> = {}
+) {
+  return Urql.useQuery<FetchBudgetsGridDataQuery>({ query: FetchBudgetsGridDataDocument, ...options })
 }
 export const FetchCcmMetaDataDocument = gql`
   query FetchCcmMetaData {
@@ -1004,6 +1047,27 @@ export type RecommendationsSummaryQuery = {
   }>
 }
 
+export type FetchBudgetSummaryQueryVariables = Exact<{
+  id: Scalars['String']
+}>
+
+export type FetchBudgetSummaryQuery = {
+  __typename?: 'Query'
+  budgetSummary: Maybe<{
+    __typename?: 'BudgetSummary'
+    id: string
+    name: string
+    budgetAmount: number
+    actualCost: number
+    timeLeft: number
+    timeUnit: string
+    timeScope: string
+    actualCostAlerts: Array<Maybe<number>>
+    forecastCostAlerts: Array<Maybe<number>>
+    forecastCost: number
+  }>
+}
+
 export type FetchBudgetQueryVariables = Exact<{ [key: string]: never }>
 
 export type FetchBudgetQuery = {
@@ -1012,18 +1076,43 @@ export type FetchBudgetQuery = {
     Array<
       Maybe<{
         __typename?: 'BudgetSummary'
-        id: Maybe<string>
-        name: Maybe<string>
-        budgetAmount: Maybe<number>
-        actualCost: Maybe<number>
+        id: string
+        name: string
+        budgetAmount: number
+        actualCost: number
         timeLeft: number
-        timeUnit: Maybe<string>
-        timeScope: Maybe<string>
-        actualCostAlerts: Maybe<Array<Maybe<number>>>
-        forecastCostAlerts: Maybe<Array<Maybe<number>>>
+        timeUnit: string
+        timeScope: string
+        actualCostAlerts: Array<Maybe<number>>
+        forecastCostAlerts: Array<Maybe<number>>
+        forecastCost: number
       }>
     >
   >
+}
+
+export type FetchBudgetsGridDataQueryVariables = Exact<{
+  id: Scalars['String']
+}>
+
+export type FetchBudgetsGridDataQuery = {
+  __typename?: 'Query'
+  budgetCostData: Maybe<{
+    __typename?: 'BudgetData'
+    forecastCost: number
+    costData: Maybe<
+      Array<
+        Maybe<{
+          __typename?: 'BudgetCostData'
+          time: any
+          actualCost: number
+          budgeted: number
+          budgetVariance: number
+          budgetVariancePercentage: number
+        }>
+      >
+    >
+  }>
 }
 
 export type FetchCcmMetaDataQueryVariables = Exact<{ [key: string]: never }>
@@ -1084,13 +1173,13 @@ export type FetchPerspectiveBudgetQuery = {
   __typename?: 'Query'
   budgetSummary: Maybe<{
     __typename?: 'BudgetSummary'
-    id: Maybe<string>
-    name: Maybe<string>
-    budgetAmount: Maybe<number>
-    actualCost: Maybe<number>
+    id: string
+    name: string
+    budgetAmount: number
+    actualCost: number
     timeLeft: number
-    timeUnit: Maybe<string>
-    timeScope: Maybe<string>
+    timeUnit: string
+    timeScope: string
   }>
 }
 
@@ -1866,17 +1955,33 @@ export type BillingDataDemo = {
   starttime: Maybe<Scalars['Long']>
 }
 
+export type BudgetCostData = {
+  __typename?: 'BudgetCostData'
+  actualCost: Scalars['Float']
+  budgetVariance: Scalars['Float']
+  budgetVariancePercentage: Scalars['Float']
+  budgeted: Scalars['Float']
+  time: Scalars['Long']
+}
+
+export type BudgetData = {
+  __typename?: 'BudgetData'
+  costData: Maybe<Array<Maybe<BudgetCostData>>>
+  forecastCost: Scalars['Float']
+}
+
 export type BudgetSummary = {
   __typename?: 'BudgetSummary'
-  actualCost: Maybe<Scalars['Float']>
-  actualCostAlerts: Maybe<Array<Maybe<Scalars['Float']>>>
-  budgetAmount: Maybe<Scalars['Float']>
-  forecastCostAlerts: Maybe<Array<Maybe<Scalars['Float']>>>
-  id: Maybe<Scalars['String']>
-  name: Maybe<Scalars['String']>
+  actualCost: Scalars['Float']
+  actualCostAlerts: Array<Maybe<Scalars['Float']>>
+  budgetAmount: Scalars['Float']
+  forecastCost: Scalars['Float']
+  forecastCostAlerts: Array<Maybe<Scalars['Float']>>
+  id: Scalars['String']
+  name: Scalars['String']
   timeLeft: Scalars['Int']
-  timeScope: Maybe<Scalars['String']>
-  timeUnit: Maybe<Scalars['String']>
+  timeScope: Scalars['String']
+  timeUnit: Scalars['String']
 }
 
 export type CcmMetaData = {
@@ -2211,6 +2316,8 @@ export type Query = {
   anomaliesForPerspective: Maybe<AnomalyDataList>
   billingData: Maybe<Array<Maybe<BillingData>>>
   billingdata: Maybe<Array<Maybe<BillingDataDemo>>>
+  /** Budget cost data */
+  budgetCostData: Maybe<BudgetData>
   /** Budget List */
   budgetList: Maybe<Array<Maybe<BudgetSummary>>>
   /** Budget card for perspectives */
@@ -2268,6 +2375,11 @@ export type QueryBillingdataArgs = {
 }
 
 /** Query root */
+export type QueryBudgetCostDataArgs = {
+  budgetId?: Maybe<Scalars['String']>
+}
+
+/** Query root */
 export type QueryBudgetListArgs = {
   fetchOnlyPerspectiveBudgets?: Maybe<Scalars['Boolean']>
   limit?: Maybe<Scalars['Int']>
@@ -2276,6 +2388,7 @@ export type QueryBudgetListArgs = {
 
 /** Query root */
 export type QueryBudgetSummaryArgs = {
+  budgetId: Maybe<Scalars['String']>
   perspectiveId: Maybe<Scalars['String']>
 }
 

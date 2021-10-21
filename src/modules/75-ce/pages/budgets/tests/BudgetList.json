@@ -11,6 +11,7 @@
         "timeScope": "monthly",
         "actualCostAlerts": [80.0],
         "forecastCostAlerts": [],
+        "forecastCost": 8,
         "__typename": "BudgetSummary"
       },
       {
@@ -23,6 +24,7 @@
         "timeScope": "monthly",
         "actualCostAlerts": [50.0, 80.0],
         "forecastCostAlerts": [],
+        "forecastCost": 60000,
         "__typename": "BudgetSummary"
       },
       {
@@ -35,6 +37,7 @@
         "timeScope": "monthly",
         "actualCostAlerts": [80.0],
         "forecastCostAlerts": [],
+        "forecastCost": 60000,
         "__typename": "BudgetSummary"
       },
       {
@@ -47,6 +50,7 @@
         "timeScope": "monthly",
         "actualCostAlerts": [50.0, 80.0],
         "forecastCostAlerts": [50.0],
+        "forecastCost": 50,
         "__typename": "BudgetSummary"
       }
     ]
