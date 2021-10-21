@@ -1,10 +1,19 @@
 import React from 'react'
 import type { CellProps, Column, Renderer } from 'react-table'
-import { Button, Color, Layout, Popover, Text, SparkChart, Icon, ButtonVariation } from '@wings-software/uicore'
+import {
+  Button,
+  Color,
+  Layout,
+  Popover,
+  Text,
+  SparkChart,
+  Icon,
+  ButtonVariation,
+  TagsPopover
+} from '@wings-software/uicore'
 import { Classes, Menu, Position } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import Table from '@common/components/Table/Table'
-import TagsPopover from '@common/components/TagsPopover/TagsPopover'
 import { formatDatetoLocale } from '@common/utils/dateUtils'
 import { GitDetailsColumn } from '@common/components/Table/GitDetailsColumn/GitDetailsColumn'
 import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'

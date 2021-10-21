@@ -1,4 +1,4 @@
-import { useToaster, PageSpinner, Page } from '@wings-software/uicore'
+import { useToaster, PageSpinner, Page, TagsPopover } from '@wings-software/uicore'
 import { AdminSelector } from '../navigation/AdminSelector/AdminSelector'
 import AddDrawer from './AddDrawer/AddDrawer'
 import ConnectorStats from './ConnectorStats/ConnectorStats'
@@ -12,7 +12,6 @@ import { NameIdDescriptionTags, Description } from './NameIdDescriptionTags/Name
 import { ReferenceSelect } from './ReferenceSelect/ReferenceSelect'
 import SnippetSection from './SnippetSection/SnippetSection'
 import Table from './Table/Table'
-import TagsPopover from './TagsPopover/TagsPopover'
 import Toothpick from './Toothpick/Toothpick'
 import TimeSelect from './TimeSelect/TimeSelect'
 import { TimeAgo } from './TimeAgo/TimeAgo'

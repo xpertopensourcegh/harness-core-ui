@@ -12,11 +12,11 @@ import {
   SelectOption,
   FormInput,
   MultiSelectOption,
-  PageError
+  PageError,
+  shouldShowError
 } from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
 import { PageSpinner } from '@common/components'
-import { shouldShowError } from '@common/utils/errorUtils'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import FilterSelector from '@common/components/Filter/FilterSelector/FilterSelector'
 import { Filter, FilterRef } from '@common/components/Filter/Filter'

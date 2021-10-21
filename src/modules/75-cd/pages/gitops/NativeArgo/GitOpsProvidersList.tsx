@@ -8,12 +8,11 @@ import {
   ButtonVariation,
   Button,
   PageError,
-  Page
+  Page,
+  shouldShowError
 } from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
-
-import { shouldShowError } from '@common/utils/errorUtils'
 
 import { PageSpinner } from '@common/components'
 
