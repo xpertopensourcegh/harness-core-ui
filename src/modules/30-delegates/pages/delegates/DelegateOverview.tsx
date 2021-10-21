@@ -35,6 +35,8 @@ export const DelegateOverview: React.FC<DelegateOverviewProps> = ({ delegate, de
     .filter(([, tag]) => tag !== 'PROFILE_SELECTORS')
     .map(([tag]) => tag)
 
+  const delSize = delegate.sizeDetails?.ram && (Number(delegate.sizeDetails?.ram) / 1024).toFixed(2)
+
   return (
     <SectionContainer>
       <SectionContainerTitle>{getString('overview')}</SectionContainerTitle>
@@ -95,13 +97,9 @@ export const DelegateOverview: React.FC<DelegateOverviewProps> = ({ delegate, de
 
         <SectionLabelValuePair
           label={getString('delegate.delegateSize')}
-          value={
-            delegate.sizeDetails?.cpu +
-            getString('delegate.delegateCPU') +
-            ', ' +
-            (delegate.sizeDetails?.ram ? delegate.sizeDetails.ram / 1024 : '') +
-            getString('delegates.GBRam')
-          }
+          value={`${delegate.sizeDetails?.cpu}${getString('delegate.delegateCPU')}, ${delSize}${getString(
+            'delegates.GBRam'
+          )}`}
         />
       </Container>
 

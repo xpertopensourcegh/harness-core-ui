@@ -2,6 +2,7 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import { DelegateOverview } from '../DelegateOverview'
+import DelegateGroupMock from './DelegateGroupMock'
 
 const delegateProfile = {
   uuid: 'dsadassd2e23d',
@@ -22,7 +23,7 @@ describe('Delegates Overview Page', () => {
   test('render data', () => {
     const { container } = render(
       <TestWrapper>
-        <DelegateOverview delegate={{}} delegateProfile={delegateProfile} />
+        <DelegateOverview delegate={DelegateGroupMock} delegateProfile={delegateProfile} />
       </TestWrapper>
     )
 

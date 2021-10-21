@@ -205,10 +205,10 @@ onboarding:
     monitoringSourceSubheading: Which Monitoring Source are you setting up for this deployment?
     skipToMonitoringSource: Skip to Monitoring Sources
     monitoringSourceInfo: Verification Monitoring Sources provide the metrics and log data that CV uses to score the risk of your deployment and infrastructure
-    specifyConnector: Specify your {{type}} connector
-    firstTimeSetupText: First time? You can setup a new connector to {{type}}. It takes 2 minutes.
-    selectConnector: Select your {{type}} connector
-    addConnector: + Add {{type}} connector
+    specifyConnector: Specify your {{type}} Connector
+    firstTimeSetupText: First time? You can setup a new Connector to {{type}}. It takes 2 minutes.
+    selectConnector: Select your {{type}} Connector
+    addConnector: + Add {{type}} Connector
     selectProduct: Select the {{type}} product that you would like to select {{entity}} from
     selectMetricPacks: Select Metric Pack(s)
     metricPacksToMonitor: Select metric packs you want to monitor.
@@ -302,7 +302,7 @@ monitoringSources:
       selectTier: Please select tier and its service
       selectMetricPack: Plese select metric packs
     connectToMonitoringSource: Connect to your AppDynamics Monitoring Source
-    firstTimeSetupText: 'First time? You can setup a new connector to AppDynamics. It takes 2 minutes.'
+    firstTimeSetupText: 'First time? You can setup a new Connector to AppDynamics. It takes 2 minutes.'
     createConnectorText: '+ New AppDynamics Connector'
     selectProduct: 'Select the AppDynamics Product that you would like to select applications from'
     product:
@@ -319,7 +319,7 @@ monitoringSources:
   gco:
     connectToMonitoringSource: Connect to your Google Cloud Platform
     defaultName: 'My Google Cloud Operations Monitoring Source'
-    firstTimeSetupText: 'First time? You can setup a new connector to Google Cloud Platform. It takes 2 minutes.'
+    firstTimeSetupText: 'First time? You can setup a new Connector to Google Cloud Platform. It takes 2 minutes.'
     createConnectorText: '+ New Google Cloud Platform Connector'
     addManualInputQuery: '+ Manually input query'
     selectProduct: 'Select the Google Cloud Operations feature that you would like to choose dashboards from'
@@ -490,9 +490,9 @@ activitySources:
       connectorOptionHeading: Select the best method for Harness to reach your Kubernetes Cluster
       nameActivitySourceValidation: Change Source name is required.
       connectorTypeValidation: Kubernetes Connector Type is required.
-      firstTimeSetupText: First time? You can setup a new connector to Kubernetes. It takes 2 minutes.
+      firstTimeSetupText: First time? You can setup a new Connector to Kubernetes. It takes 2 minutes.
       createConnectorText: + New Kubernetes Connector
-      selectConnectorHeading: Select your connector
+      selectConnectorHeading: Select your Connector
       nameValidation: Connector Name is required.
     workloadToServiceTableColumns:
       workload: 'Kubernetes Workload'
@@ -657,7 +657,7 @@ healthSource:
     serviceMapping: Service Mapping
     environmentMapping: Environment Mapping
   connectors:
-    selectConnector: Select {{sourceType}} connector
+    selectConnector: Select {{sourceType}} Connector
     NewRelic:
       applicationLabel: Find an NewRelic application
     AppDynamics:

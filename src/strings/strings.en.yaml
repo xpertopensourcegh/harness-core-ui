@@ -82,7 +82,7 @@ entities: Entities
 enableGitExperience: Enable Git Experience
 gitExperienceNewUserText: Store your Pipelines and Harness Configurations in Git.
 selectGitProvider: Select your Git Provider
-selectGitConnectorTypeLabel: 'Select the connector to your {{type}}'
+selectGitConnectorTypeLabel: 'Select the Connector to your {{type}}'
 lastTested: Last Tested
 lastUpdated: Last Updated
 lastConnectionSuccess: Last time connection was successful
@@ -432,7 +432,7 @@ stepPalette:
 orgDetails:
   accessControlDescription: Manage users, create user groups, and assign roles to your team. Fine tune permissions with custom roles.
   governanceDescription: Precision control over all your Harness resources.
-  resourcesDescription: Manage connectors, secrets, Delegates, and templates here. Set up account-level Git Experience here.
+  resourcesDescription: Manage Connectors, Secrets, Delegates, and templates here. Set up account-level Git Experience here.
   gitSyncDescription: Connect to your Git repository and track your changes
 createSecretYAML:
   create: '{{ $.create }}'
@@ -691,7 +691,7 @@ delegate:
   DelegateName: 'Delegate'
   DelegateSelector: 'Delegate Selector'
   DelegateselectionLabel: 'Delegates Setup'
-  DelegateselectionConnectorText: 'Limit usage of this connector to the Delegates that have the following Tags'
+  DelegateselectionConnectorText: 'Limit usage of this Connector to the Delegates that have the following Tags'
   DelegateSelectorErrorMessage: 'Delegate Selector has an invalid expression. It does not include'
   DelegateSelectorErrMsgSplChars: 'has invalid characters. The Selector property cannot contain'
   Delegate_Selector_placeholder: 'Add specific Selectors or leave empty to target any Delegate'

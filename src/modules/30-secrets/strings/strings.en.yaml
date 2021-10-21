@@ -12,7 +12,7 @@ typeSSH: 'Execution Credential'
 stepTitleVerify: 'Verify Connection'
 blank: '{{$.common.blank}}'
 labelSecretName: 'Secret Name'
-noSecrets: There are no secrets in your {{resourceName}}
+noSecrets: There are no Secrets in your {{resourceName}}
 
 sshAuthFormFields:
   optionKey: 'Username/SSH Key'
