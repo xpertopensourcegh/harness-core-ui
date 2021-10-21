@@ -219,7 +219,7 @@ export const TemplateStudioSubHeaderLeftView: () => JSX.Element = () => {
             onClick={updateStableLabel}
             variation={ButtonVariation.LINK}
             size={ButtonSize.SMALL}
-            text={getString('common.setAsDefault')}
+            text={getString('common.setAsStable')}
           />
         )}
       </Layout.Horizontal>

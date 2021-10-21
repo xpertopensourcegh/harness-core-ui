@@ -422,6 +422,7 @@ export interface StringsMap {
   'common.serviceCreated': string
   'common.serviceUpdated': string
   'common.setAsDefault': string
+  'common.setAsStable': string
   'common.setup': string
   'common.shell': string
   'common.showLess': string
@@ -430,6 +431,7 @@ export interface StringsMap {
   'common.slack': string
   'common.specified': string
   'common.specify': string
+  'common.stable': string
   'common.startTrial': string
   'common.submittingRequest': string
   'common.submittingRequestToGitViaDelegate': string
@@ -2579,11 +2581,13 @@ export interface StringsMap {
   'templatesLibrary.entityType': string
   'templatesLibrary.errorWhileDeleting': string
   'templatesLibrary.errorWhileUpdating': string
+  'templatesLibrary.inputsCount': string
   'templatesLibrary.openEditTemplate': string
   'templatesLibrary.openInTemplateStudio': string
   'templatesLibrary.referencedBy': string
   'templatesLibrary.saveAsNewLabelModal.heading': string
   'templatesLibrary.selectTemplateToPreview': string
+  'templatesLibrary.stableVersion': string
   'templatesLibrary.stageTemplate': string
   'templatesLibrary.templateInputs': string
   'templatesLibrary.templateScope': string

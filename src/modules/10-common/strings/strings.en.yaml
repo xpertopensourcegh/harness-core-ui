@@ -455,6 +455,8 @@ harnessNextGenerationDescription: Take your software delivery processes to the n
 changeDefaultAccountTitle: Change Default Account
 changeDefaultAccountMessage: Are you sure you want to set your default account to '{{ name }}'?
 setAsDefault: Set as Default
+setAsStable: Set as Stable
+stable: Stable
 headerAccountName: '{{ $.common.accountName }}'
 headerCompanyName: Company Name
 headerAccountEdition: Account Edition

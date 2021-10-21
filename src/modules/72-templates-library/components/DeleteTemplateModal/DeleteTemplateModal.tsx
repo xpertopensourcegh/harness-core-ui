@@ -30,8 +30,8 @@ export interface DeleteTemplateProps {
 }
 export interface CheckboxOptions {
   label: string
+  value: string
   checked: boolean
-  disabled: boolean
   visible: boolean
 }
 
@@ -95,9 +95,11 @@ export const DeleteTemplateModal = (props: DeleteTemplateProps) => {
       setCheckboxOptions(
         templateData?.data?.content?.map(template => {
           return {
-            label: template.versionLabel || '',
+            label: template.stableTemplate
+              ? getString('templatesLibrary.stableVersion', { entity: template.versionLabel })
+              : template.versionLabel || '',
+            value: template.versionLabel || '',
             checked: false,
-            disabled: !!template.stableTemplate,
             visible: true
           }
         })
@@ -111,8 +113,8 @@ export const DeleteTemplateModal = (props: DeleteTemplateProps) => {
         checkboxOptions.map(option => {
           return {
             label: option.label,
+            value: option.value,
             checked: option.checked,
-            disabled: option.disabled,
             visible: option.label.startsWith(query)
           }
         })
@@ -126,7 +128,7 @@ export const DeleteTemplateModal = (props: DeleteTemplateProps) => {
       {templateData?.data?.content && !isEmpty(templateData?.data?.content) && (
         <Formik<{ checkboxOptions: CheckboxOptions[] }>
           onSubmit={values => {
-            const selectedVersions = values.checkboxOptions.filter(item => item.checked).map(item => item.label)
+            const selectedVersions = values.checkboxOptions.filter(item => item.checked).map(item => item.value)
             performDelete(selectedVersions)
           }}
           enableReinitialize={true}
@@ -160,7 +162,7 @@ export const DeleteTemplateModal = (props: DeleteTemplateProps) => {
                                 return (
                                   <Checkbox
                                     key={option.label}
-                                    label={option.label + (option.disabled ? ' (Default)' : '')}
+                                    label={option.label}
                                     className={option.checked ? css.selected : ''}
                                     checked={option.checked}
                                     onChange={e => {
@@ -183,8 +185,8 @@ export const DeleteTemplateModal = (props: DeleteTemplateProps) => {
                                     options.map(option => {
                                       return {
                                         label: option.label,
+                                        value: option.value,
                                         checked: e.currentTarget.checked,
-                                        disabled: option.disabled,
                                         visible: option.label.startsWith(query)
                                       }
                                     })

@@ -5,14 +5,16 @@ import type { PopoverProps } from '@wings-software/uicore/dist/components/Popove
 import cx from 'classnames'
 import css from './TemplatesActionPopover.module.scss'
 
+export interface TemplateMenuItem {
+  icon?: IconName
+  label: string
+  disabled?: boolean
+  onClick: () => void
+}
+
 export interface TemplatesActionPopoverProps extends PopoverProps {
   open?: boolean
-  items?: {
-    icon?: IconName
-    label: string
-    disabled?: boolean
-    onClick: () => void
-  }[]
+  items?: TemplateMenuItem[]
   setMenuOpen: (flag: boolean) => void
   className?: string
 }
@@ -34,7 +36,7 @@ export const TemplatesActionPopover = (props: React.PropsWithChildren<TemplatesA
       {content ? (
         content
       ) : items ? (
-        <Menu style={{ minWidth: 'unset' }} onClick={e => e.stopPropagation()}>
+        <Menu onClick={e => e.stopPropagation()}>
           {items?.map(item => {
             return (
               <li

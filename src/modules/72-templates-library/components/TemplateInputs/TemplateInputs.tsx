@@ -32,7 +32,7 @@ export interface TemplateInputsProps {
 
 export const TemplateInputs: React.FC<TemplateDetailsProps> = props => {
   const { templateIdentifier, versionLabel, accountId, orgIdentifier, projectIdentifier } = props
-  const [inputSetTemplate, setInputSetTemplate] = React.useState<StepElementConfig>()
+  const [inputSetTemplate, setInputSetTemplate] = React.useState<StepElementConfig | null>()
   const [count, setCount] = React.useState<number>(0)
   const { showError } = useToaster()
   const { getString } = useStrings()
@@ -53,25 +53,34 @@ export const TemplateInputs: React.FC<TemplateDetailsProps> = props => {
   })
 
   React.useEffect(() => {
-    try {
-      const templateInput = parse(templateInputYaml?.data || '')
-      setCount((JSON.stringify(templateInput).match(/<\+input>/g) || []).length)
-      setInputSetTemplate(templateInput)
-    } catch (error) {
-      showError(error.message, undefined, 'template.parse.inputSet.error')
+    if (!loading && templateInputYaml?.data) {
+      try {
+        const templateInput = parse(templateInputYaml.data || '')
+        setCount((JSON.stringify(templateInput).match(/<\+input>/g) || []).length)
+        setInputSetTemplate(templateInput)
+      } catch (error) {
+        showError(error.message, undefined, 'template.parse.inputSet.error')
+      }
     }
-  }, [templateInputYaml?.data])
+  }, [loading, templateInputYaml?.data])
+
+  React.useEffect(() => {
+    setInputSetTemplate(null)
+    refetch()
+  }, [versionLabel])
 
   return (
     <Container padding={{ top: 'large', left: 'xxlarge', bottom: 'xxlarge', right: 'xxlarge' }}>
       {inputSetTemplate ? (
         <Layout.Vertical spacing={'xlarge'} className={css.inputsContainer}>
           <Container>
-            <Layout.Horizontal flex={{ alignItems: 'center' }}>
+            <Layout.Horizontal flex={{ alignItems: 'center' }} spacing={'xxxlarge'}>
               <Text font={{ size: 'normal', weight: 'bold' }} color={Color.GREY_800}>
                 {templateIdentifier}: {versionLabel}
               </Text>
-              <Text font={{ size: 'small' }}>Total Inputs: {count}</Text>
+              <Text className={css.inputsCount} font={{ size: 'small' }}>
+                {getString('templatesLibrary.inputsCount', { count })}
+              </Text>
             </Layout.Horizontal>
           </Container>
           <Formik<StepElementConfig /*TemplateStepFormData*/>
@@ -108,7 +117,7 @@ export const TemplateInputs: React.FC<TemplateDetailsProps> = props => {
           {!loading && inputSetError && (
             <PageError className={css.error} message={inputSetError?.message} onClick={() => refetch()} />
           )}
-          {!loading && !inputSetError && !inputSetTemplate && (
+          {!loading && !inputSetError && (
             <Heading level={2} font={{ weight: 'bold' }} color={Color.GREY_300}>
               This template has no inputs
             </Heading>

@@ -98,13 +98,14 @@ function StepForm({
   const { projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { expressions } = useVariablesExpression()
   const isTemplateStep = !!(allValues?.step as TemplateStepData)?.template
+  const type = isTemplateStep
+    ? (allValues?.step as TemplateStepData)?.template.templateInputs?.type
+    : allValues?.step?.type
+
   return (
     <Layout.Vertical spacing="medium" padding={{ top: 'medium' }}>
       <Label>
-        <Icon
-          padding={{ right: 'small' }}
-          name={factory.getStepIcon(allValues?.step?.type || /* istanbul ignore next */ '')}
-        />
+        <Icon padding={{ right: 'small' }} name={factory.getStepIcon(type || /* istanbul ignore next */ '')} />
         {getString('pipeline.execution.stepTitlePrefix')}
         {getString('pipeline.stepLabel', allValues?.step)}
       </Label>

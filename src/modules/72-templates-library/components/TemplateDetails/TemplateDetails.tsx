@@ -108,7 +108,9 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
       )
       const newVersionOptions = templateData?.data?.content?.map(item => {
         return {
-          label: item.versionLabel,
+          label: item.stableTemplate
+            ? getString('templatesLibrary.stableVersion', { entity: item.versionLabel })
+            : item.versionLabel,
           value: item.versionLabel
         } as SelectOption
       }) || [{ label: '', value: '' } as SelectOption]
@@ -182,7 +184,7 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
               <Container>
                 <Layout.Vertical spacing={'small'}>
                   <Text font={{ size: 'small' }} color={Color.GREY_500}>
-                    {getString('version')}
+                    {getString('templatesLibrary.createNewModal.versionLabel')}
                   </Text>
                   {selectedTemplate.versionLabel && (
                     <DropDown
@@ -227,7 +229,7 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
               <Tab
                 id={TemplateTabs.INPUTS}
                 title={getString('templatesLibrary.templateInputs')}
-                panel={<TemplateInputs {...props} />}
+                panel={<TemplateInputs {...props} versionLabel={selectedTemplate.versionLabel} />}
               />
               <Tab
                 id={TemplateTabs.YAML}

@@ -1,12 +1,16 @@
 import React, { useContext } from 'react'
-import { Menu, Position } from '@blueprintjs/core'
+import { Position } from '@blueprintjs/core'
 import { ButtonVariation } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
+import { merge } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import { getAllowedTemplateTypes, TemplateType } from '@templates-library/utils/templatesUtils'
 import routes from '@common/RouteDefinitions'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { TemplatesActionPopover } from '@templates-library/components/TemplatesActionPopover/TemplatesActionPopover'
+import {
+  TemplateMenuItem,
+  TemplatesActionPopover
+} from '@templates-library/components/TemplatesActionPopover/TemplatesActionPopover'
 import { DefaultNewTemplateId } from 'framework/Templates/templates'
 
 import RbacButton from '@rbac/components/Button/Button'
@@ -39,29 +43,19 @@ export function NewTemplatePopover(): React.ReactElement {
     [projectIdentifier, orgIdentifier, accountId, module]
   )
 
-  const renderMenu = () => {
-    return (
-      <Menu style={{ width: '120px' }} onClick={e => e.stopPropagation()}>
-        {allowedTemplateTypes.map(templateType => (
-          <Menu.Item
-            text={templateType.label}
-            key={templateType.value}
-            disabled={templateType.disabled}
-            onClick={(e: React.MouseEvent) => {
-              e.stopPropagation()
-              goToTemplateStudio(templateType.value as TemplateType)
-            }}
-          />
-        ))}
-      </Menu>
-    )
+  const getMenu = (): TemplateMenuItem[] => {
+    return allowedTemplateTypes.map(templateType => {
+      return merge(templateType, {
+        onClick: () => goToTemplateStudio(templateType.value as TemplateType)
+      })
+    })
   }
 
   return (
     <TemplatesActionPopover
       open={menuOpen}
       minimal={true}
-      content={renderMenu()}
+      items={getMenu()}
       position={Position.BOTTOM}
       disabled={isReadonly}
       setMenuOpen={setMenuOpen}

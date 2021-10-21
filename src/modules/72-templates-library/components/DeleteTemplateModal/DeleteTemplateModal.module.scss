@@ -1,9 +1,7 @@
 .preview {
-  width: 35%;
+  width: 35% !important;
   padding: var(--spacing-10) 0px !important;
-  display: flex;
-  justify-content: center;
-  align-self: center;
+  flex-grow: 0;
 }
 
 .selectVersions {
@@ -17,6 +15,7 @@
       border-bottom: 1px solid var(--grey-100);
       font-size: var(--font-size-normal) !important;
       font-weight: 500 !important;
+      overflow-wrap: anywhere;
 
       &:local(.selected) {
         background-color: var(--primary-1);
@@ -25,6 +24,7 @@
 
       .bp3-control-indicator {
         margin-right: var(--spacing-medium) !important;
+        flex-shrink: 0;
       }
     }
   }

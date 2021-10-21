@@ -1,13 +1,11 @@
 import React from 'react'
 import type { FormikErrors } from 'formik'
-import { IconName, MultiTypeInputType } from '@wings-software/uicore'
-import { isEmpty } from 'lodash-es'
+import type { IconName } from '@wings-software/uicore'
 import { StepProps, StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { TemplateStepData } from '@pipeline/utils/tempates'
-import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
-import type { StepElementConfig } from 'services/cd-ng'
+import TemplateInputSetStep from '@templates-library/components/PipelineSteps/TemplateStep/TemplateInputSetStep'
 import { TemplateStepWidgetWithRef } from './TemplateStepWidget/TemplateStepWidget'
 
 export class TemplateStep extends PipelineStep<TemplateStepData> {
@@ -40,21 +38,28 @@ export class TemplateStep extends PipelineStep<TemplateStepData> {
   }
 
   renderStep(this: TemplateStep, props: StepProps<TemplateStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, formikRef, isNewStep, readonly, factory, inputSetData } = props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      formikRef,
+      isNewStep,
+      readonly,
+      factory,
+      inputSetData,
+      allowableTypes
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
-      const prefix = isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`
       return (
-        <StepWidget<Partial<StepElementConfig>>
-          factory={factory}
-          initialValues={initialValues.template?.templateInputs || {}}
-          allValues={inputSetData?.allValues?.template?.templateInputs}
-          template={inputSetData?.template as Partial<StepElementConfig>}
+        <TemplateInputSetStep
+          initialValues={initialValues}
+          onUpdate={data => onUpdate?.(this.processFormData(data))}
+          stepViewType={stepViewType}
           readonly={!!inputSetData?.readonly}
-          type={initialValues.template?.templateInputs?.type as StepType}
-          path={`${prefix}template.templateInputs`}
-          stepViewType={StepViewType.InputSet}
-          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
+          template={inputSetData?.template}
+          path={inputSetData?.path || ''}
+          allowableTypes={allowableTypes}
         />
       )
     } else if (stepViewType === StepViewType.InputVariable) {

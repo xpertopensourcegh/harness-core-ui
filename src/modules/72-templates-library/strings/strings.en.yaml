@@ -11,6 +11,8 @@ templateInputs: Template Inputs
 referencedBy: Referenced By
 selectTemplateToPreview: Select a template to preview
 templateTitle: '{{ entity }} Template'
+stableVersion: '{{ entity }} (Stable)'
+inputsCount: 'Total Inputs: {{count}}'
 templateUpdated: Template Updated
 errorWhileUpdating: Error occurred updating Template
 templatesDeleted: Templates Deleted
@@ -32,7 +34,7 @@ createNewModal:
     name: Template name is required
     versionLabel: Version Label is required
 saveAsNewLabelModal:
-  heading: 'Save as New Label'
+  heading: 'Save as New Version Label'
 updateTemplateModal:
   heading: 'Save {{ name }} ({{ version }})'
   addCommentPlaceholder: Add a comment
