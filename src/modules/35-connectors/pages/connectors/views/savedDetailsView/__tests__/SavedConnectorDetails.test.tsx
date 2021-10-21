@@ -12,7 +12,8 @@ import {
   GCP,
   AWS,
   Nexus,
-  Artifactory
+  Artifactory,
+  AwsCodeCommit
 } from '../../../__tests__/mockData'
 
 describe('Saved Connector Details', () => {
@@ -117,6 +118,18 @@ describe('Saved Connector Details', () => {
 
     await waitFor(() => queryByText(container, 'VaultId'))
     expect(getByText('VaultName')).toBeDefined()
+    expect(container).toMatchSnapshot()
+  })
+
+  test('render for AwsCodeCommit schema', async () => {
+    const { container, getByText } = render(
+      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
+        <SavedConnectorDetails connector={AwsCodeCommit.data.content[0].connector as ConnectorInfoDTO} />
+      </TestWrapper>
+    )
+
+    await waitFor(() => queryByText(container, 'awscodecommit'))
+    expect(getByText('aws-code-commit')).toBeDefined()
     expect(container).toMatchSnapshot()
   })
 

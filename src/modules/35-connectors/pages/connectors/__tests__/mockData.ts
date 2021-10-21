@@ -577,6 +577,52 @@ export const Artifactory = {
   }
 }
 
+export const AwsCodeCommit = {
+  status: 'SUCCESS' as const,
+  data: {
+    currentPage: 1,
+    empty: false,
+    content: [
+      {
+        connector: {
+          name: 'aws-code-commit',
+          identifier: 'awscodecommit',
+          description: '',
+          orgIdentifier: 'default',
+          projectIdentifier: 'project1',
+          tags: {},
+          type: 'Codecommit',
+          spec: {
+            url: 'test',
+            authentication: {
+              type: 'HTTPS',
+              spec: {
+                type: 'AWSCredentials',
+                spec: {
+                  accessKey: 'accessKey',
+                  accessKeyRef: null,
+                  secretKeyRef: 'account.fdfdere'
+                }
+              }
+            },
+            delegateSelectors: [],
+            type: 'Repo'
+          }
+        },
+        status: {
+          errorMessage: null,
+          lastConnectedAt: 1601199008081,
+          lastTestedAt: 1601199008081,
+          status: 'SUCCESS'
+        },
+        createdAt: 1601198999531,
+        lastModifiedAt: 1601199008088
+      }
+    ],
+    total: 1
+  }
+}
+
 export const filters = {
   status: 'SUCCESS',
   data: {

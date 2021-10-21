@@ -1482,6 +1482,7 @@ export interface StringsMap {
   'connectors.name_labels.AWS': string
   'connectors.name_labels.AppDynamics': string
   'connectors.name_labels.Artifactory': string
+  'connectors.name_labels.AwsCodeCommit': string
   'connectors.name_labels.Bitbucket': string
   'connectors.name_labels.Docker': string
   'connectors.name_labels.ECR': string

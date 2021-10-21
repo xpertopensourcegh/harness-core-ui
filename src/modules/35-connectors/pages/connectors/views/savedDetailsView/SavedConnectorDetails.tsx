@@ -71,6 +71,8 @@ const getLabelByType = (type: string): string => {
       return 'connectors.name_labels.GCP'
     case Connectors.AWS:
       return 'connectors.name_labels.AWS'
+    case Connectors.AWS_CODECOMMIT:
+      return 'connectors.name_labels.AwsCodeCommit'
     case Connectors.NEXUS:
       return 'connectors.name_labels.Nexus'
     case Connectors.ARTIFACTORY:
@@ -417,6 +419,29 @@ const getAwsSecretManagerSchema = (connector: ConnectorInfoDTO): Array<ActivityD
   ]
 }
 
+const getAwsCodeCommitSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInterface> => {
+  return [
+    {
+      label: 'common.git.urlType',
+      value: connector?.spec?.type
+    },
+    {
+      label: 'connectors.awsCodeCommit.repoUrl',
+      value: connector?.spec?.url
+    },
+    {
+      label: 'connectors.aws.accessKey',
+      value:
+        connector?.spec?.authentication?.spec?.spec?.accessKey ||
+        connector?.spec?.authentication?.spec?.spec?.accessKeyRef
+    },
+    {
+      label: 'encryptedKeyLabel',
+      value: connector?.spec?.authentication?.spec?.spec?.secretKeyRef
+    }
+  ]
+}
+
 const getGcpKmsSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInterface> => {
   const data = connector.spec as GcpKmsConnectorDTO
   return [
@@ -618,6 +643,8 @@ const getSchemaByType = (connector: ConnectorInfoDTO, type: string): Array<Activ
       return getAwsKmsSchema(connector)
     case Connectors.AWS_SECRET_MANAGER:
       return getAwsSecretManagerSchema(connector)
+    case Connectors.AWS_CODECOMMIT:
+      return getAwsCodeCommitSchema(connector)
     case Connectors.GCP_KMS:
       return getGcpKmsSchema(connector)
     case Connectors.DATADOG:

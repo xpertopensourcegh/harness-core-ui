@@ -98,6 +98,7 @@ name_labels:
   GCP: 'GCP Connector Name'
   gcpKms: 'GCP KMS Connector Name'
   AWS: 'AWS Connector Name'
+  AwsCodeCommit: 'AWS CodeCommit Name'
   ECR: ECR Connector Name'
   Nexus: 'Nexus Connector Name'
   Artifactory: 'Artifactory Connector Name'
