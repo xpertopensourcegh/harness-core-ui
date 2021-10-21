@@ -1,6 +1,7 @@
 import { Color } from '@wings-software/uicore'
+import { ChangeSourceTypes } from '@cv/pages/ChangeSource/ChangeSourceDrawer/ChangeSourceDrawer.constants'
 import type { ChangeEventDTO } from 'services/cv'
-import { EXECUTION_STATUS } from './ChangeDetails.constant'
+import { EXECUTION_STATUS_HARNESS_CD_NEXTGEN, EXECUTION_STATUS_HARNESS_CD } from './ChangeDetails.constant'
 
 export const createDetailsTitle = (type?: string, category?: string) => {
   switch (category) {
@@ -20,50 +21,135 @@ export const getOnClickOptions = (detailsItem: { name: string | ChangeEventDTO['
   return {}
 }
 
-export const statusToColorMapping = (status: string) => {
+const statusToColorMappingHarnessCDNextGen = (status: keyof typeof EXECUTION_STATUS_HARNESS_CD_NEXTGEN) => {
   switch (status) {
-    case EXECUTION_STATUS.SUCCEEDED:
-    case EXECUTION_STATUS.RUNNING:
-    case EXECUTION_STATUS.TIMED_WAITING:
-    case EXECUTION_STATUS.ASYNC_WAITING:
-    case EXECUTION_STATUS.TASK_WAITING:
+    case EXECUTION_STATUS_HARNESS_CD_NEXTGEN.SUCCESS:
+    case EXECUTION_STATUS_HARNESS_CD_NEXTGEN.IGNORE_FAILED:
       return {
-        color: Color.BLUE_500,
+        color: Color.GREEN_600,
+        backgroundColor: Color.GREEN_100
+      }
+    case EXECUTION_STATUS_HARNESS_CD_NEXTGEN.RUNNING:
+    case EXECUTION_STATUS_HARNESS_CD_NEXTGEN.TIMED_WAITING:
+    case EXECUTION_STATUS_HARNESS_CD_NEXTGEN.ASYNC_WAITING:
+    case EXECUTION_STATUS_HARNESS_CD_NEXTGEN.TASK_WAITING:
+      return {
+        color: Color.PRIMARY_7,
         backgroundColor: Color.BLUE_100
       }
-    case EXECUTION_STATUS.PAUSING:
+    case EXECUTION_STATUS_HARNESS_CD_NEXTGEN.PAUSING:
       return {
         color: Color.ORANGE_500,
         backgroundColor: Color.ORANGE_100
       }
-    case EXECUTION_STATUS.INTERVENTION_WAITING:
-    case EXECUTION_STATUS.APPROVAL_WAITING:
-    case EXECUTION_STATUS.RESOURCE_WAITING:
+    case EXECUTION_STATUS_HARNESS_CD_NEXTGEN.INTERVENTION_WAITING:
+    case EXECUTION_STATUS_HARNESS_CD_NEXTGEN.APPROVAL_WAITING:
+    case EXECUTION_STATUS_HARNESS_CD_NEXTGEN.RESOURCE_WAITING:
       return {
-        color: Color.ORANGE_200,
+        color: Color.ORANGE_800,
         backgroundColor: Color.ORANGE_100
       }
-    case EXECUTION_STATUS.ABORTED:
-    case EXECUTION_STATUS.ERRORED:
-    case EXECUTION_STATUS.FAILED:
-    case EXECUTION_STATUS.APPROVAL_REJECTED:
+    case EXECUTION_STATUS_HARNESS_CD_NEXTGEN.ERRORED:
+    case EXECUTION_STATUS_HARNESS_CD_NEXTGEN.FAILED:
+    case EXECUTION_STATUS_HARNESS_CD_NEXTGEN.SUSPENDED:
+    case EXECUTION_STATUS_HARNESS_CD_NEXTGEN.APPROVAL_REJECTED:
       return {
         color: Color.RED_500,
         backgroundColor: Color.RED_100
       }
-    case EXECUTION_STATUS.NO_OP:
-    case EXECUTION_STATUS.DISCONTINUING:
-    case EXECUTION_STATUS.QUEUED:
-    case EXECUTION_STATUS.SKIPPED:
-    case EXECUTION_STATUS.PAUSED:
-    case EXECUTION_STATUS.EXPIRED:
-    case EXECUTION_STATUS.SUSPENDED:
-    case EXECUTION_STATUS.IGNORE_FAILED:
-    case EXECUTION_STATUS.UNRECOGNIZED:
+    case EXECUTION_STATUS_HARNESS_CD_NEXTGEN.QUEUED:
+    case EXECUTION_STATUS_HARNESS_CD_NEXTGEN.SKIPPED:
+    case EXECUTION_STATUS_HARNESS_CD_NEXTGEN.ABORTED:
+    case EXECUTION_STATUS_HARNESS_CD_NEXTGEN.EXPIRED:
+    case EXECUTION_STATUS_HARNESS_CD_NEXTGEN.DISCONTINUING:
+      return {
+        color: Color.GREY_800,
+        backgroundColor: Color.WHITE
+      }
+    case EXECUTION_STATUS_HARNESS_CD_NEXTGEN.NO_OP:
+    case EXECUTION_STATUS_HARNESS_CD_NEXTGEN.PAUSED:
+    case EXECUTION_STATUS_HARNESS_CD_NEXTGEN.UNRECOGNIZED:
       return {
         color: Color.BLACK,
         backgroundColor: Color.GREY_100
       }
+    default:
+      return {
+        color: Color.GREY_500,
+        backgroundColor: Color.GREY_50
+      }
+  }
+}
+
+const statusToColorMappingHarnessCD = (status: keyof typeof EXECUTION_STATUS_HARNESS_CD) => {
+  switch (status) {
+    case EXECUTION_STATUS_HARNESS_CD.SUCCESS:
+      return {
+        color: Color.GREEN_600,
+        backgroundColor: Color.GREEN_100
+      }
+    case EXECUTION_STATUS_HARNESS_CD.RUNNING:
+    case EXECUTION_STATUS_HARNESS_CD.STARTING:
+      return {
+        color: Color.PRIMARY_7,
+        backgroundColor: Color.BLUE_100
+      }
+    case EXECUTION_STATUS_HARNESS_CD.PAUSING:
+      return {
+        color: Color.ORANGE_500,
+        backgroundColor: Color.ORANGE_100
+      }
+    case EXECUTION_STATUS_HARNESS_CD.WAITING:
+    case EXECUTION_STATUS_HARNESS_CD.PREPARING:
+      return {
+        color: Color.ORANGE_800,
+        backgroundColor: Color.ORANGE_100
+      }
+    case EXECUTION_STATUS_HARNESS_CD.ERROR:
+    case EXECUTION_STATUS_HARNESS_CD.FAILED:
+    case EXECUTION_STATUS_HARNESS_CD.ABORTING:
+    case EXECUTION_STATUS_HARNESS_CD.REJECTED:
+      return {
+        color: Color.RED_500,
+        backgroundColor: Color.RED_100
+      }
+    case EXECUTION_STATUS_HARNESS_CD.QUEUED:
+    case EXECUTION_STATUS_HARNESS_CD.SKIPPED:
+    case EXECUTION_STATUS_HARNESS_CD.EXPIRED:
+    case EXECUTION_STATUS_HARNESS_CD_NEXTGEN.ABORTED:
+    case EXECUTION_STATUS_HARNESS_CD.DISCONTINUING:
+      return {
+        color: Color.GREY_800,
+        backgroundColor: Color.WHITE
+      }
+    case EXECUTION_STATUS_HARNESS_CD.NEW:
+    case EXECUTION_STATUS_HARNESS_CD.PAUSED:
+    case EXECUTION_STATUS_HARNESS_CD.RESUMED:
+    case EXECUTION_STATUS_HARNESS_CD.SCHEDULED:
+      return {
+        color: Color.BLACK,
+        backgroundColor: Color.GREY_100
+      }
+    default:
+      return {
+        color: Color.GREY_500,
+        backgroundColor: Color.GREY_50
+      }
+  }
+}
+
+export const statusToColorMapping = (
+  status: keyof typeof EXECUTION_STATUS_HARNESS_CD_NEXTGEN | keyof typeof EXECUTION_STATUS_HARNESS_CD,
+  type?: ChangeEventDTO['type']
+): {
+  color: Color
+  backgroundColor: Color
+} => {
+  switch (type) {
+    case ChangeSourceTypes.HarnessCD:
+      return statusToColorMappingHarnessCD(status as keyof typeof EXECUTION_STATUS_HARNESS_CD)
+    case ChangeSourceTypes.HarnessCDNextGen:
+      return statusToColorMappingHarnessCDNextGen(status as keyof typeof EXECUTION_STATUS_HARNESS_CD_NEXTGEN)
     default:
       return {
         color: Color.GREY_500,

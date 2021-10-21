@@ -14,7 +14,7 @@ export default function ChangeDetails({
 }): JSX.Element {
   const { getString } = useStrings()
   const { type, category, details, status } = ChangeDetailsData
-  const { color, backgroundColor } = statusToColorMapping(status) || {}
+  const { color, backgroundColor } = statusToColorMapping(status, type) || {}
 
   return (
     <Container>

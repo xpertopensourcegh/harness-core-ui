@@ -1,4 +1,6 @@
+import { Color } from '@wings-software/uicore'
 import type { ChangeEventDTO } from 'services/cv'
+import { ChangeSourceTypes } from '@cv/pages/ChangeSource/ChangeSourceDrawer/ChangeSourceDrawer.constants'
 import { VerificationStatus } from '../ChangeEventCard.constant'
 import type { CustomChangeEventDTO } from '../ChangeEventCard.types'
 import {
@@ -7,7 +9,10 @@ import {
   createChangeTitleData,
   verificationResultToColor
 } from '../ChangeEventCard.utils'
-import { EXECUTION_STATUS } from '../components/ChangeDetails/ChangeDetails.constant'
+import {
+  EXECUTION_STATUS_HARNESS_CD_NEXTGEN,
+  EXECUTION_STATUS_HARNESS_CD
+} from '../components/ChangeDetails/ChangeDetails.constant'
 import { statusToColorMapping } from '../components/ChangeDetails/ChangeDetails.utils'
 import { payload } from './ChangeEventCard.mock'
 
@@ -87,22 +92,49 @@ describe('Validate Utils', () => {
     })
   })
 
-  test('should validate statusToColorMapping', () => {
-    expect(statusToColorMapping(EXECUTION_STATUS.ABORTED)).toEqual({
-      backgroundColor: 'red100',
-      color: 'red500'
+  test('should validate statusToColorMapping for HarnessCDNextGen', () => {
+    expect(
+      statusToColorMapping(EXECUTION_STATUS_HARNESS_CD_NEXTGEN.ABORTED, ChangeSourceTypes.HarnessCDNextGen)
+    ).toEqual({
+      color: Color.GREY_800,
+      backgroundColor: Color.WHITE
     })
-    expect(statusToColorMapping(EXECUTION_STATUS.SUCCEEDED)).toEqual({
-      backgroundColor: 'blue100',
-      color: 'blue500'
+    expect(
+      statusToColorMapping(EXECUTION_STATUS_HARNESS_CD_NEXTGEN.SUCCESS, ChangeSourceTypes.HarnessCDNextGen)
+    ).toEqual({
+      color: Color.GREEN_600,
+      backgroundColor: Color.GREEN_100
     })
-    expect(statusToColorMapping(EXECUTION_STATUS.RUNNING)).toEqual({
-      backgroundColor: 'blue100',
-      color: 'blue500'
+    expect(
+      statusToColorMapping(EXECUTION_STATUS_HARNESS_CD_NEXTGEN.RUNNING, ChangeSourceTypes.HarnessCDNextGen)
+    ).toEqual({
+      color: Color.PRIMARY_7,
+      backgroundColor: Color.BLUE_100
     })
-    expect(statusToColorMapping(EXECUTION_STATUS.PAUSING)).toEqual({
-      backgroundColor: 'orange100',
-      color: 'orange500'
+    expect(
+      statusToColorMapping(EXECUTION_STATUS_HARNESS_CD_NEXTGEN.PAUSING, ChangeSourceTypes.HarnessCDNextGen)
+    ).toEqual({
+      color: Color.ORANGE_500,
+      backgroundColor: Color.ORANGE_100
+    })
+  })
+
+  test('should validate statusToColorMapping for HarnessCD', () => {
+    expect(statusToColorMapping(EXECUTION_STATUS_HARNESS_CD.ABORTED, ChangeSourceTypes.HarnessCD)).toEqual({
+      color: Color.GREY_800,
+      backgroundColor: Color.WHITE
+    })
+    expect(statusToColorMapping(EXECUTION_STATUS_HARNESS_CD.SUCCESS, ChangeSourceTypes.HarnessCD)).toEqual({
+      color: Color.GREEN_600,
+      backgroundColor: Color.GREEN_100
+    })
+    expect(statusToColorMapping(EXECUTION_STATUS_HARNESS_CD.RUNNING, ChangeSourceTypes.HarnessCD)).toEqual({
+      color: Color.PRIMARY_7,
+      backgroundColor: Color.BLUE_100
+    })
+    expect(statusToColorMapping(EXECUTION_STATUS_HARNESS_CD.PAUSING, ChangeSourceTypes.HarnessCD)).toEqual({
+      color: Color.ORANGE_500,
+      backgroundColor: Color.ORANGE_100
     })
   })
 })
