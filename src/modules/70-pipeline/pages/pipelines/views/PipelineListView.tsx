@@ -1,23 +1,22 @@
 import React from 'react'
 import type { CellProps, Column, Renderer } from 'react-table'
-import { Button, Color, Layout, Popover, Text, SparkChart, Icon, ButtonVariation, Utils } from '@wings-software/uicore'
+import { Button, Color, Layout, Popover, Text, SparkChart, Icon, ButtonVariation } from '@wings-software/uicore'
 import { Classes, Menu, Position } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import Table from '@common/components/Table/Table'
 import TagsPopover from '@common/components/TagsPopover/TagsPopover'
 import { formatDatetoLocale } from '@common/utils/dateUtils'
 import { GitDetailsColumn } from '@common/components/Table/GitDetailsColumn/GitDetailsColumn'
-import { FeatureWarning } from '@common/components/FeatureWarning/FeatureWarning'
 import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'
 import useDeleteConfirmationDialog from '@pipeline/pages/utils/DeleteConfirmDialog'
 import type { PagePMSPipelineSummaryResponse, PMSPipelineSummaryResponse } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
 import { usePermission } from '@rbac/hooks/usePermission'
+import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
-import { useFeaturesContext } from 'framework/featureStore/FeaturesContext'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { getIconsForPipeline, getStatusColor } from '../PipelineListUtils'
 import css from '../PipelinesPage.module.scss'
@@ -47,10 +46,11 @@ const RenderColumnMenu: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => 
   const data = row.original
   const [menuOpen, setMenuOpen] = React.useState(false)
   const { getString } = useStrings()
-  const { projectIdentifier, orgIdentifier, accountId } = useParams<{
+  const { projectIdentifier, orgIdentifier, accountId, module } = useParams<{
     projectIdentifier: string
     orgIdentifier: string
     accountId: string
+    module: string
   }>()
 
   const { confirmDelete } = useDeleteConfirmationDialog(data, 'pipeline', (column as any).refetchPipeline)
@@ -70,26 +70,11 @@ const RenderColumnMenu: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => 
     [data.identifier]
   )
 
-  const { checkFeature } = useFeaturesContext()
-  const { enabled: runPipelineLicensed } = checkFeature(FeatureIdentifier.DEPLOYMENTS)
-
   const runPipeline = useRunPipelineModal({
     pipelineIdentifier: (data.identifier || '') as string,
     repoIdentifier: data.gitDetails?.repoIdentifier,
     branch: data.gitDetails?.branch
   })
-
-  const runPipelineMenuButton = (
-    <Menu.Item
-      icon="play"
-      text={getString('runPipelineText')}
-      disabled={!canRun || !runPipelineLicensed}
-      onClick={(e: React.MouseEvent) => {
-        e.stopPropagation()
-        runPipeline()
-      }}
-    />
-  )
 
   return (
     <Layout.Horizontal style={{ justifyContent: 'flex-end' }}>
@@ -111,15 +96,20 @@ const RenderColumnMenu: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => 
           }}
         />
         <Menu style={{ minWidth: 'unset' }} onClick={e => e.stopPropagation()}>
-          {runPipelineLicensed ? (
-            runPipelineMenuButton
-          ) : (
-            <Utils.WrapOptionalTooltip
-              tooltip={<FeatureWarning featureName={FeatureIdentifier.DEPLOYMENTS} module="cd" />}
-            >
-              {runPipelineMenuButton}
-            </Utils.WrapOptionalTooltip>
-          )}
+          <RbacMenuItem
+            icon="play"
+            text={getString('runPipelineText')}
+            disabled={!canRun}
+            onClick={(e: React.MouseEvent) => {
+              e.stopPropagation()
+              runPipeline()
+            }}
+            featureProps={{
+              featureRequest: {
+                featureName: module === 'cd' ? FeatureIdentifier.DEPLOYMENTS : FeatureIdentifier.BUILDS
+              }
+            }}
+          />
 
           <Menu.Item
             icon="list-detail-view"
