@@ -161,7 +161,7 @@ const StepDockerAuthentication: React.FC<StepProps<StepDockerAuthenticationProps
                 ></FormInput.RadioGroup>
                 <Container className={css.authHeaderRow}>
                   <Text
-                    font={{ variation: FontVariation.FORM_TITLE }}
+                    font={{ variation: FontVariation.H6 }}
                     inline
                     tooltipProps={{ dataTooltipId: 'dockerConnectorAuthentication' }}
                   >

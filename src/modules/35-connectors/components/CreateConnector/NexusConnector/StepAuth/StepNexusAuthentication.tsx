@@ -148,7 +148,7 @@ const StepNexusAuthentication: React.FC<StepProps<StepNexusAuthenticationProps> 
 
               <Container className={css.authHeaderRow}>
                 <Text
-                  font={{ variation: FontVariation.FORM_TITLE }}
+                  font={{ variation: FontVariation.H6 }}
                   inline
                   tooltipProps={{ dataTooltipId: 'NexusConnectorAuthentication' }}
                 >

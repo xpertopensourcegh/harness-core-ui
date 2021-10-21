@@ -9,7 +9,7 @@ exports[`GitPopover should return popover icon and content 1`] = `
       class="bp3-popover-target"
     >
       <span
-        class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey500"
+        class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey700"
         data-icon="service-github"
         tabindex="0"
       >

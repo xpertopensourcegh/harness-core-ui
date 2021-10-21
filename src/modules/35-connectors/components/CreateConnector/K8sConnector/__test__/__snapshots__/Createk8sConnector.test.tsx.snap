@@ -636,7 +636,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
                 data-tooltip-id="K8sAuthenticationTooltip"
               >
                 <span
-                  class="StyledProps--font StyledProps--main StyledProps--font-variation-form-sub-section StyledProps--inline"
+                  class="StyledProps--font StyledProps--main StyledProps--font-variation-h6 StyledProps--inline"
                 >
                   authentication
                 </span>
@@ -1196,7 +1196,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                 data-tooltip-id="K8sAuthenticationTooltip"
               >
                 <span
-                  class="StyledProps--font StyledProps--main StyledProps--font-variation-form-sub-section StyledProps--inline"
+                  class="StyledProps--font StyledProps--main StyledProps--font-variation-h6 StyledProps--inline"
                 >
                   authentication
                 </span>
@@ -2055,7 +2055,7 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
                 data-tooltip-id="K8sAuthenticationTooltip"
               >
                 <span
-                  class="StyledProps--font StyledProps--main StyledProps--font-variation-form-sub-section StyledProps--inline"
+                  class="StyledProps--font StyledProps--main StyledProps--font-variation-h6 StyledProps--inline"
                 >
                   authentication
                 </span>
@@ -2922,7 +2922,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                 data-tooltip-id="K8sAuthenticationTooltip"
               >
                 <span
-                  class="StyledProps--font StyledProps--main StyledProps--font-variation-form-sub-section StyledProps--inline"
+                  class="StyledProps--font StyledProps--main StyledProps--font-variation-h6 StyledProps--inline"
                 >
                   authentication
                 </span>
@@ -3514,7 +3514,7 @@ exports[`should render form for edit authtype clientKey 1`] = `
                 data-tooltip-id="K8sAuthenticationTooltip"
               >
                 <span
-                  class="StyledProps--font StyledProps--main StyledProps--font-variation-form-sub-section StyledProps--inline"
+                  class="StyledProps--font StyledProps--main StyledProps--font-variation-h6 StyledProps--inline"
                 >
                   authentication
                 </span>

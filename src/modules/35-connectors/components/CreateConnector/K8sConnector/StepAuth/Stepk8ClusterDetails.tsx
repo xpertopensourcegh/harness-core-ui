@@ -394,7 +394,7 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
 
                   <Container className={css.authHeaderRow}>
                     <Text
-                      font={{ variation: FontVariation.FORM_TITLE }}
+                      font={{ variation: FontVariation.H6 }}
                       inline
                       tooltipProps={{ dataTooltipId: 'K8sAuthenticationTooltip' }}
                     >

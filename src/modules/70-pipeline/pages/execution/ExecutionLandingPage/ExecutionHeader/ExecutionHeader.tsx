@@ -1,8 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { isEmpty } from 'lodash-es'
-import { Icon } from '@wings-software/uicore'
-
 import routes from '@common/RouteDefinitions'
 import { Duration } from '@common/components/Duration/Duration'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
@@ -130,7 +128,6 @@ export function ExecutionHeader(): React.ReactElement {
           stringID={module === 'cd' ? 'execution.pipelineIdentifierTextCD' : 'execution.pipelineIdentifierTextCI'}
           vars={pipelineExecutionSummary}
         />
-        <Icon name="service-github" size={14} color="grey700" style={{ marginLeft: 'var(--spacing-3)' }} />
         {!isEmpty(pipelineExecutionSummary?.tags) ? (
           <TagsPopover
             iconProps={{ size: 14 }}

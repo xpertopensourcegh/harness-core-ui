@@ -569,7 +569,7 @@ exports[`Create Helm Connector  Wizard Should render form 2`] = `
                 data-tooltip-id="helmConnectorAuthentication"
               >
                 <span
-                  class="StyledProps--font StyledProps--main StyledProps--font-variation-form-sub-section StyledProps--inline"
+                  class="StyledProps--font StyledProps--main StyledProps--font-variation-h6 StyledProps--inline"
                 >
                   authentication
                 </span>
@@ -1404,7 +1404,7 @@ exports[`Create Helm Connector  Wizard Should render form for editing provider t
                 data-tooltip-id="helmConnectorAuthentication"
               >
                 <span
-                  class="StyledProps--font StyledProps--main StyledProps--font-variation-form-sub-section StyledProps--inline"
+                  class="StyledProps--font StyledProps--main StyledProps--font-variation-h6 StyledProps--inline"
                 >
                   authentication
                 </span>

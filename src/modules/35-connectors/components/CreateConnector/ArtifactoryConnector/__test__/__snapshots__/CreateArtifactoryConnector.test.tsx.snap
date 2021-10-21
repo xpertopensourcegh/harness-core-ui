@@ -191,7 +191,7 @@ exports[`Create Artifactory connector Wizard Should be able to edit connector 1`
                 data-tooltip-id="artifactRepositoryAuthentication"
               >
                 <span
-                  class="StyledProps--font StyledProps--main StyledProps--font-variation-form-sub-section StyledProps--inline"
+                  class="StyledProps--font StyledProps--main StyledProps--font-variation-h6 StyledProps--inline"
                 >
                   authentication
                 </span>
@@ -1136,7 +1136,7 @@ exports[`Create Artifactory connector Wizard Should render form 2`] = `
                 data-tooltip-id="artifactRepositoryAuthentication"
               >
                 <span
-                  class="StyledProps--font StyledProps--main StyledProps--font-variation-form-sub-section StyledProps--inline"
+                  class="StyledProps--font StyledProps--main StyledProps--font-variation-h6 StyledProps--inline"
                 >
                   authentication
                 </span>
