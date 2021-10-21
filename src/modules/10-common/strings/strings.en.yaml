@@ -168,6 +168,7 @@ purpose:
       description: CD Next Generation simplifies the experience with simpler UI Information Architecture and shared resources across projects. Pipelines can be easily parameterized with Friendly YAML.
   cv:
     verification: Verification
+    intelligence: Intelligence
     subtitle: Deploy in peace - verify activities that take place in your system. Identify risk early.
     description: 'Measure overall service health with always-on change impact analysis.'
     continuous: '{{ $.common.changeIntelligence }}'

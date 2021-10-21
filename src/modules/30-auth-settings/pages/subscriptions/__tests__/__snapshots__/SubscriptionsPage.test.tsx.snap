@@ -231,12 +231,12 @@ exports[`Subscriptions Page it renders an expired banner when the trial is expir
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-xsmall"
             >
-              COMMON.PURPOSE.CONTINUOUS
+              COMMON.PURPOSE.CHANGE
             </p>
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
             >
-              common.purpose.cv.verification
+              common.purpose.cv.intelligence
             </p>
           </div>
         </div>
@@ -711,12 +711,12 @@ exports[`Subscriptions Page it renders the correct card in the subscriptions pag
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-xsmall"
             >
-              COMMON.PURPOSE.CONTINUOUS
+              COMMON.PURPOSE.CHANGE
             </p>
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
             >
-              common.purpose.cv.verification
+              common.purpose.cv.intelligence
             </p>
           </div>
         </div>
@@ -1191,12 +1191,12 @@ exports[`Subscriptions Page it renders the subscriptions page 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-xsmall"
             >
-              COMMON.PURPOSE.CONTINUOUS
+              COMMON.PURPOSE.CHANGE
             </p>
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
             >
-              common.purpose.cv.verification
+              common.purpose.cv.intelligence
             </p>
           </div>
         </div>
@@ -1671,12 +1671,12 @@ exports[`Subscriptions Page it renders trial not started information 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-xsmall"
             >
-              COMMON.PURPOSE.CONTINUOUS
+              COMMON.PURPOSE.CHANGE
             </p>
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
             >
-              common.purpose.cv.verification
+              common.purpose.cv.intelligence
             </p>
           </div>
         </div>
@@ -2109,12 +2109,12 @@ exports[`Subscriptions Page it should update the license store 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-xsmall"
             >
-              COMMON.PURPOSE.CONTINUOUS
+              COMMON.PURPOSE.CHANGE
             </p>
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
             >
-              common.purpose.cv.verification
+              common.purpose.cv.intelligence
             </p>
           </div>
         </div>
@@ -2589,12 +2589,12 @@ exports[`Subscriptions Page it shows the header and a loading spinner while the 
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-xsmall"
             >
-              COMMON.PURPOSE.CONTINUOUS
+              COMMON.PURPOSE.CHANGE
             </p>
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
             >
-              common.purpose.cv.verification
+              common.purpose.cv.intelligence
             </p>
           </div>
         </div>
@@ -3013,12 +3013,12 @@ exports[`Subscriptions Page it shows the header and a loading spinner while the 
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-xsmall"
             >
-              COMMON.PURPOSE.CONTINUOUS
+              COMMON.PURPOSE.CHANGE
             </p>
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
             >
-              common.purpose.cv.verification
+              common.purpose.cv.intelligence
             </p>
           </div>
         </div>

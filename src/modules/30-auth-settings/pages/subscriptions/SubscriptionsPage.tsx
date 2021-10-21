@@ -61,8 +61,8 @@ const MODULE_SELECT_CARDS: ModuleSelectCard[] = [
   {
     icon: 'cv-main',
     module: ModuleName.CV,
-    title: 'common.purpose.continuous',
-    titleDescriptor: 'common.purpose.cv.verification'
+    title: 'common.purpose.change',
+    titleDescriptor: 'common.purpose.cv.intelligence'
   },
   {
     icon: 'ci-main',

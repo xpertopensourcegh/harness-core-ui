@@ -370,6 +370,7 @@ export interface StringsMap {
   'common.purpose.continuous': string
   'common.purpose.cv.continuous': string
   'common.purpose.cv.description': string
+  'common.purpose.cv.intelligence': string
   'common.purpose.cv.subtitle': string
   'common.purpose.cv.verification': string
   'common.purpose.howToProceed': string

@@ -35,7 +35,7 @@ export const getModulePurpose = (module: ModuleName): keyof StringsMap | undefin
     case ModuleName.CD:
       return 'common.purpose.cd.delivery'
     case ModuleName.CV:
-      return 'common.purpose.cv.verification'
+      return 'common.purpose.cv.intelligence'
     case ModuleName.CI:
       return 'common.purpose.ci.integration'
     case ModuleName.CE:
