@@ -63,6 +63,9 @@ describe('Unit tests for LogAnalysisContainer', () => {
 
     expect(clusterTypeFilterDropdown).toBeTruthy()
 
+    // verify default filter is unknownEvent
+    expect(clusterTypeFilterDropdown.value).toBe('pipeline.verification.logs.unknownEvent')
+
     // Clicking the filter dropdown
     const selectCaret = container
       .querySelector(`[placeholder="pipeline.verification.logs.filterByClusterType"] + [class*="bp3-input-action"]`)

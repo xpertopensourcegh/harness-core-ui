@@ -42,7 +42,7 @@ export default function ChangeTitle({ changeTitleData }: { changeTitleData: Chan
         <Button
           onClick={openPipelineInNewTab}
           className={css.redirectButton}
-          text={getString('cv.changeSource.changeSourceCard.viewPipeline')}
+          text={getString('cv.changeSource.changeSourceCard.viewDeployment')}
           icon="share"
           iconProps={{ size: 12 }}
           variation={ButtonVariation.SECONDARY}

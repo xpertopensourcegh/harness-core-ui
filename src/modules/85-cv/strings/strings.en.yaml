@@ -626,7 +626,7 @@ changeSource:
   changeSourceCard:
     information: Information
     triggred: Triggered
-    viewPipeline: View Pipeline
+    viewDeployment: View Deployment
     finished: 'Finished: '
     deploymentHealth: Deployment Health
     ago: ago

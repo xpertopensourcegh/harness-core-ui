@@ -39,7 +39,10 @@ describe('Unit tests for MetricsAnalysisContainer', () => {
   })
 
   test('Verify if Metric View renders with correct number of records', async () => {
-    render(<WrapperComponent {...props} />)
+    const { container } = render(<WrapperComponent {...props} />)
+
+    // verify default filter is Anomalous Metrics
+    await waitFor(() => expect(container.querySelector('input[value="Anomalous Metrics"]')).toBeTruthy())
 
     // Verify if number of records returned by the api for the first page matches with the number of records shown in the Metrics View
     await waitFor(() =>

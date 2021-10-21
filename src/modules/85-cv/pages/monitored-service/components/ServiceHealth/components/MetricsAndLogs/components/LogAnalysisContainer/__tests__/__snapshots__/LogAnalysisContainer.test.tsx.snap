@@ -29,7 +29,7 @@ exports[`Unit tests for LogAnalysisContainer Verify if LogAnalysisContainer rend
                   placeholder="pipeline.verification.logs.filterByClusterType"
                   style="padding-right: 0px;"
                   type="text"
-                  value="pipeline.verification.logs.allEvents"
+                  value="pipeline.verification.logs.unknownEvent"
                 />
                 <span
                   class="bp3-input-action"

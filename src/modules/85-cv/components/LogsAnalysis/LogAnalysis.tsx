@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { Color, Container, Icon, Pagination, Select, Text, NoDataCard } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { HealthSourceDropDown } from '@cv/components/HealthSourceDropDown/HealthSourceDropDown'
@@ -8,6 +8,7 @@ import { getClusterTypes } from './LogAnalysis.utils'
 import type { LogAnalysisProps } from './LogAnalysis.types'
 import ClusterChart from './components/ClusterChart/ClusterChart'
 import { VerificationType } from '../HealthSourceDropDown/HealthSourceDropDown.constants'
+import { LogEvents } from './LogAnalysis.constants'
 import styles from './LogAnalysis.module.scss'
 
 export default function LogAnalysis(props: LogAnalysisProps): JSX.Element {
@@ -25,6 +26,12 @@ export default function LogAnalysis(props: LogAnalysisProps): JSX.Element {
     showClusterChart
   } = props
   const { getString } = useStrings()
+
+  const clusterOptions = useMemo(() => getClusterTypes(getString), [])
+  const defaultClusterOption = useMemo(() => {
+    return getClusterTypes(getString)?.find(type => type.value === LogEvents.UNKNOWN_EVENT) || clusterOptions[0]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clusterOptions])
 
   const renderLogsData = useCallback(() => {
     if (logsLoading) {
@@ -78,7 +85,7 @@ export default function LogAnalysis(props: LogAnalysisProps): JSX.Element {
       <Container className={styles.filters}>
         <Select
           items={getClusterTypes(getString)}
-          defaultSelectedItem={getClusterTypes(getString)[0]}
+          defaultSelectedItem={defaultClusterOption}
           className={styles.logsAnalysisFilters}
           inputProps={{ placeholder: getString('pipeline.verification.logs.filterByClusterType') }}
           onChange={setSelectedClusterType}

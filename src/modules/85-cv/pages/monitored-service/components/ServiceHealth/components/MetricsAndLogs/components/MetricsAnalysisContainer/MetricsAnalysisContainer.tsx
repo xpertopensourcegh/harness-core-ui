@@ -43,7 +43,11 @@ export default function MetricsAnalysisContainer(props: MetricsAndLogsProps): JS
   const [timeSeriesData, setTimeseriesData] = useState<TimeSeriesMetricDataDTO[]>([])
   const [selectedHealthSource, setSelectedHealthSource] = useState<string>()
   const [filterString, setFilterString] = useState<string>()
-  const [isAnamolousMetricType, setIsAnamolousMetricType] = useState<boolean>()
+  const [isAnamolousMetricType, setIsAnamolousMetricType] = useState<boolean>(true)
+
+  const defaultMetricType = useMemo(() => {
+    return MetricTypeOptions?.find(type => type.value === MetricType.ANOMALOUS) || MetricTypeOptions[0]
+  }, [])
 
   const queryParams = useMemo(() => {
     return {
@@ -202,7 +206,7 @@ export default function MetricsAnalysisContainer(props: MetricsAndLogsProps): JS
           <Select
             items={MetricTypeOptions}
             className={css.maxDropDownWidth}
-            defaultSelectedItem={MetricTypeOptions[0]}
+            defaultSelectedItem={defaultMetricType}
             onChange={item => setIsAnamolousMetricType(item.value === MetricType.ANOMALOUS)}
           />
           {serviceIdentifier && environmentIdentifier ? (
