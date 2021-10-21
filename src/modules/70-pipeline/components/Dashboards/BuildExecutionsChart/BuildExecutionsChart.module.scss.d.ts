@@ -4,5 +4,9 @@ declare const styles: {
   readonly main: string
   readonly chartWrapper: string
   readonly rangeSelectorHeader: string
+  readonly emptyContainer: string
+  readonly emptyView: string
+  readonly emptyViewItem: string
+  readonly emptyViewCard: string
 }
 export default styles

@@ -8,6 +8,9 @@ import EmptyFailedBuilds from './EmptyFailedBuilds.svg'
 import EmptyActiveBuilds from './EmptyActiveBuilds.svg'
 import RepoIconUrl from './RepoIcon.svg'
 import FailedBuildIconUrl from './FailedBuildIcon.svg'
+import NoServices from '../images/NoServices.svg'
+import NoDeployments from '../images/NoDeployments.svg'
+import Active from './Active.svg'
 import styles from './CardRailView.module.scss'
 
 export interface CardRailViewProps {
@@ -22,6 +25,7 @@ export interface CardRailViewProps {
   titleSideContent?: React.ReactNode
   isLoading?: boolean
   onShowAll?(): void
+  isCIPage?: boolean
   children?: React.ReactNode
 }
 
@@ -30,7 +34,8 @@ export default function CardRailView({
   titleSideContent,
   isLoading,
   onShowAll,
-  children
+  children,
+  isCIPage
 }: CardRailViewProps) {
   const { getString } = useStrings()
   const contentRef = useRef<HTMLDivElement>(null)
@@ -46,12 +51,12 @@ export default function CardRailView({
   }
 
   const icons = {
-    REPOSITORY: <img height={15} width={16} src={RepoIconUrl} />,
+    REPOSITORY: isCIPage ? <img height={15} width={16} src={RepoIconUrl} /> : RepoIconUrl,
     FAILED_BUILD: <img src={FailedBuildIconUrl} />,
     ACTIVE_BUILD: <Icon name="ci-pending-build" className={styles.pendingBuildIcon} />,
-    WORKLOAD: '',
-    FAILED_DEPLOYMENT: <Icon name="ban-circle" size={20} color={Color.RED_500} />,
-    ACTIVE_DEPLOYMENT: <Icon name="play" size={20} color={Color.GREEN_500} />,
+    WORKLOAD: <img height={15} width={16} src={RepoIconUrl} />,
+    FAILED_DEPLOYMENT: <Icon name="execution-warning" size={20} color={Color.RED_500} />,
+    ACTIVE_DEPLOYMENT: <img src={Active} className={styles.activeDepIcon} />,
     PENDING_DEPLOYMENT: <Icon name="play" size={20} color={Color.GREEN_500} />
   }
 
@@ -59,10 +64,10 @@ export default function CardRailView({
     REPOSITORY: EmptyRepositories,
     FAILED_BUILD: EmptyFailedBuilds,
     ACTIVE_BUILD: EmptyActiveBuilds,
-    WORKLOAD: EmptyRepositories,
-    FAILED_DEPLOYMENT: EmptyFailedBuilds,
-    ACTIVE_DEPLOYMENT: EmptyActiveBuilds,
-    PENDING_DEPLOYMENT: EmptyActiveBuilds
+    WORKLOAD: NoServices,
+    FAILED_DEPLOYMENT: NoDeployments,
+    ACTIVE_DEPLOYMENT: NoDeployments,
+    PENDING_DEPLOYMENT: NoDeployments
   }
 
   const emptyMsg = {
@@ -91,14 +96,13 @@ export default function CardRailView({
   })
 
   const isEmpty = !isLoading && React.Children.count(children) === 0
-
   return (
     <Container className={styles.main}>
       <Container className={styles.header}>
         <Container className={styles.headerTitle}>
           {icons[contentType]}
           <Text className={styles.title} tooltipProps={{ dataTooltipId: `overview_${contentType}` }}>
-            {titles[contentType]}
+            {titles[contentType]} ({React.Children.count(children)})
           </Text>
         </Container>
         {titleSideContent}
@@ -110,8 +114,6 @@ export default function CardRailView({
       >
         {isEmpty && (
           <Container className={styles.emptyView}>
-            <Container className={styles.emptyViewItem} />
-            <Container className={styles.emptyViewItem} />
             <Container className={styles.emptyViewCard}>
               <img src={emptyIcons[contentType]} />
               <Text>{emptyMsg[contentType]}</Text>

@@ -5,6 +5,8 @@ declare const styles: {
   readonly content: string
   readonly page: string
   readonly executionsWrapper: string
+  readonly healthCardTitle: string
+  readonly chartContainer: string
   readonly healthCards: string
   readonly healthCard: string
   readonly cardHeader: string
@@ -15,5 +17,8 @@ declare const styles: {
   readonly cdCustomIcon: string
   readonly hoverService: string
   readonly rangeSelectorHeader: string
+  readonly emptyView: string
+  readonly emptyViewItem: string
+  readonly emptyViewCard: string
 }
 export default styles

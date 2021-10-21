@@ -1,17 +1,23 @@
-import React, { useState, useMemo } from 'react'
+import React, { useMemo } from 'react'
+import { Container, Text, Color } from '@wings-software/uicore'
+
 import { useParams } from 'react-router-dom'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { defaultTo } from 'lodash-es'
 import { useStrings } from 'framework/strings'
-import { ExecutionsChart } from '@pipeline/components/Dashboards/BuildExecutionsChart/BuildExecutionsChart'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetDeploymentExecution } from 'services/cd-ng'
+import NoDeployments from '@pipeline/components/Dashboards/images/NoDeployments.svg'
+
 import { useErrorHandler } from '@pipeline/components/Dashboards/shared'
+import { OverviewChartsWithToggle } from '@common/components/OverviewChartsWithToggle/OverviewChartsWithToggle'
+import { getTooltip } from '@pipeline/components/LandingDashboardDeploymentsWidget/LandingDashboardDeploymentsWidget'
+import styles from './CDDashboardPage.module.scss'
 
-export default function DeploymentExecutionsChart() {
-  const { getString } = useStrings()
+export default function DeploymentExecutionsChart(props: any) {
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
-  const [range, setRange] = useState([Date.now() - 30 * 24 * 60 * 60000, Date.now()])
+  const { range, title } = props
 
-  const { data, loading, error } = useGetDeploymentExecution({
+  const { data, error } = useGetDeploymentExecution({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,
@@ -22,27 +28,69 @@ export default function DeploymentExecutionsChart() {
   })
 
   useErrorHandler(error)
-
   const chartData = useMemo(() => {
     if (data?.data?.executionDeploymentList?.length) {
-      return data.data.executionDeploymentList.map(val => ({
-        time: val.time,
-        success: val.deployments!.success,
-        failed: val.deployments!.failure
-      }))
+      const successData: number[] = []
+      const failureData: number[] = []
+      const custom: any = []
+      data.data.executionDeploymentList.forEach(val => {
+        successData.push(defaultTo(val.deployments?.success, 0))
+        failureData.push(defaultTo(val.deployments?.failure, 0))
+        custom.push(val)
+      })
+      return [
+        {
+          name: 'Failed',
+          data: failureData,
+          color: '#EE5F54',
+          custom
+        },
+        {
+          name: 'Success',
+          data: successData,
+          color: '#5FB34E',
+          custom
+        }
+      ]
     }
   }, [data])
+  const { getString } = useStrings()
+
+  const failedData = chartData?.find(item => item.name === 'Failed') as any
+  const allFailedCount = failedData?.data?.every((item: any) => item === 0)
+
+  const chartSuccessData = chartData?.find(item => item.name === 'Success') as any
+  const allSuccessCount = chartSuccessData?.data?.every((item: any) => item === 0)
 
   return (
-    <ExecutionsChart
-      customTitleCls="true"
-      titleText={getString('deploymentsText')}
-      data={chartData}
-      loading={loading}
-      range={range}
-      onRangeChange={setRange}
-      yAxisTitle="# of Deployments"
-      successColor="var(--ci-color-blue-400)"
-    />
+    <>
+      <Text className={styles.healthCardTitle}>{title}</Text>
+
+      {allFailedCount && allSuccessCount ? (
+        <Container className={styles.emptyView}>
+          <Container className={styles.emptyViewCard}>
+            <img src={NoDeployments} />
+            <Text>{getString('pipeline.dashboards.noDeployments')}</Text>
+          </Container>
+        </Container>
+      ) : (
+        <div className={styles.chartContainer}>
+          <OverviewChartsWithToggle
+            data={defaultTo(chartData, [])}
+            customChartOptions={{
+              tooltip: {
+                useHTML: true,
+                formatter: function () {
+                  return getTooltip(this)
+                },
+                backgroundColor: Color.BLACK,
+                outside: true,
+                borderColor: 'black'
+              }
+            }}
+          />
+        </div>
+      )}
+    </>
   )
 }

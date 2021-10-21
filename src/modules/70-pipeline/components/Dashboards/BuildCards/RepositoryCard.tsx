@@ -72,8 +72,9 @@ export default function RepositoryCard({
     }
   }, [countList])
 
+  const borderCls = successRateDiff >= 0 ? styles.successBorder : styles.errorBorder
   return (
-    <Container className={cx(styles.repositoryCard, className)} onClick={onClick}>
+    <Container className={cx(styles.repositoryCard, className, borderCls)} onClick={onClick}>
       <Text className={styles.title} color={Color.BLACK} lineClamp={1}>
         {title}
       </Text>

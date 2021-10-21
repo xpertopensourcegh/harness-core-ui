@@ -3,7 +3,7 @@
 exports[`RepositoryCard Renders correctly when successRateDiff is negative 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main repositoryCard"
+    class="StyledProps--font StyledProps--main repositoryCard errorBorder"
   >
     <p
       class="StyledProps--font Text--lineclamp StyledProps--main title StyledProps--color StyledProps--color-black"
@@ -144,7 +144,7 @@ exports[`RepositoryCard Renders correctly when successRateDiff is negative 1`] =
 exports[`RepositoryCard Renders correctly when successRateDiff is positive 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main repositoryCard"
+    class="StyledProps--font StyledProps--main repositoryCard successBorder"
   >
     <p
       class="StyledProps--font Text--lineclamp StyledProps--main title StyledProps--color StyledProps--color-black"

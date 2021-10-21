@@ -122,3 +122,11 @@
     }
   }
 }
+
+.successBorder {
+  border-left: 1px solid var(--ci-color-green-500);
+}
+
+.errorBorder {
+  border-left: 1px solid var(--ci-color-red-500);
+}

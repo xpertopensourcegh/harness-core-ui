@@ -532,10 +532,11 @@ dashboards:
   noRepositories: No Repositories found
   noFailedBuilds: No Failed Builds found
   noActiveBuilds: No Active Builds found
-  noWorkloads: 'No Workloads found'
-  noFailedDeployments: 'No Failed Deployments found'
-  noActiveDeployments: 'No Active Deployments found'
+  noWorkloads: 'No Services'
+  noFailedDeployments: 'No Failed Deployments'
+  noActiveDeployments: 'No Active Deployments'
   noPendingDeployments: 'No Pending Deployments found'
+  noDeployments: 'No Deployments'
   buildExecutions: Build Executions
   buildHealth: Build health
   totalBuilds: Total Builds

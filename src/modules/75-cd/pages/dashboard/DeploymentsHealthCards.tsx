@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react'
-import { Container, Text, Icon } from '@wings-software/uicore'
+import React, { useMemo } from 'react'
+import { Container, Text, Icon, FontVariation, Color } from '@wings-software/uicore'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
 import { useParams } from 'react-router-dom'
@@ -7,11 +7,9 @@ import { Classes } from '@blueprintjs/core'
 import merge from 'lodash-es/merge'
 import moment from 'moment'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { RangeSelectorWithTitle } from '@pipeline/components/Dashboards/RangeSelector'
 import { roundNumber, useErrorHandler } from '@pipeline/components/Dashboards/shared'
 import { useGetDeploymentHealth, DeploymentDateAndCount } from 'services/cd-ng'
 import styles from './CDDashboardPage.module.scss'
-
 export interface HealthCardProps {
   title: string
   text: any
@@ -20,11 +18,13 @@ export interface HealthCardProps {
   secondaryChartOptions?: any
   layout: 'vertical' | 'horizontal'
   isLoading?: boolean
+  showPieChart?: boolean
+  showLineChart?: boolean
 }
 
-export default function DeploymentsHealthCards() {
-  const [range, setRange] = useState([Date.now() - 30 * 24 * 60 * 60000, Date.now()])
+export default function DeploymentsHealthCards(props: any) {
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
+  const { range, title } = props
 
   const { data, loading, error } = useGetDeploymentHealth({
     queryParams: {
@@ -63,6 +63,7 @@ export default function DeploymentsHealthCards() {
             ]
           })
         }
+
         ret.totalBarChartOptions = merge({}, defaultChartOptions, secondaryChartOptions, {
           xAxis: {
             categories: [`Non Prod (${nonProduction})`, `Prod (${production})`]
@@ -119,12 +120,7 @@ export default function DeploymentsHealthCards() {
 
   return (
     <Container>
-      <RangeSelectorWithTitle
-        title="Deployments Health"
-        onRangeSelected={setRange}
-        tooltipId="overview_deploymentsHealth"
-        titleClsName={styles.rangeSelectorHeader}
-      />
+      <Text className={styles.healthCardTitle}>{title}</Text>
       <Container className={styles.healthCards}>
         <HealthCard
           title="Total Deployments"
@@ -133,6 +129,7 @@ export default function DeploymentsHealthCards() {
           layout="vertical"
           primaryChartOptions={chartsData?.totalChartOptions}
           secondaryChartOptions={chartsData?.totalBarChartOptions}
+          showLineChart={data?.data?.healthDeploymentInfo?.total?.count ? true : false}
         />
         <HealthCard
           title="Successful Deployments"
@@ -162,49 +159,69 @@ export function HealthCard({
   primaryChartOptions,
   secondaryChartOptions,
   layout,
-  isLoading
+  isLoading,
+  showLineChart = false
 }: HealthCardProps) {
   return (
-    <Container className={styles.healthCard}>
+    <Container font={{ variation: FontVariation.SMALL_SEMI }} color={Color.GREY_600} className={styles.healthCard}>
       <Text className={styles.cardHeader}>{title}</Text>
-      <Container style={layout === 'horizontal' ? { display: 'flex' } : {}}>
+      <Container style={layout === 'horizontal' ? { display: 'flex', justifyContent: 'space-between' } : {}}>
         <Container className={styles.textAndRate}>
           {isLoading ? (
             <Container height={30} width={100} className={Classes.SKELETON} />
           ) : (
             <Text className={styles.cardText}>{text}</Text>
           )}
-          {typeof rate === 'number' && !isLoading && (
-            <>
-              <Text
-                margin={{ left: 'xsmall' }}
-                style={{
-                  color: rate >= 0 ? 'var(--green-600)' : 'var(--ci-color-red-500)'
-                }}
-              >
-                {Math.abs(roundNumber(rate)!)}%
-              </Text>
-              <Icon
-                size={14}
-                name={rate >= 0 ? 'caret-up' : 'caret-down'}
-                style={{
-                  color: rate >= 0 ? 'var(--green-600)' : 'var(--ci-color-red-500)'
-                }}
-              />
-            </>
-          )}
         </Container>
-        {primaryChartOptions && !isLoading && (
+        {primaryChartOptions && !isLoading && (rate || showLineChart) ? (
           <Container className={styles.chartWrap}>
             <HighchartsReact highcharts={Highcharts} options={primaryChartOptions} />
+            {typeof rate === 'number' && rate && !isLoading ? (
+              <Container flex>
+                <Text
+                  margin={{ left: 'xsmall' }}
+                  style={{
+                    color: rate >= 0 ? 'var(--green-600)' : 'var(--ci-color-red-500)'
+                  }}
+                >
+                  {Math.abs(roundNumber(rate)!)}%
+                </Text>
+                <Icon
+                  size={14}
+                  name={rate >= 0 ? 'caret-up' : 'caret-down'}
+                  style={{
+                    color: rate >= 0 ? 'var(--green-600)' : 'var(--ci-color-red-500)'
+                  }}
+                />
+              </Container>
+            ) : null}
           </Container>
-        )}
+        ) : null}
+        {secondaryChartOptions && !isLoading && (rate || showLineChart) ? (
+          <Container className={styles.chartWrap} margin={{ top: 'large' }}>
+            <HighchartsReact highcharts={Highcharts} options={secondaryChartOptions} />
+            {typeof rate === 'number' && rate && !isLoading ? (
+              <Container flex>
+                <Text
+                  margin={{ left: 'xsmall' }}
+                  style={{
+                    color: rate >= 0 ? 'var(--green-600)' : 'var(--ci-color-red-500)'
+                  }}
+                >
+                  {Math.abs(roundNumber(rate)!)}%
+                </Text>
+                <Icon
+                  size={14}
+                  name={rate >= 0 ? 'caret-up' : 'caret-down'}
+                  style={{
+                    color: rate >= 0 ? 'var(--green-600)' : 'var(--ci-color-red-500)'
+                  }}
+                />
+              </Container>
+            ) : null}
+          </Container>
+        ) : null}
       </Container>
-      {secondaryChartOptions && !isLoading && (
-        <Container className={styles.chartWrap} margin={{ top: 'large' }}>
-          <HighchartsReact highcharts={Highcharts} options={secondaryChartOptions} />
-        </Container>
-      )}
     </Container>
   )
 }

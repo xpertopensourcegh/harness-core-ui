@@ -72,6 +72,52 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
         overview
       </h2>
     </div>
+    <div
+      class="StyledProps--font StyledProps--main titleAndFilter"
+    >
+      <p
+        class="StyledProps--font StyledProps--main"
+      >
+        
+      </p>
+      <div
+        class="bp3-popover-wrapper rangeSelector SelectV2--main bp3-fill"
+      >
+        <div
+          class="bp3-popover-target"
+        >
+          <div
+            class=""
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--padding-top-xsmall StyledProps--padding-bottom-xsmall"
+              style="display: flex; align-items: center;"
+            >
+              Last 30 days
+              <span
+                class="bp3-icon bp3-icon-chevron-down StyledProps--main Text--icon StyledProps--padding-left-xsmall"
+                icon="chevron-down"
+              >
+                <svg
+                  data-icon="chevron-down"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <desc>
+                    chevron-down
+                  </desc>
+                  <path
+                    d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <div
     class="StyledProps--font StyledProps--main PageBody--pageBody content"
@@ -83,62 +129,16 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
       <div
         class="StyledProps--font StyledProps--main"
       >
-        <div
-          class="StyledProps--font StyledProps--main titleAndFilter"
+        <p
+          class="StyledProps--font StyledProps--main healthCardTitle"
         >
-          <div
-            class="Text--withDocsTooltip"
-            data-tooltip-id="overview_deploymentsHealth"
-          >
-            <p
-              class="StyledProps--font StyledProps--main rangeSelectorHeader"
-            >
-              Deployments Health
-            </p>
-          </div>
-          <div
-            class="bp3-popover-wrapper rangeSelector SelectV2--main bp3-fill"
-          >
-            <div
-              class="bp3-popover-target"
-            >
-              <div
-                class=""
-              >
-                <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--padding-top-xsmall StyledProps--padding-bottom-xsmall"
-                  style="display: flex; align-items: center;"
-                >
-                  Last 30 days
-                  <span
-                    class="bp3-icon bp3-icon-chevron-down StyledProps--main Text--icon StyledProps--padding-left-xsmall"
-                    icon="chevron-down"
-                  >
-                    <svg
-                      data-icon="chevron-down"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      width="16"
-                    >
-                      <desc>
-                        chevron-down
-                      </desc>
-                      <path
-                        d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+          Deployments Health
+        </p>
         <div
           class="StyledProps--font StyledProps--main healthCards"
         >
           <div
-            class="StyledProps--font StyledProps--main healthCard"
+            class="StyledProps--font StyledProps--main healthCard StyledProps--font-variation-small-semi StyledProps--color StyledProps--color-grey600"
           >
             <p
               class="StyledProps--font StyledProps--main cardHeader"
@@ -162,15 +162,15 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
               >
                 <div />
               </div>
-            </div>
-            <div
-              class="StyledProps--font StyledProps--main chartWrap StyledProps--margin-top-large"
-            >
-              <div />
+              <div
+                class="StyledProps--font StyledProps--main chartWrap StyledProps--margin-top-large"
+              >
+                <div />
+              </div>
             </div>
           </div>
           <div
-            class="StyledProps--font StyledProps--main healthCard"
+            class="StyledProps--font StyledProps--main healthCard StyledProps--font-variation-small-semi StyledProps--color StyledProps--color-grey600"
           >
             <p
               class="StyledProps--font StyledProps--main cardHeader"
@@ -179,7 +179,7 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
             </p>
             <div
               class="StyledProps--font StyledProps--main"
-              style="display: flex;"
+              style="display: flex; justify-content: space-between;"
             >
               <div
                 class="StyledProps--font StyledProps--main textAndRate"
@@ -189,41 +189,45 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
                 >
                   8
                 </p>
-                <p
-                  class="StyledProps--font StyledProps--main StyledProps--margin-left-xsmall"
-                >
-                  700
-                  %
-                </p>
-                <span
-                  class="bp3-icon bp3-icon-caret-up StyledProps--main"
-                  icon="caret-up"
-                >
-                  <svg
-                    data-icon="caret-up"
-                    height="14"
-                    viewBox="0 0 16 16"
-                    width="14"
-                  >
-                    <desc>
-                      caret-up
-                    </desc>
-                    <path
-                      d="M11.87 9.17s.01 0 0 0l-3.5-4C8.28 5.07 8.15 5 8 5s-.28.07-.37.17l-3.5 4a.495.495 0 00.37.83h7a.495.495 0 00.37-.83z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
               </div>
               <div
                 class="StyledProps--font StyledProps--main chartWrap"
               >
                 <div />
+                <div
+                  class="StyledProps--font StyledProps--main StyledProps--flex"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--margin-left-xsmall"
+                  >
+                    700
+                    %
+                  </p>
+                  <span
+                    class="bp3-icon bp3-icon-caret-up StyledProps--main"
+                    icon="caret-up"
+                  >
+                    <svg
+                      data-icon="caret-up"
+                      height="14"
+                      viewBox="0 0 16 16"
+                      width="14"
+                    >
+                      <desc>
+                        caret-up
+                      </desc>
+                      <path
+                        d="M11.87 9.17s.01 0 0 0l-3.5-4C8.28 5.07 8.15 5 8 5s-.28.07-.37.17l-3.5 4a.495.495 0 00.37.83h7a.495.495 0 00.37-.83z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </div>
               </div>
             </div>
           </div>
           <div
-            class="StyledProps--font StyledProps--main healthCard"
+            class="StyledProps--font StyledProps--main healthCard StyledProps--font-variation-small-semi StyledProps--color StyledProps--color-grey600"
           >
             <p
               class="StyledProps--font StyledProps--main cardHeader"
@@ -232,7 +236,7 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
             </p>
             <div
               class="StyledProps--font StyledProps--main"
-              style="display: flex;"
+              style="display: flex; justify-content: space-between;"
             >
               <div
                 class="StyledProps--font StyledProps--main textAndRate"
@@ -242,36 +246,6 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
                 >
                   1
                 </p>
-                <p
-                  class="StyledProps--font StyledProps--main StyledProps--margin-left-xsmall"
-                >
-                  0
-                  %
-                </p>
-                <span
-                  class="bp3-icon bp3-icon-caret-up StyledProps--main"
-                  icon="caret-up"
-                >
-                  <svg
-                    data-icon="caret-up"
-                    height="14"
-                    viewBox="0 0 16 16"
-                    width="14"
-                  >
-                    <desc>
-                      caret-up
-                    </desc>
-                    <path
-                      d="M11.87 9.17s.01 0 0 0l-3.5-4C8.28 5.07 8.15 5 8 5s-.28.07-.37.17l-3.5 4a.495.495 0 00.37.83h7a.495.495 0 00.37-.83z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-              </div>
-              <div
-                class="StyledProps--font StyledProps--main chartWrap"
-              >
-                <div />
               </div>
             </div>
           </div>
@@ -280,67 +254,25 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
       <div
         class="StyledProps--font StyledProps--main executionsWrapper"
       >
+        <p
+          class="StyledProps--font StyledProps--main healthCardTitle"
+        >
+          Deployments
+        </p>
         <div
-          class="StyledProps--font StyledProps--main main"
+          class="StyledProps--font StyledProps--main emptyView"
         >
           <div
-            class="StyledProps--font StyledProps--main titleAndFilter"
+            class="StyledProps--font StyledProps--main emptyViewCard"
           >
+            <img
+              src="test-file-stub"
+            />
             <p
               class="StyledProps--font StyledProps--main"
             >
-              <div
-                class="Layout--horizontal StyledProps--main"
-              >
-                <p
-                  class="StyledProps--font StyledProps--main rangeSelectorHeader StyledProps--margin-right-small"
-                >
-                  deploymentsText
-                </p>
-              </div>
+              pipeline.dashboards.noDeployments
             </p>
-            <div
-              class="bp3-popover-wrapper rangeSelector SelectV2--main bp3-fill"
-            >
-              <div
-                class="bp3-popover-target"
-              >
-                <div
-                  class=""
-                >
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--padding-top-xsmall StyledProps--padding-bottom-xsmall"
-                    style="display: flex; align-items: center;"
-                  >
-                    Last 30 days
-                    <span
-                      class="bp3-icon bp3-icon-chevron-down StyledProps--main Text--icon StyledProps--padding-left-xsmall"
-                      icon="chevron-down"
-                    >
-                      <svg
-                        data-icon="chevron-down"
-                        height="16"
-                        viewBox="0 0 16 16"
-                        width="16"
-                      >
-                        <desc>
-                          chevron-down
-                        </desc>
-                        <path
-                          d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                          fill-rule="evenodd"
-                        />
-                      </svg>
-                    </span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="StyledProps--font StyledProps--main chartWrapper"
-          >
-            <div />
           </div>
         </div>
       </div>
@@ -353,7 +285,11 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
           <div
             class="StyledProps--font StyledProps--main headerTitle"
           >
-            
+            <img
+              height="15"
+              src="test-file-stub"
+              width="16"
+            />
             <div
               class="Text--withDocsTooltip"
               data-tooltip-id="overview_WORKLOAD"
@@ -362,6 +298,9 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
                 class="StyledProps--font StyledProps--main title"
               >
                 services
+                 (
+                1
+                )
               </p>
             </div>
           </div>
@@ -370,7 +309,7 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
           class="StyledProps--font StyledProps--main content"
         >
           <div
-            class="StyledProps--font StyledProps--main repositoryCard hoverService"
+            class="StyledProps--font StyledProps--main repositoryCard hoverService errorBorder"
           >
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main title StyledProps--color StyledProps--color-black"
@@ -517,21 +456,21 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
             class="StyledProps--font StyledProps--main headerTitle"
           >
             <span
-              class="bp3-icon bp3-icon-ban-circle StyledProps--main StyledProps--color StyledProps--color-red500"
-              icon="ban-circle"
+              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-red500"
+              data-icon="execution-warning"
             >
               <svg
-                data-icon="ban-circle"
                 height="20"
-                viewBox="0 0 20 20"
+                viewBox="0 0 19 15"
                 width="20"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <desc>
-                  ban-circle
-                </desc>
                 <path
-                  d="M10 0C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zm5 11H5c-.55 0-1-.45-1-1s.45-1 1-1h10c.55 0 1 .45 1 1s-.45 1-1 1z"
-                  fill-rule="evenodd"
+                  color="#fff"
+                  d="M15.964 15H3.027C.702 15-.737 12.787.392 11.021L6.29 1.339c1.152-1.785 5.261-1.785 6.412 0l5.897 9.682C19.75 12.768 18.288 15 15.964 15z"
+                />
+                <path
+                  d="M4.23 13.75h10.408c1.713 0 2.79-1.77 1.941-3.157l-5.22-8.53c-.848-1.417-3.002-1.417-3.85 0l-5.22 8.53c-.832 1.402.229 3.157 1.941 3.157zm5.22-1.894c-.456 0-.832-.354-.832-.785 0-.431.376-.786.832-.786.457 0 .832.354.816.801.016.416-.375.77-.816.77zm-.212-7.083c.392-.093.8.092.963.446.049.123.081.247.081.385-.016.385-.049.785-.081 1.17-.033.601-.082 1.217-.114 1.817-.017.2-.017.37-.017.57a.6.6 0 01-.62.57c-.342 0-.603-.231-.62-.554-.048-.94-.114-1.879-.163-2.818l-.049-.755a.82.82 0 01.62-.831z"
                 />
               </svg>
             </span>
@@ -543,6 +482,9 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
                 class="StyledProps--font StyledProps--main title"
               >
                 pipeline.dashboards.failedDeployments
+                 (
+                0
+                )
               </p>
             </div>
           </div>
@@ -553,12 +495,6 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
           <div
             class="StyledProps--font StyledProps--main emptyView"
           >
-            <div
-              class="StyledProps--font StyledProps--main emptyViewItem"
-            />
-            <div
-              class="StyledProps--font StyledProps--main emptyViewItem"
-            />
             <div
               class="StyledProps--font StyledProps--main emptyViewCard"
             >
@@ -583,25 +519,10 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
           <div
             class="StyledProps--font StyledProps--main headerTitle"
           >
-            <span
-              class="bp3-icon bp3-icon-play StyledProps--main StyledProps--color StyledProps--color-green500"
-              icon="play"
-            >
-              <svg
-                data-icon="play"
-                height="20"
-                viewBox="0 0 20 20"
-                width="20"
-              >
-                <desc>
-                  play
-                </desc>
-                <path
-                  d="M16 10c0-.36-.2-.67-.49-.84l.01-.01-10-6-.01.01A.991.991 0 005 3c-.55 0-1 .45-1 1v12c0 .55.45 1 1 1 .19 0 .36-.07.51-.16l.01.01 10-6-.01-.01c.29-.17.49-.48.49-.84z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
+            <img
+              class="activeDepIcon"
+              src="test-file-stub"
+            />
             <div
               class="Text--withDocsTooltip"
               data-tooltip-id="overview_ACTIVE_DEPLOYMENT"
@@ -610,6 +531,9 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
                 class="StyledProps--font StyledProps--main title"
               >
                 pipeline.dashboards.activeDeployments
+                 (
+                0
+                )
               </p>
             </div>
           </div>
@@ -620,12 +544,6 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
           <div
             class="StyledProps--font StyledProps--main emptyView"
           >
-            <div
-              class="StyledProps--font StyledProps--main emptyViewItem"
-            />
-            <div
-              class="StyledProps--font StyledProps--main emptyViewItem"
-            />
             <div
               class="StyledProps--font StyledProps--main emptyViewCard"
             >

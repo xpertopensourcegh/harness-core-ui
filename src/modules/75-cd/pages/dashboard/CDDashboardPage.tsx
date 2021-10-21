@@ -15,6 +15,7 @@ import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import ExecutionCard from '@pipeline/components/ExecutionCard/ExecutionCard'
 import { CardVariant } from '@pipeline/utils/constants'
+import { RangeSelectorWithTitle } from '@pipeline/components/Dashboards/RangeSelector'
 import DeploymentsHealthCards from './DeploymentsHealthCards'
 import DeploymentExecutionsChart from './DeploymentExecutionsChart'
 import WorkloadCard from './DeploymentCards/WorkloadCard'
@@ -65,10 +66,7 @@ export function executionStatusInfoToExecutionSummary(info: ExecutionStatusInfo)
 
 export const CDDashboardPage: React.FC = () => {
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
-  const [range] = useState({
-    startTime: Date.now() - 30 * 24 * 60 * 60000,
-    endTime: Date.now()
-  })
+  const [range, setRange] = useState([Date.now() - 30 * 24 * 60 * 60000, Date.now()])
   const history = useHistory()
   const { getString } = useStrings()
 
@@ -91,7 +89,8 @@ export const CDDashboardPage: React.FC = () => {
       accountIdentifier: accountId,
       projectIdentifier,
       orgIdentifier,
-      ...range
+      startTime: range[0],
+      endTime: range[1]
     }
   })
 
@@ -103,12 +102,16 @@ export const CDDashboardPage: React.FC = () => {
 
   return (
     <>
-      <PageHeader title={getString('overview')} breadcrumbs={<NGBreadcrumbs links={[]} />} />
+      <PageHeader
+        title={getString('overview')}
+        breadcrumbs={<NGBreadcrumbs links={[]} />}
+        toolbar={<RangeSelectorWithTitle title="" onRangeSelected={setRange} />}
+      ></PageHeader>
       <Page.Body className={styles.content} loading={(loading && !refetchingDeployments) || loadingWorkloads}>
         <Container className={styles.page} padding="large">
-          <DeploymentsHealthCards />
+          <DeploymentsHealthCards range={range} setRange={setRange} title="Deployments Health" />
           <Container className={styles.executionsWrapper}>
-            <DeploymentExecutionsChart />
+            <DeploymentExecutionsChart range={range} setRange={setRange} title="Deployments" />
           </Container>
           <CardRailView contentType="WORKLOAD" isLoading={loadingWorkloads} titleSideContent={<></>}>
             {workloadsData?.data?.workloadDeploymentInfoList?.map((workload, i) => (

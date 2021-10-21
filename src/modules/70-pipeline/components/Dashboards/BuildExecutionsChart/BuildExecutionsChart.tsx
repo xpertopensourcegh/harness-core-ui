@@ -5,12 +5,13 @@ import Highcharts from 'highcharts'
 import moment from 'moment'
 import merge from 'lodash-es/merge'
 import { Spinner } from '@blueprintjs/core'
+
 import { useParams } from 'react-router-dom'
 import { useGetBuildExecution } from 'services/ci'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 import { useErrorHandler, useRefetchCall } from '@pipeline/components/Dashboards/shared'
-import { RangeSelectorWithTitle } from '../RangeSelector'
+import NoDeployments from '../images/NoDeployments.svg'
 import styles from './BuildExecutionsChart.module.scss'
 
 export interface ExecutionsChartProps {
@@ -26,9 +27,11 @@ export interface ExecutionsChartProps {
   onRangeChange(val: number[]): void
   yAxisTitle: string
   successColor?: string
+  isCIPage?: boolean
 }
 
-export default function BuildExecutionsChart() {
+export default function BuildExecutionsChart(props: any) {
+  const { isCIPage } = props
   const { getString } = useStrings()
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
   const [range, setRange] = useState([Date.now() - 30 * 24 * 60 * 60000, Date.now()])
@@ -64,6 +67,7 @@ export default function BuildExecutionsChart() {
       range={range}
       onRangeChange={setRange}
       yAxisTitle="# of builds"
+      isCIPage={isCIPage}
     />
   )
 }
@@ -73,9 +77,9 @@ export function ExecutionsChart({
   data,
   loading,
   range,
-  onRangeChange,
   yAxisTitle,
   successColor,
+  isCIPage,
   customTitleCls
 }: ExecutionsChartProps) {
   const [chartOptions, setChartOptions] = useState<Highcharts.Options>(
@@ -85,11 +89,11 @@ export function ExecutionsChart({
       }
     })
   )
+  const successful: number[] = []
+  const failed: number[] = []
+  const empty: number[] = []
+  const xCategories: string[] = []
   useEffect(() => {
-    const successful: number[] = []
-    const failed: number[] = []
-    const empty: number[] = []
-    const xCategories: string[] = []
     if (data?.length) {
       let totalMax = data.reduce((acc, curr) => {
         return Math.max(curr.success! + curr.failed!, acc)
@@ -144,22 +148,38 @@ export function ExecutionsChart({
     }
   }, [data])
   const titleCls = customTitleCls ? styles.rangeSelectorHeader : ''
+  const { getString } = useStrings()
+  const failedData = chartOptions?.series?.find(item => item.name === 'Failed') as any
+  const failedCount = failedData?.data?.every((item: any) => item === 0)
+
+  const successData = chartOptions?.series?.find(item => item.name === 'Successful') as any
+  const successCount = successData?.data?.every((item: any) => item === 0)
+
   return (
     <Container className={styles.main}>
-      <RangeSelectorWithTitle
-        title={
-          <Layout.Horizontal>
-            <Text margin={{ right: 'small' }} className={titleCls}>
-              {titleText}
-            </Text>
-            {loading && <Spinner size={15} />}
-          </Layout.Horizontal>
-        }
-        onRangeSelected={onRangeChange}
-      />
-      <Container className={styles.chartWrapper}>
-        <HighchartsReact highcharts={Highcharts} options={chartOptions} />
-      </Container>
+      <Layout.Horizontal>
+        <Text margin={{ right: 'small' }} className={titleCls}>
+          {titleText}
+        </Text>
+        {loading && <Spinner size={15} />}
+      </Layout.Horizontal>
+
+      {isCIPage ? (
+        <Container className={styles.chartWrapper}>
+          <HighchartsReact highcharts={Highcharts} options={chartOptions} />
+        </Container>
+      ) : (!failedData && !successData) || (failedCount && successCount) ? (
+        <Container className={styles.emptyView}>
+          <Container className={styles.emptyViewCard}>
+            <img src={NoDeployments} />
+            <Text>{getString('pipeline.dashboards.noDeployments')}</Text>
+          </Container>
+        </Container>
+      ) : (
+        <Container className={styles.chartWrapper}>
+          <HighchartsReact highcharts={Highcharts} options={chartOptions} />
+        </Container>
+      )}
     </Container>
   )
 }

@@ -1908,6 +1908,7 @@ export interface StringsMap {
   'pipeline.dashboards.medianDuration': string
   'pipeline.dashboards.noActiveBuilds': string
   'pipeline.dashboards.noActiveDeployments': string
+  'pipeline.dashboards.noDeployments': string
   'pipeline.dashboards.noFailedBuilds': string
   'pipeline.dashboards.noFailedDeployments': string
   'pipeline.dashboards.noPendingDeployments': string

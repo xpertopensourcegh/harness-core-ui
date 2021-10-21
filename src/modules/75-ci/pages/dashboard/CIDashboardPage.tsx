@@ -88,10 +88,11 @@ export const CIDashboardPage: React.FC = () => {
         <Container className={styles.page} padding="large">
           <CIDashboardSummaryCards />
           <Container className={styles.executionsWrapper}>
-            <BuildExecutionsChart />
+            <BuildExecutionsChart isCIPage={true} />
           </Container>
           <CardRailView
             contentType="REPOSITORY"
+            isCIPage={true}
             isLoading={loadingRepositories && !refetchingRepos}
             titleSideContent={<RangeSelector onRangeSelected={setRepositoriesRange} />}
           >

@@ -17,5 +17,7 @@ declare const styles: {
   readonly chartWrapper: string
   readonly cardFooter: string
   readonly avatarWrapper: string
+  readonly successBorder: string
+  readonly errorBorder: string
 }
 export default styles

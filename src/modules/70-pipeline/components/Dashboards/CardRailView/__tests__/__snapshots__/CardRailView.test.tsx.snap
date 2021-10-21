@@ -11,11 +11,7 @@ exports[`CardRailView renders correctly when content is empty 1`] = `
       <div
         class="StyledProps--font StyledProps--main headerTitle"
       >
-        <img
-          height="15"
-          src="test-file-stub"
-          width="16"
-        />
+        test-file-stub
         <div
           class="Text--withDocsTooltip"
           data-tooltip-id="overview_REPOSITORY"
@@ -24,6 +20,9 @@ exports[`CardRailView renders correctly when content is empty 1`] = `
             class="StyledProps--font StyledProps--main title"
           >
             repositories
+             (
+            0
+            )
           </p>
         </div>
       </div>
@@ -34,12 +33,6 @@ exports[`CardRailView renders correctly when content is empty 1`] = `
       <div
         class="StyledProps--font StyledProps--main emptyView"
       >
-        <div
-          class="StyledProps--font StyledProps--main emptyViewItem"
-        />
-        <div
-          class="StyledProps--font StyledProps--main emptyViewItem"
-        />
         <div
           class="StyledProps--font StyledProps--main emptyViewCard"
         >
@@ -101,6 +94,9 @@ exports[`CardRailView renders correctly while loading="true" 1`] = `
             class="StyledProps--font StyledProps--main title"
           >
             pipeline.dashboards.activeBuilds
+             (
+            0
+            )
           </p>
         </div>
       </div>
