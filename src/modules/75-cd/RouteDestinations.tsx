@@ -97,6 +97,7 @@ import { StageType } from '@pipeline/utils/stageHelpers'
 
 import { TriggerFormType } from '@pipeline/factories/ArtifactTriggerInputFactory/types'
 import TriggerFactory from '@pipeline/factories/ArtifactTriggerInputFactory/index'
+import ExecutionPolicyEvaluationsView from '@pipeline/pages/execution/ExecutionPolicyEvaluationsView/ExecutionPolicyEvaluationsView'
 
 import { LicenseRedirectProps, LICENSE_STATE_NAMES } from 'framework/LicenseStore/LicenseStoreContext'
 import { TemplateStudioWrapper } from '@templates-library/components/TemplateStudio/TemplateStudioWrapper'
@@ -598,6 +599,21 @@ export default (
     >
       <ExecutionLandingPage>
         <ExecutionPipelineView />
+      </ExecutionLandingPage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      licenseRedirectData={licenseRedirectData}
+      sidebarProps={CDSideNavProps}
+      layout={MinimalLayout}
+      path={routes.toExecutionPolicyEvaluationsView({
+        ...accountPathProps,
+        ...executionPathProps,
+        ...pipelineModuleParams
+      })}
+    >
+      <ExecutionLandingPage>
+        <ExecutionPolicyEvaluationsView />
       </ExecutionLandingPage>
     </RouteWithLayout>
     <RouteWithLayout

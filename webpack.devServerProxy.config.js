@@ -66,8 +66,7 @@ module.exports = {
     target: targetLocalHost ? 'http://localhost:15001' : baseUrl
   },
   '/pm': {
-    target: process.env.GOVERNANCE_APP_URL || baseUrl,
-    pathRewrite: { '^/pm': '' }
+    target: process.env.GOVERNANCE_APP_URL || baseUrl
   },
   '/gitops': {
     pathRewrite: { '^/gitops': '' },

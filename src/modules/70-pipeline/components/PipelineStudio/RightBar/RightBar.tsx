@@ -45,6 +45,8 @@ import {
 import { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import type { PipelineType, GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { Scope } from '@common/interfaces/SecretsInterface'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
+import { FeatureFlag } from '@common/featureFlags'
 import {
   generateSchemaForLimitCPU,
   generateSchemaForLimitMemory
@@ -115,6 +117,10 @@ export const RightBar = (): JSX.Element => {
   } = usePipelineContext()
   const codebase = (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase
   const [codebaseStatus, setCodebaseStatus] = React.useState<CodebaseStatuses>(CodebaseStatuses.ZeroState)
+
+  // TODO: This feature is not ready yet, guard it by localStorage as well
+  const enableGovernanceSidebar =
+    useFeatureFlag(FeatureFlag.OPA_PIPELINE_GOVERNANCE) && localStorage.OPA_PIPELINE_GOVERNANCE_SIDEBAR
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
     PipelineType<{
@@ -381,6 +387,29 @@ export const RightBar = (): JSX.Element => {
         iconProps={{ size: 20 }}
         text={getString('pipeline.barriers.flowControl')}
       />
+
+      {enableGovernanceSidebar && (
+        <Button
+          className={cx(css.iconButton, css.policySetsIcon, {
+            [css.selected]: type === DrawerTypes.PolicySets
+          })}
+          variation={ButtonVariation.TERTIARY}
+          onClick={() => {
+            updatePipelineView({
+              ...pipelineView,
+              isDrawerOpened: true,
+              drawerData: { type: DrawerTypes.PolicySets },
+              isSplitViewOpen: false,
+              splitViewData: {}
+            })
+          }}
+          font={{ weight: 'semi-bold', size: 'xsmall' }}
+          icon="governance"
+          withoutCurrentColor={true}
+          iconProps={{ size: 20 }}
+          text={getString('common.policy.policysets')}
+        />
+      )}
 
       {isCodebaseEnabled && !isYaml && (
         <Button

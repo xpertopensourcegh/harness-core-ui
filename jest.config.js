@@ -34,7 +34,8 @@ module.exports = {
     '!src/modules/10-common/utils/JestFormHelper.ts',
     '!src/modules/85-cv/pages/metric-pack/**',
     '!src/modules/70-pipeline/components/PipelineStudio/PipelineContext/PipelineContext.tsx',
-    '!src/modules/70-pipeline/components/PipelineStudio/ExecutionGraph/**'
+    '!src/modules/70-pipeline/components/PipelineStudio/ExecutionGraph/**',
+    '!src/modules/25-governance/**' // 25-governance will be moved to a separate micro-frontend repository shortly
   ],
   coverageReporters: ['lcov', 'json-summary', 'json'],
   transform: {

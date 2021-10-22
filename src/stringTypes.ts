@@ -331,6 +331,28 @@ export interface StringsMap {
   'common.plans.title': string
   'common.plusNumber': string
   'common.plusNumberNoSpace': string
+  'common.policies': string
+  'common.policiesSets.evaluationCriteria': string
+  'common.policiesSets.newPolicyset': string
+  'common.policiesSets.noPolicySet': string
+  'common.policiesSets.noPolicySetResult': string
+  'common.policiesSets.policySetSearch': string
+  'common.policiesSets.stepOne.validId': string
+  'common.policiesSets.stepOne.validIdRegex': string
+  'common.policiesSets.stepOne.validName': string
+  'common.policiesSets.table.enforced': string
+  'common.policiesSets.table.entityType': string
+  'common.policiesSets.table.name': string
+  'common.policy.evaluations': string
+  'common.policy.newPolicy': string
+  'common.policy.noPolicy': string
+  'common.policy.noPolicyEvalResult': string
+  'common.policy.noPolicyResult': string
+  'common.policy.policySearch': string
+  'common.policy.policysets': string
+  'common.policy.table.createdAt': string
+  'common.policy.table.lastModified': string
+  'common.policy.table.name': string
   'common.production': string
   'common.projectSetup': string
   'common.projectViewer': string
@@ -2242,6 +2264,18 @@ export interface StringsMap {
   'pipeline.pipelineSteps.featureStageDescription': string
   'pipeline.pipelineTimeoutHelpText': string
   'pipeline.pipelineTimeoutSettings': string
+  'pipeline.policyEvaluations.emptyPolicySet': string
+  'pipeline.policyEvaluations.evaluatedTime': string
+  'pipeline.policyEvaluations.evaluations': string
+  'pipeline.policyEvaluations.failedToSavePipeline': string
+  'pipeline.policyEvaluations.failureHeading': string
+  'pipeline.policyEvaluations.failureModalTitle': string
+  'pipeline.policyEvaluations.policySetName': string
+  'pipeline.policyEvaluations.policySets': string
+  'pipeline.policyEvaluations.policySetsApplied': string
+  'pipeline.policyEvaluations.successHeading': string
+  'pipeline.policyEvaluations.title': string
+  'pipeline.policyEvaluations.warn': string
   'pipeline.poweredByHarness': string
   'pipeline.progressPercentage': string
   'pipeline.provisionerSteps': string

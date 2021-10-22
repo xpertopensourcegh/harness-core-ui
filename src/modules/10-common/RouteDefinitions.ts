@@ -1236,6 +1236,7 @@ const routes = {
   ),
   toCustomFolderHome: withAccountId(() => '/dashboards/folders'),
   toViewCustomFolder: withAccountId(({ viewId }: { viewId: string }) => `/dashboards/folder/view/${viewId}`)
+
   /****************** Secret Usage************************************************************************************/
 }
 

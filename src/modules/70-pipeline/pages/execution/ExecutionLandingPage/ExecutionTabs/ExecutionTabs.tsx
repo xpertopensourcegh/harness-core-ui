@@ -11,7 +11,8 @@ import type { CIWebhookInfoDTO } from 'services/ci'
 import type { ExecutionQueryParams } from '@pipeline/utils/executionUtils'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import { useStrings } from 'framework/strings'
-
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
+import { FeatureFlag } from '@common/featureFlags'
 import css from './ExecutionTabs.module.scss'
 
 const TAB_ID_MAP = {
@@ -19,7 +20,8 @@ const TAB_ID_MAP = {
   INPUTS: 'inputs_view',
   ARTIFACTS: 'artifacts_view',
   COMMITS: 'commits_view',
-  TESTS: 'tests_view'
+  TESTS: 'tests_view',
+  POLICY_EVALUATIONS: 'policy_evaluations'
 }
 
 export default function ExecutionTabs(props: React.PropsWithChildren<unknown>): React.ReactElement {
@@ -31,6 +33,7 @@ export default function ExecutionTabs(props: React.PropsWithChildren<unknown>): 
   const location = useLocation()
   const { view } = useQueryParams<ExecutionQueryParams>()
   const { updateQueryParams } = useUpdateQueryParams<ExecutionQueryParams>()
+  const opaBasedGovernanceEnabled = useFeatureFlag(FeatureFlag.OPA_PIPELINE_GOVERNANCE)
 
   const routeParams = { ...accountPathProps, ...executionPathProps, ...pipelineModuleParams }
   // const isGraphView = !view || view === 'graph'
@@ -81,6 +84,12 @@ export default function ExecutionTabs(props: React.PropsWithChildren<unknown>): 
     if (isTestsView) {
       return setSelectedTabId(TAB_ID_MAP.TESTS)
     }
+    const isPolicyEvaluationsView = !!matchPath(location.pathname, {
+      path: routes.toExecutionPolicyEvaluationsView(routeParams)
+    })
+    if (isPolicyEvaluationsView) {
+      return setSelectedTabId(TAB_ID_MAP.POLICY_EVALUATIONS)
+    }
     // Defaults to Pipelines Tab
     return setSelectedTabId(TAB_ID_MAP.PIPELINE)
   }, [location.pathname])
@@ -113,6 +122,22 @@ export default function ExecutionTabs(props: React.PropsWithChildren<unknown>): 
       )
     }
   ]
+
+  if (opaBasedGovernanceEnabled) {
+    tabList.push({
+      id: TAB_ID_MAP.POLICY_EVALUATIONS,
+      title: (
+        <NavLink
+          to={routes.toExecutionPolicyEvaluationsView(params) + location.search}
+          className={css.tabLink}
+          activeClassName={css.activeLink}
+        >
+          <Icon name="governance" size={16} />
+          <span>{getString('pipeline.policyEvaluations.title')}</span>
+        </NavLink>
+      )
+    })
+  }
 
   if (isCI) {
     tabList.push({
