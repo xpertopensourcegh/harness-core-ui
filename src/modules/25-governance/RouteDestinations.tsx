@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { Route, useHistory, useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 
 import { accountPathProps } from '@common/utils/routeUtils'
@@ -19,54 +20,71 @@ export const AccountSideNavProps: SidebarContext = {
   title: 'Account Settings'
 }
 
+const RedirectRoute: React.FC = () => {
+  const { accountId } = useParams<{ accountId: string }>()
+  const history = useHistory()
+
+  useEffect(() => {
+    history.replace(routes.toPolicyListPage({ accountId }))
+  }, [history, accountId])
+
+  return null
+}
+
 export default (
   <>
-    <RouteWithLayout
-      path={routes.toPolicyDashboardPage({ ...accountPathProps })}
-      exact
-      sidebarProps={AccountSideNavProps}
-    >
-      <PolicyControlPage title="Overview">
-        <PolicyDashboard />
-      </PolicyControlPage>
-    </RouteWithLayout>
+    <Route path={routes.toAccountSettingsGovernance({ ...accountPathProps })}>
+      <Route path={routes.toAccountSettingsGovernance({ ...accountPathProps })} exact>
+        <RedirectRoute />
+      </Route>
 
-    <RouteWithLayout path={routes.toPolicyListPage({ ...accountPathProps })} exact sidebarProps={AccountSideNavProps}>
-      <PolicyControlPage title="Policies">
-        <Policies />
-      </PolicyControlPage>
-    </RouteWithLayout>
+      <RouteWithLayout
+        path={routes.toPolicyDashboardPage({ ...accountPathProps })}
+        exact
+        sidebarProps={AccountSideNavProps}
+      >
+        <PolicyControlPage title="Overview">
+          <PolicyDashboard />
+        </PolicyControlPage>
+      </RouteWithLayout>
 
-    <RouteWithLayout path={routes.toPolicyNewPage({ ...accountPathProps })} exact sidebarProps={AccountSideNavProps}>
-      <PolicyControlPage title="New Policy">
-        <EditPolicy />
-      </PolicyControlPage>
-    </RouteWithLayout>
+      <RouteWithLayout path={routes.toPolicyListPage({ ...accountPathProps })} exact sidebarProps={AccountSideNavProps}>
+        <PolicyControlPage title="Policies">
+          <Policies />
+        </PolicyControlPage>
+      </RouteWithLayout>
 
-    <RouteWithLayout
-      path={routes.toPolicyEditPage({ ...accountPathProps, policyIdentifier: ':policyIdentifier' })}
-      exact
-      sidebarProps={AccountSideNavProps}
-    >
-      <PolicyControlPage title="Edit Policy">
-        <EditPolicy />
-      </PolicyControlPage>
-    </RouteWithLayout>
+      <RouteWithLayout path={routes.toPolicyNewPage({ ...accountPathProps })} exact sidebarProps={AccountSideNavProps}>
+        <PolicyControlPage title="New Policy">
+          <EditPolicy />
+        </PolicyControlPage>
+      </RouteWithLayout>
 
-    <RouteWithLayout path={routes.toPolicySetsPage({ ...accountPathProps })} exact sidebarProps={AccountSideNavProps}>
-      <PolicyControlPage title="Policy Sets">
-        <PolicySets />
-      </PolicyControlPage>
-    </RouteWithLayout>
+      <RouteWithLayout
+        path={routes.toPolicyEditPage({ ...accountPathProps, policyIdentifier: ':policyIdentifier' })}
+        exact
+        sidebarProps={AccountSideNavProps}
+      >
+        <PolicyControlPage title="Edit Policy">
+          <EditPolicy />
+        </PolicyControlPage>
+      </RouteWithLayout>
 
-    <RouteWithLayout
-      path={routes.toPolicyEvaluationsPage({ ...accountPathProps })}
-      exact
-      sidebarProps={AccountSideNavProps}
-    >
-      <PolicyControlPage title="Evaluations">
-        <PolicyEvaluations />
-      </PolicyControlPage>
-    </RouteWithLayout>
+      <RouteWithLayout path={routes.toPolicySetsPage({ ...accountPathProps })} exact sidebarProps={AccountSideNavProps}>
+        <PolicyControlPage title="Policy Sets">
+          <PolicySets />
+        </PolicyControlPage>
+      </RouteWithLayout>
+
+      <RouteWithLayout
+        path={routes.toPolicyEvaluationsPage({ ...accountPathProps })}
+        exact
+        sidebarProps={AccountSideNavProps}
+      >
+        <PolicyControlPage title="Evaluations">
+          <PolicyEvaluations />
+        </PolicyControlPage>
+      </RouteWithLayout>
+    </Route>
   </>
 )
