@@ -70,7 +70,7 @@ export default function DeploymentExecutionsChart(props: any) {
         <Container className={styles.emptyView}>
           <Container className={styles.emptyViewCard}>
             <img src={NoDeployments} />
-            <Text>{getString('pipeline.dashboards.noDeployments')}</Text>
+            <Text>{getString('common.noDeployments')}</Text>
           </Container>
         </Container>
       ) : (

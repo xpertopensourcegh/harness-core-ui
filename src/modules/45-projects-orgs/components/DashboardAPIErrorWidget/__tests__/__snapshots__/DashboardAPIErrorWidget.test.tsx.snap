@@ -3,10 +3,10 @@
 exports[`DashboardAPIErrorWidget DashboardAPIErrorWidget rendering 1`] = `
 <div>
   <div
-    class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-center"
+    class="Layout--vertical StyledProps--main errorWidgetWrapper StyledProps--flex StyledProps--flex-justifyContent-center"
   >
     <span
-      class="bp3-icon StyledProps--main StyledProps--margin-bottom-large"
+      class="bp3-icon StyledProps--main StyledProps--margin-bottom-large StyledProps--margin-top-small"
       data-icon="data-fetch-error"
     >
       <svg

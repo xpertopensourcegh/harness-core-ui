@@ -37,7 +37,7 @@ const GlanceCard: React.FC<GlanceCardProps> = ({
         color={styling ? Color.PRIMARY_9 : Color.BLACK}
         font={{ size: 'large', weight: 'bold' }}
         className={cx(css.lineClamp, css.lineHeight, { [css.title]: styling })}
-        lineClamp={number && number > 99 ? 1 : undefined}
+        lineClamp={number && number > 999 ? 1 : undefined}
       >
         {number?.toString() ?? 0}
       </Text>

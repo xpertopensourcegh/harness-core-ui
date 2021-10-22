@@ -114,8 +114,14 @@ const OverviewGlanceCards: React.FC<OverviewGlanceCardsProp> = props => {
   })
 
   useEffect(() => {
-    refetch()
-  }, [selectedTimeRange, refetch])
+    refetch({
+      queryParams: {
+        accountIdentifier: accountId,
+        startTime: Date.now() - TimeRangeToDays[selectedTimeRange] * 24 * 60 * 60000,
+        endTime: Date.now()
+      }
+    })
+  }, [selectedTimeRange, refetch, accountId])
 
   if (!loading && (error || countResponse?.data?.executionStatus !== 'SUCCESS')) {
     return (

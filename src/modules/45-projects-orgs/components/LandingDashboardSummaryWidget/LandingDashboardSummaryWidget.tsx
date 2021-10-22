@@ -48,13 +48,10 @@ const formatSummaryData = (
       barSectionsData: [
         { count: successCount, color: Color.PRIMARY_6 },
         { count: failureCount, color: Color.RED_500 }
-      ]
+      ],
+      trend: `${countChangeAndCountChangeRateInfo?.countChangeRate ?? 0}%`
     }
 
-    const countTrend = countChangeAndCountChangeRateInfo?.countChange
-    if (countTrend) {
-      stackData.trend = countTrend.toString()
-    }
     return stackData
   })
 
@@ -156,8 +153,14 @@ const LandingDashboardSummaryWidget: React.FC = () => {
   })
 
   useEffect(() => {
-    refetch()
-  }, [selectedTimeRange, refetch])
+    refetch({
+      queryParams: {
+        accountIdentifier: accountId,
+        startTime: Date.now() - TimeRangeToDays[selectedTimeRange] * 24 * 60 * 60000,
+        endTime: Date.now()
+      }
+    })
+  }, [selectedTimeRange, refetch, accountId])
 
   const { iconName, titleId, dataKey } = getModuleData(ModuleName.CD)
 
@@ -205,7 +208,7 @@ const LandingDashboardSummaryWidget: React.FC = () => {
               <DashboardAPIErrorWidget
                 className={css.topProjectsWrapper}
                 callback={refetch}
-                iconProps={{ size: 90 }}
+                iconProps={{ size: 80 }}
               ></DashboardAPIErrorWidget>
             )}
           </Layout.Vertical>

@@ -77,8 +77,7 @@ exports[`OverviewGlanceCards OverviewGlanceCards rendering 1`] = `
               </svg>
             </span>
             <p
-              class="StyledProps--font Text--lineclamp StyledProps--main lineClamp lineHeight title StyledProps--color StyledProps--color-primary9 StyledProps--font-size-large StyledProps--font-weight-bold"
-              style="--text-line-clamp: 1;"
+              class="StyledProps--font StyledProps--main lineClamp lineHeight title StyledProps--color StyledProps--color-primary9 StyledProps--font-size-large StyledProps--font-weight-bold"
             >
               145
             </p>
@@ -350,39 +349,39 @@ exports[`OverviewGlanceCards OverviewGlanceCards rendering 1`] = `
                       >
                         <div
                           class="StyledProps--font StyledProps--main barSection StyledProps--background-primary6"
-                          style="width: 63.68085106382979px;"
+                          style="width: 85.48936170212767px;"
                         />
                         <div
                           class="StyledProps--font StyledProps--main barSection StyledProps--background-red500"
-                          style="width: 9.319148936170212px;"
+                          style="width: 12.51063829787234px;"
                         />
                       </div>
                       <div
                         class="StyledProps--font StyledProps--main StyledProps--flex"
                       >
                         <span
-                          class="bp3-icon bp3-icon-caret-up StyledProps--main StyledProps--color StyledProps--color-green500"
-                          icon="caret-up"
+                          class="bp3-icon bp3-icon-caret-right StyledProps--main StyledProps--color StyledProps--color-grey300"
+                          icon="caret-right"
                         >
                           <svg
-                            data-icon="caret-up"
+                            data-icon="caret-right"
                             height="16"
                             viewBox="0 0 16 16"
                             width="16"
                           >
                             <desc>
-                              caret-up
+                              caret-right
                             </desc>
                             <path
-                              d="M11.87 9.17s.01 0 0 0l-3.5-4C8.28 5.07 8.15 5 8 5s-.28.07-.37.17l-3.5 4a.495.495 0 00.37.83h7a.495.495 0 00.37-.83z"
+                              d="M11 8c0-.15-.07-.28-.17-.37l-4-3.5A.495.495 0 006 4.5v7a.495.495 0 00.83.37l4-3.5c.1-.09.17-.22.17-.37z"
                               fill-rule="evenodd"
                             />
                           </svg>
                         </span>
                         <p
-                          class="StyledProps--font StyledProps--main StyledProps--font-xsmall StyledProps--color StyledProps--color-green500"
+                          class="StyledProps--font StyledProps--main StyledProps--font-xsmall StyledProps--color StyledProps--color-grey300"
                         >
-                          2
+                          0%
                         </p>
                       </div>
                     </div>
@@ -421,39 +420,39 @@ exports[`OverviewGlanceCards OverviewGlanceCards rendering 1`] = `
                       >
                         <div
                           class="StyledProps--font StyledProps--main barSection StyledProps--background-red500"
-                          style="width: 7.76595744680851px;"
+                          style="width: 10.425531914893616px;"
                         />
                         <div
                           class="StyledProps--font StyledProps--main barSection StyledProps--background-grey100"
-                          style="width: 65.23404255319149px;"
+                          style="width: 87.57446808510637px;"
                         />
                       </div>
                       <div
                         class="StyledProps--font StyledProps--main StyledProps--flex"
                       >
                         <span
-                          class="bp3-icon bp3-icon-caret-up StyledProps--main StyledProps--color StyledProps--color-green500"
-                          icon="caret-up"
+                          class="bp3-icon bp3-icon-caret-right StyledProps--main StyledProps--color StyledProps--color-grey300"
+                          icon="caret-right"
                         >
                           <svg
-                            data-icon="caret-up"
+                            data-icon="caret-right"
                             height="16"
                             viewBox="0 0 16 16"
                             width="16"
                           >
                             <desc>
-                              caret-up
+                              caret-right
                             </desc>
                             <path
-                              d="M11.87 9.17s.01 0 0 0l-3.5-4C8.28 5.07 8.15 5 8 5s-.28.07-.37.17l-3.5 4a.495.495 0 00.37.83h7a.495.495 0 00.37-.83z"
+                              d="M11 8c0-.15-.07-.28-.17-.37l-4-3.5A.495.495 0 006 4.5v7a.495.495 0 00.83.37l4-3.5c.1-.09.17-.22.17-.37z"
                               fill-rule="evenodd"
                             />
                           </svg>
                         </span>
                         <p
-                          class="StyledProps--font StyledProps--main StyledProps--font-xsmall StyledProps--color StyledProps--color-green500"
+                          class="StyledProps--font StyledProps--main StyledProps--font-xsmall StyledProps--color StyledProps--color-grey300"
                         >
-                          5
+                          0%
                         </p>
                       </div>
                     </div>
@@ -492,39 +491,39 @@ exports[`OverviewGlanceCards OverviewGlanceCards rendering 1`] = `
                       >
                         <div
                           class="StyledProps--font StyledProps--main barSection StyledProps--background-red500"
-                          style="width: 3.106382978723404px;"
+                          style="width: 4.170212765957447px;"
                         />
                         <div
                           class="StyledProps--font StyledProps--main barSection StyledProps--background-grey100"
-                          style="width: 69.8936170212766px;"
+                          style="width: 93.82978723404256px;"
                         />
                       </div>
                       <div
                         class="StyledProps--font StyledProps--main StyledProps--flex"
                       >
                         <span
-                          class="bp3-icon bp3-icon-caret-up StyledProps--main StyledProps--color StyledProps--color-green500"
-                          icon="caret-up"
+                          class="bp3-icon bp3-icon-caret-right StyledProps--main StyledProps--color StyledProps--color-grey300"
+                          icon="caret-right"
                         >
                           <svg
-                            data-icon="caret-up"
+                            data-icon="caret-right"
                             height="16"
                             viewBox="0 0 16 16"
                             width="16"
                           >
                             <desc>
-                              caret-up
+                              caret-right
                             </desc>
                             <path
-                              d="M11.87 9.17s.01 0 0 0l-3.5-4C8.28 5.07 8.15 5 8 5s-.28.07-.37.17l-3.5 4a.495.495 0 00.37.83h7a.495.495 0 00.37-.83z"
+                              d="M11 8c0-.15-.07-.28-.17-.37l-4-3.5A.495.495 0 006 4.5v7a.495.495 0 00.83.37l4-3.5c.1-.09.17-.22.17-.37z"
                               fill-rule="evenodd"
                             />
                           </svg>
                         </span>
                         <p
-                          class="StyledProps--font StyledProps--main StyledProps--font-xsmall StyledProps--color StyledProps--color-green500"
+                          class="StyledProps--font StyledProps--main StyledProps--font-xsmall StyledProps--color StyledProps--color-grey300"
                         >
-                          1
+                          0%
                         </p>
                       </div>
                     </div>
@@ -563,12 +562,40 @@ exports[`OverviewGlanceCards OverviewGlanceCards rendering 1`] = `
                       >
                         <div
                           class="StyledProps--font StyledProps--main barSection StyledProps--background-red500"
-                          style="width: 1.553191489361702px;"
+                          style="width: 2.0851063829787235px;"
                         />
                         <div
                           class="StyledProps--font StyledProps--main barSection StyledProps--background-grey100"
-                          style="width: 71.44680851063829px;"
+                          style="width: 95.91489361702128px;"
                         />
+                      </div>
+                      <div
+                        class="StyledProps--font StyledProps--main StyledProps--flex"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-caret-right StyledProps--main StyledProps--color StyledProps--color-grey300"
+                          icon="caret-right"
+                        >
+                          <svg
+                            data-icon="caret-right"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            width="16"
+                          >
+                            <desc>
+                              caret-right
+                            </desc>
+                            <path
+                              d="M11 8c0-.15-.07-.28-.17-.37l-4-3.5A.495.495 0 006 4.5v7a.495.495 0 00.83.37l4-3.5c.1-.09.17-.22.17-.37z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--font-xsmall StyledProps--color StyledProps--color-grey300"
+                        >
+                          0%
+                        </p>
                       </div>
                     </div>
                   </div>

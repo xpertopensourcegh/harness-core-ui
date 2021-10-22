@@ -1,7 +1,10 @@
 import React from 'react'
 import { Color, Icon, Layout, Text } from '@wings-software/uicore'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
+import cx from 'classnames'
 import { useStrings } from 'framework/strings'
+
+import css from './DashboardAPIErrorWidget.module.scss'
 
 export interface DashboardAPIErrorWidgetProps {
   className?: string
@@ -32,8 +35,12 @@ const DashboardAPIErrorWidget: React.FC<DashboardAPIErrorWidgetProps> = props =>
   }
 
   return (
-    <Layout.Vertical className={props.className} background={Color.YELLOW_50} flex={{ justifyContent: 'center' }}>
-      <Icon name="data-fetch-error" size={120} {...props.iconProps} margin={{ bottom: 'large' }}></Icon>
+    <Layout.Vertical
+      className={cx(props.className, css.errorWidgetWrapper)}
+      background={Color.YELLOW_50}
+      flex={{ justifyContent: 'center' }}
+    >
+      <Icon name="data-fetch-error" size={120} {...props.iconProps} margin={{ bottom: 'large', top: 'small' }}></Icon>
       <Text
         icon="warning-sign"
         iconProps={{ color: Color.ORANGE_700 }}

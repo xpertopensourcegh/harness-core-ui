@@ -34,6 +34,10 @@
           &:not(:last-child) {
             border-right: 1px solid var(--grey-200);
           }
+
+          &:first-child [role='row'] {
+            padding-left: 0;
+          }
         }
 
         .comingSoon {

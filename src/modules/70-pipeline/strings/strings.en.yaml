@@ -536,7 +536,6 @@ dashboards:
   noFailedDeployments: 'No Failed Deployments'
   noActiveDeployments: 'No Active Deployments'
   noPendingDeployments: 'No Pending Deployments found'
-  noDeployments: 'No Deployments'
   buildExecutions: Build Executions
   buildHealth: Build health
   totalBuilds: Total Builds

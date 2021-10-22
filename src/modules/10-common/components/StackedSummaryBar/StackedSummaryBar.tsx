@@ -30,7 +30,7 @@ export const getStackedSummaryBarCount = (barData: Array<StackedBarSectionData>)
   barData.reduce((sum: number, section: StackedBarSectionData) => sum + section.count, 0)
 
 export const StackedSummaryBar: React.FC<StackedSummaryBarProps> = props => {
-  const { maxCount, barSectionsData, trend, intent = Intent.SUCCESS, barLength = 75 } = props
+  const { maxCount, barSectionsData, trend, intent = Intent.SUCCESS, barLength = 100 } = props
   const summaryCount = getStackedSummaryBarCount(barSectionsData)
   const trendChange = trend ? parseInt(trend) : 0
   const barSections: Array<BarSection> = []
@@ -55,7 +55,10 @@ export const StackedSummaryBar: React.FC<StackedSummaryBarProps> = props => {
   const renderTrend = (intentColor: Color): JSX.Element => {
     return (
       <>
-        <Icon name={trendChange > 0 ? 'caret-up' : 'caret-down'} color={intentColor}></Icon>
+        <Icon
+          name={trendChange === 0 ? 'caret-right' : trendChange < 0 ? 'caret-down' : 'caret-up'}
+          color={intentColor}
+        ></Icon>
         <Text font="xsmall" color={intentColor}>
           {trend}
         </Text>
@@ -80,11 +83,13 @@ export const StackedSummaryBar: React.FC<StackedSummaryBarProps> = props => {
           ) : null
         })}
       </Container>
-      {trendChange ? (
+      {trendChange || isNaN(trendChange) ? ( // Handling Infinity as positive intent
         <Container flex>
-          {(intent === Intent.SUCCESS) === trendChange > 0 ? renderTrend(Color.GREEN_500) : renderTrend(Color.RED_500)}
+          {(intent === Intent.SUCCESS) === trendChange < 0 ? renderTrend(Color.RED_500) : renderTrend(Color.GREEN_500)}
         </Container>
-      ) : null}
+      ) : (
+        <Container flex>{renderTrend(Color.GREY_300)}</Container>
+      )}
     </Layout.Horizontal>
   )
 }

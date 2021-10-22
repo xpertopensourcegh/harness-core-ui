@@ -271,7 +271,7 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
             <p
               class="StyledProps--font StyledProps--main"
             >
-              pipeline.dashboards.noDeployments
+              common.noDeployments
             </p>
           </div>
         </div>

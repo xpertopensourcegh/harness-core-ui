@@ -28,8 +28,7 @@ exports[`OverviewGlanceCards OverviewGlanceCards rendering 1`] = `
           </svg>
         </span>
         <p
-          class="StyledProps--font Text--lineclamp StyledProps--main lineClamp lineHeight title StyledProps--color StyledProps--color-primary9 StyledProps--font-size-large StyledProps--font-weight-bold"
-          style="--text-line-clamp: 1;"
+          class="StyledProps--font StyledProps--main lineClamp lineHeight title StyledProps--color StyledProps--color-primary9 StyledProps--font-size-large StyledProps--font-weight-bold"
         >
           145
         </p>
