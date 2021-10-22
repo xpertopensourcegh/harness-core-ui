@@ -15,7 +15,9 @@ import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import ExecutionCard from '@pipeline/components/ExecutionCard/ExecutionCard'
 import { CardVariant } from '@pipeline/utils/constants'
-import { RangeSelectorWithTitle } from '@pipeline/components/Dashboards/RangeSelector'
+import { TimeRangeSelector, TimeRangeSelectorProps } from '@cd/components/TimeRangeSelector/TimeRangeSelector'
+import { DeploymentsTimeRangeContext } from '@cd/components/Services/common'
+
 import DeploymentsHealthCards from './DeploymentsHealthCards'
 import DeploymentExecutionsChart from './DeploymentExecutionsChart'
 import WorkloadCard from './DeploymentCards/WorkloadCard'
@@ -66,7 +68,10 @@ export function executionStatusInfoToExecutionSummary(info: ExecutionStatusInfo)
 
 export const CDDashboardPage: React.FC = () => {
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
-  const [range, setRange] = useState([Date.now() - 30 * 24 * 60 * 60000, Date.now()])
+  const [timeRange, setTimeRange] = useState<TimeRangeSelectorProps>({
+    range: [new Date(Date.now() - 30 * 24 * 60 * 60000), new Date(Date.now())],
+    label: ''
+  })
   const history = useHistory()
   const { getString } = useStrings()
 
@@ -89,8 +94,8 @@ export const CDDashboardPage: React.FC = () => {
       accountIdentifier: accountId,
       projectIdentifier,
       orgIdentifier,
-      startTime: range[0],
-      endTime: range[1]
+      startTime: timeRange?.range[0]?.getTime() || 0,
+      endTime: timeRange?.range[1]?.getTime() || 0
     }
   })
 
@@ -99,73 +104,78 @@ export const CDDashboardPage: React.FC = () => {
 
   const refetchingDeployments = useRefetchCall(refetch, loading)
   const activeDeployments = [...(data?.data?.active ?? []), ...(data?.data?.pending ?? [])]
-
   return (
     <>
       <PageHeader
         title={getString('overview')}
         breadcrumbs={<NGBreadcrumbs links={[]} />}
-        toolbar={<RangeSelectorWithTitle title="" onRangeSelected={setRange} />}
+        toolbar={
+          <>
+            <TimeRangeSelector timeRange={timeRange?.range} setTimeRange={setTimeRange} minimal />
+          </>
+        }
       ></PageHeader>
       <Page.Body className={styles.content} loading={(loading && !refetchingDeployments) || loadingWorkloads}>
-        <Container className={styles.page} padding="large">
-          <DeploymentsHealthCards range={range} setRange={setRange} title="Deployments Health" />
-          <Container className={styles.executionsWrapper}>
-            <DeploymentExecutionsChart range={range} setRange={setRange} title="Deployments" />
+        <DeploymentsTimeRangeContext.Provider value={{ timeRange, setTimeRange }}>
+          <Container className={styles.page} padding="large">
+            <DeploymentsHealthCards range={timeRange} setRange={setTimeRange} title="Deployments Health" />
+            <Container className={styles.executionsWrapper}>
+              <DeploymentExecutionsChart range={timeRange} setRange={setTimeRange} title="Deployments" />
+            </Container>
+            <CardRailView contentType="WORKLOAD" isLoading={loadingWorkloads} titleSideContent={<></>}>
+              {workloadsData?.data?.workloadDeploymentInfoList?.map((workload, i) => (
+                <WorkloadCard
+                  key={i}
+                  serviceName={workload.serviceName!}
+                  lastExecuted={workload?.lastExecuted}
+                  totalDeployments={workload.totalDeployments!}
+                  percentSuccess={workload.percentSuccess!}
+                  rateSuccess={workload.rateSuccess!}
+                  workload={workload.workload}
+                  serviceId={workload.serviceId}
+                />
+              ))}
+            </CardRailView>
+            <CardRailView
+              contentType="FAILED_DEPLOYMENT"
+              isLoading={loading && !refetchingDeployments}
+              titleSideContent={false}
+              onShowAll={() =>
+                history.push(
+                  routes.toDeployments({ projectIdentifier, orgIdentifier, accountId, module: 'cd' }) +
+                    `?filters=${JSON.stringify({ status: Object.keys(FailedStatus) })}`
+                )
+              }
+            >
+              {data?.data?.failure?.map((d, i) => (
+                <ExecutionCard
+                  variant={CardVariant.Minimal}
+                  key={i}
+                  pipelineExecution={executionStatusInfoToExecutionSummary(d)}
+                />
+              ))}
+            </CardRailView>
+            <CardRailView
+              contentType="ACTIVE_DEPLOYMENT"
+              isLoading={loading && !refetchingDeployments}
+              titleSideContent={false}
+              onShowAll={() =>
+                history.push(
+                  routes.toDeployments({ projectIdentifier, orgIdentifier, accountId, module: 'cd' }) +
+                    `?filters=${JSON.stringify({ status: Object.keys(ActiveStatus) })}`
+                )
+              }
+            >
+              {activeDeployments.map((d, i) => (
+                <ExecutionCard
+                  variant={CardVariant.Minimal}
+                  key={i}
+                  pipelineExecution={executionStatusInfoToExecutionSummary(d)}
+                />
+              ))}
+            </CardRailView>
           </Container>
-          <CardRailView contentType="WORKLOAD" isLoading={loadingWorkloads} titleSideContent={<></>}>
-            {workloadsData?.data?.workloadDeploymentInfoList?.map((workload, i) => (
-              <WorkloadCard
-                key={i}
-                serviceName={workload.serviceName!}
-                lastExecuted={workload?.lastExecuted}
-                totalDeployments={workload.totalDeployments!}
-                percentSuccess={workload.percentSuccess!}
-                rateSuccess={workload.rateSuccess!}
-                workload={workload.workload}
-                serviceId={workload.serviceId}
-              />
-            ))}
-          </CardRailView>
-          <CardRailView
-            contentType="FAILED_DEPLOYMENT"
-            isLoading={loading && !refetchingDeployments}
-            titleSideContent={false}
-            onShowAll={() =>
-              history.push(
-                routes.toDeployments({ projectIdentifier, orgIdentifier, accountId, module: 'cd' }) +
-                  `?filters=${JSON.stringify({ status: Object.keys(FailedStatus) })}`
-              )
-            }
-          >
-            {data?.data?.failure?.map((d, i) => (
-              <ExecutionCard
-                variant={CardVariant.Minimal}
-                key={i}
-                pipelineExecution={executionStatusInfoToExecutionSummary(d)}
-              />
-            ))}
-          </CardRailView>
-          <CardRailView
-            contentType="ACTIVE_DEPLOYMENT"
-            isLoading={loading && !refetchingDeployments}
-            titleSideContent={false}
-            onShowAll={() =>
-              history.push(
-                routes.toDeployments({ projectIdentifier, orgIdentifier, accountId, module: 'cd' }) +
-                  `?filters=${JSON.stringify({ status: Object.keys(ActiveStatus) })}`
-              )
-            }
-          >
-            {activeDeployments.map((d, i) => (
-              <ExecutionCard
-                variant={CardVariant.Minimal}
-                key={i}
-                pipelineExecution={executionStatusInfoToExecutionSummary(d)}
-              />
-            ))}
-          </CardRailView>
-        </Container>
+        </DeploymentsTimeRangeContext.Provider>
       </Page.Body>
     </>
   )

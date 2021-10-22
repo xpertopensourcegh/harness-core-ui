@@ -22,8 +22,8 @@ export default function DeploymentExecutionsChart(props: any) {
       accountIdentifier: accountId,
       projectIdentifier,
       orgIdentifier,
-      startTime: range[0],
-      endTime: range[1]
+      startTime: range?.range[0]?.getTime() || 0,
+      endTime: range?.range[1]?.getTime() || 0
     }
   })
 
