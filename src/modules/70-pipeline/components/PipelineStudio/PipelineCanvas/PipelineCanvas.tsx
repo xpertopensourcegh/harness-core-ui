@@ -53,6 +53,7 @@ import { getRepoDetailsByIndentifier } from '@common/utils/gitSyncUtils'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { PipelineActions } from '@common/constants/TrackingConstants'
 import { RunPipelineForm } from '@pipeline/components/RunPipelineModal/RunPipelineForm'
+import { PipelineFeatureLimitBreachedBanner } from '@pipeline/factories/PipelineFeatureRestrictionFactory/PipelineFeatureRestrictionFactory'
 import { InputSetSummaryResponse, useGetInputsetYaml } from 'services/pipeline-ng'
 import { savePipeline, usePipelineContext } from '../PipelineContext/PipelineContext'
 import CreatePipelines from '../CreateModal/PipelineCreate'
@@ -931,6 +932,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
             </div>
           </div>
         </div>
+        <PipelineFeatureLimitBreachedBanner featureIdentifier={FeatureIdentifier.SERVICES} module={module} />
         {isYaml ? <PipelineYamlView /> : <StageBuilder />}
       </div>
       <RightBar />

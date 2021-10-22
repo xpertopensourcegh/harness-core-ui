@@ -4,8 +4,9 @@ import { HarnessDocTooltip, useModalHook } from '@wings-software/uicore'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
 
 import { useStrings } from 'framework/strings'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
+import { PipelineFeatureLimitBreachedBanner } from '@pipeline/factories/PipelineFeatureRestrictionFactory/PipelineFeatureRestrictionFactory'
 import PipelineDeploymentList from '@pipeline/pages/pipeline-deployment-list/PipelineDeploymentList'
-
 import PipelineModalListView from '@pipeline/components/PipelineModalListView/PipelineModalListView'
 import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
@@ -46,6 +47,7 @@ export default function DeploymentsList(): React.ReactElement {
         }
         breadcrumbs={<NGBreadcrumbs links={[]} />}
       ></Page.Header>
+      <PipelineFeatureLimitBreachedBanner featureIdentifier={FeatureIdentifier.SERVICES} module={module} />
       <div className={css.content}>
         <PipelineDeploymentList onRunPipeline={openModal} />
       </div>

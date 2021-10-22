@@ -17,8 +17,9 @@ import type { ExecutionPageQueryParams } from '@pipeline/utils/types'
 import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 
 import { logsCache } from '@pipeline/components/LogsContent/LogsState/utils'
+import { PipelineFeatureLimitBreachedBanner } from '@pipeline/factories/PipelineFeatureRestrictionFactory/PipelineFeatureRestrictionFactory'
 import ExecutionContext, { GraphCanvasState } from '@pipeline/context/ExecutionContext'
-
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import useTabVisible from '@common/hooks/useTabVisible'
 import { ExecutionHeader } from './ExecutionHeader/ExecutionHeader'
 import ExecutionMetadata from './ExecutionMetadata/ExecutionMetadata'
@@ -29,7 +30,7 @@ import css from './ExecutionLandingPage.module.scss'
 export const POLL_INTERVAL = 2 /* sec */ * 1000 /* ms */
 
 export default function ExecutionLandingPage(props: React.PropsWithChildren<unknown>): React.ReactElement {
-  const { orgIdentifier, projectIdentifier, executionIdentifier, accountId } =
+  const { orgIdentifier, projectIdentifier, executionIdentifier, accountId, module } =
     useParams<PipelineType<ExecutionPathProps>>()
   const [allNodeMap, setAllNodeMap] = React.useState<Record<string, ExecutionNode>>({})
 
@@ -189,6 +190,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
               <ExecutionHeader />
               <ExecutionMetadata />
             </header>
+            <PipelineFeatureLimitBreachedBanner featureIdentifier={FeatureIdentifier.SERVICES} module={module} />
             <ExecutionTabs />
             <div
               className={css.childContainer}

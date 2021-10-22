@@ -39,6 +39,8 @@ import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import { String, useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
+import { PipelineFeatureLimitBreachedBanner } from '@pipeline/factories/PipelineFeatureRestrictionFactory/PipelineFeatureRestrictionFactory'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { Filter, FilterRef } from '@common/components/Filter/Filter'
 import type { FilterDataInterface, FilterInterface } from '@common/components/Filter/Constants'
@@ -535,6 +537,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
         }
         breadcrumbs={<NGBreadcrumbs links={[]} />}
       ></Page.Header>
+      <PipelineFeatureLimitBreachedBanner featureIdentifier={FeatureIdentifier.SERVICES} module={module} />
       {(!!pipelineList?.content?.length || appliedFilter || isGitSyncEnabled || searchParam) && (
         <Page.SubHeader>
           <Layout.Horizontal>

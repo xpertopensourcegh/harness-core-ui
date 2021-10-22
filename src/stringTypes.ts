@@ -519,6 +519,7 @@ export interface StringsMap {
   'common.viewContent': string
   'common.viewLatest': string
   'common.viewText': string
+  'common.viewUsage': string
   'common.webhookURL': string
   'common.welcome': string
   'common.yearly': string
@@ -2059,6 +2060,7 @@ export interface StringsMap {
   'pipeline.failureStrategies.validation.retryIntervalMinimum': string
   'pipeline.failureStrategies.validation.retryIntervalRequired': string
   'pipeline.failureStrategies.validation.timeoutRequired': string
+  'pipeline.featureRestriction.serviceLimitExceeded': string
   'pipeline.filters.builtTypePlaceholder': string
   'pipeline.filters.deploymentTypePlaceholder': string
   'pipeline.filters.environmentPlaceholder': string
