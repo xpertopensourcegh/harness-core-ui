@@ -1024,6 +1024,16 @@ const routes = {
       return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/monitoringservices`
     }
   ),
+  toCVSLOs: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module = 'cv' }: Partial<ProjectPathProps & { module?: string }>) => {
+      return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/slos`
+    }
+  ),
+  toCVCreateSLOs: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module = 'cv' }: Partial<ProjectPathProps & { module?: string }>) => {
+      return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/slos/create`
+    }
+  ),
   toCVAddMonitoringServicesSetup: withAccountId(
     ({ projectIdentifier, orgIdentifier }: Partial<ProjectPathProps & { identifier: string }>) =>
       `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/monitoringservices/setup`

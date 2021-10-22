@@ -52,6 +52,10 @@ export default function CVSideNav(): React.ReactElement {
             label={getString('cv.monitoredServices.title')}
             to={routes.toCVMonitoringServices({ accountId, projectIdentifier, orgIdentifier })}
           />
+          <SidebarLink
+            label={getString('cv.slos.title')}
+            to={routes.toCVSLOs({ accountId, projectIdentifier, orgIdentifier })}
+          />
           <ProjectSetupMenu module="cv" />
         </React.Fragment>
       ) : null}

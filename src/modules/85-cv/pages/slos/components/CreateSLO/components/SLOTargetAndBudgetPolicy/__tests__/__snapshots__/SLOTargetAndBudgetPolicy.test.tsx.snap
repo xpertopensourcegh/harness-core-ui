@@ -1,0 +1,163 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test SLOTargetAndBudgetPolicy component should render SLOTargetAndBudgetPolicy component 1`] = `
+<div>
+  <form
+    class="FormikForm--main"
+  >
+    <div>
+      <p
+        class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-black"
+      >
+        cv.slos.sloTargetAndBudget.setSLOTarget
+      </p>
+      <div
+        class="Layout--vertical StyledProps--main sloTargetAndPolicyContainer StyledProps--margin-xxlarge"
+      >
+        <div
+          class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
+        >
+          <div
+            class="StyledProps--font StyledProps--main row"
+          >
+            <div
+              class="bp3-form-group targetTypeDropdown"
+              data-id="target.type-0"
+            >
+              <label
+                class="bp3-label"
+                for="target.type"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+                >
+                  cv.slos.sloTargetAndBudget.periodType
+                </p>
+                 
+                <span
+                  class="bp3-text-muted"
+                />
+              </label>
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-popover-wrapper Select--main bp3-fill"
+                >
+                  <div
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="bp3-input-group"
+                    >
+                      <input
+                        autocomplete="off"
+                        class="bp3-input"
+                        name="target.type"
+                        placeholder="- cv.slos.sloTargetAndBudget.selectPeriodType -"
+                        style="padding-right: 0px;"
+                        type="text"
+                        value=""
+                      />
+                      <span
+                        class="bp3-input-action"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                          icon="chevron-down"
+                        >
+                          <svg
+                            data-icon="chevron-down"
+                            height="14"
+                            viewBox="0 0 16 16"
+                            width="14"
+                          >
+                            <desc>
+                              chevron-down
+                            </desc>
+                            <path
+                              d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="bp3-form-group periodLengthDropdown"
+              data-id="target.spec.periodLength-1"
+            >
+              <label
+                class="bp3-label"
+                for="target.spec.periodLength"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+                >
+                  cv.slos.sloTargetAndBudget.periodLength
+                </p>
+                 
+                <span
+                  class="bp3-text-muted"
+                />
+              </label>
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-popover-wrapper Select--main bp3-fill"
+                >
+                  <div
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="bp3-input-group"
+                    >
+                      <input
+                        autocomplete="off"
+                        class="bp3-input"
+                        name="target.spec.periodLength"
+                        placeholder="- cv.slos.sloTargetAndBudget.selectPeriodLength -"
+                        style="padding-right: 0px;"
+                        type="text"
+                        value=""
+                      />
+                      <span
+                        class="bp3-input-action"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                          icon="chevron-down"
+                        >
+                          <svg
+                            data-icon="chevron-down"
+                            height="14"
+                            viewBox="0 0 16 16"
+                            width="14"
+                          >
+                            <desc>
+                              chevron-down
+                            </desc>
+                            <path
+                              d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+`;

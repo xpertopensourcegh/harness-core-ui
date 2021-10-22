@@ -109,11 +109,7 @@ function MonitoredServicePage(): JSX.Element {
                 />
               }
             />
-            <Tab
-              id={MonitoredServiceEnum.SLOs}
-              title={getString('cv.monitoredServices.monitoredServiceTabs.slos')}
-              disabled
-            />
+            <Tab id={MonitoredServiceEnum.SLOs} title={getString('cv.slos.title')} disabled />
             <Tab
               id={MonitoredServiceEnum.Configurations}
               title={getString('cv.monitoredServices.monitoredServiceTabs.configurations')}

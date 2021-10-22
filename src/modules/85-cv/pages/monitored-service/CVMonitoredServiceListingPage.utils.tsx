@@ -1,18 +1,12 @@
 import React from 'react'
 import { isNull, isNumber } from 'lodash-es'
 import Highcharts, { PointOptionsObject } from 'highcharts'
-import { Text, Layout, SelectOption, Color, Tag } from '@wings-software/uicore'
+import { Text, Layout, Color, Tag } from '@wings-software/uicore'
 import HighchartsReact from 'highcharts-react-official'
 import type { Renderer, CellProps } from 'react-table'
-import { useStrings, UseStringsReturn } from 'framework/strings'
+import { useStrings } from 'framework/strings'
 import type { StringsMap } from 'stringTypes'
-import type {
-  ChangeSummaryDTO,
-  EnvironmentResponse,
-  MonitoredServiceListItemDTO,
-  ResponseListEnvironmentResponse,
-  RiskData
-} from 'services/cv'
+import type { ChangeSummaryDTO, MonitoredServiceListItemDTO, RiskData } from 'services/cv'
 import { RiskValues, getRiskColorValue } from '@cv/utils/CommonUtils'
 import type { FilterEnvInterface } from './CVMonitoredServiceListingPage.types'
 import { HistoricalTrendChartOption, DefaultChangePercentage } from './CVMonitoredServiceListingPage.constants'
@@ -116,29 +110,6 @@ export const RenderHealthScore: Renderer<CellProps<MonitoredServiceListItemDTO>>
       <Text color={Color.BLACK}>{getString(getRiskLabelStringId(riskStatus))}</Text>
     </Layout.Horizontal>
   )
-}
-
-export const getEnvironmentOptions = (
-  environmentList: ResponseListEnvironmentResponse | null,
-  loading: boolean,
-  getString: UseStringsReturn['getString']
-): SelectOption[] => {
-  if (loading) {
-    return [{ label: getString('loading'), value: 'loading' }]
-  }
-  if (environmentList?.data?.length) {
-    const allOption: SelectOption = { label: getString('all'), value: getString('all') }
-    const environmentSelectOption: SelectOption[] =
-      environmentList?.data?.map((environmentData: EnvironmentResponse) => {
-        const { name = '', identifier = '' } = environmentData?.environment || {}
-        return {
-          label: name,
-          value: identifier
-        }
-      }) || []
-    return [allOption, ...environmentSelectOption]
-  }
-  return []
 }
 
 export const calculateChangePercentage = (changeSummary: ChangeSummaryDTO): { color: string; percentage: number } => {

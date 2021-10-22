@@ -62,6 +62,8 @@ import { inputSetTemplatePromise } from 'services/cv'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import CVTrialHomePage from './pages/home/CVTrialHomePage'
 import { editParams } from './utils/routeUtils'
+import CVSLOsListingPage from './pages/slos/CVSLOsListingPage'
+import CreateSLO from './pages/slos/components/CreateSLO/CreateSLO'
 
 PubSubPipelineActions.subscribe(
   PipelineActions.RunPipeline,
@@ -155,6 +157,20 @@ export default (
       path={routes.toCVMonitoringServices({ ...accountPathProps, ...projectPathProps, module: ':module(cv)' })}
     >
       <CVMonitoredServiceListingPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toCVSLOs({ ...accountPathProps, ...projectPathProps, module: ':module(cv)' })}
+    >
+      <CVSLOsListingPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toCVCreateSLOs({ ...accountPathProps, ...projectPathProps, module: ':module(cv)' })}
+    >
+      <CreateSLO />
     </RouteWithLayout>
     <RouteWithLayout
       exact

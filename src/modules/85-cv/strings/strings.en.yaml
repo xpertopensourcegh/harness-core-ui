@@ -582,7 +582,6 @@ monitoredServices:
   monitoredServiceTabs:
     serviceHealth: Service Health
     configurations: Configurations
-    slos: SLOs
   table:
     serviceName: Service Name
     lastestHealthTrend: Health trend (Last 24h)
@@ -672,3 +671,41 @@ healthSource:
         tier: Please select tier
     gco:
       selectDashboardTab: 'Select Dashboards'
+slos:
+  title: SLOs
+  newSLO: New SLO
+  createSLO: Create SLO
+  sli: SLI
+  sloTargetAndBudgetPolicy: SLO Target & Error Budget Policy
+  sloName: SLO Name
+  userJourney: User Journey
+  selectMonitoredService: Select Monitored Service
+  selectMonitoredServiceForSlo: Select monitored service on which to define SLO
+  selectHealthsource: Select Health Source
+  healthSourceForSLI: Health Source for SLI
+  sliType: SLI Type
+  latencySLI: Latency SLI measures the proportion of requests that were faster than some threshold.
+  pickMetricsSLI: Pick metrics powering the SLI
+  sloTargetAndBudget:
+    periodType: Period Type
+    periodTypeOptions:
+      rolling: Rolling
+      calendar: Calendar
+    selectPeriodType: Select period type
+    setSLOTarget: Set SLO Target
+    selectPeriodLength: Select Period Length
+    periodLength: Period Length (days)
+  slis:
+    type:
+      availability: Availability
+      latency: Latency
+    metricOptions:
+      thresholdBased: Threshold based
+      ratioBased: Ratio based
+    ratioMetricType:
+      selectEventType: Select Event type
+      eventType: Event type
+      goodRequestsMetrics: Metric for good requests
+      validRequestsMetrics: Metric for valid requests
+      selectMetric1: Select metric 1
+      selectMetric2: Select metric 2

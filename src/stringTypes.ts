@@ -3962,7 +3962,6 @@ export interface StringsMap {
   'cv.monitoredServices.monitoredServiceName': string
   'cv.monitoredServices.monitoredServiceTabs.configurations': string
   'cv.monitoredServices.monitoredServiceTabs.serviceHealth': string
-  'cv.monitoredServices.monitoredServiceTabs.slos': string
   'cv.monitoredServices.monitoredServiceToggle': string
   'cv.monitoredServices.monitoredServiceUpdated': string
   'cv.monitoredServices.nameValidation': string
@@ -4262,6 +4261,37 @@ export interface StringsMap {
   'cv.showLess': string
   'cv.showMore': string
   'cv.showYAMLChange': string
+  'cv.slos.createSLO': string
+  'cv.slos.healthSourceForSLI': string
+  'cv.slos.latencySLI': string
+  'cv.slos.newSLO': string
+  'cv.slos.pickMetricsSLI': string
+  'cv.slos.selectHealthsource': string
+  'cv.slos.selectMonitoredService': string
+  'cv.slos.selectMonitoredServiceForSlo': string
+  'cv.slos.sli': string
+  'cv.slos.sliType': string
+  'cv.slos.slis.metricOptions.ratioBased': string
+  'cv.slos.slis.metricOptions.thresholdBased': string
+  'cv.slos.slis.ratioMetricType.eventType': string
+  'cv.slos.slis.ratioMetricType.goodRequestsMetrics': string
+  'cv.slos.slis.ratioMetricType.selectEventType': string
+  'cv.slos.slis.ratioMetricType.selectMetric1': string
+  'cv.slos.slis.ratioMetricType.selectMetric2': string
+  'cv.slos.slis.ratioMetricType.validRequestsMetrics': string
+  'cv.slos.slis.type.availability': string
+  'cv.slos.slis.type.latency': string
+  'cv.slos.sloName': string
+  'cv.slos.sloTargetAndBudget.periodLength': string
+  'cv.slos.sloTargetAndBudget.periodType': string
+  'cv.slos.sloTargetAndBudget.periodTypeOptions.calendar': string
+  'cv.slos.sloTargetAndBudget.periodTypeOptions.rolling': string
+  'cv.slos.sloTargetAndBudget.selectPeriodLength': string
+  'cv.slos.sloTargetAndBudget.selectPeriodType': string
+  'cv.slos.sloTargetAndBudget.setSLOTarget': string
+  'cv.slos.sloTargetAndBudgetPolicy': string
+  'cv.slos.title': string
+  'cv.slos.userJourney': string
   'cv.statusCode': string
   'cv.thirdPartyCalls.modalTitle': string
   'cv.thirdPartyCalls.noCallsWereMade': string

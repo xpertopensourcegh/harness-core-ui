@@ -1,0 +1,33 @@
+.sloTargetAndPolicyContainer {
+  margin-top: var(--spacing-small) !important;
+  width: 60% !important;
+
+  .nameTagsDescription,
+  .dropdown {
+    width: 300px !important;
+  }
+}
+
+.label {
+  font-size: medium !important;
+  font-weight: bold !important;
+  margin-top: var(--spacing-large) !important;
+  margin-left: var(--spacing-xxlarge) !important;
+}
+
+.targetTypeDropdown {
+  width: 200px !important;
+  padding-right: var(--spacing-large);
+}
+
+.periodLengthDropdown {
+  width: 125px !important;
+}
+
+.row {
+  display: flex;
+}
+
+.dateRangePicker {
+  padding-top: var(--spacing-medium);
+}

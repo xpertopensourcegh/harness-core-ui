@@ -22,6 +22,16 @@ exports[`Sidenav render 1`] = `
         cv.monitoredServices.title
       </p>
     </a>
+    <a
+      class="link"
+      href="/account/dummy/cv/orgs/dummy/projects/dummy/slos"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        cv.slos.title
+      </p>
+    </a>
     <div>
       <div
         class="border"

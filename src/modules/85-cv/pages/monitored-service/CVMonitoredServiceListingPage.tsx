@@ -20,7 +20,7 @@ import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { getErrorMessage } from '@cv/utils/CommonUtils'
+import { getEnvironmentOptions, getErrorMessage } from '@cv/utils/CommonUtils'
 import { DependencyGraph } from '@cv/components/DependencyGraph/DependencyGraph'
 import {
   useListMonitoredService,
@@ -43,7 +43,6 @@ import {
   RenderHealthTrend,
   RenderHealthScore,
   getFilterAndEnvironmentValue,
-  getEnvironmentOptions,
   calculateChangePercentage
 } from './CVMonitoredServiceListingPage.utils'
 import MonitoredServiceCategory from './components/Configurations/components/Dependency/component/components/MonitoredServiceCategory/MonitoredServiceCategory'
@@ -63,7 +62,7 @@ function CVMonitoredServiceListingPage(): JSX.Element {
   const [environment, setEnvironment] = useState<SelectOption>()
   const [selectedFilter, setSelectedFilter] = useState<FilterCardItem>()
 
-  const { data: environmentDataList, loading: loadingServices } = useGetMonitoredServiceListEnvironments({
+  const { data: environmentDataList, loading: loadingEnvironments } = useGetMonitoredServiceListEnvironments({
     queryParams: {
       accountId: params.accountId,
       projectIdentifier: params.projectIdentifier,
@@ -336,7 +335,7 @@ function CVMonitoredServiceListingPage(): JSX.Element {
                 value: environment?.value ?? getString('all')
               }}
               defaultSelectedItem={{ label: getString('all'), value: getString('all') }}
-              items={getEnvironmentOptions(environmentDataList, loadingServices, getString)}
+              items={getEnvironmentOptions(environmentDataList, loadingEnvironments, getString)}
               onChange={item => setEnvironment(item)}
               className={css.filterSelect}
             />

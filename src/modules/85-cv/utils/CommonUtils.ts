@@ -1,5 +1,8 @@
+import type { SelectOption } from '@wings-software/uicore'
 import { get } from 'lodash-es'
 import { Color, Utils } from '@wings-software/uicore'
+import type { UseStringsReturn } from 'framework/strings'
+import type { ResponseListEnvironmentResponse, EnvironmentResponse } from 'services/cd-ng'
 
 export enum RiskValues {
   NO_DATA = 'NO_DATA',
@@ -49,4 +52,27 @@ export function roundNumber(value: number, precision = 2) {
 
 export function getErrorMessage(errorObj?: any): string | undefined {
   return get(errorObj, 'data.detailedMessage') || get(errorObj, 'data.message') || get(errorObj, 'message')
+}
+
+export const getEnvironmentOptions = (
+  environmentList: ResponseListEnvironmentResponse | null,
+  loading: boolean,
+  getString: UseStringsReturn['getString']
+): SelectOption[] => {
+  if (loading) {
+    return [{ label: getString('loading'), value: 'loading' }]
+  }
+  if (environmentList?.data?.length) {
+    const allOption: SelectOption = { label: getString('all'), value: getString('all') }
+    const environmentSelectOption: SelectOption[] =
+      environmentList?.data?.map((environmentData: EnvironmentResponse) => {
+        const { name = '', identifier = '' } = environmentData?.environment || {}
+        return {
+          label: name,
+          value: identifier
+        }
+      }) || []
+    return [allOption, ...environmentSelectOption]
+  }
+  return []
 }

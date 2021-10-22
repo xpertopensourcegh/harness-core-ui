@@ -177,7 +177,7 @@ describe('Unit tests for createting monitored source', () => {
 
     const tabTitle = [
       'cv.monitoredServices.monitoredServiceTabs.serviceHealth',
-      'cv.monitoredServices.monitoredServiceTabs.slos',
+      'cv.slos.title',
       'cv.monitoredServices.monitoredServiceTabs.configurations'
     ]
 

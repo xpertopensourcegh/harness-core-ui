@@ -1,0 +1,480 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test SLI component should render SLI component 1`] = `
+<div>
+  <form
+    class="FormikForm--main"
+  >
+    <div>
+      <p
+        class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-black"
+      >
+        connectors.cdng.monitoredService.label
+      </p>
+      <div
+        class="Layout--vertical StyledProps--main sliElement StyledProps--margin-xxlarge"
+      >
+        <div
+          class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
+        >
+          <div
+            class="bp3-form-group dropdown"
+            data-id="monitoredServiecRef-0"
+          >
+            <label
+              class="bp3-label"
+              for="monitoredServiecRef"
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+              >
+                cv.slos.selectMonitoredServiceForSlo
+              </p>
+               
+              <span
+                class="bp3-text-muted"
+              />
+            </label>
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="bp3-popover-wrapper Select--main bp3-fill"
+              >
+                <div
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class="bp3-input-group"
+                  >
+                    <input
+                      autocomplete="off"
+                      class="bp3-input"
+                      name="monitoredServiecRef"
+                      placeholder="- cv.slos.selectMonitoredService -"
+                      style="padding-right: 0px;"
+                      type="text"
+                      value=""
+                    />
+                    <span
+                      class="bp3-input-action"
+                    >
+                      <span
+                        class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                        icon="chevron-down"
+                      >
+                        <svg
+                          data-icon="chevron-down"
+                          height="14"
+                          viewBox="0 0 16 16"
+                          width="14"
+                        >
+                          <desc>
+                            chevron-down
+                          </desc>
+                          <path
+                            d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p
+        class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-black"
+      >
+        cv.slos.healthSourceForSLI
+      </p>
+      <div
+        class="Layout--vertical StyledProps--main sliElement StyledProps--margin-xxlarge"
+      >
+        <div
+          class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
+        >
+          <div
+            class="bp3-form-group dropdown"
+            data-id="healthSourceRef-1"
+          >
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="bp3-popover-wrapper Select--main bp3-fill"
+              >
+                <div
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class="bp3-input-group"
+                  >
+                    <input
+                      autocomplete="off"
+                      class="bp3-input"
+                      name="healthSourceRef"
+                      placeholder="- cv.slos.selectHealthsource -"
+                      style="padding-right: 0px;"
+                      type="text"
+                      value=""
+                    />
+                    <span
+                      class="bp3-input-action"
+                    >
+                      <span
+                        class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                        icon="chevron-down"
+                      >
+                        <svg
+                          data-icon="chevron-down"
+                          height="14"
+                          viewBox="0 0 16 16"
+                          width="14"
+                        >
+                          <desc>
+                            chevron-down
+                          </desc>
+                          <path
+                            d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p
+        class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-black"
+      >
+        cv.slos.sliType
+      </p>
+      <div
+        class="Layout--vertical StyledProps--main sliElement StyledProps--margin-xxlarge"
+      >
+        <div
+          class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
+        >
+          <div
+            class="bp3-form-group"
+            data-id="serviceLevelIndicators.type-2"
+          >
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="StyledProps--main"
+              >
+                
+                <div
+                  class="RadioButtonGroup--inline"
+                >
+                  <label
+                    class="RadioButton--radio StyledProps--main"
+                  >
+                    <input
+                      class="RadioButton--input"
+                      name="serviceLevelIndicators.type"
+                      type="radio"
+                      value="availability"
+                    />
+                    <span
+                      class="RadioButton--radioIcon"
+                    />
+                    cv.slos.slis.type.availability
+                  </label>
+                  <label
+                    class="RadioButton--radio StyledProps--main"
+                  >
+                    <input
+                      checked=""
+                      class="RadioButton--input"
+                      name="serviceLevelIndicators.type"
+                      type="radio"
+                      value="latency"
+                    />
+                    <span
+                      class="RadioButton--radioIcon"
+                    />
+                    cv.slos.slis.type.latency
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+          >
+            cv.slos.latencySLI
+          </p>
+        </div>
+      </div>
+      <p
+        class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-black"
+      >
+        cv.slos.pickMetricsSLI
+      </p>
+      <div
+        class="Layout--vertical StyledProps--main sliElement StyledProps--margin-xxlarge"
+      >
+        <div
+          class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
+        >
+          <div
+            class="bp3-form-group"
+            data-id="serviceLevelIndicators.spec.type-3"
+          >
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="StyledProps--main"
+              >
+                
+                <div
+                  class="RadioButtonGroup--inline"
+                >
+                  <label
+                    class="RadioButton--radio StyledProps--main"
+                  >
+                    <input
+                      class="RadioButton--input"
+                      name="serviceLevelIndicators.spec.type"
+                      type="radio"
+                      value="threshold"
+                    />
+                    <span
+                      class="RadioButton--radioIcon"
+                    />
+                    cv.slos.slis.metricOptions.thresholdBased
+                  </label>
+                  <label
+                    class="RadioButton--radio StyledProps--main"
+                  >
+                    <input
+                      checked=""
+                      class="RadioButton--input"
+                      name="serviceLevelIndicators.spec.type"
+                      type="radio"
+                      value="ratio"
+                    />
+                    <span
+                      class="RadioButton--radioIcon"
+                    />
+                    cv.slos.slis.metricOptions.ratioBased
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="StyledProps--font StyledProps--main"
+          >
+            <div
+              class="StyledProps--font StyledProps--main row"
+            >
+              <div
+                class="bp3-form-group eventDropdown"
+                data-id="serviceLevelIndicators.spec.spec.eventType-4"
+              >
+                <label
+                  class="bp3-label"
+                  for="serviceLevelIndicators.spec.spec.eventType"
+                >
+                  cv.slos.slis.ratioMetricType.eventType
+                   
+                  <span
+                    class="bp3-text-muted"
+                  />
+                </label>
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="bp3-popover-wrapper Select--main bp3-fill"
+                  >
+                    <div
+                      class="bp3-popover-target"
+                    >
+                      <div
+                        class="bp3-input-group"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="serviceLevelIndicators.spec.spec.eventType"
+                          placeholder="- cv.slos.slis.ratioMetricType.selectEventType -"
+                          style="padding-right: 0px;"
+                          type="text"
+                          value=""
+                        />
+                        <span
+                          class="bp3-input-action"
+                        >
+                          <span
+                            class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                            icon="chevron-down"
+                          >
+                            <svg
+                              data-icon="chevron-down"
+                              height="14"
+                              viewBox="0 0 16 16"
+                              width="14"
+                            >
+                              <desc>
+                                chevron-down
+                              </desc>
+                              <path
+                                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="bp3-form-group dropdown"
+                data-id="serviceLevelIndicators.spec.spec.metric1-5"
+              >
+                <label
+                  class="bp3-label"
+                  for="serviceLevelIndicators.spec.spec.metric1"
+                >
+                  cv.slos.slis.ratioMetricType.goodRequestsMetrics
+                   
+                  <span
+                    class="bp3-text-muted"
+                  />
+                </label>
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="bp3-popover-wrapper Select--main bp3-fill"
+                  >
+                    <div
+                      class="bp3-popover-target"
+                    >
+                      <div
+                        class="bp3-input-group"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="serviceLevelIndicators.spec.spec.metric1"
+                          placeholder="- cv.slos.slis.ratioMetricType.selectMetric1 -"
+                          style="padding-right: 0px;"
+                          type="text"
+                          value=""
+                        />
+                        <span
+                          class="bp3-input-action"
+                        >
+                          <span
+                            class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                            icon="chevron-down"
+                          >
+                            <svg
+                              data-icon="chevron-down"
+                              height="14"
+                              viewBox="0 0 16 16"
+                              width="14"
+                            >
+                              <desc>
+                                chevron-down
+                              </desc>
+                              <path
+                                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="bp3-form-group dropdown"
+              data-id="serviceLevelIndicators.spec.spec.metric2-6"
+            >
+              <label
+                class="bp3-label"
+                for="serviceLevelIndicators.spec.spec.metric2"
+              >
+                cv.slos.slis.ratioMetricType.validRequestsMetrics
+                 
+                <span
+                  class="bp3-text-muted"
+                />
+              </label>
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-popover-wrapper Select--main bp3-fill"
+                >
+                  <div
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="bp3-input-group"
+                    >
+                      <input
+                        autocomplete="off"
+                        class="bp3-input"
+                        name="serviceLevelIndicators.spec.spec.metric2"
+                        placeholder="- cv.slos.slis.ratioMetricType.selectMetric2 -"
+                        style="padding-right: 0px;"
+                        type="text"
+                        value=""
+                      />
+                      <span
+                        class="bp3-input-action"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                          icon="chevron-down"
+                        >
+                          <svg
+                            data-icon="chevron-down"
+                            height="14"
+                            viewBox="0 0 16 16"
+                            width="14"
+                          >
+                            <desc>
+                              chevron-down
+                            </desc>
+                            <path
+                              d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+`;
