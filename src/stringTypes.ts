@@ -300,6 +300,7 @@ export interface StringsMap {
   'common.newVersion': string
   'common.noAPIKeys': string
   'common.noDelegateForTask': string
+  'common.noDeployments': string
   'common.noRefData': string
   'common.note': string
   'common.noteAccountSwitch': string

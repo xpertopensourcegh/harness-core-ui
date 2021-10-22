@@ -3,7 +3,7 @@ import { Color, Icon, Layout, Text } from '@wings-software/uicore'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import { useStrings } from 'framework/strings'
 
-interface DashboardAPIErrorWidgetProps {
+export interface DashboardAPIErrorWidgetProps {
   className?: string
   iconProps?: Omit<IconProps, 'name'>
   callback?: (options?: Record<string, any>) => Promise<void>

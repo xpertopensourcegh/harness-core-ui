@@ -1,0 +1,71 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "response": {
+      "citopProjectsInfo": {
+        "response": null,
+        "executionStatus": "FAILURE",
+        "executionMessage": "Failed to fetch data"
+      },
+      "cdtopProjectsInfo": {
+        "response": [
+          {
+            "projectInfo": { "projectIdentifier": "dev_test", "projectName": "dev test" },
+            "orgInfo": { "orgIdentifier": "default", "orgName": "Default" },
+            "accountInfo": { "accountIdentifier": "testAccount" },
+            "countDetails": {
+              "count": 47,
+              "countChangeAndCountChangeRateInfo": { "countChange": 2, "countChangeRate": 0.0 },
+              "successCount": 41,
+              "failureCount": 6
+            }
+          },
+          {
+            "projectInfo": { "projectIdentifier": "test18", "projectName": "test18" },
+            "orgInfo": { "orgIdentifier": "default", "orgName": "Default" },
+            "accountInfo": { "accountIdentifier": "testAccount" },
+            "countDetails": {
+              "count": 5,
+              "countChangeAndCountChangeRateInfo": { "countChange": 5, "countChangeRate": 0.0 },
+              "successCount": 0,
+              "failureCount": 5
+            }
+          },
+          {
+            "projectInfo": { "projectIdentifier": "test19", "projectName": "test19" },
+            "orgInfo": { "orgIdentifier": "default", "orgName": "Default" },
+            "accountInfo": { "accountIdentifier": "testAccount" },
+            "countDetails": {
+              "count": 2,
+              "countChangeAndCountChangeRateInfo": { "countChange": 1, "countChangeRate": 0.0 },
+              "successCount": 0,
+              "failureCount": 2
+            }
+          },
+          {
+            "projectInfo": { "projectIdentifier": "locust", "projectName": "locust" },
+            "orgInfo": { "orgIdentifier": "default", "orgName": "Default" },
+            "accountInfo": { "accountIdentifier": "testAccount" },
+            "countDetails": {
+              "count": 1,
+              "countChangeAndCountChangeRateInfo": { "countChange": 0, "countChangeRate": 0.0 },
+              "successCount": 0,
+              "failureCount": 1
+            }
+          }
+        ],
+        "executionStatus": "SUCCESS",
+        "executionMessage": "Successfully fetched data"
+      },
+      "cftopProjectsInfo": {
+        "response": null,
+        "executionStatus": "FAILURE",
+        "executionMessage": "Failed to fetch data"
+      }
+    },
+    "executionStatus": "SUCCESS",
+    "executionMessage": "Successfully fetched data"
+  },
+  "metaData": null,
+  "correlationId": null
+}

@@ -1,14 +1,63 @@
-.timeRangeSelect {
-  position: absolute !important;
-  top: -48px;
-  right: 0;
-  width: 150px !important;
+.dashboardSumary {
+  position: relative;
+
+  .timeRangeSelect {
+    position: absolute !important;
+    top: -48px;
+    right: 0;
+    width: 150px !important;
+  }
+
+  .atGlanceWrapper {
+    height: 248px;
+  }
+
+  .topProjectsCard {
+    width: 100%;
+    height: 248px;
+
+    .topProjectsContainer {
+      height: 100%;
+
+      .topProjectsWrapper {
+        max-height: 200px;
+        display: flex;
+        flex-grow: 1;
+        align-content: center;
+        justify-content: space-between;
+        margin-top: var(--spacing-xsmall) !important;
+
+        & > div {
+          flex: 1;
+          max-height: 100%;
+          overflow: auto;
+          &:not(:last-child) {
+            border-right: 1px solid var(--grey-200);
+          }
+        }
+
+        .comingSoon {
+          background-color: var(--yellow-50);
+        }
+      }
+
+      .loadingProjects {
+        justify-content: center !important;
+      }
+    }
+  }
 }
 
-.atGlanceWrapper {
-  height: 248px;
-}
+:global {
+  .summaryTableHeader {
+    align-items: center !important;
+  }
 
-.topProjectContainer {
-  width: 100%;
+  .glanceModuleErrorWrapper {
+    height: 100%;
+    background-color: var(--yellow-50) !important;
+    p {
+      font-size: var(--font-size-normal) !important;
+    }
+  }
 }

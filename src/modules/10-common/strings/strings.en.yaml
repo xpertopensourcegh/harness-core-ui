@@ -477,6 +477,7 @@ move: Move
 apikey: API Key
 apiKeys: API Keys
 noAPIKeys: No API Keys
+noDeployments: No Deployments
 tokens: Tokens
 lastModifiedTime: Last modified
 modified: Modified

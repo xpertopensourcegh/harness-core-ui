@@ -9,11 +9,10 @@ exports[`OverviewGlanceCards OverviewGlanceCards rendering 1`] = `
       class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
     >
       <div
-        class="bp3-card bp3-interactive bp3-elevation-0 Card--card card Card--interactive"
-        tabindex="0"
+        class="bp3-card bp3-elevation-0 Card--card card styledCard"
       >
         <span
-          class="bp3-icon StyledProps--main icon StyledProps--color StyledProps--color-grey600"
+          class="bp3-icon StyledProps--main icon StyledProps--color StyledProps--color-primary7"
           data-icon="nav-project"
         >
           <svg
@@ -29,26 +28,27 @@ exports[`OverviewGlanceCards OverviewGlanceCards rendering 1`] = `
           </svg>
         </span>
         <p
-          class="StyledProps--font StyledProps--main lineClamp lineHeight StyledProps--color StyledProps--color-black StyledProps--font-size-large StyledProps--font-weight-bold"
-        >
-          48
-        </p>
-        <p
-          class="StyledProps--font Text--lineclamp StyledProps--main lineClamp StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--margin-top-small"
+          class="StyledProps--font Text--lineclamp StyledProps--main lineClamp lineHeight title StyledProps--color StyledProps--color-primary9 StyledProps--font-size-large StyledProps--font-weight-bold"
           style="--text-line-clamp: 1;"
         >
-          Projects
+          145
+        </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main lineClamp StyledProps--color StyledProps--color-black StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--margin-top-small"
+          style="--text-line-clamp: 1;"
+        >
+          projectsText
         </p>
         <span
           class="Tag--main"
         >
           <span
-            class="bp3-tag tagClassName"
+            class="bp3-tag tagClassName whiteTag"
           >
             <span
               class="bp3-text-overflow-ellipsis bp3-fill"
             >
-              +1%
+              +137
             </span>
           </span>
         </span>
@@ -81,35 +81,21 @@ exports[`OverviewGlanceCards OverviewGlanceCards rendering 1`] = `
         <p
           class="StyledProps--font StyledProps--main lineClamp lineHeight StyledProps--color StyledProps--color-black StyledProps--font-size-large StyledProps--font-weight-bold"
         >
-          63
+          11
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main lineClamp StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--margin-top-small"
           style="--text-line-clamp: 1;"
         >
-          Environments
+          environments
         </p>
-        <span
-          class="Tag--main"
-        >
-          <span
-            class="bp3-tag tagClassName redTag"
-          >
-            <span
-              class="bp3-text-overflow-ellipsis bp3-fill"
-            >
-              -6%
-            </span>
-          </span>
-        </span>
       </div>
     </div>
     <div
       class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
     >
       <div
-        class="bp3-card bp3-interactive bp3-elevation-0 Card--card card Card--interactive"
-        tabindex="0"
+        class="bp3-card bp3-elevation-0 Card--card card"
       >
         <span
           class="bp3-icon StyledProps--main icon StyledProps--color StyledProps--color-grey600"
@@ -133,27 +119,14 @@ exports[`OverviewGlanceCards OverviewGlanceCards rendering 1`] = `
         <p
           class="StyledProps--font StyledProps--main lineClamp lineHeight StyledProps--color StyledProps--color-black StyledProps--font-size-large StyledProps--font-weight-bold"
         >
-          6
+          11
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main lineClamp StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--margin-top-small"
           style="--text-line-clamp: 1;"
         >
-          Services
+          services
         </p>
-        <span
-          class="Tag--main"
-        >
-          <span
-            class="bp3-tag tagClassName"
-          >
-            <span
-              class="bp3-text-overflow-ellipsis bp3-fill"
-            >
-              6
-            </span>
-          </span>
-        </span>
       </div>
       <div
         class="bp3-card bp3-elevation-0 Card--card card"
@@ -176,27 +149,26 @@ exports[`OverviewGlanceCards OverviewGlanceCards rendering 1`] = `
           </svg>
         </span>
         <p
-          class="StyledProps--font Text--lineclamp StyledProps--main lineClamp lineHeight StyledProps--color StyledProps--color-black StyledProps--font-size-large StyledProps--font-weight-bold"
-          style="--text-line-clamp: 1;"
+          class="StyledProps--font StyledProps--main lineClamp lineHeight StyledProps--color StyledProps--color-black StyledProps--font-size-large StyledProps--font-weight-bold"
         >
-          460
+          13
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main lineClamp StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--margin-top-small"
           style="--text-line-clamp: 1;"
         >
-          Pipelines
+          pipelines
         </p>
         <span
           class="Tag--main"
         >
           <span
-            class="bp3-tag tagClassName redTag"
+            class="bp3-tag tagClassName"
           >
             <span
               class="bp3-text-overflow-ellipsis bp3-fill"
             >
-              -6%
+              +9
             </span>
           </span>
         </span>
