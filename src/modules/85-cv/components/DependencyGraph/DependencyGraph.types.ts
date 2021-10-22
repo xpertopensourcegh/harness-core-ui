@@ -1,4 +1,4 @@
-import type { Options } from 'highcharts'
+import type { Chart, Options } from 'highcharts'
 import type { Edge, ServiceSummaryDetails } from 'services/cv'
 
 export type NetworkgraphOptions = Omit<Options, 'type'>
@@ -22,4 +22,5 @@ export type DependencyData = {
 export interface DependencyGraphProps {
   dependencyData: DependencyData
   options?: NetworkgraphOptions
+  highchartsCallback?: (chart: Chart) => void
 }

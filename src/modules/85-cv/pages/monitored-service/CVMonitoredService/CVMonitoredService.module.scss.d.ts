@@ -9,5 +9,7 @@ declare const styles: {
   readonly filterSelect: string
   readonly pageBody: string
   readonly dependencyGraph: string
+  readonly graphSummaryCard: string
+  readonly infrastructureIconPadding: string
 }
 export default styles

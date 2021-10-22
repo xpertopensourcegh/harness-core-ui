@@ -1,7 +1,6 @@
 import type { IconName } from '@wings-software/uicore'
 import type { StringsMap } from 'stringTypes'
-import { getRiskLabelStringId } from '@cv/pages/monitored-service/CVMonitoredServiceListingPage.utils'
-import { RiskValues, getRiskColorValue } from '@cv/utils/CommonUtils'
+import { RiskValues, getRiskColorValue, getRiskLabelStringId } from '@cv/utils/CommonUtils'
 
 export const getServicesStates = (): { label: keyof StringsMap; identifier: string; color: string }[] => {
   return [

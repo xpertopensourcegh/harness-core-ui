@@ -1,16 +1,22 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { isNull, isNumber } from 'lodash-es'
 import Highcharts, { PointOptionsObject } from 'highcharts'
 import { Text, Layout, Color, Tag } from '@wings-software/uicore'
 import HighchartsReact from 'highcharts-react-official'
 import type { Renderer, CellProps } from 'react-table'
-import { useStrings } from 'framework/strings'
-import type { StringsMap } from 'stringTypes'
-import type { ChangeSummaryDTO, MonitoredServiceListItemDTO, RiskData } from 'services/cv'
-import { RiskValues, getRiskColorValue } from '@cv/utils/CommonUtils'
-import type { FilterEnvInterface } from './CVMonitoredServiceListingPage.types'
-import { HistoricalTrendChartOption, DefaultChangePercentage } from './CVMonitoredServiceListingPage.constants'
-import css from './CVMonitoredServiceListingPage.module.scss'
+import { useStrings, UseStringsReturn } from 'framework/strings'
+import type {
+  ChangeSummaryDTO,
+  MonitoredServiceListItemDTO,
+  RiskData,
+  PageMonitoredServiceListItemDTO
+} from 'services/cv'
+import { getRiskColorValue, getRiskLabelStringId } from '@cv/utils/CommonUtils'
+import ImageDeleteService from '@cv/assets/delete-service.svg'
+import type { FilterCardItem } from '@cv/components/FilterCard/FilterCard.types'
+import type { FilterEnvInterface, ServiceHealthScoreProps } from './CVMonitoredService.types'
+import { HistoricalTrendChartOption, DefaultChangePercentage } from './CVMonitoredService.constants'
+import css from './CVMonitoredService.module.scss'
 
 export const getFilterAndEnvironmentValue = (environment: string, searchTerm: string): FilterEnvInterface => {
   const filter: FilterEnvInterface = {}
@@ -68,48 +74,49 @@ export const getHistoricalTrendChartOption = (trendData: RiskData[]): Highcharts
   }
 }
 
-export const getRiskLabelStringId = (riskStatus?: keyof typeof RiskValues): keyof StringsMap => {
-  switch (riskStatus) {
-    case RiskValues.NO_DATA:
-      return 'noData'
-    case RiskValues.NO_ANALYSIS:
-      return 'cv.noAnalysis'
-    case RiskValues.HEALTHY:
-      return 'cv.monitoredServices.serviceHealth.serviceDependencies.states.healthy'
-    case RiskValues.OBSERVE:
-      return 'cv.monitoredServices.serviceHealth.serviceDependencies.states.observe'
-    case RiskValues.NEED_ATTENTION:
-      return 'cv.monitoredServices.serviceHealth.serviceDependencies.states.needsAttention'
-    case RiskValues.UNHEALTHY:
-      return 'cv.monitoredServices.serviceHealth.serviceDependencies.states.unhealthy'
-    default:
-      return 'na'
+export const ServiceHealthTrend = ({ healthScores }: { healthScores?: RiskData[] }): JSX.Element => {
+  if (!healthScores) {
+    return <></>
   }
+
+  return <HighchartsReact highcharts={Highcharts} options={getHistoricalTrendChartOption(healthScores)} />
 }
 
 export const RenderHealthTrend: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ row }) => {
-  const rowdata = row?.original
-  if (rowdata?.historicalTrend?.healthScores) {
-    const chartOptions = getHistoricalTrendChartOption(rowdata?.historicalTrend?.healthScores)
-    return <HighchartsReact highcharts={Highcharts} options={chartOptions} />
+  const healthScores = row.original.historicalTrend?.healthScores
+
+  return <ServiceHealthTrend healthScores={healthScores} />
+}
+
+export const ServiceHealthScore = ({
+  monitoredService,
+  labelVariation,
+  color
+}: ServiceHealthScoreProps): ReactElement => {
+  const { getString } = useStrings()
+
+  if (!monitoredService.healthMonitoringEnabled) {
+    return <></>
   }
-  return <></>
+
+  const { riskStatus, healthScore = -2 } = monitoredService.currentHealthScore ?? {}
+
+  return (
+    <Layout.Horizontal className={css.healthScoreCardContainer} spacing="small">
+      <Tag className={css.healthScoreCard} style={{ backgroundColor: getRiskColorValue(riskStatus) }}>
+        {healthScore > -1 ? healthScore : ''}
+      </Tag>
+      <Text color={color ?? Color.BLACK} font={{ variation: labelVariation }}>
+        {getString(getRiskLabelStringId(riskStatus))}
+      </Text>
+    </Layout.Horizontal>
+  )
 }
 
 export const RenderHealthScore: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ row }) => {
-  const rowdata = row?.original
-  const { getString } = useStrings()
-  if (!rowdata?.healthMonitoringEnabled) return <></>
-  const { riskStatus, healthScore = -2 } = rowdata?.currentHealthScore || {}
-  const color = getRiskColorValue(riskStatus)
-  return (
-    <Layout.Horizontal className={css.healthScoreCardContainer} spacing="small">
-      <Tag className={css.healthScoreCard} style={{ backgroundColor: color }}>
-        {healthScore > -1 ? healthScore : ''}
-      </Tag>
-      <Text color={Color.BLACK}>{getString(getRiskLabelStringId(riskStatus))}</Text>
-    </Layout.Horizontal>
-  )
+  const monitoredService = row.original
+
+  return <ServiceHealthScore monitoredService={monitoredService} />
 }
 
 export const calculateChangePercentage = (changeSummary: ChangeSummaryDTO): { color: string; percentage: number } => {
@@ -130,4 +137,32 @@ export const calculateChangePercentage = (changeSummary: ChangeSummaryDTO): { co
     }
   }
   return DefaultChangePercentage
+}
+
+export const ServiceDeleteContext = ({ serviceName }: { serviceName?: string }): ReactElement => {
+  const { getString } = useStrings()
+
+  return (
+    <Layout.Horizontal flex={{ justifyContent: 'space-between', alignItems: 'flex-start' }}>
+      <Text color={Color.GREY_800}>
+        {getString('cv.monitoredServices.deleteMonitoredServiceWarning', { name: serviceName })}
+      </Text>
+      <div>
+        <img src={ImageDeleteService} width="204px" height="202px" />
+      </div>
+    </Layout.Horizontal>
+  )
+}
+
+export const getMonitoredServiceFilterOptions = (
+  getString: UseStringsReturn['getString'],
+  monitoredServiceListData?: PageMonitoredServiceListItemDTO
+): FilterCardItem[] => {
+  return [
+    {
+      title: getString('cv.allServices'),
+      icon: 'services',
+      count: monitoredServiceListData?.totalItems ?? 0
+    }
+  ]
 }

@@ -25,7 +25,7 @@ import { MinimalLayout } from '@common/layouts'
 
 import './components/PipelineSteps'
 import './components/ExecutionVerification'
-import CVMonitoredServiceListingPage from '@cv/pages/monitored-service/CVMonitoredServiceListingPage'
+import CVMonitoredService from '@cv/pages/monitored-service/CVMonitoredService/CVMonitoredService'
 import MonitoredServicePage from '@cv/pages/monitored-service/MonitoredServicePage'
 import ActivityDashBoardPage from '@cv/pages/activities/dashboard/ActivityDashBoardPage'
 import type { SidebarContext } from '@common/navigation/SidebarProvider'
@@ -156,7 +156,7 @@ export default (
       sidebarProps={CVSideNavProps}
       path={routes.toCVMonitoringServices({ ...accountPathProps, ...projectPathProps, module: ':module(cv)' })}
     >
-      <CVMonitoredServiceListingPage />
+      <CVMonitoredService />
     </RouteWithLayout>
     <RouteWithLayout
       exact

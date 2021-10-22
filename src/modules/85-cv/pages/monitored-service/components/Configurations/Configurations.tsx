@@ -1,10 +1,11 @@
-import { Container, Tab, Tabs, PageError } from '@wings-software/uicore'
 import React, { useEffect, useMemo, useState, useCallback } from 'react'
+import { Container, Tab, Tabs, PageError, Views } from '@wings-software/uicore'
 import { useHistory, useParams, matchPath } from 'react-router-dom'
 import { isEqual, omit } from 'lodash-es'
 import { parse } from 'yaml'
 import type { FormikProps } from 'formik'
-import { getErrorMessage } from '@cv/utils/CommonUtils'
+import { useQueryParams } from '@common/hooks'
+import { getCVMonitoringServicesSearchParam, getErrorMessage } from '@cv/utils/CommonUtils'
 import { accountPathProps, projectPathProps, modulePathProps } from '@common/utils/routeUtils'
 import routes from '@common/RouteDefinitions'
 import { editParams } from '@cv/utils/routeUtils'
@@ -35,6 +36,7 @@ export default function Configurations(): JSX.Element {
   const { orgIdentifier, projectIdentifier, accountId, identifier } = useParams<
     ProjectPathProps & { identifier: string }
   >()
+  const { view } = useQueryParams<{ view?: Views.GRID }>()
   const [cachedInitialValues, setCachedInitialValue] = useState<MonitoredServiceForm | null>(null)
   const [selectedTabID, setselectedTabID] = useState(getString('service'))
   const serviceTabformRef: React.MutableRefObject<FormikProps<MonitoredServiceForm> | null> = React.useRef(null)
@@ -83,13 +85,14 @@ export default function Configurations(): JSX.Element {
 
   useEffect(() => {
     if (overrideBlockNavigation) {
-      history.push(
-        routes.toCVMonitoringServices({
+      history.push({
+        pathname: routes.toCVMonitoringServices({
           orgIdentifier,
           projectIdentifier,
           accountId
-        })
-      )
+        }),
+        search: getCVMonitoringServicesSearchParam(view)
+      })
     }
   }, [overrideBlockNavigation])
 

@@ -5,7 +5,7 @@ import routes from '@common/RouteDefinitions'
 import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import * as cvServices from 'services/cv'
-import { yamlResponse, monitoredServiceMockData } from './MonitoreService.mock'
+import { yamlResponse, monitoredServiceMockData } from '../CVMonitoredService/__test__/CVMonitoredService.mock'
 import MonitoredServicePage from '../MonitoredServicePage'
 
 const testWrapperProps: TestWrapperProps = {

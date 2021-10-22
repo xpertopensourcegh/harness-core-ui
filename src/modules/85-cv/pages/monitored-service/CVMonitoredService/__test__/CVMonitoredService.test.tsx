@@ -5,12 +5,11 @@ import routes from '@common/RouteDefinitions'
 import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import * as cvServices from 'services/cv'
-import { RiskValues } from '@cv/utils/CommonUtils'
-import CVMonitoredServiceListingPage from '../CVMonitoredServiceListingPage'
-import { monitoredServicelist, mockDeleteData, graphData } from './MonitoreService.mock'
-import { getRiskLabelStringId } from '../CVMonitoredServiceListingPage.utils'
+import { RiskValues, getRiskLabelStringId } from '@cv/utils/CommonUtils'
+import CVMonitoredService from '../CVMonitoredService'
+import { monitoredServicelist, mockDeleteData, graphData } from './CVMonitoredService.mock'
 
-const testWrapperProps: TestWrapperProps = {
+export const testWrapperProps: TestWrapperProps = {
   path: routes.toCVMonitoringServices({ ...accountPathProps, ...projectPathProps }),
   pathParams: {
     accountId: '1234_accountId',
@@ -70,7 +69,7 @@ describe('Monitored Service list', () => {
   test('Service listing component renders', async () => {
     const { container } = render(
       <TestWrapper {...testWrapperProps}>
-        <CVMonitoredServiceListingPage />
+        <CVMonitoredService />
       </TestWrapper>
     )
     await waitFor(() => expect(container.querySelectorAll('[role="row"]').length).toEqual(4))
@@ -79,7 +78,7 @@ describe('Monitored Service list', () => {
   test('edit flow works correctly', async () => {
     const { container, findByTestId } = render(
       <TestWrapper {...testWrapperProps}>
-        <CVMonitoredServiceListingPage />
+        <CVMonitoredService />
       </TestWrapper>
     )
     fireEvent.click(container.querySelector('.context-menu-mock-edit')!)
@@ -97,7 +96,7 @@ describe('Monitored Service list', () => {
   test('Test HealthSourceCard values', async () => {
     const { getByText } = render(
       <TestWrapper {...testWrapperProps}>
-        <CVMonitoredServiceListingPage />
+        <CVMonitoredService />
       </TestWrapper>
     )
 
@@ -109,7 +108,7 @@ describe('Monitored Service list', () => {
   test('Test Service and Environment names renders', async () => {
     const { getByText } = render(
       <TestWrapper {...testWrapperProps}>
-        <CVMonitoredServiceListingPage />
+        <CVMonitoredService />
       </TestWrapper>
     )
 
@@ -133,7 +132,7 @@ describe('Monitored Service list', () => {
     )
     const { container } = render(
       <TestWrapper {...testWrapperProps}>
-        <CVMonitoredServiceListingPage />
+        <CVMonitoredService />
       </TestWrapper>
     )
     fireEvent.click(container.querySelector('.context-menu-mock-delete')!)
@@ -143,7 +142,7 @@ describe('Monitored Service list', () => {
   test('Test Dependancy Graph renders', async () => {
     const { container } = render(
       <TestWrapper {...testWrapperProps}>
-        <CVMonitoredServiceListingPage />
+        <CVMonitoredService />
       </TestWrapper>
     )
 
@@ -162,7 +161,7 @@ describe('Monitored Service list', () => {
     )
     const { container } = render(
       <TestWrapper {...testWrapperProps}>
-        <CVMonitoredServiceListingPage />
+        <CVMonitoredService />
       </TestWrapper>
     )
 

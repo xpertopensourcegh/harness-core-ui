@@ -1,8 +1,8 @@
-import type { SelectOption } from '@wings-software/uicore'
 import { get } from 'lodash-es'
-import { Color, Utils } from '@wings-software/uicore'
+import { Color, Utils, Views, SelectOption } from '@wings-software/uicore'
 import type { UseStringsReturn } from 'framework/strings'
 import type { ResponseListEnvironmentResponse, EnvironmentResponse } from 'services/cd-ng'
+import type { StringsMap } from 'stringTypes'
 
 export enum RiskValues {
   NO_DATA = 'NO_DATA',
@@ -43,6 +43,25 @@ export function getSecondaryRiskColorValue(riskStatus?: keyof typeof RiskValues,
   }
 }
 
+export const getRiskLabelStringId = (riskStatus?: keyof typeof RiskValues): keyof StringsMap => {
+  switch (riskStatus) {
+    case RiskValues.NO_DATA:
+      return 'noData'
+    case RiskValues.NO_ANALYSIS:
+      return 'cv.noAnalysis'
+    case RiskValues.HEALTHY:
+      return 'cv.monitoredServices.serviceHealth.serviceDependencies.states.healthy'
+    case RiskValues.OBSERVE:
+      return 'cv.monitoredServices.serviceHealth.serviceDependencies.states.observe'
+    case RiskValues.NEED_ATTENTION:
+      return 'cv.monitoredServices.serviceHealth.serviceDependencies.states.needsAttention'
+    case RiskValues.UNHEALTHY:
+      return 'cv.monitoredServices.serviceHealth.serviceDependencies.states.unhealthy'
+    default:
+      return 'na'
+  }
+}
+
 export function roundNumber(value: number, precision = 2) {
   if (Number.isInteger(precision) && precision >= 0) {
     const factor = 10 ** precision
@@ -75,4 +94,8 @@ export const getEnvironmentOptions = (
     return [allOption, ...environmentSelectOption]
   }
   return []
+}
+
+export const getCVMonitoringServicesSearchParam = (view?: Views): string => {
+  return view === Views.GRID ? `?view=${view}` : ''
 }

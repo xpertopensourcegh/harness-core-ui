@@ -1,8 +1,7 @@
 import React from 'react'
 import { render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import { getRiskLabelStringId } from '@cv/pages/monitored-service/CVMonitoredServiceListingPage.utils'
-import { RiskValues } from '@cv/utils/CommonUtils'
+import { RiskValues, getRiskLabelStringId } from '@cv/utils/CommonUtils'
 import ServiceDependenciesLegend from '../ServiceDependenciesLegend'
 
 describe('ServiceDependenciesLegend Tests', () => {

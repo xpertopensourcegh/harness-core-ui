@@ -2,22 +2,21 @@ import React from 'react'
 import { render, waitFor } from '@testing-library/react'
 import { Table } from '@common/components'
 import type { RiskData } from 'services/cv'
-import { RiskValues, getRiskColorValue } from '@cv/utils/CommonUtils'
+import { RiskValues, getRiskColorValue, getRiskLabelStringId } from '@cv/utils/CommonUtils'
 import {
   rowData,
   changeSummary,
   changeSummaryWithNegativeChange,
   changeSummaryWithPositiveChange
-} from './MonitoreService.mock'
-import { HistoricalTrendChartOption, DefaultChangePercentage } from '../CVMonitoredServiceListingPage.constants'
+} from './CVMonitoredService.mock'
+import { HistoricalTrendChartOption, DefaultChangePercentage } from '../CVMonitoredService.constants'
 import {
   RenderHealthScore,
   RenderHealthTrend,
   createTrendDataWithZone,
   getHistoricalTrendChartOption,
-  calculateChangePercentage,
-  getRiskLabelStringId
-} from '../CVMonitoredServiceListingPage.utils'
+  calculateChangePercentage
+} from '../CVMonitoredService.utils'
 
 const trendChartMockData: RiskData[] = [
   { healthScore: 2, riskStatus: RiskValues.HEALTHY },

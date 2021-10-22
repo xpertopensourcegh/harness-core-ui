@@ -1,4 +1,5 @@
 import { RiskValues } from '@cv/utils/CommonUtils'
+import type { MonitoredServiceListItemDTO } from 'services/cv'
 
 export const yamlResponse = {
   metaData: {},
@@ -232,6 +233,37 @@ export const monitoredServiceMockData = {
           }
         }
       ]
+    }
+  }
+}
+
+export const monitoredService: MonitoredServiceListItemDTO = {
+  name: 'name',
+  identifier: 'identifier',
+  serviceRef: 'serviceRef',
+  environmentRef: 'environmentRef',
+  serviceName: 'serviceName',
+  environmentName: 'environmentName',
+  type: 'Application',
+  healthMonitoringEnabled: true,
+  currentHealthScore: {
+    healthScore: 45,
+    riskStatus: RiskValues.NEED_ATTENTION
+  },
+  changeSummary: {
+    categoryCountMap: {
+      Infrastructure: {
+        count: 10,
+        countInPrecedingWindow: 0
+      },
+      Alert: {
+        count: 10,
+        countInPrecedingWindow: 0
+      },
+      Deployment: {
+        count: 10,
+        countInPrecedingWindow: 0
+      }
     }
   }
 }

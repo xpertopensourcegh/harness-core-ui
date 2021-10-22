@@ -3,7 +3,7 @@ import { Menu, MenuItem, Popover, Position } from '@blueprintjs/core'
 import { Color, Button, ButtonVariation } from '@wings-software/uicore'
 import { useConfirmationDialog } from '@common/exports'
 import { String, useStrings } from 'framework/strings'
-import type { ContextMenuActionsProps } from '@cv/pages/monitored-service/CVMonitoredServiceListingPage.types'
+import type { ContextMenuActionsProps } from '@cv/pages/monitored-service/CVMonitoredService/CVMonitoredService.types'
 
 export default function ContextMenuActions({
   onEdit,

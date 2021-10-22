@@ -3722,6 +3722,7 @@ export interface StringsMap {
   'ci.titleSettings': string
   'ci.welcome': string
   'cv.Dependency.noData': string
+  'cv.Dependency.serviceChanges': string
   'cv.Dependency.serviceList': string
   'cv.abbreviatedCategories.errors': string
   'cv.abbreviatedCategories.infrastructure': string

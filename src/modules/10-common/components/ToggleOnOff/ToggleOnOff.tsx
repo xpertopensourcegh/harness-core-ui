@@ -6,20 +6,19 @@ import css from './ToggleOnOff.module.scss'
 
 export default function ToggleOnOff({
   checked = false,
-  beforeOnChange,
+  onChange,
   disabled,
   loading
 }: ToggleOnOffInterface): JSX.Element {
-  const [active, setActive] = React.useState<boolean>(checked)
   const { getString } = useStrings()
 
   return (
     <div className={cx(css.optionBtn, { [css.notAllowed]: disabled || loading })}>
       <div
         data-name="on-btn"
-        className={cx(css.item, { [css.active]: active, [css.disabled]: active || disabled || loading })}
+        className={cx(css.item, { [css.active]: checked, [css.disabled]: checked || disabled || loading })}
         onClick={() => {
-          beforeOnChange(true, setActive)
+          onChange(true)
         }}
         role="button"
       >
@@ -27,9 +26,9 @@ export default function ToggleOnOff({
       </div>
       <div
         data-name="off-btn"
-        className={cx(css.item, { [css.inactive]: !active, [css.disabled]: !active || disabled || loading })}
+        className={cx(css.item, { [css.inactive]: !checked, [css.disabled]: !checked || disabled || loading })}
         onClick={() => {
-          beforeOnChange(false, setActive)
+          onChange(false)
         }}
         role="button"
       >

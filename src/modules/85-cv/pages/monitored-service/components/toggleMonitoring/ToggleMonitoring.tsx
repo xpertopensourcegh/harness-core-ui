@@ -1,16 +1,12 @@
 import React, { useCallback } from 'react'
 import { useParams } from 'react-router-dom'
-import type { MutateMethod } from 'restful-react'
 import { useToaster } from '@common/exports'
-import type {
-  RestResponseHealthMonitoringFlagResponse,
-  SetHealthMonitoringFlagQueryParams,
-  SetHealthMonitoringFlagPathParams
-} from 'services/cv'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import ToggleOnOff from '@common/components/ToggleOnOff/ToggleOnOff'
 import { useStrings } from 'framework/strings'
+import type { RestResponseHealthMonitoringFlagResponse } from 'services/cv'
+import ToggleOnOff from '@common/components/ToggleOnOff/ToggleOnOff'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
+import type { setHealthMonitoringFlagType } from '../../CVMonitoredService/CVMonitoredService.types'
 
 export default function ToggleMonitoring({
   identifier,
@@ -22,12 +18,7 @@ export default function ToggleMonitoring({
   identifier: string
   enabled: boolean
   refetch: () => void
-  setHealthMonitoringFlag: MutateMethod<
-    RestResponseHealthMonitoringFlagResponse,
-    void,
-    SetHealthMonitoringFlagQueryParams,
-    SetHealthMonitoringFlagPathParams
-  >
+  setHealthMonitoringFlag: setHealthMonitoringFlagType
   loading?: boolean
 }): JSX.Element {
   const params = useParams<ProjectPathProps>()
@@ -35,11 +26,11 @@ export default function ToggleMonitoring({
   const { getString } = useStrings()
 
   const onToggleMonitoringSource = useCallback(
-    async (checked: boolean): Promise<void> => {
+    async (checked: boolean, _identifier: string): Promise<void> => {
       try {
         const output: RestResponseHealthMonitoringFlagResponse = await setHealthMonitoringFlag(undefined, {
           pathParams: {
-            identifier
+            identifier: _identifier
           },
           queryParams: {
             enable: checked,
@@ -65,5 +56,13 @@ export default function ToggleMonitoring({
     []
   )
 
-  return <ToggleOnOff checked={enabled} beforeOnChange={onToggleMonitoringSource} loading={loading} />
+  return (
+    <ToggleOnOff
+      checked={enabled}
+      onChange={checked => {
+        onToggleMonitoringSource(checked, identifier)
+      }}
+      loading={loading}
+    />
+  )
 }

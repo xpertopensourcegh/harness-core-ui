@@ -79,7 +79,7 @@ export function DependencyGraph(props: DependencyGraphProps): JSX.Element {
   })(Highcharts)
 
   const chartComponent = React.useRef<any>(null)
-  const { dependencyData, options = {} } = props
+  const { dependencyData, options = {}, highchartsCallback } = props
 
   const defaultOptions = useMemo(() => dependencyGraphOptions(dependencyData), [dependencyData])
   const parsedOptions = useMemo(() => getParsedOptions(defaultOptions, options), [defaultOptions, options])
@@ -91,6 +91,7 @@ export function DependencyGraph(props: DependencyGraphProps): JSX.Element {
         options={parsedOptions}
         ref={chartComponent}
         containerProps={{ style: { height: '100%', width: '100%' } }}
+        callback={highchartsCallback}
       />
     </div>
   )

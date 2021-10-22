@@ -632,6 +632,7 @@ changeSource:
 Dependency:
   serviceList: Service list
   noData: No Data For Dependency Graph
+  serviceChanges: Service Changes
 healthSource:
   nameLabel: Health Source Name
   namePlaceholder: Type your health source name

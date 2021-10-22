@@ -8,7 +8,7 @@
 .healthScoreCard {
   height: 31px;
   min-width: 34px;
-  border-radius: var(--spacing-xsmall) !important;
+  border: none !important;
   font-size: var(--font-size-small);
   color: var(--white);
   text-align: center;
@@ -43,4 +43,12 @@
 
 .dependencyGraph {
   justify-content: space-between;
+}
+
+.graphSummaryCard {
+  border-radius: var(--spacing-small);
+}
+
+.infrastructureIconPadding {
+  margin-left: -3px !important ;
 }
