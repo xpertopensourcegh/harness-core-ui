@@ -16,8 +16,7 @@ import {
   Intent,
   HarnessDocTooltip,
   DropDown,
-  PageSpinner,
-  PageBody
+  PageSpinner
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useHistory } from 'react-router-dom'
@@ -967,7 +966,7 @@ export function RunPipelineFormWrapper(props: RunPipelineFormWrapperProps): Reac
 
   return (
     <React.Fragment>
-      <PageBody className={css.runForm}>{children}</PageBody>
+      <div className={css.runForm}>{children}</div>
     </React.Fragment>
   )
 }
