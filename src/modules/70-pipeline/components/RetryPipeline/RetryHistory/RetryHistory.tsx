@@ -159,7 +159,7 @@ const RetryHistory = ({ canExecute, showRetryHistory, canRetry }: RetryHistoryPr
                 <Text color={Color.GREY_800} font={{ size: 'normal' }} margin="medium">
                   {getString('pipeline.retryHistoryDescription')}
                 </Text>
-                {executionInfo?.reverse()?.map((retryHistory, index) => {
+                {executionInfo?.map((retryHistory, index) => {
                   return (
                     <Card
                       elevation={0}
@@ -210,6 +210,7 @@ const RetryHistory = ({ canExecute, showRetryHistory, canRetry }: RetryHistoryPr
       position={Position.BOTTOM_RIGHT}
       content={<RetryExecutionList />}
       popoverClassName={css.retryPopover}
+      autoFocus
     >
       <RbacButton
         icon="execution-history"
@@ -217,7 +218,6 @@ const RetryHistory = ({ canExecute, showRetryHistory, canRetry }: RetryHistoryPr
         variation={ButtonVariation.SECONDARY}
         size={ButtonSize.SMALL}
         iconProps={{ size: 24, color: Color.PRIMARY_7 }}
-        tooltip={getString('pipeline.retryHistory')}
         onClick={showAllRetryHistory}
         disabled={!canExecute}
         className={cx(css.cardBtns, css.retryHistoryBtn)}

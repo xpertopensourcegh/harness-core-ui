@@ -37,6 +37,7 @@ export interface PipelineInputSetFormProps {
   viewType: StepViewType
   isRunPipelineForm?: boolean
   listOfSelectedStages?: string[]
+  isRetryFormStageSelected?: boolean
 }
 
 const stageTypeToIconMap: Record<string, IconName> = {
@@ -122,7 +123,15 @@ const PipelineInputSetFormInternal: React.FC<PipelineInputSetFormProps> = props 
   const { expressions } = useVariablesExpression()
 
   const isInputStageDisabled = (stageId: string): boolean => {
-    return readonly || !!props.listOfSelectedStages?.includes(stageId)
+    /* In retry pipeline form all the fields are disabled until any stage is selected,
+      and once the stage is selected, the stage before the selected stage should be disabled */
+
+    if (props.isRetryFormStageSelected) {
+      return !!props.listOfSelectedStages?.includes(stageId)
+    } else if (props.isRetryFormStageSelected === false) {
+      return !props.listOfSelectedStages?.length
+    }
+    return readonly as boolean
   }
 
   return (

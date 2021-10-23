@@ -35,9 +35,10 @@ const SelectStagetoRetry = ({
           return { label: stageGroup.info[0].name, value: stageGroup.info[0].identifier, isLastIndex: idx }
         } else {
           const parallelStagesLabel = stageGroup.info?.map(stageName => stageName.name).join(' | ')
+          const parallelStagesValue = stageGroup.info?.map(stageName => stageName.identifier).join(' | ')
           return {
             label: parallelStagesLabel,
-            value: parallelStagesLabel,
+            value: parallelStagesValue,
             isLastIndex: idx
           }
         }

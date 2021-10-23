@@ -1,6 +1,7 @@
 .modalContent {
-  max-height: fit-content;
+  max-height: 460px;
   min-height: 150px;
+  overflow: scroll;
   padding: var(--spacing-medium);
   background-color: var(--form-bg);
   .retryHeaderSection {

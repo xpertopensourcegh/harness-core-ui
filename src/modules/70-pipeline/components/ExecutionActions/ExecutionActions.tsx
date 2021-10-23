@@ -232,7 +232,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
         </div>
       </Dialog>
     )
-  }, [])
+  }, [pipelineIdentifier, executionIdentifier])
 
   /*--------------------------------------Retry Pipeline---------------------------------------------*/
 

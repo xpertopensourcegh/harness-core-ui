@@ -507,7 +507,7 @@ const RetryPipeline = ({
     setExistingProvide((ev.target as HTMLInputElement).value)
   }
   const getRetryPipelineDisabledState = (): boolean => {
-    return getErrorsList(formErrors).errorCount > 0 || !stageResponse?.data?.groups?.length
+    return getErrorsList(formErrors).errorCount > 0 || !selectedStage
   }
 
   const [showPreflightCheckModal, hidePreflightCheckModal] = useModalHook(() => {
@@ -560,6 +560,7 @@ const RetryPipeline = ({
             isRunPipelineForm
             maybeContainerClass={existingProvide === 'provide' ? css.inputSetFormRunPipeline : ''}
             listOfSelectedStages={listOfSelectedStages}
+            isRetryFormStageSelected={selectedStage !== null}
           />
         </>
       )
