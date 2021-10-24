@@ -1,4 +1,5 @@
 import React from 'react'
+import * as Yup from 'yup'
 import { Text, Formik, FormikForm, Accordion, Color } from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
 import { Connectors } from '@connectors/constants'
@@ -8,12 +9,11 @@ import { usePipelineContext } from '@pipeline/components/PipelineStudio/Pipeline
 import { useStrings } from 'framework/strings'
 
 import StepCommonFields /*,{ /*usePullOptions }*/ from '@pipeline/components/StepCommonFields/StepCommonFields'
-import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import {
   getInitialValuesInCorrectFormat,
   getFormValuesInCorrectFormat
 } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
-import { validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
+import { getNameAndIdentifierSchema, validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './ECRStepFunctionConfigs'
 import type { ECRStepProps, ECRStepData, ECRStepDataUI } from './ECRStep'
@@ -22,7 +22,7 @@ import { CIStepOptionalConfig } from '../CIStep/CIStepOptionalConfig'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const ECRStepBase = (
-  { initialValues, onUpdate, isNewStep = true, readonly }: ECRStepProps,
+  { initialValues, onUpdate, isNewStep = true, readonly, onChange, stepViewType, allowableTypes }: ECRStepProps,
   formikRef: StepFormikFowardRef<ECRStepData>
 ): JSX.Element => {
   const {
@@ -33,7 +33,6 @@ export const ECRStepBase = (
   } = usePipelineContext()
 
   const { getString } = useStrings()
-  const { expressions } = useVariablesExpression()
 
   const { stage: currentStage } = getStageFromPipeline<BuildStageElementConfig>(selectedStageId || '')
 
@@ -53,6 +52,9 @@ export const ECRStepBase = (
       )}
       formName="ciEcrStep"
       validate={valuesToValidate => {
+        onChange?.(
+          getFormValuesInCorrectFormat<ECRStepDataUI, ECRStepData>(valuesToValidate, transformValuesFieldsConfig)
+        )
         return validate(valuesToValidate, editViewValidateFieldsConfig, {
           initialValues,
           steps: currentStage?.stage?.spec?.execution?.steps || {},
@@ -60,6 +62,9 @@ export const ECRStepBase = (
           getString
         })
       }}
+      validationSchema={Yup.object().shape({
+        ...getNameAndIdentifierSchema(getString, stepViewType)
+      })}
       onSubmit={(_values: ECRStepDataUI) => {
         const schemaValues = getFormValuesInCorrectFormat<ECRStepDataUI, ECRStepData>(
           _values,
@@ -77,7 +82,8 @@ export const ECRStepBase = (
             <CIStep
               isNewStep={isNewStep}
               readonly={readonly}
-              expressions={expressions}
+              stepViewType={stepViewType}
+              allowableTypes={allowableTypes}
               enableFields={{
                 'spec.imageName': {},
                 'spec.connectorRef': {
@@ -117,8 +123,9 @@ export const ECRStepBase = (
                         'spec.target': { tooltipId: 'target' },
                         'spec.remoteCacheImage': {}
                       }}
+                      allowableTypes={allowableTypes}
                     />
-                    <StepCommonFields disabled={readonly} />
+                    <StepCommonFields disabled={readonly} allowableTypes={allowableTypes} />
                   </>
                 }
               />

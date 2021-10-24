@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import { Formik, FormikForm } from '@wings-software/uicore'
+import { Formik, FormikForm, MultiTypeInputType } from '@wings-software/uicore'
 
 import { TestWrapper } from '@common/utils/testUtils'
 
@@ -15,7 +15,7 @@ const TestComponent = ({ initialValues }: TestProps): React.ReactElement => (
     {/* eslint-disable-next-line @typescript-eslint/no-empty-function */}
     <Formik initialValues={initialValues} onSubmit={() => {}} formName="stepCommonFieldsForm">
       <FormikForm>
-        <StepCommonFields />
+        <StepCommonFields allowableTypes={[MultiTypeInputType.EXPRESSION]} />
       </FormikForm>
     </Formik>
   </TestWrapper>

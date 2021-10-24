@@ -1,5 +1,5 @@
 import React from 'react'
-import type { IconName } from '@wings-software/uicore'
+import type { IconName, MultiTypeInputType } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import get from 'lodash-es/get'
 import type { FormikErrors } from 'formik'
@@ -85,9 +85,11 @@ export interface RunStepProps {
   template?: RunStepData
   path?: string
   readonly?: boolean
-  stepViewType?: StepViewType
+  stepViewType: StepViewType
   isNewStep?: boolean
   onUpdate?: (data: RunStepData) => void
+  onChange?: (data: RunStepData) => void
+  allowableTypes: MultiTypeInputType[]
 }
 
 export class RunStep extends PipelineStep<RunStepData> {
@@ -166,8 +168,18 @@ export class RunStep extends PipelineStep<RunStepData> {
   }
 
   renderStep(props: StepProps<RunStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, readonly, isNewStep } =
-      props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      readonly,
+      isNewStep,
+      onChange,
+      allowableTypes
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -178,6 +190,8 @@ export class RunStep extends PipelineStep<RunStepData> {
           readonly={!!inputSetData?.readonly}
           stepViewType={stepViewType}
           onUpdate={onUpdate}
+          onChange={onChange}
+          allowableTypes={allowableTypes}
         />
       )
     } else if (stepViewType === StepViewType.InputVariable) {
@@ -193,7 +207,9 @@ export class RunStep extends PipelineStep<RunStepData> {
     return (
       <RunStepBaseWithRef
         initialValues={initialValues}
-        stepViewType={stepViewType}
+        allowableTypes={allowableTypes}
+        onChange={onChange}
+        stepViewType={stepViewType || StepViewType.Edit}
         onUpdate={onUpdate}
         readonly={readonly}
         isNewStep={isNewStep}

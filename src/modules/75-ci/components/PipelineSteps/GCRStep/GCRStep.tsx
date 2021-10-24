@@ -1,5 +1,5 @@
 import React from 'react'
-import type { IconName } from '@wings-software/uicore'
+import type { IconName, MultiTypeInputType } from '@wings-software/uicore'
 import type { FormikErrors } from 'formik'
 import type { StepProps, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
@@ -72,8 +72,10 @@ export interface GCRStepProps {
   path?: string
   isNewStep?: boolean
   readonly?: boolean
-  stepViewType?: StepViewType
+  stepViewType: StepViewType
   onUpdate?: (data: GCRStepData) => void
+  onChange?: (data: GCRStepData) => void
+  allowableTypes: MultiTypeInputType[]
 }
 
 export class GCRStep extends PipelineStep<GCRStepData> {
@@ -122,8 +124,18 @@ export class GCRStep extends PipelineStep<GCRStepData> {
   }
 
   renderStep(props: StepProps<GCRStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep, readonly } =
-      props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep,
+      readonly,
+      onChange,
+      allowableTypes
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -134,6 +146,8 @@ export class GCRStep extends PipelineStep<GCRStepData> {
           readonly={!!inputSetData?.readonly}
           stepViewType={stepViewType}
           onUpdate={onUpdate}
+          onChange={onChange}
+          allowableTypes={allowableTypes}
         />
       )
     } else if (stepViewType === StepViewType.InputVariable) {
@@ -149,7 +163,9 @@ export class GCRStep extends PipelineStep<GCRStepData> {
     return (
       <GCRStepBaseWithRef
         initialValues={initialValues}
-        stepViewType={stepViewType}
+        allowableTypes={allowableTypes}
+        onChange={onChange}
+        stepViewType={stepViewType || StepViewType.Edit}
         onUpdate={onUpdate}
         readonly={readonly}
         isNewStep={isNewStep}

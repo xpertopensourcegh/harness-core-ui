@@ -1,4 +1,5 @@
 import React from 'react'
+import * as Yup from 'yup'
 import cx from 'classnames'
 import {
   Text,
@@ -28,7 +29,7 @@ import {
   getInitialValuesInCorrectFormat,
   getFormValuesInCorrectFormat
 } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
-import { validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
+import { getNameAndIdentifierSchema, validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import type { RunStepProps, RunStepData, RunStepDataUI } from './RunStep'
 import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './RunStepFunctionConfigs'
@@ -37,7 +38,7 @@ import { CIStepOptionalConfig } from '../CIStep/CIStepOptionalConfig'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const RunStepBase = (
-  { initialValues, onUpdate, isNewStep = true, readonly }: RunStepProps,
+  { initialValues, onUpdate, isNewStep = true, readonly, onChange, stepViewType, allowableTypes }: RunStepProps,
   formikRef: StepFormikFowardRef<RunStepData>
 ): JSX.Element => {
   const {
@@ -61,6 +62,9 @@ export const RunStepBase = (
       )}
       formName="ciRunStep"
       validate={valuesToValidate => {
+        onChange?.(
+          getFormValuesInCorrectFormat<RunStepDataUI, RunStepData>(valuesToValidate, transformValuesFieldsConfig)
+        )
         return validate(valuesToValidate, editViewValidateFieldsConfig, {
           initialValues,
           steps: currentStage?.stage?.spec?.execution?.steps || {},
@@ -68,6 +72,9 @@ export const RunStepBase = (
           getString
         })
       }}
+      validationSchema={Yup.object().shape({
+        ...getNameAndIdentifierSchema(getString, stepViewType)
+      })}
       onSubmit={(_values: RunStepDataUI) => {
         const schemaValues = getFormValuesInCorrectFormat<RunStepDataUI, RunStepData>(
           _values,
@@ -85,7 +92,8 @@ export const RunStepBase = (
             <CIStep
               isNewStep={isNewStep}
               readonly={readonly}
-              expressions={expressions}
+              stepViewType={stepViewType}
+              allowableTypes={allowableTypes}
               enableFields={{
                 description: {},
                 'spec.connectorRef': {
@@ -180,8 +188,13 @@ export const RunStepBase = (
                         'spec.envVariables': { tooltipId: 'environmentVariables' },
                         'spec.outputVariables': {}
                       }}
+                      allowableTypes={allowableTypes}
                     />
-                    <StepCommonFields enableFields={['spec.imagePullPolicy', 'spec.shell']} disabled={readonly} />
+                    <StepCommonFields
+                      enableFields={['spec.imagePullPolicy', 'spec.shell']}
+                      disabled={readonly}
+                      allowableTypes={allowableTypes}
+                    />
                   </>
                 }
               />

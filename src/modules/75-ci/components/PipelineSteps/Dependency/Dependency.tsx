@@ -1,5 +1,5 @@
 import React from 'react'
-import type { IconName } from '@wings-software/uicore'
+import type { IconName, MultiTypeInputType } from '@wings-software/uicore'
 import type { FormikErrors } from 'formik'
 import { parse } from 'yaml'
 import get from 'lodash-es/get'
@@ -74,8 +74,10 @@ export interface DependencyProps {
   path?: string
   readonly?: boolean
   isNewStep?: boolean
-  stepViewType?: StepViewType
+  stepViewType: StepViewType
   onUpdate?: (data: DependencyData) => void
+  onChange?: (data: DependencyData) => void
+  allowableTypes: MultiTypeInputType[]
 }
 
 export class Dependency extends PipelineStep<DependencyData> {
@@ -148,8 +150,18 @@ export class Dependency extends PipelineStep<DependencyData> {
   }
 
   renderStep(props: StepProps<DependencyData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep, readonly } =
-      props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep,
+      readonly,
+      onChange,
+      allowableTypes
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -160,6 +172,8 @@ export class Dependency extends PipelineStep<DependencyData> {
           readonly={!!inputSetData?.readonly}
           stepViewType={stepViewType}
           onUpdate={onUpdate}
+          onChange={onChange}
+          allowableTypes={allowableTypes}
         />
       )
     } else if (stepViewType === StepViewType.InputVariable) {
@@ -175,7 +189,9 @@ export class Dependency extends PipelineStep<DependencyData> {
     return (
       <DependencyBaseWithRef
         initialValues={initialValues}
-        stepViewType={stepViewType}
+        allowableTypes={allowableTypes}
+        onChange={onChange}
+        stepViewType={stepViewType || StepViewType.Edit}
         onUpdate={onUpdate}
         readonly={readonly}
         isNewStep={isNewStep}

@@ -1,5 +1,5 @@
 import React from 'react'
-import type { IconName } from '@wings-software/uicore'
+import type { IconName, MultiTypeInputType } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import get from 'lodash-es/get'
 import type { FormikErrors } from 'formik'
@@ -62,8 +62,10 @@ export interface JFrogArtifactoryStepProps {
   path?: string
   isNewStep?: boolean
   readonly?: boolean
-  stepViewType?: StepViewType
+  stepViewType: StepViewType
   onUpdate?: (data: JFrogArtifactoryStepData) => void
+  onChange?: (data: JFrogArtifactoryStepData) => void
+  allowableTypes: MultiTypeInputType[]
 }
 
 export class JFrogArtifactoryStep extends PipelineStep<JFrogArtifactoryStepData> {
@@ -131,8 +133,18 @@ export class JFrogArtifactoryStep extends PipelineStep<JFrogArtifactoryStepData>
   }
 
   renderStep(props: StepProps<JFrogArtifactoryStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep, readonly } =
-      props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep,
+      readonly,
+      onChange,
+      allowableTypes
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -143,6 +155,8 @@ export class JFrogArtifactoryStep extends PipelineStep<JFrogArtifactoryStepData>
           readonly={!!inputSetData?.readonly}
           stepViewType={stepViewType}
           onUpdate={onUpdate}
+          onChange={onChange}
+          allowableTypes={allowableTypes}
         />
       )
     } else if (stepViewType === StepViewType.InputVariable) {
@@ -158,7 +172,9 @@ export class JFrogArtifactoryStep extends PipelineStep<JFrogArtifactoryStepData>
     return (
       <JFrogArtifactoryStepBaseWithRef
         initialValues={initialValues}
-        stepViewType={stepViewType}
+        allowableTypes={allowableTypes}
+        onChange={onChange}
+        stepViewType={stepViewType || StepViewType.Edit}
         onUpdate={onUpdate}
         readonly={readonly}
         isNewStep={isNewStep}

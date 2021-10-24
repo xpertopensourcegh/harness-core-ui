@@ -1,4 +1,5 @@
 import React, { FormEvent } from 'react'
+import * as Yup from 'yup'
 import {
   Text,
   Formik,
@@ -31,7 +32,7 @@ import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeTe
 import StepCommonFields, {
   GetImagePullPolicyOptions /*,{ /*usePullOptions }*/
 } from '@pipeline/components/StepCommonFields/StepCommonFields'
-import { validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
+import { getNameAndIdentifierSchema, validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import {
   getInitialValuesInCorrectFormat,
   getFormValuesInCorrectFormat
@@ -43,7 +44,7 @@ import { CIStep } from '../CIStep/CIStep'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const RunTestsStepBase = (
-  { initialValues, onUpdate, isNewStep = true, readonly }: RunTestsStepProps,
+  { initialValues, onUpdate, isNewStep = true, readonly, onChange, stepViewType, allowableTypes }: RunTestsStepProps,
   formikRef: StepFormikFowardRef<RunTestsStepData>
 ): JSX.Element => {
   const {
@@ -85,6 +86,12 @@ export const RunTestsStepBase = (
       )}
       formName="ciRunTests"
       validate={valuesToValidate => {
+        onChange?.(
+          getFormValuesInCorrectFormat<RunTestsStepDataUI, RunTestsStepData>(
+            valuesToValidate,
+            transformValuesFieldsConfig
+          )
+        )
         return validate(valuesToValidate, editViewValidateFieldsConfig, {
           initialValues,
           steps: currentStage?.stage?.spec?.execution?.steps || {},
@@ -92,6 +99,9 @@ export const RunTestsStepBase = (
           getString
         })
       }}
+      validationSchema={Yup.object().shape({
+        ...getNameAndIdentifierSchema(getString, stepViewType)
+      })}
       onSubmit={(_values: RunTestsStepDataUI) => {
         const schemaValues = getFormValuesInCorrectFormat<RunTestsStepDataUI, RunTestsStepData>(
           _values,
@@ -109,7 +119,8 @@ export const RunTestsStepBase = (
             <CIStep
               isNewStep={isNewStep}
               readonly={readonly}
-              expressions={expressions}
+              stepViewType={stepViewType}
+              allowableTypes={allowableTypes}
               enableFields={{
                 description: {},
                 'spec.connectorRef': {
@@ -503,7 +514,11 @@ gradle.projectsEvaluated {
                         disabled={readonly}
                       />
                     </Container>
-                    <StepCommonFields enableFields={['spec.imagePullPolicy']} disabled={readonly} />
+                    <StepCommonFields
+                      enableFields={['spec.imagePullPolicy']}
+                      disabled={readonly}
+                      allowableTypes={allowableTypes}
+                    />
                   </>
                 }
               />

@@ -1,4 +1,5 @@
 import React from 'react'
+import * as Yup from 'yup'
 import { Text, Formik, FormikForm, Accordion, Color } from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
 import { Connectors } from '@connectors/constants'
@@ -12,7 +13,7 @@ import {
   getInitialValuesInCorrectFormat,
   getFormValuesInCorrectFormat
 } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
-import { validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
+import { getNameAndIdentifierSchema, validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './PluginStepFunctionConfigs'
 import type { PluginStepProps, PluginStepData, PluginStepDataUI } from './PluginStep'
@@ -21,7 +22,7 @@ import { CIStepOptionalConfig } from '../CIStep/CIStepOptionalConfig'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const PluginStepBase = (
-  { initialValues, onUpdate, isNewStep = true, readonly }: PluginStepProps,
+  { initialValues, onUpdate, isNewStep = true, readonly, onChange, stepViewType, allowableTypes }: PluginStepProps,
   formikRef: StepFormikFowardRef<PluginStepData>
 ): JSX.Element => {
   const {
@@ -52,7 +53,11 @@ export const PluginStepBase = (
           getString
         })
       }}
+      validationSchema={Yup.object().shape({
+        ...getNameAndIdentifierSchema(getString, stepViewType)
+      })}
       onSubmit={(_values: PluginStepDataUI) => {
+        onChange?.(getFormValuesInCorrectFormat<PluginStepDataUI, PluginStepData>(_values, transformValuesFieldsConfig))
         const schemaValues = getFormValuesInCorrectFormat<PluginStepDataUI, PluginStepData>(
           _values,
           transformValuesFieldsConfig
@@ -69,7 +74,8 @@ export const PluginStepBase = (
             <CIStep
               isNewStep={isNewStep}
               readonly={readonly}
-              expressions={expressions}
+              stepViewType={stepViewType}
+              allowableTypes={allowableTypes}
               enableFields={{
                 description: {},
                 'spec.connectorRef': {
@@ -106,8 +112,13 @@ export const PluginStepBase = (
                     <CIStepOptionalConfig
                       readonly={readonly}
                       enableFields={{ 'spec.privileged': {}, 'spec.settings': {}, 'spec.reportPaths': {} }}
+                      allowableTypes={allowableTypes}
                     />
-                    <StepCommonFields enableFields={['spec.imagePullPolicy']} disabled={readonly} />
+                    <StepCommonFields
+                      enableFields={['spec.imagePullPolicy']}
+                      disabled={readonly}
+                      allowableTypes={allowableTypes}
+                    />
                   </>
                 }
               />

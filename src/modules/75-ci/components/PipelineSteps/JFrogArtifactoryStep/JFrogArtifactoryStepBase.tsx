@@ -1,4 +1,5 @@
 import React from 'react'
+import * as Yup from 'yup'
 import { Text, Formik, FormikForm, Accordion, Color } from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
 import { Connectors } from '@connectors/constants'
@@ -8,12 +9,11 @@ import { usePipelineContext } from '@pipeline/components/PipelineStudio/Pipeline
 import { useStrings } from 'framework/strings'
 
 import StepCommonFields /*,{ /*usePullOptions }*/ from '@pipeline/components/StepCommonFields/StepCommonFields'
-import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import {
   getInitialValuesInCorrectFormat,
   getFormValuesInCorrectFormat
 } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
-import { validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
+import { getNameAndIdentifierSchema, validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './JFrogArtifactoryStepFunctionConfigs'
 import type {
@@ -25,7 +25,7 @@ import { CIStep } from '../CIStep/CIStep'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const JFrogArtifactoryStepBase = (
-  { initialValues, onUpdate, isNewStep, readonly }: JFrogArtifactoryStepProps,
+  { initialValues, onUpdate, isNewStep, readonly, onChange, stepViewType, allowableTypes }: JFrogArtifactoryStepProps,
   formikRef: StepFormikFowardRef<JFrogArtifactoryStepData>
 ): JSX.Element => {
   const {
@@ -36,7 +36,6 @@ export const JFrogArtifactoryStepBase = (
   } = usePipelineContext()
 
   const { getString } = useStrings()
-  const { expressions } = useVariablesExpression()
 
   const { stage: currentStage } = getStageFromPipeline<BuildStageElementConfig>(selectedStageId || '')
 
@@ -56,6 +55,12 @@ export const JFrogArtifactoryStepBase = (
       )}
       formName="jfrogArt"
       validate={valuesToValidate => {
+        onChange?.(
+          getFormValuesInCorrectFormat<JFrogArtifactoryStepDataUI, JFrogArtifactoryStepData>(
+            valuesToValidate,
+            transformValuesFieldsConfig
+          )
+        )
         return validate(valuesToValidate, editViewValidateFieldsConfig, {
           initialValues,
           steps: currentStage?.stage?.spec?.execution?.steps || {},
@@ -63,6 +68,9 @@ export const JFrogArtifactoryStepBase = (
           getString
         })
       }}
+      validationSchema={Yup.object().shape({
+        ...getNameAndIdentifierSchema(getString, stepViewType)
+      })}
       onSubmit={(_values: JFrogArtifactoryStepDataUI) => {
         const schemaValues = getFormValuesInCorrectFormat<JFrogArtifactoryStepDataUI, JFrogArtifactoryStepData>(
           _values,
@@ -93,7 +101,8 @@ export const JFrogArtifactoryStepBase = (
                 'spec.sourcePath': {},
                 'spec.target': { tooltipId: 'jFrogArtifactoryTarget' }
               }}
-              expressions={expressions}
+              stepViewType={stepViewType}
+              allowableTypes={allowableTypes}
               formik={formik}
             />
             <Accordion className={css.accordion}>
@@ -102,7 +111,7 @@ export const JFrogArtifactoryStepBase = (
                 summary={getString('common.optionalConfig')}
                 details={
                   <>
-                    <StepCommonFields disabled={readonly} />
+                    <StepCommonFields disabled={readonly} allowableTypes={allowableTypes} />
                   </>
                 }
               />

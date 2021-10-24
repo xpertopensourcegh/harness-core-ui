@@ -1,5 +1,5 @@
 import React from 'react'
-import type { IconName } from '@wings-software/uicore'
+import type { IconName, MultiTypeInputType } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import get from 'lodash-es/get'
 import type { FormikErrors } from 'formik'
@@ -78,8 +78,10 @@ export interface DockerHubStepProps {
   path?: string
   readonly?: boolean
   isNewStep?: boolean
-  stepViewType?: StepViewType
+  stepViewType: StepViewType
   onUpdate?: (data: DockerHubStepData) => void
+  onChange?: (data: DockerHubStepData) => void
+  allowableTypes: MultiTypeInputType[]
 }
 
 export class DockerHubStep extends PipelineStep<DockerHubStepData> {
@@ -149,8 +151,18 @@ export class DockerHubStep extends PipelineStep<DockerHubStepData> {
   }
 
   renderStep(props: StepProps<DockerHubStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep, readonly } =
-      props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep,
+      readonly,
+      onChange,
+      allowableTypes
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -161,6 +173,8 @@ export class DockerHubStep extends PipelineStep<DockerHubStepData> {
           readonly={!!inputSetData?.readonly}
           stepViewType={stepViewType}
           onUpdate={onUpdate}
+          onChange={onChange}
+          allowableTypes={allowableTypes}
         />
       )
     } else if (stepViewType === StepViewType.InputVariable) {
@@ -176,7 +190,9 @@ export class DockerHubStep extends PipelineStep<DockerHubStepData> {
     return (
       <DockerHubStepBaseWithRef
         initialValues={initialValues}
-        stepViewType={stepViewType}
+        allowableTypes={allowableTypes}
+        onChange={onChange}
+        stepViewType={stepViewType || StepViewType.Edit}
         onUpdate={onUpdate}
         ref={formikRef}
         isNewStep={isNewStep}

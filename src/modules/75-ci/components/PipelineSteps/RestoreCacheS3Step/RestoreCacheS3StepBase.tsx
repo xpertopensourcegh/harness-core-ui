@@ -1,4 +1,5 @@
 import React from 'react'
+import * as Yup from 'yup'
 import { Text, Formik, FormikForm, Accordion, Color } from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
 import { Connectors } from '@connectors/constants'
@@ -8,12 +9,11 @@ import { usePipelineContext } from '@pipeline/components/PipelineStudio/Pipeline
 import { useStrings } from 'framework/strings'
 
 import StepCommonFields from '@pipeline/components/StepCommonFields/StepCommonFields'
-import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import {
   getInitialValuesInCorrectFormat,
   getFormValuesInCorrectFormat
 } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
-import { validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
+import { getNameAndIdentifierSchema, validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './RestoreCacheS3StepFunctionConfigs'
 import type { RestoreCacheS3StepData, RestoreCacheS3StepDataUI, RestoreCacheS3StepProps } from './RestoreCacheS3Step'
@@ -23,7 +23,15 @@ import { ArchiveFormatOptions } from '../../../constants/Constants'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const RestoreCacheS3StepBase = (
-  { initialValues, onUpdate, isNewStep = true, readonly }: RestoreCacheS3StepProps,
+  {
+    initialValues,
+    onUpdate,
+    isNewStep = true,
+    readonly,
+    onChange,
+    stepViewType,
+    allowableTypes
+  }: RestoreCacheS3StepProps,
   formikRef: StepFormikFowardRef<RestoreCacheS3StepData>
 ): JSX.Element => {
   const {
@@ -34,7 +42,6 @@ export const RestoreCacheS3StepBase = (
   } = usePipelineContext()
 
   const { getString } = useStrings()
-  const { expressions } = useVariablesExpression()
 
   const { stage: currentStage } = getStageFromPipeline<BuildStageElementConfig>(selectedStageId || '')
 
@@ -47,6 +54,12 @@ export const RestoreCacheS3StepBase = (
       )}
       formName="restoreCacheS3"
       validate={valuesToValidate => {
+        onChange?.(
+          getFormValuesInCorrectFormat<RestoreCacheS3StepDataUI, RestoreCacheS3StepData>(
+            valuesToValidate,
+            transformValuesFieldsConfig
+          )
+        )
         return validate(valuesToValidate, editViewValidateFieldsConfig, {
           initialValues,
           steps: currentStage?.stage?.spec?.execution?.steps || {},
@@ -54,6 +67,9 @@ export const RestoreCacheS3StepBase = (
           getString
         })
       }}
+      validationSchema={Yup.object().shape({
+        ...getNameAndIdentifierSchema(getString, stepViewType)
+      })}
       onSubmit={(_values: RestoreCacheS3StepDataUI) => {
         const schemaValues = getFormValuesInCorrectFormat<RestoreCacheS3StepDataUI, RestoreCacheS3StepData>(
           _values,
@@ -71,7 +87,8 @@ export const RestoreCacheS3StepBase = (
             <CIStep
               isNewStep={isNewStep}
               readonly={readonly}
-              expressions={expressions}
+              stepViewType={stepViewType}
+              allowableTypes={allowableTypes}
               enableFields={{
                 'spec.connectorRef': {
                   label: (
@@ -107,8 +124,9 @@ export const RestoreCacheS3StepBase = (
                         'spec.failIfKeyNotFound': {}
                       }}
                       readonly={readonly}
+                      allowableTypes={allowableTypes}
                     />
-                    <StepCommonFields disabled={readonly} />
+                    <StepCommonFields disabled={readonly} allowableTypes={allowableTypes} />
                   </>
                 }
               />

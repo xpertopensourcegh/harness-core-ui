@@ -1,5 +1,5 @@
 import React from 'react'
-import type { IconName } from '@wings-software/uicore'
+import type { IconName, MultiTypeInputType } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import get from 'lodash-es/get'
 import type { FormikErrors } from 'formik'
@@ -67,8 +67,10 @@ export interface RestoreCacheS3StepProps {
   path?: string
   isNewStep?: boolean
   readonly?: boolean
-  stepViewType?: StepViewType
+  stepViewType: StepViewType
   onUpdate?: (data: RestoreCacheS3StepData) => void
+  onChange?: (data: RestoreCacheS3StepData) => void
+  allowableTypes: MultiTypeInputType[]
 }
 
 export class RestoreCacheS3Step extends PipelineStep<RestoreCacheS3StepData> {
@@ -137,8 +139,18 @@ export class RestoreCacheS3Step extends PipelineStep<RestoreCacheS3StepData> {
   }
 
   renderStep(props: StepProps<RestoreCacheS3StepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep, readonly } =
-      props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep,
+      readonly,
+      onChange,
+      allowableTypes
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -149,6 +161,8 @@ export class RestoreCacheS3Step extends PipelineStep<RestoreCacheS3StepData> {
           readonly={!!inputSetData?.readonly}
           stepViewType={stepViewType}
           onUpdate={onUpdate}
+          onChange={onChange}
+          allowableTypes={allowableTypes}
         />
       )
     } else if (stepViewType === StepViewType.InputVariable) {
@@ -165,7 +179,9 @@ export class RestoreCacheS3Step extends PipelineStep<RestoreCacheS3StepData> {
       <RestoreCacheS3StepBaseWithRef
         initialValues={initialValues}
         onUpdate={onUpdate}
-        stepViewType={stepViewType}
+        allowableTypes={allowableTypes}
+        onChange={onChange}
+        stepViewType={stepViewType || StepViewType.Edit}
         readonly={readonly}
         isNewStep={isNewStep}
         ref={formikRef}

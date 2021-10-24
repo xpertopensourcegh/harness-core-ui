@@ -1,4 +1,5 @@
 import React from 'react'
+import * as Yup from 'yup'
 import { Text, Formik, FormikForm, Accordion, Color } from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
 import { Connectors } from '@connectors/constants'
@@ -8,12 +9,11 @@ import { usePipelineContext } from '@pipeline/components/PipelineStudio/Pipeline
 import { useStrings } from 'framework/strings'
 
 import StepCommonFields /*,{ /*usePullOptions }*/ from '@pipeline/components/StepCommonFields/StepCommonFields'
-import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import {
   getInitialValuesInCorrectFormat,
   getFormValuesInCorrectFormat
 } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
-import { validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
+import { getNameAndIdentifierSchema, validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './GCRStepFunctionConfigs'
 import type { GCRStepProps, GCRStepData, GCRStepDataUI } from './GCRStep'
@@ -22,7 +22,7 @@ import { CIStepOptionalConfig } from '../CIStep/CIStepOptionalConfig'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const GCRStepBase = (
-  { initialValues, onUpdate, isNewStep = true, readonly }: GCRStepProps,
+  { initialValues, onUpdate, isNewStep = true, readonly, onChange, stepViewType, allowableTypes }: GCRStepProps,
   formikRef: StepFormikFowardRef<GCRStepData>
 ): JSX.Element => {
   const {
@@ -33,7 +33,6 @@ export const GCRStepBase = (
   } = usePipelineContext()
 
   const { getString } = useStrings()
-  const { expressions } = useVariablesExpression()
 
   const { stage: currentStage } = getStageFromPipeline<BuildStageElementConfig>(selectedStageId || '')
 
@@ -53,6 +52,9 @@ export const GCRStepBase = (
       )}
       formName="ciGcrStep"
       validate={valuesToValidate => {
+        onChange?.(
+          getFormValuesInCorrectFormat<GCRStepDataUI, GCRStepData>(valuesToValidate, transformValuesFieldsConfig)
+        )
         return validate(valuesToValidate, editViewValidateFieldsConfig, {
           initialValues,
           steps: currentStage?.stage?.spec?.execution?.steps || {},
@@ -60,6 +62,9 @@ export const GCRStepBase = (
           getString
         })
       }}
+      validationSchema={Yup.object().shape({
+        ...getNameAndIdentifierSchema(getString, stepViewType)
+      })}
       onSubmit={(_values: GCRStepDataUI) => {
         const schemaValues = getFormValuesInCorrectFormat<GCRStepDataUI, GCRStepData>(
           _values,
@@ -77,7 +82,8 @@ export const GCRStepBase = (
             <CIStep
               isNewStep={isNewStep}
               readonly={readonly}
-              expressions={expressions}
+              stepViewType={stepViewType}
+              allowableTypes={allowableTypes}
               enableFields={{
                 'spec.imageName': {},
                 'spec.connectorRef': {
@@ -117,8 +123,9 @@ export const GCRStepBase = (
                         'spec.target': { tooltipId: 'target' },
                         'spec.remoteCacheImage': {}
                       }}
+                      allowableTypes={allowableTypes}
                     />
-                    <StepCommonFields disabled={readonly} />
+                    <StepCommonFields disabled={readonly} allowableTypes={allowableTypes} />
                   </>
                 }
               />

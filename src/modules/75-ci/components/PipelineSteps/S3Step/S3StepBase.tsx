@@ -1,4 +1,5 @@
 import React from 'react'
+import * as Yup from 'yup'
 import { Text, Formik, FormikForm, Accordion, Color } from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
 import { Connectors } from '@connectors/constants'
@@ -8,12 +9,11 @@ import { usePipelineContext } from '@pipeline/components/PipelineStudio/Pipeline
 import { useStrings } from 'framework/strings'
 
 import StepCommonFields /*,{ /*usePullOptions }*/ from '@pipeline/components/StepCommonFields/StepCommonFields'
-import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import {
   getInitialValuesInCorrectFormat,
   getFormValuesInCorrectFormat
 } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
-import { validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
+import { getNameAndIdentifierSchema, validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './S3StepFunctionConfigs'
 import type { S3StepData, S3StepDataUI, S3StepProps } from './S3Step'
@@ -22,7 +22,7 @@ import { CIStepOptionalConfig } from '../CIStep/CIStepOptionalConfig'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const S3StepBase = (
-  { initialValues, onUpdate, isNewStep = true, readonly }: S3StepProps,
+  { initialValues, onUpdate, isNewStep = true, readonly, onChange, stepViewType, allowableTypes }: S3StepProps,
   formikRef: StepFormikFowardRef<S3StepData>
 ): JSX.Element => {
   const {
@@ -33,7 +33,6 @@ export const S3StepBase = (
   } = usePipelineContext()
 
   const { getString } = useStrings()
-  const { expressions } = useVariablesExpression()
 
   const { stage: currentStage } = getStageFromPipeline<BuildStageElementConfig>(selectedStageId || '')
 
@@ -53,6 +52,9 @@ export const S3StepBase = (
       )}
       formName="ciS3Base"
       validate={valuesToValidate => {
+        onChange?.(
+          getFormValuesInCorrectFormat<S3StepDataUI, S3StepData>(valuesToValidate, transformValuesFieldsConfig)
+        )
         return validate(valuesToValidate, editViewValidateFieldsConfig, {
           initialValues,
           steps: currentStage?.stage?.spec?.execution?.steps || {},
@@ -60,6 +62,9 @@ export const S3StepBase = (
           getString
         })
       }}
+      validationSchema={Yup.object().shape({
+        ...getNameAndIdentifierSchema(getString, stepViewType)
+      })}
       onSubmit={(_values: S3StepDataUI) => {
         const schemaValues = getFormValuesInCorrectFormat<S3StepDataUI, S3StepData>(
           _values,
@@ -78,7 +83,8 @@ export const S3StepBase = (
               isNewStep={isNewStep}
               readonly={readonly}
               formik={formik}
-              expressions={expressions}
+              stepViewType={stepViewType}
+              allowableTypes={allowableTypes}
               enableFields={{
                 'spec.connectorRef': {
                   label: (
@@ -108,8 +114,9 @@ export const S3StepBase = (
                     <CIStepOptionalConfig
                       enableFields={{ 'spec.endpoint': {}, 'spec.target': { tooltipId: 'gcsS3Target' } }}
                       readonly={readonly}
+                      allowableTypes={allowableTypes}
                     />
-                    <StepCommonFields disabled={readonly} />
+                    <StepCommonFields disabled={readonly} allowableTypes={allowableTypes} />
                   </>
                 }
               />

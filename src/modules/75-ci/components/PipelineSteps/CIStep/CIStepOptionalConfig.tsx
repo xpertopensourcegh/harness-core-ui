@@ -1,6 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
-import { Color, Container, Layout, Text } from '@wings-software/uicore'
+import { Color, Container, Layout, MultiTypeInputType, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox/MultiTypeCheckbox'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
@@ -17,10 +17,11 @@ interface CIStepOptionalConfigProps {
   enableFields: {
     [key: string]: { [key: string]: any }
   }
+  allowableTypes: MultiTypeInputType[]
 }
 
 export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props => {
-  const { readonly, enableFields } = props
+  const { readonly, enableFields, allowableTypes } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   return (
@@ -31,7 +32,8 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
             name="spec.privileged"
             label={getString('ci.privileged')}
             multiTypeTextbox={{
-              expressions
+              expressions,
+              allowableTypes
             }}
             tooltipProps={{ dataTooltipId: 'privileged' }}
             disabled={readonly}
@@ -42,7 +44,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
         <Container className={cx(css.formGroup, css.bottomMargin5)}>
           <MultiTypeMap
             name="spec.settings"
-            valueMultiTextInputProps={{ expressions }}
+            valueMultiTextInputProps={{ expressions, allowableTypes }}
             multiTypeFieldSelectorProps={{
               label: (
                 <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
@@ -71,7 +73,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
           <MultiTypeList
             name="spec.reportPaths"
             placeholder={getString('pipelineSteps.reportPathsPlaceholder')}
-            multiTextInputProps={{ expressions }}
+            multiTextInputProps={{ expressions, allowableTypes }}
             multiTypeFieldSelectorProps={{
               label: (
                 <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
@@ -105,7 +107,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
         <Container className={css.formGroup}>
           <MultiTypeMap
             name="spec.envVariables"
-            valueMultiTextInputProps={{ expressions }}
+            valueMultiTextInputProps={{ expressions, allowableTypes }}
             multiTypeFieldSelectorProps={{
               label: (
                 <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
@@ -141,7 +143,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
         <Container className={cx(css.formGroup, css.lg)}>
           <MultiTypeList
             name="spec.outputVariables"
-            multiTextInputProps={{ expressions }}
+            multiTextInputProps={{ expressions, allowableTypes }}
             multiTypeFieldSelectorProps={{
               label: (
                 <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
@@ -177,7 +179,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
         <Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}>
           <MultiTypeList
             name="spec.entrypoint"
-            multiTextInputProps={{ expressions }}
+            multiTextInputProps={{ expressions, allowableTypes }}
             multiTypeFieldSelectorProps={{
               label: (
                 <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
@@ -210,7 +212,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
         <Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}>
           <MultiTypeList
             name="spec.args"
-            multiTextInputProps={{ expressions }}
+            multiTextInputProps={{ expressions, allowableTypes }}
             multiTypeFieldSelectorProps={{
               label: (
                 <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
@@ -245,7 +247,8 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
             name="spec.optimize"
             label={getString('ci.optimize')}
             multiTypeTextbox={{
-              expressions
+              expressions,
+              allowableTypes
             }}
             tooltipProps={{ dataTooltipId: 'optimize' }}
             disabled={readonly}
@@ -279,7 +282,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
               </Layout.Horizontal>
             }
             multiTextInputProps={{
-              multiTextInputProps: { expressions },
+              multiTextInputProps: { expressions, allowableTypes },
               disabled: readonly
             }}
           />
@@ -312,7 +315,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
               </Layout.Horizontal>
             }
             multiTextInputProps={{
-              multiTextInputProps: { expressions },
+              multiTextInputProps: { expressions, allowableTypes },
               disabled: readonly
             }}
           />
@@ -322,7 +325,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
         <Container className={cx(css.formGroup, css.bottomMargin5)}>
           <MultiTypeMap
             name="spec.labels"
-            valueMultiTextInputProps={{ expressions }}
+            valueMultiTextInputProps={{ expressions, allowableTypes }}
             multiTypeFieldSelectorProps={{
               label: (
                 <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
@@ -355,7 +358,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
         <Container className={cx(css.formGroup, css.bottomMargin5)}>
           <MultiTypeMap
             name="spec.buildArgs"
-            valueMultiTextInputProps={{ expressions }}
+            valueMultiTextInputProps={{ expressions, allowableTypes }}
             multiTypeFieldSelectorProps={{
               label: (
                 <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
@@ -400,7 +403,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
             }
             multiTextInputProps={{
               placeholder: getString('pipelineSteps.endpointPlaceholder'),
-              multiTextInputProps: { expressions },
+              multiTextInputProps: { expressions, allowableTypes },
               disabled: readonly
             }}
           />
@@ -434,7 +437,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
             }
             multiTextInputProps={{
               placeholder: getString('pipelineSteps.artifactsTargetPlaceholder'),
-              multiTextInputProps: { expressions },
+              multiTextInputProps: { expressions, allowableTypes },
               disabled: readonly
             }}
           />
@@ -467,7 +470,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
               </Layout.Horizontal>
             }
             multiTextInputProps={{
-              multiTextInputProps: { expressions },
+              multiTextInputProps: { expressions, allowableTypes },
               disabled: readonly,
               placeholder: getString('ci.remoteCacheImage.placeholder')
             }}
@@ -502,7 +505,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
             }
             multiTypeInputProps={{
               selectItems: ArchiveFormatOptions,
-              multiTypeInputProps: { expressions },
+              multiTypeInputProps: { expressions, allowableTypes },
               disabled: readonly
             }}
             disabled={readonly}
@@ -516,6 +519,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
             label={getString('override')}
             multiTypeTextbox={{
               expressions,
+              allowableTypes,
               disabled: readonly
             }}
             disabled={readonly}
@@ -530,6 +534,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
             label={getString('pathStyle')}
             multiTypeTextbox={{
               expressions,
+              allowableTypes,
               disabled: readonly
             }}
             disabled={readonly}
@@ -544,6 +549,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
             label={getString('failIfKeyNotFound')}
             multiTypeTextbox={{
               expressions,
+              allowableTypes,
               disabled: readonly
             }}
             disabled={readonly}
@@ -578,7 +584,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
               </Layout.Horizontal>
             }
             multiTextInputProps={{
-              multiTextInputProps: { expressions },
+              multiTextInputProps: { expressions, allowableTypes },
               disabled: readonly,
               placeholder: getString('ci.remoteCacheImage.placeholder')
             }}

@@ -1,4 +1,5 @@
 import React from 'react'
+import * as Yup from 'yup'
 import { Text, Formik, FormikForm, Accordion, Color } from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
 import { Connectors } from '@connectors/constants'
@@ -8,12 +9,11 @@ import { usePipelineContext } from '@pipeline/components/PipelineStudio/Pipeline
 import { useStrings } from 'framework/strings'
 
 import StepCommonFields from '@pipeline/components/StepCommonFields/StepCommonFields'
-import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import {
   getInitialValuesInCorrectFormat,
   getFormValuesInCorrectFormat
 } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
-import { validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
+import { getNameAndIdentifierSchema, validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './RestoreCacheGCSStepFunctionConfigs'
 import type {
@@ -27,7 +27,15 @@ import { ArchiveFormatOptions } from '../../../constants/Constants'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const RestoreCacheGCSStepBase = (
-  { initialValues, onUpdate, isNewStep = true, readonly }: RestoreCacheGCSStepProps,
+  {
+    initialValues,
+    onUpdate,
+    isNewStep = true,
+    readonly,
+    onChange,
+    stepViewType,
+    allowableTypes
+  }: RestoreCacheGCSStepProps,
   formikRef: StepFormikFowardRef<RestoreCacheGCSStepData>
 ): JSX.Element => {
   const {
@@ -38,7 +46,6 @@ export const RestoreCacheGCSStepBase = (
   } = usePipelineContext()
 
   const { getString } = useStrings()
-  const { expressions } = useVariablesExpression()
 
   const { stage: currentStage } = getStageFromPipeline<BuildStageElementConfig>(selectedStageId || '')
 
@@ -51,6 +58,12 @@ export const RestoreCacheGCSStepBase = (
       )}
       formName="restoreCacheGcs"
       validate={valuesToValidate => {
+        onChange?.(
+          getFormValuesInCorrectFormat<RestoreCacheGCSStepDataUI, RestoreCacheGCSStepData>(
+            valuesToValidate,
+            transformValuesFieldsConfig
+          )
+        )
         return validate(valuesToValidate, editViewValidateFieldsConfig, {
           initialValues,
           steps: currentStage?.stage?.spec?.execution?.steps || {},
@@ -58,6 +71,9 @@ export const RestoreCacheGCSStepBase = (
           getString
         })
       }}
+      validationSchema={Yup.object().shape({
+        ...getNameAndIdentifierSchema(getString, stepViewType)
+      })}
       onSubmit={(_values: RestoreCacheGCSStepDataUI) => {
         const schemaValues = getFormValuesInCorrectFormat<RestoreCacheGCSStepDataUI, RestoreCacheGCSStepData>(
           _values,
@@ -75,7 +91,8 @@ export const RestoreCacheGCSStepBase = (
             <CIStep
               isNewStep={isNewStep}
               readonly={readonly}
-              expressions={expressions}
+              stepViewType={stepViewType}
+              allowableTypes={allowableTypes}
               enableFields={{
                 'spec.connectorRef': {
                   label: (
@@ -105,8 +122,9 @@ export const RestoreCacheGCSStepBase = (
                     <CIStepOptionalConfig
                       enableFields={{ 'spec.archiveFormat': {}, 'spec.failIfKeyNotFound': {} }}
                       readonly={readonly}
+                      allowableTypes={allowableTypes}
                     />
-                    <StepCommonFields disabled={readonly} />
+                    <StepCommonFields disabled={readonly} allowableTypes={allowableTypes} />
                   </>
                 }
               />

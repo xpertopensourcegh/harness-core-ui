@@ -2,12 +2,14 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 import type { FormikProps } from 'formik'
-import { FormInput, Text, Container, Color } from '@wings-software/uicore'
+import { FormInput, Text, Container, Color, MultiTypeInputType } from '@wings-software/uicore'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 import { FormMultiTypeTextAreaField } from '@common/components'
 import { Separator } from '@common/components/Separator/Separator'
 import { useGitScope } from '@ci/services/CIUtils'
+import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { useStrings } from 'framework/strings'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
@@ -16,15 +18,16 @@ interface CIStepProps {
   isNewStep?: boolean
   readonly?: boolean
   stepLabel?: string
-  expressions?: string[]
   enableFields: {
     [key: string]: { [key: string]: any }
   }
   formik: FormikProps<any>
+  stepViewType: StepViewType
+  allowableTypes: MultiTypeInputType[]
 }
 
 export const CIStep: React.FC<CIStepProps> = props => {
-  const { isNewStep, readonly, stepLabel, expressions, enableFields } = props
+  const { isNewStep, readonly, stepLabel, enableFields, stepViewType, allowableTypes } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
     orgIdentifier: string
@@ -32,17 +35,20 @@ export const CIStep: React.FC<CIStepProps> = props => {
   }>()
   const { getString } = useStrings()
   const gitScope = useGitScope()
+  const { expressions } = useVariablesExpression()
   return (
     <>
-      <Container className={cx(css.formGroup, css.lg, css.nameIdLabel)}>
-        <FormInput.InputWithIdentifier
-          inputName="name"
-          idName="identifier"
-          isIdentifierEditable={isNewStep}
-          inputLabel={stepLabel ?? getString('pipelineSteps.stepNameLabel')}
-          inputGroupProps={{ disabled: readonly }}
-        />
-      </Container>
+      {stepViewType !== StepViewType.Template ? (
+        <Container className={cx(css.formGroup, css.lg, css.nameIdLabel)}>
+          <FormInput.InputWithIdentifier
+            inputName="name"
+            idName="identifier"
+            isIdentifierEditable={isNewStep && !readonly}
+            inputGroupProps={{ disabled: readonly }}
+            inputLabel={stepLabel ?? getString('pipelineSteps.stepNameLabel')}
+          />
+        </Container>
+      ) : null}
       <Container className={cx(css.formGroup, css.lg)}>
         {Object.prototype.hasOwnProperty.call(enableFields, 'description') ? (
           <FormMultiTypeTextAreaField
@@ -52,7 +58,7 @@ export const CIStep: React.FC<CIStepProps> = props => {
                 {getString('description')}
               </Text>
             }
-            multiTypeTextArea={{ expressions, disabled: readonly }}
+            multiTypeTextArea={{ expressions, allowableTypes, disabled: readonly }}
           />
         ) : null}
       </Container>
@@ -68,7 +74,7 @@ export const CIStep: React.FC<CIStepProps> = props => {
             accountIdentifier={accountId}
             projectIdentifier={projectIdentifier}
             orgIdentifier={orgIdentifier}
-            multiTypeProps={{ expressions, disabled: readonly }}
+            multiTypeProps={{ expressions, allowableTypes, disabled: readonly }}
             gitScope={gitScope}
             setRefValue
           />
@@ -110,7 +116,7 @@ export const CIStep: React.FC<CIStepProps> = props => {
               </Text>
             }
             multiTextInputProps={{
-              multiTextInputProps: { expressions },
+              multiTextInputProps: { expressions, allowableTypes },
               disabled: readonly
             }}
           />
@@ -131,7 +137,7 @@ export const CIStep: React.FC<CIStepProps> = props => {
               </Text>
             }
             multiTextInputProps={{
-              multiTextInputProps: { expressions },
+              multiTextInputProps: { expressions, allowableTypes },
               disabled: readonly
             }}
           />
@@ -153,7 +159,7 @@ export const CIStep: React.FC<CIStepProps> = props => {
             }
             multiTextInputProps={{
               placeholder: getString('pipelineSteps.hostPlaceholder'),
-              multiTextInputProps: { expressions },
+              multiTextInputProps: { expressions, allowableTypes },
               disabled: readonly
             }}
           />
@@ -174,7 +180,7 @@ export const CIStep: React.FC<CIStepProps> = props => {
               </Text>
             }
             multiTextInputProps={{
-              multiTextInputProps: { expressions },
+              multiTextInputProps: { expressions, allowableTypes },
               disabled: readonly
             }}
           />
@@ -196,7 +202,7 @@ export const CIStep: React.FC<CIStepProps> = props => {
             }
             multiTextInputProps={{
               placeholder: getString('pipelineSteps.regionPlaceholder'),
-              multiTextInputProps: { expressions },
+              multiTextInputProps: { expressions, allowableTypes },
               disabled: readonly
             }}
           />
@@ -217,7 +223,7 @@ export const CIStep: React.FC<CIStepProps> = props => {
               </Text>
             }
             multiTextInputProps={{
-              multiTextInputProps: { expressions },
+              multiTextInputProps: { expressions, allowableTypes },
               disabled: readonly
             }}
           />
@@ -238,7 +244,7 @@ export const CIStep: React.FC<CIStepProps> = props => {
               </Text>
             }
             multiTextInputProps={{
-              multiTextInputProps: { expressions },
+              multiTextInputProps: { expressions, allowableTypes },
               disabled: readonly
             }}
           />
@@ -248,7 +254,7 @@ export const CIStep: React.FC<CIStepProps> = props => {
         <Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}>
           <MultiTypeList
             name="spec.sourcePaths"
-            multiTextInputProps={{ expressions }}
+            multiTextInputProps={{ expressions, allowableTypes }}
             multiTypeFieldSelectorProps={{
               label: (
                 <Text
@@ -281,7 +287,7 @@ export const CIStep: React.FC<CIStepProps> = props => {
               </Text>
             }
             multiTextInputProps={{
-              multiTextInputProps: { expressions },
+              multiTextInputProps: { expressions, allowableTypes },
               disabled: readonly
             }}
           />
@@ -302,7 +308,7 @@ export const CIStep: React.FC<CIStepProps> = props => {
               </Text>
             }
             multiTextInputProps={{
-              multiTextInputProps: { expressions },
+              multiTextInputProps: { expressions, allowableTypes },
               disabled: readonly
             }}
           />
@@ -323,7 +329,7 @@ export const CIStep: React.FC<CIStepProps> = props => {
               </Text>
             }
             multiTextInputProps={{
-              multiTextInputProps: { expressions },
+              multiTextInputProps: { expressions, allowableTypes },
               disabled: readonly
             }}
           />
@@ -333,7 +339,7 @@ export const CIStep: React.FC<CIStepProps> = props => {
         <Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}>
           <MultiTypeList
             name="spec.tags"
-            multiTextInputProps={{ expressions }}
+            multiTextInputProps={{ expressions, allowableTypes }}
             multiTypeFieldSelectorProps={{
               label: (
                 <Text

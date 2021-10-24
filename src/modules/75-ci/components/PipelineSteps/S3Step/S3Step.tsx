@@ -1,5 +1,5 @@
 import React from 'react'
-import type { IconName } from '@wings-software/uicore'
+import type { IconName, MultiTypeInputType } from '@wings-software/uicore'
 import type { FormikErrors } from 'formik'
 import type { StepProps, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
@@ -55,8 +55,10 @@ export interface S3StepProps {
   path?: string
   isNewStep?: boolean
   readonly?: boolean
-  stepViewType?: StepViewType
+  stepViewType: StepViewType
   onUpdate?: (data: S3StepData) => void
+  onChange?: (data: S3StepData) => void
+  allowableTypes: MultiTypeInputType[]
 }
 
 export class S3Step extends PipelineStep<S3StepData> {
@@ -102,8 +104,18 @@ export class S3Step extends PipelineStep<S3StepData> {
   }
 
   renderStep(props: StepProps<S3StepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep, readonly } =
-      props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep,
+      readonly,
+      onChange,
+      allowableTypes
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -114,6 +126,8 @@ export class S3Step extends PipelineStep<S3StepData> {
           readonly={!!inputSetData?.readonly}
           stepViewType={stepViewType}
           onUpdate={onUpdate}
+          onChange={onChange}
+          allowableTypes={allowableTypes}
         />
       )
     } else if (stepViewType === StepViewType.InputVariable) {
@@ -130,7 +144,9 @@ export class S3Step extends PipelineStep<S3StepData> {
       <S3StepBaseWithRef
         initialValues={initialValues}
         onUpdate={onUpdate}
-        stepViewType={stepViewType}
+        allowableTypes={allowableTypes}
+        onChange={onChange}
+        stepViewType={stepViewType || StepViewType.Edit}
         readonly={readonly}
         isNewStep={isNewStep}
         ref={formikRef}

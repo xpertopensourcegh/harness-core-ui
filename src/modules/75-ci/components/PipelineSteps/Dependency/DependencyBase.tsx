@@ -1,4 +1,5 @@
 import React from 'react'
+import * as Yup from 'yup'
 import { Text, Formik, FormikForm, Accordion, MultiTypeInputType, Color } from '@wings-software/uicore'
 import { Connectors } from '@connectors/constants'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
@@ -11,7 +12,7 @@ import {
   getInitialValuesInCorrectFormat,
   getFormValuesInCorrectFormat
 } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
-import { validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
+import { getNameAndIdentifierSchema, validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './DependencyFunctionConfigs'
@@ -21,7 +22,7 @@ import { CIStepOptionalConfig } from '../CIStep/CIStepOptionalConfig'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const DependencyBase = (
-  { initialValues, onUpdate, isNewStep, readonly }: DependencyProps,
+  { initialValues, onUpdate, isNewStep, readonly, onChange, stepViewType, allowableTypes }: DependencyProps,
   formikRef: StepFormikFowardRef<DependencyData>
 ): JSX.Element => {
   const {
@@ -45,6 +46,9 @@ export const DependencyBase = (
       )}
       formName="dependencyBase"
       validate={valuesToValidate => {
+        onChange?.(
+          getFormValuesInCorrectFormat<DependencyDataUI, DependencyData>(valuesToValidate, transformValuesFieldsConfig)
+        )
         return validate(valuesToValidate, editViewValidateFieldsConfig, {
           initialValues,
           steps: currentStage?.stage?.spec?.execution?.steps || [],
@@ -53,6 +57,9 @@ export const DependencyBase = (
           getString
         })
       }}
+      validationSchema={Yup.object().shape({
+        ...getNameAndIdentifierSchema(getString, stepViewType)
+      })}
       onSubmit={(_values: DependencyDataUI) => {
         const schemaValues = getFormValuesInCorrectFormat<DependencyDataUI, DependencyData>(
           _values,
@@ -72,7 +79,8 @@ export const DependencyBase = (
                 isNewStep={isNewStep}
                 readonly={readonly}
                 stepLabel={getString('dependencyNameLabel')}
-                expressions={expressions}
+                stepViewType={stepViewType}
+                allowableTypes={allowableTypes}
                 formik={formik}
                 enableFields={{
                   description: {},
@@ -126,8 +134,14 @@ export const DependencyBase = (
                           'spec.entrypoint': {},
                           'spec.args': {}
                         }}
+                        allowableTypes={allowableTypes}
                       />
-                      <StepCommonFields enableFields={['spec.imagePullPolicy']} withoutTimeout disabled={readonly} />
+                      <StepCommonFields
+                        enableFields={['spec.imagePullPolicy']}
+                        withoutTimeout
+                        disabled={readonly}
+                        allowableTypes={allowableTypes}
+                      />
                     </>
                   }
                 />

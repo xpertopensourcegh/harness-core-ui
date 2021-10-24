@@ -42,9 +42,15 @@ interface StepCommonFieldsProps {
   withoutTimeout?: boolean
   disabled?: boolean
   enableFields?: string[]
+  allowableTypes: MultiTypeInputType[]
 }
 
-const StepCommonFields = ({ withoutTimeout, disabled, enableFields = [] }: StepCommonFieldsProps): JSX.Element => {
+const StepCommonFields = ({
+  withoutTimeout,
+  disabled,
+  enableFields = [],
+  allowableTypes
+}: StepCommonFieldsProps): JSX.Element => {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   return (
@@ -223,7 +229,7 @@ const StepCommonFields = ({ withoutTimeout, disabled, enableFields = [] }: StepC
           <FormMultiTypeDurationField
             className={css.removeBpLabelMargin}
             name="timeout"
-            multiTypeDurationProps={{ expressions }}
+            multiTypeDurationProps={{ expressions, allowableTypes }}
             label={
               <Layout.Horizontal style={{ display: 'flex', alignItems: 'baseline' }}>
                 <Text className={css.inpLabel} color={Color.GREY_600} font={{ size: 'small', weight: 'semi-bold' }}>
