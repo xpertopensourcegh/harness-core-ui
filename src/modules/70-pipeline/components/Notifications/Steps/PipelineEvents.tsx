@@ -114,7 +114,7 @@ const PipelineEvents: React.FC<PipelineEventsProps> = ({ nextStep, prevStepData,
             types: Yup.object().required()
           })
           .test({
-            test(val: { types: { [key: string]: boolean } }): boolean | Yup.ValidationError {
+            test: function (val) {
               if (isEmpty(val?.types)) {
                 return this.createError({
                   path: 'types',
@@ -125,6 +125,32 @@ const PipelineEvents: React.FC<PipelineEventsProps> = ({ nextStep, prevStepData,
                 return this.createError({
                   path: 'types',
                   message: getString('notifications.eventRequired')
+                })
+              }
+
+              if (
+                val.types[PipelineEventType.StageStart] &&
+                (!val[PipelineEventType.StageStart] || !val[PipelineEventType.StageStart].length)
+              ) {
+                return this.createError({
+                  path: PipelineEventType.StageStart,
+                  message: getString('notifications.stageRequired')
+                })
+              } else if (
+                val.types[PipelineEventType.StageFailed] &&
+                (!val[PipelineEventType.StageFailed] || !val[PipelineEventType.StageFailed].length)
+              ) {
+                return this.createError({
+                  path: PipelineEventType.StageFailed,
+                  message: getString('notifications.stageRequired')
+                })
+              } else if (
+                val.types[PipelineEventType.StageSuccess] &&
+                (!val[PipelineEventType.StageSuccess] || !val[PipelineEventType.StageSuccess].length)
+              ) {
+                return this.createError({
+                  path: PipelineEventType.StageSuccess,
+                  message: getString('notifications.stageRequired')
                 })
               }
 

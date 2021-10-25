@@ -587,6 +587,7 @@ export interface StringsMap {
   'notifications.slackTestSuccess': string
   'notifications.slackuserGroups': string
   'notifications.slackwebhookUrl': string
+  'notifications.stageRequired': string
   'notifications.titleEmail': string
   'notifications.titlePagerDuty': string
   'notifications.titleSlack': string
