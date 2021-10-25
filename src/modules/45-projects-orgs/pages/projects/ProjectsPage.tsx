@@ -9,7 +9,8 @@ import {
   Views,
   ButtonVariation,
   DropDown,
-  Page
+  Page,
+  PageSpinner
 } from '@wings-software/uicore'
 
 import { useQueryParams } from '@common/hooks'
@@ -169,7 +170,6 @@ const ProjectsListPage: React.FC = () => {
         </Layout.Horizontal>
       ) : null}
       <Page.Body
-        loading={loading}
         retryOnError={() => refetch()}
         error={(error?.data as Error)?.message || error?.message}
         noData={
@@ -192,6 +192,7 @@ const ProjectsListPage: React.FC = () => {
         }
         className={bodyClassName}
       >
+        {loading && <PageSpinner fixed />}
         {view === Views.GRID ? (
           <ProjectsGridView
             data={data}
