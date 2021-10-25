@@ -49,8 +49,8 @@ export default function WorkloadCard({
   return (
     <RepositoryCard
       title={
-        <Layout.Horizontal spacing="xsmall" style={{ alignItems: 'center', marginLeft: -5 }}>
-          <Icon size={30} name={'services' as any} color={Color.PRIMARY_5} />
+        <Layout.Horizontal spacing="xsmall" style={{ alignItems: 'center' }}>
+          <Icon size={30} name={'services'} color={Color.PRIMARY_5} />
           {serviceName}
         </Layout.Horizontal>
       }

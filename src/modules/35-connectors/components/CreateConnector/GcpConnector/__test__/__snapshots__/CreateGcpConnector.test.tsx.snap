@@ -234,26 +234,23 @@ exports[`Create GCP connector Wizard Should render form 1`] = `
                         >
                           <svg
                             height="12"
-                            viewBox="0 0 12 12"
+                            viewBox="0 0 24 24"
                             width="12"
                             xmlns="http://www.w3.org/2000/svg"
                           >
-                            <g
-                              fill="none"
+                            <path
+                              clip-rule="evenodd"
+                              d="M16.207 4.485a.5.5 0 01.354-.146 3.5 3.5 0 013.5 3.5.5.5 0 01-.147.353l-11 11a.5.5 0 01-.353.147h-3a.5.5 0 01-.5-.5v-3a.5.5 0 01.146-.354l11-11zm.553.862L6.06 16.046v2.293h2.294l10.699-10.7a2.5 2.5 0 00-2.293-2.292z"
+                              fill="currentColor"
                               fill-rule="evenodd"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            >
-                              <path
-                                d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
-                                stroke="#555770"
-                              />
-                              <path
-                                d="M6.583 5.146l2.063-2.063"
-                                opacity="0.3"
-                                stroke="#606170"
-                              />
-                            </g>
+                            />
+                            <path
+                              clip-rule="evenodd"
+                              d="M16.89 6.646a.5.5 0 010 .708l-3.536 3.535a.5.5 0 01-.708-.707l3.536-3.536a.5.5 0 01.707 0z"
+                              fill="currentColor"
+                              fill-rule="evenodd"
+                              opacity="0.3"
+                            />
                           </svg>
                         </span>
                       </div>
@@ -309,26 +306,23 @@ exports[`Create GCP connector Wizard Should render form 1`] = `
                         >
                           <svg
                             height="12"
-                            viewBox="0 0 12 12"
+                            viewBox="0 0 24 24"
                             width="12"
                             xmlns="http://www.w3.org/2000/svg"
                           >
-                            <g
-                              fill="none"
+                            <path
+                              clip-rule="evenodd"
+                              d="M16.207 4.485a.5.5 0 01.354-.146 3.5 3.5 0 013.5 3.5.5.5 0 01-.147.353l-11 11a.5.5 0 01-.353.147h-3a.5.5 0 01-.5-.5v-3a.5.5 0 01.146-.354l11-11zm.553.862L6.06 16.046v2.293h2.294l10.699-10.7a2.5 2.5 0 00-2.293-2.292z"
+                              fill="currentColor"
                               fill-rule="evenodd"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            >
-                              <path
-                                d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
-                                stroke="#555770"
-                              />
-                              <path
-                                d="M6.583 5.146l2.063-2.063"
-                                opacity="0.3"
-                                stroke="#606170"
-                              />
-                            </g>
+                            />
+                            <path
+                              clip-rule="evenodd"
+                              d="M16.89 6.646a.5.5 0 010 .708l-3.536 3.535a.5.5 0 01-.708-.707l3.536-3.536a.5.5 0 01.707 0z"
+                              fill="currentColor"
+                              fill-rule="evenodd"
+                              opacity="0.3"
+                            />
                           </svg>
                         </span>
                       </label>
@@ -348,26 +342,23 @@ exports[`Create GCP connector Wizard Should render form 1`] = `
                         >
                           <svg
                             height="12"
-                            viewBox="0 0 12 12"
+                            viewBox="0 0 24 24"
                             width="12"
                             xmlns="http://www.w3.org/2000/svg"
                           >
-                            <g
-                              fill="none"
+                            <path
+                              clip-rule="evenodd"
+                              d="M16.207 4.485a.5.5 0 01.354-.146 3.5 3.5 0 013.5 3.5.5.5 0 01-.147.353l-11 11a.5.5 0 01-.353.147h-3a.5.5 0 01-.5-.5v-3a.5.5 0 01.146-.354l11-11zm.553.862L6.06 16.046v2.293h2.294l10.699-10.7a2.5 2.5 0 00-2.293-2.292z"
+                              fill="currentColor"
                               fill-rule="evenodd"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            >
-                              <path
-                                d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
-                                stroke="#555770"
-                              />
-                              <path
-                                d="M6.583 5.146l2.063-2.063"
-                                opacity="0.3"
-                                stroke="#606170"
-                              />
-                            </g>
+                            />
+                            <path
+                              clip-rule="evenodd"
+                              d="M16.89 6.646a.5.5 0 010 .708l-3.536 3.535a.5.5 0 01-.708-.707l3.536-3.536a.5.5 0 01.707 0z"
+                              fill="currentColor"
+                              fill-rule="evenodd"
+                              opacity="0.3"
+                            />
                           </svg>
                         </span>
                       </label>
@@ -1137,26 +1128,23 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                         >
                           <svg
                             height="12"
-                            viewBox="0 0 12 12"
+                            viewBox="0 0 24 24"
                             width="12"
                             xmlns="http://www.w3.org/2000/svg"
                           >
-                            <g
-                              fill="none"
+                            <path
+                              clip-rule="evenodd"
+                              d="M16.207 4.485a.5.5 0 01.354-.146 3.5 3.5 0 013.5 3.5.5.5 0 01-.147.353l-11 11a.5.5 0 01-.353.147h-3a.5.5 0 01-.5-.5v-3a.5.5 0 01.146-.354l11-11zm.553.862L6.06 16.046v2.293h2.294l10.699-10.7a2.5 2.5 0 00-2.293-2.292z"
+                              fill="currentColor"
                               fill-rule="evenodd"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            >
-                              <path
-                                d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
-                                stroke="#555770"
-                              />
-                              <path
-                                d="M6.583 5.146l2.063-2.063"
-                                opacity="0.3"
-                                stroke="#606170"
-                              />
-                            </g>
+                            />
+                            <path
+                              clip-rule="evenodd"
+                              d="M16.89 6.646a.5.5 0 010 .708l-3.536 3.535a.5.5 0 01-.708-.707l3.536-3.536a.5.5 0 01.707 0z"
+                              fill="currentColor"
+                              fill-rule="evenodd"
+                              opacity="0.3"
+                            />
                           </svg>
                         </span>
                       </label>

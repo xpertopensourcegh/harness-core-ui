@@ -33,7 +33,7 @@ export function QueryContent(props: QueryContentProps): JSX.Element {
     <Container className={css.queryContainer}>
       <Layout.Horizontal className={css.queryIcons} spacing="small">
         {onEditQuery && (
-          <Button icon="main-edit" iconProps={{ size: 12 }} className={css.action} onClick={() => onEditQuery()} />
+          <Button icon="Edit" iconProps={{ size: 12 }} className={css.action} onClick={() => onEditQuery()} />
         )}
         {!isDialogOpen && (
           <Button
