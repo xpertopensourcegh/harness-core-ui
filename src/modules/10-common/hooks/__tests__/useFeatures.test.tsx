@@ -11,7 +11,7 @@ import {
 } from 'services/cd-ng'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { Editions } from '@common/constants/SubscriptionTypes'
-import { useFeature } from '../useFeatures'
+import { useFeature, useFeatures } from '../useFeatures'
 import mocks from './featuresMocks.json'
 import metadata from './featureMetaData.json'
 
@@ -98,6 +98,7 @@ describe('useFeatures', () => {
     )
 
     await waitFor(() => expect(getFeatureListMock).not.toHaveBeenCalled())
+    expect(getFeatureDetailsMock).not.toHaveBeenCalled()
     expect((result as any).current.enabled).toBe(false)
   })
 
@@ -116,12 +117,16 @@ describe('useFeatures', () => {
         useFeature({
           featureRequest: {
             featureName: FeatureIdentifier.CUSTOM_RESOURCE_GROUPS
+          },
+          options: {
+            skipCache: true
           }
         }),
       { wrapper }
     )
 
     await waitFor(() => expect(getFeatureListMock).toHaveBeenCalledTimes(1))
+    expect(getFeatureDetailsMock).not.toHaveBeenCalled()
     expect((result as any).current.enabled).toBe(false)
   })
 
@@ -149,6 +154,7 @@ describe('useFeatures', () => {
     )
 
     await waitFor(() => expect(getFeatureListMock).toHaveBeenCalledTimes(1))
+    expect(getFeatureDetailsMock).not.toHaveBeenCalled()
     expect((result as any).current.enabled).toBe(true)
   })
 
@@ -265,7 +271,49 @@ describe('useFeatures', () => {
     )
 
     await waitFor(() => expect(getFeatureDetailsMock).toHaveBeenCalledTimes(1))
+    expect(getFeatureListMock).not.toHaveBeenCalled()
     const resolvedValue = await result.current
     expect(resolvedValue.enabled).toBe(true)
+  })
+
+  test('list inquiry should return a list with feature returns', async () => {
+    useGetFeatureDetailsMock.mockImplementation(() => {
+      return {
+        mutate: getFeatureDetailsMock.mockReturnValue(featureDetailDisabledResponse)
+      }
+    })
+    const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (
+      <TestWrapper
+        path={routes.toProjects({ accountId: 'dummy' })}
+        pathParams={{ accountId: 'dummy' }}
+        defaultLicenseStoreValues={defaultLicenseStoreValues}
+      >
+        <FeaturesProvider>{children}</FeaturesProvider>
+      </TestWrapper>
+    )
+    const { result } = renderHook(
+      () =>
+        useFeatures({
+          featuresRequest: {
+            featureNames: [
+              FeatureIdentifier.CUSTOM_ROLES,
+              FeatureIdentifier.BUILDS,
+              FeatureIdentifier.CUSTOM_RESOURCE_GROUPS
+            ]
+          },
+          options: {
+            skipCache: true
+          }
+        }),
+      { wrapper }
+    )
+
+    await waitFor(() => expect(getFeatureListMock).toHaveBeenCalledTimes(1))
+    expect(getFeatureDetailsMock).toHaveBeenCalledTimes(1)
+    const resolvedValue = await result.current
+    expect(resolvedValue.features.size).toBe(3)
+    expect(resolvedValue.features.get(FeatureIdentifier.CUSTOM_ROLES)?.enabled).toBeFalsy()
+    expect(resolvedValue.features.get(FeatureIdentifier.BUILDS)?.enabled).toBeTruthy()
+    expect(resolvedValue.features.get(FeatureIdentifier.CUSTOM_RESOURCE_GROUPS)?.enabled).toBeFalsy()
   })
 })

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react'
-import { isEmpty } from 'lodash-es'
+import { isEmpty, isEqual } from 'lodash-es'
 import produce from 'immer'
 
 import { useParams } from 'react-router-dom'
@@ -34,6 +34,10 @@ export interface FeatureRequest {
   featureName: FeatureIdentifier
 }
 
+export interface FeaturesRequest {
+  featureNames: FeatureIdentifier[]
+}
+
 export interface FeatureProps {
   featureRequest: FeatureRequest
   isPermissionPrioritized?: boolean
@@ -44,6 +48,9 @@ export interface CheckFeatureReturn {
   featureDetail?: FeatureDetail
 }
 
+export interface CheckFeaturesReturn {
+  features: Map<FeatureIdentifier, CheckFeatureReturn>
+}
 export interface FeatureMetaData {
   moduleType: ModuleType
   restrictionMetadataMap: RestrictionMetadataMap
@@ -58,18 +65,18 @@ type FeatureMap = Map<FeatureIdentifier, FeatureMetaData>
 
 export interface FeatureRequestOptions {
   skipCache?: boolean
-  skipCondition?: (featureRequest: FeatureRequest) => boolean
+  skipCondition?: (featureRequest: FeatureRequest | FeaturesRequest) => boolean
 }
 
 export interface FeaturesContextProps {
   // features only cache enabled features
   features: Features
   featureMap: FeatureMap
-  requestFeatures: (featureRequest: FeatureRequest, options?: FeatureRequestOptions) => void
+  requestFeatures: (featureRequest: FeatureRequest | FeaturesRequest, options?: FeatureRequestOptions) => void
   checkFeature: (featureName: FeatureIdentifier) => CheckFeatureReturn
   requestLimitFeature: (featureRequest: FeatureRequest) => void
   checkLimitFeature: (featureName: FeatureIdentifier) => CheckFeatureReturn
-  getRestrictionType: (featureRequest: FeatureRequest) => RestrictionType | undefined
+  getRestrictionType: (featureRequest?: FeatureRequest) => RestrictionType | undefined
 }
 
 const defaultReturn = {
@@ -97,6 +104,9 @@ export const FeaturesContext = createContext<FeaturesContextProps>({
 export function useFeaturesContext(): FeaturesContextProps {
   return useContext(FeaturesContext)
 }
+
+let pendingAvailRequests: (FeatureRequest | FeaturesRequest)[] = []
+let pendingLimitRequests: FeatureRequest[] = []
 
 export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React.ReactElement {
   const [features, setFeatures] = useState<Features>(new Map<FeatureIdentifier, FeatureDetail>())
@@ -158,6 +168,8 @@ export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React
       // set err flag to true
       setHasErr(true)
       showError(gettingEnabledFeaturesError.message || getString('somethingWentWrong'))
+      // reset the queque
+      pendingAvailRequests = []
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gettingEnabledFeaturesError])
@@ -170,12 +182,15 @@ export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React
   }, [gettingFeatureMetadataError])
 
   // this function is called from `useFeature` hook to cache all enabled AVAILABILITY features
-  async function requestFeatures(featureRequest: FeatureRequest, options?: FeatureRequestOptions): Promise<void> {
+  async function requestFeatures(
+    featureRequest: FeatureRequest | FeaturesRequest,
+    options?: FeatureRequestOptions
+  ): Promise<void> {
     const { skipCache = false, skipCondition } = options || {}
 
     // exit early if we already fetched features before
     // disabling this will disable caching, because it will make a fresh request and update in the store
-    if (!skipCache && features.has(featureRequest.featureName)) {
+    if (!skipCache && features.size > 0) {
       return
     }
 
@@ -184,7 +199,17 @@ export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React
       return
     }
 
+    // check if this request is already queued
+    if (pendingAvailRequests.length === 0) {
+      pendingAvailRequests.push(featureRequest)
+    } else {
+      return
+    }
+
     await getEnabledFeatures({})
+
+    // reset the queque
+    pendingAvailRequests = []
 
     // reset hasErr
     setHasErr(false)
@@ -226,10 +251,21 @@ export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React
       return
     }
 
+    // check if this request is already queued
+    if (!pendingLimitRequests.find(req => isEqual(req, featureRequest))) {
+      pendingLimitRequests.push(featureRequest)
+    } else {
+      return
+    }
+
     try {
       const res = await getFeatureDetails({
         name: featureName
       })
+
+      // remove the request from queque
+      pendingLimitRequests = pendingLimitRequests.filter(request => request !== featureRequest)
+
       const allowed = res?.data?.allowed
       const restriction = res?.data?.restriction
       const enabled = !!allowed
@@ -256,6 +292,8 @@ export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React
       })
     } catch (ex) {
       showError(ex.data?.message || getString('somethingWentWrong'))
+      // remove the request from queque
+      pendingLimitRequests = pendingLimitRequests.filter(request => request !== featureRequest)
       setFeatureDetailMap(oldMap => {
         return produce(oldMap, draft => {
           // update current feature in the map
