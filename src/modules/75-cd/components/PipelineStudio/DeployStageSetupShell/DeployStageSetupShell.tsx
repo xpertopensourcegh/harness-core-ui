@@ -178,7 +178,7 @@ export default function DeployStageSetupShell(): JSX.Element {
           panel={<DeployStageSpecifications>{navBtns}</DeployStageSpecifications>}
           title={
             <span className={css.title}>
-              <Icon name="cd-main" height={20} size={20} className="hover" />
+              <Icon name="cd-main" size={16} className="hover" />
               {getString('overview')}
             </span>
           }
@@ -190,7 +190,7 @@ export default function DeployStageSetupShell(): JSX.Element {
             <span className={css.title} data-warning={servicesHasWarning}>
               <Icon
                 name={servicesHasWarning ? 'warning-sign' : 'services'}
-                size={servicesHasWarning ? 16 : 20}
+                size={16}
                 className={servicesHasWarning ? '' : 'hover'}
               />
               {getString('service')}
@@ -205,7 +205,7 @@ export default function DeployStageSetupShell(): JSX.Element {
             <span className={css.title} data-warning={infraHasWarning}>
               <Icon
                 name={infraHasWarning ? 'warning-sign' : 'infrastructure'}
-                size={infraHasWarning ? 16 : 20}
+                size={16}
                 className={infraHasWarning ? '' : 'hover'}
               />
               {getString('infrastructureText')}
@@ -220,7 +220,7 @@ export default function DeployStageSetupShell(): JSX.Element {
             <span className={css.title} data-warning={executionHasWarning}>
               <Icon
                 name={executionHasWarning ? 'warning-sign' : 'execution'}
-                size={executionHasWarning ? 16 : 20}
+                size={16}
                 className={executionHasWarning ? '' : 'hover'}
               />
               {getString('executionText')}
@@ -297,7 +297,7 @@ export default function DeployStageSetupShell(): JSX.Element {
             <span className={css.title} data-warning={failureHasWarning}>
               <Icon
                 name={failureHasWarning ? 'warning-sign' : 'advanced'}
-                size={failureHasWarning ? 16 : 20}
+                size={16}
                 className={failureHasWarning ? '' : 'hover'}
               />
               Advanced
