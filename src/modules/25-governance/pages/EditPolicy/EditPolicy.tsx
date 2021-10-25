@@ -17,7 +17,13 @@ import {
 } from '@wings-software/uicore'
 import { Intent } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
-import { showToaster, getErrorMessage, isEvaluationFailed } from '@governance/utils/GovernanceUtils'
+import {
+  showToaster,
+  getErrorMessage,
+  isEvaluationFailed,
+  MonacoEditorOptions,
+  deselectAllMonacoEditor
+} from '@governance/utils/GovernanceUtils'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import { Page } from '@common/exports'
@@ -31,25 +37,8 @@ import css from './EditPolicy.module.scss'
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type PolicyTestOutputResponse = any
 
-const editorOptions = {
-  ignoreTrimWhitespace: true,
-  minimap: { enabled: false },
-  codeLens: false,
-  scrollBeyondLastLine: false,
-  smartSelect: false,
-  tabSize: 2,
-  insertSpaces: true
-}
-
 const EDITOR_GAP = 25
 const PAGE_PADDING = 50
-
-const deselectAll = (editor?: EDITOR.IStandaloneCodeEditor): void => {
-  editor?.focus()
-  setTimeout(() => {
-    editor?.setSelection(new monaco.Selection(0, 0, 0, 0))
-  }, 0)
-}
 
 export const EditPolicy: React.FC = () => {
   const {
@@ -58,6 +47,10 @@ export const EditPolicy: React.FC = () => {
     orgIdentifier,
     projectIdentifier
   } = useParams<Record<string, string>>()
+  const queryParams = useMemo(
+    () => ({ accountIdentifier: accountId, orgIdentifier, projectIdentifier }),
+    [accountId, orgIdentifier, projectIdentifier]
+  )
   const [isEdit, setEdit] = useState(!!policyIdentifierFromURL)
   const [policyIdentifier, setPolicyIdentifier] = useState(policyIdentifierFromURL)
   const [name, setName] = useState('')
@@ -78,28 +71,15 @@ export const EditPolicy: React.FC = () => {
       return false
     }
   }, [input, regoScript])
-  const { mutate: createPolicy } = useCreatePolicy({
-    queryParams: {
-      accountIdentifier: accountId,
-      orgIdentifier,
-      projectIdentifier
-    }
-  })
-  const { mutate: evaluateRawPolicy } = useEvaluateRaw({})
+  const { mutate: createPolicy } = useCreatePolicy({ queryParams })
+  const { mutate: evaluateRawPolicy } = useEvaluateRaw({ queryParams } as Record<string, unknown>)
   const [createPolicyLoading, setCreatePolicyLoading] = useState(false)
   const [testPolicyLoading, setTestPolicyLoading] = useState(false)
   const [regoEditor, setRegoEditor] = useState<EDITOR.IStandaloneCodeEditor>()
   const [inputEditor, setInputEditor] = useState<EDITOR.IStandaloneCodeEditor>()
   const [outputEditor, setOutputEditor] = useState<EDITOR.IStandaloneCodeEditor>()
   const history = useHistory()
-  const { mutate: updatePolicy } = useUpdatePolicy({
-    policy: policyIdentifier,
-    queryParams: {
-      accountIdentifier: accountId,
-      orgIdentifier,
-      projectIdentifier
-    }
-  })
+  const { mutate: updatePolicy } = useUpdatePolicy({ policy: policyIdentifier, queryParams })
   const onSavePolicy = useCallback(() => {
     setCreatePolicyLoading(true)
     const api = isEdit ? updatePolicy : createPolicy
@@ -133,7 +113,16 @@ export const EditPolicy: React.FC = () => {
     history,
     accountId
   ])
-  const { data: policyData, refetch: fetchPolicyData } = useGetPolicy({ policy: policyIdentifier, lazy: true })
+  const {
+    data: policyData,
+    refetch: fetchPolicyData,
+    loading: getPolicyLoading,
+    error: getPolicyError
+  } = useGetPolicy({
+    policy: policyIdentifier,
+    queryParams,
+    lazy: true
+  })
   const [loadingPolicy, setLoadingPolicy] = useState(false)
   const { getString } = useStrings()
   const [testFailure, setTestFailure] = useState<boolean | undefined>()
@@ -184,8 +173,8 @@ export const EditPolicy: React.FC = () => {
             if (sampleRego !== regoScript || sampleInput !== input) {
               setRegoScript(sampleRego || '')
               setInput(sampleInput || '')
-              deselectAll(regoEditor)
-              deselectAll(inputEditor)
+              deselectAllMonacoEditor(regoEditor)
+              deselectAllMonacoEditor(inputEditor)
               resetOutput()
             }
           }}
@@ -222,7 +211,7 @@ export const EditPolicy: React.FC = () => {
         try {
           const _response = typeof response === 'string' ? JSON.parse(response) : response
           setOutput(_response)
-          deselectAll(outputEditor)
+          deselectAllMonacoEditor(outputEditor)
           setTestFailure(isEvaluationFailed(_response.status))
           layoutEditors()
         } catch {
@@ -308,7 +297,7 @@ export const EditPolicy: React.FC = () => {
 
       // TODO Remove casting when BE supports description
       setDescription((policyData as { desription: string }).desription || '')
-      deselectAll(regoEditor)
+      deselectAllMonacoEditor(regoEditor)
     }
   }, [policyData, regoEditor])
 
@@ -322,7 +311,11 @@ export const EditPolicy: React.FC = () => {
         }
         toolbar={toolbar}
       />
-      <Page.Body loading={loadingPolicy}>
+      <Page.Body
+        loading={loadingPolicy || getPolicyLoading}
+        error={getErrorMessage(getPolicyError)}
+        retryOnError={() => fetchPolicyData()}
+      >
         <Container className={css.container}>
           <SplitPane
             split="vertical"
@@ -338,7 +331,7 @@ export const EditPolicy: React.FC = () => {
                 language="rego"
                 theme="vs-light"
                 value={regoScript}
-                options={editorOptions}
+                options={MonacoEditorOptions}
                 onChange={newValue => {
                   setRegoScript(newValue)
                 }}
@@ -399,7 +392,7 @@ export const EditPolicy: React.FC = () => {
                       language="json"
                       theme="vs-light"
                       value={input}
-                      options={editorOptions}
+                      options={MonacoEditorOptions}
                       onChange={newValue => setInput(newValue)}
                       editorDidMount={setInputEditor}
                     />
@@ -459,7 +452,7 @@ export const EditPolicy: React.FC = () => {
                       language="json"
                       theme="vs-light"
                       value={output ? JSON.stringify(output, null, 2) : ''}
-                      options={{ ...editorOptions, readOnly: true }}
+                      options={{ ...MonacoEditorOptions, readOnly: true }}
                       editorDidMount={setOutputEditor}
                     />
                   </Container>

@@ -186,7 +186,7 @@ const StepTwo: React.FC<{
     orgIdentifier,
     projectIdentifier
   }
-  const { data: policies } = useGetPolicyList({})
+  const { data: policies } = useGetPolicyList({ queryParams })
   const [policyId, setPolicyId] = React.useState('')
   const [severity, setSeverity] = React.useState('')
   const [plList, setPlList] = React.useState<SelectOption[]>()
@@ -206,6 +206,7 @@ const StepTwo: React.FC<{
   }, [policies])
 
   const { data, loading: fetchingPolicySet } = useGetPolicySet({
+    queryParams,
     policyset: policySetData?.identifier?.toString() || prevStepData?.id
   })
 

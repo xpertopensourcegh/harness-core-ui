@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { get } from 'lodash-es'
 import { useParams, useHistory, useLocation } from 'react-router-dom'
 import { Page } from '@common/exports'
@@ -14,11 +14,19 @@ const evaluationNameFromAction = (getString: StringsContextValue['getString'], a
 
 export const EvaluationDetail: React.FC = () => {
   const { getString } = useStrings()
-  const { accountId } = useParams<Record<string, string>>()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<Record<string, string>>()
+  const queryParams = useMemo(
+    () => ({
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier
+    }),
+    [accountId, orgIdentifier, projectIdentifier]
+  )
   const { evaluationId } = useParams<Record<string, string>>()
   const history = useHistory()
   const location = useLocation()
-  const { data, refetch, loading, error } = useGetEvaluation({ evaluation: evaluationId })
+  const { data, refetch, loading, error } = useGetEvaluation({ queryParams, evaluation: evaluationId })
 
   useEffect(() => {
     if (data) {

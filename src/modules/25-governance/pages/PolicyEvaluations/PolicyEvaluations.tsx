@@ -23,12 +23,20 @@ import css from './PolicyEvaluations.module.scss'
 
 const PolicyEvaluations: React.FC = () => {
   const { getString } = useStrings()
-  const { accountId } = useParams<Record<string, string>>()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<Record<string, string>>()
+  const queryParams = useMemo(
+    () => ({
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier
+    }),
+    [accountId, orgIdentifier, projectIdentifier]
+  )
   const history = useHistory()
   useDocumentTitle(getString('common.policies'))
   const [page, setPage] = useState(0)
 
-  const { data: evaluationsList, loading: fetchingEvaluations, error, refetch } = useGetEvaluationList({})
+  const { data: evaluationsList, loading: fetchingEvaluations, error, refetch } = useGetEvaluationList({ queryParams })
 
   useEffect(() => {
     setPageNumber({ setPage, page, pageItemsCount: 1000 })

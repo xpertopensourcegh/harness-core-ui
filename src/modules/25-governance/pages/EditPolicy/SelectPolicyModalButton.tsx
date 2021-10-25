@@ -1,5 +1,6 @@
 /* eslint-disable react/display-name,react-hooks/rules-of-hooks */
 import React, { useMemo } from 'react'
+import { useParams } from 'react-router-dom'
 import type { CellProps, Column } from 'react-table'
 import { get } from 'lodash-es'
 import {
@@ -30,7 +31,16 @@ export const SelectPolicyModalButton: React.FC<SelectPolicyModalButtonProps & Bu
   ...props
 }) => {
   const [openModal, hideModal] = useModalHook(() => {
-    const { data: examples, loading, error, refetch } = useGetexamples({})
+    const { accountId, orgIdentifier, projectIdentifier } = useParams<Record<string, string>>()
+    const queryParams = useMemo(
+      () => ({
+        accountIdentifier: accountId,
+        orgIdentifier,
+        projectIdentifier
+      }),
+      [accountId, orgIdentifier, projectIdentifier]
+    )
+    const { data: examples, loading, error, refetch } = useGetexamples({ queryParams } as Record<string, unknown>)
     const { getString } = useStrings()
 
     const columns: Column<Example>[] = useMemo(
@@ -88,6 +98,15 @@ export const SelectPolicyModalButton: React.FC<SelectPolicyModalButtonProps & Bu
       </Dialog>
     )
   }, [modalTitle, onApply])
+  const { getString } = useStrings()
 
-  return <Button icon="folder-shared" variation={ButtonVariation.ICON} onClick={openModal} {...props} />
+  return (
+    <Button
+      icon="folder-shared"
+      variation={ButtonVariation.ICON}
+      onClick={openModal}
+      tooltip={getString('governance.selectSamplePolicy')}
+      {...props}
+    />
+  )
 }
