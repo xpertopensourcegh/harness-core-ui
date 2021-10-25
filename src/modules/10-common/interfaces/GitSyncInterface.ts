@@ -15,6 +15,7 @@ export const Entities: Entity = {
   DEPLOYMENT_STAGE: 'DeploymentStage',
   DEPLOYMENT_STEPS: 'DeploymentSteps',
   ENVIRONMENT: 'Environment',
+  FEATURE_FLAGS: 'FeatureFlags',
   INPUT_SETS: 'InputSets',
   INTEGRATION_STAGE: 'IntegrationStage',
   INTEGRATION_STEPS: 'IntegrationSteps',

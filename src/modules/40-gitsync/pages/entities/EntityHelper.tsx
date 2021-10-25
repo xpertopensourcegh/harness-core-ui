@@ -11,6 +11,8 @@ export const getEntityIconName = (entityType: string | undefined): IconName => {
       return 'nav-project-selected'
     case Entities.PIPELINES:
       return 'pipeline-ng'
+    case Entities.FEATURE_FLAGS:
+      return 'cf-main'
     case Entities.CONNECTORS:
       return 'resources-icon'
     case Entities.SECRETS:

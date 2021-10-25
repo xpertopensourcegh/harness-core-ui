@@ -84,6 +84,36 @@
           "accountId": "dummy"
         }
       ]
+    },
+    {
+      "entityType": "FeatureFlags",
+      "count": 1,
+      "gitSyncEntities": [
+        {
+          "entityName": "featureFlags",
+          "entityType": "FeatureFlags",
+          "entityIdentifier": "featureFlags",
+          "gitConnectorId": "ValidGitRepo",
+          "repoUrl": "https://github.com/wings-software/sunnykesh-gitSync",
+          "branch": "gitSync",
+          "folderPath": "second/.harness/",
+          "entityGitPath": "featureflags.yaml",
+          "repoProviderType": null,
+          "entityReference": {
+            "scope": "project",
+            "identifier": "featureFlags",
+            "accountIdentifier": "dummy",
+            "orgIdentifier": "default",
+            "projectIdentifier": "DevX",
+            "metadata": {},
+            "repoIdentifier": null,
+            "branch": null,
+            "isDefault": null,
+            "default": null
+          },
+          "accountId": "dummy"
+        }
+      ]
     }
   ],
   "metaData": null,

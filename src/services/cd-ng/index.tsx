@@ -1881,6 +1881,7 @@ export interface EntityDetail {
     | 'Triggers'
     | 'MonitoredService'
     | 'GitRepositories'
+    | 'FeatureFlags'
 }
 
 export interface EntityGitDetails {
@@ -2970,6 +2971,7 @@ export interface GitEntityBranchFilterSummaryProperties {
     | 'Triggers'
     | 'MonitoredService'
     | 'GitRepositories'
+    | 'FeatureFlags'
   )[]
   moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
   searchTerm?: string
@@ -3000,6 +3002,7 @@ export interface GitEntityFilterProperties {
     | 'Triggers'
     | 'MonitoredService'
     | 'GitRepositories'
+    | 'FeatureFlags'
   )[]
   gitSyncConfigIdentifiers?: string[]
   moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
@@ -3122,6 +3125,7 @@ export interface GitSyncEntityDTO {
     | 'Triggers'
     | 'MonitoredService'
     | 'GitRepositories'
+    | 'FeatureFlags'
   folderPath?: string
   gitConnectorId?: string
   repoProviderType?: 'github' | 'gitlab' | 'bitbucket' | 'unknown'
@@ -3154,6 +3158,7 @@ export interface GitSyncEntityListDTO {
     | 'Triggers'
     | 'MonitoredService'
     | 'GitRepositories'
+    | 'FeatureFlags'
   gitSyncEntities?: GitSyncEntityDTO[]
 }
 
@@ -3203,6 +3208,7 @@ export interface GitSyncErrorDTO {
     | 'Triggers'
     | 'MonitoredService'
     | 'GitRepositories'
+    | 'FeatureFlags'
   errorType?: 'GIT_TO_HARNESS' | 'CONNECTIVITY_ISSUE' | 'FULL_SYNC'
   failureReason?: string
   repoId?: string
@@ -8080,6 +8086,7 @@ export interface ListActivitiesQueryParams {
     | 'Triggers'
     | 'MonitoredService'
     | 'GitRepositories'
+    | 'FeatureFlags'
   referredByEntityType?:
     | 'Projects'
     | 'Pipelines'
@@ -8104,6 +8111,7 @@ export interface ListActivitiesQueryParams {
     | 'Triggers'
     | 'MonitoredService'
     | 'GitRepositories'
+    | 'FeatureFlags'
 }
 
 export type ListActivitiesProps = Omit<GetProps<ResponsePageActivity, unknown, ListActivitiesQueryParams, void>, 'path'>
@@ -8232,6 +8240,7 @@ export interface GetActivitiesSummaryQueryParams {
     | 'Triggers'
     | 'MonitoredService'
     | 'GitRepositories'
+    | 'FeatureFlags'
   referredByEntityType?:
     | 'Projects'
     | 'Pipelines'
@@ -8256,6 +8265,7 @@ export interface GetActivitiesSummaryQueryParams {
     | 'Triggers'
     | 'MonitoredService'
     | 'GitRepositories'
+    | 'FeatureFlags'
 }
 
 export type GetActivitiesSummaryProps = Omit<
@@ -13945,6 +13955,7 @@ export interface ListReferredByEntitiesQueryParams {
     | 'Triggers'
     | 'MonitoredService'
     | 'GitRepositories'
+    | 'FeatureFlags'
   searchTerm?: string
   branch?: string
   repoIdentifier?: string
@@ -15897,6 +15908,7 @@ export interface ListGitSyncEntitiesByTypePathParams {
     | 'Triggers'
     | 'MonitoredService'
     | 'GitRepositories'
+    | 'FeatureFlags'
 }
 
 export type ListGitSyncEntitiesByTypeProps = Omit<
@@ -15989,6 +16001,7 @@ export const listGitSyncEntitiesByTypePromise = (
       | 'Triggers'
       | 'MonitoredService'
       | 'GitRepositories'
+      | 'FeatureFlags'
   },
   signal?: RequestInit['signal']
 ) =>
@@ -26209,6 +26222,7 @@ export interface GetYamlSchemaQueryParams {
     | 'Triggers'
     | 'MonitoredService'
     | 'GitRepositories'
+    | 'FeatureFlags'
   subtype?:
     | 'K8sCluster'
     | 'Git'
