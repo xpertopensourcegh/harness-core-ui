@@ -69,3 +69,5 @@ declare module 'gitopsui/MicroFrontendApp' {
 
   export default ChildApp
 }
+
+declare type Optional<T, K extends keyof T = keyof T> = Omit<T, K> & Partial<Pick<T, K>>
