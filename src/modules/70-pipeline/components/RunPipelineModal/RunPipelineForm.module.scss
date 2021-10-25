@@ -177,3 +177,24 @@
     margin-right: var(--spacing-small);
   }
 }
+
+.expressionsTooltip {
+  :global(.bp3-tooltip) {
+    border-radius: 8px;
+  }
+}
+
+.underlineText {
+  text-decoration: underline;
+}
+
+.disabledStageDropdown {
+  .MultiSelectDropDown--main
+    .MultiSelectDropDown--dropdownButton.MultiSelectDropDown--withBorder.MultiSelectDropDown--selected {
+    border-color: none;
+  }
+}
+
+.noDisplay {
+  visibility: hidden;
+}

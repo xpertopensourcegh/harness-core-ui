@@ -164,12 +164,14 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
           <div className={css.main}>
             <div className={css.modulesContainer}>
               {RUN_INDIVIDUAL_STAGE &&
-                pipelineExecution?.stagesExecution &&
-                pipelineExecution?.stagesExecuted?.length === 1 && (
-                  <Tag className={css.singleExecutionTag}>{`${getString('pipeline.singleStageExecution')} 
-                ${pipelineExecution?.stagesExecuted?.[0]}
+              pipelineExecution?.stagesExecution &&
+              pipelineExecution?.stagesExecuted?.length === 1 ? (
+                <Tag className={css.singleExecutionTag}>{`${getString('pipeline.singleStageExecution')} 
+                ${pipelineExecution?.stagesExecutedNames?.[pipelineExecution?.stagesExecuted?.[0]]}
                  `}</Tag>
-                )}
+              ) : pipelineExecution?.stagesExecution ? (
+                <Tag className={css.singleExecutionTag}>{getString('pipeline.multiStageExecution')}</Tag>
+              ) : null}
               {HAS_CI && ciInfo ? (
                 <div className={css.moduleData}>
                   <Icon name={ciInfo.icon} size={20} className={css.moduleIcon} />

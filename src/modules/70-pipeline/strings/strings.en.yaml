@@ -830,6 +830,7 @@ runFailedStages: Run only failed stages
 runPipelineForm:
   notifyOnlyMe: Notify only me about execution status
 singleStageExecution: 'SINGLE STAGE EXECUTION:'
+multiStageExecution: 'MULTIPLE STAGES EXECUTION'
 allStages: All Stages
 retryHistory: Retry History
 retryHistoryDescription: List of retries for my Pipeline
@@ -850,3 +851,4 @@ policyEvaluations:
   failureModalTitle: Policy Set Evaluations
   policySetsApplied: '{{pipelineName}}: Policy Sets applied'
   warn: warning
+expressionsReplaced: Some expression were replaced.

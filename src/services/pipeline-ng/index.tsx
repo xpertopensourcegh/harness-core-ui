@@ -893,8 +893,13 @@ export interface Error {
   correlationId?: string
   detailedMessage?: string
   message?: string
+  metadata?: ErrorMetadataDTO
   responseMessages?: ResponseMessage[]
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ErrorMetadataDTO {
+  type?: string
 }
 
 export interface ExecutableResponse {
@@ -1947,6 +1952,11 @@ export interface InputSetTemplateResponse {
   latestTemplateYaml?: string
 }
 
+export interface InputSetTemplateWithReplacedExpressionsResponse {
+  inputSetTemplateYaml?: string
+  replacedExpressions?: string[]
+}
+
 export interface InterruptConfig {
   allFields?: {
     [key: string]: { [key: string]: any }
@@ -2797,6 +2807,9 @@ export interface PipelineExecutionSummary {
   runningStagesCount?: number
   showRetryHistory?: boolean
   stagesExecuted?: string[]
+  stagesExecutedNames?: {
+    [key: string]: string
+  }
   stagesExecution?: boolean
   startTs?: number
   startingNodeId?: string
@@ -3248,6 +3261,13 @@ export interface ResponseInputSetResponse {
 export interface ResponseInputSetTemplateResponse {
   correlationId?: string
   data?: InputSetTemplateResponse
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseInputSetTemplateWithReplacedExpressionsResponse {
+  correlationId?: string
+  data?: InputSetTemplateWithReplacedExpressionsResponse
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -4038,6 +4058,12 @@ export type S3BuildStoreTypeSpec = BuildStoreTypeSpec & {
   region?: string
 }
 
+export type SampleErrorMetadataDTO = ErrorMetadataDTO & {
+  sampleMap?: {
+    [key: string]: string
+  }
+}
+
 export type ScheduledTriggerConfig = NGTriggerSpecV2 & {
   spec?: ScheduledTriggerSpec
   type?: string
@@ -4165,6 +4191,7 @@ export interface StepData {
     | 'TEST4'
     | 'TEST5'
     | 'PERSPECTIVES'
+    | 'CCM_K8S_CLUSTERS'
     | 'MULTIPLE_ORGANIZATIONS'
     | 'MULTIPLE_PROJECTS'
     | 'INTEGRATED_APPROVALS_WITH_HARNESS_UI'
@@ -4733,6 +4760,8 @@ export type FilterPropertiesRequestBody = FilterProperties
 export type MergeInputSetRequestRequestBody = MergeInputSetRequest
 
 export type NGTriggerConfigV2RequestBody = NGTriggerConfigV2
+
+export type RunStageRequestDTORequestBody = RunStageRequestDTO
 
 export type UpdateInputSetForPipelineBodyRequestBody = string
 
@@ -6103,7 +6132,7 @@ export interface GetTemplateFromPipelineQueryParams {
 
 export type GetTemplateFromPipelineProps = Omit<
   MutateProps<
-    ResponseInputSetTemplateResponse,
+    ResponseInputSetTemplateWithReplacedExpressionsResponse,
     Failure | Error,
     GetTemplateFromPipelineQueryParams,
     InputSetTemplateRequest,
@@ -6117,7 +6146,7 @@ export type GetTemplateFromPipelineProps = Omit<
  */
 export const GetTemplateFromPipeline = (props: GetTemplateFromPipelineProps) => (
   <Mutate<
-    ResponseInputSetTemplateResponse,
+    ResponseInputSetTemplateWithReplacedExpressionsResponse,
     Failure | Error,
     GetTemplateFromPipelineQueryParams,
     InputSetTemplateRequest,
@@ -6132,7 +6161,7 @@ export const GetTemplateFromPipeline = (props: GetTemplateFromPipelineProps) => 
 
 export type UseGetTemplateFromPipelineProps = Omit<
   UseMutateProps<
-    ResponseInputSetTemplateResponse,
+    ResponseInputSetTemplateWithReplacedExpressionsResponse,
     Failure | Error,
     GetTemplateFromPipelineQueryParams,
     InputSetTemplateRequest,
@@ -6146,7 +6175,7 @@ export type UseGetTemplateFromPipelineProps = Omit<
  */
 export const useGetTemplateFromPipeline = (props: UseGetTemplateFromPipelineProps) =>
   useMutate<
-    ResponseInputSetTemplateResponse,
+    ResponseInputSetTemplateWithReplacedExpressionsResponse,
     Failure | Error,
     GetTemplateFromPipelineQueryParams,
     InputSetTemplateRequest,
@@ -6158,7 +6187,7 @@ export const useGetTemplateFromPipeline = (props: UseGetTemplateFromPipelineProp
  */
 export const getTemplateFromPipelinePromise = (
   props: MutateUsingFetchProps<
-    ResponseInputSetTemplateResponse,
+    ResponseInputSetTemplateWithReplacedExpressionsResponse,
     Failure | Error,
     GetTemplateFromPipelineQueryParams,
     InputSetTemplateRequest,
@@ -6167,7 +6196,7 @@ export const getTemplateFromPipelinePromise = (
   signal?: RequestInit['signal']
 ) =>
   mutateUsingFetch<
-    ResponseInputSetTemplateResponse,
+    ResponseInputSetTemplateWithReplacedExpressionsResponse,
     Failure | Error,
     GetTemplateFromPipelineQueryParams,
     InputSetTemplateRequest,
@@ -7489,6 +7518,120 @@ export const rePostPipelineExecuteWithInputSetListPromise = (
     signal
   )
 
+export interface RerunStagesWithRuntimeInputYamlQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  moduleType: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
+  useFQNIfError?: boolean
+}
+
+export interface RerunStagesWithRuntimeInputYamlPathParams {
+  originalExecutionId: string
+  identifier: string
+}
+
+export type RerunStagesWithRuntimeInputYamlProps = Omit<
+  MutateProps<
+    ResponsePlanExecutionResponseDto,
+    unknown,
+    RerunStagesWithRuntimeInputYamlQueryParams,
+    RunStageRequestDTORequestBody,
+    RerunStagesWithRuntimeInputYamlPathParams
+  >,
+  'path' | 'verb'
+> &
+  RerunStagesWithRuntimeInputYamlPathParams
+
+/**
+ * Rerun a pipeline with inputSet pipeline yaml
+ */
+export const RerunStagesWithRuntimeInputYaml = ({
+  originalExecutionId,
+  identifier,
+  ...props
+}: RerunStagesWithRuntimeInputYamlProps) => (
+  <Mutate<
+    ResponsePlanExecutionResponseDto,
+    unknown,
+    RerunStagesWithRuntimeInputYamlQueryParams,
+    RunStageRequestDTORequestBody,
+    RerunStagesWithRuntimeInputYamlPathParams
+  >
+    verb="POST"
+    path={`/pipeline/execute/rerun/${originalExecutionId}/${identifier}/stages`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseRerunStagesWithRuntimeInputYamlProps = Omit<
+  UseMutateProps<
+    ResponsePlanExecutionResponseDto,
+    unknown,
+    RerunStagesWithRuntimeInputYamlQueryParams,
+    RunStageRequestDTORequestBody,
+    RerunStagesWithRuntimeInputYamlPathParams
+  >,
+  'path' | 'verb'
+> &
+  RerunStagesWithRuntimeInputYamlPathParams
+
+/**
+ * Rerun a pipeline with inputSet pipeline yaml
+ */
+export const useRerunStagesWithRuntimeInputYaml = ({
+  originalExecutionId,
+  identifier,
+  ...props
+}: UseRerunStagesWithRuntimeInputYamlProps) =>
+  useMutate<
+    ResponsePlanExecutionResponseDto,
+    unknown,
+    RerunStagesWithRuntimeInputYamlQueryParams,
+    RunStageRequestDTORequestBody,
+    RerunStagesWithRuntimeInputYamlPathParams
+  >(
+    'POST',
+    (paramsInPath: RerunStagesWithRuntimeInputYamlPathParams) =>
+      `/pipeline/execute/rerun/${paramsInPath.originalExecutionId}/${paramsInPath.identifier}/stages`,
+    { base: getConfig('pipeline/api'), pathParams: { originalExecutionId, identifier }, ...props }
+  )
+
+/**
+ * Rerun a pipeline with inputSet pipeline yaml
+ */
+export const rerunStagesWithRuntimeInputYamlPromise = (
+  {
+    originalExecutionId,
+    identifier,
+    ...props
+  }: MutateUsingFetchProps<
+    ResponsePlanExecutionResponseDto,
+    unknown,
+    RerunStagesWithRuntimeInputYamlQueryParams,
+    RunStageRequestDTORequestBody,
+    RerunStagesWithRuntimeInputYamlPathParams
+  > & { originalExecutionId: string; identifier: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponsePlanExecutionResponseDto,
+    unknown,
+    RerunStagesWithRuntimeInputYamlQueryParams,
+    RunStageRequestDTORequestBody,
+    RerunStagesWithRuntimeInputYamlPathParams
+  >(
+    'POST',
+    getConfig('pipeline/api'),
+    `/pipeline/execute/rerun/${originalExecutionId}/${identifier}/stages`,
+    props,
+    signal
+  )
+
 export interface RetryPipelineQueryParams {
   accountIdentifier: string
   orgIdentifier: string
@@ -7904,7 +8047,7 @@ export type RunStagesWithRuntimeInputYamlProps = Omit<
     ResponsePlanExecutionResponseDto,
     unknown,
     RunStagesWithRuntimeInputYamlQueryParams,
-    RunStageRequestDTO,
+    RunStageRequestDTORequestBody,
     RunStagesWithRuntimeInputYamlPathParams
   >,
   'path' | 'verb'
@@ -7919,7 +8062,7 @@ export const RunStagesWithRuntimeInputYaml = ({ identifier, ...props }: RunStage
     ResponsePlanExecutionResponseDto,
     unknown,
     RunStagesWithRuntimeInputYamlQueryParams,
-    RunStageRequestDTO,
+    RunStageRequestDTORequestBody,
     RunStagesWithRuntimeInputYamlPathParams
   >
     verb="POST"
@@ -7934,7 +8077,7 @@ export type UseRunStagesWithRuntimeInputYamlProps = Omit<
     ResponsePlanExecutionResponseDto,
     unknown,
     RunStagesWithRuntimeInputYamlQueryParams,
-    RunStageRequestDTO,
+    RunStageRequestDTORequestBody,
     RunStagesWithRuntimeInputYamlPathParams
   >,
   'path' | 'verb'
@@ -7949,7 +8092,7 @@ export const useRunStagesWithRuntimeInputYaml = ({ identifier, ...props }: UseRu
     ResponsePlanExecutionResponseDto,
     unknown,
     RunStagesWithRuntimeInputYamlQueryParams,
-    RunStageRequestDTO,
+    RunStageRequestDTORequestBody,
     RunStagesWithRuntimeInputYamlPathParams
   >(
     'POST',
@@ -7968,7 +8111,7 @@ export const runStagesWithRuntimeInputYamlPromise = (
     ResponsePlanExecutionResponseDto,
     unknown,
     RunStagesWithRuntimeInputYamlQueryParams,
-    RunStageRequestDTO,
+    RunStageRequestDTORequestBody,
     RunStagesWithRuntimeInputYamlPathParams
   > & { identifier: string },
   signal?: RequestInit['signal']
@@ -7977,7 +8120,7 @@ export const runStagesWithRuntimeInputYamlPromise = (
     ResponsePlanExecutionResponseDto,
     unknown,
     RunStagesWithRuntimeInputYamlQueryParams,
-    RunStageRequestDTO,
+    RunStageRequestDTORequestBody,
     RunStagesWithRuntimeInputYamlPathParams
   >('POST', getConfig('pipeline/api'), `/pipeline/execute/${identifier}/stages`, props, signal)
 
@@ -10778,6 +10921,7 @@ export interface GetSchemaYamlQueryParams {
     | 'Triggers'
     | 'MonitoredService'
     | 'GitRepositories'
+    | 'FeatureFlags'
   projectIdentifier?: string
   orgIdentifier?: string
   scope?: 'account' | 'org' | 'project' | 'unknown'

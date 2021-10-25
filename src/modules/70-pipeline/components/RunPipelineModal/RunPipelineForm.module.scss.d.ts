@@ -32,5 +32,13 @@ declare const styles: {
   readonly stageName: string
   readonly infoStrip: string
   readonly iconInfo: string
+  readonly expressionsTooltip: string
+  readonly underlineText: string
+  readonly disabledStageDropdown: string
+  readonly multiSelectDropDownMain: string
+  readonly multiSelectDropDownDropdownButton: string
+  readonly multiSelectDropDownWithBorder: string
+  readonly multiSelectDropDownSelected: string
+  readonly noDisplay: string
 }
 export default styles

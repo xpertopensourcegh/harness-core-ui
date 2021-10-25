@@ -2042,6 +2042,7 @@ export interface StringsMap {
   'pipeline.executionStrategy.useStrategy': string
   'pipeline.executionTarget': string
   'pipeline.expressionsEvaluation': string
+  'pipeline.expressionsReplaced': string
   'pipeline.failureStrategies.addedAllStrategies': string
   'pipeline.failureStrategies.errorTypeLabels.Authentication': string
   'pipeline.failureStrategies.errorTypeLabels.Authorization': string
@@ -2238,6 +2239,7 @@ export interface StringsMap {
   'pipeline.manifestTypeLabels.ValuesYaml': string
   'pipeline.moveStage.description': string
   'pipeline.moveStage.title': string
+  'pipeline.multiStageExecution': string
   'pipeline.myBuildsText': string
   'pipeline.myDeploymentsText': string
   'pipeline.neverRan': string

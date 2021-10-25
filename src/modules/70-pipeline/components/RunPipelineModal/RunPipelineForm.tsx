@@ -15,8 +15,8 @@ import {
   SelectOption,
   Intent,
   HarnessDocTooltip,
-  DropDown,
-  PageSpinner
+  PageSpinner,
+  MultiSelectDropDown
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useHistory } from 'react-router-dom'
@@ -35,7 +35,8 @@ import {
   useRePostPipelineExecuteWithInputSetYaml,
   StageExecutionResponse,
   useGetStagesExecutionList,
-  useRunStagesWithRuntimeInputYaml
+  useRunStagesWithRuntimeInputYaml,
+  useRerunStagesWithRuntimeInputYaml
 } from 'services/pipeline-ng'
 import { useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
@@ -49,7 +50,7 @@ import type {
   PipelineType
 } from '@common/interfaces/RouteInterfaces'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
-import { useStrings } from 'framework/strings'
+import { useStrings, UseStringsReturn } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
@@ -63,6 +64,7 @@ import InfoStrip from '@common/components/InfoStrip/InfoStrip'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { PipelineActions } from '@common/constants/TrackingConstants'
 import { useTelemetry } from '@common/hooks/useTelemetry'
+import { StageType } from '@pipeline/utils/stageHelpers'
 import type { InputSetDTO } from '../InputSetForm/InputSetForm'
 import { InputSetSelector, InputSetSelectorProps } from '../InputSetSelector/InputSetSelector'
 import { clearRuntimeInput, validatePipeline, getErrorsList } from '../PipelineStudio/StepUtil'
@@ -75,6 +77,7 @@ import { StepViewType } from '../AbstractSteps/Step'
 import GitPopover from '../GitPopover/GitPopover'
 import SaveAsInputSet from './SaveAsInputSet'
 import SelectExistingInputsOrProvideNew from './SelectExistingOrProvide'
+import { getFlattenedStages } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 import css from './RunPipelineForm.module.scss'
 
 export const POLL_INTERVAL = 1 /* sec */ * 1000 /* ms */
@@ -89,6 +92,18 @@ export interface RunPipelineFormProps extends PipelineType<PipelinePathProps & G
   stagesExecuted?: string[]
 }
 
+export interface SelectedStageData {
+  stageIdentifier?: string
+  stagesRequired?: string[]
+  stageName?: string
+  message?: string
+}
+export interface StageSelectionData {
+  selectedStages: SelectedStageData[]
+  allStagesSelected: boolean
+  selectedStageItems: SelectOption[]
+}
+
 const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
   fileName: `run-pipeline.yaml`,
   entityType: 'Pipelines',
@@ -99,7 +114,16 @@ const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
     removeEmptyArray: false
   }
 }
+const getAllStageData = (getString: UseStringsReturn['getString']): SelectedStageData => ({
+  stageIdentifier: ALL_STAGE_VALUE,
+  stagesRequired: [],
+  stageName: getString('pipeline.allStages')
+})
 
+const getAllStageItem = (getString: UseStringsReturn['getString']): SelectOption => ({
+  label: getString('pipeline.allStages'),
+  value: ALL_STAGE_VALUE
+})
 function RunPipelineFormBasic({
   pipelineIdentifier,
   accountId,
@@ -132,13 +156,12 @@ function RunPipelineFormBasic({
   const [runClicked, setRunClicked] = useState(false)
   const { RUN_INDIVIDUAL_STAGE } = useFeatureFlags()
 
-  const [selectedStageData, setSelectedStageData] = React.useState<{
-    selectedStageId?: string
-    stagesRequired?: string[]
-    stageName?: string
-    message?: string
-  }>({ selectedStageId: ALL_STAGE_VALUE, stagesRequired: [], stageName: getString('pipeline.allStages') })
-  const { data: stageExecutionData, refetch } = useGetStagesExecutionList({
+  const [selectedStageData, setSelectedStageData] = React.useState<StageSelectionData>({
+    allStagesSelected: true,
+    selectedStages: [getAllStageData(getString)],
+    selectedStageItems: [getAllStageItem(getString)]
+  })
+  const { data: stageExecutionData, refetch: getStagesExecutionList } = useGetStagesExecutionList({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier,
@@ -147,41 +170,16 @@ function RunPipelineFormBasic({
       branch,
       repoIdentifier
     },
-    lazy: true
+    lazy: true,
+    debounce: 500
   })
 
   const isCIModule = module === 'ci'
   React.useEffect(() => {
     getInputSetsList()
     getTemplateFromPipeline()
-    RUN_INDIVIDUAL_STAGE && refetch()
+    RUN_INDIVIDUAL_STAGE && getStagesExecutionList()
   }, [])
-
-  React.useEffect(() => {
-    getTemplateFromPipeline()
-  }, [selectedStageData])
-
-  const executionStageList = useMemo((): SelectOption[] => {
-    let executionStages: SelectOption[] = []
-    executionStages =
-      stageExecutionData?.data?.map((execStage: StageExecutionResponse) => {
-        return {
-          label: defaultTo(execStage?.stageName, ''),
-          value: defaultTo(execStage?.stageIdentifier, '')
-        }
-      }) || []
-    executionStages.unshift({ label: getString('pipeline.allStages'), value: ALL_STAGE_VALUE })
-    if (stagesExecuted?.length) {
-      const selectedStage = stageExecutionData?.data?.find(stageData => stageData.stageIdentifier === stagesExecuted[0])
-      selectedStage &&
-        setSelectedStageData({
-          selectedStageId: stagesExecuted[0],
-          stageName: selectedStage.stageName,
-          stagesRequired: selectedStage.stagesRequired
-        })
-    }
-    return executionStages
-  }, [stageExecutionData?.data])
 
   const { mutate: createInputSet, loading: createInputSetLoading } = useCreateInputSetForPipeline({
     queryParams: {
@@ -218,6 +216,20 @@ function RunPipelineFormBasic({
       setCurrentPipeline(parsedYAML)
     }
   }, [inputSetYAML])
+
+  const stageIdentifiers = useMemo((): string[] => {
+    let stageIds: string[] = []
+    stageIds = stagesExecuted?.length
+      ? stagesExecuted
+      : selectedStageData.allStagesSelected
+      ? []
+      : (selectedStageData.selectedStageItems.map(stageData => stageData.value) as string[])
+    if (stageIds.includes(ALL_STAGE_VALUE)) {
+      stageIds = []
+    }
+    return stageIds
+  }, [stagesExecuted, selectedStageData])
+
   const {
     data: template,
     loading: loadingTemplate,
@@ -232,7 +244,7 @@ function RunPipelineFormBasic({
       branch
     },
     body: {
-      stageIdentifiers: selectedStageData.selectedStageId === ALL_STAGE_VALUE ? [] : [selectedStageData.selectedStageId]
+      stageIdentifiers
     },
     lazy: true
   })
@@ -292,6 +304,18 @@ function RunPipelineFormBasic({
       }
     }
   })
+  const { mutate: reRunStages, loading: reRunStagesLoading } = useRerunStagesWithRuntimeInputYaml({
+    queryParams: {
+      accountIdentifier: accountId,
+      projectIdentifier,
+      orgIdentifier,
+      moduleType: module,
+      repoIdentifier,
+      branch
+    },
+    identifier: pipelineIdentifier,
+    originalExecutionId: executionId || ''
+  })
 
   const {
     refetch: getInputSetsList,
@@ -313,6 +337,46 @@ function RunPipelineFormBasic({
     },
     lazy: true
   })
+
+  const executionStageList = useMemo((): SelectOption[] => {
+    let executionStages: SelectOption[] = []
+    executionStages =
+      stageExecutionData?.data?.map((execStage: StageExecutionResponse) => {
+        return {
+          label: defaultTo(execStage?.stageName, ''),
+          value: defaultTo(execStage?.stageIdentifier, '')
+        }
+      }) || []
+    executionStages.unshift(getAllStageItem(getString))
+
+    if (stagesExecuted?.length) {
+      const updatedSelectedStageList: SelectedStageData[] = []
+      const updatedSelectedItems: SelectOption[] = []
+      stagesExecuted.forEach(stageExucuted => {
+        const selectedStage = stageExecutionData?.data?.find(stageData => stageData.stageIdentifier === stageExucuted)
+        selectedStage && updatedSelectedStageList.push(selectedStage)
+        selectedStage &&
+          updatedSelectedItems.push({
+            label: selectedStage?.stageName as string,
+            value: selectedStage?.stageIdentifier as string
+          })
+      })
+
+      setSelectedStageData({
+        selectedStages: updatedSelectedStageList,
+        selectedStageItems: updatedSelectedItems,
+        allStagesSelected: false
+      })
+      setSkipPreFlightCheck(true)
+    } else {
+      setSelectedStageData({
+        selectedStages: [getAllStageData(getString)],
+        selectedStageItems: [getAllStageItem(getString)],
+        allStagesSelected: true
+      })
+    }
+    return executionStages
+  }, [stageExecutionData?.data])
   const inputSets = inputSetResponse?.data?.content
 
   const yamlTemplate = React.useMemo(() => {
@@ -324,7 +388,8 @@ function RunPipelineFormBasic({
   }, [currentPipeline])
 
   React.useEffect(() => {
-    const toBeUpdated = merge(parse(template?.data?.inputSetTemplateYaml || ''), currentPipeline || {}) as {
+    const parsedPipelineYaml = parse(template?.data?.inputSetTemplateYaml || '') || {}
+    const toBeUpdated = merge(parsedPipelineYaml, currentPipeline || {}) as {
       pipeline: PipelineInfoConfig
     }
     setCurrentPipeline(toBeUpdated)
@@ -343,9 +408,9 @@ function RunPipelineFormBasic({
           try {
             const data = await mergeInputSet({
               inputSetReferences: selectedInputSets.map(item => item.value as string),
-              stageIdentifiers: (selectedStageData.selectedStageId === ALL_STAGE_VALUE
+              stageIdentifiers: selectedStageData.allStagesSelected
                 ? []
-                : [selectedStageData.selectedStageId]) as string[]
+                : selectedStageData.selectedStageItems.map(stageData => stageData.value as string)
             })
             if (data?.data?.pipelineYaml) {
               const inputSetPortion = parse(data.data.pipelineYaml) as {
@@ -454,7 +519,7 @@ function RunPipelineFormBasic({
       if (Object.keys(formErrors).length) {
         return
       }
-      const runIndidualStage = selectedStageData.selectedStageId !== ALL_STAGE_VALUE
+
       valuesPipelineRef.current = valuesPipeline
       if (!skipPreFlightCheck && !forceSkipFlightCheck) {
         // Not skipping pre-flight check - open the new modal
@@ -463,24 +528,35 @@ function RunPipelineFormBasic({
       }
 
       try {
-        const response = isEmpty(executionId)
-          ? runIndidualStage
-            ? await runStage({
-                runtimeInputYaml: !isEmpty(valuesPipelineRef.current)
-                  ? (yamlStringify({ pipeline: valuesPipelineRef.current }) as any)
-                  : '',
-                stageIdentifiers: (selectedStageData.selectedStageId === ALL_STAGE_VALUE
-                  ? []
-                  : [selectedStageData.selectedStageId]) as string[]
-              })
-            : await runPipeline(
+        let response
+        if (isEmpty(executionId)) {
+          response = selectedStageData.allStagesSelected
+            ? await runPipeline(
                 !isEmpty(valuesPipelineRef.current)
                   ? (yamlStringify({ pipeline: valuesPipelineRef.current }) as any)
                   : ''
               )
-          : await reRunPipeline(
-              !isEmpty(valuesPipelineRef.current) ? (yamlStringify({ pipeline: valuesPipelineRef.current }) as any) : ''
-            )
+            : await runStage({
+                runtimeInputYaml: !isEmpty(valuesPipelineRef.current)
+                  ? (yamlStringify({ pipeline: valuesPipelineRef.current }) as any)
+                  : '',
+                stageIdentifiers: stageIdentifiers
+              })
+        } else {
+          response = selectedStageData.allStagesSelected
+            ? await reRunPipeline(
+                !isEmpty(valuesPipelineRef.current)
+                  ? (yamlStringify({ pipeline: valuesPipelineRef.current }) as any)
+                  : ''
+              )
+            : await reRunStages({
+                runtimeInputYaml: !isEmpty(valuesPipelineRef.current)
+                  ? (yamlStringify({ pipeline: valuesPipelineRef.current }) as any)
+                  : '',
+                stageIdentifiers: stageIdentifiers
+              })
+        }
+
         const data = response.data
         const governanceMetadata = data?.planExecution?.governanceMetadata
 
@@ -602,7 +678,15 @@ function RunPipelineFormBasic({
     existingProvide
   ])
 
-  if (loadingPipeline || loadingTemplate || runLoading || runStageLoading || inputSetLoading || reRunLoading) {
+  if (
+    loadingPipeline ||
+    loadingTemplate ||
+    runLoading ||
+    runStageLoading ||
+    inputSetLoading ||
+    reRunLoading ||
+    reRunStagesLoading
+  ) {
     return <PageSpinner />
   }
 
@@ -650,21 +734,91 @@ function RunPipelineFormBasic({
       )
     }
   }
-  const onStageSelect = (item: SelectOption): void => {
-    const stageData = stageExecutionData?.data?.find(stage => stage.stageIdentifier === item.value)
+  const onStageSelect = (items: SelectOption[]): void => {
+    const allStagesSelected = items.find(item => item.value === ALL_STAGE_VALUE)
+    const updatedSelectedStages: SelectedStageData[] = []
+    const hasOnlyAllStagesUnChecked =
+      items.length === stageExecutionData?.data?.length &&
+      !items.find(item => item.value === getAllStageItem(getString).value)
+    if (
+      (!selectedStageData.allStagesSelected && allStagesSelected) ||
+      hasOnlyAllStagesUnChecked ||
+      items?.length === 0
+    ) {
+      const updatedSelectedStageItems = []
+      updatedSelectedStageItems.push(getAllStageItem(getString))
+      updatedSelectedStages.push(getAllStageData(getString))
 
-    setSelectedStageData({
-      selectedStageId: item.value as string,
-      stagesRequired: stageData?.stagesRequired,
-      stageName: defaultTo(stageData?.stageName, item.label),
-      message: stageData?.message
-    })
+      setSelectedStageData({
+        selectedStages: updatedSelectedStages,
+        selectedStageItems: updatedSelectedStageItems,
+        allStagesSelected: true
+      })
+    } else {
+      const newItems = items.filter((option: SelectOption) => {
+        const stageDetails = stageExecutionData?.data?.find(stageData => stageData.stageIdentifier === option.value)
+        stageDetails && updatedSelectedStages.push(stageDetails)
+        return option.value !== ALL_STAGE_VALUE
+      })
+
+      setSelectedStageData({
+        selectedStages: updatedSelectedStages,
+        selectedStageItems: newItems,
+        allStagesSelected: false
+      })
+    }
     setSkipPreFlightCheck(true)
   }
 
-  const renderInfoStrip = (): React.ReactElement | null => {
-    return selectedStageData.message ? <InfoStrip intent={Intent.WARNING} content={selectedStageData.message} /> : null
+  const renderApprovalInfoStrip = (): React.ReactElement | null => {
+    let oneOrMoreApprovalStages = false
+    const allStages = getFlattenedStages(pipeline as PipelineInfoConfig)
+    let approvalStageIndex = -1
+    oneOrMoreApprovalStages = selectedStageData.selectedStages.every((stageData: SelectedStageData, index: number) => {
+      const currStage = allStages.stages.find(stage => {
+        return stage?.stage?.identifier === stageData?.stageIdentifier
+      })
+      if (currStage?.stage?.type === StageType.APPROVAL) {
+        approvalStageIndex = index
+        return true
+      }
+      return false
+    })
+
+    return oneOrMoreApprovalStages ? (
+      <InfoStrip
+        intent={Intent.WARNING}
+        content={selectedStageData.selectedStages?.[approvalStageIndex]?.message as string}
+      />
+    ) : null
   }
+
+  const renderExpressionsInfo = (): React.ReactElement | null => {
+    return (template?.data as any)?.replacedExpressions?.length > 0 ? (
+      <InfoStrip
+        intent={Intent.PRIMARY}
+        content={
+          <div>
+            {getString('pipeline.expressionsReplaced')}.&nbsp;
+            <Tooltip
+              usePortal
+              portalClassName={css.expressionsTooltip}
+              content={
+                <ul>
+                  {(template?.data as any)?.replacedExpressions.map((expr: string) => (
+                    <li key={expr}>{expr}</li>
+                  ))}
+                </ul>
+              }
+            >
+              <span className={css.underlineText}>{getString('common.seeDetails')}</span>
+            </Tooltip>
+          </div>
+        }
+      />
+    ) : null
+  }
+
   const child = (
     <>
       <Formik<Values>
@@ -686,7 +840,6 @@ function RunPipelineFormBasic({
         enableReinitialize
         validate={async values => {
           let errors: FormikErrors<InputSetDTO> = formErrors
-
           setCurrentPipeline({ ...currentPipeline, pipeline: values as PipelineInfoConfig })
 
           function validateErrors(): Promise<FormikErrors<InputSetDTO>> {
@@ -695,8 +848,7 @@ function RunPipelineFormBasic({
                 const validatedErrors =
                   (validatePipeline({
                     pipeline: values as PipelineInfoConfig,
-                    template:
-                      selectedStageData.selectedStageId === ALL_STAGE_VALUE ? yamlTemplate?.pipeline : yamlTemplate,
+                    template: yamlTemplate?.pipeline,
                     originalPipeline: pipeline,
                     getString,
                     viewType: StepViewType.DeploymentForm
@@ -740,17 +892,27 @@ function RunPipelineFormBasic({
                         />
                       </GitSyncStoreProvider>
                     )}
-                    {RUN_INDIVIDUAL_STAGE && (
-                      <DropDown
-                        disabled={(stagesExecuted as string[])?.length > 0}
+
+                    <div className={cx({ [css.noDisplay]: !RUN_INDIVIDUAL_STAGE })}>
+                      <MultiSelectDropDown
+                        popoverClassName={css.disabledStageDropdown}
+                        hideItemCount={selectedStageData.allStagesSelected}
+                        disabled={Boolean(executionId)}
                         buttonTestId={'stage-select'}
                         onChange={onStageSelect}
-                        value={selectedStageData.selectedStageId as string}
+                        onPopoverClose={() => {
+                          getTemplateFromPipeline()
+                        }}
+                        value={selectedStageData.selectedStageItems}
                         items={executionStageList}
                         minWidth={150}
                         usePortal={true}
+                        placeholder={
+                          selectedStageData.allStagesSelected ? getString('pipeline.allStages') : getString('stages')
+                        }
                       />
-                    )}
+                    </div>
+
                     <div className={css.optionBtns}>
                       <VisualYamlToggle
                         initialSelectedView={selectedView}
@@ -766,7 +928,8 @@ function RunPipelineFormBasic({
                   <ErrorsStrip formErrors={formErrors} />
                 </>
               )}
-              {RUN_INDIVIDUAL_STAGE && renderInfoStrip()}
+              {RUN_INDIVIDUAL_STAGE && renderApprovalInfoStrip()}
+              {RUN_INDIVIDUAL_STAGE && renderExpressionsInfo()}
               {selectedView === SelectedView.VISUAL ? (
                 <div className={executionView ? css.runModalFormContentExecutionView : css.runModalFormContent}>
                   <FormikForm>
@@ -915,7 +1078,7 @@ function RunPipelineFormBasic({
                   </Layout.Horizontal>
                   <SaveAsInputSet
                     key="saveasinput"
-                    disabled={selectedStageData.selectedStageId !== ALL_STAGE_VALUE}
+                    disabled={!selectedStageData.allStagesSelected}
                     pipeline={pipeline}
                     currentPipeline={currentPipeline}
                     values={values}

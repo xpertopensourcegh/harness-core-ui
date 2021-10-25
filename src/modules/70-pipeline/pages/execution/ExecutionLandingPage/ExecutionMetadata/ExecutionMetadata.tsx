@@ -66,8 +66,10 @@ export default function ExecutionMetadata(): React.ReactElement {
       pipelineExecutionSummary?.stagesExecution &&
       pipelineExecutionSummary.stagesExecuted?.length === 1 ? (
       <Tag className={css.singleExecutionTag}>{`${getString('pipeline.singleStageExecution')} ${
-        pipelineExecutionSummary?.stagesExecuted?.[0]
+        pipelineExecutionSummary?.stagesExecutedNames?.[pipelineExecutionSummary?.stagesExecuted?.[0]]
       }`}</Tag>
+    ) : pipelineExecutionSummary?.stagesExecution ? (
+      <Tag className={css.singleExecutionTag}>{getString('pipeline.multiStageExecution')}</Tag>
     ) : null
   }
   return (

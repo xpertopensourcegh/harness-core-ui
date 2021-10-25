@@ -64,6 +64,7 @@ jest.mock('services/pipeline-ng', () => ({
   useGetPipeline: () => mockGetPipeline,
   usePostPipelineExecuteWithInputSetYaml: () => mockPostPipelineExecuteYaml,
   useRePostPipelineExecuteWithInputSetYaml: () => mockRePostPipelineExecuteYaml,
+  useRerunStagesWithRuntimeInputYaml: () => mockRePostPipelineExecuteYaml,
   useGetInputSetsListForPipeline: () => mockInputSetsList,
   useGetMergeInputSetFromPipelineTemplateWithListInput: () => mockMergeInputSetResponse,
   useCreateVariables: () => mockPipelineVariablesResponse,
