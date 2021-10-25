@@ -58,25 +58,8 @@
     &.policySetsIcon {
       --right-bar-icon: var(--primary-7);
 
-      &:hover span {
-        color: var(--primary-7) !important;
-      }
-
       span {
-        line-height: 12px !important;
-        color: var(--grey-500) !important;
-
-        g {
-          fill: var(--right-bar-icon);
-        }
-      }
-
-      &.selected {
-        --right-bar-bg: var(--primary-7);
-        --right-bar-icon: var(--white);
-        span {
-          color: var(--white) !important;
-        }
+        color: var(--white) !important;
       }
     }
 

@@ -12,6 +12,8 @@ import PolicyControlPage from './pages/PolicyControl/PolicyControlPage'
 import PolicySets from './pages/PolicySets/PolicySets'
 import PolicyEvaluations from './pages/PolicyEvaluations/PolicyEvaluations'
 import { EditPolicy } from './pages/EditPolicy/EditPolicy'
+import { PolicySetDetail } from './pages/PolicySetDetail/PolicySetDetail'
+import { EvaluationDetail } from './pages/EvaluationDetail/EvaluationDetail'
 import PolicyDashboard from './pages/PolicyDashboard/PolicyDashboard'
 
 export const AccountSideNavProps: SidebarContext = {
@@ -77,12 +79,32 @@ export default (
       </RouteWithLayout>
 
       <RouteWithLayout
+        path={routes.toPolicySetDetail({ ...accountPathProps, policySetIdentifier: ':policySetIdentifier' })}
+        exact
+        sidebarProps={AccountSideNavProps}
+      >
+        <PolicyControlPage title="Policy Sets">
+          <PolicySetDetail />
+        </PolicyControlPage>
+      </RouteWithLayout>
+
+      <RouteWithLayout
         path={routes.toPolicyEvaluationsPage({ ...accountPathProps })}
         exact
         sidebarProps={AccountSideNavProps}
       >
         <PolicyControlPage title="Evaluations">
           <PolicyEvaluations />
+        </PolicyControlPage>
+      </RouteWithLayout>
+
+      <RouteWithLayout
+        path={routes.toPolicyEvaluationDetail({ ...accountPathProps, evaluationId: ':evaluationId' })}
+        exact
+        sidebarProps={AccountSideNavProps}
+      >
+        <PolicyControlPage title="Evaluations">
+          <EvaluationDetail />
         </PolicyControlPage>
       </RouteWithLayout>
     </Route>

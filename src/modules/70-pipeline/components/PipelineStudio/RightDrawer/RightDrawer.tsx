@@ -21,6 +21,7 @@ import { useToaster } from '@common/components'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import { ModalProps, TemplateConfigModal } from 'framework/Templates/TemplateConfigModal/TemplateConfigModal'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { PipelineGovernanceView } from '@governance/views/PipelineGovernanceView/PipelineGovernanceView'
 import { DefaultTemplate } from 'framework/Templates/templates'
 import { usePipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerData, DrawerSizes, DrawerTypes, TemplateDrawerTypes } from '../PipelineContext/PipelineActions'
@@ -39,7 +40,6 @@ import { PipelineTemplates } from '../PipelineTemplates/PipelineTemplates'
 import { ExecutionStrategy, ExecutionStrategyRefInterface } from '../ExecutionStrategy/ExecutionStrategy'
 import type { StepData } from '../../AbstractSteps/AbstractStepFactory'
 import { StepType } from '../../PipelineSteps/PipelineStepInterface'
-import { PipelinePolicySets } from '../PipelineVariables/PipelinePolicySets'
 import { FlowControl } from '../FlowControl/FlowControl'
 import { AdvancedOptions } from '../AdvancedOptions/AdvancedOptions'
 import css from './RightDrawer.module.scss'
@@ -724,7 +724,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           }}
         />
       )}
-      {type === DrawerTypes.PolicySets && <PipelinePolicySets pipelineName={pipeline.name} />}
+      {type === DrawerTypes.PolicySets && <PipelineGovernanceView pipelineName={pipeline.name} />}
       {type === DrawerTypes.ConfigureService && selectedStageId && data?.stepConfig && data?.stepConfig.node && (
         <StepCommands
           key={`step-form-${data.stepConfig.node.identifier}`}

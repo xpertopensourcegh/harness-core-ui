@@ -769,6 +769,36 @@ export interface StringsMap {
   'rbac.usersPage.validation.role': string
   'rbac.youAreMissingTheFollowingPermission': string
   'rbac.youAreNotAuthorizedTo': string
+  'governance.clearOutput': string
+  'governance.deleteConfirmation': string
+  'governance.deleteDone': string
+  'governance.deletePolicySetConfirmation': string
+  'governance.deletePolicySetDone': string
+  'governance.deletePolicySetTitle': string
+  'governance.deleteTitle': string
+  'governance.editPolicy': string
+  'governance.emptyPolicySet': string
+  'governance.evaluatedOn': string
+  'governance.evaluatedTime': string
+  'governance.evaluations': string
+  'governance.event': string
+  'governance.failureHeading': string
+  'governance.failureModalTitle': string
+  'governance.formatInput': string
+  'governance.inputFailedEvaluation': string
+  'governance.inputSuccededEvaluation': string
+  'governance.onRun': string
+  'governance.onSave': string
+  'governance.policyIdentifier': string
+  'governance.policyName': string
+  'governance.policySetName': string
+  'governance.policySets': string
+  'governance.policySetsApplied': string
+  'governance.selectInput': string
+  'governance.selectSamplePolicy': string
+  'governance.successHeading': string
+  'governance.warn': string
+  'governance.warning': string
   'authSettings.SAMLProvider': string
   'authSettings.WhitelistedDomainsUpdated': string
   'authSettings.accountOrOAuthLogin': string
@@ -2271,14 +2301,10 @@ export interface StringsMap {
   'pipeline.policyEvaluations.evaluatedTime': string
   'pipeline.policyEvaluations.evaluations': string
   'pipeline.policyEvaluations.failedToSavePipeline': string
-  'pipeline.policyEvaluations.failureHeading': string
-  'pipeline.policyEvaluations.failureModalTitle': string
   'pipeline.policyEvaluations.policySetName': string
   'pipeline.policyEvaluations.policySets': string
   'pipeline.policyEvaluations.policySetsApplied': string
-  'pipeline.policyEvaluations.successHeading': string
   'pipeline.policyEvaluations.title': string
-  'pipeline.policyEvaluations.warn': string
   'pipeline.poweredByHarness': string
   'pipeline.progressPercentage': string
   'pipeline.provisionerSteps': string

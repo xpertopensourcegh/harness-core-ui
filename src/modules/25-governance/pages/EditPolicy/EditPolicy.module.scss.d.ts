@@ -10,5 +10,6 @@ declare const styles: {
   readonly ioEditor: string
   readonly policyNameInputContainer: string
   readonly outputError: string
+  readonly titleContainer: string
 }
 export default styles

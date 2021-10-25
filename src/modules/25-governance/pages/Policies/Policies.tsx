@@ -102,15 +102,15 @@ const Policies: React.FC = () => {
     const { showSuccess, showError } = useToaster()
     const { mutate: deletePolicy } = useDeletePolicy({})
     const { openDialog: openDeleteDialog } = useConfirmationDialog({
-      contentText: 'Are you sure you want to delete Policy?',
-      titleText: 'Delete Policy',
+      contentText: getString('governance.deleteConfirmation', { name: data.original.name }),
+      titleText: getString('governance.deleteTitle'),
       confirmButtonText: getString('delete'),
       cancelButtonText: getString('cancel'),
       onCloseDialog: async didConfirm => {
         if (didConfirm && data) {
           try {
             await deletePolicy(data.original.identifier as string)
-            showSuccess('Successfully deleted Policy')
+            showSuccess(getString('governance.deleteDone', { name: data.original.name }))
             refetch()
           } catch (err) {
             showError(err?.message)

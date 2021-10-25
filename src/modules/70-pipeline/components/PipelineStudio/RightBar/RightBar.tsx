@@ -117,10 +117,7 @@ export const RightBar = (): JSX.Element => {
   } = usePipelineContext()
   const codebase = (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase
   const [codebaseStatus, setCodebaseStatus] = React.useState<CodebaseStatuses>(CodebaseStatuses.ZeroState)
-
-  // TODO: This feature is not ready yet, guard it by localStorage as well
-  const enableGovernanceSidebar =
-    useFeatureFlag(FeatureFlag.OPA_PIPELINE_GOVERNANCE) && localStorage.OPA_PIPELINE_GOVERNANCE_SIDEBAR
+  const enableGovernanceSidebar = useFeatureFlag(FeatureFlag.OPA_PIPELINE_GOVERNANCE)
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
     PipelineType<{
@@ -390,10 +387,16 @@ export const RightBar = (): JSX.Element => {
 
       {enableGovernanceSidebar && (
         <Button
-          className={cx(css.iconButton, css.policySetsIcon, {
+          className={cx(css.iconButton, {
             [css.selected]: type === DrawerTypes.PolicySets
           })}
+          text={getString('common.policy.policysets')}
           variation={ButtonVariation.TERTIARY}
+          font={{ weight: 'semi-bold', size: 'xsmall' }}
+          icon="governance"
+          iconProps={{ size: 20 }}
+          minimal
+          withoutCurrentColor
           onClick={() => {
             updatePipelineView({
               ...pipelineView,
@@ -403,11 +406,6 @@ export const RightBar = (): JSX.Element => {
               splitViewData: {}
             })
           }}
-          font={{ weight: 'semi-bold', size: 'xsmall' }}
-          icon="governance"
-          withoutCurrentColor={true}
-          iconProps={{ size: 20 }}
-          text={getString('common.policy.policysets')}
         />
       )}
 

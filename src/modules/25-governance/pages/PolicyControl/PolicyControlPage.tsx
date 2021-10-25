@@ -6,6 +6,7 @@ import { Page } from '@common/exports'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
+import { useQueryParams } from '@common/hooks'
 
 export interface PolicyControlPageProps {
   title?: string
@@ -14,12 +15,13 @@ export interface PolicyControlPageProps {
 const PolicyControlPage: React.FC<PolicyControlPageProps> = ({ title = '', children }) => {
   const { accountId } = useParams<PipelineType<ProjectPathProps>>()
   const { getString } = useStrings()
+  const { pageTitle } = useQueryParams<{ pageTitle: string }>()
 
   return (
     <>
       <Page.Header
         breadcrumbs={<NGBreadcrumbs />}
-        title={title}
+        title={pageTitle || title || ''}
         toolbar={
           <TabNavigation
             size={'small'}

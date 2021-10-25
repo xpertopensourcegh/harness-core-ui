@@ -1,4 +1,5 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
 import {
   Button,
   Text,
@@ -62,9 +63,17 @@ export const useDeleteLinkedPolicy = ({ policyset, policy, ...props }: UseDelete
 
 const StepOne: React.FC<CreatePolicySetWizardProps> = ({ nextStep, policySetData, prevStepData }) => {
   const _policySetData = { ...policySetData, ...prevStepData }
-
-  const { mutate: createPolicySet } = useCreatePolicySet({})
-  const { mutate: updatePolicySet } = useUpdatePolicySet({ policyset: _policySetData?.identifier?.toString() })
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<Record<string, string>>()
+  const queryParams = {
+    accountIdentifier: accountId,
+    orgIdentifier,
+    projectIdentifier
+  }
+  const { mutate: createPolicySet } = useCreatePolicySet({ queryParams })
+  const { mutate: updatePolicySet } = useUpdatePolicySet({
+    policyset: _policySetData?.identifier?.toString(),
+    queryParams
+  })
   const { showSuccess, showError } = useToaster()
 
   const onSubmitFirstStep = async (values: any) => {
@@ -171,6 +180,12 @@ const StepTwo: React.FC<{
   policySetData: PolicySetWithLinkedPolicies | any
 }> = ({ prevStepData, hideModal, refetch, policySetData, previousStep }) => {
   const { getString } = useStrings()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<Record<string, string>>()
+  const queryParams = {
+    accountIdentifier: accountId,
+    orgIdentifier,
+    projectIdentifier
+  }
   const { data: policies } = useGetPolicyList({})
   const [policyId, setPolicyId] = React.useState('')
   const [severity, setSeverity] = React.useState('')
@@ -194,7 +209,7 @@ const StepTwo: React.FC<{
     policyset: policySetData?.identifier?.toString() || prevStepData?.id
   })
 
-  const { mutate: patchPolicy } = useAddLinkedPolicy({ policyset: prevStepData?.id, policy: policyId })
+  const { mutate: patchPolicy } = useAddLinkedPolicy({ policyset: prevStepData?.id, policy: policyId, queryParams })
 
   const { mutate: deleteLinkedPolicy } = useDeleteLinkedPolicy({
     policyset: prevStepData?.id,

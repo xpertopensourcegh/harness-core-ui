@@ -573,7 +573,7 @@ function RunPipelineFormBasic({
                 module
               }),
               state: {
-                governanceFailed: !!governanceMetadata?.deny,
+                governanceFailed: !!governanceMetadata?.deny || governanceMetadata?.status === 'error',
                 governanceMetadata
               }
             })

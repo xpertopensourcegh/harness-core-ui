@@ -51,6 +51,18 @@
         "parameters": [
           {
             "type": "string",
+            "description": "A unique ID for the entity under evaluation e.g. UUID, database key. Can be used to filter out evaluations for a particular entity. The caller must ensure the ID is globally unqiue and cannot clash with any other callers.",
+            "name": "entity",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "Arbitrary string containing metadata about the entity like friendly name. Can be a raw string, JSON, YAML, base 64 encoded as suits the caller.",
+            "name": "entityMetadata",
+            "in": "query"
+          },
+          {
+            "type": "string",
             "example": "2,3,5",
             "description": "Comma-separated list of policy set IDs",
             "name": "ids",
@@ -79,20 +91,29 @@
         "parameters": [
           {
             "type": "string",
-            "description": "Harness account ID",
             "name": "accountIdentifier",
             "in": "query"
           },
           {
             "type": "string",
-            "description": "Harness org ID",
             "name": "orgIdentifier",
             "in": "query"
           },
           {
             "type": "string",
-            "description": "Harness project ID",
             "name": "projectIdentifier",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "A unique ID for the entity under evaluation e.g. UUID, database key. Can be used to filter out evaluations for a particular entity. The caller must ensure the ID is globally unqiue and cannot clash with any other callers.",
+            "name": "entity",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "Arbitrary string containing metadata about the entity like friendly name. Can be a raw string, JSON, YAML, base 64 encoded as suits the caller.",
+            "name": "entityMetadata",
             "in": "query"
           },
           {
@@ -129,6 +150,43 @@
         "description": "Get the list of all evaluations",
         "tags": ["evaluation"],
         "operationId": "getEvaluationList",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "accountIdentifier",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orgIdentifier",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "projectIdentifier",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "Filter by evaluation 'entity' field",
+            "name": "entity",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "example": "50",
+            "description": "the number of records returned per page",
+            "name": "per_page",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "example": "150",
+            "description": "the id of the last returned record",
+            "name": "last_seen",
+            "in": "query"
+          }
+        ],
         "responses": {
           "200": {
             "$ref": "#/responses/evaluationList"
@@ -142,6 +200,21 @@
         "tags": ["evaluation"],
         "operationId": "getEvaluation",
         "parameters": [
+          {
+            "type": "string",
+            "name": "accountIdentifier",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orgIdentifier",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "projectIdentifier",
+            "in": "query"
+          },
           {
             "type": "string",
             "name": "evaluation",
@@ -162,6 +235,21 @@
         "parameters": [
           {
             "type": "string",
+            "name": "accountIdentifier",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orgIdentifier",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "projectIdentifier",
+            "in": "query"
+          },
+          {
+            "type": "string",
             "name": "evaluation",
             "in": "path",
             "required": true
@@ -170,6 +258,18 @@
         "responses": {
           "204": {
             "description": ""
+          }
+        }
+      }
+    },
+    "/examples": {
+      "get": {
+        "description": "Get the example rego and input",
+        "tags": ["examples"],
+        "operationId": "getexamples",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/examples"
           }
         }
       }
@@ -203,6 +303,37 @@
         "description": "Get the list of all policies",
         "tags": ["policy"],
         "operationId": "getPolicyList",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "accountIdentifier",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orgIdentifier",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "projectIdentifier",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "example": "50",
+            "description": "the number of records returned per page",
+            "name": "per_page",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "example": "5",
+            "description": "the page requested page number",
+            "name": "page",
+            "in": "query"
+          }
+        ],
         "responses": {
           "200": {
             "$ref": "#/responses/policyList"
@@ -215,10 +346,25 @@
         "operationId": "createPolicy",
         "parameters": [
           {
+            "type": "string",
+            "name": "accountIdentifier",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orgIdentifier",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "projectIdentifier",
+            "in": "query"
+          },
+          {
             "name": "Body",
             "in": "body",
             "schema": {
-              "$ref": "#/definitions/PolicyInput"
+              "$ref": "#/definitions/PolicyCreate"
             }
           }
         ],
@@ -235,6 +381,21 @@
         "tags": ["policy"],
         "operationId": "getPolicy",
         "parameters": [
+          {
+            "type": "string",
+            "name": "accountIdentifier",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orgIdentifier",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "projectIdentifier",
+            "in": "query"
+          },
           {
             "type": "string",
             "name": "policy",
@@ -255,6 +416,21 @@
         "parameters": [
           {
             "type": "string",
+            "name": "accountIdentifier",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orgIdentifier",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "projectIdentifier",
+            "in": "query"
+          },
+          {
+            "type": "string",
             "name": "policy",
             "in": "path",
             "required": true
@@ -273,6 +449,21 @@
         "parameters": [
           {
             "type": "string",
+            "name": "accountIdentifier",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orgIdentifier",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "projectIdentifier",
+            "in": "query"
+          },
+          {
+            "type": "string",
             "name": "policy",
             "in": "path",
             "required": true
@@ -281,7 +472,7 @@
             "name": "Body",
             "in": "body",
             "schema": {
-              "$ref": "#/definitions/PolicyInput"
+              "$ref": "#/definitions/PolicyUpdate"
             }
           }
         ],
@@ -315,7 +506,28 @@
           },
           {
             "type": "string",
+            "description": "Filter by policy set 'type' field",
             "name": "type",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "Filter by policy set 'action' field",
+            "name": "action",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "example": "50",
+            "description": "The number of records returned per page",
+            "name": "per_page",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "example": "5",
+            "description": "The page requested page number",
+            "name": "page",
             "in": "query"
           }
         ],
@@ -331,10 +543,25 @@
         "operationId": "createPolicySet",
         "parameters": [
           {
+            "type": "string",
+            "name": "accountIdentifier",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orgIdentifier",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "projectIdentifier",
+            "in": "query"
+          },
+          {
             "name": "Body",
             "in": "body",
             "schema": {
-              "$ref": "#/definitions/PolicySetInput"
+              "$ref": "#/definitions/PolicySetCreate"
             }
           }
         ],
@@ -351,6 +578,21 @@
         "tags": ["policyset"],
         "operationId": "getPolicySet",
         "parameters": [
+          {
+            "type": "string",
+            "name": "accountIdentifier",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orgIdentifier",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "projectIdentifier",
+            "in": "query"
+          },
           {
             "type": "string",
             "name": "policyset",
@@ -371,6 +613,21 @@
         "parameters": [
           {
             "type": "string",
+            "name": "accountIdentifier",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orgIdentifier",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "projectIdentifier",
+            "in": "query"
+          },
+          {
+            "type": "string",
             "name": "policyset",
             "in": "path",
             "required": true
@@ -389,6 +646,21 @@
         "parameters": [
           {
             "type": "string",
+            "name": "accountIdentifier",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orgIdentifier",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "projectIdentifier",
+            "in": "query"
+          },
+          {
+            "type": "string",
             "name": "policyset",
             "in": "path",
             "required": true
@@ -397,7 +669,7 @@
             "name": "Body",
             "in": "body",
             "schema": {
-              "$ref": "#/definitions/PolicySetInput"
+              "$ref": "#/definitions/PolicySetUpdate"
             }
           }
         ],
@@ -414,6 +686,21 @@
         "tags": ["policyset"],
         "operationId": "deleteLinkedPolicy",
         "parameters": [
+          {
+            "type": "string",
+            "name": "accountIdentifier",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orgIdentifier",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "projectIdentifier",
+            "in": "query"
+          },
           {
             "type": "string",
             "name": "policyset",
@@ -438,6 +725,21 @@
         "tags": ["policyset"],
         "operationId": "addLinkedPolicy",
         "parameters": [
+          {
+            "type": "string",
+            "name": "accountIdentifier",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orgIdentifier",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "projectIdentifier",
+            "in": "query"
+          },
           {
             "type": "string",
             "name": "policyset",
@@ -624,6 +926,10 @@
     "AggregateStatus": {
       "type": "object",
       "properties": {
+        "date": {
+          "type": "integer",
+          "format": "int64"
+        },
         "error_count": {
           "type": "integer",
           "format": "int64"
@@ -712,6 +1018,9 @@
         "entity": {
           "type": "string"
         },
+        "entity_metadata": {
+          "type": "string"
+        },
         "id": {
           "type": "integer",
           "format": "int64"
@@ -763,6 +1072,20 @@
       "type": "array",
       "items": {
         "$ref": "#/definitions/EvaluationDetail"
+      }
+    },
+    "Example": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "string"
+        },
+        "rego": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
       }
     },
     "LinkedPolicy": {
@@ -840,9 +1163,12 @@
         }
       }
     },
-    "PolicyInput": {
+    "PolicyCreate": {
       "type": "object",
       "properties": {
+        "identifier": {
+          "type": "string"
+        },
         "name": {
           "type": "string"
         },
@@ -888,7 +1214,27 @@
         }
       }
     },
-    "PolicySetInput": {
+    "PolicySetCreate": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "identifier": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "PolicySetUpdate": {
       "type": "object",
       "properties": {
         "action": {
@@ -951,6 +1297,17 @@
         "updated": {
           "type": "integer",
           "format": "int64"
+        }
+      }
+    },
+    "PolicyUpdate": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "rego": {
+          "type": "string"
         }
       }
     },
@@ -1084,6 +1441,15 @@
         "type": "array",
         "items": {
           "$ref": "#/definitions/Evaluation"
+        }
+      }
+    },
+    "examples": {
+      "description": "",
+      "schema": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/Example"
         }
       }
     },

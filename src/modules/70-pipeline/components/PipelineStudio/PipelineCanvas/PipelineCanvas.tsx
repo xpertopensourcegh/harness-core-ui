@@ -55,7 +55,7 @@ import { PipelineActions } from '@common/constants/TrackingConstants'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { RunPipelineForm } from '@pipeline/components/RunPipelineModal/RunPipelineForm'
 import { PipelineFeatureLimitBreachedBanner } from '@pipeline/factories/PipelineFeatureRestrictionFactory/PipelineFeatureRestrictionFactory'
-import { PolicyEvaluationsFailureModal } from '@pipeline/pages/execution/ExecutionPolicyEvaluationsView/ExecutionPolicyEvaluationsView'
+import { EvaluationModal } from '@governance/modal/EvaluationModal/EvaluationModal'
 import { InputSetSummaryResponse, useGetInputsetYaml } from 'services/pipeline-ng'
 import { savePipeline, usePipelineContext } from '../PipelineContext/PipelineContext'
 import CreatePipelines from '../CreateModal/PipelineCreate'
@@ -197,6 +197,8 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   const [selectedBranch, setSelectedBranch] = React.useState(branch || '')
   const { OPA_PIPELINE_GOVERNANCE } = useFeatureFlags()
   const [governanceMetadata, setGovernanceMetadata] = useState<GovernanceMetadata>()
+  const shouldShowGovernanceEvaluation =
+    OPA_PIPELINE_GOVERNANCE && (governanceMetadata?.deny || governanceMetadata?.status === 'error')
 
   const { openDialog: openUnsavedChangesDialog } = useConfirmationDialog({
     cancelButtonText: getString('cancel'),
@@ -940,8 +942,8 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
         </div>
         <PipelineFeatureLimitBreachedBanner featureIdentifier={FeatureIdentifier.SERVICES} module={module} />
         {isYaml ? <PipelineYamlView /> : <StageBuilder />}
-        {OPA_PIPELINE_GOVERNANCE && governanceMetadata?.deny && (
-          <PolicyEvaluationsFailureModal
+        {shouldShowGovernanceEvaluation && (
+          <EvaluationModal
             accountId={accountId}
             metadata={governanceMetadata}
             headingErrorMessage={getString('pipeline.policyEvaluations.failedToSavePipeline')}

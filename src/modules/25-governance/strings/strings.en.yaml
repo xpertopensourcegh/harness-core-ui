@@ -1,0 +1,30 @@
+editPolicy: Edit Policy
+formatInput: Format Input
+selectInput: Select Input
+clearOutput: Clear Output
+inputFailedEvaluation: Input failed policy evaluation
+inputSuccededEvaluation: Input succeded policy evaluation
+warning: warning
+evaluatedTime: 'Evaluated {{time}}'
+failureHeading: Pipeline execution could not proceed due to the policy evaluation failures.
+successHeading: All policies are passed.
+policySets: 'Policy Sets ({{count}})'
+evaluations: Evaluations {{count}}
+policySetName: 'Policy Set: {{name}}'
+emptyPolicySet: This Policy Set does not have any policies attached to it.
+failureModalTitle: Policy Set Evaluations
+policySetsApplied: '{{pipelineName}}: Policy Sets applied'
+warn: warning {{count}}
+event: Pipeline Event
+evaluatedOn: Evaluated On
+onRun: On Run
+onSave: On Save
+policyName: 'Policy Name: {{name}}'
+policyIdentifier: 'Policy Identifier: {{policyIdentifier}}'
+deleteTitle: Delete Policy
+deleteConfirmation: Are you sure you want to delete Policy "{{name}}"? This action cannot be undone.
+deleteDone: Policy "{{name}}" deleted.
+deletePolicySetTitle: Delete Policy Set
+deletePolicySetConfirmation: Are you sure you want to delete Policy Set "{{name}}"? This action cannot be undone.
+deletePolicySetDone: Policy Set "{{name}}" deleted.
+selectSamplePolicy: Select a Policy example

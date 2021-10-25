@@ -84,7 +84,21 @@ const routes = {
     }) => `settings/governance/policies/edit/${policyIdentifier}`
   ),
   toPolicySetsPage: withAccountId(() => 'settings/governance/policy-sets'),
+  toPolicySetDetail: withAccountId(
+    ({
+      policySetIdentifier
+    }: AccountPathProps & {
+      policySetIdentifier: string
+    }) => `settings/governance/policy-sets/${policySetIdentifier}`
+  ),
   toPolicyEvaluationsPage: withAccountId(() => 'settings/governance/policy-evaluations'),
+  toPolicyEvaluationDetail: withAccountId(
+    ({
+      evaluationId
+    }: AccountPathProps & {
+      evaluationId?: number | string
+    }) => `settings/governance/policy-evaluations/${evaluationId}`
+  ),
   toLogin: (): string => '/login',
   toRedirect: (): string => `/redirect`,
   toSignup: (): string => '/signup',

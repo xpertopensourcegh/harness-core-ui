@@ -1,10 +1,7 @@
-//
-// TODO: This file is just a place-holder
-//
 import React, { useState, useEffect, useMemo } from 'react'
+import { useHistory, useParams } from 'react-router-dom'
 // import * as moment from 'moment'
 import { Text, Color, Layout, Icon } from '@wings-software/uicore'
-// import { useParams } from 'react-router-dom'
 // import { useGet } from 'restful-react'
 import ReactTimeago from 'react-timeago'
 import type { CellProps, Renderer, Column } from 'react-table'
@@ -17,14 +14,17 @@ import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 
 import { setPageNumber } from '@common/utils/utils'
 import Table from '@common/components/Table/Table'
+import routes from '@common/RouteDefinitions'
 
 import { useGetEvaluationList, Evaluation, EvaluationDetail } from 'services/pm'
-import { isEvaluationFailed } from '@governance/utils/PmUtils'
+import { isEvaluationFailed } from '@governance/utils/GovernanceUtils'
 
 import css from './PolicyEvaluations.module.scss'
 
 const PolicyEvaluations: React.FC = () => {
   const { getString } = useStrings()
+  const { accountId } = useParams<Record<string, string>>()
+  const history = useHistory()
   useDocumentTitle(getString('common.policies'))
   const [page, setPage] = useState(0)
 
@@ -177,6 +177,9 @@ const PolicyEvaluations: React.FC = () => {
             pageCount: 0,
             pageIndex: 0,
             gotoPage: (pageNumber: number) => setPage(pageNumber)
+          }}
+          onRowClick={evaluation => {
+            history.push(routes.toPolicyEvaluationDetail({ accountId, evaluationId: evaluation.id }))
           }}
         />
       </Page.Body>

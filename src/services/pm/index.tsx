@@ -6,6 +6,7 @@ import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, Use
 import { getConfig } from '../config'
 export const SPEC_VERSION = '1.0.0'
 export interface AggregateStatus {
+  date?: number
   error_count?: number
   pass_count?: number
   warning_count?: number
@@ -34,6 +35,7 @@ export interface Evaluation {
   created?: number
   details?: EvaluationDetails
   entity?: string
+  entity_metadata?: string
   id?: number
   input?: { [key: string]: any }
   org_id?: string
@@ -51,6 +53,12 @@ export interface EvaluationDetail {
 }
 
 export type EvaluationDetails = EvaluationDetail[]
+
+export interface Example {
+  input?: string
+  rego?: string
+  type?: string
+}
 
 export interface LinkedPolicy {
   account_id?: string
@@ -79,7 +87,8 @@ export interface Policy {
   updated?: number
 }
 
-export interface PolicyInput {
+export interface PolicyCreate {
+  identifier?: string
   name?: string
   rego?: string
 }
@@ -97,7 +106,15 @@ export interface PolicySet {
   updated?: number
 }
 
-export interface PolicySetInput {
+export interface PolicySetCreate {
+  action?: string
+  enabled?: boolean
+  identifier?: string
+  name?: string
+  type?: string
+}
+
+export interface PolicySetUpdate {
   action?: string
   enabled?: boolean
   name?: string
@@ -117,6 +134,11 @@ export interface PolicySetWithLinkedPolicies {
   project_id?: string
   type?: string
   updated?: number
+}
+
+export interface PolicyUpdate {
+  name?: string
+  rego?: string
 }
 
 export interface RawEvaluationInput {
@@ -152,10 +174,6 @@ export interface Version {
   version?: string
 }
 
-export type PolicyInputRequestBody = PolicyInput
-
-export type PolicySetInputRequestBody = PolicySetInput
-
 export type UserInputRequestBody = UserInput
 
 export type EvaluateByIdsInputRequestBody = string
@@ -175,6 +193,8 @@ export type EvaluateRawResponse = Evaluation
 export type EvaluationResponse = Evaluation
 
 export type EvaluationListResponse = Evaluation[]
+
+export type ExamplesResponse = Example[]
 
 export type PolicyResponse = Policy
 
@@ -244,6 +264,14 @@ export const useEvaluateRaw = (props: UseEvaluateRawProps) =>
 
 export interface EvaluateByIdsQueryParams {
   /**
+   * A unique ID for the entity under evaluation e.g. UUID, database key. Can be used to filter out evaluations for a particular entity. The caller must ensure the ID is globally unqiue and cannot clash with any other callers.
+   */
+  entity?: string
+  /**
+   * Arbitrary string containing metadata about the entity like friendly name. Can be a raw string, JSON, YAML, base 64 encoded as suits the caller.
+   */
+  entityMetadata?: string
+  /**
    * Comma-separated list of policy set IDs
    */
   ids?: string
@@ -282,18 +310,17 @@ export const useEvaluateByIds = (props: UseEvaluateByIdsProps) =>
   )
 
 export interface EvaluateByTypeQueryParams {
-  /**
-   * Harness account ID
-   */
   accountIdentifier?: string
-  /**
-   * Harness org ID
-   */
   orgIdentifier?: string
-  /**
-   * Harness project ID
-   */
   projectIdentifier?: string
+  /**
+   * A unique ID for the entity under evaluation e.g. UUID, database key. Can be used to filter out evaluations for a particular entity. The caller must ensure the ID is globally unqiue and cannot clash with any other callers.
+   */
+  entity?: string
+  /**
+   * Arbitrary string containing metadata about the entity like friendly name. Can be a raw string, JSON, YAML, base 64 encoded as suits the caller.
+   */
+  entityMetadata?: string
   /**
    * The type of entity that is under evaluation e.g. pipeline, environment
    */
@@ -336,30 +363,70 @@ export const useEvaluateByType = (props: UseEvaluateByTypeProps) =>
     { base: getConfig('pm/api/v1'), ...props }
   )
 
-export type GetEvaluationListProps = Omit<GetProps<EvaluationListResponse, unknown, void, void>, 'path'>
+export interface GetEvaluationListQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  /**
+   * Filter by evaluation 'entity' field
+   */
+  entity?: string
+  /**
+   * the number of records returned per page
+   */
+  per_page?: string
+  /**
+   * the id of the last returned record
+   */
+  last_seen?: string
+}
+
+export type GetEvaluationListProps = Omit<
+  GetProps<EvaluationListResponse, unknown, GetEvaluationListQueryParams, void>,
+  'path'
+>
 
 /**
  * Get the list of all evaluations
  */
 export const GetEvaluationList = (props: GetEvaluationListProps) => (
-  <Get<EvaluationListResponse, unknown, void, void> path={`/evaluations`} base={getConfig('pm/api/v1')} {...props} />
+  <Get<EvaluationListResponse, unknown, GetEvaluationListQueryParams, void>
+    path={`/evaluations`}
+    base={getConfig('pm/api/v1')}
+    {...props}
+  />
 )
 
-export type UseGetEvaluationListProps = Omit<UseGetProps<EvaluationListResponse, unknown, void, void>, 'path'>
+export type UseGetEvaluationListProps = Omit<
+  UseGetProps<EvaluationListResponse, unknown, GetEvaluationListQueryParams, void>,
+  'path'
+>
 
 /**
  * Get the list of all evaluations
  */
 export const useGetEvaluationList = (props: UseGetEvaluationListProps) =>
-  useGet<EvaluationListResponse, unknown, void, void>(`/evaluations`, { base: getConfig('pm/api/v1'), ...props })
+  useGet<EvaluationListResponse, unknown, GetEvaluationListQueryParams, void>(`/evaluations`, {
+    base: getConfig('pm/api/v1'),
+    ...props
+  })
 
-export type DeleteEvaluationProps = Omit<MutateProps<void, unknown, void, string, void>, 'path' | 'verb'>
+export interface DeleteEvaluationQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type DeleteEvaluationProps = Omit<
+  MutateProps<void, unknown, DeleteEvaluationQueryParams, string, void>,
+  'path' | 'verb'
+>
 
 /**
  * Delete the evaluation by ID
  */
 export const DeleteEvaluation = (props: DeleteEvaluationProps) => (
-  <Mutate<void, unknown, void, string, void>
+  <Mutate<void, unknown, DeleteEvaluationQueryParams, string, void>
     verb="DELETE"
     path={`/evaluations`}
     base={getConfig('pm/api/v1')}
@@ -367,26 +434,41 @@ export const DeleteEvaluation = (props: DeleteEvaluationProps) => (
   />
 )
 
-export type UseDeleteEvaluationProps = Omit<UseMutateProps<void, unknown, void, string, void>, 'path' | 'verb'>
+export type UseDeleteEvaluationProps = Omit<
+  UseMutateProps<void, unknown, DeleteEvaluationQueryParams, string, void>,
+  'path' | 'verb'
+>
 
 /**
  * Delete the evaluation by ID
  */
 export const useDeleteEvaluation = (props: UseDeleteEvaluationProps) =>
-  useMutate<void, unknown, void, string, void>('DELETE', `/evaluations`, { base: getConfig('pm/api/v1'), ...props })
+  useMutate<void, unknown, DeleteEvaluationQueryParams, string, void>('DELETE', `/evaluations`, {
+    base: getConfig('pm/api/v1'),
+    ...props
+  })
+
+export interface GetEvaluationQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
 
 export interface GetEvaluationPathParams {
   evaluation: string
 }
 
-export type GetEvaluationProps = Omit<GetProps<EvaluationResponse, unknown, void, GetEvaluationPathParams>, 'path'> &
+export type GetEvaluationProps = Omit<
+  GetProps<EvaluationResponse, unknown, GetEvaluationQueryParams, GetEvaluationPathParams>,
+  'path'
+> &
   GetEvaluationPathParams
 
 /**
  * Get the evaluation by ID
  */
 export const GetEvaluation = ({ evaluation, ...props }: GetEvaluationProps) => (
-  <Get<EvaluationResponse, unknown, void, GetEvaluationPathParams>
+  <Get<EvaluationResponse, unknown, GetEvaluationQueryParams, GetEvaluationPathParams>
     path={`/evaluations/${evaluation}`}
     base={getConfig('pm/api/v1')}
     {...props}
@@ -394,7 +476,7 @@ export const GetEvaluation = ({ evaluation, ...props }: GetEvaluationProps) => (
 )
 
 export type UseGetEvaluationProps = Omit<
-  UseGetProps<EvaluationResponse, unknown, void, GetEvaluationPathParams>,
+  UseGetProps<EvaluationResponse, unknown, GetEvaluationQueryParams, GetEvaluationPathParams>,
   'path'
 > &
   GetEvaluationPathParams
@@ -403,10 +485,27 @@ export type UseGetEvaluationProps = Omit<
  * Get the evaluation by ID
  */
 export const useGetEvaluation = ({ evaluation, ...props }: UseGetEvaluationProps) =>
-  useGet<EvaluationResponse, unknown, void, GetEvaluationPathParams>(
+  useGet<EvaluationResponse, unknown, GetEvaluationQueryParams, GetEvaluationPathParams>(
     (paramsInPath: GetEvaluationPathParams) => `/evaluations/${paramsInPath.evaluation}`,
     { base: getConfig('pm/api/v1'), pathParams: { evaluation }, ...props }
   )
+
+export type GetexamplesProps = Omit<GetProps<ExamplesResponse, unknown, void, void>, 'path'>
+
+/**
+ * Get the example rego and input
+ */
+export const Getexamples = (props: GetexamplesProps) => (
+  <Get<ExamplesResponse, unknown, void, void> path={`/examples`} base={getConfig('pm/api/v1')} {...props} />
+)
+
+export type UseGetexamplesProps = Omit<UseGetProps<ExamplesResponse, unknown, void, void>, 'path'>
+
+/**
+ * Get the example rego and input
+ */
+export const useGetexamples = (props: UseGetexamplesProps) =>
+  useGet<ExamplesResponse, unknown, void, void>(`/examples`, { base: getConfig('pm/api/v1'), ...props })
 
 export type LoginProps = Omit<MutateProps<AuthResponse, unknown, void, LoginRequestBody, void>, 'path' | 'verb'>
 
@@ -433,25 +532,55 @@ export const useLogin = (props: UseLoginProps) =>
     ...props
   })
 
-export type GetPolicyListProps = Omit<GetProps<PolicyListResponse, unknown, void, void>, 'path'>
+export interface GetPolicyListQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  /**
+   * the number of records returned per page
+   */
+  per_page?: string
+  /**
+   * the page requested page number
+   */
+  page?: string
+}
+
+export type GetPolicyListProps = Omit<GetProps<PolicyListResponse, unknown, GetPolicyListQueryParams, void>, 'path'>
 
 /**
  * Get the list of all policies
  */
 export const GetPolicyList = (props: GetPolicyListProps) => (
-  <Get<PolicyListResponse, unknown, void, void> path={`/policies`} base={getConfig('pm/api/v1')} {...props} />
+  <Get<PolicyListResponse, unknown, GetPolicyListQueryParams, void>
+    path={`/policies`}
+    base={getConfig('pm/api/v1')}
+    {...props}
+  />
 )
 
-export type UseGetPolicyListProps = Omit<UseGetProps<PolicyListResponse, unknown, void, void>, 'path'>
+export type UseGetPolicyListProps = Omit<
+  UseGetProps<PolicyListResponse, unknown, GetPolicyListQueryParams, void>,
+  'path'
+>
 
 /**
  * Get the list of all policies
  */
 export const useGetPolicyList = (props: UseGetPolicyListProps) =>
-  useGet<PolicyListResponse, unknown, void, void>(`/policies`, { base: getConfig('pm/api/v1'), ...props })
+  useGet<PolicyListResponse, unknown, GetPolicyListQueryParams, void>(`/policies`, {
+    base: getConfig('pm/api/v1'),
+    ...props
+  })
+
+export interface CreatePolicyQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
 
 export type CreatePolicyProps = Omit<
-  MutateProps<PolicyResponse, unknown, void, PolicyInputRequestBody, void>,
+  MutateProps<PolicyResponse, unknown, CreatePolicyQueryParams, PolicyCreate, void>,
   'path' | 'verb'
 >
 
@@ -459,7 +588,7 @@ export type CreatePolicyProps = Omit<
  * Create a new policy
  */
 export const CreatePolicy = (props: CreatePolicyProps) => (
-  <Mutate<PolicyResponse, unknown, void, PolicyInputRequestBody, void>
+  <Mutate<PolicyResponse, unknown, CreatePolicyQueryParams, PolicyCreate, void>
     verb="POST"
     path={`/policies`}
     base={getConfig('pm/api/v1')}
@@ -468,7 +597,7 @@ export const CreatePolicy = (props: CreatePolicyProps) => (
 )
 
 export type UseCreatePolicyProps = Omit<
-  UseMutateProps<PolicyResponse, unknown, void, PolicyInputRequestBody, void>,
+  UseMutateProps<PolicyResponse, unknown, CreatePolicyQueryParams, PolicyCreate, void>,
   'path' | 'verb'
 >
 
@@ -476,18 +605,24 @@ export type UseCreatePolicyProps = Omit<
  * Create a new policy
  */
 export const useCreatePolicy = (props: UseCreatePolicyProps) =>
-  useMutate<PolicyResponse, unknown, void, PolicyInputRequestBody, void>('POST', `/policies`, {
+  useMutate<PolicyResponse, unknown, CreatePolicyQueryParams, PolicyCreate, void>('POST', `/policies`, {
     base: getConfig('pm/api/v1'),
     ...props
   })
 
-export type DeletePolicyProps = Omit<MutateProps<void, unknown, void, string, void>, 'path' | 'verb'>
+export interface DeletePolicyQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type DeletePolicyProps = Omit<MutateProps<void, unknown, DeletePolicyQueryParams, string, void>, 'path' | 'verb'>
 
 /**
  * Delete the policy by ID
  */
 export const DeletePolicy = (props: DeletePolicyProps) => (
-  <Mutate<void, unknown, void, string, void>
+  <Mutate<void, unknown, DeletePolicyQueryParams, string, void>
     verb="DELETE"
     path={`/policies`}
     base={getConfig('pm/api/v1')}
@@ -495,50 +630,74 @@ export const DeletePolicy = (props: DeletePolicyProps) => (
   />
 )
 
-export type UseDeletePolicyProps = Omit<UseMutateProps<void, unknown, void, string, void>, 'path' | 'verb'>
+export type UseDeletePolicyProps = Omit<
+  UseMutateProps<void, unknown, DeletePolicyQueryParams, string, void>,
+  'path' | 'verb'
+>
 
 /**
  * Delete the policy by ID
  */
 export const useDeletePolicy = (props: UseDeletePolicyProps) =>
-  useMutate<void, unknown, void, string, void>('DELETE', `/policies`, { base: getConfig('pm/api/v1'), ...props })
+  useMutate<void, unknown, DeletePolicyQueryParams, string, void>('DELETE', `/policies`, {
+    base: getConfig('pm/api/v1'),
+    ...props
+  })
+
+export interface GetPolicyQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
 
 export interface GetPolicyPathParams {
   policy: string
 }
 
-export type GetPolicyProps = Omit<GetProps<PolicyResponse, unknown, void, GetPolicyPathParams>, 'path'> &
+export type GetPolicyProps = Omit<
+  GetProps<PolicyResponse, unknown, GetPolicyQueryParams, GetPolicyPathParams>,
+  'path'
+> &
   GetPolicyPathParams
 
 /**
  * Get the policy by ID
  */
 export const GetPolicy = ({ policy, ...props }: GetPolicyProps) => (
-  <Get<PolicyResponse, unknown, void, GetPolicyPathParams>
+  <Get<PolicyResponse, unknown, GetPolicyQueryParams, GetPolicyPathParams>
     path={`/policies/${policy}`}
     base={getConfig('pm/api/v1')}
     {...props}
   />
 )
 
-export type UseGetPolicyProps = Omit<UseGetProps<PolicyResponse, unknown, void, GetPolicyPathParams>, 'path'> &
+export type UseGetPolicyProps = Omit<
+  UseGetProps<PolicyResponse, unknown, GetPolicyQueryParams, GetPolicyPathParams>,
+  'path'
+> &
   GetPolicyPathParams
 
 /**
  * Get the policy by ID
  */
 export const useGetPolicy = ({ policy, ...props }: UseGetPolicyProps) =>
-  useGet<PolicyResponse, unknown, void, GetPolicyPathParams>(
+  useGet<PolicyResponse, unknown, GetPolicyQueryParams, GetPolicyPathParams>(
     (paramsInPath: GetPolicyPathParams) => `/policies/${paramsInPath.policy}`,
     { base: getConfig('pm/api/v1'), pathParams: { policy }, ...props }
   )
+
+export interface UpdatePolicyQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
 
 export interface UpdatePolicyPathParams {
   policy: string
 }
 
 export type UpdatePolicyProps = Omit<
-  MutateProps<PolicyResponse, unknown, void, PolicyInputRequestBody, UpdatePolicyPathParams>,
+  MutateProps<PolicyResponse, unknown, UpdatePolicyQueryParams, PolicyUpdate, UpdatePolicyPathParams>,
   'path' | 'verb'
 > &
   UpdatePolicyPathParams
@@ -547,7 +706,7 @@ export type UpdatePolicyProps = Omit<
  * Update the policy by ID
  */
 export const UpdatePolicy = ({ policy, ...props }: UpdatePolicyProps) => (
-  <Mutate<PolicyResponse, unknown, void, PolicyInputRequestBody, UpdatePolicyPathParams>
+  <Mutate<PolicyResponse, unknown, UpdatePolicyQueryParams, PolicyUpdate, UpdatePolicyPathParams>
     verb="PATCH"
     path={`/policies/${policy}`}
     base={getConfig('pm/api/v1')}
@@ -556,7 +715,7 @@ export const UpdatePolicy = ({ policy, ...props }: UpdatePolicyProps) => (
 )
 
 export type UseUpdatePolicyProps = Omit<
-  UseMutateProps<PolicyResponse, unknown, void, PolicyInputRequestBody, UpdatePolicyPathParams>,
+  UseMutateProps<PolicyResponse, unknown, UpdatePolicyQueryParams, PolicyUpdate, UpdatePolicyPathParams>,
   'path' | 'verb'
 > &
   UpdatePolicyPathParams
@@ -565,7 +724,7 @@ export type UseUpdatePolicyProps = Omit<
  * Update the policy by ID
  */
 export const useUpdatePolicy = ({ policy, ...props }: UseUpdatePolicyProps) =>
-  useMutate<PolicyResponse, unknown, void, PolicyInputRequestBody, UpdatePolicyPathParams>(
+  useMutate<PolicyResponse, unknown, UpdatePolicyQueryParams, PolicyUpdate, UpdatePolicyPathParams>(
     'PATCH',
     (paramsInPath: UpdatePolicyPathParams) => `/policies/${paramsInPath.policy}`,
     { base: getConfig('pm/api/v1'), pathParams: { policy }, ...props }
@@ -575,7 +734,22 @@ export interface GetPolicySetListQueryParams {
   accountIdentifier?: string
   orgIdentifier?: string
   projectIdentifier?: string
+  /**
+   * Filter by policy set 'type' field
+   */
   type?: string
+  /**
+   * Filter by policy set 'action' field
+   */
+  action?: string
+  /**
+   * The number of records returned per page
+   */
+  per_page?: string
+  /**
+   * The page requested page number
+   */
+  page?: string
 }
 
 export type GetPolicySetListProps = Omit<
@@ -608,8 +782,14 @@ export const useGetPolicySetList = (props: UseGetPolicySetListProps) =>
     ...props
   })
 
+export interface CreatePolicySetQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
 export type CreatePolicySetProps = Omit<
-  MutateProps<PolicysetResponse, unknown, void, PolicySetInputRequestBody, void>,
+  MutateProps<PolicysetResponse, unknown, CreatePolicySetQueryParams, PolicySetCreate, void>,
   'path' | 'verb'
 >
 
@@ -617,7 +797,7 @@ export type CreatePolicySetProps = Omit<
  * Create a new policyset
  */
 export const CreatePolicySet = (props: CreatePolicySetProps) => (
-  <Mutate<PolicysetResponse, unknown, void, PolicySetInputRequestBody, void>
+  <Mutate<PolicysetResponse, unknown, CreatePolicySetQueryParams, PolicySetCreate, void>
     verb="POST"
     path={`/policysets`}
     base={getConfig('pm/api/v1')}
@@ -626,7 +806,7 @@ export const CreatePolicySet = (props: CreatePolicySetProps) => (
 )
 
 export type UseCreatePolicySetProps = Omit<
-  UseMutateProps<PolicysetResponse, unknown, void, PolicySetInputRequestBody, void>,
+  UseMutateProps<PolicysetResponse, unknown, CreatePolicySetQueryParams, PolicySetCreate, void>,
   'path' | 'verb'
 >
 
@@ -634,18 +814,27 @@ export type UseCreatePolicySetProps = Omit<
  * Create a new policyset
  */
 export const useCreatePolicySet = (props: UseCreatePolicySetProps) =>
-  useMutate<PolicysetResponse, unknown, void, PolicySetInputRequestBody, void>('POST', `/policysets`, {
+  useMutate<PolicysetResponse, unknown, CreatePolicySetQueryParams, PolicySetCreate, void>('POST', `/policysets`, {
     base: getConfig('pm/api/v1'),
     ...props
   })
 
-export type DeletePolicySetProps = Omit<MutateProps<void, unknown, void, string, void>, 'path' | 'verb'>
+export interface DeletePolicySetQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type DeletePolicySetProps = Omit<
+  MutateProps<void, unknown, DeletePolicySetQueryParams, string, void>,
+  'path' | 'verb'
+>
 
 /**
  * Delete the policyset by ID
  */
 export const DeletePolicySet = (props: DeletePolicySetProps) => (
-  <Mutate<void, unknown, void, string, void>
+  <Mutate<void, unknown, DeletePolicySetQueryParams, string, void>
     verb="DELETE"
     path={`/policysets`}
     base={getConfig('pm/api/v1')}
@@ -653,50 +842,74 @@ export const DeletePolicySet = (props: DeletePolicySetProps) => (
   />
 )
 
-export type UseDeletePolicySetProps = Omit<UseMutateProps<void, unknown, void, string, void>, 'path' | 'verb'>
+export type UseDeletePolicySetProps = Omit<
+  UseMutateProps<void, unknown, DeletePolicySetQueryParams, string, void>,
+  'path' | 'verb'
+>
 
 /**
  * Delete the policyset by ID
  */
 export const useDeletePolicySet = (props: UseDeletePolicySetProps) =>
-  useMutate<void, unknown, void, string, void>('DELETE', `/policysets`, { base: getConfig('pm/api/v1'), ...props })
+  useMutate<void, unknown, DeletePolicySetQueryParams, string, void>('DELETE', `/policysets`, {
+    base: getConfig('pm/api/v1'),
+    ...props
+  })
+
+export interface GetPolicySetQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
 
 export interface GetPolicySetPathParams {
   policyset: string
 }
 
-export type GetPolicySetProps = Omit<GetProps<PolicysetResponse, unknown, void, GetPolicySetPathParams>, 'path'> &
+export type GetPolicySetProps = Omit<
+  GetProps<PolicysetResponse, unknown, GetPolicySetQueryParams, GetPolicySetPathParams>,
+  'path'
+> &
   GetPolicySetPathParams
 
 /**
  * Get the policyset by ID
  */
 export const GetPolicySet = ({ policyset, ...props }: GetPolicySetProps) => (
-  <Get<PolicysetResponse, unknown, void, GetPolicySetPathParams>
+  <Get<PolicysetResponse, unknown, GetPolicySetQueryParams, GetPolicySetPathParams>
     path={`/policysets/${policyset}`}
     base={getConfig('pm/api/v1')}
     {...props}
   />
 )
 
-export type UseGetPolicySetProps = Omit<UseGetProps<PolicysetResponse, unknown, void, GetPolicySetPathParams>, 'path'> &
+export type UseGetPolicySetProps = Omit<
+  UseGetProps<PolicysetResponse, unknown, GetPolicySetQueryParams, GetPolicySetPathParams>,
+  'path'
+> &
   GetPolicySetPathParams
 
 /**
  * Get the policyset by ID
  */
 export const useGetPolicySet = ({ policyset, ...props }: UseGetPolicySetProps) =>
-  useGet<PolicysetResponse, unknown, void, GetPolicySetPathParams>(
+  useGet<PolicysetResponse, unknown, GetPolicySetQueryParams, GetPolicySetPathParams>(
     (paramsInPath: GetPolicySetPathParams) => `/policysets/${paramsInPath.policyset}`,
     { base: getConfig('pm/api/v1'), pathParams: { policyset }, ...props }
   )
+
+export interface UpdatePolicySetQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
 
 export interface UpdatePolicySetPathParams {
   policyset: string
 }
 
 export type UpdatePolicySetProps = Omit<
-  MutateProps<PolicysetResponse, unknown, void, PolicySetInputRequestBody, UpdatePolicySetPathParams>,
+  MutateProps<PolicysetResponse, unknown, UpdatePolicySetQueryParams, PolicySetUpdate, UpdatePolicySetPathParams>,
   'path' | 'verb'
 > &
   UpdatePolicySetPathParams
@@ -705,7 +918,7 @@ export type UpdatePolicySetProps = Omit<
  * Update the policyset by ID
  */
 export const UpdatePolicySet = ({ policyset, ...props }: UpdatePolicySetProps) => (
-  <Mutate<PolicysetResponse, unknown, void, PolicySetInputRequestBody, UpdatePolicySetPathParams>
+  <Mutate<PolicysetResponse, unknown, UpdatePolicySetQueryParams, PolicySetUpdate, UpdatePolicySetPathParams>
     verb="PATCH"
     path={`/policysets/${policyset}`}
     base={getConfig('pm/api/v1')}
@@ -714,7 +927,7 @@ export const UpdatePolicySet = ({ policyset, ...props }: UpdatePolicySetProps) =
 )
 
 export type UseUpdatePolicySetProps = Omit<
-  UseMutateProps<PolicysetResponse, unknown, void, PolicySetInputRequestBody, UpdatePolicySetPathParams>,
+  UseMutateProps<PolicysetResponse, unknown, UpdatePolicySetQueryParams, PolicySetUpdate, UpdatePolicySetPathParams>,
   'path' | 'verb'
 > &
   UpdatePolicySetPathParams
@@ -723,18 +936,24 @@ export type UseUpdatePolicySetProps = Omit<
  * Update the policyset by ID
  */
 export const useUpdatePolicySet = ({ policyset, ...props }: UseUpdatePolicySetProps) =>
-  useMutate<PolicysetResponse, unknown, void, PolicySetInputRequestBody, UpdatePolicySetPathParams>(
+  useMutate<PolicysetResponse, unknown, UpdatePolicySetQueryParams, PolicySetUpdate, UpdatePolicySetPathParams>(
     'PATCH',
     (paramsInPath: UpdatePolicySetPathParams) => `/policysets/${paramsInPath.policyset}`,
     { base: getConfig('pm/api/v1'), pathParams: { policyset }, ...props }
   )
+
+export interface DeleteLinkedPolicyQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
 
 export interface DeleteLinkedPolicyPathParams {
   policyset: string
 }
 
 export type DeleteLinkedPolicyProps = Omit<
-  MutateProps<void, unknown, void, string, DeleteLinkedPolicyPathParams>,
+  MutateProps<void, unknown, DeleteLinkedPolicyQueryParams, string, DeleteLinkedPolicyPathParams>,
   'path' | 'verb'
 > &
   DeleteLinkedPolicyPathParams
@@ -743,7 +962,7 @@ export type DeleteLinkedPolicyProps = Omit<
  * Delete the linked policy by ID
  */
 export const DeleteLinkedPolicy = ({ policyset, ...props }: DeleteLinkedPolicyProps) => (
-  <Mutate<void, unknown, void, string, DeleteLinkedPolicyPathParams>
+  <Mutate<void, unknown, DeleteLinkedPolicyQueryParams, string, DeleteLinkedPolicyPathParams>
     verb="DELETE"
     path={`/policysets/${policyset}/policy`}
     base={getConfig('pm/api/v1')}
@@ -752,7 +971,7 @@ export const DeleteLinkedPolicy = ({ policyset, ...props }: DeleteLinkedPolicyPr
 )
 
 export type UseDeleteLinkedPolicyProps = Omit<
-  UseMutateProps<void, unknown, void, string, DeleteLinkedPolicyPathParams>,
+  UseMutateProps<void, unknown, DeleteLinkedPolicyQueryParams, string, DeleteLinkedPolicyPathParams>,
   'path' | 'verb'
 > &
   DeleteLinkedPolicyPathParams
@@ -761,11 +980,17 @@ export type UseDeleteLinkedPolicyProps = Omit<
  * Delete the linked policy by ID
  */
 export const useDeleteLinkedPolicy = ({ policyset, ...props }: UseDeleteLinkedPolicyProps) =>
-  useMutate<void, unknown, void, string, DeleteLinkedPolicyPathParams>(
+  useMutate<void, unknown, DeleteLinkedPolicyQueryParams, string, DeleteLinkedPolicyPathParams>(
     'DELETE',
     (paramsInPath: DeleteLinkedPolicyPathParams) => `/policysets/${paramsInPath.policyset}/policy`,
     { base: getConfig('pm/api/v1'), pathParams: { policyset }, ...props }
   )
+
+export interface AddLinkedPolicyQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
 
 export interface AddLinkedPolicyPathParams {
   policyset: string
@@ -773,7 +998,7 @@ export interface AddLinkedPolicyPathParams {
 }
 
 export type AddLinkedPolicyProps = Omit<
-  MutateProps<void, unknown, void, LinkedPolicyInput, AddLinkedPolicyPathParams>,
+  MutateProps<void, unknown, AddLinkedPolicyQueryParams, LinkedPolicyInput, AddLinkedPolicyPathParams>,
   'path' | 'verb'
 > &
   AddLinkedPolicyPathParams
@@ -782,7 +1007,7 @@ export type AddLinkedPolicyProps = Omit<
  * Add a new linked policy
  */
 export const AddLinkedPolicy = ({ policyset, policy, ...props }: AddLinkedPolicyProps) => (
-  <Mutate<void, unknown, void, LinkedPolicyInput, AddLinkedPolicyPathParams>
+  <Mutate<void, unknown, AddLinkedPolicyQueryParams, LinkedPolicyInput, AddLinkedPolicyPathParams>
     verb="PATCH"
     path={`/policysets/${policyset}/policy/${policy}`}
     base={getConfig('pm/api/v1')}
@@ -791,7 +1016,7 @@ export const AddLinkedPolicy = ({ policyset, policy, ...props }: AddLinkedPolicy
 )
 
 export type UseAddLinkedPolicyProps = Omit<
-  UseMutateProps<void, unknown, void, LinkedPolicyInput, AddLinkedPolicyPathParams>,
+  UseMutateProps<void, unknown, AddLinkedPolicyQueryParams, LinkedPolicyInput, AddLinkedPolicyPathParams>,
   'path' | 'verb'
 > &
   AddLinkedPolicyPathParams
@@ -800,7 +1025,7 @@ export type UseAddLinkedPolicyProps = Omit<
  * Add a new linked policy
  */
 export const useAddLinkedPolicy = ({ policyset, policy, ...props }: UseAddLinkedPolicyProps) =>
-  useMutate<void, unknown, void, LinkedPolicyInput, AddLinkedPolicyPathParams>(
+  useMutate<void, unknown, AddLinkedPolicyQueryParams, LinkedPolicyInput, AddLinkedPolicyPathParams>(
     'PATCH',
     (paramsInPath: AddLinkedPolicyPathParams) => `/policysets/${paramsInPath.policyset}/policy/${paramsInPath.policy}`,
     { base: getConfig('pm/api/v1'), pathParams: { policyset, policy }, ...props }

@@ -54,3 +54,10 @@
   max-height: 250px;
   overflow: auto;
 }
+
+.titleContainer {
+  &,
+  > span {
+    display: flex;
+  }
+}

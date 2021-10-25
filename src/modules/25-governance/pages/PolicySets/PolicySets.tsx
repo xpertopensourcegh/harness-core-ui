@@ -1,6 +1,3 @@
-//
-// TODO: This file is just a place-holder
-//
 import React, { useState, useMemo } from 'react'
 import * as moment from 'moment'
 import {
@@ -11,11 +8,11 @@ import {
   Button,
   Text,
   Color,
-  Popover,
   useModalHook,
-  PageHeader
+  PageHeader,
+  Utils
 } from '@wings-software/uicore'
-import { Classes, Position, Menu, Dialog, IDialogProps } from '@blueprintjs/core'
+import { Dialog, IDialogProps } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { useToaster, useConfirmationDialog, StringUtils, Page } from '@common/exports'
@@ -28,6 +25,7 @@ import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 
 // import { setPageNumber } from '@common/utils/utils'
 import Table from '@common/components/Table/Table'
+import { OptionsMenuButton } from '@common/components'
 import PolicySetWizard from './components/PolicySetWizard'
 import PolicyIcon from './PolicySetIcon.svg'
 import css from './PolicySets.module.scss'
@@ -199,22 +197,18 @@ const PolicyEvaluations: React.FC = () => {
 
   const RenderColumnMenu: Renderer<CellProps<PoliciesSetDTO>> = ({ row }) => {
     const data = row.original
-
-    const [menuOpen, setMenuOpen] = useState(false)
     const { showSuccess, showError } = useToaster()
-
     const { mutate: deletePolicySet } = useDeletePolicySet({})
-
     const { openDialog: openDeleteDialog } = useConfirmationDialog({
-      contentText: 'Are you sure you want to delete Policy Set?',
-      titleText: 'Delete Policy Set',
+      contentText: getString('governance.deletePolicySetConfirmation', { name: data.name }),
+      titleText: getString('governance.deletePolicySetTitle'),
       confirmButtonText: getString('delete'),
       cancelButtonText: getString('cancel'),
       onCloseDialog: async didConfirm => {
         if (didConfirm && data) {
           try {
             await deletePolicySet(data?.identifier.toString())
-            showSuccess('Successfully deleted Policy Set')
+            showSuccess(getString('governance.deletePolicySetDone', { name: data.name }))
             refetch()
           } catch (err) {
             showError(err?.message)
@@ -224,47 +218,24 @@ const PolicyEvaluations: React.FC = () => {
     })
 
     return (
-      <Layout.Horizontal flex={{ justifyContent: 'flex-end' }}>
-        <Popover
-          isOpen={menuOpen}
-          onInteraction={nextOpenState => {
-            setMenuOpen(nextOpenState)
-          }}
-          className={Classes.DARK}
-          position={Position.BOTTOM_RIGHT}
-        >
-          <Button
-            minimal
-            icon="Options"
-            withoutBoxShadow
-            data-testid={`menu-${data.id}`}
-            onClick={e => {
-              e.stopPropagation()
-              setMenuOpen(true)
-            }}
-          />
-          <Menu>
-            <Menu.Item
-              icon="edit"
-              text={getString('edit')}
-              onClick={(event: React.MouseEvent<HTMLElement, MouseEvent>) => {
-                event.stopPropagation()
-                setMenuOpen(false)
+      <Layout.Horizontal flex={{ justifyContent: 'flex-end' }} onClick={Utils.stopEvent}>
+        <OptionsMenuButton
+          items={[
+            {
+              icon: 'edit',
+              text: getString('edit'),
+              onClick: () => {
                 setPolicySetData(row.original)
                 showModal()
-              }}
-            />
-            <Menu.Item
-              icon="trash"
-              text={getString('delete')}
-              onClick={(event: React.MouseEvent<HTMLElement, MouseEvent>) => {
-                event.stopPropagation()
-                setMenuOpen(false)
-                openDeleteDialog()
-              }}
-            />
-          </Menu>
-        </Popover>
+              }
+            },
+            {
+              icon: 'trash',
+              text: getString('delete'),
+              onClick: openDeleteDialog
+            }
+          ]}
+        />
       </Layout.Horizontal>
     )
   }

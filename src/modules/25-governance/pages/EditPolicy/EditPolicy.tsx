@@ -17,13 +17,15 @@ import {
 } from '@wings-software/uicore'
 import { Intent } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
-import { showToaster, getErrorMessage, isEvaluationFailed } from '@governance/utils/PmUtils'
+import { showToaster, getErrorMessage, isEvaluationFailed } from '@governance/utils/GovernanceUtils'
+import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import { Page } from '@common/exports'
 import { REGO_FORMAT } from '@governance/utils/rego'
-import { PolicyInput, useCreatePolicy, useEvaluateRaw, useGetPolicy, useUpdatePolicy } from 'services/pm'
+import { useCreatePolicy, useEvaluateRaw, useGetPolicy, useUpdatePolicy } from 'services/pm'
 import { EditPolicyMetadataModalButton } from './EditPolicyMetadataModalButton'
 import type { PolicyMetadata } from './EditPolicyMetadataModalButton'
+import { SelectPolicyModalButton } from './SelectPolicyModalButton'
 import css from './EditPolicy.module.scss'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -50,8 +52,12 @@ const deselectAll = (editor?: EDITOR.IStandaloneCodeEditor): void => {
 }
 
 export const EditPolicy: React.FC = () => {
-  const { accountId, policyIdentifier: policyIdentifierFromURL } =
-    useParams<{ accountId: string; policyIdentifier: string }>()
+  const {
+    accountId,
+    policyIdentifier: policyIdentifierFromURL,
+    orgIdentifier,
+    projectIdentifier
+  } = useParams<Record<string, string>>()
   const [isEdit, setEdit] = useState(!!policyIdentifierFromURL)
   const [policyIdentifier, setPolicyIdentifier] = useState(policyIdentifierFromURL)
   const [name, setName] = useState('')
@@ -72,7 +78,13 @@ export const EditPolicy: React.FC = () => {
       return false
     }
   }, [input, regoScript])
-  const { mutate: createPolicy } = useCreatePolicy({})
+  const { mutate: createPolicy } = useCreatePolicy({
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier
+    }
+  })
   const { mutate: evaluateRawPolicy } = useEvaluateRaw({})
   const [createPolicyLoading, setCreatePolicyLoading] = useState(false)
   const [testPolicyLoading, setTestPolicyLoading] = useState(false)
@@ -80,17 +92,23 @@ export const EditPolicy: React.FC = () => {
   const [inputEditor, setInputEditor] = useState<EDITOR.IStandaloneCodeEditor>()
   const [outputEditor, setOutputEditor] = useState<EDITOR.IStandaloneCodeEditor>()
   const history = useHistory()
-  const { mutate: updatePolicy } = useUpdatePolicy({ policy: policyIdentifier })
+  const { mutate: updatePolicy } = useUpdatePolicy({
+    policy: policyIdentifier,
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier
+    }
+  })
   const onSavePolicy = useCallback(() => {
     setCreatePolicyLoading(true)
     const api = isEdit ? updatePolicy : createPolicy
     api({
-      account_identifier: accountId,
       identifier: policyIdentifier,
       name,
-      description,
+      // description, // TODO: description is not supported by API currently
       rego: regoScript
-    } as PolicyInput)
+    })
       .then(response => {
         showToaster('Policy saved!')
         if (!isEdit) {
@@ -113,11 +131,11 @@ export const EditPolicy: React.FC = () => {
     updatePolicy,
     policyIdentifier,
     history,
-    accountId,
-    description
+    accountId
   ])
   const { data: policyData, refetch: fetchPolicyData } = useGetPolicy({ policy: policyIdentifier, lazy: true })
   const [loadingPolicy, setLoadingPolicy] = useState(false)
+  const { getString } = useStrings()
   const [testFailure, setTestFailure] = useState<boolean | undefined>()
   const scriptContainerRef = useRef<HTMLDivElement>(null)
   const inputContainerRef = useRef<HTMLDivElement>(null)
@@ -125,20 +143,30 @@ export const EditPolicy: React.FC = () => {
 
   const PolicyNameGroup = (): JSX.Element => {
     return (
-      <Layout.Horizontal spacing="xsmall">
-        <Text
-          font={{ variation: FontVariation.H6 }}
-          icon="governance"
-          iconProps={{ style: { paddingRight: 'var(--spacing-small)' } }}
-          className={css.policyNameInputContainer}
-        >
-          {name} {/*policyIdentifier ? ` (ID: ${policyIdentifier})` : ''*/}
-        </Text>
+      <Layout.Horizontal>
+        <Container className={css.titleContainer} padding={{ right: 'small' }}>
+          <Text
+            font={{ variation: FontVariation.H6 }}
+            icon="governance"
+            iconProps={{ style: { paddingRight: 'var(--spacing-small)' } }}
+            className={css.policyNameInputContainer}
+            tooltip={
+              <Layout.Vertical spacing="xsmall" padding="medium">
+                <Text font={{ variation: FontVariation.SMALL }}>
+                  {getString('governance.policyIdentifier', { policyIdentifier })}
+                </Text>
+                <Text font={{ variation: FontVariation.SMALL }}>{getString('governance.policyName', { name })}</Text>
+              </Layout.Vertical>
+            }
+          >
+            {name}
+          </Text>
+        </Container>
         <EditPolicyMetadataModalButton
           isEdit={isEdit}
           shouldOpenModal={shouldOpenMetadataModal}
           identifier={policyIdentifier}
-          modalTitle={policyIdentifier ? 'Edit Policy' : 'New Policy'}
+          modalTitle={getString(policyIdentifier ? 'governance.editPolicy' : 'common.policy.newPolicy')}
           name={name}
           description={description}
           onApply={(formData: PolicyMetadata) => {
@@ -148,6 +176,18 @@ export const EditPolicy: React.FC = () => {
           }}
           onClose={() => {
             setShouldOpenMetatDataModal(false)
+          }}
+        />
+        <SelectPolicyModalButton
+          modalTitle={getString('governance.selectSamplePolicy')}
+          onApply={({ rego: sampleRego, input: sampleInput }) => {
+            if (sampleRego !== regoScript || sampleInput !== input) {
+              setRegoScript(sampleRego || '')
+              setInput(sampleInput || '')
+              deselectAll(regoEditor)
+              deselectAll(inputEditor)
+              resetOutput()
+            }
           }}
         />
       </Layout.Horizontal>
@@ -198,7 +238,7 @@ export const EditPolicy: React.FC = () => {
         {/* BUG: somehow dynamically showing loading is not working, workaround below */}
         {!createPolicyLoading && (
           <Button
-            icon="upload-box"
+            icon="send-data"
             variation={ButtonVariation.SECONDARY}
             size={ButtonSize.SMALL}
             text="Save"
@@ -208,7 +248,7 @@ export const EditPolicy: React.FC = () => {
           />
         )}
         {createPolicyLoading && (
-          <Button icon="upload-box" variation={ButtonVariation.SECONDARY} size={ButtonSize.SMALL} text="Save" loading />
+          <Button icon="send-data" variation={ButtonVariation.SECONDARY} size={ButtonSize.SMALL} text="Save" loading />
         )}
         <Button
           variation={ButtonVariation.SECONDARY}
@@ -336,7 +376,7 @@ export const EditPolicy: React.FC = () => {
                       <Button
                         variation={ButtonVariation.ICON}
                         icon="code"
-                        tooltip="Format Input"
+                        tooltip={getString('governance.formatInput')}
                         size={ButtonSize.SMALL}
                         disabled={!(input || '').trim()}
                         onClick={() => {
@@ -347,7 +387,11 @@ export const EditPolicy: React.FC = () => {
                           }
                         }}
                       />
-                      <Button variation={ButtonVariation.SECONDARY} size={ButtonSize.SMALL} text="Select Input" />
+                      <Button
+                        variation={ButtonVariation.SECONDARY}
+                        size={ButtonSize.SMALL}
+                        text={getString('governance.selectInput')}
+                      />
                     </Layout.Horizontal>
                   </Container>
                   <Container flex className={css.ioEditor} ref={inputContainerRef}>
@@ -356,9 +400,7 @@ export const EditPolicy: React.FC = () => {
                       theme="vs-light"
                       value={input}
                       options={editorOptions}
-                      onChange={newValue => {
-                        setInput(newValue)
-                      }}
+                      onChange={newValue => setInput(newValue)}
                       editorDidMount={setInputEditor}
                     />
                   </Container>
@@ -372,12 +414,12 @@ export const EditPolicy: React.FC = () => {
                     className={css.inputHeader}
                     style={{ paddingRight: 'var(--spacing-small)' }}
                   >
-                    <Text color={Color.WHITE}>Output</Text>
+                    <Text color={Color.WHITE}>{getString('outputLabel')}</Text>
                     <FlexExpander />
                     <Button
                       variation={ButtonVariation.ICON}
                       icon="trash"
-                      tooltip="Clear Output"
+                      tooltip={getString('governance.clearOutput')}
                       size={ButtonSize.SMALL}
                       onClick={resetOutput}
                       disabled={!output}
@@ -398,8 +440,8 @@ export const EditPolicy: React.FC = () => {
                         {output?.error
                           ? output?.error
                           : testFailure
-                          ? 'Policy failed to be evaluated'
-                          : 'Policy evaluated successfully'}
+                          ? getString('governance.inputFailedEvaluation')
+                          : getString('governance.inputSuccededEvaluation')}
                       </Text>
                       {output?.deny_messages?.map((message: string, index: number) => (
                         <Text
