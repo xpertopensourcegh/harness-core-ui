@@ -1,7 +1,7 @@
-import React, { FormEvent, useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useParams } from 'react-router-dom'
 import { get, isEmpty } from 'lodash-es'
-import { FormInput, MultiTypeInputType, Container } from '@wings-software/uicore'
+import { FormInput, MultiTypeInputType, Container, Layout, Text, Radio, FontVariation } from '@wings-software/uicore'
 import { connect, FormikContext } from 'formik'
 import { useStrings } from 'framework/strings'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
@@ -29,7 +29,7 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
 
   const [isInputTouched, setIsInputTouched] = useState(false)
 
-  const [savedValues, setSavedValues] = useState({
+  const savedValues = useRef<Record<string, string>>({
     branch: '',
     tag: '',
     PR: ''
@@ -41,25 +41,11 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
 
   const formattedPath = isEmpty(path) ? '' : `${path}.`
 
-  const type = get(formik?.values, `${formattedPath}properties.ci.codebase.build.type`, '') as 'branch' | 'tag' | 'PR'
+  const [codeBaseType, setCodeBaseType] = useState<CodeBaseType>()
 
-  const radioGroupItems = [
-    {
-      label: getString('gitBranch'),
-      value: 'branch',
-      disabled: readonly
-    },
-    {
-      label: getString('gitTag'),
-      value: 'tag',
-      disabled: readonly
-    },
-    {
-      label: getString('pipeline.gitPullRequest'),
-      value: 'PR',
-      disabled: readonly
-    }
-  ]
+  type CodeBaseType = 'branch' | 'tag' | 'PR'
+
+  const codeBaseTypePath = `${formattedPath}properties.ci.codebase.build.type`
 
   const inputLabels = {
     branch: getString('gitBranch'),
@@ -67,97 +53,94 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
     PR: getString('pipeline.gitPullRequestNumber')
   }
 
+  const placeholderValues = {
+    branch: defaultValues['branch'],
+    tag: defaultValues['tag'],
+    PR: defaultValues['PR']
+  }
+
+  const codeBaseInputFieldFormName = {
+    branch: `${formattedPath}properties.ci.codebase.build.spec.branch`,
+    tag: `${formattedPath}properties.ci.codebase.build.spec.tag`,
+    PR: `${formattedPath}properties.ci.codebase.build.spec.number`
+  }
+
   useEffect(() => {
-    setSavedValues(previousSavedValues => ({
-      ...previousSavedValues,
+    const type = get(formik?.values, codeBaseTypePath, '') as CodeBaseType
+    setCodeBaseType(type)
+    savedValues.current = Object.assign(savedValues.current, {
       [type]: get(formik?.values, `${formattedPath}properties.ci.codebase.build.spec.${inputNames[type]}`, '')
-    }))
-  }, [type])
+    })
+    handleTypeChange(type)
+  }, [formik?.values])
 
-  const handleTypeChange = (e: FormEvent<HTMLInputElement>): void => {
-    const newType = (e.target as HTMLFormElement).value as 'branch' | 'tag' | 'PR'
-
-    setSavedValues(previousSavedValues => ({
-      ...previousSavedValues,
-      [type]: get(formik?.values, `${formattedPath}properties.ci.codebase.build.spec.${inputNames[type]}`, '')
-    }))
-
+  const handleTypeChange = (newType: CodeBaseType): void => {
+    const buildSpecPath = `${formattedPath}properties.ci.codebase.build.spec.${inputNames[newType]}`
+    formik?.setFieldValue(codeBaseTypePath, newType)
     if (!isInputTouched && triggerIdentifier) {
-      formik?.setFieldValue(`${formattedPath}properties.ci.codebase.build.spec.${inputNames[type]}`, undefined)
-      formik?.setFieldValue(
-        `${formattedPath}properties.ci.codebase.build.spec.${inputNames[newType]}`,
-        defaultValues[newType]
-      )
+      formik?.setFieldValue(buildSpecPath, defaultValues[newType])
     } else {
-      formik?.setFieldValue(
-        `${formattedPath}properties.ci.codebase.build.spec.${inputNames[newType]}`,
-        savedValues[newType] || ''
-      )
-
-      formik?.setFieldValue(`${formattedPath}properties.ci.codebase.build.spec.${inputNames[type]}`, undefined)
+      formik?.setFieldValue(buildSpecPath, savedValues.current[newType])
     }
   }
 
   const handleInputChange = (): void => setIsInputTouched(true)
 
+  const renderCodeBaseTypeInput = (type: CodeBaseType): JSX.Element => {
+    return (
+      <Container>
+        <FormInput.MultiTextInput
+          label={<Text font={{ variation: FontVariation.FORM_LABEL }}>{inputLabels[type]}</Text>}
+          name={codeBaseInputFieldFormName[type]}
+          multiTextInputProps={{
+            expressions,
+            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+          }}
+          placeholder={triggerIdentifier ? placeholderValues[type] : ''}
+          disabled={readonly}
+          onChange={handleInputChange}
+        />
+      </Container>
+    )
+  }
+
   return (
-    <>
-      <FormInput.RadioGroup
-        name={`${formattedPath}properties.ci.codebase.build.type`}
-        items={radioGroupItems}
-        radioGroup={{ inline: true }}
-        onChange={handleTypeChange}
-        style={{ marginBottom: 0 }}
-      />
-      {type === 'branch' && (
-        <Container padding={{ bottom: 'small', top: 'small' }}>
-          <FormInput.MultiTextInput
-            label={inputLabels[type]}
-            name={`${formattedPath}properties.ci.codebase.build.spec.branch`}
-            multiTextInputProps={{
-              expressions,
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-            }}
-            style={{ marginBottom: 0 }}
-            placeholder={triggerIdentifier ? defaultValues['branch'] : ''}
-            disabled={readonly}
-            onChange={handleInputChange}
-          />
-        </Container>
-      )}
-      {type === 'tag' && (
-        <Container padding={{ bottom: 'small' }}>
-          <FormInput.MultiTextInput
-            label={inputLabels[type]}
-            name={`${formattedPath}properties.ci.codebase.build.spec.tag`}
-            multiTextInputProps={{
-              expressions,
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-            }}
-            style={{ marginBottom: 0 }}
-            disabled={readonly}
-            placeholder={triggerIdentifier ? defaultValues['tag'] : ''}
-            onChange={handleInputChange}
-          />
-        </Container>
-      )}
-      {type === 'PR' && (
-        <Container padding={{ bottom: 'small' }}>
-          <FormInput.MultiTextInput
-            label={inputLabels[type]}
-            name={`${formattedPath}properties.ci.codebase.build.spec.number`}
-            multiTextInputProps={{
-              expressions,
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-            }}
-            style={{ marginBottom: 0 }}
-            disabled={readonly}
-            placeholder={triggerIdentifier ? defaultValues['PR'] : ''}
-            onChange={handleInputChange}
-          />
-        </Container>
-      )}
-    </>
+    <Layout.Vertical spacing="small">
+      <Layout.Horizontal
+        flex={{ justifyContent: 'start' }}
+        padding={{ top: 'small', left: 'xsmall', bottom: 'xsmall' }}
+        margin={{ left: 'large' }}
+        spacing="huge"
+      >
+        <Radio
+          label={inputLabels['branch']}
+          onClick={() => handleTypeChange('branch')}
+          checked={codeBaseType === 'branch'}
+          disabled={readonly}
+          font={{ variation: FontVariation.FORM_LABEL }}
+          flex
+        />
+        <Radio
+          label={inputLabels['tag']}
+          onClick={() => handleTypeChange('tag')}
+          checked={codeBaseType === 'tag'}
+          disabled={readonly}
+          font={{ variation: FontVariation.FORM_LABEL }}
+          flex
+        />
+        <Radio
+          label={inputLabels['PR']}
+          onClick={() => handleTypeChange('PR')}
+          checked={codeBaseType === 'PR'}
+          disabled={readonly}
+          font={{ variation: FontVariation.FORM_LABEL }}
+          flex
+        />
+      </Layout.Horizontal>
+      {codeBaseType === 'branch' ? renderCodeBaseTypeInput('branch') : null}
+      {codeBaseType === 'tag' ? renderCodeBaseTypeInput('tag') : null}
+      {codeBaseType === 'PR' ? renderCodeBaseTypeInput('PR') : null}
+    </Layout.Vertical>
   )
 }
 
