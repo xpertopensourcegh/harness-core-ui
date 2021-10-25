@@ -200,26 +200,30 @@ exports[`GraphSummaryCard Render GraphSummaryCard 1`] = `
         CV.MONITOREDSERVICES.MONITOREDSERVICETABS.SERVICEHEALTH
       </p>
       <div
-        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main healthScoreCardContainer"
+        class="StyledProps--font StyledProps--main StyledProps--margin-top-large"
       >
-        <span
-          class="Tag--main"
+        <div
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main healthScoreCardContainer"
         >
           <span
-            class="bp3-tag healthScoreCard"
+            class="Tag--main"
           >
             <span
-              class="bp3-text-overflow-ellipsis bp3-fill"
+              class="bp3-tag healthScoreCard"
             >
-              45
+              <span
+                class="bp3-text-overflow-ellipsis bp3-fill"
+              >
+                45
+              </span>
             </span>
           </span>
-        </span>
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey0 StyledProps--font-variation-small"
-        >
-          cv.monitoredServices.serviceHealth.serviceDependencies.states.needsAttention
-        </p>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey0 StyledProps--font-variation-small"
+          >
+            cv.monitoredServices.serviceHealth.serviceDependencies.states.needsAttention
+          </p>
+        </div>
       </div>
     </div>
   </div>

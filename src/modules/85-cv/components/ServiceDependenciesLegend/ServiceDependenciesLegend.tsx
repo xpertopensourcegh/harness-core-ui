@@ -1,24 +1,29 @@
 import React from 'react'
 import cx from 'classnames'
 import { Container, Icon, Text, Color } from '@wings-software/uicore'
+import type { MarginProps } from '@wings-software/uicore/dist/styled-props/margin/MarginProps'
 import { useStrings } from 'framework/strings'
 import { getServicesStates, getServicesTypes } from './ServiceDependenciesLegend.utils'
 import css from './ServiceDependenciesLegend.module.scss'
 
-export default function ServiceDependenciesLegend({
-  className,
-  hideServiceTypeLegend
-}: {
+interface ServiceDependenciesLegendProps {
   className?: string
   hideServiceTypeLegend?: boolean
-}): JSX.Element {
+  margin?: MarginProps
+}
+
+const ServiceDependenciesLegend: React.FC<ServiceDependenciesLegendProps> = ({
+  className,
+  hideServiceTypeLegend,
+  margin
+}) => {
   const { getString } = useStrings()
   const servicesStates = getServicesStates()
   const serviceTypes = getServicesTypes()
 
   return (
-    <Container padding={'medium'}>
-      <Container className={cx(css.serviceStatesContainer, className)} background={Color.PRIMARY_1}>
+    <Container background={Color.PRIMARY_1} width="fit-content" className={css.container} margin={margin}>
+      <Container className={cx(css.serviceStatesContainer, className)}>
         {servicesStates.map(state => {
           return (
             <Container flex key={state.identifier} padding={{ top: 'xsmall', right: 'xsmall' }}>
@@ -31,7 +36,7 @@ export default function ServiceDependenciesLegend({
         })}
       </Container>
       {!hideServiceTypeLegend ? (
-        <Container className={cx(css.serviceTypesContainer, className)} background={Color.PRIMARY_1}>
+        <Container className={cx(css.serviceTypesContainer, className)}>
           {serviceTypes.map(type => {
             return (
               <Container flex key={type.identifier}>
@@ -47,3 +52,5 @@ export default function ServiceDependenciesLegend({
     </Container>
   )
 }
+
+export default ServiceDependenciesLegend

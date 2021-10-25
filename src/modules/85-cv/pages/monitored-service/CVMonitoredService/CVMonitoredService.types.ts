@@ -34,13 +34,12 @@ export type setHealthMonitoringFlagType = MutateMethod<
 
 interface MonitoredServiceViewsProps {
   monitoredServiceListData?: PageMonitoredServiceListItemDTO
-  refetchMonitoredServiceList: () => void
   selectedFilter?: FilterCardItem
   setSelectedFilter: React.Dispatch<React.SetStateAction<FilterCardItem | undefined>>
-  onEditService: (identifier?: string) => void
-  onDeleteService: (identifier?: string) => Promise<void>
+  onEditService: (identifier: string) => void
+  onDeleteService: (identifier: string) => Promise<void>
+  onToggleService: (identifier: string, checked: boolean) => Promise<void>
   healthMonitoringFlagLoading?: boolean
-  setHealthMonitoringFlag: setHealthMonitoringFlagType
 }
 
 export interface MonitoredServiceListViewProps extends MonitoredServiceViewsProps {
@@ -53,11 +52,10 @@ export interface MonitoredServiceGraphViewProps extends MonitoredServiceViewsPro
 
 export interface GraphSummaryCardProps {
   monitoredService: MonitoredServiceListItemDTO
-  setHealthMonitoringFlag: setHealthMonitoringFlagType
-  onEditService: (identifier?: string) => void
-  onDeleteService: (identifier?: string) => Promise<void>
+  onEditService: (identifier: string) => void
+  onDeleteService: (identifier: string) => Promise<void>
+  onToggleService: MonitoredServiceViewsProps['onToggleService']
   healthMonitoringFlagLoading?: boolean
-  refetchMonitoredServiceList: () => void
 }
 
 export interface ServiceHealthScoreProps {

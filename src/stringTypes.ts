@@ -3998,6 +3998,7 @@ export interface StringsMap {
   'cv.monitoredServices.filterlabel': string
   'cv.monitoredServices.healthScoreDataNotAvailable': string
   'cv.monitoredServices.monitoredServiceCreated': string
+  'cv.monitoredServices.monitoredServiceDeleted': string
   'cv.monitoredServices.monitoredServiceDetails': string
   'cv.monitoredServices.monitoredServiceName': string
   'cv.monitoredServices.monitoredServiceTabs.configurations': string

@@ -6,10 +6,9 @@ import { testWrapperProps } from '@cv/pages/monitored-service/CVMonitoredService
 import GraphSummaryCard from '../components/GraphSummaryCard/GraphSummaryCard'
 import { monitoredService } from './CVMonitoredService.mock'
 
-const refetchMonitoredServiceList = jest.fn()
+const onToggleService = jest.fn()
 const onEditService = jest.fn()
 const onDeleteService = jest.fn()
-const setHealthMonitoringFlag = jest.fn()
 
 describe('GraphSummaryCard', () => {
   test('Render GraphSummaryCard', () => {
@@ -17,10 +16,9 @@ describe('GraphSummaryCard', () => {
       <TestWrapper {...testWrapperProps}>
         <GraphSummaryCard
           monitoredService={monitoredService}
-          refetchMonitoredServiceList={refetchMonitoredServiceList}
           onEditService={onEditService}
           onDeleteService={onDeleteService}
-          setHealthMonitoringFlag={setHealthMonitoringFlag}
+          onToggleService={onToggleService}
         />
       </TestWrapper>
     )
@@ -33,10 +31,9 @@ describe('GraphSummaryCard', () => {
       <TestWrapper {...testWrapperProps}>
         <GraphSummaryCard
           monitoredService={monitoredService}
-          refetchMonitoredServiceList={refetchMonitoredServiceList}
           onEditService={onEditService}
           onDeleteService={onDeleteService}
-          setHealthMonitoringFlag={setHealthMonitoringFlag}
+          onToggleService={onToggleService}
         />
       </TestWrapper>
     )
@@ -51,10 +48,9 @@ describe('GraphSummaryCard', () => {
       <TestWrapper {...testWrapperProps}>
         <GraphSummaryCard
           monitoredService={monitoredService}
-          refetchMonitoredServiceList={refetchMonitoredServiceList}
           onEditService={onEditService}
           onDeleteService={onDeleteService}
-          setHealthMonitoringFlag={setHealthMonitoringFlag}
+          onToggleService={onToggleService}
         />
       </TestWrapper>
     )

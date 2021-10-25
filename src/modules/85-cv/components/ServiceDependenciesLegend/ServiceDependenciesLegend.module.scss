@@ -1,16 +1,19 @@
+.container {
+  border: 1px solid #cdf4fe;
+  border-radius: var(--spacing-xsmall);
+}
+
 .serviceStatesContainer {
   display: flex;
   width: fit-content;
   height: 30px;
-  border: 1px solid #cdf4fe;
   box-sizing: border-box;
-  border-radius: var(--spacing-xsmall);
-  margin-left: var(--spacing-small) !important;
 }
 
 .serviceTypesContainer {
   @extend .serviceStatesContainer;
   min-width: 359.94px;
+  border-top: 1px solid #cdf4fe;
 }
 
 .serviceState {

@@ -5,6 +5,5 @@ declare const styles: {
   readonly status: string
   readonly healthTrend: string
   readonly timestamps: string
-  readonly legend: string
 }
 export default styles

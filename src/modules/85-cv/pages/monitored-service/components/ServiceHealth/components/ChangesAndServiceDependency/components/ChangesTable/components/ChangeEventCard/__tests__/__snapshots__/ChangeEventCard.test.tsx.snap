@@ -279,10 +279,10 @@ exports[`Validate ChangeCard should render Pager Duty card 1`] = `
         <div />
       </div>
       <div
-        class="StyledProps--font StyledProps--main StyledProps--padding-medium"
+        class="StyledProps--font StyledProps--main container StyledProps--background-primary1 StyledProps--margin-top-small"
       >
         <div
-          class="StyledProps--font StyledProps--main serviceStatesContainer legend StyledProps--background-primary1"
+          class="StyledProps--font StyledProps--main serviceStatesContainer"
         >
           <div
             class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--padding-top-xsmall StyledProps--padding-right-xsmall"

@@ -3,10 +3,10 @@
 exports[`ServiceDependenciesLegend Tests should render ServiceDependenciesLegend component with correct labels 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main StyledProps--padding-medium"
+    class="StyledProps--font StyledProps--main container StyledProps--background-primary1"
   >
     <div
-      class="StyledProps--font StyledProps--main serviceStatesContainer StyledProps--background-primary1"
+      class="StyledProps--font StyledProps--main serviceStatesContainer"
     >
       <div
         class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--padding-top-xsmall StyledProps--padding-right-xsmall"
@@ -70,7 +70,7 @@ exports[`ServiceDependenciesLegend Tests should render ServiceDependenciesLegend
       </div>
     </div>
     <div
-      class="StyledProps--font StyledProps--main serviceTypesContainer StyledProps--background-primary1"
+      class="StyledProps--font StyledProps--main serviceTypesContainer"
     >
       <div
         class="StyledProps--font StyledProps--main StyledProps--flex"
@@ -140,10 +140,10 @@ exports[`ServiceDependenciesLegend Tests should render ServiceDependenciesLegend
 exports[`ServiceDependenciesLegend Tests should render ServiceDependenciesLegend without ServiceType legend 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main StyledProps--padding-medium"
+    class="StyledProps--font StyledProps--main container StyledProps--background-primary1"
   >
     <div
-      class="StyledProps--font StyledProps--main serviceStatesContainer StyledProps--background-primary1"
+      class="StyledProps--font StyledProps--main serviceStatesContainer"
     >
       <div
         class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--padding-top-xsmall StyledProps--padding-right-xsmall"

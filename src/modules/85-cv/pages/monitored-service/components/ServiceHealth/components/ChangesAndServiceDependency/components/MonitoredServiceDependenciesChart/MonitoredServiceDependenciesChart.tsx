@@ -60,9 +60,9 @@ export default function MonitoredServiceDependenciesChart(props: MonitoredServic
       )
     } else {
       return (
-        <Container padding={{ bottom: 'small' }}>
+        <Container padding="medium">
           <DependencyGraph dependencyData={dependencyData} options={{ chart: { height: 400 } }} />
-          <ServiceDependenciesLegend />
+          <ServiceDependenciesLegend margin={{ top: 'medium' }} />
         </Container>
       )
     }

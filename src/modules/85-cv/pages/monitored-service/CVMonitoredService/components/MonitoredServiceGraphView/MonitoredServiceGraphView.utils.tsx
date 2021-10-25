@@ -5,6 +5,7 @@ export const getListingPageDependencyGraphOptions = (
 ): NetworkgraphOptions => {
   return {
     chart: {
+      height: 500,
       spacing: [0, 0, 0, 0]
     },
     tooltip: {

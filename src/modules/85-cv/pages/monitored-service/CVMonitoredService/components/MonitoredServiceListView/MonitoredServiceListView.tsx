@@ -7,6 +7,7 @@ import type { MonitoredServiceListItemDTO } from 'services/cv'
 import routes from '@common/RouteDefinitions'
 import { Table } from '@common/components'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import ToggleOnOff from '@common/components/ToggleOnOff/ToggleOnOff'
 import FilterCard from '@cv/components/FilterCard/FilterCard'
 import ContextMenuActions from '@cv/components/ContextMenuActions/ContextMenuActions'
 import {
@@ -16,7 +17,6 @@ import {
   ServiceDeleteContext,
   getMonitoredServiceFilterOptions
 } from '../../CVMonitoredService.utils'
-import ToggleMonitoring from '../../../components/toggleMonitoring/ToggleMonitoring'
 import type { MonitoredServiceListViewProps } from '../../CVMonitoredService.types'
 import MonitoredServiceCategory from '../../../components/Configurations/components/Dependency/component/components/MonitoredServiceCategory/MonitoredServiceCategory'
 import css from '../../CVMonitoredService.module.scss'
@@ -116,12 +116,11 @@ const RenderServiceChanges: Renderer<CellProps<MonitoredServiceListItemDTO>> = (
 
 const MonitoredServiceListView: React.FC<MonitoredServiceListViewProps> = ({
   monitoredServiceListData,
-  refetchMonitoredServiceList,
   selectedFilter,
   setSelectedFilter,
   onEditService,
   onDeleteService,
-  setHealthMonitoringFlag,
+  onToggleService,
   healthMonitoringFlagLoading,
   setPage
 }) => {
@@ -134,12 +133,12 @@ const MonitoredServiceListView: React.FC<MonitoredServiceListViewProps> = ({
 
     return (
       <Layout.Horizontal flex={{ alignItems: 'center' }}>
-        <ToggleMonitoring
-          refetch={refetchMonitoredServiceList}
-          identifier={monitoredService.identifier as string}
-          enabled={!!monitoredService.healthMonitoringEnabled}
-          setHealthMonitoringFlag={setHealthMonitoringFlag}
+        <ToggleOnOff
+          checked={!!monitoredService.healthMonitoringEnabled}
           loading={healthMonitoringFlagLoading}
+          onChange={checked => {
+            onToggleService(monitoredService.identifier ?? '', checked)
+          }}
         />
         <ContextMenuActions
           titleText={getString('common.delete', { name: monitoredService.serviceName })}
@@ -147,11 +146,11 @@ const MonitoredServiceListView: React.FC<MonitoredServiceListViewProps> = ({
           confirmButtonText={getString('yes')}
           deleteLabel={getString('cv.monitoredServices.deleteService')}
           onDelete={() => {
-            onDeleteService(monitoredService.identifier)
+            onDeleteService(monitoredService.identifier as string)
           }}
           editLabel={getString('cv.monitoredServices.editService')}
           onEdit={() => {
-            onEditService(monitoredService.identifier)
+            onEditService(monitoredService.identifier as string)
           }}
         />
       </Layout.Horizontal>

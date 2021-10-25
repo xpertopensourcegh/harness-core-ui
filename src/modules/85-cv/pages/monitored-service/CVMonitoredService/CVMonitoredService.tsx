@@ -35,7 +35,7 @@ const MonitoredService: React.FC = () => {
   const { getString } = useStrings()
   const history = useHistory()
   const { view } = useQueryParams<{ view?: Views.GRID }>()
-  const { showError, clear } = useToaster()
+  const { showError, showSuccess } = useToaster()
   const params = useParams<ProjectPathProps>()
   const pathParams = {
     accountId: params.accountId,
@@ -63,8 +63,7 @@ const MonitoredService: React.FC = () => {
       pageSize: 10,
       ...pathParams,
       ...getFilterAndEnvironmentValue(environment?.value as string, '')
-    },
-    debounce: 400
+    }
   })
 
   const {
@@ -88,38 +87,53 @@ const MonitoredService: React.FC = () => {
     identifier: ''
   })
 
+  const onToggleService = async (identifier: string, checked: boolean): Promise<void> => {
+    try {
+      const response = await setHealthMonitoringFlag(undefined, {
+        pathParams: {
+          identifier
+        },
+        queryParams: {
+          enable: checked,
+          ...pathParams
+        }
+      })
+
+      await Promise.all([refetchMonitoredServiceList(), refetchServiceDependencyGraphData()])
+
+      showSuccess(
+        getString('cv.monitoredServices.monitoredServiceToggle', {
+          enabled: response.resource?.healthMonitoringEnabled ? 'enabled' : 'disabled'
+        })
+      )
+    } catch (e) {
+      showError(getErrorMessage(e))
+    }
+  }
+
   const { mutate: deleteMonitoredService, loading: deleteMonitoredServiceLoading } = useDeleteMonitoredService({
     queryParams: pathParams
   })
 
-  const onDeleteService = async (identifier?: string): Promise<void> => {
-    if (!identifier) {
-      return
-    }
-
-    const { pageIndex = 0, pageItemCount } = monitoredServiceListData?.data || {}
-
+  const onDeleteService = async (identifier: string): Promise<void> => {
     try {
-      const deletePromise = deleteMonitoredService(identifier)
-      let refetchServiceListDataPromise, refetchServiceGraphDataPromise
+      await deleteMonitoredService(identifier)
 
-      await deletePromise.then(() => {
-        refetchServiceListDataPromise = refetchMonitoredServiceList()
-        refetchServiceGraphDataPromise = refetchServiceDependencyGraphData()
-      })
+      const { pageIndex = 0, pageItemCount } = monitoredServiceListData?.data || {}
 
-      await Promise.all([deletePromise, refetchServiceListDataPromise, refetchServiceGraphDataPromise])
+      await Promise.all([refetchMonitoredServiceList(), refetchServiceDependencyGraphData()])
+
+      showSuccess(getString('cv.monitoredServices.monitoredServiceDeleted'))
 
       if (pageIndex > 0 && pageItemCount === 1) {
         setPage(page - 1)
       }
     } catch (e) {
-      clear()
       showError(getErrorMessage(e))
     }
   }
 
-  const onEditService = (identifier?: string): void => {
+  const onEditService = (identifier: string): void => {
     history.push({
       pathname: routes.toCVMonitoredServiceConfigurations({
         ...pathParams,
@@ -184,13 +198,12 @@ const MonitoredService: React.FC = () => {
         >
           <MonitoredServiceListView
             monitoredServiceListData={monitoredServiceListData?.data}
-            refetchMonitoredServiceList={refetchMonitoredServiceList}
             selectedFilter={selectedFilter}
             setSelectedFilter={setSelectedFilter}
             onEditService={onEditService}
             onDeleteService={onDeleteService}
-            setHealthMonitoringFlag={setHealthMonitoringFlag}
             setPage={setPage}
+            onToggleService={onToggleService}
           />
         </Page.Body>
       ) : (
@@ -218,14 +231,13 @@ const MonitoredService: React.FC = () => {
         >
           <MonitoredServiceGraphView
             monitoredServiceListData={monitoredServiceListData?.data}
-            refetchMonitoredServiceList={refetchMonitoredServiceList}
             selectedFilter={selectedFilter}
             setSelectedFilter={setSelectedFilter}
             onEditService={onEditService}
             onDeleteService={onDeleteService}
-            setHealthMonitoringFlag={setHealthMonitoringFlag}
             healthMonitoringFlagLoading={healthMonitoringFlagLoading}
             monitoredServiceDependencyData={monitoredServiceDependencyData}
+            onToggleService={onToggleService}
           />
         </Page.Body>
       )}

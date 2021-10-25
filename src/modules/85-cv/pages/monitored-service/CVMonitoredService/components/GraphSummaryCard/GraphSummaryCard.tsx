@@ -2,7 +2,7 @@ import React from 'react'
 import { Container, Layout, Text, Color, FontVariation, ButtonVariation, Button } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { useConfirmationDialog } from '@common/exports'
-import ToggleMonitoring from '../../../components/toggleMonitoring/ToggleMonitoring'
+import ToggleOnOff from '@common/components/ToggleOnOff/ToggleOnOff'
 import { ServiceDeleteContext, ServiceHealthTrend, ServiceHealthScore } from '../../CVMonitoredService.utils'
 import type { GraphSummaryCardProps } from '../../CVMonitoredService.types'
 import { GraphServiceChanges } from './GraphSummaryCard.utils'
@@ -10,11 +10,10 @@ import css from '../../CVMonitoredService.module.scss'
 
 const GraphSummaryCard: React.FC<GraphSummaryCardProps> = ({
   monitoredService,
-  setHealthMonitoringFlag,
   onEditService,
   onDeleteService,
-  healthMonitoringFlagLoading,
-  refetchMonitoredServiceList
+  onToggleService,
+  healthMonitoringFlagLoading
 }) => {
   const { getString } = useStrings()
 
@@ -25,7 +24,7 @@ const GraphSummaryCard: React.FC<GraphSummaryCardProps> = ({
     cancelButtonText: getString('cancel'),
     onCloseDialog: function (shouldDelete: boolean) {
       if (shouldDelete) {
-        onDeleteService(monitoredService.identifier)
+        onDeleteService(monitoredService.identifier as string)
       }
     }
   })
@@ -46,7 +45,7 @@ const GraphSummaryCard: React.FC<GraphSummaryCardProps> = ({
             icon="Edit"
             iconProps={{ color: Color.GREY_0 }}
             variation={ButtonVariation.ICON}
-            onClick={() => onEditService(monitoredService.identifier)}
+            onClick={() => onEditService(monitoredService.identifier as string)}
           />
           <Button
             icon="trash"
@@ -55,12 +54,12 @@ const GraphSummaryCard: React.FC<GraphSummaryCardProps> = ({
             margin={{ right: 'small' }}
             onClick={confirmServiceDelete}
           />
-          <ToggleMonitoring
-            refetch={refetchMonitoredServiceList}
-            identifier={monitoredService?.identifier as string}
-            enabled={!!monitoredService?.healthMonitoringEnabled}
-            setHealthMonitoringFlag={setHealthMonitoringFlag}
+          <ToggleOnOff
+            checked={!!monitoredService.healthMonitoringEnabled}
             loading={healthMonitoringFlagLoading}
+            onChange={checked => {
+              onToggleService(monitoredService.identifier as string, checked)
+            }}
           />
         </Layout.Horizontal>
       </Layout.Horizontal>
@@ -81,11 +80,13 @@ const GraphSummaryCard: React.FC<GraphSummaryCardProps> = ({
           {getString('cv.monitoredServices.monitoredServiceTabs.serviceHealth').toUpperCase()}
         </Text>
         <ServiceHealthTrend healthScores={monitoredService.historicalTrend?.healthScores} />
-        <ServiceHealthScore
-          monitoredService={monitoredService}
-          labelVariation={FontVariation.SMALL}
-          color={Color.GREY_0}
-        />
+        <Container margin={{ top: 'large' }}>
+          <ServiceHealthScore
+            monitoredService={monitoredService}
+            labelVariation={FontVariation.SMALL}
+            color={Color.GREY_0}
+          />
+        </Container>
       </Layout.Vertical>
     </Container>
   )

@@ -18,14 +18,13 @@ import css from '../../CVMonitoredService.module.scss'
 
 const MonitoredServiceGraphView: React.FC<MonitoredServiceGraphViewProps> = ({
   monitoredServiceListData,
-  refetchMonitoredServiceList,
+  monitoredServiceDependencyData,
   selectedFilter,
   setSelectedFilter,
   onEditService,
   onDeleteService,
-  setHealthMonitoringFlag,
-  healthMonitoringFlagLoading,
-  monitoredServiceDependencyData
+  onToggleService,
+  healthMonitoringFlagLoading
 }) => {
   const history = useHistory()
   const { getString } = useStrings()
@@ -68,11 +67,10 @@ const MonitoredServiceGraphView: React.FC<MonitoredServiceGraphViewProps> = ({
     return monitoredService ? (
       <GraphSummaryCard
         monitoredService={monitoredService}
-        setHealthMonitoringFlag={setHealthMonitoringFlag}
         onEditService={onEditService}
         onDeleteService={onDeleteService}
+        onToggleService={onToggleService}
         healthMonitoringFlagLoading={healthMonitoringFlagLoading}
-        refetchMonitoredServiceList={refetchMonitoredServiceList}
       />
     ) : (
       <></>
@@ -91,11 +89,11 @@ const MonitoredServiceGraphView: React.FC<MonitoredServiceGraphViewProps> = ({
         selected={selectedFilter ?? getMonitoredServiceFilterOptions(getString, monitoredServiceListData)[0]}
         onChange={item => setSelectedFilter(item)}
       />
-      {renderDependencyData()}
-      <HighchartCustomTooltip chart={chart}>{getHighchartCustomTooltipContent}</HighchartCustomTooltip>
-      <Container margin={{ top: 'xxxlarge' }}>
-        <ServiceDependenciesLegend />
+      <Container style={{ flexGrow: 1 }}>
+        {renderDependencyData()}
+        <HighchartCustomTooltip chart={chart}>{getHighchartCustomTooltipContent}</HighchartCustomTooltip>
       </Container>
+      <ServiceDependenciesLegend margin={{ top: 'medium' }} />
     </Layout.Vertical>
   )
 }
