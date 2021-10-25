@@ -88,7 +88,7 @@ export default function ChangesTable({
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [startTime, endTime])
+  }, [startTime, endTime, page])
 
   const columns: Column<any>[] = useMemo(
     () => [

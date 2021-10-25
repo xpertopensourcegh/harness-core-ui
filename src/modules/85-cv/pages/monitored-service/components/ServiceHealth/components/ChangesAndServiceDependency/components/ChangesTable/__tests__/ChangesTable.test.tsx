@@ -101,7 +101,7 @@ describe('Change table', () => {
 
     expect(container).toMatchSnapshot()
   })
-  test('should verify pagination', () => {
+  test('should verify pagination', async () => {
     const refetchChangeList = jest.fn()
     jest.spyOn(cvService, 'useChangeEventList').mockImplementation(
       () =>
@@ -132,19 +132,21 @@ describe('Change table', () => {
 
     userEvent.click(pageButtons[1])
 
-    expect(refetchChangeList).toHaveBeenLastCalledWith({
-      queryParamStringifyOptions: {
-        arrayFormat: 'repeat'
-      },
-      queryParams: {
-        endTime: 2,
-        envIdentifiers: ['env'],
-        pageIndex: 0,
-        pageSize: 10,
-        serviceIdentifiers: ['srv'],
-        startTime: 1
-      }
-    })
+    await waitFor(() =>
+      expect(refetchChangeList).toHaveBeenLastCalledWith({
+        queryParamStringifyOptions: {
+          arrayFormat: 'repeat'
+        },
+        queryParams: {
+          endTime: 2,
+          envIdentifiers: ['env'],
+          pageIndex: 1,
+          pageSize: 10,
+          serviceIdentifiers: ['srv'],
+          startTime: 1
+        }
+      })
+    )
   })
 
   test('should verify changetable rendering with data', async () => {
