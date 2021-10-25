@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
-import { Card, Switch, Color, Text } from '@wings-software/uicore'
+import { Card, Color, Text } from '@wings-software/uicore'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
@@ -8,6 +8,8 @@ import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmat
 import { useToaster } from '@common/components'
 import { useSetTwoFactorAuthAtAccountLevel } from 'services/cd-ng'
 import routes from '@common/RouteDefinitions'
+import FeatureSwitch from '@rbac/components/Switch/Switch'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import css from './TwoFactorAuthentication.module.scss'
 
 interface Props {
@@ -121,7 +123,8 @@ const TwoFactorAuthentication: React.FC<Props> = ({ twoFactorEnabled, onSuccess,
 
   return (
     <Card className={css.twoFactorAuthentication}>
-      <Switch
+      <FeatureSwitch
+        featureProps={{ featureRequest: { featureName: FeatureIdentifier.TWO_FACTOR_AUTH_SUPPORT } }}
         label={getString('authSettings.enforceTwoFA')}
         checked={twoFactorEnabled}
         font={{ weight: 'semi-bold', size: 'normal' }}
