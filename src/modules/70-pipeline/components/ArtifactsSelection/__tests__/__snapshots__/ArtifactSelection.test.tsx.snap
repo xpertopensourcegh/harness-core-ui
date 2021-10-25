@@ -165,12 +165,21 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
                   </defs>
                 </svg>
               </span>
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main connectorName"
-                style="--text-line-clamp: 1;"
+              <span
+                class="bp3-popover-wrapper"
               >
-                Test
-              </p>
+                <span
+                  class="bp3-popover-target Text--targetClass"
+                >
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main connectorName"
+                    style="--text-line-clamp: 1;"
+                    tabindex="0"
+                  >
+                    Test
+                  </p>
+                </span>
+              </span>
               <span
                 class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--color"
                 icon="full-circle"
@@ -343,12 +352,21 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
                   />
                 </svg>
               </span>
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main connectorName"
-                style="--text-line-clamp: 1;"
+              <span
+                class="bp3-popover-wrapper"
               >
-                connectorRef
-              </p>
+                <span
+                  class="bp3-popover-target Text--targetClass"
+                >
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main connectorName"
+                    style="--text-line-clamp: 1;"
+                    tabindex="0"
+                  >
+                    connectorRef
+                  </p>
+                </span>
+              </span>
               <span
                 class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--color"
                 icon="full-circle"
@@ -596,12 +614,21 @@ exports[`ArtifactsSelection tests delete artifact list works correctly 1`] = `
                   </g>
                 </svg>
               </span>
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main connectorName"
-                style="--text-line-clamp: 1;"
+              <span
+                class="bp3-popover-wrapper"
               >
-                
-              </p>
+                <span
+                  class="bp3-popover-target Text--targetClass"
+                >
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main connectorName"
+                    style="--text-line-clamp: 1;"
+                    tabindex="0"
+                  >
+                    
+                  </p>
+                </span>
+              </span>
               <span
                 class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--color"
                 icon="full-circle"
@@ -871,12 +898,21 @@ exports[`ArtifactsSelection tests edit artifact list works correctly 1`] = `
                   </g>
                 </svg>
               </span>
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main connectorName"
-                style="--text-line-clamp: 1;"
+              <span
+                class="bp3-popover-wrapper"
               >
-                
-              </p>
+                <span
+                  class="bp3-popover-target Text--targetClass"
+                >
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main connectorName"
+                    style="--text-line-clamp: 1;"
+                    tabindex="0"
+                  >
+                    
+                  </p>
+                </span>
+              </span>
               <span
                 class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--color"
                 icon="full-circle"
@@ -1146,12 +1182,21 @@ exports[`ArtifactsSelection tests renders Artifact Listview with connectors Data
                   </g>
                 </svg>
               </span>
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main connectorName"
-                style="--text-line-clamp: 1;"
+              <span
+                class="bp3-popover-wrapper"
               >
-                
-              </p>
+                <span
+                  class="bp3-popover-target Text--targetClass"
+                >
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main connectorName"
+                    style="--text-line-clamp: 1;"
+                    tabindex="0"
+                  >
+                    
+                  </p>
+                </span>
+              </span>
               <span
                 class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--color"
                 icon="full-circle"
@@ -1276,12 +1321,21 @@ exports[`ArtifactsSelection tests renders Artifact Listview without crashing 1`]
                   />
                 </svg>
               </span>
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main connectorName"
-                style="--text-line-clamp: 1;"
+              <span
+                class="bp3-popover-wrapper"
               >
-                
-              </p>
+                <span
+                  class="bp3-popover-target Text--targetClass"
+                >
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main connectorName"
+                    style="--text-line-clamp: 1;"
+                    tabindex="0"
+                  >
+                    
+                  </p>
+                </span>
+              </span>
               <span
                 class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--color"
                 icon="full-circle"
@@ -1450,12 +1504,21 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
             <div
               class="connectorNameField"
             >
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main connectorName"
-                style="--text-line-clamp: 1;"
+              <span
+                class="bp3-popover-wrapper"
               >
-                
-              </p>
+                <span
+                  class="bp3-popover-target Text--targetClass"
+                >
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main connectorName"
+                    style="--text-line-clamp: 1;"
+                    tabindex="0"
+                  >
+                    
+                  </p>
+                </span>
+              </span>
             </div>
             <div>
               <p
@@ -1634,12 +1697,21 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
                   </g>
                 </svg>
               </span>
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main connectorName"
-                style="--text-line-clamp: 1;"
+              <span
+                class="bp3-popover-wrapper"
               >
-                
-              </p>
+                <span
+                  class="bp3-popover-target Text--targetClass"
+                >
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main connectorName"
+                    style="--text-line-clamp: 1;"
+                    tabindex="0"
+                  >
+                    
+                  </p>
+                </span>
+              </span>
               <span
                 class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--color"
                 icon="full-circle"
@@ -1786,12 +1858,21 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
                   />
                 </svg>
               </span>
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main connectorName"
-                style="--text-line-clamp: 1;"
+              <span
+                class="bp3-popover-wrapper"
               >
-                
-              </p>
+                <span
+                  class="bp3-popover-target Text--targetClass"
+                >
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main connectorName"
+                    style="--text-line-clamp: 1;"
+                    tabindex="0"
+                  >
+                    
+                  </p>
+                </span>
+              </span>
               <span
                 class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--color"
                 icon="full-circle"

@@ -95,12 +95,21 @@ exports[`ManifestSelection tests delete manifest list works correctly 1`] = `
                   />
                 </svg>
               </span>
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main connectorName"
-                style="--text-line-clamp: 1;"
+              <span
+                class="bp3-popover-wrapper"
               >
-                account.Rohan_Github_ALL_HANDS
-              </p>
+                <span
+                  class="bp3-popover-target Text--targetClass"
+                >
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main connectorName"
+                    style="--text-line-clamp: 1;"
+                    tabindex="0"
+                  >
+                    account.Rohan_Github_ALL_HANDS
+                  </p>
+                </span>
+              </span>
               <span
                 class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--color"
                 icon="full-circle"
@@ -405,12 +414,21 @@ exports[`ManifestSelection tests edit manifest list works correctly 1`] = `
                   </g>
                 </svg>
               </span>
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main connectorName"
-                style="--text-line-clamp: 1;"
+              <span
+                class="bp3-popover-wrapper"
               >
-                account.Testbitbucke
-              </p>
+                <span
+                  class="bp3-popover-target Text--targetClass"
+                >
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main connectorName"
+                    style="--text-line-clamp: 1;"
+                    tabindex="0"
+                  >
+                    account.Testbitbucke
+                  </p>
+                </span>
+              </span>
               <span
                 class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--color"
                 icon="full-circle"

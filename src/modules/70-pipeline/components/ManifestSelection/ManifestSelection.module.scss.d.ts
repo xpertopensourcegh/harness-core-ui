@@ -15,5 +15,6 @@ declare const styles: {
   readonly crossIcon: string
   readonly createConnectorWizard: string
   readonly noWrap: string
+  readonly borderRadius: string
 }
 export default styles

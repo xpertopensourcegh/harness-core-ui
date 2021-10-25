@@ -8,7 +8,8 @@ import {
   MultiTypeInputType,
   Button,
   ButtonSize,
-  ButtonVariation
+  ButtonVariation,
+  Container
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
@@ -42,6 +43,7 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
     accountId
   )
   const primaryConnectorName = getConnectorNameFromValue(primaryArtifact?.spec?.connectorRef, fetchedConnectorResponse)
+
   return (
     <Layout.Vertical style={{ width: '100%' }}>
       <Layout.Vertical spacing="small" style={{ flexShrink: 'initial' }}>
@@ -66,9 +68,27 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
                 </div>
                 <div className={css.connectorNameField}>
                   <Icon padding={{ right: 'small' }} name={ArtifactIconByType[primaryArtifact.type]} size={18} />
-                  <Text className={css.connectorName} lineClamp={1}>
+                  <Text
+                    tooltip={
+                      <Container className={css.borderRadius} padding="medium">
+                        <div>
+                          <Text font="small" color={Color.GREY_100}>
+                            {primaryConnectorName}
+                          </Text>
+                          <Text font="small" color={Color.GREY_300}>
+                            {primaryArtifact.spec?.connectorRef}
+                          </Text>
+                        </div>
+                      </Container>
+                    }
+                    tooltipProps={{ isDark: true }}
+                    alwaysShowTooltip
+                    className={css.connectorName}
+                    lineClamp={1}
+                  >
                     {primaryConnectorName ?? primaryArtifact.spec?.connectorRef}
                   </Text>
+
                   {getMultiTypeFromValue(primaryArtifact.spec?.connectorRef) === MultiTypeInputType.FIXED && (
                     <Icon name="full-circle" size={12} color={primaryConnectorColor} />
                   )}
@@ -122,7 +142,24 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
                         name={ArtifactIconByType[sidecar?.type as ArtifactType]}
                         size={18}
                       />
-                      <Text className={css.connectorName} lineClamp={1}>
+                      <Text
+                        className={css.connectorName}
+                        lineClamp={1}
+                        tooltip={
+                          <Container className={css.borderRadius} padding="medium">
+                            <div>
+                              <Text font="small" color={Color.GREY_100}>
+                                {sidecarConnectorName}
+                              </Text>
+                              <Text font="small" color={Color.GREY_300}>
+                                {sidecar?.spec?.connectorRef}
+                              </Text>
+                            </div>
+                          </Container>
+                        }
+                        tooltipProps={{ isDark: true }}
+                        alwaysShowTooltip
+                      >
                         {sidecarConnectorName ?? sidecar?.spec?.connectorRef}
                       </Text>
                       {getMultiTypeFromValue(sidecar?.spec?.connectorRef) === MultiTypeInputType.FIXED && (

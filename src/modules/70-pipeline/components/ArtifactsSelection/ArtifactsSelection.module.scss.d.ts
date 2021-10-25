@@ -18,5 +18,6 @@ declare const styles: {
   readonly artifactList: string
   readonly listHeader: string
   readonly noWrap: string
+  readonly borderRadius: string
 }
 export default styles

@@ -11,7 +11,8 @@ import {
   MultiTypeInputType,
   getMultiTypeFromValue,
   ButtonSize,
-  ButtonVariation
+  ButtonVariation,
+  Container
 } from '@wings-software/uicore'
 
 import { useParams } from 'react-router-dom'
@@ -626,7 +627,24 @@ const ManifestListView = ({
                         name={ManifestIconByType[manifest?.spec?.store.type as ManifestStores]}
                         size={18}
                       />
-                      <Text className={css.connectorName} lineClamp={1}>
+                      <Text
+                        tooltip={
+                          <Container className={css.borderRadius} padding="medium">
+                            <div>
+                              <Text font="small" color={Color.GREY_100}>
+                                {connectorName}
+                              </Text>
+                              <Text font="small" color={Color.GREY_300}>
+                                {manifest?.spec?.store.spec.connectorRef}
+                              </Text>
+                            </div>
+                          </Container>
+                        }
+                        tooltipProps={{ isDark: true }}
+                        alwaysShowTooltip
+                        className={css.connectorName}
+                        lineClamp={1}
+                      >
                         {connectorName ?? manifest?.spec?.store.spec.connectorRef}
                       </Text>
                       {getMultiTypeFromValue(manifest?.spec?.store.spec.connectorRef) === MultiTypeInputType.FIXED && (
