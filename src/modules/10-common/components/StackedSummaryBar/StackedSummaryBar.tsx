@@ -19,6 +19,7 @@ export interface StackedSummaryBarData {
   barSectionsData: Array<StackedBarSectionData>
   trend?: string
   intent?: Intent
+  showTrend?: boolean
 }
 
 export interface StackedSummaryBarProps extends StackedSummaryBarData {
@@ -30,7 +31,7 @@ export const getStackedSummaryBarCount = (barData: Array<StackedBarSectionData>)
   barData.reduce((sum: number, section: StackedBarSectionData) => sum + section.count, 0)
 
 export const StackedSummaryBar: React.FC<StackedSummaryBarProps> = props => {
-  const { maxCount, barSectionsData, trend, intent = Intent.SUCCESS, barLength = 100 } = props
+  const { maxCount, barSectionsData, trend, intent = Intent.SUCCESS, barLength = 100, showTrend = true } = props
   const summaryCount = getStackedSummaryBarCount(barSectionsData)
   const trendChange = trend ? parseInt(trend) : 0
   const barSections: Array<BarSection> = []
@@ -83,12 +84,20 @@ export const StackedSummaryBar: React.FC<StackedSummaryBarProps> = props => {
           ) : null
         })}
       </Container>
-      {trendChange || isNaN(trendChange) ? ( // Handling Infinity as positive intent
-        <Container flex>
-          {(intent === Intent.SUCCESS) === trendChange < 0 ? renderTrend(Color.RED_500) : renderTrend(Color.GREEN_500)}
-        </Container>
+      {showTrend ? (
+        trendChange ? (
+          <Container flex>
+            {(intent === Intent.SUCCESS) === trendChange < 0
+              ? renderTrend(Color.RED_500)
+              : renderTrend(Color.GREEN_500)}
+          </Container>
+        ) : isNaN(trendChange) ? ( // handing Infinity and other unexpected trends
+          <Icon name="up" size={12}></Icon>
+        ) : (
+          <Container flex>{renderTrend(Color.GREY_300)}</Container>
+        )
       ) : (
-        <Container flex>{renderTrend(Color.GREY_300)}</Container>
+        <></>
       )}
     </Layout.Horizontal>
   )
