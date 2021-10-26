@@ -3741,6 +3741,8 @@ export interface StringsMap {
   'ci.clipboardCopySuccess': string
   'ci.commitMessage': string
   'ci.commitsOn': string
+  'ci.commitsTab.youHaveNoCommits': string
+  'ci.commitsTab.youWillSeeYourCommitsHere': string
   'ci.committed': string
   'ci.connectors': string
   'ci.continuous': string

@@ -102,7 +102,7 @@ exports[`BuildCommits snapshot test should render properly 1`] = `
               class="bp3-popover-target"
             >
               <p
-                class="StyledProps--font StyledProps--main StyledProps--inline"
+                class="StyledProps--font StyledProps--main timeStamp StyledProps--inline"
                 tabindex="0"
               >
                 dummy date
@@ -111,6 +111,7 @@ exports[`BuildCommits snapshot test should render properly 1`] = `
           </span>
           <p
             class="StyledProps--font StyledProps--main commitId"
+            data-name="commitId"
           >
             <a
               class="label"
@@ -230,7 +231,7 @@ exports[`BuildCommits snapshot test should render properly 1`] = `
               class="bp3-popover-target"
             >
               <p
-                class="StyledProps--font StyledProps--main StyledProps--inline"
+                class="StyledProps--font StyledProps--main timeStamp StyledProps--inline"
                 tabindex="0"
               >
                 dummy date
@@ -239,6 +240,7 @@ exports[`BuildCommits snapshot test should render properly 1`] = `
           </span>
           <p
             class="StyledProps--font StyledProps--main commitId"
+            data-name="commitId"
           >
             <a
               class="label"
@@ -343,7 +345,7 @@ exports[`BuildCommits snapshot test should render properly 1`] = `
               class="bp3-popover-target"
             >
               <p
-                class="StyledProps--font StyledProps--main StyledProps--inline"
+                class="StyledProps--font StyledProps--main timeStamp StyledProps--inline"
                 tabindex="0"
               >
                 dummy date
