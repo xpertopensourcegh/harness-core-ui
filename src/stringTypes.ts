@@ -348,6 +348,7 @@ export interface StringsMap {
   'common.policy.noPolicy': string
   'common.policy.noPolicyEvalResult': string
   'common.policy.noPolicyResult': string
+  'common.policy.noSelectInput': string
   'common.policy.policySearch': string
   'common.policy.policysets': string
   'common.policy.table.createdAt': string

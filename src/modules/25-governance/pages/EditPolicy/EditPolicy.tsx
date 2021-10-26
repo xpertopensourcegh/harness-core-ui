@@ -13,7 +13,9 @@ import {
   FontVariation,
   ButtonSize,
   FlexExpander,
-  PageHeader
+  PageHeader,
+  useModalHook,
+  Dialog
 } from '@wings-software/uicore'
 import { Intent } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
@@ -32,6 +34,7 @@ import { useCreatePolicy, useEvaluateRaw, useGetPolicy, useUpdatePolicy } from '
 import { EditPolicyMetadataModalButton } from './EditPolicyMetadataModalButton'
 import type { PolicyMetadata } from './EditPolicyMetadataModalButton'
 import { SelectPolicyModalButton } from './SelectPolicyModalButton'
+import SelectInputModal from './SelectInputModal'
 import css from './EditPolicy.module.scss'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -77,6 +80,7 @@ export const EditPolicy: React.FC = () => {
   const [testPolicyLoading, setTestPolicyLoading] = useState(false)
   const [regoEditor, setRegoEditor] = useState<EDITOR.IStandaloneCodeEditor>()
   const [inputEditor, setInputEditor] = useState<EDITOR.IStandaloneCodeEditor>()
+  const [inputFromSource, setInputFromSource] = useState<string>()
   const [outputEditor, setOutputEditor] = useState<EDITOR.IStandaloneCodeEditor>()
   const history = useHistory()
   const { mutate: updatePolicy } = useUpdatePolicy({ policy: policyIdentifier, queryParams })
@@ -301,6 +305,36 @@ export const EditPolicy: React.FC = () => {
     }
   }, [policyData, regoEditor])
 
+  const [showModal, hideModal] = useModalHook(
+    () => (
+      <Dialog
+        enforceFocus={false}
+        isOpen={true}
+        onClose={() => {
+          hideModal()
+        }}
+        title={'Select Input'}
+        style={{ width: 750, height: 650 }}
+        footer={
+          <Layout.Horizontal spacing="small" padding="none" margin="none">
+            <Button
+              text="Apply"
+              variation={ButtonVariation.PRIMARY}
+              onClick={() => {
+                setInput(JSON.stringify(JSON.parse(inputFromSource || ''), null, 2))
+                hideModal()
+              }}
+            ></Button>
+            <Button text="Cancel" variation={ButtonVariation.TERTIARY} onClick={() => hideModal()}></Button>
+          </Layout.Horizontal>
+        }
+      >
+        <SelectInputModal handleOnSelect={_data => setInputFromSource(_data)} />
+      </Dialog>
+    ),
+    [inputFromSource]
+  )
+
   return (
     <>
       <PageHeader
@@ -384,6 +418,7 @@ export const EditPolicy: React.FC = () => {
                         variation={ButtonVariation.SECONDARY}
                         size={ButtonSize.SMALL}
                         text={getString('governance.selectInput')}
+                        onClick={() => showModal()}
                       />
                     </Layout.Horizontal>
                   </Container>
