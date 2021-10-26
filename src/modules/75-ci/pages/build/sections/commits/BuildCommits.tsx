@@ -40,7 +40,12 @@ const Commits: React.FC<{ commits: CIBuildCommit[]; showAvatar?: boolean }> = ({
             </Text>
           )}
         </div>
-        <Layout.Horizontal style={{ marginLeft: 'var(--spacing-3)' }} flex={{ alignItems: 'center' }} spacing="medium">
+        <Layout.Horizontal
+          className={css.rightSideCommitDetails}
+          style={{ marginLeft: 'var(--spacing-3)' }}
+          flex={{ alignItems: 'center' }}
+          spacing="medium"
+        >
           {ownerName && (
             <UserLabel
               className={css.user}

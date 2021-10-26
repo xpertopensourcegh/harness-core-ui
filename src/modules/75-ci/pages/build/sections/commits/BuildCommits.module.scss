@@ -112,6 +112,11 @@
 .timeStamp {
   color: var(--grey-600) !important;
 }
+.rightSideCommitDetails {
+  > span {
+    width: 90px !important;
+  }
+}
 
 .label {
   display: flex !important;

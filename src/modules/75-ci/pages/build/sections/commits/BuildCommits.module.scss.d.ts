@@ -11,6 +11,7 @@ declare const styles: {
   readonly commitDescription: string
   readonly user: string
   readonly timeStamp: string
+  readonly rightSideCommitDetails: string
   readonly label: string
   readonly hash: string
   readonly hashText: string

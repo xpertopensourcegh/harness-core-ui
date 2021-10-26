@@ -49,7 +49,7 @@ exports[`BuildCommits snapshot test should render properly 1`] = `
           </p>
         </div>
         <div
-          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center"
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main rightSideCommitDetails StyledProps--flex StyledProps--flex-alignItems-center"
         >
           <div
             class="wrapper"
@@ -178,7 +178,7 @@ exports[`BuildCommits snapshot test should render properly 1`] = `
           </p>
         </div>
         <div
-          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center"
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main rightSideCommitDetails StyledProps--flex StyledProps--flex-alignItems-center"
         >
           <div
             class="wrapper"
@@ -336,7 +336,7 @@ exports[`BuildCommits snapshot test should render properly 1`] = `
           </p>
         </div>
         <div
-          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center"
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main rightSideCommitDetails StyledProps--flex StyledProps--flex-alignItems-center"
         >
           <span
             class="bp3-popover-wrapper bp3-dark"
