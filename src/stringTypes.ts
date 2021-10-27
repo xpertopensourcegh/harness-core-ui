@@ -426,9 +426,6 @@ export interface StringsMap {
   'common.resolveConflict': string
   'common.role': string
   'common.saveAndClose': string
-  'common.saveAsNewTemplateHeading': string
-  'common.saveTemplate.errorWhileSaving': string
-  'common.saveTemplate.publishTemplate': string
   'common.savedSuccessfully': string
   'common.searchPlaceholder': string
   'common.seconds': string
@@ -497,6 +494,13 @@ export interface StringsMap {
   'common.switchAccount': string
   'common.switchAccountError': string
   'common.switchAccountSearch': string
+  'common.template.deleteTemplate.errorWhileDeleting': string
+  'common.template.deleteTemplate.templatesDeleted': string
+  'common.template.saveAsNewTemplateHeading': string
+  'common.template.saveTemplate.errorWhileSaving': string
+  'common.template.saveTemplate.publishTemplate': string
+  'common.template.updateTemplate.errorWhileUpdating': string
+  'common.template.updateTemplate.templateUpdated': string
   'common.templates': string
   'common.test.connectionFailed': string
   'common.test.connectionSuccessful': string
@@ -2128,7 +2132,7 @@ export interface StringsMap {
   'pipeline.gitExperience.skipNow': string
   'pipeline.gitPullRequest': string
   'pipeline.gitPullRequestNumber': string
-  'pipeline.gitRepos': string
+  'pipeline.gitRepo': string
   'pipeline.imagePathLabel': string
   'pipeline.infraSpecifications.initTimeout': string
   'pipeline.infraSpecifications.initTimeoutPlaceholder': string
@@ -2646,8 +2650,6 @@ export interface StringsMap {
   'templatesLibrary.deleteTemplate': string
   'templatesLibrary.editModal.heading': string
   'templatesLibrary.entityType': string
-  'templatesLibrary.errorWhileDeleting': string
-  'templatesLibrary.errorWhileUpdating': string
   'templatesLibrary.inputsCount': string
   'templatesLibrary.openEditTemplate': string
   'templatesLibrary.openInTemplateStudio': string
@@ -2663,9 +2665,7 @@ export interface StringsMap {
   'templatesLibrary.templateSettingsModal.scopeLabel': string
   'templatesLibrary.templateStudio': string
   'templatesLibrary.templateTitle': string
-  'templatesLibrary.templateUpdated': string
   'templatesLibrary.templateUpdatedError': string
-  'templatesLibrary.templatesDeleted': string
   'templatesLibrary.templatesLabel': string
   'templatesLibrary.templatesPage.noTemplates': string
   'templatesLibrary.updateTemplateModal.addCommentPlaceholder': string

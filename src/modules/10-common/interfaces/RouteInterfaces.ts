@@ -173,6 +173,6 @@ export interface SubscriptionQueryParams {
   tab?: 'OVERVIEW' | 'PLANS' | 'BILLING'
 }
 
-export interface TemplateStudioQueryParams {
+export interface TemplateStudioQueryParams extends GitQueryParams {
   versionLabel?: string
 }

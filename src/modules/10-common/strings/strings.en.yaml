@@ -604,9 +604,16 @@ delete: Delete {{ name }}?
 suggestionsLabel: 'Suggestions:'
 refreshPage: refresh your page.
 files: Files
-saveAsNewTemplateHeading: Save as New Template
-saveTemplate:
-  publishTemplate: Template published successfully
-  errorWhileSaving: Error occurred saving Template
+template:
+  saveAsNewTemplateHeading: Save as New Template
+  saveTemplate:
+    publishTemplate: Template published successfully
+    errorWhileSaving: Error occurred saving Template
+  updateTemplate:
+    templateUpdated: Template Updated
+    errorWhileUpdating: Error occurred updating Template
+  deleteTemplate:
+    templatesDeleted: 'Templates "{{ name }}" Deleted'
+    errorWhileDeleting: Error occurred deleting Templates
 viewLatest: View latest
 viewUsage: View Usage
