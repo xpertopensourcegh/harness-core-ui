@@ -623,6 +623,8 @@ export interface StringsMap {
   'rbac.apiKey.form.editSuccess': string
   'rbac.apiKey.successMessage': string
   'rbac.categoryLabels.sharedResources': string
+  'rbac.customResourceGroups': string
+  'rbac.customRoles': string
   'rbac.forUser': string
   'rbac.generateToken': string
   'rbac.in': string
@@ -872,8 +874,6 @@ export interface StringsMap {
   'authSettings.loginSettingsHaveBeenUpdated': string
   'authSettings.loginViaSAML': string
   'authSettings.minLength': string
-  'authSettings.multipleOrganizations': string
-  'authSettings.multipleProjects': string
   'authSettings.newMembersWillNeedToSetUpTwoFADuringSignup': string
   'authSettings.notifyUsersWhenTheyLocked': string
   'authSettings.notifyUsersWhenUserLocked': string
@@ -1831,6 +1831,8 @@ export interface StringsMap {
   'projectsOrgs.manageProject': string
   'projectsOrgs.moduleSuccess': string
   'projectsOrgs.modulesEnabled': string
+  'projectsOrgs.multipleOrganizations': string
+  'projectsOrgs.multipleProjects': string
   'projectsOrgs.newOrganization': string
   'projectsOrgs.newProject': string
   'projectsOrgs.noCollaborators': string

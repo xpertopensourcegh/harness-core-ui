@@ -111,3 +111,5 @@ landingDashboard:
   welcomeMessageWithoutName: "Welcome, let's get you started!"
 whyCreateProject: Why create a project?
 createProjectMessage: 'Organize your pipelines, services, infrastructure and shared resources like Connectors, Secrets and Delegates all in one place. Invite teams, collaborate on software delivery processes using the Harness modules.'
+multipleOrganizations: multiple Organizations
+multipleProjects: multiple Projects
