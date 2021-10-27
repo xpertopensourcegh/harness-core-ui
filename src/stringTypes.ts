@@ -2650,13 +2650,17 @@ export interface StringsMap {
   'templatesLibrary.createNewModal.validation.versionLabel': string
   'templatesLibrary.createNewModal.versionLabel': string
   'templatesLibrary.createNewModal.versionPlaceholder': string
+  'templatesLibrary.created': string
+  'templatesLibrary.default': string
   'templatesLibrary.deleteTemplate': string
   'templatesLibrary.editModal.heading': string
   'templatesLibrary.entityType': string
+  'templatesLibrary.fetchingActivityLogs': string
   'templatesLibrary.inputsCount': string
   'templatesLibrary.openEditTemplate': string
   'templatesLibrary.openInTemplateStudio': string
   'templatesLibrary.referencedBy': string
+  'templatesLibrary.sampleTemplateAuditComment': string
   'templatesLibrary.saveAsNewLabelModal.heading': string
   'templatesLibrary.selectTemplateToPreview': string
   'templatesLibrary.stableVersion': string
@@ -2675,6 +2679,7 @@ export interface StringsMap {
   'templatesLibrary.updateTemplateModal.commentLabel': string
   'templatesLibrary.updateTemplateModal.heading': string
   'templatesLibrary.updateTemplateModal.info': string
+  'templatesLibrary.updated': string
   'templatesLibrary.useTemplate': string
   'cd.GitOpsServerDelete': string
   'cd.aboutGitOpsServer': string

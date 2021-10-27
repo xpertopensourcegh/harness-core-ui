@@ -29,6 +29,7 @@ import GitPopover from '@pipeline/components/GitPopover/GitPopover'
 import { TemplateContext } from '../TemplateStudio/TemplateContext/TemplateContext'
 import { TemplateInputs } from '../TemplateInputs/TemplateInputs'
 import { TemplateYaml } from '../TemplateYaml/TemplateYaml'
+import { TemplateActivityLog } from '../TemplateActivityLog/TemplateActivityLog'
 import css from './TemplateDetails.module.scss'
 
 export interface TemplateDetailsProps {
@@ -266,9 +267,15 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
               />
               <Tab
                 id={TemplateTabs.ACTVITYLOG}
-                disabled={true}
                 title={getString('activityLog')}
-                panel={<div>Version Log</div>}
+                panel={
+                  <TemplateActivityLog
+                    selectedTemplate={selectedTemplate}
+                    accountIdentifier={accountId}
+                    orgIdentifier={orgIdentifier}
+                    projectIdentifier={projectIdentifier}
+                  />
+                }
               />
             </Tabs>
           </div>

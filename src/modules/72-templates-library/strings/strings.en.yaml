@@ -42,3 +42,8 @@ templateSettingsModal:
 entityType: Entity Type
 templateScope: Template Scope
 templatesLabel: '{{entity}} Templates'
+fetchingActivityLogs: Fetching activity logs
+created: created
+updated: updated
+default: set default to
+sampleTemplateAuditComment: Changed service configuration from Kubernetes to Azure
