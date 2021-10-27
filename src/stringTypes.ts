@@ -1727,7 +1727,9 @@ export interface StringsMap {
   'gitsync.defaultFolder': string
   'gitsync.entitiesByRepositories': string
   'gitsync.errorFixed': string
+  'gitsync.failedToLoadData': string
   'gitsync.fetchingBranches': string
+  'gitsync.fileContent': string
   'gitsync.folderDetails': string
   'gitsync.gitEnabledBlockedTooltip': string
   'gitsync.harnessFolderHeader': string
