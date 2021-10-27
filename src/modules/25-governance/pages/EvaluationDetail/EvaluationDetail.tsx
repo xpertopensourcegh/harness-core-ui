@@ -7,6 +7,7 @@ import { getErrorMessage, PipleLineEvaluationEvent } from '@governance/utils/Gov
 import { EvaluationView } from '@governance/views/EvaluationView/EvaluationView'
 import type { StringsContextValue } from 'framework/strings/StringsContext'
 import { useStrings } from 'framework/strings'
+import type { GovernancePathProps } from '@common/interfaces/RouteInterfaces'
 
 const evaluationNameFromAction = (getString: StringsContextValue['getString'], action?: string): string => {
   return getString?.(action === PipleLineEvaluationEvent.ON_RUN ? 'governance.onRun' : 'governance.onSave') || ''
@@ -14,7 +15,7 @@ const evaluationNameFromAction = (getString: StringsContextValue['getString'], a
 
 export const EvaluationDetail: React.FC = () => {
   const { getString } = useStrings()
-  const { accountId, orgIdentifier, projectIdentifier } = useParams<Record<string, string>>()
+  const { accountId, orgIdentifier, projectIdentifier, module, evaluationId } = useParams<GovernancePathProps>()
   const queryParams = useMemo(
     () => ({
       accountIdentifier: accountId,
@@ -23,10 +24,9 @@ export const EvaluationDetail: React.FC = () => {
     }),
     [accountId, orgIdentifier, projectIdentifier]
   )
-  const { evaluationId } = useParams<Record<string, string>>()
   const history = useHistory()
   const location = useLocation()
-  const { data, refetch, loading, error } = useGetEvaluation({ queryParams, evaluation: evaluationId })
+  const { data, refetch, loading, error } = useGetEvaluation({ queryParams, evaluation: evaluationId as string })
 
   useEffect(() => {
     if (data) {
@@ -41,7 +41,7 @@ export const EvaluationDetail: React.FC = () => {
 
   return (
     <Page.Body loading={loading} error={getErrorMessage(error)} retryOnError={() => refetch()} filled>
-      {data && <EvaluationView metadata={data} accountId={accountId} noHeadingMessage />}
+      {data && <EvaluationView metadata={data} accountId={accountId} module={module} noHeadingMessage />}
     </Page.Body>
   )
 }
