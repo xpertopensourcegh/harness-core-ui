@@ -617,3 +617,4 @@ template:
     errorWhileDeleting: Error occurred deleting Templates
 viewLatest: View latest
 viewUsage: View Usage
+friendlyMessage: Friendly message

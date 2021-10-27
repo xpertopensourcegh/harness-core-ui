@@ -173,6 +173,7 @@ export interface StringsMap {
   'common.filters.saveNewFilter': string
   'common.filters.unsavedFilter': string
   'common.frequency': string
+  'common.friendlyMessage': string
   'common.genericErrors.inviteExpired': string
   'common.genericErrors.licenseCallFailed': string
   'common.genericErrors.unauthorized': string
@@ -4054,6 +4055,7 @@ export interface StringsMap {
   'cv.monitoredServices.changesTable.impact': string
   'cv.monitoredServices.deleteMonitoredServiceWarning': string
   'cv.monitoredServices.deleteService': string
+  'cv.monitoredServices.dependencyHealth': string
   'cv.monitoredServices.editMonitoredServices': string
   'cv.monitoredServices.editService': string
   'cv.monitoredServices.environmentValidation': string
@@ -4061,6 +4063,8 @@ export interface StringsMap {
   'cv.monitoredServices.failedToFetchSummaryData': string
   'cv.monitoredServices.filterlabel': string
   'cv.monitoredServices.healthScoreDataNotAvailable': string
+  'cv.monitoredServices.healthScoreDataNotAvailableForDependencyHealth': string
+  'cv.monitoredServices.healthScoreDataNotAvailableForServiceHealth': string
   'cv.monitoredServices.monitoredServiceCreated': string
   'cv.monitoredServices.monitoredServiceDeleted': string
   'cv.monitoredServices.monitoredServiceDetails': string
