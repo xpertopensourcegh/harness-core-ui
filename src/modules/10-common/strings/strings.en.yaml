@@ -23,6 +23,7 @@ headers: Headers
 durationPrefix: 'Duration: '
 pipelineDetails: Pipeline Details
 accountName: Account Name
+serviceType: Service Type
 readOnly: Read Only
 editYaml: Edit YAML
 provisioner: Provisioner

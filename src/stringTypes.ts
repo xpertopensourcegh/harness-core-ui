@@ -442,6 +442,7 @@ export interface StringsMap {
   'common.selectUserGroups': string
   'common.selectVersion': string
   'common.serviceCreated': string
+  'common.serviceType': string
   'common.serviceUpdated': string
   'common.setAsDefault': string
   'common.setAsStable': string
@@ -874,6 +875,8 @@ export interface StringsMap {
   'authSettings.loginSettingsHaveBeenUpdated': string
   'authSettings.loginViaSAML': string
   'authSettings.minLength': string
+  'authSettings.multipleOrganizations': string
+  'authSettings.multipleProjects': string
   'authSettings.newMembersWillNeedToSetUpTwoFADuringSignup': string
   'authSettings.notifyUsersWhenTheyLocked': string
   'authSettings.notifyUsersWhenUserLocked': string
@@ -881,6 +884,7 @@ export interface StringsMap {
   'authSettings.oauthSupport': string
   'authSettings.okta': string
   'authSettings.oneLogin': string
+  'authSettings.onprem': string
   'authSettings.passwordExpiration': string
   'authSettings.passwordExpirationDisabled': string
   'authSettings.passwordExpirationEnabled': string
@@ -897,6 +901,7 @@ export interface StringsMap {
   'authSettings.publicOAuthLoginDisabled': string
   'authSettings.publicOAuthLoginEnabled': string
   'authSettings.restrictUsersToEmailDomains': string
+  'authSettings.saas': string
   'authSettings.samlLoginEnabled': string
   'authSettings.samlProviderAddedSuccessfully': string
   'authSettings.samlProviderDeleted': string
