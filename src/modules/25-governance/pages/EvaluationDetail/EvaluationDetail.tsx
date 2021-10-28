@@ -3,7 +3,7 @@ import { get } from 'lodash-es'
 import { useParams, useHistory, useLocation } from 'react-router-dom'
 import { Page } from '@common/exports'
 import { useGetEvaluation } from 'services/pm'
-import { getErrorMessage, PipleLineEvaluationEvent } from '@governance/utils/GovernanceUtils'
+import { getErrorMessage, PipleLineEvaluationEvent, QUERY_PARAM_VALUE_ALL } from '@governance/utils/GovernanceUtils'
 import { EvaluationView } from '@governance/views/EvaluationView/EvaluationView'
 import type { StringsContextValue } from 'framework/strings/StringsContext'
 import { useStrings } from 'framework/strings'
@@ -19,8 +19,8 @@ export const EvaluationDetail: React.FC = () => {
   const queryParams = useMemo(
     () => ({
       accountIdentifier: accountId,
-      orgIdentifier,
-      projectIdentifier
+      orgIdentifier: orgIdentifier || QUERY_PARAM_VALUE_ALL,
+      projectIdentifier: projectIdentifier || QUERY_PARAM_VALUE_ALL
     }),
     [accountId, orgIdentifier, projectIdentifier]
   )

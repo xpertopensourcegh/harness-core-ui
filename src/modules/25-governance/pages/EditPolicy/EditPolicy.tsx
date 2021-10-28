@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import MonacoEditor from 'react-monaco-editor'
+import YAML from 'yaml'
 import SplitPane from 'react-split-pane'
 import cx from 'classnames'
 import type { editor as EDITOR } from 'monaco-editor/esm/vs/editor/editor.api'
@@ -435,7 +436,11 @@ export const EditPolicy: React.FC = () => {
                           try {
                             setInput(JSON.stringify(JSON.parse(input), null, 2))
                           } catch (e) {
-                            showToaster(getErrorMessage(e), { intent: Intent.DANGER, timeout: 0 })
+                            try {
+                              setInput(JSON.stringify(YAML.parse(input), null, 2))
+                            } catch {
+                              showToaster(getErrorMessage(e), { intent: Intent.DANGER, timeout: 0 })
+                            }
                           }
                         }}
                       />
