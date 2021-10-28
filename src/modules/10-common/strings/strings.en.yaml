@@ -585,6 +585,10 @@ module:
 customPricing: for Custom Pricing
 specified: Specified
 file: File
+entityReferenceTitle: 'Create or Select an Existing {{compName}}'
+entityReferenceSubTitle: 'Choose {{compName}} based on the scope'
+noConnectorAvailable: No Existing Connectors available
+lastConnectedOn: Last connected on
 selectAVersion:
   title: Select a version to proceed
   description: Define pipelines that enable you to improve your deployment times, manage your integrations and view your services all in one place.
@@ -618,4 +622,5 @@ template:
     errorWhileDeleting: Error occurred deleting Templates
 viewLatest: View latest
 viewUsage: View Usage
+selected: 'Selected:'
 friendlyMessage: Friendly message

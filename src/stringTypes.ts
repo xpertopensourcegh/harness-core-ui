@@ -144,6 +144,8 @@ export interface StringsMap {
   'common.editVariableType': string
   'common.editYaml': string
   'common.enableGitSyncPipeline': string
+  'common.entityReferenceSubTitle': string
+  'common.entityReferenceTitle': string
   'common.environmentCreated': string
   'common.environmentUpdated': string
   'common.errorCount': string
@@ -270,6 +272,7 @@ export interface StringsMap {
   'common.jexlExpression': string
   'common.labelTestConnection': string
   'common.last7days': string
+  'common.lastConnectedOn': string
   'common.lastModifiedTime': string
   'common.latest': string
   'common.launchFirstGen': string
@@ -300,6 +303,7 @@ export interface StringsMap {
   'common.newLines': string
   'common.newVersion': string
   'common.noAPIKeys': string
+  'common.noConnectorAvailable': string
   'common.noDelegateForTask': string
   'common.noDeployments': string
   'common.noRefData': string
@@ -441,6 +445,7 @@ export interface StringsMap {
   'common.selectDefaultExperience': string
   'common.selectUserGroups': string
   'common.selectVersion': string
+  'common.selected': string
   'common.serviceCreated': string
   'common.serviceType': string
   'common.serviceUpdated': string
@@ -1036,6 +1041,8 @@ export interface StringsMap {
   'secrets.secret.labelText': string
   'secrets.secret.messageSelectSM': string
   'secrets.secret.newSSHCredential': string
+  'secrets.secret.newSecretFile': string
+  'secrets.secret.newSecretText': string
   'secrets.secret.noSecretsFound': string
   'secrets.secret.placeholderSecretReference': string
   'secrets.secret.placeholderSecretValue': string
