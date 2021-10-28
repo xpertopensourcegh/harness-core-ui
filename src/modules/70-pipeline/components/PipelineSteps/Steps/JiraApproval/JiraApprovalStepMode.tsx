@@ -26,7 +26,6 @@ import {
   useGetJiraProjects,
   useGetJiraIssueCreateMetadata
 } from 'services/cd-ng'
-import { NameSchema } from '@common/utils/Validation'
 import type {
   AccountPathProps,
   GitQueryParams,
@@ -36,6 +35,7 @@ import type {
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { useQueryParams } from '@common/hooks'
+import { getNameAndIdentifierSchema } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import { isApprovalStepFieldDisabled } from '../ApprovalCommons'
 import { ApprovalRejectionCriteria } from './ApprovalRejectionCriteria'
 import {
@@ -169,7 +169,7 @@ const FormContent = ({
 
   return (
     <React.Fragment>
-      {stepViewType !== StepViewType.InputSet && (
+      {stepViewType !== StepViewType.Template && (
         <div className={cx(stepCss.formGroup, stepCss.lg)}>
           <FormInput.InputWithIdentifier
             inputLabel={getString('name')}
@@ -446,7 +446,7 @@ function JiraApprovalStepMode(props: JiraApprovalStepModeProps, formikRef: StepF
         onChange?.(data)
       }}
       validationSchema={Yup.object().shape({
-        name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
+        ...getNameAndIdentifierSchema(getString, stepViewType),
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
         spec: Yup.object().shape({
           connectorRef: Yup.string().required(getString('pipeline.jiraApprovalStep.validations.connectorRef')),

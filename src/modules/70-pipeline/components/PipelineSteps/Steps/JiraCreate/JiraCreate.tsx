@@ -164,7 +164,7 @@ export class JiraCreate extends PipelineStep<JiraCreateData> {
         ref={formikRef}
         stepViewType={stepViewType || StepViewType.Edit}
         allowableTypes={allowableTypes}
-        onChange={onChange}
+        onChange={(values: JiraCreateData) => onChange?.(values)}
         initialValues={processInitialValues(initialValues)}
         onUpdate={(values: JiraCreateData) => onUpdate?.(values)}
         isNewStep={isNewStep}

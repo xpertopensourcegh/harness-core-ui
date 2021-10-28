@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import {
-  IconName,
   Formik,
   FormInput,
   getMultiTypeFromValue,
+  IconName,
   MultiTypeInputType,
   SelectOption
 } from '@wings-software/uicore'
@@ -140,9 +140,11 @@ function BarrierWidget(props: BarrierProps, formikRef: StepFormikFowardRef<Barri
           setFormikRef(formikRef, formik)
           return (
             <>
-              <div className={cx(stepCss.formGroup, stepCss.lg)}>
-                <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
-              </div>
+              {stepViewType !== StepViewType.Template && (
+                <div className={cx(stepCss.formGroup, stepCss.lg)}>
+                  <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
+                </div>
+              )}
 
               <div className={cx(stepCss.formGroup, stepCss.sm)}>
                 <FormMultiTypeDurationField
