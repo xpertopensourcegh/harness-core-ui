@@ -162,7 +162,7 @@ export const TemplateStudioSubHeaderLeftView: (props: TemplateStudioSubHeaderLef
     [template]
   )
 
-  const goToTemplateVersion = async (versionLabel: string) => {
+  const goToTemplateVersion = async (versionLabel: string): Promise<void> => {
     if (versionLabel !== DefaultNewVersionLabel && versionLabel !== template.versionLabel) {
       await deleteTemplateCache()
       history.replace(

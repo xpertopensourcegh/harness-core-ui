@@ -143,7 +143,7 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = (props): JSX.El
                     onChange={item => setSelectedScope(item)}
                     filterable={false}
                   />
-                  {isGitSyncEnabled && (
+                  {isGitSyncEnabled && selectedScope.value === Scope.PROJECT && (
                     <GitSyncStoreProvider>
                       <GitFilters
                         onChange={filter => {
@@ -227,15 +227,18 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = (props): JSX.El
         <Container width={525} background={Color.FORM_BG}>
           {selectedTemplate ? (
             <Layout.Vertical height={'100%'}>
-              <TemplateDetails
-                setTemplate={setSelectedTemplate}
-                templateIdentifier={selectedTemplate.identifier || ''}
-                versionLabel={selectedTemplate.versionLabel}
-                accountId={accountId}
-                orgIdentifier={orgId}
-                projectIdentifier={projectId}
-                module={module}
-              />
+              <GitSyncStoreProvider>
+                <TemplateDetails
+                  setTemplate={setSelectedTemplate}
+                  templateIdentifier={selectedTemplate.identifier || ''}
+                  versionLabel={selectedTemplate.versionLabel}
+                  accountId={accountId}
+                  orgIdentifier={orgId}
+                  projectIdentifier={projectId}
+                  module={module}
+                  gitDetails={selectedTemplate.gitDetails}
+                />
+              </GitSyncStoreProvider>
               <Container>
                 <Layout.Horizontal
                   padding={{ top: 'xxxlarge', right: 'xxlarge', bottom: 'xxxlarge', left: 'xxlarge' }}

@@ -4,6 +4,7 @@ import { Color, Layout, Text } from '@wings-software/uicore'
 import { Position } from '@blueprintjs/core'
 import Table from '@common/components/Table/Table'
 import { useStrings } from 'framework/strings'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import type { TemplateSummaryResponse } from 'services/template-ng'
 import { templateColorStyleMap } from '@templates-library/pages/TemplatesPage/TemplatesPageUtils'
 import { TemplateListContextMenu } from '@templates-library/pages/TemplatesPage/views/TemplatesListView/TemplateListCardContextMenu/TemplateListContextMenu'
@@ -110,34 +111,48 @@ const RenderColumnLabel: Renderer<CellProps<TemplateSummaryResponse>> = ({ row }
 export const TemplateListView: React.FC<TemplatesViewProps> = (props): JSX.Element => {
   const { getString } = useStrings()
   const { data, selectedIdentifier, gotoPage, onPreview, onOpenEdit, onOpenSettings, onDelete, onSelect } = props
-
+  const { isGitSyncEnabled } = useAppStore()
   const hideMenu = !onPreview && !onOpenEdit && !onOpenSettings && !onDelete
+
+  const getTemplateNameWidth = (): string => {
+    if (isGitSyncEnabled) {
+      if (hideMenu) {
+        return '40%'
+      }
+      return '35%'
+    } else {
+      if (hideMenu) {
+        return '50%'
+      }
+      return '45%'
+    }
+  }
 
   const columns: CustomColumn<TemplateSummaryResponse>[] = React.useMemo(
     () => [
       {
         Header: getString('typeLabel').toUpperCase(),
         accessor: 'templateEntityType',
-        width: '15%',
+        width: isGitSyncEnabled ? '15%' : '25%',
         Cell: RenderColumnType
       },
       {
         Header: 'Template',
         accessor: 'name',
-        width: hideMenu ? '35%' : '30%',
+        width: getTemplateNameWidth(),
         Cell: RenderColumnTemplate
       },
       {
         Header: getString('version').toUpperCase(),
         accessor: 'versionLabel',
-        width: '25%',
+        width: isGitSyncEnabled ? '10%' : '25%',
         Cell: RenderColumnLabel,
         disableSortBy: true
       },
       {
         Header: getString('common.gitSync.repoDetails').toUpperCase(),
         accessor: 'gitDetails',
-        width: '20%',
+        width: '35%',
         Cell: GitDetailsColumn,
         disableSortBy: true
       },
@@ -158,6 +173,10 @@ export const TemplateListView: React.FC<TemplatesViewProps> = (props): JSX.Eleme
 
   if (hideMenu) {
     columns.pop()
+  }
+
+  if (!isGitSyncEnabled) {
+    columns.splice(3, 1)
   }
 
   return (
