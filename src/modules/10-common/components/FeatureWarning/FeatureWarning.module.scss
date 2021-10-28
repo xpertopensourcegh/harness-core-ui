@@ -1,8 +1,8 @@
 .warning {
   width: fit-content !important;
   min-width: fit-content !important;
-  padding: var(--spacing-small) var(--spacing-large) !important;
-  border-radius: 20px;
+  padding: var(--spacing-xsmall) var(--spacing-small) !important;
+  border-radius: 8px;
   background-color: var(--orange-100) !important;
 }
 
@@ -24,4 +24,10 @@
 .tooltip {
   min-width: 200px !important;
   text-align: left;
+}
+
+.warningBanner {
+  background-color: var(--white) !important;
+  box-shadow: var(--card-shadow);
+  padding: var(--spacing-small) var(--spacing-xlarge) !important ;
 }

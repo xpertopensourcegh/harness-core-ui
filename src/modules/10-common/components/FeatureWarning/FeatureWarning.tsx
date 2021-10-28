@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import cx from 'classnames'
 import { useHistory, useParams } from 'react-router-dom'
-import { Color, Layout, Text } from '@wings-software/uicore'
+import { Button, ButtonSize, ButtonVariation, Color, FontVariation, Layout, Text } from '@wings-software/uicore'
 import type { PopoverPosition } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import { FeatureDescriptor } from 'framework/featureStore/FeatureDescriptor'
@@ -16,6 +16,7 @@ interface FeatureWarningTooltipProps {
 
 interface FeatureWarningProps {
   featureName: string
+  warningMessage?: string
   module?: Module
   className?: string
   tooltipProps?: {
@@ -26,6 +27,7 @@ interface FeatureWarningProps {
 
 export interface ExplorePlansBtnProps {
   module?: Module
+  size?: ButtonSize
 }
 
 interface WarningTextProps {
@@ -36,18 +38,18 @@ interface WarningTextProps {
   }
 }
 
-const ExplorePlansBtn = ({ module }: ExplorePlansBtnProps): ReactElement => {
+const ExplorePlansBtn = ({ module, size }: ExplorePlansBtnProps): ReactElement => {
   const { getString } = useStrings()
   const history = useHistory()
   const { accountId } = useParams<AccountPathProps>()
   return (
-    <Text
-      className={css.explorePlans}
+    <Button
+      variation={ButtonVariation.SECONDARY}
+      size={size || ButtonSize.MEDIUM}
       onClick={() => history.push(routes.toSubscriptions({ accountId, moduleCard: module, tab: 'PLANS' }))}
-      color={Color.PRIMARY_6}
     >
       {getString('common.explorePlans')}
-    </Text>
+    </Button>
   )
 }
 
@@ -56,11 +58,10 @@ const WarningText = ({ tooltip, tooltipProps }: WarningTextProps): ReactElement 
   return (
     <Text
       className={css.warning}
-      padding={{ top: 'small' }}
       icon="warning-sign"
       color={Color.ORANGE_800}
-      font={{ weight: 'semi-bold' }}
-      iconProps={{ color: Color.ORANGE_800, padding: { right: 'small' } }}
+      font={{ variation: FontVariation.TINY, weight: 'bold' }}
+      iconProps={{ color: Color.ORANGE_800, padding: { right: 'small' }, size: 15 }}
       tooltip={tooltip}
       tooltipProps={tooltipProps}
     >
@@ -93,23 +94,32 @@ export const FeatureWarningWithTooltip = ({ featureName, module, tooltipProps }:
   return <WarningText tooltip={tooltip} tooltipProps={{ position: 'bottom-left', ...tooltipProps }} />
 }
 
-export const FeatureWarning = ({ module, featureName, className }: FeatureWarningProps): ReactElement => {
+export const FeatureWarning = ({
+  module,
+  featureName,
+  warningMessage,
+  className
+}: FeatureWarningProps): ReactElement => {
   const { getString } = useStrings()
-  const featureDescription = FeatureDescriptor[featureName] ? FeatureDescriptor[featureName] : featureName
+  const featureDescription =
+    warningMessage || FeatureDescriptor[featureName] ? FeatureDescriptor[featureName] : featureName
 
   return (
-    <Layout.Horizontal
-      padding="small"
-      spacing="small"
-      className={cx(css.expanded, className)}
-      flex={{ alignItems: 'baseline' }}
-    >
+    <Layout.Horizontal padding="small" spacing="small" className={cx(css.expanded, className)} flex>
       <WarningText />
-      <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.GREY_800}>
+      <Text font={{ variation: FontVariation.FORM_HELP }} color={Color.PRIMARY_10}>
         {getString('common.feature.upgradeRequired.description')}
         {featureDescription}
       </Text>
-      <ExplorePlansBtn module={module} />
+      <ExplorePlansBtn module={module} size={ButtonSize.SMALL} />
+    </Layout.Horizontal>
+  )
+}
+
+export const FeatureWarningBanner = (props: FeatureWarningProps): ReactElement => {
+  return (
+    <Layout.Horizontal flex className={css.warningBanner}>
+      <FeatureWarning {...props} />
     </Layout.Horizontal>
   )
 }
