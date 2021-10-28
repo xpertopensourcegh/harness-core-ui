@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { Radio } from '@blueprintjs/core'
-import { Button, Card, Color, Container, Icon, Layout, StepProps, Text } from '@wings-software/uicore'
+import { Button, Card, Color, Container, Layout, StepProps, Text } from '@wings-software/uicore'
 import { pick } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import {
@@ -14,6 +14,8 @@ import {
 } from 'services/cd-ng'
 import { useToaster } from '@common/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import DelegatesGit from '@gitsync/icons/DelegatesGit.svg'
+import PlatformGit from '@gitsync/icons/PlatformGit.svg'
 import css from './GitConnection.module.scss'
 
 interface GitConnectionStepProps {
@@ -113,9 +115,8 @@ const GitConnection: React.FC<StepProps<GitConnectionStepProps> & GitConnectionP
         </Text>
         <Layout.Horizontal spacing="xlarge" padding={{ top: 'large' }}>
           <Card
-            style={{ width: '50%' }}
             disabled={!isSaaS}
-            className={cx({ [css.selected]: agent === Agent.Manager })}
+            className={cx(css.card, { [css.selected]: agent === Agent.Manager })}
             onClick={() => {
               if (isSaaS) {
                 setAgent(Agent.Manager)
@@ -135,12 +136,11 @@ const GitConnection: React.FC<StepProps<GitConnectionStepProps> & GitConnectionP
             <Text font="small" style={{ lineHeight: 'var(--spacing-large' }}>
               {getString('gitsync.connectThroughManager')}
             </Text>
-            <Icon name="connectthroughmanager" size={250} flex={{ justifyContent: 'center' }} />
+            <img src={PlatformGit} width="100%" className={css.img} />
           </Card>
           <Card
-            style={{ width: '50%' }}
             disabled={loading}
-            className={cx({ [css.selected]: agent === Agent.Delegate })}
+            className={cx(css.card, { [css.selected]: agent === Agent.Delegate })}
             onClick={() => setAgent(Agent.Delegate)}
           >
             <Layout.Horizontal flex>
@@ -156,7 +156,7 @@ const GitConnection: React.FC<StepProps<GitConnectionStepProps> & GitConnectionP
             <Text font="small" padding={{ bottom: 'huge' }} style={{ lineHeight: 'var(--spacing-large' }}>
               {getString('gitsync.connectThroughDelegate')}
             </Text>
-            <Icon name="connectthroughdelegate" size={400} height={150} flex={{ justifyContent: 'center' }} />
+            <img src={DelegatesGit} width="100%" className={css.img} />
           </Card>
         </Layout.Horizontal>
         {/* <Layout.Horizontal padding={{ top: 'xxlarge' }} spacing="small">

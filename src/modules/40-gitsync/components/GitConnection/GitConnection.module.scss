@@ -10,3 +10,12 @@
   mix-blend-mode: normal;
   border: 1px solid var(--primary-6);
 }
+
+.card {
+  display: flex !important;
+  flex-direction: column;
+}
+
+.img {
+  flex-grow: 1;
+}
