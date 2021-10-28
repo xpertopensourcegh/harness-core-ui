@@ -14,6 +14,7 @@ export const useDrawer = ({
 }: UseDrawerPropsInterface): UseDrawerInterface => {
   const { getString } = useStrings()
   const [drawerContentProps, setDrawerContentProps] = useState({})
+  const [drawerHeaderProps, setDrawerHeaderProps] = useState({})
 
   const { openDialog: showWarning } = useConfirmationDialog({
     intent: Intent.WARNING,
@@ -24,7 +25,8 @@ export const useDrawer = ({
     onCloseDialog: (isConfirmed: boolean) => isConfirmed && hideModal()
   })
 
-  const defaultOptions = useMemo(() => getDefaultDrawerProps({ showWarning, createHeader }), [])
+  const header = createHeader ? createHeader(drawerHeaderProps) : undefined
+  const defaultOptions = useMemo(() => getDefaultDrawerProps({ showWarning, header }), [drawerHeaderProps])
   const parsedOptions = useMemo(
     () => getParsedDrawerOptions(defaultOptions, drawerOptions),
     [defaultOptions, drawerOptions]
@@ -56,6 +58,7 @@ export const useDrawer = ({
       }
       showModal()
     },
+    setDrawerHeaderProps: props => setDrawerHeaderProps(props),
     hideDrawer: hideModal
   }
 }

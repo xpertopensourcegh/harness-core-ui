@@ -1,0 +1,7 @@
+.breadCrumbLink {
+  cursor: pointer;
+  padding: var(--spacing-small) var(--spacing-none) !important;
+  &:hover {
+    text-decoration: underline;
+  }
+}

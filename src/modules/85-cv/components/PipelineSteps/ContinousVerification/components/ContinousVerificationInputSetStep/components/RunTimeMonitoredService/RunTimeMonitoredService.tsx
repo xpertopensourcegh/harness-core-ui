@@ -7,9 +7,8 @@ import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/Rout
 import { HealthSource, MonitoredServiceResponse, useGetMonitoredServiceFromServiceAndEnvironment } from 'services/cv'
 import { useStrings } from 'framework/strings'
 import Card from '@cv/components/Card/Card'
-import HealthSourceTable from '@cv/pages/health-source/HealthSourceTable'
+import VerifyStepHealthSourceTable from '@cv/pages/health-source/HealthSourceTable/VerifyStepHealthSourceTable'
 import type { MonitoringSourceData, RunTimeMonitoredServiceProps } from './RunTimeMonitoredService.types'
-// import { updateMonitoredServiceData } from './RunTimeMonitoredService.utils'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './RunTimeMonitoredService.module.scss'
 
@@ -102,19 +101,16 @@ export default function RunTimeMonitoredService({
             />
           </div>
         </Card>
-        <HealthSourceTable
-          isEdit={true}
-          shouldRenderAtVerifyStep={true}
-          value={monitoringSource?.monitoredService?.sources?.healthSources as HealthSource[]}
-          onSuccess={onSuccess}
-          serviceRef={serviceIdentifier}
-          environmentRef={envIdentifier}
+        <VerifyStepHealthSourceTable
+          serviceIdentifier={serviceIdentifier}
+          envIdentifier={envIdentifier}
+          healthSourcesList={monitoringSource?.monitoredService?.sources?.healthSources as HealthSource[]}
           monitoredServiceRef={{
             identifier: monitoringSource?.monitoredService?.identifier,
             name: monitoringSource?.monitoredService?.name
           }}
-          breadCrumbRoute={{ routeTitle: getString('connectors.cdng.runTimeMonitoredService.backToRunPipeline') }}
-          isRunTimeInput={true}
+          onSuccess={onSuccess}
+          isRunTimeInput
         />
       </>
     )

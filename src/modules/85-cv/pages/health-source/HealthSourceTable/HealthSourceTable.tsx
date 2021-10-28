@@ -1,117 +1,48 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useCallback } from 'react'
 import cx from 'classnames'
-import { Link, useParams, useHistory } from 'react-router-dom'
+import { cloneDeep } from 'lodash-es'
+import { Link } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
-import { Color, Container, Icon, Layout, Text, NoDataCard } from '@wings-software/uicore'
+import { Container, Icon, Layout, Text, NoDataCard } from '@wings-software/uicore'
 import { useToaster } from '@common/exports'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import type { ChangeSourceDTO, MonitoredServiceResponse } from 'services/cv'
+import type { HealthSource, HealthSourceDTO } from 'services/cv'
 import { useStrings } from 'framework/strings'
-import routes from '@common/RouteDefinitions'
 import { Table } from '@common/components'
 import ContextMenuActions from '@cv/components/ContextMenuActions/ContextMenuActions'
 import HealthSources from '@cv/components/PipelineSteps/ContinousVerification/components/HealthSources/HealthSources'
-import HealthSourceDrawerContent from '../HealthSourceDrawer/HealthSourceDrawerContent'
-import type { RowData, UpdatedHealthSource } from '../HealthSourceDrawer/HealthSourceDrawerContent.types'
-import type { HealthSourceTableInterface } from './HealthSourceTable.types'
-import {
-  getIconBySourceType,
-  getTypeByFeature,
-  createHealthsourceList,
-  deleteHealthSource
-} from './HealthSourceTable.utils'
+import type { RowData } from '../HealthSourceDrawer/HealthSourceDrawerContent.types'
+import { getIconBySourceType, getTypeByFeature } from './HealthSourceTable.utils'
+import CardWithOuterTitle from '../common/CardWithOuterTitle/CardWithOuterTitle'
 import css from './HealthSourceTable.module.scss'
 
 export default function HealthSourceTable({
-  breadCrumbRoute,
-  serviceRef,
-  environmentRef,
-  monitoredServiceRef,
-  value: tableData,
+  value,
+  onEdit,
   onSuccess,
-  isEdit,
+  onAddNewHealthSource,
   shouldRenderAtVerifyStep,
-  isRunTimeInput,
-  onCloseDrawer,
-  validMonitoredSource,
-  validateMonitoredSource,
-  changeSources = []
-}: HealthSourceTableInterface): JSX.Element {
-  const [modalOpen, setModalOpen] = useState(false)
-  const history = useHistory()
+  isRunTimeInput
+}: {
+  value: any
+  onSuccess: (data: HealthSourceDTO[]) => void
+  onEdit: (data: HealthSource) => void
+  onAddNewHealthSource: () => void
+  shouldRenderAtVerifyStep?: any
+  isRunTimeInput?: any
+}): JSX.Element {
+  const tableData = cloneDeep(value)
   const { showError } = useToaster()
-  const params = useParams<ProjectPathProps & { identifier: string }>()
   const { getString } = useStrings()
-  const { routeTitle } = breadCrumbRoute || { routeTitle: getString('cv.healthSource.backtoMonitoredService') }
-  const [rowData, setrowData] = useState<RowData | null>(null)
 
-  useEffect(() => {
-    setModalOpen(!!validMonitoredSource)
-  }, [validMonitoredSource])
-
-  const createHeader = useCallback(() => {
-    return (
-      <>
-        <Text
-          className={css.breadCrumbLink}
-          style={{ cursor: 'pointer' }}
-          icon={'arrow-left'}
-          iconProps={{ color: Color.PRIMARY_7, margin: { right: 'small' } }}
-          color={Color.PRIMARY_7}
-          onClick={() => {
-            if (shouldRenderAtVerifyStep) {
-              setModalOpen(false)
-              return
-            }
-            history.push(
-              routes.toCVMonitoringServices({
-                orgIdentifier: params.orgIdentifier,
-                projectIdentifier: params.projectIdentifier,
-                accountId: params.accountId
-              })
-            )
-          }}
-        >
-          {routeTitle}
-        </Text>
-        <div className="ng-tooltip-native">
-          <p>
-            {isEdit && rowData
-              ? getString('cv.healthSource.editHealthSource')
-              : getString('cv.healthSource.addHealthSource')}
-          </p>
-        </div>
-      </>
-    )
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rowData, isEdit])
-
-  const onDeleteHealthSource = (selectedRow: RowData, changeSourcesData: ChangeSourceDTO[]): void => {
-    const payload = deleteHealthSource(selectedRow, changeSourcesData, tableData)
-    onSuccess(payload as MonitoredServiceResponse)
-  }
-
-  const onSuccessHealthSourceTableWrapper = (data: MonitoredServiceResponse | UpdatedHealthSource): void => {
-    if (shouldRenderAtVerifyStep) {
-      onSuccess(data as MonitoredServiceResponse)
-    } else {
-      // single health source data add to table monitoredService?.sources
-      const healthSources = createHealthsourceList(tableData, data as UpdatedHealthSource)
-      const payload = {
-        monitoredService: {
-          sources: { healthSources, changeSources }
-        }
-      }
-      onSuccess(payload as MonitoredServiceResponse)
-    }
-    setModalOpen(false)
-  }
-
-  const onCloseHealthSourceTableWrapper = (): void => {
-    setModalOpen(false)
-    setrowData(null)
-    onCloseDrawer?.(false)
-  }
+  const onDeleteHealthSource = useCallback(
+    async (selectedRow: HealthSourceDTO): Promise<void> => {
+      const updatedChangeSources = tableData?.filter(
+        (healthSource: HealthSourceDTO) => healthSource.identifier !== selectedRow.identifier
+      )
+      onSuccess(updatedChangeSources)
+    },
+    [tableData]
+  )
 
   const renderTypeWithIcon: Renderer<CellProps<RowData>> = ({ row }): JSX.Element => {
     const rowdata = row?.original
@@ -121,11 +52,11 @@ export default function HealthSourceTable({
         <ContextMenuActions
           titleText={getString('cv.healthSource.deleteHealthSource')}
           contentText={getString('cv.healthSource.deleteHealthSourceWarning') + `: ${rowdata.identifier}`}
-          onDelete={() => onDeleteHealthSource(rowdata, changeSources)}
+          onDelete={() => onDeleteHealthSource(rowdata as HealthSourceDTO)}
           onEdit={() => {
             const rowFilteredData =
               tableData?.find((healthSource: RowData) => healthSource.identifier === rowdata.identifier) || null
-            editRow(rowFilteredData)
+            onEdit(rowFilteredData)
           }}
         />
       </Layout.Horizontal>
@@ -139,8 +70,7 @@ export default function HealthSourceTable({
 
   const editRow = useCallback(rowToEdit => {
     if (rowToEdit) {
-      setrowData(rowToEdit)
-      setModalOpen(true)
+      onEdit(rowToEdit)
       return
     }
     showError(getString('cv.healthSource.noDataPresentHealthSource'))
@@ -154,27 +84,24 @@ export default function HealthSourceTable({
           <HealthSources
             healthSources={healthSourceTableData}
             editHealthSource={editRow}
-            addHealthSource={() => {
-              setModalOpen(true)
-              setrowData(null)
-            }}
             isRunTimeInput={isRunTimeInput}
+            addHealthSource={onAddNewHealthSource}
           />
         )
       }
       return (
-        <>
+        <CardWithOuterTitle>
           <Text className={css.tableTitle}>{getString('connectors.cdng.healthSources.label')}</Text>
           {renderHealthSourceTableInCV(healthSourceTableData)}
           <div className={cx(css.drawerlink)}>
-            <Link to={'#'} onClick={validateMonitoredSource}>
+            <Link to={'#'} onClick={onAddNewHealthSource}>
               + {getString('cv.healthSource.addHealthSource')}
             </Link>
           </div>
-        </>
+        </CardWithOuterTitle>
       )
     },
-    [isRunTimeInput]
+    [isRunTimeInput, value]
   )
 
   const renderHealthSourceTableInCV = useCallback((healthSourceTableData: RowData[]) => {
@@ -218,22 +145,5 @@ export default function HealthSourceTable({
     )
   }, [])
 
-  return (
-    <>
-      {renderHealthSourceTable(!!shouldRenderAtVerifyStep, tableData)}
-      <HealthSourceDrawerContent
-        isEdit={!!isEdit && !!rowData}
-        onClose={onCloseHealthSourceTableWrapper}
-        createHeader={createHeader}
-        modalOpen={modalOpen}
-        onSuccess={onSuccessHealthSourceTableWrapper}
-        rowData={rowData}
-        tableData={tableData}
-        serviceRef={serviceRef}
-        environmentRef={environmentRef}
-        monitoredServiceRef={monitoredServiceRef}
-        shouldRenderAtVerifyStep={shouldRenderAtVerifyStep}
-      />
-    </>
-  )
+  return renderHealthSourceTable(!!shouldRenderAtVerifyStep, tableData)
 }

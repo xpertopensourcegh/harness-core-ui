@@ -1,16 +1,23 @@
-import React, { useState, useCallback } from 'react'
+import React, { useCallback } from 'react'
+import { noop } from 'lodash-es'
 import * as Yup from 'yup'
 import { Formik, FormikContext } from 'formik'
 import { useParams } from 'react-router-dom'
 import { Text, Color } from '@wings-software/uicore'
 import { PageSpinner } from '@common/components'
 import { useStrings } from 'framework/strings'
-import type { MonitoredServiceResponse, ChangeSourceDTO } from 'services/cv'
+import type { ChangeSourceDTO, HealthSourceDTO } from 'services/cv'
 import { useDrawer } from '@cv/hooks/useDrawerHook/useDrawerHook'
+import type {
+  RowData,
+  UpdatedHealthSource
+} from '@cv/pages/health-source/HealthSourceDrawer/HealthSourceDrawerContent.types'
 import { ChangeSourceDrawer } from '@cv/pages/ChangeSource/ChangeSourceDrawer/ChangeSourceDrawer'
 import SaveAndDiscardButton from '@common/components/SaveAndDiscardButton/SaveAndDiscardButton'
-import CardWithOuterTitle from '@cv/pages/health-source/common/CardWithOuterTitle/CardWithOuterTitle'
-import HealthSourceTable from '@cv/pages/health-source/HealthSourceTable'
+import HealthSourceTable from '@cv/pages/health-source/HealthSourceTable/HealthSourceTable'
+import HealthSourceDrawerHeader from '@cv/pages/health-source/HealthSourceDrawer/component/HealthSourceDrawerHeader/HealthSourceDrawerHeader'
+import HealthSourceDrawerContent from '@cv/pages/health-source/HealthSourceDrawer/HealthSourceDrawerContent'
+import { createHealthsourceList } from '@cv/pages/health-source/HealthSourceTable/HealthSourceTable.utils'
 import type { MonitoredServiceForm } from './Service.types'
 import MonitoredServiceOverview from './components/MonitoredServiceOverview/MonitoredServiceOverview'
 import { onSave, updateMonitoredServiceDTOOnTypeChange } from './Service.utils'
@@ -36,15 +43,16 @@ function Service({
   onChangeMonitoredServiceType: (updatedValues: MonitoredServiceForm) => void
 }): JSX.Element {
   const { getString } = useStrings()
-  const [validMonitoredSource, setValidMonitoredSource] = useState(false)
   const { identifier } = useParams<{ identifier: string }>()
 
   const isEdit = !!identifier
 
-  const onSuccessHealthSource = useCallback(
-    (data: MonitoredServiceResponse, formik: FormikContext<MonitoredServiceForm>): void => {
-      formik.setFieldValue('sources', data?.monitoredService?.sources)
-      setValidMonitoredSource(false)
+  const updateHealthSource = useCallback(
+    (data: any, formik: FormikContext<MonitoredServiceForm>): void => {
+      formik.setFieldValue('sources', {
+        ...formik.values?.sources,
+        healthSources: data
+      })
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [isEdit]
@@ -60,6 +68,24 @@ function Service({
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [isEdit]
   )
+
+  const {
+    showDrawer: showHealthSourceDrawer,
+    hideDrawer: hideHealthSourceDrawer,
+    setDrawerHeaderProps
+  } = useDrawer({
+    createHeader: props => <HealthSourceDrawerHeader {...props} />,
+    createDrawerContent: props => <HealthSourceDrawerContent {...props} />
+  })
+
+  const onSuccessHealthSourceTableWrapper = (
+    data: UpdatedHealthSource,
+    formik: FormikContext<MonitoredServiceForm>
+  ): void => {
+    const healthsourceList = createHealthsourceList(formik.values?.sources?.healthSources as RowData[], data)
+    updateHealthSource(healthsourceList, formik)
+    hideHealthSourceDrawer()
+  }
 
   const createChangeSourceDrawerHeader = useCallback(() => {
     return (
@@ -110,12 +136,41 @@ function Service({
     []
   )
 
+  const openHealthSourceDrawer = useCallback(
+    async ({
+      formik,
+      onSuccessHealthSource
+    }: {
+      formik: FormikContext<MonitoredServiceForm>
+      onSuccessHealthSource: (data: HealthSourceDTO[]) => void
+    }) => {
+      // has required fields
+      if (formik?.values.environmentRef && formik?.values.serviceRef && formik?.values.name) {
+        showHealthSourceDrawer({
+          serviceRef: formik?.values.serviceRef,
+          environmentRef: formik?.values.environmentRef,
+          monitoredServiceRef: {
+            name: formik?.values.name,
+            identifier: formik?.values.identifier
+          },
+          isEdit: false,
+          rowData: null,
+          tableData: formik?.values?.sources?.healthSources || [],
+          onSuccess: onSuccessHealthSource,
+          monitoredServiceType: formik.values.type
+        })
+      } else {
+        formik.submitForm()
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  )
+
   return (
     <Formik<MonitoredServiceForm>
       initialValues={cachedInitialValues || initialValues}
-      onSubmit={() => {
-        setValidMonitoredSource(true)
-      }}
+      onSubmit={() => noop}
       validationSchema={Yup.object().shape({
         name: Yup.string().nullable().required(getString('cv.monitoredServices.nameValidation')),
         type: Yup.string().nullable().required(getString('common.validation.typeIsRequired')),
@@ -126,13 +181,18 @@ function Service({
     >
       {formik => {
         serviceTabformRef.current = formik
-        const { name, identifier: monitoredServiceId, description, tags, serviceRef, environmentRef } = formik?.values
+        const { serviceRef, environmentRef } = formik?.values
         if (formik.dirty) {
           setDBData?.(formik.values)
         }
         const onSuccessChangeSource = (data: ChangeSourceDTO[]): void => {
           updateChangeSource(data, formik)
           hideDrawer()
+        }
+
+        const onSuccessHealthSource = (data: HealthSourceDTO[]): void => {
+          updateHealthSource(data, formik)
+          hideHealthSourceDrawer()
         }
 
         return (
@@ -176,25 +236,33 @@ function Service({
                   value={formik?.values?.sources?.changeSources || []}
                   onSuccess={onSuccessChangeSource}
                 />
-                <CardWithOuterTitle>
-                  <HealthSourceTable
-                    isEdit={isEdit}
-                    value={formik.values.sources?.healthSources || []}
-                    onSuccess={data => onSuccessHealthSource(data, formik)}
-                    serviceRef={serviceRef}
-                    environmentRef={environmentRef}
-                    monitoredServiceRef={{
-                      name,
-                      identifier: monitoredServiceId,
-                      description,
-                      tags
-                    }}
-                    validMonitoredSource={validMonitoredSource}
-                    onCloseDrawer={setValidMonitoredSource}
-                    validateMonitoredSource={formik.submitForm}
-                    changeSources={formik?.values?.sources?.changeSources || []}
-                  />
-                </CardWithOuterTitle>
+                <HealthSourceTable
+                  onEdit={values => {
+                    setDrawerHeaderProps?.({ isEdit: true })
+                    showHealthSourceDrawer({
+                      isEdit,
+                      hideDrawer,
+                      rowData: values,
+                      serviceRef: formik?.values.serviceRef,
+                      environmentRef: formik?.values.environmentRef,
+                      monitoredServiceRef: {
+                        name: formik?.values.name,
+                        identifier: formik?.values.identifier
+                      },
+                      tableData:
+                        createHealthsourceList(formik?.values?.sources?.healthSources as RowData[], values) || [],
+                      onSuccess: (updatedHealthSource: UpdatedHealthSource) =>
+                        onSuccessHealthSourceTableWrapper(updatedHealthSource, formik),
+                      monitoredServiceType: formik.values.type
+                    })
+                  }}
+                  onAddNewHealthSource={() => {
+                    setDrawerHeaderProps?.({ isEdit: false })
+                    openHealthSourceDrawer({ formik, onSuccessHealthSource })
+                  }}
+                  value={formik?.values?.sources?.healthSources || []}
+                  onSuccess={onSuccessHealthSource}
+                />
               </>
             )}
           </div>

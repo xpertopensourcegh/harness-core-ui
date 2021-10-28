@@ -4,12 +4,11 @@ import { DRAWER_OFFSET_LEFT } from './useDrawerHook.constant'
 
 export const getDefaultDrawerProps = ({
   showWarning,
-  createHeader
+  header
 }: {
   showWarning: () => void
-  createHeader: undefined | (() => JSX.Element)
+  header: JSX.Element | undefined
 }): IDrawerProps => {
-  const title = createHeader ? { title: createHeader() } : {}
   return {
     onClose: showWarning,
     usePortal: true,
@@ -21,7 +20,7 @@ export const getDefaultDrawerProps = ({
     size: `calc(100% - ${DRAWER_OFFSET_LEFT})`,
     isOpen: true,
     position: Position.RIGHT,
-    ...title,
+    title: header,
     isCloseButtonShown: false,
     portalClassName: 'health-source-right-drawer'
   }

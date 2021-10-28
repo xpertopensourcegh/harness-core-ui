@@ -1,5 +1,6 @@
 import React from 'react'
 import { render, waitFor, fireEvent } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import routes from '@common/RouteDefinitions'
 import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
@@ -25,7 +26,9 @@ const healthSourceTableProps = {
   isEdit: false,
   type: 'AppDynamics',
   onSuccess: jest.fn(),
-  onDelete: jest.fn()
+  onDelete: jest.fn(),
+  onEdit: jest.fn(),
+  addNew: jest.fn()
 }
 
 jest.mock('@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs', () => ({
@@ -50,28 +53,54 @@ jest.mock('@cv/components/ContextMenuActions/ContextMenuActions', () => (props: 
 })
 
 describe('HealthSource table', () => {
-  test('check delete and edit row', async () => {
+  test('Verify HealthSource Table in CV', async () => {
     const { container } = render(
       <TestWrapper {...editModeProps}>
         <HealthSourceTable
-          isEdit={true}
+          onEdit={jest.fn()}
+          onAddNewHealthSource={jest.fn()}
           value={HealthSourceList}
+          isRunTimeInput={false}
+          shouldRenderAtVerifyStep={false}
           onSuccess={healthSourceTableProps.onSuccess}
-          serviceRef={healthSourceTableProps.serviceRef}
-          environmentRef={healthSourceTableProps.environmentRef}
-          monitoredServiceRef={healthSourceTableProps.monitoredServiceRef}
         />
       </TestWrapper>
     )
 
     //render rows based on data
-    await waitFor(() => expect(container.querySelectorAll('[role="row"]').length).toEqual(3))
+    await waitFor(() => expect(container.querySelectorAll('.body [role="row"]').length).toEqual(2))
 
     fireEvent.click(container.querySelector('.context-menu-mock-delete')!)
     await waitFor(() => expect(healthSourceTableProps.onDelete).toHaveBeenCalled())
 
     fireEvent.click(container.querySelector('.context-menu-mock-edit')!)
     await waitFor(() => expect(container.querySelector('.health-source-right-drawer')).toBeDefined())
+
+    expect(container).toMatchSnapshot()
+  })
+
+  test('Verify HealthSource Table in Verify step', async () => {
+    const { container, getByText } = render(
+      <TestWrapper {...editModeProps}>
+        <HealthSourceTable
+          onEdit={healthSourceTableProps.onEdit}
+          onAddNewHealthSource={healthSourceTableProps.addNew}
+          value={HealthSourceList}
+          isRunTimeInput={false}
+          shouldRenderAtVerifyStep
+          onSuccess={healthSourceTableProps.onSuccess}
+        />
+      </TestWrapper>
+    )
+
+    //render rows based on data
+    await waitFor(() => expect(container.querySelectorAll('.body [role="row"]').length).toEqual(2))
+
+    userEvent.click(container.querySelector('span[icon="edit"]')!)
+    await waitFor(() => expect(healthSourceTableProps.onEdit).toHaveBeenCalled())
+
+    userEvent.click(getByText('plusAdd'))
+    await waitFor(() => expect(healthSourceTableProps.addNew).toHaveBeenCalled())
 
     expect(container).toMatchSnapshot()
   })

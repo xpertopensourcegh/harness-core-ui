@@ -11,7 +11,7 @@ import {
 } from 'services/cv'
 import { useStrings } from 'framework/strings'
 import Card from '@cv/components/Card/Card'
-import HealthSourceTable from '@cv/pages/health-source/HealthSourceTable/HealthSourceTable'
+import VerifyStepHealthSourceTable from '@cv/pages/health-source/HealthSourceTable/VerifyStepHealthSourceTable'
 import type { RowData } from '@cv/pages/health-source/HealthSourceDrawer/HealthSourceDrawerContent.types'
 import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import type { MonitoredServiceProps } from './MonitoredService.types'
@@ -174,15 +174,13 @@ export default function MonitoredService({
         </Card>
         {formValues?.spec?.monitoredServiceRef !== RUNTIME_INPUT_VALUE &&
         formValues?.spec?.monitoredServiceRef !== MONITORED_SERVICE_EXPRESSION ? (
-          <HealthSourceTable
-            isEdit={true}
-            shouldRenderAtVerifyStep={true}
-            value={healthSourcesList}
-            onSuccess={onSuccess}
-            serviceRef={serviceIdentifier || ''}
-            environmentRef={environmentIdentifier || ''}
+          <VerifyStepHealthSourceTable
+            serviceIdentifier={serviceIdentifier}
+            envIdentifier={environmentIdentifier}
+            healthSourcesList={healthSourcesList}
             monitoredServiceRef={monitoredService}
-            breadCrumbRoute={{ routeTitle: getString('connectors.cdng.monitoredService.backToVerifyStep') }}
+            onSuccess={onSuccess}
+            isRunTimeInput={false}
           />
         ) : null}
       </>

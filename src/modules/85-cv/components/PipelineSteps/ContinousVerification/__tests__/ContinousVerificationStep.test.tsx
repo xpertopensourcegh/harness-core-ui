@@ -327,9 +327,10 @@ describe('Test ContinousVerificationStep Step', () => {
       expect(getByText('connectors.cdng.healthSources.noHealthSourcesDefined')).toBeTruthy()
       const AddHealthSourceLink = getByText('plusAdd')
       expect(AddHealthSourceLink).toBeTruthy()
-
       // Clicking on Add Health Source Link and verifying if the drawer opens for adding the health source.
-      AddHealthSourceLink.click()
+      act(() => {
+        fireEvent.click(getByText('plusAdd'))
+      })
       expect(getByText('cv.healthSource.addHealthSource')).toBeTruthy()
     })
 
@@ -408,9 +409,10 @@ describe('Test ContinousVerificationStep Step', () => {
       expect(getByText('connectors.cdng.healthSources.noHealthSourcesDefined')).toBeTruthy()
       const AddHealthSourceLink = getByText('plusAdd')
       expect(AddHealthSourceLink).toBeTruthy()
-
       // Clicking on Add Health Source Link and verifying if the drawer opens for adding the health source.
-      AddHealthSourceLink.click()
+      act(() => {
+        fireEvent.click(getByText('plusAdd'))
+      })
       expect(getByText('cv.healthSource.addHealthSource')).toBeTruthy()
     })
   })
