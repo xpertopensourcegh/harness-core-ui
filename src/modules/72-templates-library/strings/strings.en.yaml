@@ -47,3 +47,5 @@ created: created
 updated: updated
 default: set default to
 sampleTemplateAuditComment: Changed service configuration from Kubernetes to Azure
+setAsStableTitle: Set as Stable?
+setAsStableText: 'Are you sure you want to set {{version}} as stable version?'

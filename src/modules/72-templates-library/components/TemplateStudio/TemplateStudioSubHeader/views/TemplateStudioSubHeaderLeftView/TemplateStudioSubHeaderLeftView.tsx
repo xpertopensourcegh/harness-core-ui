@@ -48,6 +48,7 @@ import { DefaultNewTemplateId, DefaultNewVersionLabel } from 'framework/Template
 import GitPopover from '@pipeline/components/GitPopover/GitPopover'
 import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
 import { getRepoDetailsByIndentifier } from '@common/utils/gitSyncUtils'
+import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import css from './TemplateStudioSubHeaderLeftView.module.scss'
 
 interface TemplateWithGitContextFormProps extends NGTemplateInfoConfig {
@@ -179,6 +180,18 @@ export const TemplateStudioSubHeaderLeftView: (props: TemplateStudioSubHeaderLef
       )
     }
   }
+
+  const { openDialog: openConfirmationDialog } = useConfirmationDialog({
+    cancelButtonText: getString('cancel'),
+    contentText: getString('templatesLibrary.setAsStableText', { version: template.versionLabel }),
+    titleText: getString('templatesLibrary.setAsStableTitle'),
+    confirmButtonText: getString('confirm'),
+    onCloseDialog: isConfirmed => {
+      if (isConfirmed) {
+        updateStableLabel()
+      }
+    }
+  })
 
   const updateStableLabel = async () => {
     try {
@@ -358,7 +371,7 @@ export const TemplateStudioSubHeaderLeftView: (props: TemplateStudioSubHeaderLef
         )}
         {!stableVersion && !isUpdated && !isReadonly && (
           <Button
-            onClick={updateStableLabel}
+            onClick={openConfirmationDialog}
             variation={ButtonVariation.LINK}
             size={ButtonSize.SMALL}
             text={getString('common.setAsStable')}

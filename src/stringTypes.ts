@@ -2677,6 +2677,8 @@ export interface StringsMap {
   'templatesLibrary.sampleTemplateAuditComment': string
   'templatesLibrary.saveAsNewLabelModal.heading': string
   'templatesLibrary.selectTemplateToPreview': string
+  'templatesLibrary.setAsStableText': string
+  'templatesLibrary.setAsStableTitle': string
   'templatesLibrary.stableVersion': string
   'templatesLibrary.stageTemplate': string
   'templatesLibrary.templateInputs': string

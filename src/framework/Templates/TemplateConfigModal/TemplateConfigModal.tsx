@@ -131,8 +131,10 @@ const BasicTemplateDetails = (props: BasicDetailsInterface): JSX.Element => {
         formName={formName}
         enableReinitialize={true}
         validationSchema={Yup.object().shape({
-          name: Yup.string().required(getString('templatesLibrary.createNewModal.validation.name')),
-          versionLabel: Yup.string().required(getString('templatesLibrary.createNewModal.validation.versionLabel')),
+          name: Yup.string().trim().required(getString('templatesLibrary.createNewModal.validation.name')),
+          versionLabel: Yup.string()
+            .trim()
+            .required(getString('templatesLibrary.createNewModal.validation.versionLabel')),
           ...(isGitSyncEnabled && showGitFields
             ? {
                 repo: Yup.string().trim().required(getString('common.git.validation.repoRequired')),
