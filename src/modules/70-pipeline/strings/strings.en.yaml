@@ -10,6 +10,7 @@ closeStepConfig: Step Config
 stepConfigHasChanges: Form has some unsaved changed, Do you want to apply the changes?
 clickHere: Click here
 stepDetails: Step details
+stageVariables: Stage Variables
 scriptInputVariables: Script Input Variables
 scriptOutputVariables: Script Output Variables
 executionTarget: Execution Target

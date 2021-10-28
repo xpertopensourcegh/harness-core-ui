@@ -2359,6 +2359,7 @@ export interface StringsMap {
   'pipeline.serviceDependencyText': string
   'pipeline.singleStageExecution': string
   'pipeline.sslVerify': string
+  'pipeline.stageVariables': string
   'pipeline.stagetoRetryFrom': string
   'pipeline.startTime': string
   'pipeline.startedOn': string
