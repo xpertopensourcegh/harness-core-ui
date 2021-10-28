@@ -12,26 +12,26 @@ exports[`ManifestSelection tests delete manifest list works correctly 1`] = `
       <div
         class="manifestList listHeader"
       >
-        <span
-          class="tableHeader"
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
         >
           common.ID
-        </span>
-        <span
-          class="tableHeader"
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
         >
           pipelineSteps.serviceTab.manifestList.manifestType
-        </span>
-        <span
-          class="tableHeader"
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
         >
           pipelineSteps.serviceTab.manifestList.manifestStore
-        </span>
-        <span
-          class="tableHeader"
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
         >
           location
-        </span>
+        </p>
         <span />
       </div>
       <div
@@ -116,9 +116,9 @@ exports[`ManifestSelection tests delete manifest list works correctly 1`] = `
               >
                 <svg
                   data-icon="full-circle"
-                  height="12"
+                  height="8"
                   viewBox="0 0 16 16"
-                  width="12"
+                  width="8"
                 >
                   <desc>
                     full-circle
@@ -155,9 +155,9 @@ exports[`ManifestSelection tests delete manifest list works correctly 1`] = `
                     data-icon="Edit"
                   >
                     <svg
-                      height="16"
+                      height="18"
                       viewBox="0 0 24 24"
-                      width="16"
+                      width="18"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
@@ -213,9 +213,9 @@ exports[`ManifestSelection tests delete manifest list works correctly 1`] = `
                     data-icon="main-trash"
                   >
                     <svg
-                      height="16"
+                      height="18"
                       viewBox="0 0 24 24"
-                      width="16"
+                      width="18"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
@@ -271,26 +271,26 @@ exports[`ManifestSelection tests edit manifest list works correctly 1`] = `
       <div
         class="manifestList listHeader"
       >
-        <span
-          class="tableHeader"
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
         >
           common.ID
-        </span>
-        <span
-          class="tableHeader"
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
         >
           pipelineSteps.serviceTab.manifestList.manifestType
-        </span>
-        <span
-          class="tableHeader"
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
         >
           pipelineSteps.serviceTab.manifestList.manifestStore
-        </span>
-        <span
-          class="tableHeader"
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
         >
           location
-        </span>
+        </p>
         <span />
       </div>
       <div
@@ -435,9 +435,9 @@ exports[`ManifestSelection tests edit manifest list works correctly 1`] = `
               >
                 <svg
                   data-icon="full-circle"
-                  height="12"
+                  height="8"
                   viewBox="0 0 16 16"
-                  width="12"
+                  width="8"
                 >
                   <desc>
                     full-circle
@@ -474,9 +474,9 @@ exports[`ManifestSelection tests edit manifest list works correctly 1`] = `
                     data-icon="Edit"
                   >
                     <svg
-                      height="16"
+                      height="18"
                       viewBox="0 0 24 24"
-                      width="16"
+                      width="18"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
@@ -504,9 +504,9 @@ exports[`ManifestSelection tests edit manifest list works correctly 1`] = `
                     data-icon="main-trash"
                   >
                     <svg
-                      height="16"
+                      height="18"
                       viewBox="0 0 24 24"
-                      width="16"
+                      width="18"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
