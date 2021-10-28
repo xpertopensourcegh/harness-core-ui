@@ -5165,20 +5165,20 @@
     vscode-languageserver "^5.2.1"
     vscode-uri "^2.1.1"
 
-"@wings-software/ng-tooltip@~1.30.26":
-  version "1.30.53"
-  resolved "https://npm.pkg.github.com/download/@wings-software/ng-tooltip/1.30.53/f15bbe87a9ce45139f236f8b954efdf67eba5fc41068442832f412afda7912e2#fc7a40ca780198883c35455870512a0031cf8e2e"
-  integrity sha512-/JoCcYisNyWgywrpPlQhfFY7wv61BHsoout1NyTgpF3He3EnQqgDPCxiSquU1QPA3Ja0eDtKV5nQNQljIG4B7A==
+"@wings-software/ng-tooltip@~1.30.55":
+  version "1.30.55"
+  resolved "https://npm.pkg.github.com/download/@wings-software/ng-tooltip/1.30.55/e87b58b4714852d4292d4e544a8969d54f6cde8bf810f9dd3f86eba887e4ca32#4ef6b9d4be8f0fb374c7f95f6fcafbe6e4529ab4"
+  integrity sha512-G4Q0AcnJE2T/WXEwAMLuhsRvGUwy2XnFpZk3mLIXlihntWS1cWkDJPOMdExjJUfJuh8MKEbUb29l2cosLx8IYA==
 
 "@wings-software/telemetry@^1.0.36":
   version "1.0.36"
   resolved "https://npm.pkg.github.com/download/@wings-software/telemetry/1.0.36/5f59a357aff1dceaa0f724acb8620985f6b3334233231838eea82ea25b3de4ce#cac20fc86f51e0bf91688d35664ad1a3cf84c124"
   integrity "sha1-ysIPyG9R4L+RaI01ZkrRo8+EwSQ= sha512-PrWLYNubOjFDlMO2DJlH1PljfeVgJ6zih6gHOmp2B/2+fdUhjOABSnEKduNSZwrTGqCFmHKmqF1gZ1ksQMEJLA=="
 
-"@wings-software/uicore@0.1.427":
-  version "0.1.427"
-  resolved "https://npm.pkg.github.com/download/@wings-software/uicore/0.1.427/b4a892e38e4532ad2a4e7589d4585bd9d71daabb3248be108425255d06f98019#75a8bbddf47851d204297faa15b0a0af2022456d"
-  integrity sha512-/uP0cR0Cczo8i+j1+kjIvrL4n5l8H2YSgBks7guXq0gInes3BfX+5I7R8IF5U3NRVFifwXMWRW/R4DwBOKdykg==
+"@wings-software/uicore@0.1.428":
+  version "0.1.428"
+  resolved "https://npm.pkg.github.com/download/@wings-software/uicore/0.1.428/baa7045360164b1efaecc62eab2e2cbe37f478030150c19f2497c451b828d475#326fc0a4e530a0186e1f71e68360eae327da511c"
+  integrity sha512-er2zRIKM1uBo78T0eNTAiSPbOKB8Mh/B42cPYbpEHswROLbs3ikR+bdEPDnxDQb4Mz0+d/mtibL673W3oBwlUw==
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
@@ -17631,11 +17631,6 @@ snapdragon@^0.8.1:
     source-map "^0.5.6"
     source-map-resolve "^0.5.0"
     use "^3.1.0"
-
-snarkdown@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/snarkdown/-/snarkdown-2.0.0.tgz#b1feb4db91b9f94a8ebbd7a50f3e99aee18b1e03"
-  integrity "sha1-sf6025G5+UqOu9elDz6ZruGLHgM= sha512-MgL/7k/AZdXCTJiNgrO7chgDqaB9FGM/1Tvlcenenb7div6obaDATzs16JhFyHHBGodHT3B7RzRc5qk8pFhg3A=="
 
 sockjs@^0.3.21:
   version "0.3.21"
