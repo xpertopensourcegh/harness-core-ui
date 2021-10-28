@@ -157,6 +157,7 @@ export const getMonitoredServiceFilterOptions = (
     {
       title: getString('cv.allServices'),
       icon: 'services',
+      iconSize: 18,
       count: monitoredServiceListData?.totalItems ?? 0
     }
   ]
