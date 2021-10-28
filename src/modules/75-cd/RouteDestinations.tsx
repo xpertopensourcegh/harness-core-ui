@@ -73,6 +73,7 @@ import CreateConnectorFromYamlPage from '@connectors/pages/createConnectorFromYa
 import CreateSecretFromYamlPage from '@secrets/pages/createSecretFromYaml/CreateSecretFromYamlPage'
 import ServiceDetailPage from '@cd/pages/ServiceDetailPage/ServiceDetailPage'
 import ServiceDetails from '@cd/components/ServiceDetails/ServiceDetails'
+import ChildAppMounter from 'microfrontends/ChildAppMounter'
 
 import './components/PipelineSteps'
 import './components/PipelineStudio/DeployStage'
@@ -112,8 +113,10 @@ import { ManifestInputForm } from './components/ManifestInputForm/ManifestInputF
 
 import { ArtifactInputForm } from './components/ArtifactInputForm/ArtifactInputForm'
 import GitOpsServersPage from './pages/gitops/GitOpsServersHomePage'
-import GitOpsServersList from './pages/gitops/HarnessManagedGitOps/HarnessManagedGitOpsServersList'
 import GitOpsModalContainer from './pages/gitops/NativeArgo/GitOpsProvidersList'
+
+// eslint-disable-next-line import/no-unresolved
+const GitOpsServersList = React.lazy(() => import('gitopsui/MicroFrontendApp'))
 
 executionFactory.registerCardInfo(StageType.DEPLOY, {
   icon: 'cd-main',
@@ -833,12 +836,11 @@ export default (
     </RouteWithLayout>
 
     <RouteWithLayout
-      exact
       sidebarProps={CDSideNavProps}
       path={routes.toHarnessManagedGitOps({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
     >
       <GitOpsServersPage>
-        <GitOpsServersList />
+        <ChildAppMounter ChildApp={GitOpsServersList} />
       </GitOpsServersPage>
     </RouteWithLayout>
     <RouteWithLayout
