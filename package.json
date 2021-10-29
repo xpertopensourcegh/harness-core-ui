@@ -75,7 +75,8 @@
     "fmt": "prettier --write \"./src/**/*.{ts,tsx,css}\"",
     "generate-merged-coverage": "node mergedCoverage.js",
     "generate-microfrontend-types": "rm -rf src/microfrontends/dist && webpack --config src/microfrontends/webpack.config.js",
-    "publish-types": "yarn generate-microfrontend-types && yarn publish src/microfrontends;"
+    "publish-types": "yarn generate-microfrontend-types; yarn publish src/microfrontends;",
+    "generate-certificate": "sh scripts/generate-certificate.sh"
   },
   "dependencies": {
     "@blueprintjs/core": "3.26.1",

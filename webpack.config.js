@@ -55,6 +55,10 @@ const enableGitOpsUI = process.env.ENABLE_GITOPSUI === 'true'
 const enableGovernance = process.env.ENABLE_GOVERNANCE === 'true'
 const moduleFederationEnabled = enableGitOpsUI || enableGovernance
 
+const certificateExists = fs.existsSync('./certificates/localhost.pem')
+if (!certificateExists) {
+  throw new Error('The certificate is missing, please run `yarn generate-certificate`')
+}
 const config = {
   context: CONTEXT,
   entry: './src/framework/app',
