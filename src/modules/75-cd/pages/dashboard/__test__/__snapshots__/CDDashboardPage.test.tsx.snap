@@ -130,16 +130,16 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
           class="StyledProps--font StyledProps--main healthCards"
         >
           <div
-            class="StyledProps--font StyledProps--main healthCard StyledProps--font-variation-small-semi StyledProps--color StyledProps--color-grey600"
+            class="StyledProps--font StyledProps--main healthCard totalDepCard StyledProps--font-variation-small-semi StyledProps--color StyledProps--color-grey600"
           >
-            <p
-              class="StyledProps--font StyledProps--main cardHeader"
-            >
-              Total Deployments
-            </p>
             <div
               class="StyledProps--font StyledProps--main"
             >
+              <p
+                class="StyledProps--font StyledProps--main cardHeader"
+              >
+                Total Deployments
+              </p>
               <div
                 class="StyledProps--font StyledProps--main textAndRate"
               >
@@ -149,14 +149,42 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
                   19
                 </p>
               </div>
+            </div>
+            <div
+              class="separator"
+            />
+            <div
+              class="StyledProps--font StyledProps--main chartWrap StyledProps--margin-top-large"
+            >
               <div
-                class="StyledProps--font StyledProps--main chartWrap"
+                class="Layout--horizontal StyledProps--main topDepPiechart StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
+                style="height: 100%;"
               >
-                <div />
-              </div>
-              <div
-                class="StyledProps--font StyledProps--main chartWrap StyledProps--margin-top-large"
-              >
+                <div
+                  class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-alignItems-flex-end StyledProps--padding-top-xsmall StyledProps--padding-bottom-xsmall StyledProps--padding-right-large"
+                  style="height: 100%;"
+                >
+                  <ul>
+                    <li
+                      style="font-weight: 500; font-size: 15px;"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-grey500"
+                      >
+                        cd.serviceDashboard.nonProd (2)
+                      </p>
+                    </li>
+                    <li
+                      style="font-weight: 500; font-size: 15px;"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-grey500"
+                      >
+                        cd.serviceDashboard.prod (5)
+                      </p>
+                    </li>
+                  </ul>
+                </div>
                 <div />
               </div>
             </div>

@@ -20,5 +20,8 @@ declare const styles: {
   readonly emptyView: string
   readonly emptyViewItem: string
   readonly emptyViewCard: string
+  readonly separator: string
+  readonly totalDepCard: string
+  readonly topDepPiechart: string
 }
 export default styles

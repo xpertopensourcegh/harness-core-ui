@@ -56,7 +56,7 @@ exports[`ServiceInstancesWidget render 1`] = `
               style="height: 65px;"
             >
               <div
-                class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+                class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
                 style="height: 100%;"
               />
             </div>

@@ -16,15 +16,28 @@ export interface PieChartProps {
   size: number
   options?: Highcharts.Options
   showLabels?: boolean
+  showInRevOrder?: boolean
+  customCls?: string
   labelContainerStyles?: string
   labelStyles?: string
+  labelsContent?: React.ReactElement
 }
 
 const getParsedOptions = (defaultOptions: Highcharts.Options, options: Highcharts.Options): Highcharts.Options =>
   merge(defaultOptions, options)
 
 export const PieChart: React.FC<PieChartProps> = props => {
-  const { size, items, options = {}, showLabels = true, labelContainerStyles = '', labelStyles = '' } = props
+  const {
+    size,
+    items,
+    options = {},
+    showLabels = true,
+    labelContainerStyles = '',
+    labelStyles = '',
+    showInRevOrder,
+    customCls,
+    labelsContent
+  } = props
   const defaultOptions: Highcharts.Options = useMemo(
     () => ({
       chart: {
@@ -77,24 +90,30 @@ export const PieChart: React.FC<PieChartProps> = props => {
     [size, items]
   )
   const parsedOptions = useMemo(() => getParsedOptions(defaultOptions, options), [defaultOptions, options])
+  const className = showInRevOrder ? customCls : ''
+  const labelHtml = labelsContent ? (
+    labelsContent
+  ) : (
+    <Layout.Vertical
+      flex={{ alignItems: 'flex-end' }}
+      height="100%"
+      padding={{ top: 'xsmall', bottom: 'xsmall', right: 'large' }}
+      className={labelContainerStyles}
+    >
+      {items.map(({ label, formattedValue, value }) => (
+        <Text font={{ size: 'xsmall' }} color={Color.GREY_500} className={labelStyles} key={label}>{`${label} (${
+          formattedValue ? formattedValue : value
+        })`}</Text>
+      ))}
+    </Layout.Vertical>
+  )
   return (
-    <Layout.Horizontal flex={{ align: 'center-center' }} height={'100%'}>
-      {showLabels ? (
-        <Layout.Vertical
-          flex={{ alignItems: 'flex-end' }}
-          height="100%"
-          padding={{ top: 'xsmall', bottom: 'xsmall', right: 'large' }}
-          className={labelContainerStyles}
-        >
-          {items.map(({ label, formattedValue, value }) => (
-            <Text font={{ size: 'xsmall' }} color={Color.GREY_500} className={labelStyles} key={label}>{`${label} (${
-              formattedValue ? formattedValue : value
-            })`}</Text>
-          ))}
-        </Layout.Vertical>
-      ) : (
-        <></>
-      )}
+    <Layout.Horizontal
+      flex={{ align: 'center-center', distribution: 'space-between' }}
+      height={'100%'}
+      className={className}
+    >
+      {showLabels ? labelHtml : <></>}
       <HighchartsReact highcharts={Highcharts} options={parsedOptions}></HighchartsReact>
     </Layout.Horizontal>
   )

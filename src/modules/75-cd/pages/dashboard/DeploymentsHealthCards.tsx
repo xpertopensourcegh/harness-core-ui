@@ -1,15 +1,23 @@
 import React, { useMemo } from 'react'
-import { Container, Text, Icon, FontVariation, Color } from '@wings-software/uicore'
+import { Container, Text, Icon, FontVariation, Color, Layout } from '@wings-software/uicore'
+import cx from 'classnames'
+
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
+
 import { useParams } from 'react-router-dom'
 import { Classes } from '@blueprintjs/core'
 import merge from 'lodash-es/merge'
 import moment from 'moment'
+import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { roundNumber, useErrorHandler } from '@pipeline/components/Dashboards/shared'
 import { useGetDeploymentHealth, DeploymentDateAndCount } from 'services/cd-ng'
+import { PieChart, PieChartProps } from '@cd/components/PieChart/PieChart'
+
+import { numberFormatter } from '@cd/components/Services/common'
 import styles from './CDDashboardPage.module.scss'
+
 export interface HealthCardProps {
   title: string
   text: any
@@ -18,6 +26,7 @@ export interface HealthCardProps {
   secondaryChartOptions?: any
   layout: 'vertical' | 'horizontal'
   isLoading?: boolean
+  pieChartProps?: any
   showPieChart?: boolean
   showLineChart?: boolean
 }
@@ -37,7 +46,7 @@ export default function DeploymentsHealthCards(props: any) {
   })
 
   useErrorHandler(error)
-
+  const { getString } = useStrings()
   const mapTime = (value: DeploymentDateAndCount) => (value?.time ? moment(value.time).format('YYYY-MM-DD') : '')
 
   const chartsData = useMemo(() => {
@@ -118,6 +127,52 @@ export default function DeploymentsHealthCards(props: any) {
     }
   }, [data])
 
+  const pieChartProps: PieChartProps = {
+    items: [
+      {
+        label: getString('cd.serviceDashboard.nonProd'),
+        value: data?.data?.healthDeploymentInfo?.total?.nonProduction || 0,
+        formattedValue: numberFormatter(data?.data?.healthDeploymentInfo?.total?.nonProduction),
+        color: 'var(--primary-2)'
+      },
+      {
+        label: getString('cd.serviceDashboard.prod'),
+        value: data?.data?.healthDeploymentInfo?.total?.production || 0,
+        formattedValue: numberFormatter(data?.data?.healthDeploymentInfo?.total?.production),
+        color: 'var(--primary-7)'
+      }
+    ],
+    size: 36,
+    customCls: styles.topDepPiechart,
+    showInRevOrder: true,
+
+    options: {
+      tooltip: {
+        enabled: false
+      }
+    }
+  }
+
+  const labelsHtml = (
+    <Layout.Vertical
+      flex={{ alignItems: 'flex-end' }}
+      height="100%"
+      padding={{ top: 'xsmall', bottom: 'xsmall', right: 'large' }}
+    >
+      <ul>
+        {pieChartProps.items.map(({ label, formattedValue, value, color }) => (
+          <li style={{ fontWeight: 500, fontSize: 15, color }} key={`${label}_${value}`}>
+            <Text font={{ size: 'xsmall' }} color={Color.GREY_500} key={label}>{`${label} (${
+              formattedValue ? formattedValue : value
+            })`}</Text>
+          </li>
+        ))}
+      </ul>
+    </Layout.Vertical>
+  )
+
+  pieChartProps['labelsContent'] = labelsHtml
+
   return (
     <Container>
       <Text className={styles.healthCardTitle}>{title}</Text>
@@ -130,6 +185,11 @@ export default function DeploymentsHealthCards(props: any) {
           primaryChartOptions={chartsData?.totalChartOptions}
           secondaryChartOptions={chartsData?.totalBarChartOptions}
           showLineChart={data?.data?.healthDeploymentInfo?.total?.count ? true : false}
+          showPieChart={
+            data?.data?.healthDeploymentInfo?.total?.nonProduction !== 0 ||
+            data?.data?.healthDeploymentInfo?.total?.production !== 0
+          }
+          pieChartProps={pieChartProps}
         />
         <HealthCard
           title="Successful Deployments"
@@ -152,6 +212,40 @@ export default function DeploymentsHealthCards(props: any) {
   )
 }
 
+function TotalDepHealthCard({
+  title,
+  text,
+  layout,
+  isLoading,
+  pieChartProps = {},
+  showPieChart = false
+}: HealthCardProps) {
+  return (
+    <Container
+      font={{ variation: FontVariation.SMALL_SEMI }}
+      color={Color.GREY_600}
+      className={cx(styles.healthCard, styles.totalDepCard)}
+    >
+      <Container style={layout === 'horizontal' ? { display: 'flex', justifyContent: 'space-between' } : {}}>
+        <Text className={styles.cardHeader}>{title}</Text>
+        <Container className={styles.textAndRate}>
+          {isLoading ? (
+            <Container height={30} width={100} className={Classes.SKELETON} />
+          ) : (
+            <Text className={styles.cardText}>{text}</Text>
+          )}
+        </Container>
+      </Container>
+      <div className={styles.separator}></div>
+      {showPieChart && (
+        <Container className={styles.chartWrap} margin={{ top: 'large' }}>
+          <PieChart size={65} {...pieChartProps} />
+        </Container>
+      )}
+    </Container>
+  )
+}
+
 export function HealthCard({
   title,
   text,
@@ -160,8 +254,21 @@ export function HealthCard({
   secondaryChartOptions,
   layout,
   isLoading,
-  showLineChart = false
+  pieChartProps = {},
+  showPieChart = false
 }: HealthCardProps) {
+  if (showPieChart) {
+    return (
+      <TotalDepHealthCard
+        title={title}
+        text={text}
+        layout={layout}
+        pieChartProps={pieChartProps}
+        showPieChart={showPieChart}
+      />
+    )
+  }
+
   return (
     <Container font={{ variation: FontVariation.SMALL_SEMI }} color={Color.GREY_600} className={styles.healthCard}>
       <Text className={styles.cardHeader}>{title}</Text>
@@ -173,7 +280,8 @@ export function HealthCard({
             <Text className={styles.cardText}>{text}</Text>
           )}
         </Container>
-        {primaryChartOptions && !isLoading && (rate || showLineChart) ? (
+
+        {primaryChartOptions && !isLoading && rate ? (
           <Container className={styles.chartWrap}>
             <HighchartsReact highcharts={Highcharts} options={primaryChartOptions} />
             {typeof rate === 'number' && rate && !isLoading ? (
@@ -197,7 +305,7 @@ export function HealthCard({
             ) : null}
           </Container>
         ) : null}
-        {secondaryChartOptions && !isLoading && (rate || showLineChart) ? (
+        {secondaryChartOptions && !isLoading && rate ? (
           <Container className={styles.chartWrap} margin={{ top: 'large' }}>
             <HighchartsReact highcharts={Highcharts} options={secondaryChartOptions} />
             {typeof rate === 'number' && rate && !isLoading ? (
