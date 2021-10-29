@@ -29,6 +29,8 @@ export interface AccessControlCheckError {
     | 'INVALID_ARGUMENT'
     | 'INVALID_EMAIL'
     | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
+    | 'COMMNITY_EDITION_NOT_FOUND'
+    | 'DEPLOY_MODE_IS_NOT_ON_PREM'
     | 'USER_ALREADY_REGISTERED'
     | 'USER_INVITATION_DOES_NOT_EXIST'
     | 'USER_DOES_NOT_EXIST'
@@ -320,12 +322,9 @@ export interface AccessControlCheckError {
   detailedMessage?: string
   failedPermissionChecks?: PermissionCheck[]
   message?: string
+  metadata?: ErrorMetadataDTO
   responseMessages?: ResponseMessage[]
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-}
-
-export interface BatchRoleAssignmentCreateRequest {
-  roleAssignments?: RoleAssignment[]
 }
 
 export interface Error {
@@ -334,6 +333,8 @@ export interface Error {
     | 'INVALID_ARGUMENT'
     | 'INVALID_EMAIL'
     | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
+    | 'COMMNITY_EDITION_NOT_FOUND'
+    | 'DEPLOY_MODE_IS_NOT_ON_PREM'
     | 'USER_ALREADY_REGISTERED'
     | 'USER_INVITATION_DOES_NOT_EXIST'
     | 'USER_DOES_NOT_EXIST'
@@ -624,8 +625,13 @@ export interface Error {
   correlationId?: string
   detailedMessage?: string
   message?: string
+  metadata?: ErrorMetadataDTO
   responseMessages?: ResponseMessage[]
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ErrorMetadataDTO {
+  type?: string
 }
 
 export interface Failure {
@@ -634,6 +640,8 @@ export interface Failure {
     | 'INVALID_ARGUMENT'
     | 'INVALID_EMAIL'
     | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
+    | 'COMMNITY_EDITION_NOT_FOUND'
+    | 'DEPLOY_MODE_IS_NOT_ON_PREM'
     | 'USER_ALREADY_REGISTERED'
     | 'USER_INVITATION_DOES_NOT_EXIST'
     | 'USER_DOES_NOT_EXIST'
@@ -983,7 +991,7 @@ export interface Principal {
   type: 'USER' | 'USER_GROUP' | 'SERVICE' | 'API_KEY' | 'SERVICE_ACCOUNT'
 }
 
-export interface ResourceGroupDTO {
+export interface ResourceGroup {
   identifier?: string
   name?: string
 }
@@ -1028,6 +1036,8 @@ export interface ResponseMessage {
     | 'INVALID_ARGUMENT'
     | 'INVALID_EMAIL'
     | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
+    | 'COMMNITY_EDITION_NOT_FOUND'
+    | 'DEPLOY_MODE_IS_NOT_ON_PREM'
     | 'USER_ALREADY_REGISTERED'
     | 'USER_INVITATION_DOES_NOT_EXIST'
     | 'USER_DOES_NOT_EXIST'
@@ -1400,10 +1410,14 @@ export interface RoleAssignment {
 }
 
 export interface RoleAssignmentAggregateResponse {
-  resourceGroups?: ResourceGroupDTO[]
+  resourceGroups?: ResourceGroup[]
   roleAssignments?: RoleAssignment[]
   roles?: RoleResponse[]
-  scope?: ScopeDTO
+  scope?: Scope
+}
+
+export interface RoleAssignmentCreateRequest {
+  roleAssignments?: RoleAssignment[]
 }
 
 export interface RoleAssignmentFilter {
@@ -1420,10 +1434,10 @@ export interface RoleAssignmentResponse {
   harnessManaged?: boolean
   lastModifiedAt?: number
   roleAssignment: RoleAssignment
-  scope: ScopeDTO
+  scope: Scope
 }
 
-export interface RoleAssignmentValidationRequestDTO {
+export interface RoleAssignmentValidationRequest {
   roleAssignment: RoleAssignment
   validatePrincipal?: boolean
   validateResourceGroup?: boolean
@@ -1441,10 +1455,16 @@ export interface RoleResponse {
   harnessManaged?: boolean
   lastModifiedAt?: number
   role: Role
-  scope: ScopeDTO
+  scope: Scope
 }
 
-export interface ScopeDTO {
+export type SampleErrorMetadataDTO = ErrorMetadataDTO & {
+  sampleMap?: {
+    [key: string]: string
+  }
+}
+
+export interface Scope {
   accountIdentifier?: string
   orgIdentifier?: string
   projectIdentifier?: string
@@ -1956,7 +1976,7 @@ export type PostRoleAssignmentsProps = Omit<
     ResponseListRoleAssignmentResponse,
     Failure | AccessControlCheckError | Error,
     PostRoleAssignmentsQueryParams,
-    BatchRoleAssignmentCreateRequest,
+    RoleAssignmentCreateRequest,
     void
   >,
   'path' | 'verb'
@@ -1970,7 +1990,7 @@ export const PostRoleAssignments = (props: PostRoleAssignmentsProps) => (
     ResponseListRoleAssignmentResponse,
     Failure | AccessControlCheckError | Error,
     PostRoleAssignmentsQueryParams,
-    BatchRoleAssignmentCreateRequest,
+    RoleAssignmentCreateRequest,
     void
   >
     verb="POST"
@@ -1985,7 +2005,7 @@ export type UsePostRoleAssignmentsProps = Omit<
     ResponseListRoleAssignmentResponse,
     Failure | AccessControlCheckError | Error,
     PostRoleAssignmentsQueryParams,
-    BatchRoleAssignmentCreateRequest,
+    RoleAssignmentCreateRequest,
     void
   >,
   'path' | 'verb'
@@ -1999,7 +2019,7 @@ export const usePostRoleAssignments = (props: UsePostRoleAssignmentsProps) =>
     ResponseListRoleAssignmentResponse,
     Failure | AccessControlCheckError | Error,
     PostRoleAssignmentsQueryParams,
-    BatchRoleAssignmentCreateRequest,
+    RoleAssignmentCreateRequest,
     void
   >('POST', `/roleassignments/multi`, { base: getConfig('authz/api'), ...props })
 
@@ -2011,7 +2031,7 @@ export const postRoleAssignmentsPromise = (
     ResponseListRoleAssignmentResponse,
     Failure | AccessControlCheckError | Error,
     PostRoleAssignmentsQueryParams,
-    BatchRoleAssignmentCreateRequest,
+    RoleAssignmentCreateRequest,
     void
   >,
   signal?: RequestInit['signal']
@@ -2020,7 +2040,7 @@ export const postRoleAssignmentsPromise = (
     ResponseListRoleAssignmentResponse,
     Failure | AccessControlCheckError | Error,
     PostRoleAssignmentsQueryParams,
-    BatchRoleAssignmentCreateRequest,
+    RoleAssignmentCreateRequest,
     void
   >('POST', getConfig('authz/api'), `/roleassignments/multi`, props, signal)
 
@@ -2035,7 +2055,7 @@ export type ValidateRoleAssignmentProps = Omit<
     ResponseRoleAssignmentValidationResponse,
     Failure | AccessControlCheckError | Error,
     ValidateRoleAssignmentQueryParams,
-    RoleAssignmentValidationRequestDTO,
+    RoleAssignmentValidationRequest,
     void
   >,
   'path' | 'verb'
@@ -2049,7 +2069,7 @@ export const ValidateRoleAssignment = (props: ValidateRoleAssignmentProps) => (
     ResponseRoleAssignmentValidationResponse,
     Failure | AccessControlCheckError | Error,
     ValidateRoleAssignmentQueryParams,
-    RoleAssignmentValidationRequestDTO,
+    RoleAssignmentValidationRequest,
     void
   >
     verb="POST"
@@ -2064,7 +2084,7 @@ export type UseValidateRoleAssignmentProps = Omit<
     ResponseRoleAssignmentValidationResponse,
     Failure | AccessControlCheckError | Error,
     ValidateRoleAssignmentQueryParams,
-    RoleAssignmentValidationRequestDTO,
+    RoleAssignmentValidationRequest,
     void
   >,
   'path' | 'verb'
@@ -2078,7 +2098,7 @@ export const useValidateRoleAssignment = (props: UseValidateRoleAssignmentProps)
     ResponseRoleAssignmentValidationResponse,
     Failure | AccessControlCheckError | Error,
     ValidateRoleAssignmentQueryParams,
-    RoleAssignmentValidationRequestDTO,
+    RoleAssignmentValidationRequest,
     void
   >('POST', `/roleassignments/validate`, { base: getConfig('authz/api'), ...props })
 
@@ -2090,7 +2110,7 @@ export const validateRoleAssignmentPromise = (
     ResponseRoleAssignmentValidationResponse,
     Failure | AccessControlCheckError | Error,
     ValidateRoleAssignmentQueryParams,
-    RoleAssignmentValidationRequestDTO,
+    RoleAssignmentValidationRequest,
     void
   >,
   signal?: RequestInit['signal']
@@ -2099,7 +2119,7 @@ export const validateRoleAssignmentPromise = (
     ResponseRoleAssignmentValidationResponse,
     Failure | AccessControlCheckError | Error,
     ValidateRoleAssignmentQueryParams,
-    RoleAssignmentValidationRequestDTO,
+    RoleAssignmentValidationRequest,
     void
   >('POST', getConfig('authz/api'), `/roleassignments/validate`, props, signal)
 
