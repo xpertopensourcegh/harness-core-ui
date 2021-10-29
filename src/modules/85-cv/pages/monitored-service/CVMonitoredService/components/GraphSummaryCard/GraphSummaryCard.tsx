@@ -90,7 +90,7 @@ const GraphSummaryCard: React.FC<GraphSummaryCardProps> = ({
             color={Color.GREY_0}
           />
         )}
-        {monitoredService.dependentHealthScore?.length && (
+        {!!monitoredService.dependentHealthScore?.length && (
           <>
             <Text color={Color.GREY_0} font={{ variation: FontVariation.TINY_SEMI }} padding={{ bottom: 'small' }}>
               {`${getString('cv.monitoredServices.dependenciesHealth')} (${
