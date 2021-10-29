@@ -4,7 +4,12 @@ import { Container, FormInput } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { isEmpty } from 'lodash-es'
 import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
-import { HealthSource, MonitoredServiceResponse, useGetMonitoredServiceFromServiceAndEnvironment } from 'services/cv'
+import {
+  ChangeSourceDTO,
+  HealthSource,
+  MonitoredServiceResponse,
+  useGetMonitoredServiceFromServiceAndEnvironment
+} from 'services/cv'
 import { useStrings } from 'framework/strings'
 import Card from '@cv/components/Card/Card'
 import VerifyStepHealthSourceTable from '@cv/pages/health-source/HealthSourceTable/VerifyStepHealthSourceTable'
@@ -104,6 +109,7 @@ export default function RunTimeMonitoredService({
         <VerifyStepHealthSourceTable
           serviceIdentifier={serviceIdentifier}
           envIdentifier={envIdentifier}
+          changeSourcesList={monitoringSource?.monitoredService?.sources?.changeSources as ChangeSourceDTO[]}
           healthSourcesList={monitoringSource?.monitoredService?.sources?.healthSources as HealthSource[]}
           monitoredServiceRef={{
             identifier: monitoringSource?.monitoredService?.identifier,

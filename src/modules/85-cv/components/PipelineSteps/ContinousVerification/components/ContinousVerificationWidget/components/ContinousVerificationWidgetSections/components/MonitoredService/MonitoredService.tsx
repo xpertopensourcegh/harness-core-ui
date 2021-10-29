@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import {
+  ChangeSourceDTO,
   MonitoredServiceResponse,
   useCreateDefaultMonitoredService,
   useGetMonitoredServiceFromServiceAndEnvironment
@@ -181,6 +182,7 @@ export default function MonitoredService({
             monitoredServiceRef={monitoredService}
             onSuccess={onSuccess}
             isRunTimeInput={false}
+            changeSourcesList={monitoredServiceData?.sources?.changeSources as ChangeSourceDTO[]}
           />
         ) : null}
       </>

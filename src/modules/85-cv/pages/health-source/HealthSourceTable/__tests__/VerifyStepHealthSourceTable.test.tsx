@@ -13,7 +13,8 @@ describe('Verify VerifyStepHealthSourceTable', () => {
       healthSourcesList: tableData as any,
       monitoredServiceRef: { identifier: 'ms101', name: 'ms 101' },
       onSuccess: onSuccess,
-      isRunTimeInput: false
+      isRunTimeInput: false,
+      changeSourcesList: []
     }
     const { container, getByText } = render(
       <TestWrapper>
@@ -32,7 +33,8 @@ describe('Verify VerifyStepHealthSourceTable', () => {
       healthSourcesList: tableData as any,
       monitoredServiceRef: { identifier: 'ms101', name: 'ms 101' },
       onSuccess: onSuccess,
-      isRunTimeInput: true
+      isRunTimeInput: true,
+      changeSourcesList: []
     }
     const { container } = render(
       <TestWrapper>

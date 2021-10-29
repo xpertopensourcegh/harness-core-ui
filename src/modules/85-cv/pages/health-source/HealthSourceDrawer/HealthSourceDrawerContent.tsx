@@ -17,14 +17,23 @@ function HealthSourceDrawerContent({
   isEdit,
   rowData,
   tableData,
-  shouldRenderAtVerifyStep
+  shouldRenderAtVerifyStep,
+  changeSources
 }: HealthSourceDrawerInterface): JSX.Element {
   const { getString } = useStrings()
 
   const sourceData = useMemo(
     () =>
-      createHealthSourceDrawerFormData({ isEdit, monitoredServiceRef, serviceRef, environmentRef, tableData, rowData }),
-    [rowData, tableData, monitoredServiceRef, serviceRef, environmentRef, isEdit]
+      createHealthSourceDrawerFormData({
+        isEdit,
+        monitoredServiceRef,
+        serviceRef,
+        environmentRef,
+        tableData,
+        rowData,
+        changeSources
+      }),
+    [rowData, tableData, monitoredServiceRef, serviceRef, environmentRef, isEdit, changeSources]
   )
 
   const [selectedProduct, setSelectedProduct] = useState<string | undefined>(getSelectedFeature(sourceData)?.value)

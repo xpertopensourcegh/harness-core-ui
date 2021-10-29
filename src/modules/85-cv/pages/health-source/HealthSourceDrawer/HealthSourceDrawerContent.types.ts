@@ -6,7 +6,8 @@ import type {
   PrometheusHealthSourceSpec,
   NewRelicHealthSourceSpec,
   StackdriverMetricHealthSourceSpec,
-  SplunkHealthSourceSpec
+  SplunkHealthSourceSpec,
+  ChangeSourceDTO
 } from 'services/cv'
 import type { GCOLogsHealthSourceSpec } from '../connectors/GCOLogsMonitoringSource/components/MapQueriesToHarnessService/types'
 
@@ -40,6 +41,7 @@ export interface SourceDataInterface {
   healthSourceName?: string
   healthSourceIdentifier?: string
   healthSourceList?: Array<RowData>
+  changeSources?: ChangeSourceDTO[]
 }
 
 export interface HealthSourceDrawerInterface {
@@ -54,4 +56,5 @@ export interface HealthSourceDrawerInterface {
   onClose: (val: any) => void
   isEdit: boolean
   shouldRenderAtVerifyStep?: boolean
+  changeSources: ChangeSourceDTO[]
 }

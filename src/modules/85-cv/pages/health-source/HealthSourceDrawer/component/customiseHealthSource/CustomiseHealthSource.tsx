@@ -17,6 +17,8 @@ import { LoadSourceByType, createHealthsourceList } from './CustomiseHealthSourc
 import type { SourceDataInterface, UpdatedHealthSource } from '../../HealthSourceDrawerContent.types'
 import { omitServiceEnvironmentKeys } from './CustomiseHealthSource.constant'
 
+type ExcludedSourceDataKeys = 'isEdit' | 'serviceRef' | 'environmentRef' | 'monitoredServiceRef' | 'changeSources'
+
 export default function CustomiseHealthSource({
   onSuccess,
   shouldRenderAtVerifyStep
@@ -37,10 +39,10 @@ export default function CustomiseHealthSource({
   })
 
   // Removing Service and Environment keys
-  const filteredSourceData: Omit<
-    SourceDataInterface,
-    'isEdit' | 'serviceRef' | 'environmentRef' | 'monitoredServiceRef'
-  > = useMemo(() => omit(sourceData, omitServiceEnvironmentKeys), [sourceData])
+  const filteredSourceData: Omit<SourceDataInterface, ExcludedSourceDataKeys> = useMemo(
+    () => omit(sourceData, omitServiceEnvironmentKeys),
+    [sourceData]
+  )
 
   const isEdit = useMemo(
     () => params?.identifier || shouldRenderAtVerifyStep,
@@ -63,7 +65,8 @@ export default function CustomiseHealthSource({
           tags,
           type: 'Application',
           sources: {
-            healthSources: healthSourceList
+            healthSources: healthSourceList,
+            changeSources: sourceData.changeSources
           }
         }
         // From verify step it will be always update call since monitored service will already be created.

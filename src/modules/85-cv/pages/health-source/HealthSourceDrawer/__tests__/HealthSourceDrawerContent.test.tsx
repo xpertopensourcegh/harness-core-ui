@@ -39,7 +39,8 @@ describe('HealthSource table', () => {
       onClose: () => false,
       isEdit: false,
       rowData: null,
-      tableData: []
+      tableData: [],
+      changeSources: []
     }
     const { container } = render(
       <TestWrapper {...testWrapperProps}>
@@ -102,7 +103,8 @@ describe('HealthSource table', () => {
             }
           }
         }
-      ]
+      ],
+      changeSources: []
     }
     const { container, getByRole, getAllByText } = render(
       <TestWrapper {...testWrapperProps}>
@@ -189,7 +191,8 @@ describe('HealthSource table', () => {
             ]
           }
         }
-      ]
+      ],
+      changeSources: []
     }
     const { container, getByRole, getAllByText } = render(
       <TestWrapper {...testWrapperProps}>

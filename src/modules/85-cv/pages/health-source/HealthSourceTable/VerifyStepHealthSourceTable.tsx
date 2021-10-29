@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import type { HealthSource, MonitoredServiceResponse } from 'services/cv'
+import type { ChangeSourceDTO, HealthSource, MonitoredServiceResponse } from 'services/cv'
 import { useStrings } from 'framework/strings'
 import { useDrawer } from '@cv/hooks/useDrawerHook/useDrawerHook'
 import HealthSourceTable from './HealthSourceTable'
@@ -15,13 +15,21 @@ interface VerifyStepHealthSourceTableInterface {
   monitoredServiceRef: { identifier: string; name: string }
   onSuccess: (data: any) => void
   isRunTimeInput: boolean
+  changeSourcesList: ChangeSourceDTO[]
 }
 
 export default function VerifyStepHealthSourceTable(tableProps: VerifyStepHealthSourceTableInterface) {
   const { getString } = useStrings()
 
-  const { serviceIdentifier, envIdentifier, healthSourcesList, monitoredServiceRef, isRunTimeInput, onSuccess } =
-    tableProps
+  const {
+    serviceIdentifier,
+    envIdentifier,
+    healthSourcesList,
+    changeSourcesList,
+    monitoredServiceRef,
+    isRunTimeInput,
+    onSuccess
+  } = tableProps
   const {
     showDrawer: showHealthSourceDrawer,
     hideDrawer: hideHealthSourceDrawer,
@@ -53,6 +61,7 @@ export default function VerifyStepHealthSourceTable(tableProps: VerifyStepHealth
         monitoredServiceRef: monitoredServiceRef,
         rowData: values,
         tableData: createHealthsourceList(healthSourcesList, values),
+        changeSources: changeSourcesList,
         onSuccess: (data: MonitoredServiceResponse) => {
           onSuccess(data)
           hideHealthSourceDrawer()
