@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 
 import { capitalize } from 'lodash-es'
-import { Color, FontVariation, Icon, Layout, Text } from '@wings-software/uicore'
+import { Color, Icon, Layout, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { ModuleName } from 'framework/types/ModuleName'
 import type {
@@ -90,7 +90,7 @@ const SubscriptionDetailsCardBody = ({
       const expiryElement = (
         <React.Fragment key="expiry">
           <Text color={Color.GREY_600}>{getString('common.subscriptions.overview.expiry')}</Text>
-          <Text color={Color.BLACK} font={{ variation: FontVariation.SMALL_SEMI }}>
+          <Text color={Color.BLACK} font={{ weight: 'semi-bold' }}>
             {expiryDate}
           </Text>
         </React.Fragment>

@@ -552,7 +552,7 @@ exports[`Subscriptions Page it renders an expired banner when the trial is expir
               common.subscriptions.overview.expiry
             </p>
             <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-variation-small-semi"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
             >
               01 Jan 1970
             </p>
@@ -1032,7 +1032,7 @@ exports[`Subscriptions Page it renders the correct card in the subscriptions pag
               common.subscriptions.overview.expiry
             </p>
             <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-variation-small-semi"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
             >
               21 Dec 2016
             </p>
@@ -1512,7 +1512,7 @@ exports[`Subscriptions Page it renders the subscriptions page 1`] = `
               common.subscriptions.overview.expiry
             </p>
             <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-variation-small-semi"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
             >
               21 Dec 2016
             </p>
@@ -2430,7 +2430,7 @@ exports[`Subscriptions Page it should update the license store 1`] = `
               common.subscriptions.overview.expiry
             </p>
             <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-variation-small-semi"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
             >
               21 Dec 2016
             </p>

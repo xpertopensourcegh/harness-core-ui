@@ -13,8 +13,6 @@ declare const styles: {
   readonly subCaption: string
   readonly centerText: string
   readonly support: string
-  readonly hover: string
-  readonly lineHeight2: string
   readonly inline: string
   readonly cdColor: string
   readonly ciColor: string
@@ -33,5 +31,8 @@ declare const styles: {
   readonly ccmFill: string
   readonly ffFill: string
   readonly btnHeight: string
+  readonly noPadding: string
+  readonly tooltip: string
+  readonly fontLarge: string
 }
 export default styles

@@ -64,16 +64,6 @@
   max-width: 80%;
 }
 
-.hover {
-  &:hover {
-    cursor: pointer;
-  }
-}
-
-.lineHeight2 {
-  line-height: 2;
-}
-
 .inline {
   display: inline !important;
 }
@@ -153,4 +143,17 @@
 
 .btnHeight {
   height: 32px;
+}
+
+.noPadding {
+  padding: unset !important;
+}
+
+.tooltip {
+  min-width: 200px !important;
+  text-align: left;
+}
+
+.fontLarge {
+  font-size: large !important;
 }
