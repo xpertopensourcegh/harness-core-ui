@@ -20,19 +20,24 @@
     font-size: var(--form-input-font-size) !important;
   }
   .tabsContainer {
-    background: white;
     border: 1px solid var(--grey-200);
-    border-radius: var(--spacing-3);
+    border-left: 0;
+    border-right: 0;
     overflow: hidden;
 
     :global {
       .bp3-tab-list {
-        justify-content: space-evenly;
-        border-bottom: 1px solid var(--grey-100);
+        background-color: var(--white);
+        padding: 0 var(--spacing-large);
+        border-bottom: 1px solid var(--grey-200);
       }
       .bp3-tab {
         font-size: 12px !important;
       }
     }
   }
+}
+
+.detailsSectionTabs {
+  margin-top: var(--spacing-xxxlarge);
 }

@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import cx from 'classnames'
 import {
   ButtonVariation,
   Color,
@@ -47,7 +48,11 @@ export interface TemplateDetailsProps {
 export enum TemplateTabs {
   INPUTS = 'INPUTS',
   YAML = 'YAML',
-  REFERENCEDBY = 'REFERENCEDBY',
+  REFERENCEDBY = 'REFERENCEDBY'
+}
+
+export enum ParentTemplateTabs {
+  BASIC = 'BASIC',
   ACTVITYLOG = 'ACTVITYLOG'
 }
 
@@ -70,6 +75,7 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
   const { isReadonly } = useContext(TemplateContext)
   const { isGitSyncEnabled } = useAppStore()
   const [selectedTemplate, setSelectedTemplate] = React.useState<TemplateSummaryResponse>()
+  const [selectedParentTab, setSelectedParentTab] = React.useState<ParentTemplateTabs>(ParentTemplateTabs.BASIC)
   const [selectedTab, setSelectedTab] = React.useState<TemplateTabs>(TemplateTabs.YAML)
 
   const {
@@ -161,112 +167,125 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
     setSelectedTab(tab)
   }, [])
 
+  const handleParentTabChange = React.useCallback((tab: ParentTemplateTabs) => {
+    setSelectedParentTab(tab)
+  }, [])
+
   return (
     <Container
       height={'100%'}
-      padding={{ top: 'huge', right: 'xxlarge', bottom: 'huge', left: 'xxlarge' }}
+      padding={{ top: 'large', bottom: 'large' }}
       background={Color.FORM_BG}
       className={css.container}
     >
       {loading && <PageSpinner />}
       {selectedTemplate && (
         <Layout.Vertical spacing={'xxxlarge'}>
-          <Container>
-            <Layout.Horizontal flex={{ alignItems: 'center' }} spacing={'huge'}>
-              <Layout.Horizontal>
-                <Text font={{ size: 'medium', weight: 'bold' }} color={Color.GREY_800}>
-                  {selectedTemplate.name}
-                </Text>
-                {isGitSyncEnabled && (
-                  <GitPopover
-                    data={defaultTo(selectedTemplate.gitDetails, {})}
-                    iconProps={{ margin: { left: 'small', top: 'xsmall' } }}
-                  />
-                )}
-              </Layout.Horizontal>
-              <RbacButton
-                text={getString('templatesLibrary.openInTemplateStudio')}
-                variation={ButtonVariation.SECONDARY}
-                className={css.openInStudio}
-                onClick={goToTemplateStudio}
-                permission={{
-                  permission: PermissionIdentifier.VIEW_TEMPLATE,
-                  resource: {
-                    resourceType: ResourceType.TEMPLATE
-                  }
-                }}
-              />
+          <Layout.Horizontal
+            flex={{ alignItems: 'center' }}
+            spacing={'huge'}
+            padding={{ left: 'large', right: 'large' }}
+          >
+            <Layout.Horizontal>
+              <Text font={{ size: 'medium', weight: 'bold' }} color={Color.GREY_800}>
+                {selectedTemplate.name}
+              </Text>
+              {isGitSyncEnabled && (
+                <GitPopover
+                  data={defaultTo(selectedTemplate.gitDetails, {})}
+                  iconProps={{ margin: { left: 'small', top: 'xsmall' } }}
+                />
+              )}
             </Layout.Horizontal>
-          </Container>
-          <Container>
-            <Layout.Vertical spacing={'large'}>
-              <Container>
-                <Layout.Vertical spacing={'small'}>
-                  <Text font={{ size: 'small' }} color={Color.GREY_500}>
-                    {getString('templatesLibrary.createNewModal.versionLabel')}
-                  </Text>
-                  {selectedTemplate.versionLabel && (
-                    <DropDown
-                      filterable={false}
-                      items={versionOptions}
-                      value={selectedTemplate.versionLabel}
-                      onChange={onChange}
-                      disabled={isReadonly}
-                      width={300}
-                    />
-                  )}
-                </Layout.Vertical>
-              </Container>
-              <Container>
-                <Layout.Vertical spacing={'small'}>
-                  <Text font={{ size: 'small' }} color={Color.GREY_500}>
-                    {getString('description')}
-                  </Text>
-                  <Text className={css.description} color={Color.GREY_700}>
-                    {selectedTemplate.description || '-'}
-                  </Text>
-                </Layout.Vertical>
-              </Container>
-              <Container>
-                <Layout.Vertical spacing={'small'}>
-                  <Text font={{ size: 'small' }} color={Color.GREY_500}>
-                    {getString('tagsLabel')}
-                  </Text>
-                  {selectedTemplate.tags && !isEmpty(selectedTemplate.tags) ? (
-                    <Container>
-                      <TemplateTags tags={selectedTemplate.tags} />
-                    </Container>
-                  ) : (
-                    <Text color={Color.GREY_700}>-</Text>
-                  )}
-                </Layout.Vertical>
-              </Container>
-            </Layout.Vertical>
-          </Container>
+            <RbacButton
+              text={getString('templatesLibrary.openInTemplateStudio')}
+              variation={ButtonVariation.SECONDARY}
+              className={css.openInStudio}
+              onClick={goToTemplateStudio}
+              permission={{
+                permission: PermissionIdentifier.VIEW_TEMPLATE,
+                resource: {
+                  resourceType: ResourceType.TEMPLATE
+                }
+              }}
+            />
+          </Layout.Horizontal>
           <div className={css.tabsContainer}>
-            <Tabs id="template-details" selectedTabId={selectedTab} onChange={handleTabChange}>
+            <Tabs id="template-details-parent" selectedTabId={selectedParentTab} onChange={handleParentTabChange}>
               <Tab
-                id={TemplateTabs.INPUTS}
-                title={getString('templatesLibrary.templateInputs')}
-                panel={<TemplateInputs {...props} versionLabel={selectedTemplate.versionLabel} />}
-              />
-              <Tab
-                id={TemplateTabs.YAML}
-                title={getString('yaml')}
-                panel={<TemplateYaml templateYaml={selectedTemplate.yaml} />}
-              />
-              <Tab
-                id={TemplateTabs.REFERENCEDBY}
-                disabled={true}
-                title={
+                id={ParentTemplateTabs.BASIC}
+                title={getString('details')}
+                panel={
                   <>
-                    {getString('templatesLibrary.referencedBy')} &nbsp; <Tag>5</Tag>
+                    <Layout.Vertical spacing={'large'} padding={{ left: 'xxlarge', right: 'xxlarge' }}>
+                      <Layout.Vertical spacing={'small'}>
+                        <Text font={{ size: 'small' }} color={Color.GREY_500}>
+                          {getString('description')}
+                        </Text>
+                        <Text className={css.description} color={Color.GREY_700}>
+                          {selectedTemplate.description || '-'}
+                        </Text>
+                      </Layout.Vertical>
+
+                      <Layout.Vertical spacing={'small'}>
+                        <Text font={{ size: 'small' }} color={Color.GREY_500}>
+                          {getString('tagsLabel')}
+                        </Text>
+                        {selectedTemplate.tags && !isEmpty(selectedTemplate.tags) ? (
+                          <Container>
+                            <TemplateTags tags={selectedTemplate.tags} />
+                          </Container>
+                        ) : (
+                          <Text color={Color.GREY_700}>-</Text>
+                        )}
+                      </Layout.Vertical>
+
+                      <Layout.Vertical spacing={'small'}>
+                        <Text font={{ size: 'small' }} color={Color.GREY_500}>
+                          {getString('templatesLibrary.createNewModal.versionLabel')}
+                        </Text>
+                        {selectedTemplate.versionLabel && (
+                          <DropDown
+                            filterable={false}
+                            items={versionOptions}
+                            value={selectedTemplate.versionLabel}
+                            onChange={onChange}
+                            disabled={isReadonly}
+                            width={300}
+                          />
+                        )}
+                      </Layout.Vertical>
+                    </Layout.Vertical>
+
+                    <div className={cx(css.tabsContainer, css.detailsSectionTabs)}>
+                      <Tabs id="template-details" selectedTabId={selectedTab} onChange={handleTabChange}>
+                        <Tab
+                          id={TemplateTabs.INPUTS}
+                          title={getString('templatesLibrary.templateInputs')}
+                          panel={<TemplateInputs {...props} versionLabel={selectedTemplate.versionLabel} />}
+                        />
+                        <Tab
+                          id={TemplateTabs.YAML}
+                          title={getString('yaml')}
+                          panel={<TemplateYaml templateYaml={selectedTemplate.yaml} />}
+                        />
+                        <Tab
+                          id={TemplateTabs.REFERENCEDBY}
+                          disabled={true}
+                          title={
+                            <>
+                              {getString('templatesLibrary.referencedBy')} &nbsp; <Tag>5</Tag>
+                            </>
+                          }
+                          panel={<div>Referenced By</div>}
+                        />
+                      </Tabs>
+                    </div>
                   </>
                 }
-                panel={<div>Referenced By</div>}
               />
               <Tab
-                id={TemplateTabs.ACTVITYLOG}
+                id={ParentTemplateTabs.ACTVITYLOG}
                 title={getString('activityLog')}
                 panel={
                   <TemplateActivityLog
