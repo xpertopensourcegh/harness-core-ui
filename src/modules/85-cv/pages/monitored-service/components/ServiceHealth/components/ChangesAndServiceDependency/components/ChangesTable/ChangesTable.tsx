@@ -60,7 +60,10 @@ export default function ChangesTable({
       startTime,
       endTime,
       pageIndex: page,
-      pageSize: PAGE_SIZE
+      pageSize: PAGE_SIZE,
+      // Need to remove once these made as optional from BE
+      changeCategories: [],
+      changeSourceTypes: []
     }
   }, [endTime, environmentIdentifier, serviceIdentifier, startTime, page])
 
@@ -150,7 +153,10 @@ export default function ChangesTable({
                     startTime,
                     endTime,
                     pageIndex: page,
-                    pageSize: defaultPageSize
+                    pageSize: defaultPageSize,
+                    // Need to remove once these made as optional from BE
+                    changeCategories: [],
+                    changeSourceTypes: []
                   }
                 })
               }

@@ -46,7 +46,10 @@ export default function ChangeTimeline(props: ChangeTimelineProps): JSX.Element 
         serviceIdentifiers: [serviceIdentifier],
         envIdentifiers: [environmentIdentifier],
         startTime: startTimeRoundedOffToNearest30min,
-        endTime: endTimeRoundedOffToNearest30min
+        endTime: endTimeRoundedOffToNearest30min,
+        // Need to remove once these made as optional from BE
+        changeCategories: [],
+        changeSourceTypes: []
       },
       queryParamStringifyOptions: {
         arrayFormat: 'repeat'

@@ -3,6 +3,7 @@ import { Container, Layout, Text, Color, FontVariation, ButtonVariation, Button 
 import { useStrings } from 'framework/strings'
 import { useConfirmationDialog } from '@common/exports'
 import ToggleOnOff from '@common/components/ToggleOnOff/ToggleOnOff'
+import IconGrid from '../IconGrid/IconGrid'
 import { ServiceDeleteContext, ServiceHealthTrend, RiskTagWithLabel } from '../../CVMonitoredService.utils'
 import type { GraphSummaryCardProps } from '../../CVMonitoredService.types'
 import { GraphServiceChanges } from './GraphSummaryCard.utils'
@@ -79,15 +80,25 @@ const GraphSummaryCard: React.FC<GraphSummaryCardProps> = ({
         <Text color={Color.GREY_0} font={{ variation: FontVariation.TINY_SEMI }}>
           {getString('cv.monitoredServices.monitoredServiceTabs.serviceHealth').toUpperCase()}
         </Text>
-        <ServiceHealthTrend healthScores={monitoredService.historicalTrend?.healthScores} />
+        <Container padding={{ top: 'small', bottom: 'large' }}>
+          <ServiceHealthTrend healthScores={monitoredService.historicalTrend?.healthScores} />
+        </Container>
         {monitoredService.healthMonitoringEnabled && (
-          <Container margin={{ top: 'large' }}>
-            <RiskTagWithLabel
-              riskData={monitoredService.currentHealthScore}
-              labelVariation={FontVariation.SMALL}
-              color={Color.GREY_0}
-            />
-          </Container>
+          <RiskTagWithLabel
+            riskData={monitoredService.currentHealthScore}
+            labelVariation={FontVariation.SMALL}
+            color={Color.GREY_0}
+          />
+        )}
+        {monitoredService.dependentHealthScore?.length && (
+          <>
+            <Text color={Color.GREY_0} font={{ variation: FontVariation.TINY_SEMI }} padding={{ bottom: 'small' }}>
+              {`${getString('cv.monitoredServices.dependenciesHealth')} (${
+                monitoredService.dependentHealthScore.length
+              })`}
+            </Text>
+            <IconGrid isDarkBackground iconProps={{ name: 'polygon' }} items={monitoredService.dependentHealthScore} />
+          </>
         )}
       </Layout.Vertical>
     </Container>

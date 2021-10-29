@@ -34,7 +34,10 @@ export default function ChangeSourceCard(props: ChangeSourceCardInterfae): JSX.E
         startTime,
         endTime,
         envIdentifiers: [environmentIdentifier],
-        serviceIdentifiers: [serviceIdentifier]
+        serviceIdentifiers: [serviceIdentifier],
+        // Need to remove once these made as optional from BE
+        changeCategories: [],
+        changeSourceTypes: []
       },
       queryParamStringifyOptions: {
         arrayFormat: 'repeat'

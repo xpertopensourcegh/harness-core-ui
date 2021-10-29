@@ -245,6 +245,12 @@ export const monitoredService: MonitoredServiceListItemDTO = {
   serviceName: 'serviceName',
   environmentName: 'environmentName',
   type: 'Application',
+  dependentHealthScore: [
+    {
+      healthScore: 99,
+      riskStatus: RiskValues.HEALTHY
+    }
+  ],
   healthMonitoringEnabled: true,
   currentHealthScore: {
     healthScore: 45,

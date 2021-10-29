@@ -200,30 +200,64 @@ exports[`GraphSummaryCard Render GraphSummaryCard 1`] = `
         CV.MONITOREDSERVICES.MONITOREDSERVICETABS.SERVICEHEALTH
       </p>
       <div
-        class="StyledProps--font StyledProps--main StyledProps--margin-top-large"
+        class="StyledProps--font StyledProps--main StyledProps--padding-top-small StyledProps--padding-bottom-large"
+      />
+      <div
+        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main healthScoreCardContainer"
       >
-        <div
-          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main healthScoreCardContainer"
+        <span
+          class="Tag--main"
         >
           <span
-            class="Tag--main"
+            class="bp3-tag healthScoreCard"
           >
             <span
-              class="bp3-tag healthScoreCard"
+              class="bp3-text-overflow-ellipsis bp3-fill"
             >
-              <span
-                class="bp3-text-overflow-ellipsis bp3-fill"
-              >
-                45
-              </span>
+              45
             </span>
           </span>
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey0 StyledProps--font-variation-small"
+        </span>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey0 StyledProps--font-variation-small"
+        >
+          cv.monitoredServices.serviceHealth.serviceDependencies.states.needsAttention
+        </p>
+      </div>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey0 StyledProps--font-variation-tiny-semi StyledProps--padding-bottom-small"
+      >
+        cv.monitoredServices.dependenciesHealth (1)
+      </p>
+      <div
+        class="Layout--horizontal StyledProps--main container"
+      >
+        <span
+          class="bp3-popover-wrapper"
+        >
+          <span
+            class="bp3-popover-target"
           >
-            cv.monitoredServices.serviceHealth.serviceDependencies.states.needsAttention
-          </p>
-        </div>
+            <span
+              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-green500"
+              data-icon="polygon"
+              tabindex="0"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 9.5 12"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M4.776.885L9.252 3.41v5.05l-4.476 2.526L.3 8.461v-5.05z"
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </span>
+        </span>
       </div>
     </div>
   </div>

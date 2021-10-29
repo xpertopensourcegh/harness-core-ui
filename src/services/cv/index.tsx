@@ -436,8 +436,8 @@ export interface CVNGLogDTO {
 }
 
 export type CalenderSLOTargetSpec = SLOTargetSpec & {
-  endDate: number
-  startDate: number
+  endDate: string
+  startDate: string
 }
 
 export interface CategoryCountDetails {
@@ -849,6 +849,8 @@ export interface Error {
     | 'INVALID_ARGUMENT'
     | 'INVALID_EMAIL'
     | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
+    | 'COMMNITY_EDITION_NOT_FOUND'
+    | 'DEPLOY_MODE_IS_NOT_ON_PREM'
     | 'USER_ALREADY_REGISTERED'
     | 'USER_INVITATION_DOES_NOT_EXIST'
     | 'USER_DOES_NOT_EXIST'
@@ -1154,6 +1156,8 @@ export interface Failure {
     | 'INVALID_ARGUMENT'
     | 'INVALID_EMAIL'
     | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
+    | 'COMMNITY_EDITION_NOT_FOUND'
+    | 'DEPLOY_MODE_IS_NOT_ON_PREM'
     | 'USER_ALREADY_REGISTERED'
     | 'USER_INVITATION_DOES_NOT_EXIST'
     | 'USER_DOES_NOT_EXIST'
@@ -1647,9 +1651,9 @@ export type GitlabUsernameToken = GitlabHttpCredentialsSpecDTO & {
 export type HarnessCDChangeSourceSpec = ChangeSourceSpec & { [key: string]: any }
 
 export type HarnessCDCurrentGenChangeSourceSpec = ChangeSourceSpec & {
-  harnessApplicationId?: string
-  harnessEnvironmentId?: string
-  harnessServiceId?: string
+  harnessApplicationId: string
+  harnessEnvironmentId: string
+  harnessServiceId: string
 }
 
 export type HarnessCDCurrentGenEventMetadata = ChangeEventMetadata & {
@@ -1710,6 +1714,11 @@ export interface HealthSourceDTO {
 
 export interface HealthSourceSpec {
   connectorRef?: string
+}
+
+export interface HealthSourceSummary {
+  identifier?: string
+  name?: string
 }
 
 export interface HeatMapDTO {
@@ -2183,6 +2192,7 @@ export interface MonitoredServiceDTO {
 export interface MonitoredServiceListItemDTO {
   changeSummary?: ChangeSummaryDTO
   currentHealthScore?: RiskData
+  dependentHealthScore?: RiskData[]
   environmentName?: string
   environmentRef?: string
   healthMonitoringEnabled?: boolean
@@ -2201,6 +2211,12 @@ export interface MonitoredServiceResponse {
   createdAt?: number
   lastModifiedAt?: number
   monitoredService: MonitoredServiceDTO
+}
+
+export interface MonitoredServiceWithHealthSources {
+  healthSources?: HealthSourceSummary[]
+  identifier?: string
+  name?: string
 }
 
 export interface NewRelicApplication {
@@ -2539,6 +2555,12 @@ export interface QueryDTO {
   serviceInstanceIdentifier: string
 }
 
+export type RatioSLIMetricSpec = SLIMetricSpec & {
+  eventType: string
+  metric1: string
+  metric2: string
+}
+
 export interface Response {
   correlationId?: string
   data?: { [key: string]: any }
@@ -2583,6 +2605,13 @@ export interface ResponseListLinkedHashMap {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseListMonitoredServiceWithHealthSources {
+  correlationId?: string
+  data?: MonitoredServiceWithHealthSources[]
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseListNewRelicApplication {
   correlationId?: string
   data?: NewRelicApplication[]
@@ -2617,6 +2646,8 @@ export interface ResponseMessage {
     | 'INVALID_ARGUMENT'
     | 'INVALID_EMAIL'
     | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
+    | 'COMMNITY_EDITION_NOT_FOUND'
+    | 'DEPLOY_MODE_IS_NOT_ON_PREM'
     | 'USER_ALREADY_REGISTERED'
     | 'USER_INVITATION_DOES_NOT_EXIST'
     | 'USER_DOES_NOT_EXIST'
@@ -3624,20 +3655,13 @@ export type RollingSLOTargetSpec = SLOTargetSpec & {
 }
 
 export interface SLIMetricSpec {
-  eventType?: string
-  metric1?: string
-  metric2?: string
-}
-
-export interface SLISpec {
-  spec?: SLIMetricSpec
-  type?: 'Threshold' | 'Ratio'
+  metricName?: string
 }
 
 export interface SLOTarget {
-  sloTargetPercentage?: number
+  sloTargetPercentage: number
   spec: SLOTargetSpec
-  type?: 'Rolling' | 'Calender'
+  type: 'Rolling' | 'Calender'
 }
 
 export interface SLOTargetSpec {
@@ -3691,11 +3715,16 @@ export interface ServiceGuardTxnMetricAnalysisDataDTO {
   shortTermHistory?: number[]
 }
 
-export interface ServiceLevelIndicator {
+export interface ServiceLevelIndicatorDTO {
   identifier?: string
   name?: string
-  spec?: SLISpec
-  type?: 'Availability' | 'Latency'
+  spec: ServiceLevelIndicatorSpec
+  type: 'Availability' | 'Latency'
+}
+
+export interface ServiceLevelIndicatorSpec {
+  spec: SLIMetricSpec
+  type: 'Threshold' | 'Ratio'
 }
 
 export interface ServiceLevelObjectiveDTO {
@@ -3706,8 +3735,8 @@ export interface ServiceLevelObjectiveDTO {
   name: string
   orgIdentifier: string
   projectIdentifier: string
-  serviceLevelIndicators: ServiceLevelIndicator[]
-  tags: {
+  serviceLevelIndicators: ServiceLevelIndicatorDTO[]
+  tags?: {
     [key: string]: string
   }
   target: SLOTarget
@@ -3825,6 +3854,10 @@ export type SumoLogicConnectorDTO = ConnectorConfigDTO & {
 export interface TestVerificationBaselineExecutionDTO {
   createdAt?: number
   verificationJobInstanceId?: string
+}
+
+export type ThresholdSLIMetricSpec = SLIMetricSpec & {
+  metric1: string
 }
 
 export interface Throwable {
@@ -4099,8 +4132,6 @@ export interface TransactionMetricSums {
 export interface UserJourneyDTO {
   identifier: string
   name: string
-  orgIdentifier: string
-  projectIdentifier: string
 }
 
 export interface UserJourneyResponse {
@@ -4196,6 +4227,8 @@ export type ServiceLevelObjectiveDTORequestBody = ServiceLevelObjectiveDTO
 export interface ChangeEventListQueryParams {
   serviceIdentifiers: string[]
   envIdentifiers: string[]
+  changeCategories: ('Deployment' | 'Infrastructure' | 'Alert')[]
+  changeSourceTypes: ('HarnessCDNextGen' | 'PagerDuty' | 'K8sCluster' | 'HarnessCD')[]
   startTime: number
   endTime: number
   pageIndex?: number
@@ -4279,6 +4312,8 @@ export const changeEventListPromise = (
 export interface ChangeEventSummaryQueryParams {
   serviceIdentifiers: string[]
   envIdentifiers: string[]
+  changeCategories: ('Deployment' | 'Infrastructure' | 'Alert')[]
+  changeSourceTypes: ('HarnessCDNextGen' | 'PagerDuty' | 'K8sCluster' | 'HarnessCD')[]
   startTime: number
   endTime: number
 }
@@ -4359,6 +4394,8 @@ export const changeEventSummaryPromise = (
 export interface ChangeEventTimelineQueryParams {
   serviceIdentifiers: string[]
   envIdentifiers: string[]
+  changeCategories: ('Deployment' | 'Infrastructure' | 'Alert')[]
+  changeSourceTypes: ('HarnessCDNextGen' | 'PagerDuty' | 'K8sCluster' | 'HarnessCD')[]
   startTime: number
   endTime: number
   pointCount?: number

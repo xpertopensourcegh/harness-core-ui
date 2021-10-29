@@ -557,7 +557,9 @@ monitoredServices:
   monitoredServiceToggle: 'Monitored Service successfully {{enabled}}'
   showingAllServices: Showing all Services ({{ serviceCount }})
   noAvailableData: No available data.
+  noServiceAvailable: No service available
   dependencyHealth: Dependency Health
+  dependenciesHealth: Dependencies Health
   healthScoreDataNotAvailable: Health score data not available.
   healthScoreDataNotAvailableForServiceHealth: Health score data not available for service health.
   healthScoreDataNotAvailableForDependencyHealth: Health score data not available for dependency health.

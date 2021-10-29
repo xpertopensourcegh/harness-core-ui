@@ -10,6 +10,7 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import ToggleOnOff from '@common/components/ToggleOnOff/ToggleOnOff'
 import FilterCard from '@cv/components/FilterCard/FilterCard'
 import ContextMenuActions from '@cv/components/ContextMenuActions/ContextMenuActions'
+import IconGrid from '../IconGrid/IconGrid'
 import {
   calculateChangePercentage,
   RenderHealthTrend,
@@ -114,6 +115,27 @@ const RenderServiceChanges: Renderer<CellProps<MonitoredServiceListItemDTO>> = (
   )
 }
 
+const RenderDependenciesHealth: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ row }) => {
+  const { getString } = useStrings()
+  const monitoredService = row.original
+
+  if (monitoredService.dependentHealthScore?.length) {
+    return (
+      <IconGrid
+        iconProps={{ name: 'polygon', size: 14, padding: { right: 'xsmall' } }}
+        items={monitoredService.dependentHealthScore}
+        width={100}
+      />
+    )
+  }
+
+  return (
+    <Text color={Color.BLACK} font={{ variation: FontVariation.BODY }}>
+      {getString('cv.monitoredServices.noServiceAvailable')}
+    </Text>
+  )
+}
+
 const MonitoredServiceListView: React.FC<MonitoredServiceListViewProps> = ({
   monitoredServiceListData,
   selectedFilter,
@@ -137,7 +159,7 @@ const MonitoredServiceListView: React.FC<MonitoredServiceListViewProps> = ({
           checked={!!monitoredService.healthMonitoringEnabled}
           loading={healthMonitoringFlagLoading}
           onChange={checked => {
-            onToggleService(monitoredService.identifier ?? '', checked)
+            onToggleService(monitoredService.identifier as string, checked)
           }}
         />
         <ContextMenuActions
@@ -178,23 +200,28 @@ const MonitoredServiceListView: React.FC<MonitoredServiceListViewProps> = ({
           },
           {
             Header: getString('name'),
-            width: '17.5%',
+            width: '14.5%',
             Cell: RenderServiceName
           },
           {
             Header: getString('cv.monitoredServices.table.changes'),
-            width: '25%',
+            width: '18%',
             Cell: RenderServiceChanges
           },
           {
             Header: getString('cv.monitoredServices.table.lastestHealthTrend'),
-            width: '25%',
+            width: '20%',
             Cell: RenderHealthTrend
           },
           {
             Header: getString('cv.monitoredServices.table.serviceHealthScore'),
-            width: '20%',
+            width: '18%',
             Cell: RenderHealthScore
+          },
+          {
+            Header: getString('cv.monitoredServices.dependenciesHealth'),
+            width: '18%',
+            Cell: RenderDependenciesHealth
           },
           {
             Header: getString('enabledLabel'),

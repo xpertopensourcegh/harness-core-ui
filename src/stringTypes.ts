@@ -4077,6 +4077,7 @@ export interface StringsMap {
   'cv.monitoredServices.changesTable.impact': string
   'cv.monitoredServices.deleteMonitoredServiceWarning': string
   'cv.monitoredServices.deleteService': string
+  'cv.monitoredServices.dependenciesHealth': string
   'cv.monitoredServices.dependencyHealth': string
   'cv.monitoredServices.editMonitoredServices': string
   'cv.monitoredServices.editService': string
@@ -4099,6 +4100,7 @@ export interface StringsMap {
   'cv.monitoredServices.newMonitoredServices': string
   'cv.monitoredServices.noAvailableData': string
   'cv.monitoredServices.noData': string
+  'cv.monitoredServices.noServiceAvailable': string
   'cv.monitoredServices.serviceAndEnvironment': string
   'cv.monitoredServices.serviceDependencies.noData': string
   'cv.monitoredServices.serviceHealth.anamolies': string

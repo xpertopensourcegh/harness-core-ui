@@ -94,7 +94,10 @@ describe('Change table', () => {
           pageIndex: 0,
           pageSize: 10,
           serviceIdentifiers: ['srv'],
-          startTime: 0
+          startTime: 0,
+          // Need to remove once these made as optional from BE
+          changeCategories: [],
+          changeSourceTypes: []
         }
       })
     )
@@ -143,7 +146,10 @@ describe('Change table', () => {
           pageIndex: 1,
           pageSize: 10,
           serviceIdentifiers: ['srv'],
-          startTime: 1
+          startTime: 1,
+          // Need to remove once these made as optional from BE
+          changeCategories: [],
+          changeSourceTypes: []
         }
       })
     )
