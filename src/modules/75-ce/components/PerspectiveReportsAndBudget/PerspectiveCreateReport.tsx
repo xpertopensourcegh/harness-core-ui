@@ -56,7 +56,7 @@ const useCreateReportModal = ({ onSuccess, onError }: CreateReportModalProps) =>
     }
 
     try {
-      await (isEditMode ? updateReport({ ...payload, uuid: report?.uuid }) : createReport(payload))
+      await (isEditMode ? updateReport({ ...report, ...payload }) : createReport(payload))
       onSuccess?.()
     } catch (e) {
       onError?.()
