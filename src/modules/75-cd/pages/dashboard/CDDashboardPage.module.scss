@@ -38,9 +38,9 @@ $header-height: 80px;
   font-size: 16px !important;
   color: #000000 !important;
   margin-left: var(--spacing-small);
-  margin-bottom: var(--spacing-small);
-
+  margin-bottom: var(--spacing-small) !important;
   font-weight: 600 !important;
+
   flex: 1;
 }
 

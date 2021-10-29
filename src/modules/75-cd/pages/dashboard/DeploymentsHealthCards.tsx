@@ -238,7 +238,7 @@ function TotalDepHealthCard({
       </Container>
       <div className={styles.separator}></div>
       {showPieChart && (
-        <Container className={styles.chartWrap} margin={{ top: 'large' }}>
+        <Container className={styles.chartWrap}>
           <PieChart size={65} {...pieChartProps} />
         </Container>
       )}
