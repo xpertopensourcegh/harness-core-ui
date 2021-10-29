@@ -174,16 +174,10 @@ describe('StepWidget tests', () => {
         />
       </TestWrapper>
     )
-    const artifacts = await findByText(
-      container,
-      'pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts'
-    )
-    expect(artifacts).toBeDefined()
-    const manifests = await findByText(
-      container,
-      'pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests'
-    )
-    expect(manifests).toBeDefined()
+    const variables = await findByText(container, 'variablesText')
+    expect(variables).toBeDefined()
+    const workflowInfo = await findByText(container, 'workflowVariableInfo')
+    expect(workflowInfo).toBeDefined()
   })
 
   // eslint-disable-next-line jest/no-disabled-tests

@@ -40,6 +40,7 @@ export interface ManifestListViewProps {
   refetchConnectors: () => void
   listOfManifests: Array<any>
   isReadonly: boolean
+  deploymentType: string
 }
 
 export interface ManifestStepInitData {

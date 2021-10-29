@@ -25,6 +25,25 @@ export const ManifestStoreMap: { [key: string]: ManifestStores } = {
   Gcs: 'Gcs'
 }
 
+export const allowedManifestTypes: Record<string, Array<ManifestTypes>> = {
+  Kubernetes: [
+    ManifestDataType.K8sManifest,
+    ManifestDataType.Values,
+    ManifestDataType.HelmChart,
+    ManifestDataType.Kustomize,
+    ManifestDataType.OpenshiftTemplate,
+    ManifestDataType.OpenshiftParam
+  ],
+  NativeHelm: [ManifestDataType.Values, ManifestDataType.HelmChart]
+}
+
+export const manifestStoreTypes: Array<ManifestStores> = [
+  ManifestStoreMap.Git,
+  ManifestStoreMap.Github,
+  ManifestStoreMap.GitLab,
+  ManifestStoreMap.Bitbucket
+]
+
 export const manifestTypeIcons: Record<ManifestTypes, IconName> = {
   K8sManifest: 'service-kubernetes',
   Values: 'functions',

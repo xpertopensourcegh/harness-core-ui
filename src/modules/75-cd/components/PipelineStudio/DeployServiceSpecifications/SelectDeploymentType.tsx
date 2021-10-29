@@ -2,23 +2,18 @@ import React from 'react'
 import { Formik, FormikProps } from 'formik'
 import { noop } from 'lodash-es'
 import * as Yup from 'yup'
-import { Card, HarnessDocTooltip, IconName, ThumbnailSelect } from '@wings-software/uicore'
+import { Card, HarnessDocTooltip, ThumbnailSelect } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
+import type { DeploymentTypeItem } from './DeploymentInterface'
 import stageCss from '../DeployStageSetupShell/DeployStage.module.scss'
-
-interface DeploymentTypeItem {
-  label: string
-  icon: IconName
-  value: string
-  disabled?: boolean
-}
 
 interface SelectServiceDeploymentTypeProps {
   selectedDeploymentType: string
   isReadonly: boolean
+  handleDeploymentTypeChange: (deploymentType: string) => void
 }
 
 export default function SelectDeploymentType(props: SelectServiceDeploymentTypeProps): JSX.Element {
@@ -31,7 +26,13 @@ export default function SelectDeploymentType(props: SelectServiceDeploymentTypeP
     {
       label: getString('serviceDeploymentTypes.kubernetes'),
       icon: 'service-kubernetes',
-      value: 'kubernetes'
+      value: 'Kubernetes'
+    },
+    {
+      label: getString('cd.nativeHelm'),
+      icon: 'service-helm',
+      value: 'NativeHelm',
+      disabled: !localStorage.getItem('nativeHelm')
     },
     {
       label: getString('serviceDeploymentTypes.amazonEcs'),
@@ -108,6 +109,7 @@ export default function SelectDeploymentType(props: SelectServiceDeploymentTypeP
               name={'deploymentType'}
               items={supportedDeploymentTypes}
               isReadonly={isReadonly}
+              onChange={props.handleDeploymentTypeChange}
             />
           </Card>
         )

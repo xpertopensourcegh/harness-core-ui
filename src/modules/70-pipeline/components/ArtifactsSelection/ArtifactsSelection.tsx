@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react'
-import { Color, useModalHook, StepWizard, StepProps } from '@wings-software/uicore'
+import { Color, useModalHook, StepWizard, StepProps, useToaster } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 
@@ -86,6 +86,7 @@ export default function ArtifactsSelection({
   const [sidecarIndex, setEditIndex] = useState(0)
   const [fetchedConnectorResponse, setFetchedConnectorResponse] = useState<PageConnectorResponse | undefined>()
 
+  const { showError } = useToaster()
   const { getString } = useStrings()
 
   const getPrimaryArtifactByIdentifier = (): PrimaryArtifact => {
@@ -253,12 +254,18 @@ export default function ArtifactsSelection({
   }
 
   const refetchConnectorList = async (): Promise<void> => {
-    const primaryConnectorList = getPrimaryConnectorList()
-    const sidecarConnectorList = getSidecarConnectorList()
-    const connectorIdentifiers = [...primaryConnectorList, ...sidecarConnectorList].map(item => item.identifier)
-    if (connectorIdentifiers.length) {
-      const { data: connectorResponse } = await fetchConnectors({ filterType: 'Connector', connectorIdentifiers })
-      setFetchedConnectorResponse(connectorResponse)
+    try {
+      const primaryConnectorList = getPrimaryConnectorList()
+      const sidecarConnectorList = getSidecarConnectorList()
+      const connectorIdentifiers = [...primaryConnectorList, ...sidecarConnectorList].map(item => item.identifier)
+      if (connectorIdentifiers.length) {
+        const response = await fetchConnectors({ filterType: 'Connector', connectorIdentifiers })
+        if (response?.data) {
+          setFetchedConnectorResponse(response?.data)
+        }
+      }
+    } catch (e) {
+      showError(e.message)
     }
   }
 

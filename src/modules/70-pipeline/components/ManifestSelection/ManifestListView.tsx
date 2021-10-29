@@ -63,7 +63,9 @@ import {
   ManifestToConnectorMap,
   ManifestStoreMap,
   manifestTypeIcons,
-  manifestTypeLabels
+  manifestTypeLabels,
+  allowedManifestTypes,
+  manifestStoreTypes
 } from './Manifesthelper'
 import ManifestDetails from './ManifestWizardSteps/ManifestDetails/ManifestDetails'
 import type { ConnectorRefLabelType } from '../ArtifactsSelection/ArtifactInterface'
@@ -84,21 +86,6 @@ import KustomizeWithGIT from './ManifestWizardSteps/KustomizeWithGIT/KustomizeWi
 import OpenShiftParamWithGit from './ManifestWizardSteps/OpenShiftParam/OSWithGit'
 import css from './ManifestSelection.module.scss'
 
-const allowedManifestTypes: Array<ManifestTypes> = [
-  ManifestDataType.K8sManifest,
-  ManifestDataType.Values,
-  ManifestDataType.HelmChart,
-  ManifestDataType.Kustomize,
-  ManifestDataType.OpenshiftTemplate,
-  ManifestDataType.OpenshiftParam
-]
-const manifestStoreTypes: Array<ManifestStores> = [
-  ManifestStoreMap.Git,
-  ManifestStoreMap.Github,
-  ManifestStoreMap.GitLab,
-  ManifestStoreMap.Bitbucket
-]
-
 const ManifestListView = ({
   updateStage,
   identifierName,
@@ -109,6 +96,7 @@ const ManifestListView = ({
   connectors,
   refetchConnectors,
   listOfManifests,
+  deploymentType,
   isReadonly
 }: ManifestListViewProps): JSX.Element => {
   const [selectedManifest, setSelectedManifest] = useState<ManifestTypes | null>(null)
@@ -570,7 +558,7 @@ const ManifestListView = ({
       <Dialog onClose={onClose} {...DIALOG_PROPS} className={cx(css.modal, Classes.DIALOG)}>
         <div className={css.createConnectorWizard}>
           <ManifestWizard
-            types={allowedManifestTypes}
+            types={allowedManifestTypes[deploymentType]}
             manifestStoreTypes={storeTypes}
             labels={getLabels()}
             selectedManifest={selectedManifest}

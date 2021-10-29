@@ -2754,6 +2754,7 @@ export interface StringsMap {
   'cd.learnMoreAboutHarnessAdapter': string
   'cd.manifestPathsCannotBeEmpty': string
   'cd.namespaceValidation': string
+  'cd.nativeHelm': string
   'cd.newAdapter': string
   'cd.newGitOpsServer': string
   'cd.noAdapterText': string

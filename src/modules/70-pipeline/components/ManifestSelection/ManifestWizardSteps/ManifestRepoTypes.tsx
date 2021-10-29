@@ -47,7 +47,7 @@ export const ManifestRepoTypes: React.FC<StepProps<ConnectorConfigDTO> & Manifes
 
   const supportedManifestTypes = useMemo(
     () =>
-      manifestTypes.map(manifest => ({
+      manifestTypes?.map(manifest => ({
         label: getString(manifestTypeLabels[manifest]),
         icon: manifestTypeIcons[manifest] as IconName,
         value: manifest

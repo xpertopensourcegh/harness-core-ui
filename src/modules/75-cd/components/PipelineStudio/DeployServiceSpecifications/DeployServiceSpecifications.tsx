@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import {
   Layout,
@@ -9,7 +9,8 @@ import {
   Container,
   Color,
   Text,
-  MultiTypeInputType
+  MultiTypeInputType,
+  useToaster
 } from '@wings-software/uicore'
 
 import produce from 'immer'
@@ -43,14 +44,6 @@ import stageCss from '../DeployStageSetupShell/DeployStage.module.scss'
 export default function DeployServiceSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
-  const [setupModeType, setSetupMode] = React.useState('')
-  const [checkedItems, setCheckedItems] = React.useState({
-    overrideSetCheckbox: false
-  })
-  const [selectedPropagatedState, setSelectedPropagatedState] = React.useState<SelectOption>()
-  const [serviceIdNameMap, setServiceIdNameMap] = React.useState<{ [key: string]: string }>()
-  const scrollRef = React.useRef<HTMLDivElement | null>(null)
-
   const {
     state: {
       pipeline,
@@ -60,21 +53,35 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     getStageFromPipeline,
     updateStage
   } = usePipelineContext()
+  const scrollRef = React.useRef<HTMLDivElement | null>(null)
+  const { showError } = useToaster()
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const debounceUpdateStage = React.useCallback(
+  const debounceUpdateStage = useCallback(
     debounce((stage?: StageElementConfig) => (stage ? updateStage(stage) : Promise.resolve()), 300),
     [updateStage]
   )
-
   const { stage } = getStageFromPipeline<DeploymentStageElementConfig>(selectedStageId || '')
+  const getDeploymentType = (): string => {
+    // Default deployment type needs to be changed to null, after native helm integration
+    return get(stage, 'stage.spec.serviceConfig.serviceDefinition.type', 'Kubernetes')
+  }
+
+  const [setupModeType, setSetupMode] = useState('')
+  const [checkedItems, setCheckedItems] = useState({
+    overrideSetCheckbox: false
+  })
+  const [selectedPropagatedState, setSelectedPropagatedState] = useState<SelectOption>()
+  const [serviceIdNameMap, setServiceIdNameMap] = useState<{ [key: string]: string }>()
+  const [selectedDeploymentType, setSelectedDeploymentType] = useState(getDeploymentType())
+  const [previousStageList, setPreviousStageList] = useState<SelectOption[]>([])
+
   const { index: stageIndex } = getStageIndexFromPipeline(pipeline, selectedStageId || '')
   const { stages } = getFlattenedStages(pipeline)
-  const [previousStageList, setPreviousStageList] = React.useState<SelectOption[]>([])
-  const { submitFormsForTab } = React.useContext(StageErrorContext)
+  const { submitFormsForTab } = useContext(StageErrorContext)
   const { errorMap } = useValidationErrors()
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (
       !stage?.stage?.spec?.serviceConfig?.serviceDefinition &&
       !stage?.stage?.spec?.serviceConfig?.useFromStage?.stage
@@ -83,7 +90,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     }
   }, [])
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (errorMap.size > 0) {
       submitFormsForTab(DeployTabs.SERVICE)
     }
@@ -93,7 +100,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
   })
 
-  React.useEffect(() => {
+  useEffect(() => {
     const serviceIdNameMapping: { [key: string]: string } = {}
     serviceResponse?.data?.content?.forEach(service => {
       if (service.service?.identifier) {
@@ -131,13 +138,13 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     }
   }, [stages, serviceIdNameMap])
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (stageIndex === 0) {
       setSetupMode(setupMode.DIFFERENT)
     }
   }, [stageIndex])
 
-  React.useEffect(() => {
+  useEffect(() => {
     const useFromStage = stage?.stage?.spec?.serviceConfig?.useFromStage
     const stageOverrides = stage?.stage?.spec?.serviceConfig?.stageOverrides
 
@@ -165,7 +172,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     }
   }, [stage?.stage?.spec, previousStageList])
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (selectedPropagatedState && selectedPropagatedState.value) {
       const stageData = produce(stage, draft => {
         if (draft) {
@@ -190,7 +197,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
           serviceConfig: {
             serviceRef: '',
             serviceDefinition: {
-              type: 'Kubernetes',
+              type: 'Kubernetes', // Default deployment type needs to be changed to null, after native helm integration
               spec: {
                 variables: []
               }
@@ -248,7 +255,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     }
   }
 
-  const updateService = React.useCallback(
+  const updateService = useCallback(
     (value: ServiceConfig) => {
       const stageData = produce(stage, draft => {
         const serviceObj = get(draft, 'stage.spec.serviceConfig', {})
@@ -264,6 +271,19 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     },
     [debounceUpdateStage, stage, stage?.stage?.spec?.serviceConfig?.serviceDefinition]
   )
+
+  const handleDeploymentTypeChange = async (deploymentType: string): Promise<void> => {
+    try {
+      const stageData = produce(stage, draft => {
+        const serviceDefinition = get(draft, 'stage.spec.serviceConfig.serviceDefinition', {})
+        serviceDefinition.type = deploymentType
+      })
+      await debounceUpdateStage(stageData?.stage)
+      setSelectedDeploymentType(deploymentType)
+    } catch (err) {
+      showError(err?.data?.message || err?.message)
+    }
+  }
 
   return (
     <FormikForm>
@@ -320,7 +340,11 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
               <div className={stageCss.tabHeading} id="serviceDefinition">
                 {getString('pipelineSteps.deploy.serviceSpecifications.serviceDefinition')}
               </div>
-              <SelectDeploymentType selectedDeploymentType={'kubernetes'} isReadonly={isReadonly} />
+              <SelectDeploymentType
+                selectedDeploymentType={selectedDeploymentType}
+                isReadonly={isReadonly}
+                handleDeploymentTypeChange={handleDeploymentTypeChange}
+              />
               <Layout.Horizontal>
                 <StepWidget<K8SDirectServiceStep>
                   factory={factory}

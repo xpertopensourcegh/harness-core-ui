@@ -1,6 +1,10 @@
 import React from 'react'
 import { render, findByText, fireEvent, findAllByText, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
+import {
+  PipelineContext,
+  PipelineContextInterface
+} from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import ManifestSelection from '../ManifestSelection'
 import ManifestListView from '../ManifestListView'
 import pipelineContextMock from './pipeline_mock.json'
@@ -13,6 +17,15 @@ jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 jest.mock('services/cd-ng', () => ({
   useGetConnectorListV2: jest.fn().mockImplementation(() => ({ mutate: fetchConnectors }))
 }))
+
+const getContextValue = (): PipelineContextInterface => {
+  return {
+    ...pipelineContextMock,
+    getStageFromPipeline: jest.fn(() => {
+      return { stage: pipelineContextMock.state.pipeline.stages[0], parent: undefined }
+    })
+  } as any
+}
 
 describe('ManifestSelection tests', () => {
   test(`renders without crashing`, () => {
@@ -27,7 +40,9 @@ describe('ManifestSelection tests', () => {
   test(`renders add Manifest option without crashing`, async () => {
     const { container } = render(
       <TestWrapper>
-        <ManifestSelection isForOverrideSets={false} isForPredefinedSets={false} />
+        <PipelineContext.Provider value={getContextValue()}>
+          <ManifestSelection isForOverrideSets={false} isForPredefinedSets={false} />
+        </PipelineContext.Provider>
       </TestWrapper>
     )
     const addFileButton = await findByText(container, 'pipelineSteps.serviceTab.manifestList.addManifest')
@@ -46,7 +61,9 @@ describe('ManifestSelection tests', () => {
   test(`renders Manifest Wizard popover`, async () => {
     const { container } = render(
       <TestWrapper>
-        <ManifestSelection isForOverrideSets={false} isForPredefinedSets={false} />
+        <PipelineContext.Provider value={getContextValue()}>
+          <ManifestSelection isForOverrideSets={false} isForPredefinedSets={false} />
+        </PipelineContext.Provider>
       </TestWrapper>
     )
     const addFileButton = await findByText(container, 'pipelineSteps.serviceTab.manifestList.addManifest')
@@ -69,14 +86,16 @@ describe('ManifestSelection tests', () => {
   test(`renders manifest selection when isForOverrideSets is true`, async () => {
     const { container } = render(
       <TestWrapper>
-        <ManifestSelection isForOverrideSets={true} isForPredefinedSets={false} />
+        <PipelineContext.Provider value={getContextValue()}>
+          <ManifestSelection isForOverrideSets={true} isForPredefinedSets={false} />
+        </PipelineContext.Provider>
       </TestWrapper>
     )
     const addFileButton = await findByText(container, 'pipelineSteps.serviceTab.manifestList.addManifest')
     expect(addFileButton).toBeDefined()
 
     const listOfManifests =
-      pipelineContextMock.stages[0].stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets.map(
+      pipelineContextMock.state.pipeline.stages[0].stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets.map(
         elem => elem.overrideSets.overrideSet.manifests
       )[0]
     expect(listOfManifests.length).toEqual(4)
@@ -85,7 +104,9 @@ describe('ManifestSelection tests', () => {
   test(`renders manifest selection when isForPredefinedSets is true`, async () => {
     const { container } = render(
       <TestWrapper>
-        <ManifestSelection isForOverrideSets={false} isForPredefinedSets={true} />
+        <PipelineContext.Provider value={getContextValue()}>
+          <ManifestSelection isForOverrideSets={false} isForPredefinedSets={true} />
+        </PipelineContext.Provider>
       </TestWrapper>
     )
     const addFileButton = await findByText(container, 'pipelineSteps.serviceTab.manifestList.addManifest')
@@ -101,13 +122,15 @@ describe('ManifestSelection tests', () => {
   test(`renders manifest selection when overrideSetIdentifier and identifierName has some value`, async () => {
     const { container } = render(
       <TestWrapper>
-        <ManifestSelection
-          overrideSetIdentifier={'overrideSetIdentifier'}
-          isForOverrideSets={false}
-          isForPredefinedSets={false}
-          isPropagating={false}
-          identifierName={'identifierName'}
-        />
+        <PipelineContext.Provider value={getContextValue()}>
+          <ManifestSelection
+            overrideSetIdentifier={'overrideSetIdentifier'}
+            isForOverrideSets={false}
+            isForPredefinedSets={false}
+            isPropagating={false}
+            identifierName={'identifierName'}
+          />
+        </PipelineContext.Provider>
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
@@ -116,13 +139,15 @@ describe('ManifestSelection tests', () => {
   test(`renders manifest selection when isPropagating is true`, async () => {
     const { container } = render(
       <TestWrapper>
-        <ManifestSelection
-          overrideSetIdentifier={''}
-          isForOverrideSets={false}
-          isForPredefinedSets={false}
-          isPropagating={true}
-          identifierName={''}
-        />
+        <PipelineContext.Provider value={getContextValue()}>
+          <ManifestSelection
+            overrideSetIdentifier={''}
+            isForOverrideSets={false}
+            isForPredefinedSets={false}
+            isPropagating={true}
+            identifierName={''}
+          />
+        </PipelineContext.Provider>
       </TestWrapper>
     )
     const addFileButton = await findByText(container, 'pipelineSteps.serviceTab.manifestList.addManifest')
@@ -138,9 +163,9 @@ describe('ManifestSelection tests', () => {
   test(`renders Manifest Listview without crashing`, () => {
     const props = {
       isPropagating: false,
-      pipeline: pipelineContextMock,
+      pipeline: pipelineContextMock.state.pipeline,
       updateStage: jest.fn(),
-      stage: pipelineContextMock.stages[0],
+      stage: pipelineContextMock.state.pipeline.stages[0],
       isForOverrideSets: false,
       identifierName: '',
       isForPredefinedSets: false,
@@ -148,7 +173,8 @@ describe('ManifestSelection tests', () => {
       connectors: undefined,
       refetchConnectors: jest.fn(),
       isReadonly: false,
-      listOfManifests: []
+      listOfManifests: [],
+      deploymentType: 'Kubernetes'
     }
     const { container } = render(
       <TestWrapper>
@@ -161,9 +187,9 @@ describe('ManifestSelection tests', () => {
   test(`renders Manifest Listview with connectors Data`, () => {
     const props = {
       isPropagating: false,
-      pipeline: pipelineContextMock,
+      pipeline: pipelineContextMock.state.pipeline,
       updateStage: jest.fn(),
-      stage: pipelineContextMock.stages[0],
+      stage: pipelineContextMock.state.pipeline.stages[0],
       isForOverrideSets: false,
       identifierName: '',
       isForPredefinedSets: false,
@@ -171,7 +197,8 @@ describe('ManifestSelection tests', () => {
       connectors: connectorsData.data as any,
       refetchConnectors: jest.fn(),
       isReadonly: false,
-      listOfManifests: []
+      listOfManifests: [],
+      deploymentType: 'Kubernetes'
     }
     const { container } = render(
       <TestWrapper>
@@ -184,9 +211,9 @@ describe('ManifestSelection tests', () => {
   test(`renders Manifest Listview with overrideSetIdentifier, isPropagating, isForOverrideSets`, () => {
     const props = {
       isPropagating: true,
-      pipeline: pipelineContextMock,
+      pipeline: pipelineContextMock.state.pipeline,
       updateStage: jest.fn(),
-      stage: pipelineContextMock.stages[0],
+      stage: pipelineContextMock.state.pipeline.stages[0],
       isForOverrideSets: true,
       identifierName: '',
       isForPredefinedSets: false,
@@ -194,7 +221,8 @@ describe('ManifestSelection tests', () => {
       connectors: connectorsData.data as any,
       refetchConnectors: jest.fn(),
       isReadonly: false,
-      listOfManifests: []
+      listOfManifests: [],
+      deploymentType: 'Kubernetes'
     }
     const { container } = render(
       <TestWrapper>
@@ -207,9 +235,9 @@ describe('ManifestSelection tests', () => {
   test(`delete manifest list works correctly`, async () => {
     const props = {
       isPropagating: false,
-      pipeline: pipelineContextMock,
+      pipeline: pipelineContextMock.state.pipeline,
       updateStage: jest.fn(),
-      stage: pipelineContextMock.stages[0],
+      stage: pipelineContextMock.state.pipeline.stages[0],
       isForOverrideSets: false,
       identifierName: '',
       isForPredefinedSets: false,
@@ -217,6 +245,7 @@ describe('ManifestSelection tests', () => {
       connectors: connectorsData.data as any,
       refetchConnectors: jest.fn(),
       isReadonly: false,
+      deploymentType: 'Kubernetes',
       listOfManifests: [
         {
           manifest: {
@@ -254,9 +283,9 @@ describe('ManifestSelection tests', () => {
   test(`edit manifest list works correctly`, async () => {
     const props = {
       isPropagating: false,
-      pipeline: pipelineContextMock,
+      pipeline: pipelineContextMock.state.pipeline,
       updateStage: jest.fn(),
-      stage: pipelineContextMock.stages[0],
+      stage: pipelineContextMock.state.pipeline.stages[0],
       isForOverrideSets: false,
       identifierName: '',
       isForPredefinedSets: false,
@@ -264,6 +293,7 @@ describe('ManifestSelection tests', () => {
       connectors: connectorsData.data as any,
       refetchConnectors: jest.fn(),
       isReadonly: false,
+      deploymentType: 'Kubernetes',
       listOfManifests: [
         {
           manifest: {
@@ -308,9 +338,9 @@ describe('ManifestSelection tests', () => {
   test(`manifest listview when isForOverrideSets is true`, async () => {
     const props = {
       isPropagating: false,
-      pipeline: pipelineContextMock,
+      pipeline: pipelineContextMock.state.pipeline,
       updateStage: jest.fn(),
-      stage: pipelineContextMock.stages[0],
+      stage: pipelineContextMock.state.pipeline.stages[0],
       isForOverrideSets: true,
       identifierName: '',
       isForPredefinedSets: false,
@@ -318,7 +348,8 @@ describe('ManifestSelection tests', () => {
       connectors: connectorsData.data as any,
       refetchConnectors: jest.fn(),
       isReadonly: false,
-      listOfManifests: []
+      listOfManifests: [],
+      deploymentType: 'Kubernetes'
     }
 
     const listOfManifests = props.stage.stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets

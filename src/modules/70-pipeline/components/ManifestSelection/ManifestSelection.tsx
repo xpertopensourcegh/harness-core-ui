@@ -36,6 +36,7 @@ export default function ManifestSelection({
 
   const { stage } = getStageFromPipeline<DeploymentStageElementConfig>(selectedStageId || '')
   const [fetchedConnectorResponse, setFetchedConnectorResponse] = React.useState<PageConnectorResponse | undefined>()
+  const { getString } = useStrings()
 
   const { accountId, orgIdentifier, projectIdentifier } = useParams<
     PipelineType<{
@@ -82,7 +83,7 @@ export default function ManifestSelection({
       return listValue
         .map((overrideSets: { overrideSet: { identifier: string; manifests: [any] } }) => {
           if (overrideSets?.overrideSet?.identifier === identifierName) {
-            return overrideSets.overrideSet.manifests
+            return overrideSets.overrideSet?.manifests
           }
         })
         .filter((x: { overrideSet: { identifier: string; manifests: [any] } }) => x !== undefined)[0]
@@ -94,6 +95,10 @@ export default function ManifestSelection({
       }
     }
   }, [overrideSetIdentifier, isPropagating, stage, isForOverrideSets, isForPredefinedSets, pipeline])
+
+  useDeepCompareEffect(() => {
+    refetchConnectorList()
+  }, [stage, listOfManifests])
 
   const getConnectorList = (): Array<{ scope: Scope; identifier: string }> => {
     return listOfManifests?.length
@@ -114,11 +119,9 @@ export default function ManifestSelection({
     }
   }
 
-  const { getString } = useStrings()
-
-  useDeepCompareEffect(() => {
-    refetchConnectorList()
-  }, [stage, listOfManifests])
+  const getDeploymentType = (): string => {
+    return get(stage, 'stage.spec.serviceConfig.serviceDefinition.type', null)
+  }
 
   return (
     <Layout.Vertical>
@@ -140,6 +143,7 @@ export default function ManifestSelection({
         refetchConnectors={refetchConnectorList}
         listOfManifests={listOfManifests}
         isReadonly={isReadonly}
+        deploymentType={getDeploymentType()}
       />
     </Layout.Vertical>
   )
