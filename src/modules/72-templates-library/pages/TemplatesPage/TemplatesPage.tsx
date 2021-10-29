@@ -30,6 +30,7 @@ import ResultsViewHeader from '@templates-library/pages/TemplatesPage/views/Resu
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
+import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import css from './TemplatesPage.module.scss'
 
 export default function TemplatesPage(): React.ReactElement {
@@ -46,6 +47,7 @@ export default function TemplatesPage(): React.ReactElement {
   const searchRef = React.useRef<ExpandingSearchInputHandle>({} as ExpandingSearchInputHandle)
   const { projectIdentifier, orgIdentifier, accountId, module } = useParams<ProjectPathProps & ModulePathParams>()
   const { isGitSyncEnabled } = useAppStore()
+  const scope = getScopeFromDTO({ projectIdentifier, orgIdentifier, accountIdentifier: accountId })
 
   const reset = React.useCallback((): void => {
     searchRef.current.clear()
@@ -181,7 +183,13 @@ export default function TemplatesPage(): React.ReactElement {
             </Layout.Horizontal>
           </Page.SubHeader>
           <Container height={'100%'} style={{ overflow: 'auto' }}>
-            {!templateData?.data?.content?.length && <NoResultsView hasSearchParam={!!searchParam} onReset={reset} />}
+            {!templateData?.data?.content?.length && (
+              <NoResultsView
+                hasSearchParam={!!searchParam}
+                onReset={reset}
+                text={getString('templatesLibrary.templatesPage.noTemplates', { scope })}
+              />
+            )}
             {!!templateData?.data?.content?.length && (
               <Layout.Vertical height={'100%'} margin={{ left: 'xlarge', right: 'xlarge' }}>
                 <ResultsViewHeader templateData={templateData} setPage={setPage} setSort={setSort} />

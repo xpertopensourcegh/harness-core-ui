@@ -212,7 +212,7 @@ export function StepCommands(
                 />
               }
             />
-            {templatesEnabled && viewType === StepCommandsViews.Pipeline ? (
+            {templatesEnabled && !isStepGroup && viewType === StepCommandsViews.Pipeline ? (
               <>
                 <Expander />
                 <div>

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {
   Button,
-  ButtonSize,
   ButtonVariation,
   Color,
   Container,
@@ -9,7 +8,6 @@ import {
   ExpandingSearchInput,
   ExpandingSearchInputHandle,
   GridListToggle,
-  Icon,
   Layout,
   SelectOption,
   Text,
@@ -33,6 +31,7 @@ import routes from '@common/RouteDefinitions'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
+import NoResultsView from '@templates-library/pages/TemplatesPage/views/NoResultsView'
 import { TemplateDetails } from '../TemplateDetails/TemplateDetails'
 import css from './TemplateSelector.module.scss'
 
@@ -176,29 +175,13 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = (props): JSX.El
               {loading && <PageSpinner />}
               {!loading && error && <PageError message={error?.message} onClick={reloadTemplates} />}
               {!templateData?.data?.content?.length && (
-                <Layout.Vertical height={'100%'} spacing={'xlarge'} flex={{ align: 'center-center' }}>
-                  {searchParam ? (
-                    <>
-                      <Icon color={Color.GREY_400} name="template-library" size={50} />
-                      <Text font={{ weight: 'bold', size: 'medium' }} color={Color.GREY_400}>
-                        {getString('common.filters.noMatchingFilterData')}
-                      </Text>
-                      <Button
-                        variation={ButtonVariation.LINK}
-                        size={ButtonSize.LARGE}
-                        onClick={reset}
-                        text={getString('common.filters.clearFilters')}
-                      />
-                    </>
-                  ) : (
-                    <>
-                      <img src={templateIllustration} className={css.illustration} />
-                      <Text font={{ size: 'large', weight: 'bold' }} color={Color.GREY_300}>
-                        {getString('templatesLibrary.templatesPage.noTemplates')}
-                      </Text>
-                    </>
-                  )}
-                </Layout.Vertical>
+                <NoResultsView
+                  hasSearchParam={!!searchParam}
+                  onReset={reset}
+                  text={getString('templatesLibrary.templatesPage.noTemplates', {
+                    scope: selectedScope.label.toLowerCase()
+                  })}
+                />
               )}
               {!!templateData?.data?.content?.length && (
                 <Layout.Vertical height={'100%'}>

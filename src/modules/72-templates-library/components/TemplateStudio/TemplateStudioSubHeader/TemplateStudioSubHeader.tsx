@@ -1,6 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { Button, ButtonVariation, Color, Container, Icon, Layout, Text } from '@wings-software/uicore'
+import { get, isEmpty } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import type { TemplateStudioPathProps } from '@common/interfaces/RouteInterfaces'
 import { TemplateContext } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateContext'
@@ -26,7 +27,7 @@ export const TemplateStudioSubHeader: (props: TemplateStudioSubHeaderProps) => J
   onGitBranchChange
 }) => {
   const { state, fetchTemplate, view, isReadonly } = React.useContext(TemplateContext)
-  const { isUpdated } = state
+  const { template, isUpdated } = state
   const { getString } = useStrings()
   const { templateIdentifier } = useParams<TemplateStudioPathProps>()
   const isYaml = view === SelectedView.YAML
@@ -71,7 +72,10 @@ export const TemplateStudioSubHeader: (props: TemplateStudioSubHeaderProps) => J
             {!isReadonly && (
               <Container>
                 <Layout.Horizontal spacing={'small'} flex={{ alignItems: 'center' }}>
-                  <SaveTemplatePopover disabled={!isUpdated} getErrors={getErrors} />
+                  <SaveTemplatePopover
+                    disabled={!isUpdated || isEmpty(get(template.spec, 'type'))}
+                    getErrors={getErrors}
+                  />
                   {templateIdentifier !== DefaultNewTemplateId && (
                     <Button
                       disabled={!isUpdated}

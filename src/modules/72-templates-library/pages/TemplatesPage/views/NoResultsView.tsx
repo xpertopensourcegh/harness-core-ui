@@ -7,9 +7,10 @@ import css from '@templates-library/pages/TemplatesPage/TemplatesPage.module.scs
 export interface NoResultsViewProps {
   hasSearchParam: boolean
   onReset: () => void
+  text: string
 }
 
-export default function NoResultsView({ hasSearchParam, onReset }: NoResultsViewProps): React.ReactElement {
+export default function NoResultsView({ hasSearchParam, onReset, text }: NoResultsViewProps): React.ReactElement {
   const { getString } = useStrings()
   return (
     <Layout.Vertical height={'100%'} spacing={'xlarge'} flex={{ align: 'center-center' }}>
@@ -30,7 +31,7 @@ export default function NoResultsView({ hasSearchParam, onReset }: NoResultsView
         <>
           <img src={templateIllustration} className={css.illustration} />
           <Text font={{ size: 'large', weight: 'bold' }} color={Color.GREY_300}>
-            {getString('templatesLibrary.templatesPage.noTemplates')}
+            {text}
           </Text>
         </>
       )}

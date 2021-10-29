@@ -2,7 +2,7 @@ import React from 'react'
 import { matchPath, useParams, useHistory } from 'react-router-dom'
 import { parse } from 'yaml'
 import SplitPane from 'react-split-pane'
-import { debounce, defaultTo, isEmpty, noop, omit } from 'lodash-es'
+import { debounce, defaultTo, isEmpty, merge, noop, omit } from 'lodash-es'
 import { Container, Layout } from '@wings-software/uicore'
 import { Formik, FormikProps } from 'formik'
 import { useStrings } from 'framework/strings'
@@ -20,7 +20,7 @@ import type { StepElementConfig } from 'services/cd-ng'
 import GenericErrorHandler from '@common/pages/GenericErrorHandler/GenericErrorHandler'
 import { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import TemplateYamlView from '@templates-library/components/TemplateStudio/TemplateYamlView/TemplateYamlView'
-import { accountPathProps, pipelineModuleParams, templatePathProps } from '@common/utils/routeUtils'
+import { accountPathProps, orgPathProps, pipelineModuleParams, projectPathProps } from '@common/utils/routeUtils'
 import routes from '@common/RouteDefinitions'
 import type { NGTemplateInfoConfig } from 'services/template-ng'
 import type { GetErrorResponse } from '@templates-library/components/TemplateStudio/SaveTemplatePopover/SaveTemplatePopover'
@@ -190,12 +190,6 @@ export function TemplateStudio(): React.ReactElement {
     return true
   }
 
-  const resetForm = React.useCallback(() => {
-    setTimeout(() => {
-      templateFormikRef.current?.resetForm()
-    }, 0)
-  }, [templateFormikRef])
-
   const getErrors = async (): Promise<GetErrorResponse> => {
     await templateFormikRef.current?.submitForm()
     const errors = templateFormikRef.current?.getErrors()
@@ -203,10 +197,12 @@ export function TemplateStudio(): React.ReactElement {
   }
 
   React.useEffect(() => {
-    if (!isLoading) {
-      resetForm()
+    if (!isLoading && !isUpdated) {
+      setTimeout(() => {
+        templateFormikRef.current?.resetForm()
+      }, 0)
     }
-  }, [isLoading])
+  }, [isLoading, isUpdated])
 
   React.useEffect(() => {
     if (isBETemplateUpdated && !discardBEUpdateDialog) {
@@ -264,13 +260,25 @@ export function TemplateStudio(): React.ReactElement {
     }
   }, [templateIdentifier])
 
+  const getPathParams = React.useCallback(() => {
+    const pathParams = {
+      templateIdentifier: ':templateIdentifier',
+      templateType: ':templateType' as TemplateType
+    }
+    return projectIdentifier
+      ? merge(pathParams, { ...projectPathProps, ...pipelineModuleParams })
+      : orgIdentifier
+      ? merge(pathParams, { ...orgPathProps })
+      : merge(pathParams, { ...accountPathProps })
+  }, [projectIdentifier, orgIdentifier])
+
   return (
     <>
       <NavigationCheck
         when={template.identifier !== ''}
         shouldBlockNavigation={nextLocation => {
           const matchDefault = matchPath(nextLocation.pathname, {
-            path: routes.toTemplateStudio({ ...accountPathProps, ...templatePathProps, ...pipelineModuleParams }),
+            path: routes.toTemplateStudio(getPathParams()),
             exact: true
           })
           return (
@@ -286,7 +294,7 @@ export function TemplateStudio(): React.ReactElement {
         }}
         navigate={newPath => {
           const isTemplate = matchPath(newPath, {
-            path: routes.toTemplateStudio({ ...accountPathProps, ...templatePathProps, ...pipelineModuleParams }),
+            path: routes.toTemplateStudio(getPathParams()),
             exact: true
           })
           !isTemplate?.isExact && deleteTemplateCache()
