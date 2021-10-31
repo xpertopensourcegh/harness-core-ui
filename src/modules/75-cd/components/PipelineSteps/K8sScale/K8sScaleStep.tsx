@@ -329,7 +329,7 @@ export class K8sScaleStep extends PipelineStep<K8sScaleData> {
         ref={formikRef}
         readonly={readonly}
         allowableTypes={allowableTypes}
-        onChange={onChange}
+        onChange={values => onChange?.(this.processFormData(values))}
       />
     )
   }

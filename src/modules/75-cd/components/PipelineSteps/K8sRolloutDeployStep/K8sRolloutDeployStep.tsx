@@ -5,7 +5,6 @@ import * as Yup from 'yup'
 
 import { FormikErrors, FormikProps, yupToFormErrors } from 'formik'
 import { isEmpty } from 'lodash-es'
-import { IdentifierSchema } from '@common/utils/Validation'
 import { StepViewType, StepProps, ValidateInputSetProps, setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { K8sRollingStepInfo, StepElementConfig } from 'services/cd-ng'
 import { FormMultiTypeCheckboxField } from '@common/components'
@@ -69,10 +68,7 @@ function K8RolloutDeployWidget(
         }}
         validationSchema={Yup.object().shape({
           ...getNameAndIdentifierSchema(getString, stepViewType),
-          timeout: getDurationValidationSchema({ minimum: '10s' }).required(
-            getString('validation.timeout10SecMinimum')
-          ),
-          identifier: IdentifierSchema()
+          timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum'))
         })}
       >
         {(formik: FormikProps<K8RolloutDeployData>) => {

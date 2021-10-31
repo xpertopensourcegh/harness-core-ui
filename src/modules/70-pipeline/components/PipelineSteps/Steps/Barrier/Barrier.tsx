@@ -13,8 +13,12 @@ import { isEmpty } from 'lodash-es'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { parse } from 'yaml'
-import { StepViewType, ValidateInputSetProps, setFormikRef } from '@pipeline/components/AbstractSteps/Step'
-import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
+import {
+  StepFormikFowardRef,
+  setFormikRef,
+  StepViewType,
+  ValidateInputSetProps
+} from '@pipeline/components/AbstractSteps/Step'
 import type { PipelineInfoConfig, StepElementConfig } from 'services/cd-ng'
 
 import { useGetPipeline, VariableMergeServiceResponse } from 'services/pipeline-ng'
@@ -52,6 +56,7 @@ interface BarrierProps {
   initialValues: BarrierData
   onUpdate?: (data: BarrierData) => void
   stepViewType: StepViewType
+  allowableTypes: MultiTypeInputType[]
   isNewStep?: boolean
   inputSetData?: {
     template?: BarrierData
@@ -79,7 +84,7 @@ function BarrierWidget(props: BarrierProps, formikRef: StepFormikFowardRef<Barri
   const {
     state: { pipeline }
   } = usePipelineContext()
-  const { initialValues, onUpdate, isNewStep = true, onChange, stepViewType } = props
+  const { initialValues, onUpdate, isNewStep = true, onChange, stepViewType, allowableTypes } = props
 
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
@@ -123,7 +128,7 @@ function BarrierWidget(props: BarrierProps, formikRef: StepFormikFowardRef<Barri
         formName="barrierStep"
         initialValues={{ ...initialValuesFormik }}
         validate={data => {
-          onChange?.(data)
+          onChange?.(processBarrierFormData(data))
         }}
         validationSchema={Yup.object().shape({
           ...getNameAndIdentifierSchema(getString, stepViewType),
@@ -152,7 +157,7 @@ function BarrierWidget(props: BarrierProps, formikRef: StepFormikFowardRef<Barri
                   label={getString('pipelineSteps.timeoutLabel')}
                   multiTypeDurationProps={{
                     enableConfigureOptions: false,
-                    allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]
+                    allowableTypes: allowableTypes.filter(item => item !== MultiTypeInputType.EXPRESSION)
                   }}
                 />
                 {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
@@ -181,7 +186,7 @@ function BarrierWidget(props: BarrierProps, formikRef: StepFormikFowardRef<Barri
                   selectItems={barriers}
                   multiTypeInputProps={{
                     expressions,
-                    allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]
+                    allowableTypes: allowableTypes.filter(item => item !== MultiTypeInputType.EXPRESSION)
                   }}
                 />
                 {getMultiTypeFromValue(formik?.values?.spec?.barrierRef) === MultiTypeInputType.RUNTIME && (
@@ -278,7 +283,8 @@ export class BarrierStep extends PipelineStep<BarrierData> {
       customStepProps,
       isNewStep,
       readonly,
-      onChange
+      onChange,
+      allowableTypes
     } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
@@ -288,6 +294,7 @@ export class BarrierStep extends PipelineStep<BarrierData> {
           onUpdate={onUpdate}
           stepViewType={stepViewType}
           inputSetData={inputSetData}
+          allowableTypes={allowableTypes}
         />
       )
     } else if (stepViewType === StepViewType.InputVariable) {
@@ -308,6 +315,7 @@ export class BarrierStep extends PipelineStep<BarrierData> {
         ref={formikRef}
         isReadonly={readonly}
         onChange={onChange}
+        allowableTypes={allowableTypes}
       />
     )
   }

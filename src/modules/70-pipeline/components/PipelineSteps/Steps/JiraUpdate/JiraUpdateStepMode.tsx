@@ -6,16 +6,16 @@ import cx from 'classnames'
 import * as Yup from 'yup'
 import { FieldArray, FormikProps } from 'formik'
 import {
-  Formik,
   Accordion,
-  FormInput,
-  useModalHook,
-  Text,
-  MultiTypeInputType,
   Button,
-  SelectOption,
+  Formik,
+  FormikForm,
+  FormInput,
   getMultiTypeFromValue,
-  FormikForm
+  MultiTypeInputType,
+  SelectOption,
+  Text,
+  useModalHook
 } from '@wings-software/uicore'
 import { setFormikRef, StepFormikFowardRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { String, useStrings } from 'framework/strings'
@@ -24,7 +24,7 @@ import {
   getDurationValidationSchema
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
-import { JiraProjectBasicNG, JiraFieldNG, useGetJiraProjects, useGetJiraStatuses, JiraStatusNG } from 'services/cd-ng'
+import { JiraFieldNG, JiraProjectBasicNG, JiraStatusNG, useGetJiraProjects, useGetJiraStatuses } from 'services/cd-ng'
 import type {
   AccountPathProps,
   GitQueryParams,
@@ -41,7 +41,7 @@ import { getKVFieldsToBeAddedInForm, getSelectedFieldsToBeAddedInForm } from '..
 import { JiraDynamicFieldsSelector } from '../JiraCreate/JiraDynamicFieldsSelector'
 import { isApprovalStepFieldDisabled } from '../ApprovalCommons'
 import { JiraFieldsRenderer } from '../JiraCreate/JiraFieldsRenderer'
-import type { JiraUpdateFormContentInterface, JiraUpdateData, JiraUpdateStepModeProps } from './types'
+import type { JiraUpdateData, JiraUpdateFormContentInterface, JiraUpdateStepModeProps } from './types'
 import { processFormData } from './helper'
 
 import { getNameAndIdentifierSchema } from '../StepsValidateUtils'
@@ -373,7 +373,7 @@ const FormContent = ({
                               label=""
                               placeholder={getString('common.valuePlaceholder')}
                               multiTextInputProps={{
-                                allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                                allowableTypes: allowableTypes.filter(item => item !== MultiTypeInputType.RUNTIME),
                                 expressions
                               }}
                               disabled={isApprovalStepFieldDisabled(readonly)}
@@ -452,7 +452,7 @@ function JiraUpdateStepMode(
       initialValues={props.initialValues}
       enableReinitialize={true}
       validate={data => {
-        onChange?.(data)
+        onChange?.(processFormData(data))
       }}
       validationSchema={Yup.object().shape({
         ...getNameAndIdentifierSchema(getString, stepViewType),

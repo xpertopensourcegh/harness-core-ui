@@ -1,15 +1,15 @@
 import React from 'react'
 import {
-  IconName,
+  Button,
+  ButtonVariation,
+  Container,
   Formik,
   FormInput,
-  Container,
-  Text,
-  Button,
-  Layout,
   getMultiTypeFromValue,
+  IconName,
+  Layout,
   MultiTypeInputType,
-  ButtonVariation
+  Text
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { FieldArray, FormikErrors, FormikProps, yupToFormErrors } from 'formik'
@@ -17,8 +17,13 @@ import { v4 as uuid } from 'uuid'
 import type { IOptionProps } from '@blueprintjs/core'
 import * as Yup from 'yup'
 import { defaultTo, isEmpty } from 'lodash-es'
-import { StepViewType, StepProps, ValidateInputSetProps, setFormikRef } from '@pipeline/components/AbstractSteps/Step'
-import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
+import {
+  StepFormikFowardRef,
+  setFormikRef,
+  StepProps,
+  StepViewType,
+  ValidateInputSetProps
+} from '@pipeline/components/AbstractSteps/Step'
 import type { StepElementConfig } from 'services/cd-ng'
 
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
@@ -324,7 +329,7 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
                                 multiTextInputProps={{
                                   expressions,
                                   textProps: { disabled: isDisabled },
-                                  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                                  allowableTypes: allowableTypes.filter(item => item !== MultiTypeInputType.RUNTIME)
                                 }}
                               />
                               {/* istanbul ignore next */}
@@ -402,7 +407,7 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
                                 disabled={isDisabled}
                                 multiTextInputProps={{
                                   expressions,
-                                  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                                  allowableTypes: allowableTypes.filter(item => item !== MultiTypeInputType.RUNTIME),
                                   disabled: isDisabled
                                 }}
                               />

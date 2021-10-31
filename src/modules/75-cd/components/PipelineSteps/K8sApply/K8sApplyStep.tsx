@@ -1,25 +1,29 @@
 import React from 'react'
 import {
-  IconName,
+  Button,
+  ButtonVariation,
   Formik,
   FormInput,
-  Button,
-  Layout,
   getMultiTypeFromValue,
-  MultiTypeInputType,
-  ButtonVariation
+  IconName,
+  Layout,
+  MultiTypeInputType
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { FieldArray, FormikErrors, FormikProps, yupToFormErrors } from 'formik'
 import * as Yup from 'yup'
 import { v4 as uuid } from 'uuid'
-import type {} from 'formik'
 import { defaultTo, isEmpty } from 'lodash-es'
 import { getNameAndIdentifierSchema } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 
-import { StepViewType, StepProps, ValidateInputSetProps, setFormikRef } from '@pipeline/components/AbstractSteps/Step'
-import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
-import type { StepElementConfig, K8sApplyStepInfo } from 'services/cd-ng'
+import {
+  StepFormikFowardRef,
+  setFormikRef,
+  StepProps,
+  StepViewType,
+  ValidateInputSetProps
+} from '@pipeline/components/AbstractSteps/Step'
+import type { K8sApplyStepInfo, StepElementConfig } from 'services/cd-ng'
 
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
@@ -212,7 +216,7 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
                               placeholder={getString('cd.filePathPlaceholder')}
                               name={`spec.filePaths[${index}].value`}
                               multiTextInputProps={{
-                                allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                                allowableTypes: allowableTypes.filter(item => item !== MultiTypeInputType.RUNTIME),
                                 expressions,
                                 textProps: { disabled: isDisabled }
                               }}
@@ -427,7 +431,7 @@ export class K8sApplyStep extends PipelineStep<K8sApplyData> {
         isDisabled={readonly}
         ref={formikRef}
         allowableTypes={allowableTypes}
-        onChange={onChange}
+        onChange={data => onChange?.(this.processFormData(data))}
       />
     )
   }

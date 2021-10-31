@@ -5,7 +5,6 @@ import cx from 'classnames'
 import { FormikErrors, FormikProps, yupToFormErrors } from 'formik'
 
 import { isEmpty } from 'lodash-es'
-import { IdentifierSchema } from '@common/utils/Validation'
 import { StepViewType, StepProps, ValidateInputSetProps, setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import type { StepElementConfig, K8sRollingRollbackStepInfo } from 'services/cd-ng'
@@ -71,14 +70,11 @@ function K8sRollingRollbackWidget(
         formName="k8RollingRB"
         initialValues={initialValues}
         validate={data => {
-          onChange?.(data)
+          onChange?.({ ...data, spec: { skipDryRun: false } })
         }}
         validationSchema={Yup.object().shape({
           ...getNameAndIdentifierSchema(getString, stepViewType),
-          timeout: getDurationValidationSchema({ minimum: '10s' }).required(
-            getString('validation.timeout10SecMinimum')
-          ),
-          identifier: IdentifierSchema()
+          timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum'))
         })}
       >
         {(formik: FormikProps<K8sRollingRollbackData>) => {

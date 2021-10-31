@@ -278,7 +278,7 @@ export class K8sCanaryDeployStep extends PipelineStep<K8sCanaryDeployData> {
         isNewStep={isNewStep}
         stepViewType={defaultTo(stepViewType, StepViewType.Edit)}
         allowableTypes={allowableTypes}
-        onChange={onChange}
+        onChange={values => onChange?.(this.processFormData(values))}
         ref={formikRef}
         readonly={readonly}
       />

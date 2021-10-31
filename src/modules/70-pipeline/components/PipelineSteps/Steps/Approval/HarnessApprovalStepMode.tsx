@@ -4,14 +4,14 @@ import { isEmpty } from 'lodash-es'
 import * as Yup from 'yup'
 import { FieldArray, FormikProps } from 'formik'
 import {
-  Formik,
-  MultiTypeInputType,
   Accordion,
-  FormInput,
   Button,
-  getMultiTypeFromValue,
+  Formik,
   FormikForm,
-  HarnessDocTooltip
+  FormInput,
+  getMultiTypeFromValue,
+  HarnessDocTooltip,
+  MultiTypeInputType
 } from '@wings-software/uicore'
 import { setFormikRef, StepFormikFowardRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { String, useStrings } from 'framework/strings'
@@ -25,10 +25,10 @@ import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea
 import { FormMultiTypeUserGroupInput } from '@common/components/UserGroupsInput/FormMultitypeUserGroupInput'
 import { isApprovalStepFieldDisabled } from '../ApprovalCommons'
 import type {
-  HarnessApprovalStepModeProps,
-  HarnessApprovalData,
   ApproverInputsSubmitCallInterface,
-  HarnessApprovalFormContentProps
+  HarnessApprovalData,
+  HarnessApprovalFormContentProps,
+  HarnessApprovalStepModeProps
 } from './types'
 import { getNameAndIdentifierSchema } from '../StepsValidateUtils'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
@@ -194,7 +194,7 @@ const FormContent = ({
                                   label=""
                                   placeholder={getString('valueLabel')}
                                   multiTextInputProps={{
-                                    allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                                    allowableTypes: allowableTypes.filter(item => item !== MultiTypeInputType.RUNTIME),
                                     expressions
                                   }}
                                 />
