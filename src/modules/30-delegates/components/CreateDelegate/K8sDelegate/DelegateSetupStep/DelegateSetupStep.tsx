@@ -53,8 +53,7 @@ const delegateSizeUpto = {
   [DelegateSize.LARGE]: 40
 }
 
-//this regex is retrieved from kubernetes
-const delegateNameRegex = /^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$/g
+const delegateNameRegex = /^[a-z]([-a-z0-9]*[a-z])?(\.[a-z0-9]([-a-z0-9]*[a-z])?)*$/g
 
 const formatProfileList = (data: any): Array<SelectOption> => {
   const profiles: Array<DelegateProfile> = data?.resource?.response
@@ -229,6 +228,7 @@ const DelegateSetup: React.FC<StepProps<StepK8Data> & DelegateSetupStepProps> = 
             name: Yup.string()
               .trim()
               .required(getString('delegate.delegateNameRequired'))
+              .max(63)
               .matches(delegateNameRegex, getString('delegates.delegateNameRegexIssue')),
             size: Yup.string().trim().required(getString('delegate.delegateSizeRequired')),
             delegateConfigurationId: Yup.string().trim().required(getString('delegate.delegateConfigRequired')),
