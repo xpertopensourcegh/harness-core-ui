@@ -4,6 +4,7 @@ import cx from 'classnames'
 import { useParams, useHistory } from 'react-router-dom'
 import { Button, Layout } from '@wings-software/uicore'
 import type { Editions } from '@common/constants/SubscriptionTypes'
+import { SUBSCRIPTION_TAB_NAMES, ModuleLicenseType } from '@common/constants/SubscriptionTypes'
 import { useStrings } from 'framework/strings'
 import { useQueryParams } from '@common/hooks'
 import type { ModuleName } from 'framework/types/ModuleName'
@@ -19,11 +20,6 @@ import SubscriptionBanner from './SubscriptionBanner'
 import SubscriptionPlans from './plans/SubscriptionPlans'
 import css from './SubscriptionsPage.module.scss'
 
-export enum SUBSCRIPTION_TAB_NAMES {
-  OVERVIEW = 'OVERVIEW',
-  PLANS = 'PLANS',
-  BILLING = 'BILLING'
-}
 export interface SubscriptionTabInfo {
   name: SUBSCRIPTION_TAB_NAMES
   label: keyof StringsMap
@@ -87,7 +83,7 @@ const SubscriptionTab = ({
   }, [queryTab])
 
   function getBanner(): React.ReactElement | null {
-    if ((!isExpired && licenseData?.licenseType !== 'TRIAL' && expiredDays > 14) || isFreeOrCommunity) {
+    if ((!isExpired && licenseData?.licenseType !== ModuleLicenseType.TRIAL && expiredDays > 14) || isFreeOrCommunity) {
       return null
     }
 

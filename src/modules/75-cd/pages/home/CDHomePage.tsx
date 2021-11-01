@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useCallback } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { pick } from 'lodash-es'
 import { PageError, PageSpinner } from '@wings-software/uicore'
@@ -13,12 +13,13 @@ import { useQueryParams } from '@common/hooks'
 import type { Project } from 'services/cd-ng'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useGetPipelineList, PagePMSPipelineSummaryResponse } from 'services/pipeline-ng'
-import { TrialType, useCDTrialModal, UseCDTrialModalProps } from '@cd/modals/CDTrial/useCDTrialModal'
+import { useCDTrialModal } from '@cd/modals/CDTrial/useCDTrialModal'
 import routes from '@common/RouteDefinitions'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
-import { handleUpdateLicenseStore, useLicenseStore, isCDCommunity } from 'framework/LicenseStore/LicenseStoreContext'
+import { handleUpdateLicenseStore, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import { useToaster } from '@common/components'
-import type { Editions } from '@common/constants/SubscriptionTypes'
+import { Editions, ModuleLicenseType } from '@common/constants/SubscriptionTypes'
+import { getCDTrialModalProps, openModal, handleProjectCreateSuccess } from './cdHomeUtils'
 import CDTrialHomePage from './CDTrialHomePage'
 import bgImageURL from './images/cd.svg'
 
@@ -29,6 +30,8 @@ export const CDHomePage: React.FC = () => {
   const { showError } = useToaster()
 
   const { accountId } = useParams<AccountPathProps>()
+  const moduleType = ModuleName.CD
+  const module = moduleType.toLowerCase() as Module
 
   const {
     data,
@@ -36,34 +39,21 @@ export const CDHomePage: React.FC = () => {
     refetch: refetchLicense,
     loading: gettingLicense
   } = useGetLicensesAndSummary({
-    queryParams: { moduleType: ModuleName.CD as any },
+    queryParams: { moduleType },
     accountIdentifier: accountId
   })
 
   const expiryTime = data?.data?.maxExpiryTime
   const updatedLicenseInfo = data?.data && {
-    ...licenseInformation?.['CD'],
+    ...licenseInformation?.[moduleType],
     ...pick(data?.data, ['licenseType', 'edition']),
     expiryTime
   }
 
   useEffect(() => {
-    handleUpdateLicenseStore(
-      { ...licenseInformation },
-      updateLicenseStore,
-      ModuleName.CD.toString() as Module,
-      updatedLicenseInfo
-    )
+    handleUpdateLicenseStore({ ...licenseInformation }, updateLicenseStore, module, updatedLicenseInfo)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])
-
-  const trialBannerProps = {
-    expiryTime: data?.data?.maxExpiryTime,
-    licenseType: data?.data?.licenseType,
-    module: ModuleName.CD,
-    edition: data?.data?.edition as Editions,
-    refetch: refetchLicense
-  }
 
   const pushToPipelineStudio = (pipelinId: string, projectData?: Project, search?: string): void => {
     const pathname = routes.toPipelineStudio({
@@ -71,19 +61,18 @@ export const CDHomePage: React.FC = () => {
       projectIdentifier: projectData?.identifier || '',
       pipelineIdentifier: pipelinId,
       accountId,
-      module: 'cd'
+      module
     })
-    search
-      ? history.push({
-          pathname,
-          search
-        })
-      : history.push(pathname)
+    history.push({
+      pathname,
+      search
+    })
   }
 
   const { openProjectModal, closeProjectModal } = useProjectModal({
     onWizardComplete: (projectData?: Project) => {
-      closeProjectModal(), pushToPipelineStudio('-1', projectData, '?modal=trial')
+      closeProjectModal()
+      pushToPipelineStudio('-1', projectData, `?modal=${experience}`)
     }
   })
 
@@ -95,7 +84,7 @@ export const CDHomePage: React.FC = () => {
     }
   }
 
-  const { trial, modal, community } = useQueryParams<{ trial?: boolean; modal?: boolean; community?: boolean }>()
+  const { experience, modal } = useQueryParams<{ experience?: ModuleLicenseType; modal?: ModuleLicenseType }>()
   const { selectedProject, currentUserInfo } = useAppStore()
   const { accounts, defaultAccountId } = currentUserInfo
   const createdFromNG = accounts?.find(account => account.uuid === defaultAccountId)?.createdFromNG
@@ -112,12 +101,12 @@ export const CDHomePage: React.FC = () => {
       accountIdentifier: accountId,
       projectIdentifier: selectedProject?.identifier || '',
       orgIdentifier: selectedProject?.orgIdentifier || '',
-      module: 'cd',
+      module,
       size: 1
     }
   })
 
-  const fetchPipelines = React.useCallback(
+  const fetchPipelines = useCallback(
     async () => {
       try {
         cancel()
@@ -130,12 +119,12 @@ export const CDHomePage: React.FC = () => {
     [cancel]
   )
 
-  React.useEffect(() => {
-    if (selectedProject?.identifier && selectedProject?.orgIdentifier) {
+  useEffect(() => {
+    if (selectedProject) {
       fetchPipelines()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedProject?.identifier, selectedProject?.orgIdentifier])
+  }, [selectedProject])
 
   // get project lists via accountId
   const {
@@ -151,52 +140,42 @@ export const CDHomePage: React.FC = () => {
   const projectsExist = !!projectListData?.data?.content?.length
   const pipelinesExist = !!pipelineData?.content?.length
 
-  const getCDTrialModalProps = (): UseCDTrialModalProps => {
-    const props = selectedProject
-      ? {
-          actionProps: {
-            onSuccess: (pipelineId: string) => pushToPipelineStudio(pipelineId, selectedProject)
-          },
-          trialType: TrialType.CREATE_OR_SELECT_PIPELINE
-        }
-      : {
-          actionProps: {
-            onCreateProject: openProjectModal
-          },
-          trialType: TrialType.CREATE_OR_SELECT_PROJECT
-        }
-    return props
-  }
-
   const { openCDTrialModal } = useCDTrialModal({
-    ...getCDTrialModalProps()
+    ...getCDTrialModalProps({ selectedProject, openProjectModal, pushToPipelineStudio })
   })
+
+  const trialBannerProps = {
+    expiryTime: data?.data?.maxExpiryTime,
+    licenseType: data?.data?.licenseType,
+    module: moduleType,
+    edition: data?.data?.edition as Editions,
+    refetch: refetchLicense
+  }
 
   useEffect(
     () => {
       refetchLicense()
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [trial]
+    [experience]
   )
 
   useEffect(
     () => {
-      if (modal && !gettingProjects && !gettingPipelines) {
-        // selectedProject exists and no pipelines, forward to create pipeline
-        if (selectedProject && !pipelinesExist) {
-          pushToPipelineStudio('-1', selectedProject)
-        } else if (!selectedProject && !projectsExist) {
-          // selectedProject doesnot exist and projects donot exist, open project modal
-          openProjectModal()
-        } else {
-          // otherwise, just open cd trial modal
-          openCDTrialModal()
-        }
-      }
+      openModal({
+        modal,
+        gettingProjects,
+        gettingPipelines,
+        selectedProject,
+        pipelinesExist,
+        projectsExist,
+        openProjectModal,
+        openCDTrialModal,
+        pushToPipelineStudio
+      })
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [modal, selectedProject, gettingProjects, gettingPipelines]
+    [modal, selectedProject, gettingProjects, gettingPipelines, pipelinesExist, projectsExist]
   )
 
   if (gettingLicense || gettingProjects || gettingPipelines) {
@@ -204,22 +183,22 @@ export const CDHomePage: React.FC = () => {
   }
 
   if (licenseErr) {
-    const message = (licenseErr?.data as Error)?.message || licenseErr?.message
+    const message = (licenseErr.data as Error)?.message || licenseErr.message
     return <PageError message={message} onClick={() => refetchLicense()} />
   }
 
   if (projectsErr) {
-    const message = (projectsErr?.data as Error)?.message || projectsErr?.message
+    const message = (projectsErr.data as Error)?.message || projectsErr.message
     return <PageError message={message} onClick={() => refetchProject()} />
   }
 
   const showTrialPages = createdFromNG || NG_LICENSES_ENABLED
 
-  if (showTrialPages && data?.status === 'SUCCESS' && !data.data) {
+  if (showTrialPages && !data?.data) {
     return <CDTrialHomePage />
   }
 
-  if (showTrialPages && data && data.data && trial) {
+  if (showTrialPages && experience === ModuleLicenseType.TRIAL) {
     return (
       <TrialInProgressTemplate
         title={getString('cd.continuous')}
@@ -231,21 +210,15 @@ export const CDHomePage: React.FC = () => {
   }
 
   const projectCreateSuccessHandler = (project?: Project): void => {
-    if (isCDCommunity(licenseInformation) && community) {
-      pushToPipelineStudio('-1', project, '?modal=trial')
-      return
-    }
-
-    if (project) {
-      history.push(
-        routes.toProjectOverview({
-          projectIdentifier: project.identifier,
-          orgIdentifier: project.orgIdentifier || /* istanbul ignore next */ '',
-          accountId,
-          module: 'cd'
-        })
-      )
-    }
+    handleProjectCreateSuccess({
+      project,
+      licenseInformation,
+      experience,
+      pushToPipelineStudio,
+      push: history.push,
+      accountId,
+      module
+    })
   }
 
   return (

@@ -124,15 +124,23 @@ const PlanContainer: React.FC<PlanProps> = ({ plans, timeType, moduleName }) => 
 
       handleUpdateLicenseStore({ ...licenseInformation }, updateLicenseStore, module, planData?.data)
 
+      let search
+      if (planData?.data?.licenseType === ModuleLicenseType.TRIAL) {
+        search = `?experience=${ModuleLicenseType.TRIAL}&&modal=${ModuleLicenseType.TRIAL}`
+      }
+
+      if (edition === Editions.FREE) {
+        search = `?experience=${ModuleLicenseType.FREE}&&modal=${ModuleLicenseType.FREE}`
+      }
+
       if (moduleName === ModuleName.CE) {
-        history.push(routes.toCEOverview({ accountId }))
+        history.push({
+          pathname: routes.toModuleTrialHome({ accountId, module }),
+          search
+        })
         return
       }
 
-      let search
-      if (licenseData?.licenseType === ModuleLicenseType.TRIAL) {
-        search = '?trial=true'
-      }
       history.push({
         pathname: routes.toModuleHome({ accountId, module }),
         search
@@ -173,10 +181,10 @@ const PlanContainer: React.FC<PlanProps> = ({ plans, timeType, moduleName }) => 
     }
 
     switch (licenseData?.licenseType) {
-      case 'PAID':
+      case ModuleLicenseType.PAID:
         isPaid = true
         break
-      case 'TRIAL':
+      case ModuleLicenseType.TRIAL:
         isTrial = true
         break
     }

@@ -30,9 +30,9 @@ declare const styles: {
   readonly ciFill: string
   readonly ccmFill: string
   readonly ffFill: string
-  readonly btnHeight: string
   readonly noPadding: string
   readonly tooltip: string
   readonly fontLarge: string
+  readonly btnHeight: string
 }
 export default styles

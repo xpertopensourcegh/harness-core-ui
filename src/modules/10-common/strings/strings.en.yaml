@@ -628,3 +628,5 @@ start14dayTrial: Start 14 day trial
 upgrade: Upgrade
 contactSupport: Contact Support
 or: Or
+startFreePlan: Start {{module}} Free Plan
+exploreAllPlans: Explore all plans

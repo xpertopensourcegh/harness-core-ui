@@ -7,7 +7,9 @@ export enum Editions {
 
 export enum ModuleLicenseType {
   TRIAL = 'TRIAL',
-  PAID = 'PAID'
+  PAID = 'PAID',
+  FREE = 'FREE',
+  COMMUNITY = 'COMMUNITY'
 }
 
 export enum RestrictionType {
@@ -15,4 +17,10 @@ export enum RestrictionType {
   STATIC_LIMIT = 'STATIC_LIMIT',
   RATE_LIMIT = 'RATE_LIMIT',
   CUSTOM = 'CUSTOM'
+}
+
+export enum SUBSCRIPTION_TAB_NAMES {
+  OVERVIEW = 'OVERVIEW',
+  PLANS = 'PLANS',
+  BILLING = 'BILLING'
 }

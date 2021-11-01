@@ -13,6 +13,7 @@ import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import NavExpandable from '@common/navigation/NavExpandable/NavExpandable'
 import { useFeatureFlagTelemetry } from '@cf/hooks/useFeatureFlagTelemetry'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import type { ModuleLicenseType } from '@common/constants/SubscriptionTypes'
 
 export default function CFSideNav(): React.ReactElement {
   const { getString } = useStrings()
@@ -21,7 +22,7 @@ export default function CFSideNav(): React.ReactElement {
   const history = useHistory()
   const { updateAppStore } = useAppStore()
   const { withActiveEnvironment } = useActiveEnvironment()
-  const { trial } = useQueryParams<{ trial?: boolean }>()
+  const { experience } = useQueryParams<{ experience?: ModuleLicenseType }>()
   const events = useFeatureFlagTelemetry()
 
   const { FF_GITSYNC, FF_PIPELINE } = useFeatureFlags()
@@ -30,7 +31,7 @@ export default function CFSideNav(): React.ReactElement {
   const projectSelectHandler: ProjectSelectorProps['onSelect'] = data => {
     updateAppStore({ selectedProject: data })
 
-    if (trial) {
+    if (experience) {
       // if select from trial page, forward user to get started page
       history.push({
         pathname: routes.toCFOnboarding({

@@ -154,6 +154,7 @@ export interface StringsMap {
   'common.errorHandler.tryTheseSuggestions': string
   'common.execute': string
   'common.expiryDate': string
+  'common.exploreAllPlans': string
   'common.explorePlans': string
   'common.extendTrial.description': string
   'common.extendTrial.doItLater': string
@@ -464,6 +465,7 @@ export interface StringsMap {
   'common.stable': string
   'common.start14dayTrial': string
   'common.startFree': string
+  'common.startFreePlan': string
   'common.startTrial': string
   'common.submittingRequest': string
   'common.submittingRequestToGitViaDelegate': string

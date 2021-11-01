@@ -15,7 +15,7 @@ import routes from '@common/RouteDefinitions'
 import { useQueryParams } from '@common/hooks'
 import { useGetLicensesAndSummary } from 'services/cd-ng'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
-import type { Editions } from '@common/constants/SubscriptionTypes'
+import { Editions, ModuleLicenseType } from '@common/constants/SubscriptionTypes'
 import bgImageURL from './images/ci.svg'
 
 const CIHomePage: React.FC = () => {
@@ -26,50 +26,47 @@ const CIHomePage: React.FC = () => {
 
   const { currentUserInfo } = useAppStore()
   const { licenseInformation, updateLicenseStore } = useLicenseStore()
+  const moduleType = ModuleName.CI
+  const module = moduleType.toLowerCase() as Module
 
   const { accounts } = currentUserInfo
   const createdFromNG = accounts?.find(account => account.uuid === accountId)?.createdFromNG
   const { data, error, refetch, loading } = useGetLicensesAndSummary({
-    queryParams: { moduleType: ModuleName.CI as any },
+    queryParams: { moduleType },
     accountIdentifier: accountId
   })
-  const { trial } = useQueryParams<{ trial?: boolean }>()
+  const { experience } = useQueryParams<{ experience?: ModuleLicenseType }>()
 
   const expiryTime = data?.data?.maxExpiryTime
   const updatedLicenseInfo = data?.data && {
-    ...licenseInformation?.['CI'],
+    ...licenseInformation?.[moduleType],
     ...pick(data?.data, ['licenseType', 'edition']),
     expiryTime
   }
 
   useEffect(() => {
-    handleUpdateLicenseStore(
-      { ...licenseInformation },
-      updateLicenseStore,
-      ModuleName.CI.toString() as Module,
-      updatedLicenseInfo
-    )
+    handleUpdateLicenseStore({ ...licenseInformation }, updateLicenseStore, module, updatedLicenseInfo)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])
 
   useEffect(() => {
     refetch()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [trial])
+  }, [experience])
 
   const { openProjectModal, closeProjectModal } = useProjectModal({
     onWizardComplete: (projectData?: Project) => {
-      closeProjectModal(),
-        history.push({
-          pathname: routes.toPipelineStudio({
-            orgIdentifier: projectData?.orgIdentifier || '',
-            projectIdentifier: projectData?.identifier || '',
-            pipelineIdentifier: '-1',
-            accountId,
-            module: 'ci'
-          }),
-          search: '?modal=trial'
-        })
+      closeProjectModal()
+      history.push({
+        pathname: routes.toPipelineStudio({
+          orgIdentifier: projectData?.orgIdentifier || '',
+          projectIdentifier: projectData?.identifier || '',
+          pipelineIdentifier: '-1',
+          accountId,
+          module
+        }),
+        search: `?modal=${experience}`
+      })
     }
   })
 
@@ -86,7 +83,7 @@ const CIHomePage: React.FC = () => {
   const trialBannerProps = {
     expiryTime: data?.data?.maxExpiryTime,
     licenseType: data?.data?.licenseType,
-    module: ModuleName.CI,
+    module: moduleType,
     edition: data?.data?.edition as Editions,
     refetch
   }
@@ -105,12 +102,12 @@ const CIHomePage: React.FC = () => {
     history.push(
       routes.toModuleTrialHome({
         accountId,
-        module: 'ci'
+        module
       })
     )
   }
 
-  if (showTrialPages && data && data.data && trial) {
+  if (showTrialPages && experience === ModuleLicenseType.TRIAL) {
     return (
       <TrialInProgressTemplate
         title={getString('ci.continuous')}
@@ -122,13 +119,26 @@ const CIHomePage: React.FC = () => {
   }
 
   const projectCreateSuccessHandler = (project?: Project): void => {
+    if (experience) {
+      history.push({
+        pathname: routes.toPipelineStudio({
+          orgIdentifier: project?.orgIdentifier || '',
+          projectIdentifier: project?.identifier || '',
+          pipelineIdentifier: '-1',
+          accountId,
+          module
+        }),
+        search: `?modal=${experience}`
+      })
+      return
+    }
     if (project) {
       history.push(
         routes.toProjectOverview({
           projectIdentifier: project.identifier,
           orgIdentifier: project.orgIdentifier || '',
           accountId,
-          module: 'ci'
+          module
         })
       )
     }

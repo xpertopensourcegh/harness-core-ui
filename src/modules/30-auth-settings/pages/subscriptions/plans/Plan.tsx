@@ -67,56 +67,56 @@ const Plan: React.FC<PlanProps> = ({ plan, timeType, module }) => {
 
   return (
     <Card className={cx(css.plan, currentPlanClassName, borderClassName)} disabled={isPlanDisabled}>
-      <Popover interactionKind={PopoverInteractionKind.HOVER} content={toolTip}>
-        <Layout.Vertical flex={{ align: CENTER_CENTER }}>
-          <CurrentPlanHeader
-            isTrial={isTrial}
-            isPaid={isPaid}
-            timeType={timeType}
-            module={module}
-            isCurrentPlan={isCurrentPlan}
-          />
-          <Layout.Vertical
-            flex={{ align: CENTER_CENTER }}
-            spacing="large"
-            padding={{ top: 'xxlarge' }}
-            className={currentPlanBodyClassName}
-          >
-            <SvgInline url={url} className={iConClassName} />
+      <Layout.Vertical flex={{ align: CENTER_CENTER }}>
+        <CurrentPlanHeader
+          isTrial={isTrial}
+          isPaid={isPaid}
+          timeType={timeType}
+          module={module}
+          isCurrentPlan={isCurrentPlan}
+        />
+        <Layout.Vertical
+          flex={{ align: CENTER_CENTER }}
+          spacing="large"
+          padding={{ top: 'xxlarge' }}
+          className={currentPlanBodyClassName}
+        >
+          <SvgInline url={url} className={iConClassName} />
+          <Popover interactionKind={PopoverInteractionKind.HOVER} content={toolTip}>
             <Text font={{ weight: 'semi-bold', size: 'medium' }} className={textColorClassName}>
               {planProps?.title}
             </Text>
-            <Layout.Vertical padding={{ top: 'large' }} flex={{ align: CENTER_CENTER }} spacing="medium">
-              <Layout.Horizontal spacing="small">
-                {getPrice({ timeType, plan, openMarketoContactSales, getString })}
-                {hasUnit && (
-                  <Layout.Vertical padding={{ left: 'small' }} flex={{ justifyContent: 'center', alignItems: 'start' }}>
-                    <Text font={{ size: 'small' }} className={textColorClassName} tooltip={planProps?.unitTips || ''}>
-                      {planProps?.unit}
-                    </Text>
-                    <Text font={{ size: 'small' }} color={Color.BLACK}>
-                      {getString('common.perMonth')}
-                    </Text>
-                  </Layout.Vertical>
-                )}
-              </Layout.Horizontal>
-              {getPriceTips({ timeType, plan, textColorClassName })}
-            </Layout.Vertical>
-            {getBtns({ isPlanDisabled, btnProps, getString })}
-            <Text color={Color.BLACK} padding="large" className={css.desc}>
-              {planProps?.desc}
-            </Text>
-            <ul className={css.ul}>
-              {planProps?.featureListZone?.map(feature => (
-                <li key={feature?.title} className={css.li}>
-                  <Text>{feature?.title}</Text>
-                </li>
-              ))}
-            </ul>
-            <Text className={css.support}>{planProps?.support}</Text>
+          </Popover>
+          <Layout.Vertical padding={{ top: 'large' }} flex={{ align: CENTER_CENTER }} spacing="medium">
+            <Layout.Horizontal spacing="small">
+              {getPrice({ timeType, plan, openMarketoContactSales, getString })}
+              {hasUnit && (
+                <Layout.Vertical padding={{ left: 'small' }} flex={{ justifyContent: 'center', alignItems: 'start' }}>
+                  <Text font={{ size: 'small' }} className={textColorClassName} tooltip={planProps?.unitTips || ''}>
+                    {planProps?.unit}
+                  </Text>
+                  <Text font={{ size: 'small' }} color={Color.BLACK}>
+                    {getString('common.perMonth')}
+                  </Text>
+                </Layout.Vertical>
+              )}
+            </Layout.Horizontal>
+            {getPriceTips({ timeType, plan, textColorClassName })}
           </Layout.Vertical>
+          {getBtns({ isPlanDisabled, btnProps, getString })}
+          <Text color={Color.BLACK} padding="large" className={css.desc}>
+            {planProps?.desc}
+          </Text>
+          <ul className={css.ul}>
+            {planProps?.featureListZone?.map(feature => (
+              <li key={feature?.title} className={css.li}>
+                <Text>{feature?.title}</Text>
+              </li>
+            ))}
+          </ul>
+          <Text className={css.support}>{planProps?.support}</Text>
         </Layout.Vertical>
-      </Popover>
+      </Layout.Vertical>
     </Card>
   )
 }

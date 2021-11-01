@@ -20,6 +20,7 @@ import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useQueryParams } from '@common/hooks'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import ProjectSetupMenu from '@common/navigation/ProjectSetupMenu/ProjectSetupMenu'
+import type { ModuleLicenseType } from '@common/constants/SubscriptionTypes'
 
 export default function CISideNav(): React.ReactElement {
   const params = useParams<
@@ -48,7 +49,7 @@ export default function CISideNav(): React.ReactElement {
   const module = 'ci'
   const { updateAppStore } = useAppStore()
   const { CI_OVERVIEW_PAGE } = useFeatureFlags()
-  const { trial } = useQueryParams<{ trial?: boolean }>()
+  const { experience } = useQueryParams<{ experience?: ModuleLicenseType }>()
 
   return (
     <Layout.Vertical spacing="small">
@@ -121,7 +122,7 @@ export default function CISideNav(): React.ReactElement {
             )
           } else {
             // when it's on trial page, forward to pipeline
-            if (trial) {
+            if (experience) {
               history.push({
                 pathname: routes.toPipelineStudio({
                   orgIdentifier: data.orgIdentifier || '',
@@ -130,18 +131,19 @@ export default function CISideNav(): React.ReactElement {
                   accountId,
                   module
                 }),
-                search: '?modal=trial'
+                search: `?modal=${experience}`
               })
-            } else {
-              history.push(
-                routes.toProjectOverview({
-                  projectIdentifier: data.identifier,
-                  orgIdentifier: data.orgIdentifier || '',
-                  accountId,
-                  module
-                })
-              )
+              return
             }
+
+            history.push(
+              routes.toProjectOverview({
+                projectIdentifier: data.identifier,
+                orgIdentifier: data.orgIdentifier || '',
+                accountId,
+                module
+              })
+            )
           }
         }}
       />

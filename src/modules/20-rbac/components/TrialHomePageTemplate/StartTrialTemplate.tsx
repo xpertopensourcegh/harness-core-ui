@@ -1,15 +1,24 @@
 import React from 'react'
 import { Heading, Layout, Text, Container, Button, Color } from '@wings-software/uicore'
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams, useHistory, Link } from 'react-router-dom'
 import { useToaster } from '@common/components'
+import { useStrings } from 'framework/strings'
 import { useLicenseStore, handleUpdateLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
-import { useStartTrialLicense, ResponseModuleLicenseDTO, StartTrialDTORequestBody } from 'services/cd-ng'
-import type { Module } from '@common/interfaces/RouteInterfaces'
+import {
+  useStartTrialLicense,
+  ResponseModuleLicenseDTO,
+  StartTrialDTORequestBody,
+  useStartFreeLicense,
+  StartFreeLicenseQueryParams
+} from 'services/cd-ng'
+import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
 import { useTelemetry } from '@common/hooks/useTelemetry'
-import { Category, TrialActions } from '@common/constants/TrackingConstants'
+import { Category, PlanActions, TrialActions } from '@common/constants/TrackingConstants'
 import routes from '@common/RouteDefinitions'
 import useStartTrialModal from '@common/modals/StartTrial/StartTrialModal'
-import { Editions } from '@common/constants/SubscriptionTypes'
+import { Editions, ModuleLicenseType, SUBSCRIPTION_TAB_NAMES } from '@common/constants/SubscriptionTypes'
+import { useFeatureFlags, useFeatureFlag } from '@common/hooks/useFeatureFlag'
+import { FeatureFlag } from '@common/featureFlags'
 import css from './StartTrialTemplate.module.scss'
 
 interface StartTrialTemplateProps {
@@ -43,11 +52,19 @@ const StartTrialComponent: React.FC<StartTrialProps> = startTrialProps => {
     accountId: string
   }>()
   const { showError } = useToaster()
+  const { getString } = useStrings()
   const { showModal } = useStartTrialModal({ module, handleStartTrial })
   const { licenseInformation, updateLicenseStore } = useLicenseStore()
+  const { FREE_PLAN_ENABLED, PLANS_ENABLED } = useFeatureFlags()
+  const clickEvent = FREE_PLAN_ENABLED ? PlanActions.StartFreeClick : TrialActions.StartTrialClick
+  const experience = FREE_PLAN_ENABLED ? ModuleLicenseType.FREE : ModuleLicenseType.TRIAL
 
   async function handleStartTrial(): Promise<void> {
-    trackEvent(TrialActions.StartTrialClick, { category: Category.SIGNUP, module: module })
+    trackEvent(clickEvent, {
+      category: Category.SIGNUP,
+      module,
+      edition: FREE_PLAN_ENABLED ? Editions.FREE : Editions.ENTERPRISE
+    })
     try {
       const data = await startTrial()
 
@@ -55,7 +72,7 @@ const StartTrialComponent: React.FC<StartTrialProps> = startTrialProps => {
 
       history.push({
         pathname: routes.toModuleHome({ accountId, module }),
-        search: '?trial=true'
+        search: `?experience=${experience}`
       })
     } catch (error) {
       showError(error.data?.message)
@@ -87,6 +104,11 @@ const StartTrialComponent: React.FC<StartTrialProps> = startTrialProps => {
         onClick={startBtn.onClick ? startBtn.onClick : handleStartButtonClick}
         disabled={loading}
       />
+      {PLANS_ENABLED && (
+        <Link to={routes.toSubscriptions({ accountId, moduleCard: module, tab: SUBSCRIPTION_TAB_NAMES.PLANS })}>
+          {getString('common.exploreAllPlans')}
+        </Link>
+      )}
     </Layout.Vertical>
   )
 }
@@ -97,23 +119,37 @@ export const StartTrialTemplate: React.FC<StartTrialTemplateProps> = ({
   startTrialProps,
   module
 }) => {
-  const { accountId } = useParams<{
-    accountId: string
-  }>()
+  const { accountId } = useParams<AccountPathProps>()
+
+  const isFreeEnabled = useFeatureFlag(FeatureFlag.FREE_PLAN_ENABLED)
 
   const startTrialRequestBody: StartTrialDTORequestBody = {
     moduleType: module.toUpperCase() as any,
     edition: Editions.ENTERPRISE
   }
 
-  const { mutate: startTrial, loading } = useStartTrialLicense({
+  const { mutate: startTrial, loading: startingTrial } = useStartTrialLicense({
     queryParams: {
       accountIdentifier: accountId
     }
   })
 
+  const moduleType = module.toUpperCase() as StartFreeLicenseQueryParams['moduleType']
+
+  const { mutate: startFreePlan, loading: startingFree } = useStartFreeLicense({
+    queryParams: {
+      accountIdentifier: accountId,
+      moduleType
+    },
+    requestOptions: {
+      headers: {
+        'content-type': 'application/json'
+      }
+    }
+  })
+
   function handleStartTrial(): Promise<ResponseModuleLicenseDTO> {
-    return startTrial(startTrialRequestBody)
+    return isFreeEnabled ? startFreePlan() : startTrial(startTrialRequestBody)
   }
 
   return (
@@ -123,7 +159,12 @@ export const StartTrialTemplate: React.FC<StartTrialTemplateProps> = ({
           {title}
         </Heading>
 
-        <StartTrialComponent {...startTrialProps} startTrial={handleStartTrial} module={module} loading={loading} />
+        <StartTrialComponent
+          {...startTrialProps}
+          startTrial={handleStartTrial}
+          module={module}
+          loading={startingTrial || startingFree}
+        />
       </Layout.Vertical>
     </Container>
   )
