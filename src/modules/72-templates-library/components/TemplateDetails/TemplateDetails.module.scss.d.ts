@@ -2,9 +2,9 @@
 // this is an auto-generated file
 declare const styles: {
   readonly container: string
+  readonly shrink: string
   readonly openInStudio: string
-  readonly description: string
+  readonly topContainer: string
   readonly tabsContainer: string
-  readonly detailsSectionTabs: string
 }
 export default styles

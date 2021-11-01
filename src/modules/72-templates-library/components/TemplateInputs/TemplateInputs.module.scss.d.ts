@@ -1,9 +1,9 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly sideContainer: string
-  readonly error: string
+  readonly container: string
   readonly inputsContainer: string
   readonly inputsCount: string
+  readonly inputsCard: string
 }
 export default styles

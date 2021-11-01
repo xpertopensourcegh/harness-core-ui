@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import cx from 'classnames'
 import ReactTimeago from 'react-timeago'
-import { Button, Color, Container, Icon, Layout, Text } from '@wings-software/uicore'
+import { Button, Color, Container, Heading, Icon, Layout, PageError, Text } from '@wings-software/uicore'
+import { isEmpty } from 'lodash-es'
 import { useMutateAsGet } from '@common/hooks'
 import { PageSpinner } from '@common/components'
 import { useStrings } from 'framework/strings'
@@ -109,13 +110,14 @@ const TemplateActivity = ({ auditEvent, last }: TemplateActivityProps) => {
 }
 
 export const TemplateActivityLog = (props: TemplateActivityLogProps) => {
-  const { getString } = useStrings()
+  const {
+    selectedTemplate: { identifier }
+  } = props
   const {
     data: templateActivityLogs,
     loading: fetchingTemplateActivityLogs,
     error: templateActivityLogsFetchError,
-    refetch: fetchTemplateActivityLogs,
-    cancel
+    refetch: fetchTemplateActivityLogs
   } = useMutateAsGet(useGetAuditList, {
     queryParams: {
       accountIdentifier: props.accountIdentifier
@@ -125,42 +127,42 @@ export const TemplateActivityLog = (props: TemplateActivityLogProps) => {
   })
 
   useEffect(() => {
-    if (fetchingTemplateActivityLogs) {
-      cancel()
-    }
     fetchTemplateActivityLogs()
-  }, [props.selectedTemplate.stableTemplate])
-
-  const [activityLogs, setActivityLogs] = useState<AuditEventDTO[]>([])
-  const [errorMessage, setErrorMessage] = useState('')
-
-  useEffect(() => {
-    if (templateActivityLogs?.data?.content) {
-      setActivityLogs(templateActivityLogs?.data?.content)
-      setErrorMessage('')
-    } else if (templateActivityLogsFetchError?.message) {
-      setActivityLogs([])
-      setErrorMessage(templateActivityLogsFetchError?.message)
-    }
-  }, [templateActivityLogs, templateActivityLogsFetchError])
-
-  if (fetchingTemplateActivityLogs) {
-    return <PageSpinner className={css.fetchingSpinner} message={getString('templatesLibrary.fetchingActivityLogs')} />
-  }
-
-  if (errorMessage) {
-    return (
-      <Text intent="danger" padding="huge" font={{ align: 'center' }}>
-        {errorMessage}
-      </Text>
-    )
-  }
+  }, [identifier])
 
   return (
-    <Container padding={{ left: 'huge' }}>
-      {activityLogs.map((auditEvent, index) => (
-        <TemplateActivity key={auditEvent.auditId} auditEvent={auditEvent} last={index === activityLogs.length - 1} />
-      ))}
+    <Container height={'100%'} className={css.container}>
+      <Layout.Vertical flex={{ align: 'center-center' }} height={'100%'}>
+        {fetchingTemplateActivityLogs && <PageSpinner />}
+        {!fetchingTemplateActivityLogs && templateActivityLogsFetchError && (
+          <PageError message={templateActivityLogsFetchError.message} onClick={() => fetchTemplateActivityLogs()} />
+        )}
+        {!fetchingTemplateActivityLogs &&
+          !templateActivityLogsFetchError &&
+          isEmpty(templateActivityLogs?.data?.content) && (
+            <Heading level={2} font={{ weight: 'bold' }} color={Color.GREY_300}>
+              This template has no activity logs
+            </Heading>
+          )}
+        {!fetchingTemplateActivityLogs &&
+          !templateActivityLogsFetchError &&
+          !isEmpty(templateActivityLogs?.data?.content) && (
+            <Container
+              style={{ overflow: 'auto' }}
+              width={'100%'}
+              height={'100%'}
+              padding={{ top: 'medium', bottom: 'medium', left: 'huge' }}
+            >
+              {templateActivityLogs?.data?.content?.map((auditEvent, index) => (
+                <TemplateActivity
+                  key={auditEvent.auditId}
+                  auditEvent={auditEvent}
+                  last={index === (templateActivityLogs.data?.content || []).length - 1}
+                />
+              ))}
+            </Container>
+          )}
+      </Layout.Vertical>
     </Container>
   )
 }

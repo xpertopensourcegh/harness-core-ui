@@ -337,6 +337,8 @@ export const TemplateStudioSubHeaderLeftView: (props: TemplateStudioSubHeaderLef
               <RbacButton
                 variation={ButtonVariation.ICON}
                 icon="Edit"
+                color={Color.GREY_500}
+                withoutCurrentColor
                 onClick={() => {
                   setModalProps({
                     title: getString('templatesLibrary.createNewModal.editHeading'),

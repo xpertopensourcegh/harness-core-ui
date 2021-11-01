@@ -20,7 +20,7 @@ interface ContextMenuProps extends PopoverProps {
   className?: string
 }
 
-export const TemplateListContextMenu: React.FC<ContextMenuProps> = (props): JSX.Element => {
+export const TemplateListCardContextMenu: React.FC<ContextMenuProps> = (props): JSX.Element => {
   const { getString } = useStrings()
   const { template, onPreview, onOpenEdit, onOpenSettings, onDelete, className, ...popoverProps } = props
   const [menuOpen, setMenuOpen] = React.useState(false)

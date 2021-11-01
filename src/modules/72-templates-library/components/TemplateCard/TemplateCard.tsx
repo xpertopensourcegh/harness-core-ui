@@ -7,11 +7,11 @@ import { TimeAgoPopover, UserLabel } from '@common/components'
 import { getIconsForTemplates, templateColorStyleMap } from '@templates-library/pages/TemplatesPage/TemplatesPageUtils'
 import { TemplateTags } from '@templates-library/components/TemplateTags/TemplateTags'
 import { useStrings } from 'framework/strings'
-import { TemplateListContextMenu } from '@templates-library/pages/TemplatesPage/views/TemplatesListView/TemplateListCardContextMenu/TemplateListContextMenu'
 import { getRepoDetailsByIndentifier } from '@common/utils/gitSyncUtils'
 import type { NGTemplateInfoConfig, TemplateSummaryResponse } from 'services/template-ng'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
+import { TemplateListCardContextMenu } from '@templates-library/pages/TemplatesPage/views/TemplateListCardContextMenu/TemplateListCardContextMenu'
 import { TemplateColor } from './TemplateColor/TemplateColor'
 import css from './TemplateCard.module.scss'
 
@@ -42,7 +42,7 @@ export function TemplateCard(props: TemplateCardProps): JSX.Element {
     <Container className={cx(css.container, { [css.bordered]: !!onSelect }, { [css.selected]: !!isSelected })}>
       <Card className={css.templateCard} onClick={() => onSelect?.(template)}>
         {!showMenu ? (
-          <TemplateListContextMenu
+          <TemplateListCardContextMenu
             template={template}
             onPreview={onPreview || noop}
             onOpenEdit={onOpenEdit || noop}

@@ -1,16 +1,34 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
+import { useMutateAsGet } from '@common/hooks'
+import MonacoEditor from '@common/components/MonacoEditor/__mocks__/MonacoEditor'
+import { mockTemplatesSuccessResponse } from '@templates-library/TemplatesTestHelper'
 import { TemplateDetails } from '../TemplateDetails'
 
+jest.mock('@common/hooks', () => ({
+  ...(jest.requireActual('@common/hooks') as any),
+  useMutateAsGet: jest.fn()
+}))
+
+jest.mock('react-monaco-editor', () => ({
+  MonacoDiffEditor: MonacoEditor
+}))
+
+jest.mock('@common/components/MonacoEditor/MonacoEditor', () => MonacoEditor)
+
 describe('<TemplateDetails /> tests', () => {
+  beforeEach(() => {
+    // eslint-disable-next-line
+    // @ts-ignore
+    useMutateAsGet.mockReturnValue(mockTemplatesSuccessResponse)
+  })
   test('snapshot test', async () => {
     const { container } = render(
       <TestWrapper>
-        <TemplateDetails accountId={'account-id'} templateIdentifier={'My_Step_Template'} />
+        <TemplateDetails accountId={'accountId'} templateIdentifier={'templateIdentifier'} />
       </TestWrapper>
     )
-
     expect(container).toMatchSnapshot()
   })
 })

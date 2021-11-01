@@ -21,7 +21,7 @@ describe('API ERROR', () => {
   test('if error message is displayed', () => {
     const { queryByText } = render(
       <TemplateActivityLog
-        selectedTemplate={{ stableTemplate: true }}
+        selectedTemplate={{ identifier: 'templateId' }}
         accountIdentifier="acId"
         projectIdentifier="pId"
         orgIdentifier="orgId"
@@ -44,7 +44,7 @@ describe('API FETCHING', () => {
     const { queryByText } = render(
       <TestWrapper>
         <TemplateActivityLog
-          selectedTemplate={{ stableTemplate: true }}
+          selectedTemplate={{ identifier: 'templateId' }}
           accountIdentifier="acId"
           projectIdentifier="pId"
           orgIdentifier="orgId"
@@ -52,7 +52,7 @@ describe('API FETCHING', () => {
       </TestWrapper>
     )
 
-    expect(queryByText('templatesLibrary.fetchingActivityLogs')).toBeTruthy()
+    expect(queryByText('Loading, please wait...')).toBeTruthy()
   })
 })
 
@@ -68,7 +68,7 @@ describe('API SUCCESS', () => {
     const { container } = render(
       <TestWrapper>
         <TemplateActivityLog
-          selectedTemplate={{ stableTemplate: true }}
+          selectedTemplate={{ identifier: 'templateId' }}
           accountIdentifier="acId"
           projectIdentifier="pId"
           orgIdentifier="orgId"

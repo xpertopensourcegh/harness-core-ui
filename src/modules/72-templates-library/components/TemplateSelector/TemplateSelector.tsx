@@ -111,6 +111,25 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = (props): JSX.El
     queryParamStringifyOptions: { arrayFormat: 'comma' }
   })
 
+  const getTemplateDetails: React.ReactElement = React.useMemo(() => {
+    if (selectedTemplate) {
+      return (
+        <TemplateDetails
+          setTemplate={setSelectedTemplate}
+          templateIdentifier={selectedTemplate.identifier || ''}
+          versionLabel={selectedTemplate.versionLabel}
+          accountId={accountId}
+          orgIdentifier={orgId}
+          projectIdentifier={projectId}
+          module={module}
+          gitDetails={selectedTemplate.gitDetails}
+        />
+      )
+    } else {
+      return <></>
+    }
+  }, [selectedTemplate, accountId, orgId, projectId, module])
+
   useEffect(() => {
     setSelectedTemplate(undefined)
     reloadTemplates()
@@ -207,24 +226,20 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = (props): JSX.El
             </Container>
           </Layout.Vertical>
         </Container>
-        <Container width={525} background={Color.FORM_BG}>
+        <Container width={525}>
           {selectedTemplate ? (
             <Layout.Vertical height={'100%'}>
-              <GitSyncStoreProvider>
-                <TemplateDetails
-                  setTemplate={setSelectedTemplate}
-                  templateIdentifier={selectedTemplate.identifier || ''}
-                  versionLabel={selectedTemplate.versionLabel}
-                  accountId={accountId}
-                  orgIdentifier={orgId}
-                  projectIdentifier={projectId}
-                  module={module}
-                  gitDetails={selectedTemplate.gitDetails}
-                />
-              </GitSyncStoreProvider>
+              <Container className={css.detailsContainer}>
+                {isGitSyncEnabled ? (
+                  <GitSyncStoreProvider>{getTemplateDetails}</GitSyncStoreProvider>
+                ) : (
+                  getTemplateDetails
+                )}
+              </Container>
               <Container>
                 <Layout.Horizontal
-                  padding={{ top: 'xxxlarge', right: 'xxlarge', bottom: 'xxxlarge', left: 'xxlarge' }}
+                  padding={'xxlarge'}
+                  background={Color.FORM_BG}
                   className={css.btnContainer}
                   spacing={'small'}
                 >

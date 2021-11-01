@@ -4,6 +4,7 @@ import { Button } from '@wings-software/uicore'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import type { EntityGitDetails } from 'services/template-ng'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { TemplateDetails } from '../TemplateDetails/TemplateDetails'
 import css from './TemplateDetailDrawer.module.scss'
 
@@ -21,6 +22,25 @@ export interface TemplateDetailsProps {
 export const TemplateDetailsDrawer: React.FC<TemplateDetailsProps> = props => {
   const { templateIdentifier, versionLabel, onClose, accountId, orgIdentifier, projectIdentifier, module, gitDetails } =
     props
+  const { isGitSyncEnabled } = useAppStore()
+
+  const getTemplateDetails: React.ReactElement = React.useMemo(() => {
+    if (templateIdentifier) {
+      return (
+        <TemplateDetails
+          templateIdentifier={templateIdentifier}
+          versionLabel={versionLabel}
+          accountId={accountId}
+          orgIdentifier={orgIdentifier}
+          projectIdentifier={projectIdentifier}
+          module={module}
+          gitDetails={gitDetails}
+        />
+      )
+    } else {
+      return <></>
+    }
+  }, [templateIdentifier, versionLabel, accountId, orgIdentifier, projectIdentifier, module, gitDetails])
 
   return (
     <Drawer
@@ -37,18 +57,7 @@ export const TemplateDetailsDrawer: React.FC<TemplateDetailsProps> = props => {
     >
       <Button minimal className={css.almostFullScreenCloseBtn} icon="cross" withoutBoxShadow onClick={onClose} />
       {templateIdentifier && (
-        <GitSyncStoreProvider>
-          <TemplateDetails
-            templateIdentifier={templateIdentifier}
-            versionLabel={versionLabel}
-            onClose={onClose}
-            accountId={accountId}
-            orgIdentifier={orgIdentifier}
-            projectIdentifier={projectIdentifier}
-            module={module}
-            gitDetails={gitDetails}
-          />
-        </GitSyncStoreProvider>
+        <>{isGitSyncEnabled ? <GitSyncStoreProvider>{getTemplateDetails}</GitSyncStoreProvider> : getTemplateDetails}</>
       )}
     </Drawer>
   )

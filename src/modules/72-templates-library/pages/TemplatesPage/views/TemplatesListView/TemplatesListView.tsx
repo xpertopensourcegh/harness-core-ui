@@ -2,12 +2,12 @@ import React from 'react'
 import type { CellProps, Column, Renderer } from 'react-table'
 import { Color, Layout, Text } from '@wings-software/uicore'
 import { Position } from '@blueprintjs/core'
+import { TemplateListCardContextMenu } from '@templates-library/pages/TemplatesPage/views/TemplateListCardContextMenu/TemplateListCardContextMenu'
 import Table from '@common/components/Table/Table'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import type { TemplateSummaryResponse } from 'services/template-ng'
 import { templateColorStyleMap } from '@templates-library/pages/TemplatesPage/TemplatesPageUtils'
-import { TemplateListContextMenu } from '@templates-library/pages/TemplatesPage/views/TemplatesListView/TemplateListCardContextMenu/TemplateListContextMenu'
 import type { TemplatesViewProps } from '@templates-library/pages/TemplatesPage/views/TemplatesView'
 import { TagsPopover } from '@common/components'
 import GitDetailsColumn from '@common/components/Table/GitDetailsColumn/GitDetailsColumn'
@@ -25,7 +25,7 @@ const RenderColumnMenu: Renderer<CellProps<TemplateSummaryResponse>> = ({ row, c
 
   return (
     <Layout.Horizontal style={{ justifyContent: 'flex-end' }}>
-      <TemplateListContextMenu
+      <TemplateListCardContextMenu
         template={data}
         onPreview={(column as CustomColumn<TemplateSummaryResponse>).onPreview}
         onOpenEdit={(column as CustomColumn<TemplateSummaryResponse>).onOpenEdit}
@@ -108,7 +108,7 @@ const RenderColumnLabel: Renderer<CellProps<TemplateSummaryResponse>> = ({ row }
   )
 }
 
-export const TemplateListView: React.FC<TemplatesViewProps> = (props): JSX.Element => {
+export const TemplatesListView: React.FC<TemplatesViewProps> = (props): JSX.Element => {
   const { getString } = useStrings()
   const { data, selectedIdentifier, gotoPage, onPreview, onOpenEdit, onOpenSettings, onDelete, onSelect } = props
   const { isGitSyncEnabled } = useAppStore()
@@ -168,7 +168,7 @@ export const TemplateListView: React.FC<TemplatesViewProps> = (props): JSX.Eleme
         onDelete
       }
     ],
-    [onPreview]
+    [isGitSyncEnabled, onPreview, onOpenEdit, onOpenSettings, onDelete]
   )
 
   if (hideMenu) {

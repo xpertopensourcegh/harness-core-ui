@@ -8,6 +8,7 @@ declare const styles: {
   readonly selectorContainer: string
   readonly gitFilter: string
   readonly searchBox: string
+  readonly detailsContainer: string
   readonly btnContainer: string
 }
 export default styles

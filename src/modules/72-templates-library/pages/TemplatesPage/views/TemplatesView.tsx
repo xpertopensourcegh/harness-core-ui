@@ -1,9 +1,10 @@
 import React from 'react'
 import { Views } from '@wings-software/uicore'
 import { TemplatesGridView } from '@templates-library/pages/TemplatesPage/views/TemplatesGridView/TemplatesGridView'
-import { TemplateListView } from '@templates-library/pages/TemplatesPage/views/TemplatesListView/TemplateListView'
 import type { PageTemplateSummaryResponse, TemplateSummaryResponse } from 'services/template-ng'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { TemplatesListView } from '@templates-library/pages/TemplatesPage/views/TemplatesListView/TemplatesListView'
 
 export interface TemplatesViewProps {
   data?: PageTemplateSummaryResponse
@@ -17,33 +18,17 @@ export interface TemplatesViewProps {
 }
 
 export default function TemplatesView(props: TemplatesViewProps & { view: Views }): React.ReactElement {
-  const { data, selectedIdentifier, gotoPage, onSelect, onPreview, onOpenEdit, onOpenSettings, onDelete, view } = props
+  const { view, ...rest } = props
+  const { isGitSyncEnabled } = useAppStore()
 
-  return (
-    <GitSyncStoreProvider>
-      {view === Views.GRID ? (
-        <TemplatesGridView
-          gotoPage={gotoPage}
-          data={data}
-          onSelect={onSelect}
-          selectedIdentifier={selectedIdentifier}
-          onPreview={onPreview}
-          onOpenEdit={onOpenEdit}
-          onOpenSettings={onOpenSettings}
-          onDelete={onDelete}
-        />
-      ) : (
-        <TemplateListView
-          gotoPage={gotoPage}
-          data={data}
-          onSelect={onSelect}
-          selectedIdentifier={selectedIdentifier}
-          onPreview={onPreview}
-          onOpenEdit={onOpenEdit}
-          onOpenSettings={onOpenSettings}
-          onDelete={onDelete}
-        />
-      )}
-    </GitSyncStoreProvider>
+  const content = React.useMemo(
+    () => (view === Views.GRID ? <TemplatesGridView {...rest} /> : <TemplatesListView {...rest} />),
+    [rest]
   )
+
+  if (isGitSyncEnabled) {
+    return <GitSyncStoreProvider>{content}</GitSyncStoreProvider>
+  } else {
+    return <>{content}</>
+  }
 }

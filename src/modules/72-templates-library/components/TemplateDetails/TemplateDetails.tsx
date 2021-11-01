@@ -1,15 +1,14 @@
 import React, { useContext } from 'react'
-import cx from 'classnames'
 import {
   ButtonVariation,
   Color,
   Container,
   DropDown,
   Layout,
+  PageError,
   SelectOption,
   Tab,
   Tabs,
-  Tag,
   Text
 } from '@wings-software/uicore'
 import { useHistory } from 'react-router-dom'
@@ -17,7 +16,7 @@ import { defaultTo, isEmpty } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import { TemplateTags } from '@templates-library/components/TemplateTags/TemplateTags'
-import { PageSpinner, useToaster } from '@common/components'
+import { PageSpinner } from '@common/components'
 import { TemplateListType } from '@templates-library/pages/TemplatesPage/TemplatesPageUtils'
 import { useMutateAsGet } from '@common/hooks'
 import { useGetTemplateList, TemplateSummaryResponse, EntityGitDetails } from 'services/template-ng'
@@ -37,7 +36,6 @@ export interface TemplateDetailsProps {
   templateIdentifier: string
   versionLabel?: string
   setTemplate?: (template: TemplateSummaryResponse) => void
-  onClose?: () => void
   accountId: string
   orgIdentifier?: string
   projectIdentifier?: string
@@ -60,7 +58,6 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
   const {
     templateIdentifier,
     versionLabel = false,
-    onClose,
     setTemplate,
     accountId,
     orgIdentifier,
@@ -71,7 +68,6 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
   const { getString } = useStrings()
   const history = useHistory()
   const [versionOptions, setVersionOptions] = React.useState<SelectOption[]>([])
-  const { showError } = useToaster()
   const { isReadonly } = useContext(TemplateContext)
   const { isGitSyncEnabled } = useAppStore()
   const [selectedTemplate, setSelectedTemplate] = React.useState<TemplateSummaryResponse>()
@@ -135,15 +131,8 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
   }, [templateData?.data?.content])
 
   React.useEffect(() => {
-    if (templatesError) {
-      onClose?.()
-      showError(templatesError.message, undefined, 'template.fetch.template.error')
-    }
-  }, [templatesError])
-
-  React.useEffect(() => {
     reloadTemplates()
-  }, [templateIdentifier, versionLabel])
+  }, [templateIdentifier])
 
   const goToTemplateStudio = () => {
     if (selectedTemplate) {
@@ -167,139 +156,154 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
     setSelectedTab(tab)
   }, [])
 
-  const handleParentTabChange = React.useCallback((tab: ParentTemplateTabs) => {
-    setSelectedParentTab(tab)
-  }, [])
+  const handleParentTabChange = React.useCallback(
+    (tab: ParentTemplateTabs) => {
+      setSelectedParentTab(tab)
+    },
+    [setSelectedParentTab]
+  )
 
   return (
-    <Container
-      height={'100%'}
-      padding={{ top: 'large', bottom: 'large' }}
-      background={Color.FORM_BG}
-      className={css.container}
-    >
-      {loading && <PageSpinner />}
-      {selectedTemplate && (
-        <Layout.Vertical spacing={'xxxlarge'}>
-          <Layout.Horizontal
-            flex={{ alignItems: 'center' }}
-            spacing={'huge'}
-            padding={{ left: 'large', right: 'large' }}
-          >
-            <Layout.Horizontal>
-              <Text font={{ size: 'medium', weight: 'bold' }} color={Color.GREY_800}>
-                {selectedTemplate.name}
-              </Text>
-              {isGitSyncEnabled && (
-                <GitPopover
-                  data={defaultTo(selectedTemplate.gitDetails, {})}
-                  iconProps={{ margin: { left: 'small', top: 'xsmall' } }}
+    <Container height={'100%'} className={css.container}>
+      <Layout.Vertical flex={{ align: 'center-center' }} height={'100%'}>
+        {loading && <PageSpinner />}
+        {!loading && templatesError && (
+          <PageError message={templatesError?.message} onClick={() => reloadTemplates()} />
+        )}
+        {!templatesError && selectedTemplate && (
+          <Container height={'100%'} width={'100%'}>
+            <Layout.Vertical height={'100%'}>
+              <Layout.Horizontal
+                flex={{ alignItems: 'center' }}
+                spacing={'huge'}
+                padding={{ top: 'large', left: 'xxlarge', bottom: 'large', right: 'xxlarge' }}
+                border={{ bottom: true }}
+              >
+                <Layout.Horizontal className={css.shrink} spacing={'small'}>
+                  <Text lineClamp={2} font={{ size: 'medium', weight: 'bold' }} color={Color.GREY_800}>
+                    {selectedTemplate.name}
+                  </Text>
+                  {isGitSyncEnabled && (
+                    <GitPopover
+                      data={defaultTo(selectedTemplate.gitDetails, {})}
+                      iconProps={{ margin: { left: 'small', top: 'xsmall' } }}
+                    />
+                  )}
+                </Layout.Horizontal>
+                <RbacButton
+                  text={getString('templatesLibrary.openInTemplateStudio')}
+                  variation={ButtonVariation.SECONDARY}
+                  className={css.openInStudio}
+                  onClick={goToTemplateStudio}
+                  permission={{
+                    permission: PermissionIdentifier.VIEW_TEMPLATE,
+                    resource: {
+                      resourceType: ResourceType.TEMPLATE
+                    }
+                  }}
                 />
-              )}
-            </Layout.Horizontal>
-            <RbacButton
-              text={getString('templatesLibrary.openInTemplateStudio')}
-              variation={ButtonVariation.SECONDARY}
-              className={css.openInStudio}
-              onClick={goToTemplateStudio}
-              permission={{
-                permission: PermissionIdentifier.VIEW_TEMPLATE,
-                resource: {
-                  resourceType: ResourceType.TEMPLATE
-                }
-              }}
-            />
-          </Layout.Horizontal>
-          <div className={css.tabsContainer}>
-            <Tabs id="template-details-parent" selectedTabId={selectedParentTab} onChange={handleParentTabChange}>
-              <Tab
-                id={ParentTemplateTabs.BASIC}
-                title={getString('details')}
-                panel={
-                  <>
-                    <Layout.Vertical spacing={'large'} padding={{ left: 'xxlarge', right: 'xxlarge' }}>
-                      <Layout.Vertical spacing={'small'}>
-                        <Text font={{ size: 'small' }} color={Color.GREY_500}>
-                          {getString('description')}
-                        </Text>
-                        <Text className={css.description} color={Color.GREY_700}>
-                          {selectedTemplate.description || '-'}
-                        </Text>
+              </Layout.Horizontal>
+              <Container background={Color.FORM_BG} className={css.tabsContainer}>
+                <Tabs id="template-details-parent" selectedTabId={selectedParentTab} onChange={handleParentTabChange}>
+                  <Tab
+                    id={ParentTemplateTabs.BASIC}
+                    title={getString('details')}
+                    panel={
+                      <Layout.Vertical height={'100%'}>
+                        <Container>
+                          <Layout.Vertical
+                            className={css.topContainer}
+                            spacing={'large'}
+                            padding={{ top: 'large', right: 'xxlarge', bottom: 'large', left: 'xxlarge' }}
+                          >
+                            <Container>
+                              <Layout.Vertical spacing={'small'}>
+                                <Text font={{ weight: 'semi-bold' }} color={Color.BLACK}>
+                                  {getString('description')}
+                                </Text>
+                                <Text color={Color.GREY_900}>{selectedTemplate.description || '-'}</Text>
+                              </Layout.Vertical>
+                            </Container>
+                            <Container>
+                              <Layout.Vertical spacing={'small'}>
+                                <Text font={{ weight: 'semi-bold' }} color={Color.BLACK}>
+                                  {getString('tagsLabel')}
+                                </Text>
+                                {selectedTemplate.tags && !isEmpty(selectedTemplate.tags) ? (
+                                  <Container>
+                                    <TemplateTags tags={selectedTemplate.tags} />
+                                  </Container>
+                                ) : (
+                                  <Text color={Color.GREY_900}>-</Text>
+                                )}
+                              </Layout.Vertical>
+                            </Container>
+                            <Container>
+                              <Layout.Vertical spacing={'small'}>
+                                <Text font={{ weight: 'semi-bold' }} color={Color.BLACK}>
+                                  {getString('templatesLibrary.createNewModal.versionLabel')}
+                                </Text>
+                                {selectedTemplate.versionLabel && (
+                                  <DropDown
+                                    filterable={false}
+                                    items={versionOptions}
+                                    value={selectedTemplate.versionLabel}
+                                    onChange={onChange}
+                                    disabled={isReadonly}
+                                    width={300}
+                                  />
+                                )}
+                              </Layout.Vertical>
+                            </Container>
+                          </Layout.Vertical>
+                        </Container>
+                        <Container border={{ top: true }} className={css.tabsContainer}>
+                          <Tabs id="template-details" selectedTabId={selectedTab} onChange={handleTabChange}>
+                            <Tab
+                              id={TemplateTabs.INPUTS}
+                              title={getString('templatesLibrary.templateInputs')}
+                              panel={
+                                <TemplateInputs
+                                  selectedTemplate={selectedTemplate}
+                                  accountIdentifier={accountId}
+                                  orgIdentifier={orgIdentifier}
+                                  projectIdentifier={projectIdentifier}
+                                />
+                              }
+                            />
+                            <Tab
+                              id={TemplateTabs.YAML}
+                              title={getString('yaml')}
+                              panel={<TemplateYaml templateYaml={selectedTemplate.yaml} />}
+                            />
+                            <Tab
+                              id={TemplateTabs.REFERENCEDBY}
+                              disabled={true}
+                              title={getString('templatesLibrary.referencedBy')}
+                            />
+                          </Tabs>
+                        </Container>
                       </Layout.Vertical>
-
-                      <Layout.Vertical spacing={'small'}>
-                        <Text font={{ size: 'small' }} color={Color.GREY_500}>
-                          {getString('tagsLabel')}
-                        </Text>
-                        {selectedTemplate.tags && !isEmpty(selectedTemplate.tags) ? (
-                          <Container>
-                            <TemplateTags tags={selectedTemplate.tags} />
-                          </Container>
-                        ) : (
-                          <Text color={Color.GREY_700}>-</Text>
-                        )}
-                      </Layout.Vertical>
-
-                      <Layout.Vertical spacing={'small'}>
-                        <Text font={{ size: 'small' }} color={Color.GREY_500}>
-                          {getString('templatesLibrary.createNewModal.versionLabel')}
-                        </Text>
-                        {selectedTemplate.versionLabel && (
-                          <DropDown
-                            filterable={false}
-                            items={versionOptions}
-                            value={selectedTemplate.versionLabel}
-                            onChange={onChange}
-                            disabled={isReadonly}
-                            width={300}
-                          />
-                        )}
-                      </Layout.Vertical>
-                    </Layout.Vertical>
-
-                    <div className={cx(css.tabsContainer, css.detailsSectionTabs)}>
-                      <Tabs id="template-details" selectedTabId={selectedTab} onChange={handleTabChange}>
-                        <Tab
-                          id={TemplateTabs.INPUTS}
-                          title={getString('templatesLibrary.templateInputs')}
-                          panel={<TemplateInputs {...props} versionLabel={selectedTemplate.versionLabel} />}
-                        />
-                        <Tab
-                          id={TemplateTabs.YAML}
-                          title={getString('yaml')}
-                          panel={<TemplateYaml templateYaml={selectedTemplate.yaml} />}
-                        />
-                        <Tab
-                          id={TemplateTabs.REFERENCEDBY}
-                          disabled={true}
-                          title={
-                            <>
-                              {getString('templatesLibrary.referencedBy')} &nbsp; <Tag>5</Tag>
-                            </>
-                          }
-                          panel={<div>Referenced By</div>}
-                        />
-                      </Tabs>
-                    </div>
-                  </>
-                }
-              />
-              <Tab
-                id={ParentTemplateTabs.ACTVITYLOG}
-                title={getString('activityLog')}
-                panel={
-                  <TemplateActivityLog
-                    selectedTemplate={selectedTemplate}
-                    accountIdentifier={accountId}
-                    orgIdentifier={orgIdentifier}
-                    projectIdentifier={projectIdentifier}
+                    }
                   />
-                }
-              />
-            </Tabs>
-          </div>
-        </Layout.Vertical>
-      )}
+                  <Tab
+                    id={ParentTemplateTabs.ACTVITYLOG}
+                    title={getString('activityLog')}
+                    panel={
+                      <TemplateActivityLog
+                        selectedTemplate={selectedTemplate}
+                        accountIdentifier={accountId}
+                        orgIdentifier={orgIdentifier}
+                        projectIdentifier={projectIdentifier}
+                      />
+                    }
+                  />
+                </Tabs>
+              </Container>
+            </Layout.Vertical>
+          </Container>
+        )}
+      </Layout.Vertical>
     </Container>
   )
 }
