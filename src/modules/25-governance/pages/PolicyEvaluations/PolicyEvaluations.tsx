@@ -18,26 +18,39 @@ import Table from '@common/components/Table/Table'
 import routes from '@common/RouteDefinitions'
 
 import { useGetEvaluationList, Evaluation, EvaluationDetail } from 'services/pm'
-import { isEvaluationFailed } from '@governance/utils/GovernanceUtils'
+import { isEvaluationFailed, LIST_FETCHING_PAGE_SIZE } from '@governance/utils/GovernanceUtils'
 import type { GovernancePathProps } from '@common/interfaces/RouteInterfaces'
 import css from './PolicyEvaluations.module.scss'
 
 const PolicyEvaluations: React.FC = () => {
   const { getString } = useStrings()
+  const [pageIndex, setPageIndex] = useState(0)
   const { accountId, orgIdentifier = '*', projectIdentifier = '*', module } = useParams<GovernancePathProps>()
   const queryParams = useMemo(
     () => ({
       accountIdentifier: accountId,
       orgIdentifier,
-      projectIdentifier
+      projectIdentifier,
+      per_page: String(LIST_FETCHING_PAGE_SIZE),
+      page: String(pageIndex)
     }),
-    [accountId, orgIdentifier, projectIdentifier]
+    [accountId, orgIdentifier, projectIdentifier, pageIndex]
   )
   const history = useHistory()
   useDocumentTitle(getString('common.policies'))
   const [page, setPage] = useState(0)
 
-  const { data: evaluationsList, loading: fetchingEvaluations, error, refetch } = useGetEvaluationList({ queryParams })
+  const {
+    data: evaluationsList,
+    loading: fetchingEvaluations,
+    error,
+    refetch,
+    response
+  } = useGetEvaluationList({ queryParams })
+
+  const itemCount = useMemo(() => parseInt(response?.headers?.get('x-total-items') || '0'), [response])
+  const pageCount = useMemo(() => parseInt(response?.headers?.get('x-total-pages') || '0'), [response])
+  const pageSize = useMemo(() => parseInt(response?.headers?.get('x-page-size') || '0'), [response])
 
   useEffect(() => {
     setPageNumber({ setPage, page, pageItemsCount: 1000 })
@@ -204,6 +217,7 @@ const PolicyEvaluations: React.FC = () => {
   return (
     <>
       <Page.Body
+        className={css.pageBody}
         loading={fetchingEvaluations}
         error={(error?.data as Error)?.message || error?.message}
         retryOnError={() => refetch()}
@@ -220,11 +234,13 @@ const PolicyEvaluations: React.FC = () => {
           // TODO: enable when page is ready
 
           pagination={{
-            itemCount: evaluationsList?.length || 0,
-            pageSize: 1000,
-            pageCount: 0,
-            pageIndex: 0,
-            gotoPage: (pageNumber: number) => setPage(pageNumber)
+            itemCount,
+            pageSize,
+            pageCount,
+            pageIndex,
+            gotoPage: (index: number) => {
+              setPageIndex(index)
+            }
           }}
           onRowClick={evaluation => {
             history.push(

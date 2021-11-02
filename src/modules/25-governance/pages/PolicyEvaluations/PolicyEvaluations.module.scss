@@ -1,6 +1,13 @@
+.pageBody {
+  height: calc(100vh - 73px) !important;
+}
 .table {
   padding: var(--spacing-large) var(--spacing-xxlarge);
   padding-bottom: var(--spacing-none);
+  [class*='Table-module_body'] {
+    overflow-y: scroll;
+    height: calc(100% - 115px);
+  }
 }
 
 .pill {

@@ -165,8 +165,15 @@ const PolicySets: React.FC = () => {
 
   const RenderEnforced: Renderer<CellProps<PolicySetWithLinkedPolicies>> = ({ row }) => {
     const record = row.original
-    const id = '' + row.original.identifier
-    const { mutate: updatePolicySet } = useUpdatePolicySet({ policyset: id })
+    // const id = '' + row.original.identifier
+    const { mutate: updatePolicySet } = useUpdatePolicySet({
+      policyset: String(row.original.identifier),
+      queryParams: {
+        accountIdentifier: accountId,
+        orgIdentifier,
+        projectIdentifier
+      }
+    })
 
     return (
       <Toggle

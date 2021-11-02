@@ -31,7 +31,9 @@ import {
   LinkedPolicy,
   useGetPolicySet,
   PolicySetWithLinkedPolicies,
-  useAddLinkedPolicy
+  useAddLinkedPolicy,
+  GetPolicyListQueryParams,
+  DeleteLinkedPolicyQueryParams
 } from 'services/pm'
 import { getConfig } from 'services/config'
 import css from '../PolicySets.module.scss'
@@ -43,19 +45,23 @@ type CreatePolicySetWizardProps = StepProps<{ refetch: () => void; hideModal: ()
   policySetData: PolicySetWithLinkedPolicies | any
 }
 
+interface GetPolicyListParams extends GetPolicyListQueryParams {
+  include_hierarchy?: boolean
+}
+
 interface DeleteLinkedPolicyPathParams {
   policyset: string
   policy: string
 }
 
 type UseDeleteLinkedPolicyProps = Omit<
-  UseMutateProps<void, unknown, void, string, DeleteLinkedPolicyPathParams>,
+  UseMutateProps<void, unknown, DeleteLinkedPolicyQueryParams, string, DeleteLinkedPolicyPathParams>,
   'path' | 'verb'
 > &
   DeleteLinkedPolicyPathParams
 
 export const useDeleteLinkedPolicy = ({ policyset, policy, ...props }: UseDeleteLinkedPolicyProps) =>
-  useMutate<void, unknown, void, string, DeleteLinkedPolicyPathParams>(
+  useMutate<void, unknown, DeleteLinkedPolicyQueryParams, string, DeleteLinkedPolicyPathParams>(
     'DELETE',
     (paramsInPath: DeleteLinkedPolicyPathParams) =>
       `/policysets/${paramsInPath.policyset}/policy/${paramsInPath.policy}`,
@@ -187,10 +193,13 @@ const StepTwo: React.FC<{
 }> = ({ prevStepData, hideModal, refetch, policySetData, previousStep }) => {
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<Record<string, string>>()
-  const queryParams = {
+  const queryParams: GetPolicyListParams = {
     accountIdentifier: accountId,
     orgIdentifier,
     projectIdentifier
+  }
+  if (projectIdentifier) {
+    queryParams['include_hierarchy'] = true
   }
   const { data: policies } = useGetPolicyList({ queryParams })
   const [policyId, setPolicyId] = React.useState('')
@@ -220,7 +229,12 @@ const StepTwo: React.FC<{
 
   const { mutate: deleteLinkedPolicy } = useDeleteLinkedPolicy({
     policyset: prevStepData?.id,
-    policy: deLinkpolicyId
+    policy: deLinkpolicyId,
+    queryParams: {
+      accountIdentifier: accountId,
+      projectIdentifier,
+      orgIdentifier
+    }
   })
 
   const handlePatchRequest = async (severitySelected: any) => {
