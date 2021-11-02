@@ -56,9 +56,10 @@ const enableGovernance = process.env.ENABLE_GOVERNANCE === 'true'
 const moduleFederationEnabled = enableGitOpsUI || enableGovernance
 
 const certificateExists = fs.existsSync('./certificates/localhost.pem')
-if (!certificateExists) {
+if (DEV && !certificateExists) {
   throw new Error('The certificate is missing, please run `yarn generate-certificate`')
 }
+
 const config = {
   context: CONTEXT,
   entry: './src/framework/app',
@@ -72,20 +73,22 @@ const config = {
     pathinfo: false
   },
   devtool: DEV ? 'cheap-module-source-map' : 'hidden-source-map',
-  devServer: {
-    historyApiFallback: true,
-    port: 8181,
-    https: {
-      key: fs.readFileSync(path.resolve(__dirname, './certificates/localhost-key.pem')),
-      cert: fs.readFileSync(path.resolve(__dirname, './certificates/localhost.pem'))
-    },
-    proxy: Object.fromEntries(
-      Object.entries(devServerProxyConfig).map(([key, value]) => [
-        key,
-        Object.assign({ logLevel: 'info', secure: false, changeOrigin: true }, value)
-      ])
-    )
-  },
+  devServer: DEV
+    ? {
+        historyApiFallback: true,
+        port: 8181,
+        https: {
+          key: fs.readFileSync(path.resolve(__dirname, './certificates/localhost-key.pem')),
+          cert: fs.readFileSync(path.resolve(__dirname, './certificates/localhost.pem'))
+        },
+        proxy: Object.fromEntries(
+          Object.entries(devServerProxyConfig).map(([key, value]) => [
+            key,
+            Object.assign({ logLevel: 'info', secure: false, changeOrigin: true }, value)
+          ])
+        )
+      }
+    : undefined,
   stats: {
     modules: false,
     children: false
