@@ -7,7 +7,6 @@ declare const styles: {
   readonly tabContent: string
   readonly tableContainer: string
   readonly pagination: string
-  readonly forEvaluations: string
   readonly warningStatus: string
 }
 export default styles

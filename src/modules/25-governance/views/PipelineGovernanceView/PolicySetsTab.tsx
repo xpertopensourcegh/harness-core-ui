@@ -4,7 +4,7 @@ import { useParams, useHistory } from 'react-router-dom'
 import type { CellProps, Column } from 'react-table'
 import { get } from 'lodash-es'
 import ReactTimeago from 'react-timeago'
-import { Container, FontVariation, PageError, Pagination, Text } from '@wings-software/uicore'
+import { Container, FontVariation, NoDataCard, PageError, Pagination, Text } from '@wings-software/uicore'
 import { GetPolicySetListQueryParams, PolicySet, useGetPolicySetList } from 'services/pm'
 import Table from '@common/components/Table/Table'
 import { useStrings } from 'framework/strings'
@@ -87,7 +87,7 @@ export const PolicySetsTab: React.FC<{ setPolicySetCount: React.Dispatch<React.S
   return (
     <Container className={css.tabContent}>
       {loading && (
-        <Container width="100%" height="100%" flex={{ align: 'center-center' }}>
+        <Container width="100%" height="calc(100% - var(--pagination-height))" flex={{ align: 'center-center' }}>
           <ContainerSpinner />
         </Container>
       )}
@@ -97,39 +97,40 @@ export const PolicySetsTab: React.FC<{ setPolicySetCount: React.Dispatch<React.S
           onClick={() => refetch()}
         />
       )}
-      {!loading && !error && (
-        <>
-          <Container className={css.tableContainer}>
-            <Table<PolicySet>
-              columns={columns}
-              data={data || []}
-              onRowClick={policySet => {
-                // Policy Set detail page is not yet ready (no design)
-                // history.push(routes.toPolicySetDetail({ accountId, policySetIdentifier: policySet.identifier as string }))
-                history.push(
-                  routes.toGovernancePolicySetsListing({
-                    accountId,
-                    orgIdentifier: policySet.org_id,
-                    projectIdentifier: policySet.project_id,
-                    module
-                  })
-                )
-              }}
-            />
-          </Container>
-          <Container className={css.pagination}>
-            <Pagination
-              itemCount={itemCount}
-              pageSize={pageSize}
-              pageCount={pageCount}
-              pageIndex={pageIndex}
-              gotoPage={index => {
-                setPageIndex(index)
-              }}
-            />
-          </Container>
-        </>
+      {!loading && !error && !data?.length && (
+        <Container width="100%" height="100%" flex={{ align: 'center-center' }}>
+          <NoDataCard icon="governance" message={getString('governance.noPolicySetForPipeline')} />
+        </Container>
       )}
+      {!loading && !error && (data?.length as number) > 0 && (
+        <Container className={css.tableContainer}>
+          <Table<PolicySet>
+            columns={columns}
+            data={data || []}
+            onRowClick={policySet => {
+              // Policy Set detail page is not yet ready (no design)
+              // history.push(routes.toPolicySetDetail({ accountId, policySetIdentifier: policySet.identifier as string }))
+              history.push(
+                routes.toGovernancePolicySetsListing({
+                  accountId,
+                  orgIdentifier: policySet.org_id,
+                  projectIdentifier: policySet.project_id,
+                  module
+                })
+              )
+            }}
+          />
+        </Container>
+      )}
+      <Container className={css.pagination}>
+        <Pagination
+          itemCount={itemCount}
+          pageSize={pageSize}
+          pageCount={pageCount}
+          pageIndex={pageIndex}
+          gotoPage={setPageIndex}
+        />
+      </Container>
     </Container>
   )
 }

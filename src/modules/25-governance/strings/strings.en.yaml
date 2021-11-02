@@ -29,6 +29,8 @@ deletePolicySetConfirmation: Are you sure you want to delete Policy Set "{{name}
 deletePolicySetDone: Policy Set "{{name}}" deleted.
 selectSamplePolicy: Select a Policy example
 evaluationEmpty: No Policy is linked for this evaluation.
+noPolicySetForPipeline: No Policy Set applied for this pipeline.
+noEvaluationForPipeline: No Evaluation found for this pipeline.
 wizard:
   policyToEval: Policy to Evaluate
   fieldArray: Applies to Pipeline on the following events

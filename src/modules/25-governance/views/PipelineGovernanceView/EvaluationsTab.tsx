@@ -1,6 +1,5 @@
 /* eslint-disable react/display-name */
 import React, { useState, useMemo } from 'react'
-import cx from 'classnames'
 import { useParams, useHistory } from 'react-router-dom'
 import type { CellProps, Column } from 'react-table'
 import { get } from 'lodash-es'
@@ -8,13 +7,12 @@ import ReactTimeago from 'react-timeago'
 import {
   Container,
   FontVariation,
-  Layout,
   PageError,
   Text,
   IconName,
-  Button,
-  ButtonVariation,
-  Intent
+  Intent,
+  Pagination,
+  NoDataCard
 } from '@wings-software/uicore'
 import { Evaluation, GetEvaluationListQueryParams, PolicySet, useGetEvaluationList } from 'services/pm'
 import Table from '@common/components/Table/Table'
@@ -48,10 +46,11 @@ export const EvaluationsTab: React.FC = () => {
       projectIdentifier,
       entity: encodeURIComponent(entity),
       per_page: String(LIST_FETCHING_PAGE_SIZE),
+      page: String(pageIndex),
       include_hierarchy: true
     } as GetEvaluationListQueryParams
-  }, [accountId, orgIdentifier, projectIdentifier, entity])
-  const { data, loading, error, refetch /*, response */ } = useGetEvaluationList({ queryParams })
+  }, [accountId, orgIdentifier, projectIdentifier, entity, pageIndex])
+  const { data, loading, error, refetch, response } = useGetEvaluationList({ queryParams })
   const { getString } = useStrings()
   const columns: Column<Evaluation>[] = useMemo(
     () => [
@@ -104,14 +103,15 @@ export const EvaluationsTab: React.FC = () => {
     ],
     [getString]
   )
-  // const pageCount = useMemo(() => parseInt(response?.headers?.get('x-page-item-count') || '0'), [response])
-  // const pageSize = useMemo(() => parseInt(response?.headers?.get('x-page-size') || '0'), [response])
+  const itemCount = useMemo(() => parseInt(response?.headers?.get('x-total-items') || '0'), [response])
+  const pageCount = useMemo(() => parseInt(response?.headers?.get('x-total-pages') || '0'), [response])
+  const pageSize = useMemo(() => parseInt(response?.headers?.get('x-page-size') || '0'), [response])
   const history = useHistory()
 
   return (
     <Container className={css.tabContent}>
       {loading && (
-        <Container width="100%" height="100%" flex={{ align: 'center-center' }}>
+        <Container width="100%" height="calc(100% - var(--pagination-height))" flex={{ align: 'center-center' }}>
           <ContainerSpinner />
         </Container>
       )}
@@ -121,45 +121,39 @@ export const EvaluationsTab: React.FC = () => {
           onClick={() => refetch()}
         />
       )}
-      {!loading && !error && (
-        <>
-          <Container className={css.tableContainer}>
-            <Table<Evaluation>
-              columns={columns}
-              data={data || []}
-              onRowClick={evaluation => {
-                history.push(
-                  routes.toGovernanceEvaluationDetail({
-                    accountId,
-                    orgIdentifier: evaluation.org_id,
-                    projectIdentifier: evaluation.project_id,
-                    module,
-                    evaluationId: String(evaluation.id)
-                  })
-                )
-              }}
-            />
-          </Container>
-          <Container className={cx(css.pagination, css.forEvaluations)}>
-            <Layout.Horizontal spacing="small">
-              <Button
-                variation={ButtonVariation.TERTIARY}
-                icon="chevron-left"
-                text={getString('previous')}
-                disabled={!pageIndex}
-                onClick={() => setPageIndex(pageIndex - 1)}
-              />
-              <Button
-                variation={ButtonVariation.TERTIARY}
-                icon="chevron-right"
-                text={getString('next')}
-                disabled={(data?.length || 0) < LIST_FETCHING_PAGE_SIZE}
-                onClick={() => setPageIndex(pageIndex + 1)}
-              />
-            </Layout.Horizontal>
-          </Container>
-        </>
+      {!loading && !error && !data?.length && (
+        <Container width="100%" height="100%" flex={{ align: 'center-center' }}>
+          <NoDataCard icon="governance" message={getString('governance.noEvaluationForPipeline')} />
+        </Container>
       )}
+      {!loading && !error && (data?.length as number) > 0 && (
+        <Container className={css.tableContainer}>
+          <Table<Evaluation>
+            columns={columns}
+            data={data || []}
+            onRowClick={evaluation => {
+              history.push(
+                routes.toGovernanceEvaluationDetail({
+                  accountId,
+                  orgIdentifier: evaluation.org_id,
+                  projectIdentifier: evaluation.project_id,
+                  module,
+                  evaluationId: String(evaluation.id)
+                })
+              )
+            }}
+          />
+        </Container>
+      )}
+      <Container className={css.pagination}>
+        <Pagination
+          itemCount={itemCount}
+          pageSize={pageSize}
+          pageCount={pageCount}
+          pageIndex={pageIndex}
+          gotoPage={setPageIndex}
+        />
+      </Container>
     </Container>
   )
 }

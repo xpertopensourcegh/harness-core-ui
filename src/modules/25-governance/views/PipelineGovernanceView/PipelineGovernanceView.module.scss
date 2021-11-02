@@ -53,12 +53,6 @@
         .pagination {
           height: var(--pagination-height);
 
-          &.forEvaluations {
-            justify-content: flex-end;
-            display: flex;
-            align-items: center;
-          }
-
           > div {
             border-top: none;
           }

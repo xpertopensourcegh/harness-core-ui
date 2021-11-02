@@ -809,6 +809,8 @@ export interface StringsMap {
   'governance.formatInput': string
   'governance.inputFailedEvaluation': string
   'governance.inputSuccededEvaluation': string
+  'governance.noEvaluationForPipeline': string
+  'governance.noPolicySetForPipeline': string
   'governance.onRun': string
   'governance.onSave': string
   'governance.policyIdentifier': string
