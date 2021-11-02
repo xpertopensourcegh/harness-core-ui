@@ -11,7 +11,7 @@ import type { CreateSLOFormProps } from './CreateSLO.types'
 import css from './CreateSLO.module.scss'
 
 export default function CreateSLOForm(props: CreateSLOFormProps): JSX.Element {
-  const { formikProps } = props
+  const { formikProps, identifier } = props
   const { getString } = useStrings()
   const [selectedTabId, setSelectedTabId] = useState<CreateSLOEnum>(CreateSLOEnum.NAME)
 
@@ -36,7 +36,11 @@ export default function CreateSLOForm(props: CreateSLOFormProps): JSX.Element {
           <Tab
             id={CreateSLOEnum.NAME}
             title={getString('name')}
-            panel={<SLOName formikProps={formikProps}>{navButtons}</SLOName>}
+            panel={
+              <SLOName formikProps={formikProps} identifier={identifier}>
+                {navButtons}
+              </SLOName>
+            }
           />
           <Tab
             id={CreateSLOEnum.SLI}

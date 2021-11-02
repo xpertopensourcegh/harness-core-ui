@@ -17,7 +17,8 @@ export default function SLOName(props: SLONameProps): JSX.Element {
   const {
     formikProps: { values, setFieldValue },
     formikProps,
-    children
+    children,
+    identifier
   } = props
   const { getString } = useStrings()
   const { showSuccess, showError, clear } = useToaster()
@@ -82,7 +83,7 @@ export default function SLOName(props: SLONameProps): JSX.Element {
           className={css.nameTagsDescription}
           identifierProps={{
             inputLabel: getString('cv.slos.sloName'),
-            isIdentifierEditable: false
+            isIdentifierEditable: !identifier
           }}
         />
         <HarnessServiceAsFormField

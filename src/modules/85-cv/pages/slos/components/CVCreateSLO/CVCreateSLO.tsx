@@ -112,7 +112,7 @@ export default function CVCreateSLO(): JSX.Element {
           })}
           enableReinitialize
         >
-          {formik => <CreateSLOForm formikProps={formik} />}
+          {formik => <CreateSLOForm formikProps={formik} identifier={identifier} />}
         </Formik>
       </Page.Body>
     </>

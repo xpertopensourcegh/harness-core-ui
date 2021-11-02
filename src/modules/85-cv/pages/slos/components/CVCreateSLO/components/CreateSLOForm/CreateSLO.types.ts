@@ -26,4 +26,5 @@ export interface SLOForm {
 
 export interface CreateSLOFormProps {
   formikProps: FormikProps<SLOForm>
+  identifier?: string
 }
