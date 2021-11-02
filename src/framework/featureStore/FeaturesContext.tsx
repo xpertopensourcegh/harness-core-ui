@@ -12,7 +12,8 @@ import {
   useGetFeatureRestrictionDetail,
   useGetAllFeatureRestrictionMetadata,
   RestrictionMetadataDTO,
-  FeatureRestrictionDetailsDTO
+  FeatureRestrictionDetailsDTO,
+  FeatureRestrictionDetailRequestDTO
 } from 'services/cd-ng'
 import type { RestrictionType } from '@common/constants/SubscriptionTypes'
 import { Editions } from '@common/constants/SubscriptionTypes'
@@ -260,7 +261,7 @@ export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React
 
     try {
       const res = await getFeatureDetails({
-        name: featureName
+        name: featureName as FeatureRestrictionDetailRequestDTO['name']
       })
 
       // remove the request from queque

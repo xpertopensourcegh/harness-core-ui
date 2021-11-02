@@ -9,6 +9,7 @@ import {
   CheckFeaturesReturn
 } from 'framework/featureStore/FeaturesContext'
 import { FeatureFlag } from '@common/featureFlags'
+import type { ModuleType } from 'framework/featureStore/FeaturesContext'
 import type { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { useFeatureFlag } from './useFeatureFlag'
 
@@ -116,4 +117,9 @@ export function useFeatures(props: FeaturesProps): CheckFeaturesReturn {
   })
 
   return { features }
+}
+
+export function useFeatureModule(featureName: FeatureIdentifier): ModuleType {
+  const { featureMap } = useFeaturesContext()
+  return featureMap.get(featureName)?.moduleType
 }

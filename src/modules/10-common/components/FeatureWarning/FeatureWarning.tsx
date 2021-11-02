@@ -7,17 +7,18 @@ import { useStrings } from 'framework/strings'
 import { FeatureDescriptor } from 'framework/featureStore/FeatureDescriptor'
 import routes from '@common/RouteDefinitions'
 import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
+import { useFeatureModule } from '@common/hooks/useFeatures'
+import type { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import css from './FeatureWarning.module.scss'
 
 interface FeatureWarningTooltipProps {
-  featureName: string
+  featureName: FeatureIdentifier
   module?: Module
 }
 
 interface FeatureWarningProps {
-  featureName: string
+  featureName: FeatureIdentifier
   warningMessage?: string
-  module?: Module
   className?: string
   tooltipProps?: {
     position: PopoverPosition
@@ -89,20 +90,20 @@ export const FeatureWarningTooltip = ({ featureName, module }: FeatureWarningToo
   )
 }
 
-export const FeatureWarningWithTooltip = ({ featureName, module, tooltipProps }: FeatureWarningProps): ReactElement => {
+export const FeatureWarningWithTooltip = ({ featureName, tooltipProps }: FeatureWarningProps): ReactElement => {
+  const moduleType = useFeatureModule(featureName)
+  const module = moduleType && (moduleType.toLowerCase() as Module)
   const tooltip = <FeatureWarningTooltip featureName={featureName} module={module} />
   return <WarningText tooltip={tooltip} tooltipProps={{ position: 'bottom-left', ...tooltipProps }} />
 }
 
-export const FeatureWarning = ({
-  module,
-  featureName,
-  warningMessage,
-  className
-}: FeatureWarningProps): ReactElement => {
+export const FeatureWarning = ({ featureName, warningMessage, className }: FeatureWarningProps): ReactElement => {
   const { getString } = useStrings()
   const featureDescription =
     warningMessage || FeatureDescriptor[featureName] ? FeatureDescriptor[featureName] : featureName
+
+  const moduleType = useFeatureModule(featureName)
+  const module = moduleType && (moduleType.toLowerCase() as Module)
 
   return (
     <Layout.Horizontal padding="small" spacing="small" className={cx(css.expanded, className)} flex>

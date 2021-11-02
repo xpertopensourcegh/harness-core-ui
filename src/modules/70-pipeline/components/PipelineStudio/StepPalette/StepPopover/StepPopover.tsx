@@ -10,6 +10,7 @@ import { FeatureWarningTooltip } from '@common/components/FeatureWarning/Feature
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import type { StepData } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
+import type { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import type { StringsMap } from 'stringTypes'
 import type { AbstractStepFactory } from '../../../AbstractSteps/AbstractStepFactory'
 import css from './StepPopover.module.scss'
@@ -33,7 +34,7 @@ const TooltipContent = ({ description, stepsFactory, stepData }: StepTooltipCont
   const { getString } = useStrings()
   const { module } = useParams<{ module: Module }>()
   if (stepData?.disabled && stepData?.featureRestrictionName) {
-    return <FeatureWarningTooltip featureName={stepData.featureRestrictionName} module={module} />
+    return <FeatureWarningTooltip featureName={stepData.featureRestrictionName as FeatureIdentifier} module={module} />
   }
   if (description) {
     return (

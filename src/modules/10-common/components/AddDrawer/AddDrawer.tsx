@@ -17,7 +17,6 @@ import cx from 'classnames'
 import { FeatureWarningWithTooltip } from '@common/components/FeatureWarning/FeatureWarning'
 import { useStrings } from 'framework/strings'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
-import type { Module } from '@common/interfaces/RouteInterfaces'
 import { useFeature } from '@common/hooks/useFeatures'
 import css from './AddDrawer.module.scss'
 
@@ -123,7 +122,7 @@ export default function AddDrawer(props: AddDrawerProps): JSX.Element {
       setOriginalCategories(stepsCategories)
     }
   }, [addDrawerMap])
-  const { enabled: featureEnabled, featureDetail } = useFeature({
+  const { enabled: featureEnabled } = useFeature({
     featureRequest: {
       featureName: FeatureIdentifier.SECRET_MANAGERS
     }
@@ -283,10 +282,7 @@ export default function AddDrawer(props: AddDrawerProps): JSX.Element {
                     >
                       <span>{category.categoryLabel}</span>
                       {category.categoryLabel === getString('secretManagers') && !featureEnabled && (
-                        <FeatureWarningWithTooltip
-                          featureName={FeatureIdentifier.SECRET_MANAGERS}
-                          module={featureDetail?.moduleType?.toLowerCase() as Module}
-                        />
+                        <FeatureWarningWithTooltip featureName={FeatureIdentifier.SECRET_MANAGERS} />
                       )}
                     </Layout.Horizontal>
                     <section className={cx(css.steps)}>{[...categorySteps]}</section>
