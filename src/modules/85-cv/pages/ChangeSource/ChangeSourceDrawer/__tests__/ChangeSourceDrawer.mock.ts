@@ -33,6 +33,17 @@ export const pagerDutyChangeSourceDrawerData = {
   }
 }
 
+export const k8sChangeSourceDrawerData = {
+  category: 'Infrastructure' as any,
+  enabled: true,
+  identifier: 'hjhjh',
+  name: 'hjhjh',
+  spec: {
+    connectorRef: 'account.k8sqatargetng'
+  },
+  type: 'K8sCluster' as any
+}
+
 export const changeSourceTableData = [
   {
     name: 'Harness CD',

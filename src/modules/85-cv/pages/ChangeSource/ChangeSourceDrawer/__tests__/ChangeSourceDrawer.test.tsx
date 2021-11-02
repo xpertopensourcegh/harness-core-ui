@@ -10,7 +10,8 @@ import {
   onSuccessHarnessCD,
   onSuccessPagerDuty,
   pagerDutyChangeSourceDrawerData,
-  pagerDutyChangeSourceDrawerDataWithoutService
+  pagerDutyChangeSourceDrawerDataWithoutService,
+  k8sChangeSourceDrawerData
 } from './ChangeSourceDrawer.mock'
 
 const onSuccess = jest.fn()
@@ -257,5 +258,22 @@ describe('Test Change Source Drawer', () => {
     menuItemLabels = container.querySelectorAll('[class*="menuItemLabel"]')
     expect(menuItemLabels[0].innerHTML).toEqual('infrastructureText')
     expect(menuItemLabels[1].innerHTML).toEqual('cv.changeSource.alertText')
+  })
+
+  test('Ensure k8s connector is disabled on edit', async () => {
+    render(
+      <TestWrapper>
+        <ChangeSourceDrawer
+          onSuccess={onSuccess}
+          hideDrawer={hideDrawer}
+          isEdit={true}
+          monitoredServiceType="Infrastructure"
+          rowdata={k8sChangeSourceDrawerData}
+          tableData={[k8sChangeSourceDrawerData]}
+        />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect('[class*="ReferenceSelect"] button[disabled]').not.toBeNull())
   })
 })

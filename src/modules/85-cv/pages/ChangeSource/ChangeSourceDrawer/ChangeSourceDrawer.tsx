@@ -75,6 +75,7 @@ export function ChangeSourceDrawer({
               formik={formik}
               type={changeSourceType as ConnectorReferenceFieldProps['type']}
               name={'spec.connectorRef'}
+              disabled={isEdit && changeSourceType === ChangeSourceTypes.K8sCluster}
               accountIdentifier={accountId}
               projectIdentifier={projectIdentifier}
               orgIdentifier={orgIdentifier}
