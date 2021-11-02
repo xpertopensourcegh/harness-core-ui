@@ -3,7 +3,6 @@
 declare const styles: {
   readonly sectionCard: string
   readonly shadow: string
-  readonly drawerlink: string
   readonly healthSourceTableWrapper: string
   readonly noData: string
   readonly tableTitle: string

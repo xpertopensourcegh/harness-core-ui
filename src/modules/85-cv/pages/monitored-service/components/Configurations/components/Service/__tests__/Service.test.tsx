@@ -151,7 +151,7 @@ describe('Verify Service', () => {
 
     // click addChangeSource
     act(() => {
-      fireEvent.click(getByText('+ cv.changeSource.addChangeSource'))
+      fireEvent.click(getByText('cv.changeSource.addChangeSource'))
     })
 
     await waitFor(() =>

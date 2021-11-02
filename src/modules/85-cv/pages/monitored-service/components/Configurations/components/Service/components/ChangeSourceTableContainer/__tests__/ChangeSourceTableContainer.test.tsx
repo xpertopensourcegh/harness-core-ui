@@ -19,9 +19,9 @@ describe('Test ChangeSourceTable', () => {
         <ChangeSourceTableContainer {...props} />
       </TestWrapper>
     )
-    await waitFor(() => expect(getByText('+ cv.changeSource.addChangeSource')).toBeTruthy())
+    await waitFor(() => expect(getByText('cv.changeSource.addChangeSource')).toBeTruthy())
     act(() => {
-      fireEvent.click(getByText('+ cv.changeSource.addChangeSource'))
+      fireEvent.click(getByText('cv.changeSource.addChangeSource'))
     })
     await waitFor(() => expect(onAddNewChangeSource).toHaveBeenCalled())
     await waitFor(() => expect(container.querySelector('.body div[role="row"]')).toBeTruthy())

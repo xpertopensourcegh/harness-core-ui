@@ -104,7 +104,7 @@ describe('Unit tests for createting monitored source', () => {
       </TestWrapper>
     )
     // click on add new button
-    const addNewButton = getByText('+ cv.healthSource.addHealthSource')
+    const addNewButton = getByText('cv.healthSource.addHealthSource')
     await act(async () => {
       fireEvent.click(addNewButton)
     })

@@ -1,9 +1,7 @@
 import React, { useCallback } from 'react'
-import cx from 'classnames'
 import { cloneDeep } from 'lodash-es'
-import { Link } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
-import { Container, Icon, Layout, Text, NoDataCard } from '@wings-software/uicore'
+import { Container, Icon, Layout, Text, NoDataCard, Button, ButtonVariation } from '@wings-software/uicore'
 import { useToaster } from '@common/exports'
 import type { HealthSource, HealthSourceDTO } from 'services/cv'
 import { useStrings } from 'framework/strings'
@@ -93,11 +91,13 @@ export default function HealthSourceTable({
         <CardWithOuterTitle>
           <Text className={css.tableTitle}>{getString('connectors.cdng.healthSources.label')}</Text>
           {renderHealthSourceTableInCV(healthSourceTableData)}
-          <div className={cx(css.drawerlink)}>
-            <Link to={'#'} onClick={onAddNewHealthSource}>
-              + {getString('cv.healthSource.addHealthSource')}
-            </Link>
-          </div>
+          <Button
+            icon="plus"
+            text={getString('cv.healthSource.addHealthSource')}
+            variation={ButtonVariation.LINK}
+            onClick={onAddNewHealthSource}
+            margin={{ top: 'small' }}
+          />
         </CardWithOuterTitle>
       )
     },

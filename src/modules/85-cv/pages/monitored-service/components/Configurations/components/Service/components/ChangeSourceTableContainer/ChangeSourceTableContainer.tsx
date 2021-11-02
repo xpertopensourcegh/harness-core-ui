@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Button, ButtonVariation } from '@wings-software/uicore'
 import CardWithOuterTitle from '@cv/pages/health-source/common/CardWithOuterTitle/CardWithOuterTitle'
 import ChangeSourceTable from '@cv/pages/ChangeSource/ChangeSourceTable/ChangeSourceTable'
 import type { ChangeSourceDTO } from 'services/cv'
@@ -21,11 +21,13 @@ export default function ChangeSourceTableContainer({
     <CardWithOuterTitle>
       <>
         <ChangeSourceTable onEdit={onEdit} value={value} onSuccess={onSuccess} />
-        <div>
-          <Link to={'#'} onClick={onAddNewChangeSource}>
-            + {getString('cv.changeSource.addChangeSource')}
-          </Link>
-        </div>
+        <Button
+          icon="plus"
+          text={getString('cv.changeSource.addChangeSource')}
+          variation={ButtonVariation.LINK}
+          onClick={onAddNewChangeSource}
+          margin={{ top: 'small' }}
+        />
       </>
     </CardWithOuterTitle>
   )
