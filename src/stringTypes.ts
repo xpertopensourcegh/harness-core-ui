@@ -4401,10 +4401,16 @@ export interface StringsMap {
   'cv.showLess': string
   'cv.showMore': string
   'cv.showYAMLChange': string
+  'cv.slos.confirmDeleteSLO': string
   'cv.slos.createSLO': string
+  'cv.slos.deleteSLO': string
+  'cv.slos.editSLO': string
+  'cv.slos.healthSource': string
   'cv.slos.healthSourceForSLI': string
   'cv.slos.latencySLI': string
+  'cv.slos.nameValidation': string
   'cv.slos.newSLO': string
+  'cv.slos.noData': string
   'cv.slos.pickMetricsSLI': string
   'cv.slos.selectHealthsource': string
   'cv.slos.selectMonitoredService': string
@@ -4415,12 +4421,13 @@ export interface StringsMap {
   'cv.slos.slis.metricOptions.thresholdBased': string
   'cv.slos.slis.ratioMetricType.eventType': string
   'cv.slos.slis.ratioMetricType.goodRequestsMetrics': string
-  'cv.slos.slis.ratioMetricType.selectEventType': string
   'cv.slos.slis.ratioMetricType.selectMetric1': string
   'cv.slos.slis.ratioMetricType.selectMetric2': string
   'cv.slos.slis.ratioMetricType.validRequestsMetrics': string
   'cv.slos.slis.type.availability': string
   'cv.slos.slis.type.latency': string
+  'cv.slos.sloCreated': string
+  'cv.slos.sloDeleted': string
   'cv.slos.sloName': string
   'cv.slos.sloTargetAndBudget.periodLength': string
   'cv.slos.sloTargetAndBudget.periodType': string
@@ -4430,8 +4437,11 @@ export interface StringsMap {
   'cv.slos.sloTargetAndBudget.selectPeriodType': string
   'cv.slos.sloTargetAndBudget.setSLOTarget': string
   'cv.slos.sloTargetAndBudgetPolicy': string
+  'cv.slos.sloUpdated': string
   'cv.slos.title': string
   'cv.slos.userJourney': string
+  'cv.slos.userJourneyCreated': string
+  'cv.slos.userJourneyPlaceholder': string
   'cv.statusCode': string
   'cv.thirdPartyCalls.modalTitle': string
   'cv.thirdPartyCalls.noCallsWereMade': string

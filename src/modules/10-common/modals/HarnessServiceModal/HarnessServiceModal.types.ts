@@ -16,4 +16,6 @@ export interface HarnessServicetModalProps {
   onClose?: () => void
   className?: string
   modalTitle?: string
+  skipServiceCreateOrUpdate?: boolean
+  name?: string
 }

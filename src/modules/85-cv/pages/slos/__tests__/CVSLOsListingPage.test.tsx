@@ -15,7 +15,9 @@ const testWrapperProps: TestWrapperProps = {
 }
 
 jest.mock('services/cv', () => ({
-  useGetMonitoredServiceListEnvironments: jest.fn().mockReturnValue({ loading: false, data: {}, error: null })
+  useGetMonitoredServiceListEnvironments: jest.fn().mockReturnValue({ loading: false, data: {}, error: null }),
+  useGetServiceLevelObjectives: jest.fn().mockReturnValue({ loading: false, data: {}, error: null }),
+  useDeleteSLOData: jest.fn().mockReturnValue({ loading: false, data: {}, error: null })
 }))
 
 describe('Test CVSLOsListingPage component', () => {

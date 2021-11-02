@@ -3661,7 +3661,7 @@ export interface SLIMetricSpec {
 export interface SLOTarget {
   sloTargetPercentage: number
   spec: SLOTargetSpec
-  type: 'Rolling' | 'Calender'
+  type?: 'Rolling' | 'Calender'
 }
 
 export interface SLOTargetSpec {
@@ -3724,7 +3724,7 @@ export interface ServiceLevelIndicatorDTO {
 
 export interface ServiceLevelIndicatorSpec {
   spec: SLIMetricSpec
-  type: 'Threshold' | 'Ratio'
+  type?: 'Threshold' | 'Ratio'
 }
 
 export interface ServiceLevelObjectiveDTO {
@@ -8673,6 +8673,372 @@ export const getServiceDependencyGraphPromise = (
     signal
   )
 
+export interface GetServiceLevelObjectivesQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+  offset: number
+  pageSize: number
+  userJourneys?: string[]
+}
+
+export type GetServiceLevelObjectivesProps = Omit<
+  GetProps<ResponsePageServiceLevelObjectiveResponse, unknown, GetServiceLevelObjectivesQueryParams, void>,
+  'path'
+>
+
+/**
+ * get all service level objectives
+ */
+export const GetServiceLevelObjectives = (props: GetServiceLevelObjectivesProps) => (
+  <Get<ResponsePageServiceLevelObjectiveResponse, unknown, GetServiceLevelObjectivesQueryParams, void>
+    path={`/slo`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetServiceLevelObjectivesProps = Omit<
+  UseGetProps<ResponsePageServiceLevelObjectiveResponse, unknown, GetServiceLevelObjectivesQueryParams, void>,
+  'path'
+>
+
+/**
+ * get all service level objectives
+ */
+export const useGetServiceLevelObjectives = (props: UseGetServiceLevelObjectivesProps) =>
+  useGet<ResponsePageServiceLevelObjectiveResponse, unknown, GetServiceLevelObjectivesQueryParams, void>(`/slo`, {
+    base: getConfig('cv/api'),
+    ...props
+  })
+
+/**
+ * get all service level objectives
+ */
+export const getServiceLevelObjectivesPromise = (
+  props: GetUsingFetchProps<
+    ResponsePageServiceLevelObjectiveResponse,
+    unknown,
+    GetServiceLevelObjectivesQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponsePageServiceLevelObjectiveResponse, unknown, GetServiceLevelObjectivesQueryParams, void>(
+    getConfig('cv/api'),
+    `/slo`,
+    props,
+    signal
+  )
+
+export interface SaveSLODataQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type SaveSLODataProps = Omit<
+  MutateProps<
+    RestResponseServiceLevelObjectiveResponse,
+    unknown,
+    SaveSLODataQueryParams,
+    ServiceLevelObjectiveDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * saves slo data
+ */
+export const SaveSLOData = (props: SaveSLODataProps) => (
+  <Mutate<
+    RestResponseServiceLevelObjectiveResponse,
+    unknown,
+    SaveSLODataQueryParams,
+    ServiceLevelObjectiveDTORequestBody,
+    void
+  >
+    verb="POST"
+    path={`/slo/create`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseSaveSLODataProps = Omit<
+  UseMutateProps<
+    RestResponseServiceLevelObjectiveResponse,
+    unknown,
+    SaveSLODataQueryParams,
+    ServiceLevelObjectiveDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * saves slo data
+ */
+export const useSaveSLOData = (props: UseSaveSLODataProps) =>
+  useMutate<
+    RestResponseServiceLevelObjectiveResponse,
+    unknown,
+    SaveSLODataQueryParams,
+    ServiceLevelObjectiveDTORequestBody,
+    void
+  >('POST', `/slo/create`, { base: getConfig('cv/api'), ...props })
+
+/**
+ * saves slo data
+ */
+export const saveSLODataPromise = (
+  props: MutateUsingFetchProps<
+    RestResponseServiceLevelObjectiveResponse,
+    unknown,
+    SaveSLODataQueryParams,
+    ServiceLevelObjectiveDTORequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    RestResponseServiceLevelObjectiveResponse,
+    unknown,
+    SaveSLODataQueryParams,
+    ServiceLevelObjectiveDTORequestBody,
+    void
+  >('POST', getConfig('cv/api'), `/slo/create`, props, signal)
+
+export interface DeleteSLODataQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type DeleteSLODataProps = Omit<
+  MutateProps<RestResponseBoolean, unknown, DeleteSLODataQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * delete slo data
+ */
+export const DeleteSLOData = (props: DeleteSLODataProps) => (
+  <Mutate<RestResponseBoolean, unknown, DeleteSLODataQueryParams, string, void>
+    verb="DELETE"
+    path={`/slo`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseDeleteSLODataProps = Omit<
+  UseMutateProps<RestResponseBoolean, unknown, DeleteSLODataQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * delete slo data
+ */
+export const useDeleteSLOData = (props: UseDeleteSLODataProps) =>
+  useMutate<RestResponseBoolean, unknown, DeleteSLODataQueryParams, string, void>('DELETE', `/slo`, {
+    base: getConfig('cv/api'),
+    ...props
+  })
+
+/**
+ * delete slo data
+ */
+export const deleteSLODataPromise = (
+  props: MutateUsingFetchProps<RestResponseBoolean, unknown, DeleteSLODataQueryParams, string, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<RestResponseBoolean, unknown, DeleteSLODataQueryParams, string, void>(
+    'DELETE',
+    getConfig('cv/api'),
+    `/slo`,
+    props,
+    signal
+  )
+
+export interface GetServiceLevelObjectiveQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export interface GetServiceLevelObjectivePathParams {
+  identifier: string
+}
+
+export type GetServiceLevelObjectiveProps = Omit<
+  GetProps<
+    RestResponseServiceLevelObjectiveResponse,
+    unknown,
+    GetServiceLevelObjectiveQueryParams,
+    GetServiceLevelObjectivePathParams
+  >,
+  'path'
+> &
+  GetServiceLevelObjectivePathParams
+
+/**
+ * get service level objective data
+ */
+export const GetServiceLevelObjective = ({ identifier, ...props }: GetServiceLevelObjectiveProps) => (
+  <Get<
+    RestResponseServiceLevelObjectiveResponse,
+    unknown,
+    GetServiceLevelObjectiveQueryParams,
+    GetServiceLevelObjectivePathParams
+  >
+    path={`/slo/${identifier}`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetServiceLevelObjectiveProps = Omit<
+  UseGetProps<
+    RestResponseServiceLevelObjectiveResponse,
+    unknown,
+    GetServiceLevelObjectiveQueryParams,
+    GetServiceLevelObjectivePathParams
+  >,
+  'path'
+> &
+  GetServiceLevelObjectivePathParams
+
+/**
+ * get service level objective data
+ */
+export const useGetServiceLevelObjective = ({ identifier, ...props }: UseGetServiceLevelObjectiveProps) =>
+  useGet<
+    RestResponseServiceLevelObjectiveResponse,
+    unknown,
+    GetServiceLevelObjectiveQueryParams,
+    GetServiceLevelObjectivePathParams
+  >((paramsInPath: GetServiceLevelObjectivePathParams) => `/slo/${paramsInPath.identifier}`, {
+    base: getConfig('cv/api'),
+    pathParams: { identifier },
+    ...props
+  })
+
+/**
+ * get service level objective data
+ */
+export const getServiceLevelObjectivePromise = (
+  {
+    identifier,
+    ...props
+  }: GetUsingFetchProps<
+    RestResponseServiceLevelObjectiveResponse,
+    unknown,
+    GetServiceLevelObjectiveQueryParams,
+    GetServiceLevelObjectivePathParams
+  > & { identifier: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    RestResponseServiceLevelObjectiveResponse,
+    unknown,
+    GetServiceLevelObjectiveQueryParams,
+    GetServiceLevelObjectivePathParams
+  >(getConfig('cv/api'), `/slo/${identifier}`, props, signal)
+
+export interface UpdateSLODataQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export interface UpdateSLODataPathParams {
+  identifier: string
+}
+
+export type UpdateSLODataProps = Omit<
+  MutateProps<
+    RestResponseServiceLevelObjectiveResponse,
+    unknown,
+    UpdateSLODataQueryParams,
+    ServiceLevelObjectiveDTORequestBody,
+    UpdateSLODataPathParams
+  >,
+  'path' | 'verb'
+> &
+  UpdateSLODataPathParams
+
+/**
+ * update slo data
+ */
+export const UpdateSLOData = ({ identifier, ...props }: UpdateSLODataProps) => (
+  <Mutate<
+    RestResponseServiceLevelObjectiveResponse,
+    unknown,
+    UpdateSLODataQueryParams,
+    ServiceLevelObjectiveDTORequestBody,
+    UpdateSLODataPathParams
+  >
+    verb="PUT"
+    path={`/slo/${identifier}`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseUpdateSLODataProps = Omit<
+  UseMutateProps<
+    RestResponseServiceLevelObjectiveResponse,
+    unknown,
+    UpdateSLODataQueryParams,
+    ServiceLevelObjectiveDTORequestBody,
+    UpdateSLODataPathParams
+  >,
+  'path' | 'verb'
+> &
+  UpdateSLODataPathParams
+
+/**
+ * update slo data
+ */
+export const useUpdateSLOData = ({ identifier, ...props }: UseUpdateSLODataProps) =>
+  useMutate<
+    RestResponseServiceLevelObjectiveResponse,
+    unknown,
+    UpdateSLODataQueryParams,
+    ServiceLevelObjectiveDTORequestBody,
+    UpdateSLODataPathParams
+  >('PUT', (paramsInPath: UpdateSLODataPathParams) => `/slo/${paramsInPath.identifier}`, {
+    base: getConfig('cv/api'),
+    pathParams: { identifier },
+    ...props
+  })
+
+/**
+ * update slo data
+ */
+export const updateSLODataPromise = (
+  {
+    identifier,
+    ...props
+  }: MutateUsingFetchProps<
+    RestResponseServiceLevelObjectiveResponse,
+    unknown,
+    UpdateSLODataQueryParams,
+    ServiceLevelObjectiveDTORequestBody,
+    UpdateSLODataPathParams
+  > & { identifier: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    RestResponseServiceLevelObjectiveResponse,
+    unknown,
+    UpdateSLODataQueryParams,
+    ServiceLevelObjectiveDTORequestBody,
+    UpdateSLODataPathParams
+  >('PUT', getConfig('cv/api'), `/slo/${identifier}`, props, signal)
+
 export interface GetSplunkSampleDataQueryParams {
   accountId: string
   orgIdentifier: string
@@ -9471,6 +9837,117 @@ export const getMetricDefinitionsPromise = (
   getUsingFetch<RestResponseListTimeSeriesMetricDefinition, unknown, GetMetricDefinitionsQueryParams, void>(
     getConfig('cv/api'),
     `/timeseries/metric-template`,
+    props,
+    signal
+  )
+
+export interface GetAllJourneysQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+  offset: number
+  pageSize: number
+}
+
+export type GetAllJourneysProps = Omit<
+  GetProps<ResponsePageUserJourneyResponse, unknown, GetAllJourneysQueryParams, void>,
+  'path'
+>
+
+/**
+ * get all user journeys
+ */
+export const GetAllJourneys = (props: GetAllJourneysProps) => (
+  <Get<ResponsePageUserJourneyResponse, unknown, GetAllJourneysQueryParams, void>
+    path={`/user-journey`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetAllJourneysProps = Omit<
+  UseGetProps<ResponsePageUserJourneyResponse, unknown, GetAllJourneysQueryParams, void>,
+  'path'
+>
+
+/**
+ * get all user journeys
+ */
+export const useGetAllJourneys = (props: UseGetAllJourneysProps) =>
+  useGet<ResponsePageUserJourneyResponse, unknown, GetAllJourneysQueryParams, void>(`/user-journey`, {
+    base: getConfig('cv/api'),
+    ...props
+  })
+
+/**
+ * get all user journeys
+ */
+export const getAllJourneysPromise = (
+  props: GetUsingFetchProps<ResponsePageUserJourneyResponse, unknown, GetAllJourneysQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponsePageUserJourneyResponse, unknown, GetAllJourneysQueryParams, void>(
+    getConfig('cv/api'),
+    `/user-journey`,
+    props,
+    signal
+  )
+
+export interface SaveUserJourneyQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type SaveUserJourneyProps = Omit<
+  MutateProps<RestResponseUserJourneyResponse, unknown, SaveUserJourneyQueryParams, UserJourneyDTO, void>,
+  'path' | 'verb'
+>
+
+/**
+ * saves user journey
+ */
+export const SaveUserJourney = (props: SaveUserJourneyProps) => (
+  <Mutate<RestResponseUserJourneyResponse, unknown, SaveUserJourneyQueryParams, UserJourneyDTO, void>
+    verb="POST"
+    path={`/user-journey/create`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseSaveUserJourneyProps = Omit<
+  UseMutateProps<RestResponseUserJourneyResponse, unknown, SaveUserJourneyQueryParams, UserJourneyDTO, void>,
+  'path' | 'verb'
+>
+
+/**
+ * saves user journey
+ */
+export const useSaveUserJourney = (props: UseSaveUserJourneyProps) =>
+  useMutate<RestResponseUserJourneyResponse, unknown, SaveUserJourneyQueryParams, UserJourneyDTO, void>(
+    'POST',
+    `/user-journey/create`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * saves user journey
+ */
+export const saveUserJourneyPromise = (
+  props: MutateUsingFetchProps<
+    RestResponseUserJourneyResponse,
+    unknown,
+    SaveUserJourneyQueryParams,
+    UserJourneyDTO,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<RestResponseUserJourneyResponse, unknown, SaveUserJourneyQueryParams, UserJourneyDTO, void>(
+    'POST',
+    getConfig('cv/api'),
+    `/user-journey/create`,
     props,
     signal
   )

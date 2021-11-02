@@ -3,13 +3,13 @@
 exports[`Test CVSLOsListingPage component should render CVSLOsListingPage page and display create New SLO Button 1`] = `
 <div>
   <div
-    class="css-hwoeic"
+    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
     <div
-      class="StyledProps--font StyledProps--main header"
+      class="Layout--vertical StyledProps--main"
     >
       <div
-        class="StyledProps--font StyledProps--main title"
+        class="PageHeader--breadcrumbsDiv"
       >
         <div
           class="Layout--horizontal StyledProps--main Breadcrumbs--breadcrumbs StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-justifyContent-flex-start"
@@ -64,16 +64,23 @@ exports[`Test CVSLOsListingPage component should render CVSLOsListingPage page a
             </span>
           </div>
         </div>
-        <p>
-          cv.slos.title
-        </p>
       </div>
+      <h2
+        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+        level="2"
+      >
+        cv.slos.title
+      </h2>
     </div>
+  </div>
+  <div
+    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+  >
     <div
-      class="StyledProps--font StyledProps--main header"
+      class="Layout--vertical StyledProps--main"
     >
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-bottom-small Button--with-current-color Button--withLeftIcon"
+        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon Button--variation Button--variation-primary"
         type="button"
       >
         <span
@@ -101,77 +108,93 @@ exports[`Test CVSLOsListingPage component should render CVSLOsListingPage page a
           cv.slos.newSLO
         </span>
       </button>
+    </div>
+    <div
+      class="Layout--horizontal StyledProps--main"
+    >
       <div
-        alignitem="baseline"
-        class="Layout--horizontal StyledProps--main css-1a3mq5n"
+        class="bp3-popover-wrapper filterSelect Select--main bp3-fill"
       >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--margin-right-large StyledProps--font-size-small StyledProps--font-weight-bold"
-        >
-          cv.monitoredServices.filterlabel
-        </p>
         <div
-          class="bp3-popover-wrapper Select--main bp3-fill"
+          class="bp3-popover-target"
         >
           <div
-            class="bp3-popover-target"
+            class="bp3-input-group"
           >
-            <div
-              class="bp3-input-group"
+            <input
+              autocomplete="off"
+              class="bp3-input"
+              placeholder="- Select -"
+              style="padding-right: 0px;"
+              type="text"
+              value="environment: all"
+            />
+            <span
+              class="bp3-input-action"
             >
               <span
-                class="bp3-icon bp3-icon-search"
-                icon="search"
+                class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                icon="chevron-down"
               >
                 <svg
-                  data-icon="search"
-                  height="16"
+                  data-icon="chevron-down"
+                  height="14"
                   viewBox="0 0 16 16"
-                  width="16"
+                  width="14"
                 >
                   <desc>
-                    search
+                    chevron-down
                   </desc>
                   <path
-                    d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
+                    d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                     fill-rule="evenodd"
                   />
                 </svg>
               </span>
-              <input
-                autocomplete="off"
-                class="bp3-input"
-                placeholder="- Select -"
-                style="padding-right: 0px;"
-                type="text"
-                value="all"
-              />
-              <span
-                class="bp3-input-action"
-              >
-                <span
-                  class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
-                  icon="chevron-down"
-                >
-                  <svg
-                    data-icon="chevron-down"
-                    height="14"
-                    viewBox="0 0 16 16"
-                    width="14"
-                  >
-                    <desc>
-                      chevron-down
-                    </desc>
-                    <path
-                      d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-              </span>
-            </div>
+            </span>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="StyledProps--font StyledProps--main PageBody--pageBody pageBody"
+    data-name="page-body"
+  >
+    <div
+      class="StyledProps--font StyledProps--main NoDataCard--noDataCard StyledProps--flex StyledProps--flex-align-center-center"
+    >
+      <div
+        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+        style="align-items: center; margin-top: -48px; width: 470px;"
+      >
+        <span
+          class="bp3-icon bp3-icon-join-table StyledProps--main StyledProps--color StyledProps--color-grey600"
+          icon="join-table"
+        >
+          <svg
+            data-icon="join-table"
+            height="48"
+            viewBox="0 0 20 20"
+            width="48"
+          >
+            <desc>
+              join-table
+            </desc>
+            <path
+              d="M19 6h-4V2c0-.55-.45-1-1-1H1c-.55 0-1 .45-1 1v11c0 .55.45 1 1 1h4v4c0 .55.45 1 1 1h13c.55 0 1-.45 1-1V7c0-.55-.45-1-1-1zM6 12H2V9h4v3zm0-4H2V5h4v3zm7 9H7v-3h6v3zm0-4H7V9h6v4zm0-5H7V5h6v3zm5 9h-4v-3h4v3zm0-4h-4v-3h4v3z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+        <p
+          class="StyledProps--font StyledProps--main NoDataCard--message StyledProps--font-align-center StyledProps--color StyledProps--color-grey600"
+        >
+          cv.slos.noData
+        </p>
+        <div
+          class="NoDataCard--buttonContainer"
+        />
       </div>
     </div>
   </div>

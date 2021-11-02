@@ -14,6 +14,11 @@ export interface ServiceSelectOrCreateProps {
   className?: string
   onNewCreated(value: ServiceResponseDTO): void
   disabled?: boolean
+  modalTitle?: string
+  placeholder?: string
+  skipServiceCreateOrUpdate?: boolean
+  loading?: boolean
+  name?: string
 }
 
 const ADD_NEW_VALUE = '@@add_new'
@@ -29,6 +34,7 @@ export function generateOptions(response?: ServiceResponseDTO[]): SelectOption[]
 export const ServiceSelectOrCreate: React.FC<ServiceSelectOrCreateProps> = props => {
   const { getString } = useStrings()
   const { projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+  const { modalTitle, placeholder, skipServiceCreateOrUpdate, loading, name } = props
 
   const selectOptions = useMemo(
     () => [
@@ -50,10 +56,13 @@ export const ServiceSelectOrCreate: React.FC<ServiceSelectOrCreateProps> = props
     isService: true,
     isEdit: false,
     onClose: noop,
-    onCreateOrUpdate: onSubmit
+    onCreateOrUpdate: onSubmit,
+    modalTitle,
+    skipServiceCreateOrUpdate,
+    name
   })
 
-  const onSelectChange = (val: SelectOption) => {
+  const onSelectChange = (val: SelectOption): void => {
     if (val.value === ADD_NEW_VALUE) {
       openHarnessServiceModal()
     } else {
@@ -64,12 +73,14 @@ export const ServiceSelectOrCreate: React.FC<ServiceSelectOrCreateProps> = props
   return (
     <Container onClick={e => e.stopPropagation()}>
       <Select
-        name={'service'}
+        name={name ?? 'service'}
         value={props.item}
         className={props.className}
         disabled={props.disabled}
         items={selectOptions}
-        inputProps={{ placeholder: getString('cv.selectCreateService') }}
+        inputProps={{
+          placeholder: loading ? getString('loading') : placeholder ?? getString('cv.selectCreateService')
+        }}
         onChange={onSelectChange}
       />
     </Container>

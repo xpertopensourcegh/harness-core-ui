@@ -18,3 +18,52 @@
   display: flex;
   flex-direction: column;
 }
+
+.slosContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.sloCard {
+  height: 439px;
+  min-width: 49%;
+  margin: var(--spacing-xsmall) !important;
+  border-radius: var(--spacing-3);
+  display: flex;
+  flex-direction: column;
+}
+
+.sloHeader {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--spacing-small) !important;
+}
+
+.sloBasicInfo {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.sloTitle {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--spacing-small) !important;
+}
+
+.seperator {
+  margin-left: var(--spacing-xsmall);
+  margin-right: var(--spacing-xsmall);
+  opacity: 0.5;
+  border: 1px solid 'var(--grey-200)';
+}
+
+.filterSelect {
+  margin-right: var(--spacing-large);
+}
+
+.pageBody {
+  --page-header-height: 146px !important;
+}

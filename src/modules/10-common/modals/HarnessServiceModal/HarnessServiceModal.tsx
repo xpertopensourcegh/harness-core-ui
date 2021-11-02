@@ -11,6 +11,7 @@ import { NameSchema, IdentifierSchema } from '@common/utils/Validation'
 import { useStrings } from 'framework/strings'
 import { useCreateServicesV2, useUpsertServiceV2, ServiceRequestDTO } from 'services/cd-ng'
 import type { HarnessServicetModalProps } from './HarnessServiceModal.types'
+import { getHarnessServiceModalFormDetails } from './HarnessServiceModal.utils'
 
 export const HarnessServicetModal: React.FC<HarnessServicetModalProps> = ({
   isEdit,
@@ -18,10 +19,13 @@ export const HarnessServicetModal: React.FC<HarnessServicetModalProps> = ({
   isService,
   formik,
   onCreateOrUpdate,
-  closeModal
+  closeModal,
+  skipServiceCreateOrUpdate,
+  name
 }): JSX.Element => {
   const { getString } = useStrings()
   const inputRef = React.useRef<HTMLInputElement | null>(null)
+  const { formName, field } = getHarnessServiceModalFormDetails(name)
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     orgIdentifier: string
     projectIdentifier: string
@@ -47,34 +51,38 @@ export const HarnessServicetModal: React.FC<HarnessServicetModalProps> = ({
 
   const onSubmit = React.useCallback(
     async (values: ServiceRequestDTO) => {
-      try {
-        if (isEdit && !isService) {
-          const response = await updateService({
-            ...omit(values, 'accountId', 'deleted'),
-            orgIdentifier,
-            projectIdentifier
-          })
-          if (response.status === 'SUCCESS') {
-            clear()
-            showSuccess(getString('common.serviceCreated'))
-            formik?.setFieldValue('serviceRef', values.identifier)
-            onCreateOrUpdate(values)
+      if (!skipServiceCreateOrUpdate) {
+        try {
+          if (isEdit && !isService) {
+            const response = await updateService({
+              ...omit(values, 'accountId', 'deleted'),
+              orgIdentifier,
+              projectIdentifier
+            })
+            if (response.status === 'SUCCESS') {
+              clear()
+              showSuccess(getString('common.serviceCreated'))
+              formik?.setFieldValue('serviceRef', values.identifier)
+              onCreateOrUpdate(values)
+            }
+          } else {
+            const response = await createService([{ ...values, orgIdentifier, projectIdentifier }])
+            if (response.status === 'SUCCESS') {
+              clear()
+              showSuccess(getString('common.serviceCreated'))
+              formik?.setFieldValue('serviceRef', values.identifier)
+              onCreateOrUpdate(values)
+            }
           }
-        } else {
-          const response = await createService([{ ...values, orgIdentifier, projectIdentifier }])
-          if (response.status === 'SUCCESS') {
-            clear()
-            showSuccess(getString('common.serviceCreated'))
-            formik?.setFieldValue('serviceRef', values.identifier)
-            onCreateOrUpdate(values)
-          }
+        } catch (e) {
+          showError(e?.data?.message || e?.message || getString('commonError'))
         }
-      } catch (e) {
-        showError(e?.data?.message || e?.message || getString('commonError'))
+      } else {
+        onCreateOrUpdate(values)
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [onCreateOrUpdate, orgIdentifier, projectIdentifier, isEdit, isService, formik]
+    [skipServiceCreateOrUpdate, isEdit, isService, orgIdentifier, projectIdentifier, formik]
   )
 
   if (createLoading || updateLoading) {
@@ -84,13 +92,13 @@ export const HarnessServicetModal: React.FC<HarnessServicetModalProps> = ({
   return (
     <Formik<ServiceRequestDTO>
       initialValues={data}
-      formName="deployService"
+      formName={formName}
       enableReinitialize={false}
       onSubmit={values => {
         onSubmit(values)
       }}
       validationSchema={Yup.object().shape({
-        name: NameSchema({ requiredErrorMsg: getString?.('fieldRequired', { field: 'Service' }) }),
+        name: NameSchema({ requiredErrorMsg: getString?.('fieldRequired', { field }) }),
         identifier: IdentifierSchema()
       })}
     >
@@ -134,7 +142,18 @@ export const useHarnessServicetModal = (
   props: HarnessServicetModalProps
 ): { openHarnessServiceModal: () => void; closeHarnessServiceModal: () => void } => {
   const { getString } = useStrings()
-  const { data, isService, isEdit, formik, onClose, onCreateOrUpdate, className, modalTitle } = props
+  const {
+    data,
+    isService,
+    isEdit,
+    formik,
+    onClose,
+    onCreateOrUpdate,
+    className,
+    modalTitle,
+    skipServiceCreateOrUpdate,
+    name
+  } = props
   const [showModal, hideModal] = useModalHook(
     () => (
       <Dialog
@@ -151,6 +170,8 @@ export const useHarnessServicetModal = (
           isService={isService}
           onCreateOrUpdate={onCreateOrUpdate}
           closeModal={onClose ? onClose : hideModal}
+          name={name}
+          skipServiceCreateOrUpdate={skipServiceCreateOrUpdate}
         />
       </Dialog>
     ),

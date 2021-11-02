@@ -1,0 +1,228 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test SLOName component should render SLOName component 1`] = `
+<div>
+  <form
+    class="FormikForm--main"
+  >
+    <div>
+      <div
+        class="Layout--vertical StyledProps--main sloNameContainer StyledProps--margin-xxlarge"
+      >
+        <div
+          class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
+        >
+          <div
+            class="StyledProps--font StyledProps--main main nameTagsDescription"
+          >
+            <div
+              class="InputWithIdentifier--txtNameContainer TextInput--main"
+            >
+              <div
+                class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main"
+                >
+                  ID
+                </p>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                >
+                  :
+                </p>
+                <span
+                  class="bp3-popover-wrapper"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="bp3-editable-text bp3-disabled bp3-editable-text-placeholder InputWithIdentifier--idValue"
+                    >
+                      <span
+                        class="bp3-editable-text-content"
+                        style="height: 1px; line-height: 1px; min-width: 0;"
+                      />
+                    </div>
+                  </span>
+                </span>
+              </div>
+              <div
+                class="bp3-form-group"
+                data-id="name-0"
+              >
+                <label
+                  class="bp3-label"
+                  for="name"
+                >
+                  cv.slos.sloName
+                   
+                  <span
+                    class="bp3-text-muted"
+                  />
+                </label>
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="bp3-input-group"
+                  >
+                    <input
+                      autocomplete="off"
+                      class="bp3-input"
+                      name="name"
+                      placeholder="common.namePlaceholder"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main"
+            >
+              <label
+                class="Label--main bp3-label descriptionLabel"
+              >
+                optionalField
+                <span
+                  class="bp3-icon StyledProps--main editOpen"
+                  data-icon="Edit"
+                  data-name="edit"
+                  data-testid="description-edit"
+                >
+                  <svg
+                    height="12"
+                    viewBox="0 0 24 24"
+                    width="12"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M16.207 4.485a.5.5 0 01.354-.146 3.5 3.5 0 013.5 3.5.5.5 0 01-.147.353l-11 11a.5.5 0 01-.353.147h-3a.5.5 0 01-.5-.5v-3a.5.5 0 01.146-.354l11-11zm.553.862L6.06 16.046v2.293h2.294l10.699-10.7a2.5 2.5 0 00-2.293-2.292z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                    <path
+                      clip-rule="evenodd"
+                      d="M16.89 6.646a.5.5 0 010 .708l-3.536 3.535a.5.5 0 01-.708-.707l3.536-3.536a.5.5 0 01.707 0z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                      opacity="0.3"
+                    />
+                  </svg>
+                </span>
+              </label>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main"
+            >
+              <label
+                class="Label--main bp3-label descriptionLabel"
+              >
+                optionalField
+                <span
+                  class="bp3-icon StyledProps--main editOpen"
+                  data-icon="Edit"
+                  data-name="edit"
+                  data-testid="tags-edit"
+                >
+                  <svg
+                    height="12"
+                    viewBox="0 0 24 24"
+                    width="12"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M16.207 4.485a.5.5 0 01.354-.146 3.5 3.5 0 013.5 3.5.5.5 0 01-.147.353l-11 11a.5.5 0 01-.353.147h-3a.5.5 0 01-.5-.5v-3a.5.5 0 01.146-.354l11-11zm.553.862L6.06 16.046v2.293h2.294l10.699-10.7a2.5 2.5 0 00-2.293-2.292z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                    <path
+                      clip-rule="evenodd"
+                      d="M16.89 6.646a.5.5 0 010 .708l-3.536 3.535a.5.5 0 01-.708-.707l3.536-3.536a.5.5 0 01.707 0z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                      opacity="0.3"
+                    />
+                  </svg>
+                </span>
+              </label>
+            </div>
+          </div>
+          <div
+            class="bp3-form-group"
+            data-id="cv.slos.userJourney-1"
+          >
+            <label
+              class="bp3-label"
+              for="userJourneyRef"
+            >
+              cv.slos.userJourney
+               
+              <span
+                class="bp3-text-muted"
+              />
+            </label>
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="StyledProps--font StyledProps--main"
+              >
+                <div
+                  class="bp3-popover-wrapper dropdown Select--main bp3-fill"
+                >
+                  <div
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="bp3-input-group"
+                    >
+                      <input
+                        autocomplete="off"
+                        class="bp3-input"
+                        name="cv.slos.userJourney"
+                        placeholder="cv.slos.userJourneyPlaceholder"
+                        style="padding-right: 0px;"
+                        type="text"
+                        value=""
+                      />
+                      <span
+                        class="bp3-input-action"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                          icon="chevron-down"
+                        >
+                          <svg
+                            data-icon="chevron-down"
+                            height="14"
+                            viewBox="0 0 16 16"
+                            width="14"
+                          >
+                            <desc>
+                              chevron-down
+                            </desc>
+                            <path
+                              d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+`;

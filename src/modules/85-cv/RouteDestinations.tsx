@@ -63,7 +63,7 @@ import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import CVTrialHomePage from './pages/home/CVTrialHomePage'
 import { editParams } from './utils/routeUtils'
 import CVSLOsListingPage from './pages/slos/CVSLOsListingPage'
-import CreateSLO from './pages/slos/components/CreateSLO/CreateSLO'
+import CVCreateSLO from './pages/slos/components/CVCreateSLO/CVCreateSLO'
 
 PubSubPipelineActions.subscribe(
   PipelineActions.RunPipeline,
@@ -120,7 +120,7 @@ const RedirectToCVProject = (): React.ReactElement => {
   }
 }
 
-const cvModuleParams: ModulePathParams = {
+export const cvModuleParams: ModulePathParams = {
   module: ':module(cv)'
 }
 
@@ -168,10 +168,19 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}
-      path={routes.toCVCreateSLOs({ ...accountPathProps, ...projectPathProps, module: ':module(cv)' })}
+      path={[
+        routes.toCVCreateSLOs({ ...accountPathProps, ...projectPathProps, module: ':module(cv)' }),
+        routes.toCVEditSLOs({
+          ...accountPathProps,
+          ...projectPathProps,
+          ...editParams,
+          ...cvModuleParams
+        })
+      ]}
     >
-      <CreateSLO />
+      <CVCreateSLO />
     </RouteWithLayout>
+
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}

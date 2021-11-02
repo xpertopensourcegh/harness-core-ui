@@ -680,12 +680,23 @@ healthSource:
       selectDashboardTab: 'Select Dashboards'
 slos:
   title: SLOs
+  editSLO: Edit SLO
+  deleteSLO: Delete SLO
   newSLO: New SLO
   createSLO: Create SLO
+  healthSource: Health source
+  sloCreated: SLO created successfully
+  sloUpdated: SLO updated successfully
+  noData: No SLOs Present.
+  nameValidation: SLO name is a required field
+  confirmDeleteSLO: 'Are you sure you want to delete SLO: {{ name }}'
+  sloDeleted: '{{ name }} successfully deleted'
   sli: SLI
   sloTargetAndBudgetPolicy: SLO Target & Error Budget Policy
   sloName: SLO Name
   userJourney: User Journey
+  userJourneyPlaceholder: Select or create user journey
+  userJourneyCreated: User journey created successfully
   selectMonitoredService: Select Monitored Service
   selectMonitoredServiceForSlo: Select monitored service on which to define SLO
   selectHealthsource: Select Health Source
@@ -710,7 +721,6 @@ slos:
       thresholdBased: Threshold based
       ratioBased: Ratio based
     ratioMetricType:
-      selectEventType: Select Event type
       eventType: Event type
       goodRequestsMetrics: Metric for good requests
       validRequestsMetrics: Metric for valid requests

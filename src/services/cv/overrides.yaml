@@ -97,6 +97,11 @@ allowpaths:
   - /account/{accountIdentifier}/org/{orgIdentifier}/project/{projectIdentifier}/change-event/timeline
   - /account/{accountIdentifier}/org/{orgIdentifier}/project/{projectIdentifier}/change-event/{activityId}
   - /log-dashboard/logs-cluster
+  - /user-journey/create
+  - /user-journey
+  - /slo
+  - /slo/create
+  - /slo/{identifier}
 operationIdOverrides:
   /appdynamics/applications.get: getAppDynamicsApplications
   /appdynamics/metric-data.post: getAppDynamicsMetricData
