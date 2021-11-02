@@ -677,6 +677,7 @@ ceGcp:
     followInstruction: 'Please follow the instructions to provide create a Billing export for the specified Project ID'
     launchTemplate: 'Launch GCP console'
     datasetIdLabel: 'Dataset ID'
+    tooltipDescription: GCP DataSet ID where billing export is available
   billingExtention:
     heading: 'How to create GCP Billing Export and find DataSet ID?'
     prerequisite: 'Pre-Requisite:A project where the Cloud Billing data will be stored with billing enabled on the project.'
@@ -685,7 +686,7 @@ ceGcp:
     step3:
       p1: 'Click on Create Dataset, enter a '
       p2: 'DatasetID'
-      p3: 'and click on create.'
+      p3: ' and click on create.'
     step4: 'Enable Cloud Billing export of cost data and pricing data to be written into the dataset.'
     step5: 'Open the console -> Navigation menu (menu), and then select Billing.'
     step6: 'In the Billing navigation menu, select Billing export.'
@@ -705,7 +706,5 @@ ceGcp:
     step7: 'Click Continue.'
   testConnection:
     heading: '{{ $.common.labelTestConnection }}'
-    step1: 'Validation/Verification 1'
-    step2: 'Validation/Verification 2'
-    step3: 'Validation/Verification 3'
+    step1: 'Verifying GCP connector setup'
     error: 'Could not verify connectivity'

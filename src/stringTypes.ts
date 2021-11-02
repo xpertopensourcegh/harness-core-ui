@@ -1390,6 +1390,7 @@ export interface StringsMap {
   'connectors.ceGcp.billingExport.followInstruction': string
   'connectors.ceGcp.billingExport.heading': string
   'connectors.ceGcp.billingExport.launchTemplate': string
+  'connectors.ceGcp.billingExport.tooltipDescription': string
   'connectors.ceGcp.billingExtention.heading': string
   'connectors.ceGcp.billingExtention.link1': string
   'connectors.ceGcp.billingExtention.link2': string
@@ -1418,8 +1419,6 @@ export interface StringsMap {
   'connectors.ceGcp.testConnection.error': string
   'connectors.ceGcp.testConnection.heading': string
   'connectors.ceGcp.testConnection.step1': string
-  'connectors.ceGcp.testConnection.step2': string
-  'connectors.ceGcp.testConnection.step3': string
   'connectors.ceK8.chooseRequirements.description': string
   'connectors.ceK8.chooseRequirements.fixFeaturesDescription': string
   'connectors.ceK8.chooseRequirements.heading': string

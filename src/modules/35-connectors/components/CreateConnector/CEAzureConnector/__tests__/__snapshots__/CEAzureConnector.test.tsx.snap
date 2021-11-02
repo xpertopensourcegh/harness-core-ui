@@ -6,7 +6,7 @@ exports[`Create Azure connector Wizard should render create new billing exports 
     style="display: flex; height: 700px;"
   >
     <div
-      style="width: 1050px; position: relative;"
+      style="width: 1175px; position: relative;"
     >
       <div
         class="StepWizard--main azureConnector StepWizard--navBar"
@@ -837,7 +837,7 @@ exports[`Create Azure connector Wizard should render existing billing exports fo
     style="display: flex; height: 700px;"
   >
     <div
-      style="width: 1050px; position: relative;"
+      style="width: 1175px; position: relative;"
     >
       <div
         class="StepWizard--main azureConnector StepWizard--navBar"
@@ -1277,7 +1277,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
     style="display: flex; height: 700px;"
   >
     <div
-      style="width: 1050px; position: relative;"
+      style="width: 1175px; position: relative;"
     >
       <div
         class="StepWizard--main azureConnector StepWizard--navBar"
@@ -1969,7 +1969,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
     style="display: flex; height: 700px;"
   >
     <div
-      style="width: 1050px; position: relative;"
+      style="width: 1175px; position: relative;"
     >
       <div
         class="StepWizard--main azureConnector StepWizard--navBar"
@@ -2404,7 +2404,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
     style="display: flex; height: 700px;"
   >
     <div
-      style="width: 1050px; position: relative;"
+      style="width: 1175px; position: relative;"
     >
       <div
         class="StepWizard--main azureConnector StepWizard--navBar"
@@ -2800,7 +2800,7 @@ exports[`Create Azure connector Wizard should render overview step 1`] = `
     style="display: flex; height: 700px;"
   >
     <div
-      style="width: 1050px; position: relative;"
+      style="width: 1175px; position: relative;"
     >
       <div
         class="StepWizard--main azureConnector StepWizard--navBar"
@@ -3261,7 +3261,7 @@ exports[`Create Azure connector Wizard should throw an error when connectors alr
     style="display: flex; height: 700px;"
   >
     <div
-      style="width: 1050px; position: relative;"
+      style="width: 1175px; position: relative;"
     >
       <div
         class="StepWizard--main azureConnector StepWizard--navBar"

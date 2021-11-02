@@ -7,10 +7,12 @@ import css from './LabelWithTooltip.module.scss'
 
 const LabelWithTooltip = ({
   label,
-  extentionComponent
+  extentionComponent,
+  toolTipContent
 }: {
   label: string
   extentionComponent: ReactElement | React.FC
+  toolTipContent?: React.ReactNode
 }) => {
   const { getString } = useStrings()
   const { triggerExtension } = useContext(DialogExtensionContext)
@@ -24,7 +26,7 @@ const LabelWithTooltip = ({
         content={
           <div className={css.popoverContent}>
             <Text color="grey50" font={'xsmall'}>
-              Provided in the delivery options when the template is opened in the AWS console
+              {toolTipContent || 'Provided in the delivery options when the template is opened in the AWS console'}
             </Text>
             <div className={css.btnCtn}>
               <Button

@@ -6,7 +6,7 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
     style="display: flex; max-height: 800px;"
   >
     <div
-      style="width: 1050px; position: relative;"
+      style="width: 1175px; position: relative;"
     >
       <div
         class="StepWizard--main gcpConnector StepWizard--navBar"
@@ -188,90 +188,130 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
                 >
                   <div>
                     <div
-                      class="StyledProps--font StyledProps--main main"
-                      style="width: 65%;"
+                      class="StyledProps--font StyledProps--main"
+                      style="min-height: 550px;"
                     >
                       <div
-                        class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+                        class="StyledProps--font StyledProps--main main"
+                        style="width: 65%;"
                       >
                         <div
-                          class="InputWithIdentifier--txtNameContainer TextInput--main"
+                          class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
                         >
                           <div
-                            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
+                            class="InputWithIdentifier--txtNameContainer TextInput--main"
                           >
                             <div
-                              class="Text--withDocsTooltip"
-                              data-tooltip-id="ceGcpOverview_identifier"
+                              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                             >
+                              <div
+                                class="Text--withDocsTooltip"
+                                data-tooltip-id="ceGcpOverview_identifier"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                >
+                                  ID
+                                </p>
+                              </div>
                               <p
                                 class="StyledProps--font StyledProps--main"
                               >
-                                ID
+                                :
                               </p>
-                            </div>
-                            <p
-                              class="StyledProps--font StyledProps--main"
-                            >
-                              :
-                            </p>
-                            <span
-                              class="bp3-popover-wrapper"
-                            >
                               <span
-                                class="bp3-popover-target"
+                                class="bp3-popover-wrapper"
+                              >
+                                <span
+                                  class="bp3-popover-target"
+                                >
+                                  <div
+                                    class="bp3-editable-text bp3-editable-text-placeholder InputWithIdentifier--idValue"
+                                    tabindex="0"
+                                  >
+                                    <span
+                                      class="bp3-editable-text-content"
+                                      style="height: 1px; line-height: 1px; min-width: 0;"
+                                    />
+                                  </div>
+                                </span>
+                              </span>
+                              <span
+                                class="bp3-icon StyledProps--main"
+                                data-icon="Edit"
+                                style="vertical-align: middle; cursor: pointer;"
+                              >
+                                <svg
+                                  height="12"
+                                  viewBox="0 0 24 24"
+                                  width="12"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    clip-rule="evenodd"
+                                    d="M16.207 4.485a.5.5 0 01.354-.146 3.5 3.5 0 013.5 3.5.5.5 0 01-.147.353l-11 11a.5.5 0 01-.353.147h-3a.5.5 0 01-.5-.5v-3a.5.5 0 01.146-.354l11-11zm.553.862L6.06 16.046v2.293h2.294l10.699-10.7a2.5 2.5 0 00-2.293-2.292z"
+                                    fill="currentColor"
+                                    fill-rule="evenodd"
+                                  />
+                                  <path
+                                    clip-rule="evenodd"
+                                    d="M16.89 6.646a.5.5 0 010 .708l-3.536 3.535a.5.5 0 01-.708-.707l3.536-3.536a.5.5 0 01.707 0z"
+                                    fill="currentColor"
+                                    fill-rule="evenodd"
+                                    opacity="0.3"
+                                  />
+                                </svg>
+                              </span>
+                            </div>
+                            <div
+                              class="bp3-form-group"
+                              data-id="name-0"
+                            >
+                              <label
+                                class="bp3-label"
+                                for="name"
+                              >
+                                <span
+                                  class="Tooltip--acenter"
+                                  data-tooltip-id="ceGcpOverview_name"
+                                >
+                                  connectors.name
+                                </span>
+                                 
+                                <span
+                                  class="bp3-text-muted"
+                                />
+                              </label>
+                              <div
+                                class="bp3-form-content"
                               >
                                 <div
-                                  class="bp3-editable-text bp3-editable-text-placeholder InputWithIdentifier--idValue"
-                                  tabindex="0"
+                                  class="bp3-input-group"
                                 >
-                                  <span
-                                    class="bp3-editable-text-content"
-                                    style="height: 1px; line-height: 1px; min-width: 0;"
+                                  <input
+                                    autocomplete="off"
+                                    class="bp3-input"
+                                    name="name"
+                                    type="text"
+                                    value=""
                                   />
                                 </div>
-                              </span>
-                            </span>
-                            <span
-                              class="bp3-icon StyledProps--main"
-                              data-icon="Edit"
-                              style="vertical-align: middle; cursor: pointer;"
-                            >
-                              <svg
-                                height="12"
-                                viewBox="0 0 24 24"
-                                width="12"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  clip-rule="evenodd"
-                                  d="M16.207 4.485a.5.5 0 01.354-.146 3.5 3.5 0 013.5 3.5.5.5 0 01-.147.353l-11 11a.5.5 0 01-.353.147h-3a.5.5 0 01-.5-.5v-3a.5.5 0 01.146-.354l11-11zm.553.862L6.06 16.046v2.293h2.294l10.699-10.7a2.5 2.5 0 00-2.293-2.292z"
-                                  fill="currentColor"
-                                  fill-rule="evenodd"
-                                />
-                                <path
-                                  clip-rule="evenodd"
-                                  d="M16.89 6.646a.5.5 0 010 .708l-3.536 3.535a.5.5 0 01-.708-.707l3.536-3.536a.5.5 0 01.707 0z"
-                                  fill="currentColor"
-                                  fill-rule="evenodd"
-                                  opacity="0.3"
-                                />
-                              </svg>
-                            </span>
+                              </div>
+                            </div>
                           </div>
                           <div
                             class="bp3-form-group"
-                            data-id="name-0"
+                            data-id="projectId-1"
                           >
                             <label
                               class="bp3-label"
-                              for="name"
+                              for="projectId"
                             >
                               <span
                                 class="Tooltip--acenter"
-                                data-tooltip-id="ceGcpOverview_name"
+                                data-tooltip-id="gcpConnectorProjectId"
                               >
-                                connectors.name
+                                connectors.ceGcp.overview.projectIdLabel
                               </span>
                                
                               <span
@@ -287,129 +327,94 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
                                 <input
                                   autocomplete="off"
                                   class="bp3-input"
-                                  name="name"
+                                  name="projectId"
                                   type="text"
                                   value=""
                                 />
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <div
-                          class="bp3-form-group"
-                          data-id="projectId-1"
-                        >
-                          <label
-                            class="bp3-label"
-                            for="projectId"
-                          >
-                            <span
-                              class="Tooltip--acenter"
-                              data-tooltip-id="ceGcpOverview_projectId"
-                            >
-                              connectors.ceGcp.overview.projectIdLabel
-                            </span>
-                             
-                            <span
-                              class="bp3-text-muted"
-                            />
-                          </label>
                           <div
-                            class="bp3-form-content"
+                            class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
                           >
                             <div
-                              class="bp3-input-group"
+                              class="StyledProps--font StyledProps--main"
                             >
-                              <input
-                                autocomplete="off"
-                                class="bp3-input"
-                                name="projectId"
-                                type="text"
-                                value=""
-                              />
+                              <label
+                                class="Label--main bp3-label descriptionLabel"
+                              >
+                                optionalField
+                                <span
+                                  class="bp3-icon StyledProps--main editOpen"
+                                  data-icon="Edit"
+                                  data-name="edit"
+                                  data-testid="description-edit"
+                                >
+                                  <svg
+                                    height="12"
+                                    viewBox="0 0 24 24"
+                                    width="12"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M16.207 4.485a.5.5 0 01.354-.146 3.5 3.5 0 013.5 3.5.5.5 0 01-.147.353l-11 11a.5.5 0 01-.353.147h-3a.5.5 0 01-.5-.5v-3a.5.5 0 01.146-.354l11-11zm.553.862L6.06 16.046v2.293h2.294l10.699-10.7a2.5 2.5 0 00-2.293-2.292z"
+                                      fill="currentColor"
+                                      fill-rule="evenodd"
+                                    />
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M16.89 6.646a.5.5 0 010 .708l-3.536 3.535a.5.5 0 01-.708-.707l3.536-3.536a.5.5 0 01.707 0z"
+                                      fill="currentColor"
+                                      fill-rule="evenodd"
+                                      opacity="0.3"
+                                    />
+                                  </svg>
+                                </span>
+                              </label>
                             </div>
-                          </div>
-                        </div>
-                        <div
-                          class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
-                        >
-                          <div
-                            class="StyledProps--font StyledProps--main"
-                          >
-                            <label
-                              class="Label--main bp3-label descriptionLabel"
+                            <div
+                              class="StyledProps--font StyledProps--main"
                             >
-                              optionalField
-                              <span
-                                class="bp3-icon StyledProps--main editOpen"
-                                data-icon="Edit"
-                                data-name="edit"
-                                data-testid="description-edit"
+                              <label
+                                class="Label--main bp3-label descriptionLabel"
                               >
-                                <svg
-                                  height="12"
-                                  viewBox="0 0 24 24"
-                                  width="12"
-                                  xmlns="http://www.w3.org/2000/svg"
+                                optionalField
+                                <span
+                                  class="bp3-icon StyledProps--main editOpen"
+                                  data-icon="Edit"
+                                  data-name="edit"
+                                  data-testid="tags-edit"
                                 >
-                                  <path
-                                    clip-rule="evenodd"
-                                    d="M16.207 4.485a.5.5 0 01.354-.146 3.5 3.5 0 013.5 3.5.5.5 0 01-.147.353l-11 11a.5.5 0 01-.353.147h-3a.5.5 0 01-.5-.5v-3a.5.5 0 01.146-.354l11-11zm.553.862L6.06 16.046v2.293h2.294l10.699-10.7a2.5 2.5 0 00-2.293-2.292z"
-                                    fill="currentColor"
-                                    fill-rule="evenodd"
-                                  />
-                                  <path
-                                    clip-rule="evenodd"
-                                    d="M16.89 6.646a.5.5 0 010 .708l-3.536 3.535a.5.5 0 01-.708-.707l3.536-3.536a.5.5 0 01.707 0z"
-                                    fill="currentColor"
-                                    fill-rule="evenodd"
-                                    opacity="0.3"
-                                  />
-                                </svg>
-                              </span>
-                            </label>
-                          </div>
-                          <div
-                            class="StyledProps--font StyledProps--main"
-                          >
-                            <label
-                              class="Label--main bp3-label descriptionLabel"
-                            >
-                              optionalField
-                              <span
-                                class="bp3-icon StyledProps--main editOpen"
-                                data-icon="Edit"
-                                data-name="edit"
-                                data-testid="tags-edit"
-                              >
-                                <svg
-                                  height="12"
-                                  viewBox="0 0 24 24"
-                                  width="12"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    clip-rule="evenodd"
-                                    d="M16.207 4.485a.5.5 0 01.354-.146 3.5 3.5 0 013.5 3.5.5.5 0 01-.147.353l-11 11a.5.5 0 01-.353.147h-3a.5.5 0 01-.5-.5v-3a.5.5 0 01.146-.354l11-11zm.553.862L6.06 16.046v2.293h2.294l10.699-10.7a2.5 2.5 0 00-2.293-2.292z"
-                                    fill="currentColor"
-                                    fill-rule="evenodd"
-                                  />
-                                  <path
-                                    clip-rule="evenodd"
-                                    d="M16.89 6.646a.5.5 0 010 .708l-3.536 3.535a.5.5 0 01-.708-.707l3.536-3.536a.5.5 0 01.707 0z"
-                                    fill="currentColor"
-                                    fill-rule="evenodd"
-                                    opacity="0.3"
-                                  />
-                                </svg>
-                              </span>
-                            </label>
+                                  <svg
+                                    height="12"
+                                    viewBox="0 0 24 24"
+                                    width="12"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M16.207 4.485a.5.5 0 01.354-.146 3.5 3.5 0 013.5 3.5.5.5 0 01-.147.353l-11 11a.5.5 0 01-.353.147h-3a.5.5 0 01-.5-.5v-3a.5.5 0 01.146-.354l11-11zm.553.862L6.06 16.046v2.293h2.294l10.699-10.7a2.5 2.5 0 00-2.293-2.292z"
+                                      fill="currentColor"
+                                      fill-rule="evenodd"
+                                    />
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M16.89 6.646a.5.5 0 010 .708l-3.536 3.535a.5.5 0 01-.708-.707l3.536-3.536a.5.5 0 01.707 0z"
+                                      fill="currentColor"
+                                      fill-rule="evenodd"
+                                      opacity="0.3"
+                                    />
+                                  </svg>
+                                </span>
+                              </label>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
                     <div
-                      class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main buttonPanel"
+                      class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
                     >
                       <button
                         class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
@@ -476,7 +481,7 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
     style="display: flex; max-height: 800px;"
   >
     <div
-      style="width: 1050px; position: relative;"
+      style="width: 1175px; position: relative;"
     >
       <div
         class="StepWizard--main gcpConnector StepWizard--navBar"
@@ -1003,7 +1008,7 @@ exports[`Create Secret Manager Wizard should render form 3`] = `
     style="display: flex; max-height: 800px;"
   >
     <div
-      style="width: 1050px; position: relative;"
+      style="width: 1175px; position: relative;"
     >
       <div
         class="StepWizard--main gcpConnector StepWizard--navBar"
@@ -1422,7 +1427,7 @@ exports[`Create Secret Manager Wizard should render form 4`] = `
     style="display: flex; max-height: 800px;"
   >
     <div
-      style="width: 1050px; position: relative;"
+      style="width: 1175px; position: relative;"
     >
       <div
         class="StepWizard--main gcpConnector StepWizard--navBar"
@@ -1659,7 +1664,7 @@ exports[`Create Secret Manager Wizard should render form 4`] = `
                 >
                   <div
                     class="bp3-progress-meter"
-                    style="width: 33.33333333333333%;"
+                    style="width: 100%;"
                   />
                 </div>
               </div>
@@ -1693,56 +1698,6 @@ exports[`Create Secret Manager Wizard should render form 4`] = `
                     style=""
                   >
                     connectors.ceGcp.testConnection.step1
-                  </div>
-                </div>
-                <div
-                  class="StepsProgress--stepWrap"
-                >
-                  <span
-                    class="bp3-icon bp3-icon-blank StyledProps--main StyledProps--color StyledProps--color-yellow500 StyledProps--margin-right-small"
-                    icon="blank"
-                  >
-                    <svg
-                      data-icon="blank"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      width="16"
-                    >
-                      <desc>
-                        blank
-                      </desc>
-                    </svg>
-                  </span>
-                  <div
-                    class="StyledProps--font StyledProps--main StepsProgress--stepLabelContainer"
-                    style="font-weight: normal;"
-                  >
-                    connectors.ceGcp.testConnection.step2
-                  </div>
-                </div>
-                <div
-                  class="StepsProgress--stepWrap"
-                >
-                  <span
-                    class="bp3-icon bp3-icon-blank StyledProps--main StyledProps--color StyledProps--color-yellow500 StyledProps--margin-right-small"
-                    icon="blank"
-                  >
-                    <svg
-                      data-icon="blank"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      width="16"
-                    >
-                      <desc>
-                        blank
-                      </desc>
-                    </svg>
-                  </span>
-                  <div
-                    class="StyledProps--font StyledProps--main StepsProgress--stepLabelContainer"
-                    style="font-weight: normal;"
-                  >
-                    connectors.ceGcp.testConnection.step3
                   </div>
                 </div>
               </div>
@@ -1788,7 +1743,7 @@ exports[`Create Secret Manager Wizard should throw an error when connectors alre
     style="display: flex; max-height: 800px;"
   >
     <div
-      style="width: 1050px; position: relative;"
+      style="width: 1175px; position: relative;"
     >
       <div
         class="StepWizard--main gcpConnector StepWizard--navBar"
@@ -1970,92 +1925,132 @@ exports[`Create Secret Manager Wizard should throw an error when connectors alre
                 >
                   <div>
                     <div
-                      class="StyledProps--font StyledProps--main main"
-                      style="width: 65%;"
+                      class="StyledProps--font StyledProps--main"
+                      style="min-height: 550px;"
                     >
                       <div
-                        class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+                        class="StyledProps--font StyledProps--main main"
+                        style="width: 65%;"
                       >
                         <div
-                          class="InputWithIdentifier--txtNameContainer TextInput--main"
+                          class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
                         >
                           <div
-                            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
+                            class="InputWithIdentifier--txtNameContainer TextInput--main"
                           >
                             <div
-                              class="Text--withDocsTooltip"
-                              data-tooltip-id="ceGcpOverview_identifier"
+                              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                             >
+                              <div
+                                class="Text--withDocsTooltip"
+                                data-tooltip-id="ceGcpOverview_identifier"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                >
+                                  ID
+                                </p>
+                              </div>
                               <p
                                 class="StyledProps--font StyledProps--main"
                               >
-                                ID
+                                :
                               </p>
-                            </div>
-                            <p
-                              class="StyledProps--font StyledProps--main"
-                            >
-                              :
-                            </p>
-                            <span
-                              class="bp3-popover-wrapper"
-                            >
                               <span
-                                class="bp3-popover-target"
+                                class="bp3-popover-wrapper"
+                              >
+                                <span
+                                  class="bp3-popover-target"
+                                >
+                                  <div
+                                    class="bp3-editable-text InputWithIdentifier--idValue"
+                                    tabindex="0"
+                                  >
+                                    <span
+                                      class="bp3-editable-text-content"
+                                      style="height: 1px; line-height: 1px; min-width: 0;"
+                                    >
+                                      dummyname
+                                    </span>
+                                  </div>
+                                </span>
+                              </span>
+                              <span
+                                class="bp3-icon StyledProps--main"
+                                data-icon="Edit"
+                                style="vertical-align: middle; cursor: pointer;"
+                              >
+                                <svg
+                                  height="12"
+                                  viewBox="0 0 24 24"
+                                  width="12"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    clip-rule="evenodd"
+                                    d="M16.207 4.485a.5.5 0 01.354-.146 3.5 3.5 0 013.5 3.5.5.5 0 01-.147.353l-11 11a.5.5 0 01-.353.147h-3a.5.5 0 01-.5-.5v-3a.5.5 0 01.146-.354l11-11zm.553.862L6.06 16.046v2.293h2.294l10.699-10.7a2.5 2.5 0 00-2.293-2.292z"
+                                    fill="currentColor"
+                                    fill-rule="evenodd"
+                                  />
+                                  <path
+                                    clip-rule="evenodd"
+                                    d="M16.89 6.646a.5.5 0 010 .708l-3.536 3.535a.5.5 0 01-.708-.707l3.536-3.536a.5.5 0 01.707 0z"
+                                    fill="currentColor"
+                                    fill-rule="evenodd"
+                                    opacity="0.3"
+                                  />
+                                </svg>
+                              </span>
+                            </div>
+                            <div
+                              class="bp3-form-group"
+                              data-id="name-0"
+                            >
+                              <label
+                                class="bp3-label"
+                                for="name"
+                              >
+                                <span
+                                  class="Tooltip--acenter"
+                                  data-tooltip-id="ceGcpOverview_name"
+                                >
+                                  connectors.name
+                                </span>
+                                 
+                                <span
+                                  class="bp3-text-muted"
+                                />
+                              </label>
+                              <div
+                                class="bp3-form-content"
                               >
                                 <div
-                                  class="bp3-editable-text InputWithIdentifier--idValue"
-                                  tabindex="0"
+                                  class="bp3-input-group"
                                 >
-                                  <span
-                                    class="bp3-editable-text-content"
-                                    style="height: 1px; line-height: 1px; min-width: 0;"
-                                  >
-                                    dummyname
-                                  </span>
+                                  <input
+                                    autocomplete="off"
+                                    class="bp3-input"
+                                    name="name"
+                                    type="text"
+                                    value="dummyname"
+                                  />
                                 </div>
-                              </span>
-                            </span>
-                            <span
-                              class="bp3-icon StyledProps--main"
-                              data-icon="Edit"
-                              style="vertical-align: middle; cursor: pointer;"
-                            >
-                              <svg
-                                height="12"
-                                viewBox="0 0 24 24"
-                                width="12"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  clip-rule="evenodd"
-                                  d="M16.207 4.485a.5.5 0 01.354-.146 3.5 3.5 0 013.5 3.5.5.5 0 01-.147.353l-11 11a.5.5 0 01-.353.147h-3a.5.5 0 01-.5-.5v-3a.5.5 0 01.146-.354l11-11zm.553.862L6.06 16.046v2.293h2.294l10.699-10.7a2.5 2.5 0 00-2.293-2.292z"
-                                  fill="currentColor"
-                                  fill-rule="evenodd"
-                                />
-                                <path
-                                  clip-rule="evenodd"
-                                  d="M16.89 6.646a.5.5 0 010 .708l-3.536 3.535a.5.5 0 01-.708-.707l3.536-3.536a.5.5 0 01.707 0z"
-                                  fill="currentColor"
-                                  fill-rule="evenodd"
-                                  opacity="0.3"
-                                />
-                              </svg>
-                            </span>
+                              </div>
+                            </div>
                           </div>
                           <div
                             class="bp3-form-group"
-                            data-id="name-0"
+                            data-id="projectId-1"
                           >
                             <label
                               class="bp3-label"
-                              for="name"
+                              for="projectId"
                             >
                               <span
                                 class="Tooltip--acenter"
-                                data-tooltip-id="ceGcpOverview_name"
+                                data-tooltip-id="gcpConnectorProjectId"
                               >
-                                connectors.name
+                                connectors.ceGcp.overview.projectIdLabel
                               </span>
                                
                               <span
@@ -2071,213 +2066,178 @@ exports[`Create Secret Manager Wizard should throw an error when connectors alre
                                 <input
                                   autocomplete="off"
                                   class="bp3-input"
-                                  name="name"
+                                  name="projectId"
                                   type="text"
-                                  value="dummyname"
+                                  value="12345"
                                 />
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <div
-                          class="bp3-form-group"
-                          data-id="projectId-1"
-                        >
-                          <label
-                            class="bp3-label"
-                            for="projectId"
-                          >
-                            <span
-                              class="Tooltip--acenter"
-                              data-tooltip-id="ceGcpOverview_projectId"
-                            >
-                              connectors.ceGcp.overview.projectIdLabel
-                            </span>
-                             
-                            <span
-                              class="bp3-text-muted"
-                            />
-                          </label>
                           <div
-                            class="bp3-form-content"
+                            class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
                           >
                             <div
-                              class="bp3-input-group"
+                              class="StyledProps--font StyledProps--main"
                             >
-                              <input
-                                autocomplete="off"
-                                class="bp3-input"
-                                name="projectId"
-                                type="text"
-                                value="12345"
-                              />
+                              <label
+                                class="Label--main bp3-label descriptionLabel"
+                              >
+                                optionalField
+                                <span
+                                  class="bp3-icon StyledProps--main editOpen"
+                                  data-icon="Edit"
+                                  data-name="edit"
+                                  data-testid="description-edit"
+                                >
+                                  <svg
+                                    height="12"
+                                    viewBox="0 0 24 24"
+                                    width="12"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M16.207 4.485a.5.5 0 01.354-.146 3.5 3.5 0 013.5 3.5.5.5 0 01-.147.353l-11 11a.5.5 0 01-.353.147h-3a.5.5 0 01-.5-.5v-3a.5.5 0 01.146-.354l11-11zm.553.862L6.06 16.046v2.293h2.294l10.699-10.7a2.5 2.5 0 00-2.293-2.292z"
+                                      fill="currentColor"
+                                      fill-rule="evenodd"
+                                    />
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M16.89 6.646a.5.5 0 010 .708l-3.536 3.535a.5.5 0 01-.708-.707l3.536-3.536a.5.5 0 01.707 0z"
+                                      fill="currentColor"
+                                      fill-rule="evenodd"
+                                      opacity="0.3"
+                                    />
+                                  </svg>
+                                </span>
+                              </label>
+                            </div>
+                            <div
+                              class="StyledProps--font StyledProps--main"
+                            >
+                              <label
+                                class="Label--main bp3-label descriptionLabel"
+                              >
+                                optionalField
+                                <span
+                                  class="bp3-icon StyledProps--main editOpen"
+                                  data-icon="Edit"
+                                  data-name="edit"
+                                  data-testid="tags-edit"
+                                >
+                                  <svg
+                                    height="12"
+                                    viewBox="0 0 24 24"
+                                    width="12"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M16.207 4.485a.5.5 0 01.354-.146 3.5 3.5 0 013.5 3.5.5.5 0 01-.147.353l-11 11a.5.5 0 01-.353.147h-3a.5.5 0 01-.5-.5v-3a.5.5 0 01.146-.354l11-11zm.553.862L6.06 16.046v2.293h2.294l10.699-10.7a2.5 2.5 0 00-2.293-2.292z"
+                                      fill="currentColor"
+                                      fill-rule="evenodd"
+                                    />
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M16.89 6.646a.5.5 0 010 .708l-3.536 3.535a.5.5 0 01-.708-.707l3.536-3.536a.5.5 0 01.707 0z"
+                                      fill="currentColor"
+                                      fill-rule="evenodd"
+                                      opacity="0.3"
+                                    />
+                                  </svg>
+                                </span>
+                              </label>
                             </div>
                           </div>
                         </div>
-                        <div
-                          class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
-                        >
-                          <div
-                            class="StyledProps--font StyledProps--main"
-                          >
-                            <label
-                              class="Label--main bp3-label descriptionLabel"
-                            >
-                              optionalField
-                              <span
-                                class="bp3-icon StyledProps--main editOpen"
-                                data-icon="Edit"
-                                data-name="edit"
-                                data-testid="description-edit"
-                              >
-                                <svg
-                                  height="12"
-                                  viewBox="0 0 24 24"
-                                  width="12"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    clip-rule="evenodd"
-                                    d="M16.207 4.485a.5.5 0 01.354-.146 3.5 3.5 0 013.5 3.5.5.5 0 01-.147.353l-11 11a.5.5 0 01-.353.147h-3a.5.5 0 01-.5-.5v-3a.5.5 0 01.146-.354l11-11zm.553.862L6.06 16.046v2.293h2.294l10.699-10.7a2.5 2.5 0 00-2.293-2.292z"
-                                    fill="currentColor"
-                                    fill-rule="evenodd"
-                                  />
-                                  <path
-                                    clip-rule="evenodd"
-                                    d="M16.89 6.646a.5.5 0 010 .708l-3.536 3.535a.5.5 0 01-.708-.707l3.536-3.536a.5.5 0 01.707 0z"
-                                    fill="currentColor"
-                                    fill-rule="evenodd"
-                                    opacity="0.3"
-                                  />
-                                </svg>
-                              </span>
-                            </label>
-                          </div>
-                          <div
-                            class="StyledProps--font StyledProps--main"
-                          >
-                            <label
-                              class="Label--main bp3-label descriptionLabel"
-                            >
-                              optionalField
-                              <span
-                                class="bp3-icon StyledProps--main editOpen"
-                                data-icon="Edit"
-                                data-name="edit"
-                                data-testid="tags-edit"
-                              >
-                                <svg
-                                  height="12"
-                                  viewBox="0 0 24 24"
-                                  width="12"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    clip-rule="evenodd"
-                                    d="M16.207 4.485a.5.5 0 01.354-.146 3.5 3.5 0 013.5 3.5.5.5 0 01-.147.353l-11 11a.5.5 0 01-.353.147h-3a.5.5 0 01-.5-.5v-3a.5.5 0 01.146-.354l11-11zm.553.862L6.06 16.046v2.293h2.294l10.699-10.7a2.5 2.5 0 00-2.293-2.292z"
-                                    fill="currentColor"
-                                    fill-rule="evenodd"
-                                  />
-                                  <path
-                                    clip-rule="evenodd"
-                                    d="M16.89 6.646a.5.5 0 010 .708l-3.536 3.535a.5.5 0 01-.708-.707l3.536-3.536a.5.5 0 01.707 0z"
-                                    fill="currentColor"
-                                    fill-rule="evenodd"
-                                    opacity="0.3"
-                                  />
-                                </svg>
-                              </span>
-                            </label>
-                          </div>
-                        </div>
                       </div>
-                    </div>
-                    <div
-                      class="connectorExistBox"
-                    >
                       <div
-                        class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+                        class="connectorExistBox"
                       >
                         <div
-                          style="color: red;"
+                          class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
                         >
-                          <span
-                            class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-red700"
-                            data-icon="circle-cross"
-                            style="padding-right: 5px;"
+                          <div
+                            style="color: red;"
                           >
-                            <svg
-                              height="16"
-                              viewBox="0 0 13 13"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
+                            <span
+                              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-red700"
+                              data-icon="circle-cross"
+                              style="padding-right: 5px;"
                             >
-                              <path
-                                clip-rule="evenodd"
-                                d="M.167 6.501a6.333 6.333 0 1012.666 0 6.333 6.333 0 00-12.666 0zm4.071-3.003l2.26 2.263 2.264-2.263c.495-.495 1.236.248.741.743L7.24 6.504l2.254 2.258c.495.495-.247 1.238-.742.743L6.497 7.246 4.238 9.505c-.495.495-1.236-.249-.741-.744l2.258-2.258-2.259-2.262c-.494-.495.248-1.238.742-.743z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
-                          </span>
-                          <span>
-                            connectors.ceAws.overview.alreadyExist
-                          </span>
-                        </div>
-                        <div>
-                          <span
-                            class="bp3-icon StyledProps--main"
-                            data-icon="info"
-                            style="padding-right: 5px;"
-                          >
-                            <svg
-                              height="16"
-                              viewBox="0 0 12 12"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                clip-rule="evenodd"
-                                d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
-                          </span>
-                          connectors.ceAws.overview.alreadyExistInfo
-                        </div>
-                        <div>
-                          <span
-                            class="bp3-icon bp3-icon-lightbulb StyledProps--main"
-                            icon="lightbulb"
-                            style="padding-right: 5px;"
-                          >
-                            <svg
-                              data-icon="lightbulb"
-                              height="16"
-                              viewBox="0 0 16 16"
-                              width="16"
-                            >
-                              <desc>
-                                lightbulb
-                              </desc>
-                              <path
-                                d="M9.01 14h-2c-.55 0-1 .45-1 1s.45 1 1 1h2c.55 0 1-.45 1-1s-.44-1-1-1zm1-3h-4c-.55 0-1 .45-1 1s.45 1 1 1h4c.55 0 1-.45 1-1s-.44-1-1-1zm-2-11C5.26 0 3.03 1.95 3.03 4.35c0 2.37 1.63 2.64 1.94 5.22 0 .24.22.44.5.44h5.09c.28 0 .5-.19.5-.44C11.37 6.99 13 6.72 13 4.35 13 1.95 10.77 0 8.01 0z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
-                          </span>
-                          connectors.ceAws.overview.trySuggestion
+                              <svg
+                                height="16"
+                                viewBox="0 0 13 13"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  clip-rule="evenodd"
+                                  d="M.167 6.501a6.333 6.333 0 1012.666 0 6.333 6.333 0 00-12.666 0zm4.071-3.003l2.26 2.263 2.264-2.263c.495-.495 1.236.248.741.743L7.24 6.504l2.254 2.258c.495.495-.247 1.238-.742.743L6.497 7.246 4.238 9.505c-.495.495-1.236-.249-.741-.744l2.258-2.258-2.259-2.262c-.494-.495.248-1.238.742-.743z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                            <span>
+                              connectors.ceAws.overview.alreadyExist
+                            </span>
+                          </div>
                           <div>
-                            connectors.ceAws.overview.editConnector
-                             
-                            <a />
-                             
-                            connectors.ceAws.overview.ifReq
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              data-icon="info"
+                              style="padding-right: 5px;"
+                            >
+                              <svg
+                                height="16"
+                                viewBox="0 0 12 12"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  clip-rule="evenodd"
+                                  d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                            connectors.ceAws.overview.alreadyExistInfo
+                          </div>
+                          <div>
+                            <span
+                              class="bp3-icon bp3-icon-lightbulb StyledProps--main"
+                              icon="lightbulb"
+                              style="padding-right: 5px;"
+                            >
+                              <svg
+                                data-icon="lightbulb"
+                                height="16"
+                                viewBox="0 0 16 16"
+                                width="16"
+                              >
+                                <desc>
+                                  lightbulb
+                                </desc>
+                                <path
+                                  d="M9.01 14h-2c-.55 0-1 .45-1 1s.45 1 1 1h2c.55 0 1-.45 1-1s-.44-1-1-1zm1-3h-4c-.55 0-1 .45-1 1s.45 1 1 1h4c.55 0 1-.45 1-1s-.44-1-1-1zm-2-11C5.26 0 3.03 1.95 3.03 4.35c0 2.37 1.63 2.64 1.94 5.22 0 .24.22.44.5.44h5.09c.28 0 .5-.19.5-.44C11.37 6.99 13 6.72 13 4.35 13 1.95 10.77 0 8.01 0z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                            connectors.ceAws.overview.trySuggestion
+                            <div>
+                              connectors.ceAws.overview.editConnector
+                               
+                              <a />
+                               
+                              connectors.ceAws.overview.ifReq
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
                     <div
-                      class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main buttonPanel"
+                      class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
                     >
                       <button
                         class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"

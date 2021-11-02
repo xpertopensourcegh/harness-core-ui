@@ -77,7 +77,7 @@ const BillingExport: React.FC<StepProps<CEGcpConnectorDTO>> = props => {
           text={getString('connectors.ceGcp.billingExport.launchTemplate')}
           rightIcon="chevron-right"
           onClick={() => {
-            window.open('https://cloud.google.com/bigquery/')
+            window.open('https://console.cloud.google.com/bigquery')
           }}
         />
       </Container>
@@ -98,6 +98,7 @@ const BillingExport: React.FC<StepProps<CEGcpConnectorDTO>> = props => {
                     <LabelWithTooltip
                       label={getString('connectors.ceGcp.billingExport.datasetIdLabel')}
                       extentionComponent={BillingExportExtention}
+                      toolTipContent={getString('connectors.ceGcp.billingExport.tooltipDescription')}
                     />
                   }
                   className={css.dataFields}

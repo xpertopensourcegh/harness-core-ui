@@ -45,7 +45,7 @@ const ModalExtension: React.FC<ExtensionProps> = props => {
   const closeExtension = () => setShowExtension(false)
   return (
     <div style={{ display: 'flex', height: props.dialogStyles?.height || 700 }}>
-      <div style={{ width: props.dialogStyles?.width || 1050, position: 'relative' }}>
+      <div style={{ width: props.dialogStyles?.width || 1175, position: 'relative' }}>
         <DialogExtensionContext.Provider value={{ triggerExtension, closeExtension }}>
           {props.children}
         </DialogExtensionContext.Provider>

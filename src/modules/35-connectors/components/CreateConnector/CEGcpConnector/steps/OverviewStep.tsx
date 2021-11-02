@@ -151,48 +151,56 @@ const OverviewStep: React.FC<OverviewProps> = props => {
           {formikProps => (
             <FormikForm>
               <ModalErrorHandler bind={() => setModalErrorHandler} />
-              <Container className={css.main} style={{ width: '65%' }}>
-                <Layout.Vertical spacing="large">
-                  <FormInput.InputWithIdentifier
-                    inputLabel={getString('connectors.name')}
-                    isIdentifierEditable={!isEditMode}
-                  />
-                  <FormInput.Text name={'projectId'} label={getString('connectors.ceGcp.overview.projectIdLabel')} />
-                  <Layout.Vertical spacing="small">
-                    <Description descriptionProps={{}} hasValue={!!formikProps?.values.description} />
-                    <Tags tagsProps={{}} isOptional={true} hasValue={!isEmpty(formikProps?.values.tags)} />
-                  </Layout.Vertical>
-                </Layout.Vertical>
-              </Container>
-              {!isUniqueConnector && (
-                <div className={css.connectorExistBox}>
+              <Container style={{ minHeight: 550 }}>
+                <Container className={css.main} style={{ width: '65%' }}>
                   <Layout.Vertical spacing="large">
-                    <div style={{ color: 'red' }}>
-                      <Icon name="circle-cross" color="red700" style={{ paddingRight: 5 }}></Icon>
-                      <span style={{ fontSize: 'var(--font-size-normal)' }}>
-                        {getString('connectors.ceAws.overview.alreadyExist')}
-                      </span>
-                    </div>
-                    <div>
-                      <Icon name="info" style={{ paddingRight: 5 }}></Icon>
-                      {getString('connectors.ceAws.overview.alreadyExistInfo', {
-                        projectId,
-                        existingConnectorName,
-                        featureText
-                      })}
-                    </div>
-                    <div>
-                      <Icon name="lightbulb" style={{ paddingRight: 5 }}></Icon>
-                      {getString('connectors.ceAws.overview.trySuggestion')}
-                      <div>
-                        {getString('connectors.ceAws.overview.editConnector')} <a>{existingConnectorName}</a>{' '}
-                        {getString('connectors.ceAws.overview.ifReq')}
-                      </div>
-                    </div>
+                    <FormInput.InputWithIdentifier
+                      inputLabel={getString('connectors.name')}
+                      isIdentifierEditable={!isEditMode}
+                    />
+                    <FormInput.Text
+                      tooltipProps={{
+                        dataTooltipId: 'gcpConnectorProjectId'
+                      }}
+                      name={'projectId'}
+                      label={getString('connectors.ceGcp.overview.projectIdLabel')}
+                    />
+                    <Layout.Vertical spacing="small">
+                      <Description descriptionProps={{}} hasValue={!!formikProps?.values.description} />
+                      <Tags tagsProps={{}} isOptional={true} hasValue={!isEmpty(formikProps?.values.tags)} />
+                    </Layout.Vertical>
                   </Layout.Vertical>
-                </div>
-              )}
-              <Layout.Horizontal spacing="medium" className={css.buttonPanel}>
+                </Container>
+                {!isUniqueConnector && (
+                  <div className={css.connectorExistBox}>
+                    <Layout.Vertical spacing="large">
+                      <div style={{ color: 'red' }}>
+                        <Icon name="circle-cross" color="red700" style={{ paddingRight: 5 }}></Icon>
+                        <span style={{ fontSize: 'var(--font-size-normal)' }}>
+                          {getString('connectors.ceAws.overview.alreadyExist')}
+                        </span>
+                      </div>
+                      <div>
+                        <Icon name="info" style={{ paddingRight: 5 }}></Icon>
+                        {getString('connectors.ceAws.overview.alreadyExistInfo', {
+                          projectId,
+                          existingConnectorName,
+                          featureText
+                        })}
+                      </div>
+                      <div>
+                        <Icon name="lightbulb" style={{ paddingRight: 5 }}></Icon>
+                        {getString('connectors.ceAws.overview.trySuggestion')}
+                        <div>
+                          {getString('connectors.ceAws.overview.editConnector')} <a>{existingConnectorName}</a>{' '}
+                          {getString('connectors.ceAws.overview.ifReq')}
+                        </div>
+                      </div>
+                    </Layout.Vertical>
+                  </div>
+                )}
+              </Container>
+              <Layout.Horizontal spacing="medium">
                 <Button
                   type="submit"
                   intent="primary"

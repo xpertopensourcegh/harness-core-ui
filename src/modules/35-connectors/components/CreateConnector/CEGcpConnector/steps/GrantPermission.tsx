@@ -99,7 +99,7 @@ const GrantPermission: React.FC<StepProps<CEGcpConnectorDTO>> = props => {
               text={getString('connectors.ceGcp.grantPermission.bigQueryButtonText')}
               rightIcon="chevron-right"
               onClick={() => {
-                window.open('https://console.aws.amazon.com/console/home')
+                window.open('https://console.cloud.google.com/bigquery')
               }}
             />
           </Layout.Vertical>

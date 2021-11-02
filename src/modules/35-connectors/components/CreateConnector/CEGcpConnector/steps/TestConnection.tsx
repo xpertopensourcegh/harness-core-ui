@@ -37,11 +37,7 @@ const TestConnection: React.FC<TestConnectionProps> = props => {
   const [currentStep, setCurrentStep] = useState<number>(1)
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
 
-  const steps: string[] = [
-    getString('connectors.ceGcp.testConnection.step1'),
-    getString('connectors.ceGcp.testConnection.step2'),
-    getString('connectors.ceGcp.testConnection.step3')
-  ]
+  const steps: string[] = [getString('connectors.ceGcp.testConnection.step1')]
 
   const { mutate: testConnection } = useGetTestConnectionResult({
     identifier: prevStepData?.identifier || '',
