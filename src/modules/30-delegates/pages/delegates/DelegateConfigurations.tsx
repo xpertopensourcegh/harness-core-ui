@@ -30,7 +30,6 @@ import type { CrudOperation } from '@common/components/Filter/FilterCRUD/FilterC
 import type { FilterInterface, FilterDataInterface } from '@common/components/Filter/Constants'
 import FilterSelector from '@common/components/Filter/FilterSelector/FilterSelector'
 import routes from '@common/RouteDefinitions'
-import useCreateDelegateConfigModal from '@delegates/modals/DelegateModal/useCreateDelegateConfigModal'
 import type {
   DelegateConfigProps,
   ProjectPathProps,
@@ -58,7 +57,6 @@ import {
 } from '@common/components/Filter/utils/FilterUtils'
 /* RBAC */
 import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
-import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { usePermission } from '@rbac/hooks/usePermission'
@@ -184,11 +182,6 @@ export const DelegateConfigurations: React.FC<DelegatesListProps> = ({ filtersMo
   }, [fetchedFilterResponse])
 
   const { showSuccess, showError } = useToaster()
-  const { openDelegateConfigModal } = useCreateDelegateConfigModal({
-    onSuccess: () => {
-      refetchDelegateProfiles(queryParams, appliedFilter?.filterProperties)
-    }
-  })
   const { mutate: deleteDelegateProfile } = useDeleteDelegateConfigNgV2({
     accountId,
     queryParams: { orgId: orgIdentifier, projectId: projectIdentifier }
@@ -418,17 +411,6 @@ export const DelegateConfigurations: React.FC<DelegatesListProps> = ({ filtersMo
         }
       }
     })
-    const gotoEditDetailPage = (): void => {
-      history.push(
-        routes.toEditDelegateConfigsDetails({
-          accountId,
-          delegateConfigIdentifier: profile.identifier as string,
-          orgIdentifier,
-          projectIdentifier,
-          module
-        })
-      )
-    }
 
     const gotoDetailPage = (): void => {
       history.push(
@@ -500,23 +482,6 @@ export const DelegateConfigurations: React.FC<DelegatesListProps> = ({ filtersMo
                 icon="more"
                 tooltip={
                   <Menu style={{ minWidth: 'unset' }}>
-                    <RbacMenuItem
-                      permission={{
-                        resourceScope: {
-                          accountIdentifier: accountId,
-                          orgIdentifier,
-                          projectIdentifier
-                        },
-                        resource: {
-                          resourceType: ResourceType.DELEGATECONFIGURATION,
-                          resourceIdentifier: profile.uuid
-                        },
-                        permission: PermissionIdentifier.UPDATE_DELEGATE_CONFIGURATION
-                      }}
-                      icon="edit"
-                      text={getString('edit')}
-                      onClick={() => gotoEditDetailPage()}
-                    />
                     {!profile.primary && (
                       <RbacMenuItem
                         permission={{
@@ -605,30 +570,9 @@ export const DelegateConfigurations: React.FC<DelegatesListProps> = ({ filtersMo
     }
   }
 
-  const permissionRequestNewConfiguration = {
-    resourceScope: {
-      accountIdentifier: accountId,
-      orgIdentifier,
-      projectIdentifier
-    },
-    permission: PermissionIdentifier.UPDATE_DELEGATE_CONFIGURATION,
-    resource: {
-      resourceType: ResourceType.DELEGATECONFIGURATION
-    }
-  }
-
   return (
     <Container background={Color.GREY_100}>
       <Layout.Horizontal className={css.header} background={Color.WHITE}>
-        <RbacButton
-          intent="primary"
-          text={getString('delegates.newDelegateConfiguration')}
-          icon="plus"
-          permission={permissionRequestNewConfiguration}
-          onClick={() => openDelegateConfigModal()}
-          id="newDelegateConfigurationBtn"
-          data-test="newDelegateConfigurationButton"
-        />
         <FlexExpander />
         <Layout.Horizontal spacing="xsmall">
           <ExpandingSearchInput

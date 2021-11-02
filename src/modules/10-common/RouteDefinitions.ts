@@ -336,24 +336,6 @@ const routes = {
       })
     }
   ),
-  toEditDelegateConfigsDetails: withAccountId(
-    ({
-      orgIdentifier,
-      projectIdentifier,
-      delegateConfigIdentifier,
-      module
-    }: Partial<ProjectPathProps & ModulePathParams & DelegateConfigProps>) => {
-      const path = `resources/delegates/configs/${delegateConfigIdentifier}/edit`
-      return getScopeBasedRoute({
-        scope: {
-          orgIdentifier,
-          projectIdentifier,
-          module
-        },
-        path
-      })
-    }
-  ),
   toAccessControl: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
       const path = `access-control`

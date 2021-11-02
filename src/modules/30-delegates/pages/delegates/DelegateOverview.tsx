@@ -10,7 +10,7 @@ import type {
   ModulePathParams,
   AccountPathProps
 } from '@common/interfaces/RouteInterfaces'
-import type { DelegateGroupDetails, DelegateProfile } from 'services/portal'
+import type { DelegateGroupDetails, DelegateProfileDetails } from 'services/portal'
 import { useStrings } from 'framework/strings'
 import {
   SectionContainer,
@@ -22,7 +22,7 @@ import css from './DelegateDetails.module.scss'
 
 interface DelegateOverviewProps {
   delegate: DelegateGroupDetails
-  delegateProfile: DelegateProfile
+  delegateProfile?: DelegateProfileDetails
 }
 
 export const DelegateOverview: React.FC<DelegateOverviewProps> = ({ delegate, delegateProfile }) => {
@@ -74,22 +74,24 @@ export const DelegateOverview: React.FC<DelegateOverviewProps> = ({ delegate, de
           value={delegate.delegateGroupIdentifier}
         />
 
-        <SectionLabelValuePair
-          label={getString('delegate.delegateConfiguration')}
-          value={
-            <NavLink
-              to={routes.toDelegateConfigsDetails({
-                accountId,
-                delegateConfigIdentifier: delegateProfile.identifier as string,
-                orgIdentifier,
-                projectIdentifier,
-                module
-              })}
-            >
-              <Text font={{ variation: FontVariation.BODY }}>{delegateProfile.name}</Text>
-            </NavLink>
-          }
-        />
+        {delegateProfile && (
+          <SectionLabelValuePair
+            label={getString('delegate.delegateConfiguration')}
+            value={
+              <NavLink
+                to={routes.toDelegateConfigsDetails({
+                  accountId,
+                  delegateConfigIdentifier: delegateProfile.identifier as string,
+                  orgIdentifier,
+                  projectIdentifier,
+                  module
+                })}
+              >
+                <Text font={{ variation: FontVariation.BODY }}>{delegateProfile.name}</Text>
+              </NavLink>
+            }
+          />
+        )}
 
         {delegate.delegateDescription && (
           <SectionLabelValuePair label={getString('description')} value={delegate.delegateDescription} />

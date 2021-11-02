@@ -489,12 +489,6 @@ export default (
           ...projectPathProps,
           ...delegateConfigProps,
           ...pipelineModuleParams
-        }),
-        routes.toEditDelegateConfigsDetails({
-          ...accountPathProps,
-          ...projectPathProps,
-          ...delegateConfigProps,
-          ...pipelineModuleParams
         })
       ]}
     >

@@ -5148,15 +5148,7 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'delegate.configNameRequired': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'delegate.delegateCPU': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'delegate.delegateConfigRequired': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -5361,10 +5353,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'delegate.successVerification.heartbeatReceived': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'delegate.successfullyUpdatedConfig': string
   /**
    * @deprecated migrate this string to module level file
    */

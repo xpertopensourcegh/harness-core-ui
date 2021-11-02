@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, act, fireEvent } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import DelegateProfileDetails from '../DelegateConfigurationDetailPage'
 import ProfileMock from './ProfileMock.json'
@@ -35,24 +35,6 @@ describe('Delegates Profile Detail', () => {
         <DelegateProfileDetails />
       </TestWrapper>
     )
-
-    expect(container).toMatchSnapshot()
-  })
-  test('Render and click Edit', async () => {
-    const { container } = render(
-      <TestWrapper
-        path="/account/:accountId/resources/delegateconfigs/:delegateConfigIdentifier/"
-        pathParams={{ accountId: 'dummy', delegateConfigIdentifier: 'delegateConfigIdentifier' }}
-      >
-        <DelegateProfileDetails />
-      </TestWrapper>
-    )
-
-    const editBtn = container.getElementsByTagName('button')[0]
-
-    await act(async () => {
-      fireEvent.click(editBtn!)
-    })
 
     expect(container).toMatchSnapshot()
   })

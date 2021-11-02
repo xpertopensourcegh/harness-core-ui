@@ -12,7 +12,7 @@ import type {
 } from '@common/interfaces/RouteInterfaces'
 import { delegateTypeToIcon } from '@common/utils/delegateUtils'
 import { useStrings } from 'framework/strings'
-import { useGetDelegateGroupByIdentifier, useGetV2, DelegateProfile } from 'services/portal'
+import { useGetDelegateGroupByIdentifier, useGetV2 } from 'services/portal'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { DelegateOverview } from './DelegateOverview'
 import css from './DelegateDetails.module.scss'
@@ -51,7 +51,7 @@ export default function DelegateDetails(): JSX.Element {
     queryParams: { accountId }
   })
 
-  const delegateProfile = profileResponse?.resource as DelegateProfile
+  const delegateProfile = delegate?.delegateConfigurationId ? profileResponse?.resource : undefined
   const icon: IconName = delegateTypeToIcon(delegate?.delegateType as string)
 
   const renderTitle = (): React.ReactNode => {
@@ -101,7 +101,7 @@ export default function DelegateDetails(): JSX.Element {
         <Layout.Vertical>
           <Layout.Horizontal spacing="large">
             <Container className={css.cardContainer}>
-              {delegate && delegateProfile && (
+              {delegate && (
                 <Layout.Vertical spacing="large" width="50%">
                   <DelegateOverview delegate={delegate} delegateProfile={delegateProfile} />
                 </Layout.Vertical>

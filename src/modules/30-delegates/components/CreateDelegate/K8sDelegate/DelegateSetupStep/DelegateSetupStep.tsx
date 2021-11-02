@@ -12,7 +12,6 @@ import {
   SelectOption,
   Text,
   StepProps,
-  Tag,
   Color
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
@@ -24,10 +23,8 @@ import {
   DelegateSetupDetails
 } from 'services/portal'
 
-import { useListDelegateProfilesNg } from 'services/cd-ng'
-
 import { useStrings } from 'framework/strings'
-import type { DelegateProfile, StepK8Data } from '@delegates/DelegateInterface'
+import type { StepK8Data } from '@delegates/DelegateInterface'
 import { useToaster } from '@common/exports'
 
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -55,22 +52,6 @@ const delegateSizeUpto = {
 
 const delegateNameRegex = /^[a-z]([-a-z0-9]*[a-z])?(\.[a-z0-9]([-a-z0-9]*[a-z])?)*$/g
 
-const formatProfileList = (data: any): Array<SelectOption> => {
-  const profiles: Array<DelegateProfile> = data?.resource?.response
-
-  const options: Array<SelectOption> = profiles
-    ? profiles.map((item: DelegateProfile) => {
-        return { label: item.name || '', value: item.uuid || '' }
-      })
-    : [{ label: '', value: '' }]
-  return options
-}
-
-const getDefaultDelegateConfiguration = (data: any) => {
-  const configurations: DelegateProfile[] = data?.resource?.response
-  return configurations ? configurations.find((item: DelegateProfile) => item.primary) : null
-}
-
 const filterDelegatesize = (delegateSizes: any, size: any) => {
   return delegateSizes.find((item: any) => item.size === size.value)
 }
@@ -91,12 +72,6 @@ const getDefaultDelegateSize = (delegateSizes: DelegateSizeDetails[]) => {
     : undefined
 }
 
-const getProfile = (data: any, configId: any) => {
-  const configs: DelegateProfile[] = data?.resource?.response
-  const selProfile = configs ? configs.find(item => item.uuid == configId) : null
-  return selProfile?.selectors
-}
-
 const DelegateSetup: React.FC<StepProps<StepK8Data> & DelegateSetupStepProps> = props => {
   let initialValues
   if (props?.prevStepData?.delegateYaml) {
@@ -111,7 +86,6 @@ const DelegateSetup: React.FC<StepProps<StepK8Data> & DelegateSetupStepProps> = 
       name: '',
       identifier: '',
       description: '',
-      delegateConfigurationId: '',
       size: DelegateSize.LAPTOP,
       sesssionIdentifier: '',
       k8sConfigDetails: {
@@ -128,16 +102,11 @@ const DelegateSetup: React.FC<StepProps<StepK8Data> & DelegateSetupStepProps> = 
     queryParams: { accountId, projectId: projectIdentifier, orgId: orgIdentifier }
   })
 
-  const { data } = useListDelegateProfilesNg({
-    queryParams: { accountId, orgId: orgIdentifier, projectId: projectIdentifier }
-  })
   const { data: delegateSizes } = useGetDelegateSizes({
     queryParams: { accountId, orgId: orgIdentifier, projectId: projectIdentifier }
   })
-  const defaultProfile = getDefaultDelegateConfiguration(data)
   const delegateSizeMappings: DelegateSizeDetails[] | undefined = delegateSizes?.resource
   const selectCardData = formatDelegateSizeArr(delegateSizeMappings)
-  const profileOptions: SelectOption[] = formatProfileList(data)
   const { showError } = useToaster()
   const defaultSize: DelegateSizeDetails | undefined = delegateSizeMappings
     ? getDefaultDelegateSize(delegateSizeMappings)
@@ -195,13 +164,6 @@ const DelegateSetup: React.FC<StepProps<StepK8Data> & DelegateSetupStepProps> = 
     }
   }, [defaultSize])
 
-  React.useEffect(() => {
-    if (defaultProfile) {
-      formData['delegateConfigurationId'] = defaultProfile?.uuid
-      setInitValues({ ...formData })
-    }
-  }, [defaultProfile])
-
   const getTagClsName = (size: string) => {
     if (size === DelegateSize.SMALL) {
       return css.small
@@ -231,7 +193,6 @@ const DelegateSetup: React.FC<StepProps<StepK8Data> & DelegateSetupStepProps> = 
               .max(63)
               .matches(delegateNameRegex, getString('delegates.delegateNameRegexIssue')),
             size: Yup.string().trim().required(getString('delegate.delegateSizeRequired')),
-            delegateConfigurationId: Yup.string().trim().required(getString('delegate.delegateConfigRequired')),
             k8sConfigDetails: Yup.object().shape({
               k8sPermissionType: Yup.string().trim().required(getString('delegates.permissionRequired')),
               namespace:
@@ -242,7 +203,6 @@ const DelegateSetup: React.FC<StepProps<StepK8Data> & DelegateSetupStepProps> = 
           })}
         >
           {(formikProps: FormikProps<DelegateSetupDetails>) => {
-            const selectors: any = getProfile(data, formikProps.values.delegateConfigurationId)
             return (
               <FormikForm>
                 <Container className={css.delegateForm}>
@@ -321,24 +281,6 @@ const DelegateSetup: React.FC<StepProps<StepK8Data> & DelegateSetupStepProps> = 
                             <Text color={Color.ORANGE_500}>{getString('delegate.productionWorkloads')}</Text>
                           </Container>
                         </Layout.Vertical>
-                      )}
-                      <div className={`${css.formGroup} ${css.profileSelect}`}>
-                        <FormInput.Select
-                          items={profileOptions}
-                          label={getString('delegate.delegateConfigurations')}
-                          name={'delegateConfigurationId'}
-                        />
-                      </div>
-
-                      {formikProps.values.delegateConfigurationId && selectors && (
-                        <Container className={css.profileSelectors}>
-                          <Text>{getString('delegate.tagsFromDelegateConfig')}</Text>
-                          <div className={css.profileSelectorsItemsContainer}>
-                            {selectors.map((item: string) => (
-                              <Tag key={item}>{item}</Tag>
-                            ))}
-                          </div>
-                        </Container>
                       )}
                     </Layout.Vertical>
                     <Layout.Vertical className={css.rightPanel}>
