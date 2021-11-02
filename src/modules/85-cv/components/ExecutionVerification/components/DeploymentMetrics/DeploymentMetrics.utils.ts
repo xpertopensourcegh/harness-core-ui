@@ -35,11 +35,11 @@ export function transformMetricData(
       const hostTestData: Highcharts.SeriesLineOptions['data'] = []
 
       controlData?.forEach((dataPoint, index) => {
-        hostControlData.push({ x: startOfRange + index * increment, y: dataPoint })
+        hostControlData.push({ x: startOfRange + index * increment, y: dataPoint === -1 ? null : dataPoint })
       })
 
       testData?.forEach((dataPoint, index) => {
-        hostTestData.push({ x: startOfRange + index * increment, y: dataPoint })
+        hostTestData.push({ x: startOfRange + index * increment, y: dataPoint === -1 ? null : dataPoint })
       })
 
       controlPoints.push(hostControlData)
