@@ -1,49 +1,90 @@
 import React, { useMemo, useState, useEffect } from 'react'
-import { Card, Color, Container, FontVariation, Icon, Layout, Select, Text } from '@wings-software/uicore' // Layout
+import cx from 'classnames'
+import {
+  Card,
+  Color,
+  Container,
+  FontVariation,
+  Icon,
+  Intent,
+  Layout,
+  Select,
+  SelectOption,
+  Text
+} from '@wings-software/uicore' // Layout
 import { useParams } from 'react-router-dom'
-import { defaultTo, noop } from 'lodash-es'
+import { defaultTo } from 'lodash-es'
 import type { TooltipFormatterContextObject } from 'highcharts'
 import { useLandingDashboardContext, TimeRangeToDays } from '@common/factories/LandingDashboardContext'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { OverviewChartsWithToggle } from '@common/components/OverviewChartsWithToggle/OverviewChartsWithToggle'
-import { StackedSummaryTable } from '@common/components/StackedSummaryTable/StackedSummaryTable'
+import {
+  StackedSummaryInterface,
+  StackedSummaryTable
+} from '@common/components/StackedSummaryTable/StackedSummaryTable'
 import routes from '@common/RouteDefinitions'
-import { useGetDeploymentStatsOverview } from 'services/dashboard-service'
+import {
+  DeploymentsOverview,
+  useGetDeploymentStatsOverview,
+  TimeBasedStats,
+  GetDeploymentStatsOverviewQueryParams
+} from 'services/dashboard-service'
 import { useErrorHandler } from '@pipeline/components/Dashboards/shared'
 import DashboardAPIErrorWidget from '@projects-orgs/components/DashboardAPIErrorWidget/DashboardAPIErrorWidget'
 import DashboardNoDataWidget from '@projects-orgs/components/DashboardNoDataWidget/DashboardNoDataWidget'
 
 import css from './LandingDashboardDeploymentsWidget.module.scss'
 
+export enum TimeRangeGroupByMapping {
+  '30Days' = 'DAY',
+  '60Days' = 'WEEK',
+  '90Days' = 'WEEK',
+  '1Year' = 'MONTH'
+}
+
+const sortByOptions: SelectOption[] = [
+  { label: 'By Deployments', value: 'DEPLOYMENTS' },
+  { label: 'By Instances', value: 'INSTANCES' }
+]
+
 export const getTooltip = (currPoint: TooltipFormatterContextObject): string => {
   const custom = currPoint?.series?.userOptions?.custom
-  const point = custom?.[currPoint.key]
-  const time = point ? new Date(point.time).toLocaleDateString('en-US', { day: 'numeric', month: 'long' }) : currPoint.x
-
+  const point: TimeBasedStats = custom?.[currPoint.key]
+  const time =
+    point && point?.time
+      ? new Date(point?.time).toLocaleDateString('en-US', { day: 'numeric', month: 'long' })
+      : currPoint.x
+  let failureRate: string | number = 'Infinity'
+  if (point?.countWithSuccessFailureDetails?.failureCount && point.countWithSuccessFailureDetails?.count) {
+    failureRate =
+      ((point.countWithSuccessFailureDetails.failureCount / point.countWithSuccessFailureDetails.count) * 100).toFixed(
+        1
+      ) + '%'
+  }
   return `<div style="padding: 16px; color: white; width: 282px; height: 128px;">
       <div style="display: flex; justify-content: space-between; border-bottom: 0.5px solid rgba(243, 243, 250); padding-bottom: 7px; margin-bottom: 15px;">
         <div style="font-weight: normal; font-size: 12px; line-height: 18px; opacity: 0.8;">${time}</div>
         <div>
           <span style="white-space: pre; font-weight: bold; font-size: 12px; line-height: 18px; opacity: 0.8;">Deployments: </span>
-          <span style="font-weight: bold; font-size: 12px; line-height: 18px;">${currPoint.y}</span>
+          <span style="font-weight: bold; font-size: 12px; line-height: 18px;">${point?.countWithSuccessFailureDetails?.count}</span>
         </div>
       </div>
       <div style="display: flex; justify-content: space-between;">
         <div>
           <p style="font-weight: 500; font-size: 10px; line-height: 14px; letter-spacing: 0.2px; color: #D9DAE6; margin-bottom: 0px;">Failure Rate</p>
-          <p style="font-weight: 600; font-size: 28px; line-height: 38px; color: #FBE6E4;">11.9%</p>
+          <p style="font-weight: 600; font-size: 28px; line-height: 38px; color: #FBE6E4;">${failureRate}</p>
         </div>
         <div style="margin-right: 8px;">
           <div style="display: flex; align-items: center; margin-bottom: 6px;">
             <div style="height: 6px; width: 12px; background-color: #5FB34E; border-radius: 16px; display: inline-block; margin-right: 8px"></div>
             <span style="white-space: pre; font-weight: bold; font-size: 12px; line-height: 16px; letter-spacing: 0.2px; opacity: 0.8;">Success </span>
-            <span style="font-weight: bold; font-size: 12px; line-height: 16px; letter-spacing: 0.2px;">${89}</span>
+            <span style="font-weight: bold; font-size: 12px; line-height: 16px; letter-spacing: 0.2px;">${point?.countWithSuccessFailureDetails?.successCount}</span>
           </div>
           <div style="display: flex; align-items: center;">
             <div style="height: 6px; width: 12px; background-color: #EE5F54; border-radius: 16px; display: inline-block; margin-right: 8px"></div>
             <span style="white-space: pre; font-weight: bold; font-size: 12px; line-height: 18px; opacity: 0.8;">Failed </span>
-            <span style="font-weight: bold; font-size: 12px; line-height: 18px;">${12}</span>
+            <span style="font-weight: bold; font-size: 12px; line-height: 18px;">${point?.countWithSuccessFailureDetails?.failureCount}</span>
           </div>
         </div>
       </div>
@@ -68,23 +109,31 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
   const { getString } = useStrings()
   const { selectedTimeRange } = useLandingDashboardContext()
   const { accountId } = useParams<ProjectPathProps>()
-  const [range] = useState([Date.now() - TimeRangeToDays[selectedTimeRange] * 24 * 60 * 60000, Date.now()])
+  const [range, setRange] = useState([Date.now() - TimeRangeToDays[selectedTimeRange] * 24 * 60 * 60000, Date.now()])
+  const [groupByValye, setGroupByValues] = useState(TimeRangeGroupByMapping[selectedTimeRange])
+  const [sortByValue, setSortByValue] = useState<GetDeploymentStatsOverviewQueryParams['sortBy']>('DEPLOYMENTS')
 
   const { data, error, refetch, loading } = useGetDeploymentStatsOverview({
     queryParams: {
       accountIdentifier: accountId,
       startTime: range[0],
       endTime: range[1],
-      groupBy: 'DAY',
-      sortBy: 'DEPLOYMENTS'
+      groupBy: groupByValye,
+      sortBy: sortByValue
     },
     lazy: true
   })
 
   const response = data?.data?.response
+
+  useEffect(() => {
+    setRange([Date.now() - TimeRangeToDays[selectedTimeRange] * 24 * 60 * 60000, Date.now()])
+    setGroupByValues(TimeRangeGroupByMapping[selectedTimeRange])
+  }, [selectedTimeRange])
+
   useEffect(() => {
     refetch()
-  }, [selectedTimeRange])
+  }, [refetch, range, groupByValye, sortByValue])
 
   useErrorHandler(error)
 
@@ -115,36 +164,63 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
     ]
   }, [data])
 
+  const getFormattedNumber = (givenNumber?: number | string): string => {
+    if (givenNumber) {
+      if (givenNumber === 'Infinity') {
+        return givenNumber
+      } else if (givenNumber > 1000) {
+        return Math.round(Number(givenNumber) / 1000) + 'K'
+      } else if (givenNumber > 1000000) {
+        return Math.round(Number(givenNumber) / 1000000) + 'M'
+      }
+      return Math.round(Number(givenNumber)).toString()
+    }
+    return '0'
+  }
+
   const summaryCardsData = useMemo(() => {
     return [
       {
         title: getString('deploymentsText'),
-        count: `${response?.deploymentsStatsSummary?.countAndChangeRate?.count}`,
-        trend: `${response?.deploymentsStatsSummary?.countAndChangeRate?.countChangeAndCountChangeRateInfo?.countChangeRate}%`
+        count: getFormattedNumber(response?.deploymentsStatsSummary?.countAndChangeRate?.count),
+        trend:
+          getFormattedNumber(
+            response?.deploymentsStatsSummary?.countAndChangeRate?.countChangeAndCountChangeRateInfo?.countChangeRate
+          ) + '%'
       },
       {
         title: getString('common.failureRate'),
-        count: `${(response?.deploymentsStatsSummary?.failureRateAndChangeRate?.rate || 0).toFixed(2)}%`,
-        trend: `${response?.deploymentsStatsSummary?.failureRateAndChangeRate?.rateChangeRate}%`
+        count:
+          getFormattedNumber(defaultTo(response?.deploymentsStatsSummary?.failureRateAndChangeRate?.rate, 0)) + '%',
+        trend: getFormattedNumber(response?.deploymentsStatsSummary?.failureRateAndChangeRate?.rateChangeRate) + '%'
       },
       {
         title: getString('pipeline.deploymentFrequency'),
-        count: `${(response?.deploymentsStatsSummary?.deploymentRateAndChangeRate?.rate || 0).toFixed(2)}`,
-        trend: `${response?.deploymentsStatsSummary?.deploymentRateAndChangeRate?.rateChangeRate}%`
+        count: getFormattedNumber(defaultTo(response?.deploymentsStatsSummary?.deploymentRateAndChangeRate?.rate, 0)),
+        trend: getFormattedNumber(response?.deploymentsStatsSummary?.deploymentRateAndChangeRate?.rateChangeRate) + '%'
       }
     ]
   }, [data, getString])
 
   const mostActiveServicesData = useMemo(() => {
-    return response?.mostActiveServicesList?.activeServices?.map(service => {
-      return {
-        label: defaultTo(service.serviceInfo?.serviceName, ''),
-        barSectionsData: [
-          { count: defaultTo(service.countWithSuccessFailureDetails?.successCount, 0), color: Color.GREEN_500 },
-          { count: defaultTo(service.countWithSuccessFailureDetails?.failureCount, 0), color: Color.RED_500 }
-        ],
-        trend: `${service.countWithSuccessFailureDetails?.countChangeAndCountChangeRateInfo?.countChangeRate}%`
+    const servicesData: StackedSummaryInterface[] | undefined = response?.mostActiveServicesList?.activeServices?.map(
+      service => {
+        return {
+          label: defaultTo(service.serviceInfo?.serviceName, ''),
+          barSectionsData: [
+            { count: defaultTo(service.countWithSuccessFailureDetails?.successCount, 0), color: Color.GREEN_500 },
+            { count: defaultTo(service.countWithSuccessFailureDetails?.failureCount, 0), color: Color.RED_500 }
+          ],
+          trend: `${service.countWithSuccessFailureDetails?.countChangeAndCountChangeRateInfo?.countChangeRate}%`
+        }
       }
+    )
+    return servicesData?.sort((a, b) => {
+      return (
+        b.barSectionsData[0].count +
+        b.barSectionsData[1].count -
+        (a.barSectionsData[0].count + a.barSectionsData[1].count)
+      )
     })
   }, [data])
 
@@ -155,12 +231,23 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
           {cardData.title}
         </Text>
         <Layout.Horizontal>
-          <Text color={Color.BLACK} font={{ size: 'large', weight: 'bold' }} className={css.frequencyCount}>
-            {cardData.count}
-          </Text>
+          <Layout.Horizontal className={css.frequencyContainer}>
+            <Text color={Color.BLACK} font={{ size: 'large', weight: 'bold' }} className={css.frequencyCount}>
+              {cardData.count}
+            </Text>
+            {cardData.title === 'Deployment Frequency' && (
+              <Text color={Color.GREY_700} font={{ size: 'small', weight: 'semi-bold' }} className={css.groupByValue}>
+                {`/ ${groupByValye.toLocaleLowerCase()}`}
+              </Text>
+            )}
+          </Layout.Horizontal>
           <Container className={css.trendContainer} flex>
-            <Icon size={10} name={'symbol-triangle-up'} color={Color.GREEN_600} />
-            <Text className={css.trend} color={Color.GREEN_600}>
+            <Icon
+              size={10}
+              name={cardData.trend.includes('-') ? 'symbol-triangle-down' : 'symbol-triangle-up'}
+              intent={cardData.trend.includes('-') ? Intent.DANGER : Intent.SUCCESS}
+            />
+            <Text className={css.trend} intent={cardData.trend.includes('-') ? Intent.DANGER : Intent.SUCCESS}>
               {cardData.trend}
             </Text>
           </Container>
@@ -178,22 +265,52 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
   }
 
   const getBadge = (type: string, stat: any): JSX.Element | null => {
+    if (stat <= 0) {
+      return null
+    }
     switch (type) {
-      case 'manualInterventionsCount':
+      case 'pendingManualInterventionExecutions':
         return (
-          <div className={css.manualInterventionsBadge}>
+          <div className={css.badge}>
+            <Icon name="status-pending" size={16} color={Color.ORANGE_700} />
             <Text className={css.badgeText}>{`${stat} Pending Manual Interventions`}</Text>
           </div>
         )
-      case 'pendingApprovalsCount':
+      case 'pendingApprovalExecutions':
         return (
-          <div className={css.manualInterventionsBadge}>
+          <div className={css.badge}>
+            <Icon name="status-pending" size={16} color={Color.ORANGE_700} />
             <Text className={css.badgeText}>{`${stat} Pending Approvals`}</Text>
+          </div>
+        )
+      case 'failed24HrsExecutions':
+        return (
+          <div className={cx(css.badge, css.failed24HrsExecutionsBadge)}>
+            <Icon name="warning-sign" size={12} color={Color.RED_600} />
+            <Text className={css.badgeText}>{`${stat} Pipelines failed in past 24 hours`}</Text>
+          </div>
+        )
+      case 'runningExecutions':
+        return (
+          <div className={cx(css.badge, css.runningExecutions)}>
+            <Icon name="status-running" size={16} color={Color.PRIMARY_7} />
+            <Text className={css.badgeText}>{`${stat} Currently running pipelines`}</Text>
           </div>
         )
       default:
         return null
     }
+  }
+
+  const showBadgesCard = (deploymentsOverview: DeploymentsOverview): boolean => {
+    const deploymentsOverviewKeys = Object.keys(deploymentsOverview)
+    if (Object.keys(deploymentsOverviewKeys).length === 0) {
+      return false
+    }
+    const nonZeroDeploymentsOverviewKeys = deploymentsOverviewKeys.filter(
+      key => (deploymentsOverview as any)[key].length > 0
+    )
+    return nonZeroDeploymentsOverviewKeys.length > 0
   }
 
   if (loading) {
@@ -229,13 +346,15 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
 
   return (
     <div className={css.main}>
-      <Card className={css.badgesContainer}>
-        {response?.deploymentsOverview &&
-          Object.keys(response?.deploymentsOverview).map(key =>
-            // eslint-disable-next-line
-            getBadge(key, (response?.deploymentsOverview as any)[key])
-          )}
-      </Card>
+      {response?.deploymentsOverview && showBadgesCard(response?.deploymentsOverview) && (
+        <Card className={css.badgesContainer}>
+          {response?.deploymentsOverview &&
+            Object.keys(response?.deploymentsOverview).map(key =>
+              // eslint-disable-next-line
+              getBadge(key, (response?.deploymentsOverview as any)[key].length)
+            )}
+        </Card>
+      )}
       <div className={css.chartCardsContainer}>
         <Card style={{ width: '65%' }} className={css.deploymentsChartContainer}>
           <OverviewChartsWithToggle
@@ -254,23 +373,30 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
             }}
           ></OverviewChartsWithToggle>
         </Card>
-        <Card className={css.mostActiveServicesChartContainer}>
-          <Layout.Horizontal flex border={{ bottom: true }} height={54}>
+        <Card className={css.mostActiveServicesContainer}>
+          <Layout.Horizontal
+            flex
+            border={{ bottom: true }}
+            height={54}
+            className={css.mostActiveServicesHeaderContainer}
+          >
             <Text font={{ variation: FontVariation.CARD_TITLE }} className={css.activeServicesTitle}>
               {getString('common.mostActiveServices')}
             </Text>
             <Select
-              onChange={() => noop}
-              items={[{ label: 'By Deployments', value: 'deployments' }]}
+              onChange={item => setSortByValue(item.value as GetDeploymentStatsOverviewQueryParams['sortBy'])}
+              items={sortByOptions}
               className={css.servicesByDropdown}
-              value={{ label: 'By Deployments', value: 'deployments' }}
+              value={sortByOptions.find(option => option.value === sortByValue)}
             />
           </Layout.Horizontal>
-          <StackedSummaryTable
-            barLength={210}
-            columnHeaders={['SERVICES', 'DEPLOYMENTS']}
-            summaryData={defaultTo(mostActiveServicesData, [])}
-          />
+          <div className={css.mostActiveServicesChartContainer}>
+            <StackedSummaryTable
+              barLength={185}
+              columnHeaders={['SERVICES', 'DEPLOYMENTS']}
+              summaryData={defaultTo(mostActiveServicesData, [])}
+            />
+          </div>
         </Card>
       </div>
     </div>

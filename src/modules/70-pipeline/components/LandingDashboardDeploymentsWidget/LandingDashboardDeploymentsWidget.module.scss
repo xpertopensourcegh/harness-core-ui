@@ -8,7 +8,8 @@
     padding: 11px 18px 13px 18px;
     margin-bottom: 15px;
 
-    .manualInterventionsBadge {
+    .badge {
+      display: flex;
       height: 32px;
       border-radius: 8px;
       padding: 8px 10px;
@@ -17,12 +18,19 @@
       margin-right: 8px;
 
       .badgeText {
+        margin-left: var(--spacing-small);
         font-weight: 500;
         font-size: 12px;
         line-height: 16px;
         letter-spacing: 0.2px;
         color: var(--primary-7);
       }
+    }
+    .failed24HrsExecutionsBadge {
+      background-color: var(--red-50);
+    }
+    .runningExecutions {
+      background-color: var(--primary-1);
     }
   }
   .chartCardsContainer {
@@ -31,6 +39,7 @@
       margin-right: var(--spacing-medium);
       padding: var(--spacing-xlarge);
       width: 65%;
+      height: 325px;
       .summaryCardsContainer {
         margin-left: 20px;
         display: flex;
@@ -51,15 +60,23 @@
             color: var(--gray-700);
             margin-top: 12px;
           }
-          .frequencyCount {
-            margin-top: 7px;
-            margin-right: var(--spacing-medium);
-            font-weight: 600;
-            font-size: 24px;
-            line-height: 32px;
-            display: flex;
+          .frequencyContainer {
             align-items: center;
-            color: black;
+            margin-right: var(--spacing-medium);
+            .frequencyCount {
+              margin-top: 7px;
+              font-weight: 600;
+              font-size: 24px;
+              line-height: 32px;
+              display: flex;
+              align-items: center;
+              color: black;
+            }
+            .groupByValue {
+              padding-top: var(--spacing-small);
+              margin-left: var(--spacing-xsmall) !important;
+              text-transform: capitalize;
+            }
           }
           .trendContainer {
             margin-top: 7px;
@@ -72,28 +89,40 @@
               display: flex;
               align-items: center;
               letter-spacing: 0.2px;
-              color: var(--green=600);
+              color: var(--green-600);
             }
           }
         }
       }
     }
-    .mostActiveServicesChartContainer {
+    .mostActiveServicesContainer {
       width: 35%;
-      padding-left: var(--spacing-xlarge);
-      padding-right: var(--spacing-xlarge);
-      padding-bottom: var(--spacing-xlarge);
-      padding-top: 0;
-      .activeServicesTitle {
-        font-weight: 600;
-        font-size: 14px;
-        line-height: 24px;
-      }
-      .servicesByDropdown {
-        width: 150px;
-        > input {
-          border: none !important;
+      height: 325px;
+      overflow-y: scroll;
+      padding: 0;
+      .mostActiveServicesHeaderContainer {
+        position: sticky;
+        top: 0px;
+        background: white;
+        z-index: 10;
+        padding-left: var(--spacing-xlarge);
+        padding-right: var(--spacing-xlarge);
+        .activeServicesTitle {
+          font-weight: 600;
+          font-size: 14px;
+          line-height: 24px;
+          text-transform: capitalize;
         }
+        .servicesByDropdown {
+          width: 150px;
+          &:global(.Select--main .bp3-input) {
+            border: none !important;
+            box-shadow: none !important;
+          }
+        }
+      }
+      .mostActiveServicesChartContainer {
+        padding: var(--spacing-small);
       }
     }
   }

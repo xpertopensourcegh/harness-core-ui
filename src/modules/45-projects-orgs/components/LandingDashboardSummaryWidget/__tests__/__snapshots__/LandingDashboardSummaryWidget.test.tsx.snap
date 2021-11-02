@@ -359,7 +359,7 @@ exports[`OverviewGlanceCards OverviewGlanceCards rendering 1`] = `
                         class="StyledProps--font StyledProps--main StyledProps--flex"
                       >
                         <div
-                          class="StyledProps--font StyledProps--main barSection StyledProps--background-primary6"
+                          class="StyledProps--font StyledProps--main barSection StyledProps--background-green500"
                           style="width: 85.48936170212767px;"
                         />
                         <div
