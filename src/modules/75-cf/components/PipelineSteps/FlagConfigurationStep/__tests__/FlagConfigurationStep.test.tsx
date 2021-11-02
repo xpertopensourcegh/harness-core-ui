@@ -8,8 +8,9 @@ import { FlagConfigurationStep } from '../FlagConfigurationStep'
 jest.mock('services/cf', () => ({
   useGetAllFeatures: jest.fn().mockReturnValue({ data: [], loading: false }),
   useGetTargetsAndSegmentsInfo: jest.fn().mockReturnValue({ data: [], loading: false }),
-  useGetAllSegments: jest.fn().mockReturnValue({ date: [], loading: false }),
-  useGetAllTargetAttributes: jest.fn().mockReturnValue({ date: [], loading: false })
+  useGetAllSegments: jest.fn().mockReturnValue({ data: [], loading: false }),
+  useGetAllTargetAttributes: jest.fn().mockReturnValue({ data: [], loading: false }),
+  useGetAllTargets: jest.fn().mockReturnValue({ data: [], loading: false })
 }))
 
 jest.mock('@cf/hooks/useEnvironmentSelectV2', () => ({

@@ -1,0 +1,16 @@
+.variationParagraph {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.addButton {
+  padding-left: 0 !important;
+}
+
+.avatars {
+  margin-left: -5px;
+  display: flex;
+  gap: var(--spacing-3);
+  align-items: center;
+}

@@ -9,6 +9,7 @@ const renderComponent = (props: Partial<FlagChangesProps> = {}): RenderResult =>
     <TestWrapper>
       <FlagChanges
         clearField={jest.fn()}
+        setField={jest.fn()}
         spec={{
           environment: 'dev',
           featureFlag: 'Test_Bool_Flag'

@@ -17,7 +17,7 @@ import { get } from 'lodash-es'
 import type { StepFormikFowardRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { CF_DEFAULT_PAGE_SIZE, getErrorMessage } from '@cf/utils/CFUtils'
-import { useGetAllFeatures, useGetAllSegments, useGetAllTargetAttributes } from 'services/cf'
+import { useGetAllFeatures, useGetAllSegments, useGetAllTargetAttributes, useGetAllTargets } from 'services/cf'
 import { useStrings } from 'framework/strings'
 import { useEnvironmentSelectV2 } from '@cf/hooks/useEnvironmentSelectV2'
 import routes from '@common/RouteDefinitions'
@@ -87,6 +87,13 @@ export function FlagConfigurationStepWidget(
   } = useGetAllSegments({ queryParams: { ...queryParams, identifier: undefined } })
 
   const {
+    data: targetsData,
+    loading: loadingTargets,
+    error: errorTargets,
+    refetch: refetchTargets
+  } = useGetAllTargets({ queryParams: { ...queryParams } })
+
+  const {
     data: targetAttributesData,
     loading: loadingTargetAttributes,
     error: errorTargetAttributes,
@@ -137,8 +144,9 @@ export function FlagConfigurationStepWidget(
   )
 
   const loading =
-    !loadingFromFocus && (loadingEnvironments || loadingFeatures || loadingTargetGroups || loadingTargetAttributes)
-  const error = errorEnvironments || errorFeatures || errorTargetGroups || errorTargetAttributes
+    !loadingFromFocus &&
+    (loadingEnvironments || loadingFeatures || loadingTargetGroups || loadingTargetAttributes || loadingTargets)
+  const error = errorEnvironments || errorFeatures || errorTargetGroups || errorTargetAttributes || errorTargets
 
   if (loading) {
     return (
@@ -159,6 +167,7 @@ export function FlagConfigurationStepWidget(
             refetchEnvironments()
             refetchTargetGroups()
             refetchTargetAttributes()
+            refetchTargets()
           }}
         />
       </Container>
@@ -261,9 +270,11 @@ export function FlagConfigurationStepWidget(
 
             <FlagChanges
               targetGroups={targetGroupsData?.segments || []}
+              targets={targetsData?.targets || []}
               variations={currentFeature?.variations || []}
               spec={initialValues.spec}
               clearField={(fieldName: string) => _formik.setFieldValue(fieldName, undefined)}
+              setField={(fieldName: string, value: unknown) => _formik.setFieldValue(fieldName, value)}
               fieldValues={_formik.values}
               targetAttributes={targetAttributesData || []}
             />

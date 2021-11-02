@@ -14,9 +14,11 @@ export const disallowedProps: Array<string | keyof SubSectionComponentProps> = [
   'subSectionSelector',
   'removeSubSectionButton',
   'clearField',
+  'setField',
   'targetAttributes',
   'targetGroups',
-  'variations'
+  'variations',
+  'targets'
 ]
 
 const filterSubSectionProps = (props: Record<string, unknown>): Record<string, unknown> =>

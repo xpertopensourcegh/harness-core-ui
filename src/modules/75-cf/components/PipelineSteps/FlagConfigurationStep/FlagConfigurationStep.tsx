@@ -145,6 +145,21 @@ export class FlagConfigurationStep extends PipelineStep<FlagConfigurationStepDat
       }
     }
 
+    let serveVariationToIndividualTarget: FlagConfigurationStepFormData['spec']['serveVariationToIndividualTarget'] =
+      undefined
+    const serveVariationToIndividualTargetRule = initialValues.spec.instructions.find(
+      ({ type }) => type === CFPipelineInstructionType.ADD_TARGETS_TO_VARIATION_TARGET_MAP
+    )
+
+    if (serveVariationToIndividualTargetRule?.spec?.variation && serveVariationToIndividualTargetRule?.spec?.targets) {
+      serveVariationToIndividualTarget = {
+        include: {
+          variation: serveVariationToIndividualTargetRule.spec.variation,
+          targets: serveVariationToIndividualTargetRule.spec.targets
+        }
+      }
+    }
+
     return {
       ...initialValues,
       spec: {
@@ -153,7 +168,8 @@ export class FlagConfigurationStep extends PipelineStep<FlagConfigurationStepDat
         featureFlag: initialValues.spec.feature,
         state,
         defaultRules,
-        percentageRollout
+        percentageRollout,
+        serveVariationToIndividualTarget
       }
     }
   }
@@ -210,6 +226,20 @@ export class FlagConfigurationStep extends PipelineStep<FlagConfigurationStepDat
             })),
             clauses: [{ op: 'segmentMatch', attribute: '', values: [_data.spec.percentageRollout.targetGroup] }]
           }
+        }
+      })
+    }
+
+    if (
+      _data.spec.serveVariationToIndividualTarget?.include?.variation &&
+      _data.spec.serveVariationToIndividualTarget?.include?.targets?.length > 0
+    ) {
+      instructions.push({
+        identifier: 'SetVariationForTarget',
+        type: CFPipelineInstructionType.ADD_TARGETS_TO_VARIATION_TARGET_MAP,
+        spec: {
+          variation: _data.spec.serveVariationToIndividualTarget.include.variation,
+          targets: _data.spec.serveVariationToIndividualTarget.include.targets
         }
       })
     }

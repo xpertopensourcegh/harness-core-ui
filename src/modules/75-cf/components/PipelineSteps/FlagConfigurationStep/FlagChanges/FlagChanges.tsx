@@ -1,7 +1,7 @@
 import React, { FC, useState, MouseEvent, useMemo } from 'react'
 import { Layout, Button, Heading, FontVariation, ButtonVariation } from '@wings-software/uicore'
 import { StringKeys, useStrings } from 'framework/strings'
-import type { Segment, TargetAttributesResponse, Variation } from 'services/cf'
+import type { Segment, Target, TargetAttributesResponse, Variation } from 'services/cf'
 import type {
   FlagConfigurationStepFormData,
   FlagConfigurationStepFormDataValues
@@ -13,14 +13,17 @@ import SubSectionSelector from './SubSectionSelector'
 // sub sections
 import SetFlagSwitch, { SetFlagSwitchProps } from './subSections/SetFlagSwitch'
 import DefaultRules, { DefaultRulesProps } from './subSections/DefaultRules'
-import ServeVariationToIndividualTarget from './subSections/ServeVariationToIndividualTarget'
+import ServeVariationToIndividualTarget, {
+  ServeVariationToIndividualTargetProps
+} from './subSections/ServeVariationToIndividualTarget'
 import ServeVariationToTargetGroup from './subSections/ServeVariationToTargetGroup'
 import ServePercentageRollout, { ServePercentageRolloutProps } from './subSections/ServePercentageRollout'
 
 export type SubSectionComponentProps = SubSectionProps &
   DefaultRulesProps &
   SetFlagSwitchProps &
-  ServePercentageRolloutProps
+  ServePercentageRolloutProps &
+  ServeVariationToIndividualTargetProps
 export type SubSectionComponent = FC<SubSectionComponentProps>
 
 export const allSubSections: SubSectionComponent[] = [
@@ -34,8 +37,10 @@ export const allSubSections: SubSectionComponent[] = [
 export interface FlagChangesProps {
   targetGroups?: Segment[]
   variations?: Variation[]
+  targets?: Target[]
   spec: FlagConfigurationStepFormData['spec']
   clearField: (fieldName: string) => void
+  setField: (fieldName: string, value: unknown) => void
   fieldValues: FlagConfigurationStepFormDataValues
   targetAttributes?: TargetAttributesResponse
 }
@@ -43,10 +48,12 @@ export interface FlagChangesProps {
 const FlagChanges: FC<FlagChangesProps> = ({
   targetGroups = [],
   variations = [],
+  targets = [],
   fieldValues,
   spec,
   targetAttributes = [],
-  clearField
+  clearField,
+  setField
 }) => {
   const [subSections, setSubSections] = useState<SubSectionComponent[]>(() => {
     const initialSubSections: SubSectionComponent[] = []
@@ -63,6 +70,9 @@ const FlagChanges: FC<FlagChangesProps> = ({
             break
           case 'percentageRollout':
             initialSubSections.push(ServePercentageRollout)
+            break
+          case 'serveVariationToIndividualTarget':
+            initialSubSections.push(ServeVariationToIndividualTarget)
             break
         }
       })
@@ -123,8 +133,10 @@ const FlagChanges: FC<FlagChangesProps> = ({
             />
           ),
           clearField,
+          setField,
           variations: variations ?? [],
           targetGroups: targetGroups ?? [],
+          targets: targets ?? [],
           fieldValues: fieldValues ?? {},
           targetAttributes: targetAttributes ?? []
         }

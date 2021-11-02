@@ -424,6 +424,11 @@ pipeline:
     selectOnOrOff: Select ON or OFF
     whenTheFlagIsOnServe: 'When the flag is ON, serve:'
     whenTheFlagIsOffServe: 'When the flag is OFF, serve:'
+    addEditVariationToSpecificTargets: + Add/edit variation to specific targets
+    enterTarget: Enter Target
+    selectVariation: Select a variation
+    variationServed: Variation Served
+    toTargets: to targets
 segmentDetail:
   directlyAdded: Directly Added
   autoAdded: Automatically Added Through Conditions
