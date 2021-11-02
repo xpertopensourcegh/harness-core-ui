@@ -1353,6 +1353,8 @@ exports[`Custom Variables can delete variable: Before Delete 1`] = `
 </div>
 `;
 
+exports[`Custom Variables empty error object when default value present in number variable: default present in number variable 1`] = `Object {}`;
+
 exports[`Custom Variables handles secrets correctly 1`] = `Promise {}`;
 
 exports[`Custom Variables should render edit view as new step 1`] = `

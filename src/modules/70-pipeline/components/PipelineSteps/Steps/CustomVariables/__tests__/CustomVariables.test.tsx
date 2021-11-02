@@ -140,6 +140,19 @@ describe('Custom Variables', () => {
     expect(response).toMatchSnapshot()
   })
 
+  test('empty error object when default value present in number variable', () => {
+    const response = new CustomVariables().validateInputSet({
+      data: {
+        variables: [{ name: 'myVar1', type: 'Number', value: 1, default: 1 }]
+      },
+      template: {
+        variables: [{ value: '<+input>' }]
+      },
+      viewType: StepViewType.DeploymentForm
+    })
+    expect(response).toMatchSnapshot('default present in number variable')
+  })
+
   test('handles secrets correctly', () => {
     ;(listSecretsV2Promise as any).mockResolvedValue({
       data: {
