@@ -17,6 +17,8 @@ import cx from 'classnames'
 import { Form, FieldArrayRenderProps, FieldArray } from 'formik'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import * as Yup from 'yup'
+import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd'
+
 import { get, set, isEmpty } from 'lodash-es'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
@@ -359,75 +361,107 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                       </div>
                     )}
                   </Layout.Horizontal>
-                  <div className={css.halfWidth}>
-                    <MultiTypeFieldSelector
-                      defaultValueToReset={defaultValueToReset}
-                      name={'paths'}
-                      label={
-                        <Text>
-                          {selectedManifest === ManifestDataType.K8sManifest
-                            ? getString('fileFolderPathText')
-                            : getString('common.git.filePath')}
-                        </Text>
+
+                  <DragDropContext
+                    onDragEnd={(result: DropResult) => {
+                      if (!result.destination) {
+                        return
                       }
-                    >
-                      <FieldArray
-                        name="paths"
-                        render={arrayHelpers => (
-                          <Layout.Vertical>
-                            {formik.values?.paths?.map((path: { path: string; uuid: string }, index: number) => (
-                              <Layout.Horizontal
-                                key={path.uuid}
-                                flex={{ distribution: 'space-between' }}
-                                style={{ alignItems: 'end' }}
-                              >
-                                <Layout.Horizontal
-                                  spacing="medium"
-                                  style={{ alignItems: 'baseline' }}
-                                  draggable={true}
-                                  onDragStart={event => {
-                                    onDragStart(event, index)
-                                  }}
-                                  onDragEnd={onDragEnd}
-                                  onDragOver={onDragOver}
-                                  onDragLeave={onDragLeave}
-                                  onDrop={event => onDrop(event, arrayHelpers, index)}
-                                >
-                                  <Icon name="drag-handle-vertical" className={css.drag} />
-                                  <Text width={12}>{`${index + 1}.`}</Text>
-                                  <FormInput.MultiTextInput
-                                    label={''}
-                                    placeholder={
-                                      selectedManifest === ManifestDataType.K8sManifest
-                                        ? getString('pipeline.manifestType.manifestPathPlaceholder')
-                                        : getString('pipeline.manifestType.pathPlaceholder')
-                                    }
-                                    name={`paths[${index}].path`}
-                                    style={{ width: 275 }}
-                                    multiTextInputProps={{
-                                      expressions,
-                                      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                                    }}
-                                  />
-                                </Layout.Horizontal>
-                                {formik.values?.paths?.length > 1 && (
-                                  <Button minimal icon="main-trash" onClick={() => arrayHelpers.remove(index)} />
-                                )}
-                              </Layout.Horizontal>
-                            ))}
-                            <span>
-                              <Button
-                                text={getString('addFileText')}
-                                variation={ButtonVariation.LINK}
-                                className={css.addFileButton}
-                                onClick={() => arrayHelpers.push({ path: '', uuid: uuid('', nameSpace()) })}
-                              />
-                            </span>
-                          </Layout.Vertical>
-                        )}
-                      />
-                    </MultiTypeFieldSelector>
-                  </div>
+                      const res = Array.from(formik.values.paths)
+                      const [removed] = res.splice(result.source.index, 1)
+                      res.splice(result.destination.index, 0, removed)
+                      formik.setFieldValue('paths', res as any)
+                    }}
+                  >
+                    <Droppable droppableId="droppable">
+                      {(provided, _snapshot) => (
+                        <div className={css.halfWidth} {...provided.droppableProps} ref={provided.innerRef}>
+                          <MultiTypeFieldSelector
+                            defaultValueToReset={defaultValueToReset}
+                            name={'paths'}
+                            label={
+                              <Text>
+                                {selectedManifest === ManifestDataType.K8sManifest
+                                  ? getString('fileFolderPathText')
+                                  : getString('common.git.filePath')}
+                              </Text>
+                            }
+                          >
+                            <FieldArray
+                              name="paths"
+                              render={arrayHelpers => (
+                                <Layout.Vertical>
+                                  {formik.values?.paths?.map((path: { path: string; uuid: string }, index: number) => (
+                                    <Draggable key={index} draggableId={path.path} index={index}>
+                                      {providedDrag => (
+                                        <Layout.Horizontal
+                                          key={path.uuid}
+                                          flex={{ distribution: 'space-between' }}
+                                          style={{ alignItems: 'end' }}
+                                          ref={providedDrag.innerRef}
+                                          {...providedDrag.draggableProps}
+                                          {...providedDrag.dragHandleProps}
+                                        >
+                                          <Layout.Horizontal
+                                            spacing="medium"
+                                            style={{ alignItems: 'baseline' }}
+                                            draggable={true}
+                                            onDragStart={event => {
+                                              onDragStart(event, index)
+                                            }}
+                                            onDragEnd={onDragEnd}
+                                            onDragOver={onDragOver}
+                                            onDragLeave={onDragLeave}
+                                            onDrop={event => onDrop(event, arrayHelpers, index)}
+                                          >
+                                            <Icon name="drag-handle-vertical" className={css.drag} />
+                                            <Text width={12}>{`${index + 1}.`}</Text>
+                                            <FormInput.MultiTextInput
+                                              label={''}
+                                              placeholder={
+                                                selectedManifest === ManifestDataType.K8sManifest
+                                                  ? getString('pipeline.manifestType.manifestPathPlaceholder')
+                                                  : getString('pipeline.manifestType.pathPlaceholder')
+                                              }
+                                              name={`paths[${index}].path`}
+                                              style={{ width: 275 }}
+                                              multiTextInputProps={{
+                                                expressions,
+                                                allowableTypes: [
+                                                  MultiTypeInputType.FIXED,
+                                                  MultiTypeInputType.EXPRESSION
+                                                ]
+                                              }}
+                                            />
+                                          </Layout.Horizontal>
+                                          {formik.values?.paths?.length > 1 && (
+                                            <Button
+                                              minimal
+                                              icon="main-trash"
+                                              onClick={() => arrayHelpers.remove(index)}
+                                            />
+                                          )}
+                                        </Layout.Horizontal>
+                                      )}
+                                    </Draggable>
+                                  ))}
+                                  <span>
+                                    <Button
+                                      text={getString('addFileText')}
+                                      variation={ButtonVariation.LINK}
+                                      className={css.addFileButton}
+                                      onClick={() => arrayHelpers.push({ path: '', uuid: uuid('', nameSpace()) })}
+                                    />
+                                  </span>
+                                </Layout.Vertical>
+                              )}
+                            />
+                          </MultiTypeFieldSelector>
+                        </div>
+                      )}
+                    </Droppable>
+                  </DragDropContext>
+
                   {!!(selectedManifest === ManifestDataType.K8sManifest) && (
                     <Accordion
                       activeId={isActiveAdvancedStep ? getString('advancedTitle') : ''}
