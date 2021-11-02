@@ -326,7 +326,7 @@ exports[`Create CE K8s Connector Wizard Proceed with following steps 1`] = `
                                     class="bp3-editable-text-content"
                                     style="height: 1px; line-height: 1px; min-width: 0;"
                                   >
-                                    rishabhk8s
+                                    rishabhk8sCostaccess
                                   </span>
                                 </div>
                               </span>
@@ -389,7 +389,7 @@ exports[`Create CE K8s Connector Wizard Proceed with following steps 1`] = `
                                   name="name"
                                   placeholder="common.namePlaceholder"
                                   type="text"
-                                  value="rishabhk8s"
+                                  value="rishabhk8s-Cost-access"
                                 />
                               </div>
                             </div>
