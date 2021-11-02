@@ -111,9 +111,21 @@ const PolicySets: React.FC = () => {
   const RenderPolicyName: Renderer<CellProps<PolicySetWithLinkedPolicies>> = ({ row }) => {
     const record = row.original
     return (
-      <Layout.Horizontal spacing="small" flex style={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+      <Layout.Horizontal
+        spacing="small"
+        flex
+        style={{ alignItems: 'center', justifyContent: 'flex-start', cursor: 'pointer' }}
+      >
         <img src={PolicyIcon} height="22" />
-        <Text color={Color.BLACK} lineClamp={1} font={{ weight: 'semi-bold' }}>
+        <Text
+          color={Color.BLACK}
+          lineClamp={1}
+          font={{ weight: 'semi-bold' }}
+          onClick={() => {
+            setPolicySetData(row.original)
+            showModal()
+          }}
+        >
           {record.name}
         </Text>
       </Layout.Horizontal>
@@ -159,17 +171,27 @@ const PolicySets: React.FC = () => {
     return (
       <Toggle
         checked={record.enabled}
-        onToggle={value => {
+        onToggle={async value => {
           const updatePayload = {
             action: row.original.action,
             enabled: value,
             name: row.original.name,
             type: row.original.type
           }
-          updatePolicySet(updatePayload)
+          await updatePolicySet(updatePayload)
           refetch()
         }}
       />
+    )
+  }
+
+  const RenderAction: Renderer<CellProps<PolicySetWithLinkedPolicies>> = ({ row }) => {
+    const record = row.original
+
+    return (
+      <Text color={Color.BLACK} lineClamp={1}>
+        {record?.action === 'onrun' ? getString('runPipelineText') : getString('save')}
+      </Text>
     )
   }
 
@@ -226,6 +248,12 @@ const PolicySets: React.FC = () => {
         accessor: row => row.name,
         width: '35%',
         Cell: RenderPolicyName
+      },
+      {
+        Header: getString('action'),
+        accessor: row => row.action,
+        width: '10%',
+        Cell: RenderAction
       },
       {
         Header: getString('common.policiesSets.table.enforced'),

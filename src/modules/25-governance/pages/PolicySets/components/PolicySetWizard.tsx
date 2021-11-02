@@ -20,6 +20,7 @@ import { useMutate, UseMutateProps } from 'restful-react'
 import { isEqual, pick } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import { StringUtils, useToaster } from '@common/exports'
+import { getErrorMessage } from '@governance/utils/GovernanceUtils'
 
 import { NameIdDescriptionTags } from '@common/components'
 import {
@@ -77,10 +78,11 @@ const StepOne: React.FC<CreatePolicySetWizardProps> = ({ nextStep, policySetData
   const { showSuccess, showError } = useToaster()
 
   const onSubmitFirstStep = async (values: any) => {
-    values['enabled'] = false
+    values['enabled'] = true
 
     const _fields = pick(_policySetData, ['action', 'enabled', 'name', 'type', 'identifier'])
     const _clonedValues = pick(values, ['action', 'enabled', 'name', 'type', 'identifier'])
+
     // console.log(Object.keys(_clonedValues).length, policySetData?.id, _fields, _clonedValues)
     if (!isEqual(_fields, _clonedValues)) {
       if (policySetData?.id || Object.keys(_fields).length === Object.keys(_clonedValues).length) {
@@ -89,14 +91,16 @@ const StepOne: React.FC<CreatePolicySetWizardProps> = ({ nextStep, policySetData
             showSuccess(`Successfully updated ${values.name} Policy Set`)
             nextStep?.({ ...values, id: response?.identifier })
           })
-          .catch(error => showError(error?.message))
+          .catch(error => showError(getErrorMessage(error)))
       } else {
         createPolicySet(values)
           .then(response => {
             showSuccess(`Successfully created ${values.name} Policy Set`)
             nextStep?.({ ...values, id: response?.identifier })
           })
-          .catch(error => showError(error?.message))
+          .catch(error => {
+            showError(getErrorMessage(error))
+          })
       }
     } else {
       nextStep?.({ ...values, id: _policySetData.identifier })
@@ -125,7 +129,9 @@ const StepOne: React.FC<CreatePolicySetWizardProps> = ({ nextStep, policySetData
               .required(getString('validation.identifierRequired'))
               .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
               .notOneOf(StringUtils.illegalIdentifiers)
-          })
+          }),
+          type: Yup.string().trim().required(getString('validation.thisIsARequiredField')),
+          action: Yup.string().trim().required(getString('validation.thisIsARequiredField'))
         })}
         initialValues={{
           name: _policySetData?.name || '',
@@ -210,13 +216,9 @@ const StepTwo: React.FC<{
     policyset: policySetData?.identifier?.toString() || prevStepData?.id
   })
 
-  const { mutate: patchPolicy, loading: patchingPolicy } = useAddLinkedPolicy({
-    policyset: prevStepData?.id,
-    policy: policyId,
-    queryParams
-  })
+  const { mutate: patchPolicy } = useAddLinkedPolicy({ policyset: prevStepData?.id, policy: policyId, queryParams })
 
-  const { mutate: deleteLinkedPolicy, loading: deletingPolicyAttaced } = useDeleteLinkedPolicy({
+  const { mutate: deleteLinkedPolicy } = useDeleteLinkedPolicy({
     policyset: prevStepData?.id,
     policy: deLinkpolicyId
   })
@@ -238,7 +240,7 @@ const StepTwo: React.FC<{
           showSuccess('Successfully linked policy with the policy set')
         })
         .catch(error => {
-          showError(error.message || error)
+          showError(getErrorMessage(error))
         })
     }
   }, [policyId, severity])
@@ -250,7 +252,7 @@ const StepTwo: React.FC<{
           showSuccess('Successfully delinked policy with the policy set')
         })
         .catch(error => {
-          showError(error.message || error)
+          showError(getErrorMessage(error))
         })
     }
   }, [deLinkpolicyId])
@@ -316,7 +318,7 @@ const StepTwo: React.FC<{
             <FormikForm>
               <Container className={css.policyAssignment}>
                 <FieldArray
-                  label="Applies to Pipeline on the following events"
+                  label={getString('governance.wizard.fieldArray')}
                   addLabel="Add Policy"
                   key={Math.random().toString(36).substring(2, 8)}
                   name="attachedPolicies"
@@ -331,7 +333,7 @@ const StepTwo: React.FC<{
                   fields={[
                     {
                       name: 'policy',
-                      label: 'Evaluate Policy',
+                      label: getString('governance.wizard.policyToEval'),
                       renderer: (value, _index, handleChange) => (
                         <Layout.Vertical flex={{ alignItems: 'end' }} spacing="xsmall">
                           <Select
@@ -368,18 +370,8 @@ const StepTwo: React.FC<{
                 />
 
                 <Layout.Horizontal spacing="medium">
-                  <Button
-                    type="button"
-                    text={getString('back')}
-                    onClick={onPreviousStep}
-                    disabled={patchingPolicy || deletingPolicyAttaced}
-                  />
-                  <Button
-                    type="submit"
-                    intent="primary"
-                    text={getString('finish')}
-                    disabled={patchingPolicy || deletingPolicyAttaced}
-                  />
+                  <Button type="button" text={getString('back')} onClick={onPreviousStep} />
+                  <Button type="submit" intent="primary" text={getString('finish')} />
                 </Layout.Horizontal>
               </Container>
             </FormikForm>
