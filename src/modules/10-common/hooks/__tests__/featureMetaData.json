@@ -23,7 +23,7 @@
             "restrictionType": "RATE_LIMIT"
           },
           "ENTERPRISE": {
-            "enabled": false,
+            "enabled": true,
             "restrictionType": "AVAILABILITY"
           }
         }

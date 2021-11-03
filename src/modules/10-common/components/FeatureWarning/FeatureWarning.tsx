@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react'
+import { isEmpty } from 'lodash-es'
 import cx from 'classnames'
 import { useHistory, useParams } from 'react-router-dom'
 import { Button, ButtonSize, ButtonVariation, Color, FontVariation, Layout, Text } from '@wings-software/uicore'
@@ -7,7 +8,7 @@ import { useStrings } from 'framework/strings'
 import { FeatureDescriptor } from 'framework/featureStore/FeatureDescriptor'
 import routes from '@common/RouteDefinitions'
 import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
-import { useFeatureModule } from '@common/hooks/useFeatures'
+import { useFeatureModule, useFeatureRequiredPlans } from '@common/hooks/useFeatures'
 import type { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import css from './FeatureWarning.module.scss'
 
@@ -74,6 +75,8 @@ const WarningText = ({ tooltip, tooltipProps }: WarningTextProps): ReactElement 
 export const FeatureWarningTooltip = ({ featureName, module }: FeatureWarningTooltipProps): ReactElement => {
   const { getString } = useStrings()
   const featureDescription = FeatureDescriptor[featureName] ? FeatureDescriptor[featureName] : featureName
+  const requiredPlans = useFeatureRequiredPlans(featureName)
+  const requiredPlansStr = requiredPlans.join(' or ')
   return (
     <Layout.Vertical padding="medium" className={css.tooltip}>
       <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.GREY_800} padding={{ bottom: 'small' }}>
@@ -84,6 +87,11 @@ export const FeatureWarningTooltip = ({ featureName, module }: FeatureWarningToo
           {getString('common.feature.upgradeRequired.description')}
           {featureDescription}
         </Text>
+        {!isEmpty(requiredPlans) && (
+          <Text font={{ size: 'small' }} color={Color.GREY_700}>
+            {getString('common.feature.upgradeRequired.requiredPlans', { requiredPlans: requiredPlansStr })}
+          </Text>
+        )}
         <ExplorePlansBtn module={module} />
       </Layout.Vertical>
     </Layout.Vertical>

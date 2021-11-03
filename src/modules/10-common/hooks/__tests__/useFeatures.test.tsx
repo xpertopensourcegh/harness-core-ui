@@ -11,7 +11,7 @@ import {
 } from 'services/cd-ng'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { Editions } from '@common/constants/SubscriptionTypes'
-import { useFeature, useFeatures } from '../useFeatures'
+import { useFeature, useFeatures, useFeatureModule, useFeatureRequiredPlans } from '../useFeatures'
 import mocks from './featuresMocks.json'
 import metadata from './featureMetaData.json'
 
@@ -315,5 +315,33 @@ describe('useFeatures', () => {
     expect(resolvedValue.features.get(FeatureIdentifier.CUSTOM_ROLES)?.enabled).toBeFalsy()
     expect(resolvedValue.features.get(FeatureIdentifier.BUILDS)?.enabled).toBeTruthy()
     expect(resolvedValue.features.get(FeatureIdentifier.CUSTOM_RESOURCE_GROUPS)?.enabled).toBeFalsy()
+  })
+
+  test('useFeatureModule', () => {
+    const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (
+      <TestWrapper
+        path={routes.toProjects({ accountId: 'dummy' })}
+        pathParams={{ accountId: 'dummy' }}
+        defaultLicenseStoreValues={defaultLicenseStoreValues}
+      >
+        <FeaturesProvider>{children}</FeaturesProvider>
+      </TestWrapper>
+    )
+    const { result } = renderHook(() => useFeatureModule(FeatureIdentifier.CUSTOM_ROLES), { wrapper })
+    expect(result.current).toBe('CF')
+  })
+
+  test('useFeatureRequiredPlans', () => {
+    const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (
+      <TestWrapper
+        path={routes.toProjects({ accountId: 'dummy' })}
+        pathParams={{ accountId: 'dummy' }}
+        defaultLicenseStoreValues={defaultLicenseStoreValues}
+      >
+        <FeaturesProvider>{children}</FeaturesProvider>
+      </TestWrapper>
+    )
+    const { result } = renderHook(() => useFeatureRequiredPlans(FeatureIdentifier.CUSTOM_ROLES), { wrapper })
+    expect(result.current).toStrictEqual(['Team', 'Enterprise'])
   })
 })

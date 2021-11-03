@@ -1,4 +1,5 @@
-import { RestrictionType } from '@common/constants/SubscriptionTypes'
+import { capitalize } from 'lodash-es'
+import { Editions, RestrictionType } from '@common/constants/SubscriptionTypes'
 import { useDeepCompareEffect } from '@common/hooks'
 import {
   useFeaturesContext,
@@ -8,8 +9,9 @@ import {
   FeaturesRequest,
   CheckFeaturesReturn
 } from 'framework/featureStore/FeaturesContext'
+import type { AvailabilityRestrictionDTO } from 'services/cd-ng'
 import { FeatureFlag } from '@common/featureFlags'
-import type { ModuleType } from 'framework/featureStore/FeaturesContext'
+import type { ModuleType, RestrictionMetadataMap } from 'framework/featureStore/FeaturesContext'
 import type { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { useFeatureFlag } from './useFeatureFlag'
 
@@ -122,4 +124,42 @@ export function useFeatures(props: FeaturesProps): CheckFeaturesReturn {
 export function useFeatureModule(featureName: FeatureIdentifier): ModuleType {
   const { featureMap } = useFeaturesContext()
   return featureMap.get(featureName)?.moduleType
+}
+
+export function useFeatureRequiredPlans(featureName: FeatureIdentifier): string[] {
+  const { featureMap, getEdition } = useFeaturesContext()
+  const moduleType = featureMap.get(featureName)?.moduleType
+  const currentEdition = getEdition(moduleType)
+  return getRequiredPlans(currentEdition, featureMap.get(featureName)?.restrictionMetadataMap)
+}
+
+function getRequiredPlans(currentEdition?: Editions, map?: RestrictionMetadataMap): string[] {
+  const editions: string[] = []
+  if (!map || !currentEdition) {
+    return editions
+  }
+  Object.entries(map).forEach(([key, value]) => {
+    const edition = key as Editions
+    if (lowerThanCurrentPlan(currentEdition, edition)) {
+      return
+    }
+    const { enabled } = value as AvailabilityRestrictionDTO
+    // for plans when it's AVAILABILITY feature, when enabled is true, push it into the bucket
+    // for plans when it's LIMIT feature, enabled is undefined, just push it into the bucket
+    if (enabled !== false) {
+      editions.push(capitalize(edition.toString()))
+    }
+  })
+  return editions
+}
+
+const orders = {
+  ENTERPRISE: 0,
+  TEAM: 1,
+  FREE: 2,
+  COMMUNITY: 2
+}
+
+function lowerThanCurrentPlan(currentEdition: Editions, edition: Editions): boolean {
+  return orders[currentEdition] <= orders[edition]
 }

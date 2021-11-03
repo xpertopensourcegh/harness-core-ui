@@ -171,6 +171,9 @@ export const TestWrapper: React.FC<TestWrapperProps> = props => {
               value={{
                 features: new Map<FeatureIdentifier, FeatureDetail>(),
                 featureMap: new Map<FeatureIdentifier, FeatureMetaData>(),
+                getEdition: () => {
+                  return undefined
+                },
                 requestFeatures: () => void 0,
                 requestLimitFeature: () => void 0,
                 checkFeature: () => {

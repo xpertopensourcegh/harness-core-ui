@@ -57,7 +57,7 @@ export interface FeatureMetaData {
   restrictionMetadataMap: RestrictionMetadataMap
 }
 
-interface RestrictionMetadataMap {
+export interface RestrictionMetadataMap {
   [key: string]: RestrictionMetadataDTO
 }
 
@@ -73,6 +73,7 @@ export interface FeaturesContextProps {
   // features only cache enabled features
   features: Features
   featureMap: FeatureMap
+  getEdition: (moduleType: ModuleType) => Editions | undefined
   requestFeatures: (featureRequest: FeatureRequest | FeaturesRequest, options?: FeatureRequestOptions) => void
   checkFeature: (featureName: FeatureIdentifier) => CheckFeatureReturn
   requestLimitFeature: (featureRequest: FeatureRequest) => void
@@ -89,6 +90,9 @@ export const FeaturesContext = createContext<FeaturesContextProps>({
   features: new Map<FeatureIdentifier, FeatureDetail>(),
   // featureMap caches all feature metadata, featureName: { edition, restrictionType }
   featureMap: new Map<FeatureIdentifier, FeatureMetaData>(),
+  getEdition: () => {
+    return undefined
+  },
   requestFeatures: () => void 0,
   checkFeature: () => {
     return defaultReturn
@@ -342,9 +346,9 @@ export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React
   }
 
   function getEdition(moduleType: ModuleType): Editions | undefined {
-    // if no license available, reture FREE for default
+    // if no license available, reture undefined for default
     if (licenseInformation === undefined || isEmpty(licenseInformation)) {
-      return Editions.FREE
+      return undefined
     }
 
     switch (moduleType) {
@@ -408,6 +412,7 @@ export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React
       value={{
         features,
         featureMap,
+        getEdition,
         requestFeatures,
         requestLimitFeature,
         checkLimitFeature,

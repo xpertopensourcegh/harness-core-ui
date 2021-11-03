@@ -598,6 +598,7 @@ feature:
   upgradeRequired:
     title: Upgrade Required
     description: 'Requires upgrade to setup '
+    requiredPlans: Please upgrade to {{requiredPlans}}
 repositoryName: Repository Name
 mostActiveServices: Most active services
 allErrors: All Errors
