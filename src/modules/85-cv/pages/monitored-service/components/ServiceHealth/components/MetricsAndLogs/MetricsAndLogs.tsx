@@ -1,6 +1,6 @@
 import { Container, Text } from '@wings-software/uicore'
 import React from 'react'
-import metricsAndLogsImage from '@cv/assets/metricsAndLogs.svg'
+import noServiceAvailableImage from '@cv/assets/noServiceAvailable.png'
 import { useStrings } from 'framework/strings'
 import Card from '@cv/components/Card/Card'
 import LogAnalysisContainer from './components/LogAnalysisContainer/LogAnalysisContainer'
@@ -26,7 +26,7 @@ export default function MetricsAndLogs(props: MetricsAndLogsProps): JSX.Element 
       ) : (
         <Card>
           <Container className={css.noTimeRangeSelected} data-testid="analysis-image-view">
-            <img src={metricsAndLogsImage} width={600} />
+            <img src={noServiceAvailableImage} alt="" width={600} height={290} />
             <Text>{getString('cv.monitoredServices.serviceHealth.selectTimeline')}</Text>
           </Container>
         </Card>

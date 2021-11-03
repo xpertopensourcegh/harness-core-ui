@@ -4126,7 +4126,6 @@ export interface StringsMap {
   'cv.monitoredServices.nameValidation': string
   'cv.monitoredServices.newMonitoredServices': string
   'cv.monitoredServices.noAvailableData': string
-  'cv.monitoredServices.noData': string
   'cv.monitoredServices.noServiceAvailable': string
   'cv.monitoredServices.serviceAndEnvironment': string
   'cv.monitoredServices.serviceDependencies.noData': string
@@ -4153,6 +4152,7 @@ export interface StringsMap {
   'cv.monitoredServices.table.serviceHealthScore': string
   'cv.monitoredServices.table.serviceName': string
   'cv.monitoredServices.title': string
+  'cv.monitoredServices.youHaveNoMonitoredServices': string
   'cv.monitoringSources.addMetric': string
   'cv.monitoringSources.addQuery': string
   'cv.monitoringSources.appD.appDApplications': string

@@ -538,7 +538,7 @@ cvTrialHomePage:
 monitoredServices:
   title: Monitored Services
   filterlabel: 'Environment:'
-  noData: No Monitored Service
+  youHaveNoMonitoredServices: You have no monitored services
   nameValidation: Monitored Service Name is required
   environmentValidation: '{{$.pipelineSteps.environmentTab.environmentIsRequired}}'
   serviceValidation: '{{$.pipelineSteps.serviceTab.serviceIsRequired}}'

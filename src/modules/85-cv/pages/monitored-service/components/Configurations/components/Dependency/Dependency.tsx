@@ -100,7 +100,7 @@ export default function Dependency({
             </Text>
           </Container>
           {!monitoredServiceList.length ? (
-            <NoDataCard icon="join-table" message={getString('cv.monitoredServices.noData')} />
+            <NoDataCard icon="join-table" message={getString('cv.monitoredServices.youHaveNoMonitoredServices')} />
           ) : (
             monitoredServiceList.map(service => (
               <SelectServiceCard

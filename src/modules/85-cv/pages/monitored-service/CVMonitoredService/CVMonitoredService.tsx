@@ -27,6 +27,7 @@ import { getCVMonitoringServicesSearchParam, getErrorMessage, getEnvironmentOpti
 import type { FilterCardItem } from '@cv/components/FilterCard/FilterCard.types'
 import { getDependencyData } from '@cv/components/DependencyGraph/DependencyGraph.utils'
 import { MonitoredServiceEnum } from '@cv/pages/monitored-service/MonitoredServicePage.constants'
+import noServiceAvailableImage from '@cv/assets/noServiceAvailable.png'
 import { getFilterAndEnvironmentValue } from './CVMonitoredService.utils'
 import MonitoredServiceListView from './components/MonitoredServiceListView/MonitoredServiceListView'
 import MonitoredServiceGraphView from './components/MonitoredServiceGraphView/MonitoredServiceGraphView'
@@ -145,23 +146,25 @@ const MonitoredService: React.FC = () => {
     })
   }
 
+  const createButton = (
+    <Button
+      variation={ButtonVariation.PRIMARY}
+      icon="plus"
+      text={getString('cv.monitoredServices.newMonitoredServices')}
+      onClick={() => {
+        history.push({
+          pathname: routes.toCVAddMonitoringServicesSetup(pathParams),
+          search: getCVMonitoringServicesSearchParam({ view: selectedView })
+        })
+      }}
+    />
+  )
+
   return (
     <>
       <Page.Header breadcrumbs={<NGBreadcrumbs />} title={getString('cv.monitoredServices.title')} />
       <Page.Header
-        title={
-          <Button
-            variation={ButtonVariation.PRIMARY}
-            icon="plus"
-            text={getString('cv.monitoredServices.newMonitoredServices')}
-            onClick={() => {
-              history.push({
-                pathname: routes.toCVAddMonitoringServicesSetup(pathParams),
-                search: getCVMonitoringServicesSearchParam({ view: selectedView })
-              })
-            }}
-          />
-        }
+        title={createButton}
         toolbar={
           <Layout.Horizontal>
             <Select
@@ -192,8 +195,10 @@ const MonitoredService: React.FC = () => {
           retryOnError={() => refetchMonitoredServiceList()}
           noData={{
             when: () => !monitoredServiceListData?.data?.content?.length,
-            icon: 'join-table',
-            message: getString('cv.monitoredServices.noData')
+            image: noServiceAvailableImage,
+            imageClassName: css.noServiceAvailableImage,
+            message: getString('cv.monitoredServices.youHaveNoMonitoredServices'),
+            button: createButton
           }}
           className={css.pageBody}
         >
@@ -226,7 +231,10 @@ const MonitoredService: React.FC = () => {
           }}
           noData={{
             when: () => !monitoredServiceDependencyData,
-            message: getString('cv.monitoredServices.noData')
+            image: noServiceAvailableImage,
+            imageClassName: css.noServiceAvailableImage,
+            message: getString('cv.monitoredServices.youHaveNoMonitoredServices'),
+            button: createButton
           }}
           className={css.pageBody}
         >

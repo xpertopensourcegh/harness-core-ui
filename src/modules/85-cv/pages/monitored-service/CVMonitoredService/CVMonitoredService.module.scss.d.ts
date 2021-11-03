@@ -11,5 +11,6 @@ declare const styles: {
   readonly dependencyGraph: string
   readonly graphSummaryCard: string
   readonly infrastructureIconPadding: string
+  readonly noServiceAvailableImage: string
 }
 export default styles

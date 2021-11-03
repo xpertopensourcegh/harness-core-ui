@@ -283,6 +283,8 @@ exports[`Unit tests for ServiceHealth Verify if all the fields are rendered corr
             data-testid="analysis-image-view"
           >
             <img
+              alt=""
+              height="290"
               src="test-file-stub"
               width="600"
             />
