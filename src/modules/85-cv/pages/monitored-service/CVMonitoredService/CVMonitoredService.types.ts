@@ -1,13 +1,5 @@
-import type { MutateMethod } from 'restful-react'
 import type { Color, FontVariation } from '@wings-software/uicore'
-import type {
-  MonitoredServiceListItemDTO,
-  RestResponseHealthMonitoringFlagResponse,
-  SetHealthMonitoringFlagQueryParams,
-  SetHealthMonitoringFlagPathParams,
-  PageMonitoredServiceListItemDTO,
-  RiskData
-} from 'services/cv'
+import type { MonitoredServiceListItemDTO, PageMonitoredServiceListItemDTO, RiskData } from 'services/cv'
 import type { FilterCardItem } from '@cv/components/FilterCard/FilterCard.types'
 import type { DependencyData } from '@cv/components/DependencyGraph/DependencyGraph.types'
 
@@ -25,13 +17,6 @@ export interface ContextMenuActionsProps {
   deleteLabel?: string
   editLabel?: string
 }
-
-export type setHealthMonitoringFlagType = MutateMethod<
-  RestResponseHealthMonitoringFlagResponse,
-  void,
-  SetHealthMonitoringFlagQueryParams,
-  SetHealthMonitoringFlagPathParams
->
 
 interface MonitoredServiceViewsProps {
   monitoredServiceListData?: PageMonitoredServiceListItemDTO

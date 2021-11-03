@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, waitFor, fireEvent } from '@testing-library/react'
+import { render, waitFor, fireEvent, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import routes from '@common/RouteDefinitions'
 import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
@@ -169,5 +169,71 @@ describe('Monitored Service list', () => {
     )
 
     await waitFor(() => expect(container.querySelector('[class*="spinner"]')).not.toBeNull)
+  })
+
+  test('Enable service', async () => {
+    const mutate = jest.fn()
+
+    jest.spyOn(cvServices, 'useSetHealthMonitoringFlag').mockImplementation(() => ({ mutate } as any))
+
+    const { container } = render(
+      <TestWrapper {...testWrapperProps}>
+        <CVMonitoredService />
+      </TestWrapper>
+    )
+
+    userEvent.click(container.querySelector('[data-name="on-btn"]')!)
+
+    await waitFor(() =>
+      expect(mutate).toHaveBeenCalledWith(undefined, {
+        pathParams: {
+          identifier: 'Monitoring_service_101'
+        },
+        queryParams: {
+          enable: true,
+          accountId: '1234_accountId',
+          orgIdentifier: '1234_org',
+          projectIdentifier: '1234_project'
+        }
+      })
+    )
+  })
+
+  test('Loading state', async () => {
+    const mutate = jest.fn()
+
+    jest.spyOn(cvServices, 'useSetHealthMonitoringFlag').mockImplementation(() => ({ loading: true } as any))
+
+    const { container } = render(
+      <TestWrapper {...testWrapperProps}>
+        <CVMonitoredService />
+      </TestWrapper>
+    )
+
+    userEvent.click(container.querySelectorAll('[data-name="on-btn"]')[0])
+
+    await waitFor(() => expect(mutate).not.toHaveBeenCalled())
+  })
+
+  test('Error state', async () => {
+    const mutate = jest.fn().mockRejectedValue({
+      data: {
+        message: 'Something went wrong'
+      }
+    })
+
+    jest.spyOn(cvServices, 'useSetHealthMonitoringFlag').mockImplementation(() => ({ mutate } as any))
+
+    const { container } = render(
+      <TestWrapper {...testWrapperProps}>
+        <CVMonitoredService />
+      </TestWrapper>
+    )
+
+    userEvent.click(container.querySelectorAll('[data-name="on-btn"]')[0])
+
+    await waitFor(() => expect(mutate).toHaveBeenCalled())
+
+    expect(screen.queryByText('Something went wrong')).toBeInTheDocument()
   })
 })

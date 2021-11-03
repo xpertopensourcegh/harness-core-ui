@@ -6,7 +6,7 @@ import { useGetMonitoredServiceScoresFromServiceAndEnvironment } from 'services/
 import { RiskValues, getErrorMessage } from '@cv/utils/CommonUtils'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { RiskTagWithLabel } from '@cv/pages/monitored-service/CVMonitoredService/CVMonitoredService.utils'
-import { useStrings } from 'framework/strings'
+import { StringKeys, useStrings } from 'framework/strings'
 import ErrorTooltip from '@common/components/ErrorTooltip/ErrorTooltip'
 import type { HealthScoreCardProps } from './HealthScoreCard.types'
 import css from './HealthScoreCard.module.scss'
@@ -79,23 +79,27 @@ const HealthScoreCard: React.FC<HealthScoreCardProps> = ({
   const { currentHealthScore, dependentHealthScore } = healthScoreData?.data ?? {}
 
   const NoHealthScoreData = (): JSX.Element | null => {
-    let label = ''
+    let label: StringKeys | undefined
     const noServiceHealthData = !currentHealthScore || currentHealthScore.riskStatus === RiskValues.NO_DATA
     const noDependencyHealthData = !dependentHealthScore || dependentHealthScore.riskStatus === RiskValues.NO_DATA
 
     if (noServiceHealthData && noDependencyHealthData) {
-      label = getString('cv.monitoredServices.healthScoreDataNotAvailable')
+      label = 'cv.monitoredServices.healthScoreDataNotAvailable'
     } else if (noServiceHealthData) {
-      label = getString('cv.monitoredServices.healthScoreDataNotAvailableForServiceHealth')
+      label = 'cv.monitoredServices.healthScoreDataNotAvailableForServiceHealth'
     } else if (noDependencyHealthData) {
-      label = getString('cv.monitoredServices.healthScoreDataNotAvailableForDependencyHealth')
+      label = 'cv.monitoredServices.healthScoreDataNotAvailableForDependencyHealth'
     }
 
-    return label ? (
-      <Text font={{ variation: FontVariation.TINY_SEMI }} color={Color.GREY_500} flex>
-        {label}
-      </Text>
-    ) : null
+    if (label) {
+      return (
+        <Text font={{ variation: FontVariation.TINY_SEMI }} color={Color.GREY_500} flex>
+          {getString(label)}
+        </Text>
+      )
+    }
+
+    return null
   }
 
   return (
