@@ -1,14 +1,19 @@
 import React from 'react'
 import { act, fireEvent, render, waitFor } from '@testing-library/react'
 import { Container } from '@wings-software/uicore'
+import { Provider } from 'urql'
+import { fromValue } from 'wonka'
+import type { DocumentNode } from 'graphql'
+import { setFieldValue, InputTypes, clickSubmit } from '@common/utils/JestFormHelper'
 import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
-import { clickSubmit } from '@common/utils/JestFormHelper'
+import { FetchPerspectiveListDocument } from 'services/ce/services'
 import PerspectiveReportsAndBudgets from '../PerspectiveReportsAndBudgets'
 import PerspectiveScheduledReportsResponse from './PerspectiveScheduledReportsResponse.json'
 import PerspectiveBudgetsResponse from './PerspectiveBudgetsResponse.json'
 import PerspectiveResponse from './PerspectiveResponse.json'
 import useBudgetModal from '../PerspectiveCreateBudget'
 import useCreateReportModal from '../PerspectiveCreateReport'
+import PerspectiveList from './PerspectiveList.json'
 
 jest.mock('services/ce', () => ({
   useGetReportSetting: jest.fn().mockImplementation(() => {
@@ -153,10 +158,20 @@ const CreateBudgetWrapper = () => {
 
 describe('test cases for Perspective Create Budgets', () => {
   test('should be able to open create budget modal', async () => {
+    const responseState = {
+      executeQuery: ({ query }: { query: DocumentNode }) => {
+        if (query === FetchPerspectiveListDocument) {
+          return fromValue(PerspectiveList)
+        }
+      }
+    }
+
     const { container, getByText } = render(
-      <TestWrapper pathParams={params}>
-        <CreateBudgetWrapper />
-      </TestWrapper>
+      <Provider value={responseState as any}>
+        <TestWrapper pathParams={params}>
+          <CreateBudgetWrapper />
+        </TestWrapper>
+      </Provider>
     )
 
     const openButton = container.querySelector('.openModal')
@@ -168,7 +183,22 @@ describe('test cases for Perspective Create Budgets', () => {
     expect(modal).toBeDefined()
 
     await waitFor(() => Promise.resolve())
-    expect(getByText('ce.perspectives.budgets.setBudgetAmount.budgetType')).toBeDefined()
+
+    expect(getByText('ce.perspectives.budgets.defineTarget.selectPerspective')).toBeDefined()
+    expect(getByText('ce.perspectives.budgets.defineTarget.createNewPerspective')).toBeDefined()
+
+    await setFieldValue({
+      container: modal!,
+      type: InputTypes.SELECT,
+      fieldId: 'perspective',
+      value: 'e6V1JG61QWubhV89vAmUIg'
+    })
+
+    await act(async () => {
+      clickSubmit(modal!)
+    })
+
+    expect(getByText('ce.perspectives.budgets.setBudgetAmount.budgetPeriod')).toBeDefined()
     expect(getByText('ce.perspectives.budgets.setBudgetAmount.specifyAmount')).toBeDefined()
 
     await act(async () => {

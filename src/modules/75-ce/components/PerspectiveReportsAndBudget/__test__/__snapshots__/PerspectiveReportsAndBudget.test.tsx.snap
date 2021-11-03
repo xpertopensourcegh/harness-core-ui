@@ -9,7 +9,7 @@ exports[`test cases for Perspective Create Budgets should be able to open create
     class="StyledProps--font StyledProps--main"
   >
     <div
-      class="StepWizard--main mainCtn StepWizard--navBar"
+      class="StepWizard--main StepWizard--navBar"
     >
       <div
         class="StepWizard--navBarList"
@@ -72,7 +72,7 @@ exports[`test cases for Perspective Create Budgets should be able to open create
             class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
             style="--text-line-clamp: 2; width: 200px;"
           >
-            ce.perspectives.budgets.setBudgetAmount.title
+            ce.perspectives.budgets.defineTarget.title
           </p>
           <p
             class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -82,12 +82,45 @@ exports[`test cases for Perspective Create Budgets should be able to open create
           </p>
         </div>
         <div
+          class="StepWizard--navStep StepWizard--completedStep"
+        >
+          <span
+            class="StepWizard--completedIcon"
+          >
+            <span
+              class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-primary7"
+              icon="small-tick"
+            >
+              <svg
+                data-icon="small-tick"
+                height="20"
+                viewBox="0 0 20 20"
+                width="20"
+              >
+                <desc>
+                  small-tick
+                </desc>
+                <path
+                  d="M15 5c-.28 0-.53.11-.71.29L8 11.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l7-7A1.003 1.003 0 0015 5z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </span>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+            style="--text-line-clamp: 2; width: 200px;"
+          >
+            ce.perspectives.budgets.setBudgetAmount.title
+          </p>
+        </div>
+        <div
           class="StepWizard--navStep StepWizard--activeStep"
         >
           <span
             class="StepWizard--number"
           >
-            2
+            3
           </span>
           <p
             class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -102,46 +135,44 @@ exports[`test cases for Perspective Create Budgets should be able to open create
       >
          
         <div
-          class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main stepContainer"
+          class="StyledProps--font StyledProps--main"
         >
-          <h2
-            class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
-            level="2"
-          >
-            ce.perspectives.budgets.configureAlerts.title
-          </h2>
-          <p
-            class="StyledProps--font StyledProps--main"
-          >
-            ce.perspectives.budgets.configureAlerts.subTitle
-          </p>
           <div
-            class="StyledProps--font StyledProps--main"
+            class="OverlaySpinner--overlaySpinner"
           >
-            <span
-              class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-grey800 StyledProps--margin-right-small"
+            <form
+              class="FormikForm--main"
             >
-              ce.perspectives.budgets.configureAlerts.budgetAmount
-            </span>
-            <span
-              class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold StyledProps--font-size-medium"
-            >
-              $0.00
-            </span>
-          </div>
-          <div
-            class="StyledProps--font StyledProps--main"
-          >
-            <div
-              class="OverlaySpinner--overlaySpinner"
-            >
-              <form
-                class="FormikForm--main"
-              >
-                <div>
+              <div>
+                <div
+                  class="StyledProps--font StyledProps--main selectPerspectiveContainer"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--font-variation-h4"
+                  >
+                    ce.perspectives.budgets.configureAlerts.title
+                  </p>
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--margin-top-xlarge StyledProps--margin-bottom-xlarge"
+                  >
+                    ce.perspectives.budgets.configureAlerts.subTitle
+                  </p>
+                  <div
+                    class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xlarge"
+                  >
+                    <span
+                      class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-grey800 StyledProps--margin-right-small"
+                    >
+                      ce.perspectives.budgets.configureAlerts.budgetAmount
+                    </span>
+                    <span
+                      class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold StyledProps--font-size-medium"
+                    >
+                      $0.00
+                    </span>
+                  </div>
                   <div
                     class="StyledProps--font StyledProps--main"
-                    style="min-height: 350px;"
                   >
                     <div
                       class="thresholds"
@@ -306,6 +337,9 @@ exports[`test cases for Perspective Create Budgets should be able to open create
                       </div>
                     </div>
                   </div>
+                  <span
+                    style="flex-grow: 1;"
+                  />
                   <div
                     class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
                   >
@@ -369,8 +403,8 @@ exports[`test cases for Perspective Create Budgets should be able to open create
                     </button>
                   </div>
                 </div>
-              </form>
-            </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>

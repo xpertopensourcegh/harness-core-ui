@@ -396,6 +396,22 @@ export function useFetchperspectiveGridQuery(
 ) {
   return Urql.useQuery<FetchperspectiveGridQuery>({ query: FetchperspectiveGridDocument, ...options })
 }
+export const FetchPerspectiveListDocument = gql`
+  query FetchPerspectiveList {
+    perspectives {
+      customerViews {
+        id
+        name
+      }
+    }
+  }
+`
+
+export function useFetchPerspectiveListQuery(
+  options: Omit<Urql.UseQueryArgs<FetchPerspectiveListQueryVariables>, 'query'> = {}
+) {
+  return Urql.useQuery<FetchPerspectiveListQuery>({ query: FetchPerspectiveListDocument, ...options })
+}
 export const FetchPerspectiveDetailsSummaryDocument = gql`
   query FetchPerspectiveDetailsSummary(
     $filters: [QLCEViewFilterWrapperInput]
@@ -1336,6 +1352,16 @@ export type FetchperspectiveGridQuery = {
         }>
       >
     >
+  }>
+}
+
+export type FetchPerspectiveListQueryVariables = Exact<{ [key: string]: never }>
+
+export type FetchPerspectiveListQuery = {
+  __typename?: 'Query'
+  perspectives: Maybe<{
+    __typename?: 'PerspectiveData'
+    customerViews: Maybe<Array<Maybe<{ __typename?: 'QLCEView'; id: Maybe<string>; name: Maybe<string> }>>>
   }>
 }
 

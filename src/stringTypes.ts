@@ -3207,13 +3207,22 @@ export interface StringsMap {
   'ce.perspectives.budgets.configureAlerts.subTitle': string
   'ce.perspectives.budgets.configureAlerts.title': string
   'ce.perspectives.budgets.createNew': string
+  'ce.perspectives.budgets.defineTarget.createNewPerspective': string
+  'ce.perspectives.budgets.defineTarget.selectPerspective': string
+  'ce.perspectives.budgets.defineTarget.text': string
+  'ce.perspectives.budgets.defineTarget.title': string
   'ce.perspectives.budgets.desc': string
   'ce.perspectives.budgets.forecastedCost': string
   'ce.perspectives.budgets.monthToDateSpend': string
   'ce.perspectives.budgets.sendAlerts': string
+  'ce.perspectives.budgets.setBudgetAmount.budgetPeriod': string
+  'ce.perspectives.budgets.setBudgetAmount.budgetPeriods.monthly': string
   'ce.perspectives.budgets.setBudgetAmount.budgetType': string
+  'ce.perspectives.budgets.setBudgetAmount.growthRateCheck': string
+  'ce.perspectives.budgets.setBudgetAmount.growthRateLabel': string
   'ce.perspectives.budgets.setBudgetAmount.lastMonthCost': string
   'ce.perspectives.budgets.setBudgetAmount.lastMonthSpend': string
+  'ce.perspectives.budgets.setBudgetAmount.monthStartsFrom': string
   'ce.perspectives.budgets.setBudgetAmount.projectedCost': string
   'ce.perspectives.budgets.setBudgetAmount.specifiedAmount': string
   'ce.perspectives.budgets.setBudgetAmount.specifyAmount': string

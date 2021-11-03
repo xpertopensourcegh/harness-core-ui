@@ -5,8 +5,11 @@ declare const styles: {
   readonly mainCtn: string
   readonly dataFields: string
   readonly stepContainer: string
-  readonly costs: string
-  readonly separator: string
+  readonly addNewAlertBtn: string
+  readonly main: string
+  readonly crossIcon: string
+  readonly selectPerspectiveContainer: string
+  readonly setBudgetContainer: string
   readonly thresholds: string
   readonly threshCtn: string
   readonly thresholdLabel: string
@@ -15,8 +18,7 @@ declare const styles: {
   readonly tagInput: string
   readonly tag: string
   readonly pushdown7: string
-  readonly addNewAlertBtn: string
-  readonly main: string
-  readonly crossIcon: string
+  readonly costs: string
+  readonly separator: string
 }
 export default styles

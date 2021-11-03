@@ -542,6 +542,12 @@ perspectives:
     sendAlerts: Send alerts at
     actualSpend: Actual spend
     forecastedCost: Forecasted cost
+    defineTarget:
+      title: Define target
+      text: Budgets are created on Perspectives. If you do not have a Perpective of the resources you would
+        like to budget, please create a new Perspective and then proceed to setting a budget.
+      selectPerspective: Select perspective
+      createNewPerspective: Create a new Perspective
     setBudgetAmount:
       title: Set Budget Amount
       specifiedAmount: Specified amount
@@ -550,6 +556,12 @@ perspectives:
       projectedCost: Projected cost end of this month
       budgetType: Budget Type
       specifyAmount: Specify amount ($)
+      budgetPeriod: Budget Period
+      monthStartsFrom: Month starts from
+      growthRateCheck: Add growth rate to budget amount
+      growthRateLabel: Specify Growth rate
+      budgetPeriods:
+        monthly: '{{ $.common.monthly }}'
     configureAlerts:
       title: Configure Alerts
       subTitle: Send an alert to Harness User Groups when the actual or forecasted cost exceeds a percentage of your Budget amount created in the previous step.

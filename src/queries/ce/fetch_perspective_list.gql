@@ -1,0 +1,8 @@
+query FetchPerspectiveList {
+  perspectives {
+    customerViews {
+      id
+      name
+    }
+  }
+}

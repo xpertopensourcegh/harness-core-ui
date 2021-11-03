@@ -8,6 +8,7 @@ import { useStrings } from 'framework/strings'
 
 import SetBudgetAmount from './CreateBudgetSteps/SetBudgetAmount'
 import ConfigureAlerts from './CreateBudgetSteps/ConfigureAlerts'
+import SelectPerspective from './CreateBudgetSteps/SelectPerspective'
 import css from './PerspectiveCreateBudget.module.scss'
 
 interface OpenModalArgs {
@@ -51,8 +52,8 @@ const useBudgetModal = ({ onSuccess }: BudgetModalProps) => {
             icon={'vertical-bar-chart-asc'}
             iconProps={{ size: 40 }}
             title={getString('ce.perspectives.budgets.wizardTitle')}
-            className={css.mainCtn}
           >
+            <SelectPerspective name={getString('ce.perspectives.budgets.defineTarget.title')} isEditMode={isEditMode} />
             <SetBudgetAmount
               name={getString('ce.perspectives.budgets.setBudgetAmount.title')}
               budget={budget}

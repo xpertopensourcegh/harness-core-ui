@@ -5,14 +5,15 @@ import {
   FormInput,
   StepProps,
   Layout,
-  Heading,
   Text,
   Formik,
   Button,
   Icon,
   FormikForm,
   ModalErrorHandlerBinding,
-  ModalErrorHandler
+  ModalErrorHandler,
+  FontVariation,
+  FlexExpander
 } from '@wings-software/uicore'
 import { TagInput } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
@@ -43,7 +44,7 @@ const makeNewThresold = (): AlertThreshold => {
   }
 }
 
-const ConfigureAlerts: React.FC<StepProps<Budget> & Props> = props => {
+const ConfigureAlerts: React.FC<StepProps<Budget & { perspective: string }> & Props> = props => {
   const { getString } = useStrings()
   const [loading, setLoading] = useState(false)
   const [hasError, setError] = useState(false)
@@ -88,32 +89,44 @@ const ConfigureAlerts: React.FC<StepProps<Budget> & Props> = props => {
   }
 
   return (
-    <Layout.Vertical className={css.stepContainer} spacing="xxlarge">
-      <Heading level={2} color="grey800" font={{ size: 'medium', weight: 'semi-bold' }}>
-        {getString('ce.perspectives.budgets.configureAlerts.title')}
-      </Heading>
-      <ModalErrorHandler bind={setModalErrorHandler} />
-      <Text>{getString('ce.perspectives.budgets.configureAlerts.subTitle')}</Text>
-      <Container>
-        <Text inline color="grey800" margin={{ right: 'small' }}>
-          {getString('ce.perspectives.budgets.configureAlerts.budgetAmount')}
-        </Text>
-        <Text inline color="grey800" font={{ weight: 'bold', size: 'medium' }}>
-          {formatCost(+budgetAmount)}
-        </Text>
-      </Container>
-      <Container>
-        <Formik<ThresholdForm>
-          formName="alertThresholds"
-          initialValues={getInitialValues()}
-          onSubmit={data => {
-            handleSubmit(data)
-          }}
-        >
-          {formikProps => {
-            return (
-              <FormikForm>
+    <Container>
+      <Formik<ThresholdForm>
+        formName="alertThresholds"
+        initialValues={getInitialValues()}
+        onSubmit={data => {
+          handleSubmit(data)
+        }}
+      >
+        {formikProps => {
+          return (
+            <FormikForm>
+              <Container className={css.selectPerspectiveContainer}>
+                <Text font={{ variation: FontVariation.H4 }}>
+                  {getString('ce.perspectives.budgets.configureAlerts.title')}
+                </Text>
+                <ModalErrorHandler bind={setModalErrorHandler} />
+                <Text
+                  margin={{
+                    top: 'xlarge',
+                    bottom: 'xlarge'
+                  }}
+                >
+                  {getString('ce.perspectives.budgets.configureAlerts.subTitle')}
+                </Text>
+                <Container
+                  margin={{
+                    bottom: 'xlarge'
+                  }}
+                >
+                  <Text inline color="grey800" margin={{ right: 'small' }}>
+                    {getString('ce.perspectives.budgets.configureAlerts.budgetAmount')}
+                  </Text>
+                  <Text inline color="grey800" font={{ weight: 'bold', size: 'medium' }}>
+                    {formatCost(+budgetAmount)}
+                  </Text>
+                </Container>
                 <Thresholds formikProps={formikProps} hasError={hasError} />
+                <FlexExpander />
                 <Layout.Horizontal spacing="medium">
                   <Button
                     text={getString('previous')}
@@ -133,12 +146,12 @@ const ConfigureAlerts: React.FC<StepProps<Budget> & Props> = props => {
                     {getString('save')}
                   </Button>
                 </Layout.Horizontal>
-              </FormikForm>
-            )
-          }}
-        </Formik>
-      </Container>
-    </Layout.Vertical>
+              </Container>
+            </FormikForm>
+          )
+        }}
+      </Formik>
+    </Container>
   )
 }
 
@@ -194,7 +207,7 @@ const Thresholds = (props: ThresholdsProps): JSX.Element => {
           onClick={() => {
             arrayHelpers.push(makeNewThresold())
             const timer = setTimeout(() => {
-              endRef.current?.scrollIntoView({ behavior: 'smooth' })
+              endRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' })
               clearTimeout(timer)
             }, 0)
           }}
@@ -208,7 +221,7 @@ const Thresholds = (props: ThresholdsProps): JSX.Element => {
       name="alertThresholds"
       render={arrayHelpers => {
         return (
-          <Container style={{ minHeight: props.hasError ? 275 : 350 }}>
+          <Container>
             <div className={css.thresholds}>
               {renderLabels()}
               <div className={css.threshCtn}>
