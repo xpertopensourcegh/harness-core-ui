@@ -6,18 +6,11 @@ import { useParams } from 'react-router-dom'
 import { Text, Color } from '@wings-software/uicore'
 import { PageSpinner } from '@common/components'
 import { useStrings } from 'framework/strings'
-import type { ChangeSourceDTO, HealthSourceDTO } from 'services/cv'
+import type { ChangeSourceDTO } from 'services/cv'
 import { useDrawer } from '@cv/hooks/useDrawerHook/useDrawerHook'
-import type {
-  RowData,
-  UpdatedHealthSource
-} from '@cv/pages/health-source/HealthSourceDrawer/HealthSourceDrawerContent.types'
 import { ChangeSourceDrawer } from '@cv/pages/ChangeSource/ChangeSourceDrawer/ChangeSourceDrawer'
 import SaveAndDiscardButton from '@common/components/SaveAndDiscardButton/SaveAndDiscardButton'
-import HealthSourceTable from '@cv/pages/health-source/HealthSourceTable/HealthSourceTable'
-import HealthSourceDrawerHeader from '@cv/pages/health-source/HealthSourceDrawer/component/HealthSourceDrawerHeader/HealthSourceDrawerHeader'
-import HealthSourceDrawerContent from '@cv/pages/health-source/HealthSourceDrawer/HealthSourceDrawerContent'
-import { createHealthsourceList } from '@cv/pages/health-source/HealthSourceTable/HealthSourceTable.utils'
+import HealthSourceTableContainer from './components/HealthSourceTableContainer/HealthSourceTableContainer'
 import type { MonitoredServiceForm } from './Service.types'
 import MonitoredServiceOverview from './components/MonitoredServiceOverview/MonitoredServiceOverview'
 import { onSave, updateMonitoredServiceDTOOnTypeChange } from './Service.utils'
@@ -47,17 +40,6 @@ function Service({
 
   const isEdit = !!identifier
 
-  const updateHealthSource = useCallback(
-    (data: any, formik: FormikContext<MonitoredServiceForm>): void => {
-      formik.setFieldValue('sources', {
-        ...formik.values?.sources,
-        healthSources: data
-      })
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [isEdit]
-  )
-
   const updateChangeSource = useCallback(
     (data: any, formik: FormikContext<MonitoredServiceForm>): void => {
       formik.setFieldValue('sources', {
@@ -68,24 +50,6 @@ function Service({
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [isEdit]
   )
-
-  const {
-    showDrawer: showHealthSourceDrawer,
-    hideDrawer: hideHealthSourceDrawer,
-    setDrawerHeaderProps
-  } = useDrawer({
-    createHeader: props => <HealthSourceDrawerHeader {...props} />,
-    createDrawerContent: props => <HealthSourceDrawerContent {...props} />
-  })
-
-  const onSuccessHealthSourceTableWrapper = (
-    data: UpdatedHealthSource,
-    formik: FormikContext<MonitoredServiceForm>
-  ): void => {
-    const healthsourceList = createHealthsourceList(formik.values?.sources?.healthSources as RowData[], data)
-    updateHealthSource(healthsourceList, formik)
-    hideHealthSourceDrawer()
-  }
 
   const createChangeSourceDrawerHeader = useCallback(() => {
     return (
@@ -136,37 +100,6 @@ function Service({
     []
   )
 
-  const openHealthSourceDrawer = useCallback(
-    async ({
-      formik,
-      onSuccessHealthSource
-    }: {
-      formik: FormikContext<MonitoredServiceForm>
-      onSuccessHealthSource: (data: HealthSourceDTO[]) => void
-    }) => {
-      // has required fields
-      if (formik?.values.environmentRef && formik?.values.serviceRef && formik?.values.name) {
-        showHealthSourceDrawer({
-          serviceRef: formik?.values.serviceRef,
-          environmentRef: formik?.values.environmentRef,
-          monitoredServiceRef: {
-            name: formik?.values.name,
-            identifier: formik?.values.identifier
-          },
-          isEdit: false,
-          rowData: null,
-          tableData: formik?.values?.sources?.healthSources || [],
-          onSuccess: onSuccessHealthSource,
-          monitoredServiceType: formik.values.type
-        })
-      } else {
-        formik.submitForm()
-      }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
-  )
-
   return (
     <Formik<MonitoredServiceForm>
       initialValues={cachedInitialValues || initialValues}
@@ -188,11 +121,6 @@ function Service({
         const onSuccessChangeSource = (data: ChangeSourceDTO[]): void => {
           updateChangeSource(data, formik)
           hideDrawer()
-        }
-
-        const onSuccessHealthSource = (data: HealthSourceDTO[]): void => {
-          updateHealthSource(data, formik)
-          hideHealthSourceDrawer()
         }
 
         return (
@@ -236,33 +164,7 @@ function Service({
                   value={formik?.values?.sources?.changeSources || []}
                   onSuccess={onSuccessChangeSource}
                 />
-                <HealthSourceTable
-                  onEdit={values => {
-                    setDrawerHeaderProps?.({ isEdit: true })
-                    showHealthSourceDrawer({
-                      isEdit,
-                      hideDrawer,
-                      rowData: values,
-                      serviceRef: formik?.values.serviceRef,
-                      environmentRef: formik?.values.environmentRef,
-                      monitoredServiceRef: {
-                        name: formik?.values.name,
-                        identifier: formik?.values.identifier
-                      },
-                      tableData:
-                        createHealthsourceList(formik?.values?.sources?.healthSources as RowData[], values) || [],
-                      onSuccess: (updatedHealthSource: UpdatedHealthSource) =>
-                        onSuccessHealthSourceTableWrapper(updatedHealthSource, formik),
-                      monitoredServiceType: formik.values.type
-                    })
-                  }}
-                  onAddNewHealthSource={() => {
-                    setDrawerHeaderProps?.({ isEdit: false })
-                    openHealthSourceDrawer({ formik, onSuccessHealthSource })
-                  }}
-                  value={formik?.values?.sources?.healthSources || []}
-                  onSuccess={onSuccessHealthSource}
-                />
+                <HealthSourceTableContainer serviceFormFormik={formik} />
               </>
             )}
           </div>

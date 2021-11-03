@@ -65,12 +65,12 @@ describe('Test SLOTargetAndBudgetPolicy component', () => {
   })
 
   test('verify getUpdatedTarget method', async () => {
-    expect(getUpdatedTarget([new Date(), new Date()], initialFormData as SLOForm)).toEqual({
+    expect(getUpdatedTarget([1635914774678 as any, 1636001240860 as any], initialFormData as SLOForm)).toEqual({
       sloTargetPercentage: 10,
       spec: {
-        endDate: '2021-11-02',
+        endDate: '2021-11-04',
         periodLength: '',
-        startDate: '2021-11-02'
+        startDate: '2021-11-03'
       },
       type: ''
     })
