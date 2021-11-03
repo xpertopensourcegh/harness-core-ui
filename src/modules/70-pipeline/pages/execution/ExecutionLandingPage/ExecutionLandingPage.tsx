@@ -28,7 +28,7 @@ import ExecutionTabs from './ExecutionTabs/ExecutionTabs'
 import css from './ExecutionLandingPage.module.scss'
 
 export const POLL_INTERVAL = 2 /* sec */ * 1000 /* ms */
-
+const PageTabs = { PIPELINE: 'pipeline' }
 export default function ExecutionLandingPage(props: React.PropsWithChildren<unknown>): React.ReactElement {
   const { orgIdentifier, projectIdentifier, executionIdentifier, accountId, module } =
     useParams<PipelineType<ExecutionPathProps>>()
@@ -46,7 +46,8 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
   const [selectedStepId, setSelectedStepId] = React.useState('')
   const queryParams = useQueryParams<ExecutionPageQueryParams>()
   const location = useLocation<{ governanceFailed: boolean; governanceMetadata: GovernanceMetadata }>()
-
+  const locationPathNameArr = location?.pathname?.split('/') || []
+  const selectedPageTab = locationPathNameArr[locationPathNameArr.length - 1]
   const [stepsGraphCanvasState, setStepsGraphCanvasState] = React.useState<GraphCanvasState>({
     offsetX: 5,
     offsetY: 0,
@@ -195,7 +196,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
             <ExecutionTabs />
             <div
               className={css.childContainer}
-              data-view={queryParams.view || 'graph'}
+              data-view={(selectedPageTab === PageTabs.PIPELINE && queryParams.view) || 'graph'}
               id="pipeline-execution-container"
             >
               {props.children}
