@@ -1,6 +1,6 @@
 import React, { useMemo, useState, useEffect } from 'react'
 import cx from 'classnames'
-import { Card, Color, Container, FontVariation, Icon, Layout, Select, SelectOption, Text } from '@wings-software/uicore' // Layout
+import { Card, Color, Container, FontVariation, Icon, Layout, Select, SelectOption, Text } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { defaultTo } from 'lodash-es'
 import type { TooltipFormatterContextObject } from 'highcharts'
@@ -9,7 +9,10 @@ import type { Error, Failure } from 'services/template-ng'
 import { useLandingDashboardContext, TimeRangeToDays } from '@common/factories/LandingDashboardContext'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { OverviewChartsWithToggle } from '@common/components/OverviewChartsWithToggle/OverviewChartsWithToggle'
+import {
+  ChartType,
+  OverviewChartsWithToggle
+} from '@common/components/OverviewChartsWithToggle/OverviewChartsWithToggle'
 import { handleZeroOrInfinityTrend, renderTrend } from '@common/components/StackedSummaryBar/utils'
 import {
   StackedSummaryInterface,
@@ -163,7 +166,7 @@ const getFormattedNumber = (givenNumber?: number | string): string => {
   return '0'
 }
 
-const summaryCardRenderer = (cardData: SummaryCardData, groupByValye: string): JSX.Element => {
+const summaryCardRenderer = (cardData: SummaryCardData, groupByValue: string): JSX.Element => {
   return (
     <Container className={css.summaryCard}>
       <Text font={{ size: 'medium' }} color={Color.GREY_700} className={css.cardTitle}>
@@ -176,7 +179,7 @@ const summaryCardRenderer = (cardData: SummaryCardData, groupByValye: string): J
           </Text>
           {cardData.title === 'Deployment Frequency' && (
             <Text color={Color.GREY_700} font={{ size: 'small', weight: 'semi-bold' }} className={css.groupByValue}>
-              {`/ ${groupByValye.toLocaleLowerCase()}`}
+              {`/ ${groupByValue.toLocaleLowerCase()}`}
             </Text>
           )}
         </Layout.Horizontal>
@@ -196,10 +199,10 @@ const summaryCardRenderer = (cardData: SummaryCardData, groupByValye: string): J
   )
 }
 
-const getSummaryCardRenderers = (summaryCardsData: SummaryCardData[], groupByValye: string): JSX.Element => {
+const getSummaryCardRenderers = (summaryCardsData: SummaryCardData[], groupByValue: string): JSX.Element => {
   return (
     <Container className={css.summaryCardsContainer}>
-      {summaryCardsData?.map(currData => summaryCardRenderer(currData, groupByValye))}
+      {summaryCardsData?.map(currData => summaryCardRenderer(currData, groupByValue))}
     </Container>
   )
 }
@@ -282,15 +285,16 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
   const { selectedTimeRange } = useLandingDashboardContext()
   const { accountId } = useParams<ProjectPathProps>()
   const [range, setRange] = useState([Date.now() - TimeRangeToDays[selectedTimeRange] * 24 * 60 * 60000, Date.now()])
-  const [groupByValye, setGroupByValues] = useState(TimeRangeGroupByMapping[selectedTimeRange])
+  const [groupByValue, setGroupByValues] = useState(TimeRangeGroupByMapping[selectedTimeRange])
   const [sortByValue, setSortByValue] = useState<GetDeploymentStatsOverviewQueryParams['sortBy']>('DEPLOYMENTS')
+  const [selectedView, setSelectedView] = useState<ChartType>(ChartType.BAR)
 
   const { data, error, refetch, loading } = useGetDeploymentStatsOverview({
     queryParams: {
       accountIdentifier: accountId,
       startTime: range[0],
       endTime: range[1],
-      groupBy: groupByValye,
+      groupBy: groupByValue,
       sortBy: sortByValue
     },
     lazy: true
@@ -305,7 +309,7 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
 
   useEffect(() => {
     refetch()
-  }, [refetch, range, groupByValye, sortByValue])
+  }, [refetch, range, groupByValue, sortByValue])
 
   useErrorHandler(error)
 
@@ -320,21 +324,20 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
         custom.push(val)
       })
     }
-    return [
-      {
-        name: 'Failed',
-        data: failureData,
-        color: '#EE5F54',
-        custom
-      },
-      {
-        name: 'Success',
-        data: successData,
-        color: '#5FB34E',
-        custom
-      }
-    ]
-  }, [response?.deploymentsStatsSummary?.deploymentStats])
+    const successArr = {
+      name: 'Success',
+      data: successData,
+      color: '#5FB34E',
+      custom
+    }
+    const failureArr = {
+      name: 'Failed',
+      data: failureData,
+      color: '#EE5F54',
+      custom
+    }
+    return selectedView === ChartType.BAR ? [failureArr, successArr] : [successArr, failureArr]
+  }, [response?.deploymentsStatsSummary?.deploymentStats, selectedView])
 
   const summaryCardsData: SummaryCardData[] = useMemo(() => {
     return [
@@ -420,7 +423,8 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
         <Card style={{ width: '65%' }} className={css.deploymentsChartContainer}>
           <OverviewChartsWithToggle
             data={defaultTo(deploymentStatsData, [])}
-            summaryCards={getSummaryCardRenderers(summaryCardsData, groupByValye)}
+            summaryCards={getSummaryCardRenderers(summaryCardsData, groupByValue)}
+            updateSelectedView={setSelectedView}
             customChartOptions={{
               chart: {
                 height: 225
