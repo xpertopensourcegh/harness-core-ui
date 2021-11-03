@@ -34,7 +34,7 @@ export const SetUpAppInfoView: React.FC = () => {
 
         <Container>
           <Link
-            href="https://ngdocs.harness.io/category/vjolt35atg-feature-flags"
+            href="https://ngdocs.harness.io/category/rtce97j1wu-ff-technical-reference"
             target="_blank"
             text={getString('cf.onboarding.help.getStarted')}
           />

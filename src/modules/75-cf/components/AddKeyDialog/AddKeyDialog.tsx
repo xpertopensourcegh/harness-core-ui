@@ -63,7 +63,7 @@ const AddKeyDialog: React.FC<Props> = ({ disabled, primary, environment, onCreat
 
   const initialValues: KeyValues = {
     name: '',
-    type: EnvironmentSDKKeyType.SERVER
+    type: keyType || EnvironmentSDKKeyType.SERVER
   }
 
   const getTypeOption = (value: string) => keyTypes.find(k => k.value === value) || keyTypes[0]
