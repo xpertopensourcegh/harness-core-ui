@@ -61,9 +61,6 @@ import GitSyncRepoTab from '@gitsync/pages/repos/GitSyncRepoTab'
 import { GitSyncErrorsWithRedirect } from '@gitsync/pages/errors/GitSyncErrors'
 import ServiceAccountDetails from '@rbac/pages/ServiceAccountDetails/ServiceAccountDetails'
 import ServiceAccountsPage from '@rbac/pages/ServiceAccounts/ServiceAccounts'
-import LandingDashboardFactory from '@common/factories/LandingDashboardFactory'
-import { ModuleName } from 'framework/types/ModuleName'
-import LandingDashboardSummaryWidget from './components/LandingDashboardSummaryWidget/LandingDashboardSummaryWidget'
 import LandingDashboardPage from './pages/LandingDashboardPage/LandingDashboardPage'
 
 const ProjectDetailsSideNavProps: SidebarContext = {
@@ -98,12 +95,6 @@ RbacFactory.registerResourceTypeHandler(ResourceType.ORGANIZATION, {
   },
   // eslint-disable-next-line react/display-name
   addResourceModalBody: props => <OrgResourceModalBody {...props} />
-})
-
-LandingDashboardFactory.registerModuleDashboardHandler(ModuleName.COMMON, {
-  label: 'projectsOrgs.landingDashboard.atAGlance',
-  // eslint-disable-next-line react/display-name
-  moduleDashboardRenderer: () => <LandingDashboardSummaryWidget />
 })
 
 const RedirectToAccessControlHome = (): React.ReactElement => {

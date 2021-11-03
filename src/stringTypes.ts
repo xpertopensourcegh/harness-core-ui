@@ -250,6 +250,7 @@ export interface StringsMap {
   'common.gitSync.unSynced.message2': string
   'common.gitSync.unableToCreatePR': string
   'common.gitSync.updateResource': string
+  'common.goBack': string
   'common.governance': string
   'common.harnessClusterHostingAccount': string
   'common.harnessFirstGeneration': string

@@ -90,14 +90,18 @@ const RenderGlanceCard: React.FC<RenderGlanceCardProps> = props => {
   )
 }
 
-interface OverviewGlanceCardsProp {
+export interface OverviewGlanceCardsProp {
+  glanceCardData: ResponseExecutionResponseCountOverview
   mockData?: UseGetMockData<ResponseExecutionResponseCountOverview>
 }
 
 const OverviewGlanceCards: React.FC<OverviewGlanceCardsProp> = props => {
+  const { glanceCardData } = props
   const { accountId } = useParams<ProjectPathProps>()
   const { selectedTimeRange } = useLandingDashboardContext()
   const [range] = useState([Date.now() - TimeRangeToDays[selectedTimeRange] * 24 * 60 * 60000, Date.now()])
+  const [pageLoadGlanceCardData, setPageLoadGlanceCardData] =
+    React.useState<ResponseExecutionResponseCountOverview | null>(glanceCardData)
   const {
     data: countResponse,
     loading,
@@ -114,16 +118,25 @@ const OverviewGlanceCards: React.FC<OverviewGlanceCardsProp> = props => {
   })
 
   useEffect(() => {
-    refetch({
-      queryParams: {
-        accountIdentifier: accountId,
-        startTime: Date.now() - TimeRangeToDays[selectedTimeRange] * 24 * 60 * 60000,
-        endTime: Date.now()
-      }
-    })
-  }, [selectedTimeRange, refetch, accountId])
+    if (pageLoadGlanceCardData) {
+      setPageLoadGlanceCardData(null)
+    } else {
+      refetch({
+        queryParams: {
+          accountIdentifier: accountId,
+          startTime: Date.now() - TimeRangeToDays[selectedTimeRange] * 24 * 60 * 60000,
+          endTime: Date.now()
+        }
+      })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedTimeRange])
 
-  if (!loading && (error || countResponse?.data?.executionStatus !== 'SUCCESS')) {
+  const hasAPIFailed = !(
+    countResponse?.data?.executionStatus === 'SUCCESS' || glanceCardData?.data?.executionStatus === 'SUCCESS'
+  )
+
+  if (!loading && (error || hasAPIFailed)) {
     return (
       <Card className={css.errorCard}>
         <DashboardAPIErrorWidget callback={refetch} iconProps={{ size: 75 }}></DashboardAPIErrorWidget>
@@ -132,7 +145,7 @@ const OverviewGlanceCards: React.FC<OverviewGlanceCardsProp> = props => {
   }
 
   const { projectsCountDetail, envCountDetail, servicesCountDetail, pipelinesCountDetail } =
-    countResponse?.data?.response || {}
+    countResponse?.data?.response || glanceCardData?.data?.response || {}
 
   return (
     <Layout.Horizontal spacing="large">

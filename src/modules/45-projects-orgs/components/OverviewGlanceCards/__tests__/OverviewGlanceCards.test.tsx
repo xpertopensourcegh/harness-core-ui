@@ -3,6 +3,7 @@ import { render, waitFor } from '@testing-library/react'
 import * as dashboardServices from 'services/dashboard-service'
 import { TestWrapper } from '@common/utils/testUtils'
 import LandingDashboardContext, { DashboardTimeRange } from '@common/factories/LandingDashboardContext'
+import type { ResponseExecutionResponseCountOverview } from 'services/dashboard-service'
 import OverviewGlanceCards from '../OverviewGlanceCards'
 
 import overviewCountMock from './overviewMock.json'
@@ -26,13 +27,13 @@ describe('OverviewGlanceCards', () => {
             scope: { accountIdentifier: 'testAccount' }
           }}
         >
-          <OverviewGlanceCards />
+          <OverviewGlanceCards glanceCardData={overviewCountMock as ResponseExecutionResponseCountOverview} />
         </LandingDashboardContext.Provider>
       </TestWrapper>
     )
 
-    await waitFor(() => expect(getData).toBeCalledTimes(1))
     await waitFor(() => expect(queryByText('projectsText')).toBeInTheDocument())
+    expect(getData).toBeCalledTimes(0)
 
     expect(queryByText('+137')).toBeInTheDocument()
     expect(container).toMatchSnapshot()

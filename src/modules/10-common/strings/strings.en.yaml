@@ -58,6 +58,7 @@ bash: Bash
 shell: Shell
 input: Input
 refresh: Refresh
+goBack: Go Back
 loading: Loading, please wait...
 switchAccountError: Unable to switch accounts. Please try again.
 logs:

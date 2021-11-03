@@ -3,6 +3,7 @@ import { render, waitFor } from '@testing-library/react'
 import * as dashboardServices from 'services/dashboard-service'
 import { TestWrapper } from '@common/utils/testUtils'
 import LandingDashboardContext, { DashboardTimeRange } from '@common/factories/LandingDashboardContext'
+import type { ResponseExecutionResponseCountOverview } from 'services/dashboard-service'
 import LandingDashboardSummaryWidget from '../LandingDashboardSummaryWidget'
 
 import overviewCountMock from '../../OverviewGlanceCards/__tests__/overviewMock.json'
@@ -24,8 +25,8 @@ jest
   .spyOn(dashboardServices, 'useGetTopProjects')
   .mockImplementation(() => ({ mutate: getTopProjectsData, refetch: getTopProjectsData, data: topProjectsData } as any))
 
-describe('OverviewGlanceCards', () => {
-  test('OverviewGlanceCards rendering', async () => {
+describe('LandingDashboard At a Glance', () => {
+  test('LandingDashboard rendering', async () => {
     const { container, queryByText } = render(
       <TestWrapper>
         <LandingDashboardContext.Provider
@@ -35,13 +36,13 @@ describe('OverviewGlanceCards', () => {
             scope: { accountIdentifier: 'testAccount' }
           }}
         >
-          <LandingDashboardSummaryWidget />
+          <LandingDashboardSummaryWidget glanceCardData={overviewCountMock as ResponseExecutionResponseCountOverview} />
         </LandingDashboardContext.Provider>
       </TestWrapper>
     )
 
-    await waitFor(() => expect(getCountData).toBeCalledTimes(1))
     await waitFor(() => expect(getTopProjectsData).toBeCalledTimes(1))
+    expect(getCountData).toBeCalledTimes(0)
 
     expect(queryByText('+137')).toBeInTheDocument()
     expect(queryByText('deploymentsText')).toBeInTheDocument()

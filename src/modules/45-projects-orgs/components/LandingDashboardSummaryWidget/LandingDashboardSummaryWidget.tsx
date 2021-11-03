@@ -11,6 +11,7 @@ import {
   StackedSummaryTable
 } from '@common/components/StackedSummaryTable/StackedSummaryTable'
 import {
+  ResponseExecutionResponseCountOverview,
   TopProjectsDashboardInfoCountWithSuccessFailureDetails,
   TopProjectsPanel,
   useGetTopProjects
@@ -22,7 +23,6 @@ import DashboardNoDataWidget from '@projects-orgs/components/DashboardNoDataWidg
 import DashboardAPIErrorWidget, {
   DashboardAPIErrorWidgetProps
 } from '@projects-orgs/components/DashboardAPIErrorWidget/DashboardAPIErrorWidget'
-import TimeRangeSelect from '@projects-orgs/components/TimeRangeSelect/TimeRangeSelect'
 
 import OverviewGlanceCards from '@projects-orgs/components/OverviewGlanceCards/OverviewGlanceCards'
 import css from './LandingDashboardSummaryWidget.module.scss'
@@ -146,7 +146,11 @@ const getModuleData = (moduleType: ModuleName): ModuleDataType => {
   }
 }
 
-const LandingDashboardSummaryWidget: React.FC = () => {
+interface LandingDashboardSummaryWidgetProps {
+  glanceCardData: ResponseExecutionResponseCountOverview
+}
+
+const LandingDashboardSummaryWidget: React.FC<LandingDashboardSummaryWidgetProps> = props => {
   const { selectedTimeRange } = useLandingDashboardContext()
   const { accountId } = useParams<ProjectPathProps>()
   const [range] = useState([Date.now() - TimeRangeToDays[selectedTimeRange] * 24 * 60 * 60000, Date.now()])
@@ -180,9 +184,8 @@ const LandingDashboardSummaryWidget: React.FC = () => {
 
   return (
     <div className={css.dashboardSumary}>
-      <TimeRangeSelect className={css.timeRangeSelect} />
       <Layout.Horizontal className={css.atGlanceWrapper} spacing="large">
-        <OverviewGlanceCards />
+        <OverviewGlanceCards glanceCardData={props.glanceCardData} />
         <Card className={css.topProjectsCard}>
           <Layout.Vertical className={css.topProjectsContainer}>
             <Text font={{ variation: FontVariation.CARD_TITLE }}>
