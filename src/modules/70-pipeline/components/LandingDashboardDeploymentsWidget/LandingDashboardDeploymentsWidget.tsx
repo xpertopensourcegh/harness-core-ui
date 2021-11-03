@@ -28,7 +28,8 @@ import {
   DeploymentsOverview,
   useGetDeploymentStatsOverview,
   TimeBasedStats,
-  GetDeploymentStatsOverviewQueryParams
+  GetDeploymentStatsOverviewQueryParams,
+  ActiveServiceInfo
 } from 'services/dashboard-service'
 import { useErrorHandler } from '@pipeline/components/Dashboards/shared'
 import DashboardAPIErrorWidget from '@projects-orgs/components/DashboardAPIErrorWidget/DashboardAPIErrorWidget'
@@ -102,6 +103,20 @@ const EmptyCard = ({ children }: { children: React.ReactElement }) => {
     <Layout.Horizontal className={css.loaderContainer}>
       <Card className={css.loaderCard}>{children}</Card>
     </Layout.Horizontal>
+  )
+}
+
+const renderTooltipForServiceLabel = (service: ActiveServiceInfo): JSX.Element => {
+  return (
+    <Layout.Vertical padding="medium" spacing="small">
+      <Text color={Color.WHITE}>{service?.serviceInfo?.serviceName ?? ''}</Text>
+      <Text icon="nav-project" iconProps={{ color: Color.GREY_300 }} color={Color.GREY_300}>
+        {service?.projectInfo?.projectName ?? ''}
+      </Text>
+      <Text icon="union" iconProps={{ color: Color.GREY_300 }} color={Color.GREY_300}>
+        {service?.orgInfo?.orgName ?? ''}
+      </Text>
+    </Layout.Vertical>
   )
 }
 
@@ -207,9 +222,16 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
       service => {
         return {
           label: defaultTo(service.serviceInfo?.serviceName, ''),
+          labelTooltip: renderTooltipForServiceLabel(service),
           barSectionsData: [
-            { count: defaultTo(service.countWithSuccessFailureDetails?.successCount, 0), color: Color.GREEN_500 },
-            { count: defaultTo(service.countWithSuccessFailureDetails?.failureCount, 0), color: Color.RED_500 }
+            {
+              count: defaultTo(service.countWithSuccessFailureDetails?.successCount, 0),
+              color: Color.GREEN_500
+            },
+            {
+              count: defaultTo(service.countWithSuccessFailureDetails?.failureCount, 0),
+              color: Color.RED_500
+            }
           ],
           trend: `${service.countWithSuccessFailureDetails?.countChangeAndCountChangeRateInfo?.countChangeRate}%`
         }
