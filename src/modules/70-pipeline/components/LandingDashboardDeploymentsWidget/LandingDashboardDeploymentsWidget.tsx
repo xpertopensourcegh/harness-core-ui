@@ -1,24 +1,16 @@
 import React, { useMemo, useState, useEffect } from 'react'
 import cx from 'classnames'
-import {
-  Card,
-  Color,
-  Container,
-  FontVariation,
-  Icon,
-  Intent,
-  Layout,
-  Select,
-  SelectOption,
-  Text
-} from '@wings-software/uicore' // Layout
+import { Card, Color, Container, FontVariation, Icon, Layout, Select, SelectOption, Text } from '@wings-software/uicore' // Layout
 import { useParams } from 'react-router-dom'
 import { defaultTo } from 'lodash-es'
 import type { TooltipFormatterContextObject } from 'highcharts'
+import type { GetDataError, UseGetProps } from 'restful-react'
+import type { Error, Failure } from 'services/template-ng'
 import { useLandingDashboardContext, TimeRangeToDays } from '@common/factories/LandingDashboardContext'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { OverviewChartsWithToggle } from '@common/components/OverviewChartsWithToggle/OverviewChartsWithToggle'
+import { handleZeroOrInfinityTrend, renderTrend } from '@common/components/StackedSummaryBar/utils'
 import {
   StackedSummaryInterface,
   StackedSummaryTable
@@ -29,6 +21,8 @@ import {
   useGetDeploymentStatsOverview,
   TimeBasedStats,
   GetDeploymentStatsOverviewQueryParams,
+  DeploymentsStatsOverview,
+  ResponseExecutionResponseDeploymentsStatsOverview,
   ActiveServiceInfo
 } from 'services/dashboard-service'
 import { useErrorHandler } from '@pipeline/components/Dashboards/shared'
@@ -98,12 +92,175 @@ interface SummaryCardData {
   trend: string
 }
 
-const EmptyCard = ({ children }: { children: React.ReactElement }) => {
+const EmptyCard = ({ children }: { children: React.ReactElement }): JSX.Element => {
   return (
     <Layout.Horizontal className={css.loaderContainer}>
       <Card className={css.loaderCard}>{children}</Card>
     </Layout.Horizontal>
   )
+}
+
+const showBadgesCard = (deploymentsOverview: DeploymentsOverview): boolean => {
+  const deploymentsOverviewKeys = Object.keys(deploymentsOverview)
+  if (Object.keys(deploymentsOverviewKeys).length === 0) {
+    return false
+  }
+  const nonZeroDeploymentsOverviewKeys = deploymentsOverviewKeys.filter(
+    key => (deploymentsOverview as any)[key].length > 0
+  )
+  return nonZeroDeploymentsOverviewKeys.length > 0
+}
+
+const getBadge = (type: string, stat: number): JSX.Element | null => {
+  if (stat <= 0) {
+    return null
+  }
+  switch (type) {
+    case 'pendingManualInterventionExecutions':
+      return (
+        <div className={css.badge}>
+          <Icon name="status-pending" size={16} color={Color.ORANGE_700} />
+          <Text className={css.badgeText}>{`${stat} Pending Manual Interventions`}</Text>
+        </div>
+      )
+    case 'pendingApprovalExecutions':
+      return (
+        <div className={css.badge}>
+          <Icon name="status-pending" size={16} color={Color.ORANGE_700} />
+          <Text className={css.badgeText}>{`${stat} Pending Approvals`}</Text>
+        </div>
+      )
+    case 'failed24HrsExecutions':
+      return (
+        <div className={cx(css.badge, css.failed24HrsExecutionsBadge)}>
+          <Icon name="warning-sign" size={12} color={Color.RED_600} />
+          <Text className={css.badgeText}>{`${stat} Pipelines failed in past 24 hours`}</Text>
+        </div>
+      )
+    case 'runningExecutions':
+      return (
+        <div className={cx(css.badge, css.runningExecutions)}>
+          <Icon name="status-running" size={16} color={Color.PRIMARY_7} />
+          <Text className={css.badgeText}>{`${stat} Currently running pipelines`}</Text>
+        </div>
+      )
+    default:
+      return null
+  }
+}
+
+const getFormattedNumber = (givenNumber?: number | string): string => {
+  if (givenNumber) {
+    if (givenNumber === 'Infinity') {
+      return givenNumber
+    } else if (givenNumber > 1000) {
+      return Math.round(Number(givenNumber) / 1000) + 'K'
+    } else if (givenNumber > 1000000) {
+      return Math.round(Number(givenNumber) / 1000000) + 'M'
+    }
+    return Math.round(Number(givenNumber)).toString()
+  }
+  return '0'
+}
+
+const summaryCardRenderer = (cardData: SummaryCardData, groupByValye: string): JSX.Element => {
+  return (
+    <Container className={css.summaryCard}>
+      <Text font={{ size: 'medium' }} color={Color.GREY_700} className={css.cardTitle}>
+        {cardData.title}
+      </Text>
+      <Layout.Horizontal>
+        <Layout.Horizontal className={css.frequencyContainer}>
+          <Text color={Color.BLACK} font={{ size: 'large', weight: 'bold' }} className={css.frequencyCount}>
+            {cardData.count}
+          </Text>
+          {cardData.title === 'Deployment Frequency' && (
+            <Text color={Color.GREY_700} font={{ size: 'small', weight: 'semi-bold' }} className={css.groupByValue}>
+              {`/ ${groupByValye.toLocaleLowerCase()}`}
+            </Text>
+          )}
+        </Layout.Horizontal>
+        <Container className={css.trendContainer} flex>
+          {isNaN(parseInt(cardData.trend)) ? (
+            handleZeroOrInfinityTrend(cardData.trend, cardData.trend.includes('-') ? Color.RED_500 : Color.GREEN_500)
+          ) : (
+            <Container flex>
+              {cardData.trend.includes('-')
+                ? renderTrend(cardData.trend, Color.RED_500)
+                : renderTrend(cardData.trend, Color.GREEN_500)}
+            </Container>
+          )}
+        </Container>
+      </Layout.Horizontal>
+    </Container>
+  )
+}
+
+const getSummaryCardRenderers = (summaryCardsData: SummaryCardData[], groupByValye: string): JSX.Element => {
+  return (
+    <Container className={css.summaryCardsContainer}>
+      {summaryCardsData?.map(currData => summaryCardRenderer(currData, groupByValye))}
+    </Container>
+  )
+}
+
+interface LandingDashboardDeploymentsNoContentWidgetProps {
+  loading: boolean
+  response: DeploymentsStatsOverview | undefined
+  error: GetDataError<Failure | Error> | null
+  count: number | undefined
+  accountId: string
+  refetch: (
+    options?:
+      | Partial<
+          Omit<
+            UseGetProps<
+              ResponseExecutionResponseDeploymentsStatsOverview,
+              Failure | Error,
+              GetDeploymentStatsOverviewQueryParams,
+              unknown
+            >,
+            'lazy'
+          >
+        >
+      | undefined
+  ) => Promise<void>
+}
+const LandingDashboardDeploymentsNoContentWidget = (
+  props: LandingDashboardDeploymentsNoContentWidgetProps
+): JSX.Element => {
+  const { loading, response, error, count, accountId, refetch } = props
+  if (loading) {
+    return (
+      <EmptyCard>
+        <Icon name="spinner" size={24} color={Color.PRIMARY_7} />
+      </EmptyCard>
+    )
+  }
+
+  if (!response || error) {
+    return (
+      <EmptyCard>
+        <DashboardAPIErrorWidget className={css.apiErrorWidget} callback={refetch} iconProps={{ size: 90 }} />
+      </EmptyCard>
+    )
+  }
+
+  if (!count) {
+    return (
+      <EmptyCard>
+        <DashboardNoDataWidget
+          label={
+            <Text color={Color.GREY_400} style={{ fontSize: '14px' }} margin="medium">
+              {'No Deployments'}
+            </Text>
+          }
+          getStartedLink={routes.toCDHome({ accountId })}
+        />
+      </EmptyCard>
+    )
+  }
+  return <></>
 }
 
 const renderTooltipForServiceLabel = (service: ActiveServiceInfo): JSX.Element => {
@@ -155,7 +312,7 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
   const deploymentStatsData = useMemo(() => {
     const successData: number[] = []
     const failureData: number[] = []
-    const custom: any = []
+    const custom: TimeBasedStats[] = []
     if (response?.deploymentsStatsSummary?.deploymentStats?.length) {
       response.deploymentsStatsSummary.deploymentStats.forEach(val => {
         successData.push(defaultTo(val.countWithSuccessFailureDetails?.successCount, 0))
@@ -177,23 +334,9 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
         custom
       }
     ]
-  }, [data])
+  }, [response?.deploymentsStatsSummary?.deploymentStats])
 
-  const getFormattedNumber = (givenNumber?: number | string): string => {
-    if (givenNumber) {
-      if (givenNumber === 'Infinity') {
-        return givenNumber
-      } else if (givenNumber > 1000) {
-        return Math.round(Number(givenNumber) / 1000) + 'K'
-      } else if (givenNumber > 1000000) {
-        return Math.round(Number(givenNumber) / 1000000) + 'M'
-      }
-      return Math.round(Number(givenNumber)).toString()
-    }
-    return '0'
-  }
-
-  const summaryCardsData = useMemo(() => {
+  const summaryCardsData: SummaryCardData[] = useMemo(() => {
     return [
       {
         title: getString('deploymentsText'),
@@ -215,7 +358,7 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
         trend: getFormattedNumber(response?.deploymentsStatsSummary?.deploymentRateAndChangeRate?.rateChangeRate) + '%'
       }
     ]
-  }, [data, getString])
+  }, [response, getString])
 
   const mostActiveServicesData = useMemo(() => {
     const servicesData: StackedSummaryInterface[] | undefined = response?.mostActiveServicesList?.activeServices?.map(
@@ -233,7 +376,9 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
               color: Color.RED_500
             }
           ],
-          trend: `${service.countWithSuccessFailureDetails?.countChangeAndCountChangeRateInfo?.countChangeRate}%`
+          trend: `${Math.round(
+            service.countWithSuccessFailureDetails?.countChangeAndCountChangeRateInfo?.countChangeRate ?? 0
+          )}%`
         }
       }
     )
@@ -244,125 +389,19 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
         (a.barSectionsData[0].count + a.barSectionsData[1].count)
       )
     })
-  }, [data])
+  }, [response])
 
-  const summaryCardRenderer = (cardData: SummaryCardData): JSX.Element => {
+  const deploymentsStatsSummaryCount = response?.deploymentsStatsSummary?.countAndChangeRate?.count
+  if (loading || !response || error || !deploymentsStatsSummaryCount) {
     return (
-      <Container className={css.summaryCard}>
-        <Text font={{ size: 'medium' }} color={Color.GREY_700} className={css.cardTitle}>
-          {cardData.title}
-        </Text>
-        <Layout.Horizontal>
-          <Layout.Horizontal className={css.frequencyContainer}>
-            <Text color={Color.BLACK} font={{ size: 'large', weight: 'bold' }} className={css.frequencyCount}>
-              {cardData.count}
-            </Text>
-            {cardData.title === 'Deployment Frequency' && (
-              <Text color={Color.GREY_700} font={{ size: 'small', weight: 'semi-bold' }} className={css.groupByValue}>
-                {`/ ${groupByValye.toLocaleLowerCase()}`}
-              </Text>
-            )}
-          </Layout.Horizontal>
-          <Container className={css.trendContainer} flex>
-            <Icon
-              size={10}
-              name={cardData.trend.includes('-') ? 'symbol-triangle-down' : 'symbol-triangle-up'}
-              intent={cardData.trend.includes('-') ? Intent.DANGER : Intent.SUCCESS}
-            />
-            <Text className={css.trend} intent={cardData.trend.includes('-') ? Intent.DANGER : Intent.SUCCESS}>
-              {cardData.trend}
-            </Text>
-          </Container>
-        </Layout.Horizontal>
-      </Container>
-    )
-  }
-
-  const getSummaryCardRenderers = (): JSX.Element => {
-    return (
-      <Container className={css.summaryCardsContainer}>
-        {summaryCardsData?.map(currData => summaryCardRenderer(currData))}
-      </Container>
-    )
-  }
-
-  const getBadge = (type: string, stat: any): JSX.Element | null => {
-    if (stat <= 0) {
-      return null
-    }
-    switch (type) {
-      case 'pendingManualInterventionExecutions':
-        return (
-          <div className={css.badge}>
-            <Icon name="status-pending" size={16} color={Color.ORANGE_700} />
-            <Text className={css.badgeText}>{`${stat} Pending Manual Interventions`}</Text>
-          </div>
-        )
-      case 'pendingApprovalExecutions':
-        return (
-          <div className={css.badge}>
-            <Icon name="status-pending" size={16} color={Color.ORANGE_700} />
-            <Text className={css.badgeText}>{`${stat} Pending Approvals`}</Text>
-          </div>
-        )
-      case 'failed24HrsExecutions':
-        return (
-          <div className={cx(css.badge, css.failed24HrsExecutionsBadge)}>
-            <Icon name="warning-sign" size={12} color={Color.RED_600} />
-            <Text className={css.badgeText}>{`${stat} Pipelines failed in past 24 hours`}</Text>
-          </div>
-        )
-      case 'runningExecutions':
-        return (
-          <div className={cx(css.badge, css.runningExecutions)}>
-            <Icon name="status-running" size={16} color={Color.PRIMARY_7} />
-            <Text className={css.badgeText}>{`${stat} Currently running pipelines`}</Text>
-          </div>
-        )
-      default:
-        return null
-    }
-  }
-
-  const showBadgesCard = (deploymentsOverview: DeploymentsOverview): boolean => {
-    const deploymentsOverviewKeys = Object.keys(deploymentsOverview)
-    if (Object.keys(deploymentsOverviewKeys).length === 0) {
-      return false
-    }
-    const nonZeroDeploymentsOverviewKeys = deploymentsOverviewKeys.filter(
-      key => (deploymentsOverview as any)[key].length > 0
-    )
-    return nonZeroDeploymentsOverviewKeys.length > 0
-  }
-
-  if (loading) {
-    return (
-      <EmptyCard>
-        <Icon name="spinner" size={24} color={Color.PRIMARY_7} />
-      </EmptyCard>
-    )
-  }
-
-  if (!response || error) {
-    return (
-      <EmptyCard>
-        <DashboardAPIErrorWidget className={css.apiErrorWidget} callback={refetch} iconProps={{ size: 90 }} />
-      </EmptyCard>
-    )
-  }
-
-  if (!response.deploymentsStatsSummary?.countAndChangeRate?.count) {
-    return (
-      <EmptyCard>
-        <DashboardNoDataWidget
-          label={
-            <Text color={Color.GREY_400} style={{ fontSize: '14px' }} margin="medium">
-              {'No Deployments'}
-            </Text>
-          }
-          getStartedLink={routes.toCDHome({ accountId })}
-        />
-      </EmptyCard>
+      <LandingDashboardDeploymentsNoContentWidget
+        loading={loading}
+        response={response}
+        error={error}
+        count={deploymentsStatsSummaryCount}
+        refetch={refetch}
+        accountId={accountId}
+      />
     )
   }
 
@@ -381,8 +420,11 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
         <Card style={{ width: '65%' }} className={css.deploymentsChartContainer}>
           <OverviewChartsWithToggle
             data={defaultTo(deploymentStatsData, [])}
-            summaryCards={getSummaryCardRenderers()}
+            summaryCards={getSummaryCardRenderers(summaryCardsData, groupByValye)}
             customChartOptions={{
+              chart: {
+                height: 225
+              },
               tooltip: {
                 useHTML: true,
                 formatter: function () {
@@ -391,6 +433,26 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
                 backgroundColor: Color.BLACK,
                 outside: true,
                 borderColor: 'black'
+              },
+              xAxis: {
+                title: {
+                  text: 'Date'
+                },
+                labels: {
+                  formatter: function (this) {
+                    let time = new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'long' })
+                    if (response?.deploymentsStatsSummary?.deploymentStats?.length) {
+                      const val = response.deploymentsStatsSummary.deploymentStats[this.pos].time
+                      time = val ? new Date(val).toLocaleDateString('en-US', { day: 'numeric', month: 'long' }) : time
+                    }
+                    return time
+                  }
+                }
+              },
+              yAxis: {
+                title: {
+                  text: '# of Deployments'
+                }
               }
             }}
           ></OverviewChartsWithToggle>

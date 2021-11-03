@@ -63,7 +63,7 @@ const formatSummaryData = (
         { count: successCount, color: Color.GREEN_500 },
         { count: failureCount, color: Color.RED_500 }
       ],
-      trend: `${countChangeAndCountChangeRateInfo?.countChangeRate ?? 0}%`
+      trend: `${Math.round(countChangeAndCountChangeRateInfo?.countChangeRate ?? 0)}%`
     }
 
     return stackData

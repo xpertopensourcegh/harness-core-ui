@@ -1,7 +1,8 @@
 import React from 'react'
-import { Color, Container, Icon, Intent, Layout, Text } from '@wings-software/uicore'
+import { Color, Container, Intent, Layout, Text } from '@wings-software/uicore'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
+import { handleZeroOrInfinityTrend, renderTrend } from './utils'
 import css from './StackedSummaryBar.module.scss'
 
 const logger = loggerFor(ModuleName.COMMON)
@@ -53,32 +54,6 @@ export const StackedSummaryBar: React.FC<StackedSummaryBarProps> = props => {
   // leftover section relative to maxCount should be as blank
   barSections.push({ width: (1 - summaryCount / maxCount) * effectiveBarLength, color: Color.GREY_100 })
 
-  const handleZeroOrInfinityTrend = (intentColor: Color): JSX.Element => {
-    return isNaN(trendChange) ? ( // handling Infinity and other unexpected trends
-      <Container flex={{ alignItems: 'center' }}>
-        <Icon name={'caret-up'} color={intentColor}></Icon>
-        <Icon name={'infinityTrend'} size={20} color={intentColor}></Icon>
-      </Container>
-    ) : (
-      // handing 0 trend change
-      <Container flex>{renderTrend(Color.GREY_300)}</Container>
-    )
-  }
-
-  const renderTrend = (intentColor: Color): JSX.Element => {
-    return (
-      <>
-        <Icon
-          name={trendChange === 0 ? 'caret-right' : trendChange < 0 ? 'caret-down' : 'caret-up'}
-          color={intentColor}
-        ></Icon>
-        <Text font="xsmall" color={intentColor}>
-          {trend}
-        </Text>
-      </>
-    )
-  }
-
   return (
     <Layout.Horizontal spacing="small">
       <Text font="small" className={css.summaryCount}>
@@ -100,11 +75,11 @@ export const StackedSummaryBar: React.FC<StackedSummaryBarProps> = props => {
         trendChange ? (
           <Container flex>
             {(intent === Intent.SUCCESS) === trendChange < 0
-              ? renderTrend(Color.RED_500)
-              : renderTrend(Color.GREEN_500)}
+              ? renderTrend(trend, Color.RED_500)
+              : renderTrend(trend, Color.GREEN_500)}
           </Container>
         ) : (
-          handleZeroOrInfinityTrend(intent === Intent.SUCCESS ? Color.GREEN_500 : Color.RED_500)
+          handleZeroOrInfinityTrend(trend, intent === Intent.SUCCESS ? Color.GREEN_500 : Color.RED_500)
         )
       ) : (
         <></>
