@@ -5,3 +5,9 @@
   background: #f9f9fd !important;
   box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.1);
 }
+
+.flag-details-top-section {
+  display: flex;
+  height: 100%;
+  gap: var(--spacing-large);
+}

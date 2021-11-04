@@ -3576,6 +3576,8 @@ export interface StringsMap {
   'cf.featureNotReady': string
   'cf.gitSync.autoCommitLabel': string
   'cf.gitSync.autoCommitMsg': string
+  'cf.gitSync.autoCommitStatusLabel': string
+  'cf.gitSync.branchStatus': string
   'cf.gitSync.commitChanges': string
   'cf.gitSync.commitMsgRequired': string
   'cf.gitSync.flagName': string

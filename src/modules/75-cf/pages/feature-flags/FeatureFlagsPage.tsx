@@ -7,17 +7,16 @@ import {
   ExpandingSearchInput,
   FlexExpander,
   Heading,
-  // Icon,
   Layout,
   Pagination,
   Text,
   Utils,
   HarnessDocTooltip
 } from '@wings-software/uicore'
-// import ReactTimeago from 'react-timeago'
 import { noop } from 'lodash-es'
 import { Classes, Position, Switch } from '@blueprintjs/core'
 import type { Cell, CellProps, Column, Renderer } from 'react-table'
+import type { MutateMethod } from 'restful-react'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
 import { useConfirmAction } from '@common/hooks'
@@ -35,7 +34,7 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RBACTooltip from '@rbac/components/RBACTooltip/RBACTooltip'
 import { usePermission } from '@rbac/hooks/usePermission'
-import { useToggleFeatureFlag } from '@cf/hooks/useToggleFeatureFlag'
+import { UseToggleFeatureFlag, useToggleFeatureFlag } from '@cf/hooks/useToggleFeatureFlag'
 import { VariationTypeIcon } from '@cf/components/VariationTypeIcon/VariationTypeIcon'
 import { VariationWithIcon } from '@cf/components/VariationWithIcon/VariationWithIcon'
 import { ListingPageTemplate, ListingPageTitle } from '@cf/components/ListingPageTemplate/ListingPageTemplate'
@@ -58,9 +57,11 @@ import { FlagTypeVariations } from '@cf/components/CreateFlagDialog/FlagDialogUt
 // import FlagDrawerFilter from '../../components/FlagFilterDrawer/FlagFilterDrawer'
 import FlagDialog from '@cf/components/CreateFlagDialog/FlagDialog'
 import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
-import { GitDetails, GitSyncFormValues, UseGitSync, useGitSync } from '@cf/hooks/useGitSync'
+
 import SaveFlagToGitModal from '@cf/components/SaveFlagToGitModal/SaveFlagToGitModal'
 import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
+import GitSyncActions from '@cf/components/GitSyncActions/GitSyncActions'
+import { GitDetails, GitSyncFormValues, useGitSync, UseGitSync } from '@cf/hooks/useGitSync'
 import imageURL from './Feature_Flags_LP.svg'
 import { FeatureFlagStatus, FlagStatus } from './FlagStatus'
 import { FlagResult } from './FlagResult'
@@ -69,23 +70,21 @@ import css from './FeatureFlagsPage.module.scss'
 interface RenderColumnFlagProps {
   gitSync: UseGitSync
   cell: Cell<Feature>
+  toggleFeatureFlag: UseToggleFeatureFlag
   update: (status: boolean) => void
 }
 
-const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ gitSync, cell: { row, column }, update }) => {
+const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({
+  gitSync,
+  toggleFeatureFlag,
+  cell: { row, column },
+  update
+}) => {
   const data = row.original
 
-  // const [environment] = useLocalStorage(CF_LOCAL_STORAGE_ENV_KEY, DEFAULT_ENV)
   const [status, setStatus] = useState(isFeatureFlagOn(data))
   const { getString } = useStrings()
-  const { projectIdentifier, orgIdentifier, accountId: accountIdentifier } = useParams<Record<string, string>>()
-  const toggleFeatureFlag = useToggleFeatureFlag({
-    accountIdentifier,
-    orgIdentifier,
-    projectIdentifier,
-    environmentIdentifier: data.envProperties?.environment as string,
-    flagIdentifier: data.identifier
-  })
+
   const { showError } = useToaster()
   const [flagNameTextSize, setFlagNameTextSize] = useState(300)
   const ref = useRef<HTMLDivElement>(null)
@@ -115,19 +114,22 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ gitSync, cell: { ro
       gitDetails = gitSyncFormValues.gitDetails
     }
 
-    const toggleFn = status ? toggleFeatureFlag.off(gitDetails) : toggleFeatureFlag.on(gitDetails)
+    try {
+      if (status) {
+        toggleFeatureFlag.off(data.identifier, gitDetails)
+      } else {
+        toggleFeatureFlag.off(data.identifier, gitDetails)
+      }
 
-    toggleFn
-      .then(async () => {
-        if (!gitSync.isAutoCommitEnabled && gitSyncFormValues?.autoCommit) {
-          await gitSync.handleAutoCommit(gitSyncFormValues?.autoCommit)
-        }
-        setStatus(!status)
-        update(!status)
-      })
-      .catch(error => {
-        showError(getErrorMessage(error), 0, 'cf.toggle.ff.status.error')
-      })
+      if (!gitSync.isAutoCommitEnabled && gitSyncFormValues?.autoCommit) {
+        gitSync.handleAutoCommit(gitSyncFormValues?.autoCommit)
+      }
+
+      setStatus(!status)
+      update(!status)
+    } catch (error) {
+      showError(getErrorMessage(error), 0, 'cf.toggle.ff.status.error')
+    }
   }
 
   const switchTooltip = (
@@ -167,6 +169,7 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ gitSync, cell: { ro
             intent="primary"
             text={getString('confirm')}
             className={Classes.POPOVER_DISMISS}
+            disabled={toggleFeatureFlag.loading}
             onClick={event => {
               event.preventDefault()
               if (gitSync.isGitSyncEnabled && !gitSync.isAutoCommitEnabled) {
@@ -176,7 +179,7 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ gitSync, cell: { ro
               }
             }}
           />
-          <Button text={getString('cancel')} className={Classes.POPOVER_DISMISS} />
+          <Button text={getString('cancel')} className={Classes.POPOVER_DISMISS} disabled={toggleFeatureFlag.loading} />
         </Layout.Horizontal>
         <span />
       </Container>
@@ -261,28 +264,6 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ gitSync, cell: { ro
             </Text>
           )}
         </Layout.Vertical>
-        {/* <Text
-          width="100px"
-          flex
-          icon="main-tags"
-          style={{ justifyContent: 'center' }}
-          tooltip={
-            data?.tags?.length ? (
-              <>
-                <Text>{getString('tagsLabel').toUpperCase()}</Text>
-                {data.tags.map((elem, i) => (
-                  <Text key={`${elem.value}-${i}`}>{elem.value}</Text>
-                ))}
-              </>
-            ) : undefined
-          }
-          tooltipProps={{
-            portalClassName: css.tagsPopover,
-            position: Position.RIGHT
-          }}
-        >
-          {data?.tags?.length || 0}
-        </Text> */}
       </Layout.Horizontal>
       <Container onClick={event => event.stopPropagation()}>
         {isSaveToggleModalOpen && (
@@ -345,22 +326,14 @@ const RenderColumnDetails: Renderer<CellProps<Feature>> = ({ row }) => {
   )
 }
 
-// const RenderColumnLastUpdated: Renderer<CellProps<Feature>> = ({ row }) => {
-//   return row.original?.modifiedAt ? (
-//     <Layout.Horizontal spacing="small">
-//       <Icon name="activity" />
-//       <ReactTimeago date={row.original?.modifiedAt} />
-//     </Layout.Horizontal>
-//   ) : null
-// }
-
 interface ColumnMenuProps {
   cell: Cell<Feature>
   environment?: string
   gitSync: UseGitSync
+  deleteFlag: MutateMethod<void, string, DeleteFeatureFlagQueryParams, void>
 }
 
-const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ gitSync, cell: { row, column }, environment }) => {
+const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ gitSync, deleteFlag, cell: { row, column }, environment }) => {
   const data = row.original
   const { showError, clear } = useToaster()
   const { projectIdentifier, orgIdentifier, accountId } = useParams<Record<string, string>>()
@@ -376,7 +349,6 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ gitSync, cell: { row, col
     org: orgIdentifier
   } as DeleteFeatureFlagQueryParams
 
-  const { mutate } = useDeleteFeatureFlag({ queryParams })
   const refetch = (column as unknown as { refetch: () => void }).refetch
 
   const handleDeleteFlag = async (gitSyncFormValues?: GitSyncFormValues): Promise<void> => {
@@ -394,24 +366,21 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ gitSync, cell: { row, col
 
     try {
       clear()
-      await mutate(data.identifier, { queryParams: { ...queryParams, commitMsg } })
-        .then(async () => {
-          if (gitSync.isGitSyncEnabled && gitSyncFormValues?.autoCommit) {
-            await gitSync.handleAutoCommit(gitSyncFormValues?.autoCommit)
-          }
 
-          showToaster(getString('cf.messages.flagDeleted'))
-          refetch?.()
-        })
-        .catch(error => {
-          showError(getErrorMessage(error), undefined, 'cf.delete.ff.error')
-        })
+      await deleteFlag(data.identifier, { queryParams: { ...queryParams, commitMsg } })
+
+      if (gitSync.isGitSyncEnabled && gitSyncFormValues?.autoCommit) {
+        await gitSync.handleAutoCommit(gitSyncFormValues?.autoCommit)
+      }
+
+      showToaster(getString('cf.messages.flagDeleted'))
+      refetch?.()
     } catch (error) {
       showError(getErrorMessage(error), undefined, 'cf.delete.ff.error')
     }
   }
 
-  const deleteFlag = useConfirmAction({
+  const confirmDeleteFlag = useConfirmAction({
     title: getString('cf.featureFlags.deleteFlag'),
     confirmText: getString('delete'),
     message: (
@@ -472,7 +441,7 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ gitSync, cell: { row, col
           {
             icon: 'trash',
             text: getString('delete'),
-            onClick: deleteFlag,
+            onClick: confirmDeleteFlag,
             permission: {
               resource: { resourceType: ResourceType.FEATUREFLAG },
               permission: PermissionIdentifier.DELETE_FF_FEATUREFLAG
@@ -485,8 +454,6 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ gitSync, cell: { row, col
 }
 
 const FeatureFlagsPage: React.FC = () => {
-  // const [isSaveFiltersOn, setIsSaveFiltersOn] = useState(false)
-  // const [isDrawerOpened, setIsDrawerOpened] = useState(false)
   const { projectIdentifier, orgIdentifier, accountId } = useParams<Record<string, string>>()
   const history = useHistory()
   const { activeEnvironment, withActiveEnvironment } = useActiveEnvironment()
@@ -531,6 +498,16 @@ const FeatureFlagsPage: React.FC = () => {
       refetch({ queryParams: { ...queryParams, environment: undefined as unknown as string } })
     }
   })
+
+  const toggleFeatureFlag = useToggleFeatureFlag({
+    accountIdentifier: accountId,
+    orgIdentifier,
+    projectIdentifier,
+    environmentIdentifier: activeEnvironment
+  })
+
+  const deleteFlag = useDeleteFeatureFlag({ queryParams })
+
   const [features, setFeatures] = useState<Features | null>()
   const { getString } = useStrings()
   const [loading, setLoading] = useState(true)
@@ -543,7 +520,12 @@ const FeatureFlagsPage: React.FC = () => {
     setLoading(flagsLoading || envsLoading)
   }, [flagsLoading, envsLoading])
 
-  const error = flagsError || envsError
+  const gitSyncing = useMemo<boolean>(
+    () => toggleFeatureFlag.loading || deleteFlag.loading,
+    [toggleFeatureFlag.loading, deleteFlag.loading]
+  )
+
+  const error = flagsError || envsError || deleteFlag.error || toggleFeatureFlag.error
 
   const gitSync = useGitSync()
 
@@ -558,11 +540,15 @@ const FeatureFlagsPage: React.FC = () => {
           return (
             <RenderColumnFlag
               gitSync={gitSync}
+              toggleFeatureFlag={toggleFeatureFlag}
               cell={cell}
               update={status => {
                 // Update last updated column to reflect latest change without having to refetch the whole list
                 // The setTimeout makes sure there's enough time for animation in the switch component before re-rendering
                 // takes place and destroy it
+
+                // CB - It appears this isn't used, and needs to be refactored/taken out.
+                //      However taking it out prevents the row from rerendering for some reason
                 setTimeout(() => {
                   const feature = features?.features?.find(f => f.identifier === cell.row.original.identifier)
                   if (feature) {
@@ -574,7 +560,7 @@ const FeatureFlagsPage: React.FC = () => {
                     feature.modifiedAt = Date.now()
                     setFeatures({ ...features } as Features)
                   }
-                }, 1000)
+                }, 0)
               }}
             />
           )
@@ -607,12 +593,6 @@ const FeatureFlagsPage: React.FC = () => {
           return <FlagResult feature={cell.row.original} />
         }
       },
-      // {
-      //   Header: getString('lastUpdated').toUpperCase(),
-      //   accessor: row => row.modifiedAt,
-      //   width: '10%',
-      //   Cell: RenderColumnLastUpdated
-      // },
       {
         Header: '',
         id: 'version',
@@ -621,6 +601,7 @@ const FeatureFlagsPage: React.FC = () => {
           return (
             <RenderColumnEdit
               gitSync={gitSync}
+              deleteFlag={deleteFlag.mutate}
               cell={cell}
               environment={cell.row.original.envProperties?.environment as string}
             />
@@ -639,14 +620,6 @@ const FeatureFlagsPage: React.FC = () => {
     },
     [setSearchTerm, refetch, queryParams]
   )
-
-  // const onDrawerOpened = (): void => {
-  //   setIsDrawerOpened(true)
-  // }
-
-  // const onDrawerClose = (): void => {
-  //   setIsDrawerOpened(false)
-  // }
 
   const hasFeatureFlags = features?.features && features?.features?.length > 0
   const emptyFeatureFlags = !loading && features?.features?.length === 0
@@ -671,19 +644,22 @@ const FeatureFlagsPage: React.FC = () => {
       headerStyle={{ display: 'flex' }}
       toolbar={
         <Layout.Horizontal>
-          <FlagDialog environment={activeEnvironment} />
+          <Container flex={{ justifyContent: 'space-between', alignItems: 'center' }} width={400}>
+            <Container>
+              <FlagDialog environment={activeEnvironment} />
+            </Container>
+            {gitSync?.isGitSyncEnabled && (
+              <GitSyncActions
+                isLoading={gitSync.gitSyncLoading || gitSyncing}
+                branch={gitSync.gitRepoDetails?.branch || ''}
+                repository={gitSync.gitRepoDetails?.repoIdentifier || ''}
+                isAutoCommitEnabled={gitSync.isAutoCommitEnabled}
+                handleToggleAutoCommit={(newAutoCommitValue: boolean) => gitSync.handleAutoCommit(newAutoCommitValue)}
+              />
+            )}
+          </Container>
           <FlexExpander />
           <ExpandingSearchInput name="findFlag" placeholder={getString('search')} onChange={onSearchInputChanged} />
-
-          {/** TODO: Disable filter as backend does not fully support it yet */}
-          {/* <Button
-            disabled={loading}
-            icon="settings"
-            iconProps={{ size: 20, color: Color.BLUE_500 }}
-            minimal
-            intent="primary"
-            onClick={onDrawerOpened}
-          /> */}
         </Layout.Horizontal>
       }
       content={

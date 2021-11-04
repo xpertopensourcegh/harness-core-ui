@@ -446,6 +446,8 @@ gitSync:
   commitMsgRequired: Commit message is required
   flagName: Feature Flag Name
   autoCommitLabel: Always commit to this branch and do not prompt for commit message.
+  branchStatus: Auto-commit to {{branch}} is {{status}}
+  autoCommitStatusLabel: Auto-commit to selected branch
 onboarding:
   listeningToEvent: We’re listening for your flag event...
   simpliestFlag: Our Simplest Flag

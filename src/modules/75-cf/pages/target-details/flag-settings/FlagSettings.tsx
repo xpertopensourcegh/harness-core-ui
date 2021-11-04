@@ -27,8 +27,10 @@ import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RBACTooltip from '@rbac/components/RBACTooltip/RBACTooltip'
-import { useGitSync, GitSyncFormValues } from '@cf/hooks/useGitSync'
+
 import SaveFlagToGitModal from '@cf/components/SaveFlagToGitModal/SaveFlagToGitModal'
+
+import type { GitSyncFormValues, UseGitSync } from '@cf/hooks/useGitSync'
 import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
 import { DetailHeading } from '../DetailHeading'
 import css from './FlagSettings.module.scss'
@@ -39,7 +41,10 @@ const CellWidth = {
   VARIATION: 180
 }
 
-export const FlagSettings: React.FC<{ target?: Target | undefined | null }> = ({ target }) => {
+export const FlagSettings: React.FC<{ target?: Target | undefined | null; gitSync: UseGitSync }> = ({
+  target,
+  gitSync
+}) => {
   const { getString } = useStrings()
   const [sortByField] = useState(FlagsSortByField.NAME)
   const [sortOrder, setSortOrder] = useState(SortOrder.ASCENDING)
@@ -83,46 +88,53 @@ export const FlagSettings: React.FC<{ target?: Target | undefined | null }> = ({
   const { data, loading: loadingFeatures, error, refetch } = useGetAllFeatures({ queryParams })
   const [loadingFeaturesInBackground, setLoadingFeaturesInBackground] = useState(false)
 
-  const { getGitSyncFormMeta, isAutoCommitEnabled, isGitSyncEnabled, handleAutoCommit } = useGitSync()
-  const { gitSyncInitialValues } = getGitSyncFormMeta(AUTO_COMMIT_MESSAGES.UPDATED_FLAG_VARIATIONS)
   const [isGitSyncModalOpen, setIsGitSyncModalOpen] = useState(false)
 
   const [selectedVariation, setSelectedVariation] = useState<Variation>()
   const [selectedFeature, setSelectedFeature] = useState<Feature>()
 
+  const { showError } = useToaster()
+
+  const { gitSyncInitialValues } = gitSync.getGitSyncFormMeta(AUTO_COMMIT_MESSAGES.UPDATED_FLAG_VARIATIONS)
+
   const _useServeFlagVariationToTargets = useServeFeatureFlagVariationToTargets(patchParams)
 
   const saveVariationChange = async (gitSyncFormValues?: GitSyncFormValues): Promise<boolean> => {
-    if (!selectedVariation || !target || !selectedFeature) {
+    try {
+      if (!selectedVariation || !target || !selectedFeature) {
+        return false
+      }
+
+      setLoadingFeaturesInBackground(true)
+
+      let gitDetails: GitDetails | undefined
+
+      if (gitSync?.isAutoCommitEnabled) {
+        gitDetails = gitSyncInitialValues.gitDetails
+      } else {
+        gitDetails = gitSyncFormValues?.gitDetails
+      }
+
+      await _useServeFlagVariationToTargets(
+        selectedFeature,
+        selectedVariation.identifier,
+        [target.identifier],
+        gitDetails
+      )
+
+      if (!gitSync?.isAutoCommitEnabled && gitSyncFormValues?.autoCommit) {
+        await gitSync.handleAutoCommit(gitSyncFormValues.autoCommit)
+      }
+
+      await refetch().then(() => {
+        setIsGitSyncModalOpen(false)
+        setLoadingFeaturesInBackground(false)
+      })
+      return true
+    } catch (e) {
+      showError(getErrorMessage(e), 0, 'cf.serve.flag.variant.error')
       return false
     }
-
-    setLoadingFeaturesInBackground(true)
-
-    let gitDetails: GitDetails | undefined
-
-    if (isAutoCommitEnabled) {
-      gitDetails = gitSyncInitialValues.gitDetails
-    } else {
-      gitDetails = gitSyncFormValues?.gitDetails
-    }
-
-    await _useServeFlagVariationToTargets(
-      selectedFeature,
-      selectedVariation.identifier,
-      [target.identifier],
-      gitDetails
-    )
-
-    if (!isAutoCommitEnabled && gitSyncFormValues?.autoCommit) {
-      await handleAutoCommit(gitSyncFormValues.autoCommit)
-    }
-
-    await refetch().then(() => {
-      setIsGitSyncModalOpen(false)
-      setLoadingFeaturesInBackground(false)
-    })
-    return true
   }
 
   const FlagSettingsHeader: React.FC = () => {
@@ -215,14 +227,15 @@ export const FlagSettings: React.FC<{ target?: Target | undefined | null }> = ({
               padding={{ top: 'xsmall', right: 'xxlarge', bottom: 'xxlarge', left: 'xxlarge' }}
               style={{ flexGrow: 1 }}
             >
-              {data?.features?.map(feature => (
+              {data?.features?.map((feature, index) => (
                 <FlagSettingsRow
+                  index={index}
                   target={target as Target}
                   feature={feature}
                   patchParams={patchParams}
                   key={feature.identifier}
-                  isGitSyncEnabled={isGitSyncEnabled}
-                  isAutoCommitEnabled={isAutoCommitEnabled}
+                  isGitSyncEnabled={gitSync.isGitSyncEnabled}
+                  isAutoCommitEnabled={gitSync.isAutoCommitEnabled}
                   openGitSyncModal={() => setIsGitSyncModalOpen(true)}
                   setLoadingFeaturesInBackground={setLoadingFeaturesInBackground}
                   saveVariationChange={saveVariationChange}
@@ -267,6 +280,7 @@ export const FlagSettings: React.FC<{ target?: Target | undefined | null }> = ({
 }
 
 const FlagSettingsRow: React.FC<{
+  index: number
   target: Target
   feature: Feature
   patchParams: FlagPatchParams
@@ -280,6 +294,7 @@ const FlagSettingsRow: React.FC<{
   saveVariationChange: (gitSyncFormvalues?: GitSyncFormValues) => Promise<boolean>
 }> = ({
   feature,
+  index,
   patchParams,
   isGitSyncEnabled,
   isAutoCommitEnabled,
@@ -344,6 +359,7 @@ const FlagSettingsRow: React.FC<{
 
         <Container width={CellWidth.VARIATION} style={{ alignSelf: 'center' }}>
           <VariationSelect
+            rowIndex={index}
             variations={feature.variations}
             selectedIdentifier={feature.evaluationIdentifier as string}
             onChange={async variation => {
@@ -370,11 +386,17 @@ const FlagSettingsRow: React.FC<{
 
 export interface VariationSelectProps {
   variations: Variation[]
+  rowIndex: number
   selectedIdentifier: string
   onChange: (variation: Variation) => boolean | Promise<boolean>
 }
 
-export const VariationSelect: React.FC<VariationSelectProps> = ({ variations, selectedIdentifier, onChange }) => {
+export const VariationSelect: React.FC<VariationSelectProps> = ({
+  variations,
+  rowIndex,
+  selectedIdentifier,
+  onChange
+}) => {
   const [index, setIndex] = useState<number>(variations.findIndex(v => v.identifier === selectedIdentifier))
   const value =
     index !== -1
@@ -397,6 +419,7 @@ export const VariationSelect: React.FC<VariationSelectProps> = ({ variations, se
 
   return (
     <Text
+      data-testid={`variation_select_${rowIndex}`}
       tooltip={
         !canEdit ? (
           <RBACTooltip resourceType={ResourceType.ENVIRONMENT} permission={PermissionIdentifier.EDIT_FF_FEATUREFLAG} />

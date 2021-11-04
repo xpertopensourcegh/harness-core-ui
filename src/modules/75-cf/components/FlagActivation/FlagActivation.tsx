@@ -41,8 +41,9 @@ import routes from '@common/RouteDefinitions'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import type { FeatureFlagPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { useGitSync } from '@cf/hooks/useGitSync'
+
 import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
+import type { UseGitSync } from '@cf/hooks/useGitSync'
 import FlagElemTest from '../CreateFlagWizard/FlagElemTest'
 import TabTargeting from '../EditFlagTabs/TabTargeting'
 import TabActivity from '../EditFlagTabs/TabActivity'
@@ -60,6 +61,7 @@ const WAIT_TIME_FOR_NEWLY_CREATED_ENVIRONMENT = 3000
 interface FlagActivationProps {
   project: string
   flagData: Feature
+  gitSync: UseGitSync
   refetchFlag: () => Promise<unknown>
 }
 
@@ -86,7 +88,7 @@ const fromVariationMapToObj = (variationMap: VariationMap[]) =>
   }, {})
 
 const FlagActivation: React.FC<FlagActivationProps> = props => {
-  const { flagData, project, refetchFlag } = props
+  const { flagData, project, refetchFlag, gitSync } = props
   const { showError } = useToaster()
   const [editing, setEditing] = useState(false)
   const [loadingFlags, setLoadingFlags] = useState(false)
@@ -120,8 +122,9 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
     }
   })
 
-  const { getGitSyncFormMeta, isAutoCommitEnabled, isGitSyncEnabled, handleAutoCommit } = useGitSync()
-  const { gitSyncValidationSchema, gitSyncInitialValues } = getGitSyncFormMeta(AUTO_COMMIT_MESSAGES.UPDATED_FLAG_RULES)
+  const { gitSyncValidationSchema, gitSyncInitialValues } = gitSync?.getGitSyncFormMeta(
+    AUTO_COMMIT_MESSAGES.UPDATED_FLAG_RULES
+  )
 
   const initialValues = useMemo(
     () =>
@@ -296,7 +299,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
       patch.feature
         .onPatchAvailable(data => {
           patchFeature(
-            isGitSyncEnabled
+            gitSync?.isGitSyncEnabled
               ? {
                   ...data,
                   gitDetails: values.gitDetails
@@ -304,8 +307,8 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
               : data
           )
             .then(async () => {
-              if (!isAutoCommitEnabled && values.autoCommit) {
-                await handleAutoCommit(values.autoCommit)
+              if (!gitSync?.isAutoCommitEnabled && values.autoCommit) {
+                await gitSync?.handleAutoCommit(values.autoCommit)
               }
 
               setEditing(false)
@@ -551,7 +554,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
                       intent="primary"
                       text={getString('save')}
                       onClick={event => {
-                        if (isGitSyncEnabled && !isAutoCommitEnabled) {
+                        if (gitSync?.isGitSyncEnabled && !gitSync?.isAutoCommitEnabled) {
                           event.preventDefault()
                           setIsGitSyncModalOpen(true)
                         }

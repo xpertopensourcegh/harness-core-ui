@@ -7,7 +7,6 @@ export interface UseToggleFeatureFlagProps {
   orgIdentifier: string
   environmentIdentifier: string
   projectIdentifier: string
-  flagIdentifier: string
 }
 
 const makeInstruction = (isOn: boolean, gitDetails?: GitDetails) => {
@@ -25,15 +24,21 @@ const makeInstruction = (isOn: boolean, gitDetails?: GitDetails) => {
   return gitDetails ? { ...instruction, gitDetails } : instruction
 }
 
+export interface UseToggleFeatureFlag {
+  on: (flagIdentifier: string, gitDetails?: GitDetails) => void
+  off: (flagIdentifier: string, gitDetails?: GitDetails) => void
+  loading: boolean
+  error: string | undefined
+}
+
 export const useToggleFeatureFlag = ({
   accountIdentifier,
   orgIdentifier,
   environmentIdentifier,
-  projectIdentifier,
-  flagIdentifier
-}: UseToggleFeatureFlagProps) => {
-  const { mutate } = usePatchFeature({
-    identifier: flagIdentifier,
+  projectIdentifier
+}: UseToggleFeatureFlagProps): UseToggleFeatureFlag => {
+  const { mutate, loading, error } = usePatchFeature({
+    identifier: '',
     queryParams: {
       project: projectIdentifier,
       environment: environmentIdentifier,
@@ -44,7 +49,15 @@ export const useToggleFeatureFlag = ({
   })
 
   return {
-    on: (gitDetails?: GitDetails) => mutate(makeInstruction(true, gitDetails)),
-    off: (gitDetails?: GitDetails) => mutate(makeInstruction(false, gitDetails))
+    on: (flagIdentifier: string, gitDetails?: GitDetails) =>
+      mutate(makeInstruction(true, gitDetails), {
+        pathParams: { identifier: flagIdentifier }
+      }),
+    off: (flagIdentifier: string, gitDetails?: GitDetails) =>
+      mutate(makeInstruction(false, gitDetails), {
+        pathParams: { identifier: flagIdentifier }
+      }),
+    loading,
+    error: error?.message
   }
 }

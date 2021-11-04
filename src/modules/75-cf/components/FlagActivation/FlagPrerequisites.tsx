@@ -34,8 +34,9 @@ import {
   usePatchFeature,
   Variation
 } from 'services/cf'
-import { useGitSync } from '@cf/hooks/useGitSync'
 import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
+
+import type { UseGitSync } from '@cf/hooks/useGitSync'
 import patch from '../../utils/instructions'
 import SaveFlagToGitSubForm from '../SaveFlagToGitSubForm/SaveFlagToGitSubForm'
 import css from './FlagActivationDetails.module.scss'
@@ -50,6 +51,7 @@ const editCardCollapsedProps = {
 
 interface FlagPrerequisitesProps {
   featureFlag: Feature
+  gitSync: UseGitSync
   refetchFlag: () => void
 }
 
@@ -59,16 +61,13 @@ interface PrerequisiteEntry {
 }
 
 export const FlagPrerequisites: React.FC<FlagPrerequisitesProps> = props => {
-  const { featureFlag, refetchFlag } = props
+  const { featureFlag, refetchFlag, gitSync } = props
   const { showError } = useToaster()
   const { getString } = useStrings()
   const { orgIdentifier, accountId, projectIdentifier, environmentIdentifier } = useParams<Record<string, string>>()
   const [searchTerm, setSearchTerm] = useState<string>()
 
-  const { getGitSyncFormMeta, isAutoCommitEnabled, isGitSyncEnabled, handleAutoCommit } = useGitSync()
-  const { gitSyncValidationSchema, gitSyncInitialValues } = getGitSyncFormMeta(
-    AUTO_COMMIT_MESSAGES.UPDATES_FLAG_PREREQS
-  )
+  const gitSyncFormMeta = gitSync?.getGitSyncFormMeta(AUTO_COMMIT_MESSAGES.UPDATES_FLAG_PREREQS)
   const PAGE_SIZE = 500
 
   const queryParams = useMemo(
@@ -130,8 +129,8 @@ export const FlagPrerequisites: React.FC<FlagPrerequisitesProps> = props => {
 
   const [openModalPrerequisites, hideModalPrerequisites] = useModalHook(() => {
     const initialPrereqValues = {
-      gitDetails: gitSyncInitialValues.gitDetails,
-      autoCommit: gitSyncInitialValues.autoCommit,
+      gitDetails: gitSyncFormMeta?.gitSyncInitialValues.gitDetails,
+      autoCommit: gitSyncFormMeta?.gitSyncInitialValues.autoCommit,
       prerequisites: flatMap(featureFlag.prerequisites, ({ feature, variations }) => {
         return variations.map(variation => ({ variation, feature } as PrerequisiteEntry))
       })
@@ -180,7 +179,7 @@ export const FlagPrerequisites: React.FC<FlagPrerequisitesProps> = props => {
       patch.feature
         .onPatchAvailable(data => {
           patchPrerequisites(
-            isGitSyncEnabled
+            gitSync?.isGitSyncEnabled
               ? {
                   ...data,
                   gitDetails: prereqValues.gitDetails
@@ -188,8 +187,8 @@ export const FlagPrerequisites: React.FC<FlagPrerequisitesProps> = props => {
               : data
           )
             .then(async () => {
-              if (!isAutoCommitEnabled && prereqValues?.autoCommit) {
-                await handleAutoCommit(prereqValues.autoCommit)
+              if (!gitSync?.isAutoCommitEnabled && prereqValues?.autoCommit) {
+                await gitSync?.handleAutoCommit(prereqValues.autoCommit)
               }
 
               hideModalPrerequisites()
@@ -221,7 +220,7 @@ export const FlagPrerequisites: React.FC<FlagPrerequisitesProps> = props => {
 
     return (
       <Dialog enforceFocus={false} title="" onClose={hideModalPrerequisites} isOpen={true}>
-        <Layout.Vertical padding={{ left: 'large', right: 'medium' }}>
+        <Layout.Vertical padding={{ left: 'large', right: 'medium' }} data-testid="flag-prerequisite-modal">
           <Heading level={3} font={{ variation: FontVariation.H3 }} margin={{ bottom: 'xlarge' }}>
             {title}
           </Heading>
@@ -235,7 +234,7 @@ export const FlagPrerequisites: React.FC<FlagPrerequisitesProps> = props => {
               formName="flagPrerequisite"
               onSubmit={handleAddPrerequisite}
               validationSchema={yup.object().shape({
-                gitDetails: gitSyncValidationSchema
+                gitDetails: gitSyncFormMeta?.gitSyncValidationSchema
               })}
             >
               {formikProps => (
@@ -313,7 +312,7 @@ export const FlagPrerequisites: React.FC<FlagPrerequisitesProps> = props => {
                       )
                     }}
                   </FieldArray>
-                  {isGitSyncEnabled && !isAutoCommitEnabled && (
+                  {gitSync?.isGitSyncEnabled && !gitSync?.isAutoCommitEnabled && (
                     <>
                       <Container margin={{ top: 'medium', bottom: 'medium' }}>
                         <Divider />
@@ -321,8 +320,13 @@ export const FlagPrerequisites: React.FC<FlagPrerequisitesProps> = props => {
                       <SaveFlagToGitSubForm subtitle="Commit Changes" hideNameField />
                     </>
                   )}
-                  <Layout.Horizontal padding={{ top: 'large', bottom: 'large' }}>
-                    <Button text={getString('save')} intent="primary" margin={{ right: 'small' }} type="submit" />
+                  <Layout.Horizontal padding={{ top: 'large', bottom: 'large' }} spacing="small">
+                    <Button
+                      text={getString('save')}
+                      intent="primary"
+                      type="submit"
+                      data-testid="save-prequisites-button"
+                    />
                     <Button text={getString('cancel')} onClick={hideModalPrerequisites} />
                   </Layout.Horizontal>
                 </Form>
@@ -332,7 +336,7 @@ export const FlagPrerequisites: React.FC<FlagPrerequisitesProps> = props => {
         </Layout.Vertical>
       </Dialog>
     )
-  }, [featureList, isEditingPrerequisites, isGitSyncEnabled, isAutoCommitEnabled])
+  }, [featureList, isEditingPrerequisites, gitSync.isGitSyncEnabled, gitSync.isAutoCommitEnabled])
 
   const prerequisitesTitle = (
     <Text
@@ -392,6 +396,7 @@ export const FlagPrerequisites: React.FC<FlagPrerequisitesProps> = props => {
               </Layout.Horizontal>
             ))}
           <RbacButton
+            data-testid="add-prerequisites-button"
             minimal
             intent="primary"
             icon="small-plus"

@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Container, FlexExpander, Heading, Layout, Text, PageError, useToaster } from '@wings-software/uicore'
 import type { HeadingProps } from '@wings-software/uicore/dist/components/Heading/Heading'
 import { useStrings } from 'framework/strings'
-import { Segment, SegmentFlag, SegmentFlagsResponseResponse, useGetSegmentFlags, usePatchFeature } from 'services/cf'
+import { SegmentFlag, SegmentFlagsResponseResponse, useGetSegmentFlags, usePatchFeature } from 'services/cf'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { getErrorMessage, EntityAddingMode } from '@cf/utils/CFUtils'
 import { OptionsMenuButton } from '@common/components'
@@ -14,12 +14,17 @@ import {
 import { ItemContainer, ItemContainerProps } from '@cf/components/ItemContainer/ItemContainer'
 import { NoDataFoundRow } from '@cf/components/NoDataFoundRow/NoDataFoundRow'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
-import { GitSyncFormValues, UseGitSync, useGitSync } from '@cf/hooks/useGitSync'
+
 import SaveFlagToGitModal from '@cf/components/SaveFlagToGitModal/SaveFlagToGitModal'
 import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
+import type { GitSyncFormValues, UseGitSync } from '@cf/hooks/useGitSync'
 import { DetailHeading } from '../DetailHeading'
 
-export const FlagsUseSegment: React.FC<{ segment?: Segment | undefined | null }> = () => {
+interface FlagsUseSegmentProps {
+  gitSync: UseGitSync
+}
+
+export const FlagsUseSegment = ({ gitSync }: FlagsUseSegmentProps): ReactElement => {
   const { getString } = useStrings()
   const { showError } = useToaster()
   const { accountId, orgIdentifier, projectIdentifier, segmentIdentifier } = useParams<Record<string, string>>()
@@ -44,8 +49,6 @@ export const FlagsUseSegment: React.FC<{ segment?: Segment | undefined | null }>
     identifier: '',
     queryParams
   })
-
-  const gitSync = useGitSync()
 
   const addSegmentToFlags = async (
     selectedFeatureFlags: SelectedFeatureFlag[],
@@ -109,7 +112,7 @@ export const FlagsUseSegment: React.FC<{ segment?: Segment | undefined | null }>
       ]
     }
 
-    await patchFeature(gitSync.isGitSyncEnabled ? { ...instructions, gitDetails } : instructions, {
+    await patchFeature(gitSync?.isGitSyncEnabled ? { ...instructions, gitDetails } : instructions, {
       pathParams: { identifier: featureFlagIdentifier }
     })
       .then(async () => {
@@ -130,6 +133,7 @@ export const FlagsUseSegment: React.FC<{ segment?: Segment | undefined | null }>
         <SelectFeatureFlagsModalButton
           text={getString('cf.segmentDetail.addToFlag')}
           minimal
+          gitSync={gitSync}
           intent="primary"
           accountId={accountId}
           orgIdentifier={orgIdentifier}

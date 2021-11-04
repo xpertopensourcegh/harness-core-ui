@@ -27,8 +27,10 @@ import type { PermissionsRequest } from '@rbac/hooks/usePermission'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacButton from '@rbac/components/Button/Button'
 import { PageSpinner } from '@common/components'
-import { useGitSync } from '@cf/hooks/useGitSync'
+
 import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
+
+import type { UseGitSync } from '@cf/hooks/useGitSync'
 import patch from '../../utils/instructions'
 
 import SaveFlagToGitSubForm from '../SaveFlagToGitSubForm/SaveFlagToGitSubForm'
@@ -38,6 +40,7 @@ export interface EditVariationsModalProps extends Omit<ButtonProps, 'onClick' | 
   orgIdentifier: string
   projectIdentifier: string
 
+  gitSync: UseGitSync
   feature: Feature
   permission: Omit<PermissionsRequest, 'permissions'> & { permission: PermissionIdentifier }
 
@@ -52,6 +55,7 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
   orgIdentifier,
   projectIdentifier,
   feature,
+  gitSync,
   permission,
   submitButtonTitle,
   cancelButtonTitle,
@@ -74,11 +78,7 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
       } as PatchFeatureQueryParams
     })
 
-    const { isAutoCommitEnabled, isGitSyncEnabled, gitSyncLoading, handleAutoCommit, getGitSyncFormMeta } = useGitSync()
-
-    const { gitSyncValidationSchema, gitSyncInitialValues } = getGitSyncFormMeta(
-      AUTO_COMMIT_MESSAGES.UPDATED_FLAG_VARIATIONS
-    )
+    const gitSyncFormData = gitSync?.getGitSyncFormMeta(AUTO_COMMIT_MESSAGES.UPDATED_FLAG_VARIATIONS)
 
     const initialValues = {
       defaultOnVariation: feature.defaultOnVariation,
@@ -86,8 +86,8 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
       variations: clone(feature.variations),
       defaultOnAppliedToCurrentEnvironment: false,
       defaultOffAppliedToCurrentEnvironment: false,
-      gitDetails: gitSyncInitialValues.gitDetails,
-      autoCommit: gitSyncInitialValues.autoCommit
+      gitDetails: gitSyncFormData?.gitSyncInitialValues.gitDetails,
+      autoCommit: gitSyncFormData?.gitSyncInitialValues.autoCommit
     }
     const [defaultRules, setDefaultRules] = useState<SelectOption[]>(
       initialValues.variations.map(({ identifier, name }) => ({ label: name as string, value: identifier }))
@@ -151,7 +151,7 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
       patch.feature.onPatchAvailable(async data => {
         try {
           await submitPatch(
-            isGitSyncEnabled
+            gitSync?.isGitSyncEnabled
               ? {
                   ...data,
                   gitDetails: values.gitDetails
@@ -159,8 +159,8 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
               : data
           )
 
-          if (!isAutoCommitEnabled && values.autoCommit) {
-            await handleAutoCommit(values.autoCommit)
+          if (!gitSync?.isAutoCommitEnabled && values.autoCommit) {
+            await gitSync?.handleAutoCommit(values.autoCommit)
           }
 
           patch.feature.reset()
@@ -174,7 +174,7 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
       })
     }
 
-    if (gitSyncLoading || patchLoading) {
+    if (gitSync?.gitSyncLoading || patchLoading) {
       return <PageSpinner />
     }
 
@@ -198,7 +198,7 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
                 value: yup.string().trim().required(getString('cf.creationModal.valueIsRequired'))
               })
             ),
-            gitDetails: gitSyncValidationSchema
+            gitDetails: gitSyncFormData?.gitSyncValidationSchema
           })}
           validate={(values: typeof initialValues) => {
             return validateVariationValues(values.variations, feature.kind)
@@ -208,7 +208,7 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
           onSubmit={onSubmit}
         >
           {formikProps => (
-            <Form>
+            <Form data-testid="edit-variation-modal">
               <FormikEffect onChange={onFormikEffect} formik={formikProps} />
               <Container padding="xlarge">
                 <Container style={{ overflow: 'auto' }} padding="xsmall">
@@ -330,7 +330,7 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
                         </Container>
                       </Layout.Horizontal>
 
-                      {isGitSyncEnabled && !isAutoCommitEnabled && (
+                      {gitSync?.isGitSyncEnabled && !gitSync?.isAutoCommitEnabled && (
                         <>
                           <Container margin={{ top: 'medium', bottom: 'medium' }}>
                             <Divider />
@@ -365,7 +365,11 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
     )
   }
 
-  const [openModal, hideModal] = useModalHook(ModalComponent, [feature])
+  const [openModal, hideModal] = useModalHook(ModalComponent, [
+    feature,
+    gitSync.isGitSyncEnabled,
+    gitSync.isAutoCommitEnabled
+  ])
 
-  return <RbacButton permission={permission} onClick={openModal} {...props} />
+  return <RbacButton permission={permission} onClick={openModal} {...props} data-testid="open-edit-variations-modal" />
 }

@@ -97,6 +97,7 @@ const TabTargeting: React.FC<TabTargetingProps> = props => {
             }
           >
             <Switch
+              data-testid="flag-status-switch"
               onChange={event => {
                 onChangeSwitchEnv(event.currentTarget.value, formikProps)
               }}

@@ -18,7 +18,12 @@ const SaveFlagToGitSubFormModal = ({ title, onSubmit, onClose }: SaveFlagToGitSu
       <Container id="save-flag-to-git-modal-body" padding={{ bottom: 'xlarge', left: 'xlarge', right: 'xlarge' }}>
         <SaveFlagToGitSubForm title={title} />
         <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }} padding={{ top: 'xxlarge' }}>
-          <Button text={getString('save')} variation={ButtonVariation.PRIMARY} onClick={onSubmit} />
+          <Button
+            text={getString('save')}
+            variation={ButtonVariation.PRIMARY}
+            onClick={onSubmit}
+            data-testid="save-flag-to-git-modal-save-button"
+          />
           <Button
             text={getString('cancel')}
             variation={ButtonVariation.TERTIARY}

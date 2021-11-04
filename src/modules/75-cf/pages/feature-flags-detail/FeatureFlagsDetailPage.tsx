@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { Layout, Container, PageError } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { GetFeatureFlagQueryParams, useGetFeatureFlag } from 'services/cf'
@@ -9,6 +9,8 @@ import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import FlagActivation from '@cf/components/FlagActivation/FlagActivation'
 import FlagActivationDetails from '@cf/components/FlagActivation/FlagActivationDetails'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
+import GitSyncActions from '@cf/components/GitSyncActions/GitSyncActions'
+import { useGitSync } from '@cf/hooks/useGitSync'
 import css from './FeatureFlagsDetailPage.module.scss'
 
 const FeatureFlagsDetailPage: React.FC = () => {
@@ -35,6 +37,8 @@ const FeatureFlagsDetailPage: React.FC = () => {
     identifier: featureFlagIdentifier as string,
     queryParams
   })
+
+  const gitSync = useGitSync()
 
   if (loading && !skipLoading) {
     return (
@@ -64,11 +68,40 @@ const FeatureFlagsDetailPage: React.FC = () => {
     )
   }
 
+  const refetchFlag = async (): Promise<void> => {
+    setSkipLoading(true)
+    await refetch({
+      queryParams: {
+        ...queryParams,
+        environment: activeEnvironment
+      }
+    }).finally(() => {
+      setSkipLoading(false)
+    })
+  }
+
+  const GitSyncActionsComponent = (): ReactElement => (
+    <GitSyncActions
+      isLoading={gitSync.gitSyncLoading}
+      branch={gitSync.gitRepoDetails?.branch || ''}
+      repository={gitSync.gitRepoDetails?.repoIdentifier || ''}
+      isAutoCommitEnabled={gitSync.isAutoCommitEnabled}
+      handleToggleAutoCommit={(newAutoCommitValue: boolean) => gitSync.handleAutoCommit(newAutoCommitValue)}
+    />
+  )
+
   return (
     <Container flex height="100%">
       <Layout.Horizontal width={450} className={css.flagContainer}>
-        <Layout.Vertical width="100%">
-          {featureFlag && <FlagActivationDetails featureFlag={featureFlag} refetchFlag={refetch} />}
+        <Layout.Vertical className={css.flagDetailsTopSection}>
+          {featureFlag && (
+            <FlagActivationDetails
+              featureFlag={featureFlag}
+              refetchFlag={refetch}
+              gitSyncActionsComponent={gitSync?.isGitSyncEnabled ? <GitSyncActionsComponent /> : undefined}
+              gitSync={gitSync}
+            />
+          )}
         </Layout.Vertical>
       </Layout.Horizontal>
 
@@ -80,17 +113,8 @@ const FeatureFlagsDetailPage: React.FC = () => {
         <Layout.Vertical width="100%">
           {!loading && featureFlag && (
             <FlagActivation
-              refetchFlag={async () => {
-                setSkipLoading(true)
-                return refetch({
-                  queryParams: {
-                    ...queryParams,
-                    environment: activeEnvironment
-                  }
-                }).finally(() => {
-                  setSkipLoading(false)
-                })
-              }}
+              refetchFlag={refetchFlag}
+              gitSync={gitSync}
               project={projectIdentifier as string}
               flagData={featureFlag}
             />

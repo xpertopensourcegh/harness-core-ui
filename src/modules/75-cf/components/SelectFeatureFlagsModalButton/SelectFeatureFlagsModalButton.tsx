@@ -25,8 +25,9 @@ import { useToaster } from '@common/exports'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacButton from '@rbac/components/Button/Button'
-import { GitSyncFormValues, useGitSync } from '@cf/hooks/useGitSync'
+
 import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
+import type { GitSyncFormValues, UseGitSync } from '@cf/hooks/useGitSync'
 import { FeatureFlagRow } from './FeatureFlagRow'
 import { NoDataFoundRow } from '../NoDataFoundRow/NoDataFoundRow'
 import SaveFlagToGitSubForm from '../SaveFlagToGitSubForm/SaveFlagToGitSubForm'
@@ -47,6 +48,8 @@ export interface SelectFeatureFlagsModalButtonProps extends Omit<ButtonProps, 'o
   submitButtonTitle?: string
   cancelButtonTitle?: string
 
+  gitSync: UseGitSync
+
   shouldDisableItem: (feature: Feature) => boolean
   onSubmit: (
     selectedFeatureFlags: SelectedFeatureFlag[],
@@ -63,6 +66,7 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
   modalTitle,
   submitButtonTitle,
   cancelButtonTitle,
+  gitSync,
   onSubmit,
   shouldDisableItem,
   ...props
@@ -75,11 +79,7 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
     const [sortByField] = useState(SegmentsSortByField.NAME)
     const [pageNumber, setPageNumber] = useState(0)
 
-    const { isAutoCommitEnabled, isGitSyncEnabled, handleAutoCommit, getGitSyncFormMeta } = useGitSync()
-
-    const { gitSyncValidationSchema, gitSyncInitialValues } = getGitSyncFormMeta(
-      AUTO_COMMIT_MESSAGES.UPDATED_FLAG_TARGETS
-    )
+    const gitSyncFormMeta = gitSync?.getGitSyncFormMeta(AUTO_COMMIT_MESSAGES.UPDATED_FLAG_TARGETS)
 
     const queryParams = useMemo(
       () => ({
@@ -129,8 +129,8 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
       try {
         onSubmit(Object.values(checkedFeatureFlags), gitFormValues)
           .then(async () => {
-            if (!isAutoCommitEnabled && gitFormValues?.autoCommit) {
-              await handleAutoCommit(gitFormValues.autoCommit)
+            if (!gitSync?.isAutoCommitEnabled && gitFormValues?.autoCommit) {
+              await gitSync?.handleAutoCommit(gitFormValues.autoCommit)
             }
 
             hideModal()
@@ -155,7 +155,11 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
 
     return (
       <Dialog isOpen enforceFocus={false} onClose={hideModal} title={''} style={{ width: 700, maxHeight: '95vh' }}>
-        <Layout.Vertical padding={{ left: 'xxlarge' }} style={{ height: '100%' }}>
+        <Layout.Vertical
+          padding={{ left: 'xxlarge' }}
+          style={{ height: '100%' }}
+          data-testid="add-target-to-flag-modal"
+        >
           {/* Search Input */}
           <Heading level={3} font={{ variation: FontVariation.H3 }} margin={{ bottom: 'xlarge' }}>
             {modalTitle}
@@ -245,20 +249,20 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
           <Container margin={{ right: 'xxlarge' }}>
             <Formik
               initialValues={{
-                gitDetails: gitSyncInitialValues.gitDetails,
-                autoCommit: gitSyncInitialValues.autoCommit
+                gitDetails: gitSyncFormMeta?.gitSyncInitialValues.gitDetails,
+                autoCommit: gitSyncFormMeta?.gitSyncInitialValues.autoCommit
               }}
               formName="editVariations"
               enableReinitialize={true}
               validationSchema={yup.object().shape({
-                gitDetails: gitSyncValidationSchema
+                gitDetails: gitSyncFormMeta?.gitSyncValidationSchema
               })}
               validateOnChange
               validateOnBlur
               onSubmit={handleSubmit}
             >
               <FormikForm>
-                {isGitSyncEnabled && !isAutoCommitEnabled && (
+                {gitSync?.isGitSyncEnabled && !gitSync?.isAutoCommitEnabled && (
                   <SaveFlagToGitSubForm subtitle={getString('cf.gitSync.commitChanges')} hideNameField />
                 )}
                 <Layout.Horizontal
@@ -290,6 +294,7 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
 
   return (
     <RbacButton
+      data-testid="add-feature-flags-button"
       onClick={openModal}
       {...props}
       permission={{

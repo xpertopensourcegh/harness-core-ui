@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useHistory, useParams, Link } from 'react-router-dom'
 import { isEqual } from 'lodash-es'
 import moment from 'moment'
@@ -37,8 +37,9 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { getErrorMessage, showToaster, useFeatureFlagTypeToStringMapping } from '@cf/utils/CFUtils'
 import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
-import { GitSyncFormValues, useGitSync } from '@cf/hooks/useGitSync'
+
 import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
+import type { GitSyncFormValues, UseGitSync } from '@cf/hooks/useGitSync'
 import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'
 import patch from '../../utils/instructions'
 import { VariationTypeIcon } from '../VariationTypeIcon/VariationTypeIcon'
@@ -51,6 +52,8 @@ import css from './FlagActivationDetails.module.scss'
 
 interface FlagActivationDetailsProps {
   featureFlag: Feature
+  gitSync: UseGitSync
+  gitSyncActionsComponent?: ReactElement
   refetchFlag: () => void
 }
 
@@ -62,9 +65,10 @@ const VariationItem: React.FC<{ variation: Variation; index: number }> = ({ vari
   )
 }
 
-const VariationsList: React.FC<{ featureFlag: Feature; onEditSuccess: () => void }> = ({
+const VariationsList: React.FC<{ featureFlag: Feature; onEditSuccess: () => void; gitSync: UseGitSync }> = ({
   featureFlag,
-  onEditSuccess
+  onEditSuccess,
+  gitSync
 }) => {
   const { orgIdentifier, accountId, projectIdentifier } = useParams<Record<string, string>>()
   const isFlagTypeBoolean = featureFlag.kind === FlagTypeVariations.booleanFlag
@@ -80,6 +84,7 @@ const VariationsList: React.FC<{ featureFlag: Feature; onEditSuccess: () => void
         </Text>
         <FlexExpander />
         <EditVariationsModal
+          gitSync={gitSync}
           accountId={accountId}
           orgIdentifier={orgIdentifier}
           projectIdentifier={projectIdentifier}
@@ -126,7 +131,7 @@ const VariationsList: React.FC<{ featureFlag: Feature; onEditSuccess: () => void
 
 const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
   const urlQuery: Record<string, string> = useQueryParams()
-  const { featureFlag, refetchFlag } = props
+  const { featureFlag, refetchFlag, gitSyncActionsComponent, gitSync } = props
   const { showError } = useToaster()
   const { getString } = useStrings()
   const { orgIdentifier, accountId, projectIdentifier } = useParams<Record<string, string>>()
@@ -149,10 +154,8 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
   const history = useHistory()
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
-  const { getGitSyncFormMeta, isAutoCommitEnabled, isGitSyncEnabled, handleAutoCommit } = useGitSync()
-  const { gitSyncValidationSchema, gitSyncInitialValues } = getGitSyncFormMeta(
-    AUTO_COMMIT_MESSAGES.UPDATED_FLAG_VARIATIONS
-  )
+
+  const gitSyncFormMeta = gitSync?.getGitSyncFormMeta(AUTO_COMMIT_MESSAGES.UPDATED_FLAG_VARIATIONS)
 
   const [openEditDetailsModal, hideEditDetailsModal] = useModalHook(() => {
     const initialValues = {
@@ -160,8 +163,8 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
       description: featureFlag.description,
       tags: featureFlag.tags?.map(elem => elem.name),
       permanent: featureFlag.permanent,
-      gitDetails: gitSyncInitialValues.gitDetails,
-      autoCommit: gitSyncInitialValues.autoCommit
+      gitDetails: gitSyncFormMeta?.gitSyncInitialValues.gitDetails,
+      autoCommit: gitSyncFormMeta?.gitSyncInitialValues.autoCommit
     }
 
     const getTag = (tagName: string) => featureFlag.tags?.find(tag => tag.name === tagName)
@@ -197,7 +200,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
       patch.feature
         .onPatchAvailable(data => {
           submitPatch(
-            isGitSyncEnabled
+            gitSync?.isGitSyncEnabled
               ? {
                   ...data,
                   gitDetails: values.gitDetails
@@ -206,7 +209,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
           )
             .then(async () => {
               if (values.autoCommit) {
-                await handleAutoCommit(values.autoCommit)
+                await gitSync?.handleAutoCommit(values.autoCommit)
               }
 
               patch.feature.reset()
@@ -227,19 +230,19 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
           enableReinitialize={true}
           initialValues={initialValues}
           validationSchema={yup.object().shape({
-            gitDetails: gitSyncValidationSchema
+            gitDetails: gitSyncFormMeta?.gitSyncValidationSchema
           })}
           formName="flagActivationDetails"
           onSubmit={handleSubmit}
         >
           {() => (
-            <Form>
+            <Form data-testid="edit-flag-form">
               <Layout.Vertical className={css.editDetailsModalContainer} spacing="large">
                 <Text>{getString('cf.editDetails.editDetailsHeading')}</Text>
 
                 <FormInput.Text name="name" label={getString('name')} />
 
-                <FormInput.TextArea name="description" label={getString('description')} />
+                <FormInput.TextArea name="de scription" label={getString('description')} />
 
                 <Container>
                   <FormInput.CheckBox
@@ -248,7 +251,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
                     className={css.checkboxEditDetails}
                   />
                 </Container>
-                {isGitSyncEnabled && !isAutoCommitEnabled && (
+                {gitSync?.isGitSyncEnabled && !gitSync?.isAutoCommitEnabled && (
                   <>
                     <Container>
                       <Divider />
@@ -267,7 +270,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
         </Formik>
       </Dialog>
     )
-  }, [featureFlag, isGitSyncEnabled, isAutoCommitEnabled])
+  }, [featureFlag, gitSync.isAutoCommitEnabled, gitSync.isGitSyncEnabled])
 
   const { mutate: deleteFeatureFlag } = useDeleteFeatureFlag({
     queryParams: {
@@ -322,9 +325,9 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
 
   const handleDeleteFlag = async (gitSyncFormValues?: GitSyncFormValues): Promise<void> => {
     let commitMsg = ''
-    if (isGitSyncEnabled) {
-      if (isAutoCommitEnabled) {
-        commitMsg = gitSyncInitialValues.gitDetails.commitMsg
+    if (gitSync?.isGitSyncEnabled) {
+      if (gitSync?.isAutoCommitEnabled) {
+        commitMsg = gitSyncFormMeta?.gitSyncInitialValues.gitDetails.commitMsg
       } else {
         commitMsg = gitSyncFormValues?.gitDetails.commitMsg || ''
       }
@@ -353,7 +356,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
     ),
     intent: Intent.DANGER,
     action: async () => {
-      if (isGitSyncEnabled && !isAutoCommitEnabled) {
+      if (gitSync?.isGitSyncEnabled && !gitSync?.isAutoCommitEnabled) {
         setIsDeleteModalOpen(true)
       } else {
         await handleDeleteFlag()
@@ -383,6 +386,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
         <Link style={{ color: '#0092E4', fontSize: '12px' }} to={featureFlagListURL}>
           {getString('flag')}
         </Link>
+
         <span style={{ display: 'inline-block', paddingLeft: 'var(--spacing-xsmall)' }}>/</span>
         <FlexExpander />
         <RbacOptionsMenuButton
@@ -419,6 +423,10 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
           ]}
         />
       </Layout.Horizontal>
+
+      <Container flex={{ justifyContent: 'space-between', alignItems: 'center' }} width={230}>
+        {gitSyncActionsComponent}
+      </Container>
 
       <Container>
         <Heading
@@ -462,12 +470,13 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
 
         <VariationsList
           featureFlag={featureFlag}
+          gitSync={gitSync}
           onEditSuccess={() => {
             refetchFlag()
           }}
         />
 
-        <FlagPrerequisites featureFlag={featureFlag} refetchFlag={refetchFlag} />
+        <FlagPrerequisites featureFlag={featureFlag} refetchFlag={refetchFlag} gitSync={gitSync} />
         {isDeleteModalOpen && (
           <SaveFlagToGitModal
             flagName={featureFlag.name}

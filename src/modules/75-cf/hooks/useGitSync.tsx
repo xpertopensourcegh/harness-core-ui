@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom'
 import * as yup from 'yup'
 import type { ObjectSchema } from 'yup'
+import { useMemo } from 'react'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { GitRepo, useGetGitRepo, usePatchGitRepo } from 'services/cf'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
@@ -54,9 +55,15 @@ export const useGitSync = (): UseGitSync => {
 
   const FF_GITSYNC = useFeatureFlag(FeatureFlag.FF_GITSYNC)
 
-  const isGitSyncEnabled = !!(FF_GITSYNC && getGitRepo?.data?.repoSet)
+  const isGitSyncEnabled = useMemo<boolean>(
+    () => !!(FF_GITSYNC && getGitRepo?.data?.repoSet),
+    [FF_GITSYNC, getGitRepo?.data?.repoSet]
+  )
 
-  const isAutoCommitEnabled = !!(isGitSyncEnabled && getGitRepo?.data?.repoDetails?.autoCommit)
+  const isAutoCommitEnabled = useMemo<boolean>(
+    () => !!(FF_GITSYNC && getGitRepo?.data?.repoSet && getGitRepo?.data?.repoDetails?.autoCommit),
+    [FF_GITSYNC, getGitRepo?.data?.repoDetails?.autoCommit, getGitRepo?.data?.repoSet]
+  )
 
   const getGitSyncFormMeta = (autoCommitMessage?: string): GitSyncFormMeta => ({
     gitSyncInitialValues: {
@@ -80,7 +87,7 @@ export const useGitSync = (): UseGitSync => {
   })
 
   const handleAutoCommit = async (newAutoCommitValue: boolean): Promise<void> => {
-    if (newAutoCommitValue && isAutoCommitEnabled !== newAutoCommitValue) {
+    if (isAutoCommitEnabled !== newAutoCommitValue) {
       const instruction = {
         instructions: [
           {
@@ -101,7 +108,7 @@ export const useGitSync = (): UseGitSync => {
     gitRepoDetails: getGitRepo?.data?.repoDetails,
     isAutoCommitEnabled,
     isGitSyncEnabled,
-    gitSyncLoading: getGitRepo?.loading || patchGitRepo.loading,
+    gitSyncLoading: getGitRepo.loading || patchGitRepo.loading,
     handleAutoCommit,
     getGitSyncFormMeta
   }

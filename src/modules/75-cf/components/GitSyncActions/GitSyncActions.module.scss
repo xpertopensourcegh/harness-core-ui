@@ -1,0 +1,82 @@
+.vertical-divider {
+  width: 1px;
+  height: var(--spacing-6);
+  background: var(--grey-300) !important;
+}
+
+.branch-action-button-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: var(--spacing-3);
+}
+
+.branch-action-button-active {
+  background-color: var(--grey-100) !important;
+}
+
+.branch-action-button {
+  background-color: inherit;
+  box-shadow: none;
+  border: none;
+  border-radius: 4px;
+  padding: 5px !important;
+  &:hover {
+    background-color: var(--grey-100);
+    cursor: pointer;
+  }
+
+  // Icons are different sizes so this prevents side effects and keeps icon centered when icons are swapped out
+  .git-status-icon {
+    width: 15px;
+    display: flex;
+    justify-content: center;
+
+    :global {
+      .bp3-popover-wrapper {
+        display: flex;
+        background-color: inherit;
+        span:first-of-type {
+          display: flex;
+        }
+      }
+    }
+  }
+
+  .auto-commit-enabled {
+    svg {
+      path,
+      circle {
+        fill: var(--primary-7);
+      }
+    }
+  }
+
+  .auto-commit-disabled {
+    svg {
+      path,
+      circle {
+        fill: var(--grey-300);
+      }
+    }
+  }
+
+  .loading-spinner {
+    svg {
+      path,
+      circle {
+        fill: var(--blue-600);
+      }
+    }
+  }
+}
+
+.git-repo-text {
+  display: flex;
+  flex: 0.5;
+  gap: 10px;
+  padding: 5px 5px 5px 0 !important;
+  align-items: center;
+  color: var(--grey-1000);
+}

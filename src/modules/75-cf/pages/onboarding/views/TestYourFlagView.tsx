@@ -28,8 +28,7 @@ export const TestYourFlagView: React.FC<TestYourFlagViewProps> = props => {
     accountIdentifier: accountId,
     orgIdentifier,
     projectIdentifier,
-    environmentIdentifier: props.environmentIdentifier as string,
-    flagIdentifier: flagInfo.identifier
+    environmentIdentifier: props.environmentIdentifier as string
   })
   const queryParams = useMemo(
     () => ({
@@ -115,9 +114,9 @@ export const TestYourFlagView: React.FC<TestYourFlagViewProps> = props => {
             <Switch
               onChange={() => {
                 if (checked) {
-                  toggleFeatureFlag.off()
+                  toggleFeatureFlag.off(flagInfo.identifier)
                 } else {
-                  toggleFeatureFlag.on()
+                  toggleFeatureFlag.on(flagInfo.identifier)
                 }
 
                 setChecked(!checked)
