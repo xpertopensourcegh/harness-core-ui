@@ -118,7 +118,7 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({
       if (status) {
         toggleFeatureFlag.off(data.identifier, gitDetails)
       } else {
-        toggleFeatureFlag.off(data.identifier, gitDetails)
+        toggleFeatureFlag.on(data.identifier, gitDetails)
       }
 
       if (!gitSync.isAutoCommitEnabled && gitSyncFormValues?.autoCommit) {

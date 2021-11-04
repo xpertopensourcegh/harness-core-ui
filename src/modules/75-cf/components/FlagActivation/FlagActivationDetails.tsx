@@ -242,7 +242,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
 
                 <FormInput.Text name="name" label={getString('name')} />
 
-                <FormInput.TextArea name="de scription" label={getString('description')} />
+                <FormInput.TextArea name="description" label={getString('description')} />
 
                 <Container>
                   <FormInput.CheckBox

@@ -51,15 +51,15 @@ exports[`FlagActivationDetails it should render edit flag modal correctly 1`] = 
       </div>
       <div
         class="bp3-form-group"
-        data-id="de scription-1"
+        data-id="description-1"
       >
         <label
           class="bp3-label"
-          for="de scription"
+          for="description"
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="flagActivationDetails_de scription"
+            data-tooltip-id="flagActivationDetails_description"
           >
             description
           </span>
@@ -75,7 +75,7 @@ exports[`FlagActivationDetails it should render edit flag modal correctly 1`] = 
             autocomplete="off"
             class="bp3-input bp3-fill"
             maxlength="1024"
-            name="de scription"
+            name="description"
           />
         </div>
       </div>
