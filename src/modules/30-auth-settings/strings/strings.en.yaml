@@ -113,3 +113,27 @@ multipleProjects: Multiple Projects
 samlSupport: SAML authentication
 oauthSupport: OAuth authentication
 twoFactorAuthSupport: Two Factor Auth Support
+cdCommunityPlan:
+  planLink: 'https://harness.io/pricing'
+  communityPrice: '0$'
+  communityPriceText: 'Free Forever'
+  communityTitle: 'Community'
+  enterpriseTitle: 'Enterprise'
+  communityTitle2: 'Powered by Open Source Community - Fast, Reliable & Efficient CI'
+  enterpriseTitle2: 'Upgrade to a self hosted Enterprise Plan'
+  saasTitle2: 'Harness offers a variety of exciting SaaS plans'
+  communityLinkText: 'Supported by Community'
+  enterpriseLinkText: 'Go to Enterprise'
+  saasLinkText: 'Explore SaaS Plans'
+  harnessLinkText: 'Explore All Harness Plans'
+  communityPlanStrings:
+    item1: 'Unlimited Developers'
+    item2: 'Unlimited Builds'
+    item3: 'Git Experience (Pipeline as Code)'
+    item4: 'REST API & Webhook executions'
+    item5: 'Pipeline Plugins support'
+    item6: 'Data Storage - Sqlite'
+  enterprisePlanStrings:
+    item1: 'No limit on services'
+    item2: 'Advanced Security'
+    item3: 'Organize by multiple orgs'

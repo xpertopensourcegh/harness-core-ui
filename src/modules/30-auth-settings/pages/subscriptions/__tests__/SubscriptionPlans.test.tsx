@@ -15,6 +15,7 @@ import {
   useGetEditionActions,
   useExtendTrialLicense
 } from 'services/cd-ng'
+import CommunityPlans from '@auth-settings/pages/subscriptions/plans/CommunityPlans'
 import SubscriptionPlans from '../plans/SubscriptionPlans'
 import { plansData } from './plansData'
 
@@ -157,6 +158,15 @@ describe('Subscription Plans', () => {
       )
       expect(container).toMatchSnapshot()
     })
+  })
+
+  test('should render the plans for CD Community', () => {
+    const { container } = render(
+      <TestWrapper>
+        <CommunityPlans />
+      </TestWrapper>
+    )
+    expect(container).toMatchSnapshot()
   })
 
   test('should render the plans for FF', async () => {

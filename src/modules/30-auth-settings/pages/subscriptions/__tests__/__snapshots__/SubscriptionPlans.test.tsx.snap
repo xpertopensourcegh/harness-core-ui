@@ -1596,6 +1596,341 @@ exports[`Subscription Plans should render the plans for CD 1`] = `
 </div>
 `;
 
+exports[`Subscription Plans should render the plans for CD Community 1`] = `
+<div>
+  <div
+    class="Layout--vertical Layout--layout-spacing-large StyledProps--main plans"
+  >
+    <div
+      class="planContainer"
+    >
+      <div
+        class="bp3-card bp3-elevation-0 Card--card plan currentPlan cdBorder"
+      >
+        <div
+          class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+        >
+          <span
+            class="currentPlanHeader cdBgColor"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white StyledProps--flex StyledProps--flex-justifyContent-center"
+              style="display: flex; align-items: center;"
+            >
+              <span
+                class="bp3-icon StyledProps--main cdFill StyledProps--padding-right-xsmall"
+                data-icon="deployment-success-legacy"
+              >
+                <svg
+                  height="16"
+                  viewBox="0 0 14 14"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="7"
+                    cy="7"
+                    fill="#38d168"
+                    r="7"
+                  />
+                  <circle
+                    cx="7"
+                    cy="7"
+                    fill="#fff"
+                    r="5.2"
+                  />
+                  <path
+                    d="M5.8 9.5l4.4-4.1-.9-1-3.6 3.2-1.2-1.2-1.1 1.1 2.1 2.1.1.1z"
+                    fill="#38d168"
+                  />
+                </svg>
+              </span>
+              common.plans.currentPlan
+            </p>
+          </span>
+          <div
+            class="Layout--vertical Layout--layout-spacing-large StyledProps--main currentPlanBody StyledProps--flex StyledProps--flex-align-center-center StyledProps--padding-top-xxlarge"
+          >
+            <img
+              src="test-file-stub"
+            />
+            <p
+              class="StyledProps--font StyledProps--main titleFont StyledProps--font-weight-semi-bold StyledProps--font-size-large"
+            >
+              authSettings.cdCommunityPlan.communityTitle
+            </p>
+            <div
+              class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-large StyledProps--padding-bottom-xxxlarge StyledProps--flex StyledProps--flex-align-center-center"
+            >
+              <div
+                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black"
+                >
+                  authSettings.cdCommunityPlan.communityPrice
+                </p>
+              </div>
+              <p
+                class="StyledProps--font StyledProps--main centerText StyledProps--color StyledProps--color-black StyledProps--font-weight-light StyledProps--font-size-small StyledProps--padding-left-large StyledProps--padding-right-large"
+              >
+                authSettings.cdCommunityPlan.communityPriceText
+              </p>
+            </div>
+            <p
+              class="StyledProps--font StyledProps--main desc StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--padding-top-xxxlarge StyledProps--padding-bottom-small"
+            >
+              authSettings.cdCommunityPlan.communityTitle2
+            </p>
+          </div>
+        </div>
+        <div
+          class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--padding-top-xxlarge StyledProps--padding-bottom-xxlarge StyledProps--padding-left-medium"
+        >
+          <ul
+            class="ulmargin"
+          >
+            <li
+              class="li"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
+              >
+                authSettings.cdCommunityPlan.communityPlanStrings.item1
+              </p>
+            </li>
+            <li
+              class="li"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
+              >
+                authSettings.cdCommunityPlan.communityPlanStrings.item2
+              </p>
+            </li>
+            <li
+              class="li"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
+              >
+                authSettings.cdCommunityPlan.communityPlanStrings.item3
+              </p>
+            </li>
+            <li
+              class="li"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
+              >
+                authSettings.cdCommunityPlan.communityPlanStrings.item4
+              </p>
+            </li>
+            <li
+              class="li"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
+              >
+                authSettings.cdCommunityPlan.communityPlanStrings.item5
+              </p>
+            </li>
+            <li
+              class="li"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
+              >
+                authSettings.cdCommunityPlan.communityPlanStrings.item6
+              </p>
+            </li>
+          </ul>
+        </div>
+        <div
+          class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-justifyContent-flex-end StyledProps--padding-top-xxlarge"
+        >
+          <p
+            class="StyledProps--font StyledProps--main communityplanSupport"
+          >
+            <a
+              href="authSettings.cdCommunityPlan.planLink"
+            >
+              authSettings.cdCommunityPlan.communityLinkText
+            </a>
+          </p>
+        </div>
+      </div>
+      <div
+        class="enterpriseSaaSContainer"
+      >
+        <div
+          class="bp3-card bp3-elevation-0 Card--card plan normalPlanBorder"
+        >
+          <div
+            class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-align-center-center StyledProps--padding-bottom-large"
+          >
+            <div
+              class="Layout--vertical Layout--layout-spacing-large StyledProps--main currentPlanBody StyledProps--flex StyledProps--flex-align-center-center StyledProps--padding-top-xxlarge StyledProps--padding-bottom-large"
+            >
+              <img
+                src="test-file-stub"
+              />
+              <p
+                class="StyledProps--font StyledProps--main titleFont StyledProps--font-weight-semi-bold StyledProps--font-size-large"
+              >
+                authSettings.cdCommunityPlan.enterpriseTitle
+              </p>
+              <div
+                class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--flex StyledProps--flex-align-center-center StyledProps--padding-bottom-xsmall"
+              >
+                <img
+                  src="test-file-stub"
+                />
+                <div
+                  class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-large StyledProps--flex StyledProps--flex-align-center-center"
+                >
+                  <div
+                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main desc StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
+                    >
+                      authSettings.cdCommunityPlan.enterpriseTitle2
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="btnHeight"
+                >
+                  <button
+                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                    type="button"
+                  >
+                    <span
+                      class="bp3-button-text"
+                    >
+                      authSettings.cdCommunityPlan.enterpriseLinkText
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-left-large"
+            >
+              authSettings.cdCommunityPlan.enterpriseTitle:
+            </p>
+            <ul
+              class="ulmargin"
+            >
+              <li
+                class="li"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main"
+                >
+                  authSettings.cdCommunityPlan.enterprisePlanStrings.item1
+                </p>
+              </li>
+              <li
+                class="li"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main"
+                >
+                  authSettings.cdCommunityPlan.enterprisePlanStrings.item2
+                </p>
+              </li>
+              <li
+                class="li"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main"
+                >
+                  authSettings.cdCommunityPlan.enterprisePlanStrings.item3
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div
+          class="bp3-card bp3-elevation-0 Card--card plan normalPlanBorder"
+        >
+          <div
+            class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+          >
+            <div
+              class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--flex StyledProps--flex-align-center-center StyledProps--padding-bottom-xsmall"
+            >
+              <img
+                src="test-file-stub"
+              />
+              <div
+                class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-large StyledProps--flex StyledProps--flex-align-center-center"
+              >
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main desc StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
+                  >
+                    authSettings.cdCommunityPlan.saasTitle2
+                  </p>
+                </div>
+              </div>
+              <div
+                class="btnHeight"
+              >
+                <button
+                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                  type="button"
+                >
+                  <span
+                    class="bp3-button-text"
+                  >
+                    authSettings.cdCommunityPlan.saasLinkText
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a
+      href="authSettings.cdCommunityPlan.planLink"
+      rel="noreferrer"
+      target="_blank"
+    >
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary6 StyledProps--flex StyledProps--flex-align-center-center"
+        style="display: flex; align-items: center;"
+      >
+        authSettings.cdCommunityPlan.harnessLinkText
+        <span
+          class="bp3-icon StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-primary6"
+          data-icon="main-share"
+        >
+          <svg
+            height="16"
+            viewBox="0 0 14 14"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M10.5 12.6H1.4V3.5h6.1l1.4-1.4H.7c-.4 0-.7.3-.7.7v10.5c0 .4.3.7.7.7h10.5c.4 0 .7-.3.7-.7V5.1l-1.4 1.4zM13.3 0H8.4c-.4 0-.7.3-.7.7s.3.7.7.7h3.2L6.5 6.5c-.1.1-.2.3-.2.5 0 .4.3.7.7.7.2 0 .4-.1.5-.2l5.1-5.1v3.2c0 .4.3.7.7.7s.7-.3.7-.7V.7c0-.4-.3-.7-.7-.7z"
+              fill="#4d5969"
+            />
+          </svg>
+        </span>
+      </p>
+    </a>
+  </div>
+</div>
+`;
+
 exports[`Subscription Plans should render the plans for CI 1`] = `
 <div>
   <div
