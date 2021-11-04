@@ -4,7 +4,6 @@ import { Switch as CoreSwitch, SwitchProps as CoreSwitchProps, Popover } from '@
 import { PopoverInteractionKind } from '@blueprintjs/core'
 import type { FeatureRequest } from 'framework/featureStore/FeaturesContext'
 import { useFeature } from '@common/hooks/useFeatures'
-import type { Module } from '@common/interfaces/RouteInterfaces'
 import { FeatureWarningTooltip } from '@common/components/FeatureWarning/FeatureWarning'
 
 interface SwitchProps extends CoreSwitchProps {
@@ -16,13 +15,11 @@ interface FeatureProps {
 }
 
 const FeatureSwitch: React.FC<SwitchProps> = ({ featureProps, ...restProps }) => {
-  const { enabled: featureEnabled, featureDetail } = useFeature({
+  const { enabled: featureEnabled } = useFeature({
     featureRequest: featureProps?.featureRequest
   })
 
-  const module = featureDetail?.moduleType && (featureDetail.moduleType.toLowerCase() as Module)
-
-  const toolTip = <FeatureWarningTooltip featureName={featureProps.featureRequest.featureName} module={module} />
+  const toolTip = <FeatureWarningTooltip featureName={featureProps.featureRequest.featureName} />
 
   if (featureEnabled) {
     return <CoreSwitch {...restProps} />

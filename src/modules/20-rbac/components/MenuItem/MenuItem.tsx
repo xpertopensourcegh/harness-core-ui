@@ -6,7 +6,6 @@ import { usePermission, PermissionsRequest } from '@rbac/hooks/usePermission'
 import { useFeature } from '@common/hooks/useFeatures'
 import type { FeatureProps } from 'framework/featureStore/FeaturesContext'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import type { Module } from '@common/interfaces/RouteInterfaces'
 import { getTooltip } from '@rbac/utils/utils'
 import css from './MenuItem.module.scss'
 
@@ -24,13 +23,11 @@ const RbacMenuItem: React.FC<RbacMenuItemProps> = ({ permission: permissionReque
     [permissionRequest]
   )
 
-  const { enabled: featureEnabled, featureDetail } = useFeature({
+  const { enabled: featureEnabled } = useFeature({
     featureRequest: featureProps?.featureRequest
   })
 
-  const module = featureDetail?.moduleType && (featureDetail.moduleType.toLowerCase() as Module)
-
-  const tooltipProps = getTooltip({ permissionRequest, featureProps, canDoAction, featureEnabled, module })
+  const tooltipProps = getTooltip({ permissionRequest, featureProps, canDoAction, featureEnabled })
   const { tooltip } = tooltipProps
 
   const noRequest = !featureProps?.featureRequest && !permissionRequest

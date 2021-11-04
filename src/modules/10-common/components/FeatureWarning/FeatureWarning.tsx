@@ -6,15 +6,16 @@ import { Button, ButtonSize, ButtonVariation, Color, FontVariation, Layout, Text
 import type { PopoverPosition } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import { FeatureDescriptor } from 'framework/featureStore/FeatureDescriptor'
+import { useLicenseStore, LICENSE_STATE_VALUES } from 'framework/LicenseStore/LicenseStoreContext'
 import routes from '@common/RouteDefinitions'
 import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
 import { useFeatureModule, useFeatureRequiredPlans } from '@common/hooks/useFeatures'
 import type { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
+import type { ModuleType } from 'framework/featureStore/FeaturesContext'
 import css from './FeatureWarning.module.scss'
 
 interface FeatureWarningTooltipProps {
   featureName: FeatureIdentifier
-  module?: Module
 }
 
 interface FeatureWarningProps {
@@ -72,11 +73,21 @@ const WarningText = ({ tooltip, tooltipProps }: WarningTextProps): ReactElement 
   )
 }
 
-export const FeatureWarningTooltip = ({ featureName, module }: FeatureWarningTooltipProps): ReactElement => {
+export const FeatureWarningTooltip = ({ featureName }: FeatureWarningTooltipProps): ReactElement => {
   const { getString } = useStrings()
   const featureDescription = FeatureDescriptor[featureName] ? FeatureDescriptor[featureName] : featureName
   const requiredPlans = useFeatureRequiredPlans(featureName)
   const requiredPlansStr = requiredPlans.join(' or ')
+  const moduleType = useFeatureModule(featureName)
+  const { CD_LICENSE_STATE, CI_LICENSE_STATE, FF_LICENSE_STATE, CCM_LICENSE_STATE } = useLicenseStore()
+  const licenseStatus = {
+    CD_LICENSE_STATE,
+    CI_LICENSE_STATE,
+    FF_LICENSE_STATE,
+    CCM_LICENSE_STATE
+  }
+  const planModule = getPlanModule(licenseStatus, moduleType)
+
   return (
     <Layout.Vertical padding="medium" className={css.tooltip}>
       <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.GREY_800} padding={{ bottom: 'small' }}>
@@ -92,16 +103,14 @@ export const FeatureWarningTooltip = ({ featureName, module }: FeatureWarningToo
             {getString('common.feature.upgradeRequired.requiredPlans', { requiredPlans: requiredPlansStr })}
           </Text>
         )}
-        <ExplorePlansBtn module={module} />
+        <ExplorePlansBtn module={planModule} />
       </Layout.Vertical>
     </Layout.Vertical>
   )
 }
 
 export const FeatureWarningWithTooltip = ({ featureName, tooltipProps }: FeatureWarningProps): ReactElement => {
-  const moduleType = useFeatureModule(featureName)
-  const module = moduleType && (moduleType.toLowerCase() as Module)
-  const tooltip = <FeatureWarningTooltip featureName={featureName} module={module} />
+  const tooltip = <FeatureWarningTooltip featureName={featureName} />
   return <WarningText tooltip={tooltip} tooltipProps={{ position: 'bottom-left', ...tooltipProps }} />
 }
 
@@ -109,10 +118,6 @@ export const FeatureWarning = ({ featureName, warningMessage, className }: Featu
   const { getString } = useStrings()
   const featureDescription =
     warningMessage || FeatureDescriptor[featureName] ? FeatureDescriptor[featureName] : featureName
-
-  const moduleType = useFeatureModule(featureName)
-  const module = moduleType && (moduleType.toLowerCase() as Module)
-
   return (
     <Layout.Horizontal padding="small" spacing="small" className={cx(css.expanded, className)} flex>
       <WarningText />
@@ -120,7 +125,7 @@ export const FeatureWarning = ({ featureName, warningMessage, className }: Featu
         {getString('common.feature.upgradeRequired.description')}
         {featureDescription}
       </Text>
-      <ExplorePlansBtn module={module} size={ButtonSize.SMALL} />
+      <ExplorePlansBtn size={ButtonSize.SMALL} />
     </Layout.Horizontal>
   )
 }
@@ -131,4 +136,37 @@ export const FeatureWarningBanner = (props: FeatureWarningProps): ReactElement =
       <FeatureWarning {...props} />
     </Layout.Horizontal>
   )
+}
+
+interface LicenseStatusProps {
+  [key: string]: LICENSE_STATE_VALUES
+}
+
+function getPlanModule(licenseStatus: LicenseStatusProps, moduleType?: ModuleType): Module | undefined {
+  switch (moduleType) {
+    case 'CD':
+    case 'CI':
+    case 'CF':
+    case 'CE':
+      return moduleType.toLowerCase() as Module
+    default:
+      return getDefaultPlanModule(licenseStatus)
+  }
+}
+
+function getDefaultPlanModule(licenseStatus: LicenseStatusProps): Module | undefined {
+  const { CD_LICENSE_STATE, CI_LICENSE_STATE, FF_LICENSE_STATE, CCM_LICENSE_STATE } = licenseStatus
+  if (CD_LICENSE_STATE === LICENSE_STATE_VALUES.ACTIVE) {
+    return 'cd'
+  }
+  if (CI_LICENSE_STATE === LICENSE_STATE_VALUES.ACTIVE) {
+    return 'ci'
+  }
+  if (FF_LICENSE_STATE === LICENSE_STATE_VALUES.ACTIVE) {
+    return 'cf'
+  }
+  if (CCM_LICENSE_STATE === LICENSE_STATE_VALUES.ACTIVE) {
+    return 'ce'
+  }
+  return undefined
 }

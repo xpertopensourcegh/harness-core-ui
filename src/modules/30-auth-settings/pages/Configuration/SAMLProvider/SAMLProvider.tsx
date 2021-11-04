@@ -16,7 +16,7 @@ import {
 import { Menu, MenuItem } from '@blueprintjs/core'
 import { useToaster } from '@common/components'
 import { useStrings } from 'framework/strings'
-import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import type { AuthenticationSettingsResponse, SamlSettings } from 'services/cd-ng'
 import { useDeleteSamlMetaData, useUpdateAuthMechanism, useGetSamlLoginTest } from 'services/cd-ng'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
@@ -55,7 +55,7 @@ const SAMLProvider: React.FC<Props> = ({
     settings => settings.settingsType === AuthenticationMechanisms.SAML
   ) as SamlSettings | undefined
 
-  const { enabled: featureEnabled, featureDetail } = useFeature({
+  const { enabled: featureEnabled } = useFeature({
     featureRequest: {
       featureName: FeatureIdentifier.SAML_SUPPORT
     }
@@ -202,12 +202,7 @@ const SAMLProvider: React.FC<Props> = ({
           heading={
             <Utils.WrapOptionalTooltip
               tooltip={
-                !featureEnabled ? (
-                  <FeatureWarningTooltip
-                    featureName={FeatureIdentifier.SAML_SUPPORT}
-                    module={featureDetail?.moduleType?.toLowerCase() as Module}
-                  />
-                ) : undefined
+                !featureEnabled ? <FeatureWarningTooltip featureName={FeatureIdentifier.SAML_SUPPORT} /> : undefined
               }
             >
               <Container margin={{ left: 'xlarge' }}>
@@ -280,14 +275,7 @@ const SAMLProvider: React.FC<Props> = ({
         </Collapse>
       ) : (
         <Utils.WrapOptionalTooltip
-          tooltip={
-            !featureEnabled ? (
-              <FeatureWarningTooltip
-                featureName={FeatureIdentifier.SAML_SUPPORT}
-                module={featureDetail?.moduleType?.toLowerCase() as Module}
-              />
-            ) : undefined
-          }
+          tooltip={!featureEnabled ? <FeatureWarningTooltip featureName={FeatureIdentifier.SAML_SUPPORT} /> : undefined}
         >
           <Card className={css.cardWithRadioBtn}>
             <Container margin={{ left: 'xlarge', top: 'xsmall' }}>

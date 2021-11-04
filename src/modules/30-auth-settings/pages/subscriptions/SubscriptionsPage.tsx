@@ -59,16 +59,16 @@ const MODULE_SELECT_CARDS: ModuleSelectCard[] = [
     titleDescriptor: 'common.purpose.cd.delivery'
   },
   {
-    icon: 'cv-main',
-    module: ModuleName.CV,
-    title: 'common.purpose.change',
-    titleDescriptor: 'common.purpose.cv.intelligence'
-  },
-  {
     icon: 'ci-main',
     module: ModuleName.CI,
     title: 'common.purpose.continuous',
     titleDescriptor: 'common.purpose.ci.integration'
+  },
+  {
+    icon: 'cf-main',
+    module: ModuleName.CF,
+    title: 'common.purpose.cf.feature',
+    titleDescriptor: 'common.purpose.cf.flags'
   },
   {
     icon: 'ce-main',
@@ -77,10 +77,10 @@ const MODULE_SELECT_CARDS: ModuleSelectCard[] = [
     titleDescriptor: 'common.purpose.ce.management'
   },
   {
-    icon: 'cf-main',
-    module: ModuleName.CF,
-    title: 'common.purpose.cf.feature',
-    titleDescriptor: 'common.purpose.cf.flags'
+    icon: 'cv-main',
+    module: ModuleName.CV,
+    title: 'common.purpose.change',
+    titleDescriptor: 'common.purpose.cv.intelligence'
   }
 ]
 

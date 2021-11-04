@@ -193,63 +193,6 @@ exports[`Subscriptions Page it renders an expired banner when the trial is expir
         >
           <span
             class="bp3-icon StyledProps--main moduleIcons"
-            data-icon="cv-main"
-          >
-            <svg
-              height="28"
-              viewBox="0 0 32 32"
-              width="28"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.194 29.156l.417.24c.425.238.904.359 1.389.351a2.75 2.75 0 001.361-.351l.417-.24c6.618-3.78 10.715-10.877 10.722-18.575v-.197a2.822 2.822 0 00-1.389-2.463l-.332-.189L15.94 21.381a.67.67 0 01-.926.119L8.82 16.855a.67.67 0 01-.134-.938l.344-.46a.67.67 0 01.938-.133l4.705 3.528c.29.218.7.165.926-.12l9.498-11.96-7.708-4.395a2.747 2.747 0 00-2.778 0L4.89 7.921A2.822 2.822 0 003.5 10.384v.197c.002 7.692 4.087 14.788 10.694 18.575z"
-                fill="url(#cv-main_svg__a)"
-              />
-              <defs>
-                <lineargradient
-                  gradientUnits="userSpaceOnUse"
-                  id="cv-main_svg__a"
-                  x1="7.827"
-                  x2="23.016"
-                  y1="2"
-                  y2="28.457"
-                >
-                  <stop
-                    stop-color="#BEA1FF"
-                  />
-                  <stop
-                    offset="1"
-                    stop-color="#8A36FF"
-                  />
-                </lineargradient>
-              </defs>
-            </svg>
-          </span>
-          <div
-            class="Layout--vertical StyledProps--main"
-          >
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-xsmall"
-            >
-              COMMON.PURPOSE.CHANGE
-            </p>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
-            >
-              common.purpose.cv.intelligence
-            </p>
-          </div>
-        </div>
-      </div>
-      <div
-        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard"
-      >
-        <div
-          class="Layout--horizontal StyledProps--main"
-          style="width: 150px;"
-        >
-          <span
-            class="bp3-icon StyledProps--main moduleIcons"
             data-icon="ci-main"
           >
             <svg
@@ -296,63 +239,6 @@ exports[`Subscriptions Page it renders an expired banner when the trial is expir
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
             >
               common.purpose.ci.integration
-            </p>
-          </div>
-        </div>
-      </div>
-      <div
-        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard"
-      >
-        <div
-          class="Layout--horizontal StyledProps--main"
-          style="width: 150px;"
-        >
-          <span
-            class="bp3-icon StyledProps--main moduleIcons"
-            data-icon="ce-main"
-          >
-            <svg
-              height="28"
-              viewBox="0 0 32 32"
-              width="28"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M15.84 26.552a.5.5 0 00.5.5h8.343v-.005a6.579 6.579 0 00.284-13.13.548.548 0 01-.492-.429C23.563 9.21 19.761 6 15.21 6a9.473 9.473 0 00-9.474 9.473c0 .056-.039.103-.093.114a5.791 5.791 0 001.146 11.465h6.661a.5.5 0 00.5-.5v-1.568a.527.527 0 00-.436-.51c-1.04-.2-1.932-.63-2.542-1.244-.546-.55-.872-1.232-.973-2.032-.035-.277.194-.505.474-.504l1.113.005c.268.001.48.215.541.475.256 1.093 1.245 1.813 2.711 1.82.571.003 2.7-.264 2.707-1.736.006-1.177-1.542-1.623-3.006-1.984a38.2 38.2 0 01-.758-.193c-1.656-.44-3.407-.943-3.398-3.062.01-2.058 1.742-3.119 3.567-3.335V10.71a.5.5 0 01.5-.5h.887a.5.5 0 01.5.5v2.028c1.316.212 3.089.878 3.39 2.906.04.28-.19.512-.472.511l-1.12-.005c-.256-.001-.463-.2-.54-.445-.29-.926-1.2-1.488-2.532-1.494-.886-.005-2.17.466-2.176 1.54-.005.973.74 1.305 3.52 2.023l.369.094.148.036c1.06.256 3.232.78 3.221 3.11-.008 1.839-1.265 3.096-3.364 3.47a.526.526 0 00-.442.511v1.557z"
-                fill="url(#ce-main_svg__a)"
-              />
-              <defs>
-                <lineargradient
-                  gradientUnits="userSpaceOnUse"
-                  id="ce-main_svg__a"
-                  x1="5.821"
-                  x2="19.271"
-                  y1="4.393"
-                  y2="33.469"
-                >
-                  <stop
-                    stop-color="#00CFDE"
-                  />
-                  <stop
-                    offset="1"
-                    stop-color="#05A660"
-                  />
-                </lineargradient>
-              </defs>
-            </svg>
-          </span>
-          <div
-            class="Layout--vertical StyledProps--main"
-          >
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-xsmall"
-            >
-              COMMON.PURPOSE.CE.CLOUDCOST
-            </p>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
-            >
-              common.purpose.ce.management
             </p>
           </div>
         </div>
@@ -430,6 +316,120 @@ exports[`Subscriptions Page it renders an expired banner when the trial is expir
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
             >
               common.purpose.cf.flags
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard"
+      >
+        <div
+          class="Layout--horizontal StyledProps--main"
+          style="width: 150px;"
+        >
+          <span
+            class="bp3-icon StyledProps--main moduleIcons"
+            data-icon="ce-main"
+          >
+            <svg
+              height="28"
+              viewBox="0 0 32 32"
+              width="28"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15.84 26.552a.5.5 0 00.5.5h8.343v-.005a6.579 6.579 0 00.284-13.13.548.548 0 01-.492-.429C23.563 9.21 19.761 6 15.21 6a9.473 9.473 0 00-9.474 9.473c0 .056-.039.103-.093.114a5.791 5.791 0 001.146 11.465h6.661a.5.5 0 00.5-.5v-1.568a.527.527 0 00-.436-.51c-1.04-.2-1.932-.63-2.542-1.244-.546-.55-.872-1.232-.973-2.032-.035-.277.194-.505.474-.504l1.113.005c.268.001.48.215.541.475.256 1.093 1.245 1.813 2.711 1.82.571.003 2.7-.264 2.707-1.736.006-1.177-1.542-1.623-3.006-1.984a38.2 38.2 0 01-.758-.193c-1.656-.44-3.407-.943-3.398-3.062.01-2.058 1.742-3.119 3.567-3.335V10.71a.5.5 0 01.5-.5h.887a.5.5 0 01.5.5v2.028c1.316.212 3.089.878 3.39 2.906.04.28-.19.512-.472.511l-1.12-.005c-.256-.001-.463-.2-.54-.445-.29-.926-1.2-1.488-2.532-1.494-.886-.005-2.17.466-2.176 1.54-.005.973.74 1.305 3.52 2.023l.369.094.148.036c1.06.256 3.232.78 3.221 3.11-.008 1.839-1.265 3.096-3.364 3.47a.526.526 0 00-.442.511v1.557z"
+                fill="url(#ce-main_svg__a)"
+              />
+              <defs>
+                <lineargradient
+                  gradientUnits="userSpaceOnUse"
+                  id="ce-main_svg__a"
+                  x1="5.821"
+                  x2="19.271"
+                  y1="4.393"
+                  y2="33.469"
+                >
+                  <stop
+                    stop-color="#00CFDE"
+                  />
+                  <stop
+                    offset="1"
+                    stop-color="#05A660"
+                  />
+                </lineargradient>
+              </defs>
+            </svg>
+          </span>
+          <div
+            class="Layout--vertical StyledProps--main"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-xsmall"
+            >
+              COMMON.PURPOSE.CE.CLOUDCOST
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
+            >
+              common.purpose.ce.management
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard"
+      >
+        <div
+          class="Layout--horizontal StyledProps--main"
+          style="width: 150px;"
+        >
+          <span
+            class="bp3-icon StyledProps--main moduleIcons"
+            data-icon="cv-main"
+          >
+            <svg
+              height="28"
+              viewBox="0 0 32 32"
+              width="28"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.194 29.156l.417.24c.425.238.904.359 1.389.351a2.75 2.75 0 001.361-.351l.417-.24c6.618-3.78 10.715-10.877 10.722-18.575v-.197a2.822 2.822 0 00-1.389-2.463l-.332-.189L15.94 21.381a.67.67 0 01-.926.119L8.82 16.855a.67.67 0 01-.134-.938l.344-.46a.67.67 0 01.938-.133l4.705 3.528c.29.218.7.165.926-.12l9.498-11.96-7.708-4.395a2.747 2.747 0 00-2.778 0L4.89 7.921A2.822 2.822 0 003.5 10.384v.197c.002 7.692 4.087 14.788 10.694 18.575z"
+                fill="url(#cv-main_svg__a)"
+              />
+              <defs>
+                <lineargradient
+                  gradientUnits="userSpaceOnUse"
+                  id="cv-main_svg__a"
+                  x1="7.827"
+                  x2="23.016"
+                  y1="2"
+                  y2="28.457"
+                >
+                  <stop
+                    stop-color="#BEA1FF"
+                  />
+                  <stop
+                    offset="1"
+                    stop-color="#8A36FF"
+                  />
+                </lineargradient>
+              </defs>
+            </svg>
+          </span>
+          <div
+            class="Layout--vertical StyledProps--main"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-xsmall"
+            >
+              COMMON.PURPOSE.CHANGE
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
+            >
+              common.purpose.cv.intelligence
             </p>
           </div>
         </div>
@@ -673,63 +673,6 @@ exports[`Subscriptions Page it renders the correct card in the subscriptions pag
         >
           <span
             class="bp3-icon StyledProps--main moduleIcons"
-            data-icon="cv-main"
-          >
-            <svg
-              height="28"
-              viewBox="0 0 32 32"
-              width="28"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.194 29.156l.417.24c.425.238.904.359 1.389.351a2.75 2.75 0 001.361-.351l.417-.24c6.618-3.78 10.715-10.877 10.722-18.575v-.197a2.822 2.822 0 00-1.389-2.463l-.332-.189L15.94 21.381a.67.67 0 01-.926.119L8.82 16.855a.67.67 0 01-.134-.938l.344-.46a.67.67 0 01.938-.133l4.705 3.528c.29.218.7.165.926-.12l9.498-11.96-7.708-4.395a2.747 2.747 0 00-2.778 0L4.89 7.921A2.822 2.822 0 003.5 10.384v.197c.002 7.692 4.087 14.788 10.694 18.575z"
-                fill="url(#cv-main_svg__a)"
-              />
-              <defs>
-                <lineargradient
-                  gradientUnits="userSpaceOnUse"
-                  id="cv-main_svg__a"
-                  x1="7.827"
-                  x2="23.016"
-                  y1="2"
-                  y2="28.457"
-                >
-                  <stop
-                    stop-color="#BEA1FF"
-                  />
-                  <stop
-                    offset="1"
-                    stop-color="#8A36FF"
-                  />
-                </lineargradient>
-              </defs>
-            </svg>
-          </span>
-          <div
-            class="Layout--vertical StyledProps--main"
-          >
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-xsmall"
-            >
-              COMMON.PURPOSE.CHANGE
-            </p>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
-            >
-              common.purpose.cv.intelligence
-            </p>
-          </div>
-        </div>
-      </div>
-      <div
-        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard"
-      >
-        <div
-          class="Layout--horizontal StyledProps--main"
-          style="width: 150px;"
-        >
-          <span
-            class="bp3-icon StyledProps--main moduleIcons"
             data-icon="ci-main"
           >
             <svg
@@ -776,63 +719,6 @@ exports[`Subscriptions Page it renders the correct card in the subscriptions pag
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
             >
               common.purpose.ci.integration
-            </p>
-          </div>
-        </div>
-      </div>
-      <div
-        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard"
-      >
-        <div
-          class="Layout--horizontal StyledProps--main"
-          style="width: 150px;"
-        >
-          <span
-            class="bp3-icon StyledProps--main moduleIcons"
-            data-icon="ce-main"
-          >
-            <svg
-              height="28"
-              viewBox="0 0 32 32"
-              width="28"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M15.84 26.552a.5.5 0 00.5.5h8.343v-.005a6.579 6.579 0 00.284-13.13.548.548 0 01-.492-.429C23.563 9.21 19.761 6 15.21 6a9.473 9.473 0 00-9.474 9.473c0 .056-.039.103-.093.114a5.791 5.791 0 001.146 11.465h6.661a.5.5 0 00.5-.5v-1.568a.527.527 0 00-.436-.51c-1.04-.2-1.932-.63-2.542-1.244-.546-.55-.872-1.232-.973-2.032-.035-.277.194-.505.474-.504l1.113.005c.268.001.48.215.541.475.256 1.093 1.245 1.813 2.711 1.82.571.003 2.7-.264 2.707-1.736.006-1.177-1.542-1.623-3.006-1.984a38.2 38.2 0 01-.758-.193c-1.656-.44-3.407-.943-3.398-3.062.01-2.058 1.742-3.119 3.567-3.335V10.71a.5.5 0 01.5-.5h.887a.5.5 0 01.5.5v2.028c1.316.212 3.089.878 3.39 2.906.04.28-.19.512-.472.511l-1.12-.005c-.256-.001-.463-.2-.54-.445-.29-.926-1.2-1.488-2.532-1.494-.886-.005-2.17.466-2.176 1.54-.005.973.74 1.305 3.52 2.023l.369.094.148.036c1.06.256 3.232.78 3.221 3.11-.008 1.839-1.265 3.096-3.364 3.47a.526.526 0 00-.442.511v1.557z"
-                fill="url(#ce-main_svg__a)"
-              />
-              <defs>
-                <lineargradient
-                  gradientUnits="userSpaceOnUse"
-                  id="ce-main_svg__a"
-                  x1="5.821"
-                  x2="19.271"
-                  y1="4.393"
-                  y2="33.469"
-                >
-                  <stop
-                    stop-color="#00CFDE"
-                  />
-                  <stop
-                    offset="1"
-                    stop-color="#05A660"
-                  />
-                </lineargradient>
-              </defs>
-            </svg>
-          </span>
-          <div
-            class="Layout--vertical StyledProps--main"
-          >
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-xsmall"
-            >
-              COMMON.PURPOSE.CE.CLOUDCOST
-            </p>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
-            >
-              common.purpose.ce.management
             </p>
           </div>
         </div>
@@ -910,6 +796,120 @@ exports[`Subscriptions Page it renders the correct card in the subscriptions pag
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
             >
               common.purpose.cf.flags
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard"
+      >
+        <div
+          class="Layout--horizontal StyledProps--main"
+          style="width: 150px;"
+        >
+          <span
+            class="bp3-icon StyledProps--main moduleIcons"
+            data-icon="ce-main"
+          >
+            <svg
+              height="28"
+              viewBox="0 0 32 32"
+              width="28"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15.84 26.552a.5.5 0 00.5.5h8.343v-.005a6.579 6.579 0 00.284-13.13.548.548 0 01-.492-.429C23.563 9.21 19.761 6 15.21 6a9.473 9.473 0 00-9.474 9.473c0 .056-.039.103-.093.114a5.791 5.791 0 001.146 11.465h6.661a.5.5 0 00.5-.5v-1.568a.527.527 0 00-.436-.51c-1.04-.2-1.932-.63-2.542-1.244-.546-.55-.872-1.232-.973-2.032-.035-.277.194-.505.474-.504l1.113.005c.268.001.48.215.541.475.256 1.093 1.245 1.813 2.711 1.82.571.003 2.7-.264 2.707-1.736.006-1.177-1.542-1.623-3.006-1.984a38.2 38.2 0 01-.758-.193c-1.656-.44-3.407-.943-3.398-3.062.01-2.058 1.742-3.119 3.567-3.335V10.71a.5.5 0 01.5-.5h.887a.5.5 0 01.5.5v2.028c1.316.212 3.089.878 3.39 2.906.04.28-.19.512-.472.511l-1.12-.005c-.256-.001-.463-.2-.54-.445-.29-.926-1.2-1.488-2.532-1.494-.886-.005-2.17.466-2.176 1.54-.005.973.74 1.305 3.52 2.023l.369.094.148.036c1.06.256 3.232.78 3.221 3.11-.008 1.839-1.265 3.096-3.364 3.47a.526.526 0 00-.442.511v1.557z"
+                fill="url(#ce-main_svg__a)"
+              />
+              <defs>
+                <lineargradient
+                  gradientUnits="userSpaceOnUse"
+                  id="ce-main_svg__a"
+                  x1="5.821"
+                  x2="19.271"
+                  y1="4.393"
+                  y2="33.469"
+                >
+                  <stop
+                    stop-color="#00CFDE"
+                  />
+                  <stop
+                    offset="1"
+                    stop-color="#05A660"
+                  />
+                </lineargradient>
+              </defs>
+            </svg>
+          </span>
+          <div
+            class="Layout--vertical StyledProps--main"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-xsmall"
+            >
+              COMMON.PURPOSE.CE.CLOUDCOST
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
+            >
+              common.purpose.ce.management
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard"
+      >
+        <div
+          class="Layout--horizontal StyledProps--main"
+          style="width: 150px;"
+        >
+          <span
+            class="bp3-icon StyledProps--main moduleIcons"
+            data-icon="cv-main"
+          >
+            <svg
+              height="28"
+              viewBox="0 0 32 32"
+              width="28"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.194 29.156l.417.24c.425.238.904.359 1.389.351a2.75 2.75 0 001.361-.351l.417-.24c6.618-3.78 10.715-10.877 10.722-18.575v-.197a2.822 2.822 0 00-1.389-2.463l-.332-.189L15.94 21.381a.67.67 0 01-.926.119L8.82 16.855a.67.67 0 01-.134-.938l.344-.46a.67.67 0 01.938-.133l4.705 3.528c.29.218.7.165.926-.12l9.498-11.96-7.708-4.395a2.747 2.747 0 00-2.778 0L4.89 7.921A2.822 2.822 0 003.5 10.384v.197c.002 7.692 4.087 14.788 10.694 18.575z"
+                fill="url(#cv-main_svg__a)"
+              />
+              <defs>
+                <lineargradient
+                  gradientUnits="userSpaceOnUse"
+                  id="cv-main_svg__a"
+                  x1="7.827"
+                  x2="23.016"
+                  y1="2"
+                  y2="28.457"
+                >
+                  <stop
+                    stop-color="#BEA1FF"
+                  />
+                  <stop
+                    offset="1"
+                    stop-color="#8A36FF"
+                  />
+                </lineargradient>
+              </defs>
+            </svg>
+          </span>
+          <div
+            class="Layout--vertical StyledProps--main"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-xsmall"
+            >
+              COMMON.PURPOSE.CHANGE
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
+            >
+              common.purpose.cv.intelligence
             </p>
           </div>
         </div>
@@ -1153,63 +1153,6 @@ exports[`Subscriptions Page it renders the subscriptions page 1`] = `
         >
           <span
             class="bp3-icon StyledProps--main moduleIcons"
-            data-icon="cv-main"
-          >
-            <svg
-              height="28"
-              viewBox="0 0 32 32"
-              width="28"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.194 29.156l.417.24c.425.238.904.359 1.389.351a2.75 2.75 0 001.361-.351l.417-.24c6.618-3.78 10.715-10.877 10.722-18.575v-.197a2.822 2.822 0 00-1.389-2.463l-.332-.189L15.94 21.381a.67.67 0 01-.926.119L8.82 16.855a.67.67 0 01-.134-.938l.344-.46a.67.67 0 01.938-.133l4.705 3.528c.29.218.7.165.926-.12l9.498-11.96-7.708-4.395a2.747 2.747 0 00-2.778 0L4.89 7.921A2.822 2.822 0 003.5 10.384v.197c.002 7.692 4.087 14.788 10.694 18.575z"
-                fill="url(#cv-main_svg__a)"
-              />
-              <defs>
-                <lineargradient
-                  gradientUnits="userSpaceOnUse"
-                  id="cv-main_svg__a"
-                  x1="7.827"
-                  x2="23.016"
-                  y1="2"
-                  y2="28.457"
-                >
-                  <stop
-                    stop-color="#BEA1FF"
-                  />
-                  <stop
-                    offset="1"
-                    stop-color="#8A36FF"
-                  />
-                </lineargradient>
-              </defs>
-            </svg>
-          </span>
-          <div
-            class="Layout--vertical StyledProps--main"
-          >
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-xsmall"
-            >
-              COMMON.PURPOSE.CHANGE
-            </p>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
-            >
-              common.purpose.cv.intelligence
-            </p>
-          </div>
-        </div>
-      </div>
-      <div
-        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard"
-      >
-        <div
-          class="Layout--horizontal StyledProps--main"
-          style="width: 150px;"
-        >
-          <span
-            class="bp3-icon StyledProps--main moduleIcons"
             data-icon="ci-main"
           >
             <svg
@@ -1256,63 +1199,6 @@ exports[`Subscriptions Page it renders the subscriptions page 1`] = `
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
             >
               common.purpose.ci.integration
-            </p>
-          </div>
-        </div>
-      </div>
-      <div
-        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard"
-      >
-        <div
-          class="Layout--horizontal StyledProps--main"
-          style="width: 150px;"
-        >
-          <span
-            class="bp3-icon StyledProps--main moduleIcons"
-            data-icon="ce-main"
-          >
-            <svg
-              height="28"
-              viewBox="0 0 32 32"
-              width="28"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M15.84 26.552a.5.5 0 00.5.5h8.343v-.005a6.579 6.579 0 00.284-13.13.548.548 0 01-.492-.429C23.563 9.21 19.761 6 15.21 6a9.473 9.473 0 00-9.474 9.473c0 .056-.039.103-.093.114a5.791 5.791 0 001.146 11.465h6.661a.5.5 0 00.5-.5v-1.568a.527.527 0 00-.436-.51c-1.04-.2-1.932-.63-2.542-1.244-.546-.55-.872-1.232-.973-2.032-.035-.277.194-.505.474-.504l1.113.005c.268.001.48.215.541.475.256 1.093 1.245 1.813 2.711 1.82.571.003 2.7-.264 2.707-1.736.006-1.177-1.542-1.623-3.006-1.984a38.2 38.2 0 01-.758-.193c-1.656-.44-3.407-.943-3.398-3.062.01-2.058 1.742-3.119 3.567-3.335V10.71a.5.5 0 01.5-.5h.887a.5.5 0 01.5.5v2.028c1.316.212 3.089.878 3.39 2.906.04.28-.19.512-.472.511l-1.12-.005c-.256-.001-.463-.2-.54-.445-.29-.926-1.2-1.488-2.532-1.494-.886-.005-2.17.466-2.176 1.54-.005.973.74 1.305 3.52 2.023l.369.094.148.036c1.06.256 3.232.78 3.221 3.11-.008 1.839-1.265 3.096-3.364 3.47a.526.526 0 00-.442.511v1.557z"
-                fill="url(#ce-main_svg__a)"
-              />
-              <defs>
-                <lineargradient
-                  gradientUnits="userSpaceOnUse"
-                  id="ce-main_svg__a"
-                  x1="5.821"
-                  x2="19.271"
-                  y1="4.393"
-                  y2="33.469"
-                >
-                  <stop
-                    stop-color="#00CFDE"
-                  />
-                  <stop
-                    offset="1"
-                    stop-color="#05A660"
-                  />
-                </lineargradient>
-              </defs>
-            </svg>
-          </span>
-          <div
-            class="Layout--vertical StyledProps--main"
-          >
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-xsmall"
-            >
-              COMMON.PURPOSE.CE.CLOUDCOST
-            </p>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
-            >
-              common.purpose.ce.management
             </p>
           </div>
         </div>
@@ -1390,6 +1276,120 @@ exports[`Subscriptions Page it renders the subscriptions page 1`] = `
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
             >
               common.purpose.cf.flags
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard"
+      >
+        <div
+          class="Layout--horizontal StyledProps--main"
+          style="width: 150px;"
+        >
+          <span
+            class="bp3-icon StyledProps--main moduleIcons"
+            data-icon="ce-main"
+          >
+            <svg
+              height="28"
+              viewBox="0 0 32 32"
+              width="28"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15.84 26.552a.5.5 0 00.5.5h8.343v-.005a6.579 6.579 0 00.284-13.13.548.548 0 01-.492-.429C23.563 9.21 19.761 6 15.21 6a9.473 9.473 0 00-9.474 9.473c0 .056-.039.103-.093.114a5.791 5.791 0 001.146 11.465h6.661a.5.5 0 00.5-.5v-1.568a.527.527 0 00-.436-.51c-1.04-.2-1.932-.63-2.542-1.244-.546-.55-.872-1.232-.973-2.032-.035-.277.194-.505.474-.504l1.113.005c.268.001.48.215.541.475.256 1.093 1.245 1.813 2.711 1.82.571.003 2.7-.264 2.707-1.736.006-1.177-1.542-1.623-3.006-1.984a38.2 38.2 0 01-.758-.193c-1.656-.44-3.407-.943-3.398-3.062.01-2.058 1.742-3.119 3.567-3.335V10.71a.5.5 0 01.5-.5h.887a.5.5 0 01.5.5v2.028c1.316.212 3.089.878 3.39 2.906.04.28-.19.512-.472.511l-1.12-.005c-.256-.001-.463-.2-.54-.445-.29-.926-1.2-1.488-2.532-1.494-.886-.005-2.17.466-2.176 1.54-.005.973.74 1.305 3.52 2.023l.369.094.148.036c1.06.256 3.232.78 3.221 3.11-.008 1.839-1.265 3.096-3.364 3.47a.526.526 0 00-.442.511v1.557z"
+                fill="url(#ce-main_svg__a)"
+              />
+              <defs>
+                <lineargradient
+                  gradientUnits="userSpaceOnUse"
+                  id="ce-main_svg__a"
+                  x1="5.821"
+                  x2="19.271"
+                  y1="4.393"
+                  y2="33.469"
+                >
+                  <stop
+                    stop-color="#00CFDE"
+                  />
+                  <stop
+                    offset="1"
+                    stop-color="#05A660"
+                  />
+                </lineargradient>
+              </defs>
+            </svg>
+          </span>
+          <div
+            class="Layout--vertical StyledProps--main"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-xsmall"
+            >
+              COMMON.PURPOSE.CE.CLOUDCOST
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
+            >
+              common.purpose.ce.management
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard"
+      >
+        <div
+          class="Layout--horizontal StyledProps--main"
+          style="width: 150px;"
+        >
+          <span
+            class="bp3-icon StyledProps--main moduleIcons"
+            data-icon="cv-main"
+          >
+            <svg
+              height="28"
+              viewBox="0 0 32 32"
+              width="28"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.194 29.156l.417.24c.425.238.904.359 1.389.351a2.75 2.75 0 001.361-.351l.417-.24c6.618-3.78 10.715-10.877 10.722-18.575v-.197a2.822 2.822 0 00-1.389-2.463l-.332-.189L15.94 21.381a.67.67 0 01-.926.119L8.82 16.855a.67.67 0 01-.134-.938l.344-.46a.67.67 0 01.938-.133l4.705 3.528c.29.218.7.165.926-.12l9.498-11.96-7.708-4.395a2.747 2.747 0 00-2.778 0L4.89 7.921A2.822 2.822 0 003.5 10.384v.197c.002 7.692 4.087 14.788 10.694 18.575z"
+                fill="url(#cv-main_svg__a)"
+              />
+              <defs>
+                <lineargradient
+                  gradientUnits="userSpaceOnUse"
+                  id="cv-main_svg__a"
+                  x1="7.827"
+                  x2="23.016"
+                  y1="2"
+                  y2="28.457"
+                >
+                  <stop
+                    stop-color="#BEA1FF"
+                  />
+                  <stop
+                    offset="1"
+                    stop-color="#8A36FF"
+                  />
+                </lineargradient>
+              </defs>
+            </svg>
+          </span>
+          <div
+            class="Layout--vertical StyledProps--main"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-xsmall"
+            >
+              COMMON.PURPOSE.CHANGE
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
+            >
+              common.purpose.cv.intelligence
             </p>
           </div>
         </div>
@@ -1633,63 +1633,6 @@ exports[`Subscriptions Page it renders trial not started information 1`] = `
         >
           <span
             class="bp3-icon StyledProps--main moduleIcons"
-            data-icon="cv-main"
-          >
-            <svg
-              height="28"
-              viewBox="0 0 32 32"
-              width="28"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.194 29.156l.417.24c.425.238.904.359 1.389.351a2.75 2.75 0 001.361-.351l.417-.24c6.618-3.78 10.715-10.877 10.722-18.575v-.197a2.822 2.822 0 00-1.389-2.463l-.332-.189L15.94 21.381a.67.67 0 01-.926.119L8.82 16.855a.67.67 0 01-.134-.938l.344-.46a.67.67 0 01.938-.133l4.705 3.528c.29.218.7.165.926-.12l9.498-11.96-7.708-4.395a2.747 2.747 0 00-2.778 0L4.89 7.921A2.822 2.822 0 003.5 10.384v.197c.002 7.692 4.087 14.788 10.694 18.575z"
-                fill="url(#cv-main_svg__a)"
-              />
-              <defs>
-                <lineargradient
-                  gradientUnits="userSpaceOnUse"
-                  id="cv-main_svg__a"
-                  x1="7.827"
-                  x2="23.016"
-                  y1="2"
-                  y2="28.457"
-                >
-                  <stop
-                    stop-color="#BEA1FF"
-                  />
-                  <stop
-                    offset="1"
-                    stop-color="#8A36FF"
-                  />
-                </lineargradient>
-              </defs>
-            </svg>
-          </span>
-          <div
-            class="Layout--vertical StyledProps--main"
-          >
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-xsmall"
-            >
-              COMMON.PURPOSE.CHANGE
-            </p>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
-            >
-              common.purpose.cv.intelligence
-            </p>
-          </div>
-        </div>
-      </div>
-      <div
-        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard"
-      >
-        <div
-          class="Layout--horizontal StyledProps--main"
-          style="width: 150px;"
-        >
-          <span
-            class="bp3-icon StyledProps--main moduleIcons"
             data-icon="ci-main"
           >
             <svg
@@ -1736,63 +1679,6 @@ exports[`Subscriptions Page it renders trial not started information 1`] = `
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
             >
               common.purpose.ci.integration
-            </p>
-          </div>
-        </div>
-      </div>
-      <div
-        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard"
-      >
-        <div
-          class="Layout--horizontal StyledProps--main"
-          style="width: 150px;"
-        >
-          <span
-            class="bp3-icon StyledProps--main moduleIcons"
-            data-icon="ce-main"
-          >
-            <svg
-              height="28"
-              viewBox="0 0 32 32"
-              width="28"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M15.84 26.552a.5.5 0 00.5.5h8.343v-.005a6.579 6.579 0 00.284-13.13.548.548 0 01-.492-.429C23.563 9.21 19.761 6 15.21 6a9.473 9.473 0 00-9.474 9.473c0 .056-.039.103-.093.114a5.791 5.791 0 001.146 11.465h6.661a.5.5 0 00.5-.5v-1.568a.527.527 0 00-.436-.51c-1.04-.2-1.932-.63-2.542-1.244-.546-.55-.872-1.232-.973-2.032-.035-.277.194-.505.474-.504l1.113.005c.268.001.48.215.541.475.256 1.093 1.245 1.813 2.711 1.82.571.003 2.7-.264 2.707-1.736.006-1.177-1.542-1.623-3.006-1.984a38.2 38.2 0 01-.758-.193c-1.656-.44-3.407-.943-3.398-3.062.01-2.058 1.742-3.119 3.567-3.335V10.71a.5.5 0 01.5-.5h.887a.5.5 0 01.5.5v2.028c1.316.212 3.089.878 3.39 2.906.04.28-.19.512-.472.511l-1.12-.005c-.256-.001-.463-.2-.54-.445-.29-.926-1.2-1.488-2.532-1.494-.886-.005-2.17.466-2.176 1.54-.005.973.74 1.305 3.52 2.023l.369.094.148.036c1.06.256 3.232.78 3.221 3.11-.008 1.839-1.265 3.096-3.364 3.47a.526.526 0 00-.442.511v1.557z"
-                fill="url(#ce-main_svg__a)"
-              />
-              <defs>
-                <lineargradient
-                  gradientUnits="userSpaceOnUse"
-                  id="ce-main_svg__a"
-                  x1="5.821"
-                  x2="19.271"
-                  y1="4.393"
-                  y2="33.469"
-                >
-                  <stop
-                    stop-color="#00CFDE"
-                  />
-                  <stop
-                    offset="1"
-                    stop-color="#05A660"
-                  />
-                </lineargradient>
-              </defs>
-            </svg>
-          </span>
-          <div
-            class="Layout--vertical StyledProps--main"
-          >
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-xsmall"
-            >
-              COMMON.PURPOSE.CE.CLOUDCOST
-            </p>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
-            >
-              common.purpose.ce.management
             </p>
           </div>
         </div>
@@ -1870,6 +1756,120 @@ exports[`Subscriptions Page it renders trial not started information 1`] = `
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
             >
               common.purpose.cf.flags
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard"
+      >
+        <div
+          class="Layout--horizontal StyledProps--main"
+          style="width: 150px;"
+        >
+          <span
+            class="bp3-icon StyledProps--main moduleIcons"
+            data-icon="ce-main"
+          >
+            <svg
+              height="28"
+              viewBox="0 0 32 32"
+              width="28"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15.84 26.552a.5.5 0 00.5.5h8.343v-.005a6.579 6.579 0 00.284-13.13.548.548 0 01-.492-.429C23.563 9.21 19.761 6 15.21 6a9.473 9.473 0 00-9.474 9.473c0 .056-.039.103-.093.114a5.791 5.791 0 001.146 11.465h6.661a.5.5 0 00.5-.5v-1.568a.527.527 0 00-.436-.51c-1.04-.2-1.932-.63-2.542-1.244-.546-.55-.872-1.232-.973-2.032-.035-.277.194-.505.474-.504l1.113.005c.268.001.48.215.541.475.256 1.093 1.245 1.813 2.711 1.82.571.003 2.7-.264 2.707-1.736.006-1.177-1.542-1.623-3.006-1.984a38.2 38.2 0 01-.758-.193c-1.656-.44-3.407-.943-3.398-3.062.01-2.058 1.742-3.119 3.567-3.335V10.71a.5.5 0 01.5-.5h.887a.5.5 0 01.5.5v2.028c1.316.212 3.089.878 3.39 2.906.04.28-.19.512-.472.511l-1.12-.005c-.256-.001-.463-.2-.54-.445-.29-.926-1.2-1.488-2.532-1.494-.886-.005-2.17.466-2.176 1.54-.005.973.74 1.305 3.52 2.023l.369.094.148.036c1.06.256 3.232.78 3.221 3.11-.008 1.839-1.265 3.096-3.364 3.47a.526.526 0 00-.442.511v1.557z"
+                fill="url(#ce-main_svg__a)"
+              />
+              <defs>
+                <lineargradient
+                  gradientUnits="userSpaceOnUse"
+                  id="ce-main_svg__a"
+                  x1="5.821"
+                  x2="19.271"
+                  y1="4.393"
+                  y2="33.469"
+                >
+                  <stop
+                    stop-color="#00CFDE"
+                  />
+                  <stop
+                    offset="1"
+                    stop-color="#05A660"
+                  />
+                </lineargradient>
+              </defs>
+            </svg>
+          </span>
+          <div
+            class="Layout--vertical StyledProps--main"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-xsmall"
+            >
+              COMMON.PURPOSE.CE.CLOUDCOST
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
+            >
+              common.purpose.ce.management
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard"
+      >
+        <div
+          class="Layout--horizontal StyledProps--main"
+          style="width: 150px;"
+        >
+          <span
+            class="bp3-icon StyledProps--main moduleIcons"
+            data-icon="cv-main"
+          >
+            <svg
+              height="28"
+              viewBox="0 0 32 32"
+              width="28"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.194 29.156l.417.24c.425.238.904.359 1.389.351a2.75 2.75 0 001.361-.351l.417-.24c6.618-3.78 10.715-10.877 10.722-18.575v-.197a2.822 2.822 0 00-1.389-2.463l-.332-.189L15.94 21.381a.67.67 0 01-.926.119L8.82 16.855a.67.67 0 01-.134-.938l.344-.46a.67.67 0 01.938-.133l4.705 3.528c.29.218.7.165.926-.12l9.498-11.96-7.708-4.395a2.747 2.747 0 00-2.778 0L4.89 7.921A2.822 2.822 0 003.5 10.384v.197c.002 7.692 4.087 14.788 10.694 18.575z"
+                fill="url(#cv-main_svg__a)"
+              />
+              <defs>
+                <lineargradient
+                  gradientUnits="userSpaceOnUse"
+                  id="cv-main_svg__a"
+                  x1="7.827"
+                  x2="23.016"
+                  y1="2"
+                  y2="28.457"
+                >
+                  <stop
+                    stop-color="#BEA1FF"
+                  />
+                  <stop
+                    offset="1"
+                    stop-color="#8A36FF"
+                  />
+                </lineargradient>
+              </defs>
+            </svg>
+          </span>
+          <div
+            class="Layout--vertical StyledProps--main"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-xsmall"
+            >
+              COMMON.PURPOSE.CHANGE
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
+            >
+              common.purpose.cv.intelligence
             </p>
           </div>
         </div>
@@ -2071,63 +2071,6 @@ exports[`Subscriptions Page it should update the license store 1`] = `
         >
           <span
             class="bp3-icon StyledProps--main moduleIcons"
-            data-icon="cv-main"
-          >
-            <svg
-              height="28"
-              viewBox="0 0 32 32"
-              width="28"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.194 29.156l.417.24c.425.238.904.359 1.389.351a2.75 2.75 0 001.361-.351l.417-.24c6.618-3.78 10.715-10.877 10.722-18.575v-.197a2.822 2.822 0 00-1.389-2.463l-.332-.189L15.94 21.381a.67.67 0 01-.926.119L8.82 16.855a.67.67 0 01-.134-.938l.344-.46a.67.67 0 01.938-.133l4.705 3.528c.29.218.7.165.926-.12l9.498-11.96-7.708-4.395a2.747 2.747 0 00-2.778 0L4.89 7.921A2.822 2.822 0 003.5 10.384v.197c.002 7.692 4.087 14.788 10.694 18.575z"
-                fill="url(#cv-main_svg__a)"
-              />
-              <defs>
-                <lineargradient
-                  gradientUnits="userSpaceOnUse"
-                  id="cv-main_svg__a"
-                  x1="7.827"
-                  x2="23.016"
-                  y1="2"
-                  y2="28.457"
-                >
-                  <stop
-                    stop-color="#BEA1FF"
-                  />
-                  <stop
-                    offset="1"
-                    stop-color="#8A36FF"
-                  />
-                </lineargradient>
-              </defs>
-            </svg>
-          </span>
-          <div
-            class="Layout--vertical StyledProps--main"
-          >
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-xsmall"
-            >
-              COMMON.PURPOSE.CHANGE
-            </p>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
-            >
-              common.purpose.cv.intelligence
-            </p>
-          </div>
-        </div>
-      </div>
-      <div
-        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard"
-      >
-        <div
-          class="Layout--horizontal StyledProps--main"
-          style="width: 150px;"
-        >
-          <span
-            class="bp3-icon StyledProps--main moduleIcons"
             data-icon="ci-main"
           >
             <svg
@@ -2174,63 +2117,6 @@ exports[`Subscriptions Page it should update the license store 1`] = `
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
             >
               common.purpose.ci.integration
-            </p>
-          </div>
-        </div>
-      </div>
-      <div
-        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard"
-      >
-        <div
-          class="Layout--horizontal StyledProps--main"
-          style="width: 150px;"
-        >
-          <span
-            class="bp3-icon StyledProps--main moduleIcons"
-            data-icon="ce-main"
-          >
-            <svg
-              height="28"
-              viewBox="0 0 32 32"
-              width="28"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M15.84 26.552a.5.5 0 00.5.5h8.343v-.005a6.579 6.579 0 00.284-13.13.548.548 0 01-.492-.429C23.563 9.21 19.761 6 15.21 6a9.473 9.473 0 00-9.474 9.473c0 .056-.039.103-.093.114a5.791 5.791 0 001.146 11.465h6.661a.5.5 0 00.5-.5v-1.568a.527.527 0 00-.436-.51c-1.04-.2-1.932-.63-2.542-1.244-.546-.55-.872-1.232-.973-2.032-.035-.277.194-.505.474-.504l1.113.005c.268.001.48.215.541.475.256 1.093 1.245 1.813 2.711 1.82.571.003 2.7-.264 2.707-1.736.006-1.177-1.542-1.623-3.006-1.984a38.2 38.2 0 01-.758-.193c-1.656-.44-3.407-.943-3.398-3.062.01-2.058 1.742-3.119 3.567-3.335V10.71a.5.5 0 01.5-.5h.887a.5.5 0 01.5.5v2.028c1.316.212 3.089.878 3.39 2.906.04.28-.19.512-.472.511l-1.12-.005c-.256-.001-.463-.2-.54-.445-.29-.926-1.2-1.488-2.532-1.494-.886-.005-2.17.466-2.176 1.54-.005.973.74 1.305 3.52 2.023l.369.094.148.036c1.06.256 3.232.78 3.221 3.11-.008 1.839-1.265 3.096-3.364 3.47a.526.526 0 00-.442.511v1.557z"
-                fill="url(#ce-main_svg__a)"
-              />
-              <defs>
-                <lineargradient
-                  gradientUnits="userSpaceOnUse"
-                  id="ce-main_svg__a"
-                  x1="5.821"
-                  x2="19.271"
-                  y1="4.393"
-                  y2="33.469"
-                >
-                  <stop
-                    stop-color="#00CFDE"
-                  />
-                  <stop
-                    offset="1"
-                    stop-color="#05A660"
-                  />
-                </lineargradient>
-              </defs>
-            </svg>
-          </span>
-          <div
-            class="Layout--vertical StyledProps--main"
-          >
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-xsmall"
-            >
-              COMMON.PURPOSE.CE.CLOUDCOST
-            </p>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
-            >
-              common.purpose.ce.management
             </p>
           </div>
         </div>
@@ -2308,6 +2194,120 @@ exports[`Subscriptions Page it should update the license store 1`] = `
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
             >
               common.purpose.cf.flags
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard"
+      >
+        <div
+          class="Layout--horizontal StyledProps--main"
+          style="width: 150px;"
+        >
+          <span
+            class="bp3-icon StyledProps--main moduleIcons"
+            data-icon="ce-main"
+          >
+            <svg
+              height="28"
+              viewBox="0 0 32 32"
+              width="28"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15.84 26.552a.5.5 0 00.5.5h8.343v-.005a6.579 6.579 0 00.284-13.13.548.548 0 01-.492-.429C23.563 9.21 19.761 6 15.21 6a9.473 9.473 0 00-9.474 9.473c0 .056-.039.103-.093.114a5.791 5.791 0 001.146 11.465h6.661a.5.5 0 00.5-.5v-1.568a.527.527 0 00-.436-.51c-1.04-.2-1.932-.63-2.542-1.244-.546-.55-.872-1.232-.973-2.032-.035-.277.194-.505.474-.504l1.113.005c.268.001.48.215.541.475.256 1.093 1.245 1.813 2.711 1.82.571.003 2.7-.264 2.707-1.736.006-1.177-1.542-1.623-3.006-1.984a38.2 38.2 0 01-.758-.193c-1.656-.44-3.407-.943-3.398-3.062.01-2.058 1.742-3.119 3.567-3.335V10.71a.5.5 0 01.5-.5h.887a.5.5 0 01.5.5v2.028c1.316.212 3.089.878 3.39 2.906.04.28-.19.512-.472.511l-1.12-.005c-.256-.001-.463-.2-.54-.445-.29-.926-1.2-1.488-2.532-1.494-.886-.005-2.17.466-2.176 1.54-.005.973.74 1.305 3.52 2.023l.369.094.148.036c1.06.256 3.232.78 3.221 3.11-.008 1.839-1.265 3.096-3.364 3.47a.526.526 0 00-.442.511v1.557z"
+                fill="url(#ce-main_svg__a)"
+              />
+              <defs>
+                <lineargradient
+                  gradientUnits="userSpaceOnUse"
+                  id="ce-main_svg__a"
+                  x1="5.821"
+                  x2="19.271"
+                  y1="4.393"
+                  y2="33.469"
+                >
+                  <stop
+                    stop-color="#00CFDE"
+                  />
+                  <stop
+                    offset="1"
+                    stop-color="#05A660"
+                  />
+                </lineargradient>
+              </defs>
+            </svg>
+          </span>
+          <div
+            class="Layout--vertical StyledProps--main"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-xsmall"
+            >
+              COMMON.PURPOSE.CE.CLOUDCOST
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
+            >
+              common.purpose.ce.management
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard"
+      >
+        <div
+          class="Layout--horizontal StyledProps--main"
+          style="width: 150px;"
+        >
+          <span
+            class="bp3-icon StyledProps--main moduleIcons"
+            data-icon="cv-main"
+          >
+            <svg
+              height="28"
+              viewBox="0 0 32 32"
+              width="28"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.194 29.156l.417.24c.425.238.904.359 1.389.351a2.75 2.75 0 001.361-.351l.417-.24c6.618-3.78 10.715-10.877 10.722-18.575v-.197a2.822 2.822 0 00-1.389-2.463l-.332-.189L15.94 21.381a.67.67 0 01-.926.119L8.82 16.855a.67.67 0 01-.134-.938l.344-.46a.67.67 0 01.938-.133l4.705 3.528c.29.218.7.165.926-.12l9.498-11.96-7.708-4.395a2.747 2.747 0 00-2.778 0L4.89 7.921A2.822 2.822 0 003.5 10.384v.197c.002 7.692 4.087 14.788 10.694 18.575z"
+                fill="url(#cv-main_svg__a)"
+              />
+              <defs>
+                <lineargradient
+                  gradientUnits="userSpaceOnUse"
+                  id="cv-main_svg__a"
+                  x1="7.827"
+                  x2="23.016"
+                  y1="2"
+                  y2="28.457"
+                >
+                  <stop
+                    stop-color="#BEA1FF"
+                  />
+                  <stop
+                    offset="1"
+                    stop-color="#8A36FF"
+                  />
+                </lineargradient>
+              </defs>
+            </svg>
+          </span>
+          <div
+            class="Layout--vertical StyledProps--main"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-xsmall"
+            >
+              COMMON.PURPOSE.CHANGE
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
+            >
+              common.purpose.cv.intelligence
             </p>
           </div>
         </div>
@@ -2551,63 +2551,6 @@ exports[`Subscriptions Page it shows the header and a loading spinner while the 
         >
           <span
             class="bp3-icon StyledProps--main moduleIcons"
-            data-icon="cv-main"
-          >
-            <svg
-              height="28"
-              viewBox="0 0 32 32"
-              width="28"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.194 29.156l.417.24c.425.238.904.359 1.389.351a2.75 2.75 0 001.361-.351l.417-.24c6.618-3.78 10.715-10.877 10.722-18.575v-.197a2.822 2.822 0 00-1.389-2.463l-.332-.189L15.94 21.381a.67.67 0 01-.926.119L8.82 16.855a.67.67 0 01-.134-.938l.344-.46a.67.67 0 01.938-.133l4.705 3.528c.29.218.7.165.926-.12l9.498-11.96-7.708-4.395a2.747 2.747 0 00-2.778 0L4.89 7.921A2.822 2.822 0 003.5 10.384v.197c.002 7.692 4.087 14.788 10.694 18.575z"
-                fill="url(#cv-main_svg__a)"
-              />
-              <defs>
-                <lineargradient
-                  gradientUnits="userSpaceOnUse"
-                  id="cv-main_svg__a"
-                  x1="7.827"
-                  x2="23.016"
-                  y1="2"
-                  y2="28.457"
-                >
-                  <stop
-                    stop-color="#BEA1FF"
-                  />
-                  <stop
-                    offset="1"
-                    stop-color="#8A36FF"
-                  />
-                </lineargradient>
-              </defs>
-            </svg>
-          </span>
-          <div
-            class="Layout--vertical StyledProps--main"
-          >
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-xsmall"
-            >
-              COMMON.PURPOSE.CHANGE
-            </p>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
-            >
-              common.purpose.cv.intelligence
-            </p>
-          </div>
-        </div>
-      </div>
-      <div
-        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard"
-      >
-        <div
-          class="Layout--horizontal StyledProps--main"
-          style="width: 150px;"
-        >
-          <span
-            class="bp3-icon StyledProps--main moduleIcons"
             data-icon="ci-main"
           >
             <svg
@@ -2654,63 +2597,6 @@ exports[`Subscriptions Page it shows the header and a loading spinner while the 
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
             >
               common.purpose.ci.integration
-            </p>
-          </div>
-        </div>
-      </div>
-      <div
-        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard"
-      >
-        <div
-          class="Layout--horizontal StyledProps--main"
-          style="width: 150px;"
-        >
-          <span
-            class="bp3-icon StyledProps--main moduleIcons"
-            data-icon="ce-main"
-          >
-            <svg
-              height="28"
-              viewBox="0 0 32 32"
-              width="28"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M15.84 26.552a.5.5 0 00.5.5h8.343v-.005a6.579 6.579 0 00.284-13.13.548.548 0 01-.492-.429C23.563 9.21 19.761 6 15.21 6a9.473 9.473 0 00-9.474 9.473c0 .056-.039.103-.093.114a5.791 5.791 0 001.146 11.465h6.661a.5.5 0 00.5-.5v-1.568a.527.527 0 00-.436-.51c-1.04-.2-1.932-.63-2.542-1.244-.546-.55-.872-1.232-.973-2.032-.035-.277.194-.505.474-.504l1.113.005c.268.001.48.215.541.475.256 1.093 1.245 1.813 2.711 1.82.571.003 2.7-.264 2.707-1.736.006-1.177-1.542-1.623-3.006-1.984a38.2 38.2 0 01-.758-.193c-1.656-.44-3.407-.943-3.398-3.062.01-2.058 1.742-3.119 3.567-3.335V10.71a.5.5 0 01.5-.5h.887a.5.5 0 01.5.5v2.028c1.316.212 3.089.878 3.39 2.906.04.28-.19.512-.472.511l-1.12-.005c-.256-.001-.463-.2-.54-.445-.29-.926-1.2-1.488-2.532-1.494-.886-.005-2.17.466-2.176 1.54-.005.973.74 1.305 3.52 2.023l.369.094.148.036c1.06.256 3.232.78 3.221 3.11-.008 1.839-1.265 3.096-3.364 3.47a.526.526 0 00-.442.511v1.557z"
-                fill="url(#ce-main_svg__a)"
-              />
-              <defs>
-                <lineargradient
-                  gradientUnits="userSpaceOnUse"
-                  id="ce-main_svg__a"
-                  x1="5.821"
-                  x2="19.271"
-                  y1="4.393"
-                  y2="33.469"
-                >
-                  <stop
-                    stop-color="#00CFDE"
-                  />
-                  <stop
-                    offset="1"
-                    stop-color="#05A660"
-                  />
-                </lineargradient>
-              </defs>
-            </svg>
-          </span>
-          <div
-            class="Layout--vertical StyledProps--main"
-          >
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-xsmall"
-            >
-              COMMON.PURPOSE.CE.CLOUDCOST
-            </p>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
-            >
-              common.purpose.ce.management
             </p>
           </div>
         </div>
@@ -2788,6 +2674,120 @@ exports[`Subscriptions Page it shows the header and a loading spinner while the 
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
             >
               common.purpose.cf.flags
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard"
+      >
+        <div
+          class="Layout--horizontal StyledProps--main"
+          style="width: 150px;"
+        >
+          <span
+            class="bp3-icon StyledProps--main moduleIcons"
+            data-icon="ce-main"
+          >
+            <svg
+              height="28"
+              viewBox="0 0 32 32"
+              width="28"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15.84 26.552a.5.5 0 00.5.5h8.343v-.005a6.579 6.579 0 00.284-13.13.548.548 0 01-.492-.429C23.563 9.21 19.761 6 15.21 6a9.473 9.473 0 00-9.474 9.473c0 .056-.039.103-.093.114a5.791 5.791 0 001.146 11.465h6.661a.5.5 0 00.5-.5v-1.568a.527.527 0 00-.436-.51c-1.04-.2-1.932-.63-2.542-1.244-.546-.55-.872-1.232-.973-2.032-.035-.277.194-.505.474-.504l1.113.005c.268.001.48.215.541.475.256 1.093 1.245 1.813 2.711 1.82.571.003 2.7-.264 2.707-1.736.006-1.177-1.542-1.623-3.006-1.984a38.2 38.2 0 01-.758-.193c-1.656-.44-3.407-.943-3.398-3.062.01-2.058 1.742-3.119 3.567-3.335V10.71a.5.5 0 01.5-.5h.887a.5.5 0 01.5.5v2.028c1.316.212 3.089.878 3.39 2.906.04.28-.19.512-.472.511l-1.12-.005c-.256-.001-.463-.2-.54-.445-.29-.926-1.2-1.488-2.532-1.494-.886-.005-2.17.466-2.176 1.54-.005.973.74 1.305 3.52 2.023l.369.094.148.036c1.06.256 3.232.78 3.221 3.11-.008 1.839-1.265 3.096-3.364 3.47a.526.526 0 00-.442.511v1.557z"
+                fill="url(#ce-main_svg__a)"
+              />
+              <defs>
+                <lineargradient
+                  gradientUnits="userSpaceOnUse"
+                  id="ce-main_svg__a"
+                  x1="5.821"
+                  x2="19.271"
+                  y1="4.393"
+                  y2="33.469"
+                >
+                  <stop
+                    stop-color="#00CFDE"
+                  />
+                  <stop
+                    offset="1"
+                    stop-color="#05A660"
+                  />
+                </lineargradient>
+              </defs>
+            </svg>
+          </span>
+          <div
+            class="Layout--vertical StyledProps--main"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-xsmall"
+            >
+              COMMON.PURPOSE.CE.CLOUDCOST
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
+            >
+              common.purpose.ce.management
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard"
+      >
+        <div
+          class="Layout--horizontal StyledProps--main"
+          style="width: 150px;"
+        >
+          <span
+            class="bp3-icon StyledProps--main moduleIcons"
+            data-icon="cv-main"
+          >
+            <svg
+              height="28"
+              viewBox="0 0 32 32"
+              width="28"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.194 29.156l.417.24c.425.238.904.359 1.389.351a2.75 2.75 0 001.361-.351l.417-.24c6.618-3.78 10.715-10.877 10.722-18.575v-.197a2.822 2.822 0 00-1.389-2.463l-.332-.189L15.94 21.381a.67.67 0 01-.926.119L8.82 16.855a.67.67 0 01-.134-.938l.344-.46a.67.67 0 01.938-.133l4.705 3.528c.29.218.7.165.926-.12l9.498-11.96-7.708-4.395a2.747 2.747 0 00-2.778 0L4.89 7.921A2.822 2.822 0 003.5 10.384v.197c.002 7.692 4.087 14.788 10.694 18.575z"
+                fill="url(#cv-main_svg__a)"
+              />
+              <defs>
+                <lineargradient
+                  gradientUnits="userSpaceOnUse"
+                  id="cv-main_svg__a"
+                  x1="7.827"
+                  x2="23.016"
+                  y1="2"
+                  y2="28.457"
+                >
+                  <stop
+                    stop-color="#BEA1FF"
+                  />
+                  <stop
+                    offset="1"
+                    stop-color="#8A36FF"
+                  />
+                </lineargradient>
+              </defs>
+            </svg>
+          </span>
+          <div
+            class="Layout--vertical StyledProps--main"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-xsmall"
+            >
+              COMMON.PURPOSE.CHANGE
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
+            >
+              common.purpose.cv.intelligence
             </p>
           </div>
         </div>
@@ -2975,63 +2975,6 @@ exports[`Subscriptions Page it shows the header and a loading spinner while the 
         >
           <span
             class="bp3-icon StyledProps--main moduleIcons"
-            data-icon="cv-main"
-          >
-            <svg
-              height="28"
-              viewBox="0 0 32 32"
-              width="28"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.194 29.156l.417.24c.425.238.904.359 1.389.351a2.75 2.75 0 001.361-.351l.417-.24c6.618-3.78 10.715-10.877 10.722-18.575v-.197a2.822 2.822 0 00-1.389-2.463l-.332-.189L15.94 21.381a.67.67 0 01-.926.119L8.82 16.855a.67.67 0 01-.134-.938l.344-.46a.67.67 0 01.938-.133l4.705 3.528c.29.218.7.165.926-.12l9.498-11.96-7.708-4.395a2.747 2.747 0 00-2.778 0L4.89 7.921A2.822 2.822 0 003.5 10.384v.197c.002 7.692 4.087 14.788 10.694 18.575z"
-                fill="url(#cv-main_svg__a)"
-              />
-              <defs>
-                <lineargradient
-                  gradientUnits="userSpaceOnUse"
-                  id="cv-main_svg__a"
-                  x1="7.827"
-                  x2="23.016"
-                  y1="2"
-                  y2="28.457"
-                >
-                  <stop
-                    stop-color="#BEA1FF"
-                  />
-                  <stop
-                    offset="1"
-                    stop-color="#8A36FF"
-                  />
-                </lineargradient>
-              </defs>
-            </svg>
-          </span>
-          <div
-            class="Layout--vertical StyledProps--main"
-          >
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-xsmall"
-            >
-              COMMON.PURPOSE.CHANGE
-            </p>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
-            >
-              common.purpose.cv.intelligence
-            </p>
-          </div>
-        </div>
-      </div>
-      <div
-        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard"
-      >
-        <div
-          class="Layout--horizontal StyledProps--main"
-          style="width: 150px;"
-        >
-          <span
-            class="bp3-icon StyledProps--main moduleIcons"
             data-icon="ci-main"
           >
             <svg
@@ -3078,63 +3021,6 @@ exports[`Subscriptions Page it shows the header and a loading spinner while the 
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
             >
               common.purpose.ci.integration
-            </p>
-          </div>
-        </div>
-      </div>
-      <div
-        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard"
-      >
-        <div
-          class="Layout--horizontal StyledProps--main"
-          style="width: 150px;"
-        >
-          <span
-            class="bp3-icon StyledProps--main moduleIcons"
-            data-icon="ce-main"
-          >
-            <svg
-              height="28"
-              viewBox="0 0 32 32"
-              width="28"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M15.84 26.552a.5.5 0 00.5.5h8.343v-.005a6.579 6.579 0 00.284-13.13.548.548 0 01-.492-.429C23.563 9.21 19.761 6 15.21 6a9.473 9.473 0 00-9.474 9.473c0 .056-.039.103-.093.114a5.791 5.791 0 001.146 11.465h6.661a.5.5 0 00.5-.5v-1.568a.527.527 0 00-.436-.51c-1.04-.2-1.932-.63-2.542-1.244-.546-.55-.872-1.232-.973-2.032-.035-.277.194-.505.474-.504l1.113.005c.268.001.48.215.541.475.256 1.093 1.245 1.813 2.711 1.82.571.003 2.7-.264 2.707-1.736.006-1.177-1.542-1.623-3.006-1.984a38.2 38.2 0 01-.758-.193c-1.656-.44-3.407-.943-3.398-3.062.01-2.058 1.742-3.119 3.567-3.335V10.71a.5.5 0 01.5-.5h.887a.5.5 0 01.5.5v2.028c1.316.212 3.089.878 3.39 2.906.04.28-.19.512-.472.511l-1.12-.005c-.256-.001-.463-.2-.54-.445-.29-.926-1.2-1.488-2.532-1.494-.886-.005-2.17.466-2.176 1.54-.005.973.74 1.305 3.52 2.023l.369.094.148.036c1.06.256 3.232.78 3.221 3.11-.008 1.839-1.265 3.096-3.364 3.47a.526.526 0 00-.442.511v1.557z"
-                fill="url(#ce-main_svg__a)"
-              />
-              <defs>
-                <lineargradient
-                  gradientUnits="userSpaceOnUse"
-                  id="ce-main_svg__a"
-                  x1="5.821"
-                  x2="19.271"
-                  y1="4.393"
-                  y2="33.469"
-                >
-                  <stop
-                    stop-color="#00CFDE"
-                  />
-                  <stop
-                    offset="1"
-                    stop-color="#05A660"
-                  />
-                </lineargradient>
-              </defs>
-            </svg>
-          </span>
-          <div
-            class="Layout--vertical StyledProps--main"
-          >
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-xsmall"
-            >
-              COMMON.PURPOSE.CE.CLOUDCOST
-            </p>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
-            >
-              common.purpose.ce.management
             </p>
           </div>
         </div>
@@ -3212,6 +3098,120 @@ exports[`Subscriptions Page it shows the header and a loading spinner while the 
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
             >
               common.purpose.cf.flags
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard"
+      >
+        <div
+          class="Layout--horizontal StyledProps--main"
+          style="width: 150px;"
+        >
+          <span
+            class="bp3-icon StyledProps--main moduleIcons"
+            data-icon="ce-main"
+          >
+            <svg
+              height="28"
+              viewBox="0 0 32 32"
+              width="28"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15.84 26.552a.5.5 0 00.5.5h8.343v-.005a6.579 6.579 0 00.284-13.13.548.548 0 01-.492-.429C23.563 9.21 19.761 6 15.21 6a9.473 9.473 0 00-9.474 9.473c0 .056-.039.103-.093.114a5.791 5.791 0 001.146 11.465h6.661a.5.5 0 00.5-.5v-1.568a.527.527 0 00-.436-.51c-1.04-.2-1.932-.63-2.542-1.244-.546-.55-.872-1.232-.973-2.032-.035-.277.194-.505.474-.504l1.113.005c.268.001.48.215.541.475.256 1.093 1.245 1.813 2.711 1.82.571.003 2.7-.264 2.707-1.736.006-1.177-1.542-1.623-3.006-1.984a38.2 38.2 0 01-.758-.193c-1.656-.44-3.407-.943-3.398-3.062.01-2.058 1.742-3.119 3.567-3.335V10.71a.5.5 0 01.5-.5h.887a.5.5 0 01.5.5v2.028c1.316.212 3.089.878 3.39 2.906.04.28-.19.512-.472.511l-1.12-.005c-.256-.001-.463-.2-.54-.445-.29-.926-1.2-1.488-2.532-1.494-.886-.005-2.17.466-2.176 1.54-.005.973.74 1.305 3.52 2.023l.369.094.148.036c1.06.256 3.232.78 3.221 3.11-.008 1.839-1.265 3.096-3.364 3.47a.526.526 0 00-.442.511v1.557z"
+                fill="url(#ce-main_svg__a)"
+              />
+              <defs>
+                <lineargradient
+                  gradientUnits="userSpaceOnUse"
+                  id="ce-main_svg__a"
+                  x1="5.821"
+                  x2="19.271"
+                  y1="4.393"
+                  y2="33.469"
+                >
+                  <stop
+                    stop-color="#00CFDE"
+                  />
+                  <stop
+                    offset="1"
+                    stop-color="#05A660"
+                  />
+                </lineargradient>
+              </defs>
+            </svg>
+          </span>
+          <div
+            class="Layout--vertical StyledProps--main"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-xsmall"
+            >
+              COMMON.PURPOSE.CE.CLOUDCOST
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
+            >
+              common.purpose.ce.management
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="bp3-card bp3-elevation-0 Card--card moduleSelectCard"
+      >
+        <div
+          class="Layout--horizontal StyledProps--main"
+          style="width: 150px;"
+        >
+          <span
+            class="bp3-icon StyledProps--main moduleIcons"
+            data-icon="cv-main"
+          >
+            <svg
+              height="28"
+              viewBox="0 0 32 32"
+              width="28"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.194 29.156l.417.24c.425.238.904.359 1.389.351a2.75 2.75 0 001.361-.351l.417-.24c6.618-3.78 10.715-10.877 10.722-18.575v-.197a2.822 2.822 0 00-1.389-2.463l-.332-.189L15.94 21.381a.67.67 0 01-.926.119L8.82 16.855a.67.67 0 01-.134-.938l.344-.46a.67.67 0 01.938-.133l4.705 3.528c.29.218.7.165.926-.12l9.498-11.96-7.708-4.395a2.747 2.747 0 00-2.778 0L4.89 7.921A2.822 2.822 0 003.5 10.384v.197c.002 7.692 4.087 14.788 10.694 18.575z"
+                fill="url(#cv-main_svg__a)"
+              />
+              <defs>
+                <lineargradient
+                  gradientUnits="userSpaceOnUse"
+                  id="cv-main_svg__a"
+                  x1="7.827"
+                  x2="23.016"
+                  y1="2"
+                  y2="28.457"
+                >
+                  <stop
+                    stop-color="#BEA1FF"
+                  />
+                  <stop
+                    offset="1"
+                    stop-color="#8A36FF"
+                  />
+                </lineargradient>
+              </defs>
+            </svg>
+          </span>
+          <div
+            class="Layout--vertical StyledProps--main"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-xsmall"
+            >
+              COMMON.PURPOSE.CHANGE
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
+            >
+              common.purpose.cv.intelligence
             </p>
           </div>
         </div>
