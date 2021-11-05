@@ -192,7 +192,12 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = (props): JSX.El
               padding={{ left: 'xxlarge', right: 'xxlarge' }}
             >
               {loading && <PageSpinner />}
-              {!loading && error && <PageError message={error?.message} onClick={reloadTemplates} />}
+              {!loading && error && (
+                <PageError
+                  message={defaultTo((error.data as Error)?.message, error.message)}
+                  onClick={reloadTemplates}
+                />
+              )}
               {!templateData?.data?.content?.length && (
                 <NoResultsView
                   hasSearchParam={!!searchParam}

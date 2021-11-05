@@ -12,11 +12,11 @@ import css from './DefaultNode.module.scss'
 
 export interface DefaultNodeProps {
   node: DefaultNodeModel
-  engine: DiagramEngine
+  engine?: DiagramEngine
 }
 
 const generatePort = (port: DefaultPortModel, props: DefaultNodeProps): JSX.Element => {
-  return <DefaultPortLabel engine={props.engine} port={port} key={port.getID()} />
+  return props.engine ? <DefaultPortLabel engine={props.engine} port={port} key={port.getID()} /> : <></>
 }
 
 const onAddNodeClick = (
@@ -278,17 +278,19 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
           />
         )}
       </div>
-      <Text
-        font={{ size: 'normal', align: 'center' }}
-        color={options.defaultSelected ? Color.GREY_900 : Color.GREY_600}
-        style={{ cursor: 'pointer', lineHeight: '1.5', overflowWrap: 'break-word', height: 55 }}
-        padding={'small'}
-        width={125}
-        lineClamp={2}
-        tooltipProps={{ position: Position.RIGHT, portalClassName: css.hoverName }}
-      >
-        {options.name}
-      </Text>
+      {options.name && (
+        <Text
+          font={{ size: 'normal', align: 'center' }}
+          color={options.defaultSelected ? Color.GREY_900 : Color.GREY_600}
+          style={{ cursor: 'pointer', lineHeight: '1.5', overflowWrap: 'break-word', height: 55 }}
+          padding={'small'}
+          width={125}
+          lineClamp={2}
+          tooltipProps={{ position: Position.RIGHT, portalClassName: css.hoverName }}
+        >
+          {options.name}
+        </Text>
+      )}
       {allowAdd && (
         <div
           onClick={e => {

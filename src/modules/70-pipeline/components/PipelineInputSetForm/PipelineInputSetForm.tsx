@@ -48,31 +48,37 @@ const stageTypeToIconMap: Record<string, IconName> = {
   Approval: 'approval-stage-icon'
 }
 
-function StageForm({
+export function StageForm({
   allValues,
   path,
   template,
   readonly,
-  viewType
+  viewType,
+  hideTitle = false,
+  stageClassName = ''
 }: {
   allValues?: StageElementWrapperConfig
   template?: StageElementWrapperConfig
   path: string
   readonly?: boolean
   viewType: StepViewType
+  hideTitle?: boolean
+  stageClassName?: string
 }): JSX.Element {
   const { getString } = useStrings()
   const icon = stageTypeToIconMap[allValues?.stage?.type || 'Deployment']
   return (
     <div id={`Stage.${allValues?.stage?.identifier}`}>
-      <Layout.Horizontal spacing="small" padding={{ top: 'medium', left: 'large', right: 0, bottom: 0 }}>
-        <Icon name={icon} size={18} />
-        <Text color={Color.BLACK_100} font={{ weight: 'semi-bold' }}>
-          Stage: {allValues?.stage?.name || ''}
-        </Text>
-      </Layout.Horizontal>
+      {!hideTitle && (
+        <Layout.Horizontal spacing="small" padding={{ top: 'medium', left: 'large', right: 0, bottom: 0 }}>
+          <Icon name={icon} size={18} />
+          <Text color={Color.BLACK_100} font={{ weight: 'semi-bold' }}>
+            Stage: {allValues?.stage?.name || ''}
+          </Text>
+        </Layout.Horizontal>
+      )}
 
-      <div className={css.topAccordion}>
+      <div className={cx(css.topAccordion, stageClassName)}>
         {template?.stage?.variables && (
           <div id={`Stage.${allValues?.stage?.identifier}.Variables`} className={cx(css.accordionSummary)}>
             <Text font={{ weight: 'semi-bold' }} padding={{ top: 'medium', bottom: 'medium' }}>

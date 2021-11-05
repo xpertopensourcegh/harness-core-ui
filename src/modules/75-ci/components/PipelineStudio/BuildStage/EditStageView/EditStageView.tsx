@@ -18,7 +18,10 @@ import type { FormikErrors } from 'formik'
 import { produce } from 'immer'
 import type { PipelineInfoConfig } from 'services/cd-ng'
 import { ConnectorInfoDTO, useGetConnector } from 'services/cd-ng'
-import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import {
+  PipelineContextType,
+  usePipelineContext
+} from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { useStrings } from 'framework/strings'
 import {
   ConnectorReferenceField,
@@ -68,6 +71,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
 
   const {
     state: { pipeline },
+    contextType,
     isReadonly
   } = usePipelineContext()
 
@@ -129,10 +133,12 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
   const validationSchema = () =>
     Yup.lazy((values: Values): any =>
       Yup.object().shape({
-        name: NameSchemaWithoutHook(getString, {
-          requiredErrorMsg: getString('fieldRequired', { field: getString('stageNameLabel') })
+        ...(contextType === PipelineContextType.Pipeline && {
+          name: NameSchemaWithoutHook(getString, {
+            requiredErrorMsg: getString('fieldRequired', { field: getString('stageNameLabel') })
+          }),
+          identifier: IdentifierSchemaWithoutHook(getString)
         }),
-        identifier: IdentifierSchemaWithoutHook(getString),
         ...(!codebase &&
           values.cloneCodebase && {
             connectorRef: Yup.mixed().required(getString('fieldRequired', { field: getString('connector') })),
@@ -209,18 +215,20 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
               >
                 {getString('pipelineSteps.build.create.aboutYourStage')}
               </Text>
-              <NameIdDescriptionTags
-                formikProps={formikProps}
-                identifierProps={{
-                  inputLabel: getString('stageNameLabel'),
-                  inputGroupProps: {
-                    disabled: isReadonly,
-                    placeholder: getString('pipeline.aboutYourStage.stageNamePlaceholder')
-                  }
-                }}
-                descriptionProps={{ disabled: isReadonly }}
-                tagsProps={{ disabled: isReadonly }}
-              />
+              {contextType === PipelineContextType.Pipeline && (
+                <NameIdDescriptionTags
+                  formikProps={formikProps}
+                  identifierProps={{
+                    inputLabel: getString('stageNameLabel'),
+                    inputGroupProps: {
+                      disabled: isReadonly,
+                      placeholder: getString('pipeline.aboutYourStage.stageNamePlaceholder')
+                    }
+                  }}
+                  descriptionProps={{ disabled: isReadonly }}
+                  tagsProps={{ disabled: isReadonly }}
+                />
+              )}
               <div style={{ display: 'flex', alignItems: 'center', marginBottom: 'var(--spacing-small)' }}>
                 <Switch
                   label={getString('cloneCodebaseLabel')}

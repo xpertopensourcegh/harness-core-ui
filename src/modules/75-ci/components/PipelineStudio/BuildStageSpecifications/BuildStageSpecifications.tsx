@@ -21,7 +21,10 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import type { AllNGVariables } from '@pipeline/utils/types'
 import type { NGVariable, StageElementConfig, StringNGVariable } from 'services/cd-ng'
-import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import {
+  PipelineContextType,
+  usePipelineContext
+} from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import type { CustomVariablesData } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
 import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
 import { useStrings } from 'framework/strings'
@@ -56,6 +59,7 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
     getStageFromPipeline,
     updateStage,
     stepsFactory,
+    contextType,
     isReadonly
   } = usePipelineContext()
 
@@ -112,7 +116,7 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
   }, [])
 
   const validationSchema = yup.object().shape({
-    name: NameSchema(),
+    ...(contextType === PipelineContextType.Pipeline && { name: NameSchema() }),
     sharedPaths: yup.lazy(value => {
       if (Array.isArray(value)) {
         return yup.array().test('valuesShouldBeUnique', getString('validation.uniqueValues'), list => {
@@ -221,15 +225,17 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
                 </div>
                 <Card className={cx(css.sectionCard)} disabled={isReadonly}>
                   <FormikForm>
-                    <NameIdDescriptionTags
-                      formikProps={formik}
-                      identifierProps={{
-                        isIdentifierEditable: false,
-                        inputGroupProps: { disabled: isReadonly }
-                      }}
-                      descriptionProps={{ disabled: isReadonly }}
-                      tagsProps={{ disabled: isReadonly }}
-                    />
+                    {contextType === PipelineContextType.Pipeline && (
+                      <NameIdDescriptionTags
+                        formikProps={formik}
+                        identifierProps={{
+                          isIdentifierEditable: false,
+                          inputGroupProps: { disabled: isReadonly }
+                        }}
+                        descriptionProps={{ disabled: isReadonly }}
+                        tagsProps={{ disabled: isReadonly }}
+                      />
+                    )}
 
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                       <Switch

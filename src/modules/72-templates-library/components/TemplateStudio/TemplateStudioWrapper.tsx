@@ -12,7 +12,7 @@ import { useQueryParams } from '@common/hooks'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 
 export const TemplateStudioWrapper: React.FC = (): JSX.Element => {
-  const { accountId, projectIdentifier, orgIdentifier, templateIdentifier } = useParams<
+  const { accountId, projectIdentifier, orgIdentifier, templateIdentifier, templateType } = useParams<
     TemplateStudioPathProps & ModulePathParams
   >()
   const { versionLabel, repoIdentifier, branch } = useQueryParams<TemplateStudioQueryParams & GitQueryParams>()
@@ -21,6 +21,7 @@ export const TemplateStudioWrapper: React.FC = (): JSX.Element => {
       queryParams={{ accountIdentifier: accountId, orgIdentifier, projectIdentifier, repoIdentifier, branch }}
       templateIdentifier={templateIdentifier}
       versionLabel={versionLabel}
+      templateType={templateType}
     >
       <GitSyncStoreProvider>
         <TemplateStudio />

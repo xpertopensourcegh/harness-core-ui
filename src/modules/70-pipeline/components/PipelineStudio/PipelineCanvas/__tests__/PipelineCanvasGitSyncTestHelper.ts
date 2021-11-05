@@ -194,6 +194,7 @@ const pipelineContextMock: PipelineContextInterface = {
     }),
     getStepIcon: () => 'run-step'
   } as any,
+  contextType: 'Pipeline',
   stagesMap: {},
   setSchemaErrorView: () => undefined,
   isReadonly: false,

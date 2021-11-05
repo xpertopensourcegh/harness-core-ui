@@ -168,7 +168,10 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
       <Layout.Vertical flex={{ align: 'center-center' }} height={'100%'}>
         {loading && <PageSpinner />}
         {!loading && templatesError && (
-          <PageError message={templatesError?.message} onClick={() => reloadTemplates()} />
+          <PageError
+            message={defaultTo((templatesError.data as Error)?.message, templatesError.message)}
+            onClick={reloadTemplates}
+          />
         )}
         {!templatesError && selectedTemplate && (
           <Container height={'100%'} width={'100%'}>

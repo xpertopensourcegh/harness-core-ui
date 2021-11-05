@@ -172,6 +172,7 @@ const stateMock = {
 
 const pipelineContextMock: PipelineContextInterface = {
   state: stateMock as any,
+  contextType: 'Pipeline',
   stepsFactory: {
     getStep: (type: string) => {
       switch (type) {

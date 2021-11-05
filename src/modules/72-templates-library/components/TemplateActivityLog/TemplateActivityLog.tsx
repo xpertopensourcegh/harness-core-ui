@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import cx from 'classnames'
 import ReactTimeago from 'react-timeago'
 import { Button, Color, Container, Heading, Icon, Layout, PageError, Text } from '@wings-software/uicore'
-import { isEmpty } from 'lodash-es'
+import { defaultTo, isEmpty } from 'lodash-es'
 import { useMutateAsGet } from '@common/hooks'
 import { PageSpinner } from '@common/components'
 import { useStrings } from 'framework/strings'
@@ -135,7 +135,13 @@ export const TemplateActivityLog = (props: TemplateActivityLogProps) => {
       <Layout.Vertical flex={{ align: 'center-center' }} height={'100%'}>
         {fetchingTemplateActivityLogs && <PageSpinner />}
         {!fetchingTemplateActivityLogs && templateActivityLogsFetchError && (
-          <PageError message={templateActivityLogsFetchError.message} onClick={() => fetchTemplateActivityLogs()} />
+          <PageError
+            message={defaultTo(
+              (templateActivityLogsFetchError.data as Error)?.message,
+              templateActivityLogsFetchError.message
+            )}
+            onClick={fetchTemplateActivityLogs}
+          />
         )}
         {!fetchingTemplateActivityLogs &&
           !templateActivityLogsFetchError &&

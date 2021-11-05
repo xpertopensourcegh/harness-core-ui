@@ -1,10 +1,9 @@
 import React from 'react'
 import { matchPath, useParams, useHistory } from 'react-router-dom'
 import { parse } from 'yaml'
-import SplitPane from 'react-split-pane'
-import { debounce, defaultTo, isEmpty, merge, noop, omit } from 'lodash-es'
+import { defaultTo, isEmpty, merge } from 'lodash-es'
 import { Container, Layout } from '@wings-software/uicore'
-import { Formik, FormikProps } from 'formik'
+import type { FormikProps } from 'formik'
 import { useStrings } from 'framework/strings'
 import { NavigationCheck, Page, useConfirmationDialog, useToaster } from '@common/exports'
 import { RightDrawer } from '@templates-library/components/TemplateStudio/RightDrawer/RightDrawer'
@@ -15,17 +14,14 @@ import templateFactory from '@templates-library/components/Templates/TemplatesFa
 import { TemplateStudioHeader } from '@templates-library/components/TemplateStudio/TemplateStudioHeader/TemplateStudioHeader'
 import type { GitQueryParams, ModulePathParams, TemplateStudioPathProps } from '@common/interfaces/RouteInterfaces'
 import type { TemplateType } from '@templates-library/utils/templatesUtils'
-import { DefaultNewPipelineId, DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
-import type { StepElementConfig } from 'services/cd-ng'
+import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import GenericErrorHandler from '@common/pages/GenericErrorHandler/GenericErrorHandler'
 import { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import TemplateYamlView from '@templates-library/components/TemplateStudio/TemplateYamlView/TemplateYamlView'
 import { accountPathProps, orgPathProps, pipelineModuleParams, projectPathProps } from '@common/utils/routeUtils'
 import routes from '@common/RouteDefinitions'
-import type { NGTemplateInfoConfig } from 'services/template-ng'
 import type { GetErrorResponse } from '@templates-library/components/TemplateStudio/SaveTemplatePopover/SaveTemplatePopover'
 import { DefaultNewTemplateId } from 'framework/Templates/templates'
-import { sanitize } from '@common/utils/JSONUtils'
 import type { GitFilterScope } from '@common/components/GitFilters/GitFilters'
 import { useQueryParams } from '@common/hooks'
 import { TemplateContext } from './TemplateContext/TemplateContext'
@@ -55,12 +51,10 @@ export function TemplateStudio(): React.ReactElement {
   const { getString } = useStrings()
   const [blockNavigation, setBlockNavigation] = React.useState(false)
   const [selectedBranch, setSelectedBranch] = React.useState(defaultTo(branch, ''))
-  const [splitPaneSize, setSplitPaneSize] = React.useState(200)
   const [isYamlError, setYamlError] = React.useState(false)
   const [discardBEUpdateDialog, setDiscardBEUpdate] = React.useState(false)
   const { showError } = useToaster()
   const history = useHistory()
-  const formikRef = React.useRef<FormikProps<unknown> | null>(null)
   const templateFormikRef = React.useRef<TemplateFormikRef | null>(null)
 
   useDocumentTitle([parse(template?.name || getString('common.templates'))])
@@ -106,46 +100,6 @@ export function TemplateStudio(): React.ReactElement {
       setBlockNavigation(false)
     }
   })
-
-  const resizerStyle = navigator.userAgent.match(/firefox/i)
-    ? { display: 'flow-root list-item' }
-    : { display: 'inline-table' }
-
-  const setSplitPaneSizeDeb = React.useRef(debounce(setSplitPaneSize, 200))
-
-  const handleStageResize = (size: number): void => {
-    setSplitPaneSizeDeb.current(size)
-  }
-
-  const onUpdate = async (newTemplate: NGTemplateInfoConfig): Promise<void> => {
-    newTemplate.spec = omit(newTemplate.spec, 'name', 'identifier')
-    sanitize(newTemplate, { removeEmptyArray: false, removeEmptyObject: false, removeEmptyString: false })
-    await updateTemplate(newTemplate)
-  }
-
-  const openStepSelection = async (onSelection: (data: StepElementConfig) => void): Promise<void> => {
-    if (templateIdentifier === DefaultNewTemplateId) {
-      await updateTemplateView({
-        ...templateView,
-        isDrawerOpened: true,
-        drawerData: {
-          type: DrawerTypes.AddStep,
-          data: {
-            paletteData: {
-              onSelection: (stepData: StepElementConfig) => {
-                updateTemplateView({
-                  ...templateView,
-                  isDrawerOpened: false,
-                  drawerData: { type: DrawerTypes.AddStep }
-                })
-                onSelection(stepData)
-              }
-            }
-          }
-        }
-      })
-    }
-  }
 
   const showInvalidYamlError = React.useCallback(
     (error: string) => {
@@ -195,14 +149,6 @@ export function TemplateStudio(): React.ReactElement {
     const errors = templateFormikRef.current?.getErrors()
     return { status: 'SUCCESS', errors }
   }
-
-  React.useEffect(() => {
-    if (!isLoading && !isUpdated) {
-      setTimeout(() => {
-        templateFormikRef.current?.resetForm()
-      }, 0)
-    }
-  }, [isLoading, isUpdated])
 
   React.useEffect(() => {
     if (isBETemplateUpdated && !discardBEUpdateDialog) {
@@ -255,7 +201,7 @@ export function TemplateStudio(): React.ReactElement {
   )
 
   React.useEffect(() => {
-    if (templateIdentifier === DefaultNewPipelineId) {
+    if (templateIdentifier === DefaultNewTemplateId) {
       setView(SelectedView.VISUAL)
     }
   }, [templateIdentifier])
@@ -314,41 +260,11 @@ export function TemplateStudio(): React.ReactElement {
                 onGitBranchChange={onGitBranchChange}
               />
               <Container className={css.canvasContainer}>
-                <Formik<NGTemplateInfoConfig>
-                  onSubmit={noop}
-                  validate={onUpdate}
-                  initialValues={template}
-                  enableReinitialize={true}
-                >
-                  {formikProps => {
-                    formikRef.current = formikProps
-                    if (view === SelectedView.VISUAL) {
-                      return (
-                        <SplitPane
-                          size={splitPaneSize}
-                          split="horizontal"
-                          minSize={160}
-                          maxSize={300}
-                          style={{ overflow: 'auto' }}
-                          pane2Style={{ overflow: 'initial', zIndex: 2 }}
-                          resizerStyle={resizerStyle}
-                          onChange={handleStageResize}
-                        >
-                          {templateFactory.getTemplate(templateType)?.renderTemplateDiagram({
-                            formikRef: templateFormikRef,
-                            formikProps: formikProps,
-                            openStepSelection
-                          })}
-                          {templateFactory
-                            .getTemplate(templateType)
-                            ?.renderTemplateForm({ formikRef: templateFormikRef, formikProps: formikProps })}
-                        </SplitPane>
-                      )
-                    } else {
-                      return <TemplateYamlView />
-                    }
-                  }}
-                </Formik>
+                {view === SelectedView.VISUAL ? (
+                  templateFactory.getTemplate(templateType)?.renderTemplateCanvas({ formikRef: templateFormikRef })
+                ) : (
+                  <TemplateYamlView />
+                )}
               </Container>
             </>
           )}

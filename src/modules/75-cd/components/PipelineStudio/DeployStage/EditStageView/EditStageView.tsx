@@ -28,7 +28,10 @@ import type {
 } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
-import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import {
+  PipelineContextType,
+  usePipelineContext
+} from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import type { AllNGVariables } from '@pipeline/utils/types'
 import { NameIdDescriptionTags } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
@@ -90,7 +93,7 @@ export const EditStageView: React.FC<EditStageViewProps> = ({
       disabled: true
     }
   ]
-  const { stepsFactory, getStageFromPipeline } = usePipelineContext()
+  const { stepsFactory, getStageFromPipeline, contextType } = usePipelineContext()
   const { variablesPipeline, metadataMap } = usePipelineVariables()
   const scrollRef = React.useRef<HTMLDivElement | null>(null)
   const allNGVariables = (data?.stage?.variables || []) as AllNGVariables[]
@@ -189,8 +192,10 @@ export const EditStageView: React.FC<EditStageViewProps> = ({
               return errors
             }}
             validationSchema={Yup.object().shape({
-              name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.build.create.stageNameRequiredError') }),
-              identifier: IdentifierSchema()
+              ...(contextType === PipelineContextType.Pipeline && {
+                name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.build.create.stageNameRequiredError') }),
+                identifier: IdentifierSchema()
+              })
             })}
           >
             {formikProps => {
@@ -198,31 +203,35 @@ export const EditStageView: React.FC<EditStageViewProps> = ({
               formikRef.current = formikProps
               return (
                 <FormikForm>
-                  {context ? (
-                    <Card className={stageCss.sectionCard}>
-                      <NameIdDescriptionTags
-                        formikProps={formikProps}
-                        identifierProps={{
-                          inputLabel: getString('stageNameLabel'),
-                          isIdentifierEditable: !context,
-                          inputGroupProps: { disabled: isReadonly }
-                        }}
-                        descriptionProps={{ disabled: isReadonly }}
-                        tagsProps={{ disabled: isReadonly }}
-                        className={css.nameIdDescriptionTags}
-                      />
-                    </Card>
-                  ) : (
-                    <NameIdDescriptionTags
-                      formikProps={formikProps}
-                      identifierProps={{
-                        inputLabel: getString('stageNameLabel'),
-                        isIdentifierEditable: !context && !isReadonly,
-                        inputGroupProps: { disabled: isReadonly }
-                      }}
-                      descriptionProps={{ disabled: isReadonly }}
-                      tagsProps={{ disabled: isReadonly }}
-                    />
+                  {contextType === PipelineContextType.Pipeline && (
+                    <>
+                      {context ? (
+                        <Card className={stageCss.sectionCard}>
+                          <NameIdDescriptionTags
+                            formikProps={formikProps}
+                            identifierProps={{
+                              inputLabel: getString('stageNameLabel'),
+                              isIdentifierEditable: !context,
+                              inputGroupProps: { disabled: isReadonly }
+                            }}
+                            descriptionProps={{ disabled: isReadonly }}
+                            tagsProps={{ disabled: isReadonly }}
+                            className={css.nameIdDescriptionTags}
+                          />
+                        </Card>
+                      ) : (
+                        <NameIdDescriptionTags
+                          formikProps={formikProps}
+                          identifierProps={{
+                            inputLabel: getString('stageNameLabel'),
+                            isIdentifierEditable: !context && !isReadonly,
+                            inputGroupProps: { disabled: isReadonly }
+                          }}
+                          descriptionProps={{ disabled: isReadonly }}
+                          tagsProps={{ disabled: isReadonly }}
+                        />
+                      )}
+                    </>
                   )}
 
                   {!context ? whatToDeploy : <Card className={stageCss.sectionCard}>{whatToDeploy}</Card>}

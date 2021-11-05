@@ -65,7 +65,7 @@ export const TemplateStudioSubHeaderLeftView: (props: TemplateStudioSubHeaderLef
 }) => {
   const { state, updateTemplate, deleteTemplateCache, fetchTemplate, view, isReadonly, setLoading, updateGitDetails } =
     React.useContext(TemplateContext)
-  const { template, versions, stableVersion, isUpdated, isInitialized, gitDetails } = state
+  const { template, versions, stableVersion, isUpdated, gitDetails } = state
   const { accountId, projectIdentifier, orgIdentifier, module, templateType, templateIdentifier } = useParams<
     TemplateStudioPathProps & ModulePathParams
   >()
@@ -113,7 +113,7 @@ export const TemplateStudioSubHeaderLeftView: (props: TemplateStudioSubHeaderLef
   )
 
   const onCloseCreate = React.useCallback(() => {
-    if (template?.identifier === DefaultNewTemplateId) {
+    if (template.identifier === DefaultNewTemplateId) {
       history.push(routes.toTemplates({ orgIdentifier, projectIdentifier, accountId, module }))
     }
     hideConfigModal()
@@ -123,7 +123,7 @@ export const TemplateStudioSubHeaderLeftView: (props: TemplateStudioSubHeaderLef
     history,
     module,
     orgIdentifier,
-    template?.identifier,
+    template.identifier,
     projectIdentifier,
     routes.toTemplates
   ])
@@ -226,19 +226,18 @@ export const TemplateStudioSubHeaderLeftView: (props: TemplateStudioSubHeaderLef
   }, [versions])
 
   React.useEffect(() => {
-    if (isInitialized) {
-      if (template?.identifier === DefaultNewTemplateId && !isEmpty(template.type)) {
-        setModalProps({
-          title: getString('templatesLibrary.createNewModal.heading', { entity: template.type }),
-          promise: onSubmit,
-          onSuccess: () => {
-            hideConfigModal()
-          }
-        })
-        showConfigModal()
-      }
+    if (template.identifier === DefaultNewTemplateId && !isEmpty(template.type)) {
+      hideConfigModal()
+      setModalProps({
+        title: getString('templatesLibrary.createNewModal.heading', { entity: template.type }),
+        promise: onSubmit,
+        onSuccess: () => {
+          hideConfigModal()
+        }
+      })
+      showConfigModal()
     }
-  }, [template?.identifier, showConfigModal, isInitialized, template.type])
+  }, [template.identifier, showConfigModal, template.type, onSubmit])
 
   const GitDetails: React.FC = React.useCallback(() => {
     if (gitDetails?.objectId || (templateIdentifier === DefaultNewTemplateId && gitDetails.repoIdentifier)) {
@@ -337,7 +336,9 @@ export const TemplateStudioSubHeaderLeftView: (props: TemplateStudioSubHeaderLef
               <RbacButton
                 variation={ButtonVariation.ICON}
                 icon="Edit"
-                color={Color.GREY_500}
+                iconProps={{
+                  color: Color.GREY_800
+                }}
                 withoutCurrentColor
                 onClick={() => {
                   setModalProps({

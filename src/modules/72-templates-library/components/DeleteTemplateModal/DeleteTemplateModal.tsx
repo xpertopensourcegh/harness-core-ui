@@ -91,7 +91,7 @@ export const DeleteTemplateModal = (props: DeleteTemplateProps) => {
       confirmDelete({ versions })
     } else {
       try {
-        await deleteTemplates(defaultTo(template?.identifier, ''), {
+        await deleteTemplates(defaultTo(template.identifier, ''), {
           queryParams: {
             accountIdentifier: accountId,
             orgIdentifier,

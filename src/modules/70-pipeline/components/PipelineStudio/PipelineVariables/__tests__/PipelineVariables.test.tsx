@@ -17,6 +17,7 @@ import metadataMap from './metadataMap.json'
 const pipelineContext: PipelineContextInterface = {
   updatePipeline: jest.fn(),
   state: { pipeline, pipelineView: { splitViewData: {} }, selectionState: {} } as any,
+  contextType: 'Pipeline',
   stepsFactory: factory,
   stagesMap: {},
   isReadonly: false,

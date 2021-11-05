@@ -4,7 +4,8 @@ import { render, fireEvent, act, findByText } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import {
   PipelineContext,
-  PipelineContextInterface
+  PipelineContextInterface,
+  PipelineContextType
 } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { DrawerTypes, TemplateDrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import { factory } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
@@ -51,6 +52,7 @@ const getPipelineContext = (): PipelineContextInterface => ({
     isUpdated: true,
     templateTypes: {}
   },
+  contextType: PipelineContextType.Pipeline,
   setSchemaErrorView: jest.fn(),
   stagesMap: {},
   updateGitDetails: jest.fn(),

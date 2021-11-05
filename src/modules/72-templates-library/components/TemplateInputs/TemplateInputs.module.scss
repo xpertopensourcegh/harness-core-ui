@@ -1,5 +1,10 @@
 .container {
   position: relative;
+  .stageCard {
+    margin: 0px 0px var(--spacing-xxlarge) 0px;
+    padding: var(--spacing-5) 0px;
+    background: var(--white);
+  }
   .inputsContainer {
     :global {
       .bp3-form-group {

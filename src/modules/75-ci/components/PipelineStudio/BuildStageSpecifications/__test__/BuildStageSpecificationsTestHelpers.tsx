@@ -3,7 +3,10 @@ import type { IconName } from '@blueprintjs/core'
 import { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
 import { Step, StepProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
-import type { PipelineContextInterface } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import {
+  PipelineContextType,
+  PipelineContextInterface
+} from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 
 class StepFactory extends AbstractStepFactory {
   protected type = 'test-factory'
@@ -77,6 +80,7 @@ export const pipelineContextMock = {
     isInitialized: true,
     error: ''
   },
+  contextType: PipelineContextType.Pipeline,
   stepsFactory: stepFactory
 }
 

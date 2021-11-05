@@ -113,7 +113,7 @@ const TemplateYamlView: React.FC = () => {
               },
               resource: {
                 resourceType: ResourceType.PIPELINE,
-                resourceIdentifier: template?.identifier as string
+                resourceIdentifier: template.identifier
               },
               permission: PermissionIdentifier.EDIT_PIPELINE
             }}

@@ -8,6 +8,11 @@ import { accountPathProps, pipelineModuleParams, pipelinePathProps } from '@comm
 import { mockTemplatesSuccessResponse } from '@templates-library/TemplatesTestHelper'
 import { TemplateSelector } from '../TemplateSelector'
 
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
+jest.mock('@wings-software/monaco-yaml/lib/esm/languageservice/yamlLanguageService', () => ({
+  getLanguageService: jest.fn()
+}))
+
 jest.mock('@common/hooks', () => ({
   ...(jest.requireActual('@common/hooks') as any),
   useMutateAsGet: jest.fn()

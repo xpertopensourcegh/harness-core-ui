@@ -3,7 +3,7 @@
 exports[`CreateNewWidget snapshot tests renders properly 1`] = `
 <div>
   <div
-    class="defaultNode createNode"
+    class="defaultNode createNode create-node"
     style="margin-left: -32px;"
   >
     <div

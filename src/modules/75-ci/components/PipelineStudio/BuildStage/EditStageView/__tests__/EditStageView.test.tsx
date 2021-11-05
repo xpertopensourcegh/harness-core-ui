@@ -2,6 +2,8 @@ import React from 'react'
 import { act, fireEvent, render } from '@testing-library/react'
 import type { ResponseConnectorResponse } from 'services/cd-ng'
 import { TestWrapper, UseGetReturnData } from '@common/utils/testUtils'
+import { getDummyPipelineContextValue } from '@ci/components/PipelineStudio/BuildStageSpecifications/__test__/BuildStageSpecificationsTestHelpers'
+import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { EditStageView } from '../EditStageView'
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
@@ -39,6 +41,7 @@ const getStepData = () => {
 }
 
 const renderComponent = (stepData?: any, onSubmit?: () => void) => {
+  const pipelineContextMockValue = getDummyPipelineContextValue()
   return render(
     <TestWrapper
       path="/dummy"
@@ -48,7 +51,9 @@ const renderComponent = (stepData?: any, onSubmit?: () => void) => {
         accountId: 'dummy'
       }}
     >
-      <EditStageView data={stepData} onSubmit={onSubmit} />
+      <PipelineContext.Provider value={pipelineContextMockValue}>
+        <EditStageView data={stepData} onSubmit={onSubmit} />
+      </PipelineContext.Provider>
     </TestWrapper>
   )
 }

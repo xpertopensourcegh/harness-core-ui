@@ -62,10 +62,11 @@ const getId = (
 
 export interface FetchTemplateBoundProps {
   dispatch: React.Dispatch<ActionReturnType>
-  queryParams: GetPipelineQueryParams
+  queryParams: GetTemplateQueryParams
   templateIdentifier: string
   versionLabel?: string
   gitDetails: EntityGitDetails
+  templateType: string
 }
 
 export interface FetchTemplateUnboundProps {
@@ -103,7 +104,7 @@ const getTemplatesByIdentifier = (
 }
 
 const _fetchTemplate = async (props: FetchTemplateBoundProps, params: FetchTemplateUnboundProps): Promise<void> => {
-  const { dispatch, queryParams, templateIdentifier, versionLabel = '', gitDetails } = props
+  const { dispatch, queryParams, templateIdentifier, versionLabel = '', gitDetails, templateType } = props
   const { forceFetch = false, forceUpdate = false, signal, repoIdentifier, branch } = params
   const id = getId(
     queryParams.accountIdentifier,
@@ -197,6 +198,7 @@ const _fetchTemplate = async (props: FetchTemplateBoundProps, params: FetchTempl
           error: '',
           template: data?.template || {
             ...DefaultTemplate,
+            type: templateType as NGTemplateInfoConfig['type'],
             projectIdentifier: queryParams.projectIdentifier,
             orgIdentifier: queryParams.orgIdentifier
           },
@@ -204,6 +206,7 @@ const _fetchTemplate = async (props: FetchTemplateBoundProps, params: FetchTempl
             cloneDeep(data?.template) ||
             cloneDeep({
               ...DefaultTemplate,
+              type: templateType as NGTemplateInfoConfig['type'],
               projectIdentifier: queryParams.projectIdentifier,
               orgIdentifier: queryParams.orgIdentifier
             }),
@@ -446,7 +449,8 @@ export const TemplateProvider: React.FC<{
   queryParams: GetPipelineQueryParams
   templateIdentifier: string
   versionLabel?: string
-}> = ({ queryParams, templateIdentifier, versionLabel, children }) => {
+  templateType: string
+}> = ({ queryParams, templateIdentifier, versionLabel, templateType, children }) => {
   const { repoIdentifier, branch } = queryParams
   const abortControllerRef = React.useRef<AbortController | null>(null)
   const isMounted = React.useRef(false)
@@ -476,7 +480,8 @@ export const TemplateProvider: React.FC<{
     gitDetails: {
       repoIdentifier,
       branch
-    }
+    },
+    templateType
   })
 
   const updateTemplate = _updateTemplate.bind(null, {
@@ -528,7 +533,13 @@ export const TemplateProvider: React.FC<{
   )
 
   const isReadonly = !isEdit
-  const deleteTemplateCache = _deleteTemplateCache.bind(null, queryParams, templateIdentifier, versionLabel)
+  const deleteTemplateCache = _deleteTemplateCache.bind(
+    null,
+    queryParams,
+    templateIdentifier,
+    versionLabel,
+    state.gitDetails
+  )
   const setYamlHandler = React.useCallback((yamlHandler: YamlBuilderHandlerBinding) => {
     dispatch(TemplateContextActions.setYamlHandler({ yamlHandler }))
   }, [])

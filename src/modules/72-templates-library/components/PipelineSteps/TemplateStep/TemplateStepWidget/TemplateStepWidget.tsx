@@ -16,7 +16,7 @@ import cx from 'classnames'
 import type { FormikProps } from 'formik'
 import { useParams } from 'react-router-dom'
 import { parse } from 'yaml'
-import { isEmpty, set } from 'lodash-es'
+import { defaultTo, isEmpty, set } from 'lodash-es'
 import produce from 'immer'
 import { NameSchema } from '@common/utils/Validation'
 import { setFormikRef, StepViewType, StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
@@ -116,7 +116,11 @@ export function TemplateStepWidget(
               <Container className={css.inputsContainer}>
                 {loading && <PageSpinner />}
                 {!loading && inputSetError && (
-                  <PageError className={css.error} message={inputSetError?.message} onClick={() => refetch()} />
+                  <PageError
+                    className={css.error}
+                    message={defaultTo((inputSetError.data as Error)?.message, inputSetError.message)}
+                    onClick={() => refetch()}
+                  />
                 )}
                 {!loading && !inputSetError && inputSetTemplate && formik.values.template?.templateInputs && (
                   <Layout.Vertical

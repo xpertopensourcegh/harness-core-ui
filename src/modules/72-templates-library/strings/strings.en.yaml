@@ -38,7 +38,7 @@ updateTemplateModal:
   info: '*By saving, all pipelines referencing the default version will receive your changes.'
 templateSettingsModal:
   scopeLabel: Save To
-  defaultVersionLabel: Default Version
+  defaultVersionLabel: Stable Version
 entityType: Entity Type
 templateScope: Template Scope
 templatesLabel: '{{entity}} Templates'

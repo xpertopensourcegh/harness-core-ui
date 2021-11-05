@@ -15,6 +15,10 @@ export const TemplateTags: React.FC<ListTagsProps> = (props): JSX.Element => {
     }
   }, [length])
 
+  React.useLayoutEffect(() => {
+    setLength(Object.keys(tags).length)
+  }, [JSON.stringify(tags)])
+
   return (
     <Container className={css.container}>
       <Container ref={ref}>

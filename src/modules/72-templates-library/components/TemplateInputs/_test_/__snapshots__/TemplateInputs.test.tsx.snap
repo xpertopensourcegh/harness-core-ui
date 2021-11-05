@@ -38,10 +38,10 @@ exports[`<TemplateInputs /> tests snapshot test 1`] = `
             </div>
           </div>
           <div
-            class="StyledProps--font StyledProps--main inputsCard StyledProps--background-white StyledProps--padding-large StyledProps--margin-bottom-xxlarge"
+            class="OverlaySpinner--overlaySpinner"
           >
             <div
-              class="OverlaySpinner--overlaySpinner"
+              class="StyledProps--font StyledProps--main inputsCard StyledProps--background-white StyledProps--padding-large StyledProps--margin-bottom-xxlarge"
             >
               <div
                 class="bp3-form-group bp3-disabled deploymentViewMedium"

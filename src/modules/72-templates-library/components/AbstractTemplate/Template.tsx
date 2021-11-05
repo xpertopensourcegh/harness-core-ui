@@ -1,14 +1,10 @@
 import type { Color } from '@wings-software/uicore'
-import type { FormikProps } from 'formik'
 import type { TemplateType } from '@templates-library/utils/templatesUtils'
 import type { TemplateFormRef } from '@templates-library/components/TemplateStudio/TemplateStudio'
 
 export interface TemplateProps<T, U = unknown> {
-  readonly?: boolean
   customTemplateProps?: U
-  openStepSelection?: (onSelection: (step: T) => void) => void
   formikRef?: TemplateFormRef<T>
-  formikProps: FormikProps<T>
 }
 
 export abstract class Template<T> {
@@ -29,7 +25,5 @@ export abstract class Template<T> {
     return this.color
   }
 
-  abstract renderTemplateDiagram(props: TemplateProps<T>): JSX.Element
-
-  abstract renderTemplateForm(props: TemplateProps<T>): JSX.Element
+  abstract renderTemplateCanvas(props: TemplateProps<T>): JSX.Element
 }

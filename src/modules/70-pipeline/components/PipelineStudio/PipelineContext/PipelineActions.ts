@@ -158,6 +158,7 @@ export interface ActionResponse {
   isUpdated?: boolean
   gitDetails?: EntityGitDetails
   pipeline?: PipelineInfoConfig
+  pipelineIdentifier?: string
   yamlHandler?: YamlBuilderHandlerBinding
   templateTypes?: { [key: string]: string }
   originalPipeline?: PipelineInfoConfig

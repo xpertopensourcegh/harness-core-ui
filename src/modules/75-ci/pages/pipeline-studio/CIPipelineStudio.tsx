@@ -21,6 +21,7 @@ import { useQueryParams } from '@common/hooks'
 import { LICENSE_STATE_VALUES, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import { FeatureFlag } from '@common/featureFlags'
 import type { ModuleLicenseType } from '@common/constants/SubscriptionTypes'
+import { TemplateDrawer } from '@templates-library/components/TemplateDrawer/TemplateDrawer'
 import css from './CIPipelineStudio.module.scss'
 
 const CIPipelineStudio: React.FC = (): JSX.Element => {
@@ -81,6 +82,7 @@ const CIPipelineStudio: React.FC = (): JSX.Element => {
         routePipelineList={routes.toPipelines}
         getOtherModal={getOtherModal}
       />
+      <TemplateDrawer />
     </PipelineProvider>
   )
 }

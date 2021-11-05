@@ -183,6 +183,7 @@ export interface PipelineContextInterface {
   stagesMap: StagesMap
   stepsFactory: AbstractStepFactory
   view: string
+  contextType: string | undefined
   isReadonly: boolean
   setSchemaErrorView: (flag: boolean) => void
   setView: (view: SelectedView) => void
@@ -330,7 +331,6 @@ const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipel
         })
       )
       templateRefs = findAllByKey('templateRef', pipeline)
-      templateRefs.push('temp')
     }
     if (templateRefs.length > 0) {
       dispatch(
@@ -597,6 +597,7 @@ export const PipelineContext = React.createContext<PipelineContextInterface>({
   setSchemaErrorView: () => undefined,
   isReadonly: false,
   view: SelectedView.VISUAL,
+  contextType: undefined,
   updateGitDetails: () => new Promise<void>(() => undefined),
   setView: () => void 0,
   runPipeline: () => undefined,
@@ -619,6 +620,11 @@ export const PipelineContext = React.createContext<PipelineContextInterface>({
   getStagePathFromPipeline: () => ''
 })
 
+export enum PipelineContextType {
+  Pipeline = 'Pipeline',
+  Template = 'Template'
+}
+
 export const PipelineProvider: React.FC<{
   queryParams: GetPipelineQueryParams
   pipelineIdentifier: string
@@ -627,6 +633,7 @@ export const PipelineProvider: React.FC<{
   runPipeline: (identifier: string) => void
   renderPipelineStage: PipelineContextInterface['renderPipelineStage']
 }> = ({ queryParams, pipelineIdentifier, children, renderPipelineStage, stepsFactory, stagesMap, runPipeline }) => {
+  const contextType = 'Pipeline'
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const abortControllerRef = React.useRef<AbortController | null>(null)
   const isMounted = React.useRef(false)
@@ -762,7 +769,7 @@ export const PipelineProvider: React.FC<{
     (stageId: string, prefix = '', pipeline?: PipelineInfoConfig) => {
       const localPipeline = pipeline || state.pipeline
       return _getStagePathFromPipeline(stageId, prefix, localPipeline)
-    }, // eslint-disable-next-line react-hooks/exhaustive-deps
+    },
     [state.pipeline, state.pipeline?.stages]
   )
 
@@ -839,6 +846,7 @@ export const PipelineProvider: React.FC<{
       value={{
         state,
         view,
+        contextType,
         setView,
         runPipeline,
         stepsFactory,

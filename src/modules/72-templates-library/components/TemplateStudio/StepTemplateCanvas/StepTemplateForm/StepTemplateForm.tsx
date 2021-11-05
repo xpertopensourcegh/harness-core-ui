@@ -1,7 +1,8 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Color, Container, MultiTypeInputType } from '@wings-software/uicore'
 import produce from 'immer'
-import { debounce, isEmpty, set } from 'lodash-es'
+import { debounce, isEmpty, isEqual, set } from 'lodash-es'
+import { v4 as uuid } from 'uuid'
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import {
   StepCommandsWithRef as StepCommands,
@@ -10,16 +11,19 @@ import {
 import type { StepElementConfig } from 'services/cd-ng'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { TabTypes, Values } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
-import type { TemplateProps } from '@templates-library/components/AbstractTemplate/Template'
 import type { TemplateFormRef } from '@templates-library/components/TemplateStudio/TemplateStudio'
-import type { NGTemplateInfoConfig } from 'services/template-ng'
+import { sanitize } from '@common/utils/JSONUtils'
 import { TemplateContext } from '../../TemplateContext/TemplateContext'
 import css from './StepTemplateForm.module.scss'
 
-const StepTemplateForm = (props: TemplateProps<NGTemplateInfoConfig>, formikRef: TemplateFormRef) => {
-  const { formikProps } = props
+const StepTemplateForm = (_props: unknown, formikRef: TemplateFormRef): JSX.Element => {
+  const {
+    state: { template, isLoading, isUpdated },
+    updateTemplate,
+    isReadonly
+  } = React.useContext(TemplateContext)
   const stepFormikRef = React.useRef<StepFormikRef | null>(null)
-  const { isReadonly } = useContext(TemplateContext)
+  const [key, setKey] = React.useState<string>(template.versionLabel)
 
   React.useImperativeHandle(formikRef, () => ({
     resetForm() {
@@ -34,7 +38,7 @@ const StepTemplateForm = (props: TemplateProps<NGTemplateInfoConfig>, formikRef:
   }))
 
   const onSubmitStep = async (item: Partial<Values>): Promise<void> => {
-    const processNode = produce(formikProps.values.spec as StepElementConfig, node => {
+    const processNode = produce(template.spec as StepElementConfig, node => {
       if (item.tab !== TabTypes.Advanced) {
         if ((item as StepElementConfig).description) {
           node.description = (item as StepElementConfig).description
@@ -66,19 +70,29 @@ const StepTemplateForm = (props: TemplateProps<NGTemplateInfoConfig>, formikRef:
         delete node.failureStrategies
       }
     })
-    formikProps?.setFieldValue('spec', processNode)
+    sanitize(processNode, { removeEmptyArray: false, removeEmptyObject: false, removeEmptyString: false })
+    if (!isEqual(template.spec, processNode)) {
+      set(template, 'spec', processNode)
+      await updateTemplate(template)
+    }
   }
 
   const debounceSubmit = debounce((step: Partial<Values>): void => {
     onSubmitStep(step)
   }, 500)
 
+  React.useEffect(() => {
+    if (!isUpdated && !isLoading) {
+      setKey(uuid())
+    }
+  }, [isLoading])
+
   return (
-    <Container background={Color.FORM_BG} key={formikProps.values.versionLabel}>
-      {formikProps && !isEmpty(formikProps.values.spec) && !!(formikProps.values.spec as StepElementConfig)?.type && (
+    <Container background={Color.FORM_BG} key={key}>
+      {template && !isEmpty(template.spec) && !!(template.spec as StepElementConfig)?.type && (
         <StepCommands
           className={css.stepForm}
-          step={formikProps.values.spec as StepElementConfig}
+          step={template.spec as StepElementConfig}
           isReadonly={isReadonly}
           stepsFactory={factory}
           onChange={debounceSubmit}

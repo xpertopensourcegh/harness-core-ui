@@ -4,6 +4,11 @@ import { TemplateInputs } from '@templates-library/components/TemplateInputs/Tem
 import { mockTemplates, mockTemplatesInputYaml } from '@templates-library/TemplatesTestHelper'
 import { TestWrapper } from '@common/utils/testUtils'
 
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
+jest.mock('@wings-software/monaco-yaml/lib/esm/languageservice/yamlLanguageService', () => ({
+  getLanguageService: jest.fn()
+}))
+
 jest.mock('services/template-ng', () => ({
   ...(jest.requireActual('services/template-ng') as any),
   useGetTemplateInputSetYaml: jest

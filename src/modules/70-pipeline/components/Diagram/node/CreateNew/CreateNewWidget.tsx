@@ -14,10 +14,10 @@ import css from './CreateNew.module.scss'
 
 export interface CreateNewWidgetProps {
   node: CreateNewModel
-  engine: DiagramEngine
+  engine?: DiagramEngine
 }
 const generatePort = (port: DefaultPortModel, props: CreateNewWidgetProps): JSX.Element => {
-  return <DefaultPortLabel engine={props.engine} port={port} key={port.getID()} />
+  return props.engine ? <DefaultPortLabel engine={props.engine} port={port} key={port.getID()} /> : <></>
 }
 
 const onClickNode = (e: React.MouseEvent<Element, MouseEvent>, node: DefaultNodeModel): void => {
@@ -35,7 +35,7 @@ export const CreateNewWidget: React.FC<CreateNewWidgetProps> = (props): JSX.Elem
 
   return (
     <div
-      className={cx(cssDefault.defaultNode, css.createNode)}
+      className={cx(cssDefault.defaultNode, css.createNode, 'create-node')}
       style={{ marginLeft: `${marginAdjustment}px` }}
       onClick={e => !disabled && onClickNode(e, props.node)}
       onMouseDown={e => {
@@ -64,7 +64,8 @@ export const CreateNewWidget: React.FC<CreateNewWidgetProps> = (props): JSX.Elem
           css.createNew,
           { [css.disabled]: disabled },
           { [css.selected]: props.node.isSelected() },
-          { [cssDefault.selected]: dropable }
+          { [cssDefault.selected]: dropable },
+          options.nodeClassName
         )}
         style={{
           marginTop: 32 - (options.height || 64) / 2,

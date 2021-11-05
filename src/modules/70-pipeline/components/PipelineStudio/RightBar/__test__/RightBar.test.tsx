@@ -115,6 +115,7 @@ const stateMock = {
 const pipelineContext: PipelineContextInterface = {
   updatePipeline: jest.fn(),
   state: stateMock as any,
+  contextType: 'Pipeline',
   stepsFactory: factory,
   stagesMap: {},
   isReadonly: false,
