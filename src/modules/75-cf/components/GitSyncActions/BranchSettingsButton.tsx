@@ -10,20 +10,17 @@ import css from './GitSyncActions.module.scss'
 interface BranchSettingsProps {
   isSettingsOpen: boolean
   handleToggleAutoCommit: (newAutoCommitValue: boolean) => void
+  handleGitPause: (newGitPauseValue: boolean) => void
   setIsSettingsOpen: (isOpen: boolean) => void
   branch: string
   isLoading: boolean
   isAutoCommitEnabled: boolean
+  isGitSyncPaused: boolean
 }
 
-const BranchSettingsButton = ({
-  isSettingsOpen,
-  handleToggleAutoCommit,
-  setIsSettingsOpen,
-  branch,
-  isLoading,
-  isAutoCommitEnabled
-}: BranchSettingsProps): ReactElement => {
+const BranchSettingsButton = (props: BranchSettingsProps): ReactElement => {
+  const { isSettingsOpen, setIsSettingsOpen, branch } = props
+
   return (
     <Button
       noStyling
@@ -36,23 +33,12 @@ const BranchSettingsButton = ({
         isOpen: isSettingsOpen,
         onInteraction: nextOpenState => setIsSettingsOpen(nextOpenState)
       }}
-      tooltip={
-        <SettingsMenu
-          isAutoCommitEnabled={isAutoCommitEnabled}
-          handleToggleAutoCommit={handleToggleAutoCommit}
-          isLoading={isLoading}
-        />
-      }
+      tooltip={<SettingsMenu {...props} />}
     >
       <Container className={css.branchActionButtonWrapper}>
         <Icon name="git-new-branch" size={15} />
         <Text color={Color.GREY_900}>{branch}</Text>
-        <BranchStatusIcon
-          isSettingsOpen={isSettingsOpen}
-          branch={branch}
-          isAutoCommitEnabled={isAutoCommitEnabled}
-          isLoading={isLoading}
-        />
+        <BranchStatusIcon {...props} />
       </Container>
     </Button>
   )

@@ -150,6 +150,7 @@ export interface GitDetails {
 export interface GitRepo {
   autoCommit?: boolean
   branch: string
+  enabled?: boolean
   filePath: string
   objectId: string
   repoIdentifier: string

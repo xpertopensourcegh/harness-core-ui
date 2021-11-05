@@ -447,6 +447,8 @@ gitSync:
   flagName: Feature Flag Name
   autoCommitLabel: Always commit to this branch and do not prompt for commit message.
   branchStatus: Auto-commit to {{branch}} is {{status}}
+  syncingPaused: Syncing with Git is currently OFF. Click to view settings
+  toggleGitSyncPause: Sync with Git
   autoCommitStatusLabel: Auto-commit to selected branch
 onboarding:
   listeningToEvent: We’re listening for your flag event...

@@ -121,8 +121,8 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({
         toggleFeatureFlag.on(data.identifier, gitDetails)
       }
 
-      if (!gitSync.isAutoCommitEnabled && gitSyncFormValues?.autoCommit) {
-        gitSync.handleAutoCommit(gitSyncFormValues?.autoCommit)
+      if (gitSyncFormValues?.autoCommit) {
+        gitSync.handleAutoCommit(gitSyncFormValues.autoCommit)
       }
 
       setStatus(!status)
@@ -648,13 +648,15 @@ const FeatureFlagsPage: React.FC = () => {
             <Container>
               <FlagDialog environment={activeEnvironment} />
             </Container>
-            {gitSync?.isGitSyncEnabled && (
+            {gitSync?.isGitSyncActionsEnabled && (
               <GitSyncActions
                 isLoading={gitSync.gitSyncLoading || gitSyncing}
                 branch={gitSync.gitRepoDetails?.branch || ''}
                 repository={gitSync.gitRepoDetails?.repoIdentifier || ''}
                 isAutoCommitEnabled={gitSync.isAutoCommitEnabled}
-                handleToggleAutoCommit={(newAutoCommitValue: boolean) => gitSync.handleAutoCommit(newAutoCommitValue)}
+                isGitSyncPaused={gitSync.isGitSyncPaused}
+                handleToggleAutoCommit={gitSync.handleAutoCommit}
+                handleGitPause={gitSync.handleGitPause}
               />
             )}
           </Container>

@@ -15,7 +15,9 @@ const renderComponent = (props?: Partial<GitSyncActionsProps>): void => {
         repository="test repository"
         isAutoCommitEnabled={false}
         isLoading={false}
+        isGitSyncPaused={false}
         handleToggleAutoCommit={jest.fn()}
+        handleGitPause={jest.fn()}
         {...props}
       />
     </TestWrapper>
@@ -57,6 +59,36 @@ describe('GitSyncActions', () => {
     expect(screen.getByTestId('auto-commit-switch')).toBeChecked()
   })
 
+  test('it should render correctly when gitSyncPaused = FALSE', async () => {
+    renderComponent({ isGitSyncPaused: false })
+
+    expect(screen.getByText('test branch')).toBeInTheDocument()
+    expect(screen.getByText('test repository')).toBeInTheDocument()
+    expect(screen.queryByTestId('git-paused-icon')).not.toBeInTheDocument()
+
+    userEvent.click(screen.getByText('test branch'))
+
+    expect(screen.getByText('cf.gitSync.autoCommitStatusLabel')).toBeInTheDocument()
+    expect(screen.getByTestId('toggle-git-sync-pause-switch')).toBeInTheDocument()
+    expect(screen.getByTestId('toggle-git-sync-pause-switch')).toBeChecked()
+  })
+
+  test('it should render correctly when gitSyncPaused = TRUE', async () => {
+    renderComponent({ isGitSyncPaused: true })
+
+    expect(screen.getByText('test branch')).toBeInTheDocument()
+    expect(screen.getByText('test repository')).toBeInTheDocument()
+    expect(screen.queryByTestId('git-paused-icon')).toBeInTheDocument()
+
+    userEvent.click(screen.getByText('test branch'))
+
+    expect(screen.getByText('cf.gitSync.autoCommitStatusLabel')).toBeInTheDocument()
+    expect(screen.getByTestId('toggle-git-sync-pause-switch')).toBeInTheDocument()
+    expect(screen.getByTestId('toggle-git-sync-pause-switch')).not.toBeChecked()
+
+    expect(screen.getByTestId('auto-commit-switch')).toBeDisabled()
+  })
+
   test('it should call handleAutoCommit callback when switch toggled to ON', async () => {
     const handleAutoCommitMock = jest.fn()
 
@@ -77,6 +109,28 @@ describe('GitSyncActions', () => {
     userEvent.click(screen.getByTestId('auto-commit-switch'))
 
     expect(handleAutoCommitMock).toBeCalledWith(false)
+  })
+
+  test('it should call handleGitPause callback when switch toggled to OFF', async () => {
+    const handleGitPauseMock = jest.fn()
+
+    renderComponent({ handleGitPause: handleGitPauseMock, isGitSyncPaused: true })
+
+    userEvent.click(screen.getByText('test branch'))
+    userEvent.click(screen.getByTestId('toggle-git-sync-pause-switch'))
+
+    expect(handleGitPauseMock).toBeCalledWith(true)
+  })
+
+  test('it should call handleGitPause callback when switch toggled to ON', async () => {
+    const handleGitPauseMock = jest.fn()
+
+    renderComponent({ handleGitPause: handleGitPauseMock, isGitSyncPaused: false })
+
+    userEvent.click(screen.getByText('test branch'))
+    userEvent.click(screen.getByTestId('toggle-git-sync-pause-switch'))
+
+    expect(handleGitPauseMock).toBeCalledWith(false)
   })
 
   test('it should show Git sync spinner when loading', async () => {

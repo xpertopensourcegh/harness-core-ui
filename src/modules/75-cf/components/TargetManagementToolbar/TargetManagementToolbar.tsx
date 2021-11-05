@@ -10,21 +10,21 @@ interface TargetManagementToolbarProps {
 const TargetManagementToolbar = ({ gitSync }: TargetManagementToolbarProps): ReactElement => {
   return (
     <Container border={{ bottom: true, style: 'solid', color: Color.GREY_200 }}>
-      {gitSync?.isGitSyncEnabled && (
-        <Container
-          flex={{ justifyContent: 'space-between', alignItems: 'center' }}
-          width={230}
-          margin={{ left: 'xxlarge', top: 'large', bottom: 'large' }}
-        >
-          <GitSyncActions
-            isLoading={gitSync.gitSyncLoading}
-            branch={gitSync.gitRepoDetails?.branch || ''}
-            repository={gitSync.gitRepoDetails?.repoIdentifier || ''}
-            isAutoCommitEnabled={gitSync.isAutoCommitEnabled}
-            handleToggleAutoCommit={(newAutoCommitValue: boolean) => gitSync.handleAutoCommit(newAutoCommitValue)}
-          />
-        </Container>
-      )}
+      <Container
+        flex={{ justifyContent: 'space-between', alignItems: 'center' }}
+        width={230}
+        margin={{ left: 'xxlarge', top: 'large', bottom: 'large' }}
+      >
+        <GitSyncActions
+          isLoading={gitSync.gitSyncLoading}
+          branch={gitSync.gitRepoDetails?.branch || ''}
+          repository={gitSync.gitRepoDetails?.repoIdentifier || ''}
+          isAutoCommitEnabled={gitSync.isAutoCommitEnabled}
+          isGitSyncPaused={gitSync.isGitSyncPaused}
+          handleToggleAutoCommit={gitSync.handleAutoCommit}
+          handleGitPause={gitSync.handleGitPause}
+        />
+      </Container>
     </Container>
   )
 }

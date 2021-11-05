@@ -15,6 +15,7 @@ jest.mock('@cf/hooks/useGitSync', () => ({
     })),
     isAutoCommitEnabled: false,
     isGitSyncEnabled: true,
+    isGitSyncActionsEnabled: true,
     handleAutoCommit: jest.fn()
   }))
 }))

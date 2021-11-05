@@ -9,16 +9,14 @@ export interface GitSyncActionsProps {
   branch: string
   repository: string
   isAutoCommitEnabled: boolean
+  isGitSyncPaused: boolean
   handleToggleAutoCommit: (newAutoCommitValue: boolean) => Promise<void>
+  handleGitPause: (newGitPauseValue: boolean) => Promise<void>
 }
 
-const GitSyncActions = ({
-  isLoading,
-  branch,
-  repository,
-  isAutoCommitEnabled,
-  handleToggleAutoCommit
-}: GitSyncActionsProps): ReactElement => {
+const GitSyncActions = (props: GitSyncActionsProps): ReactElement => {
+  const { repository } = props
+
   const [isSettingsOpen, setIsSettingsOpen] = useState(false)
 
   return (
@@ -31,14 +29,7 @@ const GitSyncActions = ({
       <Container className={css.verticalDivider} />
 
       <Container>
-        <BranchSettingsButton
-          isSettingsOpen={isSettingsOpen}
-          handleToggleAutoCommit={handleToggleAutoCommit}
-          setIsSettingsOpen={setIsSettingsOpen}
-          branch={branch}
-          isLoading={isLoading}
-          isAutoCommitEnabled={isAutoCommitEnabled}
-        />
+        <BranchSettingsButton isSettingsOpen={isSettingsOpen} setIsSettingsOpen={setIsSettingsOpen} {...props} />
       </Container>
     </>
   )

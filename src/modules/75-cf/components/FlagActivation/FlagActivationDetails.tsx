@@ -424,9 +424,11 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
         />
       </Layout.Horizontal>
 
-      <Container flex={{ justifyContent: 'space-between', alignItems: 'center' }} width={230}>
-        {gitSyncActionsComponent}
-      </Container>
+      {gitSyncActionsComponent && (
+        <Container flex={{ justifyContent: 'space-between', alignItems: 'center' }} width={230}>
+          {gitSyncActionsComponent}
+        </Container>
+      )}
 
       <Container>
         <Heading

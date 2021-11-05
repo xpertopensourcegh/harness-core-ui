@@ -13,6 +13,9 @@ const mockGitSync: UseGitSync = {
   isAutoCommitEnabled: false,
   isGitSyncEnabled: true,
   gitSyncLoading: false,
+  handleGitPause: jest.fn(),
+  isGitSyncActionsEnabled: true,
+  isGitSyncPaused: false,
   handleAutoCommit: jest.fn(),
   getGitSyncFormMeta: jest.fn(() => ({
     gitSyncInitialValues: {

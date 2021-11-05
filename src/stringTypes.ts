@@ -3609,6 +3609,8 @@ export interface StringsMap {
   'cf.gitSync.commitMsgRequired': string
   'cf.gitSync.flagName': string
   'cf.gitSync.saveFlagToGit': string
+  'cf.gitSync.syncingPaused': string
+  'cf.gitSync.toggleGitSyncPause': string
   'cf.homepage.learnMore': string
   'cf.homepage.slogan': string
   'cf.learnMore': string

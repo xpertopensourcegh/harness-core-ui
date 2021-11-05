@@ -9,6 +9,7 @@ declare const styles: {
   readonly autoCommitEnabled: string
   readonly autoCommitDisabled: string
   readonly loadingSpinner: string
+  readonly pausedIcon: string
   readonly gitRepoText: string
 }
 export default styles

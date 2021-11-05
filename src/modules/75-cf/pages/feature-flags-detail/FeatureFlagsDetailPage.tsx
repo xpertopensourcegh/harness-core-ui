@@ -86,7 +86,9 @@ const FeatureFlagsDetailPage: React.FC = () => {
       branch={gitSync.gitRepoDetails?.branch || ''}
       repository={gitSync.gitRepoDetails?.repoIdentifier || ''}
       isAutoCommitEnabled={gitSync.isAutoCommitEnabled}
-      handleToggleAutoCommit={(newAutoCommitValue: boolean) => gitSync.handleAutoCommit(newAutoCommitValue)}
+      isGitSyncPaused={gitSync.isGitSyncPaused}
+      handleToggleAutoCommit={gitSync.handleAutoCommit}
+      handleGitPause={gitSync.handleGitPause}
     />
   )
 
@@ -98,7 +100,7 @@ const FeatureFlagsDetailPage: React.FC = () => {
             <FlagActivationDetails
               featureFlag={featureFlag}
               refetchFlag={refetch}
-              gitSyncActionsComponent={gitSync?.isGitSyncEnabled ? <GitSyncActionsComponent /> : undefined}
+              gitSyncActionsComponent={gitSync?.isGitSyncActionsEnabled ? <GitSyncActionsComponent /> : undefined}
               gitSync={gitSync}
             />
           )}

@@ -21,6 +21,7 @@ const setUseGitRepoMock = (repoDetails: Partial<GitRepo> = {}, repoSet = false):
       repoDetails: {
         autoCommit: repoDetails.autoCommit || false,
         branch: repoDetails.branch || 'main',
+        enabled: repoDetails.enabled ?? true,
         filePath: repoDetails.filePath || '/flags.yaml',
         repoIdentifier: repoDetails.repoIdentifier || 'harnesstest',
         rootFolder: repoDetails.rootFolder || '/.harness/'

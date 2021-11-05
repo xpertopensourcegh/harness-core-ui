@@ -28,8 +28,11 @@ export interface UseGitSync {
   gitRepoDetails?: GitRepo
   isAutoCommitEnabled: boolean
   isGitSyncEnabled: boolean
+  isGitSyncPaused: boolean
+  isGitSyncActionsEnabled: boolean
   gitSyncLoading: boolean
   handleAutoCommit: (newAutoCommitValue: boolean) => Promise<void>
+  handleGitPause: (newGitPauseValue: boolean) => Promise<void>
   getGitSyncFormMeta: (autoCommitMessage?: string) => GitSyncFormMeta
 }
 
@@ -56,13 +59,23 @@ export const useGitSync = (): UseGitSync => {
   const FF_GITSYNC = useFeatureFlag(FeatureFlag.FF_GITSYNC)
 
   const isGitSyncEnabled = useMemo<boolean>(
-    () => !!(FF_GITSYNC && getGitRepo?.data?.repoSet),
-    [FF_GITSYNC, getGitRepo?.data?.repoSet]
+    () => !!(FF_GITSYNC && getGitRepo?.data?.repoSet && getGitRepo?.data?.repoDetails?.enabled),
+    [FF_GITSYNC, getGitRepo?.data?.repoDetails?.enabled, getGitRepo?.data?.repoSet]
   )
 
   const isAutoCommitEnabled = useMemo<boolean>(
     () => !!(FF_GITSYNC && getGitRepo?.data?.repoSet && getGitRepo?.data?.repoDetails?.autoCommit),
     [FF_GITSYNC, getGitRepo?.data?.repoDetails?.autoCommit, getGitRepo?.data?.repoSet]
+  )
+
+  const isGitSyncActionsEnabled = useMemo<boolean>(
+    () => !!(FF_GITSYNC && getGitRepo?.data?.repoSet),
+    [FF_GITSYNC, getGitRepo?.data?.repoSet]
+  )
+
+  const isGitSyncPaused = useMemo<boolean>(
+    () => !!(FF_GITSYNC && getGitRepo?.data?.repoSet && !getGitRepo?.data?.repoDetails?.enabled),
+    [FF_GITSYNC, getGitRepo?.data?.repoDetails?.enabled, getGitRepo?.data?.repoSet]
   )
 
   const getGitSyncFormMeta = (autoCommitMessage?: string): GitSyncFormMeta => ({
@@ -104,12 +117,31 @@ export const useGitSync = (): UseGitSync => {
     }
   }
 
+  const handleGitPause = async (newGitPauseValue: boolean): Promise<void> => {
+    const instruction = {
+      instructions: [
+        {
+          kind: 'setEnabled',
+          parameters: {
+            enabled: newGitPauseValue
+          }
+        }
+      ]
+    }
+
+    await patchGitRepo.mutate(instruction)
+    await getGitRepo.refetch()
+  }
+
   return {
     gitRepoDetails: getGitRepo?.data?.repoDetails,
     isAutoCommitEnabled,
     isGitSyncEnabled,
+    isGitSyncPaused,
+    isGitSyncActionsEnabled,
     gitSyncLoading: getGitRepo.loading || patchGitRepo.loading,
     handleAutoCommit,
+    handleGitPause,
     getGitSyncFormMeta
   }
 }
