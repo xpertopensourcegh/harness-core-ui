@@ -603,7 +603,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
       >
         <div
           class="Text--withDocsTooltip"
-          data-tooltip-id="awsCCDetailsTooltip"
+          data-tooltip-id="gitlabConnectorDetailsTooltip"
         >
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-variation-h3"
@@ -1095,7 +1095,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
       >
         <div
           class="Text--withDocsTooltip"
-          data-tooltip-id="awsCCDetailsTooltip"
+          data-tooltip-id="gitlabConnectorDetailsTooltip"
         >
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-variation-h3"
@@ -1617,7 +1617,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
       >
         <div
           class="Text--withDocsTooltip"
-          data-tooltip-id="awsCCDetailsTooltip"
+          data-tooltip-id="gitlabConnectorDetailsTooltip"
         >
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-variation-h3"
@@ -2109,7 +2109,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
       >
         <div
           class="Text--withDocsTooltip"
-          data-tooltip-id="awsCCDetailsTooltip"
+          data-tooltip-id="gitlabConnectorDetailsTooltip"
         >
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-variation-h3"

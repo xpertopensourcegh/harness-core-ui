@@ -50,6 +50,21 @@ interface DetailsStepInterface {
   validationRepo?: string
 }
 
+const getTooltipAnchorForHeading = (connectorType: ConnectorInfoDTO['type']): string => {
+  if (connectorType === 'Aws') {
+    return 'awsCCDetailsTooltip'
+  } else if (connectorType === 'Git') {
+    return 'gitConnectorDetailsTooltip'
+  } else if (connectorType === 'Github') {
+    return 'githubConnectorDetailsTooltip'
+  } else if (connectorType === 'Bitbucket') {
+    return 'bitbucketConnectorDetailsTooltip'
+  } else if (connectorType === 'Gitlab') {
+    return 'gitlabConnectorDetailsTooltip'
+  }
+  return 'connectorDetailsTooltip'
+}
+
 const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsStepProps> = props => {
   const { prevStepData, nextStep } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
@@ -190,7 +205,10 @@ const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsS
   return (
     <Layout.Vertical width="60%" style={{ minHeight: 460 }} className={cx(css.firstep, commonCss.stepContainer)}>
       <ModalErrorHandler bind={setModalErrorHandler} />
-      <Text font={{ variation: FontVariation.H3 }} tooltipProps={{ dataTooltipId: 'awsCCDetailsTooltip' }}>
+      <Text
+        font={{ variation: FontVariation.H3 }}
+        tooltipProps={{ dataTooltipId: getTooltipAnchorForHeading(props.type) }}
+      >
         {getString('details')}
       </Text>
 

@@ -555,7 +555,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
       >
         <div
           class="Text--withDocsTooltip"
-          data-tooltip-id="awsCCDetailsTooltip"
+          data-tooltip-id="gitConnectorDetailsTooltip"
         >
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-variation-h3"
@@ -1023,7 +1023,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
       >
         <div
           class="Text--withDocsTooltip"
-          data-tooltip-id="awsCCDetailsTooltip"
+          data-tooltip-id="gitConnectorDetailsTooltip"
         >
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-variation-h3"

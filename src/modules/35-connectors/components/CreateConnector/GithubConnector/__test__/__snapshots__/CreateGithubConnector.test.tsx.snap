@@ -553,7 +553,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
       >
         <div
           class="Text--withDocsTooltip"
-          data-tooltip-id="awsCCDetailsTooltip"
+          data-tooltip-id="githubConnectorDetailsTooltip"
         >
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-variation-h3"
@@ -1020,7 +1020,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
       >
         <div
           class="Text--withDocsTooltip"
-          data-tooltip-id="awsCCDetailsTooltip"
+          data-tooltip-id="githubConnectorDetailsTooltip"
         >
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-variation-h3"
@@ -1517,7 +1517,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 1`]
       >
         <div
           class="Text--withDocsTooltip"
-          data-tooltip-id="awsCCDetailsTooltip"
+          data-tooltip-id="githubConnectorDetailsTooltip"
         >
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-variation-h3"
@@ -1984,7 +1984,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 2`]
       >
         <div
           class="Text--withDocsTooltip"
-          data-tooltip-id="awsCCDetailsTooltip"
+          data-tooltip-id="githubConnectorDetailsTooltip"
         >
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-variation-h3"
