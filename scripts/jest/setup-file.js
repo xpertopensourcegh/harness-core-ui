@@ -40,11 +40,15 @@ Object.defineProperty(window, 'matchMedia', {
   }))
 })
 
-jest.mock('framework/utils/Telemetry', () => {
+jest.mock('@common/hooks/useTelemetryInstance', () => {
   return {
-    track: jest.fn(),
-    page: jest.fn(),
-    identify: jest.fn()
+    useTelemetryInstance: () => {
+      return {
+        identify: () => void 0,
+        track: () => void 0,
+        page: () => void 0
+      }
+    }
   }
 })
 

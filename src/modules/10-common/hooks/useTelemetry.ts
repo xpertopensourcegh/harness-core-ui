@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import telemetry from 'framework/utils/Telemetry'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { useTelemetryInstance } from './useTelemetryInstance'
 
 type TrackEvent = (eventName: string, properties: Record<string, string>) => void
 type IdentifyUser = (email: string | undefined) => void
@@ -19,7 +19,7 @@ interface TelemetryReturnType {
 export function useTelemetry(pageParams: PageParams = {}): TelemetryReturnType {
   const { currentUserInfo } = useAppStore()
   const { accountId: groupId } = useParams<AccountPathProps>()
-
+  const telemetry = useTelemetryInstance()
   const userId = currentUserInfo.email || ''
 
   useEffect(() => {
