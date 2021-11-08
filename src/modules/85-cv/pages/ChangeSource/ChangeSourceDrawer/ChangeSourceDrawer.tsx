@@ -5,7 +5,6 @@ import { useParams } from 'react-router-dom'
 import { FormConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/FormConnectorReferenceField'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
-import { Connectors } from '@connectors/constants'
 import DrawerFooter from '@cv/pages/health-source/common/DrawerFooter/DrawerFooter'
 import CardWithOuterTitle from '@cv/pages/health-source/common/CardWithOuterTitle/CardWithOuterTitle'
 import type { ConnectorReferenceFieldProps } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
@@ -20,13 +19,9 @@ import {
 } from './ChangeSourceDrawer.utils'
 import type { ChangeSoureDrawerInterface, UpdatedChangeSourceDTO } from './ChangeSourceDrawer.types'
 import PageDutyChangeSource from './components/PagerDutyChangeSource/PagerDutyChangeSource'
-import {
-  ChangeSourceFieldNames,
-  HARNESS_CD,
-  HARNESS_CD_NEXTGEN,
-  ChangeSourceTypes
-} from './ChangeSourceDrawer.constants'
+import { ChangeSourceFieldNames, ChangeSourceTypes } from './ChangeSourceDrawer.constants'
 import HarnessCDCurrentGenChangeSource from './components/HarnessCDCurrentGenChangeSource/HarnessCDCurrentGenChangeSource'
+import KubernetesChangeSource from './components/KubernetesChangeSource/KubernetesChangeSource'
 import style from './ChangeSourceDrawer.module.scss'
 
 export function ChangeSourceDrawer({
@@ -56,17 +51,20 @@ export function ChangeSourceDrawer({
   const renderChangeSource = useCallback(
     (formik: FormikProps<any>): React.ReactNode => {
       const changeSourceType = formik.values?.type as string
-      if (!changeSourceType || changeSourceType === HARNESS_CD_NEXTGEN) {
+      if (!changeSourceType || changeSourceType === ChangeSourceTypes.HarnessCDNextGen) {
         return null
       }
       let changeSource = null
 
       switch (changeSourceType) {
-        case Connectors.PAGER_DUTY:
+        case ChangeSourceTypes.PagerDuty:
           changeSource = <PageDutyChangeSource formik={formik} isEdit={isEdit} />
           break
-        case HARNESS_CD:
+        case ChangeSourceTypes.HarnessCD:
           changeSource = <HarnessCDCurrentGenChangeSource formik={formik} />
+          break
+        case ChangeSourceTypes.K8sCluster:
+          changeSource = <KubernetesChangeSource formik={formik} isEdit={isEdit} />
           break
         default:
           changeSource = (
@@ -75,7 +73,7 @@ export function ChangeSourceDrawer({
               formik={formik}
               type={changeSourceType as ConnectorReferenceFieldProps['type']}
               name={'spec.connectorRef'}
-              disabled={isEdit && changeSourceType === ChangeSourceTypes.K8sCluster}
+              disabled={isEdit}
               accountIdentifier={accountId}
               projectIdentifier={projectIdentifier}
               orgIdentifier={orgIdentifier}

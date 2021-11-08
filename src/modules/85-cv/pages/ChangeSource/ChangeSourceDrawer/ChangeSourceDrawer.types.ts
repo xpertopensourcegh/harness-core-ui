@@ -1,3 +1,4 @@
+import type { FormikProps } from 'formik'
 import type { Item } from '@wings-software/uicore/dist/components/ThumbnailSelect/ThumbnailSelect'
 import type {
   ChangeSourceDTO,
@@ -21,4 +22,9 @@ export interface ChangeSoureDrawerInterface {
 export interface CardSelectOption extends Item {
   category?: string
   string?: string
+}
+
+export interface ChangeSourceProps {
+  formik: FormikProps<UpdatedChangeSourceDTO>
+  isEdit?: boolean
 }

@@ -21,16 +21,17 @@ import { useStrings } from 'framework/strings'
 import CardWithOuterTitle from '@cv/pages/health-source/common/CardWithOuterTitle/CardWithOuterTitle'
 import DrawerFooter from '@cv/pages/health-source/common/DrawerFooter/DrawerFooter'
 import MetricsVerificationModal from '@cv/components/MetricsVerificationModal/MetricsVerificationModal'
+import ValidationStatus from '@cv/pages/components/ValidationStatus/ValidationStatus'
+import { StatusOfValidation } from '@cv/pages/components/ValidationStatus/ValidationStatus.constants'
 import {
   getOptions,
   getInputGroupProps,
-  renderValidationStatus,
   validateMetrics,
   createMetricDataFormik
 } from '../MonitoredServiceConnector.utils'
 
 import MetricPack from '../MetrickPack'
-import { ValidationStatus, HealthSoureSupportedConnectorTypes } from '../MonitoredServiceConnector.constants'
+import { HealthSoureSupportedConnectorTypes } from '../MonitoredServiceConnector.constants'
 import { validateNewRelic } from './NewRelicHealthSource.utils'
 import css from './NewrelicMonitoredSource.module.scss'
 
@@ -79,7 +80,7 @@ export default function NewRelicHealthSource({
   })
 
   const onValidate = async (appName: string, appId: string, metricObject: { [key: string]: any }): Promise<void> => {
-    setNewRelicValidation({ status: ValidationStatus.IN_PROGRESS, result: [] })
+    setNewRelicValidation({ status: StatusOfValidation.IN_PROGRESS, result: [] })
     const filteredMetricPack = selectedMetricPacks?.filter(item => metricObject[item.identifier as string])
     const { validationStatus, validationResult } = await validateMetrics(
       filteredMetricPack || [],
@@ -111,7 +112,7 @@ export default function NewRelicHealthSource({
     if (
       newRelicData.isEdit &&
       selectedMetricPacks.length &&
-      newRelicValidation.status !== ValidationStatus.IN_PROGRESS
+      newRelicValidation.status !== StatusOfValidation.IN_PROGRESS
     ) {
       onValidate(
         newRelicData?.applicationName,
@@ -180,20 +181,19 @@ export default function NewRelicHealthSource({
                   />
                 </Container>
                 <Container width={'300px'} color={Color.BLACK}>
-                  {formik?.values?.newRelicApplication.label &&
-                    formik?.values?.newRelicApplication.value &&
-                    renderValidationStatus(
-                      newRelicValidation.status,
-                      getString,
-                      newRelicValidation.result,
-                      setValidationResultData,
-                      () =>
-                        onValidate(
-                          formik?.values?.newRelicApplication?.label,
-                          formik?.values?.newRelicApplication?.value,
-                          formik?.values?.metricData
-                        )
-                    )}
+                  {formik.values?.newRelicApplication.label && formik.values.newRelicApplication.value && (
+                    <ValidationStatus
+                      validationStatus={newRelicValidation?.status as StatusOfValidation}
+                      onClick={
+                        newRelicValidation.result?.length
+                          ? () => setValidationResultData(newRelicValidation.result)
+                          : undefined
+                      }
+                      onRetry={() =>
+                        onValidate(formik.values.appdApplication, formik.values.appDTier, formik.values.metricData)
+                      }
+                    />
+                  )}
                 </Container>
               </Layout.Horizontal>
             </CardWithOuterTitle>

@@ -44,6 +44,7 @@ allowpaths:
   - /kubernetes/namespaces
   - /kubernetes/workloads
   - /kubernetes/event-details
+  - /kubernetes/validate
   - /alert
   - /alert/list
   - /alert/{identifier}

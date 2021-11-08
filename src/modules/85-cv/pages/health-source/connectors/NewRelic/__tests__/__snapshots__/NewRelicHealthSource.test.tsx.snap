@@ -171,7 +171,11 @@ exports[`Unit tests for NewRelic health source Test NewRelic healthSource contai
                     <div
                       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
                       style="width: 300px;"
-                    />
+                    >
+                      <div
+                        class="StyledProps--font StyledProps--main"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>

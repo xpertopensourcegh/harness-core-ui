@@ -24,18 +24,17 @@ import { Connectors } from '@connectors/constants'
 import { useStrings } from 'framework/strings'
 import CardWithOuterTitle from '@cv/pages/health-source/common/CardWithOuterTitle/CardWithOuterTitle'
 import DrawerFooter from '@cv/pages/health-source/common/DrawerFooter/DrawerFooter'
+import ValidationStatus from '@cv/pages/components/ValidationStatus/ValidationStatus'
 import MetricsVerificationModal from '@cv/components/MetricsVerificationModal/MetricsVerificationModal'
+import { StatusOfValidation } from '@cv/pages/components/ValidationStatus/ValidationStatus.constants'
 import {
   getOptions,
   getInputGroupProps,
-  renderValidationStatus,
   validateMetrics,
   createMetricDataFormik
 } from '../MonitoredServiceConnector.utils'
-
 import MetricPack from '../MetrickPack'
-import { ValidationStatus, HealthSoureSupportedConnectorTypes } from '../MonitoredServiceConnector.constants'
-
+import { HealthSoureSupportedConnectorTypes } from '../MonitoredServiceConnector.constants'
 import css from './AppDHealthSource.module.scss'
 
 export default function AppDMonitoredSource({
@@ -106,7 +105,7 @@ export default function AppDMonitoredSource({
   }, [data?.applicationName])
 
   const onValidate = async (appName: string, tierName: string, metricObject: { [key: string]: any }): Promise<void> => {
-    setAppDValidation({ status: ValidationStatus.IN_PROGRESS, result: [] })
+    setAppDValidation({ status: StatusOfValidation.IN_PROGRESS, result: [] })
     const filteredMetricPack = selectedMetricPacks.filter(item => metricObject[item.identifier as string])
     const guid = Utils.randomId()
     setGuidMap(oldMap => {
@@ -163,7 +162,7 @@ export default function AppDMonitoredSource({
   }
 
   useEffect(() => {
-    if (data.isEdit && selectedMetricPacks.length && appDValidation.status !== ValidationStatus.IN_PROGRESS) {
+    if (data.isEdit && selectedMetricPacks.length && appDValidation.status !== StatusOfValidation.IN_PROGRESS) {
       onValidate(data?.applicationName, data?.tierName, createMetricDataFormik(data?.metricPacks))
     }
   }, [selectedMetricPacks, tierLoading, data.isEdit])
@@ -256,20 +255,17 @@ export default function AppDMonitoredSource({
                   </Container>
                 )}
                 <Container width={'300px'} color={Color.BLACK}>
-                  {formik?.values?.appDTier &&
-                    formik?.values?.appdApplication &&
-                    renderValidationStatus(
-                      appDValidation.status,
-                      getString,
-                      appDValidation.result,
-                      setValidationResultData,
-                      () =>
-                        onValidate(
-                          formik?.values?.appdApplication,
-                          formik?.values?.appDTier,
-                          formik?.values?.metricData
-                        )
-                    )}
+                  {formik.values?.appDTier && formik?.values.appdApplication && (
+                    <ValidationStatus
+                      validationStatus={appDValidation?.status as StatusOfValidation}
+                      onClick={
+                        appDValidation.result?.length ? () => setValidationResultData(appDValidation.result) : undefined
+                      }
+                      onRetry={() =>
+                        onValidate(formik.values.appdApplication, formik.values.appDTier, formik.values.metricData)
+                      }
+                    />
+                  )}
                 </Container>
               </Layout.Horizontal>
             </CardWithOuterTitle>

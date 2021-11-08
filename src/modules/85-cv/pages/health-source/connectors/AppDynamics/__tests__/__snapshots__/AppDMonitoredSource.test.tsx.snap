@@ -279,8 +279,8 @@ exports[`Unit tests for createAppd monitoring source Component renders in edit m
                       style="width: 300px;"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main"
-                        style="display: flex; align-items: center; cursor: pointer;"
+                        class="StyledProps--font StyledProps--main validationButton"
+                        style="display: flex; align-items: center;"
                       >
                         <span
                           class="bp3-icon bp3-icon-issue StyledProps--main Text--icon StyledProps--padding-right-xsmall"

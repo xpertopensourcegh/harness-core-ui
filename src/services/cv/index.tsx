@@ -2568,6 +2568,13 @@ export interface Response {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseBoolean {
+  correlationId?: string
+  data?: boolean
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseHealthScoreDTO {
   correlationId?: string
   data?: HealthScoreDTO
@@ -4225,10 +4232,11 @@ export type ServiceGuardTimeSeriesAnalysisDTORequestBody = ServiceGuardTimeSerie
 export type ServiceLevelObjectiveDTORequestBody = ServiceLevelObjectiveDTO
 
 export interface ChangeEventListQueryParams {
-  serviceIdentifiers: string[]
-  envIdentifiers: string[]
-  changeCategories: ('Deployment' | 'Infrastructure' | 'Alert')[]
-  changeSourceTypes: ('HarnessCDNextGen' | 'PagerDuty' | 'K8sCluster' | 'HarnessCD')[]
+  serviceIdentifiers?: string[]
+  envIdentifiers?: string[]
+  changeCategories?: ('Deployment' | 'Infrastructure' | 'Alert')[]
+  changeSourceTypes?: ('HarnessCDNextGen' | 'PagerDuty' | 'K8sCluster' | 'HarnessCD')[]
+  searchText?: string
   startTime: number
   endTime: number
   pageIndex?: number
@@ -4310,10 +4318,10 @@ export const changeEventListPromise = (
   )
 
 export interface ChangeEventSummaryQueryParams {
-  serviceIdentifiers: string[]
-  envIdentifiers: string[]
-  changeCategories: ('Deployment' | 'Infrastructure' | 'Alert')[]
-  changeSourceTypes: ('HarnessCDNextGen' | 'PagerDuty' | 'K8sCluster' | 'HarnessCD')[]
+  serviceIdentifiers?: string[]
+  envIdentifiers?: string[]
+  changeCategories?: ('Deployment' | 'Infrastructure' | 'Alert')[]
+  changeSourceTypes?: ('HarnessCDNextGen' | 'PagerDuty' | 'K8sCluster' | 'HarnessCD')[]
   startTime: number
   endTime: number
 }
@@ -4392,10 +4400,11 @@ export const changeEventSummaryPromise = (
   )
 
 export interface ChangeEventTimelineQueryParams {
-  serviceIdentifiers: string[]
-  envIdentifiers: string[]
-  changeCategories: ('Deployment' | 'Infrastructure' | 'Alert')[]
-  changeSourceTypes: ('HarnessCDNextGen' | 'PagerDuty' | 'K8sCluster' | 'HarnessCD')[]
+  serviceIdentifiers?: string[]
+  envIdentifiers?: string[]
+  changeCategories?: ('Deployment' | 'Infrastructure' | 'Alert')[]
+  changeSourceTypes?: ('HarnessCDNextGen' | 'PagerDuty' | 'K8sCluster' | 'HarnessCD')[]
+  searchText?: string
   startTime: number
   endTime: number
   pointCount?: number
@@ -6495,6 +6504,58 @@ export const getNamespacesPromise = (
   getUsingFetch<ResponsePageString, Failure | Error, GetNamespacesQueryParams, void>(
     getConfig('cv/api'),
     `/kubernetes/namespaces`,
+    props,
+    signal
+  )
+
+export interface ValidateK8sConnectivityQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+  connectorIdentifier: string
+  tracingId: string
+}
+
+export type ValidateK8sConnectivityProps = Omit<
+  GetProps<ResponseBoolean, Failure | Error, ValidateK8sConnectivityQueryParams, void>,
+  'path'
+>
+
+/**
+ * validate permissions of a k8s connector for events
+ */
+export const ValidateK8sConnectivity = (props: ValidateK8sConnectivityProps) => (
+  <Get<ResponseBoolean, Failure | Error, ValidateK8sConnectivityQueryParams, void>
+    path={`/kubernetes/validate`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseValidateK8sConnectivityProps = Omit<
+  UseGetProps<ResponseBoolean, Failure | Error, ValidateK8sConnectivityQueryParams, void>,
+  'path'
+>
+
+/**
+ * validate permissions of a k8s connector for events
+ */
+export const useValidateK8sConnectivity = (props: UseValidateK8sConnectivityProps) =>
+  useGet<ResponseBoolean, Failure | Error, ValidateK8sConnectivityQueryParams, void>(`/kubernetes/validate`, {
+    base: getConfig('cv/api'),
+    ...props
+  })
+
+/**
+ * validate permissions of a k8s connector for events
+ */
+export const validateK8sConnectivityPromise = (
+  props: GetUsingFetchProps<ResponseBoolean, Failure | Error, ValidateK8sConnectivityQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseBoolean, Failure | Error, ValidateK8sConnectivityQueryParams, void>(
+    getConfig('cv/api'),
+    `/kubernetes/validate`,
     props,
     signal
   )

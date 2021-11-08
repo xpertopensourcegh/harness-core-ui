@@ -4059,6 +4059,8 @@ export interface StringsMap {
   'cv.changeSource.duplicateIdentifier': string
   'cv.changeSource.editChangeSource': string
   'cv.changeSource.incident': string
+  'cv.changeSource.kubernetes.invalidConnector': string
+  'cv.changeSource.kubernetes.validatingConnector': string
   'cv.changeSource.noChangeSource': string
   'cv.changeSource.noData': string
   'cv.changeSource.noDataAvaiableForCard': string

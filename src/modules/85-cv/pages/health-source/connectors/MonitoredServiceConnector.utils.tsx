@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Text, Layout, Color, IconName, SelectOption } from '@wings-software/uicore'
+import { Button, IconName, SelectOption } from '@wings-software/uicore'
 import isEmpty from 'lodash-es/isEmpty'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import type { UseStringsReturn } from 'framework/strings'
@@ -15,11 +15,8 @@ import {
   ResponseMetricPackValidationResponse,
   ResponseSetAppdynamicsValidationResponse
 } from 'services/cv'
-import {
-  ValidationStatus,
-  StatusState,
-  HealthSoureSupportedConnectorTypes
-} from './MonitoredServiceConnector.constants'
+import { StatusOfValidation } from '@cv/pages/components/ValidationStatus/ValidationStatus.constants'
+import { StatusState, HealthSoureSupportedConnectorTypes } from './MonitoredServiceConnector.constants'
 import type { UpdatedHealthSource } from '../HealthSourceDrawer/HealthSourceDrawerContent.types'
 import css from './NewRelic/NewrelicMonitoredSource.module.scss'
 
@@ -146,70 +143,17 @@ export async function validateMetrics(
     if (data?.length) {
       let status
       if (data?.some(val => val.overallStatus === StatusState.FAILED)) {
-        status = ValidationStatus.ERROR
+        status = StatusOfValidation.ERROR
       } else if (data?.some(val => val.overallStatus === StatusState.NO_DATA)) {
-        status = ValidationStatus.NO_DATA
+        status = StatusOfValidation.NO_DATA
       } else if (data?.every(val => val.overallStatus === StatusState.SUCCESS)) {
-        status = ValidationStatus.SUCCESS
+        status = StatusOfValidation.SUCCESS
       }
       return { validationStatus: status, validationResult: data }
     }
     return { validationStatus: undefined }
   } catch (e) {
     return { validationStatus: undefined, error: getErrorMessage(e) }
-  }
-}
-
-export const renderValidationStatus = (
-  validationStatus: string,
-  getString: UseStringsReturn['getString'],
-  validationResultData: AppdynamicsValidationResponse[],
-  setValidationResultData: (val: AppdynamicsValidationResponse[]) => void,
-  onValidate: any
-): JSX.Element | null => {
-  const additionalProps = validationResultData
-    ? {
-        onClick: () => setValidationResultData(validationResultData),
-        style: { cursor: 'pointer' }
-      }
-    : {}
-
-  switch (validationStatus) {
-    case ValidationStatus.IN_PROGRESS:
-      return (
-        <Text icon="steps-spinner" iconProps={{ size: 16 }}>
-          {getString('cv.monitoringSources.appD.verificationsInProgress')}
-        </Text>
-      )
-    case ValidationStatus.NO_DATA:
-      return (
-        <Text icon="issue" iconProps={{ size: 16 }} {...additionalProps}>
-          {getString('cv.monitoringSources.appD.noData')}
-        </Text>
-      )
-    case ValidationStatus.SUCCESS:
-      return (
-        <Text icon="tick" iconProps={{ size: 16, color: Color.GREEN_500 }} {...additionalProps}>
-          {getString('cv.monitoringSources.appD.validationsPassed')}
-        </Text>
-      )
-    case ValidationStatus.ERROR:
-      return (
-        <Layout.Horizontal spacing="small">
-          <Text icon="warning-sign" iconProps={{ size: 16, color: Color.RED_500 }} {...additionalProps}>
-            {getString('cv.monitoringSources.appD.validationsFailed')}
-          </Text>
-          <Button
-            icon="refresh"
-            iconProps={{ size: 12 }}
-            color={Color.BLUE_500}
-            text={getString('retry')}
-            onClick={onValidate}
-          />
-        </Layout.Horizontal>
-      )
-    default:
-      return null
   }
 }
 

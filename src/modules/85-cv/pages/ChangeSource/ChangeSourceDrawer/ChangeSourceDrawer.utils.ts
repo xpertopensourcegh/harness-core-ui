@@ -11,8 +11,7 @@ import {
   ChangeSourceFieldNames,
   ChangeSourceCategoryOptions,
   ChangeSourceCategoryName,
-  HARNESS_CD,
-  HARNESS_CD_NEXTGEN
+  ChangeSourceTypes
 } from './ChangeSourceDrawer.constants'
 import type { UpdatedChangeSourceDTO } from './ChangeSourceDrawer.types'
 
@@ -82,7 +81,7 @@ export const validateChangeSource = (
     errors.type = getString('cv.changeSource.selectChangeSourceType')
   }
 
-  if (!spec?.connectorRef && type !== HARNESS_CD_NEXTGEN && type !== HARNESS_CD) {
+  if (!spec?.connectorRef && type !== ChangeSourceTypes.HarnessCDNextGen && type !== ChangeSourceTypes.HarnessCD) {
     errors.spec = {
       connectorRef: getString('cv.onboarding.selectProductScreen.validationText.connectorRef')
     }
@@ -105,11 +104,11 @@ export const validateChangeSourceSpec = (
 ): { [key: string]: string } => {
   let errors = { ...errorSpec }
   switch (type) {
-    case Connectors.PAGER_DUTY:
+    case ChangeSourceTypes.PagerDuty:
       return spec?.pagerDutyServiceId
         ? {}
         : { ...errors, pagerDutyServiceId: getString('cv.changeSource.PageDuty.selectPagerDutyService') }
-    case HARNESS_CD:
+    case ChangeSourceTypes.HarnessCD:
       if (!spec?.harnessApplicationId) {
         errors = {
           ...errors,
@@ -123,6 +122,9 @@ export const validateChangeSourceSpec = (
         errors = { ...errors, harnessServiceId: getString('cv.changeSource.HarnessCDCurrentGen.selectHarnessService') }
       }
       return errors
+    case ChangeSourceTypes.K8sCluster:
+      return spec?.isConnectorInvalid === true ? { ...errors, isConnectorInvalid: getString('invalidText') } : errors
+
     default:
       return {}
   }
@@ -148,16 +150,16 @@ export const getChangeSourceOptions = (
 
 export const updateSpecByType = (data: ChangeSourceDTO): ChangeSourceDTO['spec'] => {
   switch (data?.type) {
-    case Connectors.PAGER_DUTY:
+    case ChangeSourceTypes.PagerDuty:
       return {
         connectorRef: data?.spec?.connectorRef,
         pagerDutyServiceId: data?.spec?.pagerDutyServiceId
       }
-    case Connectors.KUBERNETES_CLUSTER:
+    case ChangeSourceTypes.K8sCluster:
       return {
         connectorRef: data?.spec?.connectorRef
       }
-    case HARNESS_CD:
+    case ChangeSourceTypes.HarnessCD:
       return {
         harnessApplicationId: data?.spec?.harnessApplicationId?.value,
         harnessServiceId: data?.spec?.harnessServiceId?.value,

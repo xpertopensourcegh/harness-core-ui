@@ -1,8 +1,12 @@
 import { Connectors } from '@connectors/constants'
 import type { CardSelectOption } from './ChangeSourceDrawer.types'
 
-export const HARNESS_CD_NEXTGEN = 'HarnessCDNextGen'
-export const HARNESS_CD = 'HarnessCD'
+export enum ChangeSourceTypes {
+  HarnessCD = 'HarnessCD',
+  HarnessCDNextGen = 'HarnessCDNextGen',
+  PagerDuty = 'PagerDuty',
+  K8sCluster = 'K8sCluster'
+}
 
 export const ChangeSourceCategoryName = {
   DEPLOYMENT: 'Deployment',
@@ -19,12 +23,12 @@ export const ChangeSourceCategoryOptions = [
 export const ChangeSourceConnectorOptions: CardSelectOption[] = [
   {
     label: 'cv.onboarding.changeSourceTypes.HarnessCDNextGen.name',
-    value: HARNESS_CD_NEXTGEN,
+    value: ChangeSourceTypes.HarnessCDNextGen,
     category: ChangeSourceCategoryName.DEPLOYMENT
   },
   {
     label: 'cv.onboarding.changeSourceTypes.HarnessCDCurrentGen.name',
-    value: HARNESS_CD,
+    value: ChangeSourceTypes.HarnessCD,
     category: ChangeSourceCategoryName.DEPLOYMENT
   },
   { label: 'kubernetesText', value: Connectors.KUBERNETES_CLUSTER, category: ChangeSourceCategoryName.INFRASTRUCTURE },
@@ -34,11 +38,4 @@ export const ChangeSourceConnectorOptions: CardSelectOption[] = [
 export const ChangeSourceFieldNames = {
   CATEGORY: 'category',
   TYPE: 'type'
-}
-
-export enum ChangeSourceTypes {
-  HarnessCD = 'HarnessCD',
-  HarnessCDNextGen = 'HarnessCDNextGen',
-  PagerDuty = 'PagerDuty',
-  K8sCluster = 'K8sCluster'
 }

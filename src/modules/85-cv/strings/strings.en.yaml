@@ -637,6 +637,9 @@ changeSource:
     finished: 'Finished: '
     deploymentHealth: Deployment Health
     ago: ago
+  kubernetes:
+    validatingConnector: Validating permissions to fetch Kubernetes events.
+    invalidConnector: Unable to fetch kubernetes events for this connector. Please use a connector with permissions to fetch events from the cluster.
 Dependency:
   serviceList: Service list
   noData: No Data For Dependency Graph
