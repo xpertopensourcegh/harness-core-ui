@@ -4131,9 +4131,11 @@ export interface StringsMap {
   'cv.metricVerificationModal.modalTitle': string
   'cv.metricVerificationModal.viewCalls': string
   'cv.monitoredServices.addNewMonitoredServices': string
+  'cv.monitoredServices.assignLabel': string
   'cv.monitoredServices.changeMonitoredServiceType': string
   'cv.monitoredServices.changeMonitoredServiceTypeMessage': string
   'cv.monitoredServices.changesTable.impact': string
+  'cv.monitoredServices.continuousVerification': string
   'cv.monitoredServices.deleteMonitoredServiceWarning': string
   'cv.monitoredServices.deleteService': string
   'cv.monitoredServices.dependenciesHealth': string

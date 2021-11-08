@@ -598,6 +598,8 @@ monitoredServices:
     impact: Impact
   serviceDependencies:
     noData: No data available for service dependencies
+  assignLabel: Select the services you want to apply the metric
+  continuousVerification: Continuous Verification
 changeSource:
   alertText: Alert
   incident: Incident
