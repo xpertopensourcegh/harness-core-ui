@@ -59,7 +59,8 @@ jest.mock('services/pipeline-ng', () => ({
     mutate: jest.fn(),
     loading: false,
     cancel: jest.fn()
-  }))
+  })),
+  useGetInputsetYaml: jest.fn(() => ({ data: null }))
 }))
 
 const getListOfBranchesWithStatus = jest.fn(() => Promise.resolve(branchStatusMock))

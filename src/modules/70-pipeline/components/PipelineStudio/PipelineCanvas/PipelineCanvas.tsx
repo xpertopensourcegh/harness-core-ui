@@ -650,8 +650,6 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
               inputSetSelected={getInputSetSelected()}
               repoIdentifier={repoIdentifier}
               branch={branch}
-              inputSetRepoIdentifier={inputSetRepoIdentifier}
-              inputSetBranch={inputSetBranch}
               onClose={() => {
                 onCloseRunPipelineModal()
               }}
@@ -916,7 +914,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                   tooltip={isUpdated ? 'Please click Save and then run the pipeline.' : ''}
                   onClick={e => {
                     e.stopPropagation()
-                    updateQueryParams({ runPipeline: true }, { skipNulls: true }, true)
+                    openRunPipelineModal()
                   }}
                   featureProps={{
                     featureRequest: {

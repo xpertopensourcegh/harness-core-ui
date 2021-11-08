@@ -26,7 +26,8 @@ jest.mock('services/pipeline-ng', () => ({
   })),
   useHandleStageInterrupt: jest.fn(() => ({
     mutate: jest.fn()
-  }))
+  })),
+  useGetInputsetYaml: jest.fn(() => ({ data: null }))
 }))
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')

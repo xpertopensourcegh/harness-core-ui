@@ -40,5 +40,8 @@ declare const styles: {
   readonly multiSelectDropDownWithBorder: string
   readonly multiSelectDropDownSelected: string
   readonly noDisplay: string
+  readonly crossIcon: string
+  readonly modalContent: string
+  readonly runPipelineDialog: string
 }
 export default styles

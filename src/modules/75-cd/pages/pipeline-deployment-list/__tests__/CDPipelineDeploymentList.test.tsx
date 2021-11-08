@@ -1,7 +1,8 @@
 import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
+import { noop } from 'lodash-es'
 import routes from '@common/RouteDefinitions'
-import { TestWrapper } from '@common/utils/testUtils'
+import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import { accountPathProps, pipelineModuleParams, pipelinePathProps } from '@common/utils/routeUtils'
 import { branchStatusMock, gitConfigs, sourceCodeManagers } from '@connectors/mocks/mock'
@@ -13,6 +14,12 @@ import CDPipelineDeploymentList from '../CDPipelineDeploymentList'
 import data from './response.json'
 import mockData from './pipelineMockData.json'
 const mockGetCallFunction = jest.fn()
+
+window.IntersectionObserver = jest.fn().mockImplementation(() => ({
+  observe: () => null,
+  unobserve: () => null
+}))
+
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 jest.mock('@common/utils/YamlUtils', () => ({}))
 
@@ -54,7 +61,13 @@ jest.mock('services/pipeline-ng', () => ({
     mutate: jest.fn(),
     loading: false,
     cancel: jest.fn()
-  }))
+  })),
+  useGetInputsetYaml: jest.fn(() => ({ data: null })),
+  useGetStagesExecutionList: jest.fn(() => ({})),
+  useRunStagesWithRuntimeInputYaml: jest.fn(() => ({ data: null })),
+  useRePostPipelineExecuteWithInputSetYaml: jest.fn(() => ({ data: null })),
+  useRerunStagesWithRuntimeInputYaml: jest.fn(() => ({ data: null })),
+  useGetInputSetsListForPipeline: jest.fn(() => ({ data: null, refetch: jest.fn() }))
 }))
 
 const getListOfBranchesWithStatus = jest.fn(() => Promise.resolve(branchStatusMock))
@@ -75,7 +88,9 @@ jest.mock('services/cd-ng', () => ({
   }),
   useGetSourceCodeManagers: jest.fn().mockImplementation(() => {
     return { data: sourceCodeManagers, refetch: jest.fn() }
-  })
+  }),
+  useCreatePR: jest.fn(() => noop),
+  useGetFileContent: jest.fn(() => noop)
 }))
 
 // eslint-disable-next-line jest/no-disabled-tests
@@ -109,7 +124,7 @@ describe('<CDPipelineDeploymentList /> tests', () => {
   })
 
   test('call run pipeline', async () => {
-    const { getByTestId, findByText } = render(
+    const { findByText } = render(
       <TestWrapper
         path={routes.toPipelineDeploymentList({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
         pathParams={{
@@ -127,13 +142,7 @@ describe('<CDPipelineDeploymentList /> tests', () => {
 
     const runButton = await findByText('runPipelineText')
     fireEvent.click(runButton)
-
-    expect(getByTestId('location')).toMatchInlineSnapshot(`
-      <div
-        data-testid="location"
-      >
-        /account/testAcc/ci/orgs/testOrg/projects/test/pipelines/pipeline/pipeline-studio/?runPipeline=true
-      </div>
-    `)
+    const form = findDialogContainer()
+    expect(form).toBeTruthy()
   })
 })

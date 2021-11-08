@@ -22,6 +22,9 @@ import pipelines from './mocks/pipelines.json'
 const getListOfBranchesWithStatus = jest.fn(() => Promise.resolve(branchStatusMock))
 const getListGitSync = jest.fn(() => Promise.resolve(gitConfigs))
 
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
+jest.mock('@common/utils/YamlUtils', () => ({}))
+
 jest.mock('services/cd-ng', () => ({
   useGetServiceListForProject: jest
     .fn()
@@ -54,7 +57,7 @@ const params = {
   pipelineIdentifier: 'pipeline1',
   module: 'cd'
 }
-const onRunPipelineClick: jest.Mock<void> = jest.fn()
+const openRunPipelineModal = jest.fn()
 const mockGetCallFunction = jest.fn()
 jest.useFakeTimers()
 
@@ -88,11 +91,15 @@ jest.mock('services/pipeline-ng', () => ({
     loading: false,
     cancel: jest.fn()
   })),
-  useDeleteInputSetForPipeline: jest.fn(() => ({ mutate: jest.fn() }))
+  useDeleteInputSetForPipeline: jest.fn(() => ({ mutate: jest.fn() })),
+  useGetInputsetYaml: jest.fn(() => ({ data: null, loading: false }))
 }))
 
 jest.mock('@pipeline/components/RunPipelineModal/useRunPipelineModal', () => ({
-  useRunPipelineModal: () => onRunPipelineClick
+  useRunPipelineModal: () => ({
+    openRunPipelineModal,
+    closeRunPipelineModal: jest.fn()
+  })
 }))
 
 const TEST_PATH = routes.toPipelines({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })
@@ -123,7 +130,7 @@ describe('CD Pipeline Page List', () => {
   })
 
   test('test run pipeline on card view', async () => {
-    onRunPipelineClick.mockReset()
+    openRunPipelineModal.mockReset()
     const { getByTestId, getAllByTestId } = render(
       <TestWrapper path={TEST_PATH} pathParams={params} defaultAppStoreValues={defaultAppStoreValues}>
         <CDPipelinesPage />
@@ -133,7 +140,7 @@ describe('CD Pipeline Page List', () => {
     await act(async () => {
       fireEvent.click(getAllByTestId('card-run-pipeline')[0]!)
     })
-    expect(onRunPipelineClick).toHaveBeenCalled()
+    expect(openRunPipelineModal).toHaveBeenCalled()
   })
 
   test('test Pipeline click on card view', async () => {
@@ -228,11 +235,11 @@ describe('Pipeline List View Test cases', () => {
     const menuContent = findPopoverContainer()
     await waitFor(() => getByText(menuContent as HTMLElement, 'runPipelineText'))
     const runPipelineBtn = getByText(menuContent as HTMLElement, 'runPipelineText')
-    onRunPipelineClick.mockReset()
+    openRunPipelineModal.mockReset()
     await act(async () => {
       fireEvent.click(runPipelineBtn)
     })
-    expect(onRunPipelineClick).toHaveBeenCalled()
+    expect(openRunPipelineModal).toHaveBeenCalled()
   })
 
   test('should be able to open menu and open pipeline studio ', async () => {
@@ -299,11 +306,11 @@ describe('Pipeline Card View Test Cases', () => {
     const menuContent = findPopoverContainer()
     await waitFor(() => getByText(menuContent as HTMLElement, 'runPipelineText'))
     const runPipelineBtn = getByText(menuContent as HTMLElement, 'runPipelineText')
-    onRunPipelineClick.mockReset()
+    openRunPipelineModal.mockReset()
     await act(async () => {
       fireEvent.click(runPipelineBtn)
     })
-    expect(onRunPipelineClick).toHaveBeenCalled()
+    expect(openRunPipelineModal).toHaveBeenCalled()
   })
 
   test('should be able to open menu and open pipeline studio ', async () => {

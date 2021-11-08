@@ -19,7 +19,6 @@ import { isEmpty } from 'lodash-es'
 import cx from 'classnames'
 import { isExecutionComplete } from '@pipeline/utils/statusHelpers'
 import { TimeAgoPopover } from '@common/exports'
-import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import type { PMSPipelineSummaryResponse } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
@@ -34,6 +33,7 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
 import useDeleteConfirmationDialog from '@pipeline/pages/utils/DeleteConfirmDialog'
 import { formatCount } from '@common/utils/utils'
+import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'
 import { getIconsForPipeline } from '../../PipelineListUtils'
 
 import css from './PipelineCard.module.scss'
@@ -87,7 +87,11 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
     [orgIdentifier, projectIdentifier, accountIdentifier, pipeline.identifier]
   )
 
-  const runPipeline = useRunPipelineModal({
+  const runPipeline = (): void => {
+    openRunPipelineModal()
+  }
+
+  const { openRunPipelineModal } = useRunPipelineModal({
     pipelineIdentifier: (pipeline.identifier || '') as string,
     repoIdentifier: pipeline?.gitDetails?.repoIdentifier,
     branch: pipeline?.gitDetails?.branch
@@ -180,7 +184,11 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
   const { getString } = useStrings()
   const deployments = pipeline.executionSummaryInfo?.deployments?.reduce((acc, val) => acc + val, 0) || 0
 
-  const runPipeline = useRunPipelineModal({
+  const runPipeline = (): void => {
+    openRunPipelineModal()
+  }
+
+  const { openRunPipelineModal } = useRunPipelineModal({
     pipelineIdentifier: (pipeline.identifier || '') as string,
     repoIdentifier: pipeline?.gitDetails?.repoIdentifier,
     branch: pipeline?.gitDetails?.branch

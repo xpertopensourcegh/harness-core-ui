@@ -34,6 +34,8 @@ const deleteInputSet = (): Promise<{ status: string }> => {
 }
 const getInputSetList = jest.fn()
 
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
+jest.mock('@common/utils/YamlUtils', () => ({}))
 jest.mock('services/cd-ng', () => ({
   useGetConnector: jest.fn(() => ConnectorResponse),
   useCreatePR: jest.fn(() => noop),
@@ -60,7 +62,8 @@ jest.mock('services/pipeline-ng', () => ({
   useDeleteInputSetForPipeline: jest.fn().mockImplementation(() => ({ mutate: deleteInputSet })),
   usePostPipelineExecuteWithInputSetYaml: jest.fn(() => ({})),
   useGetSchemaYaml: jest.fn(() => ({})),
-  useSoftDeletePipeline: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
+  useSoftDeletePipeline: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  useGetInputsetYaml: jest.fn(() => ({ data: null }))
 }))
 
 const TEST_PATH = routes.toInputSetList({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })

@@ -16,7 +16,6 @@ import { useParams } from 'react-router-dom'
 import Table from '@common/components/Table/Table'
 import { formatDatetoLocale } from '@common/utils/dateUtils'
 import { GitDetailsColumn } from '@common/components/Table/GitDetailsColumn/GitDetailsColumn'
-import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'
 import useDeleteConfirmationDialog from '@pipeline/pages/utils/DeleteConfirmDialog'
 import type { PagePMSPipelineSummaryResponse, PMSPipelineSummaryResponse } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
@@ -28,6 +27,7 @@ import RbacButton from '@rbac/components/Button/Button'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { formatCount } from '@common/utils/utils'
+import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'
 import { getIconsForPipeline, getStatusColor } from '../PipelineListUtils'
 import css from '../PipelinesPage.module.scss'
 
@@ -80,7 +80,11 @@ const RenderColumnMenu: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => 
     [data.identifier]
   )
 
-  const runPipeline = useRunPipelineModal({
+  const runPipeline = (): void => {
+    openRunPipelineModal()
+  }
+
+  const { openRunPipelineModal } = useRunPipelineModal({
     pipelineIdentifier: (data.identifier || '') as string,
     repoIdentifier: data.gitDetails?.repoIdentifier,
     branch: data.gitDetails?.branch
@@ -269,7 +273,12 @@ const RenderLastRun: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
 
 const RenderRunPipeline: Renderer<CellProps<PipelineDTO>> = ({ row }): JSX.Element => {
   const rowdata = row.original
-  const runPipeline = useRunPipelineModal({
+
+  const runPipeline = (): void => {
+    openRunPipelineModal()
+  }
+
+  const { openRunPipelineModal } = useRunPipelineModal({
     pipelineIdentifier: (rowdata.identifier || '') as string,
     repoIdentifier: rowdata.gitDetails?.repoIdentifier,
     branch: rowdata.gitDetails?.branch

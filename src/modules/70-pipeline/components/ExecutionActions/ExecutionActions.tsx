@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Popover, ButtonProps, useModalHook } from '@wings-software/uicore'
 import { Dialog, IDialogProps, Menu, MenuItem } from '@blueprintjs/core'
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import { useHandleInterrupt, useHandleStageInterrupt } from 'services/pipeline-ng'
 import routes from '@common/RouteDefinitions'
@@ -22,6 +22,7 @@ import type { StringKeys } from 'framework/strings'
 import type { GitQueryParams, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import RetryPipeline from '../RetryPipeline/RetryPipeline'
+import { useRunPipelineModal } from '../RunPipelineModal/useRunPipelineModal'
 import css from './ExecutionActions.module.scss'
 
 const commonButtonProps: ButtonProps = {
@@ -82,26 +83,8 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
     nodeExecutionId: stageId || ''
   })
   const { showSuccess } = useToaster()
-  const history = useHistory()
   const { getString } = useStrings()
   const { RETRY_FAILED_PIPELINE } = useFeatureFlags()
-
-  const reRunPipeline = (): void => {
-    history.push(
-      `${routes.toPipelineStudio({
-        accountId,
-        orgIdentifier,
-        projectIdentifier,
-        pipelineIdentifier,
-        module,
-        branch,
-        repoIdentifier,
-        runPipeline: true,
-        executionId: executionIdentifier,
-        stagesExecuted
-      })}`
-    )
-  }
 
   const canAbort = isExecutionActive(executionStatus) && canExecute
   const canPause =
@@ -235,6 +218,21 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
   }, [pipelineIdentifier, executionIdentifier])
 
   /*--------------------------------------Retry Pipeline---------------------------------------------*/
+
+  /*--------------------------------------Run Pipeline---------------------------------------------*/
+
+  const reRunPipeline = (): void => {
+    openRunPipelineModal()
+  }
+
+  const { openRunPipelineModal } = useRunPipelineModal({
+    pipelineIdentifier,
+    repoIdentifier,
+    branch,
+    stagesExecuted
+  })
+
+  /*--------------------------------------Run Pipeline---------------------------------------------*/
 
   function killEvent(e: React.MouseEvent<HTMLDivElement>): void {
     e.preventDefault()

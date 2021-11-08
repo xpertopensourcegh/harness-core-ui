@@ -1,7 +1,7 @@
 import React from 'react'
 import { defaultTo, find } from 'lodash-es'
 
-import { useHistory, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { ButtonVariation } from '@wings-software/uicore'
 import { String as StrTemplate, useStrings } from 'framework/strings'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
@@ -11,7 +11,6 @@ import type { StageType } from '@pipeline/utils/stageHelpers'
 import { Duration } from '@common/components/Duration/Duration'
 import { ExecutionStatus, isExecutionFailed } from '@pipeline/utils/statusHelpers'
 import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
-import routes from '@common/RouteDefinitions'
 import ExecutionActions from '@pipeline/components/ExecutionActions/ExecutionActions'
 import { usePermission } from '@rbac/hooks/usePermission'
 import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
@@ -19,6 +18,7 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacButton from '@rbac/components/Button/Button'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'
 import css from './ExecutionStageDetailsHeader.module.scss'
 
 export function ExecutionStageDetailsHeader(): React.ReactElement {
@@ -31,7 +31,6 @@ export function ExecutionStageDetailsHeader(): React.ReactElement {
   const errorMessage = defaultTo(stage?.failureInfo?.message, '')
   const { getString } = useStrings()
   const { RUN_INDIVIDUAL_STAGE } = useFeatureFlags()
-  const history = useHistory()
   const [canEdit, canExecute] = usePermission(
     {
       resourceScope: {
@@ -68,6 +67,16 @@ export function ExecutionStageDetailsHeader(): React.ReactElement {
       ) : null}
     </div>
   )
+  const runPipeline = (): void => {
+    openRunPipelineModal()
+  }
+
+  const { openRunPipelineModal } = useRunPipelineModal({
+    pipelineIdentifier,
+    repoIdentifier: pipelineExecutionDetail?.pipelineExecutionSummary?.gitDetails?.repoIdentifier,
+    branch: pipelineExecutionDetail?.pipelineExecutionSummary?.gitDetails?.branch,
+    stagesExecuted: [stage?.nodeIdentifier || '']
+  })
 
   return (
     <div className={css.main}>
@@ -80,22 +89,7 @@ export function ExecutionStageDetailsHeader(): React.ReactElement {
                 <RbacButton
                   icon="repeat"
                   tooltip={getString('pipeline.execution.actions.rerunStage')}
-                  onClick={() => {
-                    history.push(
-                      `${routes.toPipelineStudio({
-                        accountId,
-                        orgIdentifier,
-                        projectIdentifier,
-                        pipelineIdentifier,
-                        module,
-                        repoIdentifier: pipelineExecutionDetail?.pipelineExecutionSummary?.gitDetails?.repoIdentifier,
-                        branch: pipelineExecutionDetail?.pipelineExecutionSummary?.gitDetails?.branch,
-                        runPipeline: true,
-                        executionId: executionIdentifier,
-                        stagesExecuted: [stage?.nodeIdentifier || '']
-                      })}`
-                    )
-                  }}
+                  onClick={runPipeline}
                   variation={ButtonVariation.ICON}
                   disabled={!canExecute}
                   minimal

@@ -5,7 +5,6 @@ import { useParams } from 'react-router-dom'
 import { Classes, Menu, Position } from '@blueprintjs/core'
 import Table from '@common/components/Table/Table'
 import type { PageInputSetSummaryResponse, InputSetSummaryResponse } from 'services/pipeline-ng'
-import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'
 import { TagsPopover } from '@common/components'
 import { useQueryParams } from '@common/hooks'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
@@ -15,6 +14,7 @@ import RbacButton from '@rbac/components/Button/Button'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'
 import useDeleteConfirmationDialog from '../utils/DeleteConfirmDialog'
 import css from './InputSetList.module.scss'
 
@@ -84,7 +84,11 @@ const RenderColumnActions: Renderer<CellProps<InputSetLocal>> = ({ row, column }
 
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
 
-  const runPipeline = useRunPipelineModal({
+  const runPipeline = (): void => {
+    openRunPipelineModal()
+  }
+
+  const { openRunPipelineModal } = useRunPipelineModal({
     inputSetSelected: [
       {
         type: data.inputSetType || /* istanbul ignore next */ 'INPUT_SET',
