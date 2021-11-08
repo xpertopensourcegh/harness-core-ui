@@ -178,7 +178,6 @@ export default function ServiceHealth({
               <ChangeTimeline
                 serviceIdentifier={serviceIdentifier}
                 environmentIdentifier={environmentIdentifier}
-                timeFormat={timeFormat}
                 startTime={timeRange?.startTime as number}
                 endTime={timeRange?.endTime as number}
                 selectedTimePeriod={selectedTimePeriod}

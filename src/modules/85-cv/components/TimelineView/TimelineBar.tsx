@@ -4,6 +4,8 @@ import classnames from 'classnames'
 import styles from './TimelineView.module.scss'
 
 const moment = extendMoment(require('moment')) // eslint-disable-line
+const DAY_HOUR_MINUTE = 'ddd h:mm A'
+const MONTH_DAY_MINUTE = 'MMM D, h:mm A'
 
 export interface TimelineBarProps {
   startDate: string | number | Date
@@ -20,13 +22,13 @@ const TIME_UNITS = [
   { unit: 'minutes', step: 10, format: 'h:mm A' },
   { unit: 'minutes', step: 15, format: 'h:mm A' },
   { unit: 'minutes', step: 30, format: 'h:mm A' },
-  { unit: 'hours', step: 1, format: 'h:mm A' },
-  { unit: 'hours', step: 2, format: 'h:mm A' },
-  { unit: 'hours', step: 4, format: 'h:mm A' },
-  { unit: 'hours', step: 12, format: 'h:mm A' },
-  { unit: 'days', step: 1, format: 'MMM D, h:mm A' },
-  { unit: 'days', step: 2, format: 'MMM D, h:mm A' },
-  { unit: 'weeks', step: 1, format: 'MMM D, h:mm A' },
+  { unit: 'hours', step: 1, format: DAY_HOUR_MINUTE },
+  { unit: 'hours', step: 2, format: DAY_HOUR_MINUTE },
+  { unit: 'hours', step: 4, format: DAY_HOUR_MINUTE },
+  { unit: 'hours', step: 12, format: MONTH_DAY_MINUTE },
+  { unit: 'days', step: 1, format: MONTH_DAY_MINUTE },
+  { unit: 'days', step: 2, format: MONTH_DAY_MINUTE },
+  { unit: 'weeks', step: 1, format: MONTH_DAY_MINUTE },
   { unit: 'months', step: 1, format: 'MMM' },
   { unit: 'months', step: 4, format: 'MMM' },
   { unit: 'years', step: 1, format: 'YYYY' }

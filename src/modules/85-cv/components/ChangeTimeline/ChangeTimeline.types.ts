@@ -2,7 +2,6 @@ import type { SelectOption } from '@wings-software/uicore'
 import type { ChangeSourceTypes } from './ChangeTimeline.constants'
 
 export interface ChangeTimelineProps {
-  timeFormat?: string
   serviceIdentifier: string
   environmentIdentifier: string
   startTime?: number

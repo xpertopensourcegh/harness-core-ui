@@ -4,13 +4,11 @@
   .timelineChartContainer {
     padding-top: var(--spacing-medium) !important;
     display: flex;
-    align-items: center;
+    align-items: baseline;
 
     .timelineLabel {
       color: var(--grey-300) !important;
       font-size: var(--font-size-small) !important;
-      position: relative;
-      bottom: 6px;
     }
 
     > div {

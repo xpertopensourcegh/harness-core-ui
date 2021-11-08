@@ -6,8 +6,8 @@ import { TestWrapper } from '@common/utils/testUtils'
 import ChangeEventCard from '../ChangeEventCard'
 import { HarnessCDMockData, HarnessNextGenMockData, payload } from './ChangeEventCard.mock'
 
-jest.mock('@cv/components/ChangeTimeline/components/TimestampChart/TimestampChart', () => ({
-  TimestampChart: function MockComponent() {
+jest.mock('@cv/components/TimelineView/TimelineBar', () => ({
+  TimelineBar: function MockComponent() {
     return <div />
   }
 }))

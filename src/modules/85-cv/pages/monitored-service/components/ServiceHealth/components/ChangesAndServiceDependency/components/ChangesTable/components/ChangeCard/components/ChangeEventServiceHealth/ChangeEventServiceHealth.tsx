@@ -4,16 +4,16 @@ import { useStrings } from 'framework/strings'
 import { TimePeriodEnum } from '@cv/pages/monitored-service/components/ServiceHealth/ServiceHealth.constants'
 import HealthScoreChart from '@cv/pages/monitored-service/components/ServiceHealth/components/HealthScoreChart/HealthScoreChart'
 import ServiceDependenciesLegend from '@cv/components/ServiceDependenciesLegend/ServiceDependenciesLegend'
-import { TimestampChart } from '@cv/components/ChangeTimeline/components/TimestampChart/TimestampChart'
+import { TimelineBar } from '@cv/components/TimelineView/TimelineBar'
 import { getColorForChangeEventType } from '@cv/components/ChangeTimeline/ChangeTimeline.utils'
 import type { ChangeEventServiceHealthProps } from './ChangeEventServiceHealth.types'
 import { TWO_HOURS_IN_MILLISECONDS, COLUMN_CHART_PROPS } from './ChangeEventServiceHealth.constants'
 import css from './ChangeEventServiceHealth.module.scss'
 
 export default function ChangeEventServiceHealth(props: ChangeEventServiceHealthProps): JSX.Element {
-  const { serviceIdentifier, envIdentifier, startTime, eventType } = props
+  const { serviceIdentifier, envIdentifier, startTime: propsStartTime, eventType } = props
   const { getString } = useStrings()
-  const [timestamps, setTimestamps] = useState<number[]>([])
+  const [[startTime, endTime], setTimestamps] = useState<[number, number]>([0, 0])
   return (
     <Container className={css.main}>
       <Text className={css.status}>{getString('status')}</Text>
@@ -26,25 +26,24 @@ export default function ChangeEventServiceHealth(props: ChangeEventServiceHealth
         columChartProps={{
           ...COLUMN_CHART_PROPS,
           timestampMarker: {
-            timestamp: startTime,
+            timestamp: propsStartTime,
             color: getColorForChangeEventType(eventType)
           }
         }}
-        endTime={startTime + TWO_HOURS_IN_MILLISECONDS}
+        endTime={propsStartTime + TWO_HOURS_IN_MILLISECONDS}
         setHealthScoreData={riskData => {
-          const updatedTimestamps = []
-          for (const data of riskData || []) {
-            if (data.endTime && data.startTime) {
-              updatedTimestamps.push(data.startTime)
-              updatedTimestamps.push(data.endTime)
-            }
+          if (!riskData?.length) {
+            return
           }
-          setTimestamps(updatedTimestamps)
+          const newStartTime = riskData[0].startTime
+          const newEndTime = riskData[riskData.length - 2].endTime
+          if (!newStartTime || !newEndTime) {
+            return
+          }
+          setTimestamps([newStartTime, newEndTime])
         }}
       />
-      <Container className={css.timestamps}>
-        <TimestampChart timestamps={timestamps} tickAmount={5} />
-      </Container>
+      <TimelineBar startDate={startTime} endDate={endTime} columnWidth={50} className={css.timestamps} />
       <ServiceDependenciesLegend hideServiceTypeLegend margin={{ top: 'small' }} />
     </Container>
   )

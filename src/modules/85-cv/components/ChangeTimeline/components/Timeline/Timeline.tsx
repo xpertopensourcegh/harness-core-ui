@@ -1,13 +1,13 @@
 import React from 'react'
 import { Container, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
+import { TimelineBar } from '@cv/components/TimelineView/TimelineBar'
 import type { TimelineProps } from './Timeline.types'
 import { TimelineRow } from '../TimelineRow/TimelineRow'
-import { TimestampChart } from '../TimestampChart/TimestampChart'
 import css from './Timeline.module.scss'
 
 export function Timeline(props: TimelineProps): JSX.Element {
-  const { timelineRows, timestamps = [], labelWidth, timeFormat, isLoading, rowOffset } = props
+  const { timelineRows, timestamps = [], labelWidth, isLoading, rowOffset } = props
   const { getString } = useStrings()
   return (
     <Container className={css.main}>
@@ -29,7 +29,7 @@ export function Timeline(props: TimelineProps): JSX.Element {
         <Text className={css.timelineLabel} width={labelWidth}>
           {getString('cv.timeline').toUpperCase()}
         </Text>
-        <TimestampChart timestamps={timestamps} timeFormat={timeFormat} tickAmount={12} />
+        <TimelineBar startDate={timestamps?.[0]} endDate={timestamps?.[timestamps.length - 1]} columnWidth={65} />
       </Container>
     </Container>
   )

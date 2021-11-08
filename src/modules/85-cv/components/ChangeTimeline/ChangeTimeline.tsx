@@ -18,15 +18,7 @@ import ChangeTimelineError from './components/ChangeTimelineError/ChangeTimeline
 export default function ChangeTimeline(props: ChangeTimelineProps): JSX.Element {
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
-  const {
-    timeFormat,
-    serviceIdentifier,
-    environmentIdentifier,
-    startTime,
-    endTime,
-    selectedTimePeriod,
-    onSliderMoved
-  } = props
+  const { serviceIdentifier, environmentIdentifier, startTime, endTime, selectedTimePeriod, onSliderMoved } = props
 
   const { data, refetch, loading, error } = useChangeEventTimeline({
     lazy: true,
@@ -115,7 +107,6 @@ export default function ChangeTimeline(props: ChangeTimelineProps): JSX.Element 
         }
       ]}
       timestamps={[startTimeRoundedOffToNearest30min, endTimeRoundedOffToNearest30min]}
-      timeFormat={timeFormat}
       labelWidth={90}
     />
   )
