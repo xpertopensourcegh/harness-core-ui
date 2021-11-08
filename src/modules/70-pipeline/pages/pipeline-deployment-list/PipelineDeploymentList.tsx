@@ -59,7 +59,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
         page: parseInt(params.page || '1', 10),
         size: parseInt(params.size || '20', 10),
         sort: [],
-        status: params.status as QuickStatusParam,
+        status: ((Array.isArray(params.status) ? params.status : [params.status]) as QuickStatusParam)?.filter(p => p),
         myDeployments: !!params.myDeployments,
         searchTerm: params.searchTerm,
         filters,
@@ -73,9 +73,11 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
   const { page, filterIdentifier, myDeployments, status, repoIdentifier, branch, searchTerm } = queryParams
 
   const hasFilters =
-    [queryParams.pipelineIdentifier, queryParams.filters, status, filterIdentifier, searchTerm].some(
+    [queryParams.pipelineIdentifier, queryParams.filters, filterIdentifier, searchTerm].some(
       filter => filter !== undefined
-    ) || myDeployments
+    ) ||
+    myDeployments ||
+    (Array.isArray(status) && status.length > 0)
 
   const isCIModule = module === 'ci'
   const { getString } = useStrings()

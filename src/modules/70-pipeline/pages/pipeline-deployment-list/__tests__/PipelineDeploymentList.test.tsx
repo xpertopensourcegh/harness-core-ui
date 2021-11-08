@@ -287,7 +287,7 @@ describe('Test Pipeline Deployment list', () => {
         myDeployments: false,
         repoIdentifier: undefined,
         searchTerm: undefined,
-
+        status: [],
         branch: undefined
       }
     })
@@ -334,13 +334,12 @@ describe('Test Pipeline Deployment list', () => {
         size: 20,
         pipelineIdentifier: 'pipeline1',
         projectIdentifier: 'testProject',
-        status: undefined,
+        status: [],
         filterIdentifier: undefined,
         module: 'cd',
         myDeployments: false,
         repoIdentifier: undefined,
         searchTerm: undefined,
-
         branch: undefined
       }
     })
@@ -372,7 +371,7 @@ describe('Test Pipeline Deployment list', () => {
         page: 0,
         pipelineIdentifier: undefined,
         projectIdentifier: 'testProject',
-        status: undefined,
+        status: [],
         filterIdentifier: undefined,
         module: 'cd',
         myDeployments: false,
@@ -410,7 +409,7 @@ describe('Test Pipeline Deployment list', () => {
         page: 0,
         pipelineIdentifier: undefined,
         projectIdentifier: 'testProject',
-        status: undefined,
+        status: [],
         filterIdentifier: undefined,
         module: 'cd',
         myDeployments: false,
