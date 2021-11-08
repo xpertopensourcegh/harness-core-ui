@@ -7,7 +7,7 @@ import { accountPathProps, orgPathProps } from '@common/utils/routeUtils'
 import TemplatesPage from '@templates-library/pages/TemplatesPage/TemplatesPage'
 import { TemplateStudioWrapper } from '@templates-library/components/TemplateStudio/TemplateStudioWrapper'
 import RbacFactory from '@rbac/factories/RbacFactory'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceCategory, ResourceType } from '@rbac/interfaces/ResourceType'
 import { String } from 'framework/strings'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import TemplateResourceModal from './components/RbacResourceModals/TemplateResourceModal'
@@ -19,6 +19,7 @@ import TemplateResourceRenderer from './components/RbacResourceModals/TemplateRe
 RbacFactory.registerResourceTypeHandler(ResourceType.TEMPLATE, {
   icon: 'pipeline-deployment',
   label: 'common.templates',
+  category: ResourceCategory.SHARED_RESOURCES,
   permissionLabels: {
     [PermissionIdentifier.VIEW_TEMPLATE]: <String stringID="rbac.permissionLabels.view" />,
     [PermissionIdentifier.EDIT_TEMPLATE]: <String stringID="rbac.permissionLabels.createEdit" />,
