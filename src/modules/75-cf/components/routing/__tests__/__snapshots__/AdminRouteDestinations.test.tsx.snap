@@ -64,6 +64,27 @@ exports[`AdminRouteDestinations it should return the admin routes 1`] = `
         "startTrialRedirect": [Function],
       }
     }
+    path="/account/:accountId/:module/orgs/:orgIdentifier/projects/:projectIdentifier/setup/access-control/users/:userIdentifier"
+    sidebarProps={
+      Object {
+        "icon": "cf-main",
+        "navComponent": [Function],
+        "title": "Feature Flags",
+      }
+    }
+  >
+    <UserDetails />
+  </RouteWithLayout>
+  <RouteWithLayout
+    exact={true}
+    layout={[Function]}
+    licenseRedirectData={
+      Object {
+        "expiredTrialRedirect": [Function],
+        "licenseStateName": "FF_LICENSE_STATE",
+        "startTrialRedirect": [Function],
+      }
+    }
     path={
       Array [
         "/account/:accountId/:module/orgs/:orgIdentifier/projects/:projectIdentifier/setup/access-control/user-groups",
@@ -80,6 +101,57 @@ exports[`AdminRouteDestinations it should return the admin routes 1`] = `
     <AccessControlPage>
       <UserGroupsPage />
     </AccessControlPage>
+  </RouteWithLayout>
+  <RouteWithLayout
+    exact={true}
+    layout={[Function]}
+    licenseRedirectData={
+      Object {
+        "expiredTrialRedirect": [Function],
+        "licenseStateName": "FF_LICENSE_STATE",
+        "startTrialRedirect": [Function],
+      }
+    }
+    path="/account/:accountId/:module/orgs/:orgIdentifier/projects/:projectIdentifier/setup/access-control/user-groups/:userGroupIdentifier"
+    sidebarProps={
+      Object {
+        "icon": "cf-main",
+        "navComponent": [Function],
+        "title": "Feature Flags",
+      }
+    }
+  >
+    <UserGroupDetails />
+  </RouteWithLayout>
+  <RouteWithLayout
+    exact={true}
+    layout={[Function]}
+    path="/account/:accountId/:module/orgs/:orgIdentifier/projects/:projectIdentifier/setup/access-control/service-accounts"
+    sidebarProps={
+      Object {
+        "icon": "cf-main",
+        "navComponent": [Function],
+        "title": "Feature Flags",
+      }
+    }
+  >
+    <AccessControlPage>
+      <ServiceAccountsPage />
+    </AccessControlPage>
+  </RouteWithLayout>
+  <RouteWithLayout
+    exact={true}
+    layout={[Function]}
+    path="/account/:accountId/:module/orgs/:orgIdentifier/projects/:projectIdentifier/setup/access-control/service-accounts/:serviceAccountIdentifier"
+    sidebarProps={
+      Object {
+        "icon": "cf-main",
+        "navComponent": [Function],
+        "title": "Feature Flags",
+      }
+    }
+  >
+    <ServiceAccountDetails />
   </RouteWithLayout>
   <RouteWithLayout
     exact={true}

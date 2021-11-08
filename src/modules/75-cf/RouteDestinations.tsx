@@ -45,6 +45,8 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { String } from 'framework/strings'
 import GitSyncPage from '@gitsync/pages/GitSyncPage'
 import GitSyncRepoTab from '@gitsync/pages/repos/GitSyncRepoTab'
+import GitSyncEntityTab from '@gitsync/pages/entities/GitSyncEntityTab'
+import { GitSyncErrorsWithRedirect } from '@gitsync/pages/errors/GitSyncErrors'
 import { TargetsPage } from './pages/target-management/targets/TargetsPage'
 import { TargetDetailPage } from './pages/target-details/TargetDetailPage'
 import { SegmentsPage } from './pages/target-management/segments/SegmentsPage'
@@ -77,6 +79,12 @@ const RedirectToTargets = (): React.ReactElement => {
   const params = useParams<ProjectPathProps & AccountPathProps>()
 
   return <Redirect to={withActiveEnvironment(routes.toCFTargets(params))} />
+}
+
+const RedirectToGitSyncHome = (): React.ReactElement => {
+  const { accountId, projectIdentifier, orgIdentifier, module } = useParams<ProjectPathProps & ModulePathParams>()
+
+  return <Redirect to={routes.toGitSyncReposAdmin({ projectIdentifier, accountId, orgIdentifier, module })} />
 }
 
 const cfModuleParams: ModulePathParams = {
@@ -358,12 +366,43 @@ const CFRoutes: FC = () => (
 
     <RouteWithLayout
       licenseRedirectData={licenseRedirectData}
-      path={routes.toGitSyncAdmin({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
+      sidebarProps={CFSideNavProps}
+      exact
+      path={[routes.toGitSyncAdmin({ ...accountPathProps, ...modulePathProps, ...projectPathProps })]}
+    >
+      <RedirectToGitSyncHome />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
+      path={routes.toGitSyncReposAdmin({ ...accountPathProps, ...projectPathProps, ...cfModuleParams })}
       sidebarProps={CFSideNavProps}
       exact
     >
       <GitSyncPage>
         <GitSyncRepoTab />
+      </GitSyncPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
+      sidebarProps={CFSideNavProps}
+      path={routes.toGitSyncEntitiesAdmin({ ...accountPathProps, ...cfModuleParams, ...projectPathProps })}
+      exact
+    >
+      <GitSyncPage>
+        <GitSyncEntityTab />
+      </GitSyncPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
+      sidebarProps={CFSideNavProps}
+      path={routes.toGitSyncErrors({ ...accountPathProps, ...cfModuleParams, ...projectPathProps })}
+      exact
+    >
+      <GitSyncPage>
+        <GitSyncErrorsWithRedirect />
       </GitSyncPage>
     </RouteWithLayout>
 

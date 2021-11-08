@@ -2,10 +2,22 @@ import React, { FC } from 'react'
 import { Redirect, useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import { RouteWithLayout } from '@common/router'
-import { pipelineModuleParams, projectPathProps, resourceGroupPathProps, rolePathProps } from '@common/utils/routeUtils'
+import {
+  pipelineModuleParams,
+  projectPathProps,
+  resourceGroupPathProps,
+  rolePathProps,
+  serviceAccountProps,
+  userGroupPathProps,
+  userPathProps
+} from '@common/utils/routeUtils'
 import AccessControlPage from '@rbac/pages/AccessControl/AccessControlPage'
+import ServiceAccountDetails from '@rbac/pages/ServiceAccountDetails/ServiceAccountDetails'
+import ServiceAccountsPage from '@rbac/pages/ServiceAccounts/ServiceAccounts'
 import UsersPage from '@rbac/pages/Users/UsersPage'
+import UserDetails from '@rbac/pages/UserDetails/UserDetails'
 import UserGroups from '@rbac/pages/UserGroups/UserGroups'
+import UserGroupDetails from '@rbac/pages/UserGroupDetails/UserGroupDetails'
 import ResourceGroups from '@rbac/pages/ResourceGroups/ResourceGroups'
 import Roles from '@rbac/pages/Roles/Roles'
 import RoleDetails from '@rbac/pages/RoleDetails/RoleDetails'
@@ -45,12 +57,47 @@ const AdminRouteDestinations: FC = () => (
     <RouteWithLayout
       licenseRedirectData={licenseRedirectData}
       sidebarProps={CFSideNavProps}
+      path={routes.toUserDetails({ ...projectPathProps, ...pipelineModuleParams, ...userPathProps })}
+      exact
+    >
+      <UserDetails />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
+      sidebarProps={CFSideNavProps}
       path={[routes.toUserGroups({ ...projectPathProps, ...pipelineModuleParams })]}
       exact
     >
       <AccessControlPage>
         <UserGroups />
       </AccessControlPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
+      sidebarProps={CFSideNavProps}
+      path={routes.toUserGroupDetails({ ...projectPathProps, ...pipelineModuleParams, ...userGroupPathProps })}
+      exact
+    >
+      <UserGroupDetails />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CFSideNavProps}
+      path={routes.toServiceAccounts({ ...projectPathProps, ...pipelineModuleParams })}
+      exact
+    >
+      <AccessControlPage>
+        <ServiceAccountsPage />
+      </AccessControlPage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={CFSideNavProps}
+      path={routes.toServiceAccountDetails({ ...projectPathProps, ...pipelineModuleParams, ...serviceAccountProps })}
+      exact
+    >
+      <ServiceAccountDetails />
     </RouteWithLayout>
 
     <RouteWithLayout
