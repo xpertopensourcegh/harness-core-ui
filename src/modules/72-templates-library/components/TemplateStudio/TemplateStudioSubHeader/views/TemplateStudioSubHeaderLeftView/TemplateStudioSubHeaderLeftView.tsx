@@ -6,7 +6,6 @@ import {
   Color,
   Container,
   DropDown,
-  FontVariation,
   Icon,
   Layout,
   SelectOption,
@@ -42,13 +41,11 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
 import { useQueryParams, useUpdateQueryParams } from '@common/hooks'
-import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { AppStoreContext } from 'framework/AppStore/AppStoreContext'
 import { DefaultNewTemplateId, DefaultNewVersionLabel } from 'framework/Templates/templates'
-import GitPopover from '@pipeline/components/GitPopover/GitPopover'
-import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
-import { getRepoDetailsByIndentifier } from '@common/utils/gitSyncUtils'
+import type { GitFilterScope } from '@common/components/GitFilters/GitFilters'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
+import StudioGitPopover from '@pipeline/components/PipelineStudio/StudioGitPopover'
 import css from './TemplateStudioSubHeaderLeftView.module.scss'
 
 interface TemplateWithGitContextFormProps extends NGTemplateInfoConfig {
@@ -72,7 +69,6 @@ export const TemplateStudioSubHeaderLeftView: (props: TemplateStudioSubHeaderLef
   const { updateQueryParams } = useUpdateQueryParams<TemplateStudioQueryParams>()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const { isGitSyncEnabled } = React.useContext(AppStoreContext)
-  const { gitSyncRepos, loadingRepos } = useGitSyncStore()
   const iconColor = templateFactory.getTemplateColor(templateType) || Color.BLACK
   const [modalProps, setModalProps] = React.useState<ModalProps>()
   const isYaml = view === SelectedView.YAML
@@ -239,83 +235,6 @@ export const TemplateStudioSubHeaderLeftView: (props: TemplateStudioSubHeaderLef
     }
   }, [template.identifier, showConfigModal, template.type, onSubmit])
 
-  const GitDetails: React.FC = React.useCallback(() => {
-    if (gitDetails?.objectId || (templateIdentifier === DefaultNewTemplateId && gitDetails.repoIdentifier)) {
-      const repoName: string = getRepoDetailsByIndentifier(gitDetails?.repoIdentifier, gitSyncRepos)?.name || ''
-      const folderName = `${gitDetails?.rootFolder || ''}${gitDetails?.filePath || ''}`
-      return (
-        <>
-          <Layout.Vertical spacing="large">
-            {templateIdentifier === DefaultNewTemplateId && !loadingRepos ? (
-              <Text font={{ size: 'small' }} color={Color.GREY_400}>
-                {getString('repository')}
-              </Text>
-            ) : (
-              <Text font={{ size: 'small' }} color={Color.GREY_400}>
-                {getString('common.git.filePath')}
-              </Text>
-            )}
-            <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
-              <Icon name="repository" size={16} color={Color.GREY_700} />
-              {templateIdentifier === DefaultNewTemplateId && !loadingRepos ? (
-                <Text
-                  font={FontVariation.SMALL}
-                  style={{ wordWrap: 'break-word', maxWidth: '200px' }}
-                  lineClamp={1}
-                  color={Color.GREY_800}
-                >
-                  {repoName}
-                </Text>
-              ) : (
-                <Text
-                  font={FontVariation.SMALL}
-                  style={{ wordWrap: 'break-word', maxWidth: '200px' }}
-                  lineClamp={1}
-                  color={Color.GREY_800}
-                >
-                  {folderName}
-                </Text>
-              )}
-            </Layout.Horizontal>
-          </Layout.Vertical>
-
-          <Layout.Vertical spacing="large">
-            <Text font={{ size: 'small' }} color={Color.GREY_400}>
-              {getString('pipelineSteps.deploy.inputSet.branch')}
-            </Text>
-            <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
-              {templateIdentifier === DefaultNewTemplateId || isReadonly ? (
-                <>
-                  <Icon name="git-new-branch" size={14} color={Color.GREY_700} />
-                  <Text
-                    font={FontVariation.SMALL}
-                    style={{ wordWrap: 'break-word', maxWidth: '200px' }}
-                    lineClamp={1}
-                    color={Color.GREY_800}
-                  >
-                    {gitDetails?.branch}
-                  </Text>
-                </>
-              ) : (
-                <>
-                  <Icon name="git-new-branch" size={14} color={Color.GREY_700} />
-                  <GitFilters
-                    onChange={onGitBranchChange}
-                    showRepoSelector={false}
-                    defaultValue={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
-                    showBranchIcon={false}
-                  />
-                </>
-              )}
-            </Layout.Horizontal>
-          </Layout.Vertical>
-        </>
-      )
-    } else {
-      return <></>
-    }
-  }, [gitDetails, templateIdentifier, repoIdentifier, branch, onGitBranchChange])
-
   return (
     <Container className={css.subHeaderLeftView}>
       <Layout.Horizontal spacing={'medium'} padding={{ right: 'medium' }} flex={{ alignItems: 'center' }}>
@@ -331,7 +250,15 @@ export const TemplateStudioSubHeaderLeftView: (props: TemplateStudioSubHeaderLef
               {template?.name}
             </Text>
             {!isNil(template?.tags) && !isEmpty(template?.tags) && <TagsPopover tags={template.tags} />}
-            {isGitSyncEnabled && <GitPopover data={gitDetails} customUI={<GitDetails />} />}
+            {isGitSyncEnabled && (
+              <StudioGitPopover
+                gitDetails={gitDetails}
+                identifier={templateIdentifier}
+                isReadonly={isReadonly}
+                entityData={template}
+                onGitBranchChange={onGitBranchChange}
+              />
+            )}
             {!isYaml && !isReadonly && (
               <RbacButton
                 variation={ButtonVariation.ICON}

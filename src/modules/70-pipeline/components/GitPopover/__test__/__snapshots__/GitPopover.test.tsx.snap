@@ -11,6 +11,7 @@ exports[`GitPopover should return popover icon and content 1`] = `
       <span
         class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey700"
         data-icon="service-github"
+        data-testid="git-popover"
         tabindex="0"
       >
         <svg

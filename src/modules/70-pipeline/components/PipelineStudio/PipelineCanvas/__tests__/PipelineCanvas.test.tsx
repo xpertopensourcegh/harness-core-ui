@@ -147,20 +147,24 @@ describe('Pipeline Canvas - new pipeline', () => {
     expect(queryByText(/Loading, please wait\.\.\./)).toBeTruthy()
   })
 
-  test('with git sync enabled - new pipeline', () => {
+  test('with git sync enabled - new pipeline', async () => {
     const props = getProps()
     const contextValue = getDummyPipelineCanvasContextValue({
       isLoading: false,
       gitDetails: { repoIdentifier: 'repoIdentifier', rootFolder: 'rootFolder', filePath: 'filePath', branch: 'branch' }
     })
-    const { queryByText } = render(
+    const { queryByText, getByTestId } = render(
       <TestWrapper defaultAppStoreValues={{ isGitSyncEnabled: true }}>
         <PipelineContext.Provider value={contextValue}>
           <PipelineCanvas {...props} />
         </PipelineContext.Provider>
       </TestWrapper>
     )
-    expect(queryByText('repoName')).toBeTruthy()
+    const gitPopoverIcon = getByTestId('git-popover')
+    act(() => {
+      fireEvent.mouseEnter(gitPopoverIcon)
+    })
+    await waitFor(() => expect(queryByText('repoName')).toBeTruthy())
     expect(queryByText('branch')).toBeTruthy()
     expect(queryByText('rootFolderfilePath')).toBeNull()
   })

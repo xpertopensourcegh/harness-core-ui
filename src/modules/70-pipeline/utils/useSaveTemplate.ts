@@ -35,11 +35,7 @@ interface SaveTemplateObj {
 }
 
 interface UseSaveTemplateReturnType {
-  saveAndPublish: (
-    updatedTemplate: NGTemplateInfoConfig,
-    extraInfo: PromiseExtraArgs,
-    comments?: string
-  ) => Promise<void>
+  saveAndPublish: (updatedTemplate: NGTemplateInfoConfig, extraInfo: PromiseExtraArgs) => Promise<void>
   updateExistingLabel: (comments: string) => Promise<UseSaveSuccessResponse>
 }
 
@@ -69,7 +65,6 @@ export function useSaveTemplate(
   const { getString } = useStrings()
   const { showSuccess, showError, clear } = useToaster()
   const history = useHistory()
-  const [updatedComments, setUpdatedComments] = React.useState<string | undefined>('')
 
   const isYaml = view === SelectedView.YAML
 
@@ -123,7 +118,6 @@ export function useSaveTemplate(
       await fetchTemplate?.({ forceFetch: true, forceUpdate: true })
       if (updatedGitDetails?.isNewBranch) {
         navigateToLocation(template.identifier, template.versionLabel, updatedGitDetails)
-        location.reload()
       }
     } else {
       setLoading?.(false)
@@ -148,7 +142,7 @@ export function useSaveTemplate(
     isEdit = false
   ): Promise<UseSaveSuccessResponse> => {
     if (isEdit) {
-      return updateExistingLabel(updatedComments, updatedGitDetails, lastObject)
+      return updateExistingLabel(updatedGitDetails?.commitMsg, updatedGitDetails, lastObject)
     } else {
       const response = await createTemplatePromise({
         body: yamlStringify({ template: omit(cloneDeep(latestTemplate), 'repo', 'branch') }),
@@ -171,7 +165,6 @@ export function useSaveTemplate(
         await deleteTemplateCache?.()
         if (!isPipelineStudio) {
           navigateToLocation(latestTemplate.identifier, latestTemplate.versionLabel, updatedGitDetails)
-          location.reload()
         }
       } else {
         clear()
@@ -224,8 +217,7 @@ export function useSaveTemplate(
   })
 
   const saveAndPublish = React.useCallback(
-    async (updatedTemplate: NGTemplateInfoConfig, extraInfo: PromiseExtraArgs, comments?: string) => {
-      setUpdatedComments(comments)
+    async (updatedTemplate: NGTemplateInfoConfig, extraInfo: PromiseExtraArgs) => {
       setLoading?.(true)
       const { isEdit } = extraInfo
       let latestTemplate: NGTemplateInfoConfig = defaultTo(updatedTemplate, template)

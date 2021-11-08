@@ -10,7 +10,6 @@ import {
   SelectOption,
   Container,
   ButtonVariation,
-  FontVariation,
   useToaster,
   PageSpinner
 } from '@wings-software/uicore'
@@ -40,16 +39,14 @@ import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/Sa
 import routes from '@common/RouteDefinitions'
 import type { EntityGitDetails, GovernanceMetadata } from 'services/pipeline-ng'
 import { useQueryParams, useUpdateQueryParams } from '@common/hooks'
-import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
+import type { GitFilterScope } from '@common/components/GitFilters/GitFilters'
 import { TagsPopover } from '@common/components'
 import VisualYamlToggle, { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
 import { validateJSONWithSchema } from '@common/utils/YamlUtils'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { PipelineVariablesContextProvider } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
-import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
-import { getRepoDetailsByIndentifier } from '@common/utils/gitSyncUtils'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { PipelineActions } from '@common/constants/TrackingConstants'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
@@ -64,6 +61,7 @@ import PipelineYamlView from '../PipelineYamlView/PipelineYamlView'
 import { RightBar } from '../RightBar/RightBar'
 import StageBuilder from '../StageBuilder/StageBuilder'
 import { usePipelineSchema } from '../PipelineSchema/PipelineSchemaContext'
+import StudioGitPopover from '../StudioGitPopover'
 import css from './PipelineCanvas.module.scss'
 
 interface OtherModalProps {
@@ -156,11 +154,9 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     isBEPipelineUpdated,
     gitDetails
   } = state
-  // const { stage: selectedStage } = getStageFromPipeline(pipeline, selectedStageId || '')
 
   const { getString } = useStrings()
   const { pipelineSchema } = usePipelineSchema()
-  const { gitSyncRepos, loadingRepos } = useGitSyncStore()
   const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier, module } = useParams<
     PipelineType<{
       orgIdentifier: string
@@ -228,7 +224,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     }
   })
 
-  const isValidYaml = function () {
+  const isValidYaml = function (): boolean {
     if (yamlHandler) {
       try {
         const parsedYaml = parse(yamlHandler.getLatestYaml())
@@ -254,7 +250,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     return true
   }
 
-  const navigateToLocation = (newPipelineId: string, updatedGitDetails?: SaveToGitFormInterface) => {
+  const navigateToLocation = (newPipelineId: string, updatedGitDetails?: SaveToGitFormInterface): void => {
     history.replace(
       toPipelineStudio({
         projectIdentifier,
@@ -708,49 +704,6 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     [repoIdentifier, branch, isUpdated, pipelineIdentifier]
   )
 
-  const RenderGitDetails: React.FC = React.useCallback(() => {
-    if (gitDetails?.objectId || (pipelineIdentifier === DefaultNewPipelineId && gitDetails.repoIdentifier)) {
-      const repoName: string = getRepoDetailsByIndentifier(gitDetails?.repoIdentifier, gitSyncRepos)?.name || ''
-      const folderName = `${gitDetails?.rootFolder || ''}${gitDetails?.filePath || ''}`
-      return (
-        <Layout.Horizontal spacing="medium" className={css.gitDetails}>
-          <Layout.Horizontal spacing="small" className={css.repoDetails}>
-            <Icon name="repository" margin={{ left: 'medium' }}></Icon>
-            {pipelineIdentifier === DefaultNewPipelineId && !loadingRepos ? (
-              <Text font={FontVariation.SMALL} tooltip={repoName} className={css.repoName}>
-                {repoName}
-              </Text>
-            ) : (
-              <Text font={FontVariation.SMALL} tooltip={folderName} className={css.folderName}>
-                {folderName}
-              </Text>
-            )}
-          </Layout.Horizontal>
-
-          <Layout.Horizontal spacing="small" className={css.branchDetails}>
-            {pipelineIdentifier === DefaultNewPipelineId || isReadonly ? (
-              <>
-                <Icon name="git-new-branch" margin={{ left: 'medium' }}></Icon>
-                <Text className={css.branchName} font={FontVariation.SMALL} tooltip={gitDetails?.branch}>
-                  {gitDetails?.branch}
-                </Text>
-              </>
-            ) : (
-              <GitFilters
-                onChange={onGitBranchChange}
-                showRepoSelector={false}
-                defaultValue={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
-                branchSelectClassName={css.branchSelector}
-              />
-            )}
-          </Layout.Horizontal>
-        </Layout.Horizontal>
-      )
-    } else {
-      return <></>
-    }
-  }, [gitDetails, pipelineIdentifier, repoIdentifier, branch, onGitBranchChange, selectedBranch])
-
   if (isLoading) {
     return (
       <React.Fragment>
@@ -856,12 +809,19 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                     <TagsPopover tags={pipeline.tags} />
                   </Container>
                 )}
+                {isGitSyncEnabled && (
+                  <StudioGitPopover
+                    gitDetails={gitDetails}
+                    identifier={pipelineIdentifier}
+                    isReadonly={isReadonly}
+                    entityData={{ ...pipeline, versionLabel: '', type: 'Step' }} // Just to avoid type issues
+                    onGitBranchChange={onGitBranchChange}
+                  />
+                )}
                 {isYaml || isReadonly ? null : (
                   <Button variation={ButtonVariation.ICON} icon="Edit" onClick={showModal} />
                 )}
               </Layout.Horizontal>
-
-              {isGitSyncEnabled && <RenderGitDetails />}
             </div>
           </div>
           <VisualYamlToggle

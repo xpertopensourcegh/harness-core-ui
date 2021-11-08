@@ -2,15 +2,16 @@ import { Layout } from '@wings-software/uicore'
 import React from 'react'
 import cx from 'classnames'
 import { TemplateCard } from '@templates-library/components/TemplateCard/TemplateCard'
-import type { NGTemplateInfoConfig, TemplateSummaryResponse } from 'services/template-ng'
+import type { TemplateSummaryResponse } from 'services/template-ng'
+import type { NGTemplateInfoConfigWithGitDetails } from 'framework/Templates/TemplateConfigModal/TemplateConfigModal'
 import css from './TemplatePreview.module.scss'
 
 interface PreviewInterface {
-  previewValues?: NGTemplateInfoConfig | TemplateSummaryResponse
+  previewValues?: NGTemplateInfoConfigWithGitDetails | TemplateSummaryResponse
   className?: string
 }
 
-export const TemplatePreview = (props: PreviewInterface) => {
+export const TemplatePreview = (props: PreviewInterface): JSX.Element => {
   const { previewValues, className = '' } = props
   return (
     <Layout.Horizontal
@@ -18,7 +19,17 @@ export const TemplatePreview = (props: PreviewInterface) => {
       className={cx(css.preview, className)}
       padding={{ top: 'huge', bottom: 'huge' }}
     >
-      {previewValues && <TemplateCard template={previewValues} />}
+      {previewValues && (
+        <TemplateCard
+          template={{
+            ...previewValues,
+            gitDetails: {
+              repoIdentifier: (previewValues as NGTemplateInfoConfigWithGitDetails)?.repo,
+              branch: (previewValues as NGTemplateInfoConfigWithGitDetails)?.branch
+            }
+          }}
+        />
+      )}
     </Layout.Horizontal>
   )
 }

@@ -105,8 +105,8 @@ const PipelineCanvasTestWrapper: React.FC<{ modifiedPipelineContextMock: any; pi
 describe('PipelineCanvas tests', () => {
   describe('When Git Sync is enabled', () => {
     describe('Edit Pipeline', () => {
-      test('should render pipeline canvas in edit mode', () => {
-        const { getByText: getElementByText } = render(
+      test('should render pipeline canvas in edit mode', async () => {
+        const { getByText: getElementByText, getByTestId } = render(
           <PipelineCanvasTestWrapper
             modifiedPipelineContextMock={pipelineContextMock}
             pipelineIdentifier={'test_pipeline'}
@@ -115,8 +115,11 @@ describe('PipelineCanvas tests', () => {
         const pipelineName = getElementByText('Test Pipeline')
         expect(pipelineName).toBeInTheDocument()
 
-        const pipelineFileName = getElementByText('rootFolderTest/.harness/test_pipeline.yaml')
-        expect(pipelineFileName).toBeInTheDocument()
+        const gitPopoverIcon = getByTestId('git-popover')
+        act(() => {
+          fireEvent.mouseEnter(gitPopoverIcon)
+        })
+        await waitFor(() => expect(getElementByText('rootFolderTest/.harness/test_pipeline.yaml')).toBeInTheDocument())
 
         const branchSelector = document.querySelector('input[name="branch"]') as HTMLInputElement
         expect(branchSelector.value).toBe('feature')
@@ -196,8 +199,8 @@ describe('PipelineCanvas tests', () => {
         delete pipelineContextMock.state.gitDetails.objectId
       })
 
-      test('should render pipeline canvas in create mode', () => {
-        const { getByText: getElementByText } = render(
+      test('should render pipeline canvas in create mode', async () => {
+        const { getByText: getElementByText, getByTestId } = render(
           <PipelineCanvasTestWrapper
             modifiedPipelineContextMock={pipelineContextMock}
             pipelineIdentifier={DefaultNewPipelineId}
@@ -206,8 +209,11 @@ describe('PipelineCanvas tests', () => {
         const pipelineName = getElementByText('Test Pipeline')
         expect(pipelineName).toBeInTheDocument()
 
-        const repoName = getElementByText('gitSyncRepo')
-        expect(repoName).toBeInTheDocument()
+        const gitPopoverIcon = getByTestId('git-popover')
+        act(() => {
+          fireEvent.mouseEnter(gitPopoverIcon)
+        })
+        await waitFor(() => expect(getElementByText('gitSyncRepo')).toBeInTheDocument())
 
         const branchName = getElementByText('feature')
         expect(branchName).toBeInTheDocument()

@@ -68,11 +68,7 @@ export function SaveTemplatePopover(props: SaveTemplatePopoverProps): React.Reac
           onSubmit={comments => {
             hideCommentsModal()
             setLoading(true)
-            if (isGitSyncEnabled) {
-              saveAndPublish(template, { isEdit: true }, comments)
-            } else {
-              updateExistingLabel(comments)
-            }
+            updateExistingLabel(comments)
           }}
         />
       </Dialog>
@@ -132,7 +128,11 @@ export function SaveTemplatePopover(props: SaveTemplatePopoverProps): React.Reac
             onClick: () => {
               getErrors?.().then(response => {
                 if (response.status === 'SUCCESS' && isEmpty(response.errors)) {
-                  showCommentsModal()
+                  if (isGitSyncEnabled) {
+                    saveAndPublish(template, { isEdit: true })
+                  } else {
+                    showCommentsModal()
+                  }
                 }
               })
             }

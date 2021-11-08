@@ -53,7 +53,7 @@ export interface ModalProps {
   onFailure?: (error: any) => void
 }
 
-interface NGTemplateInfoConfigWithGitDetails extends NGTemplateInfoConfig {
+export interface NGTemplateInfoConfigWithGitDetails extends NGTemplateInfoConfig {
   repo: string
   branch: string
 }
@@ -204,6 +204,7 @@ export const TemplateConfigModal = (props: ConfigModalProps): JSX.Element => {
   const { emptyFields = [] } = modalProps
   const [previewValues, setPreviewValues] = useState(props.initialValues)
   const [formInitialValues, setFormInitialValues] = React.useState(initialValues)
+  const { isGitSyncEnabled } = useAppStore()
 
   React.useEffect(() => {
     const newInitialValues = {
@@ -229,7 +230,7 @@ export const TemplateConfigModal = (props: ConfigModalProps): JSX.Element => {
     setPreviewValues(formInitialValues)
   }, [formInitialValues])
 
-  return (
+  const content = (
     <Layout.Horizontal>
       <BasicTemplateDetails
         initialValues={formInitialValues}
@@ -247,4 +248,5 @@ export const TemplateConfigModal = (props: ConfigModalProps): JSX.Element => {
       />
     </Layout.Horizontal>
   )
+  return isGitSyncEnabled ? <GitSyncStoreProvider>{content}</GitSyncStoreProvider> : content
 }

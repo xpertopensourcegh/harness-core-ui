@@ -24,6 +24,8 @@ import type { GetErrorResponse } from '@templates-library/components/TemplateStu
 import { DefaultNewTemplateId } from 'framework/Templates/templates'
 import type { GitFilterScope } from '@common/components/GitFilters/GitFilters'
 import { useQueryParams } from '@common/hooks'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import NoEntityFound from '@pipeline/pages/utils/NoEntityFound/NoEntityFound'
 import { TemplateContext } from './TemplateContext/TemplateContext'
 import css from './TemplateStudio.module.scss'
 
@@ -56,6 +58,7 @@ export function TemplateStudio(): React.ReactElement {
   const { showError } = useToaster()
   const history = useHistory()
   const templateFormikRef = React.useRef<TemplateFormikRef | null>(null)
+  const { isGitSyncEnabled } = useAppStore()
 
   useDocumentTitle([parse(template?.name || getString('common.templates'))])
 
@@ -82,14 +85,15 @@ export function TemplateStudio(): React.ReactElement {
       if (isConfirmed) {
         deleteTemplateCache(gitDetails).then(() => {
           history.push(
-            routes.toPipelineStudio({
+            routes.toTemplateStudio({
               projectIdentifier,
               orgIdentifier,
-              pipelineIdentifier: defaultTo(template?.identifier, '-1'),
+              templateIdentifier: defaultTo(template?.identifier, '-1'),
               accountId,
               module,
               branch: selectedBranch,
-              repoIdentifier: repoIdentifier
+              repoIdentifier: repoIdentifier,
+              versionLabel: template?.versionLabel
             })
           )
           location.reload()
@@ -182,7 +186,6 @@ export function TemplateStudio(): React.ReactElement {
               repoIdentifier: selectedFilter.repo
             })
           )
-          location.reload()
         })
       }
     },
@@ -251,7 +254,10 @@ export function TemplateStudio(): React.ReactElement {
       <Page.Body>
         {isLoading && <PageSpinner />}
         <Layout.Vertical height={'100%'}>
-          {!isLoading && isEmpty(template) && <GenericErrorHandler />}
+          {!isLoading && isEmpty(template) && !isGitSyncEnabled && <GenericErrorHandler />}
+          {!isLoading && isEmpty(template) && isGitSyncEnabled && (
+            <NoEntityFound identifier={templateIdentifier} entityType="template" />
+          )}
           {isInitialized && !isEmpty(template) && (
             <>
               <TemplateStudioSubHeader

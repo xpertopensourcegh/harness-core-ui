@@ -23,7 +23,13 @@ export function RenderGitPopover(props: GitPopoverProps): React.ReactElement | n
   const gitPopover = React.useCallback(() => {
     return (
       <Popover interactionKind={PopoverInteractionKind.HOVER} {...popoverProps}>
-        <Icon name={'service-github'} color={Color.GREY_700} {...iconProps} size={iconProps?.size || 16} />
+        <Icon
+          name={'service-github'}
+          color={Color.GREY_700}
+          {...iconProps}
+          size={iconProps?.size || 16}
+          data-testid={'git-popover'}
+        />
         <Layout.Vertical padding={{ top: 'large', bottom: 'large', left: 'xlarge', right: 'xlarge' }}>
           <Text font={{ size: 'small', weight: 'bold' }} color={Color.BLACK}>
             {getString('pipeline.gitDetails').toUpperCase()}

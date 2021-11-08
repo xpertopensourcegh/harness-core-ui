@@ -1,12 +1,11 @@
 import React from 'react'
 import { isEmpty } from 'lodash-es'
-import { Color, Heading, Layout, TabNavigation, Text } from '@wings-software/uicore'
-import { matchPath, useHistory, useLocation, useParams, useRouteMatch } from 'react-router-dom'
+import { Color, Heading, Layout, TabNavigation } from '@wings-software/uicore'
+import { matchPath, useLocation, useParams, useRouteMatch } from 'react-router-dom'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { useGlobalEventListener, useQueryParams } from '@common/hooks'
 import { useGetPipelineSummary } from 'services/pipeline-ng'
-import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
 import { NavigatedToPage } from '@common/constants/TrackingConstants'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { useStrings, String } from 'framework/strings'
@@ -17,77 +16,13 @@ import { DefaultNewPipelineId } from '@pipeline/components/PipelineStudio/Pipeli
 import GitPopover from '@pipeline/components/GitPopover/GitPopover'
 import GenericErrorHandler from '@common/pages/GenericErrorHandler/GenericErrorHandler'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
-import noPipelineFoundImage from './images/no-pipeline-found.svg'
+import NoEntityFound from '../utils/NoEntityFound/NoEntityFound'
 import css from './PipelineDetails.module.scss'
 // add custom event to the global scope
 declare global {
   interface WindowEventMap {
     RENAME_PIPELINE: CustomEvent<string>
   }
-}
-const NoPipelineFound: React.FC = () => {
-  const { getString } = useStrings()
-  const history = useHistory()
-  const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier, module } = useParams<
-    PipelineType<{
-      orgIdentifier: string
-      projectIdentifier: string
-      pipelineIdentifier: string
-      accountId: string
-    }> &
-      GitQueryParams
-  >()
-  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
-
-  const onGitBranchChange = React.useMemo(
-    () => (selectedFilter: GitFilterScope) => {
-      if (branch !== selectedFilter.branch) {
-        history.push(
-          routes.toPipelineStudio({
-            projectIdentifier,
-            orgIdentifier,
-            pipelineIdentifier: pipelineIdentifier || '-1',
-            accountId,
-            module,
-            branch: selectedFilter.branch,
-            repoIdentifier: selectedFilter.repo
-          })
-        )
-        location.reload()
-      }
-    },
-    [repoIdentifier, branch, pipelineIdentifier]
-  )
-
-  return (
-    <div className={css.noPipelineFoundContainer}>
-      {/* @TODO: Have a working solution for this */}
-      {/* <Button
-        className={css.backButton}
-        onClick={() => {
-          history.goBack()
-          location.reload()
-        }}
-        text={'< ' + getString('back')}
-      /> */}
-      <Layout.Vertical spacing="small" flex={{ justifyContent: 'center', alignItems: 'center' }}>
-        <img src={noPipelineFoundImage} className={css.noPipelineFoundImage} />
-
-        <Text className={css.noPipelineFound} margin={{ top: 'medium', bottom: 'small' }}>
-          {getString('pipeline.gitExperience.noPipelineFound')}
-        </Text>
-        <Text className={css.selectDiffBranch} margin={{ top: 'xsmall', bottom: 'xlarge' }}>
-          {getString('pipeline.gitExperience.selectDiffBranch')}
-        </Text>
-        <GitFilters
-          onChange={onGitBranchChange}
-          showRepoSelector={false}
-          defaultValue={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
-          branchSelectClassName={css.branchSelector}
-        />
-      </Layout.Vertical>
-    </div>
-  )
 }
 
 export default function PipelineDetails({ children }: React.PropsWithChildren<unknown>): React.ReactElement {
@@ -199,7 +134,7 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
   }
 
   if (error?.data && isEmpty(pipeline) && isGitSyncEnabled) {
-    return <NoPipelineFound />
+    return <NoEntityFound identifier={pipelineIdentifier} entityType={'pipeline'} />
   }
 
   return (

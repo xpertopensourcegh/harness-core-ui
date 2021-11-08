@@ -551,7 +551,7 @@ savingInProgress: Saving in progress...
 gitExperience:
   skipNow: SKIP NOW
   selectRepoBranch: Please select Repository and Branch from the pipeline edit modal
-  noPipelineFound: The pipeline does not exist in the selected Branch.
+  noPipelineFound: The {{entityType}} does not exist in the selected Branch.
   selectDiffBranch: Please select a different Branch.
 testsReports:
   callgraphTitle: Call Graph
