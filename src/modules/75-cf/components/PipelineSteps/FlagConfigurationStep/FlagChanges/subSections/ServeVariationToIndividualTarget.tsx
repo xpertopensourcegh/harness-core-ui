@@ -1,12 +1,9 @@
-import React, { FC, useEffect, useMemo, useState } from 'react'
-import { AvatarGroup, AvatarGroupProps, Button, ButtonVariation, Layout, Text } from '@wings-software/uicore'
+import React, { FC, useMemo } from 'react'
 import { useStrings } from 'framework/strings'
 import type { Target, Variation } from 'services/cf'
 import type { FlagConfigurationStepFormDataValues } from '@cf/components/PipelineSteps/FlagConfigurationStep/types'
-import { VariationWithIcon } from '@cf/components/VariationWithIcon/VariationWithIcon'
 import SubSection, { SubSectionProps } from '../SubSection'
-import IncludeTargetVariationDialog, { IncludeTargetVariationDialogProps } from './IncludeTargetVariationDialog'
-import css from './ServeVariationToIndividualTarget.module.scss'
+import ServeVariationToItem from './ServeVariationToItem'
 
 export interface ServeVariationToIndividualTargetProps extends SubSectionProps {
   clearField: (fieldName: string) => void
@@ -25,7 +22,6 @@ const ServeVariationToIndividualTarget: FC<ServeVariationToIndividualTargetProps
   ...props
 }) => {
   const { getString } = useStrings()
-  const [targetVariationDialogOpen, setTargetVariationDialogOpen] = useState<boolean>(false)
 
   const [selectedVariation, selectedVariationIndex] = useMemo<[Variation | undefined, number]>(() => {
     const position = variations?.findIndex(
@@ -43,74 +39,23 @@ const ServeVariationToIndividualTarget: FC<ServeVariationToIndividualTargetProps
     [targets, fieldValues?.spec?.serveVariationToIndividualTarget?.include?.targets]
   )
 
-  const avatars = useMemo<AvatarGroupProps['avatars']>(
-    () => selectedTargets.map(({ name, identifier }) => ({ name, id: identifier })),
-    [selectedTargets]
-  )
-
-  const handleIncludeChange: IncludeTargetVariationDialogProps['onChange'] = (newTargets, newVariation) => {
-    setField('spec.serveVariationToIndividualTarget.include.variation', newVariation.identifier)
-    setField(
-      'spec.serveVariationToIndividualTarget.include.targets',
-      newTargets.map(({ identifier }) => identifier)
-    )
-  }
-
-  const handleCloseDialog: IncludeTargetVariationDialogProps['closeDialog'] = () => {
-    setTargetVariationDialogOpen(false)
-  }
-
-  useEffect(
-    () => () => {
-      clearField('spec.serveVariationToIndividualTarget.include.variation')
-      clearField('spec.serveVariationToIndividualTarget.include.targets')
-    },
-    []
-  )
-
   return (
     <SubSection data-testid="flagChanges-serveVariationToIndividualTarget" {...props}>
-      {selectedVariation && selectedTargets.length && (
-        <Layout.Vertical spacing="medium" border={{ bottom: true }} padding={{ bottom: 'medium' }}>
-          <p className={css.variationParagraph}>
-            {getString('cf.pipeline.flagConfiguration.serve')}
-            <VariationWithIcon
-              textStyle={{ fontWeight: 'bold' }}
-              variation={selectedVariation}
-              index={selectedVariationIndex}
-            />
-            {getString(
-              selectedTargets.length > 1 ? 'cf.pipeline.flagConfiguration.toTargets' : 'cf.featureFlags.toTarget'
-            )}
-            :
-          </p>
-          <div className={css.avatars}>
-            <AvatarGroup avatars={avatars} restrictLengthTo={15} />
-            <Text>({selectedTargets.length})</Text>
-          </div>
-        </Layout.Vertical>
-      )}
-
-      <span>
-        <Button
-          className={css.addButton}
-          variation={ButtonVariation.LINK}
-          text={getString('cf.pipeline.flagConfiguration.addEditVariationToSpecificTargets')}
-          onClick={e => {
-            e.preventDefault()
-            setTargetVariationDialogOpen(true)
-          }}
-        />
-      </span>
-
-      <IncludeTargetVariationDialog
-        isOpen={targetVariationDialogOpen}
-        targets={targets}
+      <ServeVariationToItem
+        dialogTitle={getString('cf.pipeline.flagConfiguration.addEditVariationToSpecificTargets')}
+        itemLabel={getString('cf.shared.targets')}
+        itemPlaceholder={getString('cf.pipeline.flagConfiguration.enterTarget')}
+        itemFieldName="targets"
+        specPrefix="spec.serveVariationToIndividualTarget.include"
+        serveItemString={getString('cf.featureFlags.toTarget')}
+        serveItemsString={getString('cf.pipeline.flagConfiguration.toTargets')}
+        clearField={clearField}
+        setField={setField}
+        items={targets}
+        selectedItems={selectedTargets}
         variations={variations}
-        closeDialog={handleCloseDialog}
         selectedVariation={selectedVariation}
-        selectedTargets={selectedTargets}
-        onChange={handleIncludeChange}
+        selectedVariationIndex={selectedVariationIndex}
       />
     </SubSection>
   )

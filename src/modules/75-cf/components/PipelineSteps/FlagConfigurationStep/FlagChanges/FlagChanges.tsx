@@ -16,14 +16,17 @@ import DefaultRules, { DefaultRulesProps } from './subSections/DefaultRules'
 import ServeVariationToIndividualTarget, {
   ServeVariationToIndividualTargetProps
 } from './subSections/ServeVariationToIndividualTarget'
-import ServeVariationToTargetGroup from './subSections/ServeVariationToTargetGroup'
+import ServeVariationToTargetGroup, {
+  ServeVariationToTargetGroupProps
+} from './subSections/ServeVariationToTargetGroup'
 import ServePercentageRollout, { ServePercentageRolloutProps } from './subSections/ServePercentageRollout'
 
 export type SubSectionComponentProps = SubSectionProps &
   DefaultRulesProps &
   SetFlagSwitchProps &
   ServePercentageRolloutProps &
-  ServeVariationToIndividualTargetProps
+  ServeVariationToIndividualTargetProps &
+  ServeVariationToTargetGroupProps
 export type SubSectionComponent = FC<SubSectionComponentProps>
 
 export const allSubSections: SubSectionComponent[] = [
@@ -73,6 +76,9 @@ const FlagChanges: FC<FlagChangesProps> = ({
             break
           case 'serveVariationToIndividualTarget':
             initialSubSections.push(ServeVariationToIndividualTarget)
+            break
+          case 'serveVariationToTargetGroup':
+            initialSubSections.push(ServeVariationToTargetGroup)
             break
         }
       })

@@ -20,7 +20,8 @@ export enum CFPipelineInstructionType {
   SET_DEFAULT_ON_VARIATION = 'SetOnVariation',
   SET_DEFAULT_OFF_VARIATION = 'SetOffVariation',
   ADD_RULE = 'AddRule',
-  ADD_TARGETS_TO_VARIATION_TARGET_MAP = 'AddTargetsToVariationTargetMap'
+  ADD_TARGETS_TO_VARIATION_TARGET_MAP = 'AddTargetsToVariationTargetMap',
+  ADD_SEGMENT_TO_VARIATION_TARGET_MAP = 'AddSegmentToVariationTargetMap'
 }
 
 export interface FlagConfigurationStepFormData extends StepElementConfig {
@@ -41,6 +42,12 @@ export interface FlagConfigurationStepFormData extends StepElementConfig {
       include?: {
         variation: string
         targets: string[]
+      }
+    }
+    serveVariationToTargetGroup?: {
+      include?: {
+        variation: string
+        targetGroups: string[]
       }
     }
   }

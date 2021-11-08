@@ -3,12 +3,12 @@ import { render, RenderResult, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { TestWrapper } from '@common/utils/testUtils'
 import type { Target, Variation } from 'services/cf'
-import IncludeTargetVariationDialog, { IncludeTargetVariationDialogProps } from '../IncludeTargetVariationDialog'
+import ItemVariationDialog, { ItemVariationDialogProps } from '../ItemVariationDialog'
 
-const mockTargets: Partial<Target>[] = [
-  { identifier: 't1', name: 'Target 1' },
-  { identifier: 't2', name: 'Target 2' },
-  { identifier: 't3', name: 'Target 3' }
+const mockItems: ItemVariationDialogProps['items'] = [
+  { identifier: 'i1', name: 'Item 1' },
+  { identifier: 'i2', name: 'Item 2' },
+  { identifier: 'i3', name: 'Item 3' }
 ]
 
 const mockVariations: Partial<Variation>[] = [
@@ -17,13 +17,17 @@ const mockVariations: Partial<Variation>[] = [
   { identifier: 'v3', name: 'Variation 3' }
 ]
 
-const renderComponent = (props: Partial<IncludeTargetVariationDialogProps> = {}): RenderResult =>
+const renderComponent = (props: Partial<ItemVariationDialogProps> = {}): RenderResult =>
   render(
     <TestWrapper>
-      <IncludeTargetVariationDialog
+      <ItemVariationDialog
+        title="dialog title"
+        itemPlaceholder="item placeholder"
+        itemLabel="item label"
         isOpen={true}
         closeDialog={jest.fn()}
-        targets={mockTargets as Target[]}
+        items={mockItems}
+        selectedItems={[]}
         variations={mockVariations as Variation[]}
         onChange={jest.fn()}
         {...props}
@@ -31,15 +35,19 @@ const renderComponent = (props: Partial<IncludeTargetVariationDialogProps> = {})
     </TestWrapper>
   )
 
-describe('IncludeTargetVariationDialog', () => {
+describe('ItemVariationDialog', () => {
   test('it should display the dialog when isOpen is true', async () => {
-    const title = 'cf.pipeline.flagConfiguration.addEditVariationToSpecificTargets'
+    const title = 'TEST'
     const Subject: FC<{ isOpen: boolean }> = ({ isOpen }) => (
       <TestWrapper>
-        <IncludeTargetVariationDialog
+        <ItemVariationDialog
+          title={title}
+          itemLabel="item label"
+          itemPlaceholder="item placeholder"
           isOpen={isOpen}
           closeDialog={jest.fn()}
-          targets={mockTargets as Target[]}
+          items={mockItems}
+          selectedItems={[]}
           variations={mockVariations as Variation[]}
           onChange={jest.fn()}
         />
@@ -53,18 +61,26 @@ describe('IncludeTargetVariationDialog', () => {
     expect(screen.queryByText(title)).toBeInTheDocument()
   })
 
-  test('it should display a select to choose targets', async () => {
-    renderComponent()
+  test('it should display the passed title', async () => {
+    const title = 'TEST MODULE TITLE'
+    renderComponent({ title })
 
-    expect(screen.getByText('cf.shared.targets')).toBeInTheDocument()
+    expect(screen.getByText(title)).toBeInTheDocument()
+  })
 
-    const inputEl = document.querySelector('[name="targets"]')
+  test('it should display a select to choose items', async () => {
+    const itemLabel = 'TEST ITEM LABEL'
+    renderComponent({ itemLabel })
+
+    expect(screen.getByText(itemLabel)).toBeInTheDocument()
+
+    const inputEl = document.querySelector('[name="items"]')
     expect(inputEl).toBeInTheDocument()
 
     userEvent.click(inputEl as HTMLInputElement)
 
     await waitFor(() => {
-      mockTargets.forEach(({ name }) => expect(screen.getByText(name as string)).toBeInTheDocument())
+      mockItems.forEach(({ name }) => expect(screen.getByText(name)).toBeInTheDocument())
     })
   })
 
@@ -106,13 +122,13 @@ describe('IncludeTargetVariationDialog', () => {
     expect(onChangeMock).not.toHaveBeenCalled()
     expect(closeDialogMock).not.toHaveBeenCalled()
 
-    userEvent.click(document.querySelector('[name="targets"]') as HTMLInputElement)
+    userEvent.click(document.querySelector('[name="items"]') as HTMLInputElement)
     await waitFor(() => {
-      expect(screen.getByText(mockTargets[0].name as string)).toBeInTheDocument()
-      expect(screen.getByText(mockTargets[1].name as string)).toBeInTheDocument()
+      expect(screen.getByText(mockItems[0].name)).toBeInTheDocument()
+      expect(screen.getByText(mockItems[1].name)).toBeInTheDocument()
     })
-    userEvent.click(screen.getByText(mockTargets[0].name as string))
-    userEvent.click(screen.getByText(mockTargets[1].name as string))
+    userEvent.click(screen.getByText(mockItems[0].name))
+    userEvent.click(screen.getByText(mockItems[1].name))
 
     userEvent.click(document.querySelector('[name="variation"]') as HTMLInputElement)
     await waitFor(() =>
@@ -123,7 +139,7 @@ describe('IncludeTargetVariationDialog', () => {
     userEvent.click(screen.getByRole('button', { name: 'done' }))
 
     await waitFor(() => {
-      expect(onChangeMock).toHaveBeenCalledWith([mockTargets[0], mockTargets[1]], mockVariations[0])
+      expect(onChangeMock).toHaveBeenCalledWith([mockItems[0], mockItems[1]], mockVariations[0])
       expect(closeDialogMock).toHaveBeenCalled()
     })
   })
@@ -139,11 +155,11 @@ describe('IncludeTargetVariationDialog', () => {
     await waitFor(() => expect(onChangeMock).not.toHaveBeenCalled())
   })
 
-  test('it should pre-select selectedTargets', async () => {
-    const selectedTargets = [mockTargets[0], mockTargets[2]] as Target[]
-    renderComponent({ selectedTargets })
+  test('it should pre-select selectedItems', async () => {
+    const selectedItems = [mockItems[0], mockItems[2]] as Target[]
+    renderComponent({ selectedItems })
 
-    selectedTargets.forEach(({ name }) => expect(screen.getByText(name)).toBeInTheDocument())
+    selectedItems.forEach(({ name }) => expect(screen.getByText(name)).toBeInTheDocument())
   })
 
   test('it should pre-select selectedVariation', async () => {

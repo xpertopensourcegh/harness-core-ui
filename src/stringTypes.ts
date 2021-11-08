@@ -3687,6 +3687,7 @@ export interface StringsMap {
   'cf.pipeline.flagConfiguration.addConditionalRules': string
   'cf.pipeline.flagConfiguration.addEditMapping': string
   'cf.pipeline.flagConfiguration.addEditVariationToSpecificTargets': string
+  'cf.pipeline.flagConfiguration.addEditVariationToTargetGroups': string
   'cf.pipeline.flagConfiguration.addNewMapping': string
   'cf.pipeline.flagConfiguration.addOrEdit': string
   'cf.pipeline.flagConfiguration.addVariationMappingTitle': string
@@ -3696,6 +3697,7 @@ export interface StringsMap {
   'cf.pipeline.flagConfiguration.configureMore': string
   'cf.pipeline.flagConfiguration.editVariationMappingTitle': string
   'cf.pipeline.flagConfiguration.enterTarget': string
+  'cf.pipeline.flagConfiguration.enterTargetGroup': string
   'cf.pipeline.flagConfiguration.environmentRequired': string
   'cf.pipeline.flagConfiguration.fixedInput': string
   'cf.pipeline.flagConfiguration.flagChanges': string
@@ -3719,6 +3721,8 @@ export interface StringsMap {
   'cf.pipeline.flagConfiguration.stepName': string
   'cf.pipeline.flagConfiguration.switchTo': string
   'cf.pipeline.flagConfiguration.toGroups': string
+  'cf.pipeline.flagConfiguration.toTargetGroup': string
+  'cf.pipeline.flagConfiguration.toTargetGroups': string
   'cf.pipeline.flagConfiguration.toTargets': string
   'cf.pipeline.flagConfiguration.variationMappingRuntime': string
   'cf.pipeline.flagConfiguration.variationServed': string

@@ -143,13 +143,17 @@ describe('FlagChanges', () => {
         environment: 'env1',
         state: 'on',
         defaultRules: { on: 'test1', off: 'test2' },
-        percentageRollout: { variation: { var1: '33', var2: '67' }, targetGroup: 'group1', bucketBy: 'attribute1' }
+        percentageRollout: { variation: { var1: '33', var2: '67' }, targetGroup: 'group1', bucketBy: 'attribute1' },
+        serveVariationToIndividualTarget: { include: { variation: 'var1', targets: ['t1', 't2'] } },
+        serveVariationToTargetGroup: { include: { variation: 'var1', targetGroups: ['tg1', 'tg2'] } }
       }
     })
     await waitFor(() => {
       expect(screen.getByTestId('flagChanges-setFlagSwitch')).toBeInTheDocument()
       expect(screen.getByTestId('flagChanges-defaultRules')).toBeInTheDocument()
       expect(screen.getByTestId('flagChanges-servePercentageRollout')).toBeInTheDocument()
+      expect(screen.getByTestId('flagChanges-serveVariationToIndividualTarget')).toBeInTheDocument()
+      expect(screen.getByTestId('flagChanges-serveVariationToTargetGroup')).toBeInTheDocument()
     })
   })
 })

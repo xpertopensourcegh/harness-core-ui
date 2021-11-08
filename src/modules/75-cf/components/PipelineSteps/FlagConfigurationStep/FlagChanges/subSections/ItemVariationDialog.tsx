@@ -1,4 +1,4 @@
-import React, { FC, useMemo, useRef } from 'react'
+import React, { FC, ReactNode, useMemo, useRef } from 'react'
 import {
   Button,
   ButtonVariation,
@@ -14,53 +14,65 @@ import {
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
 import { useStrings } from 'framework/strings'
-import type { Target, Variation } from 'services/cf'
+import type { Variation } from 'services/cf'
 
-interface IncludeTargetVariationDialogFormValues {
+interface ItemVariationDialogFormValues {
   variation: Variation['identifier']
-  targets: SelectOption[]
+  items: SelectOption[]
 }
 
-export interface IncludeTargetVariationDialogProps {
-  isOpen?: boolean
+interface Item {
+  identifier: string
+  name: string
+  [key: string]: any
+}
+
+export interface ItemVariationDialogProps {
+  title: ReactNode
+  itemPlaceholder: string
+  itemLabel: string
+  isOpen: boolean
   closeDialog: () => void
-  selectedTargets?: Target[]
+  selectedItems: Item[]
   selectedVariation?: Variation
-  targets: Target[]
+  items: Item[]
   variations: Variation[]
-  onChange: (selectedTargets: Target[], selectedVariation: Variation) => void
+  onChange: (selectedItems: Item[], selectedVariation: Variation) => void
 }
 
-const IncludeTargetVariationDialog: FC<IncludeTargetVariationDialogProps> = ({
-  isOpen = false,
+const ItemVariationDialog: FC<ItemVariationDialogProps> = ({
+  title,
+  itemPlaceholder,
+  itemLabel,
+  isOpen,
   closeDialog,
-  selectedTargets = [],
+  selectedItems,
   selectedVariation,
-  targets,
+  items,
   variations,
   onChange
 }) => {
   const { getString } = useStrings()
-  const formRef = useRef<FormikProps<IncludeTargetVariationDialogFormValues>>()
+  const formRef = useRef<FormikProps<ItemVariationDialogFormValues>>()
 
-  const initialTargets = useMemo<IncludeTargetVariationDialogFormValues['targets']>(
-    () => selectedTargets.map(({ name, identifier }) => ({ label: name, value: identifier })),
-    [selectedTargets]
+  const initialItems = useMemo<ItemVariationDialogFormValues['items']>(
+    () => selectedItems.map(({ name, identifier }) => ({ label: name, value: identifier })),
+    [selectedItems]
   )
 
-  const targetItems = useMemo<MultiSelectOption[]>(
-    () => targets.map<MultiSelectOption>(({ name, identifier }) => ({ label: name, value: identifier })),
-    [targets]
+  const itemOptions = useMemo<MultiSelectOption[]>(
+    () => items.map<MultiSelectOption>(({ name, identifier }) => ({ label: name, value: identifier })),
+    [items]
   )
 
-  const variationItems = useMemo<SelectOption[]>(
+  const variationOptions = useMemo<SelectOption[]>(
     () => variations.map<SelectOption>(({ name, identifier }) => ({ label: name || identifier, value: identifier })),
     [variations]
   )
 
-  const handleSubmit = (values: IncludeTargetVariationDialogFormValues): void => {
+  const handleSubmit = (values: ItemVariationDialogFormValues): void => {
     onChange(
-      targets.filter(({ identifier }) => !!values.targets.find(({ value }) => value === identifier)),
+      items.filter(({ identifier }) => !!values.items.find(({ value }) => value === identifier)),
       variations.find(({ identifier }) => values.variation === identifier) as Variation
     )
     closeDialog()
@@ -74,7 +86,7 @@ const IncludeTargetVariationDialog: FC<IncludeTargetVariationDialogProps> = ({
     <Dialog
       enforceFocus={false}
       isOpen={isOpen}
-      title={getString('cf.pipeline.flagConfiguration.addEditVariationToSpecificTargets')}
+      title={title}
       onClose={closeDialog}
       style={{ paddingBottom: 'var(--spacing-13)' }} // 😭 can't do this via a class
       footer={
@@ -89,16 +101,16 @@ const IncludeTargetVariationDialog: FC<IncludeTargetVariationDialogProps> = ({
         </Layout.Horizontal>
       }
     >
-      <Formik<IncludeTargetVariationDialogFormValues>
-        formName="IncludeTargetVariation"
-        initialValues={{ targets: initialTargets, variation: selectedVariation?.identifier || '' }}
+      <Formik<ItemVariationDialogFormValues>
+        formName="ItemVariation"
+        initialValues={{ items: initialItems, variation: selectedVariation?.identifier || '' }}
         enableReinitialize={true}
         onSubmit={handleSubmit}
         validationSchema={Yup.object().shape({
-          targets: Yup.array()
+          items: Yup.array()
             .of(
               Yup.object().shape({
-                value: Yup.string().oneOf(targetItems.map(({ value }) => value as string)),
+                value: Yup.string().oneOf(itemOptions.map(({ value }) => value as string)),
                 label: Yup.string()
               })
             )
@@ -113,19 +125,19 @@ const IncludeTargetVariationDialog: FC<IncludeTargetVariationDialogProps> = ({
 
           return (
             <FormikForm>
-              <Container height="250px">
+              <Container height={250}>
                 <FormInput.MultiSelect
-                  placeholder={getString('cf.pipeline.flagConfiguration.enterTarget')}
-                  name="targets"
-                  items={targetItems}
+                  placeholder={itemPlaceholder}
+                  name="items"
+                  items={itemOptions}
                   multiSelectProps={{ allowCreatingNewItems: false }}
-                  label={getString('cf.shared.targets')}
+                  label={itemLabel}
                 />
                 <FormInput.Select
                   placeholder={getString('cf.pipeline.flagConfiguration.selectVariation')}
                   usePortal={true}
                   name="variation"
-                  items={variationItems}
+                  items={variationOptions}
                   label={getString('cf.pipeline.flagConfiguration.variationServed')}
                 />
               </Container>
@@ -137,4 +149,4 @@ const IncludeTargetVariationDialog: FC<IncludeTargetVariationDialogProps> = ({
   )
 }
 
-export default IncludeTargetVariationDialog
+export default ItemVariationDialog

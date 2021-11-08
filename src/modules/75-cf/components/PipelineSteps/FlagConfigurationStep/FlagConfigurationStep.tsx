@@ -160,6 +160,20 @@ export class FlagConfigurationStep extends PipelineStep<FlagConfigurationStepDat
       }
     }
 
+    let serveVariationToTargetGroup: FlagConfigurationStepFormData['spec']['serveVariationToTargetGroup'] = undefined
+    const serveVariationToTargetGroupRule = initialValues.spec.instructions.find(
+      ({ type }) => type === CFPipelineInstructionType.ADD_SEGMENT_TO_VARIATION_TARGET_MAP
+    )
+
+    if (serveVariationToTargetGroupRule?.spec?.variation && serveVariationToTargetGroupRule?.spec?.segments) {
+      serveVariationToTargetGroup = {
+        include: {
+          variation: serveVariationToTargetGroupRule.spec.variation,
+          targetGroups: serveVariationToTargetGroupRule.spec.segments
+        }
+      }
+    }
+
     return {
       ...initialValues,
       spec: {
@@ -169,7 +183,8 @@ export class FlagConfigurationStep extends PipelineStep<FlagConfigurationStepDat
         state,
         defaultRules,
         percentageRollout,
-        serveVariationToIndividualTarget
+        serveVariationToIndividualTarget,
+        serveVariationToTargetGroup
       }
     }
   }
@@ -240,6 +255,20 @@ export class FlagConfigurationStep extends PipelineStep<FlagConfigurationStepDat
         spec: {
           variation: _data.spec.serveVariationToIndividualTarget.include.variation,
           targets: _data.spec.serveVariationToIndividualTarget.include.targets
+        }
+      })
+    }
+
+    if (
+      _data.spec.serveVariationToTargetGroup?.include?.variation &&
+      _data.spec.serveVariationToTargetGroup?.include?.targetGroups?.length > 0
+    ) {
+      instructions.push({
+        identifier: 'SetVariationForGroup',
+        type: CFPipelineInstructionType.ADD_SEGMENT_TO_VARIATION_TARGET_MAP,
+        spec: {
+          variation: _data.spec.serveVariationToTargetGroup.include.variation,
+          segments: _data.spec.serveVariationToTargetGroup.include.targetGroups
         }
       })
     }
