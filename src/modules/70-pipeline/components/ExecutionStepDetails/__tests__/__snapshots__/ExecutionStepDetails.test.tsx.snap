@@ -323,6 +323,29 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
                       value=""
                     />
                   </div>
+                  <button
+                    class="bp3-button Button--button StyledProps--font StyledProps--main fullScreen Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
+                    type="button"
+                  >
+                    <span
+                      class="bp3-icon StyledProps--main"
+                      data-icon="full-screen"
+                    >
+                      <svg
+                        fill="none"
+                        height="22"
+                        viewBox="0 0 24 24"
+                        width="22"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M15.12 19.512h4.876v-4.815M8.88 19.512H4.003v-4.815M15.12 4.488h4.876v4.814M8.88 4.488H4.003v4.814"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                        />
+                      </svg>
+                    </span>
+                  </button>
                   <a
                     class="toConsoleView"
                     href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline?view=log"
@@ -714,6 +737,29 @@ exports[`<ExecutionStepDetails /> tests retried steps does not fetches data for 
                       value=""
                     />
                   </div>
+                  <button
+                    class="bp3-button Button--button StyledProps--font StyledProps--main fullScreen Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
+                    type="button"
+                  >
+                    <span
+                      class="bp3-icon StyledProps--main"
+                      data-icon="full-screen"
+                    >
+                      <svg
+                        fill="none"
+                        height="22"
+                        viewBox="0 0 24 24"
+                        width="22"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M15.12 19.512h4.876v-4.815M8.88 19.512H4.003v-4.815M15.12 4.488h4.876v4.814M8.88 4.488H4.003v4.814"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                        />
+                      </svg>
+                    </span>
+                  </button>
                   <a
                     class="toConsoleView"
                     href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline?view=log"
@@ -1105,6 +1151,29 @@ exports[`<ExecutionStepDetails /> tests retried steps fetches data for retry ste
                       value=""
                     />
                   </div>
+                  <button
+                    class="bp3-button Button--button StyledProps--font StyledProps--main fullScreen Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
+                    type="button"
+                  >
+                    <span
+                      class="bp3-icon StyledProps--main"
+                      data-icon="full-screen"
+                    >
+                      <svg
+                        fill="none"
+                        height="22"
+                        viewBox="0 0 24 24"
+                        width="22"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M15.12 19.512h4.876v-4.815M8.88 19.512H4.003v-4.815M15.12 4.488h4.876v4.814M8.88 4.488H4.003v4.814"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                        />
+                      </svg>
+                    </span>
+                  </button>
                   <a
                     class="toConsoleView"
                     href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline?view=log"
@@ -1742,6 +1811,29 @@ exports[`<ExecutionStepDetails /> tests retried steps shows step selection 1`] =
                       value=""
                     />
                   </div>
+                  <button
+                    class="bp3-button Button--button StyledProps--font StyledProps--main fullScreen Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
+                    type="button"
+                  >
+                    <span
+                      class="bp3-icon StyledProps--main"
+                      data-icon="full-screen"
+                    >
+                      <svg
+                        fill="none"
+                        height="22"
+                        viewBox="0 0 24 24"
+                        width="22"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M15.12 19.512h4.876v-4.815M8.88 19.512H4.003v-4.815M15.12 4.488h4.876v4.814M8.88 4.488H4.003v4.814"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                        />
+                      </svg>
+                    </span>
+                  </button>
                   <a
                     class="toConsoleView"
                     href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline?view=log"

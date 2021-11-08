@@ -116,6 +116,20 @@
   }
 }
 
+.fullScreen {
+  &:hover {
+    --text-color: var(--grey-100);
+  }
+
+  & > :global(.bp3-icon) {
+    --intent-color: var(--grey-200);
+
+    & svg path {
+      stroke-width: 1.5;
+    }
+  }
+}
+
 .logViewer {
   border: 1px solid var(--black-color-3);
   height: 100%;

@@ -37,6 +37,8 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
   const { getString } = useStrings()
   const { linesWithResults, currentIndex } = state.searchData
   const searchRef = React.useRef<ExpandingSearchInputHandle>()
+  const rootRef = React.useRef<HTMLDivElement | null>(null)
+  const [isFullScreen, setIsFullScreen] = React.useState(false)
 
   const virtuosoRef = React.useRef<null | GroupedVirtuosoHandle | VirtuosoHandle>(null)
 
@@ -106,8 +108,46 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
     }
   }
 
+  // we need to update `isFullScreen` flag based on event,
+  // as it can be changed via keyboard too
+  React.useEffect(() => {
+    const elem = rootRef.current
+    const callback = (): void => {
+      const isFullScreenCurrent = !!(document.fullscreenElement && document.fullscreenElement === elem)
+      setIsFullScreen(isFullScreenCurrent)
+    }
+
+    const errCallback = (): void => {
+      setIsFullScreen(false)
+    }
+
+    elem?.addEventListener('fullscreenchange', callback)
+    elem?.addEventListener('fullscreenerror', errCallback)
+
+    return () => {
+      elem?.removeEventListener('fullscreenchange', callback)
+      elem?.removeEventListener('fullscreenerror', errCallback)
+    }
+  }, [])
+
+  async function handleFullScreen(): Promise<void> {
+    if (!rootRef.current) {
+      return
+    }
+
+    try {
+      if (isFullScreen) {
+        await document.exitFullscreen()
+      } else {
+        await rootRef.current.requestFullscreen()
+      }
+    } catch (_e) {
+      // catch any errors and do nothing
+    }
+  }
+
   return (
-    <div className={cx(css.main, { [css.hasErrorMessage]: !!errorMessage })} data-mode={mode}>
+    <div ref={rootRef} className={cx(css.main, { [css.hasErrorMessage]: !!errorMessage })} data-mode={mode}>
       <div className={css.header}>
         <StrTemplate
           tagName="div"
@@ -125,6 +165,14 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
             onNext={/* istanbul ignore next */ () => actions.goToNextSearchResult()}
             onPrev={/* istanbul ignore next */ () => actions.goToPrevSearchResult()}
             onEnter={/* istanbul ignore next */ () => actions.goToNextSearchResult()}
+          />
+          <Button
+            icon={isFullScreen ? 'full-screen-exit' : 'full-screen'}
+            iconProps={{ size: 22 }}
+            className={css.fullScreen}
+            variation={ButtonVariation.ICON}
+            withoutCurrentColor
+            onClick={handleFullScreen}
           />
           {mode === 'step-details' ? (
             <Link className={css.toConsoleView} to={toConsoleView}>

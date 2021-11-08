@@ -14,6 +14,7 @@ declare const styles: {
   readonly noLogs: string
   readonly selectedSearchResult: string
   readonly search: string
+  readonly fullScreen: string
   readonly logViewer: string
   readonly errorContainer: string
   readonly txt: string
