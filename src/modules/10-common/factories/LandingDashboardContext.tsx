@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import type { ScopeDTO } from 'services/cd-ng'
+import type { Scope } from 'services/cd-ng'
 
 export enum DashboardTimeRange {
   '30Days' = '30Days',
@@ -20,7 +20,7 @@ export enum TimeRangeToDays {
 interface LandingDashboardContextProps {
   selectedTimeRange: DashboardTimeRange
   selectTimeRange: (timeRange: DashboardTimeRange) => void
-  scope: ScopeDTO
+  scope: Scope
 }
 
 const LandingDashboardContext = createContext<LandingDashboardContextProps>({

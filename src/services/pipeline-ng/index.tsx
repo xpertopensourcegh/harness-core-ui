@@ -603,6 +603,8 @@ export interface Error {
     | 'INVALID_ARGUMENT'
     | 'INVALID_EMAIL'
     | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
+    | 'COMMNITY_EDITION_NOT_FOUND'
+    | 'DEPLOY_MODE_IS_NOT_ON_PREM'
     | 'USER_ALREADY_REGISTERED'
     | 'USER_INVITATION_DOES_NOT_EXIST'
     | 'USER_DOES_NOT_EXIST'
@@ -1205,6 +1207,8 @@ export interface Failure {
     | 'INVALID_ARGUMENT'
     | 'INVALID_EMAIL'
     | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
+    | 'COMMNITY_EDITION_NOT_FOUND'
+    | 'DEPLOY_MODE_IS_NOT_ON_PREM'
     | 'USER_ALREADY_REGISTERED'
     | 'USER_INVITATION_DOES_NOT_EXIST'
     | 'USER_DOES_NOT_EXIST'
@@ -1947,6 +1951,9 @@ export interface InputSetTemplateRequest {
 }
 
 export interface InputSetTemplateResponse {
+  expressionValues?: {
+    [key: string]: string
+  }
   inputSetTemplateYaml?: string
   inputSetYaml?: string
   latestTemplateYaml?: string
@@ -1955,6 +1962,11 @@ export interface InputSetTemplateResponse {
 export interface InputSetTemplateWithReplacedExpressionsResponse {
   inputSetTemplateYaml?: string
   replacedExpressions?: string[]
+}
+
+export interface InputSetValidator {
+  parameters?: string
+  validatorType?: 'ALLOWED_VALUES' | 'REGEX'
 }
 
 export interface InterruptConfig {
@@ -2363,7 +2375,7 @@ export interface NotificationChannelWrapper {
 export interface NotificationRules {
   enabled?: boolean
   name?: string
-  notificationMethod?: NotificationChannelWrapper
+  notificationMethod?: ParameterFieldNotificationChannelWrapper
   pipelineEvents?: PipelineEvent[]
 }
 
@@ -2526,6 +2538,26 @@ export interface Pageable {
   paged?: boolean
   sort?: Sort
   unpaged?: boolean
+}
+
+export interface ParameterField {
+  expression?: boolean
+  expressionValue?: string
+  inputSetValidator?: InputSetValidator
+  jsonResponseField?: boolean
+  responseField?: string
+  typeString?: boolean
+  value?: { [key: string]: any }
+}
+
+export interface ParameterFieldNotificationChannelWrapper {
+  expression?: boolean
+  expressionValue?: string
+  inputSetValidator?: InputSetValidator
+  jsonResponseField?: boolean
+  responseField?: string
+  typeString?: boolean
+  value?: NotificationChannelWrapper
 }
 
 export interface Parser {
@@ -3428,6 +3460,8 @@ export interface ResponseMessage {
     | 'INVALID_ARGUMENT'
     | 'INVALID_EMAIL'
     | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
+    | 'COMMNITY_EDITION_NOT_FOUND'
+    | 'DEPLOY_MODE_IS_NOT_ON_PREM'
     | 'USER_ALREADY_REGISTERED'
     | 'USER_INVITATION_DOES_NOT_EXIST'
     | 'USER_DOES_NOT_EXIST'
@@ -4047,6 +4081,9 @@ export interface RetryStageInfo {
 }
 
 export interface RunStageRequestDTO {
+  expressionValues?: {
+    [key: string]: string
+  }
   runtimeInputYaml?: string
   stageIdentifiers?: string[]
 }
@@ -4174,6 +4211,7 @@ export interface StageExecutionResponse {
   stageIdentifier?: string
   stageName?: string
   stagesRequired?: string[]
+  toBeBlocked?: boolean
 }
 
 export interface StepCategory {
@@ -4361,6 +4399,14 @@ export interface TaskExecutableResponseOrBuilder {
   unitsCount?: number
   unitsList?: string[]
   unknownFields?: UnknownFieldSet
+}
+
+export type TemplateFilterProperties = FilterProperties & {
+  childTypes?: string[]
+  description?: string
+  templateEntityTypes?: ('Step' | 'Stage')[]
+  templateIdentifiers?: string[]
+  templateNames?: string[]
 }
 
 export interface TemplateInputsErrorDTO {
@@ -5774,7 +5820,7 @@ export type GetMergeInputSetFromPipelineTemplateProps = Omit<
 >
 
 /**
- * Merges given runtime input yaml on pipeline and return input set template format of applied pipeline
+ * Merges given runtime input YAML on pipeline and return input set template format of applied pipeline
  */
 export const GetMergeInputSetFromPipelineTemplate = (props: GetMergeInputSetFromPipelineTemplateProps) => (
   <Mutate<
@@ -5803,7 +5849,7 @@ export type UseGetMergeInputSetFromPipelineTemplateProps = Omit<
 >
 
 /**
- * Merges given runtime input yaml on pipeline and return input set template format of applied pipeline
+ * Merges given runtime input YAML on pipeline and return input set template format of applied pipeline
  */
 export const useGetMergeInputSetFromPipelineTemplate = (props: UseGetMergeInputSetFromPipelineTemplateProps) =>
   useMutate<
@@ -5815,7 +5861,7 @@ export const useGetMergeInputSetFromPipelineTemplate = (props: UseGetMergeInputS
   >('POST', `/inputSets/mergeWithTemplateYaml`, { base: getConfig('pipeline/api'), ...props })
 
 /**
- * Merges given runtime input yaml on pipeline and return input set template format of applied pipeline
+ * Merges given runtime input YAML on pipeline and return input set template format of applied pipeline
  */
 export const getMergeInputSetFromPipelineTemplatePromise = (
   props: MutateUsingFetchProps<
@@ -6142,7 +6188,7 @@ export type GetTemplateFromPipelineProps = Omit<
 >
 
 /**
- * Get template from a pipeline yaml
+ * Get template from a pipeline YAML
  */
 export const GetTemplateFromPipeline = (props: GetTemplateFromPipelineProps) => (
   <Mutate<
@@ -6171,7 +6217,7 @@ export type UseGetTemplateFromPipelineProps = Omit<
 >
 
 /**
- * Get template from a pipeline yaml
+ * Get template from a pipeline YAML
  */
 export const useGetTemplateFromPipeline = (props: UseGetTemplateFromPipelineProps) =>
   useMutate<
@@ -6183,7 +6229,7 @@ export const useGetTemplateFromPipeline = (props: UseGetTemplateFromPipelineProp
   >('POST', `/inputSets/template`, { base: getConfig('pipeline/api'), ...props })
 
 /**
- * Get template from a pipeline yaml
+ * Get template from a pipeline YAML
  */
 export const getTemplateFromPipelinePromise = (
   props: MutateUsingFetchProps<
@@ -7848,7 +7894,7 @@ export type PostPipelineExecuteWithInputSetYamlProps = Omit<
   PostPipelineExecuteWithInputSetYamlPathParams
 
 /**
- * Execute a pipeline with inputSet pipeline yaml
+ * Execute a pipeline with inputSet pipeline YAML
  */
 export const PostPipelineExecuteWithInputSetYaml = ({
   identifier,
@@ -7881,7 +7927,7 @@ export type UsePostPipelineExecuteWithInputSetYamlProps = Omit<
   PostPipelineExecuteWithInputSetYamlPathParams
 
 /**
- * Execute a pipeline with inputSet pipeline yaml
+ * Execute a pipeline with inputSet pipeline YAML
  */
 export const usePostPipelineExecuteWithInputSetYaml = ({
   identifier,
@@ -7900,7 +7946,7 @@ export const usePostPipelineExecuteWithInputSetYaml = ({
   )
 
 /**
- * Execute a pipeline with inputSet pipeline yaml
+ * Execute a pipeline with inputSet pipeline YAML
  */
 export const postPipelineExecuteWithInputSetYamlPromise = (
   {
@@ -8152,7 +8198,7 @@ export type PostPipelineExecuteWithInputSetYamlv2Props = Omit<
   PostPipelineExecuteWithInputSetYamlv2PathParams
 
 /**
- * Execute a pipeline with inputSet pipeline yaml V2
+ * Execute a pipeline with inputSet pipeline YAML V2
  */
 export const PostPipelineExecuteWithInputSetYamlv2 = ({
   identifier,
@@ -8185,7 +8231,7 @@ export type UsePostPipelineExecuteWithInputSetYamlv2Props = Omit<
   PostPipelineExecuteWithInputSetYamlv2PathParams
 
 /**
- * Execute a pipeline with inputSet pipeline yaml V2
+ * Execute a pipeline with inputSet pipeline YAML V2
  */
 export const usePostPipelineExecuteWithInputSetYamlv2 = ({
   identifier,
@@ -8205,7 +8251,7 @@ export const usePostPipelineExecuteWithInputSetYamlv2 = ({
   )
 
 /**
- * Execute a pipeline with inputSet pipeline yaml V2
+ * Execute a pipeline with inputSet pipeline YAML V2
  */
 export const postPipelineExecuteWithInputSetYamlv2Promise = (
   {
@@ -9733,7 +9779,7 @@ export type GetTriggerListForTargetProps = Omit<
 >
 
 /**
- * Gets Triggers list for target
+ * Gets paginated Triggers list for target
  */
 export const GetTriggerListForTarget = (props: GetTriggerListForTargetProps) => (
   <Get<ResponsePageNGTriggerDetailsResponse, Failure | Error, GetTriggerListForTargetQueryParams, void>
@@ -9749,7 +9795,7 @@ export type UseGetTriggerListForTargetProps = Omit<
 >
 
 /**
- * Gets Triggers list for target
+ * Gets paginated Triggers list for target
  */
 export const useGetTriggerListForTarget = (props: UseGetTriggerListForTargetProps) =>
   useGet<ResponsePageNGTriggerDetailsResponse, Failure | Error, GetTriggerListForTargetQueryParams, void>(`/triggers`, {
@@ -9758,7 +9804,7 @@ export const useGetTriggerListForTarget = (props: UseGetTriggerListForTargetProp
   })
 
 /**
- * Gets Triggers list for target
+ * Gets paginated Triggers list for target
  */
 export const getTriggerListForTargetPromise = (
   props: GetUsingFetchProps<

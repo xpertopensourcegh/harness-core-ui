@@ -20,6 +20,8 @@ export interface AccessControlCheckError {
     | 'INVALID_ARGUMENT'
     | 'INVALID_EMAIL'
     | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
+    | 'COMMNITY_EDITION_NOT_FOUND'
+    | 'DEPLOY_MODE_IS_NOT_ON_PREM'
     | 'USER_ALREADY_REGISTERED'
     | 'USER_INVITATION_DOES_NOT_EXIST'
     | 'USER_DOES_NOT_EXIST'
@@ -311,6 +313,7 @@ export interface AccessControlCheckError {
   detailedMessage?: string
   failedPermissionChecks?: PermissionCheck[]
   message?: string
+  metadata?: ErrorMetadataDTO
   responseMessages?: ResponseMessage[]
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -928,10 +931,6 @@ export interface BaseSSHSpecDTO {
   [key: string]: any
 }
 
-export interface BatchRoleAssignmentCreateRequest {
-  roleAssignments?: RoleAssignment[]
-}
-
 export interface BillingExportSpec {
   containerName: string
   directoryName: string
@@ -1326,6 +1325,7 @@ export interface ConnectorResponse {
   activityDetails?: ConnectorActivityDetails
   connector?: ConnectorInfoDTO
   createdAt?: number
+  entityValidityDetails?: EntityValidityDetails
   gitDetails?: EntityGitDetails
   harnessManaged?: boolean
   lastModifiedAt?: number
@@ -1915,6 +1915,11 @@ export interface EntitySetupUsageDTO {
   referredEntity?: EntityDetail
 }
 
+export interface EntityValidityDetails {
+  invalidYaml?: string
+  valid?: boolean
+}
+
 export interface EnvBuildIdAndInstanceCountInfo {
   buildIdAndInstanceCountList?: BuildIdAndInstanceCount[]
   envId?: string
@@ -1996,6 +2001,8 @@ export interface Error {
     | 'INVALID_ARGUMENT'
     | 'INVALID_EMAIL'
     | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
+    | 'COMMNITY_EDITION_NOT_FOUND'
+    | 'DEPLOY_MODE_IS_NOT_ON_PREM'
     | 'USER_ALREADY_REGISTERED'
     | 'USER_INVITATION_DOES_NOT_EXIST'
     | 'USER_DOES_NOT_EXIST'
@@ -2286,6 +2293,7 @@ export interface Error {
   correlationId?: string
   detailedMessage?: string
   message?: string
+  metadata?: ErrorMetadataDTO
   responseMessages?: ResponseMessage[]
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -2294,6 +2302,10 @@ export interface ErrorDetail {
   code?: number
   message?: string
   reason?: string
+}
+
+export interface ErrorMetadataDTO {
+  type?: string
 }
 
 export interface ExecutionDataValue {
@@ -2346,6 +2358,8 @@ export interface Failure {
     | 'INVALID_ARGUMENT'
     | 'INVALID_EMAIL'
     | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
+    | 'COMMNITY_EDITION_NOT_FOUND'
+    | 'DEPLOY_MODE_IS_NOT_ON_PREM'
     | 'USER_ALREADY_REGISTERED'
     | 'USER_INVITATION_DOES_NOT_EXIST'
     | 'USER_DOES_NOT_EXIST'
@@ -2657,6 +2671,7 @@ export interface FeatureRestrictionDetailRequestDTO {
     | 'TEST4'
     | 'TEST5'
     | 'PERSPECTIVES'
+    | 'CCM_K8S_CLUSTERS'
     | 'MULTIPLE_ORGANIZATIONS'
     | 'MULTIPLE_PROJECTS'
     | 'INTEGRATED_APPROVALS_WITH_HARNESS_UI'
@@ -2697,6 +2712,7 @@ export interface FeatureRestrictionDetailsDTO {
     | 'TEST4'
     | 'TEST5'
     | 'PERSPECTIVES'
+    | 'CCM_K8S_CLUSTERS'
     | 'MULTIPLE_ORGANIZATIONS'
     | 'MULTIPLE_PROJECTS'
     | 'INTEGRATED_APPROVALS_WITH_HARNESS_UI'
@@ -2738,6 +2754,7 @@ export interface FeatureRestrictionMetadataDTO {
     | 'TEST4'
     | 'TEST5'
     | 'PERSPECTIVES'
+    | 'CCM_K8S_CLUSTERS'
     | 'MULTIPLE_ORGANIZATIONS'
     | 'MULTIPLE_PROJECTS'
     | 'INTEGRATED_APPROVALS_WITH_HARNESS_UI'
@@ -3405,6 +3422,14 @@ export type HarnessApprovalStepInfo = StepSpecType & {
   includePipelineExecutionHistory: boolean
 }
 
+export interface HarnessServiceInfoNG {
+  envId?: string
+  infraMappingId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  serviceId?: string
+}
+
 export interface HealthDeploymentDashboard {
   healthDeploymentInfo?: HealthDeploymentInfo
 }
@@ -3856,7 +3881,7 @@ export type K8sScaleStepInfo = StepSpecType & {
   instanceSelection: InstanceSelectionWrapper
   skipDryRun?: boolean
   skipSteadyStateCheck?: boolean
-  workload?: string
+  workload: string
 }
 
 export type KerberosConfigDTO = BaseSSHSpecDTO & {
@@ -3994,6 +4019,7 @@ export interface LdapUserSettings {
   emailAttr?: string
   groupMembershipAttr?: string
   searchFilter?: string
+  uidAttr?: string
 }
 
 export interface LicenseInfo {
@@ -4197,7 +4223,7 @@ export interface NotificationChannelWrapper {
 export interface NotificationRules {
   enabled?: boolean
   name?: string
-  notificationMethod?: NotificationChannelWrapper
+  notificationMethod?: ParameterFieldNotificationChannelWrapper
   pipelineEvents?: PipelineEvent[]
 }
 
@@ -4667,6 +4693,16 @@ export interface ParameterFieldBoolean {
   value?: boolean
 }
 
+export interface ParameterFieldNotificationChannelWrapper {
+  expression?: boolean
+  expressionValue?: string
+  inputSetValidator?: InputSetValidator
+  jsonResponseField?: boolean
+  responseField?: string
+  typeString?: boolean
+  value?: NotificationChannelWrapper
+}
+
 export interface ParameterFieldString {
   expression?: boolean
   expressionValue?: string
@@ -4714,7 +4750,7 @@ export interface PatchInstruction {
     | 'UpdateRule'
     | 'AddTargetsToVariationTargetMap'
     | 'RemoveTargetsToVariationTargetMap'
-    | 'AddSegmentsToVariationTargetMap'
+    | 'AddSegmentToVariationTargetMap'
     | 'RemoveSegmentsToVariationTargetMap'
 }
 
@@ -4895,6 +4931,7 @@ export type RateLimitRestrictionDTO = RestrictionDTO & {
 }
 
 export type RateLimitRestrictionMetadataDTO = RestrictionMetadataDTO & {
+  allowedIfEqual?: boolean
   limit?: number
   timeUnit?: TimeUnit
 }
@@ -4941,7 +4978,7 @@ export interface ResourceDTO {
   type: string
 }
 
-export interface ResourceGroupDTO {
+export interface ResourceGroup {
   identifier?: string
   name?: string
 }
@@ -5534,6 +5571,8 @@ export interface ResponseMessage {
     | 'INVALID_ARGUMENT'
     | 'INVALID_EMAIL'
     | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
+    | 'COMMNITY_EDITION_NOT_FOUND'
+    | 'DEPLOY_MODE_IS_NOT_ON_PREM'
     | 'USER_ALREADY_REGISTERED'
     | 'USER_INVITATION_DOES_NOT_EXIST'
     | 'USER_DOES_NOT_EXIST'
@@ -5839,6 +5878,13 @@ export interface ResponseMessage {
 export interface ResponseModuleLicenseDTO {
   correlationId?: string
   data?: ModuleLicenseDTO
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseOptionalHarnessServiceInfoNG {
+  correlationId?: string
+  data?: HarnessServiceInfoNG
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -6456,10 +6502,14 @@ export interface RoleAssignment {
 }
 
 export interface RoleAssignmentAggregateResponse {
-  resourceGroups?: ResourceGroupDTO[]
+  resourceGroups?: ResourceGroup[]
   roleAssignments?: RoleAssignment[]
   roles?: RoleResponse[]
-  scope?: ScopeDTO
+  scope?: Scope
+}
+
+export interface RoleAssignmentCreateRequest {
+  roleAssignments?: RoleAssignment[]
 }
 
 export interface RoleAssignmentFilter {
@@ -6486,7 +6536,7 @@ export interface RoleAssignmentResponse {
   harnessManaged?: boolean
   lastModifiedAt?: number
   roleAssignment: RoleAssignment
-  scope: ScopeDTO
+  scope: Scope
 }
 
 export interface RoleBinding {
@@ -6502,7 +6552,7 @@ export interface RoleResponse {
   harnessManaged?: boolean
   lastModifiedAt?: number
   role: Role
-  scope: ScopeDTO
+  scope: Scope
 }
 
 export type S3StoreConfig = StoreConfig & {
@@ -6605,7 +6655,13 @@ export type SamlSettings = SSOSettings & {
   origin: string
 }
 
-export interface ScopeDTO {
+export type SampleErrorMetadataDTO = ErrorMetadataDTO & {
+  sampleMap?: {
+    [key: string]: string
+  }
+}
+
+export interface Scope {
   accountIdentifier?: string
   orgIdentifier?: string
   projectIdentifier?: string
@@ -7159,6 +7215,7 @@ export type StaticLimitRestrictionDTO = RestrictionDTO & {
 }
 
 export type StaticLimitRestrictionMetadataDTO = RestrictionMetadataDTO & {
+  allowedIfEqual?: boolean
   limit?: number
 }
 
@@ -7273,6 +7330,14 @@ export interface TechStack {
   technology?: string
 }
 
+export type TemplateFilterProperties = FilterProperties & {
+  childTypes?: string[]
+  description?: string
+  templateEntityTypes?: ('Step' | 'Stage')[]
+  templateIdentifiers?: string[]
+  templateNames?: string[]
+}
+
 export interface TemplateLinkConfig {
   templateInputs?: JsonNode
   templateRef: string
@@ -7367,6 +7432,7 @@ export interface Throwable {
 export interface TimeBasedDeploymentInfo {
   epochTime?: number
   failedCount?: number
+  failureRate?: number
   successCount?: number
   totalCount?: number
 }
@@ -7513,6 +7579,7 @@ export interface User {
   disabled?: boolean
   email?: string
   emailVerified?: boolean
+  externalUserId?: string
   familyName?: string
   firstLogin?: boolean
   givenName?: string
@@ -7829,6 +7896,8 @@ export type ServiceAccountDTORequestBody = ServiceAccountDTO
 export type ServiceRequestDTORequestBody = ServiceRequestDTO
 
 export type ServiceRequestDTOArrayRequestBody = ServiceRequestDTO[]
+
+export type SignupDTORequestBody = SignupDTO
 
 export type SourceCodeManagerDTORequestBody = SourceCodeManagerDTO
 
@@ -11669,7 +11738,7 @@ export type GetCEAwsTemplateProps = Omit<
 >
 
 /**
- * Get CE Aws Connector Template URL Environment Wise
+ * Get CCM Aws Connector Template URL Environment Wise
  */
 export const GetCEAwsTemplate = (props: GetCEAwsTemplateProps) => (
   <Mutate<ResponseString, Failure | Error, GetCEAwsTemplateQueryParams, void, void>
@@ -11686,7 +11755,7 @@ export type UseGetCEAwsTemplateProps = Omit<
 >
 
 /**
- * Get CE Aws Connector Template URL Environment Wise
+ * Get CCM Aws Connector Template URL Environment Wise
  */
 export const useGetCEAwsTemplate = (props: UseGetCEAwsTemplateProps) =>
   useMutate<ResponseString, Failure | Error, GetCEAwsTemplateQueryParams, void, void>(
@@ -11696,7 +11765,7 @@ export const useGetCEAwsTemplate = (props: UseGetCEAwsTemplateProps) =>
   )
 
 /**
- * Get CE Aws Connector Template URL Environment Wise
+ * Get CCM Aws Connector Template URL Environment Wise
  */
 export const getCEAwsTemplatePromise = (
   props: MutateUsingFetchProps<ResponseString, Failure | Error, GetCEAwsTemplateQueryParams, void, void>,
@@ -13197,7 +13266,7 @@ export type ListDelegateProfilesNgProps = Omit<
 >
 
 /**
- * Lists the delegate profiles
+ * Lists the Delegate Configurations (profiles)
  */
 export const ListDelegateProfilesNg = (props: ListDelegateProfilesNgProps) => (
   <Get<RestResponsePageResponseDelegateProfileDetailsNg, unknown, ListDelegateProfilesNgQueryParams, void>
@@ -13213,7 +13282,7 @@ export type UseListDelegateProfilesNgProps = Omit<
 >
 
 /**
- * Lists the delegate profiles
+ * Lists the Delegate Configurations (profiles)
  */
 export const useListDelegateProfilesNg = (props: UseListDelegateProfilesNgProps) =>
   useGet<RestResponsePageResponseDelegateProfileDetailsNg, unknown, ListDelegateProfilesNgQueryParams, void>(
@@ -13222,7 +13291,7 @@ export const useListDelegateProfilesNg = (props: UseListDelegateProfilesNgProps)
   )
 
 /**
- * Lists the delegate profiles
+ * Lists the Delegate Configurations (profiles)
  */
 export const listDelegateProfilesNgPromise = (
   props: GetUsingFetchProps<
@@ -13258,7 +13327,7 @@ export type AddDelegateProfileNgProps = Omit<
 >
 
 /**
- * Adds a delegate profile
+ * Adds a Delegate Configuration (profile)
  */
 export const AddDelegateProfileNg = (props: AddDelegateProfileNgProps) => (
   <Mutate<
@@ -13287,7 +13356,7 @@ export type UseAddDelegateProfileNgProps = Omit<
 >
 
 /**
- * Adds a delegate profile
+ * Adds a Delegate Configuration (profile)
  */
 export const useAddDelegateProfileNg = (props: UseAddDelegateProfileNgProps) =>
   useMutate<
@@ -13299,7 +13368,7 @@ export const useAddDelegateProfileNg = (props: UseAddDelegateProfileNgProps) =>
   >('POST', `/delegate-profiles/ng`, { base: getConfig('ng/api'), ...props })
 
 /**
- * Adds a delegate profile
+ * Adds a Delegate Configuration (profile)
  */
 export const addDelegateProfileNgPromise = (
   props: MutateUsingFetchProps<
@@ -13331,7 +13400,7 @@ export type DeleteDelegateProfileNgProps = Omit<
 >
 
 /**
- * Deletes a delegate profile
+ * Deletes a Delegate Configuration (profile)
  */
 export const DeleteDelegateProfileNg = (props: DeleteDelegateProfileNgProps) => (
   <Mutate<RestResponseVoid, unknown, DeleteDelegateProfileNgQueryParams, string, void>
@@ -13348,7 +13417,7 @@ export type UseDeleteDelegateProfileNgProps = Omit<
 >
 
 /**
- * Deletes a delegate profile
+ * Deletes a Delegate Configuration (profile)
  */
 export const useDeleteDelegateProfileNg = (props: UseDeleteDelegateProfileNgProps) =>
   useMutate<RestResponseVoid, unknown, DeleteDelegateProfileNgQueryParams, string, void>(
@@ -13358,7 +13427,7 @@ export const useDeleteDelegateProfileNg = (props: UseDeleteDelegateProfileNgProp
   )
 
 /**
- * Deletes a delegate profile
+ * Deletes a Delegate Configuration (profile)
  */
 export const deleteDelegateProfileNgPromise = (
   props: MutateUsingFetchProps<RestResponseVoid, unknown, DeleteDelegateProfileNgQueryParams, string, void>,
@@ -13394,7 +13463,7 @@ export type GetDelegateProfileNgProps = Omit<
   GetDelegateProfileNgPathParams
 
 /**
- * Gets delegate profile
+ * Gets Delegate Configuration (profile)
  */
 export const GetDelegateProfileNg = ({ delegateProfileId, ...props }: GetDelegateProfileNgProps) => (
   <Get<RestResponseDelegateProfileDetailsNg, unknown, GetDelegateProfileNgQueryParams, GetDelegateProfileNgPathParams>
@@ -13416,7 +13485,7 @@ export type UseGetDelegateProfileNgProps = Omit<
   GetDelegateProfileNgPathParams
 
 /**
- * Gets delegate profile
+ * Gets Delegate Configuration (profile)
  */
 export const useGetDelegateProfileNg = ({ delegateProfileId, ...props }: UseGetDelegateProfileNgProps) =>
   useGet<
@@ -13431,7 +13500,7 @@ export const useGetDelegateProfileNg = ({ delegateProfileId, ...props }: UseGetD
   })
 
 /**
- * Gets delegate profile
+ * Gets Delegate Configuration (profile)
  */
 export const getDelegateProfileNgPromise = (
   {
@@ -13475,7 +13544,7 @@ export type UpdateDelegateProfileNgProps = Omit<
   UpdateDelegateProfileNgPathParams
 
 /**
- * Updates a delegate profile
+ * Updates a Delegate profile
  */
 export const UpdateDelegateProfileNg = ({ delegateProfileId, ...props }: UpdateDelegateProfileNgProps) => (
   <Mutate<
@@ -13505,7 +13574,7 @@ export type UseUpdateDelegateProfileNgProps = Omit<
   UpdateDelegateProfileNgPathParams
 
 /**
- * Updates a delegate profile
+ * Updates a Delegate profile
  */
 export const useUpdateDelegateProfileNg = ({ delegateProfileId, ...props }: UseUpdateDelegateProfileNgProps) =>
   useMutate<
@@ -13521,7 +13590,7 @@ export const useUpdateDelegateProfileNg = ({ delegateProfileId, ...props }: UseU
   )
 
 /**
- * Updates a delegate profile
+ * Updates a Delegate profile
  */
 export const updateDelegateProfileNgPromise = (
   {
@@ -13567,7 +13636,7 @@ export type UpdateScopingRulesNgProps = Omit<
   UpdateScopingRulesNgPathParams
 
 /**
- * Updates the scoping rules inside the delegate profile
+ * Updates the scoping rules inside the Delegate profile
  */
 export const UpdateScopingRulesNg = ({ delegateProfileId, ...props }: UpdateScopingRulesNgProps) => (
   <Mutate<
@@ -13597,7 +13666,7 @@ export type UseUpdateScopingRulesNgProps = Omit<
   UpdateScopingRulesNgPathParams
 
 /**
- * Updates the scoping rules inside the delegate profile
+ * Updates the scoping rules inside the Delegate profile
  */
 export const useUpdateScopingRulesNg = ({ delegateProfileId, ...props }: UseUpdateScopingRulesNgProps) =>
   useMutate<
@@ -13614,7 +13683,7 @@ export const useUpdateScopingRulesNg = ({ delegateProfileId, ...props }: UseUpda
   )
 
 /**
- * Updates the scoping rules inside the delegate profile
+ * Updates the scoping rules inside the Delegate profile
  */
 export const updateScopingRulesNgPromise = (
   {
@@ -13660,7 +13729,7 @@ export type UpdateSelectorsNgProps = Omit<
   UpdateSelectorsNgPathParams
 
 /**
- * Updates the selectors inside the delegate profile
+ * Updates the selectors inside the Delegate profile
  */
 export const UpdateSelectorsNg = ({ delegateProfileId, ...props }: UpdateSelectorsNgProps) => (
   <Mutate<
@@ -13690,7 +13759,7 @@ export type UseUpdateSelectorsNgProps = Omit<
   UpdateSelectorsNgPathParams
 
 /**
- * Updates the selectors inside the delegate profile
+ * Updates the selectors inside the Delegate profile
  */
 export const useUpdateSelectorsNg = ({ delegateProfileId, ...props }: UseUpdateSelectorsNgProps) =>
   useMutate<
@@ -13706,7 +13775,7 @@ export const useUpdateSelectorsNg = ({ delegateProfileId, ...props }: UseUpdateS
   )
 
 /**
- * Updates the selectors inside the delegate profile
+ * Updates the selectors inside the Delegate profile
  */
 export const updateSelectorsNgPromise = (
   {
@@ -17041,6 +17110,56 @@ export const getNGManagerHealthStatusPromise = (
   signal?: RequestInit['signal']
 ) => getUsingFetch<ResponseString, unknown, void, void>(getConfig('ng/api'), `/health`, props, signal)
 
+export interface GetInstanceNGDataQueryParams {
+  accountIdentifier: string
+  instanceInfoPodName: string
+  instanceInfoNamespace: string
+}
+
+export type GetInstanceNGDataProps = Omit<
+  GetProps<ResponseOptionalHarnessServiceInfoNG, Failure | Error, GetInstanceNGDataQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get instance NG data
+ */
+export const GetInstanceNGData = (props: GetInstanceNGDataProps) => (
+  <Get<ResponseOptionalHarnessServiceInfoNG, Failure | Error, GetInstanceNGDataQueryParams, void>
+    path={`/instanceng`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetInstanceNGDataProps = Omit<
+  UseGetProps<ResponseOptionalHarnessServiceInfoNG, Failure | Error, GetInstanceNGDataQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get instance NG data
+ */
+export const useGetInstanceNGData = (props: UseGetInstanceNGDataProps) =>
+  useGet<ResponseOptionalHarnessServiceInfoNG, Failure | Error, GetInstanceNGDataQueryParams, void>(`/instanceng`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Get instance NG data
+ */
+export const getInstanceNGDataPromise = (
+  props: GetUsingFetchProps<ResponseOptionalHarnessServiceInfoNG, Failure | Error, GetInstanceNGDataQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseOptionalHarnessServiceInfoNG, Failure | Error, GetInstanceNGDataQueryParams, void>(
+    getConfig('ng/api'),
+    `/instanceng`,
+    props,
+    signal
+  )
+
 export interface GetInstanceSyncPerpetualTaskResponseQueryParams {
   accountIdentifier: string
   perpetualTaskId: string
@@ -20022,7 +20141,7 @@ export type CreateRoleAssignmentsProps = Omit<
     ResponseListRoleAssignmentResponse,
     Failure | Error,
     CreateRoleAssignmentsQueryParams,
-    BatchRoleAssignmentCreateRequest,
+    RoleAssignmentCreateRequest,
     void
   >,
   'path' | 'verb'
@@ -20036,7 +20155,7 @@ export const CreateRoleAssignments = (props: CreateRoleAssignmentsProps) => (
     ResponseListRoleAssignmentResponse,
     Failure | Error,
     CreateRoleAssignmentsQueryParams,
-    BatchRoleAssignmentCreateRequest,
+    RoleAssignmentCreateRequest,
     void
   >
     verb="POST"
@@ -20051,7 +20170,7 @@ export type UseCreateRoleAssignmentsProps = Omit<
     ResponseListRoleAssignmentResponse,
     Failure | Error,
     CreateRoleAssignmentsQueryParams,
-    BatchRoleAssignmentCreateRequest,
+    RoleAssignmentCreateRequest,
     void
   >,
   'path' | 'verb'
@@ -20065,7 +20184,7 @@ export const useCreateRoleAssignments = (props: UseCreateRoleAssignmentsProps) =
     ResponseListRoleAssignmentResponse,
     Failure | Error,
     CreateRoleAssignmentsQueryParams,
-    BatchRoleAssignmentCreateRequest,
+    RoleAssignmentCreateRequest,
     void
   >('POST', `/roleassignments/multi/internal`, { base: getConfig('ng/api'), ...props })
 
@@ -20077,7 +20196,7 @@ export const createRoleAssignmentsPromise = (
     ResponseListRoleAssignmentResponse,
     Failure | Error,
     CreateRoleAssignmentsQueryParams,
-    BatchRoleAssignmentCreateRequest,
+    RoleAssignmentCreateRequest,
     void
   >,
   signal?: RequestInit['signal']
@@ -20086,7 +20205,7 @@ export const createRoleAssignmentsPromise = (
     ResponseListRoleAssignmentResponse,
     Failure | Error,
     CreateRoleAssignmentsQueryParams,
-    BatchRoleAssignmentCreateRequest,
+    RoleAssignmentCreateRequest,
     void
   >('POST', getConfig('ng/api'), `/roleassignments/multi/internal`, props, signal)
 
@@ -21793,12 +21912,12 @@ export interface SignupQueryParams {
 }
 
 export type SignupProps = Omit<
-  MutateProps<RestResponseVoid, Failure | Error, SignupQueryParams, SignupDTO, void>,
+  MutateProps<RestResponseVoid, Failure | Error, SignupQueryParams, SignupDTORequestBody, void>,
   'path' | 'verb'
 >
 
 export const Signup = (props: SignupProps) => (
-  <Mutate<RestResponseVoid, Failure | Error, SignupQueryParams, SignupDTO, void>
+  <Mutate<RestResponseVoid, Failure | Error, SignupQueryParams, SignupDTORequestBody, void>
     verb="POST"
     path={`/signup`}
     base={getConfig('ng/api')}
@@ -21807,24 +21926,61 @@ export const Signup = (props: SignupProps) => (
 )
 
 export type UseSignupProps = Omit<
-  UseMutateProps<RestResponseVoid, Failure | Error, SignupQueryParams, SignupDTO, void>,
+  UseMutateProps<RestResponseVoid, Failure | Error, SignupQueryParams, SignupDTORequestBody, void>,
   'path' | 'verb'
 >
 
 export const useSignup = (props: UseSignupProps) =>
-  useMutate<RestResponseVoid, Failure | Error, SignupQueryParams, SignupDTO, void>('POST', `/signup`, {
+  useMutate<RestResponseVoid, Failure | Error, SignupQueryParams, SignupDTORequestBody, void>('POST', `/signup`, {
     base: getConfig('ng/api'),
     ...props
   })
 
 export const signupPromise = (
-  props: MutateUsingFetchProps<RestResponseVoid, Failure | Error, SignupQueryParams, SignupDTO, void>,
+  props: MutateUsingFetchProps<RestResponseVoid, Failure | Error, SignupQueryParams, SignupDTORequestBody, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<RestResponseVoid, Failure | Error, SignupQueryParams, SignupDTO, void>(
+  mutateUsingFetch<RestResponseVoid, Failure | Error, SignupQueryParams, SignupDTORequestBody, void>(
     'POST',
     getConfig('ng/api'),
     `/signup`,
+    props,
+    signal
+  )
+
+export type CommunitySignupProps = Omit<
+  MutateProps<RestResponseUserInfo, Failure | Error, void, SignupDTORequestBody, void>,
+  'path' | 'verb'
+>
+
+export const CommunitySignup = (props: CommunitySignupProps) => (
+  <Mutate<RestResponseUserInfo, Failure | Error, void, SignupDTORequestBody, void>
+    verb="POST"
+    path={`/signup/community`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseCommunitySignupProps = Omit<
+  UseMutateProps<RestResponseUserInfo, Failure | Error, void, SignupDTORequestBody, void>,
+  'path' | 'verb'
+>
+
+export const useCommunitySignup = (props: UseCommunitySignupProps) =>
+  useMutate<RestResponseUserInfo, Failure | Error, void, SignupDTORequestBody, void>('POST', `/signup/community`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+export const communitySignupPromise = (
+  props: MutateUsingFetchProps<RestResponseUserInfo, Failure | Error, void, SignupDTORequestBody, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<RestResponseUserInfo, Failure | Error, void, SignupDTORequestBody, void>(
+    'POST',
+    getConfig('ng/api'),
+    `/signup/community`,
     props,
     signal
   )
@@ -24466,7 +24622,7 @@ export type ListDelegateConfigsNgV2Props = Omit<
   ListDelegateConfigsNgV2PathParams
 
 /**
- * Lists the delegate configs
+ * Lists the Delegate Configurations
  */
 export const ListDelegateConfigsNgV2 = ({ accountId, ...props }: ListDelegateConfigsNgV2Props) => (
   <Get<
@@ -24493,7 +24649,7 @@ export type UseListDelegateConfigsNgV2Props = Omit<
   ListDelegateConfigsNgV2PathParams
 
 /**
- * Lists the delegate configs
+ * Lists the Delegate Configurations
  */
 export const useListDelegateConfigsNgV2 = ({ accountId, ...props }: UseListDelegateConfigsNgV2Props) =>
   useGet<
@@ -24508,7 +24664,7 @@ export const useListDelegateConfigsNgV2 = ({ accountId, ...props }: UseListDeleg
   })
 
 /**
- * Lists the delegate configs
+ * Lists the Delegate Configurations
  */
 export const listDelegateConfigsNgV2Promise = (
   {
@@ -24546,7 +24702,7 @@ export type AddDelegateProfileNgV2Props = Omit<
   AddDelegateProfileNgV2PathParams
 
 /**
- * Adds a delegate profile
+ * Adds a Delegate profile
  */
 export const AddDelegateProfileNgV2 = ({ accountId, ...props }: AddDelegateProfileNgV2Props) => (
   <Mutate<
@@ -24576,7 +24732,7 @@ export type UseAddDelegateProfileNgV2Props = Omit<
   AddDelegateProfileNgV2PathParams
 
 /**
- * Adds a delegate profile
+ * Adds a Delegate profile
  */
 export const useAddDelegateProfileNgV2 = ({ accountId, ...props }: UseAddDelegateProfileNgV2Props) =>
   useMutate<
@@ -24592,7 +24748,7 @@ export const useAddDelegateProfileNgV2 = ({ accountId, ...props }: UseAddDelegat
   )
 
 /**
- * Adds a delegate profile
+ * Adds a Delegate profile
  */
 export const addDelegateProfileNgV2Promise = (
   {
@@ -24643,7 +24799,7 @@ export type ListDelegateConfigsNgV2WithFilterProps = Omit<
   ListDelegateConfigsNgV2WithFilterPathParams
 
 /**
- * Lists the delegate configs with filter
+ * Lists the Delegate configs with filter
  */
 export const ListDelegateConfigsNgV2WithFilter = ({ accountId, ...props }: ListDelegateConfigsNgV2WithFilterProps) => (
   <Mutate<
@@ -24673,7 +24829,7 @@ export type UseListDelegateConfigsNgV2WithFilterProps = Omit<
   ListDelegateConfigsNgV2WithFilterPathParams
 
 /**
- * Lists the delegate configs with filter
+ * Lists the Delegate configs with filter
  */
 export const useListDelegateConfigsNgV2WithFilter = ({
   accountId,
@@ -24693,7 +24849,7 @@ export const useListDelegateConfigsNgV2WithFilter = ({
   )
 
 /**
- * Lists the delegate configs with filter
+ * Lists the Delegate configs with filter
  */
 export const listDelegateConfigsNgV2WithFilterPromise = (
   {
@@ -24738,7 +24894,7 @@ export type DeleteDelegateConfigNgV2Props = Omit<
   DeleteDelegateConfigNgV2PathParams
 
 /**
- * Deletes a delegate config by identifier
+ * Deletes a Delegate config by identifier
  */
 export const DeleteDelegateConfigNgV2 = ({ accountId, ...props }: DeleteDelegateConfigNgV2Props) => (
   <Mutate<ResponseBoolean, unknown, DeleteDelegateConfigNgV2QueryParams, string, DeleteDelegateConfigNgV2PathParams>
@@ -24762,7 +24918,7 @@ export type UseDeleteDelegateConfigNgV2Props = Omit<
   DeleteDelegateConfigNgV2PathParams
 
 /**
- * Deletes a delegate config by identifier
+ * Deletes a Delegate config by identifier
  */
 export const useDeleteDelegateConfigNgV2 = ({ accountId, ...props }: UseDeleteDelegateConfigNgV2Props) =>
   useMutate<ResponseBoolean, unknown, DeleteDelegateConfigNgV2QueryParams, string, DeleteDelegateConfigNgV2PathParams>(
@@ -24772,7 +24928,7 @@ export const useDeleteDelegateConfigNgV2 = ({ accountId, ...props }: UseDeleteDe
   )
 
 /**
- * Deletes a delegate config by identifier
+ * Deletes a Delegate config by identifier
  */
 export const deleteDelegateConfigNgV2Promise = (
   {
@@ -24817,7 +24973,7 @@ export type GetDelegateConfigNgV2Props = Omit<
   GetDelegateConfigNgV2PathParams
 
 /**
- * Gets delegate config by identifier
+ * Gets Delegate config by identifier
  */
 export const GetDelegateConfigNgV2 = ({
   accountId,
@@ -24843,7 +24999,7 @@ export type UseGetDelegateConfigNgV2Props = Omit<
   GetDelegateConfigNgV2PathParams
 
 /**
- * Gets delegate config by identifier
+ * Gets Delegate config by identifier
  */
 export const useGetDelegateConfigNgV2 = ({
   accountId,
@@ -24862,7 +25018,7 @@ export const useGetDelegateConfigNgV2 = ({
   )
 
 /**
- * Gets delegate config by identifier
+ * Gets Delegate config by identifier
  */
 export const getDelegateConfigNgV2Promise = (
   {
@@ -24907,7 +25063,7 @@ export type UpdateDelegateConfigNgV2Props = Omit<
   UpdateDelegateConfigNgV2PathParams
 
 /**
- * Updates a delegate config
+ * Updates a Delegate Configuration
  */
 export const UpdateDelegateConfigNgV2 = ({
   accountId,
@@ -24941,7 +25097,7 @@ export type UseUpdateDelegateConfigNgV2Props = Omit<
   UpdateDelegateConfigNgV2PathParams
 
 /**
- * Updates a delegate config
+ * Updates a Delegate Configuration
  */
 export const useUpdateDelegateConfigNgV2 = ({
   accountId,
@@ -24962,7 +25118,7 @@ export const useUpdateDelegateConfigNgV2 = ({
   )
 
 /**
- * Updates a delegate config
+ * Updates a Delegate Configuration
  */
 export const updateDelegateConfigNgV2Promise = (
   {
@@ -25009,7 +25165,7 @@ export type UpdateScopingRulesNgV2Props = Omit<
   UpdateScopingRulesNgV2PathParams
 
 /**
- * Updates the scoping rules inside the delegate config
+ * Updates the Scoping Rules inside the Delegate config
  */
 export const UpdateScopingRulesNgV2 = ({
   accountId,
@@ -25043,7 +25199,7 @@ export type UseUpdateScopingRulesNgV2Props = Omit<
   UpdateScopingRulesNgV2PathParams
 
 /**
- * Updates the scoping rules inside the delegate config
+ * Updates the Scoping Rules inside the Delegate config
  */
 export const useUpdateScopingRulesNgV2 = ({
   accountId,
@@ -25064,7 +25220,7 @@ export const useUpdateScopingRulesNgV2 = ({
   )
 
 /**
- * Updates the scoping rules inside the delegate config
+ * Updates the Scoping Rules inside the Delegate config
  */
 export const updateScopingRulesNgV2Promise = (
   {
@@ -25117,7 +25273,7 @@ export type UpdateSelectorsNgV2Props = Omit<
   UpdateSelectorsNgV2PathParams
 
 /**
- * Updates the selectors inside the delegate config
+ * Updates the selectors inside the Delegate config
  */
 export const UpdateSelectorsNgV2 = ({ accountId, delegateConfigIdentifier, ...props }: UpdateSelectorsNgV2Props) => (
   <Mutate<
@@ -25147,7 +25303,7 @@ export type UseUpdateSelectorsNgV2Props = Omit<
   UpdateSelectorsNgV2PathParams
 
 /**
- * Updates the selectors inside the delegate config
+ * Updates the selectors inside the Delegate config
  */
 export const useUpdateSelectorsNgV2 = ({
   accountId,
@@ -25168,7 +25324,7 @@ export const useUpdateSelectorsNgV2 = ({
   )
 
 /**
- * Updates the selectors inside the delegate config
+ * Updates the selectors inside the Delegate config
  */
 export const updateSelectorsNgV2Promise = (
   {
@@ -25204,7 +25360,7 @@ export type AddDelegateProfileNgV2noQueryParamsV2Props = Omit<
 >
 
 /**
- * Adds a delegate profile
+ * Adds a Delegate profile
  */
 export const AddDelegateProfileNgV2noQueryParamsV2 = (props: AddDelegateProfileNgV2noQueryParamsV2Props) => (
   <Mutate<RestResponseDelegateProfileDetailsNg, unknown, void, DelegateProfileDetailsNgRequestBody, void>
@@ -25221,7 +25377,7 @@ export type UseAddDelegateProfileNgV2noQueryParamsV2Props = Omit<
 >
 
 /**
- * Adds a delegate profile
+ * Adds a Delegate profile
  */
 export const useAddDelegateProfileNgV2noQueryParamsV2 = (props: UseAddDelegateProfileNgV2noQueryParamsV2Props) =>
   useMutate<RestResponseDelegateProfileDetailsNg, unknown, void, DelegateProfileDetailsNgRequestBody, void>(
@@ -25231,7 +25387,7 @@ export const useAddDelegateProfileNgV2noQueryParamsV2 = (props: UseAddDelegatePr
   )
 
 /**
- * Adds a delegate profile
+ * Adds a Delegate profile
  */
 export const addDelegateProfileNgV2noQueryParamsV2Promise = (
   props: MutateUsingFetchProps<

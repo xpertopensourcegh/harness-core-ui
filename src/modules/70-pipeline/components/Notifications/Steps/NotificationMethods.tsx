@@ -22,10 +22,10 @@ const NotificationMethods: React.FC<NotificationMethodsProps> = ({
 }) => {
   const { getString } = useStrings()
   const [method, setMethod] = useState<SelectOption | undefined>(
-    prevStepData?.notificationMethod?.type
+    prevStepData?.notificationMethod?.value?.type
       ? {
-          label: prevStepData?.notificationMethod?.type,
-          value: prevStepData?.notificationMethod?.type
+          label: prevStepData?.notificationMethod?.value?.type,
+          value: prevStepData?.notificationMethod?.value?.type
         }
       : undefined
   )
@@ -56,10 +56,12 @@ const NotificationMethods: React.FC<NotificationMethodsProps> = ({
               nextStep?.({
                 ...prevStepData,
                 notificationMethod: {
-                  type: method.value.toString(),
-                  spec: {
-                    userGroups: data.userGroups,
-                    msTeamKeys: data.msTeamKeys
+                  value: {
+                    type: method.value.toString(),
+                    spec: {
+                      userGroups: data.userGroups,
+                      msTeamKeys: data.msTeamKeys
+                    }
                   }
                 }
               })
@@ -70,18 +72,20 @@ const NotificationMethods: React.FC<NotificationMethodsProps> = ({
               previousStep?.({
                 ...prevStepData,
                 notificationMethod: {
-                  type: method.value.toString(),
-                  spec: {
-                    userGroups: data?.userGroups,
-                    msTeamKeys: data?.msTeamKeys
+                  value: {
+                    type: method.value.toString(),
+                    spec: {
+                      userGroups: data?.userGroups,
+                      msTeamKeys: data?.msTeamKeys
+                    }
                   }
                 }
               })
             }
             config={{
               type: NotificationType.MsTeams,
-              msTeamKeys: prevStepData?.notificationMethod?.spec?.msTeamKeys,
-              userGroups: (prevStepData?.notificationMethod?.spec as PmsSlackChannel)?.userGroups || []
+              msTeamKeys: prevStepData?.notificationMethod?.value?.spec?.msTeamKeys,
+              userGroups: (prevStepData?.notificationMethod?.value?.spec as PmsSlackChannel)?.userGroups || []
             }}
           />
         ) : null}
@@ -94,10 +98,12 @@ const NotificationMethods: React.FC<NotificationMethodsProps> = ({
                 nextStep?.({
                   ...prevStepData,
                   notificationMethod: {
-                    type: method.value.toString(),
-                    spec: {
-                      userGroups: data.userGroups,
-                      recipients: data.emailIds
+                    value: {
+                      type: method.value.toString(),
+                      spec: {
+                        userGroups: data.userGroups,
+                        recipients: data.emailIds
+                      }
                     }
                   }
                 })
@@ -108,18 +114,20 @@ const NotificationMethods: React.FC<NotificationMethodsProps> = ({
                 previousStep?.({
                   ...prevStepData,
                   notificationMethod: {
-                    type: method.value.toString(),
-                    spec: {
-                      userGroups: data?.userGroups,
-                      recipients: data?.emailIds
+                    value: {
+                      type: method.value.toString(),
+                      spec: {
+                        userGroups: data?.userGroups,
+                        recipients: data?.emailIds
+                      }
                     }
                   }
                 })
               }
               config={{
                 type: NotificationType.Email,
-                emailIds: (prevStepData?.notificationMethod?.spec as PmsEmailChannel)?.recipients || [],
-                userGroups: (prevStepData?.notificationMethod?.spec as PmsEmailChannel)?.userGroups || []
+                emailIds: (prevStepData?.notificationMethod?.value?.spec as PmsEmailChannel)?.recipients || [],
+                userGroups: (prevStepData?.notificationMethod?.value?.spec as PmsEmailChannel)?.userGroups || []
               }}
             />
           </>
@@ -133,10 +141,12 @@ const NotificationMethods: React.FC<NotificationMethodsProps> = ({
               nextStep?.({
                 ...prevStepData,
                 notificationMethod: {
-                  type: method.value.toString(),
-                  spec: {
-                    userGroups: data.userGroups,
-                    webhookUrl: data.webhookUrl
+                  value: {
+                    type: method.value.toString(),
+                    spec: {
+                      userGroups: data.userGroups,
+                      webhookUrl: data.webhookUrl
+                    }
                   }
                 }
               })
@@ -147,18 +157,20 @@ const NotificationMethods: React.FC<NotificationMethodsProps> = ({
               previousStep?.({
                 ...prevStepData,
                 notificationMethod: {
-                  type: method.value.toString(),
-                  spec: {
-                    userGroups: data?.userGroups,
-                    webhookUrl: data?.webhookUrl
+                  value: {
+                    type: method.value.toString(),
+                    spec: {
+                      userGroups: data?.userGroups,
+                      webhookUrl: data?.webhookUrl
+                    }
                   }
                 }
               })
             }
             config={{
               type: NotificationType.Slack,
-              webhookUrl: (prevStepData?.notificationMethod?.spec as PmsSlackChannel)?.webhookUrl || '',
-              userGroups: (prevStepData?.notificationMethod?.spec as PmsSlackChannel)?.userGroups || []
+              webhookUrl: (prevStepData?.notificationMethod?.value?.spec as PmsSlackChannel)?.webhookUrl || '',
+              userGroups: (prevStepData?.notificationMethod?.value?.spec as PmsSlackChannel)?.userGroups || []
             }}
           />
         ) : null}
@@ -170,10 +182,12 @@ const NotificationMethods: React.FC<NotificationMethodsProps> = ({
               nextStep?.({
                 ...prevStepData,
                 notificationMethod: {
-                  type: method.value.toString(),
-                  spec: {
-                    userGroups: data.userGroups,
-                    integrationKey: data.key
+                  value: {
+                    type: method.value.toString(),
+                    spec: {
+                      userGroups: data.userGroups,
+                      integrationKey: data.key
+                    }
                   }
                 }
               })
@@ -183,8 +197,10 @@ const NotificationMethods: React.FC<NotificationMethodsProps> = ({
             onBack={() => previousStep?.({ ...prevStepData })}
             config={{
               type: NotificationType.PagerDuty,
-              key: (prevStepData?.notificationMethod?.spec as PmsPagerDutyChannel)?.integrationKey?.toString() || '',
-              userGroups: (prevStepData?.notificationMethod?.spec as PmsPagerDutyChannel)?.userGroups || []
+              key:
+                (prevStepData?.notificationMethod?.value?.spec as PmsPagerDutyChannel)?.integrationKey?.toString() ||
+                '',
+              userGroups: (prevStepData?.notificationMethod?.value?.spec as PmsPagerDutyChannel)?.userGroups || []
             }}
           />
         ) : null}
