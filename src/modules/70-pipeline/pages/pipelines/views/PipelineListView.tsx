@@ -27,6 +27,7 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
+import { formatCount } from '@common/utils/utils'
 import { getIconsForPipeline, getStatusColor } from '../PipelineListUtils'
 import css from '../PipelinesPage.module.scss'
 
@@ -228,7 +229,7 @@ const RenderActivity: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => {
       </div>
 
       <Text color={Color.GREY_400} font="medium" iconProps={{ size: 18 }}>
-        {deployments}
+        {formatCount(deployments)}
       </Text>
 
       {deployments ? (

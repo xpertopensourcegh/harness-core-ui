@@ -40,3 +40,17 @@ export const setPageNumber = ({ setPage, pageItemsCount, page }: SetPageNumberPr
     setPage(page - 1)
   }
 }
+
+export const formatCount = (num: number): string => {
+  const min = 1e3
+  if (num >= min) {
+    const units = ['k', 'M', 'B', 'T']
+    const order = Math.floor(Math.log(num) / Math.log(1000))
+    const finalNum = Math.round(num / 1000 ** order)
+    if (finalNum === min && order < units.length) {
+      return 1 + units[order]
+    }
+    return finalNum + units[order - 1]
+  }
+  return num.toLocaleString()
+}

@@ -33,6 +33,7 @@ import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
 import useDeleteConfirmationDialog from '@pipeline/pages/utils/DeleteConfirmDialog'
+import { formatCount } from '@common/utils/utils'
 import { getIconsForPipeline } from '../../PipelineListUtils'
 
 import css from './PipelineCard.module.scss'
@@ -396,7 +397,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
                           goToPipelineDetail(pipeline)
                         }}
                       >
-                        {deployments}
+                        {formatCount(deployments)}
                       </Text>
                     </>
                   ) : (
