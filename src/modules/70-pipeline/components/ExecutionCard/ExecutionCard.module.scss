@@ -181,7 +181,7 @@ $actions-translate: 10px;
 
   &[data-variant='Default'] {
     .main {
-      grid-template-columns: minmax(10px, 3fr) minmax(10px, 2fr);
+      grid-template-columns: minmax(10px, 3fr) minmax(10px, 1fr);
     }
     .header {
       .actions {
