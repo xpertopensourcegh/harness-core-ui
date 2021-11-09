@@ -12,7 +12,7 @@ exports[`SAML Provider Add SAML Provider 1`] = `
         class="StyledProps--font StyledProps--main StyledProps--margin-left-xlarge StyledProps--margin-top-xsmall"
       >
         <label
-          class="bp3-control bp3-radio StyledProps--font Radio--radio StyledProps--main StyledProps--font-weight-semi-bold StyledProps--font-size-normal StyledProps--color StyledProps--color-blue800"
+          class="bp3-control bp3-radio StyledProps--font Radio--radio StyledProps--main StyledProps--font-weight-semi-bold StyledProps--font-size-normal StyledProps--color StyledProps--color-primary7"
         >
           <input
             type="radio"

@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, act, fireEvent, waitFor, queryByText, queryByAttribute, getByText } from '@testing-library/react'
+import { render, act, fireEvent, waitFor, queryByText, getByText } from '@testing-library/react'
 import { TestWrapper, findDialogContainer, findPopoverContainer } from '@common/utils/testUtils'
 import { setFieldValue, InputTypes } from '@common/utils/JestFormHelper'
 import routes from '@common/RouteDefinitions'
@@ -78,22 +78,11 @@ describe('SAML Provider', () => {
     const form = findDialogContainer()
     expect(form).toBeTruthy()
 
-    const okta = queryByAttribute('data-icon', form!, 'service-okta')
-    expect(okta).toBeTruthy()
-    await act(async () => {
-      fireEvent.click(okta!)
-    })
-
-    const changeButton = queryByText(document.body, 'change')
-    act(() => {
-      fireEvent.click(changeButton!)
-    })
-
-    const azure = queryByAttribute('data-icon', form!, 'service-azure')
+    const azure = queryByText(form!, 'authSettings.azure')
     expect(azure).toBeTruthy()
-    await act(async () => {
-      fireEvent.click(azure!)
-    })
+    fireEvent.click(azure!)
+
+    await waitFor(() => queryByText(form!, 'authSettings.enterSAMLEndPoint'))
 
     setFieldValue({ container: form!, type: InputTypes.TEXTFIELD, fieldId: 'displayName', value: 'Display name' })
 

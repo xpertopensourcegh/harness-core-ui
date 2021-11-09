@@ -164,7 +164,7 @@ const SAMLProvider: React.FC<Props> = ({
       <Container flex width="100%">
         <Button
           className={css.leftMarginAuto}
-          variation={ButtonVariation.PRIMARY}
+          variation={ButtonVariation.SECONDARY}
           text={getString('test')}
           disabled={!!childWindow || fetchingSamlLoginTestData}
           onClick={() => {
@@ -283,7 +283,7 @@ const SAMLProvider: React.FC<Props> = ({
                 checked={samlEnabled}
                 font={{ weight: 'semi-bold', size: 'normal' }}
                 onClick={() => openSAMlProvider()}
-                color={Color.BLUE_800}
+                color={Color.PRIMARY_7}
                 label={getString('authSettings.plusSAMLProvider')}
                 disabled={!featureEnabled || !canEdit}
               />

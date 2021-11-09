@@ -1,11 +1,8 @@
 import React from 'react'
-import cx from 'classnames'
-import { useModalHook } from '@wings-software/uicore'
-import { Dialog, Classes } from '@blueprintjs/core'
+import { useModalHook, Dialog } from '@wings-software/uicore'
+import { useStrings } from 'framework/strings'
 import type { SamlSettings } from 'services/cd-ng'
 import SAMLProviderForm from './views/SAMLProviderForm'
-import css from './useSAMLProvider.module.scss'
-
 interface Props {
   onSuccess: () => void
 }
@@ -17,18 +14,23 @@ interface UseSAMLProviderReturn {
 
 export const useSAMLProviderModal = ({ onSuccess }: Props): UseSAMLProviderReturn => {
   const [samlProvider, setSamlProvider] = React.useState<SamlSettings>()
+  const { getString } = useStrings()
   const [showModal, hideModal] = useModalHook(
     () => (
-      <Dialog enforceFocus={false} isOpen title="" onClose={hideModal} className={cx(Classes.DIALOG, css.dialog)}>
+      <Dialog
+        isOpen={true}
+        title={samlProvider ? getString('authSettings.editSAMLProvider') : getString('authSettings.addSAMLProvider')}
+        enforceFocus={false}
+        onClose={hideModal}
+        style={{ minWidth: 'max-content' }}
+      >
         <SAMLProviderForm
           samlProvider={samlProvider}
           onSubmit={() => {
             onSuccess()
             hideModal()
           }}
-          onCancel={() => {
-            hideModal()
-          }}
+          onCancel={hideModal}
         />
       </Dialog>
     ),
