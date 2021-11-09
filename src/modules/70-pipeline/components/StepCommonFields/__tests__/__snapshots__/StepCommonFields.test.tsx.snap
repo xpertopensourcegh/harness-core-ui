@@ -170,7 +170,6 @@ exports[`<StepCommonFields /> tests Should render properly with no data 1`] = `
                           autocomplete="off"
                           class="bp3-input"
                           name="spec.limitMemory"
-                          placeholder="pipelineSteps.limitMemoryPlaceholder"
                           type="text"
                           value=""
                         />
@@ -255,7 +254,6 @@ exports[`<StepCommonFields /> tests Should render properly with no data 1`] = `
                           autocomplete="off"
                           class="bp3-input"
                           name="spec.limitCPU"
-                          placeholder="pipelineSteps.limitCPUPlaceholder"
                           type="text"
                           value=""
                         />
@@ -568,7 +566,6 @@ exports[`<StepCommonFields /> tests Should render properly with passed initial v
                           autocomplete="off"
                           class="bp3-input"
                           name="spec.limitMemory"
-                          placeholder="pipelineSteps.limitMemoryPlaceholder"
                           type="text"
                           value="128Mi"
                         />
@@ -653,7 +650,6 @@ exports[`<StepCommonFields /> tests Should render properly with passed initial v
                           autocomplete="off"
                           class="bp3-input"
                           name="spec.limitCPU"
-                          placeholder="pipelineSteps.limitCPUPlaceholder"
                           type="text"
                           value="0.1"
                         />

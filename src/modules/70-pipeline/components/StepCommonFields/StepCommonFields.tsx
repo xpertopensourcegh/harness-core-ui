@@ -188,7 +188,6 @@ const StepCommonFields = ({
               </Layout.Horizontal>
             }
             multiTextInputProps={{
-              placeholder: getString('pipelineSteps.limitMemoryPlaceholder'),
               multiTextInputProps: { expressions },
               disabled
             }}
@@ -215,7 +214,6 @@ const StepCommonFields = ({
               </Layout.Horizontal>
             }
             multiTextInputProps={{
-              placeholder: getString('pipelineSteps.limitCPUPlaceholder'),
               multiTextInputProps: { expressions },
               disabled
             }}
