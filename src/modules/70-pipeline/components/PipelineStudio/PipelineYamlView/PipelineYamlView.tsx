@@ -100,9 +100,9 @@ const PipelineYamlView: React.FC = () => {
         const fileName = filePathArr?.length ? filePathArr[filePathArr?.length - 1] : 'Pipeline.yaml'
         setYamlFileName(fileName)
       }
-      setYamlFileName(pipeline.identifier + '.yaml')
+      setYamlFileName(pipeline?.identifier + '.yaml')
     }
-  }, [gitDetails, isGitSyncEnabled, pipeline.identifier])
+  }, [gitDetails, isGitSyncEnabled, pipeline?.identifier])
 
   return (
     <div className={css.yamlBuilder}>
