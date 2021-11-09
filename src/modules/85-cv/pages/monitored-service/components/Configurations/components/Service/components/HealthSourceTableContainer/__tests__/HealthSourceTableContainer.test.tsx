@@ -2,38 +2,108 @@ import React from 'react'
 import { act } from 'react-test-renderer'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
+import * as dbHook from '@cv/hooks/IndexedDBHook/IndexedDBHook'
 import HealthSourceTableContainer from '../HealthSourceTableContainer'
 import { formFormik, serviceFormik } from './HealthSourceTableContainer.mock'
 
+jest.mock('services/cd-ng', () => ({
+  ...(jest.requireActual('services/cd-ng') as any),
+  useGetConnectorList: () => {
+    return {
+      data: {},
+      refetch: jest.fn()
+    }
+  },
+  useGetConnector: () => {
+    return {
+      data: {},
+      refetch: jest.fn()
+    }
+  }
+}))
 describe('Validate', () => {
-  test('should render HealthSourceTableContainer with no data', () => {
+  test('should render HealthSourceTableContainer with no data', async () => {
     const { container, getByText } = render(
       <TestWrapper>
         <HealthSourceTableContainer serviceFormFormik={formFormik as any} />
       </TestWrapper>
     )
-    expect(getByText('cv.healthSource.noData')).toBeInTheDocument()
+    await waitFor(() => expect(getByText('cv.healthSource.noData')).toBeInTheDocument())
+
+    act(() => {
+      fireEvent.click(getByText('cv.healthSource.addHealthSource'))
+    })
+
+    // drawer opens with correct header
+    await waitFor(() => expect(getByText('cv.healthSource.backtoMonitoredService')).toBeInTheDocument())
+
+    await waitFor(() => {
+      const header = document.body.querySelector('.bp3-drawer-header .bp3-heading .ng-tooltip-native')
+      return expect(header?.textContent).toEqual('cv.healthSource.addHealthSource')
+    })
+
     expect(container).toMatchSnapshot()
   })
   test('should render HealthSourceTableContainer with data', async () => {
+    jest.spyOn(dbHook, 'useIndexedDBHook').mockReturnValue({
+      dbInstance: {
+        put: jest.fn(),
+        get: jest.fn().mockReturnValue(undefined)
+      } as any,
+      isInitializingDB: false
+    })
     const { container, getByText } = render(
       <TestWrapper>
         <HealthSourceTableContainer serviceFormFormik={{ values: serviceFormik } as any} />
       </TestWrapper>
     )
     expect(container.querySelectorAll('.body div[role="row"]').length).toEqual(1)
-    act(() => {
-      fireEvent.click(getByText('cv.healthSource.addHealthSource'))
-    })
+
     // drawer opens with correct header
-    waitFor(() => expect(getByText('cv.healthSource.addHealthSource')).toBeInTheDocument())
+    await waitFor(() => expect(getByText('cv.healthSource.addHealthSource')).toBeInTheDocument())
 
     act(() => {
       fireEvent.click(container.querySelector('.body div[role="row"]')!)
     })
     // drawer opens with correct header
-    waitFor(() => expect(getByText('cv.healthSource.backtoMonitoredService')).toBeInTheDocument())
-    waitFor(() => expect(getByText('cv.healthSource.editHealthSource')).toBeInTheDocument())
+    await waitFor(() => expect(getByText('cv.healthSource.backtoMonitoredService')).toBeInTheDocument())
+    await waitFor(() => expect(getByText('cv.healthSource.editHealthSource')).toBeInTheDocument())
+
+    expect(container).toMatchSnapshot()
+  })
+
+  test('should close drawer', async () => {
+    jest.spyOn(dbHook, 'useIndexedDBHook').mockReturnValue({
+      dbInstance: {
+        put: jest.fn(),
+        get: jest.fn().mockReturnValue(undefined)
+      } as any,
+      isInitializingDB: false
+    })
+    const { container, getByText } = render(
+      <TestWrapper>
+        <HealthSourceTableContainer serviceFormFormik={{ values: serviceFormik } as any} />
+      </TestWrapper>
+    )
+    expect(container.querySelectorAll('.body div[role="row"]').length).toEqual(1)
+
+    // drawer opens with correct header
+    await waitFor(() => expect(getByText('cv.healthSource.addHealthSource')).toBeInTheDocument())
+
+    act(() => {
+      fireEvent.click(container.querySelector('.body div[role="row"]')!)
+    })
+    // drawer opens with correct header
+    await waitFor(() => expect(getByText('cv.healthSource.backtoMonitoredService')).toBeInTheDocument())
+    const drawerOpen = document.body.querySelector('.health-source-right-drawer')
+    await waitFor(() => expect(drawerOpen).toBeTruthy())
+
+    act(() => {
+      fireEvent.click(getByText('cv.healthSource.backtoMonitoredService'))
+    })
+
+    const drawerClosed = document.body.querySelector('.health-source-right-drawer')
+    await waitFor(() => expect(drawerClosed).not.toBeTruthy())
 
     expect(container).toMatchSnapshot()
   })

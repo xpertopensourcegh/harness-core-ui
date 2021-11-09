@@ -81,7 +81,7 @@ export default function HealthSourceTableContainer({
           isEdit: isEditMode,
           rowData
         })
-        setDrawerHeaderProps?.({ isEdit: isEditMode })
+        setDrawerHeaderProps?.({ isEdit: isEditMode, onClick: () => hideHealthSourceDrawer() })
         showHealthSourceDrawer({
           hideDrawer: hideHealthSourceDrawer,
           ...showHealthSourceDrawerProps,

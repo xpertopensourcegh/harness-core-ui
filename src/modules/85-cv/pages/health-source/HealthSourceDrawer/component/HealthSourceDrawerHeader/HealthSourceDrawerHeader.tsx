@@ -1,14 +1,10 @@
 import React from 'react'
-import { useHistory, useParams } from 'react-router-dom'
 import { Color, Text } from '@wings-software/uicore'
-import routes from '@common/RouteDefinitions'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 import css from './HealthSourceDrawerHeader.module.scss'
 
 export default function HealthSourceDrawerHeader({
   isEdit,
-  shouldRenderAtVerifyStep,
   breadCrumbRoute,
   onClick
 }: {
@@ -19,9 +15,7 @@ export default function HealthSourceDrawerHeader({
     routeTitle: string
   }
 }): JSX.Element {
-  const history = useHistory()
   const { getString } = useStrings()
-  const params = useParams<ProjectPathProps & { identifier: string }>()
   const { routeTitle } = breadCrumbRoute || { routeTitle: getString('cv.healthSource.backtoMonitoredService') }
   return (
     <>
@@ -31,19 +25,7 @@ export default function HealthSourceDrawerHeader({
         icon={'arrow-left'}
         iconProps={{ color: Color.PRIMARY_7, margin: { right: 'small' } }}
         color={Color.PRIMARY_7}
-        onClick={() => {
-          if (shouldRenderAtVerifyStep) {
-            onClick?.()
-            return
-          }
-          history.push(
-            routes.toCVMonitoringServices({
-              orgIdentifier: params.orgIdentifier,
-              projectIdentifier: params.projectIdentifier,
-              accountId: params.accountId
-            })
-          )
-        }}
+        onClick={onClick}
       >
         {routeTitle}
       </Text>
