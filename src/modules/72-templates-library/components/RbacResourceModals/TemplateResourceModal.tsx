@@ -78,7 +78,7 @@ const TemplateResourceModal: React.FC<RbacResourceModalProps> = ({
   selectedData,
   resourceScope
 }) => {
-  const { accountIdentifier, orgIdentifier = '', projectIdentifier = '' } = resourceScope
+  const { accountIdentifier, orgIdentifier, projectIdentifier } = resourceScope
   const [page, setPage] = useState(0)
   const [templateData, setData] = React.useState<PageTemplateSummaryResponse | undefined>()
   const { getString } = useStrings()
@@ -89,7 +89,7 @@ const TemplateResourceModal: React.FC<RbacResourceModalProps> = ({
     cancel
   } = useGetTemplateList({
     queryParams: {
-      templateListType: 'All',
+      templateListType: 'Stable',
       accountIdentifier,
       projectIdentifier,
       orgIdentifier,
