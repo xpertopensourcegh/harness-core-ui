@@ -1,6 +1,7 @@
 query FetchBudgetSummary($id: String!) {
   budgetSummary(budgetId: $id) {
     id
+    uuid: id
     name
     budgetAmount
     actualCost
@@ -10,5 +11,6 @@ query FetchBudgetSummary($id: String!) {
     actualCostAlerts
     forecastCostAlerts
     forecastCost
+    perspectiveId
   }
 }

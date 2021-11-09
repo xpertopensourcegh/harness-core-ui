@@ -10,6 +10,24 @@ import GridData from './GridData.json'
 import BudgetDetails from '../BudgetDetails'
 
 jest.mock('@ce/components/CEChart/CEChart', () => 'mock')
+jest.mock('services/ce', () => ({
+  useDeleteBudget: jest.fn().mockImplementation(() => ({
+    mutate: async () => {
+      return {
+        status: 'SUCCESS',
+        data: {}
+      }
+    }
+  })),
+  useGetPerspective: jest.fn().mockImplementation(() => ({
+    mutate: async () => {
+      return {
+        status: 'SUCCESS',
+        data: {}
+      }
+    }
+  }))
+}))
 
 const params = {
   accountId: 'TEST_ACC',

@@ -3,7 +3,7 @@ import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { Classes, Dialog, IDialogProps } from '@blueprintjs/core'
 import { Container, useModalHook, Button, StepWizard } from '@wings-software/uicore'
-import { Budget, useGetPerspective } from 'services/ce'
+import type { Budget } from 'services/ce'
 import { useStrings } from 'framework/strings'
 
 import SetBudgetAmount from './CreateBudgetSteps/SetBudgetAmount'
@@ -14,6 +14,8 @@ import css from './PerspectiveCreateBudget.module.scss'
 interface OpenModalArgs {
   isEdit?: boolean
   selectedBudget: Budget
+  perspectiveName?: string
+  perspective?: string
 }
 
 interface BudgetModalProps {
@@ -24,11 +26,9 @@ interface BudgetModalProps {
 const useBudgetModal = ({ onSuccess }: BudgetModalProps) => {
   const { getString } = useStrings()
   const [isEditMode, setIsEditMode] = useState(false)
+  const [perspectiveInfo, setPerspectiveInfo] = useState<any>()
   const [budget, setBudget] = useState<Budget>()
   const { perspectiveId, accountId } = useParams<{ perspectiveId: string; accountId: string }>()
-  const { data: perspectiveRes } = useGetPerspective({
-    queryParams: { perspectiveId } // TODO: accountIdentifier: accountId
-  })
 
   const modalPropsLight: IDialogProps = {
     isOpen: true,
@@ -43,7 +43,6 @@ const useBudgetModal = ({ onSuccess }: BudgetModalProps) => {
     }
   }
 
-  const perspectiveData = perspectiveRes?.resource
   const [openModal, hideModal] = useModalHook(
     () => (
       <Dialog onClose={hideModal} {...modalPropsLight}>
@@ -53,7 +52,11 @@ const useBudgetModal = ({ onSuccess }: BudgetModalProps) => {
             iconProps={{ size: 40 }}
             title={getString('ce.perspectives.budgets.wizardTitle')}
           >
-            <SelectPerspective name={getString('ce.perspectives.budgets.defineTarget.title')} isEditMode={isEditMode} />
+            <SelectPerspective
+              perspective={perspectiveInfo?.id}
+              name={getString('ce.perspectives.budgets.defineTarget.title')}
+              isEditMode={isEditMode}
+            />
             <SetBudgetAmount
               name={getString('ce.perspectives.budgets.setBudgetAmount.title')}
               budget={budget}
@@ -64,7 +67,6 @@ const useBudgetModal = ({ onSuccess }: BudgetModalProps) => {
               viewId={perspectiveId}
               name={getString('ce.perspectives.budgets.configureAlerts.title')}
               accountId={accountId}
-              perspectiveName={perspectiveData?.name || ''}
               budget={budget}
               onSuccess={onSuccess}
             />
@@ -81,15 +83,19 @@ const useBudgetModal = ({ onSuccess }: BudgetModalProps) => {
         />
       </Dialog>
     ),
-    [perspectiveData?.name, budget, isEditMode]
+    [perspectiveInfo?.name, budget, isEditMode]
   )
 
   return {
     hideModal,
     openModal: (args?: OpenModalArgs) => {
-      const { isEdit, selectedBudget } = args || {}
+      const { isEdit, selectedBudget, perspectiveName, perspective } = args || {}
       setIsEditMode(!!isEdit)
       setBudget(selectedBudget)
+      setPerspectiveInfo({
+        name: perspectiveName,
+        id: perspective
+      })
       openModal()
     }
   }

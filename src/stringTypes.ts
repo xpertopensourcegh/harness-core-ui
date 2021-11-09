@@ -3249,6 +3249,7 @@ export interface StringsMap {
   'ce.perspectives.budgets.setBudgetAmount.budgetPeriod': string
   'ce.perspectives.budgets.setBudgetAmount.budgetPeriods.monthly': string
   'ce.perspectives.budgets.setBudgetAmount.budgetType': string
+  'ce.perspectives.budgets.setBudgetAmount.chartTitle': string
   'ce.perspectives.budgets.setBudgetAmount.growthRateCheck': string
   'ce.perspectives.budgets.setBudgetAmount.growthRateLabel': string
   'ce.perspectives.budgets.setBudgetAmount.lastMonthCost': string

@@ -127,6 +127,7 @@ type BudgetSummary {
   forecastCostAlerts: [Float]!
   id: String!
   name: String!
+  perspectiveId: String!
   timeLeft: Int!
   timeScope: String!
   timeUnit: String!
@@ -756,6 +757,7 @@ enum ViewChartType {
 enum ViewFieldIdentifier {
   AWS
   AZURE
+  BUSINESS_MAPPING
   CLUSTER
   COMMON
   CUSTOM

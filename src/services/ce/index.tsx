@@ -34,13 +34,17 @@ export interface Budget {
   budgetAmount?: number
   createdAt?: number
   emailAddresses?: string[]
+  endTime?: number
   forecastCost?: number
+  growthRate?: number
   lastMonthCost?: number
   lastUpdatedAt?: number
   name?: string
   notifyOnSlack?: boolean
+  period?: 'DAILY' | 'WEEKLY' | 'MONTHLY' | 'QUARTERLY' | 'YEARLY'
   scope?: BudgetScope
-  type?: 'SPECIFIED_AMOUNT' | 'PREVIOUS_MONTH_SPEND'
+  startTime?: number
+  type?: 'SPECIFIED_AMOUNT' | 'PREVIOUS_MONTH_SPEND' | 'PREVIOUS_PERIOD_SPEND'
   userGroupIds?: string[]
   uuid?: string
 }
@@ -64,6 +68,18 @@ export interface BudgetScope {
   entityNames?: string[]
 }
 
+export interface BusinessMapping {
+  accountId?: string
+  costTargets?: CostTarget[]
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  lastUpdatedAt?: number
+  lastUpdatedBy?: EmbeddedUser
+  name?: string
+  sharedCosts?: SharedCost[]
+  uuid?: string
+}
+
 export interface CEReportSchedule {
   accountId?: string
   createdAt?: number
@@ -85,7 +101,7 @@ export interface CEView {
   accountId?: string
   createdAt?: number
   createdBy?: EmbeddedUser
-  dataSources?: ('CLUSTER' | 'AWS' | 'GCP' | 'AZURE' | 'COMMON' | 'CUSTOM' | 'LABEL')[]
+  dataSources?: ('CLUSTER' | 'AWS' | 'GCP' | 'AZURE' | 'COMMON' | 'CUSTOM' | 'BUSINESS_MAPPING' | 'LABEL')[]
   lastUpdatedAt?: number
   lastUpdatedBy?: EmbeddedUser
   name?: string
@@ -101,6 +117,11 @@ export interface CEView {
 
 export type ClusterBudgetScope = BudgetScope & {
   clusterIds?: string[]
+}
+
+export interface CostTarget {
+  name?: string
+  rules?: ViewRule[]
 }
 
 export interface EmbeddedUser {
@@ -166,6 +187,8 @@ export interface ResponseMessage {
     | 'INVALID_ARGUMENT'
     | 'INVALID_EMAIL'
     | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
+    | 'COMMNITY_EDITION_NOT_FOUND'
+    | 'DEPLOY_MODE_IS_NOT_ON_PREM'
     | 'USER_ALREADY_REGISTERED'
     | 'USER_INVITATION_DOES_NOT_EXIST'
     | 'USER_DOES_NOT_EXIST'
@@ -340,6 +363,8 @@ export interface ResponseMessage {
     | 'USAGE_RESTRICTION_ERROR'
     | 'STATE_EXECUTION_INSTANCE_NOT_FOUND'
     | 'DELEGATE_TASK_RETRY'
+    | 'KUBERNETES_API_TASK_EXCEPTION'
+    | 'KUBERNETES_TASK_EXCEPTION'
     | 'KUBERNETES_YAML_ERROR'
     | 'SAVE_FILE_INTO_GCP_STORAGE_FAILED'
     | 'READ_FILE_FROM_GCP_STORAGE_FAILED'
@@ -449,6 +474,8 @@ export interface ResponseMessage {
     | 'SCM_NOT_MODIFIED'
     | 'JIRA_STEP_ERROR'
     | 'BUCKET_SERVER_ERROR'
+    | 'GIT_SYNC_ERROR'
+    | 'TEMPLATE_EXCEPTION'
   exception?: Throwable
   failureTypes?: (
     | 'EXPIRED'
@@ -479,6 +506,14 @@ export interface RestResponse {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseBoolean {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: boolean
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponseBudget {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -492,6 +527,14 @@ export interface RestResponseBudgetData {
     [key: string]: { [key: string]: any }
   }
   resource?: BudgetData
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseBusinessMapping {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: BusinessMapping
   responseMessages?: ResponseMessage[]
 }
 
@@ -519,6 +562,14 @@ export interface RestResponseListBudget {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseListBusinessMapping {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: BusinessMapping[]
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponseListCEReportSchedule {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -541,6 +592,18 @@ export interface RestResponseViewCustomField {
   }
   resource?: ViewCustomField
   responseMessages?: ResponseMessage[]
+}
+
+export interface SharedCost {
+  name?: string
+  rules?: ViewRule[]
+  splits?: SharedCostSplit[]
+  strategy?: 'FIXED' | 'PROPORTIONAL'
+}
+
+export interface SharedCostSplit {
+  costTargetName?: string
+  percentageContribution?: number
 }
 
 export interface StackTraceElement {
@@ -580,7 +643,7 @@ export interface ViewCustomField {
 export interface ViewField {
   fieldId?: string
   fieldName?: string
-  identifier?: 'CLUSTER' | 'AWS' | 'GCP' | 'AZURE' | 'COMMON' | 'CUSTOM' | 'LABEL'
+  identifier?: 'CLUSTER' | 'AWS' | 'GCP' | 'AZURE' | 'COMMON' | 'CUSTOM' | 'BUSINESS_MAPPING' | 'LABEL'
   identifierName?: string
 }
 
@@ -607,6 +670,8 @@ export interface ViewVisualization {
 }
 
 export type BudgetRequestBody = Budget
+
+export type BusinessMappingRequestBody = BusinessMapping
 
 export type CEReportScheduleRequestBody = CEReportSchedule
 
@@ -985,6 +1050,188 @@ export const useGetCostDetails = ({ id, ...props }: UseGetCostDetailsProps) =>
     { base: getConfig('ccm/api'), pathParams: { id }, ...props }
   )
 
+export interface GetBusinessMappingListQueryParams {
+  accountIdentifier?: string
+}
+
+export type GetBusinessMappingListProps = Omit<
+  GetProps<RestResponseListBusinessMapping, unknown, GetBusinessMappingListQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get List Of Business Mappings
+ */
+export const GetBusinessMappingList = (props: GetBusinessMappingListProps) => (
+  <Get<RestResponseListBusinessMapping, unknown, GetBusinessMappingListQueryParams, void>
+    path={`/business-mapping`}
+    base={getConfig('ccm/api')}
+    {...props}
+  />
+)
+
+export type UseGetBusinessMappingListProps = Omit<
+  UseGetProps<RestResponseListBusinessMapping, unknown, GetBusinessMappingListQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get List Of Business Mappings
+ */
+export const useGetBusinessMappingList = (props: UseGetBusinessMappingListProps) =>
+  useGet<RestResponseListBusinessMapping, unknown, GetBusinessMappingListQueryParams, void>(`/business-mapping`, {
+    base: getConfig('ccm/api'),
+    ...props
+  })
+
+export interface CreateBusinessMappingQueryParams {
+  accountIdentifier?: string
+}
+
+export type CreateBusinessMappingProps = Omit<
+  MutateProps<RestResponseBoolean, unknown, CreateBusinessMappingQueryParams, BusinessMappingRequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create Business Mapping
+ */
+export const CreateBusinessMapping = (props: CreateBusinessMappingProps) => (
+  <Mutate<RestResponseBoolean, unknown, CreateBusinessMappingQueryParams, BusinessMappingRequestBody, void>
+    verb="POST"
+    path={`/business-mapping`}
+    base={getConfig('ccm/api')}
+    {...props}
+  />
+)
+
+export type UseCreateBusinessMappingProps = Omit<
+  UseMutateProps<RestResponseBoolean, unknown, CreateBusinessMappingQueryParams, BusinessMappingRequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create Business Mapping
+ */
+export const useCreateBusinessMapping = (props: UseCreateBusinessMappingProps) =>
+  useMutate<RestResponseBoolean, unknown, CreateBusinessMappingQueryParams, BusinessMappingRequestBody, void>(
+    'POST',
+    `/business-mapping`,
+    { base: getConfig('ccm/api'), ...props }
+  )
+
+export interface UpdateBusinessMappingQueryParams {
+  accountIdentifier?: string
+}
+
+export type UpdateBusinessMappingProps = Omit<
+  MutateProps<RestResponseString, unknown, UpdateBusinessMappingQueryParams, BusinessMappingRequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Update Business Mapping
+ */
+export const UpdateBusinessMapping = (props: UpdateBusinessMappingProps) => (
+  <Mutate<RestResponseString, unknown, UpdateBusinessMappingQueryParams, BusinessMappingRequestBody, void>
+    verb="PUT"
+    path={`/business-mapping`}
+    base={getConfig('ccm/api')}
+    {...props}
+  />
+)
+
+export type UseUpdateBusinessMappingProps = Omit<
+  UseMutateProps<RestResponseString, unknown, UpdateBusinessMappingQueryParams, BusinessMappingRequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Update Business Mapping
+ */
+export const useUpdateBusinessMapping = (props: UseUpdateBusinessMappingProps) =>
+  useMutate<RestResponseString, unknown, UpdateBusinessMappingQueryParams, BusinessMappingRequestBody, void>(
+    'PUT',
+    `/business-mapping`,
+    { base: getConfig('ccm/api'), ...props }
+  )
+
+export interface DeleteBusinessMappingQueryParams {
+  accountIdentifier?: string
+}
+
+export type DeleteBusinessMappingProps = Omit<
+  MutateProps<RestResponseString, unknown, DeleteBusinessMappingQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Delete Business Mapping
+ */
+export const DeleteBusinessMapping = (props: DeleteBusinessMappingProps) => (
+  <Mutate<RestResponseString, unknown, DeleteBusinessMappingQueryParams, string, void>
+    verb="DELETE"
+    path={`/business-mapping`}
+    base={getConfig('ccm/api')}
+    {...props}
+  />
+)
+
+export type UseDeleteBusinessMappingProps = Omit<
+  UseMutateProps<RestResponseString, unknown, DeleteBusinessMappingQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Delete Business Mapping
+ */
+export const useDeleteBusinessMapping = (props: UseDeleteBusinessMappingProps) =>
+  useMutate<RestResponseString, unknown, DeleteBusinessMappingQueryParams, string, void>(
+    'DELETE',
+    `/business-mapping`,
+    { base: getConfig('ccm/api'), ...props }
+  )
+
+export interface GetBusinessMappingQueryParams {
+  accountIdentifier?: string
+}
+
+export interface GetBusinessMappingPathParams {
+  id: string
+}
+
+export type GetBusinessMappingProps = Omit<
+  GetProps<RestResponseBusinessMapping, unknown, GetBusinessMappingQueryParams, GetBusinessMappingPathParams>,
+  'path'
+> &
+  GetBusinessMappingPathParams
+
+/**
+ * Get Business Mapping
+ */
+export const GetBusinessMapping = ({ id, ...props }: GetBusinessMappingProps) => (
+  <Get<RestResponseBusinessMapping, unknown, GetBusinessMappingQueryParams, GetBusinessMappingPathParams>
+    path={`/business-mapping/${id}`}
+    base={getConfig('ccm/api')}
+    {...props}
+  />
+)
+
+export type UseGetBusinessMappingProps = Omit<
+  UseGetProps<RestResponseBusinessMapping, unknown, GetBusinessMappingQueryParams, GetBusinessMappingPathParams>,
+  'path'
+> &
+  GetBusinessMappingPathParams
+
+/**
+ * Get Business Mapping
+ */
+export const useGetBusinessMapping = ({ id, ...props }: UseGetBusinessMappingProps) =>
+  useGet<RestResponseBusinessMapping, unknown, GetBusinessMappingQueryParams, GetBusinessMappingPathParams>(
+    (paramsInPath: GetBusinessMappingPathParams) => `/business-mapping/${paramsInPath.id}`,
+    { base: getConfig('ccm/api'), pathParams: { id }, ...props }
+  )
+
 export interface AwsaccountconnectiondetailQueryParams {
   accountIdentifier?: string
 }
@@ -1106,16 +1353,16 @@ export const useExecute1 = (props: UseExecute1Props) =>
     ...props
   })
 
-export type GetSchemaProps = Omit<GetProps<void, unknown, void, void>, 'path'>
+export type GetSchemaProps = Omit<GetProps<void, void, void, void>, 'path'>
 
 export const GetSchema = (props: GetSchemaProps) => (
-  <Get<void, unknown, void, void> path={`/graphql/schema`} base={getConfig('ccm/api')} {...props} />
+  <Get<void, void, void, void> path={`/graphql/schema`} base={getConfig('ccm/api')} {...props} />
 )
 
-export type UseGetSchemaProps = Omit<UseGetProps<void, unknown, void, void>, 'path'>
+export type UseGetSchemaProps = Omit<UseGetProps<void, void, void, void>, 'path'>
 
 export const useGetSchema = (props: UseGetSchemaProps) =>
-  useGet<void, unknown, void, void>(`/graphql/schema`, { base: getConfig('ccm/api'), ...props })
+  useGet<void, void, void, void>(`/graphql/schema`, { base: getConfig('ccm/api'), ...props })
 
 export type GetCENGMicroserviceHealthStatusProps = Omit<GetProps<ResponseString, unknown, void, void>, 'path'>
 

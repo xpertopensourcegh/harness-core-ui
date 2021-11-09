@@ -19,11 +19,11 @@ import { TagInput } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import formatCost from '@ce/utils/formatCost'
 import { useCreateBudget, Budget, AlertThreshold, useUpdateBudget } from 'services/ce'
+import type { BudgetStepData } from '../types'
 import css from '../PerspectiveCreateBudget.module.scss'
 
 interface Props {
   name: string
-  perspectiveName: string
   viewId: string
   accountId: string
   onSuccess: () => void
@@ -44,13 +44,21 @@ const makeNewThresold = (): AlertThreshold => {
   }
 }
 
-const ConfigureAlerts: React.FC<StepProps<Budget & { perspective: string }> & Props> = props => {
+const ConfigureAlerts: React.FC<StepProps<BudgetStepData> & Props> = props => {
   const { getString } = useStrings()
   const [loading, setLoading] = useState(false)
   const [hasError, setError] = useState(false)
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
-  const { prevStepData, previousStep, viewId, perspectiveName, accountId, budget, isEditMode } = props
-  const { type, budgetAmount = 0 } = (prevStepData || {}) as Budget
+  const { prevStepData, previousStep, accountId, budget, isEditMode } = props
+  const {
+    type,
+    perspective,
+    growthRate,
+    period,
+    perspectiveName,
+    startTime,
+    budgetAmount = 0
+  } = (prevStepData || {}) as BudgetStepData
 
   const { mutate: updateBudget } = useUpdateBudget({ id: budget?.uuid || '' })
   const { mutate: createBudget } = useCreateBudget({
@@ -70,11 +78,14 @@ const ConfigureAlerts: React.FC<StepProps<Budget & { perspective: string }> & Pr
       name: perspectiveName,
       alertThresholds: alertThresholds.filter(emptyThresholds),
       type,
+      period,
+      startTime,
+      growthRate: growthRate,
       budgetAmount: +budgetAmount,
       scope: {
         viewName: perspectiveName,
         type: 'PERSPECTIVE',
-        viewId
+        viewId: perspective
       }
     }
 

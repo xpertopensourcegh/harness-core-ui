@@ -94,7 +94,7 @@ const ReportsAndBudgets: React.FC<ReportsAndBudgetsProps> = ({ values, onPrevBut
           style={{ overflowY: 'auto' }}
         >
           <ScheduledReports />
-          <Budgets />
+          <Budgets perspectiveName={values?.name || ''} />
           <FlexExpander />
           <Layout.Horizontal padding={{ top: 'medium' }} spacing="large">
             <Button icon="chevron-left" text={getString('previous')} onClick={onPrevButtonClick} />
@@ -201,7 +201,7 @@ const useFetchBudget = (accountId: string, perspectiveId: string) => {
   return { budgets: data?.resource || [], loading, refetch }
 }
 
-const Budgets = (): JSX.Element => {
+const Budgets = ({ perspectiveName }: { perspectiveName: string }): JSX.Element => {
   const { getString } = useStrings()
   const { accountId, perspectiveId } = useParams<UrlParams>()
   const { mutate: deleteBudget } = useDeleteBudget({ queryParams: { accountIdentifier: accountId } })
@@ -303,7 +303,14 @@ const Budgets = (): JSX.Element => {
           </Text>
           <Container margin={{ right: 'large' }}>
             <RenderEditDeleteActions
-              onClickEdit={() => openModal({ isEdit: true, selectedBudget: budget })}
+              onClickEdit={() =>
+                openModal({
+                  perspectiveName: perspectiveName,
+                  perspective: perspectiveId,
+                  isEdit: true,
+                  selectedBudget: budget
+                })
+              }
               onClickDelete={handleDeleteBudget}
             />
           </Container>
@@ -321,6 +328,8 @@ const Budgets = (): JSX.Element => {
       onButtonClick={() =>
         openModal({
           isEdit: false,
+          perspectiveName: perspectiveName,
+          perspective: perspectiveId,
           selectedBudget: {
             lastMonthCost: lmc?.resource,
             forecastCost: fc?.resource

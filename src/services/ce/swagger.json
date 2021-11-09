@@ -10,6 +10,9 @@
       "name": "budgets"
     },
     {
+      "name": "business-mapping"
+    },
+    {
       "name": "yaml"
     },
     {
@@ -348,12 +351,12 @@
         }
       }
     },
-    "/yaml/cloudCostK8sClusterSetup": {
-      "post": {
-        "tags": ["yaml"],
-        "summary": "get k8s cluster setup yaml based on features enabled",
+    "/business-mapping/{id}": {
+      "get": {
+        "tags": ["business-mapping"],
+        "summary": "Get Business Mapping",
         "description": "",
-        "operationId": "cloudCostK8sClusterSetup",
+        "operationId": "getBusinessMapping",
         "produces": ["application/json"],
         "parameters": [
           {
@@ -363,7 +366,84 @@
             "type": "string"
           },
           {
-            "name": "accountId",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponseBusinessMapping"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["business-mapping"],
+        "summary": "Delete Business Mapping",
+        "description": "",
+        "operationId": "deleteBusinessMapping",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponseString"
+            }
+          }
+        }
+      }
+    },
+    "/business-mapping": {
+      "get": {
+        "tags": ["business-mapping"],
+        "summary": "Get List Of Business Mappings",
+        "description": "",
+        "operationId": "getBusinessMappingList",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponseListBusinessMapping"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["business-mapping"],
+        "summary": "Create Business Mapping",
+        "description": "",
+        "operationId": "createBusinessMapping",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
             "in": "query",
             "required": false,
             "type": "string"
@@ -373,13 +453,47 @@
             "name": "body",
             "required": false,
             "schema": {
-              "$ref": "#/definitions/K8sClusterSetupRequest"
+              "$ref": "#/definitions/BusinessMapping"
             }
           }
         ],
         "responses": {
-          "default": {
-            "description": "successful operation"
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponseBoolean"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["business-mapping"],
+        "summary": "Update Business Mapping",
+        "description": "",
+        "operationId": "updateBusinessMapping",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/BusinessMapping"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponseString"
+            }
           }
         }
       }
@@ -413,20 +527,32 @@
         "deprecated": true
       }
     },
-    "/connector/azureappclientid": {
-      "get": {
-        "tags": ["connector"],
-        "summary": "Get Azure application client Id",
+    "/yaml/cloudCostK8sClusterSetup": {
+      "post": {
+        "tags": ["yaml"],
+        "summary": "get k8s cluster setup yaml based on features enabled",
         "description": "",
-        "operationId": "azureappclientid",
+        "operationId": "cloudCostK8sClusterSetup",
         "produces": ["application/json"],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "successful operation",
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
             "schema": {
-              "$ref": "#/definitions/ResponseString"
+              "$ref": "#/definitions/K8sClusterSetupRequest"
             }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
           }
         }
       }
@@ -471,6 +597,24 @@
             "type": "string"
           }
         ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponseString"
+            }
+          }
+        }
+      }
+    },
+    "/connector/azureappclientid": {
+      "get": {
+        "tags": ["connector"],
+        "summary": "Get Azure application client Id",
+        "description": "",
+        "operationId": "azureappclientid",
+        "produces": ["application/json"],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "successful operation",
@@ -533,15 +677,11 @@
       "get": {
         "tags": ["graphql"],
         "operationId": "getSchema",
-        "produces": ["text/plain"],
+        "produces": ["application/json", "text/plain"],
         "parameters": [],
         "responses": {
-          "200": {
-            "description": "successful operation",
-            "headers": {},
-            "schema": {
-              "type": "string"
-            }
+          "default": {
+            "description": "successful operation"
           }
         }
       }
@@ -1096,9 +1236,17 @@
         },
         "type": {
           "type": "string",
-          "enum": ["SPECIFIED_AMOUNT", "PREVIOUS_MONTH_SPEND"]
+          "enum": ["SPECIFIED_AMOUNT", "PREVIOUS_MONTH_SPEND", "PREVIOUS_PERIOD_SPEND"]
         },
         "budgetAmount": {
+          "type": "number",
+          "format": "double"
+        },
+        "period": {
+          "type": "string",
+          "enum": ["DAILY", "WEEKLY", "MONTHLY", "QUARTERLY", "YEARLY"]
+        },
+        "growthRate": {
           "type": "number",
           "format": "double"
         },
@@ -1135,6 +1283,14 @@
         "notifyOnSlack": {
           "type": "boolean"
         },
+        "startTime": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "endTime": {
+          "type": "integer",
+          "format": "int64"
+        },
         "createdAt": {
           "type": "integer",
           "format": "int64"
@@ -1149,6 +1305,9 @@
       "type": "object",
       "discriminator": "type",
       "properties": {
+        "budgetScopeType": {
+          "type": "string"
+        },
         "entityIds": {
           "type": "array",
           "items": {
@@ -1160,9 +1319,6 @@
           "items": {
             "type": "string"
           }
-        },
-        "budgetScopeType": {
-          "type": "string"
         }
       }
     },
@@ -1212,6 +1368,8 @@
             "INVALID_ARGUMENT",
             "INVALID_EMAIL",
             "DOMAIN_NOT_ALLOWED_TO_REGISTER",
+            "COMMNITY_EDITION_NOT_FOUND",
+            "DEPLOY_MODE_IS_NOT_ON_PREM",
             "USER_ALREADY_REGISTERED",
             "USER_INVITATION_DOES_NOT_EXIST",
             "USER_DOES_NOT_EXIST",
@@ -1386,6 +1544,8 @@
             "USAGE_RESTRICTION_ERROR",
             "STATE_EXECUTION_INSTANCE_NOT_FOUND",
             "DELEGATE_TASK_RETRY",
+            "KUBERNETES_API_TASK_EXCEPTION",
+            "KUBERNETES_TASK_EXCEPTION",
             "KUBERNETES_YAML_ERROR",
             "SAVE_FILE_INTO_GCP_STORAGE_FAILED",
             "READ_FILE_FROM_GCP_STORAGE_FAILED",
@@ -1494,7 +1654,9 @@
             "JIRA_CLIENT_ERROR",
             "SCM_NOT_MODIFIED",
             "JIRA_STEP_ERROR",
-            "BUCKET_SERVER_ERROR"
+            "BUCKET_SERVER_ERROR",
+            "GIT_SYNC_ERROR",
+            "TEMPLATE_EXCEPTION"
           ]
         },
         "level": {
@@ -1736,6 +1898,238 @@
         }
       }
     },
+    "BusinessMapping": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 32
+        },
+        "accountId": {
+          "type": "string"
+        },
+        "costTargets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CostTarget"
+          }
+        },
+        "sharedCosts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SharedCost"
+          }
+        },
+        "createdAt": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "lastUpdatedAt": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "createdBy": {
+          "$ref": "#/definitions/EmbeddedUser"
+        },
+        "lastUpdatedBy": {
+          "$ref": "#/definitions/EmbeddedUser"
+        }
+      }
+    },
+    "CostTarget": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ViewRule"
+          }
+        }
+      }
+    },
+    "EmbeddedUser": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      }
+    },
+    "RestResponseBusinessMapping": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "$ref": "#/definitions/BusinessMapping"
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
+    "SharedCost": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ViewRule"
+          }
+        },
+        "strategy": {
+          "type": "string",
+          "enum": ["FIXED", "PROPORTIONAL"]
+        },
+        "splits": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SharedCostSplit"
+          }
+        }
+      }
+    },
+    "SharedCostSplit": {
+      "type": "object",
+      "properties": {
+        "costTargetName": {
+          "type": "string"
+        },
+        "percentageContribution": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "ViewCondition": {
+      "type": "object",
+      "discriminator": "type",
+      "properties": {
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "ViewField": {
+      "type": "object",
+      "properties": {
+        "fieldId": {
+          "type": "string"
+        },
+        "fieldName": {
+          "type": "string"
+        },
+        "identifier": {
+          "type": "string",
+          "enum": ["CLUSTER", "AWS", "GCP", "AZURE", "COMMON", "CUSTOM", "BUSINESS_MAPPING", "LABEL"]
+        },
+        "identifierName": {
+          "type": "string"
+        }
+      }
+    },
+    "ViewIdCondition": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/ViewCondition"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "viewField": {
+              "$ref": "#/definitions/ViewField"
+            },
+            "viewOperator": {
+              "type": "string",
+              "enum": ["IN", "NOT_IN", "NOT_NULL", "NULL"]
+            },
+            "values": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ViewRule": {
+      "type": "object",
+      "properties": {
+        "viewConditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ViewCondition"
+          }
+        }
+      }
+    },
+    "RestResponseListBusinessMapping": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BusinessMapping"
+          }
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
+    "RestResponseBoolean": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "type": "boolean"
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
     "K8sClusterSetupRequest": {
       "type": "object",
       "properties": {
@@ -1760,6 +2154,23 @@
         }
       }
     },
+    "AwsAccountConnectionDetail": {
+      "type": "object",
+      "properties": {
+        "externalId": {
+          "type": "string"
+        },
+        "harnessAccountId": {
+          "type": "string"
+        },
+        "cloudFormationTemplateLink": {
+          "type": "string"
+        },
+        "stackLaunchTemplateLink": {
+          "type": "string"
+        }
+      }
+    },
     "Response": {
       "type": "object",
       "properties": {
@@ -1778,41 +2189,6 @@
         }
       }
     },
-    "ResponseString": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "type": "string",
-          "enum": ["SUCCESS", "FAILURE", "ERROR"]
-        },
-        "data": {
-          "type": "string"
-        },
-        "metaData": {
-          "type": "object"
-        },
-        "correlationId": {
-          "type": "string"
-        }
-      }
-    },
-    "AwsAccountConnectionDetail": {
-      "type": "object",
-      "properties": {
-        "externalId": {
-          "type": "string"
-        },
-        "harnessAccountId": {
-          "type": "string"
-        },
-        "cloudFormationTemplateLink": {
-          "type": "string"
-        },
-        "stackLaunchTemplateLink": {
-          "type": "string"
-        }
-      }
-    },
     "ResponseAwsAccountConnectionDetail": {
       "type": "object",
       "properties": {
@@ -1822,6 +2198,24 @@
         },
         "data": {
           "$ref": "#/definitions/AwsAccountConnectionDetail"
+        },
+        "metaData": {
+          "type": "object"
+        },
+        "correlationId": {
+          "type": "string"
+        }
+      }
+    },
+    "ResponseString": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["SUCCESS", "FAILURE", "ERROR"]
+        },
+        "data": {
+          "type": "string"
         },
         "metaData": {
           "type": "object"
@@ -1953,24 +2347,6 @@
         }
       }
     },
-    "ViewField": {
-      "type": "object",
-      "properties": {
-        "fieldId": {
-          "type": "string"
-        },
-        "fieldName": {
-          "type": "string"
-        },
-        "identifier": {
-          "type": "string",
-          "enum": ["CLUSTER", "AWS", "GCP", "AZURE", "COMMON", "CUSTOM", "LABEL"]
-        },
-        "identifierName": {
-          "type": "string"
-        }
-      }
-    },
     "CEView": {
       "type": "object",
       "properties": {
@@ -2001,7 +2377,7 @@
           "type": "array",
           "items": {
             "type": "string",
-            "enum": ["CLUSTER", "AWS", "GCP", "AZURE", "COMMON", "CUSTOM", "LABEL"]
+            "enum": ["CLUSTER", "AWS", "GCP", "AZURE", "COMMON", "CUSTOM", "BUSINESS_MAPPING", "LABEL"]
           }
         },
         "viewVisualization": {
@@ -2032,65 +2408,6 @@
         },
         "lastUpdatedBy": {
           "$ref": "#/definitions/EmbeddedUser"
-        }
-      }
-    },
-    "EmbeddedUser": {
-      "type": "object",
-      "properties": {
-        "uuid": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        }
-      }
-    },
-    "ViewCondition": {
-      "type": "object",
-      "discriminator": "type",
-      "properties": {
-        "type": {
-          "type": "string"
-        }
-      }
-    },
-    "ViewIdCondition": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/ViewCondition"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "viewField": {
-              "$ref": "#/definitions/ViewField"
-            },
-            "viewOperator": {
-              "type": "string",
-              "enum": ["IN", "NOT_IN", "NOT_NULL", "NULL"]
-            },
-            "values": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          }
-        }
-      ]
-    },
-    "ViewRule": {
-      "type": "object",
-      "properties": {
-        "viewConditions": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ViewCondition"
-          }
         }
       }
     },

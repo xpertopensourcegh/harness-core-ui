@@ -1,6 +1,7 @@
 query FetchBudget {
   budgetList {
     id
+    uuid: id
     name
     budgetAmount
     actualCost
@@ -10,5 +11,6 @@ query FetchBudget {
     actualCostAlerts
     forecastCostAlerts
     forecastCost
+    perspectiveId
   }
 }

@@ -74,7 +74,7 @@ const BudgetMenu: (props: BudgetMenuProps) => JSX.Element = ({ onEdit, onDelete 
 interface BudgetsListProps {
   budgetData: BudgetSummary[]
   handleDeleteBudget: (id: string) => void
-  handleEditBudget: (id: string) => void
+  handleEditBudget: (budget: BudgetSummary) => void
   navigateToBudgetDetailsPage: (id: string, name: string) => void
 }
 
@@ -135,13 +135,14 @@ const BudgetsList: (props: BudgetsListProps) => JSX.Element | null = ({
 
   const MenuCell: Renderer<CellProps<BudgetSummary>> = ({ row }) => {
     const budgetId = row.original.id
+    const budget = row.original
 
     const onDelete: () => void = () => {
       budgetId && handleDeleteBudget(budgetId)
     }
 
     const onEdit: () => void = () => {
-      budgetId && handleEditBudget(budgetId)
+      budgetId && handleEditBudget(budget)
     }
 
     return <BudgetMenu onDelete={onDelete} onEdit={onEdit} />
@@ -199,6 +200,9 @@ const Budgets: () => JSX.Element = () => {
   const { openModal, hideModal } = useBudgetModal({
     onSuccess: () => {
       hideModal()
+      refetchBudget({
+        requestPolicy: 'network-only'
+      })
     }
   })
 
@@ -215,13 +219,11 @@ const Budgets: () => JSX.Element = () => {
     }
   }
 
-  const handleEditBudget: (id: string) => void = () => {
+  const handleEditBudget: (budget: BudgetSummary) => void = budget => {
     openModal({
       isEdit: true,
-      selectedBudget: {
-        lastMonthCost: 0,
-        forecastCost: 0
-      }
+      perspective: budget.perspectiveId,
+      selectedBudget: budget
     })
   }
 

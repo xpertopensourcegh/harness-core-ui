@@ -81,6 +81,14 @@ jest.mock('services/ce', () => ({
       }
     }
   })),
+  useCreatePerspective: jest.fn().mockImplementation(() => ({
+    mutate: async () => {
+      return {
+        status: 'SUCCESS',
+        data: {}
+      }
+    }
+  })),
   useGetLastMonthCost: jest.fn().mockImplementation(() => ({
     data: { resource: 100 },
     refetch: jest.fn(),

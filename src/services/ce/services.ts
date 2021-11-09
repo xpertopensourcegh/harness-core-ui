@@ -106,6 +106,7 @@ export const FetchBudgetSummaryDocument = gql`
   query FetchBudgetSummary($id: String!) {
     budgetSummary(budgetId: $id) {
       id
+      uuid: id
       name
       budgetAmount
       actualCost
@@ -115,6 +116,7 @@ export const FetchBudgetSummaryDocument = gql`
       actualCostAlerts
       forecastCostAlerts
       forecastCost
+      perspectiveId
     }
   }
 `
@@ -128,6 +130,7 @@ export const FetchBudgetDocument = gql`
   query FetchBudget {
     budgetList {
       id
+      uuid: id
       name
       budgetAmount
       actualCost
@@ -137,6 +140,7 @@ export const FetchBudgetDocument = gql`
       actualCostAlerts
       forecastCostAlerts
       forecastCost
+      perspectiveId
     }
   }
 `
@@ -1082,6 +1086,8 @@ export type FetchBudgetSummaryQuery = {
     actualCostAlerts: Array<Maybe<number>>
     forecastCostAlerts: Array<Maybe<number>>
     forecastCost: number
+    perspectiveId: string
+    uuid: string
   }>
 }
 
@@ -1103,6 +1109,8 @@ export type FetchBudgetQuery = {
         actualCostAlerts: Array<Maybe<number>>
         forecastCostAlerts: Array<Maybe<number>>
         forecastCost: number
+        perspectiveId: string
+        uuid: string
       }>
     >
   >
@@ -2006,6 +2014,7 @@ export type BudgetSummary = {
   forecastCostAlerts: Array<Maybe<Scalars['Float']>>
   id: Scalars['String']
   name: Scalars['String']
+  perspectiveId: Scalars['String']
   timeLeft: Scalars['Int']
   timeScope: Scalars['String']
   timeUnit: Scalars['String']
@@ -2763,6 +2772,7 @@ export enum ViewChartType {
 export enum ViewFieldIdentifier {
   Aws = 'AWS',
   Azure = 'AZURE',
+  BusinessMapping = 'BUSINESS_MAPPING',
   Cluster = 'CLUSTER',
   Common = 'COMMON',
   Custom = 'CUSTOM',
