@@ -11,7 +11,8 @@ const ExactSharedPackages = [
   '@wings-software/uicore',
   '@blueprintjs/core',
   '@blueprintjs/select',
-  '@blueprintjs/datetime'
+  '@blueprintjs/datetime',
+  'restful-react'
 ]
 
 module.exports = ({ enableGitOpsUI, enableGovernance }) => {

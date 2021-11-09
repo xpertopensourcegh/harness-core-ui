@@ -1,6 +1,6 @@
 {
   "name": "@wings-software/microfrontends",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "description": "",
   "types": "dist/microfrontends/index.d.ts",
   "main": "dist/microfrontends/index.js",

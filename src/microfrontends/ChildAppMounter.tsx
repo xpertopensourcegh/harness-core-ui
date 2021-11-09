@@ -8,6 +8,8 @@ import { PageSpinner } from '@common/components'
 import RbacButton from '@rbac/components/Button/Button'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
+import MonacoEditor from '@common/components/MonacoEditor/MonacoEditor'
+import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 
 import ChildAppError from './ChildAppError'
 import type { ChildAppProps, Scope } from './index'
@@ -52,7 +54,9 @@ export class ChildAppMounter extends React.Component<ChildAppMounterProps, Child
           }}
           components={{
             RbacButton,
-            NGBreadcrumbs
+            NGBreadcrumbs,
+            MonacoEditor,
+            YAMLBuilder
           }}
           hooks={{
             useDocumentTitle
