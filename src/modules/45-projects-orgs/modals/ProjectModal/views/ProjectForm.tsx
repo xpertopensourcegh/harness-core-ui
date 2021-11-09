@@ -14,7 +14,8 @@ import {
   ModalErrorHandlerBinding,
   ButtonVariation,
   IconName,
-  FontVariation
+  FontVariation,
+  Heading
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { DescriptionTags } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
@@ -94,9 +95,9 @@ const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
               <Layout.Vertical width={displayProjectCardPreview ? '50%' : '100%'} padding="xxlarge">
                 <Container style={{ minHeight: '450px' }}>
                   <Layout.Horizontal padding={{ bottom: 'large' }}>
-                    <Text font={{ variation: FontVariation.H3 }} color={Color.BLACK}>
+                    <Heading level={3} font={{ variation: FontVariation.H3 }}>
                       {title}
-                    </Text>
+                    </Heading>
                   </Layout.Horizontal>
                   <ModalErrorHandler bind={setModalErrorHandler} style={{ padding: '5px 10px' }} />
                   <FormInput.InputWithIdentifier isIdentifierEditable={enableEdit} />

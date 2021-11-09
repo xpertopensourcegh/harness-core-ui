@@ -132,28 +132,23 @@ const ProjectDetails: React.FC = () => {
               flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
             >
               <div className={css.colorBar} style={{ backgroundColor: projectData.color }} />
-              <Text font={{ variation: FontVariation.SMALL_SEMI }} color={Color.GREY_500} lineClamp={1}>
+              <Text color={Color.GREY_600} font={{ variation: FontVariation.SMALL }} lineClamp={1}>
                 {getString('idLabel', { id: projectData.identifier })}
               </Text>
               <div className={css.divider} />
-              <Text font={{ variation: FontVariation.SMALL_SEMI }} color={Color.GREY_500} lineClamp={1}>
+              <Text color={Color.GREY_600} font={{ variation: FontVariation.SMALL }} lineClamp={1}>
                 {`${getString('orgLabel')}: ${projectData.orgIdentifier}`}
               </Text>
               <div className={css.divider} />
               {data?.data?.projectResponse.lastModifiedAt ? (
-                <Text color={Color.GREY_500} font={{ variation: FontVariation.SMALL_SEMI }}>
+                <Text color={Color.GREY_600} font={{ variation: FontVariation.SMALL }}>
                   {`${getString('common.modified')} `}
                   <ReactTimeago date={data?.data?.projectResponse.lastModifiedAt} />
                 </Text>
               ) : null}
             </Layout.Horizontal>
             <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
-              <Text
-                font={{ size: 'medium', weight: 'semi-bold' }}
-                color={Color.GREY_800}
-                lineClamp={1}
-                padding={{ right: 'xlarge' }}
-              >
+              <Text font={{ variation: FontVariation.H4 }} lineClamp={1} padding={{ right: 'xlarge' }}>
                 {projectData.name}
               </Text>
             </Layout.Horizontal>

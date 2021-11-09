@@ -17,7 +17,9 @@ import {
   ModalErrorHandler,
   ButtonVariation,
   Label,
-  DropDown
+  DropDown,
+  Heading,
+  FontVariation
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import * as Yup from 'yup'
@@ -170,9 +172,9 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
           <Form>
             <ModalErrorHandler bind={setModalErrorHandler} />
             <Container className={css.collaboratorForm}>
-              <Text font="medium" color={Color.BLACK} padding={{ bottom: 'xxlarge' }}>
+              <Heading level={3} font={{ variation: FontVariation.H3 }} padding={{ bottom: 'xxlarge' }}>
                 {getString('projectsOrgs.invite')}
-              </Text>
+              </Heading>
               <Label>
                 {projectIdentifier
                   ? getString('projectsOrgs.urlMessageProject')

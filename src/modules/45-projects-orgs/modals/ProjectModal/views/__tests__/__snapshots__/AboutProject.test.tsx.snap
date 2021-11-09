@@ -23,11 +23,12 @@ exports[`About Project test create project  1`] = `
               <div
                 class="Layout--horizontal StyledProps--main StyledProps--padding-bottom-large"
               >
-                <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--color StyledProps--color-black"
+                <h3
+                  class="StyledProps--font StyledProps--font-h3 StyledProps--main StyledProps--font-variation-h3"
+                  level="3"
                 >
                   projectsOrgs.aboutProject
-                </p>
+                </h3>
               </div>
               <div
                 class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -436,11 +437,12 @@ exports[`About Project test create project  2`] = `
               <div
                 class="Layout--horizontal StyledProps--main StyledProps--padding-bottom-large"
               >
-                <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--color StyledProps--color-black"
+                <h3
+                  class="StyledProps--font StyledProps--font-h3 StyledProps--main StyledProps--font-variation-h3"
+                  level="3"
                 >
                   projectsOrgs.aboutProject
-                </p>
+                </h3>
               </div>
               <div
                 class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -951,11 +953,12 @@ exports[`About Project test edit project  1`] = `
               <div
                 class="Layout--horizontal StyledProps--main StyledProps--padding-bottom-large"
               >
-                <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--color StyledProps--color-black"
+                <h3
+                  class="StyledProps--font StyledProps--font-h3 StyledProps--main StyledProps--font-variation-h3"
+                  level="3"
                 >
                   projectsOrgs.projectEdit
-                </p>
+                </h3>
               </div>
               <div
                 class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -1285,11 +1288,12 @@ exports[`About Project test edit project  2`] = `
               <div
                 class="Layout--horizontal StyledProps--main StyledProps--padding-bottom-large"
               >
-                <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--color StyledProps--color-black"
+                <h3
+                  class="StyledProps--font StyledProps--font-h3 StyledProps--main StyledProps--font-variation-h3"
+                  level="3"
                 >
                   projectsOrgs.projectEdit
-                </p>
+                </h3>
               </div>
               <div
                 class="InputWithIdentifier--txtNameContainer TextInput--main"

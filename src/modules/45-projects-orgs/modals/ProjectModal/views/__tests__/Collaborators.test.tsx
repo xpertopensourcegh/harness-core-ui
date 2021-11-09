@@ -59,11 +59,11 @@ describe('Collaborators test', () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
     await act(async () => {
-      const refresh = container.querySelectorAll('[icon="refresh"]')[0]
+      const refresh = container.querySelectorAll('[icon="repeat"]')[0]
       fireEvent.click(refresh)
     })
     await act(async () => {
-      const deleteInvite = container.querySelectorAll('[data-icon="remove"]')[0]
+      const deleteInvite = container.querySelectorAll('[icon="trash"]')[0]
       fireEvent.click(deleteInvite)
     })
   })

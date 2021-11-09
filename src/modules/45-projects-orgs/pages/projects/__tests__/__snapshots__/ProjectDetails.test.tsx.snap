@@ -103,7 +103,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
             style="background-color: rgb(0, 99, 247);"
           />
           <p
-            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-small-semi StyledProps--color StyledProps--color-grey500"
+            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-variation-small"
             style="--text-line-clamp: 1;"
           >
             idLabel
@@ -112,7 +112,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
             class="divider"
           />
           <p
-            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-small-semi StyledProps--color StyledProps--color-grey500"
+            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-variation-small"
             style="--text-line-clamp: 1;"
           >
             orgLabel: testOrg
@@ -125,7 +125,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
           class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
         >
           <p
-            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey800 StyledProps--padding-right-xlarge"
+            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-h4 StyledProps--padding-right-xlarge"
             style="--text-line-clamp: 1;"
           >
             dummy name
@@ -938,7 +938,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
             style="background-color: rgb(0, 99, 247);"
           />
           <p
-            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-small-semi StyledProps--color StyledProps--color-grey500"
+            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-variation-small"
             style="--text-line-clamp: 1;"
           >
             idLabel
@@ -947,7 +947,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
             class="divider"
           />
           <p
-            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-small-semi StyledProps--color StyledProps--color-grey500"
+            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-variation-small"
             style="--text-line-clamp: 1;"
           >
             orgLabel: testOrg
@@ -960,7 +960,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
           class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
         >
           <p
-            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey800 StyledProps--padding-right-xlarge"
+            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-h4 StyledProps--padding-right-xlarge"
             style="--text-line-clamp: 1;"
           >
             dummy name

@@ -54,7 +54,7 @@ urlMessageOrg: "Your organization is only accessible to people you've invited"
 inviteCollab: 'Invite People to Collaborate'
 collaborator: 'collaborators'
 roleLabel: 'Role :'
-pendingUsers: People Waiting to be Processed '{{name}}'
+pendingUsers: People Waiting to be processed ({{name}})
 manageProject: 'Manage all the users in the project'
 manageOrg: 'Manage all the users in the organization'
 notAvailableForBeta: 'Not available for Beta'
@@ -114,3 +114,5 @@ whyCreateProject: Why create a project?
 createProjectMessage: 'Organize your pipelines, services, infrastructure and shared resources like Connectors, Secrets and Delegates all in one place. Invite teams, collaborate on software delivery processes using the Harness modules.'
 multipleOrganizations: multiple Organizations
 multipleProjects: multiple Projects
+deleteInvitation: Delete Invitation
+resendInvitation: Resend Invitation

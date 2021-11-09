@@ -1855,6 +1855,7 @@ export interface StringsMap {
   'projectsOrgs.createProject': string
   'projectsOrgs.createProjectLoader': string
   'projectsOrgs.createProjectMessage': string
+  'projectsOrgs.deleteInvitation': string
   'projectsOrgs.editTitle': string
   'projectsOrgs.enableModules': string
   'projectsOrgs.getStarted': string
@@ -1935,6 +1936,7 @@ export interface StringsMap {
   'projectsOrgs.purposeList.verification': string
   'projectsOrgs.recentActivities': string
   'projectsOrgs.requestAccess': string
+  'projectsOrgs.resendInvitation': string
   'projectsOrgs.roleAssigned': string
   'projectsOrgs.roleLabel': string
   'projectsOrgs.saveAndClose': string

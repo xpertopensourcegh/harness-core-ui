@@ -1,7 +1,17 @@
 import React, { useState } from 'react'
 import cx from 'classnames'
 import { Menu } from '@blueprintjs/core'
-import { SelectOption, Layout, Color, Text, Button, Avatar, Container } from '@wings-software/uicore'
+import {
+  SelectOption,
+  Layout,
+  Color,
+  Text,
+  Button,
+  Avatar,
+  Container,
+  FontVariation,
+  ButtonVariation
+} from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { Select } from '@blueprintjs/select'
 import { useToaster } from '@common/exports'
@@ -87,7 +97,7 @@ const InviteListRenderer: React.FC<InviteListProps> = props => {
                 <Text font={{ size: 'xsmall', weight: 'bold' }} color={Color.BLACK}>
                   {getString('projectsOrgs.roleAssigned')}
                 </Text>
-                <Text font="xsmall" color={Color.BLUE_600} className={css.role} lineClamp={1}>
+                <Text font={{ variation: FontVariation.TINY }} className={css.role} lineClamp={1}>
                   {user.roleBindings[0]?.roleName}
                 </Text>
               </Layout.Horizontal>
@@ -96,13 +106,27 @@ const InviteListRenderer: React.FC<InviteListProps> = props => {
           <Layout.Horizontal width="40%" padding={{ right: 'medium' }} className={cx(css.align, css.toEnd)}>
             <Button
               inline
-              minimal
-              icon="refresh"
+              variation={ButtonVariation.ICON}
+              icon="repeat"
+              tooltip={getString('projectsOrgs.resendInvitation')}
+              tooltipProps={{
+                isDark: true
+              }}
               onClick={() => {
                 handleUpdate(InviteType.ADMIN_INITIATED)
               }}
             />
-            <Button inline minimal icon="remove" iconProps={{ size: 20 }} onClick={handleDelete} />
+            <Button
+              inline
+              variation={ButtonVariation.ICON}
+              tooltip={getString('projectsOrgs.deleteInvitation')}
+              tooltipProps={{
+                isDark: true
+              }}
+              icon="trash"
+              iconProps={{ size: 20 }}
+              onClick={handleDelete}
+            />
           </Layout.Horizontal>
         </Layout.Horizontal>
       ) : (
