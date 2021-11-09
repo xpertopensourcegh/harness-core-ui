@@ -191,7 +191,8 @@ describe('Unit tests for createting monitored source', () => {
           },
           refetch: jest.fn(),
           error: null,
-          loading: false
+          loading: false,
+          cancel: jest.fn()
         } as any)
     )
     const { container, getByText, getAllByRole } = render(

@@ -72,9 +72,13 @@ export default function AnomaliesCard(props: AnomaliesCardProps): JSX.Element {
   const momentTimeformat = getTimeFormatMoment(timeFormat)
 
   useEffect(() => {
-    if (timeRange?.startTime || timeRange?.endTime) {
+    if ((timeRange?.startTime || timeRange?.endTime) && monitoredServiceIdentifier) {
       fetchAnomaliesData({
-        queryParams: { ...queryParams, startTime: timeRange?.startTime, endTime: timeRange?.endTime }
+        queryParams: {
+          ...queryParams,
+          startTime: timeRange?.startTime as number,
+          endTime: timeRange?.endTime as number
+        }
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -136,7 +140,6 @@ export default function AnomaliesCard(props: AnomaliesCardProps): JSX.Element {
     isLogsAnomaliesAvailable,
     isTimeSeriesAnomaliesAvailable
   ])
-
   const renderChangesData = useCallback(() => {
     const allZero = changeTimelineSummary?.every(item => item.count === 0)
     return !allZero ? (

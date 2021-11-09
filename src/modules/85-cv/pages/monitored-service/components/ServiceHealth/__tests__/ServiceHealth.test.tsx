@@ -91,7 +91,8 @@ jest.mock('services/cv', () => ({
       data: {},
       refetch: jest.fn(),
       error: null,
-      loading: false
+      loading: false,
+      cancel: jest.fn()
     }
   })
 }))

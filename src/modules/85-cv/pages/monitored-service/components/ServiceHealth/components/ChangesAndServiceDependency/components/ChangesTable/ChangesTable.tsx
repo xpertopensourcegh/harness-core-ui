@@ -25,7 +25,11 @@ export default function ChangesTable({
   endTime,
   hasChangeSource,
   serviceIdentifier,
-  environmentIdentifier
+  environmentIdentifier,
+  customCols,
+  changeCategories,
+  changeSourceTypes,
+  recordsPerPage
 }: ChangesTableInterface): JSX.Element {
   const [page, setPage] = useState(0)
   const { getString } = useStrings()
@@ -42,8 +46,8 @@ export default function ChangesTable({
     createDrawerContent: props => (
       <ChangeEventCard
         activityId={props.id}
-        serviceIdentifier={serviceIdentifier}
-        environmentIdentifier={environmentIdentifier}
+        serviceIdentifier={Array.isArray(serviceIdentifier) ? serviceIdentifier[0] : serviceIdentifier}
+        environmentIdentifier={Array.isArray(environmentIdentifier) ? environmentIdentifier[0] : environmentIdentifier}
       />
     ),
     drawerOptions
@@ -55,17 +59,25 @@ export default function ChangesTable({
 
   const changeEventListQueryParams = useMemo(() => {
     return {
-      serviceIdentifiers: [serviceIdentifier],
-      envIdentifiers: [environmentIdentifier],
+      serviceIdentifiers: Array.isArray(serviceIdentifier) ? serviceIdentifier : [serviceIdentifier],
+      envIdentifiers: Array.isArray(environmentIdentifier) ? environmentIdentifier : [environmentIdentifier],
+      changeSourceTypes: changeSourceTypes || [],
+      changeCategories: changeCategories || [],
       startTime,
       endTime,
       pageIndex: page,
-      pageSize: PAGE_SIZE,
-      // Need to remove once these made as optional from BE
-      changeCategories: [],
-      changeSourceTypes: []
+      pageSize: recordsPerPage || PAGE_SIZE
     }
-  }, [endTime, environmentIdentifier, serviceIdentifier, startTime, page])
+  }, [
+    endTime,
+    recordsPerPage,
+    environmentIdentifier,
+    serviceIdentifier,
+    startTime,
+    changeSourceTypes,
+    changeCategories,
+    page
+  ])
 
   const changeEventListPathParams = useMemo(() => {
     return { accountIdentifier: accountId, projectIdentifier, orgIdentifier }
@@ -95,39 +107,40 @@ export default function ChangesTable({
   }, [startTime, endTime, page])
 
   const columns: Column<any>[] = useMemo(
-    () => [
-      {
-        Header: getString('timeLabel'),
-        Cell: renderTime,
-        accessor: 'eventTime',
-        width: '15%'
-      },
-      {
-        Header: getString('name'),
-        Cell: renderName,
-        accessor: 'name',
-        width: '30%'
-      },
-      {
-        Header: getString('cv.monitoredServices.changesTable.impact'),
-        Cell: renderImpact,
-        accessor: 'serviceIdentifier',
-        width: '20%'
-      },
-      {
-        Header: getString('source'),
-        Cell: renderType,
-        accessor: 'type',
-        width: '20%'
-      },
-      {
-        Header: getString('typeLabel'),
-        width: '15%',
-        accessor: 'category',
-        Cell: renderChangeType
-      }
-    ],
-    [content]
+    () =>
+      customCols || [
+        {
+          Header: getString('timeLabel'),
+          Cell: renderTime,
+          accessor: 'eventTime',
+          width: '15%'
+        },
+        {
+          Header: getString('name'),
+          Cell: renderName,
+          accessor: 'name',
+          width: '30%'
+        },
+        {
+          Header: getString('cv.monitoredServices.changesTable.impact'),
+          Cell: renderImpact,
+          accessor: 'serviceIdentifier',
+          width: '20%'
+        },
+        {
+          Header: getString('source'),
+          Cell: renderType,
+          accessor: 'type',
+          width: '20%'
+        },
+        {
+          Header: getString('typeLabel'),
+          width: '15%',
+          accessor: 'category',
+          Cell: renderChangeType
+        }
+      ],
+    [customCols, content]
   )
 
   const renderContent = () => {
@@ -148,15 +161,16 @@ export default function ChangesTable({
               onClick={() =>
                 refetch({
                   queryParams: {
-                    serviceIdentifiers: [serviceIdentifier],
-                    envIdentifiers: [environmentIdentifier],
+                    serviceIdentifiers: Array.isArray(serviceIdentifier) ? serviceIdentifier : [serviceIdentifier],
+                    envIdentifiers: Array.isArray(environmentIdentifier)
+                      ? environmentIdentifier
+                      : [environmentIdentifier],
+                    changeSourceTypes: changeSourceTypes || [],
+                    changeCategories: changeCategories || [],
                     startTime,
                     endTime,
                     pageIndex: page,
-                    pageSize: defaultPageSize,
-                    // Need to remove once these made as optional from BE
-                    changeCategories: [],
-                    changeSourceTypes: []
+                    pageSize: defaultPageSize
                   }
                 })
               }

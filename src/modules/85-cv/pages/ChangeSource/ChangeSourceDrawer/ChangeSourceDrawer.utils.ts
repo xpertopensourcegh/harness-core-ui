@@ -178,7 +178,6 @@ export const buildInitialData = (categoryOptions: SelectOption[]): UpdatedChange
     enabled: true
   }
 }
-
 export const preSelectChangeSourceConnectorOnCategoryChange = (categoryName: string): string => {
   switch (categoryName) {
     case ChangeSourceCategoryName.ALERT:

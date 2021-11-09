@@ -25,6 +25,20 @@ export const getTimePeriods = (getString: UseStringsReturn['getString']): Select
   ]
 }
 
+export const getTimestampsForPeriodWithoutRiskData = (selectedTimePeriod: string): number[] => {
+  const timestamps = []
+  const intervalInHrs = getTimeInHrs(selectedTimePeriod) / NUMBER_OF_DATA_POINTS
+  let endTime = Date.now()
+  timestamps.push(endTime)
+
+  for (let i = 1; i < NUMBER_OF_DATA_POINTS; i++) {
+    endTime -= intervalInHrs * 60 * 60000
+    timestamps.push(endTime)
+  }
+
+  return timestamps.reverse()
+}
+
 export const getTimestampsForPeriod = (riskData?: RiskData[]): number[] => {
   if (!riskData?.length) return []
   const timestamps: number[] = []

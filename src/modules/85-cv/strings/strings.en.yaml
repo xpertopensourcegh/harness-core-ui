@@ -731,3 +731,8 @@ slos:
       validRequestsMetrics: Metric for valid requests
       selectMetric1: Select metric 1
       selectMetric2: Select metric 2
+cvChanges:
+  changeTypeFilterDefault: 'Change Types'
+  sourceFilterDefault: 'Sources'
+  changesTimeline: 'Changes TimeLine'
+  monitoredSVC: 'Monitored SVC'

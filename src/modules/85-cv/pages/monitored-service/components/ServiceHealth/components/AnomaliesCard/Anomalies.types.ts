@@ -1,5 +1,5 @@
 import type { ChangesInfoCardData } from '@cv/components/ChangeTimeline/ChangeTimeline.types'
-import type { RiskData } from 'services/cv'
+import type { RiskData, TimeRangeParams } from 'services/cv'
 
 export interface IsAnomaliesDataAvailable {
   isTimeSeriesAnomaliesAvailable: boolean
@@ -9,7 +9,7 @@ export interface IsAnomaliesDataAvailable {
 }
 
 export interface AnomaliesCardProps {
-  timeRange?: { startTime: number; endTime: number }
+  timeRange?: TimeRangeParams
   lowestHealthScoreBarForTimeRange?: RiskData
   timeFormat: string
   serviceIdentifier?: string

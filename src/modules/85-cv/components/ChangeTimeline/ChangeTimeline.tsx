@@ -7,6 +7,7 @@ import { useChangeEventTimeline } from 'services/cv'
 import type { ChangeTimelineProps } from './ChangeTimeline.types'
 import { Timeline } from './components/Timeline/Timeline'
 import { ChangeSourceTypes } from './ChangeTimeline.constants'
+
 import {
   createChangeInfoCardData,
   createNoDataMessage,
@@ -18,9 +19,18 @@ import ChangeTimelineError from './components/ChangeTimelineError/ChangeTimeline
 export default function ChangeTimeline(props: ChangeTimelineProps): JSX.Element {
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
-  const { serviceIdentifier, environmentIdentifier, startTime, endTime, selectedTimePeriod, onSliderMoved } = props
+  const {
+    serviceIdentifier,
+    environmentIdentifier,
+    startTime,
+    endTime,
+    selectedTimePeriod,
+    onSliderMoved,
+    changeCategories,
+    changeSourceTypes
+  } = props
 
-  const { data, refetch, loading, error } = useChangeEventTimeline({
+  const { data, refetch, loading, error, cancel } = useChangeEventTimeline({
     lazy: true,
     accountIdentifier: accountId,
     projectIdentifier,
@@ -33,21 +43,29 @@ export default function ChangeTimeline(props: ChangeTimelineProps): JSX.Element 
   )
 
   useEffect(() => {
+    cancel()
     refetch({
       queryParams: {
-        serviceIdentifiers: [serviceIdentifier],
-        envIdentifiers: [environmentIdentifier],
+        serviceIdentifiers: Array.isArray(serviceIdentifier) ? serviceIdentifier : [serviceIdentifier],
+        envIdentifiers: Array.isArray(environmentIdentifier) ? environmentIdentifier : [environmentIdentifier],
+        changeCategories: changeCategories || [],
+        changeSourceTypes: changeSourceTypes || [],
         startTime: startTimeRoundedOffToNearest30min,
-        endTime: endTimeRoundedOffToNearest30min,
-        // Need to remove once these made as optional from BE
-        changeCategories: [],
-        changeSourceTypes: []
+        endTime: endTimeRoundedOffToNearest30min
       },
       queryParamStringifyOptions: {
         arrayFormat: 'repeat'
       }
     })
-  }, [startTimeRoundedOffToNearest30min, endTimeRoundedOffToNearest30min, serviceIdentifier, environmentIdentifier])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    startTimeRoundedOffToNearest30min,
+    endTimeRoundedOffToNearest30min,
+    changeCategories,
+    changeSourceTypes,
+    serviceIdentifier,
+    environmentIdentifier
+  ])
 
   const { categoryTimeline } = data?.resource || {}
   const { Deployment, Infrastructure, Alert } = categoryTimeline || {}
@@ -64,6 +82,7 @@ export default function ChangeTimeline(props: ChangeTimelineProps): JSX.Element 
     if (changeInfoCardData.length) {
       onSliderMoved?.(changeInfoCardData)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startTime, endTime, Deployment, Infrastructure, Alert])
 
   if (error) {

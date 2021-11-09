@@ -1,5 +1,5 @@
 import { get } from 'lodash-es'
-import { Color, Utils, Views, SelectOption } from '@wings-software/uicore'
+import { Color, Utils, Views, SelectOption, MultiSelectOption } from '@wings-software/uicore'
 import type { UseStringsReturn } from 'framework/strings'
 import type { ResponseListEnvironmentResponse, EnvironmentResponse } from 'services/cd-ng'
 import type { StringsMap } from 'stringTypes'
@@ -118,4 +118,8 @@ export const getCVMonitoringServicesSearchParam = ({ view, tab }: GetCVMonitorin
   }
 
   return searchParam
+}
+
+export const prepareFilterInfo = (data?: MultiSelectOption[]): Array<string | number> => {
+  return data ? data.map((d: MultiSelectOption) => d.value as string) : []
 }

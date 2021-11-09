@@ -4084,6 +4084,10 @@ export interface StringsMap {
   'cv.continuous': string
   'cv.copyURL': string
   'cv.currentProductionRisk': string
+  'cv.cvChanges.changeTypeFilterDefault': string
+  'cv.cvChanges.changesTimeline': string
+  'cv.cvChanges.monitoredSVC': string
+  'cv.cvChanges.sourceFilterDefault': string
   'cv.cvTrialHomePage.startTrial.description': string
   'cv.cvTrialHomePage.startTrial.startBtn.description': string
   'cv.dashboard.createProject': string

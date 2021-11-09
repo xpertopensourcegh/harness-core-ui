@@ -20,7 +20,8 @@ jest.mock('services/cv', () => ({
       },
       refetch: jest.fn(),
       error: null,
-      loading: false
+      loading: false,
+      cancel: jest.fn()
     }
   })
 }))
@@ -60,7 +61,8 @@ describe('Render ChangeTimeline', () => {
               message: 'api call failed'
             }
           },
-          loading: false
+          loading: false,
+          cancel: jest.fn()
         } as any)
     )
     const { container } = render(<WrapperComponent {...defaultProps} />)
@@ -74,7 +76,8 @@ describe('Render ChangeTimeline', () => {
           data: {},
           refetch: jest.fn(),
           error: null,
-          loading: true
+          loading: true,
+          cancel: jest.fn()
         } as any)
     )
     const { container } = render(<WrapperComponent {...defaultProps} />)

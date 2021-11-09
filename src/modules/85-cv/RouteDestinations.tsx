@@ -60,6 +60,7 @@ import { PubSubPipelineActions } from '@pipeline/factories/PubSubPipelineAction'
 import { PipelineActions } from '@pipeline/factories/PubSubPipelineAction/types'
 import { inputSetTemplatePromise } from 'services/cv'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
+import { CVChanges } from '@cv/pages/changes/CVChanges'
 import CVTrialHomePage from './pages/home/CVTrialHomePage'
 import { editParams } from './utils/routeUtils'
 import CVSLOsListingPage from './pages/slos/CVSLOsListingPage'
@@ -158,6 +159,15 @@ export default (
     >
       <CVMonitoredService />
     </RouteWithLayout>
+
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toCVChanges({ ...accountPathProps, ...projectPathProps, module: ':module(cv)' })}
+    >
+      <CVChanges />
+    </RouteWithLayout>
+
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}
