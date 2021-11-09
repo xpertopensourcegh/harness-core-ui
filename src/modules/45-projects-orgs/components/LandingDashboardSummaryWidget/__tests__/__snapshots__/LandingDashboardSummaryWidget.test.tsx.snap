@@ -196,14 +196,14 @@ exports[`LandingDashboard At a Glance LandingDashboard rendering 1`] = `
             class="Layout--horizontal StyledProps--main topProjectsWrapper"
           >
             <div
-              class="table overviewSummary"
+              class="ReactTable--table overviewSummary"
             >
               <div
-                class="header minimal"
+                class="ReactTable--header ReactTable--minimal"
                 role="row"
               >
                 <div
-                  class="cell"
+                  class="ReactTable--cell"
                   colspan="1"
                   role="columnheader"
                   style="width: 40%;"
@@ -215,7 +215,7 @@ exports[`LandingDashboard At a Glance LandingDashboard rendering 1`] = `
                   </p>
                 </div>
                 <div
-                  class="cell"
+                  class="ReactTable--cell"
                   colspan="1"
                   role="columnheader"
                   style="width: 60%;"
@@ -272,14 +272,14 @@ exports[`LandingDashboard At a Glance LandingDashboard rendering 1`] = `
                 </div>
               </div>
               <div
-                class="body"
+                class="ReactTable--body"
               >
                 <div
-                  class="row minimal"
+                  class="ReactTable--row ReactTable--minimal"
                   role="row"
                 >
                   <div
-                    class="cell"
+                    class="ReactTable--cell"
                     role="cell"
                     style="width: 40%;"
                   >
@@ -300,7 +300,7 @@ exports[`LandingDashboard At a Glance LandingDashboard rendering 1`] = `
                     </div>
                   </div>
                   <div
-                    class="cell"
+                    class="ReactTable--cell"
                     role="cell"
                     style="width: 60%;"
                   >
@@ -356,11 +356,11 @@ exports[`LandingDashboard At a Glance LandingDashboard rendering 1`] = `
                   </div>
                 </div>
                 <div
-                  class="row minimal"
+                  class="ReactTable--row ReactTable--minimal"
                   role="row"
                 >
                   <div
-                    class="cell"
+                    class="ReactTable--cell"
                     role="cell"
                     style="width: 40%;"
                   >
@@ -381,7 +381,7 @@ exports[`LandingDashboard At a Glance LandingDashboard rendering 1`] = `
                     </div>
                   </div>
                   <div
-                    class="cell"
+                    class="ReactTable--cell"
                     role="cell"
                     style="width: 60%;"
                   >
@@ -437,11 +437,11 @@ exports[`LandingDashboard At a Glance LandingDashboard rendering 1`] = `
                   </div>
                 </div>
                 <div
-                  class="row minimal"
+                  class="ReactTable--row ReactTable--minimal"
                   role="row"
                 >
                   <div
-                    class="cell"
+                    class="ReactTable--cell"
                     role="cell"
                     style="width: 40%;"
                   >
@@ -462,7 +462,7 @@ exports[`LandingDashboard At a Glance LandingDashboard rendering 1`] = `
                     </div>
                   </div>
                   <div
-                    class="cell"
+                    class="ReactTable--cell"
                     role="cell"
                     style="width: 60%;"
                   >
@@ -518,11 +518,11 @@ exports[`LandingDashboard At a Glance LandingDashboard rendering 1`] = `
                   </div>
                 </div>
                 <div
-                  class="row minimal"
+                  class="ReactTable--row ReactTable--minimal"
                   role="row"
                 >
                   <div
-                    class="cell"
+                    class="ReactTable--cell"
                     role="cell"
                     style="width: 40%;"
                   >
@@ -543,7 +543,7 @@ exports[`LandingDashboard At a Glance LandingDashboard rendering 1`] = `
                     </div>
                   </div>
                   <div
-                    class="cell"
+                    class="ReactTable--cell"
                     role="cell"
                     style="width: 60%;"
                   >

@@ -74,14 +74,14 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
       class="bp3-card bp3-elevation-0 Card--card card"
     >
       <div
-        class="table"
+        class="ReactTable--table"
       >
         <div
-          class="header"
+          class="ReactTable--header"
           role="row"
         >
           <div
-            class="cell"
+            class="ReactTable--cell"
             colspan="1"
             role="columnheader"
             style="width: 35%;"
@@ -93,7 +93,7 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
             </p>
           </div>
           <div
-            class="cell"
+            class="ReactTable--cell"
             colspan="1"
             role="columnheader"
             style="width: 20%;"
@@ -105,7 +105,7 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
             </p>
           </div>
           <div
-            class="cell"
+            class="ReactTable--cell"
             colspan="1"
             role="columnheader"
             style="width: 45%;"
@@ -118,14 +118,14 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
           </div>
         </div>
         <div
-          class="body"
+          class="ReactTable--body"
         >
           <div
-            class="row card"
+            class="ReactTable--row ReactTable--card"
             role="row"
           >
             <div
-              class="cell"
+              class="ReactTable--cell"
               role="cell"
               style="width: 35%;"
             >
@@ -172,7 +172,7 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
               </div>
             </div>
             <div
-              class="cell"
+              class="ReactTable--cell"
               role="cell"
               style="width: 20%;"
             >
@@ -203,7 +203,7 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="ReactTable--cell"
               role="cell"
               style="width: 45%;"
             >
@@ -230,11 +230,11 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
             </div>
           </div>
           <div
-            class="row card"
+            class="ReactTable--row ReactTable--card"
             role="row"
           >
             <div
-              class="cell"
+              class="ReactTable--cell"
               role="cell"
               style="width: 35%;"
             >
@@ -281,7 +281,7 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
               </div>
             </div>
             <div
-              class="cell"
+              class="ReactTable--cell"
               role="cell"
               style="width: 20%;"
             >
@@ -292,7 +292,7 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="ReactTable--cell"
               role="cell"
               style="width: 45%;"
             >

@@ -1,8 +1,7 @@
 import React, { useMemo } from 'react'
 import type { Column, Renderer, CellProps } from 'react-table'
-import { Text, Color, Layout, Icon } from '@wings-software/uicore'
+import { Text, Color, Layout, Icon, ReactTable } from '@wings-software/uicore'
 
-import Table from '@common/components/Table/Table'
 import type { EntitySetupUsageDTO, ResponsePageEntitySetupUsageDTO } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import ResourceDetailFactory from '@common/factories/ResourceDetailFactory'
@@ -115,7 +114,7 @@ const EntityUsageList: React.FC<EntityUsageListProps> = ({ entityData, gotoPage 
   }
 
   return (
-    <Table<EntitySetupUsageDTO>
+    <ReactTable<EntitySetupUsageDTO>
       className={css.table}
       columns={columns}
       data={data}

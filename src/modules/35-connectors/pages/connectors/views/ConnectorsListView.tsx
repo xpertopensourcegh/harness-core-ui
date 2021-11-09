@@ -12,7 +12,8 @@ import {
   ButtonVariation,
   ButtonSize,
   useToaster,
-  TagsPopover
+  TagsPopover,
+  ReactTable
 } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Menu, Classes, Position, Intent, PopoverInteractionKind, TextArea } from '@blueprintjs/core'
@@ -32,7 +33,7 @@ import {
   ConnectorValidationResult,
   EntityGitDetails
 } from 'services/cd-ng'
-import Table from '@common/components/Table/Table'
+
 import { useConfirmationDialog } from '@common/exports'
 import { StepIndex, STEP } from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { StepDetails, CredTypeValues } from '@connectors/interfaces/ConnectorInterface'
@@ -654,7 +655,7 @@ const ConnectorsListView: React.FC<ConnectorListViewProps> = props => {
   }
 
   return (
-    <Table<ConnectorResponse>
+    <ReactTable<ConnectorResponse>
       className={css.table}
       columns={columns}
       data={listData}

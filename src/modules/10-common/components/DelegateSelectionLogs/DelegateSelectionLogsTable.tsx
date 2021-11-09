@@ -1,7 +1,6 @@
 import React from 'react'
 import type { Column, CellProps, Renderer } from 'react-table'
-import { Layout, Color, Text, Card, Icon, FontVariation } from '@wings-software/uicore'
-import Table from '@common/components/Table/Table'
+import { Layout, Color, Text, Card, Icon, FontVariation, ReactTable } from '@wings-software/uicore'
 import { formatDatetoLocale } from '@common/utils/dateUtils'
 import { String, useStrings } from 'framework/strings'
 import type { DelegateSelectionLogParams } from 'services/portal'
@@ -103,7 +102,7 @@ export default function DelegateSelectionLogsTable({
 
   return (
     <Card className={css.card}>
-      <Table<DelegateSelectionLogParams>
+      <ReactTable<DelegateSelectionLogParams>
         columns={columns}
         data={selectionLogs || []}
         pagination={{

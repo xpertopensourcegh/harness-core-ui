@@ -1,7 +1,7 @@
 import React from 'react'
 import { pick } from 'lodash-es'
 import type { Renderer, CellProps, Column } from 'react-table'
-import { Color, FontVariation, Text, Utils } from '@wings-software/uicore'
+import { Color, FontVariation, Text, Utils, ReactTable } from '@wings-software/uicore'
 import type { PopoverProps } from '@wings-software/uicore/dist/components/Popover/Popover'
 import {
   getStackedSummaryBarCount,
@@ -10,7 +10,6 @@ import {
 } from '@common/components/StackedSummaryBar/StackedSummaryBar'
 import { ModuleName } from 'framework/types/ModuleName'
 import { loggerFor } from 'framework/logging/logging'
-import Table from '../Table/Table'
 import css from './StackedSummaryTable.module.scss'
 
 const logger = loggerFor(ModuleName.COMMON)
@@ -81,5 +80,7 @@ export const StackedSummaryTable: React.FC<StackedSummaryTableProps> = props => 
     }
   ]
 
-  return <Table<StackedSummaryInterface> columns={columns} data={summaryData} className={css.overviewSummary} minimal />
+  return (
+    <ReactTable<StackedSummaryInterface> columns={columns} data={summaryData} className={css.overviewSummary} minimal />
+  )
 }

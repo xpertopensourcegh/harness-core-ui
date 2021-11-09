@@ -1,9 +1,8 @@
 import React, { useMemo, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import { Avatar, Button, ButtonVariation, Color, Layout, Popover, Text } from '@wings-software/uicore'
+import { Avatar, Button, ButtonVariation, Color, Layout, Popover, ReactTable, Text } from '@wings-software/uicore'
 import type { CellProps, Column, Renderer } from 'react-table'
 import { Classes, Intent, Menu, Position } from '@blueprintjs/core'
-import Table from '@common/components/Table/Table'
 import {
   PageServiceAccountAggregateDTO,
   RoleAssignmentMetadataDTO,
@@ -261,7 +260,7 @@ const ServiceAccountsListView: React.FC<ServiceAccountsListViewProps> = ({
   )
 
   return (
-    <Table
+    <ReactTable
       data={data?.content || []}
       columns={columns}
       className={css.table}

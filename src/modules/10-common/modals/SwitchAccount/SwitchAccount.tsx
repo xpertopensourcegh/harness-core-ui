@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect } from 'react'
-import { Container, Text, Button, ButtonVariation, PageError } from '@wings-software/uicore'
+import { Container, Text, Button, ButtonVariation, PageError, ReactTable } from '@wings-software/uicore'
 import type { Column, Renderer, CellProps } from 'react-table'
 import { useParams, useHistory } from 'react-router-dom'
 import { get, defaultTo } from 'lodash-es'
@@ -10,7 +10,7 @@ import {
   useRestrictedSwitchAccount
 } from 'services/portal'
 import type { User, Account } from 'services/portal'
-import { Table, PageSpinner } from '@common/components'
+import { PageSpinner } from '@common/components'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
@@ -200,7 +200,7 @@ const SwitchAccount: React.FC<SwitchAccountProps> = ({ searchString = '', mock }
           <PageError message={error.message || getString('somethingWentWrong')} onClick={() => refetch()} />
         ) : null}
         {!loading && !settingDefault && !error && accounts ? (
-          <Table columns={columns} data={accounts} sortable={false} />
+          <ReactTable columns={columns} data={accounts} sortable={false} />
         ) : null}
       </Container>
     </>

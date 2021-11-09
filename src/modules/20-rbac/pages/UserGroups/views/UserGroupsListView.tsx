@@ -1,5 +1,15 @@
 import React, { useState, useMemo } from 'react'
-import { Text, Layout, Button, Popover, Color, ButtonVariation, Icon, FontVariation } from '@wings-software/uicore'
+import {
+  Text,
+  Layout,
+  Button,
+  Popover,
+  Color,
+  ButtonVariation,
+  Icon,
+  FontVariation,
+  ReactTable
+} from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Classes, Position, Menu, Intent, PopoverInteractionKind } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
@@ -11,7 +21,6 @@ import {
   UserMetadataDTO,
   RoleAssignmentMetadataDTO
 } from 'services/cd-ng'
-import Table from '@common/components/Table/Table'
 import { useStrings, String } from 'framework/strings'
 import { useConfirmationDialog, useToaster } from '@common/exports'
 import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList'
@@ -293,7 +302,7 @@ const UserGroupsListView: React.FC<UserGroupsListViewProps> = props => {
     [openRoleAssignmentModal, openUserGroupModal, reload]
   )
   return (
-    <Table<UserGroupAggregateDTO>
+    <ReactTable<UserGroupAggregateDTO>
       className={css.table}
       columns={columns}
       name="UserGroupsListView"

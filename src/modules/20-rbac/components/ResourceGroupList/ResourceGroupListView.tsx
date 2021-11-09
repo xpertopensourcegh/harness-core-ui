@@ -2,10 +2,9 @@ import React, { useMemo } from 'react'
 import cx from 'classnames'
 import type { CellProps, Column, Renderer } from 'react-table'
 import ReactTimeago from 'react-timeago'
-import { Layout, Text, Color, Button, ButtonVariation, NoDataCard } from '@wings-software/uicore'
+import { Layout, Text, Color, Button, ButtonVariation, NoDataCard, ReactTable } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import { get } from 'lodash-es'
-import Table from '@common/components/Table/Table'
 import { useStrings } from 'framework/strings'
 import type {
   PageResourceGroupResponse,
@@ -159,7 +158,7 @@ const ResourceGroupListView: React.FC<ResourceGroupListViewProps> = props => {
     [props.data]
   )
   return listData.length ? (
-    <Table<ResourceGroupResponse>
+    <ReactTable<ResourceGroupResponse>
       className={css.tablePadding}
       columns={columns}
       data={listData}

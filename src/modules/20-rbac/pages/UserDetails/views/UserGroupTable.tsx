@@ -1,9 +1,9 @@
 import React, { useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import type { CellProps, Column, Renderer } from 'react-table'
-import { Color, Layout, Text, Button, Container, PageError } from '@wings-software/uicore'
+import { Color, Layout, Text, Button, Container, PageError, ReactTable } from '@wings-software/uicore'
 import { Classes, Menu, Popover, Position } from '@blueprintjs/core'
-import { Table, useToaster } from '@common/components'
+import { useToaster } from '@common/components'
 import { useMutateAsGet } from '@common/hooks'
 import type { PipelineType, ProjectPathProps, UserPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
@@ -141,7 +141,7 @@ const UserGroupTable: React.FC = () => {
       {loading ? (
         <Text color={Color.GREY_600}>{getString('common.loading')}</Text>
       ) : userGroupData?.data?.length ? (
-        <Table<UserGroupDTO> hideHeaders={true} data={userGroupData.data} columns={columns} />
+        <ReactTable<UserGroupDTO> hideHeaders={true} data={userGroupData.data} columns={columns} />
       ) : userGroupData?.data ? (
         <Text color={Color.GREY_600}>{getString('rbac.userGroupPage.noUserGroups')}</Text>
       ) : (

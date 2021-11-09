@@ -1,8 +1,7 @@
 import React, { useMemo } from 'react'
-import { Checkbox, PaginationProps } from '@wings-software/uicore'
+import { Checkbox, PaginationProps, ReactTable } from '@wings-software/uicore'
 import type { CellProps, Column } from 'react-table'
 import produce from 'immer'
-import Table from '@common/components/Table/Table'
 import css from './ResourceHandlerTable.module.scss'
 
 interface ResourceHandlerTableProps<T extends ResourceHandlerTableData> {
@@ -57,7 +56,7 @@ const ResourceHandlerTable = <T extends ResourceHandlerTableData>(
     [selectedData]
   )
   return (
-    <Table<T>
+    <ReactTable<T>
       columns={resourceHandlerTableColumns}
       data={data}
       pagination={pagination}
