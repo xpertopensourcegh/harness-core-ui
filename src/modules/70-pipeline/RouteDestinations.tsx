@@ -81,6 +81,7 @@ ExecFactory.registerStepDetails(StepType.JiraApproval, {
 LandingDashboardFactory.registerModuleDashboardHandler(ModuleName.CD, {
   label: 'deploymentsText',
   icon: 'cd-main',
+  iconProps: { size: 20 },
   // eslint-disable-next-line react/display-name
   moduleDashboardRenderer: () => <LandingDashboardDeploymentsWidget />
 })

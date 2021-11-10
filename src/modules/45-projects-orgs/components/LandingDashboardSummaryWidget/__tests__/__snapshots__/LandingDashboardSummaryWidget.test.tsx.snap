@@ -291,7 +291,7 @@ exports[`LandingDashboard At a Glance LandingDashboard rendering 1`] = `
                       >
                         <p
                           class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body2 StyledProps--color StyledProps--color-primary7"
-                          style="--text-line-clamp: 1;"
+                          style="cursor: unset; --text-line-clamp: 1;"
                           tabindex="0"
                         >
                           dev test
@@ -372,7 +372,7 @@ exports[`LandingDashboard At a Glance LandingDashboard rendering 1`] = `
                       >
                         <p
                           class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body2 StyledProps--color StyledProps--color-primary7"
-                          style="--text-line-clamp: 1;"
+                          style="cursor: unset; --text-line-clamp: 1;"
                           tabindex="0"
                         >
                           test18
@@ -453,7 +453,7 @@ exports[`LandingDashboard At a Glance LandingDashboard rendering 1`] = `
                       >
                         <p
                           class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body2 StyledProps--color StyledProps--color-primary7"
-                          style="--text-line-clamp: 1;"
+                          style="cursor: unset; --text-line-clamp: 1;"
                           tabindex="0"
                         >
                           test19
@@ -534,7 +534,7 @@ exports[`LandingDashboard At a Glance LandingDashboard rendering 1`] = `
                       >
                         <p
                           class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body2 StyledProps--color StyledProps--color-primary7"
-                          style="--text-line-clamp: 1;"
+                          style="cursor: unset; --text-line-clamp: 1;"
                           tabindex="0"
                         >
                           locust

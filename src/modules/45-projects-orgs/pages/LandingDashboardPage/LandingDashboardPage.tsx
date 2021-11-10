@@ -99,6 +99,7 @@ const LandingDashboardPage: React.FC = () => {
                   <LandingDashboardWidgetWrapper
                     icon={moduleHandler?.icon}
                     title={moduleHandler?.label}
+                    iconProps={moduleHandler?.iconProps}
                     key={moduleName}
                   >
                     {moduleHandler.moduleDashboardRenderer?.()}
