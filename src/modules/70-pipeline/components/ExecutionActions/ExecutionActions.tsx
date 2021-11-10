@@ -227,6 +227,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
 
   const { openRunPipelineModal } = useRunPipelineModal({
     pipelineIdentifier,
+    executionId: executionIdentifier,
     repoIdentifier,
     branch,
     stagesExecuted

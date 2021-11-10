@@ -4,19 +4,14 @@ import { Dialog, IDialogProps } from '@blueprintjs/core'
 import { Button, ButtonVariation, Layout, PageSpinner, useModalHook } from '@wings-software/uicore'
 
 import type { InputSetSelectorProps, InputSetValue } from '@pipeline/components/InputSetSelector/InputSetSelector'
-import type {
-  GitQueryParams,
-  PipelineType,
-  ProjectPathProps,
-  RunPipelineQueryParams
-} from '@common/interfaces/RouteInterfaces'
+import type { ExecutionPathProps, GitQueryParams, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useGetInputsetYaml } from 'services/pipeline-ng'
-import { useQueryParams } from '@common/hooks'
 import { RunPipelineForm } from './RunPipelineForm'
 import css from './RunPipelineForm.module.scss'
 
 export interface RunPipelineModalParams {
   pipelineIdentifier: string
+  executionId?: string
   inputSetSelected?: InputSetSelectorProps['value']
   stagesExecuted?: string[]
 }
@@ -29,20 +24,22 @@ export interface UseRunPipelineModalReturn {
 export const useRunPipelineModal = (
   runPipelineModaParams: RunPipelineModalParams & GitQueryParams
 ): UseRunPipelineModalReturn => {
-  const { inputSetSelected, pipelineIdentifier, branch, repoIdentifier, stagesExecuted } = runPipelineModaParams
-  const { projectIdentifier, orgIdentifier, accountId, module } = useParams<PipelineType<ProjectPathProps>>()
-  const { executionId } = useQueryParams<GitQueryParams & RunPipelineQueryParams>()
+  const { inputSetSelected, pipelineIdentifier, branch, repoIdentifier, executionId, stagesExecuted } =
+    runPipelineModaParams
+  const { projectIdentifier, orgIdentifier, accountId, module, executionIdentifier } =
+    useParams<PipelineType<ExecutionPathProps>>()
+
+  const planExecutionId: string | undefined = executionIdentifier ?? executionId
 
   const [inputSetYaml, setInputSetYaml] = useState('')
 
   const { data: runPipelineInputsetData, loading } = useGetInputsetYaml({
-    planExecutionId: executionId ?? '',
+    planExecutionId: planExecutionId ?? '',
     queryParams: {
       orgIdentifier,
       projectIdentifier,
       accountIdentifier: accountId
     },
-    lazy: true,
     requestOptions: {
       headers: {
         'content-type': 'application/yaml'

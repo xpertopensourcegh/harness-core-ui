@@ -12,8 +12,19 @@ import mockCD from './mock.json'
 import mockCI from './mock-ci.json'
 import mockError from './mock-error.json'
 import ExecutionGraphView from '../ExecutionGraphView'
+
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 jest.mock('@common/utils/YamlUtils', () => ({}))
+
+jest.mock('services/pipeline-ng', () => ({
+  useGetInputsetYaml: jest.fn(() => ({ data: null })),
+  useGetBarriersExecutionInfo: jest.fn(() => ({ data: null })),
+  useHandleStageInterrupt: jest.fn(() => ({})),
+  useHandleInterrupt: jest.fn(() => ({})),
+  useGetBarrierInfo: jest.fn(() => ({})),
+  useGetResourceConstraintsExecutionInfo: jest.fn(() => ({ refetch: () => ({}), data: null })),
+  useGetExecutionNode: jest.fn(() => ({ data: {}, loading: false }))
+}))
 
 function renderNode(
   data: ExecutionPipelineNode<ExecutionNode>,
