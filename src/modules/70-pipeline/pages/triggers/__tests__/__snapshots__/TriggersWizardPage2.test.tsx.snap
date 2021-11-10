@@ -43,23 +43,23 @@ exports[`Manifest Trigger Tests Check chartVersion to be disabled and default va
           </div>
         </div>
         <div
-          class="optionBtns"
+          class="PillToggle--optionBtns"
         >
           <div
-            class="item selected"
+            class="PillToggle--item PillToggle--selected"
             data-name="toggle-option-one"
             role="button"
             tabindex="0"
           >
-            visual
+            VISUAL
           </div>
           <div
-            class="item"
+            class="PillToggle--item"
             data-name="toggle-option-two"
             role="button"
             tabindex="0"
           >
-            yaml
+            YAML
           </div>
         </div>
         <div
@@ -1278,23 +1278,23 @@ exports[`Manifest Trigger Tests function getArtifactSpecObj by displaying select
           </div>
         </div>
         <div
-          class="optionBtns"
+          class="PillToggle--optionBtns"
         >
           <div
-            class="item selected"
+            class="PillToggle--item PillToggle--selected"
             data-name="toggle-option-one"
             role="button"
             tabindex="0"
           >
-            visual
+            VISUAL
           </div>
           <div
-            class="item"
+            class="PillToggle--item"
             data-name="toggle-option-two"
             role="button"
             tabindex="0"
           >
-            yaml
+            YAML
           </div>
         </div>
         <div
@@ -1952,23 +1952,23 @@ exports[`Manifest Trigger Tests on click of edit - submits thru the right payloa
           </div>
         </div>
         <div
-          class="optionBtns"
+          class="PillToggle--optionBtns"
         >
           <div
-            class="item selected"
+            class="PillToggle--item PillToggle--selected"
             data-name="toggle-option-one"
             role="button"
             tabindex="0"
           >
-            visual
+            VISUAL
           </div>
           <div
-            class="item"
+            class="PillToggle--item"
             data-name="toggle-option-two"
             role="button"
             tabindex="0"
           >
-            yaml
+            YAML
           </div>
         </div>
         <div
@@ -3220,23 +3220,23 @@ exports[`Manifest Trigger Tests on click of edit artifact - submits thru the rig
           </div>
         </div>
         <div
-          class="optionBtns"
+          class="PillToggle--optionBtns"
         >
           <div
-            class="item selected"
+            class="PillToggle--item PillToggle--selected"
             data-name="toggle-option-one"
             role="button"
             tabindex="0"
           >
-            visual
+            VISUAL
           </div>
           <div
-            class="item"
+            class="PillToggle--item"
             data-name="toggle-option-two"
             role="button"
             tabindex="0"
           >
-            yaml
+            YAML
           </div>
         </div>
         <div
@@ -4151,23 +4151,23 @@ exports[`Manifest Trigger Tests on edit -with event conditions payload 1`] = `
           </div>
         </div>
         <div
-          class="optionBtns"
+          class="PillToggle--optionBtns"
         >
           <div
-            class="item selected"
+            class="PillToggle--item PillToggle--selected"
             data-name="toggle-option-one"
             role="button"
             tabindex="0"
           >
-            visual
+            VISUAL
           </div>
           <div
-            class="item"
+            class="PillToggle--item"
             data-name="toggle-option-two"
             role="button"
             tabindex="0"
           >
-            yaml
+            YAML
           </div>
         </div>
         <div
@@ -4602,23 +4602,23 @@ exports[`Manifest Trigger Tests throws validation error when select artifact/man
           </div>
         </div>
         <div
-          class="optionBtns"
+          class="PillToggle--optionBtns"
         >
           <div
-            class="item selected"
+            class="PillToggle--item PillToggle--selected"
             data-name="toggle-option-one"
             role="button"
             tabindex="0"
           >
-            visual
+            VISUAL
           </div>
           <div
-            class="item"
+            class="PillToggle--item"
             data-name="toggle-option-two"
             role="button"
             tabindex="0"
           >
-            yaml
+            YAML
           </div>
         </div>
         <div

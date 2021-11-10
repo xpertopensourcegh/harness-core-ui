@@ -12,7 +12,9 @@ import {
   Color,
   ButtonVariation,
   PageHeader,
-  PageBody
+  PageBody,
+  VisualYamlSelectedView as SelectedView,
+  VisualYamlToggle
 } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import { parse } from 'yaml'
@@ -47,7 +49,6 @@ import { useMutateAsGet, useQueryParams } from '@common/hooks'
 import { UseSaveSuccessResponse, useSaveToGitDialog } from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
 import GitContextForm, { GitContextProps } from '@common/components/GitContextForm/GitContextForm'
-import VisualYamlToggle from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { changeEmptyValuesToRunTimeInput } from '@pipeline/utils/stageHelpers'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
@@ -87,11 +88,6 @@ const getDefaultInputSet = (
   repo: '',
   branch: ''
 })
-
-enum SelectedView {
-  VISUAL = 'VISUAL',
-  YAML = 'YAML'
-}
 
 const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
   fileName: `input-set.yaml`,
@@ -655,7 +651,7 @@ export function InputSetFormWrapper(props: InputSetFormWrapperProps): React.Reac
                     handleModeSwitch(nextMode)
                     callback(nextMode)
                   }}
-                ></VisualYamlToggle>
+                />
               </div>
             </Layout.Horizontal>
           }

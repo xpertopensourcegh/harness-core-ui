@@ -732,23 +732,23 @@ exports[`Connector Details Page Rendering connector details with DockerRegistry:
         class="StyledProps--font StyledProps--main buttonContainer"
       >
         <div
-          class="optionBtns"
+          class="PillToggle--optionBtns"
         >
           <div
-            class="item selected"
+            class="PillToggle--item PillToggle--selected"
             data-name="toggle-option-one"
             role="button"
             tabindex="0"
           >
-            visual
+            VISUAL
           </div>
           <div
-            class="item"
+            class="PillToggle--item"
             data-name="toggle-option-two"
             role="button"
             tabindex="0"
           >
-            yaml
+            YAML
           </div>
         </div>
         <button
@@ -910,23 +910,23 @@ exports[`Connector Details Page Rendering connector details with K8sCluster: K8s
         class="StyledProps--font StyledProps--main buttonContainer"
       >
         <div
-          class="optionBtns"
+          class="PillToggle--optionBtns"
         >
           <div
-            class="item selected"
+            class="PillToggle--item PillToggle--selected"
             data-name="toggle-option-one"
             role="button"
             tabindex="0"
           >
-            visual
+            VISUAL
           </div>
           <div
-            class="item"
+            class="PillToggle--item"
             data-name="toggle-option-two"
             role="button"
             tabindex="0"
           >
-            yaml
+            YAML
           </div>
         </div>
         <button
@@ -1088,23 +1088,23 @@ exports[`Connector Details Page Rendering connector details: view text 1`] = `
         class="StyledProps--font StyledProps--main buttonContainer"
       >
         <div
-          class="optionBtns"
+          class="PillToggle--optionBtns"
         >
           <div
-            class="item selected"
+            class="PillToggle--item PillToggle--selected"
             data-name="toggle-option-one"
             role="button"
             tabindex="0"
           >
-            visual
+            VISUAL
           </div>
           <div
-            class="item"
+            class="PillToggle--item"
             data-name="toggle-option-two"
             role="button"
             tabindex="0"
           >
-            yaml
+            YAML
           </div>
         </div>
         <button

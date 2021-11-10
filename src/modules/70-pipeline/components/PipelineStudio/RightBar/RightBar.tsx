@@ -14,7 +14,8 @@ import {
   Layout,
   getMultiTypeFromValue,
   MultiTypeInputType,
-  ButtonVariation
+  ButtonVariation,
+  VisualYamlSelectedView as SelectedView
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { isEmpty, get, set } from 'lodash-es'
@@ -42,7 +43,6 @@ import {
   getScopeFromDTO,
   getScopeFromValue
 } from '@common/components/EntityReference/EntityReference'
-import { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import type { PipelineType, GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'

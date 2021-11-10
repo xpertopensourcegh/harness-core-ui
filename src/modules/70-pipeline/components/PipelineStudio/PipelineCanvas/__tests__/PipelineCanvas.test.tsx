@@ -100,7 +100,7 @@ describe('Pipeline Canvas - new pipeline', () => {
 
     // toggle to YAMl works
     act(() => {
-      fireEvent.click(getByText('yaml'))
+      fireEvent.click(getByText('YAML'))
     })
     expect(contextValue.updatePipelineView).toBeCalledWith({
       splitViewData: {},
@@ -115,7 +115,7 @@ describe('Pipeline Canvas - new pipeline', () => {
 
     // Click on VISUAL again
     act(() => {
-      fireEvent.click(getByText('visual'))
+      fireEvent.click(getByText('VISUAL'))
     })
     expect(contextValue.setView).toHaveBeenLastCalledWith('VISUAL')
     expect(queryByText('save')).toBeTruthy()

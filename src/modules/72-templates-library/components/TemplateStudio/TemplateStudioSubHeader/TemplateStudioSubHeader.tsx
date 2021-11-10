@@ -1,11 +1,20 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { Button, ButtonVariation, Color, Container, Icon, Layout, Text } from '@wings-software/uicore'
+import {
+  Button,
+  ButtonVariation,
+  Color,
+  Container,
+  Icon,
+  Layout,
+  Text,
+  VisualYamlSelectedView as SelectedView,
+  VisualYamlToggle
+} from '@wings-software/uicore'
 import { get, isEmpty } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import type { TemplateStudioPathProps } from '@common/interfaces/RouteInterfaces'
 import { TemplateContext } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateContext'
-import VisualYamlToggle, { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import type { GitFilterScope } from '@common/components/GitFilters/GitFilters'
 import {
   GetErrorResponse,

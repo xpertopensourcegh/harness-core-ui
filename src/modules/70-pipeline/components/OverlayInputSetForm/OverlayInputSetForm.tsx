@@ -13,7 +13,9 @@ import {
   Layout,
   SelectOption,
   Text,
-  PageSpinner
+  PageSpinner,
+  VisualYamlSelectedView as SelectedView,
+  VisualYamlToggle
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { parse } from 'yaml'
@@ -51,7 +53,6 @@ import { UseSaveSuccessResponse, useSaveToGitDialog } from '@common/modals/SaveT
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
 import GitContextForm, { GitContextProps } from '@common/components/GitContextForm/GitContextForm'
 import { useQueryParams } from '@common/hooks'
-import VisualYamlToggle from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import { AppStoreContext } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
@@ -92,11 +93,6 @@ export interface OverlayInputSetFormProps {
   isReadOnly?: boolean
   overlayInputSetRepoIdentifier?: string
   overlayInputSetBranch?: string
-}
-
-enum SelectedView {
-  VISUAL = 'VISUAL',
-  YAML = 'YAML'
 }
 
 const dialogProps: Omit<IDialogProps, 'isOpen'> = {
@@ -560,7 +556,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
                 handleModeSwitch(nextMode)
                 callback(nextMode)
               }}
-            ></VisualYamlToggle>
+            />
           </div>
 
           <Formik<OverlayInputSetDTO & GitContextProps>

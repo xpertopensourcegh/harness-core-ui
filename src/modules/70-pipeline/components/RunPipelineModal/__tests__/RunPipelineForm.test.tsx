@@ -99,11 +99,11 @@ describe('STUDIO MODE', () => {
       </TestWrapper>
     )
 
-    fireEvent.click(getByText('yaml'))
+    fireEvent.click(getByText('YAML'))
     const editorDiv = container.querySelector('.editor')
     await waitFor(() => expect(editorDiv).toBeTruthy())
 
-    fireEvent.click(getByText('visual'))
+    fireEvent.click(getByText('VISUAL'))
     await waitFor(() =>
       expect(queryByText('pipeline.triggers.pipelineInputPanel.selectedExisitingOrProvide')).toBeTruthy()
     )

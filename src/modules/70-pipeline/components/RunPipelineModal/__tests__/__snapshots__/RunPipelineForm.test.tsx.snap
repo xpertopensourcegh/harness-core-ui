@@ -175,23 +175,23 @@ exports[`STUDIO MODE should accept values from input sets and submit the form: a
             class="optionBtns"
           >
             <div
-              class="optionBtns"
+              class="PillToggle--optionBtns"
             >
               <div
-                class="item selected"
+                class="PillToggle--item PillToggle--selected"
                 data-name="toggle-option-one"
                 role="button"
                 tabindex="0"
               >
-                visual
+                VISUAL
               </div>
               <div
-                class="item"
+                class="PillToggle--item"
                 data-name="toggle-option-two"
                 role="button"
                 tabindex="0"
               >
-                yaml
+                YAML
               </div>
             </div>
           </div>

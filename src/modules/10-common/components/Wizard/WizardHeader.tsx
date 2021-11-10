@@ -1,11 +1,9 @@
 import React, { SetStateAction, Dispatch } from 'react'
-import { Heading } from '@wings-software/uicore'
+import { Heading, VisualYamlSelectedView as SelectedView, VisualYamlToggle } from '@wings-software/uicore'
 import cx from 'classnames'
 import { parse } from 'yaml'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
-import type { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import { useStrings } from 'framework/strings'
-import VisualYamlToggle from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import css from './Wizard.module.scss'
 
 interface WizardHeaderProps {

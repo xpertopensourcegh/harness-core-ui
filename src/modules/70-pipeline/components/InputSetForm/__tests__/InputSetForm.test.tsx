@@ -144,7 +144,7 @@ describe('Render Forms - Snapshot Testing', () => {
     )
     jest.runOnlyPendingTimers()
     // // Switch Mode
-    // fireEvent.click(getByText('yaml'))
+    // fireEvent.click(getByText('YAML'))
     // await waitFor(() => getAllByText('Yaml View'))
     // // Switch Mode
     // fireEvent.click(getByText('visual'))
@@ -262,7 +262,7 @@ describe('Render Forms - Snapshot Testing', () => {
     await waitFor(() => getAllByText('tesa1'))
     fireEvent.click(getByText('save'))
     // Switch Mode
-    fireEvent.click(getByText('yaml'))
+    fireEvent.click(getByText('YAML'))
     await waitFor(() => getAllByText('Yaml View'))
     fireEvent.click(getByText('save'))
     expect(container).toMatchSnapshot()
@@ -290,7 +290,7 @@ describe('Render Forms - Snapshot Testing', () => {
     expect(container).toMatchSnapshot()
     fireEvent.click(getByText('save'))
     // Switch Mode
-    fireEvent.click(getByText('yaml'))
+    fireEvent.click(getByText('YAML'))
     await waitFor(() => getAllByText('Yaml View'))
     fireEvent.click(getByText('save'))
   })

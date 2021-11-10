@@ -124,8 +124,8 @@ describe('PipelineCanvas tests', () => {
         const branchSelector = document.querySelector('input[name="branch"]') as HTMLInputElement
         expect(branchSelector.value).toBe('feature')
 
-        const visualToggle = getElementByText('visual')
-        const yamlToggle = getElementByText('yaml')
+        const visualToggle = getElementByText('VISUAL')
+        const yamlToggle = getElementByText('YAML')
         expect(visualToggle).toBeInTheDocument()
         expect(yamlToggle).toBeInTheDocument()
 
@@ -218,8 +218,8 @@ describe('PipelineCanvas tests', () => {
         const branchName = getElementByText('feature')
         expect(branchName).toBeInTheDocument()
 
-        const visualToggle = getElementByText('visual')
-        const yamlToggle = getElementByText('yaml')
+        const visualToggle = getElementByText('VISUAL')
+        const yamlToggle = getElementByText('YAML')
         expect(visualToggle).toBeInTheDocument()
         expect(yamlToggle).toBeInTheDocument()
 

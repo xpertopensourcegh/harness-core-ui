@@ -215,23 +215,23 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
           class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between"
         >
           <div
-            class="optionBtns"
+            class="PillToggle--optionBtns"
           >
             <div
-              class="item selected"
+              class="PillToggle--item PillToggle--selected"
               data-name="toggle-option-one"
               role="button"
               tabindex="0"
             >
-              visual
+              VISUAL
             </div>
             <div
-              class="item"
+              class="PillToggle--item"
               data-name="toggle-option-two"
               role="button"
               tabindex="0"
             >
-              yaml
+              YAML
             </div>
           </div>
           <button

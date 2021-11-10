@@ -155,23 +155,23 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view 1`] = `
           class="optionBtns"
         >
           <div
-            class="optionBtns"
+            class="PillToggle--optionBtns"
           >
             <div
-              class="item"
+              class="PillToggle--item"
               data-name="toggle-option-one"
               role="button"
               tabindex="0"
             >
-              visual
+              VISUAL
             </div>
             <div
-              class="item selected"
+              class="PillToggle--item PillToggle--selected"
               data-name="toggle-option-two"
               role="button"
               tabindex="0"
             >
-              yaml
+              YAML
             </div>
           </div>
         </div>
@@ -419,23 +419,23 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
           class="optionBtns"
         >
           <div
-            class="optionBtns"
+            class="PillToggle--optionBtns"
           >
             <div
-              class="item selected"
+              class="PillToggle--item PillToggle--selected"
               data-name="toggle-option-one"
               role="button"
               tabindex="0"
             >
-              visual
+              VISUAL
             </div>
             <div
-              class="item"
+              class="PillToggle--item"
               data-name="toggle-option-two"
               role="button"
               tabindex="0"
             >
-              yaml
+              YAML
             </div>
           </div>
         </div>
@@ -1251,23 +1251,23 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
         class="optionBtns"
       >
         <div
-          class="optionBtns"
+          class="PillToggle--optionBtns"
         >
           <div
-            class="item selected"
+            class="PillToggle--item PillToggle--selected"
             data-name="toggle-option-one"
             role="button"
             tabindex="0"
           >
-            visual
+            VISUAL
           </div>
           <div
-            class="item"
+            class="PillToggle--item"
             data-name="toggle-option-two"
             role="button"
             tabindex="0"
           >
-            yaml
+            YAML
           </div>
         </div>
       </div>
@@ -1908,23 +1908,23 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
           class="optionBtns"
         >
           <div
-            class="optionBtns"
+            class="PillToggle--optionBtns"
           >
             <div
-              class="item selected"
+              class="PillToggle--item PillToggle--selected"
               data-name="toggle-option-one"
               role="button"
               tabindex="0"
             >
-              visual
+              VISUAL
             </div>
             <div
-              class="item"
+              class="PillToggle--item"
               data-name="toggle-option-two"
               role="button"
               tabindex="0"
             >
-              yaml
+              YAML
             </div>
           </div>
         </div>
@@ -2619,23 +2619,23 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
         class="optionBtns"
       >
         <div
-          class="optionBtns"
+          class="PillToggle--optionBtns"
         >
           <div
-            class="item selected"
+            class="PillToggle--item PillToggle--selected"
             data-name="toggle-option-one"
             role="button"
             tabindex="0"
           >
-            visual
+            VISUAL
           </div>
           <div
-            class="item"
+            class="PillToggle--item"
             data-name="toggle-option-two"
             role="button"
             tabindex="0"
           >
-            yaml
+            YAML
           </div>
         </div>
       </div>

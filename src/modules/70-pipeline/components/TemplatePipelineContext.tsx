@@ -1,5 +1,6 @@
 import React from 'react'
 import { cloneDeep, isEqual, noop } from 'lodash-es'
+import { VisualYamlSelectedView as SelectedView } from '@wings-software/uicore'
 import {
   findAllByKey,
   getTemplateTypesByRef,
@@ -13,7 +14,6 @@ import {
   TemplateViewData
 } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import { useLocalStorage } from '@common/hooks'
-import { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import { stagesCollection } from '@pipeline/components/PipelineStudio/Stages/StagesCollection'
 import { useStrings } from 'framework/strings'

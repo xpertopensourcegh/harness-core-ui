@@ -10,7 +10,8 @@ import {
   Layout,
   SelectOption,
   Text,
-  useModalHook
+  useModalHook,
+  VisualYamlSelectedView as SelectedView
 } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
 import { defaultTo, isEmpty, isNil, merge } from 'lodash-es'
@@ -31,7 +32,6 @@ import type {
   TemplateStudioQueryParams
 } from '@common/interfaces/RouteInterfaces'
 import { TemplateContext } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateContext'
-import { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import routes from '@common/RouteDefinitions'
 import { useUpdateStableTemplate, NGTemplateInfoConfig } from 'services/template-ng'
 import { useStrings } from 'framework/strings'

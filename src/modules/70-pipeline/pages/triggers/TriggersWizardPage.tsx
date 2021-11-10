@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import type { FormikErrors } from 'formik'
 import { useHistory, useParams } from 'react-router-dom'
-import { Layout, SelectOption, Color, Text, Switch, PageSpinner } from '@wings-software/uicore'
+import {
+  Layout,
+  SelectOption,
+  Color,
+  Text,
+  Switch,
+  PageSpinner,
+  VisualYamlSelectedView as SelectedView
+} from '@wings-software/uicore'
 import { parse } from 'yaml'
 import { isEmpty, isUndefined, merge, cloneDeep, get } from 'lodash-es'
 import { CompletionItemKind } from 'vscode-languageserver-types'
@@ -38,7 +46,6 @@ import {
   getScopeFromValue,
   getScopeFromDTO
 } from '@common/components/EntityReference/EntityReference'
-import { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import type {
   YamlBuilderHandlerBinding,
   YamlBuilderProps,

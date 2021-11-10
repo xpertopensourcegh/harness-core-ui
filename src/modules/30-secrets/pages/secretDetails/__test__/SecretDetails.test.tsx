@@ -93,7 +93,7 @@ describe('Secret Details', () => {
       </TestWrapper>
     )
     await act(async () => {
-      const yamlButton = await findByText(container, 'yaml')
+      const yamlButton = await findByText(container, 'YAML')
       expect(yamlButton).toBeDefined()
       fireEvent.click(yamlButton)
       // const yamlDiv = await findByText(container, 'yamlDiv')

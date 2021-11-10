@@ -16,7 +16,9 @@ import {
   Intent,
   HarnessDocTooltip,
   PageSpinner,
-  MultiSelectDropDown
+  MultiSelectDropDown,
+  VisualYamlSelectedView as SelectedView,
+  VisualYamlToggle
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useHistory } from 'react-router-dom'
@@ -56,7 +58,6 @@ import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
-import VisualYamlToggle, { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import { ErrorsStrip } from '@pipeline/components/ErrorsStrip/ErrorsStrip'
 import { useMutateAsGet, useQueryParams } from '@common/hooks'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'

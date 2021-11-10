@@ -3,7 +3,16 @@ import { useParams } from 'react-router-dom'
 import { parse } from 'yaml'
 import { defaultTo } from 'lodash-es'
 import { Drawer, Position } from '@blueprintjs/core'
-import { Layout, Pagination, PaginationProps, PageError, useModalHook, Button } from '@wings-software/uicore'
+import {
+  Layout,
+  Pagination,
+  PaginationProps,
+  PageError,
+  useModalHook,
+  Button,
+  PillToggle,
+  PillToggleProps
+} from '@wings-software/uicore'
 import {
   GitErrorExperienceSubTab,
   GitErrorExperienceTab,
@@ -20,7 +29,6 @@ import {
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import { PageSpinner } from '@common/components'
-import { Toggle, ToggleProps } from '@common/components/Toggle/Toggle'
 import { useStrings } from 'framework/strings'
 import type { GitSyncErrorMessageProps } from '@gitsync/components/GitSyncErrorMessage/GitSyncErrorMessageItem'
 import { GitSyncErrorMessage, parseCommitItems } from '@gitsync/components/GitSyncErrorMessage/GitSyncErrorMessage'
@@ -93,7 +101,7 @@ const GitErrorExperienceToggle: React.FC<{
   const { getString } = useStrings()
   const { selectedTab, setView } = props
   if (selectedTab === GitErrorExperienceTab.ALL_ERRORS) {
-    const toggleProps: ToggleProps<GitErrorExperienceSubTab> = {
+    const toggleProps: PillToggleProps<GitErrorExperienceSubTab> = {
       options: [
         {
           label: getString('commits'),
@@ -112,7 +120,7 @@ const GitErrorExperienceToggle: React.FC<{
     }
     return (
       <Layout.Horizontal flex={{ justifyContent: 'center' }}>
-        <Toggle {...toggleProps} />
+        <PillToggle {...toggleProps} />
       </Layout.Horizontal>
     )
   }

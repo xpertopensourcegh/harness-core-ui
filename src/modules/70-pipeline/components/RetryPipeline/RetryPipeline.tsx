@@ -11,7 +11,9 @@ import {
   SelectOption,
   Checkbox,
   useModalHook,
-  PageSpinner
+  PageSpinner,
+  VisualYamlSelectedView as SelectedView,
+  VisualYamlToggle
 } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import cx from 'classnames'
@@ -24,7 +26,6 @@ import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import type { PipelineInfoConfig } from 'services/cd-ng'
 
-import VisualYamlToggle, { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import {
   getInputSetForPipelinePromise,
   InputSetSummaryResponse,

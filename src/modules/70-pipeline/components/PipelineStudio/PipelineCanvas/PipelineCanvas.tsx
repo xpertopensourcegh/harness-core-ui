@@ -11,7 +11,9 @@ import {
   Container,
   ButtonVariation,
   useToaster,
-  PageSpinner
+  PageSpinner,
+  VisualYamlSelectedView as SelectedView,
+  VisualYamlToggle
 } from '@wings-software/uicore'
 import { useHistory, useParams, matchPath } from 'react-router-dom'
 import { parse } from 'yaml'
@@ -41,7 +43,6 @@ import type { EntityGitDetails, GovernanceMetadata } from 'services/pipeline-ng'
 import { useQueryParams, useUpdateQueryParams } from '@common/hooks'
 import type { GitFilterScope } from '@common/components/GitFilters/GitFilters'
 import { TagsPopover } from '@common/components'
-import VisualYamlToggle, { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
 import { validateJSONWithSchema } from '@common/utils/YamlUtils'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'

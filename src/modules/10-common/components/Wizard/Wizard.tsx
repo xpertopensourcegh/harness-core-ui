@@ -1,11 +1,18 @@
 import React, { useEffect, useRef, createRef, RefObject } from 'react'
-import { Layout, Tabs, Tab, Formik, FormikForm, Icon } from '@wings-software/uicore'
+import {
+  Layout,
+  Tabs,
+  Tab,
+  Formik,
+  FormikForm,
+  Icon,
+  VisualYamlSelectedView as SelectedView
+} from '@wings-software/uicore'
 import type { IconName } from '@wings-software/uicore'
 import { useHistory } from 'react-router-dom'
 import cx from 'classnames'
 import { isEqual } from 'lodash-es'
 import { NavigationCheck } from '@common/components/NavigationCheck/NavigationCheck'
-import { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import { useToaster } from '@common/exports'
 import type {
   YamlBuilderHandlerBinding,

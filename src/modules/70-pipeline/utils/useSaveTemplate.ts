@@ -2,13 +2,13 @@ import React from 'react'
 import { cloneDeep, defaultTo, isEmpty, omit } from 'lodash-es'
 import { parse } from 'yaml'
 import { useHistory, useParams } from 'react-router-dom'
+import { VisualYamlSelectedView as SelectedView } from '@wings-software/uicore'
 import {
   createTemplatePromise,
   EntityGitDetails,
   NGTemplateInfoConfig,
   updateExistingTemplateLabelPromise
 } from 'services/template-ng'
-import { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import { AppStoreContext } from 'framework/AppStore/AppStoreContext'
 import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/exports'

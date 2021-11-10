@@ -2,7 +2,15 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { parse } from 'yaml'
 import { omit, without, defaultTo } from 'lodash-es'
-import { Layout, Container, Button, ButtonVariation, PageHeader } from '@wings-software/uicore'
+import {
+  Layout,
+  Container,
+  Button,
+  ButtonVariation,
+  PageHeader,
+  VisualYamlSelectedView as SelectedView,
+  VisualYamlToggle
+} from '@wings-software/uicore'
 
 import {
   SecretTextSpecDTO,
@@ -27,7 +35,6 @@ import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import VisualYamlToggle, { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import ViewSecretDetails from './views/ViewSecretDetails'
 import './SecretDetails.module.scss'

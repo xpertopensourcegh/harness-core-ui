@@ -43,23 +43,23 @@ exports[`TriggersWizardPage Triggers tests Payload/Values Comparison Existing Tr
           </div>
         </div>
         <div
-          class="optionBtns positionInHeader"
+          class="PillToggle--optionBtns positionInHeader"
         >
           <div
-            class="item selected"
+            class="PillToggle--item PillToggle--selected"
             data-name="toggle-option-one"
             role="button"
             tabindex="0"
           >
-            visual
+            VISUAL
           </div>
           <div
-            class="item"
+            class="PillToggle--item"
             data-name="toggle-option-two"
             role="button"
             tabindex="0"
           >
-            yaml
+            YAML
           </div>
         </div>
         <div
@@ -1175,23 +1175,23 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
           </div>
         </div>
         <div
-          class="optionBtns positionInHeader"
+          class="PillToggle--optionBtns positionInHeader"
         >
           <div
-            class="item selected"
+            class="PillToggle--item PillToggle--selected"
             data-name="toggle-option-one"
             role="button"
             tabindex="0"
           >
-            visual
+            VISUAL
           </div>
           <div
-            class="item"
+            class="PillToggle--item"
             data-name="toggle-option-two"
             role="button"
             tabindex="0"
           >
-            yaml
+            YAML
           </div>
         </div>
         <div
@@ -2197,23 +2197,23 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
           </div>
         </div>
         <div
-          class="optionBtns positionInHeader"
+          class="PillToggle--optionBtns positionInHeader"
         >
           <div
-            class="item selected"
+            class="PillToggle--item PillToggle--selected"
             data-name="toggle-option-one"
             role="button"
             tabindex="0"
           >
-            visual
+            VISUAL
           </div>
           <div
-            class="item"
+            class="PillToggle--item"
             data-name="toggle-option-two"
             role="button"
             tabindex="0"
           >
-            yaml
+            YAML
           </div>
         </div>
         <div
@@ -3178,23 +3178,23 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
           </div>
         </div>
         <div
-          class="optionBtns"
+          class="PillToggle--optionBtns"
         >
           <div
-            class="item selected"
+            class="PillToggle--item PillToggle--selected"
             data-name="toggle-option-one"
             role="button"
             tabindex="0"
           >
-            visual
+            VISUAL
           </div>
           <div
-            class="item"
+            class="PillToggle--item"
             data-name="toggle-option-two"
             role="button"
             tabindex="0"
           >
-            yaml
+            YAML
           </div>
         </div>
         <div
@@ -3677,23 +3677,23 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
           </div>
         </div>
         <div
-          class="optionBtns"
+          class="PillToggle--optionBtns"
         >
           <div
-            class="item selected"
+            class="PillToggle--item PillToggle--selected"
             data-name="toggle-option-one"
             role="button"
             tabindex="0"
           >
-            visual
+            VISUAL
           </div>
           <div
-            class="item"
+            class="PillToggle--item"
             data-name="toggle-option-two"
             role="button"
             tabindex="0"
           >
-            yaml
+            YAML
           </div>
         </div>
         <div

@@ -1,8 +1,8 @@
 import React from 'react'
 import { render } from '@testing-library/react'
+import { VisualYamlSelectedView as SelectedView } from '@wings-software/uicore'
 
 import { TestWrapper } from '@common/utils/testUtils'
-import { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import * as cdng from 'services/cd-ng'
 import { PipelineVariablesContext } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
 import { factory } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'

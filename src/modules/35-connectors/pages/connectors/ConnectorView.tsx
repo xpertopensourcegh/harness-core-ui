@@ -1,7 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { isEmpty, noop, omit } from 'lodash-es'
-import { Button, Layout, Container, Icon, Text, Color, ButtonVariation, shouldShowError } from '@wings-software/uicore'
+import {
+  Button,
+  Layout,
+  Container,
+  Icon,
+  Text,
+  Color,
+  ButtonVariation,
+  shouldShowError,
+  VisualYamlSelectedView as SelectedView,
+  VisualYamlToggle
+} from '@wings-software/uicore'
 import { parse } from 'yaml'
 import { useToaster, useConfirmationDialog, StringUtils } from '@common/exports'
 import {
@@ -17,7 +28,6 @@ import {
   useUpdateConnector,
   CreateConnectorQueryParams
 } from 'services/cd-ng'
-import VisualYamlToggle, { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import YamlBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import TestConnection from '@connectors/components/TestConnection/TestConnection'

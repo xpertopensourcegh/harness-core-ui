@@ -221,23 +221,23 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
           class="StyledProps--font StyledProps--main buttonContainer"
         >
           <div
-            class="optionBtns"
+            class="PillToggle--optionBtns"
           >
             <div
-              class="item selected"
+              class="PillToggle--item PillToggle--selected"
               data-name="toggle-option-one"
               role="button"
               tabindex="0"
             >
-              visual
+              VISUAL
             </div>
             <div
-              class="item"
+              class="PillToggle--item"
               data-name="toggle-option-two"
               role="button"
               tabindex="0"
             >
-              yaml
+              YAML
             </div>
           </div>
           <button
@@ -760,23 +760,23 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
           class="StyledProps--font StyledProps--main buttonContainer"
         >
           <div
-            class="optionBtns"
+            class="PillToggle--optionBtns"
           >
             <div
-              class="item selected"
+              class="PillToggle--item PillToggle--selected"
               data-name="toggle-option-one"
               role="button"
               tabindex="0"
             >
-              visual
+              VISUAL
             </div>
             <div
-              class="item"
+              class="PillToggle--item"
               data-name="toggle-option-two"
               role="button"
               tabindex="0"
             >
-              yaml
+              YAML
             </div>
           </div>
           <button

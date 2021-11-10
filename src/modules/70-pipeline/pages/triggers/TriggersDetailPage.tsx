@@ -1,4 +1,16 @@
-import { Button, ButtonVariation, Color, Container, Icon, Layout, Switch, Text, tagsType } from '@wings-software/uicore'
+import {
+  Button,
+  ButtonVariation,
+  Color,
+  Container,
+  Icon,
+  Layout,
+  Switch,
+  Text,
+  tagsType,
+  VisualYamlSelectedView as SelectedView,
+  VisualYamlToggle
+} from '@wings-software/uicore'
 import React, { ReactNode } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { isEmpty } from 'lodash-es'
@@ -29,7 +41,6 @@ import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import type { YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { useQueryParams } from '@common/hooks'
-import VisualYamlToggle, { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import { TriggerBreadcrumbs } from '../trigger-details/TriggerDetails'
 import { getTriggerIcon, getEnabledStatusTriggerValues } from './utils/TriggersListUtils'
@@ -409,7 +420,7 @@ export default function TriggersDetailPage(): JSX.Element {
                   setSelectedView(nextMode)
                   callback(nextMode)
                 }}
-              ></VisualYamlToggle>
+              />
               <Button
                 variation={ButtonVariation.SECONDARY}
                 icon="edit"
