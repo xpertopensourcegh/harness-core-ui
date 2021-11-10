@@ -3,8 +3,6 @@ import {
   Layout,
   Color,
   Text,
-  CardSelect,
-  Icon,
   Container,
   FormInput,
   Formik,
@@ -12,10 +10,10 @@ import {
   SelectOption,
   FontVariation,
   ButtonVariation,
-  PageSpinner
+  PageSpinner,
+  ThumbnailSelect
 } from '@wings-software/uicore'
 import React, { useState, useEffect } from 'react'
-import cx from 'classnames'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
 import type { ConnectorInfoDTO, ConnectorRequestBody, ConnectorConfigDTO } from 'services/cd-ng'
@@ -356,31 +354,17 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
         {formikProps => (
           <>
             <Container className={css.clusterWrapper}>
-              <CardSelect
-                onChange={(item: DelegateCardInterface) => {
-                  formikProps?.setFieldValue('delegateType', item.type)
+              <ThumbnailSelect
+                items={DelegateCards.map(card => ({ label: card.info, value: card.type }))}
+                name="delegateType"
+                size="large"
+                onChange={type => {
+                  formikProps?.setFieldValue('delegateType', type)
                   formikProps?.setFieldValue(
                     'authType',
-                    item.type === DelegateTypes.DELEGATE_OUT_CLUSTER ? AuthTypes.USER_PASSWORD : ''
+                    type === DelegateTypes.DELEGATE_OUT_CLUSTER ? AuthTypes.USER_PASSWORD : ''
                   )
                 }}
-                data={DelegateCards}
-                className={css.cardRow}
-                renderItem={(item: DelegateCardInterface) => {
-                  return (
-                    <Container
-                      className={cx(css.card, { [css.selectedCard]: item.type === formikProps.values.delegateType })}
-                    >
-                      <Text inline className={css.textInfo}>
-                        {item.info}
-                      </Text>
-                      {item.type === formikProps.values.delegateType ? (
-                        <Icon margin="small" name="deployment-success-new" size={16} />
-                      ) : null}
-                    </Container>
-                  )
-                }}
-                selected={DelegateCards[DelegateCards.findIndex(card => card.type === formikProps.values.delegateType)]}
               />
 
               {DelegateTypes.DELEGATE_OUT_CLUSTER === formikProps.values.delegateType ? (
