@@ -24,8 +24,12 @@ const IconGrid: React.FC<Props> = ({ items, iconProps, max = 8, width, isDarkBac
           <Utils.WrapOptionalTooltip
             key={i}
             tooltip={item.healthScore?.toString() ?? getString(getRiskLabelStringId(item.riskStatus))}
+            tooltipProps={{
+              usePortal: false,
+              popoverClassName: isDarkBackground ? css.healthScorePopoverDarkBg : css.healthScorePopoverLightBg
+            }}
           >
-            <Icon {...iconProps} color={getRiskColorValue(item.riskStatus, false)} />
+            <Icon {...iconProps} color={getRiskColorValue(item.riskStatus, false, !!isDarkBackground)} />
           </Utils.WrapOptionalTooltip>
         ))}
         {items.length > max && (

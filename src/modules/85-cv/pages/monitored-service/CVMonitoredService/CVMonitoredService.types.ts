@@ -49,4 +49,5 @@ export interface RiskTagWithLabelProps {
   labelVariation?: FontVariation
   color?: Color
   label?: string
+  isDarkBackground?: boolean
 }

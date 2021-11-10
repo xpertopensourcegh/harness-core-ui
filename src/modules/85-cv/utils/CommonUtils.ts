@@ -19,7 +19,9 @@ type OldRiskTypes = 'LOW' | 'MEDIUM' | 'HIGH'
 
 type RiskTypes = keyof typeof RiskValues | OldRiskTypes
 
-export function getRiskColorValue(riskStatus?: RiskTypes, realCSSColor = true): string {
+export const getRiskColorValue = (riskStatus?: RiskTypes, realCSSColor = true, dark = true): string => {
+  const COLOR_NO_DATA = dark ? Color.GREY_400 : Color.GREY_100
+
   switch (riskStatus) {
     case RiskValues.HEALTHY:
       return realCSSColor ? Utils.getRealCSSColor(Color.GREEN_500) : Color.GREEN_500
@@ -30,7 +32,7 @@ export function getRiskColorValue(riskStatus?: RiskTypes, realCSSColor = true): 
     case RiskValues.UNHEALTHY:
       return realCSSColor ? Utils.getRealCSSColor(Color.RED_600) : Color.RED_600
     default:
-      return realCSSColor ? Utils.getRealCSSColor(Color.GREY_400) : Color.GREY_400
+      return realCSSColor ? Utils.getRealCSSColor(COLOR_NO_DATA) : COLOR_NO_DATA
   }
 }
 

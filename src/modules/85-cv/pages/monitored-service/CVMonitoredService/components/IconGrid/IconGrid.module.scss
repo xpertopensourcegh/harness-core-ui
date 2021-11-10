@@ -2,3 +2,21 @@
   align-items: center;
   flex-wrap: wrap;
 }
+
+.healthScorePopoverLightBg {
+  color: black;
+}
+
+.healthScorePopoverDarkBg {
+  color: white;
+  background-color: var(--grey-700);
+
+  :global {
+    .bp3-popover-arrow-fill {
+      fill: var(--grey-700);
+    }
+    .bp3-popover-content {
+      background-color: var(--grey-700);
+    }
+  }
+}

@@ -88,6 +88,7 @@ const GraphSummaryCard: React.FC<GraphSummaryCardProps> = ({
             riskData={monitoredService.currentHealthScore}
             labelVariation={FontVariation.SMALL}
             color={Color.GREY_0}
+            isDarkBackground
           />
         )}
         {!!monitoredService.dependentHealthScore?.length && (

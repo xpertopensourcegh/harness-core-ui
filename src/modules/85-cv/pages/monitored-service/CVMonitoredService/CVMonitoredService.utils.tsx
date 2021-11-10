@@ -88,13 +88,22 @@ export const RenderHealthTrend: Renderer<CellProps<MonitoredServiceListItemDTO>>
   return <ServiceHealthTrend healthScores={healthScores} />
 }
 
-export const RiskTagWithLabel = ({ riskData, labelVariation, color, label }: RiskTagWithLabelProps): ReactElement => {
+export const RiskTagWithLabel = ({
+  riskData,
+  labelVariation,
+  color,
+  label,
+  isDarkBackground
+}: RiskTagWithLabelProps): ReactElement => {
   const { getString } = useStrings()
   const { riskStatus, healthScore } = riskData ?? {}
 
   return (
     <Layout.Horizontal className={css.healthScoreCardContainer} spacing="small">
-      <Tag className={css.healthScoreCard} style={{ backgroundColor: getRiskColorValue(riskStatus) }}>
+      <Tag
+        className={css.healthScoreCard}
+        style={{ backgroundColor: getRiskColorValue(riskStatus, true, !!isDarkBackground) }}
+      >
         {healthScore}
       </Tag>
       <Text color={color ?? Color.BLACK} font={{ variation: labelVariation ?? FontVariation.BODY }}>

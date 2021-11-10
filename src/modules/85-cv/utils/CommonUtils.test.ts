@@ -4,6 +4,7 @@ import { RiskValues, getRiskColorValue, getSecondaryRiskColorValue } from './Com
 describe('Test for getRiskColorValue', () => {
   test('getRiskColorValue should return correct realCSSColors', () => {
     expect(getRiskColorValue(RiskValues.NO_DATA)).toEqual(Utils.getRealCSSColor(Color.GREY_400))
+    expect(getRiskColorValue(RiskValues.NO_DATA, true, false)).toEqual(Utils.getRealCSSColor(Color.GREY_100))
     expect(getRiskColorValue(RiskValues.HEALTHY)).toEqual(Utils.getRealCSSColor(Color.GREEN_500))
     expect(getRiskColorValue(RiskValues.OBSERVE)).toEqual(Utils.getRealCSSColor(Color.YELLOW_800))
     expect(getRiskColorValue(RiskValues.NEED_ATTENTION)).toEqual(Utils.getRealCSSColor(Color.ORANGE_600))
@@ -13,6 +14,7 @@ describe('Test for getRiskColorValue', () => {
   }),
     test('getRiskColorValue should return correct non realCSSColors', () => {
       expect(getRiskColorValue(RiskValues.NO_DATA, false)).toEqual(Color.GREY_400)
+      expect(getRiskColorValue(RiskValues.NO_DATA, false, false)).toEqual(Color.GREY_100)
       expect(getRiskColorValue(RiskValues.HEALTHY, false)).toEqual(Color.GREEN_500)
       expect(getRiskColorValue(RiskValues.OBSERVE, false)).toEqual(Color.YELLOW_800)
       expect(getRiskColorValue(RiskValues.NEED_ATTENTION, false)).toEqual(Color.ORANGE_600)
