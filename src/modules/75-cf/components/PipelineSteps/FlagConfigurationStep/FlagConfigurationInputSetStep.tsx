@@ -1,15 +1,21 @@
-import React from 'react'
-// import { getMultiTypeFromValue, MultiTypeInputType, SelectOption, FormInput } from '@wings-software/uicore'
-// import { isEmpty } from 'lodash-es'
-
-// import { useStrings } from 'framework/strings'
+import React, { useMemo } from 'react'
+import { useParams } from 'react-router-dom'
+import {
+  Container,
+  FormInput,
+  getMultiTypeFromValue,
+  MultiTypeInputType,
+  PageError,
+  SelectOption
+} from '@wings-software/uicore'
+import { useStrings } from 'framework/strings'
+import { useGetAllFeatures } from 'services/cf'
 import type { StepViewType } from '@pipeline/components/AbstractSteps/Step'
-// import { DurationInputFieldForInputSet } from '@common/components/MultiTypeDuration/MultiTypeDuration'
-
-import type { FlagConfigurationStepFormData, FlagConfigurationStepData } from './types'
-// import { httpStepType } from './HttpStepBase'
+import { CF_DEFAULT_PAGE_SIZE, getErrorMessage } from '@cf/utils/CFUtils'
+import type { FlagConfigurationStepData, FlagConfigurationStepFormData } from './types'
 
 export interface FlagConfigurationInputSetStepProps {
+  environment: FlagConfigurationStepFormData['spec']['environment']
   initialValues: FlagConfigurationStepFormData
   onUpdate?: (data: FlagConfigurationStepFormData) => void
   stepViewType?: StepViewType
@@ -18,47 +24,59 @@ export interface FlagConfigurationInputSetStepProps {
   path: string
 }
 
-export default function FlagConfigurationInputSetStep(_props: FlagConfigurationInputSetStepProps): React.ReactElement {
-  // const { template, onUpdate, initialValues, path, readonly } = props
-  // const { getString } = useStrings()
-  // const prefix = isEmpty(path) ? '' : `${path}.`
+function FlagConfigurationInputSetStep({
+  environment,
+  template,
+  path,
+  readonly
+}: FlagConfigurationInputSetStepProps): React.ReactElement {
+  const { getString } = useStrings()
 
-  // console.log('FlagConfigurationInputSetStep: ', props)
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<Record<string, string>>()
+  const queryParams = useMemo(
+    () => ({
+      account: accountId,
+      accountIdentifier: accountId,
+      org: orgIdentifier,
+      project: projectIdentifier,
+      environment,
+      pageSize: CF_DEFAULT_PAGE_SIZE
+    }),
+    [accountId, orgIdentifier, projectIdentifier, environment]
+  )
+
+  const {
+    data: featuresData,
+    error: errorFeatures,
+    refetch: refetchFeatures
+  } = useGetAllFeatures({ queryParams, debounce: 200 })
+
+  const flagItems = useMemo<SelectOption[]>(
+    () => featuresData?.features?.map(({ identifier: value, name: label }) => ({ value, label })) || [],
+    [featuresData?.features]
+  )
+
+  if (errorFeatures) {
+    return (
+      <Container padding={{ top: 'huge' }}>
+        <PageError message={getErrorMessage(errorFeatures)} width={450} onClick={() => refetchFeatures()} />
+      </Container>
+    )
+  }
+
   return (
-    <React.Fragment>
-      FlagConfigurationInputSetStep: To be implemented...
-      {/* {getMultiTypeFromValue(template?.spec?.url) === MultiTypeInputType.RUNTIME ? (
-        <FormInput.Text label={getString('UrlLabel')} name={`${prefix}spec.url`} disabled={readonly} />
-      ) : null}
-      {getMultiTypeFromValue(template?.spec?.method) === MultiTypeInputType.RUNTIME ? (
+    <>
+      {getMultiTypeFromValue(template?.spec?.feature) === MultiTypeInputType.RUNTIME && (
         <FormInput.Select
-          label={getString('methodLabel')}
-          name={`${prefix}spec.method`}
-          items={httpStepType}
-          onChange={(opt: SelectOption) => {
-            onUpdate?.({ ...initialValues, spec: { ...initialValues.spec, method: opt.value.toString() } })
-          }}
+          label={getString('cf.pipeline.flagConfiguration.selectFlag')}
+          name={`${path}.spec.feature`}
+          items={flagItems}
           disabled={readonly}
+          onQueryChange={name => refetchFeatures({ queryParams: { ...queryParams, name } })}
         />
-      ) : null}
-      {getMultiTypeFromValue(template?.spec?.requestBody) === MultiTypeInputType.RUNTIME ? (
-        <FormInput.TextArea
-          label={getString('requestBodyLabel')}
-          name={`${prefix}spec.requestBody`}
-          style={{ resize: 'vertical' }}
-          disabled={readonly}
-        />
-      ) : null}
-      {getMultiTypeFromValue(template?.spec?.assertion) === MultiTypeInputType.RUNTIME ? (
-        <FormInput.Text label={getString('assertionLabel')} name={`${prefix}spec.assertion`} disabled={readonly} />
-      ) : null}
-      {getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME ? (
-        <DurationInputFieldForInputSet
-          label={getString('pipelineSteps.timeoutLabel')}
-          name={`${prefix}timeout`}
-          disabled={readonly}
-        />
-      ) : null} */}
-    </React.Fragment>
+      )}
+    </>
   )
 }
+
+export default FlagConfigurationInputSetStep

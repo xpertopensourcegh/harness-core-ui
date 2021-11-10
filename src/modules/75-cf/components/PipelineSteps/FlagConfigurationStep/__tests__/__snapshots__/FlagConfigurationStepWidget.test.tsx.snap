@@ -1,33 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FlagConfigurationStep it should render in DeploymentForm mode 1`] = `
-<div>
-  <div
-    class="OverlaySpinner--overlaySpinner"
-  >
-    <p
-      class="StyledProps--font StyledProps--main"
-    >
-      Errors
-    </p>
-    <pre>
-      {}
-    </pre>
-    <button
-      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
-      type="button"
-    >
-      <span
-        class="bp3-button-text"
-      >
-        Submit
-      </span>
-    </button>
-  </div>
-</div>
-`;
-
-exports[`FlagConfigurationStep it should render in edit mode 1`] = `
+exports[`FlagConfigurationStepWidget it should render 1`] = `
 <div>
   <div
     class="OverlaySpinner--overlaySpinner"
@@ -63,15 +36,13 @@ exports[`FlagConfigurationStep it should render in edit mode 1`] = `
               class="bp3-popover-target"
             >
               <div
-                class="bp3-editable-text InputWithIdentifier--idValue"
+                class="bp3-editable-text bp3-editable-text-placeholder InputWithIdentifier--idValue"
                 tabindex="0"
               >
                 <span
                   class="bp3-editable-text-content"
                   style="height: 1px; line-height: 1px; min-width: 0;"
-                >
-                  test123
-                </span>
+                />
               </div>
             </span>
           </span>
@@ -131,7 +102,7 @@ exports[`FlagConfigurationStep it should render in edit mode 1`] = `
                 class="bp3-input"
                 name="name"
                 type="text"
-                value="Test 123"
+                value=""
               />
             </div>
           </div>

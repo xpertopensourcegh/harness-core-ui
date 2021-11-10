@@ -30,7 +30,7 @@ import FlagChanges from './FlagChanges/FlagChanges'
  * Spec: https://harness.atlassian.net/wiki/spaces/FFM/pages/1446084831/APIs+for+creating+and+executing+Pipelines
  */
 
-export interface FlagConfigurationStepProps {
+export interface FlagConfigurationStepWidgetProps {
   initialValues: FlagConfigurationStepFormData
   isNewStep?: boolean
   isDisabled?: boolean
@@ -40,7 +40,7 @@ export interface FlagConfigurationStepProps {
 }
 
 export function FlagConfigurationStepWidget(
-  props: FlagConfigurationStepProps,
+  props: FlagConfigurationStepWidgetProps,
   formikRef: StepFormikFowardRef<FlagConfigurationStepData>
 ): React.ReactElement {
   const { getString } = useStrings()
@@ -207,9 +207,9 @@ export function FlagConfigurationStepWidget(
               inputLabel={stepString('stepName')}
               inputGroupProps={{ disabled: isDisabled }}
             />
-            <FormInput.MultiTypeInput
+            <FormInput.Select
               name="spec.environment"
-              selectItems={
+              items={
                 environments?.map<SelectOption>(env => ({
                   label: env.name as string,
                   value: env.identifier as string
@@ -217,10 +217,6 @@ export function FlagConfigurationStepWidget(
               }
               label={stepString('selectEnvironment')}
               disabled={isDisabled}
-              multiTypeInputProps={{
-                disabled: isDisabled,
-                allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]
-              }}
             />
             <FormInput.MultiTypeInput
               name="spec.featureFlag"

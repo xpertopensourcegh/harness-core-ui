@@ -20,7 +20,7 @@ jest.mock('@cf/hooks/useEnvironmentSelectV2', () => ({
 describe('FlagConfigurationStep', () => {
   beforeEach(() => factory.registerStep(new FlagConfigurationStep()))
 
-  test('it should render', async () => {
+  test('it should render in edit mode', async () => {
     const { container } = render(
       <TestStepWidget
         initialValues={{
@@ -31,6 +31,23 @@ describe('FlagConfigurationStep', () => {
         }}
         type={StepType.FlagConfiguration}
         stepViewType={StepViewType.Edit}
+      />
+    )
+
+    expect(container).toMatchSnapshot()
+  })
+
+  test('it should render in DeploymentForm mode', async () => {
+    const { container } = render(
+      <TestStepWidget
+        initialValues={{
+          identifier: 'test123',
+          name: 'Test 123',
+          type: 'type',
+          spec: { featureFlag: 'testFlag', environment: 'dev', state: 'on' }
+        }}
+        type={StepType.FlagConfiguration}
+        stepViewType={StepViewType.DeploymentForm}
       />
     )
 

@@ -25,6 +25,7 @@ export class FlagConfigurationStep extends PipelineStep<FlagConfigurationStepDat
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <FlagConfigurationInputSetStep
+          environment={inputSetData?.allValues?.spec.environment || ''}
           initialValues={this.processInitialValues(initialValues, true)}
           onUpdate={data => onUpdate?.(this.processFormData(data))}
           stepViewType={stepViewType}
@@ -71,14 +72,7 @@ export class FlagConfigurationStep extends PipelineStep<FlagConfigurationStepDat
     const errors: FormikErrors<FlagConfigurationStepData> = { spec: {} }
 
     if (getMultiTypeFromValue(template?.spec?.feature) === MultiTypeInputType.RUNTIME && isEmpty(data?.spec?.feature)) {
-      set(errors, 'spec.featureFlag', getString?.('fieldRequired', { field: 'featureFlag' }))
-    }
-
-    if (
-      getMultiTypeFromValue(template?.spec?.environment) === MultiTypeInputType.RUNTIME &&
-      isEmpty(data?.spec?.environment)
-    ) {
-      set(errors, 'spec.environment', getString?.('fieldRequired', { field: 'environment' }))
+      set(errors, 'spec.feature', getString?.('fieldRequired', { field: 'feature' }))
     }
 
     if (isEmpty(errors.spec)) {
@@ -104,6 +98,10 @@ export class FlagConfigurationStep extends PipelineStep<FlagConfigurationStepDat
     initialValues: FlagConfigurationStepData,
     _forInputSet?: boolean
   ): FlagConfigurationStepFormData {
+    if (_forInputSet) {
+      return { ...initialValues, spec: { instructions: [] } } as unknown as FlagConfigurationStepFormData
+    }
+
     const state = initialValues.spec.instructions.find(
       ({ type }) => type === CFPipelineInstructionType.SET_FEATURE_FLAG_STATE
     )?.spec.state
