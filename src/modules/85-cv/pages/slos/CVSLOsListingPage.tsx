@@ -1,60 +1,46 @@
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import {
-  Button,
-  Container,
-  Text,
-  Select,
-  SelectOption,
-  Color,
-  useToaster,
-  ButtonVariation,
-  Layout,
-  FontVariation
-} from '@wings-software/uicore'
+import { Button, Container, Text, Color, useToaster, ButtonVariation, FontVariation } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
-import { useDeleteSLOData, useGetMonitoredServiceListEnvironments, useGetServiceLevelObjectives } from 'services/cv'
-import { getEnvironmentOptions, getErrorMessage } from '@cv/utils/CommonUtils'
+import { useDeleteSLOData, useGetServiceLevelObjectives } from 'services/cv'
+import { getErrorMessage } from '@cv/utils/CommonUtils'
 import Card from '@cv/components/Card/Card'
 import ContextMenuActions from '@cv/components/ContextMenuActions/ContextMenuActions'
 import { LIST_SLOS_OFFSET, LIST_SLOS_PAGESIZE } from './CVSLOsListingPage.constants'
 import { getSLOsData } from './components/CVCreateSLO/CVSLOsListingPage.utils'
 import type { SLOForm } from './components/CVCreateSLO/components/CreateSLOForm/CreateSLO.types'
+import type { CVSLOsListingPageProps } from './CVSLOsListingPage.types'
 import css from './CVSLOsListingPage.module.scss'
 
-function CVSLOsListingPage(): JSX.Element {
+function CVSLOsListingPage(props: CVSLOsListingPageProps): JSX.Element {
+  const { monitoredServiceIdentifier } = props
   const { getString } = useStrings()
   const history = useHistory()
   const { showError, showSuccess, clear } = useToaster()
   const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps & { identifier: string }>()
-  const [environment, setEnvironment] = useState<SelectOption>()
-  const { data: environmentDataList, loading: loadingEnvironments } = useGetMonitoredServiceListEnvironments({
-    queryParams: {
+
+  const getSLOsQueryParams = useMemo(
+    () => ({
       accountId,
       projectIdentifier,
-      orgIdentifier
-    }
-  })
-
+      orgIdentifier,
+      offset: LIST_SLOS_OFFSET,
+      pageSize: LIST_SLOS_PAGESIZE,
+      monitoredServiceIdentifier
+    }),
+    [accountId, monitoredServiceIdentifier, orgIdentifier, projectIdentifier]
+  )
   const {
     data: SLOsData,
     loading: loadingSLOs,
     refetch: fetchSLOs,
     error: SLOsError
-  } = useGetServiceLevelObjectives({
-    queryParams: {
-      accountId,
-      projectIdentifier,
-      orgIdentifier,
-      offset: LIST_SLOS_OFFSET,
-      pageSize: LIST_SLOS_PAGESIZE
-    }
-  })
+  } = useGetServiceLevelObjectives({ queryParams: getSLOsQueryParams })
 
   const { mutate: deleteSLO, loading: deleteSLOLoading } = useDeleteSLOData({
     queryParams: {
@@ -63,12 +49,6 @@ function CVSLOsListingPage(): JSX.Element {
       orgIdentifier
     }
   })
-
-  const environmentOptions = useMemo(
-    () => getEnvironmentOptions(environmentDataList, loadingEnvironments, getString),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [environmentDataList, loadingEnvironments]
-  )
 
   const SLOsList = useMemo(() => getSLOsData(SLOsData), [SLOsData])
 
@@ -90,32 +70,34 @@ function CVSLOsListingPage(): JSX.Element {
         return SLOs.map((slo: SLOForm) => {
           return (
             <Card key={slo.identifier} className={css.sloCard}>
-              <>
+              <Container data-testid={'sloCard'}>
                 <Container className={css.sloTitle}>
                   <Text font={{ variation: FontVariation.SMALL_BOLD }} color={Color.GREY_600}>
                     {slo.name}
                   </Text>
-                  <ContextMenuActions
-                    titleText={getString('common.delete', { name: slo.name })}
-                    contentText={
-                      <Text color={Color.GREY_800}>{getString('cv.slos.confirmDeleteSLO', { name: slo.name })}</Text>
-                    }
-                    confirmButtonText={getString('yes')}
-                    deleteLabel={getString('cv.slos.deleteSLO')}
-                    onDelete={() => onDelete(slo.identifier, slo.name)}
-                    editLabel={getString('cv.slos.editSLO')}
-                    onEdit={() => {
-                      history.push({
-                        pathname: routes.toCVEditSLOs({
-                          accountId,
-                          projectIdentifier,
-                          orgIdentifier,
-                          identifier: slo.identifier,
-                          module: 'cv'
+                  {!monitoredServiceIdentifier ? (
+                    <ContextMenuActions
+                      titleText={getString('common.delete', { name: slo.name })}
+                      contentText={
+                        <Text color={Color.GREY_800}>{getString('cv.slos.confirmDeleteSLO', { name: slo.name })}</Text>
+                      }
+                      confirmButtonText={getString('yes')}
+                      deleteLabel={getString('cv.slos.deleteSLO')}
+                      onDelete={() => onDelete(slo.identifier, slo.name)}
+                      editLabel={getString('cv.slos.editSLO')}
+                      onEdit={() => {
+                        history.push({
+                          pathname: routes.toCVEditSLOs({
+                            accountId,
+                            projectIdentifier,
+                            orgIdentifier,
+                            identifier: slo.identifier,
+                            module: 'cv'
+                          })
                         })
-                      })
-                    }}
-                  />
+                      }}
+                    />
+                  ) : null}
                 </Container>
                 <Container className={css.sloHeader}>
                   <Container className={css.sloBasicInfo}>
@@ -133,7 +115,7 @@ function CVSLOsListingPage(): JSX.Element {
                   </Container>
                 </Container>
                 <hr className={css.seperator} />
-              </>
+              </Container>
             </Card>
           )
         })
@@ -142,46 +124,36 @@ function CVSLOsListingPage(): JSX.Element {
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [accountId, orgIdentifier, projectIdentifier]
+    [accountId, monitoredServiceIdentifier, orgIdentifier, projectIdentifier]
   )
 
   return (
     <>
-      <Page.Header breadcrumbs={<NGBreadcrumbs />} title={getString('cv.slos.title')} />
-      <Page.Header
-        title={
-          <Button
-            variation={ButtonVariation.PRIMARY}
-            icon="plus"
-            text={getString('cv.slos.newSLO')}
-            onClick={() => {
-              history.push(
-                routes.toCVCreateSLOs({
-                  orgIdentifier,
-                  projectIdentifier,
-                  accountId
-                })
-              )
-            }}
+      {!monitoredServiceIdentifier ? (
+        <>
+          <Page.Header breadcrumbs={<NGBreadcrumbs />} title={getString('cv.slos.title')} />
+          <Page.Header
+            title={
+              <Button
+                variation={ButtonVariation.PRIMARY}
+                icon="plus"
+                text={getString('cv.slos.newSLO')}
+                onClick={() => {
+                  history.push(
+                    routes.toCVCreateSLOs({
+                      orgIdentifier,
+                      projectIdentifier,
+                      accountId
+                    })
+                  )
+                }}
+              />
+            }
           />
-        }
-        toolbar={
-          <Layout.Horizontal>
-            <Select
-              value={{
-                label: `${getString('environment')}: ${environment?.label ?? getString('all')}`,
-                value: environment?.value ?? getString('all')
-              }}
-              defaultSelectedItem={{ label: getString('all'), value: getString('all') }}
-              items={environmentOptions}
-              onChange={item => setEnvironment(item)}
-              className={css.filterSelect}
-            />
-          </Layout.Horizontal>
-        }
-      />
+        </>
+      ) : null}
       <Page.Body
-        loading={loadingEnvironments || loadingSLOs || deleteSLOLoading}
+        loading={loadingSLOs || deleteSLOLoading}
         error={getErrorMessage(SLOsError)}
         retryOnError={() => fetchSLOs()}
         noData={{

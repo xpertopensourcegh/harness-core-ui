@@ -14,6 +14,7 @@ import Configurations from './components/Configurations/Configurations'
 import { MonitoredServiceEnum } from './MonitoredServicePage.constants'
 import ServiceHealth from './components/ServiceHealth/ServiceHealth'
 import HealthScoreCard from './components/ServiceHealth/components/HealthScoreCard/HealthScoreCard'
+import CVSLOsListingPage from '../slos/CVSLOsListingPage'
 import css from './MonitoredServicePage.module.scss'
 
 const ServiceHealthAndConfiguration: React.FC = () => {
@@ -97,7 +98,15 @@ const ServiceHealthAndConfiguration: React.FC = () => {
               </PageBodyWrapper>
             }
           />
-          <Tab id={MonitoredServiceEnum.SLOs} title={getString('cv.slos.title')} disabled />
+          <Tab
+            id={MonitoredServiceEnum.SLOs}
+            title={getString('cv.slos.title')}
+            panel={
+              <PageBodyWrapper>
+                <CVSLOsListingPage monitoredServiceIdentifier={identifier} />
+              </PageBodyWrapper>
+            }
+          />
           <Tab
             id={MonitoredServiceEnum.Configurations}
             title={getString('cv.monitoredServices.monitoredServiceTabs.configurations')}

@@ -109,92 +109,253 @@ exports[`Test CVSLOsListingPage component should render CVSLOsListingPage page a
         </span>
       </button>
     </div>
-    <div
-      class="Layout--horizontal StyledProps--main"
-    >
-      <div
-        class="bp3-popover-wrapper filterSelect Select--main bp3-fill"
-      >
-        <div
-          class="bp3-popover-target"
-        >
-          <div
-            class="bp3-input-group"
-          >
-            <input
-              autocomplete="off"
-              class="bp3-input"
-              placeholder="- Select -"
-              style="padding-right: 0px;"
-              type="text"
-              value="environment: all"
-            />
-            <span
-              class="bp3-input-action"
-            >
-              <span
-                class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
-                icon="chevron-down"
-              >
-                <svg
-                  data-icon="chevron-down"
-                  height="14"
-                  viewBox="0 0 16 16"
-                  width="14"
-                >
-                  <desc>
-                    chevron-down
-                  </desc>
-                  <path
-                    d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
   <div
     class="StyledProps--font StyledProps--main PageBody--pageBody pageBody"
     data-name="page-body"
   >
     <div
-      class="StyledProps--font StyledProps--main NoDataCard--noDataCard StyledProps--flex StyledProps--flex-align-center-center"
+      class="StyledProps--font StyledProps--main slosContainer"
     >
       <div
-        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
-        style="align-items: center; margin-top: -48px; width: 470px;"
+        class="StyledProps--font StyledProps--main sloCard container"
       >
-        <span
-          class="bp3-icon bp3-icon-join-table StyledProps--main StyledProps--color StyledProps--color-grey600"
-          icon="join-table"
-        >
-          <svg
-            data-icon="join-table"
-            height="48"
-            viewBox="0 0 20 20"
-            width="48"
-          >
-            <desc>
-              join-table
-            </desc>
-            <path
-              d="M19 6h-4V2c0-.55-.45-1-1-1H1c-.55 0-1 .45-1 1v11c0 .55.45 1 1 1h4v4c0 .55.45 1 1 1h13c.55 0 1-.45 1-1V7c0-.55-.45-1-1-1zM6 12H2V9h4v3zm0-4H2V5h4v3zm7 9H7v-3h6v3zm0-4H7V9h6v4zm0-5H7V5h6v3zm5 9h-4v-3h4v3zm0-4h-4v-3h4v3z"
-              fill-rule="evenodd"
-            />
-          </svg>
-        </span>
-        <p
-          class="StyledProps--font StyledProps--main NoDataCard--message StyledProps--font-align-center StyledProps--color StyledProps--color-grey600"
-        >
-          cv.slos.noData
-        </p>
         <div
-          class="NoDataCard--buttonContainer"
-        />
+          class="StyledProps--font StyledProps--main content"
+        >
+          <div
+            class="StyledProps--font StyledProps--main"
+            data-testid="sloCard"
+          >
+            <div
+              class="StyledProps--font StyledProps--main sloTitle"
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-small-bold StyledProps--color StyledProps--color-grey600"
+              >
+                Third SLO
+              </p>
+              <span
+                class="bp3-popover-wrapper"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <button
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey350 Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon Button--variation Button--variation-icon"
+                    type="button"
+                  >
+                    <span
+                      class="bp3-icon StyledProps--main"
+                      data-icon="Options"
+                    >
+                      <svg
+                        fill="none"
+                        height="16"
+                        viewBox="0 0 4 16"
+                        width="16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          clip-rule="evenodd"
+                          d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                          fill="currentColor"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </span>
+              </span>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main sloHeader"
+            >
+              <div
+                class="StyledProps--font StyledProps--main sloBasicInfo"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey400 StyledProps--padding-top-xsmall"
+                >
+                  connectors.cdng.monitoredService.label : Service_101_QA
+                </p>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey400 StyledProps--padding-top-xsmall"
+                >
+                  cv.slos.sliType : Latency
+                </p>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey400 StyledProps--padding-top-xsmall StyledProps--padding-bottom-small"
+                >
+                  cv.slos.healthSource : dasdsadsa
+                </p>
+              </div>
+            </div>
+            <hr
+              class="seperator"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main sloCard container"
+      >
+        <div
+          class="StyledProps--font StyledProps--main content"
+        >
+          <div
+            class="StyledProps--font StyledProps--main"
+            data-testid="sloCard"
+          >
+            <div
+              class="StyledProps--font StyledProps--main sloTitle"
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-small-bold StyledProps--color StyledProps--color-grey600"
+              >
+                Second SLO
+              </p>
+              <span
+                class="bp3-popover-wrapper"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <button
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey350 Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon Button--variation Button--variation-icon"
+                    type="button"
+                  >
+                    <span
+                      class="bp3-icon StyledProps--main"
+                      data-icon="Options"
+                    >
+                      <svg
+                        fill="none"
+                        height="16"
+                        viewBox="0 0 4 16"
+                        width="16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          clip-rule="evenodd"
+                          d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                          fill="currentColor"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </span>
+              </span>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main sloHeader"
+            >
+              <div
+                class="StyledProps--font StyledProps--main sloBasicInfo"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey400 StyledProps--padding-top-xsmall"
+                >
+                  connectors.cdng.monitoredService.label : Service_101_QA
+                </p>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey400 StyledProps--padding-top-xsmall"
+                >
+                  cv.slos.sliType : Latency
+                </p>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey400 StyledProps--padding-top-xsmall StyledProps--padding-bottom-small"
+                >
+                  cv.slos.healthSource : Test_AppD
+                </p>
+              </div>
+            </div>
+            <hr
+              class="seperator"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main sloCard container"
+      >
+        <div
+          class="StyledProps--font StyledProps--main content"
+        >
+          <div
+            class="StyledProps--font StyledProps--main"
+            data-testid="sloCard"
+          >
+            <div
+              class="StyledProps--font StyledProps--main sloTitle"
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-small-bold StyledProps--color StyledProps--color-grey600"
+              >
+                First SLO
+              </p>
+              <span
+                class="bp3-popover-wrapper"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <button
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey350 Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon Button--variation Button--variation-icon"
+                    type="button"
+                  >
+                    <span
+                      class="bp3-icon StyledProps--main"
+                      data-icon="Options"
+                    >
+                      <svg
+                        fill="none"
+                        height="16"
+                        viewBox="0 0 4 16"
+                        width="16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          clip-rule="evenodd"
+                          d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                          fill="currentColor"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </span>
+              </span>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main sloHeader"
+            >
+              <div
+                class="StyledProps--font StyledProps--main sloBasicInfo"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey400 StyledProps--padding-top-xsmall"
+                >
+                  connectors.cdng.monitoredService.label : Service_101_QA
+                </p>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey400 StyledProps--padding-top-xsmall"
+                >
+                  cv.slos.sliType : Latency
+                </p>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey400 StyledProps--padding-top-xsmall StyledProps--padding-bottom-small"
+                >
+                  cv.slos.healthSource : dasdsadsa
+                </p>
+              </div>
+            </div>
+            <hr
+              class="seperator"
+            />
+          </div>
+        </div>
       </div>
     </div>
   </div>

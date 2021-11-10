@@ -13,7 +13,11 @@ export const getPeriodTypeOptions = (getString: UseStringsReturn['getString']): 
 }
 
 export const getPeriodLengthOptions = (): SelectOption[] => {
-  return [{ label: '30', value: '30' }]
+  const periodLengthOptions = []
+  for (let i = 1; i <= 30; i++) {
+    periodLengthOptions.push({ label: `${i}`, value: `${i}d` })
+  }
+  return periodLengthOptions
 }
 
 export const getDefaultDateRange = (formikProps: FormikProps<SLOForm>): [Date | undefined, Date | undefined] => {

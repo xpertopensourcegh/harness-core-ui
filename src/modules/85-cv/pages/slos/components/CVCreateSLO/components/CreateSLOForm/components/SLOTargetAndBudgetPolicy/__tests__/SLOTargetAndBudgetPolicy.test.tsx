@@ -8,6 +8,7 @@ import type { StringKeys } from 'framework/strings'
 import SLOTargetAndBudgetPolicy from '../SLOTargetAndBudgetPolicy'
 import { getPeriodLengthOptions, getPeriodTypeOptions, getUpdatedTarget } from '../SLOTargetAndBudgetPolicy.utils'
 import type { SLOForm } from '../../../CreateSLO.types'
+import { periodLengthOptions } from './SLOTargetAndBudgetPolicy.mock'
 
 function WrapperComponent(props: { initialValues: any }): JSX.Element {
   const { initialValues } = props
@@ -56,12 +57,7 @@ describe('Test SLOTargetAndBudgetPolicy component', () => {
   })
 
   test('verify getPeriodLengthOptions method', async () => {
-    expect(getPeriodLengthOptions()).toEqual([
-      {
-        label: '30',
-        value: '30'
-      }
-    ])
+    expect(getPeriodLengthOptions()).toEqual(periodLengthOptions)
   })
 
   test('verify getUpdatedTarget method', async () => {
