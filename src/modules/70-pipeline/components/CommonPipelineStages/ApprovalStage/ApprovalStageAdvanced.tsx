@@ -2,11 +2,13 @@ import { Card, HarnessDocTooltip, Layout } from '@wings-software/uicore'
 import React from 'react'
 import cx from 'classnames'
 import { produce } from 'immer'
-import { set } from 'lodash-es'
+import { isEmpty, set } from 'lodash-es'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { FailureStrategyWithRef } from '@pipeline/components/PipelineStudio/FailureStrategy/FailureStrategy'
 import type { StepFormikRef } from '@pipeline/components/PipelineStudio/StepCommands/StepCommands'
 import ConditionalExecution from '@pipeline/components/PipelineStudio/ConditionalExecution/ConditionalExecution'
+import { StepActions } from '@common/constants/TrackingConstants'
+import { useTelemetry } from '@common/hooks/useTelemetry'
 import { useStrings } from 'framework/strings'
 import type { ApprovalStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import css from './ApprovalAdvancedSpecifications.module.scss'
@@ -16,6 +18,7 @@ export interface AdvancedSpecifications {
 }
 const ApprovalAdvancedSpecifications: React.FC<AdvancedSpecifications> = ({ children }): JSX.Element => {
   const { getString } = useStrings()
+  const { trackEvent } = useTelemetry()
 
   const {
     state: {
@@ -85,6 +88,15 @@ const ApprovalAdvancedSpecifications: React.FC<AdvancedSpecifications> = ({ chil
                       })
                       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                       updateStage(stageData.stage!)
+                      const errors = formikRef.current?.getErrors()
+                      if (isEmpty(errors)) {
+                        const telemetryData = failureStrategies.map(strategy => ({
+                          onError: strategy.onFailure?.errors?.join(', '),
+                          action: strategy.onFailure?.action?.type
+                        }))
+                        telemetryData.length &&
+                          trackEvent(StepActions.AddEditFailureStrategy, { data: JSON.stringify(telemetryData) })
+                      }
                     }
                   }}
                 />
