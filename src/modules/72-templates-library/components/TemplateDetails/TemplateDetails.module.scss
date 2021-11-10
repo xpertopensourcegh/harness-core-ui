@@ -5,20 +5,21 @@
   .shrink {
     flex-shrink: 1 !important;
   }
-  :global {
-    .Card--dots {
-      top: -42px !important;
-      right: -12px !important;
-    }
-    .DropDown--dropdownButton {
-      background-color: var(--white) !important;
-    }
-  }
   .openInStudio {
     flex-shrink: 0;
   }
-  .topContainer p {
-    --font-size: var(--form-input-font-size) !important;
+  .topContainer {
+    p {
+      --font-size: var(--form-input-font-size) !important;
+    }
+    :global {
+      .DropDown--main {
+        display: flex;
+      }
+      .DropDown--dropdownButton {
+        background-color: var(--white) !important;
+      }
+    }
   }
   .tabsContainer {
     flex-grow: 1;

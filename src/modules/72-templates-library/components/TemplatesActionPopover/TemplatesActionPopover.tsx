@@ -1,6 +1,6 @@
 import React from 'react'
 import { Menu, Position } from '@blueprintjs/core'
-import { Popover, Icon, IconName } from '@wings-software/uicore'
+import { Popover, Icon, IconName, Text } from '@wings-software/uicore'
 import type { PopoverProps } from '@wings-software/uicore/dist/components/Popover/Popover'
 import cx from 'classnames'
 import css from './TemplatesActionPopover.module.scss'
@@ -28,8 +28,8 @@ export const TemplatesActionPopover = (props: React.PropsWithChildren<TemplatesA
         setMenuOpen(nextOpenState)
       }}
       position={Position.BOTTOM_RIGHT}
-      className={className}
-      popoverClassName={css.popOver}
+      className={cx(css.main, className)}
+      portalClassName={css.popover}
       {...popoverProps}
     >
       {children}
@@ -51,7 +51,7 @@ export const TemplatesActionPopover = (props: React.PropsWithChildren<TemplatesA
                 }}
               >
                 {item.icon && <Icon name={item.icon} size={12} />}
-                {item.label}
+                <Text lineClamp={1}>{item.label}</Text>
               </li>
             )
           })}
