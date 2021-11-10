@@ -2,12 +2,14 @@ import { Card, HarnessDocTooltip, Layout } from '@wings-software/uicore'
 import React from 'react'
 import cx from 'classnames'
 import { produce } from 'immer'
-import { set } from 'lodash-es'
+import { isEmpty, set } from 'lodash-es'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { FailureStrategyWithRef } from '@pipeline/components/PipelineStudio/FailureStrategy/FailureStrategy'
 import type { StepFormikRef } from '@pipeline/components/PipelineStudio/StepCommands/StepCommands'
 import ConditionalExecution from '@pipeline/components/PipelineStudio/ConditionalExecution/ConditionalExecution'
 import { useStrings } from 'framework/strings'
+import { useTelemetry } from '@common/hooks/useTelemetry'
+import { StepActions } from '@common/constants/TrackingConstants'
 import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import css from './BuildAdvancedSpecifications.module.scss'
 
@@ -16,6 +18,7 @@ export interface AdvancedSpecifications {
 }
 const BuildAdvancedSpecifications: React.FC<AdvancedSpecifications> = ({ children }): JSX.Element => {
   const { getString } = useStrings()
+  const { trackEvent } = useTelemetry()
 
   const {
     state: {
@@ -86,7 +89,18 @@ const BuildAdvancedSpecifications: React.FC<AdvancedSpecifications> = ({ childre
                         set(draft, 'stage.failureStrategies', failureStrategies)
                       })
 
-                      if (stageData.stage) updateStage(stageData.stage)
+                      if (stageData.stage) {
+                        updateStage(stageData.stage)
+                        const errors = formikRef.current?.getErrors()
+                        if (isEmpty(errors)) {
+                          const telemetryData = failureStrategies.map(strategy => ({
+                            onError: strategy.onFailure?.errors?.join(', '),
+                            action: strategy.onFailure?.action?.type
+                          }))
+                          telemetryData.length &&
+                            trackEvent(StepActions.AddEditFailureStrategy, { data: JSON.stringify(telemetryData) })
+                        }
+                      }
                     }
                   }}
                 />
