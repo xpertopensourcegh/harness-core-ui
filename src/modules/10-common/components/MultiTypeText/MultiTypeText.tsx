@@ -76,7 +76,7 @@ export function MultiTypeText(props: MultiTypeTextProps): React.ReactElement {
             showDefaultField={false}
             showAdvanced={true}
             onChange={val => formik?.setFieldValue(name, val)}
-            style={{ marginLeft: 'var(--spacing-medium)' }}
+            style={{ marginLeft: 'var(--spacing-medium)', marginBottom: 12 }}
             {...configureOptionsProps}
             isReadonly={multiTextInputProps?.disabled}
           />

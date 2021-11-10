@@ -807,6 +807,7 @@ exports[`Inline var file testing when content is runtime input 1`] = `
             <button
               class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
               id="configureOptions_varFile.spec.content"
+              style="margin-top: 7px;"
               type="button"
             >
               <span

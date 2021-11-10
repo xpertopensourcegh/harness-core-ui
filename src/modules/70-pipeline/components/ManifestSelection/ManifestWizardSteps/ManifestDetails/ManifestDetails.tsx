@@ -317,7 +317,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
 
                         {getMultiTypeFromValue(formik.values?.branch) === MultiTypeInputType.RUNTIME && (
                           <ConfigureOptions
-                            style={{ alignSelf: 'center' }}
+                            style={{ alignSelf: 'center', marginBottom: 4 }}
                             value={formik.values?.branch as string}
                             type="String"
                             variableName="branch"
@@ -347,7 +347,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
 
                         {getMultiTypeFromValue(formik.values?.commitId) === MultiTypeInputType.RUNTIME && (
                           <ConfigureOptions
-                            style={{ alignSelf: 'center' }}
+                            style={{ alignSelf: 'center', marginBottom: 4 }}
                             value={formik.values?.commitId as string}
                             type="String"
                             variableName="commitId"
@@ -493,7 +493,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                                 showDefaultField={false}
                                 showAdvanced={true}
                                 onChange={value => formik.setFieldValue('skipResourceVersioning', value)}
-                                style={{ alignSelf: 'center' }}
+                                style={{ alignSelf: 'center', marginTop: 11 }}
                                 className={css.addmarginTop}
                                 isReadonly={isReadonly}
                               />

@@ -1088,6 +1088,7 @@ exports[`DockerHub Step Edit View renders runtime inputs 1`] = `
               <button
                 class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
                 id="configureOptions_spec.repo"
+                style="margin-bottom: 12px;"
                 type="button"
               >
                 <span
@@ -1205,6 +1206,7 @@ exports[`DockerHub Step Edit View renders runtime inputs 1`] = `
             <button
               class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
               id="configureOptions_spec.tags"
+              style="margin-top: 11px;"
               type="button"
             >
               <span

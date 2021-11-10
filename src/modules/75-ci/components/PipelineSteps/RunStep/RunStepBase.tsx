@@ -163,6 +163,7 @@ export const RunStepBase = (
               </MultiTypeFieldSelector>
               {getMultiTypeFromValue(formik?.values?.spec?.command) === MultiTypeInputType.RUNTIME && (
                 <ConfigureOptions
+                  style={{ marginTop: 17 }}
                   value={formik?.values?.spec?.command as string}
                   type={getString('string')}
                   variableName="spec.command"

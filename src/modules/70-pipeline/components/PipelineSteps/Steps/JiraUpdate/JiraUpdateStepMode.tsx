@@ -245,6 +245,7 @@ const FormContent = ({
         />
         {getMultiTypeFromValue(formik.values.spec.connectorRef) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
+            style={{ marginTop: 14 }}
             value={formik.values.spec.connectorRef as string}
             type="String"
             variableName="spec.connectorRef"

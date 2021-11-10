@@ -70,7 +70,7 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({
             showDefaultField={false}
             showAdvanced={true}
             onChange={value => formik.setFieldValue('skipResourceVersioning', value)}
-            style={{ alignSelf: 'center' }}
+            style={{ alignSelf: 'center', marginTop: 11 }}
             className={cx(css.addmarginTop)}
             isReadonly={isReadonly}
           />
@@ -143,6 +143,7 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({
                             })}
                           >
                             <ConfigureOptions
+                              style={{ marginBottom: 3 }}
                               value={(formik.values?.commandFlags?.[index].flag || '') as unknown as string}
                               type="String"
                               variableName={`CommandFlag-${index}`}

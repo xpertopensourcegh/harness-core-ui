@@ -33,6 +33,7 @@ const GitRepositoryName: React.FC<GitRepositoryNameProps> = ({
         />
         {getMultiTypeFromValue(fieldValue) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
+            style={{ marginTop: 2 }}
             value={fieldValue as string}
             type="String"
             variableName="repoName"

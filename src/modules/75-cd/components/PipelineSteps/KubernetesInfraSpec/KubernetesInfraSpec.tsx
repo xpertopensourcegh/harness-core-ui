@@ -147,6 +147,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                 />
                 {getMultiTypeFromValue(formik.values.connectorRef) === MultiTypeInputType.RUNTIME && !readonly && (
                   <ConfigureOptions
+                    style={{ marginTop: `25px !important` }}
                     value={formik.values.connectorRef as string}
                     type={
                       <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
@@ -179,6 +180,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                 />
                 {getMultiTypeFromValue(formik.values.namespace) === MultiTypeInputType.RUNTIME && !readonly && (
                   <ConfigureOptions
+                    style={{ marginBottom: 12 }}
                     value={formik.values.namespace as string}
                     type="String"
                     variableName="namespace"

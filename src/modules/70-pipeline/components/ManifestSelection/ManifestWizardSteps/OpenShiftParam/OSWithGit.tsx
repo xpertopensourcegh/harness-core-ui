@@ -291,7 +291,7 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
                     />
                     {getMultiTypeFromValue(formik.values?.branch) === MultiTypeInputType.RUNTIME && (
                       <ConfigureOptions
-                        style={{ alignSelf: 'center' }}
+                        style={{ alignSelf: 'center', marginBottom: 5 }}
                         value={formik.values?.branch as string}
                         type="String"
                         variableName="branch"
@@ -320,7 +320,7 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
                     />
                     {getMultiTypeFromValue(formik.values?.commitId) === MultiTypeInputType.RUNTIME && (
                       <ConfigureOptions
-                        style={{ alignSelf: 'center' }}
+                        style={{ alignSelf: 'center', marginBottom: 5 }}
                         value={formik.values?.commitId as string}
                         type="String"
                         variableName="commitId"
@@ -408,6 +408,7 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
                 </MultiTypeFieldSelector>
                 {getMultiTypeFromValue(formik.values.paths) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
+                    style={{ marginTop: 8 }}
                     value={formik.values.paths}
                     type={getString('list')}
                     variableName={'paths'}

@@ -382,6 +382,7 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
                   {getMultiTypeFromValue(formik.values?.varFile?.spec?.store?.spec?.paths) ===
                     MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions
+                      style={{ marginTop: 6 }}
                       value={formik.values?.varFile?.spec?.store?.spec?.paths}
                       type={getString('list')}
                       variableName={'varFile.spec.store.spec.paths'}

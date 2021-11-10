@@ -223,6 +223,7 @@ export const MultiTypeMapInputSet = (props: MultiTypeMapProps): React.ReactEleme
         typeof value === 'string' &&
         getMultiTypeFromValue(value) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
+            style={{ marginTop: 2 }}
             value={value}
             type={getString('map')}
             variableName={name}

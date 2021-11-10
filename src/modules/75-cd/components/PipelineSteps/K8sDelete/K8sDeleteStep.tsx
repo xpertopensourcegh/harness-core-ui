@@ -268,6 +268,7 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
                   />
                   {getMultiTypeFromValue(formikProps.values.timeout) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions
+                      style={{ marginBottom: 4 }}
                       value={values.timeout as string}
                       type="String"
                       variableName="step.timeout"

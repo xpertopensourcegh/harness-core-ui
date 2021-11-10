@@ -380,6 +380,7 @@ gradle.projectsEvaluated {
                         </MultiTypeFieldSelector>
                         {getMultiTypeFromValue(formik?.values?.spec?.preCommand) === MultiTypeInputType.RUNTIME && (
                           <ConfigureOptions
+                            style={{ marginTop: 17 }}
                             value={formik?.values?.spec?.preCommand as string}
                             type={getString('string')}
                             variableName="spec.preCommand"
@@ -439,6 +440,7 @@ gradle.projectsEvaluated {
                         </MultiTypeFieldSelector>
                         {getMultiTypeFromValue(formik?.values?.spec?.postCommand) === MultiTypeInputType.RUNTIME && (
                           <ConfigureOptions
+                            style={{ marginTop: 17 }}
                             value={formik?.values?.spec?.postCommand as string}
                             type={getString('string')}
                             variableName="spec.postCommand"

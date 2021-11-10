@@ -318,6 +318,7 @@ function TerraformPlanWidget(
                         {getMultiTypeFromValue(formik.values.spec?.configuration?.backendConfig?.spec?.content) ===
                           MultiTypeInputType.RUNTIME && (
                           <ConfigureOptions
+                            style={{ marginTop: 3 }}
                             value={formik.values.spec?.configuration?.backendConfig?.spec?.content as string}
                             type="String"
                             variableName="spec.configuration.backendConfig.spec.content"

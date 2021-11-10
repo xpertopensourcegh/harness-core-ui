@@ -116,6 +116,7 @@ const InlineVarFile = (props: InlineVarFileProps) => {
                   </MultiTypeFieldSelector>
                   {getMultiTypeFromValue(formikProps.values.varFile?.spec?.content) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions
+                      style={{ marginTop: 7 }}
                       value={formikProps.values.varFile?.spec?.content as string}
                       type="String"
                       variableName="varFile.spec.content"

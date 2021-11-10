@@ -110,7 +110,7 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                     {getMultiTypeFromValue(formik.values?.spec?.configuration?.configFiles?.store?.spec?.repoName) ===
                       MultiTypeInputType.RUNTIME && (
                       <ConfigureOptions
-                        style={{ alignSelf: 'center' }}
+                        style={{ alignSelf: 'center', marginTop: 1 }}
                         value={formik.values?.spec?.configuration?.configFiles?.store?.spec?.repoName as string}
                         type="String"
                         variableName="configuration.configFiles.store.spec.repoName"
@@ -145,7 +145,7 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                     {getMultiTypeFromValue(formik.values?.spec?.configuration?.configFiles?.store?.spec?.branch) ===
                       MultiTypeInputType.RUNTIME && (
                       <ConfigureOptions
-                        style={{ alignSelf: 'center' }}
+                        style={{ alignSelf: 'center', marginTop: 1 }}
                         value={formik.values?.spec?.configuration?.configFiles?.store?.spec?.branch as string}
                         type="String"
                         variableName="configuration.spec.configFiles.store.spec.branch"
@@ -171,7 +171,7 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                     {getMultiTypeFromValue(formik.values?.spec?.configuration?.configFiles?.store?.spec?.commitId) ===
                       MultiTypeInputType.RUNTIME && (
                       <ConfigureOptions
-                        style={{ alignSelf: 'center' }}
+                        style={{ alignSelf: 'center', marginTop: 1 }}
                         value={formik.values?.spec?.configuration?.configFiles?.store?.spec?.commitId as string}
                         type="String"
                         variableName="spec.configuration.configFiles.store.spec.commitId"
@@ -196,7 +196,7 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                   {getMultiTypeFromValue(formik.values?.spec?.configuration?.configFiles?.store?.spec?.folderPath) ===
                     MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions
-                      style={{ alignSelf: 'center' }}
+                      style={{ alignSelf: 'center', marginTop: 1 }}
                       value={formik.values?.spec?.configuration?.configFiles?.store?.spec?.folderPath as string}
                       type="String"
                       variableName="formik.values.spec?.configuration?.configFiles?.store.spec?.folderPath"
